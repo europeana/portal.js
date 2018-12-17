@@ -1,28 +1,25 @@
 import { configure } from '@storybook/vue';
 import { action } from '@storybook/addon-actions';
 
-//import NuxtLink from '../.nuxt/components/nuxt-link.js'
-
 import Vue from 'vue';
+
+const templateClickLink = '<a @click="log()"><slot>RouterLink</slot></a>';
+const linkMethods = {
+  log() {
+    action('link target')(this.to)
+  }
+};
 
 Vue.component('RouterLink', {
   props:   ['to'],
-  methods: {
-    log() {
-      action('link target')(this.to)
-    },
-  },
-  template: '<a @click="log()"><slot>RouterLink</slot></a>'
+  methods: linkMethods,
+  template: templateClickLink
 })
 
 Vue.component('NuxtLink', {
   props:   ['to'],
-  methods: {
-    log() {
-      action('link target')(this.to)
-    },
-  },
-  template: '<a @click="log()"><slot>NuxtLink</slot></a>'
+  methods: linkMethods,
+  template: templateClickLink
 })
 
 // automatically import all files ending in *.stories.js from the components directory

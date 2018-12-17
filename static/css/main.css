@@ -1,0 +1,9 @@
+body{
+  font: 16px/1.6 "Open Sans", "Arial", sans-serif;
+}
+
+a{
+  color: #000;
+  cursor: pointer;
+  text-decoration: none;
+}
