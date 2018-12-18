@@ -1,5 +1,6 @@
 const express = require('express');
 const consola = require('consola');
+const morgan = require('morgan');
 const { Nuxt, Builder } = require('nuxt');
 const app = express();
 const host = process.env.HOST || '127.0.0.1';
@@ -20,6 +21,9 @@ async function start() {
     const builder = new Builder(nuxt);
     await builder.build();
   }
+
+  // Use morgan for request logging
+  app.use(morgan('combined'));
 
   // Give nuxt middleware to express
   app.use(nuxt.render);
