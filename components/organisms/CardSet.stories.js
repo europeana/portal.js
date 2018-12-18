@@ -7,7 +7,7 @@ storiesOf('CardSet', module)
   .add('as grid', () => ({
     components: { CardSet },
     template:  '<CardSet :cardData="cardData" class="grid width-fluid"/>',
-    data(){
+    data() {
       return {
         cardData: cardData
       };
@@ -16,7 +16,7 @@ storiesOf('CardSet', module)
   .add('as scrollable', () => ({
     components: { CardSet },
     template:  '<CardSet :cardData="cardData" class="grid single-row"/>',
-    data(){
+    data() {
       return {
         cardData: cardData
       };

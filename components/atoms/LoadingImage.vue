@@ -22,38 +22,45 @@ export default{
       default: ''
     }
   },
-  data(){
+  data() {
     return { isLoaded: false };
   },
-  methods:{
-    imgLoaded(){
+  methods: {
+    imgLoaded() {
       this.isLoaded = true;
     }
   }
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+
+  $animation-colour-1: #fafafa;
+  $animation-colour-2: #ededed;
+
+  $white: #fff;
+
   .card-img{
     background-position: center;
     background-size:     cover;
     display:             block;
     height:              100%;
     width:               100%;
+
+    &.loading {
+      animation-duration: 1.8s;
+      animation-fill-mode: forwards;
+      animation-iteration-count: infinite;
+      animation-name: placeHolderShimmer;
+      animation-timing-function: linear;
+      background: $white;
+      background: linear-gradient(to right, $animation-colour-1 8%, $animation-colour-2 38%, $animation-colour-1 54%);
+      background-size: 1000px 640px;
+      position: relative;
+      transform: translate3d(0, 0, 0) rotateZ(360deg);
+    }
   }
 
-  .card-img.loading {
-    animation-duration: 1.8s;
-    animation-fill-mode: forwards;
-    animation-iteration-count: infinite;
-    animation-name: placeHolderShimmer;
-    animation-timing-function: linear;
-    background: $white;
-    background: linear-gradient(to right, #fafafa 8%, #ededed 38%, #fafafa 54%);
-    background-size: 1000px 640px;
-    position: relative;
-    transform: translate3d(0, 0, 0) rotateZ(360deg);
-  }
 
   @keyframes placeHolderShimmer {
     0% {

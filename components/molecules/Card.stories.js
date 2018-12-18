@@ -9,7 +9,7 @@ storiesOf('Card', module)
   .add('singular', () => ({
     components: { Card },
     template:  '<Card :linkText="linkText" :texts="texts" :thumbnail="thumbnail" :url="url" ' + style + '/>',
-    data(){
+    data() {
       return cardData[0];
     }
   }));

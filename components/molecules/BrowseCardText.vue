@@ -29,7 +29,7 @@ export default{
     },
     texts: {
       type: Array,
-      default(){}
+      default() {}
     },
     url: {
       type: String,
@@ -39,7 +39,7 @@ export default{
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
   .inner{
     display: flex;
     padding: 1rem;
