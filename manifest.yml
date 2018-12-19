@@ -1,8 +1,9 @@
 # Cloud Foundry manifest
 ---
 buildpack: sdk-for-nodejs
-memory: 128M
+memory: 256M
 health-check-type: http
+timeout: 60
 env:
   CONSOLA_LEVEL: info
   HOST: 0.0.0.0
