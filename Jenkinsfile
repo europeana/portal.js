@@ -37,7 +37,7 @@ pipeline {
             }
             steps {
                 sh 'mkdir -p ${CF_HOME}'
-                sh 'cf login -a ${CF_API} -u ${CF_LOGIN_USR} -p ${CF_LOGIN_PSW} -o ${CF_ORG} -s ${CF_SPACE}'
+                sh 'cf login -a ${CF_API} -u ${CF_LOGIN_USR} -p "${CF_LOGIN_PSW}" -o ${CF_ORG} -s ${CF_SPACE}'
                 sh 'echo "services:" >> manifest.yml'
                 sh 'echo "  - elastic-apm" >> manifest.yml'
                 sh 'cf blue-green-deploy ${CF_APP_NAME} -f manifest.yml --delete-old-apps'
