@@ -73,3 +73,7 @@ typings/
 
 # Git
 .git
+
+# Docker
+.dockerignore
+Dockerfile
