@@ -1,6 +1,7 @@
 pipeline {
     agent any
     parameters {
+        choice(name: 'DEPLOY_TO', choices: "\ntest\nacceptance\nproduction\ninternal", description: 'Which CF space to deploy to.')
         string(name: 'DOCKER_PORT', defaultValue: '49767', description: 'HTTP port on which Docker node image should listen.')
     }
     stages {
@@ -21,7 +22,10 @@ pipeline {
         }
         stage('Deploy to CF test space') {
             when {
-                branch 'develop'
+                anyOf {
+                    branch 'develop'
+                    environment name: 'DEPLOY_TO', value: 'test'
+                }
             }
             environment {
                 CF_HOME="${env.HOME}/.cf/${env.JOB_NAME}"
