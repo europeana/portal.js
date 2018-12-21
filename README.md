@@ -20,7 +20,7 @@ $ npm run generate
 $ npm run generate
 
 # generate static storybook
-$ npm run generate
+$ npm run build-storybook
 
 ```
 
