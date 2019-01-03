@@ -10,16 +10,16 @@
 </template>
 
 <script>
-import EuropeanaCollectionsLogo from '~/components/EuropeanaCollectionsLogo.vue';
+  import EuropeanaCollectionsLogo from '~/components/EuropeanaCollectionsLogo.vue';
 
-export default {
-  asyncData (context) {
-    return { what: (context.query.what ? context.query.what : 'culture') };
-  },
-  components: {
-    EuropeanaCollectionsLogo
-  }
-};
+  export default {
+    asyncData (context) {
+      return { what: (context.query.what ? context.query.what : 'culture') };
+    },
+    components: {
+      EuropeanaCollectionsLogo
+    }
+  };
 </script>
 
 <style>
