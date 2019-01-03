@@ -16,20 +16,20 @@ export default {
   props: {
     cardTitle: {
       type: String,
-      default: ''
+      default: 'Content'
     },
     contentSource: {
       type: String,
-      default: ''
+      default: 'External Link'
     },
     url: {
       type: String,
-      default: ''
+      default: 'http://www.europeana.eu'
     },
     imageUrl: {
       type: String,
       default: ''
-    },
+    }
   }
 };
 </script>

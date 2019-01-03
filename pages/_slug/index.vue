@@ -2,14 +2,14 @@
   <section class="container">
     <div>
       <h1 class="title">
-        <h1>{{ page.fields.pageTitle }}</h1>
+        {{ page.fields.pageTitle }}
       </h1>
 
       <p>{{ page.fields.pageDescription }}</p>
 
       <div
         v-for="section in page.fields.section"
-        :key="section"
+        :key="section.sys.id"
         class="banner"
       >
         <h2>{{ section.fields.description }}</h2>
@@ -29,26 +29,23 @@
 </template>
 
 <script>
-import ContentCard from '~/components/contentCard.vue';
+import ContentCard from '~/components/ContentCard.vue';
 import {createClient} from '~/plugins/contentful.js';
 
 const contentfulClient = createClient();
 
 export default {
-  asyncData ({params}) {
+  asyncData: function ({params}) {
     return Promise.all([
       // fetch the browsePage data
-      contentfulClient.getEntries({
-        'sys.id': params.slug,
-        'include': 2 // this retrieves nested/linked resources like cards and their images
-      })
-    ]).then(([pages]) => {
+      contentfulClient.getEntry(params.slug, { 'include': 2 }) // this retrieves nested/linked resources like cards and their images
+    ]).then(([entry]) => {
       // return data that should be available
       // in the template
       return {
-        page: pages.items[0]
+        page: entry
       };
-    }).catch(console.error);
+    });
   },
   components: {
     ContentCard

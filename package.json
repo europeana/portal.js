@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "description": "Europeana Portal",
   "contributors": [
-    "Richard Doe <richard.doe@europeana.eu>"
+    "Richard Doe <richard.doe@europeana.eu>",
+    "Lutz Biedinger <lutz.biedinger@europeana.eu>"
   ],
   "private": true,
   "keywords": [
@@ -33,7 +34,6 @@
     "cross-env": "^5.2.0",
     "dotenv": "^6.2.0",
     "express": "^4.16.3",
-    "fs": "0.0.1-security",
     "nuxt": "^2.0.0"
   },
   "devDependencies": {
