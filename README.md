@@ -1,12 +1,5 @@
 # Incubator for Europeana Portal in vue.js + nuxt.js
 
-## Run with Docker
-
-``` bash
-docker build . -t europeana-portaljs
-docker run -it -p 3000:3000 europeana-portaljs
-```
-
 ## Build Setup
 
 ``` bash
@@ -19,6 +12,10 @@ $ npm run dev
 # build for production and launch server
 $ npm run build
 $ npm start
+
+# ... or with Docker
+$ docker build . -t europeana-portaljs
+$ docker run -it -p 3000:3000 europeana-portaljs
 
 # generate static project
 $ npm run generate
