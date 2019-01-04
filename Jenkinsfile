@@ -32,9 +32,7 @@ pipeline {
         S3_REGION='eu-geo'
       }
       steps {
-        sh 'export AWS_ACCESS_KEY_ID="${S3_ACCESS_USR}"'
-        sh 'export AWS_SECRET_ACCESS_KEY="${S3_ACCESS_PSW}"'
-        sh 'aws --region ${S3_REGION} --endpoint-url ${S3_ENDPOINT} s3 sync .nuxt/dist/client s3://${S3_BUCKET} --acl public-read --delete'
+        sh 'AWS_ACCESS_KEY_ID="${S3_ACCESS_USR}" AWS_SECRET_ACCESS_KEY="${S3_ACCESS_PSW}" aws --region ${S3_REGION} --endpoint-url ${S3_ENDPOINT} s3 sync .nuxt/dist/client s3://${S3_BUCKET} --acl public-read --delete'
       }
     }
     stage('Deploy to CF test space') {
