@@ -34,7 +34,6 @@ module.exports = {
   */
   plugins: [
   ],
-
   /*
   ** Nuxt.js modules
   */
@@ -43,13 +42,18 @@ module.exports = {
     '@nuxtjs/axios',
     '@nuxtjs/dotenv'
   ],
+  /**
+   * Server Middleware for express api framework
+   */
+  serverMiddleware: [
+    '~/api/index.js'
+  ],
   /*
   ** Axios module configuration
   */
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
   },
-
   /*
   ** Build configuration
   */

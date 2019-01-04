@@ -30,22 +30,17 @@
 
 <script>
 import ContentCard from '~/components/ContentCard.vue';
-import {createClient} from '~/plugins/contentful.js';
-
-const contentfulClient = createClient();
+const axios = require('axios');
 
 export default {
   asyncData: function ({params}) {
-    return Promise.all([
-      // fetch the browsePage data
-      contentfulClient.getEntry(params.slug, { 'include': 2 }) // this retrieves nested/linked resources like cards and their images
-    ]).then(([entry]) => {
-      // return data that should be available
-      // in the template
-      return {
-        page: entry
-      };
-    });
+    // fetch the browsePage data
+    return axios.get(`http://localhost:3000/api/contentful/${params.slug}`)
+      .then(res => {
+        return {
+          page: res.data
+        };
+      });
   },
   components: {
     ContentCard
