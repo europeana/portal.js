@@ -16,7 +16,7 @@ pipeline {
         HOME='.'
       }
       steps {
-        checkout scm
+        sh 'ls -R .nuxt/dist/'
       }
     }
     stage('Push built assets to S3') {
