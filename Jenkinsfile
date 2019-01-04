@@ -8,7 +8,7 @@ pipeline {
     stage('Build') {
       agent {
         dockerfile {
-          additionalBuildArgs "--build-arg NUXT_ENV_BUILD_PUBLIC_PATH=${env.S3_ENDPOINT}/europeana-portaljs-${params.CF_SPACE}"
+          additionalBuildArgs "--build-arg nuxt_env_build_public_path=${env.S3_ENDPOINT}/europeana-portaljs-${params.CF_SPACE}"
           args "-p ${params.DOCKER_PORT}:3000"
         }
       }
