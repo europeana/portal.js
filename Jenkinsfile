@@ -5,11 +5,6 @@ pipeline {
       string(name: 'DOCKER_PORT', defaultValue: '49767', description: 'HTTP port on which Docker node image should listen.')
   }
   stages {
-    stage('Checkout') {
-      steps {
-        checkout scm
-      }
-    }
     stage('Build') {
       agent {
         dockerfile {
@@ -19,6 +14,9 @@ pipeline {
       }
       environment {
         HOME='.'
+      }
+      steps {
+        checkout scm
       }
     }
     stage('Push built assets to S3') {
