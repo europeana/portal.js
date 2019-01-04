@@ -57,7 +57,7 @@ pipeline {
         sh 'cf login -a ${CF_API} -u ${CF_LOGIN_USR} -p "${CF_LOGIN_PSW}" -o ${CF_ORG} -s ${CF_SPACE}'
         sh 'echo "services:" >> manifest.yml'
         sh 'echo "  - elastic-apm" >> manifest.yml'
-        sh 'sed -i "s/env:/env:\n  NUXT_BUILD_PUBLIC_PATH: ${S3_ENDPOINT}\\/${S3_BUCKET}/" manifest.yml'
+        sh 'sed -i "s/env:/env:\\n  NUXT_BUILD_PUBLIC_PATH: ${S3_ENDPOINT}\\/${S3_BUCKET}/" manifest.yml'
         sh 'cf blue-green-deploy ${CF_APP_NAME} -f manifest.yml --delete-old-apps'
       }
     }
