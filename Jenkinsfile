@@ -37,11 +37,10 @@ pipeline {
         CF_ORG="${env.CF_ORG}"
         CF_SPACE="${params.CF_SPACE}"
         CF_APP_NAME="portaljs-${params.CF_SPACE}"
-        S3_ENDPOINT="${env.S3_ENDPOINT}"
-        S3_BUCKET='europeana-portaljs-${params.CF_SPACE}'
       }
       steps {
         sh 'cf login -a ${CF_API} -u ${CF_LOGIN_USR} -p "${CF_LOGIN_PSW}" -o ${CF_ORG} -s ${CF_SPACE}'
+        sh 'cf plugins'
         sh 'echo "services:" >> manifest.yml'
         sh 'echo "  - elastic-apm" >> manifest.yml'
         sh 'cf blue-green-deploy ${CF_APP_NAME} -f manifest.yml --delete-old-apps'
