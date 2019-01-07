@@ -6,7 +6,7 @@ pipeline {
   agent {
     dockerfile {
       additionalBuildArgs "--build-arg nuxt_env_build_public_path=${env.S3_ENDPOINT}/europeana-portaljs-${params.CF_SPACE}"
-      args "-p ${params.DOCKER_PORT}:3000 -u root:root"
+      args "-p ${params.DOCKER_PORT}:3000"
     }
   }
   environment {
@@ -33,11 +33,11 @@ pipeline {
         CF_APP_NAME="portaljs-${params.CF_SPACE}"
       }
       steps {
-        sh 'whoami'
         sh 'cf login -a ${CF_API} -u ${CF_LOGIN_USR} -p "${CF_LOGIN_PSW}" -o ${CF_ORG} -s ${CF_SPACE}'
-        sh 'cf plugins'
         sh 'echo "services:" >> manifest.yml'
         sh 'echo "  - elastic-apm" >> manifest.yml'
+        // This is only necessary because of https://github.com/jenkinsci/docker-workflow-plugin/pull/57
+        sh 'cf plugins | grep blue-green-deploy || cf install-plugin blue-green-deploy -f -r CF-Community'
         sh 'cf blue-green-deploy ${CF_APP_NAME} -f manifest.yml --delete-old-apps'
       }
     }

@@ -9,15 +9,15 @@ WORKDIR /app
 
 ARG nuxt_env_build_public_path
 
-# Install AWS & CF CLIs
+# Install AWS & CF CLIs for user `node`
 RUN apt-get -q update && apt-get -yq install apt-transport-https \
   && wget -q -O - https://packages.cloudfoundry.org/debian/cli.cloudfoundry.org.key | apt-key add - \
   && echo "deb https://packages.cloudfoundry.org/debian stable main" | tee /etc/apt/sources.list.d/cloudfoundry-cli.list \
   && apt-get -q update && apt-get -yq install python-pip cf-cli \
   && rm -rf /var/lib/apt/lists/* \
+  && pip install awscli \
   && cf add-plugin-repo CF-Community https://plugins.cloudfoundry.org \
-  && cf install-plugin blue-green-deploy -f -r CF-Community \
-  && pip install awscli
+  && cf install-plugin blue-green-deploy -f -r CF-Community
 
 # Install node.js packages
 COPY package.json package-lock.json ./
