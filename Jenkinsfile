@@ -33,7 +33,7 @@ pipeline {
         CF_APP_NAME="portaljs-${params.CF_SPACE}"
       }
       steps {
-        sh 'echo $UID'
+        sh 'whoami'
         sh 'cf login -a ${CF_API} -u ${CF_LOGIN_USR} -p "${CF_LOGIN_PSW}" -o ${CF_ORG} -s ${CF_SPACE}'
         sh 'cf plugins'
         sh 'echo "services:" >> manifest.yml'
