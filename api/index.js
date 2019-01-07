@@ -2,7 +2,7 @@
 
 const express = require('express');
 const app = express();
-import {createClient} from '../plugins/contentful.js';
+import {createClient} from './contentful.js';
 
 app.get('/', (req, res) => {
   res.send('API root');
