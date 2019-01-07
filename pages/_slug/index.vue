@@ -30,9 +30,7 @@
 
 <script>
 import ContentCard from '~/components/ContentCard.vue';
-import {createClient} from '~/plugins/contentful.js';
-
-const contentfulClient = createClient();
+import contentfulClient from '~/plugins/contentful.js';
 
 export default {
   asyncData ({params}) {
