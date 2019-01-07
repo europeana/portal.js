@@ -2,13 +2,13 @@
   <section class="container">
     <div>
       <h1 class="title">
-        {{ page.fields.pageTitle }}
+        {{ page.pageTitle }}
       </h1>
 
-      <p>{{ page.fields.pageDescription }}</p>
+      <p>{{ page.pageDescription }}</p>
 
       <div
-        v-for="section in page.fields.section"
+        v-for="section in page.section"
         :key="section.sys.id"
         class="banner"
       >
@@ -35,17 +35,14 @@ import {createClient} from '~/plugins/contentful.js';
 const contentfulClient = createClient();
 
 export default {
-  asyncData: function ({params}) {
-    return Promise.all([
-      // fetch the browsePage data
-      contentfulClient.getEntry(params.slug, { 'include': 2 }) // this retrieves nested/linked resources like cards and their images
-    ]).then(([entry]) => {
-      // return data that should be available
-      // in the template
-      return {
-        page: entry
-      };
-    });
+  asyncData ({params}) {
+    // fetch the browsePage data, include set to 2 in order to get nested card data
+    return contentfulClient.getEntry(params.slug, { 'include': 2 })
+      .then((entry) => {
+        return {
+          page: entry.fields
+        };
+      });
   },
   components: {
     ContentCard
