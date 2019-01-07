@@ -16,8 +16,7 @@ RUN apt-get -q update && apt-get -yq install apt-transport-https \
   && apt-get -q update && apt-get -yq install python-pip cf-cli \
   && rm -rf /var/lib/apt/lists/* \
   && pip install awscli \
-  && cf add-plugin-repo CF-Community https://plugins.cloudfoundry.org \
-  && cf install-plugin blue-green-deploy -f -r CF-Community
+  && CF_PLUGIN_HOME=/usr/share/cf cf install-plugin blue-green-deploy -f -r CF-Community
 
 # Install node.js packages
 COPY package.json package-lock.json ./

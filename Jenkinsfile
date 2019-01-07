@@ -31,13 +31,12 @@ pipeline {
         CF_ORG="${env.CF_ORG}"
         CF_SPACE="${params.CF_SPACE}"
         CF_APP_NAME="portaljs-${params.CF_SPACE}"
+        CF_PLUGIN_HOME='/usr/share/cf'
       }
       steps {
         sh 'cf login -a ${CF_API} -u ${CF_LOGIN_USR} -p "${CF_LOGIN_PSW}" -o ${CF_ORG} -s ${CF_SPACE}'
         sh 'echo "services:" >> manifest.yml'
         sh 'echo "  - elastic-apm" >> manifest.yml'
-        // This is only necessary because of https://github.com/jenkinsci/docker-workflow-plugin/pull/57
-        sh 'cf plugins | grep blue-green-deploy || cf install-plugin blue-green-deploy -f -r CF-Community'
         sh 'cf blue-green-deploy ${CF_APP_NAME} -f manifest.yml --delete-old-apps'
       }
     }
