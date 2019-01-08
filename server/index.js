@@ -9,14 +9,14 @@ const elasticApmCredentials = vcapServices.getCredentials('user-provided', null,
 
 if (elasticApmCredentials.server_url) {
   consola.info(`Using Elastic APM at ${elasticApmCredentials.server_url}`);
-  const elasticApm = require('elastic-apm-node').start({
-    serviceName: vcapApplication.name || 'portaljs',
+  require('elastic-apm-node').start({
+    serviceName: vcapApplicationName || 'portaljs',
     secretToken: elasticApmCredentials.secret_token,
     serverUrl: elasticApmCredentials.server_url,
     frameworkName: 'Nuxt.js',
     frameworkVersion: require('nuxt/package.json').version,
     serviceVersion: require('../package.json').version
-  })
+  });
 }
 
 const express = require('express');
