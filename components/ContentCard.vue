@@ -2,8 +2,8 @@
   <li class="card">
     <a :href="url">
       <div class="card-wrapper">
-        <h2>{{ contentSource }}</h2>
-        <h2>{{ cardTitle }}</h2>
+        <span class="content-source">{{ contentSource }}</span>
+        <h3>{{ cardTitle }}</h3>
         <img :src="imageUrl">
       </div>
     </a>
@@ -47,5 +47,12 @@ export default {
     width: 100%;
     overflow: hidden;
     height: 25em;
+  }
+  .content-source {
+    text-align: left;
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1.2;
+    text-transform: uppercase;
   }
 </style>
