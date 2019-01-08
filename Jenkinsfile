@@ -36,11 +36,15 @@ pipeline {
         CF_SPACE="${params.CF_SPACE}"
         CF_APP_NAME="portaljs-${params.CF_SPACE}"
         CF_HOME='/home/node' // Revert override from Jenkins global env
+        CTF_CDA_ACCESS_TOKEN=credentials("portaljs.${params.CF_SPACE}.contentful.cda_access_token")
+        CTF_SPACE_ID=credentials("portaljs.${params.CF_SPACE}.contentful.space_id")
       }
       steps {
         sh 'cf login -a ${CF_API} -u ${CF_LOGIN_USR} -p "${CF_LOGIN_PSW}" -o ${CF_ORG} -s ${CF_SPACE}'
         sh 'echo "services:" >> manifest.yml'
         sh 'echo "  - elastic-apm" >> manifest.yml'
+        sh 'sed -i "s|env:|env:\\n  CTF_SPACE_ID: ${CTF_SPACE_ID}|" manifest.yml'
+        sh 'sed -i "s|env:|env:\\n  CTF_CDA_ACCESS_TOKEN: ${CTF_CDA_ACCESS_TOKEN}|" manifest.yml'
         sh 'cf blue-green-deploy ${CF_APP_NAME} -f manifest.yml --delete-old-apps'
       }
     }
