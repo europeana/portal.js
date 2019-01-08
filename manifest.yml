@@ -1,0 +1,9 @@
+# Cloud Foundry manifest
+---
+buildpack: sdk-for-nodejs
+memory: 128M
+health-check-type: http
+env:
+  CONSOLA_LEVEL: info
+  HOST: 0.0.0.0
+  OPTIMIZE_MEMORY: true
