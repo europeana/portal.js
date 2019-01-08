@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "description": "Europeana Portal",
   "contributors": [
-    "Richard Doe <richard.doe@europeana.eu>"
+    "Richard Doe <richard.doe@europeana.eu>",
+    "Lutz Biedinger <lutz.biedinger@europeana.eu>"
   ],
   "private": true,
   "keywords": [
@@ -29,6 +30,8 @@
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.0.0",
+    "@nuxtjs/dotenv": "^1.3.0",
+    "contentful": "^7.0.5",
     "cross-env": "^5.2.0",
     "elastic-apm-node": "^2.0.6",
     "express": "^4.16.3",
