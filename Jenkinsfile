@@ -37,7 +37,6 @@ pipeline {
         CF_ORG="${env.CF_ORG}"
         CF_SPACE="${params.CF_SPACE}"
         CF_APP_NAME="portaljs-${params.CF_SPACE}"
-        CF_PLUGIN_HOME='/usr/share/cf'
       }
       steps {
         sh 'cf login -a ${CF_API} -u ${CF_LOGIN_USR} -p "${CF_LOGIN_PSW}" -o ${CF_ORG} -s ${CF_SPACE}'
