@@ -26,6 +26,8 @@ RUN npm install --only=production
 COPY . ./
 RUN NUXT_ENV_BUILD_PUBLIC_PATH=${nuxt_env_build_public_path} npm run build
 
+RUN ls -al .nuxt/dist/*
+
 # By default the app will listen on 127.0.0.1 but for Docker needs to be 0.0.0.0
 ENV HOST=0.0.0.0
 EXPOSE 3000

@@ -13,6 +13,11 @@ pipeline {
     HOME='.'
   }
   stages {
+    stage('Debug') {
+      steps {
+        sh 'ls -al .nuxt/dist/*'
+      }
+    }
     stage('Push built assets to S3') {
       environment {
         S3_ENDPOINT="${env.S3_ENDPOINT}"
@@ -21,6 +26,7 @@ pipeline {
         S3_REGION='eu-geo'
       }
       steps {
+        sh 'ls -al .nuxt/dist/*'
         sh 'AWS_ACCESS_KEY_ID="${S3_ACCESS_USR}" AWS_SECRET_ACCESS_KEY="${S3_ACCESS_PSW}" aws --region ${S3_REGION} --endpoint-url ${S3_ENDPOINT} s3 sync .nuxt/dist/client s3://${S3_BUCKET} --acl public-read --delete'
       }
     }
