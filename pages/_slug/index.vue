@@ -29,27 +29,26 @@
 </template>
 
 <script>
-import ContentCard from '~/components/ContentCard.vue';
-import contentfulClient from '~/plugins/contentful.js';
+  import ContentCard from '~/components/ContentCard.vue';
+  import contentfulClient from '~/plugins/contentful.js';
 
-export default {
-  asyncData ({params}) {
-    // fetch the browsePage data, include set to 2 in order to get nested card data
-    return contentfulClient.getEntry(params.slug, { 'include': 2 })
-      .then((entry) => {
-        return {
-          page: entry.fields
-        };
+  export default {
+    asyncData ({ params }) {
+      // fetch the browsePage data, include set to 2 in order to get nested card data
+      return contentfulClient.getEntry(params.slug, { 'include': 2 })
+        .then((entry) => {
+          return {
+            page: entry.fields
+          };
       });
-  },
-  components: {
-    ContentCard
-  }
-};
+    },
+    components: {
+      ContentCard
+    }
+  };
 </script>
 
 <style>
-
   .container {
     min-height: 100vh;
     display: flex;
@@ -83,5 +82,4 @@ export default {
   .banner ul{
     margin: auto;
   }
-
 </style>

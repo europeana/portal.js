@@ -10,28 +10,27 @@
   </li>
 </template>
 
-
 <script>
-export default {
-  props: {
-    cardTitle: {
-      type: String,
-      default: 'Content'
-    },
-    contentSource: {
-      type: String,
-      default: 'External Link'
-    },
-    url: {
-      type: String,
-      default: 'http://www.europeana.eu'
-    },
-    imageUrl: {
-      type: String,
-      default: ''
+  export default {
+    props: {
+      cardTitle: {
+        type: String,
+        default: 'Content'
+      },
+      contentSource: {
+        type: String,
+        default: 'External Link'
+      },
+      url: {
+        type: String,
+        default: 'http://www.europeana.eu'
+      },
+      imageUrl: {
+        type: String,
+        default: ''
+      }
     }
-  }
-};
+  };
 </script>
 
 <style>
