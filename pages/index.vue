@@ -1,17 +1,20 @@
 <template>
   <section class="container">
-    <div>
-      <EuropeanaCollectionsLogo />
-      <h1 class="title">
-        Transforming the world with {{ what }}
-      </h1>
-    </div>
+    <b-container>
+      <b-row>
+        <b-col>
+          <EuropeanaCollectionsLogo />
+          <h1 class="title">
+            Transforming the world with {{ what }}
+          </h1>
+        </b-col>
+      </b-row>
+    </b-container>
   </section>
 </template>
 
 <script>
   import EuropeanaCollectionsLogo from '~/components/EuropeanaCollectionsLogo.vue';
-
   export default {
     asyncData (context) {
       return { what: (context.query.what ? context.query.what : 'culture') };
@@ -23,14 +26,6 @@
 </script>
 
 <style>
-
-.container {
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
 
 .title {
   font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,

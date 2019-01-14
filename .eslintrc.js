@@ -23,6 +23,7 @@ module.exports = {
     'camelcase': ['error', { 'ignoreDestructuring': false }],
     'comma-dangle': ['error', 'never'],
     'computed-property-spacing': ['error', 'never'],
+    'eol-last': ['error', 'always'],
     'indent': ['error', 2, { 'SwitchCase': 1 }],
     'keyword-spacing': ['error', { 'before': true, 'after': true }],
     'linebreak-style': ['error', 'unix'],
