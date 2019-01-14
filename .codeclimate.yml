@@ -1,0 +1,7 @@
+plugins: 
+  eslint:
+    enabled: true
+    config: .eslintrc.js
+  stylelint:
+    enabled: true
+    config: .stylelintrc.js
