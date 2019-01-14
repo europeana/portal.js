@@ -10,10 +10,10 @@
       <div
         v-for="section in page.section"
         :key="section.sys.id"
-        class="banner"
-      >
+        class="banner">
         <h2>{{ section.fields.description }}</h2>
-        <ul>
+
+        <b-card-group deck>
           <ContentCard
             v-for="card in section.fields.contentCards"
             :key="card.sys.id"
@@ -22,8 +22,9 @@
             :url="card.fields.url"
             :image-url="card.fields.image.fields.file.url"
           />
-        </ul>
+        </b-card-group>
       </div>
+
     </div>
   </section>
 </template>
