@@ -36,7 +36,7 @@
   };
 </script>
 
-<style>
+<style lang="scss">
   .card-img-top {
     max-height: 10rem;
   }
