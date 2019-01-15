@@ -6,4 +6,4 @@ storiesOf('EuropeanaCollectionsLogo', module)
   .add('logo', () => ({
     components: { EuropeanaCollectionsLogo },
     template:  '<EuropeanaCollectionsLogo />'
- }));
+  }));
