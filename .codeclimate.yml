@@ -2,7 +2,12 @@ plugins:
   eslint:
     enabled: true
     channel: 'eslint-5'
-    config: .eslintrc.js
+    config: 
+      config: .eslintrc.js
+      extensions:
+        - .js
+        - .vue
   stylelint:
     enabled: true
-    config: .stylelintrc.js
+    config: 
+      config: .stylelintrc.js
