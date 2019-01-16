@@ -10,7 +10,8 @@
       <div
         v-for="section in page.section"
         :key="section.sys.id"
-        class="banner">
+        class="banner"
+      >
         <h2>{{ section.fields.description }}</h2>
 
         <b-card-group deck>
@@ -24,7 +25,6 @@
           />
         </b-card-group>
       </div>
-
     </div>
   </section>
 </template>

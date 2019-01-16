@@ -5,7 +5,8 @@
     img-alt="This is an image"
     img-top
     footer="Creator of this object"
-    class="mb-4">
+    class="mb-4"
+  >
     <h4>{{ contentSource }}</h4>
     <a :href="url">
       Read more
