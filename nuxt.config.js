@@ -1,4 +1,6 @@
 const pkg = require('./package');
+const bootstrapPkg = require('bootstrap/package');
+const bootstrapVuePkg = require('bootstrap-vue/package');
 
 module.exports = {
   mode: 'universal',
@@ -15,7 +17,9 @@ module.exports = {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Ubuntu:300,400,700%7COpen+Sans:400italic,700italic,400,700&amp;subset=latin,greek,cyrillic' }
+      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Ubuntu:300,400,700%7COpen+Sans:400italic,700italic,400,700&amp;subset=latin,greek,cyrillic' },
+      { rel: 'stylesheet', href: `https://cdn.jsdelivr.net/npm/bootstrap@${bootstrapPkg.version}/dist/css/bootstrap.min.css` },
+      { rel: 'stylesheet', href: `https://cdn.jsdelivr.net/npm/bootstrap-vue@${bootstrapVuePkg.version}/dist/bootstrap-vue.css` }
     ]
   },
 
@@ -43,7 +47,7 @@ module.exports = {
     // Doc: https://github.com/nuxt-community/axios-module#usage
     '@nuxtjs/axios',
     '@nuxtjs/dotenv',
-    'bootstrap-vue/nuxt'
+    ['bootstrap-vue/nuxt', { css: false }]
   ],
   /*
   ** Axios module configuration
