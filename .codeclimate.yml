@@ -3,7 +3,7 @@ plugins:
     enabled: true
     channel: 'eslint-5'
     config:
-      config: ./.eslintrc.js
+      config: .eslintrc.js
       extensions:
         - .js
         - .vue
