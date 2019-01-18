@@ -37,14 +37,20 @@ module.exports = {
     'quotes': ['error', 'single'],
     'semi': ['error', 'always'],
     'semi-spacing': ['error'],
-    'space-before-blocks': ['error', 'always']
-    //'vue/script-indent': ['error', 2, { 'baseIndent': 1 }]
+    'space-before-blocks': ['error', 'always'],
+    'vue/script-indent': ['error', 2, { 'baseIndent': 1 }]
   },
   'overrides': [
     {
       'files': ['*.vue'],
       'rules': {
         'indent': 'off'
+      }
+    },
+    {
+      'files': ['*.js'],
+      'rules': {
+        'vue/script-indent': 'off'
       }
     }
   ]
