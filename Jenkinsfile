@@ -14,6 +14,7 @@ pipeline {
       }
       steps {
         sh 'npm install --only=production'
+        sh 'npm rebuild node-sass'
         sh 'npm run build'
       }
     }
