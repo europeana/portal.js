@@ -13,8 +13,7 @@ pipeline {
         NUXT_ENV_BUILD_PUBLIC_PATH="${env.S3_ENDPOINT}/europeana-portaljs-${params.CF_SPACE}"
       }
       steps {
-        sh 'npm install --only=production'
-        sh 'npm rebuild node-sass'
+        sh 'npm install'
         sh 'npm run build'
       }
     }
