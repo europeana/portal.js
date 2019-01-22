@@ -1,10 +1,5 @@
 <template>
   <div class="logo">
-    <img src="~/assets/logo.svg">
+    <img src="~/assets/img/logo.svg">
   </div>
 </template>
-
-<style>
-.logo {
-}
-</style>

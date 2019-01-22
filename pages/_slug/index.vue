@@ -13,7 +13,8 @@
         class="banner"
       >
         <h2>{{ section.fields.description }}</h2>
-        <ul>
+
+        <b-card-group deck>
           <ContentCard
             v-for="card in section.fields.contentCards"
             :key="card.sys.id"
@@ -22,7 +23,7 @@
             :url="card.fields.url"
             :image-url="card.fields.image.fields.file.url"
           />
-        </ul>
+        </b-card-group>
       </div>
     </div>
   </section>
@@ -40,7 +41,7 @@
           return {
             page: entry.fields
           };
-      });
+        });
     },
     components: {
       ContentCard
@@ -58,8 +59,7 @@
   }
 
   .title {
-    font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     display: block;
     font-weight: 300;
     font-size: 100px;

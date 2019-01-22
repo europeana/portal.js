@@ -15,6 +15,13 @@ $ npm start
 
 # generate static project
 $ npm run generate
+
+# serve storybook with hot reload at localhost:6006
+$ npm run storybook
+
+# generate static storybook
+$ npm run build-storybook
+
 ```
 
 For detailed explanation on how things work, checkout [Nuxt.js docs](https://nuxtjs.org).

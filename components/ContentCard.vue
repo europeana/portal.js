@@ -1,13 +1,17 @@
 <template>
-  <li class="card">
+  <b-card
+    :title="cardTitle"
+    :img-src="imageUrl"
+    img-alt="This is an image"
+    img-top
+    footer="Creator of this object"
+    class="mb-4"
+  >
+    <h4>{{ contentSource }}</h4>
     <a :href="url">
-      <div class="card-wrapper">
-        <span class="content-source">{{ contentSource }}</span>
-        <h3>{{ cardTitle }}</h3>
-        <img :src="imageUrl">
-      </div>
+      Read more
     </a>
-  </li>
+  </b-card>
 </template>
 
 <script>
@@ -33,25 +37,8 @@
   };
 </script>
 
-<style>
-  .card {
-    list-style: none;
-    float: left;
-    width: 20%;
-    margin: 2.5%;
-    display: inline-block;
-  }
-  .card-wrapper{
-    display: block;
-    width: 100%;
-    overflow: hidden;
-    height: 25em;
-  }
-  .content-source {
-    text-align: left;
-    font-size: 1rem;
-    font-weight: 500;
-    line-height: 1.2;
-    text-transform: uppercase;
+<style lang="scss">
+  .card-img-top {
+    max-height: 10rem;
   }
 </style>
