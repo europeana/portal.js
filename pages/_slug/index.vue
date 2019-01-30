@@ -41,7 +41,7 @@
           return {
             page: entry.fields
           };
-        });
+        }); // test
     },
     components: {
       ContentCard
