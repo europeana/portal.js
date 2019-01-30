@@ -12,4 +12,4 @@ storiesOf('ContentCard', module)
           imageUrl="img/landscape.jpg" 
         />
       </b-col>`
-})); // testing with the wrong indentation
+  })); // test indentation fix
