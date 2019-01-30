@@ -41,7 +41,7 @@
           return {
             page: entry.fields
           };
-        }); // test
+      }); // testing with the wrong indentation
     },
     components: {
       ContentCard
