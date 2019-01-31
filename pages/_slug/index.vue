@@ -2,24 +2,23 @@
   <section class="container">
     <div>
       <h1 class="title">
-        {{ page.pageTitle }}
+        {{ page.headline }}
       </h1>
 
-      <p>{{ page.pageDescription }}</p>
+      <p>{{ page.text }}</p>
 
       <div
-        v-for="section in page.section"
+        v-for="section in page.hasPart"
         :key="section.sys.id"
         class="banner"
       >
-        <h2>{{ section.fields.description }}</h2>
+        <h2>{{ section.fields.headline }}</h2>
 
         <b-card-group deck>
           <ContentCard
-            v-for="card in section.fields.contentCards"
+            v-for="card in section.fields.hasPart"
             :key="card.sys.id"
-            :card-title="card.fields.cardTitle"
-            :content-source="card.fields.contentSource"
+            :card-title="card.fields.name"
             :url="card.fields.url"
             :image-url="card.fields.image.fields.file.url"
           />
@@ -36,12 +35,18 @@
   export default {
     asyncData ({ params }) {
       // fetch the browsePage data, include set to 2 in order to get nested card data
-      return contentfulClient.getEntry(params.slug, { 'include': 2 })
-        .then((entry) => {
+      return contentfulClient.getEntries({
+        'content_type': 'browsePage',
+        'fields.identifier': params.slug,
+        'include': 2,
+        'limit': 1
+      })
+        .then((entries) => {
           return {
-            page: entry.fields
+            page: entries.items[0].fields
           };
         });
+      // TODO: 404 if promise fails
     },
     components: {
       ContentCard
