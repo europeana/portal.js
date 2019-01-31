@@ -7,6 +7,13 @@ pipeline {
       args "-u node:node"
     }
   }
+  environment {
+    CF_HOME='/home/node' // Revert override from Jenkins global env
+    CF_API="${env.CF_API}"
+    CF_LOGIN=credentials('portaljs.cloudfoundry.login')
+    CF_ORG="${env.CF_ORG}"
+    CF_SPACE="${params.CF_SPACE}"
+  }
   stages {
     stage('Build') {
       environment {
@@ -28,19 +35,28 @@ pipeline {
         sh 'AWS_ACCESS_KEY_ID="${S3_ACCESS_USR}" AWS_SECRET_ACCESS_KEY="${S3_ACCESS_PSW}" aws --region ${S3_REGION} --endpoint-url ${S3_ENDPOINT} s3 sync .nuxt/dist/client s3://${S3_BUCKET} --acl public-read --delete'
       }
     }
+    stage('Login to CF') {
+      steps {
+        sh 'cf login -a ${CF_API} -u ${CF_LOGIN_USR} -p "${CF_LOGIN_PSW}" -o ${CF_ORG} -s ${CF_SPACE}'
+      }
+    }
+    stage('Deploy Storybook') {
+      when {
+        environment name: 'CF_SPACE', value: 'test'
+      }
+      steps {
+        sh 'npm run build-storybook'
+        sh 'echo "---\\nbuildpack: staticfile_buildpack\\nmemory: 64M" > storybook-static/manifest.yml'
+        sh 'cd storybook-static && cf blue-green-deploy portaljs-storybook -f manifest.yml --delete-old-apps'
+      }
+    }
     stage('Deploy to CF') {
       environment {
-        CF_API="${env.CF_API}"
-        CF_LOGIN=credentials('portaljs.cloudfoundry.login')
-        CF_ORG="${env.CF_ORG}"
-        CF_SPACE="${params.CF_SPACE}"
         CF_APP_NAME="portaljs-${params.CF_SPACE}"
-        CF_HOME='/home/node' // Revert override from Jenkins global env
         CTF_CDA_ACCESS_TOKEN=credentials("portaljs.${params.CF_SPACE}.contentful.cda_access_token")
         CTF_SPACE_ID=credentials("portaljs.${params.CF_SPACE}.contentful.space_id")
       }
       steps {
-        sh 'cf login -a ${CF_API} -u ${CF_LOGIN_USR} -p "${CF_LOGIN_PSW}" -o ${CF_ORG} -s ${CF_SPACE}'
         sh 'echo "services:" >> manifest.yml'
         sh 'echo "  - elastic-apm" >> manifest.yml'
         sh 'sed -i "s|env:|env:\\n  CTF_SPACE_ID: ${CTF_SPACE_ID}|" manifest.yml'

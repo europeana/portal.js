@@ -83,4 +83,6 @@ dist
 # IDE
 .idea
 .DS_Store
+
+# Storybook
 storybook-static
