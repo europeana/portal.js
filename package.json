@@ -30,7 +30,7 @@
     "stylelint": "stylelint .scss,.vue --config .stylelintrc.js",
     "precommit": "npm run lint",
     "storybook": "start-storybook -p 6006 -s ./.storybook/assets",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook -s ./.storybook/assets"
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.0.0",
