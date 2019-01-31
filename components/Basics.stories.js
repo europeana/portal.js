@@ -1,9 +1,6 @@
 import { storiesOf } from '@storybook/vue';
 
 storiesOf('Basics', module)
-  .add('color palette', () => ({
-    template:  ``
-  }))
   .add('typography', () => ({
     template:  `<b-container class="mt-3">
         <h1>This is a h1 heading</h1>
