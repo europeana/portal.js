@@ -10,7 +10,10 @@
     <p class="card-text">
       {{ description }}
     </p>
-    <a :href="url" class="card-link">
+    <a
+      :href="url"
+      class="card-link"
+    >
       Read more
     </a>
   </b-card>
