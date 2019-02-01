@@ -1,35 +1,34 @@
 <template>
   <b-card
-    :title="cardTitle"
+    :title="name"
     :img-src="imageUrl"
-    img-alt="This is an image"
+    :img-alt="imageTitle"
     img-top
     footer="Creator of this object"
     class="mb-4"
   >
-    <h4>{{ contentSource }}</h4>
-    <a :href="url">
+    <b-link :href="url">
       Read more
-    </a>
+    </b-link>
   </b-card>
 </template>
 
 <script>
   export default {
     props: {
-      cardTitle: {
+      name: {
         type: String,
         default: 'Content'
       },
-      contentSource: {
-        type: String,
-        default: 'External Link'
-      },
       url: {
         type: String,
-        default: 'http://www.europeana.eu'
+        default: 'https://www.europeana.eu/'
       },
       imageUrl: {
+        type: String,
+        default: ''
+      },
+      imageTitle: {
         type: String,
         default: ''
       }
