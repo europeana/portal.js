@@ -2,7 +2,9 @@ import { configure } from '@storybook/vue';
 import { action } from '@storybook/addon-actions';
 
 import Vue from 'vue';
-import BootstrapVue from 'bootstrap-vue'
+import BootstrapVue from 'bootstrap-vue';
+
+import '../assets/scss/style.scss';
 
 Vue.use(BootstrapVue);
 
@@ -14,13 +16,13 @@ let styleBootstrap = document.createElement('link');
 styleBootstrap.setAttribute('rel', 'stylesheet');
 styleBootstrap.setAttribute('href', `https://cdn.jsdelivr.net/npm/bootstrap@${bootstrapPkg.version}/dist/css/bootstrap.min.css`);
 
-document.querySelector('head').appendChild(styleBootstrap);
+document.querySelector('head').insertBefore(styleBootstrap, document.querySelector('base'));
 
 let styleBootstrapVue = document.createElement('link');
 styleBootstrapVue.setAttribute('rel', 'stylesheet');
 styleBootstrapVue.setAttribute('href', `https://cdn.jsdelivr.net/npm/bootstrap-vue@${bootstrapVuePkg.version}/dist/bootstrap-vue.css`);
 
-document.querySelector('head').appendChild(styleBootstrapVue);
+document.querySelector('head').insertBefore(styleBootstrapVue, document.querySelector('base'));
 
 // automatically import all files ending in *.stories.js from the components directory
 const req = require.context('../components', true, /.stories.js$/);
