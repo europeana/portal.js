@@ -7,9 +7,12 @@
     footer="Creator of this object"
     class="mb-4"
   >
-    <b-link :href="url">
+    <p class="card-text">
+      {{ description }}
+    </p>
+    <a :href="url" class="card-link">
       Read more
-    </b-link>
+    </a>
   </b-card>
 </template>
 
@@ -19,6 +22,10 @@
       name: {
         type: String,
         default: 'Content'
+      },
+      description: {
+        type: String,
+        default: ''
       },
       url: {
         type: String,

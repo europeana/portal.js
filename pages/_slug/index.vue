@@ -20,6 +20,7 @@
             v-for="card in section.fields.hasPart"
             :key="card.sys.id"
             :name="card.fields.name"
+            :description="card.fields.description"
             :url="card.fields.url"
             :image-url="card.fields.image.fields.file.url"
             :image-title="card.fields.image.fields.title"
