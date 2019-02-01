@@ -1,14 +1,19 @@
 <template>
   <b-card
-    :title="cardTitle"
+    :title="name"
     :img-src="imageUrl"
-    img-alt="This is an image"
+    :img-alt="imageTitle"
     img-top
     footer="Creator of this object"
     class="mb-4"
   >
-    <h4>{{ contentSource }}</h4>
-    <a :href="url">
+    <p class="card-text">
+      {{ description }}
+    </p>
+    <a
+      :href="url"
+      class="card-link"
+    >
       Read more
     </a>
   </b-card>
@@ -17,19 +22,23 @@
 <script>
   export default {
     props: {
-      cardTitle: {
+      name: {
         type: String,
         default: 'Content'
       },
-      contentSource: {
+      description: {
         type: String,
-        default: 'External Link'
+        default: ''
       },
       url: {
         type: String,
-        default: 'http://www.europeana.eu'
+        default: 'https://www.europeana.eu/'
       },
       imageUrl: {
+        type: String,
+        default: ''
+      },
+      imageTitle: {
         type: String,
         default: ''
       }
