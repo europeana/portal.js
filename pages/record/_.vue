@@ -4,9 +4,9 @@
       Record
     </h1>
 
-    <template v-if="error">
-      <p><strong>Error:</strong> {{ error }}</p>
-    </template>
+    <p v-if="error">
+      <strong>Error:</strong> {{ error }}
+    </p>
     <template v-else>
       <div>
         <a :href="image.link">
