@@ -61,7 +61,7 @@
     });
     const edmLanguage = europeanaAggregation.edmLanguage['def'][0];
 
-    const webResources = providerAggregation.webResources.map(webResource =>{
+    const webResources = providerAggregation.webResources.map(webResource => {
       return {
         dcDescription: webResource.dcDescription,
         edmRights: webResource.webResourceEdmRights,

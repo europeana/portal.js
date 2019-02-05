@@ -18,6 +18,7 @@ module.exports = {
   ],
   // add your custom rules here
   rules: {
+    'arrow-spacing': 'error',
     'block-spacing': ['error', 'always'],
     'brace-style': ['error', '1tbs', { 'allowSingleLine': false }],
     'camelcase': ['error', { 'ignoreDestructuring': false }],
