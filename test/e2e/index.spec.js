@@ -1,13 +1,13 @@
-// test/index.test.js
 import test from 'ava';
 import createNuxt from '../helpers/createNuxt.js';
+
 
 // We keep a reference to Nuxt so we can close
 // the server at the end of the test
 let nuxt = null;
 
-// Init nuxt.js and create server listening on localhost:4000
-test.before('Init Nuxt.js', async () => {
+// Init Nuxt.js and start listening on localhost:4000
+test.before('Init Nuxt.js', async t => {
   nuxt = createNuxt();
   await nuxt.listen(4000, 'localhost');
 });
