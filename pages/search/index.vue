@@ -13,6 +13,7 @@
         @submit.prevent="submitSearchForm"
       >
         <b-form-input
+          id="searchQuery"
           v-model="query"
           placeholder="What are you looking for?"
           name="query"
@@ -85,8 +86,8 @@
     data () {
       return {
         error: null,
-        results: [],
-        totalResults: 0,
+        results: null,
+        totalResults: null,
         query: null
       };
     },
@@ -117,6 +118,11 @@
             error: error.response.data.error
           };
         });
+    },
+    mounted () {
+      this.$nextTick(() => {
+        document.getElementById('searchQuery').focus();
+      });
     },
     methods: {
       submitSearchForm () {
