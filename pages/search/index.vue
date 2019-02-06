@@ -8,7 +8,10 @@
       <strong>Error:</strong> {{ error }}
     </p>
     <b-container v-else>
-      <b-form inline>
+      <b-form
+        inline
+        @submit.prevent="submitSearchForm"
+      >
         <b-form-input
           v-model="query"
           placeholder="What are you looking for?"
@@ -79,11 +82,17 @@
   }
 
   export default {
+    data () {
+      return {
+        error: null,
+        results: [],
+        totalResults: 0,
+        query: null
+      };
+    },
     asyncData ({ query }) {
       if (typeof query.query === 'undefined') {
-        return {
-          error: null
-        };
+        return;
       }
       return axios.get('https://api.europeana.eu/api/v2/search.json', {
         params: {
@@ -108,6 +117,11 @@
             error: error.response.data.error
           };
         });
+    },
+    methods: {
+      submitSearchForm () {
+        this.$router.push({ name: 'search', query: { query: this.query } });
+      }
     },
     head () {
       return {
