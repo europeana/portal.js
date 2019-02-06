@@ -99,7 +99,7 @@
         })
         .catch((error) => {
           return {
-            error: error.response.data.error
+            error: error.response ? error.response.data.error : error.toString()
           };
         });
     },
