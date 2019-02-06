@@ -7,7 +7,7 @@ import createNuxt from '../helpers/createNuxt.js';
 let nuxt = null;
 
 // Init nuxt.js and create server listening on localhost:4000
-test.before('Init Nuxt.js', async t => {
+test.before('Init Nuxt.js', async () => {
   nuxt = createNuxt();
   await nuxt.listen(4000, 'localhost');
 });
@@ -28,6 +28,6 @@ test('Route / with "what" param exists and renders HTML', async t => {
 });
 
 // Close the Nuxt server
-test.after('Closing server', t => {
+test.after('Closing server', () => {
   nuxt.close();
 });
