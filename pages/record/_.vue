@@ -98,8 +98,11 @@
           return dataFromApiResponse(response);
         })
         .catch((error) => {
+          if (typeof error.response === 'undefined') {
+            throw error;
+          }
           return {
-            error: error.response ? error.response.data.error : error.toString()
+            error: error.response.data.error
           };
         });
     },
