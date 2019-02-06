@@ -100,7 +100,7 @@
         params: {
           rows: 24,
           wskey: process.env.EUROPEANA_API_KEY,
-          query: query.query
+          query: query.query == '' ? '*:*' : query.query
         }
       })
         .then((response) => {
