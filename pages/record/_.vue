@@ -1,5 +1,46 @@
 <template>
-  <section class="container">
+  <p v-if="error">
+    <strong>Error:</strong> {{ error }}
+  </p>
+  <b-container v-else>
+    <b-row>
+      <b-col><h1>Record</h1></b-col>
+    </b-row>
+    <b-row>
+      <b-col cols="2">
+        <a :href="image.link">
+          <img :src="image.src">
+        </a>
+      </b-col>
+      <b-col>
+        <dl>
+          <div
+            v-for="(value, key) in fields"
+            :key="key"
+          >
+            <template v-if="value">
+              <dt>{{ key }}</dt>
+              <dd><pre>{{ value }}</pre></dd>
+            </template>
+          </div>
+        </dl>
+      </b-col>
+    </b-row>
+    <b-row>
+      <b-col>
+        <h2>Media</h2>
+        <b-list-group>
+          <b-list-group-item>Cras justo odio</b-list-group-item>
+          <b-list-group-item>Dapibus ac facilisis in</b-list-group-item>
+          <b-list-group-item>Morbi leo risus</b-list-group-item>
+          <b-list-group-item>Porta ac consectetur ac</b-list-group-item>
+          <b-list-group-item>Vestibulum at eros</b-list-group-item>
+        </b-list-group>
+      </b-col>
+    </b-row>
+  </b-container>
+
+  <!--<section class="container">
     <h1 class="title">
       Record
     </h1>
@@ -46,7 +87,7 @@
         </li>
       </ul>
     </template>
-  </section>
+  </section>-->
 </template>
 
 <script>
