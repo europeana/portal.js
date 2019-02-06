@@ -105,7 +105,6 @@
       })
         .then((response) => {
           return {
-            error: null,
             results: resultsFromApiResponse(response),
             totalResults: response.data.totalResults,
             query: query.query
