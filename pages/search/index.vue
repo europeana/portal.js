@@ -29,10 +29,11 @@
         No results.
       </p>
       <b-list-group v-else>
+        <!-- TODO: switch :href for :to if/when API permits CORS requests to record.json -->
         <b-list-group-item
           v-for="result in results"
           :key="result.europeanaId"
-          :href="result.url"
+          :href="result.linkTo"
           class="flex-column align-items-start"
         >
           <b-media right-align>
@@ -69,7 +70,7 @@
       return {
         europeanaId: item.id,
         edmPreview: item.edmPreview ? `${item.edmPreview[0]}&size=w200` : null,
-        url: `/record${item.id}`,
+        linkTo: `record${item.id}`,
         fields: {
           dcTitle: item.dcTitleLangAware,
           dcCreator: item.dcCreatorLangAware,
