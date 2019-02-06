@@ -31,7 +31,10 @@
     "precommit": "npm run lint",
     "storybook": "start-storybook -p 6006 -s ./.storybook/assets",
     "build-storybook": "build-storybook -s ./.storybook/assets",
-    "test": "ava test/**/*.spec.js"
+    "test-units": "ava test/units/*.spec.js --require ./test/setup.js",
+    "test-e2e": "ava test/e2e/*.spec.js",
+    "test": "npm run test-e2e && npm run test-units",
+    "cover": "cross-env NODE_ENV=coverage nyc --reporter=lcov --reporter=text npm run test"
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.0.0",
@@ -64,6 +67,7 @@
     "jsdom": "^13.2.0",
     "jsdom-global": "^3.0.2",
     "node-sass": "^4.11.0",
+    "nyc": "^13.1.0",
     "nodemon": "^1.11.0",
     "require-extension-hooks": "^0.3.3",
     "require-extension-hooks-babel": "^0.1.1",
@@ -75,9 +79,10 @@
     "vue-loader": "^15.4.2",
     "vue-template-compiler": "^2.5.21"
   },
-  "ava": {
-    "require": [
-      "./test/setup.js"
+  "nyc": {
+    "extension": [
+      ".js",
+      ".vue"
     ]
   }
 }
