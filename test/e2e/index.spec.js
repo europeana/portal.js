@@ -1,7 +1,6 @@
 import test from 'ava';
 import createNuxt from '../helpers/createNuxt.js';
 
-
 // We keep a reference to Nuxt so we can close
 // the server at the end of the test
 let nuxt = null;
