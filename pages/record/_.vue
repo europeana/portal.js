@@ -29,18 +29,16 @@
         </a>
       </b-col>
       <b-col>
-        <div>
+        <div
+          v-for="(value, key) in fields"
+          :key="key"
+        >
           <div
-            v-for="(value, key) in fields"
-            :key="key"
+            v-if="value"
+            class="border-bottom mb-3"
           >
-            <div
-              v-if="value"
-              class="border-bottom mb-3"
-            >
-              <strong>{{ key }}</strong><br>
-              <pre>{{ value }}</pre>
-            </div>
+            <strong>{{ key }}</strong><br>
+            <pre>{{ value }}</pre>
           </div>
         </div>
       </b-col>
@@ -52,6 +50,7 @@
           <b-list-group-item
             v-for="webResource in media"
             :key="webResource.rdfAbout"
+            class="mb-3"
           >
             <div
               v-for="(value, key) in webResource"
@@ -83,9 +82,9 @@
 
     const webResources = providerAggregation.webResources.map(webResource => {
       return {
+        rdfAbout: webResource.about,
         dcDescription: webResource.dcDescription,
-        edmRights: webResource.webResourceEdmRights,
-        rdfAbout: webResource.about
+        edmRights: webResource.webResourceEdmRights
       };
     });
 
