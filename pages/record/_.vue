@@ -1,7 +1,15 @@
 <template>
-  <p v-if="error">
-    <strong>Error:</strong> {{ error }}
-  </p>
+  <b-container
+    v-if="error"
+    class="mb-3"
+  >
+    <b-alert
+      show
+      variant="dark"
+    >
+      <strong>Error:</strong> {{ error }}
+    </b-alert>
+  </b-container>
   <b-container v-else>
     <b-row>
       <b-col><h1>Record</h1></b-col>
