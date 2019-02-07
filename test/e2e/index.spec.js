@@ -8,14 +8,13 @@ let nuxt = null;
 
 // Init Nuxt.js and start listening on localhost:4000
 test.before('Init Nuxt.js', async t => {
-  nuxt = createNuxt();
-  await nuxt.listen(4000, 'localhost');
+  nuxt = await createNuxt();
+  return nuxt;
 });
 
 // Example of testing only generated html
 test('Route / exists and renders HTML', async t => {
   let context = {};
-  console.log(context);
   const { html } = await nuxt.renderRoute('/', context);
   t.true(html.includes('Transforming the world with culture'));
 });
