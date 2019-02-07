@@ -63,13 +63,17 @@
 <script>
   import axios from 'axios';
 
+  function genericThumbnail(edmType) {
+    return `https://api.europeana.eu/api/v2/thumbnail-by-url.json?size=w200&uri=&type=${edmType}`;
+  }
+
   function resultsFromApiResponse(response) {
     const items = response.data.items;
 
     const results = items.map(item => {
       return {
         europeanaId: item.id,
-        edmPreview: item.edmPreview ? `${item.edmPreview[0]}&size=w200` : null,
+        edmPreview: item.edmPreview ? `${item.edmPreview[0]}&size=w200` : genericThumbnail(item.type),
         linkTo: `record${item.id}`,
         fields: {
           dcTitle: item.dcTitleLangAware,
