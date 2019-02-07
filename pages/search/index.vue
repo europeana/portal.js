@@ -74,8 +74,8 @@
         fields: {
           dcTitle: item.dcTitleLangAware,
           dcCreator: item.dcCreatorLangAware,
-          edmDataProvider: item.dataProvider[0],
-          edmLanguage: item.language[0]
+          dcDescription: item.dcDescription, // dcDescriptionLangAware is never returned by API...
+          edmDataProvider: item.dataProvider[0]
         }
       };
     });
@@ -98,9 +98,10 @@
       }
       return axios.get('https://api.europeana.eu/api/v2/search.json', {
         params: {
+          profile: 'minimal',
+          query: query.query == '' ? '*:*' : query.query,
           rows: 24,
-          wskey: process.env.EUROPEANA_API_KEY,
-          query: query.query == '' ? '*:*' : query.query
+          wskey: process.env.EUROPEANA_API_KEY
         }
       })
         .then((response) => {
