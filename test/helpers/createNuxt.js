@@ -6,13 +6,9 @@ let nuxt = null;
 // export default function createNuxt () {
 module.exports = function createNuxt () {
   const rootDir = resolve(__dirname, '../../');
-  let config = {};
-  try {
-    config = require(resolve(rootDir, 'nuxt.config.js'));
-  } catch (e) {}
+  let config = require(resolve(rootDir, 'nuxt.config.js'));
   config.rootDir = rootDir; // project folder
   config.dev = false; // production build
-  config.mode = 'universal'; // Isomorphic application
   nuxt = new Nuxt(config);
   new Builder(nuxt).build();
   return nuxt;
