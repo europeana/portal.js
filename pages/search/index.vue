@@ -130,7 +130,7 @@
     mounted () {
       this.$nextTick(() => {
         if (document.getElementById('searchResults') === null) {
-          const searchQuery = document.getElementById('searchQuery')
+          const searchQuery = document.getElementById('searchQuery');
           if (searchQuery) {
             searchQuery.focus();
           }
