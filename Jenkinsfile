@@ -17,9 +17,15 @@ pipeline {
   stages {
     stage('Build') {
       environment {
+        CTF_CDA_ACCESS_TOKEN=credentials("portaljs.${params.CF_SPACE}.contentful.cda_access_token")
+        CTF_SPACE_ID=credentials("portaljs.${params.CF_SPACE}.contentful.space_id")
+        EUROPEANA_API_KEY=credentials("portaljs.${params.CF_SPACE}.europeana.api_key")
         NUXT_ENV_BUILD_PUBLIC_PATH="${env.S3_ENDPOINT}/europeana-portaljs-${params.CF_SPACE}"
       }
       steps {
+        sh 'echo "CTF_CDA_ACCESS_TOKEN=${CTF_CDA_ACCESS_TOKEN}" >> .env'
+        sh 'echo "CTF_SPACE_ID=${CTF_SPACE_ID}" >> .env'
+        sh 'echo "EUROPEANA_API_KEY=${EUROPEANA_API_KEY}" >> .env'
         sh 'npm install'
         sh 'npm run build'
       }
@@ -53,16 +59,10 @@ pipeline {
     stage('Deploy to CF') {
       environment {
         CF_APP_NAME="portaljs-${params.CF_SPACE}"
-        CTF_CDA_ACCESS_TOKEN=credentials("portaljs.${params.CF_SPACE}.contentful.cda_access_token")
-        CTF_SPACE_ID=credentials("portaljs.${params.CF_SPACE}.contentful.space_id")
-        EUROPEANA_API_KEY=credentials("portaljs.${params.CF_SPACE}.europeana.api_key")
       }
       steps {
         sh 'echo "services:" >> manifest.yml'
         sh 'echo "  - elastic-apm" >> manifest.yml'
-        sh 'sed -i "s|env:|env:\\n  EUROPEANA_API_KEY: ${EUROPEANA_API_KEY}|" manifest.yml'
-        sh 'sed -i "s|env:|env:\\n  CTF_SPACE_ID: ${CTF_SPACE_ID}|" manifest.yml'
-        sh 'sed -i "s|env:|env:\\n  CTF_CDA_ACCESS_TOKEN: ${CTF_CDA_ACCESS_TOKEN}|" manifest.yml'
         sh 'cf blue-green-deploy ${CF_APP_NAME} -f manifest.yml --delete-old-apps'
       }
     }

@@ -99,7 +99,7 @@
         query: null
       };
     },
-    asyncData ({ query }) {
+    asyncData ({ env, query }) {
       if (typeof query.query === 'undefined') {
         return;
       }
@@ -108,7 +108,7 @@
           profile: 'minimal',
           query: query.query == '' ? '*:*' : query.query,
           rows: 24,
-          wskey: process.env.EUROPEANA_API_KEY
+          wskey: env.EUROPEANA_API_KEY
         }
       })
         .then((response) => {
@@ -130,7 +130,10 @@
     mounted () {
       this.$nextTick(() => {
         if (document.getElementById('searchResults') === null) {
-          document.getElementById('searchQuery').focus();
+          const searchQuery = document.getElementById('searchQuery');
+          if (searchQuery) {
+            searchQuery.focus();
+          }
         }
       });
     },
