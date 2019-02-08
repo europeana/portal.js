@@ -31,10 +31,10 @@
     "precommit": "npm run lint",
     "storybook": "start-storybook -p 6006 -s ./.storybook/assets",
     "build-storybook": "build-storybook -s ./.storybook/assets",
-    "test-unit": "ava test/units/*.spec.js --require ./test/setup.js",
-    "test-e2e": "ava test/e2e/*.spec.js",
+    "test-unit": "ava test/unit/*.test.js --require ./test/setup.js",
+    "test-e2e": "ava test/e2e/*.test.js",
     "test": "npm run test-e2e && npm run test-unit",
-    "cover": "cross-env NODE_ENV=coverage nyc --reporter=lcov --reporter=text npm run test"
+    "cover": "nyc --reporter=lcov --reporter=text npm run test"
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.0.0",

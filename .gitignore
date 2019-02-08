@@ -74,7 +74,6 @@ typings/
 # nuxt.js build output for tests
 .nuxt-test
 
-
 # Nuxt generate
 dist
 

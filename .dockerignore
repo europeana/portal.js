@@ -22,6 +22,9 @@ coverage
 # nyc test coverage
 .nyc_output
 
+# nuxt.js build output for tests
+.nuxt-test
+
 # Bower dependency directory (https://bower.io/)
 bower_components
 
