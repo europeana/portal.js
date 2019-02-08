@@ -124,11 +124,6 @@
           };
         });
     },
-    mounted () {
-      this.$nextTick(() => {
-        document.getElementById('searchQuery').focus();
-      });
-    },
     methods: {
       submitSearchForm () {
         this.$router.push({ name: 'search', query: { query: this.query } });
