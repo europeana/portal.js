@@ -24,7 +24,6 @@
           <img
             :src="image.src"
             class="mw-100 mb-3"
-            alt="Record"
           >
         </a>
       </b-col>
@@ -32,14 +31,10 @@
         <div
           v-for="(value, key) in fields"
           :key="key"
+          class="border-bottom mb-3"
         >
-          <div
-            v-if="value"
-            class="border-bottom mb-3"
-          >
-            <strong>{{ key }}</strong><br>
-            <pre>{{ value }}</pre>
-          </div>
+          <div><strong>{{ key }}</strong></div>
+          <pre><code>{{ value }}</code></pre>
         </div>
       </b-col>
     </b-row>
@@ -56,10 +51,8 @@
               v-for="(value, key) in webResource"
               :key="key"
             >
-              <p v-if="value">
-                <strong>{{ key }}</strong><br>
-                <pre>{{ value }}</pre>
-              </p>
+              <div><strong>{{ key }}</strong></div>
+              <pre><code>{{ value }}</code></pre>
             </div>
           </b-list-group-item>
         </b-list-group>
@@ -70,6 +63,8 @@
 
 <script>
   import axios from 'axios';
+  // TODO: cherry-pick Lodash methods? or load from CDN?
+  import _ from 'lodash';
 
   function dataFromApiResponse(response) {
     const edm = response.data.object;
@@ -81,11 +76,11 @@
     const edmLanguage = europeanaAggregation.edmLanguage['def'][0];
 
     const webResources = providerAggregation.webResources.map(webResource => {
-      return {
+      return _.omitBy({
         rdfAbout: webResource.about,
         dcDescription: webResource.dcDescription,
         edmRights: webResource.webResourceEdmRights
-      };
+      }, _.isNil);
     });
 
     return {
@@ -94,7 +89,7 @@
         link: providerAggregation.edmIsShownAt,
         src: europeanaAggregation.edmPreview
       },
-      fields: {
+      fields: _.omitBy({
         dcContributor: providerProxy.dcContributor,
         dcCreator: providerProxy.dcCreator,
         dcDescription: providerProxy.dcDescription,
@@ -105,7 +100,7 @@
         edmDataProvider: providerAggregation.edmDataProvider,
         edmLanguage: edmLanguage,
         edmRights: providerAggregation.edmRights
-      },
+      }, _.isNil),
       media: webResources
     };
   }
