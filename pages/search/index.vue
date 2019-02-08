@@ -28,7 +28,10 @@
       <p v-if="totalResults === 0">
         No results.
       </p>
-      <b-list-group v-else>
+      <b-list-group
+        v-if="results !== null"
+        id="searchResults"
+      >
         <!-- TODO: switch :href for :to if/when API permits CORS requests to record.json -->
         <b-list-group-item
           v-for="result in results"
@@ -123,6 +126,13 @@
             error: error.response.data.error
           };
         });
+    },
+    mounted () {
+      this.$nextTick(() => {
+        if (document.getElementById('searchResults') === null) {
+          document.getElementById('searchQuery').focus();
+        }
+      });
     },
     methods: {
       submitSearchForm () {
