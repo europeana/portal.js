@@ -1,52 +1,71 @@
 <template>
-  <section class="container">
-    <h1 class="title">
-      Record
-    </h1>
-
-    <p v-if="error">
+  <b-container
+    v-if="error"
+    class="mb-3"
+  >
+    <b-alert
+      show
+      variant="dark"
+    >
       <strong>Error:</strong> {{ error }}
-    </p>
-    <template v-else>
-      <div>
+    </b-alert>
+  </b-container>
+  <b-container v-else>
+    <b-row>
+      <b-col><h1>Record</h1></b-col>
+    </b-row>
+    <b-row class="mb-3">
+      <b-col
+        v-if="image.src"
+        cols="12"
+        md="4"
+      >
         <a :href="image.link">
-          <img :src="image.src">
+          <img
+            :src="image.src"
+            class="mw-100 mb-3"
+            alt="Record"
+          >
         </a>
-      </div>
-
-      <dl>
+      </b-col>
+      <b-col>
         <div
           v-for="(value, key) in fields"
           :key="key"
         >
-          <template v-if="value">
-            <dt>{{ key }}</dt>
-            <dd><pre>{{ value }}</pre></dd>
-          </template>
+          <div
+            v-if="value"
+            class="border-bottom mb-3"
+          >
+            <strong>{{ key }}</strong><br>
+            <pre>{{ value }}</pre>
+          </div>
         </div>
-      </dl>
-
-      <h2>Media</h2>
-      <ul>
-        <li
-          v-for="webResource in media"
-          :key="webResource.rdfAbout"
-        >
-          <dl>
+      </b-col>
+    </b-row>
+    <b-row class="mb-3">
+      <b-col>
+        <h2>Media</h2>
+        <b-list-group>
+          <b-list-group-item
+            v-for="webResource in media"
+            :key="webResource.rdfAbout"
+            class="mb-3"
+          >
             <div
               v-for="(value, key) in webResource"
               :key="key"
             >
-              <template v-if="value">
-                <dt>{{ key }}</dt>
-                <dd><pre>{{ value }}</pre></dd>
-              </template>
+              <p v-if="value">
+                <strong>{{ key }}</strong><br>
+                <pre>{{ value }}</pre>
+              </p>
             </div>
-          </dl>
-        </li>
-      </ul>
-    </template>
-  </section>
+          </b-list-group-item>
+        </b-list-group>
+      </b-col>
+    </b-row>
+  </b-container>
 </template>
 
 <script>
@@ -63,9 +82,9 @@
 
     const webResources = providerAggregation.webResources.map(webResource => {
       return {
+        rdfAbout: webResource.about,
         dcDescription: webResource.dcDescription,
-        edmRights: webResource.webResourceEdmRights,
-        rdfAbout: webResource.about
+        edmRights: webResource.webResourceEdmRights
       };
     });
 
