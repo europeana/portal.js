@@ -30,39 +30,58 @@
     "stylelint": "stylelint .scss,.vue --config .stylelintrc.js",
     "precommit": "npm run lint",
     "storybook": "start-storybook -p 6006 -s ./.storybook/assets",
-    "build-storybook": "build-storybook -s ./.storybook/assets"
+    "build-storybook": "build-storybook -s ./.storybook/assets",
+    "test-unit": "ava test/unit/*.test.js --require ./test/setup.js",
+    "test-e2e": "ava test/e2e/*.test.js",
+    "test": "npm run test-e2e && npm run test-unit",
+    "cover": "nyc --reporter=lcov --reporter=text npm run test"
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.0.0",
     "@nuxtjs/dotenv": "^1.3.0",
     "bootstrap-vue": "^2.0.0-rc.11",
-    "contentful": "^7.0.5",
+    "contentful": "^7.2.0",
     "cross-env": "^5.2.0",
-    "elastic-apm-node": "^2.0.6",
+    "elastic-apm-node": "^2.5.1",
     "express": "^4.16.3",
     "morgan": "^1.9.1",
-    "nuxt": "^2.0.0",
+    "nuxt": "^2.4.2",
     "vcap_services": "^0.6.0",
-    "vue": "^2.5.21",
+    "vue": "^2.6.2",
     "vue-resize-directive": "^1.1.4"
   },
   "devDependencies": {
     "@babel/core": "^7.2.2",
-    "@storybook/addon-actions": "^4.1.2",
-    "@storybook/addon-links": "^4.1.2",
-    "@storybook/vue": "^4.1.2",
+    "@storybook/addon-actions": "^4.1.11",
+    "@storybook/addon-links": "^4.1.11",
+    "@storybook/vue": "^4.1.11",
+    "@vue/test-utils": "^1.0.0-beta.29",
+    "ava": "^1.2.1",
     "babel-eslint": "^8.2.1",
     "babel-loader": "^8.0.4",
     "babel-preset-vue": "^2.0.2",
-    "eslint": "^5.12.0",
-    "eslint-loader": "^2.0.0",
+    "eslint": "^5.13.0",
+    "eslint-loader": "^2.1.2",
     "eslint-plugin-vue": "^5.1.0",
+    "jsdom": "^13.2.0",
+    "jsdom-global": "^3.0.2",
     "node-sass": "^4.11.0",
     "nodemon": "^1.11.0",
+    "nyc": "^13.1.0",
+    "require-extension-hooks": "^0.3.3",
+    "require-extension-hooks-babel": "^0.1.1",
+    "require-extension-hooks-vue": "^2.0.0",
     "sass-loader": "^7.1.0",
-    "stylelint": "^9.9.0",
+    "sinon": "^7.2.3",
+    "stylelint": "^9.10.1",
     "stylelint-config-recommended": "^2.1.0",
-    "vue-loader": "^15.4.2",
-    "vue-template-compiler": "^2.5.21"
+    "vue-loader": "^15.6.2",
+    "vue-template-compiler": "^2.6.2"
+  },
+  "nyc": {
+    "extension": [
+      ".js",
+      ".vue"
+    ]
   }
 }
