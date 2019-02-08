@@ -111,8 +111,8 @@
   }
 
   export default {
-    asyncData ({ params }) {
-      return axios.get(`https://api.europeana.eu/api/v2/record/${params.pathMatch}.json?wskey=${process.env.EUROPEANA_API_KEY}`)
+    asyncData ({ env, params }) {
+      return axios.get(`https://api.europeana.eu/api/v2/record/${params.pathMatch}.json?wskey=${env.EUROPEANA_API_KEY}`)
         .then((response) => {
           return dataFromApiResponse(response);
         })
