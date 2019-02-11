@@ -6,7 +6,7 @@ import createNuxt from '../helpers/createNuxt.js';
 let nuxt = null;
 
 // Init Nuxt.js and start listening on localhost:4000
-test.before('Init Nuxt.js', async t => {
+test.before('Init Nuxt.js', async () => {
   nuxt = await createNuxt();
   return nuxt;
 });
