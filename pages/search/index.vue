@@ -185,8 +185,10 @@
     },
     methods: {
       submitSearchForm () {
-        this.isLoading = true;
-        this.$router.push({ name: 'search', query: { query: this.query } });
+        if (this.$route.query.query !== this.query) {
+          this.isLoading = true;
+        }
+        this.$router.push({ name: 'search', query: { query: this.query ? this.query : '' } });
       }
     },
     head () {
