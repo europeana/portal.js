@@ -3,7 +3,7 @@
 </template>
 
 <script>
- </script>
+</script>
 
 <style lang="scss">
   @import '~assets/scss/variables.scss';

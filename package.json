@@ -82,6 +82,15 @@
     "extension": [
       ".js",
       ".vue"
-    ]
+    ],
+    "exclude": [
+      "**/node_modules/**",
+      "**/*stories.js",
+      "**/test/**",
+      "**/coverage/**",
+      "**/storybook/**",
+      "**/storybook-static/**"
+    ],
+    "all": true
   }
 }
