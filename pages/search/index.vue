@@ -118,9 +118,11 @@
         edmPreview: item.edmPreview ? `${item.edmPreview[0]}&size=w200` : genericThumbnail(item.type),
         linkTo: `record${item.id}`,
         fields: {
-          dcTitle: item.dcTitleLangAware,
+          // TODO: fallback to description when API returns dcDescriptionLangAware
+          dcTitle: item.dcTitleLangAware ? item.dcTitleLangAware : `No title provided for record ID ${item.id}`,
           dcCreator: item.dcCreatorLangAware,
-          dcDescription: item.dcDescription, // dcDescriptionLangAware is never returned by API...
+          // TODO: enable when API returns dcDescriptionLangAware
+          // dcDescription: item.dcDescriptionLangAware,
           edmDataProvider: item.dataProvider[0]
         }
       };
