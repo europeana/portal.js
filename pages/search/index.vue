@@ -4,20 +4,6 @@
       <b-col><h1>Search</h1></b-col>
     </b-row>
     <b-row
-      v-if="error"
-      class="mb-3"
-    >
-      <b-col>
-        <b-alert
-          show
-          variant="dark"
-        >
-          <strong>Error:</strong> {{ error }}
-        </b-alert>
-      </b-col>
-    </b-row>
-    <b-row
-      v-else
       class="mb-5"
     >
       <b-col>
@@ -43,6 +29,19 @@
             />
           </b-button>
         </b-form>
+      </b-col>
+    </b-row>
+    <b-row
+      v-if="error"
+      class="mb-3"
+    >
+      <b-col>
+        <b-alert
+          show
+          variant="dark"
+        >
+          <strong>Error:</strong> {{ error }}
+        </b-alert>
       </b-col>
     </b-row>
     <b-row
@@ -161,7 +160,8 @@
             results: resultsFromApiResponse(response),
             totalResults: response.data.totalResults,
             query: query.query,
-            isLoading: false
+            isLoading: false,
+            error: null
           };
         })
         .catch((error) => {
@@ -169,7 +169,9 @@
             throw error;
           }
           return {
-            error: error.response.data.error
+            error: error.response.data.error,
+            query: '',
+            results: null
           };
         });
     },
