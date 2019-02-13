@@ -37,7 +37,7 @@
             type="submit"
           >
             Search
-            <Spinner
+            <LoadingSpinner
               v-show="isLoading"
               class="ml-2 mb-1"
             />
@@ -102,7 +102,7 @@
 </template>
 
 <script>
-  import Spinner from '~/components/Spinner.vue';
+  import LoadingSpinner from '~/components/LoadingSpinner.vue';
   import axios from 'axios';
 
   function genericThumbnail(edmType) {
@@ -133,7 +133,7 @@
 
   export default {
     components: {
-      Spinner
+      LoadingSpinner
     },
     data () {
       return {
