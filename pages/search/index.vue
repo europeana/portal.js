@@ -114,8 +114,6 @@
 <script>
   import LoadingSpinner from '~/components/LoadingSpinner.vue';
   import axios from 'axios';
-  // TODO: cherry-pick Lodash methods? or load from CDN?
-  import _ from 'lodash';
 
   function genericThumbnail(edmType) {
     return `https://api.europeana.eu/api/v2/thumbnail-by-url.json?size=w200&uri=&type=${edmType}`;
@@ -142,16 +140,38 @@
       return field;
     }
 
-    value = _.uniq(value);
+    value = [...new Set(value)]; // remove duplicates
     // Remove URIs, but only if other values exist
-    const withoutUris = _.reject(value, (s) => {
-      return _.startsWith(s, 'http://') || _.startsWith(s, 'https://');
+    const withoutUris = value.filter((element) => {
+      return !element.startsWith('http://') && !element.startsWith('https://');
     });
     if (withoutUris.length > 0) {
       value = withoutUris;
     }
 
     return value;
+  }
+
+  /**
+   * Construct fields to display for one search result
+   * @param {Object} item individual item returned by the API
+   * @return {Object} fields to display for this item
+   */
+  function fieldsForSearchResult(item) {
+    let fields = {
+      // TODO: fallback to description when API returns dcDescriptionLangAware
+      dcTitle: item.dcTitleLangAware ? display(item.dcTitleLangAware) : `No title provided for record ID ${item.id}`,
+      // TODO: enable when API returns dcDescriptionLangAware
+      // dcDescription: item.dcDescriptionLangAware,
+      edmDataProvider: item.dataProvider
+    };
+
+    const dcCreator = display(item.dcCreatorLangAware);
+    if (dcCreator) {
+      fields.dcCreator = dcCreator;
+    }
+
+    return fields;
   }
 
   /**
@@ -167,14 +187,7 @@
         europeanaId: item.id,
         edmPreview: item.edmPreview ? `${item.edmPreview[0]}&size=w200` : genericThumbnail(item.type),
         linkTo: `record${item.id}`,
-        fields: _.omitBy({
-          // TODO: fallback to description when API returns dcDescriptionLangAware
-          dcTitle: item.dcTitleLangAware ? display(item.dcTitleLangAware) : `No title provided for record ID ${item.id}`,
-          dcCreator: display(item.dcCreatorLangAware),
-          // TODO: enable when API returns dcDescriptionLangAware
-          // dcDescription: item.dcDescriptionLangAware,
-          edmDataProvider: item.dataProvider
-        }, _.isNil)
+        fields: fieldsForSearchResult(item)
       };
     });
 
