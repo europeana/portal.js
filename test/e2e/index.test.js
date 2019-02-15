@@ -1,8 +1,6 @@
 import test from 'ava';
 import nock from 'nock';
 import createNuxt from '../helpers/createNuxt.js';
-import fs from 'fs';
-import path from 'path';
 
 // We keep a reference to Nuxt so we can close
 // the server at the end of the test
@@ -11,8 +9,11 @@ let nuxt;
 // Init Nuxt.js and start listening on localhost:4000
 test.before('Init Nuxt.js', async () => {
   nuxt = await createNuxt();
+  return nuxt;
+});
 
-  const json = fs.readFileSync(path.resolve(__dirname, '../fixtures/contentful/homepage.json'), 'utf8');
+test.before('Mock Contentul API', async () => {
+  const json = require('../fixtures/contentful/homepage.json');
   nock('https://cdn.contentful.com')
     .get(/^\/spaces\//)
     .query(query => {
@@ -21,8 +22,6 @@ test.before('Init Nuxt.js', async () => {
       }
     })
     .reply(200, json);
-
-  return nuxt;
 });
 
 // Test output of page-level headline and text fields
