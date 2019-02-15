@@ -136,6 +136,8 @@
       value = field.en;
     } else if (field.def) {
       value = field.def;
+    } else if (Object.keys(field).length === 1) {
+      value = field[Object.keys(field)[0]];
     } else {
       return field;
     }
