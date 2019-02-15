@@ -26,6 +26,29 @@ $ npm run build-storybook
 
 For detailed explanation on how things work, checkout [Nuxt.js docs](https://nuxtjs.org).
 
+## Tests
+
+Tests run using [ava](https://github.com/avajs/ava).
+
+```bash
+npm test
+# or
+npm run test
+```
+Additionally you may want to:
+* Run only unit tests.
+```bash
+npm run test-unit
+```
+* Run only end-to-end tests.
+```bash
+npm run test-e2e
+```
+* Run a coverage report using [nyc](https://github.com/istanbuljs/nyc)
+```bash
+npm run cover
+```
+
 ## License
 
 Licensed under the EUPL V.1.1.
