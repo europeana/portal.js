@@ -63,8 +63,7 @@
 
 <script>
   import axios from 'axios';
-  // TODO: cherry-pick Lodash methods? or load from CDN?
-  import _ from 'lodash';
+  import omitBy from 'lodash/omitBy';
 
   function dataFromApiResponse(response) {
     const edm = response.data.object;
@@ -76,11 +75,13 @@
     const edmLanguage = europeanaAggregation.edmLanguage['def'][0];
 
     const webResources = providerAggregation.webResources.map(webResource => {
-      return _.omitBy({
+      return omitBy({
         rdfAbout: webResource.about,
         dcDescription: webResource.dcDescription,
         edmRights: webResource.webResourceEdmRights
-      }, _.isNil);
+      }, (v) => {
+        return v == null;
+      });
     });
 
     return {
@@ -89,7 +90,7 @@
         link: providerAggregation.edmIsShownAt,
         src: europeanaAggregation.edmPreview
       },
-      fields: _.omitBy({
+      fields: omitBy({
         dcContributor: providerProxy.dcContributor,
         dcCreator: providerProxy.dcCreator,
         dcDescription: providerProxy.dcDescription,
@@ -100,7 +101,9 @@
         edmDataProvider: providerAggregation.edmDataProvider,
         edmLanguage: edmLanguage,
         edmRights: providerAggregation.edmRights
-      }, _.isNil),
+      }, (v) => {
+        return v == null;
+      }),
       media: webResources
     };
   }

@@ -1,9 +1,10 @@
 import test from 'ava';
+import nock from 'nock';
 import createNuxt from '../helpers/createNuxt.js';
 
 // We keep a reference to Nuxt so we can close
 // the server at the end of the test
-let nuxt = null;
+let nuxt;
 
 // Init Nuxt.js and start listening on localhost:4000
 test.before('Init Nuxt.js', async () => {
@@ -11,18 +12,24 @@ test.before('Init Nuxt.js', async () => {
   return nuxt;
 });
 
-// Example of testing only generated html
+test.before('Mock Contentul API', async () => {
+  const json = require('../fixtures/contentful/homepage.json');
+  nock('https://cdn.contentful.com')
+    .get(/^\/spaces\//)
+    .query(query => {
+      if (query['fields.identifier'] === '/') {
+        return true;
+      }
+    })
+    .reply(200, json);
+});
+
+// Test output of page-level headline and text fields
 test('Route / exists and renders HTML', async t => {
   let context = {};
   const { html } = await nuxt.renderRoute('/', context);
-  t.true(html.includes('Transforming the world with culture'));
-});
-
-// Example of testing only generated html
-test('Route / with "what" param exists and renders HTML', async t => {
-  let context = {};
-  const { html } = await nuxt.renderRoute('/?what=hello%20world', context);
-  t.true(html.includes('Transforming the world with hello world'));
+  t.true(/<title[^>]*>Home<\/title>/.test(html));
+  t.true(html.includes('<p>We transform the world with culture!</p>'));
 });
 
 // Close the Nuxt server
