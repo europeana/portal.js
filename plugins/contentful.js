@@ -1,5 +1,3 @@
-// ./plugins/contentful.js
-
 const contentful = require('contentful');
 
 // These values will be set via env vars.

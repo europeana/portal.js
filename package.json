@@ -67,6 +67,7 @@
     "eslint-plugin-vue": "^5.1.0",
     "jsdom": "^13.2.0",
     "jsdom-global": "^3.0.2",
+    "nock": "^10.0.6",
     "node-sass": "^4.11.0",
     "nodemon": "^1.11.0",
     "nyc": "^13.1.0",

@@ -36,23 +36,34 @@
   import contentfulClient from '~/plugins/contentful.js';
 
   export default {
-    asyncData ({ params }) {
+    asyncData ({ params, error }) {
       // fetch the browsePage data, include set to 2 in order to get nested card data
       return contentfulClient.getEntries({
         'content_type': 'browsePage',
-        'fields.identifier': params.slug,
+        'fields.identifier': params.pathMatch == '' ? '/' : params.pathMatch,
         'include': 2,
         'limit': 1
       })
-        .then((entries) => {
+        .then((response) => {
+          if (response.total == 0) {
+            error({ statusCode: 404, message: 'Not Found' });
+            return;
+          }
           return {
-            page: entries.items[0].fields
+            page: response.items[0].fields
           };
+        })
+        .catch((e) => {
+          error({ statusCode: 500, message: e.toString() });
         });
-      // TODO: 404 if promise fails
     },
     components: {
       ContentCard
+    },
+    head () {
+      return {
+        title: this.page.headline
+      };
     }
   };
 </script>
