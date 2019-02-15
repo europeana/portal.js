@@ -1,3 +1,5 @@
+// TODO: refactor as mocha/chai spec once Vue CLI e2e plugin installed
+
 import test from 'ava';
 import nock from 'nock';
 import createNuxt from '../helpers/createNuxt.js';
