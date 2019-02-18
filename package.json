@@ -70,7 +70,7 @@
     "nock": "^10.0.6",
     "node-sass": "^4.11.0",
     "nodemon": "^1.11.0",
-    "nyc": "^13.1.0",
+    "nyc": "^13.3.0",
     "require-extension-hooks": "^0.3.3",
     "require-extension-hooks-babel": "^0.1.1",
     "require-extension-hooks-vue": "^2.0.0",
