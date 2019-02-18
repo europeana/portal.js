@@ -1,4 +1,7 @@
 pipeline {
+  options {
+    disableConcurrentBuilds()
+  }
   parameters {
     choice(name: 'CF_SPACE', choices: "test\nacceptance\nproduction\ninternal", description: 'Which CF space to deploy to.')
   }
