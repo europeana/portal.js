@@ -11,9 +11,27 @@ const factory = () => shallowMount(PageHeader, {
 });
 
 describe('PageHeader', () => {
-  it('contains a search form', () => {
+  it('contains a search form with a query field', () => {
     const wrapper = factory();
 
-    expect(wrapper.html()).to.contain('form');
+    const queryField =  wrapper.find('[data-qa="search query input"]');
+
+    expect(queryField.attributes().name).to.equal('query');
+  });
+
+  it('contains a search form submit button', () => {
+    const wrapper = factory();
+
+    const submitButton =  wrapper.find('[data-qa="search submit button"]');
+
+    expect(submitButton.attributes().type).to.equal('submit');
+  });
+
+  it('contains the logo', () => {
+    const wrapper = factory();
+
+    const logo = wrapper.find('img');
+
+    expect(logo.attributes().src).to.match(/.?\.svg/);
   });
 });

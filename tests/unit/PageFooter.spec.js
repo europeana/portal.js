@@ -8,7 +8,7 @@ describe('PageFooter', () => {
   it('it exists', () => {
     const wrapper = factory();
 
-    let footer = wrapper.find('footer');
+    const footer = wrapper.find('footer');
 
     expect(footer).to.exist;
   });

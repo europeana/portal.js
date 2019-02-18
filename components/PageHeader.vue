@@ -22,10 +22,12 @@
           class="mr-2 w-75"
           placeholder="What are you looking for?"
           name="query"
+          data-qa="search query input"
         />
         <b-button
           size="sm"
           type="submit"
+          data-qa="search submit button"
         >
           <img
             src="../assets/img/magnifier.svg"
