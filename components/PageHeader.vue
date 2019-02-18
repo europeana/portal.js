@@ -5,7 +5,7 @@
       class="col-md-4 p-0"
     >
       <img
-        src="~/assets/img/logo.svg"
+        src="../assets/img/logo.svg"
         alt="Europeana Collections logo"
         class="mb-2 mb-sm-0 mw-100"
       >
@@ -28,7 +28,7 @@
           type="submit"
         >
           <img
-            src="~/assets/img/magnifier.svg"
+            src="../assets/img/magnifier.svg"
             alt="Search"
           >
         </b-button>
