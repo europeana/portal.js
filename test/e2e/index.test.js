@@ -29,7 +29,6 @@ test('Route / exists and renders HTML', async t => {
   let context = {};
   const { html } = await nuxt.renderRoute('/', context);
   t.true(/<title[^>]*>Home<\/title>/.test(html));
-  t.true(html.includes('<p>We transform the world with culture!</p>'));
 });
 
 // Close the Nuxt server
