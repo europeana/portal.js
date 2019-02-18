@@ -1,3 +1,5 @@
+// TODO: assess need for this once Vue CLI e2e plugin installed
+
 import { Nuxt, Builder } from 'nuxt';
 import { resolve } from 'path';
 

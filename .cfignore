@@ -80,3 +80,6 @@ Dockerfile
 
 # Storybook
 storybook-static
+
+# Tests
+/tests
