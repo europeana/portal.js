@@ -30,8 +30,8 @@ describe('PageHeader', () => {
   it('contains the logo', () => {
     const wrapper = factory();
 
-    const logo = wrapper.find('img');
+    const logo = wrapper.find('[data-qa="header logo"]');
 
-    expect(logo.attributes().src).to.match(/.?\.svg/);
+    expect(logo.attributes().src).to.match(/\/logo\..*\.svg$/); // Wildcard for compiled asset hash.
   });
 });

@@ -8,6 +8,7 @@
         src="../assets/img/logo.svg"
         alt="Europeana Collections logo"
         class="mb-2 mb-sm-0 mw-100"
+        data-qa="header logo"
       >
     </b-navbar-brand>
     <b-navbar-nav class="ml-auto w-100 col-md-5 col-lg-4 p-0">
