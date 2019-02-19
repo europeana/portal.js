@@ -32,6 +32,6 @@ describe('PageHeader', () => {
 
     const logo = wrapper.find('[data-qa="header logo"]');
 
-    expect(logo.attributes().src).to.match(/\/logo\..*\.svg$/); // Wildcard for compiled asset hash.
+    expect(logo.attributes().src).to.match(/\/logo\..+\.svg$/); // Wildcard for compiled asset digest.
   });
 });
