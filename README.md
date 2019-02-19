@@ -26,6 +26,15 @@ $ npm run build-storybook
 
 For detailed explanation on how things work, checkout [Nuxt.js docs](https://nuxtjs.org).
 
+## Testing
+
+Run tests with:
+
+```bash
+$ npm test
+
+```
+
 ## License
 
 Licensed under the EUPL V.1.1.
