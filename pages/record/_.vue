@@ -3,12 +3,9 @@
     v-if="error"
     class="mb-3"
   >
-    <b-alert
-      show
-      variant="dark"
-    >
-      <strong>Error:</strong> {{ error }}
-    </b-alert>
+    <AlertMessage
+      :error="error"
+    />
   </b-container>
   <b-container v-else>
     <b-row>
@@ -20,42 +17,20 @@
         cols="12"
         md="4"
       >
-        <a :href="image.link">
-          <img
-            :src="image.src"
-            class="mw-100 mb-3"
-          >
-        </a>
+        <MediaImage :image="image" />
       </b-col>
       <b-col>
-        <div
-          v-for="(value, key) in fields"
-          :key="key"
-          class="border-bottom mb-3"
-        >
-          <div><strong>{{ key }}</strong></div>
-          <pre><code>{{ value }}</code></pre>
-        </div>
+        <MetaData
+          :fields="fields"
+        />
       </b-col>
     </b-row>
     <b-row class="mb-3">
       <b-col>
         <h2>Media</h2>
-        <b-list-group>
-          <b-list-group-item
-            v-for="webResource in media"
-            :key="webResource.rdfAbout"
-            class="mb-3"
-          >
-            <div
-              v-for="(value, key) in webResource"
-              :key="key"
-            >
-              <div><strong>{{ key }}</strong></div>
-              <pre><code>{{ value }}</code></pre>
-            </div>
-          </b-list-group-item>
-        </b-list-group>
+        <WebResources
+          :media="media"
+        />
       </b-col>
     </b-row>
   </b-container>
@@ -64,6 +39,9 @@
 <script>
   import axios from 'axios';
   import omitBy from 'lodash/omitBy';
+
+  import { AlertMessage } from '~/components/generic';
+  import { WebResources, MetaData, MediaImage } from '~/components/record';
 
   function dataFromApiResponse(response) {
     const edm = response.data.object;
@@ -122,6 +100,12 @@
             error: error.response.data.error
           };
         });
+    },
+    components: {
+      AlertMessage,
+      WebResources,
+      MetaData,
+      MediaImage
     },
     head () {
       return {

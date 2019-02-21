@@ -4,35 +4,16 @@
       <h1 class="title">
         {{ page.headline }}
       </h1>
-
       <p>{{ page.text }}</p>
-
-      <div
-        v-for="section in page.hasPart"
-        :key="section.sys.id"
-        class="banner"
-      >
-        <h2>{{ section.fields.headline }}</h2>
-        <p>{{ section.fields.text }}</p>
-
-        <b-card-group deck>
-          <ContentCard
-            v-for="card in section.fields.hasPart"
-            :key="card.sys.id"
-            :name="card.fields.name"
-            :description="card.fields.description"
-            :url="card.fields.url"
-            :image-url="card.fields.image.fields.file.url"
-            :image-title="card.fields.image.fields.title"
-          />
-        </b-card-group>
-      </div>
+      <ContentCardSection
+        :page="page"
+      />
     </div>
   </section>
 </template>
 
 <script>
-  import ContentCard from '~/components/ContentCard.vue';
+  import { ContentCardSection } from '~/components/browse';
   import contentfulClient from '~/plugins/contentful.js';
 
   export default {
@@ -58,7 +39,7 @@
         });
     },
     components: {
-      ContentCard
+      ContentCardSection
     },
     head () {
       return {
