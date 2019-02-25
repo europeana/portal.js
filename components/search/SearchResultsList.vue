@@ -15,7 +15,7 @@
 </template>
 
 <script>
-  import { SearchResult } from '~/components/search';
+  import SearchResult from './SearchResult';
 
   export default {
     components: {

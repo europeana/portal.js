@@ -1,6 +1,6 @@
 <template>
   <a
-    v-if="image"
+    v-if="image.link && image.src"
     :href="image.link"
   >
     <img
@@ -9,7 +9,7 @@
     >
   </a>
   <img
-    v-else
+    v-else-if="!image.link && image.src"
     :src="image.src"
     class="mw-100 mb-3"
   >

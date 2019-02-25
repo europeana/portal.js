@@ -6,15 +6,17 @@
       </h1>
       <p>{{ page.text }}</p>
       <ContentCardSection
-        :page="page"
+        v-for="section in page.hasPart"
+        :key="section.sys.id"
+        :section="section"
       />
     </div>
   </section>
 </template>
 
 <script>
-  import { ContentCardSection } from '~/components/browse';
-  import contentfulClient from '~/plugins/contentful.js';
+  import ContentCardSection from '../components/browse/ContentCardSection';
+  import contentfulClient from '../plugins/contentful.js';
 
   export default {
     asyncData ({ params, error }) {

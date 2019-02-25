@@ -40,8 +40,10 @@
   import axios from 'axios';
   import omitBy from 'lodash/omitBy';
 
-  import { AlertMessage } from '~/components/generic';
-  import { WebResources, MetaData, MediaImage } from '~/components/record';
+  import AlertMessage from '../../components/generic/AlertMessage';
+  import WebResources from '../../components/record/WebResources';
+  import MetaData from '../../components/record/MetaData';
+  import MediaImage from '../../components/record/MediaImage';
 
   function dataFromApiResponse(response) {
     const edm = response.data.object;

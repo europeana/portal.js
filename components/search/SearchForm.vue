@@ -24,7 +24,7 @@
 </template>
 
 <script>
-  import { LoadingSpinner } from '~/components/generic';
+  import LoadingSpinner from '../generic/LoadingSpinner';
 
   export default {
     components: {

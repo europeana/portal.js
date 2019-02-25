@@ -47,8 +47,9 @@
 <script>
   import axios from 'axios';
 
-  import { AlertMessage } from '~/components/generic';
-  import { SearchForm, SearchResultsList } from '~/components/search';
+  import AlertMessage from '../../components/generic/AlertMessage';
+  import SearchForm from '../../components/search/SearchForm';
+  import SearchResultsList from '../../components/search/SearchResultsList';
 
   function genericThumbnail(edmType) {
     return `https://api.europeana.eu/api/v2/thumbnail-by-url.json?size=w200&uri=&type=${edmType}`;
@@ -191,7 +192,6 @@
     },
     methods: {
       updateIsLoading (status) {
-        console.log('updateIsLoading', status);
         this.isLoading = status;
       }
     },
