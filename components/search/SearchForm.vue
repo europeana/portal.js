@@ -42,7 +42,7 @@
     },
     data () {
       return {
-        query: null
+        query: this.$route.query.query ? this.$route.query.query : null
       };
     },
     methods: {
