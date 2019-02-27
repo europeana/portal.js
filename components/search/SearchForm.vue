@@ -5,9 +5,8 @@
   >
     <b-form-input
       id="searchQuery"
-      v-model="query"
+      v-model="inputQuery"
       placeholder="What are you looking for?"
-      name="query"
       class="mr-2 w-75"
     />
     <b-button
@@ -40,10 +39,15 @@
         default: ''
       }
     },
-    data () {
-      return {
-        query: this.searchQuery
-      };
+    computed:{
+      inputQuery: {
+        get () {
+          return this.searchQuery;
+        },
+        set (value) {
+          this.query = value;
+        }
+      }
     },
     methods: {
       submitSearchForm () {
