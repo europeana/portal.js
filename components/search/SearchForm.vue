@@ -6,6 +6,7 @@
     <b-form-input
       id="searchQuery"
       v-model="query"
+      value="searchQuery"
       placeholder="What are you looking for?"
       name="query"
       class="mr-2 w-75"
@@ -34,11 +35,15 @@
       isLoading: {
         type: Boolean,
         default: false
+      },
+      searchQuery: {
+        type: String,
+        default: ''
       }
     },
     data () {
       return {
-        query: this.$route.query.query ? this.$route.query.query : null
+        query: this.searchQuery
       };
     },
     methods: {

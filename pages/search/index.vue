@@ -9,6 +9,7 @@
       <b-col>
         <SearchForm
           :is-loading="isLoading"
+          :search-query="query"
           @update="updateIsLoading"
         />
       </b-col>
