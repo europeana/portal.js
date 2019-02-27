@@ -30,7 +30,7 @@
     components: {
       LoadingSpinner
     },
-    props: {      
+    props: {
       isLoading: {
         type: Boolean,
         default: false
