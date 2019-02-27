@@ -30,11 +30,7 @@
     components: {
       LoadingSpinner
     },
-    props: {
-      fields: {
-        type: Object,
-        default: () => {}
-      },
+    props: {      
       isLoading: {
         type: Boolean,
         default: false
