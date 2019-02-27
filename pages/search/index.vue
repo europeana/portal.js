@@ -8,9 +8,9 @@
     >
       <b-col>
         <SearchForm
+          v-model="query"
           :is-loading="isLoading"
-          :search-query="query"
-          @update="updateIsLoading"
+          @submit:searchForm="submitSearchForm"
         />
       </b-col>
     </b-row>
@@ -192,8 +192,11 @@
       });
     },
     methods: {
-      updateIsLoading (status) {
-        this.isLoading = status;
+      submitSearchForm () {
+        if (this.$route.query.query !== this.query) {
+          this.isLoading = true;
+          this.$router.push({ name: 'search', query: { query: this.query || '' } });
+        }
       }
     },
     head () {

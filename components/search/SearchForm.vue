@@ -1,14 +1,15 @@
 <template>
   <b-form
     inline
-    @submit.prevent="submitSearchForm"
+    @submit.prevent="$emit('submit:searchForm')"
   >
     <b-form-input
-      id="searchQuery"
+      ref="query"
       v-model="query"
       placeholder="What are you looking for?"
       name="query"
       class="mr-2 w-75"
+      @input="$emit('input', $event)"
     />
     <b-button
       variant="primary"
@@ -35,22 +36,22 @@
         type: Boolean,
         default: false
       },
-      searchQuery: {
+      value: {
         type: String,
         default: ''
       }
     },
     data () {
       return {
-        query: this.searchQuery
+        query: this.value
       };
     },
-    methods: {
-      submitSearchForm () {
-        if (this.$route.query.query !== this.query) {
-          this.$emit('update', true);
+    watch: {
+      value: {
+        immediate: true,
+        handler(val) {
+          this.query = val;
         }
-        this.$router.push({ name: 'search', query: { query: this.query ? this.query : '' } });
       }
     }
   };
