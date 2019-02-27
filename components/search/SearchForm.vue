@@ -6,7 +6,6 @@
     <b-form-input
       id="searchQuery"
       v-model="query"
-      value="searchQuery"
       placeholder="What are you looking for?"
       name="query"
       class="mr-2 w-75"
