@@ -47,6 +47,12 @@ module.exports = {
       'rules': {
         'indent': 'off'
       }
+    },
+    {
+      'files': ['tests/unit/**/*.spec.js'],
+      'rules': {
+        'no-undef': 'off'
+      }
     }
   ]
 }
