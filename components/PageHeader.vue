@@ -1,5 +1,8 @@
 <template>
-  <b-navbar class="border-bottom pb-3 pt-sm-3 mb-3" data-qa="header">
+  <b-navbar
+    class="border-bottom pb-3 pt-sm-3 mb-3"
+    data-qa="header"
+  >
     <b-navbar-brand
       href="/"
       class="col-md-4 p-0"

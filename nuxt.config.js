@@ -60,6 +60,19 @@ module.exports = {
   ** Build configuration
   */
   build: {
+    stats: process.env.NODE_ENV === 'test' ? 'errors-only' : {
+      chunks: false,
+      children: false,
+      modules: false,
+      colors: true,
+      warnings: true,
+      errors: true,
+      excludeAssets: [
+        /.map$/,
+        /index\..+\.html$/,
+        /vue-ssr-client-manifest.json/
+      ]
+    },
     publicPath: process.env.NUXT_ENV_BUILD_PUBLIC_PATH,
     /*
     ** You can extend webpack config here

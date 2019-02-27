@@ -1,4 +1,3 @@
-console.log('loading steps.js');
 const { client } = require('nightwatch-api');
 const { Given, Then } = require('cucumber');
 

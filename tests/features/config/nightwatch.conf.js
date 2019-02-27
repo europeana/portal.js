@@ -4,7 +4,7 @@ module.exports = {
   test_settings: {
     default: {
       globals: {
-        url: 'http://localhost:3000'
+        url: 'http://localhost:1337',
       },
       webdriver: {
         start_process: true,
