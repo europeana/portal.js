@@ -13,7 +13,7 @@ setDefaultTimeout(60000);
 BeforeAll(async () => {
   console.log('Waiting for test server...');
   let i = 0;
-  while (!(await isReachable('127.0.0.1:1337')) && (i <= maxWaitTime) ) {
+  while (!(await isReachable(`${host}:${port}`)) && (i <= maxWaitTime) ) {
     i++;
     await sleep(1000);
   }
