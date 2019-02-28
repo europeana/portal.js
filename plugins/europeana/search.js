@@ -89,9 +89,6 @@ function resultsFromApiResponse(response) {
  * @return {{results: Object[], totalResults: number, error: string}} search results for display
  */
 function search(params) {
-  if (typeof params.query === 'undefined') {
-    return;
-  }
   return axios.get('https://api.europeana.eu/api/v2/search.json', {
     params: {
       profile: 'minimal',

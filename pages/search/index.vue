@@ -50,7 +50,7 @@
   import SearchForm from '../../components/search/SearchForm';
   import SearchResultsList from '../../components/search/SearchResultsList';
   import search from '../../plugins/europeana/search';
-  
+
   export default {
     components: {
       AlertMessage,
@@ -68,6 +68,9 @@
       };
     },
     asyncData ({ env, query }) {
+      if (typeof query.query === 'undefined') {
+        return;
+      }
       return search({
         query: query.query,
         wskey: env.EUROPEANA_API_KEY
