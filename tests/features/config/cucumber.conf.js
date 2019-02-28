@@ -6,7 +6,7 @@ const sleep = (milliseconds) => {
 }
 const host = process.env.HOST || '127.0.0.1';
 const port = process.env.PORT || 1337;
-const maxWaitTime = 30;
+const maxWaitTime = 50;
 
 setDefaultTimeout(60000);
 
