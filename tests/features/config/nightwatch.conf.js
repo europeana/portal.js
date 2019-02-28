@@ -1,24 +1,22 @@
+/* eslint-disable camelcase */
+
 const chromedriver = require('chromedriver');
+const geckodriver = require('geckodriver');
 
 module.exports = {
   test_settings: {
     default: {
       globals: {
-        url: 'http://localhost:1337',
+        url: 'http://localhost:1337'
       },
       webdriver: {
         start_process: true,
-        server_path: chromedriver.path,
         port: 4444,
-        cli_args: ['--port=4444']
+        cli_args: ['--port=4444', '--log', 'debug']
       },
       desiredCapabilities: {
-        browserName: 'chrome',
         javascriptEnabled: true,
-        acceptSslCerts: true,
-        chromeOptions: {
-          args: ['headless', 'disable-gpu']
-        }
+        acceptSslCerts: true
       }
     },
     chrome: {
@@ -27,11 +25,28 @@ module.exports = {
       },
       desiredCapabilities: {
         browserName: 'chrome',
-        javascriptEnabled: true,
-        acceptSslCerts: true,
         chromeOptions: {
           args: ['disable-gpu']
         }
+      }
+    },
+    chromeHeadless: {
+      webdriver: {
+        server_path: chromedriver.path
+      },
+      desiredCapabilities: {
+        browserName: 'chrome',
+        chromeOptions: {
+          args: ['disable-gpu', 'headless']
+        }
+      }
+    },
+    gecko: {
+      webdriver: {
+        server_path: geckodriver.path
+      },
+      desiredCapabilities: {
+        browserName: 'firefox'
       }
     }
   }
