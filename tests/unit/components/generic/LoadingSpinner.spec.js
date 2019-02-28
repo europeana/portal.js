@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
-import LoadingSpinner from '../../../components/generic/LoadingSpinner.vue';
+import LoadingSpinner from '../../../../components/generic/LoadingSpinner.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
