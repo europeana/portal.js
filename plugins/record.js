@@ -44,8 +44,8 @@ function parseRecordDataFromApiResponse(response) {
   };
 }
 
-function getRecord(path, key) {
-  return axios.get(`https://api.europeana.eu/api/v2/record/${path}.json?wskey=${key}`)
+function getRecord(params) {
+  return axios.get(`https://api.europeana.eu/api/v2/record/${params.path}.json?wskey=${params.key}`)
     .then((response) => {
       return parseRecordDataFromApiResponse(response);
     })

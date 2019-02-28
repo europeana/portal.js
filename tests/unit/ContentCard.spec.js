@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
-import ContentCard from '../../components/ContentCard.vue';
+import ContentCard from '../../components/generic/ContentCard.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
