@@ -4,7 +4,6 @@
     @submit.prevent="$emit('submit:searchForm')"
   >
     <b-form-input
-      ref="query"
       v-model="query"
       placeholder="What are you looking for?"
       name="query"
