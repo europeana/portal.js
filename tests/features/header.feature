@@ -4,10 +4,10 @@ Feature: Page Header
 
     Given I open the `home page`
     Then I see the `header`
-    And I see an `header logo`
-    And I see an `search box`
+    And I see the `header` `logo`
+    And I see the `header` `search box`
 
     Given I open the `search page`
     Then I see the `header`
-    And I see an `header logo`
-    And I see an `search box`
+    And I see the `header` `logo`
+    And I see the `header` `search box`

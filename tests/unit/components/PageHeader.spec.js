@@ -14,7 +14,7 @@ describe('PageHeader', () => {
   it('contains a search form with a query field', () => {
     const wrapper = factory();
 
-    const queryField =  wrapper.find('[data-qa="search query input"]');
+    const queryField =  wrapper.find('[data-qa="search box"]');
 
     expect(queryField.attributes().name).to.equal('query');
   });
@@ -22,7 +22,7 @@ describe('PageHeader', () => {
   it('contains a search form submit button', () => {
     const wrapper = factory();
 
-    const submitButton =  wrapper.find('[data-qa="search submit button"]');
+    const submitButton =  wrapper.find('[data-qa="search button"]');
 
     expect(submitButton.attributes().type).to.equal('submit');
   });
@@ -30,7 +30,7 @@ describe('PageHeader', () => {
   it('contains the logo', () => {
     const wrapper = factory();
 
-    const logo = wrapper.find('[data-qa="header logo"]');
+    const logo = wrapper.find('[data-qa="header"] [data-qa="logo"]');
 
     expect(logo.attributes().src).to.match(/\/logo\..+\.svg$/); // Wildcard for compiled asset digest.
   });

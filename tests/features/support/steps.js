@@ -1,5 +1,7 @@
 const { client } = require('nightwatch-api');
-const { Given, Then } = require('cucumber');
+const { defineStep } = require('cucumber')
+
+const { nestedSelector } = require('./nested-selector.js');
 
 const { url } = require('../config/nightwatch.conf.js').test_settings.default.globals;
 
@@ -8,27 +10,17 @@ const pages = {
   'search page': `${url}/search`
 };
 
-const elements = {
-  'search box': '[data-qa="search query input"]',
-  'submit button': '[data-qa="search submit button"]',
-  'header': '[data-qa="header"]',
-  'header logo': '[data-qa="header logo"]',
-  'title': 'h1.title', // replace with data-qa selector
-  'browse section': '[data-qa="browse section"]',
-  'browse card': '[data-qa="browse card"]'
-};
-
-Given(/^I open the `(.*?)`$/, pageName =>
+defineStep(/^I (?:browse|open|visit).*? `(.*?)`$/, pageName =>
   client.url(pages[pageName]));
 
-Then(/^I see.*? `(.*?)`.*?$/, elementName =>
-  client.expect.element(elements[elementName]).to.be.visible);
+defineStep(/^I (?:find|identify|see|spot).*? (`.*`).*?$/, selectorChain =>
+  client.expect.element(nestedSelector(selectorChain)).to.be.visible);
 
-Then(/^I don't see.*? `(.*?)`.*?$/, elementName =>
-  client.expect.element(elements[elementName]).to.not.be.visible);
+defineStep(/^I (?:can|don)'t (?:find|identify|see|spot).*? (`.*`).*?$/, selectorChain =>
+  client.expect.element(nestedSelector(selectorChain)).to.not.be.visible);
 
-Then(/^I enter.*? "(.*?)" into `(.*?)`$/, (value, elementName) =>
-  client.setValue(elements[elementName], value));
+defineStep(/^I (?:enter|input|supply|type).*? "(.*?)" in.*? (`.*`)$/, (value, selectorChain) =>
+  client.setValue(nestedSelector(selectorChain), value));
 
-Then(/^I click.*? `(.*?)`$/, elementName =>
-  client.click(elements[elementName]));
+defineStep(/^I (?:activate|click).*? (`.*`)$/, selectorChain =>
+  client.click(nestedSelector(selectorChain)));
