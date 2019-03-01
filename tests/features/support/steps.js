@@ -18,7 +18,6 @@ const elements = {
   'browse card': '[data-qa="browse card"]'
 };
 
-
 Given(/^I open the `(.*?)`$/, pageName =>
   client.url(pages[pageName]));
 
