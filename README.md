@@ -32,7 +32,6 @@ Run tests with:
 
 ```bash
 $ npm test
-
 ```
 
 ## License
