@@ -6,6 +6,7 @@
     img-top
     footer="Creator of this object"
     class="mb-4"
+    data-qa="content card"
   >
     <p class="card-text">
       {{ description }}
