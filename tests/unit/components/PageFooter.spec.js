@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { shallowMount } from '@vue/test-utils';
-import PageFooter from '../../components/PageFooter.vue';
+import PageFooter from '../../../components/PageFooter.vue';
 
 const factory = () => shallowMount(PageFooter);
 
