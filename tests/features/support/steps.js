@@ -19,7 +19,14 @@ const elements = {
 };
 
 Given(/^I open the `(.*?)`$/, pageName => {
-  console.log(client.sessionId);
+  console.log('sessionId: ' + client.sessionId);
+  client.sessions((result) => {
+    console.log('sessions:');
+    console.log(result.value);
+  });
+  console.log('options: ');
+  console.log(client.options);
+  console.log('status: ' + client.status());
   client.url(pages[pageName]);
 });
 
