@@ -18,9 +18,8 @@ const elements = {
   'browse card': '[data-qa="browse card"]'
 };
 
-Given(/^I open the `(.*?)`$/, pageName => {
-  client.url(pages[pageName]);
-});
+Given(/^I open the `(.*?)`$/, pageName =>
+  client.url(pages[pageName]));
 
 Then(/^I see.*? `(.*?)`.*?$/, elementName =>
   client.expect.element(elements[elementName]).to.be.visible);
