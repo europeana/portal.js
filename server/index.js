@@ -42,7 +42,7 @@ async function start() {
     await builder.build();
   }
 
-  if (!(process.env.NODE_ENV === 'test')) {
+  if (process.env.NODE_ENV !== 'test') {
     // Use morgan for request logging
     app.use(morgan('combined'));
   }
