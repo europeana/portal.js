@@ -7,10 +7,8 @@ import omitBy from 'lodash/omitBy';
  * @return {Object} v parsed data
  */
 function parseRecordDataFromApiResponse(response) {
-
-  console.log('parseRecordDataFromApiResponse', response);
-
   const edm = response.data.object;
+
   const providerAggregation = edm.aggregations[0];
   const europeanaAggregation = edm.europeanaAggregation;
   const providerProxy = edm.proxies.find((proxy) => {
@@ -57,7 +55,6 @@ function parseRecordDataFromApiResponse(response) {
  * @return {Object} parsed record data
  */
 function getRecord(params) {
-  console.log('getRecord', params);
   return axios.get(`https://api.europeana.eu/api/v2/record/${params.path}.json?wskey=${params.key}`)
     .then((response) => {
       return {

@@ -5,12 +5,12 @@ const axios = require('axios');
 axios.defaults.adapter = require('axios/lib/adapters/http');
 
 const apiUrl = 'https://api.europeana.eu';
-const apiEndpoint = '/api/v2/record/2024904/photography_ProvidedCHO_TopFoto_co_uk_EU017407.json';
+const apiEndpoint = '/api/v2/record/test/thisisatest.json';
 const apiKey = 'abcdef';
+const path = 'test/thisisatest';
 
 describe('plugins/europeana/record', () => {
   describe('getRecord()', () => {
-    it('gets the record data');
 
     describe('when trying to request an unknown record', () => {
       const errorMessage = 'Invalid record identifier';
@@ -26,7 +26,7 @@ describe('plugins/europeana/record', () => {
 
       it('returns API error message', () => {
         const response = getRecord({
-          path: '2024904/photography_ProvidedCHO_TopFoto_co_uk_EU017407',
+          path: path,
           key: apiKey
         });
         return response.should.eventually.have.property('error', errorMessage);
@@ -34,25 +34,26 @@ describe('plugins/europeana/record', () => {
     });
 
     describe('when trying to request a record', () => {
-
       const apiResponse = {
         success: true,
-        result: { record:
-          { image:
-            { link: 'https://alink.eu',
-              src: 'https://animage.eu' },
-          fields:
-            { dcCreator: [Object],
-              dcDescription: [Object],
-              dcTitle: [Object],
-              dcType: [Object],
-              dctermsCreated: [Object],
-              edmCountry: [Object],
-              edmDataProvider: [Object],
-              edmLanguage: 'en',
-              edmRights: [Object] },
-          media: [ [Object], [Object] ] },
-        error: null }
+        object: {
+          aggregations: [{
+            edmIsShownAt: 'https://thisisalink.eu',
+            webResources: [{
+              about: 'https://thisistheabout.eu',
+              dcDescription: 'This is a description',
+              webResourceEdmRights: 'These are the rights'
+            }]
+          }],
+          europeanaAggregation: {
+            edmLanguage: { def: [ 'en' ] },
+            edmRights: { def: [ 'http://rightsstatements.org/vocab/InC/1.0/' ] },
+            edmPreview: 'https://thisisapreview.eu'
+          },
+          proxies: [{
+            europeanaProxy: false
+          }]
+        }
       };
 
       beforeEach('stub API response', () => {
@@ -64,14 +65,11 @@ describe('plugins/europeana/record', () => {
 
       it('returns record data', () => {
         const response = getRecord({
-          path: '2024904/photography_ProvidedCHO_TopFoto_co_uk_EU017407',
+          path: path,
           key: apiKey
         });
-        console.log(apiResponse.record);
         return response.should.eventually.have.property('record');
       });
-
     });
-
   });
 });
