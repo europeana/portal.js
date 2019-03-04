@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 import ContentCard from '../../../../components/generic/ContentCard.vue';
@@ -15,6 +14,6 @@ describe('ContentCard', () => {
     const wrapper = factory();
 
     const link = wrapper.find('.card-link');
-    expect(link.text()).to.include('Read more');
+    link.text().should.include('Read more');
   });
 });
