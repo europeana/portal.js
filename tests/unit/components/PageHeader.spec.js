@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 import PageHeader from '../../../components/PageHeader.vue';
@@ -16,7 +15,7 @@ describe('PageHeader', () => {
 
     const queryField =  wrapper.find('[data-qa="search query input"]');
 
-    expect(queryField.attributes().name).to.equal('query');
+    queryField.attributes().name.should.equal('query');
   });
 
   it('contains a search form submit button', () => {
@@ -24,7 +23,7 @@ describe('PageHeader', () => {
 
     const submitButton =  wrapper.find('[data-qa="search submit button"]');
 
-    expect(submitButton.attributes().type).to.equal('submit');
+    submitButton.attributes().type.should.equal('submit');
   });
 
   it('contains the logo', () => {
@@ -32,6 +31,6 @@ describe('PageHeader', () => {
 
     const logo = wrapper.find('[data-qa="header logo"]');
 
-    expect(logo.attributes().src).to.match(/\/logo\..+\.svg$/); // Wildcard for compiled asset digest.
+    logo.attributes().src.should.match(/\/logo\..+\.svg$/); // Wildcard for compiled asset digest.
   });
 });

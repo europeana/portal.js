@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { shallowMount } from '@vue/test-utils';
 import PageFooter from '../../../components/PageFooter.vue';
 
@@ -10,6 +9,6 @@ describe('PageFooter', () => {
 
     const footer = wrapper.find('footer');
 
-    expect(footer).to.exist;
+    footer.should.exist;
   });
 });
