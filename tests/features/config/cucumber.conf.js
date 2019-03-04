@@ -12,7 +12,7 @@ const maxWaitTime = 50;
 
 setDefaultTimeout(60000);
 
-// Before runing cucumber make sure the test server and webdriver are running.
+// Before running cucumber make sure the test server and webdriver are running.
 // The test server is started by the test script in package.json.
 // The web driver is started in this before block.
 BeforeAll(async () => {
