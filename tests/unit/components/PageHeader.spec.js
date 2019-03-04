@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
-import PageHeader from '../../components/PageHeader.vue';
+import PageHeader from '../../../components/PageHeader.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
