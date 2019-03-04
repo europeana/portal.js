@@ -1,5 +1,8 @@
 <template>
-  <b-navbar class="border-bottom pb-3 pt-sm-3 mb-3">
+  <b-navbar
+    class="border-bottom pb-3 pt-sm-3 mb-3"
+    data-qa="header"
+  >
     <b-navbar-brand
       href="/"
       class="col-md-4 p-0"
@@ -8,7 +11,7 @@
         src="../assets/img/logo.svg"
         alt="Europeana Collections logo"
         class="mb-2 mb-sm-0 mw-100"
-        data-qa="header logo"
+        data-qa="logo"
       >
     </b-navbar-brand>
     <b-navbar-nav class="ml-auto w-100 col-md-5 col-lg-4 p-0">
@@ -23,12 +26,12 @@
           class="mr-2 w-75"
           placeholder="What are you looking for?"
           name="query"
-          data-qa="search query input"
+          data-qa="search box"
         />
         <b-button
           size="sm"
           type="submit"
-          data-qa="search submit button"
+          data-qa="search button"
         >
           <img
             src="../assets/img/magnifier.svg"

@@ -1,6 +1,7 @@
 <template>
   <div
     class="banner"
+    data-qa="browse section"
   >
     <h2>{{ section.fields.headline }}</h2>
     <p>{{ section.fields.text }}</p>

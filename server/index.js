@@ -42,8 +42,10 @@ async function start() {
     await builder.build();
   }
 
-  // Use morgan for request logging
-  app.use(morgan('combined'));
+  if (process.env.NODE_ENV !== 'test') {
+    // Use morgan for request logging
+    app.use(morgan('combined'));
+  }
 
   // Give nuxt middleware to express
   app.use(nuxt.render);
