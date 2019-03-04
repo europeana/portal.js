@@ -1,5 +1,5 @@
 const { client } = require('nightwatch-api');
-const { defineStep } = require('cucumber')
+const { defineStep } = require('cucumber');
 
 const { nestedSelector } = require('./nested-selector.js');
 

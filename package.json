@@ -40,8 +40,9 @@
     "test:chrome:headless": "cross-env browser=chromeHeadless npm run test:cucumber",
     "test:gecko": "cross-env browser=gecko npm run test:cucumber",
     "test:cucumber": "cucumber-js tests/features/**/*.feature --require tests/features/config/cucumber.conf.js --require tests/features --format node_modules/cucumber-pretty",
-    "test:e2e": "concurrently 'npm run build:test && npm run start:test' 'npm run test:chrome && npm run test:gecko' --success first --kill-others",
-    "test:e2e:ci": "concurrently 'npm run build:test && npm run start:test' 'npm run test:chrome:headless' --success first --kill-others"
+    "test:e2e": "concurrently 'npm run build:test && npm run start:test' 'npm run test:chrome && npm run test:gecko && npm run test:a11y' --success first --kill-others",
+    "test:e2e:ci": "concurrently 'npm run build:test && npm run start:test' 'npm run test:chrome:headless && npm run test:a11y' --success first --kill-others",
+    "test:a11y": "node tests/a11y/a11y.test.js"
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.0.0",
@@ -53,6 +54,7 @@
     "express": "^4.16.3",
     "lodash": "^4.17.11",
     "morgan": "^1.9.1",
+    "nightwatch-accessibility": "^1.8.0",
     "nuxt": "^2.4.2",
     "vcap_services": "^0.6.0",
     "vue": "^2.6.2",
@@ -68,7 +70,6 @@
     "@vue/cli-plugin-unit-mocha": "^3.4.0",
     "@vue/cli-service": "^3.4.0",
     "@vue/test-utils": "^1.0.0-beta.29",
-    "axe-core": "^3.1.2",
     "babel-eslint": "^10.0.1",
     "babel-loader": "^8.0.4",
     "babel-preset-vue": "^2.0.2",
