@@ -1,3 +1,6 @@
+// Nested selectors taken from:
+// https://markus.oberlehner.net/blog/acceptance-testing-with-nightwatch-and-cucumber-smart-step-definitions/
+
 const prefixRegEx = /` in.*? (`.*`)/;
 
 function parseSelectorChain(selectorChain) {

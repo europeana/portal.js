@@ -1,3 +1,6 @@
+// Basic navigation and identification steps taken from:
+// https://markus.oberlehner.net/blog/acceptance-testing-with-nightwatch-and-cucumber-setup/
+
 const { client } = require('nightwatch-api');
 const { defineStep } = require('cucumber')
 
