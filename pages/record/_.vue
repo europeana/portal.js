@@ -42,22 +42,32 @@
   import MetaData from '../../components/record/MetaData';
   import MediaImage from '../../components/record/MediaImage';
 
-  import getRecord from '../../plugins/record';
+  import getRecord from '../../plugins/europeana/record';
 
   export default {
-    asyncData ({ env, params }) {
-      return getRecord({
-        path: params.pathMatch,
-        key: env.EUROPEANA_API_KEY
-      }).then((record) => {
-        return { image: record.image, error: null, fields: record.fields, media: record.media };
-      });
-    },
     components: {
       AlertMessage,
       WebResources,
       MetaData,
       MediaImage
+    },
+    data () {
+      return {
+        error: null,
+        record: null
+      };
+    },
+    asyncData ({ env, params }) {
+      return getRecord({
+        path: params.pathMatch,
+        key: env.EUROPEANA_API_KEY
+      }).then((result) => {
+        if (result.record === null) {
+          return { image: null, error: result.error, fields: null, media: null };
+        } else {
+          return { image: result.record.image, error: null, fields: result.record.fields, media: result.record.media };
+        }
+      });
     },
     head () {
       return {

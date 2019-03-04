@@ -1,7 +1,15 @@
 import axios from 'axios';
 import omitBy from 'lodash/omitBy';
 
+/**
+ * Parse the record data based on the data from the API response
+ * @param {Object} response data from API response
+ * @return {Object} v parsed data
+ */
 function parseRecordDataFromApiResponse(response) {
+
+  console.log('parseRecordDataFromApiResponse', response);
+
   const edm = response.data.object;
   const providerAggregation = edm.aggregations[0];
   const europeanaAggregation = edm.europeanaAggregation;
@@ -21,7 +29,6 @@ function parseRecordDataFromApiResponse(response) {
   });
 
   return {
-    error: null,
     image: {
       link: providerAggregation.edmIsShownAt,
       src: europeanaAggregation.edmPreview
@@ -44,17 +51,27 @@ function parseRecordDataFromApiResponse(response) {
   };
 }
 
+/**
+ * Get the record data from the API
+ * @param {Object} params parameters used to get the requested record
+ * @return {Object} parsed record data
+ */
 function getRecord(params) {
+  console.log('getRecord', params);
   return axios.get(`https://api.europeana.eu/api/v2/record/${params.path}.json?wskey=${params.key}`)
     .then((response) => {
-      return parseRecordDataFromApiResponse(response);
+      return {
+        record: parseRecordDataFromApiResponse(response),
+        error: null
+      };
     })
     .catch((error) => {
       if (typeof error.response === 'undefined') {
         throw error;
       }
       return {
-        error: error.response.data.error
+        error: error.response.data.error,
+        record: null
       };
     });
 }
