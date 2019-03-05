@@ -9,7 +9,7 @@ const factory = () => shallowMount(MediaImage, {
   localVue
 });
 
-describe('components/search/MediaImage', () => {
+describe('components/record/MediaImage', () => {
   describe('when both src and link are present', () => {
     it('shows linked image', () => {
       const wrapper = factory();

@@ -4,6 +4,7 @@
       v-for="(value, key) in fields"
       :key="key"
       class="border-bottom mb-3"
+      data-qa="field"
     >
       <div><strong>{{ key }}</strong></div>
       <pre><code>{{ value }}</code></pre>
