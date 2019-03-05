@@ -66,7 +66,9 @@
         return { image: result.record.image, fields: result.record.fields, media: result.record.media };
       })
         .catch((err) => {
-          res.statusCode = err.message.startsWith('Invalid record identifier: ') ? 404 : 500;
+          if (typeof res !== 'undefined') {
+            res.statusCode = err.message.startsWith('Invalid record identifier: ') ? 404 : 500;
+          }
           return { error: err.message };
         });
     },
