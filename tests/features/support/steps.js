@@ -2,7 +2,7 @@
 // https://markus.oberlehner.net/blog/acceptance-testing-with-nightwatch-and-cucumber-setup/
 
 const { client } = require('nightwatch-api');
-const { defineStep } = require('cucumber')
+const { defineStep } = require('cucumber');
 
 const { nestedSelector } = require('./nested-selector.js');
 
