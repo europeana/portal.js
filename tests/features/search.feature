@@ -12,6 +12,7 @@ Feature: Search
     Given I visit a `search page`
     When I enter "no results for GIBBERISHABCDEFGHIJKLMONP" in the `search box`
     And I click the `search button`
+    And I wait 2 seconds
     Then I don't see a `search result`
 
   Scenario: Search with invalid query syntax
@@ -19,6 +20,7 @@ Feature: Search
     Given I visit a `search page`
     When I enter "*:*:*" in the `search box`
     And I click the `search button`
+    And I wait 2 seconds
     Then I don't see a `search result`
     And I see an `error notice`
 
@@ -27,6 +29,8 @@ Feature: Search
     Given I visit a `search page`
     When I enter "paris" in the `search box`
     And I click the `search button`
+    And I wait 2 seconds
     And I see a `search result`
     And I click a `search result`
+    And I wait 2 seconds
     Then I see a `record page`

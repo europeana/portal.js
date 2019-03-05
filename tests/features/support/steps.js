@@ -13,6 +13,8 @@ const pages = {
   'search page': `${url}/search`
 };
 
+function wait(ms) { return new Promise((res) => setTimeout(res, ms)); }
+
 defineStep(/^I (?:browse|open|visit).*? `(.*?)`$/, pageName =>
   client.url(pages[pageName]));
 
@@ -27,3 +29,6 @@ defineStep(/^I (?:enter|fill|input|supply|type).*? "(.*?)" in.*? (`.*`)$/, (valu
 
 defineStep(/^I (?:activate|click).*? (`.*`)$/, selectorChain =>
   client.click(nestedSelector(selectorChain)));
+
+defineStep(/^I wait (.*) seconds?$/, seconds =>
+  wait(seconds*1000));
