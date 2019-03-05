@@ -1,18 +1,13 @@
-import { createLocalVue, shallowMount } from '@vue/test-utils';
-import BootstrapVue from 'bootstrap-vue';
+import { shallowMount } from '@vue/test-utils';
 import LoadingSpinner from '../../../../components/generic/LoadingSpinner.vue';
 
-const localVue = createLocalVue();
-localVue.use(BootstrapVue);
-
-const factory = () => shallowMount(LoadingSpinner, {
-  localVue
-});
+const factory = () => shallowMount(LoadingSpinner);
 
 describe('LoadingSpinner', () => {
-  it('is for the status', () => {
+  it('exists', () => {
     const wrapper = factory();
 
-    wrapper.html().should.contain('role="status"');
+    const spinner =  wrapper.find('[data-qa="loading spinner"]');
+    spinner.attributes().class.should.contain('spinner-border');
   });
 });

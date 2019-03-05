@@ -2,6 +2,7 @@
   <b-alert
     show
     variant="dark"
+    data-qa="alert message"
   >
     <strong>Error:</strong> {{ error }}
   </b-alert>
