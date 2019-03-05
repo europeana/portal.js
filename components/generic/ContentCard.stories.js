@@ -40,7 +40,7 @@ storiesOf('Generic', module)
             },
             {
               sys: {
-                id: '123456'
+                id: '6789'
               },
               fields: {
                 name: 'Kanutas Ruseckas. Mitologinė pastoralinė scena. XIX a. | Kanutas Ruseckas',
@@ -56,7 +56,7 @@ storiesOf('Generic', module)
             },
             {
               sys: {
-                id: '123456'
+                id: '98765'
               },
               fields: {
                 name: 'Jonas Mackevičius. Anykščių bažnyčia. XX a. I p. | Jonas Mackevičius',
@@ -72,7 +72,7 @@ storiesOf('Generic', module)
             },
             {
               sys: {
-                id: '123456'
+                id: '43210'
               },
               fields: {
                 name: 'Juozapas Kamarauskas. Vilniaus muitinės pastatas. 1920 | Juozapas Kamarauskas',
