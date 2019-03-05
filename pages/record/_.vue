@@ -57,9 +57,9 @@
         record: null
       };
     },
-    asyncData ({ env, params }) {
+    asyncData ({ env, params, error }) {
       return getRecord({
-        path: params.pathMatch,
+        europeanaId: '/' + params.pathMatch,
         key: env.EUROPEANA_API_KEY
       }).then((result) => {
         if (result.record === null) {
@@ -67,7 +67,10 @@
         } else {
           return { image: result.record.image, error: null, fields: result.record.fields, media: result.record.media };
         }
-      });
+      })
+        .catch(() => {
+          error({ statusCode: 404, message: 'Record not found' });
+        });
     },
     head () {
       return {

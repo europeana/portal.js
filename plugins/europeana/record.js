@@ -4,7 +4,7 @@ import omitBy from 'lodash/omitBy';
 /**
  * Parse the record data based on the data from the API response
  * @param {Object} response data from API response
- * @return {Object} v parsed data
+ * @return {Object} parsed data
  */
 function parseRecordDataFromApiResponse(response) {
   const edm = response.data.object;
@@ -55,7 +55,7 @@ function parseRecordDataFromApiResponse(response) {
  * @return {Object} parsed record data
  */
 function getRecord(params) {
-  return axios.get(`https://api.europeana.eu/api/v2/record/${params.path}.json?wskey=${params.key}`)
+  return axios.get(`https://api.europeana.eu/api/v2/record${params.europeanaId}.json?wskey=${params.key}`)
     .then((response) => {
       return {
         record: parseRecordDataFromApiResponse(response),

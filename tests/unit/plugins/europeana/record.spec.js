@@ -7,7 +7,7 @@ axios.defaults.adapter = require('axios/lib/adapters/http');
 const apiUrl = 'https://api.europeana.eu';
 const apiEndpoint = '/api/v2/record/test/thisisatest.json';
 const apiKey = 'abcdef';
-const path = 'test/thisisatest';
+const path = '/test/thisisatest';
 
 describe('plugins/europeana/record', () => {
   describe('getRecord()', () => {
@@ -18,15 +18,15 @@ describe('plugins/europeana/record', () => {
         nock(apiUrl)
           .get(apiEndpoint)
           .query(true)
-          .reply(400, {
-            record: null,
+          .reply(404, {
+            success: false,
             error: errorMessage
           });
       });
 
       it('returns API error message', () => {
         const response = getRecord({
-          path: path,
+          europeanaId: path,
           key: apiKey
         });
         return response.should.eventually.have.property('error', errorMessage);
@@ -38,20 +38,38 @@ describe('plugins/europeana/record', () => {
         success: true,
         object: {
           aggregations: [{
-            edmIsShownAt: 'https://thisisalink.eu',
+            edmIsShownAt: 'https://example.org',
             webResources: [{
-              about: 'https://thisistheabout.eu',
-              dcDescription: 'This is a description',
-              webResourceEdmRights: 'These are the rights'
+              about: 'https://example.org',
+              dcDescription: {
+                'en': [
+                  'This is an example'
+                ]
+              },
+              webResourceEdmRights: {
+                'def': [
+                  'https://example.org'
+                ]
+              }
             }]
           }],
           europeanaAggregation: {
             edmLanguage: { def: [ 'en' ] },
-            edmRights: { def: [ 'http://rightsstatements.org/vocab/InC/1.0/' ] },
-            edmPreview: 'https://thisisapreview.eu'
+            edmRights: { def: [ 'https://example.org' ] },
+            edmPreview: 'https://example.org'
           },
           proxies: [{
-            europeanaProxy: false
+            europeanaProxy: false,
+            dcTitle: {
+              'en': [
+                'This is a title'
+              ]
+            },
+            dcDescription: {
+              'en': [
+                'This is a description'
+              ]
+            }
           }]
         }
       };
@@ -65,7 +83,7 @@ describe('plugins/europeana/record', () => {
 
       it('returns record data', () => {
         const response = getRecord({
-          path: path,
+          europeanaId: path,
           key: apiKey
         });
         return response.should.eventually.have.property('record');
