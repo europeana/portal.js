@@ -4,14 +4,14 @@ Feature: Search
 
     Given I visit a `search page`
     And I enter "paris" in the `search box`
-    And I click `search button`
+    And I click the `search button`
     Then I see a `result`
 
   Scenario: Search non existing Europeana content
 
     Given I visit a `search page`
     And I enter "no results for GIBBERISHABCDEFGHIJKLMONP" in the `search box`
-    And I click `search button`
+    And I click the `search button`
     Then I don't see a `result`
 
   Scenario: Search with invalid query syntax
