@@ -1,5 +1,8 @@
 <template>
-  <b-media no-body>
+  <b-media
+    no-body
+    data-qa="result"
+  >
     <b-media-aside class="w-25 mr-3">
       <b-img
         v-if="result.edmPreview"
