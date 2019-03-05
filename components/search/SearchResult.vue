@@ -1,7 +1,7 @@
 <template>
   <b-media
+    v-if="result"
     no-body
-    data-qa="result"
   >
     <b-media-aside class="w-25 mr-3">
       <b-img
@@ -9,13 +9,14 @@
         slot="aside"
         :src="result.edmPreview"
         class="mw-100"
+        data-qa="thumbnail edmPreview"
       />
     </b-media-aside>
     <b-media-body>
       <div
         v-for="(value, key) in result.fields"
         :key="key"
-        :class="key"
+        :data-qa="'field ' + key"
       >
         <pre v-if="!Array.isArray(value)">
           <code>{{ value }}</code>
