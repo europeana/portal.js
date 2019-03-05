@@ -51,11 +51,15 @@ function parseRecordDataFromApiResponse(response) {
 
 /**
  * Get the record data from the API
- * @param {Object} params parameters used to get the requested record
+ * @param {string} europeanaId ID of Europeana record
+ * @param {Object} params additional parameters sent to the API
+ * @param {string} params.wskey API key
  * @return {Object} parsed record data
  */
-function getRecord(params) {
-  return axios.get(`https://api.europeana.eu/api/v2/record${params.europeanaId}.json?wskey=${params.key}`)
+function getRecord(europeanaId, params) {
+  return axios.get(`https://api.europeana.eu/api/v2/record${europeanaId}.json`, {
+    params: params
+  })
     .then((response) => {
       return {
         record: parseRecordDataFromApiResponse(response),
@@ -63,13 +67,8 @@ function getRecord(params) {
       };
     })
     .catch((error) => {
-      if (typeof error.response === 'undefined') {
-        throw error;
-      }
-      return {
-        error: error.response.data.error,
-        record: null
-      };
+      const message = error.response ? error.response.data.error : error.message;
+      throw new Error(message);
     });
 }
 

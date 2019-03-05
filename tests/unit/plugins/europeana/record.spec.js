@@ -4,16 +4,17 @@ import getRecord from '../../../../plugins/europeana/record';
 const axios = require('axios');
 axios.defaults.adapter = require('axios/lib/adapters/http');
 
+const europeanaId = '/123/abc';
 const apiUrl = 'https://api.europeana.eu';
-const apiEndpoint = '/api/v2/record/test/thisisatest.json';
+const apiEndpoint = `/api/v2/record${europeanaId}.json`;
 const apiKey = 'abcdef';
-const path = '/test/thisisatest';
 
 describe('plugins/europeana/record', () => {
   describe('getRecord()', () => {
 
     describe('when trying to request an unknown record', () => {
-      const errorMessage = 'Invalid record identifier';
+      const errorMessage = `Invalid record identifier: ${europeanaId}`;
+
       beforeEach('stub API response', () => {
         nock(apiUrl)
           .get(apiEndpoint)
@@ -24,12 +25,10 @@ describe('plugins/europeana/record', () => {
           });
       });
 
-      it('returns API error message', () => {
-        const response = getRecord({
-          europeanaId: path,
-          key: apiKey
-        });
-        return response.should.eventually.have.property('error', errorMessage);
+      it('throws API error message', () => {
+        const response = getRecord(europeanaId, { wskey: apiKey });
+
+        return response.should.be.rejectedWith(errorMessage);
       });
     });
 
@@ -82,10 +81,8 @@ describe('plugins/europeana/record', () => {
       });
 
       it('returns record data', () => {
-        const response = getRecord({
-          europeanaId: path,
-          key: apiKey
-        });
+        const response = getRecord(europeanaId, { wskey: apiKey });
+
         return response.should.eventually.have.property('record');
       });
     });

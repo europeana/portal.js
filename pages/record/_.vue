@@ -54,22 +54,20 @@
     data () {
       return {
         error: null,
-        record: null
+        image: null,
+        fields: null,
+        media: null
       };
     },
-    asyncData ({ env, params, error }) {
-      return getRecord({
-        europeanaId: '/' + params.pathMatch,
-        key: env.EUROPEANA_API_KEY
+    asyncData ({ env, params, res }) {
+      return getRecord(`/${params.pathMatch}`, {
+        wskey: env.EUROPEANA_API_KEY
       }).then((result) => {
-        if (result.record === null) {
-          return { image: null, error: result.error, fields: null, media: null };
-        } else {
-          return { image: result.record.image, error: null, fields: result.record.fields, media: result.record.media };
-        }
+        return { image: result.record.image, fields: result.record.fields, media: result.record.media };
       })
-        .catch(() => {
-          error({ statusCode: 404, message: 'Record not found' });
+        .catch((err) => {
+          res.statusCode = err.message.startsWith('Invalid record identifier: ') ? 404 : 500;
+          return { error: err.message };
         });
     },
     head () {
