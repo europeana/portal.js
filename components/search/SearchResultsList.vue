@@ -8,6 +8,7 @@
       :key="result.europeanaId"
       :href="result.linkTo"
       class="flex-column align-items-start mb-3"
+      data-qa="search result"
     >
       <SearchResult :result="result" />
     </b-list-group-item>

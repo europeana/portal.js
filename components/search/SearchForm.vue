@@ -1,6 +1,7 @@
 <template>
   <b-form
     inline
+    data-qa="search form"
     @submit.prevent="$emit('submit:searchForm')"
   >
     <b-form-input
@@ -8,11 +9,13 @@
       placeholder="What are you looking for?"
       name="query"
       class="mr-2 w-75"
+      data-qa="search box"
       @input="$emit('input', $event)"
     />
     <b-button
       variant="primary"
       type="submit"
+      data-qa="search button"
     >
       Search
       <LoadingSpinner
