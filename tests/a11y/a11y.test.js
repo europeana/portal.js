@@ -49,7 +49,7 @@ async function run() {
     await setup();
     await run();
   } catch (err) {
-    console.log('Error'+err.stack);
+    console.log(err.stack);
   } finally {
     await shutdown();
   }
