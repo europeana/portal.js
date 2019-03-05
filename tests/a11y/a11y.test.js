@@ -5,14 +5,10 @@ const { url } = require('./nightwatch.conf.js').test_settings.default.globals;
 
 const axeOptions = {
   //verbose: true,
-  reporter: 'v1',
-  rules: {
-    'color-contrast': { enabled: false },
-    'label': { enabled: false },
-    'list': { enabled: false },
-    'heading-order': { enabled: false },
-    'link-name': { enabled: false },
-    'image-alt': {enabled: false }
+  reporter: 'v2',
+  runOnly: {
+    type: 'tag',
+    values: ['wcag2aa']
   }
 };
 
@@ -32,24 +28,20 @@ async function shutdown() {
 async function run() {
   console.log('Home page');
   await client.url(`${url}/`)
-    .pause(1000)
     .initAccessibility()
-    .assert.accessibility('body',axeOptions);
+    .assert.accessibility('body', axeOptions);
   console.log('Search page');
   await client.url(`${url}/search`)
-    .pause(1000)
     .initAccessibility()
-    .assert.accessibility('body',axeOptions);
+    .assert.accessibility('body', axeOptions);
   console.log('Search results page');
-  await client.url(`${url}/search&query=`)
-    .pause(1000)
+  await client.url(`${url}/search?query=`)
     .initAccessibility()
-    .assert.accessibility('body',axeOptions);
+    .assert.accessibility('body', axeOptions);
   console.log('Record page');
   await client.url(`${url}/record/2021802/1_1074991`)
-    .pause(1000)
     .initAccessibility()
-    .assert.accessibility('body',axeOptions);
+    .assert.accessibility('body', axeOptions);
 }
 
 (async function() {
@@ -57,9 +49,8 @@ async function run() {
     await setup();
     await run();
   } catch (err) {
-    console.log(err.stack);
+    console.log('Error'+err.stack);
   } finally {
     await shutdown();
   }
 })();
-

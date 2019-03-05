@@ -80,11 +80,11 @@
     padding-bottom: 15px;
   }
 
-  .banner{
+  .banner {
     text-align: center;
   }
 
-  .banner ul{
+  .banner ul {
     margin: auto;
   }
 </style>
