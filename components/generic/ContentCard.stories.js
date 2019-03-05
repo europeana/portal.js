@@ -4,7 +4,7 @@ import ContentCard from './ContentCard.vue';
 import ContentCardSection from '../browse/ContentCardSection.vue';
 
 storiesOf('Generic', module)
-  .add('Contentcard', () => ({
+  .add('Content card', () => ({
     components: { ContentCard },
     template: `<b-col cols="3" class="mt-3">
     	<ContentCard 
@@ -14,7 +14,7 @@ storiesOf('Generic', module)
       />
     </b-col>`
   }))
-  .add('Section with contentcards', () => ({
+  .add('Section with content cards', () => ({
     components: { ContentCardSection },
     data() {
       return {

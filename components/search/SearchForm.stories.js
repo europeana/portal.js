@@ -3,7 +3,7 @@ import { storiesOf } from '@storybook/vue';
 import SearchForm from './SearchForm.vue';
 
 storiesOf('Search page', module)
-  .add('SearchForm', () => ({
+  .add('Search form', () => ({
     components: { SearchForm },
     template: ` <b-container
       class="mt-3"
@@ -11,7 +11,7 @@ storiesOf('Search page', module)
         <SearchForm />
       </b-container>`
   }))
-  .add('SearchForm loading', () => ({
+  .add('Search form loading', () => ({
     components: { SearchForm },
     template: ` <b-container
       class="mt-3"

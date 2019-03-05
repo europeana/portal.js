@@ -3,7 +3,7 @@ import { storiesOf } from '@storybook/vue';
 import WebResources from './WebResources.vue';
 
 storiesOf('Record page', module)
-  .add('WebResources', () => ({
+  .add('Web resources', () => ({
     components: { WebResources },
     data() {
       return { media: [
