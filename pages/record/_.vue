@@ -23,7 +23,7 @@
         />
       </b-col>
       <b-col>
-        <MetaData
+        <Metadata
           :fields="fields"
         />
       </b-col>
@@ -42,7 +42,7 @@
 <script>
   import AlertMessage from '../../components/generic/AlertMessage';
   import WebResources from '../../components/record/WebResources';
-  import MetaData from '../../components/record/MetaData';
+  import Metadata from '../../components/record/Metadata';
   import MediaImage from '../../components/record/MediaImage';
 
   import getRecord from '../../plugins/europeana/record';
@@ -51,7 +51,7 @@
     components: {
       AlertMessage,
       WebResources,
-      MetaData,
+      Metadata,
       MediaImage
     },
     data () {
