@@ -15,7 +15,7 @@ describe('components/search/SearchResult', () => {
       const wrapper = factory();
 
       wrapper.setProps({ result: { edmPreview: 'https://www.example.org/thumbnail.jpg' } });
-      const image =  wrapper.find('img[data-qa="edmPreview"]');
+      const image =  wrapper.find('img[data-qa~="edmPreview"]');
 
       image.attributes().src.should.eq('https://www.example.org/thumbnail.jpg');
     });
@@ -27,7 +27,7 @@ describe('components/search/SearchResult', () => {
 
       wrapper.setProps({ result: { fields: { dcSpatial: { fr: ['Paris'] } } } });
 
-      const code =  wrapper.find('[data-qa="dcSpatial"] pre code');
+      const code =  wrapper.find('[data-qa~="dcSpatial"] pre code');
       code.text().should.match(/{\s+"fr": \[\s+"Paris"\s+\]\s+}/);
     });
 
@@ -36,7 +36,7 @@ describe('components/search/SearchResult', () => {
 
       wrapper.setProps({ result: { fields: { dcSpatial: ['Paris'] } } });
 
-      const field =  wrapper.find('[data-qa="dcSpatial"]');
+      const field =  wrapper.find('[data-qa~="dcSpatial"]');
       field.text().should.eq('Paris');
     });
 
@@ -45,7 +45,7 @@ describe('components/search/SearchResult', () => {
 
       wrapper.setProps({ result: { fields: { dcSpatial: ['Paris', 'London'] } } });
 
-      const fields = wrapper.findAll('[data-qa="dcSpatial"] ul li');
+      const fields = wrapper.findAll('[data-qa~="dcSpatial"] ul li');
       fields.at(0).text().should.eq('Paris');
       fields.at(1).text().should.eq('London');
     });
