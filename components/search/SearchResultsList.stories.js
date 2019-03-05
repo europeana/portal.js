@@ -33,9 +33,9 @@ storiesOf('Search page', module)
         {
           edmPreview: 'img/portrait.jpg',
           fields: {
-            dcTitle: [
-              'Juozapas Kamarauskas. Vilnelė. 1908 | Juozapas Kamarauskas'
-            ],
+            dcTitle: {
+              'fr': ['Paris']
+            },
             dcDescription: [
               'Popierius, akvarelė, h/pl. - 32,5x48,8 cm'
             ]
