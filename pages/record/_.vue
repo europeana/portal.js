@@ -17,7 +17,10 @@
         cols="12"
         md="4"
       >
-        <MediaImage :image="image" />
+        <MediaImage
+          :link="image.link"
+          :src="image.src"
+        />
       </b-col>
       <b-col>
         <MetaData
