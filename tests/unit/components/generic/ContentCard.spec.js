@@ -1,4 +1,4 @@
-import { createLocalVue, shallowMount } from '@vue/test-utils';
+import { createLocalVue, shallowMount, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 import ContentCard from '../../../../components/generic/ContentCard.vue';
 
@@ -27,11 +27,16 @@ describe('components/generic/ContentCard', () => {
   });
 
   it('has an image', () => {
+    const factory = () => mount(ContentCard, {
+      localVue
+    });
+
     const wrapper = factory();
     wrapper.setProps({ imageUrl: 'https://example.org' });
 
     const card =  wrapper.find('[data-qa="content card"]');
-    card.attributes().imgsrc.should.eq('https://example.org');
+
+    card.find('img').attributes('src').should.eq('https://example.org');
   });
 
   it('has an alt', () => {
