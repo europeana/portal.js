@@ -5,16 +5,24 @@ const { client } = require('nightwatch-api');
 const { defineStep } = require('cucumber');
 
 const { nestedSelector } = require('./nested-selector.js');
+const { europeanaId } = require('./europeana-identifiers.js');
+
 
 const { url } = require('../config/nightwatch.conf.js').test_settings.default.globals;
 
 const pages = {
   'home page': `${url}/`,
-  'search page': `${url}/search`
+  'search page': `${url}/search`,
+  'record page': `${url}/record${europeanaId()}`
 };
 
-defineStep(/^I (?:browse|open|visit).*? `(.*?)`$/, pageName =>
-  client.url(pages[pageName]));
+defineStep(/^I (?:browse|open|visit).*? `(.*?)`$/, pageName => {
+  if (pageName.startsWith('/')) {
+    client.url( `${url}${pageName}`);
+  } else {
+    client.url(pages[pageName]);
+  }
+});
 
 defineStep(/^I (?:find|identify|see|spot).*? (`.*`).*?$/, selectorChain =>
   client.expect.element(nestedSelector(selectorChain)).to.be.visible);

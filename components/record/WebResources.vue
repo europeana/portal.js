@@ -3,7 +3,7 @@
     <b-list-group-item
       v-for="webResource in media"
       :key="webResource.rdfAbout"
-      :data-qa="'webResource ' + webResource.rdfAbout"
+      :data-qa="'web resource webResource ' + webResource.rdfAbout"
       class="mb-3"
     >
       <div
