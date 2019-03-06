@@ -1,13 +1,7 @@
-import { createLocalVue, shallowMount } from '@vue/test-utils';
-import BootstrapVue from 'bootstrap-vue';
+import { shallowMount } from '@vue/test-utils';
 import MediaImage from '../../../../components/record/MediaImage.vue';
 
-const localVue = createLocalVue();
-localVue.use(BootstrapVue);
-
-const factory = () => shallowMount(MediaImage, {
-  localVue
-});
+const factory = () => shallowMount(MediaImage);
 
 describe('components/record/MediaImage', () => {
   describe('when both src and link are present', () => {
@@ -40,9 +34,6 @@ describe('components/record/MediaImage', () => {
   describe('when neither src nor link are present', () => {
     it('does not show an image', () => {
       const wrapper = factory();
-      const props = { };
-
-      wrapper.setProps(props);
 
       wrapper.contains('a').should.be.false;
       wrapper.contains('img').should.be.false;

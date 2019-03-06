@@ -1,13 +1,7 @@
-import { createLocalVue, shallowMount } from '@vue/test-utils';
-import BootstrapVue from 'bootstrap-vue';
+import { shallowMount } from '@vue/test-utils';
 import Metadata from '../../../../components/record/Metadata.vue';
 
-const localVue = createLocalVue();
-localVue.use(BootstrapVue);
-
-const factory = () => shallowMount(Metadata, {
-  localVue
-});
+const factory = () => shallowMount(Metadata);
 
 describe('components/record/Metadata', () => {
   describe('each property of `fields`', () => {
