@@ -1,16 +1,16 @@
 <template>
   <a
-    v-if="image.link && image.src"
-    :href="image.link"
+    v-if="link && src"
+    :href="link"
   >
     <img
-      :src="image.src"
+      :src="src"
       class="mw-100 mb-3"
     >
   </a>
   <img
-    v-else-if="!image.link && image.src"
-    :src="image.src"
+    v-else-if="!link && src"
+    :src="src"
     class="mw-100 mb-3"
   >
 </template>
@@ -18,9 +18,13 @@
 <script>
   export default {
     props: {
-      image: {
-        type: Object,
-        default: () => {}
+      link: {
+        type: String,
+        default: ''
+      },
+      src: {
+        type: String,
+        default: ''
       }
     }
   };

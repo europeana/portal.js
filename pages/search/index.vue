@@ -67,7 +67,7 @@
         query: null
       };
     },
-    asyncData ({ env, query }) {
+    asyncData ({ env, query, res }) {
       if (typeof query.query === 'undefined') {
         return;
       }
@@ -76,7 +76,13 @@
         wskey: env.EUROPEANA_API_KEY
       })
         .then((results) => {
-          return { ...results, isLoading: false, query: query.query };
+          return { ...results, query: query.query };
+        })
+        .catch((err) => {
+          if (typeof res !== 'undefined') {
+            res.statusCode = err.message.startsWith('Invalid query') ? 400 : 500;
+          }
+          return { results: null, error: err.message, query: query.query };
         });
     },
     mounted () {
