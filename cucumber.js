@@ -1,4 +1,4 @@
-// ~/cucumber.js
+// Setup for cucumber environments.
 
 module.exports = {
   'default': '--require tests/features/config/cucumber.conf.js --require tests/features --format node_modules/cucumber-pretty',
