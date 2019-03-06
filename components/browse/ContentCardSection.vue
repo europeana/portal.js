@@ -1,12 +1,23 @@
 <template>
   <div
+    v-if="section"
     class="banner"
     data-qa="browse section"
   >
-    <h2 data-qa="section headline">{{ section.fields.headline }}</h2>
-    <p>{{ section.fields.text }}</p>
+    <h2
+      v-if="section.fields"
+      data-qa="section headline"
+    >
+      {{ section.fields.headline }}
+    </h2>
+    <p
+      v-if="section.fields"
+    >
+      {{ section.fields.text }}
+    </p>
 
     <b-card-group
+      v-if="section.fields"
       deck
       data-qa="section group"
     >
