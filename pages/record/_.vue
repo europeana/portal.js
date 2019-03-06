@@ -7,7 +7,10 @@
       :error="error"
     />
   </b-container>
-  <b-container v-else>
+  <b-container
+    v-else
+    data-qa="record page"
+  >
     <b-row>
       <b-col><h1>Record</h1></b-col>
     </b-row>
