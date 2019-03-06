@@ -29,7 +29,8 @@ describe('plugins/europeana/search', () => {
 
       it('returns API error message', () => {
         const response = search({ query: 'NOT ', wskey: apiKey });
-        return response.should.eventually.have.property('error', errorMessage);
+
+        return response.should.be.rejectedWith(errorMessage);
       });
     });
 
@@ -51,6 +52,7 @@ describe('plugins/europeana/search', () => {
 
       it('maps the query to *:*', () => {
         const response = search({ query: '', wskey: apiKey });
+
         return response.should.eventually.have.property('totalResults', 123456);
       });
     });

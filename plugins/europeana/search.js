@@ -105,14 +105,8 @@ function search(params) {
       };
     })
     .catch((error) => {
-      if (typeof error.response === 'undefined') {
-        throw error;
-      }
-      return {
-        error: error.response.data.error,
-        results: null,
-        totalResults: null
-      };
+      const message = error.response ? error.response.data.error : error.message;
+      throw new Error(message);
     });
 }
 

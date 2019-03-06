@@ -14,7 +14,7 @@ describe('components/generic/AlertMessage', () => {
     const wrapper = factory();
     wrapper.setProps({ error: 'No results' });
 
-    const message =  wrapper.find('[data-qa="alert message"]');
+    const message =  wrapper.find('[data-qa="error notice"]');
     message.text().should.contain('No results');
   });
 });
