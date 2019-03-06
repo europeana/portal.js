@@ -9,7 +9,7 @@ const factory = () => shallowMount(AlertMessage, {
   localVue
 });
 
-describe('AlertMessage', () => {
+describe('components/generic/AlertMessage', () => {
   it('show an error message', () => {
     const wrapper = factory();
     wrapper.setProps({ error: 'No results' });

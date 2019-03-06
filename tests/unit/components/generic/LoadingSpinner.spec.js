@@ -3,7 +3,7 @@ import LoadingSpinner from '../../../../components/generic/LoadingSpinner.vue';
 
 const factory = () => shallowMount(LoadingSpinner);
 
-describe('LoadingSpinner', () => {
+describe('components/generic/LoadingSpinner', () => {
   it('exists', () => {
     const wrapper = factory();
 

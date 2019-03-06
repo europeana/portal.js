@@ -9,7 +9,7 @@ const factory = () => shallowMount(ContentCard, {
   localVue
 });
 
-describe('ContentCard', () => {
+describe('components/generic/ContentCard', () => {
   it('includes a description', () => {
     const wrapper = factory();
     wrapper.setProps({ description: 'The Milkmaid by Vermeer' });
