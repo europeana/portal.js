@@ -1,7 +1,7 @@
 <template>
   <b-form
-    inline
     :class="{'justify-content-center justify-content-sm-end' : inHeader}"
+    inline
     data-qa="search form"
     @submit.prevent="$emit('submit:searchForm')"
   >
