@@ -1,23 +1,17 @@
 <template>
   <div
-    v-if="section"
+    v-if="section && section.fields"
     class="banner"
     data-qa="browse section"
   >
-    <h2
-      v-if="section.fields"
-      data-qa="section headline"
-    >
+    <h2 data-qa="section headline">
       {{ section.fields.headline }}
     </h2>
-    <p
-      v-if="section.fields"
-    >
+    <p>
       {{ section.fields.text }}
     </p>
 
     <b-card-group
-      v-if="section.fields"
       deck
       data-qa="section group"
     >
