@@ -12,6 +12,7 @@
           :is-loading="isLoading"
           @submit:searchForm="submitSearchForm"
         />
+        {{ facet }}
       </b-col>
     </b-row>
     <b-row
@@ -38,9 +39,14 @@
       class="mb-3"
     >
       <b-col>
-        <SearchFacets />
+        <SearchFacets
+          @changed="selectFacet"
+        />
       </b-col>
-      <b-col cols="10">
+      <b-col
+        cols="12"
+        lg="9"
+      >
         <template v-if="results !== null">
           <SearchResultsList :results="results" />
         </template>
@@ -70,7 +76,8 @@
         isLoading: false,
         results: null,
         totalResults: null,
-        query: null
+        query: null,
+        facet: null
       };
     },
     asyncData ({ env, query, res }) {
@@ -107,6 +114,9 @@
           this.isLoading = true;
           this.$router.push({ name: 'search', query: { query: this.query || '' } });
         }
+      },
+      selectFacet (selected) {
+        this.facet = selected;
       }
     },
     head () {
