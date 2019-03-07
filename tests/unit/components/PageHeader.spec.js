@@ -9,28 +9,18 @@ const factory = () => shallowMount(PageHeader, {
   localVue
 });
 
-describe('PageHeader', () => {
-  it('contains a search form with a query field', () => {
+describe('components/search/PageHeader', () => {
+  it('contains a search form', () => {
     const wrapper = factory();
+    const form =  wrapper.find('[data-qa="search form header"]');
 
-    const queryField =  wrapper.find('[data-qa="search box"]');
-
-    queryField.attributes().name.should.equal('query');
-  });
-
-  it('contains a search form submit button', () => {
-    const wrapper = factory();
-
-    const submitButton =  wrapper.find('[data-qa="search button"]');
-
-    submitButton.attributes().type.should.equal('submit');
+    form.exists().should.eq(true);
   });
 
   it('contains the logo', () => {
     const wrapper = factory();
 
-    const logo = wrapper.find('[data-qa="header"] [data-qa="logo"]');
-
-    logo.attributes().src.should.match(/\/logo\..+\.svg$/); // Wildcard for compiled asset digest.
+    const logo = wrapper.find('[data-qa="logo"]');
+    logo.attributes().src.should.match(/\/logo\..+\.svg$/);
   });
 });

@@ -10,6 +10,7 @@
         <SearchForm
           v-model="query"
           :is-loading="isLoading"
+          :in-header="inHeader"
           @submit:searchForm="submitSearchForm"
         />
       </b-col>
@@ -62,6 +63,7 @@
         error: null,
         errorNoResults: 'No results',
         isLoading: false,
+        isHeader: false,
         results: null,
         totalResults: null,
         query: null
