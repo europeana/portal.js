@@ -53,7 +53,6 @@ describe('plugins/europeana/record', () => {
             }]
           }],
           europeanaAggregation: {
-            edmLanguage: { def: [ 'en' ] },
             edmRights: { def: [ 'https://example.org' ] },
             edmPreview: 'https://example.org'
           },

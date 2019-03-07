@@ -14,7 +14,6 @@ function parseRecordDataFromApiResponse(response) {
   const providerProxy = edm.proxies.find((proxy) => {
     return proxy.europeanaProxy === false;
   });
-  const edmLanguage = europeanaAggregation.edmLanguage['def'][0];
 
   const webResources = providerAggregation.webResources.map(webResource => {
     return omitBy({
@@ -40,7 +39,6 @@ function parseRecordDataFromApiResponse(response) {
       dctermsCreated: providerProxy.dctermsCreated,
       edmCountry: europeanaAggregation.edmCountry,
       edmDataProvider: providerAggregation.edmDataProvider,
-      edmLanguage: edmLanguage,
       edmRights: providerAggregation.edmRights
     }, (v) => {
       return v == null;
