@@ -14,7 +14,7 @@ describe('components/search/PageHeader', () => {
     const wrapper = factory();
     const form =  wrapper.find('[data-qa="search form"]');
 
-    form.exists().should.eq(true);
+    form.should.exist;
   });
 
   it('contains the logo', () => {
