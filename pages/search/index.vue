@@ -63,7 +63,7 @@
         error: null,
         errorNoResults: 'No results',
         isLoading: false,
-        isHeader: false,
+        inHeader: false,
         results: null,
         totalResults: null,
         query: null
