@@ -35,11 +35,15 @@
       </b-col>
     </b-row>
     <b-row
-      v-if="results !== null"
       class="mb-3"
     >
       <b-col>
-        <SearchResultsList :results="results" />
+        <SearchFacets />
+      </b-col>
+      <b-col cols="10">
+        <template v-if="results !== null">
+          <SearchResultsList :results="results" />
+        </template>
       </b-col>
     </b-row>
   </b-container>
@@ -48,6 +52,7 @@
 <script>
   import AlertMessage from '../../components/generic/AlertMessage';
   import SearchForm from '../../components/search/SearchForm';
+  import SearchFacets from '../../components/search/SearchFacets';
   import SearchResultsList from '../../components/search/SearchResultsList';
   import search from '../../plugins/europeana/search';
 
@@ -55,6 +60,7 @@
     components: {
       AlertMessage,
       SearchForm,
+      SearchFacets,
       SearchResultsList
     },
     data () {
