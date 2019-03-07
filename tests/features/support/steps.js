@@ -18,7 +18,7 @@ const pages = {
 
 defineStep(/^I (?:browse|open|visit).*? `(.*?)`$/, pageName => {
   if (pageName.startsWith('/')) {
-    client.url( `${url}${pageName}`);
+    client.url(`${url}${pageName}`);
   } else {
     client.url(pages[pageName]);
   }

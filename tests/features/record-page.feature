@@ -4,9 +4,9 @@ Feature: Record page
 
     When I open a `record page`
     Then I see the `record page`
-    And I see a `record page` `field`
-    And I see a `record page` `web resource`
-    And I see a `record page` `web resource` `field`
+    And I see a metadata `field`
+    And I see a `web resource`
+    And I see a a metadata `field` in the `web resource`
 
   Scenario: Attempting to view a record page which doesn't exist
 
