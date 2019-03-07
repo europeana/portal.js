@@ -8,6 +8,6 @@ describe('components/search/PageFooter', () => {
     const wrapper = factory();
 
     const footer = wrapper.find('footer');
-    footer.exists().should.eq(true);
+    footer.should.exist;
   });
 });

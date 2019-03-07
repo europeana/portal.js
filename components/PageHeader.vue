@@ -17,9 +17,8 @@
     <b-navbar-nav class="ml-auto w-100 col-md-5 col-lg-4 p-0">
       <SearchForm
         v-model="query"
+        class="justify-content-center justify-content-sm-end"
         :is-loading="isLoading"
-        :in-header="inHeader"
-        data-qa="search form header"
         @submit:searchForm="submitSearchForm"
       />
     </b-navbar-nav>
@@ -36,8 +35,7 @@
     data () {
       return {
         query: null,
-        isLoading: false,
-        inHeader: true
+        isLoading: false
       };
     },
     methods: {

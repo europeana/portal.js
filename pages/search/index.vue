@@ -10,7 +10,6 @@
         <SearchForm
           v-model="query"
           :is-loading="isLoading"
-          :in-header="inHeader"
           @submit:searchForm="submitSearchForm"
         />
       </b-col>
