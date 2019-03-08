@@ -12,9 +12,9 @@ describe('components/record/Metadata', () => {
       wrapper.setProps(props);
 
       const fields = wrapper.findAll('[data-qa~="field"]');
-      fields.at(0).find('div strong').text().should.eq('dcTitle');
+      fields.at(0).find('div strong').text().should.eq('Title');
       fields.at(0).find('pre code').text().should.eq(JSON.stringify(props.fields.dcTitle, null, 2));
-      fields.at(1).find('div strong').text().should.eq('dcCreator');
+      fields.at(1).find('div strong').text().should.eq('Creators');
       fields.at(1).find('pre code').text().should.eq(JSON.stringify(props.fields.dcCreator, null, 2));
     });
   });

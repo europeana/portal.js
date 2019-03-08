@@ -1,5 +1,5 @@
 import nock from 'nock';
-import getRecord from '../../../../plugins/europeana/record';
+import getRecord, { fieldLabel } from '../../../../plugins/europeana/record';
 
 const axios = require('axios');
 axios.defaults.adapter = require('axios/lib/adapters/http');
@@ -85,5 +85,66 @@ describe('plugins/europeana/record', () => {
         return response.should.eventually.have.property('record');
       });
     });
+  });
+
+  describe('fieldLabel()', () => {
+    const availableFields = [
+      'dcTitle',
+      'dcType',
+      'edmCountry',
+      'dctermsCreated',
+      'edmDataProvider',
+      'edmRights',
+      'dcContributor',
+      'dcCreator',
+      'dcDescription'
+    ];
+
+    describe('looking up an available key', () => {
+      let key;
+      for (key in availableFields) {
+        describe(`for ${availableFields[key]}'`, () => {
+          it('looks up the label from the fieldLabels object', () => {
+            return fieldLabel(availableFields[key]).should.not.eq(availableFields[key]);
+          });
+        });
+      }
+    });
+
+    describe('looking up a non available key', () => {
+      describe('for rdfAbout', () => {
+        it('retruns the key as is', () => {
+          return fieldLabel('rdfAbout').should.eq('rdfAbout');
+        });
+      });
+    });
+
+    // Specific value tests.
+    describe('for dcTitle', () => {
+      it('looks up the label from the fieldLabels object', () => {
+        return fieldLabel('dcTitle').should.eq('Title');
+      });
+    });
+    describe('for dcType', () => {
+      it('looks up the label from the fieldLabels object', () => {
+        return fieldLabel('dcType').should.eq('Type of object');
+      });
+    });
+    describe('for edmDataProvider', () => {
+      it('looks up the label from the fieldLabels object', () => {
+        return fieldLabel('edmDataProvider').should.eq('Providing institution');
+      });
+    });
+    describe('for edmRights', () => {
+      it('looks up the label from the fieldLabels object', () => {
+        return fieldLabel('edmRights').should.eq('License of the media in this record (unless otherwise specified)');
+      });
+    });
+    describe('for dcDescription', () => {
+      it('looks up the label from the fieldLabels object', () => {
+        return fieldLabel('dcDescription').should.eq('Description');
+      });
+    });
+
   });
 });

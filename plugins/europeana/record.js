@@ -1,6 +1,27 @@
 import axios from 'axios';
 import omitBy from 'lodash/omitBy';
 
+const fieldLabels = {
+  dcContributor: 'Contributors',
+  dcCreator: 'Creators',
+  dcDescription: 'Description',
+  dcTitle: 'Title',
+  dcType: 'Type of object',
+  dctermsCreated: 'Creation date',
+  edmCountry: 'Providing country',
+  edmDataProvider: 'Providing institution',
+  edmRights: 'License of the media in this record (unless otherwise specified)'
+};
+
+/**
+ * Lookup the label for the provided metadata field key
+ * @key {String} key for metadata field
+ * @return {String} value to display, if not found returns the original key
+ */
+export function fieldLabel(key) {
+  return fieldLabels.hasOwnProperty(key) ? fieldLabels[key] : key;
+}
+
 /**
  * Parse the record data based on the data from the API response
  * @param {Object} response data from API response
