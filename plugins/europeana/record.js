@@ -15,8 +15,8 @@ const fieldLabels = {
 
 /**
  * Lookup the label for the provided metadata field key
- * @key {String} key for metadata field
- * @return {String} value to display, if not found returns the original key
+ * @param {string} key for metadata field
+ * @return {string} value to display, if not found returns the original key
  */
 export function fieldLabel(key) {
   return fieldLabels.hasOwnProperty(key) ? fieldLabels[key] : key;

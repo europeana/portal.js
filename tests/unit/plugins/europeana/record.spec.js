@@ -101,11 +101,10 @@ describe('plugins/europeana/record', () => {
     ];
 
     describe('looking up an available key', () => {
-      let key;
-      for (key in availableFields) {
-        describe(`for ${availableFields[key]}'`, () => {
+      for (let key of availableFields) {
+        describe(`for ${key}'`, () => {
           it('looks up the label from the fieldLabels object', () => {
-            return fieldLabel(availableFields[key]).should.not.eq(availableFields[key]);
+            return fieldLabel(key).should.not.eq(key);
           });
         });
       }
@@ -113,7 +112,7 @@ describe('plugins/europeana/record', () => {
 
     describe('looking up a non available key', () => {
       describe('for rdfAbout', () => {
-        it('retruns the key as is', () => {
+        it('returns the key as is', () => {
           return fieldLabel('rdfAbout').should.eq('rdfAbout');
         });
       });
