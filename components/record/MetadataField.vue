@@ -1,7 +1,7 @@
 <template>
   <div
-    data-qa="metadata field"
     :data-field-name="name"
+    data-qa="metadata field"
   >
     <div data-qa="metadata field name">
       <strong>{{ name }}</strong>
