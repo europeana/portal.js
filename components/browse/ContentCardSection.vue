@@ -1,12 +1,20 @@
 <template>
   <div
+    v-if="section && section.fields"
     class="banner"
     data-qa="browse section"
   >
-    <h2>{{ section.fields.headline }}</h2>
-    <p>{{ section.fields.text }}</p>
+    <h2 data-qa="section headline">
+      {{ section.fields.headline }}
+    </h2>
+    <p>
+      {{ section.fields.text }}
+    </p>
 
-    <b-card-group deck>
+    <b-card-group
+      deck
+      data-qa="section group"
+    >
       <ContentCard
         v-for="card in section.fields.hasPart"
         :key="card.sys.id"

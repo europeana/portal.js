@@ -21,33 +21,33 @@ describe('plugins/europeana/search', () => {
           })
           .reply(200, defaultResponse);
 
-        search({ query: 'geography', wskey: apiKey });
+        search({ query: 'anything', wskey: apiKey });
 
         return request.should.have.been.requested;
       });
 
-      it('requests 24 results', () => {
-        const request = baseRequest
+      it('requests 24 results', async () => {
+        baseRequest
           .query(query => {
-            return query['rows'] === '24';
+            return query.rows === '24';
           })
           .reply(200, defaultResponse);
 
-        search({ query: 'geography', wskey: apiKey });
+        await search({ query: 'anything', wskey: apiKey });
 
-        return request.should.have.been.requested;
+        return nock.isDone().should.be.true;
       });
 
-      it('requests the minimal & facets profiles', () => {
-        const request = baseRequest
+      it('requests the minimal & facets profiles', async () => {
+        baseRequest
           .query(query => {
-            return query['profile'] === 'minimal,facets';
+            return query.profile === 'minimal,facets';
           })
           .reply(200, defaultResponse);
 
-        search({ query: 'geography', wskey: apiKey });
+        await search({ query: 'anything', wskey: apiKey });
 
-        return request.should.have.been.requested;
+        return nock.isDone().should.eq(true);
       });
 
       it('requests the TYPE facet (only)', () => {
@@ -57,7 +57,7 @@ describe('plugins/europeana/search', () => {
           })
           .reply(200, defaultResponse);
 
-        search({ query: 'geography', wskey: apiKey });
+        search({ query: 'anything', wskey: apiKey });
 
         return request.should.have.been.requested;
       });
@@ -69,7 +69,7 @@ describe('plugins/europeana/search', () => {
           })
           .reply(200, defaultResponse);
 
-        search({ query: 'geography', facet: 'LANGUAGE', wskey: apiKey });
+        search({ query: 'anything', facet: 'LANGUAGE', wskey: apiKey });
 
         return request.should.have.been.requested;
       });

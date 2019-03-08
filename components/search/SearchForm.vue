@@ -13,7 +13,6 @@
       @input="$emit('input', $event)"
     />
     <b-button
-      variant="primary"
       type="submit"
       data-qa="search button"
     >
