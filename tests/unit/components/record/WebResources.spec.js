@@ -1,6 +1,7 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 import WebResources from '../../../../components/record/WebResources.vue';
+import cssesc from 'cssesc';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
@@ -23,9 +24,13 @@ describe('components/record/WebResources', () => {
       wrapper.setProps(props);
 
       for (let webResource of props.media) {
-        const webResourceBlock = wrapper.find(`[data-qa~="${webResource.rdfAbout}"]`);
+        console.log(cssesc(webResource.rdfAbout, {
+          'isIdentifier': true
+        }));
+        const webResourceBlock = wrapper.find('#' + cssesc(webResource.rdfAbout, { 'isIdentifier': true }));
         for (let fieldKey of Object.keys(webResource)) {
-          const fieldBlock = webResourceBlock.find(`[data-qa~="${fieldKey}"]`);
+          console.log('checking field key');
+          const fieldBlock = webResourceBlock.find(`[data-field-name="${fieldKey}"]`);
           let expectedPreCode;
           if (typeof webResource[fieldKey] === 'string') {
             expectedPreCode = webResource[fieldKey];

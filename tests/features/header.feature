@@ -4,15 +4,15 @@ Feature: Page Header
 
     When I open the `home page`
     Then I see the `header`
-    And I see the `header` `logo`
-    And I see the `header` `search box`
+    And I see the `logo` in the `header`
+    And I see the `search box` in the `header`
 
     When I open the `search page`
     Then I see the `header`
-    And I see the `header` `logo`
-    And I see the `header` `search box`
+    And I see the `logo` in the `header`
+    And I see the `search box` in the `header`
 
     When I open a `record page`
     Then I see the `header`
-    And I see the `header` `logo`
-    And I see the `header` `search box`
+    And I see the `logo` in the `header`
+    And I see the `search box` in the `header`

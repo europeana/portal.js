@@ -3,7 +3,8 @@
     <div
       v-for="(value, key) in fields"
       :key="key"
-      :data-qa="'field ' + key"
+      :data-field-name="key"
+      data-qa="metadata field"
       class="border-bottom mb-3"
     >
       <div><strong>{{ key }}</strong></div>

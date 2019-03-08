@@ -11,7 +11,7 @@ describe('components/record/Metadata', () => {
 
       wrapper.setProps(props);
 
-      const fields = wrapper.findAll('[data-qa~="field"]');
+      const fields = wrapper.findAll('[data-qa="metadata field"]');
       fields.at(0).find('div strong').text().should.eq('dcTitle');
       fields.at(0).find('pre code').text().should.eq(JSON.stringify(props.fields.dcTitle, null, 2));
       fields.at(1).find('div strong').text().should.eq('dcCreator');
