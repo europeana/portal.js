@@ -11,8 +11,37 @@ const apiKey = 'abcdef';
 
 describe('plugins/europeana/search', () => {
   describe('search()', () => {
-    it('requests 24 results');
-    it('requests the minimal profile');
+    it('requests 24 results', async () => {
+      nock(apiUrl)
+        .get(apiEndpoint)
+        .query(actualQueryObject => {
+          return actualQueryObject.rows === '24';
+        })
+        .reply(200, {
+          success: true,
+          items: [],
+          totalResults: 123456
+        });
+      await search({ query: 'anything', wskey: apiKey });
+
+      return nock.isDone().should.eq(true);
+    });
+
+    it('requests the minimal profile', async () => {
+      nock(apiUrl)
+        .get(apiEndpoint)
+        .query(actualQueryObject => {
+          return actualQueryObject.profile === 'minimal';
+        })
+        .reply(200, {
+          success: true,
+          items: [],
+          totalResults: 123456
+        });
+      await search({ query: 'anything', wskey: apiKey });
+
+      return nock.isDone().should.eq(true);
+    });
 
     describe('when API responds with error', () => {
       const errorMessage = 'Invalid query parameter.';
