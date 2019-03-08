@@ -14,16 +14,16 @@ const defaultResponse = { success: true, items: [], totalResults: 123456 };
 describe('plugins/europeana/search', () => {
   describe('search()', () => {
     describe('API request', () => {
-      it('includes API key', () => {
-        const request = baseRequest
+      it('includes API key', async () => {
+        baseRequest
           .query(query => {
-            return query['wskey'] === apiKey;
+            return query.wskey === apiKey;
           })
           .reply(200, defaultResponse);
 
-        search({ query: 'anything', wskey: apiKey });
+        await search({ query: 'anything', wskey: apiKey });
 
-        return request.should.have.been.requested;
+        return nock.isDone().should.be.true;
       });
 
       it('requests 24 results', async () => {
@@ -47,34 +47,34 @@ describe('plugins/europeana/search', () => {
 
         await search({ query: 'anything', wskey: apiKey });
 
-        return nock.isDone().should.eq(true);
+        return nock.isDone().should.be.true;
       });
 
-      it('requests the TYPE facet (only)', () => {
-        const request = baseRequest
+      it('requests the TYPE facet (only)', async () => {
+        baseRequest
           .query(query => {
-            return query['facet'] === 'TYPE';
+            return query.facet === 'TYPE';
           })
           .reply(200, defaultResponse);
 
-        search({ query: 'anything', wskey: apiKey });
+        await search({ query: 'anything', wskey: apiKey });
 
-        return request.should.have.been.requested;
+        return nock.isDone().should.be.true;
       });
 
-      it('ignores supplied `facet` param', () => {
-        const request = baseRequest
+      it('ignores supplied `facet` param', async () => {
+        baseRequest
           .query(query => {
-            return query['facet'] === 'TYPE';
+            return query.facet === 'TYPE';
           })
           .reply(200, defaultResponse);
 
-        search({ query: 'anything', facet: 'LANGUAGE', wskey: apiKey });
+        await search({ query: 'anything', facet: 'LANGUAGE', wskey: apiKey });
 
-        return request.should.have.been.requested;
+        return nock.isDone().should.be.true;
       });
 
-      it('maps blank `query` to "*:*"', () => {
+      it('maps blank `query` to "*:*"', async () => {
         nock(apiUrl)
           .get(apiEndpoint)
           .query(query => {
@@ -82,9 +82,9 @@ describe('plugins/europeana/search', () => {
           })
           .reply(200, defaultResponse);
 
-        const response = search({ query: '', wskey: apiKey });
+        await search({ query: '', wskey: apiKey });
 
-        return response.should.eventually.have.property('totalResults', 123456);
+        return nock.isDone().should.be.true;
       });
     });
 
@@ -137,12 +137,16 @@ describe('plugins/europeana/search', () => {
             .reply(200, apiResponse);
         });
 
-        it('returns results', () => {
-          return searchResponse().should.eventually.have.property('results').to.have.lengthOf(apiResponse.items.length);
+        it('returns results', async () => {
+          const response = await searchResponse();
+
+          return response.results.length.should.eq(apiResponse.items.length);
         });
 
-        it('returns totalResults', () => {
-          return searchResponse().should.eventually.have.property('totalResults', apiResponse.totalResults);
+        it('returns totalResults', async () => {
+          const response = await searchResponse();
+
+          return response.totalResults.should.eq(apiResponse.totalResults);
         });
 
         // TODO: how can we DRY these up with Chai as Promised?

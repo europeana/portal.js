@@ -72,7 +72,6 @@
     "babel-preset-vue": "^2.0.2",
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
-    "chai-nock": "^1.1.0",
     "chromedriver": "^2.46.0",
     "concurrently": "^4.1.0",
     "cucumber": "^5.1.0",
