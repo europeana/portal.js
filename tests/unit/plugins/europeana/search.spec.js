@@ -23,7 +23,7 @@ describe('plugins/europeana/search', () => {
 
         await search({ query: 'anything', wskey: apiKey });
 
-        return nock.isDone().should.be.true;
+        nock.isDone().should.be.true;
       });
 
       it('requests 24 results', async () => {
@@ -35,7 +35,7 @@ describe('plugins/europeana/search', () => {
 
         await search({ query: 'anything', wskey: apiKey });
 
-        return nock.isDone().should.be.true;
+        nock.isDone().should.be.true;
       });
 
       it('requests the minimal & facets profiles', async () => {
@@ -47,7 +47,7 @@ describe('plugins/europeana/search', () => {
 
         await search({ query: 'anything', wskey: apiKey });
 
-        return nock.isDone().should.be.true;
+        nock.isDone().should.be.true;
       });
 
       it('requests the TYPE facet (only)', async () => {
@@ -59,7 +59,7 @@ describe('plugins/europeana/search', () => {
 
         await search({ query: 'anything', wskey: apiKey });
 
-        return nock.isDone().should.be.true;
+        nock.isDone().should.be.true;
       });
 
       it('ignores supplied `facet` param', async () => {
@@ -71,7 +71,7 @@ describe('plugins/europeana/search', () => {
 
         await search({ query: 'anything', facet: 'LANGUAGE', wskey: apiKey });
 
-        return nock.isDone().should.be.true;
+        nock.isDone().should.be.true;
       });
 
       it('maps blank `query` to "*:*"', async () => {
@@ -84,7 +84,7 @@ describe('plugins/europeana/search', () => {
 
         await search({ query: '', wskey: apiKey });
 
-        return nock.isDone().should.be.true;
+        nock.isDone().should.be.true;
       });
     });
 
@@ -102,7 +102,7 @@ describe('plugins/europeana/search', () => {
 
           const response = search({ query: 'NOT ', wskey: apiKey });
 
-          return response.should.be.rejectedWith(errorMessage);
+          response.should.be.rejectedWith(errorMessage);
         });
       });
 
@@ -140,52 +140,45 @@ describe('plugins/europeana/search', () => {
         it('returns results', async () => {
           const response = await searchResponse();
 
-          return response.results.length.should.eq(apiResponse.items.length);
+          response.results.length.should.eq(apiResponse.items.length);
         });
 
         it('returns totalResults', async () => {
           const response = await searchResponse();
 
-          return response.totalResults.should.eq(apiResponse.totalResults);
+          response.totalResults.should.eq(apiResponse.totalResults);
         });
 
-        // TODO: how can we DRY these up with Chai as Promised?
         describe('each member of .results', () => {
-          it('includes Europeana ID in .europeanaId', () => {
-            searchResponse().then((r) => {
-              return r.results[0].should.have.property('europeanaId', apiResponse.items[0].id);
-            }).catch((err) => {
-              done(err);
-            });
+          it('includes Europeana ID in .europeanaId', async () => {
+            const response = await searchResponse();
+
+            response.results[0].europeanaId.should.eq(apiResponse.items[0].id);
           });
-          it('includes URL path of record page in .linkTo', () => {
-            searchResponse().then((r) => {
-              return r.results[0].should.have.property('linkTo', `record${apiResponse.items[0].id}`);
-            }).catch((err) => {
-              done(err);
-            });
+
+          it('includes URL path of record page in .linkTo', async () => {
+            const response = await searchResponse();
+
+            response.results[0].linkTo.should.eq(`record${apiResponse.items[0].id}`);
           });
+
           describe('.fields', () => {
-            it('includes dcTitleLangAware in .dcTitle', () => {
-              searchResponse().then((r) => {
-                return r.results[0].fields.dcTitle.should.deep.equal(apiResponse.items[0].dcTitleLangAware['en']);
-              }).catch((err) => {
-                done(err);
-              });
+            it('includes dcTitleLangAware in .dcTitle', async () => {
+              const response = await searchResponse();
+
+              response.results[0].fields.dcTitle.should.deep.eq(apiResponse.items[0].dcTitleLangAware['en']);
             });
-            it('includes dcCreatorLangAware in .dcCreator', () => {
-              searchResponse().then((r) => {
-                return r.results[0].fields.dcCreator.should.deep.equal(apiResponse.items[0].dcCreatorLangAware['en']);
-              }).catch((err) => {
-                done(err);
-              });
+
+            it('includes dcCreatorLangAware in .dcCreator', async () => {
+              const response = await searchResponse();
+
+              response.results[0].fields.dcCreator.should.deep.eq(apiResponse.items[0].dcCreatorLangAware['en']);
             });
-            it('includes dataProvider in .edmDataProvider', () => {
-              searchResponse().then((r) => {
-                return r.results[0].fields.edmDataProvider.should.deep.equal(apiResponse.items[0].dataProvider);
-              }).catch((err) => {
-                done(err);
-              });
+
+            it('includes dataProvider in .edmDataProvider', async () => {
+              const response = await searchResponse();
+
+              response.results[0].fields.edmDataProvider.should.deep.eq(apiResponse.items[0].dataProvider);
             });
           });
         });
