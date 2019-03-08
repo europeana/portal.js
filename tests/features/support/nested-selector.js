@@ -18,7 +18,7 @@ function nestedSelector(selectorChain) {
 
   return prefixSelectors
     .concat(selectors)
-    .map(x => x.split(' ').map(y => `[data-qa~="${y.replace(/`/g, '')}"]`).join(''))
+    .map(x => `[data-qa="${x.replace(/`/g, '')}"]`)
     .join(' ');
 }
 
