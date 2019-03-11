@@ -42,7 +42,7 @@
     >
       <b-col>
         <SearchFacets
-          :options-type="facets['TYPE']"
+          :options-type="facets"
           @changed="selectTypeFacet"
         />
       </b-col>

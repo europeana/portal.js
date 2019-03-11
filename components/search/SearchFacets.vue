@@ -1,5 +1,6 @@
 <template>
   <b-card
+    v-if="optionsType && optionsType['TYPE']"
     header="Type of media"
     class="mb-3"
     data-qa="search facets"
@@ -11,7 +12,7 @@
       name="type-facet"
     >
       <b-form-checkbox
-        v-for="(value, key) in optionsType"
+        v-for="(value, key) in optionsType['TYPE']"
         :key="key"
         :value="key"
       >

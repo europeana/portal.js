@@ -6,7 +6,7 @@ storiesOf('Search page', module)
   .add('Search facets', () => ({
     components: { SearchFacets },
     data() {
-      return { optionsType: { 'TEXT': 123456, 'IMAGE': 567, 'SOUND': 89 } };
+      return { optionsType: { 'TYPE': { 'TEXT': 123456, 'VIDEO': 789, '3D': 10 } } };
     },
     template: ` <b-container
       class="mt-3"

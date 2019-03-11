@@ -9,7 +9,7 @@ const factory = () => mount(SearchFacets, {
   localVue
 });
 
-const options = { 'TEXT': 123456, 'VIDEO': 567 };
+const options = { 'TYPE': { 'TEXT': 123456, 'VIDEO': 567 } };
 
 describe('components/search/SearchFacets', () => {
   it('has the text `Type of media` in the header', () => {
