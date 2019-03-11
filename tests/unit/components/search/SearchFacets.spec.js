@@ -14,6 +14,7 @@ const options = { 'TYPE': { 'TEXT': 123456, 'VIDEO': 567 } };
 describe('components/search/SearchFacets', () => {
   it('has the text `Type of media` in the header', () => {
     const wrapper = factory();
+    wrapper.setProps({ optionsType: options });
 
     const facetHeader =  wrapper.find('[data-qa="search facets"] .card-header');
     facetHeader.text().should.eq('Type of media');
