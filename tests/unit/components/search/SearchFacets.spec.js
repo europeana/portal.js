@@ -9,13 +9,10 @@ const factory = () => mount(SearchFacets, {
   localVue
 });
 
-const options = [
-  { text: 'Image', value: 'image', count: '210000' },
-  { text: 'Video', value: 'video', count: '210' }
-];
+const options = { 'TEXT': 123456, 'VIDEO': 567 };
 
 describe('components/search/SearchFacets', () => {
-  it('has a header `Type of media`', () => {
+  it('has the text `Type of media` in the header', () => {
     const wrapper = factory();
 
     const facetHeader =  wrapper.find('[data-qa="search facets"] .card-header');
@@ -38,6 +35,6 @@ describe('components/search/SearchFacets', () => {
     const firstFacet = facets.at(1);
     firstFacet.setChecked();
 
-    wrapper.vm.selectedType[0].should.eq('video');
+    wrapper.vm.selectedType[0].should.eq('VIDEO');
   });
 });

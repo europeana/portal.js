@@ -42,6 +42,7 @@
     >
       <b-col>
         <SearchFacets
+          :options-type="facets['TYPE']"
           @changed="selectTypeFacet"
         />
       </b-col>
@@ -82,6 +83,7 @@
         results: null,
         totalResults: null,
         query: null,
+        facets: null,
         typeFacet: null
       };
     },
@@ -94,7 +96,7 @@
         wskey: env.EUROPEANA_API_KEY
       })
         .then((results) => {
-          return { ...results, query: query.query };
+          return { ...results, query: query.query, facets: results.facets };
         })
         .catch((err) => {
           if (typeof res !== 'undefined') {

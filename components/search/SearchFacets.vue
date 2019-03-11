@@ -11,11 +11,11 @@
       name="type-facet"
     >
       <b-form-checkbox
-        v-for="option in optionsType"
-        :key="option.value"
-        :value="option.value"
+        v-for="(value, key) in optionsType"
+        :key="key"
+        :value="key"
       >
-        {{ option.text }} ({{ option.count }})
+        {{ key }} ({{ value }})
       </b-form-checkbox>
     </b-form-checkbox-group>
   </b-card>
@@ -25,11 +25,8 @@
   export default {
     props: {
       optionsType: {
-        type: Array,
-        default: () => [{ text: 'Image', value: 'image', count: '210000' },
-                        { text: 'Video', value: 'video', count: '210' },
-                        { text: 'Audio', value: 'audio', count: '5' },
-                        { text: 'PDF', value: 'pdf', count: '0' }]
+        type: Object,
+        default: () => {}
       }
     },
     data() {
