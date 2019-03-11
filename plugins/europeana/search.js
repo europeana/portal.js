@@ -91,7 +91,8 @@ function resultsFromApiResponse(response) {
 function search(params) {
   return axios.get('https://api.europeana.eu/api/v2/search.json', {
     params: {
-      profile: 'minimal',
+      profile: 'minimal,facets',
+      facet: 'TYPE',
       query: params.query == '' ? '*:*' : params.query,
       rows: 24,
       wskey: params.wskey

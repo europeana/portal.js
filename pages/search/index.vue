@@ -74,6 +74,7 @@
         error: null,
         errorNoResults: 'No results',
         isLoading: false,
+        inHeader: false,
         results: null,
         totalResults: null,
         query: null,
