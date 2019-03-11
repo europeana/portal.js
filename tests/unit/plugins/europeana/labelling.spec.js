@@ -1,4 +1,4 @@
-import fieldLabel from '../../../../plugins/europeana/labeling';
+import fieldLabel from '../../../../plugins/europeana/labelling';
 
 
 describe('plugins/europeana/record', () => {

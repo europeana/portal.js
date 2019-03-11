@@ -17,13 +17,13 @@ const fieldLabels = {
 
 function lookupFromContext(key, context = 'default') {
   context = fieldLabels.hasOwnProperty(context) ? fieldLabels[context] : fieldLabels['default'];
-  return context.hasOwnProperty(key) ? context[key] : null;
+  return context[key] || null;
 }
 
 /**
  * Lookup the label for the provided metadata field key
  * @param {string} key for metadata field
- * @param {Object} options
+ * @param {string} options.context context where the label is used, for example: 'default'(record) or 'webResource'
  * @return {string} value to display, if not found returns the original key
  */
 function fieldLabel(key, options = {}) {
@@ -34,7 +34,7 @@ function fieldLabel(key, options = {}) {
   if (!label) {
     label = lookupFromContext(key);
   }
-  return label ? label : key;
+  return label || key;
 }
 
 export default fieldLabel;
