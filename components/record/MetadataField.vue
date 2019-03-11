@@ -13,7 +13,7 @@
 </template>
 
 <script>
-  import { fieldLabel } from '../../plugins/europeana/record';
+  import fieldLabel from '../../plugins/europeana/labeling';
 
   export default {
     props: {
@@ -24,11 +24,15 @@
       value: {
         type: [String, Object],
         default: ''
+      },
+      context: {
+        type: String,
+        default: null
       }
     },
     computed: {
       fieldNameLabel: function() {
-        return fieldLabel(this.name);
+        return fieldLabel(this.name, { context: this.context });
       }
     }
   };

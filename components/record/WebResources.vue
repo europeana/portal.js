@@ -10,6 +10,7 @@
         v-for="(value, name) in webResource"
         :key="name"
         :name="name"
+        context="webResource"
         :value="value"
       />
     </b-list-group-item>

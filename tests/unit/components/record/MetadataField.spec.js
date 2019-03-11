@@ -12,7 +12,7 @@ describe('components/record/MetadataField', () => {
 
       wrapper.setProps(props);
 
-      const fieldName = wrapper.find('[data-qa="metadata field name"]');
+      const fieldName = wrapper.find('[data-qa="metadata field"] [data-qa="label"]');
       fieldName.text().should.eq('Creators');
     });
   });
@@ -25,7 +25,7 @@ describe('components/record/MetadataField', () => {
 
       wrapper.setProps(props);
 
-      const fieldName = wrapper.find('[data-qa="metadata field name"]');
+      const fieldName = wrapper.find('[data-qa="metadata field"] [data-qa="label"]');
       fieldName.text().should.eq('rdfAbout');
     });
   });
@@ -35,7 +35,7 @@ describe('components/record/MetadataField', () => {
 
     wrapper.setProps(props);
 
-    const fieldValue = wrapper.find('[data-qa="metadata field value"]');
+    const fieldValue = wrapper.find('[data-qa="metadata field"] [data-qa="value"]');
     fieldValue.text().should.eq(JSON.stringify(props.value, null, 2));
   });
 });
