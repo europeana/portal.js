@@ -12,7 +12,9 @@
           :is-loading="isLoading"
           @submit:searchForm="submitSearchForm"
         />
-        {{ facet }}
+        <SearchSelectedFacets
+          :selected="typeFacet"
+        />
       </b-col>
     </b-row>
     <b-row
@@ -40,7 +42,7 @@
     >
       <b-col>
         <SearchFacets
-          @changed="selectFacet"
+          @changed="selectTypeFacet"
         />
       </b-col>
       <b-col
@@ -58,6 +60,7 @@
 <script>
   import AlertMessage from '../../components/generic/AlertMessage';
   import SearchForm from '../../components/search/SearchForm';
+  import SearchSelectedFacets from '../../components/search/SearchSelectedFacets';
   import SearchFacets from '../../components/search/SearchFacets';
   import SearchResultsList from '../../components/search/SearchResultsList';
   import search from '../../plugins/europeana/search';
@@ -67,6 +70,7 @@
       AlertMessage,
       SearchForm,
       SearchFacets,
+      SearchSelectedFacets,
       SearchResultsList
     },
     data () {
@@ -78,7 +82,7 @@
         results: null,
         totalResults: null,
         query: null,
-        facet: null
+        typeFacet: null
       };
     },
     asyncData ({ env, query, res }) {
@@ -116,8 +120,8 @@
           this.$router.push({ name: 'search', query: { query: this.query || '' } });
         }
       },
-      selectFacet (selected) {
-        this.facet = selected;
+      selectTypeFacet (selected) {
+        this.typeFacet = selected;
       }
     },
     head () {
