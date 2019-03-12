@@ -86,6 +86,7 @@
     "nock": "^10.0.6",
     "node-sass": "^4.11.0",
     "nodemon": "^1.11.0",
+    "regenerator-runtime": "^0.13.1",
     "sass-loader": "^7.1.0",
     "sinon": "^7.2.3",
     "stylelint": "^9.10.1",
