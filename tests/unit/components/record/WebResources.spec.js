@@ -21,11 +21,9 @@ describe('components/record/WebResources', () => {
     };
 
     wrapper.setProps(props);
-
-      for (let webResource of props.media) {
-        const webResourceBlock = wrapper.find('#' + cssesc(webResource.rdfAbout, { 'isIdentifier': true }));
-        webResourceBlock.should.exist;
-      }
-    });
+    for (let webResource of props.media) {
+      const webResourceBlock = wrapper.find('#' + cssesc(webResource.rdfAbout, { 'isIdentifier': true }));
+      webResourceBlock.should.exist;
+    }
   });
 });
