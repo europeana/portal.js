@@ -8,8 +8,8 @@
     </div>
     <LangMap
       v-if="isLangMap"
-      data-qa="metadata field value"
       :value="value"
+      data-qa="metadata field value"
     />
     <pre
       v-else
