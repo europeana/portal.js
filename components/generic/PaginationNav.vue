@@ -5,6 +5,7 @@
     :hide-ellipsis="hideEllipsis"
     :number-of-pages="totalPages"
     base-url="#page="
+    size="sm"
     align="center"
   />
 </template>
