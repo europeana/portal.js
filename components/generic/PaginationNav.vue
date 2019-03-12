@@ -39,11 +39,7 @@
     },
     computed: {
       totalPages: function () {
-        if (this.totalResults > maxResults) {
-          return Math.ceil(maxResults / this.perPage);
-        } else {
-          return Math.ceil(this.totalResults / this.perPage);
-        }
+        return Math.ceil(Math.min(this.totalResults, maxResults) / this.perPage);
       }
     }
   };
