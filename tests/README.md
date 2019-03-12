@@ -3,19 +3,19 @@
 The test directory contains unit and e2e tests.
 
 
-## Guidlines on testing end to end(e2e)
+## Guidelines on testing end to end (e2e)
 
 End to end tests are written as Gherkin scripts for cucumber.js inside the tests/features directory.
-End to end scripts should be written in as human readable way as possible.
-The step definitions which are available are based of [this](https://markus.oberlehner.net/blog/acceptance-testing-with-nightwatch-and-cucumber-setup/) and [this guide](https://markus.oberlehner.net/blog/acceptance-testing-with-nightwatch-and-cucumber-smart-step-definitions/).
+End to end scripts should be written in as human readable a way as possible.
+The step definitions which are available are based on [this](https://markus.oberlehner.net/blog/acceptance-testing-with-nightwatch-and-cucumber-setup/) and [this guide](https://markus.oberlehner.net/blog/acceptance-testing-with-nightwatch-and-cucumber-smart-step-definitions/).
 
 ### Usage of _data-qa_
 
 In order to isolate testing from the implementation we make use of data-qa attributes.
 The data-qa attributes should be used primarily in e2e tests and can be added on any element.
-Matching of data-qa elements will look for an exact match when using the standard deffinitions.
+Matching of data-qa elements will look for an exact match when using the standard definitions.
 
-When adding or refactoring data-qa attributies, keep in mind that they:
+When adding or refactoring data-qa attributes, keep in mind that they:
 
 * Should be human readable, and not require in depth domain or application knowledge.
 ```

@@ -16,3 +16,17 @@ Feature: Page Header
     Then I see the `header`
     And I see the `logo` in the `header`
     And I see the `search box` in the `header`
+
+  Scenario: Using the logo to get back to the homepage
+
+    Given I open a `record page`
+    And I see the `header`
+    And I see the `logo` in the `header`
+    When I click on the  `logo` in the `header`
+    Then I should be on the `home page`
+
+    Given I open a `search page`
+    And I see the `header`
+    And I see the `logo` in the `header`
+    When I click on the  `logo` in the `header`
+    Then I should be on the `home page`
