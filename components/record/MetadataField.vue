@@ -13,7 +13,7 @@
 </template>
 
 <script>
-  import fieldLabel from '../../plugins/europeana/labelling';
+  import fieldLabel, { fieldLabellingContexts } from '../../plugins/europeana/labelling';
 
   export default {
     props: {
@@ -27,7 +27,10 @@
       },
       context: {
         type: String,
-        default: 'default'
+        default: 'default',
+        validator: (value) => {
+          return fieldLabellingContexts().indexOf(value) !== -1;
+        }
       }
     },
     computed: {

@@ -16,8 +16,7 @@ const fieldLabels = {
 };
 
 function lookupFromContext(key, context = 'default') {
-  context = fieldLabels.hasOwnProperty(context) ? fieldLabels[context] : fieldLabels['default'];
-  return context[key] || null;
+  return fieldLabels[context][key] || null;
 }
 
 /**
@@ -35,6 +34,10 @@ function fieldLabel(key, options = {}) {
     label = lookupFromContext(key);
   }
   return label || key;
+}
+
+export function fieldLabellingContexts() {
+  return  Object.keys(fieldLabels);
 }
 
 export default fieldLabel;

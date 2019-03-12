@@ -1,5 +1,4 @@
-import fieldLabel from '../../../../plugins/europeana/labelling';
-
+import fieldLabel, { fieldLabellingContexts } from '../../../../plugins/europeana/labelling';
 
 describe('plugins/europeana/record', () => {
   describe('fieldLabel()', () => {
@@ -43,8 +42,10 @@ describe('plugins/europeana/record', () => {
 
         describe('looking up a non existent context', () => {
           describe('for dcDescription in notAContext', () => {
-            it('looks up the label from the default context', () => {
-              return fieldLabel('dcDescription', { context: 'notAContext' }).should.eq('Description');
+            it('throws an error', () => {
+              (function () {
+                fieldLabel('dcDescription', { context: 'notAContext' });
+              }).should.throw(Error);
             });
           });
         });
@@ -93,6 +94,13 @@ describe('plugins/europeana/record', () => {
         return fieldLabel('dcDescription').should.eq('Description');
       });
     });
+  });
 
+  describe ('fieldLabellingContexts', () => {
+    const expectedContexts = ['default', 'webResource'];
+
+    it('has a default and webResourse context', () => {
+      return fieldLabellingContexts().should.eql(expectedContexts);
+    });
   });
 });
