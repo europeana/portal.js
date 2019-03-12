@@ -12,7 +12,7 @@ The step definitions which are available are based on [this](https://markus.ober
 ### Usage of _data-qa_
 
 In order to isolate testing from the implementation we make use of data-qa attributes.
-The data-qa attributes should be used primarily in e2e tests and can be added on any element.
+The data-qa attributes should be used primarily in e2e tests and can be added on any element. You may still use them in unit tests, but try to avoid defining them _for_ unit tests. In unit tests prefer other data-x attributes or identefiers and html tags for finding specific elements.
 Matching of data-qa elements will look for an exact match when using the standard definitions.
 
 When adding or refactoring data-qa attributes, keep in mind that they:
