@@ -1,11 +1,11 @@
 <template>
   <b-pagination-nav
     v-model="currentPage"
-    base-url="#page="
-    align="center"
     :limit="limit"
     :hide-ellipsis="hideEllipsis"
     :number-of-pages="totalPages"
+    base-url="#page="
+    align="center"
   />
 </template>
 
