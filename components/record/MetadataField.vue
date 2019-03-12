@@ -38,6 +38,8 @@
       }
     },
     computed: {
+      // TODO: move to a plugin? or some other reusable function?
+      // TODO: stricter validation by key inspection
       isLangMap: function() {
         return !!this.value && typeof this.value === 'object';
       }

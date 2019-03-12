@@ -2,14 +2,16 @@
  * @file Presentation of "LangMap" data type in metadata
  * @see {@link https://pro.europeana.eu/page/europeana-rest-api#getting-started|Datatypes}
  */
+
 <template>
-  <ul>
+  <ul data-qa="LangMap">
     <li
       v-for="mapValue in mapContent"
       :key="mapValue.lang"
-      :lang="mapValue.lang"
     >
-      {{ mapValue.content }} ({{ mapValue.lang }})
+      <span :lang="mapValue.lang">
+        {{ mapValue.content }}
+      </span> ({{ mapValue.lang }})
     </li>
   </ul>
 </template>
@@ -31,6 +33,7 @@
       }
     },
     computed: {
+      // TODO: move to a plugin? or a filter?
       mapContent: function() {
         const langMap = this.value;
 
