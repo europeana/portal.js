@@ -13,7 +13,7 @@
           @submit:searchForm="submitSearchForm"
         />
         <SearchSelectedFacets
-          :selected="typeFacet"
+          :selected="selectedFacets"
         />
       </b-col>
     </b-row>
@@ -42,8 +42,8 @@
     >
       <b-col>
         <SearchFacets
-          :options-type="facets"
-          @changed="selectTypeFacet"
+          :options="facets"
+          @changed="selectFacet"
         />
       </b-col>
       <b-col
@@ -84,7 +84,7 @@
         totalResults: null,
         query: null,
         facets: null,
-        typeFacet: null
+        selectedFacets: null
       };
     },
     asyncData ({ env, query, res }) {
@@ -122,8 +122,8 @@
           this.$router.push({ name: 'search', query: { query: this.query || '' } });
         }
       },
-      selectTypeFacet (selected) {
-        this.typeFacet = selected;
+      selectFacet (selected) {
+        this.selectedFacets = selected;
       }
     },
     head () {

@@ -1,42 +1,46 @@
 <template>
-  <b-card
-    v-if="optionsType && optionsType['TYPE']"
-    header="Type of media"
-    class="mb-3"
-    data-qa="search facets"
-  >
-    <b-form-checkbox-group
-      v-model="selectedType"
-      stacked
-      plain
-      name="type-facet"
+  <div>
+    <b-card
+      v-for="(optionsValue, optionsKey) in options"
+      :key="optionsKey"
+      header="Type of media"
+      class="mb-3"
+      data-qa="search facets"
     >
-      <b-form-checkbox
-        v-for="(value, key) in optionsType['TYPE']"
-        :key="key"
-        :value="key"
+      <b-form-checkbox-group
+        v-model="selected"
+        stacked
+        plain
+        :name="optionsKey"
       >
-        {{ key }} ({{ value }})
-      </b-form-checkbox>
-    </b-form-checkbox-group>
-  </b-card>
+        <b-form-checkbox
+          v-for="(value, key) in optionsValue"
+          :key="key"
+          :value="key"
+        >
+          {{ key }} ({{ value }})
+        </b-form-checkbox>
+      </b-form-checkbox-group>
+    </b-card>
+  </div>
 </template>
 
 <script>
   export default {
     props: {
-      optionsType: {
+      options: {
         type: Object,
         default: () => {}
       }
     },
     data() {
       return {
-        selectedType: []
+        selected: []
       };
     },
     watch: {
-      selectedType: function (selectedTypeValues) {
+      selected: function (selectedTypeValues) {
+        console.log('selected', selectedTypeValues);
         this.$emit('changed', selectedTypeValues);
       }
     }
