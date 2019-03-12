@@ -29,7 +29,7 @@
         type: String,
         default: 'default',
         validator: (value) => {
-          return fieldLabellingContexts().indexOf(value) !== -1;
+          return fieldLabellingContexts().includes(value);
         }
       }
     },
