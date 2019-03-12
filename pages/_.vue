@@ -22,6 +22,9 @@
   import contentfulClient from '../plugins/contentful.js';
 
   export default {
+    components: {
+      ContentCardSection
+    },
     asyncData ({ params, error }) {
       // fetch the browsePage data, include set to 2 in order to get nested card data
       return contentfulClient.getEntries({
@@ -42,9 +45,6 @@
         .catch((e) => {
           error({ statusCode: 500, message: e.toString() });
         });
-    },
-    components: {
-      ContentCardSection
     },
     head () {
       return {
