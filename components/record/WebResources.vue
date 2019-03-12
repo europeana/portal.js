@@ -7,21 +7,24 @@
       data-qa="web resource"
       class="mb-3"
     >
-      <div
-        v-for="(value, key) in webResource"
-        :key="key"
-        :data-field-name="key"
-        data-qa="metadata field"
-      >
-        <div><strong>{{ key }}</strong></div>
-        <pre><code>{{ value }}</code></pre>
-      </div>
+      <MetadataField
+        v-for="(value, name) in webResource"
+        :key="name"
+        :name="name"
+        :value="value"
+        context="webResource"
+      />
     </b-list-group-item>
   </b-list-group>
 </template>
 
 <script>
+  import MetadataField from '../../components/record/MetadataField';
+
   export default {
+    components: {
+      MetadataField
+    },
     props: {
       media: {
         type: Array,

@@ -15,39 +15,27 @@
       >
     </b-navbar-brand>
     <b-navbar-nav class="ml-auto w-100 col-md-5 col-lg-4 p-0">
-      <b-nav-form
+      <SearchForm
+        v-model="query"
+        :is-loading="isLoading"
         class="justify-content-center justify-content-sm-end"
-        @submit.prevent="submitSearchForm"
-      >
-        <b-form-input
-          v-model="query"
-          size="sm"
-          type="text"
-          class="mr-2 w-75"
-          placeholder="What are you looking for?"
-          name="query"
-          data-qa="search box"
-        />
-        <b-button
-          size="sm"
-          type="submit"
-          data-qa="search button"
-        >
-          <img
-            src="../assets/img/magnifier.svg"
-            alt="Search"
-          >
-        </b-button>
-      </b-nav-form>
+        @submit:searchForm="submitSearchForm"
+      />
     </b-navbar-nav>
   </b-navbar>
 </template>
 
 <script>
+  import SearchForm from './search/SearchForm';
+
   export default {
+    components: {
+      SearchForm
+    },
     data () {
       return {
-        query: null
+        query: null,
+        isLoading: false
       };
     },
     methods: {
