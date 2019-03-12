@@ -1,4 +1,4 @@
-const { client, browser } = require('nightwatch-api');
+const { client } = require('nightwatch-api');
 const { defineStep } = require('cucumber');
 
 const { nestedSelector } = require('./nested-selector.js');
@@ -33,7 +33,7 @@ defineStep(/^I (?:enter|fill|input|supply|type).*? "(.*?)" in.*? (`.*`)$/, (valu
 defineStep(/^I (?:activate|click).*? (`.*`)$/, selectorChain =>
   client.click(nestedSelector(selectorChain)));
 
-defineStep(/^I should be on.*? (`.*`)$/, pageName => {
+defineStep(/^I should be on.*? `(.*)`$/, pageName => {
   let expectedUrl;
   if (pageName.startsWith('/')) {
     expectedUrl = `${url}${pageName}`;
