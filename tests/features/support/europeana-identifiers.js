@@ -1,4 +1,6 @@
-// Helpers for finding europeana IDs for records matching specific criteria
+/**
+ * @file Helpers for finding europeana IDs for records matching specific criteria.
+ */
 
 function europeanaId(criteria) {
   if (criteria) {
