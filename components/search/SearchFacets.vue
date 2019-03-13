@@ -18,7 +18,7 @@
           :key="key"
           :value="key"
         >
-          {{ key }} ({{ value }})
+          {{ key }} ({{ value | localise }})
         </b-form-checkbox>
       </b-form-checkbox-group>
     </b-card>
