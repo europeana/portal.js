@@ -11,6 +11,7 @@
         :key="name"
         :name="name"
         :value="value"
+        context="webResource"
       />
     </b-list-group-item>
   </b-list-group>

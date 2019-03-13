@@ -50,7 +50,7 @@ describe('plugins/europeana/search', () => {
         nock.isDone().should.be.true;
       });
 
-      it('requests the TYPE facet (only)', async () => {
+      it('requests the `TYPE` facet (only)', async () => {
         baseRequest
           .query(query => {
             return query.facet === 'TYPE';
@@ -75,8 +75,7 @@ describe('plugins/europeana/search', () => {
       });
 
       it('maps blank `query` to "*:*"', async () => {
-        nock(apiUrl)
-          .get(apiEndpoint)
+        baseRequest
           .query(query => {
             return query['query'] === '*:*';
           })
@@ -92,8 +91,7 @@ describe('plugins/europeana/search', () => {
       describe('with error', () => {
         it('returns API error message', () => {
           const errorMessage = 'Invalid query parameter.';
-          nock(apiUrl)
-            .get(apiEndpoint)
+          baseRequest
             .query(true)
             .reply(400, {
               success: false,
@@ -106,7 +104,7 @@ describe('plugins/europeana/search', () => {
         });
       });
 
-      describe('with items', () => {
+      describe('with `items`', () => {
         function searchResponse() {
           return search({ query: 'painting', wskey: apiKey });
         }
@@ -131,8 +129,7 @@ describe('plugins/europeana/search', () => {
         };
 
         beforeEach('stub API response', () => {
-          nock(apiUrl)
-            .get(apiEndpoint)
+          baseRequest
             .query(true)
             .reply(200, apiResponse);
         });
@@ -179,6 +176,61 @@ describe('plugins/europeana/search', () => {
               const response = await searchResponse();
 
               response.results[0].fields.edmDataProvider.should.deep.eq(apiResponse.items[0].dataProvider);
+            });
+          });
+        });
+
+        describe('facets', () => {
+          describe('when absent', () => {
+            it('returns `null`', async () => {
+              baseRequest
+                .query(true)
+                .reply(200, defaultResponse);
+
+              const response = await search({ query: 'anything', wskey: apiKey });
+
+              (response.facets === null).should.be.true;
+            });
+          });
+
+          describe('when present', () => {
+            const typeFacet = {
+              name: 'TYPE',
+              fields: [
+                { label: 'IMAGE', count: 33371202 },
+                { label: 'TEXT', count: 22845674 },
+                { label: 'VIDEO', count: 1137194 },
+                { label: 'SOUND', count: 699155 },
+                { label: '3D', count: 28460  }
+              ]
+            };
+            const apiResponse = {
+              success: true,
+              items: [],
+              totalResults: 58081685,
+              facets: [typeFacet]
+            };
+
+            beforeEach('stub API response', () => {
+              baseRequest
+                .query(true)
+                .reply(200, apiResponse);
+            });
+
+            it('are each returned as name => Object', async () => {
+              const response = await search({ query: 'anything', wskey: apiKey });
+
+              response.facets.should.have.property('TYPE');
+              response.facets['TYPE'].should.be.an('object');
+            });
+
+            it('have each field returned as label => count', async () => {
+              const response = await search({ query: 'anything', wskey: apiKey });
+
+              for (let field of typeFacet.fields) {
+                response.facets['TYPE'].should.have.property(field.label);
+                response.facets['TYPE'][field.label].should.eq(field.count);
+              }
             });
           });
         });

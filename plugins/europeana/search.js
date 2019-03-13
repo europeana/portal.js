@@ -1,3 +1,7 @@
+/**
+ * @file Interface to Europeana Record Search API
+ */
+
 import axios from 'axios';
 
 function genericThumbnail(edmType) {
@@ -82,11 +86,68 @@ function resultsFromApiResponse(response) {
 }
 
 /**
+ * A search response facet.
+ *
+ * The object is keyed by field label with item count as value.
+ *
+ * For example:
+ * ```
+ * {
+ *   IMAGE: 33371202,
+ *   TEXT: 22845674,
+ *   VIDEO: 1137194,
+ *   SOUND: 699155,
+ *   '3D': 28460
+ * }
+ * ```
+ * @typedef {Object.<string, number>} Facet
+ */
+
+/**
+ * A set of search response facets.
+ *
+ * The object is keyed by the facet name.
+ *
+ * For example:
+ * ```
+ * {
+ *   TYPE: {
+ *     IMAGE: 10
+ *   }
+ * }
+ * ```
+ * @typedef {Object.<string, Facet>} FacetSet
+ */
+
+/**
+ * Extract facets from API response
+ * @param  {Object} response API response
+ * @return {FacetSet} facets
+ */
+function facetsFromApiResponse(response) {
+  if (!response.data.facets) {
+    return null;
+  }
+  const responseFacets = response.data.facets;
+
+  let facets = {};
+  for (let responseFacet of responseFacets) {
+    let facetFields = {};
+    for (let responseFacetField of responseFacet.fields) {
+      facetFields[responseFacetField.label] = responseFacetField.count;
+    }
+    facets[responseFacet.name] = facetFields;
+  }
+
+  return facets;
+}
+
+/**
  * Search Europeana Record API
  * @param {Object} params parameters for search query
  * @param {string} params.query search query
  * @param {string} params.wskey API key
- * @return {{results: Object[], totalResults: number, error: string}} search results for display
+ * @return {{results: Object[], totalResults: number, facets: FacetSet, error: string}} search results for display
  */
 function search(params) {
   return axios.get('https://api.europeana.eu/api/v2/search.json', {
@@ -102,6 +163,7 @@ function search(params) {
       return {
         error: null,
         results: resultsFromApiResponse(response),
+        facets: facetsFromApiResponse(response),
         totalResults: response.data.totalResults
       };
     })

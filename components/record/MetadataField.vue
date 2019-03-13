@@ -3,17 +3,17 @@
     :data-field-name="name"
     data-qa="metadata field"
   >
-    <div data-qa="metadata field name">
-      <strong>{{ name }}</strong>
+    <div data-qa="label">
+      <strong>{{ fieldNameLabel }}</strong>
     </div>
     <LangMap
       v-if="isLangMap"
       :value="value"
-      data-qa="metadata field value"
+      data-qa="value"
     />
     <pre
       v-else
-      data-qa="metadata field value"
+      data-qa="value"
     >
       <code>{{ value }}</code>
     </pre>
@@ -22,6 +22,7 @@
 
 <script>
   import LangMap from './LangMap';
+  import fieldLabel, { fieldLabellingContexts } from '../../plugins/europeana/labelling';
 
   export default {
     components: {
@@ -35,9 +36,19 @@
       value: {
         type: [String, Object],
         default: ''
+      },
+      context: {
+        type: String,
+        default: 'default',
+        validator: (value) => {
+          return fieldLabellingContexts().includes(value);
+        }
       }
     },
     computed: {
+      fieldNameLabel: function() {
+        return fieldLabel(this.name, { context: this.context });
+      },
       // TODO: move to a plugin? or some other reusable function?
       // TODO: stricter validation by key inspection
       isLangMap: function() {
