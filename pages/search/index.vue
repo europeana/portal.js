@@ -13,7 +13,7 @@
           @submit:searchForm="submitSearchForm"
         />
         <SearchSelectedFacets
-          :selected="selectedFacets"
+          :facets="selectedFacets"
         />
       </b-col>
     </b-row>
@@ -41,8 +41,11 @@
       class="mb-3"
     >
       <b-col>
-        <SearchFacets
-          :options="facets"
+        <SearchFacet
+          v-for="(fields, name) in facets"
+          :key="name"
+          :name="name"
+          :fields="fields"
           @changed="selectFacet"
         />
       </b-col>
@@ -62,7 +65,7 @@
   import AlertMessage from '../../components/generic/AlertMessage';
   import SearchForm from '../../components/search/SearchForm';
   import SearchSelectedFacets from '../../components/search/SearchSelectedFacets';
-  import SearchFacets from '../../components/search/SearchFacets';
+  import SearchFacet from '../../components/search/SearchFacet';
   import SearchResultsList from '../../components/search/SearchResultsList';
   import search from '../../plugins/europeana/search';
 
@@ -70,7 +73,7 @@
     components: {
       AlertMessage,
       SearchForm,
-      SearchFacets,
+      SearchFacet,
       SearchSelectedFacets,
       SearchResultsList
     },
@@ -84,7 +87,7 @@
         totalResults: null,
         query: null,
         facets: null,
-        selectedFacets: null
+        selectedFacets: {}
       };
     },
     asyncData ({ env, query, res }) {
@@ -122,8 +125,9 @@
           this.$router.push({ name: 'search', query: { query: this.query || '' } });
         }
       },
-      selectFacet (selected) {
-        this.selectedFacets = selected;
+      selectFacet (name, selected) {
+        this.selectedFacets[name] = selected;
+        console.log('selectedFacets: ' + this.selectedFacets[name]);
       }
     },
     head () {

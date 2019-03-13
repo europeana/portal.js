@@ -1,24 +1,22 @@
 <template>
   <div>
     <b-card
-      v-for="(optionsValue, optionsKey) in options"
-      :key="optionsKey"
-      header="Type of media"
+      :header="name"
       class="mb-3"
-      data-qa="search facets"
+      data-qa="search facet"
     >
       <b-form-checkbox-group
         v-model="selected"
         stacked
         plain
-        :name="optionsKey"
+        :name="name"
       >
         <b-form-checkbox
-          v-for="(value, key) in optionsValue"
-          :key="key"
-          :value="key"
+          v-for="(fieldCount, fieldValue) in fields"
+          :key="fieldValue"
+          :value="fieldValue"
         >
-          {{ key }} ({{ value }})
+          {{ fieldValue }} ({{ fieldCount }})
         </b-form-checkbox>
       </b-form-checkbox-group>
     </b-card>
@@ -28,7 +26,11 @@
 <script>
   export default {
     props: {
-      options: {
+      name: {
+        type: String,
+        default: ''
+      },
+      fields: {
         type: Object,
         default: () => {}
       }
@@ -39,9 +41,9 @@
       };
     },
     watch: {
-      selected: function (selectedTypeValues) {
-        console.log('selected', selectedTypeValues);
-        this.$emit('changed', selectedTypeValues);
+      selected: function (selectedFieldValues) {
+        this.selected = selectedFieldValues;
+        this.$emit('changed', this.name, selectedFieldValues);
       }
     }
   };
