@@ -38,8 +38,10 @@
       <b-col>
         <PaginationNav
           v-if="totalResults > perPage"
+          v-model="page"
           :total-results="totalResults"
           :per-page="perPage"
+          :link-gen="paginationLink"
         />
       </b-col>
     </b-row>
@@ -55,8 +57,10 @@
       <b-col>
         <PaginationNav
           v-if="totalResults > perPage"
+          v-model="page"
           :total-results="totalResults"
           :per-page="perPage"
+          :link-gen="paginationLink"
         />
       </b-col>
     </b-row>
@@ -91,7 +95,8 @@
         inHeader: false,
         results: null,
         totalResults: null,
-        query: null
+        query: null,
+        page: 1
       };
     },
     asyncData ({ env, query, res }) {
@@ -99,11 +104,12 @@
         return;
       }
       return search({
+        page: query.page,
         query: query.query,
         wskey: env.EUROPEANA_API_KEY
       })
         .then((results) => {
-          return { ...results, query: query.query };
+          return { ...results, query: query.query, page: Number(query.page) };
         })
         .catch((err) => {
           if (typeof res !== 'undefined') {
@@ -126,8 +132,11 @@
       submitSearchForm () {
         if (this.$route.query.query !== this.query) {
           this.isLoading = true;
-          this.$router.push({ name: 'search', query: { query: this.query || '' } });
+          this.$router.push({ name: 'search', query: { query: this.query || '', page: '1' } });
         }
+      },
+      paginationLink (val) {
+        return { name: 'search', query: { query: this.query, page: val } };
       }
     },
     head () {
@@ -135,6 +144,6 @@
         title: 'Search'
       };
     },
-    watchQuery: ['query']
+    watchQuery: ['page', 'query']
   };
 </script>

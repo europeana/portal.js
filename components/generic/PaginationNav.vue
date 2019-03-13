@@ -4,14 +4,14 @@
     :limit="limit"
     :hide-ellipsis="hideEllipsis"
     :number-of-pages="totalPages"
-    base-url="#page="
+    :link-gen="linkGen"
+    use-router
     size="sm"
     align="center"
   />
 </template>
 
 <script>
-
   const maxResults = 1000;
 
   export default {
@@ -31,16 +31,34 @@
       totalResults: {
         type: Number,
         default: 0
+      },
+      value: {
+        type: Number,
+        default: 1
+      },
+      linkGen: {
+        type: Function,
+        default: (val) => {
+          return val.toString();
+        }
       }
     },
     data () {
       return {
-        currentPage: null
+        currentPage: this.value
       };
     },
     computed: {
       totalPages: function () {
         return Math.ceil(Math.min(this.totalResults, maxResults) / this.perPage);
+      }
+    },
+    watch: {
+      value: {
+        immediate: true,
+        handler(val) {
+          this.currentPage = val;
+        }
       }
     }
   };
