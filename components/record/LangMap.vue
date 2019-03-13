@@ -4,7 +4,7 @@
  */
 
 <template>
-  <ul data-qa="LangMap">
+  <ul data-qa="multi-lingual metadata">
     <li
       v-for="mapValue in mapContent"
       :key="mapValue.lang"

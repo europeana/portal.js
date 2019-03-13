@@ -11,10 +11,10 @@ describe('components/record/LangMap', () => {
     }
   };
 
-  it('renders a LangMap list', () => {
+  it('renders a "multi-lingual metadata" list', () => {
     const wrapper = factory();
 
-    wrapper.find('ul[data-qa="LangMap"]').should.exist;
+    wrapper.find('ul[data-qa="multi-lingual metadata"]').should.exist;
   });
 
   describe('each value', () => {
