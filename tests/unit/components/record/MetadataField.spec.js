@@ -6,7 +6,7 @@ const factory = () => mount(MetadataField);
 describe('components/record/MetadataField', () => {
   const props = { name: 'dcCreator', value: { def: ['Artist'] } };
 
-  describe('a labeled field', () => {
+  describe('a labelled field', () => {
     const wrapper = factory();
 
     it('outputs the field label', () => {
@@ -16,7 +16,7 @@ describe('components/record/MetadataField', () => {
       fieldName.text().should.eq('Creators');
     });
 
-    describe('a labeled field with a labelling context', () => {
+    describe('a labelled field with a labelling context', () => {
       const props = { name: 'edmRights', value: { def: 'http://rightsstatements.org/vocab/InC/1.0/' }, context: 'webResource' };
       it('outputs the context specific label', () => {
 
@@ -28,7 +28,7 @@ describe('components/record/MetadataField', () => {
     });
   });
 
-  describe('any non labeled field', () => {
+  describe('any non-labelled field', () => {
     const wrapper = factory();
 
     it('outputs the field name', () => {

@@ -39,7 +39,7 @@
 
         let listOfValues = [];
         for (let key in langMap) {
-          // "und" is the ISO-639-2 code for "undetermined"
+          // "und" is the ISO 639-2 code for undetermined language
           const contentLang = key == 'def' ? 'und' : key;
           for (let singleValue of langMap[key]) {
             if (this.prioritisedLanguages.includes(key)) {

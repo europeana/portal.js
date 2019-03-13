@@ -11,12 +11,12 @@
       :value="value"
       data-qa="value"
     />
-    <pre
+    <div
       v-else
       data-qa="value"
     >
-      <code>{{ value }}</code>
-    </pre>
+      {{ value }}
+    </div>
   </div>
 </template>
 
