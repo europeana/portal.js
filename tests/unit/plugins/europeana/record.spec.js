@@ -10,6 +10,10 @@ const apiEndpoint = `/api/v2/record${europeanaId}.json`;
 const apiKey = 'abcdef';
 
 describe('plugins/europeana/record', () => {
+  afterEach(() => {
+    nock.cleanAll();
+  });
+
   describe('getRecord()', () => {
 
     describe('when trying to request an unknown record', () => {
