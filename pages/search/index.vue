@@ -34,36 +34,39 @@
         />
       </b-col>
     </b-row>
-    <b-row>
-      <b-col>
-        <PaginationNav
-          v-if="totalResults > perPage"
-          v-model="page"
-          :total-results="totalResults"
-          :per-page="perPage"
-          :link-gen="paginationLink"
-        />
-      </b-col>
-    </b-row>
-    <b-row
+    <template
       v-if="results !== null"
-      class="mb-3"
     >
-      <b-col>
-        <SearchResultsList :results="results" />
-      </b-col>
-    </b-row>
-    <b-row>
-      <b-col>
-        <PaginationNav
-          v-if="totalResults > perPage"
-          v-model="page"
-          :total-results="totalResults"
-          :per-page="perPage"
-          :link-gen="paginationLink"
-        />
-      </b-col>
-    </b-row>
+      <b-row>
+        <b-col>
+          <PaginationNav
+            v-if="totalResults > perPage"
+            v-model="page"
+            :total-results="totalResults"
+            :per-page="perPage"
+            :link-gen="paginationLink"
+          />
+        </b-col>
+      </b-row>
+      <b-row
+        class="mb-3"
+      >
+        <b-col>
+          <SearchResultsList :results="results" />
+        </b-col>
+      </b-row>
+      <b-row>
+        <b-col>
+          <PaginationNav
+            v-if="totalResults > perPage"
+            v-model="page"
+            :total-results="totalResults"
+            :per-page="perPage"
+            :link-gen="paginationLink"
+          />
+        </b-col>
+      </b-row>
+    </template>
   </b-container>
 </template>
 
