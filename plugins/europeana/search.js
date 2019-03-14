@@ -158,6 +158,13 @@ function search(params) {
   const start = ((page - 1) * perPage) + 1;
   const rows = Math.min(maxResults + 1 - start, perPage);
 
+  // Throw error if user attempted to paginate beyond API limit
+  if (rows < 0) {
+    return new Promise((resolve, reject) => {
+      reject(new Error('It is only possible to view the first 1,000 search results.'));
+    });
+  }
+
   return axios.get('https://api.europeana.eu/api/v2/search.json', {
     params: {
       profile: 'minimal,facets',
