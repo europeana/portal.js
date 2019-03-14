@@ -6,6 +6,7 @@ Feature: Search
     When I enter "paris" in the `search box`
     And I click the `search button`
     Then I see a `search result`
+    And I see the `total results`
 
   Scenario: Search non existing Europeana content
 

@@ -4,7 +4,7 @@
       <b-col><h1>Search</h1></b-col>
     </b-row>
     <b-row
-      class="mb-5"
+      class="mb-3"
     >
       <b-col>
         <SearchForm
@@ -35,6 +35,16 @@
         <AlertMessage
           :error="errorNoResults"
         />
+      </b-col>
+    </b-row>
+    <b-row
+      v-if="totalResults !== null"
+      class="mb-3"
+    >
+      <b-col>
+        <p data-qa="total results">
+          Results: {{ totalResults | localise }}
+        </p>
       </b-col>
     </b-row>
     <b-row
