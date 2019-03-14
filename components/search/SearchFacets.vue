@@ -9,9 +9,9 @@
     >
       <b-form-checkbox-group
         v-model="selected"
+        :name="optionsKey"
         stacked
         plain
-        :name="optionsKey"
       >
         <b-form-checkbox
           v-for="(value, key) in optionsValue"
