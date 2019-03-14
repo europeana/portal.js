@@ -10,14 +10,14 @@ const factory = () => shallowMount(PaginationNav, {
 });
 
 describe('components/generic/PaginationNav', () => {
-  it('shows a pagination with 10 pages', () => {
+  it('shows pagination for number of pages', () => {
     const wrapper = factory();
     wrapper.setProps({ totalResults: 240, perPage: 24 });
 
     wrapper.attributes().numberofpages.should.eq('10');
   });
 
-  it('shows a pagination with over 1000 results', () => {
+  it('limits pagination to 1000 results', () => {
     const wrapper = factory();
     wrapper.setProps({ totalResults: 123456, perPage: 24 });
 

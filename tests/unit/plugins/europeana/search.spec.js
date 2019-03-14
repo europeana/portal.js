@@ -54,6 +54,18 @@ describe('plugins/europeana/search', () => {
         nock.isDone().should.be.true;
       });
 
+      it('does not request rows beyond API limit', async () => {
+        baseRequest
+          .query(query => {
+            return query.rows === '16' && query.start === '985';
+          })
+          .reply(200, defaultResponse);
+
+        await search({ page: 42, query: 'anything', wskey: apiKey });
+
+        nock.isDone().should.be.true;
+      });
+
       it('requests the minimal & facets profiles', async () => {
         baseRequest
           .query(query => {
