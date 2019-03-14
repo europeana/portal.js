@@ -34,12 +34,30 @@
         />
       </b-col>
     </b-row>
+    <b-row>
+      <b-col>
+        <PaginationNav
+          v-if="totalResults > perPage"
+          :total-results="totalResults"
+          :per-page="perPage"
+        />
+      </b-col>
+    </b-row>
     <b-row
       v-if="results !== null"
       class="mb-3"
     >
       <b-col>
         <SearchResultsList :results="results" />
+      </b-col>
+    </b-row>
+    <b-row>
+      <b-col>
+        <PaginationNav
+          v-if="totalResults > perPage"
+          :total-results="totalResults"
+          :per-page="perPage"
+        />
       </b-col>
     </b-row>
   </b-container>
@@ -49,13 +67,21 @@
   import AlertMessage from '../../components/generic/AlertMessage';
   import SearchForm from '../../components/search/SearchForm';
   import SearchResultsList from '../../components/search/SearchResultsList';
+  import PaginationNav from '../../components/generic/PaginationNav';
   import search from '../../plugins/europeana/search';
 
   export default {
     components: {
       AlertMessage,
       SearchForm,
-      SearchResultsList
+      SearchResultsList,
+      PaginationNav
+    },
+    props: {
+      perPage: {
+        type: Number,
+        default: 24
+      }
     },
     data () {
       return {

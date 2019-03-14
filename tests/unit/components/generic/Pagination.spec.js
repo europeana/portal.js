@@ -1,0 +1,26 @@
+import { createLocalVue, shallowMount } from '@vue/test-utils';
+import BootstrapVue from 'bootstrap-vue';
+import PaginationNav from '../../../../components/generic/PaginationNav.vue';
+
+const localVue = createLocalVue();
+localVue.use(BootstrapVue);
+
+const factory = () => shallowMount(PaginationNav, {
+  localVue
+});
+
+describe('components/generic/PaginationNav', () => {
+  it('shows a pagination with 10 pages', () => {
+    const wrapper = factory();
+    wrapper.setProps({ totalResults: 240, perPage: 24 });
+
+    wrapper.attributes().numberofpages.should.eq('10');
+  });
+
+  it('shows a pagination with over 1000 results', () => {
+    const wrapper = factory();
+    wrapper.setProps({ totalResults: 123456, perPage: 24 });
+
+    wrapper.attributes().numberofpages.should.eq('42');
+  });
+});
