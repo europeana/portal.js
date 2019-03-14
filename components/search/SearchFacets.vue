@@ -3,7 +3,7 @@
     <b-card
       v-for="(optionsValue, optionsKey) in options"
       :key="optionsKey"
-      header="Type of media"
+      :header="optionsKey | renameHeader"
       class="mb-3"
       data-qa="search facets"
     >
@@ -26,7 +26,14 @@
 </template>
 
 <script>
+  const headerText = { 'TYPE': 'Type of media' };
+
   export default {
+    filters: {
+      renameHeader: function (value) {
+        return headerText[value] || value;
+      }
+    },
     props: {
       options: {
         type: Object,
@@ -39,9 +46,8 @@
       };
     },
     watch: {
-      selected: function (selectedTypeValues) {
-        console.log('selected', selectedTypeValues);
-        this.$emit('changed', selectedTypeValues);
+      selected: function (selectedValues) {
+        this.$emit('changed', selectedValues);
       }
     }
   };
