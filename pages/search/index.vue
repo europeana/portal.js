@@ -100,16 +100,17 @@
       };
     },
     asyncData ({ env, query, res }) {
+      const currentPage = query.page ? Number(query.page) : 1;
       if (typeof query.query === 'undefined') {
         return;
       }
       return search({
-        page: query.page,
+        page: currentPage,
         query: query.query,
         wskey: env.EUROPEANA_API_KEY
       })
         .then((results) => {
-          return { ...results, query: query.query, page: Number(query.page) };
+          return { ...results, query: query.query, page: Number(currentPage) };
         })
         .catch((err) => {
           if (typeof res !== 'undefined') {
