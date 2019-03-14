@@ -89,3 +89,7 @@ dist
 
 # Storybook
 storybook-static
+
+# Temporary files
+tmp
+*.tmp
