@@ -151,16 +151,20 @@ function facetsFromApiResponse(response) {
  * @return {{results: Object[], totalResults: number, facets: FacetSet, error: string}} search results for display
  */
 function search(params) {
+  const maxResults = 1000;
   const perPage = 24;
   const page = params.page || 1;
+
+  const start = ((page - 1) * perPage) + 1;
+  const rows = Math.min(maxResults + 1 - start, perPage);
 
   return axios.get('https://api.europeana.eu/api/v2/search.json', {
     params: {
       profile: 'minimal,facets',
       facet: 'TYPE',
       query: params.query == '' ? '*:*' : params.query,
-      rows: perPage,
-      start: ((page - 1) * perPage) + 1,
+      rows: rows,
+      start: start,
       wskey: params.wskey
     }
   })
