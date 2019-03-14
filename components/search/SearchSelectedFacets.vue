@@ -1,6 +1,5 @@
 <template>
   <div class="mt-3">
-    {{ facets }}
     <b-badge
       v-for="selectedFacet in facetList"
       :key="selectedFacet.key"
@@ -22,7 +21,6 @@
     },
     computed: {
       facetList: function() {
-        console.log('computing facetList');
         let listOfFacets = [];
         for (let facetName in this.facets) {
           for (let fieldValue of this.facets[facetName]) {

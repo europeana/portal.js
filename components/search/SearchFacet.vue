@@ -1,22 +1,22 @@
 <template>
   <div>
     <b-card
-      :header="name"
+      :header="name | renameHeader"
       class="mb-3"
       data-qa="search facet"
     >
       <b-form-checkbox-group
         v-model="selected"
+        :name="name"
         stacked
         plain
-        :name="name"
       >
         <b-form-checkbox
           v-for="(fieldCount, fieldValue) in fields"
           :key="fieldValue"
           :value="fieldValue"
         >
-          {{ fieldValue }} ({{ fieldCount }})
+          {{ fieldValue }} ({{ fieldCount | localise }})
         </b-form-checkbox>
       </b-form-checkbox-group>
     </b-card>
@@ -24,7 +24,14 @@
 </template>
 
 <script>
+  const headerText = { 'TYPE': 'Type of media' };
+
   export default {
+    filters: {
+      renameHeader: function (value) {
+        return headerText[value] || value;
+      }
+    },
     props: {
       name: {
         type: String,
