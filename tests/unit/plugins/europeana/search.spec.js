@@ -12,6 +12,10 @@ const baseRequest = nock(apiUrl).get(apiEndpoint);
 const defaultResponse = { success: true, items: [], totalResults: 123456 };
 
 describe('plugins/europeana/search', () => {
+  afterEach(() => {
+    nock.cleanAll();
+  });
+
   describe('search()', () => {
     describe('API request', () => {
       it('includes API key', async () => {
@@ -34,6 +38,30 @@ describe('plugins/europeana/search', () => {
           .reply(200, defaultResponse);
 
         await search({ query: 'anything', wskey: apiKey });
+
+        nock.isDone().should.be.true;
+      });
+
+      it('paginates if `page` is passed', async () => {
+        baseRequest
+          .query(query => {
+            return query.rows === '24' && query.start === '25';
+          })
+          .reply(200, defaultResponse);
+
+        await search({ page: 2, query: 'anything', wskey: apiKey });
+
+        nock.isDone().should.be.true;
+      });
+
+      it('does not request rows beyond API limit', async () => {
+        baseRequest
+          .query(query => {
+            return query.rows === '16' && query.start === '985';
+          })
+          .reply(200, defaultResponse);
+
+        await search({ page: 42, query: 'anything', wskey: apiKey });
 
         nock.isDone().should.be.true;
       });

@@ -1,0 +1,66 @@
+<template>
+  <b-pagination-nav
+    v-model="currentPage"
+    :limit="limit"
+    :hide-ellipsis="hideEllipsis"
+    :number-of-pages="totalPages"
+    :link-gen="linkGen"
+    use-router
+    size="sm"
+    align="center"
+    data-qa="pagination navigation"
+  />
+</template>
+
+<script>
+  const maxResults = 1000;
+
+  export default {
+    props: {
+      perPage: {
+        type: Number,
+        default: 24
+      },
+      limit: {
+        type: Number,
+        default: 12
+      },
+      hideEllipsis: {
+        type: Boolean,
+        default: true
+      },
+      totalResults: {
+        type: Number,
+        default: 0
+      },
+      value: {
+        type: Number,
+        default: 1
+      },
+      linkGen: {
+        type: Function,
+        default: (val) => {
+          return val.toString();
+        }
+      }
+    },
+    data () {
+      return {
+        currentPage: this.value
+      };
+    },
+    computed: {
+      totalPages: function () {
+        return Math.ceil(Math.min(this.totalResults, maxResults) / this.perPage);
+      }
+    },
+    watch: {
+      value: {
+        immediate: true,
+        handler(val) {
+          this.currentPage = val;
+        }
+      }
+    }
+  };
+</script>

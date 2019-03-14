@@ -1,6 +1,6 @@
 <template>
   <b-navbar
-    class="border-bottom pb-3 pt-sm-3 mb-3"
+    class="border-bottom pb-3 pt-sm-3 mb-3 flex-column flex-md-row"
     data-qa="header"
   >
     <b-navbar-brand
@@ -14,11 +14,11 @@
         data-qa="logo"
       >
     </b-navbar-brand>
-    <b-navbar-nav class="ml-auto w-100 col-md-5 col-lg-4 p-0">
+    <b-navbar-nav class="ml-auto w-100 col-md-6 col-lg-5 p-0">
       <SearchForm
         v-model="query"
         :is-loading="isLoading"
-        class="justify-content-center justify-content-sm-end"
+        class="justify-content-center justify-content-md-end w-100"
         @submit:searchForm="submitSearchForm"
       />
     </b-navbar-nav>

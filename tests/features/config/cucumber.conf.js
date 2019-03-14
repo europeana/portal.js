@@ -32,7 +32,7 @@ BeforeAll(async () => {
   console.log(`Starting web driver for ${browserEnv}`);
   await startWebDriver({ configFile: 'tests/features/config/nightwatch.conf.js', env: browserEnv });
 
-  await createSession({ configFile: 'tests/features/config/nightwatch.conf.js' });
+  await createSession({ configFile: 'tests/features/config/nightwatch.conf.js', env: browserEnv });
 });
 
 AfterAll(async () => {

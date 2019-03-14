@@ -145,17 +145,26 @@ function facetsFromApiResponse(response) {
 /**
  * Search Europeana Record API
  * @param {Object} params parameters for search query
+ * @param {number} params.page page of results to retrieve
  * @param {string} params.query search query
  * @param {string} params.wskey API key
  * @return {{results: Object[], totalResults: number, facets: FacetSet, error: string}} search results for display
  */
 function search(params) {
+  const maxResults = 1000;
+  const perPage = 24;
+  const page = params.page || 1;
+
+  const start = ((page - 1) * perPage) + 1;
+  const rows = Math.min(maxResults + 1 - start, perPage);
+
   return axios.get('https://api.europeana.eu/api/v2/search.json', {
     params: {
       profile: 'minimal,facets',
       facet: 'TYPE',
       query: params.query == '' ? '*:*' : params.query,
-      rows: 24,
+      rows: rows,
+      start: start,
       wskey: params.wskey
     }
   })

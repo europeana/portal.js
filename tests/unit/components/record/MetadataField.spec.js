@@ -1,12 +1,12 @@
-import { shallowMount } from '@vue/test-utils';
+import { mount } from '@vue/test-utils';
 import MetadataField from '../../../../components/record/MetadataField.vue';
 
-const factory = () => shallowMount(MetadataField);
+const factory = () => mount(MetadataField);
 
 describe('components/record/MetadataField', () => {
-  const props = { name: 'dcCreator', value: { def: 'Artist' } };
+  const props = { name: 'dcCreator', value: { def: ['Artist'] } };
 
-  describe('a labeled field', () => {
+  describe('a labelled field', () => {
     const wrapper = factory();
 
     it('outputs the field label', () => {
@@ -16,7 +16,7 @@ describe('components/record/MetadataField', () => {
       fieldName.text().should.eq('Creators');
     });
 
-    describe('a labeled field with a labelling context', () => {
+    describe('a labelled field with a labelling context', () => {
       const props = { name: 'edmRights', value: { def: 'http://rightsstatements.org/vocab/InC/1.0/' }, context: 'webResource' };
       it('outputs the context specific label', () => {
 
@@ -28,7 +28,7 @@ describe('components/record/MetadataField', () => {
     });
   });
 
-  describe('any non labeled field', () => {
+  describe('any non-labelled field', () => {
     const wrapper = factory();
 
     it('outputs the field name', () => {
@@ -41,12 +41,12 @@ describe('components/record/MetadataField', () => {
     });
   });
 
-  it('outputs the field value in a code block', () => {
+  it('outputs the field value', () => {
     const wrapper = factory();
 
     wrapper.setProps(props);
 
     const fieldValue = wrapper.find('[data-qa="metadata field"] [data-qa="value"]');
-    fieldValue.text().should.eq(JSON.stringify(props.value, null, 2));
+    fieldValue.text().should.include(props.value.def);
   });
 });
