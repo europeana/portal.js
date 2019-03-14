@@ -12,6 +12,9 @@
           :is-loading="isLoading"
           @submit:searchForm="submitSearchForm"
         />
+        <SearchSelectedFacets
+          :selected="selectedFacets"
+        />
       </b-col>
     </b-row>
     <b-row
@@ -34,45 +37,62 @@
         />
       </b-col>
     </b-row>
-    <template
-      v-if="results !== null"
+    <b-row
+      class="mb-3"
     >
-      <b-row>
-        <b-col>
-          <PaginationNav
-            v-if="totalResults > perPage"
-            v-model="page"
-            :total-results="totalResults"
-            :per-page="perPage"
-            :link-gen="paginationLink"
-          />
-        </b-col>
-      </b-row>
-      <b-row
-        class="mb-3"
+      <b-col>
+        <SearchFacets
+          :options="facets"
+          @changed="selectFacet"
+        />
+      </b-col>
+      <b-col
+        cols="12"
+        lg="9"
       >
-        <b-col>
-          <SearchResultsList :results="results" />
-        </b-col>
-      </b-row>
-      <b-row>
-        <b-col>
-          <PaginationNav
-            v-if="totalResults > perPage"
-            v-model="page"
-            :total-results="totalResults"
-            :per-page="perPage"
-            :link-gen="paginationLink"
-          />
-        </b-col>
-      </b-row>
-    </template>
+        <template
+          v-if="results !== null"
+        >
+          <b-row>
+            <b-col>
+              <PaginationNav
+                v-if="totalResults > perPage"
+                v-model="page"
+                :total-results="totalResults"
+                :per-page="perPage"
+                :link-gen="paginationLink"
+              />
+            </b-col>
+          </b-row>
+          <b-row
+            class="mb-3"
+          >
+            <b-col>
+              <SearchResultsList :results="results" />
+            </b-col>
+          </b-row>
+          <b-row>
+            <b-col>
+              <PaginationNav
+                v-if="totalResults > perPage"
+                v-model="page"
+                :total-results="totalResults"
+                :per-page="perPage"
+                :link-gen="paginationLink"
+              />
+            </b-col>
+          </b-row>
+        </template>
+      </b-col>
+    </b-row>
   </b-container>
 </template>
 
 <script>
   import AlertMessage from '../../components/generic/AlertMessage';
   import SearchForm from '../../components/search/SearchForm';
+  import SearchSelectedFacets from '../../components/search/SearchSelectedFacets';
+  import SearchFacets from '../../components/search/SearchFacets';
   import SearchResultsList from '../../components/search/SearchResultsList';
   import PaginationNav from '../../components/generic/PaginationNav';
   import search from '../../plugins/europeana/search';
@@ -81,6 +101,8 @@
     components: {
       AlertMessage,
       SearchForm,
+      SearchFacets,
+      SearchSelectedFacets,
       SearchResultsList,
       PaginationNav
     },
@@ -99,6 +121,8 @@
         results: null,
         totalResults: null,
         query: null,
+        facets: null,
+        selectedFacets: null,
         page: 1
       };
     },
@@ -113,7 +137,7 @@
         wskey: env.EUROPEANA_API_KEY
       })
         .then((results) => {
-          return { ...results, query: query.query, page: Number(currentPage) };
+          return { ...results, query: query.query, facets: results.facets, page: Number(currentPage) };
         })
         .catch((err) => {
           if (typeof res !== 'undefined') {
@@ -138,6 +162,9 @@
           this.isLoading = true;
           this.$router.push({ name: 'search', query: { query: this.query || '', page: '1' } });
         }
+      },
+      selectFacet (selected) {
+        this.selectedFacets = selected;
       },
       paginationLink (val) {
         return { name: 'search', query: { query: this.query, page: val } };
