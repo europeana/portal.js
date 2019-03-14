@@ -8,6 +8,7 @@
     use-router
     size="sm"
     align="center"
+    data-qa="pagination navigation"
   />
 </template>
 
