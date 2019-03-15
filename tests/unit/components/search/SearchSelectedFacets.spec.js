@@ -12,7 +12,7 @@ const factory = () => mount(SearchSelectedFacets, {
 describe('components/search/SearchSelectedFacets', () => {
   it('has two selected facets', () => {
     const wrapper = factory();
-    wrapper.setProps({ selected: ['Image', 'Video'] });
+    wrapper.setProps({ facets: { TYPE: ['Image', 'Video'] } });
 
     const selected =  wrapper.findAll('.badge');
     selected.length.should.eq(2);

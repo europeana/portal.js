@@ -18,7 +18,7 @@ describe('components/search/SearchFacet', () => {
     wrapper.setProps({ name: facetName, fields: facetFields });
 
     const facetHeader =  wrapper.find('[data-qa="search facet"] .card-header');
-    facetHeader.text().should.eq('TYPE');
+    facetHeader.text().should.eq('Type of media');
   });
 
   it('has two checkboxes', () => {
@@ -29,7 +29,7 @@ describe('components/search/SearchFacet', () => {
     facets.length.should.eq(2);
   });
 
-  it('emits `selected` event when selected', () => {
+  it('emits `changed` event when selected', () => {
     const wrapper = factory();
     wrapper.setProps({ name: facetName, fields: facetFields });
 
@@ -37,6 +37,6 @@ describe('components/search/SearchFacet', () => {
     const firstFacet = facets.at(1);
     firstFacet.setChecked();
 
-    wrapper.emitted()['selected'][0][0].should.eql('TYPE', ['VIDEO']);
+    wrapper.emitted()['changed'][0][0].should.eql('TYPE', ['VIDEO']);
   });
 });
