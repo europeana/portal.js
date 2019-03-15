@@ -80,6 +80,7 @@
     "chai-as-promised": "^7.1.1",
     "chromedriver": "^2.46.0",
     "concurrently": "^4.1.0",
+    "cssesc": "^3.0.0",
     "cucumber": "^5.1.0",
     "cucumber-pretty": "^1.5.0",
     "eslint": "^5.15.1",

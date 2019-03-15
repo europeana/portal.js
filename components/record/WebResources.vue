@@ -2,8 +2,9 @@
   <b-list-group>
     <b-list-group-item
       v-for="webResource in media"
+      :id="webResource.rdfAbout"
       :key="webResource.rdfAbout"
-      :data-qa="'webResource ' + webResource.rdfAbout"
+      data-qa="web resource"
       class="mb-3"
     >
       <MetadataField

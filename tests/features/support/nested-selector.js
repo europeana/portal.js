@@ -1,6 +1,3 @@
-// Nested selectors taken from:
-// https://markus.oberlehner.net/blog/acceptance-testing-with-nightwatch-and-cucumber-smart-step-definitions/
-
 const prefixRegEx = /` in.*? (`.*`)/;
 
 function parseSelectorChain(selectorChain) {
@@ -21,7 +18,7 @@ function nestedSelector(selectorChain) {
 
   return prefixSelectors
     .concat(selectors)
-    .map(x => x.split(' ').map(y => `[data-qa~="${y.replace(/`/g, '')}"]`).join(''))
+    .map(x => `[data-qa="${x.replace(/`/g, '')}"]`)
     .join(' ');
 }
 
