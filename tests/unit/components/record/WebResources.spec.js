@@ -1,6 +1,7 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 import WebResources from '../../../../components/record/WebResources.vue';
+import cssesc from 'cssesc';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
@@ -20,9 +21,8 @@ describe('components/record/WebResources', () => {
     };
 
     wrapper.setProps(props);
-
     for (let webResource of props.media) {
-      const webResourceBlock = wrapper.find(`[data-qa~="${webResource.rdfAbout}"]`);
+      const webResourceBlock = wrapper.find('#' + cssesc(webResource.rdfAbout, { 'isIdentifier': true }));
       webResourceBlock.should.exist;
     }
   });
