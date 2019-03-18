@@ -75,7 +75,7 @@
   import SearchForm from '../../components/search/SearchForm';
   import SearchResultsList from '../../components/search/SearchResultsList';
   import PaginationNav from '../../components/generic/PaginationNav';
-  import search from '../../plugins/europeana/search';
+  import search, { pageFromQuery } from '../../plugins/europeana/search';
 
   export default {
     components: {
@@ -102,8 +102,13 @@
         page: 1
       };
     },
-    asyncData ({ env, query, res }) {
-      const currentPage = query.page ? Number(query.page) : 1;
+    asyncData ({ env, query, res, redirect }) {
+      const currentPage = pageFromQuery(query.page);
+      if (currentPage === null) {
+        // Redirect non-positive integer values for `page` to `page=1`
+        return redirect({ name: 'search', query: { query: query.query || '', page: '1' } });
+      }
+
       if (typeof query.query === 'undefined') {
         return;
       }

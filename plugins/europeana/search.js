@@ -142,6 +142,18 @@ function facetsFromApiResponse(response) {
   return facets;
 }
 
+export function pageFromQuery(queryPage) {
+  if (queryPage) {
+    if (/^[1-9]\d*$/.test(queryPage)) {
+      return Number(queryPage);
+    } else {
+      return null;
+    }
+  } else {
+    return 1;
+  }
+}
+
 /**
  * Search Europeana Record API
  * @param {Object} params parameters for search query
