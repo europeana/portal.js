@@ -40,7 +40,9 @@ defineStep(/^I should be on.*? `(.*)`$/, pageName => {
   } else {
     expectedUrl = pages[pageName];
   }
-  // TODO: Update the assert below with expect syntax, if there's a clean way to do so.
+  // TODO: update if a less verbose syntax becomes available.
   // See https://github.com/nightwatchjs/nightwatch/issues/861
-  client.assert.urlEquals(expectedUrl);
+  client.url(currentUrl => {
+    client.expect(currentUrl.value).to.eq(expectedUrl);
+  });
 });
