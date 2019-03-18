@@ -181,7 +181,7 @@
         return { name: 'search', query: { query: this.query, page: val } };
       },
       selectFacet (name, selected) {
-        this.selectedFacets[name] = selected;
+        this.$set(this.selectedFacets, name, selected);
       }
     },
     head () {
