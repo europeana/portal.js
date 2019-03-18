@@ -53,6 +53,7 @@
     "lodash": "^4.17.11",
     "morgan": "^1.9.1",
     "nuxt": "^2.4.5",
+    "qs": "^6.6.0",
     "vcap_services": "^0.6.0",
     "vue": "^2.6.8",
     "vue-resize-directive": "^1.1.4",

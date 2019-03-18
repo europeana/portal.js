@@ -40,17 +40,21 @@
       fields: {
         type: Object,
         default: () => {}
+      },
+      selectedFields: {
+        type: Array,
+        default: () => []
       }
     },
-    data() {
-      return {
-        selected: []
-      };
-    },
-    watch: {
-      selected: function (selectedFieldValues) {
-        this.selected = selectedFieldValues;
-        this.$emit('changed', this.name, selectedFieldValues);
+    computed: {
+      selected: {
+        get: function () {
+          return this.preserved ? this.preserved : this.selectedFields;
+        },
+        set: function (values) {
+          this.preserved = values;
+          this.$emit('changed', this.name, values);
+        }
       }
     }
   };

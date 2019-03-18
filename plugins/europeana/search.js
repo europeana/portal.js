@@ -3,6 +3,7 @@
  */
 
 import axios from 'axios';
+import qs from 'qs';
 
 function genericThumbnail(edmType) {
   return `https://api.europeana.eu/api/v2/thumbnail-by-url.json?size=w200&uri=&type=${edmType}`;
@@ -159,10 +160,14 @@ function search(params) {
   const rows = Math.min(maxResults + 1 - start, perPage);
 
   return axios.get('https://api.europeana.eu/api/v2/search.json', {
+    paramsSerializer: function (params) {
+      return qs.stringify(params, { arrayFormat: 'repeat' });
+    },
     params: {
       profile: 'minimal,facets',
       facet: 'TYPE',
       query: params.query == '' ? '*:*' : params.query,
+      qf: params.qf,
       rows: rows,
       start: start,
       wskey: params.wskey

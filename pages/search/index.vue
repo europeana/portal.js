@@ -56,6 +56,7 @@
           :key="name"
           :name="name"
           :fields="fields"
+          :selected-fields="selectedFacets[name]"
           @changed="selectFacet"
         />
       </b-col>
@@ -144,19 +145,35 @@
       if (typeof query.query === 'undefined') {
         return;
       }
+
       return search({
         page: currentPage,
         query: query.query,
+        qf: query.qf,
         wskey: env.EUROPEANA_API_KEY
       })
         .then((response) => {
-          return { ...response, query: query.query, page: Number(currentPage) };
+          // TODO: move to search plugin?
+          let selectedFacets = {};
+          if (query.qf) {
+            for (const qf of [query.qf].flat()) {
+              const qfParts = qf.split(':');
+              const facetName = qfParts[0];
+              const facetValue = qfParts[1];
+              if (typeof selectedFacets[facetName] === 'undefined') {
+                selectedFacets[facetName] = [];
+              }
+              selectedFacets[facetName].push(facetValue);
+            }
+          }
+          return { ...response, isLoading: false, query: query.query, page: Number(currentPage), selectedFacets: selectedFacets };
         })
         .catch((err) => {
           if (typeof res !== 'undefined') {
             res.statusCode = err.message.startsWith('Invalid query') ? 400 : 500;
           }
 
+          // TODO: needs to preserve `qf` once above code moved to search plugin
           return { results: null, error: err.message, query: query.query };
         });
     },
@@ -174,14 +191,28 @@
       submitSearchForm () {
         if (this.$route.query.query !== this.query) {
           this.isLoading = true;
-          this.$router.push({ name: 'search', query: { query: this.query || '', page: '1' } });
+          this.$router.push({ name: 'search', query: { query: this.query || '', page: '1', qf: this.qfForSelectedFacets() } });
         }
       },
       paginationLink (val) {
-        return { name: 'search', query: { query: this.query, page: val } };
+        return {
+          name: 'search', query: { query: this.query, page: val, qf: this.qfForSelectedFacets() }
+        };
+      },
+      qfForSelectedFacets () {
+        let qfForSelectedFacets = [];
+        for (const facetName in this.selectedFacets) {
+          for (const facetValue of this.selectedFacets[facetName]) {
+            qfForSelectedFacets.push(`${facetName}:${facetValue}`);
+          }
+        }
+        return qfForSelectedFacets;
       },
       selectFacet (name, selected) {
         this.$set(this.selectedFacets, name, selected);
+
+        this.isLoading = true;
+        this.$router.push({ name: 'search', query: { query: this.query || '', page: '1', qf: this.qfForSelectedFacets() } });
       }
     },
     head () {
@@ -189,6 +220,6 @@
         title: 'Search'
       };
     },
-    watchQuery: ['page', 'query']
+    watchQuery: ['page', 'qf', 'query']
   };
 </script>
