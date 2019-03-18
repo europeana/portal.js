@@ -52,7 +52,15 @@
         class="mb-3"
       >
         <b-col>
-          <SearchResultsList :results="results" />
+          <p
+            v-if="results.length == 0"
+          >
+            There are no more results for your search query.
+          </p>
+          <SearchResultsList
+            v-else
+            :results="results"
+          />
         </b-col>
       </b-row>
       <b-row>
