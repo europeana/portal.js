@@ -173,7 +173,7 @@
             res.statusCode = err.message.startsWith('Invalid query') ? 400 : 500;
           }
 
-          // TODO: needs to preserve `qf` once above code moved to search plugin
+          // TODO: include selectedFacets?
           return { results: null, error: err.message, query: query.query };
         });
     },
