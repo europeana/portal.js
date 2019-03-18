@@ -39,6 +39,7 @@ module.exports = {
     'semi': ['error', 'always'],
     'semi-spacing': ['error'],
     'space-before-blocks': ['error', 'always'],
+    'space-in-parens': ['error', 'never'],
     'vue/script-indent': ['error', 2, { 'baseIndent': 1 }]
   },
   'overrides': [

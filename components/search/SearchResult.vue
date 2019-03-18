@@ -9,14 +9,16 @@
         slot="aside"
         :src="result.edmPreview"
         class="mw-100"
-        data-qa="thumbnail edmPreview"
+        data-field-name="edmPreview"
+        data-qa="result thumbnail"
       />
     </b-media-aside>
     <b-media-body>
       <div
         v-for="(value, key) in result.fields"
         :key="key"
-        :data-qa="'field ' + key"
+        :data-field-name="key"
+        data-qa="result field"
       >
         <pre v-if="!Array.isArray(value)">
           <code>{{ value }}</code>

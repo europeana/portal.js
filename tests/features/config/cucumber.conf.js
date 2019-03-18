@@ -21,7 +21,7 @@ BeforeAll(async () => {
 
   console.log(`Waiting for test server ${testServer}...`);
   let i = 0;
-  while (!(await isReachable(testServer)) && (i <= maxWaitTime) ) {
+  while (!(await isReachable(testServer)) && (i <= maxWaitTime)) {
     i++;
     await sleep(1000);
   }

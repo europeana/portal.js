@@ -1,8 +1,10 @@
 import { storiesOf } from '@storybook/vue';
+import StoryRouter from 'storybook-vue-router';
 
 import PaginationNav from './PaginationNav.vue';
 
 storiesOf('Generic', module)
+  .addDecorator(StoryRouter())
   .add('Pagination', () => ({
     components: { PaginationNav },
     template: ` <b-container
