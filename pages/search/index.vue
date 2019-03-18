@@ -128,11 +128,22 @@
         .then((results) => {
           return { ...results, query: query.query, page: Number(currentPage) };
         })
-        .catch((err) => {
+        .catch((error) => {
+          let errorMessage = error.message;
           if (typeof res !== 'undefined') {
-            res.statusCode = err.message.startsWith('Invalid query') ? 400 : 500;
+            if (error.message.startsWith('Invalid query')) {
+              res.statusCode = 400;
+            } else {
+              const paginationError = error.message.match(/It is not possible to paginate beyond the first (\d+)/);
+              if (paginationError !== null) {
+                res.statusCode = 400;
+                errorMessage = `It is only possible to view the first ${paginationError[1]} search results.`;
+              } else {
+                res.statusCode = 500;
+              }
+            }
           }
-          return { results: null, error: err.message, query: query.query };
+          return { results: null, error: errorMessage, query: query.query };
         });
     },
     mounted () {

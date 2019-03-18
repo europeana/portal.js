@@ -142,6 +142,15 @@ function facetsFromApiResponse(response) {
   return facets;
 }
 
+/**
+ * Page to request from API based on URL query parameter
+ * If parameter is not present, returns default of page 1.
+ * If parameter is present, and represents a positive integer, return it
+ * typecast to Number.
+ * Otherwise, parameter is invalid for page number, and return `null`.
+ * @param {string} queryPage `page` query parameter from URL
+ * @return {?number}
+ */
 export function pageFromQuery(queryPage) {
   if (queryPage) {
     if (/^[1-9]\d*$/.test(queryPage)) {
@@ -168,14 +177,7 @@ function search(params) {
   const page = params.page || 1;
 
   const start = ((page - 1) * perPage) + 1;
-  const rows = Math.min(maxResults + 1 - start, perPage);
-
-  // Throw error if user attempted to paginate beyond API limit
-  if (rows < 0) {
-    return new Promise((resolve, reject) => {
-      reject(new Error('It is only possible to view the first 1,000 search results.'));
-    });
-  }
+  const rows = Math.max(0, Math.min(maxResults + 1 - start, perPage));
 
   return axios.get('https://api.europeana.eu/api/v2/search.json', {
     params: {

@@ -66,12 +66,6 @@ describe('plugins/europeana/search', () => {
         nock.isDone().should.be.true;
       });
 
-      it('detects if request would exceed API result limit', () => {
-        const response = search({ page: 43, query: 'anything', wskey: apiKey });
-
-        response.should.be.rejectedWith('It is only possible to view the first 1,000 search results.');
-      });
-
       it('requests the minimal & facets profiles', async () => {
         baseRequest
           .query(query => {
