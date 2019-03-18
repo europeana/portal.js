@@ -191,28 +191,24 @@
       submitSearchForm () {
         if (this.$route.query.query !== this.query) {
           this.isLoading = true;
-          this.$router.push({ name: 'search', query: { query: this.query || '', page: '1', qf: this.qfForSelectedFacets() } });
+          this.$router.push({ name: 'search', query: { query: this.query || '', page: '1', qf: this.qfForSelectedFacets } });
         }
       },
       paginationLink (val) {
         return {
-          name: 'search', query: { query: this.query, page: val, qf: this.qfForSelectedFacets() }
+          name: 'search', query: { query: this.query, page: val, qf: this.qfForSelectedFacets }
         };
-      },
-      qfForSelectedFacets () {
-        let qfForSelectedFacets = [];
-        for (const facetName in this.selectedFacets) {
-          for (const facetValue of this.selectedFacets[facetName]) {
-            qfForSelectedFacets.push(`${facetName}:${facetValue}`);
-          }
-        }
-        return qfForSelectedFacets;
       },
       selectFacet (name, selected) {
         this.$set(this.selectedFacets, name, selected);
-
+        this.qfForSelectedFacets = [];
+        for (const facetName in this.selectedFacets) {
+          for (const facetValue of this.selectedFacets[facetName]) {
+            this.qfForSelectedFacets.push(`${facetName}:${facetValue}`);
+          }
+        }
         this.isLoading = true;
-        this.$router.push({ name: 'search', query: { query: this.query || '', page: '1', qf: this.qfForSelectedFacets() } });
+        this.$router.push({ name: 'search', query: { query: this.query || '', page: '1', qf: this.qfForSelectedFacets } });
       }
     },
     head () {
