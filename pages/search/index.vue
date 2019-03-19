@@ -13,7 +13,7 @@
           @submit:searchForm="submitSearchForm"
         />
         <SearchSelectedFacets
-          :selected="selectedFacets"
+          :facets="selectedFacets"
         />
       </b-col>
     </b-row>
@@ -51,8 +51,12 @@
       class="mb-3"
     >
       <b-col>
-        <SearchFacets
-          :options="facets"
+        <SearchFacet
+          v-for="(fields, name) in facets"
+          :key="name"
+          :name="name"
+          :fields="fields"
+          :selected-fields="selectedFacets[name]"
           @changed="selectFacet"
         />
       </b-col>
@@ -109,20 +113,20 @@
 
 <script>
   import AlertMessage from '../../components/generic/AlertMessage';
+  import SearchFacet from '../../components/search/SearchFacet';
   import SearchForm from '../../components/search/SearchForm';
-  import SearchSelectedFacets from '../../components/search/SearchSelectedFacets';
-  import SearchFacets from '../../components/search/SearchFacets';
   import SearchResultsList from '../../components/search/SearchResultsList';
+  import SearchSelectedFacets from '../../components/search/SearchSelectedFacets';
   import PaginationNav from '../../components/generic/PaginationNav';
-  import search, { pageFromQuery } from '../../plugins/europeana/search';
+  import search, { pageFromQuery, selectedFacetsFromQueryQf } from '../../plugins/europeana/search';
 
   export default {
     components: {
       AlertMessage,
+      SearchFacet,
       SearchForm,
-      SearchFacets,
-      SearchSelectedFacets,
       SearchResultsList,
+      SearchSelectedFacets,
       PaginationNav
     },
     props: {
@@ -140,9 +144,9 @@
         results: null,
         totalResults: null,
         query: null,
-        facets: null,
-        selectedFacets: null,
-        page: 1
+        page: 1,
+        facets: {},
+        selectedFacets: {}
       };
     },
     asyncData ({ env, query, res, redirect }) {
@@ -156,13 +160,21 @@
       if (typeof query.query === 'undefined') {
         return;
       }
+
       return search({
         page: currentPage,
         query: query.query,
+        qf: query.qf,
         wskey: env.EUROPEANA_API_KEY
       })
-        .then((results) => {
-          return { ...results, query: query.query, facets: results.facets, page: Number(currentPage) };
+        .then((response) => {
+          return {
+            ...response,
+            isLoading: false,
+            query: query.query,
+            page: Number(currentPage),
+            selectedFacets: selectedFacetsFromQueryQf(query.qf)
+          };
         })
         .catch((error) => {
           let errorMessage = error.message;
@@ -179,6 +191,7 @@
               }
             }
           }
+          // TODO: include selectedFacets?
           return { results: null, error: errorMessage, query: query.query };
         });
     },
@@ -196,14 +209,24 @@
       submitSearchForm () {
         if (this.$route.query.query !== this.query) {
           this.isLoading = true;
-          this.$router.push({ name: 'search', query: { query: this.query || '', page: '1' } });
+          this.$router.push({ name: 'search', query: { query: this.query || '', page: '1', qf: this.qfForSelectedFacets } });
         }
       },
-      selectFacet (selected) {
-        this.selectedFacets = selected;
-      },
       paginationLink (val) {
-        return { name: 'search', query: { query: this.query, page: val } };
+        return {
+          name: 'search', query: { query: this.query, page: val, qf: this.qfForSelectedFacets }
+        };
+      },
+      selectFacet (name, selected) {
+        this.$set(this.selectedFacets, name, selected);
+        this.qfForSelectedFacets = [];
+        for (const facetName in this.selectedFacets) {
+          for (const facetValue of this.selectedFacets[facetName]) {
+            this.qfForSelectedFacets.push(`${facetName}:${facetValue}`);
+          }
+        }
+        this.isLoading = true;
+        this.$router.push({ name: 'search', query: { query: this.query || '', page: '1', qf: this.qfForSelectedFacets } });
       }
     },
     head () {
@@ -211,6 +234,6 @@
         title: 'Search'
       };
     },
-    watchQuery: ['page', 'query']
+    watchQuery: ['page', 'qf', 'query']
   };
 </script>

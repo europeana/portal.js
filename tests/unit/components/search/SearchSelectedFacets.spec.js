@@ -10,11 +10,19 @@ const factory = () => mount(SearchSelectedFacets, {
 });
 
 describe('components/search/SearchSelectedFacets', () => {
-  it('has two selected facets', () => {
+  it('shows a badge for each supplied facet', () => {
     const wrapper = factory();
-    wrapper.setProps({ selected: ['Image', 'Video'] });
+    wrapper.setProps({ facets: { TYPE: ['IMAGE', 'VIDEO'] } });
 
-    const selected =  wrapper.findAll('.badge');
-    selected.length.should.eq(2);
+    const badges = wrapper.findAll('.badge');
+    badges.length.should.eq(2);
+  });
+
+  it('shows the facet name and field value', () => {
+    const wrapper = factory();
+    wrapper.setProps({ facets: { TYPE: ['IMAGE'] } });
+
+    const badge = wrapper.find('.badge');
+    badge.text().should.eq('Type of media: IMAGE');
   });
 });

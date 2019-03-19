@@ -1,12 +1,13 @@
 <template>
   <div class="mt-3">
     <b-badge
-      v-for="option in selected"
-      :key="option"
+      v-for="selectedFacet in facetList"
+      :key="selectedFacet.key"
       variant="secondary"
       class="mr-2"
+      data-qa="filter badge"
     >
-      Type of media: {{ option }}
+      {{ selectedFacet.facetName | searchFacetHeader }}: {{ selectedFacet.fieldValue }}
     </b-badge>
   </div>
 </template>
@@ -14,9 +15,20 @@
 <script>
   export default {
     props: {
-      selected: {
-        type: Array,
-        default: () => []
+      facets: {
+        type: Object,
+        default: () => {}
+      }
+    },
+    computed: {
+      facetList: function() {
+        let listOfFacets = [];
+        for (let facetName in this.facets) {
+          for (let fieldValue of this.facets[facetName]) {
+            listOfFacets.push({ key: `${facetName}:${fieldValue}`, facetName: facetName, fieldValue: fieldValue });
+          }
+        }
+        return listOfFacets;
       }
     }
   };

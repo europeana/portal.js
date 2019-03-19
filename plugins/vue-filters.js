@@ -5,3 +5,8 @@
 
 import Vue from 'vue';
 Vue.filter('localise', val => val.toLocaleString('en'));
+
+Vue.filter('searchFacetHeader', val => {
+  const headerText = { 'TYPE': 'Type of media' };
+  return headerText[val] || val;
+});

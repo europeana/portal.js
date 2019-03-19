@@ -3,6 +3,7 @@
  */
 
 import axios from 'axios';
+import qs from 'qs';
 
 function genericThumbnail(edmType) {
   return `https://api.europeana.eu/api/v2/thumbnail-by-url.json?size=w200&uri=&type=${edmType}`;
@@ -164,6 +165,42 @@ export function pageFromQuery(queryPage) {
 }
 
 /**
+ * A set of selected facets from the user's request.
+ *
+ * The object is keyed by the facet name, each property being an array of
+ * selected values.
+ *
+ * For example:
+ * ```
+ * {
+ *   "TYPE": ["IMAGE", "VIDEO"]
+ * }
+ * ```
+ * @typedef {Object.<string, Array>} SelectedFacetSet
+ */
+
+/**
+ * Extract selected facets from URL `qf` value(s)
+ * @param {(string|Array)} queryQf one or many `qf` values
+ * @return {SelectedFacetSet} selected facets
+ */
+export function selectedFacetsFromQueryQf(queryQf) {
+  let selectedFacets = {};
+  if (queryQf) {
+    for (const qf of [queryQf].flat()) {
+      const qfParts = qf.split(':');
+      const facetName = qfParts[0];
+      const facetValue = qfParts[1];
+      if (typeof selectedFacets[facetName] === 'undefined') {
+        selectedFacets[facetName] = [];
+      }
+      selectedFacets[facetName].push(facetValue);
+    }
+  }
+  return selectedFacets;
+}
+
+/**
  * Search Europeana Record API
  * @param {Object} params parameters for search query
  * @param {number} params.page page of results to retrieve
@@ -180,10 +217,14 @@ function search(params) {
   const rows = Math.max(0, Math.min(maxResults + 1 - start, perPage));
 
   return axios.get('https://api.europeana.eu/api/v2/search.json', {
+    paramsSerializer: function (params) {
+      return qs.stringify(params, { arrayFormat: 'repeat' });
+    },
     params: {
       profile: 'minimal,facets',
       facet: 'TYPE',
       query: params.query == '' ? '*:*' : params.query,
+      qf: params.qf,
       rows: rows,
       start: start,
       wskey: params.wskey

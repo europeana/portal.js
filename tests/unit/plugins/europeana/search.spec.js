@@ -1,5 +1,5 @@
 import nock from 'nock';
-import search, { pageFromQuery } from '../../../../plugins/europeana/search';
+import search, { pageFromQuery, selectedFacetsFromQueryQf } from '../../../../plugins/europeana/search';
 
 import axios from 'axios';
 axios.defaults.adapter = require('axios/lib/adapters/http');
@@ -288,6 +288,29 @@ describe('plugins/europeana/search', () => {
         for (const queryPage of ['1', '2', '20']) {
           pageFromQuery(queryPage).should.eq(Number(queryPage));
         }
+      });
+    });
+  });
+
+  describe('selectedFacetsFromQueryQf()', () => {
+    describe('with `null` query qf', () => {
+      it('returns {}', () => {
+        selectedFacetsFromQueryQf(null).should.eql({});
+      });
+    });
+
+    describe('with single query qf value', () => {
+      it('returns it in an array on a property named for the facet', () => {
+        selectedFacetsFromQueryQf('TYPE:IMAGE').should.deep.eql({ 'TYPE': ['IMAGE'] });
+      });
+    });
+
+    describe('with multiple query qf values', () => {
+      it('returns them in arrays on properties named for each facet', () => {
+        const queryQf = ['TYPE:IMAGE', 'TYPE:VIDEO', 'REUSABILITY:open'];
+        const expectedReturn = { 'TYPE': ['IMAGE', 'VIDEO'], 'REUSABILITY': ['open'] };
+
+        selectedFacetsFromQueryQf(queryQf).should.deep.eql(expectedReturn);
       });
     });
   });
