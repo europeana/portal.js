@@ -78,7 +78,16 @@
             class="mb-3"
           >
             <b-col>
-              <SearchResultsList :results="results" />
+              <p
+                v-if="results.length == 0"
+                data-qa="warning notice"
+              >
+                There are no more results for your search query.
+              </p>
+              <SearchResultsList
+                v-else
+                :results="results"
+              />
             </b-col>
           </b-row>
           <b-row>
@@ -105,7 +114,7 @@
   import SearchFacets from '../../components/search/SearchFacets';
   import SearchResultsList from '../../components/search/SearchResultsList';
   import PaginationNav from '../../components/generic/PaginationNav';
-  import search from '../../plugins/europeana/search';
+  import search, { pageFromQuery } from '../../plugins/europeana/search';
 
   export default {
     components: {
@@ -136,8 +145,14 @@
         page: 1
       };
     },
-    asyncData ({ env, query, res }) {
-      const currentPage = query.page ? Number(query.page) : 1;
+    asyncData ({ env, query, res, redirect }) {
+      const currentPage = pageFromQuery(query.page);
+      if (currentPage === null) {
+        // Redirect non-positive integer values for `page` to `page=1`
+        query.page = '1';
+        return redirect({ name: 'search', query: query });
+      }
+
       if (typeof query.query === 'undefined') {
         return;
       }
@@ -149,11 +164,22 @@
         .then((results) => {
           return { ...results, query: query.query, facets: results.facets, page: Number(currentPage) };
         })
-        .catch((err) => {
+        .catch((error) => {
+          let errorMessage = error.message;
           if (typeof res !== 'undefined') {
-            res.statusCode = err.message.startsWith('Invalid query') ? 400 : 500;
+            if (error.message.startsWith('Invalid query')) {
+              res.statusCode = 400;
+            } else {
+              const paginationError = error.message.match(/It is not possible to paginate beyond the first (\d+)/);
+              if (paginationError !== null) {
+                res.statusCode = 400;
+                errorMessage = `It is only possible to view the first ${paginationError[1]} search results.`;
+              } else {
+                res.statusCode = 500;
+              }
+            }
           }
-          return { results: null, error: err.message, query: query.query };
+          return { results: null, error: errorMessage, query: query.query };
         });
     },
     mounted () {

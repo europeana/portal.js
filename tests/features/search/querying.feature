@@ -1,4 +1,4 @@
-Feature: Search
+Feature: Search querying
 
   Scenario: Search existing Europeana content
 
@@ -31,10 +31,3 @@ Feature: Search
     And I see a `search result`
     And I click a `search result`
     Then I see a `record page`
-
-Scenario: Pagination of search results
-
-  Given I visit the `search page`
-  When I enter "" in the `search box`
-  And I click the `search button`
-  Then I see a `pagination navigation`

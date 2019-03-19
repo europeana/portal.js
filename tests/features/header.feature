@@ -28,5 +28,5 @@ Feature: Page Header
     Given I open the `search page`
     And I see the `header`
     And I see the `logo` in the `header`
-    When I click on the  `logo` in the `header`
+    When I click on the `logo` in the `header`
     Then I should be on the `home page`

@@ -143,6 +143,27 @@ function facetsFromApiResponse(response) {
 }
 
 /**
+ * Page to request from API based on URL query parameter
+ * If parameter is not present, returns default of page 1.
+ * If parameter is present, and represents a positive integer, return it
+ * typecast to Number.
+ * Otherwise, parameter is invalid for page number, and return `null`.
+ * @param {string} queryPage `page` query parameter from URL
+ * @return {?number}
+ */
+export function pageFromQuery(queryPage) {
+  if (queryPage) {
+    if (/^[1-9]\d*$/.test(queryPage)) {
+      return Number(queryPage);
+    } else {
+      return null;
+    }
+  } else {
+    return 1;
+  }
+}
+
+/**
  * Search Europeana Record API
  * @param {Object} params parameters for search query
  * @param {number} params.page page of results to retrieve
@@ -156,7 +177,7 @@ function search(params) {
   const page = params.page || 1;
 
   const start = ((page - 1) * perPage) + 1;
-  const rows = Math.min(maxResults + 1 - start, perPage);
+  const rows = Math.max(0, Math.min(maxResults + 1 - start, perPage));
 
   return axios.get('https://api.europeana.eu/api/v2/search.json', {
     params: {
