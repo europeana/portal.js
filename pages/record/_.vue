@@ -22,8 +22,8 @@
         <MediaPlayer
           v-if="play.playerType"
           :url="play.url"
-          :playerType="play.playerType"
-          :mimeType="play.mimeType"
+          :player-type="play.playerType"
+          :mime-type="play.mimeType"
           :image="image.src"
         />
         <MediaImage

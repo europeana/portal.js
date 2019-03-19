@@ -29,12 +29,13 @@ function parseRecordDataFromApiResponse(response) {
   const edmIsShownByWebResource = providerAggregation.webResources.find((webResource) => {
     return webResource.about === edmIsShownBy;
   });
-  let play = {
-    url: edmIsShownBy,
-    mimeType: edmIsShownByWebResource.ebucoreHasMimeType
-  };
-  if (edmIsShownByWebResource.ebucoreHasMimeType.startsWith('video/')) {
-    play.playerType = 'video';
+  let play = {};
+  if (edmIsShownByWebResource) {
+    play.url = edmIsShownBy,
+    play.mimeType = edmIsShownByWebResource.ebucoreHasMimeType;
+    if (edmIsShownByWebResource.ebucoreHasMimeType.startsWith('video/')) {
+      play.playerType = 'video';
+    }
   }
 
   return {

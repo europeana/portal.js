@@ -2,7 +2,7 @@
   <VideoContainer
     v-if="playerType == 'video'"
     :url="url"
-    :mimeType="mimeType"
+    :mime-type="mimeType"
     :image="image"
   />
 </template>
