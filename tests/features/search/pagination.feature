@@ -1,5 +1,12 @@
 Feature: Search pagination
 
+  Scenario: Pagination of search results
+
+    Given I visit the `search page`
+    When I enter "" in the `search box`
+    And I click the `search button`
+    Then I see a `pagination navigation`
+
   Scenario: Invalid `page` param redirects to page 1
 
     When I open `/search?query=&page=-1`
@@ -24,5 +31,6 @@ Feature: Search pagination
 
   Scenario: Paginating beyond available results
 
-    When I open `/search?query=europeana_id%3A"%2F90402%2FSK_A_2344"&page=2`
+    When I open `/search?query=title%3Amilkmaid&page=10`
     Then I see a `warning notice` with text "no more results"
+    And I see a `pagination navigation`
