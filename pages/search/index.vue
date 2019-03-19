@@ -80,6 +80,7 @@
             <b-col>
               <p
                 v-if="results.length == 0"
+                data-qa="warning notice"
               >
                 There are no more results for your search query.
               </p>

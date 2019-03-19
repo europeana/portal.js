@@ -21,3 +21,8 @@ Feature: Search pagination
 
     When I open `/search?query=&page=500`
     Then I see an `error notice` with text "It is only possible to view the first 1000 search results."
+
+  Scenario: Paginating beyond available results
+
+    When I open `/search?query=europeana_id%3A"%2F90402%2FSK_A_2344"&page=2`
+    Then I see a `warning notice` with text "no more results"
