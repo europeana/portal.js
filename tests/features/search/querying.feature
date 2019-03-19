@@ -1,4 +1,4 @@
-Feature: Search
+Feature: Search querying
 
   Scenario: Search existing Europeana content
 

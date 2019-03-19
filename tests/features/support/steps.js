@@ -33,7 +33,7 @@ defineStep(/^I (?:enter|fill|input|supply|type).*? "(.*?)" in.*? (`.*`)$/, (valu
 defineStep(/^I (?:activate|click).*? (`.*`)$/, selectorChain =>
   client.click(nestedSelector(selectorChain)));
 
-defineStep(/^I should be on.*? `(.*)`$/, pageName => {
+defineStep(/^I should be on.*? `(.*)`$/, async(pageName) => {
   let expectedUrl;
   if (pageName.startsWith('/')) {
     expectedUrl = `${url}${pageName}`;
@@ -42,7 +42,7 @@ defineStep(/^I should be on.*? `(.*)`$/, pageName => {
   }
   // TODO: update if a less verbose syntax becomes available.
   // See https://github.com/nightwatchjs/nightwatch/issues/861
-  client.url(currentUrl => {
+  await client.url(currentUrl => {
     client.expect(currentUrl.value).to.eq(expectedUrl);
   });
 });
