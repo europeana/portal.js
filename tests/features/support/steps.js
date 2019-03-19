@@ -36,7 +36,7 @@ defineStep(/^I (?:can|don)'t (?:find|identify|see|spot).*? (`.*`).*?$/, selector
   client.expect.element(nestedSelector(selectorChain)).to.not.be.present);
 
 defineStep(/^I (?:wait|pause) (\d+) seconds?$/, async (waitSeconds) => {
-  client.pause(waitSeconds * 1000);
+  await client.pause(waitSeconds * 1000);
 });
 
 defineStep(/^I (?:enter|fill|input|supply|type).*? "(.*?)" in.*? (`.*`)$/, (value, selectorChain) =>
