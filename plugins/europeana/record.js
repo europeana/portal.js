@@ -25,6 +25,18 @@ function parseRecordDataFromApiResponse(response) {
     });
   });
 
+  const edmIsShownBy = providerAggregation.edmIsShownBy;
+  const edmIsShownByWebResource = providerAggregation.webResources.find((webResource) => {
+    return webResource.about === edmIsShownBy;
+  });
+  let play = {
+    url: edmIsShownBy,
+    mimeType: edmIsShownByWebResource.ebucoreHasMimeType
+  };
+  if (edmIsShownByWebResource.ebucoreHasMimeType.startsWith('video/')) {
+    play.playerType = 'video';
+  }
+
   return {
     image: {
       link: providerAggregation.edmIsShownAt,
@@ -43,7 +55,8 @@ function parseRecordDataFromApiResponse(response) {
     }, (v) => {
       return v == null;
     }),
-    media: webResources
+    media: webResources,
+    play: play
   };
 }
 

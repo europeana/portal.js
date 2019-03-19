@@ -57,7 +57,8 @@
     "vcap_services": "^0.6.0",
     "vue": "^2.6.8",
     "vue-resize-directive": "^1.1.4",
-    "vue-server-renderer": "^2.6.8"
+    "vue-server-renderer": "^2.6.8",
+    "vue-video-player": "^5.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.3.4",

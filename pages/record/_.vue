@@ -16,11 +16,18 @@
     </b-row>
     <b-row class="mb-3">
       <b-col
-        v-if="image.src"
         cols="12"
         md="4"
       >
+        <MediaPlayer
+          v-if="play.playerType"
+          :url="play.url"
+          :playerType="play.playerType"
+          :mimeType="play.mimeType"
+          :image="image.src"
+        />
         <MediaImage
+          v-else-if="image.src"
           :link="image.link"
           :src="image.src"
         />
@@ -51,6 +58,7 @@
   import WebResources from '../../components/record/WebResources';
   import MetadataField from '../../components/record/MetadataField';
   import MediaImage from '../../components/record/MediaImage';
+  import MediaPlayer from '../../components/record/MediaPlayer';
 
   import getRecord from '../../plugins/europeana/record';
 
@@ -59,21 +67,23 @@
       AlertMessage,
       WebResources,
       MetadataField,
-      MediaImage
+      MediaImage,
+      MediaPlayer
     },
     data () {
       return {
         error: null,
         image: null,
         fields: null,
-        media: null
+        media: null,
+        play: {}
       };
     },
     asyncData ({ env, params, res }) {
       return getRecord(`/${params.pathMatch}`, {
         wskey: env.EUROPEANA_API_KEY
       }).then((result) => {
-        return { image: result.record.image, fields: result.record.fields, media: result.record.media };
+        return result.record;
       })
         .catch((err) => {
           if (typeof res !== 'undefined') {
