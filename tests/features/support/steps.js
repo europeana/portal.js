@@ -1,9 +1,14 @@
+/**
+ * @file Cucumber step definitions for Nightwatch
+ * @see {@link http://nightwatchjs.org/api#expect-text|Nightwatch Expect assertions}
+ * @see {@link https://github.com/cucumber/cucumber-js/blob/master/docs/support_files/step_definitions.md|Cucumber JS step definitions}
+ */
+
 const { client } = require('nightwatch-api');
 const { defineStep } = require('cucumber');
 
 const { nestedSelector } = require('./nested-selector.js');
 const { europeanaId } = require('./europeana-identifiers.js');
-
 
 const { url } = require('../config/nightwatch.conf.js').test_settings.default.globals;
 
@@ -21,8 +26,11 @@ defineStep(/^I (?:browse|open|visit).*? `(.*?)`$/, pageName => {
   }
 });
 
-defineStep(/^I (?:find|identify|see|spot).*? (`.*`).*?$/, selectorChain =>
+defineStep(/^I (?:find|identify|see|spot).*? (`.*`)$/, selectorChain =>
   client.expect.element(nestedSelector(selectorChain)).to.be.visible);
+
+defineStep(/^I (?:find|identify|see|spot).*? (`.*`) with text "(.*)"$/, (selectorChain, value) =>
+  client.expect.element(nestedSelector(selectorChain)).text.to.contain(value));
 
 defineStep(/^I (?:can|don)'t (?:find|identify|see|spot).*? (`.*`).*?$/, selectorChain =>
   client.expect.element(nestedSelector(selectorChain)).to.not.be.present);
@@ -33,7 +41,7 @@ defineStep(/^I (?:enter|fill|input|supply|type).*? "(.*?)" in.*? (`.*`)$/, (valu
 defineStep(/^I (?:activate|click).*? (`.*`)$/, selectorChain =>
   client.click(nestedSelector(selectorChain)));
 
-defineStep(/^I should be on.*? `(.*)`$/, pageName => {
+defineStep(/^I should be on.*? `(.*)`$/, async(pageName) => {
   let expectedUrl;
   if (pageName.startsWith('/')) {
     expectedUrl = `${url}${pageName}`;
@@ -42,7 +50,7 @@ defineStep(/^I should be on.*? `(.*)`$/, pageName => {
   }
   // TODO: update if a less verbose syntax becomes available.
   // See https://github.com/nightwatchjs/nightwatch/issues/861
-  client.url(currentUrl => {
+  await client.url(currentUrl => {
     client.expect(currentUrl.value).to.eq(expectedUrl);
   });
 });
