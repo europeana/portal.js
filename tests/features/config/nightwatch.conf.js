@@ -4,7 +4,6 @@ const chromedriver = require('chromedriver');
 const geckodriver = require('geckodriver');
 
 module.exports = {
-  output: false,
   test_settings: {
     default: {
       globals: {

@@ -1,6 +1,6 @@
 /**
  * @file Cucumber step definitions for Nightwatch
- * @see {@link http://nightwatchjs.org/api#expect-text|Nightwatch Expect assertions}
+ * @see {@link http://nightwatchjs.org/api#expect-api|Nightwatch Expect assertions}
  * @see {@link https://github.com/cucumber/cucumber-js/blob/master/docs/support_files/step_definitions.md|Cucumber JS step definitions}
  */
 
@@ -40,6 +40,9 @@ defineStep(/^I (?:enter|fill|input|supply|type).*? "(.*?)" in.*? (`.*`)$/, (valu
 
 defineStep(/^I (?:activate|click).*? (`.*`)$/, selectorChain =>
   client.click(nestedSelector(selectorChain)));
+
+defineStep(/^I (?:check|click).*? "(.*)" checkbox$/, inputValue =>
+  client.click(`input[type="checkbox"][value="${inputValue}"]`));
 
 defineStep(/^I should be on.*? `(.*)`$/, async(pageName) => {
   let expectedUrl;
