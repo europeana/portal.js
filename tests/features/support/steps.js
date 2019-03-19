@@ -35,6 +35,10 @@ defineStep(/^I (?:find|identify|see|spot).*? (`.*`) with text "(.*)"$/, (selecto
 defineStep(/^I (?:can|don)'t (?:find|identify|see|spot).*? (`.*`).*?$/, selectorChain =>
   client.expect.element(nestedSelector(selectorChain)).to.not.be.present);
 
+defineStep(/^I (?:wait|pause) (\d+) seconds?$/, async (waitSeconds) => {
+  client.pause(waitSeconds * 1000);
+});
+
 defineStep(/^I (?:enter|fill|input|supply|type).*? "(.*?)" in.*? (`.*`)$/, (value, selectorChain) =>
   client.setValue(nestedSelector(selectorChain), value));
 

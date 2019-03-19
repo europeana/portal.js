@@ -11,4 +11,5 @@ Feature: Search faceting
 
     When I visit `/search?query=`
     And I check the "IMAGE" checkbox
-    Then I should be on `/search?query=&qf=TYPE:IMAGE`
+    And I wait 3 seconds
+    Then I should be on `/search?query=&page=1&qf=TYPE%3AIMAGE`
