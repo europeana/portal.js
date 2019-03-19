@@ -143,6 +143,26 @@ function facetsFromApiResponse(response) {
   return facets;
 }
 
+/**
+ * A set of selected facets from the user's request.
+ *
+ * The object is keyed by the facet name, each property being an array of
+ * selected values.
+ *
+ * For example:
+ * ```
+ * {
+ *   "TYPE": ["IMAGE", "VIDEO"]
+ * }
+ * ```
+ * @typedef {Object.<string, Array>} SelectedFacetSet
+ */
+
+/**
+ * Extract selected facets from URL `qf` value(s)
+ * @param {(string|Array)} queryQf one or many `qf` values
+ * @return {SelectedFacetSet} selected facets
+ */
 export function selectedFacetsFromQueryQf(queryQf) {
   let selectedFacets = {};
   if (queryQf) {
