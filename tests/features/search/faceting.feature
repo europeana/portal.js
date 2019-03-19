@@ -13,3 +13,4 @@ Feature: Search faceting
     And I check the "IMAGE" checkbox
     And I wait 3 seconds
     Then I should be on `/search?query=&page=1&qf=TYPE%3AIMAGE`
+    And I see a `filter badge` with text "Type of media: IMAGE"

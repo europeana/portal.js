@@ -5,6 +5,7 @@
       :key="selectedFacet.key"
       variant="secondary"
       class="mr-2"
+      data-qa="filter badge"
     >
       {{ selectedFacet.facetName | searchFacetHeader }}: {{ selectedFacet.fieldValue }}
     </b-badge>
