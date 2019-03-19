@@ -13,7 +13,7 @@ const facetName = 'TYPE';
 const facetFields = { 'TEXT': 123456, 'VIDEO': 567 };
 
 describe('components/search/SearchFacet', () => {
-  it('has the text `TYPE` in the header', () => {
+  it('has the text `Type of media` in the header', () => {
     const wrapper = factory();
     wrapper.setProps({ name: facetName, fields: facetFields });
 
