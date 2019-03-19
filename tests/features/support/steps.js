@@ -26,7 +26,7 @@ defineStep(/^I (?:browse|open|visit).*? `(.*?)`$/, pageName => {
   }
 });
 
-defineStep(/^I (?:find|identify|see|spot).*? (`.*`)(?! with text ).*?$/, selectorChain =>
+defineStep(/^I (?:find|identify|see|spot).*? (`.*`)$/, selectorChain =>
   client.expect.element(nestedSelector(selectorChain)).to.be.visible);
 
 defineStep(/^I (?:find|identify|see|spot).*? (`.*`) with text "(.*)"$/, (selectorChain, value) =>
