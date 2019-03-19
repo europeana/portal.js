@@ -1,7 +1,7 @@
 <template>
   <div>
     <b-card
-      :header="name | renameHeader"
+      :header="name | searchFacetHeader"
       class="mb-3"
       data-qa="search facet"
     >
@@ -24,14 +24,7 @@
 </template>
 
 <script>
-  const headerText = { 'TYPE': 'Type of media' };
-
   export default {
-    filters: {
-      renameHeader: function (value) {
-        return headerText[value] || value;
-      }
-    },
     props: {
       name: {
         type: String,

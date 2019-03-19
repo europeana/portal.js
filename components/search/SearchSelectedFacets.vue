@@ -6,7 +6,7 @@
       variant="secondary"
       class="mr-2"
     >
-      {{ selectedFacet.facetName }}: {{ selectedFacet.fieldValue }}
+      {{ selectedFacet.facetName | searchFacetHeader }}: {{ selectedFacet.fieldValue }}
     </b-badge>
   </div>
 </template>
