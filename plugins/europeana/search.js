@@ -143,6 +143,22 @@ function facetsFromApiResponse(response) {
   return facets;
 }
 
+export function selectedFacetsFromQueryQf(queryQf) {
+  let selectedFacets = {};
+  if (queryQf) {
+    for (const qf of [queryQf].flat()) {
+      const qfParts = qf.split(':');
+      const facetName = qfParts[0];
+      const facetValue = qfParts[1];
+      if (typeof selectedFacets[facetName] === 'undefined') {
+        selectedFacets[facetName] = [];
+      }
+      selectedFacets[facetName].push(facetValue);
+    }
+  }
+  return selectedFacets;
+}
+
 /**
  * Search Europeana Record API
  * @param {Object} params parameters for search query

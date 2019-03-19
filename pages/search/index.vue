@@ -109,7 +109,7 @@
   import SearchResultsList from '../../components/search/SearchResultsList';
   import SearchSelectedFacets from '../../components/search/SearchSelectedFacets';
   import PaginationNav from '../../components/generic/PaginationNav';
-  import search from '../../plugins/europeana/search';
+  import search, { selectedFacetsFromQueryQf } from '../../plugins/europeana/search';
 
   export default {
     components: {
@@ -153,20 +153,13 @@
         wskey: env.EUROPEANA_API_KEY
       })
         .then((response) => {
-          // TODO: move to search plugin?
-          let selectedFacets = {};
-          if (query.qf) {
-            for (const qf of [query.qf].flat()) {
-              const qfParts = qf.split(':');
-              const facetName = qfParts[0];
-              const facetValue = qfParts[1];
-              if (typeof selectedFacets[facetName] === 'undefined') {
-                selectedFacets[facetName] = [];
-              }
-              selectedFacets[facetName].push(facetValue);
-            }
-          }
-          return { ...response, isLoading: false, query: query.query, page: Number(currentPage), selectedFacets: selectedFacets };
+          return {
+            ...response,
+            isLoading: false,
+            query: query.query,
+            page: Number(currentPage),
+            selectedFacets: selectedFacetsFromQueryQf(query.qf)
+          };
         })
         .catch((err) => {
           if (typeof res !== 'undefined') {
