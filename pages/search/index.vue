@@ -148,7 +148,8 @@
       const currentPage = pageFromQuery(query.page);
       if (currentPage === null) {
         // Redirect non-positive integer values for `page` to `page=1`
-        return redirect({ name: 'search', query: { query: query.query || '', page: '1' } });
+        query.page = '1';
+        return redirect({ name: 'search', query: query });
       }
 
       if (typeof query.query === 'undefined') {
