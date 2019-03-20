@@ -13,16 +13,16 @@ Feature: Search pagination
     Then I should be on the `first page of results`
 
     When I open `/search?query=&page=0`
-    Then I should be on `first page of results`
+    Then I should be on the `first page of results`
 
     When I open `/search?query=&page=one`
-    Then I should be on `first page of results`
+    Then I should be on the `first page of results`
 
     When I open `/search?query=&page=last`
-    Then I should be on `first page of results`
+    Then I should be on the `first page of results`
 
     When I open `/search?query=&page=2.5`
-    Then I should be on `first page of results`
+    Then I should be on the `first page of results`
 
   Scenario: Paginating beyond API result limit
 
