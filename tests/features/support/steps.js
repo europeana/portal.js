@@ -15,7 +15,8 @@ const { url } = require('../config/nightwatch.conf.js').test_settings.default.gl
 const pages = {
   'home page': `${url}/`,
   'search page': `${url}/search`,
-  'record page': `${url}/record${europeanaId()}`
+  'record page': `${url}/record${europeanaId()}`,
+  'first page of results': `${url}/search?query=&page=1`
 };
 
 defineStep(/^I (?:browse|open|visit).*? `(.*?)`$/, pageName => {
@@ -29,7 +30,7 @@ defineStep(/^I (?:browse|open|visit).*? `(.*?)`$/, pageName => {
 defineStep(/^I (?:find|identify|see|spot).*? (`.*`)$/, selectorChain =>
   client.expect.element(nestedSelector(selectorChain)).to.be.visible);
 
-defineStep(/^I (?:find|identify|see|spot).*? (`.*`) with text "(.*)"$/, (selectorChain, value) =>
+defineStep(/^I (?:find|identify|see|spot).*? (`.*`) with the text "(.*)"$/, (selectorChain, value) =>
   client.expect.element(nestedSelector(selectorChain)).text.to.contain(value));
 
 defineStep(/^I (?:can|don)'t (?:find|identify|see|spot).*? (`.*`).*?$/, selectorChain =>
@@ -39,11 +40,15 @@ defineStep(/^I (?:wait|pause) (\d+) seconds?$/, async (waitSeconds) => {
   await client.pause(waitSeconds * 1000);
 });
 
-defineStep(/^I (?:enter|fill|input|supply|type).*? "(.*?)" in.*? (`.*`)$/, (value, selectorChain) =>
-  client.setValue(nestedSelector(selectorChain), value));
+defineStep(/^I (?:enter|fill|input|supply|type).*? "(.*?)" in.*? (`.*`)$/, async (value, selectorChain) => {
+  await client.expect.element(nestedSelector(selectorChain)).to.be.visible;
+  await client.setValue(nestedSelector(selectorChain), value);
+});
 
-defineStep(/^I (?:activate|click).*? (`.*`)$/, selectorChain =>
-  client.click(nestedSelector(selectorChain)));
+defineStep(/^I (?:activate|click).*? (`.*`)$/, async(selectorChain) => {
+  await client.expect.element(nestedSelector(selectorChain)).to.be.visible;
+  await client.click(nestedSelector(selectorChain));
+});
 
 defineStep(/^I (?:check|click).*? "(.*)" checkbox$/, inputValue =>
   client.click(`input[type="checkbox"][value="${inputValue}"]`));
