@@ -24,6 +24,12 @@ Feature: Search pagination
     When I open `/search?query=&page=2.5`
     Then I should be on `/search?query=&page=1`
 
+  Scenario: Paginating to the API result limit
+
+    When I open `/search?query=&page=42`
+    Then I see a `search result`
+    Then I see an `info notice` with text "Additional results are not shown as only the first 1000 most relevant results are shown. If you haven't found what you're looking for, please consider refining your search."
+
   Scenario: Paginating beyond API result limit
 
     When I open `/search?query=&page=500`

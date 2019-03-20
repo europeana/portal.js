@@ -92,6 +92,10 @@
                 v-else
                 :results="results"
               />
+              <InfoMessage
+                v-if="this.lastAvailablePage"
+                message="Additional results are not shown as only the first 1000 most relevant results are shown. If you haven't found what you're looking for, please consider refining your search."
+              />
             </b-col>
           </b-row>
           <b-row>
@@ -113,6 +117,7 @@
 
 <script>
   import AlertMessage from '../../components/generic/AlertMessage';
+  import InfoMessage from '../../components/generic/InfoMessage';
   import SearchFacet from '../../components/search/SearchFacet';
   import SearchForm from '../../components/search/SearchForm';
   import SearchResultsList from '../../components/search/SearchResultsList';
@@ -123,6 +128,7 @@
   export default {
     components: {
       AlertMessage,
+      InfoMessage,
       SearchFacet,
       SearchForm,
       SearchResultsList,
@@ -143,6 +149,7 @@
         inHeader: false,
         results: null,
         totalResults: null,
+        lastAvailablePage: false,
         query: null,
         page: 1,
         facets: {},
