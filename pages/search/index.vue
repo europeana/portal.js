@@ -38,7 +38,7 @@
       </b-col>
     </b-row>
     <b-row
-      v-if="totalResults !== null"
+      v-if="hasResults"
       class="mb-3"
     >
       <b-col>
@@ -65,7 +65,7 @@
         lg="9"
       >
         <template
-          v-if="results !== null"
+          v-if="hasResults"
         >
           <b-row>
             <b-col>
@@ -234,6 +234,11 @@
         }
         this.isLoading = true;
         this.$router.push({ name: 'search', query: { query: this.query || '', page: '1', qf: this.qfForSelectedFacets } });
+      }
+    },
+    computed: {
+      hasResults: function() {
+        return this.results !== null && this.totalResults > 0;
       }
     },
     head () {
