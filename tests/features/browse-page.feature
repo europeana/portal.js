@@ -4,5 +4,4 @@ Feature: Browse page
 
     When I open the `home page`
     Then I see the `title`
-    And I see a `browse section`
     And I see a `content card` in the `browse section`
