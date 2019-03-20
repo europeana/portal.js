@@ -28,7 +28,7 @@ Feature: Search pagination
 
     When I open `/search?query=&page=42`
     Then I see a `search result`
-    Then I see an `info notice` with text "Additional results are not shown as only the first 1000 most relevant results are shown. If you haven't found what you're looking for, please consider refining your search."
+    Then I see an `info notice` with the text "Additional results are not shown as only the first 1000 most relevant results are shown. If you haven't found what you're looking for, please consider refining your search."
 
   Scenario: Paginating beyond API result limit
 
