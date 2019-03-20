@@ -180,7 +180,8 @@
             isLoading: false,
             query: query.query,
             page: Number(currentPage),
-            selectedFacets: selectedFacetsFromQueryQf(query.qf)
+            selectedFacets: selectedFacetsFromQueryQf(query.qf),
+            qfForSelectedFacets: query.qf
           };
         })
         .catch((error) => {
