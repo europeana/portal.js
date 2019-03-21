@@ -181,7 +181,7 @@
             query: query.query,
             page: Number(currentPage),
             selectedFacets: selectedFacetsFromQueryQf(query.qf),
-            qfForSelectedFacets: query.qf
+            qfForSelectedFacets: query.qf === '' ? [] : query.qf
           };
         })
         .catch((error) => {
