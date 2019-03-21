@@ -153,7 +153,8 @@
         query: null,
         page: 1,
         facets: {},
-        selectedFacets: {}
+        selectedFacets: {},
+        qfForSelectedFacets: []
       };
     },
     asyncData ({ env, query, res, redirect }) {

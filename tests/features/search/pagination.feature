@@ -24,7 +24,7 @@ Feature: Search pagination
     And I click the `search button`
     And I wait for a `search result`
     And I check the "IMAGE" checkbox
-    And I wait 5 seconds
+    And I wait 1 seconds
     Then I see a link to "/search?query=paris&page=2&qf=TYPE%3AIMAGE" in the `pagination navigation`
 
   Scenario: Pagination links preserve query and facet selection from the url.
