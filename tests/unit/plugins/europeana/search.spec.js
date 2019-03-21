@@ -1,5 +1,5 @@
 import nock from 'nock';
-import search, { pageFromQuery, selectedFacetsFromQueryQf } from '../../../../plugins/europeana/search';
+import search, { pageFromQuery, selectedFacetsFromQuery } from '../../../../plugins/europeana/search';
 
 import axios from 'axios';
 axios.defaults.adapter = require('axios/lib/adapters/http');
@@ -78,10 +78,10 @@ describe('plugins/europeana/search', () => {
         nock.isDone().should.be.true;
       });
 
-      it('requests the `TYPE` facet (only)', async () => {
+      it('requests specific facets (only)', async () => {
         baseRequest
           .query(query => {
-            return query.facet === 'TYPE';
+            return query.facet === 'REUSABILITY,TYPE';
           })
           .reply(200, defaultResponse);
 
@@ -93,7 +93,7 @@ describe('plugins/europeana/search', () => {
       it('ignores supplied `facet` param', async () => {
         baseRequest
           .query(query => {
-            return query.facet === 'TYPE';
+            return query.facet === 'REUSABILITY,TYPE';
           })
           .reply(200, defaultResponse);
 
@@ -110,6 +110,18 @@ describe('plugins/europeana/search', () => {
           .reply(200, defaultResponse);
 
         await search({ query: '', wskey: apiKey });
+
+        nock.isDone().should.be.true;
+      });
+
+      it('filters by reusability', async () => {
+        baseRequest
+          .query(query => {
+            return query.reusability === 'open';
+          })
+          .reply(200, defaultResponse);
+
+        await search({ query: 'anything', reusability: 'open', wskey: apiKey });
 
         nock.isDone().should.be.true;
       });
@@ -245,20 +257,10 @@ describe('plugins/europeana/search', () => {
                 .reply(200, apiResponse);
             });
 
-            it('are each returned as name => Object', async () => {
+            it('are each returned as-is', async () => {
               const response = await search({ query: 'anything', wskey: apiKey });
 
-              response.facets.should.have.property('TYPE');
-              response.facets['TYPE'].should.be.an('object');
-            });
-
-            it('have each field returned as label => count', async () => {
-              const response = await search({ query: 'anything', wskey: apiKey });
-
-              for (let field of typeFacet.fields) {
-                response.facets['TYPE'].should.have.property(field.label);
-                response.facets['TYPE'][field.label].should.eq(field.count);
-              }
+              response.facets.should.deep.eql(apiResponse.facets);
             });
           });
         });
@@ -292,25 +294,25 @@ describe('plugins/europeana/search', () => {
     });
   });
 
-  describe('selectedFacetsFromQueryQf()', () => {
+  describe('selectedFacetsFromQuery()', () => {
     describe('with `null` query qf', () => {
       it('returns {}', () => {
-        selectedFacetsFromQueryQf(null).should.eql({});
+        selectedFacetsFromQuery({ qf: null }).should.eql({});
       });
     });
 
     describe('with single query qf value', () => {
       it('returns it in an array on a property named for the facet', () => {
-        selectedFacetsFromQueryQf('TYPE:IMAGE').should.deep.eql({ 'TYPE': ['IMAGE'] });
+        selectedFacetsFromQuery({ qf: 'TYPE:IMAGE' }).should.deep.eql({ 'TYPE': ['IMAGE'] });
       });
     });
 
     describe('with multiple query qf values', () => {
       it('returns them in arrays on properties named for each facet', () => {
-        const queryQf = ['TYPE:IMAGE', 'TYPE:VIDEO', 'REUSABILITY:open'];
+        const query = { qf: ['TYPE:IMAGE', 'TYPE:VIDEO', 'REUSABILITY:open'] };
         const expectedReturn = { 'TYPE': ['IMAGE', 'VIDEO'], 'REUSABILITY': ['open'] };
 
-        selectedFacetsFromQueryQf(queryQf).should.deep.eql(expectedReturn);
+        selectedFacetsFromQuery(query).should.deep.eql(expectedReturn);
       });
     });
   });

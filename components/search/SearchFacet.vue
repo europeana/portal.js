@@ -12,11 +12,11 @@
         plain
       >
         <b-form-checkbox
-          v-for="(fieldCount, fieldValue) in fields"
-          :key="fieldValue"
-          :value="fieldValue"
+          v-for="field in fields"
+          :key="field.label"
+          :value="field.label"
         >
-          {{ fieldValue }} ({{ fieldCount | localise }})
+          {{ field.label }} ({{ field.count | localise }})
         </b-form-checkbox>
       </b-form-checkbox-group>
     </b-card>
@@ -31,8 +31,8 @@
         default: ''
       },
       fields: {
-        type: Object,
-        default: () => {}
+        type: Array,
+        default: () => []
       },
       selectedFields: {
         type: Array,

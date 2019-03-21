@@ -52,11 +52,11 @@
     >
       <b-col>
         <SearchFacet
-          v-for="(fields, name) in facets"
-          :key="name"
-          :name="name"
-          :fields="fields"
-          :selected-fields="selectedFacets[name]"
+          v-for="facet in facets"
+          :key="facet.name"
+          :name="facet.name"
+          :fields="facet.fields"
+          :selected-fields="selectedFacets[facet.name]"
           @changed="selectFacet"
         />
       </b-col>
@@ -118,7 +118,7 @@
   import SearchResultsList from '../../components/search/SearchResultsList';
   import SearchSelectedFacets from '../../components/search/SearchSelectedFacets';
   import PaginationNav from '../../components/generic/PaginationNav';
-  import search, { pageFromQuery, selectedFacetsFromQueryQf } from '../../plugins/europeana/search';
+  import search, { pageFromQuery, selectedFacetsFromQuery } from '../../plugins/europeana/search';
 
   export default {
     components: {
@@ -136,6 +136,8 @@
       }
     },
     data () {
+      // TODO: make qfForSelectedFacets and reusabilityFacet and selectedFacets
+      //       into computed properties?
       return {
         error: null,
         errorNoResults: 'No results',
@@ -146,7 +148,9 @@
         query: null,
         page: 1,
         facets: {},
-        selectedFacets: {}
+        selectedFacets: {},
+        qfForSelectedFacets: [],
+        reusabilityFacet: ''
       };
     },
     asyncData ({ env, query, res, redirect }) {
@@ -165,6 +169,7 @@
         page: currentPage,
         query: query.query,
         qf: query.qf,
+        reusability: query.reusability,
         wskey: env.EUROPEANA_API_KEY
       })
         .then((response) => {
@@ -173,7 +178,7 @@
             isLoading: false,
             query: query.query,
             page: Number(currentPage),
-            selectedFacets: selectedFacetsFromQueryQf(query.qf)
+            selectedFacets: selectedFacetsFromQuery(query)
           };
         })
         .catch((error) => {
@@ -206,27 +211,44 @@
       });
     },
     methods: {
+      updateCurrentSearchQuery(updates) {
+        const current = {
+          query: this.query || '',
+          page: this.page || '1',
+          qf: this.qfForSelectedFacets,
+          reusability: this.reusabilityFacet
+        };
+        return { ...current, ...updates };
+      },
+      rerouteSearch(queryUpdates) {
+        this.isLoading = true;
+        this.$router.push({ name: 'search', query: this.updateCurrentSearchQuery(queryUpdates) });
+      },
       submitSearchForm () {
         if (this.$route.query.query !== this.query) {
-          this.isLoading = true;
-          this.$router.push({ name: 'search', query: { query: this.query || '', page: '1', qf: this.qfForSelectedFacets } });
+          this.rerouteSearch({ query: this.query || '', page: '1' });
         }
       },
       paginationLink (val) {
         return {
-          name: 'search', query: { query: this.query, page: val, qf: this.qfForSelectedFacets }
+          name: 'search', query: this.updateCurrentSearchQuery({ page: val })
         };
       },
       selectFacet (name, selected) {
         this.$set(this.selectedFacets, name, selected);
         this.qfForSelectedFacets = [];
+        this.reusabilityFacet = null;
         for (const facetName in this.selectedFacets) {
-          for (const facetValue of this.selectedFacets[facetName]) {
-            this.qfForSelectedFacets.push(`${facetName}:${facetValue}`);
+          // `reusability` has its own API parameter and can not be queried in `qf`
+          if (facetName == 'REUSABILITY') {
+            this.reusabilityFacet = this.selectedFacets[facetName].join(',');
+          } else {
+            for (const facetValue of this.selectedFacets[facetName]) {
+              this.qfForSelectedFacets.push(`${facetName}:${facetValue}`);
+            }
           }
         }
-        this.isLoading = true;
-        this.$router.push({ name: 'search', query: { query: this.query || '', page: '1', qf: this.qfForSelectedFacets } });
+        this.rerouteSearch({ qf: this.qfForSelectedFacets, reusability: this.reusabilityFacet });
       }
     },
     head () {
@@ -234,6 +256,6 @@
         title: 'Search'
       };
     },
-    watchQuery: ['page', 'qf', 'query']
+    watchQuery: ['page', 'qf', 'query', 'reusability']
   };
 </script>
