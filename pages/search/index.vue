@@ -93,7 +93,7 @@
                 :results="results"
               />
               <InfoMessage
-                v-if="this.lastAvailablePage"
+                v-if="lastAvailablePage"
                 message="Additional results are not shown as only the first 1000 most relevant results are shown. If you haven't found what you're looking for, please consider refining your search."
               />
             </b-col>
@@ -157,6 +157,11 @@
         qfForSelectedFacets: []
       };
     },
+    computed: {
+      hasResults: function() {
+        return this.results !== null && this.totalResults > 0;
+      }
+    },
     asyncData ({ env, query, res, redirect }) {
       const currentPage = pageFromQuery(query.page);
       if (currentPage === null) {
@@ -203,11 +208,6 @@
           // TODO: include selectedFacets?
           return { results: null, error: errorMessage, query: query.query };
         });
-    },
-    computed: {
-      hasResults: function() {
-        return this.results !== null && this.totalResults > 0;
-      }
     },
     mounted () {
       this.$nextTick(() => {
