@@ -204,6 +204,11 @@
           return { results: null, error: errorMessage, query: query.query };
         });
     },
+    computed: {
+      hasResults: function() {
+        return this.results !== null && this.totalResults > 0;
+      }
+    },
     mounted () {
       this.$nextTick(() => {
         if (document.getElementById('searchResults') === null) {
@@ -236,11 +241,6 @@
         }
         this.isLoading = true;
         this.$router.push({ name: 'search', query: { query: this.query || '', page: '1', qf: this.qfForSelectedFacets } });
-      }
-    },
-    computed: {
-      hasResults: function() {
-        return this.results !== null && this.totalResults > 0;
       }
     },
     head () {
