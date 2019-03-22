@@ -186,6 +186,24 @@ describe('plugins/europeana/search', () => {
           response.totalResults.should.eq(apiResponse.totalResults);
         });
 
+        it('returns lastAvailablePage as false', async () => {
+          const response = await searchResponse();
+
+          response.lastAvailablePage.should.eq(false);
+        });
+
+        describe('when page is at the API limit', () => {
+          function searchResponse() {
+            return search({ query: 'painting', wskey: apiKey, page: 42 });
+          }
+
+          it('returns lastAvailablePage as true', async () => {
+            const response = await searchResponse();
+
+            response.lastAvailablePage.should.eq(true);
+          });
+        });
+
         describe('each member of .results', () => {
           it('includes Europeana ID in .europeanaId', async () => {
             const response = await searchResponse();

@@ -38,7 +38,7 @@
       </b-col>
     </b-row>
     <b-row
-      v-if="totalResults !== null"
+      v-if="hasResults"
       class="mb-3"
     >
       <b-col>
@@ -65,7 +65,7 @@
         lg="9"
       >
         <template
-          v-if="results !== null"
+          v-if="hasResults"
         >
           <b-row>
             <b-col>
@@ -92,6 +92,10 @@
                 v-else
                 :results="results"
               />
+              <InfoMessage
+                v-if="lastAvailablePage"
+                message="Additional results are not shown as only the first 1000 most relevant results are shown. If you haven't found what you're looking for, please consider refining your search."
+              />
             </b-col>
           </b-row>
           <b-row>
@@ -113,6 +117,7 @@
 
 <script>
   import AlertMessage from '../../components/generic/AlertMessage';
+  import InfoMessage from '../../components/generic/InfoMessage';
   import SearchFacet from '../../components/search/SearchFacet';
   import SearchForm from '../../components/search/SearchForm';
   import SearchResultsList from '../../components/search/SearchResultsList';
@@ -123,6 +128,7 @@
   export default {
     components: {
       AlertMessage,
+      InfoMessage,
       SearchFacet,
       SearchForm,
       SearchResultsList,
@@ -145,6 +151,7 @@
         inHeader: false,
         results: null,
         totalResults: null,
+        lastAvailablePage: false,
         query: null,
         page: 1,
         facets: [],
@@ -154,6 +161,9 @@
       };
     },
     computed: {
+      hasResults: function() {
+        return this.results !== null && this.totalResults > 0;
+      },
       /**
        * Sort the facets from the API response
        * Facets are returned in the order their name is given in the `order` argument,
@@ -200,7 +210,8 @@
             isLoading: false,
             query: query.query,
             page: Number(currentPage),
-            selectedFacets: selectedFacetsFromQuery(query)
+            selectedFacets: selectedFacetsFromQuery(query),
+            qfForSelectedFacets: query.qf === '' ? [] : query.qf
           };
         })
         .catch((error) => {
