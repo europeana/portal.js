@@ -36,25 +36,33 @@ function pageUrl(pageName) {
 }
 
 module.exports = {
-  openAPage: async function (pageName) {
-    await client.url(pageUrl(pageName));
+  checkTheCheckbox: async function (inputValue) {
+    await client.click(`input[type="checkbox"][value="${inputValue}"]`);
   },
   clickOnTheTarget: async function (qaElementNames) {
     const selector = qaSelector(qaElementNames);
     await client.expect.element(selector).to.be.visible;
     await client.click(selector);
   },
+  doNotSeeATarget: function (qaElementNames) {
+    client.expect.element(qaSelector(qaElementNames)).to.not.be.present;
+  },
+  enterTextInTarget: async function (text, qaElementName) {
+    const selector = qaSelector(qaElementName);
+    await client.expect.element(selector).to.be.visible;
+    await client.setValue(selector, text);
+  },
+  openAPage: function (pageName) {
+    client.url(pageUrl(pageName));
+  },
+  seeALinkInTarget: async function (linkHref, qaElementName) {
+    await client.expect.element(qaSelector(qaElementName) + ` a[href="${linkHref}"]`).to.be.visible;
+  },
   seeATarget: async function (qaElementNames) {
     await client.expect.element(qaSelector(qaElementNames)).to.be.visible;
   },
-  doNotSeeATarget: async function (qaElementNames) {
-    await client.expect.element(qaSelector(qaElementNames)).to.not.be.present;
-  },
   seeATargetWithText: async function (qaElementNames, text) {
     await client.expect.element(qaSelector(qaElementNames)).text.to.contain(text);
-  },
-  waitSomeSeconds: async function (seconds) {
-    await client.pause(seconds * 1000);
   },
   shouldBeOn: async function (pageName) {
     // TODO: update if a less verbose syntax becomes available.
@@ -63,16 +71,8 @@ module.exports = {
       await client.expect(currentUrl.value).to.eq(pageUrl(pageName));
     });
   },
-  enterTextInTarget: async function (text, qaElementName) {
-    const selector = qaSelector(qaElementName);
-    await client.expect.element(selector).to.be.visible;
-    await client.setValue(selector, text);
-  },
-  checkTheCheckbox: async function (inputValue) {
-    await client.click(`input[type="checkbox"][value="${inputValue}"]`);
-  },
-  seeALinkInTarget: async function (linkHref, qaElementName) {
-    await client.expect.element(qaSelector(qaElementName) + ` a[href="${linkHref}"]`).to.be.visible;
+  waitSomeSeconds: function (seconds) {
+    client.pause(seconds * 1000);
   },
   waitForTargetToBeVisible: async function (qaElementName) {
     await client.waitForElementVisible(qaSelector(qaElementName));
