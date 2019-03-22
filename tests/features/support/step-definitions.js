@@ -49,3 +49,9 @@ defineStep('I check/click the {string} checkbox', (inputValue) =>
 
 defineStep('I should be on (the ){target}', (pageName) =>
   i.shouldBeOn(pageName));
+
+defineStep('I wait for (a/an/the)( ){target}', (qa) =>
+  i.waitForTargetToBeVisible(qa));
+
+defineStep('I find/identify/see/spot a link to {string} in (a/an/the)( ){target}', (linkHref, qa) =>
+  i.seeALinkInTarget(linkHref, qa));

@@ -70,5 +70,11 @@ module.exports = {
   },
   checkTheCheckbox: async function (inputValue) {
     await client.click(`input[type="checkbox"][value="${inputValue}"]`);
+  },
+  seeALinkInTarget: async function (linkHref, qaElementName) {
+    await client.expect.element(qaSelector(qaElementName) + ` a[href="${linkHref}"]`).to.be.visible;
+  },
+  waitForTargetToBeVisible: async function (qaElementName) {
+    await client.waitForElementVisible(qaSelector(qaElementName));
   }
 };
