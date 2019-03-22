@@ -328,9 +328,17 @@ describe('plugins/europeana/search', () => {
     describe('with multiple query qf values', () => {
       it('returns them in arrays on properties named for each facet', () => {
         const query = { qf: ['TYPE:IMAGE', 'TYPE:VIDEO', 'REUSABILITY:open'] };
-        const expectedReturn = { 'TYPE': ['IMAGE', 'VIDEO'], 'REUSABILITY': ['open'] };
+        const expected = { 'TYPE': ['IMAGE', 'VIDEO'], 'REUSABILITY': ['open'] };
 
-        selectedFacetsFromQuery(query).should.deep.eql(expectedReturn);
+        selectedFacetsFromQuery(query).should.deep.eql(expected);
+      });
+    });
+
+    describe('with reusability values', () => {
+      it('returns them in an array on REUSABILITY property', () => {
+        const query = { reusability: 'open,restricted' };
+        const expected = { 'REUSABILITY': ['open', 'restricted'] };
+        selectedFacetsFromQuery(query).should.deep.eql(expected);
       });
     });
   });
