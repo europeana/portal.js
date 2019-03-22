@@ -142,8 +142,6 @@
       }
     },
     data () {
-      // TODO: make qfForSelectedFacets and reusabilityFacet and selectedFacets
-      //       into computed properties?
       return {
         error: null,
         errorNoResults: 'No results',
@@ -157,7 +155,7 @@
         facets: [],
         selectedFacets: {},
         qfForSelectedFacets: [],
-        reusabilityFacet: ''
+        reusability: ''
       };
     },
     computed: {
@@ -212,7 +210,8 @@
             query: query.query,
             page: Number(currentPage),
             selectedFacets: selectedFacetsFromQuery(query),
-            qfForSelectedFacets: query.qf === '' ? [] : query.qf
+            qfForSelectedFacets: query.qf === '' ? [] : query.qf,
+            reusability: query.reusability
           };
         })
         .catch((error) => {
@@ -230,7 +229,6 @@
               }
             }
           }
-          // TODO: include selectedFacets?
           return { results: null, error: errorMessage, query: query.query };
         });
     },
@@ -249,9 +247,17 @@
         const current = {
           query: this.query || '',
           page: this.page || '1',
-          qf: this.qfForSelectedFacets,
-          reusability: this.reusabilityFacet
+          reusability: this.reusability,
+          qf: this.qfForSelectedFacets
         };
+
+        // If any values in the updates are `null`, remove them from the query
+        for (const key in updates) {
+          if (updates[key] === null) {
+            delete current[key];
+            delete updates[key];
+          }
+        }
         return { ...current, ...updates };
       },
       rerouteSearch(queryUpdates) {
@@ -271,19 +277,19 @@
       selectFacet (name, selected) {
         this.$set(this.selectedFacets, name, selected);
         this.qfForSelectedFacets = [];
-        this.reusabilityFacet = null;
+        this.reusability = null;
         for (const facetName in this.selectedFacets) {
           const selectedValues = this.selectedFacets[facetName];
           // `reusability` has its own API parameter and can not be queried in `qf`
-          if (facetName == 'REUSABILITY') {
-            this.reusabilityFacet = selectedValues.join(',');
+          if (facetName == 'REUSABILITY' && selectedValues.length > 0) {
+            this.reusability = selectedValues.join(',');
           } else {
             for (const facetValue of selectedValues) {
               this.qfForSelectedFacets.push(`${facetName}:${facetValue}`);
             }
           }
         }
-        this.rerouteSearch({ qf: this.qfForSelectedFacets, reusability: this.reusabilityFacet });
+        this.rerouteSearch({ qf: this.qfForSelectedFacets, reusability: this.reusability, page: '1' });
       }
     },
     head () {
