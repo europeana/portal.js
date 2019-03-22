@@ -71,8 +71,8 @@ module.exports = {
       await client.expect(currentUrl.value).to.eq(pageUrl(pageName));
     });
   },
-  waitSomeSeconds: function (seconds) {
-    client.pause(seconds * 1000);
+  waitSomeSeconds: async function (seconds) {
+    await client.pause(seconds * 1000);
   },
   waitForTargetToBeVisible: async function (qaElementName) {
     await client.waitForElementVisible(qaSelector(qaElementName));
