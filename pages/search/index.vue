@@ -164,8 +164,8 @@
       },
       /**
        * Sort the facets from the API response
-       * Facets are returned in the order their name is given in the `order` argument,
-       * followed by all others in the order the API returned them.
+       * Facets are returned in the hard-coded preferred order, followed by all
+       * others in the order the API returned them.
        * @return {Object[]} ordered facets
        * TODO: does this belong in its own component?
        */
