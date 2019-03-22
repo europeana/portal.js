@@ -150,6 +150,8 @@ export function selectedFacetsFromQuery(query) {
  * Search Europeana Record API
  * @param {Object} params parameters for search query
  * @param {number} params.page page of results to retrieve
+ * @param {string} params.reusability reusability filter
+ * @param {(string|string[])} params.qf query filter(s)
  * @param {string} params.query search query
  * @param {string} params.wskey API key
  * @return {{results: Object[], totalResults: number, facets: FacetSet, error: string}} search results for display

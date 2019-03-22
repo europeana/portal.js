@@ -52,7 +52,7 @@
     >
       <b-col>
         <SearchFacet
-          v-for="facet in facets"
+          v-for="facet in orderedFacets"
           :key="facet.name"
           :name="facet.name"
           :fields="facet.fields"
@@ -147,11 +147,33 @@
         totalResults: null,
         query: null,
         page: 1,
-        facets: {},
+        facets: [],
         selectedFacets: {},
         qfForSelectedFacets: [],
         reusabilityFacet: ''
       };
+    },
+    computed: {
+      /**
+       * Sort the facets from the API response
+       * Facets are returned in the order their name is given in the `order` argument,
+       * followed by all others in the order the API returned them.
+       * @return {Object[]} ordered facets
+       */
+      orderedFacets: function () {
+        const order = ['TYPE', 'REUSABILITY'];
+        let unordered = this.facets.slice();
+        let ordered = [];
+        for (const facetName of order) {
+          const index = unordered.findIndex((f) => {
+            return f.name == facetName;
+          });
+          if (index !== -1) {
+            ordered = ordered.concat(unordered.splice(index, 1));
+          }
+        }
+        return ordered.concat(unordered);
+      }
     },
     asyncData ({ env, query, res, redirect }) {
       const currentPage = pageFromQuery(query.page);
@@ -239,11 +261,12 @@
         this.qfForSelectedFacets = [];
         this.reusabilityFacet = null;
         for (const facetName in this.selectedFacets) {
+          const selectedValues = this.selectedFacets[facetName];
           // `reusability` has its own API parameter and can not be queried in `qf`
           if (facetName == 'REUSABILITY') {
-            this.reusabilityFacet = this.selectedFacets[facetName].join(',');
+            this.reusabilityFacet = selectedValues.join(',');
           } else {
-            for (const facetValue of this.selectedFacets[facetName]) {
+            for (const facetValue of selectedValues) {
               this.qfForSelectedFacets.push(`${facetName}:${facetValue}`);
             }
           }
