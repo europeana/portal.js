@@ -4,7 +4,7 @@
     variant="light"
     data-qa="info notice"
   >
-    <i>{{ message }}</i>
+    {{ message }}
   </b-alert>
 </template>
 
@@ -18,3 +18,9 @@
     }
   };
 </script>
+
+<style lang="scss">
+  .alert.alert-light {
+    font-style: italic;
+  }
+</style>
