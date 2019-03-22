@@ -235,7 +235,8 @@ function search(params) {
         error: null,
         results: resultsFromApiResponse(response),
         facets: facetsFromApiResponse(response),
-        totalResults: response.data.totalResults
+        totalResults: response.data.totalResults,
+        lastAvailablePage: start + perPage > maxResults
       };
     })
     .catch((error) => {

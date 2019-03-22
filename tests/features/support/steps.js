@@ -27,11 +27,17 @@ defineStep(/^I (?:browse|open|visit).*? `(.*?)`$/, pageName => {
   }
 });
 
-defineStep(/^I (?:find|identify|see|spot).*? (`.*`)$/, selectorChain =>
+defineStep(/^I (?:find|identify|see|spot)(?! a link to).*? (`.*`)$/, (selectorChain, _empty) =>
   client.expect.element(nestedSelector(selectorChain)).to.be.visible);
+
+defineStep(/^I wait for.*? (`.*`)$/, selectorChain =>
+  client.waitForElementVisible(nestedSelector(selectorChain)));
 
 defineStep(/^I (?:find|identify|see|spot).*? (`.*`) with the text "(.*)"$/, (selectorChain, value) =>
   client.expect.element(nestedSelector(selectorChain)).text.to.contain(value));
+
+defineStep(/^I (?:find|identify|see|spot) a link to "(.*)" in .*?(`.*`)$/, (value, selectorChain) =>
+  client.expect.element(nestedSelector(selectorChain) + ` a[href="${value}"]`).to.be.visible);
 
 defineStep(/^I (?:can|don)'t (?:find|identify|see|spot).*? (`.*`).*?$/, selectorChain =>
   client.expect.element(nestedSelector(selectorChain)).to.not.be.present);

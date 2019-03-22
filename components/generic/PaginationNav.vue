@@ -51,7 +51,7 @@
     },
     computed: {
       totalPages: function () {
-        return Math.ceil(Math.min(this.totalResults, maxResults) / this.perPage);
+        return Math.ceil(Math.min(Math.max(this.totalResults, 1), maxResults) / this.perPage);
       }
     },
     watch: {
