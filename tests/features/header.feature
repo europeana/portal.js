@@ -17,7 +17,7 @@ Feature: Page Header
   Scenario: Using the logo to get back to the homepage
 
     When I open a `record page`
-    And I click on the  `logo` in the `header`
+    And I click on the `logo` in the `header`
     Then I should be on the `home page`
 
     When I open the `search page`
