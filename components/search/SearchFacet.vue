@@ -4,6 +4,7 @@
       :header="name | searchFacetHeader"
       class="mb-3"
       data-qa="search facet"
+      :data-facet-name="name"
     >
       <b-form-checkbox-group
         v-model="selected"
