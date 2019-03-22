@@ -14,10 +14,19 @@ const pages = {
   'first page of results': `${url}/search?query=&page=1`
 };
 
-function qaSelector(qas) {
-  return [qas]
+/**
+ * Generate CSS selector for `data-qa` attribute values.
+ * Given a scalar argument a single selector will be returned.
+ * Given an array as argument, a descendant selector will be generated, <em>for
+ * the reverse order of the elements</em>, i.e. last element is the ancestor,
+ * first is the descendant.
+ * @param {(string|string[])} qaElementNames one or more `data-qa` attribute values
+ * @return {string} CSS selector
+ */
+function qaSelector(qaElementNames) {
+  return [qaElementNames]
     .flat()
-    .map(qa => qa ? `[data-qa="${qa}"]` : '')
+    .map(name => name ? `[data-qa="${name}"]` : '')
     .reverse()
     .join(' ');
 }
@@ -30,19 +39,19 @@ module.exports = {
   openAPage: async function (pageName) {
     await client.url(pageUrl(pageName));
   },
-  clickOnTheTarget: async function (qas) {
-    const selector = qaSelector(qas);
+  clickOnTheTarget: async function (qaElementNames) {
+    const selector = qaSelector(qaElementNames);
     await client.expect.element(selector).to.be.visible;
     await client.click(selector);
   },
-  seeATarget: async function (qas) {
-    await client.expect.element(qaSelector(qas)).to.be.visible;
+  seeATarget: async function (qaElementNames) {
+    await client.expect.element(qaSelector(qaElementNames)).to.be.visible;
   },
-  doNotSeeATarget: async function (qas) {
-    await client.expect.element(qaSelector(qas)).to.not.be.present;
+  doNotSeeATarget: async function (qaElementNames) {
+    await client.expect.element(qaSelector(qaElementNames)).to.not.be.present;
   },
-  seeATargetWithText: async function (qas, text) {
-    await client.expect.element(qaSelector(qas)).text.to.contain(text);
+  seeATargetWithText: async function (qaElementNames, text) {
+    await client.expect.element(qaSelector(qaElementNames)).text.to.contain(text);
   },
   waitSomeSeconds: async function (seconds) {
     await client.pause(seconds * 1000);
@@ -54,8 +63,8 @@ module.exports = {
       await client.expect(currentUrl.value).to.eq(pageUrl(pageName));
     });
   },
-  enterTextInTarget: async function (text, qa) {
-    const selector = qaSelector(qa);
+  enterTextInTarget: async function (text, qaElementName) {
+    const selector = qaSelector(qaElementName);
     await client.expect.element(selector).to.be.visible;
     await client.setValue(selector, text);
   },
