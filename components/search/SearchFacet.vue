@@ -46,8 +46,12 @@
           return this.preserved ? this.preserved : this.selectedFields;
         },
         set: function (values) {
+          this.preserved = this.preserved ? this.preserved : this.selectedFields;
+          let changed = this.preserved != values;
           this.preserved = values;
-          this.$emit('changed', this.name, values);
+          if (changed) {
+            this.$emit('changed', this.name, values);
+          }
         }
       }
     }

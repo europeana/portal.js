@@ -47,6 +47,9 @@ defineStep('I activate/click (on )(the/a/an)( ){target} in/on a/an/the {target}'
 defineStep('I check/click the {string} checkbox', (inputValue) =>
   i.checkTheCheckbox(inputValue));
 
+defineStep('I activate/click (the/a/an)( ){string} link', (href) =>
+  i.clickOnLink(href));
+
 defineStep('I should be on (the ){target}', (pageName) =>
   i.shouldBeOn(pageName));
 

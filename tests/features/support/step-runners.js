@@ -44,6 +44,10 @@ module.exports = {
     await client.expect.element(selector).to.be.visible;
     await client.click(selector);
   },
+  clickOnLink: async function (href) {
+    await client.expect.element(`a[href="${href}"]`).to.be.visible;
+    await client.click(`a[href="${href}"]`);
+  },
   doNotSeeATarget: function (qaElementNames) {
     client.expect.element(qaSelector(qaElementNames)).to.not.be.present;
   },

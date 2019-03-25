@@ -32,6 +32,13 @@ Feature: Search pagination
     When I visit the `/search?query=paris&page=1&qf=TYPE%3AIMAGE`
     Then I see a link to "/search?query=paris&page=2&qf=TYPE%3AIMAGE" in the `pagination navigation`
 
+  Scenario: Pagination links work when the page was accessed from the url.
+
+    When I visit `/search?query=paris&page=1&qf=TYPE%3AIMAGE`
+    And I click the "/search?query=paris&page=2&qf=TYPE%3AIMAGE" link
+    And I wait 1 second
+    Then I should be on `/search?query=paris&page=2&qf=TYPE%3AIMAGE`
+
   Scenario: Invalid `page` param redirects to page 1
 
     When I open `/search?query=&page=-1`
