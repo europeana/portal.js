@@ -11,6 +11,7 @@
         :name="name"
         stacked
         plain
+        @change="changeSelected"
       >
         <b-form-checkbox
           v-for="field in fields"
@@ -46,13 +47,13 @@
           return this.preserved ? this.preserved : this.selectedFields;
         },
         set: function (values) {
-          this.preserved = this.preserved ? this.preserved : this.selectedFields;
-          let changed = this.preserved != values;
           this.preserved = values;
-          if (changed) {
-            this.$emit('changed', this.name, values);
-          }
         }
+      }
+    },
+    methods: {
+      changeSelected: function (values) {
+        this.$emit('changed', this.name, values);
       }
     }
   };
