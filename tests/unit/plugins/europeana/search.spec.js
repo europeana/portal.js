@@ -81,7 +81,7 @@ describe('plugins/europeana/search', () => {
       it('requests specific facets (only)', async () => {
         baseRequest
           .query(query => {
-            return query.facet === 'REUSABILITY,TYPE';
+            return query.facet === 'COUNTRY,REUSABILITY,TYPE';
           })
           .reply(200, defaultResponse);
 
@@ -93,7 +93,7 @@ describe('plugins/europeana/search', () => {
       it('ignores supplied `facet` param', async () => {
         baseRequest
           .query(query => {
-            return query.facet === 'REUSABILITY,TYPE';
+            return query.facet === 'COUNTRY,REUSABILITY,TYPE';
           })
           .reply(200, defaultResponse);
 

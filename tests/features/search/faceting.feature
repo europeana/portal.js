@@ -11,7 +11,7 @@ Feature: Search faceting
 
     When I visit `/search?query=`
     And I check the "IMAGE" checkbox
-    And I wait 1 second
+    And I wait 2 seconds
     Then I should be on `/search?query=&page=1&qf=TYPE%3AIMAGE`
     And I see a `filter badge` with the text "Type of media: IMAGE"
 
@@ -19,6 +19,23 @@ Feature: Search faceting
 
     When I visit `/search?query=`
     And I check the "open" checkbox
-    And I wait 1 second
+    And I wait 2 seconds
     Then I should be on `/search?query=&page=1&reusability=open`
     And I see a `filter badge` with the text "Can I reuse this?: open"
+
+  Scenario: Filtering results by country
+
+    When I visit `/search?query=`
+    And I check the "Belgium" checkbox
+    And I wait 2 seconds
+    Then I should be on `/search?query=&page=1&qf=COUNTRY%3ABelgium`
+    And I see a `filter badge` with the text "Country: Belgium"
+
+  Scenario: Filtering results by two countries
+
+    When I visit `/search?query=`
+    And I check the "Belgium" checkbox 
+    And I check the "Germany" checkbox
+    And I wait 2 seconds
+    Then I should be on `/search?query=&page=1&qf=COUNTRY%3ABelgium&qf=COUNTRY%3AGermany`
+    And I should have 2 `filter badge`

@@ -170,7 +170,7 @@ function search(params) {
     },
     params: {
       profile: 'minimal,facets',
-      facet: 'REUSABILITY,TYPE',
+      facet: 'COUNTRY,REUSABILITY,TYPE',
       query: params.query == '' ? '*:*' : params.query,
       qf: params.qf,
       reusability: params.reusability,

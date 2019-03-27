@@ -13,6 +13,7 @@ Vue.filter('localise', val => {
 
 Vue.filter('searchFacetHeader', val => {
   const headerText = {
+    'COUNTRY': 'Country',
     'REUSABILITY': 'Can I reuse this?',
     'TYPE': 'Type of media'
   };
