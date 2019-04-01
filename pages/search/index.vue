@@ -285,7 +285,7 @@
             this.reusability = selectedValues.join(',');
           } else {
             for (const facetValue of selectedValues) {
-              this.qfForSelectedFacets.push(`${facetName}:${facetValue}`);
+              this.qfForSelectedFacets.push(`${facetName}:"${facetValue}"`);
             }
           }
         }

@@ -321,13 +321,13 @@ describe('plugins/europeana/search', () => {
 
     describe('with single query qf value', () => {
       it('returns it in an array on a property named for the facet', () => {
-        selectedFacetsFromQuery({ qf: 'TYPE:IMAGE' }).should.deep.eql({ 'TYPE': ['IMAGE'] });
+        selectedFacetsFromQuery({ qf: 'TYPE:"IMAGE"' }).should.deep.eql({ 'TYPE': ['IMAGE'] });
       });
     });
 
     describe('with multiple query qf values', () => {
       it('returns them in arrays on properties named for each facet', () => {
-        const query = { qf: ['TYPE:IMAGE', 'TYPE:VIDEO', 'REUSABILITY:open'] };
+        const query = { qf: ['TYPE:"IMAGE"', 'TYPE:"VIDEO"', 'REUSABILITY:"open"'] };
         const expected = { 'TYPE': ['IMAGE', 'VIDEO'], 'REUSABILITY': ['open'] };
 
         selectedFacetsFromQuery(query).should.deep.eql(expected);

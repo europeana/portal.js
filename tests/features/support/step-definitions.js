@@ -59,5 +59,5 @@ defineStep('I wait for (a/an/the)( ){target}', (qa) =>
 defineStep('I find/identify/see/spot a link to {string} in (a/an/the)( ){target}', (linkHref, qa) =>
   i.seeALinkInTarget(linkHref, qa));
 
-defineStep('I should have/see/see/spot {int} {target}', (count, qa) =>
+defineStep('I should have/see/see/spot {int} {target}(s)', (count, qa) =>
   i.countTarget(count, qa));

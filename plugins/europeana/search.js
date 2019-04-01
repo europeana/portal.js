@@ -133,7 +133,7 @@ export function selectedFacetsFromQuery(query) {
     for (const qf of [query.qf].flat()) {
       const qfParts = qf.split(':');
       const facetName = qfParts[0];
-      const facetValue = qfParts[1];
+      const facetValue = qfParts[1].slice(1, -1);
       if (typeof selectedFacets[facetName] === 'undefined') {
         selectedFacets[facetName] = [];
       }
