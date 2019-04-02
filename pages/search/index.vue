@@ -170,7 +170,7 @@
        * TODO: does this belong in its own component?
        */
       orderedFacets: function () {
-        const order = ['TYPE', 'REUSABILITY'];
+        const order = ['TYPE', 'REUSABILITY', 'COUNTRY'];
         let unordered = this.facets.slice();
         let ordered = [];
         for (const facetName of order) {
@@ -285,7 +285,7 @@
             this.reusability = selectedValues.join(',');
           } else {
             for (const facetValue of selectedValues) {
-              this.qfForSelectedFacets.push(`${facetName}:${facetValue}`);
+              this.qfForSelectedFacets.push(`${facetName}:"${facetValue}"`);
             }
           }
         }

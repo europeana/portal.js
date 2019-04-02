@@ -15,7 +15,7 @@ Feature: Search pagination
     And I wait for a `search result`
     And I check the "IMAGE" checkbox
     And I wait 1 second
-    Then I see a link to "/search?query=paris&page=2&qf=TYPE%3AIMAGE" in the `pagination navigation`
+    Then I see a link to "/search?query=paris&page=2&qf=TYPE%3A%22IMAGE%22" in the `pagination navigation`
 
   Scenario: Pagination links preserve query and facet selection from the blank search page.
 
@@ -25,19 +25,19 @@ Feature: Search pagination
     And I wait for a `search result`
     And I check the "IMAGE" checkbox
     And I wait 1 seconds
-    Then I see a link to "/search?query=paris&page=2&qf=TYPE%3AIMAGE" in the `pagination navigation`
+    Then I see a link to "/search?query=paris&page=2&qf=TYPE%3A%22IMAGE%22" in the `pagination navigation`
 
   Scenario: Pagination links preserve query and facet selection from the url.
 
-    When I visit the `/search?query=paris&page=1&qf=TYPE%3AIMAGE`
-    Then I see a link to "/search?query=paris&page=2&qf=TYPE%3AIMAGE" in the `pagination navigation`
+    When I visit the `/search?query=paris&page=1&qf=TYPE%3A%22IMAGE%22`
+    Then I see a link to "/search?query=paris&page=2&qf=TYPE%3A%22IMAGE%22" in the `pagination navigation`
 
   Scenario: Pagination links work when the page was accessed from the url.
 
-    When I visit `/search?query=paris&page=1&qf=TYPE%3AIMAGE`
-    And I click the "/search?query=paris&page=2&qf=TYPE%3AIMAGE" link
+    When I visit `/search?query=paris&page=1&qf=TYPE%3A%22IMAGE%22`
+    And I click the "/search?query=paris&page=2&qf=TYPE%3A%22IMAGE%22" link
     And I wait 1 second
-    Then I should be on `/search?query=paris&page=2&qf=TYPE%3AIMAGE`
+    Then I should be on `/search?query=paris&page=2&qf=TYPE%3A%22IMAGE%22`
 
   Scenario: Invalid `page` param redirects to page 1
 

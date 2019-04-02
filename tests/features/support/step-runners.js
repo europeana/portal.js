@@ -48,6 +48,11 @@ module.exports = {
     await client.expect.element(`a[href="${href}"]`).to.be.visible;
     await client.click(`a[href="${href}"]`);
   },
+  countTarget: async (count, qaElementNames) => {
+    await client.elements('css selector', qaSelector(qaElementNames), async(result) => {
+      await client.expect(result.value).to.have.lengthOf(count);
+    });
+  },
   doNotSeeATarget: function (qaElementNames) {
     client.expect.element(qaSelector(qaElementNames)).to.not.be.present;
   },
