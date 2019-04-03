@@ -71,6 +71,6 @@ Run everything with your driver of choice.
 
 ## License
 
-Licensed under the EUPL v.1.2.
+Licensed under the EUPL v1.2.
 
 For full details, see [LICENSE.md](LICENSE.md).
