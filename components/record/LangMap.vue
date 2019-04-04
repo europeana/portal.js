@@ -6,8 +6,8 @@
 <template>
   <ul data-qa="multi-lingual metadata">
     <li
-      v-for="mapValue in mapContent"
-      :key="mapValue.lang"
+      v-for="(mapValue, index) in mapContent"
+      :key="index"
     >
       <span :lang="mapValue.lang">
         {{ mapValue.content }}
