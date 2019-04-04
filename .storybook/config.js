@@ -3,6 +3,7 @@ import { action } from '@storybook/addon-actions';
 
 import Vue from 'vue';
 import BootstrapVue from 'bootstrap-vue';
+import '../plugins/vue-filters'
 
 import '../assets/scss/style.scss';
 

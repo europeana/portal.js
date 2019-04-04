@@ -1,18 +1,24 @@
 <template>
-  <b-media no-body>
+  <b-media
+    v-if="result"
+    no-body
+  >
     <b-media-aside class="w-25 mr-3">
       <b-img
         v-if="result.edmPreview"
         slot="aside"
         :src="result.edmPreview"
         class="mw-100"
+        data-field-name="edmPreview"
+        data-qa="result thumbnail"
       />
     </b-media-aside>
     <b-media-body>
       <div
         v-for="(value, key) in result.fields"
         :key="key"
-        :class="key"
+        :data-field-name="key"
+        data-qa="result field"
       >
         <pre v-if="!Array.isArray(value)">
           <code>{{ value }}</code>

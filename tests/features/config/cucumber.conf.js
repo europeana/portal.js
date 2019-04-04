@@ -12,13 +12,16 @@ const maxWaitTime = 50;
 
 setDefaultTimeout(60000);
 
+// Before running cucumber make sure the test server and webdriver are running.
+// The test server is started by the test script in package.json.
+// The web driver is started in this before block.
 BeforeAll(async () => {
   const testServer = `${host}:${port}`;
   const browserEnv = process.env.browser || 'gecko';
 
   console.log(`Waiting for test server ${testServer}...`);
   let i = 0;
-  while (!(await isReachable(testServer)) && (i <= maxWaitTime) ) {
+  while (!(await isReachable(testServer)) && (i <= maxWaitTime)) {
     i++;
     await sleep(1000);
   }
@@ -29,7 +32,7 @@ BeforeAll(async () => {
   console.log(`Starting web driver for ${browserEnv}`);
   await startWebDriver({ configFile: 'tests/features/config/nightwatch.conf.js', env: browserEnv });
 
-  await createSession({ configFile: 'tests/features/config/nightwatch.conf.js' });
+  await createSession({ configFile: 'tests/features/config/nightwatch.conf.js', env: browserEnv });
 });
 
 AfterAll(async () => {

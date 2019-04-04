@@ -1,37 +1,26 @@
-import { expect } from 'chai';
-import { createLocalVue, shallowMount } from '@vue/test-utils';
+import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 import PageHeader from '../../../components/PageHeader.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
-const factory = () => shallowMount(PageHeader, {
+const factory = () => mount(PageHeader, {
   localVue
 });
 
-describe('PageHeader', () => {
-  it('contains a search form with a query field', () => {
+describe('components/search/PageHeader', () => {
+  it('contains a search form', () => {
     const wrapper = factory();
+    const form =  wrapper.find('[data-qa="search form"]');
 
-    const queryField =  wrapper.find('[data-qa="search box"]');
-
-    expect(queryField.attributes().name).to.equal('query');
-  });
-
-  it('contains a search form submit button', () => {
-    const wrapper = factory();
-
-    const submitButton =  wrapper.find('[data-qa="search button"]');
-
-    expect(submitButton.attributes().type).to.equal('submit');
+    form.should.exist;
   });
 
   it('contains the logo', () => {
     const wrapper = factory();
 
-    const logo = wrapper.find('[data-qa="header"] [data-qa="logo"]');
-
-    expect(logo.attributes().src).to.match(/\/logo\..+\.svg$/); // Wildcard for compiled asset digest.
+    const logo = wrapper.find('[data-qa="logo"]');
+    logo.attributes().src.should.match(/\/logo\..+\.svg$/);
   });
 });
