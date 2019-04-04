@@ -26,7 +26,7 @@ describe('components/search/SearchResultsList', () => {
     wrapper.setProps({ results: results });
     const renderedResults =  wrapper.findAll('[data-qa="search result"]');
 
-    renderedResults.at(0).attributes().href.should.eq(results[0].linkTo);
-    renderedResults.at(1).attributes().href.should.eq(results[1].linkTo);
+    renderedResults.at(0).attributes().to.should.eq(results[0].linkTo);
+    renderedResults.at(1).attributes().to.should.eq(results[1].linkTo);
   });
 });
