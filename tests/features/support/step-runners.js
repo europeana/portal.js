@@ -53,6 +53,11 @@ module.exports = {
       await client.expect(result.value).to.have.lengthOf(count);
     });
   },
+  matchMetaLabelAndValue: async (label, value) => {
+    await client.elements('xpath', '//strong[contains(text(),"' + label + '")]/parent::div/parent::div//span[contains(text(),"' + value + '")]', async(result) => {
+      await client.expect(result.value).to.have.lengthOf(1);
+    });
+  },
   doNotSeeATarget: function (qaElementNames) {
     client.expect.element(qaSelector(qaElementNames)).to.not.be.present;
   },

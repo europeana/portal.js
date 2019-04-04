@@ -64,3 +64,13 @@ Feature: Search faceting
     And I wait 2 seconds  
     Then I should be on the `first page of results`
     And I can't see a `/search?query=`
+ 
+  Scenario: Filtering results by country and have a corresponding record page
+
+    When I visit `/search?query=`
+    And I check the "Belgium" checkbox 
+    And I wait 2 seconds  
+    And I click a `search result`
+    And I wait 2 seconds  
+    Then I see a `record page`
+    And I should see a meta label `Providing country` with the value "Belgium"
