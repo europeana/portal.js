@@ -16,8 +16,8 @@ const { createSession, closeSession, startWebDriver, stopWebDriver, client } = r
 const browserEnv = process.env.browser || 'chromeHeadless';
 
 async function setup() {
-  await startWebDriver({ configFile: 'tests/a11y/nightwatch.conf.js', env: browserEnv  });
-  await createSession({ configFile: 'tests/a11y/nightwatch.conf.js' });
+  await startWebDriver({ configFile: 'tests/a11y/nightwatch.conf.js', env: browserEnv });
+  await createSession({ configFile: 'tests/a11y/nightwatch.conf.js', env: browserEnv });
 }
 
 async function shutdown() {
