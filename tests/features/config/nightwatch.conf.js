@@ -4,6 +4,8 @@ const chromedriver = require('chromedriver');
 const geckodriver = require('geckodriver');
 
 module.exports = {
+  custom_commands_path: ['./node_modules/nightwatch-accessibility/commands'],
+  custom_assertions_path: ['./node_modules/nightwatch-accessibility/assertions'],
   test_settings: {
     default: {
       globals: {

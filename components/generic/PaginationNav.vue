@@ -64,3 +64,10 @@
     }
   };
 </script>
+
+
+<style lang="scss">
+  .page-link {
+    color: black;
+  }
+</style>

@@ -61,3 +61,6 @@ defineStep('I find/identify/see/spot a link to {string} in (a/an/the)( ){target}
 
 defineStep('I should have/see/see/spot {int} {target}(s)', (count, qa) =>
   i.countTarget(count, qa));
+
+defineStep('I am on an accessible page',() =>
+  i.checkPageAccesibility());

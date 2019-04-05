@@ -39,9 +39,8 @@
     "test:chrome": "cross-env browser=chrome cucumber-js",
     "test:chrome:headless": "cross-env browser=chromeHeadless cucumber-js",
     "test:gecko": "cross-env browser=gecko cucumber-js",
-    "test:e2e": "concurrently 'npm run build:test && npm run start:test' 'npm run test:chrome -- -p all && npm run test:gecko -- -p all && npm run test:a11y' --success first --kill-others",
-    "test:e2e:ci": "concurrently 'npm run build:test && npm run start:test' 'npm run test:chrome:headless -- -p all  && npm run test:a11y' --success first --kill-others",
-    "test:a11y": "node tests/a11y/a11y.test.js"
+    "test:e2e": "concurrently 'npm run build:test && npm run start:test' 'npm run test:chrome -- -p all && npm run test:gecko -- -p all' --success first --kill-others",
+    "test:e2e:ci": "concurrently 'npm run build:test && npm run start:test' 'npm run test:chrome:headless -- -p all' --success first --kill-others"
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.4.1",

@@ -85,5 +85,16 @@ module.exports = {
   },
   waitForTargetToBeVisible: async function (qaElementName) {
     await client.waitForElementVisible(qaSelector(qaElementName));
+  },
+  checkPageAccesibility: async function () {
+    let axeOptions = {
+      //verbose: true,
+      reporter: 'v2',
+      runOnly: {
+        type: 'tag',
+        values: ['wcag2aa']
+      }
+    };
+    await client.initAccessibility().assert.accessibility('body', axeOptions);
   }
 };
