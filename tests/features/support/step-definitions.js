@@ -61,3 +61,9 @@ defineStep('I find/identify/see/spot a link to {string} in (a/an/the)( ){target}
 
 defineStep('I should have/see/see/spot {int} {target}(s)', (count, qa) =>
   i.countTarget(count, qa));
+
+defineStep('I should have/see/see/spot a meta label {target} with the value {string}', (label, value) =>
+  i.matchMetaLabelAndValue(label, value));
+
+defineStep('I should have/see/see/spot a meta label {target} with the value {string} or the value {string}', (label, value, altValue) =>
+  i.matchMetaLabelAndValueOrValue(label, value, altValue));
