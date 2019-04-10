@@ -1,10 +1,17 @@
 $font-family-sans-serif: "Open Sans", "Arial", sans-serif;
 
-$black: #1a1a1a;
 $grey: #777;
+$lightgrey: #f1f1ee;
+$black: #1a1a1a;
+
+$blue: #0a72cc;
 $darkblue: #293745;
 $lightblue: #1a8ac7;
 
 $textcolor: $black;
 $textcolor-light: $grey;
 $textcolor-coloured: $lightblue;
+
+$boxshadow: 0 2px 4px 0 rgba(0,0,0,0.5);
+
+$border-radius: 0.375rem;
