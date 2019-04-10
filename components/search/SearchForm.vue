@@ -8,7 +8,6 @@
       v-model="query"
       placeholder="What are you looking for?"
       name="query"
-      class="w-75"
       data-qa="search box"
       @input="$emit('input', $event)"
     />
@@ -68,8 +67,9 @@
 <style lang="scss">
   @import "./assets/scss/variables.scss";
 
-  .form-control {
+  .form-inline .form-control {
     margin-right: 0.5rem;
+    width: 70%;
   }
 
   .btn img {
@@ -80,6 +80,7 @@
     .form-control {
       border-radius: $border-radius 0 0 $border-radius;
       margin-right: 0;
+      width: calc(100% - 40px);
     }
 
     .btn {
