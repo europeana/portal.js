@@ -5,7 +5,7 @@
   >
     <b-navbar-brand
       href="/"
-      class="col-md-4 p-0"
+      class="col-md-4 p-0 m-0"
     >
       <img
         src="../assets/img/logo.svg"
@@ -14,7 +14,7 @@
         data-qa="logo"
       >
     </b-navbar-brand>
-    <b-navbar-nav class="ml-auto w-100 col-md-6 col-lg-5 p-0">
+    <b-navbar-nav class="ml-auto w-100 col-md-6 col-lg-6 p-0">
       <SearchForm
         v-model="query"
         :is-loading="isLoading"
