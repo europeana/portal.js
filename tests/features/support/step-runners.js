@@ -36,6 +36,17 @@ function pageUrl(pageName) {
 }
 
 module.exports = {
+  checkPageAccesibility: async function () {
+    let axeOptions = {
+      reporter: 'v2',
+      runOnly: {
+        type: 'tags',
+        values: ['wcag2a', 'wcag2aa']
+      }
+    };
+    
+    await client.initAccessibility().assert.accessibility('body', axeOptions);
+  },
   checkTheCheckbox: async function (inputValue) {
     await client.click(`input[type="checkbox"][value="${inputValue}"]`);
   },
@@ -101,5 +112,5 @@ module.exports = {
   },
   waitForTargetToBeVisible: async function (qaElementName) {
     await client.waitForElementVisible(qaSelector(qaElementName));
-  }
+  }  
 };
