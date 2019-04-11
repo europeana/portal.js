@@ -53,3 +53,11 @@ p, ul {
 pre {
   white-space: pre-wrap;
 }
+
+a {
+  color: $blue;
+
+  &:hover {
+    color: $extradarkblue;
+  }
+}

@@ -2,24 +2,34 @@
   <b-card
     class="mb-4 text-left"
     data-qa="content card"
+    no-body
   >
-    <b-card-img-lazy
-      :src="imageUrl"
-      :alt="imageTitle"
-      top
-    />
-    <b-card-title>
-      {{ name }}
-    </b-card-title>
-    <b-card-text>
-      {{ description }}
+    <div
+      :style="{'background-image': 'url(' + imageUrl + ')'}"
+      class="card-img"
+    >
+      <a
+        :href="url"
+      />
+    </div>
+    <b-card-body>
+      <b-card-title>
+        <a
+          :href="url"
+        >
+          {{ name }}
+        </a>
+      </b-card-title>
+      <b-card-text>
+        {{ description }}
+      </b-card-text>
       <a
         :href="url"
         class="card-link"
       >
         Read more
       </a>
-    </b-card-text>
+    </b-card-body>
   </b-card>
 </template>
 
@@ -53,8 +63,19 @@
 <style lang="scss">
   @import "./assets/scss/variables.scss";
 
-  .card-img-top {
-    max-height: 10rem;
+  .card-img {
+    background-position: center center;
+    background-size: cover;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    display: flex;
+    flex: 1 1 auto;
+    min-height: 10rem;
+    width: 100%;
+
+    a {
+      flex: 1;
+    }
   }
 
   .card {
@@ -63,7 +84,9 @@
     box-shadow: $boxshadow-small;
     color: $black;
     font-size: $font-size-extrasmall;
+    height: auto;
     line-height: 1.1875rem;
+    min-height: 20rem;
     transition: box-shadow 0.25s;
 
     &:hover {
@@ -71,18 +94,23 @@
     }
 
     .card-body {
-      padding: 0;
+      flex: 0;
+      padding: 1rem;
+      width: 100%;
     }
 
     .card-title {
       font-size: $font-size-small;
       font-weight: normal;
-    }
 
-    .card-title,
-    .card-text {
-      padding: 1rem;
-    }
+      a {
+        color: inherit;
 
+        &:hover {
+          color: $blue;
+          text-decoration: none;
+        }
+      }
+    }
   }
 </style>
