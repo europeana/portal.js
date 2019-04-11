@@ -12,7 +12,7 @@ h1, h2, h3, h4, h5 {
 }
 
 h1 {
-  font-size: 2.375rem;  
+  font-size: 2.375rem;
 }
 
 h2 {
@@ -52,4 +52,8 @@ p, ul {
 
 pre {
   white-space: pre-wrap;
+}
+
+a {
+  color: $textcolor-coloured;
 }

@@ -1,7 +1,6 @@
 Feature: Accessibility
 
   Scenario: Browse page
-
     When I open the `home page`
     Then I am on an accessible page
 
