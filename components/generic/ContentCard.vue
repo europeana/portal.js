@@ -1,21 +1,25 @@
 <template>
   <b-card
-    :title="name"
-    :img-src="imageUrl"
-    :img-alt="imageTitle"
-    img-top
     class="mb-4 text-left"
     data-qa="content card"
   >
-    <p class="card-text">
+    <b-card-img-lazy
+      :src="imageUrl"
+      :alt="imageTitle"
+      top
+    />
+    <b-card-title>
+      {{ name }}
+    </b-card-title>
+    <b-card-text>
       {{ description }}
-    </p>
-    <a
-      :href="url"
-      class="card-link"
-    >
-      Read more
-    </a>
+      <a
+        :href="url"
+        class="card-link"
+      >
+        Read more
+      </a>
+    </b-card-text>
   </b-card>
 </template>
 
@@ -66,12 +70,17 @@
       box-shadow: 0 4px 12px 0 rgba(0,0,0,0.4)
     }
 
+    .card-body {
+      padding: 0;
+    }
+
     .card-title {
       font-size: $font-size-small;
       font-weight: normal;
     }
 
-    .card-body {
+    .card-title,
+    .card-text {
       padding: 1rem;
     }
 
