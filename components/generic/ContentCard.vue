@@ -5,6 +5,7 @@
     no-body
   >
     <div
+      :aria-label="name"
       :style="{'background-image': 'url(' + imageUrl + ')'}"
       class="card-img"
     >
