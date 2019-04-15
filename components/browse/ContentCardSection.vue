@@ -1,13 +1,16 @@
 <template>
   <div
     v-if="section && section.fields"
-    class="banner"
+    class="banner mb-5"
     data-qa="browse section"
   >
-    <h2 data-qa="section headline">
+    <h2
+      data-qa="section headline"
+      class="col-6"
+    >
       {{ section.fields.headline }}
     </h2>
-    <p>
+    <p class="col-6">
       {{ section.fields.text }}
     </p>
 
@@ -43,3 +46,29 @@
     }
   };
 </script>
+
+<style lang="scss" scoped>
+
+@import "./assets/scss/variables.scss";
+
+.banner {
+  h2,
+  p {
+    padding: 0;
+    text-align: left;
+  }
+
+  h2 {
+    color: $darkgrey;
+    font-size: 1.25rem;
+    font-weight: 600;
+    letter-spacing: 0.12125rem;
+  }
+
+  p {
+    color: $midgrey;
+    letter-spacing: 0.0975rem;
+  }
+}
+
+</style>

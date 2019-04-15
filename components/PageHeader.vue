@@ -53,3 +53,11 @@
     }
   };
 </script>
+
+<style lang="scss" scoped>
+  @import '../assets/scss/variables.scss';
+
+  .container-fluid {
+    background: $white;
+  }
+</style>

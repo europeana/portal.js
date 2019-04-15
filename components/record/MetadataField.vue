@@ -57,3 +57,10 @@
     }
   };
 </script>
+
+<style lang="scss" scoped>
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+</style>
