@@ -8,6 +8,7 @@
         v-if="result.edmPreview"
         slot="aside"
         :src="result.edmPreview"
+        alt="Image"
         class="mw-100"
         data-field-name="edmPreview"
         data-qa="result thumbnail"

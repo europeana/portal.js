@@ -1,5 +1,3 @@
-/*jshint esversion: 6 */
-
 const util = require('util');
 
 const script = function (context, options, done) {
@@ -17,39 +15,13 @@ const script = function (context, options, done) {
 }
 
 exports.assertion = function(context, config) {
-
-  //const FAILURE_MSG = ' Issue: %s\n Target: (%s)\n Impact: %s,\n Type: %s,\n Help: %s \n';
   const FAILURE_MSG = 'Accessibility violations found: %s \n\n%s'
   const PASS_MSG = '%d aXe a11y tests passed';
 
-  /**
-   * The message which will be used in the test output and
-   * inside the XML reports
-   * @type {string}
-   */
   this.message = null;
-
-  /**
-   * Cached results
-   * inside the XML reports
-   * @type {object|string}
-   */
   this.results = null;
-
-  /**
-   * A value to perform the assertion on. If a function is
-   * defined, its result will be used.
-   * @type {function|*}
-   */
   this.expected = null;
 
-  /**
-   * The method which performs the actual assertion. It is
-   * called with the result of the value method as the argument.
-   *
-   * Some hackiness in here to get legible logging
-   * @type {function}
-   */
   this.pass = function(value) {
     var passed = !this.results.violations.length;
 
@@ -61,7 +33,6 @@ exports.assertion = function(context, config) {
   };
 
   this.failure = function (result) {
-
     const violations = result.value.results.violations;
     let failMessage = '';
 
@@ -75,29 +46,15 @@ exports.assertion = function(context, config) {
     return false;
   };
 
-  /**
-   * The method which returns the value to be used on the
-   * assertion. It is called with the result of the command's
-   * callback as argument.
-   *
-   * Some hackiness in here to get legible logging
-   * @type {function}
-   */
   this.value = function(result) {
-
     var value = this.results = result.value.results;
     
-    if (value.violations.length) {// we got errors
+    if (value.violations.length) {
       return value.violations.length;
     }
     return result.value;
   };
 
-  /**
-   * Performs a protocol command/action and its result is
-   * passed to the value method via the callback argument.
-   * @type {function}
-   */
   this.command = function(callback) {
     this.api.executeAsync(script, [context, config], function (result) {
       callback(result);
