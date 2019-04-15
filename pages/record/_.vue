@@ -10,11 +10,9 @@
   <b-container
     v-else
     data-qa="record page"
+    class="mt-5"
   >
-    <b-row>
-      <b-col><h1>Record</h1></b-col>
-    </b-row>
-    <b-row class="mb-3">
+    <b-row class="mb-3 mediacard">
       <b-col
         v-if="image.src"
         cols="12"
@@ -31,7 +29,7 @@
           :key="name"
           :name="name"
           :value="value"
-          class="border-bottom mb-3"
+          class="mb-3"
         />
       </b-col>
     </b-row>
@@ -89,3 +87,15 @@
     }
   };
 </script>
+
+<style lang="scss" scoped>
+  @import "./assets/scss/variables.scss";
+
+  .mediacard {
+    background: $white;
+    border-radius: $border-radius-small;
+    box-shadow: $boxshadow-small;
+    padding: 1rem;
+  }
+</style>
+
