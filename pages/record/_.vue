@@ -17,6 +17,7 @@
         v-if="image.src"
         cols="12"
         md="4"
+        class="pl-0"
       >
         <MediaImage
           :link="image.link"

@@ -1,19 +1,19 @@
 <template>
   <div
     v-if="section && section.fields"
-    class="banner mb-5"
+    class="browse-section mb-5"
     data-qa="browse section"
   >
-    <h2
-      data-qa="section headline"
-      class="col-6"
-    >
-      {{ section.fields.headline }}
-    </h2>
-    <p class="col-6">
-      {{ section.fields.text }}
-    </p>
-
+    <div class="col-12 col-lg-6 p-0">
+      <h2
+        data-qa="section headline"
+      >
+        {{ section.fields.headline }}
+      </h2>
+      <p>
+        {{ section.fields.text }}
+      </p>
+    </div>
     <b-card-group
       deck
       data-qa="section group"
@@ -51,10 +51,9 @@
 
 @import "./assets/scss/variables.scss";
 
-.banner {
+.browse-section {
   h2,
   p {
-    padding: 0;
     text-align: left;
   }
 
@@ -68,6 +67,7 @@
   p {
     color: $midgrey;
     letter-spacing: 0.0975rem;
+    line-height: 1.5;
   }
 }
 
