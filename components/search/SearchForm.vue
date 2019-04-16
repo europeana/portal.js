@@ -69,6 +69,7 @@
   @import "./assets/scss/variables.scss";
 
   .form-inline .form-control {
+    background-color: $white;
     margin-right: 0.5rem;
     width: 70%;
   }
@@ -79,6 +80,7 @@
 
   .navbar {
     .form-control {
+      background-color: $lightgrey;
       border-radius: $border-radius 0 0 $border-radius;
       margin-right: 0;
       width: calc(100% - 40px);

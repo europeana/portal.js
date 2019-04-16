@@ -45,9 +45,9 @@ module.exports = {
       },
       rules: {
         'aria-roles': { enabled: false } // https://github.com/bootstrap-vue/bootstrap-vue/issues/2921 + https://github.com/dequelabs/axe-core/issues/1462
-      }      
+      }
     };
-    
+
     await client.initAccessibility().assert.accessibility('html', axeOptions);
   },
   checkTheCheckbox: async function (inputValue) {
@@ -115,5 +115,5 @@ module.exports = {
   },
   waitForTargetToBeVisible: async function (qaElementName) {
     await client.waitForElementVisible(qaSelector(qaElementName));
-  }  
+  }
 };

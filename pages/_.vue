@@ -1,13 +1,6 @@
 <template>
   <section class="container">
-    <div>
-      <h1
-        class="title"
-        data-qa="title"
-      >
-        {{ page.headline }}
-      </h1>
-      <p>{{ page.text }}</p>
+    <div class="mt-3">
       <ContentCardSection
         v-for="section in page.hasPart"
         :key="section.sys.id"

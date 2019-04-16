@@ -6,7 +6,7 @@
     <img
       :src="src"
       class="mw-100 mb-3"
-      alt="Image"
+      alt="Depiction of this record"
     >
   </a>
   <img
