@@ -1,6 +1,8 @@
 import axios from 'axios';
 import omitBy from 'lodash/omitBy';
 
+const mime = require('mime-types');
+
 /**
  * Parse the record data based on the data from the API response
  * @param {Object} response data from API response
@@ -30,6 +32,7 @@ function parseRecordDataFromApiResponse(response) {
       link: providerAggregation.edmIsShownAt,
       src: europeanaAggregation.edmPreview
     },
+    pdfLink: findPDFContentType(providerAggregation.edmIsShownBy),
     fields: omitBy({
       dcContributor: providerProxy.dcContributor,
       dcCreator: providerProxy.dcCreator,
@@ -68,6 +71,22 @@ function getRecord(europeanaId, params) {
       const message = error.response ? error.response.data.error : error.message;
       throw new Error(message);
     });
+}
+
+/**
+ * Find the content type of a file and if type is a pdf return the url
+ * @param {string} url of a file
+ * @return {Object} the url of the file
+ */
+function findPDFContentType(file) {
+  if (!file) return;
+
+  const contentType = mime.lookup(file);
+  if (contentType && contentType.includes('pdf')) {
+    return file;
+  } else {
+    return;
+  }
 }
 
 export default getRecord;
