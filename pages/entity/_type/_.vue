@@ -33,9 +33,10 @@
         entityTitle: null
       };
     },
-    asyncData ({ env, params, res }) {
+    asyncData ({ params, res }) {
       return getEntity(params.pathMatch, params.type, {
-        wskey: env.EUROPEANA_ENTITY_API_KEY
+        //wskey: env.EUROPEANA_ENTITY_API_KEY
+        wskey: 'apidemo'
       })
         .then((response) => {
           return {
