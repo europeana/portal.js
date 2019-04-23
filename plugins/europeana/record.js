@@ -32,7 +32,7 @@ function parseRecordDataFromApiResponse(response) {
       link: providerAggregation.edmIsShownAt,
       src: europeanaAggregation.edmPreview
     },
-    pdfLink: findPDFContentType(providerAggregation.edmIsShownBy),
+    pdfLink: findPDFContent(providerAggregation.edmIsShownBy),
     fields: omitBy({
       dcContributor: providerProxy.dcContributor,
       dcCreator: providerProxy.dcCreator,
@@ -78,7 +78,7 @@ function getRecord(europeanaId, params) {
  * @param {string} url of a file
  * @return {Object} the url of the file
  */
-function findPDFContentType(file) {
+function findPDFContent(file) {
   if (!file) return;
 
   const contentType = mime.lookup(file);
