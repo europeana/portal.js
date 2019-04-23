@@ -6,9 +6,9 @@ import axios from 'axios';
  * @param {string} type of entity
  * @param {Object} params additional parameters sent to the API
  * @param {string} params.wskey API key
- * @return {Object} parsed record data
+ * @return {Object} parsed entity data
  */
-function getEntity(id, type, params) {
+function getEntity(type, id, params) {
   return axios.get(`https://www.europeana.eu/api/entities/${getEntityTypeApi(type)}/base/${getEntityId(id)}`, {
     params: {
       wskey: params.wskey
@@ -17,7 +17,7 @@ function getEntity(id, type, params) {
     .then((response) => {
       return {
         error: null,
-        data: response.data
+        entity: response.data
       };
     })
     .catch((error) => {

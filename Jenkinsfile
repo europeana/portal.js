@@ -23,6 +23,7 @@ pipeline {
         CTF_CDA_ACCESS_TOKEN=credentials("portaljs.${params.CF_SPACE}.contentful.cda_access_token")
         CTF_SPACE_ID=credentials("portaljs.${params.CF_SPACE}.contentful.space_id")
         EUROPEANA_API_KEY=credentials("portaljs.${params.CF_SPACE}.europeana.api_key")
+        EUROPEANA_ENTITY_API_KEY=credentials("portaljs.${params.CF_SPACE}.europeana.entity_api_key")
         NUXT_ENV_BUILD_PUBLIC_PATH="${env.S3_ENDPOINT}/europeana-portaljs-${params.CF_SPACE}"
       }
       steps {

@@ -12,7 +12,7 @@
     data-qa="entity page"
   >
     <h1 data-qa="entity title">
-      {{ entityTitle }}
+      {{ title }}
     </h1>
   </b-container>
 </template>
@@ -29,20 +29,18 @@
     data () {
       return {
         error: null,
-        data: null,
-        entityTitle: null
+        title: null
       };
     },
-    asyncData ({ params, res }) {
-      return getEntity(params.pathMatch, params.type, {
-        //wskey: env.EUROPEANA_ENTITY_API_KEY
-        wskey: 'apidemo'
+    asyncData ({ env, params, res }) {
+      return getEntity(params.type, params.pathMatch, {
+        wskey: env.EUROPEANA_ENTITY_API_KEY
       })
         .then((response) => {
           return {
             ...response,
-            entity: response.data,
-            entityTitle: response.data.prefLabel.en
+            error: response.error,
+            title: response.entity.prefLabel.en
           };
         })
         .catch((err) => {
