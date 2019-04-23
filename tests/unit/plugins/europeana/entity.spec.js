@@ -26,24 +26,20 @@ describe('plugins/europeana/entity', () => {
           baseRequest
             .query(true)
             .reply(404, {
-              success: false,
               error: errorMessage
             });
         });
 
         it('throws API error message', () => {
-          const response = getEntity(entityId, entityType, { wskey: apiKey });
+          const response = getEntity(entityType, entityId, { wskey: apiKey });
           return response.should.be.rejectedWith(errorMessage);
         });
       });
 
       describe('with object in response', () => {
         const apiResponse = {
-          success: true,
-          data: {
-            prefLabel: {
-              en: 'Architecture'
-            }
+          prefLabel: {
+            en: 'Architecture'
           }
         };
 
@@ -55,8 +51,8 @@ describe('plugins/europeana/entity', () => {
         });
 
         it('returns entity title', async () => {
-          const response = await getEntity(entityId, entityType, { wskey: apiKey });
-          response.data.data.prefLabel.en.should.exist;
+          const response = await getEntity(entityType, entityId, { wskey: apiKey });
+          response.entity.prefLabel.en.should.exist;
         });
       });
     });
