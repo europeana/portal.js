@@ -30,6 +30,7 @@ pipeline {
         sh 'echo "CTF_CDA_ACCESS_TOKEN=${CTF_CDA_ACCESS_TOKEN}" >> .env'
         sh 'echo "CTF_SPACE_ID=${CTF_SPACE_ID}" >> .env'
         sh 'echo "EUROPEANA_API_KEY=${EUROPEANA_API_KEY}" >> .env'
+        sh 'echo "EUROPEANA_ENTITY_API_KEY=${EUROPEANA_ENTITY_API_KEY}" >> .env'
         sh 'npm install'
         sh 'npm run build'
       }
