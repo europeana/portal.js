@@ -87,9 +87,8 @@ function findPDFContent(file, webResources) {
 
   if (mimeType && mimeType.includes('pdf')) {
     return file;
-  } else {
-    return;
   }
+  return;
 }
 
 export default getRecord;
