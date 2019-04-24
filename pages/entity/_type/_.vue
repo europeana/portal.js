@@ -38,7 +38,6 @@
       })
         .then((response) => {
           return {
-            ...response,
             error: response.error,
             title: response.entity.prefLabel.en
           };

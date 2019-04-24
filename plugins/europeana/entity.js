@@ -2,8 +2,8 @@ import axios from 'axios';
 
 /**
  * Get the entity data from the API
- * @param {string} id of entity
  * @param {string} type of entity
+ * @param {string} id of entity
  * @param {Object} params additional parameters sent to the API
  * @param {string} params.wskey API key
  * @return {Object} parsed entity data
@@ -33,8 +33,8 @@ function getEntity(type, id, params) {
  */
 function getEntityTypeApi(type) {
   const names = {
-    'people': 'agent',
-    'topics': 'concept'
+    people: 'agent',
+    topics: 'concept'
   };
   if (!type) return;
   return names[type];
