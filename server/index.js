@@ -20,8 +20,6 @@ if (elasticApmCredentials.server_url) {
 }
 
 const express = require('express');
-const ipfilter = require('express-ipfilter').IpFilter;
-
 const morgan = require('morgan');
 const { Nuxt, Builder } = require('nuxt');
 const app = express();
@@ -51,8 +49,14 @@ async function start() {
     // IP access retriction
     if (process.env.IP_FILTER_ALLOW) {
       consola.info(`Restricting access to IPs: ${process.env.IP_FILTER_ALLOW}`);
-      const ips = process.env.IP_FILTER_ALLOW.split(' ');
-      app.use(ipfilter(ips, { mode: 'allow' }));
+      const ipfilter = require('express-ipfilter').IpFilter;
+      const allowIps = process.env.IP_FILTER_ALLOW.split(' ');
+      let ipfilterOptions = { mode: 'allow' };
+      if (process.env.IP_FILTER_TRUST_PROXY) {
+        consola.info(`Trusting proxy: ${process.env.IP_FILTER_TRUST_PROXY}`);
+        ipfilterOptions.trustProxy = process.env.IP_FILTER_TRUST_PROXY.split(' ');
+      }
+      app.use(ipfilter(allowIps, ipfilterOptions));
     }
   }
 
