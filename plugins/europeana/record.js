@@ -1,8 +1,6 @@
 import axios from 'axios';
 import omitBy from 'lodash/omitBy';
 
-const mime = require('mime-types');
-
 /**
  * Parse the record data based on the data from the API response
  * @param {Object} response data from API response
@@ -21,7 +19,8 @@ function parseRecordDataFromApiResponse(response) {
     return omitBy({
       rdfAbout: webResource.about,
       dcDescription: webResource.dcDescription,
-      edmRights: webResource.webResourceEdmRights
+      edmRights: webResource.webResourceEdmRights,
+      ebucoreHasMimeType: webResource.ebucoreHasMimeType
     }, (v) => {
       return v == null;
     });
@@ -32,7 +31,7 @@ function parseRecordDataFromApiResponse(response) {
       link: providerAggregation.edmIsShownAt,
       src: europeanaAggregation.edmPreview
     },
-    pdfLink: findPDFContent(providerAggregation.edmIsShownBy),
+    pdfLink: findPDFContent(providerAggregation.edmIsShownBy, webResources),
     fields: omitBy({
       dcContributor: providerProxy.dcContributor,
       dcCreator: providerProxy.dcCreator,
@@ -78,11 +77,18 @@ function getRecord(europeanaId, params) {
  * @param {string} url of a file
  * @return {Object} the url of the file
  */
-function findPDFContent(file) {
+function findPDFContent(file, webResources) {
   if (!file) return;
 
-  const contentType = mime.lookup(file);
-  if (contentType && contentType.includes('pdf')) {
+  let mimeType;
+
+  for (let resource in webResources) {
+    if (file === webResources[resource].rdfAbout) {
+      mimeType = webResources[resource].ebucoreHasMimeType;
+    }
+  }
+
+  if (mimeType && mimeType.includes('pdf')) {
     return file;
   } else {
     return;

@@ -45,7 +45,7 @@ describe('plugins/europeana/record', () => {
               edmIsShownAt: 'https://example.org',
               edmIsShownBy: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
               webResources: [{
-                about: 'https://example.org',
+                about: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
                 dcDescription: {
                   'en': [
                     'This is an example'
@@ -55,7 +55,8 @@ describe('plugins/europeana/record', () => {
                   'def': [
                     'https://example.org'
                   ]
-                }
+                },
+                ebucoreHasMimeType: 'application/pdf'
               }]
             }],
             europeanaAggregation: {

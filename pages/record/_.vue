@@ -23,13 +23,15 @@
           :link="image.link"
           :src="image.src"
         />
-        <b-link
-          v-if="pdf"
-          :href="pdf"
-          target="_blank"
-        >
-          View PDF
-        </b-link>
+        <p>
+          <b-link
+            v-if="pdf"
+            :href="pdf"
+            target="_blank"
+          >
+            View PDF
+          </b-link>
+        </p>
       </b-col>
       <b-col>
         <MetadataField
