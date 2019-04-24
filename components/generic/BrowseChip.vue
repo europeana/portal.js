@@ -8,22 +8,6 @@
     >
       Maps
     </b-badge>
-    <b-badge
-      to="#"
-      pill
-      variant="nocolor"
-      class="mb-3 mr-3 font-weight-normal bg-transparent"
-    >
-      Painting
-    </b-badge>
-    <b-badge
-      to="#"
-      pill
-      variant="nocolor"
-      class="mb-3 mr-3 font-weight-normal bg-transparent"
-    >
-      Sculpture
-    </b-badge>
   </div>
 </template>
 
