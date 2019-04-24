@@ -78,10 +78,7 @@ function getRecord(europeanaId, params) {
  * @return {Object} the url of the file
  */
 function findPDFContent(file, webResources) {
-  if (!file) return;
-
   let mimeType;
-
   for (let resource in webResources) {
     if (file === webResources[resource].rdfAbout) {
       mimeType = webResources[resource].ebucoreHasMimeType;
