@@ -1,3 +1,5 @@
+// Load dotenv for server/index.js to access env vars from .env file
+require('dotenv').config();
 const pkg = require('./package');
 const bootstrapPkg = require('bootstrap/package');
 const bootstrapVuePkg = require('bootstrap-vue/package');

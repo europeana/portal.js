@@ -20,6 +20,8 @@ if (elasticApmCredentials.server_url) {
 }
 
 const express = require('express');
+const ipfilter = require('express-ipfilter').IpFilter;
+
 const morgan = require('morgan');
 const { Nuxt, Builder } = require('nuxt');
 const app = express();
@@ -45,6 +47,13 @@ async function start() {
   if (process.env.NODE_ENV !== 'test') {
     // Use morgan for request logging
     app.use(morgan('combined'));
+
+    // IP access retriction
+    if (process.env.IP_FILTER_ALLOW) {
+      consola.info(`Restricting access to IPs: ${process.env.IP_FILTER_ALLOW}`);
+      const ips = process.env.IP_FILTER_ALLOW.split(' ');
+      app.use(ipfilter(ips, { mode: 'allow' }));
+    }
   }
 
   // Give nuxt middleware to express
