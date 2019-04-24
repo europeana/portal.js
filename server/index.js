@@ -45,6 +45,19 @@ async function start() {
   if (process.env.NODE_ENV !== 'test') {
     // Use morgan for request logging
     app.use(morgan('combined'));
+
+    // IP access retriction
+    if (process.env.IP_FILTER_ALLOW) {
+      consola.info(`Restricting access to IPs: ${process.env.IP_FILTER_ALLOW}`);
+      const ipfilter = require('express-ipfilter').IpFilter;
+      const allowIps = process.env.IP_FILTER_ALLOW.split(' ');
+      let ipfilterOptions = { mode: 'allow' };
+      if (process.env.IP_FILTER_TRUST_PROXY) {
+        consola.info(`Trusting proxy: ${process.env.IP_FILTER_TRUST_PROXY}`);
+        ipfilterOptions.trustProxy = process.env.IP_FILTER_TRUST_PROXY.split(' ');
+      }
+      app.use(ipfilter(allowIps, ipfilterOptions));
+    }
   }
 
   // Give nuxt middleware to express
