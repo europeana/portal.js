@@ -79,13 +79,14 @@ function getRecord(europeanaId, params) {
  */
 function findPDFContent(file, webResources) {
   let mimeType;
-  for (let resource in webResources) {
-    if (file === webResources[resource].rdfAbout) {
-      mimeType = webResources[resource].ebucoreHasMimeType;
+
+  for (const resource of webResources) {
+    if (file === resource.rdfAbout) {
+      mimeType = resource.ebucoreHasMimeType;
     }
   }
 
-  if (mimeType && mimeType.includes('pdf')) {
+  if (mimeType && mimeType === 'application/pdf') {
     return file;
   }
   return;

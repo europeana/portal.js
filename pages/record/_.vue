@@ -75,7 +75,7 @@
         image: null,
         fields: null,
         media: null,
-        pdfLink: null
+        pdf: null
       };
     },
     asyncData ({ env, params, res }) {
