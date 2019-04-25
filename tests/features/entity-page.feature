@@ -8,5 +8,5 @@ Feature: Entity page
 
   Scenario: Attempting to view an entity page which doesn't exist
 
-    When I open `/entity/people/123x-unknown`
+    When I open `/entity/person/123x-unknown`
     Then I see an `error notice`

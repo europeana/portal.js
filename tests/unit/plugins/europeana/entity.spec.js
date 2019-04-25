@@ -5,7 +5,7 @@ const axios = require('axios');
 axios.defaults.adapter = require('axios/lib/adapters/http');
 
 const entityId = '94-architecture';
-const entityType = 'topics';
+const entityType = 'topic';
 const entityIdMisspelled = '94-architectuz';
 const apiUrl = 'https://www.europeana.eu';
 const apiEndpoint = '/api/entities/concept/base/94';
