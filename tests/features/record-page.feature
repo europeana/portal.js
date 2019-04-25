@@ -11,4 +11,3 @@ Feature: Record page
 
     When I open `/record/123456/THIS_IDENTIFIER_DOES_NOT_EXIST`
     Then I see an `error notice`
-

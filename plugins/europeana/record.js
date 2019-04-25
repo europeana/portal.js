@@ -19,7 +19,8 @@ function parseRecordDataFromApiResponse(response) {
     return omitBy({
       rdfAbout: webResource.about,
       dcDescription: webResource.dcDescription,
-      edmRights: webResource.webResourceEdmRights
+      edmRights: webResource.webResourceEdmRights,
+      ebucoreHasMimeType: webResource.ebucoreHasMimeType
     }, (v) => {
       return v == null;
     });
@@ -30,6 +31,7 @@ function parseRecordDataFromApiResponse(response) {
       link: providerAggregation.edmIsShownAt,
       src: europeanaAggregation.edmPreview
     },
+    pdfLink: findPDFContent(providerAggregation.edmIsShownBy, webResources),
     fields: omitBy({
       dcContributor: providerProxy.dcContributor,
       dcCreator: providerProxy.dcCreator,
@@ -68,6 +70,26 @@ function getRecord(europeanaId, params) {
       const message = error.response ? error.response.data.error : error.message;
       throw new Error(message);
     });
+}
+
+/**
+ * Find the content type of a file and if type is a pdf return the url
+ * @param {string} url of a file
+ * @return {Object} the url of the file
+ */
+function findPDFContent(file, webResources) {
+  let mimeType;
+
+  for (const resource of webResources) {
+    if (file === resource.rdfAbout) {
+      mimeType = resource.ebucoreHasMimeType;
+    }
+  }
+
+  if (mimeType && mimeType === 'application/pdf') {
+    return file;
+  }
+  return;
 }
 
 export default getRecord;
