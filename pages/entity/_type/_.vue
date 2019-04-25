@@ -32,11 +32,18 @@
         title: null
       };
     },
-    asyncData ({ env, params, res }) {
+    asyncData ({ env, params, res, redirect }) {
       return getEntity(params.type, params.pathMatch, {
         wskey: env.EUROPEANA_ENTITY_API_KEY
       })
         .then((response) => {
+          let entityId = params.pathMatch.split('-')[0];
+          let desiredPath = entityId + '-' + response.entity.prefLabel.en.toLowerCase().replace(' ', '-');
+
+          if (params.pathMatch !== desiredPath) {
+            return redirect('301', '/entity/' + params.type + '/' + desiredPath);
+          }
+
           return {
             error: response.error,
             title: response.entity.prefLabel.en
