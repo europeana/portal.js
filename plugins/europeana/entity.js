@@ -33,8 +33,8 @@ function getEntity(type, id, params) {
  */
 function getEntityTypeApi(type) {
   const names = {
-    people: 'agent',
-    topics: 'concept'
+    person: 'agent',
+    topic: 'concept'
   };
   if (!type) return;
   return names[type];

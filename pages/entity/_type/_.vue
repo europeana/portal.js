@@ -37,12 +37,12 @@
         wskey: env.EUROPEANA_ENTITY_API_KEY
       })
         .then((response) => {
-          let entityId = params.pathMatch.split('-')[0];
-          let desiredPath = entityId + (response.entity.prefLabel.en ? '-' + response.entity.prefLabel.en.toLowerCase().replace(' ', '-') : '');
-          let desiredUrl = '/entity/' + params.type + '/' + encodeURIComponent(desiredPath);
+          const entityId = params.pathMatch.split('-')[0];
+          const desiredPath = entityId + (response.entity.prefLabel.en ? '-' + response.entity.prefLabel.en.toLowerCase().replace(/ /g, '-') : '');
+          const desiredUrl = '/entity/' + params.type + '/' + encodeURIComponent(desiredPath);
 
           if (params.pathMatch !== desiredPath) {
-            return redirect('302', desiredUrl);
+            return redirect(302, desiredUrl);
           }
 
           return {
