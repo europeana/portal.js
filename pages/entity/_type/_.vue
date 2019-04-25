@@ -38,10 +38,11 @@
       })
         .then((response) => {
           let entityId = params.pathMatch.split('-')[0];
-          let desiredPath = entityId + '-' + response.entity.prefLabel.en.toLowerCase().replace(' ', '-');
+          let desiredPath = entityId + (response.entity.prefLabel.en ? '-' + response.entity.prefLabel.en.toLowerCase().replace(' ', '-') : '');
+          let desiredUrl = '/entity/' + params.type + '/' + encodeURIComponent(desiredPath);
 
           if (params.pathMatch !== desiredPath) {
-            return redirect('301', '/entity/' + params.type + '/' + desiredPath);
+            return redirect('302', desiredUrl);
           }
 
           return {
