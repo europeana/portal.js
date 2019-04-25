@@ -6,6 +6,7 @@ axios.defaults.adapter = require('axios/lib/adapters/http');
 
 const entityId = '94-architecture';
 const entityType = 'topics';
+const entityIdMisspelled = '94-architectuz';
 const apiUrl = 'https://www.europeana.eu';
 const apiEndpoint = '/api/entities/concept/base/94';
 const apiKey = 'abcdef';
@@ -52,8 +53,14 @@ describe('plugins/europeana/entity', () => {
 
         it('returns entity title', async () => {
           const response = await getEntity(entityType, entityId, { wskey: apiKey });
-          response.entity.prefLabel.en.should.exist;
+          response.entity.prefLabel.en.should.eq('Architecture');
         });
+
+        it('has a misspelled id and returns entity title', async () => {
+          const response = await getEntity(entityType, entityIdMisspelled, { wskey: apiKey });
+          response.entity.prefLabel.en.should.eq('Architecture');
+        });
+
       });
     });
   });
