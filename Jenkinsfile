@@ -51,7 +51,7 @@ pipeline {
       }
       steps {
         sh 'npm run build-storybook'
-        sh 'echo "---\\nbuildpack: staticfile_buildpack\\nmemory: 64M" > storybook-static/manifest.yml'
+        sh 'echo "---\\nbuildpack: staticfile_buildpack\\nmemory: 64M"\\nstack: cflinuxfs3 > storybook-static/manifest.yml'
         sh 'cd storybook-static && cf blue-green-deploy portaljs-storybook -f manifest.yml --delete-old-apps'
       }
     }
