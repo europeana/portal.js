@@ -23,6 +23,15 @@
           :link="image.link"
           :src="image.src"
         />
+        <p>
+          <b-link
+            v-if="pdf"
+            :href="pdf"
+            target="_blank"
+          >
+            View PDF
+          </b-link>
+        </p>
       </b-col>
       <b-col>
         <MetadataField
@@ -65,14 +74,15 @@
         error: null,
         image: null,
         fields: null,
-        media: null
+        media: null,
+        pdf: null
       };
     },
     asyncData ({ env, params, res }) {
       return getRecord(`/${params.pathMatch}`, {
         wskey: env.EUROPEANA_API_KEY
       }).then((result) => {
-        return { image: result.record.image, fields: result.record.fields, media: result.record.media };
+        return { image: result.record.image, pdf: result.record.pdfLink, fields: result.record.fields, media: result.record.media };
       })
         .catch((err) => {
           if (typeof res !== 'undefined') {

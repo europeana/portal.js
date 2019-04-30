@@ -43,8 +43,9 @@ describe('plugins/europeana/record', () => {
           object: {
             aggregations: [{
               edmIsShownAt: 'https://example.org',
+              edmIsShownBy: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
               webResources: [{
-                about: 'https://example.org',
+                about: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
                 dcDescription: {
                   'en': [
                     'This is an example'
@@ -54,7 +55,8 @@ describe('plugins/europeana/record', () => {
                   'def': [
                     'https://example.org'
                   ]
-                }
+                },
+                ebucoreHasMimeType: 'application/pdf'
               }]
             }],
             europeanaAggregation: {
@@ -86,8 +88,12 @@ describe('plugins/europeana/record', () => {
 
         it('returns record data', async () => {
           const response = await getRecord(europeanaId, { wskey: apiKey });
-
           response.record.should.exist;
+        });
+
+        it('shows a view PDF link', async () => {
+          const response = await getRecord(europeanaId, { wskey: apiKey });
+          response.record.pdfLink.should.exist;
         });
       });
     });

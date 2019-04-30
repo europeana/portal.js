@@ -11,7 +11,8 @@ const pages = {
   'home page': `${url}/`,
   'search page': `${url}/search`,
   'record page': `${url}/record${europeanaId()}`,
-  'first page of results': `${url}/search?query=&page=1`
+  'first page of results': `${url}/search?query=&page=1`,
+  'entity page': `${url}/entity/person/59879-berthe-morisot`
 };
 
 /**
