@@ -13,7 +13,6 @@ let entityAPIKey;
  */
 function getEntity(type, id, params) {
   entityAPIKey = params.wskey;
-
   return axios.get(`https://www.europeana.eu/api/entities/${getEntityTypeApi(type)}/base/${getEntityId(id)}`, {
     params: {
       wskey: params.wskey
