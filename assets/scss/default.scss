@@ -89,3 +89,12 @@ a {
     z-index: 999;
   }
 }
+
+.page-link {
+  color: $black;
+}
+
+.page-item.active .page-link {
+  background-color: $darkblue;
+  border-color: $darkblue;
+}
