@@ -1,15 +1,28 @@
 <template>
   <div>
     <b-badge
+      v-for="entity in relatedEntities"
+      :key="entity"
       to="#"
       pill
       variant="nocolor"
       class="mb-3 mr-3 font-weight-normal bg-transparent"
     >
-      Maps
+      {{ entity }}
     </b-badge>
   </div>
 </template>
+
+<script>
+  export default {
+    props: {
+      relatedEntities: {
+        type: Array,
+        default: () => []
+      }
+    }
+  };
+</script>
 
 <style lang="scss" scoped>
   @import "./assets/scss/variables.scss";
