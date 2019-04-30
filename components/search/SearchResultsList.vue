@@ -2,11 +2,10 @@
   <b-list-group
     id="searchResults"
   >
-    <!-- TODO: switch :href for :to if/when API permits CORS requests to record.json -->
     <b-list-group-item
       v-for="result in results"
       :key="result.europeanaId"
-      :href="result.linkTo"
+      :to="result.linkTo"
       class="flex-column align-items-start mb-3"
       data-qa="search result"
     >

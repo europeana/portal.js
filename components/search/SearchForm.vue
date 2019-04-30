@@ -8,19 +8,25 @@
       v-model="query"
       placeholder="What are you looking for?"
       name="query"
-      class="mr-2 w-75"
       data-qa="search box"
       @input="$emit('input', $event)"
     />
     <b-button
       type="submit"
       data-qa="search button"
+      variant="primary"
     >
-      Search
-      <LoadingSpinner
-        v-show="isLoading"
-        class="ml-2 mb-1"
-      />
+      <span>
+        Search
+        <LoadingSpinner
+          v-show="isLoading"
+          class="ml-2 mb-1"
+        />
+      </span>
+      <img
+        src="../../assets/img/magnifier.svg"
+        alt="Search"
+      >
     </b-button>
   </b-form>
 </template>
@@ -57,3 +63,38 @@
     }
   };
 </script>
+
+<style lang="scss">
+  @import "./assets/scss/variables.scss";
+
+  .form-inline .form-control {
+    background-color: $white;
+    margin-right: 0.5rem;
+    width: 70%;
+  }
+
+  .btn img {
+    display: none;
+  }
+
+  .navbar {
+    .form-control {
+      background-color: $lightgrey;
+      border-radius: $border-radius 0 0 $border-radius;
+      margin-right: 0;
+      width: calc(100% - 40px);
+    }
+
+    .btn {
+      border-radius: 0 $border-radius $border-radius 0;
+
+      span {
+        display: none;
+      }
+
+      img {
+        display: block;
+      }
+    }
+  }
+</style>

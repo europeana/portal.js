@@ -3,6 +3,7 @@
 buildpack: sdk-for-nodejs
 memory: 256M
 health-check-type: port
+stack: cflinuxfs3
 env:
   CONSOLA_LEVEL: info
   HOST: 0.0.0.0

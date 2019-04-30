@@ -87,63 +87,6 @@ function resultsFromApiResponse(response) {
 }
 
 /**
- * A search response facet.
- *
- * The object is keyed by field label with item count as value.
- *
- * For example:
- * ```
- * {
- *   IMAGE: 33371202,
- *   TEXT: 22845674,
- *   VIDEO: 1137194,
- *   SOUND: 699155,
- *   '3D': 28460
- * }
- * ```
- * @typedef {Object.<string, number>} Facet
- */
-
-/**
- * A set of search response facets.
- *
- * The object is keyed by the facet name.
- *
- * For example:
- * ```
- * {
- *   TYPE: {
- *     IMAGE: 10
- *   }
- * }
- * ```
- * @typedef {Object.<string, Facet>} FacetSet
- */
-
-/**
- * Extract facets from API response
- * @param  {Object} response API response
- * @return {FacetSet} facets
- */
-function facetsFromApiResponse(response) {
-  if (!response.data.facets) {
-    return null;
-  }
-  const responseFacets = response.data.facets;
-
-  let facets = {};
-  for (let responseFacet of responseFacets) {
-    let facetFields = {};
-    for (let responseFacetField of responseFacet.fields) {
-      facetFields[responseFacetField.label] = responseFacetField.count;
-    }
-    facets[responseFacet.name] = facetFields;
-  }
-
-  return facets;
-}
-
-/**
  * Page to request from API based on URL query parameter
  * If parameter is not present, returns default of page 1.
  * If parameter is present, and represents a positive integer, return it
@@ -180,22 +123,25 @@ export function pageFromQuery(queryPage) {
  */
 
 /**
- * Extract selected facets from URL `qf` value(s)
- * @param {(string|Array)} queryQf one or many `qf` values
+ * Extract selected facets from URL `qf` and `reusability` value(s)
+ * @param {Object} query URL query parameters
  * @return {SelectedFacetSet} selected facets
  */
-export function selectedFacetsFromQueryQf(queryQf) {
+export function selectedFacetsFromQuery(query) {
   let selectedFacets = {};
-  if (queryQf) {
-    for (const qf of [queryQf].flat()) {
+  if (query.qf) {
+    for (const qf of [query.qf].flat()) {
       const qfParts = qf.split(':');
       const facetName = qfParts[0];
-      const facetValue = qfParts[1];
+      const facetValue = qfParts[1].slice(1, -1);
       if (typeof selectedFacets[facetName] === 'undefined') {
         selectedFacets[facetName] = [];
       }
       selectedFacets[facetName].push(facetValue);
     }
+  }
+  if (query.reusability) {
+    selectedFacets['REUSABILITY'] = query.reusability.split(',');
   }
   return selectedFacets;
 }
@@ -204,6 +150,8 @@ export function selectedFacetsFromQueryQf(queryQf) {
  * Search Europeana Record API
  * @param {Object} params parameters for search query
  * @param {number} params.page page of results to retrieve
+ * @param {string} params.reusability reusability filter
+ * @param {(string|string[])} params.qf query filter(s)
  * @param {string} params.query search query
  * @param {string} params.wskey API key
  * @return {{results: Object[], totalResults: number, facets: FacetSet, error: string}} search results for display
@@ -222,9 +170,10 @@ function search(params) {
     },
     params: {
       profile: 'minimal,facets',
-      facet: 'TYPE',
+      facet: 'COUNTRY,REUSABILITY,TYPE',
       query: params.query == '' ? '*:*' : params.query,
       qf: params.qf,
+      reusability: params.reusability,
       rows: rows,
       start: start,
       wskey: params.wskey
@@ -234,8 +183,9 @@ function search(params) {
       return {
         error: null,
         results: resultsFromApiResponse(response),
-        facets: facetsFromApiResponse(response),
-        totalResults: response.data.totalResults
+        facets: response.data.facets || null,
+        totalResults: response.data.totalResults,
+        lastAvailablePage: start + perPage > maxResults
       };
     })
     .catch((error) => {

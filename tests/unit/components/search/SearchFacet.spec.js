@@ -10,10 +10,13 @@ const factory = () => mount(SearchFacet, {
 });
 
 const facetName = 'TYPE';
-const facetFields = { 'TEXT': 123456, 'VIDEO': 567 };
+const facetFields = [
+  { label: 'TEXT', count: 123456 },
+  { label: 'VIDEO', count: 567 }
+];
 
 describe('components/search/SearchFacet', () => {
-  it('has the text `Type of media` in the header', () => {
+  it('has the facet label in the header', () => {
     const wrapper = factory();
     wrapper.setProps({ name: facetName, fields: facetFields });
 
@@ -21,12 +24,20 @@ describe('components/search/SearchFacet', () => {
     facetHeader.text().should.eq('Type of media');
   });
 
-  it('has two checkboxes', () => {
+  it('has a checkbox for each field', () => {
     const wrapper = factory();
     wrapper.setProps({ name: facetName, fields: facetFields });
 
     const facets =  wrapper.find('[data-qa="search facet"]').findAll('input[type="checkbox"]');
-    facets.length.should.eq(2);
+    facets.length.should.eq(facetFields.length);
+  });
+
+  it('keeps facet name in `data-facet-name`', () => {
+    const wrapper = factory();
+    wrapper.setProps({ name: facetName, fields: facetFields });
+
+    const facetContainer =  wrapper.find('[data-qa="search facet"]');
+    facetContainer.attributes('data-facet-name').should.eq(facetName);
   });
 
   it('emits `changed` event when selected', () => {

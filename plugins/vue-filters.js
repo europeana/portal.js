@@ -4,9 +4,18 @@
  */
 
 import Vue from 'vue';
-Vue.filter('localise', val => val.toLocaleString('en'));
+Vue.filter('localise', val => {
+  if (typeof val === 'undefined' || val === null) {
+    return val;
+  }
+  return val.toLocaleString('en');
+});
 
 Vue.filter('searchFacetHeader', val => {
-  const headerText = { 'TYPE': 'Type of media' };
+  const headerText = {
+    'COUNTRY': 'Country',
+    'REUSABILITY': 'Can I reuse this?',
+    'TYPE': 'Type of media'
+  };
   return headerText[val] || val;
 });

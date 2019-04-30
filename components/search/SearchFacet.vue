@@ -1,6 +1,7 @@
 <template>
   <div>
     <b-card
+      :data-facet-name="name"
       :header="name | searchFacetHeader"
       class="mb-3"
       data-qa="search facet"
@@ -10,13 +11,14 @@
         :name="name"
         stacked
         plain
+        @change="changeSelected"
       >
         <b-form-checkbox
-          v-for="(fieldCount, fieldValue) in fields"
-          :key="fieldValue"
-          :value="fieldValue"
+          v-for="field in fields"
+          :key="field.label"
+          :value="field.label"
         >
-          {{ fieldValue }} ({{ fieldCount | localise }})
+          {{ field.label }} ({{ field.count | localise }})
         </b-form-checkbox>
       </b-form-checkbox-group>
     </b-card>
@@ -31,8 +33,8 @@
         default: ''
       },
       fields: {
-        type: Object,
-        default: () => {}
+        type: Array,
+        default: () => []
       },
       selectedFields: {
         type: Array,
@@ -46,8 +48,12 @@
         },
         set: function (values) {
           this.preserved = values;
-          this.$emit('changed', this.name, values);
         }
+      }
+    },
+    methods: {
+      changeSelected: function (values) {
+        this.$emit('changed', this.name, values);
       }
     }
   };

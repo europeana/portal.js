@@ -1,3 +1,5 @@
+// Load dotenv for server/index.js to access env vars from .env file
+require('dotenv').config();
 const pkg = require('./package');
 const bootstrapPkg = require('bootstrap/package');
 const bootstrapVuePkg = require('bootstrap-vue/package');
@@ -73,6 +75,7 @@ module.exports = {
         /vue-ssr-client-manifest.json/
       ]
     },
+    extractCSS: true,
     publicPath: process.env.NUXT_ENV_BUILD_PUBLIC_PATH,
     /*
     ** You can extend webpack config here
