@@ -6,13 +6,13 @@
     <img
       :src="src"
       class="mw-100 mb-3"
-      alt="Depiction of this record"
+      :alt="link"
     >
   </a>
   <img
     v-else-if="!link && src"
     :src="src"
-    alt="Image"
+    alt=""
     class="mw-100 mb-3"
   >
 </template>

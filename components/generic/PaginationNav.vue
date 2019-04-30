@@ -67,7 +67,14 @@
 
 
 <style lang="scss">
+  @import "./assets/scss/variables.scss";
+
   .page-link {
     color: black;
+  }
+
+  .page-item.active .page-link {
+    background-color: $darkblue;
+    border-color: $darkblue;
   }
 </style>

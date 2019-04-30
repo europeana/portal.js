@@ -1,6 +1,12 @@
 <template>
   <div>
     <PageHeader />
+    <a
+      class="skip-main"
+      href="#main"
+    >
+      Skip to main content
+    </a>
     <nuxt />
     <PageFooter />
   </div>

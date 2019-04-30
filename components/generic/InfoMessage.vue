@@ -23,4 +23,8 @@
   .alert.alert-light {
     font-style: italic;
   }
+
+  .alert-light {
+    color: black;
+  }
 </style>
