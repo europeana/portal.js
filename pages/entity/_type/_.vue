@@ -11,12 +11,20 @@
     v-else
     data-qa="entity page"
   >
-    <h1 data-qa="entity title">
-      {{ title }}
-    </h1>
-    <BrowseChip
-      :related-entities="relatedEntities"
-    />
+    <b-row>
+      <b-col>
+        <h1 data-qa="entity title">
+          {{ title }}
+        </h1>
+      </b-col>
+    </b-row>
+    <b-row>
+      <b-col cols="12" md="9">
+        <BrowseChip
+          :related-entities="relatedEntities"
+        />
+      </b-col>
+    </b-row>
   </b-container>
 </template>
 
@@ -24,7 +32,7 @@
   import axios from 'axios';
 
   import AlertMessage from '../../../components/generic/AlertMessage';
-  import BrowseChip from '../../../components/entity/BrowseChip';
+  import BrowseChip from '../../../components/browse/BrowseChip';
 
   import getEntity, { getEntityPath, relatedEntities } from '../../../plugins/europeana/entity';
 

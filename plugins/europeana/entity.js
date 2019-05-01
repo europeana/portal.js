@@ -1,5 +1,4 @@
 import axios from 'axios';
-import search from '../../plugins/europeana/search';
 
 let entityAPIKey;
 
@@ -77,7 +76,6 @@ function getEntityId(url) {
 export function getEntityPath(id, title) {
   const entityId = id.split('-')[0];
   const path = entityId + (title ? '-' + title.toLowerCase().replace(/ /g, '-') : '');
-
   return path;
 }
 
@@ -89,31 +87,38 @@ export function getEntityPath(id, title) {
  * @return {Object} related entities
  */
 export function relatedEntities(type, id, params) {
-  const url = `"http://data.europeana.eu/${getEntityTypeApi(type)}/base/${getEntityId(id)}"`;
-
-  return search({
-    query: url,
-    facets: 'edm_agent,skos_concept',
-    wskey: params.wskey
-  }).then((response) => {
-    return getEntityFacets(response.facets);
-  }).catch((error) => {
-    const message = error.response ? error.response.data.error : error.message;
-    throw new Error(message);
-  });
+  return axios.get('https://api.europeana.eu/api/v2/search.json', {
+    params: {
+      wskey: params.wskey,
+      profile: 'facets',
+      facet: 'edm_agent,skos_concept',
+      query: `"http://data.europeana.eu/${getEntityTypeApi(type)}/base/${getEntityId(id)}"`,
+      rows: 0
+    }
+  })
+    .then((response) => {
+      return getEntityFacets(response.data.facets, getEntityId(id));
+    })
+    .catch((error) => {
+      const message = error.response ? error.response.data.error : error.message;
+      throw new Error(message);
+    });
 }
 
 /**
  * Return the facets that include data.europeana.eu
  * @param {Object} the facets retrieved from the search
+ * @param {String} id of the current entity
  * @return {Object} related entities
  * TODO: limit results
  */
-function getEntityFacets(facets) {
+function getEntityFacets(facets, currentId) {
+  if (!facets) return [];
+
   let entities = [];
   for (let facet of facets) {
     for (let field of facet['fields']) {
-      if (field['label'].includes('http://data.europeana.eu')) {
+      if (field['label'].includes('http://data.europeana.eu') && field['label'].split('/').pop() !== currentId) {
         entities.push(field['label']);
       }
     }
@@ -127,14 +132,16 @@ function getEntityFacets(facets) {
  * @return {Object} looked up entities data
  */
 function getDataForEntities(entities) {
+  if (entities.length === 0) return;
+
   const q = entities.join('"+OR+"');
-  return axios.get(`https://www.europeana.eu/api/entities/search.json?query=entity_uri:("${q}")`, {
+  return axios.get(`https://www.europeana.eu/api/entities/search?query=entity_uri:("${q}")`, {
     params: {
       wskey: entityAPIKey
     }
   })
     .then((response) => {
-      return getRelatedEntityTitleLink(response.data.items);
+      return getRelatedEntityTitleLink(response.data.items.slice(0,10));
     })
     .catch((error) => {
       const message = error.response ? error.response.data.error : error.message;
@@ -151,7 +158,7 @@ function getRelatedEntityTitleLink(entities) {
   let entityDetails = [];
 
   for (let entity of entities) {
-    const entityLink = '/entity/' + getEntityTypeHumanReadable(entity.type) + '/' + getEntityPath(entity.id.split('/').pop(), entity.prefLabel.en);
+    const entityLink = '/entity/' + getEntityTypeHumanReadable(entity.type) + '/' + getEntityPath(entity.id.toString().split('/').pop(), entity.prefLabel.en);
     entityDetails.push({ link: entityLink, title: entity.prefLabel.en });
   }
 
