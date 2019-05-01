@@ -97,7 +97,7 @@ export function relatedEntities(type, id, params) {
     }
   })
     .then((response) => {
-      return getEntityFacets(response.data.facets, getEntityId(id));
+      return response.data.facets ? getEntityFacets(response.data.facets, getEntityId(id)) : [];
     })
     .catch((error) => {
       const message = error.response ? error.response.data.error : error.message;
@@ -113,8 +113,6 @@ export function relatedEntities(type, id, params) {
  * TODO: limit results
  */
 function getEntityFacets(facets, currentId) {
-  if (!facets) return [];
-
   let entities = [];
   for (let facet of facets) {
     for (let field of facet['fields']) {

@@ -19,7 +19,10 @@
       </b-col>
     </b-row>
     <b-row>
-      <b-col cols="12" md="9">
+      <b-col
+        cols="12"
+        md="9"
+      >
         <BrowseChip
           :related-entities="relatedEntities"
         />
