@@ -156,8 +156,10 @@ function getRelatedEntityTitleLink(entities) {
   let entityDetails = [];
 
   for (let entity of entities) {
-    const entityLink = '/entity/' + getEntityTypeHumanReadable(entity.type) + '/' + getEntityPath(entity.id.toString().split('/').pop(), entity.prefLabel.en);
-    entityDetails.push({ link: entityLink, title: entity.prefLabel.en });
+    if (entity.prefLabel.en) {
+      const entityLink = '/entity/' + getEntityTypeHumanReadable(entity.type) + '/' + getEntityPath(entity.id.toString().split('/').pop(), entity.prefLabel.en);
+      entityDetails.push({ link: entityLink, title: entity.prefLabel.en });
+    }
   }
 
   return entityDetails;
