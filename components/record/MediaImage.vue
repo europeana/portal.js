@@ -6,7 +6,7 @@
     <img
       :src="src"
       class="mw-100 mb-3"
-      :alt="link"
+      alt="View at the provider's website"
     >
   </a>
   <img

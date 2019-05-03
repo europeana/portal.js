@@ -68,6 +68,20 @@ module.exports = {
       await client.expect(result.value).to.have.lengthOf(count);
     });
   },
+  pressKey: async (key) => {
+    if (key.length > 1) {
+      key = client.Keys[key];
+    }
+    let runtimeBrowser = client.capabilities.browserName.toUpperCase();
+    console.log('BROWSER: ' + runtimeBrowser);
+    if (runtimeBrowser === 'CHROME') {
+      await client.keys(key);
+    } else if (runtimeBrowser === 'FIREFOX') {
+      // This doesn't work with the gecko driver
+      // await client.keys(key);
+      return 'pending';
+    }
+  },
   matchMetaLabelAndValue: async (label, value) => {
     await client.elements('xpath', '//strong[contains(text(),"' + label + '")]/parent::div/parent::div//span[contains(text(),"' + value + '")]', async(result) => {
       await client.expect(result.value).to.have.lengthOf(1);

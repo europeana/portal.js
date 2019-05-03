@@ -35,6 +35,9 @@ defineStep('I can\'t/don\'t  find/identify/see/spot (a/an/the)( ){target} in/on 
 defineStep('I wait/pause {int} second(s)', (seconds) =>
   i.waitSomeSeconds(seconds));
 
+defineStep('I press/hit/type the {word} key', (key) =>
+  i.pressKey(key));
+
 defineStep('I enter/fill/input/supply/type {string} in/on (the ){target}', (text, qa) =>
   i.enterTextInTarget(text, qa));
 
