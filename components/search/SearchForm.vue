@@ -6,7 +6,7 @@
   >
     <b-form-input
       v-model="query"
-      placeholder="What are you looking for?"
+      :placeholder="$t('searchPlaceholder')"
       name="query"
       data-qa="search box"
       @input="$emit('input', $event)"

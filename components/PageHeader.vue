@@ -47,7 +47,7 @@
     },
     methods: {
       submitSearchForm () {
-        this.$router.push({ name: 'search', query: { query: this.query ? this.query : '' } });
+        this.$router.push({ path: '/search', query: { query: this.query ? this.query : '' } });
         this.query = '';
       }
     }
