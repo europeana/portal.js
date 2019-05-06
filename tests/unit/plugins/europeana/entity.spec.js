@@ -69,8 +69,6 @@ describe('plugins/europeana/entity', () => {
             .reply(200, apiResponse);
         });
 
-        afterEach(nock.cleanAll);
-
         it('returns entity title', async () => {
           const response = await getEntity(entityType, entityId, { wskey: apiKey });
           response.entity.prefLabel.en.should.eq('Architecture');
@@ -99,8 +97,6 @@ describe('plugins/europeana/entity', () => {
             .query(true)
             .reply(200, entitiesResponse);
         });
-
-        afterEach(nock.cleanAll);
 
         it('returns related entities', async () => {
           const response = await relatedEntities(entityType, entityId, { wskey: apiKey });

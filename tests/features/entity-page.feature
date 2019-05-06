@@ -22,4 +22,5 @@ Feature: Entity page
     When I open an `entity page`
     Then I see the `entity page`
     And I click a `browse chip`
-    Then I see an `entity title`
+    And I wait 2 seconds
+    Then I should not be on the `entity page`

@@ -13,14 +13,14 @@ const factory = () => shallowMount(BrowseChip, {
 describe('components/browse/BrowseChip', () => {
   it('shows chips for related entities', () => {
     const wrapper = factory();
-    wrapper.setProps({ relatedEntities: [{ link: 'http://europeana.eu', title: 'Architecture' }] });
+    wrapper.setProps({ entity: { link: 'http://europeana.eu', title: 'Architecture' } });
 
     wrapper.findAll('[data-qa="browse chip"]').length.should.eq(1);
   });
 
   it('has an entity title and link', () => {
     const wrapper = factory();
-    wrapper.setProps({ relatedEntities: [{ link: 'http://europeana.eu', title: 'Architecture' }] });
+    wrapper.setProps({ entity: { link: 'http://europeana.eu', title: 'Architecture' } });
 
     const chip = wrapper.find('[data-qa="browse chip"]');
 
@@ -30,7 +30,6 @@ describe('components/browse/BrowseChip', () => {
 
   it('does not show chips if no related entities found', () => {
     const wrapper = factory();
-    wrapper.setProps({ relatedEntities: [] });
 
     wrapper.findAll('[data-qa="browse chip"]').length.should.eq(0);
   });

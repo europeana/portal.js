@@ -24,7 +24,9 @@
         md="9"
       >
         <BrowseChip
-          :related-entities="relatedEntities"
+          v-for="entity in relatedEntities"
+          :key="entity.link"
+          :entity="entity"
         />
       </b-col>
     </b-row>

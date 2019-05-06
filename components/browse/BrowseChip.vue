@@ -1,26 +1,22 @@
 <template>
-  <div>
-    <!-- update to a routerlink -->
-    <b-badge
-      v-for="entity in relatedEntities"
-      :key="entity.link"
-      :to="entity.link"
-      pill
-      variant="nocolor"
-      class="mb-3 mr-3 font-weight-normal bg-transparent"
-      data-qa="browse chip"
-    >
-      {{ entity.title }}
-    </b-badge>
-  </div>
+  <b-badge
+    v-if="entity"
+    :to="entity.link"
+    pill
+    variant="nocolor"
+    class="mb-3 mr-3 font-weight-normal bg-transparent"
+    data-qa="browse chip"
+  >
+    {{ entity.title }}
+  </b-badge>
 </template>
 
 <script>
   export default {
     props: {
-      relatedEntities: {
-        type: Array,
-        default: () => []
+      entity: {
+        type: Object,
+        default: () => {}
       }
     }
   };
@@ -37,5 +33,4 @@
     line-height: 3.5rem;
     min-width: 6rem;
   }
-
 </style>
