@@ -7,6 +7,7 @@ Feature: Search querying
     And I click the `search button`
     Then I see a `search result`
     And I see the `total results`
+    And I am on an accessible page
 
   Scenario: Search non existing Europeana content
 

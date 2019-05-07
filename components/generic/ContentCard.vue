@@ -11,6 +11,7 @@
     >
       <a
         :href="url"
+        aria-label="Read more"
       />
     </div>
     <b-card-body>

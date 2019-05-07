@@ -6,11 +6,13 @@
     <img
       :src="src"
       class="mw-100 mb-3"
+      alt="View at the provider's website"
     >
   </a>
   <img
     v-else-if="!link && src"
     :src="src"
+    alt=""
     class="mw-100 mb-3"
   >
 </template>
