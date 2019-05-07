@@ -17,7 +17,7 @@
       variant="primary"
     >
       <span>
-        Search
+        {{ $t('search') }}
         <LoadingSpinner
           v-show="isLoading"
           class="ml-2 mb-1"
@@ -25,7 +25,7 @@
       </span>
       <img
         src="../../assets/img/magnifier.svg"
-        alt="Search"
+        :alt="$t('search')"
       >
     </b-button>
   </b-form>

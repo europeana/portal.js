@@ -14,7 +14,7 @@
         >
           <img
             src="../assets/img/logo.svg"
-            alt="Europeana Collections logo"
+            :alt="$t('homeLinkAlt')"
             class="mb-2 mb-sm-0 mw-100"
             data-qa="logo"
           >

@@ -7,7 +7,7 @@
       class="mr-2"
       data-qa="filter badge"
     >
-      {{ selectedFacet.facetName | searchFacetHeader }}: {{ selectedFacet.fieldValue }}
+      {{ $t(`facets.${selectedFacet.facetName}`) }}: {{ selectedFacet.fieldValue }}
     </b-badge>
   </div>
 </template>

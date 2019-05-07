@@ -2,7 +2,7 @@
   <div>
     <b-card
       :data-facet-name="name"
-      :header="name | searchFacetHeader"
+      :header="$t(`facets.${name}`)"
       class="mb-3"
       data-qa="search facet"
     >

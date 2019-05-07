@@ -28,7 +28,7 @@
       })
         .then((response) => {
           if (response.total == 0) {
-            error({ statusCode: 404, message: 'Not Found' });
+            error({ statusCode: 404, message: this.$t('messages.notFound') });
             return;
           }
           return {

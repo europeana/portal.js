@@ -6,7 +6,10 @@ const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
 const factory = () => mount(SearchFacet, {
-  localVue
+  localVue,
+  mocks: {
+    $t: (key) => key
+  }
 });
 
 const facetName = 'TYPE';
@@ -16,12 +19,12 @@ const facetFields = [
 ];
 
 describe('components/search/SearchFacet', () => {
-  it('has the facet label in the header', () => {
+  it('has the translated facet label in the header', () => {
     const wrapper = factory();
     wrapper.setProps({ name: facetName, fields: facetFields });
 
     const facetHeader =  wrapper.find('[data-qa="search facet"] .card-header');
-    facetHeader.text().should.eq('Type of media');
+    facetHeader.text().should.eq('facets.TYPE');
   });
 
   it('has a checkbox for each field', () => {

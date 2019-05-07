@@ -43,7 +43,7 @@
     >
       <b-col>
         <p data-qa="total results">
-          Results: {{ totalResults | localise }}
+          {{ $t('results') }}: {{ totalResults | localise }}
         </p>
       </b-col>
     </b-row>
