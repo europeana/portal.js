@@ -2,11 +2,11 @@ import axios from 'axios';
 
 /**
  * Get the entity data from the API
- * @param {string} type of entity
- * @param {string} id of entity
+ * @param {string} type the type of the entity
+ * @param {string} id the id of the entity
  * @param {Object} params additional parameters sent to the API
  * @param {string} params.wskey API key
- * @return {Object} parsed entity data
+ * @return {Object[]} parsed entity data
  */
 function getEntity(type, id, params) {
   return axios.get(`https://www.europeana.eu/api/entities/${getEntityTypeApi(type)}/base/${getEntityId(id)}`, {
@@ -28,7 +28,7 @@ function getEntity(type, id, params) {
 
 /**
  * Retrieve the API name of the type using the human readable name
- * @param {string} type of entity
+ * @param {string} type the type of the entity
  * @return {string} retrieved API name of type
  */
 function getEntityTypeApi(type) {
@@ -42,7 +42,7 @@ function getEntityTypeApi(type) {
 
 /**
  * Retrieve the human readable of the type using the API name
- * @param {string} type of entity
+ * @param {string} type the type of the entity
  * @return {string} retrieved human readable name of type
  */
 function getEntityTypeHumanReadable(type) {
@@ -56,7 +56,7 @@ function getEntityTypeHumanReadable(type) {
 
 /**
  * Retrieve the entity id from the slug
- * @param {string} url of entity
+ * @param {string} url the url of the entity
  * @return {string} retrieved id
  */
 function getEntityId(url) {
@@ -66,8 +66,8 @@ function getEntityId(url) {
 
 /**
  * Retrieves the path for the entity, based on id and title
- * @param {string} id of entity
- * @param {string} title of entity
+ * @param {string} id the id of the entity
+ * @param {string} title the title of the entity
  * @return {string} path
  */
 export function getEntityPath(id, title) {
@@ -78,8 +78,8 @@ export function getEntityPath(id, title) {
 
 /**
  * Search for specific facets for this entity to find the related entities
- * @param {string} type of entity
- * @param {string} id of entity
+ * @param {string} type the type of the entity
+ * @param {string} id the id of the entity
  * @param {Object} params additional parameters sent to the API
  * @return {Object} related entities
  */
@@ -104,8 +104,9 @@ export function relatedEntities(type, id, params) {
 
 /**
  * Return the facets that include data.europeana.eu
- * @param {Object} the facets retrieved from the search
- * @param {String} id of the current entity
+ * @param {Object} facets the facets retrieved from the search
+ * @param {String} currentId id of the current entity
+ * @param {String} entityKey the key for the entity api
  * @return {Object} related entities
  * TODO: limit results
  */
@@ -119,7 +120,8 @@ function getEntityFacets(facets, currentId, entityKey) {
 
 /**
  * Lookup data for the given list of entity URIs
- * @param {Object} the entities retrieved from the facet search
+ * @param {Object} entities the entities retrieved from the facet search
+ * @param {String} entityKey the key for the entity api
  * @return {Object} looked up entities data
  */
 function getDataForEntities(entities, entityKey) {
@@ -146,7 +148,7 @@ function getDataForEntities(entities, entityKey) {
 
 /**
  * Format the the entity data
- * @param {Object} the lookuped data for entities
+ * @param {Object} entities the lookuped data for entities
  * @return {Object} entity links and titles
  */
 function getRelatedEntityTitleLink(entities) {

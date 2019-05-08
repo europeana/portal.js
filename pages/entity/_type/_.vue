@@ -64,7 +64,7 @@
           const desiredPath = getEntityPath(params.pathMatch, entity.entity.prefLabel.en);
 
           if (params.pathMatch !== desiredPath) {
-            return redirect(302, '/entity/' + params.type + '/' + encodeURIComponent(desiredPath));
+            return redirect(302, { name: 'entity-type-all', params: { type: params.type, pathMatch: encodeURIComponent(desiredPath) } });
           }
 
           return {
