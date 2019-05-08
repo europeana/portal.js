@@ -56,6 +56,9 @@ defineStep('I activate/click (the/a/an)( ){string} link', (href) =>
 defineStep('I should be on (the ){target}', (pageName) =>
   i.shouldBeOn(pageName));
 
+defineStep('I should not be on (the ){target}', (pageName) =>
+  i.shouldNotBeOn(pageName));
+
 defineStep('I wait for (a/an/the)( ){target}', (qa) =>
   i.waitForTargetToBeVisible(qa));
 
