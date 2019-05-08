@@ -33,6 +33,6 @@ export default {
   record: 'Record',
   messages: {
     notFound: 'Not Found',
-    noTitle: 'No title provided for record ID'
+    noTitle: 'No title provided for record ID: {recordId}'
   }
 };
