@@ -112,11 +112,7 @@ export function relatedEntities(type, id, params) {
 function getEntityFacets(facets, currentId, entityKey) {
   let entities = [];
   for (let facet of facets) {
-    for (let field of facet['fields']) {
-      if (field['label'].includes('http://data.europeana.eu') && field['label'].split('/').pop() !== currentId) {
-        entities.push(field['label']);
-      }
-    }
+    entities = entities.concat(facet['fields'].filter(value => value['label'].includes('http://data.europeana.eu') && value['label'].split('/').pop() !== currentId));
   }
   return getDataForEntities(entities, entityKey);
 }
@@ -129,7 +125,11 @@ function getEntityFacets(facets, currentId, entityKey) {
 function getDataForEntities(entities, entityKey) {
   if (entities.length === 0) return;
 
-  const q = entities.join('"+OR+"');
+  let entityLabels = entities.map(entity => {
+    return entity['label'];
+  });
+
+  const q = entityLabels.join('"+OR+"');
   return axios.get(`https://www.europeana.eu/api/entities/search?query=entity_uri:("${q}")`, {
     params: {
       wskey: entityKey
