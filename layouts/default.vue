@@ -1,7 +1,16 @@
 <template>
   <div>
+    <a
+      class="skip-main"
+      href="#main"
+      data-qa="main content accessibility link"
+    >
+      Skip to main content
+    </a>
     <PageHeader />
-    <nuxt />
+    <nuxt
+      id="main"
+    />
     <PageFooter />
   </div>
 </template>
