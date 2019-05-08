@@ -6,26 +6,32 @@ import BrowseChip from '../../../../components/browse/BrowseChip.vue';
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
+const $route = {
+  fullPath: '/entity/topic/94-architecture'
+};
+
 const factory = () => shallowMount(BrowseChip, {
-  localVue
+  localVue,
+  mocks: {
+    $route
+  }
 });
 
 describe('components/browse/BrowseChip', () => {
   it('shows chips for related entities', () => {
     const wrapper = factory();
-    wrapper.setProps({ entity: { link: 'http://europeana.eu', title: 'Architecture' } });
+    wrapper.setProps({ type: 'topic', path: '94-architecture', title: 'Architecture' });
 
     wrapper.findAll('[data-qa="browse chip"]').length.should.eq(1);
   });
 
   it('has an entity title and link', () => {
     const wrapper = factory();
-    wrapper.setProps({ entity: { link: 'http://europeana.eu', title: 'Architecture' } });
+    wrapper.setProps({ type: 'topic', path: '94-architecture', title: 'Architecture' });
 
     const chip = wrapper.find('[data-qa="browse chip"]');
-
     chip.text().should.eq('Architecture');
-    chip.attributes().to.should.eq('http://europeana.eu');
+    wrapper.vm.$route.fullPath.should.contain('94-architecture');
   });
 
   it('does not show chips if no related entities found', () => {

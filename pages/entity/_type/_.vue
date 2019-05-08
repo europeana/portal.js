@@ -25,8 +25,10 @@
       >
         <BrowseChip
           v-for="entity in relatedEntities"
-          :key="entity.link"
-          :entity="entity"
+          :key="entity.path"
+          :path="entity.path"
+          :type="entity.type"
+          :title="entity.title"
         />
       </b-col>
     </b-row>
@@ -56,7 +58,7 @@
     asyncData ({ env, params, res, redirect }) {
       return axios.all([
         getEntity(params.type, params.pathMatch, { wskey: env.EUROPEANA_ENTITY_API_KEY }),
-        relatedEntities(params.type, params.pathMatch, { wskey: env.EUROPEANA_API_KEY })
+        relatedEntities(params.type, params.pathMatch, { wskey: env.EUROPEANA_API_KEY, entityKey: env.EUROPEANA_ENTITY_API_KEY })
       ])
         .then(axios.spread((entity, related) => {
           const desiredPath = getEntityPath(params.pathMatch, entity.entity.prefLabel.en);

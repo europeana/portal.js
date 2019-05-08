@@ -1,22 +1,30 @@
 <template>
   <b-badge
-    v-if="entity"
-    :to="entity.link"
+    v-if="title"
+    :to="{ name: 'entity-type-all', params: { type: type, pathMatch: path }}"
     pill
     variant="nocolor"
     class="mb-3 mr-3 font-weight-normal bg-transparent"
     data-qa="browse chip"
   >
-    {{ entity.title }}
+    {{ title }}
   </b-badge>
 </template>
 
 <script>
   export default {
     props: {
-      entity: {
-        type: Object,
-        default: () => {}
+      path: {
+        type: String,
+        default: ''
+      },
+      title: {
+        type: String,
+        default: ''
+      },
+      type: {
+        type: String,
+        default: ''
       }
     }
   };

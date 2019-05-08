@@ -1,7 +1,5 @@
 import axios from 'axios';
 
-let entityAPIKey;
-
 /**
  * Get the entity data from the API
  * @param {string} type of entity
@@ -11,7 +9,6 @@ let entityAPIKey;
  * @return {Object} parsed entity data
  */
 function getEntity(type, id, params) {
-  entityAPIKey = params.wskey;
   return axios.get(`https://www.europeana.eu/api/entities/${getEntityTypeApi(type)}/base/${getEntityId(id)}`, {
     params: {
       wskey: params.wskey
@@ -97,7 +94,7 @@ export function relatedEntities(type, id, params) {
     }
   })
     .then((response) => {
-      return response.data.facets ? getEntityFacets(response.data.facets, getEntityId(id)) : [];
+      return response.data.facets ? getEntityFacets(response.data.facets, getEntityId(id), params.entityKey) : [];
     })
     .catch((error) => {
       const message = error.response ? error.response.data.error : error.message;
@@ -112,7 +109,7 @@ export function relatedEntities(type, id, params) {
  * @return {Object} related entities
  * TODO: limit results
  */
-function getEntityFacets(facets, currentId) {
+function getEntityFacets(facets, currentId, entityKey) {
   let entities = [];
   for (let facet of facets) {
     for (let field of facet['fields']) {
@@ -121,7 +118,7 @@ function getEntityFacets(facets, currentId) {
       }
     }
   }
-  return getDataForEntities(entities);
+  return getDataForEntities(entities, entityKey);
 }
 
 /**
@@ -129,13 +126,13 @@ function getEntityFacets(facets, currentId) {
  * @param {Object} the entities retrieved from the facet search
  * @return {Object} looked up entities data
  */
-function getDataForEntities(entities) {
+function getDataForEntities(entities, entityKey) {
   if (entities.length === 0) return;
 
   const q = entities.join('"+OR+"');
   return axios.get(`https://www.europeana.eu/api/entities/search?query=entity_uri:("${q}")`, {
     params: {
-      wskey: entityAPIKey
+      wskey: entityKey
     }
   })
     .then((response) => {
@@ -157,8 +154,7 @@ function getRelatedEntityTitleLink(entities) {
 
   for (let entity of entities) {
     if (entity.prefLabel.en) {
-      const entityLink = '/entity/' + getEntityTypeHumanReadable(entity.type) + '/' + getEntityPath(entity.id.toString().split('/').pop(), entity.prefLabel.en);
-      entityDetails.push({ link: entityLink, title: entity.prefLabel.en });
+      entityDetails.push({ type: getEntityTypeHumanReadable(entity.type), path: getEntityPath(entity.id.toString().split('/').pop(), entity.prefLabel.en), title: entity.prefLabel.en });
     }
   }
 
