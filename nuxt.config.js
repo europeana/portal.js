@@ -54,12 +54,26 @@ module.exports = {
     '@nuxtjs/dotenv',
     ['bootstrap-vue/nuxt', { css: false }],
     ['nuxt-i18n', {
-      locales: [{
-        name: 'English',
-        code: 'en',
-        file: 'en.js',
-        iso: 'en-GB'
-      }],
+      locales: [
+        {
+          name: 'English',
+          code: 'en',
+          file: 'en.js',
+          iso: 'en-GB'
+        },
+        {
+          name: 'Deutsch',
+          code: 'de',
+          file: 'de.js',
+          iso: 'de-DE'
+        },
+        {
+          name: 'Español',
+          code: 'es',
+          file: 'es.js',
+          iso: 'es-ES'
+        }
+      ],
       defaultLocale: 'en',
       lazy: true,
       langDir: 'lang/',
