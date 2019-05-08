@@ -8,9 +8,9 @@ const sleep = (milliseconds) => {
 };
 const host = process.env.HOST || '127.0.0.1';
 const port = process.env.PORT || 1337;
-const maxWaitTime = 50;
+const maxWaitTime = 90;
 
-setDefaultTimeout(60000);
+setDefaultTimeout(100000);
 
 // Before running cucumber make sure the test server and webdriver are running.
 // The test server is started by the test script in package.json.
