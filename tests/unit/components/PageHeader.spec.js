@@ -5,10 +5,20 @@ import PageHeader from '../../../components/PageHeader.vue';
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
+const $i18n = {
+  locales: [
+    { code: 'en', name: 'English' },
+    { code: 'de', name: 'Deutsch' }
+  ],
+  locale: 'en'
+};
+
 const factory = () => mount(PageHeader, {
   localVue,
   mocks: {
-    $t: () => {}
+    $t: () => {},
+    $i18n,
+    switchLocalePath: (code) => `path to ${code}`
   }
 });
 

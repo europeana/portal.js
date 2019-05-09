@@ -27,7 +27,7 @@
             @submit:searchForm="submitSearchForm"
           />
         </div>
-        <div>
+        <div data-qa="language selector">
           <nuxt-link
             v-for="locale in availableLocales"
             :key="locale.code"
