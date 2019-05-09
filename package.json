@@ -54,10 +54,10 @@
     "lodash": "^4.17.11",
     "morgan": "^1.9.1",
     "nightwatch-accessibility": "^1.8.0",
-    "nuxt": "^2.4.5",
+    "nuxt": "^2.6.3",
     "qs": "^6.6.0",
     "vcap_services": "^0.7.0",
-    "vue": "^2.6.8",
+    "vue": "^2.6.10",
     "vue-resize-directive": "^1.1.4",
     "vue-server-renderer": "^2.6.8"
   },
@@ -104,6 +104,6 @@
     "stylelint": "^9.10.1",
     "stylelint-config-recommended": "^2.1.0",
     "vue-loader": "^15.7.0",
-    "vue-template-compiler": "^2.6.8"
+    "vue-template-compiler": "^2.6.10"
   }
 }
