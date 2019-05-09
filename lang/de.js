@@ -22,6 +22,6 @@ export default {
   record: 'Record',
   messages: {
     notFound: 'Nicht Gefunden',
-    noTitle: 'Kein title bereitgestellt für record ID: {recordId}'
+    noTitle: 'Kein Titel bereitgestellt für "{record}"'
   }
 };
