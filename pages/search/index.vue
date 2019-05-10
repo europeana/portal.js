@@ -184,12 +184,12 @@
         return ordered.concat(unordered);
       }
     },
-    asyncData ({ env, query, res, redirect }) {
+    asyncData ({ env, query, res, redirect, app }) {
       const currentPage = pageFromQuery(query.page);
       if (currentPage === null) {
         // Redirect non-positive integer values for `page` to `page=1`
         query.page = '1';
-        return redirect(this.localePath({ name: 'search', query: query }));
+        return redirect(app.localePath({ name: 'search', query: query }));
       }
 
       if (typeof query.query === 'undefined') {
