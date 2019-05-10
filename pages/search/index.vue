@@ -189,7 +189,7 @@
       if (currentPage === null) {
         // Redirect non-positive integer values for `page` to `page=1`
         query.page = '1';
-        return redirect({ path: '/search', query: query });
+        return redirect(this.localePath({ name: 'search', query: query }));
       }
 
       if (typeof query.query === 'undefined') {
@@ -262,7 +262,7 @@
       },
       rerouteSearch(queryUpdates) {
         this.isLoading = true;
-        this.$router.push({ path: '/search', query: this.updateCurrentSearchQuery(queryUpdates) });
+        this.$router.push(this.localePath({ name: 'search', query: this.updateCurrentSearchQuery(queryUpdates) }));
       },
       submitSearchForm () {
         if (this.$route.query.query !== this.query) {
@@ -270,9 +270,9 @@
         }
       },
       paginationLink (val) {
-        return {
-          path: '/search', query: this.updateCurrentSearchQuery({ page: val })
-        };
+        return this.localePath({
+          name: 'search', query: this.updateCurrentSearchQuery({ page: val })
+        });
       },
       selectFacet (name, selected) {
         this.$set(this.selectedFacets, name, selected);

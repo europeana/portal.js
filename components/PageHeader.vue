@@ -61,7 +61,7 @@
     },
     methods: {
       submitSearchForm () {
-        this.$router.push({ path: '/search', query: { query: this.query ? this.query : '' } });
+        this.$router.push(this.localePath({ name: 'search', query: { query: this.query ? this.query : '' } }));
         this.query = '';
       }
     }
