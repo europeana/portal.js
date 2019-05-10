@@ -9,7 +9,8 @@ const factory = () => mount(SearchSelectedFacets, {
   localVue,
   mocks: {
     $t: (key, opts) => {
-      return `${key}: ${opts}`;
+      console.log(opts);
+      return `${key}: ${JSON.stringify(opts)}`;
     }
   }
 });
@@ -28,6 +29,6 @@ describe('components/search/SearchSelectedFacets', () => {
     wrapper.setProps({ facets: { TYPE: ['IMAGE'] } });
 
     const badge = wrapper.find('.badge');
-    badge.text().should.eq('formatting.labelledValue: [object Object]');
+    badge.text().should.eq('formatting.labelledValue: {"label":"facets.TYPE: undefined","value":"IMAGE"}');
   });
 });
