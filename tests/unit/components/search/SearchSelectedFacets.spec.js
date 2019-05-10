@@ -8,7 +8,9 @@ localVue.use(BootstrapVue);
 const factory = () => mount(SearchSelectedFacets, {
   localVue,
   mocks: {
-    $t: (key) => key
+    $t: (key, opts) => {
+      return `${key}: ${opts}`;
+    }
   }
 });
 
@@ -26,6 +28,6 @@ describe('components/search/SearchSelectedFacets', () => {
     wrapper.setProps({ facets: { TYPE: ['IMAGE'] } });
 
     const badge = wrapper.find('.badge');
-    badge.text().should.eq('facets.TYPE: IMAGE');
+    badge.text().should.eq('formatting.labelledValue: [object Object]');
   });
 });

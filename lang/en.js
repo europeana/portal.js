@@ -1,4 +1,7 @@
 export default {
+  formatting: {
+    labelledValue: '{label}: {value}'
+  },
   searchPlaceholder: 'What are you looking for?',
   error: 'Error',
   readMore: 'Read more',

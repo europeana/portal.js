@@ -7,7 +7,7 @@
       class="mr-2"
       data-qa="filter badge"
     >
-      {{ $t(`facets.${selectedFacet.facetName}`) }}: {{ selectedFacet.fieldValue }}
+      {{ $t('formatting.labelledValue', { label: $t(`facets.${selectedFacet.facetName}`), value: selectedFacet.fieldValue}) }}
     </b-badge>
   </div>
 </template>
