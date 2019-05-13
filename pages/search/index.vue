@@ -171,7 +171,7 @@
        */
       orderedFacets: function () {
         const order = ['TYPE', 'REUSABILITY', 'COUNTRY'];
-        let unordered = this.facets.slice();
+        let unordered = this.facets ? this.facets.slice() : [];
         let ordered = [];
         for (const facetName of order) {
           const index = unordered.findIndex((f) => {

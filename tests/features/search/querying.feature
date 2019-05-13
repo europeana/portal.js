@@ -15,7 +15,7 @@ Feature: Search querying
     And I enter "no results for GIBBERISHABCDEFGHIJKLMONP" in the `search box`
     And I click the `search button`
     Then I don't see a `search result`
-    And I don't see a `warning notice`
+    And I see an `error notice` with the text "Error: No results"
 
   Scenario: Search with invalid query syntax
 
