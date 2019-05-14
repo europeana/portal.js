@@ -23,6 +23,8 @@
         :key="card.sys.id"
         :name="card.fields.name"
         :description="card.fields.description"
+        :creator="card.fields.creator"
+        :institution="card.fields.institution"
         :url="card.fields.url"
         :image-url="card.fields.image.fields.file.url"
         :image-title="card.fields.image.fields.title"

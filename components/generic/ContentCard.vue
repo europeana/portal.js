@@ -23,6 +23,10 @@
       </b-card-title>
       <b-card-text>
         {{ description }}
+        <template v-if="creator || institution">
+          {{ creator }} <br>
+          {{ institution }}
+        </template>
       </b-card-text>
       <a
         :href="url"
@@ -42,6 +46,14 @@
         default: 'Content'
       },
       description: {
+        type: String,
+        default: ''
+      },
+      creator: {
+        type: String,
+        default: ''
+      },
+      institution: {
         type: String,
         default: ''
       },
