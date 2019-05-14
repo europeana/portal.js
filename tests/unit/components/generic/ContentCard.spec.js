@@ -10,12 +10,21 @@ const factory = () => mount(ContentCard, {
 });
 
 describe('components/generic/ContentCard', () => {
-  it('includes a description', () => {
+  it('has a description', () => {
     const wrapper = factory();
     wrapper.setProps({ description: 'The Milkmaid by Vermeer' });
 
     const description =  wrapper.find('[data-qa="content card"] .card-text');
     description.text().should.eq('The Milkmaid by Vermeer');
+  });
+
+  it('has a creator and institution', () => {
+    const wrapper = factory();
+    wrapper.setProps({ creator: 'Edvard Munch', institution: 'Munchmuseet (The Munch Museum)' });
+
+    const description =  wrapper.find('[data-qa="content card"] .card-text');
+    description.text().should.contain('Edvard Munch');
+    description.text().should.contain('Munchmuseet');
   });
 
   it('has a link', () => {
