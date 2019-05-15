@@ -12,6 +12,6 @@ describe('components/search/PageFooter', () => {
     const wrapper = factory();
 
     const footer = wrapper.find('footer');
-    footer.should.exist;
+    footer.isVisible().should.equal(true);
   });
 });

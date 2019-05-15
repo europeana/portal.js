@@ -9,7 +9,6 @@ const factory = () => mount(SearchSelectedFacets, {
   localVue,
   mocks: {
     $t: (key, opts) => {
-      console.log(opts);
       return `${key}: ${JSON.stringify(opts)}`;
     }
   }

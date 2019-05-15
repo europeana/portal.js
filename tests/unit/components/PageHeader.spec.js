@@ -13,13 +13,20 @@ const $i18n = {
   locale: 'en'
 };
 
+const computed = {
+  langSelectEnabled() {
+    return true;
+  }
+};
+
 const factory = () => mount(PageHeader, {
   localVue,
   mocks: {
     $t: () => {},
     $i18n,
     switchLocalePath: (code) => `path to ${code}`
-  }
+  },
+  computed: computed
 });
 
 describe('components/search/PageHeader', () => {
@@ -27,7 +34,7 @@ describe('components/search/PageHeader', () => {
     const wrapper = factory();
     const form =  wrapper.find('[data-qa="search form"]');
 
-    form.should.exist;
+    form.isVisible().should.equal(true);
   });
 
   it('contains the logo', () => {
@@ -35,5 +42,13 @@ describe('components/search/PageHeader', () => {
 
     const logo = wrapper.find('[data-qa="logo"]');
     logo.attributes().src.should.match(/\/logo\..+\.svg$/);
+  });
+
+  describe('when ENV enables the language selector', () => {
+    describe('it contains a language selector', () => {
+      const wrapper = factory();
+      const selector = wrapper.find('[data-qa="language selector"]');
+      selector.isVisible().should.equal(true);
+    });
   });
 });
