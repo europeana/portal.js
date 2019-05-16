@@ -9,7 +9,7 @@
         data-qa="header"
       >
         <b-navbar-brand
-          href="/"
+          to="/"
           class="col-md-4 p-0 m-0 text-center text-md-left"
         >
           <img
