@@ -37,7 +37,14 @@ describe('components/generic/ContentCard', () => {
 
   it('has an image', () => {
     const wrapper = factory();
-    wrapper.setProps({ imageUrl: 'https://example.org' });
+    wrapper.setProps({ image: {
+      fields: {
+        file: {
+          url: 'https://example.org'
+        }
+      }
+    }
+    });
 
     const card =  wrapper.find('[data-qa="content card"] .card-img');
     card.attributes('style').should.contain('https://example.org');

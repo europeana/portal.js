@@ -5,8 +5,9 @@
     no-body
   >
     <div
+      v-if="image && image.fields"
       :aria-label="name"
-      :style="{'background-image': 'url(' + imageUrl + ')'}"
+      :style="{'background-image': 'url(' + image.fields.file.url + ')'}"
       class="card-img"
     >
       <a
@@ -62,13 +63,9 @@
         type: String,
         default: 'https://www.europeana.eu/'
       },
-      imageUrl: {
-        type: String,
-        default: ''
-      },
-      imageTitle: {
-        type: String,
-        default: ''
+      image: {
+        type: Object,
+        default: () => {}
       },
       creator: {
         type: String,
