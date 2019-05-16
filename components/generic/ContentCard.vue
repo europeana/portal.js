@@ -32,7 +32,7 @@
       </b-card-text>
       <b-link
         v-if="recordId"
-        :to="{ name: 'record-all', params: { pathMatch: recordId }}"
+        :to="linkToRecord"
         class="card-link"
       >
         {{ $t('goToRecord') }}
@@ -78,6 +78,11 @@
       recordId: {
         type: String,
         default: ''
+      }
+    },
+    computed: {
+      linkToRecord () {
+        return this.localePath({ name: 'record-all', params: { pathMatch: this.recordId } });
       }
     }
   };
