@@ -4,6 +4,8 @@
 
 import axios from 'axios';
 import qs from 'qs';
+import Vue from 'vue';
+export const $t = (key, opts) => Vue.prototype.$nuxt.$options.i18n.t(key, opts);
 
 function genericThumbnail(edmType) {
   return `https://api.europeana.eu/api/v2/thumbnail-by-url.json?size=w200&uri=&type=${edmType}`;
@@ -52,7 +54,7 @@ function display(field) {
 function fieldsForSearchResult(item) {
   let fields = {
     // TODO: fallback to description when API returns dcDescriptionLangAware
-    dcTitle: item.dcTitleLangAware ? display(item.dcTitleLangAware) : `No title provided for record ID ${item.id}`,
+    dcTitle: item.dcTitleLangAware ? display(item.dcTitleLangAware) : $t('messages.noTitle', { record: item.id }),
     // TODO: enable when API returns dcDescriptionLangAware
     // dcDescription: item.dcDescriptionLangAware,
     edmDataProvider: item.dataProvider

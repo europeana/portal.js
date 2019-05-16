@@ -4,7 +4,7 @@
     variant="dark"
     data-qa="error notice"
   >
-    <strong>Error:</strong> {{ error }}
+    <strong>{{ $t('error') }}:</strong> {{ error }}
   </b-alert>
 </template>
 

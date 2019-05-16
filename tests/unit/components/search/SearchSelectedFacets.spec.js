@@ -6,7 +6,12 @@ const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
 const factory = () => mount(SearchSelectedFacets, {
-  localVue
+  localVue,
+  mocks: {
+    $t: (key, opts) => {
+      return `${key}: ${JSON.stringify(opts)}`;
+    }
+  }
 });
 
 describe('components/search/SearchSelectedFacets', () => {
@@ -18,11 +23,11 @@ describe('components/search/SearchSelectedFacets', () => {
     badges.length.should.eq(2);
   });
 
-  it('shows the facet name and field value', () => {
+  it('shows the translated facet name and field value', () => {
     const wrapper = factory();
     wrapper.setProps({ facets: { TYPE: ['IMAGE'] } });
 
     const badge = wrapper.find('.badge');
-    badge.text().should.eq('Type of media: IMAGE');
+    badge.text().should.eq('formatting.labelledValue: {"label":"facets.TYPE: undefined","value":"IMAGE"}');
   });
 });

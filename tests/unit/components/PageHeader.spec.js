@@ -5,8 +5,22 @@ import PageHeader from '../../../components/PageHeader.vue';
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
+const $i18n = {
+  locales: [
+    { code: 'en', name: 'English' },
+    { code: 'de', name: 'Deutsch' }
+  ],
+  locale: 'en'
+};
+
+
 const factory = () => mount(PageHeader, {
-  localVue
+  localVue,
+  mocks: {
+    $t: () => {},
+    $i18n,
+    switchLocalePath: (code) => `path to ${code}`
+  }
 });
 
 describe('components/search/PageHeader', () => {
@@ -14,7 +28,7 @@ describe('components/search/PageHeader', () => {
     const wrapper = factory();
     const form =  wrapper.find('[data-qa="search form"]');
 
-    form.should.exist;
+    form.isVisible().should.equal(true);
   });
 
   it('contains the logo', () => {
@@ -22,5 +36,22 @@ describe('components/search/PageHeader', () => {
 
     const logo = wrapper.find('[data-qa="logo"]');
     logo.attributes().src.should.match(/\/logo\..+\.svg$/);
+  });
+
+  describe('when the language selector is enabled', () => {
+    describe('it contains a language selector', () => {
+      const wrapper = factory();
+      wrapper.setProps({ langSelectEnabled: true });
+      const selector = wrapper.find('[data-qa="language selector"]');
+      selector.isVisible().should.equal(true);
+    });
+  });
+
+  describe('when the language selector is disabled', () => {
+    describe('it does NOT contain a language selector', () => {
+      const wrapper = factory();
+      const selector = wrapper.find('[data-qa="language selector"]');
+      selector.exists().should.equal(false);
+    });
   });
 });

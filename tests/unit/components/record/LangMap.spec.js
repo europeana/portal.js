@@ -14,7 +14,7 @@ describe('components/record/LangMap', () => {
   it('renders a "multi-lingual metadata" list', () => {
     const wrapper = factory();
 
-    wrapper.find('ul[data-qa="multi-lingual metadata"]').should.exist;
+    wrapper.find('ul[data-qa="multi-lingual metadata"]').isVisible().should.equal(true);
   });
 
   describe('each value', () => {

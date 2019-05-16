@@ -93,7 +93,7 @@
     },
     head () {
       return {
-        title: 'Record'
+        title: this.$t('record')
       };
     }
   };

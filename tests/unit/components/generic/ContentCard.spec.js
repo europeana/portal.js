@@ -6,7 +6,10 @@ const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
 const factory = () => mount(ContentCard, {
-  localVue
+  localVue,
+  mocks: {
+    $t: () => {}
+  }
 });
 
 describe('components/generic/ContentCard', () => {

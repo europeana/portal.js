@@ -82,7 +82,7 @@
     },
     head () {
       return {
-        title: 'Entity'
+        title: this.$t('entity')
       };
     }
   };

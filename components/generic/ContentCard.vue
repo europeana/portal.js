@@ -35,14 +35,14 @@
         :to="{ name: 'record-all', params: { pathMatch: recordId }}"
         class="card-link"
       >
-        Go to record
+        {{ $t('goToRecord') }}
       </b-link>
       <b-link
         v-else
         :href="url"
         class="card-link"
       >
-        Read more
+        {{ $t('readMore') }}
       </b-link>
     </b-card-body>
   </b-card>
@@ -53,7 +53,7 @@
     props: {
       name: {
         type: String,
-        default: 'Content'
+        default: ''
       },
       description: {
         type: String,

@@ -1,5 +1,5 @@
 <template>
-  <footer>Placeholder for footer</footer>
+  <footer>{{ $t('footerText') }}</footer>
 </template>
 
 <script>

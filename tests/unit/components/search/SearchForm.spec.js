@@ -6,7 +6,10 @@ const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
 const factory = () => mount(SearchForm, {
-  localVue
+  localVue,
+  mocks: {
+    $t: () => {}
+  }
 });
 
 describe('components/search/SearchForm', () => {
