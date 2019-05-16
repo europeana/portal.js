@@ -7,7 +7,9 @@
     >
       Skip to main content
     </a>
-    <PageHeader />
+    <PageHeader
+      :lang-select-enabled="langSelectEnabled"
+    />
     <nuxt
       id="main"
     />
@@ -23,6 +25,11 @@
     components: {
       PageHeader,
       PageFooter
+    },
+    computed: {
+      langSelectEnabled() {
+        return process.env.ENABLE_LANG_SELECT === 'true';
+      }
     }
   };
 

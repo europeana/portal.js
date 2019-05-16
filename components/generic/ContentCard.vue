@@ -29,7 +29,7 @@
         :href="url"
         class="card-link"
       >
-        Read more
+        {{ $t('readMore') }}
       </a>
     </b-card-body>
   </b-card>
@@ -40,7 +40,7 @@
     props: {
       name: {
         type: String,
-        default: 'Content'
+        default: ''
       },
       description: {
         type: String,

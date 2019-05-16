@@ -6,7 +6,10 @@ const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
 const factory = () => mount(ContentCardSection, {
-  localVue
+  localVue,
+  mocks: {
+    $t: () => {}
+  }
 });
 
 const dummySection = {
@@ -26,7 +29,8 @@ const dummySection = {
         }
       }
     ]
-  }
+  },
+  mocks: { $t: () => {} }
 };
 
 describe('components/browse/ContentCardSection', () => {

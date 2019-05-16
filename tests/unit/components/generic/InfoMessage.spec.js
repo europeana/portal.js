@@ -6,7 +6,10 @@ const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
 const factory = () => shallowMount(InfoMessage, {
-  localVue
+  localVue,
+  mocks: {
+    $t: () => {}
+  }
 });
 
 describe('components/generic/InfoMessage', () => {

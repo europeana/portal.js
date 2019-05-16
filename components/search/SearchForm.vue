@@ -7,7 +7,7 @@
     <b-form-input
       v-model="query"
       aria-label="Search"
-      placeholder="What are you looking for?"
+      :placeholder="$t('searchPlaceholder')"
       name="query"
       data-qa="search box"
       @input="$emit('input', $event)"
@@ -18,7 +18,7 @@
       variant="primary"
     >
       <span>
-        Search
+        {{ $t('search') }}
         <LoadingSpinner
           v-show="isLoading"
           class="ml-2 mb-1"
@@ -26,7 +26,7 @@
       </span>
       <img
         src="../../assets/img/magnifier.svg"
-        alt="Search"
+        :alt="$t('search')"
       >
     </b-button>
   </b-form>
