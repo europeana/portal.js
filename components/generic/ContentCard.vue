@@ -29,6 +29,7 @@
         </template>
       </b-card-text>
       <a
+        v-if="url"
         :href="url"
         class="card-link"
       >
@@ -49,14 +50,6 @@
         type: String,
         default: ''
       },
-      creator: {
-        type: String,
-        default: ''
-      },
-      institution: {
-        type: String,
-        default: ''
-      },
       url: {
         type: String,
         default: 'https://www.europeana.eu/'
@@ -66,6 +59,18 @@
         default: ''
       },
       imageTitle: {
+        type: String,
+        default: ''
+      },
+      creator: {
+        type: String,
+        default: ''
+      },
+      institution: {
+        type: String,
+        default: ''
+      },
+      recordId: {
         type: String,
         default: ''
       }
