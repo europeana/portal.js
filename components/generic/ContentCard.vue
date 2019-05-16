@@ -29,13 +29,20 @@
           {{ institution }}
         </template>
       </b-card-text>
-      <a
-        v-if="url"
+      <b-link
+        v-if="recordId"
+        :to="{ name: 'record-all', params: { pathMatch: recordId }}"
+        class="card-link"
+      >
+        Go to record
+      </b-link>
+      <b-link
+        v-else
         :href="url"
         class="card-link"
       >
         Read more
-      </a>
+      </b-link>
     </b-card-body>
   </b-card>
 </template>
