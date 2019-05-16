@@ -13,11 +13,6 @@ const $i18n = {
   locale: 'en'
 };
 
-const computed = {
-  langSelectEnabled() {
-    return true;
-  }
-};
 
 const factory = () => mount(PageHeader, {
   localVue,
@@ -25,8 +20,7 @@ const factory = () => mount(PageHeader, {
     $t: () => {},
     $i18n,
     switchLocalePath: (code) => `path to ${code}`
-  },
-  computed: computed
+  }
 });
 
 describe('components/search/PageHeader', () => {
@@ -44,11 +38,21 @@ describe('components/search/PageHeader', () => {
     logo.attributes().src.should.match(/\/logo\..+\.svg$/);
   });
 
-  describe('when ENV enables the language selector', () => {
+  describe('when the language selector is enabled', () => {
     describe('it contains a language selector', () => {
       const wrapper = factory();
+      wrapper.setProps({ langSelectEnabled: true });
       const selector = wrapper.find('[data-qa="language selector"]');
       selector.isVisible().should.equal(true);
+    });
+  });
+
+  describe('when the language selector is disabled', () => {
+    describe('it does NOT contain a language selector', () => {
+      const wrapper = factory();
+      const selector = wrapper.find('[data-qa="language selector"]');
+      console.log(selector);
+      selector.exists().should.equal(false);
     });
   });
 });

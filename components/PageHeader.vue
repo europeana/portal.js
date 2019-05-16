@@ -57,6 +57,12 @@
     components: {
       SearchForm
     },
+    props: {
+      langSelectEnabled: {
+        type: Boolean,
+        default: false
+      }
+    },
     data () {
       return {
         query: null,
@@ -66,9 +72,6 @@
     computed: {
       availableLocales () {
         return this.$i18n.locales.filter(i => i.code !== this.$i18n.locale);
-      },
-      langSelectEnabled () {
-        return process.env.ENABLE_LANG_SELECT === 'true';
       }
     },
     methods: {
