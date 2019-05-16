@@ -51,7 +51,6 @@ describe('components/search/PageHeader', () => {
     describe('it does NOT contain a language selector', () => {
       const wrapper = factory();
       const selector = wrapper.find('[data-qa="language selector"]');
-      console.log(selector);
       selector.exists().should.equal(false);
     });
   });
