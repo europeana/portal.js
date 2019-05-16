@@ -6,6 +6,7 @@
   >
     <b-form-input
       v-model="query"
+      aria-label="Search"
       placeholder="What are you looking for?"
       name="query"
       data-qa="search box"

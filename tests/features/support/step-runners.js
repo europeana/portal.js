@@ -37,6 +37,20 @@ function pageUrl(pageName) {
 }
 
 module.exports = {
+  checkPageAccesibility: async function () {
+    let axeOptions = {
+      reporter: 'v2',
+      runOnly: {
+        type: 'tags',
+        values: ['wcag2a', 'wcag2aa']
+      },
+      rules: {
+        'aria-roles': { enabled: false } // https://github.com/bootstrap-vue/bootstrap-vue/issues/2921 + https://github.com/dequelabs/axe-core/issues/1462
+      }
+    };
+
+    await client.initAccessibility().assert.accessibility('html', axeOptions);
+  },
   checkTheCheckbox: async function (inputValue) {
     await client.click(`input[type="checkbox"][value="${inputValue}"]`);
   },
@@ -53,6 +67,20 @@ module.exports = {
     await client.elements('css selector', qaSelector(qaElementNames), async(result) => {
       await client.expect(result.value).to.have.lengthOf(count);
     });
+  },
+  pressKey: async (key) => {
+    if (key.length > 1) {
+      key = client.Keys[key];
+    }
+    let runtimeBrowser = client.capabilities.browserName.toUpperCase();
+    console.log('BROWSER: ' + runtimeBrowser);
+    if (runtimeBrowser === 'CHROME') {
+      await client.keys(key);
+    } else if (runtimeBrowser === 'FIREFOX') {
+      // This doesn't work with the gecko driver
+      // await client.keys(key);
+      return 'pending';
+    }
   },
   matchMetaLabelAndValue: async (label, value) => {
     await client.elements('xpath', '//strong[contains(text(),"' + label + '")]/parent::div/parent::div//span[contains(text(),"' + value + '")]', async(result) => {
@@ -95,6 +123,11 @@ module.exports = {
     // See https://github.com/nightwatchjs/nightwatch/issues/861
     await client.url(async (currentUrl) => {
       await client.expect(currentUrl.value).to.eq(pageUrl(pageName));
+    });
+  },
+  shouldNotBeOn: async function (pageName) {
+    await client.url(async (currentUrl) => {
+      await client.expect(currentUrl.value).not.to.eq(pageUrl(pageName));
     });
   },
   waitSomeSeconds: async function (seconds) {

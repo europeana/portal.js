@@ -57,18 +57,17 @@
 .browse-section {
   h2,
   p {
+    color: $darkgrey;
     text-align: left;
   }
 
   h2 {
-    color: $darkgrey;
     font-size: 1.25rem;
     font-weight: 600;
     letter-spacing: 0.12125rem;
   }
 
   p {
-    color: $midgrey;
     letter-spacing: 0.0975rem;
     line-height: 1.5;
   }

@@ -11,45 +11,68 @@
     v-else
     data-qa="entity page"
   >
-    <h1 data-qa="entity title">
-      {{ title }}
-    </h1>
+    <b-row>
+      <b-col>
+        <h1 data-qa="entity title">
+          {{ title }}
+        </h1>
+      </b-col>
+    </b-row>
+    <b-row>
+      <b-col
+        cols="12"
+        md="9"
+      >
+        <BrowseChip
+          v-for="entity in relatedEntities"
+          :key="entity.path"
+          :path="entity.path"
+          :type="entity.type"
+          :title="entity.title"
+        />
+      </b-col>
+    </b-row>
   </b-container>
 </template>
 
 <script>
-  import AlertMessage from '../../../components/generic/AlertMessage';
+  import axios from 'axios';
 
-  import getEntity from '../../../plugins/europeana/entity';
+  import AlertMessage from '../../../components/generic/AlertMessage';
+  import BrowseChip from '../../../components/browse/BrowseChip';
+
+  import getEntity, { getEntityPath, relatedEntities } from '../../../plugins/europeana/entity';
 
   export default {
     components: {
-      AlertMessage
+      AlertMessage,
+      BrowseChip
     },
     data () {
       return {
         error: null,
-        title: null
+        title: null,
+        relatedEntities: null
       };
     },
     asyncData ({ env, params, res, redirect }) {
-      return getEntity(params.type, params.pathMatch, {
-        wskey: env.EUROPEANA_ENTITY_API_KEY
-      })
-        .then((response) => {
-          const entityId = params.pathMatch.split('-')[0];
-          const desiredPath = entityId + (response.entity.prefLabel.en ? '-' + response.entity.prefLabel.en.toLowerCase().replace(/ /g, '-') : '');
-          const desiredUrl = '/entity/' + params.type + '/' + encodeURIComponent(desiredPath);
+      return axios.all([
+        getEntity(params.type, params.pathMatch, { wskey: env.EUROPEANA_ENTITY_API_KEY }),
+        relatedEntities(params.type, params.pathMatch, { wskey: env.EUROPEANA_API_KEY, entityKey: env.EUROPEANA_ENTITY_API_KEY })
+      ])
+        .then(axios.spread((entity, related) => {
+          const desiredPath = getEntityPath(params.pathMatch, entity.entity.prefLabel.en);
 
           if (params.pathMatch !== desiredPath) {
-            return redirect(302, desiredUrl);
+            return redirect(302, { name: 'entity-type-all', params: { type: params.type, pathMatch: encodeURIComponent(desiredPath) } });
           }
 
           return {
-            error: response.error,
-            title: response.entity.prefLabel.en
+            error: null,
+            title: entity.entity.prefLabel.en,
+            relatedEntities: related
           };
-        })
+        }))
         .catch((err) => {
           if (typeof res !== 'undefined') {
             res.statusCode = err.message.startsWith('No resource found with ID:') ? 404 : 500;

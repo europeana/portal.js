@@ -10,3 +10,17 @@ Feature: Entity page
 
     When I open `/entity/person/123x-unknown`
     Then I see an `error notice`
+
+  Scenario: View related entities
+
+    When I open an `entity page`
+    Then I see the `entity page`
+    Then I should have 2 `browse chip`s
+
+  Scenario: Click on a related entity
+
+    When I open an `entity page`
+    Then I see the `entity page`
+    And I click a `browse chip`
+    And I wait 2 seconds
+    Then I should not be on the `entity page`

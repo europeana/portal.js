@@ -35,6 +35,9 @@ defineStep('I can\'t/don\'t  find/identify/see/spot (a/an/the)( ){target} in/on 
 defineStep('I wait/pause {int} second(s)', (seconds) =>
   i.waitSomeSeconds(seconds));
 
+defineStep('I press/hit/type the {word} key', (key) =>
+  i.pressKey(key));
+
 defineStep('I enter/fill/input/supply/type {string} in/on (the ){target}', (text, qa) =>
   i.enterTextInTarget(text, qa));
 
@@ -53,6 +56,9 @@ defineStep('I activate/click (the/a/an)( ){string} link', (href) =>
 defineStep('I should be on (the ){target}', (pageName) =>
   i.shouldBeOn(pageName));
 
+defineStep('I should not be on (the ){target}', (pageName) =>
+  i.shouldNotBeOn(pageName));
+
 defineStep('I wait for (a/an/the)( ){target}', (qa) =>
   i.waitForTargetToBeVisible(qa));
 
@@ -67,3 +73,7 @@ defineStep('I should have/see/see/spot a meta label {target} with the value {str
 
 defineStep('I should have/see/see/spot a meta label {target} with the value {string} or the value {string}', (label, value, altValue) =>
   i.matchMetaLabelAndValueOrValue(label, value, altValue));
+
+defineStep('I am on an accessible page',() =>
+  i.checkPageAccesibility());
+
