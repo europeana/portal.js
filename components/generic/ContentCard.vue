@@ -82,7 +82,7 @@
     },
     computed: {
       linkToRecord () {
-        return this.localePath({ name: 'record-all', params: { pathMatch: this.recordId } });
+        return this.localePath({ name: 'record-all', params: { pathMatch: this.recordId.replace(/^\/+/g, '') } });
       }
     }
   };
