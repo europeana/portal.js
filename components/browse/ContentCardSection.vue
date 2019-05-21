@@ -26,7 +26,7 @@
         :url="card.fields.url"
         :image="card.fields.image"
         :creator="card.fields.creator"
-        :institution="card.fields.institution"
+        :institution="card.fields.provider"
         :record-id="card.fields.identifier"
         :record-thumbnail="card.fields.thumbnail"
       />
