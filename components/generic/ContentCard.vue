@@ -5,14 +5,22 @@
     no-body
   >
     <div
-      v-if="image && image.fields"
+      v-if="backgroundImage"
       :aria-label="name"
-      :style="{'background-image': 'url(' + image.fields.file.url + ')'}"
+      :style="{'background-image': 'url(' + backgroundImage + ')'}"
       class="card-img"
     >
-      <a
+      <b-link
+        v-if="recordId"
+        :to="linkToRecord"
+        class="card-link record-link"
+        :aria-label="$t('goToRecord')"
+      />
+      <b-link
+        v-else
         :href="url"
-        aria-label="Read more"
+        class="card-link"
+        :aria-label="$t('readMore')"
       />
     </div>
     <b-card-body>
@@ -33,7 +41,7 @@
       <b-link
         v-if="recordId"
         :to="linkToRecord"
-        class="card-link"
+        class="card-link record-link"
       >
         {{ $t('goToRecord') }}
       </b-link>
@@ -78,11 +86,22 @@
       recordId: {
         type: String,
         default: ''
+      },
+      recordThumbnail: {
+        type: String,
+        default: ''
       }
     },
     computed: {
       linkToRecord () {
         return this.localePath({ name: 'record-all', params: { pathMatch: this.recordId.replace(/^\/+/g, '') } });
+      },
+      backgroundImage () {
+        if (this.recordThumbnail) {
+          return this.recordThumbnail;
+        } else {
+          return (this.image && this.image.fields) ? this.image.fields.file.url : '';
+        }
       }
     }
   };

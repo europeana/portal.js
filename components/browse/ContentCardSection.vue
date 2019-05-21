@@ -27,7 +27,8 @@
         :image="card.fields.image"
         :creator="card.fields.creator"
         :institution="card.fields.institution"
-        :record-id="card.fields.recordID"
+        :record-id="card.fields.identifier"
+        :record-thumbnail="card.fields.thumbnail"
       />
     </b-card-group>
   </div>
