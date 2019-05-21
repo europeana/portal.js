@@ -23,6 +23,7 @@
           :link="image.link"
           :src="image.src"
         />
+        <MediaPlayer/>
         <p>
           <b-link
             v-if="pdf"
@@ -59,6 +60,7 @@
   import WebResources from '../../components/record/WebResources';
   import MetadataField from '../../components/record/MetadataField';
   import MediaImage from '../../components/record/MediaImage';
+  import MediaPlayer from '../../components/record/MediaPlayer';
 
   import getRecord from '../../plugins/europeana/record';
 
