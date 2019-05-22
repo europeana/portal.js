@@ -23,7 +23,7 @@
           :link="image.link"
           :src="image.src"
         />
-        <MediaPlayer/>
+        <MediaPlayer />
         <p>
           <b-link
             v-if="pdf"
@@ -69,7 +69,8 @@
       AlertMessage,
       WebResources,
       MetadataField,
-      MediaImage
+      MediaImage,
+      MediaPlayer
     },
     data () {
       return {

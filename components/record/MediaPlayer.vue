@@ -2,12 +2,13 @@
   <div
     id="playerElement"
     alt="The media player"
-  />
+  >
+    player
+  </div>
 </template>
 
 <script>
-  const EuropeanaMediaPlayer = require('europeana-media-player');
-  //import EuropeanaMediaPlayer from 'europeana-media-player';
+  import createPlayer from '../../plugins/europeana-media-player.js';
 
   export default {
     props: {
@@ -22,11 +23,8 @@
         }
       }
     },
-    methods: {
-      initPlayer() {
-        let container = document.find('playerElement');
-        new EuropeanaMediaPlayer(container, this.videoObj);
-      }
+    asyncData () {
+      return createPlayer();
     }
   };
 </script>
