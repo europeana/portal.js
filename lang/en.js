@@ -21,6 +21,7 @@ export default {
       edmRights: 'License of the media in this record (unless otherwise specified)'
     },
     webResource: {
+      dcDescription: 'Description',
       rdfAbout: 'RDF About',
       edmRights: 'License for this media resource',
       ebucoreHasMimeType: 'Ebucore MIME Type'
