@@ -8,8 +8,6 @@
 </template>
 
 <script>
-  import createPlayer from '../../plugins/europeana-media-player.js';
-
   export default {
     props: {
       videoObj: {
@@ -23,8 +21,11 @@
         }
       }
     },
-    asyncData () {
-      return createPlayer();
+    methods: {
+      success () {
+        const container = document.getElementById('playerElement');
+        new this.$EuropeanaMediaPlayer(container, this.videoObj);
+      }
     }
   };
 </script>

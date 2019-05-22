@@ -39,11 +39,18 @@ module.exports = {
   css: [
     '@/assets/scss/style.scss'
   ],
-
+  vendor: [
+    'europeanamediaplayer'
+  ],
   /*
   ** Plugins to load before mounting the App
   */
-  plugins: ['~/plugins/vue-filters'],
+  plugins: [
+    '~/plugins/vue-filters',
+    {
+      src: '~/plugins/europeana-media-player.js',
+      ssr: false
+    }],
 
   /*
   ** Nuxt.js modules
