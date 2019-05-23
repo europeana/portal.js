@@ -28,7 +28,7 @@
         :creator="card.fields.creator"
         :institution="card.fields.provider"
         :record-id="card.fields.identifier"
-        :record-thumbnail="card.fields.thumbnail"
+        :record-thumbnail-url="card.fields.thumbnailUrl"
       />
     </b-card-group>
   </div>

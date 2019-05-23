@@ -87,7 +87,7 @@
         type: String,
         default: ''
       },
-      recordThumbnail: {
+      recordThumbnailUrl: {
         type: String,
         default: ''
       }
@@ -97,8 +97,8 @@
         return this.localePath({ name: 'record-all', params: { pathMatch: this.recordId.replace(/^\/+/g, '') } });
       },
       backgroundImage () {
-        if (this.recordThumbnail) {
-          return this.recordThumbnail;
+        if (this.recordThumbnailUrl) {
+          return this.recordThumbnailUrl;
         } else {
           return (this.image && this.image.fields) ? this.image.fields.file.url : '';
         }
