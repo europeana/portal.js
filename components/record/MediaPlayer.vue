@@ -8,6 +8,8 @@
 </template>
 
 <script>
+  //import EuropeanaMediaPlayer from 'europeana-media-player';
+
   export default {
     props: {
       videoObj: {
@@ -21,10 +23,26 @@
         }
       }
     },
-    methods: {
-      success () {
+    created () {
+      if (process.browser) {
         const container = document.getElementById('playerElement');
-        new this.$EuropeanaMediaPlayer(container, this.videoObj);
+        container.addEventListener('click', this.initPlayer, container);
+        //createPlayer(container));
+      }
+    },
+    beforeUpdate () {
+      if (process.browser) {
+        const container = document.getElementById('playerElement');
+        container.addEventListener('click', this.initPlayer(container));
+        //createPlayer(container));
+        //this.initPlayer(container));
+      }
+    },
+    methods: {
+      initPlayer (container) {
+        const EuropeanaMediaPlayer = require('europeana-media-player');
+        console.log(EuropeanaMediaPlayer);
+        new EuropeanaMediaPlayer(container, this.videoObj);
       }
     }
   };

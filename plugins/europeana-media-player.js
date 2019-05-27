@@ -3,7 +3,7 @@
 
 console.log('in ../plugins/europeana-media-player.js');
 //import EuropeanaMediaPlayer from '../node_modules/europeana-media-player/src/components/europeanamediaplayer';
-const EuropeanaMediaPlayer = require('../node_modules/europeana-media-player/src/components/europeanamediaplayer');
+import EuropeanaMediaPlayer from 'europeanamediaplayer';
 console.log('loaded EuropeanaMediaPlayer');
 //
 // const videoObj = {
@@ -19,5 +19,5 @@ console.log('loaded EuropeanaMediaPlayer');
 // }
 
 export default (ctx, inject) => {
-  inject('EuropeanaMediaPlayer', EuropeanaMediaPlayer);
+  inject('$EuropeanaMediaPlayer', EuropeanaMediaPlayer);
 };

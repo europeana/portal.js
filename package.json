@@ -50,6 +50,7 @@
     "cross-env": "^5.2.0",
     "elastic-apm-node": "^2.6.0",
     "europeana-media-player": "git+https://git@github.com/europeana/media-player.git",
+    "europeanamediaplayer": "git+https://git@github.com/europeana/media-player.git",
     "express": "^4.16.4",
     "express-ipfilter": "^1.0.1",
     "lodash": "^4.17.11",
