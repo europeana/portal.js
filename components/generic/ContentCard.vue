@@ -25,11 +25,20 @@
     </div>
     <b-card-body>
       <b-card-title>
-        <a
-          :href="url"
+        <b-link
+          v-if="recordId"
+          :to="linkToRecord"
+          class="card-link record-link"
         >
           {{ name }}
-        </a>
+        </b-link>
+        <b-link
+          v-else
+          :href="url"
+          class="card-link"
+        >
+          {{ name }}
+        </b-link>
       </b-card-title>
       <b-card-text>
         {{ description }}
