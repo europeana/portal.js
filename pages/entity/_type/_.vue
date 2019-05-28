@@ -119,11 +119,11 @@
       if (currentPage === null) {
         // Redirect non-positive integer values for `page` to `page=1`
         query.page = '1';
-        return redirect(app.localePath({ name: 'entity', type: params.type, id: params.pathMatch }));
+        return redirect(app.localePath({ name: 'entity', type: params.type, pathMatch: params.pathMatch }));
       }
       return axios.all([
         getEntity(params.type, params.pathMatch, { wskey: env.EUROPEANA_ENTITY_API_KEY }),
-        relatedEntities(params.type, params.pathMatch, { wskey: env.EUROPEANA_API_KEY, entityKey: env.EUROPEANA_ENTITY_API_KEY })
+        relatedEntities(params.type, params.pathMatch, { wskey: env.EUROPEANA_API_KEY, entityKey: env.EUROPEANA_ENTITY_API_KEY }),
         search({ page: currentPage, query: `*:http://data.europeana.eu/agent/base/${params.pathMatch}`, wskey: env.EUROPEANA_API_KEY })
       ])
         .then(axios.spread((entity, related, searchResults) => {
@@ -138,7 +138,7 @@
             error: null,
             title: entity.entity.prefLabel.en,
             relatedEntities: related,
-            results: { ...searchResults, isLoading:false, page: Number(currentPage) }
+            results: { ...searchResults, isLoading: false, page: Number(currentPage) }
           };
         }))
         .catch((err) => {
