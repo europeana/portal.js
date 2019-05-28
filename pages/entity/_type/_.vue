@@ -123,14 +123,15 @@
       }
       return axios.all([
         getEntity(params.type, params.pathMatch, { wskey: env.EUROPEANA_ENTITY_API_KEY }),
-        relatedEntities(params.type, params.pathMatch, { wskey: env.EUROPEANA_API_KEY, entityKey: env.EUROPEANA_ENTITY_API_KEY }),
+        relatedEntities(params.type, params.pathMatch, { wskey: env.EUROPEANA_API_KEY, entityKey: env.EUROPEANA_ENTITY_API_KEY })
         search({ page: currentPage, query: `*:http://data.europeana.eu/agent/base/${params.pathMatch}`, wskey: env.EUROPEANA_API_KEY })
       ])
         .then(axios.spread((entity, related, searchResults) => {
           const desiredPath = getEntityPath(params.pathMatch, entity.entity.prefLabel.en);
 
           if (params.pathMatch !== desiredPath) {
-            return redirect(302, { name: 'entity-type-all', params: { type: params.type, pathMatch: encodeURIComponent(desiredPath) } });
+            const redirectPath = app.localePath({ name: 'entity-type-all', params: { type: params.type, pathMatch: encodeURIComponent(desiredPath) } });
+            return redirect(302, redirectPath);
           }
 
           return {

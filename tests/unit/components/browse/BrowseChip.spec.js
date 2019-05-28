@@ -10,10 +10,21 @@ const $route = {
   fullPath: '/entity/topic/94-architecture'
 };
 
+const $i18n = {
+  locales: [
+    { code: 'en', name: 'English' },
+    { code: 'de', name: 'Deutsch' }
+  ],
+  locale: 'en'
+};
+
 const factory = () => shallowMount(BrowseChip, {
   localVue,
   mocks: {
-    $route
+    $route,
+    $t: () => {},
+    $i18n,
+    localePath: () => {}
   }
 });
 
