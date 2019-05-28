@@ -1,7 +1,7 @@
 <template>
   <b-badge
     v-if="title"
-    :to="{ name: 'entity-type-all', params: { type: type, pathMatch: path }}"
+    :to="localePath({ name: 'entity-type-all', params: { type: type, pathMatch: path }})"
     pill
     variant="nocolor"
     class="mb-3 mr-3 font-weight-normal bg-transparent"
