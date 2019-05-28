@@ -40,12 +40,11 @@
           {{ name }}
         </b-link>
       </b-card-title>
-      <b-card-text>
-        {{ description }}
-        <template v-if="creator || institution">
-          {{ creator }} <br>
-          {{ institution }}
-        </template>
+      <b-card-text
+        v-for="text in cardText"
+        :key="text"
+      >
+        {{ text }}
       </b-card-text>
       <b-link
         v-if="recordId"
@@ -111,6 +110,9 @@
         } else {
           return (this.image && this.image.fields) ? this.image.fields.file.url : '';
         }
+      },
+      cardText () {
+        return [this.description, this.creator, this.institution].filter(v => v);
       }
     }
   };

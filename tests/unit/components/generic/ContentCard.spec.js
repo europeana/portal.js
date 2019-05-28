@@ -17,7 +17,7 @@ describe('components/generic/ContentCard', () => {
     const wrapper = factory();
     wrapper.setProps({ description: 'The Milkmaid by Vermeer' });
 
-    const description =  wrapper.find('[data-qa="content card"] .card-text');
+    const description =  wrapper.find('[data-qa="content card"] .card-body');
     description.text().should.eq('The Milkmaid by Vermeer');
   });
 
@@ -25,7 +25,7 @@ describe('components/generic/ContentCard', () => {
     const wrapper = factory();
     wrapper.setProps({ creator: 'Edvard Munch', institution: 'Munchmuseet (The Munch Museum)' });
 
-    const description =  wrapper.find('[data-qa="content card"] .card-text');
+    const description =  wrapper.find('[data-qa="content card"] .card-body');
     description.text().should.contain('Edvard Munch');
     description.text().should.contain('Munchmuseet');
   });
