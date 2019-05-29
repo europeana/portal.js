@@ -32,6 +32,7 @@ function parseRecordDataFromApiResponse(response) {
       src: europeanaAggregation.edmPreview
     },
     pdfLink: findPDFContent(providerAggregation.edmIsShownBy, webResources),
+    edmIsShownBy: providerAggregation.edmIsShownBy,
     fields: omitBy({
       dcContributor: providerProxy.dcContributor,
       dcCreator: providerProxy.dcCreator,

@@ -23,7 +23,9 @@
           :link="image.link"
           :src="image.src"
         />
-        <MediaPlayer />
+        <MediaPlayer
+          :source="edmIsShownBy"
+        />
         <p>
           <b-link
             v-if="pdf"
@@ -85,7 +87,7 @@
       return getRecord(`/${params.pathMatch}`, {
         wskey: env.EUROPEANA_API_KEY
       }).then((result) => {
-        return { image: result.record.image, pdf: result.record.pdfLink, fields: result.record.fields, media: result.record.media };
+        return { image: result.record.image, pdf: result.record.pdfLink, fields: result.record.fields, media: result.record.media, edmIsShownBy: result.record.edmIsShownBy };
       })
         .catch((err) => {
           if (typeof res !== 'undefined') {

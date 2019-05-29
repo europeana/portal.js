@@ -12,15 +12,9 @@
 
   export default {
     props: {
-      videoObj: {
-        type: Object,
-        default: () => {
-          return {
-            source: 'https://videoeditor.noterik.com/manifest/05_synchronised_av_text.json',
-            duration: 120,
-            id: '05_synchronized_av_test.json'
-          };
-        }
+      source: {
+        type: String,
+        default: ''
       }
     },
     created () {
@@ -41,10 +35,17 @@
       }
     },
     methods: {
+      videoObject: function() {
+        return {
+          source: this.source,
+          duration: 120,
+          id: '05_synchronized_av_test.json'
+        };
+      },
       initPlayer (container) {
         console.log(container);
         const EuropeanaMediaPlayer = require('europeana-media-player').default;
-        new EuropeanaMediaPlayer(document.getElementById('playerElement'), this.videoObj);
+        new EuropeanaMediaPlayer(document.getElementById('playerElement'), this.videoObject());
       }
     }
   };
