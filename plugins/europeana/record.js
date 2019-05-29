@@ -34,6 +34,7 @@ function parseRecordDataFromApiResponse(response) {
   if (edmIsShownByWebResource) {
     play.url = edmIsShownBy,
     play.mimeType = edmIsShownByWebResource.ebucoreHasMimeType;
+    play.duration = edmIsShownByWebResource.ebucoreDuration / 1000;
     if (edmIsShownByWebResource.ebucoreHasMimeType.startsWith('video/')) {
       play.playerType = 'video';
     }

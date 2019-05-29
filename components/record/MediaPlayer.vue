@@ -22,13 +22,14 @@
       videoObject: function() {
         return {
           source: this.source.url,
-          duration: 200,
-          id: 'test'
+          duration: this.source.duration,
+          id: this.source.url
         };
       },
       initPlayer () {
+        let component = document.getElementById('playerElement');
         const EuropeanaMediaPlayer = require('europeana-media-player').default;
-        new EuropeanaMediaPlayer(document.getElementById('playerElement'), this.videoObject());
+        new EuropeanaMediaPlayer(component, this.videoObject());
       }
     }
   };

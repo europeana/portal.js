@@ -20,11 +20,12 @@
         class="pl-0"
       >
         <MediaImage
+          v-if="!mediaPlayerEnabled"
           :link="image.link"
           :src="image.src"
         />
-        {{ play }}
         <MediaPlayer
+          v-if="mediaPlayerEnabled"
           :source="play"
         />
         <p>
@@ -82,8 +83,14 @@
         fields: null,
         media: null,
         pdf: null,
-        play: null
+        play: {}
       };
+    },
+    computed: {
+      mediaPlayerEnabled: function() {
+        let enabled = this.play.playerType === 'video' && this.play.url && this.play.duration;
+        return enabled;
+      }
     },
     asyncData ({ env, params, res }) {
       return getRecord(`/${params.pathMatch}`, {
