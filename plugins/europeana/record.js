@@ -26,13 +26,25 @@ function parseRecordDataFromApiResponse(response) {
     });
   });
 
+  const edmIsShownBy = providerAggregation.edmIsShownBy;
+  const edmIsShownByWebResource = providerAggregation.webResources.find((webResource) => {
+    return webResource.about === edmIsShownBy;
+  });
+  let play = {};
+  if (edmIsShownByWebResource) {
+    play.url = edmIsShownBy,
+    play.mimeType = edmIsShownByWebResource.ebucoreHasMimeType;
+    if (edmIsShownByWebResource.ebucoreHasMimeType.startsWith('video/')) {
+      play.playerType = 'video';
+    }
+  }
+
   return {
     image: {
       link: providerAggregation.edmIsShownAt,
       src: europeanaAggregation.edmPreview
     },
     pdfLink: findPDFContent(providerAggregation.edmIsShownBy, webResources),
-    edmIsShownBy: providerAggregation.edmIsShownBy,
     fields: omitBy({
       dcContributor: providerProxy.dcContributor,
       dcCreator: providerProxy.dcCreator,
@@ -46,7 +58,8 @@ function parseRecordDataFromApiResponse(response) {
     }, (v) => {
       return v == null;
     }),
-    media: webResources
+    media: webResources,
+    play: play
   };
 }
 

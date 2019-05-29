@@ -23,8 +23,9 @@
           :link="image.link"
           :src="image.src"
         />
+        {{ play }}
         <MediaPlayer
-          :source="edmIsShownBy"
+          :source="play"
         />
         <p>
           <b-link
@@ -80,14 +81,15 @@
         image: null,
         fields: null,
         media: null,
-        pdf: null
+        pdf: null,
+        play: null
       };
     },
     asyncData ({ env, params, res }) {
       return getRecord(`/${params.pathMatch}`, {
         wskey: env.EUROPEANA_API_KEY
       }).then((result) => {
-        return { image: result.record.image, pdf: result.record.pdfLink, fields: result.record.fields, media: result.record.media, edmIsShownBy: result.record.edmIsShownBy };
+        return { image: result.record.image, pdf: result.record.pdfLink, fields: result.record.fields, media: result.record.media, play: result.record.play };
       })
         .catch((err) => {
           if (typeof res !== 'undefined') {

@@ -13,8 +13,8 @@
   export default {
     props: {
       source: {
-        type: String,
-        default: ''
+        type: Object,
+        default: () => {}
       }
     },
     created () {
@@ -37,7 +37,7 @@
     methods: {
       videoObject: function() {
         return {
-          source: this.source,
+          source: this.source.url,
           duration: 120,
           id: '05_synchronized_av_test.json'
         };
