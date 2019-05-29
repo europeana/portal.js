@@ -1,15 +1,10 @@
 <template>
   <div
     id="playerElement"
-    alt="The media player"
-  >
-    player
-  </div>
+    title="The media player"
+  />
 </template>
-
 <script>
-  //import EuropeanaMediaPlayer from 'europeana-media-player';
-
   export default {
     props: {
       source: {
@@ -20,30 +15,18 @@
     created () {
       console.log('created');
       if (process.browser) {
-        const container = document.getElementById('playerElement');
-        container.addEventListener('click', this.initPlayer, container);
-        //createPlayer(container));
-      }
-    },
-    beforeUpdate () {
-      console.log('beforeUpdate');
-      if (process.browser) {
-        const container = document.getElementById('playerElement');
-        container.addEventListener('click', this.initPlayer, container);
-        //createPlayer(container));
-        //this.initPlayer(container));
+        this.initPlayer();
       }
     },
     methods: {
       videoObject: function() {
         return {
           source: this.source.url,
-          duration: 120,
-          id: '05_synchronized_av_test.json'
+          duration: 200,
+          id: 'test'
         };
       },
-      initPlayer (container) {
-        console.log(container);
+      initPlayer () {
         const EuropeanaMediaPlayer = require('europeana-media-player').default;
         new EuropeanaMediaPlayer(document.getElementById('playerElement'), this.videoObject());
       }
