@@ -31,6 +31,15 @@
           :title="entity.title"
         />
       </b-col>
+      <b-col
+        cols="12"
+        md="3"
+        class="pb-3"
+      >
+        <EntityInformation
+          :depiction="depiction"
+        />
+      </b-col>
     </b-row>
   </b-container>
 </template>
@@ -40,13 +49,15 @@
 
   import AlertMessage from '../../../components/generic/AlertMessage';
   import BrowseChip from '../../../components/browse/BrowseChip';
+  import EntityInformation from '../../../components/browse/EntityInformation';
 
   import getEntity, { getEntityPath, relatedEntities } from '../../../plugins/europeana/entity';
 
   export default {
     components: {
       AlertMessage,
-      BrowseChip
+      BrowseChip,
+      EntityInformation
     },
     data () {
       return {
@@ -68,9 +79,12 @@
             return redirect(302, redirectPath);
           }
 
+          console.log(entity);
+
           return {
             error: null,
             title: entity.entity.prefLabel.en,
+            depiction: entity.entity.depiction,
             relatedEntities: related
           };
         }))
