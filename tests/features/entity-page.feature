@@ -5,6 +5,9 @@ Feature: Entity page
     When I open an `entity page`
     Then I see the `entity page`
     And I see an `entity title`
+    And I see a `search result`
+    And I see a `pagination navigation`
+    And I am on an accessible page
 
   Scenario: Attempting to view an entity page which doesn't exist
 
@@ -15,7 +18,7 @@ Feature: Entity page
 
     When I open an `entity page`
     And I see the `entity page`
-    Then I should have 2 `browse chip`s
+    Then I should have 10 `browse chip`s
 
   Scenario: Click on a related entity
 
@@ -25,12 +28,6 @@ Feature: Entity page
     And I wait 2 seconds
     Then I should not be on the `entity page`
 
-  Scenario: Viewing related records
-
-    When I open an `entity page`
-    And I see the `entity page`
-    Then I see a `search result`
-
   Scenario: Navigating to a related record
 
     When I open an `entity page`
@@ -39,3 +36,17 @@ Feature: Entity page
     And I click a `search result`
     Then I see a `record page`
 
+  Scenario: Pagination links.
+
+    When I open an `entity page`
+    And I see the `entity page`
+    And I see a `search result`
+    Then I see a link to "/entity/person/200-friedrich-nietzsche?page=2" in the `pagination navigation`
+
+
+  Scenario: Pagination links work when the page was accessed from the url.
+
+    When I visit `/entity/person/200-friedrich-nietzsche?page=2`
+    And I click the "/entity/person/200-friedrich-nietzsche?page=3" link
+    And I wait 1 second
+    Then I should be on `/entity/person/200-friedrich-nietzsche?page=3`
