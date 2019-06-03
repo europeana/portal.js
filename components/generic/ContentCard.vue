@@ -5,13 +5,13 @@
     no-body
   >
     <div
-      v-if="backgroundImage"
+      v-if="imageUrl"
       :aria-label="name"
-      :style="{'background-image': 'url(' + backgroundImage + ')'}"
+      :style="{'background-image': 'url(' + imageUrl + ')'}"
       class="card-img"
     >
       <b-link
-        v-if="recordId"
+        v-if="identifier"
         :to="linkToRecord"
         class="card-link record-link"
         :aria-label="$t('goToRecord')"
@@ -26,7 +26,7 @@
     <b-card-body>
       <b-card-title>
         <b-link
-          v-if="recordId"
+          v-if="identifier"
           :to="linkToRecord"
           class="card-link record-link"
         >
@@ -47,7 +47,7 @@
         {{ text }}
       </b-card-text>
       <b-link
-        v-if="recordId"
+        v-if="identifier"
         :to="linkToRecord"
         class="card-link record-link"
       >
@@ -79,40 +79,29 @@
         type: String,
         default: 'https://www.europeana.eu/'
       },
-      image: {
-        type: Object,
-        default: () => {}
+      imageUrl: {
+        type: String,
+        default: ''
       },
       creator: {
         type: String,
         default: ''
       },
-      institution: {
+      provider: {
         type: String,
         default: ''
       },
-      recordId: {
-        type: String,
-        default: ''
-      },
-      recordThumbnailUrl: {
+      identifier: {
         type: String,
         default: ''
       }
     },
     computed: {
       linkToRecord () {
-        return this.localePath({ name: 'record-all', params: { pathMatch: this.recordId.replace(/^\/+/g, '') } });
-      },
-      backgroundImage () {
-        if (this.recordThumbnailUrl) {
-          return this.recordThumbnailUrl;
-        } else {
-          return (this.image && this.image.fields) ? this.image.fields.file.url : '';
-        }
+        return this.localePath({ name: 'record-all', params: { pathMatch: this.identifier.replace(/^\/+/g, '') } });
       },
       cardText () {
-        return [this.description, this.creator, this.institution].filter(v => v);
+        return [this.description, this.creator, this.provider].filter(v => v);
       }
     }
   };

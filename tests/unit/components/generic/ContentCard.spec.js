@@ -23,7 +23,7 @@ describe('components/generic/ContentCard', () => {
 
   it('has a creator and institution', () => {
     const wrapper = factory();
-    wrapper.setProps({ creator: 'Edvard Munch', institution: 'Munchmuseet (The Munch Museum)' });
+    wrapper.setProps({ creator: 'Edvard Munch', provider: 'Munchmuseet (The Munch Museum)' });
 
     const description =  wrapper.find('[data-qa="content card"] .card-body');
     description.text().should.contain('Edvard Munch');
@@ -40,14 +40,7 @@ describe('components/generic/ContentCard', () => {
 
   it('has an image', () => {
     const wrapper = factory();
-    wrapper.setProps({ image: {
-      fields: {
-        file: {
-          url: 'https://example.org'
-        }
-      }
-    }
-    });
+    wrapper.setProps({ imageUrl: 'https://example.org' });
 
     const card =  wrapper.find('[data-qa="content card"] .card-img');
     card.attributes('style').should.contain('https://example.org');

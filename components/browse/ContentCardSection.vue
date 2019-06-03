@@ -24,11 +24,10 @@
         :name="card.fields.name"
         :description="card.fields.description"
         :url="card.fields.url"
-        :image="card.fields.image"
+        :image-url="card.fields.imageUrl"
         :creator="card.fields.creator"
-        :institution="card.fields.provider"
-        :record-id="card.fields.identifier"
-        :record-thumbnail-url="card.fields.thumbnailUrl"
+        :provider="card.fields.provider"
+        :identifier="card.fields.identifier"
       />
     </b-card-group>
   </div>
@@ -49,7 +48,14 @@
     },
     computed: {
       cards: function() {
-        return this.section.fields.hasPart.filter(card => card.fields);
+        return this.section.fields.hasPart.filter(card => card.fields).map(card => {
+          if (card.fields.thumbnailUrl) {
+            card.fields.imageUrl = card.fields.thumbnailUrl;
+          } else {
+            card.fields.imageUrl = (card.fields.image && card.fields.image.fields) ? card.fields.image.fields.file.url : '';
+          }
+          return card;
+        });
       }
     }
   };
