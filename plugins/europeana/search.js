@@ -162,7 +162,6 @@ function search(params) {
   const maxResults = 1000;
   const perPage = 24;
   const page = params.page || 1;
-  const facet = params.facets || 'COUNTRY,REUSABILITY,TYPE';
 
   const start = ((page - 1) * perPage) + 1;
   const rows = Math.max(0, Math.min(maxResults + 1 - start, perPage));
@@ -173,7 +172,7 @@ function search(params) {
     },
     params: {
       profile: 'minimal,facets',
-      facet: facet,
+      facet: params.facet,
       query: params.query == '' ? '*:*' : params.query,
       qf: params.qf,
       reusability: params.reusability,

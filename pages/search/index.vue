@@ -202,6 +202,7 @@
       return search({
         page: currentPage,
         query: query.query,
+        facet: 'COUNTRY,REUSABILITY,TYPE',
         qf: query.qf,
         reusability: query.reusability,
         wskey: env.EUROPEANA_API_KEY

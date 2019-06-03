@@ -78,18 +78,6 @@ describe('plugins/europeana/search', () => {
         nock.isDone().should.be.true;
       });
 
-      it('requests specific facets (only)', async () => {
-        baseRequest
-          .query(query => {
-            return query.facet === 'COUNTRY,REUSABILITY,TYPE';
-          })
-          .reply(200, defaultResponse);
-
-        await search({ query: 'anything', wskey: apiKey });
-
-        nock.isDone().should.be.true;
-      });
-
       it('uses the supplied `facet` param', async () => {
         baseRequest
           .query(query => {
@@ -102,14 +90,14 @@ describe('plugins/europeana/search', () => {
         nock.isDone().should.be.true;
       });
 
-      it('uses the supplied `facet` param when using an empty string', async () => {
+      it('uses the supplied `facet` param when using comma seperated list', async () => {
         baseRequest
           .query(query => {
-            return query.facet === '';
+            return query.facet === 'COUNTRY,REUSABILITY,TYPE';
           })
           .reply(200, defaultResponse);
 
-        await search({ query: 'anything', facet: '', wskey: apiKey });
+        await search({ query: 'anything', facet: 'COUNTRY,REUSABILITY,TYPE', wskey: apiKey });
 
         nock.isDone().should.be.true;
       });
@@ -221,12 +209,6 @@ describe('plugins/europeana/search', () => {
             const response = await searchResponse();
 
             response.results[0].europeanaId.should.eq(apiResponse.items[0].id);
-          });
-
-          it('includes URL path of record page in .linkTo', async () => {
-            const response = await searchResponse();
-
-            response.results[0].linkTo.should.eq(`record${apiResponse.items[0].id}`);
           });
 
           describe('.fields', () => {
