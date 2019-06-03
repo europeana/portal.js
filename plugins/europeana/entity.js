@@ -45,7 +45,7 @@ function getEntityTypeApi(type) {
  * @param {string} type the type of the entity
  * @return {string} retrieved human readable name of type
  */
-function getEntityTypeHumanReadable(type) {
+export function getEntityTypeHumanReadable(type) {
   const names = {
     agent: 'person',
     concept: 'topic'
@@ -59,7 +59,7 @@ function getEntityTypeHumanReadable(type) {
  * @param {string} url the url of the entity
  * @return {string} retrieved id
  */
-function getEntityId(url) {
+export function getEntityId(url) {
   if (!url) return;
   return url.split('-')[0];
 }

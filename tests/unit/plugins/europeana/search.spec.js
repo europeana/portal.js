@@ -90,14 +90,26 @@ describe('plugins/europeana/search', () => {
         nock.isDone().should.be.true;
       });
 
-      it('ignores supplied `facet` param', async () => {
+      it('uses the supplied `facet` param', async () => {
         baseRequest
           .query(query => {
-            return query.facet === 'COUNTRY,REUSABILITY,TYPE';
+            return query.facet === 'LANGUAGE';
           })
           .reply(200, defaultResponse);
 
         await search({ query: 'anything', facet: 'LANGUAGE', wskey: apiKey });
+
+        nock.isDone().should.be.true;
+      });
+
+      it('uses the supplied `facet` param when using an empty string', async () => {
+        baseRequest
+          .query(query => {
+            return query.facet === '';
+          })
+          .reply(200, defaultResponse);
+
+        await search({ query: 'anything', facet: '', wskey: apiKey });
 
         nock.isDone().should.be.true;
       });

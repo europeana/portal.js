@@ -24,11 +24,11 @@
         md="9"
       >
         <BrowseChip
-          v-for="entity in relatedEntities"
-          :key="entity.path"
-          :path="entity.path"
-          :type="entity.type"
-          :title="entity.title"
+          v-for="relatedEntity in relatedEntities"
+          :key="relatedEntity.path"
+          :path="relatedEntity.path"
+          :type="relatedEntity.type"
+          :title="relatedEntity.title"
         />
       </b-col>
     </b-row>
@@ -38,17 +38,17 @@
         md="9"
       >
         <p
-          v-if="results.length == 0"
+          v-if="searchResults.results.length == 0"
           data-qa="warning notice"
         >
           There are no more results for your search query.
         </p>
         <SearchResultsList
           v-else
-          :results="results"
+          :results="searchResults.results"
         />
         <InfoMessage
-          v-if="lastAvailablePage"
+          v-if="searchResults.lastAvailablePage"
           message="Additional results are not shown as only the first 1000 most relevant results are shown. If you haven't found what you're looking for, please consider refining your search."
         />
       </b-col>
@@ -56,9 +56,9 @@
     <b-row>
       <b-col>
         <PaginationNav
-          v-if="totalResults > perPage"
-          v-model="page"
-          :total-results="totalResults"
+          v-if="searchResults.totalResults > perPage"
+          v-model="searchResults.page"
+          :total-results="searchResults.totalResults"
           :per-page="perPage"
           :link-gen="paginationLink"
         />
@@ -76,7 +76,7 @@
   import SearchResultsList from '../../../components/search/SearchResultsList';
   import PaginationNav from '../../../components/generic/PaginationNav';
 
-  import getEntity, { getEntityPath, relatedEntities } from '../../../plugins/europeana/entity';
+  import getEntity, { getEntityPath, relatedEntities, getEntityId, getEntityTypeHumanReadable } from '../../../plugins/europeana/entity';
   import search, { pageFromQuery } from '../../../plugins/europeana/search';
 
   export default {
@@ -96,19 +96,23 @@
     data () {
       return {
         error: null,
-        errorNoResults: 'No results',
-        results: null,
-        totalResults: null,
-        lastAvailablePage: false,
-        query: this.entityQuery,
-        page: 1,
         title: null,
-        relatedEntities: null
+        entity: null,
+        relatedEntities: null,
+        searchResults: {
+          error: null,
+          errorNoResults: 'No results',
+          results: null,
+          totalResults: null,
+          lastAvailablePage: false,
+          query: this.entityQuery,
+          page: 1
+        }
       };
     },
     computed: {
       hasResults: function () {
-        return this.results !== null && this.totalResults > 0;
+        return this.searchResults.results !== null && this.searchResults.totalResults > 0;
       },
       entityQuery: function (params) {
         return `http://data.europeana.eu/agent/base/${params.pathMatch}`;
@@ -124,7 +128,7 @@
       return axios.all([
         getEntity(params.type, params.pathMatch, { wskey: env.EUROPEANA_ENTITY_API_KEY }),
         relatedEntities(params.type, params.pathMatch, { wskey: env.EUROPEANA_API_KEY, entityKey: env.EUROPEANA_ENTITY_API_KEY }),
-        search({ page: currentPage, query: `*:http://data.europeana.eu/agent/base/${params.pathMatch}`, wskey: env.EUROPEANA_API_KEY })
+        search({ page: currentPage, query: `"http://data.europeana.eu/agent/base/${getEntityId(params.pathMatch)}"`, wskey: env.EUROPEANA_API_KEY })
       ])
         .then(axios.spread((entity, related, searchResults) => {
           const desiredPath = getEntityPath(params.pathMatch, entity.entity.prefLabel.en);
@@ -137,8 +141,9 @@
           return {
             error: null,
             title: entity.entity.prefLabel.en,
+            entity: entity.entity,
             relatedEntities: related,
-            results: { ...searchResults, isLoading: false, page: Number(currentPage) }
+            searchResults: { ...searchResults, isLoading: false, page: Number(currentPage) }
           };
         }))
         .catch((err) => {
@@ -159,6 +164,13 @@
           }
           return { error: errorMessage };
         });
+    },
+    methods: {
+      paginationLink (val) {
+        return this.localePath({
+          name: 'entity-type-all', params: { type: getEntityTypeHumanReadable(this.entity.type), pathMatch: getEntityPath(this.entity.id.toString().split('/').pop(), this.entity.prefLabel.en) }, query: { page: val }
+        });
+      }
     },
     head () {
       return {

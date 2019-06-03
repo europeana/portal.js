@@ -80,7 +80,6 @@ function resultsFromApiResponse(response) {
     return {
       europeanaId: item.id,
       edmPreview: item.edmPreview ? `${item.edmPreview[0]}&size=w200` : genericThumbnail(item.type),
-      linkTo: `record${item.id}`,
       fields: fieldsForSearchResult(item)
     };
   });
@@ -153,6 +152,7 @@ export function selectedFacetsFromQuery(query) {
  * @param {Object} params parameters for search query
  * @param {number} params.page page of results to retrieve
  * @param {string} params.reusability reusability filter
+ * @param {string} params.facet facet names, comma separated
  * @param {(string|string[])} params.qf query filter(s)
  * @param {string} params.query search query
  * @param {string} params.wskey API key
@@ -162,6 +162,7 @@ function search(params) {
   const maxResults = 1000;
   const perPage = 24;
   const page = params.page || 1;
+  const facet = params.facets || 'COUNTRY,REUSABILITY,TYPE';
 
   const start = ((page - 1) * perPage) + 1;
   const rows = Math.max(0, Math.min(maxResults + 1 - start, perPage));
@@ -172,7 +173,7 @@ function search(params) {
     },
     params: {
       profile: 'minimal,facets',
-      facet: 'COUNTRY,REUSABILITY,TYPE',
+      facet: facet,
       query: params.query == '' ? '*:*' : params.query,
       qf: params.qf,
       reusability: params.reusability,

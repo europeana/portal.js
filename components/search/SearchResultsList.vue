@@ -5,7 +5,7 @@
     <b-list-group-item
       v-for="result in results"
       :key="result.europeanaId"
-      :to="result.linkTo"
+      :to="localePath({ name: 'record-all', params: { pathMatch: result.europeanaId.replace(/^\/+/g, '') } })"
       class="flex-column align-items-start mb-3"
       data-qa="search result"
     >
