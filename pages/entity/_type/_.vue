@@ -76,7 +76,7 @@
   import SearchResultsList from '../../../components/search/SearchResultsList';
   import PaginationNav from '../../../components/generic/PaginationNav';
 
-  import getEntity, { getEntityPath, relatedEntities, getEntityId, getEntityTypeHumanReadable } from '../../../plugins/europeana/entity';
+  import getEntity, * as entities from '../../../plugins/europeana/entity';
   import search, { pageFromQuery } from '../../../plugins/europeana/search';
 
   export default {
@@ -123,15 +123,15 @@
       if (currentPage === null) {
         // Redirect non-positive integer values for `page` to `page=1`
         query.page = '1';
-        return redirect(app.localePath({ name: 'entity', type: params.type, pathMatch: params.pathMatch }));
+        return redirect(app.localePath({ name: 'entity-type-all', params: { type: params.type, pathMatch: params.pathMatch }, query: { page: 1 } }));
       }
       return axios.all([
         getEntity(params.type, params.pathMatch, { wskey: env.EUROPEANA_ENTITY_API_KEY }),
-        relatedEntities(params.type, params.pathMatch, { wskey: env.EUROPEANA_API_KEY, entityKey: env.EUROPEANA_ENTITY_API_KEY }),
-        search({ page: currentPage, query: `"http://data.europeana.eu/agent/base/${getEntityId(params.pathMatch)}"`, wskey: env.EUROPEANA_API_KEY })
+        entities.relatedEntities(params.type, params.pathMatch, { wskey: env.EUROPEANA_API_KEY, entityKey: env.EUROPEANA_ENTITY_API_KEY }),
+        search({ page: currentPage, query: `"http://data.europeana.eu/${entities.getEntityTypeApi(params.type)}/base/${entities.getEntityId(params.pathMatch)}"`, wskey: env.EUROPEANA_API_KEY })
       ])
         .then(axios.spread((entity, related, searchResults) => {
-          const desiredPath = getEntityPath(params.pathMatch, entity.entity.prefLabel.en);
+          const desiredPath = entities.getEntityPath(params.pathMatch, entity.entity.prefLabel.en);
 
           if (params.pathMatch !== desiredPath) {
             const redirectPath = app.localePath({ name: 'entity-type-all', params: { type: params.type, pathMatch: encodeURIComponent(desiredPath) } });
@@ -168,7 +168,7 @@
     methods: {
       paginationLink (val) {
         return this.localePath({
-          name: 'entity-type-all', params: { type: getEntityTypeHumanReadable(this.entity.type), pathMatch: getEntityPath(this.entity.id.toString().split('/').pop(), this.entity.prefLabel.en) }, query: { page: val }
+          name: 'entity-type-all', params: { type: entities.getEntityTypeHumanReadable(this.entity.type), pathMatch: entities.getEntityPath(this.entity.id.toString().split('/').pop(), this.entity.prefLabel.en) }, query: { page: val }
         });
       }
     },

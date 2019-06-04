@@ -31,7 +31,7 @@ function getEntity(type, id, params) {
  * @param {string} type the type of the entity
  * @return {string} retrieved API name of type
  */
-function getEntityTypeApi(type) {
+export function getEntityTypeApi(type) {
   const names = {
     person: 'agent',
     topic: 'concept'
