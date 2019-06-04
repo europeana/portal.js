@@ -128,10 +128,10 @@
       return axios.all([
         getEntity(params.type, params.pathMatch, { wskey: env.EUROPEANA_ENTITY_API_KEY }),
         entities.relatedEntities(params.type, params.pathMatch, { wskey: env.EUROPEANA_API_KEY, entityKey: env.EUROPEANA_ENTITY_API_KEY }),
-        search({ page: currentPage, query: `"http://data.europeana.eu/${entities.getEntityTypeApi(params.type)}/base/${entities.getEntityId(params.pathMatch)}"`, wskey: env.EUROPEANA_API_KEY })
+        search({ page: currentPage, query: `"${entities.getEntityUri(params.type, params.pathMatch)}"`, wskey: env.EUROPEANA_API_KEY })
       ])
         .then(axios.spread((entity, related, searchResults) => {
-          const desiredPath = entities.getEntityPath(params.pathMatch, entity.entity.prefLabel.en);
+          const desiredPath = entities.getEntitySlug(entity.entity);
 
           if (params.pathMatch !== desiredPath) {
             const redirectPath = app.localePath({ name: 'entity-type-all', params: { type: params.type, pathMatch: encodeURIComponent(desiredPath) } });
@@ -168,7 +168,7 @@
     methods: {
       paginationLink (val) {
         return this.localePath({
-          name: 'entity-type-all', params: { type: entities.getEntityTypeHumanReadable(this.entity.type), pathMatch: entities.getEntityPath(this.entity.id.toString().split('/').pop(), this.entity.prefLabel.en) }, query: { page: val }
+          name: 'entity-type-all', params: { type: entities.getEntityTypeHumanReadable(this.entity.type), pathMatch: entities.getEntitySlug(this.entity) }, query: { page: val }
         });
       }
     },

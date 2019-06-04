@@ -7,8 +7,8 @@ axios.defaults.adapter = require('axios/lib/adapters/http');
 const entityId = '94-architecture';
 const entityType = 'topic';
 const entityIdMisspelled = '94-architectuz';
-const apiUrl = 'https://www.europeana.eu';
-const apiEndpoint = '/api/entities/concept/base/94';
+const apiUrl = 'https://api.europeana.eu';
+const apiEndpoint = '/entity/concept/base/94';
 const apiKey = 'abcdef';
 const baseRequest = nock(apiUrl).get(apiEndpoint);
 
@@ -93,13 +93,13 @@ describe('plugins/europeana/entity', () => {
             .reply(200, searchResponse);
 
           nock(apiUrl)
-            .get('/api/entities/search')
+            .get('/entity/search')
             .query(true)
             .reply(200, entitiesResponse);
         });
 
         it('returns related entities', async () => {
-          const response = await relatedEntities(entityType, entityId, { wskey: apiKey });
+          const response = await relatedEntities(entityType, entityId, { wskey: apiKey, entityKey: apiKey });
           response.length.should.eq(entitiesResponse.items.length);
         });
       });
