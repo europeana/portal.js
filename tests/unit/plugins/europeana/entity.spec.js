@@ -1,5 +1,5 @@
 import nock from 'nock';
-import getEntity, { relatedEntities } from '../../../../plugins/europeana/entity';
+import getEntity, { relatedEntities, getEntityUri, getEntitySlug } from '../../../../plugins/europeana/entity';
 
 const axios = require('axios');
 axios.defaults.adapter = require('axios/lib/adapters/http');
@@ -106,4 +106,34 @@ describe('plugins/europeana/entity', () => {
     });
   });
 
+  describe('getEntityUri', () => {
+    describe('with an id of "100-test-slug', () => {
+      let id = '100-test-slug';
+      describe('with type Agent', () => {
+        let type = 'person';
+        it('returns an agent URI, without any human readable labels', () => {
+          const uri = getEntityUri(type, id);
+          return uri.should.eq('http://data.europeana.eu/agent/base/100');
+        });
+      });
+
+      describe('with type Concept', () => {
+        let type = 'topic';
+        it('returns an agent URI, without any human readable labels', () => {
+          const uri = getEntityUri(type, id);
+          return uri.should.eq('http://data.europeana.eu/concept/base/100');
+        });
+      });
+    });
+  });
+
+  describe('getEntitySlug', () => {
+    describe('with an entity', () => {
+      let entity = entitiesResponse.items[0];
+      it('returns an agent URI, without any human readable labels', () => {
+        const slug = getEntitySlug(entity);
+        return slug.should.eq('147831-architecture');
+      });
+    });
+  });
 });
