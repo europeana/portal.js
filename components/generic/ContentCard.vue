@@ -5,32 +5,61 @@
     no-body
   >
     <div
+      v-if="imageUrl"
       :aria-label="name"
       :style="{'background-image': 'url(' + imageUrl + ')'}"
       class="card-img"
     >
-      <a
+      <b-link
+        v-if="identifier"
+        :to="linkToRecord"
+        class="card-link record-link"
+        :aria-label="$t('goToRecord')"
+      />
+      <b-link
+        v-else
         :href="url"
-        aria-label="Read more"
+        class="card-link"
+        :aria-label="$t('readMore')"
       />
     </div>
     <b-card-body>
       <b-card-title>
-        <a
-          :href="url"
+        <b-link
+          v-if="identifier"
+          :to="linkToRecord"
+          class="card-link record-link"
         >
           {{ name }}
-        </a>
+        </b-link>
+        <b-link
+          v-else
+          :href="url"
+          class="card-link"
+        >
+          {{ name }}
+        </b-link>
       </b-card-title>
-      <b-card-text>
-        {{ description }}
+      <b-card-text
+        v-for="text in cardText"
+        :key="text"
+      >
+        {{ text }}
       </b-card-text>
-      <a
+      <b-link
+        v-if="identifier"
+        :to="linkToRecord"
+        class="card-link record-link"
+      >
+        {{ $t('goToRecord') }}
+      </b-link>
+      <b-link
+        v-else
         :href="url"
         class="card-link"
       >
         {{ $t('readMore') }}
-      </a>
+      </b-link>
     </b-card-body>
   </b-card>
 </template>
@@ -54,9 +83,25 @@
         type: String,
         default: ''
       },
-      imageTitle: {
+      creator: {
         type: String,
         default: ''
+      },
+      provider: {
+        type: String,
+        default: ''
+      },
+      identifier: {
+        type: String,
+        default: ''
+      }
+    },
+    computed: {
+      linkToRecord () {
+        return this.localePath({ name: 'record-all', params: { pathMatch: this.identifier.replace(/^\/+/g, '') } });
+      },
+      cardText () {
+        return [this.description, this.creator, this.provider].filter(v => v);
       }
     }
   };

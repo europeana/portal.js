@@ -4,6 +4,7 @@ export default {
   },
   searchPlaceholder: 'What are you looking for?',
   error: 'Error',
+  goToRecord: 'Go to record',
   readMore: 'Read more',
   search: 'Search',
   results: 'Results',
