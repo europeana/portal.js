@@ -158,7 +158,8 @@ function getDataForEntities(entities, entityKey) {
     }
   })
     .then((response) => {
-      return getRelatedEntityTitleLink(response.data.items.slice(0,10));
+      let items = response.data.items ? response.data.items : [];
+      return getRelatedEntityTitleLink(items.slice(0,10));
     })
     .catch((error) => {
       const message = error.response ? error.response.data.error : error.message;
