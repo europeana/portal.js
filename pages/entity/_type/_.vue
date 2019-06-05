@@ -36,8 +36,10 @@
         md="3"
         class="pb-3"
       >
-        <EntityInformation
+        <EntityDetails
           :depiction="depiction"
+          :attribution="attribution"
+          :description="description"
         />
       </b-col>
     </b-row>
@@ -49,7 +51,7 @@
 
   import AlertMessage from '../../../components/generic/AlertMessage';
   import BrowseChip from '../../../components/browse/BrowseChip';
-  import EntityInformation from '../../../components/browse/EntityInformation';
+  import EntityDetails from '../../../components/browse/EntityDetails';
 
   import getEntity, { getEntityPath, relatedEntities } from '../../../plugins/europeana/entity';
 
@@ -57,12 +59,15 @@
     components: {
       AlertMessage,
       BrowseChip,
-      EntityInformation
+      EntityDetails
     },
     data () {
       return {
         error: null,
         title: null,
+        depiction: null,
+        attribution: null,
+        description: null,
         relatedEntities: null
       };
     },
@@ -79,12 +84,24 @@
             return redirect(302, redirectPath);
           }
 
-          console.log(entity);
+          let description;
+
+          if (params.type === 'topic') {
+            description = entity.entity.note && entity.entity.note.en ? entity.entity.note.en[0] : '';
+          } else if (params.type === 'person') {
+            if (entity.entity.biographicalInformation.length !== undefined) {
+              description = entity.entity.biographicalInformation ? entity.entity.biographicalInformation.filter(info => info['@language'] === 'en')[0]['@value'] : '';
+            } else {
+              description = entity.entity.biographicalInformation['@language'] === 'en' ? entity.entity.biographicalInformation['@value'] : '';
+            }
+          }
 
           return {
             error: null,
             title: entity.entity.prefLabel.en,
-            depiction: entity.entity.depiction,
+            depiction: entity.entity.depiction ? entity.entity.depiction.id + '?width=348' : '',
+            attribution: entity.entity.depiction ? entity.entity.depiction.source : '',
+            description: description,
             relatedEntities: related
           };
         }))
