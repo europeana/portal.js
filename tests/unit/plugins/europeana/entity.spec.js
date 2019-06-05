@@ -1,5 +1,5 @@
 import nock from 'nock';
-import getEntity, { relatedEntities, getEntityUri, getEntitySlug } from '../../../../plugins/europeana/entity';
+import { getEntity, relatedEntities, getEntityUri, getEntitySlug } from '../../../../plugins/europeana/entity';
 
 const axios = require('axios');
 axios.defaults.adapter = require('axios/lib/adapters/http');

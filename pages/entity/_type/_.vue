@@ -41,7 +41,7 @@
           v-if="searchResults.results.length == 0"
           data-qa="warning notice"
         >
-          There are no more results for your search query.
+          {{ $t('noMoreResults') }}
         </p>
         <SearchResultsList
           v-else
@@ -76,7 +76,7 @@
   import SearchResultsList from '../../../components/search/SearchResultsList';
   import PaginationNav from '../../../components/generic/PaginationNav';
 
-  import getEntity, * as entities from '../../../plugins/europeana/entity';
+  import * as entities from '../../../plugins/europeana/entity';
   import search, { pageFromQuery } from '../../../plugins/europeana/search';
 
   export default {
@@ -105,7 +105,7 @@
           results: null,
           totalResults: null,
           lastAvailablePage: false,
-          query: this.entityQuery,
+          query: null,
           page: 1
         }
       };
@@ -113,9 +113,6 @@
     computed: {
       hasResults: function () {
         return this.searchResults.results !== null && this.searchResults.totalResults > 0;
-      },
-      entityQuery: function (params) {
-        return `http://data.europeana.eu/agent/base/${params.pathMatch}`;
       }
     },
     asyncData ({ env, query, params, res, redirect, app }) {
@@ -130,7 +127,7 @@
         }));
       }
       return axios.all([
-        getEntity(params.type, params.pathMatch, { wskey: env.EUROPEANA_ENTITY_API_KEY }),
+        entities.getEntity(params.type, params.pathMatch, { wskey: env.EUROPEANA_ENTITY_API_KEY }),
         entities.relatedEntities(params.type, params.pathMatch, {
           wskey: env.EUROPEANA_API_KEY,
           entityKey: env.EUROPEANA_ENTITY_API_KEY

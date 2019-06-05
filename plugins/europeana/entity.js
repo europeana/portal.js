@@ -8,7 +8,7 @@ import axios from 'axios';
  * @param {string} params.wskey API key
  * @return {Object[]} parsed entity data
  */
-function getEntity(type, id, params) {
+export function getEntity(type, id, params) {
   return axios.get(getEntityUrl(type, id), {
     params: {
       wskey: params.wskey
@@ -181,5 +181,3 @@ function getRelatedEntityTitleLink(entities) {
   }
   return entityDetails;
 }
-
-export default getEntity;

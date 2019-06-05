@@ -86,7 +86,7 @@
                 v-if="results.length == 0"
                 data-qa="warning notice"
               >
-                There are no more results for your search query.
+                {{ $t('noMoreResults') }}
               </p>
               <SearchResultsList
                 v-else

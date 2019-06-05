@@ -8,6 +8,7 @@ export default {
   search: 'Search',
   results: 'Results',
   homeLinkAlt: 'Europeana Collections home',
+  noMoreResults: 'There are no more results for your search query.',
   fieldLabels: {
     default: {
       dcContributor: 'Contributors',
