@@ -49,7 +49,7 @@
         />
         <InfoMessage
           v-if="searchResults.lastAvailablePage"
-          message="Additional results are not shown as only the first 1000 most relevant results are shown. If you haven't found what you're looking for, please consider refining your search."
+          :message="$t('resultsLimitWarning')"
         />
       </b-col>
     </b-row>
@@ -101,7 +101,6 @@
         relatedEntities: null,
         searchResults: {
           error: null,
-          errorNoResults: 'No results',
           results: null,
           totalResults: null,
           lastAvailablePage: false,
