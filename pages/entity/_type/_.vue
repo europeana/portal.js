@@ -123,18 +123,32 @@
       if (currentPage === null) {
         // Redirect non-positive integer values for `page` to `page=1`
         query.page = '1';
-        return redirect(app.localePath({ name: 'entity-type-all', params: { type: params.type, pathMatch: params.pathMatch }, query: { page: 1 } }));
+        return redirect(app.localePath({
+          name: 'entity-type-all',
+          params: { type: params.type, pathMatch: params.pathMatch },
+          query: { page: 1 }
+        }));
       }
       return axios.all([
         getEntity(params.type, params.pathMatch, { wskey: env.EUROPEANA_ENTITY_API_KEY }),
-        entities.relatedEntities(params.type, params.pathMatch, { wskey: env.EUROPEANA_API_KEY, entityKey: env.EUROPEANA_ENTITY_API_KEY }),
-        search({ page: currentPage, query: `"${entities.getEntityUri(params.type, params.pathMatch)}"`, wskey: env.EUROPEANA_API_KEY })
+        entities.relatedEntities(params.type, params.pathMatch, {
+          wskey: env.EUROPEANA_API_KEY,
+          entityKey: env.EUROPEANA_ENTITY_API_KEY
+        }),
+        search({
+          page: currentPage,
+          query: `"${entities.getEntityUri(params.type, params.pathMatch)}"`,
+          wskey: env.EUROPEANA_API_KEY
+        })
       ])
         .then(axios.spread((entity, related, searchResults) => {
           const desiredPath = entities.getEntitySlug(entity.entity);
 
           if (params.pathMatch !== desiredPath) {
-            const redirectPath = app.localePath({ name: 'entity-type-all', params: { type: params.type, pathMatch: encodeURIComponent(desiredPath) } });
+            const redirectPath = app.localePath({
+              name: 'entity-type-all',
+              params: { type: params.type, pathMatch: encodeURIComponent(desiredPath) }
+            });
             return redirect(302, redirectPath);
           }
 
