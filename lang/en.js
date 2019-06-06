@@ -4,10 +4,14 @@ export default {
   },
   searchPlaceholder: 'What are you looking for?',
   error: 'Error',
+  goToRecord: 'Go to record',
   readMore: 'Read more',
   search: 'Search',
   results: 'Results',
   homeLinkAlt: 'Europeana Collections home',
+  noMoreResults: 'There are no more results for your search query.',
+  resultsLimitWarning: 'Additional results are not shown as only the first 1000 most relevant results are shown. If you haven\'t found what you\'re looking for, please consider refining your search.',
+  noResults: 'No results',
   fieldLabels: {
     default: {
       dcContributor: 'Contributors',
@@ -34,6 +38,7 @@ export default {
   },
   footerText: 'Placeholder for footer',
   entity: 'Entity',
+  resourceWikimedia: 'Resource from Wikimedia Commons',
   record: 'Record',
   messages: {
     notFound: 'Not Found',

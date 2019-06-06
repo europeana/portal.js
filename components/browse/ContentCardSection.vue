@@ -19,13 +19,15 @@
       data-qa="section group"
     >
       <ContentCard
-        v-for="card in section.fields.hasPart"
+        v-for="card in cards"
         :key="card.sys.id"
         :name="card.fields.name"
         :description="card.fields.description"
         :url="card.fields.url"
-        :image-url="card.fields.image.fields.file.url"
-        :image-title="card.fields.image.fields.title"
+        :image-url="card.fields.imageUrl"
+        :creator="card.fields.creator"
+        :provider="card.fields.provider"
+        :identifier="card.fields.identifier"
       />
     </b-card-group>
   </div>
@@ -42,6 +44,18 @@
       section: {
         type: Object,
         default: () => {}
+      }
+    },
+    computed: {
+      cards: function() {
+        return this.section.fields.hasPart.filter(card => card.fields).map(card => {
+          if (card.fields.thumbnailUrl) {
+            card.fields.imageUrl = card.fields.thumbnailUrl;
+          } else {
+            card.fields.imageUrl = (card.fields.image && card.fields.image.fields) ? card.fields.image.fields.file.url : '';
+          }
+          return card;
+        });
       }
     }
   };

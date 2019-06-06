@@ -7,17 +7,23 @@
       fluid
       center
       alt=""
+      data-qa="entity depiction"
     />
-    <p>
+    <p class="attribution">
       <b-link
         v-if="attribution"
         :href="attribution"
         target="_blank"
+        data-qa="entity attribution"
       >
-        Attribution
+        {{ $t('resourceWikimedia') }}
       </b-link>
     </p>
-    <p>{{ description }}</p>
+    <p
+      data-qa="entity description"
+    >
+      {{ description }}
+    </p>
   </div>
 </template>
 
@@ -48,4 +54,7 @@
     box-shadow: $boxshadow-small;
   }
 
+  .attribution {
+    font-size: $font-size-extrasmall;
+  }
 </style>
