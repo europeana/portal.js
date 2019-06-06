@@ -55,6 +55,8 @@
 
   import getEntity, { getEntityPath, relatedEntities } from '../../../plugins/europeana/entity';
 
+  const crypto = require('crypto');
+
   export default {
     components: {
       AlertMessage,
@@ -96,10 +98,21 @@
             }
           }
 
+          let filename;
+          let depictionUrl;
+
+          if (entity.entity.depiction) {
+            filename = entity.entity.depiction.id.split('/').pop();
+            filename = decodeURI(filename).replace(/ /g, '_');
+
+            const d = crypto.createHash('md5').update(filename).digest('hex');
+            depictionUrl = 'https://upload.wikimedia.org/wikipedia/commons/thumb/' + d.substring(0, 1) + '/' + d.substring(0, 2) + '/' + filename + '/400px-' + filename;
+          }
+
           return {
             error: null,
             title: entity.entity.prefLabel.en,
-            depiction: entity.entity.depiction ? entity.entity.depiction.id + '?width=348' : '',
+            depiction: depictionUrl,
             attribution: entity.entity.depiction ? entity.entity.depiction.source : '',
             description: description,
             relatedEntities: related
