@@ -40,7 +40,6 @@ Feature: Entity page
     Then I see a `record page`
 
   Scenario: Pagination links
-
     When I open an `entity page`
     And I see the `entity page`
     And I see a `search result`
@@ -48,7 +47,6 @@ Feature: Entity page
 
 
   Scenario: Pagination links work when the page was accessed from the url
-
     When I visit `/entity/person/200-friedrich-nietzsche?page=2`
     And I click the "/entity/person/200-friedrich-nietzsche?page=3" link
     And I wait 1 second
