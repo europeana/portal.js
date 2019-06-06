@@ -33,7 +33,7 @@
     >
       <b-col>
         <AlertMessage
-          :error="errorNoResults"
+          :error="$t('noResults')"
         />
       </b-col>
     </b-row>
@@ -86,7 +86,7 @@
                 v-if="results.length == 0"
                 data-qa="warning notice"
               >
-                There are no more results for your search query.
+                {{ $t('noMoreResults') }}
               </p>
               <SearchResultsList
                 v-else
@@ -94,7 +94,7 @@
               />
               <InfoMessage
                 v-if="lastAvailablePage"
-                message="Additional results are not shown as only the first 1000 most relevant results are shown. If you haven't found what you're looking for, please consider refining your search."
+                :message="$t('resultsLimitWarning')"
               />
             </b-col>
           </b-row>
@@ -144,7 +144,6 @@
     data () {
       return {
         error: null,
-        errorNoResults: 'No results',
         isLoading: false,
         inHeader: false,
         results: null,
@@ -202,6 +201,7 @@
       return search({
         page: currentPage,
         query: query.query,
+        facet: 'COUNTRY,REUSABILITY,TYPE',
         qf: query.qf,
         reusability: query.reusability,
         wskey: env.EUROPEANA_API_KEY

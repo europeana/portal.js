@@ -2,14 +2,14 @@ import axios from 'axios';
 
 /**
  * Get the entity data from the API
- * @param {string} type the type of the entity
- * @param {string} id the id of the entity
+ * @param {string} type the type of the entity, will be normalized to the EntityAPI type if it's a human readable type
+ * @param {string} id the id of the entity (can contain trailing slug parts as these will be normalized)
  * @param {Object} params additional parameters sent to the API
  * @param {string} params.wskey API key
  * @return {Object[]} parsed entity data
  */
-function getEntity(type, id, params) {
-  return axios.get(`https://www.europeana.eu/api/entities/${getEntityTypeApi(type)}/base/${getEntityId(id)}`, {
+export function getEntity(type, id, params) {
+  return axios.get(getEntityUrl(type, id), {
     params: {
       wskey: params.wskey
     }
@@ -45,7 +45,7 @@ function getEntityTypeApi(type) {
  * @param {string} type the type of the entity
  * @return {string} retrieved human readable name of type
  */
-function getEntityTypeHumanReadable(type) {
+export function getEntityTypeHumanReadable(type) {
   const names = {
     agent: 'person',
     concept: 'topic'
@@ -55,31 +55,51 @@ function getEntityTypeHumanReadable(type) {
 }
 
 /**
- * Retrieve the entity id from the slug
- * @param {string} url the url of the entity
+ * Retrieve the URI of the entity from the human readable type and ID
+ * @param {string} type the human readable type of the entity either person or topic
+ * @param {string} id the numeric identifier of the entity, (can contain trailing slug parts as these will be normalized)
+ * @return {string} retrieved human readable name of type
+ */
+export function getEntityUri(type, id) {
+  return `http://data.europeana.eu/${getEntityTypeApi(type)}/base/${normalizeEntityId(id)}`;
+}
+
+/**
+ * Retrieve the URL of the entity from the human readable type and ID
+ * @param {string} type the human readable type of the entity either person or topic
+ * @param {string} id the numeric identifier of the entity, (can contain trailing slug parts as these will be normalized)
+ * @return {string} retrieved human readable name of type
+ */
+function getEntityUrl(type, id) {
+  return `https://api.europeana.eu/entity/${getEntityTypeApi(type)}/base/${normalizeEntityId(id)}`;
+}
+
+/**
+ * Remove any additional data from the slug in order to retrieve the entity id.
+ * @param {string} id the id of the entity
  * @return {string} retrieved id
  */
-function getEntityId(url) {
-  if (!url) return;
-  return url.split('-')[0];
+function normalizeEntityId(id) {
+  if (!id) return;
+  return id.split('-')[0];
 }
 
 /**
  * Retrieves the path for the entity, based on id and title
- * @param {string} id the id of the entity
+ * @param {Object} entity an entity object as retrieved from the entity API
  * @param {string} title the title of the entity
  * @return {string} path
  */
-export function getEntityPath(id, title) {
-  const entityId = id.split('-')[0];
-  const path = entityId + (title ? '-' + title.toLowerCase().replace(/ /g, '-') : '');
+export function getEntitySlug(entity) {
+  const entityId = entity.id.toString().split('/').pop();
+  const path = entityId + (entity.prefLabel.en ? '-' + entity.prefLabel.en.toLowerCase().replace(/ /g, '-') : '');
   return path;
 }
 
 /**
  * Search for specific facets for this entity to find the related entities
  * @param {string} type the type of the entity
- * @param {string} id the id of the entity
+ * @param {string} id the id of the entity, (can contain trailing slug parts as these will be normalized)
  * @param {Object} params additional parameters sent to the API
  * @return {Object} related entities
  */
@@ -89,12 +109,12 @@ export function relatedEntities(type, id, params) {
       wskey: params.wskey,
       profile: 'facets',
       facet: 'edm_agent,skos_concept',
-      query: `"http://data.europeana.eu/${getEntityTypeApi(type)}/base/${getEntityId(id)}"`,
+      query: `"${getEntityUri(type, id)}"`,
       rows: 0
     }
   })
     .then((response) => {
-      return response.data.facets ? getEntityFacets(response.data.facets, getEntityId(id), params.entityKey) : [];
+      return response.data.facets ? getEntityFacets(response.data.facets, normalizeEntityId(id), params.entityKey) : [];
     })
     .catch((error) => {
       const message = error.response ? error.response.data.error : error.message;
@@ -132,13 +152,14 @@ function getDataForEntities(entities, entityKey) {
   });
 
   const q = entityLabels.join('"+OR+"');
-  return axios.get(`https://www.europeana.eu/api/entities/search?query=entity_uri:("${q}")`, {
+  return axios.get(`https://api.europeana.eu/entity/search?query=entity_uri:("${q}")`, {
     params: {
       wskey: entityKey
     }
   })
     .then((response) => {
-      return getRelatedEntityTitleLink(response.data.items.slice(0,10));
+      let items = response.data.items ? response.data.items : [];
+      return getRelatedEntityTitleLink(items.slice(0,10));
     })
     .catch((error) => {
       const message = error.response ? error.response.data.error : error.message;
@@ -156,11 +177,8 @@ function getRelatedEntityTitleLink(entities) {
 
   for (let entity of entities) {
     if (entity.prefLabel.en) {
-      entityDetails.push({ type: getEntityTypeHumanReadable(entity.type), path: getEntityPath(entity.id.toString().split('/').pop(), entity.prefLabel.en), title: entity.prefLabel.en });
+      entityDetails.push({ type: getEntityTypeHumanReadable(entity.type), path: getEntitySlug(entity), title: entity.prefLabel.en });
     }
   }
-
   return entityDetails;
 }
-
-export default getEntity;

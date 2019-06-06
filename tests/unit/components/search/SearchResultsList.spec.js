@@ -6,7 +6,10 @@ const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
 const factory = () => shallowMount(SearchResultsList, {
-  localVue
+  localVue,
+  mocks: {
+    localePath: (opts) => `/record/${opts.params.pathMatch}`
+  }
 });
 
 describe('components/search/SearchResultsList', () => {
