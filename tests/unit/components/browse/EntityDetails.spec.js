@@ -37,6 +37,7 @@ describe('components/browse/EntityDetails', () => {
   it('shows a description, attribution and depiction', () => {
     const wrapper = factory();
     wrapper.setProps(entityDetails);
+    wrapper.setData({ depictionThumbnail: entityDetails.depiction });
 
     wrapper.find('img').attributes('src').should.eq(entityDetails.depiction);
     wrapper.find('a').attributes('href').should.eq(entityDetails.attribution);
@@ -59,6 +60,7 @@ describe('components/browse/EntityDetails', () => {
   it('shows a depiction only', () => {
     const wrapper = factory();
     wrapper.setProps({ 'depiction': entityDetails.depiction });
+    wrapper.setData({ depictionThumbnail: entityDetails.depiction });
 
     wrapper.findAll('img').length.should.eq(1);
     wrapper.findAll('a').length.should.eq(0);

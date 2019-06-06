@@ -69,18 +69,7 @@ describe('plugins/europeana/entity', () => {
       });
 
       describe('with object in response', () => {
-        const apiResponse = {
-          prefLabel: {
-            en: 'Architecture'
-          },
-          note: {
-            en: ['Architecture is both the process and the product of planning, designing, and constructing buildings and other physical structures.']
-          },
-          depiction: {
-            id: 'http://commons.wikimedia.org/wiki/Special:FilePath/View_of_Santa_Maria_del_Fiore_in_Florence.jpg',
-            source: 'http://commons.wikimedia.org/wiki/File:View_of_Santa_Maria_del_Fiore_in_Florence.jpg'
-          }
-        };
+        const apiResponse = entitiesResponse.items[0];
 
         beforeEach('stub API response', () => {
           nock(apiUrl)

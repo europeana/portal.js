@@ -183,19 +183,22 @@ function getRelatedEntityTitleLink(entities) {
   return entityDetails;
 }
 
-/** Get the description for the entity
+/**
+ * Get the description for the entity
  * If type is topic, use note
  * If type is person, use biographicalInformation
- * @return {String} a description when available in English
+ * @type {String} type entity type, either topic or person
+ * @type {Object} entity data
+ * @return {String} description when available in English
  */
 export function getEntityDescription(type, entity) {
   let description;
-
-  if (type === 'topic') {
-    description = entity.note && entity.note.en ? entity.note.en[0] : '';
-  } else if (type === 'person') {
+  if (type === 'topic' && entity.note) {
+    description = entity.note.en ? entity.note.en[0] : '';
+  } else if (type === 'person' && entity.biographicalInformation) {
+    // check if biographicalInformation is an array of objects
     if (entity.biographicalInformation.length !== undefined) {
-      description = entity.biographicalInformation ? entity.biographicalInformation.filter(info => info['@language'] === 'en')[0]['@value'] : '';
+      description = entity.biographicalInformation.filter(info => info['@language'] === 'en')[0]['@value'];
     } else {
       description = entity.biographicalInformation['@language'] === 'en' ? entity.biographicalInformation['@value'] : '';
     }
@@ -206,15 +209,16 @@ export function getEntityDescription(type, entity) {
 /**
  * The logic for going from: http://commons.wikimedia.org/wiki/Special:FilePath/[image] to
  * https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/[image]/200px-[image]:
- * @image {String} input image url
+ * @image {String} image url
  * @return {String} formatted thumbnail url
  */
 export function getWikimediaThumbnailUrl(image) {
   const crypto = require('crypto');
 
   const filename = image.split('/').pop();
+  const addon = filename.includes('.svg') ? '.png' : '';
   const underscoredFilename = decodeURIComponent(filename).replace(/ /g, '_');
   const md5 = crypto.createHash('md5').update(underscoredFilename).digest('hex');
 
-  return 'https://upload.wikimedia.org/wikipedia/commons/thumb/' + md5.substring(0, 1) + '/' + md5.substring(0, 2) + '/' + underscoredFilename + '/400px-' + underscoredFilename;
+  return 'https://upload.wikimedia.org/wikipedia/commons/thumb/' + md5.substring(0, 1) + '/' + md5.substring(0, 2) + '/' + underscoredFilename + '/255px-' + underscoredFilename + addon;
 }

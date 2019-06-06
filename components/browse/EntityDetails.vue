@@ -1,13 +1,13 @@
 <template>
   <div>
     <b-img
-      v-if="depiction"
-      :src="depiction"
+      v-if="depictionThumbnail"
+      :src="depictionThumbnail"
       class="mb-3"
       fluid
-      center
       alt=""
       data-qa="entity depiction"
+      @error="depictionNotFound"
     />
     <p class="attribution">
       <b-link
@@ -41,6 +41,17 @@
       description: {
         type: String,
         default: ''
+      }
+    },
+    data () {
+      return {
+        depictionThumbnail: this.depiction
+      };
+    },
+    methods: {
+      depictionNotFound() {
+        // clear depictionThumbnail to prevent showing a broken image
+        this.depictionThumbnail = '';
       }
     }
   };
