@@ -187,8 +187,8 @@ function getRelatedEntityTitleLink(entities) {
  * Get the description for the entity
  * If type is topic, use note
  * If type is person, use biographicalInformation
- * @type {String} type entity type, either topic or person
- * @type {Object} entity data
+ * @param {String} type entity type, either topic or person
+ * @param {Object} entity data
  * @return {String} description when available in English
  */
 export function getEntityDescription(type, entity) {
