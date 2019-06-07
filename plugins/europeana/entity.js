@@ -197,6 +197,9 @@ export function getEntityDescription(type, entity) {
     description = entity.note.en ? entity.note.en[0] : '';
   } else if (type === 'person' && entity.biographicalInformation) {
     // check if biographicalInformation is an array of objects
+    // TODO: it _should_ always be an array. this is an Entity API bug. remove
+    //       the condition when fixed upstream.
+    //       see: https://europeana.atlassian.net/browse/EA-1685
     if (entity.biographicalInformation.length !== undefined) {
       description = entity.biographicalInformation.filter(info => info['@language'] === 'en')[0]['@value'];
     } else {
