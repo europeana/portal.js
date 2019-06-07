@@ -133,7 +133,9 @@ export function relatedEntities(type, id, params) {
 function getEntityFacets(facets, currentId, entityKey) {
   let entities = [];
   for (let facet of facets) {
-    entities = entities.concat(facet['fields'].filter(value => value['label'].includes('http://data.europeana.eu') && value['label'].split('/').pop() !== currentId));
+    entities = entities.concat(facet['fields'].filter(value =>
+      value['label'].includes('http://data.europeana.eu') && value['label'].split('/').pop() !== currentId
+    ));
   }
   return getDataForEntities(entities, entityKey);
 }
@@ -177,7 +179,11 @@ function getRelatedEntityTitleLink(entities) {
 
   for (let entity of entities) {
     if (entity.prefLabel.en) {
-      entityDetails.push({ type: getEntityTypeHumanReadable(entity.type), path: getEntitySlug(entity), title: entity.prefLabel.en });
+      entityDetails.push({
+        type: getEntityTypeHumanReadable(entity.type),
+        path: getEntitySlug(entity),
+        title: entity.prefLabel.en
+      });
     }
   }
   return entityDetails;
@@ -219,9 +225,11 @@ export function getWikimediaThumbnailUrl(image) {
   const crypto = require('crypto');
 
   const filename = image.split('/').pop();
-  const addon = filename.includes('.svg') ? '.png' : '';
+  const suffix = filename.endsWith('.svg') ? '.png' : '';
   const underscoredFilename = decodeURIComponent(filename).replace(/ /g, '_');
   const md5 = crypto.createHash('md5').update(underscoredFilename).digest('hex');
 
-  return 'https://upload.wikimedia.org/wikipedia/commons/thumb/' + md5.substring(0, 1) + '/' + md5.substring(0, 2) + '/' + underscoredFilename + '/255px-' + underscoredFilename + addon;
+  return 'https://upload.wikimedia.org/wikipedia/commons/thumb/' +
+      md5.substring(0, 1) + '/' + md5.substring(0, 2) + '/' +
+      underscoredFilename + '/255px-' + underscoredFilename + suffix;
 }
