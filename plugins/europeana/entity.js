@@ -133,7 +133,9 @@ export function relatedEntities(type, id, params) {
 function getEntityFacets(facets, currentId, entityKey) {
   let entities = [];
   for (let facet of facets) {
-    entities = entities.concat(facet['fields'].filter(value => value['label'].includes('http://data.europeana.eu') && value['label'].split('/').pop() !== currentId));
+    entities = entities.concat(facet['fields'].filter(value =>
+      value['label'].includes('http://data.europeana.eu') && value['label'].split('/').pop() !== currentId
+    ));
   }
   return getDataForEntities(entities, entityKey);
 }
@@ -177,8 +179,57 @@ function getRelatedEntityTitleLink(entities) {
 
   for (let entity of entities) {
     if (entity.prefLabel.en) {
-      entityDetails.push({ type: getEntityTypeHumanReadable(entity.type), path: getEntitySlug(entity), title: entity.prefLabel.en });
+      entityDetails.push({
+        type: getEntityTypeHumanReadable(entity.type),
+        path: getEntitySlug(entity),
+        title: entity.prefLabel.en
+      });
     }
   }
   return entityDetails;
+}
+
+/**
+ * Get the description for the entity
+ * If type is topic, use note
+ * If type is person, use biographicalInformation
+ * @param {String} type entity type, either topic or person
+ * @param {Object} entity data
+ * @return {String} description when available in English
+ */
+export function getEntityDescription(type, entity) {
+  let description;
+  if (type === 'topic' && entity.note) {
+    description = entity.note.en ? entity.note.en[0] : '';
+  } else if (type === 'person' && entity.biographicalInformation) {
+    // check if biographicalInformation is an array of objects
+    // TODO: it _should_ always be an array. this is an Entity API bug. remove
+    //       the condition when fixed upstream.
+    //       see: https://europeana.atlassian.net/browse/EA-1685
+    if (entity.biographicalInformation.length !== undefined) {
+      description = entity.biographicalInformation.filter(info => info['@language'] === 'en')[0]['@value'];
+    } else {
+      description = entity.biographicalInformation['@language'] === 'en' ? entity.biographicalInformation['@value'] : '';
+    }
+  }
+  return description;
+}
+
+/**
+ * The logic for going from: http://commons.wikimedia.org/wiki/Special:FilePath/[image] to
+ * https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/[image]/200px-[image]:
+ * @image {String} image url
+ * @return {String} formatted thumbnail url
+ */
+export function getWikimediaThumbnailUrl(image) {
+  const crypto = require('crypto');
+
+  const filename = image.split('/').pop();
+  const suffix = filename.endsWith('.svg') ? '.png' : '';
+  const underscoredFilename = decodeURIComponent(filename).replace(/ /g, '_');
+  const md5 = crypto.createHash('md5').update(underscoredFilename).digest('hex');
+
+  return 'https://upload.wikimedia.org/wikipedia/commons/thumb/' +
+      md5.substring(0, 1) + '/' + md5.substring(0, 2) + '/' +
+      underscoredFilename + '/255px-' + underscoredFilename + suffix;
 }

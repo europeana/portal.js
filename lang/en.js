@@ -38,6 +38,7 @@ export default {
   },
   footerText: 'Placeholder for footer',
   entity: 'Entity',
+  resourceWikimedia: 'Resource from Wikimedia Commons',
   record: 'Record',
   messages: {
     notFound: 'Not Found',

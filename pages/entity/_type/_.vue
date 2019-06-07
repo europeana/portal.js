@@ -18,7 +18,7 @@
         </h1>
       </b-col>
     </b-row>
-    <b-row>
+    <b-row class="flex-column-reverse flex-md-row">
       <b-col
         cols="12"
         md="9"
@@ -30,13 +30,6 @@
           :type="relatedEntity.type"
           :title="relatedEntity.title"
         />
-      </b-col>
-    </b-row>
-    <b-row>
-      <b-col
-        cols="12"
-        md="9"
-      >
         <p
           v-if="searchResults.results.length == 0"
           data-qa="warning notice"
@@ -50,6 +43,17 @@
         <InfoMessage
           v-if="searchResults.lastAvailablePage"
           :message="$t('resultsLimitWarning')"
+        />
+      </b-col>
+      <b-col
+        cols="12"
+        md="3"
+        class="pb-3"
+      >
+        <EntityDetails
+          :depiction="depiction"
+          :attribution="attribution"
+          :description="description"
         />
       </b-col>
     </b-row>
@@ -73,6 +77,7 @@
   import AlertMessage from '../../../components/generic/AlertMessage';
   import InfoMessage from '../../../components/generic/InfoMessage';
   import BrowseChip from '../../../components/browse/BrowseChip';
+  import EntityDetails from '../../../components/browse/EntityDetails';
   import SearchResultsList from '../../../components/search/SearchResultsList';
   import PaginationNav from '../../../components/generic/PaginationNav';
 
@@ -82,8 +87,9 @@
   export default {
     components: {
       AlertMessage,
-      InfoMessage,
       BrowseChip,
+      EntityDetails,
+      InfoMessage,
       SearchResultsList,
       PaginationNav
     },
@@ -97,6 +103,9 @@
       return {
         error: null,
         title: null,
+        depiction: null,
+        attribution: null,
+        description: null,
         entity: null,
         relatedEntities: null,
         searchResults: {
@@ -151,6 +160,9 @@
           return {
             error: null,
             title: entity.entity.prefLabel.en,
+            depiction: entity.entity.depiction ? entities.getWikimediaThumbnailUrl(entity.entity.depiction.id) : '',
+            attribution: entity.entity.depiction ? entity.entity.depiction.source : '',
+            description: entities.getEntityDescription(params.type, entity.entity),
             entity: entity.entity,
             relatedEntities: related,
             searchResults: { ...searchResults, isLoading: false, page: Number(currentPage) }

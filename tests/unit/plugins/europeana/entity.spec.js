@@ -1,5 +1,5 @@
 import nock from 'nock';
-import { getEntity, relatedEntities, getEntityUri, getEntitySlug } from '../../../../plugins/europeana/entity';
+import { getEntity, relatedEntities, getEntityUri, getEntitySlug, getWikimediaThumbnailUrl, getEntityDescription } from '../../../../plugins/europeana/entity';
 
 const axios = require('axios');
 axios.defaults.adapter = require('axios/lib/adapters/http');
@@ -26,8 +26,21 @@ const searchResponse = {
 
 const entitiesResponse = {
   items: [
-    { type: 'Agent', id: 'http://data.europeana.eu/agent/base/147831', prefLabel: { en: 'Architecture' } },
-    { type: 'Agent', id: 'http://data.europeana.eu/agent/base/49928', prefLabel: { en: 'Painting' } }
+    { type: 'Agent',
+      id: 'http://data.europeana.eu/agent/base/147831',
+      prefLabel: { en: 'Architecture' },
+      note: {
+        en: ['Architecture is both the process and the product of planning, designing, and constructing buildings and other physical structures.']
+      },
+      depiction: {
+        id: 'http://commons.wikimedia.org/wiki/Special:FilePath/View_of_Santa_Maria_del_Fiore_in_Florence.jpg',
+        source: 'http://commons.wikimedia.org/wiki/File:View_of_Santa_Maria_del_Fiore_in_Florence.jpg'
+      }
+    },
+    { type: 'Agent',
+      id: 'http://data.europeana.eu/agent/base/49928',
+      prefLabel: { en: 'Painting' }
+    }
   ]
 };
 
@@ -56,11 +69,7 @@ describe('plugins/europeana/entity', () => {
       });
 
       describe('with object in response', () => {
-        const apiResponse = {
-          prefLabel: {
-            en: 'Architecture'
-          }
-        };
+        const apiResponse = entitiesResponse.items[0];
 
         beforeEach('stub API response', () => {
           nock(apiUrl)
@@ -72,6 +81,21 @@ describe('plugins/europeana/entity', () => {
         it('returns entity title', async () => {
           const response = await getEntity(entityType, entityId, { wskey: apiKey });
           response.entity.prefLabel.en.should.eq('Architecture');
+        });
+
+        it('returns entity description', async () => {
+          const response = await getEntity(entityType, entityId, { wskey: apiKey });
+          response.entity.note.en[0].should.contain('Architecture is both the process and the product of planning');
+        });
+
+        it('returns entity depiction', async () => {
+          const response = await getEntity(entityType, entityId, { wskey: apiKey });
+          response.entity.depiction.id.should.contain('Special:FilePath/View_of_Santa_Maria_del_Fiore_in_Florence.jpg');
+        });
+
+        it('returns entity attribution', async () => {
+          const response = await getEntity(entityType, entityId, { wskey: apiKey });
+          response.entity.depiction.source.should.contain('File:View_of_Santa_Maria_del_Fiore_in_Florence.jpg');
         });
 
         it('has a misspelled id and returns entity title', async () => {
@@ -133,6 +157,26 @@ describe('plugins/europeana/entity', () => {
       it('returns an agent URI, without any human readable labels', () => {
         const slug = getEntitySlug(entity);
         return slug.should.eq('147831-architecture');
+      });
+    });
+  });
+
+  describe('getEntityDescription', () => {
+    describe('with an entity', () => {
+      let entity = entitiesResponse.items[0];
+      it('returns a description', () => {
+        const description = getEntityDescription('topic', entity);
+        return description.should.contain('Architecture');
+      });
+    });
+  });
+
+  describe('getWikimediaThumbnailUrl', () => {
+    describe('with an entity', () => {
+      let entity = entitiesResponse.items[0];
+      it('returns an wikimedia thumbnail url starting with https://upload.wikimedia.org', () => {
+        const thumbnail = getWikimediaThumbnailUrl(entity.depiction.id);
+        return thumbnail.should.contain('https://upload.wikimedia.org');
       });
     });
   });
