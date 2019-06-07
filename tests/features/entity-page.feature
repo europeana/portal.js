@@ -49,5 +49,5 @@ Feature: Entity page
   Scenario: Pagination links work when the page was accessed from the url
     When I visit `/entity/person/200-friedrich-nietzsche?page=2`
     And I click the "/entity/person/200-friedrich-nietzsche?page=3" link
-    And I wait 1 second
+    And I wait 2 seconds
     Then I should be on `/entity/person/200-friedrich-nietzsche?page=3`
