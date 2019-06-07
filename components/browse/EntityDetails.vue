@@ -50,8 +50,10 @@
     },
     methods: {
       depictionNotFound() {
-        // clear depictionThumbnail to prevent showing a broken image
+        // clear depictionThumbnail and attribution to prevent showing a broken image and
+        // contextless link
         this.depictionThumbnail = '';
+        this.attribution = '';
       }
     }
   };
