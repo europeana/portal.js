@@ -2,7 +2,7 @@ defaultChoices = ["test", "acceptance", "production", "internal"]
 
 List createChoices(List defaultChoices) {
   GIT_TAG_COMMIT = sh(script: 'git describe --tags --always', returnStdout: true).trim()
-  if (GIT_TAG_COMMIT =~ "^v\d+\.\d+\.\d+$") {
+  if (GIT_TAG_COMMIT =~ /^v\d+\.\d+\.\d+$/) {
      return defaultChoices
   }
   choices = defaultChoices.minus('production')
@@ -63,7 +63,7 @@ node {
             sh 'echo "  - elastic-apm" >> manifest.yml'
             sh 'cf blue-green-deploy ${CF_APP_NAME} -f manifest.yml --delete-old-apps'
           }
-        } else if (GIT_TAG_COMMIT =~ "^v\d+\.\d+\.\d+$") {
+        } else if (GIT_TAG_COMMIT =~ /^v\d+\.\d+\.\d+$/) {
           withEnv(["CF_APP_NAME=portaljs"]) {
             sh 'echo "services:" >> manifest.yml'
             sh 'echo "  - elastic-apm" >> manifest.yml'
