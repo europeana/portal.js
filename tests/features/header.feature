@@ -1,6 +1,6 @@
 Feature: Page Header
 
-  Scenario: Seeing the header everywhere
+  Scenario: Seeing the header at the top of all pages
 
     When I open the `home page`
     Then I see the `logo` in the `header`
@@ -11,6 +11,10 @@ Feature: Page Header
     And I see the `search box` in the `header`
 
     When I open a `record page`
+    Then I see the `logo` in the `header`
+    And I see the `search box` in the `header`
+
+    When I open an `entity page`
     Then I see the `logo` in the `header`
     And I see the `search box` in the `header`
 
@@ -27,6 +31,11 @@ Feature: Page Header
     Then I should be on the `home page`
 
     When I open the `home page`
+    And I click on the `logo` in the `header`
+    And I wait 1 second
+    Then I should be on the `home page`
+
+    When I open the `entity page`
     And I click on the `logo` in the `header`
     And I wait 1 second
     Then I should be on the `home page`
