@@ -5,20 +5,31 @@
   >
     <b-container>
       <ul
-        v-if="footerLinks"
+        v-if="links"
         class="footer-link-list"
       >
         <li
-          v-for="footerLink in footerLinks"
+          v-for="footerLink in links"
           :key="footerLink.url"
         >
-          <b-link
+          <template
             v-if="footerLink.url"
-            :href="footerLink.url"
-            class="footer-link"
           >
-            {{ footerLink.text }}
-          </b-link>
+            <b-link
+              v-if="footerLink.url.startsWith('/')"
+              :to="footerLink.url"
+              class="footer-link"
+            >
+              {{ footerLink.text }}
+            </b-link>
+            <b-link
+              v-else
+              :href="footerLink.url"
+              class="footer-link"
+            >
+              {{ footerLink.text }}
+            </b-link>
+          </template>
           <p v-else>
             {{ footerLink.text }}
           </p>
@@ -29,36 +40,10 @@
 </template>
 
 <script>
-  import contentfulClient from '../plugins/contentful.js';
-
   export default {
-    data () {
-      return {
-        footerLinks: []
-      };
-    },
-    async created () {
-      this.footerLinks = await this.getFooterLinks();
-    },
-    methods: {
-      getFooterLinks () {
-        let links = contentfulClient.getEntries({
-          'content_type': 'linkGroup',
-          'fields.identifier': 'footer',
-          'limit': 1
-        })
-          .then((response) => {
-            if (response.total == 0) {
-              return [];
-            }
-            return response.items[0].fields.links.map(item => {
-              return item.fields;
-            });
-          }).catch((e) => {
-            // This will just output the error as text
-            return [{ text: e.toString() }];
-          });
-        return links;
+    computed: {
+      links () {
+        return this.$store.state.footer.links;
       }
     }
   };

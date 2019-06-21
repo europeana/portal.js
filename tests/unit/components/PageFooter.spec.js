@@ -1,46 +1,26 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 import PageFooter from '../../../components/PageFooter.vue';
-//import { __RewireAPI__ as PageFooterRewireAPI } from '../../../components/PageFooter.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
-const dummyLinkGroup = {
-  sys: { type: 'Array' },
-  total: 1,
-  skip: 0,
-  limit: 1,
-  items: [ { sys: { id: '100', type: 'Entry' }, fields: {
-    identifier: 'footer',
-    links: [
-      {
-        sys: { id: '123' },
-        fields: { url: 'https://www.example.org', text: 'Example link' }
-      },
-      {
-        sys: { id: '456' },
-        fields: { url: 'https://www.europeana.eu', text: 'Europeana link' }
-      }
-    ]
-  } } ],
-  mocks: { $t: () => {} }
-};
-const dummyContentful = {
-  getEntries: () => {
-    return new Promise((resolve) => {
-      resolve(dummyLinkGroup);
-    });
+const dummyStore = {
+  state: {
+    footer: {
+      links: [
+        { url: 'https://www.example.org', text: 'Example link' },
+        { url: 'https://www.europeana.eu', text: 'Europeana link' }
+      ]
+    }
   }
 };
-
-PageFooter.__Rewire__('contentfulClient', dummyContentful);
 
 const factory = () => shallowMount(PageFooter, {
   localVue,
   mocks: {
-    $t: () => {}
-    //contentfulClient: dummyContentful
+    $t: () => {},
+    $store: dummyStore
   }
 });
 
