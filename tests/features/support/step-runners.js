@@ -73,7 +73,7 @@ module.exports = {
       key = client.Keys[key];
     }
     let runtimeBrowser = client.capabilities.browserName.toUpperCase();
-    console.log('BROWSER: ' + runtimeBrowser);
+
     if (runtimeBrowser === 'CHROME') {
       await client.keys(key);
     } else if (runtimeBrowser === 'FIREFOX') {
