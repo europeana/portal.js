@@ -26,10 +26,6 @@ const factory = () => shallowMount(PageFooter, {
   }
 });
 
-const sleep = (milliseconds) => {
-  return new Promise(resolve => setTimeout(resolve, milliseconds));
-};
-
 describe('components/search/PageFooter', () => {
   it('it contains elements for each link', async () => {
     const wrapper = factory();
