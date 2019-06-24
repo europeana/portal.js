@@ -33,9 +33,7 @@ const sleep = (milliseconds) => {
 describe('components/search/PageFooter', () => {
   it('it contains elements for each link', async () => {
     const wrapper = factory();
-    await sleep(20);
     const renderedList = wrapper.findAll('footer ul li');
     renderedList.length.should.eq(2);
-    //dummyLinkGroup.items[0].links[0].fields.url
   });
 });
