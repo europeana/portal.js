@@ -15,20 +15,12 @@
           <template
             v-if="footerLink.url"
           >
-            <b-link
-              v-if="footerLink.url.startsWith('/')"
-              :to="footerLink.url"
-              class="footer-link"
+            <hyperlink
+              :link="footerLink.url"
+              link-class="footer-link"
             >
               {{ footerLink.text }}
-            </b-link>
-            <b-link
-              v-else
-              :href="footerLink.url"
-              class="footer-link"
-            >
-              {{ footerLink.text }}
-            </b-link>
+            </hyperlink>
           </template>
           <p v-else>
             {{ footerLink.text }}
