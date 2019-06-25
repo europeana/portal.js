@@ -1,11 +1,11 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
-import Hyperlink from '../../../components/generic/Hyperlink.vue';
+import SmartLink from '../../../components/generic/SmartLink.vue';
 import PageFooter from '../../../components/PageFooter.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
-localVue.component('hyperlink', Hyperlink);
+localVue.component('SmartLink', SmartLink);
 
 const dummyStore = {
   state: {

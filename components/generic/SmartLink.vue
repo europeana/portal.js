@@ -1,14 +1,14 @@
 <template>
   <b-link
-    v-if="link.startsWith('/')"
-    :to="link"
+    v-if="destination.startsWith('/')"
+    :to="destination"
     :class="linkClass"
   >
     <slot />
   </b-link>
   <b-link
     v-else
-    :href="link"
+    :href="destination"
     :class="linkClass"
   >
     <slot />
@@ -18,7 +18,7 @@
 <script>
   export default {
     props: {
-      link: {
+      destination: {
         type: String,
         default: ''
       },

@@ -1,19 +1,19 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
-import Hyperlink from '../../../../components/generic/Hyperlink.vue';
+import SmartLink from '../../../../components/generic/SmartLink.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
-const factory = () => shallowMount(Hyperlink, {
+const factory = () => shallowMount(SmartLink, {
   localVue
 });
 
-describe('components/generic/Hyperlink', () => {
+describe('components/generic/SmartLink', () => {
   context('when passed a URL', () => {
     it('should render a link to the site', () => {
       const wrapper = factory();
-      wrapper.setProps({ link: 'https://www.example.org/url-example' });
+      wrapper.setProps({ destination: 'https://www.example.org/url-example' });
 
       wrapper.contains('b-link-stub').should.be.true;
     });
@@ -22,7 +22,7 @@ describe('components/generic/Hyperlink', () => {
   context('when passed a URL path', () => {
     it('should render a NUXT link', () => {
       const wrapper = factory();
-      wrapper.setProps({ link: '/url/path-example' });
+      wrapper.setProps({ destination: '/url/path-example' });
 
       wrapper.contains('b-link-stub').should.be.true;
     });

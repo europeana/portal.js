@@ -15,12 +15,12 @@
           <template
             v-if="footerLink.url"
           >
-            <hyperlink
-              :link="footerLink.url"
+            <SmartLink
+              :destination="footerLink.url"
               link-class="footer-link"
             >
               {{ footerLink.text }}
-            </hyperlink>
+            </SmartLink>
           </template>
           <p v-else>
             {{ footerLink.text }}

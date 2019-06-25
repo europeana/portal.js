@@ -1,4 +1,4 @@
 import Vue from 'vue';
-import Hyperlink from '../components/generic/Hyperlink.vue';
+import SmartLink from '../components/generic/SmartLink.vue';
 
-Vue.component('hyperlink', Hyperlink);
+Vue.component('SmartLink', SmartLink);
