@@ -92,9 +92,23 @@ a {
 
 .page-link {
   color: $black;
+  &:hover {
+    color: $black;
+  }
 }
 
 .page-item.active .page-link {
   background-color: $darkblue;
   border-color: $darkblue;
+}
+
+.list-group-item-action {
+  color: $black;
+  &:hover {
+    color: $black;
+    background-color: $lightgrey;
+  }
+  &:visited{
+    color: $darkpurple;
+  }
 }
