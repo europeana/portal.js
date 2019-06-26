@@ -52,6 +52,10 @@ module.exports = {
     // Doc: https://github.com/nuxt-community/axios-module#usage
     '@nuxtjs/axios',
     '@nuxtjs/dotenv',
+    ['@nuxtjs/google-tag-manager', {
+      id: process.env.GOOGLE_TAG_MANAGER_ID,
+      pageTracking: true
+    }],
     ['bootstrap-vue/nuxt', { css: false }],
     ['nuxt-i18n', {
       locales: [

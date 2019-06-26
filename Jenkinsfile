@@ -2,9 +2,6 @@ pipeline {
   options {
     disableConcurrentBuilds()
   }
-  parameters {
-    choice(name: 'CF_SPACE', choices: "test\nacceptance\nproduction\ninternal", description: 'Which CF space to deploy to.')
-  }
   agent {
     dockerfile {
       args "-u node:node"
@@ -15,15 +12,15 @@ pipeline {
     CF_API="${env.CF_API}"
     CF_LOGIN=credentials('portaljs.cloudfoundry.login')
     CF_ORG="${env.CF_ORG}"
-    CF_SPACE="${params.CF_SPACE}"
+    CF_SPACE="${env.BRANCH_NAME == 'master' ? 'test': 'production'}"
   }
   stages {
     stage('Build') {
       environment {
-        NUXT_ENV_BUILD_PUBLIC_PATH="${env.S3_ENDPOINT}/europeana-portaljs-${params.CF_SPACE}"
+        NUXT_ENV_BUILD_PUBLIC_PATH="${env.S3_ENDPOINT}/europeana-portaljs-${env.CF_SPACE}"
       }
       steps {
-        configFileProvider([configFile(fileId: "portaljs.${params.CF_SPACE}.env", targetLocation: '.env')]) {
+        configFileProvider([configFile(fileId: "portaljs.${env.CF_SPACE}.env", targetLocation: '.env')]) {
           sh 'npm install'
           sh 'npm run build'
         }
@@ -32,8 +29,8 @@ pipeline {
     stage('Sync assets to S3') {
       environment {
         S3_ENDPOINT="${env.S3_ENDPOINT}"
-        S3_ACCESS=credentials("portaljs.${params.CF_SPACE}.s3")
-        S3_BUCKET="europeana-portaljs-${params.CF_SPACE}"
+        S3_ACCESS=credentials("portaljs.${env.CF_SPACE}.s3")
+        S3_BUCKET="europeana-portaljs-${env.CF_SPACE}"
         S3_REGION='eu-geo'
       }
       steps {
@@ -57,7 +54,7 @@ pipeline {
     }
     stage('Deploy to CF') {
       environment {
-        CF_APP_NAME="portaljs-${params.CF_SPACE}"
+        CF_APP_NAME="portaljs${env.CF_SPACE == 'production' ? '' : '-' + env.CF_SPACE}"
       }
       steps {
         sh 'echo "services:" >> manifest.yml'

@@ -98,16 +98,16 @@ module.exports = {
       }
     });
   },
-  doNotSeeATarget: function (qaElementNames) {
-    client.expect.element(qaSelector(qaElementNames)).to.not.be.present;
+  doNotSeeATarget: async function (qaElementNames) {
+    await client.expect.element(qaSelector(qaElementNames)).to.not.be.present;
   },
   enterTextInTarget: async function (text, qaElementName) {
     const selector = qaSelector(qaElementName);
     await client.expect.element(selector).to.be.visible;
     await client.setValue(selector, text);
   },
-  openAPage: function (pageName) {
-    client.url(pageUrl(pageName));
+  openAPage: async function (pageName) {
+    await client.url(pageUrl(pageName));
   },
   seeALinkInTarget: async function (linkHref, qaElementName) {
     await client.expect.element(qaSelector(qaElementName) + ` a[href="${linkHref}"]`).to.be.visible;

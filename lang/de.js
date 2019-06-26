@@ -5,6 +5,7 @@ export default {
   search: 'Suchen',
   results: 'Ergebnisse',
   homeLinkAlt: 'Europeana Collections hauptseite',
+  noResults: 'Keine Ergebnisse',
   fieldLabels: {
     default: {
       dcDescription: 'Beschreibung',
