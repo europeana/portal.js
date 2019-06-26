@@ -112,3 +112,28 @@ a {
     color: $darkpurple;
   }
 }
+
+.footer {
+  padding: 1rem;
+  .footer-link-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: $darkblue;
+    li {
+      float: left;
+      .footer-link {
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 16px;
+        text-decoration: none;
+        &:hover {
+          background-color: $extradarkblue;
+        }
+      }
+    }
+  }
+}
+

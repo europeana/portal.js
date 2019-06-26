@@ -19,7 +19,6 @@ export default {
     COUNTRY: 'Bereitsellendes Land',
     REUSABILITY: 'Verwendbarkeit'
   },
-  footerText: 'Platzhalter text footer',
   record: 'Record',
   messages: {
     notFound: 'Nicht Gefunden',
