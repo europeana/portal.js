@@ -46,6 +46,13 @@
           {{ $t('results') }}: {{ totalResults | localise }}
         </p>
       </b-col>
+      <b-col>
+        <div class="d-flex justify-content-end">
+          <ViewToggles
+            :link-gen="viewLink"
+          />
+        </div>
+      </b-col>
     </b-row>
     <b-row
       class="mb-3"
@@ -123,6 +130,7 @@
   import SearchResultsList from '../../components/search/SearchResultsList';
   import SearchSelectedFacets from '../../components/search/SearchSelectedFacets';
   import PaginationNav from '../../components/generic/PaginationNav';
+  import ViewToggles from '../../components/search/ViewToggles';
   import search, { pageFromQuery, selectedFacetsFromQuery } from '../../plugins/europeana/search';
 
   export default {
@@ -133,7 +141,8 @@
       SearchForm,
       SearchResultsList,
       SearchSelectedFacets,
-      PaginationNav
+      PaginationNav,
+      ViewToggles
     },
     props: {
       perPage: {
@@ -271,6 +280,11 @@
         if (this.$route.query.query !== this.query) {
           this.rerouteSearch({ query: this.query || '', page: '1' });
         }
+      },
+      viewLink (view) {
+        return this.localePath({
+          name: 'search', query: this.updateCurrentSearchQuery({ view: view })
+        });
       },
       paginationLink (val) {
         return this.localePath({
