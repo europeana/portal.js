@@ -47,9 +47,10 @@
         </p>
       </b-col>
       <b-col>
-        <div class="d-flex justify-content-end">
-          <ViewToggles/>
-        </div>
+        <ViewToggles
+          :active="view"
+          @changed="selectView"
+        />
       </b-col>
     </b-row>
     <b-row
@@ -151,17 +152,18 @@
     data () {
       return {
         error: null,
-        isLoading: false,
-        inHeader: false,
-        results: null,
-        totalResults: null,
-        lastAvailablePage: false,
-        query: null,
-        page: 1,
         facets: [],
-        selectedFacets: {},
+        inHeader: false,
+        isLoading: false,
+        lastAvailablePage: false,
+        page: 1,
         qfForSelectedFacets: [],
-        reusability: ''
+        query: null,
+        results: null,
+        reusability: '',
+        selectedFacets: {},
+        totalResults: null,
+        view: 'grid'
       };
     },
     computed: {
@@ -255,10 +257,11 @@
     methods: {
       updateCurrentSearchQuery(updates) {
         const current = {
-          query: this.query || '',
           page: this.page || '1',
+          qf: this.qfForSelectedFacets,
+          query: this.query || '',
           reusability: this.reusability,
-          qf: this.qfForSelectedFacets
+          view: this.view
         };
 
         // If any values in the updates are `null`, remove them from the query
@@ -300,6 +303,9 @@
           }
         }
         this.rerouteSearch({ qf: this.qfForSelectedFacets, reusability: this.reusability, page: '1' });
+      },
+      selectView (view) {
+        this.view = view;
       }
     },
     head () {
