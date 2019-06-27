@@ -1,23 +1,15 @@
 <template>
   <div>
     <b-link
-      :to="linkGen('list')"
+      v-for="view in ['list', 'grid']"
+      :key="view"
+      :to="linkGen(view)"
     >
       <img
-        src="../../assets/img/search/list.svg"
-        :alt="$t('searchViews.list')"
-        :title="$t('searchViews.list')"
-        data-qa="search list view toggle"
-      >
-    </b-link>
-    <b-link
-      :to="linkGen('grid')"
-    >
-      <img
-        src="../../assets/img/search/grid.svg"
-        :alt="$t('searchViews.grid')"
-        :title="$t('searchViews.grid')"
-        data-qa="search grid view toggle"
+        :src="iconSrc(view)"
+        :alt="$t(`searchViews.${view}`)"
+        :title="$t(`searchViews.${view}`)"
+        :data-qa="`search ${view} view toggle`"
       >
     </b-link>
   </div>
@@ -26,9 +18,13 @@
 <script>
   export default {
     methods: {
-      linkGen: function (val) {
+      iconSrc: function(view) {
+        // We require for webpack'd assets to work with dynamic paths
+        return require(`../../assets/img/search/${view}.svg`);
+      },
+      linkGen: function (view) {
         return this.localePath({
-          name: 'search', query: { ...this.$route.query, ...{ view: val } }
+          name: 'search', query: { ...this.$route.query, ...{ view: view } }
         });
       }
     }
