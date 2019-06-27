@@ -65,7 +65,7 @@
     },
     data () {
       return {
-        query: null,
+        query: this.getQueryFromParam(),
         isLoading: false
       };
     },
@@ -77,9 +77,12 @@
     methods: {
       submitSearchForm () {
         this.$router.push(this.localePath({ name: 'search', query: { query: this.query ? this.query : '' } }));
-        this.query = '';
+      },
+      getQueryFromParam () {
+        return this.$route.query ? this.$route.query.query : null;
       }
-    }
+    },
+    watchQuery: ['query']
   };
 </script>
 
