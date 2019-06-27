@@ -36,7 +36,6 @@ export default {
     REUSABILITY: 'Can I reuse this?',
     TYPE: 'Type of media'
   },
-  footerText: 'Placeholder for footer',
   entity: 'Entity',
   resourceWikimedia: 'Resource from Wikimedia Commons',
   record: 'Record',

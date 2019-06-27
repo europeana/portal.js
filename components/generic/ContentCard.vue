@@ -137,7 +137,8 @@
     transition: box-shadow 0.25s;
 
     &:hover {
-      box-shadow: 0 4px 12px 0 rgba(0,0,0,0.4)
+      box-shadow: 0 4px 12px 0 rgba(0,0,0,0.4);
+      background-color: $lightgrey;
     }
 
     .card-body {
@@ -149,14 +150,16 @@
     .card-title {
       font-size: $font-size-small;
       font-weight: normal;
+    }
 
-      a {
-        color: inherit;
+    .card-text {
+      color: $darkgrey;
+    }
 
-        &:hover {
-          color: $blue;
-          text-decoration: none;
-        }
+    .card-link {
+      color: $black;
+      &:hover {
+        color: $black;
       }
     }
   }

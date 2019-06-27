@@ -8,7 +8,13 @@ const config = {
 };
 
 function createClient () {
-  return contentful.createClient(config);
+  let client;
+  try {
+    client = contentful.createClient(config);
+  } catch (error) {
+    client = {};
+  }
+  return client;
 }
 
 export default createClient();
