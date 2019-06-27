@@ -48,9 +48,7 @@
       </b-col>
       <b-col>
         <div class="d-flex justify-content-end">
-          <ViewToggles
-            :link-gen="viewLink"
-          />
+          <ViewToggles/>
         </div>
       </b-col>
     </b-row>
@@ -280,11 +278,6 @@
         if (this.$route.query.query !== this.query) {
           this.rerouteSearch({ query: this.query || '', page: '1' });
         }
-      },
-      viewLink (view) {
-        return this.localePath({
-          name: 'search', query: this.updateCurrentSearchQuery({ view: view })
-        });
       },
       paginationLink (val) {
         return this.localePath({
