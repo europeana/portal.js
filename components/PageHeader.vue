@@ -69,7 +69,7 @@
     },
     data () {
       return {
-        query: this.searchQuery,
+        query: this.searchQuery ? this.searchQuery : '',
         isLoading: false
       };
     },
@@ -82,7 +82,7 @@
       searchQuery: {
         immediate: true,
         handler(val) {
-          this.query = val;
+          this.query = val ? val : '';
         }
       }
     },
