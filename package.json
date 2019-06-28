@@ -83,6 +83,7 @@
     "babel-preset-vue": "^2.0.2",
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
+    "chai-string": "^1.5.0",
     "chromedriver": "^2.46.0",
     "concurrently": "^4.1.0",
     "cssesc": "^3.0.0",

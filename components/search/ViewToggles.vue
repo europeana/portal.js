@@ -7,13 +7,13 @@
       :key="view"
       :to="linkGen(view)"
       :active="activeView == view"
+      :data-qa="`search ${view} view toggle`"
       @click="selectView"
     >
       <img
         :src="iconSrc(view)"
         :alt="$t(`searchViews.${view}`)"
         :title="$t(`searchViews.${view}`)"
-        :data-qa="`search ${view} view toggle`"
         :data-view="view"
       >
     </b-nav-item>
