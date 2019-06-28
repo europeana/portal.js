@@ -61,11 +61,15 @@
       langSelectEnabled: {
         type: Boolean,
         default: false
+      },
+      searchQuery: {
+        type: String,
+        default: ''
       }
     },
     data () {
       return {
-        query: this.getQueryFromParam(),
+        query: this.searchQuery,
         isLoading: false
       };
     },
@@ -74,12 +78,17 @@
         return this.$i18n.locales.filter(i => i.code !== this.$i18n.locale);
       }
     },
+    watch: {
+      searchQuery: {
+        immediate: true,
+        handler(val) {
+          this.query = val;
+        }
+      }
+    },
     methods: {
       submitSearchForm () {
-        this.$router.push(this.localePath({ name: 'search', query: { query: this.query ? this.query : '' } }));
-      },
-      getQueryFromParam () {
-        return this.$route.query ? this.$route.query.query : null;
+        this.$router.push(this.localePath({ name: 'search', query: { query: this.query } }));
       }
     },
     watchQuery: ['query']

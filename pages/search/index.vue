@@ -179,6 +179,14 @@
         return ordered.concat(unordered);
       }
     },
+    watch: {
+      query: {
+        immediate: true,
+        handler(val) {
+          this.$root.$emit('updateSearchQuery', val);
+        }
+      }
+    },
     asyncData ({ env, query, res, redirect, app }) {
       const currentPage = pageFromQuery(query.page);
       if (currentPage === null) {
@@ -287,6 +295,10 @@
       return {
         title: 'Search'
       };
+    },
+    beforeRouteLeave (to, from, next) {
+      this.$root.$emit('leaveSearchPage');
+      next();
     },
     watchQuery: ['page', 'qf', 'query', 'reusability']
   };
