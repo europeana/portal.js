@@ -7,11 +7,6 @@
       class="mb-3"
     >
       <b-col>
-        <SearchForm
-          v-model="query"
-          :is-loading="isLoading"
-          @submit:searchForm="submitSearchForm"
-        />
         <SearchSelectedFacets
           :facets="selectedFacets"
         />
@@ -119,7 +114,6 @@
   import AlertMessage from '../../components/generic/AlertMessage';
   import InfoMessage from '../../components/generic/InfoMessage';
   import SearchFacet from '../../components/search/SearchFacet';
-  import SearchForm from '../../components/search/SearchForm';
   import SearchResultsList from '../../components/search/SearchResultsList';
   import SearchSelectedFacets from '../../components/search/SearchSelectedFacets';
   import PaginationNav from '../../components/generic/PaginationNav';
@@ -130,7 +124,6 @@
       AlertMessage,
       InfoMessage,
       SearchFacet,
-      SearchForm,
       SearchResultsList,
       SearchSelectedFacets,
       PaginationNav
@@ -266,11 +259,6 @@
       rerouteSearch(queryUpdates) {
         this.isLoading = true;
         this.$router.push(this.localePath({ name: 'search', query: this.updateCurrentSearchQuery(queryUpdates) }));
-      },
-      submitSearchForm () {
-        if (this.$route.query.query !== this.query) {
-          this.rerouteSearch({ query: this.query || '', page: '1' });
-        }
       },
       paginationLink (val) {
         return this.localePath({

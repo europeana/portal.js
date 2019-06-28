@@ -19,6 +19,7 @@ const factory = () => mount(PageHeader, {
   mocks: {
     $t: () => {},
     $i18n,
+    $route: () => {},
     switchLocalePath: (code) => `path to ${code}`
   }
 });
