@@ -118,6 +118,19 @@ module.exports = {
   seeATargetWithText: async function (qaElementNames, text) {
     await client.expect.element(qaSelector(qaElementNames)).text.to.contain(text);
   },
+  seeTextInTarget: async function (text, qaElementName) {
+    const selector = qaSelector(qaElementName);
+    await client.getValue(selector, async (result) => {
+      await client.expect(result.value).to.eq(text);
+    });
+  },
+  doNotSeeTextInTarget: async function (text, qaElementName) {
+    const selector = qaSelector(qaElementName);
+    await client.expect.element(selector).to.be.visible;
+    await client.getValue(selector, async (result) => {
+      await client.expect(result.value).to.not.eq(text);
+    });
+  },
   shouldBeOn: async function (pageName) {
     // TODO: update if a less verbose syntax becomes available.
     // See https://github.com/nightwatchjs/nightwatch/issues/861
