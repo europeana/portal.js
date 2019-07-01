@@ -73,15 +73,7 @@ module.exports = {
     if (key.length > 1) {
       key = client.Keys[key];
     }
-    let runtimeBrowser = client.capabilities.browserName.toUpperCase();
-
-    if (runtimeBrowser === 'CHROME') {
-      await client.keys(key);
-    } else if (runtimeBrowser === 'FIREFOX') {
-      // This doesn't work with the gecko driver
-      // await client.keys(key);
-      return 'pending';
-    }
+    await client.keys(key);
   },
   matchMetaLabelAndValue: async (label, value) => {
     await client.elements('xpath', '//strong[contains(text(),"' + label + '")]/parent::div/parent::div//span[contains(text(),"' + value + '")]', async(result) => {

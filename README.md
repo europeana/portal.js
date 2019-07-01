@@ -42,31 +42,38 @@ To run a single file: `npm run test:unit -g tests/unit/[REST_OF_FILE_PATH]`
 
 `npm run test:e2e` and `npm run test:e2e:ci` just run everything.
 
-
 If you've manually started the test server with: `npm run build:test && npm run start:test`, then you can for example:
 
 Run only the header.feature file using path.
 
-```npm run test:chrome:headless tests/features/header.feature```
+```shell
+npm run test:chrome:headless tests/features/header.feature
+```
 
 
-Run only the "header" feature using it's name.
+Run only the "header" feature test using its name.
 
-```npm run test:chrome:headless -- -p all --name header```
+```shell
+npm run test:chrome:headless -- -p all --name header
+```
 
 
 Run only the "header" feature in the header file.
 
-```npm run test:chrome:headless tests/features/header.feature -- --name header```
-
+```shell
+npm run test:chrome:headless tests/features/header.feature -- --name header
+```
 
 Run everything with your driver of choice.
 
-```npm run test:chrome:headless -- -p all```
-
+```
+npm run test:chrome:headless -- -p all
+```
 
 `test:chrome:headless` can be substituited for the other avialable driver commands `test:gecko` and `test:chrome`.
 
+Be aware however that with `geckodriver` some tests are known to fail as it is not yet feature complete.
+It is therefore at present of limited use.
 
 
 ## License
