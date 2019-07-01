@@ -69,7 +69,7 @@
     },
     data () {
       return {
-        query: this.searchQuery ? this.searchQuery : '',
+        query: this.searchQuery || '',
         isLoading: false
       };
     },
@@ -82,7 +82,7 @@
       searchQuery: {
         immediate: true,
         handler(val) {
-          this.query = val ? val : '';
+          this.query = val || '';
         }
       }
     },
@@ -90,8 +90,7 @@
       submitSearchForm () {
         this.$router.push(this.localePath({ name: 'search', query: { query: this.query } }));
       }
-    },
-    watchQuery: ['query']
+    }
   };
 </script>
 
