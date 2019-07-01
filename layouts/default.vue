@@ -9,6 +9,7 @@
     </a>
     <PageHeader
       :lang-select-enabled="langSelectEnabled"
+      :search-query="searchQuery"
     />
     <nuxt
       id="main"
@@ -26,11 +27,29 @@
       PageHeader,
       PageFooter
     },
+    data () {
+      return {
+        searchQuery: this.getQueryFromParam()
+      };
+    },
     computed: {
       langSelectEnabled() {
         return process.env.ENABLE_LANG_SELECT === 'true';
       }
-    }
+    },
+    created () {
+      this.$root.$on('leaveSearchPage', () => {
+        this.searchQuery = '';
+      });
+      this.$root.$on('updateSearchQuery', (val) => {
+        this.searchQuery = val;
+      });
+    },
+    methods: {
+      getQueryFromParam () {
+        return this.$route.query ? this.$route.query.query : '';
+      }
+    },
+    watchQuery: ['query']
   };
-
 </script>

@@ -5,7 +5,8 @@ Feature: Search querying
     When I visit a `search page`
     And I enter "paris" in the `search box`
     And I click the `search button`
-    Then I see a `search result`
+    Then I see "paris" in the `search box`
+    And I see a `search result`
     And I see the `total results`
     And I am on an accessible page
 
@@ -32,3 +33,4 @@ Feature: Search querying
     And I click the `search button`
     And I click a `search result`
     Then I see a `record page`
+    And I don't see "paris" in the `search box`
