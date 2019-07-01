@@ -56,12 +56,13 @@ module.exports = {
   },
   clickOnTheTarget: async function (qaElementNames) {
     const selector = qaSelector(qaElementNames);
-    await client.expect.element(selector).to.be.visible;
+    await client.waitForElementVisible(selector);
     await client.click(selector);
   },
   clickOnLink: async function (href) {
-    await client.expect.element(`a[href="${href}"]`).to.be.visible;
-    await client.click(`a[href="${href}"]`);
+    const selector = `a[href="${href}"]`;
+    await client.waitForElementVisible(selector);
+    await client.click(selector);
   },
   countTarget: async (count, qaElementNames) => {
     await client.elements('css selector', qaSelector(qaElementNames), async(result) => {
@@ -103,7 +104,7 @@ module.exports = {
   },
   enterTextInTarget: async function (text, qaElementName) {
     const selector = qaSelector(qaElementName);
-    await client.expect.element(selector).to.be.visible;
+    await client.waitForElementVisible(selector);
     await client.setValue(selector, text);
   },
   openAPage: async function (pageName) {
@@ -126,7 +127,7 @@ module.exports = {
   },
   doNotSeeTextInTarget: async function (text, qaElementName) {
     const selector = qaSelector(qaElementName);
-    await client.expect.element(selector).to.be.visible;
+    await client.waitForElementVisible(selector);
     await client.getValue(selector, async (result) => {
       await client.expect(result.value).to.not.eq(text);
     });
