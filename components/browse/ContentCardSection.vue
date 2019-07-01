@@ -22,12 +22,12 @@
         v-for="card in cards"
         :key="card.sys.id"
         :name="card.fields.name"
-        :description="card.fields.description"
-        :url="card.fields.url"
+        :texts="cardTexts(card)"
+        :url="cardDestination(card)"
         :image-url="card.fields.imageUrl"
         :creator="card.fields.creator"
         :provider="card.fields.provider"
-        :identifier="card.fields.identifier"
+        :view-more-label-key="moreLabelKey(card)"
       />
     </b-card-group>
   </div>
@@ -56,6 +56,31 @@
           }
           return card;
         });
+      }
+    },
+    methods: {
+      moreLabelKey: function (card) {
+        return card.fields.identifier ? 'goToRecord' : 'readMore';
+      },
+      cardDestination: function (card) {
+        if (card.fields.url) {
+          return card.fields.url;
+        } else if (card.fields.identifier) {
+          return this.localePath({ name: 'record-all', params: { pathMatch: card.fields.identifier.slice(1) } });
+        }
+      },
+      cardTexts: function (card) {
+        let texts = [];
+        if (card.fields.description) {
+          texts.push(card.fields.description);
+        }
+        if (card.fields.creator) {
+          texts.push(card.fields.creator);
+        }
+        if (card.fields.provider) {
+          texts.push(card.fields.provider);
+        }
+        return texts;
       }
     }
   };

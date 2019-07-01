@@ -4,63 +4,28 @@
     data-qa="content card"
     no-body
   >
-    <div
-      v-if="imageUrl"
-      :aria-label="name"
-      :style="{'background-image': 'url(' + imageUrl + ')'}"
-      class="card-img"
+    <SmartLink
+      :destination="url"
     >
-      <b-link
-        v-if="identifier"
-        :to="linkToRecord"
-        class="card-link record-link"
-        :aria-label="$t('goToRecord')"
+      <div
+        v-if="imageUrl"
+        :aria-label="name"
+        :style="{'background-image': 'url(' + imageUrl + ')'}"
+        class="card-img"
       />
-      <b-link
-        v-else
-        :href="url"
-        class="card-link"
-        :aria-label="$t('readMore')"
-      />
-    </div>
-    <b-card-body>
-      <b-card-title>
-        <b-link
-          v-if="identifier"
-          :to="linkToRecord"
-          class="card-link record-link"
-        >
+      <b-card-body>
+        <b-card-title>
           {{ name }}
-        </b-link>
-        <b-link
-          v-else
-          :href="url"
-          class="card-link"
+        </b-card-title>
+        <b-card-text
+          v-for="text in texts"
+          :key="text"
         >
-          {{ name }}
-        </b-link>
-      </b-card-title>
-      <b-card-text
-        v-for="text in cardText"
-        :key="text"
-      >
-        {{ text }}
-      </b-card-text>
-      <b-link
-        v-if="identifier"
-        :to="linkToRecord"
-        class="card-link record-link"
-      >
-        {{ $t('goToRecord') }}
-      </b-link>
-      <b-link
-        v-else
-        :href="url"
-        class="card-link"
-      >
-        {{ $t('readMore') }}
-      </b-link>
-    </b-card-body>
+          {{ text }}
+        </b-card-text>
+        {{ $t(viewMoreLabelKey) }}
+      </b-card-body>
+    </SmartLink>
   </b-card>
 </template>
 
@@ -71,9 +36,9 @@
         type: String,
         default: ''
       },
-      description: {
-        type: String,
-        default: ''
+      texts: {
+        type: Array,
+        default: () => []
       },
       url: {
         type: String,
@@ -83,25 +48,9 @@
         type: String,
         default: ''
       },
-      creator: {
+      viewMoreLabelKey: {
         type: String,
-        default: ''
-      },
-      provider: {
-        type: String,
-        default: ''
-      },
-      identifier: {
-        type: String,
-        default: ''
-      }
-    },
-    computed: {
-      linkToRecord () {
-        return this.localePath({ name: 'record-all', params: { pathMatch: this.identifier.replace(/^\/+/g, '') } });
-      },
-      cardText () {
-        return [this.description, this.creator, this.provider].filter(v => v);
+        default: null
       }
     }
   };
