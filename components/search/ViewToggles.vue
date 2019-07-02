@@ -8,6 +8,7 @@
       :to="linkGen(view)"
       :active="activeView == view"
       :data-qa="`search ${view} view toggle`"
+      class="pl-3"
       @click="selectView"
     >
       <img
@@ -51,3 +52,44 @@
     }
   };
 </script>
+
+<style lang="scss" scoped>
+  @import "./assets/scss/variables.scss";
+
+  .nav-link {
+    padding: 0;
+    position: relative;
+
+    img {
+      filter: invert(0.5);
+    }
+
+    &:before {
+      content: '';
+      display: block;
+      opacity: 0;
+      position: absolute;
+      transition-duration: 0.15s;
+      transition-timing-function: cubic-bezier(0.4, 0.0, 0.2, 1);
+      z-index: -1;
+      bottom: -0.5rem;
+      left: -0.5rem;
+      right: -0.5rem;
+      top: -0.5rem;
+      background: $extralightgrey;
+      border-radius: 50%;
+      box-sizing: border-box;
+      transform: scale(0);
+      transition-property: transform, opacity;
+    }
+
+    &:hover:before {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    &.active img {
+      filter: invert(0);
+    }
+  }
+</style>
