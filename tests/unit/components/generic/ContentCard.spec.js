@@ -1,9 +1,11 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
+import SmartLink from '../../../../components/generic/SmartLink.vue';
 import ContentCard from '../../../../components/generic/ContentCard.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
+localVue.component('SmartLink', SmartLink);
 
 const factory = () => mount(ContentCard, {
   localVue,
@@ -15,7 +17,7 @@ const factory = () => mount(ContentCard, {
 describe('components/generic/ContentCard', () => {
   it('has a description', () => {
     const wrapper = factory();
-    wrapper.setProps({ description: 'The Milkmaid by Vermeer' });
+    wrapper.setProps({ texts: ['The Milkmaid by Vermeer'] });
 
     const description =  wrapper.find('[data-qa="content card"] .card-body');
     description.text().should.eq('The Milkmaid by Vermeer');
@@ -23,7 +25,7 @@ describe('components/generic/ContentCard', () => {
 
   it('has a creator and institution', () => {
     const wrapper = factory();
-    wrapper.setProps({ creator: 'Edvard Munch', provider: 'Munchmuseet (The Munch Museum)' });
+    wrapper.setProps({ texts: ['Edvard Munch','Munchmuseet (The Munch Museum)'] });
 
     const description =  wrapper.find('[data-qa="content card"] .card-body');
     description.text().should.contain('Edvard Munch');
