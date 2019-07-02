@@ -6,6 +6,7 @@
   >
     <SmartLink
       :destination="url"
+      link-class="card-link"
     >
       <div
         v-if="imageUrl"
@@ -23,7 +24,9 @@
         >
           {{ text }}
         </b-card-text>
-        {{ $t(viewMoreLabelKey) }}
+        <span class="view-more">
+          {{ $t(viewMoreLabelKey) }}
+        </span>
       </b-card-body>
     </SmartLink>
   </b-card>
@@ -59,6 +62,11 @@
 <style lang="scss" scoped>
   @import "./assets/scss/variables.scss";
 
+  a {
+    display: flex;
+    flex-direction: column;
+  }
+
   .card-img {
     background-position: center center;
     background-size: cover;
@@ -68,10 +76,6 @@
     flex: 1 1 auto;
     min-height: 10rem;
     width: 100%;
-
-    a {
-      flex: 1;
-    }
   }
 
   .card {
@@ -106,10 +110,15 @@
     }
 
     .card-link {
+      min-height: 100%;
       color: $black;
       &:hover {
         color: $black;
       }
+    }
+
+    .view-more {
+      float: right;
     }
   }
 </style>

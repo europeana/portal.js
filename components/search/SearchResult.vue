@@ -29,10 +29,15 @@
         </template>
         <ul v-else>
           <li
-            v-for="(element, index) in value"
+            v-for="(element, index) in value.slice(0, 3)"
             :key="index"
           >
             {{ element }}
+          </li>
+          <li
+            v-if="value.length > 3"
+          >
+            ...
           </li>
         </ul>
       </div>

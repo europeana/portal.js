@@ -25,8 +25,6 @@
         :texts="cardTexts(card)"
         :url="cardDestination(card)"
         :image-url="card.fields.imageUrl"
-        :creator="card.fields.creator"
-        :provider="card.fields.provider"
         :view-more-label-key="moreLabelKey(card)"
       />
     </b-card-group>

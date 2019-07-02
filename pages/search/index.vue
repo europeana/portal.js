@@ -83,7 +83,7 @@
               >
                 {{ $t('noMoreResults') }}
               </p>
-              <SearchResultsGrid
+              <SearchResultsList
                 v-else
                 :results="results"
               />
@@ -114,7 +114,7 @@
   import AlertMessage from '../../components/generic/AlertMessage';
   import InfoMessage from '../../components/generic/InfoMessage';
   import SearchFacet from '../../components/search/SearchFacet';
-  import SearchResultsGrid from '../../components/search/SearchResultsGrid';
+  import SearchResultsList from '../../components/search/SearchResultsList';
   import SearchSelectedFacets from '../../components/search/SearchSelectedFacets';
   import PaginationNav from '../../components/generic/PaginationNav';
   import search, { pageFromQuery, selectedFacetsFromQuery } from '../../plugins/europeana/search';
@@ -124,7 +124,7 @@
       AlertMessage,
       InfoMessage,
       SearchFacet,
-      SearchResultsGrid,
+      SearchResultsList,
       SearchSelectedFacets,
       PaginationNav
     },

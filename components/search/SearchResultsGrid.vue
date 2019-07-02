@@ -51,12 +51,3 @@
     }
   };
 </script>
-
-<style lang="scss" scoped>
-  @import "./assets/scss/variables.scss";
-
-  .card-deck .card {
-    min-width: calc(33% - 30px);
-    max-width: calc(33% - 30px);
-  }
-</style>

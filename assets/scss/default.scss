@@ -102,9 +102,19 @@ a {
   border-color: $darkblue;
 }
 
+#searchResults.card-deck .card {
+  min-width: calc(100% - 30px);
+  max-width: calc(100% - 30px);
+  @media (min-width: 768px) {
+    min-width: calc(33% - 30px);
+    max-width: calc(33% - 30px);
+  }
+}
+
 .list-group-item-action {
   color: $black;
   &:hover {
+    box-shadow: 0 4px 12px 0 rgba(0,0,0,0.4);
     color: $black;
     background-color: $lightgrey;
   }
