@@ -109,6 +109,12 @@ a {
     min-width: calc(33% - 30px);
     max-width: calc(33% - 30px);
   }
+
+  .card-link {
+    &:visited{
+      color: $darkpurple;
+    }
+  }
 }
 
 .list-group-item-action {
