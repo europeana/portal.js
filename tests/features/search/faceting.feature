@@ -63,7 +63,7 @@ Feature: Search faceting
     And I check the "IMAGE" checkbox
     And I check the "open" checkbox
     And I wait 2 seconds
-    Then I should be on `/search?query=&page=1&reusability=open&view=grid`
+    Then I should be on `/search?page=1&query=&view=grid`
     And I can't see a `/search?query=`
 
   Scenario: Filtering results by country and have a corresponding record page
