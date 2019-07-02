@@ -10,7 +10,6 @@
       :url="localePath({ name: 'record-all', params: { pathMatch: result.europeanaId.slice(1) } })"
       :image-url="result.edmPreview"
       :texts="cardTexts(result)"
-      view-more-label-key="goToRecord"
       data-qa="search result"
     />
   </b-card-group>
