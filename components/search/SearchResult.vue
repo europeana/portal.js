@@ -37,7 +37,7 @@
           <li
             v-if="value.length > 3"
           >
-            ...
+            $t('formatting.elipsis')
           </li>
         </ul>
       </div>
