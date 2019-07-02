@@ -2,6 +2,10 @@ export default {
   formatting: {
     labelledValue: '{label}: {value}'
   },
+  searchViews: {
+    grid: 'Grid view',
+    list: 'List view'
+  },
   searchPlaceholder: 'What are you looking for?',
   error: 'Error',
   goToRecord: 'Go to record',
