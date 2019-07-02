@@ -37,14 +37,6 @@ describe('components/search/ViewToggles', () => {
     }
   });
 
-  it('links to search with view parameter set', () => {
-    const wrapper = factory();
-
-    const viewToggleLink = wrapper.find('[data-qa="search list view toggle"] a');
-
-    viewToggleLink.attributes('href').should.endWith('/search?view=list');
-  });
-
   it('displays icon', () => {
     const wrapper = factory();
 

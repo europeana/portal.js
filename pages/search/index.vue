@@ -156,11 +156,11 @@
         reusability: '',
         selectedFacets: {},
         totalResults: null,
-        view: 'grid'
+        view: this.selectedView()
       };
     },
     computed: {
-      hasResults: function() {
+      hasResults: function () {
         return this.results !== null && this.totalResults > 0;
       },
       /**
@@ -261,8 +261,7 @@
           page: this.page || '1',
           qf: this.qfForSelectedFacets,
           query: this.query || '',
-          reusability: this.reusability,
-          view: this.view
+          reusability: this.reusability
         };
 
         // If any values in the updates are `null`, remove them from the query
@@ -301,8 +300,18 @@
         this.rerouteSearch({ qf: this.qfForSelectedFacets, reusability: this.reusability, page: '1' });
       },
       selectView (view) {
-        this.view = view;
+        if (process.browser) {
+          localStorage.view = view;
+          this.view = view;
+        }
+      },
+      selectedView: function () {
+        if (process.browser) {
+          return localStorage.view || 'grid';
+        }
+        return 'grid';
       }
+
     },
     head () {
       return {
