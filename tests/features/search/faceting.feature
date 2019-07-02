@@ -12,7 +12,7 @@ Feature: Search faceting
     When I visit `/search?query=`
     And I check the "IMAGE" checkbox
     And I wait 2 seconds
-    Then I should be on `/search?query=&page=1&qf=TYPE%3A%22IMAGE%22`
+    Then I should be on `/search?page=1&qf=TYPE%3A%22IMAGE%22&query=&view=grid`
     And I see a `filter badge` with the text "Type of media: IMAGE"
     And I am on an accessible page
 
@@ -21,7 +21,7 @@ Feature: Search faceting
     When I visit `/search?query=`
     And I check the "open" checkbox
     And I wait 2 seconds
-    Then I should be on `/search?query=&page=1&reusability=open`
+    Then I should be on `/search?page=1&query=&reusability=open&view=grid`
     And I see a `filter badge` with the text "Can I reuse this?: open"
 
   Scenario: Filtering results by country
@@ -29,7 +29,7 @@ Feature: Search faceting
     When I visit `/search?query=`
     And I check the "Belgium" checkbox
     And I wait 2 seconds
-    Then I should be on `/search?query=&page=1&qf=COUNTRY%3A%22Belgium%22`
+    Then I should be on `/search?page=1&qf=COUNTRY%3A%22Belgium%22&query=&view=grid`
     And I see a `filter badge` with the text "Country: Belgium"
 
   Scenario: Filtering results by two countries
@@ -38,7 +38,7 @@ Feature: Search faceting
     And I check the "Belgium" checkbox
     And I check the "Germany" checkbox
     And I wait 2 seconds
-    Then I should be on `/search?query=&page=1&qf=COUNTRY%3A%22Belgium%22&qf=COUNTRY%3A%22Germany%22`
+    Then I should be on `/search?page=1&qf=COUNTRY%3A%22Belgium%22&qf=COUNTRY%3A%22Germany%22&query=&view=grid`
     And I should have 2 `filter badge`s
 
   Scenario: Filtering using a combination of facet fields
@@ -48,7 +48,7 @@ Feature: Search faceting
     And I check the "IMAGE" checkbox
     And I check the "open" checkbox
     And I wait 2 seconds
-    Then I should be on `/search?query=&page=1&reusability=open&qf=COUNTRY%3A%22Belgium%22&qf=TYPE%3A%22IMAGE%22`
+    Then I should be on `/search?page=1&qf=COUNTRY%3A%22Belgium%22&qf=TYPE%3A%22IMAGE%22&query=&reusability=open&view=grid`
     And I should have 3 `filter badge`s
 
   Scenario: Facets are loaded from the URL
@@ -63,7 +63,7 @@ Feature: Search faceting
     And I check the "IMAGE" checkbox
     And I check the "open" checkbox
     And I wait 2 seconds
-    Then I should be on the `first page of results`
+    Then I should be on `/search?query=&page=1&reusability=open&view=grid`
     And I can't see a `/search?query=`
 
   Scenario: Filtering results by country and have a corresponding record page
