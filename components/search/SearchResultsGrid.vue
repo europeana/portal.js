@@ -1,6 +1,5 @@
 <template>
   <b-card-group
-    id="searchResults"
     class="card-deck-3-cols card-deck-search"
     deck
   >

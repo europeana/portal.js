@@ -245,16 +245,6 @@
           return { results: null, error: errorMessage, query: query.query };
         });
     },
-    mounted () {
-      this.$nextTick(() => {
-        if (document.getElementById('searchResults') === null) {
-          const searchQuery = document.getElementById('searchQuery');
-          if (searchQuery) {
-            searchQuery.focus();
-          }
-        }
-      });
-    },
     methods: {
       updateCurrentSearchQuery(updates) {
         const current = {
