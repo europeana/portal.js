@@ -156,11 +156,11 @@
         reusability: '',
         selectedFacets: {},
         totalResults: null,
-        view: 'grid'
+        view: this.selectedView()
       };
     },
     computed: {
-      hasResults: function() {
+      hasResults: function () {
         return this.results !== null && this.totalResults > 0;
       },
       /**
@@ -301,7 +301,20 @@
         this.rerouteSearch({ qf: this.qfForSelectedFacets, reusability: this.reusability, page: '1' });
       },
       selectView (view) {
+        if (process.browser) {
+          sessionStorage.view = view;
+          localStorage.view = view;
+        }
         this.view = view;
+      },
+      selectedView: function () {
+        if (process.browser) {
+          if (this.$route.query.view) {
+            sessionStorage.view = this.$route.query.view;
+          }
+          return sessionStorage.view || localStorage.view || 'grid';
+        }
+        return 'grid';
       }
     },
     head () {
