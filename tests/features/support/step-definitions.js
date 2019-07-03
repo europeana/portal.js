@@ -29,7 +29,7 @@ defineStep('I find/identify/see/spot (a/an/the)( ){target} with the text {string
 defineStep('I can\'t/don\'t find/identify/see/spot (a/an/the)( ){target}', (qa) =>
   i.doNotSeeATarget(qa));
 
-defineStep('I can\'t/don\'t  find/identify/see/spot (a/an/the)( ){target} in/on the {target}', (qa, parentQa) =>
+defineStep('I can\'t/don\'t find/identify/see/spot (a/an/the)( ){target} in/on the {target}', (qa, parentQa) =>
   i.doNotSeeATarget([qa, parentQa]));
 
 defineStep('I wait/pause {int} second(s)', (seconds) =>
@@ -40,6 +40,12 @@ defineStep('I press/hit/type the {word} key', (key) =>
 
 defineStep('I enter/fill/input/supply/type {string} in/on (the ){target}', (text, qa) =>
   i.enterTextInTarget(text, qa));
+
+defineStep('I find/identify/see/spot {string} in/on (the ){target}', (text, qa) =>
+  i.seeTextInTarget(text, qa));
+
+defineStep('I can\'t/don\'t find/identify/see/spot {string} in/on (the ){target}', (text, qa) =>
+  i.doNotSeeTextInTarget(text, qa));
 
 defineStep('I activate/click (the/a/an)( ){target}', (qa) =>
   i.clickOnTheTarget(qa));
@@ -76,4 +82,3 @@ defineStep('I should have/see/see/spot a meta label {target} with the value {str
 
 defineStep('I am on an accessible page',() =>
   i.checkPageAccesibility());
-

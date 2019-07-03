@@ -4,6 +4,10 @@ export default {
     ellipsis: '…',
     listSeperator: ';'
   },
+  searchViews: {
+    grid: 'Grid view',
+    list: 'List view'
+  },
   searchPlaceholder: 'What are you looking for?',
   error: 'Error',
   goToRecord: 'Go to record',

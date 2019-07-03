@@ -41,6 +41,12 @@
           {{ $t('results') }}: {{ totalResults | localise }}
         </p>
       </b-col>
+      <b-col>
+        <ViewToggles
+          :active="view"
+          @changed="selectView"
+        />
+      </b-col>
     </b-row>
     <b-row
       class="mb-3"
@@ -117,6 +123,7 @@
   import SearchResultsGrid from '../../components/search/SearchResultsGrid';
   import SearchSelectedFacets from '../../components/search/SearchSelectedFacets';
   import PaginationNav from '../../components/generic/PaginationNav';
+  import ViewToggles from '../../components/search/ViewToggles';
   import search, { pageFromQuery, selectedFacetsFromQuery } from '../../plugins/europeana/search';
 
   export default {
@@ -126,7 +133,8 @@
       SearchFacet,
       SearchResultsGrid,
       SearchSelectedFacets,
-      PaginationNav
+      PaginationNav,
+      ViewToggles
     },
     props: {
       perPage: {
@@ -137,17 +145,18 @@
     data () {
       return {
         error: null,
-        isLoading: false,
-        inHeader: false,
-        results: null,
-        totalResults: null,
-        lastAvailablePage: false,
-        query: null,
-        page: 1,
         facets: [],
-        selectedFacets: {},
+        inHeader: false,
+        isLoading: false,
+        lastAvailablePage: false,
+        page: 1,
         qfForSelectedFacets: [],
-        reusability: ''
+        query: null,
+        results: null,
+        reusability: '',
+        selectedFacets: {},
+        totalResults: null,
+        view: 'grid'
       };
     },
     computed: {
@@ -177,6 +186,14 @@
           }
         }
         return ordered.concat(unordered);
+      }
+    },
+    watch: {
+      query: {
+        immediate: true,
+        handler(val) {
+          this.$root.$emit('updateSearchQuery', val);
+        }
       }
     },
     asyncData ({ env, query, res, redirect, app }) {
@@ -241,10 +258,11 @@
     methods: {
       updateCurrentSearchQuery(updates) {
         const current = {
-          query: this.query || '',
           page: this.page || '1',
+          qf: this.qfForSelectedFacets,
+          query: this.query || '',
           reusability: this.reusability,
-          qf: this.qfForSelectedFacets
+          view: this.view
         };
 
         // If any values in the updates are `null`, remove them from the query
@@ -281,12 +299,19 @@
           }
         }
         this.rerouteSearch({ qf: this.qfForSelectedFacets, reusability: this.reusability, page: '1' });
+      },
+      selectView (view) {
+        this.view = view;
       }
     },
     head () {
       return {
         title: 'Search'
       };
+    },
+    beforeRouteLeave (to, from, next) {
+      this.$root.$emit('leaveSearchPage');
+      next();
     },
     watchQuery: ['page', 'qf', 'query', 'reusability']
   };

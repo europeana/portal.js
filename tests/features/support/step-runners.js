@@ -56,12 +56,13 @@ module.exports = {
   },
   clickOnTheTarget: async function (qaElementNames) {
     const selector = qaSelector(qaElementNames);
-    await client.expect.element(selector).to.be.visible;
+    await client.waitForElementVisible(selector);
     await client.click(selector);
   },
   clickOnLink: async function (href) {
-    await client.expect.element(`a[href="${href}"]`).to.be.visible;
-    await client.click(`a[href="${href}"]`);
+    const selector = `a[href="${href}"]`;
+    await client.waitForElementVisible(selector);
+    await client.click(selector);
   },
   countTarget: async (count, qaElementNames) => {
     await client.elements('css selector', qaSelector(qaElementNames), async(result) => {
@@ -72,15 +73,7 @@ module.exports = {
     if (key.length > 1) {
       key = client.Keys[key];
     }
-    let runtimeBrowser = client.capabilities.browserName.toUpperCase();
-
-    if (runtimeBrowser === 'CHROME') {
-      await client.keys(key);
-    } else if (runtimeBrowser === 'FIREFOX') {
-      // This doesn't work with the gecko driver
-      // await client.keys(key);
-      return 'pending';
-    }
+    await client.keys(key);
   },
   matchMetaLabelAndValue: async (label, value) => {
     await client.elements('xpath', '//strong[contains(text(),"' + label + '")]/parent::div/parent::div//span[contains(text(),"' + value + '")]', async(result) => {
@@ -103,7 +96,7 @@ module.exports = {
   },
   enterTextInTarget: async function (text, qaElementName) {
     const selector = qaSelector(qaElementName);
-    await client.expect.element(selector).to.be.visible;
+    await client.waitForElementVisible(selector);
     await client.setValue(selector, text);
   },
   openAPage: async function (pageName) {
@@ -117,6 +110,19 @@ module.exports = {
   },
   seeATargetWithText: async function (qaElementNames, text) {
     await client.expect.element(qaSelector(qaElementNames)).text.to.contain(text);
+  },
+  seeTextInTarget: async function (text, qaElementName) {
+    const selector = qaSelector(qaElementName);
+    await client.getValue(selector, async (result) => {
+      await client.expect(result.value).to.eq(text);
+    });
+  },
+  doNotSeeTextInTarget: async function (text, qaElementName) {
+    const selector = qaSelector(qaElementName);
+    await client.waitForElementVisible(selector);
+    await client.getValue(selector, async (result) => {
+      await client.expect(result.value).to.not.eq(text);
+    });
   },
   shouldBeOn: async function (pageName) {
     // TODO: update if a less verbose syntax becomes available.
