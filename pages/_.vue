@@ -1,6 +1,6 @@
 <template>
   <section class="container">
-    <div class="mt-3">
+    <div class="mt-3 w-100">
       <ContentCardSection
         v-for="section in page.hasPart"
         :key="section.sys.id"
