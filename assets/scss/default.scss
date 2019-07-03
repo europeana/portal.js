@@ -105,6 +105,7 @@ a {
 .list-group-item-action {
   color: $black;
   &:hover {
+    box-shadow: $boxshadow-large;
     color: $black;
     background-color: $lightgrey;
   }

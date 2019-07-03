@@ -89,7 +89,7 @@
               >
                 {{ $t('noMoreResults') }}
               </p>
-              <SearchResultsList
+              <SearchResultsGrid
                 v-else
                 :results="results"
               />
@@ -120,7 +120,7 @@
   import AlertMessage from '../../components/generic/AlertMessage';
   import InfoMessage from '../../components/generic/InfoMessage';
   import SearchFacet from '../../components/search/SearchFacet';
-  import SearchResultsList from '../../components/search/SearchResultsList';
+  import SearchResultsGrid from '../../components/search/SearchResultsGrid';
   import SearchSelectedFacets from '../../components/search/SearchSelectedFacets';
   import PaginationNav from '../../components/generic/PaginationNav';
   import ViewToggles from '../../components/search/ViewToggles';
@@ -131,7 +131,7 @@
       AlertMessage,
       InfoMessage,
       SearchFacet,
-      SearchResultsList,
+      SearchResultsGrid,
       SearchSelectedFacets,
       PaginationNav,
       ViewToggles
@@ -244,16 +244,6 @@
           }
           return { results: null, error: errorMessage, query: query.query };
         });
-    },
-    mounted () {
-      this.$nextTick(() => {
-        if (document.getElementById('searchResults') === null) {
-          const searchQuery = document.getElementById('searchQuery');
-          if (searchQuery) {
-            searchQuery.focus();
-          }
-        }
-      });
     },
     methods: {
       updateCurrentSearchQuery(updates) {

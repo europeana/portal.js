@@ -1,6 +1,8 @@
 export default {
   formatting: {
-    labelledValue: '{label}: {value}'
+    labelledValue: '{label}: {value}',
+    ellipsis: '…',
+    listSeperator: ';'
   },
   searchViews: {
     grid: 'Grid view',

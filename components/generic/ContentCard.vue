@@ -4,76 +4,47 @@
     data-qa="content card"
     no-body
   >
-    <div
-      v-if="imageUrl"
-      :aria-label="name"
-      :style="{'background-image': 'url(' + imageUrl + ')'}"
-      class="card-img"
+    <SmartLink
+      :destination="url"
+      link-class="card-link"
     >
-      <b-link
-        v-if="identifier"
-        :to="linkToRecord"
-        class="card-link record-link"
-        :aria-label="$t('goToRecord')"
+      <div
+        v-if="imageUrl"
+        :aria-label="title"
+        :style="{'background-image': 'url(' + imageUrl + ')'}"
+        class="card-img"
       />
-      <b-link
-        v-else
-        :href="url"
-        class="card-link"
-        :aria-label="$t('readMore')"
-      />
-    </div>
-    <b-card-body>
-      <b-card-title>
-        <b-link
-          v-if="identifier"
-          :to="linkToRecord"
-          class="card-link record-link"
+      <b-card-body>
+        <b-card-title>
+          {{ title }}
+        </b-card-title>
+        <b-card-text
+          v-for="(text, index) in texts"
+          :key="index"
         >
-          {{ name }}
-        </b-link>
-        <b-link
-          v-else
-          :href="url"
-          class="card-link"
+          {{ text }}
+        </b-card-text>
+        <span
+          v-if="viewMoreLabelKey"
+          class="view-more"
         >
-          {{ name }}
-        </b-link>
-      </b-card-title>
-      <b-card-text
-        v-for="text in cardText"
-        :key="text"
-      >
-        {{ text }}
-      </b-card-text>
-      <b-link
-        v-if="identifier"
-        :to="linkToRecord"
-        class="card-link record-link"
-      >
-        {{ $t('goToRecord') }}
-      </b-link>
-      <b-link
-        v-else
-        :href="url"
-        class="card-link"
-      >
-        {{ $t('readMore') }}
-      </b-link>
-    </b-card-body>
+          {{ $t(viewMoreLabelKey) }}
+        </span>
+      </b-card-body>
+    </SmartLink>
   </b-card>
 </template>
 
 <script>
   export default {
     props: {
-      name: {
+      title: {
         type: String,
         default: ''
       },
-      description: {
-        type: String,
-        default: ''
+      texts: {
+        type: Array,
+        default: () => []
       },
       url: {
         type: String,
@@ -83,25 +54,9 @@
         type: String,
         default: ''
       },
-      creator: {
+      viewMoreLabelKey: {
         type: String,
-        default: ''
-      },
-      provider: {
-        type: String,
-        default: ''
-      },
-      identifier: {
-        type: String,
-        default: ''
-      }
-    },
-    computed: {
-      linkToRecord () {
-        return this.localePath({ name: 'record-all', params: { pathMatch: this.identifier.replace(/^\/+/g, '') } });
-      },
-      cardText () {
-        return [this.description, this.creator, this.provider].filter(v => v);
+        default: null
       }
     }
   };
@@ -109,6 +64,11 @@
 
 <style lang="scss" scoped>
   @import "./assets/scss/variables.scss";
+
+  a {
+    display: flex;
+    flex-direction: column;
+  }
 
   .card-img {
     background-position: center center;
@@ -119,10 +79,6 @@
     flex: 1 1 auto;
     min-height: 10rem;
     width: 100%;
-
-    a {
-      flex: 1;
-    }
   }
 
   .card {
@@ -137,7 +93,7 @@
     transition: box-shadow 0.25s;
 
     &:hover {
-      box-shadow: 0 4px 12px 0 rgba(0,0,0,0.4);
+      box-shadow: $boxshadow-large;
       background-color: $lightgrey;
     }
 
@@ -157,6 +113,7 @@
     }
 
     .card-link {
+      min-height: 100%;
       color: $black;
       &:hover {
         color: $black;
