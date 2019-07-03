@@ -25,7 +25,7 @@ describe('components/generic/ContentCard', () => {
 
   it('has a creator and institution', () => {
     const wrapper = factory();
-    wrapper.setProps({ texts: ['Edvard Munch','Munchmuseet (The Munch Museum)'] });
+    wrapper.setProps({ texts: ['Edvard Munch', 'Munchmuseet (The Munch Museum)'] });
 
     const description =  wrapper.find('[data-qa="content card"] .card-body');
     description.text().should.contain('Edvard Munch');

@@ -21,7 +21,7 @@
       <ContentCard
         v-for="card in cards"
         :key="card.sys.id"
-        :name="card.fields.name"
+        :title="card.fields.name"
         :texts="cardTexts(card)"
         :url="cardDestination(card)"
         :image-url="card.fields.imageUrl"
@@ -69,14 +69,10 @@
       },
       cardTexts: function (card) {
         let texts = [];
-        if (card.fields.description) {
-          texts.push(card.fields.description);
-        }
-        if (card.fields.creator) {
-          texts.push(card.fields.creator);
-        }
-        if (card.fields.provider) {
-          texts.push(card.fields.provider);
+        for (const field of ['description', 'creator', 'provider']) {
+          if (card.fields[field]) {
+            texts.push(card.fields[field]);
+          }
         }
         return texts;
       }

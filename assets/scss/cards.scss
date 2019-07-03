@@ -1,0 +1,17 @@
+@import "variables.scss";
+
+.card-deck-3-cols .card {
+  flex: 0 0 100%;
+
+  @media (min-width: 768px) {
+    flex: 0 0 calc(100%/3 - #{$grid-gutter*2});
+  }
+}
+
+.card-deck-search .card {
+  .card-link {
+    &:visited {
+      color: $darkpurple;
+    }
+  }
+}

@@ -1,7 +1,7 @@
 export default {
   formatting: {
     labelledValue: '{label}: {value}',
-    elipsis: '…',
+    ellipsis: '…',
     listSeperator: ';'
   },
   searchPlaceholder: 'What are you looking for?',

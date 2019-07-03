@@ -10,21 +10,24 @@
     >
       <div
         v-if="imageUrl"
-        :aria-label="name"
+        :aria-label="title"
         :style="{'background-image': 'url(' + imageUrl + ')'}"
         class="card-img"
       />
       <b-card-body>
         <b-card-title>
-          {{ name }}
+          {{ title }}
         </b-card-title>
         <b-card-text
-          v-for="text in texts"
-          :key="text"
+          v-for="(text, index) in texts"
+          :key="index"
         >
           {{ text }}
         </b-card-text>
-        <span class="view-more">
+        <span
+          v-if="viewMoreLabelKey"
+          class="view-more"
+        >
           {{ $t(viewMoreLabelKey) }}
         </span>
       </b-card-body>
@@ -35,7 +38,7 @@
 <script>
   export default {
     props: {
-      name: {
+      title: {
         type: String,
         default: ''
       },
@@ -90,7 +93,7 @@
     transition: box-shadow 0.25s;
 
     &:hover {
-      box-shadow: 0 4px 12px 0 rgba(0,0,0,0.4);
+      box-shadow: $boxshadow-large;
       background-color: $lightgrey;
     }
 
@@ -115,10 +118,6 @@
       &:hover {
         color: $black;
       }
-    }
-
-    .view-more {
-      float: right;
     }
   }
 </style>

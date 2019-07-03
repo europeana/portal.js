@@ -1,12 +1,13 @@
 <template>
   <b-card-group
     id="searchResults"
+    class="card-deck-3-cols card-deck-search"
     deck
   >
     <ContentCard
       v-for="result in results"
       :key="result.europeanaId"
-      :name="result.fields.dcTitle[0]"
+      :title="result.fields.dcTitle[0]"
       :url="localePath({ name: 'record-all', params: { pathMatch: result.europeanaId.slice(1) } })"
       :image-url="result.edmPreview"
       :texts="cardTexts(result)"
@@ -31,21 +32,22 @@
     methods: {
       cardTexts: function (result) {
         let texts = [];
-        if (Array.isArray(result.fields.dcCreator)) {
-          let creator =  result.fields.dcCreator.slice(0, 3).join(this.$t('formatting.listSeperator') +' ');
-          if (result.fields.dcCreator.length > 3) {
-            creator = creator + this.$t('formatting.listSeperator') + this.$t('formatting.elipsis');
+        for (const field of ['dcCreator', 'edmDataProvider']) {
+          if (result.fields[field]) {
+            texts.push(this.stringifyField(result.fields[field]));
           }
-          texts.push(creator);
-        }
-        if (Array.isArray(result.fields.edmDataProvider)) {
-          let provider = result.fields.edmDataProvider.slice(0, 3).join(this.$t('formatting.listSeperator') +' ');
-          if (result.fields.edmDataProvider.length > 3) {
-            provider = provider + this.$t('formatting.listSeperator') + this.$t('formatting.elipsis');
-          }
-          texts.push(provider);
         }
         return texts;
+      },
+      stringifyField: function (field) {
+        let returnString = field;
+        if (Array.isArray(field)) {
+          returnString = field.slice(0, 3).join(this.$t('formatting.listSeperator') + ' ');
+          if (field.length > 3) {
+            returnString = returnString + this.$t('formatting.listSeperator') + this.$t('formatting.ellipsis');
+          }
+        }
+        return returnString;
       }
     }
   };

@@ -29,15 +29,15 @@
         </template>
         <ul v-else>
           <li
-            v-for="(element, index) in value.slice(0, 3)"
+            v-for="(element, index) in displayableValues(value)"
             :key="index"
           >
             {{ element }}
           </li>
           <li
-            v-if="value.length > 3"
+            v-if="trimmedValueArray(value)"
           >
-            $t('formatting.elipsis')
+            {{ $t('formatting.ellipsis') }}
           </li>
         </ul>
       </div>
@@ -51,6 +51,20 @@
       result: {
         type: Object,
         default: () => {}
+      }
+    },
+    methods: {
+      displayableValues: function (values) {
+        if (Array.isArray(values)) {
+          return values.slice(0, 3);
+        }
+        return values;
+      },
+      trimmedValueArray: function (values) {
+        if (Array.isArray(values)) {
+          return values.length > 3;
+        }
+        return false;
       }
     }
   };
