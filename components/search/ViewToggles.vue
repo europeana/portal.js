@@ -72,10 +72,10 @@
       transition-duration: 0.15s;
       transition-timing-function: cubic-bezier(0.4, 0.0, 0.2, 1);
       z-index: -1;
-      bottom: -0.5rem;
-      left: -0.5rem;
-      right: -0.5rem;
-      top: -0.5rem;
+      bottom: -10px;
+      left: -10px;
+      right: -10px;
+      top: -10px;
       background: $extralightgrey;
       border-radius: 50%;
       box-sizing: border-box;
@@ -88,6 +88,7 @@
       transform: scale(1);
     }
 
+    &:hover img,
     &.active img {
       filter: invert(0);
     }
