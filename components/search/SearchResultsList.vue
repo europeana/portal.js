@@ -1,7 +1,5 @@
 <template>
-  <b-list-group
-    id="searchResults"
-  >
+  <b-list-group>
     <b-list-group-item
       v-for="result in results"
       :key="result.europeanaId"
