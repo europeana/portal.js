@@ -46,8 +46,10 @@
         });
       },
       selectView: function (event) {
-        this.activeView = event.target.getAttribute('data-view');
-        this.$emit('changed', this.activeView);
+        if (event.target.getAttribute('data-view') !== this.activeView) {
+          this.activeView = event.target.getAttribute('data-view');
+          this.$emit('changed', this.activeView);
+        }
       }
     }
   };
@@ -91,6 +93,14 @@
     &:hover img,
     &.active img {
       filter: invert(0);
+    }
+
+    &.active {
+      cursor: default;
+      &:before {
+        opacity: 0;
+        transform: scale(0);
+      }
     }
   }
 </style>

@@ -2,6 +2,7 @@
   <b-card-group
     class="card-deck-3-cols card-deck-search"
     deck
+    data-qa="search results grid"
   >
     <ContentCard
       v-for="result in results"

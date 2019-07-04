@@ -89,6 +89,10 @@
               >
                 {{ $t('noMoreResults') }}
               </p>
+              <SearchResultsList
+                v-else-if="view == 'list'"
+                :results="results"
+              />
               <SearchResultsGrid
                 v-else
                 :results="results"
@@ -121,6 +125,7 @@
   import InfoMessage from '../../components/generic/InfoMessage';
   import SearchFacet from '../../components/search/SearchFacet';
   import SearchResultsGrid from '../../components/search/SearchResultsGrid';
+  import SearchResultsList from '../../components/search/SearchResultsList';
   import SearchSelectedFacets from '../../components/search/SearchSelectedFacets';
   import PaginationNav from '../../components/generic/PaginationNav';
   import ViewToggles from '../../components/search/ViewToggles';
@@ -132,6 +137,7 @@
       InfoMessage,
       SearchFacet,
       SearchResultsGrid,
+      SearchResultsList,
       SearchSelectedFacets,
       PaginationNav,
       ViewToggles
