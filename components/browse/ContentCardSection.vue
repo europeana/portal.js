@@ -58,9 +58,11 @@
     },
     methods: {
       moreLabelKey: function (card) {
+        // TODO: Allow arbitrary value overwrites per card via the CMS.
         return card.fields.identifier ? 'goToRecord' : 'readMore';
       },
       cardDestination: function (card) {
+        // TODO: Refactor content model to set this directly, so this method can be skipped.
         if (card.fields.url) {
           return card.fields.url;
         } else if (card.fields.identifier) {
@@ -68,6 +70,7 @@
         }
       },
       cardTexts: function (card) {
+        // TODO: Refactor content model to set this directly, so this method can be skipped.
         let texts = [];
         for (const field of ['description', 'creator', 'provider']) {
           if (card.fields[field]) {

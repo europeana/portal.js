@@ -39,6 +39,7 @@
         return texts;
       },
       stringifyField: function (field) {
+        // TODO: Rather than joining as strings, cards should handle arrays so this method can be skipped.
         let returnString = field;
         if (Array.isArray(field)) {
           returnString = field.slice(0, 3).join(this.$t('formatting.listSeperator') + ' ');
