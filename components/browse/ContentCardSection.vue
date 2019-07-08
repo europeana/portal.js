@@ -33,6 +33,7 @@
 
 <script>
   import ContentCard from '../generic/ContentCard';
+  import { getWikimediaThumbnailUrl, getEntityRouterLink } from '../../plugins/europeana/entity';
 
   export default {
     components: {
@@ -47,16 +48,27 @@
     computed: {
       cards: function() {
         return this.section.fields.hasPart.filter(card => card.fields).map(card => {
-          if (card.fields.thumbnailUrl) {
-            card.fields.imageUrl = card.fields.thumbnailUrl;
-          } else {
-            card.fields.imageUrl = (card.fields.image && card.fields.image.fields) ? card.fields.image.fields.file.url : '';
-          }
+          card.fields.imageUrl = this.cardImageUrl(card);
           return card;
         });
       }
     },
     methods: {
+      cardImageUrl: function (card) {
+        if (card.fields.thumbnailUrl) {
+          return card.fields.thumbnailUrl;
+        } else if (typeof card.fields.image === 'string') {
+          if (card.fields.image.startsWith('http://commons.wikimedia.org/wiki/Special:FilePath/')) {
+            return getWikimediaThumbnailUrl(card.fields.image);
+          } else {
+            return card.fields.image;
+          }
+        } else if (card.fields.image && card.fields.image.fields) {
+          return card.fields.image.fields.file.url;
+        } else {
+          return '';
+        }
+      },
       moreLabelKey: function (card) {
         // TODO: Allow arbitrary value overwrites per card via the CMS.
         return card.fields.identifier ? 'goToRecord' : 'readMore';
@@ -65,7 +77,14 @@
         // TODO: Refactor content model to set this directly, so this method can be skipped.
         if (card.fields.url) {
           return card.fields.url;
-        } else if (card.fields.identifier) {
+        } else if (typeof card.fields.identifier === 'string') {
+          if (/^https?:\/\//.test(card.fields.identifier)) {
+            if (card.fields.identifier.includes('://data.europeana.eu/')) {
+              return this.localePath(getEntityRouterLink(card.fields.identifier));
+            } else {
+              return card.fields.identifier;
+            }
+          }
           return this.localePath({ name: 'record-all', params: { pathMatch: card.fields.identifier.slice(1) } });
         }
       },
