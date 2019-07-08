@@ -298,20 +298,19 @@
       },
       selectView (view) {
         if (process.browser) {
-          sessionStorage.view = view;
-          localStorage.view = view;
+          sessionStorage.searchResultsView = view;
+          localStorage.searchResultsView = view;
         }
-        this.view = view;
         this.view = view;
       },
       selectedView: function () {
         if (process.browser) {
           if (this.$route.query.view) {
-            sessionStorage.view = this.$route.query.view;
+            sessionStorage.searchResultsView = this.$route.query.view;
           }
-          return sessionStorage.view || localStorage.view || 'grid';
+          return sessionStorage.searchResultsView || localStorage.searchResultsView || 'grid';
         }
-        return 'grid';
+        return this.$route.query.view || 'grid';
       }
     },
     head () {
