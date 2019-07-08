@@ -86,3 +86,14 @@ Feature: Search faceting
     And I wait 2 seconds
     Then I see a `record page`
     And I should see a meta label `Providing country` with the value "Belgium" or the value "Germany"
+
+  Scenario: Preserve filtering when perfoming a new search
+
+      When I visit `/search?query=`
+      And I check the "France" checkbox
+      And I wait 2 seconds
+      And I enter "paris" in the `search box`
+      And I click the `search button`
+      And I wait 2 seconds
+      Then I should be on `/search?page=1&qf=COUNTRY%3A%22France%22&query=paris&view=grid`
+      And I should have 1 `filter badge`

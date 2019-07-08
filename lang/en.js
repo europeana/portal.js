@@ -8,6 +8,9 @@ export default {
     grid: 'Grid view',
     list: 'List view'
   },
+  layout: {
+    skipToMain: 'Skip to main content'
+  },
   searchPlaceholder: 'What are you looking for?',
   error: 'Error',
   goToRecord: 'Go to record',
