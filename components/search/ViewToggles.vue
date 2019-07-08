@@ -9,13 +9,12 @@
       :active="activeView == view"
       :data-qa="`search ${view} view toggle`"
       class="pl-3"
-      @click="selectView"
+      @click="selectView(view)"
     >
       <img
         :src="iconSrc(view)"
         :alt="$t(`searchViews.${view}`)"
         :title="$t(`searchViews.${view}`)"
-        :data-view="view"
       >
     </b-nav-item>
   </b-nav>
@@ -45,9 +44,9 @@
           name: 'search', query: { ...this.$route.query, ...{ view: view } }
         });
       },
-      selectView: function (event) {
-        if (event.target.getAttribute('data-view') !== this.activeView) {
-          this.activeView = event.target.getAttribute('data-view');
+      selectView: function (view) {
+        if (view !== this.activeView) {
+          this.activeView = view;
           this.$emit('changed', this.activeView);
         }
       }
