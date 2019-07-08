@@ -5,7 +5,7 @@
       href="#main"
       data-qa="main content accessibility link"
     >
-      Skip to main content
+      {{ $t('layout.skipToMain') }}
     </a>
     <PageHeader
       :lang-select-enabled="langSelectEnabled"
@@ -29,7 +29,7 @@
     },
     data () {
       return {
-        searchQuery: this.getQueryFromParam()
+        searchQuery: this.$route.query || {}
       };
     },
     computed: {
@@ -39,17 +39,11 @@
     },
     created () {
       this.$root.$on('leaveSearchPage', () => {
-        this.searchQuery = '';
+        this.searchQuery = {};
       });
       this.$root.$on('updateSearchQuery', (val) => {
         this.searchQuery = val;
       });
-    },
-    methods: {
-      getQueryFromParam () {
-        return this.$route.query ? this.$route.query.query : '';
-      }
-    },
-    watchQuery: ['query']
+    }
   };
 </script>

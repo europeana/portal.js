@@ -54,7 +54,7 @@ function display(field) {
 function fieldsForSearchResult(item) {
   let fields = {
     // TODO: fallback to description when API returns dcDescriptionLangAware
-    dcTitle: item.dcTitleLangAware ? display(item.dcTitleLangAware) : $t('messages.noTitle', { record: item.id }),
+    dcTitle: item.dcTitleLangAware ? display(item.dcTitleLangAware) : [$t('messages.noTitle', { record: item.id })],
     // TODO: enable when API returns dcDescriptionLangAware
     // dcDescription: item.dcDescriptionLangAware,
     edmDataProvider: item.dataProvider

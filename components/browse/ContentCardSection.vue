@@ -21,13 +21,11 @@
       <ContentCard
         v-for="card in cards"
         :key="card.sys.id"
-        :name="card.fields.name"
-        :description="card.fields.description"
-        :url="card.fields.url"
+        :title="card.fields.name"
+        :texts="cardTexts(card)"
+        :url="cardDestination(card)"
         :image-url="card.fields.imageUrl"
-        :creator="card.fields.creator"
-        :provider="card.fields.provider"
-        :identifier="card.fields.identifier"
+        :view-more-label-key="moreLabelKey(card)"
       />
     </b-card-group>
   </div>
@@ -56,6 +54,30 @@
           }
           return card;
         });
+      }
+    },
+    methods: {
+      moreLabelKey: function (card) {
+        // TODO: Allow arbitrary value overwrites per card via the CMS.
+        return card.fields.identifier ? 'goToRecord' : 'readMore';
+      },
+      cardDestination: function (card) {
+        // TODO: Refactor content model to set this directly, so this method can be skipped.
+        if (card.fields.url) {
+          return card.fields.url;
+        } else if (card.fields.identifier) {
+          return this.localePath({ name: 'record-all', params: { pathMatch: card.fields.identifier.slice(1) } });
+        }
+      },
+      cardTexts: function (card) {
+        // TODO: Refactor content model to set this directly, so this method can be skipped.
+        let texts = [];
+        for (const field of ['description', 'creator', 'provider']) {
+          if (card.fields[field]) {
+            texts.push(card.fields[field]);
+          }
+        }
+        return texts;
       }
     }
   };

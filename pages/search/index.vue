@@ -91,6 +91,10 @@
                 {{ $t('noMoreResults') }}
               </p>
               <SearchResultsList
+                v-else-if="view == 'list'"
+                :results="results"
+              />
+              <SearchResultsGrid
                 v-else
                 :results="results"
               />
@@ -121,17 +125,29 @@
   import AlertMessage from '../../components/generic/AlertMessage';
   import InfoMessage from '../../components/generic/InfoMessage';
   import SearchFacet from '../../components/search/SearchFacet';
+  import SearchResultsGrid from '../../components/search/SearchResultsGrid';
   import SearchResultsList from '../../components/search/SearchResultsList';
   import SearchSelectedFacets from '../../components/search/SearchSelectedFacets';
   import PaginationNav from '../../components/generic/PaginationNav';
   import ViewToggles from '../../components/search/ViewToggles';
   import search, { pageFromQuery, selectedFacetsFromQuery } from '../../plugins/europeana/search';
 
+  let watchList = {};
+  for (const property of ['qf', 'query', 'reusability', 'view']) {
+    watchList[property] = {
+      immediate: true,
+      handler: function (val) {
+        this.$root.$emit('updateSearchQuery', this.updateCurrentSearchQuery({ [property]: val }));
+      }
+    };
+  }
+
   export default {
     components: {
       AlertMessage,
       InfoMessage,
       SearchFacet,
+      SearchResultsGrid,
       SearchResultsList,
       SearchSelectedFacets,
       PaginationNav,
@@ -158,7 +174,7 @@
         selectedFacets: {},
         theme: '',
         totalResults: null,
-        view: 'grid'
+        view: this.selectedView()
       };
     },
     computed: {
@@ -193,14 +209,7 @@
         return ordered.concat(unordered);
       }
     },
-    watch: {
-      query: {
-        immediate: true,
-        handler(val) {
-          this.$root.$emit('updateSearchQuery', val);
-        }
-      }
-    },
+    watch: watchList,
     asyncData ({ env, query, res, redirect, app }) {
       const currentPage = pageFromQuery(query.page);
       if (currentPage === null) {
@@ -252,16 +261,6 @@
           return { results: null, error: errorMessage, query: query.query };
         });
     },
-    mounted () {
-      this.$nextTick(() => {
-        if (document.getElementById('searchResults') === null) {
-          const searchQuery = document.getElementById('searchQuery');
-          if (searchQuery) {
-            searchQuery.focus();
-          }
-        }
-      });
-    },
     methods: {
       updateCurrentSearchQuery(updates) {
         const current = {
@@ -312,7 +311,20 @@
         this.rerouteSearch({ qf: this.qfForSelectedFacets, reusability: this.reusability, theme: this.theme, page: '1' });
       },
       selectView (view) {
+        if (process.browser) {
+          sessionStorage.searchResultsView = view;
+          localStorage.searchResultsView = view;
+        }
         this.view = view;
+      },
+      selectedView: function () {
+        if (process.browser) {
+          if (this.$route.query.view) {
+            sessionStorage.searchResultsView = this.$route.query.view;
+          }
+          return sessionStorage.searchResultsView || localStorage.searchResultsView || 'grid';
+        }
+        return this.$route.query.view || 'grid';
       }
     },
     head () {

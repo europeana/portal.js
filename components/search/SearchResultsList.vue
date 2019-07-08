@@ -1,6 +1,6 @@
 <template>
   <b-list-group
-    id="searchResults"
+    data-qa="search results list"
   >
     <b-list-group-item
       v-for="result in results"
