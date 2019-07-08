@@ -9,13 +9,12 @@
       :active="activeView == view"
       :data-qa="`search ${view} view toggle`"
       class="pl-3"
-      @click="selectView"
+      @click="selectView(view)"
     >
       <img
         :src="iconSrc(view)"
         :alt="$t(`searchViews.${view}`)"
         :title="$t(`searchViews.${view}`)"
-        :data-view="view"
       >
     </b-nav-item>
   </b-nav>
@@ -45,9 +44,11 @@
           name: 'search', query: { ...this.$route.query, ...{ view: view } }
         });
       },
-      selectView: function (event) {
-        this.activeView = event.target.getAttribute('data-view');
-        this.$emit('changed', this.activeView);
+      selectView: function (view) {
+        if (view !== this.activeView) {
+          this.activeView = view;
+          this.$emit('changed', this.activeView);
+        }
       }
     }
   };
@@ -91,6 +92,14 @@
     &:hover img,
     &.active img {
       filter: invert(0);
+    }
+
+    &.active {
+      cursor: default;
+      &:before {
+        opacity: 0;
+        transform: scale(0);
+      }
     }
   }
 </style>
