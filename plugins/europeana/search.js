@@ -176,6 +176,7 @@ function search(params) {
       query: params.query == '' ? '*:*' : params.query,
       qf: params.qf,
       reusability: params.reusability,
+      theme: params.theme,
       rows: rows,
       start: start,
       wskey: params.wskey

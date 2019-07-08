@@ -38,6 +38,7 @@ export default {
   facets: {
     COUNTRY: 'Country',
     REUSABILITY: 'Can I reuse this?',
+    THEME: 'Category',
     TYPE: 'Type of media'
   },
   entity: 'Entity',

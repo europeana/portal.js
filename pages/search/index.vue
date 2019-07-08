@@ -56,6 +56,7 @@
           v-for="facet in orderedFacets"
           :key="facet.name"
           :name="facet.name"
+          :type="facet.name === 'THEME' ? 'radio' : 'checkbox'"
           :fields="facet.fields"
           :selected-fields="selectedFacets[facet.name]"
           @changed="selectFacet"
@@ -155,6 +156,7 @@
         results: null,
         reusability: '',
         selectedFacets: {},
+        theme: '',
         totalResults: null,
         view: 'grid'
       };
@@ -177,6 +179,7 @@
         const order = ['TYPE', 'REUSABILITY', 'COUNTRY'];
         let unordered = this.facets.slice();
         let ordered = [];
+
         for (const facetName of order) {
           const index = unordered.findIndex((f) => {
             return f.name == facetName;
@@ -185,6 +188,8 @@
             ordered = ordered.concat(unordered.splice(index, 1));
           }
         }
+
+        ordered.unshift({ name: 'THEME', fields: [{ label: 'Art' }, { label: 'Fashion' }, { label: 'Archaeology' }] });
         return ordered.concat(unordered);
       }
     },
@@ -214,6 +219,7 @@
         facet: 'COUNTRY,REUSABILITY,TYPE',
         qf: query.qf,
         reusability: query.reusability,
+        theme: query.theme,
         wskey: env.EUROPEANA_API_KEY
       })
         .then((response) => {
@@ -224,7 +230,8 @@
             page: Number(currentPage),
             selectedFacets: selectedFacetsFromQuery(query),
             qfForSelectedFacets: query.qf === '' ? [] : query.qf,
-            reusability: query.reusability
+            reusability: query.reusability,
+            theme: query.theme
           };
         })
         .catch((error) => {
@@ -262,6 +269,7 @@
           qf: this.qfForSelectedFacets,
           query: this.query || '',
           reusability: this.reusability,
+          theme: this.theme,
           view: this.view
         };
 
@@ -287,18 +295,21 @@
         this.$set(this.selectedFacets, name, selected);
         this.qfForSelectedFacets = [];
         this.reusability = null;
+        this.theme = null;
         for (const facetName in this.selectedFacets) {
           const selectedValues = this.selectedFacets[facetName];
-          // `reusability` has its own API parameter and can not be queried in `qf`
+          // `reusability` and `theme` have their own API parameter and can not be queried in `qf`
           if (facetName == 'REUSABILITY' && selectedValues.length > 0) {
             this.reusability = selectedValues.join(',');
+          } else if (facetName == 'THEME' && selected) {
+            this.theme = selected;
           } else {
             for (const facetValue of selectedValues) {
               this.qfForSelectedFacets.push(`${facetName}:"${facetValue}"`);
             }
           }
         }
-        this.rerouteSearch({ qf: this.qfForSelectedFacets, reusability: this.reusability, page: '1' });
+        this.rerouteSearch({ qf: this.qfForSelectedFacets, reusability: this.reusability, theme: this.theme, page: '1' });
       },
       selectView (view) {
         this.view = view;
@@ -313,6 +324,6 @@
       this.$root.$emit('leaveSearchPage');
       next();
     },
-    watchQuery: ['page', 'qf', 'query', 'reusability']
+    watchQuery: ['page', 'qf', 'query', 'reusability', 'theme']
   };
 </script>

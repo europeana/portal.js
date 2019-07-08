@@ -24,8 +24,16 @@
       facetList: function() {
         let listOfFacets = [];
         for (let facetName in this.facets) {
+
+          if (typeof this.facets[facetName] === 'string') {
+            const value = this.facets[facetName];
+            listOfFacets.push({ key: `${facetName}:${value}`, facetName: facetName, fieldValue: value });
+          }
+
           for (let fieldValue of this.facets[facetName]) {
-            listOfFacets.push({ key: `${facetName}:${fieldValue}`, facetName: facetName, fieldValue: fieldValue });
+            if (typeof this.facets[facetName] !== 'string') {
+              listOfFacets.push({ key: `${facetName}:${fieldValue}`, facetName: facetName, fieldValue: fieldValue });
+            }
           }
         }
         return listOfFacets;
