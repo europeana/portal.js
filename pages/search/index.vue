@@ -126,6 +126,16 @@
   import ViewToggles from '../../components/search/ViewToggles';
   import search, { pageFromQuery, selectedFacetsFromQuery } from '../../plugins/europeana/search';
 
+  let watchList = {};
+  for (const property of ['qf', 'query', 'reusability', 'view']) {
+    watchList[property] = {
+      immediate: true,
+      handler: function (val) {
+        this.$root.$emit('updateSearchQuery', this.updateCurrentSearchQuery({ [property]: val }));
+      }
+    };
+  }
+
   export default {
     components: {
       AlertMessage,
@@ -188,14 +198,7 @@
         return ordered.concat(unordered);
       }
     },
-    watch: {
-      query: {
-        immediate: true,
-        handler(val) {
-          this.$root.$emit('updateSearchQuery', val);
-        }
-      }
-    },
+    watch: watchList,
     asyncData ({ env, query, res, redirect, app }) {
       const currentPage = pageFromQuery(query.page);
       if (currentPage === null) {

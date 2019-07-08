@@ -63,13 +63,13 @@
         default: false
       },
       searchQuery: {
-        type: String,
-        default: ''
+        type: Object,
+        default: () => {}
       }
     },
     data () {
       return {
-        query: this.searchQuery || '',
+        query: (this.searchQuery || {}).query || '',
         isLoading: false
       };
     },
@@ -81,14 +81,15 @@
     watch: {
       searchQuery: {
         immediate: true,
-        handler(val) {
-          this.query = val || '';
+        handler(val = {}) {
+          this.query = val.query || '';
         }
       }
     },
     methods: {
       submitSearchForm () {
-        this.$router.push(this.localePath({ name: 'search', query: { query: this.query } }));
+        const newSearchQuery = { ...this.searchQuery, ...{ query: this.query } };
+        this.$router.push(this.localePath({ name: 'search', query: newSearchQuery }));
       }
     }
   };
