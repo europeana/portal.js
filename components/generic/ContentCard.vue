@@ -47,8 +47,8 @@
         default: () => []
       },
       url: {
-        type: String,
-        default: 'https://www.europeana.eu/'
+        type: [String, Object],
+        default: ''
       },
       imageUrl: {
         type: String,
