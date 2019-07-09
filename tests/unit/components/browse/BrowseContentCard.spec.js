@@ -115,4 +115,17 @@ describe('components/browse/BrowseContentCard', () => {
       });
     });
   });
+
+  describe('texts()', () => {
+    it('is includes description, creator and provider fields', () => {
+      const description = 'Some interesting content';
+      const creator = 'A European artist';
+      const provider = 'An aggregator';
+      const wrapper = factory({ fields: { description: description, creator: creator, provider: provider } });
+
+      wrapper.vm.texts.should.include(description);
+      wrapper.vm.texts.should.include(creator);
+      wrapper.vm.texts.should.include(provider);
+    });
+  });
 });
