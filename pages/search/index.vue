@@ -264,18 +264,15 @@
           view: this.view
         };
 
-        if (current.reusability === null) {
-          delete current.reusability;
-        }
+        const updated = { ...current, ...updates };
 
-        // If any values in the updates are `null`, remove them from the query
-        for (const key in updates) {
-          if (updates[key] === null) {
-            delete current[key];
-            delete updates[key];
+        // If any updated values are `null`, remove them from the query
+        for (const key in updated) {
+          if (updated[key] === null) {
+            delete updated[key];
           }
         }
-        return { ...current, ...updates };
+        return updated;
       },
       rerouteSearch(queryUpdates) {
         this.isLoading = true;
