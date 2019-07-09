@@ -16,8 +16,8 @@
       >
         <b-form-radio
           v-for="field in fields"
-          :key="field.label"
-          :value="field.label.toLowerCase()"
+          :key="field.value"
+          :value="field.value"
         >
           {{ field.label }}
         </b-form-radio>
@@ -65,11 +65,9 @@
     computed: {
       selected: {
         get: function () {
-          console.log('get', this.selectedFields);
           return this.preserved ? this.preserved : this.selectedFields;
         },
         set: function (values) {
-          console.log('set', values);
           this.preserved = values;
         }
       }

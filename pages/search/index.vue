@@ -133,7 +133,7 @@
   import search, { pageFromQuery, selectedFacetsFromQuery } from '../../plugins/europeana/search';
 
   let watchList = {};
-  for (const property of ['qf', 'query', 'reusability', 'view']) {
+  for (const property of ['qf', 'query', 'reusability', 'view', 'theme']) {
     watchList[property] = {
       immediate: true,
       handler: function (val) {
@@ -141,6 +141,21 @@
       }
     };
   }
+
+  const thematicCollections = [ { label: 'All items', value: '' },
+                                { label: '1914-1918', value: 'ww1' },
+                                { label: 'Archaeology', value: 'archaeology' },
+                                { label: 'Art', value: 'art' },
+                                { label: 'Fashion', value: 'fashion' },
+                                { label: 'Manuscripts', value: 'manuscript' },
+                                { label: 'Maps and Geography', value: 'map' },
+                                { label: 'Migration', value: 'migration' },
+                                { label: 'Music', value: 'music' },
+                                { label: 'Natural History', value: 'nature' },
+                                { label: 'Newspapers', value: 'newspaper' },
+                                { label: 'Photography', value: 'photography' },
+                                { label: 'Sport', value: 'sport' }
+  ];
 
   export default {
     components: {
@@ -205,7 +220,7 @@
           }
         }
 
-        ordered.unshift({ name: 'THEME', fields: [{ label: 'Art' }, { label: 'Fashion' }, { label: 'Archaeology' }] });
+        ordered.unshift({ name: 'THEME', fields: thematicCollections });
         return ordered.concat(unordered);
       }
     },
@@ -298,10 +313,10 @@
         for (const facetName in this.selectedFacets) {
           const selectedValues = this.selectedFacets[facetName];
           // `reusability` and `theme` have their own API parameter and can not be queried in `qf`
-          if (facetName == 'REUSABILITY' && selectedValues.length > 0) {
+          if (facetName === 'REUSABILITY' && selectedValues.length > 0) {
             this.reusability = selectedValues.join(',');
-          } else if (facetName == 'THEME' && selected) {
-            this.theme = selected;
+          } else if (facetName === 'THEME' && this.selectedFacets['THEME']) {
+            this.theme = selectedValues;
           } else {
             for (const facetValue of selectedValues) {
               this.qfForSelectedFacets.push(`${facetName}:"${facetValue}"`);

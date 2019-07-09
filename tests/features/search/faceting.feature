@@ -1,11 +1,11 @@
 Feature: Search faceting
 
-  Scenario: Seeing the type facet
+  Scenario: Seeing the category facet
 
     When I visit the `search page`
     And I enter "" in the `search box`
     And I click the `search button`
-    Then I see a `search facet` with the text "Type of media"
+    Then I see a `search facet` with the text "Category"
 
   Scenario: Filtering results by types
 
@@ -23,6 +23,14 @@ Feature: Search faceting
     And I wait 2 seconds
     Then I should be on `/search?page=1&query=&reusability=open&view=grid`
     And I see a `filter badge` with the text "Can I reuse this?: open"
+
+  Scenario: Filtering results by theme
+
+    When I visit `/search?query=`
+    And I check the "art" radio
+    And I wait 2 seconds
+    Then I should be on `/search?page=1&query=&theme=art&view=grid`
+    And I see a `filter badge` with the text "Category: art" 
 
   Scenario: Filtering results by country
 

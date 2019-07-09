@@ -56,6 +56,9 @@ defineStep('I activate/click (on )(the/a/an)( ){target} in/on a/an/the {target}'
 defineStep('I check/click the {string} checkbox', (inputValue) =>
   i.checkTheCheckbox(inputValue));
 
+defineStep('I check/click the {string} radio', (inputValue) =>
+  i.checkTheRadio(inputValue));
+
 defineStep('I activate/click (the/a/an)( ){string} link', (href) =>
   i.clickOnLink(href));
 
