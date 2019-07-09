@@ -64,11 +64,6 @@ export function getEntityUri(type, id) {
   return `http://data.europeana.eu/${getEntityTypeApi(type)}/base/${normalizeEntityId(id)}`;
 }
 
-export function getEntityRouterLink(uri) {
-  const uriMatch = uri.match('^http://data.europeana.eu/([^/]+)(/base)?/(.+)$');
-  return { name: 'entity-type-all', params: { type: getEntityTypeHumanReadable(uriMatch[1]), pathMatch: uriMatch[3] } };
-}
-
 /**
  * Retrieve the URL of the entity from the human readable type and ID
  * @param {string} type the human readable type of the entity either person or topic
