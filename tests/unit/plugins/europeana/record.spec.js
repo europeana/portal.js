@@ -1,5 +1,5 @@
 import nock from 'nock';
-import getRecord from '../../../../plugins/europeana/record';
+import getRecord, { isEuropeanaRecordId } from '../../../../plugins/europeana/record';
 
 const axios = require('axios');
 axios.defaults.adapter = require('axios/lib/adapters/http');
@@ -95,6 +95,28 @@ describe('plugins/europeana/record', () => {
           const response = await getRecord(europeanaId, { wskey: apiKey });
           response.record.pdfLink.should.exist;
         });
+      });
+    });
+  });
+
+  describe('isEuropeanaRecordId()', () => {
+    describe('with valid record ID', () => {
+      it('returns `true`', () => {
+        const recordId = '/123456/abcdef_7890';
+
+        const validation = isEuropeanaRecordId(recordId);
+
+        validation.should.equal(true);
+      });
+    });
+
+    describe('with invalid record ID', () => {
+      it('returns `false`', () => {
+        const recordId = 'http://www.example.org/123456/abcdef_7890';
+
+        const validation = isEuropeanaRecordId(recordId);
+
+        validation.should.equal(false);
       });
     });
   });
