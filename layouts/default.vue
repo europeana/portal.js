@@ -44,6 +44,11 @@
       this.$root.$on('updateSearchQuery', (val) => {
         this.searchQuery = val;
       });
+    },
+    updated () {
+      if (!this.searchQuery.hasOwnProperty('view')) {
+        this.searchQuery.view = sessionStorage.searchResultsView || localStorage.searchResultsView || 'grid';
+      }
     }
   };
 </script>
