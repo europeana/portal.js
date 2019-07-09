@@ -16,15 +16,27 @@ describe('components/generic/SmartLink', () => {
       wrapper.setProps({ destination: 'https://www.example.org/url-example' });
 
       wrapper.contains('b-link-stub').should.be.true;
+      wrapper.find('b-link-stub').attributes('href').should.exist;
     });
   });
 
   context('when passed a URL path', () => {
-    it('should render a NUXT link', () => {
+    it('should render a Nuxt link', () => {
       const wrapper = factory();
       wrapper.setProps({ destination: '/url/path-example' });
 
       wrapper.contains('b-link-stub').should.be.true;
+      wrapper.find('b-link-stub').attributes('to').should.exist;
+    });
+  });
+
+  context('with a named route object', () => {
+    it('should render a Nuxt link', () => {
+      const wrapper = factory();
+      wrapper.setProps({ destination: { name: 'route-to-somewhere' } });
+
+      wrapper.contains('b-link-stub').should.be.true;
+      wrapper.find('b-link-stub').attributes('to').should.exist;
     });
   });
 });

@@ -100,7 +100,7 @@ describe('plugins/europeana/record', () => {
   });
 
   describe('isEuropeanaRecordId()', () => {
-    describe('with valid record ID', () => {
+    context('with valid record ID', () => {
       it('returns `true`', () => {
         const recordId = '/123456/abcdef_7890';
 
@@ -110,7 +110,7 @@ describe('plugins/europeana/record', () => {
       });
     });
 
-    describe('with invalid record ID', () => {
+    context('with invalid record ID', () => {
       it('returns `false`', () => {
         const recordId = 'http://www.example.org/123456/abcdef_7890';
 
