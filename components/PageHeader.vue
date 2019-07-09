@@ -88,7 +88,9 @@
     },
     methods: {
       submitSearchForm () {
-        const newSearchQuery = { ...this.searchQuery, ...{ query: this.query } };
+        const view = this.$route.query.view || sessionStorage.searchResultsView || localStorage.searchResultsView || 'grid';
+
+        const newSearchQuery = { ...this.searchQuery, ...{ query: this.query, view: view } };
         this.$router.push(this.localePath({ name: 'search', query: newSearchQuery }));
       }
     }

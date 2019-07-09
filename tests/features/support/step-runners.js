@@ -117,6 +117,13 @@ module.exports = {
       await client.expect(result.value).to.eq(text);
     });
   },
+  selectSearchResultsView: async function (viewName) {
+    await client.execute(function(viewName) {
+      localStorage.searchResultsView = viewName;
+      sessionStorage.searchResultsView = viewName;
+      return true;
+    }, [viewName]);
+  },
   doNotSeeTextInTarget: async function (text, qaElementName) {
     const selector = qaSelector(qaElementName);
     await client.waitForElementVisible(selector);

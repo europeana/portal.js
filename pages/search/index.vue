@@ -169,7 +169,7 @@
         qfForSelectedFacets: [],
         query: null,
         results: null,
-        reusability: '',
+        reusability: null,
         selectedFacets: {},
         totalResults: null,
         view: this.selectedView()
@@ -263,6 +263,10 @@
           reusability: this.reusability,
           view: this.view
         };
+
+        if (current.reusability === null) {
+          delete current.reusability;
+        }
 
         // If any values in the updates are `null`, remove them from the query
         for (const key in updates) {
