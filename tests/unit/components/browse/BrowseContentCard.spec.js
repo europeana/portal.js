@@ -15,6 +15,15 @@ const factory = (props = { fields: {} }) => shallowMount(BrowseContentCard, {
 });
 
 describe('components/browse/BrowseContentCard', () => {
+  describe('title()', () => {
+    it('uses `fields.name`', () => {
+      const name = 'Content item';
+      const wrapper = factory({ fields: { name: name } });
+
+      wrapper.vm.title.should.eq(name);
+    });
+  });
+
   describe('imageUrl()', () => {
     context('when `fields.thumbnailUrl` is present', () => {
       it('is used', () => {

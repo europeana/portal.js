@@ -1,6 +1,6 @@
 <template>
   <ContentCard
-    :title="fields.name"
+    :title="title"
     :texts="texts"
     :url="destination"
     :image-url="imageUrl"
@@ -24,6 +24,9 @@
       }
     },
     computed: {
+      title: function () {
+        return this.fields.name;
+      },
       imageUrl: function () {
         if (this.fields.thumbnailUrl) {
           return this.fields.thumbnailUrl;
