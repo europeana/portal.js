@@ -46,18 +46,16 @@
       destination: function () {
         if (this.fields.url) {
           return this.fields.url;
-        } else if (typeof this.fields.identifier === 'string') {
-          if (/^https?:\/\//.test(this.fields.identifier)) {
-            if (this.fields.identifier.includes('://data.europeana.eu/')) {
-              return this.entityRouterLink(this.fields.identifier);
-            } else {
-              return this.fields.identifier;
-            }
+        } else if (this.forEuropeanaRecord()) {
+          return this.recordRouterLink(this.fields.identifier);
+        } else if (typeof this.fields.identifier === 'string' && /^https?:\/\//.test(this.fields.identifier)) {
+          if (this.forEuropeanaEntity()) {
+            return this.entityRouterLink(this.fields.identifier);
+          } else {
+            return this.fields.identifier;
           }
-          return this.localePath({ name: 'record-all', params: { pathMatch: this.fields.identifier.slice(1) } });
-        } else {
-          return null;
         }
+        return '';
       },
       texts: function () {
         // TODO: Refactor content model to set this directly, so this method can be skipped.
@@ -74,11 +72,17 @@
       forEuropeanaRecord: function () {
         return (typeof this.fields.identifier === 'string') && isEuropeanaRecordId(this.fields.identifier);
       },
+      forEuropeanaEntity: function () {
+        return (typeof this.fields.identifier === 'string') && this.fields.identifier.includes('://data.europeana.eu/');
+      },
       entityRouterLink: function (uri) {
         const uriMatch = uri.match('^http://data.europeana.eu/([^/]+)(/base)?/(.+)$');
         return this.localePath({
           name: 'entity-type-all', params: { type: getEntityTypeHumanReadable(uriMatch[1]), pathMatch: uriMatch[3] } }
         );
+      },
+      recordRouterLink: function (identifier) {
+        return this.localePath({ name: 'record-all', params: { pathMatch: identifier.slice(1) } });
       }
     }
   };
