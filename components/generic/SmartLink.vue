@@ -29,7 +29,7 @@
     },
     computed: {
       useRouterLink: function () {
-        return (this.destination.typeof !== 'string') || this.destination.startsWith('/');
+        return (typeof this.destination !== 'string') || this.destination.startsWith('/');
       }
     }
   };
