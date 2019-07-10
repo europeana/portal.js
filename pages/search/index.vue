@@ -187,7 +187,7 @@
         results: null,
         reusability: null,
         selectedFacets: {},
-        theme: '',
+        theme: null,
         totalResults: null,
         view: this.selectedView()
       };
