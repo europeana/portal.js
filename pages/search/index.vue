@@ -169,7 +169,7 @@
         qfForSelectedFacets: [],
         query: null,
         results: null,
-        reusability: '',
+        reusability: null,
         selectedFacets: {},
         totalResults: null,
         view: this.selectedView()
@@ -264,14 +264,15 @@
           view: this.view
         };
 
-        // If any values in the updates are `null`, remove them from the query
-        for (const key in updates) {
-          if (updates[key] === null) {
-            delete current[key];
-            delete updates[key];
+        const updated = { ...current, ...updates };
+
+        // If any updated values are `null`, remove them from the query
+        for (const key in updated) {
+          if (updated[key] === null) {
+            delete updated[key];
           }
         }
-        return { ...current, ...updates };
+        return updated;
       },
       rerouteSearch(queryUpdates) {
         this.isLoading = true;

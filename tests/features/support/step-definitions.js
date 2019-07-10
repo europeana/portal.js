@@ -80,5 +80,8 @@ defineStep('I should have/see/see/spot a meta label {target} with the value {str
 defineStep('I should have/see/see/spot a meta label {target} with the value {string} or the value {string}', (label, value, altValue) =>
   i.matchMetaLabelAndValueOrValue(label, value, altValue));
 
+defineStep('I have selected/chosen (the ){target} search results view', (viewName) =>
+  i.selectSearchResultsView(viewName));
+
 defineStep('I am on an accessible page',() =>
   i.checkPageAccesibility());
