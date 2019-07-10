@@ -13,6 +13,9 @@
 </template>
 
 <script>
+
+  import { thematicCollections } from '../../plugins/europeana/search';
+
   export default {
     props: {
       facets: {
@@ -27,7 +30,14 @@
 
           if (typeof this.facets[facetName] === 'string') {
             const value = this.facets[facetName];
-            listOfFacets.push({ key: `${facetName}:${value}`, facetName: facetName, fieldValue: value });
+            let fieldValue = this.facets[facetName];
+            if (facetName === 'THEME') {
+              const [field] = thematicCollections.filter(obj => {
+                return obj.value === value;
+              });
+              fieldValue = field.label;
+            }
+            listOfFacets.push({ key: `${facetName}:${fieldValue}`, facetName: facetName, fieldValue: fieldValue });
           }
 
           for (let fieldValue of this.facets[facetName]) {

@@ -130,7 +130,7 @@
   import SearchSelectedFacets from '../../components/search/SearchSelectedFacets';
   import PaginationNav from '../../components/generic/PaginationNav';
   import ViewToggles from '../../components/search/ViewToggles';
-  import search, { pageFromQuery, selectedFacetsFromQuery } from '../../plugins/europeana/search';
+  import search, { pageFromQuery, selectedFacetsFromQuery, thematicCollections } from '../../plugins/europeana/search';
 
   let watchList = {};
   for (const property of ['qf', 'query', 'reusability', 'view', 'theme']) {
@@ -141,21 +141,6 @@
       }
     };
   }
-
-  const thematicCollections = [ { label: 'All items', value: '' },
-                                { label: '1914-1918', value: 'ww1' },
-                                { label: 'Archaeology', value: 'archaeology' },
-                                { label: 'Art', value: 'art' },
-                                { label: 'Fashion', value: 'fashion' },
-                                { label: 'Manuscripts', value: 'manuscript' },
-                                { label: 'Maps and Geography', value: 'map' },
-                                { label: 'Migration', value: 'migration' },
-                                { label: 'Music', value: 'music' },
-                                { label: 'Natural History', value: 'nature' },
-                                { label: 'Newspapers', value: 'newspaper' },
-                                { label: 'Photography', value: 'photography' },
-                                { label: 'Sport', value: 'sport' }
-  ];
 
   export default {
     components: {

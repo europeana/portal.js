@@ -13,7 +13,7 @@ Feature: Search faceting
     And I check the "art" radio
     And I wait 3 seconds
     Then I should be on `/search?page=1&query=&theme=art&view=grid`
-    And I see a `filter badge` with the text "Category: art" 
+    And I see a `filter badge` with the text "Category: Art" 
 
   Scenario: Filtering results by types
 
