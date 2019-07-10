@@ -10,6 +10,9 @@ const factory = () => mount(SearchSelectedFacets, {
   mocks: {
     $t: (key, opts) => {
       return `${key}: ${JSON.stringify(opts)}`;
+    },
+    $te: () => {
+      return false;
     }
   }
 });
