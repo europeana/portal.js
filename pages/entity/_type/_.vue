@@ -36,7 +36,7 @@
         >
           {{ $t('noMoreResults') }}
         </p>
-        <SearchResultsList
+        <SearchResultsGrid
           v-else
           :results="searchResults.results"
         />
@@ -78,7 +78,7 @@
   import InfoMessage from '../../../components/generic/InfoMessage';
   import BrowseChip from '../../../components/browse/BrowseChip';
   import EntityDetails from '../../../components/browse/EntityDetails';
-  import SearchResultsList from '../../../components/search/SearchResultsList';
+  import SearchResultsGrid from '../../../components/search/SearchResultsGrid';
   import PaginationNav from '../../../components/generic/PaginationNav';
 
   import * as entities from '../../../plugins/europeana/entity';
@@ -90,7 +90,7 @@
       BrowseChip,
       EntityDetails,
       InfoMessage,
-      SearchResultsList,
+      SearchResultsGrid,
       PaginationNav
     },
     props: {
