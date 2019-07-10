@@ -45,6 +45,6 @@ describe('components/generic/ContentCard', () => {
     wrapper.setProps({ imageUrl: 'https://example.org' });
 
     const card =  wrapper.find('[data-qa="content card"] .card-img');
-    card.attributes('style').should.contain('https://example.org');
+    card.attributes('style').should.contain('https\\:\\/\\/example\\.org');
   });
 });
