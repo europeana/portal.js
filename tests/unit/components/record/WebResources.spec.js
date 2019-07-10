@@ -11,7 +11,7 @@ const factory = () => shallowMount(WebResources, {
 });
 
 describe('components/record/WebResources', () => {
-  it('outpus each web resource in `media`', () => {
+  it('outputs each web resource in `media`', () => {
     const wrapper = factory();
     const props = {
       media: [
