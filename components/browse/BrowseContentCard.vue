@@ -90,28 +90,3 @@
     }
   };
 </script>
-
-<style lang="scss" scoped>
-
-@import "./assets/scss/variables.scss";
-
-.browse-section {
-  h2,
-  p {
-    color: $darkgrey;
-    text-align: left;
-  }
-
-  h2 {
-    font-size: 1.25rem;
-    font-weight: 600;
-    letter-spacing: 0.12125rem;
-  }
-
-  p {
-    letter-spacing: 0.0975rem;
-    line-height: 1.5;
-  }
-}
-
-</style>
