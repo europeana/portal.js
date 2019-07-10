@@ -7,15 +7,17 @@
       class="mr-2"
       data-qa="filter badge"
     >
-      {{ $t('formatting.labelledValue', { label: $t(`facets.${selectedFacet.facetName}`), value: selectedFacet.fieldValue}) }}
+      <template v-if="selectedFacet.facetName === 'THEME'">
+        {{ $t('formatting.labelledValue', { label: $t(`facets.${selectedFacet.facetName}.name`), value: $t(`facets.${selectedFacet.facetName}.options.${selectedFacet.fieldValue}`)}) }}
+      </template>
+      <template v-else>
+        {{ $t('formatting.labelledValue', { label: $t(`facets.${selectedFacet.facetName}.name`), value: selectedFacet.fieldValue}) }}
+      </template>
     </b-badge>
   </div>
 </template>
 
 <script>
-
-  import { thematicCollections } from '../../plugins/europeana/search';
-
   export default {
     props: {
       facets: {
@@ -29,14 +31,7 @@
         for (let facetName in this.facets) {
 
           if (typeof this.facets[facetName] === 'string') {
-            const value = this.facets[facetName];
             let fieldValue = this.facets[facetName];
-            if (facetName === 'THEME') {
-              const [field] = thematicCollections.filter(obj => {
-                return obj.value === value;
-              });
-              fieldValue = field.label;
-            }
             listOfFacets.push({ key: `${facetName}:${fieldValue}`, facetName: facetName, fieldValue: fieldValue });
           }
 

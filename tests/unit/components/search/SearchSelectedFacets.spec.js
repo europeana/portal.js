@@ -28,6 +28,6 @@ describe('components/search/SearchSelectedFacets', () => {
     wrapper.setProps({ facets: { TYPE: ['IMAGE'] } });
 
     const badge = wrapper.find('.badge');
-    badge.text().should.eq('formatting.labelledValue: {"label":"facets.TYPE: undefined","value":"IMAGE"}');
+    badge.text().should.eq('formatting.labelledValue: {"label":"facets.TYPE.name: undefined","value":"IMAGE"}');
   });
 });

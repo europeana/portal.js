@@ -2,7 +2,7 @@
   <div>
     <b-card
       :data-facet-name="name"
-      :header="$t(`facets.${name}`)"
+      :header="$t(`facets.${name}.name`)"
       class="mb-3"
       data-qa="search facet"
     >
@@ -16,10 +16,10 @@
       >
         <b-form-radio
           v-for="field in fields"
-          :key="field.value"
-          :value="field.value"
+          :key="field === 'all' ? '' : field"
+          :value="field === 'all' ? '' : field"
         >
-          {{ field.label }}
+          {{ $t(`facets.${name}.options.${field}`) }}
         </b-form-radio>
       </b-form-radio-group>
       <b-form-checkbox-group

@@ -130,7 +130,7 @@
   import SearchSelectedFacets from '../../components/search/SearchSelectedFacets';
   import PaginationNav from '../../components/generic/PaginationNav';
   import ViewToggles from '../../components/search/ViewToggles';
-  import search, { pageFromQuery, selectedFacetsFromQuery, thematicCollections } from '../../plugins/europeana/search';
+  import search, { pageFromQuery, selectedFacetsFromQuery } from '../../plugins/europeana/search';
 
   let watchList = {};
   for (const property of ['qf', 'query', 'reusability', 'view', 'theme']) {
@@ -141,6 +141,8 @@
       }
     };
   }
+
+  const thematicCollections = [ 'all', 'ww1',  'archaeology', 'art', 'fashion', 'manuscript', 'map', 'migration', 'music', 'nature', 'newspaper', 'photography', 'sport'];
 
   export default {
     components: {

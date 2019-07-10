@@ -7,21 +7,6 @@ import qs from 'qs';
 import Vue from 'vue';
 export const $t = (key, opts) => Vue.prototype.$nuxt.$options.i18n.t(key, opts);
 
-export const thematicCollections = [ { label: 'All items', value: '' },
-  { label: '1914-1918', value: 'ww1' },
-  { label: 'Archaeology', value: 'archaeology' },
-  { label: 'Art', value: 'art' },
-  { label: 'Fashion', value: 'fashion' },
-  { label: 'Manuscripts', value: 'manuscript' },
-  { label: 'Maps and Geography', value: 'map' },
-  { label: 'Migration', value: 'migration' },
-  { label: 'Music', value: 'music' },
-  { label: 'Natural History', value: 'nature' },
-  { label: 'Newspapers', value: 'newspaper' },
-  { label: 'Photography', value: 'photography' },
-  { label: 'Sport', value: 'sport' }
-];
-
 function genericThumbnail(edmType) {
   return `https://api.europeana.eu/api/v2/thumbnail-by-url.json?size=w200&uri=&type=${edmType}`;
 }
