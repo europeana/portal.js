@@ -31,7 +31,7 @@
         for (let facetName in this.facets) {
 
           if (typeof this.facets[facetName] === 'string') {
-            let fieldValue = this.facets[facetName];
+            let fieldValue = this.facets[facetName] ? this.facets[facetName] : 'all';
             listOfFacets.push({ key: `${facetName}:${fieldValue}`, facetName: facetName, fieldValue: fieldValue });
           }
 
