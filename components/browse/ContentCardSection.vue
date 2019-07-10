@@ -18,25 +18,21 @@
       deck
       data-qa="section group"
     >
-      <ContentCard
+      <BrowseContentCard
         v-for="card in cards"
         :key="card.sys.id"
-        :title="card.fields.name"
-        :texts="cardTexts(card)"
-        :url="cardDestination(card)"
-        :image-url="card.fields.imageUrl"
-        :view-more-label-key="moreLabelKey(card)"
+        :fields="card.fields"
       />
     </b-card-group>
   </div>
 </template>
 
 <script>
-  import ContentCard from '../generic/ContentCard';
+  import BrowseContentCard from './BrowseContentCard';
 
   export default {
     components: {
-      ContentCard
+      BrowseContentCard
     },
     props: {
       section: {
@@ -46,38 +42,7 @@
     },
     computed: {
       cards: function() {
-        return this.section.fields.hasPart.filter(card => card.fields).map(card => {
-          if (card.fields.thumbnailUrl) {
-            card.fields.imageUrl = card.fields.thumbnailUrl;
-          } else {
-            card.fields.imageUrl = (card.fields.image && card.fields.image.fields) ? card.fields.image.fields.file.url : '';
-          }
-          return card;
-        });
-      }
-    },
-    methods: {
-      moreLabelKey: function (card) {
-        // TODO: Allow arbitrary value overwrites per card via the CMS.
-        return card.fields.identifier ? 'goToRecord' : 'readMore';
-      },
-      cardDestination: function (card) {
-        // TODO: Refactor content model to set this directly, so this method can be skipped.
-        if (card.fields.url) {
-          return card.fields.url;
-        } else if (card.fields.identifier) {
-          return this.localePath({ name: 'record-all', params: { pathMatch: card.fields.identifier.slice(1) } });
-        }
-      },
-      cardTexts: function (card) {
-        // TODO: Refactor content model to set this directly, so this method can be skipped.
-        let texts = [];
-        for (const field of ['description', 'creator', 'provider']) {
-          if (card.fields[field]) {
-            texts.push(card.fields[field]);
-          }
-        }
-        return texts;
+        return this.section.fields.hasPart.filter(card => card.fields);
       }
     }
   };

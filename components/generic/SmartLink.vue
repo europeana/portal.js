@@ -1,6 +1,6 @@
 <template>
   <b-link
-    v-if="destination.startsWith('/')"
+    v-if="useRouterLink"
     :to="destination"
     :class="linkClass"
   >
@@ -19,12 +19,17 @@
   export default {
     props: {
       destination: {
-        type: String,
+        type: [String, Object],
         default: ''
       },
       linkClass: {
         type: String,
         default: ''
+      }
+    },
+    computed: {
+      useRouterLink: function () {
+        return (typeof this.destination !== 'string') || this.destination.startsWith('/');
       }
     }
   };

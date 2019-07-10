@@ -11,7 +11,7 @@
       <div
         v-if="imageUrl"
         :aria-label="title"
-        :style="{'background-image': 'url(' + imageUrl + ')'}"
+        :style="{'background-image': 'url(' + backgroundImageUrl + ')'}"
         class="card-img"
       />
       <b-card-body>
@@ -36,6 +36,8 @@
 </template>
 
 <script>
+  require('css.escape');
+
   export default {
     props: {
       title: {
@@ -47,8 +49,8 @@
         default: () => []
       },
       url: {
-        type: String,
-        default: 'https://www.europeana.eu/'
+        type: [String, Object],
+        default: ''
       },
       imageUrl: {
         type: String,
@@ -57,6 +59,11 @@
       viewMoreLabelKey: {
         type: String,
         default: null
+      }
+    },
+    computed: {
+      backgroundImageUrl: function() {
+        return CSS.escape(this.imageUrl);
       }
     }
   };

@@ -18,7 +18,7 @@
     components: {
       ContentCardSection
     },
-    asyncData ({ params, error }) {
+    asyncData ({ params, error, app }) {
       // fetch the browsePage data, include set to 2 in order to get nested card data
       return contentfulClient.getEntries({
         'content_type': 'browsePage',
@@ -28,7 +28,7 @@
       })
         .then((response) => {
           if (response.total == 0) {
-            error({ statusCode: 404, message: this.$t('messages.notFound') });
+            error({ statusCode: 404, message: app.i18n.t('messages.notFound') });
             return;
           }
           return {
