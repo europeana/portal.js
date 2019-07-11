@@ -54,6 +54,9 @@ module.exports = {
   checkTheCheckbox: async function (inputValue) {
     await client.click(`input[type="checkbox"][value="${inputValue}"]`);
   },
+  checkTheRadio: async function (inputValue) {
+    await client.click(`input[type="radio"][value="${inputValue}"]`);
+  },
   clickOnTheTarget: async function (qaElementNames) {
     const selector = qaSelector(qaElementNames);
     await client.waitForElementVisible(selector);

@@ -124,7 +124,7 @@ export function pageFromQuery(queryPage) {
  */
 
 /**
- * Extract selected facets from URL `qf` and `reusability` value(s)
+ * Extract selected facets from URL `qf`, `reusability` and `theme` value(s)
  * @param {Object} query URL query parameters
  * @return {SelectedFacetSet} selected facets
  */
@@ -144,6 +144,11 @@ export function selectedFacetsFromQuery(query) {
   if (query.reusability) {
     selectedFacets['REUSABILITY'] = query.reusability.split(',');
   }
+
+  if (query.theme) {
+    selectedFacets['THEME'] = query.theme;
+  }
+
   return selectedFacets;
 }
 
@@ -176,6 +181,7 @@ function search(params) {
       query: params.query == '' ? '*:*' : params.query,
       qf: params.qf,
       reusability: params.reusability,
+      theme: params.theme,
       rows: rows,
       start: start,
       wskey: params.wskey

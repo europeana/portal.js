@@ -24,7 +24,7 @@ describe('components/search/SearchFacet', () => {
     wrapper.setProps({ name: facetName, fields: facetFields });
 
     const facetHeader =  wrapper.find('[data-qa="search facet"] .card-header');
-    facetHeader.text().should.eq('facets.TYPE');
+    facetHeader.text().should.eq('facets.TYPE.name');
   });
 
   it('has a checkbox for each field', () => {

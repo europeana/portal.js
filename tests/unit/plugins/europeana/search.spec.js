@@ -125,6 +125,19 @@ describe('plugins/europeana/search', () => {
 
         nock.isDone().should.be.true;
       });
+
+      it('filters by theme', async () => {
+        baseRequest
+          .query(query => {
+            return query.theme === 'art';
+          })
+          .reply(200, defaultResponse);
+
+        await search({ query: 'anything', theme: 'art', wskey: apiKey });
+
+        nock.isDone().should.be.true;
+      });
+
     });
 
     describe('API response', () => {
@@ -335,5 +348,14 @@ describe('plugins/europeana/search', () => {
         selectedFacetsFromQuery(query).should.deep.eql(expected);
       });
     });
+
+    describe('with theme value', () => {
+      it('returns it as a string on THEME property', () => {
+        const query = { theme: 'art' };
+        const expected = { 'THEME': 'art' };
+        selectedFacetsFromQuery(query).should.deep.eql(expected);
+      });
+    });
+
   });
 });

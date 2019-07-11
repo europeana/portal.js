@@ -41,9 +41,33 @@ export default {
     }
   },
   facets: {
-    COUNTRY: 'Country',
-    REUSABILITY: 'Can I reuse this?',
-    TYPE: 'Type of media'
+    COUNTRY: {
+      name: 'Country'
+    },
+    REUSABILITY: {
+      name: 'Can I reuse this?'
+    },
+    THEME: {
+      name: 'Category',
+      options: {
+        all: 'All items',
+        ww1: '1914-1918',
+        archaeology: 'Archaeology',
+        art: 'Art',
+        fashion: 'Fashion',
+        manuscript: 'Manuscripts',
+        map: 'Maps and Geography',
+        migration: 'Migration',
+        music: 'Music',
+        nature: 'Natural History',
+        newspaper: 'Newspapers',
+        photography: 'Photography',
+        sport: 'Sport'
+      }
+    },
+    TYPE: {
+      name: 'Type of media'
+    }
   },
   entity: 'Entity',
   resourceWikimedia: 'Resource from Wikimedia Commons',
