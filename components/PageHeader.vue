@@ -88,8 +88,11 @@
     },
     methods: {
       submitSearchForm () {
-        const newSearchQuery = { ...this.searchQuery, ...{ query: this.query } };
-        this.$router.push(this.localePath({ name: 'search', query: newSearchQuery }));
+        if (this.query !== this.searchQuery.query) {
+          this.$route.query.page = 1;
+          const newSearchQuery = { ...this.$route.query, ...{ query: this.query } };
+          this.$router.push(this.localePath({ name: 'search', query: newSearchQuery }));
+        }
       }
     }
   };

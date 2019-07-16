@@ -31,7 +31,7 @@
           :title="relatedEntity.title"
         />
         <p
-          v-if="searchResults.results.length == 0"
+          v-if="searchResults.results && searchResults.results.length === 0"
           data-qa="warning notice"
         >
           {{ $t('noMoreResults') }}
