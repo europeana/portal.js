@@ -6,5 +6,5 @@ export default {
   "layout": {
     "skipToMain": "Skip to main content"
   },
-  "searchPlaceholder": "What are you looking for?",
+  "searchPlaceholder": "What are you looking for?"
 };
