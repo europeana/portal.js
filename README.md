@@ -1,5 +1,5 @@
 # Incubator for Europeana Portal in vue.js + nuxt.js
- [![Build Status](https://travis-ci.com/europeana/incubator-portal-vue-nuxt.svg?branch=master)](https://travis-ci.com/europeana/incubator-portal-vue-nuxt) [![Maintainability](https://api.codeclimate.com/v1/badges/6d547010dcc180c40cf5/maintainability)](https://codeclimate.com/github/europeana/incubator-portal-vue-nuxt/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/6d547010dcc180c40cf5/test_coverage)](https://codeclimate.com/github/europeana/incubator-portal-vue-nuxt/test_coverage)
+ [![Build Status](https://travis-ci.com/europeana/incubator-portal-vue-nuxt.svg?branch=master)](https://travis-ci.com/europeana/incubator-portal-vue-nuxt)  [![Known Vulnerabilities](https://snyk.io/test/github/europeana/incubator-portal-vue-nuxt/badge.svg)](https://snyk.io/test/github/europeana/incubator-portal-vue-nuxt)  [![Maintainability](https://api.codeclimate.com/v1/badges/6d547010dcc180c40cf5/maintainability)](https://codeclimate.com/github/europeana/incubator-portal-vue-nuxt/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/6d547010dcc180c40cf5/test_coverage)](https://codeclimate.com/github/europeana/incubator-portal-vue-nuxt/test_coverage)
 ## Build Setup
 
 ``` bash
