@@ -84,14 +84,9 @@ module.exports = {
     });
   },
   matchMetaLabelAndValueOrValue: async (label, value, altValue) => {
-    await client.elements('xpath', '//strong[contains(text(),"' + label + '")]/parent::div/parent::div//span[contains(text(),"' + value + '")]', async(result) => {
-      if (result.value.length > 0) {
-        await client.expect(result.value).to.have.lengthOf(1);
-      } else {
-        await client.elements('xpath', '//strong[contains(text(),"' + label + '")]/parent::div/parent::div//span[contains(text(),"' + altValue + '")]', async(result) => {
-          await client.expect(result.value).to.have.lengthOf(1);
-        });
-      }
+    console.log('label: ' + label + ' value: ' + value + ' altValue: ' + altValue);
+    await client.elements('xpath', '//strong[contains(text(),"' + label + '")]/parent::div/parent::div//span[contains(text(),"' + value + '") or contains(text(),"' + altValue + '")]', async(result) => {
+      await client.expect(result.value).to.have.lengthOf(1);
     });
   },
   doNotSeeATarget: async function (qaElementNames) {
