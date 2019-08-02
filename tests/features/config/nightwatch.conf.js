@@ -28,7 +28,11 @@ module.exports = {
       desiredCapabilities: {
         browserName: 'chrome',
         chromeOptions: {
-          args: ['disable-gpu']
+          args: ['disable-gpu'],
+          w3c: false
+        },
+        webdriver: {
+          use_legacy_jsonwire: false
         }
       }
     },
