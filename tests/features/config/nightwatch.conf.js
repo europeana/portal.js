@@ -28,7 +28,7 @@ module.exports = {
       desiredCapabilities: {
         browserName: 'chrome',
         chromeOptions: {
-          args: ['disable-gpu', 'no-sandbox'],
+          args: ['disable-gpu', 'no-sandbox']
         }
       }
     },
@@ -39,7 +39,8 @@ module.exports = {
       desiredCapabilities: {
         browserName: 'chrome',
         chromeOptions: {
-          args: ['disable-gpu', 'headless']
+          args: ['disable-gpu', 'headless', 'no-sandbox', 'verbose'],
+          w3c: false
         }
       }
     },
