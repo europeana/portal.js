@@ -1,27 +1,22 @@
 export default {
-  searchPlaceholder: "Wonach suchen Sie?",
-  error: "Fehler",
-  readMore: "Mehr anzeigen",
-  search: "Suchen",
-  results: "Ergebnisse",
-  homeLinkAlt: "Europeana Collections hauptseite",
-  noResults: "Keine Ergebnisse",
-  fieldLabels: {
-    default: {
-      dcDescription: "Beschreibung",
-      dcTitle: "Titel",
-      dctermsCreated: "Erschaffungs Datum"
+    "error": "Fehler",
+    "readMore": "Mehr anzeigen",
+    "search": "Suchen",
+    "fieldLabels": {
+        "default": {
+            "edmCountry": "Bereitstellendes Land"
+        }
     },
-    webResource: {
+    "facets": {
+        "COUNTRY": {
+            "name": "Bereitstellendes Land"
+        },
+        "REUSABILITY": {
+            "name": "Kann ich es wiederverwenden?"
+        }
+    },
+    "messages": {
+        "notFound": "Nicht gefunden",
+        "noTitle": "Kein Titel für \"{record}\" angegeben"
     }
-  },
-  facets: {
-    COUNTRY: "Bereitsellendes Land",
-    REUSABILITY: "Verwendbarkeit"
-  },
-  record: "Record",
-  messages: {
-    notFound: "Nicht Gefunden",
-    noTitle: "Kein Titel bereitgestellt für \"{record}\""
-  }
 };
