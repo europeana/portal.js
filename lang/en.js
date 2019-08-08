@@ -71,7 +71,7 @@ export default {
   "searchViews": {
     "grid": "Grid view",
     "list": "List view",
-    "pie": "potato"
+    "pie": "Pie"
   },
   "layout": {
     "skipToMain": "Skip to main content"
