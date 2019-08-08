@@ -84,7 +84,6 @@ module.exports = {
     });
   },
   matchMetaLabelAndValueOrValue: async (label, value, altValue) => {
-    console.log('label: ' + label + ' value: ' + value + ' altValue: ' + altValue);
     await client.elements('xpath', '//strong[contains(text(),"' + label + '")]/parent::div/parent::div//span[contains(text(),"' + value + '") or contains(text(),"' + altValue + '")]', async(result) => {
       await client.expect(result.value).to.have.lengthOf(1);
     });
