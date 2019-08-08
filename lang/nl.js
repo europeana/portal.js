@@ -12,8 +12,5 @@ export default {
   },
   "messages": {
     "notFound": "Niet gevonden"
-  },
-  "searchViews": {
-    "pie": "Taart"
   }
 };

@@ -18,8 +18,5 @@ export default {
   "messages": {
     "notFound": "Nicht gefunden",
     "noTitle": "Kein Titel für \"{record}\" angegeben"
-  },
-  "searchViews": {
-    "pie": "Kuchen"
   }
 };
