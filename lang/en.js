@@ -70,7 +70,8 @@ export default {
   },
   "searchViews": {
     "grid": "Grid view",
-    "list": "List view"
+    "list": "List view",
+    "pie": "potato"
   },
   "layout": {
     "skipToMain": "Skip to main content"
