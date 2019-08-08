@@ -1,3 +1,3 @@
 export default {
-    "searchPlaceholder": "¿Qué estás buscando?"
+  "searchPlaceholder": "¿Qué estás buscando?"
 };
