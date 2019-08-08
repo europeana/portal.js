@@ -1,16 +1,16 @@
 export default {
-    "facets": {
-        "COUNTRY": {
-            "name": "Land"
-        },
-        "THEME": {
-            "options": {
-                "photography": "Fotografie",
-                "sport": "Sport"
-            }
-        }
+  "facets": {
+    "COUNTRY": {
+      "name": "Land"
     },
-    "messages": {
-        "notFound": "Niet gevonden"
+    "THEME": {
+      "options": {
+        "photography": "Fotografie",
+        "sport": "Sport"
+      }
     }
+  },
+  "messages": {
+    "notFound": "Niet gevonden"
+  }
 };
