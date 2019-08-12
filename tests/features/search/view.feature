@@ -27,19 +27,19 @@ Feature: View styles (List and Grid)
     And I click the `search grid view toggle`
     Then I see a `search results grid`
 
-  Scenario: Switching to the list view and paginating
-    When I visit the `search page`
-    And I click the `search button`
-    And I click the `search list view toggle`
-    And I click the "/search?page=2&query=&view=list" link
-    Then I see a `search results list`
-
   Scenario: The view parameter is preserved and present in the URL for the grid view
     Given I have chosen the `grid` search results view
     When I visit the `home page`
     And I click the `search button`
     And I wait 2 seconds
     Then I should be on `/search?view=grid&query=&page=1`
+
+  Scenario: Switching to the list view and paginating
+    When I visit the `search page`
+    And I click the `search button`
+    And I click the `search list view toggle`
+    And I click the "/search?page=2&query=&view=list" link
+    Then I see a `search results list`
 
   Scenario: The view parameter is preserved and present in the URL for the list view
     Given I have chosen the `list` search results view
