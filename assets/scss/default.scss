@@ -3,7 +3,7 @@ body {
   color: $textcolor;
   font-family: $font-family-sans-serif;
   font-size: 16px;
-  line-height: 1.375;
+  line-height: 1.5;
 }
 
 h1, h2, h3, h4, h5 {
@@ -92,9 +92,49 @@ a {
 
 .page-link {
   color: $black;
+  &:hover {
+    color: $black;
+  }
 }
 
 .page-item.active .page-link {
   background-color: $darkblue;
   border-color: $darkblue;
 }
+
+.list-group-item-action {
+  color: $black;
+  &:hover {
+    box-shadow: $boxshadow-large;
+    color: $black;
+    background-color: $lightgrey;
+  }
+  &:visited{
+    color: $darkpurple;
+  }
+}
+
+.footer {
+  padding: 1rem;
+  .footer-link-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: $darkblue;
+    li {
+      float: left;
+      .footer-link {
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 16px;
+        text-decoration: none;
+        &:hover {
+          background-color: $extradarkblue;
+        }
+      }
+    }
+  }
+}
+

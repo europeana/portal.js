@@ -45,12 +45,7 @@ module.exports = {
   /*
   ** Plugins to load before mounting the App
   */
-  plugins: [
-    '~/plugins/vue-filters',
-    {
-      src: '~/plugins/europeana-media-player.js',
-      ssr: false
-    }],
+  plugins: ['~/plugins/vue-filters', '~/plugins/global.js'],
 
   /*
   ** Nuxt.js modules
@@ -59,6 +54,10 @@ module.exports = {
     // Doc: https://github.com/nuxt-community/axios-module#usage
     '@nuxtjs/axios',
     '@nuxtjs/dotenv',
+    ['@nuxtjs/google-tag-manager', {
+      id: process.env.GOOGLE_TAG_MANAGER_ID,
+      pageTracking: true
+    }],
     ['bootstrap-vue/nuxt', { css: false }],
     ['nuxt-i18n', {
       locales: [

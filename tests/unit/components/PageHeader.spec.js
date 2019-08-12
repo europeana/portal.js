@@ -13,12 +13,12 @@ const $i18n = {
   locale: 'en'
 };
 
-
 const factory = () => mount(PageHeader, {
   localVue,
   mocks: {
     $t: () => {},
     $i18n,
+    $route: () => {},
     switchLocalePath: (code) => `path to ${code}`
   }
 });
@@ -39,7 +39,7 @@ describe('components/search/PageHeader', () => {
   });
 
   describe('when the language selector is enabled', () => {
-    describe('it contains a language selector', () => {
+    it('contains a language selector', () => {
       const wrapper = factory();
       wrapper.setProps({ langSelectEnabled: true });
       const selector = wrapper.find('[data-qa="language selector"]');
@@ -48,7 +48,7 @@ describe('components/search/PageHeader', () => {
   });
 
   describe('when the language selector is disabled', () => {
-    describe('it does NOT contain a language selector', () => {
+    it('does NOT contain a language selector', () => {
       const wrapper = factory();
       const selector = wrapper.find('[data-qa="language selector"]');
       selector.exists().should.equal(false);

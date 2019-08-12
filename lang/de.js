@@ -5,6 +5,7 @@ export default {
   search: 'Suchen',
   results: 'Ergebnisse',
   homeLinkAlt: 'Europeana Collections hauptseite',
+  noResults: 'Keine Ergebnisse',
   fieldLabels: {
     default: {
       dcDescription: 'Beschreibung',
@@ -18,7 +19,6 @@ export default {
     COUNTRY: 'Bereitsellendes Land',
     REUSABILITY: 'Verwendbarkeit'
   },
-  footerText: 'Platzhalter text footer',
   record: 'Record',
   messages: {
     notFound: 'Nicht Gefunden',

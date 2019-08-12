@@ -1,11 +1,11 @@
 <template>
   <b-list-group
-    id="searchResults"
+    data-qa="search results list"
   >
     <b-list-group-item
       v-for="result in results"
       :key="result.europeanaId"
-      :to="result.linkTo"
+      :to="localePath({ name: 'record-all', params: { pathMatch: result.europeanaId.slice(1) } })"
       class="flex-column align-items-start mb-3"
       data-qa="search result"
     >

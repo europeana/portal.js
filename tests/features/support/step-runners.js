@@ -12,7 +12,7 @@ const pages = {
   'search page': `${url}/search`,
   'record page': `${url}/record${europeanaId()}`,
   'first page of results': `${url}/search?query=&page=1`,
-  'entity page': `${url}/entity/person/59879-berthe-morisot`
+  'entity page': `${url}/entity/person/200-friedrich-nietzsche`
 };
 
 /**
@@ -54,14 +54,18 @@ module.exports = {
   checkTheCheckbox: async function (inputValue) {
     await client.click(`input[type="checkbox"][value="${inputValue}"]`);
   },
+  checkTheRadio: async function (inputValue) {
+    await client.click(`input[type="radio"][value="${inputValue}"]`);
+  },
   clickOnTheTarget: async function (qaElementNames) {
     const selector = qaSelector(qaElementNames);
-    await client.expect.element(selector).to.be.visible;
+    await client.waitForElementVisible(selector);
     await client.click(selector);
   },
   clickOnLink: async function (href) {
-    await client.expect.element(`a[href="${href}"]`).to.be.visible;
-    await client.click(`a[href="${href}"]`);
+    const selector = `a[href="${href}"]`;
+    await client.waitForElementVisible(selector);
+    await client.click(selector);
   },
   countTarget: async (count, qaElementNames) => {
     await client.elements('css selector', qaSelector(qaElementNames), async(result) => {
@@ -72,15 +76,7 @@ module.exports = {
     if (key.length > 1) {
       key = client.Keys[key];
     }
-    let runtimeBrowser = client.capabilities.browserName.toUpperCase();
-    console.log('BROWSER: ' + runtimeBrowser);
-    if (runtimeBrowser === 'CHROME') {
-      await client.keys(key);
-    } else if (runtimeBrowser === 'FIREFOX') {
-      // This doesn't work with the gecko driver
-      // await client.keys(key);
-      return 'pending';
-    }
+    await client.keys(key);
   },
   matchMetaLabelAndValue: async (label, value) => {
     await client.elements('xpath', '//strong[contains(text(),"' + label + '")]/parent::div/parent::div//span[contains(text(),"' + value + '")]', async(result) => {
@@ -88,26 +84,20 @@ module.exports = {
     });
   },
   matchMetaLabelAndValueOrValue: async (label, value, altValue) => {
-    await client.elements('xpath', '//strong[contains(text(),"' + label + '")]/parent::div/parent::div//span[contains(text(),"' + value + '")]', async(result) => {
-      if (result.value.length > 0) {
-        await client.expect(result.value).to.have.lengthOf(1);
-      } else {
-        await client.elements('xpath', '//strong[contains(text(),"' + label + '")]/parent::div/parent::div//span[contains(text(),"' + altValue + '")]', async(result) => {
-          await client.expect(result.value).to.have.lengthOf(1);
-        });
-      }
+    await client.elements('xpath', '//strong[contains(text(),"' + label + '")]/parent::div/parent::div//span[contains(text(),"' + value + '") or contains(text(),"' + altValue + '")]', async(result) => {
+      await client.expect(result.value).to.have.lengthOf(1);
     });
   },
-  doNotSeeATarget: function (qaElementNames) {
-    client.expect.element(qaSelector(qaElementNames)).to.not.be.present;
+  doNotSeeATarget: async function (qaElementNames) {
+    await client.expect.element(qaSelector(qaElementNames)).to.not.be.present;
   },
   enterTextInTarget: async function (text, qaElementName) {
     const selector = qaSelector(qaElementName);
-    await client.expect.element(selector).to.be.visible;
+    await client.waitForElementVisible(selector);
     await client.setValue(selector, text);
   },
-  openAPage: function (pageName) {
-    client.url(pageUrl(pageName));
+  openAPage: async function (pageName) {
+    await client.url(pageUrl(pageName));
   },
   seeALinkInTarget: async function (linkHref, qaElementName) {
     await client.expect.element(qaSelector(qaElementName) + ` a[href="${linkHref}"]`).to.be.visible;
@@ -117,6 +107,26 @@ module.exports = {
   },
   seeATargetWithText: async function (qaElementNames, text) {
     await client.expect.element(qaSelector(qaElementNames)).text.to.contain(text);
+  },
+  seeTextInTarget: async function (text, qaElementName) {
+    const selector = qaSelector(qaElementName);
+    await client.getValue(selector, async (result) => {
+      await client.expect(result.value).to.eq(text);
+    });
+  },
+  selectSearchResultsView: async function (viewName) {
+    await client.execute(function(viewName) {
+      localStorage.searchResultsView = viewName;
+      sessionStorage.searchResultsView = viewName;
+      return true;
+    }, [viewName]);
+  },
+  doNotSeeTextInTarget: async function (text, qaElementName) {
+    const selector = qaSelector(qaElementName);
+    await client.waitForElementVisible(selector);
+    await client.getValue(selector, async (result) => {
+      await client.expect(result.value).to.not.eq(text);
+    });
   },
   shouldBeOn: async function (pageName) {
     // TODO: update if a less verbose syntax becomes available.

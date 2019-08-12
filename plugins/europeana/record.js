@@ -107,4 +107,13 @@ function findPDFContent(file, webResources) {
   return;
 }
 
+/**
+ * Tests whether a string is a valid Europeana record ID.
+ * @param {string} value Value to test
+ * @return {Boolean}
+ */
+export function isEuropeanaRecordId(value) {
+  return /^\/[0-9]+\/[a-zA-Z0-9_]+$/.test(value);
+}
+
 export default getRecord;

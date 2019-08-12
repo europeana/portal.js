@@ -78,26 +78,26 @@ describe('plugins/europeana/search', () => {
         nock.isDone().should.be.true;
       });
 
-      it('requests specific facets (only)', async () => {
+      it('uses the supplied `facet` param', async () => {
         baseRequest
           .query(query => {
-            return query.facet === 'COUNTRY,REUSABILITY,TYPE';
-          })
-          .reply(200, defaultResponse);
-
-        await search({ query: 'anything', wskey: apiKey });
-
-        nock.isDone().should.be.true;
-      });
-
-      it('ignores supplied `facet` param', async () => {
-        baseRequest
-          .query(query => {
-            return query.facet === 'COUNTRY,REUSABILITY,TYPE';
+            return query.facet === 'LANGUAGE';
           })
           .reply(200, defaultResponse);
 
         await search({ query: 'anything', facet: 'LANGUAGE', wskey: apiKey });
+
+        nock.isDone().should.be.true;
+      });
+
+      it('uses the supplied `facet` param when using comma seperated list', async () => {
+        baseRequest
+          .query(query => {
+            return query.facet === 'COUNTRY,REUSABILITY,TYPE';
+          })
+          .reply(200, defaultResponse);
+
+        await search({ query: 'anything', facet: 'COUNTRY,REUSABILITY,TYPE', wskey: apiKey });
 
         nock.isDone().should.be.true;
       });
@@ -125,6 +125,19 @@ describe('plugins/europeana/search', () => {
 
         nock.isDone().should.be.true;
       });
+
+      it('filters by theme', async () => {
+        baseRequest
+          .query(query => {
+            return query.theme === 'art';
+          })
+          .reply(200, defaultResponse);
+
+        await search({ query: 'anything', theme: 'art', wskey: apiKey });
+
+        nock.isDone().should.be.true;
+      });
+
     });
 
     describe('API response', () => {
@@ -209,12 +222,6 @@ describe('plugins/europeana/search', () => {
             const response = await searchResponse();
 
             response.results[0].europeanaId.should.eq(apiResponse.items[0].id);
-          });
-
-          it('includes URL path of record page in .linkTo', async () => {
-            const response = await searchResponse();
-
-            response.results[0].linkTo.should.eq(`record${apiResponse.items[0].id}`);
           });
 
           describe('.fields', () => {
@@ -341,5 +348,14 @@ describe('plugins/europeana/search', () => {
         selectedFacetsFromQuery(query).should.deep.eql(expected);
       });
     });
+
+    describe('with theme value', () => {
+      it('returns it as a string on THEME property', () => {
+        const query = { theme: 'art' };
+        const expected = { 'THEME': 'art' };
+        selectedFacetsFromQuery(query).should.deep.eql(expected);
+      });
+    });
+
   });
 });

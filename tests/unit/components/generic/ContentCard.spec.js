@@ -1,9 +1,11 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
+import SmartLink from '../../../../components/generic/SmartLink.vue';
 import ContentCard from '../../../../components/generic/ContentCard.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
+localVue.component('SmartLink', SmartLink);
 
 const factory = () => mount(ContentCard, {
   localVue,
@@ -13,12 +15,21 @@ const factory = () => mount(ContentCard, {
 });
 
 describe('components/generic/ContentCard', () => {
-  it('includes a description', () => {
+  it('has a description', () => {
     const wrapper = factory();
-    wrapper.setProps({ description: 'The Milkmaid by Vermeer' });
+    wrapper.setProps({ texts: ['The Milkmaid by Vermeer'] });
 
-    const description =  wrapper.find('[data-qa="content card"] .card-text');
+    const description =  wrapper.find('[data-qa="content card"] .card-body');
     description.text().should.eq('The Milkmaid by Vermeer');
+  });
+
+  it('has a creator and institution', () => {
+    const wrapper = factory();
+    wrapper.setProps({ texts: ['Edvard Munch', 'Munchmuseet (The Munch Museum)'] });
+
+    const description =  wrapper.find('[data-qa="content card"] .card-body');
+    description.text().should.contain('Edvard Munch');
+    description.text().should.contain('Munchmuseet');
   });
 
   it('has a link', () => {
@@ -34,6 +45,6 @@ describe('components/generic/ContentCard', () => {
     wrapper.setProps({ imageUrl: 'https://example.org' });
 
     const card =  wrapper.find('[data-qa="content card"] .card-img');
-    card.attributes('style').should.contain('https://example.org');
+    card.attributes('style').should.contain('https\\:\\/\\/example\\.org');
   });
 });

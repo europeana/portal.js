@@ -4,59 +4,66 @@
     data-qa="content card"
     no-body
   >
-    <div
-      :aria-label="name"
-      :style="{'background-image': 'url(' + imageUrl + ')'}"
-      class="card-img"
+    <SmartLink
+      :destination="url"
+      link-class="card-link"
     >
-      <a
-        :href="url"
-        aria-label="Read more"
+      <div
+        v-if="imageUrl"
+        :aria-label="title"
+        :style="{'background-image': 'url(' + backgroundImageUrl + ')'}"
+        class="card-img"
       />
-    </div>
-    <b-card-body>
-      <b-card-title>
-        <a
-          :href="url"
+      <b-card-body>
+        <b-card-title>
+          {{ title }}
+        </b-card-title>
+        <b-card-text
+          v-for="(text, index) in texts"
+          :key="index"
         >
-          {{ name }}
-        </a>
-      </b-card-title>
-      <b-card-text>
-        {{ description }}
-      </b-card-text>
-      <a
-        :href="url"
-        class="card-link"
-      >
-        {{ $t('readMore') }}
-      </a>
-    </b-card-body>
+          {{ text }}
+        </b-card-text>
+        <span
+          v-if="viewMoreLabelKey"
+          class="view-more"
+        >
+          {{ $t(viewMoreLabelKey) }}
+        </span>
+      </b-card-body>
+    </SmartLink>
   </b-card>
 </template>
 
 <script>
+  require('css.escape');
+
   export default {
     props: {
-      name: {
+      title: {
         type: String,
         default: ''
       },
-      description: {
-        type: String,
-        default: ''
+      texts: {
+        type: Array,
+        default: () => []
       },
       url: {
-        type: String,
-        default: 'https://www.europeana.eu/'
+        type: [String, Object],
+        default: ''
       },
       imageUrl: {
         type: String,
         default: ''
       },
-      imageTitle: {
+      viewMoreLabelKey: {
         type: String,
-        default: ''
+        default: null
+      }
+    },
+    computed: {
+      backgroundImageUrl: function() {
+        return CSS.escape(this.imageUrl);
       }
     }
   };
@@ -64,6 +71,11 @@
 
 <style lang="scss" scoped>
   @import "./assets/scss/variables.scss";
+
+  a {
+    display: flex;
+    flex-direction: column;
+  }
 
   .card-img {
     background-position: center center;
@@ -74,10 +86,6 @@
     flex: 1 1 auto;
     min-height: 10rem;
     width: 100%;
-
-    a {
-      flex: 1;
-    }
   }
 
   .card {
@@ -92,7 +100,8 @@
     transition: box-shadow 0.25s;
 
     &:hover {
-      box-shadow: 0 4px 12px 0 rgba(0,0,0,0.4)
+      box-shadow: $boxshadow-large;
+      background-color: $lightgrey;
     }
 
     .card-body {
@@ -104,14 +113,17 @@
     .card-title {
       font-size: $font-size-small;
       font-weight: normal;
+    }
 
-      a {
-        color: inherit;
+    .card-text {
+      color: $darkgrey;
+    }
 
-        &:hover {
-          color: $blue;
-          text-decoration: none;
-        }
+    .card-link {
+      min-height: 100%;
+      color: $black;
+      &:hover {
+        color: $black;
       }
     }
   }

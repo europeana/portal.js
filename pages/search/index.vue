@@ -7,11 +7,6 @@
       class="mb-3"
     >
       <b-col>
-        <SearchForm
-          v-model="query"
-          :is-loading="isLoading"
-          @submit:searchForm="submitSearchForm"
-        />
         <SearchSelectedFacets
           :facets="selectedFacets"
         />
@@ -33,7 +28,7 @@
     >
       <b-col>
         <AlertMessage
-          :error="errorNoResults"
+          :error="$t('noResults')"
         />
       </b-col>
     </b-row>
@@ -46,6 +41,12 @@
           {{ $t('results') }}: {{ totalResults | localise }}
         </p>
       </b-col>
+      <b-col>
+        <ViewToggles
+          :active="view"
+          @changed="selectView"
+        />
+      </b-col>
     </b-row>
     <b-row
       class="mb-3"
@@ -55,6 +56,7 @@
           v-for="facet in orderedFacets"
           :key="facet.name"
           :name="facet.name"
+          :type="facet.name === 'THEME' ? 'radio' : 'checkbox'"
           :fields="facet.fields"
           :selected-fields="selectedFacets[facet.name]"
           @changed="selectFacet"
@@ -86,15 +88,19 @@
                 v-if="results.length == 0"
                 data-qa="warning notice"
               >
-                There are no more results for your search query.
+                {{ $t('noMoreResults') }}
               </p>
               <SearchResultsList
+                v-else-if="view == 'list'"
+                :results="results"
+              />
+              <SearchResultsGrid
                 v-else
                 :results="results"
               />
               <InfoMessage
                 v-if="lastAvailablePage"
-                message="Additional results are not shown as only the first 1000 most relevant results are shown. If you haven't found what you're looking for, please consider refining your search."
+                :message="$t('resultsLimitWarning')"
               />
             </b-col>
           </b-row>
@@ -119,21 +125,35 @@
   import AlertMessage from '../../components/generic/AlertMessage';
   import InfoMessage from '../../components/generic/InfoMessage';
   import SearchFacet from '../../components/search/SearchFacet';
-  import SearchForm from '../../components/search/SearchForm';
+  import SearchResultsGrid from '../../components/search/SearchResultsGrid';
   import SearchResultsList from '../../components/search/SearchResultsList';
   import SearchSelectedFacets from '../../components/search/SearchSelectedFacets';
   import PaginationNav from '../../components/generic/PaginationNav';
+  import ViewToggles from '../../components/search/ViewToggles';
   import search, { pageFromQuery, selectedFacetsFromQuery } from '../../plugins/europeana/search';
+
+  let watchList = {};
+  for (const property of ['qf', 'query', 'reusability', 'view', 'theme']) {
+    watchList[property] = {
+      immediate: true,
+      handler: function (val) {
+        this.$root.$emit('updateSearchQuery', this.updateCurrentSearchQuery({ [property]: val }));
+      }
+    };
+  }
+
+  const thematicCollections = [ 'all', 'ww1',  'archaeology', 'art', 'fashion', 'manuscript', 'map', 'migration', 'music', 'nature', 'newspaper', 'photography', 'sport'];
 
   export default {
     components: {
       AlertMessage,
       InfoMessage,
       SearchFacet,
-      SearchForm,
+      SearchResultsGrid,
       SearchResultsList,
       SearchSelectedFacets,
-      PaginationNav
+      PaginationNav,
+      ViewToggles
     },
     props: {
       perPage: {
@@ -144,18 +164,19 @@
     data () {
       return {
         error: null,
-        errorNoResults: 'No results',
-        isLoading: false,
-        inHeader: false,
-        results: null,
-        totalResults: null,
-        lastAvailablePage: false,
-        query: null,
-        page: 1,
         facets: [],
-        selectedFacets: {},
+        inHeader: false,
+        isLoading: false,
+        lastAvailablePage: false,
+        page: 1,
         qfForSelectedFacets: [],
-        reusability: ''
+        query: null,
+        results: null,
+        reusability: null,
+        selectedFacets: {},
+        theme: null,
+        totalResults: null,
+        view: this.selectedView()
       };
     },
     computed: {
@@ -176,6 +197,7 @@
         const order = ['TYPE', 'REUSABILITY', 'COUNTRY'];
         let unordered = this.facets.slice();
         let ordered = [];
+
         for (const facetName of order) {
           const index = unordered.findIndex((f) => {
             return f.name == facetName;
@@ -184,9 +206,12 @@
             ordered = ordered.concat(unordered.splice(index, 1));
           }
         }
+
+        ordered.unshift({ name: 'THEME', fields: thematicCollections });
         return ordered.concat(unordered);
       }
     },
+    watch: watchList,
     asyncData ({ env, query, res, redirect, app }) {
       const currentPage = pageFromQuery(query.page);
       if (currentPage === null) {
@@ -202,8 +227,10 @@
       return search({
         page: currentPage,
         query: query.query,
+        facet: 'COUNTRY,REUSABILITY,TYPE',
         qf: query.qf,
         reusability: query.reusability,
+        theme: query.theme,
         wskey: env.EUROPEANA_API_KEY
       })
         .then((response) => {
@@ -214,7 +241,8 @@
             page: Number(currentPage),
             selectedFacets: selectedFacetsFromQuery(query),
             qfForSelectedFacets: query.qf === '' ? [] : query.qf,
-            reusability: query.reusability
+            reusability: query.reusability,
+            theme: query.theme
           };
         })
         .catch((error) => {
@@ -235,42 +263,30 @@
           return { results: null, error: errorMessage, query: query.query };
         });
     },
-    mounted () {
-      this.$nextTick(() => {
-        if (document.getElementById('searchResults') === null) {
-          const searchQuery = document.getElementById('searchQuery');
-          if (searchQuery) {
-            searchQuery.focus();
-          }
-        }
-      });
-    },
     methods: {
       updateCurrentSearchQuery(updates) {
         const current = {
-          query: this.query || '',
           page: this.page || '1',
+          qf: this.qfForSelectedFacets,
+          query: this.query || '',
           reusability: this.reusability,
-          qf: this.qfForSelectedFacets
+          theme: this.theme,
+          view: this.view
         };
 
-        // If any values in the updates are `null`, remove them from the query
-        for (const key in updates) {
-          if (updates[key] === null) {
-            delete current[key];
-            delete updates[key];
+        const updated = { ...current, ...updates };
+
+        // If any updated values are `null`, remove them from the query
+        for (const key in updated) {
+          if (updated[key] === null) {
+            delete updated[key];
           }
         }
-        return { ...current, ...updates };
+        return updated;
       },
       rerouteSearch(queryUpdates) {
         this.isLoading = true;
         this.$router.push(this.localePath({ name: 'search', query: this.updateCurrentSearchQuery(queryUpdates) }));
-      },
-      submitSearchForm () {
-        if (this.$route.query.query !== this.query) {
-          this.rerouteSearch({ query: this.query || '', page: '1' });
-        }
       },
       paginationLink (val) {
         return this.localePath({
@@ -281,18 +297,37 @@
         this.$set(this.selectedFacets, name, selected);
         this.qfForSelectedFacets = [];
         this.reusability = null;
+        this.theme = null;
         for (const facetName in this.selectedFacets) {
           const selectedValues = this.selectedFacets[facetName];
-          // `reusability` has its own API parameter and can not be queried in `qf`
-          if (facetName == 'REUSABILITY' && selectedValues.length > 0) {
+          // `reusability` and `theme` have their own API parameter and can not be queried in `qf`
+          if (facetName === 'REUSABILITY' && selectedValues.length > 0) {
             this.reusability = selectedValues.join(',');
+          } else if (facetName === 'THEME' && this.selectedFacets['THEME']) {
+            this.theme = selectedValues;
           } else {
             for (const facetValue of selectedValues) {
               this.qfForSelectedFacets.push(`${facetName}:"${facetValue}"`);
             }
           }
         }
-        this.rerouteSearch({ qf: this.qfForSelectedFacets, reusability: this.reusability, page: '1' });
+        this.rerouteSearch({ qf: this.qfForSelectedFacets, reusability: this.reusability, theme: this.theme, page: '1' });
+      },
+      selectView (view) {
+        if (process.browser) {
+          sessionStorage.searchResultsView = view;
+          localStorage.searchResultsView = view;
+        }
+        this.view = view;
+      },
+      selectedView: function () {
+        if (process.browser) {
+          if (this.$route.query.view) {
+            sessionStorage.searchResultsView = this.$route.query.view;
+          }
+          return sessionStorage.searchResultsView || localStorage.searchResultsView || 'grid';
+        }
+        return this.$route.query.view || 'grid';
       }
     },
     head () {
@@ -300,6 +335,10 @@
         title: 'Search'
       };
     },
-    watchQuery: ['page', 'qf', 'query', 'reusability']
+    beforeRouteLeave (to, from, next) {
+      this.$root.$emit('leaveSearchPage');
+      next();
+    },
+    watchQuery: ['page', 'qf', 'query', 'reusability', 'theme']
   };
 </script>

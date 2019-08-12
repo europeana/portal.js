@@ -18,30 +18,31 @@
       deck
       data-qa="section group"
     >
-      <ContentCard
-        v-for="card in section.fields.hasPart"
+      <BrowseContentCard
+        v-for="card in cards"
         :key="card.sys.id"
-        :name="card.fields.name"
-        :description="card.fields.description"
-        :url="card.fields.url"
-        :image-url="card.fields.image.fields.file.url"
-        :image-title="card.fields.image.fields.title"
+        :fields="card.fields"
       />
     </b-card-group>
   </div>
 </template>
 
 <script>
-  import ContentCard from '../generic/ContentCard';
+  import BrowseContentCard from './BrowseContentCard';
 
   export default {
     components: {
-      ContentCard
+      BrowseContentCard
     },
     props: {
       section: {
         type: Object,
         default: () => {}
+      }
+    },
+    computed: {
+      cards: function() {
+        return this.section.fields.hasPart.filter(card => card.fields);
       }
     }
   };

@@ -54,7 +54,7 @@ function display(field) {
 function fieldsForSearchResult(item) {
   let fields = {
     // TODO: fallback to description when API returns dcDescriptionLangAware
-    dcTitle: item.dcTitleLangAware ? display(item.dcTitleLangAware) : $t('messages.noTitle', { record: item.id }),
+    dcTitle: item.dcTitleLangAware ? display(item.dcTitleLangAware) : [$t('messages.noTitle', { record: item.id })],
     // TODO: enable when API returns dcDescriptionLangAware
     // dcDescription: item.dcDescriptionLangAware,
     edmDataProvider: item.dataProvider
@@ -80,7 +80,6 @@ function resultsFromApiResponse(response) {
     return {
       europeanaId: item.id,
       edmPreview: item.edmPreview ? `${item.edmPreview[0]}&size=w200` : genericThumbnail(item.type),
-      linkTo: `record${item.id}`,
       fields: fieldsForSearchResult(item)
     };
   });
@@ -125,7 +124,7 @@ export function pageFromQuery(queryPage) {
  */
 
 /**
- * Extract selected facets from URL `qf` and `reusability` value(s)
+ * Extract selected facets from URL `qf`, `reusability` and `theme` value(s)
  * @param {Object} query URL query parameters
  * @return {SelectedFacetSet} selected facets
  */
@@ -145,6 +144,11 @@ export function selectedFacetsFromQuery(query) {
   if (query.reusability) {
     selectedFacets['REUSABILITY'] = query.reusability.split(',');
   }
+
+  if (query.theme) {
+    selectedFacets['THEME'] = query.theme;
+  }
+
   return selectedFacets;
 }
 
@@ -153,6 +157,7 @@ export function selectedFacetsFromQuery(query) {
  * @param {Object} params parameters for search query
  * @param {number} params.page page of results to retrieve
  * @param {string} params.reusability reusability filter
+ * @param {string} params.facet facet names, comma separated
  * @param {(string|string[])} params.qf query filter(s)
  * @param {string} params.query search query
  * @param {string} params.wskey API key
@@ -172,10 +177,11 @@ function search(params) {
     },
     params: {
       profile: 'minimal,facets',
-      facet: 'COUNTRY,REUSABILITY,TYPE',
+      facet: params.facet,
       query: params.query == '' ? '*:*' : params.query,
       qf: params.qf,
       reusability: params.reusability,
+      theme: params.theme,
       rows: rows,
       start: start,
       wskey: params.wskey

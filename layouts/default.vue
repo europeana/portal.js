@@ -5,10 +5,11 @@
       href="#main"
       data-qa="main content accessibility link"
     >
-      Skip to main content
+      {{ $t('layout.skipToMain') }}
     </a>
     <PageHeader
       :lang-select-enabled="langSelectEnabled"
+      :search-query="searchQuery"
     />
     <nuxt
       id="main"
@@ -26,11 +27,28 @@
       PageHeader,
       PageFooter
     },
+    data () {
+      return {
+        searchQuery: this.$route.query || {}
+      };
+    },
     computed: {
       langSelectEnabled() {
         return process.env.ENABLE_LANG_SELECT === 'true';
       }
+    },
+    created () {
+      this.$root.$on('leaveSearchPage', () => {
+        this.searchQuery = {};
+      });
+      this.$root.$on('updateSearchQuery', (val) => {
+        this.searchQuery = val;
+      });
+    },
+    updated () {
+      if (!this.searchQuery.hasOwnProperty('view')) {
+        this.searchQuery.view = sessionStorage.searchResultsView || localStorage.searchResultsView || 'grid';
+      }
     }
   };
-
 </script>
