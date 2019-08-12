@@ -38,7 +38,7 @@ Feature: Search faceting
     And I check the "Belgium" checkbox
     And I wait 2 seconds
     Then I should be on `/search?page=1&qf=COUNTRY%3A%22Belgium%22&query=&view=grid`
-    And I see a `filter badge` with the text "Country: Belgium"
+    And I see a `filter badge` with the text "Providing country: Belgium"
 
   Scenario: Filtering results by two countries
 
