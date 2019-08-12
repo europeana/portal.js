@@ -24,7 +24,7 @@ Feature: Search querying
     And I enter "*:*:*" in the `search box`
     And I click the `search button`
     Then I don't see a `search result`
-    And I see an `error notice` with the text "Error: Invalid query parameter."
+    And I see an `error notice` with the text "Error"
 
   Scenario: Search and navigate to record
 
