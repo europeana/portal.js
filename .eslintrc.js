@@ -50,8 +50,8 @@ module.exports = {
       }
     },
     {
-      "files": ["lang/*.js"],
-      "rules": {
+      'files': ['lang/*.js'],
+      'rules': {
         'quotes': ['error', 'double'],
       }
     }
