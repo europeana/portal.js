@@ -1,18 +1,45 @@
 <template>
   <b-jumbotron
+    :header="headline"
+    :lead="description"
     fluid
-    header="Unique Selling Point 1. Limit of two lines"
     header-tag="h2"
     header-level="4"
-    lead="Can be a static image stating briefly all the Unique Selling Points of Europeana or a caroussel with 3/4 highlighted USP’s. Limit of 3 lines."
     text-variant="white"
   >
-    <a
-      href="/record/90402/SK_A_1709"
+    <b-link
+      :to="localePath({ name: 'record-all', params: { pathMatch: identifier }})"
       class="attribution"
     >
-      The Lake of Zurich, 1660, Jan Hackaert, Rijksmuseum
-      <span>Public Domain</span>
-    </a>
+      {{ attribution }}
+      <span>{{ rights }}</span>
+    </b-link>
   </b-jumbotron>
 </template>
+
+<script>
+  export default {
+    props: {
+      headline: {
+        type: String,
+        default: 'Unique Selling Point 1. Limit of two lines'
+      },
+      description: {
+        type: String,
+        default: 'Can be a static image stating briefly all the Unique Selling Points of Europeana or a caroussel with 3/4 highlighted USP’s. Limit of 3 lines.'
+      },
+      identifier: {
+        type: String,
+        default: '90402/SK_A_1709'
+      },
+      attribution: {
+        type: String,
+        default: 'The Lake of Zurich, 1660, Jan Hackaert, Rijksmuseum'
+      },
+      rights: {
+        type: String,
+        default: 'Public Domain'
+      }
+    }
+  };
+</script>
