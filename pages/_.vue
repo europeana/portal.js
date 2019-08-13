@@ -1,22 +1,27 @@
 <template>
-  <section class="container">
-    <div class="mt-3 w-100">
-      <ContentCardSection
-        v-for="section in page.hasPart"
-        :key="section.sys.id"
-        :section="section"
-      />
-    </div>
-  </section>
+  <div>
+    <HeroBanner />
+    <section class="container">
+      <div class="mt-3 w-100">
+        <ContentCardSection
+          v-for="section in page.hasPart"
+          :key="section.sys.id"
+          :section="section"
+        />
+      </div>
+    </section>
+  </div>
 </template>
 
 <script>
   import ContentCardSection from '../components/browse/ContentCardSection';
+  import HeroBanner from '../components/generic/HeroBanner';
   import contentfulClient from '../plugins/contentful.js';
 
   export default {
     components: {
-      ContentCardSection
+      ContentCardSection,
+      HeroBanner
     },
     asyncData ({ params, error, app }) {
       // fetch the browsePage data, include set to 2 in order to get nested card data
