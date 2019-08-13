@@ -2,6 +2,7 @@
   <b-jumbotron
     :header="headline"
     :lead="description"
+    :style="{ 'background-image': 'url(' + heroImage + ')' }"
     fluid
     header-tag="h2"
     header-level="4"
@@ -20,6 +21,10 @@
 <script>
   export default {
     props: {
+      heroImage: {
+        type: String,
+        default: 'https://proxy.europeana.eu/90402/SK_A_1709?api_url=https%3A%2F%2Fapi.europeana.eu%2Fapi'
+      },
       headline: {
         type: String,
         default: 'Unique Selling Point 1. Limit of two lines'
