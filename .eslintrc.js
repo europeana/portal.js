@@ -48,6 +48,12 @@ module.exports = {
       'rules': {
         'indent': 'off'
       }
+    },
+    {
+      'files': ['lang/*.js'],
+      'rules': {
+        'quotes': ['error', 'double'],
+      }
     }
   ]
 }

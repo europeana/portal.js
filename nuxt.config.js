@@ -76,6 +76,12 @@ module.exports = {
           code: 'es',
           file: 'es.js',
           iso: 'es-ES'
+        },
+        {
+          name: 'Nederlands',
+          code: 'nl',
+          file: 'nl.js',
+          iso: 'nl-NL'
         }
       ],
       defaultLocale: 'en',
