@@ -1,4 +1,7 @@
 export default {
+  "formatting": {
+    "ellipsis": "..."
+  },
   "facets": {
     "COUNTRY": {
       "name": "Land"

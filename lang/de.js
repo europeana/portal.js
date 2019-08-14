@@ -1,4 +1,7 @@
 export default {
+  "formatting": {
+    "ellipsis": "…"
+  },
   "error": "Fehler",
   "readMore": "Mehr anzeigen",
   "search": "Suchen",
