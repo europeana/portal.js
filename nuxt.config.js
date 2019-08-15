@@ -207,7 +207,7 @@ module.exports = {
           name: 'Svenska',
           code: 'sv',
           file: 'sv.js',
-          iso: 'sv-SV'
+          iso: 'sv-SE'
         }
       ],
       defaultLocale: 'en',
