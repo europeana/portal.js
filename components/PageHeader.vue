@@ -22,23 +22,13 @@
         <div class="navbar-nav ml-auto w-100 col-md-6 col-lg-6 p-0 pt-3 pt-md-0">
           <SearchForm
             v-model="query"
+            data-qa="search form"
             :is-loading="isLoading"
             class="justify-content-center justify-content-md-end w-100"
             @submit:searchForm="submitSearchForm"
           />
         </div>
-        <b-dropdown data-qa="language selector">
-          <template slot="button-content">
-            {{ selectedLocale.name }}
-          </template>
-          <b-dropdown-item
-            v-for="locale in availableLocales"
-            :key="locale.code"
-            :to="switchLocalePath(locale.code)"
-          >
-            {{ locale.name }}
-          </b-dropdown-item>
-        </b-dropdown>
+        <LangSelector data-qa="language selector" />
       </b-navbar>
     </b-container>
   </b-container>
@@ -46,10 +36,12 @@
 
 <script>
   import SearchForm from './search/SearchForm';
+  import LangSelector from './generic/LanguageSelector';
 
   export default {
     components: {
-      SearchForm
+      SearchForm,
+      LangSelector
     },
     props: {
       searchQuery: {
@@ -62,16 +54,6 @@
         query: (this.searchQuery || {}).query || '',
         isLoading: false
       };
-    },
-    computed: {
-      availableLocales () {
-        return this.$i18n.locales.filter(i => i.code !== this.$i18n.locale);
-      },
-      selectedLocale () {
-        return this.$i18n.locales.find(locale => {
-          return locale.code === this.$store.state.i18n.locale;
-        });
-      }
     },
     watch: {
       searchQuery: {
@@ -95,10 +77,5 @@
 
   .container-fluid {
     background: $white;
-  }
-
-  /deep/ .dropdown-menu {
-    max-height: 250px;
-    overflow: auto;
   }
 </style>
