@@ -1,6 +1,14 @@
 <template>
   <div>
-    <HeroBanner />
+    <HeroBanner
+      v-if="page.primaryImageOfPage"
+      :hero-image="page.primaryImageOfPage.fields.image.fields.file.url"
+      :headline="page.primaryImageOfPage.fields.headline"
+      :description="page.primaryImageOfPage.fields.description"
+      :identifier="page.primaryImageOfPage.fields.identifier"
+      :attribution="page.primaryImageOfPage.fields.citation"
+      :rights-statement="page.primaryImageOfPage.fields.license"
+    />
     <section class="container">
       <div class="mt-3 w-100">
         <ContentCardSection
