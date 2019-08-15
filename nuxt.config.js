@@ -69,13 +69,13 @@ module.exports = {
           name: 'Čeština',
           code: 'cs',
           file: 'cs.js',
-          iso: 'cs-CS'
+          iso: 'cs-CZ'
         },
         {
           name: 'Dansk',
           code: 'da',
           file: 'da.js',
-          iso: 'da-DA'
+          iso: 'da-DK'
         },
         {
           name: 'Deutsch',
@@ -87,7 +87,7 @@ module.exports = {
           name: 'Ελληνικά',
           code: 'el',
           file: 'el.js',
-          iso: 'el-EL'
+          iso: 'el-GR'
         },
         {
           name: 'English',
@@ -105,7 +105,7 @@ module.exports = {
           name: 'Eesti',
           code: 'et',
           file: 'et.js',
-          iso: 'et-ET'
+          iso: 'et-EE'
         },
         {
           name: 'Suomi',
@@ -195,7 +195,7 @@ module.exports = {
           name: 'Slovenščina',
           code: 'sl',
           file: 'sl.js',
-          iso: 'sl-SL'
+          iso: 'sl-SI'
         },
         {
           name: 'Svenska',
