@@ -108,6 +108,12 @@ module.exports = {
           iso: 'et-EE'
         },
         {
+          name: 'Euskara',
+          code: 'eu',
+          file: 'eu.js',
+          iso: 'eu-ES'
+        },
+        {
           name: 'Suomi',
           code: 'fi',
           file: 'fi.js',
