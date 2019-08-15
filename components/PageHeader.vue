@@ -27,15 +27,9 @@
             @submit:searchForm="submitSearchForm"
           />
         </div>
-        <b-dropdown
-          v-if="langSelectEnabled"
-          data-qa="language selector"
-        >
+        <b-dropdown data-qa="language selector">
           <template slot="button-content">
-            <img
-              src="../assets/img/language.svg"
-              alt="Language"
-            >
+            {{ selectedLocale.name }}
           </template>
           <b-dropdown-item
             v-for="locale in availableLocales"
@@ -58,10 +52,6 @@
       SearchForm
     },
     props: {
-      langSelectEnabled: {
-        type: Boolean,
-        default: false
-      },
       searchQuery: {
         type: Object,
         default: () => {}
@@ -76,6 +66,11 @@
     computed: {
       availableLocales () {
         return this.$i18n.locales.filter(i => i.code !== this.$i18n.locale);
+      },
+      selectedLocale () {
+        return this.$i18n.locales.find(locale => {
+          return locale.code === this.$store.state.i18n.locale;
+        });
       }
     },
     watch: {
