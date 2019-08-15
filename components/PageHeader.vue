@@ -96,4 +96,9 @@
   .container-fluid {
     background: $white;
   }
+
+  /deep/ .dropdown-menu {
+    max-height: 250px;
+    overflow: auto;
+  }
 </style>
