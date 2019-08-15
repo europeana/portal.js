@@ -113,6 +113,15 @@ module.exports = {
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
   },
+  router: {
+    extendRoutes(routes) {
+      routes.push({
+        name: 'slug',
+        path: '/:slug',
+        component: 'pages/index.vue'
+      });
+    }
+  },
 
   /*
   ** Build configuration
