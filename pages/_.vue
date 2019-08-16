@@ -23,7 +23,10 @@
       ContentCardSection,
       HeroBanner
     },
-    asyncData ({ params, error, app }) {
+    asyncData ({ params, query, error, app }) {
+      if (query.mode == 'preview' && process.env['CTF_PREVIEW_CDA_ACCESS_TOKEN']) {
+        contentfulClient(true);
+      }
       // fetch the browsePage data, include set to 2 in order to get nested card data
       return contentfulClient.getEntries({
         'content_type': 'browsePage',
