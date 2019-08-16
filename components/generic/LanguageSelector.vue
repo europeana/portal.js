@@ -8,7 +8,7 @@
       <b-dropdown-item
         v-for="locale in availableLocales"
         :key="locale.code"
-        :to="switchLocalePath(locale.code)"
+        :href="switchLocalePath(locale.code)"
         :data-qa="`${locale.name} language option`"
       >
         {{ locale.name }}
