@@ -115,7 +115,7 @@ module.exports = {
     });
   },
   selectSearchResultsView: async function (viewName) {
-    await client.execute(function(viewName) {
+    await client.execute((viewName) => {
       localStorage.searchResultsView = viewName;
       sessionStorage.searchResultsView = viewName;
       return true;

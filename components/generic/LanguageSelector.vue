@@ -3,13 +3,17 @@
     <template slot="button-content">
       {{ selectedLocale.name }}
     </template>
-    <b-dropdown-item
-      v-for="locale in availableLocales"
-      :key="locale.code"
-      :to="switchLocalePath(locale.code)"
-    >
-      {{ locale.name }}
-    </b-dropdown-item>
+
+    <template test>
+      <b-dropdown-item
+        v-for="locale in availableLocales"
+        :key="locale.code"
+        :to="switchLocalePath(locale.code)"
+        :data-qa="`${locale.name} language option`"
+      >
+        {{ locale.name }}
+      </b-dropdown-item>
+    </template>
   </b-dropdown>
 </template>
 
