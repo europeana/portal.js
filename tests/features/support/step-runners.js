@@ -108,6 +108,9 @@ module.exports = {
   seeATargetWithText: async function (qaElementNames, text) {
     await client.expect.element(qaSelector(qaElementNames)).text.to.contain(text);
   },
+  seeTextInTargetPlaceholder: async function (text, qaElementNames) {
+    await client.expect.element(qaSelector(qaElementNames)).to.have.attribute('placeholder').to.contain(text);
+  },
   seeTextInTarget: async function (text, qaElementName) {
     const selector = qaSelector(qaElementName);
     await client.getValue(selector, async (result) => {
