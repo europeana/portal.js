@@ -14,13 +14,21 @@
       class="attribution"
     >
       {{ attribution }}
-      <span>{{ rightsStatement }}</span>
+      <RightsStatement
+        :rights-statement-url="rightsStatement"
+      />
     </b-link>
   </b-jumbotron>
 </template>
 
 <script>
+
+  import RightsStatement from '../../components/generic/RightsStatement';
+
   export default {
+    components: {
+      RightsStatement
+    },
     props: {
       heroImage: {
         type: String,
