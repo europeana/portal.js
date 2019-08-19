@@ -16,7 +16,7 @@
 <script>
   import ContentCardSection from '../components/browse/ContentCardSection';
   import HeroBanner from '../components/generic/HeroBanner';
-  import contentfulClient, { createClient }  from '../plugins/contentful.js';
+  import { createClient }  from '../plugins/contentful.js';
 
   export default {
     components: {
@@ -24,12 +24,14 @@
       HeroBanner
     },
     asyncData ({ params, query, error, app }) {
-      let contentfulClientToUse = contentfulClient;
+      let contentfulClient;
       if (query.mode == 'preview' && process.env['CTF_PREVIEW_CDA_ACCESS_TOKEN']) {
-        contentfulClientToUse = createClient(true);
+        contentfulClient = createClient('preview');
+      } else {
+        contentfulClient = createClient();
       }
       // fetch the browsePage data, include set to 2 in order to get nested card data
-      return contentfulClientToUse.getEntries({
+      return contentfulClient.getEntries({
         'content_type': 'browsePage',
         'fields.identifier': params.pathMatch == '' ? '/' : params.pathMatch,
         'include': 2,

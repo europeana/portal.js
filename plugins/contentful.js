@@ -7,10 +7,9 @@ let config = {
   accessToken: process.env.CTF_CDA_ACCESS_TOKEN
 };
 
-export function createClient (preview = false) {
+export function createClient (mode) {
   let client;
-  preview;
-  if (preview) {
+  if (mode == 'preview') {
     config.accessToken = process.env.CTF_PREVIEW_CDA_ACCESS_TOKEN;
     config.host = 'preview.contentful.com';
   }
