@@ -9,7 +9,7 @@
         data-qa="header"
       >
         <b-navbar-brand
-          to="/"
+          :to="goToHomepage"
           class="col-md-4 p-0 m-0 text-center text-md-left"
         >
           <img
@@ -54,6 +54,12 @@
         query: (this.searchQuery || {}).query || '',
         isLoading: false
       };
+    },
+    computed: {
+      goToHomepage () {
+        const locale = this.$i18n.locale;
+        return locale === 'en' ? '/' : `/${locale}`;
+      }
     },
     watch: {
       searchQuery: {
