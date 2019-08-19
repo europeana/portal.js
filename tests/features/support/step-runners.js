@@ -118,7 +118,8 @@ module.exports = {
     });
   },
   selectSearchResultsView: async function (viewName) {
-    await client.execute((viewName) => {
+    /* eslint-disable prefer-arrow-callback */
+    await client.execute(function(viewName) {
       localStorage.searchResultsView = viewName;
       sessionStorage.searchResultsView = viewName;
       return true;
