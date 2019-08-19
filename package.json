@@ -14,7 +14,7 @@
   ],
   "license": "EUPL-1.2",
   "engines": {
-    "node": "^11",
+    "node": "^12",
     "npm": "^6"
   },
   "repository": {
