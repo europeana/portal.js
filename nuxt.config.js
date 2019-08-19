@@ -214,7 +214,8 @@ module.exports = {
       lazy: true,
       langDir: 'lang/',
       vueI18n: {
-        fallbackLocale: 'en'
+        fallbackLocale: 'en',
+        silentFallbackWarn: true
       },
       // Enable browser language detection to automatically redirect user
       // to their preferred language as they visit your app for the first time
