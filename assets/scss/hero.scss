@@ -44,12 +44,16 @@
     padding-right: 2rem;
     position: absolute;
 
-    span > span {
+    .license {
       background-position: left center;
       background-repeat: no-repeat;
       background-size: 13px 13px;
       line-height: 2;
       padding-left: 1rem;
+    }
+
+    .icon-license-rr {
+      padding-left: 0.5rem;
     }
 
     &::after {
@@ -59,12 +63,13 @@
       height: 14px;
       position: absolute;
       right: 0.5rem;
-      top: 0.7rem;
+      top: 0.65rem;
       width: 13px;
     }
 
     &:hover {
-      color: $black;
+      color: $blue;
+      text-decoration: none;
     }
   }
 

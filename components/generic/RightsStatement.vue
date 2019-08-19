@@ -1,9 +1,10 @@
 <template>
-  <span>
+  <span data-qa="rights statement">
     <span
       v-for="icon in rights.iconClass"
       :key="icon"
       :class="icon"
+      class="license"
     />
     {{ rights.name }}
   </span>

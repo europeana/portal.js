@@ -36,5 +36,9 @@
 }
 
 .icon-license-rr {
-  content: 'copyright'
+  background: none;
+
+  &::after {
+    content: '\00a9';
+  }
 }

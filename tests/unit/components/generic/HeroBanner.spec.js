@@ -58,6 +58,6 @@ describe('components/generic/HeroBanner', () => {
     wrapper.setProps({ rightsStatement: 'http://rightsstatements.org/vocab/InC/1.0/' });
 
     const rights = wrapper.find('[data-qa="hero banner"] a span');
-    rights.text().should.contain('http://rightsstatements.org/vocab/InC/1.0/');
+    rights.text().should.contain('In Copyright');
   });
 });
