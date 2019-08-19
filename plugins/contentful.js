@@ -7,7 +7,7 @@ let config = {
   accessToken: process.env.CTF_CDA_ACCESS_TOKEN
 };
 
-function createClient (preview = false) {
+export function createClient (preview = false) {
   let client;
   preview;
   if (preview) {
