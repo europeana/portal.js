@@ -7,10 +7,7 @@
     >
       {{ $t('layout.skipToMain') }}
     </a>
-    <PageHeader
-      :lang-select-enabled="langSelectEnabled"
-      :search-query="searchQuery"
-    />
+    <PageHeader :search-query="searchQuery" />
     <nuxt
       id="main"
     />
@@ -31,11 +28,6 @@
       return {
         searchQuery: this.$route.query || {}
       };
-    },
-    computed: {
-      langSelectEnabled() {
-        return process.env.ENABLE_LANG_SELECT === 'true';
-      }
     },
     created () {
       this.$root.$on('leaveSearchPage', () => {

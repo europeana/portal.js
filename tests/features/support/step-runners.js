@@ -108,6 +108,9 @@ module.exports = {
   seeATargetWithText: async function (qaElementNames, text) {
     await client.expect.element(qaSelector(qaElementNames)).text.to.contain(text);
   },
+  seeTextInTargetPlaceholder: async function (text, qaElementNames) {
+    await client.expect.element(qaSelector(qaElementNames)).to.have.attribute('placeholder').to.contain(text);
+  },
   seeTextInTarget: async function (text, qaElementName) {
     const selector = qaSelector(qaElementName);
     await client.getValue(selector, async (result) => {
@@ -115,11 +118,14 @@ module.exports = {
     });
   },
   selectSearchResultsView: async function (viewName) {
+    /* eslint-disable prefer-arrow-callback */
+    /* DO NOT MAKE INTO A ARROW FUNCTION - If you do, it will break the tests */
     await client.execute(function(viewName) {
       localStorage.searchResultsView = viewName;
       sessionStorage.searchResultsView = viewName;
       return true;
     }, [viewName]);
+    /* eslint-enable prefer-arrow-callback */
   },
   doNotSeeTextInTarget: async function (text, qaElementName) {
     const selector = qaSelector(qaElementName);
