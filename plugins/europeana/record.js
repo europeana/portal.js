@@ -19,6 +19,7 @@ function parseRecordDataFromApiResponse(response) {
     return omitBy({
       rdfAbout: webResource.about,
       dcDescription: webResource.dcDescription,
+      edmCodecName: webResource.edmCodecName,
       edmRights: webResource.webResourceEdmRights,
       ebucoreHasMimeType: webResource.ebucoreHasMimeType
     }, (v) => {

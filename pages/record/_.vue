@@ -14,19 +14,16 @@
   >
     <b-row class="mb-3 mediacard">
       <b-col
-        v-if="image.src"
         cols="12"
         md="4"
         class="pl-0"
       >
-        <MediaImage
-          :link="image.link"
-          :src="image.src"
-        />
         <MediaPresentation
-          v-if="edmIsShownBy"
-          :url="edmIsShownBy.rdfAbout"
+          :codec-name="edmIsShownBy.edmCodecName"
+          :image-link="image.link"
+          :image-src="image.src"
           :mime-type="edmIsShownBy.ebucoreHasMimeType"
+          :url="edmIsShownBy.rdfAbout"
         />
       </b-col>
       <b-col>
@@ -54,7 +51,6 @@
   import AlertMessage from '../../components/generic/AlertMessage';
   import WebResources from '../../components/record/WebResources';
   import MetadataField from '../../components/record/MetadataField';
-  import MediaImage from '../../components/record/MediaImage';
   import MediaPresentation from '../../components/record/MediaPresentation';
 
   import getRecord from '../../plugins/europeana/record';
@@ -64,7 +60,6 @@
       AlertMessage,
       WebResources,
       MetadataField,
-      MediaImage,
       MediaPresentation
     },
     data () {
