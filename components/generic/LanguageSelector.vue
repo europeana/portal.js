@@ -41,20 +41,32 @@
 <style lang="scss" scoped>
   @import "./assets/scss/variables.scss";
 
+  .dropdown {
+    margin-top: 20px;
+    align-self: flex-end;
+
+    @media (min-width: $bp-medium) {
+      margin-top: 0;
+    }
+  }
+
   /deep/ .dropdown-menu {
     max-height: 250px;
     overflow: auto;
   }
 
   /deep/ .dropdown-toggle {
-    width: 160px;
-    padding-left: 30px;
+    width: 132px;
+    padding-left: 25px;
+    padding-right: 0;
     color: $darkgrey;
+    text-align: left;
+    border-radius: 0;
   }
 
   .language-icon {
     position: absolute;
-    left: 10px;
+    left: 0;
     top: 7px;
     width: 18px;
     height: 28px;
