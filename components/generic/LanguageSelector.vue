@@ -1,5 +1,8 @@
 <template>
-  <b-dropdown>
+  <b-dropdown
+    variant="text-grey"
+    toggle-class="text-decoration-none"
+  >
     <template slot="button-content">
       <i class="language-icon" />
       {{ selectedLocale.name }}
@@ -36,13 +39,17 @@
 </script>
 
 <style lang="scss" scoped>
+  @import "./assets/scss/variables.scss";
+
   /deep/ .dropdown-menu {
     max-height: 250px;
     overflow: auto;
   }
 
   /deep/ .dropdown-toggle {
-    padding-left: 40px;
+    width: 160px;
+    padding-left: 30px;
+    color: $darkgrey;
   }
 
   .language-icon {
