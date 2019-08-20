@@ -57,12 +57,12 @@
         return (this.imageSrc !== '') && !this.isHTMLVideo;
       },
       isPDF: function() {
-        return this.mimeType == 'application/pdf';
+        return this.mimeType === 'application/pdf';
       },
       isHTMLVideo: function () {
-        return (this.mimeType == 'video/ogg') ||
-          (this.mimeType == 'video/webm') ||
-          (this.mimeType == 'video/mp4' && this.codecName == 'h264');
+        return (this.mimeType === 'video/ogg') ||
+          (this.mimeType === 'video/webm') ||
+          ((this.mimeType === 'video/mp4') && (this.codecName === 'h264'));
       }
     }
   };
