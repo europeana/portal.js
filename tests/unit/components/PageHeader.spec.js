@@ -9,7 +9,8 @@ const factory = () => shallowMount(PageHeader, {
   localVue,
   mocks: {
     $t: () => {},
-    $route: () => {}
+    $route: () => {},
+    localePath: (code) => window.location.href + code
   }
 });
 
