@@ -59,6 +59,7 @@
   import WebResources from '../../components/record/WebResources';
   import MetadataField from '../../components/record/MetadataField';
   import MediaImage from '../../components/record/MediaImage';
+  import VideoPlayer from '../../components/media/VideoPlayer';
 
   import getRecord from '../../plugins/europeana/record';
 
@@ -67,7 +68,8 @@
       AlertMessage,
       WebResources,
       MetadataField,
-      MediaImage
+      MediaImage,
+      VideoPlayer
     },
     data () {
       return {
