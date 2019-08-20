@@ -23,15 +23,11 @@
           :link="image.link"
           :src="image.src"
         />
-        <p>
-          <b-link
-            v-if="pdf"
-            :href="pdf"
-            target="_blank"
-          >
-            View PDF
-          </b-link>
-        </p>
+        <MediaPresentation
+          v-if="edmIsShownBy"
+          :url="edmIsShownBy.rdfAbout"
+          :mime-type="edmIsShownBy.ebucoreHasMimeType"
+        />
       </b-col>
       <b-col>
         <MetadataField
@@ -59,6 +55,7 @@
   import WebResources from '../../components/record/WebResources';
   import MetadataField from '../../components/record/MetadataField';
   import MediaImage from '../../components/record/MediaImage';
+  import MediaPresentation from '../../components/record/MediaPresentation';
 
   import getRecord from '../../plugins/europeana/record';
 
@@ -67,7 +64,8 @@
       AlertMessage,
       WebResources,
       MetadataField,
-      MediaImage
+      MediaImage,
+      MediaPresentation
     },
     data () {
       return {
@@ -75,14 +73,14 @@
         image: null,
         fields: null,
         media: null,
-        pdf: null
+        edmIsShownBy: {}
       };
     },
     asyncData ({ env, params, res }) {
       return getRecord(`/${params.pathMatch}`, {
         wskey: env.EUROPEANA_API_KEY
       }).then((result) => {
-        return { image: result.record.image, pdf: result.record.pdfLink, fields: result.record.fields, media: result.record.media };
+        return result.record;
       })
         .catch((err) => {
           if (typeof res !== 'undefined') {
@@ -109,4 +107,3 @@
     padding: 1rem;
   }
 </style>
-
