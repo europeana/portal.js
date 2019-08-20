@@ -39,7 +39,7 @@ describe('components/generic/HeroBanner', () => {
 
   it('has a link', () => {
     const wrapper = factory();
-    wrapper.setProps({ identifier: '15508/DG2014_46_12' });
+    wrapper.setProps({ identifier: '/15508/DG2014_46_12' });
 
     const link = wrapper.find('[data-qa="hero banner"] a');
     link.attributes().href.should.contain('15508/DG2014_46_12');
