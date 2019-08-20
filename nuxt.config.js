@@ -60,10 +60,22 @@ module.exports = {
     ['nuxt-i18n', {
       locales: [
         {
-          name: 'English',
-          code: 'en',
-          file: 'en.js',
-          iso: 'en-GB'
+          name: 'Български',
+          code: 'bg',
+          file: 'bg.js',
+          iso: 'bg-BG'
+        },
+        {
+          name: 'Čeština',
+          code: 'cs',
+          file: 'cs.js',
+          iso: 'cs-CZ'
+        },
+        {
+          name: 'Dansk',
+          code: 'da',
+          file: 'da.js',
+          iso: 'da-DK'
         },
         {
           name: 'Deutsch',
@@ -72,23 +84,138 @@ module.exports = {
           iso: 'de-DE'
         },
         {
+          name: 'Ελληνικά',
+          code: 'el',
+          file: 'el.js',
+          iso: 'el-GR'
+        },
+        {
+          name: 'English',
+          code: 'en',
+          file: 'en.js',
+          iso: 'en-GB'
+        },
+        {
           name: 'Español',
           code: 'es',
           file: 'es.js',
           iso: 'es-ES'
         },
         {
+          name: 'Eesti',
+          code: 'et',
+          file: 'et.js',
+          iso: 'et-EE'
+        },
+        {
+          name: 'Euskara',
+          code: 'eu',
+          file: 'eu.js',
+          iso: 'eu-ES'
+        },
+        {
+          name: 'Suomi',
+          code: 'fi',
+          file: 'fi.js',
+          iso: 'fi-FI'
+        },
+        {
+          name: 'Français',
+          code: 'fr',
+          file: 'fr.js',
+          iso: 'fr-FR'
+        },
+        {
+          name: 'Gaeilge',
+          code: 'ga',
+          file: 'ga.js',
+          iso: 'ga-IE'
+        },
+        {
+          name: 'Hrvatski',
+          code: 'hr',
+          file: 'hr.js',
+          iso: 'hr-HR'
+        },
+        {
+          name: 'Magyar',
+          code: 'hu',
+          file: 'hu.js',
+          iso: 'hu-HU'
+        },
+        {
+          name: 'Italiano',
+          code: 'it',
+          file: 'it.js',
+          iso: 'it-IT'
+        },
+        {
+          name: 'Lietuvių',
+          code: 'lt',
+          file: 'lt.js',
+          iso: 'lt-LT'
+        },
+        {
+          name: 'Latviešu',
+          code: 'lv',
+          file: 'lv.js',
+          iso: 'lv-LV'
+        },
+        {
+          name: 'Malti',
+          code: 'mt',
+          file: 'mt.js',
+          iso: 'mt-MT'
+        },
+        {
           name: 'Nederlands',
           code: 'nl',
           file: 'nl.js',
           iso: 'nl-NL'
+        },
+        {
+          name: 'Polski',
+          code: 'pl',
+          file: 'pl.js',
+          iso: 'pl-PL'
+        },
+        {
+          name: 'Português',
+          code: 'pt',
+          file: 'pt.js',
+          iso: 'pt-PT'
+        },
+        {
+          name: 'Română',
+          code: 'ro',
+          file: 'ro.js',
+          iso: 'ro-RO'
+        },
+        {
+          name: 'Slovenčina',
+          code: 'sk',
+          file: 'sk.js',
+          iso: 'sk-SK'
+        },
+        {
+          name: 'Slovenščina',
+          code: 'sl',
+          file: 'sl.js',
+          iso: 'sl-SI'
+        },
+        {
+          name: 'Svenska',
+          code: 'sv',
+          file: 'sv.js',
+          iso: 'sv-SE'
         }
       ],
       defaultLocale: 'en',
       lazy: true,
       langDir: 'lang/',
       vueI18n: {
-        fallbackLocale: 'en'
+        fallbackLocale: 'en',
+        silentFallbackWarn: true
       },
       // Enable browser language detection to automatically redirect user
       // to their preferred language as they visit your app for the first time
@@ -112,6 +239,15 @@ module.exports = {
   */
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
+  },
+  router: {
+    extendRoutes(routes) {
+      routes.push({
+        name: 'slug',
+        path: '/:slug',
+        component: 'pages/index.vue'
+      });
+    }
   },
 
   /*

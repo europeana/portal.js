@@ -2,5 +2,5 @@ export default {
   "formatting": {
     "ellipsis": "…"
   },
-  "searchPlaceholder": "¿Qué estás buscando?"
+  "searchPlaceholder": "Vad letar du efter?"
 };
