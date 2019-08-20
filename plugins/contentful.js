@@ -9,7 +9,7 @@ let config = {
 
 export function createClient (mode) {
   let client;
-  if (mode == 'preview') {
+  if (mode === 'preview') {
     config.accessToken = process.env.CTF_CPA_ACCESS_TOKEN;
     config.host = 'preview.contentful.com';
   }

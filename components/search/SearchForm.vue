@@ -1,7 +1,6 @@
 <template>
   <b-form
     inline
-    data-qa="search form"
     @submit.prevent="$emit('submit:searchForm')"
   >
     <b-form-input

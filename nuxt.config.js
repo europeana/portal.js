@@ -207,14 +207,15 @@ module.exports = {
           name: 'Svenska',
           code: 'sv',
           file: 'sv.js',
-          iso: 'sv-SV'
+          iso: 'sv-SE'
         }
       ],
       defaultLocale: 'en',
       lazy: true,
       langDir: 'lang/',
       vueI18n: {
-        fallbackLocale: 'en'
+        fallbackLocale: 'en',
+        silentFallbackWarn: true
       },
       // Enable browser language detection to automatically redirect user
       // to their preferred language as they visit your app for the first time
@@ -238,6 +239,15 @@ module.exports = {
   */
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
+  },
+  router: {
+    extendRoutes(routes) {
+      routes.push({
+        name: 'slug',
+        path: '/:slug',
+        component: 'pages/index.vue'
+      });
+    }
   },
 
   /*
