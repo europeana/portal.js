@@ -1,5 +1,6 @@
 <template>
   <b-dropdown
+    right
     variant="text-grey"
     toggle-class="text-decoration-none"
   >
@@ -56,21 +57,24 @@
   }
 
   /deep/ .dropdown-toggle {
-    width: 132px;
-    padding-left: 25px;
     padding-right: 0;
     color: $darkgrey;
-    text-align: left;
+    justify-content: flex-end;
+    align-items: center;
+    display: flex;
     border-radius: 0;
+
+    @media (min-width: $bp-medium) {
+      width: 160px;
+    }
   }
 
   .language-icon {
-    position: absolute;
-    left: 0;
     top: 7px;
     width: 18px;
     height: 28px;
     margin-right: 8px;
     background: url('../../assets/img/language.svg');
+    display: inline-block;
   }
 </style>
