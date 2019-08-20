@@ -4,10 +4,12 @@
     :autoplay="autoplay"
     :loop="loop"
     :muted="muted"
+    data-qa="video"
   >
     <source
-      :src="src"
+      :src="url"
       :type="type"
+      data-qa="video source"
     >
   </video>
 </template>
@@ -17,7 +19,7 @@
     name: 'VideoPlayer',
 
     props: {
-      src: {
+      url: {
         type: String,
         required: true
       },
