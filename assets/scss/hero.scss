@@ -4,6 +4,16 @@
   height: 50vh;
   margin-top: -1rem;
   padding: 0;
+  position: relative;
+
+  &::before {
+    background: rgba(41, 55, 69, 0.35);
+    content: '';
+    display: block;
+    height: 100%;
+    position: absolute;
+    width: 100%;
+  }
 
   .container {
     align-items: flex-start;

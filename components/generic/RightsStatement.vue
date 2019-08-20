@@ -1,12 +1,12 @@
 <template>
   <span data-qa="rights statement">
     <span
-      v-for="icon in rights.iconClass"
+      v-for="icon in rightsNameAndIcon.iconClass"
       :key="icon"
       :class="icon"
       class="license"
     />
-    {{ rights.name }}
+    {{ rightsNameAndIcon.name }}
   </span>
 </template>
 
@@ -19,7 +19,7 @@
       }
     },
     computed: {
-      rights: function () {
+      rightsNameAndIcon: function () {
         const val = this.rightsStatementUrl;
         let rights = [];
 

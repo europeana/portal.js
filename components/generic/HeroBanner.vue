@@ -10,7 +10,7 @@
     data-qa="hero banner"
   >
     <b-link
-      :to="localePath({ name: 'record-all', params: { pathMatch: identifier }})"
+      :to="localePath({ name: 'record-all', params: { pathMatch: identifier.slice(1) }})"
       class="attribution"
     >
       {{ attribution }}
