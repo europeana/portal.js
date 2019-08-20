@@ -24,7 +24,7 @@
         <pre v-if="!Array.isArray(value)">
           <code>{{ value }}</code>
         </pre>
-        <template v-else-if="value.length == 1">
+        <template v-else-if="value.length === 1">
           {{ value[0] }}
         </template>
         <ul v-else>
