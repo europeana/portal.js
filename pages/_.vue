@@ -25,7 +25,7 @@
     },
     asyncData ({ params, query, error, app }) {
       let contentfulClient;
-      if (query.mode == 'preview' && process.env['CTF_PREVIEW_CDA_ACCESS_TOKEN']) {
+      if (query.mode == 'preview' && process.env['CTF_CPA_ACCESS_TOKEN']) {
         contentfulClient = createClient('preview');
       } else {
         contentfulClient = createClient();
