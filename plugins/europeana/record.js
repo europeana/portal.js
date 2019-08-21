@@ -23,7 +23,7 @@ function parseRecordDataFromApiResponse(response) {
       edmRights: webResource.webResourceEdmRights,
       ebucoreHasMimeType: webResource.ebucoreHasMimeType
     }, (v) => {
-      return v == null;
+      return v === null;
     });
   });
 
@@ -43,7 +43,7 @@ function parseRecordDataFromApiResponse(response) {
       edmDataProvider: providerAggregation.edmDataProvider,
       edmRights: providerAggregation.edmRights
     }, (v) => {
-      return v == null;
+      return v === null;
     }),
     media: webResources,
     edmIsShownBy: webResources.find((webResource) => {

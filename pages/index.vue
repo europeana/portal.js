@@ -1,6 +1,14 @@
 <template>
   <div>
-    <HeroBanner />
+    <HeroBanner
+      v-if="page.primaryImageOfPage"
+      :hero-image="page.primaryImageOfPage.fields.image.fields.file.url"
+      :headline="page.primaryImageOfPage.fields.headline"
+      :description="page.primaryImageOfPage.fields.description"
+      :identifier="page.primaryImageOfPage.fields.identifier"
+      :attribution="page.primaryImageOfPage.fields.citation"
+      :rights-statement="page.primaryImageOfPage.fields.license"
+    />
     <section class="container">
       <div class="mt-3 w-100">
         <ContentCardSection
@@ -24,15 +32,22 @@
       HeroBanner
     },
     asyncData ({ params, error, app }) {
+      const setLocale = app.i18n.locale;
+      const isoLookUp = (code) => {
+        const locales = app.i18n.locales;
+        return locales.find(locale => locale.code === code)['iso'];
+      };
+
       // fetch the browsePage data, include set to 2 in order to get nested card data
       return contentfulClient.getEntries({
+        'locale': isoLookUp(setLocale),
         'content_type': 'browsePage',
-        'fields.identifier': params.pathMatch == '' ? '/' : params.pathMatch,
+        'fields.identifier': params.slug ? params.slug : '/',
         'include': 2,
         'limit': 1
       })
         .then((response) => {
-          if (response.total == 0) {
+          if (response.total === 0) {
             error({ statusCode: 404, message: app.i18n.t('messages.notFound') });
             return;
           }
@@ -48,6 +63,8 @@
       return {
         title: this.page.headline
       };
+    },
+    methods: {
     }
   };
 </script>

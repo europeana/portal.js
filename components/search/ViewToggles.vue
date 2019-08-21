@@ -6,7 +6,7 @@
       v-for="view in views"
       :key="view"
       :to="linkGen(view)"
-      :active="activeView == view"
+      :active="activeView === view"
       :data-qa="`search ${view} view toggle`"
       class="pl-3"
       @click="selectView(view)"

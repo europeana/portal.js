@@ -25,6 +25,7 @@ module.exports = {
     'comma-dangle': ['error', 'never'],
     'computed-property-spacing': ['error', 'never'],
     'eol-last': ['error', 'always'],
+    'eqeqeq': ['error', 'always'],
     'indent': ['error', 2, { 'SwitchCase': 1 }],
     'keyword-spacing': ['error', { 'before': true, 'after': true }],
     'linebreak-style': ['error', 'unix'],
