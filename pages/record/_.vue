@@ -59,7 +59,6 @@
   import WebResources from '../../components/record/WebResources';
   import MetadataField from '../../components/record/MetadataField';
   import MediaImage from '../../components/record/MediaImage';
-
   import getRecord from '../../plugins/europeana/record';
 
   export default {
