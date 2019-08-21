@@ -21,4 +21,23 @@ storiesOf('Media/Video Player', module)
         />
       </b-container>
     `
+  }))
+  .add('MP4 video', () => ({
+    components: {
+      VideoPlayer
+    },
+    data() {
+      return {
+        src: 'https://europeana1914-1918.s3.amazonaws.com/attachments/236696/9555.236696.original.mp4',
+        type: 'video/mp4'
+      };
+    },
+    template: `
+      <b-containerb class="mt-3">
+        <VideoPlayer
+          :src="src"
+          :type="type"
+        />
+      </b-container>
+    `
   }));
