@@ -7,7 +7,7 @@ localVue.use(BootstrapVue);
 
 const factory = () => shallowMount(VideoPlayer, {
   propsData: {
-    url: 'https://example.org',
+    src: 'https://example.org',
     type: 'video/webm'
   },
   localVue

@@ -7,7 +7,7 @@
     data-qa="video"
   >
     <source
-      :src="url"
+      :src="src"
       :type="type"
       data-qa="video source"
     >
@@ -19,7 +19,7 @@
     name: 'VideoPlayer',
 
     props: {
-      url: {
+      src: {
         type: String,
         required: true
       },
@@ -48,7 +48,5 @@
 </script>
 
 <style lang="scss" scoped>
-  video {
-    width: 100%;
-  }
+
 </style>
