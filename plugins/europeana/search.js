@@ -171,6 +171,16 @@ function search(params) {
   const start = ((page - 1) * perPage) + 1;
   const rows = Math.max(0, Math.min(maxResults + 1 - start, perPage));
 
+  const qfhandler = (qf) => {
+    const newQf = [...qf];
+
+    if (qf.includes('contentTier:(0 OR 1 OR 2 OR 3 OR 4)')) {
+      return qf;
+    }
+    newQf.push('contentTier:(1 OR 2 OR 3 OR 4)');
+    return newQf;
+  };
+
   return axios.get('https://api.europeana.eu/api/v2/search.json', {
     paramsSerializer: function (params) {
       return qs.stringify(params, { arrayFormat: 'repeat' });
@@ -179,7 +189,7 @@ function search(params) {
       profile: 'minimal,facets',
       facet: params.facet,
       query: params.query === '' ? '*:*' : params.query,
-      qf: params.qf,
+      qf: qfhandler(params.qf),
       reusability: params.reusability,
       theme: params.theme,
       rows: rows,
