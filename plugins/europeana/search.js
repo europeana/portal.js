@@ -178,7 +178,7 @@ function search(params) {
     params: {
       profile: 'minimal,facets',
       facet: params.facet,
-      query: params.query == '' ? '*:*' : params.query,
+      query: params.query === '' ? '*:*' : params.query,
       qf: params.qf,
       reusability: params.reusability,
       theme: params.theme,

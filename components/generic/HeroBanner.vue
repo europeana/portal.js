@@ -7,43 +7,52 @@
     header-tag="h2"
     header-level="4"
     text-variant="white"
+    data-qa="hero banner"
   >
     <b-link
-      :to="localePath({ name: 'record-all', params: { pathMatch: identifier }})"
+      :to="localePath({ name: 'record-all', params: { pathMatch: identifier.slice(1) }})"
       class="attribution"
     >
       {{ attribution }}
-      <span>{{ rights }}</span>
+      <RightsStatement
+        :rights-statement-url="rightsStatement"
+      />
     </b-link>
   </b-jumbotron>
 </template>
 
 <script>
+
+  import RightsStatement from '../../components/generic/RightsStatement';
+
   export default {
+    components: {
+      RightsStatement
+    },
     props: {
       heroImage: {
         type: String,
-        default: 'https://proxy.europeana.eu/90402/SK_A_1709?api_url=https%3A%2F%2Fapi.europeana.eu%2Fapi'
+        default: ''
       },
       headline: {
         type: String,
-        default: 'Unique Selling Point 1. Limit of two lines'
+        default: ''
       },
       description: {
         type: String,
-        default: 'Can be a static image stating briefly all the Unique Selling Points of Europeana or a caroussel with 3/4 highlighted USP’s. Limit of 3 lines.'
+        default: ''
       },
       identifier: {
         type: String,
-        default: '90402/SK_A_1709'
+        default: ''
       },
       attribution: {
         type: String,
-        default: 'The Lake of Zurich, 1660, Jan Hackaert, Rijksmuseum'
+        default: ''
       },
-      rights: {
+      rightsStatement: {
         type: String,
-        default: 'Public Domain'
+        default: ''
       }
     }
   };
