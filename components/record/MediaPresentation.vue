@@ -15,20 +15,22 @@
         View PDF
       </b-link>
     </p>
-    <p
+    <VideoPlayer
       v-else-if="isHTMLVideo"
-    >
-      [Video player]
-    </p>
+      :src="url"
+      :type="mimeType"
+    />
   </div>
 </template>
 
 <script>
   import MediaImage from '../../components/record/MediaImage';
+  import VideoPlayer from '../../components/media/VideoPlayer';
 
   export default {
     components: {
-      MediaImage
+      MediaImage,
+      VideoPlayer
     },
     props: {
       codecName: {
