@@ -71,7 +71,7 @@
 
   .language-icon {
     top: 7px;
-    width: 18px;
+    width: 31px;
     height: 28px;
     margin-right: 8px;
     background: url('../../assets/img/language.svg');
