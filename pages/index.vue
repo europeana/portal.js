@@ -47,7 +47,7 @@
         'limit': 1
       })
         .then((response) => {
-          if (response.total == 0) {
+          if (response.total === 0) {
             error({ statusCode: 404, message: app.i18n.t('messages.notFound') });
             return;
           }

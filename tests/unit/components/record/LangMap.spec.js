@@ -39,7 +39,7 @@ describe('components/record/LangMap', () => {
       for (let lang in props.value) {
         const langWrappers = wrapper.findAll(`[lang="${lang}"]`);
         for (let value of props.value[lang]) {
-          langWrappers.filter(w => w.text() == value).length.should.eq(1);
+          langWrappers.filter(w => w.text() === value).length.should.eq(1);
         }
       }
     });
