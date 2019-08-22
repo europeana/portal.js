@@ -172,8 +172,6 @@ function search(params) {
   const rows = Math.max(0, Math.min(maxResults + 1 - start, perPage));
 
   function qfhandler(qf) {
-    if (!qf) return;
-
     const newQf = qf ? [].concat(qf) : [];
     newQf.push('contentTier:(1 OR 2 OR 3 OR 4)');
     return newQf;
