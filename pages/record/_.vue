@@ -22,7 +22,9 @@
           :image-link="image.link"
           :image-src="image.src"
           :mime-type="edmIsShownBy.ebucoreHasMimeType"
-          :url="edmIsShownBy.rdfAbout"
+          :url="edmIsShownBy.about"
+          :width="edmIsShownBy.ebucoreWidth"
+          :height="edmIsShownBy.ebucoreHeight"
         />
       </b-col>
       <b-col

@@ -4,6 +4,8 @@
     :autoplay="autoplay"
     :loop="loop"
     :muted="muted"
+    :width="width"
+    :height="height"
     data-qa="video"
   >
     <source
@@ -42,6 +44,14 @@
       muted: {
         type: Boolean,
         default: false
+      },
+      width: {
+        type: Number,
+        default: null
+      },
+      height: {
+        type: Number,
+        default: null
       }
     }
   };

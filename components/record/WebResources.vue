@@ -2,8 +2,8 @@
   <b-list-group>
     <b-list-group-item
       v-for="webResource in media"
-      :id="webResource.rdfAbout"
-      :key="webResource.rdfAbout"
+      :id="webResource.about"
+      :key="webResource.about"
       data-qa="web resource"
       class="mb-3"
     >

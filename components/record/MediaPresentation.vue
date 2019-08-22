@@ -21,6 +21,8 @@
       v-else-if="isHTMLVideo"
       :src="url"
       :type="mimeType"
+      :width="width"
+      :height="height"
     />
   </div>
 </template>
@@ -54,6 +56,14 @@
       url: {
         type: String,
         default: ''
+      },
+      width: {
+        type: Number,
+        default: null
+      },
+      height: {
+        type: Number,
+        default: null
       }
     },
     computed: {
@@ -82,4 +92,3 @@
     }
   }
 </style>
-
