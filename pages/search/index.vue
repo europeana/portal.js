@@ -106,6 +106,15 @@
           </b-row>
           <b-row>
             <b-col>
+              <TierToggler
+                :text="tier.text"
+                :button="tier.button"
+                :toggled="tierToggle"
+              />
+            </b-col>
+          </b-row>
+          <b-row>
+            <b-col>
               <PaginationNav
                 v-if="totalResults > perPage"
                 v-model="page"
@@ -130,6 +139,7 @@
   import SearchSelectedFacets from '../../components/search/SearchSelectedFacets';
   import PaginationNav from '../../components/generic/PaginationNav';
   import ViewToggles from '../../components/search/ViewToggles';
+  import TierToggler from '../../components/search/TierToggler';
   import search, { pageFromQuery, selectedFacetsFromQuery } from '../../plugins/europeana/search';
 
   let watchList = {};
@@ -153,7 +163,8 @@
       SearchResultsList,
       SearchSelectedFacets,
       PaginationNav,
-      ViewToggles
+      ViewToggles,
+      TierToggler
     },
     props: {
       perPage: {
@@ -176,7 +187,19 @@
         selectedFacets: {},
         theme: null,
         totalResults: null,
-        view: this.selectedView()
+        'tier_zero': null,
+        view: this.selectedView(),
+        tier: {
+          button: {
+            show: 'Show these items',
+            hide: 'Hide these items'
+          },
+          text: {
+            show: 'More items match your search but don’t meet our publishing criteria.',
+            hide: 'Lorem ipsum'
+          }
+        },
+        tierToggle: false
       };
     },
     computed: {
@@ -242,7 +265,9 @@
             selectedFacets: selectedFacetsFromQuery(query),
             qfForSelectedFacets: query.qf === '' ? [] : query.qf,
             reusability: query.reusability,
-            theme: query.theme
+            theme: query.theme,
+            'tier_zero': query.tier_zero,
+            tierToggle: (query['tier_zero'] === 'true') ? true : false
           };
         })
         .catch((error) => {
@@ -263,6 +288,11 @@
           return { results: null, error: errorMessage, query: query.query };
         });
     },
+    mounted () {
+      const TZ = this.$route.query['tier_zero'];
+
+      (TZ === 'true') ? this.tierToggle = true : this.tierToggle = false;
+    },
     methods: {
       updateCurrentSearchQuery(updates) {
         const current = {
@@ -271,7 +301,8 @@
           query: this.query || '',
           reusability: this.reusability,
           theme: this.theme,
-          view: this.view
+          view: this.view,
+          'tier_zero': this.tier_zero
         };
 
         const updated = { ...current, ...updates };
@@ -339,6 +370,6 @@
       this.$root.$emit('leaveSearchPage');
       next();
     },
-    watchQuery: ['page', 'qf', 'query', 'reusability', 'theme']
+    watchQuery: ['page', 'qf', 'query', 'reusability', 'theme', 'tier_zero']
   };
 </script>
