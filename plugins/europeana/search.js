@@ -172,6 +172,8 @@ function search(params) {
   const rows = Math.max(0, Math.min(maxResults + 1 - start, perPage));
 
   const qfhandler = (qf) => {
+    if (!qf) return;
+
     const newQf = [...qf];
 
     if (qf.includes('contentTier:(0 OR 1 OR 2 OR 3 OR 4)')) {
