@@ -5,7 +5,7 @@
   >
     <img
       :src="src"
-      class="mw-100 mb-3"
+      class="mw-100"
       alt="View at the provider's website"
     >
   </a>
@@ -13,7 +13,7 @@
     v-else-if="!link && src"
     :src="src"
     alt=""
-    class="mw-100 mb-3"
+    class="mw-100"
   >
 </template>
 

@@ -1,5 +1,7 @@
 <template>
-  <div>
+  <div
+    class="media-presentation text-center"
+  >
     <MediaImage
       v-if="displayImage"
       :link="imageLink"
@@ -69,3 +71,15 @@
     }
   };
 </script>
+
+<style lang="scss" scoped>
+  .media-presentation {
+    /deep/ img,
+    video {
+      max-height: 70vh;
+      max-width: 100%;
+      width: auto;
+    }
+  }
+</style>
+
