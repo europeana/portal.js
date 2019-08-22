@@ -85,13 +85,13 @@
           >
             <b-col>
               <p
-                v-if="results.length == 0"
+                v-if="results.length === 0"
                 data-qa="warning notice"
               >
                 {{ $t('noMoreResults') }}
               </p>
               <SearchResultsList
-                v-else-if="view == 'list'"
+                v-else-if="view === 'list'"
                 :results="results"
               />
               <SearchResultsGrid
@@ -200,7 +200,7 @@
 
         for (const facetName of order) {
           const index = unordered.findIndex((f) => {
-            return f.name == facetName;
+            return f.name === facetName;
           });
           if (index !== -1) {
             ordered = ordered.concat(unordered.splice(index, 1));

@@ -14,24 +14,17 @@
   >
     <b-row class="mb-3 mediacard">
       <b-col
-        v-if="image.src"
         cols="12"
         md="4"
         class="pl-0"
       >
-        <MediaImage
-          :link="image.link"
-          :src="image.src"
+        <MediaPresentation
+          :codec-name="edmIsShownBy.edmCodecName"
+          :image-link="image.link"
+          :image-src="image.src"
+          :mime-type="edmIsShownBy.ebucoreHasMimeType"
+          :url="edmIsShownBy.rdfAbout"
         />
-        <p>
-          <b-link
-            v-if="pdf"
-            :href="pdf"
-            target="_blank"
-          >
-            View PDF
-          </b-link>
-        </p>
       </b-col>
       <b-col>
         <MetadataField
@@ -58,7 +51,7 @@
   import AlertMessage from '../../components/generic/AlertMessage';
   import WebResources from '../../components/record/WebResources';
   import MetadataField from '../../components/record/MetadataField';
-  import MediaImage from '../../components/record/MediaImage';
+  import MediaPresentation from '../../components/record/MediaPresentation';
 
   import getRecord from '../../plugins/europeana/record';
 
@@ -67,7 +60,7 @@
       AlertMessage,
       WebResources,
       MetadataField,
-      MediaImage
+      MediaPresentation
     },
     data () {
       return {
@@ -75,14 +68,14 @@
         image: null,
         fields: null,
         media: null,
-        pdf: null
+        edmIsShownBy: {}
       };
     },
     asyncData ({ env, params, res }) {
       return getRecord(`/${params.pathMatch}`, {
         wskey: env.EUROPEANA_API_KEY
       }).then((result) => {
-        return { image: result.record.image, pdf: result.record.pdfLink, fields: result.record.fields, media: result.record.media };
+        return result.record;
       })
         .catch((err) => {
           if (typeof res !== 'undefined') {
@@ -109,4 +102,3 @@
     padding: 1rem;
   }
 </style>
-

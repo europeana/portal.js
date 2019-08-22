@@ -18,7 +18,7 @@ export const actions = {
       'limit': 1
     })
       .then((response) => {
-        if (response.total == 0) {
+        if (response.total === 0) {
           return [];
         }
         return response.items[0].fields.links.map(item => {

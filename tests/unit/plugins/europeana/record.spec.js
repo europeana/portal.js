@@ -90,11 +90,6 @@ describe('plugins/europeana/record', () => {
           const response = await getRecord(europeanaId, { wskey: apiKey });
           response.record.should.exist;
         });
-
-        it('shows a view PDF link', async () => {
-          const response = await getRecord(europeanaId, { wskey: apiKey });
-          response.record.pdfLink.should.exist;
-        });
       });
     });
   });
