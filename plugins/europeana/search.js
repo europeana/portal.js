@@ -174,8 +174,6 @@ function search(params) {
   function qfhandler(qf) {
     if (!qf) return;
 
-    console.log('MONKEY', qf);
-
     const newQf = qf ? [].concat(qf) : [];
     newQf.push('contentTier:(1 OR 2 OR 3 OR 4)');
     return newQf;
