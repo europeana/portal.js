@@ -4,7 +4,6 @@
     :texts="texts"
     :url="destination"
     :image-url="imageUrl"
-    :view-more-label-key="moreLabelKey"
   />
 </template>
 
@@ -41,10 +40,6 @@
         } else {
           return '';
         }
-      },
-      moreLabelKey: function () {
-        // TODO: Allow arbitrary value overwrites per card via the CMS.
-        return this.forEuropeanaRecord() ? 'goToRecord' : 'readMore';
       },
       destination: function () {
         if (this.fields.url) {
