@@ -24,14 +24,20 @@
 <script>
   import ContentCardSection from '../components/browse/ContentCardSection';
   import HeroBanner from '../components/generic/HeroBanner';
-  import contentfulClient from '../plugins/contentful.js';
+  import { createClient }  from '../plugins/contentful.js';
 
   export default {
     components: {
       ContentCardSection,
       HeroBanner
     },
-    asyncData ({ params, error, app }) {
+    asyncData ({ params, query, error, app }) {
+      let contentfulClient;
+      if (query.mode === 'preview' && process.env['CTF_CPA_ACCESS_TOKEN']) {
+        contentfulClient = createClient(query.mode);
+      } else {
+        contentfulClient = createClient();
+      }
       const setLocale = app.i18n.locale;
       const isoLookUp = (code) => {
         const locales = app.i18n.locales;
