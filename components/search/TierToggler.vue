@@ -2,13 +2,13 @@
   <div>
     <p class="font-italic">
       {{ toggleText }}
-      <b-button
-        variant="link"
+      <button
         class="toggle-button"
+        data-qa="tier toggler"
         @click="toggleHandler"
       >
         {{ !toggle ? button.show : button.hide }}
-      </b-button>.
+      </button>.
     </p>
   </div>
 </template>

@@ -191,12 +191,12 @@
         view: this.selectedView(),
         tier: {
           button: {
-            show: 'Show these items',
-            hide: 'Hide these items'
+            show: this.$t('searchTier.button.show'),
+            hide: this.$t('searchTier.button.hide')
           },
           text: {
-            show: 'More items match your search but don’t meet our publishing criteria.',
-            hide: 'Lorem ipsum'
+            show: this.$t('searchTier.text.show'),
+            hide: this.$t('searchTier.text.hide')
           }
         },
         tierToggle: false
