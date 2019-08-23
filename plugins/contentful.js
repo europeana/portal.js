@@ -2,23 +2,24 @@ const contentful = require('contentful');
 
 // These values will be set via env vars.
 // If this file is imported these values may be available to the client.
-let config = {
+const deliveryConfig = {
   space: process.env.CTF_SPACE_ID,
   accessToken: process.env.CTF_CDA_ACCESS_TOKEN
 };
+const previewConfig = {
+  space: process.env.CTF_SPACE_ID,
+  accessToken: process.env.CTF_CPA_ACCESS_TOKEN,
+  host: 'preview.contentful.com'
+};
 
 export function createClient (mode) {
-  let client;
-  if (mode === 'preview') {
-    config.accessToken = process.env.CTF_CPA_ACCESS_TOKEN;
-    config.host = 'preview.contentful.com';
-  }
+  const config = (mode === 'preview' ? previewConfig : deliveryConfig);
+
   try {
-    client = contentful.createClient(config);
+    return contentful.createClient(config);
   } catch (error) {
-    client = {};
+    return {};
   }
-  return client;
 }
 
 export default createClient();
