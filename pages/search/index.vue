@@ -187,7 +187,6 @@
         selectedFacets: {},
         theme: null,
         totalResults: null,
-        'tier_zero': null,
         view: this.selectedView(),
         tier: {
           button: {
@@ -237,6 +236,9 @@
     watch: watchList,
     asyncData ({ env, query, res, redirect, app }) {
       const currentPage = pageFromQuery(query.page);
+      const qf = query.qf;
+      const qfArray = qf ? [].concat(qf) : [];
+
       if (currentPage === null) {
         // Redirect non-positive integer values for `page` to `page=1`
         query.page = '1';
@@ -266,8 +268,7 @@
             qfForSelectedFacets: query.qf === '' ? [] : query.qf,
             reusability: query.reusability,
             theme: query.theme,
-            'tier_zero': query.tier_zero,
-            tierToggle: (query['tier_zero'] === 'true') ? true : false
+            tierToggle: qfArray.includes('contentTier:*') ? true : false
           };
         })
         .catch((error) => {
@@ -289,9 +290,9 @@
         });
     },
     mounted () {
-      const TZ = this.$route.query['tier_zero'];
-
-      (TZ === 'true') ? this.tierToggle = true : this.tierToggle = false;
+      const qf = this.$route.query.qf;
+      const qfArray = qf ? [].concat(qf) : [];
+      qfArray.includes('contentTier:*') ? this.tierToggle = true : this.tierToggle = false;
     },
     methods: {
       updateCurrentSearchQuery(updates) {
@@ -301,8 +302,7 @@
           query: this.query || '',
           reusability: this.reusability,
           theme: this.theme,
-          view: this.view,
-          'tier_zero': this.tier_zero
+          view: this.view
         };
 
         const updated = { ...current, ...updates };
@@ -329,6 +329,7 @@
         this.qfForSelectedFacets = [];
         this.reusability = null;
         this.theme = null;
+        console.log('MONKEY', this.selectedFacets);
         for (const facetName in this.selectedFacets) {
           const selectedValues = this.selectedFacets[facetName];
           // `reusability` and `theme` have their own API parameter and can not be queried in `qf`
@@ -370,6 +371,6 @@
       this.$root.$emit('leaveSearchPage');
       next();
     },
-    watchQuery: ['page', 'qf', 'query', 'reusability', 'theme', 'tier_zero']
+    watchQuery: ['page', 'qf', 'query', 'reusability', 'theme']
   };
 </script>

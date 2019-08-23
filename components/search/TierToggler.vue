@@ -53,20 +53,26 @@
 
     methods: {
       toggleHandler () {
+        const query = this.$route.query;
+        const qf = query.qf;
+        const allTiers = 'contentTier:*';
+        const clonedQuery = Object.assign({}, query);
+        let qfArray = qf ? [].concat(qf) : [];
+
         if (!this.toggle) {
+          qfArray.push(allTiers);
+          clonedQuery.qf = qfArray;
+          this.$router.push({
+            query: clonedQuery
+          });
           this.toggle = true;
-          this.$router.push({
-            query: Object.assign({}, this.$route.query, {
-              [this.queryKey]: true
-            })
-          });
         } else {
-          this.toggle = false;
+          qfArray = qfArray.filter(item => item !== allTiers);
+          clonedQuery.qf = qfArray;
           this.$router.push({
-            query: Object.assign({}, this.$route.query, {
-              [this.queryKey]: false
-            })
+            query: clonedQuery
           });
+          this.toggle = false;
         }
       }
     }
@@ -74,10 +80,21 @@
 </script>
 
 <style lang="scss" scoped>
+  @import "./assets/scss/variables.scss";
+
   .toggle-button {
     padding: 0;
     font-style: italic;
     height: auto;
     vertical-align: baseline;
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+    color: $textcolor-coloured;
+    text-decoration: underline;
+
+    &:hover {
+      text-decoration: none;
+    }
   }
 </style>

@@ -49,15 +49,4 @@ describe('components/search/TierToggler', () => {
     button.trigger('click');
     wrapper.vm.toggle.should.eq(false);
   });
-
-  it('toggles `tier_zero` in the url', () => {
-    const wrapper = factory();
-    const button = wrapper.find('[data-qa="tier toggler"]');
-
-    wrapper.setData({
-      toggle: false
-    });
-    button.trigger('click');
-    wrapper.vm.$route.query['tier_zero'].should.eq(true);
-  });
 });
