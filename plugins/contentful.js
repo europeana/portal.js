@@ -14,7 +14,6 @@ const previewConfig = {
 
 export function createClient (mode) {
   const config = (mode === 'preview' ? previewConfig : deliveryConfig);
-
   try {
     return contentful.createClient(config);
   } catch (error) {

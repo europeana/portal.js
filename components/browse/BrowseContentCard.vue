@@ -35,7 +35,7 @@
           } else {
             return this.fields.image;
           }
-        } else if (this.fields.image && this.fields.image.fields) {
+        } else if (this.fields.image && this.fields.image.fields && this.fields.image.fields.file) {
           return this.fields.image.fields.file.url;
         } else {
           return '';
