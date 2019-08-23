@@ -105,6 +105,10 @@
       font-weight: normal;
     }
 
+    .card-title:last-child {
+      margin-bottom: 0;
+    }
+
     .card-text {
       color: $darkgrey;
     }
