@@ -4,7 +4,7 @@
       {{ toggleText }}
       <button
         class="toggle-button"
-        data-qa="tier toggler"
+        data-qa="tier toggle button"
         @click="toggleHandler"
       >
         {{ !toggle ? button.show : button.hide }}

@@ -82,8 +82,8 @@ export default {
       "hide": "Hide these items"
     },
     "text": {
-      "show": "More items match your search but don’t meet our publishing criteria.",
-      "hide": "Lorem ipsum"
+      "show": "More items match your search but don't meet our publishing criteria.",
+      "hide": "Items that don't meet our publishing criteria are being shown."
     }
   }
 };

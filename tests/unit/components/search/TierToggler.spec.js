@@ -25,7 +25,7 @@ const factory = () => shallowMount(TierToggler, {
 describe('components/search/TierToggler', () => {
   it('toggles on click', async () => {
     const wrapper = factory();
-    const button = wrapper.find('[data-qa="tier toggler"]');
+    const button = wrapper.find('[data-qa="tier toggle button"]');
 
     wrapper.setData({
       toggle: false
@@ -42,7 +42,7 @@ describe('components/search/TierToggler', () => {
 
   it('emits `click` event when selected', () => {
     const wrapper = factory();
-    const button = wrapper.find('[data-qa="tier toggler"]');
+    const button = wrapper.find('[data-qa="tier toggle button"]');
 
     button.trigger('click');
     wrapper.emitted()['click'][0][0].should.eql('contentTier');
