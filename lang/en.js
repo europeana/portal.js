@@ -59,6 +59,9 @@ export default {
     },
     "TYPE": {
       "name": "Type of media"
+    },
+    "contentTier": {
+      "name": "Content Quality"
     }
   },
   "entity": "Entity",

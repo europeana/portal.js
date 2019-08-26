@@ -2,13 +2,14 @@
   <div>
     <p class="font-italic">
       {{ toggleText }}
-      <button
+      <a
+        href=""
         class="toggle-button"
         data-qa="tier toggle button"
-        @click="toggleHandler"
+        @click.prevent="toggleHandler"
       >
-        {{ !toggle ? button.show : button.hide }}
-      </button>.
+        {{ !active ? button.show : button.hide }}
+      </a>.
     </p>
   </div>
 </template>
@@ -18,33 +19,29 @@
     name: 'TierToggler',
 
     props: {
-      toggled: {
+      activeState: {
         type: Boolean,
-        default: false
-      },
-      text: {
-        type: Object,
-        required: true
-      },
-      button: {
-        type: Object,
-        required: true
-      },
-      queryKey: {
-        type: String,
-        default: 'tier_zero'
+        default: null
       }
     },
 
     data () {
       return {
-        toggle: false
+        active: false,
+        button: {
+          show: this.$t('searchTier.button.show'),
+          hide: this.$t('searchTier.button.hide')
+        },
+        text: {
+          show: this.$t('searchTier.text.show'),
+          hide: this.$t('searchTier.text.hide')
+        }
       };
     },
 
     computed: {
       toggleText () {
-        if (this.toggle) {
+        if (this.active) {
           return this.text.hide;
         }
         return this.text.show;
@@ -52,17 +49,19 @@
     },
 
     mounted () {
-      this.toggle = this.toggled;
+      if (this.activeState) {
+        this.active = this.activeState;
+      }
     },
 
     methods: {
       toggleHandler () {
-        if (!this.toggle) {
-          this.$emit('click', 'contentTier', ['(*)']);
-          this.toggle = true;
+        if (!this.active) {
+          this.$emit('click', 'contentTier', ['*']);
+          this.active = true;
         } else {
           this.$emit('click', 'contentTier', []);
-          this.toggle = false;
+          this.active = false;
         }
       }
     }

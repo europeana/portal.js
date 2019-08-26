@@ -107,9 +107,7 @@
           <b-row>
             <b-col>
               <TierToggler
-                :text="tier.text"
-                :button="tier.button"
-                :toggled="tierToggle"
+                :active-state="contentTierActiveState"
                 @click="selectFacet"
               />
             </b-col>
@@ -188,18 +186,7 @@
         selectedFacets: {},
         theme: null,
         totalResults: null,
-        view: this.selectedView(),
-        tier: {
-          button: {
-            show: this.$t('searchTier.button.show'),
-            hide: this.$t('searchTier.button.hide')
-          },
-          text: {
-            show: this.$t('searchTier.text.show'),
-            hide: this.$t('searchTier.text.hide')
-          }
-        },
-        tierToggle: false
+        view: this.selectedView()
       };
     },
     computed: {
@@ -232,14 +219,15 @@
 
         ordered.unshift({ name: 'THEME', fields: thematicCollections });
         return ordered.concat(unordered);
+      },
+
+      contentTierActiveState () {
+        return this.selectedFacets.hasOwnProperty('contentTier') && this.selectedFacets['contentTier'].includes('*');
       }
     },
     watch: watchList,
     asyncData ({ env, query, res, redirect, app }) {
       const currentPage = pageFromQuery(query.page);
-      const qf = query.qf;
-      const qfArray = qf ? [].concat(qf) : [];
-      const matches = qfArray.filter(j => j.includes('contentTier'));
 
       if (currentPage === null) {
         // Redirect non-positive integer values for `page` to `page=1`
@@ -269,8 +257,7 @@
             selectedFacets: selectedFacetsFromQuery(query),
             qfForSelectedFacets: query.qf === '' ? [] : query.qf,
             reusability: query.reusability,
-            theme: query.theme,
-            tierToggle: matches.length > 0
+            theme: query.theme
           };
         })
         .catch((error) => {
@@ -290,13 +277,6 @@
           }
           return { results: null, error: errorMessage, query: query.query };
         });
-    },
-    mounted () {
-      const qf = this.$route.query.qf;
-      const qfArray = qf ? [].concat(qf) : [];
-      const matches = qfArray.filter(j => j.includes('contentTier'));
-
-      matches.length > 0 ? this.tierToggle = true : this.tierToggle = false;
     },
     methods: {
       updateCurrentSearchQuery(updates) {

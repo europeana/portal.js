@@ -10,38 +10,32 @@ localVue.use(VueRouter);
 
 const factory = () => shallowMount(TierToggler, {
   localVue,
-  propsData: {
-    text: {
-      show: 'Loerm ipsum show',
-      hide: 'Lorem ipsum hide'
-    },
-    button: {
-      show: 'show',
-      hide: 'hide'
-    }
+  mocks: {
+    $t: () => {}
   }
 });
 
+
 describe('components/search/TierToggler', () => {
+  const wrapper = factory();
+
   it('toggles on click', async () => {
-    const wrapper = factory();
     const button = wrapper.find('[data-qa="tier toggle button"]');
 
     wrapper.setData({
-      toggle: false
+      active: false
     });
     button.trigger('click');
-    wrapper.vm.toggle.should.eq(true);
+    wrapper.vm.active.should.eq(true);
 
     wrapper.setData({
-      toggle: true
+      active: true
     });
     button.trigger('click');
-    wrapper.vm.toggle.should.eq(false);
+    wrapper.vm.active.should.eq(false);
   });
 
   it('emits `click` event when selected', () => {
-    const wrapper = factory();
     const button = wrapper.find('[data-qa="tier toggle button"]');
 
     button.trigger('click');
