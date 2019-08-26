@@ -8,18 +8,8 @@ const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 localVue.use(VueRouter);
 
-const router = new VueRouter({
-  routes: [
-    {
-      path: '/test',
-      name: 'test'
-    }
-  ]
-});
-
 const factory = () => shallowMount(TierToggler, {
   localVue,
-  router,
   propsData: {
     text: {
       show: 'Loerm ipsum show',
