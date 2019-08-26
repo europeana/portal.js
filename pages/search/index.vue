@@ -110,6 +110,7 @@
                 :text="tier.text"
                 :button="tier.button"
                 :toggled="tierToggle"
+                @click="selectFacet"
               />
             </b-col>
           </b-row>
@@ -238,6 +239,7 @@
       const currentPage = pageFromQuery(query.page);
       const qf = query.qf;
       const qfArray = qf ? [].concat(qf) : [];
+      const matches = qfArray.filter(j => j.includes('contentTier'));
 
       if (currentPage === null) {
         // Redirect non-positive integer values for `page` to `page=1`
@@ -268,7 +270,7 @@
             qfForSelectedFacets: query.qf === '' ? [] : query.qf,
             reusability: query.reusability,
             theme: query.theme,
-            tierToggle: qfArray.includes('contentTier:*') ? true : false
+            tierToggle: matches.length > 0
           };
         })
         .catch((error) => {
@@ -292,7 +294,9 @@
     mounted () {
       const qf = this.$route.query.qf;
       const qfArray = qf ? [].concat(qf) : [];
-      qfArray.includes('contentTier:*') ? this.tierToggle = true : this.tierToggle = false;
+      const matches = qfArray.filter(j => j.includes('contentTier'));
+
+      matches.length > 0 ? this.tierToggle = true : this.tierToggle = false;
     },
     methods: {
       updateCurrentSearchQuery(updates) {
@@ -329,7 +333,6 @@
         this.qfForSelectedFacets = [];
         this.reusability = null;
         this.theme = null;
-        console.log('MONKEY', this.selectedFacets);
         for (const facetName in this.selectedFacets) {
           const selectedValues = this.selectedFacets[facetName];
           // `reusability` and `theme` have their own API parameter and can not be queried in `qf`
@@ -339,7 +342,11 @@
             this.theme = selectedValues;
           } else {
             for (const facetValue of selectedValues) {
-              this.qfForSelectedFacets.push(`${facetName}:"${facetValue}"`);
+              if (facetName === 'contentTier') {
+                this.qfForSelectedFacets.push(`${facetName}:${facetValue}`);
+              } else {
+                this.qfForSelectedFacets.push(`${facetName}:"${facetValue}"`);
+              }
             }
           }
         }

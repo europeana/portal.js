@@ -38,7 +38,7 @@
 
     data () {
       return {
-        toggle: this.toggled
+        toggle: false
       };
     },
 
@@ -51,27 +51,17 @@
       }
     },
 
+    mounted () {
+      this.toggle = this.toggled;
+    },
+
     methods: {
       toggleHandler () {
-        const query = this.$route.query;
-        const qf = query.qf;
-        const allTiers = 'contentTier:*';
-        const clonedQuery = Object.assign({}, query);
-        let qfArray = qf ? [].concat(qf) : [];
-
         if (!this.toggle) {
-          qfArray.push(allTiers);
-          clonedQuery.qf = qfArray;
-          this.$router.push({
-            query: clonedQuery
-          });
+          this.$emit('click', 'contentTier', ['(4)']);
           this.toggle = true;
         } else {
-          qfArray = qfArray.filter(item => item !== allTiers);
-          clonedQuery.qf = qfArray;
-          this.$router.push({
-            query: clonedQuery
-          });
+          this.$emit('click', 'contentTier', []);
           this.toggle = false;
         }
       }
