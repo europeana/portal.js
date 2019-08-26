@@ -49,4 +49,12 @@ describe('components/search/TierToggler', () => {
     button.trigger('click');
     wrapper.vm.toggle.should.eq(false);
   });
+
+  it('emits `click` event when selected', () => {
+    const wrapper = factory();
+    const button = wrapper.find('[data-qa="tier toggler"]');
+
+    button.trigger('click');
+    wrapper.emitted()['click'][0][0].should.eql('contentTier');
+  });
 });
