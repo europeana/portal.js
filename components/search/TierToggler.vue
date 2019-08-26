@@ -58,7 +58,7 @@
     methods: {
       toggleHandler () {
         if (!this.toggle) {
-          this.$emit('click', 'contentTier', ['*']);
+          this.$emit('click', 'contentTier', ['(*)']);
           this.toggle = true;
         } else {
           this.$emit('click', 'contentTier', []);
