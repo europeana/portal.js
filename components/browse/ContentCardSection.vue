@@ -41,7 +41,7 @@
       }
     },
     computed: {
-      cards: function() {
+      cards() {
         return this.section.fields.hasPart.filter(card => card.fields);
       }
     }

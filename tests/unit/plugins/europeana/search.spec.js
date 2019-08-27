@@ -18,7 +18,7 @@ describe('plugins/europeana/search', () => {
 
   describe('search()', () => {
     describe('API request', () => {
-      it('includes API key', async () => {
+      it('includes API key', async() => {
         baseRequest
           .query(query => {
             return query.wskey === apiKey;
@@ -30,7 +30,7 @@ describe('plugins/europeana/search', () => {
         nock.isDone().should.be.true;
       });
 
-      it('requests 24 results', async () => {
+      it('requests 24 results', async() => {
         baseRequest
           .query(query => {
             return query.rows === '24';
@@ -42,7 +42,7 @@ describe('plugins/europeana/search', () => {
         nock.isDone().should.be.true;
       });
 
-      it('paginates if `page` is passed', async () => {
+      it('paginates if `page` is passed', async() => {
         baseRequest
           .query(query => {
             return query.rows === '24' && query.start === '25';
@@ -54,7 +54,7 @@ describe('plugins/europeana/search', () => {
         nock.isDone().should.be.true;
       });
 
-      it('does not request rows beyond API limit', async () => {
+      it('does not request rows beyond API limit', async() => {
         baseRequest
           .query(query => {
             return query.rows === '16' && query.start === '985';
@@ -66,7 +66,7 @@ describe('plugins/europeana/search', () => {
         nock.isDone().should.be.true;
       });
 
-      it('requests the minimal & facets profiles', async () => {
+      it('requests the minimal & facets profiles', async() => {
         baseRequest
           .query(query => {
             return query.profile === 'minimal,facets';
@@ -78,7 +78,7 @@ describe('plugins/europeana/search', () => {
         nock.isDone().should.be.true;
       });
 
-      it('includes contentTier query', async () => {
+      it('includes contentTier query', async() => {
         baseRequest
           .query(query => {
             return query.qf === 'contentTier:(1 OR 2 OR 3 OR 4)';
@@ -90,7 +90,7 @@ describe('plugins/europeana/search', () => {
         nock.isDone().should.be.true;
       });
 
-      it('uses the supplied `facet` param', async () => {
+      it('uses the supplied `facet` param', async() => {
         baseRequest
           .query(query => {
             return query.facet === 'LANGUAGE';
@@ -102,7 +102,7 @@ describe('plugins/europeana/search', () => {
         nock.isDone().should.be.true;
       });
 
-      it('uses the supplied `facet` param when using comma seperated list', async () => {
+      it('uses the supplied `facet` param when using comma seperated list', async() => {
         baseRequest
           .query(query => {
             return query.facet === 'COUNTRY,REUSABILITY,TYPE';
@@ -114,7 +114,7 @@ describe('plugins/europeana/search', () => {
         nock.isDone().should.be.true;
       });
 
-      it('maps blank `query` to "*:*"', async () => {
+      it('maps blank `query` to "*:*"', async() => {
         baseRequest
           .query(query => {
             return query['query'] === '*:*';
@@ -126,7 +126,7 @@ describe('plugins/europeana/search', () => {
         nock.isDone().should.be.true;
       });
 
-      it('filters by reusability', async () => {
+      it('filters by reusability', async() => {
         baseRequest
           .query(query => {
             return query.reusability === 'open';
@@ -138,7 +138,7 @@ describe('plugins/europeana/search', () => {
         nock.isDone().should.be.true;
       });
 
-      it('filters by theme', async () => {
+      it('filters by theme', async() => {
         baseRequest
           .query(query => {
             return query.theme === 'art';
@@ -199,19 +199,19 @@ describe('plugins/europeana/search', () => {
             .reply(200, apiResponse);
         });
 
-        it('returns results', async () => {
+        it('returns results', async() => {
           const response = await searchResponse();
 
           response.results.length.should.eq(apiResponse.items.length);
         });
 
-        it('returns totalResults', async () => {
+        it('returns totalResults', async() => {
           const response = await searchResponse();
 
           response.totalResults.should.eq(apiResponse.totalResults);
         });
 
-        it('returns lastAvailablePage as false', async () => {
+        it('returns lastAvailablePage as false', async() => {
           const response = await searchResponse();
 
           response.lastAvailablePage.should.eq(false);
@@ -222,7 +222,7 @@ describe('plugins/europeana/search', () => {
             return search({ query: 'painting', wskey: apiKey, page: 42 });
           }
 
-          it('returns lastAvailablePage as true', async () => {
+          it('returns lastAvailablePage as true', async() => {
             const response = await searchResponse();
 
             response.lastAvailablePage.should.eq(true);
@@ -230,26 +230,26 @@ describe('plugins/europeana/search', () => {
         });
 
         describe('each member of .results', () => {
-          it('includes Europeana ID in .europeanaId', async () => {
+          it('includes Europeana ID in .europeanaId', async() => {
             const response = await searchResponse();
 
             response.results[0].europeanaId.should.eq(apiResponse.items[0].id);
           });
 
           describe('.fields', () => {
-            it('includes dcTitleLangAware in .dcTitle', async () => {
+            it('includes dcTitleLangAware in .dcTitle', async() => {
               const response = await searchResponse();
 
               response.results[0].fields.dcTitle.should.deep.eq(apiResponse.items[0].dcTitleLangAware['en']);
             });
 
-            it('includes dcCreatorLangAware in .dcCreator', async () => {
+            it('includes dcCreatorLangAware in .dcCreator', async() => {
               const response = await searchResponse();
 
               response.results[0].fields.dcCreator.should.deep.eq(apiResponse.items[0].dcCreatorLangAware['en']);
             });
 
-            it('includes dataProvider in .edmDataProvider', async () => {
+            it('includes dataProvider in .edmDataProvider', async() => {
               const response = await searchResponse();
 
               response.results[0].fields.edmDataProvider.should.deep.eq(apiResponse.items[0].dataProvider);
@@ -259,7 +259,7 @@ describe('plugins/europeana/search', () => {
 
         describe('facets', () => {
           describe('when absent', () => {
-            it('returns `null`', async () => {
+            it('returns `null`', async() => {
               baseRequest
                 .query(true)
                 .reply(200, defaultResponse);
@@ -294,7 +294,7 @@ describe('plugins/europeana/search', () => {
                 .reply(200, apiResponse);
             });
 
-            it('are each returned as-is', async () => {
+            it('are each returned as-is', async() => {
               const response = await search({ query: 'anything', wskey: apiKey });
 
               response.facets.should.deep.eql(apiResponse.facets);

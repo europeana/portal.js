@@ -31,7 +31,7 @@
       ContentCardSection,
       HeroBanner
     },
-    asyncData ({ params, query, error, app }) {
+    asyncData({ params, query, error, app }) {
       let contentfulClient;
       if (query.mode === 'preview' && process.env['CTF_CPA_ACCESS_TOKEN']) {
         contentfulClient = createClient(query.mode);
@@ -65,7 +65,7 @@
           error({ statusCode: 500, message: e.toString() });
         });
     },
-    head () {
+    head() {
       return {
         title: this.page.headline
       };

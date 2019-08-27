@@ -12,7 +12,7 @@ const previewConfig = {
   host: 'preview.contentful.com'
 };
 
-export function createClient (mode) {
+export function createClient(mode) {
   const config = (mode === 'preview' ? previewConfig : deliveryConfig);
   try {
     return contentful.createClient(config);

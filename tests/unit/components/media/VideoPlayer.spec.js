@@ -14,14 +14,14 @@ const factory = () => shallowMount(VideoPlayer, {
 });
 
 describe('components/media/VideoPlayer', () => {
-  it('has a source', async () => {
+  it('has a source', async() => {
     const wrapper = factory();
     const videoSource = wrapper.find('[data-qa="video source"]');
 
     videoSource.attributes().src.should.eq('https://example.org');
   });
 
-  it('has a MIME type', async () => {
+  it('has a MIME type', async() => {
     const wrapper = factory();
     const videoSource = wrapper.find('[data-qa="video source"]');
 

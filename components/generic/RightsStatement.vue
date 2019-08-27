@@ -19,7 +19,7 @@
       }
     },
     computed: {
-      rightsNameAndIcon: function () {
+      rightsNameAndIcon() {
         const val = this.rightsStatementUrl;
         let rights = [];
 

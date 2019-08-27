@@ -30,7 +30,7 @@
       }
     },
     methods: {
-      cardTexts: function (result) {
+      cardTexts(result) {
         let texts = [];
         for (const field of ['dcCreator', 'edmDataProvider']) {
           if (result.fields[field]) {
@@ -39,7 +39,7 @@
         }
         return texts;
       },
-      stringifyField: function (field) {
+      stringifyField(field) {
         // TODO: Rather than joining as strings, cards should handle arrays so this method can be skipped.
         let returnString = field;
         if (Array.isArray(field)) {

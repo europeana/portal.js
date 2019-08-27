@@ -64,16 +64,16 @@
     },
     computed: {
       selected: {
-        get: function () {
+        get() {
           return this.preserved ? this.preserved : this.selectedFields;
         },
-        set: function (values) {
+        set(values) {
           this.preserved = values;
         }
       }
     },
     methods: {
-      changeSelected: function (values) {
+      changeSelected(values) {
         this.$emit('changed', this.name, values);
       }
     }

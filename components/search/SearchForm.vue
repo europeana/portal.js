@@ -48,7 +48,7 @@
         default: ''
       }
     },
-    data () {
+    data() {
       return {
         query: this.value
       };
