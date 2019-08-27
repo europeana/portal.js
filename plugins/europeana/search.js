@@ -132,10 +132,9 @@ export function selectedFacetsFromQuery(query) {
   let selectedFacets = {};
   if (query.qf) {
     for (const qf of [query.qf].flat()) {
-      const reqex = /^".*"$/; // Find double quotes at beginning and end of string
       const qfParts = qf.split(':');
       const facetName = qfParts[0];
-      const facetValue = qfParts[1].match(reqex) ? qfParts[1].slice(1, -1) : qfParts[1]; // Slice only if double quotes exist
+      const facetValue = qfParts[1].match(/^".*"$/) ? qfParts[1].slice(1, -1) : qfParts[1]; // Slice only if double quotes exist
       if (typeof selectedFacets[facetName] === 'undefined') {
         selectedFacets[facetName] = [];
       }
