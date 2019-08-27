@@ -173,6 +173,8 @@ function search(params) {
 
   function qfhandler(qf) {
     const newQf = qf ? [].concat(qf) : [];
+    // Tier 0 content is excluded by default as they are considered not to meet
+    // Europeana's publishing criteria.
     newQf.push('contentTier:(1 OR 2 OR 3 OR 4)');
     return newQf;
   }
