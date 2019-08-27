@@ -31,7 +31,7 @@
         default: () => []
       }
     },
-    data: function () {
+    data() {
       return {
         fields: ['about', 'dcDescription', 'edmRights', 'ebucoreHasMimeType']
       };
