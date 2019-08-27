@@ -25,7 +25,7 @@ export default {
     },
     "webResource": {
       "dcDescription": "Description",
-      "rdfAbout": "RDF About",
+      "about": "RDF About",
       "edmRights": "License for this media resource",
       "ebucoreHasMimeType": "Ebucore MIME Type"
     }
