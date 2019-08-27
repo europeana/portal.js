@@ -8,10 +8,10 @@
       class="mb-3"
     >
       <MetadataField
-        v-for="(value, name) in webResource"
-        :key="name"
-        :name="name"
-        :value="value"
+        v-for="field of fields"
+        :key="field"
+        :name="field"
+        :value="webResource[field]"
         context="webResource"
       />
     </b-list-group-item>
@@ -30,6 +30,11 @@
         type: Array,
         default: () => []
       }
+    },
+    data: function () {
+      return {
+        fields: ['about', 'dcDescription', 'edmRights', 'ebucoreHasMimeType']
+      };
     }
   };
 </script>
