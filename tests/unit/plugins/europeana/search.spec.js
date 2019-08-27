@@ -78,6 +78,18 @@ describe('plugins/europeana/search', () => {
         nock.isDone().should.be.true;
       });
 
+      it('includes contentTier query', async () => {
+        baseRequest
+          .query(query => {
+            return query.qf === 'contentTier:(1 OR 2 OR 3 OR 4)';
+          })
+          .reply(200, defaultResponse);
+
+        await search({ query: 'anything', wskey: apiKey });
+
+        nock.isDone().should.be.true;
+      });
+
       it('uses the supplied `facet` param', async () => {
         baseRequest
           .query(query => {
