@@ -15,18 +15,6 @@ function parseRecordDataFromApiResponse(response) {
     return proxy.europeanaProxy === false;
   });
 
-  const webResources = providerAggregation.webResources.map(webResource => {
-    return omitBy({
-      rdfAbout: webResource.about,
-      dcDescription: webResource.dcDescription,
-      edmCodecName: webResource.edmCodecName,
-      edmRights: webResource.webResourceEdmRights,
-      ebucoreHasMimeType: webResource.ebucoreHasMimeType
-    }, (v) => {
-      return v === null;
-    });
-  });
-
   return {
     image: {
       link: providerAggregation.edmIsShownAt,
@@ -45,10 +33,10 @@ function parseRecordDataFromApiResponse(response) {
     }, (v) => {
       return v === null;
     }),
-    media: webResources,
-    edmIsShownBy: webResources.find((webResource) => {
-      return webResource.rdfAbout === providerAggregation.edmIsShownBy;
-    })
+    media: providerAggregation.webResources,
+    edmIsShownBy: providerAggregation.webResources.find((webResource) => {
+      return webResource.about === providerAggregation.edmIsShownBy;
+    }) || {}
   };
 }
 

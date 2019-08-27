@@ -5,8 +5,6 @@ export default {
     "listSeperator": ";"
   },
   "error": "Error",
-  "goToRecord": "Go to record",
-  "readMore": "Read more",
   "search": "Search",
   "results": "Results",
   "homeLinkAlt": "Europeana Collections home",
@@ -27,7 +25,7 @@ export default {
     },
     "webResource": {
       "dcDescription": "Description",
-      "rdfAbout": "RDF About",
+      "about": "RDF About",
       "edmRights": "License for this media resource",
       "ebucoreHasMimeType": "Ebucore MIME Type"
     }

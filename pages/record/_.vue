@@ -15,18 +15,21 @@
     <b-row class="mb-3 mediacard">
       <b-col
         cols="12"
-        md="4"
-        class="pl-0"
+        class="px-0 mb-3"
       >
         <MediaPresentation
           :codec-name="edmIsShownBy.edmCodecName"
           :image-link="image.link"
           :image-src="image.src"
           :mime-type="edmIsShownBy.ebucoreHasMimeType"
-          :url="edmIsShownBy.rdfAbout"
+          :url="edmIsShownBy.about"
+          :width="edmIsShownBy.ebucoreWidth"
+          :height="edmIsShownBy.ebucoreHeight"
         />
       </b-col>
-      <b-col>
+      <b-col
+        cols="12"
+      >
         <MetadataField
           v-for="(value, name) in fields"
           :key="name"

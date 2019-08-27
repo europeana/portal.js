@@ -1,5 +1,6 @@
 <template>
   <div
+    v-if="value"
     :data-field-name="name"
     data-qa="metadata field"
   >
@@ -33,7 +34,7 @@
         default: ''
       },
       value: {
-        type: [String, Object],
+        type: [String, Object, Array],
         default: ''
       },
       context: {

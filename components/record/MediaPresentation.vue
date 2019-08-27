@@ -1,5 +1,7 @@
 <template>
-  <div>
+  <div
+    class="media-presentation text-center"
+  >
     <MediaImage
       v-if="displayImage"
       :link="imageLink"
@@ -19,6 +21,8 @@
       v-else-if="isHTMLVideo"
       :src="url"
       :type="mimeType"
+      :width="width"
+      :height="height"
     />
   </div>
 </template>
@@ -52,6 +56,14 @@
       url: {
         type: String,
         default: ''
+      },
+      width: {
+        type: Number,
+        default: null
+      },
+      height: {
+        type: Number,
+        default: null
       }
     },
     computed: {
@@ -69,3 +81,14 @@
     }
   };
 </script>
+
+<style lang="scss" scoped>
+  .media-presentation {
+    /deep/ img,
+    video {
+      max-height: 70vh;
+      max-width: 100%;
+      width: auto;
+    }
+  }
+</style>

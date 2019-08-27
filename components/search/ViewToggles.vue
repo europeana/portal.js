@@ -28,7 +28,7 @@
         default: ''
       }
     },
-    data: function () {
+    data() {
       return {
         activeView: this.active,
         views: ['list', 'grid']

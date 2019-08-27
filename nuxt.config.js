@@ -241,6 +241,7 @@ module.exports = {
     // See https://github.com/nuxt-community/axios-module#options
   },
   router: {
+    middleware: ['router/root-double-slash-redirect'],
     extendRoutes(routes) {
       routes.push({
         name: 'slug',
