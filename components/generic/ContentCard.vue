@@ -24,12 +24,6 @@
         >
           {{ text }}
         </b-card-text>
-        <span
-          v-if="viewMoreLabelKey"
-          class="view-more"
-        >
-          {{ $t(viewMoreLabelKey) }}
-        </span>
       </b-card-body>
     </SmartLink>
   </b-card>
@@ -55,10 +49,6 @@
       imageUrl: {
         type: String,
         default: ''
-      },
-      viewMoreLabelKey: {
-        type: String,
-        default: null
       }
     },
     computed: {
@@ -113,6 +103,10 @@
     .card-title {
       font-size: $font-size-small;
       font-weight: normal;
+    }
+
+    .card-title:last-child {
+      margin-bottom: 0;
     }
 
     .card-text {

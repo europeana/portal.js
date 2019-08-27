@@ -5,8 +5,6 @@ export default {
     "listSeperator": ";"
   },
   "error": "Error",
-  "goToRecord": "Go to record",
-  "readMore": "Read more",
   "search": "Search",
   "results": "Results",
   "homeLinkAlt": "Europeana Collections home",

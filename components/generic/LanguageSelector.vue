@@ -71,10 +71,12 @@
 
   .language-icon {
     top: 7px;
-    width: 18px;
-    height: 28px;
+    width: 31px;
+    height: 32px;
     margin-right: 8px;
     background: url('../../assets/img/language.svg');
     display: inline-block;
+    padding-top: 0;
+    padding-bottom: 0;
   }
 </style>

@@ -36,7 +36,7 @@ function parseRecordDataFromApiResponse(response) {
     media: providerAggregation.webResources,
     edmIsShownBy: providerAggregation.webResources.find((webResource) => {
       return webResource.about === providerAggregation.edmIsShownBy;
-    })
+    }) || {}
   };
 }
 
