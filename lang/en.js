@@ -61,7 +61,7 @@ export default {
       "name": "Type of media"
     },
     "contentTier": {
-      "name": "Content Quality"
+      "name": "Includes broken items"
     }
   },
   "entity": "Entity",
