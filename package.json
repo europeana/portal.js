@@ -58,6 +58,7 @@
     "nightwatch-accessibility": "^1.8.0",
     "nuxt": "^2.6.3",
     "nuxt-i18n": "^5.12.1",
+    "oembed-parser": "github:europeana/oembed-parser#feature/settable-provider-list",
     "qs": "^6.6.0",
     "vcap_services": "^0.7.0",
     "vue": "^2.6.10",

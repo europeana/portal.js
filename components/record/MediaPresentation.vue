@@ -24,12 +24,22 @@
       :width="width"
       :height="height"
     />
+    <div
+      v-else-if="isOEmbed"
+    >
+      <strong>oEmbed</strong>
+      <div><code>{{ oEmbedData }}</code></div>
+    </div>
   </div>
 </template>
 
 <script>
   import MediaImage from '../../components/record/MediaImage';
   import VideoPlayer from '../../components/media/VideoPlayer';
+
+  import * as oembedParser from 'oembed-parser';
+  import oEmbedProviderList from '../../plugins/oembed-parser/providers.json';
+  oembedParser.setProviderList(oEmbedProviderList);
 
   export default {
     components: {
@@ -66,9 +76,14 @@
         default: null
       }
     },
+    data() {
+      return {
+        oEmbedData: {}
+      };
+    },
     computed: {
       displayImage() {
-        return (this.imageSrc !== '') && !this.isHTMLVideo;
+        return (this.imageSrc !== '') && !this.isHTMLVideo && !this.isOEmbed;
       },
       isPDF() {
         return this.mimeType === 'application/pdf';
@@ -77,6 +92,18 @@
         return (this.mimeType === 'video/ogg') ||
           (this.mimeType === 'video/webm') ||
           ((this.mimeType === 'video/mp4') && (this.codecName === 'h264'));
+      },
+      isOEmbed() {
+        return oembedParser.hasProvider(this.url);
+      }
+    },
+    created() {
+      if (this.isOEmbed) {
+        oembedParser.extract(this.url).then((data) => {
+          this.oEmbedData = JSON.stringify(data);
+        }).catch((err) => {
+          this.oEmbedData = err;
+        });
       }
     }
   };
