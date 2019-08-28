@@ -7,7 +7,7 @@
       class="mr-2"
       data-qa="filter badge"
     >
-      <template v-if="selectedFacet.facetName === 'contentTier'">
+      <template v-if="selectedFacet.facetName === 'contentTier' && selectedFacet.fieldValue === '*'">
         {{ $t(`facets.${selectedFacet.facetName}.name`) }}
       </template>
       <template v-else-if="$te(`facets.${selectedFacet.facetName}.options`)">
