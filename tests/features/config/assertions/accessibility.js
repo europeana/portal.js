@@ -1,13 +1,13 @@
 const util = require('util');
 
-const script = function (context, options, done) {
+const script = function(context, options, done) {
   if (!window.axe) done({ error: 'aXe not found. Make sure it has been injected' });
 
   window
     .axe
     .run(context, options)
     .then(results => {
-      done({ results: results });
+      done({ results });
     })
     .catch(error => {
       done({ error: error.toString() });
@@ -32,7 +32,7 @@ exports.assertion = function(context, config) {
     return passed;
   };
 
-  this.failure = function (result) {
+  this.failure = function(result) {
     const violations = result.value.results.violations;
     let failMessage = '';
 

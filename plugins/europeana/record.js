@@ -49,7 +49,7 @@ function parseRecordDataFromApiResponse(response) {
  */
 function getRecord(europeanaId, params) {
   return axios.get(`https://api.europeana.eu/api/v2/record${europeanaId}.json`, {
-    params: params
+    params
   })
     .then((response) => {
       return {

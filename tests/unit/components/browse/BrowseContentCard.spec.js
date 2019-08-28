@@ -18,7 +18,7 @@ describe('components/browse/BrowseContentCard', () => {
   describe('title()', () => {
     it('uses `fields.name`', () => {
       const name = 'Content item';
-      const wrapper = factory({ fields: { name: name } });
+      const wrapper = factory({ fields: { name } });
 
       wrapper.vm.title.should.eq(name);
     });
@@ -28,7 +28,7 @@ describe('components/browse/BrowseContentCard', () => {
     context('when `fields.thumbnailUrl` is present', () => {
       it('is used', () => {
         const thumbnailUrl = 'https://www.example.org/image.jpg';
-        const wrapper = factory({ fields: { thumbnailUrl: thumbnailUrl } });
+        const wrapper = factory({ fields: { thumbnailUrl } });
 
         wrapper.vm.imageUrl.should.equal(thumbnailUrl);
       });
@@ -49,7 +49,7 @@ describe('components/browse/BrowseContentCard', () => {
       context('but is not a wikimedia URL', () => {
         it('is used', () => {
           const image = 'https://www.example.org/image.jpg';
-          const wrapper = factory({ fields: { image: image } });
+          const wrapper = factory({ fields: { image } });
 
           wrapper.vm.imageUrl.should.equal(image);
         });
@@ -78,7 +78,7 @@ describe('components/browse/BrowseContentCard', () => {
     context('when `fields.url` is present', () => {
       it('is used', () => {
         const url = 'https://www.example.org/';
-        const wrapper = factory({ fields: { url: url } });
+        const wrapper = factory({ fields: { url } });
 
         wrapper.vm.destination.should.equal(url);
       });
@@ -87,7 +87,7 @@ describe('components/browse/BrowseContentCard', () => {
     context('when `fields.identifier` is a Europeana record ID', () => {
       it('constructs a route to the record page', () => {
         const identifier = '/123456/abcdef_7890';
-        const wrapper = factory({ fields: { identifier: identifier } });
+        const wrapper = factory({ fields: { identifier } });
 
         wrapper.vm.destination.should.eql({ name: 'record-all', params: { pathMatch: identifier.slice(1) } });
       });
@@ -100,7 +100,7 @@ describe('components/browse/BrowseContentCard', () => {
           const entityHumanType = 'person';
           const entityId = '12345';
           const identifier = `http://data.europeana.eu/${entityType}/base/${entityId}`;
-          const wrapper = factory({ fields: { identifier: identifier } });
+          const wrapper = factory({ fields: { identifier } });
 
           wrapper.vm.destination.should.eql({ name: 'entity-type-all', params: { type: entityHumanType, pathMatch: entityId } });
         });
@@ -109,7 +109,7 @@ describe('components/browse/BrowseContentCard', () => {
       context('but is not a Europeana entity URI', () => {
         it('is used', () => {
           const identifier = 'https://www.example.org/';
-          const wrapper = factory({ fields: { identifier: identifier } });
+          const wrapper = factory({ fields: { identifier } });
 
           wrapper.vm.destination.should.eql(identifier);
         });
@@ -130,7 +130,7 @@ describe('components/browse/BrowseContentCard', () => {
       const description = 'Some interesting content';
       const creator = 'A European artist';
       const provider = 'An aggregator';
-      const wrapper = factory({ fields: { description: description, creator: creator, provider: provider } });
+      const wrapper = factory({ fields: { description, creator, provider } });
 
       wrapper.vm.texts.should.include(description);
       wrapper.vm.texts.should.include(creator);

@@ -5,13 +5,13 @@ export const state = () => ({
 });
 
 export const mutations = {
-  setLinks (state, links) {
+  setLinks(state, links) {
     state.links = links;
   }
 };
 
 export const actions = {
-  async init ({ commit }) {
+  async init({ commit }) {
     const data = await contentfulClient.getEntries({
       'content_type': 'linkGroup',
       'fields.identifier': 'footer',

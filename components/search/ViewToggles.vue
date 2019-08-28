@@ -35,16 +35,16 @@
       };
     },
     methods: {
-      iconSrc: function(view) {
+      iconSrc(view) {
         // `require` for webpack'd assets to work with dynamic paths
         return require(`../../assets/img/search/${view}.svg`);
       },
-      linkGen: function (view) {
+      linkGen(view) {
         return this.localePath({
-          name: 'search', query: { ...this.$route.query, ...{ view: view } }
+          name: 'search', query: { ...this.$route.query, ...{ view } }
         });
       },
-      selectView: function (view) {
+      selectView(view) {
         if (view !== this.activeView) {
           this.activeView = view;
           this.$emit('changed', this.activeView);

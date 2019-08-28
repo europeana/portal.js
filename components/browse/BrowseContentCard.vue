@@ -23,10 +23,10 @@
       }
     },
     computed: {
-      title: function () {
+      title() {
         return this.fields.name;
       },
-      imageUrl: function () {
+      imageUrl() {
         if (this.fields.thumbnailUrl) {
           return this.fields.thumbnailUrl;
         } else if (typeof this.fields.image === 'string') {
@@ -41,7 +41,7 @@
           return '';
         }
       },
-      destination: function () {
+      destination() {
         if (this.fields.url) {
           return this.fields.url;
         } else if (this.forEuropeanaRecord()) {
@@ -55,7 +55,7 @@
         }
         return '';
       },
-      texts: function () {
+      texts() {
         // TODO: Refactor content model to set this directly, so this method can be skipped.
         let texts = [];
         for (const field of ['description', 'creator', 'provider']) {
@@ -67,19 +67,19 @@
       }
     },
     methods: {
-      forEuropeanaRecord: function () {
+      forEuropeanaRecord() {
         return (typeof this.fields.identifier === 'string') && isEuropeanaRecordId(this.fields.identifier);
       },
-      forEuropeanaEntity: function () {
+      forEuropeanaEntity() {
         return (typeof this.fields.identifier === 'string') && this.fields.identifier.includes('://data.europeana.eu/');
       },
-      entityRouterLink: function (uri) {
+      entityRouterLink(uri) {
         const uriMatch = uri.match('^http://data.europeana.eu/([^/]+)(/base)?/(.+)$');
         return this.localePath({
           name: 'entity-type-all', params: { type: getEntityTypeHumanReadable(uriMatch[1]), pathMatch: uriMatch[3] } }
         );
       },
-      recordRouterLink: function (identifier) {
+      recordRouterLink(identifier) {
         return this.localePath({ name: 'record-all', params: { pathMatch: identifier.slice(1) } });
       }
     }

@@ -136,7 +136,7 @@
   for (const property of ['qf', 'query', 'reusability', 'view', 'theme']) {
     watchList[property] = {
       immediate: true,
-      handler: function (val) {
+      handler(val) {
         this.$root.$emit('updateSearchQuery', this.updateCurrentSearchQuery({ [property]: val }));
       }
     };
@@ -161,7 +161,7 @@
         default: 24
       }
     },
-    data () {
+    data() {
       return {
         error: null,
         facets: [],
@@ -180,7 +180,7 @@
       };
     },
     computed: {
-      hasResults: function() {
+      hasResults() {
         return this.results !== null && this.totalResults > 0;
       },
       /**
@@ -190,7 +190,7 @@
        * @return {Object[]} ordered facets
        * TODO: does this belong in its own component?
        */
-      orderedFacets: function () {
+      orderedFacets() {
         if (!this.facets) {
           return [];
         }
@@ -212,12 +212,12 @@
       }
     },
     watch: watchList,
-    asyncData ({ env, query, res, redirect, app }) {
+    asyncData({ env, query, res, redirect, app }) {
       const currentPage = pageFromQuery(query.page);
       if (currentPage === null) {
         // Redirect non-positive integer values for `page` to `page=1`
         query.page = '1';
-        return redirect(app.localePath({ name: 'search', query: query }));
+        return redirect(app.localePath({ name: 'search', query }));
       }
 
       if (typeof query.query === 'undefined') {
@@ -288,12 +288,12 @@
         this.isLoading = true;
         this.$router.push(this.localePath({ name: 'search', query: this.updateCurrentSearchQuery(queryUpdates) }));
       },
-      paginationLink (val) {
+      paginationLink(val) {
         return this.localePath({
           name: 'search', query: this.updateCurrentSearchQuery({ page: val })
         });
       },
-      selectFacet (name, selected) {
+      selectFacet(name, selected) {
         this.$set(this.selectedFacets, name, selected);
         this.qfForSelectedFacets = [];
         this.reusability = null;
@@ -313,14 +313,14 @@
         }
         this.rerouteSearch({ qf: this.qfForSelectedFacets, reusability: this.reusability, theme: this.theme, page: '1' });
       },
-      selectView (view) {
+      selectView(view) {
         if (process.browser) {
           sessionStorage.searchResultsView = view;
           localStorage.searchResultsView = view;
         }
         this.view = view;
       },
-      selectedView: function () {
+      selectedView() {
         if (process.browser) {
           if (this.$route.query.view) {
             sessionStorage.searchResultsView = this.$route.query.view;
@@ -330,12 +330,12 @@
         return this.$route.query.view || 'grid';
       }
     },
-    head () {
+    head() {
       return {
         title: 'Search'
       };
     },
-    beforeRouteLeave (to, from, next) {
+    beforeRouteLeave(to, from, next) {
       this.$root.$emit('leaveSearchPage');
       next();
     },
