@@ -50,8 +50,8 @@
       }
     },
     computed: {
-      backgroundImageUrl() {
-        return CSS.escape(this.imageUrl);
+      cardImageStyle() {
+        return {
           backgroundImage: `url("${this.imageUrl}")`
         };
       }
