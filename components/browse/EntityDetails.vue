@@ -43,7 +43,7 @@
         default: ''
       }
     },
-    data () {
+    data() {
       return {
         depictionThumbnail: this.depiction
       };

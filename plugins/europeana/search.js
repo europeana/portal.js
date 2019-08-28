@@ -180,7 +180,7 @@ function search(params) {
   }
 
   return axios.get('https://api.europeana.eu/api/v2/search.json', {
-    paramsSerializer: function (params) {
+    paramsSerializer(params) {
       return qs.stringify(params, { arrayFormat: 'repeat' });
     },
     params: {
@@ -190,8 +190,8 @@ function search(params) {
       qf: qfhandler(params.qf),
       reusability: params.reusability,
       theme: params.theme,
-      rows: rows,
-      start: start,
+      rows,
+      start,
       wskey: params.wskey
     }
   })

@@ -1,5 +1,7 @@
 <template>
-  <div>
+  <div
+    data-qa="browse page"
+  >
     <HeroBanner
       v-if="page.primaryImageOfPage"
       :hero-image="page.primaryImageOfPage.fields.image.fields.file.url"
@@ -31,7 +33,7 @@
       ContentCardSection,
       HeroBanner
     },
-    asyncData ({ params, query, error, app }) {
+    asyncData({ params, query, error, app }) {
       let contentfulClient;
       if (query.mode === 'preview' && process.env['CTF_CPA_ACCESS_TOKEN']) {
         contentfulClient = createClient(query.mode);
@@ -48,7 +50,7 @@
       return contentfulClient.getEntries({
         'locale': isoLookUp(setLocale),
         'content_type': 'browsePage',
-        'fields.identifier': params.slug ? params.slug : '/',
+        'fields.identifier': params.slug ? params.slug : 'home',
         'include': 2,
         'limit': 1
       })
@@ -65,7 +67,7 @@
           error({ statusCode: 500, message: e.toString() });
         });
     },
-    head () {
+    head() {
       return {
         title: this.page.headline
       };

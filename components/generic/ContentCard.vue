@@ -52,7 +52,7 @@
       }
     },
     computed: {
-      backgroundImageUrl: function() {
+      backgroundImageUrl() {
         return CSS.escape(this.imageUrl);
       }
     }

@@ -24,12 +24,12 @@
       PageHeader,
       PageFooter
     },
-    data () {
+    data() {
       return {
         searchQuery: this.$route.query || {}
       };
     },
-    created () {
+    created() {
       this.$root.$on('leaveSearchPage', () => {
         this.searchQuery = {};
       });
@@ -37,7 +37,7 @@
         this.searchQuery = val;
       });
     },
-    updated () {
+    updated() {
       if (!this.searchQuery.hasOwnProperty('view')) {
         this.searchQuery.view = sessionStorage.searchResultsView || localStorage.searchResultsView || 'grid';
       }

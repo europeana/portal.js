@@ -29,18 +29,18 @@
       }
     },
     computed: {
-      facetList: function() {
+      facetList() {
         let listOfFacets = [];
         for (let facetName in this.facets) {
 
           if (typeof this.facets[facetName] === 'string') {
             let fieldValue = this.facets[facetName] ? this.facets[facetName] : 'all';
-            listOfFacets.push({ key: `${facetName}:${fieldValue}`, facetName: facetName, fieldValue: fieldValue });
+            listOfFacets.push({ key: `${facetName}:${fieldValue}`, facetName, fieldValue });
           }
 
           for (let fieldValue of this.facets[facetName]) {
             if (typeof this.facets[facetName] !== 'string') {
-              listOfFacets.push({ key: `${facetName}:${fieldValue}`, facetName: facetName, fieldValue: fieldValue });
+              listOfFacets.push({ key: `${facetName}:${fieldValue}`, facetName, fieldValue });
             }
           }
         }

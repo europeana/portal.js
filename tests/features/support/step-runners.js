@@ -37,7 +37,7 @@ function pageUrl(pageName) {
 }
 
 module.exports = {
-  checkPageAccesibility: async function () {
+  async checkPageAccesibility() {
     let axeOptions = {
       reporter: 'v2',
       runOnly: {
@@ -51,73 +51,73 @@ module.exports = {
 
     await client.initAccessibility().assert.accessibility('html', axeOptions);
   },
-  checkTheCheckbox: async function (inputValue) {
+  async checkTheCheckbox(inputValue) {
     await client.click(`input[type="checkbox"][value="${inputValue}"]`);
   },
-  checkTheRadio: async function (inputValue) {
+  async checkTheRadio(inputValue) {
     await client.click(`input[type="radio"][value="${inputValue}"]`);
   },
-  clickOnTheTarget: async function (qaElementNames) {
+  async clickOnTheTarget(qaElementNames) {
     const selector = qaSelector(qaElementNames);
     await client.waitForElementVisible(selector);
     await client.click(selector);
   },
-  clickOnLink: async function (href) {
+  async clickOnLink(href) {
     const selector = `a[href="${href}"]`;
     await client.waitForElementVisible(selector);
     await client.click(selector);
   },
-  countTarget: async (count, qaElementNames) => {
+  countTarget: async(count, qaElementNames) => {
     await client.elements('css selector', qaSelector(qaElementNames), async(result) => {
       await client.expect(result.value).to.have.lengthOf(count);
     });
   },
-  pressKey: async (key) => {
+  pressKey: async(key) => {
     if (key.length > 1) {
       key = client.Keys[key];
     }
     await client.keys(key);
   },
-  matchMetaLabelAndValue: async (label, value) => {
+  matchMetaLabelAndValue: async(label, value) => {
     await client.elements('xpath', '//strong[contains(text(),"' + label + '")]/parent::div/parent::div//span[contains(text(),"' + value + '")]', async(result) => {
       await client.expect(result.value).to.have.lengthOf(1);
     });
   },
-  matchMetaLabelAndValueOrValue: async (label, value, altValue) => {
+  matchMetaLabelAndValueOrValue: async(label, value, altValue) => {
     await client.elements('xpath', '//strong[contains(text(),"' + label + '")]/parent::div/parent::div//span[contains(text(),"' + value + '") or contains(text(),"' + altValue + '")]', async(result) => {
       await client.expect(result.value).to.have.lengthOf(1);
     });
   },
-  doNotSeeATarget: async function (qaElementNames) {
+  async doNotSeeATarget(qaElementNames) {
     await client.expect.element(qaSelector(qaElementNames)).to.not.be.present;
   },
-  enterTextInTarget: async function (text, qaElementName) {
+  async enterTextInTarget(text, qaElementName) {
     const selector = qaSelector(qaElementName);
     await client.waitForElementVisible(selector);
     await client.setValue(selector, text);
   },
-  openAPage: async function (pageName) {
+  async openAPage(pageName) {
     await client.url(pageUrl(pageName));
   },
-  seeALinkInTarget: async function (linkHref, qaElementName) {
+  async seeALinkInTarget(linkHref, qaElementName) {
     await client.expect.element(qaSelector(qaElementName) + ` a[href="${linkHref}"]`).to.be.visible;
   },
-  seeATarget: async function (qaElementNames) {
+  async seeATarget(qaElementNames) {
     await client.expect.element(qaSelector(qaElementNames)).to.be.visible;
   },
-  seeATargetWithText: async function (qaElementNames, text) {
+  async seeATargetWithText(qaElementNames, text) {
     await client.expect.element(qaSelector(qaElementNames)).text.to.contain(text);
   },
-  seeTextInTargetPlaceholder: async function (text, qaElementNames) {
+  async seeTextInTargetPlaceholder(text, qaElementNames) {
     await client.expect.element(qaSelector(qaElementNames)).to.have.attribute('placeholder').to.contain(text);
   },
-  seeTextInTarget: async function (text, qaElementName) {
+  async seeTextInTarget(text, qaElementName) {
     const selector = qaSelector(qaElementName);
-    await client.getValue(selector, async (result) => {
+    await client.getValue(selector, async(result) => {
       await client.expect(result.value).to.eq(text);
     });
   },
-  selectSearchResultsView: async function (viewName) {
+  async selectSearchResultsView(viewName) {
     /* eslint-disable prefer-arrow-callback */
     /* DO NOT MAKE INTO A ARROW FUNCTION - If you do, it will break the tests */
     await client.execute(function(viewName) {
@@ -127,29 +127,29 @@ module.exports = {
     }, [viewName]);
     /* eslint-enable prefer-arrow-callback */
   },
-  doNotSeeTextInTarget: async function (text, qaElementName) {
+  async doNotSeeTextInTarget(text, qaElementName) {
     const selector = qaSelector(qaElementName);
     await client.waitForElementVisible(selector);
-    await client.getValue(selector, async (result) => {
+    await client.getValue(selector, async(result) => {
       await client.expect(result.value).to.not.eq(text);
     });
   },
-  shouldBeOn: async function (pageName) {
+  async shouldBeOn(pageName) {
     // TODO: update if a less verbose syntax becomes available.
     // See https://github.com/nightwatchjs/nightwatch/issues/861
-    await client.url(async (currentUrl) => {
+    await client.url(async(currentUrl) => {
       await client.expect(currentUrl.value).to.eq(pageUrl(pageName));
     });
   },
-  shouldNotBeOn: async function (pageName) {
-    await client.url(async (currentUrl) => {
+  async shouldNotBeOn(pageName) {
+    await client.url(async(currentUrl) => {
       await client.expect(currentUrl.value).not.to.eq(pageUrl(pageName));
     });
   },
-  waitSomeSeconds: async function (seconds) {
+  async waitSomeSeconds(seconds) {
     await client.pause(seconds * 1000);
   },
-  waitForTargetToBeVisible: async function (qaElementName) {
+  async waitForTargetToBeVisible(qaElementName) {
     await client.waitForElementVisible(qaSelector(qaElementName));
   }
 };

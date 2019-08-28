@@ -28,7 +28,7 @@
       }
     },
     computed: {
-      useRouterLink: function () {
+      useRouterLink() {
         return (typeof this.destination !== 'string') || this.destination.startsWith('/');
       }
     }

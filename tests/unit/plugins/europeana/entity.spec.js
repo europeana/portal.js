@@ -78,27 +78,27 @@ describe('plugins/europeana/entity', () => {
             .reply(200, apiResponse);
         });
 
-        it('returns entity title', async () => {
+        it('returns entity title', async() => {
           const response = await getEntity(entityType, entityId, { wskey: apiKey });
           response.entity.prefLabel.en.should.eq('Architecture');
         });
 
-        it('returns entity description', async () => {
+        it('returns entity description', async() => {
           const response = await getEntity(entityType, entityId, { wskey: apiKey });
           response.entity.note.en[0].should.contain('Architecture is both the process and the product of planning');
         });
 
-        it('returns entity depiction', async () => {
+        it('returns entity depiction', async() => {
           const response = await getEntity(entityType, entityId, { wskey: apiKey });
           response.entity.depiction.id.should.contain('Special:FilePath/View_of_Santa_Maria_del_Fiore_in_Florence.jpg');
         });
 
-        it('returns entity attribution', async () => {
+        it('returns entity attribution', async() => {
           const response = await getEntity(entityType, entityId, { wskey: apiKey });
           response.entity.depiction.source.should.contain('File:View_of_Santa_Maria_del_Fiore_in_Florence.jpg');
         });
 
-        it('has a misspelled id and returns entity title', async () => {
+        it('has a misspelled id and returns entity title', async() => {
           const response = await getEntity(entityType, entityIdMisspelled, { wskey: apiKey });
           response.entity.prefLabel.en.should.eq('Architecture');
         });
@@ -122,7 +122,7 @@ describe('plugins/europeana/entity', () => {
             .reply(200, entitiesResponse);
         });
 
-        it('returns related entities', async () => {
+        it('returns related entities', async() => {
           const response = await relatedEntities(entityType, entityId, { wskey: apiKey, entityKey: apiKey });
           response.length.should.eq(entitiesResponse.items.length);
         });

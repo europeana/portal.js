@@ -99,7 +99,7 @@
         default: 24
       }
     },
-    data () {
+    data() {
       return {
         error: null,
         title: null,
@@ -119,11 +119,11 @@
       };
     },
     computed: {
-      hasResults: function () {
+      hasResults() {
         return this.searchResults.results !== null && this.searchResults.totalResults > 0;
       }
     },
-    asyncData ({ env, query, params, res, redirect, app }) {
+    asyncData({ env, query, params, res, redirect, app }) {
       const currentPage = pageFromQuery(query.page);
       if (currentPage === null) {
         // Redirect non-positive integer values for `page` to `page=1`
@@ -188,13 +188,13 @@
         });
     },
     methods: {
-      paginationLink (val) {
+      paginationLink(val) {
         return this.localePath({
           name: 'entity-type-all', params: { type: entities.getEntityTypeHumanReadable(this.entity.type), pathMatch: entities.getEntitySlug(this.entity) }, query: { page: val }
         });
       }
     },
-    head () {
+    head() {
       return {
         title: this.$t('entity')
       };
