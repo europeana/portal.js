@@ -4,9 +4,9 @@ Feature: Home page
   a curated page is available at the "http(s)://[domain]/" URL.
   This page should allow preview functionality.
 
-  Scenario: Previewing the homepage
-    Contentful will link to "//?mode=preview" as the slug for the homepage there is simply '/'
+  Scenario: Viewing the homepage
+    The homepage is a browse page from Contentful
 
-    When I open `//?mode=preview`
-    Then I should be on `/?mode=preview`
+    When I open `/`
+    Then I see a `browse page`
     And I am on an accessible page
