@@ -86,7 +86,7 @@ describe('plugins/europeana/record', () => {
             .reply(200, apiResponse);
         });
 
-        it('returns record data', async () => {
+        it('returns record data', async() => {
           const response = await getRecord(europeanaId, { wskey: apiKey });
           response.record.should.exist;
         });

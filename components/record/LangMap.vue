@@ -21,20 +21,20 @@
     props: {
       value: {
         type: Object,
-        default: function() {
+        default() {
           return {};
         }
       },
       prioritisedLanguages: {
         type: Array,
-        default: function() {
+        default() {
           return ['eng', 'en'];
         }
       }
     },
     computed: {
       // TODO: move to a plugin? or a filter?
-      mapContent: function() {
+      mapContent() {
         const langMap = this.value;
 
         let listOfValues = [];

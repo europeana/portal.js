@@ -44,13 +44,13 @@
         }
       }
     },
-    data () {
+    data() {
       return {
         currentPage: this.value
       };
     },
     computed: {
-      totalPages: function () {
+      totalPages() {
         return Math.ceil(Math.min(Math.max(this.totalResults, 1), maxResults) / this.perPage);
       }
     },

@@ -67,13 +67,13 @@
       }
     },
     computed: {
-      displayImage: function() {
+      displayImage() {
         return (this.imageSrc !== '') && !this.isHTMLVideo;
       },
-      isPDF: function() {
+      isPDF() {
         return this.mimeType === 'application/pdf';
       },
-      isHTMLVideo: function () {
+      isHTMLVideo() {
         return (this.mimeType === 'video/ogg') ||
           (this.mimeType === 'video/webm') ||
           ((this.mimeType === 'video/mp4') && (this.codecName === 'h264'));

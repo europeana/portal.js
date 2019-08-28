@@ -35,11 +35,13 @@ module.exports = {
     'no-var': 'error',
     'no-whitespace-before-property': 'error',
     'object-curly-spacing': ['error', 'always'],
+    'object-shorthand': ['error', 'always'],
     'prefer-arrow-callback': 'error',
     'quotes': ['error', 'single'],
     'semi': ['error', 'always'],
     'semi-spacing': ['error'],
     'space-before-blocks': ['error', 'always'],
+    'space-before-function-paren': ['error', 'never'],
     'space-in-parens': ['error', 'never'],
     'vue/script-indent': ['error', 2, { 'baseIndent': 1 }]
   },

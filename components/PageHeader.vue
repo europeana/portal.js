@@ -49,7 +49,7 @@
         default: () => {}
       }
     },
-    data () {
+    data() {
       return {
         query: (this.searchQuery || {}).query || '',
         isLoading: false
@@ -64,7 +64,7 @@
       }
     },
     methods: {
-      submitSearchForm () {
+      submitSearchForm() {
         const newSearchQuery = { ...this.searchQuery, ...{ query: this.query, page: 1 } };
         this.$router.push(this.localePath({ name: 'search', query: newSearchQuery }));
       }

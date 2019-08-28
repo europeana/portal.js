@@ -27,7 +27,7 @@ const factory = () => shallowMount(PageFooter, {
 });
 
 describe('components/search/PageFooter', () => {
-  it('it contains elements for each link', async () => {
+  it('it contains elements for each link', async() => {
     const wrapper = factory();
     const renderedList = wrapper.findAll('footer ul li');
     renderedList.length.should.eq(2);

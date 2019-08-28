@@ -34,7 +34,7 @@
 <script>
   export default {
     computed: {
-      links () {
+      links() {
         return this.$store.state.footer.links;
       }
     }

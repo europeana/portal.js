@@ -65,7 +65,7 @@
       MetadataField,
       MediaPresentation
     },
-    data () {
+    data() {
       return {
         error: null,
         image: null,
@@ -74,7 +74,7 @@
         edmIsShownBy: {}
       };
     },
-    asyncData ({ env, params, res }) {
+    asyncData({ env, params, res }) {
       return getRecord(`/${params.pathMatch}`, {
         wskey: env.EUROPEANA_API_KEY
       }).then((result) => {
@@ -87,7 +87,7 @@
           return { error: err.message };
         });
     },
-    head () {
+    head() {
       return {
         title: this.$t('record')
       };
