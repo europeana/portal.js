@@ -2,14 +2,14 @@
   <div>
     <p class="font-italic">
       {{ toggleText }}
-      <a
-        href=""
+      <nuxt-link
+        :to="$route.fullPath"
         class="toggle-button"
         data-qa="tier toggle button"
-        @click.prevent="toggleHandler"
+        @click.native="toggleHandler"
       >
         {{ !active ? button.show : button.hide }}
-      </a>.
+      </nuxt-link>.
     </p>
   </div>
 </template>
