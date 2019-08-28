@@ -221,7 +221,8 @@
       }
 
       if (typeof query.query === 'undefined') {
-        return;
+        query.query = '';
+        return redirect(app.localePath({ name: 'search', query }));
       }
 
       return search({
