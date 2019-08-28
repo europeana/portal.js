@@ -4,7 +4,10 @@ import TierToggler from '../../../../components/search/TierToggler.vue';
 
 const localVue = createLocalVue();
 const $route = {
-  fullPath: '/search?view=grid&query=&page=1'
+  fullPath: '/search?view=grid&query=&page=1',
+  query: {
+    qf: ''
+  }
 };
 
 localVue.use(BootstrapVue);
@@ -23,7 +26,7 @@ describe('components/search/TierToggler', () => {
 
   it('emits `click` event when selected', () => {
     wrapper.vm.toggleHandler();
-    wrapper.emitted()['click'][0][0].should.eql('contentTier');
-    wrapper.emitted()['click'][0][1][0].should.eql('*');
+    wrapper.emitted()['toggle'][0][0].should.eql('contentTier');
+    wrapper.emitted()['toggle'][0][1][0].should.eql('*');
   });
 });
