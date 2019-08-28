@@ -1,5 +1,7 @@
 <template>
-  <div>
+  <div
+    data-qa="browse page"
+  >
     <HeroBanner
       v-if="page.primaryImageOfPage"
       :hero-image="page.primaryImageOfPage.fields.image.fields.file.url"
@@ -48,7 +50,7 @@
       return contentfulClient.getEntries({
         'locale': isoLookUp(setLocale),
         'content_type': 'browsePage',
-        'fields.identifier': params.slug ? params.slug : '/',
+        'fields.identifier': params.slug ? params.slug : 'home',
         'include': 2,
         'limit': 1
       })
