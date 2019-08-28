@@ -3,13 +3,13 @@
     <p class="font-italic">
       {{ toggleText }}
       <nuxt-link
-        :to="$route.fullPath"
+        :to="togglePath"
         class="toggle-button"
         data-qa="tier toggle button"
         @click.native="toggleHandler"
       >
-        {{ !active ? button.show : button.hide }}
-      </nuxt-link>.
+        {{ !active ? button.show : button.hide }}.
+      </nuxt-link>
     </p>
   </div>
 </template>
@@ -25,7 +25,7 @@
       }
     },
 
-    data () {
+    data() {
       return {
         active: false,
         button: {
@@ -40,27 +40,42 @@
     },
 
     computed: {
-      toggleText () {
+      toggleText() {
         if (this.active) {
           return this.text.hide;
         }
         return this.text.show;
+      },
+
+      togglePath() {
+        // Adds or removes `contentTier:*` from toggle path
+        // Used when users right click on link and `open new tab`.
+        const currentRoute = this.$route;
+        const qf = currentRoute.query.qf ? [].concat(currentRoute.query.qf) : [];
+        const contentTierAll = 'contentTier:*';
+
+        if (qf && qf.includes(contentTierAll)) {
+          const removeContentTier = qf.filter(i => i !== contentTierAll);
+
+          return { path: this.$route.fullPath, query: { qf: removeContentTier } };
+        }
+        return { path: this.$route.fullPath, query: { qf: contentTierAll } };
       }
     },
 
-    mounted () {
+    mounted() {
       if (this.activeState) {
         this.active = this.activeState;
       }
     },
 
     methods: {
-      toggleHandler () {
+      toggleHandler() {
         if (!this.active) {
-          this.$emit('click', 'contentTier', ['*']);
+          this.$emit('toggle', 'contentTier', ['*']);
           this.active = true;
         } else {
-          this.$emit('click', 'contentTier', []);
+          this.$emit('toggle', 'contentTier', []);
           this.active = false;
         }
       }

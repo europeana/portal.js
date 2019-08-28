@@ -108,7 +108,7 @@
             <b-col>
               <TierToggler
                 :active-state="contentTierActiveState"
-                @click="selectFacet"
+                @toggle="selectFacet"
               />
             </b-col>
           </b-row>
@@ -221,7 +221,7 @@
         return ordered.concat(unordered);
       },
 
-      contentTierActiveState () {
+      contentTierActiveState() {
         return this.selectedFacets.hasOwnProperty('contentTier') && this.selectedFacets['contentTier'].includes('*');
       }
     },
