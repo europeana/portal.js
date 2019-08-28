@@ -55,11 +55,16 @@
         const contentTierAll = 'contentTier:*';
 
         if (qf && qf.includes(contentTierAll)) {
-          const removeContentTier = qf.filter(i => i !== contentTierAll);
-
-          return { path: this.$route.fullPath, query: { qf: removeContentTier } };
+          return {
+            path: this.$route.fullPath,
+            query: {
+              qf: qf.filter(i => i !== contentTierAll)
+            }
+          };
         }
-        return { path: this.$route.fullPath, query: { qf: contentTierAll } };
+
+        qf.push(contentTierAll);
+        return { path: this.$route.fullPath, query: { qf } };
       }
     },
 
