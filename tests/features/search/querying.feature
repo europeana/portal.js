@@ -1,4 +1,8 @@
 Feature: Search querying
+  
+  Scenario: Redirect when no query parameter is present
+    When I visit `/search`
+    Then I should be on `/search?query=`
 
   Scenario: Search existing Europeana content
 

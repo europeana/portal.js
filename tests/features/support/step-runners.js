@@ -9,7 +9,7 @@ const { url } = require('../config/nightwatch.conf.js').test_settings.default.gl
 
 const pages = {
   'home page': `${url}/`,
-  'search page': `${url}/search`,
+  'search page': `${url}/search?query=`,
   'record page': `${url}/record${europeanaId()}`,
   'first page of results': `${url}/search?query=&page=1`,
   'entity page': `${url}/entity/person/200-friedrich-nietzsche`

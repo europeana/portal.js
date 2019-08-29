@@ -9,7 +9,7 @@ Feature: Search faceting
 
   Scenario: Filtering results by theme
 
-    When I visit `/search?query=`
+    When I visit the `search page`
     And I check the "art" radio
     And I wait 3 seconds
     Then I should be on `/search?page=1&query=&theme=art&view=grid`
@@ -17,7 +17,7 @@ Feature: Search faceting
 
   Scenario: Filtering results by types
 
-    When I visit `/search?query=`
+    When I visit the `search page`
     And I check the "IMAGE" checkbox
     And I wait 2 seconds
     Then I should be on `/search?page=1&qf=TYPE%3A%22IMAGE%22&query=&view=grid`
@@ -26,7 +26,7 @@ Feature: Search faceting
 
   Scenario: Filtering results by reusability
 
-    When I visit `/search?query=`
+    When I visit the `search page`
     And I check the "open" checkbox
     And I wait 2 seconds
     Then I should be on `/search?page=1&query=&reusability=open&view=grid`
@@ -34,7 +34,7 @@ Feature: Search faceting
 
   Scenario: Filtering results by country
 
-    When I visit `/search?query=`
+    When I visit the `search page`
     And I check the "Belgium" checkbox
     And I wait 2 seconds
     Then I should be on `/search?page=1&qf=COUNTRY%3A%22Belgium%22&query=&view=grid`
@@ -42,7 +42,7 @@ Feature: Search faceting
 
   Scenario: Filtering results by two countries
 
-    When I visit `/search?query=`
+    When I visit the `search page`
     And I check the "Belgium" checkbox
     And I check the "Germany" checkbox
     And I wait 2 seconds
@@ -51,7 +51,7 @@ Feature: Search faceting
 
   Scenario: Filtering using a combination of facet fields
 
-    When I visit the `/search?query=`
+    When I visit the `search page`
     And I check the "Belgium" checkbox
     And I check the "IMAGE" checkbox
     And I check the "open" checkbox
@@ -76,7 +76,7 @@ Feature: Search faceting
 
   Scenario: Filtering results by country and have a corresponding record page
 
-    When I visit `/search?query=`
+    When I visit the `search page`
     And I check the "Belgium" checkbox
     And I wait 2 seconds
     And I click a `search result`
@@ -86,7 +86,7 @@ Feature: Search faceting
 
   Scenario: Filtering results by two countries and have a corresponding record page
 
-    When I visit `/search?query=`
+    When I visit the `search page`
     And I check the "Belgium" checkbox
     And I check the "Germany" checkbox
     And I wait 2 seconds
@@ -97,7 +97,7 @@ Feature: Search faceting
 
   Scenario: Preserve filtering when perfoming a new search
 
-      When I visit `/search?query=`
+      When I visit the `search page`
       And I check the "France" checkbox
       And I wait 2 seconds
       And I enter "paris" in the `search box`
