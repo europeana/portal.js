@@ -106,6 +106,14 @@
           </b-row>
           <b-row>
             <b-col>
+              <TierToggler
+                :active-state="contentTierActiveState"
+                @toggle="selectFacet"
+              />
+            </b-col>
+          </b-row>
+          <b-row>
+            <b-col>
               <PaginationNav
                 v-if="totalResults > perPage"
                 v-model="page"
@@ -130,6 +138,7 @@
   import SearchSelectedFacets from '../../components/search/SearchSelectedFacets';
   import PaginationNav from '../../components/generic/PaginationNav';
   import ViewToggles from '../../components/search/ViewToggles';
+  import TierToggler from '../../components/search/TierToggler';
   import search, { pageFromQuery, selectedFacetsFromQuery } from '../../plugins/europeana/search';
 
   let watchList = {};
@@ -153,7 +162,8 @@
       SearchResultsList,
       SearchSelectedFacets,
       PaginationNav,
-      ViewToggles
+      ViewToggles,
+      TierToggler
     },
     props: {
       perPage: {
@@ -209,11 +219,16 @@
 
         ordered.unshift({ name: 'THEME', fields: thematicCollections });
         return ordered.concat(unordered);
+      },
+
+      contentTierActiveState() {
+        return this.selectedFacets.hasOwnProperty('contentTier') && this.selectedFacets['contentTier'].includes('*');
       }
     },
     watch: watchList,
     asyncData({ env, query, res, redirect, app }) {
       const currentPage = pageFromQuery(query.page);
+
       if (currentPage === null) {
         // Redirect non-positive integer values for `page` to `page=1`
         query.page = '1';
@@ -308,7 +323,11 @@
             this.theme = selectedValues;
           } else {
             for (const facetValue of selectedValues) {
-              this.qfForSelectedFacets.push(`${facetName}:"${facetValue}"`);
+              if (facetName === 'contentTier') {
+                this.qfForSelectedFacets.push(`${facetName}:${facetValue}`);
+              } else {
+                this.qfForSelectedFacets.push(`${facetName}:"${facetValue}"`);
+              }
             }
           }
         }
