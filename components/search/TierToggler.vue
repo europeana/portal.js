@@ -1,15 +1,15 @@
 <template>
   <div>
-    <p class="font-italic">
+    <p class="font-italic mb-5">
       {{ toggleText }}
-      <nuxt-link
+      <b-link
         :to="togglePath"
-        class="toggle-button"
+        class="toggle-link"
         data-qa="tier toggle button"
         @click.native="toggleHandler"
       >
         {{ !active ? button.show : button.hide }}.
-      </nuxt-link>
+      </b-link>
     </p>
   </div>
 </template>
@@ -91,15 +91,7 @@
 <style lang="scss" scoped>
   @import "./assets/scss/variables.scss";
 
-  .toggle-button {
-    padding: 0;
-    font-style: italic;
-    height: auto;
-    vertical-align: baseline;
-    background: transparent;
-    border: 0;
-    box-shadow: none;
-    color: $textcolor-coloured;
+  .toggle-link {
     text-decoration: underline;
 
     &:hover {
