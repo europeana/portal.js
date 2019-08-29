@@ -1,5 +1,10 @@
 <template>
-  <div v-html="html" />
+  <!-- eslint-disable vue/no-v-html -->
+  <div
+    data-qa="oembed media container"
+    v-html="html"
+  />
+  <!-- eslint-enable vue/no-v-html -->
 </template>
 
 <script>
