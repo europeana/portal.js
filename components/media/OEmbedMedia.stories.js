@@ -2,7 +2,7 @@ import { storiesOf } from '@storybook/vue';
 import OEmbedMedia from './OEmbedMedia.vue';
 
 storiesOf('Media/oEmbed', module)
-  .add('Vimeo', () => ({
+  .add('OEmbed Media', () => ({
     components: {
       OEmbedMedia
     },
@@ -12,7 +12,7 @@ storiesOf('Media/oEmbed', module)
       };
     },
     template: `
-      <b-containerb class='mt-3'>
+      <b-container class='mt-3'>
         <OEmbedMedia :html='html' />
       </b-container>
     `
@@ -27,7 +27,7 @@ storiesOf('Media/oEmbed', module)
       };
     },
     template: `
-      <b-containerb class='mt-3'>
+      <b-container class='mt-3'>
         <OEmbedMedia :html='html' />
       </b-container>
     `
