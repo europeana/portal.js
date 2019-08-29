@@ -11,7 +11,7 @@
       <div
         v-if="imageUrl"
         :aria-label="title"
-        :style="{'background-image': 'url(' + backgroundImageUrl + ')'}"
+        :style="cardImageStyle"
         class="card-img"
       />
       <b-card-body>
@@ -30,8 +30,6 @@
 </template>
 
 <script>
-  require('css.escape');
-
   export default {
     props: {
       title: {
@@ -52,8 +50,10 @@
       }
     },
     computed: {
-      backgroundImageUrl() {
-        return CSS.escape(this.imageUrl);
+      cardImageStyle() {
+        return {
+          backgroundImage: `url("${this.imageUrl}")`
+        };
       }
     }
   };
