@@ -9,7 +9,7 @@
 
 <script>
   export default {
-    name: 'VideoPlayer',
+    name: 'OEmbedMedia',
 
     props: {
       html: {
