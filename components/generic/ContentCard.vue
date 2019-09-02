@@ -86,8 +86,11 @@
     font-size: $font-size-extrasmall;
     height: auto;
     line-height: 1.1875rem;
-    min-height: 20rem;
     transition: box-shadow 0.25s;
+
+    @media (min-width: $bp-medium) {
+      min-height: 20rem;
+    }
 
     &:hover {
       box-shadow: $boxshadow-large;

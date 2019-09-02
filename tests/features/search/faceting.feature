@@ -11,7 +11,7 @@ Feature: Search faceting
 
     When I visit the `search page`
     And I check the "art" radio
-    And I wait 3 seconds
+    And I wait 4 seconds
     Then I should be on `/search?page=1&query=&theme=art&view=grid`
     And I see a `filter badge` with the text "Category: Art" 
 
@@ -89,9 +89,9 @@ Feature: Search faceting
     When I visit the `search page`
     And I check the "Belgium" checkbox
     And I check the "Germany" checkbox
-    And I wait 2 seconds
+    And I wait 3 seconds
     And I click a `search result`
-    And I wait 2 seconds
+    And I wait 3 seconds
     Then I see a `record page`
     And I should see a meta label `Providing country` with the value "Belgium" or the value "Germany"
 
