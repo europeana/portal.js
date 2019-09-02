@@ -57,6 +57,9 @@ export default {
     },
     "TYPE": {
       "name": "Type of media"
+    },
+    "contentTier": {
+      "name": "Includes broken items"
     }
   },
   "entity": "Entity",
@@ -73,5 +76,15 @@ export default {
   "layout": {
     "skipToMain": "Skip to main content"
   },
-  "searchPlaceholder": "What are you looking for?"
+  "searchPlaceholder": "What are you looking for?",
+  "searchTier": {
+    "button": {
+      "show": "Show these items",
+      "hide": "Hide these items"
+    },
+    "text": {
+      "show": "More items match your search but don't meet our publishing criteria.",
+      "hide": "Items that don't meet our publishing criteria are being shown."
+    }
+  }
 };

@@ -134,7 +134,7 @@ export function selectedFacetsFromQuery(query) {
     for (const qf of [query.qf].flat()) {
       const qfParts = qf.split(':');
       const facetName = qfParts[0];
-      const facetValue = qfParts[1].slice(1, -1);
+      const facetValue = qfParts[1].match(/^".*"$/) ? qfParts[1].slice(1, -1) : qfParts[1]; // Slice only if double quotes exist
       if (typeof selectedFacets[facetName] === 'undefined') {
         selectedFacets[facetName] = [];
       }
