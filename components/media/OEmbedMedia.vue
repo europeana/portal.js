@@ -1,8 +1,9 @@
 <template>
   <!-- eslint-disable vue/no-v-html -->
   <div
+    v-if="oEmbedData"
     data-qa="oembed media container"
-    v-html="html"
+    v-html="oEmbedData.html"
   />
   <!-- eslint-enable vue/no-v-html -->
 </template>
@@ -12,8 +13,8 @@
     name: 'OEmbedMedia',
 
     props: {
-      html: {
-        type: String,
+      oEmbedData: {
+        type: Object,
         required: true
       }
     }

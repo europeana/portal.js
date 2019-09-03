@@ -7,7 +7,9 @@ localVue.use(BootstrapVue);
 
 const factory = () => shallowMount(OEmbedMedia, {
   propsData: {
-    html: '<iframe src=\'https://player.vimeo.com/video/112866269\' width=\'640\' height=\'360\' frameborder=\'0\' allow=\'autoplay; fullscreen\' allowfullscreen></iframe>'
+    oEmbedData: {
+      html: '<iframe src=\'https://player.vimeo.com/video/112866269\' width=\'640\' height=\'360\' frameborder=\'0\' allow=\'autoplay; fullscreen\' allowfullscreen></iframe>'
+    }
   },
   localVue
 });

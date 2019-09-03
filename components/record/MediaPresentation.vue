@@ -24,18 +24,17 @@
       :width="width"
       :height="height"
     />
-    <div
+    <OEmbedMedia
       v-else-if="isOEmbed"
-    >
-      <strong>oEmbed</strong>
-      <div><code>{{ oEmbedData }}</code></div>
-    </div>
+      :oEmbedData="oEmbedData"
+    />
   </div>
 </template>
 
 <script>
   import MediaImage from '../../components/record/MediaImage';
   import VideoPlayer from '../../components/media/VideoPlayer';
+  import OEmbedMedia from '../../components/media/OEmbedMedia';
 
   import * as oembedParser from 'oembed-parser';
   import oEmbedProviderList from '../../plugins/oembed-parser/providers.json';
@@ -44,7 +43,8 @@
   export default {
     components: {
       MediaImage,
-      VideoPlayer
+      VideoPlayer,
+      OEmbedMedia
     },
     props: {
       codecName: {
@@ -100,7 +100,7 @@
     created() {
       if (this.isOEmbed) {
         oembedParser.extract(this.url).then((data) => {
-          this.oEmbedData = JSON.stringify(data);
+          this.oEmbedData = data;
         }).catch((err) => {
           this.oEmbedData = err;
         });
