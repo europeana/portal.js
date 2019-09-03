@@ -1,5 +1,5 @@
 import nock from 'nock';
-import search, { pageFromQuery, selectedFacetsFromQuery } from '../../../../plugins/europeana/search';
+import search, { pageFromQuery, selectedFacetsFromQuery, qfHandler } from '../../../../plugins/europeana/search';
 
 import axios from 'axios';
 axios.defaults.adapter = require('axios/lib/adapters/http');
@@ -368,6 +368,49 @@ describe('plugins/europeana/search', () => {
         selectedFacetsFromQuery(query).should.deep.eql(expected);
       });
     });
+  });
 
+  describe('qfHandler', () => {
+    describe('with no qf', () => {
+      it('returns the qf with the tier 1-4 filter applied', () => {
+        const expected = ['contentTier:(1 OR 2 OR 3 OR 4)'];
+        qfHandler().should.deep.eql(expected);
+      });
+    });
+    describe('with an empty array as qf', () => {
+      const qf = [];
+      it('returns the qf with the tier 1-4 filter applied', () => {
+        const expected = ['contentTier:(1 OR 2 OR 3 OR 4)'];
+        qfHandler(qf).should.deep.eql(expected);
+      });
+    });
+    describe('with a single non contentTier qf', () => {
+      const qf = 'TYPE:"IMAGE"';
+      it('returns the qf with the tier 1-4 filter applied', () => {
+        const expected = ['TYPE:"IMAGE"', 'contentTier:(1 OR 2 OR 3 OR 4)'];
+        qfHandler(qf).should.deep.eql(expected);
+      });
+    });
+    describe('with a contentTier qf', () => {
+      const qf = 'contentTier:3';
+      it('returns the qf as is', () => {
+        const expected = ['contentTier:3'];
+        qfHandler(qf).should.deep.eql(expected);
+      });
+    });
+    describe('with multiple qfs', () => {
+      const qf = ['TYPE:"IMAGE"', 'REUSABILITY:"open"'];
+      it('returns the qf with the tier filter appended', () => {
+        const expected = ['TYPE:"IMAGE"', 'REUSABILITY:"open"', 'contentTier:(1 OR 2 OR 3 OR 4)'];
+        qfHandler(qf).should.deep.eql(expected);
+      });
+    });
+    describe('with a contentTier qf of "*"', () => {
+      const qf = 'contentTier:*';
+      it('returns the qf without the qf', () => {
+        const expected = [];
+        qfHandler(qf).should.deep.eql(expected);
+      });
+    });
   });
 });
