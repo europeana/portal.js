@@ -4,9 +4,10 @@
       {{ toggleText }}
       <b-link
         :to="togglePath"
+        :event="''"
         class="toggle-link"
         data-qa="tier toggle button"
-        @click.native="toggleHandler"
+        @click="toggleHandler"
       >
         {{ !active ? button.show : button.hide }}.
       </b-link>
@@ -49,6 +50,7 @@
 
       togglePath() {
         // Adds or removes `contentTier:*` from toggle path
+        // and resets the page to page 1, as the results will potentially change.
         // Used when users right click on link and `open new tab`.
         const currentRoute = this.$route;
         const qf = currentRoute.query.qf ? [].concat(currentRoute.query.qf) : [];
@@ -58,7 +60,8 @@
           return {
             path: this.$route.fullPath,
             query: {
-              qf: qf.filter(i => i !== contentTierAll)
+              qf: qf.filter(i => i !== contentTierAll),
+              page: 1
             }
           };
         }
