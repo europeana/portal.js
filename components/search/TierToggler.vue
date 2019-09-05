@@ -5,7 +5,7 @@
       <b-link
         :to="togglePath"
         class="toggle-link"
-        data-qa="tier toggle button"
+        data-qa="tier toggle"
         @click="toggleHandler"
       >
         {{ !active ? button.show : button.hide }}.
@@ -21,7 +21,7 @@
     props: {
       activeState: {
         type: Boolean,
-        default: null
+        default: false
       }
     },
 
