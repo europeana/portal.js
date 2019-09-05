@@ -100,9 +100,13 @@
     created() {
       if (this.isOEmbed) {
         oembedParser.extract(this.url).then((data) => {
-          this.oEmbedData = data;
+          if (data && data.html) {
+            this.oEmbedData = data;
+          } else {
+            this.oEmbedData.error = this.$t('messages.externalContentError');
+          }
         }).catch((err) => {
-          this.oEmbedData = err;
+          this.oEmbedData.error = err;
         });
       }
     }
