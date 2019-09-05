@@ -71,7 +71,7 @@
     computed: {
       truncatedDescription() {
         if (!this.description) {
-          return false;
+          return;
         }
         return this.description.length > this.limitCharacters ? this.description.slice(0, this.limitCharacters) + '...' : this.description;
       }
