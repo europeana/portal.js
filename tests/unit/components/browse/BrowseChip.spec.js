@@ -7,7 +7,10 @@ const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
 const $route = {
-  fullPath: '/entity/topic/46-musical-instrument'
+  fullPath: '/entity/topic/46-musical-instrument',
+  params: {
+    type: 'topic'
+  }
 };
 
 const $i18n = {
