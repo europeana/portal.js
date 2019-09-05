@@ -23,13 +23,7 @@
         cols="12"
         md="9"
       >
-        <BrowseChip
-          v-for="relatedEntity in relatedEntities"
-          :key="relatedEntity.path"
-          :path="relatedEntity.path"
-          :type="relatedEntity.type"
-          :title="relatedEntity.title"
-        />
+        <BrowseChip />
         <p
           v-if="searchResults.results && searchResults.results.length === 0"
           data-qa="warning notice"
@@ -80,7 +74,6 @@
   import EntityDetails from '../../../components/browse/EntityDetails';
   import SearchResultsGrid from '../../../components/search/SearchResultsGrid';
   import PaginationNav from '../../../components/generic/PaginationNav';
-
   import * as entities from '../../../plugins/europeana/entity';
   import search, { pageFromQuery } from '../../../plugins/europeana/search';
 
@@ -107,7 +100,6 @@
         attribution: null,
         description: null,
         entity: null,
-        relatedEntities: null,
         searchResults: {
           error: null,
           results: null,
@@ -136,17 +128,13 @@
       }
       return axios.all([
         entities.getEntity(params.type, params.pathMatch, { wskey: env.EUROPEANA_ENTITY_API_KEY }),
-        entities.relatedEntities(params.type, params.pathMatch, {
-          wskey: env.EUROPEANA_API_KEY,
-          entityKey: env.EUROPEANA_ENTITY_API_KEY
-        }),
         search({
           page: currentPage,
           query: `"${entities.getEntityUri(params.type, params.pathMatch)}"`,
           wskey: env.EUROPEANA_API_KEY
         })
       ])
-        .then(axios.spread((entity, related, searchResults) => {
+        .then(axios.spread((entity, searchResults) => {
           const desiredPath = entities.getEntitySlug(entity.entity);
 
           if (params.pathMatch !== desiredPath) {
@@ -164,7 +152,6 @@
             attribution: entity.entity.depiction ? entity.entity.depiction.source : '',
             description: entities.getEntityDescription(params.type, entity.entity),
             entity: entity.entity,
-            relatedEntities: related,
             searchResults: { ...searchResults, isLoading: false, page: Number(currentPage) }
           };
         }))

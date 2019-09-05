@@ -7,7 +7,7 @@ const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
 const $route = {
-  fullPath: '/entity/topic/94-architecture'
+  fullPath: '/entity/topic/46-musical-instrument'
 };
 
 const $i18n = {
@@ -31,23 +31,32 @@ const factory = () => shallowMount(BrowseChip, {
 describe('components/browse/BrowseChip', () => {
   it('shows chips for related entities', () => {
     const wrapper = factory();
-    wrapper.setProps({ type: 'topic', path: '94-architecture', title: 'Architecture' });
-
+    wrapper.setData({
+      relatedEntities: [
+        {
+          path: '46-musical-instrument',
+          title: 'Musical instrument',
+          type: 'topic'
+        }
+      ]
+    });
     wrapper.findAll('[data-qa="browse chip"]').length.should.eq(1);
   });
 
   it('has an entity title and link', () => {
     const wrapper = factory();
-    wrapper.setProps({ type: 'topic', path: '94-architecture', title: 'Architecture' });
+    wrapper.setData({
+      relatedEntities: [
+        {
+          path: '46-musical-instrument',
+          title: 'Musical instrument',
+          type: 'topic'
+        }
+      ]
+    });
 
     const chip = wrapper.find('[data-qa="browse chip"]');
-    chip.text().should.eq('Architecture');
-    wrapper.vm.$route.fullPath.should.contain('94-architecture');
-  });
-
-  it('does not show chips if no related entities found', () => {
-    const wrapper = factory();
-
-    wrapper.findAll('[data-qa="browse chip"]').length.should.eq(0);
+    chip.text().should.eq('Musical instrument');
+    wrapper.vm.$route.fullPath.should.contain('46-musical-instrument');
   });
 });
