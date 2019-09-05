@@ -21,6 +21,7 @@ Feature: Entity page
 
     When I open an `entity page`
     And I see the `entity page`
+    And I wait 1 seconds
     Then I should have 10 `browse chip`s
 
   Scenario: Click on a related entity
