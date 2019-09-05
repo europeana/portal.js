@@ -48,7 +48,7 @@
           return this.recordRouterLink(this.fields.identifier);
         } else if (typeof this.fields.identifier === 'string' && /^https?:\/\//.test(this.fields.identifier)) {
           if (this.forEuropeanaEntity()) {
-            return this.entityRouterLink(this.fields.identifier);
+            return this.entityRouterLink(this.fields.identifier, this.fields.slug);
           } else {
             return this.fields.identifier;
           }
@@ -73,10 +73,10 @@
       forEuropeanaEntity() {
         return (typeof this.fields.identifier === 'string') && this.fields.identifier.includes('://data.europeana.eu/');
       },
-      entityRouterLink(uri) {
+      entityRouterLink(uri, slug) {
         const uriMatch = uri.match('^http://data.europeana.eu/([^/]+)(/base)?/(.+)$');
         return this.localePath({
-          name: 'entity-type-all', params: { type: getEntityTypeHumanReadable(uriMatch[1]), pathMatch: uriMatch[3] } }
+          name: 'entity-type-all', params: { type: getEntityTypeHumanReadable(uriMatch[1]), pathMatch: slug ? slug : uriMatch[3] } }
         );
       },
       recordRouterLink(identifier) {
