@@ -2,7 +2,8 @@
   <b-row>
     <b-col
       v-if="depictionThumbnail && attribution"
-      cols="4"
+      cols="12"
+      sm="4"
     >
       <b-link
         :href="attribution"
