@@ -8,6 +8,7 @@
         :href="attribution"
         class="depiction mb-3 d-block overflow-hidden rounded-circle position-relative"
         target="_blank"
+        data-qa="entity attribution"
       >
         <b-img
           :src="depictionThumbnail"
@@ -29,6 +30,7 @@
         <br>
         <b-link
           v-if="description.length > limitCharacters"
+          data-qa="entity show link"
           @click="toggleMoreDescription"
         >
           {{ showAll ? $t('showLess') : $t('showMore') }}
@@ -67,6 +69,9 @@
     },
     computed: {
       truncatedDescription() {
+        if (!this.description) {
+          return false;
+        }
         return this.description.length > this.limitCharacters ? this.description.slice(0, this.limitCharacters) + '...' : this.description;
       }
     },
