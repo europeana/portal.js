@@ -151,6 +151,7 @@
     };
   }
 
+  const facetsToDisplay = [ 'COUNTRY', 'REUSABILITY', 'TYPE' ];
   const thematicCollections = [ 'all', 'ww1',  'archaeology', 'art', 'fashion', 'manuscript', 'map', 'migration', 'music', 'nature', 'newspaper', 'photography', 'sport'];
 
   export default {
@@ -243,7 +244,7 @@
       return search({
         page: currentPage,
         query: query.query,
-        facet: 'COUNTRY,REUSABILITY,TYPE',
+        facet: facetsToDisplay.join(','),
         qf: query.qf,
         reusability: query.reusability,
         theme: query.theme,
@@ -323,10 +324,10 @@
             this.theme = selectedValues;
           } else {
             for (const facetValue of selectedValues) {
-              if (facetName === 'contentTier') {
-                this.qfForSelectedFacets.push(`${facetName}:${facetValue}`);
-              } else {
+              if (facetsToDisplay.includes(facetName)) {
                 this.qfForSelectedFacets.push(`${facetName}:"${facetValue}"`);
+              } else {
+                this.qfForSelectedFacets.push(`${facetName}:${facetValue}`);
               }
             }
           }
