@@ -1,35 +1,46 @@
 <template>
-  <div>
-    <b-img
-      v-if="depictionThumbnail"
-      :src="depictionThumbnail"
-      class="mb-3"
-      fluid
-      alt=""
-      data-qa="entity depiction"
-      @error="depictionNotFound"
-    />
-    <p class="attribution">
-      <b-link
-        v-if="attribution"
-        :href="attribution"
-        target="_blank"
-        data-qa="entity attribution"
+  <b-row>
+    <b-col
+        v-if="depictionThumbnail && attribution"
+        cols="4"
       >
-        {{ $t('resourceWikimedia') }}
+      <b-link
+        :href="attribution"
+        class="depiction mb-3 d-block overflow-hidden rounded-circle position-relative"
+        target="_blank"
+      >
+        <b-img
+          :src="depictionThumbnail"
+          fluid
+          :alt="$t('depiction', { title: title })"
+          data-qa="entity depiction"
+          @error="depictionNotFound"
+        />
       </b-link>
-    </p>
-    <p
-      data-qa="entity description"
-    >
-      {{ description }}
-    </p>
-  </div>
+    </b-col>
+    <b-col>
+      <h1 data-qa="entity title">
+        {{ title }}
+      </h1>
+      <p
+        data-qa="entity description"
+      >
+        {{ truncatedDescription }}
+        <a v-if="!showMore">
+          read more...
+        </a>
+      </p>
+    </b-col>
+  </b-row>
 </template>
 
 <script>
   export default {
     props: {
+      title: {
+        type: String,
+        default: ''
+      },
       depiction: {
         type: String,
         default: ''
@@ -45,8 +56,17 @@
     },
     data() {
       return {
-        depictionThumbnail: this.depiction
+        depictionThumbnail: this.depiction,
+        limitCharacters: 200,
+        showMore: false
       };
+    },
+    computed: {
+      truncatedDescription() {
+        return {
+          this.description.length > this.limitCharacters ? this.description.slice(0, this.limitCharacters) : this.description
+        };
+      }
     },
     methods: {
       depictionNotFound() {
@@ -62,9 +82,18 @@
 <style lang="scss" scoped>
   @import "./assets/scss/variables.scss";
 
-  img {
-    border-radius: $border-radius-small;
+  .depiction {
     box-shadow: $boxshadow-small;
+    padding-top: 100%;
+    width: 100%;
+
+    img {
+      bottom: 0;
+      left: 0;
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
   }
 
   .attribution {

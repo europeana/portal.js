@@ -11,18 +11,17 @@
     v-else
     data-qa="entity page"
   >
-    <b-row>
-      <b-col>
-        <h1 data-qa="entity title">
-          {{ title }}
-        </h1>
-      </b-col>
-    </b-row>
     <b-row class="flex-column-reverse flex-md-row">
       <b-col
         cols="12"
         md="9"
       >
+        <EntityDetails
+          :title="title"
+          :depiction="depiction"
+          :attribution="attribution"
+          :description="description"
+        />
         <BrowseChip
           v-for="relatedEntity in relatedEntities"
           :key="relatedEntity.path"
@@ -50,11 +49,7 @@
         md="3"
         class="pb-3"
       >
-        <EntityDetails
-          :depiction="depiction"
-          :attribution="attribution"
-          :description="description"
-        />
+        <!-- TODO: batches/chips will go here -->
       </b-col>
     </b-row>
     <b-row>
