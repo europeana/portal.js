@@ -64,6 +64,7 @@ export default {
   },
   "entity": "Entity",
   "depiction": "A depiction of {title}",
+  "showLess": "Show less",
   "showMore": "Show more",
   "record": "Record",
   "messages": {

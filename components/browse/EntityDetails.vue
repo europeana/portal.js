@@ -1,9 +1,9 @@
 <template>
   <b-row>
     <b-col
-        v-if="depictionThumbnail && attribution"
-        cols="4"
-      >
+      v-if="depictionThumbnail && attribution"
+      cols="4"
+    >
       <b-link
         :href="attribution"
         class="depiction mb-3 d-block overflow-hidden rounded-circle position-relative"
@@ -25,10 +25,14 @@
       <p
         data-qa="entity description"
       >
-        {{ truncatedDescription }}
-        <a v-if="!showMore">
-          read more...
-        </a>
+        {{ showAll ? description : truncatedDescription }}
+        <br>
+        <b-link
+          v-if="description.length > limitCharacters"
+          @click="toggleMoreDescription"
+        >
+          {{ showAll ? $t('showLess') : $t('showMore') }}
+        </b-link>
       </p>
     </b-col>
   </b-row>
@@ -58,14 +62,12 @@
       return {
         depictionThumbnail: this.depiction,
         limitCharacters: 200,
-        showMore: false
+        showAll: false
       };
     },
     computed: {
       truncatedDescription() {
-        return {
-          this.description.length > this.limitCharacters ? this.description.slice(0, this.limitCharacters) : this.description
-        };
+        return this.description.length > this.limitCharacters ? this.description.slice(0, this.limitCharacters) + '...' : this.description;
       }
     },
     methods: {
@@ -74,6 +76,9 @@
         // contextless link
         this.depictionThumbnail = '';
         this.attribution = '';
+      },
+      toggleMoreDescription() {
+        this.showAll = !this.showAll;
       }
     }
   };
