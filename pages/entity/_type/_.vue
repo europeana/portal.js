@@ -18,18 +18,11 @@
         </h1>
       </b-col>
     </b-row>
-    <b-row class="flex-column-reverse flex-md-row">
+    <b-row class="flex-md-row">
       <b-col
         cols="12"
         md="9"
       >
-        <BrowseChip
-          v-for="relatedEntity in relatedEntities"
-          :key="relatedEntity.path"
-          :path="relatedEntity.path"
-          :type="relatedEntity.type"
-          :title="relatedEntity.title"
-        />
         <p
           v-if="searchResults.results && searchResults.results.length === 0"
           data-qa="warning notice"
@@ -50,6 +43,15 @@
         md="3"
         class="pb-3"
       >
+        <ul class="list-unstyled">
+          <BrowseChip
+            v-for="relatedEntity in relatedEntities"
+            :key="relatedEntity.path"
+            :path="relatedEntity.path"
+            :type="relatedEntity.type"
+            :title="relatedEntity.title"
+          />
+        </ul>
         <EntityDetails
           :depiction="depiction"
           :attribution="attribution"

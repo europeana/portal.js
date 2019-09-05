@@ -1,14 +1,16 @@
 <template>
-  <b-badge
-    v-if="title"
-    :to="localePath({ name: 'entity-type-all', params: { type: type, pathMatch: path }})"
-    pill
-    variant="nocolor"
-    class="mb-3 mr-3 font-weight-normal bg-transparent"
-    data-qa="browse chip"
-  >
-    {{ title }}
-  </b-badge>
+  <li>
+    <b-badge
+      v-if="title"
+      :to="localePath({ name: 'entity-type-all', params: { type: type, pathMatch: path }})"
+      pill
+      variant="nocolor"
+      class="mb-3 mr-3 font-weight-normal bg-transparent"
+      data-qa="browse chip"
+    >
+      {{ title }}
+    </b-badge>
+  </li>
 </template>
 
 <script>
