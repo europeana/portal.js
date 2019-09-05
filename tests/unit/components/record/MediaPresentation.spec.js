@@ -87,6 +87,63 @@ describe('components/record/MediaPresentation', () => {
     });
   });
 
+  describe('isOEmbed', () => {
+    context('when url is for YouTube media', () => {
+      it('is `true`', () => {
+        const wrapper = factory();
+        const props = { url: 'https://www.youtube.com/watch?v=abcdef' };
+
+        wrapper.setProps(props);
+
+        wrapper.vm.isOEmbed.should.be.true;
+      });
+    });
+
+    context('when url is for SoundCloud media', () => {
+      it('is `true`', () => {
+        const wrapper = factory();
+        const props = { url: 'https://soundcloud.com/abc/def' };
+
+        wrapper.setProps(props);
+
+        wrapper.vm.isOEmbed.should.be.true;
+      });
+    });
+
+    context('when url is for Sketchfab media', () => {
+      it('is `true`', () => {
+        const wrapper = factory();
+        const props = { url: 'https://sketchfab.com/models/abcdef' };
+
+        wrapper.setProps(props);
+
+        wrapper.vm.isOEmbed.should.be.true;
+      });
+    });
+
+    context('when url is for Vimeo media', () => {
+      it('is `true`', () => {
+        const wrapper = factory();
+        const props = { url: 'https://vimeo.com/abcdef' };
+
+        wrapper.setProps(props);
+
+        wrapper.vm.isOEmbed.should.be.true;
+      });
+    });
+
+    context('when url is for media unknown to oembed-parser', () => {
+      it('is `false`', () => {
+        const wrapper = factory();
+        const props = { url: 'https://example.org/abcdef' };
+
+        wrapper.setProps(props);
+
+        wrapper.vm.isOEmbed.should.be.false;
+      });
+    });
+  });
+
   describe('displayImage', () => {
     context('when imageSrc is absent', () => {
       it('is `false`', () => {
@@ -104,6 +161,17 @@ describe('components/record/MediaPresentation', () => {
         it('is `false`', () => {
           const wrapper = factory();
           const props = { mimeType: 'video/ogg', imageSrc: 'http://www.example.org/preview.jpg' };
+
+          wrapper.setProps(props);
+
+          wrapper.vm.displayImage.should.be.false;
+        });
+      });
+
+      context('and url is for oEmbed media', () => {
+        it('is `false`', () => {
+          const wrapper = factory();
+          const props = { url: 'https://vimeo.com/abcdef', imageSrc: 'http://www.example.org/preview.jpg' };
 
           wrapper.setProps(props);
 

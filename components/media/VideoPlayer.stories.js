@@ -14,7 +14,7 @@ storiesOf('Media/Video Player', module)
       };
     },
     template: `
-      <b-containerb class="mt-3">
+      <b-container class="mt-3">
         <VideoPlayer
           :src="src"
           :type="type"
@@ -33,7 +33,7 @@ storiesOf('Media/Video Player', module)
       };
     },
     template: `
-      <b-containerb class="mt-3">
+      <b-container class="mt-3">
         <VideoPlayer
           :src="src"
           :type="type"
