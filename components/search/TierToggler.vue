@@ -4,7 +4,6 @@
       {{ toggleText }}
       <b-link
         :to="togglePath"
-        :event="''"
         class="toggle-link"
         data-qa="tier toggle button"
         @click="toggleHandler"
@@ -28,7 +27,7 @@
 
     data() {
       return {
-        active: false,
+        active: this.activeState,
         button: {
           show: this.$t('searchTier.button.show'),
           hide: this.$t('searchTier.button.hide')
@@ -53,39 +52,22 @@
         // and resets the page to page 1, as the results will potentially change.
         // Used when users right click on link and `open new tab`.
         const currentRoute = this.$route;
-        const qf = currentRoute.query.qf ? [].concat(currentRoute.query.qf) : [];
         const contentTierAll = 'contentTier:*';
 
-        if (qf && qf.includes(contentTierAll)) {
-          return {
-            path: this.$route.fullPath,
-            query: {
-              qf: qf.filter(i => i !== contentTierAll),
-              page: 1
-            }
-          };
+        let qf = currentRoute.query.qf ? [].concat(currentRoute.query.qf) : [];
+        if (qf.includes(contentTierAll)) {
+          qf = qf.filter(i => i !== contentTierAll);
+        } else {
+          qf.push(contentTierAll);
         }
 
-        qf.push(contentTierAll);
-        return { path: this.$route.fullPath, query: { qf } };
-      }
-    },
-
-    mounted() {
-      if (this.activeState) {
-        this.active = this.activeState;
+        return { path: this.$route.fullPath, query: { qf, page: 1 } };
       }
     },
 
     methods: {
       toggleHandler() {
-        if (!this.active) {
-          this.$emit('toggle', 'contentTier', ['*']);
-          this.active = true;
-        } else {
-          this.$emit('toggle', 'contentTier', []);
-          this.active = false;
-        }
+        this.active = !this.active;
       }
     }
   };

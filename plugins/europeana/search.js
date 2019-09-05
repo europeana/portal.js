@@ -212,7 +212,7 @@ function search(params) {
  */
 export function qfHandler(qf) {
   let newQf = qf ? [].concat(qf) : [];
-  if (newQf.filter(v => v.search(/^contentTier:.*$/) !== -1).length <= 0) {
+  if (!newQf.some(v => /^contentTier:/.test(v))) {
     // If no content tier qf is queried, tier 0 content is
     // excluded by default as it is considered not to meet
     // Europeana's publishing criteria.
