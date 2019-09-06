@@ -65,6 +65,7 @@
           :total-results="searchResults.totalResults"
           :per-page="perPage"
           :link-gen="paginationLink"
+          @changed="changeSearchPage"
         />
       </b-col>
     </b-row>
@@ -188,6 +189,14 @@
         });
     },
     methods: {
+      async changeSearchPage(page) {
+        const searchResults = await search({
+          page,
+          query: `"${this.entity.id}"`,
+          wskey: process.env.EUROPEANA_API_KEY
+        });
+        this.searchResults = { ...searchResults, isLoading: false, page: Number(page) };
+      },
       paginationLink(val) {
         return this.localePath({
           name: 'entity-type-all', params: { type: entities.getEntityTypeHumanReadable(this.entity.type), pathMatch: entities.getEntitySlug(this.entity) }, query: { page: val }
@@ -198,7 +207,6 @@
       return {
         title: this.$t('entity')
       };
-    },
-    watchQuery: ['page']
+    }
   };
 </script>
