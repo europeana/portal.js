@@ -39,7 +39,7 @@ module.exports = {
       desiredCapabilities: {
         browserName: 'chrome',
         chromeOptions: {
-          args: ['disable-gpu', 'headless']
+          args: ['disable-gpu', 'headless', '--lang=en-GB,en']
         }
       }
     },

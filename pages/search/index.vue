@@ -223,7 +223,7 @@
       },
 
       contentTierActiveState() {
-        return this.selectedFacets.hasOwnProperty('contentTier') && this.selectedFacets['contentTier'].includes('*');
+        return Object.prototype.hasOwnProperty.call(this.selectedFacets, 'contentTier') && this.selectedFacets['contentTier'].includes('*');
       }
     },
     watch: watchList,
