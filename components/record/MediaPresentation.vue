@@ -103,10 +103,10 @@
           if (data && data.html) {
             this.oEmbedData = data;
           } else {
-            this.oEmbedData.error = this.$t('messages.externalContentError');
+            this.oEmbedData = { error: this.$t('messages.externalContentError') };
           }
         }).catch((err) => {
-          this.oEmbedData.error = err;
+          this.oEmbedData = { error: err };
         });
       }
     }

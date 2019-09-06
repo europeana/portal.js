@@ -6,7 +6,7 @@
     v-html="oEmbedData.html"
   />
   <AlertMessage
-    v-else-if="oEmbedData && 'error' in oEmbedData"
+    v-else-if="oEmbedData && oEmbedData.error"
     :error="oEmbedData.error"
   />
   <!-- eslint-enable vue/no-v-html -->
