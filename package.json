@@ -106,6 +106,7 @@
     "storybook-vue-router": "^1.0.6",
     "stylelint": "^10.1.0",
     "stylelint-config-recommended": "^2.1.0",
+    "vue-click-outside": "^1.0.7",
     "vue-loader": "^15.7.0",
     "vue-template-compiler": "^2.6.10"
   }

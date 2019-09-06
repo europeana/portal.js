@@ -48,6 +48,11 @@
         />
       </b-col>
     </b-row>
+    <b-row>
+      <b-col>
+        <FacetDropdowns :facets="orderedFacets" />
+      </b-col>
+    </b-row>
     <b-row
       class="mb-3"
     >
@@ -133,6 +138,7 @@
   import AlertMessage from '../../components/generic/AlertMessage';
   import InfoMessage from '../../components/generic/InfoMessage';
   import SearchFacet from '../../components/search/SearchFacet';
+  import FacetDropdowns from '../../components/search/FacetDropdowns';
   import SearchResultsGrid from '../../components/search/SearchResultsGrid';
   import SearchResultsList from '../../components/search/SearchResultsList';
   import SearchSelectedFacets from '../../components/search/SearchSelectedFacets';
@@ -159,6 +165,7 @@
       AlertMessage,
       InfoMessage,
       SearchFacet,
+      FacetDropdowns,
       SearchResultsGrid,
       SearchResultsList,
       SearchSelectedFacets,
