@@ -22,6 +22,13 @@
         v-show="isActive"
         class="f-dropdown__dropdown"
       >
+        <div
+          v-if="selected.length > 0"
+          class="f-dropdown__panel f-dropdown__panel--top">
+          <div class="selected">
+            {{ selected.join(' / ') }}
+          </div>
+        </div>
         <div class="f-dropdown__menu">
           <ul
             role="menu"
@@ -44,7 +51,7 @@
             </li>
           </ul>
         </div>
-        <div class="f-dropdown__panel">
+        <div class="f-dropdown__panel float-right f-dropdown__panel--bottom">
           <b-button
             type="button"
             variant="link"
@@ -135,20 +142,36 @@
     vertical-align: middle;
     margin-right: .5rem;
 
-    // &__btn {}
-
     &__dropdown {
       position: absolute;
       background: white;
       z-index: 1;
       padding: 15px 0 15px 15px;
-      max-height: 300px;
       width: 280px;
+    }
+
+    &__panel {
+      padding-right: 15px;
+
+      &--top {
+        padding-bottom: 15px;
+
+        .selected {
+          background: #f1f1f1;
+          padding: 15px;
+          font-size: 12px;
+          font-weight: bold;
+        }
+      }
+
+      &--bottom {
+        padding-top: 15px;
+      }
     }
 
     &__menu {
       overflow: auto;
-      max-height: 240px;
+      max-height: 380px;
 
       &::-webkit-scrollbar {
         width: 4px;
