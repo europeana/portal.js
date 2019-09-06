@@ -47,10 +47,13 @@
           <BrowseChip
             v-for="relatedEntity in relatedEntities"
             :key="relatedEntity.path"
-            :link-to="{
-              type: relatedEntity.type,
-              pathMatch: relatedEntity.path
-            }"
+            :link-to="localePath({
+              name: 'entity-type-all',
+              params: {
+                type: relatedEntity.type,
+                pathMatch: relatedEntity.path
+              }
+            })"
             :title="relatedEntity.title"
           />
         </ul>

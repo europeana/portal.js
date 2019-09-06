@@ -2,10 +2,7 @@
   <li>
     <b-badge
       v-if="title"
-      :to="localePath({
-        name: 'entity-type-all',
-        params: linkTo
-      })"
+      :to="linkTo"
       pill
       variant="nocolor"
       class="mb-3 mr-3 font-weight-normal bg-transparent"
