@@ -1,15 +1,18 @@
 <template>
   <li
+    v-if="facet.name !== 'THEME'"
     class="f-dropdown"
     data-qa="facet-dropdown"
   >
-    <div class="f-dropdown__wrap">
+    <div
+      v-click-outside="hide"
+      class="f-dropdown__wrap"
+    >
       <button
-        v-click-outside="hide"
         class="f-dropdown__btn"
         type="button"
         aria-haspopup="true"
-        aria-expanded="false"
+        :aria-expanded="isActive"
         @click="isActive = !isActive"
       >
         {{ facet.name }}
@@ -42,29 +45,26 @@
           </ul>
         </div>
         <div class="f-dropdown__panel">
-          panel here
+          <b-button
+            type="button"
+            variant="link"
+            :disabled="!activateResetButton"
+            @click="resetSelection()"
+          >
+            Reset
+          </b-button>
+          <b-button
+            type="button"
+            variant="primary"
+            :disabled="activateApplyButton"
+            @click="applySelection()"
+          >
+            Apply
+          </b-button>
         </div>
       </div>
     </div>
   </li>
-
-  <!-- <b-dropdown
-    :text="facet.name"
-    class="m-md-2"
-  >
-    <template slot="text">&#x1f50d;<span class="sr-only">Search</span></template>
-    <b-dropdown-form>
-      <b-form-checkbox-group v-model="selected">
-        <b-form-checkbox
-          v-for="(option, index) in facet.fields"
-          :key="index"
-          :value="option.label"
-        >
-          {{ option.label }}
-        </b-form-checkbox>
-      </b-form-checkbox-group>
-    </b-dropdown-form>
-  </b-dropdown> -->
 </template>
 
 <script>
@@ -79,6 +79,12 @@
       facet: {
         type: Object,
         required: true
+      },
+
+      selectedFacet: {
+        type: Array,
+        required: false,
+        default: () => []
       }
     },
 
@@ -89,8 +95,33 @@
       };
     },
 
+    computed: {
+      activateResetButton() {
+        return this.selected.length > 0;
+      },
+
+      activateApplyButton() {
+        return this.selected.length === this.selectedFacet.length;
+      }
+    },
+
+    mounted() {
+      if (this.selectedFacet.length > 0) {
+        this.selected = this.selected.concat(this.selectedFacet);
+      }
+    },
+
     methods: {
       hide() {
+        this.isActive = false;
+      },
+
+      resetSelection() {
+        this.selected = [];
+      },
+
+      applySelection() {
+        this.$parent.$emit('updated', this.facet.name, this.selected);
         this.isActive = false;
       }
     }
@@ -112,13 +143,20 @@
       z-index: 1;
       padding: 15px 0 15px 15px;
       max-height: 300px;
-      overflow: auto;
-      width: 200px;
+      width: 280px;
     }
 
     &__menu {
       overflow: auto;
       max-height: 240px;
+
+      &::-webkit-scrollbar {
+        width: 4px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background-color: grey;
+      }
     }
   }
 </style>

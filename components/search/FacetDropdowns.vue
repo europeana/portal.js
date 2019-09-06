@@ -7,6 +7,7 @@
       v-for="facet in facets"
       :key="facet.name"
       :facet="facet"
+      :selected-facet="selectedFacets[facet.name]"
     />
   </ul>
 </template>
@@ -23,6 +24,12 @@
       facets: {
         type: Array,
         required: true
+      },
+
+      selectedFacets: {
+        type: [Array, Object],
+        required: false,
+        default: () => []
       }
     }
   };

@@ -50,7 +50,11 @@
     </b-row>
     <b-row>
       <b-col>
-        <FacetDropdowns :facets="orderedFacets" />
+        <FacetDropdowns
+          :facets="orderedFacets"
+          :selected-facets="selectedFacets"
+          @updated="selectFacet"
+        />
       </b-col>
     </b-row>
     <b-row
