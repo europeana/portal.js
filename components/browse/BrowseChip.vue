@@ -2,7 +2,10 @@
   <li>
     <b-badge
       v-if="title"
-      :to="localePath({ name: 'entity-type-all', params: { type: type, pathMatch: path }})"
+      :to="localePath({
+        name: 'entity-type-all',
+        params: linkTo
+      })"
       pill
       variant="nocolor"
       class="mb-3 mr-3 font-weight-normal bg-transparent"
@@ -16,15 +19,11 @@
 <script>
   export default {
     props: {
-      path: {
-        type: String,
-        default: ''
+      linkTo: {
+        type: Object,
+        required: true
       },
       title: {
-        type: String,
-        default: ''
-      },
-      type: {
         type: String,
         default: ''
       }
