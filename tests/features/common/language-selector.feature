@@ -1,4 +1,4 @@
-Feature: Select language 
+Feature: Select language
 
   Scenario: Change language
 

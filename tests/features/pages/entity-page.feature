@@ -22,7 +22,7 @@ Feature: Entity page
   Scenario: View related entities
     When I open an `entity page`
     And I see the `entity page`
-    Then I should have 10 `browse chip`s
+    Then I should have 4 `browse chip`s
 
   Scenario: Click on a related entity
     When I open an `entity page`

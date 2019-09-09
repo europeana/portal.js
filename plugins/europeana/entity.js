@@ -149,7 +149,7 @@ function getEntityFacets(facets, currentId, entityKey) {
 function getDataForEntities(entities, entityKey) {
   if (entities.length === 0) return;
 
-  let entityLabels = entities.map(entity => {
+  const entityLabels = entities.slice(0,4).map(entity => {
     return entity['label'];
   });
 
@@ -161,7 +161,7 @@ function getDataForEntities(entities, entityKey) {
   })
     .then((response) => {
       let items = response.data.items ? response.data.items : [];
-      return getRelatedEntityTitleLink(items.slice(0,10));
+      return getRelatedEntityTitleLink(items);
     })
     .catch((error) => {
       const message = error.response ? error.response.data.error : error.message;

@@ -9,6 +9,7 @@
     size="sm"
     align="center"
     data-qa="pagination navigation"
+    @change="pageChanged"
   />
 </template>
 
@@ -60,6 +61,11 @@
         handler(val) {
           this.currentPage = val;
         }
+      }
+    },
+    methods: {
+      pageChanged(page) {
+        this.$emit('changed', page);
       }
     }
   };
