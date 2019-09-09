@@ -41,7 +41,7 @@
       <b-col>
         <ViewToggles
           :active="view"
-          :link-gen="viewToggleLink"
+          :link-gen-route="route"
           @changed="selectView"
         />
       </b-col>
@@ -324,9 +324,6 @@
           }
         }
         return updated;
-      },
-      viewToggleLink(view) {
-        return this.localePath({ ...this.route, ...{ query: this.updateCurrentSearchQuery({ view }) } });
       }
     }
   };
