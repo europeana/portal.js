@@ -87,7 +87,7 @@
           lastAvailablePage: false,
           page: 1,
           query: null,
-          results: null,
+          results: [],
           selectedFacets: {},
           totalResults: null
         }

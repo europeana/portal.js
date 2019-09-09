@@ -32,7 +32,7 @@
         lastAvailablePage: false,
         page: 1,
         query: null,
-        results: null,
+        results: [],
         selectedFacets: {},
         totalResults: null
       };
@@ -83,7 +83,7 @@
               }
             }
           }
-          return { results: null, error: errorMessage, query: query.query };
+          return { error: errorMessage, query: query.query };
         });
     },
     head() {
