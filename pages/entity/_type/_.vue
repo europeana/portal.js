@@ -38,6 +38,7 @@
           :query="searchResults.query"
           :results="searchResults.results"
           :route="route"
+          :selected-facets="searchResults.selectedFacets"
           :show-content-tier-toggle="false"
           :total-results="searchResults.totalResults"
         />
@@ -66,7 +67,7 @@
   import SearchResults from '../../../components/search/SearchResults';
 
   import * as entities from '../../../plugins/europeana/entity';
-  import search, { pageFromQuery } from '../../../plugins/europeana/search';
+  import search, { pageFromQuery, selectedFacetsFromQuery } from '../../../plugins/europeana/search';
 
   export default {
     components: {
@@ -87,6 +88,7 @@
           page: 1,
           query: null,
           results: null,
+          selectedFacets: {},
           totalResults: null
         }
       };
@@ -157,7 +159,7 @@
           return {
             entity: entity.entity,
             relatedEntities: related,
-            searchResults: { ...searchResults, isLoading: false, page: Number(currentPage) }
+            searchResults: { ...searchResults, isLoading: false, page: Number(currentPage), selectedFacets: selectedFacetsFromQuery(query) }
           };
         }))
         .catch((err) => {

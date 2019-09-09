@@ -199,6 +199,12 @@
           return { name: 'search' };
         }
       },
+      selectedFacets: {
+        type: Object,
+        default: () => {
+          return {};
+        }
+      },
       showContentTierToggle: {
         type: Boolean,
         default: true
@@ -212,10 +218,6 @@
       return {
         facetDisplayOrder: ['TYPE', 'REUSABILITY', 'COUNTRY'],
         isLoading: false,
-        qfForSelectedFacets: [],
-        reusability: null,
-        selectedFacets: {},
-        theme: null,
         view: this.selectedView()
       };
     },
@@ -252,6 +254,29 @@
         ordered.unshift({ name: 'THEME', fields: thematicCollections });
         return ordered.concat(unordered);
       },
+      qf() {
+        let qfForSelectedFacets = [];
+        for (const facetName in this.selectedFacets) {
+          const selectedValues = this.selectedFacets[facetName];
+          // `reusability` and `theme` have their own API parameter and can not be queried in `qf`
+          if (!['REUSABILITY', 'THEME'].includes(facetName)) {
+            for (const facetValue of selectedValues) {
+              if (this.facetDisplayOrder.includes(facetName)) {
+                qfForSelectedFacets.push(`${facetName}:"${facetValue}"`);
+              } else {
+                qfForSelectedFacets.push(`${facetName}:${facetValue}`);
+              }
+            }
+          }
+        }
+        return qfForSelectedFacets;
+      },
+      reusability() {
+        return this.selectedFacets['REUSABILITY'] ? this.selectedFacets['REUSABILITY'].join(',') : null;
+      },
+      theme() {
+        return this.selectedFacets['THEME'];
+      },
       showPagination() {
         return this.totalResults > this.perPage;
       }
@@ -276,27 +301,7 @@
       },
       selectFacet(name, selected) {
         this.$set(this.selectedFacets, name, selected);
-        this.qfForSelectedFacets = [];
-        this.reusability = null;
-        this.theme = null;
-        for (const facetName in this.selectedFacets) {
-          const selectedValues = this.selectedFacets[facetName];
-          // `reusability` and `theme` have their own API parameter and can not be queried in `qf`
-          if (facetName === 'REUSABILITY' && selectedValues.length > 0) {
-            this.reusability = selectedValues.join(',');
-          } else if (facetName === 'THEME' && this.selectedFacets['THEME']) {
-            this.theme = selectedValues;
-          } else {
-            for (const facetValue of selectedValues) {
-              if (this.facetDisplayOrder.includes(facetName)) {
-                this.qfForSelectedFacets.push(`${facetName}:"${facetValue}"`);
-              } else {
-                this.qfForSelectedFacets.push(`${facetName}:${facetValue}`);
-              }
-            }
-          }
-        }
-        this.rerouteSearch({ qf: this.qfForSelectedFacets, reusability: this.reusability, theme: this.theme, page: '1' });
+        this.rerouteSearch({ qf: this.qf, reusability: this.reusability, theme: this.theme, page: '1' });
       },
       selectView(view) {
         if (process.browser) {
@@ -308,7 +313,7 @@
       updateCurrentSearchQuery(updates) {
         const current = {
           page: this.page || '1',
-          qf: this.qfForSelectedFacets,
+          qf: this.qf,
           query: this.query || '',
           reusability: this.reusability,
           theme: this.theme,

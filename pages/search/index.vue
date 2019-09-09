@@ -9,6 +9,7 @@
         :page="page"
         :query="query"
         :results="results"
+        :selected-facets="selectedFacets"
         :total-results="totalResults"
       />
     </b-row>
@@ -30,11 +31,9 @@
         isLoading: false,
         lastAvailablePage: false,
         page: 1,
-        qfForSelectedFacets: [],
         query: null,
         results: null,
-        reusability: null,
-        theme: null,
+        selectedFacets: {},
         totalResults: null
       };
     },
@@ -66,10 +65,7 @@
             isLoading: false,
             query: query.query,
             page: Number(currentPage),
-            selectedFacets: selectedFacetsFromQuery(query),
-            qfForSelectedFacets: query.qf === '' ? [] : query.qf,
-            reusability: query.reusability,
-            theme: query.theme
+            selectedFacets: selectedFacetsFromQuery(query)
           };
         })
         .catch((error) => {
