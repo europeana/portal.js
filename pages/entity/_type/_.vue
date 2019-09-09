@@ -30,19 +30,16 @@
           :type="relatedEntity.type"
           :title="relatedEntity.title"
         />
-        <p
-          v-if="searchResults.results && searchResults.results.length === 0"
-          data-qa="warning notice"
-        >
-          {{ $t('noMoreResults') }}
-        </p>
-        <SearchResultsGrid
-          v-else
+        <SearchResults
+          :error="searchResults.error"
+          :facets="searchResults.facets"
+          :last-available-page="searchResults.lastAvailablePage"
+          :page="searchResults.page"
+          :query="searchResults.query"
           :results="searchResults.results"
-        />
-        <InfoMessage
-          v-if="searchResults.lastAvailablePage"
-          :message="$t('resultsLimitWarning')"
+          :route="route"
+          :show-content-tier-toggle="false"
+          :total-results="searchResults.totalResults"
         />
       </b-col>
       <b-col
@@ -57,17 +54,6 @@
         />
       </b-col>
     </b-row>
-    <b-row>
-      <b-col>
-        <PaginationNav
-          v-if="searchResults.totalResults > perPage"
-          v-model="searchResults.page"
-          :total-results="searchResults.totalResults"
-          :per-page="perPage"
-          :link-gen="paginationLink"
-        />
-      </b-col>
-    </b-row>
   </b-container>
 </template>
 
@@ -75,11 +61,9 @@
   import axios from 'axios';
 
   import AlertMessage from '../../../components/generic/AlertMessage';
-  import InfoMessage from '../../../components/generic/InfoMessage';
   import BrowseChip from '../../../components/browse/BrowseChip';
   import EntityDetails from '../../../components/browse/EntityDetails';
-  import SearchResultsGrid from '../../../components/search/SearchResultsGrid';
-  import PaginationNav from '../../../components/generic/PaginationNav';
+  import SearchResults from '../../../components/search/SearchResults';
 
   import * as entities from '../../../plugins/europeana/entity';
   import search, { pageFromQuery } from '../../../plugins/europeana/search';
@@ -89,42 +73,50 @@
       AlertMessage,
       BrowseChip,
       EntityDetails,
-      InfoMessage,
-      SearchResultsGrid,
-      PaginationNav
-    },
-    props: {
-      perPage: {
-        type: Number,
-        default: 24
-      }
+      SearchResults
     },
     data() {
       return {
-        error: null,
-        title: null,
-        depiction: null,
-        attribution: null,
-        description: null,
         entity: null,
+        error: null,
         relatedEntities: null,
         searchResults: {
           error: null,
-          results: null,
-          totalResults: null,
+          facets: [],
           lastAvailablePage: false,
+          page: 1,
           query: null,
-          page: 1
+          results: null,
+          totalResults: null
         }
       };
     },
     computed: {
-      hasResults() {
-        return this.searchResults.results !== null && this.searchResults.totalResults > 0;
+      attribution() {
+        return (!this.entity || !this.entity.depiction) ? null : this.entity.depiction.source;
+      },
+      depiction() {
+        return (!this.entity || !this.entity.depiction) ? null : entities.getWikimediaThumbnailUrl(this.entity.depiction.id);
+      },
+      description() {
+        return entities.getEntityDescription(this.entity);
+      },
+      route() {
+        return {
+          name: 'entity-type-all',
+          params: {
+            type: this.$route.params.type,
+            pathMatch: this.$route.params.pathMatch
+          }
+        };
+      },
+      title() {
+        return !this.entity ? this.$t('entity') : this.entity.prefLabel.en;
       }
     },
     asyncData({ env, query, params, res, redirect, app }) {
       const currentPage = pageFromQuery(query.page);
+
       if (currentPage === null) {
         // Redirect non-positive integer values for `page` to `page=1`
         query.page = '1';
@@ -134,15 +126,20 @@
           query: { page: 1 }
         }));
       }
+
       return axios.all([
         entities.getEntity(params.type, params.pathMatch, { wskey: env.EUROPEANA_ENTITY_API_KEY }),
         entities.relatedEntities(params.type, params.pathMatch, {
           wskey: env.EUROPEANA_API_KEY,
           entityKey: env.EUROPEANA_ENTITY_API_KEY
         }),
+        // TODO: DRY up (shared with search/index)
         search({
           page: currentPage,
+          qf: query.qf,
           query: `"${entities.getEntityUri(params.type, params.pathMatch)}"`,
+          reusability: query.reusability,
+          theme: query.theme,
           wskey: env.EUROPEANA_API_KEY
         })
       ])
@@ -158,11 +155,6 @@
           }
 
           return {
-            error: null,
-            title: entity.entity.prefLabel.en,
-            depiction: entity.entity.depiction ? entities.getWikimediaThumbnailUrl(entity.entity.depiction.id) : '',
-            attribution: entity.entity.depiction ? entity.entity.depiction.source : '',
-            description: entities.getEntityDescription(params.type, entity.entity),
             entity: entity.entity,
             relatedEntities: related,
             searchResults: { ...searchResults, isLoading: false, page: Number(currentPage) }
@@ -187,18 +179,16 @@
           return { error: errorMessage };
         });
     },
-    methods: {
-      paginationLink(val) {
-        return this.localePath({
-          name: 'entity-type-all', params: { type: entities.getEntityTypeHumanReadable(this.entity.type), pathMatch: entities.getEntitySlug(this.entity) }, query: { page: val }
-        });
-      }
-    },
     head() {
       return {
-        title: this.$t('entity')
+        title: this.title
       };
     },
-    watchQuery: ['page']
+    beforeRouteLeave(to, from, next) {
+      this.$root.$emit('leaveSearchPage');
+      next();
+    },
+    // TODO: DRY up (shared with search/index)
+    watchQuery: ['page', 'qf', 'query', 'reusability', 'theme']
   };
 </script>

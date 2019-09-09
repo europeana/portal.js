@@ -177,7 +177,7 @@ function search(params) {
     },
     params: {
       profile: 'minimal,facets',
-      facet: params.facet,
+      facet: params.facet ? params.facet : 'COUNTRY,REUSABILITY,TYPE',
       query: params.query === '' ? '*:*' : params.query,
       qf: qfHandler(params.qf),
       reusability: params.reusability,

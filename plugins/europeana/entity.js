@@ -193,15 +193,14 @@ function getRelatedEntityTitleLink(entities) {
  * Get the description for the entity
  * If type is topic, use note
  * If type is person, use biographicalInformation
- * @param {String} type entity type, either topic or person
  * @param {Object} entity data
  * @return {String} description when available in English
  */
-export function getEntityDescription(type, entity) {
+export function getEntityDescription(entity) {
   let description;
-  if (type === 'topic' && entity.note) {
+  if (entity.type === 'Concept' && entity.note) {
     description = entity.note.en ? entity.note.en[0] : '';
-  } else if (type === 'person' && entity.biographicalInformation) {
+  } else if (entity.type === 'Agent' && entity.biographicalInformation) {
     // check if biographicalInformation is an array of objects
     // TODO: it _should_ always be an array. this is an Entity API bug. remove
     //       the condition when fixed upstream.

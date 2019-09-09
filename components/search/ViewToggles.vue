@@ -26,6 +26,14 @@
       active: {
         type: String,
         default: ''
+      },
+      linkGen: {
+        type: Function,
+        default: (view) => {
+          return this.localePath({
+            name: 'search', query: { ...this.$route.query, ...{ view } }
+          });
+        }
       }
     },
     data() {
@@ -38,11 +46,6 @@
       iconSrc(view) {
         // `require` for webpack'd assets to work with dynamic paths
         return require(`../../assets/img/search/${view}.svg`);
-      },
-      linkGen(view) {
-        return this.localePath({
-          name: 'search', query: { ...this.$route.query, ...{ view } }
-        });
       },
       selectView(view) {
         if (view !== this.activeView) {
