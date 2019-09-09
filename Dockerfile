@@ -5,7 +5,7 @@
 #
 # TODO: move image to europeana/dockerfiles and publish to Docker Hub?
 
-FROM node:11
+FROM node:12
 
 WORKDIR /app
 
