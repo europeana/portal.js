@@ -23,14 +23,6 @@
         v-show="isActive"
         class="f-dropdown__dropdown"
       >
-        <div
-          v-if="preSelected.length > 0"
-          class="f-dropdown__panel f-dropdown__panel--top"
-        >
-          <div class="selected">
-            {{ preSelected.join(' / ') }}
-          </div>
-        </div>
         <div class="f-dropdown__menu">
           <ul
             role="menu"
@@ -177,17 +169,6 @@
 
     &__panel {
       padding-right: 15px;
-
-      &--top {
-        padding-bottom: 15px;
-
-        .selected {
-          background: #f1f1f1;
-          padding: 15px;
-          font-size: 12px;
-          font-weight: bold;
-        }
-      }
 
       &--bottom {
         padding-top: 15px;
