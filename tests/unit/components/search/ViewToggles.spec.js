@@ -7,14 +7,7 @@ import ViewToggles from '../../../../components/search/ViewToggles.vue';
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 localVue.use(VueRouter);
-const router = new VueRouter({
-  routes: [
-    {
-      path: '/search',
-      name: 'search'
-    }
-  ]
-});
+const router = new VueRouter();
 
 const factory = () => mount(ViewToggles, {
   localVue,
@@ -37,12 +30,12 @@ describe('components/search/ViewToggles', () => {
     }
   });
 
-  it('links to search with view parameter set', () => {
+  it('links to route with view parameter set', () => {
     const wrapper = factory();
 
     const viewToggleLink = wrapper.find('[data-qa="search list view toggle"] a');
 
-    viewToggleLink.attributes('href').should.endWith('/search?view=list');
+    viewToggleLink.attributes('href').should.endWith('?view=list');
   });
 
   it('displays icon', () => {

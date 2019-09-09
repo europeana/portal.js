@@ -26,7 +26,7 @@ const searchResponse = {
 
 const entitiesResponse = {
   items: [
-    { type: 'Agent',
+    { type: 'Concept',
       id: 'http://data.europeana.eu/agent/base/147831',
       prefLabel: { en: 'Architecture' },
       note: {
@@ -37,7 +37,7 @@ const entitiesResponse = {
         source: 'http://commons.wikimedia.org/wiki/File:View_of_Santa_Maria_del_Fiore_in_Florence.jpg'
       }
     },
-    { type: 'Agent',
+    { type: 'Concept',
       id: 'http://data.europeana.eu/agent/base/49928',
       prefLabel: { en: 'Painting' }
     }
@@ -165,7 +165,7 @@ describe('plugins/europeana/entity', () => {
     describe('with an entity', () => {
       let entity = entitiesResponse.items[0];
       it('returns a description', () => {
-        const description = getEntityDescription('topic', entity);
+        const description = getEntityDescription(entity);
         return description.should.contain('Architecture');
       });
     });
