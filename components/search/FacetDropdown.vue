@@ -38,6 +38,7 @@
             <li
               v-for="(option, index) in sortOptions"
               :key="index"
+              :class="{ 'is-selected' : selected.some(s => s === option.label) }"
             >
               <input
                 :id="option.label"
@@ -195,6 +196,10 @@
 
       &::-webkit-scrollbar-thumb {
         background-color: grey;
+      }
+
+      .is-selected {
+        font-weight: bold;
       }
     }
   }
