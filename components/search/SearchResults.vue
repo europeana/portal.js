@@ -64,65 +64,61 @@
         cols="12"
         lg="9"
       >
-        <template
-          v-if="hasResults"
+        <b-row>
+          <b-col>
+            <PaginationNav
+              v-if="showPagination"
+              v-model="page"
+              :total-results="totalResults"
+              :per-page="perPage"
+              :link-gen="paginationLink"
+            />
+          </b-col>
+        </b-row>
+        <b-row
+          class="mb-3"
         >
-          <b-row>
-            <b-col>
-              <PaginationNav
-                v-if="showPagination"
-                v-model="page"
-                :total-results="totalResults"
-                :per-page="perPage"
-                :link-gen="paginationLink"
-              />
-            </b-col>
-          </b-row>
-          <b-row
-            class="mb-3"
-          >
-            <b-col>
-              <p
-                v-if="results.length === 0"
-                data-qa="warning notice"
-              >
-                {{ $t('noMoreResults') }}
-              </p>
-              <SearchResultsList
-                v-else-if="view === 'list'"
-                :results="results"
-              />
-              <SearchResultsGrid
-                v-else
-                :results="results"
-              />
-              <InfoMessage
-                v-if="lastAvailablePage"
-                :message="$t('resultsLimitWarning')"
-              />
-            </b-col>
-          </b-row>
-          <b-row>
-            <b-col>
-              <TierToggler
-                v-if="showContentTierToggle"
-                :active-state="contentTierActiveState"
-                @toggle="selectFacet"
-              />
-            </b-col>
-          </b-row>
-          <b-row>
-            <b-col>
-              <PaginationNav
-                v-if="showPagination"
-                v-model="page"
-                :total-results="totalResults"
-                :per-page="perPage"
-                :link-gen="paginationLink"
-              />
-            </b-col>
-          </b-row>
-        </template>
+          <b-col>
+            <p
+              v-if="results.length === 0"
+              data-qa="warning notice"
+            >
+              {{ $t('noMoreResults') }}
+            </p>
+            <SearchResultsList
+              v-else-if="view === 'list'"
+              :results="results"
+            />
+            <SearchResultsGrid
+              v-else
+              :results="results"
+            />
+            <InfoMessage
+              v-if="lastAvailablePage"
+              :message="$t('resultsLimitWarning')"
+            />
+          </b-col>
+        </b-row>
+        <b-row>
+          <b-col>
+            <TierToggler
+              v-if="showContentTierToggle"
+              :active-state="contentTierActiveState"
+              @toggle="selectFacet"
+            />
+          </b-col>
+        </b-row>
+        <b-row>
+          <b-col>
+            <PaginationNav
+              v-if="showPagination"
+              v-model="page"
+              :total-results="totalResults"
+              :per-page="perPage"
+              :link-gen="paginationLink"
+            />
+          </b-col>
+        </b-row>
       </b-col>
     </b-row>
   </b-container>
@@ -272,10 +268,18 @@
         return qfForSelectedFacets;
       },
       reusability() {
-        return this.selectedFacets['REUSABILITY'] ? this.selectedFacets['REUSABILITY'].join(',') : null;
+        if (this.selectedFacets['REUSABILITY'] && this.selectedFacets['REUSABILITY'].length > 0) {
+          return this.selectedFacets['REUSABILITY'].join(',');
+        } else {
+          return undefined;
+        }
       },
       theme() {
-        return this.selectedFacets['THEME'];
+        if (this.selectedFacets['THEME'] && this.selectedFacets['THEME'] !== '') {
+          return this.selectedFacets['THEME'];
+        } else {
+          return undefined;
+        }
       },
       showPagination() {
         return this.totalResults > this.perPage;
