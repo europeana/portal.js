@@ -23,10 +23,11 @@
         class="f-dropdown__dropdown"
       >
         <div
-          v-if="selected.length > 0"
-          class="f-dropdown__panel f-dropdown__panel--top">
+          v-if="preSelected.length > 0"
+          class="f-dropdown__panel f-dropdown__panel--top"
+        >
           <div class="selected">
-            {{ selected.join(' / ') }}
+            {{ preSelected.join(' / ') }}
           </div>
         </div>
         <div class="f-dropdown__menu">
@@ -35,12 +36,12 @@
             class="list-unstyled f-dropdown__list"
           >
             <li
-              v-for="(option, index) in facet.fields"
+              v-for="(option, index) in sortOptions"
               :key="index"
             >
               <input
                 :id="option.label"
-                v-model="selected"
+                v-model="preSelected"
                 :name="facet.name"
                 :value="option.label"
                 type="checkbox"
@@ -75,11 +76,11 @@
 </template>
 
 <script>
-  import ClickOutside from 'vue-click-outside';
+  import vClickOutside from 'v-click-outside';
 
   export default {
     directives: {
-      ClickOutside
+      clickOutside: vClickOutside.directive
     },
 
     props: {
@@ -98,23 +99,37 @@
     data() {
       return {
         selected: [],
+        preSelected: [],
         isActive: false
       };
     },
 
     computed: {
+      sortOptions() {
+        const newArray = [].concat(this.facet.fields);
+        newArray.map(field => {
+          if (this.selected.includes(field.label)) {
+            newArray.splice(newArray.indexOf(field), 1);
+            newArray.unshift(field);
+          }
+        });
+
+        return newArray;
+      },
+
       activateResetButton() {
-        return this.selected.length > 0;
+        return this.preSelected.length > 0;
       },
 
       activateApplyButton() {
-        return this.selected.length === this.selectedFacet.length;
+        return this.preSelected.length === this.selectedFacet.length;
       }
     },
 
     mounted() {
       if (this.selectedFacet.length > 0) {
         this.selected = this.selected.concat(this.selectedFacet);
+        this.preSelected = this.selected;
       }
     },
 
@@ -124,10 +139,11 @@
       },
 
       resetSelection() {
-        this.selected = [];
+        this.preSelected = [];
       },
 
       applySelection() {
+        this.selected = this.preSelected;
         this.$parent.$emit('updated', this.facet.name, this.selected);
         this.isActive = false;
       }
