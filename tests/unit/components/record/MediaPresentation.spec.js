@@ -95,7 +95,7 @@ describe('components/record/MediaPresentation', () => {
 
         wrapper.setProps(props);
 
-        wrapper.vm.isOEmbed.should.be.true;
+        wrapper.vm.isOEmbed.should.be.false;
       });
     });
 
