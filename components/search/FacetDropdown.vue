@@ -1,72 +1,50 @@
 <template>
-  <li
-    v-if="facet.name !== 'THEME'"
-    class="f-dropdown"
-    data-qa="facet-dropdown"
+  <b-dropdown
+    :text="facet.name"
+    :class="{ 'has-selected' : selected.length > 0 }"
   >
-    <div
-      v-click-outside="hide"
-      class="f-dropdown__wrap"
-    >
-      <button
-        class="f-dropdown__btn"
-        :class="{ 'has-selected' : selected.length > 0 }"
-        type="button"
-        aria-haspopup="true"
-        :aria-expanded="isActive"
-        @click="isActive = !isActive"
-      >
-        {{ facet.name }}
-      </button>
-
+    <b-dropdown-form class="options-container">
       <div
-        v-show="isActive"
-        class="f-dropdown__dropdown"
+        v-for="(option, index) in sortOptions"
+        :key="index"
       >
-        <div class="f-dropdown__menu">
-          <ul
-            role="menu"
-            class="list-unstyled f-dropdown__list"
-          >
-            <li
-              v-for="(option, index) in sortOptions"
-              :key="index"
-              :class="{ 'is-selected' : selected.some(s => s === option.label) }"
-            >
-              <input
-                :id="option.label"
-                v-model="preSelected"
-                :name="facet.name"
-                :value="option.label"
-                type="checkbox"
-              >
-              <label :for="option.label">
-                {{ option.label }}
-              </label>
-            </li>
-          </ul>
-        </div>
-        <div class="f-dropdown__panel float-right f-dropdown__panel--bottom">
-          <b-button
-            type="button"
-            variant="link"
-            :disabled="!activateResetButton"
-            @click="resetSelection()"
-          >
-            Reset
-          </b-button>
-          <b-button
-            type="button"
-            variant="primary"
-            :disabled="activateApplyButton"
-            @click="applySelection()"
-          >
-            Apply
-          </b-button>
-        </div>
+        <b-form-radio
+          v-if="facet.name === 'THEME'"
+          v-model="preSelected"
+          :value="option"
+        >
+          {{ option }}
+        </b-form-radio>
+
+        <b-form-checkbox
+          v-else
+          v-model="preSelected"
+          :value="option.label"
+          :class="{ 'is-selected' : selected.some(s => s === option.label) }"
+        >
+          {{ option.label }}
+        </b-form-checkbox>
       </div>
-    </div>
-  </li>
+    </b-dropdown-form>
+
+    <b-dropdown-divider />
+    <li>
+      <b-button
+        variant="link"
+        :disabled="!activateResetButton"
+        @click="resetSelection()"
+      >
+        Reset
+      </b-button>
+      <b-button
+        variant="primary"
+        :disabled="activateApplyButton"
+        @click="applySelection()"
+      >
+        Apply
+      </b-button>
+    </li>
+  </b-dropdown>
 </template>
 
 <script>
@@ -138,7 +116,7 @@
 
       applySelection() {
         this.selected = this.preSelected;
-        this.$parent.$emit('updated', this.facet.name, this.selected);
+        this.$emit('updated', this.facet.name, this.selected);
         this.isActive = false;
       }
     }
@@ -146,50 +124,29 @@
 </script>
 
 <style lang="scss" scoped>
-  .f-dropdown {
-    position: relative;
-    display: inline-flex;
-    vertical-align: middle;
-    margin-right: .5rem;
+  @import "./assets/scss/variables.scss";
 
-    &__btn {
-      &.has-selected {
-        background: white;
-        border: 1px solid;
-      }
+  .has-selected {
+    /deep/ > .btn {
+      background: $white;
+      color: $darkgrey;
+    }
+  }
+
+  .options-container {
+    overflow: auto;
+    max-height: 380px;
+
+    &::-webkit-scrollbar {
+      width: 4px;
     }
 
-    &__dropdown {
-      position: absolute;
-      background: white;
-      z-index: 1;
-      padding: 15px 0 15px 15px;
-      width: 280px;
+    &::-webkit-scrollbar-thumb {
+      background-color: grey;
     }
+  }
 
-    &__panel {
-      padding-right: 15px;
-
-      &--bottom {
-        padding-top: 15px;
-      }
-    }
-
-    &__menu {
-      overflow: auto;
-      max-height: 380px;
-
-      &::-webkit-scrollbar {
-        width: 4px;
-      }
-
-      &::-webkit-scrollbar-thumb {
-        background-color: grey;
-      }
-
-      .is-selected {
-        font-weight: bold;
-      }
-    }
+  .is-selected {
+    font-weight: bold;
   }
 </style>

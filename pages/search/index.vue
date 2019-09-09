@@ -50,9 +50,11 @@
     </b-row>
     <b-row>
       <b-col>
-        <FacetDropdowns
-          :facets="orderedFacets"
-          :selected-facets="selectedFacets"
+        <FacetDropdown
+          v-for="facet in orderedFacets"
+          :key="facet.name"
+          :facet="facet"
+          :selected-facet="selectedFacets[facet.name]"
           @updated="selectFacet"
         />
       </b-col>
@@ -142,7 +144,7 @@
   import AlertMessage from '../../components/generic/AlertMessage';
   import InfoMessage from '../../components/generic/InfoMessage';
   import SearchFacet from '../../components/search/SearchFacet';
-  import FacetDropdowns from '../../components/search/FacetDropdowns';
+  import FacetDropdown from '../../components/search/FacetDropdown';
   import SearchResultsGrid from '../../components/search/SearchResultsGrid';
   import SearchResultsList from '../../components/search/SearchResultsList';
   import SearchSelectedFacets from '../../components/search/SearchSelectedFacets';
@@ -169,7 +171,7 @@
       AlertMessage,
       InfoMessage,
       SearchFacet,
-      FacetDropdowns,
+      FacetDropdown,
       SearchResultsGrid,
       SearchResultsList,
       SearchSelectedFacets,
