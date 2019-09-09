@@ -11,7 +11,7 @@
     v-else
     data-qa="entity page"
   >
-    <b-row class="flex-column-reverse flex-md-row">
+    <b-row class="flex-md-row">
       <b-col
         cols="12"
         md="9"
@@ -21,13 +21,6 @@
           :depiction="depiction"
           :attribution="attribution"
           :description="description"
-        />
-        <BrowseChip
-          v-for="relatedEntity in relatedEntities"
-          :key="relatedEntity.path"
-          :path="relatedEntity.path"
-          :type="relatedEntity.type"
-          :title="relatedEntity.title"
         />
         <p
           v-if="searchResults.results && searchResults.results.length === 0"
@@ -43,24 +36,37 @@
           v-if="searchResults.lastAvailablePage"
           :message="$t('resultsLimitWarning')"
         />
-      </b-col>
-      <b-col
-        cols="12"
-        md="3"
-        class="pb-3"
-      >
-        <!-- TODO: batches/chips will go here -->
-      </b-col>
-    </b-row>
-    <b-row>
-      <b-col>
         <PaginationNav
           v-if="searchResults.totalResults > perPage"
           v-model="searchResults.page"
           :total-results="searchResults.totalResults"
           :per-page="perPage"
           :link-gen="paginationLink"
+          @changed="changeSearchPage"
         />
+      </b-col>
+      <b-col
+        cols="12"
+        md="3"
+        class="pb-3"
+      >
+        <ul
+          v-if="relatedEntities"
+          class="list-unstyled"
+        >
+          <BrowseChip
+            v-for="relatedEntity in relatedEntities"
+            :key="relatedEntity.path"
+            :link-to="localePath({
+              name: 'entity-type-all',
+              params: {
+                type: relatedEntity.type,
+                pathMatch: relatedEntity.path
+              }
+            })"
+            :title="relatedEntity.title"
+          />
+        </ul>
       </b-col>
     </b-row>
   </b-container>
@@ -183,6 +189,14 @@
         });
     },
     methods: {
+      async changeSearchPage(page) {
+        const searchResults = await search({
+          page,
+          query: `"${this.entity.id}"`,
+          wskey: process.env.EUROPEANA_API_KEY
+        });
+        this.searchResults = { ...searchResults, isLoading: false, page: Number(page) };
+      },
       paginationLink(val) {
         return this.localePath({
           name: 'entity-type-all', params: { type: entities.getEntityTypeHumanReadable(this.entity.type), pathMatch: entities.getEntitySlug(this.entity) }, query: { page: val }
@@ -193,7 +207,6 @@
       return {
         title: this.$t('entity')
       };
-    },
-    watchQuery: ['page']
+    }
   };
 </script>

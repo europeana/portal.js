@@ -42,7 +42,7 @@ describe('components/search/ViewToggles', () => {
 
     const viewToggleLink = wrapper.find('[data-qa="search list view toggle"] a');
 
-    viewToggleLink.attributes('href').should.endWith('/search?view=list');
+    viewToggleLink.attributes('href').should.contain('view=list');
   });
 
   it('displays icon', () => {

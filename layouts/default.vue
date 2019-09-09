@@ -38,7 +38,7 @@
       });
     },
     updated() {
-      if (!this.searchQuery.hasOwnProperty('view')) {
+      if (!Object.prototype.hasOwnProperty.call(this.searchQuery, 'view')) {
         this.searchQuery.view = sessionStorage.searchResultsView || localStorage.searchResultsView || 'grid';
       }
     }
