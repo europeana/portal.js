@@ -10,6 +10,7 @@
     >
       <button
         class="f-dropdown__btn"
+        :class="{ 'has-selected' : selected.length > 0 }"
         type="button"
         aria-haspopup="true"
         :aria-expanded="isActive"
@@ -158,6 +159,13 @@
     display: inline-flex;
     vertical-align: middle;
     margin-right: .5rem;
+
+    &__btn {
+      &.has-selected {
+        background: white;
+        border: 1px solid;
+      }
+    }
 
     &__dropdown {
       position: absolute;
