@@ -20,7 +20,7 @@
       </b-col>
     </b-row>
     <b-row
-      v-if="currentTotalResults === 0"
+      v-if="noResults"
       class="mb-3"
     >
       <b-col>
@@ -30,7 +30,7 @@
       </b-col>
     </b-row>
     <b-row
-      v-if="hasResults"
+      v-if="hasAnyResults"
       class="mb-3"
     >
       <b-col>
@@ -81,7 +81,7 @@
         >
           <b-col>
             <p
-              v-if="currentResults.length === 0"
+              v-if="noMoreResults"
               data-qa="warning notice"
             >
               {{ $t('noMoreResults') }}
@@ -240,8 +240,14 @@
       contentTierActiveState() {
         return Object.prototype.hasOwnProperty.call(this.selectedFacets, 'contentTier') && this.selectedFacets['contentTier'].includes('*');
       },
-      hasResults() {
-        return this.currentResults.length > 0 && this.currentTotalResults > 0;
+      hasAnyResults() {
+        return this.currentTotalResults > 0;
+      },
+      noMoreResults() {
+        return this.hasAnyResults && this.currentResults.length === 0;
+      },
+      noResults() {
+        return this.currentTotalResults === 0;
       },
       /**
        * Sort the facets from the API response
