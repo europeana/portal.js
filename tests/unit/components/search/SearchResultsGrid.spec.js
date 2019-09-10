@@ -1,35 +1,45 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
-import SearchResultsList from '../../../../components/search/SearchResultsList.vue';
+import SearchResultsGrid from '../../../../components/search/SearchResultsGrid.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
-const factory = () => shallowMount(SearchResultsList, {
+const factory = () => shallowMount(SearchResultsGrid, {
   localVue,
   mocks: {
     localePath: (opts) => `/record/${opts.params.pathMatch}`
   }
 });
 
-describe('components/search/SearchResultsList', () => {
+describe('components/search/SearchResultsGrid', () => {
   it('renders each result with a link', () => {
     const wrapper = factory();
     const results = [
       {
         linkTo: '/record/123/abc',
-        europeanaId: '/123/abc'
+        europeanaId: '/123/abc',
+        fields: {
+          dcTitle: [
+            'Record 123/abc'
+          ]
+        }
       },
       {
         linkTo: '/record/123/def',
-        europeanaId: '/123/def'
+        europeanaId: '/123/def',
+        fields: {
+          dcTitle: [
+            'Record 123/def'
+          ]
+        }
       }
     ];
 
     wrapper.setProps({ value: results });
     const renderedResults =  wrapper.findAll('[data-qa="search result"]');
 
-    renderedResults.at(0).attributes().to.should.eq(results[0].linkTo);
-    renderedResults.at(1).attributes().to.should.eq(results[1].linkTo);
+    renderedResults.at(0).attributes().url.should.eq(results[0].linkTo);
+    renderedResults.at(1).attributes().url.should.eq(results[1].linkTo);
   });
 });
