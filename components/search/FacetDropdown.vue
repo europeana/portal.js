@@ -1,7 +1,12 @@
 <template>
   <b-dropdown
+    ref="dropdown"
+    v-click-outside="triggerSelectionHandler"
+    :variant="hasSelection"
+    class="mr-2"
+    :data-type="facetType"
+    data-qa="dropdown"
     :text="facet.name"
-    :class="{ 'has-selected' : selected.length > 0 }"
   >
     <b-dropdown-form class="options-container">
       <div
@@ -9,9 +14,10 @@
         :key="index"
       >
         <b-form-radio
-          v-if="facet.name === 'THEME'"
-          v-model="preSelected"
-          :value="option"
+          v-if="facetType === 'radio'"
+          v-model="radioSelected"
+          :value="option === 'all' ? '' : option"
+          @input="applyRadioSelection()"
         >
           {{ option }}
         </b-form-radio>
@@ -27,8 +33,10 @@
       </div>
     </b-dropdown-form>
 
-    <b-dropdown-divider />
-    <li>
+    <li
+      v-if="facetType === 'checkbox'"
+      class="p-2 float-right"
+    >
       <b-button
         variant="link"
         :disabled="!activateResetButton"
@@ -62,17 +70,24 @@
       },
 
       selectedFacet: {
-        type: Array,
+        type: [Array, String],
         required: false,
         default: () => []
+      },
+
+      facetType: {
+        type: String,
+        required: true
       }
     },
 
     data() {
       return {
+        RADIO: 'radio',
+        THEME: 'THEME',
         selected: [],
         preSelected: [],
-        isActive: false
+        radioSelected: null
       };
     },
 
@@ -95,19 +110,33 @@
 
       activateApplyButton() {
         return this.preSelected.length === this.selectedFacet.length;
+      },
+
+      hasSelection() {
+        return this.selected.length > 0 || this.facetType === this.RADIO ? 'secondary' : 'light';
       }
     },
 
     mounted() {
-      if (this.selectedFacet.length > 0) {
+      if (this.facetType === this.RADIO) {
+        if (Array.isArray(this.selectedFacet)) {
+          this.radioSelected = '';
+        } else {
+          this.radioSelected = this.selectedFacet;
+        }
+      } else if (this.selectedFacet.length > 0) {
         this.selected = this.selected.concat(this.selectedFacet);
         this.preSelected = this.selected;
       }
     },
 
     methods: {
-      hide() {
-        this.isActive = false;
+      triggerSelectionHandler(event, el) {
+        if (el.dataset.type === this.RADIO) {
+          this.applyRadioSelection();
+        } else {
+          this.applySelection();
+        }
       },
 
       resetSelection() {
@@ -117,7 +146,12 @@
       applySelection() {
         this.selected = this.preSelected;
         this.$emit('updated', this.facet.name, this.selected);
-        this.isActive = false;
+        this.$refs.dropdown.hide(true);
+      },
+
+      applyRadioSelection() {
+        this.$emit('updated', this.THEME, this.radioSelected);
+        this.$refs.dropdown.hide(true);
       }
     }
   };
@@ -130,6 +164,14 @@
     /deep/ > .btn {
       background: $white;
       color: $darkgrey;
+    }
+  }
+
+  /deep/ .dropdown-menu {
+    min-width: 280px;
+
+    .custom-control  {
+      margin-bottom: 4px;
     }
   }
 

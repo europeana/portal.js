@@ -48,12 +48,13 @@
         />
       </b-col>
     </b-row>
-    <b-row>
+    <b-row class="mb-4">
       <b-col>
         <FacetDropdown
           v-for="facet in orderedFacets"
           :key="facet.name"
           :facet="facet"
+          :facet-type="facet.name === 'THEME' ? 'radio' : 'checkbox'"
           :selected-facet="selectedFacets[facet.name]"
           @updated="selectFacet"
         />
@@ -62,21 +63,7 @@
     <b-row
       class="mb-3"
     >
-      <b-col>
-        <SearchFacet
-          v-for="facet in orderedFacets"
-          :key="facet.name"
-          :name="facet.name"
-          :type="facet.name === 'THEME' ? 'radio' : 'checkbox'"
-          :fields="facet.fields"
-          :selected-fields="selectedFacets[facet.name]"
-          @changed="selectFacet"
-        />
-      </b-col>
-      <b-col
-        cols="12"
-        lg="9"
-      >
+      <b-col cols="12">
         <template
           v-if="hasResults"
         >
@@ -143,7 +130,6 @@
 <script>
   import AlertMessage from '../../components/generic/AlertMessage';
   import InfoMessage from '../../components/generic/InfoMessage';
-  import SearchFacet from '../../components/search/SearchFacet';
   import FacetDropdown from '../../components/search/FacetDropdown';
   import SearchResultsGrid from '../../components/search/SearchResultsGrid';
   import SearchResultsList from '../../components/search/SearchResultsList';
@@ -170,7 +156,6 @@
     components: {
       AlertMessage,
       InfoMessage,
-      SearchFacet,
       FacetDropdown,
       SearchResultsGrid,
       SearchResultsList,
