@@ -21,6 +21,7 @@ pipeline {
       }
       steps {
         configFileProvider([configFile(fileId: "portaljs.${env.CF_SPACE}.env", targetLocation: '.env')]) {
+          sh 'rm -r node_modules'
           sh 'npm install'
           sh 'npm run build'
         }
@@ -42,6 +43,18 @@ pipeline {
         sh 'cf login -a ${CF_API} -u ${CF_LOGIN_USR} -p "${CF_LOGIN_PSW}" -o ${CF_ORG} -s ${CF_SPACE}'
       }
     }
+    stage('Deploy to CF') {
+      environment {
+        CF_APP_NAME="portaljs${env.CF_SPACE == 'production' ? '' : '-' + env.CF_SPACE}"
+        CTF_CPA_ACCESS_TOKEN=credentials("portaljs.${env.CF_SPACE}.contentful.cpa")
+      }
+      steps {
+        sh 'echo "services:" >> manifest.yml'
+        sh 'echo "  - elastic-apm" >> manifest.yml'
+        sh 'sed -i "s|env:|env:\\n  CTF_CPA_ACCESS_TOKEN: ${CTF_CPA_ACCESS_TOKEN}|" manifest.yml'
+        sh 'cf blue-green-deploy ${CF_APP_NAME} -f manifest.yml --delete-old-apps'
+      }
+    }
     stage('Deploy Storybook') {
       when {
         environment name: 'CF_SPACE', value: 'test'
@@ -50,16 +63,6 @@ pipeline {
         sh 'npm run build-storybook'
         sh 'echo "---\\nbuildpack: staticfile_buildpack\\nmemory: 64M\\nstack: cflinuxfs3" > storybook-static/manifest.yml'
         sh 'cd storybook-static && cf blue-green-deploy portaljs-storybook -f manifest.yml --delete-old-apps'
-      }
-    }
-    stage('Deploy to CF') {
-      environment {
-        CF_APP_NAME="portaljs${env.CF_SPACE == 'production' ? '' : '-' + env.CF_SPACE}"
-      }
-      steps {
-        sh 'echo "services:" >> manifest.yml'
-        sh 'echo "  - elastic-apm" >> manifest.yml'
-        sh 'cf blue-green-deploy ${CF_APP_NAME} -f manifest.yml --delete-old-apps'
       }
     }
   }

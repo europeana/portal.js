@@ -14,31 +14,23 @@
   >
     <b-row class="mb-3 mediacard">
       <b-col
-        v-if="image.src"
         cols="12"
-        md="4"
-        class="pl-0"
+        class="px-0 mb-3"
       >
-        <MediaImage
-          v-if="!mediaPlayerEnabled"
-          :link="image.link"
-          :src="image.src"
+        <MediaPresentation
+          :codec-name="edmIsShownBy.edmCodecName"
+          :image-link="image.link"
+          :image-src="image.src"
+          :mime-type="edmIsShownBy.ebucoreHasMimeType"
+          :url="edmIsShownBy.about"
+          :width="edmIsShownBy.ebucoreWidth"
+          :height="edmIsShownBy.ebucoreHeight"
+          :duration="edmIsShownBy.ebucoreDuration/1000"
         />
-        <MediaPlayer
-          v-if="mediaPlayerEnabled"
-          :source="play"
-        />
-        <p>
-          <b-link
-            v-if="pdf"
-            :href="pdf"
-            target="_blank"
-          >
-            View PDF
-          </b-link>
-        </p>
       </b-col>
-      <b-col>
+      <b-col
+        cols="12"
+      >
         <MetadataField
           v-for="(value, name) in fields"
           :key="name"
@@ -63,8 +55,7 @@
   import AlertMessage from '../../components/generic/AlertMessage';
   import WebResources from '../../components/record/WebResources';
   import MetadataField from '../../components/record/MetadataField';
-  import MediaImage from '../../components/record/MediaImage';
-  import MediaPlayer from '../../components/record/MediaPlayer';
+  import MediaPresentation from '../../components/record/MediaPresentation';
 
   import getRecord from '../../plugins/europeana/record';
 
@@ -73,30 +64,22 @@
       AlertMessage,
       WebResources,
       MetadataField,
-      MediaImage,
-      MediaPlayer
+      MediaPresentation
     },
-    data () {
+    data() {
       return {
         error: null,
         image: null,
         fields: null,
         media: null,
-        pdf: null,
-        play: {}
+        edmIsShownBy: {}
       };
     },
-    computed: {
-      mediaPlayerEnabled: function() {
-        let enabled = this.play.playerType === 'video' && this.play.url && this.play.duration;
-        return enabled;
-      }
-    },
-    asyncData ({ env, params, res }) {
+    asyncData({ env, params, res }) {
       return getRecord(`/${params.pathMatch}`, {
         wskey: env.EUROPEANA_API_KEY
       }).then((result) => {
-        return { image: result.record.image, pdf: result.record.pdfLink, fields: result.record.fields, media: result.record.media, play: result.record.play };
+        return result.record;
       })
         .catch((err) => {
           if (typeof res !== 'undefined') {
@@ -105,7 +88,7 @@
           return { error: err.message };
         });
     },
-    head () {
+    head() {
       return {
         title: this.$t('record')
       };
@@ -123,4 +106,3 @@
     padding: 1rem;
   }
 </style>
-

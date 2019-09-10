@@ -134,7 +134,7 @@ export function selectedFacetsFromQuery(query) {
     for (const qf of [query.qf].flat()) {
       const qfParts = qf.split(':');
       const facetName = qfParts[0];
-      const facetValue = qfParts[1].slice(1, -1);
+      const facetValue = qfParts[1].match(/^".*"$/) ? qfParts[1].slice(1, -1) : qfParts[1]; // Slice only if double quotes exist
       if (typeof selectedFacets[facetName] === 'undefined') {
         selectedFacets[facetName] = [];
       }
@@ -172,18 +172,18 @@ function search(params) {
   const rows = Math.max(0, Math.min(maxResults + 1 - start, perPage));
 
   return axios.get('https://api.europeana.eu/api/v2/search.json', {
-    paramsSerializer: function (params) {
+    paramsSerializer(params) {
       return qs.stringify(params, { arrayFormat: 'repeat' });
     },
     params: {
       profile: 'minimal,facets',
       facet: params.facet,
-      query: params.query == '' ? '*:*' : params.query,
-      qf: params.qf,
+      query: params.query === '' ? '*:*' : params.query,
+      qf: qfHandler(params.qf),
       reusability: params.reusability,
       theme: params.theme,
-      rows: rows,
-      start: start,
+      rows,
+      start,
       wskey: params.wskey
     }
   })
@@ -200,6 +200,27 @@ function search(params) {
       const message = error.response ? error.response.data.error : error.message;
       throw new Error(message);
     });
+}
+
+/**
+ * Apply content tier filtering to the qf param.
+ * If not present will filter to tier 1-4 content.
+ * If present and of value '*' will be removed.
+ * If present and any other value will be passed along as is.
+ * @param {(string|string[])} params.qf query filter(s) as passed into the search plugin.
+ * @return {string[]} qf adjusted with the desired content tier filter
+ */
+export function qfHandler(qf) {
+  let newQf = qf ? [].concat(qf) : [];
+  if (!newQf.some(v => /^contentTier:/.test(v))) {
+    // If no content tier qf is queried, tier 0 content is
+    // excluded by default as it is considered not to meet
+    // Europeana's publishing criteria.
+    newQf.push('contentTier:(1 OR 2 OR 3 OR 4)');
+  }
+  // contentTier:* is irrelevant so is removed
+  newQf = newQf.filter(v => v !== 'contentTier:*');
+  return newQf;
 }
 
 export default search;

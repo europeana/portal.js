@@ -62,6 +62,6 @@ Feature: Search pagination
 
   Scenario: Paginating beyond available results
 
-    When I open `/search?query=title%3Amilkmaid&page=10`
+    When I open `/search?query=title%3Amountain%20fort&page=10`
     Then I see a `warning notice` with the text "no more results"
     And I see a `pagination navigation`

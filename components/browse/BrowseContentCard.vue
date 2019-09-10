@@ -4,7 +4,6 @@
     :texts="texts"
     :url="destination"
     :image-url="imageUrl"
-    :view-more-label-key="moreLabelKey"
   />
 </template>
 
@@ -24,10 +23,10 @@
       }
     },
     computed: {
-      title: function () {
+      title() {
         return this.fields.name;
       },
-      imageUrl: function () {
+      imageUrl() {
         if (this.fields.thumbnailUrl) {
           return this.fields.thumbnailUrl;
         } else if (typeof this.fields.image === 'string') {
@@ -36,31 +35,27 @@
           } else {
             return this.fields.image;
           }
-        } else if (this.fields.image && this.fields.image.fields) {
+        } else if (this.fields.image && this.fields.image.fields && this.fields.image.fields.file) {
           return this.fields.image.fields.file.url;
         } else {
           return '';
         }
       },
-      moreLabelKey: function () {
-        // TODO: Allow arbitrary value overwrites per card via the CMS.
-        return this.forEuropeanaRecord() ? 'goToRecord' : 'readMore';
-      },
-      destination: function () {
+      destination() {
         if (this.fields.url) {
           return this.fields.url;
         } else if (this.forEuropeanaRecord()) {
           return this.recordRouterLink(this.fields.identifier);
         } else if (typeof this.fields.identifier === 'string' && /^https?:\/\//.test(this.fields.identifier)) {
           if (this.forEuropeanaEntity()) {
-            return this.entityRouterLink(this.fields.identifier);
+            return this.entityRouterLink(this.fields.identifier, this.fields.slug);
           } else {
             return this.fields.identifier;
           }
         }
         return '';
       },
-      texts: function () {
+      texts() {
         // TODO: Refactor content model to set this directly, so this method can be skipped.
         let texts = [];
         for (const field of ['description', 'creator', 'provider']) {
@@ -72,19 +67,19 @@
       }
     },
     methods: {
-      forEuropeanaRecord: function () {
+      forEuropeanaRecord() {
         return (typeof this.fields.identifier === 'string') && isEuropeanaRecordId(this.fields.identifier);
       },
-      forEuropeanaEntity: function () {
+      forEuropeanaEntity() {
         return (typeof this.fields.identifier === 'string') && this.fields.identifier.includes('://data.europeana.eu/');
       },
-      entityRouterLink: function (uri) {
+      entityRouterLink(uri, slug) {
         const uriMatch = uri.match('^http://data.europeana.eu/([^/]+)(/base)?/(.+)$');
         return this.localePath({
-          name: 'entity-type-all', params: { type: getEntityTypeHumanReadable(uriMatch[1]), pathMatch: uriMatch[3] } }
+          name: 'entity-type-all', params: { type: getEntityTypeHumanReadable(uriMatch[1]), pathMatch: slug ? slug : uriMatch[3] } }
         );
       },
-      recordRouterLink: function (identifier) {
+      recordRouterLink(identifier) {
         return this.localePath({ name: 'record-all', params: { pathMatch: identifier.slice(1) } });
       }
     }

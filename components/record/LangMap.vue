@@ -21,26 +21,26 @@
     props: {
       value: {
         type: Object,
-        default: function() {
+        default() {
           return {};
         }
       },
       prioritisedLanguages: {
         type: Array,
-        default: function() {
+        default() {
           return ['eng', 'en'];
         }
       }
     },
     computed: {
       // TODO: move to a plugin? or a filter?
-      mapContent: function() {
+      mapContent() {
         const langMap = this.value;
 
         let listOfValues = [];
         for (let key in langMap) {
           // "und" is the ISO 639-2 code for undetermined language
-          const contentLang = key == 'def' ? 'und' : key;
+          const contentLang = (key === 'def' ? 'und' : key);
           for (let singleValue of langMap[key]) {
             if (this.prioritisedLanguages.includes(key)) {
               listOfValues.unshift({ content: singleValue, lang: contentLang });

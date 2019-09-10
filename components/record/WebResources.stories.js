@@ -8,14 +8,14 @@ storiesOf('Record page', module)
     data() {
       return { media: [
         {
-          rdfAbout: 'http://www.topfoto.co.uk/imageflows2/preview?EU017407',
+          about: 'http://www.topfoto.co.uk/imageflows2/preview?EU017407',
           edmRights: {
             'def': [
               'http://rightsstatements.org/vocab/InC/1.0/'
             ]
           }
         },
-        { rdfAbout: 'http://www.topfoto.co.uk/imageflows/imagepreview/f=EU017407' }
+        { about: 'http://www.topfoto.co.uk/imageflows/imagepreview/f=EU017407' }
       ] };
     },
     template: ` <b-container

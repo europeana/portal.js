@@ -24,7 +24,7 @@
         <pre v-if="!Array.isArray(value)">
           <code>{{ value }}</code>
         </pre>
-        <template v-else-if="value.length == 1">
+        <template v-else-if="value.length === 1">
           {{ value[0] }}
         </template>
         <ul v-else>
@@ -54,13 +54,13 @@
       }
     },
     methods: {
-      displayableValues: function (values) {
+      displayableValues(values) {
         if (Array.isArray(values)) {
           return values.slice(0, 3);
         }
         return values;
       },
-      trimmedValueArray: function (values) {
+      trimmedValueArray(values) {
         if (Array.isArray(values)) {
           return values.length > 3;
         }

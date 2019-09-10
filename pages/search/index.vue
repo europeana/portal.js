@@ -85,13 +85,13 @@
           >
             <b-col>
               <p
-                v-if="results.length == 0"
+                v-if="results.length === 0"
                 data-qa="warning notice"
               >
                 {{ $t('noMoreResults') }}
               </p>
               <SearchResultsList
-                v-else-if="view == 'list'"
+                v-else-if="view === 'list'"
                 :results="results"
               />
               <SearchResultsGrid
@@ -101,6 +101,14 @@
               <InfoMessage
                 v-if="lastAvailablePage"
                 :message="$t('resultsLimitWarning')"
+              />
+            </b-col>
+          </b-row>
+          <b-row>
+            <b-col>
+              <TierToggler
+                :active-state="contentTierActiveState"
+                @toggle="selectFacet"
               />
             </b-col>
           </b-row>
@@ -130,18 +138,20 @@
   import SearchSelectedFacets from '../../components/search/SearchSelectedFacets';
   import PaginationNav from '../../components/generic/PaginationNav';
   import ViewToggles from '../../components/search/ViewToggles';
+  import TierToggler from '../../components/search/TierToggler';
   import search, { pageFromQuery, selectedFacetsFromQuery } from '../../plugins/europeana/search';
 
   let watchList = {};
   for (const property of ['qf', 'query', 'reusability', 'view', 'theme']) {
     watchList[property] = {
       immediate: true,
-      handler: function (val) {
+      handler(val) {
         this.$root.$emit('updateSearchQuery', this.updateCurrentSearchQuery({ [property]: val }));
       }
     };
   }
 
+  const facetsToDisplay = [ 'COUNTRY', 'REUSABILITY', 'TYPE' ];
   const thematicCollections = [ 'all', 'ww1',  'archaeology', 'art', 'fashion', 'manuscript', 'map', 'migration', 'music', 'nature', 'newspaper', 'photography', 'sport'];
 
   export default {
@@ -153,7 +163,8 @@
       SearchResultsList,
       SearchSelectedFacets,
       PaginationNav,
-      ViewToggles
+      ViewToggles,
+      TierToggler
     },
     props: {
       perPage: {
@@ -161,7 +172,7 @@
         default: 24
       }
     },
-    data () {
+    data() {
       return {
         error: null,
         facets: [],
@@ -180,7 +191,7 @@
       };
     },
     computed: {
-      hasResults: function() {
+      hasResults() {
         return this.results !== null && this.totalResults > 0;
       },
       /**
@@ -190,7 +201,7 @@
        * @return {Object[]} ordered facets
        * TODO: does this belong in its own component?
        */
-      orderedFacets: function () {
+      orderedFacets() {
         if (!this.facets) {
           return [];
         }
@@ -200,7 +211,7 @@
 
         for (const facetName of order) {
           const index = unordered.findIndex((f) => {
-            return f.name == facetName;
+            return f.name === facetName;
           });
           if (index !== -1) {
             ordered = ordered.concat(unordered.splice(index, 1));
@@ -209,25 +220,31 @@
 
         ordered.unshift({ name: 'THEME', fields: thematicCollections });
         return ordered.concat(unordered);
+      },
+
+      contentTierActiveState() {
+        return Object.prototype.hasOwnProperty.call(this.selectedFacets, 'contentTier') && this.selectedFacets['contentTier'].includes('*');
       }
     },
     watch: watchList,
-    asyncData ({ env, query, res, redirect, app }) {
+    asyncData({ env, query, res, redirect, app }) {
       const currentPage = pageFromQuery(query.page);
+
       if (currentPage === null) {
         // Redirect non-positive integer values for `page` to `page=1`
         query.page = '1';
-        return redirect(app.localePath({ name: 'search', query: query }));
+        return redirect(app.localePath({ name: 'search', query }));
       }
 
       if (typeof query.query === 'undefined') {
-        return;
+        query.query = '';
+        return redirect(app.localePath({ name: 'search', query }));
       }
 
       return search({
         page: currentPage,
         query: query.query,
-        facet: 'COUNTRY,REUSABILITY,TYPE',
+        facet: facetsToDisplay.join(','),
         qf: query.qf,
         reusability: query.reusability,
         theme: query.theme,
@@ -288,12 +305,12 @@
         this.isLoading = true;
         this.$router.push(this.localePath({ name: 'search', query: this.updateCurrentSearchQuery(queryUpdates) }));
       },
-      paginationLink (val) {
+      paginationLink(val) {
         return this.localePath({
           name: 'search', query: this.updateCurrentSearchQuery({ page: val })
         });
       },
-      selectFacet (name, selected) {
+      selectFacet(name, selected) {
         this.$set(this.selectedFacets, name, selected);
         this.qfForSelectedFacets = [];
         this.reusability = null;
@@ -307,20 +324,24 @@
             this.theme = selectedValues;
           } else {
             for (const facetValue of selectedValues) {
-              this.qfForSelectedFacets.push(`${facetName}:"${facetValue}"`);
+              if (facetsToDisplay.includes(facetName)) {
+                this.qfForSelectedFacets.push(`${facetName}:"${facetValue}"`);
+              } else {
+                this.qfForSelectedFacets.push(`${facetName}:${facetValue}`);
+              }
             }
           }
         }
         this.rerouteSearch({ qf: this.qfForSelectedFacets, reusability: this.reusability, theme: this.theme, page: '1' });
       },
-      selectView (view) {
+      selectView(view) {
         if (process.browser) {
           sessionStorage.searchResultsView = view;
           localStorage.searchResultsView = view;
         }
         this.view = view;
       },
-      selectedView: function () {
+      selectedView() {
         if (process.browser) {
           if (this.$route.query.view) {
             sessionStorage.searchResultsView = this.$route.query.view;
@@ -330,12 +351,12 @@
         return this.$route.query.view || 'grid';
       }
     },
-    head () {
+    head() {
       return {
         title: 'Search'
       };
     },
-    beforeRouteLeave (to, from, next) {
+    beforeRouteLeave(to, from, next) {
       this.$root.$emit('leaveSearchPage');
       next();
     },

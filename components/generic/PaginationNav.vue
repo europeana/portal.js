@@ -9,6 +9,7 @@
     size="sm"
     align="center"
     data-qa="pagination navigation"
+    @change="pageChanged"
   />
 </template>
 
@@ -44,13 +45,13 @@
         }
       }
     },
-    data () {
+    data() {
       return {
         currentPage: this.value
       };
     },
     computed: {
-      totalPages: function () {
+      totalPages() {
         return Math.ceil(Math.min(Math.max(this.totalResults, 1), maxResults) / this.perPage);
       }
     },
@@ -60,6 +61,11 @@
         handler(val) {
           this.currentPage = val;
         }
+      }
+    },
+    methods: {
+      pageChanged(page) {
+        this.$emit('changed', page);
       }
     }
   };

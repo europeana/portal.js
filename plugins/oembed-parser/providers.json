@@ -1,0 +1,50 @@
+[
+  {
+    "provider_name": "Sketchfab",
+    "provider_url": "http://sketchfab.com",
+    "endpoints": [
+      {
+        "schemes": [
+          "http://sketchfab.com/models/*",
+          "https://sketchfab.com/models/*",
+          "https://sketchfab.com/*/folders/*"
+        ],
+        "url": "http://sketchfab.com/oembed",
+        "formats": [
+          "json"
+        ]
+      }
+    ]
+  },
+  {
+    "provider_name": "SoundCloud",
+    "provider_url": "http://soundcloud.com/",
+    "endpoints": [
+      {
+        "schemes": [
+          "http://soundcloud.com/*",
+          "https://soundcloud.com/*"
+        ],
+        "url": "https://soundcloud.com/oembed"
+      }
+    ]
+  },
+  {
+    "provider_name": "Vimeo",
+    "provider_url": "https://vimeo.com/",
+    "endpoints": [
+      {
+        "schemes": [
+          "https://vimeo.com/*",
+          "https://vimeo.com/album/*/video/*",
+          "https://vimeo.com/channels/*/*",
+          "https://vimeo.com/groups/*/videos/*",
+          "https://vimeo.com/ondemand/*/*",
+          "https://player.vimeo.com/video/*"
+        ],
+        "url": "https://vimeo.com/api/oembed.{format}",
+        "discovery": true
+      }
+    ]
+  }
+]

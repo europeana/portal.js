@@ -7,26 +7,32 @@
 <script>
   export default {
     props: {
-      source: {
-        type: Object,
-        default: () => {}
+      src: {
+        type: String,
+        default: null,
+        require: true
+      },
+      duration: {
+        type: Number,
+        default: null,
+        require: true
       }
     },
-    created () {
+    created() {
       console.log('created');
       if (process.browser) {
         this.initPlayer();
       }
     },
     methods: {
-      videoObject: function() {
+      videoObject() {
         return {
-          source: this.source.url,
-          duration: this.source.duration,
-          id: this.source.url
+          source: this.src,
+          duration: this.duration,
+          id: this.src
         };
       },
-      initPlayer () {
+      initPlayer() {
         let component = document.getElementById('playerElement');
         const EuropeanaMediaPlayer = require('europeana-media-player').default;
         new EuropeanaMediaPlayer(component, this.videoObject());

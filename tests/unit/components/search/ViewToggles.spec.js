@@ -42,7 +42,7 @@ describe('components/search/ViewToggles', () => {
 
     const viewToggleLink = wrapper.find('[data-qa="search list view toggle"] a');
 
-    viewToggleLink.attributes('href').should.endWith('/search?view=list');
+    viewToggleLink.attributes('href').should.contain('view=list');
   });
 
   it('displays icon', () => {
@@ -53,7 +53,7 @@ describe('components/search/ViewToggles', () => {
     viewToggleIcon.attributes('src').should.match(/\/grid\.([^/]+\.)?svg$/);
   });
 
-  it('emits `changed` event when selected', async () => {
+  it('emits `changed` event when selected', async() => {
     const wrapper = factory();
 
     const viewToggle = wrapper.find('[data-qa="search list view toggle"] img');

@@ -11,24 +11,16 @@
     v-else
     data-qa="entity page"
   >
-    <b-row>
-      <b-col>
-        <h1 data-qa="entity title">
-          {{ title }}
-        </h1>
-      </b-col>
-    </b-row>
-    <b-row class="flex-column-reverse flex-md-row">
+    <b-row class="flex-md-row">
       <b-col
         cols="12"
         md="9"
       >
-        <BrowseChip
-          v-for="relatedEntity in relatedEntities"
-          :key="relatedEntity.path"
-          :path="relatedEntity.path"
-          :type="relatedEntity.type"
-          :title="relatedEntity.title"
+        <EntityDetails
+          :title="title"
+          :depiction="depiction"
+          :attribution="attribution"
+          :description="description"
         />
         <p
           v-if="searchResults.results && searchResults.results.length === 0"
@@ -44,28 +36,37 @@
           v-if="searchResults.lastAvailablePage"
           :message="$t('resultsLimitWarning')"
         />
-      </b-col>
-      <b-col
-        cols="12"
-        md="3"
-        class="pb-3"
-      >
-        <EntityDetails
-          :depiction="depiction"
-          :attribution="attribution"
-          :description="description"
-        />
-      </b-col>
-    </b-row>
-    <b-row>
-      <b-col>
         <PaginationNav
           v-if="searchResults.totalResults > perPage"
           v-model="searchResults.page"
           :total-results="searchResults.totalResults"
           :per-page="perPage"
           :link-gen="paginationLink"
+          @changed="changeSearchPage"
         />
+      </b-col>
+      <b-col
+        cols="12"
+        md="3"
+        class="pb-3"
+      >
+        <ul
+          v-if="relatedEntities"
+          class="list-unstyled"
+        >
+          <BrowseChip
+            v-for="relatedEntity in relatedEntities"
+            :key="relatedEntity.path"
+            :link-to="localePath({
+              name: 'entity-type-all',
+              params: {
+                type: relatedEntity.type,
+                pathMatch: relatedEntity.path
+              }
+            })"
+            :title="relatedEntity.title"
+          />
+        </ul>
       </b-col>
     </b-row>
   </b-container>
@@ -99,7 +100,7 @@
         default: 24
       }
     },
-    data () {
+    data() {
       return {
         error: null,
         title: null,
@@ -119,11 +120,11 @@
       };
     },
     computed: {
-      hasResults: function () {
+      hasResults() {
         return this.searchResults.results !== null && this.searchResults.totalResults > 0;
       }
     },
-    asyncData ({ env, query, params, res, redirect, app }) {
+    asyncData({ env, query, params, res, redirect, app }) {
       const currentPage = pageFromQuery(query.page);
       if (currentPage === null) {
         // Redirect non-positive integer values for `page` to `page=1`
@@ -188,17 +189,24 @@
         });
     },
     methods: {
-      paginationLink (val) {
+      async changeSearchPage(page) {
+        const searchResults = await search({
+          page,
+          query: `"${this.entity.id}"`,
+          wskey: process.env.EUROPEANA_API_KEY
+        });
+        this.searchResults = { ...searchResults, isLoading: false, page: Number(page) };
+      },
+      paginationLink(val) {
         return this.localePath({
           name: 'entity-type-all', params: { type: entities.getEntityTypeHumanReadable(this.entity.type), pathMatch: entities.getEntitySlug(this.entity) }, query: { page: val }
         });
       }
     },
-    head () {
+    head() {
       return {
         title: this.$t('entity')
       };
-    },
-    watchQuery: ['page']
+    }
   };
 </script>

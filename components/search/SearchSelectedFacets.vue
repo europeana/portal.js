@@ -7,7 +7,10 @@
       class="mr-2"
       data-qa="filter badge"
     >
-      <template v-if="$te(`facets.${selectedFacet.facetName}.options`)">
+      <template v-if="selectedFacet.facetName === 'contentTier' && selectedFacet.fieldValue === '*'">
+        {{ $t(`facets.${selectedFacet.facetName}.name`) }}
+      </template>
+      <template v-else-if="$te(`facets.${selectedFacet.facetName}.options`)">
         {{ $t('formatting.labelledValue', { label: $t(`facets.${selectedFacet.facetName}.name`), value: $t(`facets.${selectedFacet.facetName}.options.${selectedFacet.fieldValue}`)}) }}
       </template>
       <template v-else>
@@ -26,18 +29,18 @@
       }
     },
     computed: {
-      facetList: function() {
+      facetList() {
         let listOfFacets = [];
         for (let facetName in this.facets) {
 
           if (typeof this.facets[facetName] === 'string') {
             let fieldValue = this.facets[facetName] ? this.facets[facetName] : 'all';
-            listOfFacets.push({ key: `${facetName}:${fieldValue}`, facetName: facetName, fieldValue: fieldValue });
+            listOfFacets.push({ key: `${facetName}:${fieldValue}`, facetName, fieldValue });
           }
 
           for (let fieldValue of this.facets[facetName]) {
             if (typeof this.facets[facetName] !== 'string') {
-              listOfFacets.push({ key: `${facetName}:${fieldValue}`, facetName: facetName, fieldValue: fieldValue });
+              listOfFacets.push({ key: `${facetName}:${fieldValue}`, facetName, fieldValue });
             }
           }
         }

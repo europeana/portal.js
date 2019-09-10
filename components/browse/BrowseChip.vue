@@ -1,28 +1,26 @@
 <template>
-  <b-badge
-    v-if="title"
-    :to="localePath({ name: 'entity-type-all', params: { type: type, pathMatch: path }})"
-    pill
-    variant="nocolor"
-    class="mb-3 mr-3 font-weight-normal bg-transparent"
-    data-qa="browse chip"
-  >
-    {{ title }}
-  </b-badge>
+  <li>
+    <b-badge
+      v-if="title"
+      :to="linkTo"
+      pill
+      variant="nocolor"
+      class="mb-3 mr-3 font-weight-normal bg-transparent"
+      data-qa="browse chip"
+    >
+      {{ title }}
+    </b-badge>
+  </li>
 </template>
 
 <script>
   export default {
     props: {
-      path: {
-        type: String,
-        default: ''
+      linkTo: {
+        type: [String, Object],
+        required: true
       },
       title: {
-        type: String,
-        default: ''
-      },
-      type: {
         type: String,
         default: ''
       }
@@ -36,7 +34,7 @@
   .badge-nocolor {
     border: 1px solid $darkgrey;
     color: $black;
-    font-size: 0.875rem;
+    font-size: $font-size-small;
     height: 4rem;
     line-height: 3.5rem;
     min-width: 6rem;

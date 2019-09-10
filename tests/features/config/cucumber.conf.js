@@ -15,7 +15,7 @@ setDefaultTimeout(100000);
 // Before running cucumber make sure the test server and webdriver are running.
 // The test server is started by the test script in package.json.
 // The web driver is started in this before block.
-BeforeAll(async () => {
+BeforeAll(async() => {
   const testServer = `${host}:${port}`;
   const browserEnv = process.env.browser || 'gecko';
 
@@ -35,7 +35,7 @@ BeforeAll(async () => {
   await createSession({ configFile: 'tests/features/config/nightwatch.conf.js', env: browserEnv });
 });
 
-AfterAll(async () => {
+AfterAll(async() => {
   await closeSession();
   await stopWebDriver();
 });

@@ -33,4 +33,12 @@ describe('components/search/SearchSelectedFacets', () => {
     const badge = wrapper.find('.badge');
     badge.text().should.eq('formatting.labelledValue: {"label":"facets.TYPE.name: undefined","value":"IMAGE"}');
   });
+
+  it('shows a customised badge when it displays content tier', () => {
+    const wrapper = factory();
+    wrapper.setProps({ facets: { contentTier: ['*'] } });
+
+    const badge = wrapper.find('.badge');
+    badge.text().should.eq('facets.contentTier.name: undefined');
+  });
 });

@@ -7,10 +7,7 @@
     >
       {{ $t('layout.skipToMain') }}
     </a>
-    <PageHeader
-      :lang-select-enabled="langSelectEnabled"
-      :search-query="searchQuery"
-    />
+    <PageHeader :search-query="searchQuery" />
     <nuxt
       id="main"
     />
@@ -27,17 +24,12 @@
       PageHeader,
       PageFooter
     },
-    data () {
+    data() {
       return {
         searchQuery: this.$route.query || {}
       };
     },
-    computed: {
-      langSelectEnabled() {
-        return process.env.ENABLE_LANG_SELECT === 'true';
-      }
-    },
-    created () {
+    created() {
       this.$root.$on('leaveSearchPage', () => {
         this.searchQuery = {};
       });
@@ -45,8 +37,8 @@
         this.searchQuery = val;
       });
     },
-    updated () {
-      if (!this.searchQuery.hasOwnProperty('view')) {
+    updated() {
+      if (!Object.prototype.hasOwnProperty.call(this.searchQuery, 'view')) {
         this.searchQuery.view = sessionStorage.searchResultsView || localStorage.searchResultsView || 'grid';
       }
     }
