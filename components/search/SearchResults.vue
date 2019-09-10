@@ -143,7 +143,6 @@
   let watchList = {};
   for (const property of ['qf', 'query', 'reusability', 'view', 'theme']) {
     watchList[property] = {
-      immediate: true,
       handler(val) {
         this.$root.$emit('updateSearchQuery', this.updateCurrentSearchQuery({ [property]: val }));
       }
@@ -152,8 +151,11 @@
   for (const property of ['currentPage', 'currentQuery', 'currentSelectedFacets']) {
     watchList[property] = {
       deep: true,
-      immediate: true,
       handler() {
+        if (property !== 'currentPage') {
+          this.currentPage = 1;
+        }
+        this.rerouteSearch(this.updateCurrentSearchQuery());
         this.updateResults();
       }
     };
@@ -319,6 +321,7 @@
     created() {
       this.$root.$on('submit:searchForm', (query) => {
         this.currentQuery = query;
+        this.currentPage = 1;
       });
     },
     methods: {
@@ -346,7 +349,6 @@
       },
       selectFacet(name, selected) {
         this.$set(this.currentSelectedFacets, name, selected);
-        this.rerouteSearch({ qf: this.qf, reusability: this.reusability, theme: this.theme, page: '1' });
       },
       selectView(view) {
         if (process.browser) {
@@ -355,7 +357,7 @@
         }
         this.view = view;
       },
-      updateCurrentSearchQuery(updates) {
+      updateCurrentSearchQuery(updates = {}) {
         const current = {
           page: this.currentPage || '1',
           qf: this.qf,
