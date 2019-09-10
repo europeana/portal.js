@@ -67,21 +67,10 @@
           };
         })
         .catch((error) => {
-          let errorMessage = error.message;
           if (typeof res !== 'undefined') {
-            if (error.message.startsWith('Invalid query')) {
-              res.statusCode = 400;
-            } else {
-              const paginationError = error.message.match(/It is not possible to paginate beyond the first (\d+)/);
-              if (paginationError !== null) {
-                res.statusCode = 400;
-                errorMessage = `It is only possible to view the first ${paginationError[1]} search results.`;
-              } else {
-                res.statusCode = 500;
-              }
-            }
+            res.statusCode = (typeof error.statusCode !== 'undefined') ? error.statusCode : 500;
           }
-          return { error: errorMessage, query: query.query };
+          return { error: error.message, query: query.query };
         });
     },
     head() {

@@ -3,6 +3,7 @@
  */
 
 import axios from 'axios';
+import httpError from 'http-errors';
 import qs from 'qs';
 import Vue from 'vue';
 export const $t = (key, opts) => Vue.prototype.$nuxt.$options.i18n.t(key, opts);
@@ -197,8 +198,22 @@ function search(params) {
       };
     })
     .catch((error) => {
-      const message = error.response ? error.response.data.error : error.message;
-      throw new Error(message);
+      let statusCode = 500;
+      let message = error.message;
+
+      if (error.response) {
+        statusCode = error.response.status;
+        message = error.response.data.error;
+      }
+
+      const paginationError = error.message.match(/It is not possible to paginate beyond the first (\d+)/);
+      if (paginationError !== null) {
+        statusCode = 400;
+        // TODO: i18n
+        message = `It is only possible to view the first ${paginationError[1]} search results.`;
+      }
+
+      throw httpError(statusCode, message);
     });
 }
 

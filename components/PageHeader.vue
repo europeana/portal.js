@@ -65,7 +65,6 @@
       submitSearchForm() {
         const newSearchQuery = { ...this.searchQuery, ...{ query: this.query, page: 1 } };
         this.$router.push(this.localePath({ name: 'search', query: newSearchQuery }));
-        console.log('PageHeader.vue emitting submit:searchForm');
         this.$root.$emit('submit:searchForm', this.query);
       }
     }

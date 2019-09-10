@@ -173,23 +173,11 @@
             }
           };
         }))
-        .catch((err) => {
-          let errorMessage = err.message;
+        .catch((error) => {
           if (typeof res !== 'undefined') {
-            res.statusCode = err.message.startsWith('No resource found with ID:') ? 404 : 500;
-            if (err.message.startsWith('Invalid query')) {
-              res.statusCode = 400;
-            } else {
-              const paginationError = err.message.match(/It is not possible to paginate beyond the first (\d+)/);
-              if (paginationError !== null) {
-                res.statusCode = 400;
-                errorMessage = `It is only possible to view the first ${paginationError[1]} search results.`;
-              } else {
-                res.statusCode = 500;
-              }
-            }
+            res.statusCode = (typeof error.statusCode !== 'undefined') ? error.statusCode : 500;
           }
-          return { error: errorMessage };
+          return { error: error.message };
         });
     },
     head() {

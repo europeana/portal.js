@@ -19,110 +19,114 @@
         />
       </b-col>
     </b-row>
-    <b-row
-      v-if="noResults"
-      class="mb-3"
+    <b-container
+      v-else
     >
-      <b-col>
-        <AlertMessage
-          :error="$t('noResults')"
-        />
-      </b-col>
-    </b-row>
-    <b-row
-      v-if="hasAnyResults"
-      class="mb-3"
-    >
-      <b-col>
-        <p data-qa="total results">
-          {{ $t('results') }}: {{ currentTotalResults | localise }}
-        </p>
-      </b-col>
-      <b-col>
-        <ViewToggles
-          :active="view"
-          :link-gen-route="route"
-          @changed="selectView"
-        />
-      </b-col>
-    </b-row>
-    <b-row
-      class="mb-3"
-    >
-      <b-col>
-        <SearchFacet
-          v-for="facet in orderedFacets"
-          :key="facet.name"
-          :name="facet.name"
-          :type="facet.name === 'THEME' ? 'radio' : 'checkbox'"
-          :fields="facet.fields"
-          :selected-fields="currentSelectedFacets[facet.name]"
-          @changed="selectFacet"
-        />
-      </b-col>
-      <b-col
-        cols="12"
-        lg="9"
+      <b-row
+        v-if="noResults"
+        class="mb-3"
       >
-        <b-row>
-          <b-col>
-            <PaginationNav
-              v-if="showPagination"
-              v-model="currentPage"
-              :total-results="currentTotalResults"
-              :per-page="perPage"
-              :link-gen="paginationLink"
-              @changed="changePage"
-            />
-          </b-col>
-        </b-row>
-        <b-row
-          class="mb-3"
+        <b-col>
+          <AlertMessage
+            :error="$t('noResults')"
+          />
+        </b-col>
+      </b-row>
+      <b-row
+        v-if="hasAnyResults"
+        class="mb-3"
+      >
+        <b-col>
+          <p data-qa="total results">
+            {{ $t('results') }}: {{ currentTotalResults | localise }}
+          </p>
+        </b-col>
+        <b-col>
+          <ViewToggles
+            :active="view"
+            :link-gen-route="route"
+            @changed="selectView"
+          />
+        </b-col>
+      </b-row>
+      <b-row
+        class="mb-3"
+      >
+        <b-col>
+          <SearchFacet
+            v-for="facet in orderedFacets"
+            :key="facet.name"
+            :name="facet.name"
+            :type="facet.name === 'THEME' ? 'radio' : 'checkbox'"
+            :fields="facet.fields"
+            :selected-fields="currentSelectedFacets[facet.name]"
+            @changed="selectFacet"
+          />
+        </b-col>
+        <b-col
+          cols="12"
+          lg="9"
         >
-          <b-col>
-            <p
-              v-if="noMoreResults"
-              data-qa="warning notice"
-            >
-              {{ $t('noMoreResults') }}
-            </p>
-            <SearchResultsList
-              v-else-if="view === 'list'"
-              v-model="currentResults"
-            />
-            <SearchResultsGrid
-              v-else
-              v-model="currentResults"
-            />
-            <InfoMessage
-              v-if="currentLastAvailablePage"
-              :message="$t('resultsLimitWarning')"
-            />
-          </b-col>
-        </b-row>
-        <b-row>
-          <b-col>
-            <TierToggler
-              v-if="showContentTierToggle"
-              :active-state="contentTierActiveState"
-              @changed="changeContentTierToggle"
-            />
-          </b-col>
-        </b-row>
-        <b-row>
-          <b-col>
-            <PaginationNav
-              v-if="showPagination"
-              v-model="currentPage"
-              :total-results="currentTotalResults"
-              :per-page="perPage"
-              :link-gen="paginationLink"
-              @changed="changePage"
-            />
-          </b-col>
-        </b-row>
-      </b-col>
-    </b-row>
+          <b-row>
+            <b-col>
+              <PaginationNav
+                v-if="showPagination"
+                v-model="currentPage"
+                :total-results="currentTotalResults"
+                :per-page="perPage"
+                :link-gen="paginationLink"
+                @changed="changePage"
+              />
+            </b-col>
+          </b-row>
+          <b-row
+            class="mb-3"
+          >
+            <b-col>
+              <p
+                v-if="noMoreResults"
+                data-qa="warning notice"
+              >
+                {{ $t('noMoreResults') }}
+              </p>
+              <SearchResultsList
+                v-else-if="view === 'list'"
+                v-model="currentResults"
+              />
+              <SearchResultsGrid
+                v-else
+                v-model="currentResults"
+              />
+              <InfoMessage
+                v-if="currentLastAvailablePage"
+                :message="$t('resultsLimitWarning')"
+              />
+            </b-col>
+          </b-row>
+          <b-row>
+            <b-col>
+              <TierToggler
+                v-if="showContentTierToggle"
+                :active-state="contentTierActiveState"
+                @changed="changeContentTierToggle"
+              />
+            </b-col>
+          </b-row>
+          <b-row>
+            <b-col>
+              <PaginationNav
+                v-if="showPagination"
+                v-model="currentPage"
+                :total-results="currentTotalResults"
+                :per-page="perPage"
+                :link-gen="paginationLink"
+                @changed="changePage"
+              />
+            </b-col>
+          </b-row>
+        </b-col>
+      </b-row>
+    </b-container>
   </b-container>
 </template>
 
@@ -394,8 +398,13 @@
             this.currentTotalResults = response.totalResults;
             // TODO: make last available page a computed method in this component?
             this.currentLastAvailablePage = response.lastAvailablePage;
+          })
+          .catch((error) => {
+            this.currentError = error.message;
+            this.currentResults = [];
+            this.currentFacets = [];
+            this.currentTotalResults = 0;
           });
-        // TODO: error handling (but in plugin?)
       }
     }
   };
