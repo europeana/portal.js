@@ -34,14 +34,6 @@
           :show-content-tier-toggle="false"
           :total-results="searchResults.totalResults"
         />
-        <PaginationNav
-          v-if="searchResults.totalResults > perPage"
-          v-model="searchResults.page"
-          :total-results="searchResults.totalResults"
-          :per-page="perPage"
-          :link-gen="paginationLink"
-          @changed="changeSearchPage"
-        />
       </b-col>
       <b-col
         cols="12"
