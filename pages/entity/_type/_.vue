@@ -27,6 +27,7 @@
           :facets="searchResults.facets"
           :last-available-page="searchResults.lastAvailablePage"
           :page="searchResults.page"
+          :exclude-from-route-query="['query']"
           :query="searchResults.query"
           :results="searchResults.results"
           :route="route"

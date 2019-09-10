@@ -177,6 +177,10 @@
         type: String,
         default: null
       },
+      excludeFromRouteQuery: {
+        type: Array,
+        default: () => []
+      },
       facets: {
         type: Array,
         default: () => []
@@ -356,6 +360,9 @@
         };
 
         const updated = { ...current, ...updates };
+        for (const exclusion of this.excludeFromRouteQuery) {
+          delete updated[exclusion];
+        }
 
         // If any updated values are `null`, remove them from the query
         for (const key in updated) {
