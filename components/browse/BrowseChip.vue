@@ -34,7 +34,7 @@
   .badge-nocolor {
     border: 1px solid $darkgrey;
     color: $black;
-    font-size: 0.875rem;
+    font-size: $font-size-small;
     height: 4rem;
     line-height: 3.5rem;
     min-width: 6rem;
