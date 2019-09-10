@@ -149,7 +149,7 @@
       }
     };
   }
-  for (const property of ['currentPage', 'currentSelectedFacets']) {
+  for (const property of ['currentPage', 'currentQuery', 'currentSelectedFacets']) {
     watchList[property] = {
       deep: true,
       immediate: true,
@@ -232,6 +232,7 @@
         currentFacets: this.facets,
         currentLastAvailablePage: this.lastAvailablePage,
         currentPage: this.page,
+        currentQuery: this.query,
         currentResults: this.results,
         currentSelectedFacets: this.selectedFacets,
         currentTotalResults: this.totalResults,
@@ -315,6 +316,11 @@
       }
     },
     watch: watchList,
+    created() {
+      this.$root.$on('submit:searchForm', (query) => {
+        this.currentQuery = query;
+      });
+    },
     methods: {
       changeContentTierToggle() {
         this.currentSelectedFacets = selectedFacetsFromQuery(this.$route.query);
@@ -353,7 +359,7 @@
         const current = {
           page: this.currentPage || '1',
           qf: this.qf,
-          query: this.query || '',
+          query: this.currentQuery || '',
           reusability: this.reusability,
           theme: this.theme,
           view: this.view
@@ -376,7 +382,7 @@
         search({
           page: this.currentPage,
           qf: this.qf,
-          query: this.query,
+          query: this.currentQuery,
           reusability: this.reusability,
           theme: this.theme,
           wskey: process.env.EUROPEANA_API_KEY
