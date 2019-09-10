@@ -17,7 +17,7 @@
   export default {
     props: {
       linkTo: {
-        type: Object,
+        type: String,
         required: true
       },
       title: {
