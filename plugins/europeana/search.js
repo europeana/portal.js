@@ -206,7 +206,7 @@ function search(params) {
         message = error.response.data.error;
       }
 
-      const paginationError = error.message.match(/It is not possible to paginate beyond the first (\d+)/);
+      const paginationError = message.match(/It is not possible to paginate beyond the first (\d+)/);
       if (paginationError !== null) {
         statusCode = 400;
         // TODO: i18n
