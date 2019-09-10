@@ -33,7 +33,7 @@ module.exports = {
   */
   loading: {
     css: false,
-    duration: 750,
+    duration: 2500,
     continuous: true
   },
 
