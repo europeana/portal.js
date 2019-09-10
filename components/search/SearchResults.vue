@@ -5,22 +5,22 @@
     >
       <b-col>
         <SearchSelectedFacets
-          :facets="selectedFacets"
+          :facets="currentSelectedFacets"
         />
       </b-col>
     </b-row>
     <b-row
-      v-if="error"
+      v-if="currentError"
       class="mb-3"
     >
       <b-col>
         <AlertMessage
-          :error="error"
+          :error="currentError"
         />
       </b-col>
     </b-row>
     <b-row
-      v-if="totalResults === 0"
+      v-if="currentTotalResults === 0"
       class="mb-3"
     >
       <b-col>
@@ -35,7 +35,7 @@
     >
       <b-col>
         <p data-qa="total results">
-          {{ $t('results') }}: {{ totalResults | localise }}
+          {{ $t('results') }}: {{ currentTotalResults | localise }}
         </p>
       </b-col>
       <b-col>
@@ -56,7 +56,7 @@
           :name="facet.name"
           :type="facet.name === 'THEME' ? 'radio' : 'checkbox'"
           :fields="facet.fields"
-          :selected-fields="selectedFacets[facet.name]"
+          :selected-fields="currentSelectedFacets[facet.name]"
           @changed="selectFacet"
         />
       </b-col>
@@ -68,10 +68,11 @@
           <b-col>
             <PaginationNav
               v-if="showPagination"
-              v-model="page"
-              :total-results="totalResults"
+              v-model="currentPage"
+              :total-results="currentTotalResults"
               :per-page="perPage"
               :link-gen="paginationLink"
+              @changed="changePage"
             />
           </b-col>
         </b-row>
@@ -80,21 +81,21 @@
         >
           <b-col>
             <p
-              v-if="results.length === 0"
+              v-if="currentResults.length === 0"
               data-qa="warning notice"
             >
               {{ $t('noMoreResults') }}
             </p>
             <SearchResultsList
               v-else-if="view === 'list'"
-              :results="results"
+              v-model="currentResults"
             />
             <SearchResultsGrid
               v-else
-              :results="results"
+              v-model="currentResults"
             />
             <InfoMessage
-              v-if="lastAvailablePage"
+              v-if="currentLastAvailablePage"
               :message="$t('resultsLimitWarning')"
             />
           </b-col>
@@ -104,7 +105,7 @@
             <TierToggler
               v-if="showContentTierToggle"
               :active-state="contentTierActiveState"
-              @toggle="selectFacet"
+              @changed="changeContentTierToggle"
             />
           </b-col>
         </b-row>
@@ -112,10 +113,11 @@
           <b-col>
             <PaginationNav
               v-if="showPagination"
-              v-model="page"
-              :total-results="totalResults"
+              v-model="currentPage"
+              :total-results="currentTotalResults"
               :per-page="perPage"
               :link-gen="paginationLink"
+              @changed="changePage"
             />
           </b-col>
         </b-row>
@@ -134,6 +136,7 @@
   import PaginationNav from '../../components/generic/PaginationNav';
   import ViewToggles from '../../components/search/ViewToggles';
   import TierToggler from '../../components/search/TierToggler';
+  import search, { selectedFacetsFromQuery } from '../../plugins/europeana/search';
 
   const thematicCollections = ['all', 'ww1',  'archaeology', 'art', 'fashion', 'manuscript', 'map', 'migration', 'music', 'nature', 'newspaper', 'photography', 'sport'];
 
@@ -143,6 +146,15 @@
       immediate: true,
       handler(val) {
         this.$root.$emit('updateSearchQuery', this.updateCurrentSearchQuery({ [property]: val }));
+      }
+    };
+  }
+  for (const property of ['currentPage', 'currentSelectedFacets']) {
+    watchList[property] = {
+      deep: true,
+      immediate: true,
+      handler() {
+        this.updateResults();
       }
     };
   }
@@ -212,6 +224,13 @@
     },
     data() {
       return {
+        currentError: this.error,
+        currentFacets: this.facets,
+        currentLastAvailablePage: this.lastAvailablePage,
+        currentPage: this.page,
+        currentResults: this.results,
+        currentSelectedFacets: this.selectedFacets,
+        currentTotalResults: this.totalResults,
         facetDisplayOrder: ['TYPE', 'REUSABILITY', 'COUNTRY'],
         isLoading: false,
         view: this.selectedView()
@@ -222,7 +241,7 @@
         return Object.prototype.hasOwnProperty.call(this.selectedFacets, 'contentTier') && this.selectedFacets['contentTier'].includes('*');
       },
       hasResults() {
-        return this.results.length > 0 && this.totalResults > 0;
+        return this.currentResults.length > 0 && this.currentTotalResults > 0;
       },
       /**
        * Sort the facets from the API response
@@ -232,10 +251,10 @@
        * TODO: does this belong in its own component?
        */
       orderedFacets() {
-        if (!this.facets) {
+        if (!this.currentFacets) {
           return [];
         }
-        let unordered = this.facets.slice();
+        let unordered = this.currentFacets.slice();
         let ordered = [];
 
         for (const facetName of this.facetDisplayOrder) {
@@ -252,8 +271,8 @@
       },
       qf() {
         let qfForSelectedFacets = [];
-        for (const facetName in this.selectedFacets) {
-          const selectedValues = this.selectedFacets[facetName];
+        for (const facetName in this.currentSelectedFacets) {
+          const selectedValues = this.currentSelectedFacets[facetName];
           // `reusability` and `theme` have their own API parameter and can not be queried in `qf`
           if (!['REUSABILITY', 'THEME'].includes(facetName)) {
             for (const facetValue of selectedValues) {
@@ -268,25 +287,31 @@
         return qfForSelectedFacets;
       },
       reusability() {
-        if (this.selectedFacets['REUSABILITY'] && this.selectedFacets['REUSABILITY'].length > 0) {
-          return this.selectedFacets['REUSABILITY'].join(',');
+        if (this.currentSelectedFacets['REUSABILITY'] && this.currentSelectedFacets['REUSABILITY'].length > 0) {
+          return this.currentSelectedFacets['REUSABILITY'].join(',');
         } else {
           return undefined;
         }
       },
       theme() {
-        if (this.selectedFacets['THEME'] && this.selectedFacets['THEME'] !== '') {
-          return this.selectedFacets['THEME'];
+        if (this.currentSelectedFacets['THEME'] && this.currentSelectedFacets['THEME'] !== '') {
+          return this.currentSelectedFacets['THEME'];
         } else {
           return undefined;
         }
       },
       showPagination() {
-        return this.totalResults > this.perPage;
+        return this.currentTotalResults > this.perPage;
       }
     },
     watch: watchList,
     methods: {
+      changeContentTierToggle() {
+        this.currentSelectedFacets = selectedFacetsFromQuery(this.$route.query);
+      },
+      changePage(page) {
+        this.currentPage = page;
+      },
       paginationLink(val) {
         return this.localePath({ ...this.route, ...{ query: this.updateCurrentSearchQuery({ page: val }) } });
       },
@@ -304,7 +329,7 @@
         return this.$route.query.view || 'grid';
       },
       selectFacet(name, selected) {
-        this.$set(this.selectedFacets, name, selected);
+        this.$set(this.currentSelectedFacets, name, selected);
         this.rerouteSearch({ qf: this.qf, reusability: this.reusability, theme: this.theme, page: '1' });
       },
       selectView(view) {
@@ -316,7 +341,7 @@
       },
       updateCurrentSearchQuery(updates) {
         const current = {
-          page: this.page || '1',
+          page: this.currentPage || '1',
           qf: this.qf,
           query: this.query || '',
           reusability: this.reusability,
@@ -333,6 +358,25 @@
           }
         }
         return updated;
+      },
+      updateResults() {
+        search({
+          page: this.currentPage,
+          qf: this.qf,
+          query: this.query,
+          reusability: this.reusability,
+          theme: this.theme,
+          wskey: process.env.EUROPEANA_API_KEY
+        })
+          .then((response) => {
+            this.currentError = response.error;
+            this.currentFacets = response.facets;
+            this.currentResults = response.results;
+            this.currentTotalResults = response.totalResults;
+            // TODO: make last available page a computed method in this component?
+            this.currentLastAvailablePage = response.lastAvailablePage;
+          });
+        // TODO: error handling (but in plugin?)
       }
     }
   };

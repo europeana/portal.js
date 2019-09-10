@@ -125,6 +125,7 @@
     },
     asyncData({ env, query, params, res, redirect, app }) {
       const currentPage = pageFromQuery(query.page);
+      const entityQuery = `"${entities.getEntityUri(params.type, params.pathMatch)}"`;
 
       if (currentPage === null) {
         // Redirect non-positive integer values for `page` to `page=1`
@@ -146,7 +147,7 @@
         search({
           page: currentPage,
           qf: query.qf,
-          query: `"${entities.getEntityUri(params.type, params.pathMatch)}"`,
+          query: entityQuery,
           reusability: query.reusability,
           theme: query.theme,
           wskey: env.EUROPEANA_API_KEY
@@ -166,7 +167,12 @@
           return {
             entity: entity.entity,
             relatedEntities: related,
-            searchResults: { ...searchResults, isLoading: false, page: Number(currentPage), selectedFacets: selectedFacetsFromQuery(query) }
+            searchResults: {
+              ...searchResults,
+              page: Number(currentPage),
+              query: entityQuery,
+              selectedFacets: selectedFacetsFromQuery(query)
+            }
           };
         }))
         .catch((err) => {
@@ -196,7 +202,6 @@
     beforeRouteLeave(to, from, next) {
       this.$root.$emit('leaveSearchPage');
       next();
-    },
-    watchQuery: ['page', 'qf', 'query', 'reusability', 'theme']
+    }
   };
 </script>

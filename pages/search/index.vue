@@ -94,7 +94,6 @@
     beforeRouteLeave(to, from, next) {
       this.$root.$emit('leaveSearchPage');
       next();
-    },
-    watchQuery: ['page', 'qf', 'query', 'reusability', 'theme']
+    }
   };
 </script>

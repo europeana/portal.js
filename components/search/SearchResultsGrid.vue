@@ -24,9 +24,22 @@
       ContentCard
     },
     props: {
-      results: {
+      value: {
         type: Array,
         default: () => []
+      }
+    },
+    data() {
+      return {
+        results: this.value
+      };
+    },
+    watch: {
+      value: {
+        immediate: true,
+        handler(val) {
+          this.results = val;
+        }
       }
     },
     methods: {
