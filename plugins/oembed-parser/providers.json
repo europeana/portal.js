@@ -46,5 +46,47 @@
         "discovery": true
       }
     ]
+  },
+  {
+    "provider_name": "DISMARC",
+    "provider_url": "https://www.dismarc.org/",
+    "endpoints": [
+      {
+        "schemes": [
+          "http://eusounds.ait.co.at/player/*",
+          "http://www.dismarc.org/player/*"
+        ],
+        "url": "http://www.dismarc.org/player/oembed"
+      }
+    ]
+  },
+  {
+    "provider_name": "EUScreen",
+    "provider_url": "https://www.euscreen.eu/",
+    "endpoints": [
+      {
+        "schemes": [
+          "http://www.euscreen.eu/item.html*"
+        ],
+        "url": "https://oembed.euscreen.eu/services/oembed"
+      }
+    ]
+  },
+  {
+    "provider_name": "Europeana",
+    "provider_url": "https://europeana.eu/",
+    "endpoints": [
+      {
+        "schemes": [
+          "http://www.ccma.cat/tv3/alacarta/programa/titol/video/*/",
+          "http://www.ina.fr/video/*",
+          "http://www.ina.fr/*/video/*",
+          "http://api.picturepipe.net/api/html/widgets/public/playout_cloudfront?token=*",
+          "https://api.picturepipe.net/api/html/widgets/public/playout_cloudfront?token=*",
+          "http://www.theeuropeanlibrary.org/tel4/newspapers/issue/fullscreen/*"
+        ],
+        "url": "http://oembed.europeana.eu/"        
+      }
+    ]
   }
 ]
