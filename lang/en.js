@@ -69,7 +69,8 @@ export default {
   "record": "Record",
   "messages": {
     "notFound": "Not Found",
-    "noTitle": "No title provided for \"{record}\""
+    "noTitle": "No title provided for \"{record}\"",
+    "externalContentError": "The external content failed to load"
   },
   "searchViews": {
     "grid": "Grid view",
