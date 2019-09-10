@@ -40,30 +40,44 @@ describe('components/browse/EntityDetails', () => {
     wrapper.setData({ depictionThumbnail: entityDetails.depiction });
 
     wrapper.find('img').attributes('src').should.eq(entityDetails.depiction);
-    wrapper.find('a').attributes('href').should.eq(entityDetails.attribution);
+    wrapper.find('a[data-qa="entity attribution"]').attributes('href').should.eq(entityDetails.attribution);
     wrapper.text().should.contain(entityDetails.description);
   });
-});
 
-describe('components/browse/EntityDetails', () => {
   it('shows a description only', () => {
     const wrapper = factory();
     wrapper.setProps({ 'description': entityDetails.description });
 
     wrapper.findAll('img').length.should.eq(0);
-    wrapper.findAll('a').length.should.eq(0);
+    wrapper.findAll('a[data-qa="entity attribution"]').length.should.eq(0);
     wrapper.text().should.contain(entityDetails.description);
   });
-});
 
-describe('components/browse/EntityDetails', () => {
   it('shows a depiction only', () => {
     const wrapper = factory();
-    wrapper.setProps({ 'depiction': entityDetails.depiction });
+    wrapper.setProps({ 'depiction': entityDetails.depiction, 'attribution': entityDetails.attribution });
     wrapper.setData({ depictionThumbnail: entityDetails.depiction });
 
     wrapper.findAll('img').length.should.eq(1);
-    wrapper.findAll('a').length.should.eq(0);
     wrapper.text().should.not.contain(entityDetails.description);
   });
+
+  it('does not show a show more link', () => {
+    const wrapper = factory();
+    wrapper.setProps(entityDetails);
+    wrapper.setData({ depictionThumbnail: entityDetails.depiction });
+
+    wrapper.findAll('a[data-qa="entity show link"]').length.should.eq(0);
+  });
+
+  it('shows a show more link', () => {
+    const wrapper = factory();
+    wrapper.setProps(entityDetails);
+    wrapper.setProps({ description: entityDetails.description + entityDetails.description + entityDetails.description });
+    wrapper.setData({ depictionThumbnail: entityDetails.depiction });
+
+    wrapper.findAll('a[data-qa="entity show link"]').length.should.eq(1);
+  });
 });
+
+

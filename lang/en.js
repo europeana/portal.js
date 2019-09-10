@@ -63,7 +63,9 @@ export default {
     }
   },
   "entity": "Entity",
-  "resourceWikimedia": "Resource from Wikimedia Commons",
+  "depiction": "A depiction of {title}",
+  "showLess": "Show less",
+  "showMore": "Show more",
   "record": "Record",
   "messages": {
     "notFound": "Not Found",

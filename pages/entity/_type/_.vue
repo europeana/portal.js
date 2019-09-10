@@ -11,18 +11,17 @@
     v-else
     data-qa="entity page"
   >
-    <b-row>
-      <b-col>
-        <h1 data-qa="entity title">
-          {{ title }}
-        </h1>
-      </b-col>
-    </b-row>
     <b-row class="flex-md-row">
       <b-col
         cols="12"
         md="9"
       >
+        <EntityDetails
+          :attribution="attribution"
+          :depiction="depiction"
+          :description="description"
+          :title="title"
+        />
         <SearchResults
           :error="searchResults.error"
           :facets="searchResults.facets"
@@ -35,13 +34,24 @@
           :show-content-tier-toggle="false"
           :total-results="searchResults.totalResults"
         />
+        <PaginationNav
+          v-if="searchResults.totalResults > perPage"
+          v-model="searchResults.page"
+          :total-results="searchResults.totalResults"
+          :per-page="perPage"
+          :link-gen="paginationLink"
+          @changed="changeSearchPage"
+        />
       </b-col>
       <b-col
         cols="12"
         md="3"
         class="pb-3"
       >
-        <ul class="list-unstyled">
+        <ul
+          v-if="relatedEntities"
+          class="list-unstyled"
+        >
           <BrowseChip
             v-for="relatedEntity in relatedEntities"
             :key="relatedEntity.path"
@@ -55,11 +65,6 @@
             :title="relatedEntity.title"
           />
         </ul>
-        <EntityDetails
-          :depiction="depiction"
-          :attribution="attribution"
-          :description="description"
-        />
       </b-col>
     </b-row>
   </b-container>
