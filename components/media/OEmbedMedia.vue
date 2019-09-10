@@ -1,13 +1,13 @@
 <template>
   <!-- eslint-disable vue/no-v-html -->
   <div
-    v-if="oEmbedData && oEmbedData.html"
+    v-if="html"
     data-qa="oembed media container"
-    v-html="oEmbedData.html"
+    v-html="html"
   />
   <AlertMessage
-    v-else-if="oEmbedData && oEmbedData.error"
-    :error="oEmbedData.error"
+    v-else-if="error"
+    :error="error"
   />
   <!-- eslint-enable vue/no-v-html -->
 </template>
@@ -21,9 +21,13 @@
       AlertMessage
     },
     props: {
-      oEmbedData: {
-        type: Object,
-        required: true
+      html: {
+        type: String,
+        default: ''
+      },
+      error: {
+        type: String,
+        default: ''
       }
     }
   };

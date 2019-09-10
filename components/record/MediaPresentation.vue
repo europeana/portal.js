@@ -26,7 +26,8 @@
     />
     <OEmbedMedia
       v-else-if="isOEmbed"
-      :o-embed-data="oEmbedData"
+      :html="oEmbedData.html"
+      :error="oEmbedData.error"
     />
   </div>
 </template>
