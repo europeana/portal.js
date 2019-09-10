@@ -18,10 +18,6 @@
     >
       <span>
         {{ $t('search') }}
-        <LoadingSpinner
-          v-show="isLoading"
-          class="ml-2 mb-1"
-        />
       </span>
       <img
         src="../../assets/img/magnifier.svg"
@@ -32,17 +28,8 @@
 </template>
 
 <script>
-  import LoadingSpinner from '../generic/LoadingSpinner';
-
   export default {
-    components: {
-      LoadingSpinner
-    },
     props: {
-      isLoading: {
-        type: Boolean,
-        default: false
-      },
       value: {
         type: String,
         default: ''

@@ -28,7 +28,6 @@
       return {
         error: null,
         facets: [],
-        isLoading: false,
         lastAvailablePage: false,
         page: 1,
         query: null,
@@ -62,7 +61,6 @@
         .then((response) => {
           return {
             ...response,
-            isLoading: false,
             query: query.query,
             page: Number(currentPage),
             selectedFacets: selectedFacetsFromQuery(query)

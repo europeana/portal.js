@@ -22,22 +22,6 @@ describe('components/search/SearchForm', () => {
     searchBox.element.value.should.eq('painting');
   });
 
-  it('hides the loading spinner by default', () => {
-    const wrapper = factory();
-    const loadingSpinner =  wrapper.find('[data-qa="loading spinner"]');
-
-    loadingSpinner.isVisible().should.eq(false);
-  });
-
-  it('shows the loading spinner if `isLoading` is `true`', () => {
-    const wrapper = factory();
-
-    wrapper.setProps({ isLoading: true });
-    const loadingSpinner =  wrapper.find('[data-qa="loading spinner"]');
-
-    loadingSpinner.isVisible().should.eq(true);
-  });
-
   it('emits submit:searchForm when submitted', () => {
     const wrapper = factory();
     const form =  wrapper.find('form');

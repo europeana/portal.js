@@ -239,7 +239,6 @@
         currentSelectedFacets: this.selectedFacets,
         currentTotalResults: this.totalResults,
         facetDisplayOrder: ['TYPE', 'REUSABILITY', 'COUNTRY'],
-        isLoading: false,
         view: this.selectedView()
       };
     },
@@ -335,7 +334,6 @@
         return this.localePath({ ...this.route, ...{ query: this.updateCurrentSearchQuery({ page: val }) } });
       },
       rerouteSearch(queryUpdates) {
-        this.isLoading = true;
         this.$router.push(this.localePath({ ...this.route, ...{ query: this.updateCurrentSearchQuery(queryUpdates) } }));
       },
       selectedView() {

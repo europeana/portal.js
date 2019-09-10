@@ -23,7 +23,6 @@
           <SearchForm
             v-model="query"
             data-qa="search form"
-            :is-loading="isLoading"
             class="justify-content-center justify-content-md-end w-100"
             @submit:searchForm="submitSearchForm"
           />
@@ -51,8 +50,7 @@
     },
     data() {
       return {
-        query: (this.searchQuery || {}).query || '',
-        isLoading: false
+        query: (this.searchQuery || {}).query || ''
       };
     },
     watch: {
