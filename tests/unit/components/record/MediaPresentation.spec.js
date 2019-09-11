@@ -88,17 +88,6 @@ describe('components/record/MediaPresentation', () => {
   });
 
   describe('isOEmbed', () => {
-    context('when url is for YouTube media', () => {
-      it('is `true`', () => {
-        const wrapper = factory();
-        const props = { url: 'https://www.youtube.com/watch?v=abcdef' };
-
-        wrapper.setProps(props);
-
-        wrapper.vm.isOEmbed.should.be.true;
-      });
-    });
-
     context('when url is for SoundCloud media', () => {
       it('is `true`', () => {
         const wrapper = factory();
@@ -129,6 +118,17 @@ describe('components/record/MediaPresentation', () => {
         wrapper.setProps(props);
 
         wrapper.vm.isOEmbed.should.be.true;
+      });
+    });
+
+    context('when the url is excluded from the oembed parser', () => {
+      it('is `false`', () => {
+        const wrapper = factory();
+        const props = { url: 'https://www.youtube.com/watch?v=abcdef' };
+
+        wrapper.setProps(props);
+
+        wrapper.vm.isOEmbed.should.be.false;
       });
     });
 

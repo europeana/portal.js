@@ -63,11 +63,14 @@ export default {
     }
   },
   "entity": "Entity",
-  "resourceWikimedia": "Resource from Wikimedia Commons",
+  "depiction": "A depiction of {title}",
+  "showLess": "Show less",
+  "showMore": "Show more",
   "record": "Record",
   "messages": {
     "notFound": "Not Found",
-    "noTitle": "No title provided for \"{record}\""
+    "noTitle": "No title provided for \"{record}\"",
+    "externalContentError": "The external content failed to load"
   },
   "searchViews": {
     "grid": "Grid view",
