@@ -69,9 +69,10 @@ export default {
   "showMore": "Show more",
   "record": "Record",
   "messages": {
+    "externalContentError": "The external content failed to load",
     "notFound": "Not Found",
     "noTitle": "No title provided for \"{record}\"",
-    "externalContentError": "The external content failed to load"
+    "paginationLimitExceeded": "It is only possible to view the first {limit} search results."
   },
   "searchViews": {
     "grid": "Grid view",
