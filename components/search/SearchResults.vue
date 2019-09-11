@@ -140,9 +140,7 @@
   import PaginationNav from '../../components/generic/PaginationNav';
   import ViewToggles from '../../components/search/ViewToggles';
   import TierToggler from '../../components/search/TierToggler';
-  import search, { selectedFacetsFromQuery } from '../../plugins/europeana/search';
-
-  const thematicCollections = ['all', 'ww1',  'archaeology', 'art', 'fashion', 'manuscript', 'map', 'migration', 'music', 'nature', 'newspaper', 'photography', 'sport'];
+  import search, { selectedFacetsFromQuery, thematicCollections } from '../../plugins/europeana/search';
 
   let watchList = {};
   for (const property of ['qf', 'query', 'reusability', 'view', 'theme']) {

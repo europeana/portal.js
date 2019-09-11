@@ -45,6 +45,7 @@ export default {
         "archaeology": "Archaeology",
         "art": "Art",
         "fashion": "Fashion",
+        "industrial": "Industrial Heritage",
         "manuscript": "Manuscripts",
         "map": "Maps and Geography",
         "migration": "Migration",

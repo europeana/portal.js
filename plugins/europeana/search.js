@@ -6,7 +6,24 @@ import axios from 'axios';
 import httpError from 'http-errors';
 import qs from 'qs';
 import Vue from 'vue';
+
 export const $t = (key, opts) => Vue.prototype.$nuxt.$options.i18n.t(key, opts);
+export const thematicCollections = [
+  'all',
+  'ww1',
+  'archaeology',
+  'art',
+  'fashion',
+  'industrial',
+  'manuscript',
+  'map',
+  'migration',
+  'music',
+  'nature',
+  'newspaper',
+  'photography',
+  'sport'
+];
 
 function genericThumbnail(edmType) {
   return `https://api.europeana.eu/api/v2/thumbnail-by-url.json?size=w200&uri=&type=${edmType}`;
