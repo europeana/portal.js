@@ -233,7 +233,6 @@ function search(params) {
 
       const paginationError = message.match(/It is not possible to paginate beyond the first (\d+)/);
       if (paginationError !== null) {
-        statusCode = 400;
         // TODO: comma-separate the limit
         message = $t('messages.paginationLimitExceeded', { limit: paginationError[1] });
       }
