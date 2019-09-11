@@ -35,7 +35,7 @@
           :data-qa="`${option.label} checkbox`"
           :class="{ 'is-selected' : selected.some(s => s === option.label) }"
         >
-          {{ option.label }}
+          {{ option.label }} ({{ option.count | localise }})
         </b-form-checkbox>
       </div>
     </b-dropdown-form>
