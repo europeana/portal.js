@@ -5,9 +5,12 @@
     :variant="hasSelection"
     class="mr-2"
     :data-type="facetType"
-    data-qa="dropdown"
-    :text="facet.name"
+    :data-qa="`${facet.name} facet`"
   >
+    <template v-slot:button-content>
+      <span :data-qa="`${facet.name} dropdown button`">{{ facet.name }}</span>
+    </template>
+
     <b-dropdown-form class="options-container">
       <div
         v-for="(option, index) in sortOptions"
@@ -26,6 +29,7 @@
           v-else
           v-model="preSelected"
           :value="option.label"
+          :data-qa="`${option.label} checkbox`"
           :class="{ 'is-selected' : selected.some(s => s === option.label) }"
         >
           {{ option.label }}
@@ -47,6 +51,7 @@
       <b-button
         variant="primary"
         :disabled="activateApplyButton"
+        :data-qa="`${facet.name} apply button`"
         @click="applySelection()"
       >
         Apply

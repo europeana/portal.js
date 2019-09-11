@@ -25,6 +25,9 @@ const factory = () => shallowMount(BrowseChip, {
     $t: () => {},
     $i18n,
     localePath: () => {}
+  },
+  propsData: {
+    linkTo: '/'
   }
 });
 
