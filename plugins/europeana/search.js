@@ -8,6 +8,10 @@ import qs from 'qs';
 import Vue from 'vue';
 
 export const $t = (key, opts) => Vue.prototype.$nuxt.$options.i18n.t(key, opts);
+
+// Thematic collections available via the `theme` parameter.
+// "all" equates to no `theme` parameter being sent.
+// Order is significant as it will be reflected on search results.
 export const thematicCollections = [
   'all',
   'ww1',
@@ -24,6 +28,8 @@ export const thematicCollections = [
   'photography',
   'sport'
 ];
+
+// Default facets to request and display if none are specified.
 // Order is significant as it will be reflected on search results.
 export const defaultFacets = ['TYPE', 'REUSABILITY', 'COUNTRY'];
 
