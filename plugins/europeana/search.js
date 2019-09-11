@@ -5,9 +5,8 @@
 import axios from 'axios';
 import httpError from 'http-errors';
 import qs from 'qs';
-import Vue from 'vue';
 
-export const $t = (key, opts) => Vue.prototype.$nuxt.$options.i18n.t(key, opts);
+import i18n from '../i18n';
 
 // Thematic collections available via the `theme` parameter.
 // "all" equates to no `theme` parameter being sent.
@@ -80,7 +79,7 @@ function display(field) {
 function fieldsForSearchResult(item) {
   let fields = {
     // TODO: fallback to description when API returns dcDescriptionLangAware
-    dcTitle: item.dcTitleLangAware ? display(item.dcTitleLangAware) : [$t('messages.noTitle', { record: item.id })],
+    dcTitle: item.dcTitleLangAware ? display(item.dcTitleLangAware) : [i18n.t('messages.noTitle', { record: item.id })],
     // TODO: enable when API returns dcDescriptionLangAware
     // dcDescription: item.dcDescriptionLangAware,
     edmDataProvider: item.dataProvider
@@ -234,7 +233,7 @@ function search(params) {
       const paginationError = message.match(/It is not possible to paginate beyond the first (\d+)/);
       if (paginationError !== null) {
         // TODO: comma-separate the limit
-        message = $t('messages.paginationLimitExceeded', { limit: paginationError[1] });
+        message = i18n.t('messages.paginationLimitExceeded', { limit: paginationError[1] });
       }
 
       throw httpError(statusCode, message);
