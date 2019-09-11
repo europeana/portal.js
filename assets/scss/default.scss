@@ -90,6 +90,19 @@ a {
   }
 }
 
+.nuxt-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 0.375rem;
+  width: 0;
+  opacity: 1;
+  transition: width 0.1s, opacity 0.4s;
+  background-color: $blue;
+  z-index: 999999;
+}
+
 video {
   width: 100%;
 }
