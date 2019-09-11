@@ -52,7 +52,8 @@ module.exports = {
     await client.initAccessibility().assert.accessibility('html', axeOptions);
   },
   async checkTheCheckbox(inputValue) {
-    await client.click(`input[type="checkbox"][value="${inputValue}"]`);
+    const selector = `label[for="${inputValue}_checkbox"]`;
+    await client.click(selector);
   },
   async checkTheRadio(inputValue) {
     await client.click(`input[type="radio"][value="${inputValue}"]`);

@@ -104,7 +104,7 @@ describe('components/search/FacetDropdown', () => {
   it('emits `updated` event when applySelection method is called', async() => {
     const wrapper = factory();
 
-    wrapper.vm.applySelection();
+    wrapper.vm.applyCheckboxSelection();
     wrapper.emitted()['updated'].length.should.equal(1);
   });
 

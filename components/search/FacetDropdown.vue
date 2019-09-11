@@ -18,8 +18,10 @@
       >
         <b-form-radio
           v-if="facetType === 'radio'"
+          :id="`${option}_radio`"
           v-model="radioSelected"
           :value="option === 'all' ? '' : option"
+          :data-qa="`${option} radio`"
           @input="applyRadioSelection()"
         >
           {{ option }}
@@ -27,6 +29,7 @@
 
         <b-form-checkbox
           v-else
+          :id="`${option.label}_checkbox`"
           v-model="preSelected"
           :value="option.label"
           :data-qa="`${option.label} checkbox`"
@@ -52,7 +55,7 @@
         variant="primary"
         :disabled="activateApplyButton"
         :data-qa="`${facet.name} apply button`"
-        @click="applySelection()"
+        @click="applyCheckboxSelection()"
       >
         Apply
       </b-button>
@@ -118,7 +121,7 @@
       },
 
       hasSelection() {
-        return this.selected.length > 0 || this.facetType === this.RADIO ? 'secondary' : 'light';
+        return (this.radioSelected || this.selected.length > 0) ? 'secondary' : 'light';
       }
     },
 
@@ -140,7 +143,7 @@
         if (el.dataset.type === this.RADIO) {
           this.applyRadioSelection();
         } else {
-          this.applySelection();
+          this.applyCheckboxSelection();
         }
       },
 
@@ -148,7 +151,7 @@
         this.preSelected = [];
       },
 
-      applySelection() {
+      applyCheckboxSelection() {
         this.selected = this.preSelected;
         this.$emit('updated', this.facet.name, this.selected);
         this.$refs.dropdown.hide(true);
