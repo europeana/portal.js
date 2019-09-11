@@ -9,9 +9,9 @@ localVue.use(BootstrapVue);
 const factory = () => shallowMount(BrowseChip, {
   localVue,
   mocks: {
-    $route,
+    $route: () => {},
     $t: () => {},
-    $i18n,
+    $i18n: () => {},
     localePath: () => {}
   },
   propsData: {
