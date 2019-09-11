@@ -1,5 +1,5 @@
 import nock from 'nock';
-import search, { pageFromQuery, selectedFacetsFromQuery, qfHandler } from '../../../../plugins/europeana/search';
+import search, { setI18n, pageFromQuery, selectedFacetsFromQuery, qfHandler } from '../../../../plugins/europeana/search';
 
 import axios from 'axios';
 axios.defaults.adapter = require('axios/lib/adapters/http');
@@ -10,6 +10,8 @@ const apiKey = 'abcdef';
 
 const baseRequest = nock(apiUrl).get(apiEndpoint);
 const defaultResponse = { success: true, items: [], totalResults: 123456 };
+
+setI18n(i18n);
 
 describe('plugins/europeana/search', () => {
   afterEach(() => {
