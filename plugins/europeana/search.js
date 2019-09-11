@@ -24,6 +24,8 @@ export const thematicCollections = [
   'photography',
   'sport'
 ];
+// Order is significant as it will be reflected on search results.
+export const defaultFacets = ['TYPE', 'REUSABILITY', 'COUNTRY'];
 
 function genericThumbnail(edmType) {
   return `https://api.europeana.eu/api/v2/thumbnail-by-url.json?size=w200&uri=&type=${edmType}`;
@@ -195,7 +197,7 @@ function search(params) {
     },
     params: {
       profile: 'minimal,facets',
-      facet: params.facet ? params.facet : 'COUNTRY,REUSABILITY,TYPE',
+      facet: params.facet ? params.facet : defaultFacets.join(','),
       query: params.query === '' ? '*:*' : params.query,
       qf: qfHandler(params.qf),
       reusability: params.reusability,

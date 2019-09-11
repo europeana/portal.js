@@ -140,7 +140,7 @@
   import PaginationNav from '../../components/generic/PaginationNav';
   import ViewToggles from '../../components/search/ViewToggles';
   import TierToggler from '../../components/search/TierToggler';
-  import search, { selectedFacetsFromQuery, thematicCollections } from '../../plugins/europeana/search';
+  import search, { defaultFacets, selectedFacetsFromQuery, thematicCollections } from '../../plugins/europeana/search';
 
   let watchList = {};
   for (const property of ['qf', 'query', 'reusability', 'view', 'theme']) {
@@ -240,7 +240,6 @@
         currentResults: this.results,
         currentSelectedFacets: this.selectedFacets,
         currentTotalResults: this.totalResults,
-        facetDisplayOrder: ['TYPE', 'REUSABILITY', 'COUNTRY'],
         view: this.selectedView()
       };
     },
@@ -271,7 +270,7 @@
         let unordered = this.currentFacets.slice();
         let ordered = [];
 
-        for (const facetName of this.facetDisplayOrder) {
+        for (const facetName of defaultFacets) {
           const index = unordered.findIndex((f) => {
             return f.name === facetName;
           });
@@ -290,7 +289,7 @@
           // `reusability` and `theme` have their own API parameter and can not be queried in `qf`
           if (!['REUSABILITY', 'THEME'].includes(facetName)) {
             for (const facetValue of selectedValues) {
-              if (this.facetDisplayOrder.includes(facetName)) {
+              if (this.defaultFacets.includes(facetName)) {
                 qfForSelectedFacets.push(`${facetName}:"${facetValue}"`);
               } else {
                 qfForSelectedFacets.push(`${facetName}:${facetValue}`);
