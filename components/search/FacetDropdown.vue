@@ -35,7 +35,7 @@
           v-model="preSelected"
           :value="option.label"
           :data-qa="`${option.label} checkbox`"
-          :class="{ 'is-selected' : selected.some(s => s === option.label) }"
+          :class="{ 'is-selected' : selectedFacet.some(s => s === option.label) }"
         >
           {{ option.label }} ({{ option.count | localise }})
         </b-form-checkbox>
@@ -114,7 +114,6 @@
           REUSABILITY: this.$t('facets.REUSABILITY.name'),
           COUNTRY: this.$t('facets.COUNTRY.name')
         },
-        selected: [],
         preSelected: [],
         radioSelected: null
       };
@@ -161,7 +160,7 @@
       },
 
       hasSelection() {
-        return (this.radioSelected || this.selected.length > 0) ? 'secondary' : 'light';
+        return (this.radioSelected || this.selectedFacet.length > 0) ? 'secondary' : 'light';
       }
     },
 
@@ -173,8 +172,7 @@
           this.radioSelected = this.selectedFacet;
         }
       } else if (this.selectedFacet.length > 0) {
-        this.selected = this.selected.concat(this.selectedFacet);
-        this.preSelected = this.selected;
+        this.preSelected = this.selectedFacet;
       }
     },
 
