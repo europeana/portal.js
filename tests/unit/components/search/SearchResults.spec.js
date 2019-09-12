@@ -5,9 +5,21 @@ import VueRouter from 'vue-router';
 import SearchResults from '../../../../components/search/SearchResults.vue';
 
 const localVue = createLocalVue();
+localVue.filter('localise', (number) => number);
 localVue.use(BootstrapVue);
 localVue.use(VueRouter);
-const router = new VueRouter();
+const router = new VueRouter({
+  routes: [
+    {
+      path: '/search',
+      name: 'search'
+    },
+    {
+      path: '/record/*',
+      name: 'record-all'
+    }
+  ]
+});
 
 const factory = (propsData = {}) => mount(SearchResults, {
   localVue,
@@ -53,6 +65,46 @@ describe('components/search/SearchResults', () => {
         });
 
         wrapper.vm.contentTierActiveState.should.be.false;
+      });
+    });
+  });
+
+  describe('noMoreResults', () => {
+    context('when there are 0 results in total', () => {
+      const wrapper = factory({
+        totalResults: 0
+      });
+
+      it('is `false`', () => {
+        wrapper.vm.noMoreResults.should.be.false;
+      });
+    });
+
+    context('when there are some results in total', () => {
+      context('and results here', () => {
+        const wrapper = factory({
+          totalResults: 100,
+          results: [{
+            europeanaId: '/123/abc',
+            fields: {
+              dcTitle: ['Title']
+            }
+          }]
+        });
+
+        it('is `false`', () => {
+          wrapper.vm.noMoreResults.should.be.false;
+        });
+      });
+
+      context('but no results here', () => {
+        const wrapper = factory({
+          totalResults: 100
+        });
+
+        it('is `true`', () => {
+          wrapper.vm.noMoreResults.should.be.true;
+        });
       });
     });
   });
