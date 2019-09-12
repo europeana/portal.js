@@ -56,7 +56,7 @@ module.exports = {
     await client.click(selector);
   },
   async checkTheRadio(inputValue) {
-    await client.click(`input[type="radio"][value="${inputValue}"]`);
+    await client.click(`label[for="${inputValue}_radio"]`);
   },
   async clickOnTheTarget(qaElementNames) {
     const selector = qaSelector(qaElementNames);
