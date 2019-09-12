@@ -17,7 +17,6 @@ Feature: Search pagination
     And I see a `TYPE facet`
     And I click the `TYPE dropdown button`
     And I check the "IMAGE" checkbox
-    And I see a `TYPE apply button`
     And I click the `TYPE apply button`
     And I wait 1 second
     And I see a `pagination navigation`
