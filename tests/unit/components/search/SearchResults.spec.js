@@ -84,7 +84,7 @@ describe('components/search/SearchResults', () => {
     });
   });
 
-  describe('qf()', () => {
+  describe('qf', () => {
     const wrapper = factory({
       selectedFacets: {
         'THEME': 'art',
@@ -114,6 +114,60 @@ describe('components/search/SearchResults', () => {
     context('for any other facetes', () => {
       it('includes fielded but unquoted queries for each value', () => {
         wrapper.vm.qf.should.include('contentTier:4');
+      });
+    });
+  });
+
+  describe('reusability', () => {
+    context('when REUSABILITY facet is not set', () => {
+      const wrapper = factory({
+        selectedFacets: {
+          'TYPE': ['IMAGE', 'SOUND']
+        }
+      });
+
+      it('is `undefined`', () => {
+        (typeof wrapper.vm.reusability).should.eql('undefined');
+      });
+    });
+
+    context('when REUSABILITY facet is set', () => {
+      const wrapper = factory({
+        selectedFacets: {
+          'REUSABILITY': ['open', 'permission'],
+          'TYPE': ['IMAGE', 'SOUND']
+        }
+      });
+
+      it('is its value joined with ","', () => {
+        wrapper.vm.reusability.should.eq('open,permission');
+      });
+    });
+  });
+
+  describe('theme', () => {
+    context('when THEME facet is not set', () => {
+      const wrapper = factory({
+        selectedFacets: {
+          'TYPE': ['IMAGE', 'SOUND']
+        }
+      });
+
+      it('is `undefined`', () => {
+        (typeof wrapper.vm.theme).should.eql('undefined');
+      });
+    });
+
+    context('when THEME facet is set', () => {
+      const wrapper = factory({
+        selectedFacets: {
+          'THEME': 'migration',
+          'TYPE': ['IMAGE', 'SOUND']
+        }
+      });
+
+      it('is its value', () => {
+        wrapper.vm.theme.should.eq('migration');
       });
     });
   });
