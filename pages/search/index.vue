@@ -150,7 +150,7 @@
   }
 
   const facetsToDisplay = [ 'COUNTRY', 'REUSABILITY', 'TYPE' ];
-  const thematicCollections = [ 'all', 'ww1',  'archaeology', 'art', 'fashion', 'manuscript', 'map', 'migration', 'music', 'nature', 'newspaper', 'photography', 'sport'];
+  const thematicCollections = [ 'ww1',  'archaeology', 'art', 'fashion', 'manuscript', 'map', 'migration', 'music', 'nature', 'newspaper', 'photography', 'sport'];
 
   export default {
     components: {

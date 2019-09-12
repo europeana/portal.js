@@ -40,7 +40,6 @@ export default {
     "THEME": {
       "name": "Category",
       "options": {
-        "all": "All items",
         "ww1": "1914-1918",
         "archaeology": "Archaeology",
         "art": "Art",

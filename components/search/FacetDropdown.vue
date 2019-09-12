@@ -125,11 +125,6 @@
         const selected = [];
         let leftOver;
 
-        if (this.facetType === this.RADIO) {
-          newArray.splice(newArray.indexOf('all'), 1);
-          return newArray;
-        }
-
         /* THIS NEEDS TO BE CLEANED UP */
         newArray.map(field => {
           if (this.selectedFacet.includes(field.label)) {
