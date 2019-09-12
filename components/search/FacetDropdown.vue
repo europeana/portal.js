@@ -128,7 +128,7 @@
           newArray.splice(newArray.indexOf('all'), 1);
         }
 
-        newArray.map(field => {
+        newArray.sort((a, b) => a.count - b.count).map(field => {
           if (this.selected.includes(field.label)) {
             newArray.splice(newArray.indexOf(field), 1);
             newArray.unshift(field);
