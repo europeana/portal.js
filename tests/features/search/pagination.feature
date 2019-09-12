@@ -14,10 +14,10 @@ Feature: Search pagination
     And I enter "paris" in the `search box`
     And I click the `search button`
     And I wait for a `search result`
-    And I see a `TYPE facet`
-    And I click the `TYPE dropdown button`
+    And I see a `search facet`
+    And I click the `Type of media dropdown button`
     And I check the "IMAGE" checkbox
-    And I click the `TYPE apply button`
+    And I click the `Type of media apply button`
     And I wait 1 second
     And I see a `pagination navigation`
     Then I see a link to "/search?page=2&qf=TYPE%3A%22IMAGE%22&query=paris&view=grid" in the `pagination navigation`

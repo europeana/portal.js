@@ -8,7 +8,7 @@
     data-qa="search facet"
   >
     <template v-slot:button-content>
-      <span :data-qa="`${facet.name} dropdown button`">
+      <span :data-qa="`${facetName} dropdown button`">
         {{ facetName }}
       </span>
     </template>
@@ -56,7 +56,7 @@
       <b-button
         variant="primary"
         :disabled="activateApplyButton"
-        :data-qa="`${facet.name} apply button`"
+        :data-qa="`${facetName} apply button`"
         @click.stop="applyCheckboxSelection()"
       >
         Apply

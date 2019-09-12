@@ -65,22 +65,22 @@ describe('components/search/FacetDropdown', () => {
     ]);
   });
 
-  it('sets `activateResetButton` property to be false if nothing has been pre selected', () => {
+  it('sets `activateCheckboxResetButton` property to be false if nothing has been pre selected', () => {
     const wrapper = factory();
 
     wrapper.setData({
       preSelected: []
     });
-    wrapper.vm.activateResetButton.should.eq(false);
+    wrapper.vm.activateCheckboxResetButton.should.eq(false);
   });
 
-  it('sets `activateResetButton` property to be true if option has been pre selected', () => {
+  it('sets `activateCheckboxResetButton` property to be true if option has been pre selected', () => {
     const wrapper = factory();
 
     wrapper.setData({
       preSelected: ['Spain']
     });
-    wrapper.vm.activateResetButton.should.eq(true);
+    wrapper.vm.activateCheckboxResetButton.should.eq(true);
   });
 
   it('sets `activateApplyButton` property to be false if preselected options length dont match selected facets', () => {
