@@ -122,20 +122,26 @@
 
     computed: {
       sortOptions() {
-        const newArray = [].concat(this.facet.fields);
+        let newArray = [].concat(this.facet.fields);
+        const selected = [];
+        let leftOver;
 
         if (this.facetType === this.RADIO) {
           newArray.splice(newArray.indexOf('all'), 1);
+          return newArray;
         }
 
-        newArray.sort((a, b) => a.count - b.count).map(field => {
-          if (this.selected.includes(field.label)) {
-            newArray.splice(newArray.indexOf(field), 1);
-            newArray.unshift(field);
+        /* THIS NEEDS TO BE CLEANED UP */
+        newArray.map(field => {
+          if (this.selectedFacet.includes(field.label)) {
+            selected.push(field);
           }
         });
 
-        return newArray;
+        leftOver = newArray.filter(field => !this.selectedFacet.includes(field.label));
+
+        return selected.sort((a, b) => a.count + b.count).concat(leftOver);
+        /* END - THIS NEEDS TO BE CLEANED UP */
       },
 
       facetName() {
