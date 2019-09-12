@@ -7,10 +7,11 @@
       class="mr-2"
       data-qa="filter badge"
     >
+      <!-- TODO: move these if/else-if/else elements into a `badgeLabel` computed method -->
       <template v-if="selectedFacet.facetName === 'contentTier' && selectedFacet.fieldValue === '*'">
         {{ $t(`facets.${selectedFacet.facetName}.name`) }}
       </template>
-      <template v-else-if="$te(`facets.${selectedFacet.facetName}.options`)">
+      <template v-else-if="$t(`facets.${selectedFacet.facetName}.options`)">
         {{ $t('formatting.labelledValue', { label: $t(`facets.${selectedFacet.facetName}.name`), value: $t(`facets.${selectedFacet.facetName}.options.${selectedFacet.fieldValue}`)}) }}
       </template>
       <template v-else>

@@ -245,7 +245,7 @@
     },
     computed: {
       contentTierActiveState() {
-        return Object.prototype.hasOwnProperty.call(this.selectedFacets, 'contentTier') && this.selectedFacets['contentTier'].includes('*');
+        return this.selectedFacets.contentTier && this.selectedFacets.contentTier.includes('*');
       },
       hasAnyResults() {
         return this.currentTotalResults > 0;
@@ -257,16 +257,14 @@
         return this.currentTotalResults === 0;
       },
       /**
-       * Sort the facets from the API response
-       * Facets are returned in the hard-coded preferred order, followed by all
-       * others in the order the API returned them.
+       * Sort the facets for display
+       * Facets are returned in the hard-coded preferred order from the search
+       * plugin, followed by all others in the order the API returned them,
+       * and with the "theme" pseudo-facet injected first.
        * @return {Object[]} ordered facets
        * TODO: does this belong in its own component?
        */
       orderedFacets() {
-        if (!this.currentFacets) {
-          return [];
-        }
         let unordered = this.currentFacets.slice();
         let ordered = [];
 
@@ -289,7 +287,7 @@
           // `reusability` and `theme` have their own API parameter and can not be queried in `qf`
           if (!['REUSABILITY', 'THEME'].includes(facetName)) {
             for (const facetValue of selectedValues) {
-              if (this.defaultFacets.includes(facetName)) {
+              if (defaultFacets.includes(facetName)) {
                 qfForSelectedFacets.push(`${facetName}:"${facetValue}"`);
               } else {
                 qfForSelectedFacets.push(`${facetName}:${facetValue}`);
