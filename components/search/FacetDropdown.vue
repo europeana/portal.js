@@ -26,7 +26,7 @@
           :data-qa="`${option} radio`"
           @input="applyRadioSelection()"
         >
-          {{ option }}
+          {{ $t(`facets.${facet.name}.options.${option}`) }}
         </b-form-radio>
 
         <b-form-checkbox
