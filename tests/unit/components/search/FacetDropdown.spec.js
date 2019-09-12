@@ -83,35 +83,28 @@ describe('components/search/FacetDropdown', () => {
     wrapper.vm.activateCheckboxResetButton.should.eq(true);
   });
 
-  it('sets `activateApplyButton` property to be false if preselected options length dont match selected facets', () => {
+  it('sets `disableApplyButton` property to be false if preselected options length dont match selected facets', () => {
     const wrapper = factory();
 
     wrapper.setData({
       preSelected: ['Spain', 'United Kingdom']
     });
-    wrapper.vm.activateApplyButton.should.eq(false);
+    wrapper.vm.disableApplyButton.should.eq(false);
   });
 
-  it('sets `activateApplyButton` property to be false if preselected options dont match selected facets', () => {
+  it('sets `disableApplyButton` property to be false if preselected options dont match selected facets', () => {
     const wrapper = factory();
 
     wrapper.setData({
       preSelected: ['United Kingdom']
     });
-    wrapper.vm.activateApplyButton.should.eq(true);
+    wrapper.vm.disableApplyButton.should.eq(true);
   });
 
   it('emits `updated` event when applySelection method is called', async() => {
     const wrapper = factory();
 
-    wrapper.vm.applyCheckboxSelection();
-    wrapper.emitted()['updated'].length.should.equal(1);
-  });
-
-  it('emits `updated` event when aapplyRadioSelection method is called', async() => {
-    const wrapper = factory();
-
-    wrapper.vm.applyRadioSelection();
+    wrapper.vm.applySelection();
     wrapper.emitted()['updated'].length.should.equal(1);
   });
 });

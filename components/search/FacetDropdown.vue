@@ -1,7 +1,7 @@
 <template>
   <b-dropdown
     ref="dropdown"
-    v-click-outside="triggerSelectionHandler"
+    v-click-outside="applySelection"
     :variant="hasSelection"
     class="mr-2"
     :data-type="facetType"
@@ -19,12 +19,12 @@
         :key="index"
       >
         <b-form-radio
-          v-if="facetType === 'radio'"
-          :id="`${option}_radio`"
+          v-if="isRadio"
+          :id="`${option}_${RADIO}`"
           v-model="radioSelected"
           :value="option"
-          :data-qa="`${option} radio`"
-          @input="applyRadioSelection()"
+          :data-qa="`${option} ${RADIO}`"
+          @input="applySelection"
         >
           {{ $t(`facets.${facet.name}.options.${option}`) }}
         </b-form-radio>
@@ -49,17 +49,17 @@
       <b-button
         variant="link"
         :disabled="!activateCheckboxResetButton"
-        @click="resetCheckboxSelection()"
+        @click="resetCheckboxSelection"
       >
-        Reset
+        {{ $t('facets.button.reset') }}
       </b-button>
       <b-button
         variant="primary"
-        :disabled="activateApplyButton"
+        :disabled="disableApplyButton"
         :data-qa="`${facetName} apply button`"
-        @click.stop="applyCheckboxSelection()"
+        @click.stop="applySelection"
       >
-        Apply
+        {{ $t('facets.button.apply') }}
       </b-button>
     </li>
 
@@ -69,10 +69,10 @@
     >
       <b-button
         variant="link"
-        :disabled="!activateRadioResetButton"
-        @click.stop="resetRadioSelection()"
+        :disabled="disableRadioResetButton"
+        @click.stop="resetRadioSelection"
       >
-        Reset
+        {{ $t('facets.button.reset') }}
       </b-button>
     </li>
   </b-dropdown>
@@ -147,15 +147,19 @@
         return this.buttonNames[this.facet.name];
       },
 
+      isRadio() {
+        return this.facetType === this.RADIO;
+      },
+
       activateCheckboxResetButton() {
         return this.preSelected.length > 0;
       },
 
-      activateRadioResetButton() {
-        return this.radioSelected;
+      disableRadioResetButton() {
+        return !this.radioSelected;
       },
 
-      activateApplyButton() {
+      disableApplyButton() {
         return this.preSelected.length === this.selectedFacet.length;
       },
 
@@ -177,14 +181,6 @@
     },
 
     methods: {
-      triggerSelectionHandler(event, el) {
-        if (el.dataset.type === this.RADIO) {
-          this.applyRadioSelection();
-        } else {
-          this.applyCheckboxSelection();
-        }
-      },
-
       resetCheckboxSelection() {
         this.preSelected = [];
       },
@@ -193,15 +189,15 @@
         this.radioSelected = '';
       },
 
-      applyCheckboxSelection() {
-        this.selected = this.preSelected;
-        this.$emit('updated', this.facet.name, this.selected);
-        this.$refs.dropdown.hide(true);
-      },
-
-      applyRadioSelection() {
-        this.$emit('updated', this.THEME, this.radioSelected);
-        this.$refs.dropdown.hide(true);
+      applySelection() {
+        if (this.isRadio) {
+          this.$emit('updated', this.THEME, this.radioSelected);
+          this.$refs.dropdown.hide(true);
+        } else {
+          this.selected = this.preSelected;
+          this.$emit('updated', this.facet.name, this.selected);
+          this.$refs.dropdown.hide(true);
+        }
       }
     }
   };

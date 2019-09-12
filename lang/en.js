@@ -60,6 +60,10 @@ export default {
     },
     "contentTier": {
       "name": "Includes broken items"
+    },
+    "button": {
+      "reset": "Reset",
+      "apply": "Apply"
     }
   },
   "entity": "Entity",
