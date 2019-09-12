@@ -39,20 +39,20 @@ const factory = () => mount(FacetDropdown, {
 });
 
 describe('components/search/FacetDropdown', () => {
-  it('puts selected options to the top of the list', () => {
+  it('puts selected options to the top list in descending count value order', () => {
     const wrapper = factory();
 
-    wrapper.setData({
-      selected: ['Spain', 'United Kingdom']
+    wrapper.setProps({
+      selectedFacet: ['Spain', 'United Kingdom']
     });
     wrapper.vm.sortOptions.should.eql([
       {
-        count: 44,
-        label: 'Spain'
-      },
-      {
         count: 99,
         label: 'United Kingdom'
+      },
+      {
+        count: 44,
+        label: 'Spain'
       },
       {
         count: 100,
