@@ -34,8 +34,9 @@
         for (let facetName in this.facets) {
           if (typeof this.facets[facetName] === 'string') {
             let fieldValue = this.facets[facetName] ? this.facets[facetName] : 'all';
-            if (fieldValue === 'all') return;
-            listOfFacets.push({ key: `${facetName}:${fieldValue}`, facetName, fieldValue });
+            if (fieldValue !== 'all') {
+              listOfFacets.push({ key: `${facetName}:${fieldValue}`, facetName, fieldValue });
+            }
           }
 
           for (let fieldValue of this.facets[facetName]) {
