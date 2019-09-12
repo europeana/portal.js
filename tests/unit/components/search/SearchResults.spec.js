@@ -83,4 +83,38 @@ describe('components/search/SearchResults', () => {
       wrapper.vm.orderedFacets[5].name.should.eq('DATA_PROVIDER');
     });
   });
+
+  describe('qf()', () => {
+    const wrapper = factory({
+      selectedFacets: {
+        'THEME': 'art',
+        'REUSABILITY': ['open'],
+        'TYPE': ['IMAGE', 'SOUND'],
+        'contentTier': ['4']
+      }
+    });
+
+    it('omits THEME', () => {
+      wrapper.vm.qf.should.not.include('THEME:art');
+      wrapper.vm.qf.should.not.include('THEME:"art"');
+    });
+
+    it('omits REUSABILITY', () => {
+      wrapper.vm.qf.should.not.include('REUSABILITY:open');
+      wrapper.vm.qf.should.not.include('REUSABILITY:"open"');
+    });
+
+    context('for default facets from search plugin', () => {
+      it('includes fielded and quoted queries for each value', () => {
+        wrapper.vm.qf.should.include('TYPE:"IMAGE"');
+        wrapper.vm.qf.should.include('TYPE:"SOUND"');
+      });
+    });
+
+    context('for any other facetes', () => {
+      it('includes fielded but unquoted queries for each value', () => {
+        wrapper.vm.qf.should.include('contentTier:4');
+      });
+    });
+  });
 });
