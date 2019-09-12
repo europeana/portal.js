@@ -57,7 +57,7 @@
         variant="primary"
         :disabled="activateApplyButton"
         :data-qa="`${facet.name} apply button`"
-        @click="applyCheckboxSelection()"
+        @click.stop="applyCheckboxSelection()"
       >
         Apply
       </b-button>
@@ -70,7 +70,7 @@
       <b-button
         variant="link"
         :disabled="!activateRadioResetButton"
-        @click="resetRadioSelection()"
+        @click.stop="resetRadioSelection()"
       >
         Reset
       </b-button>
