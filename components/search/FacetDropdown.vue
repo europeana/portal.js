@@ -8,7 +8,9 @@
     data-qa="search facet"
   >
     <template v-slot:button-content>
-      <span :data-qa="`${facet.name} dropdown button`">{{ facet.name }}</span>
+      <span :data-qa="`${facet.name} dropdown button`">
+        {{ facetName }}
+      </span>
     </template>
 
     <b-dropdown-form class="options-container">
@@ -20,7 +22,7 @@
           v-if="facetType === 'radio'"
           :id="`${option}_radio`"
           v-model="radioSelected"
-          :value="option === 'all' ? '' : option"
+          :value="option"
           :data-qa="`${option} radio`"
           @input="applyRadioSelection()"
         >
@@ -46,8 +48,8 @@
     >
       <b-button
         variant="link"
-        :disabled="!activateResetButton"
-        @click="resetSelection()"
+        :disabled="!activateCheckboxResetButton"
+        @click="resetCheckboxSelection()"
       >
         Reset
       </b-button>
@@ -58,6 +60,19 @@
         @click="applyCheckboxSelection()"
       >
         Apply
+      </b-button>
+    </li>
+
+    <li
+      v-else
+      class="p-2 float-right"
+    >
+      <b-button
+        variant="link"
+        :disabled="!activateRadioResetButton"
+        @click="resetRadioSelection()"
+      >
+        Reset
       </b-button>
     </li>
   </b-dropdown>
@@ -93,6 +108,12 @@
       return {
         RADIO: 'radio',
         THEME: 'THEME',
+        buttonNames: {
+          THEME: this.$t('facets.THEME.name'),
+          TYPE: this.$t('facets.TYPE.name'),
+          REUSABILITY: this.$t('facets.REUSABILITY.name'),
+          COUNTRY: this.$t('facets.COUNTRY.name')
+        },
         selected: [],
         preSelected: [],
         radioSelected: null
@@ -102,6 +123,11 @@
     computed: {
       sortOptions() {
         const newArray = [].concat(this.facet.fields);
+
+        if (this.facetType === this.RADIO) {
+          newArray.splice(newArray.indexOf('all'), 1);
+        }
+
         newArray.map(field => {
           if (this.selected.includes(field.label)) {
             newArray.splice(newArray.indexOf(field), 1);
@@ -112,8 +138,16 @@
         return newArray;
       },
 
-      activateResetButton() {
+      facetName() {
+        return this.buttonNames[this.facet.name];
+      },
+
+      activateCheckboxResetButton() {
         return this.preSelected.length > 0;
+      },
+
+      activateRadioResetButton() {
+        return this.radioSelected;
       },
 
       activateApplyButton() {
@@ -147,8 +181,12 @@
         }
       },
 
-      resetSelection() {
+      resetCheckboxSelection() {
         this.preSelected = [];
+      },
+
+      resetRadioSelection() {
+        this.radioSelected = '';
       },
 
       applyCheckboxSelection() {
