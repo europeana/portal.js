@@ -5,7 +5,7 @@
     :variant="hasSelection"
     class="mr-2"
     :data-type="facetType"
-    :data-qa="`${facet.name} facet`"
+    data-qa="search facet"
   >
     <template v-slot:button-content>
       <span :data-qa="`${facet.name} dropdown button`">{{ facet.name }}</span>
