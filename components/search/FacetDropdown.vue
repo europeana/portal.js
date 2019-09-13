@@ -201,6 +201,20 @@
 <style lang="scss" scoped>
   @import "./assets/scss/variables.scss";
 
+  .dropdown {
+    width: 100%;
+    margin-bottom: 5px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    @media (min-width: $bp-large) {
+      width: auto;
+      margin-bottom: 0;
+    }
+  }
+
   .has-selected {
     /deep/ > .btn {
       background: $white;
@@ -209,7 +223,11 @@
   }
 
   /deep/ .dropdown-menu {
-    min-width: 280px;
+    width: 100%;
+
+    @media (min-width: $bp-large) {
+      min-width: 280px;
+    }
 
     .custom-control  {
       margin-bottom: 4px;
