@@ -1,7 +1,7 @@
 <template>
   <b-container
     fluid
-    class="border-bottom mb-3 p-0"
+    class="border-bottom p-0"
   >
     <b-container class="p-0">
       <b-navbar
