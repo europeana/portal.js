@@ -10,12 +10,12 @@
       </b-col>
     </b-row>
     <b-row
-      v-if="currentError"
+      v-if="errorMessage"
       class="mb-3"
     >
       <b-col>
         <AlertMessage
-          :error="currentError"
+          :error="errorMessage"
         />
       </b-col>
     </b-row>
@@ -246,6 +246,17 @@
     computed: {
       contentTierActiveState() {
         return this.selectedFacets.contentTier && this.selectedFacets.contentTier.includes('*');
+      },
+      errorMessage() {
+        if (!this.currentError) return null;
+
+        const paginationError = this.currentError.match(/It is not possible to paginate beyond the first (\d+)/);
+        if (paginationError !== null) {
+          const localisedPaginationLimit = this.$options.filters.localise(Number(paginationError[1]));
+          return this.$t('messages.paginationLimitExceeded', { limit: localisedPaginationLimit });
+        }
+
+        return this.currentError;
       },
       hasAnyResults() {
         return this.currentTotalResults > 0;

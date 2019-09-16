@@ -1,7 +1,7 @@
 <template>
   <b-form
     inline
-    @submit.prevent="$emit('submit:searchForm')"
+    @submit.prevent="submitForm"
   >
     <b-form-input
       v-model="query"
@@ -46,6 +46,14 @@
         handler(val) {
           this.query = val;
         }
+      }
+    },
+    methods: {
+      async submitForm() {
+        await this.$root.$emit('submit:searchForm', this.query);
+        const newRouteQuery = { ...this.$route.query, ...{ query: this.query, page: 1 } };
+        const newRoutePath = this.localePath({ name: 'search', query: newRouteQuery });
+        this.$router.push(newRoutePath);
       }
     }
   };

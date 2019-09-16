@@ -36,6 +36,9 @@
       this.$root.$on('updateSearchQuery', (val) => {
         this.searchQuery = val;
       });
+      this.$root.$on('submit:searchForm', (val) => {
+        this.searchQuery.query = val;
+      });
     },
     updated() {
       if (!Object.prototype.hasOwnProperty.call(this.searchQuery, 'view')) {

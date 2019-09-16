@@ -24,7 +24,6 @@
             v-model="query"
             data-qa="search form"
             class="justify-content-center justify-content-md-end w-100"
-            @submit:searchForm="submitSearchForm"
           />
         </div>
         <LangSelector data-qa="language selector" />
@@ -61,12 +60,10 @@
         }
       }
     },
-    methods: {
-      submitSearchForm() {
-        const newSearchQuery = { ...this.searchQuery, ...{ query: this.query, page: 1 } };
-        this.$router.push(this.localePath({ name: 'search', query: newSearchQuery }));
-        this.$root.$emit('submit:searchForm', this.query);
-      }
+    created() {
+      this.$root.$on('submit:searchForm', (query) => {
+        this.query = query;
+      });
     }
   };
 </script>

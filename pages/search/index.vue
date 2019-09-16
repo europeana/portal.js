@@ -1,7 +1,10 @@
 <template>
   <b-container>
     <b-row>
-      <b-col><h1>Search</h1></b-col>
+      <b-col>
+        <!-- TODO: i18n  -->
+        <h1>Search</h1>
+      </b-col>
       <SearchResults
         :error="error"
         :facets="facets"

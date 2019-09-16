@@ -186,7 +186,9 @@
       };
     },
     beforeRouteLeave(to, from, next) {
-      this.$root.$emit('leaveSearchPage');
+      if (to.path !== '/search') {
+        this.$root.$emit('leaveSearchPage');
+      }
       next();
     }
   };

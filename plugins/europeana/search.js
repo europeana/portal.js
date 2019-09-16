@@ -5,7 +5,6 @@
 import axios from 'axios';
 import httpError from 'http-errors';
 import qs from 'qs';
-import Vue from 'vue';
 
 // Thematic collections available via the `theme` parameter.
 // "all" equates to no `theme` parameter being sent.
@@ -30,11 +29,6 @@ export const thematicCollections = [
 // Default facets to request and display if none are specified.
 // Order is significant as it will be reflected on search results.
 export const defaultFacets = ['TYPE', 'REUSABILITY', 'COUNTRY'];
-
-let i18n;
-if (Vue.prototype.$nuxt && Vue.prototype.$nuxt.$options.i18n) {
-  i18n = Vue.prototype.$nuxt.$options.i18n;
-}
 
 function genericThumbnail(edmType) {
   return `https://api.europeana.eu/api/v2/thumbnail-by-url.json?size=w200&uri=&type=${edmType}`;
@@ -83,7 +77,7 @@ function display(field) {
 function fieldsForSearchResult(item) {
   let fields = {
     // TODO: fallback to description when API returns dcDescriptionLangAware
-    dcTitle: item.dcTitleLangAware ? display(item.dcTitleLangAware) : [i18n.t('messages.noTitle', { record: item.id })],
+    dcTitle: display(item.dcTitleLangAware) || [],
     // TODO: enable when API returns dcDescriptionLangAware
     // dcDescription: item.dcDescriptionLangAware,
     edmDataProvider: item.dataProvider
@@ -234,12 +228,6 @@ function search(params) {
         message = error.response.data.error;
       }
 
-      const paginationError = message.match(/It is not possible to paginate beyond the first (\d+)/);
-      if (paginationError !== null) {
-        // TODO: comma-separate the limit
-        message = i18n.t('messages.paginationLimitExceeded', { limit: paginationError[1] });
-      }
-
       throw httpError(statusCode, message);
     });
 }
@@ -263,10 +251,6 @@ export function qfHandler(qf) {
   // contentTier:* is irrelevant so is removed
   newQf = newQf.filter(v => v !== 'contentTier:*');
   return newQf;
-}
-
-export function setI18n(override) {
-  i18n = override;
 }
 
 export default search;
