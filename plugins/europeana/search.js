@@ -220,7 +220,7 @@ function search(params) {
       return {
         error: null,
         results: resultsFromApiResponse(response),
-        facets: response.data.facets || null,
+        facets: response.data.facets || [],
         totalResults: response.data.totalResults,
         lastAvailablePage: start + perPage > maxResults
       };
