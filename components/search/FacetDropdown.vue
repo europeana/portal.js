@@ -80,6 +80,7 @@
 </template>
 
 <script>
+  import isEqual from 'lodash/isEqual';
   import vClickOutside from 'v-click-outside';
 
   export default {
@@ -150,7 +151,7 @@
       },
 
       disableApplyButton() {
-        return this.preSelected.length === this.selectedFacet.length;
+        return isEqual(this.preSelected, this.selectedFacet);
       },
 
       dropdownVariant() {
