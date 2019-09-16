@@ -186,12 +186,11 @@
       applySelection() {
         if (this.isRadio) {
           this.$emit('updated', this.THEME, this.radioSelected);
-          this.$refs.dropdown.hide(true);
         } else {
           this.selected = this.preSelected;
           this.$emit('updated', this.facet.name, this.selected);
-          this.$refs.dropdown.hide(true);
         }
+        this.$refs.dropdown.hide(true);
       }
     }
   };
