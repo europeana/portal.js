@@ -16,7 +16,7 @@ Feature: Search pagination
     And I wait for a `search result`
     And I see a `search facet`
     And I click the `Type of media dropdown button`
-    And I check the "IMAGE" checkbox
+    And I check the "IMAGE" "TYPE" checkbox
     And I click the `Type of media apply button`
     And I wait 1 second
     And I see a `pagination navigation`
