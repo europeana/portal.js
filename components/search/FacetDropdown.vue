@@ -2,7 +2,7 @@
   <b-dropdown
     ref="dropdown"
     v-click-outside="applySelection"
-    :variant="hasSelection"
+    :variant="dropdownVariant"
     class="mr-2"
     :data-type="facetType"
     data-qa="search facet"
@@ -14,13 +14,11 @@
     </template>
 
     <b-dropdown-form class="options-container">
-      <div
-        v-for="(option, index) in sortOptions"
-        :key="index"
-      >
+      <template v-if="isRadio">
         <b-form-radio
-          v-if="isRadio"
+          v-for="(option, index) in sortOptions"
           :id="idGenerator(option, RADIO)"
+          :key="index"
           v-model="radioSelected"
           :value="option"
           :data-qa="`${option} ${RADIO}`"
@@ -28,10 +26,13 @@
         >
           {{ $t(`facets.${facet.name}.options.${option}`) }}
         </b-form-radio>
+      </template>
 
+      <template v-else>
         <b-form-checkbox
-          v-else
+          v-for="(option, index) in sortOptions"
           :id="idGenerator(option.label, CHECKBOX)"
+          :key="index"
           v-model="preSelected"
           :value="option.label"
           :data-qa="`${option.label} ${CHECKBOX}`"
@@ -39,7 +40,7 @@
         >
           {{ option.label }} ({{ option.count | localise }})
         </b-form-checkbox>
-      </div>
+      </template>
     </b-dropdown-form>
 
     <li
@@ -124,23 +125,22 @@
       sortOptions() {
         let newArray = [].concat(this.facet.fields);
         const selected = [];
-        let leftOver;
 
-        /* THIS NEEDS TO BE CLEANED UP */
+        /* TODO: THIS NEEDS TO BE CLEANED UP */
         newArray.map(field => {
           if (this.selectedFacet.includes(field.label)) {
             selected.push(field);
           }
         });
 
-        leftOver = newArray.filter(field => !this.selectedFacet.includes(field.label));
+        const leftOver = newArray.filter(field => !this.selectedFacet.includes(field.label));
 
         return selected.sort((a, b) => a.count + b.count).concat(leftOver);
-        /* END - THIS NEEDS TO BE CLEANED UP */
+        /* END TODO */
       },
 
       facetName() {
-        return this.buttonNames[this.facet.name];
+        return this.$t(`facets.${this.facet.name}.name`);
       },
 
       isRadio() {
@@ -159,13 +159,13 @@
         return this.preSelected.length === this.selectedFacet.length;
       },
 
-      hasSelection() {
+      dropdownVariant() {
         return (this.radioSelected || this.selectedFacet.length > 0) ? 'secondary' : 'light';
       }
     },
 
     mounted() {
-      if (this.facetType === this.RADIO) {
+      if (this.isRadio) {
         if (Array.isArray(this.selectedFacet)) {
           this.radioSelected = '';
         } else {
