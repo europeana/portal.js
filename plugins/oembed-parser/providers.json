@@ -78,6 +78,7 @@
     "endpoints": [
       {
         "schemes": [
+          "http://archives.crem-cnrs.fr/archives/items/*/",
           "http://www.ccma.cat/tv3/alacarta/programa/titol/video/*/",
           "http://www.ina.fr/video/*",
           "http://www.ina.fr/*/video/*",
