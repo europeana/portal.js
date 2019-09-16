@@ -20,7 +20,7 @@
       >
         <b-form-radio
           v-if="isRadio"
-          :id="`${option}_${RADIO}`"
+          :id="idGenerator(option, RADIO)"
           v-model="radioSelected"
           :value="option"
           :data-qa="`${option} ${RADIO}`"
@@ -31,11 +31,11 @@
 
         <b-form-checkbox
           v-else
-          :id="`${option.label}_checkbox`"
+          :id="idGenerator(option.label, CHECKBOX)"
           v-model="preSelected"
           :value="option.label"
-          :data-qa="`${option.label} checkbox`"
-          :class="{ 'is-selected' : selectedFacet.some(s => s === option.label) }"
+          :data-qa="`${option.label} ${CHECKBOX}`"
+          :class="{ 'font-weight-bold' : selectedFacet.some(s => s === option.label) }"
         >
           {{ option.label }} ({{ option.count | localise }})
         </b-form-checkbox>
@@ -107,6 +107,7 @@
     data() {
       return {
         RADIO: 'radio',
+        CHECKBOX: 'checkbox',
         THEME: 'THEME',
         buttonNames: {
           THEME: this.$t('facets.THEME.name'),
@@ -184,6 +185,10 @@
         this.radioSelected = '';
       },
 
+      idGenerator(label, type) {
+        return label.replace(/\s+/g, '_').toLowerCase() + '_' + type;
+      },
+
       applySelection() {
         if (this.isRadio) {
           this.$emit('updated', this.THEME, this.radioSelected);
@@ -245,9 +250,5 @@
     &::-webkit-scrollbar-thumb {
       background-color: grey;
     }
-  }
-
-  .is-selected {
-    font-weight: bold;
   }
 </style>
