@@ -1,5 +1,5 @@
 import nock from 'nock';
-import search, { setI18n, pageFromQuery, selectedFacetsFromQuery, qfHandler } from '../../../../plugins/europeana/search';
+import search, { pageFromQuery, selectedFacetsFromQuery, qfHandler } from '../../../../plugins/europeana/search';
 
 import axios from 'axios';
 axios.defaults.adapter = require('axios/lib/adapters/http');
@@ -10,8 +10,6 @@ const apiKey = 'abcdef';
 
 const baseRequest = nock(apiUrl).get(apiEndpoint);
 const defaultResponse = { success: true, items: [], totalResults: 123456 };
-
-setI18n(i18n);
 
 describe('plugins/europeana/search', () => {
   afterEach(() => {
@@ -187,25 +185,6 @@ describe('plugins/europeana/search', () => {
           error.message.should.eq(errorMessage);
           error.statusCode.should.eq(400);
         });
-
-        it('overrides API pagination error message', async() => {
-          const errorMessage = 'Sorry! It is not possible to paginate beyond the first 5000 search results.';
-          baseRequest
-            .query(true)
-            .reply(400, {
-              success: false,
-              error: errorMessage
-            });
-
-          let error;
-          try {
-            await search({ wskey: apiKey });
-          } catch (e) {
-            error = e;
-          }
-
-          error.message.should.eq('It is only possible to view the first 5000 search results.');
-        });
       });
 
       context('with `items`', () => {
@@ -298,14 +277,14 @@ describe('plugins/europeana/search', () => {
 
         describe('facets', () => {
           describe('when absent', () => {
-            it('returns `null`', async() => {
+            it('returns `[]`', async() => {
               baseRequest
                 .query(true)
                 .reply(200, defaultResponse);
 
               const response = await search({ query: 'anything', wskey: apiKey });
 
-              (response.facets === null).should.be.true;
+              response.facets.should.eql([]);
             });
           });
 

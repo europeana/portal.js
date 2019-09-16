@@ -21,24 +21,35 @@ const router = new VueRouter({
   ]
 });
 
-const factory = (propsData = {}) => mount(SearchResults, {
-  localVue,
-  router,
-  propsData,
-  mocks: {
-    $t: (key) => key,
-    localePath: (opts) => opts
-  }
-});
+const factory = (options = {}) => {
+  const mocks = {
+    ...{
+      $t: (key) => key,
+      $te: () => false,
+      localePath: (opts) => opts
+    },
+    ...options.mocks
+  };
+  return mount(SearchResults, {
+    localVue,
+    mocks,
+    router,
+    propsData: options.propsData
+  });
+};
 
 describe('components/search/SearchResults', () => {
   describe('output', () => {
     context('with `error` prop', () => {
       it('displays the message', () => {
         const errorMessage = 'Something went very wrong';
-        const wrapper = factory({ error: errorMessage });
+        const wrapper = factory({
+          propsData: {
+            error: errorMessage
+          }
+        });
 
-        const errorNotice =  wrapper.find('[data-qa="error notice"]');
+        const errorNotice = wrapper.find('[data-qa="error notice"]');
 
         errorNotice.text().should.include(errorMessage);
       });
@@ -50,8 +61,10 @@ describe('components/search/SearchResults', () => {
       context('when contentTier facet includes "*"', () => {
         it('is `true`', () => {
           const wrapper = factory({
-            selectedFacets: {
-              contentTier: ['*']
+            propsData: {
+              selectedFacets: {
+                contentTier: ['*']
+              }
             }
           });
 
@@ -62,8 +75,10 @@ describe('components/search/SearchResults', () => {
       context('when contentTier facet does not include "*"', () => {
         it('is `false`', () => {
           const wrapper = factory({
-            selectedFacets: {
-              contentTier: ['1 OR 2 OR 3 OR 4']
+            propsData: {
+              selectedFacets: {
+                contentTier: ['1 OR 2 OR 3 OR 4']
+              }
             }
           });
 
@@ -72,10 +87,24 @@ describe('components/search/SearchResults', () => {
       });
     });
 
+    describe('errorMessage', () => {
+      context('when there was a pagination error', () => {
+        it('returns a user-friendly error message', async() => {
+          const wrapper = factory({
+            propsData: {
+              error: 'Sorry! It is not possible to paginate beyond the first 5000 search results.'
+            }
+          });
+
+          wrapper.vm.errorMessage.should.eq('messages.paginationLimitExceeded');
+        });
+      });
+    });
+
     describe('noMoreResults', () => {
       context('when there are 0 results in total', () => {
         const wrapper = factory({
-          totalResults: 0
+          propsData: { totalResults: 0 }
         });
 
         it('is `false`', () => {
@@ -102,7 +131,9 @@ describe('components/search/SearchResults', () => {
 
         context('but no results here', () => {
           const wrapper = factory({
-            totalResults: 100
+            propsData: {
+              totalResults: 100
+            }
           });
 
           it('is `true`', () => {
@@ -114,13 +145,15 @@ describe('components/search/SearchResults', () => {
 
     describe('orderedFacets', () => {
       const wrapper = factory({
-        facets: [
-          { name: 'COUNTRY' },
-          { name: 'RIGHTS' },
-          { name: 'DATA_PROVIDER' },
-          { name: 'REUSABILITY' },
-          { name: 'TYPE' }
-        ]
+        propsData: {
+          facets: [
+            { name: 'COUNTRY' },
+            { name: 'RIGHTS' },
+            { name: 'DATA_PROVIDER' },
+            { name: 'REUSABILITY' },
+            { name: 'TYPE' }
+          ]
+        }
       });
 
       it('injects `theme` pseudo-facet first', () => {
@@ -141,11 +174,13 @@ describe('components/search/SearchResults', () => {
 
     describe('qf', () => {
       const wrapper = factory({
-        selectedFacets: {
-          'THEME': 'art',
-          'REUSABILITY': ['open'],
-          'TYPE': ['IMAGE', 'SOUND'],
-          'contentTier': ['4']
+        propsData: {
+          selectedFacets: {
+            'THEME': 'art',
+            'REUSABILITY': ['open'],
+            'TYPE': ['IMAGE', 'SOUND'],
+            'contentTier': ['4']
+          }
         }
       });
 
@@ -176,8 +211,10 @@ describe('components/search/SearchResults', () => {
     describe('reusability', () => {
       context('when REUSABILITY facet is not set', () => {
         const wrapper = factory({
-          selectedFacets: {
-            'TYPE': ['IMAGE', 'SOUND']
+          propsData: {
+            selectedFacets: {
+              'TYPE': ['IMAGE', 'SOUND']
+            }
           }
         });
 
@@ -188,9 +225,11 @@ describe('components/search/SearchResults', () => {
 
       context('when REUSABILITY facet is set', () => {
         const wrapper = factory({
-          selectedFacets: {
-            'REUSABILITY': ['open', 'permission'],
-            'TYPE': ['IMAGE', 'SOUND']
+          propsData: {
+            selectedFacets: {
+              'REUSABILITY': ['open', 'permission'],
+              'TYPE': ['IMAGE', 'SOUND']
+            }
           }
         });
 
@@ -203,8 +242,10 @@ describe('components/search/SearchResults', () => {
     describe('theme', () => {
       context('when THEME facet is not set', () => {
         const wrapper = factory({
-          selectedFacets: {
-            'TYPE': ['IMAGE', 'SOUND']
+          propsData: {
+            selectedFacets: {
+              'TYPE': ['IMAGE', 'SOUND']
+            }
           }
         });
 
@@ -215,9 +256,11 @@ describe('components/search/SearchResults', () => {
 
       context('when THEME facet is set', () => {
         const wrapper = factory({
-          selectedFacets: {
-            'THEME': 'migration',
-            'TYPE': ['IMAGE', 'SOUND']
+          propsData: {
+            selectedFacets: {
+              'THEME': 'migration',
+              'TYPE': ['IMAGE', 'SOUND']
+            }
           }
         });
 
