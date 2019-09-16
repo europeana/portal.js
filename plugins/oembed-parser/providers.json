@@ -61,7 +61,7 @@
     ]
   },
   {
-    "provider_name": "EUScreen",
+    "provider_name": "EUscreen",
     "provider_url": "https://www.euscreen.eu/",
     "endpoints": [
       {
@@ -74,7 +74,7 @@
   },
   {
     "provider_name": "Europeana",
-    "provider_url": "https://europeana.eu/",
+    "provider_url": "https://www.europeana.eu/",
     "endpoints": [
       {
         "schemes": [
