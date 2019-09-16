@@ -17,10 +17,10 @@
       <template v-if="isRadio">
         <b-form-radio
           v-for="(option, index) in sortOptions"
-          :id="idGenerator(option, RADIO)"
           :key="index"
           v-model="radioSelected"
           :value="option"
+          :name="facet.name"
           :data-qa="`${option} ${RADIO}`"
           @input="applySelection"
         >
@@ -31,10 +31,10 @@
       <template v-else>
         <b-form-checkbox
           v-for="(option, index) in sortOptions"
-          :id="idGenerator(option.label, CHECKBOX)"
           :key="index"
           v-model="preSelected"
           :value="option.label"
+          :name="facet.name"
           :data-qa="`${option.label} ${CHECKBOX}`"
           :class="{ 'font-weight-bold' : selectedFacet.some(s => s === option.label) }"
         >
@@ -177,10 +177,6 @@
 
       resetRadioSelection() {
         this.radioSelected = '';
-      },
-
-      idGenerator(label, type) {
-        return label.replace(/\s+/g, '_').toLowerCase() + '_' + type;
       },
 
       applySelection() {
