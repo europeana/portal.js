@@ -110,12 +110,6 @@
         RADIO: 'radio',
         CHECKBOX: 'checkbox',
         THEME: 'THEME',
-        buttonNames: {
-          THEME: this.$t('facets.THEME.name'),
-          TYPE: this.$t('facets.TYPE.name'),
-          REUSABILITY: this.$t('facets.REUSABILITY.name'),
-          COUNTRY: this.$t('facets.COUNTRY.name')
-        },
         preSelected: [],
         radioSelected: null
       };
