@@ -31,13 +31,10 @@
   export default {
     data() {
       return {
-        inputQuery: ''
+        inputQuery: this.query
       };
     },
     computed: {
-      onSearchPage() {
-        return true;
-      },
       query: {
         get() {
           return this.$store.state.search.active ? this.$store.state.search.query : '';
@@ -47,12 +44,14 @@
         }
       }
     },
+    updated() {
+      this.inputQuery = this.query;
+    },
     methods: {
       async submitForm() {
         const newRouteQuery = { ...this.$route.query, ...{ query: this.inputQuery, page: 1 } };
         const newRoutePath = this.localePath({ name: 'search', query: newRouteQuery });
-        this.$store.commit('search/setQuery', this.inputQuery);
-        this.inputQuery = '';
+        await this.$store.commit('search/setQuery', this.inputQuery);
         await this.$router.push(newRoutePath);
       }
     }
