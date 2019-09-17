@@ -57,7 +57,7 @@ Feature: Search pagination
   Scenario: Paginating beyond API result limit
 
     When I open `/search?query=&page=500`
-    Then I see an `error notice` with the text "It is only possible to view the first 1000 search results."
+    Then I see an `error notice` with the text "It is only possible to view the first 1,000 search results."
     And I am on an accessible page
 
   Scenario: Paginating beyond available results
