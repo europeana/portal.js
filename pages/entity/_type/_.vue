@@ -22,18 +22,18 @@
           :description="description"
           :title="title"
         />
-        <SearchResults
-          :error="searchResults.error"
+        <SearchInterface
+          :error="SearchInterface.error"
           :exclude-from-route-query="['query']"
-          :facets="searchResults.facets"
+          :facets="SearchInterface.facets"
           :initial-query="query"
-          :last-available-page="searchResults.lastAvailablePage"
-          :page="searchResults.page"
-          :results="searchResults.results"
+          :last-available-page="SearchInterface.lastAvailablePage"
+          :page="SearchInterface.page"
+          :results="SearchInterface.results"
           :route="route"
-          :selected-facets="searchResults.selectedFacets"
+          :selected-facets="SearchInterface.selectedFacets"
           :show-content-tier-toggle="false"
-          :total-results="searchResults.totalResults"
+          :total-results="SearchInterface.totalResults"
         />
       </b-col>
       <b-col
@@ -69,7 +69,7 @@
   import AlertMessage from '../../../components/generic/AlertMessage';
   import BrowseChip from '../../../components/browse/BrowseChip';
   import EntityDetails from '../../../components/browse/EntityDetails';
-  import SearchResults from '../../../components/search/SearchResults';
+  import SearchInterface from '../../../components/search/SearchInterface';
 
   import * as entities from '../../../plugins/europeana/entity';
   import search, { pageFromQuery, selectedFacetsFromQuery } from '../../../plugins/europeana/search';
@@ -79,14 +79,14 @@
       AlertMessage,
       BrowseChip,
       EntityDetails,
-      SearchResults
+      SearchInterface
     },
     data() {
       return {
         entity: null,
         error: null,
         relatedEntities: null,
-        searchResults: {
+        SearchInterface: {
           error: null,
           facets: [],
           lastAvailablePage: false,
@@ -153,7 +153,7 @@
           wskey: env.EUROPEANA_API_KEY
         })
       ])
-        .then(axios.spread((entity, related, searchResults) => {
+        .then(axios.spread((entity, related, SearchInterface) => {
           const desiredPath = entities.getEntitySlug(entity.entity);
 
           if (params.pathMatch !== desiredPath) {
@@ -167,8 +167,8 @@
           return {
             entity: entity.entity,
             relatedEntities: related,
-            searchResults: {
-              ...searchResults,
+            SearchInterface: {
+              ...SearchInterface,
               page: Number(currentPage),
               selectedFacets: selectedFacetsFromQuery(query)
             }

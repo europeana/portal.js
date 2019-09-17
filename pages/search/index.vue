@@ -4,7 +4,7 @@
       <b-col>
         <h1>{{ $t('search') }}</h1>
       </b-col>
-      <SearchResults
+      <SearchInterface
         :error="error"
         :facets="facets"
         :last-available-page="lastAvailablePage"
@@ -19,12 +19,12 @@
 </template>
 
 <script>
-  import SearchResults from '../../components/search/SearchResults';
+  import SearchInterface from '../../components/search/SearchInterface';
   import search, { pageFromQuery, selectedFacetsFromQuery } from '../../plugins/europeana/search';
 
   export default {
     components: {
-      SearchResults
+      SearchInterface
     },
     data() {
       return {
