@@ -2,8 +2,8 @@
  * @file Interface to Europeana Record Search API
  */
 
+import { apiError } from './utils';
 import axios from 'axios';
-import httpError from 'http-errors';
 import qs from 'qs';
 
 // Thematic collections available via the `theme` parameter.
@@ -220,15 +220,7 @@ function search(params) {
       };
     })
     .catch((error) => {
-      let statusCode = 500;
-      let message = error.message;
-
-      if (error.response) {
-        statusCode = error.response.status;
-        message = error.response.data.error;
-      }
-
-      throw httpError(statusCode, message);
+      throw apiError(error);
     });
 }
 

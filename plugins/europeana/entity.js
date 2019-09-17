@@ -1,5 +1,5 @@
+import { apiError } from './utils';
 import axios from 'axios';
-import httpError from 'http-errors';
 
 /**
  * Get the entity data from the API
@@ -22,15 +22,7 @@ export function getEntity(type, id, params) {
       };
     })
     .catch((error) => {
-      let statusCode = 500;
-      let message = error.message;
-
-      if (error.response) {
-        statusCode = error.response.status;
-        message = error.response.data.error;
-      }
-
-      throw httpError(statusCode, message);
+      throw apiError(error);
     });
 }
 
