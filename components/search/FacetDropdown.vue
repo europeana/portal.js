@@ -1,7 +1,6 @@
 <template>
   <b-dropdown
     ref="dropdown"
-    v-click-outside="applySelection"
     :variant="dropdownVariant"
     class="mr-2"
     :data-type="facetType"
@@ -81,13 +80,8 @@
 
 <script>
   import isEqual from 'lodash/isEqual';
-  import vClickOutside from 'v-click-outside';
 
   export default {
-    directives: {
-      clickOutside: vClickOutside.directive
-    },
-
     props: {
       facet: {
         type: Object,
@@ -160,6 +154,10 @@
     },
 
     mounted() {
+      this.$root.$on('bv::dropdown::hide', () => {
+        this.applySelection();
+      });
+
       if (this.isRadio) {
         if (Array.isArray(this.selectedFacet)) {
           this.radioSelected = '';
