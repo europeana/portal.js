@@ -21,7 +21,7 @@
           :value="option"
           :name="facet.name"
           :data-qa="`${option} ${RADIO}`"
-          @input="applySelection"
+          @change="applySelection"
         >
           {{ $t(`facets.${facet.name}.options.${option}`) }}
         </b-form-radio>
