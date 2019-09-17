@@ -24,11 +24,11 @@
         />
         <SearchResults
           :error="searchResults.error"
+          :exclude-from-route-query="['query']"
           :facets="searchResults.facets"
+          :initial-query="query"
           :last-available-page="searchResults.lastAvailablePage"
           :page="searchResults.page"
-          :exclude-from-route-query="['query']"
-          :query="searchResults.query"
           :results="searchResults.results"
           :route="route"
           :selected-facets="searchResults.selectedFacets"
@@ -91,7 +91,6 @@
           facets: [],
           lastAvailablePage: false,
           page: 1,
-          query: null,
           results: [],
           selectedFacets: {},
           totalResults: null
@@ -107,6 +106,9 @@
       },
       description() {
         return entities.getEntityDescription(this.entity);
+      },
+      query() {
+        return `"${this.entity.id}"`;
       },
       route() {
         return {
@@ -168,7 +170,6 @@
             searchResults: {
               ...searchResults,
               page: Number(currentPage),
-              query: entityQuery,
               selectedFacets: selectedFacetsFromQuery(query)
             }
           };
@@ -180,15 +181,16 @@
           return { error: error.message };
         });
     },
+    fetch({ store }) {
+      store.commit('search/setActive', true);
+    },
     head() {
       return {
         title: this.title
       };
     },
     beforeRouteLeave(to, from, next) {
-      if (to.path !== '/search') {
-        this.$root.$emit('leaveSearchPage');
-      }
+      this.$store.commit('search/setActive', false);
       next();
     }
   };

@@ -21,7 +21,6 @@
         </b-navbar-brand>
         <div class="navbar-nav ml-auto w-100 col-md-6 col-lg-6 p-0 pt-3 pt-md-0 mr-auto">
           <SearchForm
-            v-model="query"
             data-qa="search form"
             class="justify-content-center justify-content-md-end w-100"
           />
@@ -40,30 +39,6 @@
     components: {
       SearchForm,
       LangSelector
-    },
-    props: {
-      searchQuery: {
-        type: Object,
-        default: () => {}
-      }
-    },
-    data() {
-      return {
-        query: (this.searchQuery || {}).query || ''
-      };
-    },
-    watch: {
-      searchQuery: {
-        immediate: true,
-        handler(val = {}) {
-          this.query = val.query || '';
-        }
-      }
-    },
-    created() {
-      this.$root.$on('submit:searchForm', (query) => {
-        this.query = query;
-      });
     }
   };
 </script>

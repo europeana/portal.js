@@ -2,8 +2,7 @@
   <b-container>
     <b-row>
       <b-col>
-        <!-- TODO: i18n  -->
-        <h1>Search</h1>
+        <h1>{{ $t('search') }}</h1>
       </b-col>
       <SearchResults
         :error="error"
@@ -33,7 +32,7 @@
         facets: [],
         lastAvailablePage: false,
         page: 1,
-        query: null,
+        query: '',
         results: [],
         selectedFacets: {},
         totalResults: null
@@ -64,8 +63,8 @@
         .then((response) => {
           return {
             ...response,
-            query: query.query,
             page: Number(currentPage),
+            query: query.query,
             selectedFacets: selectedFacetsFromQuery(query)
           };
         })
@@ -73,17 +72,22 @@
           if (typeof res !== 'undefined') {
             res.statusCode = (typeof error.statusCode !== 'undefined') ? error.statusCode : 500;
           }
-          return { error: error.message, query: query.query };
+          return { error: error.message };
         });
+    },
+    fetch({ store, query }) {
+      store.commit('search/setQuery', query.query);
+      store.commit('search/setActive', true);
     },
     head() {
       return {
-        title: 'Search'
+        title: this.$t('search')
       };
     },
     beforeRouteLeave(to, from, next) {
-      this.$root.$emit('leaveSearchPage');
+      this.$store.commit('search/setActive', false);
       next();
-    }
+    },
+    watchQuery: ['query']
   };
 </script>

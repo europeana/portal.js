@@ -143,14 +143,7 @@
   import search, { defaultFacets, selectedFacetsFromQuery, thematicCollections } from '../../plugins/europeana/search';
 
   let watchList = {};
-  for (const property of ['qf', 'query', 'reusability', 'view', 'theme']) {
-    watchList[property] = {
-      handler(val) {
-        this.$root.$emit('updateSearchQuery', this.updateCurrentSearchQuery({ [property]: val }));
-      }
-    };
-  }
-  for (const property of ['currentPage', 'currentQuery', 'currentSelectedFacets']) {
+  for (const property of ['currentPage', 'currentSelectedFacets', 'query']) {
     watchList[property] = {
       deep: true,
       handler() {
@@ -201,9 +194,9 @@
         type: Number,
         default: 24
       },
-      query: {
+      initialQuery: {
         type: String,
-        default: null
+        default: ''
       },
       results: {
         type: Array,
@@ -236,7 +229,6 @@
         currentFacets: this.facets,
         currentLastAvailablePage: this.lastAvailablePage,
         currentPage: this.page,
-        currentQuery: this.query,
         currentResults: this.results,
         currentSelectedFacets: this.selectedFacets,
         currentTotalResults: this.totalResults,
@@ -308,6 +300,9 @@
         }
         return qfForSelectedFacets;
       },
+      query() {
+        return this.$store.state.search.query || this.initialQuery;
+      },
       reusability() {
         if (this.currentSelectedFacets['REUSABILITY'] && this.currentSelectedFacets['REUSABILITY'].length > 0) {
           return this.currentSelectedFacets['REUSABILITY'].join(',');
@@ -327,12 +322,6 @@
       }
     },
     watch: watchList,
-    created() {
-      this.$root.$on('submit:searchForm', (query) => {
-        this.currentQuery = query;
-        this.currentPage = 1;
-      });
-    },
     methods: {
       changeContentTierToggle() {
         this.currentSelectedFacets = selectedFacetsFromQuery(this.$route.query);
@@ -369,7 +358,7 @@
         const current = {
           page: this.currentPage || '1',
           qf: this.qf,
-          query: this.currentQuery || '',
+          query: this.query,
           reusability: this.reusability,
           theme: this.theme,
           view: this.view
@@ -392,7 +381,7 @@
         search({
           page: this.currentPage,
           qf: this.qf,
-          query: this.currentQuery,
+          query: this.query,
           reusability: this.reusability,
           theme: this.theme,
           wskey: process.env.EUROPEANA_API_KEY

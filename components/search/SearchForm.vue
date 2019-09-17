@@ -5,7 +5,7 @@
   >
     <b-form-input
       v-model="query"
-      aria-label="Search"
+      :aria-label="$t('search')"
       :placeholder="$t('searchPlaceholder')"
       name="query"
       data-qa="search box"
@@ -29,31 +29,31 @@
 
 <script>
   export default {
-    props: {
-      value: {
-        type: String,
-        default: ''
-      }
-    },
     data() {
       return {
-        query: this.value
+        inputQuery: ''
       };
     },
-    watch: {
-      value: {
-        immediate: true,
-        handler(val) {
-          this.query = val;
+    computed: {
+      onSearchPage() {
+        return true;
+      },
+      query: {
+        get() {
+          return this.$store.state.search.active ? this.$store.state.search.query : '';
+        },
+        set(value) {
+          this.inputQuery = value;
         }
       }
     },
     methods: {
       async submitForm() {
-        await this.$root.$emit('submit:searchForm', this.query);
-        const newRouteQuery = { ...this.$route.query, ...{ query: this.query, page: 1 } };
+        const newRouteQuery = { ...this.$route.query, ...{ query: this.inputQuery, page: 1 } };
         const newRoutePath = this.localePath({ name: 'search', query: newRouteQuery });
-        this.$router.push(newRoutePath);
+        this.$store.commit('search/setQuery', this.inputQuery);
+        this.inputQuery = '';
+        await this.$router.push(newRoutePath);
       }
     }
   };
