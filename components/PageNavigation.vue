@@ -7,7 +7,7 @@
           :key="nav.name"
           :to="localePath(nav.path)"
           exact
-          exact-active-class="active"
+          exact-active-class="font-weight-bold"
           variant="secondary"
         >
           {{ nav.name }}
@@ -56,9 +56,5 @@
 
   .nav-link {
     color: $darkgrey;
-
-    &.active {
-      font-weight: bold;
-    }
   }
 </style>
