@@ -1,6 +1,7 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 import VueRouter from 'vue-router';
+import Vuex from 'vuex';
 
 import SearchInterface from '../../../../components/search/SearchInterface.vue';
 
@@ -8,6 +9,8 @@ const localVue = createLocalVue();
 localVue.filter('localise', (number) => number);
 localVue.use(BootstrapVue);
 localVue.use(VueRouter);
+localVue.use(Vuex);
+
 const router = new VueRouter({
   routes: [
     {
@@ -19,6 +22,15 @@ const router = new VueRouter({
       name: 'record-all'
     }
   ]
+});
+
+const store = new Vuex.Store({
+  state: {
+    search: {
+      active: true,
+      query: ''
+    }
+  }
 });
 
 const factory = (options = {}) => {
@@ -34,6 +46,7 @@ const factory = (options = {}) => {
     localVue,
     mocks,
     router,
+    store,
     propsData: options.propsData
   });
 };
