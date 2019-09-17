@@ -1,24 +1,23 @@
 <template>
-  <nav
+  <b-navbar
     class="navigation-container"
     data-qa="main navigation"
   >
     <b-container class="p-0">
-      <b-nav>
+      <b-navbar-nav>
         <b-nav-item
           v-for="nav in navigation"
           :key="nav.name"
           :to="localePath(nav.path)"
-          exact
-          exact-active-class="font-weight-bold"
+          active-class="font-weight-bold"
           variant="secondary"
           data-qa="main navigation link"
         >
           {{ nav.name }}
         </b-nav-item>
-      </b-nav>
+      </b-navbar-nav>
     </b-container>
-  </nav>
+  </b-navbar>
 </template>
 
 <script>
@@ -56,9 +55,15 @@
 
   .navigation-container {
     background: $bodygrey;
+    padding-top: 0;
+    padding-bottom: 0;
   }
 
-  .nav-link {
-    color: $darkgrey;
+  .navbar-light {
+    .navbar-nav {
+      .nav-link {
+        color: $darkgrey;
+      }
+    }
   }
 </style>
