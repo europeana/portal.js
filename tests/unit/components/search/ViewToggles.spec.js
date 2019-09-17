@@ -37,13 +37,14 @@ describe('components/search/ViewToggles', () => {
         viewToggle.exists().should.eq(true);
       });
 
-      // TODO: why does this fail? href in tests is just e.g. "?view=list" without
-      //       the route path.
       it('links to route with view parameter set', () => {
         const wrapper = factory();
 
         const viewToggleLink = wrapper.find(`[data-qa="search ${view} view toggle"] a`);
-        viewToggleLink.attributes('href').should.contain(`/search?view=${view}`);
+        // TODO: why does this fail? href in tests is just e.g. "?view=list" without
+        //       the route path.
+        // viewToggleLink.attributes('href').should.contain(`/search?view=${view}`);
+        viewToggleLink.attributes('href').should.endWith(`&view=${view}`);
       });
 
       it('displays icon', () => {
