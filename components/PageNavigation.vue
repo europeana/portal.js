@@ -59,6 +59,10 @@
     padding-bottom: 0;
   }
 
+  .nav-item:not(:last-child) {
+    margin-right: 15px;
+  }
+
   .navbar-light {
     .navbar-nav {
       .nav-link {
