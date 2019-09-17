@@ -45,7 +45,7 @@
           <ViewToggles
             :active="view"
             :link-gen-route="route"
-            @changed="selectView"
+            @changed="changeView"
           />
         </b-col>
       </b-row>
@@ -320,8 +320,18 @@
       changeContentTierToggle() {
         this.currentSelectedFacets = selectedFacetsFromQuery(this.$route.query);
       },
+      changeFacet(name, selected) {
+        this.$set(this.currentSelectedFacets, name, selected);
+      },
       changePage(page) {
         this.currentPage = page;
+      },
+      changeView(view) {
+        if (process.browser) {
+          sessionStorage.searchResultsView = view;
+          localStorage.searchResultsView = view;
+        }
+        this.view = view;
       },
       paginationLink(val) {
         return this.localePath({ ...this.route, ...{ query: this.updateCurrentSearchQuery({ page: val }) } });
@@ -337,16 +347,6 @@
           return sessionStorage.searchResultsView || localStorage.searchResultsView || 'grid';
         }
         return this.$route.query.view || 'grid';
-      },
-      changeFacet(name, selected) {
-        this.$set(this.currentSelectedFacets, name, selected);
-      },
-      selectView(view) {
-        if (process.browser) {
-          sessionStorage.searchResultsView = view;
-          localStorage.searchResultsView = view;
-        }
-        this.view = view;
       },
       updateCurrentSearchQuery(updates = {}) {
         const current = {
