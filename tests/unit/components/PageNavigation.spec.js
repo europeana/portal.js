@@ -1,5 +1,6 @@
-import { createLocalVue, shallowMount } from '@vue/test-utils';
+import { createLocalVue, mount } from '@vue/test-utils';
 import Vuex from 'vuex';
+import sinon from 'sinon';
 
 import BootstrapVue from 'bootstrap-vue';
 import PageNavigation from '../../../components/PageNavigation.vue';
@@ -17,34 +18,39 @@ const store = new Vuex.Store({
       }
     },
     navigation: {
-      actions: {
-        init: () => {}
+      state: {
+        data: [
+          {
+            name: 'Home',
+            path: 'home'
+          }
+        ]
       }
     }
   }
 });
 
-const factory = () => shallowMount(PageNavigation, {
+store.dispatch = sinon.stub();
+
+const factory = () => mount(PageNavigation, {
   localVue,
-  store
+  store,
+  mocks: {
+    localePath: code => window.location.href + code
+  }
 });
 
 describe('components/search/PageNavigation', () => {
   it('calls dispatch on page load', async() => {
-    // const wrapper = factory();
-
     factory();
 
-    // console.log('MONKEY', store);
+    sinon.assert.calledWith(store.dispatch);
+  });
 
-    // wrapper.setData({
-    //   navigation: [
-    //     {
-    //       name: 'Home',
-    //       path: '/'
-    //     }
-    //   ]
-    // });
-    // store.dispatch.to.have.been.calledWith('navigation/init');
+  it('retrieves the correct navigation data', () => {
+    const wrapper = factory();
+    const links =  wrapper.findAll('[data-qa="main navigation link"]');
+
+    links.at(0).text().should.eq('Home');
   });
 });

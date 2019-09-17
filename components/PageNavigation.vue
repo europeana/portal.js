@@ -1,5 +1,8 @@
 <template>
-  <nav class="navigation-container">
+  <nav
+    class="navigation-container"
+    data-qa="main navigation"
+  >
     <b-container class="p-0">
       <b-nav>
         <b-nav-item
@@ -9,6 +12,7 @@
           exact
           exact-active-class="font-weight-bold"
           variant="secondary"
+          data-qa="main navigation link"
         >
           {{ nav.name }}
         </b-nav-item>
