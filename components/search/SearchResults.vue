@@ -60,7 +60,7 @@
             :type="facet.name === 'THEME' ? 'radio' : 'checkbox'"
             :fields="facet.fields"
             :selected-fields="currentSelectedFacets[facet.name]"
-            @changed="selectFacet"
+            @changed="changeFacet"
           />
         </b-col>
         <b-col
@@ -344,7 +344,7 @@
         }
         return this.$route.query.view || 'grid';
       },
-      selectFacet(name, selected) {
+      changeFacet(name, selected) {
         this.$set(this.currentSelectedFacets, name, selected);
       },
       selectView(view) {
