@@ -53,7 +53,8 @@
         <FacetDropdown
           v-for="facet in orderedFacets"
           :key="facet.name"
-          :facet="facet"
+          :name="facet.name"
+          :fields="facet.fields"
           :facet-type="facet.name === 'THEME' ? 'radio' : 'checkbox'"
           :selected-facet="selectedFacets[facet.name]"
           @updated="selectFacet"

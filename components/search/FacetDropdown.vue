@@ -19,11 +19,11 @@
           :key="index"
           v-model="radioSelected"
           :value="option"
-          :name="facet.name"
+          :name="name"
           :data-qa="`${option} ${RADIO}`"
           @change="applySelection"
         >
-          {{ $t(`facets.${facet.name}.options.${option}`) }}
+          {{ $t(`facets.${name}.options.${option}`) }}
         </b-form-radio>
       </template>
 
@@ -33,7 +33,7 @@
           :key="index"
           v-model="preSelected"
           :value="option.label"
-          :name="facet.name"
+          :name="name"
           :data-qa="`${option.label} ${CHECKBOX}`"
           :class="{ 'font-weight-bold' : selectedFacet.some(s => s === option.label) }"
         >
@@ -57,7 +57,7 @@
         variant="primary"
         :disabled="disableApplyButton"
         :data-qa="`${facetName} apply button`"
-        @click.stop="applySelection, $refs.dropdown.hide(true)"
+        @click.stop="applySelection"
       >
         {{ $t('facets.button.apply') }}
       </b-button>
@@ -84,8 +84,13 @@
 
   export default {
     props: {
-      facet: {
-        type: Object,
+      name: {
+        type: String,
+        required: true
+      },
+
+      fields: {
+        type: Array,
         required: true
       },
 
@@ -105,7 +110,6 @@
       return {
         RADIO: 'radio',
         CHECKBOX: 'checkbox',
-        THEME: 'THEME',
         preSelected: [],
         radioSelected: null
       };
@@ -113,24 +117,23 @@
 
     computed: {
       sortOptions() {
-        let newArray = [].concat(this.facet.fields);
         const selected = [];
 
         /* TODO: THIS NEEDS TO BE CLEANED UP */
-        newArray.map(field => {
+        this.fields.map(field => {
           if (this.selectedFacet.includes(field.label)) {
             selected.push(field);
           }
         });
 
-        const leftOver = newArray.filter(field => !this.selectedFacet.includes(field.label));
+        const leftOver = this.fields.filter(field => !this.selectedFacet.includes(field.label));
 
         return selected.sort((a, b) => a.count + b.count).concat(leftOver);
         /* END TODO */
       },
 
       facetName() {
-        return this.$t(`facets.${this.facet.name}.name`);
+        return this.$t(`facets.${this.name}.name`);
       },
 
       isRadio() {
@@ -155,12 +158,6 @@
     },
 
     mounted() {
-      this.$root.$on('bv::dropdown::hide', (event) => {
-        if (!event.target.innerHTML.includes('custom-radio')) {
-          this.applySelection();
-        }
-      });
-
       if (this.isRadio) {
         if (Array.isArray(this.selectedFacet)) {
           this.radioSelected = '';
@@ -179,18 +176,19 @@
 
       resetRadioSelection() {
         this.radioSelected = '';
+        this.applySelection();
       },
 
       applySelection() {
         if (this.isRadio) {
           Vue.nextTick(() => { // Change event triggers before v-model has updated. This resolves the issue
-            this.$emit('updated', this.THEME, this.radioSelected);
-            this.$refs.dropdown.hide(true);
+            this.$emit('updated', this.name, this.radioSelected);
           });
         } else {
           this.selected = this.preSelected;
-          this.$emit('updated', this.facet.name, this.selected);
+          this.$emit('updated', this.name, this.selected);
         }
+        this.$refs.dropdown.hide(true);
       }
     }
   };
