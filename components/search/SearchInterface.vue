@@ -312,10 +312,15 @@
         return this.currentTotalResults > this.perPage;
       },
       view() {
-        return this.$store.state.search.view;
+        return this.$store.getters['search/activeView'];
       }
     },
     watch: watchList,
+    created() {
+      if (this.$route.query.view) {
+        this.$store.commit('search/setView', this.$route.query.view);
+      }
+    },
     methods: {
       changeContentTierToggle() {
         this.currentSelectedFacets = selectedFacetsFromQuery(this.$route.query);

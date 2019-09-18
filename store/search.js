@@ -1,7 +1,7 @@
 export const state = () => ({
   active: false,
   query: '',
-  view: 'grid'
+  view: null
 });
 
 export const mutations = {
@@ -13,5 +13,24 @@ export const mutations = {
   },
   setView(state, value) {
     state.view = value;
+    if (process.browser) {
+      sessionStorage.searchResultsView = value;
+      localStorage.searchResultsView = value;
+    }
+  }
+};
+
+export const getters = {
+  activeView: (state) => {
+    if (state.view) {
+      return state.view;
+    } else if (process.browser) {
+      if (sessionStorage.searchResultsView) {
+        return sessionStorage.searchResultsView;
+      } else if (localStorage.searchResultsView) {
+        return localStorage.searchResultsView;
+      }
+    }
+    return 'grid';
   }
 };

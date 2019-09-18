@@ -44,7 +44,7 @@
         }
       },
       view() {
-        return this.$store.state.search.view;
+        return this.$store.getters['search/activeView'];
       }
     },
     updated() {

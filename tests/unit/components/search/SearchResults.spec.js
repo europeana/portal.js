@@ -1,17 +1,32 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 import SearchResults from '../../../../components/search/SearchResults.vue';
+import Vuex from 'vuex';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
+localVue.use(Vuex);
 
-const factory = (propsData = {}) => shallowMount(SearchResults, {
-  localVue,
-  propsData,
-  mocks: {
-    localePath: (opts) => `/record/${opts.params.pathMatch}`
-  }
-});
+const factory = (options = {}) => {
+  const store = new Vuex.Store({
+    state: {
+      search: {
+        view: options.view
+      }
+    },
+    getters: {
+      'search/activeView': (state) => state.search.view
+    }
+  });
+
+  return shallowMount(SearchResults, {
+    localVue,
+    store,
+    mocks: {
+      localePath: (opts) => `/record/${opts.params.pathMatch}`
+    }
+  });
+};
 
 describe('components/search/SearchResults', () => {
   context('when view is grid', () => {

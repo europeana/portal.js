@@ -38,20 +38,11 @@
     computed: {
       activeView: {
         get() {
-          return this.$store.state.search.view;
+          return this.$store.getters['search/activeView'];
         },
         set(value) {
-          if (process.browser) {
-            sessionStorage.searchResultsView = value;
-            localStorage.searchResultsView = value;
-          }
           this.$store.commit('search/setView', value);
         }
-      }
-    },
-    created() {
-      if (this.$route.query.view) {
-        this.activeView = this.$route.query.view;
       }
     },
     methods: {

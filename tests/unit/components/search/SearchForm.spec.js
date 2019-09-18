@@ -71,7 +71,8 @@ describe('components/search/SearchForm', () => {
     const state = {
       search: {
         active: true,
-        query: ''
+        query: '',
+        view: 'grid'
       }
     };
     const mutations = {
@@ -79,7 +80,10 @@ describe('components/search/SearchForm', () => {
     };
     const store = new Vuex.Store({
       state,
-      mutations
+      mutations,
+      getters: {
+        'search/activeView': (state) => state.search.view
+      }
     });
     const wrapper = factory({ store });
     const form =  wrapper.find('form');
@@ -97,7 +101,7 @@ describe('components/search/SearchForm', () => {
       form.trigger('submit.prevent');
 
       wrapper.vm.$route.path.should.eq('/search');
-      wrapper.vm.$route.query.should.eql({ query: newQuery, page: 1 });
+      wrapper.vm.$route.query.should.eql({ query: newQuery, page: 1, view: state.search.view });
     });
   });
 });

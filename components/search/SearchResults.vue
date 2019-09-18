@@ -1,6 +1,20 @@
 <template>
+  <b-list-group
+    v-if="view === 'list'"
+    data-qa="search results list"
+  >
+    <b-list-group-item
+      v-for="result in results"
+      :key="result.europeanaId"
+      :to="localePath({ name: 'record-all', params: { pathMatch: result.europeanaId.slice(1) } })"
+      class="flex-column align-items-start mb-3"
+      data-qa="search result"
+    >
+      <SearchResult :result="result" />
+    </b-list-group-item>
+  </b-list-group>
   <b-card-group
-    v-if="view === 'grid'"
+    v-else
     class="card-deck-3-cols card-deck-search"
     deck
     data-qa="search results grid"
@@ -15,20 +29,6 @@
       data-qa="search result"
     />
   </b-card-group>
-  <b-list-group
-    v-else
-    data-qa="search results list"
-  >
-    <b-list-group-item
-      v-for="result in results"
-      :key="result.europeanaId"
-      :to="localePath({ name: 'record-all', params: { pathMatch: result.europeanaId.slice(1) } })"
-      class="flex-column align-items-start mb-3"
-      data-qa="search result"
-    >
-      <SearchResult :result="result" />
-    </b-list-group-item>
-  </b-list-group>
 </template>
 
 <script>
@@ -53,7 +53,7 @@
     },
     computed: {
       view() {
-        return this.$store.state.search.view;
+        return this.$store.getters['search/activeView'];
       }
     },
     watch: {
