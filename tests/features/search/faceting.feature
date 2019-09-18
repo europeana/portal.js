@@ -64,11 +64,11 @@ Feature: Search faceting
     When I visit the `search page`
     And I click the `Providing country dropdown button`
     And I check the "Belgium" "COUNTRY" checkbox
-    And I wait 1 second
     And I click the `Type of media dropdown button`
+    And I wait 3 seconds
     And I check the "IMAGE" "TYPE" checkbox
-    And I wait 1 second
     And I click the `Can I reuse this? dropdown button`
+    And I wait 3 seconds
     And I check the "open" "REUSABILITY" checkbox
     And I click the `Can I reuse this? apply button`
     And I wait 3 seconds
@@ -128,6 +128,6 @@ Feature: Search faceting
       And I wait 2 seconds
       And I enter "paris" in the `search box`
       And I click the `search button`
-      And I wait 2 seconds
+      And I wait 3 seconds
       Then I should be on `/search?page=1&qf=COUNTRY%3A%22France%22&query=&view=grid`
       And I should have 1 `filter badge`
