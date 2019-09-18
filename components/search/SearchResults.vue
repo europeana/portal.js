@@ -44,16 +44,17 @@
       value: {
         type: Array,
         default: () => []
-      },
-      view: {
-        type: String,
-        required: true
       }
     },
     data() {
       return {
         results: this.value
       };
+    },
+    computed: {
+      view() {
+        return this.$store.state.search.view;
+      }
     },
     watch: {
       value: {

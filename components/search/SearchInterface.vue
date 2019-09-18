@@ -43,9 +43,7 @@
         </b-col>
         <b-col>
           <ViewToggles
-            :active="view"
             :link-gen-route="route"
-            @changed="changeView"
           />
         </b-col>
       </b-row>
@@ -225,8 +223,7 @@
         currentPage: this.page,
         currentResults: this.results,
         currentSelectedFacets: this.selectedFacets,
-        currentTotalResults: this.totalResults,
-        view: this.selectedView()
+        currentTotalResults: this.totalResults
       };
     },
     computed: {
@@ -313,6 +310,9 @@
       },
       showPagination() {
         return this.currentTotalResults > this.perPage;
+      },
+      view() {
+        return this.$store.state.search.view;
       }
     },
     watch: watchList,
@@ -326,27 +326,11 @@
       changePage(page) {
         this.currentPage = page;
       },
-      changeView(view) {
-        if (process.browser) {
-          sessionStorage.searchResultsView = view;
-          localStorage.searchResultsView = view;
-        }
-        this.view = view;
-      },
       paginationLink(val) {
         return this.localePath({ ...this.route, ...{ query: this.updateCurrentSearchQuery({ page: val }) } });
       },
       rerouteSearch(queryUpdates) {
         this.$router.push(this.localePath({ ...this.route, ...{ query: this.updateCurrentSearchQuery(queryUpdates) } }));
-      },
-      selectedView() {
-        if (process.browser) {
-          if (this.$route.query.view) {
-            sessionStorage.searchResultsView = this.$route.query.view;
-          }
-          return sessionStorage.searchResultsView || localStorage.searchResultsView || 'grid';
-        }
-        return this.$route.query.view || 'grid';
       },
       updateCurrentSearchQuery(updates = {}) {
         const current = {

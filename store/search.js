@@ -1,6 +1,7 @@
 export const state = () => ({
   active: false,
-  query: ''
+  query: '',
+  view: 'grid'
 });
 
 export const mutations = {
@@ -9,5 +10,8 @@ export const mutations = {
   },
   setQuery(state, value) {
     state.query = value;
+  },
+  setView(state, value) {
+    state.view = value;
   }
 };

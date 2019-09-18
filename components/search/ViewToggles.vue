@@ -23,10 +23,6 @@
 <script>
   export default {
     props: {
-      active: {
-        type: String,
-        default: ''
-      },
       linkGenRoute: {
         type: Object,
         default: () => {
@@ -36,9 +32,27 @@
     },
     data() {
       return {
-        activeView: this.active,
         views: ['list', 'grid']
       };
+    },
+    computed: {
+      activeView: {
+        get() {
+          return this.$store.state.search.view;
+        },
+        set(value) {
+          if (process.browser) {
+            sessionStorage.searchResultsView = value;
+            localStorage.searchResultsView = value;
+          }
+          this.$store.commit('search/setView', value);
+        }
+      }
+    },
+    created() {
+      if (this.$route.query.view) {
+        this.activeView = this.$route.query.view;
+      }
     },
     methods: {
       iconSrc(view) {
@@ -51,7 +65,6 @@
       selectView(view) {
         if (view !== this.activeView) {
           this.activeView = view;
-          this.$emit('changed', this.activeView);
         }
       }
     }

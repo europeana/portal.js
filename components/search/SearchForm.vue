@@ -42,6 +42,9 @@
         set(value) {
           this.inputQuery = value;
         }
+      },
+      view() {
+        return this.$store.state.search.view;
       }
     },
     updated() {
@@ -49,7 +52,7 @@
     },
     methods: {
       async submitForm() {
-        const newRouteQuery = { ...this.$route.query, ...{ query: this.inputQuery, page: 1 } };
+        const newRouteQuery = { ...this.$route.query, ...{ query: this.inputQuery, page: 1, view: this.view } };
         const newRoutePath = this.localePath({ name: 'search', query: newRouteQuery });
         await this.$store.commit('search/setQuery', this.inputQuery);
         await this.$router.push(newRoutePath);
