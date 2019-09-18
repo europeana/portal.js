@@ -99,17 +99,6 @@ describe('components/record/MediaPresentation', () => {
       });
     });
 
-    context('when url is for Sketchfab media', () => {
-      it('is `true`', () => {
-        const wrapper = factory();
-        const props = { url: 'https://sketchfab.com/models/abcdef' };
-
-        wrapper.setProps(props);
-
-        wrapper.vm.isOEmbed.should.be.true;
-      });
-    });
-
     context('when url is for Vimeo media', () => {
       it('is `true`', () => {
         const wrapper = factory();
