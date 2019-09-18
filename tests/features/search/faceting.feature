@@ -64,15 +64,17 @@ Feature: Search faceting
     When I visit the `search page`
     And I click the `Providing country dropdown button`
     And I check the "Belgium" "COUNTRY" checkbox
+    And I click the `Providing country apply button`
+    And I wait 2 seconds
     And I click the `Type of media dropdown button`
-    And I wait 3 seconds
     And I check the "IMAGE" "TYPE" checkbox
+    And I click the `Type of media apply button`
+    And I wait 2 seconds
     And I click the `Can I reuse this? dropdown button`
-    And I wait 3 seconds
     And I check the "open" "REUSABILITY" checkbox
     And I click the `Can I reuse this? apply button`
-    And I wait 3 seconds
-    Then I should be on `/search?page=1&qf=TYPE%3A%22IMAGE%22&qf=COUNTRY%3A%22Belgium%22&query=&reusability=open&view=grid`
+    And I wait 2 seconds
+    Then I should be on `/search?page=1&qf=COUNTRY%3A%22Belgium%22&qf=TYPE%3A%22IMAGE%22&query=&reusability=open&view=grid`
     And I should have 3 `filter badge`s
 
   Scenario: Facets are loaded from the URL
@@ -85,8 +87,12 @@ Feature: Search faceting
     When I visit `/search?query=&page=1&reusability=open&qf=TYPE%3A%22IMAGE%22&qf=COUNTRY%3A%22Belgium%22`
     And I click the `Providing country dropdown button`
     And I check the "Belgium" "COUNTRY" checkbox
+    And I click the `Providing country apply button`
+    And I wait 2 seconds
     And I click the `Type of media dropdown button`
     And I check the "IMAGE" "TYPE" checkbox
+    And I click the `Type of media apply button`
+    And I wait 2 seconds
     And I click the `Can I reuse this? dropdown button`
     And I check the "open" "REUSABILITY" checkbox
     And I click the `Can I reuse this? apply button`
@@ -129,5 +135,5 @@ Feature: Search faceting
       And I enter "paris" in the `search box`
       And I click the `search button`
       And I wait 3 seconds
-      Then I should be on `/search?page=1&qf=COUNTRY%3A%22France%22&query=&view=grid`
+      Then I should be on `/search?page=1&qf=COUNTRY%3A%22France%22&query=paris&view=grid`
       And I should have 1 `filter badge`

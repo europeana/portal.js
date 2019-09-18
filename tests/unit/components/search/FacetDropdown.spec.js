@@ -31,9 +31,7 @@ const factory = () => mount(FacetDropdown, {
   },
   propsData: {
     facetType: 'checkbox',
-    facet: {
-      fields: countryFields
-    },
+    fields: countryFields,
     selectedFacet: ['United Kingdom']
   }
 });
