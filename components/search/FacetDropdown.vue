@@ -57,7 +57,7 @@
         variant="primary"
         :disabled="disableApplyButton"
         :data-qa="`${facetName} apply button`"
-        @click.stop="applySelection"
+        @click.stop="applySelection, $refs.dropdown.hide(true)"
       >
         {{ $t('facets.button.apply') }}
       </b-button>
@@ -79,6 +79,7 @@
 </template>
 
 <script>
+  import Vue from 'vue';
   import isEqual from 'lodash/isEqual';
 
   export default {
@@ -154,8 +155,10 @@
     },
 
     mounted() {
-      this.$root.$on('bv::dropdown::hide', () => {
-        this.applySelection();
+      this.$root.$on('bv::dropdown::hide', (event) => {
+        if (!event.target.innerHTML.includes('custom-radio')) {
+          this.applySelection();
+        }
       });
 
       if (this.isRadio) {
@@ -180,12 +183,14 @@
 
       applySelection() {
         if (this.isRadio) {
-          this.$emit('updated', this.THEME, this.radioSelected);
+          Vue.nextTick(() => { // Change event triggers before v-model has updated. This resolves the issue
+            this.$emit('updated', this.THEME, this.radioSelected);
+            this.$refs.dropdown.hide(true);
+          });
         } else {
           this.selected = this.preSelected;
           this.$emit('updated', this.facet.name, this.selected);
         }
-        this.$refs.dropdown.hide(true);
       }
     }
   };
