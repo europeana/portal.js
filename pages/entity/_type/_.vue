@@ -182,6 +182,7 @@
         });
     },
     fetch({ store }) {
+      store.commit('search/setQuery', '');
       store.commit('search/setActive', true);
     },
     head() {
