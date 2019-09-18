@@ -1,22 +1,5 @@
 [
   {
-    "provider_name": "Sketchfab",
-    "provider_url": "http://sketchfab.com",
-    "endpoints": [
-      {
-        "schemes": [
-          "http://sketchfab.com/models/*",
-          "https://sketchfab.com/models/*",
-          "https://sketchfab.com/*/folders/*"
-        ],
-        "url": "http://sketchfab.com/oembed",
-        "formats": [
-          "json"
-        ]
-      }
-    ]
-  },
-  {
     "provider_name": "SoundCloud",
     "provider_url": "http://soundcloud.com/",
     "endpoints": [
@@ -44,19 +27,6 @@
         ],
         "url": "https://vimeo.com/api/oembed.{format}",
         "discovery": true
-      }
-    ]
-  },
-  {
-    "provider_name": "DISMARC",
-    "provider_url": "https://www.dismarc.org/",
-    "endpoints": [
-      {
-        "schemes": [
-          "http://eusounds.ait.co.at/player/*",
-          "http://www.dismarc.org/player/*"
-        ],
-        "url": "http://www.dismarc.org/player/oembed"
       }
     ]
   },
