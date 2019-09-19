@@ -30,7 +30,7 @@ describe('plugins/europeana/search', () => {
         nock.isDone().should.be.true;
       });
 
-      it('requests 24 results', async() => {
+      it('requests 24 results by default', async() => {
         baseRequest
           .query(query => {
             return query.rows === '24';
@@ -38,6 +38,18 @@ describe('plugins/europeana/search', () => {
           .reply(200, defaultResponse);
 
         await search({ query: 'anything', wskey: apiKey });
+
+        nock.isDone().should.be.true;
+      });
+
+      it('accepts and uses `rows` option', async() => {
+        baseRequest
+          .query(query => {
+            return query.rows === '9';
+          })
+          .reply(200, defaultResponse);
+
+        await search({ query: 'anything', rows: 9, wskey: apiKey });
 
         nock.isDone().should.be.true;
       });
