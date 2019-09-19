@@ -9,9 +9,10 @@ localVue.use(BootstrapVue);
 localVue.use(Vuex);
 
 const factory = (options = {}) => mount(SearchForm, {
-  ...{
-    localVue,
-    mocks: {
+  localVue,
+  store: options.store,
+  mocks: {
+    ...{
       $route: {
         path: '/search',
         name: 'search'
@@ -19,13 +20,13 @@ const factory = (options = {}) => mount(SearchForm, {
       $router: [],
       $t: () => {},
       localePath: (opts) => opts
-    }
-  }, ...options
+    }, ...(options.mocks || {})
+  }
 });
 
 describe('components/search/SearchForm', () => {
   describe('query', () => {
-    context('when search is active', () => {
+    context('when on a search page', () => {
       const wrapper = factory({
         store: new Vuex.Store({
           state: {
@@ -42,7 +43,7 @@ describe('components/search/SearchForm', () => {
       });
     });
 
-    context('when search is inactive', () => {
+    context('when not on a search page', () => {
       const wrapper = factory({
         store: new Vuex.Store({
           state: {
@@ -56,6 +57,52 @@ describe('components/search/SearchForm', () => {
 
       it('is empty', () => {
         wrapper.vm.query.should.eq('');
+      });
+    });
+  });
+
+  describe('routePath', () => {
+    context('when on a search page', () => {
+      const route = {
+        path: '/some-search-path'
+      };
+      const wrapper = factory({
+        mocks: {
+          $route: route
+        },
+        store: new Vuex.Store({
+          state: {
+            search: {
+              active: true
+            }
+          }
+        })
+      });
+
+      it('uses current route path', () => {
+        wrapper.vm.routePath.should.eq(route.path);
+      });
+    });
+
+    context('when not on a search page', () => {
+      const route = {
+        path: '/some-non-search-path'
+      };
+      const wrapper = factory({
+        mocks: {
+          $route: route
+        },
+        store: new Vuex.Store({
+          state: {
+            search: {
+              active: false
+            }
+          }
+        })
+      });
+
+      it('uses default search route path', () => {
+        wrapper.vm.routePath.should.eql({ name: 'search' });
       });
     });
   });
