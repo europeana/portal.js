@@ -1,29 +1,22 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 import SearchForm from '../../../../components/search/SearchForm.vue';
-import VueRouter from 'vue-router';
 import Vuex from 'vuex';
 import sinon from 'sinon';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
-localVue.use(VueRouter);
 localVue.use(Vuex);
-
-const router = new VueRouter({
-  routes: [
-    {
-      path: '/search',
-      name: 'search'
-    }
-  ]
-});
 
 const factory = (options = {}) => mount(SearchForm, {
   ...{
     localVue,
-    router,
     mocks: {
+      $route: {
+        path: '/search',
+        name: 'search'
+      },
+      $router: [],
       $t: () => {},
       localePath: (opts) => opts
     }
@@ -100,8 +93,9 @@ describe('components/search/SearchForm', () => {
     it('routes to a new search', () => {
       form.trigger('submit.prevent');
 
-      wrapper.vm.$route.path.should.eq('/search');
-      wrapper.vm.$route.query.should.eql({ query: newQuery, page: 1, view: state.search.view });
+      const newRoute = wrapper.vm.$router.slice(-1)[0];
+      newRoute.path.should.eq('/search');
+      newRoute.query.should.eql({ query: newQuery, page: 1, view: state.search.view });
     });
   });
 });
