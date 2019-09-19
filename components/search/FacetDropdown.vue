@@ -3,7 +3,7 @@
     ref="dropdown"
     :variant="dropdownVariant"
     class="mr-2"
-    :data-type="facetType"
+    :data-type="type"
     data-qa="search facet"
   >
     <template v-slot:button-content>
@@ -43,7 +43,7 @@
     </b-dropdown-form>
 
     <li
-      v-if="facetType === 'checkbox'"
+      v-if="type === 'checkbox'"
       class="p-2 float-right"
     >
       <b-button
@@ -100,7 +100,7 @@
         default: () => []
       },
 
-      facetType: {
+      type: {
         type: String,
         required: true
       }
@@ -137,7 +137,7 @@
       },
 
       isRadio() {
-        return this.facetType === this.RADIO;
+        return this.type === this.RADIO;
       },
 
       activateCheckboxResetButton() {

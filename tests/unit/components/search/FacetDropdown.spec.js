@@ -30,7 +30,7 @@ const factory = () => mount(FacetDropdown, {
     $t: (key) => key
   },
   propsData: {
-    facetType: 'checkbox',
+    type: 'checkbox',
     fields: countryFields,
     selected: ['United Kingdom']
   }
