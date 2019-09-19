@@ -30,10 +30,16 @@ describe('plugins/europeana/record', () => {
             });
         });
 
-        it('throws API error message', () => {
-          const response = getRecord(europeanaId, { wskey: apiKey });
+        it('throws error with API error message and status code', async() => {
+          let error;
+          try {
+            await getRecord(europeanaId, { wskey: apiKey });
+          } catch (e) {
+            error = e;
+          }
 
-          return response.should.be.rejectedWith(errorMessage);
+          error.message.should.eq(errorMessage);
+          error.statusCode.should.eq(404);
         });
       });
 

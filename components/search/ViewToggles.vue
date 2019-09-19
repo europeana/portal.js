@@ -23,16 +23,27 @@
 <script>
   export default {
     props: {
-      active: {
-        type: String,
-        default: ''
+      linkGenRoute: {
+        type: Object,
+        default: () => {
+          return { name: 'search' };
+        }
       }
     },
     data() {
       return {
-        activeView: this.active,
         views: ['list', 'grid']
       };
+    },
+    computed: {
+      activeView: {
+        get() {
+          return this.$store.getters['search/activeView'];
+        },
+        set(value) {
+          this.$store.commit('search/setView', value);
+        }
+      }
     },
     methods: {
       iconSrc(view) {
@@ -40,14 +51,11 @@
         return require(`../../assets/img/search/${view}.svg`);
       },
       linkGen(view) {
-        return this.localePath({
-          name: 'search', query: { ...this.$route.query, ...{ view } }
-        });
+        return this.localePath({ ...this.linkGenRoute, ...{ query: { ...this.$route.query, ...{ view } } } });
       },
       selectView(view) {
         if (view !== this.activeView) {
           this.activeView = view;
-          this.$emit('changed', this.activeView);
         }
       }
     }

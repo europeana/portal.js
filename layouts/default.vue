@@ -7,7 +7,7 @@
     >
       {{ $t('layout.skipToMain') }}
     </a>
-    <PageHeader :search-query="searchQuery" />
+    <PageHeader />
     <nuxt
       id="main"
     />
@@ -23,24 +23,6 @@
     components: {
       PageHeader,
       PageFooter
-    },
-    data() {
-      return {
-        searchQuery: this.$route.query || {}
-      };
-    },
-    created() {
-      this.$root.$on('leaveSearchPage', () => {
-        this.searchQuery = {};
-      });
-      this.$root.$on('updateSearchQuery', (val) => {
-        this.searchQuery = val;
-      });
-    },
-    updated() {
-      if (!Object.prototype.hasOwnProperty.call(this.searchQuery, 'view')) {
-        this.searchQuery.view = sessionStorage.searchResultsView || localStorage.searchResultsView || 'grid';
-      }
     }
   };
 </script>

@@ -51,13 +51,13 @@ Feature: Search pagination
 
     When I open `/search?query=&page=42`
     Then I see a `search result`
-    Then I see an `info notice` with the text "Additional results are not shown as only the first 1000 most relevant results are shown. If you haven't found what you're looking for, please consider refining your search."
+    Then I see an `info notice` with the text "Additional results are not shown as only the first 1,000 most relevant results are shown. If you haven't found what you're looking for, please consider refining your search."
     And I am on an accessible page
 
   Scenario: Paginating beyond API result limit
 
     When I open `/search?query=&page=500`
-    Then I see an `error notice` with the text "It is only possible to view the first 1000 search results."
+    Then I see an `error notice` with the text "It is only possible to view the first 1,000 search results."
     And I am on an accessible page
 
   Scenario: Paginating beyond available results

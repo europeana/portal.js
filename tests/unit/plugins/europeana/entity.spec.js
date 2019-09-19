@@ -26,7 +26,7 @@ const searchResponse = {
 
 const entitiesResponse = {
   items: [
-    { type: 'Agent',
+    { type: 'Concept',
       id: 'http://data.europeana.eu/agent/base/147831',
       prefLabel: { en: 'Architecture' },
       note: {
@@ -37,7 +37,7 @@ const entitiesResponse = {
         source: 'http://commons.wikimedia.org/wiki/File:View_of_Santa_Maria_del_Fiore_in_Florence.jpg'
       }
     },
-    { type: 'Agent',
+    { type: 'Concept',
       id: 'http://data.europeana.eu/agent/base/49928',
       prefLabel: { en: 'Painting' }
     }
@@ -51,7 +51,7 @@ describe('plugins/europeana/entity', () => {
 
   describe('getEntity()', () => {
     describe('API response', () => {
-      describe('with "No resource found with ID: ..." error', () => {
+      context('with "No resource found with ID: ..." error', () => {
         const errorMessage = 'No resource found with ID:';
 
         beforeEach('stub API response', () => {
@@ -62,13 +62,20 @@ describe('plugins/europeana/entity', () => {
             });
         });
 
-        it('throws API error message', () => {
-          const response = getEntity(entityType, entityId, { wskey: apiKey });
-          return response.should.be.rejectedWith(errorMessage);
+        it('throws error with API error message and status code', async() => {
+          let error;
+          try {
+            await getEntity(entityType, entityId, { wskey: apiKey });
+          } catch (e) {
+            error = e;
+          }
+
+          error.message.should.eq(errorMessage);
+          error.statusCode.should.eq(404);
         });
       });
 
-      describe('with object in response', () => {
+      context('with object in response', () => {
         const apiResponse = entitiesResponse.items[0];
 
         beforeEach('stub API response', () => {
@@ -108,7 +115,7 @@ describe('plugins/europeana/entity', () => {
 
   describe('relatedEntities()', () => {
     describe('API response', () => {
-      describe('with object in response', () => {
+      context('with object in response', () => {
 
         beforeEach('stub API response', () => {
           nock(apiUrlSearch)
@@ -131,9 +138,9 @@ describe('plugins/europeana/entity', () => {
   });
 
   describe('getEntityUri', () => {
-    describe('with an id of "100-test-slug', () => {
+    context('with an id of "100-test-slug', () => {
       let id = '100-test-slug';
-      describe('with type Agent', () => {
+      context('with type Agent', () => {
         let type = 'person';
         it('returns an agent URI, without any human readable labels', () => {
           const uri = getEntityUri(type, id);
@@ -141,7 +148,7 @@ describe('plugins/europeana/entity', () => {
         });
       });
 
-      describe('with type Concept', () => {
+      context('with type Concept', () => {
         let type = 'topic';
         it('returns an agent URI, without any human readable labels', () => {
           const uri = getEntityUri(type, id);
@@ -152,7 +159,7 @@ describe('plugins/europeana/entity', () => {
   });
 
   describe('getEntitySlug', () => {
-    describe('with an entity', () => {
+    context('with an entity', () => {
       let entity = entitiesResponse.items[0];
       it('returns an agent URI, without any human readable labels', () => {
         const slug = getEntitySlug(entity);
@@ -162,17 +169,17 @@ describe('plugins/europeana/entity', () => {
   });
 
   describe('getEntityDescription', () => {
-    describe('with an entity', () => {
+    context('with an entity', () => {
       let entity = entitiesResponse.items[0];
       it('returns a description', () => {
-        const description = getEntityDescription('topic', entity);
+        const description = getEntityDescription(entity);
         return description.should.contain('Architecture');
       });
     });
   });
 
   describe('getWikimediaThumbnailUrl', () => {
-    describe('with an entity', () => {
+    context('with an entity', () => {
       let entity = entitiesResponse.items[0];
       it('returns an wikimedia thumbnail url starting with https://upload.wikimedia.org', () => {
         const thumbnail = getWikimediaThumbnailUrl(entity.depiction.id);

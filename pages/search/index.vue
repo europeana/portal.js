@@ -1,232 +1,43 @@
 <template>
   <b-container>
     <b-row>
-      <b-col><h1>Search</h1></b-col>
-    </b-row>
-    <b-row
-      class="mb-3"
-    >
       <b-col>
-        <SearchSelectedFacets
-          :facets="selectedFacets"
-        />
+        <h1>{{ $t('search') }}</h1>
       </b-col>
-    </b-row>
-    <b-row
-      v-if="error"
-      class="mb-3"
-    >
-      <b-col>
-        <AlertMessage
-          :error="error"
-        />
-      </b-col>
-    </b-row>
-    <b-row
-      v-if="totalResults === 0"
-      class="mb-3"
-    >
-      <b-col>
-        <AlertMessage
-          :error="$t('noResults')"
-        />
-      </b-col>
-    </b-row>
-    <b-row
-      v-if="hasResults"
-      class="mb-3"
-    >
-      <b-col>
-        <p data-qa="total results">
-          {{ $t('results') }}: {{ totalResults | localise }}
-        </p>
-      </b-col>
-      <b-col>
-        <ViewToggles
-          :active="view"
-          @changed="selectView"
-        />
-      </b-col>
-    </b-row>
-    <b-row
-      class="mb-3"
-    >
-      <b-col>
-        <SearchFacet
-          v-for="facet in orderedFacets"
-          :key="facet.name"
-          :name="facet.name"
-          :type="facet.name === 'THEME' ? 'radio' : 'checkbox'"
-          :fields="facet.fields"
-          :selected-fields="selectedFacets[facet.name]"
-          @changed="selectFacet"
-        />
-      </b-col>
-      <b-col
-        cols="12"
-        lg="9"
-      >
-        <template
-          v-if="hasResults"
-        >
-          <b-row>
-            <b-col>
-              <PaginationNav
-                v-if="totalResults > perPage"
-                v-model="page"
-                :total-results="totalResults"
-                :per-page="perPage"
-                :link-gen="paginationLink"
-              />
-            </b-col>
-          </b-row>
-          <b-row
-            class="mb-3"
-          >
-            <b-col>
-              <p
-                v-if="results.length === 0"
-                data-qa="warning notice"
-              >
-                {{ $t('noMoreResults') }}
-              </p>
-              <SearchResultsList
-                v-else-if="view === 'list'"
-                :results="results"
-              />
-              <SearchResultsGrid
-                v-else
-                :results="results"
-              />
-              <InfoMessage
-                v-if="lastAvailablePage"
-                :message="$t('resultsLimitWarning')"
-              />
-            </b-col>
-          </b-row>
-          <b-row>
-            <b-col>
-              <TierToggler
-                :active-state="contentTierActiveState"
-                @toggle="selectFacet"
-              />
-            </b-col>
-          </b-row>
-          <b-row>
-            <b-col>
-              <PaginationNav
-                v-if="totalResults > perPage"
-                v-model="page"
-                :total-results="totalResults"
-                :per-page="perPage"
-                :link-gen="paginationLink"
-              />
-            </b-col>
-          </b-row>
-        </template>
-      </b-col>
+      <SearchInterface
+        :error="error"
+        :facets="facets"
+        :last-available-page="lastAvailablePage"
+        :page="page"
+        :query="query"
+        :results="results"
+        :selected-facets="selectedFacets"
+        :total-results="totalResults"
+      />
     </b-row>
   </b-container>
 </template>
 
 <script>
-  import AlertMessage from '../../components/generic/AlertMessage';
-  import InfoMessage from '../../components/generic/InfoMessage';
-  import SearchFacet from '../../components/search/SearchFacet';
-  import SearchResultsGrid from '../../components/search/SearchResultsGrid';
-  import SearchResultsList from '../../components/search/SearchResultsList';
-  import SearchSelectedFacets from '../../components/search/SearchSelectedFacets';
-  import PaginationNav from '../../components/generic/PaginationNav';
-  import ViewToggles from '../../components/search/ViewToggles';
-  import TierToggler from '../../components/search/TierToggler';
+  import SearchInterface from '../../components/search/SearchInterface';
   import search, { pageFromQuery, selectedFacetsFromQuery } from '../../plugins/europeana/search';
-
-  let watchList = {};
-  for (const property of ['qf', 'query', 'reusability', 'view', 'theme']) {
-    watchList[property] = {
-      immediate: true,
-      handler(val) {
-        this.$root.$emit('updateSearchQuery', this.updateCurrentSearchQuery({ [property]: val }));
-      }
-    };
-  }
-
-  const facetsToDisplay = [ 'COUNTRY', 'REUSABILITY', 'TYPE' ];
-  const thematicCollections = [ 'all', 'ww1',  'archaeology', 'art', 'fashion', 'manuscript', 'map', 'migration', 'music', 'nature', 'newspaper', 'photography', 'sport'];
 
   export default {
     components: {
-      AlertMessage,
-      InfoMessage,
-      SearchFacet,
-      SearchResultsGrid,
-      SearchResultsList,
-      SearchSelectedFacets,
-      PaginationNav,
-      ViewToggles,
-      TierToggler
-    },
-    props: {
-      perPage: {
-        type: Number,
-        default: 24
-      }
+      SearchInterface
     },
     data() {
       return {
         error: null,
         facets: [],
-        inHeader: false,
-        isLoading: false,
         lastAvailablePage: false,
         page: 1,
-        qfForSelectedFacets: [],
-        query: null,
-        results: null,
-        reusability: null,
+        query: '',
+        results: [],
         selectedFacets: {},
-        theme: null,
-        totalResults: null,
-        view: this.selectedView()
+        totalResults: null
       };
     },
-    computed: {
-      hasResults() {
-        return this.results !== null && this.totalResults > 0;
-      },
-      /**
-       * Sort the facets from the API response
-       * Facets are returned in the hard-coded preferred order, followed by all
-       * others in the order the API returned them.
-       * @return {Object[]} ordered facets
-       * TODO: does this belong in its own component?
-       */
-      orderedFacets() {
-        if (!this.facets) {
-          return [];
-        }
-        const order = ['TYPE', 'REUSABILITY', 'COUNTRY'];
-        let unordered = this.facets.slice();
-        let ordered = [];
-
-        for (const facetName of order) {
-          const index = unordered.findIndex((f) => {
-            return f.name === facetName;
-          });
-          if (index !== -1) {
-            ordered = ordered.concat(unordered.splice(index, 1));
-          }
-        }
-
-        ordered.unshift({ name: 'THEME', fields: thematicCollections });
-        return ordered.concat(unordered);
-      },
-
-      contentTierActiveState() {
-        return Object.prototype.hasOwnProperty.call(this.selectedFacets, 'contentTier') && this.selectedFacets['contentTier'].includes('*');
-      }
-    },
-    watch: watchList,
     asyncData({ env, query, res, redirect, app }) {
       const currentPage = pageFromQuery(query.page);
 
@@ -243,9 +54,8 @@
 
       return search({
         page: currentPage,
-        query: query.query,
-        facet: facetsToDisplay.join(','),
         qf: query.qf,
+        query: query.query,
         reusability: query.reusability,
         theme: query.theme,
         wskey: env.EUROPEANA_API_KEY
@@ -253,113 +63,31 @@
         .then((response) => {
           return {
             ...response,
-            isLoading: false,
-            query: query.query,
             page: Number(currentPage),
-            selectedFacets: selectedFacetsFromQuery(query),
-            qfForSelectedFacets: query.qf === '' ? [] : query.qf,
-            reusability: query.reusability,
-            theme: query.theme
+            query: query.query,
+            selectedFacets: selectedFacetsFromQuery(query)
           };
         })
         .catch((error) => {
-          let errorMessage = error.message;
           if (typeof res !== 'undefined') {
-            if (error.message.startsWith('Invalid query')) {
-              res.statusCode = 400;
-            } else {
-              const paginationError = error.message.match(/It is not possible to paginate beyond the first (\d+)/);
-              if (paginationError !== null) {
-                res.statusCode = 400;
-                errorMessage = `It is only possible to view the first ${paginationError[1]} search results.`;
-              } else {
-                res.statusCode = 500;
-              }
-            }
+            res.statusCode = (typeof error.statusCode !== 'undefined') ? error.statusCode : 500;
           }
-          return { results: null, error: errorMessage, query: query.query };
+          return { error: error.message };
         });
     },
-    methods: {
-      updateCurrentSearchQuery(updates) {
-        const current = {
-          page: this.page || '1',
-          qf: this.qfForSelectedFacets,
-          query: this.query || '',
-          reusability: this.reusability,
-          theme: this.theme,
-          view: this.view
-        };
-
-        const updated = { ...current, ...updates };
-
-        // If any updated values are `null`, remove them from the query
-        for (const key in updated) {
-          if (updated[key] === null) {
-            delete updated[key];
-          }
-        }
-        return updated;
-      },
-      rerouteSearch(queryUpdates) {
-        this.isLoading = true;
-        this.$router.push(this.localePath({ name: 'search', query: this.updateCurrentSearchQuery(queryUpdates) }));
-      },
-      paginationLink(val) {
-        return this.localePath({
-          name: 'search', query: this.updateCurrentSearchQuery({ page: val })
-        });
-      },
-      selectFacet(name, selected) {
-        this.$set(this.selectedFacets, name, selected);
-        this.qfForSelectedFacets = [];
-        this.reusability = null;
-        this.theme = null;
-        for (const facetName in this.selectedFacets) {
-          const selectedValues = this.selectedFacets[facetName];
-          // `reusability` and `theme` have their own API parameter and can not be queried in `qf`
-          if (facetName === 'REUSABILITY' && selectedValues.length > 0) {
-            this.reusability = selectedValues.join(',');
-          } else if (facetName === 'THEME' && this.selectedFacets['THEME']) {
-            this.theme = selectedValues;
-          } else {
-            for (const facetValue of selectedValues) {
-              if (facetsToDisplay.includes(facetName)) {
-                this.qfForSelectedFacets.push(`${facetName}:"${facetValue}"`);
-              } else {
-                this.qfForSelectedFacets.push(`${facetName}:${facetValue}`);
-              }
-            }
-          }
-        }
-        this.rerouteSearch({ qf: this.qfForSelectedFacets, reusability: this.reusability, theme: this.theme, page: '1' });
-      },
-      selectView(view) {
-        if (process.browser) {
-          sessionStorage.searchResultsView = view;
-          localStorage.searchResultsView = view;
-        }
-        this.view = view;
-      },
-      selectedView() {
-        if (process.browser) {
-          if (this.$route.query.view) {
-            sessionStorage.searchResultsView = this.$route.query.view;
-          }
-          return sessionStorage.searchResultsView || localStorage.searchResultsView || 'grid';
-        }
-        return this.$route.query.view || 'grid';
-      }
+    fetch({ store, query }) {
+      store.commit('search/setQuery', query.query);
+      store.commit('search/setActive', true);
     },
     head() {
       return {
-        title: 'Search'
+        title: this.$t('search')
       };
     },
     beforeRouteLeave(to, from, next) {
-      this.$root.$emit('leaveSearchPage');
+      this.$store.commit('search/setActive', false);
       next();
     },
-    watchQuery: ['page', 'qf', 'query', 'reusability', 'theme']
+    watchQuery: ['query']
   };
 </script>

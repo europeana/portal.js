@@ -1,3 +1,4 @@
+import { apiError } from './utils';
 import axios from 'axios';
 import omitBy from 'lodash/omitBy';
 
@@ -58,8 +59,7 @@ function getRecord(europeanaId, params) {
       };
     })
     .catch((error) => {
-      const message = error.response ? error.response.data.error : error.message;
-      throw new Error(message);
+      throw apiError(error);
     });
 }
 

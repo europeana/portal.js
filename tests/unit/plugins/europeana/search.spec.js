@@ -90,6 +90,18 @@ describe('plugins/europeana/search', () => {
         nock.isDone().should.be.true;
       });
 
+      it('requests default facets if `facet` param absent', async() => {
+        baseRequest
+          .query(query => {
+            return query.facet === 'TYPE,REUSABILITY,COUNTRY';
+          })
+          .reply(200, defaultResponse);
+
+        await search({ query: 'anything', wskey: apiKey });
+
+        nock.isDone().should.be.true;
+      });
+
       it('uses the supplied `facet` param', async() => {
         baseRequest
           .query(query => {
@@ -105,11 +117,11 @@ describe('plugins/europeana/search', () => {
       it('uses the supplied `facet` param when using comma seperated list', async() => {
         baseRequest
           .query(query => {
-            return query.facet === 'COUNTRY,REUSABILITY,TYPE';
+            return query.facet === 'COUNTRY,REUSABILITY';
           })
           .reply(200, defaultResponse);
 
-        await search({ query: 'anything', facet: 'COUNTRY,REUSABILITY,TYPE', wskey: apiKey });
+        await search({ query: 'anything', facet: 'COUNTRY,REUSABILITY', wskey: apiKey });
 
         nock.isDone().should.be.true;
       });
@@ -153,8 +165,8 @@ describe('plugins/europeana/search', () => {
     });
 
     describe('API response', () => {
-      describe('with error', () => {
-        it('returns API error message', () => {
+      context('with error', () => {
+        it('returns API error message and status code', async() => {
           const errorMessage = 'Invalid query parameter.';
           baseRequest
             .query(true)
@@ -163,13 +175,19 @@ describe('plugins/europeana/search', () => {
               error: errorMessage
             });
 
-          const response = search({ query: 'NOT ', wskey: apiKey });
+          let error;
+          try {
+            await search({ query: 'NOT ', wskey: apiKey });
+          } catch (e) {
+            error = e;
+          }
 
-          response.should.be.rejectedWith(errorMessage);
+          error.message.should.eq(errorMessage);
+          error.statusCode.should.eq(400);
         });
       });
 
-      describe('with `items`', () => {
+      context('with `items`', () => {
         function searchResponse() {
           return search({ query: 'painting', wskey: apiKey });
         }
@@ -259,14 +277,14 @@ describe('plugins/europeana/search', () => {
 
         describe('facets', () => {
           describe('when absent', () => {
-            it('returns `null`', async() => {
+            it('returns `[]`', async() => {
               baseRequest
                 .query(true)
                 .reply(200, defaultResponse);
 
               const response = await search({ query: 'anything', wskey: apiKey });
 
-              (response.facets === null).should.be.true;
+              response.facets.should.eql([]);
             });
           });
 
@@ -306,7 +324,7 @@ describe('plugins/europeana/search', () => {
   });
 
   describe('pageFromQuery()', () => {
-    describe('with no value', () => {
+    context('with no value', () => {
       it('returns `1`', () => {
         for (const queryPage of [null, undefined]) {
           pageFromQuery(queryPage).should.eq(1);
@@ -314,7 +332,7 @@ describe('plugins/europeana/search', () => {
       });
     });
 
-    describe('with invalid value', () => {
+    context('with invalid value', () => {
       it('returns `null`', () => {
         for (const queryPage of ['0', '-1', '3.5', 'one', 'last']) {
           (pageFromQuery(queryPage) === null).should.be.true;
@@ -322,7 +340,7 @@ describe('plugins/europeana/search', () => {
       });
     });
 
-    describe('with valid value', () => {
+    context('with valid value', () => {
       it('returns it typecast as `Number`', () => {
         for (const queryPage of ['1', '2', '20']) {
           pageFromQuery(queryPage).should.eq(Number(queryPage));
@@ -332,19 +350,19 @@ describe('plugins/europeana/search', () => {
   });
 
   describe('selectedFacetsFromQuery()', () => {
-    describe('with `null` query qf', () => {
+    context('with `null` query qf', () => {
       it('returns {}', () => {
         selectedFacetsFromQuery({ qf: null }).should.eql({});
       });
     });
 
-    describe('with single query qf value', () => {
+    context('with single query qf value', () => {
       it('returns it in an array on a property named for the facet', () => {
         selectedFacetsFromQuery({ qf: 'TYPE:"IMAGE"' }).should.deep.eql({ 'TYPE': ['IMAGE'] });
       });
     });
 
-    describe('with multiple query qf values', () => {
+    context('with multiple query qf values', () => {
       it('returns them in arrays on properties named for each facet', () => {
         const query = { qf: ['TYPE:"IMAGE"', 'TYPE:"VIDEO"', 'REUSABILITY:"open"'] };
         const expected = { 'TYPE': ['IMAGE', 'VIDEO'], 'REUSABILITY': ['open'] };
@@ -353,7 +371,7 @@ describe('plugins/europeana/search', () => {
       });
     });
 
-    describe('with reusability values', () => {
+    context('with reusability values', () => {
       it('returns them in an array on REUSABILITY property', () => {
         const query = { reusability: 'open,restricted' };
         const expected = { 'REUSABILITY': ['open', 'restricted'] };
@@ -361,7 +379,7 @@ describe('plugins/europeana/search', () => {
       });
     });
 
-    describe('with theme value', () => {
+    context('with theme value', () => {
       it('returns it as a string on THEME property', () => {
         const query = { theme: 'art' };
         const expected = { 'THEME': 'art' };
@@ -371,41 +389,41 @@ describe('plugins/europeana/search', () => {
   });
 
   describe('qfHandler', () => {
-    describe('with no qf', () => {
+    context('with no qf', () => {
       it('returns the qf with the tier 1-4 filter applied', () => {
         const expected = ['contentTier:(1 OR 2 OR 3 OR 4)'];
         qfHandler().should.deep.eql(expected);
       });
     });
-    describe('with an empty array as qf', () => {
+    context('with an empty array as qf', () => {
       const qf = [];
       it('returns the qf with the tier 1-4 filter applied', () => {
         const expected = ['contentTier:(1 OR 2 OR 3 OR 4)'];
         qfHandler(qf).should.deep.eql(expected);
       });
     });
-    describe('with a single non contentTier qf', () => {
+    context('with a single non contentTier qf', () => {
       const qf = 'TYPE:"IMAGE"';
       it('returns the qf with the tier 1-4 filter applied', () => {
         const expected = ['TYPE:"IMAGE"', 'contentTier:(1 OR 2 OR 3 OR 4)'];
         qfHandler(qf).should.deep.eql(expected);
       });
     });
-    describe('with a contentTier qf', () => {
+    context('with a contentTier qf', () => {
       const qf = 'contentTier:3';
       it('returns the qf as is', () => {
         const expected = ['contentTier:3'];
         qfHandler(qf).should.deep.eql(expected);
       });
     });
-    describe('with multiple qfs', () => {
+    context('with multiple qfs', () => {
       const qf = ['TYPE:"IMAGE"', 'REUSABILITY:"open"'];
       it('returns the qf with the tier filter appended', () => {
         const expected = ['TYPE:"IMAGE"', 'REUSABILITY:"open"', 'contentTier:(1 OR 2 OR 3 OR 4)'];
         qfHandler(qf).should.deep.eql(expected);
       });
     });
-    describe('with a contentTier qf of "*"', () => {
+    context('with a contentTier qf of "*"', () => {
       const qf = 'contentTier:*';
       it('returns the qf without the qf', () => {
         const expected = [];

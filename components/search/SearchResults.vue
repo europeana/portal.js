@@ -1,5 +1,20 @@
 <template>
+  <b-list-group
+    v-if="view === 'list'"
+    data-qa="search results list"
+  >
+    <b-list-group-item
+      v-for="result in results"
+      :key="result.europeanaId"
+      :to="localePath({ name: 'record-all', params: { pathMatch: result.europeanaId.slice(1) } })"
+      class="flex-column align-items-start mb-3"
+      data-qa="search result"
+    >
+      <SearchResult :result="result" />
+    </b-list-group-item>
+  </b-list-group>
   <b-card-group
+    v-else
     class="card-deck-3-cols card-deck-search"
     deck
     data-qa="search results grid"
@@ -18,15 +33,35 @@
 
 <script>
   import ContentCard from '../generic/ContentCard';
+  import SearchResult from './SearchResult';
 
   export default {
     components: {
-      ContentCard
+      ContentCard,
+      SearchResult
     },
     props: {
-      results: {
+      value: {
         type: Array,
         default: () => []
+      }
+    },
+    data() {
+      return {
+        results: this.value
+      };
+    },
+    computed: {
+      view() {
+        return this.$store.getters['search/activeView'];
+      }
+    },
+    watch: {
+      value: {
+        immediate: true,
+        handler(val) {
+          this.results = val;
+        }
       }
     },
     methods: {

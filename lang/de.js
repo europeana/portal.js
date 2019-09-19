@@ -19,7 +19,6 @@ export default {
     }
   },
   "messages": {
-    "notFound": "Nicht gefunden",
-    "noTitle": "Kein Titel für \"{record}\" angegeben"
+    "notFound": "Nicht gefunden"
   }
 };
