@@ -10,7 +10,7 @@ Feature: Search querying
     And I enter "paris" in the `search box`
     And I click the `search button`
     Then I see "paris" in the `search box`
-    And I see a `search result`
+    And I see a `search result` 24 times
     And I see the `total results`
     And I am on an accessible page
 

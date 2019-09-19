@@ -102,8 +102,15 @@ module.exports = {
   async seeALinkInTarget(linkHref, qaElementName) {
     await client.expect.element(qaSelector(qaElementName) + ` a[href="${linkHref}"]`).to.be.visible;
   },
-  async seeATarget(qaElementNames) {
-    await client.expect.element(qaSelector(qaElementNames)).to.be.visible;
+  async seeATarget(qaElementNames, options = {}) {
+    const selector = qaSelector(qaElementNames);
+    if (options.count) {
+      await client.elements('css selector', selector, async(elements) => {
+        await client.expect(elements.value.length).to.eq(options.count);
+      });
+    } else {
+      await client.expect.element(selector).to.be.visible;
+    }
   },
   async seeATargetWithText(qaElementNames, text) {
     await client.expect.element(qaSelector(qaElementNames)).text.to.contain(text);
