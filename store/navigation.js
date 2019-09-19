@@ -21,14 +21,14 @@ export const actions = {
     const setLocale = i18n.locale;
     const data = await contentfulClient.getEntries({
       'locale': isoLookUp(setLocale),
-      'content_type': 'pageNavigation',
-      'fields.identifier': 'pageNavigation'
+      'content_type': 'linkGroup',
+      'fields.identifier': 'pageMainNavigation'
     })
       .then((response) => {
         if (response.total === 0) {
           return [];
         }
-        return response.items[0].fields.navigationItems.map(item => item.fields);
+        return response.items[0].fields.links.map(item => item.fields);
       }).catch((e) => {
         // This will just output the error as text
         return [{ text: e.toString() }];
