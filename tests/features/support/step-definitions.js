@@ -20,9 +20,6 @@ defineStep('I browse/open/visit (a/an/the)( ){target}', (pageName) =>
 defineStep('I find/identify/see/spot (a/an/the)( ){target}', (qa) =>
   i.seeATarget(qa));
 
-defineStep('I find/identify/see/spot (a/an/the)( ){target} {int} time(s)', (qa, count) =>
-  i.seeATarget(qa, { count }));
-
 defineStep('I find/identify/see/spot (a/an/the)( ){target} in/on a/an/the {target}', (qa, parentQa) =>
   i.seeATarget([qa, parentQa]));
 

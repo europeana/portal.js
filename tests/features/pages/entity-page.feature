@@ -10,7 +10,7 @@ Feature: Entity page
     And I see `total results`
     And I see a `search list view toggle`
     And I see a `search facet`
-    And I see a `search result` 9 times
+    And I should see 9 `search result`s
     And I see a `pagination navigation`
     And I don't see a `tier toggle`
     And I am on an accessible page
