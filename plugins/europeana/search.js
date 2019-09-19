@@ -156,6 +156,7 @@ export function selectedFacetsFromQuery(query) {
  * Search Europeana Record API
  * @param {Object} params parameters for search query
  * @param {number} params.page page of results to retrieve
+ * @param {number} params.rows number of results to retrieve per page
  * @param {string} params.reusability reusability filter
  * @param {string} params.facet facet names, comma separated
  * @param {(string|string[])} params.qf query filter(s)
@@ -165,7 +166,7 @@ export function selectedFacetsFromQuery(query) {
  */
 function search(params) {
   const maxResults = 1000;
-  const perPage = 24;
+  const perPage = Number(params.rows) || 24;
   const page = params.page || 1;
 
   const start = ((page - 1) * perPage) + 1;
