@@ -7,7 +7,7 @@ Feature: Entity page
     And I see an `entity depiction`
     And I see an `entity attribution`
     And I see an `entity description`
-    And I see a `total results`
+    And I see `total results`
     And I see a `search list view toggle`
     And I see a `search facet`
     And I see a `search result`
