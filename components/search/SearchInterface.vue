@@ -363,6 +363,7 @@
       updateResults() {
         search({
           page: this.currentPage,
+          rows: this.perPage,
           qf: this.qf,
           query: this.query,
           reusability: this.reusability,
