@@ -32,7 +32,7 @@ const factory = () => mount(FacetDropdown, {
   propsData: {
     facetType: 'checkbox',
     fields: countryFields,
-    selectedFacet: ['United Kingdom']
+    selected: ['United Kingdom']
   }
 });
 
@@ -41,7 +41,7 @@ describe('components/search/FacetDropdown', () => {
     const wrapper = factory();
 
     wrapper.setProps({
-      selectedFacet: ['Spain', 'United Kingdom']
+      selected: ['Spain', 'United Kingdom']
     });
     wrapper.vm.sortOptions.should.eql([
       {

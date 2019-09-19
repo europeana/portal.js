@@ -35,7 +35,7 @@
           :value="option.label"
           :name="name"
           :data-qa="`${option.label} ${CHECKBOX}`"
-          :class="{ 'font-weight-bold' : selectedFacet.some(s => s === option.label) }"
+          :class="{ 'font-weight-bold' : selected.some(s => s === option.label) }"
         >
           {{ option.label }} ({{ option.count | localise }})
         </b-form-checkbox>
@@ -94,7 +94,7 @@
         required: true
       },
 
-      selectedFacet: {
+      selected: {
         type: [Array, String],
         required: false,
         default: () => []
@@ -121,12 +121,12 @@
 
         /* TODO: THIS NEEDS TO BE CLEANED UP */
         this.fields.map(field => {
-          if (this.selectedFacet.includes(field.label)) {
+          if (this.selected.includes(field.label)) {
             selected.push(field);
           }
         });
 
-        const leftOver = this.fields.filter(field => !this.selectedFacet.includes(field.label));
+        const leftOver = this.fields.filter(field => !this.selected.includes(field.label));
 
         return selected.sort((a, b) => a.count + b.count).concat(leftOver);
         /* END TODO */
@@ -149,23 +149,23 @@
       },
 
       disableApplyButton() {
-        return isEqual(this.preSelected, this.selectedFacet);
+        return isEqual(this.preSelected, this.selected);
       },
 
       dropdownVariant() {
-        return (this.radioSelected || this.selectedFacet.length > 0) ? 'secondary' : 'light';
+        return (this.radioSelected || this.selected.length > 0) ? 'secondary' : 'light';
       }
     },
 
     mounted() {
       if (this.isRadio) {
-        if (Array.isArray(this.selectedFacet)) {
+        if (Array.isArray(this.selected)) {
           this.radioSelected = '';
         } else {
-          this.radioSelected = this.selectedFacet;
+          this.radioSelected = this.selected;
         }
-      } else if (this.selectedFacet.length > 0) {
-        this.preSelected = this.selectedFacet;
+      } else if (this.selected.length > 0) {
+        this.preSelected = this.selected;
       }
     },
 
@@ -185,8 +185,7 @@
             this.$emit('updated', this.name, this.radioSelected);
           });
         } else {
-          this.selected = this.preSelected;
-          this.$emit('updated', this.name, this.selected);
+          this.$emit('updated', this.name, this.preSelected);
         }
         this.$refs.dropdown.hide(true);
       }
