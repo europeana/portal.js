@@ -30,7 +30,12 @@
 </template>
 
 <script>
+  import SmartLink from './SmartLink';
+
   export default {
+    components: {
+      SmartLink
+    },
     props: {
       title: {
         type: String,

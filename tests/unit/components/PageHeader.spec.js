@@ -9,12 +9,11 @@ const factory = () => shallowMount(PageHeader, {
   localVue,
   mocks: {
     $t: () => {},
-    $route: () => {},
     localePath: (code) => window.location.href + code
   }
 });
 
-describe('components/search/PageHeader', () => {
+describe('components/PageHeader', () => {
   it('contains a search form', () => {
     const wrapper = factory();
     const form =  wrapper.find('[data-qa="search form"]');
@@ -35,5 +34,4 @@ describe('components/search/PageHeader', () => {
 
     selector.isVisible().should.equal(true);
   });
-
 });

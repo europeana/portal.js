@@ -1,11 +1,11 @@
 <template>
   <b-form
     inline
-    @submit.prevent="$emit('submit:searchForm')"
+    @submit.prevent="submitForm"
   >
     <b-form-input
       v-model="query"
-      aria-label="Search"
+      :aria-label="$t('search')"
       :placeholder="$t('searchPlaceholder')"
       name="query"
       data-qa="search box"
@@ -18,10 +18,6 @@
     >
       <span>
         {{ $t('search') }}
-        <LoadingSpinner
-          v-show="isLoading"
-          class="ml-2 mb-1"
-        />
       </span>
       <img
         src="../../assets/img/magnifier.svg"
@@ -32,33 +28,34 @@
 </template>
 
 <script>
-  import LoadingSpinner from '../generic/LoadingSpinner';
-
   export default {
-    components: {
-      LoadingSpinner
-    },
-    props: {
-      isLoading: {
-        type: Boolean,
-        default: false
-      },
-      value: {
-        type: String,
-        default: ''
-      }
-    },
     data() {
       return {
-        query: this.value
+        inputQuery: this.query
       };
     },
-    watch: {
-      value: {
-        immediate: true,
-        handler(val) {
-          this.query = val;
+    computed: {
+      query: {
+        get() {
+          return this.$store.state.search.active ? this.$store.state.search.query : '';
+        },
+        set(value) {
+          this.inputQuery = value;
         }
+      },
+      view() {
+        return this.$store.getters['search/activeView'];
+      }
+    },
+    updated() {
+      this.inputQuery = this.query;
+    },
+    methods: {
+      async submitForm() {
+        const newRouteQuery = { ...this.$route.query, ...{ query: this.inputQuery, page: 1, view: this.view } };
+        const newRoutePath = this.localePath({ name: 'search', query: newRouteQuery });
+        await this.$store.commit('search/setQuery', this.inputQuery);
+        await this.$router.push(newRoutePath);
       }
     }
   };

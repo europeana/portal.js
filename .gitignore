@@ -94,7 +94,5 @@ storybook-static
 tmp
 *.tmp
 
-# Locale folder / React i18n file
+# Locale folder
 locale
-i18n.js
-
