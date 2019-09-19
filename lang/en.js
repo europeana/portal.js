@@ -71,7 +71,6 @@ export default {
   "messages": {
     "externalContentError": "The external content failed to load",
     "notFound": "Not Found",
-    "noTitle": "No title provided for \"{record}\"",
     "paginationLimitExceeded": "It is only possible to view the first {limit} search results."
   },
   "searchViews": {
