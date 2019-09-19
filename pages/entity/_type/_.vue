@@ -35,6 +35,19 @@
           :show-content-tier-toggle="false"
           :total-results="SearchInterface.totalResults"
         />
+
+        <section
+          v-if="page && page.hasPart"
+          class="container"
+        >
+          <div class="mt-3 w-100">
+            <ContentCardSection
+              v-for="section in page.hasPart"
+              :key="section.sys.id"
+              :section="section"
+            />
+          </div>
+        </section>
       </b-col>
       <b-col
         cols="12"
@@ -68,6 +81,7 @@
 
   import AlertMessage from '../../../components/generic/AlertMessage';
   import BrowseChip from '../../../components/browse/BrowseChip';
+  import ContentCardSection from '../../../components/browse/ContentCardSection';
   import EntityDetails from '../../../components/browse/EntityDetails';
   import SearchInterface from '../../../components/search/SearchInterface';
 
@@ -78,6 +92,7 @@
     components: {
       AlertMessage,
       BrowseChip,
+      ContentCardSection,
       EntityDetails,
       SearchInterface
     },
@@ -85,6 +100,7 @@
       return {
         entity: null,
         error: null,
+        page: null,
         relatedEntities: null,
         SearchInterface: {
           error: null,
