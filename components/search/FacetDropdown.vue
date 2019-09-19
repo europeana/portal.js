@@ -91,7 +91,8 @@
 
       fields: {
         type: Array,
-        required: true
+        required: false,
+        default: () => []
       },
 
       selected: {

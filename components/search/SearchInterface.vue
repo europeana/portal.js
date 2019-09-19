@@ -47,23 +47,24 @@
           />
         </b-col>
       </b-row>
-      <b-row
-        class="mb-3"
-      >
+      <b-row class="mb-3">
         <b-col>
-          <SearchFacet
+          <FacetDropdown
             v-for="facet in orderedFacets"
             :key="facet.name"
             :name="facet.name"
-            :type="facet.name === 'THEME' ? 'radio' : 'checkbox'"
             :fields="facet.fields"
-            :selected-fields="currentSelectedFacets[facet.name]"
-            @changed="changeFacet"
+            :type="facet.name === 'THEME' ? 'radio' : 'checkbox'"
+            :selected="currentSelectedFacets[facet.name]"
+            @updated="changeFacet"
           />
         </b-col>
+      </b-row>
+      <b-row
+        class="mb-3"
+      >
         <b-col
           cols="12"
-          lg="9"
         >
           <b-row>
             <b-col>
@@ -127,7 +128,7 @@
 <script>
   import AlertMessage from '../../components/generic/AlertMessage';
   import InfoMessage from '../../components/generic/InfoMessage';
-  import SearchFacet from '../../components/search/SearchFacet';
+  import FacetDropdown from '../../components/search/FacetDropdown';
   import SearchResults from '../../components/search/SearchResults';
   import SearchSelectedFacets from '../../components/search/SearchSelectedFacets';
   import PaginationNav from '../../components/generic/PaginationNav';
@@ -153,7 +154,7 @@
     components: {
       AlertMessage,
       InfoMessage,
-      SearchFacet,
+      FacetDropdown,
       SearchResults,
       SearchSelectedFacets,
       PaginationNav,
