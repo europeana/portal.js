@@ -5,7 +5,17 @@
   >
     <b-container class="p-0">
       <b-navbar-nav>
-        <b-nav-item
+        <SmartLink
+          v-for="nav in navigation"
+          :key="nav.name"
+          :destination="nav.url"
+          link-class="footer-link"
+          variant="secondary"
+          data-qa="main navigation link"
+        >
+          {{ nav.text }}
+        </SmartLink>
+        <!-- <b-nav-item
           v-for="nav in navigation"
           :key="nav.name"
           :to="localePath(nav.path)"
@@ -14,7 +24,7 @@
           data-qa="main navigation link"
         >
           {{ nav.name }}
-        </b-nav-item>
+        </b-nav-item> -->
       </b-navbar-nav>
     </b-container>
   </b-navbar>
