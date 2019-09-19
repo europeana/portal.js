@@ -5,16 +5,16 @@
   >
     <b-container class="p-0">
       <b-navbar-nav>
-        <SmartLink
+        <li
           v-for="nav in navigation"
-          :key="nav.name"
-          :destination="nav.url"
-          link-class="footer-link"
-          variant="secondary"
-          data-qa="main navigation link"
+          :key="nav.text"
         >
-          {{ nav.text }}
-        </SmartLink>
+          <SmartLink
+            :destination="localePath({path: '/search'})"
+          >
+            {{ nav.text }} {{ nav.url }}
+          </SmartLink>
+        </li>
         <!-- <b-nav-item
           v-for="nav in navigation"
           :key="nav.name"
