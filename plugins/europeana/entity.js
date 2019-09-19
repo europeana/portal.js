@@ -65,6 +65,20 @@ export function getEntityUri(type, id) {
 }
 
 /**
+ * Construct an entity-type-specific Record API query for an entity
+ * @param {string} uri entity URI
+ * @return {string} Record API query
+ */
+export function getEntityQuery(uri) {
+  if (uri.includes('/concept/base/')) {
+    return `skos_concept:"${uri}"`;
+  } else if (uri.includes('/agent/base/')) {
+    return `edm_agent:"${uri}"`;
+  }
+  return null;
+}
+
+/**
  * Retrieve the URL of the entity from the human readable type and ID
  * @param {string} type the human readable type of the entity either person or topic
  * @param {string} id the numeric identifier of the entity, (can contain trailing slug parts as these will be normalized)

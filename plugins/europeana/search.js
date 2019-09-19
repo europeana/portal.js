@@ -191,23 +191,24 @@ function search(params) {
   const maxResults = 1000;
   const perPage = Number(params.rows) || 24;
   const page = params.page || 1;
-
   const start = ((page - 1) * perPage) + 1;
   const rows = Math.max(0, Math.min(maxResults + 1 - start, perPage));
+
+  const query = (typeof params.query === 'undefined' || params.query === '') ? '*:*' : params.query;
 
   return axios.get('https://api.europeana.eu/api/v2/search.json', {
     paramsSerializer(params) {
       return qs.stringify(params, { arrayFormat: 'repeat' });
     },
     params: {
-      profile: 'minimal,facets',
       facet: params.facet ? params.facet : defaultFacets.join(','),
-      query: params.query === '' ? '*:*' : params.query,
+      profile: 'minimal,facets',
       qf: qfHandler(params.qf),
+      query,
       reusability: params.reusability,
-      theme: params.theme,
       rows,
       start,
+      theme: params.theme,
       wskey: params.wskey
     }
   })

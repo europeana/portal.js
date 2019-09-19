@@ -24,11 +24,11 @@
         />
         <SearchInterface
           :error="SearchInterface.error"
-          :exclude-from-route-query="['query']"
           :facets="SearchInterface.facets"
-          :initial-query="query"
+          :hidden-search-params="hiddenSearchParams"
           :last-available-page="SearchInterface.lastAvailablePage"
           :page="SearchInterface.page"
+          :query="SearchInterface.query"
           :results="SearchInterface.results"
           :route="route"
           :selected-facets="SearchInterface.selectedFacets"
@@ -85,12 +85,14 @@
       return {
         entity: null,
         error: null,
+        hiddenSearchParams: {},
         relatedEntities: null,
         SearchInterface: {
           error: null,
           facets: [],
           lastAvailablePage: false,
           page: 1,
+          query: null,
           results: [],
           selectedFacets: {},
           totalResults: null
@@ -107,9 +109,6 @@
       description() {
         return entities.getEntityDescription(this.entity);
       },
-      query() {
-        return `"${this.entity.id}"`;
-      },
       route() {
         return {
           name: 'entity-type-all',
@@ -125,7 +124,8 @@
     },
     asyncData({ env, query, params, res, redirect, app }) {
       const currentPage = pageFromQuery(query.page);
-      const entityQuery = `"${entities.getEntityUri(params.type, params.pathMatch)}"`;
+      const entityUri = entities.getEntityUri(params.type, params.pathMatch);
+      const entityQuery = entities.getEntityQuery(entityUri);
 
       if (currentPage === null) {
         // Redirect non-positive integer values for `page` to `page=1`
@@ -137,6 +137,10 @@
         }));
       }
 
+      const hiddenSearchParams = {
+        qf: [entityQuery]
+      };
+
       return axios.all([
         entities.getEntity(params.type, params.pathMatch, { wskey: env.EUROPEANA_ENTITY_API_KEY }),
         entities.relatedEntities(params.type, params.pathMatch, {
@@ -146,8 +150,8 @@
         // TODO: DRY up (shared with search/index)
         search({
           page: currentPage,
-          qf: query.qf,
-          query: entityQuery,
+          qf: hiddenSearchParams.qf.concat(query.qf),
+          query: query.query,
           reusability: query.reusability,
           theme: query.theme,
           wskey: env.EUROPEANA_API_KEY
@@ -166,10 +170,12 @@
 
           return {
             entity: entity.entity,
+            hiddenSearchParams,
             relatedEntities: related,
             SearchInterface: {
               ...SearchInterface,
               page: Number(currentPage),
+              query: query.query,
               selectedFacets: selectedFacetsFromQuery(query)
             }
           };
@@ -181,8 +187,8 @@
           return { error: error.message };
         });
     },
-    fetch({ store }) {
-      store.commit('search/setQuery', '');
+    fetch({ store, query }) {
+      store.commit('search/setQuery', query.query);
       store.commit('search/setActive', true);
     },
     head() {

@@ -35,12 +35,22 @@
       };
     },
     computed: {
+      onSearchPage() {
+        return this.$store.state.search.active;
+      },
       query: {
         get() {
-          return this.$store.state.search.active ? this.$store.state.search.query : '';
+          return this.onSearchPage ? this.$store.state.search.query : '';
         },
         set(value) {
           this.inputQuery = value;
+        }
+      },
+      routePath() {
+        if (this.onSearchPage) {
+          return this.$route.path;
+        } else {
+          return this.localePath({ name: 'search' });
         }
       },
       view() {
@@ -53,9 +63,9 @@
     methods: {
       async submitForm() {
         const newRouteQuery = { ...this.$route.query, ...{ query: this.inputQuery, page: 1, view: this.view } };
-        const newRoutePath = this.localePath({ name: 'search', query: newRouteQuery });
+        const newRoute = { path: this.routePath, query: newRouteQuery };
         await this.$store.commit('search/setQuery', this.inputQuery);
-        await this.$router.push(newRoutePath);
+        await this.$router.push(newRoute);
       }
     }
   };

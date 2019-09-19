@@ -166,13 +166,13 @@
         type: String,
         default: null
       },
-      excludeFromRouteQuery: {
-        type: Array,
-        default: () => []
-      },
       facets: {
         type: Array,
         default: () => []
+      },
+      hiddenSearchParams: {
+        type: Object,
+        default: () => {}
       },
       lastAvailablePage: {
         type: Boolean,
@@ -185,10 +185,6 @@
       perPage: {
         type: Number,
         default: 24
-      },
-      initialQuery: {
-        type: String,
-        default: ''
       },
       results: {
         type: Array,
@@ -292,7 +288,7 @@
         return qfForSelectedFacets;
       },
       query() {
-        return this.$store.state.search.query || this.initialQuery;
+        return this.$store.state.search.query;
       },
       reusability() {
         if (this.currentSelectedFacets['REUSABILITY'] && this.currentSelectedFacets['REUSABILITY'].length > 0) {
@@ -339,7 +335,7 @@
       },
       updateCurrentSearchQuery(updates = {}) {
         const current = {
-          page: this.currentPage || '1',
+          page: this.currentPage || 1,
           qf: this.qf,
           query: this.query,
           reusability: this.reusability,
@@ -348,9 +344,6 @@
         };
 
         const updated = { ...current, ...updates };
-        for (const exclusion of this.excludeFromRouteQuery) {
-          delete updated[exclusion];
-        }
 
         // If any updated values are `null`, remove them from the query
         for (const key in updated) {
@@ -363,7 +356,7 @@
       updateResults() {
         search({
           page: this.currentPage,
-          qf: this.qf,
+          qf: (this.hiddenSearchParams.qf || []).concat(this.qf),
           query: this.query,
           reusability: this.reusability,
           theme: this.theme,
