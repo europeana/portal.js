@@ -56,7 +56,7 @@
             :fields="facet.fields"
             :type="facet.name === 'THEME' ? 'radio' : 'checkbox'"
             :selected="currentSelectedFacets[facet.name]"
-            @updated="changeFacet"
+            @changed="changeFacet"
           />
         </b-col>
       </b-row>
