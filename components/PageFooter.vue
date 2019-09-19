@@ -32,7 +32,12 @@
 </template>
 
 <script>
+  import SmartLink from './generic/SmartLink';
+
   export default {
+    components: {
+      SmartLink
+    },
     computed: {
       links() {
         return this.$store.state.footer.links;

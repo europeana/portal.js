@@ -77,14 +77,15 @@
     asyncData({ env, params, res }) {
       return getRecord(`/${params.pathMatch}`, {
         wskey: env.EUROPEANA_API_KEY
-      }).then((result) => {
-        return result.record;
       })
-        .catch((err) => {
+        .then((result) => {
+          return result.record;
+        })
+        .catch((error) => {
           if (typeof res !== 'undefined') {
-            res.statusCode = err.message.startsWith('Invalid record identifier: ') ? 404 : 500;
+            res.statusCode = (typeof error.statusCode !== 'undefined') ? error.statusCode : 500;
           }
-          return { error: err.message };
+          return { error: error.message };
         });
     },
     head() {

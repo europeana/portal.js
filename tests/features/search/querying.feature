@@ -35,6 +35,7 @@ Feature: Search querying
     When I visit a `search page`
     And I enter "paris" in the `search box`
     And I click the `search button`
+    And I wait 2 seconds
     And I click a `search result`
     Then I see a `record page`
     And I don't see "paris" in the `search box`
