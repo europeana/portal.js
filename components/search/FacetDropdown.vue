@@ -15,7 +15,7 @@
     <b-dropdown-form class="options-container">
       <template v-if="isRadio">
         <b-form-radio
-          v-for="(option, index) in sortOptions"
+          v-for="(option, index) in sortedOptions"
           :key="index"
           v-model="radioSelected"
           :value="option"
@@ -29,7 +29,7 @@
 
       <template v-else>
         <b-form-checkbox
-          v-for="(option, index) in sortOptions"
+          v-for="(option, index) in sortedOptions"
           :key="index"
           v-model="preSelected"
           :value="option.label"
@@ -48,7 +48,7 @@
     >
       <b-button
         variant="link"
-        :disabled="!activateCheckboxResetButton"
+        :disabled="!(preSelected.length > 0)"
         @click="resetCheckboxSelection"
       >
         {{ $t('facets.button.reset') }}
@@ -69,7 +69,7 @@
     >
       <b-button
         variant="link"
-        :disabled="disableRadioResetButton"
+        :disabled="!radioSelected"
         @click.stop="resetRadioSelection"
       >
         {{ $t('facets.button.reset') }}
@@ -117,7 +117,7 @@
     },
 
     computed: {
-      sortOptions() {
+      sortedOptions() {
         const selected = [];
 
         /* TODO: THIS NEEDS TO BE CLEANED UP */
@@ -139,14 +139,6 @@
 
       isRadio() {
         return this.type === this.RADIO;
-      },
-
-      activateCheckboxResetButton() {
-        return this.preSelected.length > 0;
-      },
-
-      disableRadioResetButton() {
-        return !this.radioSelected;
       },
 
       disableApplyButton() {
@@ -183,10 +175,10 @@
       applySelection() {
         if (this.isRadio) {
           Vue.nextTick(() => { // Change event triggers before v-model has updated. This resolves the issue
-            this.$emit('updated', this.name, this.radioSelected);
+            this.$emit('changed', this.name, this.radioSelected);
           });
         } else {
-          this.$emit('updated', this.name, this.preSelected);
+          this.$emit('changed', this.name, this.preSelected);
         }
         this.$refs.dropdown.hide(true);
       }
