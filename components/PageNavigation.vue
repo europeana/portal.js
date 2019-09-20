@@ -8,23 +8,15 @@
         <li
           v-for="nav in navigation"
           :key="nav.text"
+          class="nav-item"
         >
           <SmartLink
-            :destination="localePath({path: '/search'})"
+            :destination="nav.url"
+            is-nav-item
           >
-            {{ nav.text }} {{ nav.url }}
+            {{ nav.text }}
           </SmartLink>
         </li>
-        <!-- <b-nav-item
-          v-for="nav in navigation"
-          :key="nav.name"
-          :to="localePath(nav.path)"
-          active-class="font-weight-bold"
-          variant="secondary"
-          data-qa="main navigation link"
-        >
-          {{ nav.name }}
-        </b-nav-item> -->
       </b-navbar-nav>
     </b-container>
   </b-navbar>
@@ -50,6 +42,7 @@
 
     mounted() {
       this.getNavigationData();
+      console.log(this.$route);
     },
 
     methods: {
