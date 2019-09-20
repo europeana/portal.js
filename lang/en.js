@@ -5,11 +5,13 @@ export default {
     "listSeperator": ";"
   },
   "error": "Error",
+  "goToRecord": "Go to record",
+  "readMore": "Read more",
   "search": "Search",
   "results": "Results",
   "homeLinkAlt": "Europeana Collections home",
   "noMoreResults": "There are no more results for your search query.",
-  "resultsLimitWarning": "Additional results are not shown as only the first 1,000 most relevant results are shown. If you haven't found what you're looking for, please consider refining your search.",
+  "resultsLimitWarning": "Additional results are not shown as only the first 1000 most relevant results are shown. If you haven't found what you're looking for, please consider refining your search.",
   "noResults": "No results",
   "fieldLabels": {
     "default": {
@@ -25,9 +27,10 @@ export default {
     },
     "webResource": {
       "dcDescription": "Description",
-      "about": "RDF About",
+      "rdfAbout": "RDF About",
       "edmRights": "License for this media resource",
-      "ebucoreHasMimeType": "Ebucore MIME Type"
+      "ebucoreHasMimeType": "Ebucore MIME Type",
+      "about": "RDF About"
     }
   },
   "facets": {
@@ -40,11 +43,11 @@ export default {
     "THEME": {
       "name": "Category",
       "options": {
+        "all": "All items",
         "ww1": "1914-1918",
         "archaeology": "Archaeology",
         "art": "Art",
         "fashion": "Fashion",
-        "industrial": "Industrial Heritage",
         "manuscript": "Manuscripts",
         "map": "Maps and Geography",
         "migration": "Migration",
@@ -52,7 +55,8 @@ export default {
         "nature": "Natural History",
         "newspaper": "Newspapers",
         "photography": "Photography",
-        "sport": "Sport"
+        "sport": "Sport",
+        "industrial": "Industrial Heritage"
       }
     },
     "TYPE": {
@@ -67,13 +71,12 @@ export default {
     }
   },
   "entity": "Entity",
-  "depiction": "A depiction of {title}",
-  "showLess": "Show less",
-  "showMore": "Show more",
+  "resourceWikimedia": "Resource from Wikimedia Commons",
   "record": "Record",
   "messages": {
-    "externalContentError": "The external content failed to load",
     "notFound": "Not Found",
+    "noTitle": "No title provided for \"{record}\"",
+    "externalContentError": "The external content failed to load",
     "paginationLimitExceeded": "It is only possible to view the first {limit} search results."
   },
   "searchViews": {
@@ -93,5 +96,8 @@ export default {
       "show": "More items match your search but don't meet our publishing criteria.",
       "hide": "Items that don't meet our publishing criteria are being shown."
     }
-  }
+  },
+  "depiction": "A depiction of {title}",
+  "showLess": "Show less",
+  "showMore": "Show more"
 };
