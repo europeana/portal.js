@@ -32,7 +32,7 @@ const factory = () => mount(FacetDropdown, {
   propsData: {
     type: 'checkbox',
     fields: countryFields,
-    selected: ['United Kingdom']
+    name: 'COUNTRY'
   }
 });
 
@@ -43,7 +43,8 @@ describe('components/search/FacetDropdown', () => {
     wrapper.setProps({
       selected: ['Spain', 'United Kingdom']
     });
-    wrapper.vm.sortOptions.should.eql([
+
+    wrapper.vm.sortedOptions.should.eql([
       {
         count: 99,
         label: 'United Kingdom'
@@ -63,46 +64,63 @@ describe('components/search/FacetDropdown', () => {
     ]);
   });
 
-  it('sets `activateCheckboxResetButton` property to be false if nothing has been pre selected', () => {
+  it('sets Reset button to disabled if nothing has been selected', () => {
     const wrapper = factory();
+
+    wrapper.setProps({
+      selected: []
+    });
 
     wrapper.setData({
       preSelected: []
     });
-    wrapper.vm.activateCheckboxResetButton.should.eq(false);
+
+    const countryResetButtonDisabled = wrapper.find('[data-qa="COUNTRY reset button"][disabled="disabled"]');
+
+    countryResetButtonDisabled.exists().should.eq(true);
   });
 
-  it('sets `activateCheckboxResetButton` property to be true if option has been pre selected', () => {
+  it('sets Reset button to be enabled if option has been selected', () => {
     const wrapper = factory();
 
     wrapper.setData({
       preSelected: ['Spain']
     });
-    wrapper.vm.activateCheckboxResetButton.should.eq(true);
+
+    const countryResetButtonDisabled = wrapper.find('[data-qa="COUNTRY reset button"][disabled="disabled"]');
+
+    countryResetButtonDisabled.exists().should.eq(false);
   });
 
-  it('sets `disableApplyButton` property to be false if preselected options length dont match selected facets', () => {
+  it('sets Apply button to enabled if new facet option has been selected', () => {
     const wrapper = factory();
 
     wrapper.setData({
       preSelected: ['Spain', 'United Kingdom']
     });
-    wrapper.vm.disableApplyButton.should.eq(false);
+
+    const countryApplyButtonDisabled = wrapper.find('[data-qa="COUNTRY apply button"][disabled="disabled"]');
+
+    countryApplyButtonDisabled.exists().should.eq(false);
   });
 
-  it('sets `disableApplyButton` property to be false if preselected options dont match selected facets', () => {
+  it('sets Apply button to be disabled if no new facet options have been selected', () => {
     const wrapper = factory();
 
     wrapper.setData({
-      preSelected: ['United Kingdom']
+      preSelected: []
     });
-    wrapper.vm.disableApplyButton.should.eq(true);
+
+    const countryApplyButtonDisabled = wrapper.find('[data-qa="COUNTRY apply button"][disabled="disabled"]');
+
+    countryApplyButtonDisabled.exists().should.eq(true);
   });
+
 
   it('emits `updated` event when applySelection method is called', async() => {
     const wrapper = factory();
 
     wrapper.vm.applySelection();
-    wrapper.emitted()['updated'].length.should.equal(1);
+    wrapper.emitted()['changed'].length.should.equal(1);
   });
 });

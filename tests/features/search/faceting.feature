@@ -11,7 +11,7 @@ Feature: Search faceting
   Scenario: Filtering results by Category
 
     When I visit the `search page`
-    And I click the `Category dropdown button`
+    And I click the `THEME dropdown button`
     And I check the "art" "THEME" radio
     And I wait 4 seconds
     Then I should be on `/search?page=1&query=&theme=art&view=grid`
@@ -20,9 +20,9 @@ Feature: Search faceting
   Scenario: Filtering results by type
 
     When I visit the `search page`
-    And I click the `Type of media dropdown button`
+    And I click the `TYPE dropdown button`
     And I check the "IMAGE" "TYPE" checkbox
-    And I click the `Type of media apply button`
+    And I click the `TYPE apply button`
     And I wait 2 seconds
     Then I should be on `/search?page=1&qf=TYPE%3A%22IMAGE%22&query=&view=grid`
     And I see a `filter badge` with the text "Type of media: IMAGE"
@@ -31,9 +31,9 @@ Feature: Search faceting
   Scenario: Filtering results by reusability
 
     When I visit the `search page`
-    And I click the `Can I reuse this? dropdown button`
+    And I click the `REUSABILITY dropdown button`
     And I check the "open" "REUSABILITY" checkbox
-    And I click the `Can I reuse this? apply button`
+    And I click the `REUSABILITY apply button`
     And I wait 2 seconds
     Then I should be on `/search?page=1&query=&reusability=open&view=grid`
     And I see a `filter badge` with the text "Can I reuse this?: open"
@@ -41,9 +41,9 @@ Feature: Search faceting
   Scenario: Filtering results by country
 
     When I visit the `search page`
-    And I click the `Providing country dropdown button`
+    And I click the `COUNTRY dropdown button`
     And I check the "Belgium" "COUNTRY" checkbox
-    And I click the `Providing country apply button`
+    And I click the `COUNTRY apply button`
     And I wait 2 seconds
     Then I should be on `/search?page=1&qf=COUNTRY%3A%22Belgium%22&query=&view=grid`
     And I see a `filter badge` with the text "Providing country: Belgium"
@@ -51,10 +51,10 @@ Feature: Search faceting
   Scenario: Filtering results by two countries
 
     When I visit the `search page`
-    And I click the `Providing country dropdown button`
+    And I click the `COUNTRY dropdown button`
     And I check the "Belgium" "COUNTRY" checkbox
     And I check the "Germany" "COUNTRY" checkbox
-    And I click the `Providing country apply button`
+    And I click the `COUNTRY apply button`
     And I wait 2 seconds
     Then I should be on `/search?page=1&qf=COUNTRY%3A%22Belgium%22&qf=COUNTRY%3A%22Germany%22&query=&view=grid`
     And I should have 2 `filter badge`s
@@ -62,17 +62,17 @@ Feature: Search faceting
   Scenario: Filtering using a combination of facet fields
 
     When I visit the `search page`
-    And I click the `Providing country dropdown button`
+    And I click the `COUNTRY dropdown button`
     And I check the "Belgium" "COUNTRY" checkbox
-    And I click the `Providing country apply button`
+    And I click the `COUNTRY apply button`
     And I wait 2 seconds
-    And I click the `Type of media dropdown button`
+    And I click the `TYPE dropdown button`
     And I check the "IMAGE" "TYPE" checkbox
-    And I click the `Type of media apply button`
+    And I click the `TYPE apply button`
     And I wait 2 seconds
-    And I click the `Can I reuse this? dropdown button`
+    And I click the `REUSABILITY dropdown button`
     And I check the "open" "REUSABILITY" checkbox
-    And I click the `Can I reuse this? apply button`
+    And I click the `REUSABILITY apply button`
     And I wait 2 seconds
     Then I should be on `/search?page=1&qf=COUNTRY%3A%22Belgium%22&qf=TYPE%3A%22IMAGE%22&query=&reusability=open&view=grid`
     And I should have 3 `filter badge`s
@@ -85,17 +85,17 @@ Feature: Search faceting
   Scenario: Unselecting facets
 
     When I visit `/search?query=&page=1&reusability=open&qf=TYPE%3A%22IMAGE%22&qf=COUNTRY%3A%22Belgium%22`
-    And I click the `Providing country dropdown button`
+    And I click the `COUNTRY dropdown button`
     And I check the "Belgium" "COUNTRY" checkbox
-    And I click the `Providing country apply button`
+    And I click the `COUNTRY apply button`
     And I wait 2 seconds
-    And I click the `Type of media dropdown button`
+    And I click the `TYPE dropdown button`
     And I check the "IMAGE" "TYPE" checkbox
-    And I click the `Type of media apply button`
+    And I click the `TYPE apply button`
     And I wait 2 seconds
-    And I click the `Can I reuse this? dropdown button`
+    And I click the `REUSABILITY dropdown button`
     And I check the "open" "REUSABILITY" checkbox
-    And I click the `Can I reuse this? apply button`
+    And I click the `REUSABILITY apply button`
     And I wait 2 seconds
     Then I should be on `/search?page=1&query=&view=grid`
     And I can't see a `/search?query=`
@@ -103,9 +103,9 @@ Feature: Search faceting
   Scenario: Filtering results by country and have a corresponding record page
 
     When I visit the `search page`
-    And I click the `Providing country dropdown button`
+    And I click the `COUNTRY dropdown button`
     And I check the "Belgium" "COUNTRY" checkbox
-    And I click the `Providing country apply button`
+    And I click the `COUNTRY apply button`
     And I wait 2 seconds
     And I click a `search result`
     And I wait 2 seconds
@@ -115,10 +115,10 @@ Feature: Search faceting
   Scenario: Filtering results by two countries and have a corresponding record page
 
     When I visit the `search page`
-    And I click the `Providing country dropdown button`
+    And I click the `COUNTRY dropdown button`
     And I check the "Belgium" "COUNTRY" checkbox
     And I check the "Germany" "COUNTRY" checkbox
-    And I click the `Providing country apply button`
+    And I click the `COUNTRY apply button`
     And I wait 3 seconds
     And I click a `search result`
     And I wait 3 seconds
@@ -128,9 +128,9 @@ Feature: Search faceting
   Scenario: Preserve filtering when performing a new search
 
       When I visit the `search page`
-      And I click the `Providing country dropdown button`
+      And I click the `COUNTRY dropdown button`
       And I check the "France" "COUNTRY" checkbox
-      And I click the `Providing country apply button`
+      And I click the `COUNTRY apply button`
       And I wait 2 seconds
       And I enter "paris" in the `search box`
       And I click the `search button`

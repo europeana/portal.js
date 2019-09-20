@@ -7,7 +7,7 @@
     data-qa="search facet"
   >
     <template v-slot:button-content>
-      <span :data-qa="`${facetName} dropdown button`">
+      <span :data-qa="`${name} dropdown button`">
         {{ facetName }}
       </span>
     </template>
@@ -49,6 +49,7 @@
       <b-button
         variant="link"
         :disabled="!(preSelected.length > 0)"
+        :data-qa="`${name} reset button`"
         @click="resetCheckboxSelection"
       >
         {{ $t('facets.button.reset') }}
@@ -56,7 +57,7 @@
       <b-button
         variant="primary"
         :disabled="disableApplyButton"
-        :data-qa="`${facetName} apply button`"
+        :data-qa="`${name} apply button`"
         @click.stop="applySelection"
       >
         {{ $t('facets.button.apply') }}
