@@ -7,10 +7,11 @@
       class="mr-2"
       data-qa="filter badge"
     >
+      <!-- TODO: move these if/else-if/else elements into a `badgeLabel` computed method -->
       <template v-if="selectedFacet.facetName === 'contentTier' && selectedFacet.fieldValue === '*'">
         {{ $t(`facets.${selectedFacet.facetName}.name`) }}
       </template>
-      <template v-else-if="$te(`facets.${selectedFacet.facetName}.options`)">
+      <template v-else-if="$te(`facets.${selectedFacet.facetName}.options.${selectedFacet.fieldValue}`)">
         {{ $t('formatting.labelledValue', { label: $t(`facets.${selectedFacet.facetName}.name`), value: $t(`facets.${selectedFacet.facetName}.options.${selectedFacet.fieldValue}`)}) }}
       </template>
       <template v-else>
@@ -32,10 +33,11 @@
       facetList() {
         let listOfFacets = [];
         for (let facetName in this.facets) {
-
           if (typeof this.facets[facetName] === 'string') {
-            let fieldValue = this.facets[facetName] ? this.facets[facetName] : 'all';
-            listOfFacets.push({ key: `${facetName}:${fieldValue}`, facetName, fieldValue });
+            let fieldValue = this.facets[facetName];
+            if (fieldValue !== '') {
+              listOfFacets.push({ key: `${facetName}:${fieldValue}`, facetName, fieldValue });
+            }
           }
 
           for (let fieldValue of this.facets[facetName]) {
@@ -44,6 +46,7 @@
             }
           }
         }
+
         return listOfFacets;
       }
     }

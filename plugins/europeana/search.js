@@ -2,10 +2,32 @@
  * @file Interface to Europeana Record Search API
  */
 
+import { apiError } from './utils';
 import axios from 'axios';
 import qs from 'qs';
-import Vue from 'vue';
-export const $t = (key, opts) => Vue.prototype.$nuxt.$options.i18n.t(key, opts);
+
+// Thematic collections available via the `theme` parameter.
+// "all" equates to no `theme` parameter being sent.
+// Order is significant as it will be reflected on search results.
+export const thematicCollections = [
+  'ww1',
+  'archaeology',
+  'art',
+  'fashion',
+  'industrial',
+  'manuscript',
+  'map',
+  'migration',
+  'music',
+  'nature',
+  'newspaper',
+  'photography',
+  'sport'
+];
+
+// Default facets to request and display if none are specified.
+// Order is significant as it will be reflected on search results.
+export const defaultFacets = ['TYPE', 'REUSABILITY', 'COUNTRY'];
 
 function genericThumbnail(edmType) {
   return `https://api.europeana.eu/api/v2/thumbnail-by-url.json?size=w200&uri=&type=${edmType}`;
@@ -54,7 +76,7 @@ function display(field) {
 function fieldsForSearchResult(item) {
   let fields = {
     // TODO: fallback to description when API returns dcDescriptionLangAware
-    dcTitle: item.dcTitleLangAware ? display(item.dcTitleLangAware) : [$t('messages.noTitle', { record: item.id })],
+    dcTitle: display(item.dcTitleLangAware) || [],
     // TODO: enable when API returns dcDescriptionLangAware
     // dcDescription: item.dcDescriptionLangAware,
     edmDataProvider: item.dataProvider
@@ -156,6 +178,7 @@ export function selectedFacetsFromQuery(query) {
  * Search Europeana Record API
  * @param {Object} params parameters for search query
  * @param {number} params.page page of results to retrieve
+ * @param {number} params.rows number of results to retrieve per page
  * @param {string} params.reusability reusability filter
  * @param {string} params.facet facet names, comma separated
  * @param {(string|string[])} params.qf query filter(s)
@@ -165,7 +188,7 @@ export function selectedFacetsFromQuery(query) {
  */
 function search(params) {
   const maxResults = 1000;
-  const perPage = 24;
+  const perPage = Number(params.rows) || 24;
   const page = params.page || 1;
 
   const start = ((page - 1) * perPage) + 1;
@@ -177,7 +200,7 @@ function search(params) {
     },
     params: {
       profile: 'minimal,facets',
-      facet: params.facet,
+      facet: params.facet ? params.facet : defaultFacets.join(','),
       query: params.query === '' ? '*:*' : params.query,
       qf: qfHandler(params.qf),
       reusability: params.reusability,
@@ -191,14 +214,13 @@ function search(params) {
       return {
         error: null,
         results: resultsFromApiResponse(response),
-        facets: response.data.facets || null,
+        facets: response.data.facets || [],
         totalResults: response.data.totalResults,
         lastAvailablePage: start + perPage > maxResults
       };
     })
     .catch((error) => {
-      const message = error.response ? error.response.data.error : error.message;
-      throw new Error(message);
+      throw apiError(error);
     });
 }
 

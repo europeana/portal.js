@@ -26,7 +26,7 @@
 <script>
   import ContentCardSection from '../components/browse/ContentCardSection';
   import HeroBanner from '../components/generic/HeroBanner';
-  import { createClient }  from '../plugins/contentful.js';
+  import { createClient } from '../plugins/contentful.js';
 
   export default {
     components: {

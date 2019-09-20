@@ -1,49 +1,107 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 import SearchForm from '../../../../components/search/SearchForm.vue';
+import VueRouter from 'vue-router';
+import Vuex from 'vuex';
+import sinon from 'sinon';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
+localVue.use(VueRouter);
+localVue.use(Vuex);
 
-const factory = () => mount(SearchForm, {
-  localVue,
-  mocks: {
-    $t: () => {}
-  }
+const router = new VueRouter({
+  routes: [
+    {
+      path: '/search',
+      name: 'search'
+    }
+  ]
+});
+
+const factory = (options = {}) => mount(SearchForm, {
+  ...{
+    localVue,
+    router,
+    mocks: {
+      $t: () => {},
+      localePath: (opts) => opts
+    }
+  }, ...options
 });
 
 describe('components/search/SearchForm', () => {
-  it('uses `value` prop for input field value', () => {
-    const wrapper = factory();
+  describe('query', () => {
+    context('when search is active', () => {
+      const wrapper = factory({
+        store: new Vuex.Store({
+          state: {
+            search: {
+              active: true,
+              query: 'cartography'
+            }
+          }
+        })
+      });
 
-    wrapper.setProps({ value: 'painting' });
-    const searchBox =  wrapper.find('[data-qa="search box"]');
+      it('uses stored query', () => {
+        wrapper.vm.query.should.eq('cartography');
+      });
+    });
 
-    searchBox.element.value.should.eq('painting');
+    context('when search is inactive', () => {
+      const wrapper = factory({
+        store: new Vuex.Store({
+          state: {
+            search: {
+              active: false,
+              query: 'cartography'
+            }
+          }
+        })
+      });
+
+      it('is empty', () => {
+        wrapper.vm.query.should.eq('');
+      });
+    });
   });
 
-  it('hides the loading spinner by default', () => {
-    const wrapper = factory();
-    const loadingSpinner =  wrapper.find('[data-qa="loading spinner"]');
-
-    loadingSpinner.isVisible().should.eq(false);
-  });
-
-  it('shows the loading spinner if `isLoading` is `true`', () => {
-    const wrapper = factory();
-
-    wrapper.setProps({ isLoading: true });
-    const loadingSpinner =  wrapper.find('[data-qa="loading spinner"]');
-
-    loadingSpinner.isVisible().should.eq(true);
-  });
-
-  it('emits submit:searchForm when submitted', () => {
-    const wrapper = factory();
+  describe('form submission', () => {
+    const state = {
+      search: {
+        active: true,
+        query: '',
+        view: 'grid'
+      }
+    };
+    const mutations = {
+      'search/setQuery': sinon.spy()
+    };
+    const store = new Vuex.Store({
+      state,
+      mutations,
+      getters: {
+        'search/activeView': (state) => state.search.view
+      }
+    });
+    const wrapper = factory({ store });
     const form =  wrapper.find('form');
+    const queryInputField = form.find('input[type="text"]');
+    const newQuery = 'trees';
+    queryInputField.setValue(newQuery);
 
-    form.trigger('submit.prevent');
+    it('writes to the store', () => {
+      form.trigger('submit.prevent');
 
-    wrapper.emitted()['submit:searchForm'].length.should.equal(1);
+      mutations['search/setQuery'].should.have.been.calledWith(state, newQuery);
+    });
+
+    it('routes to a new search', () => {
+      form.trigger('submit.prevent');
+
+      wrapper.vm.$route.path.should.eq('/search');
+      wrapper.vm.$route.query.should.eql({ query: newQuery, page: 1, view: state.search.view });
+    });
   });
 });

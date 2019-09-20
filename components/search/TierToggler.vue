@@ -68,6 +68,7 @@
     methods: {
       toggleHandler() {
         this.active = !this.active;
+        this.$emit('changed');
       }
     }
   };

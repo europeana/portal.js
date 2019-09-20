@@ -1,12 +1,16 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 import VueRouter from 'vue-router';
+import Vuex from 'vuex';
+import sinon from 'sinon';
 
 import ViewToggles from '../../../../components/search/ViewToggles.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 localVue.use(VueRouter);
+localVue.use(Vuex);
+
 const router = new VueRouter({
   routes: [
     {
@@ -16,49 +20,70 @@ const router = new VueRouter({
   ]
 });
 
-const factory = () => mount(ViewToggles, {
-  localVue,
-  router,
-  mocks: {
-    $t: (key) => key,
-    localePath: (opts) => opts
-  }
-});
+const storeMutations = {
+  'search/setView': sinon.spy()
+};
+
+const factory = () => {
+  const store = new Vuex.Store({
+    state: {
+      search: {
+        view: null
+      }
+    },
+    getters: {
+      'search/activeView': (state) => state.search.view
+    },
+    mutations: storeMutations
+  });
+
+  return mount(ViewToggles, {
+    localVue,
+    router,
+    store,
+    mocks: {
+      $t: (key) => key,
+      localePath: (opts) => opts
+    }
+  });
+};
 
 describe('components/search/ViewToggles', () => {
   const views = ['list', 'grid'];
 
-  it('displays a toggle for each view', () => {
-    const wrapper = factory();
+  for (const view of views) {
+    describe(`${view} view`, () => {
+      it('has a toggle', () => {
+        const wrapper = factory();
 
-    for (const view of views) {
-      const viewToggle = wrapper.find(`[data-qa="search ${view} view toggle"]`);
-      viewToggle.exists().should.eq(true);
-    }
-  });
+        const viewToggle = wrapper.find(`[data-qa="search ${view} view toggle"]`);
+        viewToggle.exists().should.eq(true);
+      });
 
-  it('links to search with view parameter set', () => {
-    const wrapper = factory();
+      it('links to route with view parameter set', () => {
+        const wrapper = factory();
 
-    const viewToggleLink = wrapper.find('[data-qa="search list view toggle"] a');
+        const viewToggleLink = wrapper.find(`[data-qa="search ${view} view toggle"] a`);
+        viewToggleLink.attributes('href').should.match(new RegExp(`[?&]view=${view}(&|$)`));
+      });
 
-    viewToggleLink.attributes('href').should.contain('view=list');
-  });
+      it('displays icon', () => {
+        const wrapper = factory();
 
-  it('displays icon', () => {
-    const wrapper = factory();
+        const viewToggleIcon = wrapper.find(`[data-qa="search ${view} view toggle"] img`);
 
-    const viewToggleIcon = wrapper.find('[data-qa="search grid view toggle"] img');
+        const regexp = new RegExp(`/${view}.([^/]+.)?svg$`);
+        viewToggleIcon.attributes('src').should.match(regexp);
+      });
 
-    viewToggleIcon.attributes('src').should.match(/\/grid\.([^/]+\.)?svg$/);
-  });
+      it('changes active view when clicked', () => {
+        const wrapper = factory();
 
-  it('emits `changed` event when selected', async() => {
-    const wrapper = factory();
+        const viewToggle = wrapper.find(`[data-qa="search ${view} view toggle"] img`);
+        viewToggle.trigger('click');
 
-    const viewToggle = wrapper.find('[data-qa="search list view toggle"] img');
-    viewToggle.trigger('click');
-
-    wrapper.emitted()['changed'][0][0].should.eql('list');
-  });
+        storeMutations['search/setView'].should.have.been.calledWith({ search: { view: null } }, view);
+      });
+    });
+  }
 });

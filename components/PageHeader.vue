@@ -21,11 +21,8 @@
         </b-navbar-brand>
         <div class="navbar-nav ml-auto w-100 col-md-6 col-lg-6 p-0 pt-3 pt-md-0 mr-auto">
           <SearchForm
-            v-model="query"
             data-qa="search form"
-            :is-loading="isLoading"
             class="justify-content-center justify-content-md-end w-100"
-            @submit:searchForm="submitSearchForm"
           />
         </div>
         <LangSelector data-qa="language selector" />
@@ -42,32 +39,6 @@
     components: {
       SearchForm,
       LangSelector
-    },
-    props: {
-      searchQuery: {
-        type: Object,
-        default: () => {}
-      }
-    },
-    data() {
-      return {
-        query: (this.searchQuery || {}).query || '',
-        isLoading: false
-      };
-    },
-    watch: {
-      searchQuery: {
-        immediate: true,
-        handler(val = {}) {
-          this.query = val.query || '';
-        }
-      }
-    },
-    methods: {
-      submitSearchForm() {
-        const newSearchQuery = { ...this.searchQuery, ...{ query: this.query, page: 1 } };
-        this.$router.push(this.localePath({ name: 'search', query: newSearchQuery }));
-      }
     }
   };
 </script>
