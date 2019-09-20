@@ -1,8 +1,9 @@
 <template>
   <b-link
     v-if="useRouterLink"
-    :to="localePath({name: 'slug', params: { slug: destination.replace('/', '')}})"
-    :class="isNavItem ? 'nav-link' : 'linkClass'"
+    :to="destination"
+    :exact-active-class="exactActiveClass"
+    :class="linkClass"
   >
     <slot />
   </b-link>
@@ -26,9 +27,9 @@
         type: String,
         default: ''
       },
-      isNavItem: {
-        type: Boolean,
-        default: false
+      exactActiveClass: {
+        type: String,
+        default: null
       }
     },
     computed: {

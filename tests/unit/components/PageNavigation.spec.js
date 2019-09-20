@@ -21,8 +21,8 @@ const store = new Vuex.Store({
       state: {
         data: [
           {
-            name: 'Home',
-            path: 'home'
+            text: 'Our partners',
+            url: '/about/our-partners'
           }
         ]
       }
@@ -49,8 +49,8 @@ describe('components/search/PageNavigation', () => {
 
   it('retrieves the correct navigation data', () => {
     const wrapper = factory();
-    const links =  wrapper.findAll('[data-qa="main navigation link"]');
+    const links =  wrapper.find('[data-qa="main navigation"]');
 
-    links.at(0).text().should.eq('Home');
+    links.contains('Our partners');
   });
 });

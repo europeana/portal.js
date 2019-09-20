@@ -1,18 +1,19 @@
 <template>
   <b-navbar
-    class="navigation-container"
+    class="navigation-container border-bottom"
     data-qa="main navigation"
   >
     <b-container class="p-0">
-      <b-navbar-nav>
+      <b-navbar-nav class="px-2">
         <li
           v-for="nav in navigation"
           :key="nav.text"
           class="nav-item"
         >
           <SmartLink
-            :destination="nav.url"
-            is-nav-item
+            :destination="localePath({name: 'slug', params: { pathMatch: nav.url.replace(/^\//, '') }})"
+            link-class="nav-link"
+            exact-active-class="font-weight-bold"
           >
             {{ nav.text }}
           </SmartLink>
@@ -48,7 +49,6 @@
 
     mounted() {
       this.getNavigationData();
-      console.log(this.$route);
     },
 
     methods: {
