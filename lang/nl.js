@@ -61,7 +61,8 @@ export default {
   "entity": "Entiteit",
   "record": "Record",
   "messages": {
-    "notFound": "Niet gevonden"
+    "notFound": "Niet gevonden",
+    "noTitle": "Geen titel beschikbaar voor \"{record}\""
   },
   "searchViews": {
     "grid": "Grid weergave",
