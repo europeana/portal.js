@@ -8,7 +8,6 @@
         :error="error"
         :facets="facets"
         :last-available-page="lastAvailablePage"
-        :page="page"
         :query="query"
         :results="results"
         :selected-facets="selectedFacets"
@@ -31,14 +30,13 @@
         error: null,
         facets: [],
         lastAvailablePage: false,
-        page: 1,
         query: '',
         results: [],
         selectedFacets: {},
         totalResults: null
       };
     },
-    asyncData({ env, query, res, redirect, app }) {
+    asyncData({ env, query, res, redirect, app, store }) {
       const currentPage = pageFromQuery(query.page);
 
       if (currentPage === null) {
@@ -52,6 +50,8 @@
         return redirect(app.localePath({ name: 'search', query }));
       }
 
+      store.commit('search/setPage', currentPage);
+
       return search({
         page: currentPage,
         qf: query.qf,
@@ -63,7 +63,6 @@
         .then((response) => {
           return {
             ...response,
-            page: Number(currentPage),
             query: query.query,
             selectedFacets: selectedFacetsFromQuery(query)
           };
@@ -87,7 +86,6 @@
     beforeRouteLeave(to, from, next) {
       this.$store.commit('search/setActive', false);
       next();
-    },
-    watchQuery: ['query']
+    }
   };
 </script>
