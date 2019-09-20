@@ -255,7 +255,7 @@ module.exports = {
     extendRoutes(routes) {
       routes.push({
         name: 'slug',
-        path: '/:slug',
+        path: '/*',
         component: 'pages/index.vue'
       });
     }
