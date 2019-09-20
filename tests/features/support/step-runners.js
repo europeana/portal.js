@@ -103,7 +103,8 @@ module.exports = {
     await client.expect.element(qaSelector(qaElementName) + ` a[href="${linkHref}"]`).to.be.visible;
   },
   async seeATarget(qaElementNames) {
-    await client.expect.element(qaSelector(qaElementNames)).to.be.visible;
+    const selector = qaSelector(qaElementNames);
+    await client.expect.element(selector).to.be.visible;
   },
   async seeATargetWithText(qaElementNames, text) {
     await client.expect.element(qaSelector(qaElementNames)).text.to.contain(text);
