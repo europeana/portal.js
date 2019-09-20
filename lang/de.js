@@ -16,9 +16,14 @@ export default {
     },
     "REUSABILITY": {
       "name": "Kann ich es wiederverwenden?"
+    },
+    "button": {
+      "reset": "Zurücksetzen",
+      "apply": "Anwenden"
     }
   },
   "messages": {
-    "notFound": "Nicht gefunden"
+    "notFound": "Nicht gefunden",
+    "noTitle": "Kein Titel für \"{record}\" angegeben"
   }
 };
