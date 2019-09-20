@@ -74,7 +74,11 @@
         edmIsShownBy: {}
       };
     },
-    asyncData({ env, params, res }) {
+    asyncData({ env, params, res, app, redirect }) {
+      if (env.RECORD_PAGE_REDIRECT_PATH) {
+        return redirect(app.localePath({ path: env.RECORD_PAGE_REDIRECT_PATH }));
+      }
+
       return getRecord(`/${params.pathMatch}`, {
         wskey: env.EUROPEANA_API_KEY
       })
