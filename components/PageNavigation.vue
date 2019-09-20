@@ -23,7 +23,13 @@
 </template>
 
 <script>
+  import SmartLink from './generic/SmartLink';
+
   export default {
+    components: {
+      SmartLink
+    },
+
     computed: {
       navigation() {
         return this.$store.state.navigation.data;
