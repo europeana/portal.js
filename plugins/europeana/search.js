@@ -10,7 +10,6 @@ import qs from 'qs';
 // "all" equates to no `theme` parameter being sent.
 // Order is significant as it will be reflected on search results.
 export const thematicCollections = [
-  'all',
   'ww1',
   'archaeology',
   'art',
