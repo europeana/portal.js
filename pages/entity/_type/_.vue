@@ -74,6 +74,7 @@
 
   import * as entities from '../../../plugins/europeana/entity';
   import search, { pageFromQuery, selectedFacetsFromQuery } from '../../../plugins/europeana/search';
+  import { createClient } from '../../../plugins/contentful.js';
 
   const PER_PAGE = 9;
 
@@ -88,6 +89,7 @@
       return {
         entity: null,
         error: null,
+        page: null,
         relatedEntities: null,
         search: {
           error: null,
@@ -129,7 +131,8 @@
     },
     asyncData({ env, query, params, res, redirect, app }) {
       const currentPage = pageFromQuery(query.page);
-      const entityQuery = `"${entities.getEntityUri(params.type, params.pathMatch)}"`;
+      const entityUri = entities.getEntityUri(params.type, params.pathMatch);
+      const entityQuery = `"${entityUri}"`;
 
       if (currentPage === null) {
         // Redirect non-positive integer values for `page` to `page=1`
@@ -140,6 +143,18 @@
           query: { page: 1 }
         }));
       }
+
+      let contentfulClient;
+      if (query.mode === 'preview' && process.env['CTF_CPA_ACCESS_TOKEN']) {
+        contentfulClient = createClient(query.mode);
+      } else {
+        contentfulClient = createClient();
+      }
+      const setLocale = app.i18n.locale;
+      const isoLookUp = (code) => {
+        const locales = app.i18n.locales;
+        return locales.find(locale => locale.code === code)['iso'];
+      };
 
       return axios.all([
         entities.getEntity(params.type, params.pathMatch, { wskey: env.EUROPEANA_ENTITY_API_KEY }),
@@ -156,9 +171,16 @@
           reusability: query.reusability,
           theme: query.theme,
           wskey: env.EUROPEANA_API_KEY
+        }),
+        contentfulClient.getEntries({
+          'locale': isoLookUp(setLocale),
+          'content_type': 'entityPage',
+          'fields.identifier': entityUri,
+          'include': 2,
+          'limit': 1
         })
       ])
-        .then(axios.spread((entity, related, search) => {
+        .then(axios.spread((entity, related, search, entries) => {
           const desiredPath = entities.getEntitySlug(entity.entity);
 
           if (params.pathMatch !== desiredPath) {
@@ -169,8 +191,11 @@
             return redirect(302, redirectPath);
           }
 
+          const entityPage = entries.total > 0 ? entries.items[0].fields : null;
+
           return {
             entity: entity.entity,
+            page: entityPage,
             relatedEntities: related,
             search: {
               ...search,
