@@ -59,6 +59,36 @@ async function start() {
       }
       app.use(ipfilter(allowIps, ipfilterOptions));
     }
+
+    // HTTP Digest authentication
+    if (process.env.HTTP_DIGEST_REALM && process.env.HTTP_DIGEST_ACL) {
+      consola.info('HTTP Digest authentication enabled');
+
+      const acl = JSON.parse(process.env.HTTP_DIGEST_ACL);
+      const realm = process.env.HTTP_DIGEST_REALM;
+
+      const crypto = require('crypto');
+      const httpAuth = require('http-auth');
+
+      const digest = httpAuth.digest({
+        realm
+      }, (username, callback) => {
+        consola.info(`Authenticating username "${username}" in realm "${realm}"`);
+
+        const credentials = acl.find((account) => {
+          return account.username === username;
+        }) || {};
+
+        // Callback expects md5(username:realm:password)
+        const htdigest = `${credentials.username}:${realm}:${credentials.password}`;
+        let hash = crypto.createHash('MD5');
+        hash.update(htdigest);
+
+        callback(hash.digest('hex'));
+      });
+
+      app.use(httpAuth.connect(digest));
+    }
   }
 
   // Give nuxt middleware to express
