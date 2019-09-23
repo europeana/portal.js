@@ -41,16 +41,18 @@ const factory = () => mount(PageNavigation, {
 });
 
 describe('components/search/PageNavigation', () => {
-  it('calls dispatch on page load', async() => {
-    factory();
-
-    sinon.assert.calledWith(store.dispatch);
-  });
-
   it('retrieves the correct navigation data', () => {
     const wrapper = factory();
     const links =  wrapper.find('[data-qa="main navigation"]');
 
     links.contains('Our partners');
+  });
+
+  it('calls dispatch when locale changes', async() => {
+    const wrapper = factory();
+
+    wrapper.vm.$store.state.i18n.locale = 'nl';
+
+    sinon.assert.calledWith(store.dispatch);
   });
 });
