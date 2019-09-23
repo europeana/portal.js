@@ -21,7 +21,7 @@
           :value="option"
           :name="name"
           :data-qa="`${option} ${RADIO}`"
-          @change="applySelection"
+          @change="$refs.dropdown.hide(true)"
         >
           {{ $t(`facets.${name}.options.${option}`) }}
         </b-form-radio>
@@ -58,7 +58,7 @@
         variant="primary"
         :disabled="disableApplyButton"
         :data-qa="`${name} apply button`"
-        @click.stop="applySelection"
+        @click.stop="$refs.dropdown.hide(true);"
       >
         {{ $t('facets.button.apply') }}
       </b-button>
@@ -170,7 +170,7 @@
 
       resetRadioSelection() {
         this.radioSelected = '';
-        this.applySelection();
+        this.$refs.dropdown.hide(true);
       },
 
       applySelection() {
@@ -181,7 +181,6 @@
         } else {
           this.$emit('changed', this.name, this.preSelected);
         }
-        this.$refs.dropdown.hide(true);
       }
     }
   };

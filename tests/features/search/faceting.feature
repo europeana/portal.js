@@ -65,11 +65,9 @@ Feature: Search faceting
     And I click the `COUNTRY dropdown button`
     And I check the "Belgium" "COUNTRY" checkbox
     And I click the `COUNTRY apply button`
-    And I wait 2 seconds
     And I click the `TYPE dropdown button`
     And I check the "IMAGE" "TYPE" checkbox
     And I click the `TYPE apply button`
-    And I wait 2 seconds
     And I click the `REUSABILITY dropdown button`
     And I check the "open" "REUSABILITY" checkbox
     And I click the `REUSABILITY apply button`
@@ -88,11 +86,9 @@ Feature: Search faceting
     And I click the `COUNTRY dropdown button`
     And I check the "Belgium" "COUNTRY" checkbox
     And I click the `COUNTRY apply button`
-    And I wait 2 seconds
     And I click the `TYPE dropdown button`
     And I check the "IMAGE" "TYPE" checkbox
     And I click the `TYPE apply button`
-    And I wait 2 seconds
     And I click the `REUSABILITY dropdown button`
     And I check the "open" "REUSABILITY" checkbox
     And I click the `REUSABILITY apply button`
