@@ -91,6 +91,7 @@
               <SearchResults
                 v-model="currentResults"
                 :view="view"
+                :per-row="perRow"
               />
               <InfoMessage
                 v-if="currentLastAvailablePage"
@@ -186,6 +187,10 @@
       perPage: {
         type: Number,
         default: 24
+      },
+      perRow: {
+        type: Number,
+        default: 4
       },
       initialQuery: {
         type: String,

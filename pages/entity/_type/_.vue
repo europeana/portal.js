@@ -30,6 +30,7 @@
           :last-available-page="search.lastAvailablePage"
           :page="search.page"
           :per-page="search.perPage"
+          :per-row="3"
           :results="search.results"
           :route="route"
           :selected-facets="search.selectedFacets"
