@@ -13,23 +13,33 @@
     />
     <section class="container">
       <div class="mt-3 w-100">
-        <ContentCardSection
-          v-for="section in page.hasPart"
-          :key="section.sys.id"
-          :section="section"
-        />
+        <template v-if="isRichText">
+          <RichText
+            :headline="page.hasPart[0].fields.headline"
+            :text="page.hasPart[0].fields.text"
+          />
+        </template>
+        <template v-else>
+          <ContentCardSection
+            v-for="section in page.hasPart"
+            :key="section.sys.id"
+            :section="section"
+          />
+        </template>
       </div>
     </section>
   </div>
 </template>
 
 <script>
+  import RichText from '../components/browse/RichText';
   import ContentCardSection from '../components/browse/ContentCardSection';
   import HeroBanner from '../components/generic/HeroBanner';
   import { createClient } from '../plugins/contentful.js';
 
   export default {
     components: {
+      RichText,
       ContentCardSection,
       HeroBanner
     },
@@ -60,7 +70,8 @@
             return;
           }
           return {
-            page: response.items[0].fields
+            page: response.items[0].fields,
+            isRichText: response.items[0].fields.hasPart[0].sys.contentType.sys.id === 'richText'
           };
         })
         .catch((e) => {
@@ -71,8 +82,6 @@
       return {
         title: this.page.headline
       };
-    },
-    methods: {
     }
   };
 </script>
