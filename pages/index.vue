@@ -13,15 +13,17 @@
     />
     <section class="container">
       <div class="mt-3 w-100">
-        <template v-if="isRichText">
+        <template
+          v-for="section in page.hasPart"
+        >
           <RichText
-            :headline="page.hasPart[0].fields.headline"
-            :text="page.hasPart[0].fields.text"
+            v-if="isRichText"
+            :key="section.sys.id"
+            :headline="section.fields.headline"
+            :text="section.fields.text"
           />
-        </template>
-        <template v-else>
           <ContentCardSection
-            v-for="section in page.hasPart"
+            v-else-if="isCardGroup"
             :key="section.sys.id"
             :section="section"
           />
@@ -71,7 +73,8 @@
           }
           return {
             page: response.items[0].fields,
-            isRichText: response.items[0].fields.hasPart[0].sys.contentType.sys.id === 'richText'
+            isRichText: response.items[0].fields.hasPart[0].sys.contentType.sys.id === 'richText',
+            isCardGroup: response.items[0].fields.hasPart[0].sys.contentType.sys.id === 'cardGroup'
           };
         })
         .catch((e) => {
