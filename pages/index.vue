@@ -17,13 +17,13 @@
           v-for="section in page.hasPart"
         >
           <RichText
-            v-if="isRichText"
+            v-if="contentType(section, 'richText')"
             :key="section.sys.id"
             :headline="section.fields.headline"
             :text="section.fields.text"
           />
           <ContentCardSection
-            v-else-if="isCardGroup"
+            v-else-if="contentType(section, 'cardGroup')"
             :key="section.sys.id"
             :section="section"
           />
@@ -72,9 +72,7 @@
             return;
           }
           return {
-            page: response.items[0].fields,
-            isRichText: response.items[0].fields.hasPart[0].sys.contentType.sys.id === 'richText',
-            isCardGroup: response.items[0].fields.hasPart[0].sys.contentType.sys.id === 'cardGroup'
+            page: response.items[0].fields
           };
         })
         .catch((e) => {
@@ -85,6 +83,12 @@
       return {
         title: this.page.headline
       };
+    },
+
+    methods: {
+      contentType(section, id) {
+        return section.sys.contentType.sys.id === id;
+      }
     }
   };
 </script>
