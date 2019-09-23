@@ -1,7 +1,7 @@
 <template>
   <b-link
     v-if="useRouterLink"
-    :to="destination"
+    :to="path"
     :exact-active-class="exactActiveClass"
     :class="linkClass"
   >
@@ -9,7 +9,7 @@
   </b-link>
   <b-link
     v-else
-    :href="destination"
+    :href="path"
     :class="linkClass"
   >
     <slot />
@@ -35,6 +35,17 @@
     computed: {
       useRouterLink() {
         return (typeof this.destination !== 'string') || this.destination.startsWith('/');
+      },
+      path() {
+        if (typeof this.destination === 'string' && this.destination.startsWith('/')) {
+          return this.localePath({
+            name: 'slug',
+            params: {
+              pathMatch: this.destination.replace(/^\//, '')
+            }
+          });
+        }
+        return this.destination;
       }
     }
   };

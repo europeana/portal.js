@@ -22,7 +22,7 @@ export const actions = {
     const data = await contentfulClient.getEntries({
       'locale': isoLookUp(setLocale),
       'content_type': 'linkGroup',
-      'fields.identifier': 'pageMainNavigation'
+      'fields.identifier': 'mainNavigation'
     })
       .then((response) => {
         if (response.total === 0) {

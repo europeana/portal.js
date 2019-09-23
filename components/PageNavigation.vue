@@ -11,7 +11,7 @@
           class="nav-item"
         >
           <SmartLink
-            :destination="localePath({name: 'slug', params: { pathMatch: nav.url.replace(/^\//, '') }})"
+            :destination="nav.url"
             link-class="nav-link"
             exact-active-class="font-weight-bold"
           >
@@ -45,10 +45,6 @@
       i18n() {
         this.getNavigationData();
       }
-    },
-
-    mounted() {
-      this.getNavigationData();
     },
 
     methods: {
