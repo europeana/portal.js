@@ -1,13 +1,5 @@
 Feature: Search faceting
 
-  Scenario: Seeing the category facet
-
-    When I visit the `search page`
-    And I enter "" in the `search box`
-    And I click the `search button`
-    And I wait 1 second
-    Then I see a `search facet` with the text "Category"
-
   Scenario: Filtering results by type
 
     When I visit the `search page`
