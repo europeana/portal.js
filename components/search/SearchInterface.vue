@@ -190,7 +190,7 @@
       },
       perRow: {
         type: Number,
-        default: 3
+        default: 4
       },
       initialQuery: {
         type: String,
