@@ -54,7 +54,7 @@
             :key="facet.name"
             :name="facet.name"
             :fields="facet.fields"
-            :type="facet.name === 'THEME' ? 'radio' : 'checkbox'"
+            type="checkbox"
             :selected="currentSelectedFacets[facet.name]"
             @changed="changeFacet"
           />
@@ -134,7 +134,7 @@
   import PaginationNav from '../../components/generic/PaginationNav';
   import ViewToggles from '../../components/search/ViewToggles';
   import TierToggler from '../../components/search/TierToggler';
-  import search, { defaultFacets, selectedFacetsFromQuery, thematicCollections } from '../../plugins/europeana/search';
+  import search, { defaultFacets, selectedFacetsFromQuery } from '../../plugins/europeana/search';
 
   let watchList = {};
   for (const property of ['currentPage', 'currentSelectedFacets', 'query']) {
@@ -254,8 +254,7 @@
       /**
        * Sort the facets for display
        * Facets are returned in the hard-coded preferred order from the search
-       * plugin, followed by all others in the order the API returned them,
-       * and with the "theme" pseudo-facet injected first.
+       * plugin, followed by all others in the order the API returned them.
        * @return {Object[]} ordered facets
        * TODO: does this belong in its own component?
        */
@@ -272,15 +271,14 @@
           }
         }
 
-        ordered.unshift({ name: 'THEME', fields: thematicCollections });
         return ordered.concat(unordered);
       },
       qf() {
         let qfForSelectedFacets = [];
         for (const facetName in this.currentSelectedFacets) {
           const selectedValues = this.currentSelectedFacets[facetName];
-          // `reusability` and `theme` have their own API parameter and can not be queried in `qf`
-          if (!['REUSABILITY', 'THEME'].includes(facetName)) {
+          // `reusability` has its own API parameter and can not be queried in `qf`
+          if (facetName !== 'REUSABILITY') {
             for (const facetValue of selectedValues) {
               if (defaultFacets.includes(facetName)) {
                 qfForSelectedFacets.push(`${facetName}:"${facetValue}"`);
@@ -298,13 +296,6 @@
       reusability() {
         if (this.currentSelectedFacets['REUSABILITY'] && this.currentSelectedFacets['REUSABILITY'].length > 0) {
           return this.currentSelectedFacets['REUSABILITY'].join(',');
-        } else {
-          return undefined;
-        }
-      },
-      theme() {
-        if (this.currentSelectedFacets['THEME'] && this.currentSelectedFacets['THEME'] !== '') {
-          return this.currentSelectedFacets['THEME'];
         } else {
           return undefined;
         }
@@ -344,7 +335,6 @@
           qf: this.qf,
           query: this.query,
           reusability: this.reusability,
-          theme: this.theme,
           view: this.view
         };
 
@@ -368,7 +358,6 @@
           qf: this.qf,
           query: this.query,
           reusability: this.reusability,
-          theme: this.theme,
           wskey: process.env.EUROPEANA_API_KEY
         })
           .then((response) => {

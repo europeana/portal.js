@@ -8,15 +8,6 @@ Feature: Search faceting
     And I wait 1 second
     Then I see a `search facet` with the text "Category"
 
-  Scenario: Filtering results by Category
-
-    When I visit the `search page`
-    And I click the `THEME dropdown button`
-    And I check the "art" "THEME" radio
-    And I wait 4 seconds
-    Then I should be on `/search?page=1&query=&theme=art&view=grid`
-    And I see a `filter badge` with the text "Category: Art"
-
   Scenario: Filtering results by type
 
     When I visit the `search page`

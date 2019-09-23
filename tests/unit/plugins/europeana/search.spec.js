@@ -390,14 +390,6 @@ describe('plugins/europeana/search', () => {
         selectedFacetsFromQuery(query).should.deep.eql(expected);
       });
     });
-
-    context('with theme value', () => {
-      it('returns it as a string on THEME property', () => {
-        const query = { theme: 'art' };
-        const expected = { 'THEME': 'art' };
-        selectedFacetsFromQuery(query).should.deep.eql(expected);
-      });
-    });
   });
 
   describe('qfHandler', () => {

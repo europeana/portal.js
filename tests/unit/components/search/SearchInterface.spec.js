@@ -169,19 +169,15 @@ describe('components/search/SearchInterface', () => {
         }
       });
 
-      it('injects `theme` pseudo-facet first', () => {
-        wrapper.vm.orderedFacets[0].name.should.eq('THEME');
-      });
-
       it('follows with ordered default facets from search plugin', () => {
-        wrapper.vm.orderedFacets[1].name.should.eq('TYPE');
-        wrapper.vm.orderedFacets[2].name.should.eq('REUSABILITY');
-        wrapper.vm.orderedFacets[3].name.should.eq('COUNTRY');
+        wrapper.vm.orderedFacets[0].name.should.eq('TYPE');
+        wrapper.vm.orderedFacets[1].name.should.eq('REUSABILITY');
+        wrapper.vm.orderedFacets[2].name.should.eq('COUNTRY');
       });
 
       it('ends with any other facets in their original order', () => {
-        wrapper.vm.orderedFacets[4].name.should.eq('RIGHTS');
-        wrapper.vm.orderedFacets[5].name.should.eq('DATA_PROVIDER');
+        wrapper.vm.orderedFacets[3].name.should.eq('RIGHTS');
+        wrapper.vm.orderedFacets[4].name.should.eq('DATA_PROVIDER');
       });
     });
 
@@ -189,17 +185,11 @@ describe('components/search/SearchInterface', () => {
       const wrapper = factory({
         propsData: {
           selectedFacets: {
-            'THEME': 'art',
             'REUSABILITY': ['open'],
             'TYPE': ['IMAGE', 'SOUND'],
             'contentTier': ['4']
           }
         }
-      });
-
-      it('omits THEME', () => {
-        wrapper.vm.qf.should.not.include('THEME:art');
-        wrapper.vm.qf.should.not.include('THEME:"art"');
       });
 
       it('omits REUSABILITY', () => {
@@ -248,37 +238,6 @@ describe('components/search/SearchInterface', () => {
 
         it('is its value joined with ","', () => {
           wrapper.vm.reusability.should.eq('open,permission');
-        });
-      });
-    });
-
-    describe('theme', () => {
-      context('when THEME facet is not set', () => {
-        const wrapper = factory({
-          propsData: {
-            selectedFacets: {
-              'TYPE': ['IMAGE', 'SOUND']
-            }
-          }
-        });
-
-        it('is `undefined`', () => {
-          (typeof wrapper.vm.theme).should.eql('undefined');
-        });
-      });
-
-      context('when THEME facet is set', () => {
-        const wrapper = factory({
-          propsData: {
-            selectedFacets: {
-              'THEME': 'migration',
-              'TYPE': ['IMAGE', 'SOUND']
-            }
-          }
-        });
-
-        it('is its value', () => {
-          wrapper.vm.theme.should.eq('migration');
         });
       });
     });

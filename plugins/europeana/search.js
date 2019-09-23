@@ -6,25 +6,6 @@ import { apiError } from './utils';
 import axios from 'axios';
 import qs from 'qs';
 
-// Thematic collections available via the `theme` parameter.
-// "all" equates to no `theme` parameter being sent.
-// Order is significant as it will be reflected on search results.
-export const thematicCollections = [
-  'ww1',
-  'archaeology',
-  'art',
-  'fashion',
-  'industrial',
-  'manuscript',
-  'map',
-  'migration',
-  'music',
-  'nature',
-  'newspaper',
-  'photography',
-  'sport'
-];
-
 // Default facets to request and display if none are specified.
 // Order is significant as it will be reflected on search results.
 export const defaultFacets = ['TYPE', 'REUSABILITY', 'COUNTRY'];
@@ -146,7 +127,7 @@ export function pageFromQuery(queryPage) {
  */
 
 /**
- * Extract selected facets from URL `qf`, `reusability` and `theme` value(s)
+ * Extract selected facets from URL `qf` and `reusability` value(s)
  * @param {Object} query URL query parameters
  * @return {SelectedFacetSet} selected facets
  */
@@ -165,10 +146,6 @@ export function selectedFacetsFromQuery(query) {
   }
   if (query.reusability) {
     selectedFacets['REUSABILITY'] = query.reusability.split(',');
-  }
-
-  if (query.theme) {
-    selectedFacets['THEME'] = query.theme;
   }
 
   return selectedFacets;
