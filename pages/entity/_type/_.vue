@@ -144,12 +144,7 @@
         }));
       }
 
-      let contentfulClient;
-      if (query.mode === 'preview' && process.env['CTF_CPA_ACCESS_TOKEN']) {
-        contentfulClient = createClient(query.mode);
-      } else {
-        contentfulClient = createClient();
-      }
+      const contentfulClient = createClient(query.mode);
       const setLocale = app.i18n.locale;
       const isoLookUp = (code) => {
         const locales = app.i18n.locales;
