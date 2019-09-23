@@ -47,23 +47,24 @@
           />
         </b-col>
       </b-row>
-      <b-row
-        class="mb-3"
-      >
+      <b-row class="mb-3">
         <b-col>
-          <SearchFacet
+          <FacetDropdown
             v-for="facet in orderedFacets"
             :key="facet.name"
             :name="facet.name"
-            :type="facet.name === 'THEME' ? 'radio' : 'checkbox'"
             :fields="facet.fields"
-            :selected-fields="currentSelectedFacets[facet.name]"
+            type="checkbox"
+            :selected="currentSelectedFacets[facet.name]"
             @changed="changeFacet"
           />
         </b-col>
+      </b-row>
+      <b-row
+        class="mb-3"
+      >
         <b-col
           cols="12"
-          lg="9"
         >
           <b-row>
             <b-col>
@@ -90,6 +91,7 @@
               <SearchResults
                 v-model="currentResults"
                 :view="view"
+                :per-row="perRow"
               />
               <InfoMessage
                 v-if="currentLastAvailablePage"
@@ -127,19 +129,19 @@
 <script>
   import AlertMessage from '../../components/generic/AlertMessage';
   import InfoMessage from '../../components/generic/InfoMessage';
-  import SearchFacet from '../../components/search/SearchFacet';
+  import FacetDropdown from '../../components/search/FacetDropdown';
   import SearchResults from '../../components/search/SearchResults';
   import SearchSelectedFacets from '../../components/search/SearchSelectedFacets';
   import PaginationNav from '../../components/generic/PaginationNav';
   import ViewToggles from '../../components/search/ViewToggles';
   import TierToggler from '../../components/search/TierToggler';
-  import search, { defaultFacets, selectedFacetsFromQuery, thematicCollections } from '../../plugins/europeana/search';
+  import search, { defaultFacets, selectedFacetsFromQuery } from '../../plugins/europeana/search';
 
   export default {
     components: {
       AlertMessage,
       InfoMessage,
-      SearchFacet,
+      FacetDropdown,
       SearchResults,
       SearchSelectedFacets,
       PaginationNav,
@@ -167,6 +169,10 @@
       perPage: {
         type: Number,
         default: 24
+      },
+      perRow: {
+        type: Number,
+        default: 4
       },
       initialQuery: {
         type: String,
@@ -215,7 +221,6 @@
           qf: this.qf,
           query: this.query,
           reusability: this.reusability,
-          theme: this.theme,
           wskey: process.env.EUROPEANA_API_KEY
         };
       },
@@ -245,8 +250,7 @@
       /**
        * Sort the facets for display
        * Facets are returned in the hard-coded preferred order from the search
-       * plugin, followed by all others in the order the API returned them,
-       * and with the "theme" pseudo-facet injected first.
+       * plugin, followed by all others in the order the API returned them.
        * @return {Object[]} ordered facets
        * TODO: does this belong in its own component?
        */
@@ -263,7 +267,6 @@
           }
         }
 
-        ordered.unshift({ name: 'THEME', fields: thematicCollections });
         return ordered.concat(unordered);
       },
       page: {
@@ -278,8 +281,8 @@
         let qfForSelectedFacets = [];
         for (const facetName in this.currentSelectedFacets) {
           const selectedValues = this.currentSelectedFacets[facetName];
-          // `reusability` and `theme` have their own API parameter and can not be queried in `qf`
-          if (!['REUSABILITY', 'THEME'].includes(facetName)) {
+          // `reusability` has its own API parameter and can not be queried in `qf`
+          if (facetName !== 'REUSABILITY') {
             for (const facetValue of selectedValues) {
               if (defaultFacets.includes(facetName)) {
                 qfForSelectedFacets.push(`${facetName}:"${facetValue}"`);
@@ -297,13 +300,6 @@
       reusability() {
         if (this.currentSelectedFacets['REUSABILITY'] && this.currentSelectedFacets['REUSABILITY'].length > 0) {
           return this.currentSelectedFacets['REUSABILITY'].join(',');
-        } else {
-          return undefined;
-        }
-      },
-      theme() {
-        if (this.currentSelectedFacets['THEME'] && this.currentSelectedFacets['THEME'] !== '') {
-          return this.currentSelectedFacets['THEME'];
         } else {
           return undefined;
         }
@@ -353,7 +349,6 @@
           qf: this.qf,
           query: this.query,
           reusability: this.reusability,
-          theme: this.theme,
           view: this.view
         };
 

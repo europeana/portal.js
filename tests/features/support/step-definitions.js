@@ -53,11 +53,11 @@ defineStep('I activate/click (the/a/an)( ){target}', (qa) =>
 defineStep('I activate/click (on )(the/a/an)( ){target} in/on a/an/the {target}', (qa, parentQa) =>
   i.clickOnTheTarget([qa, parentQa]));
 
-defineStep('I check/click the {string} checkbox', (inputValue) =>
-  i.checkTheCheckbox(inputValue));
+defineStep('I check/click the {string} {string} checkbox', (inputValue, inputName) =>
+  i.checkTheCheckbox(inputName, inputValue));
 
-defineStep('I check/click the {string} radio', (inputValue) =>
-  i.checkTheRadio(inputValue));
+defineStep('I check/click the {string} {string} radio', (inputValue, inputName) =>
+  i.checkTheRadio(inputName, inputValue));
 
 defineStep('I activate/click (the/a/an)( ){string} link', (href) =>
   i.clickOnLink(href));

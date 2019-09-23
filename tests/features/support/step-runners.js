@@ -51,11 +51,21 @@ module.exports = {
 
     await client.initAccessibility().assert.accessibility('html', axeOptions);
   },
-  async checkTheCheckbox(inputValue) {
-    await client.click(`input[type="checkbox"][value="${inputValue}"]`);
+  async checkTheCheckbox(inputName, inputValue) {
+    const checkboxSelector = `input[type="checkbox"][name="${inputName}"][value="${inputValue}"]`;
+    await client.getAttribute(checkboxSelector, 'id', (result) => {
+      const checkboxId = result.value;
+      const labelSelector = `label[for="${checkboxId}"]`;
+      client.click(labelSelector);
+    });
   },
-  async checkTheRadio(inputValue) {
-    await client.click(`input[type="radio"][value="${inputValue}"]`);
+  async checkTheRadio(inputName, inputValue) {
+    const checkboxSelector = `input[type="radio"][name="${inputName}"][value="${inputValue}"]`;
+    await client.getAttribute(checkboxSelector, 'id', (result) => {
+      const radioId = result.value;
+      const labelSelector = `label[for="${radioId}"]`;
+      client.click(labelSelector);
+    });
   },
   async clickOnTheTarget(qaElementNames) {
     const selector = qaSelector(qaElementNames);

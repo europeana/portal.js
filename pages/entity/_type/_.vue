@@ -29,6 +29,7 @@
           :initial-query="query"
           :last-available-page="search.lastAvailablePage"
           :per-page="search.perPage"
+          :per-row="3"
           :results="search.results"
           :route="route"
           :selected-facets="search.selectedFacets"
@@ -154,7 +155,6 @@
           qf: query.qf,
           query: entityQuery,
           reusability: query.reusability,
-          theme: query.theme,
           wskey: env.EUROPEANA_API_KEY
         })
       ])
