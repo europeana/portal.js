@@ -58,7 +58,6 @@
         qf: query.qf,
         query: query.query,
         reusability: query.reusability,
-        theme: query.theme,
         wskey: env.EUROPEANA_API_KEY
       })
         .then((response) => {

@@ -155,7 +155,6 @@
           qf: query.qf,
           query: entityQuery,
           reusability: query.reusability,
-          theme: query.theme,
           wskey: env.EUROPEANA_API_KEY
         })
       ])
