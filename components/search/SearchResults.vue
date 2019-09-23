@@ -15,7 +15,7 @@
   </b-list-group>
   <b-card-group
     v-else
-    class="card-deck-3-cols card-deck-search"
+    :class="`card-deck-search card-deck-${perRow}-cols`"
     deck
     data-qa="search results grid"
   >
@@ -44,6 +44,10 @@
       value: {
         type: Array,
         default: () => []
+      },
+      perRow: {
+        type: Number,
+        default: 3
       }
     },
     data() {
