@@ -1,15 +1,6 @@
 <template>
   <b-container>
     <b-row
-      class="mb-3"
-    >
-      <b-col>
-        <SearchSelectedFacets
-          :facets="currentSelectedFacets"
-        />
-      </b-col>
-    </b-row>
-    <b-row
       v-if="errorMessage"
       class="mb-3"
     >
@@ -19,9 +10,31 @@
         />
       </b-col>
     </b-row>
-    <b-container
+    <template
       v-else
     >
+      <b-row
+        class="mb-3"
+      >
+        <b-col>
+          <SearchSelectedFacets
+            :facets="currentSelectedFacets"
+          />
+        </b-col>
+      </b-row>
+      <b-row class="mb-4">
+        <b-col>
+          <FacetDropdown
+            v-for="facet in orderedFacets"
+            :key="facet.name"
+            :name="facet.name"
+            :fields="facet.fields"
+            :type="facet.name === 'THEME' ? 'radio' : 'checkbox'"
+            :selected="currentSelectedFacets[facet.name]"
+            @changed="changeFacet"
+          />
+        </b-col>
+      </b-row>
       <b-row
         v-if="noResults"
         class="mb-3"
@@ -44,19 +57,6 @@
         <b-col>
           <ViewToggles
             :link-gen-route="route"
-          />
-        </b-col>
-      </b-row>
-      <b-row class="mb-3">
-        <b-col>
-          <FacetDropdown
-            v-for="facet in orderedFacets"
-            :key="facet.name"
-            :name="facet.name"
-            :fields="facet.fields"
-            :type="facet.name === 'THEME' ? 'radio' : 'checkbox'"
-            :selected="currentSelectedFacets[facet.name]"
-            @changed="changeFacet"
           />
         </b-col>
       </b-row>
@@ -121,7 +121,7 @@
           </b-row>
         </b-col>
       </b-row>
-    </b-container>
+    </template>
   </b-container>
 </template>
 

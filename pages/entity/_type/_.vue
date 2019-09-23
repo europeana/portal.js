@@ -23,6 +23,7 @@
           :title="title"
         />
         <SearchInterface
+          class="px-0"
           :error="search.error"
           :exclude-from-route-query="['query']"
           :facets="search.facets"
