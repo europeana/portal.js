@@ -23,17 +23,19 @@
           :title="title"
         />
         <SearchInterface
-          :error="SearchInterface.error"
+          :error="search.error"
           :exclude-from-route-query="['query']"
-          :facets="SearchInterface.facets"
+          :facets="search.facets"
           :initial-query="query"
-          :last-available-page="SearchInterface.lastAvailablePage"
-          :page="SearchInterface.page"
-          :results="SearchInterface.results"
+          :last-available-page="search.lastAvailablePage"
+          :page="search.page"
+          :per-page="search.perPage"
+          :per-row="3"
+          :results="search.results"
           :route="route"
-          :selected-facets="SearchInterface.selectedFacets"
+          :selected-facets="search.selectedFacets"
           :show-content-tier-toggle="false"
-          :total-results="SearchInterface.totalResults"
+          :total-results="search.totalResults"
         />
 
         <section
@@ -88,6 +90,8 @@
   import * as entities from '../../../plugins/europeana/entity';
   import search, { pageFromQuery, selectedFacetsFromQuery } from '../../../plugins/europeana/search';
 
+  const PER_PAGE = 9;
+
   export default {
     components: {
       AlertMessage,
@@ -102,11 +106,12 @@
         error: null,
         page: null,
         relatedEntities: null,
-        SearchInterface: {
+        search: {
           error: null,
           facets: [],
           lastAvailablePage: false,
           page: 1,
+          perPage: PER_PAGE,
           results: [],
           selectedFacets: {},
           totalResults: null
@@ -162,14 +167,14 @@
         // TODO: DRY up (shared with search/index)
         search({
           page: currentPage,
+          rows: PER_PAGE,
           qf: query.qf,
           query: entityQuery,
           reusability: query.reusability,
-          theme: query.theme,
           wskey: env.EUROPEANA_API_KEY
         })
       ])
-        .then(axios.spread((entity, related, SearchInterface) => {
+        .then(axios.spread((entity, related, search) => {
           const desiredPath = entities.getEntitySlug(entity.entity);
 
           if (params.pathMatch !== desiredPath) {
@@ -183,9 +188,10 @@
           return {
             entity: entity.entity,
             relatedEntities: related,
-            SearchInterface: {
-              ...SearchInterface,
+            search: {
+              ...search,
               page: Number(currentPage),
+              perPage: PER_PAGE,
               selectedFacets: selectedFacetsFromQuery(query)
             }
           };

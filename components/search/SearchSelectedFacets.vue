@@ -33,10 +33,11 @@
       facetList() {
         let listOfFacets = [];
         for (let facetName in this.facets) {
-
           if (typeof this.facets[facetName] === 'string') {
-            let fieldValue = this.facets[facetName] ? this.facets[facetName] : 'all';
-            listOfFacets.push({ key: `${facetName}:${fieldValue}`, facetName, fieldValue });
+            let fieldValue = this.facets[facetName];
+            if (fieldValue !== '') {
+              listOfFacets.push({ key: `${facetName}:${fieldValue}`, facetName, fieldValue });
+            }
           }
 
           for (let fieldValue of this.facets[facetName]) {
@@ -45,6 +46,7 @@
             }
           }
         }
+
         return listOfFacets;
       }
     }

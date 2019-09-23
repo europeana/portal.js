@@ -37,30 +37,15 @@ export default {
     "REUSABILITY": {
       "name": "Can I reuse this?"
     },
-    "THEME": {
-      "name": "Category",
-      "options": {
-        "all": "All items",
-        "ww1": "1914-1918",
-        "archaeology": "Archaeology",
-        "art": "Art",
-        "fashion": "Fashion",
-        "industrial": "Industrial Heritage",
-        "manuscript": "Manuscripts",
-        "map": "Maps and Geography",
-        "migration": "Migration",
-        "music": "Music",
-        "nature": "Natural History",
-        "newspaper": "Newspapers",
-        "photography": "Photography",
-        "sport": "Sport"
-      }
-    },
     "TYPE": {
       "name": "Type of media"
     },
     "contentTier": {
       "name": "Includes broken items"
+    },
+    "button": {
+      "reset": "Reset",
+      "apply": "Apply"
     }
   },
   "entity": "Entity",

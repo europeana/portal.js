@@ -9,6 +9,7 @@
         :facets="facets"
         :last-available-page="lastAvailablePage"
         :page="page"
+        :per-row="4"
         :query="query"
         :results="results"
         :selected-facets="selectedFacets"
@@ -57,7 +58,6 @@
         qf: query.qf,
         query: query.query,
         reusability: query.reusability,
-        theme: query.theme,
         wskey: env.EUROPEANA_API_KEY
       })
         .then((response) => {

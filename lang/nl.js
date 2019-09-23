@@ -37,23 +37,6 @@ export default {
     "REUSABILITY": {
       "name": "Kan ik dit hergebruiken?"
     },
-    "THEME": {
-      "name": "Categorie",
-      "options": {
-        "all": "Alle items",
-        "ww1": "1914-1918",
-        "archaeology": "Archeologie",
-        "art": "Kunst",
-        "fashion": "Mode",
-        "manuscript": "manuscripten",
-        "map": "Kaarten en geografie",
-        "migration": "Migratie",
-        "music": "Muziek",
-        "newspaper": "Kranten",
-        "photography": "Fotografie",
-        "sport": "Sport"
-      }
-    },
     "TYPE": {
       "name": "Soort media"
     }

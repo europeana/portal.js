@@ -8,6 +8,12 @@ localVue.use(BootstrapVue);
 
 const factory = () => shallowMount(BrowseChip, {
   localVue,
+  mocks: {
+    $route: () => {},
+    $t: () => {},
+    $i18n: () => {},
+    localePath: () => {}
+  },
   propsData: {
     linkTo: '/entity/topic/47-painting',
     title: 'Painting'
