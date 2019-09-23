@@ -12,7 +12,7 @@ export const mutations = {
 
 export const actions = {
   async init({ commit }) {
-    const i18n = this.app.context.app.i18n;
+    const i18n = this.app.i18n;
     function isoLookUp(code) {
       const locales = i18n.locales;
       return locales.find(locale => locale.code === code)['iso'];
