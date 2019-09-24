@@ -6,9 +6,7 @@ export const state = () => ({
 
 export const mutations = {
   setLinks(state, data) {
-    for (const d in data) {
-      state.links[d] = data[d].fields;
-    }
+    state.links[data.identifier] = data.links;
   }
 };
 
@@ -28,19 +26,15 @@ export const actions = {
       'fields.identifier[in]': 'mainNavigation,footer'
     })
       .then((response) => {
-        if (response.total === 0) {
-          return [];
-        }
         return response.items.map(item => {
           commit('setLinks', {
-            [item.fields.identifier]: {
-              fields: item.fields.links.map(item => item.fields)
-            }
+            identifier: item.fields.identifier,
+            links: item.fields.links.map(item => item.fields)
           });
         });
       }).catch((e) => {
         // This will just output the error as text
-        return [{ text: e.toString() }];
+        throw new Error(e.toString());
       });
   }
 };
