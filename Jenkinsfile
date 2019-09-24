@@ -21,7 +21,7 @@ pipeline {
       }
       steps {
         configFileProvider([configFile(fileId: "portaljs.${env.CF_SPACE}.env", targetLocation: '.env')]) {
-          sh 'rm -r node_modules'
+          sh 'rm -rf node_modules'
           sh 'npm install'
           sh 'npm run build'
         }
