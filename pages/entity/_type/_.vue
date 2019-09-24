@@ -23,12 +23,12 @@
           :title="title"
         />
         <SearchInterface
+          class="px-0"
           :error="search.error"
           :exclude-from-route-query="['query']"
           :facets="search.facets"
           :initial-query="query"
           :last-available-page="search.lastAvailablePage"
-          :page="search.page"
           :per-page="search.perPage"
           :per-row="3"
           :results="search.results"
@@ -89,6 +89,7 @@
 
   import * as entities from '../../../plugins/europeana/entity';
   import search, { pageFromQuery, selectedFacetsFromQuery } from '../../../plugins/europeana/search';
+  import { createClient } from '../../../plugins/contentful.js';
 
   const PER_PAGE = 9;
 
@@ -110,7 +111,6 @@
           error: null,
           facets: [],
           lastAvailablePage: false,
-          page: 1,
           perPage: PER_PAGE,
           results: [],
           selectedFacets: {},
@@ -144,9 +144,10 @@
         return !this.entity ? this.$t('entity') : this.entity.prefLabel.en;
       }
     },
-    asyncData({ env, query, params, res, redirect, app }) {
+    asyncData({ env, query, params, res, redirect, app, store }) {
       const currentPage = pageFromQuery(query.page);
-      const entityQuery = `"${entities.getEntityUri(params.type, params.pathMatch)}"`;
+      const entityUri = entities.getEntityUri(params.type, params.pathMatch);
+      const entityQuery = `"${entityUri}"`;
 
       if (currentPage === null) {
         // Redirect non-positive integer values for `page` to `page=1`
@@ -157,6 +158,10 @@
           query: { page: 1 }
         }));
       }
+
+      store.commit('search/setPage', currentPage);
+
+      const contentfulClient = createClient(query.mode);
 
       return axios.all([
         entities.getEntity(params.type, params.pathMatch, { wskey: env.EUROPEANA_ENTITY_API_KEY }),
@@ -172,9 +177,16 @@
           query: entityQuery,
           reusability: query.reusability,
           wskey: env.EUROPEANA_API_KEY
+        }),
+        contentfulClient.getEntries({
+          'locale': app.i18n.isoLocale(),
+          'content_type': 'entityPage',
+          'fields.identifier': entityUri,
+          'include': 2,
+          'limit': 1
         })
       ])
-        .then(axios.spread((entity, related, search) => {
+        .then(axios.spread((entity, related, search, entries) => {
           const desiredPath = entities.getEntitySlug(entity.entity);
 
           if (params.pathMatch !== desiredPath) {
@@ -185,12 +197,14 @@
             return redirect(302, redirectPath);
           }
 
+          const entityPage = entries.total > 0 ? entries.items[0].fields : null;
+
           return {
             entity: entity.entity,
+            page: entityPage,
             relatedEntities: related,
             search: {
               ...search,
-              page: Number(currentPage),
               perPage: PER_PAGE,
               selectedFacets: selectedFacetsFromQuery(query)
             }

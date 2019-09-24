@@ -1,15 +1,6 @@
 <template>
   <b-container>
     <b-row
-      class="mb-3"
-    >
-      <b-col>
-        <SearchSelectedFacets
-          :facets="currentSelectedFacets"
-        />
-      </b-col>
-    </b-row>
-    <b-row
       v-if="errorMessage"
       class="mb-3"
     >
@@ -19,9 +10,31 @@
         />
       </b-col>
     </b-row>
-    <b-container
+    <template
       v-else
     >
+      <b-row
+        class="mb-3"
+      >
+        <b-col>
+          <SearchSelectedFacets
+            :facets="currentSelectedFacets"
+          />
+        </b-col>
+      </b-row>
+      <b-row class="mb-4">
+        <b-col>
+          <FacetDropdown
+            v-for="facet in orderedFacets"
+            :key="facet.name"
+            :name="facet.name"
+            :fields="facet.fields"
+            type="checkbox"
+            :selected="currentSelectedFacets[facet.name]"
+            @changed="changeFacet"
+          />
+        </b-col>
+      </b-row>
       <b-row
         v-if="noResults"
         class="mb-3"
@@ -47,19 +60,6 @@
           />
         </b-col>
       </b-row>
-      <b-row class="mb-3">
-        <b-col>
-          <FacetDropdown
-            v-for="facet in orderedFacets"
-            :key="facet.name"
-            :name="facet.name"
-            :fields="facet.fields"
-            type="checkbox"
-            :selected="currentSelectedFacets[facet.name]"
-            @changed="changeFacet"
-          />
-        </b-col>
-      </b-row>
       <b-row
         class="mb-3"
       >
@@ -70,7 +70,7 @@
             <b-col>
               <PaginationNav
                 v-if="showPagination"
-                v-model="currentPage"
+                v-model="page"
                 :total-results="currentTotalResults"
                 :per-page="perPage"
                 :link-gen="paginationLink"
@@ -112,7 +112,7 @@
             <b-col>
               <PaginationNav
                 v-if="showPagination"
-                v-model="currentPage"
+                v-model="page"
                 :total-results="currentTotalResults"
                 :per-page="perPage"
                 :link-gen="paginationLink"
@@ -122,7 +122,7 @@
           </b-row>
         </b-col>
       </b-row>
-    </b-container>
+    </template>
   </b-container>
 </template>
 
@@ -136,20 +136,6 @@
   import ViewToggles from '../../components/search/ViewToggles';
   import TierToggler from '../../components/search/TierToggler';
   import search, { defaultFacets, selectedFacetsFromQuery } from '../../plugins/europeana/search';
-
-  let watchList = {};
-  for (const property of ['currentPage', 'currentSelectedFacets', 'query']) {
-    watchList[property] = {
-      deep: true,
-      handler() {
-        if (property !== 'currentPage') {
-          this.currentPage = 1;
-        }
-        this.rerouteSearch(this.updateCurrentSearchQuery());
-        this.updateResults();
-      }
-    };
-  }
 
   export default {
     components: {
@@ -179,10 +165,6 @@
       lastAvailablePage: {
         type: Boolean,
         default: false
-      },
-      page: {
-        type: Number,
-        default: 1
       },
       perPage: {
         type: Number,
@@ -226,13 +208,22 @@
         currentError: this.error,
         currentFacets: this.facets,
         currentLastAvailablePage: this.lastAvailablePage,
-        currentPage: this.page,
         currentResults: this.results,
         currentSelectedFacets: this.selectedFacets,
         currentTotalResults: this.totalResults
       };
     },
     computed: {
+      apiQuery() {
+        return {
+          page: this.page,
+          rows: this.perPage,
+          qf: this.qf,
+          query: this.query,
+          reusability: this.reusability,
+          wskey: process.env.EUROPEANA_API_KEY
+        };
+      },
       contentTierActiveState() {
         return this.selectedFacets.contentTier && this.selectedFacets.contentTier.includes('*');
       },
@@ -278,6 +269,14 @@
 
         return ordered.concat(unordered);
       },
+      page: {
+        get() {
+          return this.$store.state.search.page;
+        },
+        set(value) {
+          this.$store.commit('search/setPage', value);
+        }
+      },
       qf() {
         let qfForSelectedFacets = [];
         for (const facetName in this.currentSelectedFacets) {
@@ -312,7 +311,15 @@
         return this.$store.getters['search/activeView'];
       }
     },
-    watch: watchList,
+    watch: {
+      apiQuery: {
+        deep: true,
+        handler() {
+          this.rerouteSearch(this.updateCurrentSearchQuery());
+          this.updateResults();
+        }
+      }
+    },
     created() {
       if (this.$route.query.view) {
         this.$store.commit('search/setView', this.$route.query.view);
@@ -321,12 +328,14 @@
     methods: {
       changeContentTierToggle() {
         this.currentSelectedFacets = selectedFacetsFromQuery(this.$route.query);
+        this.page = 1;
       },
       changeFacet(name, selected) {
         this.$set(this.currentSelectedFacets, name, selected);
+        this.page = 1;
       },
       changePage(page) {
-        this.currentPage = page;
+        this.page = page;
       },
       paginationLink(val) {
         return this.localePath({ ...this.route, ...{ query: this.updateCurrentSearchQuery({ page: val }) } });
@@ -336,7 +345,7 @@
       },
       updateCurrentSearchQuery(updates = {}) {
         const current = {
-          page: this.currentPage || '1',
+          page: this.page,
           qf: this.qf,
           query: this.query,
           reusability: this.reusability,
@@ -357,14 +366,7 @@
         return updated;
       },
       updateResults() {
-        search({
-          page: this.currentPage,
-          rows: this.perPage,
-          qf: this.qf,
-          query: this.query,
-          reusability: this.reusability,
-          wskey: process.env.EUROPEANA_API_KEY
-        })
+        search(this.apiQuery)
           .then((response) => {
             this.currentError = response.error;
             this.currentFacets = response.facets;

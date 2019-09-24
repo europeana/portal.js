@@ -13,7 +13,7 @@ const previewConfig = {
 };
 
 export function createClient(mode) {
-  const config = (mode === 'preview' ? previewConfig : deliveryConfig);
+  const config = (mode === 'preview' && process.env.CTF_CPA_ACCESS_TOKEN ? previewConfig : deliveryConfig);
   try {
     return contentful.createClient(config);
   } catch (error) {

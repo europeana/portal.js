@@ -52,10 +52,12 @@
     },
     methods: {
       async submitForm() {
-        const newRouteQuery = { ...this.$route.query, ...{ query: this.inputQuery, page: 1, view: this.view } };
-        const newRoutePath = this.localePath({ name: 'search', query: newRouteQuery });
-        await this.$store.commit('search/setQuery', this.inputQuery);
-        await this.$router.push(newRoutePath);
+        await this.$store.commit('search/newQuery', this.inputQuery);
+        if (!this.$store.state.search.active) {
+          const newRouteQuery = { ...this.$route.query, ...{ query: this.inputQuery, page: 1, view: this.view } };
+          const newRoutePath = this.localePath({ name: 'search', query: newRouteQuery });
+          await this.$router.push(newRoutePath);
+        }
       }
     }
   };
