@@ -47,7 +47,7 @@ module.exports = {
   /*
   ** Plugins to load before mounting the App
   */
-  plugins: ['~/plugins/vue-filters'],
+  plugins: ['~/plugins/vue-filters', '~/plugins/i18n'],
 
   /*
   ** Nuxt.js modules

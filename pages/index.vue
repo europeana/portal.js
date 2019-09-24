@@ -46,21 +46,11 @@
       HeroBanner
     },
     asyncData({ params, query, error, app }) {
-      let contentfulClient;
-      if (query.mode === 'preview' && process.env['CTF_CPA_ACCESS_TOKEN']) {
-        contentfulClient = createClient(query.mode);
-      } else {
-        contentfulClient = createClient();
-      }
-      const setLocale = app.i18n.locale;
-      const isoLookUp = (code) => {
-        const locales = app.i18n.locales;
-        return locales.find(locale => locale.code === code)['iso'];
-      };
+      const contentfulClient = createClient(query.mode);
 
       // fetch the browsePage data, include set to 2 in order to get nested card data
       return contentfulClient.getEntries({
-        'locale': isoLookUp(setLocale),
+        'locale': app.i18n.isoLocale(),
         'content_type': 'browsePage',
         'fields.identifier': params.pathMatch ? params.pathMatch : 'home',
         'include': 2,
