@@ -209,6 +209,24 @@ describe('components/search/SearchInterface', () => {
           wrapper.vm.qf.should.include('contentTier:4');
         });
       });
+
+    });
+
+    describe('apiQuery', () => {
+      const wrapper = factory({
+        propsData: {
+          selectedFacets: {
+            'TYPE': ['SOUND']
+          }
+        }
+      });
+
+      it('includes hidden qf filters', () => {
+        wrapper.setProps({ hiddenSearchParams: { qf: ['TYPE:"VIDEO"', 'COUNTRY:"Austria"'] } });
+        wrapper.vm.apiQuery.qf.should.include('TYPE:"SOUND"');
+        wrapper.vm.apiQuery.qf.should.include('TYPE:"VIDEO"');
+        wrapper.vm.apiQuery.qf.should.include('COUNTRY:"Austria"');
+      });
     });
 
     describe('reusability', () => {
