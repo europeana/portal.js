@@ -23,6 +23,7 @@
           :title="title"
         />
         <SearchInterface
+          class="px-0"
           :error="search.error"
           :exclude-from-route-query="['query']"
           :facets="search.facets"
@@ -75,6 +76,7 @@
 
   import * as entities from '../../../plugins/europeana/entity';
   import search, { pageFromQuery, selectedFacetsFromQuery } from '../../../plugins/europeana/search';
+  import { createClient } from '../../../plugins/contentful.js';
 
   const PER_PAGE = 9;
 
@@ -146,6 +148,7 @@
       const hiddenSearchParams = {
         qf: [entityQuery]
       };
+      const contentfulClient = createClient(query.mode);
 
       return axios.all([
         entities.getEntity(params.type, params.pathMatch, { wskey: env.EUROPEANA_ENTITY_API_KEY }),
@@ -161,9 +164,16 @@
           reusability: query.reusability,
           rows: PER_PAGE,
           wskey: env.EUROPEANA_API_KEY
+        }),
+        contentfulClient.getEntries({
+          'locale': app.i18n.isoLocale(),
+          'content_type': 'entityPage',
+          'fields.identifier': entityUri,
+          'include': 2,
+          'limit': 1
         })
       ])
-        .then(axios.spread((entity, related, search) => {
+        .then(axios.spread((entity, related, search, entries) => {
           const desiredPath = entities.getEntitySlug(entity.entity);
 
           if (params.pathMatch !== desiredPath) {
@@ -174,9 +184,12 @@
             return redirect(302, redirectPath);
           }
 
+          const entityPage = entries.total > 0 ? entries.items[0].fields : null;
+
           return {
             entity: entity.entity,
             hiddenSearchParams,
+            page: entityPage,
             relatedEntities: related,
             search: {
               ...search,
