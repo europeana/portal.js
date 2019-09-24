@@ -6,7 +6,9 @@ export const state = () => ({
 
 export const mutations = {
   setLinks(state, data) {
-    state.links = data;
+    for (const d in data) {
+      state.links[d] = data[d].fields;
+    }
   }
 };
 
@@ -19,7 +21,8 @@ export const actions = {
     }
 
     const setLocale = i18n.locale;
-    const links = await contentfulClient.getEntries({
+
+    await contentfulClient.getEntries({
       'locale': isoLookUp(setLocale),
       'content_type': 'linkGroup',
       'fields.identifier[in]': 'mainNavigation,footer'
@@ -29,15 +32,15 @@ export const actions = {
           return [];
         }
         return response.items.map(item => {
-          return {
-            identifier: item.fields.identifier,
-            fields: item.fields.links.map(item => item.fields)
-          };
+          commit('setLinks', {
+            [item.fields.identifier]: {
+              fields: item.fields.links.map(item => item.fields)
+            }
+          });
         });
       }).catch((e) => {
         // This will just output the error as text
         return [{ text: e.toString() }];
       });
-    commit('setLinks', links);
   }
 };

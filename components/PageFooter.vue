@@ -40,7 +40,7 @@
     },
     computed: {
       links() {
-        return this.$store.state['link-group'].links.filter(link => link.identifier === 'footer')[0].fields;
+        return this.$store.state['link-group'].links.footer;
       }
     }
   };
