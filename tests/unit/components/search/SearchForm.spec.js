@@ -12,29 +12,43 @@ localVue.use(Vuex);
 
 const router = new VueRouter({
   routes: [
-    {
-      path: '/search',
-      name: 'search'
-    }
+    { name: 'search', path: '/search' }
   ]
 });
-
+const routerPush = sinon.spy(router, 'push');
 const factory = (options = {}) => mount(SearchForm, {
-  ...{
-    localVue,
-    router,
-    mocks: {
+  localVue,
+  router,
+  mocks: {
+    ...{
       $t: () => {},
       localePath: (opts) => opts
-    }
-  }, ...options
+    }, ...(options.mocks || {})
+  },
+  store: options.store || {}
 });
+
+const mutations = {
+  'search/newQuery': sinon.spy()
+};
+const getters = {
+  'search/activeView': (state) => state.search.view
+};
+const store = (options = {}) => {
+  return new Vuex.Store({
+    getters,
+    mutations,
+    state: options.state || {
+      search: {}
+    }
+  });
+};
 
 describe('components/search/SearchForm', () => {
   describe('query', () => {
     context('when search is active', () => {
       const wrapper = factory({
-        store: new Vuex.Store({
+        store: store({
           state: {
             search: {
               active: true,
@@ -51,7 +65,7 @@ describe('components/search/SearchForm', () => {
 
     context('when search is inactive', () => {
       const wrapper = factory({
-        store: new Vuex.Store({
+        store: store({
           state: {
             search: {
               active: false,
@@ -68,40 +82,77 @@ describe('components/search/SearchForm', () => {
   });
 
   describe('form submission', () => {
-    const state = {
-      search: {
-        active: true,
-        query: '',
-        view: 'grid'
-      }
+    const inputQueryAndSubmitForm = (wrapper, query) => {
+      const form =  wrapper.find('form');
+      const queryInputField = form.find('input[type="text"]');
+      queryInputField.setValue(query);
+      form.trigger('submit.prevent');
     };
-    const mutations = {
-      'search/setQuery': sinon.spy()
-    };
-    const store = new Vuex.Store({
-      state,
-      mutations,
-      getters: {
-        'search/activeView': (state) => state.search.view
-      }
-    });
-    const wrapper = factory({ store });
-    const form =  wrapper.find('form');
-    const queryInputField = form.find('input[type="text"]');
+
     const newQuery = 'trees';
-    queryInputField.setValue(newQuery);
 
-    it('writes to the store', () => {
-      form.trigger('submit.prevent');
+    it('triggers newQuery store mutation', () => {
+      const state = {
+        search: {
+          active: true,
+          query: ''
+        }
+      };
+      const wrapper = factory({
+        store: store({
+          state
+        })
+      });
 
-      mutations['search/setQuery'].should.have.been.calledWith(state, newQuery);
+      inputQueryAndSubmitForm(wrapper, newQuery);
+
+      mutations['search/newQuery'].should.have.been.calledWith(state, newQuery);
     });
 
-    it('routes to a new search', () => {
-      form.trigger('submit.prevent');
+    context('when search is active', () => {
+      const state = {
+        search: {
+          active: true,
+          query: '',
+          view: 'grid'
+        }
+      };
+      const wrapper = factory({
+        store: store({
+          state
+        })
+      });
 
-      wrapper.vm.$route.path.should.eq('/search');
-      wrapper.vm.$route.query.should.eql({ query: newQuery, page: 1, view: state.search.view });
+      it('does not update routing', () => {
+        inputQueryAndSubmitForm(wrapper, newQuery);
+
+        routerPush.should.not.have.been.called;
+      });
+    });
+
+    context('when search is inactive', () => {
+      const state = {
+        search: {
+          active: false,
+          query: '',
+          view: 'list'
+        }
+      };
+      const wrapper = factory({
+        store: store({
+          state
+        })
+      });
+
+      it('reroutes to search', async() => {
+        await inputQueryAndSubmitForm(wrapper, newQuery);
+
+        const newRouteParams = {
+          name: 'search',
+          query: { query: newQuery, page: 1, view: state.search.view }
+        };
+        routerPush.should.have.been.calledWith(newRouteParams);
+      });
     });
   });
 });
