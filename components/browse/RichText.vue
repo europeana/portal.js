@@ -1,5 +1,8 @@
 <template>
-  <b-row data-qa="markdown">
+  <b-row
+    data-qa="markdown"
+    class="mb-3"
+  >
     <b-col>
       <h2 v-if="headline">
         {{ headline }}

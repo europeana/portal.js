@@ -66,18 +66,6 @@
         <b-col
           cols="12"
         >
-          <b-row>
-            <b-col>
-              <PaginationNav
-                v-if="showPagination"
-                v-model="page"
-                :total-results="currentTotalResults"
-                :per-page="perPage"
-                :link-gen="paginationLink"
-                @changed="changePage"
-              />
-            </b-col>
-          </b-row>
           <b-row
             class="mb-3"
           >

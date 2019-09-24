@@ -1,7 +1,7 @@
 <template>
   <div
     v-if="section && section.fields"
-    class="browse-section mb-5"
+    class="browse-section mb-3"
     data-qa="browse section"
   >
     <div class="col-12 col-lg-6 p-0">
