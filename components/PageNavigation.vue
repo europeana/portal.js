@@ -49,7 +49,7 @@
 
     methods: {
       async getNavigationData() {
-        return this.$store.dispatch('navigation/init');
+        return this.$store.dispatch('link-group/init');
       }
     }
   };
