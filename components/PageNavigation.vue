@@ -33,7 +33,7 @@
 
     computed: {
       navigation() {
-        return this.$store.state.navigation.data;
+        return this.$store.state['link-group'].links.filter(link => link.identifier === 'mainNavigation')[0].fields;
       },
 
       i18n() {
