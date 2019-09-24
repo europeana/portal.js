@@ -1,6 +1,6 @@
 <template>
   <section class="container">
-    <div class="mt-3 w-100" data-qa="thisisatest">
+    <div class="mt-3 w-100">
       <template
         v-for="section in sections"
       >
