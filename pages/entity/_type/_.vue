@@ -145,11 +145,6 @@
       }
 
       const contentfulClient = createClient(query.mode);
-      const setLocale = app.i18n.locale;
-      const isoLookUp = (code) => {
-        const locales = app.i18n.locales;
-        return locales.find(locale => locale.code === code)['iso'];
-      };
 
       return axios.all([
         entities.getEntity(params.type, params.pathMatch, { wskey: env.EUROPEANA_ENTITY_API_KEY }),
@@ -168,7 +163,7 @@
           wskey: env.EUROPEANA_API_KEY
         }),
         contentfulClient.getEntries({
-          'locale': isoLookUp(setLocale),
+          'locale': app.i18n.isoLocale(),
           'content_type': 'entityPage',
           'fields.identifier': entityUri,
           'include': 2,

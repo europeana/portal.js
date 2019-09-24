@@ -35,12 +35,10 @@
     },
     asyncData({ params, query, error, app }) {
       const contentfulClient = createClient(query.mode);
-      const setLocale = app.i18n.locale;
-
 
       // fetch the browsePage data, include set to 2 in order to get nested card data
       return contentfulClient.getEntries({
-        'locale': isoLookUp(setLocale),
+        'locale': app.i18n.isoLocale(),
         'content_type': 'browsePage',
         'fields.identifier': params.slug ? params.slug : 'home',
         'include': 2,
