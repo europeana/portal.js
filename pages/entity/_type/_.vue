@@ -29,8 +29,8 @@
           :facets="search.facets"
           :initial-query="query"
           :last-available-page="search.lastAvailablePage"
-          :page="search.page"
           :per-page="search.perPage"
+          :per-row="3"
           :results="search.results"
           :route="route"
           :selected-facets="search.selectedFacets"
@@ -94,7 +94,6 @@
           error: null,
           facets: [],
           lastAvailablePage: false,
-          page: 1,
           perPage: PER_PAGE,
           results: [],
           selectedFacets: {},
@@ -128,7 +127,7 @@
         return !this.entity ? this.$t('entity') : this.entity.prefLabel.en;
       }
     },
-    asyncData({ env, query, params, res, redirect, app }) {
+    asyncData({ env, query, params, res, redirect, app, store }) {
       const currentPage = pageFromQuery(query.page);
       const entityQuery = `"${entities.getEntityUri(params.type, params.pathMatch)}"`;
 
@@ -141,6 +140,8 @@
           query: { page: 1 }
         }));
       }
+
+      store.commit('search/setPage', currentPage);
 
       return axios.all([
         entities.getEntity(params.type, params.pathMatch, { wskey: env.EUROPEANA_ENTITY_API_KEY }),
@@ -155,7 +156,6 @@
           qf: query.qf,
           query: entityQuery,
           reusability: query.reusability,
-          theme: query.theme,
           wskey: env.EUROPEANA_API_KEY
         })
       ])
@@ -175,7 +175,6 @@
             relatedEntities: related,
             search: {
               ...search,
-              page: Number(currentPage),
               perPage: PER_PAGE,
               selectedFacets: selectedFacetsFromQuery(query)
             }
