@@ -17,12 +17,17 @@ const store = new Vuex.Store({
         locale: 'en'
       }
     },
-    navigation: {
+    'link-group': {
       state: {
-        data: [
+        links: [
           {
-            text: 'Our partners',
-            url: '/about/our-partners'
+            identifier: 'mainNavigation',
+            fields: [
+              {
+                text: 'Our partners',
+                url: '/about/our-partners'
+              }
+            ]
           }
         ]
       }
