@@ -11,7 +11,7 @@
     v-else
     data-qa="entity page"
   >
-    <b-row class="flex-md-row">
+    <b-row class="flex-md-row pt-3">
       <b-col
         cols="12"
         md="9"
