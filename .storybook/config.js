@@ -8,7 +8,16 @@ import '../plugins/vue-filters'
 import '../assets/scss/style.scss';
 
 Vue.use(BootstrapVue);
-
+Vue.prototype.$t = function () {}
+Vue.component('NuxtLink', {
+  props:   ['to'],
+  methods: {
+    log() {
+      action('link target')(this.to)
+    }
+  },
+  template: '<a href="#" @click="log()"><slot>NuxtLink</slot></a>',
+})
 // add bootstrap CSS to head
 const bootstrapPkg = require('bootstrap/package');
 const bootstrapVuePkg = require('bootstrap-vue/package');
