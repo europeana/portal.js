@@ -1,5 +1,6 @@
-/* Adds the isoLocale function to i18n.
-* Used to lookup the iso code for the currently selected locale.
+/*
+** Adds the isoLocale function to i18n.
+**  Used to lookup the iso code for the currently selected locale.
 */
 
 export default ({ app }) => {
