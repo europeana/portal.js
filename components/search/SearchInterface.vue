@@ -54,7 +54,7 @@
             :key="facet.name"
             :name="facet.name"
             :fields="facet.fields"
-            :type="facet.name === 'THEME' ? 'radio' : 'checkbox'"
+            type="checkbox"
             :selected="currentSelectedFacets[facet.name]"
             @changed="changeFacet"
           />
@@ -70,7 +70,7 @@
             <b-col>
               <PaginationNav
                 v-if="showPagination"
-                v-model="currentPage"
+                v-model="page"
                 :total-results="currentTotalResults"
                 :per-page="perPage"
                 :link-gen="paginationLink"
@@ -91,6 +91,7 @@
               <SearchResults
                 v-model="currentResults"
                 :view="view"
+                :per-row="perRow"
               />
               <InfoMessage
                 v-if="currentLastAvailablePage"
@@ -111,7 +112,7 @@
             <b-col>
               <PaginationNav
                 v-if="showPagination"
-                v-model="currentPage"
+                v-model="page"
                 :total-results="currentTotalResults"
                 :per-page="perPage"
                 :link-gen="paginationLink"
@@ -134,21 +135,7 @@
   import PaginationNav from '../../components/generic/PaginationNav';
   import ViewToggles from '../../components/search/ViewToggles';
   import TierToggler from '../../components/search/TierToggler';
-  import search, { defaultFacets, selectedFacetsFromQuery, thematicCollections } from '../../plugins/europeana/search';
-
-  let watchList = {};
-  for (const property of ['currentPage', 'currentSelectedFacets', 'query']) {
-    watchList[property] = {
-      deep: true,
-      handler() {
-        if (property !== 'currentPage') {
-          this.currentPage = 1;
-        }
-        this.rerouteSearch(this.updateCurrentSearchQuery());
-        this.updateResults();
-      }
-    };
-  }
+  import search, { defaultFacets, selectedFacetsFromQuery } from '../../plugins/europeana/search';
 
   export default {
     components: {
@@ -179,13 +166,13 @@
         type: Boolean,
         default: false
       },
-      page: {
-        type: Number,
-        default: 1
-      },
       perPage: {
         type: Number,
         default: 24
+      },
+      perRow: {
+        type: Number,
+        default: 4
       },
       initialQuery: {
         type: String,
@@ -221,13 +208,22 @@
         currentError: this.error,
         currentFacets: this.facets,
         currentLastAvailablePage: this.lastAvailablePage,
-        currentPage: this.page,
         currentResults: this.results,
         currentSelectedFacets: this.selectedFacets,
         currentTotalResults: this.totalResults
       };
     },
     computed: {
+      apiQuery() {
+        return {
+          page: this.page,
+          rows: this.perPage,
+          qf: this.qf,
+          query: this.query,
+          reusability: this.reusability,
+          wskey: process.env.EUROPEANA_API_KEY
+        };
+      },
       contentTierActiveState() {
         return this.selectedFacets.contentTier && this.selectedFacets.contentTier.includes('*');
       },
@@ -254,8 +250,7 @@
       /**
        * Sort the facets for display
        * Facets are returned in the hard-coded preferred order from the search
-       * plugin, followed by all others in the order the API returned them,
-       * and with the "theme" pseudo-facet injected first.
+       * plugin, followed by all others in the order the API returned them.
        * @return {Object[]} ordered facets
        * TODO: does this belong in its own component?
        */
@@ -272,15 +267,22 @@
           }
         }
 
-        ordered.unshift({ name: 'THEME', fields: thematicCollections });
         return ordered.concat(unordered);
+      },
+      page: {
+        get() {
+          return this.$store.state.search.page;
+        },
+        set(value) {
+          this.$store.commit('search/setPage', value);
+        }
       },
       qf() {
         let qfForSelectedFacets = [];
         for (const facetName in this.currentSelectedFacets) {
           const selectedValues = this.currentSelectedFacets[facetName];
-          // `reusability` and `theme` have their own API parameter and can not be queried in `qf`
-          if (!['REUSABILITY', 'THEME'].includes(facetName)) {
+          // `reusability` has its own API parameter and can not be queried in `qf`
+          if (facetName !== 'REUSABILITY') {
             for (const facetValue of selectedValues) {
               if (defaultFacets.includes(facetName)) {
                 qfForSelectedFacets.push(`${facetName}:"${facetValue}"`);
@@ -302,13 +304,6 @@
           return undefined;
         }
       },
-      theme() {
-        if (this.currentSelectedFacets['THEME'] && this.currentSelectedFacets['THEME'] !== '') {
-          return this.currentSelectedFacets['THEME'];
-        } else {
-          return undefined;
-        }
-      },
       showPagination() {
         return this.currentTotalResults > this.perPage;
       },
@@ -316,7 +311,15 @@
         return this.$store.getters['search/activeView'];
       }
     },
-    watch: watchList,
+    watch: {
+      apiQuery: {
+        deep: true,
+        handler() {
+          this.rerouteSearch(this.updateCurrentSearchQuery());
+          this.updateResults();
+        }
+      }
+    },
     created() {
       if (this.$route.query.view) {
         this.$store.commit('search/setView', this.$route.query.view);
@@ -325,12 +328,14 @@
     methods: {
       changeContentTierToggle() {
         this.currentSelectedFacets = selectedFacetsFromQuery(this.$route.query);
+        this.page = 1;
       },
       changeFacet(name, selected) {
         this.$set(this.currentSelectedFacets, name, selected);
+        this.page = 1;
       },
       changePage(page) {
-        this.currentPage = page;
+        this.page = page;
       },
       paginationLink(val) {
         return this.localePath({ ...this.route, ...{ query: this.updateCurrentSearchQuery({ page: val }) } });
@@ -340,11 +345,10 @@
       },
       updateCurrentSearchQuery(updates = {}) {
         const current = {
-          page: this.currentPage || '1',
+          page: this.page,
           qf: this.qf,
           query: this.query,
           reusability: this.reusability,
-          theme: this.theme,
           view: this.view
         };
 
@@ -362,15 +366,7 @@
         return updated;
       },
       updateResults() {
-        search({
-          page: this.currentPage,
-          rows: this.perPage,
-          qf: this.qf,
-          query: this.query,
-          reusability: this.reusability,
-          theme: this.theme,
-          wskey: process.env.EUROPEANA_API_KEY
-        })
+        search(this.apiQuery)
           .then((response) => {
             this.currentError = response.error;
             this.currentFacets = response.facets;
