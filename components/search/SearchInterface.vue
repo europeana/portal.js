@@ -29,7 +29,7 @@
             :key="facet.name"
             :name="facet.name"
             :fields="facet.fields"
-            :type="facet.name === 'THEME' ? 'radio' : 'checkbox'"
+            type="checkbox"
             :selected="currentSelectedFacets[facet.name]"
             @changed="changeFacet"
           />
