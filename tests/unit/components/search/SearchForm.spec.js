@@ -1,34 +1,56 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 import SearchForm from '../../../../components/search/SearchForm.vue';
+import VueRouter from 'vue-router';
 import Vuex from 'vuex';
 import sinon from 'sinon';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
+localVue.use(VueRouter);
 localVue.use(Vuex);
 
+const router = new VueRouter({
+  routes: [
+    { name: 'search', path: '/search' }
+  ]
+});
+const routerPush = sinon.spy(router, 'push');
 const factory = (options = {}) => mount(SearchForm, {
   localVue,
-  store: options.store,
+  router,
   mocks: {
     ...{
-      $route: {
-        path: '/search',
-        name: 'search'
-      },
-      $router: [],
       $t: () => {},
-      localePath: (opts) => opts
+      localePath: (opts) => {
+        return router.resolve(opts).route.fullPath;
+      }
     }, ...(options.mocks || {})
-  }
+  },
+  store: options.store || {}
 });
+
+const mutations = {
+  'search/newQuery': sinon.spy()
+};
+const getters = {
+  'search/activeView': (state) => state.search.view
+};
+const store = (options = {}) => {
+  return new Vuex.Store({
+    getters,
+    mutations,
+    state: options.state || {
+      search: {}
+    }
+  });
+};
 
 describe('components/search/SearchForm', () => {
   describe('query', () => {
     context('when on a search page', () => {
       const wrapper = factory({
-        store: new Vuex.Store({
+        store: store({
           state: {
             search: {
               active: true,
@@ -45,7 +67,7 @@ describe('components/search/SearchForm', () => {
 
     context('when not on a search page', () => {
       const wrapper = factory({
-        store: new Vuex.Store({
+        store: store({
           state: {
             search: {
               active: false,
@@ -63,14 +85,8 @@ describe('components/search/SearchForm', () => {
 
   describe('routePath', () => {
     context('when on a search page', () => {
-      const route = {
-        path: '/some-search-path'
-      };
       const wrapper = factory({
-        mocks: {
-          $route: route
-        },
-        store: new Vuex.Store({
+        store: store({
           state: {
             search: {
               active: true
@@ -80,19 +96,13 @@ describe('components/search/SearchForm', () => {
       });
 
       it('uses current route path', () => {
-        wrapper.vm.routePath.should.eq(route.path);
+        wrapper.vm.routePath.should.eq(wrapper.vm.$route.path);
       });
     });
 
     context('when not on a search page', () => {
-      const route = {
-        path: '/some-non-search-path'
-      };
       const wrapper = factory({
-        mocks: {
-          $route: route
-        },
-        store: new Vuex.Store({
+        store: store({
           state: {
             search: {
               active: false
@@ -102,47 +112,83 @@ describe('components/search/SearchForm', () => {
       });
 
       it('uses default search route path', () => {
-        wrapper.vm.routePath.should.eql({ name: 'search' });
+        wrapper.vm.routePath.should.eql('/search');
       });
     });
   });
 
   describe('form submission', () => {
-    const state = {
-      search: {
-        active: true,
-        query: '',
-        view: 'grid'
-      }
+    const inputQueryAndSubmitForm = (wrapper, query) => {
+      const form =  wrapper.find('form');
+      const queryInputField = form.find('input[type="text"]');
+      queryInputField.setValue(query);
+      form.trigger('submit.prevent');
     };
-    const mutations = {
-      'search/setQuery': sinon.spy()
-    };
-    const store = new Vuex.Store({
-      state,
-      mutations,
-      getters: {
-        'search/activeView': (state) => state.search.view
-      }
-    });
-    const wrapper = factory({ store });
-    const form =  wrapper.find('form');
-    const queryInputField = form.find('input[type="text"]');
+
     const newQuery = 'trees';
-    queryInputField.setValue(newQuery);
 
-    it('writes to the store', () => {
-      form.trigger('submit.prevent');
+    it('triggers newQuery store mutation', () => {
+      const state = {
+        search: {
+          active: true,
+          query: ''
+        }
+      };
+      const wrapper = factory({
+        store: store({
+          state
+        })
+      });
 
-      mutations['search/setQuery'].should.have.been.calledWith(state, newQuery);
+      inputQueryAndSubmitForm(wrapper, newQuery);
+
+      mutations['search/newQuery'].should.have.been.calledWith(state, newQuery);
     });
 
-    it('routes to a new search', () => {
-      form.trigger('submit.prevent');
+    context('when on a search page', () => {
+      const state = {
+        search: {
+          active: true,
+          query: '',
+          view: 'grid'
+        }
+      };
+      const wrapper = factory({
+        store: store({
+          state
+        })
+      });
 
-      const newRoute = wrapper.vm.$router.slice(-1)[0];
-      newRoute.path.should.eq('/search');
-      newRoute.query.should.eql({ query: newQuery, page: 1, view: state.search.view });
+      it('does not update routing', () => {
+        inputQueryAndSubmitForm(wrapper, newQuery);
+
+        routerPush.should.not.have.been.called;
+      });
+    });
+
+    context('when not on a search page', () => {
+      const state = {
+        search: {
+          active: false,
+          query: '',
+          view: 'list'
+        }
+      };
+      const wrapper = factory({
+        store: store({
+          state
+        })
+      });
+
+      it('reroutes to search', async() => {
+        await inputQueryAndSubmitForm(wrapper, newQuery);
+
+        const newRouteParams = {
+          path: '/search',
+          query: { query: newQuery, page: 1, view: state.search.view }
+        };
+        routerPush.should.have.been.calledWith(newRouteParams);
+      });
     });
   });
 });

@@ -14,8 +14,12 @@ Feature: Search pagination
     And I enter "paris" in the `search box`
     And I click the `search button`
     And I wait for a `search result`
-    And I check the "IMAGE" checkbox
+    And I see a `search facet`
+    And I click the `TYPE dropdown button`
+    And I check the "IMAGE" "TYPE" checkbox
+    And I click the `TYPE apply button`
     And I wait 1 second
+    And I see a `pagination navigation`
     Then I see a link to "/search?page=2&qf=TYPE%3A%22IMAGE%22&query=paris&view=grid" in the `pagination navigation`
 
   Scenario: Pagination links preserve query and facet selection from the url.

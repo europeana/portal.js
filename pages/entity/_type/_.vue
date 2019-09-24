@@ -23,17 +23,19 @@
           :title="title"
         />
         <SearchInterface
-          :error="SearchInterface.error"
-          :facets="SearchInterface.facets"
+          :error="search.error"
+          :exclude-from-route-query="['query']"
+          :facets="search.facets"
           :hidden-search-params="hiddenSearchParams"
-          :last-available-page="SearchInterface.lastAvailablePage"
-          :page="SearchInterface.page"
-          :query="SearchInterface.query"
-          :results="SearchInterface.results"
+          :last-available-page="search.lastAvailablePage"
+          :per-page="search.perPage"
+          :per-row="3"
+          :query="search.query"
+          :results="search.results"
           :route="route"
-          :selected-facets="SearchInterface.selectedFacets"
+          :selected-facets="search.selectedFacets"
           :show-content-tier-toggle="false"
-          :total-results="SearchInterface.totalResults"
+          :total-results="search.totalResults"
         />
       </b-col>
       <b-col
@@ -74,6 +76,8 @@
   import * as entities from '../../../plugins/europeana/entity';
   import search, { pageFromQuery, selectedFacetsFromQuery } from '../../../plugins/europeana/search';
 
+  const PER_PAGE = 9;
+
   export default {
     components: {
       AlertMessage,
@@ -87,11 +91,11 @@
         error: null,
         hiddenSearchParams: {},
         relatedEntities: null,
-        SearchInterface: {
+        search: {
           error: null,
           facets: [],
           lastAvailablePage: false,
-          page: 1,
+          perPage: PER_PAGE,
           query: null,
           results: [],
           selectedFacets: {},
@@ -122,7 +126,7 @@
         return !this.entity ? this.$t('entity') : this.entity.prefLabel.en;
       }
     },
-    asyncData({ env, query, params, res, redirect, app }) {
+    asyncData({ env, query, params, res, redirect, app, store }) {
       const currentPage = pageFromQuery(query.page);
       const entityUri = entities.getEntityUri(params.type, params.pathMatch);
       const entityQuery = entities.getEntityQuery(entityUri);
@@ -136,6 +140,8 @@
           query: { page: 1 }
         }));
       }
+
+      store.commit('search/setPage', currentPage);
 
       const hiddenSearchParams = {
         qf: [entityQuery]
@@ -153,11 +159,11 @@
           qf: hiddenSearchParams.qf.concat(query.qf),
           query: query.query,
           reusability: query.reusability,
-          theme: query.theme,
+          rows: PER_PAGE,
           wskey: env.EUROPEANA_API_KEY
         })
       ])
-        .then(axios.spread((entity, related, SearchInterface) => {
+        .then(axios.spread((entity, related, search) => {
           const desiredPath = entities.getEntitySlug(entity.entity);
 
           if (params.pathMatch !== desiredPath) {
@@ -172,9 +178,9 @@
             entity: entity.entity,
             hiddenSearchParams,
             relatedEntities: related,
-            SearchInterface: {
-              ...SearchInterface,
-              page: Number(currentPage),
+            search: {
+              ...search,
+              perPage: PER_PAGE,
               query: query.query,
               selectedFacets: selectedFacetsFromQuery(query)
             }

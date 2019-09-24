@@ -1,12 +1,20 @@
 export const state = () => ({
   active: false,
+  page: 1,
   query: '',
   view: null
 });
 
 export const mutations = {
+  newQuery(state, value) {
+    state.query = value;
+    state.page = 1;
+  },
   setActive(state, value) {
     state.active = value;
+  },
+  setPage(state, value) {
+    state.page = Number(value);
   },
   setQuery(state, value) {
     state.query = value;
