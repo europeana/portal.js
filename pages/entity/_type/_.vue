@@ -28,8 +28,8 @@
           :facets="search.facets"
           :initial-query="query"
           :last-available-page="search.lastAvailablePage"
-          :page="search.page"
           :per-page="search.perPage"
+          :per-row="3"
           :results="search.results"
           :route="route"
           :selected-facets="search.selectedFacets"
@@ -89,13 +89,11 @@
       return {
         entity: null,
         error: null,
-        page: null,
         relatedEntities: null,
         search: {
           error: null,
           facets: [],
           lastAvailablePage: false,
-          page: 1,
           perPage: PER_PAGE,
           results: [],
           selectedFacets: {},
@@ -129,7 +127,7 @@
         return !this.entity ? this.$t('entity') : this.entity.prefLabel.en;
       }
     },
-    asyncData({ env, query, params, res, redirect, app }) {
+    asyncData({ env, query, params, res, redirect, app, store }) {
       const currentPage = pageFromQuery(query.page);
       const entityUri = entities.getEntityUri(params.type, params.pathMatch);
       const entityQuery = `"${entityUri}"`;
@@ -143,6 +141,8 @@
           query: { page: 1 }
         }));
       }
+
+      store.commit('search/setPage', currentPage);
 
       const contentfulClient = createClient(query.mode);
 
@@ -159,7 +159,6 @@
           qf: query.qf,
           query: entityQuery,
           reusability: query.reusability,
-          theme: query.theme,
           wskey: env.EUROPEANA_API_KEY
         }),
         contentfulClient.getEntries({
@@ -189,7 +188,6 @@
             relatedEntities: related,
             search: {
               ...search,
-              page: Number(currentPage),
               perPage: PER_PAGE,
               selectedFacets: selectedFacetsFromQuery(query)
             }

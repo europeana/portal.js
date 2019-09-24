@@ -40,7 +40,7 @@
       return contentfulClient.getEntries({
         'locale': app.i18n.isoLocale(),
         'content_type': 'browsePage',
-        'fields.identifier': params.slug ? params.slug : 'home',
+        'fields.identifier': params.pathMatch ? params.pathMatch : 'home',
         'include': 2,
         'limit': 1
       })
