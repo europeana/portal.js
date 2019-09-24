@@ -109,6 +109,10 @@ module.exports = {
   async openAPage(pageName) {
     await client.url(pageUrl(pageName));
   },
+  async paginateToPage(page) {
+    const selector = qaSelector('pagination navigation') + ` a[aria-posinset="${page}"]`;
+    await client.click(selector);
+  },
   async seeALinkInTarget(linkHref, qaElementName) {
     await client.expect.element(qaSelector(qaElementName) + ` a[href="${linkHref}"]`).to.be.visible;
   },
