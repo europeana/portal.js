@@ -322,12 +322,6 @@
         this.$store.commit('search/setView', this.$route.query.view);
       }
     },
-
-    mounted() {
-      this.$root.$on('bv::dropdown::hidden', (dropdown) => {
-        dropdown.$parent.applySelection();
-      });
-    },
     methods: {
       changeContentTierToggle() {
         this.currentSelectedFacets = selectedFacetsFromQuery(this.$route.query);

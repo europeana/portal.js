@@ -5,6 +5,7 @@
     class="mr-2"
     :data-type="type"
     data-qa="search facet"
+    @hidden="applySelection()"
   >
     <template v-slot:button-content>
       <span :data-qa="`${name} dropdown button`">
