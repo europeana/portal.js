@@ -7,10 +7,13 @@
     {{ truncatedText }}
     <nuxt-link
       :to="removeLinkTo"
-      :aria-label="$t('delete')"
+      :aria-label="removeLinkLabel"
       class="pill-close p-1"
     >
       x
+      <span class="sr-only">
+        {{ removeLinkLabel }}
+      </span>
     </nuxt-link>
   </b-badge>
 </template>
@@ -25,6 +28,12 @@
       removeLinkTo: {
         type: Object,
         required: true
+      },
+      removeLinkLabel: {
+        type: String,
+        default() {
+          return this.$t('delete');
+        }
       }
     },
 
