@@ -26,7 +26,7 @@ describe('components/search/SearchForm', () => {
     });
     wrapper.vm.limitCharacters = 20;
 
-    wrapper.vm.truncatedText.should.eq('This is text that ne...');
+    wrapper.vm.truncatedText.should.eq('This is text that ne…');
   });
 
   it('doesn`t trunacate text if characters are `set character state` or less', () => {

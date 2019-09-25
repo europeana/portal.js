@@ -30,7 +30,7 @@
         required: true
       },
       removeLinkLabel: {
-        type: String,
+        type: [String, Object],
         default() {
           return this.$t('delete');
         }
