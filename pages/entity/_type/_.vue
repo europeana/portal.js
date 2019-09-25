@@ -1,8 +1,5 @@
 <template>
-  <b-container
-    v-if="error"
-    class="mb-3"
-  >
+  <b-container v-if="error">
     <AlertMessage
       :error="error"
     />
@@ -11,7 +8,7 @@
     v-else
     data-qa="entity page"
   >
-    <b-row class="flex-md-row">
+    <b-row class="flex-md-row pt-3">
       <b-col
         cols="12"
         md="9"

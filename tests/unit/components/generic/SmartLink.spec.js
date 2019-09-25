@@ -6,7 +6,10 @@ const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
 const factory = () => shallowMount(SmartLink, {
-  localVue
+  localVue,
+  mocks: {
+    localePath: code => window.location.href + code
+  }
 });
 
 describe('components/generic/SmartLink', () => {
