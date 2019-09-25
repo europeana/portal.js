@@ -2,15 +2,16 @@ import { configure } from '@storybook/vue';
 import { action } from '@storybook/addon-actions';
 
 import Vue from 'vue';
+import VueI18n from 'vue-i18n';
 import BootstrapVue from 'bootstrap-vue';
-import '../plugins/vue-filters'
 
+import '../plugins/vue-filters';
 import '../assets/scss/style.scss';
 
+Vue.use(VueI18n)
 Vue.use(BootstrapVue);
-Vue.prototype.$t = function () {}
 Vue.component('NuxtLink', {
-  props:   ['to'],
+  props: ['to'],
   methods: {
     log() {
       action('link target')(this.to)
