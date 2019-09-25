@@ -1,6 +1,6 @@
 <template>
   <b-navbar
-    class="border-bottom py-0"
+    class="border-bottom py-0 mb-3"
     data-qa="main navigation"
   >
     <b-container class="p-0">

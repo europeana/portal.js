@@ -1,6 +1,6 @@
 <template>
   <b-container>
-    <b-row class="pt-3">
+    <b-row>
       <b-col>
         <h1>{{ $t('search') }}</h1>
       </b-col>

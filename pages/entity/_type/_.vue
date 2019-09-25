@@ -1,8 +1,5 @@
 <template>
-  <b-container
-    v-if="error"
-    class="mb-3"
-  >
+  <b-container v-if="error">
     <AlertMessage
       :error="error"
     />
