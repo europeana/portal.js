@@ -12,16 +12,8 @@ export const mutations = {
 
 export const actions = {
   async init({ commit }) {
-    const i18n = this.app.i18n;
-    function isoLookUp(code) {
-      const locales = i18n.locales;
-      return locales.find(locale => locale.code === code)['iso'];
-    }
-
-    const setLocale = i18n.locale;
-
     await contentfulClient.getEntries({
-      'locale': isoLookUp(setLocale),
+      'locale': this.app.i18n.isoLocale(),
       'content_type': 'linkGroup',
       'fields.identifier[in]': 'mainNavigation,footer'
     })
