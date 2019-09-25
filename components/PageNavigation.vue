@@ -1,6 +1,6 @@
 <template>
   <b-navbar
-    class="navigation-container border-bottom"
+    class="navbar border-bottom py-0"
     data-qa="main navigation"
   >
     <b-container class="p-0">
@@ -57,12 +57,6 @@
 
 <style lang="scss" scoped>
   @import '../assets/scss/variables.scss';
-
-  .navigation-container {
-    background: $bodygrey;
-    padding-top: 0;
-    padding-bottom: 0;
-  }
 
   .nav-item:not(:last-child) {
     margin-right: 15px;
