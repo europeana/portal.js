@@ -59,14 +59,10 @@
   @import '../assets/scss/variables.scss';
 
   .nav-item:not(:last-child) {
-    margin-right: 15px;
+    margin-right: 1rem;
   }
 
-  .navbar-light {
-    .navbar-nav {
-      .nav-link {
-        color: $darkgrey;
-      }
-    }
+  .navbar-nav .nav-link {
+    color: $darkgrey;
   }
 </style>
