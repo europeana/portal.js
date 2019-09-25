@@ -1,4 +1,4 @@
-import { createLocalVue, shallowMount } from '@vue/test-utils';
+import { createLocalVue, shallowMount, RouterLinkStub } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 import SearchBarPill from '../../../../components/search/SearchBarPill.vue';
 
@@ -7,6 +7,9 @@ localVue.use(BootstrapVue);
 
 const factory = () => shallowMount(SearchBarPill, {
   localVue,
+  stubs: {
+    NuxtLink: RouterLinkStub
+  },
   propsData: {
     removeLinkTo: {},
     removeLinkLabel: {},
