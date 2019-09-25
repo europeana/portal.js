@@ -26,15 +26,14 @@ export const actions = {
       'fields.identifier[in]': 'mainNavigation,footer'
     })
       .then((response) => {
-        return response.items.forEach(item => {
+        response.items.forEach(item => {
           commit('setLinks', {
             identifier: item.fields.identifier,
             links: item.fields.links.map(item => item.fields)
           });
         });
-      }).catch((e) => {
-        // This will just output the error as text
-        throw new Error(e.toString());
+      }).catch(err => {
+        throw new Error(err);
       });
   }
 };
