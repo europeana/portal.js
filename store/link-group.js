@@ -26,7 +26,7 @@ export const actions = {
       'fields.identifier[in]': 'mainNavigation,footer'
     })
       .then((response) => {
-        return response.items.map(item => {
+        return response.items.forEach(item => {
           commit('setLinks', {
             identifier: item.fields.identifier,
             links: item.fields.links.map(item => item.fields)
