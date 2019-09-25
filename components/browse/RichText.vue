@@ -1,5 +1,8 @@
 <template>
-  <b-row data-qa="markdown">
+  <b-row
+    data-qa="markdown"
+    class="mb-5"
+  >
     <b-col>
       <h2 v-if="headline">
         {{ headline }}
@@ -29,3 +32,9 @@
     }
   };
 </script>
+
+<style lang="scss" scoped>
+  /deep/ img {
+    max-width: 100%;
+  }
+</style>
