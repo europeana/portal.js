@@ -29,8 +29,6 @@ describe('components/browse/RichText', () => {
     });
 
     const markdown = wrapper.find('[data-qa="markdown"]');
-
-    markdown.html().should.contain('<h2>');
-    markdown.text().should.contain('This will be a title');
+    markdown.find('h2').text().should.contain('This will be a title');
   });
 });
