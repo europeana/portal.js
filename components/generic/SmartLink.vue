@@ -2,7 +2,6 @@
   <b-link
     v-if="useRouterLink"
     :to="path"
-    :exact-active-class="exactActiveClass"
     :class="linkClass"
   >
     <slot />
@@ -26,10 +25,6 @@
       linkClass: {
         type: String,
         default: ''
-      },
-      exactActiveClass: {
-        type: String,
-        default: null
       }
     },
     computed: {

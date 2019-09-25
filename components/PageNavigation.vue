@@ -13,7 +13,6 @@
           <SmartLink
             :destination="nav.url"
             link-class="nav-link"
-            exact-active-class="font-weight-bold"
           >
             {{ nav.text }}
           </SmartLink>
@@ -58,11 +57,18 @@
 <style lang="scss" scoped>
   @import '../assets/scss/variables.scss';
 
-  .nav-item:not(:last-child) {
-    margin-right: 1rem;
+  .nav-item {
+    &:not(:last-child) {
+      margin-right: 1rem;
+    }
+
+    .nav-link {
+      color: $darkgrey;
+
+      &.nuxt-link-exact-active {
+        font-weight: bold;
+      }
+    }
   }
 
-  .navbar-nav .nav-link {
-    color: $darkgrey;
-  }
 </style>
