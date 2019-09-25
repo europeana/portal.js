@@ -37,10 +37,6 @@
           :show-content-tier-toggle="false"
           :total-results="search.totalResults"
         />
-        <BrowseSection
-          v-if="page"
-          :sections="page.hasPart"
-        />
       </b-col>
       <b-col
         cols="12"
@@ -64,6 +60,14 @@
             :title="relatedEntity.title"
           />
         </ul>
+      </b-col>
+    </b-row>
+    <b-row>
+      <b-col>
+        <BrowseSection
+          v-if="page"
+          :sections="page.hasPart"
+        />
       </b-col>
     </b-row>
   </b-container>

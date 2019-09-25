@@ -11,10 +11,12 @@
       :attribution="page.primaryImageOfPage.fields.citation"
       :rights-statement="page.primaryImageOfPage.fields.license"
     />
-    <BrowseSection
-      v-if="page"
-      :sections="page.hasPart"
-    />
+    <b-container>
+      <BrowseSection
+        v-if="page"
+        :sections="page.hasPart"
+      />
+    </b-container>
   </div>
 </template>
 
