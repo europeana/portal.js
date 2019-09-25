@@ -45,7 +45,7 @@
 
     computed: {
       truncatedText() {
-        return this.text.length > this.limitCharacters ? this.text.slice(0, this.limitCharacters) + '...' : this.text;
+        return this.text.length > this.limitCharacters ? this.text.slice(0, this.limitCharacters) + '…' : this.text;
       }
     }
   };
