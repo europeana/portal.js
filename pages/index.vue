@@ -13,42 +13,44 @@
     />
     <section class="container">
       <div class="mt-3 w-100">
-        <ContentCardSection
+        <template
           v-for="section in page.hasPart"
-          :key="section.sys.id"
-          :section="section"
-        />
+        >
+          <RichText
+            v-if="contentType(section, 'richText')"
+            :key="section.sys.id"
+            :headline="section.fields.headline"
+            :text="section.fields.text"
+          />
+          <ContentCardSection
+            v-else-if="contentType(section, 'cardGroup')"
+            :key="section.sys.id"
+            :section="section"
+          />
+        </template>
       </div>
     </section>
   </div>
 </template>
 
 <script>
+  import RichText from '../components/browse/RichText';
   import ContentCardSection from '../components/browse/ContentCardSection';
   import HeroBanner from '../components/generic/HeroBanner';
   import { createClient } from '../plugins/contentful.js';
 
   export default {
     components: {
+      RichText,
       ContentCardSection,
       HeroBanner
     },
     asyncData({ params, query, error, app }) {
-      let contentfulClient;
-      if (query.mode === 'preview' && process.env['CTF_CPA_ACCESS_TOKEN']) {
-        contentfulClient = createClient(query.mode);
-      } else {
-        contentfulClient = createClient();
-      }
-      const setLocale = app.i18n.locale;
-      const isoLookUp = (code) => {
-        const locales = app.i18n.locales;
-        return locales.find(locale => locale.code === code)['iso'];
-      };
+      const contentfulClient = createClient(query.mode);
 
       // fetch the browsePage data, include set to 2 in order to get nested card data
       return contentfulClient.getEntries({
-        'locale': isoLookUp(setLocale),
+        'locale': app.i18n.isoLocale(),
         'content_type': 'browsePage',
         'fields.identifier': params.pathMatch ? params.pathMatch : 'home',
         'include': 2,
@@ -72,7 +74,11 @@
         title: this.page.headline
       };
     },
+
     methods: {
+      contentType(section, id) {
+        return section.sys.contentType.sys.id === id;
+      }
     }
   };
 </script>

@@ -25,6 +25,7 @@
         {{ title }}
       </h1>
       <p
+        v-if="description"
         data-qa="entity description"
       >
         {{ showAll ? description : truncatedDescription }}
