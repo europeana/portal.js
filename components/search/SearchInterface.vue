@@ -102,7 +102,7 @@
           <b-row>
             <b-col>
               <TierToggler
-                v-if="showContentTierToggle"
+                v-if="tierToggleEnabled && showContentTierToggle"
                 :active-state="contentTierActiveState"
                 @changed="changeContentTierToggle"
               />
@@ -306,6 +306,9 @@
       },
       showPagination() {
         return this.currentTotalResults > this.perPage;
+      },
+      tierToggleEnabled() {
+        return Boolean(Number(process.env['ENABLE_CONTENT_TIER_TOGGLE']));
       },
       view() {
         return this.$store.getters['search/activeView'];
