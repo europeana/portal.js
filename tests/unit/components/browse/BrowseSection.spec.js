@@ -1,11 +1,11 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
-import BrowseSection from '../../../../components/browse/BrowseSection.vue';
+import BrowseSections from '../../../../components/browse/BrowseSections.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
-const factory = () => mount(BrowseSection, {
+const factory = () => mount(BrowseSections, {
   localVue
 });
 
@@ -51,7 +51,7 @@ const dummySectionRichText = [{
   }
 }];
 
-describe('components/browse/BrowseSection', () => {
+describe('components/browse/BrowseSections', () => {
   it('shows a section with cards', () => {
     const wrapper = factory();
     wrapper.setProps({ sections: dummySection });

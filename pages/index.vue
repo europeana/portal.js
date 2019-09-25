@@ -12,7 +12,7 @@
       :rights-statement="page.primaryImageOfPage.fields.license"
     />
     <b-container>
-      <BrowseSection
+      <BrowseSections
         v-if="page"
         :sections="page.hasPart"
       />
@@ -21,13 +21,13 @@
 </template>
 
 <script>
-  import BrowseSection from '../components/browse/BrowseSection';
+  import BrowseSections from '../components/browse/BrowseSections';
   import HeroBanner from '../components/generic/HeroBanner';
   import { createClient } from '../plugins/contentful.js';
 
   export default {
     components: {
-      BrowseSection,
+      BrowseSections,
       HeroBanner
     },
     asyncData({ params, query, error, app }) {

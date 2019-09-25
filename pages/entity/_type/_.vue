@@ -64,7 +64,7 @@
     </b-row>
     <b-row>
       <b-col>
-        <BrowseSection
+        <BrowseSections
           v-if="page"
           :sections="page.hasPart"
         />
@@ -78,7 +78,7 @@
 
   import AlertMessage from '../../../components/generic/AlertMessage';
   import BrowseChip from '../../../components/browse/BrowseChip';
-  import BrowseSection from '../../../components/browse/BrowseSection';
+  import BrowseSections from '../../../components/browse/BrowseSections';
   import EntityDetails from '../../../components/browse/EntityDetails';
   import SearchInterface from '../../../components/search/SearchInterface';
 
@@ -92,7 +92,7 @@
     components: {
       AlertMessage,
       BrowseChip,
-      BrowseSection,
+      BrowseSections,
       EntityDetails,
       SearchInterface
     },
