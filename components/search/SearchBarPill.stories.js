@@ -16,7 +16,7 @@ storiesOf('Search page / Pills', module)
     i18n,
     template: `
       <b-container class="mt-3">
-        <SearchBarPill text="This is a pill" :removeLinkTo="{}"/>
+        <SearchBarPill text="This is a pill" :removeLinkTo="{ name: 'test' }"/>
       </b-container>`
   }))
   .add('Custom aria label', () => ({

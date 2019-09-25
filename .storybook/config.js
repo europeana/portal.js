@@ -17,7 +17,7 @@ Vue.component('NuxtLink', {
       action('link target')(this.to)
     }
   },
-  template: '<a href="#" @click="log()"><slot>NuxtLink</slot></a>',
+  template: '<a href="" @click.prevent="log()"><slot>NuxtLink</slot></a>',
 })
 // add bootstrap CSS to head
 const bootstrapPkg = require('bootstrap/package');
