@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <div>
     <template
       v-for="section in sections"
     >
@@ -15,7 +15,7 @@
         :section="section"
       />
     </template>
-  </section>
+  </div>
 </template>
 
 <script>

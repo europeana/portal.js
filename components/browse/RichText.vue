@@ -2,13 +2,16 @@
   <b-row
     data-qa="markdown"
     class="mb-5"
+    tag="section"
   >
-    <b-col>
-      <h2 v-if="headline">
-        {{ headline }}
-      </h2>
-      <!-- Keep Vue Markdown on the same line otherwise it will break -->
-      <VueMarkdown>{{ text }}</VueMarkdown>
+    <b-col class="col-12 col-lg-9">
+      <b-card>
+        <h2 v-if="headline">
+          {{ headline }}
+        </h2>
+        <!-- Keep Vue Markdown on the same line otherwise it will break -->
+        <VueMarkdown>{{ text }}</VueMarkdown>
+      </b-card>
     </b-col>
   </b-row>
 </template>
