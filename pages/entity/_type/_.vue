@@ -62,6 +62,14 @@
         </ul>
       </b-col>
     </b-row>
+    <b-row>
+      <b-col>
+        <BrowseSections
+          v-if="page"
+          :sections="page.hasPart"
+        />
+      </b-col>
+    </b-row>
   </b-container>
 </template>
 
@@ -70,6 +78,7 @@
 
   import AlertMessage from '../../../components/generic/AlertMessage';
   import BrowseChip from '../../../components/browse/BrowseChip';
+  import BrowseSections from '../../../components/browse/BrowseSections';
   import EntityDetails from '../../../components/browse/EntityDetails';
   import SearchInterface from '../../../components/search/SearchInterface';
 
@@ -83,6 +92,7 @@
     components: {
       AlertMessage,
       BrowseChip,
+      BrowseSections,
       EntityDetails,
       SearchInterface
     },
@@ -90,6 +100,7 @@
       return {
         entity: null,
         error: null,
+        page: null,
         relatedEntities: null,
         search: {
           error: null,
