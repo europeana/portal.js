@@ -136,7 +136,6 @@
   import ViewToggles from '../../components/search/ViewToggles';
   import TierToggler from '../../components/search/TierToggler';
   import search, { defaultFacets, selectedFacetsFromQuery } from '../../plugins/europeana/search';
-  import Vue from 'vue';
 
   export default {
     components: {
@@ -314,10 +313,8 @@
       apiQuery: {
         deep: true,
         handler() {
-          Vue.nextTick(() => {
-            this.rerouteSearch(this.updateCurrentSearchQuery());
-            this.updateResults();
-          });
+          this.rerouteSearch(this.updateCurrentSearchQuery());
+          this.updateResults();
         }
       }
     },
