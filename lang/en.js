@@ -6,6 +6,7 @@ export default {
   },
   "error": "Error",
   "search": "Search",
+  "delete": "Delete",
   "results": "Results",
   "homeLinkAlt": "Europeana Collections home",
   "noMoreResults": "There are no more results for your search query.",
