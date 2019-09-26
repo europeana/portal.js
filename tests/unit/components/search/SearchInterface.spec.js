@@ -24,24 +24,24 @@ const router = new VueRouter({
   ]
 });
 
-const store = new Vuex.Store({
-  state: {
-    search: {
-      active: true,
-      query: ''
-    }
-  }
-});
-
 const factory = (options = {}) => {
   const mocks = {
-    ...{
-      $t: (key) => key,
-      $te: () => false,
-      localePath: (opts) => opts
-    },
+    $t: (key) => key,
+    $te: () => false,
+    localePath: (opts) => opts,
     ...options.mocks
   };
+  const store = new Vuex.Store({
+    state: {
+      search: {
+        facets: [],
+        qf: [],
+        results: [],
+        selectedFacets: {},
+        ...options.storeState
+      }
+    }
+  });
   return mount(SearchInterface, {
     localVue,
     mocks,
@@ -53,11 +53,11 @@ const factory = (options = {}) => {
 
 describe('components/search/SearchInterface', () => {
   describe('output', () => {
-    context('with `error` prop', () => {
+    context('with `error` in search state', () => {
       it('displays the message', () => {
         const errorMessage = 'Something went very wrong';
         const wrapper = factory({
-          propsData: {
+          storeState: {
             error: errorMessage
           }
         });
@@ -74,7 +74,7 @@ describe('components/search/SearchInterface', () => {
       context('when contentTier facet includes "*"', () => {
         it('is `true`', () => {
           const wrapper = factory({
-            propsData: {
+            storeState: {
               selectedFacets: {
                 contentTier: ['*']
               }
@@ -88,7 +88,7 @@ describe('components/search/SearchInterface', () => {
       context('when contentTier facet does not include "*"', () => {
         it('is `false`', () => {
           const wrapper = factory({
-            propsData: {
+            storeState: {
               selectedFacets: {
                 contentTier: ['1 OR 2 OR 3 OR 4']
               }
@@ -104,7 +104,7 @@ describe('components/search/SearchInterface', () => {
       context('when there was a pagination error', () => {
         it('returns a user-friendly error message', async() => {
           const wrapper = factory({
-            propsData: {
+            storeState: {
               error: 'Sorry! It is not possible to paginate beyond the first 5000 search results.'
             }
           });
@@ -117,7 +117,7 @@ describe('components/search/SearchInterface', () => {
     describe('noMoreResults', () => {
       context('when there are 0 results in total', () => {
         const wrapper = factory({
-          propsData: { totalResults: 0 }
+          storeState: { totalResults: 0 }
         });
 
         it('is `false`', () => {
@@ -128,13 +128,15 @@ describe('components/search/SearchInterface', () => {
       context('when there are some results in total', () => {
         context('and results here', () => {
           const wrapper = factory({
-            totalResults: 100,
-            results: [{
-              europeanaId: '/123/abc',
-              fields: {
-                dcTitle: ['Title']
-              }
-            }]
+            storeState: {
+              totalResults: 100,
+              results: [{
+                europeanaId: '/123/abc',
+                fields: {
+                  dcTitle: ['Title']
+                }
+              }]
+            }
           });
 
           it('is `false`', () => {
@@ -144,7 +146,7 @@ describe('components/search/SearchInterface', () => {
 
         context('but no results here', () => {
           const wrapper = factory({
-            propsData: {
+            storeState: {
               totalResults: 100
             }
           });
@@ -158,7 +160,7 @@ describe('components/search/SearchInterface', () => {
 
     describe('orderedFacets', () => {
       const wrapper = factory({
-        propsData: {
+        storeState: {
           facets: [
             { name: 'COUNTRY' },
             { name: 'RIGHTS' },
@@ -181,84 +183,68 @@ describe('components/search/SearchInterface', () => {
       });
     });
 
-    describe('qf', () => {
-      const wrapper = factory({
-        propsData: {
-          selectedFacets: {
-            'REUSABILITY': ['open'],
-            'TYPE': ['IMAGE', 'SOUND'],
-            'contentTier': ['4']
-          }
-        }
-      });
+    // TODO: functionality moved into queryUpdatesForFacetChange() method
+    // describe('qf', () => {
+    //   const wrapper = factory({
+    //     storeState: {
+    //       selectedFacets: {
+    //         'REUSABILITY': ['open'],
+    //         'TYPE': ['IMAGE', 'SOUND'],
+    //         'contentTier': ['4']
+    //       }
+    //     }
+    //   });
+    //
+    //   it('omits REUSABILITY', () => {
+    //     wrapper.vm.qf.should.not.include('REUSABILITY:open');
+    //     wrapper.vm.qf.should.not.include('REUSABILITY:"open"');
+    //   });
+    //
+    //   context('for default facets from search plugin', () => {
+    //     it('includes fielded and quoted queries for each value', () => {
+    //       wrapper.vm.qf.should.include('TYPE:"IMAGE"');
+    //       wrapper.vm.qf.should.include('TYPE:"SOUND"');
+    //     });
+    //   });
+    //
+    //   context('for any other facetes', () => {
+    //     it('includes fielded but unquoted queries for each value', () => {
+    //       wrapper.vm.qf.should.include('contentTier:4');
+    //     });
+    //   });
+    // });
 
-      it('omits REUSABILITY', () => {
-        wrapper.vm.qf.should.not.include('REUSABILITY:open');
-        wrapper.vm.qf.should.not.include('REUSABILITY:"open"');
-      });
-
-      context('for default facets from search plugin', () => {
-        it('includes fielded and quoted queries for each value', () => {
-          wrapper.vm.qf.should.include('TYPE:"IMAGE"');
-          wrapper.vm.qf.should.include('TYPE:"SOUND"');
-        });
-      });
-
-      context('for any other facetes', () => {
-        it('includes fielded but unquoted queries for each value', () => {
-          wrapper.vm.qf.should.include('contentTier:4');
-        });
-      });
-
-    });
-
-    describe('apiQuery', () => {
-      const wrapper = factory({
-        propsData: {
-          selectedFacets: {
-            'TYPE': ['SOUND']
-          }
-        }
-      });
-
-      it('includes hidden qf filters', () => {
-        wrapper.setProps({ hiddenSearchParams: { qf: ['TYPE:"VIDEO"', 'COUNTRY:"Austria"'] } });
-        wrapper.vm.apiQuery.qf.should.include('TYPE:"SOUND"');
-        wrapper.vm.apiQuery.qf.should.include('TYPE:"VIDEO"');
-        wrapper.vm.apiQuery.qf.should.include('COUNTRY:"Austria"');
-      });
-    });
-
-    describe('reusability', () => {
-      context('when REUSABILITY facet is not set', () => {
-        const wrapper = factory({
-          propsData: {
-            selectedFacets: {
-              'TYPE': ['IMAGE', 'SOUND']
-            }
-          }
-        });
-
-        it('is `undefined`', () => {
-          (typeof wrapper.vm.reusability).should.eql('undefined');
-        });
-      });
-
-      context('when REUSABILITY facet is set', () => {
-        const wrapper = factory({
-          propsData: {
-            selectedFacets: {
-              'REUSABILITY': ['open', 'permission'],
-              'TYPE': ['IMAGE', 'SOUND']
-            }
-          }
-        });
-
-        it('is its value joined with ","', () => {
-          wrapper.vm.reusability.should.eq('open,permission');
-        });
-      });
-    });
+    // TODO: functionality moved into queryUpdatesForFacetChange() method
+    // describe('reusability', () => {
+    //   context('when REUSABILITY facet is not set', () => {
+    //     const wrapper = factory({
+    //       storeState: {
+    //         selectedFacets: {
+    //           'TYPE': ['IMAGE', 'SOUND']
+    //         }
+    //       }
+    //     });
+    //
+    //     it('is `undefined`', () => {
+    //       (typeof wrapper.vm.reusability).should.eql('undefined');
+    //     });
+    //   });
+    //
+    //   context('when REUSABILITY facet is set', () => {
+    //     const wrapper = factory({
+    //       storeState: {
+    //         selectedFacets: {
+    //           'REUSABILITY': ['open', 'permission'],
+    //           'TYPE': ['IMAGE', 'SOUND']
+    //         }
+    //       }
+    //     });
+    //
+    //     it('is its value joined with ","', () => {
+    //       wrapper.vm.reusability.should.eq('open,permission');
+    //     });
+    //   });
+    // });
   });
 
   describe('methods', () => {
