@@ -95,9 +95,10 @@ export const actions = {
   /**
    * Run a Record API search and store the results
    * @param {Object} commit commit from Vuex context
+   * @param {Object} dispatch dispatch from Vuex context
    * @param {Object} params parameters for search
    */
-  async run({ commit }, params) {
+  async run({ commit, dispatch }, params) {
     const hiddenParams = params.hidden || {};
     delete params.hidden;
 
@@ -114,20 +115,26 @@ export const actions = {
       wskey: process.env.EUROPEANA_API_KEY
     })
       .then((response) => {
-        commit('setError', response.error);
-        commit('setErrorStatusCode', null);
-        commit('setFacets', response.facets);
-        commit('setLastAvailablePage', response.lastAvailablePage);
-        commit('setResults', response.results);
-        commit('setTotalResults', response.totalResults);
+        dispatch('updateForSuccess', response);
       })
       .catch((error) => {
-        commit('setError', error.message);
-        commit('setErrorStatusCode', (typeof error.statusCode !== 'undefined') ? error.statusCode : 500);
-        commit('setFacets', []);
-        commit('setLastAvailablePage', null);
-        commit('setResults', []);
-        commit('setTotalResults', null);
+        dispatch('updateForFailure', error);
       });
+  },
+  updateForSuccess({ commit }, response) {
+    commit('setError', response.error);
+    commit('setErrorStatusCode', null);
+    commit('setFacets', response.facets);
+    commit('setLastAvailablePage', response.lastAvailablePage);
+    commit('setResults', response.results);
+    commit('setTotalResults', response.totalResults);
+  },
+  updateForFailure({ commit }, error) {
+    commit('setError', error.message);
+    commit('setErrorStatusCode', (typeof error.statusCode !== 'undefined') ? error.statusCode : 500);
+    commit('setFacets', []);
+    commit('setLastAvailablePage', null);
+    commit('setResults', []);
+    commit('setTotalResults', null);
   }
 };
