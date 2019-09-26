@@ -1,23 +1,55 @@
+// TODO: move stubbed into own module? (duplicates code in plugins/europeana/search.spec.js)
+
 import * as store from '../../../store/search';
+import axios from 'axios';
+import nock from 'nock';
+import sinon from 'sinon';
+
+axios.defaults.adapter = require('axios/lib/adapters/http');
+
+const apiUrl = 'https://api.europeana.eu';
+const apiEndpoint = '/api/v2/search.json';
+
+const baseRequest = nock(apiUrl).get(apiEndpoint);
+const defaultResponse = { success: true, items: [], totalResults: 123456 };
+
 
 describe('store/search', () => {
-  describe('mutations', () => {
-    describe('newQuery', () => {
-      it('updates the stored query', () => {
-        const state = {
-          query: 'from'
-        };
-        store.mutations.newQuery(state, 'to');
-        state.query.should.eq('to');
+  describe('actions', () => {
+    describe('run', () => {
+      afterEach(() => {
+        nock.cleanAll();
       });
 
-      it('resets stored page to 1', () => {
-        const state = {
-          query: 'from',
-          page: 10
+      it('searches the Record API', async() => {
+        const searchQuery = 'anything';
+
+        baseRequest
+          .query(query => {
+            return query.query === searchQuery;
+          })
+          .reply(200, defaultResponse);
+
+        const commit = sinon.spy();
+        const dispatch = sinon.spy();
+        const params = {
+          query: searchQuery
         };
-        store.mutations.newQuery(state, '');
-        state.page.should.eq(1);
+        await store.actions.run({ commit, dispatch }, params);
+
+        nock.isDone().should.be.true;
+      });
+
+      it('includes "hidden" `qf` params in API request');
+
+      it('writes params to the store');
+
+      context('on success', () => {
+        it('dispatches updateForSuccess');
+      });
+
+      context('on failure', () => {
+        it('dispatches updateForFailure');
       });
     });
   });
