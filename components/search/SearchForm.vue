@@ -35,19 +35,19 @@
       };
     },
     computed: {
-      onSearchPage() {
+      onSearchablePage() {
         return this.$store.state.search.active;
       },
       query: {
         get() {
-          return this.onSearchPage ? this.$store.state.search.query : '';
+          return this.onSearchablePage ? this.$store.state.search.query : '';
         },
         set(value) {
           this.inputQuery = value;
         }
       },
       routePath() {
-        if (this.onSearchPage) {
+        if (this.onSearchablePage) {
           return this.$route.path;
         } else {
           return this.localePath({ name: 'search' });
