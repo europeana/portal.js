@@ -65,7 +65,7 @@
     .nav-link {
       color: $darkgrey;
 
-      &.nuxt-link-exact-active {
+      &.nuxt-link-active {
         font-weight: bold;
       }
     }
