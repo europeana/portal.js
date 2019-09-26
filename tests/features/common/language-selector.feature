@@ -2,7 +2,7 @@ Feature: Select language
 
 Scenario: Change language
 
-  When I visit `/de/search?query=`
+  When I open `/`
   Then I don't see a `language selector`
 
   # TODO: Disabled by default for now. Restore when enabled by default.
