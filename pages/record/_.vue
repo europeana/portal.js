@@ -9,10 +9,10 @@
     data-qa="record page"
     class="mt-5"
   >
-    <b-row class="mb-3 mediacard">
+    <b-row class="mb-3 mx-0 card p-3">
       <b-col
         cols="12"
-        class="px-0 mb-3"
+        class="mb-3 px-0"
       >
         <MediaPresentation
           :codec-name="edmIsShownBy.edmCodecName"
@@ -96,14 +96,3 @@
     }
   };
 </script>
-
-<style lang="scss" scoped>
-  @import "./assets/scss/variables.scss";
-
-  .mediacard {
-    background: $white;
-    border-radius: $border-radius-small;
-    box-shadow: $boxshadow-small;
-    padding: 1rem;
-  }
-</style>

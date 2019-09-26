@@ -1,10 +1,10 @@
 <template>
-  <div
+  <section
     v-if="section && section.fields"
-    class="browse-section mb-5"
+    class="browse-section row mb-5"
     data-qa="browse section"
   >
-    <div class="col-12 col-lg-6 p-0">
+    <div class="col-12 col-lg-6">
       <h2
         data-qa="section headline"
       >
@@ -14,17 +14,19 @@
         {{ section.fields.text }}
       </p>
     </div>
-    <b-card-group
-      deck
-      data-qa="section group"
-    >
-      <BrowseContentCard
-        v-for="card in cards"
-        :key="card.sys.id"
-        :fields="card.fields"
-      />
-    </b-card-group>
-  </div>
+    <div class="col-12">
+      <b-card-group
+        deck
+        data-qa="section group"
+      >
+        <BrowseContentCard
+          v-for="card in cards"
+          :key="card.sys.id"
+          :fields="card.fields"
+        />
+      </b-card-group>
+    </div>
+  </section>
 </template>
 
 <script>
