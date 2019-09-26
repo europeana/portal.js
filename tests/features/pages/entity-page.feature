@@ -46,6 +46,15 @@ Feature: Entity page
 
   Scenario: Pagination links work when the page was accessed from the url
     When I visit `/entity/person/200-friedrich-nietzsche?page=2`
-    And I click the "/entity/person/200-friedrich-nietzsche?page=3&view=grid" link
+    And I go to page number 3
     And I wait 2 seconds
     Then I should be on `/entity/person/200-friedrich-nietzsche?page=3&view=grid`
+
+  Scenario: Searching from an entity page searches within that entity
+    When I open an `entity page`
+    And I see the `entity page`
+    And I see a `search result`
+    And I enter "Nietzsche" in the `search box`
+    And I click the `search button`
+    Then I see the `entity page`
+    And I see "Nietzsche" in the `search box`
