@@ -37,6 +37,9 @@
 
     methods: {
       contentType(section, id) {
+        if (!section.sys.contentType) {
+          return;
+        }
         return section.sys.contentType.sys.id === id;
       }
     }
