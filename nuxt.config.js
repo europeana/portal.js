@@ -235,6 +235,12 @@ module.exports = {
         alwaysRedirect: false,
         // If no locale for the browsers locale is a match, use this one as a fallback
         fallbackLocale: 'en'
+      },
+      vuex: {
+        // Module namespace
+        moduleName: 'i18n',
+        syncLocale: true,
+        syncRouteParams: true
       }
     }]
   ],

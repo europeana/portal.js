@@ -1,8 +1,5 @@
 <template>
-  <b-container
-    v-if="error"
-    class="mb-3"
-  >
+  <b-container v-if="error">
     <AlertMessage
       :error="error"
     />
@@ -11,7 +8,7 @@
     v-else
     data-qa="entity page"
   >
-    <b-row class="flex-md-row">
+    <b-row class="flex-md-row pt-3">
       <b-col
         cols="12"
         md="9"
@@ -53,6 +50,14 @@
         </ul>
       </b-col>
     </b-row>
+    <b-row>
+      <b-col>
+        <BrowseSections
+          v-if="page"
+          :sections="page.hasPart"
+        />
+      </b-col>
+    </b-row>
   </b-container>
 </template>
 
@@ -61,6 +66,7 @@
 
   import AlertMessage from '../../../components/generic/AlertMessage';
   import BrowseChip from '../../../components/browse/BrowseChip';
+  import BrowseSections from '../../../components/browse/BrowseSections';
   import EntityDetails from '../../../components/browse/EntityDetails';
   import SearchInterface from '../../../components/search/SearchInterface';
 
@@ -74,6 +80,7 @@
     components: {
       AlertMessage,
       BrowseChip,
+      BrowseSections,
       EntityDetails,
       SearchInterface
     },
@@ -81,6 +88,7 @@
       return {
         entity: null,
         error: null,
+        page: null,
         relatedEntities: null
       };
     },

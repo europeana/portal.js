@@ -14,3 +14,7 @@ Feature: Page layout on all pages.
     And I press the TAB key
     And I press the ENTER key
     Then I should be on `/record/09102/_GNM_693983#main`
+  
+  Scenario: Main navigation is visible
+    When I open the `home page`
+    Then I see the `main navigation`

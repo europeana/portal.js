@@ -11,38 +11,23 @@
       :attribution="page.primaryImageOfPage.fields.citation"
       :rights-statement="page.primaryImageOfPage.fields.license"
     />
-    <section class="container">
-      <div class="mt-3 w-100">
-        <template
-          v-for="section in page.hasPart"
-        >
-          <RichText
-            v-if="contentType(section, 'richText')"
-            :key="section.sys.id"
-            :headline="section.fields.headline"
-            :text="section.fields.text"
-          />
-          <ContentCardSection
-            v-else-if="contentType(section, 'cardGroup')"
-            :key="section.sys.id"
-            :section="section"
-          />
-        </template>
-      </div>
-    </section>
+    <b-container>
+      <BrowseSections
+        v-if="page"
+        :sections="page.hasPart"
+      />
+    </b-container>
   </div>
 </template>
 
 <script>
-  import RichText from '../components/browse/RichText';
-  import ContentCardSection from '../components/browse/ContentCardSection';
+  import BrowseSections from '../components/browse/BrowseSections';
   import HeroBanner from '../components/generic/HeroBanner';
   import { createClient } from '../plugins/contentful.js';
 
   export default {
     components: {
-      RichText,
-      ContentCardSection,
+      BrowseSections,
       HeroBanner
     },
     asyncData({ params, query, error, app }) {
@@ -73,47 +58,6 @@
       return {
         title: this.page.headline
       };
-    },
-
-    methods: {
-      contentType(section, id) {
-        return section.sys.contentType.sys.id === id;
-      }
     }
   };
 </script>
-
-<style scoped>
-  .container {
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-  }
-
-  .title {
-    font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-    display: block;
-    font-weight: 300;
-    font-size: 100px;
-    color: #35495e;
-    letter-spacing: 1px;
-  }
-
-  .subtitle {
-    font-weight: 300;
-    font-size: 42px;
-    color: #526488;
-    word-spacing: 5px;
-    padding-bottom: 15px;
-  }
-
-  .banner {
-    text-align: center;
-  }
-
-  .banner ul {
-    margin: auto;
-  }
-</style>

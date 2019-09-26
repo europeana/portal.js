@@ -40,7 +40,7 @@
     },
     computed: {
       links() {
-        return this.$store.state.footer.links;
+        return this.$store.state['link-group'].links.footer;
       }
     }
   };

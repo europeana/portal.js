@@ -1,6 +1,6 @@
 {
   "name": "@europeana/portal",
-  "version": "0.0.6",
+  "version": "0.0.9",
   "description": "Europeana Portal",
   "contributors": [
     "Richard Doe <richard.doe@europeana.eu>",
@@ -110,6 +110,7 @@
     "stylelint": "^10.1.0",
     "stylelint-config-recommended": "^2.1.0",
     "svg-url-loader": "^3.0.2",
+    "vue-i18n": "^8.14.1",
     "vue-loader": "^15.7.0",
     "vue-template-compiler": "^2.6.10"
   }
