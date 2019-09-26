@@ -62,12 +62,9 @@
     },
     methods: {
       async submitForm() {
-        await this.$store.commit('search/newQuery', this.inputQuery);
-        if (!this.$store.state.search.active) {
-          const newRouteQuery = { ...this.$route.query, ...{ query: this.inputQuery, page: 1, view: this.view } };
-          const newRoute = { path: this.routePath, query: newRouteQuery };
-          await this.$router.push(newRoute);
-        }
+        const newRouteQuery = { ...this.$route.query, ...{ query: this.inputQuery, page: 1, view: this.view } };
+        const newRoute = { path: this.routePath, query: newRouteQuery };
+        await this.$router.push(newRoute);
       }
     }
   };

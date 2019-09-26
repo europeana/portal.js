@@ -24,19 +24,9 @@
         />
         <SearchInterface
           class="px-0"
-          :error="search.error"
-          :exclude-from-route-query="['query']"
-          :facets="search.facets"
-          :hidden-search-params="hiddenSearchParams"
-          :last-available-page="search.lastAvailablePage"
-          :per-page="search.perPage"
           :per-row="3"
-          :query="search.query"
-          :results="search.results"
           :route="route"
-          :selected-facets="search.selectedFacets"
           :show-content-tier-toggle="false"
-          :total-results="search.totalResults"
         />
       </b-col>
       <b-col
@@ -75,7 +65,7 @@
   import SearchInterface from '../../../components/search/SearchInterface';
 
   import * as entities from '../../../plugins/europeana/entity';
-  import search, { pageFromQuery, selectedFacetsFromQuery } from '../../../plugins/europeana/search';
+  import { pageFromQuery } from '../../../plugins/europeana/search';
   import { createClient } from '../../../plugins/contentful.js';
 
   const PER_PAGE = 9;
@@ -91,18 +81,7 @@
       return {
         entity: null,
         error: null,
-        hiddenSearchParams: {},
-        relatedEntities: null,
-        search: {
-          error: null,
-          facets: [],
-          lastAvailablePage: false,
-          perPage: PER_PAGE,
-          query: null,
-          results: [],
-          selectedFacets: {},
-          totalResults: null
-        }
+        relatedEntities: null
       };
     },
     computed: {
@@ -131,7 +110,9 @@
     asyncData({ env, query, params, res, redirect, app, store }) {
       const currentPage = pageFromQuery(query.page);
       const entityUri = entities.getEntityUri(params.type, params.pathMatch);
-      const entityQuery = entities.getEntityQuery(entityUri);
+
+      if (entityUri === store.state.entity.id) return;
+      store.commit('entity/setId', entityUri);
 
       if (currentPage === null) {
         // Redirect non-positive integer values for `page` to `page=1`
@@ -143,11 +124,6 @@
         }));
       }
 
-      store.commit('search/setPage', currentPage);
-
-      const hiddenSearchParams = {
-        qf: [entityQuery]
-      };
       const contentfulClient = createClient(query.mode);
 
       return axios.all([
@@ -155,15 +131,6 @@
         entities.relatedEntities(params.type, params.pathMatch, {
           wskey: env.EUROPEANA_API_KEY,
           entityKey: env.EUROPEANA_ENTITY_API_KEY
-        }),
-        // TODO: DRY up (shared with search/index)
-        search({
-          page: currentPage,
-          qf: hiddenSearchParams.qf.concat(query.qf),
-          query: query.query,
-          reusability: query.reusability,
-          rows: PER_PAGE,
-          wskey: env.EUROPEANA_API_KEY
         }),
         contentfulClient.getEntries({
           'locale': app.i18n.isoLocale(),
@@ -173,7 +140,7 @@
           'limit': 1
         })
       ])
-        .then(axios.spread((entity, related, search, entries) => {
+        .then(axios.spread((entity, related, entries) => {
           const desiredPath = entities.getEntitySlug(entity.entity);
 
           if (params.pathMatch !== desiredPath) {
@@ -188,15 +155,8 @@
 
           return {
             entity: entity.entity,
-            hiddenSearchParams,
             page: entityPage,
-            relatedEntities: related,
-            search: {
-              ...search,
-              perPage: PER_PAGE,
-              query: query.query,
-              selectedFacets: selectedFacetsFromQuery(query)
-            }
+            relatedEntities: related
           };
         }))
         .catch((error) => {
@@ -206,9 +166,21 @@
           return { error: error.message };
         });
     },
-    fetch({ store, query }) {
-      store.commit('search/setQuery', query.query);
+    async fetch({ store, query, res }) {
       store.commit('search/setActive', true);
+
+      const entityQuery = entities.getEntityQuery(store.state.entity.id);
+      const apiParams = {
+        ...query,
+        hidden: {
+          qf: [entityQuery]
+        },
+        rows: PER_PAGE
+      };
+      await store.dispatch('search/run', apiParams);
+      if (store.state.search.error && typeof res !== 'undefined') {
+        res.statusCode = store.state.search.errorStatusCode;
+      }
     },
     head() {
       return {
@@ -216,8 +188,11 @@
       };
     },
     beforeRouteLeave(to, from, next) {
+      this.$store.commit('entity/setId', null);
+      this.$store.commit('search/reset');
       this.$store.commit('search/setActive', false);
       next();
-    }
+    },
+    watchQuery: ['page', 'qf', 'query', 'reusability']
   };
 </script>

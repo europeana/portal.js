@@ -5,14 +5,7 @@
         <h1>{{ $t('search') }}</h1>
       </b-col>
       <SearchInterface
-        :error="error"
-        :facets="facets"
-        :last-available-page="lastAvailablePage"
         :per-row="4"
-        :query="query"
-        :results="results"
-        :selected-facets="selectedFacets"
-        :total-results="totalResults"
       />
     </b-row>
   </b-container>
@@ -20,24 +13,13 @@
 
 <script>
   import SearchInterface from '../../components/search/SearchInterface';
-  import search, { pageFromQuery, selectedFacetsFromQuery } from '../../plugins/europeana/search';
+  import { pageFromQuery } from '../../plugins/europeana/search';
 
   export default {
     components: {
       SearchInterface
     },
-    data() {
-      return {
-        error: null,
-        facets: [],
-        lastAvailablePage: false,
-        query: '',
-        results: [],
-        selectedFacets: {},
-        totalResults: null
-      };
-    },
-    asyncData({ env, query, res, redirect, app, store }) {
+    asyncData({ query, redirect, app }) {
       const currentPage = pageFromQuery(query.page);
 
       if (currentPage === null) {
@@ -50,33 +32,13 @@
         query.query = '';
         return redirect(app.localePath({ name: 'search', query }));
       }
-
-      store.commit('search/setPage', currentPage);
-
-      return search({
-        page: currentPage,
-        qf: query.qf,
-        query: query.query,
-        reusability: query.reusability,
-        wskey: env.EUROPEANA_API_KEY
-      })
-        .then((response) => {
-          return {
-            ...response,
-            query: query.query,
-            selectedFacets: selectedFacetsFromQuery(query)
-          };
-        })
-        .catch((error) => {
-          if (typeof res !== 'undefined') {
-            res.statusCode = (typeof error.statusCode !== 'undefined') ? error.statusCode : 500;
-          }
-          return { error: error.message };
-        });
     },
-    fetch({ store, query }) {
-      store.commit('search/setQuery', query.query);
+    async fetch({ store, query, res }) {
       store.commit('search/setActive', true);
+      await store.dispatch('search/run', query);
+      if (store.state.search.error && typeof res !== 'undefined') {
+        res.statusCode = store.state.search.errorStatusCode;
+      }
     },
     head() {
       return {
@@ -84,8 +46,10 @@
       };
     },
     beforeRouteLeave(to, from, next) {
+      this.$store.commit('search/reset');
       this.$store.commit('search/setActive', false);
       next();
-    }
+    },
+    watchQuery: ['page', 'qf', 'query', 'reusability']
   };
 </script>
