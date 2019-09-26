@@ -130,6 +130,7 @@ export function pageFromQuery(queryPage) {
  * Extract selected facets from URL `qf` and `reusability` value(s)
  * @param {Object} query URL query parameters
  * @return {SelectedFacetSet} selected facets
+ * TODO: move into /store/search.js?
  */
 export function selectedFacetsFromQuery(query) {
   let selectedFacets = {};

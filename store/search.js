@@ -11,7 +11,7 @@ export const state = () => ({
   query: '',
   results: [],
   reusability: null,
-  selectedFacets: [],
+  selectedFacets: {},
   totalResults: null,
   view: null
 });
@@ -27,7 +27,7 @@ export const mutations = {
     state.query = '';
     state.results = [];
     state.reusability = null;
-    state.selectedFacets = [];
+    state.selectedFacets = {};
     state.totalResults = null;
   },
   setActive(state, value) {
