@@ -16,7 +16,6 @@ export const state = () => ({
   view: null
 });
 
-// TODO: add a mutation to reset all?
 export const mutations = {
   reset(state) {
     state.error = null;
@@ -92,7 +91,7 @@ export const getters = {
 };
 
 export const actions = {
-  run({ commit }, params) {
+  async run({ commit }, params) {
     const hiddenParams = params.hidden || {};
     delete params.hidden;
 
@@ -104,7 +103,7 @@ export const actions = {
 
     params.qf = (hiddenParams.qf || []).concat(params.qf || []);
 
-    search({
+    await search({
       ...params,
       wskey: process.env.EUROPEANA_API_KEY
     })
