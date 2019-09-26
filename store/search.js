@@ -17,6 +17,7 @@ export const state = () => ({
 });
 
 export const mutations = {
+  // TODO: unused at present; consider removing
   reset(state) {
     state.error = null;
     state.errorStatusCode = null;
@@ -91,6 +92,11 @@ export const getters = {
 };
 
 export const actions = {
+  /**
+   * Run a Record API search and store the results
+   * @param {Object} commit commit from Vuex context
+   * @param {Object} params parameters for search
+   */
   async run({ commit }, params) {
     const hiddenParams = params.hidden || {};
     delete params.hidden;

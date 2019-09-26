@@ -46,7 +46,6 @@
       };
     },
     beforeRouteLeave(to, from, next) {
-      this.$store.commit('search/reset');
       this.$store.commit('search/setActive', false);
       next();
     },

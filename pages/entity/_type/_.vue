@@ -111,6 +111,8 @@
       const currentPage = pageFromQuery(query.page);
       const entityUri = entities.getEntityUri(params.type, params.pathMatch);
 
+      // Prevent re-requesting entity content from APIs if already loaded,
+      // e.g. when paginating through entity search results
       if (entityUri === store.state.entity.id) return;
       store.commit('entity/setId', entityUri);
 
@@ -189,7 +191,6 @@
     },
     beforeRouteLeave(to, from, next) {
       this.$store.commit('entity/setId', null);
-      this.$store.commit('search/reset');
       this.$store.commit('search/setActive', false);
       next();
     },
