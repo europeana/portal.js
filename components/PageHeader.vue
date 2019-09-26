@@ -25,7 +25,10 @@
             class="justify-content-center justify-content-md-end w-100"
           />
         </div>
-        <LangSelector data-qa="language selector" />
+        <LangSelector
+          v-if="enableLanguageSelector"
+          data-qa="language selector"
+        />
       </b-navbar>
     </b-container>
   </b-container>
@@ -39,6 +42,12 @@
     components: {
       SearchForm,
       LangSelector
+    },
+    props: {
+      enableLanguageSelector: {
+        type: Boolean,
+        default: Boolean(Number(process.env['ENABLE_LANGUAGE_SELECTOR']))
+      }
     }
   };
 </script>
