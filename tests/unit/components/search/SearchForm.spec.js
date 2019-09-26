@@ -30,16 +30,12 @@ const factory = (options = {}) => mount(SearchForm, {
   store: options.store || {}
 });
 
-const mutations = {
-  'search/newQuery': sinon.spy()
-};
 const getters = {
   'search/activeView': (state) => state.search.view
 };
 const store = (options = {}) => {
   return new Vuex.Store({
     getters,
-    mutations,
     state: options.state || {
       search: {}
     }
@@ -127,24 +123,6 @@ describe('components/search/SearchForm', () => {
 
     const newQuery = 'trees';
 
-    it('triggers newQuery store mutation', () => {
-      const state = {
-        search: {
-          active: true,
-          query: ''
-        }
-      };
-      const wrapper = factory({
-        store: store({
-          state
-        })
-      });
-
-      inputQueryAndSubmitForm(wrapper, newQuery);
-
-      mutations['search/newQuery'].should.have.been.calledWith(state, newQuery);
-    });
-
     context('when on a search page', () => {
       const state = {
         search: {
@@ -159,10 +137,14 @@ describe('components/search/SearchForm', () => {
         })
       });
 
-      it('does not update routing', () => {
-        inputQueryAndSubmitForm(wrapper, newQuery);
+      it('updates current route', async() => {
+        await inputQueryAndSubmitForm(wrapper, newQuery);
 
-        routerPush.should.not.have.been.called;
+        const newRouteParams = {
+          path: wrapper.vm.$route.path,
+          query: { query: newQuery, page: 1, view: state.search.view }
+        };
+        routerPush.should.have.been.calledWith(newRouteParams);
       });
     });
 

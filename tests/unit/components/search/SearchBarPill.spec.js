@@ -20,8 +20,8 @@ const factory = () => shallowMount(SearchBarPill, {
   }
 });
 
-describe('components/search/SearchForm', () => {
-  it('trunacates text if characters are over `set character state` characters', () => {
+describe('components/search/SearchBarPill', () => {
+  it('truncates text if characters are over `set character state` characters', () => {
     const wrapper = factory();
 
     wrapper.setProps({
@@ -32,7 +32,7 @@ describe('components/search/SearchForm', () => {
     wrapper.vm.truncatedText.should.eq('This is text that ne…');
   });
 
-  it('doesn`t trunacate text if characters are `set character state` or less', () => {
+  it('doesn`t truncate text if characters are `set character state` or less', () => {
     const wrapper = factory();
 
     wrapper.setProps({
