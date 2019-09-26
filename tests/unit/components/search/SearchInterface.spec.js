@@ -182,72 +182,50 @@ describe('components/search/SearchInterface', () => {
         wrapper.vm.orderedFacets[4].name.should.eq('DATA_PROVIDER');
       });
     });
-
-    // TODO: functionality moved into queryUpdatesForFacetChange() method
-    // describe('qf', () => {
-    //   const wrapper = factory({
-    //     storeState: {
-    //       selectedFacets: {
-    //         'REUSABILITY': ['open'],
-    //         'TYPE': ['IMAGE', 'SOUND'],
-    //         'contentTier': ['4']
-    //       }
-    //     }
-    //   });
-    //
-    //   it('omits REUSABILITY', () => {
-    //     wrapper.vm.qf.should.not.include('REUSABILITY:open');
-    //     wrapper.vm.qf.should.not.include('REUSABILITY:"open"');
-    //   });
-    //
-    //   context('for default facets from search plugin', () => {
-    //     it('includes fielded and quoted queries for each value', () => {
-    //       wrapper.vm.qf.should.include('TYPE:"IMAGE"');
-    //       wrapper.vm.qf.should.include('TYPE:"SOUND"');
-    //     });
-    //   });
-    //
-    //   context('for any other facetes', () => {
-    //     it('includes fielded but unquoted queries for each value', () => {
-    //       wrapper.vm.qf.should.include('contentTier:4');
-    //     });
-    //   });
-    // });
-
-    // TODO: functionality moved into queryUpdatesForFacetChange() method
-    // describe('reusability', () => {
-    //   context('when REUSABILITY facet is not set', () => {
-    //     const wrapper = factory({
-    //       storeState: {
-    //         selectedFacets: {
-    //           'TYPE': ['IMAGE', 'SOUND']
-    //         }
-    //       }
-    //     });
-    //
-    //     it('is `undefined`', () => {
-    //       (typeof wrapper.vm.reusability).should.eql('undefined');
-    //     });
-    //   });
-    //
-    //   context('when REUSABILITY facet is set', () => {
-    //     const wrapper = factory({
-    //       storeState: {
-    //         selectedFacets: {
-    //           'REUSABILITY': ['open', 'permission'],
-    //           'TYPE': ['IMAGE', 'SOUND']
-    //         }
-    //       }
-    //     });
-    //
-    //     it('is its value joined with ","', () => {
-    //       wrapper.vm.reusability.should.eq('open,permission');
-    //     });
-    //   });
-    // });
   });
 
   describe('methods', () => {
-    // TODO
+    describe('queryUpdatesForFacetChange', () => {
+      const wrapper = factory();
+
+      context('when facet is REUSABILITY', () => {
+        const facetName = 'REUSABILITY';
+
+        context('with values selected', () => {
+          it('sets `reusability` to values joined with ","', () => {
+            const updates = wrapper.vm.queryUpdatesForFacetChange(facetName, ['open', 'permission']);
+            updates.reusability.should.eq('open,permission');
+          });
+        });
+
+        context('with no values selected', () => {
+          it('sets `reusability` to `null`', () => {
+            const wrapper = factory();
+
+            const updates = wrapper.vm.queryUpdatesForFacetChange(facetName, []);
+            (updates.reusability === null).should.be.true;
+          });
+        });
+      });
+
+      context('for default facets from search plugin', () => {
+        const facetName = 'TYPE';
+
+        it('includes fielded and quoted queries for each value in `qf`', () => {
+          const updates = wrapper.vm.queryUpdatesForFacetChange(facetName, ['IMAGE', 'SOUND']);
+          updates.qf.should.include('TYPE:"IMAGE"');
+          updates.qf.should.include('TYPE:"SOUND"');
+        });
+      });
+
+      context('for any other facets', () => {
+        const facetName = 'contentTier';
+
+        it('includes fielded but unquoted queries for each value in `qf`', () => {
+          const updates = wrapper.vm.queryUpdatesForFacetChange(facetName, ['4']);
+          updates.qf.should.include('contentTier:4');
+        });
+      });
+    });
   });
 });
