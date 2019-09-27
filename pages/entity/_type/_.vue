@@ -140,8 +140,7 @@
         entities.getEntity(params.type, params.pathMatch, { wskey: env.EUROPEANA_ENTITY_API_KEY }),
         entities.relatedEntities(params.type, params.pathMatch, {
           wskey: env.EUROPEANA_API_KEY,
-          entityKey: env.EUROPEANA_ENTITY_API_KEY,
-          theme: store.state.entity.themes[entityUri]
+          entityKey: env.EUROPEANA_ENTITY_API_KEY
         }),
         contentfulClient.getEntries({
           'locale': app.i18n.isoLocale(),

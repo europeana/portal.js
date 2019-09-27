@@ -25,7 +25,6 @@ export const actions = {
       'limit': 1000
     })
       .then((response) => {
-        // console.log(`entity page response: ${JSON.stringify(response)}`);
         const themes = response.items.reduce((memo, entityPage) => {
           memo[entityPage.fields.identifier] = entityPage.fields.genre;
           return memo;

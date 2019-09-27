@@ -133,36 +133,17 @@ describe('plugins/europeana/entity', () => {
       response.length.should.eq(entitiesResponse.items.length);
     });
 
-    context('without `theme` param', () => {
-      it('filters on entity URI', async() => {
-        nock(apiUrlSearch)
-          .get(apiEndpointSearch)
-          .query(query => {
-            return query.qf === `${entityFilterField}:"${entityUri}"`;
-          })
-          .reply(200, searchResponse);
+    it('filters on entity URI', async() => {
+      nock(apiUrlSearch)
+        .get(apiEndpointSearch)
+        .query(query => {
+          return query.query === `${entityFilterField}:"${entityUri}"`;
+        })
+        .reply(200, searchResponse);
 
-        await entities.relatedEntities(entityType, entityId, { wskey: apiKey, entityKey: apiKey });
+      await entities.relatedEntities(entityType, entityId, { wskey: apiKey, entityKey: apiKey });
 
-        nock.isDone().should.be.true;
-      });
-    });
-
-    context('with `theme` param', () => {
-      it('filters on theme', async() => {
-        const entityTheme = 'music';
-
-        nock(apiUrlSearch)
-          .get(apiEndpointSearch)
-          .query(query => {
-            return query.theme === entityTheme;
-          })
-          .reply(200, searchResponse);
-
-        await entities.relatedEntities(entityType, entityId, { wskey: apiKey, entityKey: apiKey, theme: entityTheme });
-
-        nock.isDone().should.be.true;
-      });
+      nock.isDone().should.be.true;
     });
   });
 
