@@ -116,7 +116,7 @@
 
 <script>
   import AlertMessage from '../../components/generic/AlertMessage';
-  import SearchResults from '../../components/search/SearchResults';
+  import SearchResults from '../../components/search/SearchResults'; // Sorted before InfoMessage to prevent Conflicting CSS sorting warning
   import InfoMessage from '../../components/generic/InfoMessage';
   import FacetDropdown from '../../components/search/FacetDropdown';
   import SearchSelectedFacets from '../../components/search/SearchSelectedFacets';
