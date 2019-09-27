@@ -57,7 +57,7 @@
   @import "./assets/scss/variables.scss";
 
   .badge-pill {
-     background-color: $darkblue;
+    background-color: $darkblue;
     .pill-close {
       color: $white;
       &:hover {
