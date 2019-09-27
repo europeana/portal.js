@@ -181,13 +181,17 @@
       store.commit('search/setActive', true);
 
       const entityUri = store.state.entity.id;
-      let hiddenParams = {};
+      const contentTierQuery = 'contentTier:(2 OR 3 OR 4)';
+
+      let hiddenParams = {
+        qf: [contentTierQuery]
+      };
 
       if (store.state.entity.themes[entityUri]) {
         hiddenParams.theme = store.state.entity.themes[entityUri];
       } else {
         const entityQuery = entities.getEntityQuery(entityUri);
-        hiddenParams.qf = [entityQuery];
+        hiddenParams.qf.push(entityQuery);
       }
 
       const apiParams = {

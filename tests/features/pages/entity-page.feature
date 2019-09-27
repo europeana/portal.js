@@ -42,19 +42,19 @@ Feature: Entity page
     When I open an `entity page`
     And I see the `entity page`
     And I see a `search result`
-    Then I see a link to "/entity/person/200-friedrich-nietzsche?page=2&view=grid" in the `pagination navigation`
+    Then I see a link to "/entity/topic/18-newspaper?page=2&view=grid" in the `pagination navigation`
 
   Scenario: Pagination links work when the page was accessed from the url
-    When I visit `/entity/person/200-friedrich-nietzsche?page=2`
+    When I visit `/entity/topic/18-newspaper?page=2`
     And I go to page number 3
     And I wait 2 seconds
-    Then I should be on `/entity/person/200-friedrich-nietzsche?page=3&view=grid`
+    Then I should be on `/entity/topic/18-newspaper?page=3&view=grid`
 
   Scenario: Searching from an entity page searches within that entity
     When I open an `entity page`
     And I see the `entity page`
     And I see a `search result`
-    And I enter "Nietzsche" in the `search box`
+    And I enter "newspaper" in the `search box`
     And I click the `search button`
     Then I see the `entity page`
-    And I see "Nietzsche" in the `search box`
+    And I see "newspaper" in the `search box`
