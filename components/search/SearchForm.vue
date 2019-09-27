@@ -115,6 +115,7 @@
         background-color: $lightgrey;
         padding-left: .75rem;
         padding-right: .1rem;
+        border-radius: 0.375rem 0 0 0.375rem;
       }
     }
 
