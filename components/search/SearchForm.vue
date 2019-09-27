@@ -11,12 +11,7 @@
         <SearchBarPill
           :text="pillLabel"
           :remove-link-label="$t('removeEntityFilter', { entityLabel: pillLabel })"
-          :remove-link-to="{
-            path: localePath({
-              name: 'search'
-            }),
-            query: { ...$route.query }
-          }"
+          :remove-link-to="removeLinkTo"
         />
       </template>
       <b-form-input
@@ -79,6 +74,14 @@
       },
       pillLabel() {
         return this.$store.state.search.pill;
+      },
+      removeLinkTo() {
+        return {
+          path: this.localePath({
+            name: 'search'
+          }),
+          query: { ...this.$route.query }
+        };
       }
     },
     updated() {
