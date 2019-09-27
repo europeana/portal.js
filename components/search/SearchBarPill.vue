@@ -3,12 +3,15 @@
     pill
     variant="primary"
     class="pl-3 py-2"
+    data-qa="search bar pill"
+    :title="text"
   >
     {{ truncatedText }}
     <nuxt-link
       :to="removeLinkTo"
       :aria-label="removeLinkLabel"
       class="pill-close p-1"
+      data-qa="search bar pill button"
     >
       x
       <span class="sr-only">
@@ -55,6 +58,7 @@
   @import "./assets/scss/variables.scss";
 
   .badge-pill {
+    background-color: $darkblue;
     .pill-close {
       color: $white;
       &:hover {

@@ -3,32 +3,49 @@
     inline
     @submit.prevent="submitForm"
   >
-    <b-form-input
-      v-model="query"
-      :aria-label="$t('search')"
-      :placeholder="$t('searchPlaceholder')"
-      name="query"
-      data-qa="search box"
-      @input="$emit('input', $event)"
-    />
-    <b-button
-      type="submit"
-      data-qa="search button"
-      variant="primary"
-    >
-      <span>
-        {{ $t('search') }}
-      </span>
-      <img
-        src="../../assets/img/magnifier.svg"
-        :alt="$t('search')"
+    <b-input-group>
+      <template
+        v-if="pillLabel"
+        v-slot:prepend
       >
-    </b-button>
+        <SearchBarPill
+          :text="pillLabel"
+          :remove-link-label="$t('removeFilter', { filterLabel: pillLabel })"
+          :remove-link-to="removeLinkTo"
+        />
+      </template>
+      <b-form-input
+        v-model="query"
+        :aria-label="$t('search')"
+        :placeholder="$t('searchPlaceholder')"
+        name="query"
+        data-qa="search box"
+        @input="$emit('input', $event)"
+      />
+      <b-button
+        type="submit"
+        data-qa="search button"
+        variant="primary"
+      >
+        <span class="sr-only">
+          {{ $t('search') }}
+        </span>
+        <img
+          src="../../assets/img/magnifier.svg"
+          :alt="$t('search')"
+        >
+      </b-button>
+    </b-input-group>
   </b-form>
 </template>
 
 <script>
+  import SearchBarPill from './SearchBarPill.vue';
+
   export default {
+    components: {
+      SearchBarPill
+    },
     data() {
       return {
         inputQuery: this.query
@@ -54,6 +71,17 @@
       },
       view() {
         return this.$store.getters['search/activeView'];
+      },
+      pillLabel() {
+        return this.$store.state.search.pill;
+      },
+      removeLinkTo() {
+        return {
+          path: this.localePath({
+            name: 'search'
+          }),
+          query: { ...this.$route.query }
+        };
       }
     },
     updated() {
@@ -69,37 +97,32 @@
   };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   @import "./assets/scss/variables.scss";
 
-  .form-inline .form-control {
-    background-color: $white;
-    margin-right: 0.5rem;
-    width: 70%;
-  }
+  .input-group {
+    width: 100%;
 
-  .btn img {
-    display: none;
-  }
-
-  .navbar {
-    .form-control {
+    .input-group-prepend {
+      align-items: center;
       background-color: $lightgrey;
-      border-radius: $border-radius 0 0 $border-radius;
-      margin-right: 0;
-      width: calc(100% - 40px);
+      padding-left: .75rem;
+      padding-right: .1rem;
+      border-radius: 0.375rem 0 0 0.375rem;
     }
+  }
 
-    .btn {
-      border-radius: 0 $border-radius $border-radius 0;
+  .form-control {
+    background-color: $lightgrey;
+    border-radius: $border-radius 0 0 $border-radius;
+    margin-right: 0;
+  }
 
-      span {
-        display: none;
-      }
+  .btn {
+    border-radius: 0 $border-radius $border-radius 0;
 
-      img {
-        display: block;
-      }
+    img {
+      display: flex;
     }
   }
 </style>

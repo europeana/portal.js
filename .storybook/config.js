@@ -3,11 +3,13 @@ import { action } from '@storybook/addon-actions';
 
 import Vue from 'vue';
 import VueI18n from 'vue-i18n';
+import Vuex from 'vuex';
 import BootstrapVue from 'bootstrap-vue';
 
 import '../plugins/vue-filters';
 import '../assets/scss/style.scss';
 
+Vue.use(Vuex)
 Vue.use(VueI18n)
 Vue.use(BootstrapVue);
 Vue.component('NuxtLink', {

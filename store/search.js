@@ -13,7 +13,8 @@ export const state = () => ({
   reusability: null,
   selectedFacets: {},
   totalResults: null,
-  view: null
+  view: null,
+  pill: null
 });
 
 export const mutations = {
@@ -73,6 +74,9 @@ export const mutations = {
       sessionStorage.searchResultsView = value;
       localStorage.searchResultsView = value;
     }
+  },
+  setPill(state, value) {
+    state.pill = value;
   }
 };
 

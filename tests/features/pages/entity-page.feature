@@ -9,6 +9,7 @@ Feature: Entity page
     And I see an `entity description`
     And I see `total results`
     And I see a `search list view toggle`
+    And I see a `search bar pill`
     And I see a `search facet`
     And I should see 9 `search result`s
     And I see a `pagination navigation`
@@ -58,3 +59,10 @@ Feature: Entity page
     And I click the `search button`
     Then I see the `entity page`
     And I see "newspaper" in the `search box`
+  
+  Scenario: Deleting search pill
+    When I open an `entity page`
+    And I see the `search bar pill`
+    And I click the `search bar pill button`
+    Then I see the `search page`
+    And I don't see the `search bar pill`

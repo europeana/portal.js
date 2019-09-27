@@ -163,6 +163,8 @@
 
           const entityPage = entries.total > 0 ? entries.items[0].fields : null;
 
+          store.commit('search/setPill', entity.entity.prefLabel[store.state.i18n.locale]);
+
           return {
             entity: entity.entity,
             page: entityPage,
@@ -211,6 +213,7 @@
     beforeRouteLeave(to, from, next) {
       this.$store.commit('entity/setId', null);
       this.$store.commit('search/setActive', false);
+      this.$store.commit('search/setPill', null);
       next();
     },
     watchQuery: ['page', 'qf', 'query', 'reusability']

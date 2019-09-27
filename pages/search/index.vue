@@ -1,5 +1,5 @@
 <template>
-  <b-container>
+  <b-container data-qa="search page">
     <b-row>
       <b-col>
         <h1>{{ $t('search') }}</h1>
