@@ -72,7 +72,7 @@
 
   import * as entities from '../../../plugins/europeana/entity';
   import { pageFromQuery } from '../../../plugins/europeana/search';
-  import { createClient } from '../../../plugins/contentful.js';
+  import createClient from '../../../plugins/contentful';
 
   const PER_PAGE = 9;
 
@@ -140,7 +140,8 @@
         entities.getEntity(params.type, params.pathMatch, { wskey: env.EUROPEANA_ENTITY_API_KEY }),
         entities.relatedEntities(params.type, params.pathMatch, {
           wskey: env.EUROPEANA_API_KEY,
-          entityKey: env.EUROPEANA_ENTITY_API_KEY
+          entityKey: env.EUROPEANA_ENTITY_API_KEY,
+          theme: store.state.entity.themes[entityUri]
         }),
         contentfulClient.getEntries({
           'locale': app.i18n.isoLocale(),
@@ -179,12 +180,19 @@
     async fetch({ store, query, res }) {
       store.commit('search/setActive', true);
 
-      const entityQuery = entities.getEntityQuery(store.state.entity.id);
+      const entityUri = store.state.entity.id;
+      let hiddenParams = {};
+
+      if (store.state.entity.themes[entityUri]) {
+        hiddenParams.theme = store.state.entity.themes[entityUri];
+      } else {
+        const entityQuery = entities.getEntityQuery(entityUri);
+        hiddenParams.qf = [entityQuery];
+      }
+
       const apiParams = {
         ...query,
-        hidden: {
-          qf: [entityQuery]
-        },
+        hidden: hiddenParams,
         rows: PER_PAGE
       };
       await store.dispatch('search/run', apiParams);

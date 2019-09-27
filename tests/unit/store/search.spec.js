@@ -39,22 +39,24 @@ describe('store/search', () => {
         nock.isDone().should.be.true;
       });
 
-      it('includes "hidden" `qf` params in API request', async() => {
+      it('includes "hidden" params in API request', async() => {
         const commit = sinon.spy();
         const dispatch = sinon.spy();
         const unhiddenQf = 'TYPE:"IMAGE"';
         const hiddenQf = 'edm_agent:"http://data.europeana.eu/agent/base/200"';
+        const hiddenTheme = 'migration';
 
         baseRequest
           .query(query => {
-            return query.qf.includes(unhiddenQf) && query.qf.includes(hiddenQf);
+            return query.qf.includes(unhiddenQf) && query.qf.includes(hiddenQf) && query.theme === hiddenTheme;
           })
           .reply(200, defaultResponse);
 
         const params = {
           qf: [unhiddenQf],
           hidden: {
-            qf: [hiddenQf]
+            qf: [hiddenQf],
+            theme: hiddenTheme
           }
         };
         await store.actions.run({ commit, dispatch }, params);

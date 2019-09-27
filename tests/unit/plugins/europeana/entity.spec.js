@@ -9,6 +9,8 @@ const entityType = 'topic';
 const entityIdMisspelled = '94-architectuz';
 const apiUrl = 'https://api.europeana.eu';
 const apiEndpoint = '/entity/concept/base/94';
+const entityUri = 'http://data.europeana.eu/concept/base/94';
+const entityFilterField = 'skos_concept';
 const apiKey = 'abcdef';
 const baseRequest = nock(apiUrl).get(apiEndpoint);
 
@@ -114,25 +116,52 @@ describe('plugins/europeana/entity', () => {
   });
 
   describe('relatedEntities()', () => {
-    describe('API response', () => {
-      context('with object in response', () => {
+    beforeEach('stub API response', () => {
+      nock(apiUrl)
+        .get('/entity/search')
+        .query(true)
+        .reply(200, entitiesResponse);
+    });
 
-        beforeEach('stub API response', () => {
-          nock(apiUrlSearch)
-            .get(apiEndpointSearch)
-            .query(true)
-            .reply(200, searchResponse);
+    it('returns related entities', async() => {
+      nock(apiUrlSearch)
+        .get(apiEndpointSearch)
+        .query(true)
+        .reply(200, searchResponse);
 
-          nock(apiUrl)
-            .get('/entity/search')
-            .query(true)
-            .reply(200, entitiesResponse);
-        });
+      const response = await entities.relatedEntities(entityType, entityId, { wskey: apiKey, entityKey: apiKey });
+      response.length.should.eq(entitiesResponse.items.length);
+    });
 
-        it('returns related entities', async() => {
-          const response = await entities.relatedEntities(entityType, entityId, { wskey: apiKey, entityKey: apiKey });
-          response.length.should.eq(entitiesResponse.items.length);
-        });
+    context('without `theme` param', () => {
+      it('filters on entity URI', async() => {
+        nock(apiUrlSearch)
+          .get(apiEndpointSearch)
+          .query(query => {
+            return query.qf === `${entityFilterField}:"${entityUri}"`;
+          })
+          .reply(200, searchResponse);
+
+        await entities.relatedEntities(entityType, entityId, { wskey: apiKey, entityKey: apiKey });
+
+        nock.isDone().should.be.true;
+      });
+    });
+
+    context('with `theme` param', () => {
+      it('filters on theme', async() => {
+        const entityTheme = 'music';
+
+        nock(apiUrlSearch)
+          .get(apiEndpointSearch)
+          .query(query => {
+            return query.theme === entityTheme;
+          })
+          .reply(200, searchResponse);
+
+        await entities.relatedEntities(entityType, entityId, { wskey: apiKey, entityKey: apiKey, theme: entityTheme });
+
+        nock.isDone().should.be.true;
       });
     });
   });

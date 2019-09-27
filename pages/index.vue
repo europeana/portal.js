@@ -23,7 +23,7 @@
 <script>
   import BrowseSections from '../components/browse/BrowseSections';
   import HeroBanner from '../components/generic/HeroBanner';
-  import { createClient } from '../plugins/contentful.js';
+  import createClient from '../plugins/contentful';
 
   export default {
     components: {

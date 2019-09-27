@@ -1,5 +1,10 @@
+import axios from 'axios';
+
 export const actions = {
   async nuxtServerInit({ dispatch }) {
-    await dispatch('link-group/init');
+    await axios.all([
+      dispatch('link-group/init'),
+      dispatch('entity/init')
+    ]);
   }
 };

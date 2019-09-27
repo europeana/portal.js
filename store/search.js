@@ -109,6 +109,9 @@ export const actions = {
     commit('setSelectedFacets', selectedFacetsFromQuery(params));
 
     params.qf = (hiddenParams.qf || []).concat(params.qf || []);
+    if (hiddenParams.theme) {
+      params.theme = hiddenParams.theme;
+    }
 
     await search({
       ...params,
