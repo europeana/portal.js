@@ -77,5 +77,5 @@ export default {
       "hide": "Items that don't meet our publishing criteria are being shown."
     }
   },
-  "removeEntityFilter": "Remove {entityLabel} filter"
+  "removeFilter": "Remove {filterLabel} filter"
 };

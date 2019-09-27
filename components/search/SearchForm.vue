@@ -10,7 +10,7 @@
       >
         <SearchBarPill
           :text="pillLabel"
-          :remove-link-label="$t('removeEntityFilter', { entityLabel: pillLabel })"
+          :remove-link-label="$t('removeFilter', { filterLabel: pillLabel })"
           :remove-link-to="removeLinkTo"
         />
       </template>
