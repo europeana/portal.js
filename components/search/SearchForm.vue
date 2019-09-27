@@ -32,7 +32,7 @@
         data-qa="search button"
         variant="primary"
       >
-        <span>
+        <span class="sr-only">
           {{ $t('search') }}
         </span>
         <img
@@ -97,10 +97,6 @@
 <style lang="scss" scoped>
   @import "./assets/scss/variables.scss";
 
-  .btn img {
-    display: none;
-  }
-
   .input-group {
     width: 100%;
 
@@ -122,12 +118,8 @@
   .btn {
     border-radius: 0 $border-radius $border-radius 0;
 
-    span {
-      display: none;
-    }
-
     img {
-      display: block;
+      display: flex;
     }
   }
 </style>
