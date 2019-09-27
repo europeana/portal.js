@@ -3,12 +3,14 @@
     pill
     variant="primary"
     class="pl-3 py-2"
+    data-qa="search bar pill"
   >
     {{ truncatedText }}
     <nuxt-link
       :to="removeLinkTo"
       :aria-label="removeLinkLabel"
       class="pill-close p-1"
+      data-qa="search bar pill button"
     >
       x
       <span class="sr-only">
