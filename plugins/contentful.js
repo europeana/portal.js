@@ -12,13 +12,7 @@ const previewConfig = {
   host: 'preview.contentful.com'
 };
 
-export function createClient(mode) {
+export default function createClient(mode) {
   const config = (mode === 'preview' && process.env.CTF_CPA_ACCESS_TOKEN ? previewConfig : deliveryConfig);
-  try {
-    return contentful.createClient(config);
-  } catch (error) {
-    return {};
-  }
+  return contentful.createClient(config);
 }
-
-export default createClient();

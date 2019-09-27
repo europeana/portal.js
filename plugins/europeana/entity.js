@@ -118,14 +118,17 @@ export function getEntitySlug(entity) {
  * @return {Object} related entities
  */
 export function relatedEntities(type, id, params) {
+  const entityUri = getEntityUri(type, id);
+  let apiParams = {
+    wskey: params.wskey,
+    profile: 'facets',
+    facet: 'edm_agent,skos_concept',
+    query: getEntityQuery(entityUri),
+    rows: 0
+  };
+
   return axios.get('https://api.europeana.eu/api/v2/search.json', {
-    params: {
-      wskey: params.wskey,
-      profile: 'facets',
-      facet: 'edm_agent,skos_concept',
-      query: `"${getEntityUri(type, id)}"`,
-      rows: 0
-    }
+    params: apiParams
   })
     .then((response) => {
       return response.data.facets ? getEntityFacets(response.data.facets, normalizeEntityId(id), params.entityKey) : [];

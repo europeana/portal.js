@@ -1,4 +1,4 @@
-import contentfulClient from '../plugins/contentful.js';
+import createClient from '../plugins/contentful';
 
 export const state = () => ({
   links: {}
@@ -9,6 +9,8 @@ export const mutations = {
     state.links[data.identifier] = data.links;
   }
 };
+
+const contentfulClient = createClient();
 
 export const actions = {
   async init({ commit }) {

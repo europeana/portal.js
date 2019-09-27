@@ -72,7 +72,7 @@
 
   import * as entities from '../../../plugins/europeana/entity';
   import { pageFromQuery } from '../../../plugins/europeana/search';
-  import { createClient } from '../../../plugins/contentful.js';
+  import createClient from '../../../plugins/contentful';
 
   const PER_PAGE = 9;
 
@@ -179,13 +179,23 @@
     async fetch({ store, query, res }) {
       store.commit('search/setActive', true);
 
-      const entityQuery = entities.getEntityQuery(store.state.entity.id);
+      const entityUri = store.state.entity.id;
       const contentTierQuery = 'contentTier:(2 OR 3 OR 4)';
+
+      let hiddenParams = {
+        qf: [contentTierQuery]
+      };
+
+      if (store.state.entity.themes[entityUri]) {
+        hiddenParams.theme = store.state.entity.themes[entityUri];
+      } else {
+        const entityQuery = entities.getEntityQuery(entityUri);
+        hiddenParams.qf.push(entityQuery);
+      }
+
       const apiParams = {
         ...query,
-        hidden: {
-          qf: [entityQuery, contentTierQuery]
-        },
+        hidden: hiddenParams,
         rows: PER_PAGE
       };
       await store.dispatch('search/run', apiParams);
