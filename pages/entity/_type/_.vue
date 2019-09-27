@@ -182,10 +182,11 @@
       store.commit('search/setActive', true);
 
       const entityQuery = entities.getEntityQuery(store.state.entity.id);
+      const contentTierQuery = 'contentTier:(2 OR 3 OR 4)';
       const apiParams = {
         ...query,
         hidden: {
-          qf: [entityQuery]
+          qf: [entityQuery, contentTierQuery]
         },
         rows: PER_PAGE
       };
