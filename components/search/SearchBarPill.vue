@@ -4,6 +4,7 @@
     variant="primary"
     class="pl-3 py-2"
     data-qa="search bar pill"
+    :title="text"
   >
     {{ truncatedText }}
     <nuxt-link
