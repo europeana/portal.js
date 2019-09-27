@@ -94,47 +94,40 @@
   };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   @import "./assets/scss/variables.scss";
-
-  .form-inline .form-control {
-    background-color: $white;
-    margin-right: 0.5rem;
-  }
 
   .btn img {
     display: none;
   }
 
-  .navbar {
-    .input-group {
-      width: 100%;
+  .input-group {
+    width: 100%;
 
-      .input-group-prepend {
-        align-items: center;
-        background-color: $lightgrey;
-        padding-left: .75rem;
-        padding-right: .1rem;
-        border-radius: 0.375rem 0 0 0.375rem;
-      }
-    }
-
-    .form-control {
+    .input-group-prepend {
+      align-items: center;
       background-color: $lightgrey;
-      border-radius: $border-radius 0 0 $border-radius;
-      margin-right: 0;
+      padding-left: .75rem;
+      padding-right: .1rem;
+      border-radius: 0.375rem 0 0 0.375rem;
+    }
+  }
+
+  .form-control {
+    background-color: $lightgrey;
+    border-radius: $border-radius 0 0 $border-radius;
+    margin-right: 0;
+  }
+
+  .btn {
+    border-radius: 0 $border-radius $border-radius 0;
+
+    span {
+      display: none;
     }
 
-    .btn {
-      border-radius: 0 $border-radius $border-radius 0;
-
-      span {
-        display: none;
-      }
-
-      img {
-        display: block;
-      }
+    img {
+      display: block;
     }
   }
 </style>
