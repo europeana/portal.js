@@ -49,9 +49,8 @@
       routePath() {
         if (this.onSearchablePage) {
           return this.$route.path;
-        } else {
-          return this.localePath({ name: 'search' });
         }
+        return this.localePath({ name: 'search' });
       },
       view() {
         return this.$store.getters['search/activeView'];
