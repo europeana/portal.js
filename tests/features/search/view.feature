@@ -1,9 +1,7 @@
 Feature: View styles (List and Grid)
-  In order to gain a better overview of
-  different types of europeana records,
-  as a user I want to be able to switch between
-  a list and grid view style when on
-  search results pages.
+  In order to gain a better overview of different types of europeana records,
+  as a user I want to be able to switch between a list and grid view style when
+  on search results pages.
 
   Scenario: Defaulting to grid view
     When I visit the `search page`
@@ -13,7 +11,7 @@ Feature: View styles (List and Grid)
   Scenario: Defaulting to grid view after paginating
     When I visit the `search page`
     And I click the `search button`
-    And I click the "/search?page=2&query=&view=grid" link
+    And I go to page number 2
     Then I see a `search results grid`
 
   Scenario: Switching to the list view
@@ -31,7 +29,7 @@ Feature: View styles (List and Grid)
     When I visit the `search page`
     And I click the `search button`
     And I click the `search list view toggle`
-    And I click the "/search?page=2&query=&view=list" link
+    And I go to page number 2
     Then I see a `search results list`
 
   Scenario: The view parameter is preserved and present in the URL for the list view

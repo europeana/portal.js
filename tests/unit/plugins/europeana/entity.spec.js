@@ -1,5 +1,5 @@
 import nock from 'nock';
-import { getEntity, relatedEntities, getEntityUri, getEntitySlug, getWikimediaThumbnailUrl, getEntityDescription } from '../../../../plugins/europeana/entity';
+import * as entities from '../../../../plugins/europeana/entity';
 
 const axios = require('axios');
 axios.defaults.adapter = require('axios/lib/adapters/http');
@@ -65,7 +65,7 @@ describe('plugins/europeana/entity', () => {
         it('throws error with API error message and status code', async() => {
           let error;
           try {
-            await getEntity(entityType, entityId, { wskey: apiKey });
+            await entities.getEntity(entityType, entityId, { wskey: apiKey });
           } catch (e) {
             error = e;
           }
@@ -86,27 +86,27 @@ describe('plugins/europeana/entity', () => {
         });
 
         it('returns entity title', async() => {
-          const response = await getEntity(entityType, entityId, { wskey: apiKey });
+          const response = await entities.getEntity(entityType, entityId, { wskey: apiKey });
           response.entity.prefLabel.en.should.eq('Architecture');
         });
 
         it('returns entity description', async() => {
-          const response = await getEntity(entityType, entityId, { wskey: apiKey });
+          const response = await entities.getEntity(entityType, entityId, { wskey: apiKey });
           response.entity.note.en[0].should.contain('Architecture is both the process and the product of planning');
         });
 
         it('returns entity depiction', async() => {
-          const response = await getEntity(entityType, entityId, { wskey: apiKey });
+          const response = await entities.getEntity(entityType, entityId, { wskey: apiKey });
           response.entity.depiction.id.should.contain('Special:FilePath/View_of_Santa_Maria_del_Fiore_in_Florence.jpg');
         });
 
         it('returns entity attribution', async() => {
-          const response = await getEntity(entityType, entityId, { wskey: apiKey });
+          const response = await entities.getEntity(entityType, entityId, { wskey: apiKey });
           response.entity.depiction.source.should.contain('File:View_of_Santa_Maria_del_Fiore_in_Florence.jpg');
         });
 
         it('has a misspelled id and returns entity title', async() => {
-          const response = await getEntity(entityType, entityIdMisspelled, { wskey: apiKey });
+          const response = await entities.getEntity(entityType, entityIdMisspelled, { wskey: apiKey });
           response.entity.prefLabel.en.should.eq('Architecture');
         });
       });
@@ -130,7 +130,7 @@ describe('plugins/europeana/entity', () => {
         });
 
         it('returns related entities', async() => {
-          const response = await relatedEntities(entityType, entityId, { wskey: apiKey, entityKey: apiKey });
+          const response = await entities.relatedEntities(entityType, entityId, { wskey: apiKey, entityKey: apiKey });
           response.length.should.eq(entitiesResponse.items.length);
         });
       });
@@ -143,7 +143,7 @@ describe('plugins/europeana/entity', () => {
       context('with type Agent', () => {
         let type = 'person';
         it('returns an agent URI, without any human readable labels', () => {
-          const uri = getEntityUri(type, id);
+          const uri = entities.getEntityUri(type, id);
           return uri.should.eq('http://data.europeana.eu/agent/base/100');
         });
       });
@@ -151,9 +151,32 @@ describe('plugins/europeana/entity', () => {
       context('with type Concept', () => {
         let type = 'topic';
         it('returns an agent URI, without any human readable labels', () => {
-          const uri = getEntityUri(type, id);
+          const uri = entities.getEntityUri(type, id);
           return uri.should.eq('http://data.europeana.eu/concept/base/100');
         });
+      });
+    });
+  });
+
+  describe('getEntityQuery', () => {
+    context('when entity is a concept', () => {
+      const uri = 'http://data.europeana.eu/concept/base/12345';
+      it('queries on skos_concept', () => {
+        entities.getEntityQuery(uri).should.eq(`skos_concept:"${uri}"`);
+      });
+    });
+
+    context('when entity is an agent', () => {
+      const uri = 'http://data.europeana.eu/agent/base/12345';
+      it('queries on edm_agent', () => {
+        entities.getEntityQuery(uri).should.eq(`edm_agent:"${uri}"`);
+      });
+    });
+
+    context('otherwise', () => {
+      const uri = 'http://data.europeana.eu/place/base/12345';
+      it('is `null`', () => {
+        (entities.getEntityQuery(uri) === null).should.be.true;
       });
     });
   });
@@ -162,7 +185,7 @@ describe('plugins/europeana/entity', () => {
     context('with an entity', () => {
       let entity = entitiesResponse.items[0];
       it('returns an agent URI, without any human readable labels', () => {
-        const slug = getEntitySlug(entity);
+        const slug = entities.getEntitySlug(entity);
         return slug.should.eq('147831-architecture');
       });
     });
@@ -172,7 +195,7 @@ describe('plugins/europeana/entity', () => {
     context('with an entity', () => {
       let entity = entitiesResponse.items[0];
       it('returns a description', () => {
-        const description = getEntityDescription(entity);
+        const description = entities.getEntityDescription(entity);
         return description.should.contain('Architecture');
       });
     });
@@ -182,7 +205,7 @@ describe('plugins/europeana/entity', () => {
     context('with an entity', () => {
       let entity = entitiesResponse.items[0];
       it('returns an wikimedia thumbnail url starting with https://upload.wikimedia.org', () => {
-        const thumbnail = getWikimediaThumbnailUrl(entity.depiction.id);
+        const thumbnail = entities.getWikimediaThumbnailUrl(entity.depiction.id);
         return thumbnail.should.contain('https://upload.wikimedia.org');
       });
     });

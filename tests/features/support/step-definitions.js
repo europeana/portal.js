@@ -89,5 +89,8 @@ defineStep('I should have/see/see/spot a meta label {target} with the value {str
 defineStep('I have selected/chosen (the ){target} search results view', (viewName) =>
   i.selectSearchResultsView(viewName));
 
-defineStep('I am on an accessible page',() =>
+defineStep('I am on an accessible page', () =>
   i.checkPageAccesibility());
+
+defineStep('I paginate/switch/go to page (number ){int}', (page) =>
+  i.paginateToPage(page));

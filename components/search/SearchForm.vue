@@ -35,13 +35,22 @@
       };
     },
     computed: {
+      onSearchablePage() {
+        return this.$store.state.search.active;
+      },
       query: {
         get() {
-          return this.$store.state.search.active ? this.$store.state.search.query : '';
+          return this.onSearchablePage ? this.$store.state.search.query : '';
         },
         set(value) {
           this.inputQuery = value;
         }
+      },
+      routePath() {
+        if (this.onSearchablePage) {
+          return this.$route.path;
+        }
+        return this.localePath({ name: 'search' });
       },
       view() {
         return this.$store.getters['search/activeView'];
@@ -52,12 +61,9 @@
     },
     methods: {
       async submitForm() {
-        await this.$store.commit('search/newQuery', this.inputQuery);
-        if (!this.$store.state.search.active) {
-          const newRouteQuery = { ...this.$route.query, ...{ query: this.inputQuery, page: 1, view: this.view } };
-          const newRoutePath = this.localePath({ name: 'search', query: newRouteQuery });
-          await this.$router.push(newRoutePath);
-        }
+        const newRouteQuery = { ...this.$route.query, ...{ query: this.inputQuery, page: 1, view: this.view } };
+        const newRoute = { path: this.routePath, query: newRouteQuery };
+        await this.$router.push(newRoute);
       }
     }
   };

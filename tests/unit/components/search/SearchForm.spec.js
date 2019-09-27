@@ -22,22 +22,20 @@ const factory = (options = {}) => mount(SearchForm, {
   mocks: {
     ...{
       $t: () => {},
-      localePath: (opts) => opts
+      localePath: (opts) => {
+        return router.resolve(opts).route.fullPath;
+      }
     }, ...(options.mocks || {})
   },
   store: options.store || {}
 });
 
-const mutations = {
-  'search/newQuery': sinon.spy()
-};
 const getters = {
   'search/activeView': (state) => state.search.view
 };
 const store = (options = {}) => {
   return new Vuex.Store({
     getters,
-    mutations,
     state: options.state || {
       search: {}
     }
@@ -46,7 +44,7 @@ const store = (options = {}) => {
 
 describe('components/search/SearchForm', () => {
   describe('query', () => {
-    context('when search is active', () => {
+    context('when on a search page', () => {
       const wrapper = factory({
         store: store({
           state: {
@@ -63,7 +61,7 @@ describe('components/search/SearchForm', () => {
       });
     });
 
-    context('when search is inactive', () => {
+    context('when not on a search page', () => {
       const wrapper = factory({
         store: store({
           state: {
@@ -81,6 +79,40 @@ describe('components/search/SearchForm', () => {
     });
   });
 
+  describe('routePath', () => {
+    context('when on a search page', () => {
+      const wrapper = factory({
+        store: store({
+          state: {
+            search: {
+              active: true
+            }
+          }
+        })
+      });
+
+      it('uses current route path', () => {
+        wrapper.vm.routePath.should.eq(wrapper.vm.$route.path);
+      });
+    });
+
+    context('when not on a search page', () => {
+      const wrapper = factory({
+        store: store({
+          state: {
+            search: {
+              active: false
+            }
+          }
+        })
+      });
+
+      it('uses default search route path', () => {
+        wrapper.vm.routePath.should.eql('/search');
+      });
+    });
+  });
+
   describe('form submission', () => {
     const inputQueryAndSubmitForm = (wrapper, query) => {
       const form =  wrapper.find('form');
@@ -91,25 +123,7 @@ describe('components/search/SearchForm', () => {
 
     const newQuery = 'trees';
 
-    it('triggers newQuery store mutation', () => {
-      const state = {
-        search: {
-          active: true,
-          query: ''
-        }
-      };
-      const wrapper = factory({
-        store: store({
-          state
-        })
-      });
-
-      inputQueryAndSubmitForm(wrapper, newQuery);
-
-      mutations['search/newQuery'].should.have.been.calledWith(state, newQuery);
-    });
-
-    context('when search is active', () => {
+    context('when on a search page', () => {
       const state = {
         search: {
           active: true,
@@ -123,14 +137,18 @@ describe('components/search/SearchForm', () => {
         })
       });
 
-      it('does not update routing', () => {
-        inputQueryAndSubmitForm(wrapper, newQuery);
+      it('updates current route', async() => {
+        await inputQueryAndSubmitForm(wrapper, newQuery);
 
-        routerPush.should.not.have.been.called;
+        const newRouteParams = {
+          path: wrapper.vm.$route.path,
+          query: { query: newQuery, page: 1, view: state.search.view }
+        };
+        routerPush.should.have.been.calledWith(newRouteParams);
       });
     });
 
-    context('when search is inactive', () => {
+    context('when not on a search page', () => {
       const state = {
         search: {
           active: false,
@@ -148,7 +166,7 @@ describe('components/search/SearchForm', () => {
         await inputQueryAndSubmitForm(wrapper, newQuery);
 
         const newRouteParams = {
-          name: 'search',
+          path: '/search',
           query: { query: newQuery, page: 1, view: state.search.view }
         };
         routerPush.should.have.been.calledWith(newRouteParams);

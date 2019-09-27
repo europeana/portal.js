@@ -18,7 +18,7 @@
       >
         <b-col>
           <SearchSelectedFacets
-            :facets="currentSelectedFacets"
+            :facets="selectedFacets"
           />
         </b-col>
       </b-row>
@@ -30,7 +30,7 @@
             :name="facet.name"
             :fields="facet.fields"
             type="checkbox"
-            :selected="currentSelectedFacets[facet.name]"
+            :selected="selectedFacets[facet.name]"
             @changed="changeFacet"
           />
         </b-col>
@@ -51,7 +51,7 @@
       >
         <b-col>
           <p data-qa="total results">
-            {{ $t('results') }}: {{ currentTotalResults | localise }}
+            {{ $t('results') }}: {{ totalResults | localise }}
           </p>
         </b-col>
         <b-col>
@@ -77,12 +77,12 @@
                 {{ $t('noMoreResults') }}
               </p>
               <SearchResults
-                v-model="currentResults"
+                v-model="results"
                 :view="view"
                 :per-row="perRow"
               />
               <InfoMessage
-                v-if="currentLastAvailablePage"
+                v-if="lastAvailablePage"
                 :message="$t('resultsLimitWarning')"
               />
             </b-col>
@@ -92,7 +92,6 @@
               <TierToggler
                 v-if="tierToggleEnabled && showContentTierToggle"
                 :active-state="contentTierActiveState"
-                @changed="changeContentTierToggle"
               />
             </b-col>
           </b-row>
@@ -101,10 +100,9 @@
               <PaginationNav
                 v-if="showPagination"
                 v-model="page"
-                :total-results="currentTotalResults"
+                :total-results="totalResults"
                 :per-page="perPage"
                 :link-gen="paginationLink"
-                @changed="changePage"
               />
             </b-col>
           </b-row>
@@ -123,7 +121,10 @@
   import PaginationNav from '../../components/generic/PaginationNav';
   import ViewToggles from '../../components/search/ViewToggles';
   import TierToggler from '../../components/search/TierToggler';
-  import search, { defaultFacets, selectedFacetsFromQuery } from '../../plugins/europeana/search';
+  import { defaultFacets } from '../../plugins/europeana/search';
+
+  import isEqual from 'lodash/isEqual';
+  import { mapState } from 'vuex';
 
   export default {
     components: {
@@ -136,24 +137,7 @@
       ViewToggles,
       TierToggler
     },
-    // TODO: should any of these be required props?
     props: {
-      error: {
-        type: String,
-        default: null
-      },
-      excludeFromRouteQuery: {
-        type: Array,
-        default: () => []
-      },
-      facets: {
-        type: Array,
-        default: () => []
-      },
-      lastAvailablePage: {
-        type: Boolean,
-        default: false
-      },
       perPage: {
         type: Number,
         default: 24
@@ -162,78 +146,52 @@
         type: Number,
         default: 4
       },
-      initialQuery: {
-        type: String,
-        default: ''
-      },
-      results: {
-        type: Array,
-        default: () => []
-      },
       route: {
         type: Object,
         default: () => {
           return { name: 'search' };
         }
       },
-      selectedFacets: {
-        type: Object,
-        default: () => {
-          return {};
-        }
-      },
       showContentTierToggle: {
         type: Boolean,
         default: true
-      },
-      totalResults: {
-        type: Number,
-        default: null
       }
     },
-    data() {
-      return {
-        currentError: this.error,
-        currentFacets: this.facets,
-        currentLastAvailablePage: this.lastAvailablePage,
-        currentResults: this.results,
-        currentSelectedFacets: this.selectedFacets,
-        currentTotalResults: this.totalResults
-      };
-    },
     computed: {
-      apiQuery() {
-        return {
-          page: this.page,
-          rows: this.perPage,
-          qf: this.qf,
-          query: this.query,
-          reusability: this.reusability,
-          wskey: process.env.EUROPEANA_API_KEY
-        };
-      },
+      ...mapState({
+        error: state => state.search.error,
+        facets: state => state.search.facets,
+        lastAvailablePage: state => state.search.lastAvailablePage,
+        page: state => state.search.page,
+        qf: state => state.search.qf,
+        query: state => state.search.query,
+        results: state => state.search.results,
+        reusability: state => state.search.reusability,
+        selectedFacets: state => state.search.selectedFacets,
+        totalResults: state => state.search.totalResults
+      }),
       contentTierActiveState() {
         return this.selectedFacets.contentTier && this.selectedFacets.contentTier.includes('*');
       },
       errorMessage() {
-        if (!this.currentError) return null;
+        if (!this.error) return null;
 
-        const paginationError = this.currentError.match(/It is not possible to paginate beyond the first (\d+)/);
+        const paginationError = this.error.match(/It is not possible to paginate beyond the first (\d+)/);
         if (paginationError !== null) {
           const localisedPaginationLimit = this.$options.filters.localise(Number(paginationError[1]));
           return this.$t('messages.paginationLimitExceeded', { limit: localisedPaginationLimit });
         }
 
-        return this.currentError;
+        return this.error;
       },
       hasAnyResults() {
-        return this.currentTotalResults > 0;
+        return this.totalResults > 0;
       },
       noMoreResults() {
-        return this.hasAnyResults && this.currentResults.length === 0;
+        return this.hasAnyResults && this.results.length === 0;
       },
       noResults() {
-        return this.currentTotalResults === 0;
+        return this.totalResults === 0;
       },
       /**
        * Sort the facets for display
@@ -243,7 +201,7 @@
        * TODO: does this belong in its own component?
        */
       orderedFacets() {
-        let unordered = this.currentFacets.slice();
+        let unordered = this.facets.slice();
         let ordered = [];
 
         for (const facetName of defaultFacets) {
@@ -257,43 +215,8 @@
 
         return ordered.concat(unordered);
       },
-      page: {
-        get() {
-          return this.$store.state.search.page;
-        },
-        set(value) {
-          this.$store.commit('search/setPage', value);
-        }
-      },
-      qf() {
-        let qfForSelectedFacets = [];
-        for (const facetName in this.currentSelectedFacets) {
-          const selectedValues = this.currentSelectedFacets[facetName];
-          // `reusability` has its own API parameter and can not be queried in `qf`
-          if (facetName !== 'REUSABILITY') {
-            for (const facetValue of selectedValues) {
-              if (defaultFacets.includes(facetName)) {
-                qfForSelectedFacets.push(`${facetName}:"${facetValue}"`);
-              } else {
-                qfForSelectedFacets.push(`${facetName}:${facetValue}`);
-              }
-            }
-          }
-        }
-        return qfForSelectedFacets;
-      },
-      query() {
-        return this.$store.state.search.query || this.initialQuery;
-      },
-      reusability() {
-        if (this.currentSelectedFacets['REUSABILITY'] && this.currentSelectedFacets['REUSABILITY'].length > 0) {
-          return this.currentSelectedFacets['REUSABILITY'].join(',');
-        } else {
-          return undefined;
-        }
-      },
       showPagination() {
-        return this.currentTotalResults > this.perPage;
+        return this.totalResults > this.perPage;
       },
       tierToggleEnabled() {
         return Boolean(Number(process.env['ENABLE_CONTENT_TIER_TOGGLE']));
@@ -302,37 +225,51 @@
         return this.$store.getters['search/activeView'];
       }
     },
-    watch: {
-      apiQuery: {
-        deep: true,
-        handler() {
-          this.rerouteSearch(this.updateCurrentSearchQuery());
-          this.updateResults();
-        }
-      }
-    },
     created() {
       if (this.$route.query.view) {
         this.$store.commit('search/setView', this.$route.query.view);
       }
     },
     methods: {
-      changeContentTierToggle() {
-        this.currentSelectedFacets = selectedFacetsFromQuery(this.$route.query);
-        this.page = 1;
-      },
       changeFacet(name, selected) {
-        this.$set(this.currentSelectedFacets, name, selected);
-        this.page = 1;
-      },
-      changePage(page) {
-        this.page = page;
+        if (isEqual(this.selectedFacets[name], selected)) return;
+        this.rerouteSearch(this.queryUpdatesForFacetChange(name, selected));
       },
       paginationLink(val) {
         return this.localePath({ ...this.route, ...{ query: this.updateCurrentSearchQuery({ page: val }) } });
       },
       rerouteSearch(queryUpdates) {
         this.$router.push(this.localePath({ ...this.route, ...{ query: this.updateCurrentSearchQuery(queryUpdates) } }));
+      },
+      queryUpdatesForFacetChange(name, selected) {
+        let selectedFacets = Object.assign({}, this.selectedFacets);
+        selectedFacets[name] = selected;
+
+        let queryUpdates = {
+          qf: [],
+          page: 1
+        };
+
+        for (const facetName in selectedFacets) {
+          const selectedValues = selectedFacets[facetName];
+          // `reusability` has its own API parameter and can not be queried in `qf`
+          if (facetName === 'REUSABILITY') {
+            if (selectedValues.length > 0) {
+              queryUpdates.reusability = selectedValues.join(',');
+            } else {
+              queryUpdates.reusability = null;
+            }
+          } else {
+            for (const facetValue of selectedValues) {
+              if (defaultFacets.includes(facetName)) {
+                queryUpdates.qf.push(`${facetName}:"${facetValue}"`);
+              } else {
+                queryUpdates.qf.push(`${facetName}:${facetValue}`);
+              }
+            }
+          }
+        }
+        return queryUpdates;
       },
       updateCurrentSearchQuery(updates = {}) {
         const current = {
@@ -344,9 +281,6 @@
         };
 
         const updated = { ...current, ...updates };
-        for (const exclusion of this.excludeFromRouteQuery) {
-          delete updated[exclusion];
-        }
 
         // If any updated values are `null`, remove them from the query
         for (const key in updated) {
@@ -355,23 +289,6 @@
           }
         }
         return updated;
-      },
-      updateResults() {
-        search(this.apiQuery)
-          .then((response) => {
-            this.currentError = response.error;
-            this.currentFacets = response.facets;
-            this.currentResults = response.results;
-            this.currentTotalResults = response.totalResults;
-            // TODO: make last available page a computed method in this component?
-            this.currentLastAvailablePage = response.lastAvailablePage;
-          })
-          .catch((error) => {
-            this.currentError = error.message;
-            this.currentResults = [];
-            this.currentFacets = [];
-            this.currentTotalResults = 0;
-          });
       }
     }
   };
