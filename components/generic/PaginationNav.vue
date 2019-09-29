@@ -9,7 +9,6 @@
     size="sm"
     align="center"
     data-qa="pagination navigation"
-    @change="pageChanged"
   />
 </template>
 
@@ -53,19 +52,6 @@
     computed: {
       totalPages() {
         return Math.ceil(Math.min(Math.max(this.totalResults, 1), maxResults) / this.perPage);
-      }
-    },
-    watch: {
-      value: {
-        immediate: true,
-        handler(val) {
-          this.currentPage = val;
-        }
-      }
-    },
-    methods: {
-      pageChanged(page) {
-        this.$emit('changed', page);
       }
     }
   };
