@@ -53,7 +53,6 @@
     "express": "^4.16.4",
     "express-ipfilter": "^1.0.1",
     "http-auth": "^3.2.3",
-    "http-errors": "^1.7.3",
     "lodash": "^4.17.15",
     "morgan": "^1.9.1",
     "nightwatch-accessibility": "^1.8.0",
