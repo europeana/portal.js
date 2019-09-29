@@ -59,10 +59,14 @@ Feature: Entity page
     And I click the `search button`
     Then I see the `entity page`
     And I see "newspaper" in the `search box`
-  
-  Scenario: Deleting search pill
+
+  Scenario: Removing search pill
     When I open an `entity page`
+    And I go to page number 2
+    And I wait 2 seconds
+    And I am on page number 2
     And I see the `search bar pill`
     And I click the `search bar pill button`
     Then I see the `search page`
     And I don't see the `search bar pill`
+    And I am on page number 1
