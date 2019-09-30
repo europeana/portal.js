@@ -89,6 +89,11 @@ async function start() {
 
       app.use(httpAuth.connect(digest));
     }
+
+    if (!process.env.DISABLE_REDIRECT_SSL) {
+      const redirectSSL = require('redirect-ssl');
+      app.use(redirectSSL.create({ redirect: true }));
+    }
   }
 
   // Give nuxt middleware to express
