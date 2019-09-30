@@ -152,19 +152,31 @@
       }
     },
 
-    mounted() {
-      if (this.isRadio) {
-        if (Array.isArray(this.selected)) {
-          this.radioSelected = '';
-        } else {
-          this.radioSelected = this.selected;
-        }
-      } else if (this.selected.length > 0) {
-        this.preSelected = this.selected;
+    watch: {
+      selected() {
+        // We watch selected property so when user clicks on browser back button,
+        // facets properties are updated correctly
+        this.init();
       }
     },
 
+    mounted() {
+      this.init();
+    },
+
     methods: {
+      init() {
+        if (this.isRadio) {
+          if (Array.isArray(this.selected)) {
+            this.radioSelected = '';
+          } else {
+            this.radioSelected = this.selected;
+          }
+        } else if (this.selected.length > 0) {
+          this.preSelected = this.selected;
+        }
+      },
+
       resetCheckboxSelection() {
         this.preSelected = [];
       },
