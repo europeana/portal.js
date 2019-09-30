@@ -80,7 +80,7 @@
           path: this.localePath({
             name: 'search'
           }),
-          query: { ...this.$route.query }
+          query: { ...this.$route.query, page: 1 }
         };
       }
     },

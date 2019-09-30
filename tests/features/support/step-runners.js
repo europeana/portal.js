@@ -37,6 +37,12 @@ function pageUrl(pageName) {
 }
 
 module.exports = {
+  async amOnPageNumber(page) {
+    await client.url(async(currentUrl) => {
+      const pageFromUrl = await new URL(currentUrl.value).searchParams.get('page');
+      await client.expect(Number(pageFromUrl)).to.eq(page);
+    });
+  },
   async checkPageAccesibility() {
     let axeOptions = {
       reporter: 'v2',

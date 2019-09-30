@@ -94,3 +94,6 @@ defineStep('I am on an accessible page', () =>
 
 defineStep('I paginate/switch/go to page (number ){int}', (page) =>
   i.paginateToPage(page));
+
+defineStep('I am on page (number ){int}', (page) =>
+  i.amOnPageNumber(page));
