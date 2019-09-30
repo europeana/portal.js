@@ -8,6 +8,7 @@ Feature: Search faceting
     And I click the `TYPE apply button`
     And I wait 2 seconds
     Then I should be on `/search?page=1&qf=TYPE%3A%22IMAGE%22&query=&view=grid`
+    And I am on page number 1
     And I see a `filter badge` with the text "Type of media: IMAGE"
     And I am on an accessible page
 
@@ -19,6 +20,7 @@ Feature: Search faceting
     And I click the `REUSABILITY apply button`
     And I wait 2 seconds
     Then I should be on `/search?page=1&query=&reusability=open&view=grid`
+    And I am on page number 1
     And I see a `filter badge` with the text "Can I reuse this?: open"
 
   Scenario: Filtering results by country
@@ -29,6 +31,7 @@ Feature: Search faceting
     And I click the `COUNTRY apply button`
     And I wait 2 seconds
     Then I should be on `/search?page=1&qf=COUNTRY%3A%22Belgium%22&query=&view=grid`
+    And I am on page number 1
     And I see a `filter badge` with the text "Providing country: Belgium"
 
   Scenario: Filtering results by two countries
@@ -40,6 +43,7 @@ Feature: Search faceting
     And I click the `COUNTRY apply button`
     And I wait 2 seconds
     Then I should be on `/search?page=1&qf=COUNTRY%3A%22Belgium%22&qf=COUNTRY%3A%22Germany%22&query=&view=grid`
+    And I am on page number 1
     And I should have 2 `filter badge`s
 
   Scenario: Filtering using a combination of facet fields
@@ -56,6 +60,7 @@ Feature: Search faceting
     And I click the `REUSABILITY apply button`
     And I wait 2 seconds
     Then I should be on `/search?page=1&qf=COUNTRY%3A%22Belgium%22&qf=TYPE%3A%22IMAGE%22&query=&reusability=open&view=grid`
+    And I am on page number 1
     And I should have 3 `filter badge`s
 
   Scenario: Facets are loaded from the URL
@@ -77,6 +82,7 @@ Feature: Search faceting
     And I click the `REUSABILITY apply button`
     And I wait 2 seconds
     Then I should be on `/search?page=1&query=&view=grid`
+    And I am on page number 1
     And I can't see a `/search?query=`
 
   Scenario: Filtering results by country and have a corresponding record page
@@ -106,13 +112,30 @@ Feature: Search faceting
 
   Scenario: Preserve filtering when performing a new search
 
-      When I visit the `search page`
-      And I click the `COUNTRY dropdown button`
-      And I check the "France" "COUNTRY" checkbox
-      And I click the `COUNTRY apply button`
-      And I wait 2 seconds
-      And I enter "paris" in the `search box`
-      And I click the `search button`
-      And I wait 3 seconds
-      Then I should be on `/search?page=1&qf=COUNTRY%3A%22France%22&query=paris&view=grid`
-      And I should have 1 `filter badge`
+    When I visit the `search page`
+    And I click the `COUNTRY dropdown button`
+    And I check the "France" "COUNTRY" checkbox
+    And I click the `COUNTRY apply button`
+    And I wait 2 seconds
+    And I enter "paris" in the `search box`
+    And I click the `search button`
+    And I wait 3 seconds
+    Then I should be on `/search?page=1&qf=COUNTRY%3A%22France%22&query=paris&view=grid`
+    And I am on page number 1
+    And I should have 1 `filter badge`
+
+  Scenario: Paginating with facets
+
+    When I visit the `search page`
+    And I click the `TYPE dropdown button`
+    And I check the "IMAGE" "TYPE" checkbox
+    And I click the `TYPE apply button`
+    And I wait 2 seconds
+    And I go to page number 2
+    And I wait 2 seconds
+    And I am on page number 2
+    And I click the `TYPE dropdown button`
+    And I check the "VIDEO" "TYPE" checkbox
+    And I click the `TYPE apply button`
+    And I wait 2 seconds
+    Then I am on page number 1

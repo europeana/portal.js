@@ -42,6 +42,9 @@ module.exports = {
       const pageFromUrl = await new URL(currentUrl.value).searchParams.get('page');
       await client.expect(Number(pageFromUrl)).to.eq(page);
     });
+    const navSelector = qaSelector('pagination navigation');
+    const activeLinkSelector = navSelector + ` li.active a[aria-posinset="${page}"]`;
+    await client.expect.element(activeLinkSelector).to.be.visible;
   },
   async checkPageAccesibility() {
     let axeOptions = {
