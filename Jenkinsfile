@@ -13,12 +13,12 @@ pipeline {
     CF_LOGIN=credentials('portaljs.cloudfoundry.login')
     CF_ORG="${env.CF_ORG}"
     CF_SPACE="${env.BRANCH_NAME == 'master' ? 'test' : 'production'}"
-    S3_PATH="${env.BRANCH_NAME == 'master' ? '/' : '/' + env.BRANCH_NAME}"
+    S3_PATH="${env.BRANCH_NAME == 'master' ? '' : '/' + env.BRANCH_NAME}"
   }
   stages {
     stage('Build') {
       environment {
-        NUXT_ENV_BUILD_PUBLIC_PATH="${env.S3_ENDPOINT}/europeana-portaljs-${env.CF_SPACE}${env.S3_PATH}"
+        NUXT_ENV_BUILD_PUBLIC_PATH="${env.S3_ENDPOINT}/europeana-portaljs-${env.CF_SPACE}"
       }
       steps {
         configFileProvider([configFile(fileId: "portaljs.${env.CF_SPACE}.env", targetLocation: '.env')]) {
