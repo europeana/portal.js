@@ -2,6 +2,7 @@ import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 import VueRouter from 'vue-router';
 import Vuex from 'vuex';
+import sinon from 'sinon';
 
 import SearchInterface from '../../../../components/search/SearchInterface.vue';
 
@@ -224,6 +225,68 @@ describe('components/search/SearchInterface', () => {
         it('includes fielded but unquoted queries for each value in `qf`', () => {
           const updates = wrapper.vm.queryUpdatesForFacetChange(facetName, ['4']);
           updates.qf.should.include('contentTier:4');
+        });
+      });
+    });
+
+    describe('changeFacet', () => {
+      const facetName = 'TYPE';
+
+      context('when facet had selected values', () => {
+        const initialSelectedValues = ['IMAGE'];
+        context('and they changed', () => {
+          const newSelectedValues = ['IMAGE', 'TEXT'];
+          it('triggers rerouting', () => {
+            const storeState = { selectedFacets: {} };
+            storeState.selectedFacets[facetName] = initialSelectedValues;
+
+            const wrapper = factory({ storeState });
+            const searchRerouter = sinon.spy(wrapper.vm, 'rerouteSearch');
+
+            wrapper.vm.changeFacet(facetName, newSelectedValues);
+            searchRerouter.should.have.been.calledWith({ page: 1, qf: ['TYPE:"IMAGE"', 'TYPE:"TEXT"'] });
+          });
+        });
+
+        context('and they were unchanged', () => {
+          it('does not trigger rerouting', () => {
+            const storeState = { selectedFacets: {} };
+            storeState.selectedFacets[facetName] = initialSelectedValues;
+
+            const wrapper = factory({ storeState });
+            const searchRerouter = sinon.spy(wrapper.vm, 'rerouteSearch');
+
+            wrapper.vm.changeFacet(facetName, initialSelectedValues);
+            searchRerouter.should.not.have.been.called;
+          });
+        });
+      });
+
+      context('when facet had no selected values', () => {
+        context('and some were selected', () => {
+          const newSelectedValues = ['IMAGE', 'TEXT'];
+          it('triggers rerouting', () => {
+            const storeState = { selectedFacets: {} };
+
+            const wrapper = factory({ storeState });
+            const searchRerouter = sinon.spy(wrapper.vm, 'rerouteSearch');
+
+            wrapper.vm.changeFacet(facetName, newSelectedValues);
+            searchRerouter.should.have.been.calledWith({ page: 1, qf: ['TYPE:"IMAGE"', 'TYPE:"TEXT"'] });
+          });
+        });
+
+        context('and none were selected', () => {
+          const newSelectedValues = [];
+          it('does not trigger rerouting', () => {
+            const storeState = { selectedFacets: {} };
+
+            const wrapper = factory({ storeState });
+            const searchRerouter = sinon.spy(wrapper.vm, 'rerouteSearch');
+
+            wrapper.vm.changeFacet(facetName, newSelectedValues);
+            searchRerouter.should.not.have.been.called;
+          });
         });
       });
     });

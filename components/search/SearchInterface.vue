@@ -232,6 +232,7 @@
     },
     methods: {
       changeFacet(name, selected) {
+        if (typeof this.selectedFacets[name] === 'undefined' && selected.length === 0) return;
         if (isEqual(this.selectedFacets[name], selected)) return;
         this.rerouteSearch(this.queryUpdatesForFacetChange(name, selected));
       },
