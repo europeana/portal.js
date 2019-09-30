@@ -1,5 +1,3 @@
-import httpError from 'http-errors';
-
 export function apiError(error) {
   let statusCode = 500;
   let message = error.message;
@@ -9,5 +7,7 @@ export function apiError(error) {
     message = error.response.data.error;
   }
 
-  return httpError(statusCode, message);
+  const apiError = new Error(message);
+  apiError.statusCode = statusCode;
+  return apiError;
 }
