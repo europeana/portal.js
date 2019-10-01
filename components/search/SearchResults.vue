@@ -23,7 +23,7 @@
       v-for="result in results"
       :key="result.europeanaId"
       :title="result.fields.dcTitle[0]"
-      :url="localePath({ name: 'record-all', params: { pathMatch: result.europeanaId.slice(1) } })"
+      :url="{ name: 'record-all', params: { pathMatch: result.europeanaId.slice(1) } }"
       :image-url="result.edmPreview"
       :texts="cardTexts(result)"
       data-qa="search result"
