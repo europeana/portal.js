@@ -3,6 +3,7 @@ require('dotenv').config();
 const pkg = require('./package');
 const bootstrapPkg = require('bootstrap/package');
 const bootstrapVuePkg = require('bootstrap-vue/package');
+const i18nLocales = require('./plugins/i18n/locales.json');
 
 module.exports = {
   mode: 'universal',
@@ -62,7 +63,7 @@ module.exports = {
     }],
     ['bootstrap-vue/nuxt', { css: false }],
     ['nuxt-i18n', {
-      locales: require('./plugins/i18n/locales.json'),
+      locales: i18nLocales,
       defaultLocale: 'en',
       lazy: true,
       langDir: 'lang/',
