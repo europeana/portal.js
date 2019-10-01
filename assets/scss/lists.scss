@@ -1,0 +1,21 @@
+.list-group a {
+  background: $extralightgrey;
+  border-radius: $border-radius-small;
+  box-shadow: $boxshadow-small;
+  color: $black;
+  font-size: $font-size-extrasmall;
+  height: auto;
+  line-height: 1.1875rem;
+  transition: box-shadow 0.25s;
+
+  .media-body > div {
+    margin-bottom: 1rem;
+  }
+
+  // todo: remove this temporary solution when we have title in h tag
+  [data-field-name="dcTitle"] {
+    font-size: $font-size-small;
+    font-weight: normal;
+    margin-bottom: 0.75rem;
+  }
+}
