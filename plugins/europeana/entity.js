@@ -85,7 +85,7 @@ export function getEntityQuery(uri) {
  * @return {string} retrieved human readable name of type
  */
 function getEntityUrl(type, id) {
-  return `https://api.europeana.eu/entity/${getEntityTypeApi(type)}/base/${normalizeEntityId(id)}`;
+  return `https://api.europeana.eu/entity/${getEntityTypeApi(type)}/base/${normalizeEntityId(id)}.json`;
 }
 
 /**
