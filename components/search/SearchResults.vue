@@ -6,7 +6,7 @@
     <b-list-group-item
       v-for="result in results"
       :key="result.europeanaId"
-      :to="localePath({ name: 'record-all', params: { pathMatch: result.europeanaId.slice(1) } })"
+      :to="{ name: 'record-all', params: { pathMatch: result.europeanaId.slice(1) } }"
       class="flex-column align-items-start mb-3"
       data-qa="search result"
     >
@@ -23,7 +23,7 @@
       v-for="result in results"
       :key="result.europeanaId"
       :title="result.fields.dcTitle[0]"
-      :url="localePath({ name: 'record-all', params: { pathMatch: result.europeanaId.slice(1) } })"
+      :url="{ name: 'record-all', params: { pathMatch: result.europeanaId.slice(1) } }"
       :image-url="result.edmPreview"
       :texts="cardTexts(result)"
       data-qa="search result"
