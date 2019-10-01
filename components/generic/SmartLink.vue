@@ -32,6 +32,10 @@
         return (typeof this.destination !== 'string') || this.destination.startsWith('/');
       },
       path() {
+        if (typeof this.destination === 'object') {
+          return this.localePath(this.destination);
+        }
+
         if (typeof this.destination === 'string' && this.destination.startsWith('/')) {
           return this.localePath({
             name: 'slug',

@@ -1,4 +1,4 @@
-import { createLocalVue, shallowMount } from '@vue/test-utils';
+import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 import SearchResults from '../../../../components/search/SearchResults.vue';
 import Vuex from 'vuex';
@@ -19,7 +19,7 @@ const factory = (options = {}) => {
     }
   });
 
-  return shallowMount(SearchResults, {
+  return mount(SearchResults, {
     localVue,
     store,
     mocks: {
@@ -56,8 +56,8 @@ describe('components/search/SearchResults', () => {
       wrapper.setProps({ value: results });
       const renderedResults =  wrapper.findAll('[data-qa="search result"]');
 
-      renderedResults.at(0).attributes().url.should.eq(results[0].linkTo);
-      renderedResults.at(1).attributes().url.should.eq(results[1].linkTo);
+      renderedResults.at(0).html().should.contain(results[0].linkTo);
+      renderedResults.at(1).html().should.contain(results[1].linkTo);
     });
   });
 
@@ -79,8 +79,8 @@ describe('components/search/SearchResults', () => {
       wrapper.setProps({ value: results });
       const renderedResults =  wrapper.findAll('[data-qa="search result"]');
 
-      renderedResults.at(0).attributes().to.should.eq(results[0].linkTo);
-      renderedResults.at(1).attributes().to.should.eq(results[1].linkTo);
+      renderedResults.at(0).html().should.contain(results[0].linkTo);
+      renderedResults.at(1).html().should.contain(results[1].linkTo);
     });
   });
 });

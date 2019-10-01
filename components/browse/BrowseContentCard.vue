@@ -75,12 +75,14 @@
       },
       entityRouterLink(uri, slug) {
         const uriMatch = uri.match('^http://data.europeana.eu/([^/]+)(/base)?/(.+)$');
-        return this.localePath({
-          name: 'entity-type-all', params: { type: getEntityTypeHumanReadable(uriMatch[1]), pathMatch: slug ? slug : uriMatch[3] } }
-        );
+        return {
+          name: 'entity-type-all', params: { type: getEntityTypeHumanReadable(uriMatch[1]), pathMatch: slug ? slug : uriMatch[3] }
+        };
       },
       recordRouterLink(identifier) {
-        return this.localePath({ name: 'record-all', params: { pathMatch: identifier.slice(1) } });
+        return {
+          name: 'record-all', params: { pathMatch: identifier.slice(1) }
+        };
       }
     }
   };
