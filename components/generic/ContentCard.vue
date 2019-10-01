@@ -16,7 +16,7 @@
       />
       <b-card-body>
         <b-card-title>
-          {{ title }}
+          {{ title.length > 90 ? title.substring(0, 90) + $t('formatting.ellipsis') : title }}
         </b-card-title>
         <b-card-text
           v-for="(text, index) in texts"

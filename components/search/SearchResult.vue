@@ -3,31 +3,28 @@
     v-if="result"
     no-body
   >
-    <b-media-aside class="w-25 mr-3">
+    <b-media-aside class="w-25 mr-3 media-image">
       <b-img
         v-if="result.edmPreview"
         slot="aside"
         :src="result.edmPreview"
         alt=""
-        class="mw-100"
+        class="mw-100 w-100"
         data-field-name="edmPreview"
         data-qa="result thumbnail"
       />
     </b-media-aside>
-    <b-media-body>
+    <b-media-body class="m-4">
       <div
         v-for="(value, key) in result.fields"
         :key="key"
         :data-field-name="key"
         data-qa="result field"
       >
-        <pre v-if="!Array.isArray(value)">
-          <code>{{ value }}</code>
-        </pre>
-        <template v-else-if="value.length === 1">
-          {{ value[0] }}
+        <template v-if="Array.isArray(value) && value.length === 1">
+          {{ key === 'dcTitle' && value[0].length > 90 ? value[0].substring(0, 90) + $t('formatting.ellipsis') : value[0] }}
         </template>
-        <ul v-else>
+        <ul v-else-if="Array.isArray(value)">
           <li
             v-for="(element, index) in displayableValues(value)"
             :key="index"

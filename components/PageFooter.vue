@@ -1,12 +1,12 @@
 <template>
   <footer
     data-qa="footer"
-    class="footer"
+    class="p-3"
   >
     <b-container>
       <ul
         v-if="links"
-        class="footer-link-list"
+        class="footer-link-list m-0 p-0"
       >
         <li
           v-for="footerLink in links"
