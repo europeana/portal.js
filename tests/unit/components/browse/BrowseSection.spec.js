@@ -6,7 +6,10 @@ const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
 const factory = () => mount(BrowseSections, {
-  localVue
+  localVue,
+  mocks: {
+    $t: () => {}
+  }
 });
 
 const dummySection = [{

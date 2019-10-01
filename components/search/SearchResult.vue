@@ -22,7 +22,7 @@
         data-qa="result field"
       >
         <template v-if="Array.isArray(value) && value.length === 1">
-          {{ key === 'dcTitle' && value[0].length > 90 ? value[0].substring(0, 90) + $t('formatting.ellipsis') : value[0] }}
+          {{ key === 'dcTitle' ? $options.filters.truncate(value[0], 90, $t('formatting.ellipsis')) : value[0] }}
         </template>
         <ul v-else-if="Array.isArray(value)">
           <li
