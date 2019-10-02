@@ -3,6 +3,9 @@ import BootstrapVue from 'bootstrap-vue';
 import SearchBarPill from '../../../../components/search/SearchBarPill.vue';
 
 const localVue = createLocalVue();
+localVue.filter('truncate', (val) => {
+  return val.length > 20 ? val.substring(0, 20) + '...' : val;
+});
 localVue.use(BootstrapVue);
 
 const factory = () => shallowMount(SearchBarPill, {
@@ -27,9 +30,8 @@ describe('components/search/SearchBarPill', () => {
     wrapper.setProps({
       text: 'This is text that needs to be truncated'
     });
-    wrapper.vm.limitCharacters = 20;
 
-    wrapper.vm.truncatedText.should.eq('This is text that ne…');
+    wrapper.text().should.startWith('This is text that ne...');
   });
 
   it('doesn`t truncate text if characters are `set character state` or less', () => {
@@ -38,8 +40,7 @@ describe('components/search/SearchBarPill', () => {
     wrapper.setProps({
       text: 'Less than twenty'
     });
-    wrapper.vm.limitCharacters = 20;
 
-    wrapper.vm.truncatedText.should.eq('Less than twenty');
+    wrapper.text().should.startWith('Less than twenty');
   });
 });

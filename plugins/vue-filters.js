@@ -11,3 +11,8 @@ Vue.filter('localise', val => {
   }
   return val.toLocaleString('en');
 });
+
+Vue.filter('truncate', (val, char, ellipsis) => {
+  return val.length > char ? val.substring(0, char) + ellipsis : val;
+});
+

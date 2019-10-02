@@ -6,7 +6,7 @@
     data-qa="search bar pill"
     :title="text"
   >
-    {{ truncatedText }}
+    {{ text | truncate(20, $t('formatting.ellipsis')) }}
     <nuxt-link
       :to="removeLinkTo"
       :aria-label="removeLinkLabel"
@@ -37,18 +37,6 @@
         default() {
           return this.$t('delete');
         }
-      }
-    },
-
-    data() {
-      return {
-        limitCharacters: 20
-      };
-    },
-
-    computed: {
-      truncatedText() {
-        return this.text.length > this.limitCharacters ? this.text.slice(0, this.limitCharacters) + '…' : this.text;
       }
     }
   };

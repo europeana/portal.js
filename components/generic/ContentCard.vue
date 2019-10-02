@@ -16,7 +16,7 @@
       />
       <b-card-body>
         <b-card-title>
-          {{ title }}
+          {{ title | truncate(90, $t('formatting.ellipsis')) }}
         </b-card-title>
         <b-card-text
           v-for="(text, index) in texts"
