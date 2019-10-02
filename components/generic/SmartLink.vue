@@ -64,10 +64,3 @@
     }
   };
 </script>
-
-<style lang="scss" scoped>
-  .external-icon {
-    margin-left: .2rem;
-    margin-bottom: .2rem;
-  }
-</style>
