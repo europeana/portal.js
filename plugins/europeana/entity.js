@@ -116,13 +116,14 @@ export function getEntitySlug(entity) {
  * @param {string} id the id of the entity, (can contain trailing slug parts as these will be normalized)
  * @param {Object} params additional parameters sent to the API
  * @return {Object} related entities
+ * TODO: add people as related entities again
  */
 export function relatedEntities(type, id, params) {
   const entityUri = getEntityUri(type, id);
   let apiParams = {
     wskey: params.wskey,
     profile: 'facets',
-    facet: 'edm_agent,skos_concept',
+    facet: 'skos_concept',
     query: getEntityQuery(entityUri),
     rows: 0
   };
