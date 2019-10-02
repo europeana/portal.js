@@ -56,8 +56,9 @@
     },
     computed: {
       cardImageStyle() {
+        const imageUrl = this.$options.filters.optimisedImageUrl(this.imageUrl);
         return {
-          backgroundImage: `url("${this.imageUrl}")`
+          backgroundImage: `url("${imageUrl}")`
         };
       }
     }

@@ -2,7 +2,7 @@
   <b-jumbotron
     :header="headline"
     :lead="description"
-    :style="{ 'background-image': 'url(' + heroImage + ')' }"
+    :style="jumbotronStyle"
     fluid
     header-tag="h2"
     header-level="4"
@@ -53,6 +53,14 @@
       rightsStatement: {
         type: String,
         default: ''
+      }
+    },
+    computed: {
+      jumbotronStyle() {
+        const imageUrl = this.$options.filters.optimisedImageUrl(this.heroImage);
+        return {
+          backgroundImage: `url("${imageUrl}")`
+        };
       }
     }
   };
