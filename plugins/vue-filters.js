@@ -19,7 +19,7 @@ Vue.filter('truncate', (val, char, ellipsis) => {
 Vue.filter('optimisedImageUrl', (imageUrl) => {
   const hostnameMatch = imageUrl.match(/\/\/([^/]+)\//);
   if (hostnameMatch && (hostnameMatch[1] === 'images.ctfassets.net')) {
-    return imageUrl + '?fm=jpg&fl=progressive&q=25';
+    return imageUrl + '?fm=jpg&fl=progressive&q=50';
   }
   return imageUrl;
 });
