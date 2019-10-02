@@ -1,0 +1,20 @@
+$external-icon: '\e900';
+
+@mixin external-icon {
+  content: $external-icon;
+  font-family: 'icomoon';
+  color: $textcolor-coloured;
+}
+
+.is-external-link {
+  // Add external link icon to end paragraph in Card Components
+  &.card-link {
+    p:last-child {
+      &:after {
+        @include external-icon;
+        margin-left: 4px;
+        vertical-align: middle;
+      }
+    }
+  }
+}

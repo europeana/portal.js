@@ -55,10 +55,6 @@
         const destDomain = parseDomain(this.destination);
         const currentDomain = parseDomain(window.location.href);
 
-        if (currentDomain === null) {
-          return false;
-        }
-
         return destDomain && currentDomain && destDomain.domain + destDomain.tld !== currentDomain.domain + currentDomain.tld;
       }
     }
