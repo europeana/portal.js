@@ -10,15 +10,9 @@
     v-else
     :href="path"
     :target="isExternalLink ? '_blank' : '_self'"
-    :class="linkClass"
+    :class="[{ 'is-external-link' : isExternalLink }, linkClass]"
   >
     <slot />
-    <b-img
-      v-if="isExternalLink"
-      src="../../assets/img/icons/link-external-white.svg"
-      class="external-icon"
-      :alt="$t('externalLink')"
-    />
   </b-link>
 </template>
 
@@ -56,7 +50,16 @@
         return this.destination;
       },
       isExternalLink() {
-        return parseDomain(this.destination);
+        if (!process.browser) return;
+
+        const destDomain = parseDomain(this.destination);
+        const currentDomain = parseDomain(window.location.href);
+
+        if (currentDomain === null) {
+          return false;
+        }
+
+        return destDomain && currentDomain && destDomain.domain + destDomain.tld !== currentDomain.domain + currentDomain.tld;
       }
     }
   };
