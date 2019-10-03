@@ -5,13 +5,15 @@
   >
     <img
       ref="imageLeft"
-      src="https://www.fillmurray.com/640/360"
+      :src="imageLeft"
+      :alt="imageLeftText"
       class="compare-image__image-left"
       :style="leftImageClip"
     >
     <img
       ref="imageRight"
-      src="https://www.placecage.com/640/360"
+      :src="imageRight"
+      :alt="imageRightText"
       class="compare-image__image-right"
     >
     <div
@@ -20,9 +22,12 @@
       :style="sliderBarPosition"
     >
       <span class="compare-image__slider__bar" />
-      <span class="compare-image__slider__handle">
-        button
-      </span>
+      <button
+        :class="{ 'is-active' : dragging }"
+        class="compare-image__slider__handle"
+      >
+        <span class="sr-only">Slider Handle</span>
+      </button>
     </div>
   </figure>
 </template>
@@ -30,6 +35,28 @@
 <script>
   export default {
     name: 'CompareImageSlider',
+
+    props: {
+      imageLeft: {
+        type: String,
+        required: true
+      },
+
+      imageRight: {
+        type: String,
+        required: true
+      },
+
+      imageLeftText: {
+        type: String,
+        default: 'This is an image'
+      },
+
+      imageRightText: {
+        type: String,
+        default: 'This is an image'
+      }
+    },
 
     data() {
       return {
@@ -112,6 +139,8 @@
 </script>
 
 <style lang="scss" scoped>
+  $slider-width: 48px;
+
   .compare-image {
     position: relative;
     overflow: hidden;
@@ -128,7 +157,7 @@
     }
 
     &__slider {
-      width: 20px;
+      width: $slider-width;
       height: 100%;
       position: absolute;
       top: 0;
@@ -136,17 +165,58 @@
       align-items: center;
       display: flex;
 
-      &__bar {
-        background: white;
-        min-width: 2px;
-        height: 100%;
-        display: flex;
-      }
+      // &__bar {
+        // background: white;
+        // min-width: 2px;
+        // height: 100%;
+        // display: flex;
+      // }
 
       &__handle {
         display: flex;
         position: absolute;
-        background: white;
+        background: rgba(255, 255, 255, 0.5);
+        width: $slider-width;
+        height: 48px;
+        border: 0;
+        border-radius: 50%;
+        box-shadow: 0 0 6px rgba(0, 0, 0, 0);
+
+        &.is-active {
+          background: rgba(255, 255, 255, 0.85);
+        }
+
+        &:before,
+        &:after {
+          content: '';
+          position: absolute;
+          width: 10px;
+          height: 10px;
+          top: 50%;
+          border-top: solid 2px;
+          border-left: solid 2px;
+          transform-origin: 0 0;
+        }
+
+        &:before {
+          left: 10px;
+          transform: rotate(-45deg);
+        }
+
+        &:after {
+          right: 0;
+          transform: rotate(135deg);
+        }
+
+        &:hover {
+          &:before {
+            left: 8px;
+          }
+
+          &:after {
+            right: -2px;
+          }
+        }
       }
     }
   }
