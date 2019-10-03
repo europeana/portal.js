@@ -4,7 +4,8 @@
   >
     <HeroBanner
       v-if="page.primaryImageOfPage"
-      :hero-image="page.primaryImageOfPage.fields.image.fields.file.url"
+      :image-url="page.primaryImageOfPage.fields.image.fields.file.url"
+      :image-content-type="page.primaryImageOfPage.fields.image.fields.file.contentType"
       :headline="page.primaryImageOfPage.fields.headline"
       :description="page.primaryImageOfPage.fields.description"
       :identifier="page.primaryImageOfPage.fields.identifier"

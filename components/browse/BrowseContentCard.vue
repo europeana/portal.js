@@ -4,6 +4,7 @@
     :texts="texts"
     :url="destination"
     :image-url="imageUrl"
+    :image-content-type="imageContentType"
   />
 </template>
 
@@ -26,6 +27,9 @@
       title() {
         return this.fields.name;
       },
+      imageIsContentfulAsset() {
+        return this.fields.image && this.fields.image.fields && this.fields.image.fields.file;
+      },
       imageUrl() {
         if (this.fields.thumbnailUrl) {
           return this.fields.thumbnailUrl;
@@ -35,11 +39,14 @@
           } else {
             return this.fields.image;
           }
-        } else if (this.fields.image && this.fields.image.fields && this.fields.image.fields.file) {
+        } else if (this.imageIsContentfulAsset) {
           return this.fields.image.fields.file.url;
         } else {
           return '';
         }
+      },
+      imageContentType() {
+        return this.imageIsContentfulAsset ? this.fields.image.fields.file.contentType : null;
       },
       destination() {
         if (this.fields.url) {

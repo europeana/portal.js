@@ -30,9 +30,13 @@
       RightsStatement
     },
     props: {
-      heroImage: {
+      imageUrl: {
         type: String,
         default: ''
+      },
+      imageContentType: {
+        type: String,
+        default: null
       },
       headline: {
         type: String,
@@ -56,10 +60,12 @@
       }
     },
     computed: {
+      optimisedImageUrl() {
+        return this.$options.filters.optimisedImageUrl(this.imageUrl, this.imageContentType);
+      },
       jumbotronStyle() {
-        const imageUrl = this.$options.filters.optimisedImageUrl(this.heroImage);
         return {
-          backgroundImage: `url("${imageUrl}")`
+          backgroundImage: `url("${this.optimisedImageUrl}")`
         };
       }
     }

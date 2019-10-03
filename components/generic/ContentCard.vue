@@ -52,14 +52,20 @@
       imageUrl: {
         type: String,
         default: ''
+      },
+      imageContentType: {
+        type: String,
+        default: null
       }
     },
     computed: {
       cardImageStyle() {
-        const imageUrl = this.$options.filters.optimisedImageUrl(this.imageUrl);
         return {
-          backgroundImage: `url("${imageUrl}")`
+          backgroundImage: `url("${this.optimisedImageUrl}")`
         };
+      },
+      optimisedImageUrl() {
+        return this.$options.filters.optimisedImageUrl(this.imageUrl, this.imageContentType);
       }
     }
   };

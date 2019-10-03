@@ -16,10 +16,15 @@ Vue.filter('truncate', (val, char, ellipsis) => {
   return val.length > char ? val.substring(0, char) + ellipsis : val;
 });
 
-Vue.filter('optimisedImageUrl', (imageUrl) => {
+Vue.filter('optimisedImageUrl', (imageUrl, contentType) => {
+  if (typeof contentType !== 'string') return imageUrl;
+
   const hostnameMatch = imageUrl.match(/\/\/([^/]+)\//);
   if (hostnameMatch && (hostnameMatch[1] === 'images.ctfassets.net')) {
-    return imageUrl + '?fm=jpg&fl=progressive&q=50';
+    if (contentType === 'image/jpeg') {
+      return imageUrl + '?fm=jpg&fl=progressive&q=50';
+    }
+    // TODO: are optimisations possible on any other content types?
   }
   return imageUrl;
 });
