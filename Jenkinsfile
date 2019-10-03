@@ -14,7 +14,6 @@ pipeline {
     CF_ORG="${env.CF_ORG}"
     CF_SPACE="${env.BRANCH_NAME == 'master' ? 'test' : 'production'}"
     S3_PATH="${env.BRANCH_NAME == 'master' ? '/' : '/' + env.BRANCH_NAME}"
-    ASSET_ENDPOINT="${env.BRANCH_NAME == 'master' ?  : '/' + env.BRANCH_NAME}"
   }
   stages {
     stage('Build') {
