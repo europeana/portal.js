@@ -13,6 +13,12 @@
     :class="[{ 'is-external-link' : isExternalLink }, linkClass]"
   >
     <slot />
+    <span
+      v-if="isExternalLink"
+      class="sr-only"
+    >
+      ({{ $t('newWindow') }})
+    </span>
   </b-link>
 </template>
 
