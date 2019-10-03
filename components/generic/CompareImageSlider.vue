@@ -76,7 +76,7 @@
 
       sliderBarPosition() {
         return {
-          left: `${this.imageWidth * this.sliderPosition - this.sliderWidth/2}px`
+          left: `${this.imageWidth * this.sliderPosition - this.sliderWidth / 2}px`
         };
       }
     },
