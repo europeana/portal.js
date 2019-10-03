@@ -209,12 +209,14 @@
         }
 
         &:hover {
+          box-shadow: 0 0 3px rgba(0, 0, 0, 0.4);
+
           &:before {
-            left: 8px;
+            left: 9px;
           }
 
           &:after {
-            right: -2px;
+            right: -1px;
           }
         }
       }
