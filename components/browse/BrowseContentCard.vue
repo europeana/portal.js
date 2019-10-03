@@ -30,7 +30,7 @@
         if (this.fields.thumbnailUrl) {
           return this.fields.thumbnailUrl;
         } else if (typeof this.fields.image === 'string') {
-          if (this.fields.image.startsWith('http://commons.wikimedia.org/wiki/Special:FilePath/')) {
+          if (new RegExp('.wiki[mp]edia.org/wiki/Special:FilePath/').test(this.fields.image)) {
             return getWikimediaThumbnailUrl(this.fields.image);
           } else {
             return this.fields.image;

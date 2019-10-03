@@ -22,6 +22,7 @@
         <SearchInterface
           class="px-0"
           :per-row="3"
+          :per-page="perPage"
           :route="route"
           :show-content-tier-toggle="false"
         />
@@ -101,6 +102,9 @@
       },
       description() {
         return entities.getEntityDescription(this.entity);
+      },
+      perPage() {
+        return PER_PAGE;
       },
       route() {
         return {

@@ -23,7 +23,8 @@ const factory = (options = {}) => {
     localVue,
     store,
     mocks: {
-      localePath: (opts) => `/record/${opts.params.pathMatch}`
+      localePath: (opts) => `/record/${opts.params.pathMatch}`,
+      $t: () => {}
     }
   });
 };

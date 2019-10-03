@@ -47,6 +47,11 @@ async function start() {
     // Use morgan for request logging
     app.use(morgan('combined'));
 
+    if (!process.env.DISABLE_REDIRECT_SSL) {
+      const redirectSSL = require('redirect-ssl');
+      app.use(redirectSSL.create({ redirect: true }));
+    }
+
     // IP access retriction
     if (process.env.IP_FILTER_ALLOW) {
       consola.info(`Restricting access to IPs: ${process.env.IP_FILTER_ALLOW}`);
@@ -88,11 +93,6 @@ async function start() {
       });
 
       app.use(httpAuth.connect(digest));
-    }
-
-    if (!process.env.DISABLE_REDIRECT_SSL) {
-      const redirectSSL = require('redirect-ssl');
-      app.use(redirectSSL.create({ redirect: true }));
     }
   }
 

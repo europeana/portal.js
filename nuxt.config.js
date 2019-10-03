@@ -3,6 +3,7 @@ require('dotenv').config();
 const pkg = require('./package');
 const bootstrapPkg = require('bootstrap/package');
 const bootstrapVuePkg = require('bootstrap-vue/package');
+const i18nLocales = require('./plugins/i18n/locales.json');
 
 module.exports = {
   mode: 'universal',
@@ -47,7 +48,7 @@ module.exports = {
   /*
   ** Plugins to load before mounting the App
   */
-  plugins: ['~/plugins/vue-filters', '~/plugins/i18n'],
+  plugins: ['~/plugins/vue-filters', '~/plugins/i18n.js'],
 
   /*
   ** Nuxt.js modules
@@ -62,158 +63,7 @@ module.exports = {
     }],
     ['bootstrap-vue/nuxt', { css: false }],
     ['nuxt-i18n', {
-      locales: [
-        {
-          name: 'Български',
-          code: 'bg',
-          file: 'bg.js',
-          iso: 'bg-BG'
-        },
-        {
-          name: 'Čeština',
-          code: 'cs',
-          file: 'cs.js',
-          iso: 'cs-CZ'
-        },
-        {
-          name: 'Dansk',
-          code: 'da',
-          file: 'da.js',
-          iso: 'da-DK'
-        },
-        {
-          name: 'Deutsch',
-          code: 'de',
-          file: 'de.js',
-          iso: 'de-DE'
-        },
-        {
-          name: 'Ελληνικά',
-          code: 'el',
-          file: 'el.js',
-          iso: 'el-GR'
-        },
-        {
-          name: 'English',
-          code: 'en',
-          file: 'en.js',
-          iso: 'en-GB'
-        },
-        {
-          name: 'Español',
-          code: 'es',
-          file: 'es.js',
-          iso: 'es-ES'
-        },
-        {
-          name: 'Eesti',
-          code: 'et',
-          file: 'et.js',
-          iso: 'et-EE'
-        },
-        {
-          name: 'Euskara',
-          code: 'eu',
-          file: 'eu.js',
-          iso: 'eu-ES'
-        },
-        {
-          name: 'Suomi',
-          code: 'fi',
-          file: 'fi.js',
-          iso: 'fi-FI'
-        },
-        {
-          name: 'Français',
-          code: 'fr',
-          file: 'fr.js',
-          iso: 'fr-FR'
-        },
-        {
-          name: 'Gaeilge',
-          code: 'ga',
-          file: 'ga.js',
-          iso: 'ga-IE'
-        },
-        {
-          name: 'Hrvatski',
-          code: 'hr',
-          file: 'hr.js',
-          iso: 'hr-HR'
-        },
-        {
-          name: 'Magyar',
-          code: 'hu',
-          file: 'hu.js',
-          iso: 'hu-HU'
-        },
-        {
-          name: 'Italiano',
-          code: 'it',
-          file: 'it.js',
-          iso: 'it-IT'
-        },
-        {
-          name: 'Lietuvių',
-          code: 'lt',
-          file: 'lt.js',
-          iso: 'lt-LT'
-        },
-        {
-          name: 'Latviešu',
-          code: 'lv',
-          file: 'lv.js',
-          iso: 'lv-LV'
-        },
-        {
-          name: 'Malti',
-          code: 'mt',
-          file: 'mt.js',
-          iso: 'mt-MT'
-        },
-        {
-          name: 'Nederlands',
-          code: 'nl',
-          file: 'nl.js',
-          iso: 'nl-NL'
-        },
-        {
-          name: 'Polski',
-          code: 'pl',
-          file: 'pl.js',
-          iso: 'pl-PL'
-        },
-        {
-          name: 'Português',
-          code: 'pt',
-          file: 'pt.js',
-          iso: 'pt-PT'
-        },
-        {
-          name: 'Română',
-          code: 'ro',
-          file: 'ro.js',
-          iso: 'ro-RO'
-        },
-        {
-          name: 'Slovenčina',
-          code: 'sk',
-          file: 'sk.js',
-          iso: 'sk-SK'
-        },
-        {
-          name: 'Slovenščina',
-          code: 'sl',
-          file: 'sl.js',
-          iso: 'sl-SI'
-        },
-        {
-          name: 'Svenska',
-          code: 'sv',
-          file: 'sv.js',
-          iso: 'sv-SE'
-        }
-      ],
+      locales: i18nLocales,
       defaultLocale: 'en',
       lazy: true,
       langDir: 'lang/',
@@ -224,18 +74,19 @@ module.exports = {
       // Enable browser language detection to automatically redirect user
       // to their preferred language as they visit your app for the first time
       // Set to false to disable
-      detectBrowserLanguage: {
-        // If enabled, a cookie is set once a user has been redirected to his
-        // preferred language to prevent subsequent redirections
-        // Set to false to redirect every time
-        useCookie: true,
-        // Cookie name
-        cookieKey: 'i18n_redirected',
-        // Set to always redirect to value stored in the cookie, not just once
-        alwaysRedirect: false,
-        // If no locale for the browsers locale is a match, use this one as a fallback
-        fallbackLocale: 'en'
-      },
+      detectBrowserLanguage: false,
+      //   {
+      //   // If enabled, a cookie is set once a user has been redirected to his
+      //   // preferred language to prevent subsequent redirections
+      //   // Set to false to redirect every time
+      //   useCookie: true,
+      //   // Cookie name
+      //   cookieKey: 'i18n_redirected',
+      //   // Set to always redirect to value stored in the cookie, not just once
+      //   alwaysRedirect: false,
+      //   // If no locale for the browsers locale is a match, use this one as a fallback
+      //   fallbackLocale: 'en'
+      // },
       vuex: {
         // Module namespace
         moduleName: 'i18n',

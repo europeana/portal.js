@@ -50,6 +50,7 @@ export default {
     }
   },
   "entity": "Entity",
+  "entityDepictionCredit": "Resource obtained from Wikimedia Commons",
   "depiction": "A depiction of {title}",
   "showLess": "Show less",
   "showMore": "Show more",
