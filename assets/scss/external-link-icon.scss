@@ -4,17 +4,34 @@ $external-icon: '\e900';
   content: $external-icon;
   font-family: 'icomoon';
   color: $textcolor-coloured;
+  margin-left: 2px;
+  vertical-align: text-top;
 }
 
 .is-external-link {
   // Add external link icon to end paragraph in Card Components
   &.card-link {
-    p:last-child {
+    .card-title {
       &:after {
         @include external-icon;
-        margin-left: 4px;
         vertical-align: middle;
       }
     }
   }
+
+  // Add external link icon to main navigation
+  &.nav-link {
+    &:after {
+      @include external-icon;
+    }
+  }
+
+  // Add external link icon to footer link
+  &.footer-link {
+    &:after {
+      @include external-icon;
+      color: $white;
+    }
+  }
+    
 }
