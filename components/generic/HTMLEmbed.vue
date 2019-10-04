@@ -2,7 +2,7 @@
   <!-- eslint-disable vue/no-v-html -->
   <div
     v-if="html"
-    data-qa="oembed media container"
+    data-qa="html embed"
     v-html="html"
   />
   <AlertMessage
