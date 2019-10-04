@@ -2,6 +2,7 @@
   <figure
     ref="container"
     class="compare-image"
+    data-qa="compare image"
   >
     <img
       ref="imageLeft"
@@ -9,22 +10,27 @@
       :alt="imageLeftText"
       class="compare-image__image-left"
       :style="leftImageClip"
+      data-qa="compare image left image"
     >
     <img
       ref="imageRight"
       :src="imageRight"
       :alt="imageRightText"
       class="compare-image__image-right"
+      data-qa="compare image right image"
     >
     <div
       ref="slider"
       class="compare-image__slider"
       :style="sliderBarPosition"
+      data-qa="compare image slider"
+      @mousedown="initDrag"
     >
       <span class="compare-image__slider__bar" />
       <button
         :class="{ 'is-active' : dragging }"
         class="compare-image__slider__handle"
+        data-qa="compare image slider handler"
       >
         <span class="sr-only">Slider Handle</span>
       </button>
@@ -85,13 +91,10 @@
     },
 
     mounted() {
-      const slider = this.$refs.slider;
       this.setImageWidth();
       this.setSliderWidth();
 
       window.addEventListener('resize', this.setImageWidth);
-
-      slider.addEventListener('mousedown', this.initDrag);
       window.addEventListener('mousemove', this.drag);
       window.addEventListener('mouseup', this.stopDrag);
     },
