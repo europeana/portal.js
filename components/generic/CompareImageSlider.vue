@@ -49,12 +49,12 @@
 
       imageLeftText: {
         type: String,
-        default: 'This is an image'
+        default: ''
       },
 
       imageRightText: {
         type: String,
-        default: 'This is an image'
+        default: ''
       }
     },
 
@@ -69,14 +69,17 @@
 
     computed: {
       leftImageClip() {
+        const rightLength = this.imageWidth * this.sliderPosition;
+
         return {
-          clip: `rect(auto, ${this.imageWidth * this.sliderPosition}px, auto, auto)`
+          clip: `rect(auto, ${rightLength}px, auto, auto)`
         };
       },
 
       sliderBarPosition() {
+        const leftPosition = this.imageWidth * this.sliderPosition - this.sliderWidth / 2;
         return {
-          left: `${this.imageWidth * this.sliderPosition - this.sliderWidth / 2}px`
+          left: `${leftPosition}px`
         };
       }
     },
@@ -164,13 +167,6 @@
       justify-content: center;
       align-items: center;
       display: flex;
-
-      // &__bar {
-        // background: white;
-        // min-width: 2px;
-        // height: 100%;
-        // display: flex;
-      // }
 
       &__handle {
         display: flex;
