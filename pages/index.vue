@@ -3,14 +3,14 @@
     data-qa="browse page"
   >
     <HeroBanner
-      v-if="page.primaryImageOfPage"
-      :image-url="page.primaryImageOfPage.fields.image.fields.file.url"
-      :image-content-type="page.primaryImageOfPage.fields.image.fields.file.contentType"
-      :headline="page.primaryImageOfPage.fields.headline"
-      :description="page.primaryImageOfPage.fields.description"
-      :identifier="page.primaryImageOfPage.fields.identifier"
-      :attribution="page.primaryImageOfPage.fields.citation"
-      :rights-statement="page.primaryImageOfPage.fields.license"
+      v-if="hero"
+      :image-url="heroImage.url"
+      :image-content-type="heroImage.contentType"
+      :headline="hero.headline"
+      :description="hero.description"
+      :identifier="hero.identifier"
+      :attribution="hero.citation"
+      :rights-statement="hero.license"
     />
     <b-container>
       <BrowseSections
@@ -30,6 +30,14 @@
     components: {
       BrowseSections,
       HeroBanner
+    },
+    computed: {
+      hero() {
+        return this.page.primaryImageOfPage ? this.page.primaryImageOfPage.fields : null;
+      },
+      heroImage() {
+        return this.hero ? this.hero.image.fields.file : null;
+      }
     },
     asyncData({ params, query, error, app }) {
       const contentfulClient = createClient(query.mode);

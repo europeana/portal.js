@@ -36,14 +36,12 @@
         } else if (typeof this.fields.image === 'string') {
           if (this.fields.image.startsWith('http://commons.wikimedia.org/wiki/Special:FilePath/')) {
             return getWikimediaThumbnailUrl(this.fields.image);
-          } else {
-            return this.fields.image;
           }
+          return this.fields.image;
         } else if (this.imageIsContentfulAsset) {
           return this.fields.image.fields.file.url;
-        } else {
-          return '';
         }
+        return '';
       },
       imageContentType() {
         return this.imageIsContentfulAsset ? this.fields.image.fields.file.contentType : null;
