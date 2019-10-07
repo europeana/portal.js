@@ -54,6 +54,7 @@
     "express-ipfilter": "^1.0.1",
     "http-auth": "^3.2.3",
     "lodash": "^4.17.15",
+    "md5": "^2.2.1",
     "marked": "^0.7.0",
     "morgan": "^1.9.1",
     "nightwatch-accessibility": "^1.8.0",
