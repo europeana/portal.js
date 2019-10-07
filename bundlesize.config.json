@@ -1,0 +1,52 @@
+{
+  "files": [
+    {
+      "path": "./.nuxt/dist/client/app.*.js",
+      "maxSize": "25 kB"
+    },
+    {
+      "path": "./.nuxt/dist/client/commons.app.*.js",
+      "maxSize": "75 kB"
+    },
+    {
+      "path": "./.nuxt/dist/client/runtime.*.js",
+      "maxSize": "5 kB"
+    },
+    {
+      "path": "./.nuxt/dist/client/vendors.app.*.js",
+      "maxSize": "100 kB"
+    },
+    {
+      "path": "./.nuxt/dist/client/pages/search/index.*.js",
+      "maxSize": "7.5 kB"
+    },
+    {
+      "path": "./.nuxt/dist/client/pages/index.*.js",
+      "maxSize": "7.5 kB"
+    },
+    {
+      "path": "./.nuxt/dist/client/pages/entity/_type/_.*.js",
+      "maxSize": "7.5 kB"
+    },
+    {
+      "path": "./.nuxt/dist/client/pages/entity/_type/_.pages/search/index.*.js",
+      "maxSize": "7.5 kB"
+    },
+    {
+      "path": "./.nuxt/dist/client/pages/record/_.*.js",
+      "maxSize": "7.5 kB"
+    },
+    {
+      "path": "./.nuxt/dist/client/vendors.pages/entity/_type/_.pages/index.pages/record/_.*.js",
+      "maxSize": "15 kB"
+    },
+    {
+      "path": "./.nuxt/dist/client/vendors.pages/entity/_type/_.pages/index.*.js",
+      "maxSize": "15 kB"
+    },
+    {
+      "path": "./.nuxt/dist/client/vendors.pages/record/_.*.js",
+      "maxSize": "15 kB"
+    }
+  ]
+}
