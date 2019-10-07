@@ -17,11 +17,9 @@ pipeline {
   }
   stages {
     stage('Build') {
-      environment {
-        NUXT_ENV_BUILD_PUBLIC_PATH="${env.S3_ENDPOINT}/europeana-portaljs-${env.CF_SPACE}${env.S3_PATH}"
-      }
       steps {
         configFileProvider([configFile(fileId: "portaljs.${env.CF_SPACE}.env", targetLocation: '.env')]) {
+          sh 'eval "export $(grep ^NUXT_ENV_BUILD_PUBLIC_PATH= .env)${S3_PATH}"'
           sh 'rm -rf node_modules'
           sh 'npm install'
           sh 'npm run build'

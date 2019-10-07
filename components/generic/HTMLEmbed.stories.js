@@ -1,7 +1,7 @@
 import { storiesOf } from '@storybook/vue';
-import OEmbedMedia from './OEmbedMedia.vue';
+import OEmbedMedia from './HTMLEmbed.vue';
 
-storiesOf('Media/oEmbed', module)
+storiesOf('Generic/HTMLEmbed', module)
   .add('OEmbed Media', () => ({
     components: {
       OEmbedMedia

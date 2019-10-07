@@ -9,20 +9,21 @@
         <h2 v-if="headline">
           {{ headline }}
         </h2>
-        <!-- Keep Vue Markdown on the same line otherwise it will break -->
-        <VueMarkdown>{{ text }}</VueMarkdown>
+        <!-- eslint-disable vue/no-v-html -->
+        <div
+          v-html="html"
+        />
+        <!-- eslint-enable vue/no-v-html -->
       </b-card>
     </b-col>
   </b-row>
 </template>
 
 <script>
-  import VueMarkdown from 'vue-markdown';
+  // import VueMarkdown from 'vue-markdown';
+  import marked from 'marked';
 
   export default {
-    components: {
-      VueMarkdown
-    },
     props: {
       headline: {
         type: String,
@@ -31,6 +32,11 @@
       text: {
         type: String,
         required: true
+      }
+    },
+    computed: {
+      html() {
+        return marked(this.text);
       }
     }
   };

@@ -55,6 +55,7 @@
     "http-auth": "^3.2.3",
     "lodash": "^4.17.15",
     "md5": "^2.2.1",
+    "marked": "^0.7.0",
     "morgan": "^1.9.1",
     "nightwatch-accessibility": "^1.8.0",
     "nuxt": "^2.9.2",
@@ -64,7 +65,6 @@
     "redirect-ssl": "^1.4.1",
     "vcap_services": "^0.7.0",
     "vue": "^2.6.10",
-    "vue-markdown": "^2.2.4",
     "vue-resize-directive": "^1.1.4",
     "vue-server-renderer": "^2.6.8"
   },
