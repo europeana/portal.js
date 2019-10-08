@@ -60,9 +60,8 @@
 
         const destDomain = parseDomain(this.destination);
         const dest = [destDomain.domain, destDomain.tld].join('.');
-        const currentDomain = parseDomain(window.location.href);
-        const current = (currentDomain === null ? window.location.hostname : [currentDomain.domain, currentDomain.tld].join('.'));
-
+        const currentDomain = this.$store.state.request.domain;
+        const current = (currentDomain === null ? window.location.hostname : currentDomain);
         return dest !== current;
       }
     }
