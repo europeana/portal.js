@@ -1,9 +1,10 @@
 import axios from 'axios';
+import escapeRegExp from 'lodash/escapeRegExp';
 import providers from './oembed/providers';
 
 for (const provider of providers) {
   provider.schemeRegExps = provider.schemes.map((scheme) => {
-    const escaped = scheme.replace('.', '\\.').replace('*', '.+');
+    const escaped = escapeRegExp(scheme).replace(/\\\*/g, '.+');
     return new RegExp(escaped);
   });
 }
