@@ -5,6 +5,8 @@ const axios = require('axios');
 axios.defaults.adapter = require('axios/lib/adapters/http');
 
 describe('oembed()', () => {
+  it('sends GET request to provider oEmbed endpoint');
+  it('returns a promise');
 });
 
 describe('oembeddable()', () => {
