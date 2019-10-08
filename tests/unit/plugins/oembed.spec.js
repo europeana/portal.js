@@ -11,7 +11,7 @@ describe('oembeddable()', () => {
   const supportedMediaSources = [
     { provider: 'SoundCloud', url: 'https://soundcloud.com/abc/def' },
     { provider: 'Vimeo', url: 'https://vimeo.com/abcdef' },
-    { provider: 'YouTube', url: 'https://www.youtube.com/watch?v=abcdef' }
+    { provider: 'EUscreen', url: 'http://www.euscreen.eu/item.html?id=abcdef' }
     // TODO: add other supported providers
   ];
 
@@ -22,7 +22,7 @@ describe('oembeddable()', () => {
   }
 
   it('is `false` for unsupported providers', () => {
-    const unsupportedMediaUrl = 'http://www.example.org/abcdef';
+    const unsupportedMediaUrl = 'https://www.youtube.com/watch?v=abcdef';
     oEmbeddable(unsupportedMediaUrl).should.be.false;
   });
 });
