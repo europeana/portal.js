@@ -8,7 +8,7 @@
       ref="imageLeft"
       :src="imageLeft"
       :alt="imageLeftText"
-      class="compare-image__image-left"
+      class="image-left"
       :style="leftImageClip"
       data-qa="compare image left image"
     >
@@ -16,20 +16,20 @@
       ref="imageRight"
       :src="imageRight"
       :alt="imageRightText"
-      class="compare-image__image-right"
+      class="image-right"
       data-qa="compare image right image"
     >
     <div
       ref="slider"
-      class="compare-image__slider"
+      class="slider"
       :style="sliderBarPosition"
       data-qa="compare image slider"
       @mousedown="initDrag"
     >
-      <span class="compare-image__slider__bar" />
+      <span class="slider-bar" />
       <button
         :class="{ 'is-active' : dragging }"
-        class="compare-image__slider__handle"
+        class="slider-handle"
         data-qa="compare image slider handler"
       >
         <span class="sr-only">Slider Handle</span>
@@ -151,18 +151,18 @@
     position: relative;
     overflow: hidden;
 
-    &__image-left,
-    &__image-right {
+    .image-left,
+    .image-right {
       width: 100%;
     }
 
-    &__image-left {
+    .image-left {
       position: absolute;
       top: 0;
       left: 0;
     }
 
-    &__slider {
+    .slider {
       width: $slider-width;
       height: 100%;
       position: absolute;
@@ -171,7 +171,7 @@
       align-items: center;
       display: flex;
 
-      &__handle {
+      .slider-handle {
         display: flex;
         position: absolute;
         background: rgba(255, 255, 255, 0.5);
