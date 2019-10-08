@@ -32,7 +32,7 @@
     "storybook": "start-storybook -p 6006 -s ./.storybook/assets",
     "build-storybook": "build-storybook -s ./.storybook/assets",
     "test": "npm run test:unit && npm run test:e2e",
-    "test:ci": "npm run test:unit && npm run test:e2e:ci && npx bundlesize",
+    "test:ci": "npm run test:unit && npm run build:test && npx bundlesize npm run test:e2e:ci",
     "build:test": "cross-env NODE_ENV=test nuxt build",
     "start:test": "cross-env NODE_ENV=test PORT=1337 node server/index.js",
     "test:unit": "vue-cli-service test:unit --include tests/unit/setup",
@@ -40,7 +40,7 @@
     "test:chrome:headless": "cross-env browser=chromeHeadless cucumber-js",
     "test:gecko": "cross-env browser=gecko cucumber-js --no-strict",
     "test:e2e": "concurrently 'npm run build:test && npm run start:test' 'npm run test:chrome -- -p all' --success first --kill-others",
-    "test:e2e:ci": "concurrently 'npm run build:test && npm run start:test' 'npm run test:chrome:headless -- -p all' --success first --kill-others"
+    "test:e2e:ci": "concurrently 'npm run start:test' 'npm run test:chrome:headless -- -p all' --success first --kill-others"
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.4.1",
