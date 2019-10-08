@@ -59,9 +59,11 @@
         if (!process.browser) return;
 
         const destDomain = parseDomain(this.destination);
+        const dest = [destDomain.domain, destDomain.tld].join('.');
         const currentDomain = parseDomain(window.location.href);
+        const current = (currentDomain === null ? window.location.hostname : [currentDomain.domain, currentDomain.tld].join('.'));
 
-        return (destDomain && currentDomain) && (destDomain.domain + destDomain.tld !== currentDomain.domain + currentDomain.tld);
+        return dest !== current;
       }
     }
   };
