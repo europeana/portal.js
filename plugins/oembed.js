@@ -9,13 +9,18 @@ for (const provider of providers) {
   });
 }
 
+function providerSupportsUrl(provider, url) {
+  for (const schemeRegExp of provider.schemeRegExps) {
+    if (schemeRegExp.test(url)) {
+      return true;
+    }
+  }
+  return false;
+}
+
 function providerForUrl(url) {
   for (const provider of providers) {
-    for (const schemeRegExp of provider.schemeRegExps) {
-      if (schemeRegExp.test(url)) {
-        return provider;
-      }
-    }
+    if (providerSupportsUrl(provider, url)) return provider;
   }
   return null;
 }
