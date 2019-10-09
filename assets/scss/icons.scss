@@ -1,13 +1,13 @@
 @font-face {
   font-family: 'icomoon';
-  src: url('../fonts/icomoon.woff?plxcjd') format('woff');
+  src: url('~assets/fonts/icomoon.woff?plxcjd') format('woff');
   font-weight: normal;
   font-style: normal;
   font-display: block;
 }
 
-[class^="icon-"],
-[class*=" icon-"],
+[class^='icon-'],
+[class*=' icon-'],
 .icon-font {
   /* use !important to prevent issues with browser extensions that change fonts */
   /* stylelint-disable-next-line */ 
@@ -17,6 +17,7 @@
   font-weight: normal;
   font-variant: normal;
   text-transform: none;
+  vertical-align: middle;
   line-height: 1;
 
   /* Better Font Rendering =========== */
