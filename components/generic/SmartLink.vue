@@ -57,6 +57,9 @@
       },
       isExternalLink() {
         const destDomain = parseDomain(this.destination);
+        if (destDomain === null) {
+          return false;
+        }
         const dest = [destDomain.domain, destDomain.tld].join('.');
         const currentDomain = this.$store.state.request.domain;
         const current = currentDomain;
