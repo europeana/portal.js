@@ -1,6 +1,6 @@
 export default [
-  // Europeana
   {
+    name: 'Europeana',
     endpoint: 'http://oembed.europeana.eu/',
     schemes: [
       'http://archives.crem-cnrs.fr/archives/items/*/',
@@ -12,23 +12,23 @@ export default [
       'http://www.theeuropeanlibrary.org/tel4/newspapers/issue/fullscreen/*'
     ]
   },
-  // EUscreen
   {
+    name: 'EUscreen',
     endpoint: 'https://oembed.euscreen.eu/services/oembed',
     schemes: [
       'http://www.euscreen.eu/item.html*'
     ]
   },
-  // SoundCloud
   {
+    name: 'SoundCloud',
     endpoint: 'https://soundcloud.com/oembed',
     schemes: [
       'http://soundcloud.com/*',
       'https://soundcloud.com/*'
     ]
   },
-  // Vimeo
   {
+    name: 'Vimeo',
     endpoint: 'https://vimeo.com/api/oembed.json',
     schemes: [
       'https://vimeo.com/*',
