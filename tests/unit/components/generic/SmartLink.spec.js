@@ -34,6 +34,15 @@ describe('components/generic/SmartLink', () => {
       wrapper.contains('b-link-stub').should.be.true;
       wrapper.find('b-link-stub').attributes('href').should.exist;
     });
+
+    it('determines if the URL is an external path or not', () => {
+      const wrapper = factory();
+      wrapper.setProps({ destination: 'https://www.example.org/url-example' });
+      wrapper.vm.isExternalLink.should.be.true;
+
+      wrapper.setProps({ destination: '/test' });
+      wrapper.vm.isExternalLink.should.be.false;
+    });
   });
 
   context('when passed a URL path', () => {
