@@ -118,3 +118,9 @@ video {
   background-color: $darkblue;
   border-color: $darkblue;
 }
+
+/* TODO: for demonstration purposes, might want to move this */
+.nav-link.is-external-link:after {
+  @extend .icon-font;
+  content: '\e900';
+}

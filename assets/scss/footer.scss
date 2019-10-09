@@ -18,6 +18,11 @@ footer {
           background-color: $extradarkblue;
         }
 
+        &.is-external-link::after {
+          content: '\e900';
+          color: $white;
+          @extend .icon-font;          
+        }
       }
     }
   }
