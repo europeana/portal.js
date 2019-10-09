@@ -7,8 +7,8 @@ storiesOf('Generic', module)
     components: { CompareImageSlider },
     data() {
       return {
-        imageLeft: 'https://www.fillmurray.com/640/360',
-        imageRight: 'https://www.placecage.com/640/360'
+        imageLeft: 'img/landscape.jpg',
+        imageRight: 'img/landscape-monochrome.jpg'
       };
     },
     template: `
