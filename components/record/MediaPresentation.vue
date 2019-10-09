@@ -24,7 +24,7 @@
       :width="width"
       :height="height"
     />
-    <OEmbedMedia
+    <HTMLEmbed
       v-else-if="isOEmbed"
       :html="oEmbedData.html"
       :error="oEmbedData.error"
@@ -35,7 +35,7 @@
 <script>
   import MediaImage from '../../components/record/MediaImage';
   import VideoPlayer from '../../components/media/VideoPlayer';
-  import OEmbedMedia from '../../components/media/OEmbedMedia';
+  import HTMLEmbed from '../../components/generic/HTMLEmbed';
 
   import * as oembedParser from 'oembed-parser';
   import oEmbedProviderList from '../../plugins/oembed-parser/providers.json';
@@ -45,7 +45,7 @@
     components: {
       MediaImage,
       VideoPlayer,
-      OEmbedMedia
+      HTMLEmbed
     },
     props: {
       codecName: {

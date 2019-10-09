@@ -48,7 +48,11 @@ module.exports = {
   /*
   ** Plugins to load before mounting the App
   */
-  plugins: ['~/plugins/vue-filters', '~/plugins/i18n.js'],
+  plugins: [
+    '~/plugins/bootstrap-vue-plugins',
+    '~/plugins/i18n.js',
+    '~/plugins/vue-filters'
+  ],
 
   /*
   ** Nuxt.js modules
@@ -61,7 +65,6 @@ module.exports = {
       id: process.env.GOOGLE_TAG_MANAGER_ID,
       pageTracking: true
     }],
-    ['bootstrap-vue/nuxt', { css: false }],
     ['nuxt-i18n', {
       locales: i18nLocales,
       defaultLocale: 'en',

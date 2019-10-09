@@ -239,14 +239,14 @@ export function getEntityDescription(entity) {
  * @return {String} formatted thumbnail url
  */
 export function getWikimediaThumbnailUrl(image) {
-  const crypto = require('crypto');
+  const md5 = require('md5');
 
   const filename = image.split('/').pop();
   const suffix = filename.endsWith('.svg') ? '.png' : '';
   const underscoredFilename = decodeURIComponent(filename).replace(/ /g, '_');
-  const md5 = crypto.createHash('md5').update(underscoredFilename).digest('hex');
+  const hash = md5(underscoredFilename);
 
   return 'https://upload.wikimedia.org/wikipedia/commons/thumb/' +
-      md5.substring(0, 1) + '/' + md5.substring(0, 2) + '/' +
+      hash.substring(0, 1) + '/' + hash.substring(0, 2) + '/' +
       underscoredFilename + '/255px-' + underscoredFilename + suffix;
 }
