@@ -1,16 +1,40 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
+import Vuex from 'vuex';
+
 import BootstrapVue from 'bootstrap-vue';
 import SmartLink from '../../../../components/generic/SmartLink.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
+localVue.use(Vuex);
 
-const factory = () => shallowMount(SmartLink, {
-  localVue,
-  mocks: {
-    localePath: code => window.location.href + code
+const store = new Vuex.Store({
+  modules: {
+    request: {
+      state: {
+        domain: null
+      }
+    }
   }
 });
+
+// const $store = {
+//   state: {
+//     request: {
+//       domain: null
+//     }
+//   }
+// };
+
+const factory = () => {
+  return shallowMount(SmartLink, {
+    localVue,
+    store,
+    mocks: {
+      localePath: code => window.location.href + code
+    }
+  });
+};
 
 describe('components/generic/SmartLink', () => {
   context('when passed a URL', () => {
