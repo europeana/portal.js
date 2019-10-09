@@ -56,12 +56,10 @@
         return this.destination;
       },
       isExternalLink() {
-        if (!process.browser) return;
-
         const destDomain = parseDomain(this.destination);
         const dest = [destDomain.domain, destDomain.tld].join('.');
         const currentDomain = this.$store.state.request.domain;
-        const current = (currentDomain === null ? window.location.hostname : currentDomain);
+        const current = currentDomain;
         return dest !== current;
       }
     }
