@@ -145,7 +145,7 @@
 </script>
 
 <style lang="scss" scoped>
-  $slider-width: 48px;
+  $slider-dimensions: 48px;
 
   .compare-image {
     position: relative;
@@ -163,11 +163,10 @@
     }
 
     .slider {
-      width: $slider-width;
+      width: $slider-dimensions;
       height: 100%;
       position: absolute;
       top: 0;
-      justify-content: center;
       align-items: center;
       display: flex;
 
@@ -175,8 +174,8 @@
         display: flex;
         position: absolute;
         background: rgba(255, 255, 255, 0.5);
-        width: $slider-width;
-        height: 48px;
+        width: $slider-dimensions;
+        height: $slider-dimensions;
         border: 0;
         border-radius: 50%;
         box-shadow: 0 0 6px rgba(0, 0, 0, 0);
