@@ -20,3 +20,8 @@
     }
   }
 }
+
+.is-external-link.card-link .card-title:after {
+  content: '\e900';
+  @extend .icon-font;
+}
