@@ -6,12 +6,13 @@ import CompareImageSlider from '../../../../components/generic/CompareImageSlide
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
-const factory = () => shallowMount(CompareImageSlider, {
+const factory = (setImageWidthSpy) => shallowMount(CompareImageSlider, {
   localVue,
   propsData: {
     imageLeft: 'https://www.fillmurray.com/640/360',
     imageRight: 'https://www.placecage.com/640/360'
-  }
+  },
+  methods: { setImageWidth: setImageWidthSpy }
 });
 
 describe('components/generic/CompareImageSlider', () => {
@@ -82,5 +83,14 @@ describe('components/generic/CompareImageSlider', () => {
     slider.trigger('mouseup');
 
     wrapper.vm.dragging.should.eq(false);
+  });
+
+  it('calls `setImageWidth` method when browser has been resized', () => {
+    const setImageWidth = sinon.spy();
+    factory(setImageWidth);
+
+    global.window.dispatchEvent(new Event('resize'));
+
+    setImageWidth.should.have.callCount(2);
   });
 });
