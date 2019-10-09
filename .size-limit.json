@@ -1,14 +1,21 @@
 [
   {
-    "name": "pages/entity/_type/_.vue",
+    "name": "portal.js (en)",
     "running": false,
-    "limit": "175 KB",
+    "limit": "150 KB",
     "path": [
       "./.nuxt/dist/client/runtime.*.js",
       "./.nuxt/dist/client/commons.app.*.js",
       "./.nuxt/dist/client/vendors.app.*.js",
       "./.nuxt/dist/client/app.*.js",
-      "./.nuxt/dist/client/lang-en.*.js",
+      "./.nuxt/dist/client/lang-en.*.js"
+    ]
+  },
+  {
+    "name": "pages/entity/_type/_.vue",
+    "running": false,
+    "limit": "25 KB",
+    "path": [
       "./.nuxt/dist/client/pages/entity/_type/_.*.js",
       "./.nuxt/dist/client/pages/entity/_type/_.pages/search/index.*.js",
       "./.nuxt/dist/client/vendors.pages/entity/_type/_.pages/index.*.js",
@@ -18,13 +25,8 @@
   {
     "name": "pages/record/_.vue",
     "running": false,
-    "limit": "175 KB",
+    "limit": "25 KB",
     "path": [
-      "./.nuxt/dist/client/runtime.*.js",
-      "./.nuxt/dist/client/commons.app.*.js",
-      "./.nuxt/dist/client/vendors.app.*.js",
-      "./.nuxt/dist/client/app.*.js",
-      "./.nuxt/dist/client/lang-en.*.js",
       "./.nuxt/dist/client/pages/record/_.*.js",
       "./.nuxt/dist/client/vendors.pages/entity/_type/_.pages/index.pages/record/_.*.js",
       "./.nuxt/dist/client/vendors.pages/record/_.*.js"
@@ -33,26 +35,17 @@
   {
     "name": "pages/search/index.vue",
     "running": false,
-    "limit": "175 KB",
+    "limit": "10 KB",
     "path": [
-      "./.nuxt/dist/client/runtime.*.js",
-      "./.nuxt/dist/client/commons.app.*.js",
-      "./.nuxt/dist/client/vendors.app.*.js",
-      "./.nuxt/dist/client/app.*.js",
-      "./.nuxt/dist/client/lang-en.*.js",
+      "./.nuxt/dist/client/pages/entity/_type/_.pages/search/index.*.js",
       "./.nuxt/dist/client/pages/search/index.*.js"
     ]
   },
   {
     "name": "pages/index.vue",
     "running": false,
-    "limit": "175 KB",
+    "limit": "20 KB",
     "path": [
-      "./.nuxt/dist/client/runtime.*.js",
-      "./.nuxt/dist/client/commons.app.*.js",
-      "./.nuxt/dist/client/vendors.app.*.js",
-      "./.nuxt/dist/client/app.*.js",
-      "./.nuxt/dist/client/lang-en.*.js",
       "./.nuxt/dist/client/pages/index.*.js",
       "./.nuxt/dist/client/vendors.pages/entity/_type/_.pages/index.*.js",
       "./.nuxt/dist/client/vendors.pages/entity/_type/_.pages/index.pages/record/_.*.js"
