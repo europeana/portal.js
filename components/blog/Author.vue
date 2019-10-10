@@ -6,7 +6,14 @@
     <b-col
       cols="12"
     >
-      {{ name }} {{ organisation }} {{ url }}
+      <h3 class="font-weight-bold">Author</h3>
+      <p>{{ name }}</p>
+      <p v-if="organisation">
+        {{ organisation }}
+      </p>
+      <p v-if="url">
+        {{ url }}
+      </p>
     </b-col>
   </b-row>
 </template>
