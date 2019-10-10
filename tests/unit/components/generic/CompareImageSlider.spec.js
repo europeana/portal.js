@@ -12,7 +12,7 @@ const factory = (setImageWidthSpy) => shallowMount(CompareImageSlider, {
     imageLeft: 'https://www.fillmurray.com/640/360',
     imageRight: 'https://www.placecage.com/640/360'
   },
-  methods: { setImageWidth: setImageWidthSpy }
+  methods: { setImageWidth: setImageWidthSpy || sinon.spy() }
 });
 
 describe('components/generic/CompareImageSlider', () => {
