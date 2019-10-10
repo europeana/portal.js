@@ -78,5 +78,6 @@ export default {
       "hide": "Items that don't meet our publishing criteria are being shown."
     }
   },
-  "removeFilter": "Remove {filterLabel} filter"
+  "removeFilter": "Remove {filterLabel} filter",
+  "newWindow": "opens in new window"
 };
