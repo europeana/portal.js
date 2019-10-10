@@ -1,5 +1,8 @@
 <template>
-  <div class="card">
+  <a
+    href="#"
+    class="card"
+  >
     <img
       src=""
       class="card-img-top"
@@ -10,7 +13,7 @@
         Some quick example text to build on the card title and make up the bulk of the card's content.
       </p>
     </div>
-  </div>
+  </a>
 </template>
 
 <script>
@@ -18,3 +21,11 @@
     name: 'Relatedpost'
   };
 </script>
+
+<style lang="scss" scoped>
+  .card {
+    &:hover {
+      text-decoration: none;
+    }
+  }
+</style>
