@@ -8,7 +8,6 @@
       {{ $t('layout.skipToMain') }}
     </a>
     <PageHeader />
-    <PageNavigation />
     <nuxt
       id="main"
     />
@@ -18,13 +17,11 @@
 
 <script>
   import PageHeader from '../components/PageHeader.vue';
-  import PageNavigation from '../components/PageNavigation.vue';
   import PageFooter from '../components/PageFooter.vue';
 
   export default {
     components: {
       PageHeader,
-      PageNavigation,
       PageFooter
     }
   };
