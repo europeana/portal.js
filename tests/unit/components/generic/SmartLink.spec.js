@@ -1,16 +1,29 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
+
 import BootstrapVue from 'bootstrap-vue';
 import SmartLink from '../../../../components/generic/SmartLink.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
-const factory = () => shallowMount(SmartLink, {
-  localVue,
-  mocks: {
-    localePath: code => window.location.href + code
+const $store = {
+  state: {
+    request: {
+      domain: null
+    }
   }
-});
+};
+
+const factory = () => {
+  return shallowMount(SmartLink, {
+    localVue,
+    mocks: {
+      localePath: code => window.location.href + code,
+      $store,
+      $t: () => {}
+    }
+  });
+};
 
 describe('components/generic/SmartLink', () => {
   context('when passed a URL', () => {
@@ -20,6 +33,15 @@ describe('components/generic/SmartLink', () => {
 
       wrapper.contains('b-link-stub').should.be.true;
       wrapper.find('b-link-stub').attributes('href').should.exist;
+    });
+
+    it('determines if the URL is an external path or not', () => {
+      const wrapper = factory();
+      wrapper.setProps({ destination: 'https://www.example.org/url-example' });
+      wrapper.vm.isExternalLink.should.be.true;
+
+      wrapper.setProps({ destination: '/test' });
+      wrapper.vm.isExternalLink.should.be.false;
     });
   });
 

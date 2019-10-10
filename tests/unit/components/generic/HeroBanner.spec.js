@@ -15,7 +15,7 @@ const factory = () => mount(HeroBanner, {
 describe('components/generic/HeroBanner', () => {
   it('has a background image', () => {
     const wrapper = factory();
-    wrapper.setProps({ heroImage: 'https://example.org' });
+    wrapper.setProps({ imageUrl: 'https://example.org' });
 
     const hero = wrapper.find('[data-qa="hero banner"]');
     hero.attributes().style.should.contain('https://example.org');

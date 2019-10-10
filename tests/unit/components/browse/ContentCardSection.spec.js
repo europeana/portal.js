@@ -5,10 +5,19 @@ import ContentCardSection from '../../../../components/browse/ContentCardSection
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
+const $store = {
+  state: {
+    request: {
+      domain: null
+    }
+  }
+};
+
 const factory = () => mount(ContentCardSection, {
   localVue,
   mocks: {
-    $t: () => {}
+    $t: () => {},
+    $store
   }
 });
 
