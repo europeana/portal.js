@@ -8,7 +8,6 @@
       ref="imageLeft"
       :src="imageLeft"
       :alt="imageLeftText"
-      class="image-left"
       :style="leftImageClip"
       data-qa="compare image left image"
     >
@@ -16,7 +15,6 @@
       ref="imageRight"
       :src="imageRight"
       :alt="imageRightText"
-      class="image-right"
       data-qa="compare image right image"
     >
     <div
@@ -151,15 +149,14 @@
     position: relative;
     overflow: hidden;
 
-    .image-left,
-    .image-right {
+    img {
       width: 100%;
-    }
 
-    .image-left {
-      position: absolute;
-      top: 0;
-      left: 0;
+      &:nth-child(1) {
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
     }
 
     .slider {
@@ -171,7 +168,6 @@
       display: flex;
 
       .slider-handle {
-        display: flex;
         position: absolute;
         background: rgba(255, 255, 255, 0.5);
         width: $slider-dimensions;
