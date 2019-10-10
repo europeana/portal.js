@@ -11,7 +11,7 @@ describe('store/request', () => {
 
       await store.actions.domain({ commit }, { req });
 
-      commit.should.have.been.calledWith('SET_DOMAIN', req.host);
+      commit.should.have.been.calledWith('setDomain', req.host);
     });
   });
 
@@ -22,7 +22,7 @@ describe('store/request', () => {
         domain: null
       };
 
-      store.mutations.SET_DOMAIN(state, host);
+      store.mutations.setDomain(state, host);
 
       state.domain.should.eq('example.org');
     });

@@ -5,7 +5,7 @@ export const state = () => ({
 });
 
 export const mutations = {
-  SET_DOMAIN(state, value) {
+  setDomain(state, value) {
     const currentDomain = parseDomain(value);
     state.domain = currentDomain ? [currentDomain.domain, currentDomain.tld].join('.') : null;
   }
@@ -13,6 +13,6 @@ export const mutations = {
 
 export const actions = {
   async domain({ commit }, { req }) {
-    commit('SET_DOMAIN', req.host);
+    commit('setDomain', req.host);
   }
 };
