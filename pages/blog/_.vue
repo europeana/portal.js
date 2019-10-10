@@ -24,6 +24,7 @@
         <TagAndShare
           :tags="page.keywords"
         />
+        <RelatedPosts />
       </b-col>
       <b-col
         cols="12"
@@ -44,7 +45,8 @@
   import AlertMessage from '../../components/generic/AlertMessage';
   import BlogPost from '../../components/blog/BlogPost';
   import TagAndShare from '../../components/blog/TagAndShare';
-  import Author from '../../components/blog/author';
+  import Author from '../../components/blog/Author';
+  import RelatedPosts from '../../components/blog/RelatedPosts';
 
   export default {
     layout: 'blog',
@@ -54,7 +56,8 @@
       AlertMessage,
       BlogPost,
       TagAndShare,
-      Author
+      Author,
+      RelatedPosts
     },
 
     data() {
