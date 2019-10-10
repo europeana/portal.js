@@ -9,8 +9,8 @@ localVue.use(BootstrapVue);
 const factory = (setImageWidthSpy) => shallowMount(CompareImageSlider, {
   localVue,
   propsData: {
-    imageLeft: 'https://www.fillmurray.com/640/360',
-    imageRight: 'https://www.placecage.com/640/360'
+    imageLeft: '/img/portrait.jpg',
+    imageRight: '/img/portrait-monochrome.jpg'
   },
   methods: { setImageWidth: setImageWidthSpy || sinon.spy() }
 });
@@ -20,14 +20,14 @@ describe('components/generic/CompareImageSlider', () => {
     const wrapper = factory();
 
     const leftImage = wrapper.find('[data-qa="compare image left image"]');
-    leftImage.attributes().src.should.contain('https://www.fillmurray.com/640/360');
+    leftImage.attributes().src.should.contain('/img/portrait.jpg');
   });
 
   it('has right image', () => {
     const wrapper = factory();
 
     const rightImage = wrapper.find('[data-qa="compare image right image"]');
-    rightImage.attributes().src.should.contain('https://www.placecage.com/640/360');
+    rightImage.attributes().src.should.contain('/img/portrait-monochrome.jpg');
   });
 
   it('if available, left image has alt text', () => {
