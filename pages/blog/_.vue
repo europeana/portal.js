@@ -33,6 +33,8 @@
       >
         <Author
           :name="page.author[0].fields.name"
+          :organisation="page.author[0].fields.affiliation"
+          :url="page.author[0].fields.url"
         />
       </b-col>
     </b-row>
@@ -62,21 +64,7 @@
 
     data() {
       return {
-        error: null,
-        breadcrumbs: [
-          {
-            text: 'Admin',
-            href: '#'
-          },
-          {
-            text: 'Manage',
-            href: '#'
-          },
-          {
-            text: 'Library',
-            active: true
-          }
-        ]
+        error: null
       };
     },
 
@@ -94,7 +82,17 @@
             return;
           }
           return {
-            page: response.items[0].fields
+            page: response.items[0].fields,
+            breadcrumbs: [
+              {
+                text: 'Blog',
+                href: '#'
+              },
+              {
+                text: response.items[0].fields.headline,
+                active: true
+              }
+            ]
           };
         })
         .catch((e) => {
