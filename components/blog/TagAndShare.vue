@@ -2,27 +2,22 @@
   <b-row class="flex-md-row border-top pt-3">
     <b-col
       v-if="tags.length > 0"
-      cols="6"
+      cols="9"
       data-qa="blog tags"
     >
       <strong>Tags:</strong>
-      <ul>
-        <li
-          v-for="(tag, index) in tags"
-          :key="index"
-        >
-          <!-- We will need URLS for the tags -->
-          <a
-            href="#"
-            class="badge badge-secondary"
-          >
-            {{ tag }}
-          </a>
-        </li>
-      </ul>
+      <!-- We will need URLS for the tags -->
+      <a
+        v-for="(tag, index) in tags"
+        :key="index"
+        href="#"
+        class="badge badge-secondary"
+      >
+        {{ tag }}
+      </a>
     </b-col>
     <b-col
-      cols="6"
+      cols="3"
       data-qa="blog share"
     >
       <strong>Share:</strong>
@@ -42,3 +37,9 @@
     }
   };
 </script>
+
+<style lang="scss" scoped>
+  .badge:not(:last-child) {
+    margin-right: .3rem;
+  }
+</style>
