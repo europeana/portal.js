@@ -37,9 +37,7 @@
   import VideoPlayer from '../../components/media/VideoPlayer';
   import HTMLEmbed from '../../components/generic/HTMLEmbed';
 
-  import * as oembedParser from 'oembed-parser';
-  import oEmbedProviderList from '../../plugins/oembed-parser/providers.json';
-  oembedParser.setProviderList(oEmbedProviderList);
+  import oEmbed, { oEmbeddable } from '../../plugins/oembed.js';
 
   export default {
     components: {
@@ -95,14 +93,14 @@
           ((this.mimeType === 'video/mp4') && (this.codecName === 'h264'));
       },
       isOEmbed() {
-        return oembedParser.hasProvider(this.url);
+        return oEmbeddable(this.url);
       }
     },
     created() {
       if (this.isOEmbed) {
-        oembedParser.extract(this.url).then((data) => {
-          if (data && data.html) {
-            this.oEmbedData = data;
+        oEmbed(this.url).then((response) => {
+          if (response.data && response.data.html) {
+            this.oEmbedData = response.data;
           } else {
             this.oEmbedData = { error: this.$t('messages.externalContentError') };
           }

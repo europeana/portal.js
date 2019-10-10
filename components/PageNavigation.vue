@@ -56,6 +56,7 @@
 
 <style lang="scss" scoped>
   @import '../assets/scss/variables.scss';
+  @import '../assets/scss/icons.scss';
 
   .nav-item {
     &:not(:last-child) {
@@ -67,6 +68,11 @@
 
       &.nuxt-link-active {
         font-weight: bold;
+      }
+
+      &.is-external-link:after {
+        @extend .icon-font;
+        content: '\e900';
       }
     }
   }

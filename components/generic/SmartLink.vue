@@ -9,13 +9,22 @@
   <b-link
     v-else
     :href="path"
-    :class="linkClass"
+    :target="isExternalLink ? '_blank' : '_self'"
+    :class="[{ 'is-external-link' : isExternalLink }, linkClass]"
   >
     <slot />
+    <span
+      v-if="isExternalLink"
+      class="sr-only"
+    >
+      ({{ $t('newWindow') }})
+    </span>
   </b-link>
 </template>
 
 <script>
+  const parseDomain = require('parse-domain');
+
   export default {
     props: {
       destination: {
@@ -45,6 +54,16 @@
           });
         }
         return this.destination;
+      },
+      isExternalLink() {
+        const destDomain = parseDomain(this.destination);
+        if (destDomain === null) {
+          return false;
+        }
+        const dest = [destDomain.domain, destDomain.tld].join('.');
+        const currentDomain = this.$store.state.request.domain;
+        const current = currentDomain;
+        return dest !== current;
       }
     }
   };
