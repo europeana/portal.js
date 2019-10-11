@@ -3,9 +3,7 @@
     class="flex-md-row pb-3"
     data-qa="blog author"
   >
-    <b-col
-      cols="12"
-    >
+    <b-col cols="12">
       <h3 class="font-weight-bold">
         #{{ authorTitle }}
       </h3>
@@ -39,7 +37,7 @@
 
     computed: {
       authorTitle() {
-        return this.authors.length > 1 ? this.$t('blog.authors') : this.$t('blog.authors');
+        return this.authors.length > 1 ? this.$t('blog.authors') : this.$t('blog.author');
       }
     }
   };
