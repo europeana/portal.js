@@ -3,9 +3,7 @@
     class="flex-md-row"
     data-qa="blog categories"
   >
-    <b-col
-      cols="12"
-    >
+    <b-col cols="12">
       <h3 class="font-weight-bold">
         #{{ categoryTitle }}
       </h3>

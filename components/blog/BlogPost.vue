@@ -3,9 +3,7 @@
     class="flex-md-row"
     data-qa="blog post"
   >
-    <b-col
-      cols="12"
-    >
+    <b-col cols="12">
       <h1
         data-qa="blog post title"
       >

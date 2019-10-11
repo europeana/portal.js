@@ -3,9 +3,7 @@
     class="flex-md-row pt-3"
     data-qa="blog related posts"
   >
-    <b-col
-      cols="12"
-    >
+    <b-col cols="12">
       <h2>#{{ $t('blog.relatedPosts') }}</h2>
     </b-col>
     <b-col
