@@ -23,6 +23,12 @@
     components: {
       PageHeader,
       PageFooter
+    },
+
+    head: {
+      bodyAttrs: {
+        class: 'blog'
+      }
     }
   };
 </script>

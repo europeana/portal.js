@@ -1,0 +1,46 @@
+<template>
+  <b-row
+    class="flex-md-row pb-3"
+    data-qa="blog author"
+  >
+    <b-col
+      cols="12"
+    >
+      <h3 class="font-weight-bold">
+        #{{ authorTitle }}
+      </h3>
+      <Author
+        v-for="(author, index) in authors"
+        :key="index"
+        :name="author.fields.name"
+        :organisation="author.fields.affiliation"
+        :url="author.fields.url"
+      />
+    </b-col>
+  </b-row>
+</template>
+
+<script>
+  import Author from '../blog/Author';
+
+  export default {
+    name: 'Authors',
+
+    components: {
+      Author
+    },
+
+    props: {
+      authors: {
+        type: Array,
+        required: true
+      }
+    },
+
+    computed: {
+      authorTitle() {
+        return this.authors.length > 1 ? this.$t('blog.authors') : this.$t('blog.authors');
+      }
+    }
+  };
+</script>

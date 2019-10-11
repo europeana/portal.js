@@ -6,7 +6,7 @@
     <b-col
       cols="12"
     >
-      <h2>#Related posts</h2>
+      <h2>#{{ $t('blog.relatedPosts') }}</h2>
     </b-col>
     <b-col
       cols="12"

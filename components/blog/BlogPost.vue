@@ -12,12 +12,6 @@
         {{ title }}
       </h1>
 
-      <figure v-if="imagePath">
-        <img
-          :src="imagePath"
-          :alt="imageTitle"
-        >
-      </figure>
       <!-- eslint-disable vue/no-v-html -->
       <div v-html="html" />
       <!-- eslint-enable vue/no-v-html -->
@@ -35,16 +29,6 @@
       title: {
         type: String,
         required: true
-      },
-
-      imagePath: {
-        type: String,
-        default: null
-      },
-
-      imageTitle: {
-        type: String,
-        default: ''
       },
 
       body: {

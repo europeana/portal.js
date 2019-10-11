@@ -31,11 +31,8 @@
         md="3"
         class="pb-3"
       >
-        <Author
-          :name="page.author[0].fields.name"
-          :organisation="page.author[0].fields.affiliation"
-          :url="page.author[0].fields.url"
-        />
+        <Authors :authors="page.author" />
+        <Categories :categories="page.genre" />
       </b-col>
     </b-row>
   </b-container>
@@ -47,8 +44,9 @@
   import AlertMessage from '../../components/generic/AlertMessage';
   import BlogPost from '../../components/blog/BlogPost';
   import TagAndShare from '../../components/blog/TagAndShare';
-  import Author from '../../components/blog/Author';
+  import Authors from '../../components/blog/Authors';
   import RelatedPosts from '../../components/blog/RelatedPosts';
+  import Categories from '../../components/blog/Categories';
 
   export default {
     layout: 'blog',
@@ -58,8 +56,9 @@
       AlertMessage,
       BlogPost,
       TagAndShare,
-      Author,
-      RelatedPosts
+      Authors,
+      RelatedPosts,
+      Categories
     },
 
     data() {

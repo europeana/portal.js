@@ -1,26 +1,28 @@
 <template>
-  <b-row
-    class="flex-md-row"
-    data-qa="blog author"
-  >
-    <b-col
-      cols="12"
+  <div class="pb-3">
+    <strong>{{ name }}</strong>
+    <br>
+    <span v-if="organisation">
+      {{ organisation }}
+    </span>
+    <SmartLink
+      v-if="url"
+      :destination="url"
     >
-      <h3 class="font-weight-bold">Author</h3>
-      <p>{{ name }}</p>
-      <p v-if="organisation">
-        {{ organisation }}
-      </p>
-      <p v-if="url">
-        {{ url }}
-      </p>
-    </b-col>
-  </b-row>
+      {{ url }}
+    </SmartLink>
+  </div>
 </template>
 
 <script>
+  import SmartLink from '../generic/SmartLink';
+
   export default {
     name: 'Author',
+
+    components: {
+      SmartLink
+    },
 
     props: {
       name: {
