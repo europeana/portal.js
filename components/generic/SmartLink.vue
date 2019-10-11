@@ -23,7 +23,7 @@
 </template>
 
 <script>
-  const parseDomain = require('parse-domain');
+  import isExternal from '../../plugins/is-external';
 
   export default {
     props: {
@@ -56,14 +56,7 @@
         return this.destination;
       },
       isExternalLink() {
-        const destDomain = parseDomain(this.destination);
-        if (destDomain === null) {
-          return false;
-        }
-        const dest = [destDomain.domain, destDomain.tld].join('.');
-        const currentDomain = this.$store.state.request.domain;
-        const current = currentDomain;
-        return dest !== current;
+        return isExternal(this.destination);
       }
     }
   };
