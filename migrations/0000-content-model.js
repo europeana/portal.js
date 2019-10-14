@@ -340,7 +340,7 @@ module.exports = function(migration) {
   automatedRecordCard.changeFieldControl(
     'identifier',
     'extension',
-    '3pEPcmf2lL7mVsIn5bQw1A',
+    'europeanaRecordID',
     {}
   );
   automatedRecordCard.changeFieldControl('name', 'builtin', 'singleLine', {});
