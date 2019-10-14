@@ -1,4 +1,6 @@
-export default (domain) => {
+export default (path) => {
+  if (typeof path !== 'string' || path.startsWith('/')) return;
+
   const internalDomain = process.env.INTERNAL_LINK_DOMAIN;
-  return domain.indexOf(internalDomain) === -1;
+  return !path.includes(internalDomain);
 };
