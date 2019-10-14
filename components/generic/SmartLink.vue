@@ -34,6 +34,13 @@
         default: ''
       }
     },
+
+    data() {
+      return {
+        internalDomain: process.env.INTERNAL_LINK_DOMAIN
+      };
+    },
+
     computed: {
       useRouterLink() {
         return (typeof this.destination !== 'string') || this.destination.startsWith('/');
@@ -55,9 +62,11 @@
       },
       isExternalLink() {
         const path = this.destination;
-        if (typeof path !== 'string' || path.startsWith('/')) return false;
-        const internalDomain = process.env.INTERNAL_LINK_DOMAIN;
-        return !path.includes(internalDomain);
+        const hostnamePattern = /\/\/([^/:]+)/;
+        if (typeof path !== 'string' || !hostnamePattern.test(path)) return false;
+        const hostname = path.match(hostnamePattern)[1];
+        console.log(hostname);
+        return !hostname.endsWith(this.internalDomain);
       }
     }
   };
