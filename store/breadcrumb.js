@@ -1,10 +1,12 @@
 export const state = () => ({
-  breadcrumb: null
+  data: null
 });
 
 export const mutations = {
   setBreadcrumb(state, value) {
-    console.log('VALUE', value);
-    state.breadcrumb = value;
+    const breadcrumb = [ { text: 'Blog', href: '#' } ];
+    breadcrumb.push(value);
+
+    state.data = breadcrumb;
   }
 };

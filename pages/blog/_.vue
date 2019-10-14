@@ -39,8 +39,6 @@
   import Categories from '../../components/blog/Categories';
 
   export default {
-    layout: 'blog',
-
     components: {
       BlogPost,
       TagAndShare,
@@ -68,16 +66,11 @@
             error({ statusCode: 404, message: app.i18n.t('messages.notFound') });
             return;
           }
-          store.commit('setBreadcrumb', [
-            {
-              text: 'Blog',
-              href: '#'
-            },
-            {
-              text: response.items[0].fields.headline,
-              active: true
-            }
-          ]);
+          store.commit('breadcrumb/setBreadcrumb', {
+            text: response.items[0].fields.headline,
+            active: true
+          });
+
           return {
             page: response.items[0].fields
           };
