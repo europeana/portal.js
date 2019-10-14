@@ -9,7 +9,7 @@
     </a>
     <PageHeader />
     <PageNavigation />
-    <b-container>
+    <b-container v-if="breadcrumbs">
       <b-row>
         <b-col class="col-12">
           <b-breadcrumb
@@ -42,8 +42,6 @@
 
     computed: {
       breadcrumbs() {
-        console.log('POO');
-        console.log('POO', this.$store.state.breadcrumb);
         return this.$store.state.breadcrumb.data;
       }
     }

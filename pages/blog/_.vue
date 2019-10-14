@@ -20,11 +20,11 @@
         md="3"
         class="pb-3"
       >
-        <Authors
+        <BlogAuthors
           v-if="page.author"
           :authors="page.author"
         />
-        <Categories :categories="page.genre" />
+        <BlogCategories :categories="page.genre" />
       </b-col>
     </b-row>
   </b-container>
@@ -34,17 +34,17 @@
   import createClient from '../../plugins/contentful';
   import BlogPost from '../../components/blog/BlogPost';
   import TagAndShare from '../../components/blog/TagAndShare';
-  import Authors from '../../components/blog/Authors';
+  import BlogAuthors from '../../components/blog/Authors';
   import RelatedPosts from '../../components/blog/RelatedPosts';
-  import Categories from '../../components/blog/Categories';
+  import BlogCategories from '../../components/blog/Categories';
 
   export default {
     components: {
       BlogPost,
       TagAndShare,
-      Authors,
+      BlogAuthors,
       RelatedPosts,
-      Categories
+      BlogCategories
     },
 
     data() {
@@ -78,6 +78,11 @@
         .catch((e) => {
           error({ statusCode: 500, message: e.toString() });
         });
+    },
+
+    beforeRouteLeave(to, from, next) {
+      this.$store.commit('breadcrumb/clearBreadcrumb');
+      next();
     }
   };
 </script>

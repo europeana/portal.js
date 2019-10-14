@@ -7,7 +7,7 @@
       <h3 class="font-weight-bold">
         #{{ authorTitle }}
       </h3>
-      <Author
+      <BlogAuthor
         v-for="(author, index) in authors"
         :key="index"
         :name="author.fields.name"
@@ -19,13 +19,13 @@
 </template>
 
 <script>
-  import Author from '../blog/Author';
+  import BlogAuthor from '../blog/Author';
 
   export default {
     name: 'Authors',
 
     components: {
-      Author
+      BlogAuthor
     },
 
     props: {

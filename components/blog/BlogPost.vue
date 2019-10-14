@@ -4,9 +4,7 @@
     data-qa="blog post"
   >
     <b-col cols="12">
-      <h1
-        data-qa="blog post title"
-      >
+      <h1 data-qa="blog post title">
         {{ title }}
       </h1>
 
