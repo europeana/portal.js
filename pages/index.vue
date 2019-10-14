@@ -6,11 +6,15 @@
       v-if="hero"
       :image-url="heroImage.url"
       :image-content-type="heroImage.contentType"
-      :headline="hero.headline"
-      :description="hero.description"
+      :headline="heroHeadline"
+      :description="page.description"
       :identifier="hero.identifier"
-      :attribution="hero.citation"
+      :citation="hero.citation"
       :rights-statement="hero.license"
+      :name="hero.name"
+      :provider="hero.provider"
+      :creator="hero.creator"
+      :url="hero.url"
     />
     <b-container>
       <BrowseSections
@@ -34,6 +38,9 @@
     computed: {
       hero() {
         return this.page.primaryImageOfPage ? this.page.primaryImageOfPage.fields : null;
+      },
+      heroHeadline() {
+        return this.page.headline || this.page.name;
       },
       heroImage() {
         return this.hero ? this.hero.image.fields.file : null;
@@ -65,7 +72,7 @@
     },
     head() {
       return {
-        title: this.page.headline
+        title: this.page.name
       };
     }
   };

@@ -108,4 +108,7 @@ module.exports = function(migration) {
     {}
   );
   imageWithAttribution.changeFieldControl('url', 'builtin', 'urlEditor', {});
+
+  imageWithAttribution
+    .addSidebarWidget('extension', 'europeanaImageHarvester', {}, 'content-preview-widget');
 };
