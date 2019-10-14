@@ -46,7 +46,7 @@
     props: {
       tags: {
         type: Array,
-        default: null
+        required: true
       }
     }
   };
