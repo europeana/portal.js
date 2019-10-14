@@ -63,9 +63,10 @@
       isExternalLink() {
         const path = this.destination;
         const hostnamePattern = /\/\/([^/:]+)/;
+
         if (typeof path !== 'string' || !hostnamePattern.test(path)) return false;
+
         const hostname = path.match(hostnamePattern)[1];
-        console.log(hostname);
         return !hostname.endsWith(this.internalDomain);
       }
     }
