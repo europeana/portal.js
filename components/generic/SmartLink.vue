@@ -23,8 +23,6 @@
 </template>
 
 <script>
-  import isExternal from '../../plugins/is-external';
-
   export default {
     props: {
       destination: {
@@ -56,7 +54,10 @@
         return this.destination;
       },
       isExternalLink() {
-        return isExternal(this.destination);
+        const path = this.destination;
+        if (typeof path !== 'string' || path.startsWith('/')) return false;
+        const internalDomain = process.env.INTERNAL_LINK_DOMAIN;
+        return !path.includes(internalDomain);
       }
     }
   };
