@@ -4,7 +4,7 @@ export const state = () => ({
 
 export const mutations = {
   setBreadcrumb(state, value) {
-    const breadcrumb = [ { text: 'Blog', href: '#' } ];
+    const breadcrumb = [ { text:  this.app.i18n.t('blog.blog'), href: '#' } ];
     breadcrumb.push(value);
 
     state.data = breadcrumb;

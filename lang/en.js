@@ -81,6 +81,7 @@ export default {
   "removeFilter": "Remove {filterLabel} filter",
   "newWindow": "opens in new window",
   "blog": {
+    "blog": "Blog",
     "author": "Author",
     "authors": "Authors",
     "category": "Category",
