@@ -41,7 +41,7 @@
 
 <script>
   export default {
-    name: 'TagAndsHARE',
+    name: 'TagAndShare',
 
     props: {
       tags: {
