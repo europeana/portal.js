@@ -63,6 +63,11 @@
         .catch((e) => {
           error({ statusCode: 500, message: e.toString() });
         });
+    },
+    head() {
+      return {
+        title: this.page.headline
+      };
     }
   };
 </script>
