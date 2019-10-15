@@ -8,7 +8,8 @@ localVue.use(BootstrapVue);
 const factory = () => mount(HeroBanner, {
   localVue,
   mocks: {
-    localePath: (opts) => `/record/${opts.params.pathMatch}`
+    localePath: (opts) => `/record/${opts.params.pathMatch}`,
+    $t: (key) => key
   }
 });
 
@@ -47,7 +48,7 @@ describe('components/generic/HeroBanner', () => {
 
   it('has an attribution', () => {
     const wrapper = factory();
-    wrapper.setProps({ attribution: 'Johannes Vermeer' });
+    wrapper.setProps({ citation: 'Johannes Vermeer' });
 
     const attribution = wrapper.find('[data-qa="hero banner"] a');
     attribution.text().should.contain('Johannes Vermeer');
@@ -59,5 +60,50 @@ describe('components/generic/HeroBanner', () => {
 
     const rights = wrapper.find('[data-qa="hero banner"] a span');
     rights.text().should.contain('In Copyright');
+  });
+
+  describe('.recordIdentifier', () => {
+    context('when identifier is present', () => {
+      it('returns it', () => {
+        const identifier = '/123/abc';
+        const wrapper = factory();
+        wrapper.setProps({ identifier });
+
+        wrapper.vm.recordIdentifier.should.eq(identifier);
+      });
+    });
+
+    context('when identifier is absent', () => {
+      context('when url is present', () => {
+        context('and is a data.europeana.eu item URI', () => {
+          it('extracts identifier from it', () => {
+            const identifier = '/123/abc';
+            const url = `http://data.europeana.eu/item${identifier}`;
+            const wrapper = factory();
+            wrapper.setProps({ url });
+
+            wrapper.vm.recordIdentifier.should.eq(identifier);
+          });
+        });
+
+        context('but is not a data.europeana.eu item URI', () => {
+          it('is `null`', () => {
+            const url = 'http://www.example.org/something';
+            const wrapper = factory();
+            wrapper.setProps({ url });
+
+            (wrapper.vm.recordIdentifier === null).should.be.true;
+          });
+        });
+      });
+
+      context('and url is absent', () => {
+        it('is `null`', () => {
+          const wrapper = factory();
+
+          (wrapper.vm.recordIdentifier === null).should.be.true;
+        });
+      });
+    });
   });
 });
