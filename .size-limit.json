@@ -25,11 +25,10 @@
   {
     "name": "pages/record/_.vue",
     "running": false,
-    "limit": "25 KB",
+    "limit": "10 KB",
     "path": [
       "./.nuxt/dist/client/pages/record/_.*.js",
-      "./.nuxt/dist/client/vendors.pages/entity/_type/_.pages/index.pages/record/_.*.js",
-      "./.nuxt/dist/client/vendors.pages/record/_.*.js"
+      "./.nuxt/dist/client/vendors.pages/entity/_type/_.pages/index.pages/record/_.*.js"
     ]
   },
   {
