@@ -7,10 +7,19 @@ const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 localVue.component('SmartLink', SmartLink);
 
+const $store = {
+  state: {
+    request: {
+      domain: null
+    }
+  }
+};
+
 const factory = () => mount(ContentCard, {
   localVue,
   mocks: {
-    $t: () => {}
+    $t: () => {},
+    $store
   }
 });
 
