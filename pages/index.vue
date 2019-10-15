@@ -7,7 +7,7 @@
       :image-url="heroImage.url"
       :image-content-type="heroImage.contentType"
       :headline="heroHeadline"
-      :description="page.description"
+      :description="heroDescription"
       :identifier="hero.identifier"
       :citation="hero.citation"
       :rights-statement="hero.license"
@@ -38,6 +38,9 @@
     computed: {
       hero() {
         return this.page.primaryImageOfPage ? this.page.primaryImageOfPage.fields : null;
+      },
+      heroDescription() {
+        return this.hero.description || this.page.description;
       },
       heroHeadline() {
         return this.page.headline || this.hero.headline || this.page.name;
