@@ -18,7 +18,7 @@
   import SmartLink from '../generic/SmartLink';
 
   export default {
-    name: 'Author',
+    name: 'BlogAuthor',
 
     components: {
       SmartLink

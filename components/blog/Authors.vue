@@ -22,7 +22,7 @@
   import BlogAuthor from '../blog/Author';
 
   export default {
-    name: 'Authors',
+    name: 'BlogAuthors',
 
     components: {
       BlogAuthor

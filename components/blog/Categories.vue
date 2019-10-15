@@ -27,7 +27,7 @@
   import SmartLink from '../generic/SmartLink';
 
   export default {
-    name: 'Categories',
+    name: 'BlogCategories',
 
     components: {
       SmartLink
