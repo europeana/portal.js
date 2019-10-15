@@ -37,7 +37,7 @@
 
     computed: {
       authorTitle() {
-        return this.authors.length > 1 ? this.$t('blog.authors') : this.$t('blog.author');
+        return this.authors && this.authors.length > 1 ? this.$t('blog.authors') : this.$t('blog.author');
       }
     }
   };

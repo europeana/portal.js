@@ -8,7 +8,9 @@
         <div class="card-body">
           <time
             v-if="datePublished"
-            class="font-weight-bold">
+            class="font-weight-bold"
+            data-qa="date"
+          >
             {{ datePublished.split('T')[0] }}
           </time>
           <h1 data-qa="blog post title">
