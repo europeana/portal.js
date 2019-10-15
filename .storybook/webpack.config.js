@@ -24,6 +24,10 @@ module.exports = {
         options: {
           noquotes: true
         }
+      },
+      {
+        test: /\.(woff)$/,
+        loader: ['file-loader'],
       }
     ]
   }
