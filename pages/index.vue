@@ -40,7 +40,7 @@
         return this.page.primaryImageOfPage ? this.page.primaryImageOfPage.fields : null;
       },
       heroHeadline() {
-        return this.page.headline || this.page.name;
+        return this.page.headline || this.hero.headline || this.page.name;
       },
       heroImage() {
         return this.hero ? this.hero.image.fields.file : null;
