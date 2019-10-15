@@ -4,13 +4,17 @@
     data-qa="blog post"
   >
     <b-col cols="12">
-      <h1 data-qa="blog post title">
-        {{ title }}
-      </h1>
+      <article class="card">
+        <div class="card-body">
+          <h1 data-qa="blog post title">
+            {{ title }}
+          </h1>
 
-      <!-- eslint-disable vue/no-v-html -->
-      <div v-html="html" />
-      <!-- eslint-enable vue/no-v-html -->
+          <!-- eslint-disable vue/no-v-html -->
+          <div v-html="html" />
+          <!-- eslint-enable vue/no-v-html -->
+        </div>
+      </article>
     </b-col>
   </b-row>
 </template>
