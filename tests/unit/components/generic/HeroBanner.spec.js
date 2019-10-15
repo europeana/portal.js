@@ -62,6 +62,32 @@ describe('components/generic/HeroBanner', () => {
     rights.text().should.contain('In Copyright');
   });
 
+  describe('.attributionLinkDestination', () => {
+    context('when url is a data.europeana.eu URI', () => {
+      it('returns a route object', () => {
+        const identifierSlug = '123/abc';
+        const url = `http://data.europeana.eu/item/${identifierSlug}`;
+        const wrapper = factory();
+        wrapper.setProps({ url });
+
+        wrapper.vm.attributionLinkDestination.should.deep.eql({
+          name: 'record-all',
+          params: { pathMatch: identifierSlug }
+        });
+      });
+    });
+
+    context('when url is not a data.europeana.eu URI', () => {
+      it('returns url as-is', () => {
+        const url = 'http://www.example.org/something';
+        const wrapper = factory();
+        wrapper.setProps({ url });
+
+        wrapper.vm.attributionLinkDestination.should.eq(url);
+      });
+    });
+  });
+
   describe('.recordIdentifier', () => {
     context('when identifier is present', () => {
       it('returns it', () => {
