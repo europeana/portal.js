@@ -34,9 +34,9 @@
   import createClient from '../../plugins/contentful';
   import BlogPost from '../../components/blog/BlogPost';
   import TagAndShare from '../../components/blog/TagAndShare';
-  import BlogAuthors from '../../components/blog/Authors';
+  import BlogAuthors from '../../components/blog/BlogAuthors';
   import RelatedPosts from '../../components/blog/RelatedPosts';
-  import BlogCategories from '../../components/blog/Categories';
+  import BlogCategories from '../../components/blog/BlogCategories';
 
   export default {
     components: {

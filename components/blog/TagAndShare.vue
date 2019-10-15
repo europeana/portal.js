@@ -1,5 +1,5 @@
 <template>
-  <b-row class="flex-md-row border-top border-bottom py-3">
+  <b-row class="flex-md-row py-3">
     <b-col
       v-if="tags.length > 0"
       cols="10"
@@ -35,6 +35,9 @@
         <span class="icon icon-twitter" />
         <span class="sr-only">Twitter</span>
       </a>
+    </b-col>
+    <b-col cols="12">
+      <hr>
     </b-col>
   </b-row>
 </template>

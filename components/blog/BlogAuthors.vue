@@ -19,7 +19,7 @@
 </template>
 
 <script>
-  import BlogAuthor from '../blog/Author';
+  import BlogAuthor from '../blog/BlogAuthor';
 
   export default {
     name: 'BlogAuthors',

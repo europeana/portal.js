@@ -1,6 +1,6 @@
 <template>
   <b-row
-    class="flex-md-row pt-3"
+    class="flex-md-row"
     data-qa="blog related posts"
   >
     <b-col cols="12">
