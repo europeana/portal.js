@@ -59,7 +59,8 @@
       return contentfulClient.getEntries({
         'locale': app.i18n.isoLocale(),
         'content_type': 'blogPosting',
-        'sys.id': params.pathMatch
+        'fields.identifier': params.pathMatch,
+        'limit': 1
       })
         .then((response) => {
           if (response.total === 0) {
