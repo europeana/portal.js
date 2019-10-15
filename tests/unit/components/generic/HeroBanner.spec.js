@@ -88,6 +88,39 @@ describe('components/generic/HeroBanner', () => {
     });
   });
 
+  describe('.attributionLinkText', () => {
+    context('when citation is present', () => {
+      it('is returned as-is', () => {
+        const citation = 'Something, Someone, Somewhere';
+        const wrapper = factory();
+        wrapper.setProps({ citation });
+
+        wrapper.vm.attributionLinkText.should.eq(citation);
+      });
+    });
+
+    context('when citation is absent', () => {
+      it('is concatenates name, creator and provider', () => {
+        const name = 'Something';
+        const creator = 'Someone';
+        const provider = 'Somewhere';
+        const wrapper = factory();
+        wrapper.setProps({ name, creator, provider });
+
+        wrapper.vm.attributionLinkText.should.eq('Something, Someone, Somewhere');
+      });
+
+      it('omits empty fields', () => {
+        const name = 'Something';
+        const provider = 'Somewhere';
+        const wrapper = factory();
+        wrapper.setProps({ name, provider });
+
+        wrapper.vm.attributionLinkText.should.eq('Something, Somewhere');
+      });
+    });
+  });
+
   describe('.recordIdentifier', () => {
     context('when identifier is present', () => {
       it('returns it', () => {
