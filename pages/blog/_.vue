@@ -6,6 +6,7 @@
         md="9"
       >
         <BlogPost
+          :date-published="page.datePublished"
           :title="page.headline"
           :body="page.articleBody"
         />

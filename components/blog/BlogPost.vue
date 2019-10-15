@@ -6,6 +6,11 @@
     <b-col cols="12">
       <article class="card">
         <div class="card-body">
+          <time
+            v-if="datePublished"
+            class="font-weight-bold">
+            {{ datePublished.split('T')[0] }}
+          </time>
           <h1 data-qa="blog post title">
             {{ title }}
           </h1>
@@ -26,6 +31,11 @@
     name: 'BlogPost',
 
     props: {
+      datePublished: {
+        type: String,
+        default: ''
+      },
+
       title: {
         type: String,
         required: true
