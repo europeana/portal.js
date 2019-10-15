@@ -23,8 +23,6 @@
 </template>
 
 <script>
-  const parseDomain = require('parse-domain');
-
   export default {
     props: {
       destination: {
@@ -36,6 +34,13 @@
         default: ''
       }
     },
+
+    data() {
+      return {
+        internalDomain: process.env.INTERNAL_LINK_DOMAIN
+      };
+    },
+
     computed: {
       useRouterLink() {
         return (typeof this.destination !== 'string') || this.destination.startsWith('/');
@@ -56,14 +61,13 @@
         return this.destination;
       },
       isExternalLink() {
-        const destDomain = parseDomain(this.destination);
-        if (destDomain === null) {
-          return false;
-        }
-        const dest = [destDomain.domain, destDomain.tld].join('.');
-        const currentDomain = this.$store.state.request.domain;
-        const current = currentDomain;
-        return dest !== current;
+        const path = this.destination;
+        const hostnamePattern = /\/\/([^/:]+)/;
+
+        if (typeof path !== 'string' || !hostnamePattern.test(path)) return false;
+
+        const hostname = path.match(hostnamePattern)[1];
+        return !hostname.endsWith(this.internalDomain);
       }
     }
   };
