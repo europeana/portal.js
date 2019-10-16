@@ -11,6 +11,21 @@ module.exports = function(migration) {
     ]);
 
   browsePage
+    .editField('identifier')
+    .validations([
+      {
+        unique: true
+      },
+      {
+        prohibitRegexp: {
+          pattern: '^(exhibitions?$|exhibition/|blog/|search$|record/|entity/)',
+          flags: null
+        },
+        message: 'This URL slug is reserved.'
+      }
+    ]);
+
+  browsePage
     .changeFieldId('headline', 'name');
   browsePage
     .displayField('name');
