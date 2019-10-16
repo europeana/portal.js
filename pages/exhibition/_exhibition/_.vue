@@ -10,7 +10,7 @@
           <h1
             data-qa="exhibition chapter title"
           >
-            {{ page.headline }}
+            {{ page.name }}
           </h1>
           <article>
             <h2>{{ page.description }}</h2>
@@ -63,7 +63,7 @@
     },
     head() {
       return {
-        title: this.page.headline
+        title: this.page.name
       };
     }
   };
