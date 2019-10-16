@@ -24,7 +24,7 @@ describe('components/generic/HeroBanner', () => {
 
   it('has a title', () => {
     const wrapper = factory();
-    wrapper.setProps({ headline: 'Welcome at Europeana' });
+    wrapper.setProps({ header: 'Welcome at Europeana' });
 
     const title = wrapper.find('[data-qa="hero banner"] h2');
     title.text().should.contain('Welcome at Europeana');
@@ -32,7 +32,7 @@ describe('components/generic/HeroBanner', () => {
 
   it('has a description', () => {
     const wrapper = factory();
-    wrapper.setProps({ description: 'Explore artworks, artefacts, books, films and music' });
+    wrapper.setProps({ lead: 'Explore artworks, artefacts, books, films and music' });
 
     const description = wrapper.find('[data-qa="hero banner"] .lead');
     description.text().should.contain('Explore artworks, artefacts, books, films and music');
