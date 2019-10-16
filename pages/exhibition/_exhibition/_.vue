@@ -8,7 +8,7 @@
           class="pb-3"
         >
           <h1
-            data-qa="exhibition title"
+            data-qa="exhibition chapter title"
           >
             {{ page.headline }}
           </h1>
