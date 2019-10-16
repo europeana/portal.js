@@ -3,6 +3,7 @@ module.exports = function(migration) {
 
   browsePage
     .editField('primaryImageOfPage')
+    .name('Hero image')
     .validations([
       {
         linkContentType: ['heroBanner', 'imageWithAttribution']
