@@ -2,7 +2,20 @@
   <div
     data-qa="exhibition page"
   >
-    <!-- hero banner can go here -->
+    <HeroBanner
+      v-if="hero"
+      :image-url="heroImage.url"
+      :image-content-type="heroImage.contentType"
+      :headline="heroHeadline"
+      :description="heroDescription"
+      :identifier="hero.identifier"
+      :citation="hero.citation"
+      :rights-statement="hero.license"
+      :name="hero.name"
+      :provider="hero.provider"
+      :creator="hero.creator"
+      :url="hero.url"
+    />
     <b-container class="pb-3">
       <b-row>
         <b-col
@@ -14,7 +27,8 @@
           >
             {{ page.headline }}
           </h1>
-          <h2>{{ page.description }}</h2>
+          <h2>{{ page.alternativeHeadline }}</h2>
+          <p>{{ page.description }}</p>
           {{ page.text }}
         </b-col>
       </b-row>
@@ -38,8 +52,26 @@
 
 <script>
   import createClient from '../../plugins/contentful';
+  import HeroBanner from '../../components/generic/HeroBanner';
 
   export default {
+    components: {
+      HeroBanner
+    },
+    computed: {
+      hero() {
+        return this.page.primaryImageOfPage ? this.page.primaryImageOfPage.fields : null;
+      },
+      heroDescription() {
+        return this.page.description;
+      },
+      heroHeadline() {
+        return this.page.headline;
+      },
+      heroImage() {
+        return this.hero ? this.hero.image.fields.file : null;
+      }
+    },
     asyncData({ params, query, error, app }) {
 
       const contentfulClient = createClient(query.mode);
