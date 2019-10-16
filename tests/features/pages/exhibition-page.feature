@@ -1,6 +1,6 @@
 Feature: Exhibition page
 
-  Scenario: Browse Curated Sections & Cards
+  Scenario: View exhibition page
 
     When I open the `exhibition page`
     Then I see a `exhibition title`
