@@ -7,14 +7,13 @@
     >
       <strong>Tags:</strong>
       <!-- We will need URLS for the tags -->
-      <a
+      <span
         v-for="(tag, index) in tags"
         :key="index"
-        href="#"
         class="badge badge-secondary"
       >
         {{ tag }}
-      </a>
+      </span>
     </b-col>
   </b-row>
 </template>

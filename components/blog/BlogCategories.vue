@@ -12,11 +12,7 @@
           v-for="(category) in categories"
           :key="category"
         >
-          <SmartLink
-            :destination="category"
-          >
-            {{ category }}
-          </SmartLink>
+          {{ category }}
         </li>
       </ul>
     </b-col>
@@ -24,14 +20,8 @@
 </template>
 
 <script>
-  import SmartLink from '../generic/SmartLink';
-
   export default {
     name: 'BlogCategories',
-
-    components: {
-      SmartLink
-    },
 
     props: {
       categories: {
