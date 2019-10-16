@@ -79,5 +79,13 @@ export default {
     }
   },
   "removeFilter": "Remove {filterLabel} filter",
-  "newWindow": "opens in new window"
+  "newWindow": "opens in new window",
+  "blog": {
+    "blog": "Blog",
+    "author": "Author",
+    "authors": "Authors",
+    "category": "Category",
+    "categories": "Categories",
+    "relatedPosts": "Related posts"
+  }
 };
