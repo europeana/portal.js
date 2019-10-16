@@ -5,7 +5,7 @@
   >
     <b-col cols="12">
       <h3 class="font-weight-bold">
-        #{{ categoryTitle }}
+        {{ categoryTitle }}
       </h3>
       <ul class="list-unstyled">
         <li

@@ -5,7 +5,7 @@
   >
     <b-col cols="12">
       <h3 class="font-weight-bold">
-        #{{ authorTitle }}
+        {{ authorTitle }}
       </h3>
       <BlogAuthor
         v-for="(author, index) in authors"
