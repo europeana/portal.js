@@ -46,6 +46,21 @@ const entitiesResponse = {
   ]
 };
 
+const entitySuggestionsResponse = {
+  '@context': ['https://www.w3.org/ns/ldp.jsonld', 'http://www.europeana.eu/schemas/context/entity.jsonld'],
+  type: 'ResultPage',
+  total: 1,
+  items: [{
+    id: 'http://data.europeana.eu/concept/base/83',
+    type: 'Concept',
+    depiction: 'http://commons.wikimedia.org/wiki/Special:FilePath/Map_Europe_alliances_1914-en.svg',
+    prefLabel: {
+      en: 'World War I',
+      sq: 'Lufta e Parë Botërore'
+    }
+  }]
+};
+
 describe('plugins/europeana/entity', () => {
   afterEach(() => {
     nock.cleanAll();
@@ -112,6 +127,47 @@ describe('plugins/europeana/entity', () => {
           response.entity.prefLabel.en.should.eq('Architecture');
         });
       });
+    });
+  });
+
+  describe('getEntitySuggestions()', () => {
+    const text = 'world';
+
+    it('passes `text` to API', async() => {
+      nock(apiUrl)
+        .get('/entity/suggest')
+        .query(query => {
+          return query.text === text;
+        })
+        .reply(200, entitySuggestionsResponse);
+
+      await entities.getEntitySuggestions(text, { wskey: apiKey });
+
+      nock.isDone().should.be.true;
+    });
+
+    it('restricts types to agent & concept', async() => {
+      nock(apiUrl)
+        .get('/entity/suggest')
+        .query(query => {
+          return query.type === 'agent,concept';
+        })
+        .reply(200, entitySuggestionsResponse);
+
+      await entities.getEntitySuggestions(text, { wskey: apiKey });
+
+      nock.isDone().should.be.true;
+    });
+
+    it('returns the "items"', async() => {
+      nock(apiUrl)
+        .get('/entity/suggest')
+        .query(true)
+        .reply(200, entitySuggestionsResponse);
+
+      const items = await entities.getEntitySuggestions(text, { wskey: apiKey });
+
+      items.should.deep.eq(entitySuggestionsResponse.items);
     });
   });
 
