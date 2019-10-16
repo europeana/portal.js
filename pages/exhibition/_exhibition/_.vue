@@ -12,8 +12,10 @@
           >
             {{ page.headline }}
           </h1>
-          <h2>{{ page.description }}</h2>
-          {{ page.text }}
+          <article>
+            <h2>{{ page.description }}</h2>
+            {{ page.text }}
+          </article>
         </b-col>
       </b-row>
       <b-row>
@@ -38,9 +40,6 @@
       BrowseSections
     },
     asyncData({ params, query, error, app }) {
-      console.log('exhibition:' + params.exhibition);
-      console.log('chapter:' + params.pathMatch);
-
       const contentfulClient = createClient(query.mode);
       return contentfulClient.getEntries({
         'locale': app.i18n.isoLocale(),
@@ -61,8 +60,6 @@
         .catch((e) => {
           error({ statusCode: 500, message: e.toString() });
         });
-
-
     },
     head() {
       return {
