@@ -10,11 +10,10 @@
           :title="page.headline"
           :body="page.articleBody"
         />
-        <TagAndShare
+        <BlogTags
           v-if="page.keywords"
           :tags="page.keywords"
         />
-        <RelatedPosts />
       </b-col>
       <b-col
         cols="12"
@@ -34,17 +33,15 @@
 <script>
   import createClient from '../../plugins/contentful';
   import BlogPost from '../../components/blog/BlogPost';
-  import TagAndShare from '../../components/blog/TagAndShare';
+  import BlogTags from '../../components/blog/BlogTags';
   import BlogAuthors from '../../components/blog/BlogAuthors';
-  import RelatedPosts from '../../components/blog/RelatedPosts';
   import BlogCategories from '../../components/blog/BlogCategories';
 
   export default {
     components: {
       BlogPost,
-      TagAndShare,
+      BlogTags,
       BlogAuthors,
-      RelatedPosts,
       BlogCategories
     },
 
