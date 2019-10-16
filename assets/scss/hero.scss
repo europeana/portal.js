@@ -52,8 +52,12 @@
     line-height: 1;
     margin-right: 1rem;
     padding: 0.5rem;
-    padding-right: 2rem;
     position: absolute;
+
+    &.is-external-link:after {
+      content: '\e900';
+      @extend .icon-font;
+    }
 
     .license {
       background-position: left center;
@@ -65,17 +69,6 @@
 
     .icon-license-rr {
       padding-left: 0.5rem;
-    }
-
-    &::after {
-      background: url('../../assets/img/icons/link-external.svg') right 2px no-repeat;
-      background-size: 13px 14px;
-      content: '';
-      height: 14px;
-      position: absolute;
-      right: 0.5rem;
-      top: 0.65rem;
-      width: 13px;
     }
 
     &:hover {
