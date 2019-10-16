@@ -1,16 +1,17 @@
 <template>
   <div class="pb-3">
-    <strong>{{ name }}</strong>
+    <SmartLink
+      v-if="url"
+      :destination="url"
+      class="font-weight-bold"
+    >
+      {{ name }}
+    </SmartLink>
+    <strong v-else>{{ name }}</strong>
     <br>
     <span v-if="organisation">
       {{ organisation }}
     </span>
-    <SmartLink
-      v-if="url"
-      :destination="url"
-    >
-      {{ url }}
-    </SmartLink>
   </div>
 </template>
 
