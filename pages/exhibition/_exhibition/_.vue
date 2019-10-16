@@ -1,6 +1,6 @@
 <template>
   <div data-qa="exhibition chapter">
-    <!-- hero banner can go here -->
+    <!-- TODO: hero banner can go here -->
     <b-container>
       <b-row>
         <b-col
@@ -24,6 +24,7 @@
           />
         </b-col>
       </b-row>
+      <!-- TODO: add chapters -->
     </b-container>
   </div>
 </template>
