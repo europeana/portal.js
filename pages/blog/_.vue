@@ -54,6 +54,12 @@
       };
     },
 
+    head() {
+      return {
+        title: this.page.headline
+      };
+    },
+
     asyncData({ params, query, error, app, store }) {
       const contentfulClient = createClient(query.mode);
 
