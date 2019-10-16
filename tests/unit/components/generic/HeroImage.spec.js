@@ -1,11 +1,11 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
-import HeroBanner from '../../../../components/generic/HeroBanner.vue';
+import HeroImage from '../../../../components/generic/HeroImage.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
-const factory = () => mount(HeroBanner, {
+const factory = () => mount(HeroImage, {
   localVue,
   mocks: {
     localePath: (opts) => `/record/${opts.params.pathMatch}`,
@@ -13,7 +13,7 @@ const factory = () => mount(HeroBanner, {
   }
 });
 
-describe('components/generic/HeroBanner', () => {
+describe('components/generic/HeroImage', () => {
   it('has a background image', () => {
     const wrapper = factory();
     wrapper.setProps({ imageUrl: 'https://example.org' });

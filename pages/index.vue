@@ -2,7 +2,7 @@
   <div
     data-qa="browse page"
   >
-    <HeroBanner
+    <HeroImage
       v-if="hero"
       :image-url="heroImage.url"
       :image-content-type="heroImage.contentType"
@@ -27,13 +27,13 @@
 
 <script>
   import BrowseSections from '../components/browse/BrowseSections';
-  import HeroBanner from '../components/generic/HeroBanner';
+  import HeroImage from '../components/generic/HeroImage';
   import createClient from '../plugins/contentful';
 
   export default {
     components: {
       BrowseSections,
-      HeroBanner
+      HeroImage
     },
     computed: {
       hero() {
