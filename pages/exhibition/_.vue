@@ -25,23 +25,33 @@
           <h1
             data-qa="exhibition title"
           >
-            {{ page.headline }}
+            {{ page.name }}
           </h1>
-          <h2>{{ page.alternativeHeadline }}</h2>
-          <p>{{ page.description }}</p>
-          {{ page.text }}
+          <article>
+            <h2>{{ page.alternativeHeadline }}</h2>
+            <p>{{ page.description }}</p>
+            <!-- eslint-disable vue/no-v-html -->
+            <div
+              v-html="mainContent"
+            />
+            <!-- TODO: remove when credits go to their own page? -->
+            <div
+              v-html="credits"
+            />
+            <!-- eslint-enable vue/no-v-html -->
+          </article>
         </b-col>
       </b-row>
       <b-row>
         <b-col>
-          <!-- chapters can go here -->
+          <!-- TODO: add links to chapters, remove h2 -->
           <h2>Chapters</h2>
-          <ul>
+          <ul v-if="page.hasPart">
             <li
               v-for="chapter in page.hasPart"
               :key="chapter.fields.identifier"
             >
-              {{ chapter.fields.headline }}
+              {{ chapter.fields.name }}
             </li>
           </ul>
         </b-col>
@@ -51,6 +61,7 @@
 </template>
 
 <script>
+  import marked from 'marked';
   import createClient from '../../plugins/contentful';
   import HeroBanner from '../../components/generic/HeroBanner';
 
@@ -66,10 +77,17 @@
         return this.page.description;
       },
       heroHeadline() {
-        return this.page.headline;
+        return this.page.headline ? this.page.headline : this.page.name;
       },
       heroImage() {
         return this.hero ? this.hero.image.fields.file : null;
+      },
+      mainContent() {
+        return marked(this.page.text);
+      },
+      // TODO: remove when credits go to their own page?
+      credits() {
+        return marked(this.page.credits);
       }
     },
     asyncData({ params, query, error, app }) {
@@ -98,7 +116,7 @@
     },
     head() {
       return {
-        title: this.page.headline
+        title: this.page.name
       };
     }
   };
