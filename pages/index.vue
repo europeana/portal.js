@@ -6,11 +6,15 @@
       v-if="hero"
       :image-url="heroImage.url"
       :image-content-type="heroImage.contentType"
-      :headline="hero.headline"
-      :description="hero.description"
+      :headline="heroHeadline"
+      :description="heroDescription"
       :identifier="hero.identifier"
-      :attribution="hero.citation"
+      :citation="hero.citation"
       :rights-statement="hero.license"
+      :name="hero.name"
+      :provider="hero.provider"
+      :creator="hero.creator"
+      :url="hero.url"
     />
     <b-container>
       <BrowseSections
@@ -34,6 +38,16 @@
     computed: {
       hero() {
         return this.page.primaryImageOfPage ? this.page.primaryImageOfPage.fields : null;
+      },
+      // TODO: remove the preference for hero.description when production space
+      //       has page.description set for all hero banners
+      heroDescription() {
+        return this.hero.description || this.page.description;
+      },
+      // TODO: remove the preference for hero.headline when production space
+      //       has page.headline set for all hero banners
+      heroHeadline() {
+        return this.hero.headline || this.page.headline;
       },
       heroImage() {
         return this.hero ? this.hero.image.fields.file : null;
@@ -65,7 +79,8 @@
     },
     head() {
       return {
-        title: this.page.headline
+        // TODO: remove the fallback to headline when production space has name field
+        title: this.page.name || this.page.headline
       };
     }
   };

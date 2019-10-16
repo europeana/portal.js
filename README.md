@@ -1,9 +1,15 @@
-# Incubator for Europeana Portal in vue.js + nuxt.js
- [![Build Status](https://travis-ci.com/europeana/incubator-portal-vue-nuxt.svg?branch=master)](https://travis-ci.com/europeana/incubator-portal-vue-nuxt) [![Maintainability](https://api.codeclimate.com/v1/badges/6d547010dcc180c40cf5/maintainability)](https://codeclimate.com/github/europeana/incubator-portal-vue-nuxt/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/6d547010dcc180c40cf5/test_coverage)](https://codeclimate.com/github/europeana/incubator-portal-vue-nuxt/test_coverage)
+# Europeana Collections portal, made with Vue.js + Nuxt.js
+ [![Build Status](https://travis-ci.com/europeana/portal.js.svg?branch=master)](https://travis-ci.com/europeana/portal.js) [![Maintainability](https://api.codeclimate.com/v1/badges/6d547010dcc180c40cf5/maintainability)](https://codeclimate.com/github/europeana/portal.js/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/6d547010dcc180c40cf5/test_coverage)](https://codeclimate.com/github/europeana/portal.js/test_coverage)
+
+## Prerequisites
+
+1. Node.js version 12, and npm
+2. [Contentful](https://www.contentful.com/) CMS account
+
 ## Build Setup
 
-``` bash
-# install dependencies
+```bash
+# install package dependencies
 $ npm install
 
 # serve with hot reload at localhost:3000
@@ -24,7 +30,7 @@ $ npm run build-storybook
 
 ```
 
-For detailed explanation on how things work, checkout [Nuxt.js docs](https://nuxtjs.org).
+For detailed explanation on how things work, refer to [Nuxt.js docs](https://nuxtjs.org).
 
 ## Testing
 

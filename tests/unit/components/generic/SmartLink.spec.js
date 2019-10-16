@@ -37,11 +37,22 @@ describe('components/generic/SmartLink', () => {
 
     it('determines if the URL is an external path or not', () => {
       const wrapper = factory();
+      wrapper.setData({ internalDomain: '.foo.com' });
       wrapper.setProps({ destination: 'https://www.example.org/url-example' });
       wrapper.vm.isExternalLink.should.be.true;
 
       wrapper.setProps({ destination: '/test' });
       wrapper.vm.isExternalLink.should.be.false;
+
+      wrapper.setProps({ destination: 'www.foo.com/test' });
+      wrapper.vm.isExternalLink.should.be.false;
+    });
+
+    it('returns the correct response if passed a path ending with internal domain ', () => {
+      const wrapper = factory();
+      wrapper.setData({ internalDomain: '.foo.com' });
+      wrapper.setProps({ destination: 'https://www.example.org/www.foo.com' });
+      wrapper.vm.isExternalLink.should.be.true;
     });
   });
 
