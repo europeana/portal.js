@@ -162,6 +162,7 @@
               name: 'entity-type-all',
               params: { type: params.type, pathMatch: encodeURIComponent(desiredPath) }
             });
+            store.commit('entity/setId', null);
             return redirect(302, redirectPath);
           }
 
