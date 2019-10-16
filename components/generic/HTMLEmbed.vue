@@ -4,6 +4,7 @@
     v-if="html"
     data-qa="html embed"
     v-html="html"
+    class="mb-5"
   />
   <AlertMessage
     v-else-if="error"
