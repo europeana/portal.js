@@ -53,7 +53,15 @@
         return this.hero ? this.hero.image.fields.file : null;
       }
     },
-    asyncData({ params, query, error, app }) {
+    asyncData({ params, query, error, app, route, redirect }) {
+      const i18nPattern = new RegExp(`/${app.i18n.locale}(/|$)`);
+      if (!i18nPattern.test(route.path)) {
+        return redirect({
+          path: app.i18n.locale + route.path,
+          query: route.query
+        });
+      }
+
       const contentfulClient = createClient(query.mode);
 
       // fetch the browsePage data, include set to 2 in order to get nested card data
