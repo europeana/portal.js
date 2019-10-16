@@ -18,13 +18,35 @@ module.exports = function(migration) {
     .toTheTop();
 
   browsePage
-    .changeFieldId('text', 'description');
+    .createField('description')
+    .name('Description')
+    .type('Symbol')
+    .localized(true)
+    .required(false)
+    .disabled(false)
+    .omitted(false);
   browsePage
-    .editField('description')
-    .disabled(false);
+    .changeFieldControl('description', 'builtin', 'singleLine', {
+      helpText: 'For SEO, please make sure there is a short description.'
+    });
   browsePage
     .moveField('description')
     .afterField('identifier');
+
+  migration.transformEntries({
+    contentType: 'browsePage',
+    from: ['text'],
+    to: ['description'],
+    transformEntryForLocale: (fromFields, currentLocale) => {
+      if (!fromFields.text) return;
+      const text = fromFields.text[currentLocale];
+      if (typeof text === 'undefined') return;
+      const description = (text.length <= 255) ? text : text.slice(0, 253) + '…';
+      return { description };
+    }
+  });
+
+  browsePage.deleteField('text');
 
   browsePage
     .createField('headline')
@@ -33,10 +55,10 @@ module.exports = function(migration) {
     .localized(true)
     .disabled(false)
     .omitted(false);
-  browsePage
-    .moveField('headline')
-    .afterField('description');
   browsePage.changeFieldControl('headline', 'builtin', 'singleLine', {
     helpText: 'Headline to use on the hero banner.'
   });
+  browsePage
+    .moveField('headline')
+    .afterField('description');
 };
