@@ -16,29 +16,6 @@
         {{ tag }}
       </a>
     </b-col>
-    <b-col
-      cols="2"
-      data-qa="blog share"
-    >
-      <strong>Share:</strong>
-      <a
-        href=""
-        class="social-media-icon"
-      >
-        <span class="icon icon-facebook" />
-        <span class="sr-only">Facebook</span>
-      </a>
-      <a
-        href=""
-        class="social-media-icon"
-      >
-        <span class="icon icon-twitter" />
-        <span class="sr-only">Twitter</span>
-      </a>
-    </b-col>
-    <b-col cols="12">
-      <hr>
-    </b-col>
   </b-row>
 </template>
 
@@ -58,14 +35,5 @@
 <style lang="scss" scoped>
   .badge:not(:last-child) {
     margin-right: .3rem;
-  }
-
-  .social-media-icon {
-    padding: .2rem;
-    display: inline-flex;
-
-    &:hover {
-      text-decoration: none;
-    }
   }
 </style>
