@@ -4,23 +4,22 @@
     data-qa="blog post"
   >
     <b-col cols="12">
-      <article class="card">
-        <div class="card-body">
-          <time
-            v-if="datePublished"
-            class="font-weight-bold"
-            data-qa="date"
-          >
-            {{ datePublished.split('T')[0] }}
-          </time>
-          <h1 data-qa="blog post title">
-            {{ title }}
-          </h1>
+      <article class="card card-body">
+        <h1 data-qa="blog post title">
+          {{ title }}
+        </h1>
+        <time
+          v-if="datePublished"
+          class="font-weight-bold pb-3"
+          data-qa="date"
+          :datetime="datePublished"
+        >
+          {{ datePublished.split('T')[0] }}
+        </time>
 
-          <!-- eslint-disable vue/no-v-html -->
-          <div v-html="html" />
-          <!-- eslint-enable vue/no-v-html -->
-        </div>
+        <!-- eslint-disable vue/no-v-html -->
+        <div v-html="html" />
+        <!-- eslint-enable vue/no-v-html -->
       </article>
     </b-col>
   </b-row>
