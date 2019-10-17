@@ -5,6 +5,16 @@
         cols="12"
         md="9"
       >
+        <HeroImage
+          v-if="hero"
+          :image-url="heroImage.url"
+          :image-content-type="heroImage.contentType"
+          :rights-statement="hero.license"
+          :name="hero.name"
+          :provider="hero.provider"
+          :creator="hero.creator"
+          :url="hero.url"
+        />
         <BlogPost
           :date-published="page.datePublished"
           :title="page.name"
@@ -36,19 +46,30 @@
   import BlogTags from '../../components/blog/BlogTags';
   import BlogAuthors from '../../components/blog/BlogAuthors';
   import BlogCategories from '../../components/blog/BlogCategories';
+  import HeroImage from '../../components/generic/HeroImage';
 
   export default {
     components: {
       BlogPost,
       BlogTags,
       BlogAuthors,
-      BlogCategories
+      BlogCategories,
+      HeroImage
     },
 
     data() {
       return {
         error: null
       };
+    },
+
+    computed: {
+      hero() {
+        return this.page.primaryImageOfPage ? this.page.primaryImageOfPage.fields : null;
+      },
+      heroImage() {
+        return this.hero ? this.hero.image.fields.file : null;
+      }
     },
 
     head() {
