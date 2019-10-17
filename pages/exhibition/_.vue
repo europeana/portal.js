@@ -25,8 +25,8 @@
           <article>
             <!-- eslint-disable vue/no-v-html -->
             <div
-              v-html="mainContent"
               data-qa="exhibition text"
+              v-html="mainContent"
             />
             <!-- TODO: remove when credits go to their own page? -->
             <div
