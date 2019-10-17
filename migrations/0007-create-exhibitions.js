@@ -11,7 +11,7 @@ module.exports = function(migration) {
     .name('Title')
     .type('Symbol')
     .localized(true)
-    .required(false)
+    .required(true)
     .validations([])
     .disabled(false)
     .omitted(false);
@@ -135,7 +135,6 @@ module.exports = function(migration) {
   });
 
   exhibitionPage.changeFieldControl('credits', 'builtin', 'markdown', {});
-
   const exhibitionChapterPage = migration
     .createContentType('exhibitionChapterPage')
     .name('Exhibition Chapter Page')
@@ -149,7 +148,7 @@ module.exports = function(migration) {
     .name('Title')
     .type('Symbol')
     .localized(true)
-    .required(false)
+    .required(true)
     .validations([])
     .disabled(false)
     .omitted(false);
@@ -171,6 +170,16 @@ module.exports = function(migration) {
           'You may not use the slug \'credits\' as this page will be automatically generated. Set contents for the credits page on the exhibiton landing page itself.'
       }
     ])
+    .disabled(false)
+    .omitted(false);
+
+  exhibitionChapterPage
+    .createField('headline')
+    .name('headline')
+    .type('Symbol')
+    .localized(true)
+    .required(false)
+    .validations([])
     .disabled(false)
     .omitted(false);
 
@@ -224,6 +233,16 @@ module.exports = function(migration) {
     {
       helpText:
         'Will automatically be prefixed with "/exhibition/EXHIBITION_SLUG/"'
+    }
+  );
+
+  exhibitionChapterPage.changeFieldControl(
+    'headline',
+    'builtin',
+    'singleLine',
+    {
+      helpText:
+        'For the secondary text over the hero image only, appears under the title.'
     }
   );
 
