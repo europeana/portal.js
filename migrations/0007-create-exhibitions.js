@@ -1,7 +1,7 @@
 module.exports = function(migration) {
   const exhibitionPage = migration
     .createContentType('exhibitionPage')
-    .name('Exhibition Page')
+    .name('Exhibition Landing Page')
     .description(
       'An Exhibition index page, links Exhibition chapters together.'
     )
@@ -43,7 +43,7 @@ module.exports = function(migration) {
     .createField('description')
     .name('Description')
     .type('Symbol')
-    .localized(false)
+    .localized(true)
     .required(false)
     .validations([])
     .disabled(false)
@@ -58,7 +58,6 @@ module.exports = function(migration) {
     .validations([
       {
         size: {
-          min: null,
           max: 2000
         }
       }
@@ -68,7 +67,7 @@ module.exports = function(migration) {
 
   exhibitionPage
     .createField('primaryImageOfPage')
-    .name('Hero Image')
+    .name('Hero image')
     .type('Link')
     .localized(false)
     .required(false)
@@ -119,7 +118,7 @@ module.exports = function(migration) {
 
   exhibitionPage.changeFieldControl('headline', 'builtin', 'singleLine', {
     helpText:
-      'For the secondary text over the hero banner only, appears under the title.'
+      'For the secondary text over the hero image only, appears under the title.'
   });
 
   exhibitionPage.changeFieldControl('description', 'builtin', 'singleLine', {});
@@ -136,6 +135,7 @@ module.exports = function(migration) {
   });
 
   exhibitionPage.changeFieldControl('credits', 'builtin', 'markdown', {});
+
   const exhibitionChapterPage = migration
     .createContentType('exhibitionChapterPage')
     .name('Exhibition Chapter Page')
@@ -163,12 +163,12 @@ module.exports = function(migration) {
     .validations([
       {
         prohibitRegexp: {
-          pattern: 'credits',
+          pattern: '^credits$',
           flags: null
         },
 
         message:
-          'You may not use the slug \'credits\' as this page will be automatically generated. Set contents for the credits page on the exhibiton itself.'
+          'You may not use the slug \'credits\' as this page will be automatically generated. Set contents for the credits page on the exhibiton landing page itself.'
       }
     ])
     .disabled(false)
@@ -176,13 +176,13 @@ module.exports = function(migration) {
 
   exhibitionChapterPage
     .createField('primaryImageOfPage')
-    .name('Hero Banner')
+    .name('Hero image')
     .type('Link')
     .localized(false)
     .required(false)
     .validations([
       {
-        linkContentType: ['heroBanner']
+        linkContentType: ['imageWithAttribution']
       }
     ])
     .disabled(false)
@@ -203,7 +203,12 @@ module.exports = function(migration) {
 
       validations: [
         {
-          linkContentType: ['cardGroup', 'embed', 'richText']
+          linkContentType: [
+            'cardGroup',
+            'embed',
+            'imageWithAttribution',
+            'richText'
+          ]
         }
       ],
 
