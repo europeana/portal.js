@@ -9,14 +9,11 @@
           v-if="hero"
           :image-url="heroImage.url"
           :image-content-type="heroImage.contentType"
-          :identifier="hero.identifier"
-          :citation="hero.citation"
           :rights-statement="hero.license"
           :name="hero.name"
           :provider="hero.provider"
           :creator="hero.creator"
           :url="hero.url"
-          class="blog"
         />
         <BlogPost
           :date-published="page.datePublished"
