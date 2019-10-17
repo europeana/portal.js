@@ -2,12 +2,12 @@
   <div
     data-qa="browse page"
   >
-    <HeroBanner
+    <HeroImage
       v-if="hero"
       :image-url="heroImage.url"
       :image-content-type="heroImage.contentType"
-      :headline="heroHeadline"
-      :description="heroDescription"
+      :header="heroHeader"
+      :lead="heroLead"
       :identifier="hero.identifier"
       :citation="hero.citation"
       :rights-statement="hero.license"
@@ -27,30 +27,34 @@
 
 <script>
   import BrowseSections from '../components/browse/BrowseSections';
-  import HeroBanner from '../components/generic/HeroBanner';
+  import HeroImage from '../components/generic/HeroImage';
   import createClient from '../plugins/contentful';
 
   export default {
     components: {
       BrowseSections,
-      HeroBanner
+      HeroImage
     },
     computed: {
       hero() {
         return this.page.primaryImageOfPage ? this.page.primaryImageOfPage.fields : null;
       },
-      // TODO: remove the preference for hero.description when production space
-      //       has page.description set for all hero banners
-      heroDescription() {
-        return this.hero.description || this.page.description;
-      },
       // TODO: remove the preference for hero.headline when production space
-      //       has page.headline set for all hero banners
-      heroHeadline() {
-        return this.hero.headline || this.page.headline;
+      //       has page.name set to suit all hero banners
+      heroHeader() {
+        return this.hero.headline || this.pageTitle;
+      },
+      // TODO: remove the preference for hero.description when production space
+      //       has page.headline set to suit all hero banners
+      heroLead() {
+        return this.hero.description || this.page.headline;
       },
       heroImage() {
         return this.hero ? this.hero.image.fields.file : null;
+      },
+      pageTitle() {
+        // TODO: remove the fallback to headline when production space has name field
+        return this.page.name || this.page.headline;
       }
     },
     asyncData({ params, query, error, app }) {
@@ -79,8 +83,13 @@
     },
     head() {
       return {
-        // TODO: remove the fallback to headline when production space has name field
-        title: this.page.name || this.page.headline
+        title: this.pageTitle,
+        meta: [
+          { hid: 'title', name: 'title', content: this.pageTitle },
+          { hid: 'description', name: 'description', content: this.page.description },
+          { hid: 'og:title', property: 'og:title', content: this.pageTitle },
+          { hid: 'og:description', property: 'og:description', content: this.page.description }
+        ]
       };
     }
   };

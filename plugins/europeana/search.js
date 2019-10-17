@@ -135,7 +135,7 @@ export function pageFromQuery(queryPage) {
 export function selectedFacetsFromQuery(query) {
   let selectedFacets = {};
   if (query.qf) {
-    for (const qf of [query.qf].flat()) {
+    for (const qf of [].concat(query.qf)) {
       const qfParts = qf.split(':');
       const facetName = qfParts[0];
       const facetValue = qfParts[1].match(/^".*"$/) ? qfParts[1].slice(1, -1) : qfParts[1]; // Slice only if double quotes exist
