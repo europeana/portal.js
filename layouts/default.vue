@@ -9,6 +9,16 @@
     </a>
     <PageHeader />
     <PageNavigation />
+    <b-container v-if="breadcrumbs">
+      <b-row>
+        <b-col class="col-12">
+          <b-breadcrumb
+            :items="breadcrumbs"
+            class="px-0"
+          />
+        </b-col>
+      </b-row>
+    </b-container>
     <nuxt
       id="main"
     />
@@ -26,6 +36,12 @@
       PageHeader,
       PageNavigation,
       PageFooter
+    },
+
+    computed: {
+      breadcrumbs() {
+        return this.$store.state.breadcrumb.data;
+      }
     }
   };
 </script>
