@@ -1,7 +1,7 @@
 <template>
   <b-jumbotron
-    :header="headline"
-    :lead="description"
+    :header="header"
+    :lead="lead"
     :style="jumbotronStyle"
     fluid
     header-tag="h2"
@@ -32,11 +32,11 @@
       SmartLink
     },
     props: {
-      headline: {
+      header: {
         type: String,
         default: ''
       },
-      description: {
+      lead: {
         type: String,
         default: ''
       },
