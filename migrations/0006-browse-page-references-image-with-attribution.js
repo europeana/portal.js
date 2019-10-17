@@ -18,7 +18,7 @@ module.exports = function(migration) {
       },
       {
         prohibitRegexp: {
-          pattern: '^(exhibitions?$|exhibition/|blog/|search$|record/|entity/)',
+          pattern: '^(blog$|blog/|entity/|exhibitions?$|exhibition/|record/|search$)',
           flags: null
         },
         message: 'This URL slug is reserved.'
