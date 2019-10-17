@@ -2,12 +2,12 @@
   <div
     data-qa="exhibition page"
   >
-    <HeroBanner
+    <HeroImage
       v-if="hero"
       :image-url="heroImage.url"
       :image-content-type="heroImage.contentType"
-      :headline="heroHeadline"
-      :description="heroDescription"
+      :header="header"
+      :lead="lead"
       :identifier="hero.identifier"
       :citation="hero.citation"
       :rights-statement="hero.license"
@@ -22,14 +22,7 @@
           cols="9"
           class="pb-3"
         >
-          <h1
-            data-qa="exhibition title"
-          >
-            {{ page.name }}
-          </h1>
           <article>
-            <h2>{{ page.alternativeHeadline }}</h2>
-            <p>{{ page.description }}</p>
             <!-- eslint-disable vue/no-v-html -->
             <div
               v-html="mainContent"
@@ -63,21 +56,21 @@
 <script>
   import marked from 'marked';
   import createClient from '../../plugins/contentful';
-  import HeroBanner from '../../components/generic/HeroBanner';
+  import HeroImage from '../../components/generic/HeroImage';
 
   export default {
     components: {
-      HeroBanner
+      HeroImage
     },
     computed: {
       hero() {
         return this.page.primaryImageOfPage ? this.page.primaryImageOfPage.fields : null;
       },
-      heroDescription() {
-        return this.page.description;
+      header() {
+        return this.page.name;
       },
-      heroHeadline() {
-        return this.page.headline ? this.page.headline : this.page.name;
+      lead() {
+        return this.page.headline;
       },
       heroImage() {
         return this.hero ? this.hero.image.fields.file : null;
