@@ -3,9 +3,9 @@ module.exports = function(migration) {
     .createContentType('blogPosting')
     .name('Blog Post')
     .description('')
-    .displayField('headline');
+    .displayField('name');
   blogPosting
-    .createField('headline')
+    .createField('name')
     .name('Title')
     .type('Symbol')
     .localized(true)
@@ -27,6 +27,19 @@ module.exports = function(migration) {
     ])
     .disabled(false)
     .omitted(false);
+
+  blogPosting
+    .createField('description')
+    .name('Description')
+    .type('Symbol')
+    .localized(true)
+    .required(false)
+    .disabled(false)
+    .omitted(false);
+  blogPosting
+    .changeFieldControl('description', 'builtin', 'singleLine', {
+      helpText: 'For SEO, please make sure there is a short description.'
+    });
 
   blogPosting
     .createField('datePublished')
@@ -122,7 +135,7 @@ module.exports = function(migration) {
       linkType: 'Entry'
     });
 
-  blogPosting.changeFieldControl('headline', 'builtin', 'singleLine', {});
+  blogPosting.changeFieldControl('name', 'builtin', 'singleLine', {});
   blogPosting.changeFieldControl('identifier', 'builtin', 'slugEditor', {});
 
   blogPosting.changeFieldControl('datePublished', 'builtin', 'datePicker', {

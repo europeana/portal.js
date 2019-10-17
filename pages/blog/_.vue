@@ -7,7 +7,7 @@
       >
         <BlogPost
           :date-published="page.datePublished"
-          :title="page.headline"
+          :title="page.name"
           :body="page.articleBody"
         />
         <BlogTags
@@ -53,7 +53,13 @@
 
     head() {
       return {
-        title: this.page.headline
+        title: this.page.name,
+        meta: [
+          { hid: 'title', name: 'title', content: this.page.name },
+          { hid: 'description', name: 'description', content: this.page.description },
+          { hid: 'og:title', property: 'og:title', content: this.page.name },
+          { hid: 'og:description', property: 'og:description', content: this.page.description }
+        ]
       };
     },
 
@@ -72,7 +78,7 @@
             return;
           }
           store.commit('breadcrumb/setBreadcrumb', {
-            text: response.items[0].fields.headline,
+            text: response.items[0].fields.name,
             active: true
           });
 
