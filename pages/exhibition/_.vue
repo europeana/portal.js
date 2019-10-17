@@ -6,10 +6,8 @@
       v-if="hero"
       :image-url="heroImage.url"
       :image-content-type="heroImage.contentType"
-      :header="header"
-      :lead="lead"
-      :identifier="hero.identifier"
-      :citation="hero.citation"
+      :header="page.name"
+      :lead="page.headline"
       :rights-statement="hero.license"
       :name="hero.name"
       :provider="hero.provider"
@@ -66,12 +64,6 @@
     computed: {
       hero() {
         return this.page.primaryImageOfPage ? this.page.primaryImageOfPage.fields : null;
-      },
-      header() {
-        return this.page.name;
-      },
-      lead() {
-        return this.page.headline;
       },
       heroImage() {
         return this.hero ? this.hero.image.fields.file : null;
