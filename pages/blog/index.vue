@@ -87,7 +87,6 @@
         limit
       })
         .then((response) => {
-          console.log('response', response);
           if (response.total === 0) {
             error({ statusCode: 404, message: app.i18n.t('messages.notFound') });
             return;
