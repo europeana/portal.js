@@ -17,23 +17,27 @@
     >
 
     <figcaption>
-      Left:
-      <CiteAttribution
-        :name="leftImageAttribution.name"
-        :creator="leftImageAttribution.creator"
-        :provider="leftImageAttribution.provider"
-        :rights-statement="leftImageAttribution.rightsStatement"
-        :url="leftImageAttribution.url"
-      />
-      <br/>
-      Right:
-      <CiteAttribution
-        :name="rightImageAttribution.name"
-        :creator="rightImageAttribution.creator"
-        :provider="rightImageAttribution.provider"
-        :rights-statement="rightImageAttribution.rightsStatement"
-        :url="rightImageAttribution.url"
-      />
+      <span data-qa="compare image left attribution">
+        Left:
+        <CiteAttribution
+          :name="leftImageAttribution.name"
+          :creator="leftImageAttribution.creator"
+          :provider="leftImageAttribution.provider"
+          :rights-statement="leftImageAttribution.rightsStatement"
+          :url="leftImageAttribution.url"
+        />
+      </span>
+      <br />
+      <span data-qa="compare image right attribution">
+        Right:
+        <CiteAttribution
+          :name="rightImageAttribution.name"
+          :creator="rightImageAttribution.creator"
+          :provider="rightImageAttribution.provider"
+          :rights-statement="rightImageAttribution.rightsStatement"
+          :url="rightImageAttribution.url"
+        />
+      </span>
     </figcaption>
 
     <div

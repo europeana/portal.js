@@ -6,7 +6,6 @@ const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
 const requiredProps = {
-  name: 'Attributed item',
   rightsStatement: 'http://creativecommons.org/publicdomain/mark/1.0/'
 };
 
