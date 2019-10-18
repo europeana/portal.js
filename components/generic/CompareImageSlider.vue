@@ -17,8 +17,8 @@
     >
 
     <figcaption>
-      <span data-qa="compare image left attribution">
-        Left:
+      <label data-qa="compare image left attribution">
+        {{ $t('directions.left') }}
         <CiteAttribution
           :name="leftImageAttribution.name"
           :creator="leftImageAttribution.creator"
@@ -26,10 +26,10 @@
           :rights-statement="leftImageAttribution.rightsStatement"
           :url="leftImageAttribution.url"
         />
-      </span>
-      <br />
-      <span data-qa="compare image right attribution">
-        Right:
+      </label>
+      <br>
+      <label data-qa="compare image right attribution">
+        {{ $t('directions.right') }}
         <CiteAttribution
           :name="rightImageAttribution.name"
           :creator="rightImageAttribution.creator"
@@ -37,7 +37,7 @@
           :rights-statement="rightImageAttribution.rightsStatement"
           :url="rightImageAttribution.url"
         />
-      </span>
+      </label>
     </figcaption>
 
     <div

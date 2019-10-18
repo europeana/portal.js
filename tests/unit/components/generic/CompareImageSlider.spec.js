@@ -18,7 +18,10 @@ const factory = (setImageWidthSpy) => shallowMount(CompareImageSlider, {
       rightsStatement: 'http://creativecommons.org/publicdomain/mark/1.0/'
     }
   },
-  methods: { setImageWidth: setImageWidthSpy || sinon.spy() }
+  methods: { setImageWidth: setImageWidthSpy || sinon.spy() },
+  mocks: {
+    $t: (key) => key
+  }
 });
 
 describe('components/generic/CompareImageSlider', () => {
