@@ -18,8 +18,10 @@
         v-else-if="contentType(section, 'imageComparison')"
         :key="section.sys.id"
         :left-image-src="section.fields.hasPart[0].fields.image.fields.file.url"
+        :left-image-content-type="section.fields.hasPart[0].fields.image.fields.file.contentType"
         :left-image-attribution="attributionFields(section.fields.hasPart[0].fields)"
         :right-image-src="section.fields.hasPart[1].fields.image.fields.file.url"
+        :right-image-content-type="section.fields.hasPart[1].fields.image.fields.file.contentType"
         :right-image-attribution="attributionFields(section.fields.hasPart[1].fields)"
       />
     </template>

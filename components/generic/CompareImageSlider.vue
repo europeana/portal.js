@@ -6,13 +6,13 @@
     >
       <img
         ref="leftImage"
-        :src="leftImageSrc"
+        :src="optimisedImageUrl('left')"
         :style="leftImageClip"
         data-qa="compare image left image"
       >
       <img
         ref="rightImage"
-        :src="rightImageSrc"
+        :src="optimisedImageUrl('right')"
         data-qa="compare image right image"
       >
 
@@ -78,6 +78,16 @@
       rightImageSrc: {
         type: String,
         required: true
+      },
+
+      leftImageContentType: {
+        type: String,
+        default: null
+      },
+
+      rightImageContentType: {
+        type: String,
+        default: null
       },
 
       leftImageAttribution: {
@@ -166,6 +176,10 @@
         if (this.dragging) {
           this.sliderPosition = pos / this.imageWidth;
         }
+      },
+
+      optimisedImageUrl(side) {
+        return this.$options.filters.optimisedImageUrl(this[`${side}ImageSrc`], this[`${side}ImageContentType`]);
       }
     }
   };
