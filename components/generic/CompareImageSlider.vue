@@ -1,21 +1,38 @@
 <template>
   <figure
     ref="container"
-    class="compare-image"
     data-qa="compare image"
   >
-    <img
-      ref="leftImage"
-      :src="leftImageSrc"
-      :style="leftImageClip"
-      data-qa="compare image left image"
-    >
-    <img
-      ref="rightImage"
-      :src="rightImageSrc"
-      data-qa="compare image right image"
-    >
+    <div class="compare-image">
+      <img
+        ref="leftImage"
+        :src="leftImageSrc"
+        :style="leftImageClip"
+        data-qa="compare image left image"
+      >
+      <img
+        ref="rightImage"
+        :src="rightImageSrc"
+        data-qa="compare image right image"
+      >
 
+      <div
+        ref="slider"
+        class="slider"
+        :style="sliderBarPosition"
+        data-qa="compare image slider"
+        @mousedown="initDrag"
+      >
+        <span class="slider-bar" />
+        <button
+          :class="{ 'is-active' : dragging }"
+          class="slider-handle"
+          data-qa="compare image slider handler"
+        >
+          <span class="sr-only">Slider Handle</span>
+        </button>
+      </div>
+    </div>
     <figcaption>
       <label data-qa="compare image left attribution">
         {{ $t('directions.left') }}
@@ -39,23 +56,6 @@
         />
       </label>
     </figcaption>
-
-    <div
-      ref="slider"
-      class="slider"
-      :style="sliderBarPosition"
-      data-qa="compare image slider"
-      @mousedown="initDrag"
-    >
-      <span class="slider-bar" />
-      <button
-        :class="{ 'is-active' : dragging }"
-        class="slider-handle"
-        data-qa="compare image slider handler"
-      >
-        <span class="sr-only">Slider Handle</span>
-      </button>
-    </div>
   </figure>
 </template>
 
@@ -118,8 +118,8 @@
     },
 
     mounted() {
-      // this.setImageWidth();
-      // this.setSliderWidth();
+      this.setImageWidth();
+      this.setSliderWidth();
 
       window.addEventListener('resize', this.setImageWidth);
       window.addEventListener('mousemove', this.drag);
