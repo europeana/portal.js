@@ -2,7 +2,7 @@
   <b-container data-qa="blog">
     <b-row class="flex-md-row pb-5">
       <b-col cols="12">
-        <h1>Blogs</h1>
+        <h1>{{ $t('blog.blogs') }}</h1>
       </b-col>
       <b-col cols="12">
         <b-card-group
@@ -10,11 +10,11 @@
           deck
           data-qa="blog posts"
         >
-          <BlogContentCard
+          <ContentCard
             v-for="(post, index) in posts"
             :key="index"
             :title="post.fields.headline"
-            :url="`/blog/${post.fields.identifier}`"
+            :url="{ name: 'blog-all', params: { pathMatch: post.fields.identifier } }"
             image-url="https://picsum.photos/600/300/?image=25"
             :description="post.fields.description"
             :datetime="post.fields.datePublished"
@@ -39,14 +39,14 @@
 
 <script lang="ts">
   import createClient from '../../plugins/contentful';
-  import BlogContentCard from '../../components/blog/BlogContentCard';
+  import ContentCard from '../../components/generic/ContentCard';
   import PaginationNav from '../../components/generic/PaginationNav';
 
   export default {
     name: 'BlogFoyer',
 
     components: {
-      BlogContentCard,
+      ContentCard,
       PaginationNav
     },
 
@@ -58,8 +58,8 @@
 
     data() {
       return {
-        perPage: 10,
-        page: Number(this.$route.query.page)
+        perPage: 20,
+        page: Number(this.$route.query.page || 1)
       };
     },
 
@@ -72,7 +72,7 @@
     asyncData({ query, redirect, error, app }) {
       const contentfulClient = createClient(query.mode);
       const currentPage = query && query.page;
-      const limit = 10;
+      const limit = 20;
 
       if (!currentPage) {
         // Redirect non-positive integer values for `page` to `page=1`
