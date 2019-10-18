@@ -14,17 +14,27 @@
         :key="section.sys.id"
         :section="section"
       />
+      <CompareImageSlider
+        v-else-if="contentType(section, 'imageComparison')"
+        :key="section.sys.id"
+        :left-image-src="section.fields.hasPart[0].fields.image.fields.file.url"
+        :left-image-attribution="attributionFields(section.fields.hasPart[0].fields)"
+        :right-image-src="section.fields.hasPart[1].fields.image.fields.file.url"
+        :right-image-attribution="attributionFields(section.fields.hasPart[1].fields)"
+      />
     </template>
   </div>
 </template>
 
 <script>
   import RichText from './RichText';
+  import CompareImageSlider from '../generic/CompareImageSlider';
   import ContentCardSection from './ContentCardSection';
 
   export default {
     components: {
       RichText,
+      CompareImageSlider,
       ContentCardSection
     },
 
@@ -41,6 +51,15 @@
           return;
         }
         return section.sys.contentType.sys.id === id;
+      },
+      attributionFields(fields) {
+        return {
+          name: fields.name,
+          creator: fields.creator,
+          provider: fields.provider,
+          rightsStatement: fields.license,
+          url: fields.url
+        };
       }
     }
   };

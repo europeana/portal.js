@@ -5,18 +5,37 @@
     data-qa="compare image"
   >
     <img
-      ref="imageLeft"
-      :src="imageLeft"
-      :alt="imageLeftText"
+      ref="leftImage"
+      :src="leftImageSrc"
       :style="leftImageClip"
       data-qa="compare image left image"
     >
     <img
-      ref="imageRight"
-      :src="imageRight"
-      :alt="imageRightText"
+      ref="rightImage"
+      :src="rightImageSrc"
       data-qa="compare image right image"
     >
+
+    <figcaption>
+      Left:
+      <CiteAttribution
+        :name="leftImageAttribution.name"
+        :creator="leftImageAttribution.creator"
+        :provider="leftImageAttribution.provider"
+        :rights-statement="leftImageAttribution.rightsStatement"
+        :url="leftImageAttribution.url"
+      />
+      <br/>
+      Right:
+      <CiteAttribution
+        :name="rightImageAttribution.name"
+        :creator="rightImageAttribution.creator"
+        :provider="rightImageAttribution.provider"
+        :rights-statement="rightImageAttribution.rightsStatement"
+        :url="rightImageAttribution.url"
+      />
+    </figcaption>
+
     <div
       ref="slider"
       class="slider"
@@ -37,28 +56,34 @@
 </template>
 
 <script>
+  import CiteAttribution from '../../components/generic/CiteAttribution';
+
   export default {
     name: 'CompareImageSlider',
 
+    components: {
+      CiteAttribution
+    },
+
     props: {
-      imageLeft: {
+      leftImageSrc: {
         type: String,
         required: true
       },
 
-      imageRight: {
+      rightImageSrc: {
         type: String,
         required: true
       },
 
-      imageLeftText: {
-        type: String,
-        default: ''
+      leftImageAttribution: {
+        type: Object,
+        required: true
       },
 
-      imageRightText: {
-        type: String,
-        default: ''
+      rightImageAttribution: {
+        type: Object,
+        required: true
       }
     },
 
@@ -99,7 +124,7 @@
 
     methods: {
       setImageWidth() {
-        this.imageWidth = this.$refs.imageRight.getBoundingClientRect().width;
+        this.imageWidth = this.$refs.rightImage.getBoundingClientRect().width;
       },
 
       setSliderWidth() {
@@ -120,7 +145,7 @@
         // Calc Cursor Position from the left edge of the window (consider any page scrolling)
         const cursorXfromWindow = cursorXfromViewport - window.pageXOffset;
         // Calc Cursor Position from the left edge of the image
-        const imagePosition = this.$refs.imageRight.getBoundingClientRect();
+        const imagePosition = this.$refs.rightImage.getBoundingClientRect();
         let pos = cursorXfromWindow - imagePosition.left;
 
         const minPos = 0 + this.sliderWidth / 2;
