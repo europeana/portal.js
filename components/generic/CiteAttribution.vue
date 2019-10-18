@@ -25,7 +25,7 @@
     props: {
       name: {
         type: String,
-        required: true
+        default: null
       },
       creator: {
         type: String,
