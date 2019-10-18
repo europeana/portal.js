@@ -5,7 +5,7 @@ const i18n = {
   locale: 'en',
   messages: {
     en: {
-      directions: { right: 'foo', left: 'foo' }
+      directions: { right: 'Right', left: 'Left' }
     }
   }
 };
@@ -22,15 +22,15 @@ storiesOf('Generic', module)
           name: 'Name',
           creator: 'Creator',
           provider: 'Provider',
-          rightsStatement: 'Rights statement',
-          url: 'Url path'
+          rightsStatement: 'http://creativecommons.org/licenses/by-nd/4.0/',
+          url: 'https://www.example.org/left'
         },
         rightImageAttribute: {
           name: 'Name',
           creator: 'Creator',
           provider: 'Provider',
-          rightsStatement: 'Rights statement',
-          url: 'Url path'
+          rightsStatement: 'http://creativecommons.org/publicdomain/mark/1.0/',
+          url: 'https://www.example.org/right'
         }
       };
     },
