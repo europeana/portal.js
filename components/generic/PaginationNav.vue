@@ -1,15 +1,20 @@
 <template>
-  <b-pagination-nav
-    v-model="currentPage"
-    :limit="limit"
-    :hide-ellipsis="hideEllipsis"
-    :number-of-pages="totalPages"
-    :link-gen="linkGen"
-    use-router
-    size="sm"
-    align="center"
-    data-qa="pagination navigation"
-  />
+  <div>
+    value: {{ value }}
+    <br>
+    currentPage: {{ currentPage }}
+    <b-pagination-nav
+      v-model="currentPage"
+      :limit="limit"
+      :hide-ellipsis="hideEllipsis"
+      :number-of-pages="totalPages"
+      :link-gen="linkGen"
+      use-router
+      size="sm"
+      align="center"
+      data-qa="pagination navigation"
+    />
+  </div>
 </template>
 
 <script>
@@ -58,9 +63,14 @@
       value: {
         immediate: true,
         handler(val) {
+          // Without this, using the browser back button will not update the highlighted pagination
           this.currentPage = val;
         }
       }
+    },
+    updated() {
+      // Without this, paginating with the > arrow jumps two pages for some reason
+      this.currentPage = this.value;
     }
   };
 </script>
