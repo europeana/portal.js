@@ -9,6 +9,7 @@ const { url } = require('../config/nightwatch.conf.js').test_settings.default.gl
 
 const pages = {
   'home page': `${url}/`,
+  'exhibition page': `${url}/exhibition/the-pink-flowers`,
   'search page': `${url}/search?query=`,
   'record page': `${url}/record${europeanaId()}`,
   'first page of results': `${url}/search?query=&page=1`,
@@ -175,5 +176,8 @@ module.exports = {
   },
   async waitForTargetToBeVisible(qaElementName) {
     await client.waitForElementVisible(qaSelector(qaElementName));
+  },
+  async goBack() {
+    await client.back();
   }
 };

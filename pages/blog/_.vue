@@ -5,9 +5,19 @@
         cols="12"
         md="9"
       >
+        <HeroImage
+          v-if="hero"
+          :image-url="heroImage.url"
+          :image-content-type="heroImage.contentType"
+          :rights-statement="hero.license"
+          :name="hero.name"
+          :provider="hero.provider"
+          :creator="hero.creator"
+          :url="hero.url"
+        />
         <BlogPost
           :date-published="page.datePublished"
-          :title="page.headline"
+          :title="page.name"
           :body="page.articleBody"
         />
         <BlogTags
@@ -36,13 +46,15 @@
   import BlogTags from '../../components/blog/BlogTags';
   import BlogAuthors from '../../components/blog/BlogAuthors';
   import BlogCategories from '../../components/blog/BlogCategories';
+  import HeroImage from '../../components/generic/HeroImage';
 
   export default {
     components: {
       BlogPost,
       BlogTags,
       BlogAuthors,
-      BlogCategories
+      BlogCategories,
+      HeroImage
     },
 
     data() {
@@ -51,9 +63,24 @@
       };
     },
 
+    computed: {
+      hero() {
+        return this.page.primaryImageOfPage ? this.page.primaryImageOfPage.fields : null;
+      },
+      heroImage() {
+        return this.hero ? this.hero.image.fields.file : null;
+      }
+    },
+
     head() {
       return {
-        title: this.page.headline
+        title: this.page.name,
+        meta: [
+          { hid: 'title', name: 'title', content: this.page.name },
+          { hid: 'description', name: 'description', content: this.page.description },
+          { hid: 'og:title', property: 'og:title', content: this.page.name },
+          { hid: 'og:description', property: 'og:description', content: this.page.description }
+        ]
       };
     },
 
@@ -72,7 +99,7 @@
             return;
           }
           store.commit('breadcrumb/setBreadcrumb', {
-            text: response.items[0].fields.headline,
+            text: response.items[0].fields.name,
             active: true
           });
 
