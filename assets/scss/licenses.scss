@@ -1,41 +1,3 @@
-figcaption {
-  background: $white;
-  border-top-left-radius: $border-radius-small;
-  border-top-right-radius: $border-radius-small;
-  bottom: 0;
-  font-size: 0.625rem;
-  left: 1rem;
-  line-height: 1;
-  padding: 0.5rem;
-
-  &.is-external-link:after {
-    content: '\e900';
-    @extend .icon-font;
-  }
-
-  .attribution {
-    color: $black;
-
-    &:hover {
-      color: $blue;
-      text-decoration: none;
-    }
-  }
-
-  .license {
-    background-position: left center;
-    background-repeat: no-repeat;
-    background-size: 13px 13px;
-    line-height: 2;
-    padding-left: 1rem;
-    padding-top: 3px;
-  }
-
-  .icon-license-rr {
-    padding-left: 0.5rem;
-  }
-}
-
 .icon-license-pd {
   background-image: url('~assets/img/cc-icons/pd.svg');
 }
@@ -81,5 +43,43 @@ figcaption {
 
   &::after {
     content: '\00a9';
+  }
+}
+
+figcaption {
+  background: $white;
+  border-top-left-radius: $border-radius-small;
+  border-top-right-radius: $border-radius-small;
+  bottom: 0;
+  font-size: 0.625rem;
+  left: 1rem;
+  line-height: 1;
+  padding: 0.5rem;
+
+  &.is-external-link:after {
+    content: '\e900';
+    @extend .icon-font;
+  }
+
+  .attribution {
+    color: $black;
+
+    &:hover {
+      color: $blue;
+      text-decoration: none;
+    }
+  }
+
+  .license {
+    background-position: left center;
+    background-repeat: no-repeat;
+    background-size: 13px 13px;
+    line-height: 2;
+    padding-left: 1rem;
+    padding-top: 3px;
+  }
+
+  .icon-license-rr {
+    padding-left: 0.5rem;
   }
 }
