@@ -18,6 +18,14 @@
         <b-card-title>
           {{ title | truncate(90, $t('formatting.ellipsis')) }}
         </b-card-title>
+        <time
+          v-if="datetime"
+          class="font-weight-bold pb-3"
+          data-qa="date"
+          :datetime="datetime"
+        >
+          {{ datetime.split('T')[0] }}
+        </time>
         <b-card-text
           v-for="(text, index) in texts"
           :key="index"
@@ -56,6 +64,10 @@
       imageContentType: {
         type: String,
         default: null
+      },
+      datetime: {
+        type: String,
+        default: ''
       }
     },
     computed: {
