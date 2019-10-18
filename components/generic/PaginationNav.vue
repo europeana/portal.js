@@ -62,10 +62,6 @@
           this.currentPage = val;
         }
       }
-    },
-    updated() {
-      // Without this, paginating with the > arrow jumps two pages for some reason
-      this.currentPage = this.value;
     }
   };
 </script>
