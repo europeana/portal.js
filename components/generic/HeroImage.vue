@@ -9,15 +9,17 @@
     text-variant="white"
     data-qa="hero banner"
   >
-    <CiteAttribution
-      :citation="citation"
-      :identifier="identifier"
-      :name="name"
-      :creator="creator"
-      :provider="provider"
-      :rights-statement="rightsStatement"
-      :url="url"
-    />
+    <figcaption>
+      <CiteAttribution
+        :citation="citation"
+        :identifier="identifier"
+        :name="name"
+        :creator="creator"
+        :provider="provider"
+        :rights-statement="rightsStatement"
+        :url="url"
+      />
+    </figcaption>
   </b-jumbotron>
 </template>
 
