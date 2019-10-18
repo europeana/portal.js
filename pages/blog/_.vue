@@ -98,10 +98,16 @@
             error({ statusCode: 404, message: app.i18n.t('messages.notFound') });
             return;
           }
-          store.commit('breadcrumb/setBreadcrumb', {
-            text: response.items[0].fields.name,
-            active: true
-          });
+          store.commit('breadcrumb/setBreadcrumbs', [
+            {
+              text:  app.i18n.t('blog.blog'),
+              href: '/blog'
+            },
+            {
+              text: response.items[0].fields.name,
+              active: true
+            }
+          ]);
 
           return {
             page: response.items[0].fields
