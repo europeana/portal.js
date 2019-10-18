@@ -1,9 +1,9 @@
 <template>
-  <figure
-    ref="container"
-    data-qa="compare image"
-  >
-    <div class="compare-image">
+  <figure ref="container">
+    <div
+      class="compare-image"
+      data-qa="compare image"
+    >
       <img
         ref="leftImage"
         :src="leftImageSrc"
