@@ -1,20 +1,15 @@
 <template>
-  <div>
-    value: {{ value }}
-    <br>
-    currentPage: {{ currentPage }}
-    <b-pagination-nav
-      v-model="currentPage"
-      :limit="limit"
-      :hide-ellipsis="hideEllipsis"
-      :number-of-pages="totalPages"
-      :link-gen="linkGen"
-      use-router
-      size="sm"
-      align="center"
-      data-qa="pagination navigation"
-    />
-  </div>
+  <b-pagination-nav
+    v-model="currentPage"
+    :limit="limit"
+    :hide-ellipsis="hideEllipsis"
+    :number-of-pages="totalPages"
+    :link-gen="linkGen"
+    use-router
+    size="sm"
+    align="center"
+    data-qa="pagination navigation"
+  />
 </template>
 
 <script>
