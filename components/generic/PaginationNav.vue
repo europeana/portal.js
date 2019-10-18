@@ -54,8 +54,13 @@
         return Math.ceil(Math.min(Math.max(this.totalResults, 1), maxResults) / this.perPage);
       }
     },
-    updated() {
-      this.currentPage = this.value;
+    watch: {
+      value: {
+        immediate: true,
+        handler(val) {
+          this.currentPage = val;
+        }
+      }
     }
   };
 </script>
