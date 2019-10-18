@@ -173,7 +173,7 @@
       }),
       // workaround for double jump mentioned in store mapState call above
       page() {
-        return Number(this.$route.query.page);
+        return Number(this.$route.query.page || 1);
       },
       contentTierActiveState() {
         return this.selectedFacets.contentTier && this.selectedFacets.contentTier.includes('*');
