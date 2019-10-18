@@ -118,8 +118,8 @@
     },
 
     mounted() {
-      this.setImageWidth();
-      this.setSliderWidth();
+      // this.setImageWidth();
+      // this.setSliderWidth();
 
       window.addEventListener('resize', this.setImageWidth);
       window.addEventListener('mousemove', this.drag);

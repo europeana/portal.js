@@ -1,10 +1,19 @@
 import { storiesOf } from '@storybook/vue';
-
 import CompareImageSlider from './CompareImageSlider.vue';
+
+const i18n = {
+  locale: 'en',
+  messages: {
+    en: {
+      'directions.right': 'foo'
+    }
+  }
+};
 
 storiesOf('Generic', module)
   .add('Compare Image Slider', () => ({
     components: { CompareImageSlider },
+    i18n,
     data() {
       return {
         imageLeft: 'img/landscape.jpg',
