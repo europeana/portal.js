@@ -176,5 +176,8 @@ module.exports = {
   },
   async waitForTargetToBeVisible(qaElementName) {
     await client.waitForElementVisible(qaSelector(qaElementName));
+  },
+  async goBack() {
+    await client.back();
   }
 };
