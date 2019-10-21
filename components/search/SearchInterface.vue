@@ -162,7 +162,8 @@
         error: state => state.search.error,
         facets: state => state.search.facets,
         lastAvailablePage: state => state.search.lastAvailablePage,
-        page: state => state.search.page,
+        // This causes double jumps on pagination when using the > arrow, for some reason
+        // page: state => state.search.page,
         qf: state => state.search.qf,
         query: state => state.search.query,
         results: state => state.search.results,
@@ -170,6 +171,10 @@
         selectedFacets: state => state.search.selectedFacets,
         totalResults: state => state.search.totalResults
       }),
+      // workaround for double jump mentioned in store mapState call above
+      page() {
+        return Number(this.$route.query.page || 1);
+      },
       contentTierActiveState() {
         return this.selectedFacets.contentTier && this.selectedFacets.contentTier.includes('*');
       },

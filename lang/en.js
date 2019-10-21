@@ -90,5 +90,9 @@ export default {
     "category": "Category",
     "categories": "Categories",
     "relatedPosts": "Related posts"
+  },
+  "directions": {
+    "left": "Left",
+    "right": "Right"
   }
 };
