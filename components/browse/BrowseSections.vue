@@ -14,18 +14,27 @@
         :key="section.sys.id"
         :section="section"
       />
+      <ImageWithAttribution
+        v-else-if="contentType(section, 'imageWithAttribution')"
+        :key="section.sys.id"
+        :image-src="section.fields.image.file.url"
+        :image-content-type="section.fields.image.file.contentType"
+        :attribution="attributionFields(section.fields)"
+      />
     </template>
   </div>
 </template>
 
 <script>
-  import RichText from './RichText';
   import ContentCardSection from './ContentCardSection';
+  import ImageWithAttribution from '../generic/ImageWithAttribution';
+  import RichText from './RichText';
 
   export default {
     components: {
-      RichText,
-      ContentCardSection
+      ContentCardSection,
+      ImageWithAttribution,
+      RichText
     },
 
     props: {
