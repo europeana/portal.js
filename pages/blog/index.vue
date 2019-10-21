@@ -52,7 +52,7 @@
 
     head() {
       return {
-        title: 'Blog'
+        title: this.$t('blog.blogs')
       };
     },
 
