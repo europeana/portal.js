@@ -28,6 +28,7 @@
             />
             <!-- TODO: remove when credits go to their own page? -->
             <div
+              v-if="credits"
               v-html="credits"
             />
             <!-- eslint-enable vue/no-v-html -->
@@ -75,10 +76,11 @@
       },
       // TODO: remove when credits go to their own page
       credits() {
+        if (this.page.credits === undefined) return false;
         return marked(this.page.credits);
       }
     },
-    asyncData({ params, query, error, app }) {
+    asyncData({ params, query, error, app, store }) {
       const contentfulClient = createClient(query.mode);
       return contentfulClient.getEntries({
         'locale': app.i18n.isoLocale(),
@@ -92,6 +94,16 @@
             error({ statusCode: 404, message: app.i18n.t('messages.notFound') });
             return;
           }
+          store.commit('breadcrumb/setBreadcrumbs', [
+            {
+              text:  app.i18n.t('exhibitions.exhibitions'),
+              href: '/exhibitions'
+            },
+            {
+              text: response.items[0].fields.name,
+              active: true
+            }
+          ]);
           return {
             page: response.items[0].fields
           };
@@ -99,6 +111,10 @@
         .catch((e) => {
           error({ statusCode: 500, message: e.toString() });
         });
+    },
+    beforeRouteLeave(to, from, next) {
+      this.$store.commit('breadcrumb/clearBreadcrumb');
+      next();
     },
     head() {
       return {
