@@ -1,7 +1,7 @@
 <template>
   <figure>
     <img
-      :src="imageSrc | optimisedImageSrc(imageContentType)"
+      :src="imageSrc | optimisedImageUrl(imageContentType)"
     >
     <figcaption>
       <CiteAttribution
