@@ -1,0 +1,127 @@
+{
+  "bg": {
+    "short": {
+      "year": "numeric", "month": "long", "day": "numeric"
+    }
+  },
+  "cs": {
+    "short": {
+      "year": "numeric", "month": "long", "day": "numeric"
+    }
+  },
+  "da": {
+    "short": {
+      "year": "numeric", "month": "long", "day": "numeric"
+    }
+  },
+  "de": {
+    "short": {
+      "year": "numeric", "month": "long", "day": "numeric"
+    }
+  },
+  "el": {
+    "short": {
+      "year": "numeric", "month": "long", "day": "numeric"
+    }
+  },
+  "en": {
+    "short": {
+      "year": "numeric", "month": "long", "day": "numeric"
+    }
+  },
+  "es": {
+    "short": {
+      "year": "numeric", "month": "long", "day": "numeric"
+    }
+  },
+  "et": {
+    "short": {
+      "year": "numeric", "month": "long", "day": "numeric"
+    }
+  },
+  "eu": {
+    "short": {
+      "year": "numeric", "month": "long", "day": "numeric"
+    }
+  },
+  "fi": {
+    "short": {
+      "year": "numeric", "month": "long", "day": "numeric"
+    }
+  },
+  "fr": {
+    "short": {
+      "year": "numeric", "month": "long", "day": "numeric"
+    }
+  },
+  "ga": {
+    "short": {
+      "year": "numeric", "month": "long", "day": "numeric"
+    }
+  },
+  "hr": {
+    "short": {
+      "year": "numeric", "month": "long", "day": "numeric"
+    }
+  },
+  "hu": {
+    "short": {
+      "year": "numeric", "month": "long", "day": "numeric"
+    }
+  },
+  "it": {
+    "short": {
+      "year": "numeric", "month": "long", "day": "numeric"
+    }
+  },
+  "lt": {
+    "short": {
+      "year": "numeric", "month": "long", "day": "numeric"
+    }
+  },
+  "lv": {
+    "short": {
+      "year": "numeric", "month": "long", "day": "numeric"
+    }
+  },
+  "mt": {
+    "short": {
+      "year": "numeric", "month": "long", "day": "numeric"
+    }
+  },
+  "nl": {
+    "short": {
+      "year": "numeric", "month": "long", "day": "numeric"
+    }
+  },
+  "pl": {
+    "short": {
+      "year": "numeric", "month": "long", "day": "numeric"
+    }
+  },
+  "pt": {
+    "short": {
+      "year": "numeric", "month": "long", "day": "numeric"
+    }
+  },
+  "ro": {
+    "short": {
+      "year": "numeric", "month": "long", "day": "numeric"
+    }
+  },
+  "sk": {
+    "short": {
+      "year": "numeric", "month": "long", "day": "numeric"
+    }
+  },
+  "sl": {
+    "short": {
+      "year": "numeric", "month": "long", "day": "numeric"
+    }
+  },
+  "sv": {
+    "short": {
+      "year": "numeric", "month": "long", "day": "numeric"
+    }
+  }
+}
