@@ -27,8 +27,8 @@
       <ImageWithAttribution
         v-else-if="contentType(section, 'imageWithAttribution')"
         :key="section.sys.id"
-        :image-src="section.fields.image.fields.file.url"
-        :image-content-type="section.fields.image.fields.file.contentType"
+        :src="section.fields.image.fields.file.url"
+        :content-type="section.fields.image.fields.file.contentType"
         :attribution="attributionFields(section.fields)"
       />
     </template>

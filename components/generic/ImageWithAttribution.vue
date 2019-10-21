@@ -1,7 +1,7 @@
 <template>
   <figure>
     <img
-      :src="imageSrc | optimisedImageUrl(imageContentType)"
+      :src="src | optimisedImageUrl(contentType)"
     >
     <figcaption>
       <CiteAttribution
@@ -24,11 +24,11 @@
     },
 
     props: {
-      imageSrc: {
+      src: {
         type: String,
         required: true
       },
-      imageContentType: {
+      contentType: {
         type: String,
         default: null
       },
