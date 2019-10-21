@@ -14,11 +14,21 @@
         :key="section.sys.id"
         :section="section"
       />
+      <CompareImageSlider
+        v-else-if="contentType(section, 'imageComparison')"
+        :key="section.sys.id"
+        :left-image-src="section.fields.hasPart[0].fields.image.fields.file.url"
+        :left-image-content-type="section.fields.hasPart[0].fields.image.fields.file.contentType"
+        :left-image-attribution="attributionFields(section.fields.hasPart[0].fields)"
+        :right-image-src="section.fields.hasPart[1].fields.image.fields.file.url"
+        :right-image-content-type="section.fields.hasPart[1].fields.image.fields.file.contentType"
+        :right-image-attribution="attributionFields(section.fields.hasPart[1].fields)"
+      />
       <ImageWithAttribution
         v-else-if="contentType(section, 'imageWithAttribution')"
         :key="section.sys.id"
-        :image-src="section.fields.image.file.url"
-        :image-content-type="section.fields.image.file.contentType"
+        :image-src="section.fields.image.fields.file.url"
+        :image-content-type="section.fields.image.fields.file.contentType"
         :attribution="attributionFields(section.fields)"
       />
     </template>
@@ -26,12 +36,14 @@
 </template>
 
 <script>
+  import CompareImageSlider from '../generic/CompareImageSlider';
   import ContentCardSection from './ContentCardSection';
   import ImageWithAttribution from '../generic/ImageWithAttribution';
   import RichText from './RichText';
 
   export default {
     components: {
+      CompareImageSlider,
       ContentCardSection,
       ImageWithAttribution,
       RichText
@@ -50,6 +62,15 @@
           return;
         }
         return section.sys.contentType.sys.id === id;
+      },
+      attributionFields(fields) {
+        return {
+          name: fields.name,
+          creator: fields.creator,
+          provider: fields.provider,
+          rightsStatement: fields.license,
+          url: fields.url
+        };
       }
     }
   };

@@ -15,7 +15,7 @@
     props: {
       rightsStatementUrl: {
         type: String,
-        default: ''
+        required: true
       }
     },
     computed: {
@@ -114,4 +114,3 @@
     }
   };
 </script>
-

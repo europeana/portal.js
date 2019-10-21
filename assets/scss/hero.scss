@@ -41,41 +41,9 @@
     font-size: $font-size-small;
   }
 
-  .attribution {
-    background: $white;
-    border-top-left-radius: $border-radius-small;
-    border-top-right-radius: $border-radius-small;
-    bottom: 0;
-    color: $black;
-    font-size: 0.625rem;
-    left: 1rem;
-    line-height: 1;
+  figcaption {
     margin-right: 1rem;
-    padding: 0.5rem;
     position: absolute;
-
-    &.is-external-link:after {
-      content: '\e900';
-      @extend .icon-font;
-    }
-
-    .license {
-      background-position: left center;
-      background-repeat: no-repeat;
-      background-size: 13px 13px;
-      line-height: 2;
-      padding-left: 1rem;
-      padding-top: 3px;
-    }
-
-    .icon-license-rr {
-      padding-left: 0.5rem;
-    }
-
-    &:hover {
-      color: $blue;
-      text-decoration: none;
-    }
   }
 
   @media (min-width: $bp-large) {
