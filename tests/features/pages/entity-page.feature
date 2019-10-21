@@ -17,7 +17,7 @@ Feature: Entity page
     And I am on an accessible page
 
   Scenario: Attempting to view an entity page which doesn't exist
-    When I open `/entity/person/123x-unknown`
+    When I open `/en/entity/person/123x-unknown`
     Then I see an `error notice`
 
   Scenario: View related entities
@@ -43,13 +43,13 @@ Feature: Entity page
     When I open an `entity page`
     And I see the `entity page`
     And I see a `search result`
-    Then I see a link to "/entity/topic/18-newspaper?page=2&view=grid" in the `pagination navigation`
+    Then I see a link to "/en/entity/topic/18-newspaper?page=2&view=grid" in the `pagination navigation`
 
   Scenario: Pagination links work when the page was accessed from the url
-    When I visit `/entity/topic/18-newspaper?page=2`
+    When I visit `/en/entity/topic/18-newspaper?page=2`
     And I go to page number 3
     And I wait 2 seconds
-    Then I should be on `/entity/topic/18-newspaper?page=3&view=grid`
+    Then I should be on `/en/entity/topic/18-newspaper?page=3&view=grid`
 
   Scenario: Searching from an entity page searches within that entity
     When I open an `entity page`

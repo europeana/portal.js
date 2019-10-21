@@ -3,16 +3,16 @@
  * @see {@link http://nightwatchjs.org/api#expect-api|Nightwatch Expect assertions}
  */
 
-const { client } = require('nightwatch-api');
+const { client, createSession, closeSession, startWebDriver, stopWebDriver } = require('nightwatch-api');
 const { europeanaId } = require('./europeana-identifiers.js');
 const { url } = require('../config/nightwatch.conf.js').test_settings.default.globals;
 
 const pages = {
-  'home page': `${url}/`,
-  'search page': `${url}/search?query=`,
-  'record page': `${url}/record${europeanaId()}`,
-  'first page of results': `${url}/search?query=&page=1`,
-  'entity page': `${url}/entity/topic/18-newspaper`
+  'home page': `${url}/en`,
+  'search page': `${url}/en/search?query=`,
+  'record page': `${url}/en/record${europeanaId()}`,
+  'first page of results': `${url}/en/search?query=&page=1`,
+  'entity page': `${url}/en/entity/topic/18-newspaper`
 };
 
 /**
@@ -121,6 +121,15 @@ module.exports = {
   async paginateToPage(page) {
     const selector = qaSelector('pagination navigation') + ` a[aria-posinset="${page}"]`;
     await client.click(selector);
+  },
+  async preferBrowserLanguage(locale) {
+    await closeSession();
+    await stopWebDriver();
+
+    const browserEnv = (process.env.browser || 'gecko') + `-${locale}`;
+
+    await startWebDriver({ configFile: 'tests/features/config/nightwatch.conf.js', env: browserEnv, silent: true });
+    await createSession({ configFile: 'tests/features/config/nightwatch.conf.js', env: browserEnv, silent: true });
   },
   async seeALinkInTarget(linkHref, qaElementName) {
     await client.expect.element(qaSelector(qaElementName) + ` a[href="${linkHref}"]`).to.be.visible;
