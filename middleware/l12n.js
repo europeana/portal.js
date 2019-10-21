@@ -38,8 +38,7 @@ export default ({ app, route, redirect, req }) => {
     app.$cookies.set('i18n_locale_code', browserLocale);
   }
 
-  const i18nPath = route.path === '/' ? browserLocale : browserLocale + route.path;
-
+  const i18nPath = route.path === '/' ? `/${browserLocale}` : `/${browserLocale}${route.path}`;
   return redirect({
     path: i18nPath,
     query: route.query
