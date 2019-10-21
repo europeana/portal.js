@@ -77,6 +77,7 @@
       }
     },
     asyncData({ params, query, error, app, store }) {
+      console.log('in chapter');
       const contentfulClient = createClient(query.mode);
       return contentfulClient.getEntries({
         'locale': app.i18n.isoLocale(),
@@ -86,30 +87,35 @@
         'limit': 1
       })
         .then((response) => {
-          if (response.total === 0 || response.items[0].fields['hasPart'].total === 0) {
-            error({ statusCode: 404, message: app.i18n.t('messages.notFound') });
-            return;
-          }
-          const chapter = response.items[0].fields['hasPart'].find(c => c && c.fields.identifier === params.chapter);
-          store.commit('breadcrumb/setBreadcrumbs', [
-            {
-              text:  app.i18n.t('exhibitions.exhibitions'),
-              href: '/exhibitions'
-            },
-            {
-              text: response.items[0].fields.name,
-              href: '/exhibitions/' + response.items[0].fields.identifier
-            },
-            {
-              text: chapter.fields.name,
-              active: true
+          console.log(response);
+          if (response.total !== 0 && response.items.total !== 0 && response.items[0].fields['hasPart'].total !== 0) {
+            const chapter = response.items[0].fields['hasPart'].find(c => c && c.fields.identifier === params.chapter);
+            if (chapter === undefined) {
+              error({ statusCode: 404, message: app.i18n.t('messages.notFound') });
+              return;
             }
-          ]);
-          return {
-            chapters: response.items[0].fields['hasPart'],
-            exhibition: params.exhibition,
-            page: chapter.fields
-          };
+            store.commit('breadcrumb/setBreadcrumbs', [
+              {
+                text:  app.i18n.t('exhibitions.exhibitions'),
+                href: '/exhibitions'
+              },
+              {
+                text: response.items[0].fields.name,
+                href: '/exhibition/' + response.items[0].fields.identifier
+              },
+              {
+                text: chapter.fields.name,
+                active: true
+              }
+            ]);
+            return {
+              chapters: response.items[0].fields['hasPart'],
+              exhibition: params.exhibition,
+              page: chapter.fields
+            };
+          }
+          error({ statusCode: 404, message: app.i18n.t('messages.notFound') });
+          return;
         })
         .catch((e) => {
           error({ statusCode: 500, message: e.toString() });

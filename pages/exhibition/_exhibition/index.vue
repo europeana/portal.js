@@ -79,10 +79,7 @@
       }
     },
     asyncData({ params, query, error, app }) {
-      console.log('in landing page');
-      console.log(params);
       const contentfulClient = createClient(query.mode);
-
       return contentfulClient.getEntries({
         'locale': app.i18n.isoLocale(),
         'content_type': 'exhibitionPage',
@@ -91,7 +88,6 @@
         'limit': 1
       })
         .then((response) => {
-          console.log(response);
           if (response.total === 0) {
             error({ statusCode: 404, message: app.i18n.t('messages.notFound') });
             return;
