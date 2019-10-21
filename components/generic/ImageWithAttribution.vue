@@ -1,16 +1,18 @@
 <template>
-  <div>
+  <figure>
     <img
       :src="imageSrc | optimisedImageSrc(imageContentType)"
     >
-    <CiteAttribution
-      :name="attribution.name"
-      :creator="attribution.creator"
-      :provider="attribution.provider"
-      :rights-statement="attribution.rightsStatement"
-      :url="attribution.url"
-    />
-  </div>
+    <figcaption>
+      <CiteAttribution
+        :name="attribution.name"
+        :creator="attribution.creator"
+        :provider="attribution.provider"
+        :rights-statement="attribution.rightsStatement"
+        :url="attribution.url"
+      />
+    </figcaption>
+  </figure>
 </template>
 
 <script>
