@@ -14,7 +14,7 @@
           data-qa="date"
           :datetime="datePublished"
         >
-          {{ $d(new Date(datePublished.split('T')[0]), 'short') }}
+          {{ $d(new Date(datePublished), 'short') }}
         </time>
         <!-- eslint-disable vue/no-v-html -->
         <div v-html="html" />
