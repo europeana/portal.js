@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 
-const { setDefaultTimeout, Before, After, BeforeAll } = require('cucumber');
+const { setDefaultTimeout, After, AfterAll, BeforeAll } = require('cucumber');
 const { createSession, closeSession, startWebDriver, stopWebDriver } = require('nightwatch-api');
 const isReachable = require('is-reachable');
 const sleep = (milliseconds) => {
@@ -19,6 +19,19 @@ const nightwatchApiOptions = {
 
 setDefaultTimeout(100000);
 
+async function startBrowser() {
+  await startWebDriver(nightwatchApiOptions);
+  await createSession(nightwatchApiOptions);
+}
+
+async function stopBrowser() {
+  await closeSession();
+  await stopWebDriver();
+
+  // Prevent MaxListenersExceededWarning warnings
+  process.removeAllListeners();
+}
+
 // Before running cucumber make sure the test server and webdriver are running.
 // The test server is started by the test script in package.json.
 // The web driver is started in this before block.
@@ -34,17 +47,16 @@ BeforeAll(async() => {
   if (!(await isReachable(testServer))) {
     throw `Unable to reach the test server within ${maxWaitTime} seconds!`;
   }
+
+  await startBrowser();
 });
 
-Before(async() => {
-  await startWebDriver(nightwatchApiOptions);
-  await createSession(nightwatchApiOptions);
+After({ tags: '@non-default-browser' }, async() => {
+  // Restore default browser config
+  await stopBrowser();
+  await startBrowser();
 });
 
-After(async() => {
-  await closeSession();
-  await stopWebDriver();
-
-  // Prevent MaxListenersExceededWarning warnings
-  process.removeAllListeners();
+AfterAll(async() => {
+  await stopBrowser();
 });
