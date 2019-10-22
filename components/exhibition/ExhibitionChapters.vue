@@ -3,6 +3,7 @@
     <b-card-group
       :class="`card-deck-search card-deck-4-cols`"
       deck
+      data-qa="exhibition chapters"
     >
       <ContentCard
         v-for="chapter in chapters"

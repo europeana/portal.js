@@ -40,7 +40,6 @@
           <ExhibitionChapters
             :exhibition-identifier="page.identifier"
             :chapters="page.hasPart"
-            data-qa="exhibition chapters"
           />
         </b-col>
       </b-row>
