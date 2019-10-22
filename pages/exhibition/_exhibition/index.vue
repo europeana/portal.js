@@ -28,6 +28,7 @@
             />
             <!-- TODO: remove when credits go to their own page? -->
             <div
+              v-if="credits"
               v-html="credits"
             />
             <!-- eslint-enable vue/no-v-html -->
@@ -36,14 +37,16 @@
       </b-row>
       <b-row>
         <b-col>
-          <!-- TODO: add links to chapters, remove h2 -->
+          <!-- TODO: add links to chapters, remove h2, move to component -->
           <h2>Chapters</h2>
           <ul v-if="page.hasPart">
             <li
               v-for="chapter in page.hasPart"
               :key="chapter.fields.identifier"
             >
-              {{ chapter.fields.name }}
+              <b-link :to="'/exhibition/' + page.identifier + '/' + chapter.fields.identifier">
+                {{ chapter.fields.name }}
+              </b-link>
             </li>
           </ul>
         </b-col>
@@ -54,8 +57,8 @@
 
 <script>
   import marked from 'marked';
-  import createClient from '../../plugins/contentful';
-  import HeroImage from '../../components/generic/HeroImage';
+  import createClient from '../../../plugins/contentful';
+  import HeroImage from '../../../components/generic/HeroImage';
 
   export default {
     components: {
@@ -71,19 +74,18 @@
       mainContent() {
         return marked(this.page.text);
       },
-      // TODO: remove when credits go to their own page?
+      // TODO: remove when credits go to their own page
       credits() {
+        if (this.page.credits === undefined) return false;
         return marked(this.page.credits);
       }
     },
-    asyncData({ params, query, error, app }) {
-
+    asyncData({ params, query, error, app, store }) {
       const contentfulClient = createClient(query.mode);
-
       return contentfulClient.getEntries({
         'locale': app.i18n.isoLocale(),
         'content_type': 'exhibitionPage',
-        'fields.identifier': params.pathMatch,
+        'fields.identifier': params.exhibition,
         'include': 2,
         'limit': 1
       })
@@ -92,6 +94,17 @@
             error({ statusCode: 404, message: app.i18n.t('messages.notFound') });
             return;
           }
+          store.commit('breadcrumb/setBreadcrumbs', [
+            {
+              // TODO: Add named language aware route for exhibitions
+              text:  app.i18n.t('exhibitions.exhibitions'),
+              to: '/exhibitions'
+            },
+            {
+              text: response.items[0].fields.name,
+              active: true
+            }
+          ]);
           return {
             page: response.items[0].fields
           };
@@ -99,6 +112,10 @@
         .catch((e) => {
           error({ statusCode: 500, message: e.toString() });
         });
+    },
+    beforeRouteLeave(to, from, next) {
+      this.$store.commit('breadcrumb/clearBreadcrumb');
+      next();
     },
     head() {
       return {

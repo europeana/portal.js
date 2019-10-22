@@ -1,3 +1,7 @@
 .breadcrumb {
   background-color: transparent;
 }
+
+.breadcrumb-item.active {
+  color: $darkgrey;
+}

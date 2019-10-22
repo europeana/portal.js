@@ -5,6 +5,9 @@ export default {
     "listSeperator": ";"
   },
   "error": "Error",
+  "exhibitions": {
+    "exhibitions": "Exhibitions"
+  },
   "search": "Search",
   "delete": "Delete",
   "results": "Results",
