@@ -2,7 +2,7 @@
   <b-container data-qa="blog">
     <b-row class="flex-md-row pb-5">
       <b-col cols="12">
-        <h1>{{ $t('blog.blogs') }}</h1>
+        <h1>{{ $t('blog.blog') }}</h1>
       </b-col>
       <b-col cols="12">
         <b-card-group
@@ -52,7 +52,7 @@
 
     head() {
       return {
-        title: this.$t('blog.blogs')
+        title: this.$t('blog.blog')
       };
     },
 
@@ -69,7 +69,7 @@
       }
     },
 
-    asyncData({ query, redirect, error, app }) {
+    asyncData({ query, redirect, error, app, store }) {
       const contentfulClient = createClient(query.mode);
       const currentPage = query && query.page;
       const limit = 20;
@@ -91,6 +91,14 @@
             error({ statusCode: 404, message: app.i18n.t('messages.notFound') });
             return;
           }
+
+          store.commit('breadcrumb/setBreadcrumbs', [
+            {
+              // TODO: Add named language aware route for exhibitions
+              text:  app.i18n.t('blog.blog'),
+              to: '/blog'
+            }
+          ]);
 
           return {
             posts: response.items,
