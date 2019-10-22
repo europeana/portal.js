@@ -34,9 +34,6 @@
             {{ text }}
           </b-card-text>
         </template>
-        <b-card-text v-if="description">
-          {{ description }}
-        </b-card-text>
       </b-card-body>
     </SmartLink>
   </b-card>
@@ -71,10 +68,6 @@
         default: null
       },
       datetime: {
-        type: String,
-        default: ''
-      },
-      description: {
         type: String,
         default: ''
       }
