@@ -54,8 +54,14 @@
         return Math.ceil(Math.min(Math.max(this.totalResults, 1), maxResults) / this.perPage);
       }
     },
-    updated() {
-      this.currentPage = this.value;
+    watch: {
+      value: {
+        immediate: true,
+        handler(val) {
+          // Without this, using the browser back button will not update the highlighted pagination
+          this.currentPage = val;
+        }
+      }
     }
   };
 </script>

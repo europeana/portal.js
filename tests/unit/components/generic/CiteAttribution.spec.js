@@ -1,56 +1,38 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
-import HeroBanner from '../../../../components/generic/HeroBanner.vue';
+import CiteAttribution from '../../../../components/generic/CiteAttribution.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
-const factory = () => mount(HeroBanner, {
+const requiredProps = {
+  rightsStatement: 'http://creativecommons.org/publicdomain/mark/1.0/'
+};
+
+const factory = () => mount(CiteAttribution, {
   localVue,
   mocks: {
-    localePath: (opts) => `/record/${opts.params.pathMatch}`,
+    localePath: (opts) => opts,
     $t: (key) => key
-  }
+  },
+  propsData: requiredProps
 });
 
-describe('components/generic/HeroBanner', () => {
-  it('has a background image', () => {
-    const wrapper = factory();
-    wrapper.setProps({ imageUrl: 'https://example.org' });
-
-    const hero = wrapper.find('[data-qa="hero banner"]');
-    hero.attributes().style.should.contain('https://example.org');
-  });
-
-  it('has a title', () => {
-    const wrapper = factory();
-    wrapper.setProps({ headline: 'Welcome at Europeana' });
-
-    const title = wrapper.find('[data-qa="hero banner"] h2');
-    title.text().should.contain('Welcome at Europeana');
-  });
-
-  it('has a description', () => {
-    const wrapper = factory();
-    wrapper.setProps({ description: 'Explore artworks, artefacts, books, films and music' });
-
-    const description = wrapper.find('[data-qa="hero banner"] .lead');
-    description.text().should.contain('Explore artworks, artefacts, books, films and music');
-  });
-
+describe('components/generic/CiteAttribution', () => {
   it('has a link', () => {
+    const url = 'http://www.example.org/something';
     const wrapper = factory();
-    wrapper.setProps({ identifier: '/15508/DG2014_46_12' });
+    wrapper.setProps({ url });
 
-    const link = wrapper.find('[data-qa="hero banner"] a');
-    link.attributes().href.should.contain('15508/DG2014_46_12');
+    const link = wrapper.find('cite a');
+    link.attributes().href.should.eq(url);
   });
 
   it('has an attribution', () => {
     const wrapper = factory();
     wrapper.setProps({ citation: 'Johannes Vermeer' });
 
-    const attribution = wrapper.find('[data-qa="hero banner"] a');
+    const attribution = wrapper.find('cite a');
     attribution.text().should.contain('Johannes Vermeer');
   });
 
@@ -58,11 +40,11 @@ describe('components/generic/HeroBanner', () => {
     const wrapper = factory();
     wrapper.setProps({ rightsStatement: 'http://rightsstatements.org/vocab/InC/1.0/' });
 
-    const rights = wrapper.find('[data-qa="hero banner"] a span');
+    const rights = wrapper.find('cite a span');
     rights.text().should.contain('In Copyright');
   });
 
-  describe('.attributionLinkDestination', () => {
+  describe('.linkDestination', () => {
     context('when url is a data.europeana.eu URI', () => {
       it('returns a route object', () => {
         const identifierSlug = '123/abc';
@@ -70,7 +52,7 @@ describe('components/generic/HeroBanner', () => {
         const wrapper = factory();
         wrapper.setProps({ url });
 
-        wrapper.vm.attributionLinkDestination.should.deep.eql({
+        wrapper.vm.linkDestination.should.deep.eql({
           name: 'record-all',
           params: { pathMatch: identifierSlug }
         });
@@ -83,19 +65,19 @@ describe('components/generic/HeroBanner', () => {
         const wrapper = factory();
         wrapper.setProps({ url });
 
-        wrapper.vm.attributionLinkDestination.should.eq(url);
+        wrapper.vm.linkDestination.should.eq(url);
       });
     });
   });
 
-  describe('.attributionLinkText', () => {
+  describe('.linkText', () => {
     context('when citation is present', () => {
       it('is returned as-is', () => {
         const citation = 'Something, Someone, Somewhere';
         const wrapper = factory();
         wrapper.setProps({ citation });
 
-        wrapper.vm.attributionLinkText.should.eq(citation);
+        wrapper.vm.linkText.should.eq(citation);
       });
     });
 
@@ -107,7 +89,7 @@ describe('components/generic/HeroBanner', () => {
         const wrapper = factory();
         wrapper.setProps({ name, creator, provider });
 
-        wrapper.vm.attributionLinkText.should.eq('Something, Someone, Somewhere');
+        wrapper.vm.linkText.should.eq('Something, Someone, Somewhere');
       });
 
       it('omits empty fields', () => {
@@ -116,7 +98,7 @@ describe('components/generic/HeroBanner', () => {
         const wrapper = factory();
         wrapper.setProps({ name, provider });
 
-        wrapper.vm.attributionLinkText.should.eq('Something, Somewhere');
+        wrapper.vm.linkText.should.eq('Something, Somewhere');
       });
     });
   });

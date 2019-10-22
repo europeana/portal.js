@@ -1,28 +1,19 @@
 <template>
-  <b-jumbotron
-    :header="headline"
-    :lead="description"
-    :style="jumbotronStyle"
-    fluid
-    header-tag="h2"
-    header-level="4"
-    text-variant="white"
-    data-qa="hero banner"
-  >
+  <cite>
     <SmartLink
-      :destination="attributionLinkDestination"
+      :destination="linkDestination"
       link-class="attribution"
     >
-      {{ attributionLinkText }}
+      {{ linkText }}
       <RightsStatement
+        v-if="rightsStatement"
         :rights-statement-url="rightsStatement"
       />
     </SmartLink>
-  </b-jumbotron>
+  </cite>
 </template>
 
 <script>
-
   import RightsStatement from '../../components/generic/RightsStatement';
   import SmartLink from '../../components/generic/SmartLink';
 
@@ -32,22 +23,6 @@
       SmartLink
     },
     props: {
-      headline: {
-        type: String,
-        default: ''
-      },
-      description: {
-        type: String,
-        default: ''
-      },
-      imageUrl: {
-        type: String,
-        default: ''
-      },
-      imageContentType: {
-        type: String,
-        default: null
-      },
       name: {
         type: String,
         default: null
@@ -62,11 +37,11 @@
       },
       rightsStatement: {
         type: String,
-        default: ''
+        required: true
       },
       url: {
         type: String,
-        default: ''
+        default: null
       },
       // TODO: remove in future when url always supplied
       identifier: {
@@ -80,23 +55,15 @@
       }
     },
     computed: {
-      attributionLinkDestination() {
+      linkDestination() {
         if (this.recordIdentifier) {
           return { name: 'record-all', params: { pathMatch: this.recordIdentifier.slice(1) } };
         }
         return this.url;
       },
-      attributionLinkText() {
+      linkText() {
         if (this.citation !== '') return this.citation;
         return [this.name, this.creator, this.provider].filter(Boolean).join(', ');
-      },
-      optimisedImageUrl() {
-        return this.$options.filters.optimisedImageUrl(this.imageUrl, this.imageContentType);
-      },
-      jumbotronStyle() {
-        return {
-          backgroundImage: `url("${this.optimisedImageUrl}")`
-        };
       },
       recordIdentifier() {
         const itemUriPattern = /^http:\/\/data\.europeana\.eu\/item(\/.*)$/;

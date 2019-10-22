@@ -22,6 +22,19 @@ Feature: Search pagination
     And I see a `pagination navigation`
     Then I see a link to "/en/search?page=2&qf=TYPE%3A%22IMAGE%22&query=paris&view=grid" in the `pagination navigation`
 
+  Scenario: Changing pagination with browser history
+
+    When I visit the `home page`
+    And I enter "paris" in the `search box`
+    And I click the `search button`
+    And I wait for a `search result`
+    And I go to page number 2
+    And I wait 2 seconds
+    And I am on page number 2
+    And I go back
+    And I wait 2 seconds
+    Then I am on page number 1
+
   Scenario: Pagination links preserve query and facet selection from the url.
 
     When I visit `/en/search?query=paris&page=1&qf=TYPE%3A%22IMAGE%22`

@@ -9,14 +9,23 @@ localVue.use(BootstrapVue);
 const factory = (setImageWidthSpy) => shallowMount(CompareImageSlider, {
   localVue,
   propsData: {
-    imageLeft: '/img/portrait.jpg',
-    imageRight: '/img/portrait-monochrome.jpg'
+    leftImageSrc: '/img/portrait.jpg',
+    leftImageAttribution: {
+      rightsStatement: 'http://creativecommons.org/publicdomain/mark/1.0/'
+    },
+    rightImageSrc: '/img/portrait-monochrome.jpg',
+    rightImageAttribution: {
+      rightsStatement: 'http://creativecommons.org/publicdomain/mark/1.0/'
+    }
   },
-  methods: { setImageWidth: setImageWidthSpy || sinon.spy() }
+  methods: { setImageWidth: setImageWidthSpy || sinon.spy() },
+  mocks: {
+    $t: (key) => key
+  }
 });
 
 describe('components/generic/CompareImageSlider', () => {
-  it('has left Image', () => {
+  it('has left image', () => {
     const wrapper = factory();
 
     const leftImage = wrapper.find('[data-qa="compare image left image"]');
@@ -30,20 +39,18 @@ describe('components/generic/CompareImageSlider', () => {
     rightImage.attributes().src.should.contain('/img/portrait-monochrome.jpg');
   });
 
-  it('if available, left image has alt text', () => {
+  it('cites left image attribution', () => {
     const wrapper = factory();
-    wrapper.setProps({ imageLeftText: 'left image text' });
 
-    const leftImage = wrapper.find('[data-qa="compare image left image"]');
-    leftImage.attributes().alt.should.contain('left image text');
+    const leftCite = wrapper.find('figcaption [data-qa="compare image left attribution"] cite');
+    leftCite.should.exist;
   });
 
-  it('if available, right image has alt text', () => {
+  it('cites right image attribution', () => {
     const wrapper = factory();
-    wrapper.setProps({ imageRightText: 'right image text' });
 
-    const rightImage = wrapper.find('[data-qa="compare image right image"]');
-    rightImage.attributes().alt.should.contain('right image text');
+    const rightCite = wrapper.find('figcaption [data-qa="compare image right attribution"] cite');
+    rightCite.should.exist;
   });
 
   it('generates the correct clip sizing', () => {

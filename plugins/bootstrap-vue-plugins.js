@@ -3,6 +3,7 @@ import Vue from 'vue';
 import {
   AlertPlugin,
   BadgePlugin,
+  BreadcrumbPlugin,
   ButtonPlugin,
   CardPlugin,
   DropdownPlugin,
@@ -24,6 +25,7 @@ import {
 
 Vue.use(AlertPlugin);
 Vue.use(BadgePlugin);
+Vue.use(BreadcrumbPlugin);
 Vue.use(ButtonPlugin);
 Vue.use(CardPlugin);
 Vue.use(DropdownPlugin);

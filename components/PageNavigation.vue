@@ -6,8 +6,8 @@
     <b-container class="p-0">
       <b-navbar-nav class="px-2">
         <li
-          v-for="nav in navigation"
-          :key="nav.text"
+          v-for="(nav, index) in navigation"
+          :key="index"
           class="nav-item"
         >
           <SmartLink

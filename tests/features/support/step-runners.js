@@ -9,6 +9,7 @@ const { url } = require('../config/nightwatch.conf.js').test_settings.default.gl
 
 const pages = {
   'home page': `${url}/en`,
+  'exhibition page': `${url}/en/exhibition/the-pink-flowers`,
   'search page': `${url}/en/search?query=`,
   'record page': `${url}/en/record${europeanaId()}`,
   'first page of results': `${url}/en/search?query=&page=1`,
@@ -122,15 +123,6 @@ module.exports = {
     const selector = qaSelector('pagination navigation') + ` a[aria-posinset="${page}"]`;
     await client.click(selector);
   },
-  async preferBrowserLanguage(locale) {
-    await closeSession();
-    await stopWebDriver();
-
-    const browserEnv = (process.env.browser || 'gecko') + `-${locale}`;
-
-    await startWebDriver({ configFile: 'tests/features/config/nightwatch.conf.js', env: browserEnv, silent: true });
-    await createSession({ configFile: 'tests/features/config/nightwatch.conf.js', env: browserEnv, silent: true });
-  },
   async seeALinkInTarget(linkHref, qaElementName) {
     await client.expect.element(qaSelector(qaElementName) + ` a[href="${linkHref}"]`).to.be.visible;
   },
@@ -184,5 +176,8 @@ module.exports = {
   },
   async waitForTargetToBeVisible(qaElementName) {
     await client.waitForElementVisible(qaSelector(qaElementName));
+  },
+  async goBack() {
+    await client.back();
   }
 };
