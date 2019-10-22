@@ -77,7 +77,6 @@
       }
     },
     asyncData({ params, query, error, app, store }) {
-      console.log('in chapter');
       const contentfulClient = createClient(query.mode);
       return contentfulClient.getEntries({
         'locale': app.i18n.isoLocale(),
@@ -87,7 +86,6 @@
         'limit': 1
       })
         .then((response) => {
-          console.log(response);
           if (response.total !== 0 && response.items.total !== 0 && response.items[0].fields['hasPart'].total !== 0) {
             const chapter = response.items[0].fields['hasPart'].find(c => c && c.fields.identifier === params.chapter);
             if (chapter === undefined) {
