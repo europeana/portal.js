@@ -14,7 +14,8 @@ const pages = {
   'search page': `${url}/search?query=`,
   'record page': `${url}/record${europeanaId()}`,
   'first page of results': `${url}/search?query=&page=1`,
-  'entity page': `${url}/entity/topic/18-newspaper`
+  'entity page': `${url}/entity/topic/18-newspaper`,
+  'blog page': `${url}/blog`
 };
 
 /**

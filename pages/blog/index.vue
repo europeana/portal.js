@@ -8,7 +8,7 @@
         <b-card-group
           class="card-deck-4-cols"
           deck
-          data-qa="blog posts"
+          data-qa="blog posts section"
         >
           <ContentCard
             v-for="(post, index) in posts"
