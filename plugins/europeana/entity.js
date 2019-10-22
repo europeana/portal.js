@@ -30,6 +30,7 @@ export function getEntity(type, id, params) {
  * Get entity suggestions from the API
  * @param {string} text the query text to supply suggestions for
  * @param {Object} params additional parameters sent to the API
+ * @param {string} params.language language(s), comma-separated, to request
  * @param {string} params.wskey API key
  * @return {Object[]} entity suggestions from the API
  */
@@ -38,6 +39,7 @@ export function getEntitySuggestions(text, params) {
     params: {
       text,
       type: 'agent,concept',
+      language: params.language,
       wskey: params.wskey
     }
   })

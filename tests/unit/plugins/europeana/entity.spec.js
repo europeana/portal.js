@@ -132,10 +132,11 @@ describe('plugins/europeana/entity', () => {
 
   describe('getEntitySuggestions()', () => {
     const text = 'world';
+    const suggestEndpoint = '/entity/suggest';
 
-    it('passes `text` to API', async() => {
+    it('passes `text` to the API', async() => {
       nock(apiUrl)
-        .get('/entity/suggest')
+        .get(suggestEndpoint)
         .query(query => {
           return query.text === text;
         })
@@ -146,9 +147,22 @@ describe('plugins/europeana/entity', () => {
       nock.isDone().should.be.true;
     });
 
+    it('passes `language` to API', async() => {
+      nock(apiUrl)
+        .get(suggestEndpoint)
+        .query(query => {
+          return query.language === 'fr';
+        })
+        .reply(200, entitySuggestionsResponse);
+
+      await entities.getEntitySuggestions(text, { language: 'fr', wskey: apiKey });
+
+      nock.isDone().should.be.true;
+    });
+
     it('restricts types to agent & concept', async() => {
       nock(apiUrl)
-        .get('/entity/suggest')
+        .get(suggestEndpoint)
         .query(query => {
           return query.type === 'agent,concept';
         })
@@ -161,7 +175,7 @@ describe('plugins/europeana/entity', () => {
 
     it('returns the "items"', async() => {
       nock(apiUrl)
-        .get('/entity/suggest')
+        .get(suggestEndpoint)
         .query(true)
         .reply(200, entitySuggestionsResponse);
 
