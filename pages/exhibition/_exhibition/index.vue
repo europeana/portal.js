@@ -96,8 +96,9 @@
           }
           store.commit('breadcrumb/setBreadcrumbs', [
             {
+              // TODO: Add named language aware route for exhibitions
               text:  app.i18n.t('exhibitions.exhibitions'),
-              href: '/exhibitions'
+              to: '/exhibitions'
             },
             {
               text: response.items[0].fields.name,

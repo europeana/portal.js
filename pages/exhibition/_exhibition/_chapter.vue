@@ -86,34 +86,39 @@
         'limit': 1
       })
         .then((response) => {
+          let chapter;
           if (response.total !== 0 && response.items.total !== 0 && response.items[0].fields['hasPart'].total !== 0) {
-            const chapter = response.items[0].fields['hasPart'].find(c => c && c.fields.identifier === params.chapter);
-            if (chapter === undefined) {
-              error({ statusCode: 404, message: app.i18n.t('messages.notFound') });
-              return;
-            }
-            store.commit('breadcrumb/setBreadcrumbs', [
-              {
-                text:  app.i18n.t('exhibitions.exhibitions'),
-                href: '/exhibitions'
-              },
-              {
-                text: response.items[0].fields.name,
-                href: '/exhibition/' + response.items[0].fields.identifier
-              },
-              {
-                text: chapter.fields.name,
-                active: true
-              }
-            ]);
-            return {
-              chapters: response.items[0].fields['hasPart'],
-              exhibition: params.exhibition,
-              page: chapter.fields
-            };
+            chapter = response.items[0].fields['hasPart'].find(c => c && c.fields.identifier === params.chapter);
           }
-          error({ statusCode: 404, message: app.i18n.t('messages.notFound') });
-          return;
+          if (chapter === undefined) {
+            error({ statusCode: 404, message: app.i18n.t('messages.notFound') });
+            return;
+          }
+          store.commit('breadcrumb/setBreadcrumbs', [
+            {
+              // TODO: Add named language aware route for exhibitions
+              text:  app.i18n.t('exhibitions.exhibitions'),
+              to: '/exhibitions'
+            },
+            {
+              text: response.items[0].fields.name,
+              to: app.localePath({
+                name: 'exhibition-exhibition',
+                params: {
+                  exhibition: response.items[0].fields.identifier
+                }
+              })
+            },
+            {
+              text: chapter.fields.name,
+              active: true
+            }
+          ]);
+          return {
+            chapters: response.items[0].fields['hasPart'],
+            exhibition: params.exhibition,
+            page: chapter.fields
+          };
         })
         .catch((e) => {
           error({ statusCode: 500, message: e.toString() });
