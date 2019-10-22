@@ -3,6 +3,7 @@
   <div
     v-if="html"
     data-qa="html embed"
+    class="mb-5"
     v-html="html"
   />
   <AlertMessage
