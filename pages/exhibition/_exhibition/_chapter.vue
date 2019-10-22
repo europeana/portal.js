@@ -129,11 +129,10 @@
       return {
         title: this.page.name,
         meta: [
-          // TODO: link description when it's available
           { hid: 'title', name: 'title', content: this.page.name },
-          // { hid: 'description', name: 'description', content: this.page.description },
+          { hid: 'description', name: 'description', content: this.page.description },
           { hid: 'og:title', property: 'og:title', content: this.page.name }
-          // { hid: 'og:description', property: 'og:description', content: this.page.description }
+          { hid: 'og:description', property: 'og:description', content: this.page.description }
         ]
       };
     }
