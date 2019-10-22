@@ -29,22 +29,31 @@
         :right-image-content-type="section.fields.hasPart[1].fields.image.fields.file.contentType"
         :right-image-attribution="attributionFields(section.fields.hasPart[1].fields)"
       />
+      <ImageWithAttribution
+        v-else-if="contentType(section, 'imageWithAttribution')"
+        :key="section.sys.id"
+        :src="section.fields.image.fields.file.url"
+        :content-type="section.fields.image.fields.file.contentType"
+        :attribution="attributionFields(section.fields)"
+      />
     </template>
   </div>
 </template>
 
 <script>
-  import RichText from './RichText';
   import CompareImageSlider from '../generic/CompareImageSlider';
   import ContentCardSection from './ContentCardSection';
   import HTMLEmbed from '../generic/HTMLEmbed';
+  import ImageWithAttribution from '../generic/ImageWithAttribution';
+  import RichText from './RichText';
 
   export default {
     components: {
-      RichText,
       CompareImageSlider,
       ContentCardSection,
-      HTMLEmbed
+      HTMLEmbed,
+      ImageWithAttribution,
+      RichText
     },
 
     props: {
