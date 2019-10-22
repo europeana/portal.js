@@ -13,9 +13,9 @@
           <ContentCard
             v-for="(post, index) in posts"
             :key="index"
-            :title="post.fields.headline"
+            :title="post.fields.name"
             :url="{ name: 'blog-all', params: { pathMatch: post.fields.identifier } }"
-            image-url="https://picsum.photos/600/300/?image=25"
+            :image-url="post.fields.primaryImageOfPage && post.fields.primaryImageOfPage.fields.image.fields.file.url"
             :description="post.fields.description"
             :datetime="post.fields.datePublished"
           />
