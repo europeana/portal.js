@@ -3,7 +3,7 @@
  * @see {@link http://nightwatchjs.org/api#expect-api|Nightwatch Expect assertions}
  */
 
-const { client, createSession, closeSession, startWebDriver, stopWebDriver } = require('nightwatch-api');
+const { client } = require('nightwatch-api');
 const { europeanaId } = require('./europeana-identifiers.js');
 const { url } = require('../config/nightwatch.conf.js').test_settings.default.globals;
 
