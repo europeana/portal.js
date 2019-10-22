@@ -36,21 +36,15 @@
         >
       </b-button>
     </b-input-group>
-    <AutoComplete
-      :options="options"
-      @input="getSuggestions"
-    />
   </b-form>
 </template>
 
 <script>
   import SearchBarPill from './SearchBarPill.vue';
-  import AutoComplete from './AutoComplete.vue';
 
   export default {
     components: {
-      SearchBarPill,
-      AutoComplete
+      SearchBarPill
     },
     data() {
       return {
@@ -99,15 +93,6 @@
         const newRouteQuery = { ...this.$route.query, ...{ query: this.inputQuery, page: 1, view: this.view } };
         const newRoute = { path: this.routePath, query: newRouteQuery };
         await this.$router.push(newRoute);
-      },
-
-      async getSuggestions() {
-        setTimeout(() => {
-          this.options = {
-            'http://data.europeana.eu/concept/base/83': 'Hello',
-            'http://data.europeana.eu/concept/base/94': 'By Hello'
-          };
-        }, 500);
       }
     }
   };
