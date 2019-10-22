@@ -24,7 +24,7 @@
           data-qa="date"
           :datetime="datetime"
         >
-          {{ datetime.split('T')[0] }}
+          {{ $d(new Date(datetime), 'short') }}
         </time>
         <template v-if="texts.length > 0">
           <b-card-text
