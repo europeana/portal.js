@@ -9,9 +9,14 @@ import BootstrapVue from 'bootstrap-vue';
 import '../plugins/vue-filters';
 import '../assets/scss/style.scss';
 
-Vue.use(Vuex)
-Vue.use(VueI18n)
+Vue.use(Vuex);
+Vue.use(VueI18n);
 Vue.use(BootstrapVue);
+Vue.mixin({
+  methods: {
+    localePath: (args) => args
+  }
+});
 Vue.component('NuxtLink', {
   props: ['to'],
   methods: {
@@ -20,7 +25,7 @@ Vue.component('NuxtLink', {
     }
   },
   template: '<a href="" @click.prevent="log()"><slot>NuxtLink</slot></a>',
-})
+});
 // add bootstrap CSS to head
 const bootstrapPkg = require('bootstrap/package');
 const bootstrapVuePkg = require('bootstrap-vue/package');

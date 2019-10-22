@@ -29,10 +29,8 @@ const i18n = {
   }
 };
 
-SearchForm.methods.localePath = () => {};
-
-storiesOf('Search page', module)
-  .add('Search form', () => ({
+storiesOf('Search/Form', module)
+  .add('Plain', () => ({
     components: { SearchForm },
     store,
     i18n,
@@ -43,20 +41,7 @@ storiesOf('Search page', module)
         <SearchForm />
       </b-container>`
   }))
-  .add('Search form loading', () => ({
-    components: { SearchForm },
-    store,
-    i18n,
-    router,
-    template: ` <b-container
-      class="mt-3"
-      >
-        <SearchForm
-          :is-loading="true"
-        />
-      </b-container>`
-  }))
-  .add('Search form with pill', () => ({
+  .add('With pill', () => ({
     components: { SearchForm },
     store: store('Johannes Vermeer'),
     i18n,
@@ -64,8 +49,6 @@ storiesOf('Search page', module)
     template: ` <b-container
       class="mt-3"
       >
-        <SearchForm
-          :is-loading="true"
-        />
+        <SearchForm />
       </b-container>`
   }));

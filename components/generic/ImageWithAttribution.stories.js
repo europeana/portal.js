@@ -5,9 +5,7 @@ import ImageWithAttribution from './ImageWithAttribution.vue';
 const i18n = {
   locale: 'en',
   messages: {
-    en: {
-      directions: { right: 'Right', left: 'Left' }
-    }
+    en: {}
   }
 };
 
@@ -19,8 +17,6 @@ const router = new VueRouter({
     }
   ]
 });
-
-ImageWithAttribution.methods.localePath = () => {};
 
 storiesOf('Generic/Image with attribution', module)
   .add('Internal link', () => ({
