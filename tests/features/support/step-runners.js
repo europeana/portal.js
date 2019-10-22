@@ -123,6 +123,20 @@ module.exports = {
     const selector = qaSelector('pagination navigation') + ` a[aria-posinset="${page}"]`;
     await client.click(selector);
   },
+  async preferBrowserLanguage(locale) {
+    const browserEnv = (process.env.browser || 'gecko') + `-${locale}`;
+    const nightwatchApiOptions = {
+      configFile: 'tests/features/config/nightwatch.conf.js',
+      env: browserEnv,
+      silent: true
+    };
+
+    await closeSession();
+    await stopWebDriver();
+
+    await startWebDriver(nightwatchApiOptions);
+    await createSession(nightwatchApiOptions);
+  },
   async seeALinkInTarget(linkHref, qaElementName) {
     await client.expect.element(qaSelector(qaElementName) + ` a[href="${linkHref}"]`).to.be.visible;
   },
