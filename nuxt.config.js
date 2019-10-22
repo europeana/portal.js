@@ -4,6 +4,7 @@ const pkg = require('./package');
 const bootstrapPkg = require('bootstrap/package');
 const bootstrapVuePkg = require('bootstrap-vue/package');
 const i18nLocales = require('./plugins/i18n/locales.json');
+const i18nDateTime = require('./plugins/i18n/datetime.js');
 
 module.exports = {
   mode: 'universal',
@@ -72,7 +73,8 @@ module.exports = {
       langDir: 'lang/',
       vueI18n: {
         fallbackLocale: 'en',
-        silentFallbackWarn: true
+        silentFallbackWarn: true,
+        dateTimeFormats: i18nDateTime
       },
       // Enable browser language detection to automatically redirect user
       // to their preferred language as they visit your app for the first time

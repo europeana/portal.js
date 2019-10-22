@@ -2,7 +2,7 @@ import { apiError } from './utils';
 import axios from 'axios';
 
 /**
- * Get the entity data from the API
+ * Get data for one entity from the API
  * @param {string} type the type of the entity, will be normalized to the EntityAPI type if it's a human readable type
  * @param {string} id the id of the entity (can contain trailing slug parts as these will be normalized)
  * @param {Object} params additional parameters sent to the API
@@ -20,6 +20,31 @@ export function getEntity(type, id, params) {
         error: null,
         entity: response.data
       };
+    })
+    .catch((error) => {
+      throw apiError(error);
+    });
+}
+
+/**
+ * Get entity suggestions from the API
+ * @param {string} text the query text to supply suggestions for
+ * @param {Object} params additional parameters sent to the API
+ * @param {string} params.language language(s), comma-separated, to request
+ * @param {string} params.wskey API key
+ * @return {Object[]} entity suggestions from the API
+ */
+export function getEntitySuggestions(text, params) {
+  return axios.get('https://api.europeana.eu/entity/suggest', {
+    params: {
+      text,
+      type: 'agent,concept',
+      language: params.language,
+      wskey: params.wskey
+    }
+  })
+    .then((response) => {
+      return response.data.items ? response.data.items : [];
     })
     .catch((error) => {
       throw apiError(error);
@@ -171,9 +196,10 @@ function getDataForEntities(entities, entityKey) {
     return entity['label'];
   });
 
-  const q = entityLabels.join('"+OR+"');
-  return axios.get(`https://api.europeana.eu/entity/search?query=entity_uri:("${q}")`, {
+  const q = entityLabels.join('" OR "');
+  return axios.get('https://api.europeana.eu/entity/search', {
     params: {
+      query: `entity_uri:("${q}")`,
       wskey: entityKey
     }
   })

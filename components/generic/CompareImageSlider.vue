@@ -1,64 +1,103 @@
 <template>
-  <figure
-    ref="container"
-    class="compare-image"
-    data-qa="compare image"
-  >
-    <img
-      ref="imageLeft"
-      :src="imageLeft"
-      :alt="imageLeftText"
-      :style="leftImageClip"
-      data-qa="compare image left image"
-    >
-    <img
-      ref="imageRight"
-      :src="imageRight"
-      :alt="imageRightText"
-      data-qa="compare image right image"
-    >
+  <figure ref="container">
     <div
-      ref="slider"
-      class="slider"
-      :style="sliderBarPosition"
-      data-qa="compare image slider"
-      @mousedown="initDrag"
+      class="compare-image"
+      data-qa="compare image"
     >
-      <span class="slider-bar" />
-      <button
-        :class="{ 'is-active' : dragging }"
-        class="slider-handle"
-        data-qa="compare image slider handler"
+      <img
+        ref="leftImage"
+        :src="optimisedImageUrl('left')"
+        :style="leftImageClip"
+        data-qa="compare image left image"
       >
-        <span class="sr-only">Slider Handle</span>
-      </button>
+      <img
+        ref="rightImage"
+        :src="optimisedImageUrl('right')"
+        data-qa="compare image right image"
+      >
+
+      <div
+        ref="slider"
+        class="slider"
+        :style="sliderBarPosition"
+        data-qa="compare image slider"
+        @mousedown="initDrag"
+      >
+        <span class="slider-bar" />
+        <button
+          :class="{ 'is-active' : dragging }"
+          class="slider-handle"
+          data-qa="compare image slider handler"
+        >
+          <span class="sr-only">Slider Handle</span>
+        </button>
+      </div>
     </div>
+    <figcaption>
+      <label data-qa="compare image left attribution">
+        {{ $t('directions.left') }}
+        <CiteAttribution
+          :name="leftImageAttribution.name"
+          :creator="leftImageAttribution.creator"
+          :provider="leftImageAttribution.provider"
+          :rights-statement="leftImageAttribution.rightsStatement"
+          :url="leftImageAttribution.url"
+        />
+      </label>
+      <br>
+      <label data-qa="compare image right attribution">
+        {{ $t('directions.right') }}
+        <CiteAttribution
+          :name="rightImageAttribution.name"
+          :creator="rightImageAttribution.creator"
+          :provider="rightImageAttribution.provider"
+          :rights-statement="rightImageAttribution.rightsStatement"
+          :url="rightImageAttribution.url"
+        />
+      </label>
+    </figcaption>
   </figure>
 </template>
 
 <script>
+  import CiteAttribution from '../../components/generic/CiteAttribution';
+
   export default {
     name: 'CompareImageSlider',
 
+    components: {
+      CiteAttribution
+    },
+
     props: {
-      imageLeft: {
+      leftImageSrc: {
         type: String,
         required: true
       },
 
-      imageRight: {
+      rightImageSrc: {
         type: String,
         required: true
       },
 
-      imageLeftText: {
+      leftImageContentType: {
         type: String,
-        default: ''
+        default: null
       },
 
-      imageRightText: {
+      rightImageContentType: {
         type: String,
-        default: ''
+        default: null
+      },
+
+      leftImageAttribution: {
+        type: Object,
+        required: true
+      },
+
+      rightImageAttribution: {
+        type: Object,
+        required: true
       }
     },
 
@@ -99,7 +138,7 @@
 
     methods: {
       setImageWidth() {
-        this.imageWidth = this.$refs.imageRight.getBoundingClientRect().width;
+        this.imageWidth = this.$refs.rightImage.getBoundingClientRect().width;
       },
 
       setSliderWidth() {
@@ -120,7 +159,7 @@
         // Calc Cursor Position from the left edge of the window (consider any page scrolling)
         const cursorXfromWindow = cursorXfromViewport - window.pageXOffset;
         // Calc Cursor Position from the left edge of the image
-        const imagePosition = this.$refs.imageRight.getBoundingClientRect();
+        const imagePosition = this.$refs.rightImage.getBoundingClientRect();
         let pos = cursorXfromWindow - imagePosition.left;
 
         const minPos = 0 + this.sliderWidth / 2;
@@ -137,6 +176,10 @@
         if (this.dragging) {
           this.sliderPosition = pos / this.imageWidth;
         }
+      },
+
+      optimisedImageUrl(side) {
+        return this.$options.filters.optimisedImageUrl(this[`${side}ImageSrc`], this[`${side}ImageContentType`]);
       }
     }
   };

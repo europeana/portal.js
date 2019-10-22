@@ -9,8 +9,8 @@
         class="footer-link-list m-0 p-0"
       >
         <li
-          v-for="footerLink in links"
-          :key="footerLink.url"
+          v-for="(footerLink, index) in links"
+          :key="index"
         >
           <template
             v-if="footerLink.url"

@@ -5,6 +5,9 @@ export default {
     "listSeperator": ";"
   },
   "error": "Error",
+  "exhibitions": {
+    "exhibitions": "Exhibitions"
+  },
   "search": "Search",
   "delete": "Delete",
   "results": "Results",
@@ -88,5 +91,9 @@ export default {
     "category": "Category",
     "categories": "Categories",
     "relatedPosts": "Related posts"
+  },
+  "directions": {
+    "left": "Left",
+    "right": "Right"
   }
 };
