@@ -84,14 +84,10 @@
         'locale': app.i18n.isoLocale(),
         'content_type': 'blogPosting',
         'skip': (Number(currentPage) - 1) * limit,
+        'order': '-fields.datePublished',
         limit
       })
         .then((response) => {
-          if (response.total === 0) {
-            error({ statusCode: 404, message: app.i18n.t('messages.notFound') });
-            return;
-          }
-
           store.commit('breadcrumb/setBreadcrumbs', [
             {
               // TODO: Add named language aware route for exhibitions
@@ -116,6 +112,11 @@
       }
     },
 
-    watchQuery: ['page']
+    watchQuery: ['page'],
+
+    beforeRouteLeave(to, from, next) {
+      this.$store.commit('breadcrumb/clearBreadcrumb');
+      next();
+    }
   };
 </script>
