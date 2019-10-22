@@ -14,6 +14,11 @@
         :key="section.sys.id"
         :section="section"
       />
+      <HTMLEmbed
+        v-else-if="contentType(section, 'embed')"
+        :key="section.sys.id"
+        :html="section.fields.embed"
+      />
       <CompareImageSlider
         v-else-if="contentType(section, 'imageComparison')"
         :key="section.sys.id"
@@ -38,6 +43,7 @@
 <script>
   import CompareImageSlider from '../generic/CompareImageSlider';
   import ContentCardSection from './ContentCardSection';
+  import HTMLEmbed from '../generic/HTMLEmbed';
   import ImageWithAttribution from '../generic/ImageWithAttribution';
   import RichText from './RichText';
 
@@ -45,6 +51,7 @@
     components: {
       CompareImageSlider,
       ContentCardSection,
+      HTMLEmbed,
       ImageWithAttribution,
       RichText
     },

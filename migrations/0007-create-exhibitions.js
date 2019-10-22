@@ -184,6 +184,16 @@ module.exports = function(migration) {
     .omitted(false);
 
   exhibitionChapterPage
+    .createField('description')
+    .name('Description')
+    .type('Symbol')
+    .localized(true)
+    .required(false)
+    .validations([])
+    .disabled(false)
+    .omitted(false);
+
+  exhibitionChapterPage
     .createField('primaryImageOfPage')
     .name('Hero image')
     .type('Link')
@@ -245,7 +255,7 @@ module.exports = function(migration) {
         'For the secondary text over the hero image only, appears under the title.'
     }
   );
-
+  exhibitionChapterPage.changeFieldControl('description', 'builtin', 'singleLine', {});
   exhibitionChapterPage.changeFieldControl(
     'primaryImageOfPage',
     'builtin',
