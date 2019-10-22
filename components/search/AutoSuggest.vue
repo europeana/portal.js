@@ -3,7 +3,7 @@
     inline
     @submit.prevent="submitForm"
   >
-    <b-input-group class="has-autosuggestion" @blur="isActive = false">
+    <b-input-group class="auto-suggest">
       <template
         v-if="pillLabel"
         v-slot:prepend
@@ -40,14 +40,14 @@
       </b-button>
       <b-list-group
         v-if="isActive"
-        class="autosuggestion-dropdown"
+        class="auto-suggest-dropdown"
       >
         <b-list-group-item
           v-for="(value, name, index) in options"
           :key="index"
           :href="name"
           :class="{ 'highlighted': index === focus }"
-          class="autosuggestion-dropdown-list"
+          class="auto-suggest-dropdown-list"
           :value="value"
           @mouseover="focus = index"
           @click="isActive = false"
@@ -60,8 +60,14 @@
 </template>
 
 <script>
+  import SearchBarPill from './SearchBarPill.vue';
+
   export default {
-    name: 'AutoComplete',
+    name: 'AutoSuggest',
+
+    components: {
+      SearchBarPill
+    },
 
     data() {
       return {
@@ -162,6 +168,7 @@
         await this.$router.push(newRoute);
       },
 
+      // FAKE DATA
       async getSuggestions() {
         setTimeout(() => {
           this.options = {
@@ -177,23 +184,23 @@
 <style lang="scss" scoped>
   @import "./assets/scss/variables.scss";
 
-  .has-autosuggestion {
+  .auto-suggest {
     position: relative;
-  }
 
-  .autosuggestion-dropdown {
-    position: absolute;
-    top: 50px;
-    width: 100%;
-    z-index: 20;
+    &-dropdown {
+      position: absolute;
+      top: 50px;
+      width: 100%;
+      z-index: 20;
 
-    a.list-group-item {
-      border: 0;
-      box-shadow: none;
-      padding: .75rem 1.25rem;
+      a.list-group-item {
+        border: 0;
+        box-shadow: none;
+        padding: .75rem 1.25rem;
 
-      &.highlighted {
-        background-color: #f1f1ee;
+        &.highlighted {
+          background-color: #f1f1ee;
+        }
       }
     }
   }

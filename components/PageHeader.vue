@@ -20,7 +20,7 @@
           >
         </b-navbar-brand>
         <div class="navbar-nav ml-auto w-100 col-md-6 col-lg-6 p-0 pt-3 pt-md-0">
-          <AutoComplete
+          <AutoSuggest
             data-qa="search form"
             class="justify-content-center justify-content-md-end w-100"
           />
@@ -35,12 +35,12 @@
 </template>
 
 <script>
-  import AutoComplete from './search/AutoComplete';
+  import AutoSuggest from './search/AutoSuggest';
   import LangSelector from './generic/LanguageSelector';
 
   export default {
     components: {
-      AutoComplete,
+      AutoSuggest,
       LangSelector
     },
     props: {
