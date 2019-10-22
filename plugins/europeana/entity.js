@@ -194,7 +194,7 @@ function getDataForEntities(entities, entityKey) {
     return entity['label'];
   });
 
-  const q = entityLabels.join('"+OR+"');
+  const q = entityLabels.join('" OR "');
   return axios.get('https://api.europeana.eu/entity/search', {
     params: {
       query: `entity_uri:("${q}")`,
