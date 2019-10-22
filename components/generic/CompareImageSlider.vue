@@ -8,11 +8,13 @@
         ref="leftImage"
         :src="leftImageSrc | optimisedImageUrl(leftImageContentType)"
         :style="leftImageClip"
+        alt=""
         data-qa="compare image left image"
       >
       <img
         ref="rightImage"
         :src="rightImageSrc | optimisedImageUrl(rightImageContentType)"
+        alt=""
         data-qa="compare image right image"
       >
 

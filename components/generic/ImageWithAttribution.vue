@@ -2,6 +2,7 @@
   <figure>
     <img
       :src="src | optimisedImageUrl(contentType)"
+      alt=""
     >
     <figcaption>
       <CiteAttribution
