@@ -85,7 +85,6 @@ export default {
   "newWindow": "opens in new window",
   "blog": {
     "blog": "Blog",
-    "blogs": "Blogs",
     "author": "Author",
     "authors": "Authors",
     "category": "Category",
