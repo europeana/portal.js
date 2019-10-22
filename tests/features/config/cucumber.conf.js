@@ -11,6 +11,11 @@ const port = process.env.PORT || 1337;
 const maxWaitTime = 90;
 
 const browserEnv = process.env.browser || 'gecko';
+const nightwatchApiOptions = {
+  configFile: 'tests/features/config/nightwatch.conf.js',
+  env: browserEnv,
+  silent: true
+};
 
 setDefaultTimeout(100000);
 
@@ -32,11 +37,14 @@ BeforeAll(async() => {
 });
 
 Before(async() => {
-  await startWebDriver({ configFile: 'tests/features/config/nightwatch.conf.js', env: browserEnv, silent: true });
-  await createSession({ configFile: 'tests/features/config/nightwatch.conf.js', env: browserEnv, silent: true });
+  await startWebDriver(nightwatchApiOptions);
+  await createSession(nightwatchApiOptions);
 });
 
 After(async() => {
   await closeSession();
   await stopWebDriver();
+
+  // Prevent MaxListenersExceededWarning warnings
+  process.removeAllListeners();
 });
