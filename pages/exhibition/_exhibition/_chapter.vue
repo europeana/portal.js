@@ -43,6 +43,7 @@
           <ExhibitionChapters
             :exhibition-identifier="exhibitionIdentifier"
             :chapters="chapters"
+            data-qa="exhibition chapters"
           />
         </b-col>
       </b-row>
