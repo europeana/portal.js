@@ -3,7 +3,7 @@
     inline
     @submit.prevent="submitForm"
   >
-    <b-input-group class="has-autosuggestion">
+    <b-input-group class="has-autosuggestion" @blur="isActive = false">
       <template
         v-if="pillLabel"
         v-slot:prepend
@@ -47,6 +47,7 @@
           :key="index"
           :href="name"
           :class="{ 'highlighted': index === focus }"
+          class="autosuggestion-dropdown-list"
           :value="value"
           @mouseover="focus = index"
           @click="isActive = false"
@@ -62,18 +63,12 @@
   export default {
     name: 'AutoComplete',
 
-    props: {
-      options: {
-        type: Object,
-        default: () => {}
-      }
-    },
-
     data() {
       return {
         query: null,
         focus: null,
-        isActive: false
+        isActive: false,
+        options: null
       };
     },
 
@@ -114,10 +109,25 @@
 
     mounted() {
       document.addEventListener('keyup', this.navigateDropdown);
+      document.addEventListener('mouseup', this.clickOutside);
       this.query = this.$store.state.search.query;
     },
 
     methods: {
+      clickOutside(event) {
+        const isChild = this.$el.contains(event.target);
+
+        if (!isChild) {
+          this.isActive = false;
+        }
+      },
+      updateInputWithHighlighted() {
+        this.$nextTick(() => {
+          const highlighted = document.querySelector('.highlighted');
+          if (!highlighted) return;
+          this.query = highlighted.getAttribute('value');
+        });
+      },
       navigateDropdown() {
         switch (event.keyCode) {
         case 38:
@@ -128,6 +138,7 @@
           } else if (this.focus === 0) {
             this.focus = null;
           }
+          this.updateInputWithHighlighted();
           break;
         case 40:
           if (this.focus === null) {
@@ -135,14 +146,9 @@
           } else if (this.focus < Object.keys(this.options).length - 1) {
             this.focus++;
           }
+          this.updateInputWithHighlighted();
           break;
         }
-
-        this.$nextTick(() => {
-          const highlighted = document.querySelector('.highlighted');
-          if (!highlighted) return;
-          this.query = highlighted.getAttribute('value');
-        });
       },
 
       activateDropdown() {
@@ -187,7 +193,7 @@
       padding: .75rem 1.25rem;
 
       &.highlighted {
-        color: red;
+        background-color: #f1f1ee;
       }
     }
   }

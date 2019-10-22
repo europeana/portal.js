@@ -23,7 +23,6 @@
           <AutoComplete
             data-qa="search form"
             class="justify-content-center justify-content-md-end w-100"
-            @input="getSuggestions"
           />
         </div>
         <LangSelector
