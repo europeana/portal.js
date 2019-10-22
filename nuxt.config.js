@@ -4,7 +4,7 @@ const pkg = require('./package');
 const bootstrapPkg = require('bootstrap/package');
 const bootstrapVuePkg = require('bootstrap-vue/package');
 const i18nLocales = require('./plugins/i18n/locales.json');
-const i18nDateTime = require('./plugins/i18n/datetime.json');
+const i18nDateTime = require('./plugins/i18n/datetime.js');
 
 module.exports = {
   mode: 'universal',
