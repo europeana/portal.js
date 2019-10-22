@@ -26,11 +26,16 @@
         >
           {{ datetime.split('T')[0] }}
         </time>
-        <b-card-text
-          v-for="(text, index) in texts"
-          :key="index"
-        >
-          {{ text }}
+        <template v-if="texts.length > 0">
+          <b-card-text
+            v-for="(text, index) in texts"
+            :key="index"
+          >
+            {{ text }}
+          </b-card-text>
+        </template>
+        <b-card-text v-if="description">
+          {{ description }}
         </b-card-text>
       </b-card-body>
     </SmartLink>
@@ -66,6 +71,10 @@
         default: null
       },
       datetime: {
+        type: String,
+        default: ''
+      },
+      description: {
         type: String,
         default: ''
       }
