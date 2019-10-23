@@ -7,20 +7,34 @@
 // package but with additional redirection handling for requests to URL paths
 // without the language in them.
 
+const COOKIE_NAME = 'i18n_locale_code';
+
+// Codes of all languages supported by the app
+const registeredLocales = require('../plugins/i18n/locales.json').map(locale => locale.code);
+
+function appSupportsLocale(locale) {
+  return locale && registeredLocales.includes(locale);
+}
+
 export default ({ app, route, redirect, req }) => {
   // Is there a locale in the URL path already?
-  const routePathLocale = route.path.match(/^\/([a-z]{2})(\/|$)/);
-  if (routePathLocale) {
-    // Store it in the cookie, indicating user's current preference e.g. from
-    // using language selector.
-    app.$cookies.set('i18n_locale_code', routePathLocale[1]);
-    // Carry on processing the request.
-    return;
+  const routePathLocaleMatch = route.path.match(/^\/([a-z]{2})(\/|$)/);
+
+  if (routePathLocaleMatch) {
+    const routePathLocale = routePathLocaleMatch[1];
+    if (appSupportsLocale(routePathLocale)) {
+      // Store it in the cookie, indicating user's current preference e.g. from
+      // using language selector
+      app.$cookies.set(COOKIE_NAME, routePathLocale);
+      // Carry on processing the request.
+      return;
+    }
   }
 
-  // Prefer locale stored in cookie.
-  let browserLocale = app.$cookies.get('i18n_locale_code');
-  if (!browserLocale) {
+  // Prefer locale stored in cookie
+  let browserLocale = app.$cookies.get(COOKIE_NAME);
+
+  if (!appSupportsLocale(browserLocale)) {
     // Get browser language either from navigator if running on client side, else from the request headers
     if (process.client && typeof navigator !== 'undefined' && navigator.language) {
       browserLocale = navigator.language.toLocaleLowerCase().substring(0, 2);
@@ -29,13 +43,12 @@ export default ({ app, route, redirect, req }) => {
     }
 
     // Fallback to default locale if browser language not registered in the app
-    const registeredLocales = app.i18n.locales.map(locale => locale.code);
-    if (!browserLocale || !registeredLocales.includes(browserLocale)) {
+    if (!appSupportsLocale(browserLocale)) {
       browserLocale = app.i18n.fallbackLocale;
     }
 
     // Store in the cookie for future requests
-    app.$cookies.set('i18n_locale_code', browserLocale);
+    app.$cookies.set(COOKIE_NAME, browserLocale);
   }
 
   const i18nPath = route.path === '/' ? `/${browserLocale}` : `/${browserLocale}${route.path}`;

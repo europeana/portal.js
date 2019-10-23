@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 
 const { setDefaultTimeout, After, AfterAll, BeforeAll } = require('cucumber');
-const { createSession, closeSession, startWebDriver, stopWebDriver } = require('nightwatch-api');
+const { client, createSession, closeSession, startWebDriver, stopWebDriver } = require('nightwatch-api');
 const isReachable = require('is-reachable');
 const sleep = (milliseconds) => {
   return new Promise(resolve => setTimeout(resolve, milliseconds));
@@ -49,6 +49,10 @@ BeforeAll(async() => {
   }
 
   await startBrowser();
+});
+
+After(async() => {
+  await client.deleteCookies();
 });
 
 After({ tags: '@non-default-browser' }, async() => {
