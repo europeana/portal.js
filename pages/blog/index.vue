@@ -92,7 +92,7 @@
             {
               // TODO: Add named language aware route for exhibitions
               text:  app.i18n.t('blog.blog'),
-              to: '/blog'
+              active: true
             }
           ]);
 
