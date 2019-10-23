@@ -90,7 +90,6 @@
         .then((response) => {
           store.commit('breadcrumb/setBreadcrumbs', [
             {
-              // TODO: Add named language aware route for exhibitions
               text:  app.i18n.t('blog.blog'),
               active: true
             }
