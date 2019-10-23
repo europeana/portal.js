@@ -3,5 +3,6 @@ Feature: Exhibition page
   Scenario: View exhibition page
 
     When I open the `exhibition page`
-    Then I see a `exhibition text`
+    Then I see `exhibition text`
+    And I see `exhibition chapters`
     And I am on an accessible page
