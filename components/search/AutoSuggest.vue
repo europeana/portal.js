@@ -15,7 +15,6 @@
         />
       </template>
       <b-form-input
-        ref="searchForm"
         v-model="query"
         autocomplete="off"
         :aria-label="$t('search')"
@@ -45,9 +44,8 @@
         <b-list-group-item
           v-for="(value, name, index) in options"
           :key="index"
-          :href="name"
+          :to="name"
           :class="{ 'highlighted': index === focus }"
-          class="auto-suggest-dropdown-list"
           :value="value"
           @mouseover="focus = index"
           @click="isActive = false"
@@ -185,8 +183,6 @@
   @import "./assets/scss/variables.scss";
 
   .auto-suggest {
-    position: relative;
-
     &-dropdown {
       position: absolute;
       top: 50px;
@@ -197,9 +193,10 @@
         border: 0;
         box-shadow: none;
         padding: .75rem 1.25rem;
+        border-radius: 0;
 
         &.highlighted {
-          background-color: #f1f1ee;
+          background-color: $lightgrey;
         }
       }
     }
@@ -207,14 +204,6 @@
 
   .input-group {
     width: 100%;
-
-    .input-group-prepend {
-      align-items: center;
-      background-color: $lightgrey;
-      padding-left: .75rem;
-      padding-right: .1rem;
-      border-radius: 0.375rem 0 0 0.375rem;
-    }
   }
 
   .form-control {
