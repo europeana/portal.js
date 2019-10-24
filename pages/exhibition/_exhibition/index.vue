@@ -92,7 +92,7 @@
           store.commit('breadcrumb/setBreadcrumbs', [
             {
               text:  app.i18n.t('exhibitions.exhibitions'),
-              to: app.localePath({ name: 'exhibitions', query: { page: 1 } })
+              to: app.localePath({ name: 'exhibitions' })
             },
             {
               text: response.items[0].fields.name,
