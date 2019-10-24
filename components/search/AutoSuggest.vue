@@ -128,7 +128,7 @@
         const query = this.query;
         const regEx = new RegExp(query, 'ig'); // Case insensitive
 
-        return value.replace(regEx, `<strong>${query}</strong>`);
+        return value.replace(regEx, `<strong class="highlight">${query}</strong>`);
       },
       clickOutside(event) {
         const isChild = this.$el.contains(event.target);
@@ -207,6 +207,7 @@
         border: 0;
         box-shadow: none;
         padding: .75rem 1.25rem;
+        color: $black;
 
         &.hover {
           background-color: $lightgrey;
@@ -214,6 +215,10 @@
 
         &:last-child {
           border-radius: 0 0 6px 6px;
+        }
+
+        /deep/.highlight {
+          color: $blue;
         }
       }
     }
