@@ -41,11 +41,6 @@
     font-size: $font-size-small;
   }
 
-  figcaption {
-    margin-right: 1rem;
-    position: absolute;
-  }
-
   @media (min-width: $bp-large) {
     .container {
       align-items: flex-end;

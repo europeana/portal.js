@@ -42,14 +42,14 @@ describe('components/generic/CompareImageSlider', () => {
   it('cites left image attribution', () => {
     const wrapper = factory();
 
-    const leftCite = wrapper.find('figcaption [data-qa="compare image left attribution"] cite');
+    const leftCite = wrapper.find('figcaption [data-qa="compare image left attribution"]');
     leftCite.should.exist;
   });
 
   it('cites right image attribution', () => {
     const wrapper = factory();
 
-    const rightCite = wrapper.find('figcaption [data-qa="compare image right attribution"] cite');
+    const rightCite = wrapper.find('figcaption [data-qa="compare image right attribution"]');
     rightCite.should.exist;
   });
 
