@@ -49,9 +49,10 @@ describe('plugins/europeana/record', () => {
           object: {
             aggregations: [{
               edmIsShownAt: 'https://example.org',
-              edmIsShownBy: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+              edmIsShownBy: 'https://example.org/doc.pdf',
+              hasView: ['https://example.org/image.jpeg'],
               webResources: [{
-                about: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+                about: 'https://example.org/doc.pdf',
                 dcDescription: {
                   'en': [
                     'This is an example'
@@ -63,6 +64,10 @@ describe('plugins/europeana/record', () => {
                   ]
                 },
                 ebucoreHasMimeType: 'application/pdf'
+              },
+              {
+                about: 'https://example.org/image.jpeg',
+                ebucoreHasMimeType: 'image/jpeg'
               }]
             }],
             europeanaAggregation: {
@@ -95,6 +100,16 @@ describe('plugins/europeana/record', () => {
         it('returns record data', async() => {
           const response = await getRecord(europeanaId, { wskey: apiKey });
           response.record.should.exist;
+        });
+
+        it('includes edmIsShownBy', async() => {
+          const response = await getRecord(europeanaId, { wskey: apiKey });
+          response.record.edmIsShownBy.should.deep.eql(apiResponse.object.aggregations[0].webResources[0]);
+        });
+
+        it('includes edmHasView', async() => {
+          const response = await getRecord(europeanaId, { wskey: apiKey });
+          response.record.edmHasView.should.deep.eql([apiResponse.object.aggregations[0].webResources[1]]);
         });
       });
     });
