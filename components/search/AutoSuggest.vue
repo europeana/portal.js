@@ -104,6 +104,10 @@
 
       isEntityPage() {
         return this.$route.path.startsWith('/entity/');
+      },
+
+      view() {
+        return this.$store.getters['search/activeView'];
       }
     },
 
