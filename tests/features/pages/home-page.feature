@@ -7,6 +7,6 @@ Feature: Home page
   Scenario: Viewing the homepage
     The homepage is a browse page from Contentful
 
-    When I open `/`
+    When I open `/en`
     Then I see a `browse page`
     And I am on an accessible page

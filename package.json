@@ -49,6 +49,7 @@
     "@nuxtjs/google-tag-manager": "^2.2.0",
     "bootstrap-vue": "^2.0.0",
     "contentful": "^7.4.1",
+    "cookie-universal-nuxt": "^2.0.18",
     "cross-env": "^5.2.1",
     "elastic-apm-node": "^2.16.1",
     "express": "^4.16.4",
