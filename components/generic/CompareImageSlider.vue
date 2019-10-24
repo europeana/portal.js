@@ -44,6 +44,7 @@
         :url="leftImageAttribution.url"
         :class="hideAttribution === 'left' && 'cite-hidden'"
         data-qa="compare image left attribution"
+        :data-prefix="$t('directions.left')"
       />
       <CiteAttribution
         :name="rightImageAttribution.name"
@@ -53,6 +54,7 @@
         :url="rightImageAttribution.url"
         :class="hideAttribution === 'right' && 'cite-hidden'"
         data-qa="compare image right attribution"
+        :data-prefix="$t('directions.right')"
       />
     </figcaption>
   </figure>
@@ -157,14 +159,12 @@
       },
 
       showHideAttribution() {
-        if (this.dragging) {
-          if (this.sliderPosition < 0.2) {
-            this.hideAttribution = 'left';
-          } else if (this.sliderPosition > 0.8) {
-            this.hideAttribution = 'right';
-          } else {
-            this.hideAttribution = '';
-          }
+        if (this.sliderPosition < 0.2) {
+          this.hideAttribution = 'left';
+        } else if (this.sliderPosition > 0.8) {
+          this.hideAttribution = 'right';
+        } else {
+          this.hideAttribution = '';
         }
       },
 
@@ -198,6 +198,8 @@
 </script>
 
 <style lang="scss" scoped>
+  @import "./assets/scss/variables.scss";
+
   $slider-dimensions: 48px;
 
   figure {
@@ -276,19 +278,39 @@
     }
 
     & + figcaption {
+
       cite {
-        max-width: 45%;
-        transition: opacity 0.2s ease-out;
+        display: block;
+        margin: 0;
+        position: static;
+
+        &:before {
+          content: attr(data-prefix);
+          font-style: normal;
+        }
       }
 
-      cite:nth-child(2) {
-        left: auto;
-        margin-left: 1rem;
-        right: 1rem;
-      }
+      @media (min-width: $bp-large) {
+        cite {
+          max-width: 45%;
+          position: absolute;
+          transition: opacity 0.2s ease-out;
 
-      .cite-hidden {
-        opacity: 0;
+          &:before {
+            display: none;
+          }
+
+          &:nth-child(2) {
+            left: auto;
+            margin-left: 1rem;
+            margin-right: 0;
+            right: 1rem;
+          }
+        }
+
+        .cite-hidden {
+          opacity: 0;
+        }
       }
     }
   }
