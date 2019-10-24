@@ -4,4 +4,5 @@ Feature: Exhibition chapter page
 
     When I open the `exhibition chapter`
     Then I see an `exhibition chapter title`
+    And I see `exhibition chapters`
     And I am on an accessible page

@@ -38,20 +38,12 @@
           />
         </b-col>
       </b-row>
-      <b-row>
+      <b-row v-if="chapters">
         <b-col>
-          <!-- TODO: add links to chapters, remove h2, move to component -->
-          <h2>Chapters</h2>
-          <ul v-if="chapters">
-            <li
-              v-for="chapter in chapters"
-              :key="chapter.fields.identifier"
-            >
-              <b-link :to="'/exhibition/' + exhibition + '/' + chapter.fields.identifier">
-                {{ chapter.fields.name }}
-              </b-link>
-            </li>
-          </ul>
+          <ExhibitionChapters
+            :exhibition-identifier="exhibitionIdentifier"
+            :chapters="chapters"
+          />
         </b-col>
       </b-row>
     </b-container>
@@ -61,11 +53,13 @@
 <script>
   import createClient from '../../../plugins/contentful';
   import BrowseSections from '../../../components/browse/BrowseSections';
+  import ExhibitionChapters from '../../../components/exhibition/ExhibitionChapters';
   import HeroImage from '../../../components/generic/HeroImage';
 
   export default {
     components: {
       BrowseSections,
+      ExhibitionChapters,
       HeroImage
     },
     computed: {
@@ -114,8 +108,8 @@
             }
           ]);
           return {
-            chapters: response.items[0].fields['hasPart'],
-            exhibition: params.exhibition,
+            chapters: response.items[0].fields.hasPart,
+            exhibitionIdentifier: params.exhibition,
             page: chapter.fields
           };
         })

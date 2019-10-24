@@ -35,20 +35,12 @@
           </article>
         </b-col>
       </b-row>
-      <b-row>
+      <b-row v-if="page.hasPart">
         <b-col>
-          <!-- TODO: add links to chapters, remove h2, move to component -->
-          <h2>Chapters</h2>
-          <ul v-if="page.hasPart">
-            <li
-              v-for="chapter in page.hasPart"
-              :key="chapter.fields.identifier"
-            >
-              <b-link :to="'/exhibition/' + page.identifier + '/' + chapter.fields.identifier">
-                {{ chapter.fields.name }}
-              </b-link>
-            </li>
-          </ul>
+          <ExhibitionChapters
+            :exhibition-identifier="page.identifier"
+            :chapters="page.hasPart"
+          />
         </b-col>
       </b-row>
     </b-container>
@@ -58,10 +50,12 @@
 <script>
   import marked from 'marked';
   import createClient from '../../../plugins/contentful';
+  import ExhibitionChapters from '../../../components/exhibition/ExhibitionChapters';
   import HeroImage from '../../../components/generic/HeroImage';
 
   export default {
     components: {
+      ExhibitionChapters,
       HeroImage
     },
     computed: {

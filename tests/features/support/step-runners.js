@@ -3,19 +3,20 @@
  * @see {@link http://nightwatchjs.org/api#expect-api|Nightwatch Expect assertions}
  */
 
-const { client } = require('nightwatch-api');
+const { client, createSession, closeSession, startWebDriver, stopWebDriver } = require('nightwatch-api');
 const { europeanaId } = require('./europeana-identifiers.js');
 const { url } = require('../config/nightwatch.conf.js').test_settings.default.globals;
 
 const pages = {
-  'home page': `${url}/`,
-  'exhibition page': `${url}/exhibition/the-pink-flowers`,
-  'exhibition chapter': `${url}/exhibition/the-pink-flowers/allium`,
-  'exhibitions page': `${url}/exhibitions`,
-  'search page': `${url}/search?query=`,
-  'record page': `${url}/record${europeanaId()}`,
-  'first page of results': `${url}/search?query=&page=1`,
-  'entity page': `${url}/entity/topic/18-newspaper`
+  'home page': `${url}/en`,
+  'exhibition page': `${url}/en/exhibition/the-pink-flowers`,
+  'exhibition chapter': `${url}/en/exhibition/the-pink-flowers/allium`,
+  'exhibitions page': `${url}/en/exhibitions`,
+  'search page': `${url}/en/search?query=`,
+  'record page': `${url}/en/record${europeanaId()}`,
+  'first page of results': `${url}/en/search?query=&page=1`,
+  'entity page': `${url}/en/entity/topic/18-newspaper`,
+  'blog page': `${url}/en/blog`
 };
 
 /**
@@ -124,6 +125,20 @@ module.exports = {
   async paginateToPage(page) {
     const selector = qaSelector('pagination navigation') + ` a[aria-posinset="${page}"]`;
     await client.click(selector);
+  },
+  async preferBrowserLanguage(locale) {
+    const browserEnv = (process.env.browser || 'gecko') + `-${locale}`;
+    const nightwatchApiOptions = {
+      configFile: 'tests/features/config/nightwatch.conf.js',
+      env: browserEnv,
+      silent: true
+    };
+
+    await closeSession();
+    await stopWebDriver();
+
+    await startWebDriver(nightwatchApiOptions);
+    await createSession(nightwatchApiOptions);
   },
   async seeALinkInTarget(linkHref, qaElementName) {
     await client.expect.element(qaSelector(qaElementName) + ` a[href="${linkHref}"]`).to.be.visible;

@@ -7,7 +7,7 @@ Feature: Search faceting
     And I check the "IMAGE" "TYPE" checkbox
     And I click the `TYPE apply button`
     And I wait 2 seconds
-    Then I should be on `/search?page=1&qf=TYPE%3A%22IMAGE%22&query=&view=grid`
+    Then I should be on `/en/search?page=1&qf=TYPE%3A%22IMAGE%22&query=&view=grid`
     And I am on page number 1
     And I see a `filter badge` with the text "Type of media: IMAGE"
     And I am on an accessible page
@@ -19,7 +19,7 @@ Feature: Search faceting
     And I check the "open" "REUSABILITY" checkbox
     And I click the `REUSABILITY apply button`
     And I wait 2 seconds
-    Then I should be on `/search?page=1&query=&reusability=open&view=grid`
+    Then I should be on `/en/search?page=1&query=&reusability=open&view=grid`
     And I am on page number 1
     And I see a `filter badge` with the text "Can I reuse this?: open"
 
@@ -30,7 +30,7 @@ Feature: Search faceting
     And I check the "Belgium" "COUNTRY" checkbox
     And I click the `COUNTRY apply button`
     And I wait 2 seconds
-    Then I should be on `/search?page=1&qf=COUNTRY%3A%22Belgium%22&query=&view=grid`
+    Then I should be on `/en/search?page=1&qf=COUNTRY%3A%22Belgium%22&query=&view=grid`
     And I am on page number 1
     And I see a `filter badge` with the text "Providing country: Belgium"
 
@@ -42,7 +42,7 @@ Feature: Search faceting
     And I check the "Germany" "COUNTRY" checkbox
     And I click the `COUNTRY apply button`
     And I wait 2 seconds
-    Then I should be on `/search?page=1&qf=COUNTRY%3A%22Belgium%22&qf=COUNTRY%3A%22Germany%22&query=&view=grid`
+    Then I should be on `/en/search?page=1&qf=COUNTRY%3A%22Belgium%22&qf=COUNTRY%3A%22Germany%22&query=&view=grid`
     And I am on page number 1
     And I should have 2 `filter badge`s
 
@@ -59,18 +59,18 @@ Feature: Search faceting
     And I check the "open" "REUSABILITY" checkbox
     And I click the `REUSABILITY apply button`
     And I wait 2 seconds
-    Then I should be on `/search?page=1&qf=COUNTRY%3A%22Belgium%22&qf=TYPE%3A%22IMAGE%22&query=&reusability=open&view=grid`
+    Then I should be on `/en/search?page=1&qf=COUNTRY%3A%22Belgium%22&qf=TYPE%3A%22IMAGE%22&query=&reusability=open&view=grid`
     And I am on page number 1
     And I should have 3 `filter badge`s
 
   Scenario: Facets are loaded from the URL
 
-    When I visit `/search?query=&page=1&reusability=open&qf=COUNTRY%3A%22Belgium%22&qf=TYPE%3A%22IMAGE%22`
+    When I visit `/en/search?query=&page=1&reusability=open&qf=COUNTRY%3A%22Belgium%22&qf=TYPE%3A%22IMAGE%22`
     Then I should have 3 `filter badge`s
 
   Scenario: Unselecting facets
 
-    When I visit `/search?query=&page=1&reusability=open&qf=TYPE%3A%22IMAGE%22&qf=COUNTRY%3A%22Belgium%22`
+    When I visit `/en/search?query=&page=1&reusability=open&qf=TYPE%3A%22IMAGE%22&qf=COUNTRY%3A%22Belgium%22`
     And I click the `COUNTRY dropdown button`
     And I check the "Belgium" "COUNTRY" checkbox
     And I click the `COUNTRY apply button`
@@ -81,9 +81,9 @@ Feature: Search faceting
     And I check the "open" "REUSABILITY" checkbox
     And I click the `REUSABILITY apply button`
     And I wait 2 seconds
-    Then I should be on `/search?page=1&query=&view=grid`
+    Then I should be on `/en/search?page=1&query=&view=grid`
     And I am on page number 1
-    And I can't see a `/search?query=`
+    And I can't see a `/en/search?query=`
 
   Scenario: Filtering results by country and have a corresponding record page
 
@@ -120,7 +120,7 @@ Feature: Search faceting
     And I enter "paris" in the `search box`
     And I click the `search button`
     And I wait 3 seconds
-    Then I should be on `/search?page=1&qf=COUNTRY%3A%22France%22&query=paris&view=grid`
+    Then I should be on `/en/search?page=1&qf=COUNTRY%3A%22France%22&query=paris&view=grid`
     And I am on page number 1
     And I should have 1 `filter badge`
 

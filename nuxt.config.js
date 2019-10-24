@@ -66,11 +66,13 @@ module.exports = {
       id: process.env.GOOGLE_TAG_MANAGER_ID,
       pageTracking: true
     }],
+    'cookie-universal-nuxt',
     ['nuxt-i18n', {
       locales: i18nLocales,
       defaultLocale: 'en',
       lazy: true,
       langDir: 'lang/',
+      strategy: 'prefix',
       vueI18n: {
         fallbackLocale: 'en',
         silentFallbackWarn: true,
@@ -79,19 +81,8 @@ module.exports = {
       // Enable browser language detection to automatically redirect user
       // to their preferred language as they visit your app for the first time
       // Set to false to disable
+      // NB: do not enable this in portal.js; our own l12n middleware handles it.
       detectBrowserLanguage: false,
-      //   {
-      //   // If enabled, a cookie is set once a user has been redirected to his
-      //   // preferred language to prevent subsequent redirections
-      //   // Set to false to redirect every time
-      //   useCookie: true,
-      //   // Cookie name
-      //   cookieKey: 'i18n_redirected',
-      //   // Set to always redirect to value stored in the cookie, not just once
-      //   alwaysRedirect: false,
-      //   // If no locale for the browsers locale is a match, use this one as a fallback
-      //   fallbackLocale: 'en'
-      // },
       vuex: {
         // Module namespace
         moduleName: 'i18n',
@@ -108,6 +99,7 @@ module.exports = {
   },
 
   router: {
+    middleware: ['l12n'],
     extendRoutes(routes) {
       routes.push({
         name: 'slug',
