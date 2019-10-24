@@ -36,7 +36,7 @@
   </b-container>
 </template>
 
-<script lang="ts">
+<script>
   import createClient from '../../plugins/contentful';
   import ContentCard from '../../components/generic/ContentCard';
   import PaginationNav from '../../components/generic/PaginationNav';
