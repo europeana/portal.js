@@ -16,7 +16,7 @@
       </template>
       <b-form-input
         v-model="query"
-        autocomplete="off"
+        :autocomplete="isEntityPage ? 'on' : 'off'"
         :aria-label="$t('search')"
         :placeholder="$t('searchPlaceholder')"
         name="query"
@@ -41,6 +41,7 @@
         v-if="isActive"
         class="auto-suggest-dropdown"
       >
+        <!-- eslint-disable vue/no-v-html -->
         <b-list-group-item
           v-for="(value, name, index) in options"
           :key="index"
@@ -49,9 +50,9 @@
           :value="value"
           @mouseover="focus = index"
           @click="isActive = false"
-        >
-          {{ value }}
-        </b-list-group-item>
+          v-html="highlightResult(value)"
+        />
+        <!-- eslint-enable vue/no-v-html -->
       </b-list-group>
     </b-input-group>
   </b-form>
@@ -99,6 +100,10 @@
           }),
           query: { ...this.$route.query, page: 1 }
         };
+      },
+
+      isEntityPage() {
+        return this.$route.path.startsWith('/entity/');
       }
     },
 
@@ -112,12 +117,19 @@
     },
 
     mounted() {
+      if (this.isEntityPage) return;
       document.addEventListener('keyup', this.navigateDropdown);
       document.addEventListener('mouseup', this.clickOutside);
       this.query = this.$store.state.search.query;
     },
 
     methods: {
+      highlightResult(value) {
+        const query = this.query;
+        const regEx = new RegExp(query, 'ig'); // Case insensitive
+
+        return value.replace(regEx, `<strong>${query}</strong>`);
+      },
       clickOutside(event) {
         const isChild = this.$el.contains(event.target);
 
@@ -125,11 +137,11 @@
           this.isActive = false;
         }
       },
-      updateInputWithHighlighted() {
+      updateInputWithSelected() {
         this.$nextTick(() => {
-          const highlighted = document.querySelector('.highlighted');
-          if (!highlighted) return;
-          this.query = highlighted.getAttribute('value');
+          const hoveredElement = document.querySelector('.hover');
+          if (!hoveredElement) return;
+          this.query = hoveredElement.getAttribute('value');
         });
       },
       navigateDropdown() {
@@ -142,7 +154,7 @@
           } else if (this.focus === 0) {
             this.focus = null;
           }
-          this.updateInputWithHighlighted();
+          this.updateInputWithSelected();
           break;
         case 40:
           if (this.focus === null) {
@@ -150,7 +162,7 @@
           } else if (this.focus < Object.keys(this.options).length - 1) {
             this.focus++;
           }
-          this.updateInputWithHighlighted();
+          this.updateInputWithSelected();
           break;
         }
       },
@@ -168,6 +180,7 @@
 
       // FAKE DATA
       async getSuggestions() {
+        if (this.isEntityPage) return;
         setTimeout(() => {
           this.options = {
             'http://data.europeana.eu/concept/base/83': 'Hello',
@@ -188,15 +201,19 @@
       top: 50px;
       width: 100%;
       z-index: 20;
+      border-radius: 10px;
 
       a.list-group-item {
         border: 0;
         box-shadow: none;
         padding: .75rem 1.25rem;
-        border-radius: 0;
 
-        &.highlighted {
+        &.hover {
           background-color: $lightgrey;
+        }
+
+        &:last-child {
+          border-radius: 0 0 6px 6px;
         }
       }
     }
@@ -204,6 +221,14 @@
 
   .input-group {
     width: 100%;
+
+    .input-group-prepend {
+      align-items: center;
+      background-color: $lightgrey;
+      padding-left: .75rem;
+      padding-right: .1rem;
+      border-radius: 0.375rem 0 0 0.375rem;
+    }
   }
 
   .form-control {
