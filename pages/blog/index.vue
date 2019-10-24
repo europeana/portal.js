@@ -41,6 +41,9 @@
   import createClient from '../../plugins/contentful';
   import ContentCard from '../../components/generic/ContentCard';
   import PaginationNav from '../../components/generic/PaginationNav';
+  import { pageFromQuery } from '../../plugins/utils';
+
+  const PER_PAGE = 20;
 
   export default {
     name: 'BlogFoyer',
@@ -58,8 +61,8 @@
 
     data() {
       return {
-        perPage: 20,
-        page: Number(this.$route.query.page || 1)
+        perPage: PER_PAGE,
+        page: null
       };
     },
 
@@ -70,22 +73,20 @@
     },
 
     asyncData({ query, redirect, error, app, store }) {
-      const contentfulClient = createClient(query.mode);
-      const currentPage = query && query.page;
-      const limit = 20;
-
-      if (!currentPage) {
+      const currentPage = pageFromQuery(query.page);
+      if (currentPage === null) {
         // Redirect non-positive integer values for `page` to `page=1`
         query.page = '1';
         return redirect(app.localePath({ name: 'blog', query }));
       }
 
+      const contentfulClient = createClient(query.mode);
       return contentfulClient.getEntries({
         'locale': app.i18n.isoLocale(),
         'content_type': 'blogPosting',
-        'skip': (Number(currentPage) - 1) * limit,
+        'skip': (currentPage - 1) * PER_PAGE,
         'order': '-fields.datePublished',
-        limit
+        limit: PER_PAGE
       })
         .then((response) => {
           store.commit('breadcrumb/setBreadcrumbs', [
@@ -97,7 +98,8 @@
 
           return {
             posts: response.items,
-            total: response.total
+            total: response.total,
+            perPage: PER_PAGE
           };
         })
         .catch((e) => {
