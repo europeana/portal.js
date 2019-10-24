@@ -80,7 +80,8 @@
         return marked(this.page.credits);
       }
     },
-    asyncData({ params, query, error, app, store }) {
+    asyncData({ params, query, error, app, store, redirect }) {
+      if (params.exhibition === undefined) redirect(app.localePath({ name: 'exhibitions' }));
       const contentfulClient = createClient(query.mode);
       return contentfulClient.getEntries({
         'locale': app.i18n.isoLocale(),
