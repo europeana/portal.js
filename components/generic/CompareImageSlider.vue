@@ -71,11 +71,6 @@
     },
 
     props: {
-      hideAttribution: {
-        type: String,
-        default: null
-      },
-
       leftImageSrc: {
         type: String,
         required: true
@@ -112,7 +107,8 @@
         dragging: false,
         imageWidth: 0,
         sliderWidth: 0,
-        sliderPosition: 0.5
+        sliderPosition: 0.5,
+        hideAttribution: null
       };
     },
 
