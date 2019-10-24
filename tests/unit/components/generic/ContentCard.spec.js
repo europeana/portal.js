@@ -1,4 +1,6 @@
+
 import { createLocalVue, mount } from '@vue/test-utils';
+import Vue from 'vue';
 import BootstrapVue from 'bootstrap-vue';
 import SmartLink from '../../../../components/generic/SmartLink.vue';
 import ContentCard from '../../../../components/generic/ContentCard.vue';
@@ -6,6 +8,8 @@ import ContentCard from '../../../../components/generic/ContentCard.vue';
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 localVue.component('SmartLink', SmartLink);
+
+Vue.filter('truncate', () => '…');
 
 const $store = {
   state: {
