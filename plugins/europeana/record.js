@@ -17,6 +17,7 @@ function parseRecordDataFromApiResponse(response) {
   });
 
   return {
+    description: providerProxy.dcDescription,
     image: {
       link: providerAggregation.edmIsShownAt,
       src: europeanaAggregation.edmPreview
@@ -24,8 +25,6 @@ function parseRecordDataFromApiResponse(response) {
     fields: omitBy({
       dcContributor: providerProxy.dcContributor,
       dcCreator: providerProxy.dcCreator,
-      dcDescription: providerProxy.dcDescription,
-      dcTitle: providerProxy.dcTitle,
       dcType: providerProxy.dcType,
       dctermsCreated: providerProxy.dctermsCreated,
       edmCountry: europeanaAggregation.edmCountry,
@@ -35,6 +34,7 @@ function parseRecordDataFromApiResponse(response) {
       return v === null;
     }),
     media: providerAggregation.webResources,
+    title: providerProxy.dcTitle,
     edmIsShownBy: providerAggregation.webResources.find((webResource) => {
       return webResource.about === providerAggregation.edmIsShownBy;
     }) || {}

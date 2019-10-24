@@ -9,31 +9,39 @@
     data-qa="record page"
     class="mt-5"
   >
-    <b-row class="mb-3 mx-0 card p-3">
+    <b-row class="mb-3">
       <b-col
         cols="12"
-        class="mb-3 px-0"
+        lg="9"
       >
-        <MediaPresentation
-          :codec-name="edmIsShownBy.edmCodecName"
-          :image-link="image.link"
-          :image-src="image.src"
-          :mime-type="edmIsShownBy.ebucoreHasMimeType"
-          :url="edmIsShownBy.about"
-          :width="edmIsShownBy.ebucoreWidth"
-          :height="edmIsShownBy.ebucoreHeight"
-        />
+        <div class="card p-3">
+          <h1 v-if="title">{{ title | inCurrentLanguage($i18n.locale) }}</h1>
+          <MediaPresentation
+            :codec-name="edmIsShownBy.edmCodecName"
+            :image-link="image.link"
+            :image-src="image.src"
+            :mime-type="edmIsShownBy.ebucoreHasMimeType"
+            :url="edmIsShownBy.about"
+            :width="edmIsShownBy.ebucoreWidth"
+            :height="edmIsShownBy.ebucoreHeight"
+            class="mb-3"
+          />
+          <p v-if="description">{{ description | inCurrentLanguage($i18n.locale) }}</p>
+          <MetadataField
+            v-for="(value, name) in fields"
+            :key="name"
+            :name="name"
+            :value="value"
+            class="mb-3"
+          />
+        </div>
       </b-col>
       <b-col
         cols="12"
+        lg="3"
       >
-        <MetadataField
-          v-for="(value, name) in fields"
-          :key="name"
-          :name="name"
-          :value="value"
-          class="mb-3"
-        />
+        <!-- TODO: add related entities / EC-3716 -->
+        Placeholder for related entities
       </b-col>
     </b-row>
     <b-row class="mb-3">
@@ -64,10 +72,12 @@
     },
     data() {
       return {
+        description: null,
         error: null,
         image: null,
         fields: null,
         media: null,
+        title: null,
         edmIsShownBy: {}
       };
     },
@@ -91,7 +101,7 @@
     },
     head() {
       return {
-        title: this.$t('record')
+        title: this.$options.filters.inCurrentLanguage(this.title, this.$i18n.locale) ? this.$options.filters.inCurrentLanguage(this.title, this.$i18n.locale) : this.$t('record')
       };
     }
   };

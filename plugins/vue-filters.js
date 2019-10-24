@@ -28,3 +28,17 @@ Vue.filter('optimisedImageUrl', (imageUrl, contentType) => {
   }
   return imageUrl;
 });
+
+Vue.filter('inCurrentLanguage', (val, currentLocale) => {
+  let languageKeys = ['en', 'eng', 'def', 'und'];
+  if (currentLocale !== 'en') {
+    languageKeys.unshift(currentLocale);
+  }
+
+  for (let key of languageKeys) {
+    if (val[key]) {
+      return val[key][0];
+    }
+  }
+  return;
+});

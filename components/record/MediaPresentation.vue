@@ -116,9 +116,7 @@
   .media-presentation {
     /deep/ img,
     video {
-      max-height: 70vh;
-      max-width: 100%;
-      width: auto;
+      width: 100%;
     }
   }
 </style>
