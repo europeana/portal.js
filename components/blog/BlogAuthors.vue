@@ -31,7 +31,7 @@
     props: {
       authors: {
         type: Array,
-        required: true
+        default: () => []
       }
     },
 
