@@ -1,5 +1,5 @@
 import nock from 'nock';
-import search, { pageFromQuery, selectedFacetsFromQuery, qfHandler } from '../../../../plugins/europeana/search';
+import search, { selectedFacetsFromQuery, qfHandler } from '../../../../plugins/europeana/search';
 
 import axios from 'axios';
 axios.defaults.adapter = require('axios/lib/adapters/http');
