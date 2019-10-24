@@ -1,7 +1,7 @@
 import Vuex from 'vuex';
 import VueRouter from 'vue-router';
 import { storiesOf } from '@storybook/vue';
-import SearchForm from './SearchForm.vue';
+import AutoSuggest from './AutoSuggest.vue';
 
 const router = new VueRouter({
   routes: [
@@ -29,43 +29,28 @@ const i18n = {
   }
 };
 
-SearchForm.methods.localePath = () => {};
+AutoSuggest.methods.localePath = () => {};
 
-storiesOf('Search page', module)
-  .add('Search form', () => ({
-    components: { SearchForm },
+storiesOf('Search/Form', module)
+  .add('Plain', () => ({
+    components: { AutoSuggest },
     store,
     i18n,
     router,
     template: ` <b-container
       class="mt-3"
       >
-        <SearchForm />
+        <AutoSuggest />
       </b-container>`
   }))
-  .add('Search form loading', () => ({
-    components: { SearchForm },
-    store,
-    i18n,
-    router,
-    template: ` <b-container
-      class="mt-3"
-      >
-        <SearchForm
-          :is-loading="true"
-        />
-      </b-container>`
-  }))
-  .add('Search form with pill', () => ({
-    components: { SearchForm },
+  .add('With pill', () => ({
+    components: { AutoSuggest },
     store: store('Johannes Vermeer'),
     i18n,
     router,
     template: ` <b-container
       class="mt-3"
       >
-        <SearchForm
-          :is-loading="true"
-        />
+        <AutoSuggest />
       </b-container>`
   }));

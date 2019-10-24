@@ -1,6 +1,6 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
-import SearchForm from '../../../../components/search/SearchForm.vue';
+import AutoSuggest from '../../../../components/search/AutoSuggest.vue';
 import VueRouter from 'vue-router';
 import Vuex from 'vuex';
 import sinon from 'sinon';
@@ -16,7 +16,7 @@ const router = new VueRouter({
   ]
 });
 const routerPush = sinon.spy(router, 'push');
-const factory = (options = {}) => mount(SearchForm, {
+const factory = (options = {}) => mount(AutoSuggest, {
   localVue,
   router,
   mocks: {
@@ -42,7 +42,7 @@ const store = (options = {}) => {
   });
 };
 
-describe('components/search/SearchForm', () => {
+describe('components/search/AutoSuggest', () => {
   describe('query', () => {
     context('when on a search page', () => {
       const wrapper = factory({

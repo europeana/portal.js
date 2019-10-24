@@ -112,7 +112,7 @@
         this.isActive = !!this.options && this.query.length > 2;
       },
       '$route.query'() {
-        this.onSearchablePage ? this.query = this.$store.state.search.query : this.query = '';
+        this.queryOnSearchablePage();
       }
     },
 
@@ -120,7 +120,7 @@
       if (this.isEntityPage) return;
       document.addEventListener('keyup', this.navigateDropdown);
       document.addEventListener('mouseup', this.clickOutside);
-      this.query = this.$store.state.search.query;
+      this.queryOnSearchablePage();
     },
 
     methods: {
@@ -169,6 +169,10 @@
 
       activateDropdown() {
         return !this.isActive && this.options;
+      },
+
+      queryOnSearchablePage() {
+        this.onSearchablePage ? this.query = this.$store.state.search.query : this.query = '';
       },
 
       async submitForm() {
