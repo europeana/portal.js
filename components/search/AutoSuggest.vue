@@ -45,7 +45,7 @@
         <b-list-group-item
           v-for="(value, name, index) in options"
           :key="index"
-          :to="name"
+          :href="name"
           :class="{ 'highlighted': index === focus }"
           :value="value"
           @mouseover="focus = index"
