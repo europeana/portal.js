@@ -15,7 +15,10 @@
         lg="9"
       >
         <div class="card p-3">
-          <div class="card-grid">
+          <div
+            class="card-grid"
+            :class="isRichMedia && 'card-grid-richmedia'"
+          >
             <h1
               v-if="title"
             >
@@ -73,6 +76,7 @@
   import MediaPresentation from '../../components/record/MediaPresentation';
 
   import getRecord from '../../plugins/europeana/record';
+  import oEmbeddable from '../../plugins/oembed.js';
 
   export default {
     components: {
@@ -91,6 +95,16 @@
         title: null,
         edmIsShownBy: {}
       };
+    },
+    computed: {
+      isRichMedia() {
+        return oEmbeddable(this.edmIsShownBy.about) ||
+          (this.edmIsShownBy.ebucoreHasMimeType === 'application/pdf') ||
+          (this.edmIsShownBy.ebucoreHasMimeType === 'video/ogg') ||
+          (this.edmIsShownBy.ebucoreHasMimeType === 'video/ogg') ||
+          (this.edmIsShownBy.ebucoreHasMimeType === 'video/webm') ||
+          ((this.edmIsShownBy.ebucoreHasMimeType === 'video/mp4') && (this.edmIsShownBy.edmCodecName === 'h264'));
+      }
     },
     asyncData({ env, params, res, app, redirect }) {
       if (env.RECORD_PAGE_REDIRECT_PATH) {
@@ -112,32 +126,46 @@
     },
     head() {
       return {
-        title: this.title && this.$options.filters.inCurrentLanguage(this.title, this.$i18n.locale) ? this.$options.filters.inCurrentLanguage(this.title, this.$i18n.locale) : this.$t('record')
+        title: (this.title && this.$options.filters.inCurrentLanguage(this.title, this.$i18n.locale)) ?
+          this.$options.filters.inCurrentLanguage(this.title, this.$i18n.locale) : this.$t('record')
       };
     }
   };
 </script>
 
 <style>
-  /* TODO: introduced grid as preparition for EC-3782, update accordingly */
   .card-grid {
     display: grid;
     column-gap: 1rem;
     grid-template-columns: [col1-start] 1fr [col2-start] 1fr [col2-end];
-    grid-template-rows: [row1-start] auto [row2-start] auto [row3-start] auto [row3-end] ;
+    grid-template-rows: [row1-start] auto [row2-start] auto [row3-start] auto [row3-end];
   }
 
   h1 {
-    grid-column: col1-start/col2-end;
+    grid-column: col2-start/col2-end;
     grid-row: row1-start;
   }
 
   .media-presentation {
+    grid-column: col1-start/col2-start;
+    grid-row: row1-start/row3-end;
+  }
+
+  .description {
+    grid-column: col2-start/col2-end;
+    grid-row: row2-start;
+  }
+
+  .card-grid-richmedia  h1 {
+    grid-column: col1-start/col2-end;
+  }
+
+  .card-grid-richmedia .media-presentation {
     grid-column: col1-start/col2-end;
     grid-row: row2-start;
   }
 
-  .description {
+  .card-grid-richmedia .description {
     grid-column: col1-start/col2-end;
     grid-row: row3-start;
   }

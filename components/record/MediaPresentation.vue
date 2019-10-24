@@ -113,10 +113,13 @@
 </script>
 
 <style lang="scss" scoped>
+  /* TODO: fixed max height is subject to change */
   .media-presentation {
     /deep/ img,
     video {
       height: auto;
+      max-height: 800px;
+      object-fit: contain;
       width: 100%;
     }
   }
