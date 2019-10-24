@@ -68,7 +68,8 @@
         image: null,
         fields: null,
         media: null,
-        edmIsShownBy: {}
+        edmIsShownBy: {},
+        edmHasView: []
       };
     },
     asyncData({ env, params, res, app, redirect }) {

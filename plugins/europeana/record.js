@@ -39,7 +39,7 @@ function parseRecordDataFromApiResponse(response) {
       return webResource.about === providerAggregation.edmIsShownBy;
     }) || {},
     edmHasView: providerAggregation.webResources.filter((webResource) => {
-      return providerAggregation.hasView.includes(webResource.about);
+      return (providerAggregation.hasView || []).includes(webResource.about);
     })
   };
 }
