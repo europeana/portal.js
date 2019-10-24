@@ -99,7 +99,6 @@
     computed: {
       isRichMedia() {
         return oEmbeddable(this.edmIsShownBy.about) ||
-          (this.edmIsShownBy.ebucoreHasMimeType === 'application/pdf') ||
           (this.edmIsShownBy.ebucoreHasMimeType === 'video/ogg') ||
           (this.edmIsShownBy.ebucoreHasMimeType === 'video/ogg') ||
           (this.edmIsShownBy.ebucoreHasMimeType === 'video/webm') ||
