@@ -84,7 +84,7 @@
           store.commit('breadcrumb/setBreadcrumbs', [
             {
               text:  app.i18n.t('exhibitions.exhibitions'),
-              current: true
+              active: true
             }
           ]);
           return {
