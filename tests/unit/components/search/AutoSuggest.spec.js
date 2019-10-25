@@ -15,20 +15,23 @@ const router = new VueRouter({
     { name: 'search', path: '/search' }
   ]
 });
+
 const routerPush = sinon.spy(router, 'push');
-const factory = (options = {}) => mount(AutoSuggest, {
-  localVue,
-  router,
-  mocks: {
-    ...{
-      $t: () => {},
-      localePath: (opts) => {
-        return router.resolve(opts).route.fullPath;
-      }
-    }, ...(options.mocks || {})
-  },
-  store: options.store || {}
-});
+const factory = (options = {}) => {
+  return mount(AutoSuggest, {
+    localVue,
+    router: options.router || router,
+    mocks: {
+      ...{
+        $t: () => {},
+        localePath: (opts) => {
+          return router.resolve(opts).route.fullPath;
+        }
+      }, ...(options.mocks || {})
+    },
+    store: options.store || {}
+  });
+};
 
 const getters = {
   'search/activeView': (state) => state.search.view
@@ -37,7 +40,10 @@ const store = (options = {}) => {
   return new Vuex.Store({
     getters,
     state: options.state || {
-      search: {}
+      search: {},
+      entity: {
+        id: null
+      }
     }
   });
 };
@@ -171,6 +177,91 @@ describe('components/search/AutoSuggest', () => {
         };
         routerPush.should.have.been.calledWith(newRouteParams);
       });
+    });
+  });
+
+  describe('auto suggestion', async() => {
+    const wrapper = factory({
+      store: store({
+        state: {
+          search: {
+            active: false,
+            query: ''
+          }
+        }
+      })
+    });
+    const getSuggestions = sinon.spy(wrapper.vm, 'getSuggestions');
+    const searchBox = wrapper.find('[data-qa="search box"]');
+
+    it('call `getSuggestions` method when user types into search box', () => {
+      wrapper.setData({ query: 'hello' });
+      searchBox.trigger('input');
+
+      getSuggestions.should.have.callCount(1);
+
+    });
+
+    it('disables autosuggestion if user is on `entity` page', () => {
+      const wrapper = factory({
+        store: store({
+          state: {
+            search: {
+              active: false,
+              query: ''
+            },
+            entity: {
+              id: 'ghghghghg'
+            }
+          }
+        })
+      });
+
+      wrapper.setData({ query: 'Hello' });
+      wrapper.vm.getSuggestions();
+      wrapper.vm.options.should.eql({});
+    });
+
+    it('returns zero options when there are less than 3 characters in search form', () => {
+      wrapper.setData({ query: 'he' });
+      wrapper.vm.getSuggestions();
+
+      wrapper.vm.options.should.eql({});
+    });
+
+    it('returns options when there are 3 or more characters in search form', () => {
+      wrapper.setData({ query: 'hello' });
+      wrapper.vm.getSuggestions();
+
+      wrapper.vm.options.should.eql({
+        'http://data.europeana.eu/concept/base/83': 'Hello',
+        'http://data.europeana.eu/concept/base/94': 'By Hello'
+      });
+    });
+
+    it('highlights matching characters', () => {
+      const suggestion = wrapper.find('[data-qa="search suggestion"]');
+
+      wrapper.setData({ query: 'hello' });
+      suggestion.html().should.contain('<strong class="highlight">Hello</strong>');
+      wrapper.setData({ query: 'Hello' });
+      suggestion.html().should.contain('<strong class="highlight">Hello</strong>');
+      wrapper.setData({ query: 'HELLO' });
+      suggestion.html().should.contain('<strong class="highlight">Hello</strong>');
+      wrapper.setData({ query: 'Hell' });
+      suggestion.html().should.contain('<strong class="highlight">Hell</strong>o');
+    });
+
+    it('allows the user to navigate through suggestions using keyboards up and down arrows', async() => {
+      const form =  wrapper.find('form');
+
+      wrapper.setData({ query: 'hello' });
+      form.trigger('keyup.down');
+      wrapper.vm.focus.should.eq(0);
+      form.trigger('keyup.down');
+      wrapper.vm.focus.should.eq(1);
+      form.trigger('keyup.up');
+      wrapper.vm.focus.should.eq(0);
     });
   });
 });
