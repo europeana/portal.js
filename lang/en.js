@@ -25,7 +25,7 @@ export default {
       "dctermsCreated": "Creation date",
       "edmCountry": "Providing country",
       "edmDataProvider": "Providing institution",
-      "edmRights": "License of the media in this record (unless otherwise specified)"
+      "edmRights": "License of the media of this item (unless otherwise specified)"
     },
     "webResource": {
       "dcDescription": "Description",
@@ -57,7 +57,7 @@ export default {
   "depiction": "A depiction of {title}",
   "showLess": "Show less",
   "showMore": "Show more",
-  "record": "Record",
+  "item": "Item",
   "messages": {
     "externalContentError": "The external content failed to load",
     "notFound": "Not Found",

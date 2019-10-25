@@ -19,7 +19,7 @@
 </template>
 
 <script>
-  import MetadataField from '../../components/record/MetadataField';
+  import MetadataField from '../../components/item/MetadataField';
 
   export default {
     components: {

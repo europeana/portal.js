@@ -1,9 +1,9 @@
 import { shallowMount } from '@vue/test-utils';
-import LangMap from '../../../../components/record/LangMap.vue';
+import LangMap from '../../../../components/item/LangMap.vue';
 
 const factory = () => shallowMount(LangMap);
 
-describe('components/record/LangMap', () => {
+describe('components/item/LangMap', () => {
   const props = {
     value: {
       fra: ['French value 1', 'French value 2'],

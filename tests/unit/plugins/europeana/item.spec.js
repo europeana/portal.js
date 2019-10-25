@@ -1,5 +1,5 @@
 import nock from 'nock';
-import getRecord, { isEuropeanaRecordId } from '../../../../plugins/europeana/record';
+import getItem, { isEuropeanaIdentifier } from '../../../../plugins/europeana/item';
 
 const axios = require('axios');
 axios.defaults.adapter = require('axios/lib/adapters/http');
@@ -11,12 +11,12 @@ const apiKey = 'abcdef';
 
 const baseRequest = nock(apiUrl).get(apiEndpoint);
 
-describe('plugins/europeana/record', () => {
+describe('plugins/europeana/item', () => {
   afterEach(() => {
     nock.cleanAll();
   });
 
-  describe('getRecord()', () => {
+  describe('getItem()', () => {
     describe('API response', () => {
       describe('with "Invalid record identifier: ..." error', () => {
         const errorMessage = `Invalid record identifier: ${europeanaId}`;
@@ -33,7 +33,7 @@ describe('plugins/europeana/record', () => {
         it('throws error with API error message and status code', async() => {
           let error;
           try {
-            await getRecord(europeanaId, { wskey: apiKey });
+            await getItem(europeanaId, { wskey: apiKey });
           } catch (e) {
             error = e;
           }
@@ -105,47 +105,47 @@ describe('plugins/europeana/record', () => {
             .reply(200, apiResponse);
         });
 
-        it('returns record data', async() => {
-          const response = await getRecord(europeanaId, { wskey: apiKey });
-          response.record.should.exist;
+        it('returns item data', async() => {
+          const response = await getItem(europeanaId, { wskey: apiKey });
+          response.item.should.exist;
         });
 
         describe('.media', () => {
           it('includes edmIsShownBy web resource', async() => {
-            const response = await getRecord(europeanaId, { wskey: apiKey });
-            response.record.media.should.include.deep.members([edmIsShownByWebResource]);
+            const response = await getItem(europeanaId, { wskey: apiKey });
+            response.item.media.should.include.deep.members([edmIsShownByWebResource]);
           });
 
           it('includes edmHasView web resource', async() => {
-            const response = await getRecord(europeanaId, { wskey: apiKey });
-            response.record.media.should.include.deep.members([edmHasViewWebResource]);
+            const response = await getItem(europeanaId, { wskey: apiKey });
+            response.item.media.should.include.deep.members([edmHasViewWebResource]);
           });
 
           it('omits other web resources', async() => {
-            const response = await getRecord(europeanaId, { wskey: apiKey });
-            response.record.media.should.not.include.deep.members([someOtherWebResource]);
+            const response = await getItem(europeanaId, { wskey: apiKey });
+            response.item.media.should.not.include.deep.members([someOtherWebResource]);
           });
         });
       });
     });
   });
 
-  describe('isEuropeanaRecordId()', () => {
-    context('with valid record ID', () => {
+  describe('isEuropeanaIdentifier()', () => {
+    context('with valid ID', () => {
       it('returns `true`', () => {
-        const recordId = '/123456/abcdef_7890';
+        const id = '/123456/abcdef_7890';
 
-        const validation = isEuropeanaRecordId(recordId);
+        const validation = isEuropeanaIdentifier(id);
 
         validation.should.equal(true);
       });
     });
 
-    context('with invalid record ID', () => {
+    context('with invalid ID', () => {
       it('returns `false`', () => {
-        const recordId = 'http://www.example.org/123456/abcdef_7890';
+        const id = 'http://www.example.org/123456/abcdef_7890';
 
-        const validation = isEuropeanaRecordId(recordId);
+        const validation = isEuropeanaIdentifier(id);
 
         validation.should.equal(false);
       });

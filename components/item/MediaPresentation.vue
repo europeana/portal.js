@@ -33,7 +33,7 @@
 </template>
 
 <script>
-  import MediaImage from '../../components/record/MediaImage';
+  import MediaImage from '../../components/item/MediaImage';
   import VideoPlayer from '../../components/media/VideoPlayer';
   import HTMLEmbed from '../../components/generic/HTMLEmbed';
 

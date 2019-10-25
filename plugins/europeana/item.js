@@ -42,19 +42,19 @@ function parseRecordDataFromApiResponse(response) {
 }
 
 /**
- * Get the record data from the API
- * @param {string} europeanaId ID of Europeana record
+ * Get a single item from the Record API
+ * @param {string} europeanaId Europeana identifier
  * @param {Object} params additional parameters sent to the API
  * @param {string} params.wskey API key
  * @return {Object} parsed record data
  */
-function getRecord(europeanaId, params) {
+export default function getItem(europeanaId, params) {
   return axios.get(`https://api.europeana.eu/api/v2/record${europeanaId}.json`, {
     params
   })
     .then((response) => {
       return {
-        record: parseRecordDataFromApiResponse(response),
+        item: parseRecordDataFromApiResponse(response),
         error: null
       };
     })
@@ -68,8 +68,6 @@ function getRecord(europeanaId, params) {
  * @param {string} value Value to test
  * @return {Boolean}
  */
-export function isEuropeanaRecordId(value) {
+export function isEuropeanaIdentifier(value) {
   return /^\/[0-9]+\/[a-zA-Z0-9_]+$/.test(value);
 }
-
-export default getRecord;

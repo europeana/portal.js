@@ -85,7 +85,7 @@ Feature: Search faceting
     And I am on page number 1
     And I can't see a `/en/search?query=`
 
-  Scenario: Filtering results by country and have a corresponding record page
+  Scenario: Filtering results by country and have a corresponding item page
 
     When I visit the `search page`
     And I click the `COUNTRY dropdown button`
@@ -94,10 +94,10 @@ Feature: Search faceting
     And I wait 2 seconds
     And I click a `search result`
     And I wait 2 seconds
-    Then I see a `record page`
+    Then I see a `item page`
     And I should see a meta label `Providing country` with the value "Belgium"
 
-  Scenario: Filtering results by two countries and have a corresponding record page
+  Scenario: Filtering results by two countries and have a corresponding item page
 
     When I visit the `search page`
     And I click the `COUNTRY dropdown button`
@@ -107,7 +107,7 @@ Feature: Search faceting
     And I wait 3 seconds
     And I click a `search result`
     And I wait 3 seconds
-    Then I see a `record page`
+    Then I see a `item page`
     And I should see a meta label `Providing country` with the value "Belgium" or the value "Germany"
 
   Scenario: Preserve filtering when performing a new search

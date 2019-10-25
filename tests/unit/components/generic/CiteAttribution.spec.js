@@ -53,7 +53,7 @@ describe('components/generic/CiteAttribution', () => {
         wrapper.setProps({ url });
 
         wrapper.vm.linkDestination.should.deep.eql({
-          name: 'record-all',
+          name: 'item-all',
           params: { pathMatch: identifierSlug }
         });
       });
@@ -103,14 +103,14 @@ describe('components/generic/CiteAttribution', () => {
     });
   });
 
-  describe('.recordIdentifier', () => {
+  describe('.europeanaIdentifier', () => {
     context('when identifier is present', () => {
       it('returns it', () => {
         const identifier = '/123/abc';
         const wrapper = factory();
         wrapper.setProps({ identifier });
 
-        wrapper.vm.recordIdentifier.should.eq(identifier);
+        wrapper.vm.europeanaIdentifier.should.eq(identifier);
       });
     });
 
@@ -123,7 +123,7 @@ describe('components/generic/CiteAttribution', () => {
             const wrapper = factory();
             wrapper.setProps({ url });
 
-            wrapper.vm.recordIdentifier.should.eq(identifier);
+            wrapper.vm.europeanaIdentifier.should.eq(identifier);
           });
         });
 
@@ -133,7 +133,7 @@ describe('components/generic/CiteAttribution', () => {
             const wrapper = factory();
             wrapper.setProps({ url });
 
-            (wrapper.vm.recordIdentifier === null).should.be.true;
+            (wrapper.vm.europeanaIdentifier === null).should.be.true;
           });
         });
       });
@@ -142,7 +142,7 @@ describe('components/generic/CiteAttribution', () => {
         it('is `null`', () => {
           const wrapper = factory();
 
-          (wrapper.vm.recordIdentifier === null).should.be.true;
+          (wrapper.vm.europeanaIdentifier === null).should.be.true;
         });
       });
     });

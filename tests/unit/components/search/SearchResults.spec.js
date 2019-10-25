@@ -23,7 +23,7 @@ const factory = (options = {}) => {
     localVue,
     store,
     mocks: {
-      localePath: (opts) => `/record/${opts.params.pathMatch}`,
+      localePath: (opts) => `/item/${opts.params.pathMatch}`,
       $t: () => {}
     }
   });
@@ -35,20 +35,20 @@ describe('components/search/SearchResults', () => {
     it('renders each result with a link', () => {
       const results = [
         {
-          linkTo: '/record/123/abc',
+          linkTo: '/item/123/abc',
           europeanaId: '/123/abc',
           fields: {
             dcTitle: [
-              'Record 123/abc'
+              'Item 123/abc'
             ]
           }
         },
         {
-          linkTo: '/record/123/def',
+          linkTo: '/item/123/def',
           europeanaId: '/123/def',
           fields: {
             dcTitle: [
-              'Record 123/def'
+              'Item 123/def'
             ]
           }
         }
@@ -68,11 +68,11 @@ describe('components/search/SearchResults', () => {
     it('renders each result with a link', () => {
       const results = [
         {
-          linkTo: '/record/123/abc',
+          linkTo: '/item/123/abc',
           europeanaId: '/123/abc'
         },
         {
-          linkTo: '/record/123/def',
+          linkTo: '/item/123/def',
           europeanaId: '/123/def'
         }
       ];

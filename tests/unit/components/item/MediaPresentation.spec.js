@@ -1,9 +1,9 @@
 import { shallowMount } from '@vue/test-utils';
-import MediaPresentation from '../../../../components/record/MediaPresentation.vue';
+import MediaPresentation from '../../../../components/item/MediaPresentation.vue';
 
 const factory = () => shallowMount(MediaPresentation);
 
-describe('components/record/MediaPresentation', () => {
+describe('components/item/MediaPresentation', () => {
   describe('isPDF', () => {
     context('when mimeType is "application/pdf"', () => {
       it('is `true`', () => {

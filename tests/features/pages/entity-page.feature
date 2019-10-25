@@ -32,12 +32,12 @@ Feature: Entity page
     And I wait 2 seconds
     Then I should not be on the `entity page`
 
-  Scenario: Navigating to a related record
+  Scenario: Navigating to a related item
     When I open an `entity page`
     And I see the `entity page`
     And I see a `search result`
     And I click a `search result`
-    Then I see a `record page`
+    Then I see an `item page`
 
   Scenario: Pagination links
     When I open an `entity page`

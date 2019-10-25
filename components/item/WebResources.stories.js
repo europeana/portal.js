@@ -2,7 +2,7 @@ import { storiesOf } from '@storybook/vue';
 
 import WebResources from './WebResources.vue';
 
-storiesOf('Record page', module)
+storiesOf('Item page', module)
   .add('Web resources', () => ({
     components: { WebResources },
     data() {

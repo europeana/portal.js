@@ -56,8 +56,8 @@
     },
     computed: {
       linkDestination() {
-        if (this.recordIdentifier) {
-          return { name: 'record-all', params: { pathMatch: this.recordIdentifier.slice(1) } };
+        if (this.europeanaIdentifier) {
+          return { name: 'item-all', params: { pathMatch: this.europeanaIdentifier.slice(1) } };
         }
         return this.url;
       },
@@ -65,7 +65,7 @@
         if (this.citation !== '') return this.citation;
         return [this.name, this.creator, this.provider].filter(Boolean).join(', ');
       },
-      recordIdentifier() {
+      europeanaIdentifier() {
         const itemUriPattern = /^http:\/\/data\.europeana\.eu\/item(\/.*)$/;
         if (this.identifier !== '') {
           return this.identifier;

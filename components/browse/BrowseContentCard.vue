@@ -11,7 +11,7 @@
 <script>
   import ContentCard from '../generic/ContentCard';
   import { getEntityTypeHumanReadable, getWikimediaThumbnailUrl } from '../../plugins/europeana/entity';
-  import { isEuropeanaRecordId } from '../../plugins/europeana/record';
+  import { isEuropeanaIdentifier } from '../../plugins/europeana/item';
 
   export default {
     components: {
@@ -49,8 +49,8 @@
       destination() {
         if (this.fields.url) {
           return this.fields.url;
-        } else if (this.forEuropeanaRecord()) {
-          return this.recordRouterLink(this.fields.identifier);
+        } else if (this.forEuropeanaItem()) {
+          return this.itemRouterLink(this.fields.identifier);
         } else if (typeof this.fields.identifier === 'string' && /^https?:\/\//.test(this.fields.identifier)) {
           if (this.forEuropeanaEntity()) {
             return this.entityRouterLink(this.fields.identifier, this.fields.slug);
@@ -72,8 +72,8 @@
       }
     },
     methods: {
-      forEuropeanaRecord() {
-        return (typeof this.fields.identifier === 'string') && isEuropeanaRecordId(this.fields.identifier);
+      forEuropeanaItem() {
+        return (typeof this.fields.identifier === 'string') && isEuropeanaIdentifier(this.fields.identifier);
       },
       forEuropeanaEntity() {
         return (typeof this.fields.identifier === 'string') && this.fields.identifier.includes('://data.europeana.eu/');
@@ -84,9 +84,9 @@
           name: 'entity-type-all', params: { type: getEntityTypeHumanReadable(uriMatch[1]), pathMatch: slug ? slug : uriMatch[3] }
         };
       },
-      recordRouterLink(identifier) {
+      itemRouterLink(identifier) {
         return {
-          name: 'record-all', params: { pathMatch: identifier.slice(1) }
+          name: 'item-all', params: { pathMatch: identifier.slice(1) }
         };
       }
     }

@@ -1,14 +1,14 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 
-import MediaImage from '../../../../components/record/MediaImage.vue';
+import MediaImage from '../../../../components/item/MediaImage.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
 const factory = () => mount(MediaImage);
 
-describe('components/record/MediaImage', () => {
+describe('components/item/MediaImage', () => {
   describe('when both src and link are present', () => {
     it('shows linked image', () => {
       const wrapper = factory();

@@ -30,12 +30,12 @@ Feature: Search querying
     Then I don't see a `search result`
     And I see an `error notice` with the text "Error"
 
-  Scenario: Search and navigate to record
+  Scenario: Search and navigate to item
 
     When I visit a `search page`
     And I enter "paris" in the `search box`
     And I click the `search button`
     And I wait 2 seconds
     And I click a `search result`
-    Then I see a `record page`
+    Then I see a `item page`
     And I don't see "paris" in the `search box`

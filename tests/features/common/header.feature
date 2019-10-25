@@ -10,7 +10,7 @@ Feature: Page Header
     Then I see the `logo` in the `header`
     And I see the `search box` in the `header`
 
-    When I open a `record page`
+    When I open an `item page`
     Then I see the `logo` in the `header`
     And I see the `search box` in the `header`
 
@@ -20,7 +20,7 @@ Feature: Page Header
 
   Scenario: Using the logo to get back to the homepage
 
-    When I open a `record page`
+    When I open an `item page`
     And I click on the `logo` in the `header`
     And I wait 1 second
     Then I should be on the `home page`

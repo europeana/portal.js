@@ -1,6 +1,6 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
-import WebResources from '../../../../components/record/WebResources.vue';
+import WebResources from '../../../../components/item/WebResources.vue';
 import cssesc from 'cssesc';
 
 const localVue = createLocalVue();
@@ -10,7 +10,7 @@ const factory = () => shallowMount(WebResources, {
   localVue
 });
 
-describe('components/record/WebResources', () => {
+describe('components/item/WebResources', () => {
   it('outputs each web resource in `media`', () => {
     const wrapper = factory();
     const props = {

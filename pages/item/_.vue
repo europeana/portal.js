@@ -6,7 +6,7 @@
   </b-container>
   <b-container
     v-else
-    data-qa="record page"
+    data-qa="item page"
     class="mt-5"
   >
     <b-row class="mb-3 mx-0 card p-3">
@@ -51,11 +51,11 @@
 
 <script>
   import AlertMessage from '../../components/generic/AlertMessage';
-  import WebResources from '../../components/record/WebResources';
-  import MetadataField from '../../components/record/MetadataField';
-  import MediaPresentation from '../../components/record/MediaPresentation';
+  import WebResources from '../../components/item/WebResources';
+  import MetadataField from '../../components/item/MetadataField';
+  import MediaPresentation from '../../components/item/MediaPresentation';
 
-  import getRecord from '../../plugins/europeana/record';
+  import getItem from '../../plugins/europeana/item';
 
   export default {
     components: {
@@ -78,15 +78,16 @@
       }
     },
     asyncData({ env, params, res, app, redirect }) {
-      if (env.RECORD_PAGE_REDIRECT_PATH) {
-        return redirect(app.localePath({ path: env.RECORD_PAGE_REDIRECT_PATH }));
+      const redirectPath = env.ITEM_PAGE_REDIRECT_PATH || env.RECORD_PAGE_REDIRECT_PATH;
+      if (redirectPath) {
+        return redirect(app.localePath({ path: redirectPath }));
       }
 
-      return getRecord(`/${params.pathMatch}`, {
+      return getItem(`/${params.pathMatch}`, {
         wskey: env.EUROPEANA_API_KEY
       })
         .then((result) => {
-          return result.record;
+          return result.item;
         })
         .catch((error) => {
           if (typeof res !== 'undefined') {
@@ -97,7 +98,7 @@
     },
     head() {
       return {
-        title: this.$t('record')
+        title: this.$t('item')
       };
     }
   };

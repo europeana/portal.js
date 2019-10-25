@@ -1,5 +1,5 @@
 /**
- * @file Helpers for finding europeana IDs for records matching specific criteria.
+ * @file Helpers for finding europeana IDs for items matching specific criteria.
  */
 
 function europeanaId(criteria) {

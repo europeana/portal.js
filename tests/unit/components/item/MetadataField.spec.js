@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils';
-import MetadataField from '../../../../components/record/MetadataField.vue';
+import MetadataField from '../../../../components/item/MetadataField.vue';
 
 const factory = () => mount(MetadataField, {
   mocks: {
@@ -7,7 +7,7 @@ const factory = () => mount(MetadataField, {
   }
 });
 
-describe('components/record/MetadataField', () => {
+describe('components/item/MetadataField', () => {
   const props = { name: 'dcCreator', value: { def: ['Artist'] } };
 
   describe('a labelled field', () => {

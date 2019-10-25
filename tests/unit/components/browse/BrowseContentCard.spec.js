@@ -84,12 +84,12 @@ describe('components/browse/BrowseContentCard', () => {
       });
     });
 
-    context('when `fields.identifier` is a Europeana record ID', () => {
-      it('constructs a route to the record page', () => {
+    context('when `fields.identifier` is a Europeana ID', () => {
+      it('constructs a route to the item page', () => {
         const identifier = '/123456/abcdef_7890';
         const wrapper = factory({ fields: { identifier } });
 
-        wrapper.vm.destination.should.eql({ name: 'record-all', params: { pathMatch: identifier.slice(1) } });
+        wrapper.vm.destination.should.eql({ name: 'item-all', params: { pathMatch: identifier.slice(1) } });
       });
     });
 

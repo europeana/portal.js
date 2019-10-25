@@ -5,7 +5,6 @@ export default {
     "listSeperator": ";"
   },
   "error": "Fout",
-  "goToRecord": "Ga naar record",
   "readMore": "Lees verder",
   "search": "Zoeken",
   "results": "resultaten",
@@ -42,7 +41,7 @@ export default {
     }
   },
   "entity": "Entiteit",
-  "record": "Record",
+  "item": "Record",
   "messages": {
     "notFound": "Niet gevonden"
   },
