@@ -34,12 +34,9 @@ function parseRecordDataFromApiResponse(response) {
     }, (v) => {
       return v === null;
     }),
-    media: providerAggregation.webResources,
-    edmIsShownBy: providerAggregation.webResources.find((webResource) => {
-      return webResource.about === providerAggregation.edmIsShownBy;
-    }) || {},
-    edmHasView: providerAggregation.webResources.filter((webResource) => {
-      return (providerAggregation.hasView || []).includes(webResource.about);
+    media: providerAggregation.webResources.filter((webResource) => {
+      return (webResource.about === providerAggregation.edmIsShownBy) ||
+        (providerAggregation.hasView || []).includes(webResource.about);
     })
   };
 }

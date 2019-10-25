@@ -15,13 +15,13 @@
         class="mb-3 px-0"
       >
         <MediaPresentation
-          :codec-name="edmIsShownBy.edmCodecName"
+          :codec-name="selectedMedia.edmCodecName"
           :image-link="image.link"
           :image-src="image.src"
-          :mime-type="edmIsShownBy.ebucoreHasMimeType"
-          :url="edmIsShownBy.about"
-          :width="edmIsShownBy.ebucoreWidth"
-          :height="edmIsShownBy.ebucoreHeight"
+          :mime-type="selectedMedia.ebucoreHasMimeType"
+          :url="selectedMedia.about"
+          :width="selectedMedia.ebucoreWidth"
+          :height="selectedMedia.ebucoreHeight"
         />
       </b-col>
       <b-col
@@ -67,9 +67,7 @@
         error: null,
         image: null,
         fields: null,
-        media: null,
-        edmIsShownBy: {},
-        edmHasView: []
+        media: null
       };
     },
     asyncData({ env, params, res, app, redirect }) {
@@ -89,6 +87,11 @@
           }
           return { error: error.message };
         });
+    },
+    computed: {
+      selectedMedia() {
+        return this.media[0];
+      }
     },
     head() {
       return {

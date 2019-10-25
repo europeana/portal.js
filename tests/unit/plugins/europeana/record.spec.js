@@ -44,6 +44,27 @@ describe('plugins/europeana/record', () => {
       });
 
       describe('with object in response', () => {
+        const edmIsShownByWebResource = {
+          about: 'https://example.org/doc.pdf',
+          dcDescription: {
+            'en': [
+              'This is an example'
+            ]
+          },
+          webResourceEdmRights: {
+            'def': [
+              'https://example.org'
+            ]
+          },
+          ebucoreHasMimeType: 'application/pdf'
+        };
+        const edmHasViewWebResource = {
+          about: 'https://example.org/image.jpeg',
+          ebucoreHasMimeType: 'image/jpeg'
+        };
+        const someOtherWebResource = {
+          about: 'https://example.org/'
+        };
         const apiResponse = {
           success: true,
           object: {
@@ -51,24 +72,11 @@ describe('plugins/europeana/record', () => {
               edmIsShownAt: 'https://example.org',
               edmIsShownBy: 'https://example.org/doc.pdf',
               hasView: ['https://example.org/image.jpeg'],
-              webResources: [{
-                about: 'https://example.org/doc.pdf',
-                dcDescription: {
-                  'en': [
-                    'This is an example'
-                  ]
-                },
-                webResourceEdmRights: {
-                  'def': [
-                    'https://example.org'
-                  ]
-                },
-                ebucoreHasMimeType: 'application/pdf'
-              },
-              {
-                about: 'https://example.org/image.jpeg',
-                ebucoreHasMimeType: 'image/jpeg'
-              }]
+              webResources: [
+                edmIsShownByWebResource,
+                edmHasViewWebResource,
+                someOtherWebResource
+              ]
             }],
             europeanaAggregation: {
               edmRights: { def: [ 'https://example.org' ] },
@@ -102,14 +110,21 @@ describe('plugins/europeana/record', () => {
           response.record.should.exist;
         });
 
-        it('includes edmIsShownBy', async() => {
-          const response = await getRecord(europeanaId, { wskey: apiKey });
-          response.record.edmIsShownBy.should.deep.eql(apiResponse.object.aggregations[0].webResources[0]);
-        });
+        describe('.media', () => {
+          it('includes edmIsShownBy web resource', async() => {
+            const response = await getRecord(europeanaId, { wskey: apiKey });
+            response.record.media.should.include.deep.members([edmIsShownByWebResource]);
+          });
 
-        it('includes edmHasView', async() => {
-          const response = await getRecord(europeanaId, { wskey: apiKey });
-          response.record.edmHasView.should.deep.eql([apiResponse.object.aggregations[0].webResources[1]]);
+          it('includes edmHasView web resource', async() => {
+            const response = await getRecord(europeanaId, { wskey: apiKey });
+            response.record.media.should.include.deep.members([edmHasViewWebResource]);
+          });
+
+          it('omits other web resources', async() => {
+            const response = await getRecord(europeanaId, { wskey: apiKey });
+            response.record.media.should.not.include.deep.members([someOtherWebResource]);
+          });
         });
       });
     });
