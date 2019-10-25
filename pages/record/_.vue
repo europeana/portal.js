@@ -15,6 +15,7 @@
         class="mb-3 px-0"
       >
         <MediaPresentation
+          v-if="selectedMedia"
           :codec-name="selectedMedia.edmCodecName"
           :image-link="image.link"
           :image-src="image.src"
@@ -37,6 +38,7 @@
       </b-col>
     </b-row>
     <b-row class="mb-3">
+      <!-- TODO: remove when the carousel has come to town. -->
       <b-col>
         <h2>Media</h2>
         <WebResources
