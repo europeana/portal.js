@@ -70,6 +70,11 @@
         media: null
       };
     },
+    computed: {
+      selectedMedia() {
+        return this.media[0];
+      }
+    },
     asyncData({ env, params, res, app, redirect }) {
       if (env.RECORD_PAGE_REDIRECT_PATH) {
         return redirect(app.localePath({ path: env.RECORD_PAGE_REDIRECT_PATH }));
@@ -87,11 +92,6 @@
           }
           return { error: error.message };
         });
-    },
-    computed: {
-      selectedMedia() {
-        return this.media[0];
-      }
     },
     head() {
       return {
