@@ -16,7 +16,7 @@
       </template>
       <b-form-input
         v-model="query"
-        :autocomplete="isEntityPage ? 'on' : 'off'"
+        :autocomplete="isDisabled ? 'on' : 'off'"
         :aria-label="$t('search')"
         :placeholder="$t('searchPlaceholder')"
         name="query"
@@ -104,8 +104,8 @@
         };
       },
 
-      isEntityPage() {
-        return this.$route.path.startsWith('/entity/');
+      isDisabled() {
+        return !!(this.$store.state.entity && this.$store.state.entity.id);
       },
 
       view() {
@@ -115,7 +115,7 @@
 
     watch: {
       options() {
-        this.isActive = !!this.options && this.query.length > 2;
+        this.isActive = !!this.options;
       },
       '$route.query'() {
         this.queryOnSearchablePage();
@@ -123,8 +123,9 @@
     },
 
     mounted() {
-      if (this.isEntityPage) return;
-      document.addEventListener('keyup', this.navigateDropdown);
+      if (this.isDisabled) return;
+      const form = this.$refs.form;
+      form.addEventListener('keyup', this.navigateDropdown);
       document.addEventListener('mouseup', this.clickOutside);
       this.queryOnSearchablePage();
     },
@@ -194,13 +195,17 @@
       // FAKE DATA
       async getSuggestions() {
         // If entity page, disable autosuggest
-        if (this.isEntityPage) return;
-        setTimeout(() => {
-          this.options = {
-            'http://data.europeana.eu/concept/base/83': 'Hello',
-            'http://data.europeana.eu/concept/base/94': 'By Hello'
-          };
-        }, 500);
+        if (this.isDisabled) return;
+        // Fetch suggestions if characters are 3 or more
+        if (this.query.length < 3) {
+          this.options = {};
+          return;
+        }
+
+        this.options = {
+          'http://data.europeana.eu/concept/base/83': 'Hello',
+          'http://data.europeana.eu/concept/base/94': 'By Hello'
+        };
       }
     }
   };
