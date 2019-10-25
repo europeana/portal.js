@@ -60,6 +60,8 @@
 
 <script>
   import SearchBarPill from './SearchBarPill.vue';
+  import match from 'autosuggest-highlight/match';
+  import parse from 'autosuggest-highlight/parse';
 
   export default {
     name: 'AutoSuggest',
@@ -129,10 +131,13 @@
 
     methods: {
       highlightResult(value) {
-        const query = this.query;
-        const regEx = new RegExp(query, 'ig'); // Case insensitive
+        const matches = match(value, this.query);
+        const parts = parse(value, matches);
+        const results = parts.map(part => {
+          return part.highlight ? `<strong class="highlight">${part.text}</strong>` : part.text;
+        });
 
-        return value.replace(regEx, `<strong class="highlight">${query}</strong>`);
+        return results.join('');
       },
       clickOutside(event) {
         const isChild = this.$el.contains(event.target);
@@ -188,6 +193,7 @@
 
       // FAKE DATA
       async getSuggestions() {
+        // If entity page, disable autosuggest
         if (this.isEntityPage) return;
         setTimeout(() => {
           this.options = {
