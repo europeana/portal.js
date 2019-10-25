@@ -141,8 +141,9 @@
         return results.join('');
       },
       clickOutside(event) {
-        const isChild = this.$el.contains(event.target);
+        if (!this.isActive) return;
 
+        const isChild = this.$el.contains(event.target);
         if (!isChild) {
           this.isActive = false;
         }
@@ -154,7 +155,7 @@
           this.query = hoveredElement.getAttribute('value');
         });
       },
-      navigateDropdown() {
+      navigateDropdown(event) {
         switch (event.keyCode) {
         case 38:
           if (this.focus === null) {
