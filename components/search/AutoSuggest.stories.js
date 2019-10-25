@@ -31,7 +31,7 @@ const i18n = {
 
 AutoSuggest.methods.localePath = () => {};
 
-storiesOf('Search/Form', module)
+storiesOf('Auto Suggest', module)
   .add('Plain', () => ({
     components: { AutoSuggest },
     store,
