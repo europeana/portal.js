@@ -1,5 +1,6 @@
 <template>
   <b-form
+    ref="form"
     inline
     @submit.prevent="submitForm"
   >
@@ -40,14 +41,16 @@
       <b-list-group
         v-if="isActive"
         class="auto-suggest-dropdown"
+        data-qa="search suggestions"
       >
         <!-- eslint-disable vue/no-v-html -->
         <b-list-group-item
           v-for="(value, name, index) in options"
           :key="index"
           :href="name"
-          :class="{ 'highlighted': index === focus }"
+          :class="{ 'hover': index === focus }"
           :value="value"
+          data-qa="search suggestion"
           @mouseover="focus = index"
           @click="isActive = false"
           v-html="highlightResult(value)"
@@ -75,7 +78,7 @@
         query: null,
         focus: null,
         isActive: false,
-        options: null
+        options: {}
       };
     },
 
