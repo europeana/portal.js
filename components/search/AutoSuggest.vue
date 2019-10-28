@@ -87,7 +87,7 @@
 
     computed: {
       locale() {
-        return this.$i18n.locale;
+        return this.$store.state.i18n.locale;
       },
 
       onSearchablePage() {
@@ -134,6 +134,7 @@
 
     mounted() {
       if (this.isDisabled) return;
+
       const form = this.$refs.form;
       form.addEventListener('keyup', this.navigateDropdown);
       document.addEventListener('mouseup', this.clickOutside);

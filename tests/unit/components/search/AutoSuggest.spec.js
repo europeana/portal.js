@@ -43,6 +43,9 @@ const store = (options = {}) => {
       search: {},
       entity: {
         id: null
+      },
+      i18n: {
+        locale: 'en'
       }
     }
   });
@@ -58,6 +61,9 @@ describe('components/search/AutoSuggest', () => {
               active: true,
               query: 'cartography'
             }
+          },
+          i18n: {
+            locale: 'en'
           }
         })
       });
@@ -74,6 +80,9 @@ describe('components/search/AutoSuggest', () => {
             search: {
               active: false,
               query: 'cartography'
+            },
+            i18n: {
+              locale: 'en'
             }
           }
         })
@@ -92,6 +101,9 @@ describe('components/search/AutoSuggest', () => {
           state: {
             search: {
               active: true
+            },
+            i18n: {
+              locale: 'en'
             }
           }
         })
@@ -108,6 +120,9 @@ describe('components/search/AutoSuggest', () => {
           state: {
             search: {
               active: false
+            },
+            i18n: {
+              locale: 'en'
             }
           }
         })
@@ -135,6 +150,9 @@ describe('components/search/AutoSuggest', () => {
           active: true,
           query: '',
           view: 'grid'
+        },
+        i18n: {
+          locale: 'en'
         }
       };
       const wrapper = factory({
@@ -160,6 +178,9 @@ describe('components/search/AutoSuggest', () => {
           active: false,
           query: '',
           view: 'list'
+        },
+        i18n: {
+          locale: 'en'
         }
       };
       const wrapper = factory({
@@ -187,6 +208,9 @@ describe('components/search/AutoSuggest', () => {
           search: {
             active: false,
             query: ''
+          },
+          i18n: {
+            locale: 'en'
           }
         }
       })
@@ -212,6 +236,9 @@ describe('components/search/AutoSuggest', () => {
             },
             entity: {
               id: 'ghghghghg'
+            },
+            i18n: {
+              locale: 'en'
             }
           }
         })
@@ -234,12 +261,30 @@ describe('components/search/AutoSuggest', () => {
       wrapper.vm.getSuggestions();
 
       wrapper.vm.options.should.eql({
-        'http://data.europeana.eu/concept/base/83': 'World War I',
-        'http://data.europeana.eu/concept/base/94': 'Architecture'
+        'http://data.europeana.eu/concept/base/83': {
+          'en': 'World War I',
+          'fr': 'Première Guerre mondiale'
+        },
+        'http://data.europeana.eu/concept/base/94': {
+          'en': 'Architecture',
+          'fr': 'Architecture'
+        }
       });
     });
 
     it('highlights matching characters', () => {
+      const wrapper = factory({
+        store: store({
+          state: {
+            i18n: {
+              locale: 'en'
+            },
+            search: {
+              active: false
+            }
+          }
+        })
+      });
       const suggestion = wrapper.find('[data-qa="search suggestion world war i link"]');
 
       wrapper.setData({ query: 'world' });
