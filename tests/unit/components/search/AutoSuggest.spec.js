@@ -195,7 +195,7 @@ describe('components/search/AutoSuggest', () => {
     const searchBox = wrapper.find('[data-qa="search box"]');
 
     it('call `getSuggestions` method when user types into search box', () => {
-      wrapper.setData({ query: 'hello' });
+      wrapper.setData({ query: 'World' });
       searchBox.trigger('input');
 
       getSuggestions.should.have.callCount(1);
@@ -217,45 +217,45 @@ describe('components/search/AutoSuggest', () => {
         })
       });
 
-      wrapper.setData({ query: 'Hello' });
+      wrapper.setData({ query: 'World' });
       wrapper.vm.getSuggestions();
       wrapper.vm.options.should.eql({});
     });
 
     it('returns zero options when there are less than 3 characters in search form', () => {
-      wrapper.setData({ query: 'he' });
+      wrapper.setData({ query: 'Wo' });
       wrapper.vm.getSuggestions();
 
       wrapper.vm.options.should.eql({});
     });
 
     it('returns options when there are 3 or more characters in search form', () => {
-      wrapper.setData({ query: 'hello' });
+      wrapper.setData({ query: 'World' });
       wrapper.vm.getSuggestions();
 
       wrapper.vm.options.should.eql({
-        'http://data.europeana.eu/concept/base/83': 'Hello',
-        'http://data.europeana.eu/concept/base/94': 'By Hello'
+        'http://data.europeana.eu/concept/base/83': 'World War I',
+        'http://data.europeana.eu/concept/base/94': 'Architecture'
       });
     });
 
     it('highlights matching characters', () => {
-      const suggestion = wrapper.find('[data-qa="search suggestion"]');
+      const suggestion = wrapper.find('[data-qa="search suggestion world war i link"]');
 
-      wrapper.setData({ query: 'hello' });
-      suggestion.html().should.contain('<strong class="highlight">Hello</strong>');
-      wrapper.setData({ query: 'Hello' });
-      suggestion.html().should.contain('<strong class="highlight">Hello</strong>');
-      wrapper.setData({ query: 'HELLO' });
-      suggestion.html().should.contain('<strong class="highlight">Hello</strong>');
-      wrapper.setData({ query: 'Hell' });
-      suggestion.html().should.contain('<strong class="highlight">Hell</strong>o');
+      wrapper.setData({ query: 'world' });
+      suggestion.html().should.contain('<strong class="highlight">World</strong>');
+      wrapper.setData({ query: 'World' });
+      suggestion.html().should.contain('<strong class="highlight">World</strong>');
+      wrapper.setData({ query: 'WORLD' });
+      suggestion.html().should.contain('<strong class="highlight">World</strong>');
+      wrapper.setData({ query: 'Wor' });
+      suggestion.html().should.contain('<strong class="highlight">Wor</strong>ld');
     });
 
     it('allows the user to navigate through suggestions using keyboards up and down arrows', async() => {
       const form =  wrapper.find('form');
 
-      wrapper.setData({ query: 'hello' });
+      wrapper.setData({ query: 'World' });
       form.trigger('keyup.down');
       wrapper.vm.focus.should.eq(0);
       form.trigger('keyup.down');

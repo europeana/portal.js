@@ -39,3 +39,20 @@ Feature: Search querying
     And I click a `search result`
     Then I see a `record page`
     And I don't see "paris" in the `search box`
+  
+  Scenario: Using auto suggestion I should be directed away from search page
+
+    When I visit a `search page`
+    And I enter "World" in the `search box`
+    And I see `search suggestions` with the text "World War I"
+    And I click the `search suggestion world war i link`
+    Then I should not be on the `search page`
+
+  Scenario: Using auto suggestion with keyboard should populate search field
+    When I visit a `search page`
+    And I enter "World" in the `search box`
+    And I see `search suggestions` with the text "World War I"
+    And I press the DOWN_ARROW key
+    Then I see "World War I" in the `search box`
+    And I press the DOWN_ARROW key
+    And I see "Architecture" in the `search box`

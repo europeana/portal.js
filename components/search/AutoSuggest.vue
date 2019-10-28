@@ -50,7 +50,7 @@
           :href="name"
           :class="{ 'hover': index === focus }"
           :value="value"
-          data-qa="search suggestion"
+          :data-qa="`search suggestion ${value.toLowerCase()} link`"
           @mouseover="focus = index"
           @click="isActive = false"
           v-html="highlightResult(value)"
@@ -208,8 +208,8 @@
         }
 
         this.options = {
-          'http://data.europeana.eu/concept/base/83': 'Hello',
-          'http://data.europeana.eu/concept/base/94': 'By Hello'
+          'http://data.europeana.eu/concept/base/83': 'World War I',
+          'http://data.europeana.eu/concept/base/94': 'Architecture'
         };
       }
     }
