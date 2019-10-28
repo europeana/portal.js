@@ -81,12 +81,14 @@
         query: null,
         focus: null,
         isActive: false,
-        options: {},
-        locale: this.$store.state.i18n.locale || 'en'
+        options: {}
       };
     },
 
     computed: {
+      locale() {
+        return this.$store.state.i18n.locale;
+      },
       onSearchablePage() {
         return this.$store.state.search.active;
       },
