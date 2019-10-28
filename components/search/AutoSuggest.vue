@@ -49,8 +49,8 @@
           :key="index"
           :href="name"
           :class="{ 'hover': index === focus }"
-          :value="value"
-          :data-qa="`search suggestion ${value.toLowerCase()} link`"
+          :value="value[locale]"
+          :data-qa="`search suggestion ${value[locale].toLowerCase()} link`"
           @mouseover="focus = index"
           @click="isActive = false"
           v-html="highlightResult(value)"
@@ -78,7 +78,8 @@
         query: null,
         focus: null,
         isActive: false,
-        options: {}
+        options: {},
+        locale: this.$store.state.i18n.locale
       };
     },
 
@@ -135,8 +136,9 @@
 
     methods: {
       highlightResult(value) {
-        const matches = match(value, this.query);
-        const parts = parse(value, matches);
+        const string = value[this.locale];
+        const matches = match(string, this.query);
+        const parts = parse(string, matches);
         const results = parts.map(part => {
           return part.highlight ? `<strong class="highlight">${part.text}</strong>` : part.text;
         });
@@ -209,8 +211,14 @@
         }
 
         this.options = {
-          'http://data.europeana.eu/concept/base/83': 'World War I',
-          'http://data.europeana.eu/concept/base/94': 'Architecture'
+          'http://data.europeana.eu/concept/base/83': {
+            en: 'World War I',
+            fr: 'Première Guerre mondiale'
+          },
+          'http://data.europeana.eu/concept/base/94': {
+            en: 'Architecture',
+            fr: 'Architecture'
+          }
         };
       }
     }
