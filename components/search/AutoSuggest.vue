@@ -203,6 +203,7 @@
         if (this.isDisabled) return;
         // Fetch suggestions if characters are 3 or more
         if (this.query.length < 3) {
+          this.focus = null;
           this.options = {};
           return;
         }
