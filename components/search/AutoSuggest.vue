@@ -82,7 +82,7 @@
         focus: null,
         isActive: false,
         options: {},
-        locale: this.$store.state.i18n.locale
+        locale: this.$store.state.i18n.locale || 'en'
       };
     },
 
