@@ -87,8 +87,9 @@
 
     computed: {
       locale() {
-        return this.$store.state.i18n.locale;
+        return this.$i18n.locale;
       },
+
       onSearchablePage() {
         return this.$store.state.search.active;
       },
