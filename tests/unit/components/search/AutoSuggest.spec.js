@@ -285,9 +285,12 @@ describe('components/search/AutoSuggest', () => {
           }
         })
       });
-      const suggestion = wrapper.find('[data-qa="search suggestion world war i link"]');
+      let suggestion;
 
       wrapper.setData({ query: 'world' });
+      wrapper.vm.getSuggestions();
+      suggestion = wrapper.find('[data-qa="search suggestion world war i link"]');
+
       suggestion.html().should.contain('<strong class="highlight">World</strong>');
       wrapper.setData({ query: 'World' });
       suggestion.html().should.contain('<strong class="highlight">World</strong>');
