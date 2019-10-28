@@ -16,6 +16,7 @@
         />
       </template>
       <b-form-input
+        ref="input"
         v-model="query"
         :autocomplete="isDisabled ? 'on' : 'off'"
         :aria-label="$t('search')"
@@ -51,7 +52,9 @@
           :class="{ 'hover': index === focus }"
           :value="value[locale]"
           :data-qa="`search suggestion ${value[locale].toLowerCase()} link`"
+          :data-index="index"
           @mouseover="focus = index"
+          @focus="index === focus"
           @click="isActive = false"
           v-html="highlightResult(value)"
         />
@@ -161,24 +164,33 @@
           this.query = hoveredElement.getAttribute('value');
         });
       },
+      focusOnSuggestion() {
+        if (!this.focus) return;
+
+        const selectedSuggestion = this.$el.querySelector(`[data-index="${this.focus}"]`);
+        selectedSuggestion.focus();
+      },
       navigateDropdown(event) {
         switch (event.keyCode) {
-        case 38:
+        case 38: // Up Key
           if (this.focus === null) {
             this.focus = 0;
           } else if (this.focus > 0) {
             this.focus--;
           } else if (this.focus === 0) {
             this.focus = null;
+            this.$refs.input.focus();
           }
+          this.focusOnSuggestion();
           this.updateInputWithSelected();
           break;
-        case 40:
+        case 40: // Down key
           if (this.focus === null) {
             this.focus = 0;
           } else if (this.focus < Object.keys(this.options).length - 1) {
             this.focus++;
           }
+          this.focusOnSuggestion();
           this.updateInputWithSelected();
           break;
         }
