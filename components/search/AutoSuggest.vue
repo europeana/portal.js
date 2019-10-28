@@ -147,6 +147,7 @@
         if (!this.isActive) return;
 
         const isChild = this.$el.contains(event.target);
+
         if (!isChild) {
           this.isActive = false;
         }
