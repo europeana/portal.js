@@ -161,13 +161,7 @@
           this.isActive = false;
         }
       },
-      updateInputWithSelected() {
-        this.$nextTick(() => {
-          const hoveredElement = document.querySelector('.hover');
-          if (!hoveredElement) return;
-          this.query = hoveredElement.getAttribute('value');
-        });
-      },
+
       focusOnSuggestion() {
         if (!this.focus) return;
 
@@ -186,7 +180,6 @@
             this.$refs.input.focus();
           }
           this.focusOnSuggestion();
-          this.updateInputWithSelected();
           break;
         case 40: // Down key
           if (this.focus === null) {
@@ -195,7 +188,6 @@
             this.focus++;
           }
           this.focusOnSuggestion();
-          this.updateInputWithSelected();
           break;
         }
       },
@@ -227,11 +219,11 @@
         }
 
         this.options = {
-          'http://data.europeana.eu/concept/base/83': {
+          '/entity/topic/83': {
             en: 'World War I',
             fr: 'Première Guerre mondiale'
           },
-          'http://data.europeana.eu/concept/base/94': {
+          '/entity/topic/94': {
             en: 'Architecture',
             fr: 'Architecture'
           }
