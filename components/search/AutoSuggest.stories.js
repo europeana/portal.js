@@ -16,6 +16,9 @@ const store = (pillLabel) => new Vuex.Store({
   state: {
     search: {
       pill: pillLabel
+    },
+    i18n: {
+      locale: 'en'
     }
   }
 });
