@@ -2,8 +2,8 @@ import { storiesOf } from '@storybook/vue';
 
 import SearchSelectedFacets from './SearchSelectedFacets.vue';
 
-storiesOf('Search page', module)
-  .add('Search selected facets', () => ({
+storiesOf('Search', module)
+  .add('Selected facets', () => ({
     components: { SearchSelectedFacets },
     data() {
       return { selected: ['Image', 'Video', 'PDF'] };

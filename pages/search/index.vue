@@ -13,7 +13,7 @@
 
 <script>
   import SearchInterface from '../../components/search/SearchInterface';
-  import { pageFromQuery } from '../../plugins/europeana/search';
+  import { pageFromQuery } from '../../plugins/utils';
 
   export default {
     components: {

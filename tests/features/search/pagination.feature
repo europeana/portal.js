@@ -20,7 +20,7 @@ Feature: Search pagination
     And I click the `TYPE apply button`
     And I wait 1 second
     And I see a `pagination navigation`
-    Then I see a link to "/search?page=2&qf=TYPE%3A%22IMAGE%22&query=paris&view=grid" in the `pagination navigation`
+    Then I see a link to "/en/search?page=2&qf=TYPE%3A%22IMAGE%22&query=paris&view=grid" in the `pagination navigation`
 
   Scenario: Changing pagination with browser history
 
@@ -37,48 +37,48 @@ Feature: Search pagination
 
   Scenario: Pagination links preserve query and facet selection from the url.
 
-    When I visit the `/search?query=paris&page=1&qf=TYPE%3A%22IMAGE%22`
-    Then I see a link to "/search?page=2&qf=TYPE%3A%22IMAGE%22&query=paris&view=grid" in the `pagination navigation`
+    When I visit `/en/search?query=paris&page=1&qf=TYPE%3A%22IMAGE%22`
+    Then I see a link to "/en/search?page=2&qf=TYPE%3A%22IMAGE%22&query=paris&view=grid" in the `pagination navigation`
 
   Scenario: Pagination links work when the page was accessed from the url.
 
-    When I visit `/search?query=paris&page=1&qf=TYPE%3A%22IMAGE%22`
-    And I click the "/search?page=2&qf=TYPE%3A%22IMAGE%22&query=paris&view=grid" link
+    When I visit `/en/search?query=paris&page=1&qf=TYPE%3A%22IMAGE%22`
+    And I click the "/en/search?page=2&qf=TYPE%3A%22IMAGE%22&query=paris&view=grid" link
     And I wait 1 second
-    Then I should be on `/search?page=2&qf=TYPE%3A%22IMAGE%22&query=paris&view=grid`
+    Then I should be on `/en/search?page=2&qf=TYPE%3A%22IMAGE%22&query=paris&view=grid`
 
   Scenario: Invalid `page` param redirects to page 1
 
-    When I open `/search?query=&page=-1`
+    When I open `/en/search?query=&page=-1`
     Then I should be on the `first page of results`
 
-    When I open `/search?query=&page=0`
+    When I open `/en/search?query=&page=0`
     Then I should be on the `first page of results`
 
-    When I open `/search?query=&page=one`
+    When I open `/en/search?query=&page=one`
     Then I should be on the `first page of results`
 
-    When I open `/search?query=&page=last`
+    When I open `/en/search?query=&page=last`
     Then I should be on the `first page of results`
 
-    When I open `/search?query=&page=2.5`
+    When I open `/en/search?query=&page=2.5`
     Then I should be on the `first page of results`
 
   Scenario: Paginating to the API result limit
 
-    When I open `/search?query=&page=42`
+    When I open `/en/search?query=&page=42`
     Then I see a `search result`
     Then I see an `info notice` with the text "Additional results are not shown as only the first 1,000 most relevant results are shown. If you haven't found what you're looking for, please consider refining your search."
     And I am on an accessible page
 
   Scenario: Paginating beyond API result limit
 
-    When I open `/search?query=&page=500`
+    When I open `/en/search?query=&page=500`
     Then I see an `error notice` with the text "It is only possible to view the first 1,000 search results."
     And I am on an accessible page
 
   Scenario: Paginating beyond available results
 
-    When I open `/search?query=title%3Amountain%20fort&page=10`
+    When I open `/en/search?query=title%3Amountain%20fort&page=10`
     Then I see a `warning notice` with the text "no more results"
     And I see a `pagination navigation`

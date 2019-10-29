@@ -29,8 +29,6 @@ const i18n = {
   }
 };
 
-AutoSuggest.methods.localePath = () => {};
-
 storiesOf('Auto Suggest', module)
   .add('Plain', () => ({
     components: { AutoSuggest },

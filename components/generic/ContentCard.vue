@@ -18,12 +18,22 @@
         <b-card-title>
           {{ title | truncate(90, $t('formatting.ellipsis')) }}
         </b-card-title>
-        <b-card-text
-          v-for="(text, index) in texts"
-          :key="index"
+        <time
+          v-if="datetime"
+          class="font-weight-bold pb-3"
+          data-qa="date"
+          :datetime="datetime"
         >
-          {{ text }}
-        </b-card-text>
+          {{ $d(new Date(datetime), 'short') }}
+        </time>
+        <template v-if="texts.length > 0">
+          <b-card-text
+            v-for="(text, index) in texts"
+            :key="index"
+          >
+            {{ text }}
+          </b-card-text>
+        </template>
       </b-card-body>
     </SmartLink>
   </b-card>
@@ -56,6 +66,10 @@
       imageContentType: {
         type: String,
         default: null
+      },
+      datetime: {
+        type: String,
+        default: ''
       }
     },
     computed: {

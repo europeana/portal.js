@@ -6,13 +6,15 @@
     >
       <img
         ref="leftImage"
-        :src="optimisedImageUrl('left')"
+        :src="leftImageSrc | optimisedImageUrl(leftImageContentType)"
         :style="leftImageClip"
+        alt=""
         data-qa="compare image left image"
       >
       <img
         ref="rightImage"
-        :src="optimisedImageUrl('right')"
+        :src="rightImageSrc | optimisedImageUrl(rightImageContentType)"
+        alt=""
         data-qa="compare image right image"
       >
 
@@ -34,27 +36,26 @@
       </div>
     </div>
     <figcaption>
-      <label data-qa="compare image left attribution">
-        {{ $t('directions.left') }}
-        <CiteAttribution
-          :name="leftImageAttribution.name"
-          :creator="leftImageAttribution.creator"
-          :provider="leftImageAttribution.provider"
-          :rights-statement="leftImageAttribution.rightsStatement"
-          :url="leftImageAttribution.url"
-        />
-      </label>
-      <br>
-      <label data-qa="compare image right attribution">
-        {{ $t('directions.right') }}
-        <CiteAttribution
-          :name="rightImageAttribution.name"
-          :creator="rightImageAttribution.creator"
-          :provider="rightImageAttribution.provider"
-          :rights-statement="rightImageAttribution.rightsStatement"
-          :url="rightImageAttribution.url"
-        />
-      </label>
+      <CiteAttribution
+        :name="leftImageAttribution.name"
+        :creator="leftImageAttribution.creator"
+        :provider="leftImageAttribution.provider"
+        :rights-statement="leftImageAttribution.rightsStatement"
+        :url="leftImageAttribution.url"
+        :class="hideAttribution === 'left' && 'cite-hidden'"
+        data-qa="compare image left attribution"
+        :data-prefix="$t('directions.left')"
+      />
+      <CiteAttribution
+        :name="rightImageAttribution.name"
+        :creator="rightImageAttribution.creator"
+        :provider="rightImageAttribution.provider"
+        :rights-statement="rightImageAttribution.rightsStatement"
+        :url="rightImageAttribution.url"
+        :class="hideAttribution === 'right' && 'cite-hidden'"
+        data-qa="compare image right attribution"
+        :data-prefix="$t('directions.right')"
+      />
     </figcaption>
   </figure>
 </template>
@@ -106,14 +107,14 @@
         dragging: false,
         imageWidth: 0,
         sliderWidth: 0,
-        sliderPosition: 0.5
+        sliderPosition: 0.5,
+        hideAttribution: null
       };
     },
 
     computed: {
       leftImageClip() {
         const rightLength = this.imageWidth * this.sliderPosition;
-
         return {
           clip: `rect(auto, ${rightLength}px, auto, auto)`
         };
@@ -153,6 +154,16 @@
         this.dragging = false;
       },
 
+      showHideAttribution() {
+        if (this.sliderPosition < 0.2) {
+          this.hideAttribution = 'left';
+        } else if (this.sliderPosition > 0.8) {
+          this.hideAttribution = 'right';
+        } else {
+          this.hideAttribution = '';
+        }
+      },
+
       drag(event) {
         // Calc Cursor Position from the left edge of the viewport
         const cursorXfromViewport = event.pageX;
@@ -175,18 +186,21 @@
 
         if (this.dragging) {
           this.sliderPosition = pos / this.imageWidth;
+          this.showHideAttribution();
         }
-      },
-
-      optimisedImageUrl(side) {
-        return this.$options.filters.optimisedImageUrl(this[`${side}ImageSrc`], this[`${side}ImageContentType`]);
       }
     }
   };
 </script>
 
 <style lang="scss" scoped>
+  @import "./assets/scss/variables.scss";
+
   $slider-dimensions: 48px;
+
+  figure {
+    display: block;
+  }
 
   .compare-image {
     position: relative;
@@ -255,6 +269,43 @@
           &:after {
             right: -1px;
           }
+        }
+      }
+    }
+
+    & + figcaption {
+
+      cite {
+        display: block;
+        margin: 0;
+        position: static;
+
+        &:before {
+          content: attr(data-prefix);
+          font-style: normal;
+        }
+      }
+
+      @media (min-width: $bp-large) {
+        cite {
+          max-width: 45%;
+          position: absolute;
+          transition: opacity 0.2s ease-out;
+
+          &:before {
+            display: none;
+          }
+
+          &:nth-child(2) {
+            left: auto;
+            margin-left: 1rem;
+            margin-right: 0;
+            right: 1rem;
+          }
+        }
+
+        .cite-hidden {
+          opacity: 0;
         }
       }
     }

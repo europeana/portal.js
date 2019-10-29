@@ -100,3 +100,6 @@ defineStep('I am on page (number ){int}', (page) =>
 
 defineStep('I go back', () =>
   i.goBack());
+
+defineStep('my browser accepts the language {string}', (locale) =>
+  i.preferBrowserLanguage(locale));

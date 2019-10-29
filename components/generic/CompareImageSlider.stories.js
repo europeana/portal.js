@@ -18,14 +18,14 @@ storiesOf('Generic', module)
       return {
         leftImageSrc: 'img/landscape.jpg',
         rightImageSrc: 'img/landscape-monochrome.jpg',
-        leftImageAttribute: {
+        leftImageAttribution: {
           name: 'Name',
           creator: 'Creator',
           provider: 'Provider',
           rightsStatement: 'http://creativecommons.org/licenses/by-nd/4.0/',
           url: 'https://www.example.org/left'
         },
-        rightImageAttribute: {
+        rightImageAttribution: {
           name: 'Name',
           creator: 'Creator',
           provider: 'Provider',
@@ -39,8 +39,8 @@ storiesOf('Generic', module)
         <CompareImageSlider
           :left-image-src="leftImageSrc"
           :right-image-src="rightImageSrc"
-          :left-image-attribution="leftImageAttribute"
-          :right-image-attribution="rightImageAttribute"
+          :left-image-attribution="leftImageAttribution"
+          :right-image-attribution="rightImageAttribution"
         />
       </b-container>`
   }));

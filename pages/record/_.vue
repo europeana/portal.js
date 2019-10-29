@@ -15,13 +15,14 @@
         class="mb-3 px-0"
       >
         <MediaPresentation
-          :codec-name="edmIsShownBy.edmCodecName"
+          v-if="selectedMedia"
+          :codec-name="selectedMedia.edmCodecName"
           :image-link="image.link"
           :image-src="image.src"
-          :mime-type="edmIsShownBy.ebucoreHasMimeType"
-          :url="edmIsShownBy.about"
-          :width="edmIsShownBy.ebucoreWidth"
-          :height="edmIsShownBy.ebucoreHeight"
+          :mime-type="selectedMedia.ebucoreHasMimeType"
+          :url="selectedMedia.about"
+          :width="selectedMedia.ebucoreWidth"
+          :height="selectedMedia.ebucoreHeight"
         />
       </b-col>
       <b-col
@@ -37,6 +38,7 @@
       </b-col>
     </b-row>
     <b-row class="mb-3">
+      <!-- TODO: remove when the carousel has come to town. -->
       <b-col>
         <h2>Media</h2>
         <WebResources
@@ -67,9 +69,13 @@
         error: null,
         image: null,
         fields: null,
-        media: null,
-        edmIsShownBy: {}
+        media: null
       };
+    },
+    computed: {
+      selectedMedia() {
+        return this.media[0];
+      }
     },
     asyncData({ env, params, res, app, redirect }) {
       if (env.RECORD_PAGE_REDIRECT_PATH) {

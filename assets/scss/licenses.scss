@@ -47,15 +47,6 @@
 }
 
 figcaption {
-  background: $white;
-  border-top-left-radius: $border-radius-small;
-  border-top-right-radius: $border-radius-small;
-  bottom: 0;
-  font-size: 0.625rem;
-  left: 1rem;
-  line-height: 1;
-  padding: 0.5rem;
-
   .is-external-link:after {
     content: '\e900';
     @extend .icon-font;
