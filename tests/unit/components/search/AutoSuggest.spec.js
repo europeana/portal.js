@@ -261,11 +261,11 @@ describe('components/search/AutoSuggest', () => {
       wrapper.vm.getSuggestions();
 
       wrapper.vm.options.should.eql({
-        'http://data.europeana.eu/concept/base/83': {
+        '/entity/topic/83': {
           'en': 'World War I',
           'fr': 'Première Guerre mondiale'
         },
-        'http://data.europeana.eu/concept/base/94': {
+        '/entity/topic/94': {
           'en': 'Architecture',
           'fr': 'Architecture'
         }
