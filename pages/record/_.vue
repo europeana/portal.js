@@ -19,11 +19,22 @@
             class="card-grid"
             :class="isRichMedia && 'card-grid-richmedia'"
           >
-            <h1
-              v-if="title"
-            >
-              {{ title | inCurrentLanguage($i18n.locale) }}
-            </h1>
+            <div class="card-heading">
+              <h1
+                v-if="titlesInCurrentLanguage.mainTitle"
+                :lang="titlesInCurrentLanguage.mainTitle.code"
+              >
+                {{ titlesInCurrentLanguage.mainTitle.value }}
+              </h1>
+              <!-- eslint-disable vue/no-v-html -->
+              <p
+                v-if="titlesInCurrentLanguage.altTitle"
+                :lang="titlesInCurrentLanguage.altTitle.code"
+                class="font-weight-bold"
+                v-html="titlesInCurrentLanguage.altTitle.value"
+              />
+              <!-- eslint-disable vue/no-v-html -->
+            </div>
             <MediaPresentation
               :codec-name="edmIsShownBy.edmCodecName"
               :image-link="image.link"
@@ -34,12 +45,14 @@
               :height="edmIsShownBy.ebucoreHeight"
               class="mb-3"
             />
+            <!-- eslint-disable vue/no-v-html -->
             <p
-              v-if="description"
+              v-if="descriptionInCurrentLanguage"
               class="description"
-            >
-              {{ description | inCurrentLanguage($i18n.locale) }}
-            </p>
+              :lang="descriptionInCurrentLanguage.code"
+              v-html="descriptionInCurrentLanguage.value"
+            />
+            <!-- eslint-disable vue/no-v-html -->
           </div>
           <MetadataField
             v-for="(value, name) in fields"
@@ -76,7 +89,7 @@
   import MediaPresentation from '../../components/record/MediaPresentation';
 
   import getRecord from '../../plugins/europeana/record';
-  import oEmbeddable from '../../plugins/oembed.js';
+  import { isRichMedia } from '../../plugins/media.js';
 
   export default {
     components: {
@@ -87,6 +100,7 @@
     },
     data() {
       return {
+        altTitle: null,
         description: null,
         error: null,
         image: null,
@@ -97,12 +111,26 @@
       };
     },
     computed: {
+      titlesInCurrentLanguage() {
+        if (this.title && this.altTitle) {
+          return { 'mainTitle': this.$options.filters.inCurrentLanguage(this.title, this.$i18n.locale),
+                   'altTitle': this.$options.filters.inCurrentLanguage(this.altTitle, this.$i18n.locale) };
+        } else if (this.title && !this.altTitle) {
+          return { 'mainTitle': this.$options.filters.inCurrentLanguage(this.title, this.$i18n.locale) };
+        } else if (!this.title && this.altTitle) {
+          return { 'mainTitle': this.$options.filters.inCurrentLanguage(this.altTitle, this.$i18n.locale) };
+        } else {
+          return false;
+        }
+      },
+      descriptionInCurrentLanguage() {
+        if (!this.description) {
+          return false;
+        }
+        return this.$options.filters.inCurrentLanguage(this.description, this.$i18n.locale);
+      },
       isRichMedia() {
-        return oEmbeddable(this.edmIsShownBy.about) ||
-          (this.edmIsShownBy.ebucoreHasMimeType === 'video/ogg') ||
-          (this.edmIsShownBy.ebucoreHasMimeType === 'video/ogg') ||
-          (this.edmIsShownBy.ebucoreHasMimeType === 'video/webm') ||
-          ((this.edmIsShownBy.ebucoreHasMimeType === 'video/mp4') && (this.edmIsShownBy.edmCodecName === 'h264'));
+        return isRichMedia(this.edmIsShownBy.ebucoreHasMimeType, this.edmIsShownBy.edmCodecName, this.edmIsShownBy.about);
       }
     },
     asyncData({ env, params, res, app, redirect }) {
@@ -125,8 +153,7 @@
     },
     head() {
       return {
-        title: (this.title && this.$options.filters.inCurrentLanguage(this.title, this.$i18n.locale)) ?
-          this.$options.filters.inCurrentLanguage(this.title, this.$i18n.locale) : this.$t('record')
+        title: this.titleInCurrentLanguage ? this.titleInCurrentLanguage.value : this.$t('record')
       };
     }
   };
@@ -140,7 +167,7 @@
     grid-template-rows: [row1-start] auto [row2-start] auto [row3-start] auto [row3-end];
   }
 
-  h1 {
+  .card-heading {
     grid-column: col2-start/col2-end;
     grid-row: row1-start;
   }
@@ -155,7 +182,7 @@
     grid-row: row2-start;
   }
 
-  .card-grid-richmedia  h1 {
+  .card-grid-richmedia .card-heading {
     grid-column: col1-start/col2-end;
   }
 

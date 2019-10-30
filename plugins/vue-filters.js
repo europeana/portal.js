@@ -5,6 +5,8 @@
 
 import Vue from 'vue';
 
+const locales = require('./i18n/locales.json');
+
 Vue.filter('localise', val => {
   if (typeof val === 'undefined' || val === null) {
     return val;
@@ -29,15 +31,20 @@ Vue.filter('optimisedImageUrl', (imageUrl, contentType) => {
   return imageUrl;
 });
 
-Vue.filter('inCurrentLanguage', (val, currentLocale) => {
+Vue.filter('inCurrentLanguage', (val, locale) => {
   let languageKeys = ['en', 'eng', 'def', 'und'];
-  if (currentLocale !== 'en') {
-    languageKeys.unshift(currentLocale);
+  const currentLocale = locales.find(l => l.code === locale);
+
+  if (currentLocale.code !== 'en' || currentLocale.isoAlpha3 !== 'eng') {
+    languageKeys.unshift(currentLocale.code);
+    languageKeys.unshift(currentLocale.isoAlpha3);
   }
 
   for (let key of languageKeys) {
     if (val[key]) {
-      return val[key][0];
+      const langCode = key.length === 3 ? locales.find(l => l.isoAlpha3 === key).code : key;
+      const htmlLang = currentLocale.code !== langCode ? langCode : '';
+      return { 'code': htmlLang, 'value': val[key].join('\n\n').replace(/\n/g, '<br/>') };
     }
   }
   return;
