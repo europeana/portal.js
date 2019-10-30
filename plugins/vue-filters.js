@@ -42,8 +42,11 @@ Vue.filter('inCurrentLanguage', (val, locale) => {
 
   for (let key of languageKeys) {
     if (val[key]) {
-      const langCode = key.length === 3 ? locales.find(l => l.isoAlpha3 === key).code : key;
-      const htmlLang = currentLocale.code !== langCode ? langCode : '';
+      let htmlLang = '';
+      if (key !== 'def' && key !== 'und') {
+        const langCode = key.length === 3 ? locales.find(l => l.isoAlpha3 === key).code : key;
+        htmlLang = currentLocale.code !== langCode ? langCode : '';
+      }
       return { 'code': htmlLang, 'value': val[key].join('\n\n').replace(/\n/g, '<br/>') };
     }
   }

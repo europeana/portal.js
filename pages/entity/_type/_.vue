@@ -72,7 +72,7 @@
   import SearchInterface from '../../../components/search/SearchInterface';
 
   import * as entities from '../../../plugins/europeana/entity';
-  import { pageFromQuery } from '../../../plugins/europeana/search';
+  import { pageFromQuery } from '../../../plugins/utils';
   import createClient from '../../../plugins/contentful';
 
   const PER_PAGE = 9;

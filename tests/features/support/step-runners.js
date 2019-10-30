@@ -11,6 +11,7 @@ const pages = {
   'home page': `${url}/en`,
   'exhibition page': `${url}/en/exhibition/the-pink-flowers`,
   'exhibition chapter': `${url}/en/exhibition/the-pink-flowers/allium`,
+  'exhibitions page': `${url}/en/exhibitions`,
   'search page': `${url}/en/search?query=`,
   'record page': `${url}/en/record${europeanaId()}`,
   'first page of results': `${url}/en/search?query=&page=1`,

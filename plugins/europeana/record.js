@@ -34,7 +34,10 @@ function parseRecordDataFromApiResponse(response) {
     }, (v) => {
       return v === null;
     }),
-    media: providerAggregation.webResources,
+    media: providerAggregation.webResources.filter((webResource) => {
+      return (webResource.about === providerAggregation.edmIsShownBy) ||
+        (providerAggregation.hasView || []).includes(webResource.about);
+    }),
     title: providerProxy.dcTitle,
     edmIsShownBy: providerAggregation.webResources.find((webResource) => {
       return webResource.about === providerAggregation.edmIsShownBy;

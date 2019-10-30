@@ -36,13 +36,14 @@
               <!-- eslint-disable vue/no-v-html -->
             </div>
             <MediaPresentation
-              :codec-name="edmIsShownBy.edmCodecName"
+              v-if="selectedMedia"
+              :codec-name="selectedMedia.edmCodecName"
               :image-link="image.link"
               :image-src="image.src"
-              :mime-type="edmIsShownBy.ebucoreHasMimeType"
-              :url="edmIsShownBy.about"
-              :width="edmIsShownBy.ebucoreWidth"
-              :height="edmIsShownBy.ebucoreHeight"
+              :mime-type="selectedMedia.ebucoreHasMimeType"
+              :url="selectedMedia.about"
+              :width="selectedMedia.ebucoreWidth"
+              :height="selectedMedia.ebucoreHeight"
               class="mb-3"
             />
             <!-- eslint-disable vue/no-v-html -->
@@ -72,6 +73,7 @@
       </b-col>
     </b-row>
     <b-row class="mb-3">
+      <!-- TODO: remove when the carousel has come to town. -->
       <b-col>
         <h2>Media</h2>
         <WebResources
@@ -131,6 +133,9 @@
       },
       isRichMedia() {
         return isRichMedia(this.edmIsShownBy.ebucoreHasMimeType, this.edmIsShownBy.edmCodecName, this.edmIsShownBy.about);
+      },
+      selectedMedia() {
+        return this.media[0];
       }
     },
     asyncData({ env, params, res, app, redirect }) {
