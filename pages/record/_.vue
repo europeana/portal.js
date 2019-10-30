@@ -114,13 +114,15 @@
     },
     computed: {
       titlesInCurrentLanguage() {
-        if (this.title && this.altTitle) {
-          return { 'mainTitle': this.$options.filters.inCurrentLanguage(this.title, this.$i18n.locale),
-                   'altTitle': this.$options.filters.inCurrentLanguage(this.altTitle, this.$i18n.locale) };
-        } else if (this.title && !this.altTitle) {
-          return { 'mainTitle': this.$options.filters.inCurrentLanguage(this.title, this.$i18n.locale) };
-        } else if (!this.title && this.altTitle) {
-          return { 'mainTitle': this.$options.filters.inCurrentLanguage(this.altTitle, this.$i18n.locale) };
+        const title = this.title ? this.$options.filters.inCurrentLanguage(this.title, this.$i18n.locale) : '';
+        const alternativeTitle = this.altTitle ? this.$options.filters.inCurrentLanguage(this.altTitle, this.$i18n.locale) : '';
+
+        if (title && alternativeTitle) {
+          return { 'mainTitle': title, 'altTitle': alternativeTitle };
+        } else if (title && !alternativeTitle) {
+          return { 'mainTitle': title };
+        } else if (!title && alternativeTitle) {
+          return { 'mainTitle': alternativeTitle };
         } else {
           return false;
         }
