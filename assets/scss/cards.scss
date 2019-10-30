@@ -66,12 +66,7 @@
     border: 0;
     justify-content: flex-end;
     margin-left: 0.9rem;
-    min-height: 10rem;
-
-    @media (min-width: $bp-medium) {
-      min-height: 20rem;
-    }
-
+    
     a {
       justify-content: flex-end;
     }
