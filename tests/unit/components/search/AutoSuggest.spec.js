@@ -261,11 +261,11 @@ describe('components/search/AutoSuggest', () => {
       wrapper.vm.getSuggestions();
 
       wrapper.vm.options.should.eql({
-        '/entity/topic/83': {
+        '/en/entity/topic/83': {
           'en': 'World War I',
           'fr': 'Première Guerre mondiale'
         },
-        '/entity/topic/94': {
+        '/en/entity/topic/94': {
           'en': 'Architecture',
           'fr': 'Architecture'
         }

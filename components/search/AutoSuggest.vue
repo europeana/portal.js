@@ -219,11 +219,11 @@
         }
 
         this.options = {
-          '/entity/topic/83': {
+          '/en/entity/topic/83': {
             en: 'World War I',
             fr: 'Première Guerre mondiale'
           },
-          '/entity/topic/94': {
+          '/en/entity/topic/94': {
             en: 'Architecture',
             fr: 'Architecture'
           }
