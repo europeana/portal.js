@@ -1,3 +1,99 @@
+.content-card {
+  background: $extralightgrey;
+  border-radius: $border-radius-small;
+  box-shadow: $boxshadow-small;
+  color: $black;
+  font-size: $font-size-extrasmall;
+  height: auto;
+  line-height: 1.1875rem;
+  transition: box-shadow 0.25s;
+
+  @media (min-width: $bp-medium) {
+    min-height: 20rem;
+  }
+
+  &:hover {
+    box-shadow: $boxshadow-large;
+    background-color: $lightgrey;
+  }
+
+  a {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .card-img {
+    background-position: center center;
+    background-size: cover;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    display: flex;
+    flex: 1 1 auto;
+    min-height: 10rem;
+    width: 100%;
+  }
+
+  .card-body {
+    flex: 0;
+    padding: 1rem;
+    width: 100%;
+  }
+
+  .card-title {
+    font-size: $font-size-small;
+    font-weight: normal;
+  }
+
+  .card-title:last-child {
+    margin-bottom: 0;
+  }
+
+  .card-text {
+    color: $darkgrey;
+  }
+
+  .card-link {
+    min-height: 100%;
+    color: $black;
+    &:hover {
+      color: $black;
+    }
+  }
+
+  &.related-card {
+    background-position: center center;
+    background-size: cover;
+    border: 0;
+    justify-content: flex-end;
+    margin-left: 0.9rem;
+    min-height: 10rem;
+
+    @media (min-width: $bp-medium) {
+      min-height: 20rem;
+    }
+
+    a {
+      justify-content: flex-end;
+    }
+
+    .card-body {
+      background: $extralightgrey;
+      border-radius: $border-radius-small;
+      border-bottom-right-radius: 0;
+      box-shadow: $boxshadow-small;
+      margin-left: -1rem;
+      transition: box-shadow 0.25s;
+    }
+
+    &:hover {
+      .card-body {
+        box-shadow: $boxshadow-large;
+        background-color: $lightgrey;
+      }
+    }
+  }
+}
+
 .card-deck-3-cols .card,
 .card-deck-4-cols .card {
   flex: 0 0 100%;
