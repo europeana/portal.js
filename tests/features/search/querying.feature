@@ -47,4 +47,4 @@ Feature: Search querying
     And I press the DOWN_ARROW key
     And I press the DOWN_ARROW key
     And I press the ENTER key
-    Then I should be on `/entity/topic/94-architecture`
+    Then I should be on `/en/entity/topic/94-architecture`
