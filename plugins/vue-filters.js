@@ -4,6 +4,8 @@
  */
 
 import Vue from 'vue';
+// TODO: remove this when the issue noted in the url plugin is resolved upstream
+import { URL } from './url';
 
 Vue.filter('localise', val => {
   if (typeof val === 'undefined' || val === null) {
@@ -27,4 +29,11 @@ Vue.filter('optimisedImageUrl', (imageUrl, contentType) => {
     // TODO: are optimisations possible on any other content types?
   }
   return imageUrl;
+});
+
+Vue.filter('proxyMedia', (mediaUrl, europeanaId) => {
+  const proxyUrl = new URL('https://proxy.europeana.eu');
+  proxyUrl.pathname = europeanaId;
+  proxyUrl.searchParams.append('url', mediaUrl);
+  return proxyUrl.toString();
 });
