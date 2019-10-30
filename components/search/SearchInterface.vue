@@ -33,6 +33,13 @@
             :selected="selectedFacets[facet.name]"
             @changed="changeFacet"
           />
+          <button
+            class="clear-all"
+            :class="{ 'active': facets.length > 0 }"
+            @click="clearFilters"
+          >
+            clear all filters
+          </button>
         </b-col>
       </b-row>
       <b-row
@@ -295,7 +302,35 @@
           }
         }
         return updated;
+      },
+      clearFilters() {
+        const resetQuery = {
+          page: this.page,
+          view: this.view,
+          reusability: null,
+          query: null,
+          qf: null
+        };
+
+        this.rerouteSearch(resetQuery);
+
       }
     }
   };
 </script>
+
+<style lang="scss" scoped>
+  @import "./assets/scss/variables.scss";
+  @import "./assets/scss/icons.scss";
+
+  .clear-all {
+    background: none;
+    border: none;
+    color: $lightblue;
+
+    &:before {
+      content: '\e903';
+      @extend .icon-font;
+    }
+  }
+</style>
