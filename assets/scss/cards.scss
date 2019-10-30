@@ -25,8 +25,7 @@
   .card-img {
     background-position: center center;
     background-size: cover;
-    border-top-left-radius: 4px;
-    border-top-right-radius: 4px;
+    border-radius: 4px 4px 0 0;
     display: flex;
     flex: 1 1 auto;
     min-height: 10rem;
