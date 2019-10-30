@@ -3,7 +3,7 @@
     class="mb-4 text-left content-card"
     data-qa="content card"
     no-body
-    :class="isRelated && 'related-card'"
+    :class="{ 'related-card' : isRelated }"
     :style="isRelated && cardImageStyle"
   >
     <SmartLink
