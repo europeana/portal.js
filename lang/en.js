@@ -95,5 +95,8 @@ export default {
   "directions": {
     "left": "Left",
     "right": "Right"
+  },
+  "actions": {
+    "download": "Download"
   }
 };

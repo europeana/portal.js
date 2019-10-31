@@ -44,26 +44,40 @@ describe('plugins/europeana/record', () => {
       });
 
       describe('with object in response', () => {
+        const edmIsShownByWebResource = {
+          about: 'https://example.org/doc.pdf',
+          dcDescription: {
+            'en': [
+              'This is an example'
+            ]
+          },
+          webResourceEdmRights: {
+            'def': [
+              'https://example.org'
+            ]
+          },
+          ebucoreHasMimeType: 'application/pdf'
+        };
+        const edmHasViewWebResource = {
+          about: 'https://example.org/image.jpeg',
+          ebucoreHasMimeType: 'image/jpeg'
+        };
+        const someOtherWebResource = {
+          about: 'https://example.org/'
+        };
         const apiResponse = {
           success: true,
           object: {
+            about: europeanaId,
             aggregations: [{
               edmIsShownAt: 'https://example.org',
-              edmIsShownBy: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
-              webResources: [{
-                about: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
-                dcDescription: {
-                  'en': [
-                    'This is an example'
-                  ]
-                },
-                webResourceEdmRights: {
-                  'def': [
-                    'https://example.org'
-                  ]
-                },
-                ebucoreHasMimeType: 'application/pdf'
-              }]
+              edmIsShownBy: 'https://example.org/doc.pdf',
+              hasView: ['https://example.org/image.jpeg'],
+              webResources: [
+                edmIsShownByWebResource,
+                edmHasViewWebResource,
+                someOtherWebResource
+              ]
             }],
             europeanaAggregation: {
               edmRights: { def: [ 'https://example.org' ] },
@@ -95,6 +109,28 @@ describe('plugins/europeana/record', () => {
         it('returns record data', async() => {
           const response = await getRecord(europeanaId, { wskey: apiKey });
           response.record.should.exist;
+        });
+
+        it('includes identifier', async() => {
+          const response = await getRecord(europeanaId, { wskey: apiKey });
+          response.record.identifier.should.eq(europeanaId);
+        });
+
+        describe('.media', () => {
+          it('includes edmIsShownBy web resource', async() => {
+            const response = await getRecord(europeanaId, { wskey: apiKey });
+            response.record.media.should.include.deep.members([edmIsShownByWebResource]);
+          });
+
+          it('includes edmHasView web resource', async() => {
+            const response = await getRecord(europeanaId, { wskey: apiKey });
+            response.record.media.should.include.deep.members([edmHasViewWebResource]);
+          });
+
+          it('omits other web resources', async() => {
+            const response = await getRecord(europeanaId, { wskey: apiKey });
+            response.record.media.should.not.include.deep.members([someOtherWebResource]);
+          });
         });
       });
     });

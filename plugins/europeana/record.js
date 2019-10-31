@@ -1,7 +1,6 @@
 import { apiError } from './utils';
 import axios from 'axios';
 import omitBy from 'lodash/omitBy';
-// import { isEntityUri } from './entity';
 
 /**
  * Parse the record data based on the data from the API response
@@ -19,6 +18,7 @@ function parseRecordDataFromApiResponse(response) {
   });
 
   return {
+    identifier: edm.about,
     image: {
       link: providerAggregation.edmIsShownAt,
       src: europeanaAggregation.edmPreview
@@ -40,10 +40,10 @@ function parseRecordDataFromApiResponse(response) {
       edmDataProvider: providerAggregation.edmDataProvider,
       edmRights: providerAggregation.edmRights
     }, checkNull), entities),
-    media: providerAggregation.webResources,
-    edmIsShownBy: providerAggregation.webResources.find((webResource) => {
-      return webResource.about === providerAggregation.edmIsShownBy;
-    }) || {}
+    media: providerAggregation.webResources.filter((webResource) => {
+      return (webResource.about === providerAggregation.edmIsShownBy) ||
+        (providerAggregation.hasView || []).includes(webResource.about);
+    })
   };
 }
 
