@@ -94,5 +94,6 @@ export default {
   "directions": {
     "left": "Left",
     "right": "Right"
-  }
+  },
+  "loadingResults": "Loading results"
 };
