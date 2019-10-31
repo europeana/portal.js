@@ -257,9 +257,9 @@ describe('components/search/AutoSuggest', () => {
       wrapper.vm.options.should.eql({});
     });
 
-    it('returns options when there are 3 or more characters in search form', () => {
+    it('returns options when there are 3 or more characters in search form', async() => {
       wrapper.setData({ query: 'World' });
-      wrapper.vm.getSuggestions();
+      await wrapper.vm.getSuggestions();
 
       wrapper.vm.options.should.eql({
         '/en/entity/topic/83': {
@@ -273,7 +273,7 @@ describe('components/search/AutoSuggest', () => {
       });
     });
 
-    it('highlights matching characters', () => {
+    it('highlights matching characters', async() => {
       const wrapper = factory({
         store: store({
           state: {
@@ -289,7 +289,7 @@ describe('components/search/AutoSuggest', () => {
       let suggestion;
 
       wrapper.setData({ query: 'world' });
-      wrapper.vm.getSuggestions();
+      await wrapper.vm.getSuggestions();
       suggestion = wrapper.find('[data-qa="search suggestion world war i link"]');
 
       suggestion.html().should.contain('<strong class="highlight">World</strong>');
@@ -303,7 +303,7 @@ describe('components/search/AutoSuggest', () => {
 
     it('allows the user to navigate through suggestions using keyboards up and down arrows', async() => {
       wrapper.setData({ query: 'World' });
-      wrapper.vm.getSuggestions();
+      await wrapper.vm.getSuggestions();
       wrapper.trigger('keyup.down');
       wrapper.vm.focus.should.eq(0);
       wrapper.trigger('keyup.down');
