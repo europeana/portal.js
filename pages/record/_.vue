@@ -19,22 +19,30 @@
             class="card-grid"
             :class="isRichMedia && 'card-grid-richmedia'"
           >
-            <div class="card-heading">
-              <h1
-                v-if="titlesInCurrentLanguage.mainTitle"
-                :lang="titlesInCurrentLanguage.mainTitle.code"
+            <header
+              v-if="titlesInCurrentLanguage"
+              class="card-heading"
+            >
+              <template
+                v-for="(heading, index) in titlesInCurrentLanguage"
               >
-                {{ titlesInCurrentLanguage.mainTitle.value }}
-              </h1>
-              <!-- eslint-disable vue/no-v-html -->
-              <p
-                v-if="titlesInCurrentLanguage.altTitle"
-                :lang="titlesInCurrentLanguage.altTitle.code"
-                class="font-weight-bold"
-                v-html="titlesInCurrentLanguage.altTitle.value"
-              />
-              <!-- eslint-disable vue/no-v-html -->
-            </div>
+                <h1
+                  v-if="index === 0"
+                  :key="index"
+                  :lang="heading.code"
+                >
+                  {{ heading.value }}
+                </h1>
+                <p
+                  v-else
+                  :key="index"
+                  :lang="heading.code"
+                  class="font-weight-bold"
+                >
+                  {{ heading.value }}
+                </p>
+              </template>
+            </header>
             <MediaPresentation
               v-if="selectedMedia"
               :codec-name="selectedMedia.edmCodecName"
@@ -46,14 +54,19 @@
               :height="selectedMedia.ebucoreHeight"
               class="mb-3"
             />
-            <!-- eslint-disable vue/no-v-html -->
-            <p
+            <div
               v-if="descriptionInCurrentLanguage"
               class="description"
-              :lang="descriptionInCurrentLanguage.code"
-              v-html="descriptionInCurrentLanguage.value"
-            />
-            <!-- eslint-disable vue/no-v-html -->
+            >
+              <!-- eslint-disable vue/no-v-html -->
+              <p
+                v-for="value in descriptionInCurrentLanguage.value"
+                :key="value"
+                :lang="descriptionInCurrentLanguage.code"
+                v-html="$options.filters.convertNewLine(value)"
+              />
+              <!-- eslint-disable vue/no-v-html -->
+            </div>
           </div>
           <MetadataField
             v-for="(value, name) in fields"
@@ -108,24 +121,24 @@
         image: null,
         fields: null,
         media: null,
-        title: null,
-        edmIsShownBy: {}
+        title: null
       };
     },
     computed: {
       titlesInCurrentLanguage() {
-        const title = this.title ? this.$options.filters.inCurrentLanguage(this.title, this.$i18n.locale) : '';
+        let titles = [];
+
+        const mainTitle = this.title ? this.$options.filters.inCurrentLanguage(this.title, this.$i18n.locale) : '';
         const alternativeTitle = this.altTitle ? this.$options.filters.inCurrentLanguage(this.altTitle, this.$i18n.locale) : '';
 
-        if (title && alternativeTitle) {
-          return { 'mainTitle': title, 'altTitle': alternativeTitle };
-        } else if (title && !alternativeTitle) {
-          return { 'mainTitle': title };
-        } else if (!title && alternativeTitle) {
-          return { 'mainTitle': alternativeTitle };
-        } else {
-          return false;
+        const allTitles = [].concat(mainTitle, alternativeTitle).filter(Boolean);
+        for (let title of allTitles) {
+          for (let value of title.value) {
+            titles.push({ 'code': title.code, value });
+          }
         }
+
+        return titles;
       },
       descriptionInCurrentLanguage() {
         if (!this.description) {
@@ -134,7 +147,7 @@
         return this.$options.filters.inCurrentLanguage(this.description, this.$i18n.locale);
       },
       isRichMedia() {
-        return isRichMedia(this.edmIsShownBy.ebucoreHasMimeType, this.edmIsShownBy.edmCodecName, this.edmIsShownBy.about);
+        return isRichMedia(this.selectedMedia.ebucoreHasMimeType, this.selectedMedia.edmCodecName, this.selectedMedia.about);
       },
       selectedMedia() {
         return this.media[0];
@@ -160,7 +173,7 @@
     },
     head() {
       return {
-        title: this.titleInCurrentLanguage ? this.titleInCurrentLanguage.value : this.$t('record')
+        title: this.titlesInCurrentLanguage ? this.titlesInCurrentLanguage[0].value : this.$t('record')
       };
     }
   };

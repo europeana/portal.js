@@ -15,6 +15,6 @@ export function isOEmbed(oembedUrl) {
 }
 
 // TODO: as the pdf is currently just an image with a link, it is not marked as "rich media", this might change in the future
-export function isRichMedia(mimeType, codec, oembedUrl) {
-  return isOEmbed(oembedUrl) || isHTMLVideo(mimeType, codec);
+export function isRichMedia(mimeType, codec, mediaUrl) {
+  return isOEmbed(mediaUrl) || isHTMLVideo(mimeType, codec);
 }
