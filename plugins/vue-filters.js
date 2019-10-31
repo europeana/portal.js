@@ -4,6 +4,8 @@
  */
 
 import Vue from 'vue';
+// TODO: remove this when the issue noted in the url plugin is resolved upstream
+import { URL } from './url';
 
 const locales = require('./i18n/locales.json');
 
@@ -68,4 +70,11 @@ Vue.filter('inCurrentLanguage', (val, locale) => {
 
 Vue.filter('convertNewLine', (val) => {
   return val.replace(/\n/g, '<br/>');
+});
+
+Vue.filter('proxyMedia', (mediaUrl, europeanaId) => {
+  const proxyUrl = new URL('https://proxy.europeana.eu');
+  proxyUrl.pathname = europeanaId;
+  proxyUrl.searchParams.append('url', mediaUrl);
+  return proxyUrl.toString();
 });

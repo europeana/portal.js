@@ -14,7 +14,7 @@
         cols="12"
         lg="9"
       >
-        <div class="card p-3">
+        <div class="card p-3 mb-3">
           <div
             class="card-grid"
             :class="isRichMedia && 'card-grid-richmedia'"
@@ -76,6 +76,13 @@
             class="mb-3"
           />
         </div>
+        <div class="card p-3">
+          <MediaActionBar
+            v-if="selectedMedia"
+            :url="selectedMedia.about"
+            :europeana-identifier="identifier"
+          />
+        </div>
       </b-col>
       <b-col
         cols="12"
@@ -98,6 +105,7 @@
 </template>
 
 <script>
+  import MediaActionBar from '../../components/record/MediaActionBar';
   import AlertMessage from '../../components/generic/AlertMessage';
   import WebResources from '../../components/record/WebResources';
   import MetadataField from '../../components/record/MetadataField';
@@ -108,6 +116,7 @@
 
   export default {
     components: {
+      MediaActionBar,
       AlertMessage,
       WebResources,
       MetadataField,
@@ -118,6 +127,7 @@
         altTitle: null,
         description: null,
         error: null,
+        identifier: null,
         image: null,
         fields: null,
         media: null,

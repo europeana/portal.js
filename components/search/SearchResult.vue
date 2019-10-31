@@ -2,18 +2,8 @@
   <b-media
     v-if="result"
     no-body
+    class="flex-column-reverse flex-md-row"
   >
-    <b-media-aside class="w-25 mr-3 media-image">
-      <b-img
-        v-if="result.edmPreview"
-        slot="aside"
-        :src="result.edmPreview"
-        alt=""
-        class="mw-100 w-100"
-        data-field-name="edmPreview"
-        data-qa="result thumbnail"
-      />
-    </b-media-aside>
     <b-media-body class="m-4">
       <div
         v-for="(value, key) in result.fields"
@@ -44,6 +34,17 @@
         </ul>
       </div>
     </b-media-body>
+    <b-media-aside class="media-image">
+      <b-img
+        v-if="result.edmPreview"
+        slot="aside"
+        :src="result.edmPreview"
+        alt=""
+        class="mw-100 w-100"
+        data-field-name="edmPreview"
+        data-qa="result thumbnail"
+      />
+    </b-media-aside>
   </b-media>
 </template>
 

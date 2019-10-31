@@ -119,6 +119,7 @@
   }
 
   .btn {
+    border: 0;
     border-radius: 0 $border-radius $border-radius 0;
 
     img {

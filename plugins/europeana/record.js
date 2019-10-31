@@ -19,6 +19,7 @@ function parseRecordDataFromApiResponse(response) {
   return {
     altTitle: providerProxy.dctermsAlternative,
     description: providerProxy.dcDescription,
+    identifier: edm.about,
     image: {
       link: providerAggregation.edmIsShownAt,
       src: europeanaAggregation.edmPreview

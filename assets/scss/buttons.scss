@@ -1,8 +1,14 @@
-.btn {
-  border: 0;
-  height: 2.625rem;
-}
-
 .btn-primary {
   background: $blue;
+}
+
+.btn-outline-primary {
+  border-color: $lightblue;
+  color: $lightblue;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+
+  &:hover {
+    background-color: $lightblue;
+  }
 }
