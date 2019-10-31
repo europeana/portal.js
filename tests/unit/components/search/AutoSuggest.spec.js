@@ -20,6 +20,7 @@ const routerPush = sinon.spy(router, 'push');
 const factory = (options = {}) => {
   return mount(AutoSuggest, {
     localVue,
+    attachToDocument: true,
     router: options.router || router,
     mocks: {
       ...{
@@ -301,14 +302,13 @@ describe('components/search/AutoSuggest', () => {
     });
 
     it('allows the user to navigate through suggestions using keyboards up and down arrows', async() => {
-      const form =  wrapper.find('form');
-
       wrapper.setData({ query: 'World' });
-      form.trigger('keyup.down');
+      wrapper.vm.getSuggestions();
+      wrapper.trigger('keyup.down');
       wrapper.vm.focus.should.eq(0);
-      form.trigger('keyup.down');
+      wrapper.trigger('keyup.down');
       wrapper.vm.focus.should.eq(1);
-      form.trigger('keyup.up');
+      wrapper.trigger('keyup.up');
       wrapper.vm.focus.should.eq(0);
     });
   });
