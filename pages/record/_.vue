@@ -38,6 +38,14 @@
       </b-col>
     </b-row>
     <b-row class="mb-3">
+      <b-col>
+        <MediaActionBar
+          :url="selectedMedia.about"
+          :europeanaIdentifier="identifier"
+        />
+      </b-col>
+    </b-row>
+    <b-row class="mb-3">
       <!-- TODO: remove when the carousel has come to town. -->
       <b-col>
         <h2>Media</h2>
@@ -50,6 +58,7 @@
 </template>
 
 <script>
+  import MediaActionBar from '../../components/record/MediaActionBar';
   import AlertMessage from '../../components/generic/AlertMessage';
   import WebResources from '../../components/record/WebResources';
   import MetadataField from '../../components/record/MetadataField';
@@ -59,6 +68,7 @@
 
   export default {
     components: {
+      MediaActionBar,
       AlertMessage,
       WebResources,
       MetadataField,
@@ -67,6 +77,7 @@
     data() {
       return {
         error: null,
+        identifier: null,
         image: null,
         fields: null,
         media: null
