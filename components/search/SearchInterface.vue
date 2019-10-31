@@ -34,8 +34,8 @@
             @changed="changeFacet"
           />
           <button
+            v-if="Object.keys(selectedFacets).length"
             class="clear-all"
-            :class="{ 'active': facets.length > 0 }"
             @click="clearFilters"
           >
             clear all filters
