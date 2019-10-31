@@ -20,6 +20,7 @@ export default {
       "dcContributor": "Contributors",
       "dcCreator": "Creators",
       "dcDescription": "Description",
+      "dcSubject": "Subject",
       "dcTitle": "Title",
       "dcType": "Type of object",
       "dctermsCreated": "Creation date",

@@ -259,6 +259,16 @@ export function getEntityDescription(entity) {
 }
 
 /**
+ * A check for a URI to see if it conforms ot the entity URI pattern
+ * Will return true/false
+ * @param {String} A URI to check
+ * @return {Boolean} true if the URI is a valid entity URI
+ */
+export function isEntityUri(uri) {
+  return !!uri.match(/^http:\/\/data\.europeana\.eu\/(concept|agent|place)\/base\/\d{1,9}$/);
+}
+
+/**
  * The logic for going from: http://commons.wikimedia.org/wiki/Special:FilePath/[image] to
  * https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/[image]/200px-[image]:
  * @image {String} image url

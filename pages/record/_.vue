@@ -27,6 +27,15 @@
       <b-col
         cols="12"
       >
+        <div class='MainMetadata'>
+          <MetadataField
+            v-for="(value, name) in coreFields"
+            :key="name"
+            :name="name"
+            :value="value"
+            class="mb-3"
+          />
+        </div>
         <MetadataField
           v-for="(value, name) in fields"
           :key="name"
@@ -66,6 +75,7 @@
       return {
         error: null,
         image: null,
+        mainMetaddata: null,
         fields: null,
         media: null,
         edmIsShownBy: {}
@@ -96,3 +106,9 @@
     }
   };
 </script>
+
+<style>
+  .MainMetadata {
+    background-color: #EEE;
+  }
+</style>

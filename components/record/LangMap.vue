@@ -4,20 +4,41 @@
  */
 
 <template>
-  <ul data-qa="multi-lingual metadata">
-    <li
-      v-for="(mapValue, index) in mapContent"
-      :key="index"
+  <p data-qa="multi-lingual metadata">
+   v-for="(mapValue, index) in mapContent"
+    <SmartLink
+      v-if="isEntityLink(mapValue)"
+      :destination="mapValue.content.about"
     >
-      <span :lang="mapValue.lang">
-        {{ mapValue.content }}
-      </span> ({{ mapValue.lang }})
-    </li>
-  </ul>
+      <span
+        v-for="(prefLabel, i) in mapValue.content.prefLabel"
+        :key="i"
+        :lang="i"
+      >
+        {{ prefLabel }}
+      </span>
+    </SmartLink>
+    <span
+      v-else-if="isEntity(mapValue)"
+    >
+      {{ mapValue.content.prefLabel }}
+    </span>
+    <span
+      v-else
+      :lang="mapValue.lang"
+    >
+      {{ mapValue.content }}
+    </span> ({{ mapValue.lang }})
+  </p>
 </template>
 
 <script>
+  import { isEntityUri } from '../../plugins/europeana/entity';
+  import SmartLink from '../generic/SmartLink';
   export default {
+    components: {
+      SmartLink
+    },
     props: {
       value: {
         type: Object,
@@ -50,6 +71,14 @@
           }
         }
         return listOfValues;
+      }
+    },
+    methods: {
+      isEntity(value) {
+        return !!value.content && typeof(value.content) === 'object' && Object.prototype.hasOwnProperty.call(value.content, 'about');
+      },
+      isEntityLink(value) {
+        return this.isEntity(value) && isEntityUri(value.content.about);
       }
     }
   };

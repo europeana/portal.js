@@ -1,6 +1,7 @@
 import { apiError } from './utils';
 import axios from 'axios';
 import omitBy from 'lodash/omitBy';
+// import { isEntityUri } from './entity';
 
 /**
  * Parse the record data based on the data from the API response
@@ -12,6 +13,7 @@ function parseRecordDataFromApiResponse(response) {
 
   const providerAggregation = edm.aggregations[0];
   const europeanaAggregation = edm.europeanaAggregation;
+  const entities = [].concat(edm.concepts, edm.places, edm.agents).filter(checkNotNull);
   const providerProxy = edm.proxies.find((proxy) => {
     return proxy.europeanaProxy === false;
   });
@@ -21,24 +23,58 @@ function parseRecordDataFromApiResponse(response) {
       link: providerAggregation.edmIsShownAt,
       src: europeanaAggregation.edmPreview
     },
-    fields: omitBy({
-      dcContributor: providerProxy.dcContributor,
-      dcCreator: providerProxy.dcCreator,
+    coreFields: dereferenceEntities(omitBy({
+      dcContributor: providerProxy.dcContributor, // Plus rdaGr2DateOfBirth & rdaGr2DateOfDeath
+      dcCreator: providerProxy.dcCreator, // Plus rdaGr2DateOfBirth & rdaGr2DateOfDeath
+      dcPublisher: providerProxy.dcPublisher,
+      dcSubject: providerProxy.dcSubject,
+      dcType: providerProxy.dcType,
+      dcTermsMedium: providerProxy.dctermsMedium
+    }, checkNull), entities),
+    fields: dereferenceEntities(omitBy({
       dcDescription: providerProxy.dcDescription,
       dcTitle: providerProxy.dcTitle,
-      dcType: providerProxy.dcType,
-      dctermsCreated: providerProxy.dctermsCreated,
+      dcRights: providerProxy.dcRights,
+      dcTermsCreated: providerProxy.dcTermsCreated,
       edmCountry: europeanaAggregation.edmCountry,
       edmDataProvider: providerAggregation.edmDataProvider,
       edmRights: providerAggregation.edmRights
-    }, (v) => {
-      return v === null;
-    }),
+    }, checkNull), entities),
     media: providerAggregation.webResources,
     edmIsShownBy: providerAggregation.webResources.find((webResource) => {
       return webResource.about === providerAggregation.edmIsShownBy;
     }) || {}
   };
+}
+
+function checkNull(value) {
+  return value === undefined;
+}
+function checkNotNull(value) {
+  return !checkNull(value);
+}
+
+/**
+ * Update
+ * @param field
+ * @param entities
+ * @returns {*}
+ */
+function dereferenceEntities(fields, entities) {
+  let returnVal = fields;
+  for (const key of Object.keys(returnVal)) {
+    // Only look for entities in 'def'
+    const fieldValues = returnVal[key]['def'] || [];
+    for (const [index, value] of fieldValues.entries()) {
+      const matchedEntity = entities.find(entity => {
+        return entity.about === value;
+      });
+      if (matchedEntity) {
+        returnVal[key]['def'][index] = matchedEntity;
+      }
+    }
+  }
+  return returnVal;
 }
 
 /**
