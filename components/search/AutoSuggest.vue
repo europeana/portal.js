@@ -55,7 +55,7 @@
           :data-index="index"
           @mouseover="focus = index"
           @focus="index === focus"
-          @click="isActive = false"
+          @click="closeDropdown"
           v-html="highlightResult(value)"
         />
         <!-- eslint-enable vue/no-v-html -->
@@ -135,8 +135,7 @@
     mounted() {
       if (this.isDisabled) return;
 
-      const form = this.$refs.form;
-      form.addEventListener('keyup', this.navigateDropdown);
+      document.addEventListener('keyup', this.navigateDropdown);
       document.addEventListener('mouseup', this.clickOutside);
       this.queryOnSearchablePage();
     },
@@ -152,13 +151,19 @@
 
         return results.join('');
       },
+
+      closeDropdown() {
+        this.isActive = false;
+        this.focus = null;
+      },
+
       clickOutside(event) {
         if (!this.isActive) return;
 
         const isChild = this.$el.contains(event.target);
 
         if (!isChild) {
-          this.isActive = false;
+          this.closeDropdown();
         }
       },
 
@@ -169,7 +174,15 @@
         selectedSuggestion.focus();
       },
       navigateDropdown(event) {
+        if (!this.isActive) return;
+
         switch (event.keyCode) {
+        case 9: // Tab Key
+          this.clickOutside(event);
+          break;
+        case 27: // Escape Key
+          this.closeDropdown();
+          break;
         case 38: // Up Key
           if (this.focus === null) {
             this.focus = 0;
@@ -203,7 +216,7 @@
       async submitForm() {
         const newRouteQuery = { ...this.$route.query, ...{ query: this.query, page: 1, view: this.view } };
         const newRoute = { path: this.routePath, query: newRouteQuery };
-        this.isActive = false;
+        this.closeDropdown;
         await this.$router.push(newRoute);
       },
 
@@ -246,6 +259,7 @@
 
       a.list-group-item {
         border: 0;
+        border-radius: 0;
         box-shadow: none;
         padding: .75rem 1.25rem;
         color: $black;
