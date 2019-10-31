@@ -4,7 +4,7 @@ Feature: Search content tier
   # this scenario, and uncomment the others.
   Scenario: Content tier toggle is disabled by default
     When I visit `/en/search?page=1&query=&view=grid`
-    Then I don't see a `tier toggle`
+    Then I don't have a `tier toggle`
 
   # Scenario: Applies the content tier query to the URL when clicking the toggle button
   #

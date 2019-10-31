@@ -112,6 +112,9 @@ module.exports = {
     });
   },
   async doNotSeeATarget(qaElementNames) {
+    await client.expect.element(qaSelector(qaElementNames)).to.not.be.visible;
+  },
+  async doNotHaveATarget(qaElementNames) {
     await client.expect.element(qaSelector(qaElementNames)).to.not.be.present;
   },
   async enterTextInTarget(text, qaElementName) {

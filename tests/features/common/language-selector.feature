@@ -3,7 +3,7 @@ Feature: Select language
 Scenario: Change language
 
   When I open `/`
-  Then I don't see a `language selector`
+  Then I don't have a `language selector`
 
   # TODO: Disabled by default for now. Restore when enabled by default.
   # Scenario: Change language

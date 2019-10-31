@@ -29,8 +29,11 @@ defineStep('I find/identify/see/spot (a/an/the)( ){target} with the text {string
 defineStep('I can\'t/don\'t find/identify/see/spot (a/an/the)( ){target}', (qa) =>
   i.doNotSeeATarget(qa));
 
-defineStep('I can\'t/don\'t find/identify/see/spot (a/an/the)( ){target} in/on the {target}', (qa, parentQa) =>
-  i.doNotSeeATarget([qa, parentQa]));
+defineStep('I can\'t/don\'t have (a/an/the)( ){target}', (qa) =>
+  i.doNotHaveATarget(qa));
+
+defineStep('I can\'t/don\'t have (a/an/the)( ){target} in/on the {target}', (qa, parentQa) =>
+  i.doNotHaveATarget([qa, parentQa]));
 
 defineStep('I wait/pause {int} second(s)', (seconds) =>
   i.waitSomeSeconds(seconds));
