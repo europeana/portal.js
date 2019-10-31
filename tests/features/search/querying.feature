@@ -48,3 +48,10 @@ Feature: Search querying
     And I press the DOWN_ARROW key
     And I press the ENTER key
     Then I should be on `/en/entity/topic/94-architecture`
+  
+  Scenario: Pressing ESC will close the auto suggestion dropdown
+    When I visit a `search page`
+    And I enter "World" in the `search box`
+    And I see `search suggestions` with the text "World War I"
+    And I press the ESCAPE key
+    Then I don't see a `search suggestions`
