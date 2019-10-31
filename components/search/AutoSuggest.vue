@@ -4,7 +4,13 @@
     inline
     @submit.prevent="submitForm"
   >
-    <b-input-group class="auto-suggest">
+    <b-input-group
+      role="combobox"
+      aria-haspopup="listbox"
+      aria-owns="autocomplete-results"
+      :aria-expanded="isActive"
+      class="auto-suggest"
+    >
       <template
         v-if="pillLabel"
         v-slot:prepend
@@ -16,13 +22,16 @@
         />
       </template>
       <b-form-input
-        ref="input"
+        ref="searchbox"
         v-model="query"
         :autocomplete="isDisabled ? 'on' : 'off'"
-        :aria-label="$t('search')"
         :placeholder="$t('searchPlaceholder')"
         name="query"
         data-qa="search box"
+        role="searchbox"
+        aria-autocomplete="list"
+        aria-controls="autocomplete-results"
+        :aria-label="$t('search')"
         @input="getSuggestions"
         @focus="activateDropdown"
       />
@@ -40,14 +49,25 @@
         >
       </b-button>
       <b-list-group
-        v-if="isActive"
+        v-show="isActive"
+        id="autocomplete-results"
         class="auto-suggest-dropdown"
         data-qa="search suggestions"
+        :aria-hidden="!isActive"
       >
+        <b-list-group-item
+          v-if="isLoading"
+          class="loading"
+        >
+          {{ $t('loadingResults') }}...
+        </b-list-group-item>
         <!-- eslint-disable vue/no-v-html -->
         <b-list-group-item
           v-for="(value, name, index) in options"
+          v-else
           :key="index"
+          role="option"
+          :aria-selected="index === focus"
           :href="name"
           :class="{ 'hover': index === focus }"
           :value="value[locale]"
@@ -81,6 +101,7 @@
         query: null,
         focus: null,
         isActive: false,
+        isLoading: false,
         options: {}
       };
     },
@@ -190,7 +211,7 @@
             this.focus--;
           } else if (this.focus === 0) {
             this.focus = null;
-            this.$refs.input.focus();
+            this.$refs.searchbox.focus();
           }
           this.focusOnSuggestion();
           break;
@@ -231,16 +252,27 @@
           return;
         }
 
-        this.options = {
-          '/en/entity/topic/83': {
-            en: 'World War I',
-            fr: 'Première Guerre mondiale'
-          },
-          '/en/entity/topic/94': {
-            en: 'Architecture',
-            fr: 'Architecture'
-          }
-        };
+        this.isLoading = true;
+
+        const promise = await new Promise(resolve => {
+          setTimeout(() => {
+            this.isLoading = false;
+            const fakeData = {
+              '/en/entity/topic/83': {
+                en: 'World War I',
+                fr: 'Première Guerre mondiale'
+              },
+              '/en/entity/topic/94': {
+                en: 'Architecture',
+                fr: 'Architecture'
+              }
+            };
+            resolve(fakeData);
+          }, 500);
+        });
+
+        this.options = promise;
+
       }
     }
   };
@@ -275,6 +307,10 @@
         /deep/.highlight {
           color: $blue;
         }
+      }
+
+      .loading {
+        font-size: 0.75rem;
       }
     }
   }
