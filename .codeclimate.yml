@@ -1,13 +1,16 @@
-plugins: 
+version: "2"
+exclude_patterns:
+  - "migrations/"
+plugins:
   eslint:
     enabled: true
     channel: 'eslint-5'
-    config: 
+    config:
       config: .eslintrc.js
       extensions:
         - .js
         - .vue
   stylelint:
     enabled: true
-    config: 
+    config:
       config: .stylelintrc.js
