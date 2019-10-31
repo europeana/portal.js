@@ -41,7 +41,7 @@
       <b-col>
         <MediaActionBar
           :url="selectedMedia.about"
-          :europeanaIdentifier="identifier"
+          :europeana-identifier="identifier"
         />
       </b-col>
     </b-row>
