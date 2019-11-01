@@ -3,12 +3,12 @@
 }
 
 .btn-outline-primary {
-  border-color: $lightblue;
-  color: $lightblue;
+  border-color: $blue;
+  color: $blue;
   font-size: 0.875rem;
   text-transform: uppercase;
 
   &:hover {
-    background-color: $lightblue;
+    background-color: $blue;
   }
 }
