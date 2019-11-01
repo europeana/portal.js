@@ -34,11 +34,11 @@
             @changed="changeFacet"
           />
           <button
-            v-if="Object.keys(selectedFacets).length"
+            v-if="hasDefaultFacets()"
             class="clear-all"
             @click="clearFilters"
           >
-            clear all filters
+            {{ $t('clearAllFilters') }}
           </button>
         </b-col>
       </b-row>
@@ -304,15 +304,25 @@
         return updated;
       },
       clearFilters() {
-        let qf = this.$route.query.qf;
+        let qf = [].concat(this.$route.query.qf);
 
         const result = qf.filter(item => {
+
+          if (!item) return [];
           const key = item.split(':')[0];
 
           return !defaultFacets.includes(key);
         });
 
         this.rerouteSearch({ qf: result, reusability: null });
+      },
+      hasDefaultFacets() {
+        for (const facetName in defaultFacets) {
+          if (Object.prototype.hasOwnProperty.call(this.selectedFacets, facetName)) {
+            return true;
+          }
+        }
+        return false;
       }
     }
   };
@@ -325,7 +335,7 @@
   .clear-all {
     background: none;
     border: none;
-    color: $lightblue;
+    color: $blue;
 
     &:before {
       content: '\e903';
