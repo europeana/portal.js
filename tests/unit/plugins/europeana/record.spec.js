@@ -68,6 +68,7 @@ describe('plugins/europeana/record', () => {
         const apiResponse = {
           success: true,
           object: {
+            about: europeanaId,
             aggregations: [{
               edmIsShownAt: 'https://example.org',
               edmIsShownBy: 'https://example.org/doc.pdf',
@@ -108,6 +109,11 @@ describe('plugins/europeana/record', () => {
         it('returns record data', async() => {
           const response = await getRecord(europeanaId, { wskey: apiKey });
           response.record.should.exist;
+        });
+
+        it('includes identifier', async() => {
+          const response = await getRecord(europeanaId, { wskey: apiKey });
+          response.record.identifier.should.eq(europeanaId);
         });
 
         describe('.media', () => {

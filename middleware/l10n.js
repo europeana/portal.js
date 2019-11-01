@@ -1,7 +1,7 @@
-// l12n middleware to redirect requests for URL paths without locale prefixes
+// l10n middleware to redirect requests for URL paths without locale prefixes
 // to the equivalent URL prefixed with the user's preferred locale.
 //
-// (Named "l12n" and not "i18n" as the latter is already taken by nuxt-i18n.)
+// (Named "l10n" and not "i18n" as the latter is already taken by nuxt-i18n.)
 //
 // This duplicates the browser language detection functionality of the nuxt-i18n
 // package but with additional redirection handling for requests to URL paths
