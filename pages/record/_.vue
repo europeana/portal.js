@@ -87,6 +87,7 @@
       <b-col
         cols="12"
         lg="3"
+        style="background-color: #FFF"
       >
         <!-- TODO: add related entities / EC-3716 -->
         Placeholder for related entities
@@ -183,7 +184,7 @@
     },
     head() {
       return {
-        title: this.titlesInCurrentLanguage ? this.titlesInCurrentLanguage[0].value : this.$t('record')
+        title: this.titlesInCurrentLanguage[0] ? this.titlesInCurrentLanguage[0].value : this.$t('record')
       };
     }
   };
