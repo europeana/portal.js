@@ -304,16 +304,15 @@
         return updated;
       },
       clearFilters() {
-        const resetQuery = {
-          page: this.page,
-          view: this.view,
-          reusability: null,
-          query: null,
-          qf: null
-        };
+        let qf = this.$route.query.qf;
 
-        this.rerouteSearch(resetQuery);
+        const result = qf.filter(item => {
+          const key = item.split(':')[0];
 
+          return !defaultFacets.includes(key);
+        });
+
+        this.rerouteSearch({ qf: result, reusability: null });
       }
     }
   };
