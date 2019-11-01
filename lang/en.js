@@ -94,5 +94,6 @@ export default {
   "directions": {
     "left": "Left",
     "right": "Right"
-  }
+  },
+  "clearAllFilters": "clear all filters"
 };
