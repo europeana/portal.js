@@ -5,30 +5,36 @@
 
 <template>
   <p data-qa="multi-lingual metadata">
-   v-for="(mapValue, index) in mapContent"
-    <SmartLink
-      v-if="isEntityLink(mapValue)"
-      :destination="mapValue.content.about"
-    >
-      <span
-        v-for="(prefLabel, i) in mapValue.content.prefLabel"
-        :key="i"
-        :lang="i"
+    <ul>
+      <li
+        v-for="(mapValue, index) in mapContent"
+        :key="index"
       >
-        {{ prefLabel }}
-      </span>
-    </SmartLink>
-    <span
-      v-else-if="isEntity(mapValue)"
-    >
-      {{ mapValue.content.prefLabel }}
-    </span>
-    <span
-      v-else
-      :lang="mapValue.lang"
-    >
-      {{ mapValue.content }}
-    </span> ({{ mapValue.lang }})
+        <SmartLink
+          v-if="isEntityLink(mapValue)"
+          :destination="mapValue.content.about"
+        >
+          <span
+            v-for="(prefLabel, i) in mapValue.content.prefLabel"
+            :key="i"
+            :lang="i"
+          >
+            {{ prefLabel }}
+          </span>
+        </SmartLink>
+        <span
+          v-else-if="isEntity(mapValue)"
+        >
+          {{ mapValue.content.prefLabel }}
+        </span>
+        <span
+          v-else-if="mapValue"
+          :lang="mapValue"
+        >
+          {{ mapValue.content }}
+        </span>
+      </li>
+    </ul>
   </p>
 </template>
 
@@ -75,7 +81,7 @@
     },
     methods: {
       isEntity(value) {
-        return !!value.content && typeof(value.content) === 'object' && Object.prototype.hasOwnProperty.call(value.content, 'about');
+        return !!value && !!value.content && typeof(value.content) === 'object' && Object.prototype.hasOwnProperty.call(value.content, 'about');
       },
       isEntityLink(value) {
         return this.isEntity(value) && isEntityUri(value.content.about);

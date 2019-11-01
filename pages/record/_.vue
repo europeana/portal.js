@@ -28,6 +28,20 @@
       <b-col
         cols="12"
       >
+
+      </b-col>
+    </b-row>
+    <b-row class="mb-3">
+      <b-col>
+        <MediaActionBar
+          v-if="selectedMedia"
+          :url="selectedMedia.about"
+          :europeana-identifier="identifier"
+        />
+      </b-col>
+    </b-row>
+    <b-row class="mb-3">
+      <b-col>
         <div class='MainMetadata'>
           <MetadataField
             v-for="(value, name) in coreFields"
@@ -43,15 +57,6 @@
           :name="name"
           :value="value"
           class="mb-3"
-        />
-      </b-col>
-    </b-row>
-    <b-row class="mb-3">
-      <b-col>
-        <MediaActionBar
-          v-if="selectedMedia"
-          :url="selectedMedia.about"
-          :europeana-identifier="identifier"
         />
       </b-col>
     </b-row>
@@ -127,6 +132,6 @@
 
 <style>
   .MainMetadata {
-    background-color: #EEE;
+    background-color: #FFF;
   }
 </style>

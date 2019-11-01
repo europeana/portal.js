@@ -20,10 +20,12 @@ export default {
       "dcContributor": "Contributors",
       "dcCreator": "Creators",
       "dcDescription": "Description",
+      "dcPublisher": "Publisher",
       "dcSubject": "Subject",
       "dcTitle": "Title",
       "dcType": "Type of object",
       "dctermsCreated": "Creation date",
+      "dcTermsMedium": "Medium",
       "edmCountry": "Providing country",
       "edmDataProvider": "Providing institution",
       "edmRights": "License of the media in this record (unless otherwise specified)"
