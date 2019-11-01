@@ -36,6 +36,7 @@
           <button
             v-if="hasDefaultFacets()"
             class="clear-all"
+            data-qa="clear filters button"
             @click="clearFilters"
           >
             {{ $t('clearAllFilters') }}
@@ -317,7 +318,7 @@
         this.rerouteSearch({ qf: result, reusability: null });
       },
       hasDefaultFacets() {
-        for (const facetName in defaultFacets) {
+        for (const facetName of defaultFacets) {
           if (Object.prototype.hasOwnProperty.call(this.selectedFacets, facetName)) {
             return true;
           }
