@@ -34,7 +34,7 @@
             @changed="changeFacet"
           />
           <button
-            v-if="hasDefaultFacets()"
+            v-if="isFilteredByDefaultFacets()"
             class="clear-all"
             data-qa="clear filters button"
             @click="clearFilters"
@@ -305,19 +305,14 @@
         return updated;
       },
       clearFilters() {
-        let qf = [].concat(this.$route.query.qf);
+        const selectedFacets = Object.assign({}, this.selectedFacets);
 
-        const result = qf.filter(item => {
-
-          if (!item) return [];
-          const key = item.split(':')[0];
-
-          return !defaultFacets.includes(key);
-        });
-
-        this.rerouteSearch({ qf: result, reusability: null });
+        for (const facetName of defaultFacets) {
+          selectedFacets[facetName] = [];
+        }
+        this.rerouteSearch(this.queryUpdatesForSelectedFacets(selectedFacets));
       },
-      hasDefaultFacets() {
+      isFilteredByDefaultFacets() {
         for (const facetName of defaultFacets) {
           if (Object.prototype.hasOwnProperty.call(this.selectedFacets, facetName)) {
             return true;
