@@ -37,6 +37,7 @@
             v-if="isFilteredByDefaultFacets()"
             class="clear-all"
             data-qa="clear filters button"
+            :disabled="disableClearAllButton"
             @click="clearFilters"
           >
             {{ $t('clearAllFilters') }}
@@ -177,7 +178,8 @@
         results: state => state.search.results,
         reusability: state => state.search.reusability,
         selectedFacets: state => state.search.selectedFacets,
-        totalResults: state => state.search.totalResults
+        totalResults: state => state.search.totalResults,
+        disableClearAllButton: state => state.search.disableClearAllButton
       }),
       // workaround for double jump mentioned in store mapState call above
       page() {
@@ -339,6 +341,11 @@
     &:before {
       content: '\e903';
       @extend .icon-font;
+    }
+
+    &:disabled {
+      opacity: .4;
+      color: $grey;
     }
   }
 </style>

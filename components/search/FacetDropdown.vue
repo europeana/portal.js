@@ -6,6 +6,7 @@
     :data-type="type"
     data-qa="search facet"
     @hidden="applySelection"
+    @show="setClearAllButtonState('disable')"
   >
     <template v-slot:button-content>
       <span :data-qa="`${name} dropdown button`">
@@ -196,6 +197,12 @@
         } else {
           this.$emit('changed', this.name, this.preSelected);
         }
+
+        this.setClearAllButtonState('enable');
+      },
+
+      setClearAllButtonState(value) {
+        this.$store.commit('search/setClearAllButtonState', value === 'disable');
       }
     }
   };
