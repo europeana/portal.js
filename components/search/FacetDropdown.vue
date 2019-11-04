@@ -174,6 +174,8 @@
           }
         } else if (this.selected.length > 0) {
           this.preSelected = this.selected;
+        } else if (this.preSelected.length > 0 && this.selected.length < 1) {
+          this.preSelected = [];
         }
       },
 

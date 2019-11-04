@@ -3,15 +3,19 @@ module.exports = function(migration) {
 
   exhibitionChapterPage
     .editField('hasPart')
-    .validations([
-      {
-        linkContentType: [
-          'cardGroup',
-          'embed',
-          'imageComparison',
-          'imageWithAttribution',
-          'richText'
-        ]
-      }
-    ]);
+    .items({
+      type: 'Link',
+      validations: [
+        {
+          linkContentType: [
+            'cardGroup',
+            'embed',
+            'imageComparison',
+            'imageWithAttribution',
+            'richText'
+          ]
+        }
+      ],
+      linkType: 'Entry'
+    });
 };
