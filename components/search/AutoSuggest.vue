@@ -53,6 +53,7 @@
         id="autocomplete-results"
         class="auto-suggest-dropdown"
         data-qa="search suggestions"
+        role=”listbox”
         :aria-hidden="!isActive"
       >
         <b-list-group-item
