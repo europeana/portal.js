@@ -13,3 +13,9 @@ Feature: Record page
     When I open `/en/record/123456/THIS_IDENTIFIER_DOES_NOT_EXIST`
     Then I see an `error notice`
     And I am on an accessible page
+
+  Scenario: Action bar
+
+    When I open a `record page`
+    Then I see an `action bar`
+    And I see a `download button`

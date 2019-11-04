@@ -95,5 +95,9 @@ export default {
     "left": "Left",
     "right": "Right"
   },
-  "loadingResults": "Loading results"
+  "actions": {
+    "download": "Download"
+  },
+  "loadingResults": "Loading results",
+  "clearAllFilters": "clear all filters"
 };

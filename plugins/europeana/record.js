@@ -17,6 +17,7 @@ function parseRecordDataFromApiResponse(response) {
   });
 
   return {
+    identifier: edm.about,
     image: {
       link: providerAggregation.edmIsShownAt,
       src: europeanaAggregation.edmPreview
