@@ -34,7 +34,7 @@
             @changed="changeFacet"
           />
           <button
-            v-if="isFilteredByDefaultFacets"
+            v-if="isFilteredByDefaultFacets()"
             class="clear-all"
             data-qa="clear filters button"
             @click="clearFilters"
