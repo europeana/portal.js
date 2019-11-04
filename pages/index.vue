@@ -18,9 +18,9 @@
     />
     <b-container>
       <header v-if="!hero">
-        <h2>{{ page.name }}</h2>
+        <h1>{{ page.name }}</h1>
         <p
-          v-if="headline"
+          v-if="page.headline"
           class="lead"
         >
           {{ page.headline }}
