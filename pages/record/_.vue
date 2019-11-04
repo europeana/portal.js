@@ -58,14 +58,19 @@
               v-if="descriptionInCurrentLanguage"
               class="description"
             >
-              <!-- eslint-disable vue/no-v-html -->
-              <p
-                v-for="value in descriptionInCurrentLanguage.value"
-                :key="value"
-                :lang="descriptionInCurrentLanguage.code"
-                v-html="$options.filters.convertNewLine(value)"
-              />
-              <!-- eslint-disable vue/no-v-html -->
+              <div v-for="(value, index) in descriptionInCurrentLanguage.value"
+                :key="index"
+              >
+                <!-- eslint-disable vue/no-v-html -->
+                <p
+                  :lang="descriptionInCurrentLanguage.code"
+                  v-html="$options.filters.convertNewLine(value)"
+                />
+                <!-- eslint-disable vue/no-v-html -->
+                <hr
+                  v-if="(index + 1) < descriptionInCurrentLanguage.value.length"
+                />
+              </div>
             </div>
           </div>
           <MetadataField
