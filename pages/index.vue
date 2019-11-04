@@ -18,12 +18,12 @@
     />
     <b-container>
       <header v-if="!hero">
-        <h2>{{ pageName }}</h2>
+        <h2>{{ page.name }}</h2>
         <p
           v-if="headline"
           class="lead"
         >
-          {{ headline }}
+          {{ page.headline }}
         </p>
       </header>
       <BrowseSections
@@ -64,14 +64,7 @@
       pageTitle() {
         // TODO: remove the fallback to headline when production space has name field
         return this.page.name || this.page.headline;
-      },
-      pageName() {
-        return this.page.name;
-      },
-      headline() {
-        return this.page.headline;
       }
-
     },
     asyncData({ params, query, error, app }) {
       const contentfulClient = createClient(query.mode);
