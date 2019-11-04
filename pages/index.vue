@@ -17,6 +17,15 @@
       :url="hero.url"
     />
     <b-container>
+      <header v-if="!hero">
+        <h2>{{ pageName }}</h2>
+        <p
+          v-if="headline"
+          class="lead"
+        >
+          {{ headline }}
+        </p>
+      </header>
       <BrowseSections
         v-if="page"
         :sections="page.hasPart"
@@ -55,7 +64,14 @@
       pageTitle() {
         // TODO: remove the fallback to headline when production space has name field
         return this.page.name || this.page.headline;
+      },
+      pageName() {
+        return this.page.name;
+      },
+      headline() {
+        return this.page.headline;
       }
+
     },
     asyncData({ params, query, error, app }) {
       const contentfulClient = createClient(query.mode);
