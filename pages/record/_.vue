@@ -58,7 +58,8 @@
               v-if="descriptionInCurrentLanguage"
               class="description"
             >
-              <div v-for="(value, index) in descriptionInCurrentLanguage.value"
+              <div
+                v-for="(value, index) in descriptionInCurrentLanguage.value"
                 :key="index"
               >
                 <!-- eslint-disable vue/no-v-html -->
@@ -69,7 +70,7 @@
                 <!-- eslint-disable vue/no-v-html -->
                 <hr
                   v-if="(index + 1) < descriptionInCurrentLanguage.value.length"
-                />
+                >
               </div>
             </div>
           </div>
