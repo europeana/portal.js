@@ -95,7 +95,13 @@ describe('plugins/europeana/record', () => {
                   'This is a description'
                 ]
               }
-            }]
+            }],
+            agents: [
+              { about: 'http://data.europeana.eu/agent/base/123' }
+            ],
+            concepts: [
+              { about: 'http://data.europeana.eu/concept/base/456' }
+            ]
           }
         };
 
@@ -131,6 +137,16 @@ describe('plugins/europeana/record', () => {
             const response = await getRecord(europeanaId, { wskey: apiKey });
             response.record.media.should.not.include.deep.members([someOtherWebResource]);
           });
+        });
+
+        it('includes agents', async() => {
+          const response = await getRecord(europeanaId, { wskey: apiKey });
+          response.record.agents.should.deep.eq(apiResponse.object.agents);
+        });
+
+        it('includes concepts', async() => {
+          const response = await getRecord(europeanaId, { wskey: apiKey });
+          response.record.concepts.should.deep.eq(apiResponse.object.concepts);
         });
       });
     });
