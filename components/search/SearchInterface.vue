@@ -259,6 +259,9 @@
         let selectedFacets = Object.assign({}, this.selectedFacets);
         selectedFacets[name] = selected;
 
+        return this.queryUpdatesForSelectedFacets(selectedFacets);
+      },
+      queryUpdatesForSelectedFacets(selectedFacets) {
         let queryUpdates = {
           qf: [],
           page: 1
