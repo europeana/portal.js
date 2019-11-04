@@ -66,6 +66,7 @@
   import MediaPresentation from '../../components/record/MediaPresentation';
 
   import getRecord from '../../plugins/europeana/record';
+  import { searchEntities } from '../../plugins/europeana/entity';
 
   export default {
     components: {
@@ -81,10 +82,23 @@
         identifier: null,
         image: null,
         fields: null,
-        media: null
+        media: null,
+        agents: null,
+        concepts: null,
+        relatedEntities: null
       };
     },
     computed: {
+      europeanaAgents() {
+        return (this.agents || []).filter((agent) => agent.about.startsWith('http://data.europeana.eu/agent/'));
+      },
+      europeanaConcepts() {
+        return (this.concepts || []).filter((concept) => concept.about.startsWith('http://data.europeana.eu/concept/'));
+      },
+      europeanaEntityUris() {
+        const entities = this.europeanaConcepts.concat(this.europeanaAgents);
+        return entities.map((entity) => entity.about).slice(0, 5);
+      },
       selectedMedia() {
         return this.media[0];
       }
@@ -106,6 +120,9 @@
           }
           return { error: error.message };
         });
+    },
+    async mounted() {
+      this.relatedEntities = await searchEntities(this.europeanaEntityUris, { wskey: process.env.EUROPEANA_ENTITY_API_KEY });
     },
     head() {
       return {
