@@ -73,8 +73,10 @@
     .card-body {
       background: $extralightgrey;
       border-radius: $border-radius-small;
-      border-bottom-right-radius: 0;
       box-shadow: $boxshadow-small;
+      flex: none;
+      min-height: calc(50% + 1rem); // TODO: a min-height for now, else text will run out of the box, can probably be a height when we truncate the description
+      margin-bottom: -1rem;
       margin-left: -1rem;
       transition: box-shadow 0.25s;
     }
