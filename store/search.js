@@ -14,8 +14,7 @@ export const state = () => ({
   selectedFacets: {},
   totalResults: null,
   view: null,
-  pill: null,
-  disableClearAllButton: false
+  pill: null
 });
 
 export const mutations = {
@@ -78,9 +77,6 @@ export const mutations = {
   },
   setPill(state, value) {
     state.pill = value;
-  },
-  setClearAllButtonState(state, value) {
-    state.disableClearAllButton = value;
   }
 };
 
