@@ -7,9 +7,7 @@
     <div data-qa="label">
       <strong>{{ $t(`fieldLabels.${context}.${name}`) }}</strong>
     </div>
-    <ul
-      :lang=" langMappedValues.code"
-    >
+    <ul>
       <template
         v-for="(value, index) of langMappedValues.values"
       >
@@ -25,6 +23,14 @@
             data-qa="entity value"
           />
         </template>
+        <li
+          v-else-if="langMappedValues.code !== null"
+          :key="index"
+          :lang="langMappedValues.code"
+          data-qa="value"
+        >
+          {{ value }}
+        </li>
         <li
           v-else
           :key="index"

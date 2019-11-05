@@ -27,16 +27,29 @@
                 v-for="(heading, index) in titlesInCurrentLanguage"
               >
                 <h1
-                  v-if="index === 0"
+                  v-if="index === 0 && heading.code !== null"
                   :key="index"
                   :lang="heading.code"
                 >
                   {{ heading.value }}
                 </h1>
+                <h1
+                  v-else-if="index === 0"
+                  :key="index"
+                >
+                  {{ heading.value }}
+                </h1>
+                <p
+                  v-else-if="heading.code !== null"
+                  :key="index"
+                  :lang="heading.code"
+                  class="font-weight-bold"
+                >
+                  {{ heading.value }}
+                </p>
                 <p
                   v-else
                   :key="index"
-                  :lang="heading.code"
                   class="font-weight-bold"
                 >
                   {{ heading.value }}
@@ -64,7 +77,12 @@
               >
                 <!-- eslint-disable vue/no-v-html -->
                 <p
+                  v-if="descriptionInCurrentLanguage.code !== null"
                   :lang="descriptionInCurrentLanguage.code"
+                  v-html="$options.filters.convertNewLine(value)"
+                />
+                <p
+                  v-else
                   v-html="$options.filters.convertNewLine(value)"
                 />
                 <!-- eslint-disable vue/no-v-html -->

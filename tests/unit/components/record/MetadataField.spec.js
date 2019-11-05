@@ -33,7 +33,7 @@ describe('components/record/MetadataField', () => {
       describe('a labelled field with a labelling context', () => {
         const props = {
           name: 'edmRights',
-          fieldData: {def: 'http://rightsstatements.org/vocab/InC/1.0/' },
+          fieldData: { def: 'http://rightsstatements.org/vocab/InC/1.0/' },
           context: 'webResource'
         };
         it('outputs the context specific translated label', () => {

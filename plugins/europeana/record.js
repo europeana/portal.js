@@ -1,6 +1,7 @@
 import { apiError } from './utils';
 import axios from 'axios';
 import omitBy from 'lodash/omitBy';
+import merge from 'deepmerge';
 
 /**
  * Parse the record data based on the data from the API response
@@ -13,28 +14,26 @@ function parseRecordDataFromApiResponse(response) {
   const providerAggregation = edm.aggregations[0];
   const europeanaAggregation = edm.europeanaAggregation;
   const entities = [].concat(edm.concepts, edm.places, edm.agents).filter(checkNotNull);
-  const providerProxy = edm.proxies.find((proxy) => {
-    return proxy.europeanaProxy === false;
-  });
+  const proxyData = merge.all(edm.proxies);
 
   return {
-    altTitle: providerProxy.dctermsAlternative,
-    description: providerProxy.dcDescription,
+    altTitle: proxyData.dctermsAlternative,
+    description: proxyData.dcDescription,
     identifier: edm.about,
     image: {
       link: providerAggregation.edmIsShownAt,
       src: europeanaAggregation.edmPreview
     },
     coreFields: dereferenceEntities(omitBy({
-      dcContributor: providerProxy.dcContributor, // Plus rdaGr2DateOfBirth & rdaGr2DateOfDeath
-      dcCreator: providerProxy.dcCreator, // Plus rdaGr2DateOfBirth & rdaGr2DateOfDeath
-      dcPublisher: providerProxy.dcPublisher,
-      dcSubject: providerProxy.dcSubject,
-      dcType: providerProxy.dcType,
-      dcTermsMedium: providerProxy.dctermsMedium
+      dcContributor: proxyData.dcContributor, // Plus rdaGr2DateOfBirth & rdaGr2DateOfDeath
+      dcCreator: proxyData.dcCreator, // Plus rdaGr2DateOfBirth & rdaGr2DateOfDeath
+      dcPublisher: proxyData.dcPublisher,
+      dcSubject: proxyData.dcSubject,
+      dcType: proxyData.dcType,
+      dcTermsMedium: proxyData.dctermsMedium
     }, checkNull), entities),
     fields: dereferenceEntities(omitBy({
-      dcTermsCreated: providerProxy.dcTermsCreated,
+      dcTermsCreated: proxyData.dcTermsCreated,
       edmCountry: europeanaAggregation.edmCountry,
       edmDataProvider: providerAggregation.edmDataProvider,
       edmRights: providerAggregation.edmRights
@@ -45,7 +44,7 @@ function parseRecordDataFromApiResponse(response) {
     }),
     agents: edm.agents,
     concepts: edm.concepts,
-    title: providerProxy.dcTitle
+    title: proxyData.dcTitle
   };
 }
 

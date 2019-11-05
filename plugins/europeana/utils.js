@@ -20,17 +20,14 @@ function isEntity(value) {
 
 function entityValues(values, locale) {
   let entityValues = [];
-  if (!values)  {
-    return entityValues;
-  }
-  for (const value of values) {
+  for (const value of values || []) {
     if (isEntity(value)) {
       let entityValue = {};
       if (value.prefLabel)  {
         entityValue = langMapValueForLocale(value.prefLabel, locale);
         entityValue['about'] = value.about;
       } else {
-        entityValue = { code: 'und', values: [value.about], about: value.about };
+        entityValue = { code: '', values: [value.about], about: value.about };
       }
       entityValues = entityValues.concat(entityValue);
     }
@@ -61,7 +58,7 @@ export function langMapValueForLocale(langMap, locale) {
       let values = [].concat(langMap[key]);
       if (key !== 'def' && key !== 'und') {
         const langCode = key.length === 3 ? locales.find(l => l.isoAlpha3 === key).code : key; // if there is a match, find language code
-        htmlLang = currentLocale.code !== langCode ? langCode : ''; // output if different from UI language
+        htmlLang = currentLocale.code !== langCode ? langCode : null; // output if different from UI language
       } else {
         values = values.filter(v => !isEntity(v));
       }
