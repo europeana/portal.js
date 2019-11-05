@@ -35,11 +35,11 @@
           />
           <button
             v-if="isFilteredByDefaultFacets()"
-            class="clear-all"
-            data-qa="clear filters button"
-            @click="clearFilters"
+            class="reset"
+            data-qa="reset filters button"
+            @click="resetFilters"
           >
-            {{ $t('clearAllFilters') }}
+            {{ $t('reset') }}
           </button>
         </b-col>
       </b-row>
@@ -307,7 +307,7 @@
         }
         return updated;
       },
-      clearFilters() {
+      resetFilters() {
         const selectedFacets = Object.assign({}, this.selectedFacets);
 
         for (const facetName of defaultFacets) {
@@ -331,14 +331,11 @@
   @import "./assets/scss/variables.scss";
   @import "./assets/scss/icons.scss";
 
-  .clear-all {
+  .reset {
     background: none;
     border: none;
     color: $blue;
-
-    &:before {
-      content: '\e903';
-      @extend .icon-font;
-    }
+    text-transform: uppercase;
+    font-weight: bold;
   }
 </style>
