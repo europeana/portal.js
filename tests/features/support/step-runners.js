@@ -102,12 +102,12 @@ module.exports = {
     await client.keys(key);
   },
   matchMetaLabelAndValue: async(label, value) => {
-    await client.elements('xpath', '//strong[contains(text(),"' + label + '")]/parent::div/parent::div//span[contains(text(),"' + value + '")]', async(result) => {
+    await client.elements('xpath', '//strong[contains(text(),"' + label + '")]/parent::div/parent::div//ul/li[contains(text(),"' + value + '")]', async(result) => {
       await client.expect(result.value).to.have.lengthOf(1);
     });
   },
   matchMetaLabelAndValueOrValue: async(label, value, altValue) => {
-    await client.elements('xpath', '//strong[contains(text(),"' + label + '")]/parent::div/parent::div//span[contains(text(),"' + value + '") or contains(text(),"' + altValue + '")]', async(result) => {
+    await client.elements('xpath', '//strong[contains(text(),"' + label + '")]/parent::div/parent::div//ul/li[contains(text(),"' + value + '") or contains(text(),"' + altValue + '")]', async(result) => {
       await client.expect(result.value).to.have.lengthOf(1);
     });
   },
