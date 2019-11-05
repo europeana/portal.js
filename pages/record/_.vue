@@ -58,28 +58,34 @@
               v-if="descriptionInCurrentLanguage"
               class="description"
             >
-              <!-- eslint-disable vue/no-v-html -->
-              <p
-                v-for="value in descriptionInCurrentLanguage.value"
-                :key="value"
-                :lang="descriptionInCurrentLanguage.code"
-                v-html="$options.filters.convertNewLine(value)"
-              />
-              <!-- eslint-disable vue/no-v-html -->
+              <div
+                v-for="(value, index) in descriptionInCurrentLanguage.value"
+                :key="index"
+              >
+                <!-- eslint-disable vue/no-v-html -->
+                <p
+                  :lang="descriptionInCurrentLanguage.code"
+                  v-html="$options.filters.convertNewLine(value)"
+                />
+                <!-- eslint-disable vue/no-v-html -->
+                <hr
+                  v-if="(index + 1) < descriptionInCurrentLanguage.value.length"
+                >
+              </div>
             </div>
           </div>
         </div>
-        <div
-          class="card p-3 mb-3"
-          data-qa="Main metadata"
-        >
+        <div class="card p-3 mb-3">
           <MediaActionBar
             v-if="selectedMedia"
             :url="selectedMedia.about"
             :europeana-identifier="identifier"
           />
         </div>
-        <div class="card p-3 mb-3">
+        <div
+          class="card p-3 mb-3"
+          data-qa="Main metadata"
+        >
           <MetadataField
             v-for="(value, name) in coreFields"
             :key="name"
@@ -129,6 +135,7 @@
   import getRecord from '../../plugins/europeana/record';
   import { langMapValueForLocale } from  '../../plugins/europeana/utils';
   import { isRichMedia } from '../../plugins/media.js';
+  import { searchEntities } from '../../plugins/europeana/entity';
 
   export default {
     components: {
@@ -140,18 +147,31 @@
     },
     data() {
       return {
+        agents: null,
         altTitle: null,
+        concepts: null,
         description: null,
         error: null,
+        coreFields: null,
         identifier: null,
         image: null,
-        mainMetaddata: null,
         fields: null,
         media: null,
+        relatedEntities: null,
         title: null
       };
     },
     computed: {
+      europeanaAgents() {
+        return (this.agents || []).filter((agent) => agent.about.startsWith('http://data.europeana.eu/agent/'));
+      },
+      europeanaConcepts() {
+        return (this.concepts || []).filter((concept) => concept.about.startsWith('http://data.europeana.eu/concept/'));
+      },
+      europeanaEntityUris() {
+        const entities = this.europeanaConcepts.concat(this.europeanaAgents);
+        return entities.map((entity) => entity.about).slice(0, 5);
+      },
       titlesInCurrentLanguage() {
         let titles = [];
 
@@ -197,6 +217,9 @@
           }
           return { error: error.message };
         });
+    },
+    async mounted() {
+      this.relatedEntities = await searchEntities(this.europeanaEntityUris, { wskey: process.env.EUROPEANA_ENTITY_API_KEY });
     },
     head() {
       return {

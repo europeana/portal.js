@@ -8,7 +8,14 @@ import qs from 'qs';
 
 // Default facets to request and display if none are specified.
 // Order is significant as it will be reflected on search results.
-export const defaultFacets = ['TYPE', 'REUSABILITY', 'COUNTRY'];
+export const defaultFacets = [
+  'TYPE',
+  'REUSABILITY',
+  'COUNTRY',
+  'LANGUAGE',
+  'PROVIDER',
+  'DATA_PROVIDER'
+];
 
 function genericThumbnail(edmType) {
   return `https://api.europeana.eu/api/v2/thumbnail-by-url.json?size=w200&uri=&type=${edmType}`;

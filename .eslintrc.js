@@ -23,6 +23,7 @@ module.exports = {
     'brace-style': ['error', '1tbs', { 'allowSingleLine': false }],
     'camelcase': ['error', { 'ignoreDestructuring': false }],
     'comma-dangle': ['error', 'never'],
+    'comma-spacing': ['error', { 'before': false, 'after': true }],
     'computed-property-spacing': ['error', 'never'],
     'eol-last': ['error', 'always'],
     'eqeqeq': ['error', 'always'],

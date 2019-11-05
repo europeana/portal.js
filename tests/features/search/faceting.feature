@@ -139,3 +139,18 @@ Feature: Search faceting
     And I click the `TYPE apply button`
     And I wait 2 seconds
     Then I am on page number 1
+
+  Scenario: Clear filters using using `clear all filter` button
+    When I visit the `search page`
+    And I click the `COUNTRY dropdown button`
+    And I check the "France" "COUNTRY" checkbox
+    And I click the `COUNTRY apply button`
+    And I click the `TYPE dropdown button`
+    And I check the "IMAGE" "TYPE" checkbox
+    And I click the `TYPE apply button`
+    And I wait 2 seconds
+    And I should be on `/en/search?page=1&qf=COUNTRY%3A%22France%22&qf=TYPE%3A%22IMAGE%22&query=&view=grid`
+    And I go to page number 2
+    And I click the `clear filters button`
+    And I wait 2 seconds
+    Then I should be on `/en/search?page=1&query=&view=grid`

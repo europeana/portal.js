@@ -173,39 +173,38 @@ export function relatedEntities(type, id, params) {
  * @return {Object} related entities
  * TODO: limit results
  */
-function getEntityFacets(facets, currentId, entityKey) {
+async function getEntityFacets(facets, currentId, entityKey) {
   let entities = [];
   for (let facet of facets) {
     entities = entities.concat(facet['fields'].filter(value =>
       value['label'].includes('http://data.europeana.eu') && value['label'].split('/').pop() !== currentId
     ));
   }
-  return getDataForEntities(entities, entityKey);
+  const entityUris = entities.slice(0, 4).map(entity => {
+    return entity['label'];
+  });
+  return getRelatedEntityTitleLink(await searchEntities(entityUris, { wskey: entityKey }));
 }
 
 /**
  * Lookup data for the given list of entity URIs
- * @param {Object} entities the entities retrieved from the facet search
- * @param {String} entityKey the key for the entity api
- * @return {Object} looked up entities data
+ * @param {Array} entityUris the URIs of the entities to retrieve
+ * @param {Object} params additional parameters sent to the API
+ * @return {Object} entity data
  */
-function getDataForEntities(entities, entityKey) {
-  if (entities.length === 0) return;
+export function searchEntities(entityUris, params) {
+  if (entityUris.length === 0) return;
 
-  const entityLabels = entities.slice(0,4).map(entity => {
-    return entity['label'];
-  });
-
-  const q = entityLabels.join('" OR "');
+  const q = entityUris.join('" OR "');
   return axios.get('https://api.europeana.eu/entity/search', {
     params: {
       query: `entity_uri:("${q}")`,
-      wskey: entityKey
+      wskey: params.wskey
     }
   })
     .then((response) => {
       let items = response.data.items ? response.data.items : [];
-      return getRelatedEntityTitleLink(items);
+      return items;
     })
     .catch((error) => {
       const message = error.response ? error.response.data.error : error.message;
@@ -215,7 +214,7 @@ function getDataForEntities(entities, entityKey) {
 
 /**
  * Format the the entity data
- * @param {Object} entities the lookuped data for entities
+ * @param {Object} entities the data returned from the Entity API
  * @return {Object} entity links and titles
  */
 function getRelatedEntityTitleLink(entities) {
