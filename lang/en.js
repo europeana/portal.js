@@ -98,5 +98,5 @@ export default {
   "actions": {
     "download": "Download"
   },
-  "clearAllFilters": "clear all filters"
+  "reset": "Reset"
 };
