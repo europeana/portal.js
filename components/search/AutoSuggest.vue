@@ -6,7 +6,6 @@
   >
     <b-input-group
       role="combobox"
-      aria-haspopup="listbox"
       aria-owns="autocomplete-results"
       :aria-expanded="isActive"
       class="auto-suggest"
