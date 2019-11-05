@@ -49,6 +49,7 @@ Feature: Search querying
     And I press the DOWN_ARROW key
     And I press the ENTER key
     Then I should be on `/en/entity/topic/94-architecture`
+    Then I don't see a `search suggestions`
   
   Scenario: Pressing ESC will close the auto suggestion dropdown
     When I visit a `search page`

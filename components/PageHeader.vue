@@ -23,6 +23,7 @@
           <AutoSuggest
             data-qa="search form"
             class="justify-content-center justify-content-md-end w-100"
+            :enable-autosuggest="enableAutosuggest"
           />
         </div>
         <LangSelector
@@ -47,6 +48,10 @@
       enableLanguageSelector: {
         type: Boolean,
         default: Boolean(Number(process.env['ENABLE_LANGUAGE_SELECTOR']))
+      },
+      enableAutosuggest: {
+        type: Boolean,
+        default: false
       }
     }
   };

@@ -60,7 +60,7 @@
         >
           {{ $t('loadingResults') }}...
         </b-list-group-item>
-        <!-- eslint-disable vue/no-v-html -->
+
         <b-list-group-item
           v-for="(value, name, index) in options"
           v-else
@@ -75,9 +75,21 @@
           @mouseover="focus = index"
           @focus="index === focus"
           @click="closeDropdown"
-          v-html="highlightResult(value)"
-        />
-        <!-- eslint-enable vue/no-v-html -->
+        >
+          <template
+            v-for="(part, partIndex) in highlightResult(value)"
+          >
+            <strong
+              v-if="part.highlight"
+              :key="partIndex"
+              class="highlight"
+            >{{ part.text }}</strong> <!-- Do not put onto a new line -->
+            <span
+              v-else
+              :key="partIndex"
+            >{{ part.text }}</span> <!-- Do not put onto a new line -->
+          </template>
+        </b-list-group-item>
       </b-list-group>
     </b-input-group>
   </b-form>
@@ -93,6 +105,13 @@
 
     components: {
       SearchBarPill
+    },
+
+    props: {
+      enableAutosuggest: {
+        type: Boolean,
+        default: false
+      }
     },
 
     data() {
@@ -135,7 +154,7 @@
       },
 
       isDisabled() {
-        return !!(this.$store.state.entity && this.$store.state.entity.id);
+        return !this.enableAutosuggest || !!(this.$store.state.entity && this.$store.state.entity.id);
       },
 
       view() {
@@ -149,15 +168,17 @@
       },
       '$route.query'() {
         this.queryOnSearchablePage();
+        this.closeDropdown();
       }
     },
 
     mounted() {
+      this.queryOnSearchablePage();
+
       if (this.isDisabled) return;
 
       document.addEventListener('keyup', this.navigateDropdown);
       document.addEventListener('mouseup', this.clickOutside);
-      this.queryOnSearchablePage();
     },
 
     methods: {
@@ -165,11 +186,7 @@
         const string = value[this.locale];
         const matches = match(string, this.query);
         const parts = parse(string, matches);
-        const results = parts.map(part => {
-          return part.highlight ? `<strong class="highlight">${part.text}</strong>` : part.text;
-        });
-
-        return results.join('');
+        return parts;
       },
 
       closeDropdown() {
