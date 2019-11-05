@@ -130,6 +130,31 @@ describe('plugins/europeana/entity', () => {
     });
   });
 
+  describe('searchEntities()', () => {
+    const uris = [
+      'http://data.europeana.eu/agent/base/123',
+      'http://data.europeana.eu/concept/base/456'
+    ];
+    const uriQuery = 'entity_uri:("http://data.europeana.eu/agent/base/123" OR "http://data.europeana.eu/concept/base/456")';
+    const entitySearchResponse = {
+      items: []
+    };
+    const searchEndpoint = '/entity/search';
+
+    it('searches the API by entity URIs', async() => {
+      nock(apiUrl)
+        .get(searchEndpoint)
+        .query(query => {
+          return query.query === uriQuery;
+        })
+        .reply(200, entitySearchResponse);
+
+      await entities.searchEntities(uris, { wskey: apiKey });
+
+      nock.isDone().should.be.true;
+    });
+  });
+
   describe('getEntitySuggestions()', () => {
     const text = 'world';
     const suggestEndpoint = '/entity/suggest';

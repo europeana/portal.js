@@ -120,6 +120,7 @@
 
   import getRecord from '../../plugins/europeana/record';
   import { isRichMedia } from '../../plugins/media.js';
+  import { searchEntities } from '../../plugins/europeana/entity';
 
   export default {
     components: {
@@ -131,17 +132,30 @@
     },
     data() {
       return {
+        agents: null,
         altTitle: null,
+        concepts: null,
         description: null,
         error: null,
+        fields: null,
         identifier: null,
         image: null,
-        fields: null,
         media: null,
+        relatedEntities: null,
         title: null
       };
     },
     computed: {
+      europeanaAgents() {
+        return (this.agents || []).filter((agent) => agent.about.startsWith('http://data.europeana.eu/agent/'));
+      },
+      europeanaConcepts() {
+        return (this.concepts || []).filter((concept) => concept.about.startsWith('http://data.europeana.eu/concept/'));
+      },
+      europeanaEntityUris() {
+        const entities = this.europeanaConcepts.concat(this.europeanaAgents);
+        return entities.map((entity) => entity.about).slice(0, 5);
+      },
       titlesInCurrentLanguage() {
         let titles = [];
 
@@ -187,6 +201,9 @@
           }
           return { error: error.message };
         });
+    },
+    async mounted() {
+      this.relatedEntities = await searchEntities(this.europeanaEntityUris, { wskey: process.env.EUROPEANA_ENTITY_API_KEY });
     },
     head() {
       return {

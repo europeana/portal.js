@@ -39,6 +39,8 @@ function parseRecordDataFromApiResponse(response) {
       return (webResource.about === providerAggregation.edmIsShownBy) ||
         (providerAggregation.hasView || []).includes(webResource.about);
     }),
+    agents: edm.agents,
+    concepts: edm.concepts,
     title: providerProxy.dcTitle
   };
 }
