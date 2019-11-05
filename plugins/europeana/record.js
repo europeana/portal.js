@@ -17,6 +17,8 @@ function parseRecordDataFromApiResponse(response) {
   });
 
   return {
+    altTitle: providerProxy.dctermsAlternative,
+    description: providerProxy.dcDescription,
     identifier: edm.about,
     image: {
       link: providerAggregation.edmIsShownAt,
@@ -25,8 +27,6 @@ function parseRecordDataFromApiResponse(response) {
     fields: omitBy({
       dcContributor: providerProxy.dcContributor,
       dcCreator: providerProxy.dcCreator,
-      dcDescription: providerProxy.dcDescription,
-      dcTitle: providerProxy.dcTitle,
       dcType: providerProxy.dcType,
       dctermsCreated: providerProxy.dctermsCreated,
       edmCountry: europeanaAggregation.edmCountry,
@@ -40,7 +40,8 @@ function parseRecordDataFromApiResponse(response) {
         (providerAggregation.hasView || []).includes(webResource.about);
     }),
     agents: edm.agents,
-    concepts: edm.concepts
+    concepts: edm.concepts,
+    title: providerProxy.dcTitle
   };
 }
 

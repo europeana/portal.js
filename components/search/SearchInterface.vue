@@ -33,6 +33,14 @@
             :selected="selectedFacets[facet.name]"
             @changed="changeFacet"
           />
+          <button
+            v-if="isFilteredByDefaultFacets()"
+            class="clear-all"
+            data-qa="clear filters button"
+            @click="clearFilters"
+          >
+            {{ $t('clearAllFilters') }}
+          </button>
         </b-col>
       </b-row>
       <b-row
@@ -251,6 +259,9 @@
         let selectedFacets = Object.assign({}, this.selectedFacets);
         selectedFacets[name] = selected;
 
+        return this.queryUpdatesForSelectedFacets(selectedFacets);
+      },
+      queryUpdatesForSelectedFacets(selectedFacets) {
         let queryUpdates = {
           qf: [],
           page: 1
@@ -295,7 +306,39 @@
           }
         }
         return updated;
+      },
+      clearFilters() {
+        const selectedFacets = Object.assign({}, this.selectedFacets);
+
+        for (const facetName of defaultFacets) {
+          selectedFacets[facetName] = [];
+        }
+        this.rerouteSearch(this.queryUpdatesForSelectedFacets(selectedFacets));
+      },
+      isFilteredByDefaultFacets() {
+        for (const facetName of defaultFacets) {
+          if (Object.prototype.hasOwnProperty.call(this.selectedFacets, facetName)) {
+            return true;
+          }
+        }
+        return false;
       }
     }
   };
 </script>
+
+<style lang="scss" scoped>
+  @import "./assets/scss/variables.scss";
+  @import "./assets/scss/icons.scss";
+
+  .clear-all {
+    background: none;
+    border: none;
+    color: $blue;
+
+    &:before {
+      content: '\e903';
+      @extend .icon-font;
+    }
+  }
+</style>
