@@ -44,6 +44,15 @@ export default {
     "TYPE": {
       "name": "Type of media"
     },
+    "LANGUAGE": {
+      "name": "Language"
+    },
+    "PROVIDER": {
+      "name": "Aggregator"
+    },
+    "DATA_PROVIDER": {
+      "name": "Institution"
+    },
     "contentTier": {
       "name": "Includes broken items"
     },
