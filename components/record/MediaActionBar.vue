@@ -4,8 +4,9 @@
   >
     <b-button
       :href="url | proxyMedia(europeanaIdentifier)"
-      variant="primary"
+      variant="outline-primary primary"
       data-qa="download button"
+      size="lg"
     >
       {{ $t('actions.download') }}
     </b-button>

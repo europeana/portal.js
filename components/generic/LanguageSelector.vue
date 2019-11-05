@@ -35,6 +35,13 @@
           return locale.code === this.$i18n.locale;
         });
       }
+    },
+    head() {
+      return {
+        htmlAttrs: {
+          lang: this.$i18n.locale
+        }
+      };
     }
   };
 </script>
