@@ -6,8 +6,8 @@
       v-if="hero"
       :image-url="heroImage.url"
       :image-content-type="heroImage.contentType"
-      :header="heroHeader"
-      :lead="heroLead"
+      :header="page.name"
+      :lead="page.headline"
       :identifier="hero.identifier"
       :citation="hero.citation"
       :rights-statement="hero.license"
@@ -17,6 +17,17 @@
       :url="hero.url"
     />
     <b-container>
+      <header v-if="!hero">
+        <div class="col-12 col-lg-9 col">
+          <h1>{{ page.name }}</h1>
+          <p
+            v-if="page.headline"
+            class="lead"
+          >
+            {{ page.headline }}
+          </p>
+        </div>
+      </header>
       <BrowseSections
         v-if="page"
         :sections="page.hasPart"
@@ -39,22 +50,8 @@
       hero() {
         return this.page.primaryImageOfPage ? this.page.primaryImageOfPage.fields : null;
       },
-      // TODO: remove the preference for hero.headline when production space
-      //       has page.name set to suit all hero banners
-      heroHeader() {
-        return this.hero.headline || this.pageTitle;
-      },
-      // TODO: remove the preference for hero.description when production space
-      //       has page.headline set to suit all hero banners
-      heroLead() {
-        return this.hero.description || this.page.headline;
-      },
       heroImage() {
         return this.hero ? this.hero.image.fields.file : null;
-      },
-      pageTitle() {
-        // TODO: remove the fallback to headline when production space has name field
-        return this.page.name || this.page.headline;
       }
     },
     asyncData({ params, query, error, app }) {
@@ -83,11 +80,11 @@
     },
     head() {
       return {
-        title: this.pageTitle,
+        title: this.page.name,
         meta: [
-          { hid: 'title', name: 'title', content: this.pageTitle },
+          { hid: 'title', name: 'title', content: this.page.name },
           { hid: 'description', name: 'description', content: this.page.description },
-          { hid: 'og:title', property: 'og:title', content: this.pageTitle },
+          { hid: 'og:title', property: 'og:title', content: this.page.name },
           { hid: 'og:description', property: 'og:description', content: this.page.description }
         ]
       };

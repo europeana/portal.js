@@ -2,7 +2,7 @@
   {
     "name": "portal.js client (en)",
     "running": false,
-    "limit": "205 KB",
+    "limit": "225 KB",
     "path": [
       "./.nuxt/dist/client/runtime.*.js",
       "./.nuxt/dist/client/commons.app.*.js",
@@ -16,7 +16,7 @@
   {
     "name": "portal.js server (en)",
     "running": false,
-    "limit": "75 KB",
+    "limit": "100 KB",
     "path": [
       "./.nuxt/dist/server/server.js",
       "./.nuxt/dist/server/lang-en.*.js",

@@ -165,7 +165,10 @@ describe('components/search/SearchInterface', () => {
           facets: [
             { name: 'COUNTRY' },
             { name: 'RIGHTS' },
+            { name: 'CONTRIBUTOR' },
             { name: 'DATA_PROVIDER' },
+            { name: 'PROVIDER' },
+            { name: 'LANGUAGE' },
             { name: 'REUSABILITY' },
             { name: 'TYPE' }
           ]
@@ -176,11 +179,14 @@ describe('components/search/SearchInterface', () => {
         wrapper.vm.orderedFacets[0].name.should.eq('TYPE');
         wrapper.vm.orderedFacets[1].name.should.eq('REUSABILITY');
         wrapper.vm.orderedFacets[2].name.should.eq('COUNTRY');
+        wrapper.vm.orderedFacets[3].name.should.eq('LANGUAGE');
+        wrapper.vm.orderedFacets[4].name.should.eq('PROVIDER');
+        wrapper.vm.orderedFacets[5].name.should.eq('DATA_PROVIDER');
       });
 
       it('ends with any other facets in their original order', () => {
-        wrapper.vm.orderedFacets[3].name.should.eq('RIGHTS');
-        wrapper.vm.orderedFacets[4].name.should.eq('DATA_PROVIDER');
+        wrapper.vm.orderedFacets[6].name.should.eq('RIGHTS');
+        wrapper.vm.orderedFacets[7].name.should.eq('CONTRIBUTOR');
       });
     });
   });
