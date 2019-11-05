@@ -258,6 +258,7 @@ describe('components/search/AutoSuggest', () => {
     });
 
     it('returns options when there are 3 or more characters in search form', async() => {
+      wrapper.setProps({ enableAutosuggest: true });
       wrapper.setData({ query: 'World' });
       await wrapper.vm.getSuggestions();
 
@@ -286,23 +287,25 @@ describe('components/search/AutoSuggest', () => {
           }
         })
       });
+      wrapper.setProps({ enableAutosuggest: true });
       let suggestion;
-
       wrapper.setData({ query: 'world' });
       await wrapper.vm.getSuggestions();
       suggestion = wrapper.find('[data-qa="search suggestion world war i link"]');
 
-      suggestion.html().should.contain('<strong class="highlight">World</strong>');
       wrapper.setData({ query: 'World' });
-      suggestion.html().should.contain('<strong class="highlight">World</strong>');
+      suggestion.find('[data-qa="highlighted"]').text().should.eq('World');
       wrapper.setData({ query: 'WORLD' });
-      suggestion.html().should.contain('<strong class="highlight">World</strong>');
+      suggestion.find('[data-qa="highlighted"]').text().should.eq('World');
       wrapper.setData({ query: 'Wor' });
-      suggestion.html().should.contain('<strong class="highlight">Wor</strong>ld');
+      suggestion.find('[data-qa="highlighted"]').text().should.eq('Wor');
+      suggestion.find('[data-qa="base"]').text().should.eq('ld War I');
     });
 
     it('allows the user to navigate through suggestions using keyboards up and down arrows', async() => {
+      wrapper.setProps({ enableAutosuggest: true });
       wrapper.setData({ query: 'World' });
+      console.log('POO', wrapper.vm.isDisabled);
       await wrapper.vm.getSuggestions();
       wrapper.trigger('keyup.down');
       wrapper.vm.focus.should.eq(0);
