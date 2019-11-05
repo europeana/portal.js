@@ -33,7 +33,6 @@
             :selected="selectedFacets[facet.name]"
             @changed="changeFacet"
           />
-          <MoreFacetsDropdown />
           <button
             v-if="isFilteredByDefaultFacets()"
             class="clear-all"
@@ -126,7 +125,6 @@
   import SearchResults from '../../components/search/SearchResults'; // Sorted before InfoMessage to prevent Conflicting CSS sorting warning
   import InfoMessage from '../../components/generic/InfoMessage';
   import FacetDropdown from '../../components/search/FacetDropdown';
-  import MoreFacetsDropdown from '../../components/search/MoreFacetsDropdown';
   import SearchSelectedFacets from '../../components/search/SearchSelectedFacets';
   import PaginationNav from '../../components/generic/PaginationNav';
   import ViewToggles from '../../components/search/ViewToggles';
@@ -141,7 +139,6 @@
       AlertMessage,
       InfoMessage,
       FacetDropdown,
-      MoreFacetsDropdown,
       SearchResults,
       SearchSelectedFacets,
       PaginationNav,

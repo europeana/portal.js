@@ -1,16 +1,13 @@
 .dropdown {
-  &.more-facets {
-    height: 3rem;
-    
+  &.more-facets {    
     strong {
       font-size: 1.5rem;
       font-weight: 300;
     }
 
     > button {
-      color: $vibrantblue;
+      color: $blue;
       font-size: 1rem;
-      height: 3rem;
       padding-left: 3rem;
       padding-right: 3rem;
     }
@@ -48,7 +45,7 @@
           border-radius: 50%;
           display: none;
           background: $white;
-          color: $vibrantblue;
+          color: $blue;
           height: 1rem;
           line-height: 0.9rem;
           margin-left: 0.5rem;
@@ -65,8 +62,8 @@
         }
 
         input[type="checkbox"]:checked + label { 
-          background: $vibrantblue;
-          border-color: $vibrantblue;
+          background: $blue;
+          border-color: $blue;
           color: $white;
 
           .reset {

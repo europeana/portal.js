@@ -91,12 +91,6 @@
         type="button"
         class="btn btn-link"
       >
-        Reset filters
-      </button>
-      <button
-        type="button"
-        class="btn btn-link"
-      >
         Cancel
       </button>
       <button
