@@ -26,8 +26,17 @@
         transform: translate3d(0, 3rem, 0) !important;
       }
 
-      > ul {
-        column-count: 3;
+      .b-dropdown-form {
+        column-count: 2;
+        padding: 0;
+
+        @media (min-width: $bp-large) {
+          column-count: 3;
+        }
+
+        .form-check {
+          padding-left: 0;
+        }
 
         label {
           border: 1px solid $grey;
@@ -65,7 +74,7 @@
           }
         }
       }
-
+      
       .btn {
         font-size: 0.875rem;
         margin-left: 0.75rem;

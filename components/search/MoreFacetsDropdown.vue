@@ -10,98 +10,78 @@
     >
       Image type
     </strong>
-    <ul class="list-unstyled mb-4">
-      <li>
-        <input
-          id="building"
-          type="checkbox"
+    <b-dropdown-form>
+      <b-form-checkbox
+        id="building"
+        name="building"
+        class="mb-3"
+        plain
+      >
+        Building
+        <span
+          class="reset"
+          aria-label="Close"
         >
-        <label
-          for="building"
-          class="d-inline-flex align-items-center"
+          x
+        </span>
+      </b-form-checkbox>
+      <b-form-checkbox
+        id="inscription"
+        name="inscription"
+        class="mb-3"
+        plain
+      >
+        Inscription
+        <span
+          class="reset"
+          aria-label="Close"
         >
-          Building
-          <span
-            class="reset"
-            aria-label="Close"
-          >
-            x
-          </span>
-        </label>
-      </li>
-      <li>
-        <input
-          id="inscription"
-          type="checkbox"
+          x
+        </span>
+      </b-form-checkbox>
+      <b-form-checkbox
+        id="cartoon"
+        name="cartoon"
+        class="mb-3"
+        plain
+      >
+        Cartoon
+        <span
+          class="reset"
+          aria-label="Close"
         >
-        <label
-          for="inscription"
-          class="d-inline-flex align-items-center"
+          x
+        </span>
+      </b-form-checkbox>
+      <b-form-checkbox
+        id="sculpture"
+        name="sculpture"
+        class="mb-3"
+        plain
+      >
+        Sculpture
+        <span
+          class="reset"
+          aria-label="Close"
         >
-          Inscription
-          <span
-            class="reset"
-            aria-label="Close"
-          >
-            x
-          </span>
-        </label>
-      </li>
-      <li>
-        <input
-          id="sculpture"
-          type="checkbox"
+          x
+        </span>
+      </b-form-checkbox>
+      <b-form-checkbox
+        id="metalwork"
+        name="metalwork"
+        class="mb-3"
+        plain
+      >
+        Metalwork
+        <span
+          class="reset"
+          aria-label="Close"
         >
-        <label
-          for="sculpture"
-          class="d-inline-flex align-items-center"
-        >
-          Sculpture
-          <span
-            class="reset"
-            aria-label="Close"
-          >
-            x
-          </span>
-        </label>
-      </li>
-      <li>
-        <input
-          id="cartoon"
-          type="checkbox"
-        >
-        <label
-          for="cartoon"
-          class="d-inline-flex align-items-center"
-        >
-          Cartoon
-          <span
-            class="reset"
-            aria-label="Close"
-          >
-            x
-          </span>
-        </label>
-      </li>
-      <li>
-        <input
-          id="metalwork"
-          type="checkbox"
-        >
-        <label
-          for="metalwork"
-          class="d-inline-flex align-items-center"
-        >
-          Metalwork
-          <span
-            class="reset"
-            aria-label="Close"
-          >
-            x
-          </span>
-        </label>
-      </li>
-    </ul>
+          x
+        </span>
+      </b-form-checkbox>
+    </b-dropdown-form>
     <hr>
     <div
       class="float-right"
