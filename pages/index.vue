@@ -18,13 +18,15 @@
     />
     <b-container>
       <header v-if="!hero">
-        <h1>{{ page.name }}</h1>
-        <p
-          v-if="page.headline"
-          class="lead"
-        >
-          {{ page.headline }}
-        </p>
+        <div class="col-12 col-lg-9 col">
+          <h1>{{ page.name }}</h1>
+          <p
+            v-if="page.headline"
+            class="lead"
+          >
+            {{ page.headline }}
+          </p>
+        </div>
       </header>
       <BrowseSections
         v-if="page"
