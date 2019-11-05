@@ -37,7 +37,8 @@
   import VideoPlayer from '../../components/media/VideoPlayer';
   import HTMLEmbed from '../../components/generic/HTMLEmbed';
 
-  import oEmbed, { oEmbeddable } from '../../plugins/oembed.js';
+  import oEmbed from '../../plugins/oembed.js';
+  import { isPDF, isHTMLVideo, isOEmbed } from '../../plugins/media.js';
 
   export default {
     components: {
@@ -85,15 +86,13 @@
         return (this.imageSrc !== '') && !this.isHTMLVideo && !this.isOEmbed;
       },
       isPDF() {
-        return this.mimeType === 'application/pdf';
+        return isPDF(this.mimeType);
       },
       isHTMLVideo() {
-        return (this.mimeType === 'video/ogg') ||
-          (this.mimeType === 'video/webm') ||
-          ((this.mimeType === 'video/mp4') && (this.codecName === 'h264'));
+        return isHTMLVideo(this.mimeType, this.codecName);
       },
       isOEmbed() {
-        return oEmbeddable(this.url);
+        return isOEmbed(this.url);
       }
     },
     created() {
@@ -113,12 +112,14 @@
 </script>
 
 <style lang="scss" scoped>
+  /* TODO: fixed max height is subject to change */
   .media-presentation {
     /deep/ img,
     video {
-      max-height: 70vh;
-      max-width: 100%;
-      width: auto;
+      height: auto;
+      max-height: 800px;
+      object-fit: contain;
+      width: 100%;
     }
   }
 </style>
