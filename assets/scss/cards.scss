@@ -8,6 +8,10 @@
   line-height: 1.1875rem;
   transition: box-shadow 0.25s;
 
+  &.card {
+    margin-bottom: 1.5rem;
+  }
+
   @media (min-width: $bp-medium) {
     min-height: 20rem;
   }
@@ -64,6 +68,7 @@
     background-size: cover;
     border: 0;
     justify-content: flex-end;
+    margin-bottom: 2.5rem;
     margin-left: 0.9rem;
     
     a {

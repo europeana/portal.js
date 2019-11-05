@@ -1,6 +1,6 @@
 <template>
   <b-card
-    class="mb-4 text-left content-card"
+    class="text-left content-card"
     data-qa="content card"
     no-body
     :class="{ 'related-card' : isRelated }"
