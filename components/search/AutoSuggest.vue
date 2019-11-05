@@ -83,10 +83,12 @@
               v-if="part.highlight"
               :key="partIndex"
               class="highlight"
+              data-qa="highlighted"
             >{{ part.text }}</strong> <!-- Do not put onto a new line -->
             <span
               v-else
               :key="partIndex"
+              data-qa="base"
             >{{ part.text }}</span> <!-- Do not put onto a new line -->
           </template>
         </b-list-group-item>
@@ -154,7 +156,7 @@
       },
 
       isDisabled() {
-        return !this.enableAutosuggest || !!(this.$store.state.entity && this.$store.state.entity.id);
+        return !this.enableAutosuggest;
       },
 
       view() {
