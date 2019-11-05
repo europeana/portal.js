@@ -156,7 +156,7 @@
       },
 
       isDisabled() {
-        return !this.enableAutosuggest;
+        return !this.enableAutosuggest || !!(this.$store.state.entity && this.$store.state.entity.id);
       },
 
       view() {
@@ -175,10 +175,9 @@
     },
 
     mounted() {
-      this.queryOnSearchablePage();
-
       if (this.isDisabled) return;
 
+      this.queryOnSearchablePage();
       document.addEventListener('keyup', this.navigateDropdown);
       document.addEventListener('mouseup', this.clickOutside);
     },

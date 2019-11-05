@@ -30,7 +30,12 @@ const factory = (options = {}) => {
         }
       }, ...(options.mocks || {})
     },
-    store: options.store || {}
+    store: options.store || {},
+    computed: {
+      isDisabled() {
+        return false;
+      }
+    }
   });
 };
 
@@ -90,6 +95,7 @@ describe('components/search/AutoSuggest', () => {
       });
 
       it('is empty', () => {
+        wrapper.setData({ isDisabled: false });
         wrapper.vm.query.should.eq('');
       });
     });
@@ -258,7 +264,6 @@ describe('components/search/AutoSuggest', () => {
     });
 
     it('returns options when there are 3 or more characters in search form', async() => {
-      wrapper.setProps({ enableAutosuggest: true });
       wrapper.setData({ query: 'World' });
       await wrapper.vm.getSuggestions();
 
@@ -287,7 +292,6 @@ describe('components/search/AutoSuggest', () => {
           }
         })
       });
-      wrapper.setProps({ enableAutosuggest: true });
       let suggestion;
       wrapper.setData({ query: 'world' });
       await wrapper.vm.getSuggestions();
@@ -303,9 +307,7 @@ describe('components/search/AutoSuggest', () => {
     });
 
     it('allows the user to navigate through suggestions using keyboards up and down arrows', async() => {
-      wrapper.setProps({ enableAutosuggest: true });
       wrapper.setData({ query: 'World' });
-      console.log('POO', wrapper.vm.isDisabled);
       await wrapper.vm.getSuggestions();
       wrapper.trigger('keyup.down');
       wrapper.vm.focus.should.eq(0);
