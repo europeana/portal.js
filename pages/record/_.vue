@@ -203,12 +203,6 @@
         return this.media[0];
       }
     },
-    methods: {
-      getEntityDescription,
-      getWikimediaThumbnailUrl,
-      getEntityTypeHumanReadable,
-      getEntitySlug
-    },
     asyncData({ env, params, res, app, redirect }) {
       if (env.RECORD_PAGE_REDIRECT_PATH) {
         return redirect(app.localePath({ path: env.RECORD_PAGE_REDIRECT_PATH }));
@@ -229,6 +223,12 @@
     },
     async mounted() {
       this.relatedEntities = await searchEntities(this.europeanaEntityUris, { wskey: process.env.EUROPEANA_ENTITY_API_KEY });
+    },
+    methods: {
+      getEntityDescription,
+      getWikimediaThumbnailUrl,
+      getEntityTypeHumanReadable,
+      getEntitySlug
     },
     head() {
       return {
