@@ -18,6 +18,8 @@ function parseRecordDataFromApiResponse(response) {
   });
 
   return {
+    altTitle: providerProxy.dctermsAlternative,
+    description: providerProxy.dcDescription,
     identifier: edm.about,
     image: {
       link: providerAggregation.edmIsShownAt,
@@ -32,9 +34,6 @@ function parseRecordDataFromApiResponse(response) {
       dcTermsMedium: providerProxy.dctermsMedium
     }, checkNull), entities),
     fields: dereferenceEntities(omitBy({
-      dcDescription: providerProxy.dcDescription,
-      dcTitle: providerProxy.dcTitle,
-      dcRights: providerProxy.dcRights,
       dcTermsCreated: providerProxy.dcTermsCreated,
       edmCountry: europeanaAggregation.edmCountry,
       edmDataProvider: providerAggregation.edmDataProvider,
@@ -43,7 +42,8 @@ function parseRecordDataFromApiResponse(response) {
     media: providerAggregation.webResources.filter((webResource) => {
       return (webResource.about === providerAggregation.edmIsShownBy) ||
         (providerAggregation.hasView || []).includes(webResource.about);
-    })
+    }),
+    title: providerProxy.dcTitle
   };
 }
 

@@ -31,6 +31,16 @@ Vue.filter('optimisedImageUrl', (imageUrl, contentType) => {
   return imageUrl;
 });
 
+/**
+ * Convert new lines to <br/>
+ * @param {string} val text value
+ * @return {String} text value with HTML breaks
+ */
+
+Vue.filter('convertNewLine', (val) => {
+  return val.replace(/\n/g, '<br/>');
+});
+
 Vue.filter('proxyMedia', (mediaUrl, europeanaId) => {
   const proxyUrl = new URL('https://proxy.europeana.eu');
   proxyUrl.pathname = europeanaId;

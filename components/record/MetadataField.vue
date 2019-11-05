@@ -1,41 +1,58 @@
 <template>
   <div
-    v-if="value"
+    v-if="hasValuesForLocale"
     :data-field-name="name"
     data-qa="metadata field"
   >
     <div data-qa="label">
       <strong>{{ $t(`fieldLabels.${context}.${name}`) }}</strong>
     </div>
-    <LangMap
-      v-if="isLangMap"
-      :value="value"
-      data-qa="value"
-    />
-    <div
-      v-else
-      data-qa="value"
+    <ul
+      :lang=" langMappedValues.code"
     >
-      {{ value }}
-    </div>
+      <template
+        v-for="(value, index) of langMappedValues.values"
+      >
+        <template
+          v-if="value.about"
+        >
+          <EntityField
+            v-for="(nestedValue, nestedIndex) of value.values"
+            :key="index + '_' + nestedIndex"
+            :value="nestedValue"
+            :about="value.about"
+            :locale="value.code"
+            data-qa="entity value"
+          />
+        </template>
+        <li
+          v-else
+          :key="index"
+          data-qa="value"
+        >
+          {{ value }}
+        </li>
+      </template>
+    </ul>
   </div>
 </template>
 
 <script>
-  import LangMap from './LangMap';
+  import { langMapValueForLocale } from  '../../plugins/europeana/utils';
+  import EntityField from './EntityField';
 
   export default {
     components: {
-      LangMap
+      EntityField
     },
     props: {
       name: {
         type: String,
         default: ''
       },
-      value: {
+      fieldData: {
         type: [String, Object, Array],
-        default: ''
+        default: null
       },
       context: {
         type: String,
@@ -43,10 +60,21 @@
       }
     },
     computed: {
-      // TODO: move to a plugin? or some other reusable function?
-      // TODO: stricter validation by key inspection
-      isLangMap() {
-        return !!this.value && typeof this.value === 'object';
+      langMappedValues() {
+        if (this.fieldData === null) {
+          return null;
+        } else if (typeof(this.fieldData) === 'string') {
+          return { values: [this.fieldData], code: '' };
+        } else if (Array.isArray(this.fieldData)) {
+          return { values: this.fieldData, code: '' };
+        }
+        return langMapValueForLocale(this.fieldData, this.$i18n.locale);
+      },
+      hasValuesForLocale() {
+        if (this.langMappedValues === null) {
+          return null;
+        }
+        return this.langMappedValues.values.length >= 1;
       }
     }
   };
@@ -56,5 +84,14 @@
   ul {
     list-style: none;
     padding: 0;
+    li {
+      display: inline;
+      &:after {
+        content: ';';
+      }
+      &:last-child:after {
+        content: '';
+      }
+    }
   }
 </style>

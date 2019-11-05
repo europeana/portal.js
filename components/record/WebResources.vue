@@ -11,7 +11,7 @@
         v-for="field of fields"
         :key="field"
         :name="field"
-        :value="webResource[field]"
+        :field-data="webResource[field]"
         context="webResource"
       />
     </b-list-group-item>
