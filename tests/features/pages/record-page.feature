@@ -19,3 +19,8 @@ Feature: Record page
     When I open a `record page`
     Then I see an `action bar`
     And I see a `download button`
+
+  Scenario: Related entities
+    When I open `"The Milkmaid" record page`
+    Then I see `related entities`
+    And I see the `Painting related entity` in the `related entities`

@@ -225,6 +225,7 @@ function getRelatedEntityTitleLink(entities) {
       entityDetails.push({
         type: getEntityTypeHumanReadable(entity.type),
         path: getEntitySlug(entity),
+        // TODO: l10n
         title: entity.prefLabel.en
       });
     }

@@ -33,7 +33,7 @@
             v-for="(text, index) in texts"
             :key="index"
           >
-            {{ text }}
+            {{ text | truncate(255, $t('formatting.ellipsis')) }}
           </b-card-text>
         </template>
       </b-card-body>
@@ -72,12 +72,11 @@
       datetime: {
         type: String,
         default: ''
+      },
+      isRelated: {
+        type: Boolean,
+        default: false
       }
-    },
-    data() {
-      return {
-        isRelated: false // TODO: toggle true/false, this is now hard-coded, should be passed in soon
-      };
     },
     computed: {
       cardImageStyle() {

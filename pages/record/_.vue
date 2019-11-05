@@ -93,10 +93,25 @@
       <b-col
         cols="12"
         lg="3"
-        style="background-color: #FFF"
+        data-qa="related entities"
       >
-        <!-- TODO: add related entities / EC-3716 -->
-        Placeholder for related entities
+        <!-- TODO: l10n -->
+        <ContentCard
+          v-for="entity in relatedEntities"
+          :key="entity.id"
+          :is-related="true"
+          :title="entity.prefLabel.en"
+          :texts="[getEntityDescription(entity)]"
+          :image-url="getWikimediaThumbnailUrl(entity.depiction.id)"
+          :url="{
+            name: 'entity-type-all',
+            params: {
+              type: getEntityTypeHumanReadable(entity.type),
+              pathMatch: getEntitySlug(entity)
+            }
+          }"
+          :data-qa="entity.prefLabel.en + ' related entity'"
+        />
       </b-col>
     </b-row>
     <b-row class="mb-3">
@@ -114,18 +129,22 @@
 <script>
   import MediaActionBar from '../../components/record/MediaActionBar';
   import AlertMessage from '../../components/generic/AlertMessage';
+  import ContentCard from '../../components/generic/ContentCard';
   import WebResources from '../../components/record/WebResources';
   import MetadataField from '../../components/record/MetadataField';
   import MediaPresentation from '../../components/record/MediaPresentation';
 
   import getRecord from '../../plugins/europeana/record';
   import { isRichMedia } from '../../plugins/media.js';
-  import { searchEntities } from '../../plugins/europeana/entity';
+  import {
+    searchEntities, getEntityDescription, getWikimediaThumbnailUrl, getEntityTypeHumanReadable, getEntitySlug
+  } from '../../plugins/europeana/entity';
 
   export default {
     components: {
       MediaActionBar,
       AlertMessage,
+      ContentCard,
       WebResources,
       MetadataField,
       MediaPresentation
@@ -183,6 +202,12 @@
       selectedMedia() {
         return this.media[0];
       }
+    },
+    methods: {
+      getEntityDescription,
+      getWikimediaThumbnailUrl,
+      getEntityTypeHumanReadable,
+      getEntitySlug
     },
     asyncData({ env, params, res, app, redirect }) {
       if (env.RECORD_PAGE_REDIRECT_PATH) {
