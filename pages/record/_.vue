@@ -57,7 +57,6 @@
               </template>
             </header>
             <MediaPresentation
-              v-if="selectedMedia"
               :codec-name="selectedMedia.edmCodecName"
               :image-link="image.link"
               :image-src="image.src"
@@ -95,7 +94,7 @@
         </div>
         <div class="card p-3 mb-3">
           <MediaActionBar
-            v-if="selectedMedia"
+            v-if="selectedMedia.about"
             :url="selectedMedia.about"
             :europeana-identifier="identifier"
           />
@@ -171,9 +170,9 @@
         description: null,
         error: null,
         coreFields: null,
+        fields: null,
         identifier: null,
         image: null,
-        fields: null,
         media: null,
         relatedEntities: null,
         title: null
@@ -215,7 +214,7 @@
         return isRichMedia(this.selectedMedia.ebucoreHasMimeType, this.selectedMedia.edmCodecName, this.selectedMedia.about);
       },
       selectedMedia() {
-        return this.media[0];
+        return this.media[0] || {};
       }
     },
     asyncData({ env, params, res, app, redirect }) {

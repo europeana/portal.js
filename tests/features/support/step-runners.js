@@ -14,6 +14,7 @@ const pages = {
   'exhibitions page': `${url}/en/exhibitions`,
   'search page': `${url}/en/search?query=`,
   'record page': `${url}/en/record${europeanaId()}`,
+  'record page without isShownBy or hasView': `${url}/en/record/9200102/BibliographicResource_3000134083514`,
   'first page of results': `${url}/en/search?query=&page=1`,
   'entity page': `${url}/en/entity/topic/18-newspaper`,
   'blog page': `${url}/en/blog`
@@ -112,6 +113,9 @@ module.exports = {
     });
   },
   async doNotSeeATarget(qaElementNames) {
+    await client.expect.element(qaSelector(qaElementNames)).to.not.be.visible;
+  },
+  async doNotHaveATarget(qaElementNames) {
     await client.expect.element(qaSelector(qaElementNames)).to.not.be.present;
   },
   async enterTextInTarget(text, qaElementName) {

@@ -6,7 +6,11 @@ import MediaImage from '../../../../components/record/MediaImage.vue';
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
-const factory = () => mount(MediaImage);
+const factory = () => mount(MediaImage, {
+  mocks: {
+    $t: (key) => key
+  }
+});
 
 describe('components/record/MediaImage', () => {
   describe('when both src and link are present', () => {
