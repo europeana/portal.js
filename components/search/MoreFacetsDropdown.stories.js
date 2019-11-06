@@ -8,7 +8,9 @@ const i18n = {
       facets: {
         button: {
           cancel: 'Cancel',
-          apply: 'Apply'
+          reset: 'Reset',
+          apply: 'Apply',
+          morefilters: 'More filters'
         }
       }
     }

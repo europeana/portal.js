@@ -1,6 +1,6 @@
 <template>
   <b-dropdown
-    text="More filters"
+    :text="$t('facets.button.morefilters')"
     variant="light"
     no-caret
     class="more-facets position-static"
@@ -28,7 +28,7 @@
             {{ filter.label }}
             <span
               class="reset"
-              aria-label="Close"
+              :aria-label="$t('facets.button.reset')"
             >
               x
             </span>
