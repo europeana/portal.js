@@ -1,23 +1,6 @@
 <template>
   <li
-    v-if="locale !== null"
     :lang="locale"
-    data-qa="entity value"
-  >
-    <SmartLink
-      v-if="isEuropeanaEntity"
-      :destination="{ name: 'entity-type-all', params: { type: destination.type, pathMatch: destination.id } }"
-    >
-      {{ value }}
-    </SmartLink>
-    <template
-      v-else
-    >
-      {{ value }}
-    </template>
-  </li>
-  <li
-    v-else
     data-qa="entity value"
   >
     <SmartLink

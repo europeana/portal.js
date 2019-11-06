@@ -24,16 +24,9 @@
           />
         </template>
         <li
-          v-else-if="langMappedValues.code !== null"
-          :key="index"
-          :lang="langMappedValues.code"
-          data-qa="value"
-        >
-          {{ value }}
-        </li>
-        <li
           v-else
           :key="index"
+          :lang="langMappedValues.code"
           data-qa="value"
         >
           {{ value }}
