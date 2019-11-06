@@ -1,7 +1,7 @@
 import Vuex from 'vuex';
 import VueRouter from 'vue-router';
 import { storiesOf } from '@storybook/vue';
-import SearchForm from './SearchForm.vue';
+import AutoSuggest from './AutoSuggest.vue';
 
 const router = new VueRouter({
   routes: [
@@ -16,6 +16,9 @@ const store = (pillLabel) => new Vuex.Store({
   state: {
     search: {
       pill: pillLabel
+    },
+    i18n: {
+      locale: 'en'
     }
   }
 });
@@ -29,26 +32,26 @@ const i18n = {
   }
 };
 
-storiesOf('Search/Form', module)
+storiesOf('Auto Suggest', module)
   .add('Plain', () => ({
-    components: { SearchForm },
+    components: { AutoSuggest },
     store,
     i18n,
     router,
     template: ` <b-container
       class="mt-3"
       >
-        <SearchForm />
+        <AutoSuggest />
       </b-container>`
   }))
   .add('With pill', () => ({
-    components: { SearchForm },
+    components: { AutoSuggest },
     store: store('Johannes Vermeer'),
     i18n,
     router,
     template: ` <b-container
       class="mt-3"
       >
-        <SearchForm />
+        <AutoSuggest />
       </b-container>`
   }));

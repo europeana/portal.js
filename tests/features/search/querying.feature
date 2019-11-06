@@ -19,7 +19,7 @@ Feature: Search querying
     When I visit a `search page`
     And I enter "no results for GIBBERISHABCDEFGHIJKLMONP" in the `search box`
     And I click the `search button`
-    Then I don't see a `search result`
+    Then I don't have a `search result`
     And I see an `error notice` with the text "Error: No results"
 
   Scenario: Search with invalid query syntax
@@ -27,7 +27,7 @@ Feature: Search querying
     When I visit a `search page`
     And I enter "*:*:*" in the `search box`
     And I click the `search button`
-    Then I don't see a `search result`
+    Then I don't have a `search result`
     And I see an `error notice` with the text "Error"
 
   Scenario: Search and navigate to record
@@ -39,3 +39,22 @@ Feature: Search querying
     And I click a `search result`
     Then I see a `record page`
     And I don't see "paris" in the `search box`
+
+  Scenario: Using auto suggestion with keyboard should populate search field
+    When I visit a `search page`
+    And I enter "World" in the `search box`
+    And I wait 1 seconds
+    And I see `search suggestions` with the text "World War I"
+    And I press the DOWN_ARROW key
+    And I press the DOWN_ARROW key
+    And I press the ENTER key
+    Then I should be on `/en/entity/topic/94-architecture`
+    Then I don't see a `search suggestions`
+  
+  Scenario: Pressing ESC will close the auto suggestion dropdown
+    When I visit a `search page`
+    And I enter "World" in the `search box`
+    And I wait 1 seconds
+    And I see `search suggestions` with the text "World War I"
+    And I press the ESCAPE key
+    Then I don't see a `search suggestions`

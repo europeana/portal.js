@@ -14,6 +14,7 @@ const pages = {
   'exhibitions page': `${url}/en/exhibitions`,
   'search page': `${url}/en/search?query=`,
   'record page': `${url}/en/record${europeanaId()}`,
+  'record page without isShownBy or hasView': `${url}/en/record/9200102/BibliographicResource_3000134083514`,
   '"The Milkmaid" record page': `${url}/en/record/90402/SK_A_2344`,
   '"Het laatste avondmaal" record page': `${url}/en/record/90402/RP_P_OB_70_879`,
   'first page of results': `${url}/en/search?query=&page=1`,
@@ -114,6 +115,9 @@ module.exports = {
     });
   },
   async doNotSeeATarget(qaElementNames) {
+    await client.expect.element(qaSelector(qaElementNames)).to.not.be.visible;
+  },
+  async doNotHaveATarget(qaElementNames) {
     await client.expect.element(qaSelector(qaElementNames)).to.not.be.present;
   },
   async enterTextInTarget(text, qaElementName) {

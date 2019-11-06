@@ -12,6 +12,7 @@ export default {
   "delete": "Delete",
   "results": "Results",
   "homeLinkAlt": "Europeana Collections home",
+  "edmIsShownAtLinkAlt": "View at the provider's website",
   "noMoreResults": "There are no more results for your search query.",
   "resultsLimitWarning": "Additional results are not shown as only the first 1,000 most relevant results are shown. If you haven't found what you're looking for, please consider refining your search.",
   "noResults": "No results",
@@ -43,6 +44,15 @@ export default {
     },
     "TYPE": {
       "name": "Type of media"
+    },
+    "LANGUAGE": {
+      "name": "Language"
+    },
+    "PROVIDER": {
+      "name": "Aggregator"
+    },
+    "DATA_PROVIDER": {
+      "name": "Institution"
     },
     "contentTier": {
       "name": "Includes broken items"
@@ -98,5 +108,7 @@ export default {
   "actions": {
     "download": "Download"
   },
-  "clearAllFilters": "clear all filters"
+  "loadingResults": "Loading results",
+  "clearAllFilters": "clear all filters",
+  "reset": "Reset"
 };

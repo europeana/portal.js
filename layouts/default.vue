@@ -7,7 +7,7 @@
     >
       {{ $t('layout.skipToMain') }}
     </a>
-    <PageHeader />
+    <PageHeader :enable-autosuggest="enableAutosuggest" />
     <PageNavigation />
     <b-container v-if="breadcrumbs">
       <b-row>
@@ -39,6 +39,9 @@
     },
 
     computed: {
+      enableAutosuggest() {
+        return Boolean(Number(process.env['ENABLE_AUTOSUGGEST']));
+      },
       breadcrumbs() {
         return this.$store.state.breadcrumb.data;
       }

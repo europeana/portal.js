@@ -13,7 +13,7 @@ Feature: Entity page
     And I see a `search facet`
     And I should see 9 `search result`s
     And I see a `pagination navigation`
-    And I don't see a `tier toggle`
+    And I don't have a `tier toggle`
     And I am on an accessible page
 
   Scenario: Attempting to view an entity page which doesn't exist
@@ -68,5 +68,5 @@ Feature: Entity page
     And I see the `search bar pill`
     And I click the `search bar pill button`
     Then I see the `search page`
-    And I don't see the `search bar pill`
+    And I don't have the `search bar pill`
     And I am on page number 1

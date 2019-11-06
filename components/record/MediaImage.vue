@@ -7,7 +7,8 @@
     <img
       :src="src"
       class="mw-100"
-      alt="View at the provider's website"
+      :alt="$t('edmIsShownAtLinkAlt')"
+      data-qa="media preview image"
     >
   </b-link>
   <img

@@ -20,6 +20,12 @@ Feature: Record page
     Then I see an `action bar`
     And I see a `download button`
 
+  Scenario: Record without isShownBy or hasView
+
+    When I open a `record page without isShownBy or hasView`
+    Then I see the `record page`
+    And I see the `media preview image`
+
   Scenario: One related entity
     When I open `"The Milkmaid" record page`
     Then I see `related entities`
@@ -30,4 +36,4 @@ Feature: Record page
     Then I see `related entities`
     And I see the `Leonardo da Vinci entity card` in the `related entities`
     And I see the `Teodoro Matteini entity card` in the `related entities`
-    And I see the `Engraving entity card` in the `related entities`    
+    And I see the `Engraving entity card` in the `related entities`
