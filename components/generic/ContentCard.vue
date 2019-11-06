@@ -4,7 +4,7 @@
     data-qa="content card"
     no-body
     :class="{ 'related-card' : isRelated }"
-    :style="isRelated && cardImageStyle"
+    :style="isRelated && imageUrl && cardImageStyle"
   >
     <SmartLink
       :destination="url"

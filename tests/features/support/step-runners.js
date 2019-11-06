@@ -15,6 +15,7 @@ const pages = {
   'search page': `${url}/en/search?query=`,
   'record page': `${url}/en/record${europeanaId()}`,
   '"The Milkmaid" record page': `${url}/en/record/90402/SK_A_2344`,
+  '"Het laatste avondmaal" record page': `${url}/en/record/90402/RP_P_OB_70_879`,
   'first page of results': `${url}/en/search?query=&page=1`,
   'entity page': `${url}/en/entity/topic/18-newspaper`,
   'blog page': `${url}/en/blog`

@@ -93,24 +93,11 @@
       <b-col
         cols="12"
         lg="3"
-        data-qa="related entities"
       >
-        <!-- TODO: l10n -->
-        <ContentCard
-          v-for="entity in relatedEntities"
-          :key="entity.id"
-          :is-related="true"
-          :title="entity.prefLabel.en"
-          :texts="[getEntityDescription(entity)]"
-          :image-url="getWikimediaThumbnailUrl(entity.depiction.id)"
-          :url="{
-            name: 'entity-type-all',
-            params: {
-              type: getEntityTypeHumanReadable(entity.type),
-              pathMatch: getEntitySlug(entity)
-            }
-          }"
-          :data-qa="entity.prefLabel.en + ' related entity'"
+        <EntityCards
+          v-if="relatedEntities"
+          :entities="relatedEntities"
+          data-qa="related entities"
         />
       </b-col>
     </b-row>
@@ -127,27 +114,25 @@
 </template>
 
 <script>
+  import EntityCards from '../../components/entity/EntityCards';
   import MediaActionBar from '../../components/record/MediaActionBar';
   import AlertMessage from '../../components/generic/AlertMessage';
-  import ContentCard from '../../components/generic/ContentCard';
   import WebResources from '../../components/record/WebResources';
   import MetadataField from '../../components/record/MetadataField';
   import MediaPresentation from '../../components/record/MediaPresentation';
 
   import getRecord from '../../plugins/europeana/record';
   import { isRichMedia } from '../../plugins/media.js';
-  import {
-    searchEntities, getEntityDescription, getWikimediaThumbnailUrl, getEntityTypeHumanReadable, getEntitySlug
-  } from '../../plugins/europeana/entity';
+  import { searchEntities } from '../../plugins/europeana/entity';
 
   export default {
     components: {
-      MediaActionBar,
       AlertMessage,
-      ContentCard,
-      WebResources,
+      EntityCards,
+      MediaActionBar,
+      MediaPresentation,
       MetadataField,
-      MediaPresentation
+      WebResources
     },
     data() {
       return {
@@ -160,7 +145,7 @@
         identifier: null,
         image: null,
         media: null,
-        relatedEntities: null,
+        relatedEntities: [],
         title: null
       };
     },
@@ -223,12 +208,6 @@
     },
     async mounted() {
       this.relatedEntities = await searchEntities(this.europeanaEntityUris, { wskey: process.env.EUROPEANA_ENTITY_API_KEY });
-    },
-    methods: {
-      getEntityDescription,
-      getWikimediaThumbnailUrl,
-      getEntityTypeHumanReadable,
-      getEntitySlug
     },
     head() {
       return {
