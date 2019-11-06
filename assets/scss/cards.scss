@@ -71,6 +71,12 @@
     margin-bottom: 2.5rem;
     margin-left: 0.9rem;
     
+    &:not([style^="background"]) {
+      background: transparent;
+      box-shadow: none;
+      min-height: auto;
+    }
+
     a {
       justify-content: flex-end;
     }

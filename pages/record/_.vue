@@ -126,8 +126,11 @@
         lg="3"
         style="background-color: #FFF"
       >
-        <!-- TODO: add related entities / EC-3716 -->
-        Placeholder for related entities
+        <EntityCards
+          v-if="relatedEntities"
+          :entities="relatedEntities"
+          data-qa="related entities"
+        />
       </b-col>
     </b-row>
     <b-row class="mb-3">
@@ -143,6 +146,7 @@
 </template>
 
 <script>
+  import EntityCards from '../../components/entity/EntityCards';
   import MediaActionBar from '../../components/record/MediaActionBar';
   import AlertMessage from '../../components/generic/AlertMessage';
   import WebResources from '../../components/record/WebResources';
@@ -156,9 +160,10 @@
 
   export default {
     components: {
+      AlertMessage,
+      EntityCards,
       MediaActionBar,
       AlertMessage,
-      WebResources,
       MetadataField,
       MediaPresentation
     },
@@ -174,7 +179,7 @@
         identifier: null,
         image: null,
         media: null,
-        relatedEntities: null,
+        relatedEntities: [],
         title: null
       };
     },
