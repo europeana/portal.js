@@ -24,7 +24,9 @@ function entityValues(values, locale) {
     if (isEntity(value)) {
       let entityValue = {};
       if (value.prefLabel)  {
-        entityValue = langMapValueForLocale(value.prefLabel, locale);
+        let mappedValues = langMapValueForLocale(value.prefLabel, locale);
+        mappedValues['values'] = mappedValues['values'].length >= 1 ? mappedValues['values'] : [value.about];
+        entityValue = mappedValues;
         entityValue['about'] = value.about;
       } else {
         entityValue = { code: '', values: [value.about], about: value.about };
@@ -52,6 +54,7 @@ export function langMapValueForLocale(langMap, locale) {
   }
 
   let returnVal = { values: [] };
+  console.log(languageKeys);
   for (let key of languageKeys) { // loop through all language key to find a match
     if (langMap[key]) {
       let htmlLang = '';
@@ -64,8 +67,12 @@ export function langMapValueForLocale(langMap, locale) {
       }
       returnVal['code'] = htmlLang;
       returnVal['values'] = values;
+      if (returnVal['values'].length >= 1) {
+        break;
+      }
     }
   }
+  console.log(returnVal);
   returnVal['values'] = returnVal['values'].concat(entityValues(langMap['def'], locale));
   return returnVal;
 }
