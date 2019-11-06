@@ -133,15 +133,6 @@
         />
       </b-col>
     </b-row>
-    <b-row class="mb-3">
-      <!-- TODO: remove when the carousel has come to town. -->
-      <b-col>
-        <h2>Media</h2>
-        <WebResources
-          :media="media"
-        />
-      </b-col>
-    </b-row>
   </b-container>
 </template>
 
@@ -149,7 +140,6 @@
   import EntityCards from '../../components/entity/EntityCards';
   import MediaActionBar from '../../components/record/MediaActionBar';
   import AlertMessage from '../../components/generic/AlertMessage';
-  import WebResources from '../../components/record/WebResources';
   import MetadataField from '../../components/record/MetadataField';
   import MediaPresentation from '../../components/record/MediaPresentation';
 
@@ -163,7 +153,6 @@
       AlertMessage,
       EntityCards,
       MediaActionBar,
-      AlertMessage,
       MetadataField,
       MediaPresentation
     },
