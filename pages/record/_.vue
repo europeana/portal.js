@@ -81,7 +81,7 @@
             class="mb-3"
           />
         </div>
-        <div class="card p-3">
+        <div class="card p-3 mb-3">
           <MediaActionBar
             v-if="selectedMedia.about"
             :url="selectedMedia.about"
