@@ -240,7 +240,9 @@
   };
 </script>
 
-<style>
+<style lang="scss" scoped>
+  @import "./assets/scss/variables.scss";
+
   .card-grid {
     display: grid;
     column-gap: 1rem;
@@ -249,18 +251,31 @@
   }
 
   .card-heading {
-    grid-column: col2-start/col2-end;
     grid-row: row1-start;
+    grid-column: col1-start/col2-end;
+
+    @media (min-width: $bp-large) {
+      grid-column: col2-start/col2-end;
+    }
   }
 
   .media-presentation {
-    grid-column: col1-start/col2-start;
-    grid-row: row1-start/row3-end;
+    grid-row: row3-start;
+    grid-column: col1-start/col2-end;
+
+    @media (min-width: $bp-large) {
+      grid-column: col1-start/col2-start;
+      grid-row: row1-start/row3-end;
+    }
   }
 
   .description {
-    grid-column: col2-start/col2-end;
+    grid-column: col1-start/col2-end;
     grid-row: row2-start;
+
+    @media (min-width: $bp-large) {
+      grid-column: col2-start/col2-end;
+    }
   }
 
   .card-grid-richmedia .card-heading {
