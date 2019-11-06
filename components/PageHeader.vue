@@ -67,7 +67,6 @@
     },
 
     methods: {
-      // TODO: l10n for language parameter
       async searchFormInput(query) {
         if (query === '') {
           this.searchSuggestions = {};
