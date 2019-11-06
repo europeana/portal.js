@@ -25,13 +25,17 @@
       <b-row class="mb-4">
         <b-col>
           <FacetDropdown
-            v-for="facet in orderedFacets"
+            v-for="facet in orderedFacets.slice(0,3)"
             :key="facet.name"
             :name="facet.name"
             :fields="facet.fields"
             type="checkbox"
             :selected="selectedFacets[facet.name]"
             @changed="changeFacet"
+          />
+          <MoreFacetsDropdown
+            v-if="enableMoreFacets"
+            :more-facets="orderedFacets.slice(3)"
           />
           <button
             v-if="isFilteredByDefaultFacets()"
@@ -125,6 +129,7 @@
   import SearchResults from '../../components/search/SearchResults'; // Sorted before InfoMessage to prevent Conflicting CSS sorting warning
   import InfoMessage from '../../components/generic/InfoMessage';
   import FacetDropdown from '../../components/search/FacetDropdown';
+  import MoreFacetsDropdown from '../../components/search/MoreFacetsDropdown';
   import SearchSelectedFacets from '../../components/search/SearchSelectedFacets';
   import PaginationNav from '../../components/generic/PaginationNav';
   import ViewToggles from '../../components/search/ViewToggles';
@@ -139,6 +144,7 @@
       AlertMessage,
       InfoMessage,
       FacetDropdown,
+      MoreFacetsDropdown,
       SearchResults,
       SearchSelectedFacets,
       PaginationNav,
@@ -163,6 +169,10 @@
       showContentTierToggle: {
         type: Boolean,
         default: true
+      },
+      enableMoreFacets: { // TODO: to be removed when the more facets are fully functional
+        type: Boolean,
+        default: Boolean(Number(process.env['ENABLE_MORE_FACETS']))
       }
     },
     computed: {

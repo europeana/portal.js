@@ -5,100 +5,63 @@
     no-caret
     class="more-facets position-static"
   >
-    <strong
-      class="mb-4 d-inline-block"
-    >
-      Image type
-    </strong>
-    <b-dropdown-form>
-      <b-form-checkbox
-        id="building"
-        name="building"
-        class="mb-3"
-        plain
+    <b-dropdown-group class="more-facets-wrapper">
+      <b-dropdown-form
+        v-for="(facet, index) in moreFacets"
+        :key="index"
       >
-        Building
-        <span
-          class="reset"
-          aria-label="Close"
+        <strong
+          class="mb-4 d-inline-block"
         >
-          x
-        </span>
-      </b-form-checkbox>
-      <b-form-checkbox
-        id="inscription"
-        name="inscription"
-        class="mb-3"
-        plain
-      >
-        Inscription
-        <span
-          class="reset"
-          aria-label="Close"
-        >
-          x
-        </span>
-      </b-form-checkbox>
-      <b-form-checkbox
-        id="cartoon"
-        name="cartoon"
-        class="mb-3"
-        plain
-      >
-        Cartoon
-        <span
-          class="reset"
-          aria-label="Close"
-        >
-          x
-        </span>
-      </b-form-checkbox>
-      <b-form-checkbox
-        id="sculpture"
-        name="sculpture"
-        class="mb-3"
-        plain
-      >
-        Sculpture
-        <span
-          class="reset"
-          aria-label="Close"
-        >
-          x
-        </span>
-      </b-form-checkbox>
-      <b-form-checkbox
-        id="metalwork"
-        name="metalwork"
-        class="mb-3"
-        plain
-      >
-        Metalwork
-        <span
-          class="reset"
-          aria-label="Close"
-        >
-          x
-        </span>
-      </b-form-checkbox>
-    </b-dropdown-form>
-    <hr>
-    <div
-      class="float-right"
+          {{ $t(`facets.${facet.name}`).name }}
+        </strong>
+        <div class="option-group">
+          <b-form-checkbox
+            v-for="(filter, f) in facet.fields"
+            :id="filter.label"
+            :key="f"
+            :value="filter.label"
+            :name="filter.label"
+            class="mb-3"
+            plain
+          >
+            {{ filter.label }}
+            <span
+              class="reset"
+              aria-label="Close"
+            >
+              x
+            </span>
+          </b-form-checkbox>
+        </div>
+      </b-dropdown-form>
+    </b-dropdown-group>
+    <li
+      class="dropdown-buttons"
       role="group"
     >
-      <button
-        type="button"
-        class="btn btn-link"
+      <b-button
+        variant="link"
       >
-        Cancel
-      </button>
-      <button
-        type="button"
-        class="btn btn-primary"
+        {{ $t('facets.button.cancel') }}
+      </b-button>
+      <b-button
+        variant="primary"
       >
-        Apply
-      </button>
-    </div>
+        {{ $t('facets.button.apply') }}
+      </b-button>
+    </li>
   </b-dropdown>
 </template>
+
+<script>
+  export default {
+    props: {
+      moreFacets: {
+        type: Array,
+        default: () => []
+      }
+    }
+  };
+</script>
+

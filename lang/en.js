@@ -57,6 +57,7 @@ export default {
       "name": "Includes broken items"
     },
     "button": {
+      "cancel": "Cancel",
       "reset": "Reset",
       "apply": "Apply"
     }
