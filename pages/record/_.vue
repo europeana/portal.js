@@ -81,7 +81,7 @@
             class="mb-3"
           />
         </div>
-        <div class="card p-3">
+        <div class="card p-3 mb-3">
           <MediaActionBar
             v-if="selectedMedia.about"
             :url="selectedMedia.about"
@@ -92,10 +92,12 @@
       <b-col
         cols="12"
         lg="3"
-        style="background-color: #FFF"
       >
-        <!-- TODO: add related entities / EC-3716 -->
-        Placeholder for related entities
+        <EntityCards
+          v-if="relatedEntities"
+          :entities="relatedEntities"
+          data-qa="related entities"
+        />
       </b-col>
     </b-row>
     <b-row class="mb-3">
@@ -111,6 +113,7 @@
 </template>
 
 <script>
+  import EntityCards from '../../components/entity/EntityCards';
   import MediaActionBar from '../../components/record/MediaActionBar';
   import AlertMessage from '../../components/generic/AlertMessage';
   import WebResources from '../../components/record/WebResources';
@@ -123,11 +126,12 @@
 
   export default {
     components: {
-      MediaActionBar,
       AlertMessage,
-      WebResources,
+      EntityCards,
+      MediaActionBar,
+      MediaPresentation,
       MetadataField,
-      MediaPresentation
+      WebResources
     },
     data() {
       return {
@@ -140,7 +144,7 @@
         identifier: null,
         image: null,
         media: null,
-        relatedEntities: null,
+        relatedEntities: [],
         title: null
       };
     },

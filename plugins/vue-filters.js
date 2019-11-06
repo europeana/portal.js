@@ -17,6 +17,7 @@ Vue.filter('localise', val => {
 });
 
 Vue.filter('truncate', (val, char, ellipsis) => {
+  if (!val) return null;
   return val.length > char ? val.substring(0, char) + ellipsis : val;
 });
 

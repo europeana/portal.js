@@ -25,3 +25,15 @@ Feature: Record page
     When I open a `record page without isShownBy or hasView`
     Then I see the `record page`
     And I see the `media preview image`
+
+  Scenario: One related entity
+    When I open `"The Milkmaid" record page`
+    Then I see `related entities`
+    And I see the `Painting entity card` in the `related entities`
+
+  Scenario: Multiple related entities
+    When I open the `"Het laatste avondmaal" record page`
+    Then I see `related entities`
+    And I see the `Leonardo da Vinci entity card` in the `related entities`
+    And I see the `Teodoro Matteini entity card` in the `related entities`
+    And I see the `Engraving entity card` in the `related entities`

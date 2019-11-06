@@ -225,6 +225,7 @@ function getRelatedEntityTitleLink(entities) {
       entityDetails.push({
         type: getEntityTypeHumanReadable(entity.type),
         path: getEntitySlug(entity),
+        // TODO: l10n
         title: entity.prefLabel.en
       });
     }
@@ -260,7 +261,7 @@ export function getEntityDescription(entity) {
 /**
  * The logic for going from: http://commons.wikimedia.org/wiki/Special:FilePath/[image] to
  * https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/[image]/200px-[image]:
- * @image {String} image url
+ * @image {String} image URL of wikimedia image
  * @return {String} formatted thumbnail url
  */
 export function getWikimediaThumbnailUrl(image) {
