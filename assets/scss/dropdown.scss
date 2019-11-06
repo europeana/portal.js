@@ -1,0 +1,120 @@
+.dropdown {
+  &.more-facets {    
+    strong {
+      font-size: 1.5rem;
+      font-weight: 300;
+    }
+
+    > button {
+      color: $blue;
+      font-size: 1rem;
+      padding-left: 3rem;
+      padding-right: 3rem;
+    }
+
+    .dropdown-menu {
+      border: 0;
+      box-shadow: 0 2px 4px 0 rgba(0,0,0,0.1);
+      margin: 0.5rem $grid-gutter 0;
+      width: calc(100% - (2 * #{$grid-gutter}));
+      
+      .more-facets-wrapper {
+        max-height: 50vh;
+        overflow: auto;
+        padding: 1.5rem;
+      
+        &::-webkit-scrollbar {
+          width: 0.25rem;
+        }
+
+        &::-webkit-scrollbar-thumb {
+          background-color: $grey;
+        }
+
+        li:not(.dropdown-buttons) {
+          border-bottom: 1px solid $grey;
+          margin-bottom: 2rem;
+          padding-bottom: 2rem;
+
+          &:last-child {
+            border-bottom: 0;
+          }
+        }
+      }
+      
+      &.show {
+        transform: translate3d(0, 3rem, 0) !important;
+      }
+
+      .b-dropdown-form {
+        padding: 0;
+
+        .option-group {
+          column-count: 2;
+
+          @media (min-width: $bp-large) {
+            column-count: 3;
+          }
+        }        
+
+        .form-check {
+          padding-left: 0;
+        }
+
+        label {
+          border: 1px solid $grey;
+          border-radius: 1rem;
+          padding: 0.25rem 1rem;
+        }
+
+        .reset {
+          border-radius: 50%;
+          display: none;
+          background: $white;
+          color: $blue;
+          height: 1rem;
+          line-height: 0.9rem;
+          margin-left: 0.5rem;
+          text-align: center;
+          width: 1rem;
+        }
+
+        input[type="checkbox"] {
+          left: 0;
+          opacity: 0;
+          position: fixed;
+          top: 0;
+          z-index: -10;
+        }
+
+        input[type="checkbox"]:checked + label { 
+          background: $blue;
+          border-color: $blue;
+          color: $white;
+
+          .reset {
+            display: inline-block;
+          }
+        }
+      }
+
+      .dropdown-buttons {
+        border-top: 1px solid $grey;
+        display: flex;
+        justify-content: flex-end; 
+        padding: 1.5rem;
+        width: 100%;
+
+        .btn {
+          font-size: 0.875rem;
+          margin-left: 0.75rem;
+          text-transform: uppercase;
+        }
+
+        .btn-link {
+          padding: 0;
+        }
+      }      
+    }
+  }
+}

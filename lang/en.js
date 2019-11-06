@@ -58,8 +58,10 @@ export default {
       "name": "Includes broken items"
     },
     "button": {
+      "cancel": "Cancel",
       "reset": "Reset",
-      "apply": "Apply"
+      "apply": "Apply",
+      "morefilters": "More filters"
     }
   },
   "entity": "Entity",
