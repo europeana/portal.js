@@ -45,16 +45,9 @@ function entityValues(values, locale) {
  * @return {{Object[]{language: String, values: Object[]}}} Language code and values, values may be strings or language maps themselves.
  */
 export function langMapValueForLocale(langMap, locale) {
-  let languageKeys = ['en', 'eng', 'def', 'und']; // predefined set of preferred/fallback languages
-  const currentLocale = locales.find(l => l.code === locale);
-
-  if (currentLocale.code !== 'en') { // if language code is not en, add both 2 and 3 character language code to preferred languages
-    languageKeys.unshift(currentLocale.code);
-    languageKeys.unshift(currentLocale.isoAlpha3);
-  }
-
   let returnVal = { values: [] };
-  for (let key of languageKeys) { // loop through all language key to find a match
+  const currentLocale = locales.find(l => l.code === locale);
+  for (let key of languageKeys(currentLocale)) { // loop through all language key to find a match
     if (langMap[key]) {
       let htmlLang = '';
       let values = [].concat(langMap[key]);
@@ -73,4 +66,14 @@ export function langMapValueForLocale(langMap, locale) {
   }
   returnVal['values'] = returnVal['values'].concat(entityValues(langMap['def'], locale));
   return returnVal;
+}
+
+function languageKeys(currentLocale) {
+  let languageKeys = ['en', 'eng', 'def', 'und']; // predefined set of preferred/fallback languages
+
+  if (currentLocale.code !== 'en') { // if language code is not en, add both 2 and 3 character language code to preferred languages
+    languageKeys.unshift(currentLocale.code);
+    languageKeys.unshift(currentLocale.isoAlpha3);
+  }
+  return languageKeys;
 }

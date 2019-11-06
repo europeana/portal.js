@@ -24,7 +24,7 @@ function parseRecordDataFromApiResponse(response) {
       link: providerAggregation.edmIsShownAt,
       src: europeanaAggregation.edmPreview
     },
-    coreFields: dereferenceEntities(omitBy({
+    coreFields: lookupEntities(omitBy({
       dcContributor: proxyData.dcContributor, // Plus rdaGr2DateOfBirth & rdaGr2DateOfDeath
       dcCreator: proxyData.dcCreator, // Plus rdaGr2DateOfBirth & rdaGr2DateOfDeath
       dcPublisher: proxyData.dcPublisher,
@@ -32,7 +32,7 @@ function parseRecordDataFromApiResponse(response) {
       dcType: proxyData.dcType,
       dcTermsMedium: proxyData.dctermsMedium
     }, checkNull), entities),
-    fields: dereferenceEntities(omitBy({
+    fields: lookupEntities(omitBy({
       dcTermsCreated: proxyData.dcTermsCreated,
       edmCountry: europeanaAggregation.edmCountry,
       edmDataProvider: providerAggregation.edmDataProvider,
@@ -56,26 +56,32 @@ function checkNotNull(value) {
 }
 
 /**
- * Update
+ * Update an array of fields, in order to find linked entity data.
+ * will match any literal values in  the 'def' key to about fields
+ * in any of the entities and return the related object instead of
+ * the plain string.
  * @param field
  * @param entities
- * @returns {*}
+ * @return {Object[]} The fields with any entities as JSON objects
  */
-function dereferenceEntities(fields, entities) {
+function lookupEntities(fields, entities) {
   let returnVal = fields;
   for (const key of Object.keys(returnVal)) {
-    // Only look for entities in 'def'
-    const fieldValues = returnVal[key]['def'] || [];
-    for (const [index, value] of fieldValues.entries()) {
-      const matchedEntity = entities.find(entity => {
-        return entity.about === value;
-      });
+    // Only looks for entities in 'def'
+    for (const [index, value] of (returnVal[key]['def'] || []).entries()) {
+      const matchedEntity = matchEntity(entities, value);
       if (matchedEntity) {
         returnVal[key]['def'][index] = matchedEntity;
       }
     }
   }
   return returnVal;
+}
+
+function matchEntity(entities, uri) {
+  return entities.find(entity => {
+    return entity.about === uri;
+  });
 }
 
 /**
