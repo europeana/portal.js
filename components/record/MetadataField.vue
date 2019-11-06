@@ -92,11 +92,8 @@
     padding: 0;
     li {
       display: inline;
-      &:after {
+      &:not(:last-child):after {
         content: ';';
-      }
-      &:last-child:after {
-        content: '';
       }
     }
   }

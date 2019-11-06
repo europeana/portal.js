@@ -124,7 +124,6 @@
       <b-col
         cols="12"
         lg="3"
-        style="background-color: #FFF"
       >
         <EntityCards
           v-if="relatedEntities"
