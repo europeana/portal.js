@@ -54,7 +54,6 @@ export function langMapValueForLocale(langMap, locale) {
   }
 
   let returnVal = { values: [] };
-  console.log(languageKeys);
   for (let key of languageKeys) { // loop through all language key to find a match
     if (langMap[key]) {
       let htmlLang = '';
