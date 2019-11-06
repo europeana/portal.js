@@ -232,7 +232,7 @@
   }
 
   .media-presentation {
-    grid-row: row2-start;
+    grid-row: row3-start;
     grid-column: col1-start/col2-end;
 
     @media (min-width: $bp-large) {
@@ -243,7 +243,7 @@
 
   .description {
     grid-column: col1-start/col2-end;
-    grid-row: row3-start;
+    grid-row: row2-start;
 
     @media (min-width: $bp-large) {
       grid-column: col2-start/col2-end;
