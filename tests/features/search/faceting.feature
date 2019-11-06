@@ -83,7 +83,7 @@ Feature: Search faceting
     And I wait 2 seconds
     Then I should be on `/en/search?page=1&query=&view=grid`
     And I am on page number 1
-    And I can't see a `/en/search?query=`
+    And I can't have a `/en/search?query=`
 
   Scenario: Filtering results by country and have a corresponding record page
 
@@ -151,6 +151,6 @@ Feature: Search faceting
     And I wait 2 seconds
     And I should be on `/en/search?page=1&qf=COUNTRY%3A%22France%22&qf=TYPE%3A%22IMAGE%22&query=&view=grid`
     And I go to page number 2
-    And I click the `clear filters button`
+    And I click the `reset filters button`
     And I wait 2 seconds
     Then I should be on `/en/search?page=1&query=&view=grid`

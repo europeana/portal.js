@@ -19,3 +19,9 @@ Feature: Record page
     When I open a `record page`
     Then I see an `action bar`
     And I see a `download button`
+
+  Scenario: Record without isShownBy or hasView
+
+    When I open a `record page without isShownBy or hasView`
+    Then I see the `record page`
+    And I see the `media preview image`
