@@ -52,6 +52,7 @@
         element-id="autocomplete-results"
         :link-gen="suggestionLinkGen"
         :query="query"
+        @select="selectSuggestion"
       />
     </b-input-group>
   </b-form>
@@ -81,7 +82,8 @@
       return {
         // TODO: restore observation of URL param to restore query on back button use
         query: this.$store.state.search.query,
-        suggestions: {}
+        suggestions: {},
+        selectedSuggestion: null
       };
     },
 
@@ -120,10 +122,19 @@
     },
 
     methods: {
+      selectSuggestion(value) {
+        this.selectedSuggestion = value;
+      },
+
       async submitForm() {
+        let newRoute;
+        if (this.selectedSuggestion) {
+          newRoute = this.suggestionLinkGen(this.selectedSuggestion);
+        } else {
+          const newRouteQuery = { ...this.$route.query, ...{ query: this.query, page: 1, view: this.view } };
+          newRoute = { path: this.routePath, query: newRouteQuery };
+        }
         this.suggestions = {};
-        const newRouteQuery = { ...this.$route.query, ...{ query: this.query, page: 1, view: this.view } };
-        const newRoute = { path: this.routePath, query: newRouteQuery };
         await this.$router.push(newRoute);
       },
 

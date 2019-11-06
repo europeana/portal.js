@@ -24,7 +24,6 @@
       :data-index="index"
       @mouseover="focus = index"
       @focus="index === focus"
-      @click="clickSuggestion"
     >
       <template
         v-for="(part, partIndex) in highlightResult(val)"
@@ -129,6 +128,8 @@
 
       value() {
         this.isActive = true;
+        this.focus = null;
+        this.$emit('select', null);
       }
     },
 
@@ -189,16 +190,13 @@
       closeDropdown() {
         this.isActive = false;
         this.focus = null;
-      },
-
-      clickSuggestion() {
-        const selected = Object.keys(this.value)[this.focus];
-        this.$emit('selected', selected);
-        this.closeDropdown();
+        this.$emit('select', null);
       },
 
       focusOnSuggestion() {
-        if (!this.focus) return;
+        // if (!this.focus) return;
+        const selected = Object.keys(this.value)[this.focus];
+        this.$emit('select', selected);
         // FIXME: this is problematic because it causes the view port to scroll
         //        in addition to suggestion highlighting
         // const selectedSuggestion = this.$el.querySelector(`[data-index="${this.focus}"]`);
@@ -208,16 +206,9 @@
       navigateDropdown(event) {
         if (!this.isActive) return;
 
-        const selectedSuggestion = this.$el.querySelector(`[data-index="${this.focus}"]`);
-
         switch (event.keyCode) {
         case 9: // Tab Key
           this.closeDropdown();
-          break;
-        case 13: // Enter Key
-          // FIXME: this fails to intercept the form submission
-          event.preventDefault();
-          selectedSuggestion.click();
           break;
         case 27: // Escape Key
           this.closeDropdown();
