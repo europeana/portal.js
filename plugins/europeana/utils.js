@@ -71,7 +71,6 @@ export function langMapValueForLocale(langMap, locale) {
       }
     }
   }
-  console.log(returnVal);
   returnVal['values'] = returnVal['values'].concat(entityValues(langMap['def'], locale));
   return returnVal;
 }

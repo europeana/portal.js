@@ -5,7 +5,6 @@ Feature: Record page
     When I open a `record page`
     Then I see the `record page`
     And I see a `metadata field`
-    And I see a `metadata field` in the `web resource`
     And I am on an accessible page
 
   Scenario: Attempting to view a record page which doesn't exist
