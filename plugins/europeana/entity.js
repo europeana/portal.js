@@ -40,6 +40,7 @@ export function getEntitySuggestions(text, params) {
       text,
       type: 'agent,concept',
       language: params.language,
+      scope: 'europeana',
       wskey: params.wskey
     }
   })

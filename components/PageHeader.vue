@@ -23,7 +23,10 @@
           <AutoSuggest
             data-qa="search form"
             class="justify-content-center justify-content-md-end w-100"
-            :enable-autosuggest="enableAutosuggest"
+            :enable-auto-suggest="enableAutoSuggest"
+            :suggestions="searchSuggestions"
+            :suggestion-link-gen="searchFormSuggestionLinkGen"
+            @input="searchFormInput"
           />
         </div>
         <LangSelector
@@ -38,20 +41,65 @@
 <script>
   import AutoSuggest from './search/AutoSuggest';
   import LangSelector from './generic/LanguageSelector';
+  import { getEntitySuggestions, getEntityTypeHumanReadable, getEntitySlug } from '../plugins/europeana/entity';
 
   export default {
     components: {
       AutoSuggest,
       LangSelector
     },
+
     props: {
       enableLanguageSelector: {
         type: Boolean,
         default: Boolean(Number(process.env['ENABLE_LANGUAGE_SELECTOR']))
       },
-      enableAutosuggest: {
+      enableAutoSuggest: {
         type: Boolean,
         default: false
+      }
+    },
+
+    data() {
+      return {
+        searchSuggestions: {}
+      };
+    },
+
+    methods: {
+      // TODO: l10n for language parameter
+      async searchFormInput(query) {
+        if (query === '') {
+          this.searchSuggestions = {};
+          return;
+        }
+
+        // Query in the user's language, and English, removing duplicates
+        const languageParam = Array.from(new Set([this.$i18n.locale, 'en'])).join(',');
+
+        const suggestions = await getEntitySuggestions(query, {
+          wskey: process.env.EUROPEANA_ENTITY_API_KEY, language: languageParam
+        });
+
+        this.searchSuggestions = suggestions.reduce((memo, suggestion) => {
+          memo[suggestion.id] = suggestion.prefLabel;
+          return memo;
+        }, {});
+      },
+
+      searchFormSuggestionLinkGen(entityUri) {
+        const entity = {
+          id: entityUri,
+          prefLabel: this.searchSuggestions[entityUri]
+        };
+        const uriMatch = entityUri.match('^http://data.europeana.eu/([^/]+)(/base)?/(.+)$');
+
+        return this.localePath({
+          name: 'entity-type-all', params: {
+            type: getEntityTypeHumanReadable(uriMatch[1]),
+            pathMatch: getEntitySlug(entity)
+          }
+        });
       }
     }
   };

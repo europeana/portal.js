@@ -23,7 +23,7 @@
       <b-form-input
         ref="searchbox"
         v-model="query"
-        :autocomplete="isDisabled ? 'on' : 'off'"
+        :autocomplete="enableAutoSuggest ? 'off' : 'on'"
         :placeholder="$t('searchPlaceholder')"
         name="query"
         data-qa="search box"
@@ -31,7 +31,7 @@
         aria-autocomplete="list"
         aria-controls="autocomplete-results"
         :aria-label="$t('search')"
-        @input="getSuggestions"
+        @input="searchboxInput"
         @focus="activateDropdown"
       />
       <b-button
@@ -58,19 +58,18 @@
           v-if="isLoading"
           class="loading"
         >
-          {{ $t('loadingResults') }}...
+          {{ $t('loadingResults') }}{{ $t('formatting.ellipsis') }}
         </b-list-group-item>
 
         <b-list-group-item
-          v-for="(value, name, index) in options"
+          v-for="(value, name, index) in suggestions"
           v-else
           :key="index"
           role="option"
           :aria-selected="index === focus"
-          :href="name"
+          :to="suggestionLinkGen(name)"
           :class="{ 'hover': index === focus }"
-          :value="value[locale]"
-          :data-qa="`search suggestion ${value[locale].toLowerCase()} link`"
+          :value="localiseSuggestionLabel(value)"
           :data-index="index"
           @mouseover="focus = index"
           @focus="index === focus"
@@ -110,9 +109,32 @@
     },
 
     props: {
-      enableAutosuggest: {
+      enableAutoSuggest: {
         type: Boolean,
         default: false
+      },
+
+      // Property names are identifiers, emitted when suggestion is selected.
+      // Property values are lang maps for labels to display.
+      // @example
+      //     {
+      //       'http://data.europeana.eu/concept/base/83': {
+      //         en: 'World War I',
+      //         es: 'Primera Guerra Mundial'
+      //       },
+      //       'http://data.europeana.eu/concept/base/1615': {
+      //         en: 'gospel music',
+      //         es: 'góspel'
+      //       }
+      //     }
+      suggestions: {
+        type: Object,
+        default: () => {}
+      },
+
+      suggestionLinkGen: {
+        type: Function,
+        default: (val) => val
       }
     },
 
@@ -121,8 +143,7 @@
         query: null,
         focus: null,
         isActive: false,
-        isLoading: false,
-        options: {}
+        isLoading: false
       };
     },
 
@@ -155,18 +176,15 @@
         };
       },
 
-      isDisabled() {
-        return !this.enableAutosuggest || !!(this.$store.state.entity && this.$store.state.entity.id);
-      },
-
       view() {
         return this.$store.getters['search/activeView'];
       }
     },
 
     watch: {
-      options() {
-        this.isActive = !!this.options;
+      suggestions() {
+        this.isActive = !!this.suggestions;
+        this.isLoading = false;
       },
       '$route.query'() {
         this.queryOnSearchablePage();
@@ -175,7 +193,7 @@
     },
 
     mounted() {
-      if (this.isDisabled) return;
+      if (!this.enableAutoSuggest) return;
 
       this.queryOnSearchablePage();
       document.addEventListener('keyup', this.navigateDropdown);
@@ -183,8 +201,17 @@
     },
 
     methods: {
+      localiseSuggestionLabel(value) {
+        if (value[this.locale]) {
+          return value[this.locale];
+        } else if (value.en) {
+          return value.en;
+        }
+        return Object.values(value)[0];
+      },
+
       highlightResult(value) {
-        const string = value[this.locale];
+        const string = this.localiseSuggestionLabel(value);
         const matches = match(string, this.query);
         const parts = parse(string, matches);
         return parts;
@@ -211,6 +238,7 @@
         const selectedSuggestion = this.$el.querySelector(`[data-index="${this.focus}"]`);
         selectedSuggestion.focus();
       },
+
       navigateDropdown(event) {
         if (!this.isActive) return;
 
@@ -235,7 +263,7 @@
         case 40: // Down key
           if (this.focus === null) {
             this.focus = 0;
-          } else if (this.focus < Object.keys(this.options).length - 1) {
+          } else if (this.focus < Object.keys(this.suggestions).length - 1) {
             this.focus++;
           }
           this.focusOnSuggestion();
@@ -244,7 +272,7 @@
       },
 
       activateDropdown() {
-        return !this.isActive && this.options;
+        return !this.isActive && this.suggestions;
       },
 
       queryOnSearchablePage() {
@@ -258,38 +286,14 @@
         await this.$router.push(newRoute);
       },
 
-      // FAKE DATA
-      async getSuggestions() {
-        // If entity page, disable autosuggest
-        if (this.isDisabled) return;
-        // Fetch suggestions if characters are 3 or more
-        if (this.query.length < 3) {
-          this.focus = null;
-          this.options = {};
-          return;
-        }
-
-        this.isLoading = true;
-
-        const promise = await new Promise(resolve => {
-          setTimeout(() => {
-            this.isLoading = false;
-            const fakeData = {
-              '/en/entity/topic/83': {
-                en: 'World War I',
-                fr: 'Première Guerre mondiale'
-              },
-              '/en/entity/topic/94': {
-                en: 'Architecture',
-                fr: 'Architecture'
-              }
-            };
-            resolve(fakeData);
-          }, 500);
-        });
-
-        this.options = promise;
-
+      async searchboxInput() {
+        if (!this.enableAutoSuggest) return;
+        // Uncomment this to show a loading indicator when suggestions are
+        // awaiting update.
+        // TODO: decide if we want it or not. Entity API responses are so fast,
+        //       it's not really necessary.
+        // this.isLoading = true;
+        this.$emit('input', this.query);
       }
     }
   };
