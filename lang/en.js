@@ -107,5 +107,7 @@ export default {
   "actions": {
     "download": "Download"
   },
+  "loadingResults": "Loading results",
+  "clearAllFilters": "clear all filters",
   "reset": "Reset"
 };

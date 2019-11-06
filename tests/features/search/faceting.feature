@@ -83,7 +83,7 @@ Feature: Search faceting
     And I wait 2 seconds
     Then I should be on `/en/search?page=1&query=&view=grid`
     And I am on page number 1
-    And I can't see a `/en/search?query=`
+    And I can't have a `/en/search?query=`
 
   Scenario: Filtering results by country and have a corresponding record page
 

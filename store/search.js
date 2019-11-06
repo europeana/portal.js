@@ -14,7 +14,8 @@ export const state = () => ({
   selectedFacets: {},
   totalResults: null,
   view: null,
-  pill: null
+  pill: null,
+  autoSuggestDisabled: false
 });
 
 export const mutations = {
@@ -77,6 +78,9 @@ export const mutations = {
   },
   setPill(state, value) {
     state.pill = value;
+  },
+  setAutoSuggestDisable(state, value) {
+    state.autoSuggestDisabled = value;
   }
 };
 
