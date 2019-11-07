@@ -31,7 +31,7 @@
         aria-autocomplete="list"
         aria-controls="autocomplete-results"
         :aria-label="$t('search')"
-        @input="inputQuery"
+        @input="getSearchSuggestions"
       />
       <b-button
         type="submit"
@@ -51,7 +51,7 @@
         v-model="suggestions"
         element-id="autocomplete-results"
         :link-gen="suggestionLinkGen"
-        :query="query"
+        :query="currentQuery"
         @select="selectSuggestion"
       />
     </b-input-group>
@@ -80,8 +80,7 @@
 
     data() {
       return {
-        // TODO: restore observation of URL param to restore query on back button use
-        query: this.$store.state.search.query,
+        currentQuery: this.query,
         suggestions: {},
         selectedSuggestion: null
       };
@@ -98,6 +97,15 @@
 
       pillLabel() {
         return this.$store.state.search.pill;
+      },
+
+      query: {
+        get() {
+          return this.onSearchablePage ? this.$store.state.search.query : '';
+        },
+        set(value) {
+          this.currentQuery = value;
+        }
       },
 
       routePath() {
@@ -121,6 +129,12 @@
       }
     },
 
+    watch: {
+      '$route.query'() {
+        this.currentQuery = this.query;
+      }
+    },
+
     methods: {
       selectSuggestion(value) {
         this.selectedSuggestion = value;
@@ -128,17 +142,20 @@
 
       async submitForm() {
         let newRoute;
+
         if (this.selectedSuggestion) {
           newRoute = this.suggestionLinkGen(this.selectedSuggestion);
         } else {
-          const newRouteQuery = { ...this.$route.query, ...{ query: this.query, page: 1, view: this.view } };
+          const newRouteQuery = { ...this.$route.query, ...{ query: this.currentQuery, page: 1, view: this.view } };
           newRoute = { path: this.routePath, query: newRouteQuery };
         }
+
         this.suggestions = {};
+
         await this.$router.push(newRoute);
       },
 
-      async inputQuery(query) {
+      async getSearchSuggestions(query) {
         if (!this.enableAutoSuggest) return;
 
         if (query === '') {

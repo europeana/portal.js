@@ -7,7 +7,7 @@
     :aria-hidden="!isActive"
   >
     <b-list-group-item
-      v-if="isLoading"
+      v-if="showLoader && isLoading"
       class="loading"
     >
       {{ $t('loadingResults') }}{{ $t('formatting.ellipsis') }}
@@ -88,6 +88,11 @@
       inputRefName: {
         type: String,
         default: 'searchbox'
+      },
+
+      showLoader: {
+        type: Boolean,
+        default: false
       }
     },
 
@@ -104,12 +109,20 @@
         return this.$store.state.i18n.locale;
       },
 
+      suggestionValues() {
+        return Object.keys(this.value);
+      },
+
       numberOfSuggestions() {
-        return Object.keys(this.value).length;
+        return this.suggestionValues.length;
       },
 
       noSuggestionHasFocus() {
         return this.focus === null;
+      },
+
+      inputRef() {
+        return this.$parent.$refs[this.inputRefName];
       },
 
       firstSuggestionHasFocus() {
@@ -118,6 +131,10 @@
 
       lastSuggestionHasFocus() {
         return this.focus === (this.numberOfSuggestions - 1);
+      },
+
+      selectedSuggestionValue() {
+        return this.suggestionValues[this.focus] || null;
       }
     },
 
@@ -128,13 +145,18 @@
 
       value() {
         this.isActive = true;
+        this.isLoading = false;
         this.focus = null;
-        this.$emit('select', null);
+        this.selectSuggestion();
+      },
+
+      query() {
+        this.isLoading = true;
       }
     },
 
     mounted() {
-      this.$parent.$refs[this.inputRefName].$el.addEventListener('keyup', this.navigateDropdown);
+      this.inputRef.$el.addEventListener('keyup', this.handleInputKeyup);
       document.addEventListener('mouseup', this.clickOutside);
     },
 
@@ -190,36 +212,28 @@
       closeDropdown() {
         this.isActive = false;
         this.focus = null;
-        this.$emit('select', null);
+        this.selectSuggestion();
       },
 
-      focusOnSuggestion() {
-        // if (!this.focus) return;
-        const selected = Object.keys(this.value)[this.focus];
-        this.$emit('select', selected);
-        // FIXME: this is problematic because it causes the view port to scroll
-        //        in addition to suggestion highlighting
-        // const selectedSuggestion = this.$el.querySelector(`[data-index="${this.focus}"]`);
-        // selectedSuggestion.focus();
+      selectSuggestion() {
+        this.$emit('select', this.selectedSuggestionValue);
       },
 
-      navigateDropdown(event) {
+      handleInputKeyup(event) {
         if (!this.isActive) return;
 
         switch (event.keyCode) {
-        case 9: // Tab Key
+        case 9: // Tab key
+        case 27: // Escape key
           this.closeDropdown();
           break;
-        case 27: // Escape Key
-          this.closeDropdown();
-          break;
-        case 38: // Up Key
+        case 38: // Up key
           if (this.noSuggestionHasFocus || this.firstSuggestionHasFocus) {
             this.focus = this.numberOfSuggestions - 1;
           } else {
             this.focus--;
           }
-          this.focusOnSuggestion();
+          this.selectSuggestion();
           break;
         case 40: // Down key
           if (this.noSuggestionHasFocus || this.lastSuggestionHasFocus) {
@@ -227,7 +241,7 @@
           } else {
             this.focus++;
           }
-          this.focusOnSuggestion();
+          this.selectSuggestion();
           break;
         }
       }
