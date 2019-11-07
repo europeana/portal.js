@@ -17,6 +17,7 @@ const pages = {
   'record page without isShownBy or hasView': `${url}/en/record/9200102/BibliographicResource_3000134083514`,
   'first page of results': `${url}/en/search?query=&page=1`,
   'entity page': `${url}/en/entity/topic/18-newspaper`,
+  '"World War I" entity page': `${url}/en/entity/topic/83-world-war-i`,
   'blog page': `${url}/en/blog`
 };
 

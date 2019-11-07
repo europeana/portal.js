@@ -40,21 +40,28 @@ Feature: Search querying
     Then I see a `record page`
     And I don't see "paris" in the `search box`
 
-  Scenario: Using auto suggestion with keyboard should populate search field
+  Scenario: Using auto suggestion with keyboard populates search field
     When I visit a `search page`
     And I enter "World" in the `search box`
-    And I wait 1 seconds
+    And I wait 1 second
     And I see `search suggestions` with the text "World War I"
     And I press the DOWN_ARROW key
-    And I press the DOWN_ARROW key
     And I press the ENTER key
-    Then I should be on `/en/entity/topic/94-architecture`
-    Then I don't see a `search suggestions`
-  
+    And I wait 2 seconds
+    Then I should be on the `"World War I" entity page`
+    And there are no `search suggestions`
+    And I don't see "World" in the `search box`
+
   Scenario: Pressing ESC will close the auto suggestion dropdown
     When I visit a `search page`
     And I enter "World" in the `search box`
-    And I wait 1 seconds
+    And I wait 1 second
     And I see `search suggestions` with the text "World War I"
     And I press the ESCAPE key
-    Then I don't see a `search suggestions`
+    Then I don't see `search suggestions`
+
+  Scenario: No auto suggestion on entity pages
+    Given I am on an `entity page`
+    And I enter "World" in the `search box`
+    And I wait 1 second
+    Then there are no `search suggestions`

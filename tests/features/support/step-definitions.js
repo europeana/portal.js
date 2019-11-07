@@ -17,6 +17,9 @@ defineParameterType({
 defineStep('I browse/open/visit (a/an/the)( ){target}', (pageName) =>
   i.openAPage(pageName));
 
+defineStep('I am on (a/an/the)( ){target}', (pageName) =>
+  i.openAPage(pageName));
+
 defineStep('I find/identify/see/spot (a/an/the)( ){target}', (qa) =>
   i.seeATarget(qa));
 
@@ -30,6 +33,9 @@ defineStep('I can\'t/don\'t find/identify/see/spot (a/an/the)( ){target}', (qa) 
   i.doNotSeeATarget(qa));
 
 defineStep('I can\'t/don\'t have (a/an/the)( ){target}', (qa) =>
+  i.doNotHaveATarget(qa));
+
+defineStep('there are no (a/an/the)( ){target}', (qa) =>
   i.doNotHaveATarget(qa));
 
 defineStep('I can\'t/don\'t have (a/an/the)( ){target} in/on the {target}', (qa, parentQa) =>

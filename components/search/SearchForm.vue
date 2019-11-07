@@ -145,6 +145,13 @@
 
         if (this.selectedSuggestion) {
           newRoute = this.suggestionLinkGen(this.selectedSuggestion);
+
+          // FIXME: selecting a suggestion should then clear the query text, but
+          //        none of the below achieve that.
+          // this.query = '';
+          // this.currentQuery = '';
+          // this.$store.commit('search/setQuery', '');
+          // this.$refs.searchbox.$el.value = '';
         } else {
           const newRouteQuery = { ...this.$route.query, ...{ query: this.currentQuery, page: 1, view: this.view } };
           newRoute = { path: this.routePath, query: newRouteQuery };
