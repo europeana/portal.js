@@ -4,6 +4,11 @@ import SearchForm from '../../../../components/search/SearchForm.vue';
 import VueRouter from 'vue-router';
 import Vuex from 'vuex';
 import sinon from 'sinon';
+import nock from 'nock';
+import * as entities from '../../../../plugins/europeana/entity';
+
+const axios = require('axios');
+axios.defaults.adapter = require('axios/lib/adapters/http');
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
@@ -12,7 +17,8 @@ localVue.use(Vuex);
 
 const router = new VueRouter({
   routes: [
-    { name: 'search', path: '/search' }
+    { name: 'search', path: '/search' },
+    { name: 'entity-type-all', path: '/entity/:type?/*' }
   ]
 });
 const routerPush = sinon.spy(router, 'push');
@@ -21,13 +27,14 @@ const factory = (options = {}) => mount(SearchForm, {
   router,
   mocks: {
     ...{
+      $i18n: { locale: 'en' },
       $t: () => {},
       localePath: (opts) => {
         return router.resolve(opts).route.fullPath;
       }
     }, ...(options.mocks || {})
   },
-  store: options.store || {}
+  store: options.store || store({ search: {} })
 });
 
 const getters = {
@@ -40,6 +47,29 @@ const store = (options = {}) => {
       search: {}
     }
   });
+};
+
+const entityApiSuggestionsResponse = {
+  'items': [
+    {
+      'id': 'http://data.europeana.eu/concept/base/227',
+      'type': 'Concept',
+      'prefLabel': {
+        'en': 'Fresco'
+      }
+    },
+    {
+      'id': 'http://data.europeana.eu/agent/base/59981',
+      'type': 'Agent',
+      'prefLabel': {
+        'en': 'Frank Sinatra'
+      }
+    }
+  ]
+};
+const parsedSuggestions = {
+  'http://data.europeana.eu/concept/base/227': { en: 'Fresco' },
+  'http://data.europeana.eu/agent/base/59981': { en: 'Frank Sinatra' }
 };
 
 describe('components/search/SearchForm', () => {
@@ -113,6 +143,8 @@ describe('components/search/SearchForm', () => {
     });
   });
 
+  // TODO: nock the entity api requests
+
   describe('form submission', () => {
     const inputQueryAndSubmitForm = (wrapper, query) => {
       const form =  wrapper.find('form');
@@ -123,6 +155,20 @@ describe('components/search/SearchForm', () => {
 
     const newQuery = 'trees';
 
+    context('with a selected entity suggestion', () => {
+      const wrapper = factory();
+      wrapper.setData({
+        suggestions: parsedSuggestions,
+        selectedSuggestion: 'http://data.europeana.eu/concept/base/227'
+      });
+
+      it('routes to the entity page', async() => {
+        await inputQueryAndSubmitForm(wrapper, newQuery);
+
+        routerPush.should.have.been.calledWith('/entity/topic/227-fresco');
+      });
+    });
+
     context('when on a search page', () => {
       const state = {
         search: {
@@ -131,11 +177,7 @@ describe('components/search/SearchForm', () => {
           view: 'grid'
         }
       };
-      const wrapper = factory({
-        store: store({
-          state
-        })
-      });
+      const wrapper = factory({ store: store({ state }) });
 
       it('updates current route', async() => {
         await inputQueryAndSubmitForm(wrapper, newQuery);
@@ -156,11 +198,7 @@ describe('components/search/SearchForm', () => {
           view: 'list'
         }
       };
-      const wrapper = factory({
-        store: store({
-          state
-        })
-      });
+      const wrapper = factory({ store: store({ state }) });
 
       it('reroutes to search', async() => {
         await inputQueryAndSubmitForm(wrapper, newQuery);
@@ -171,6 +209,50 @@ describe('components/search/SearchForm', () => {
         };
         routerPush.should.have.been.calledWith(newRouteParams);
       });
+    });
+  });
+
+  describe('suggestionLinkGen', () => {
+    const wrapper = factory();
+    wrapper.setData({ suggestions: parsedSuggestions });
+
+    it('generates agent entity URLs', () => {
+      wrapper.vm.suggestionLinkGen('http://data.europeana.eu/agent/base/59981').should.eq('/entity/person/59981-frank-sinatra');
+    });
+
+    it('generates concept entity URLs', () => {
+      wrapper.vm.suggestionLinkGen('http://data.europeana.eu/concept/base/227').should.eq('/entity/topic/227-fresco');
+    });
+  });
+
+  describe('getSearchSuggestions', () => {
+    const baseRequest = nock(entities.constants.API_ORIGIN).get('/entity/suggest');
+
+    baseRequest
+      .query(true)
+      .reply(200, entityApiSuggestionsResponse);
+
+    context('auto-suggest is not enabled (by default)', () => {
+      const wrapper = factory();
+      it('does not get suggestions from the Entity API', async() => {
+        await wrapper.vm.getSearchSuggestions();
+
+        nock.isDone().should.not.be.true;
+      });
+    });
+
+    context('auto-suggest is enabled (by prop)', () => {
+      const wrapper = factory();
+      wrapper.setProps({ enableAutoSuggest: true });
+
+      // FIXME
+      it('gets suggestions from the Entity API', async() => {
+        await wrapper.vm.getSearchSuggestions();
+
+        nock.isDone().should.be.true;
+      });
+
+      it('parses and stores suggestions locally');
     });
   });
 });
