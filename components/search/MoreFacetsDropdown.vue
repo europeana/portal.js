@@ -6,35 +6,12 @@
     class="more-facets position-static"
   >
     <b-dropdown-group class="more-facets-wrapper">
-      <b-dropdown-form
+      <MoreFacetsDropdownOptions
         v-for="(facet, index) in moreFacets"
         :key="index"
-      >
-        <strong
-          class="mb-4 d-inline-block"
-        >
-          {{ $t(`facets.${facet.name}`).name }}
-        </strong>
-        <div class="option-group">
-          <b-form-checkbox
-            v-for="(filter, f) in facet.fields"
-            :id="filter.label"
-            :key="f"
-            :value="filter.label"
-            :name="filter.label"
-            class="mb-3"
-            plain
-          >
-            {{ filter.label }}
-            <span
-              class="reset"
-              :aria-label="$t('facets.button.reset')"
-            >
-              x
-            </span>
-          </b-form-checkbox>
-        </div>
-      </b-dropdown-form>
+        :index="index"
+        :facet="facet"
+      />
     </b-dropdown-group>
     <li
       class="dropdown-buttons"
@@ -55,7 +32,13 @@
 </template>
 
 <script>
+  import MoreFacetsDropdownOptions from '../../components/search/MoreFacetsDropdownOptions';
+
   export default {
+    components: {
+      MoreFacetsDropdownOptions
+    },
+
     props: {
       moreFacets: {
         type: Array,
