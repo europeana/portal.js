@@ -50,15 +50,18 @@
         padding: 0;
 
         .option-group {
-          column-count: 2;
-
-          @media (min-width: $bp-large) {
-            column-count: 3;
-          }
+          flex-flow: row wrap;
+          display: flex;
         }        
 
         .form-check {
           padding-left: 0;
+          padding-right: 1rem;
+
+          @media (min-width: $bp-large) {
+            flex: 0 0 calc(100% / 3);
+          }
+
         }
 
         label {
@@ -77,6 +80,10 @@
           margin-left: 0.5rem;
           text-align: center;
           width: 1rem;
+
+          .icon-close {
+            font-size: .70rem;
+          }
         }
 
         input[type="checkbox"] {
@@ -94,6 +101,29 @@
 
           .reset {
             display: inline-block;
+          }
+        }
+
+        .btn-toggle {
+          position: relative;
+          padding-right: 1.2rem;
+          padding-left: 0;
+
+          &:after {
+            @extend .icon-font;
+            content: '\e903';
+            position: absolute;
+            right: 0;
+            top: 50%;
+            margin-top: -8px;
+            display: block;
+            width: 14px;
+          }
+
+          &.is-active {
+            &:after {
+              transform: rotate(180deg);
+            }
           }
         }
       }
