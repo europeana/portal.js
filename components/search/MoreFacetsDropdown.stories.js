@@ -6,6 +6,18 @@ const i18n = {
   messages: {
     en: {
       facets: {
+        LANGUAGE: {
+          name: 'Language',
+          plural: 'Languages'
+        },
+        PROVIDER: {
+          name: 'Aggregator',
+          plural: 'Aggregators'
+        },
+        DATA_PROVIDER: {
+          name: 'Institution',
+          plural: 'Institutions'
+        },
         button: {
           cancel: 'Cancel',
           reset: 'Reset',
@@ -51,6 +63,26 @@ storiesOf('Search/MoreFacetsDropdown', module)
             {
               'label': 'fr',
               'count': 3325609
+            },
+            {
+              'label': 'pl',
+              'count': 2722115
+            },
+            {
+              'label': 'es',
+              'count': 2138894
+            },
+            {
+              'label': 'it',
+              'count': 1788264
+            },
+            {
+              'label': 'da',
+              'count': 1012003
+            },
+            {
+              'label': 'fi',
+              'count': 938530
             }
           ]
         },
