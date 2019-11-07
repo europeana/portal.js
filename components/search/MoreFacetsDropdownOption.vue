@@ -1,6 +1,6 @@
 <template>
   <b-form-checkbox
-    :id="filter.label"
+    :id="`${facetName} - ${filter.label}`"
     :value="filter.label"
     :name="filter.label"
     class="mb-3"
@@ -25,6 +25,10 @@
     props: {
       filter: {
         type: Object,
+        required: true
+      },
+      facetName: {
+        type: String,
         required: true
       }
     }

@@ -10,6 +10,7 @@
         v-for="(filter, indx) in [].concat(facet.fields).splice(0, limitTo)"
         :key="indx"
         :filter="filter"
+        :facet-name="$t(`facets.${facet.name}`).name"
       />
     </div>
     <div
@@ -20,6 +21,7 @@
         v-for="(filter, indx) in [].concat(facet.fields).splice(limitTo)"
         :key="indx"
         :filter="filter"
+        :facet-name="$t(`facets.${facet.name}`).name"
       />
     </div>
     <button
