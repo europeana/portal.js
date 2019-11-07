@@ -30,6 +30,7 @@
       type="button"
       class="btn btn-link btn-toggle"
       :class="{ 'is-active': isActive }"
+      :data-qa="(isActive ? $t(`facets.button.hideAll`) : $t(`facets.button.showAll`)) + ' ' + $t(`facets.${facet.name}`).plural + ' button'"
       @click.prevent="isActive = !isActive"
     >
       {{ isActive ? $t(`facets.button.hideAll`) : $t(`facets.button.showAll`) }} {{ $t(`facets.${facet.name}`).plural }}

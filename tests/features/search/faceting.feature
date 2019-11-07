@@ -139,6 +139,12 @@ Feature: Search faceting
     And I click the `TYPE apply button`
     And I wait 2 seconds
     Then I am on page number 1
+  
+  Scenario: Toggle show all options in More Filters facet
+     When I visit the `search page`
+     And I click the `more filters dropdown button`
+     And I click the `Show all Languages button`
+     Then I click the `Hide all Languages button`
 
   Scenario: Clear filters using using `clear all filter` button
     When I visit the `search page`

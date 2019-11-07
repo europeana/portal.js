@@ -4,6 +4,7 @@
     variant="light"
     no-caret
     class="more-facets position-static"
+    data-qa="more filters dropdown button"
   >
     <b-dropdown-group class="more-facets-wrapper">
       <MoreFacetsDropdownOptions
