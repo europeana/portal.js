@@ -82,7 +82,8 @@
       return {
         currentQuery: this.query,
         suggestions: {},
-        selectedSuggestion: null
+        selectedSuggestion: null,
+        query: null
       };
     },
 
@@ -97,15 +98,6 @@
 
       pillLabel() {
         return this.$store.state.search.pill;
-      },
-
-      query: {
-        get() {
-          return this.onSearchablePage ? this.$store.state.search.query : '';
-        },
-        set(value) {
-          this.currentQuery = value;
-        }
       },
 
       routePath() {
@@ -130,9 +122,17 @@
     },
 
     watch: {
-      '$route.query'() {
+      '$route'() {
+        this.query = this.onSearchablePage ? this.$store.state.search.query : '';
+        this.currentQuery = this.query;
+      },
+      query() {
         this.currentQuery = this.query;
       }
+    },
+
+    mounted() {
+      this.query = this.onSearchablePage ? this.$store.state.search.query : '';
     },
 
     methods: {
