@@ -2,9 +2,56 @@
   "metadata": {
     "name": "Europeana",
     "lastOpened": 0,
-    "created": 1570012437878
+    "created": 1573122757604
   },
   "iconSets": [
+    {
+      "selection": [
+        {
+          "order": 1,
+          "id": 0,
+          "prevSize": 20,
+          "code": 59652,
+          "name": "close",
+          "tempChar": ""
+        }
+      ],
+      "id": 2,
+      "metadata": {
+        "name": "Zondicons (subset)",
+        "importSize": {
+          "width": 20,
+          "height": 20
+        },
+        "url": "http://www.zondicons.com/",
+        "designer": "Steve Schoger",
+        "designerURL": "http://www.steveschoger.com/",
+        "license": "CC BY 4.0",
+        "licenseURL": "https://creativecommons.org/licenses/by/4.0/",
+        "iconsHash": 845300721
+      },
+      "height": 1024,
+      "prevSize": 20,
+      "icons": [
+        {
+          "id": 0,
+          "paths": [
+            "M512 439.603l-362.035-362.035-72.397 72.397 362.035 362.035-362.035 362.035 72.397 72.397 362.035-362.035 362.035 362.035 72.397-72.397-362.035-362.035 362.035-362.035-72.397-72.397-362.035 362.035z"
+          ],
+          "attrs": [
+            {}
+          ],
+          "isMulticolor": false,
+          "isMulticolor2": false,
+          "tags": [
+            "close"
+          ],
+          "grid": 20
+        }
+      ],
+      "invisible": false,
+      "colorThemes": []
+    },
     {
       "selection": [
         {
@@ -13,7 +60,7 @@
           "prevSize": 16,
           "code": 59650,
           "name": "twitter",
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "order": 1,
@@ -21,7 +68,7 @@
           "name": "facebook",
           "prevSize": 16,
           "code": 59649,
-          "tempChar": ""
+          "tempChar": ""
         }
       ],
       "id": 1,
@@ -84,11 +131,19 @@
       "selection": [
         {
           "order": 1,
+          "id": 1,
+          "prevSize": 28,
+          "code": 59651,
+          "name": "caret-down",
+          "tempChar": ""
+        },
+        {
+          "order": 1,
           "id": 0,
           "prevSize": 28,
           "code": 59648,
           "name": "external-link",
-          "tempChar": ""
+          "tempChar": ""
         }
       ],
       "id": 0,
@@ -101,13 +156,29 @@
         "licenseURL": "https://github.com/FortAwesome/Font-Awesome#license",
         "iconsHash": 309851062,
         "importSize": {
-          "width": 28,
+          "width": 16,
           "height": 28
         }
       },
       "height": 1024,
       "prevSize": 28,
       "icons": [
+        {
+          "id": 1,
+          "paths": [
+            "M585.143 402.286c0 9.714-4 18.857-10.857 25.714l-256 256c-6.857 6.857-16 10.857-25.714 10.857s-18.857-4-25.714-10.857l-256-256c-6.857-6.857-10.857-16-10.857-25.714 0-20 16.571-36.571 36.571-36.571h512c20 0 36.571 16.571 36.571 36.571z"
+          ],
+          "attrs": [
+            {}
+          ],
+          "width": 585,
+          "isMulticolor": false,
+          "isMulticolor2": false,
+          "tags": [
+            "caret-down"
+          ],
+          "grid": 14
+        },
         {
           "id": 0,
           "paths": [
@@ -128,7 +199,6 @@
       "colorThemes": []
     }
   ],
-  "uid": -1,
   "preferences": {
     "showGlyphs": true,
     "showCodes": true,
@@ -155,5 +225,6 @@
       "bgColor": 16777215
     },
     "historySize": 50
-  }
+  },
+  "uid": -1
 }
