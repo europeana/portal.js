@@ -46,13 +46,16 @@ export default {
       "name": "Type of media"
     },
     "LANGUAGE": {
-      "name": "Language"
+      "name": "Language",
+      "plural": "Languages"
     },
     "PROVIDER": {
-      "name": "Aggregator"
+      "name": "Aggregator",
+      "plural": "Aggregators"
     },
     "DATA_PROVIDER": {
-      "name": "Institution"
+      "name": "Institution",
+      "plural": "Institutions"
     },
     "contentTier": {
       "name": "Includes broken items"
@@ -61,7 +64,9 @@ export default {
       "cancel": "Cancel",
       "reset": "Reset",
       "apply": "Apply",
-      "morefilters": "More filters"
+      "morefilters": "More filters",
+      "showAll": "Show all",
+      "hideAll": "Hide all"
     }
   },
   "entity": "Entity",
