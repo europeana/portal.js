@@ -10,7 +10,9 @@ const i18n = {
           cancel: 'Cancel',
           reset: 'Reset',
           apply: 'Apply',
-          morefilters: 'More filters'
+          morefilters: 'More filters',
+          showAll: 'Show all',
+          hideAll: 'Hide all'
         }
       }
     }

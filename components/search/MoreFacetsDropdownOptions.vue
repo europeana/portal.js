@@ -14,6 +14,7 @@
       />
     </div>
     <div
+      v-if="facet.fields.length > limitTo"
       v-show="isActive"
       class="option-group"
     >
@@ -25,6 +26,7 @@
       />
     </div>
     <button
+      v-if="facet.fields.length > limitTo"
       type="button"
       class="btn btn-link btn-toggle"
       :class="{ 'is-active': isActive }"
