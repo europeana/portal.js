@@ -38,15 +38,19 @@ function entityApiUrl(endpoint) {
   return `${constants.API_ORIGIN}${constants.API_PATH_PREFIX}${endpoint}`;
 }
 
+import search from './search';
+
 /**
  * Get entity suggestions from the API
  * @param {string} text the query text to supply suggestions for
  * @param {Object} params additional parameters sent to the API
  * @param {string} params.language language(s), comma-separated, to request
  * @param {string} params.wskey API key
+ * @param {Object} options optional settings
+ * @param {boolean} options.recordValidation if `true`, filter suggestions to those with record matches
  * @return {Object[]} entity suggestions from the API
  */
-export function getEntitySuggestions(text, params) {
+export function getEntitySuggestions(text, params = {}, options = {}) {
   return axios.get(entityApiUrl(constants.API_ENDPOINT_SUGGEST), {
     params: {
       text,
@@ -57,7 +61,25 @@ export function getEntitySuggestions(text, params) {
     }
   })
     .then((response) => {
-      return response.data.items ? response.data.items : [];
+      if (!response.data.items) return [];
+      if (!options.recordValidation) return response.data.items;
+
+      const searches = response.data.items.map((entity) => {
+        return search({
+          query: getEntityQuery(entity.id),
+          rows: 0,
+          profile: 'params',
+          wskey: process.env.EUROPEANA_API_KEY
+        });
+      });
+
+      return axios.all(searches)
+        .then(axios.spread(function() {
+          const searchResponses = arguments;
+          return response.data.items.filter((entity, index) => {
+            return searchResponses[index].totalResults > 0;
+          });
+        }));
     })
     .catch((error) => {
       throw apiError(error);

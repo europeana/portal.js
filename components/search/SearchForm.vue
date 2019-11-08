@@ -81,6 +81,7 @@
     data() {
       return {
         currentQuery: this.query,
+        gettingSuggestions: null,
         suggestions: {},
         selectedSuggestion: null
       };
@@ -165,22 +166,34 @@
       async getSearchSuggestions(query) {
         if (!this.enableAutoSuggest) return;
 
+        // Don't go getting more suggestions if we are already waiting for some
+        if (this.gettingSuggestions) return;
+
         if (query === '') {
           this.suggestions = {};
           return;
         }
+
+        this.gettingSuggestions = true;
 
         // Query in the user's language, and English, removing duplicates
         const languageParam = Array.from(new Set([this.$i18n.locale, 'en'])).join(',');
 
         const suggestions = await getEntitySuggestions(query, {
           wskey: process.env.EUROPEANA_ENTITY_API_KEY, language: languageParam
+        }, {
+          recordValidation: Boolean(Number(process.env.ENABLE_ENTITY_SUGGESTION_RECORD_VALIDATION))
         });
 
         this.suggestions = suggestions.reduce((memo, suggestion) => {
           memo[suggestion.id] = suggestion.prefLabel;
           return memo;
         }, {});
+
+        this.gettingSuggestions = false;
+
+        // If the query has changed in the meantime, go get new suggestions now
+        if (query !== this.currentQuery) this.getSearchSuggestions(this.currentQuery);
       },
 
       suggestionLinkGen(entityUri) {
