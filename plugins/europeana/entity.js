@@ -68,7 +68,8 @@ export function getEntitySuggestions(text, params = {}, options = {}) {
         return search({
           query: getEntityQuery(entity.id),
           rows: 0,
-          profile: 'params',
+          profile: 'minimal',
+          qf: ['contentTier:(2 OR 3 OR 4)'],
           wskey: process.env.EUROPEANA_API_KEY
         });
       });
