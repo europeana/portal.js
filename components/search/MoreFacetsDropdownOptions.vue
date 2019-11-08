@@ -3,19 +3,18 @@
     <strong
       class="mb-4 d-inline-block"
     >
-      {{ $t(`facets.${facet.name}`).name }}
+      {{ $tc(`facets.${facet.name}.name`, 1) }}
     </strong>
     <b-form-checkbox-group
       class="option-group"
       plain
     >
       <b-form-checkbox
-        v-for="(filter, i) in [].concat(facet.fields).splice(0, limitTo)"
-        :id="`${$t(`facets.${facet.name}`).name} - ${filter.label}`"
-        :key="i"
+        v-for="(filter, index) in [].concat(facet.fields).splice(0, limitTo)"
+        :key="index"
         :value="filter.label"
         :name="filter.label"
-        :data-qa="`${$t(`facets.${facet.name}`).name} checkbox`"
+        :data-qa="`${$tc(`facets.${facet.name}.name`, 1)} checkbox`"
         class="mb-3"
       >
         {{ filter.label }}
@@ -29,12 +28,11 @@
         class="option-group"
       >
         <b-form-checkbox
-          v-for="(filter, i) in [].concat(facet.fields).splice(limitTo)"
-          :id="`${$t(`facets.${facet.name}`).name} - ${filter.label}`"
-          :key="i"
+          v-for="(filter, index) in [].concat(facet.fields).splice(limitTo)"
+          :key="index"
           :value="filter.label"
           :name="filter.label"
-          :data-qa="`${$t(`facets.${facet.name}`).name} checkbox`"
+          :data-qa="`${$tc(`facets.${facet.name}.name`, 1)} checkbox`"
           class="mb-3"
         >
           {{ filter.label }}
@@ -50,10 +48,10 @@
       type="button"
       class="btn btn-link btn-toggle"
       :class="{ 'is-active': isActive }"
-      :data-qa="(isActive ? $t(`facets.button.showLess`, { label: $t(`facets.${facet.name}`).plural }) + ' button' : $t(`facets.button.showAll`, { label: $t(`facets.${facet.name}`).plural }) + ' button')"
+      :data-qa="(isActive ? $t(`facets.button.showLess`, { label: $tc(`facets.${facet.name}.name`, 2) }) + ' button' : $t(`facets.button.showAll`, { label: $tc(`facets.${facet.name}.name`, 2) }) + ' button')"
       @click.prevent="isActive = !isActive"
     >
-      {{ isActive ? $t(`facets.button.showLess`, { label: $t(`facets.${facet.name}`).plural }) : $t(`facets.button.showAll`, { label: $t(`facets.${facet.name}`).plural }) }}
+      {{ isActive ? $t(`facets.button.showLess`, { label: $tc(`facets.${facet.name}.name`, 2) }) : $t(`facets.button.showAll`, { label: $tc(`facets.${facet.name}.name`, 2) }) }}
     </button>
   </b-dropdown-form>
 </template>
@@ -61,10 +59,6 @@
 <script>
   export default {
     props: {
-      index: {
-        type: Number,
-        required: true
-      },
       facet: {
         type: Object,
         required: true

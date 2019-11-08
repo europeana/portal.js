@@ -46,16 +46,13 @@ export default {
       "name": "Type of media"
     },
     "LANGUAGE": {
-      "name": "Language",
-      "plural": "Languages"
+      "name": "Language | Languages"
     },
     "PROVIDER": {
-      "name": "Aggregator",
-      "plural": "Aggregators"
+      "name": "Aggregator | Aggregators"
     },
     "DATA_PROVIDER": {
-      "name": "Institution",
-      "plural": "Institutions"
+      "name": "Institution | Institutions"
     },
     "contentTier": {
       "name": "Includes broken items"
