@@ -168,12 +168,13 @@
 
         // Don't go getting more suggestions if we are already waiting for some
         if (this.gettingSuggestions) return;
-        this.gettingSuggestions = true;
 
         if (query === '') {
           this.suggestions = {};
           return;
         }
+
+        this.gettingSuggestions = true;
 
         // Query in the user's language, and English, removing duplicates
         const languageParam = Array.from(new Set([this.$i18n.locale, 'en'])).join(',');
