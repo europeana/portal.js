@@ -10,8 +10,8 @@
       <MoreFacetsDropdownOptions
         v-for="(facet, index) in moreFacets"
         :key="index"
-        :index="index"
-        :facet="facet"
+        :fields="facet.fields"
+        :name="facet.name"
       />
     </b-dropdown-group>
     <li
