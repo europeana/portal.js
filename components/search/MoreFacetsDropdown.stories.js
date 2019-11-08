@@ -7,24 +7,21 @@ const i18n = {
     en: {
       facets: {
         LANGUAGE: {
-          name: 'Language',
-          plural: 'Languages'
+          name: 'Language | Languages'
         },
         PROVIDER: {
-          name: 'Aggregator',
-          plural: 'Aggregators'
+          name: 'Aggregator | Aggregators'
         },
         DATA_PROVIDER: {
-          name: 'Institution',
-          plural: 'Institutions'
+          name: 'Institution | Institutions'
         },
         button: {
           cancel: 'Cancel',
           reset: 'Reset',
           apply: 'Apply',
           morefilters: 'More filters',
-          showAll: 'Show all',
-          hideAll: 'Hide all'
+          showAll: 'Show all {label}',
+          showLess: 'Hide all {label}'
         }
       }
     }
