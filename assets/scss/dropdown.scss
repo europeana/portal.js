@@ -57,6 +57,7 @@
         .form-check {
           padding-left: 0;
           padding-right: 1rem;
+          margin-right: 0;
 
           @media (min-width: $bp-large) {
             flex: 0 0 calc(100% / 3);
@@ -79,7 +80,9 @@
           line-height: 0.9rem;
           margin-left: 0.5rem;
           text-align: center;
+          font-size: .75rem;
           width: 1rem;
+          padding-top: 2px;
 
           .icon-close {
             font-size: .70rem;

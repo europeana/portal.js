@@ -143,8 +143,11 @@ Feature: Search faceting
   Scenario: Toggle show all options in More Filters facet
      When I visit the `search page`
      And I click the `more filters dropdown button`
+     And I should see 9 `Language checkbox`
      And I click the `Show all Languages button`
-     Then I click the `Hide all Languages button`
+     Then I should see 37 `Language checkbox`
+     And I click the `Show less Languages button`
+     And I should see 9 `Language checkbox`
 
   Scenario: Clear filters using using `clear all filter` button
     When I visit the `search page`
