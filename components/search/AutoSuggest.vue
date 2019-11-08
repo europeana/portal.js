@@ -163,8 +163,9 @@
     methods: {
       clickOutside(event) {
         if (!this.isActive) return;
+        const isParent = (event.target === this.inputRef.$el);
         const isChild = this.$el.contains(event.target);
-        if (!isChild) {
+        if (!(isParent || isChild)) {
           this.closeDropdown();
         }
       },
