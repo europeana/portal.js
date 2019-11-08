@@ -65,8 +65,8 @@ export default {
       "reset": "Reset",
       "apply": "Apply",
       "morefilters": "More filters",
-      "showAll": "Show all",
-      "hideAll": "Hide all"
+      "showAll": "Show all {label}",
+      "showLess": "Show less {label}"
     }
   },
   "entity": "Entity",
