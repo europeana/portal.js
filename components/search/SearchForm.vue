@@ -81,6 +81,7 @@
     data() {
       return {
         currentQuery: this.query,
+        gettingSuggestions: null,
         suggestions: {},
         selectedSuggestion: null
       };
@@ -165,6 +166,10 @@
       async getSearchSuggestions(query) {
         if (!this.enableAutoSuggest) return;
 
+        // Don't go getting more suggestions if we are already waiting for some
+        if (this.gettingSuggestions) return;
+        this.gettingSuggestions = true;
+
         if (query === '') {
           this.suggestions = {};
           return;
@@ -183,6 +188,11 @@
           memo[suggestion.id] = suggestion.prefLabel;
           return memo;
         }, {});
+
+        this.gettingSuggestions = false;
+
+        // If the query has changed in the meantime, go get new suggestions now
+        if (query !== this.currentQuery) this.getSearchSuggestions(this.currentQuery);
       },
 
       suggestionLinkGen(entityUri) {

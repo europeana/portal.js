@@ -185,6 +185,8 @@
       },
 
       // Highlight the user's query in a suggestion
+      // FIXME: only re-highlight when new suggestions come in, not immediately
+      //        after the query changes?
       highlightResult(value) {
         let matchingValues = {};
 
