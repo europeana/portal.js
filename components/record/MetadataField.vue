@@ -4,9 +4,9 @@
     :data-field-name="name"
     data-qa="metadata field"
   >
-    <div data-qa="label">
-      <strong>{{ $t(`fieldLabels.${context}.${name}`) }}</strong>
-    </div>
+    <label data-qa="label">
+      {{ $t(`fieldLabels.${context}.${name}`) }}
+    </label>
     <ul>
       <template
         v-for="(value, index) of langMappedValues.values"
@@ -27,7 +27,7 @@
           v-else
           :key="index"
           :lang="langMappedValues.code"
-          data-qa="value"
+          data-qa="literal value"
         >
           {{ value }}
         </li>
@@ -80,6 +80,9 @@
 </script>
 
 <style lang="scss" scoped>
+  label {
+    font-weight: bold;
+  }
   ul {
     list-style: none;
     padding: 0;

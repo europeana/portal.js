@@ -265,7 +265,7 @@ export function getEntityDescription(entity) {
  * @return {Boolean} true if the URI is a valid entity URI
  */
 export function isEntityUri(uri) {
-  return !!uri.match(/^http:\/\/data\.europeana\.eu\/(concept|agent|place)\/base\/\d{1,9}$/);
+  return RegExp(/^http:\/\/data\.europeana\.eu\/(concept|agent|place)\/base\/\d{1,9}$/).test(uri);
 }
 
 /**
@@ -274,7 +274,7 @@ export function isEntityUri(uri) {
  * @return {{type: String, identifier: string}} Object with the portal relevant identifiers.
  */
 export function entityParamsFromUri(uri) {
-  const matched = uri.match(/^http:\/\/data\.europeana\.eu\/(concept|agent|place)\/base\/(\d{1,9})$/);
+  const matched = uri.match(/^http:\/\/data\.europeana\.eu\/(concept|agent|place)\/base\/(\d+)$/);
   const id = matched[2];
   const type = getEntityTypeHumanReadable(matched[1]);
   return { id, type };

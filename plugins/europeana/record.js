@@ -56,17 +56,17 @@ function checkNotNull(value) {
 }
 
 /**
- * Update an array of fields, in order to find linked entity data.
+ * Update a set of fields, in order to find linked entity data.
  * will match any literal values in  the 'def' key to about fields
  * in any of the entities and return the related object instead of
  * the plain string.
- * @param field
+ * @param fields Object representing the metadata fields
  * @param entities
  * @return {Object[]} The fields with any entities as JSON objects
  */
 function lookupEntities(fields, entities) {
   let returnVal = fields;
-  for (const key of Object.keys(returnVal)) {
+  for (const key in returnVal) {
     // Only looks for entities in 'def'
     for (const [index, value] of (returnVal[key]['def'] || []).entries()) {
       const matchedEntity = matchEntity(entities, value);

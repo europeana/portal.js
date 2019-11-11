@@ -32,7 +32,8 @@
       },
       about: {
         type: String,
-        default: null
+        default: null,
+        required: true
       },
       locale: {
         type: String,
@@ -41,16 +42,10 @@
     },
     computed: {
       isEuropeanaEntity() {
-        if (!this.about) {
-          return false;
-        }
-        return isEntityUri(this.about);
+        return !this.about ? false : isEntityUri(this.about);
       },
       destination() {
-        if (!this.isEuropeanaEntity) {
-          return this.about;
-        }
-        return entityParamsFromUri(this.about);
+        return !this.isEuropeanaEntity ? this.about : entityParamsFromUri(this.about);
       }
     }
   };

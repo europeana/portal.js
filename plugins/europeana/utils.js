@@ -12,7 +12,7 @@ export function apiError(error) {
   return apiError;
 }
 
-const locales = require('../i18n/locales.json');
+const locales = require('../i18n/locales.js');
 
 function isEntity(value) {
   return !!value && !!value.about;
@@ -37,24 +37,38 @@ function entityValues(values, locale) {
   return entityValues;
 }
 
+const isoAlpha3Map = locales.reduce((memo, locale) => {
+  memo[locale.isoAlpha3] = locale.code;
+  return memo;
+}, {});
+
+const languageKeyMap = locales.reduce((memo, locale) => {
+  if (locale.code === 'en') return memo;
+  memo[locale.code] = [locale.code, locale.isoAlpha3];
+  return memo;
+}, {});
+
+function languageKeys(currentLocale) {
+  const languageKeys = languageKeyMap[currentLocale] || [];
+  return languageKeys.concat(['en', 'eng', 'def', 'und']); // predefined set of preferred/fallback languages
+}
+
 /**
  * Get the localised value for the current locale, with preferred fallbacks.
  * Will return nothing if no value was found in any of the preferred locales.
  * @param {Object} The LangMap
- * @param {Object} locale current locale
+ * @param {Object} locale current locale will be 2 letter code
  * @return {{Object[]{language: String, values: Object[]}}} Language code and values, values may be strings or language maps themselves.
  */
 export function langMapValueForLocale(langMap, locale) {
-  const currentLocale = locales.find(l => l.code === locale);
-
   let returnVal = { values: [] };
-  for (let key of languageKeys(currentLocale)) { // loop through all language key to find a match
+  for (let key of languageKeys(locale)) { // loop through all language key to find a match
     if (langMap[key]) {
       let htmlLang = '';
       let values = [].concat(langMap[key]);
       if (key !== 'def' && key !== 'und') {
-        const langCode = key.length === 3 ? locales.find(l => l.isoAlpha3 === key).code : key; // if there is a match, find language code
-        htmlLang = currentLocale.code !== langCode ? langCode : null; // output if different from UI language
+        const langCode = key.length === 3 ? isoAlpha3Map[key] : key; // if there is a match, find language code
+        htmlLang = locale !== langCode ? langCode : null; // output if different from UI language
       } else {
         values = values.filter(v => !isEntity(v));
       }
@@ -67,14 +81,4 @@ export function langMapValueForLocale(langMap, locale) {
   }
   returnVal['values'] = returnVal['values'].concat(entityValues(langMap['def'], locale));
   return returnVal;
-}
-
-function languageKeys(currentLocale) {
-  let languageKeys = ['en', 'eng', 'def', 'und']; // predefined set of preferred/fallback languages
-
-  if (currentLocale.code !== 'en') { // if language code is not en, add both 2 and 3 character language code to preferred languages
-    languageKeys.unshift(currentLocale.code);
-    languageKeys.unshift(currentLocale.isoAlpha3);
-  }
-  return languageKeys;
 }

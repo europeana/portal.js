@@ -29,7 +29,7 @@ describe('components/record/MetadataField', () => {
 
         wrapper.setProps(props);
 
-        const fieldValue = wrapper.find('[data-qa="metadata field"] [data-qa="value"]');
+        const fieldValue = wrapper.find('[data-qa="metadata field"] [data-qa="literal value"]');
         const entityFieldValue = wrapper.find('[data-qa="metadata field"] [data-qa="entity value"]');
         fieldValue.text().should.eq('Artist');
         entityFieldValue.text().should.eq('English name');
@@ -65,7 +65,7 @@ describe('components/record/MetadataField', () => {
 
       wrapper.setProps(props);
 
-      const fieldValue = wrapper.find('[data-qa="metadata field"] ul [data-qa="value"]');
+      const fieldValue = wrapper.find('[data-qa="metadata field"] ul [data-qa="literal value"]');
       fieldValue.text().should.include(props.fieldData.def);
     });
   });
@@ -78,7 +78,7 @@ describe('components/record/MetadataField', () => {
 
       wrapper.setProps(props);
 
-      const fieldValue = wrapper.find('[data-qa="metadata field"] ul [data-qa="value"]');
+      const fieldValue = wrapper.find('[data-qa="metadata field"] ul [data-qa="literal value"]');
       fieldValue.text().should.include('Artist');
     });
   });
@@ -91,7 +91,7 @@ describe('components/record/MetadataField', () => {
 
       wrapper.setProps(props);
 
-      const fieldValues = wrapper.findAll('[data-qa="metadata field"] ul [data-qa="value"]');
+      const fieldValues = wrapper.findAll('[data-qa="metadata field"] ul [data-qa="literal value"]');
       fieldValues.should.have.lengthOf(2);
     });
   });
