@@ -18,6 +18,7 @@
       v-else
       :key="index"
       role="option"
+      data-qa="search suggestion"
       :aria-selected="index === focus"
       :to="linkGen(name)"
       :class="{ 'hover': index === focus }"
@@ -82,7 +83,7 @@
 
       elementId: {
         type: String,
-        default: 'autocomplete-results'
+        default: null
       },
 
       inputRefName: {
@@ -99,7 +100,7 @@
     data() {
       return {
         focus: null,
-        isActive: Object.keys(this.value).length > 0,
+        isActive: Object.keys(this.value || {}).length > 0,
         isLoading: false
       };
     },
@@ -123,6 +124,11 @@
 
       inputRef() {
         return this.$parent.$refs[this.inputRefName];
+      },
+
+      inputElement() {
+        // refs may point to a component or direct to an HTML element
+        return this.inputRef.$el ? this.inputRef.$el : this.inputRef;
       },
 
       firstSuggestionHasFocus() {
@@ -156,14 +162,14 @@
     },
 
     mounted() {
-      this.inputRef.$el.addEventListener('keyup', this.handleInputKeyup);
+      this.inputElement.addEventListener('keyup', this.handleInputKeyup);
       document.addEventListener('mouseup', this.clickOutside);
     },
 
     methods: {
       clickOutside(event) {
         if (!this.isActive) return;
-        const isParent = (event.target === this.inputRef.$el);
+        const isParent = (event.target === this.inputElement);
         const isChild = this.$el.contains(event.target);
         if (!(isParent || isChild)) {
           this.closeDropdown();
