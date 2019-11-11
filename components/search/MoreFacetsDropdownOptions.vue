@@ -10,7 +10,7 @@
       plain
     >
       <b-form-checkbox
-        v-for="(filter, index) in [].concat(fields).splice(0, limitTo)"
+        v-for="(filter, index) in fields.slice(0, limitTo)"
         :key="index"
         :value="filter.label"
         :name="filter.label"
@@ -28,7 +28,7 @@
         class="option-group"
       >
         <b-form-checkbox
-          v-for="(filter, index) in [].concat(fields).splice(limitTo)"
+          v-for="(filter, index) in fields.slice(limitTo)"
           :key="index"
           :value="filter.label"
           :name="filter.label"
