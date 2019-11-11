@@ -66,24 +66,19 @@ function checkNotNull(value) {
  * in any of the entities and return the related object instead of
  * the plain string.
  * @param fields Object representing the metadata fields
- * @param entities
+ * @param entities key(URI) value(JSON object) map of entity objects for this record
  * @return {Object[]} The fields with any entities as JSON objects
  */
 function lookupEntities(fields, entities) {
   for (const key in fields) {
     // Only looks for entities in 'def'
     for (const [index, value] of (fields[key]['def'] || []).entries()) {
-      const matchedEntity = matchEntity(entities, value);
-      if (matchedEntity) {
-        fields[key]['def'][index] = matchedEntity;
+      if (entities[value]) {
+        fields[key]['def'][index] = entities[value];
       }
     }
   }
   return fields;
-}
-
-function matchEntity(entities, uri) {
-  return entities[uri];
 }
 
 /**
