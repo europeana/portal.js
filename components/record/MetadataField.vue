@@ -14,14 +14,18 @@
         <template
           v-if="value.about"
         >
-          <EntityField
+          <li
             v-for="(nestedValue, nestedIndex) of value.values"
             :key="index + '_' + nestedIndex"
-            :value="nestedValue"
-            :about="value.about"
-            :locale="value.code"
+            :lang="locale"
             data-qa="entity value"
-          />
+          >
+            <EntityField
+              :value="nestedValue"
+              :about="value.about"
+              data-qa="entity value"
+            />
+          </li>
         </template>
         <li
           v-else

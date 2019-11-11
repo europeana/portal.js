@@ -13,7 +13,12 @@ function parseRecordDataFromApiResponse(response) {
 
   const providerAggregation = edm.aggregations[0];
   const europeanaAggregation = edm.europeanaAggregation;
-  const entities = [].concat(edm.concepts, edm.places, edm.agents).filter(checkNotNull);
+  const entities = [].concat(edm.concepts, edm.places, edm.agents)
+    .filter(checkNotNull)
+    .reduce((memo, entity) => {
+      memo[entity.about] = entity;
+      return memo;
+    }, {});
   const proxyData = merge.all(edm.proxies);
 
   return {
@@ -65,23 +70,20 @@ function checkNotNull(value) {
  * @return {Object[]} The fields with any entities as JSON objects
  */
 function lookupEntities(fields, entities) {
-  let returnVal = fields;
-  for (const key in returnVal) {
+  for (const key in fields) {
     // Only looks for entities in 'def'
-    for (const [index, value] of (returnVal[key]['def'] || []).entries()) {
+    for (const [index, value] of (fields[key]['def'] || []).entries()) {
       const matchedEntity = matchEntity(entities, value);
       if (matchedEntity) {
-        returnVal[key]['def'][index] = matchedEntity;
+        fields[key]['def'][index] = matchedEntity;
       }
     }
   }
-  return returnVal;
+  return fields;
 }
 
 function matchEntity(entities, uri) {
-  return entities.find(entity => {
-    return entity.about === uri;
-  });
+  return entities[uri];
 }
 
 /**

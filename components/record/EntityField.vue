@@ -1,8 +1,5 @@
 <template>
-  <li
-    :lang="locale"
-    data-qa="entity value"
-  >
+  <span>
     <SmartLink
       v-if="isEuropeanaEntity"
       :destination="{ name: 'entity-type-all', params: { type: destination.type, pathMatch: destination.id } }"
@@ -14,7 +11,7 @@
     >
       {{ value }}
     </template>
-  </li>
+  </span>
 </template>
 
 <script>
@@ -34,10 +31,6 @@
         type: String,
         default: null,
         required: true
-      },
-      locale: {
-        type: String,
-        default: null
       }
     },
     computed: {

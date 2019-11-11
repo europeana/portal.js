@@ -265,7 +265,7 @@ export function getEntityDescription(entity) {
  * @return {Boolean} true if the URI is a valid entity URI
  */
 export function isEntityUri(uri) {
-  return RegExp(/^http:\/\/data\.europeana\.eu\/(concept|agent|place)\/base\/\d{1,9}$/).test(uri);
+  return RegExp(/^http:\/\/data\.europeana\.eu\/(concept|agent|place)\/base\/\d+$/).test(uri);
 }
 
 /**

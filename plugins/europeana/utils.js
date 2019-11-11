@@ -19,22 +19,18 @@ function isEntity(value) {
 }
 
 function entityValues(values, locale) {
-  let entityValues = [];
-  for (const value of values || []) {
-    if (isEntity(value)) {
-      let entityValue = {};
-      if (value.prefLabel)  {
-        let mappedValues = langMapValueForLocale(value.prefLabel, locale);
-        mappedValues['values'] = mappedValues['values'].length >= 1 ? mappedValues['values'] : [value.about];
-        entityValue = mappedValues;
-        entityValue['about'] = value.about;
-      } else {
-        entityValue = { code: '', values: [value.about], about: value.about };
-      }
-      entityValues = entityValues.concat(entityValue);
-    }
+  return ((typeof(values) === 'string') ? [values] : values || []).filter((value) => isEntity(value))
+    .map((value) => entityValue(value, locale));
+}
+
+function entityValue(value, locale) {
+  if (value.prefLabel) {
+    const entityValue = langMapValueForLocale(value.prefLabel, locale);
+    entityValue.about = value.about;
+    if (entityValue.values.length === 0) entityValue.values = [value.about];
+    return entityValue;
   }
-  return entityValues;
+  return { code: '', values: [value.about], about: value.about };
 }
 
 const isoAlpha3Map = locales.reduce((memo, locale) => {
