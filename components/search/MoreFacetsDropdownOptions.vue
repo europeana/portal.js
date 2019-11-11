@@ -8,6 +8,7 @@
     <b-form-checkbox-group
       class="option-group"
       plain
+      @change="selected"
     >
       <b-form-checkbox
         v-for="(filter, index) in fields.slice(0, limitTo)"
@@ -74,6 +75,12 @@
         isActive: false,
         limitTo: 9
       };
+    },
+
+    methods: {
+      selected(value) {
+        this.$emit('selectedOptions', { [this.name]: [ ...value ] });
+      }
     }
   };
 </script>
