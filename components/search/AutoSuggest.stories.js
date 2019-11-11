@@ -32,7 +32,7 @@ const i18n = {
   }
 };
 
-storiesOf('Auto Suggest', module)
+storiesOf('Search / Auto Suggest', module)
   .add('Plain', () => ({
     components: { AutoSuggest },
     store,

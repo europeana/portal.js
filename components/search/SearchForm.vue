@@ -17,7 +17,7 @@
         <SearchBarPill
           :text="pillLabel"
           :remove-link-label="$t('removeFilter', { filterLabel: pillLabel })"
-          :remove-link-to="removeLinkTo"
+          :remove-link-to="pillRemoveLinkTo"
         />
       </template>
       <b-form-input
@@ -80,7 +80,7 @@
 
     data() {
       return {
-        query: this.query,
+        query: '',
         gettingSuggestions: null,
         suggestions: {},
         selectedSuggestion: null
@@ -107,7 +107,7 @@
         return this.localePath({ name: 'search' });
       },
 
-      removeLinkTo() {
+      pillRemoveLinkTo() {
         return {
           path: this.localePath({
             name: 'search'
@@ -125,6 +125,10 @@
       '$route'() {
         this.query = this.onSearchablePage ? this.$store.state.search.query : '';
       }
+    },
+
+    mounted() {
+      this.query = this.onSearchablePage ? this.$store.state.search.query : '';
     },
 
     methods: {
