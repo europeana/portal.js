@@ -11,7 +11,7 @@
       :enable-auto-suggest="enableAutoSuggest"
       :enable-language-selector="enableLanguageSelector"
       :enable-suggestion-validation="enableSuggestionValidation"
-      />
+    />
     <PageNavigation />
     <b-container v-if="breadcrumbs">
       <b-row>

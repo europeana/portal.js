@@ -12,11 +12,8 @@ const router = new VueRouter({
   ]
 });
 
-const store = (pillLabel) => new Vuex.Store({
+const store = new Vuex.Store({
   state: {
-    search: {
-      pill: pillLabel
-    },
     i18n: {
       locale: 'en'
     }
@@ -32,26 +29,38 @@ const i18n = {
   }
 };
 
-storiesOf('Search / Auto Suggest', module)
-  .add('Plain', () => ({
+storiesOf('Search / Auto suggest', module)
+  .add('Without suggestions', () => ({
     components: { AutoSuggest },
     store,
     i18n,
     router,
-    template: ` <b-container
-      class="mt-3"
-      >
-        <AutoSuggest />
-      </b-container>`
+    template: '<b-container class="mt-3"><b-form-input ref="searchbox" /><AutoSuggest /></b-container>'
   }))
-  .add('With pill', () => ({
+  .add('With suggestions', () => ({
     components: { AutoSuggest },
-    store: store('Johannes Vermeer'),
+    data() {
+      return {
+        suggestions: {
+          '/1': {
+            es: 'Manuscrito'
+          },
+          '/2': {
+            en: 'Human settlement'
+          },
+          '/3': {
+            en: 'Food',
+            ro: 'Mâncare'
+          }
+        }
+      };
+    },
+    store,
     i18n,
     router,
-    template: ` <b-container
-      class="mt-3"
-      >
-        <AutoSuggest />
+    template: `
+      <b-container class="mt-3">
+        <b-form-input ref="searchbox" value="man" />
+        <AutoSuggest v-model="suggestions" query="man" />
       </b-container>`
   }));

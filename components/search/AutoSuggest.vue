@@ -99,7 +99,7 @@
     data() {
       return {
         focus: null,
-        isActive: false,
+        isActive: Object.keys(this.value).length > 0,
         isLoading: false
       };
     },
