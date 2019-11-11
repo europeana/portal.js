@@ -66,8 +66,12 @@ export function langMapValueForLocale(langMap, locale) {
       }
     }
   }
-  returnVal['values'] = returnVal['values'].concat(entityValues(langMap['def'], locale));
-  return returnVal;
+  return addEntityValues(returnVal, entityValues(langMap['def'], locale));
+}
+
+function addEntityValues(localizedLangmap, localizedEntities) {
+  localizedLangmap['values'] = localizedLangmap['values'].concat(localizedEntities);
+  return localizedLangmap;
 }
 
 function setLangMapValues(returnValues, langMap, key, locale) {
