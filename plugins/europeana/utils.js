@@ -45,8 +45,9 @@ function entityValues(values, locale) {
  * @return {{Object[]{language: String, values: Object[]}}} Language code and values, values may be strings or language maps themselves.
  */
 export function langMapValueForLocale(langMap, locale) {
-  let returnVal = { values: [] };
   const currentLocale = locales.find(l => l.code === locale);
+
+  let returnVal = { values: [] };
   for (let key of languageKeys(currentLocale)) { // loop through all language key to find a match
     if (langMap[key]) {
       let htmlLang = '';

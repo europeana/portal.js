@@ -17,12 +17,26 @@ const factory = () => mount(MetadataField, {
 });
 
 describe('components/record/MetadataField', () => {
+  const wrapper = factory();
+
   context('when there is a langMapped value as data', () => {
     const props = { name: 'dcCreator', fieldData: { def: ['Artist'] } };
 
-    describe('a labelled field', () => {
-      const wrapper = factory();
+    describe('when there is an entity field in def', () => {
+      const entityObj = { about: 'entity_uri', prefLabel: { def: ['Entity Name Undefined 1', 'Entity Name Undefined 2'], en: ['English name'] } };
+      const props = { name: 'dcCreator', fieldData: { def: ['Artist', entityObj] } };
+      it('outputs the context specific translated label', () => {
 
+        wrapper.setProps(props);
+
+        const fieldValue = wrapper.find('[data-qa="metadata field"] [data-qa="value"]');
+        const entityFieldValue = wrapper.find('[data-qa="metadata field"] [data-qa="entity value"]');
+        fieldValue.text().should.eq('Artist');
+        entityFieldValue.text().should.eq('English name');
+      });
+    });
+
+    describe('a labelled field', () => {
       it('outputs the  translated field label', () => {
         wrapper.setProps(props);
 
@@ -66,6 +80,19 @@ describe('components/record/MetadataField', () => {
 
       const fieldValue = wrapper.find('[data-qa="metadata field"] ul [data-qa="value"]');
       fieldValue.text().should.include('Artist');
+    });
+  });
+
+  context('when there is a value of an array of strings as data', () => {
+    const props = { name: 'dcCreator', fieldData: ['Artist', 'Author'] };
+
+    it('outputs the field values', () => {
+      const wrapper = factory();
+
+      wrapper.setProps(props);
+
+      const fieldValues = wrapper.findAll('[data-qa="metadata field"] ul [data-qa="value"]');
+      fieldValues.should.have.lengthOf(2);
     });
   });
 });
