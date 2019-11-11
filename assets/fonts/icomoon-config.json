@@ -1,8 +1,8 @@
 {
   "metadata": {
-    "name": "Europeana",
+    "name": "Europeana 1",
     "lastOpened": 0,
-    "created": 1573122757604
+    "created": 1573480672194
   },
   "iconSets": [
     {
@@ -131,11 +131,19 @@
       "selection": [
         {
           "order": 1,
+          "id": 2,
+          "prevSize": 28,
+          "code": 59653,
+          "name": "circle",
+          "tempChar": ""
+        },
+        {
+          "order": 1,
           "id": 1,
           "prevSize": 28,
           "code": 59651,
           "name": "caret-down",
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "order": 1,
@@ -143,7 +151,7 @@
           "prevSize": 28,
           "code": 59648,
           "name": "external-link",
-          "tempChar": ""
+          "tempChar": ""
         }
       ],
       "id": 0,
@@ -156,13 +164,29 @@
         "licenseURL": "https://github.com/FortAwesome/Font-Awesome#license",
         "iconsHash": 309851062,
         "importSize": {
-          "width": 16,
+          "width": 24,
           "height": 28
         }
       },
       "height": 1024,
       "prevSize": 28,
       "icons": [
+        {
+          "id": 2,
+          "paths": [
+            "M877.714 512c0 242.286-196.571 438.857-438.857 438.857s-438.857-196.571-438.857-438.857 196.571-438.857 438.857-438.857 438.857 196.571 438.857 438.857z"
+          ],
+          "attrs": [
+            {}
+          ],
+          "width": 878,
+          "isMulticolor": false,
+          "isMulticolor2": false,
+          "tags": [
+            "circle"
+          ],
+          "grid": 14
+        },
         {
           "id": 1,
           "paths": [
