@@ -142,7 +142,7 @@ Feature: Search faceting
   
   Scenario: Toggle show all options in More Filters facet
      When I visit the `search page`
-     And I wait 2 seconds
+     And I wait 4 seconds
      And I click the `more filters dropdown button`
      And I should see 9 `Language checkbox`
      And I click the `Show all Languages button`
