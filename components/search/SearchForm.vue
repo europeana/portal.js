@@ -51,7 +51,7 @@
         v-model="suggestions"
         element-id="autocomplete-results"
         :link-gen="suggestionLinkGen"
-        :query="currentQuery"
+        :query="query"
         @select="selectSuggestion"
       />
     </b-input-group>
@@ -80,7 +80,7 @@
 
     data() {
       return {
-        currentQuery: this.query,
+        query: this.query,
         gettingSuggestions: null,
         suggestions: {},
         selectedSuggestion: null
@@ -98,15 +98,6 @@
 
       pillLabel() {
         return this.$store.state.search.pill;
-      },
-
-      query: {
-        get() {
-          return this.onSearchablePage ? this.$store.state.search.query : '';
-        },
-        set(value) {
-          this.currentQuery = value;
-        }
       },
 
       routePath() {
@@ -131,8 +122,8 @@
     },
 
     watch: {
-      '$route.query'() {
-        this.currentQuery = this.query;
+      '$route'() {
+        this.query = this.onSearchablePage ? this.$store.state.search.query : '';
       }
     },
 
@@ -146,15 +137,8 @@
 
         if (this.selectedSuggestion) {
           newRoute = this.suggestionLinkGen(this.selectedSuggestion);
-
-          // FIXME: selecting a suggestion should then clear the query text, but
-          //        none of the below achieve that.
-          // this.query = '';
-          // this.currentQuery = '';
-          // this.$store.commit('search/setQuery', '');
-          // this.$refs.searchbox.$el.value = '';
         } else {
-          const newRouteQuery = { ...this.$route.query, ...{ query: this.currentQuery, page: 1, view: this.view } };
+          const newRouteQuery = { ...this.$route.query, ...{ query: this.query, page: 1, view: this.view } };
           newRoute = { path: this.routePath, query: newRouteQuery };
         }
 
@@ -193,7 +177,7 @@
         this.gettingSuggestions = false;
 
         // If the query has changed in the meantime, go get new suggestions now
-        if (query !== this.currentQuery) this.getSearchSuggestions(this.currentQuery);
+        if (query !== this.query) this.getSearchSuggestions(this.query);
       },
 
       suggestionLinkGen(entityUri) {
