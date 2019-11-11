@@ -5,7 +5,6 @@ Feature: Search querying
     Then I should be on `/en/search?query=`
 
   Scenario: Search existing Europeana content
-
     When I visit a `search page`
     And I enter "paris" in the `search box`
     And I click the `search button`
@@ -15,7 +14,6 @@ Feature: Search querying
     And I am on an accessible page
 
   Scenario: Search non existing Europeana content
-
     When I visit a `search page`
     And I enter "no results for GIBBERISHABCDEFGHIJKLMONP" in the `search box`
     And I click the `search button`
@@ -23,7 +21,6 @@ Feature: Search querying
     And I see an `error notice` with the text "Error: No results"
 
   Scenario: Search with invalid query syntax
-
     When I visit a `search page`
     And I enter "*:*:*" in the `search box`
     And I click the `search button`
@@ -31,7 +28,6 @@ Feature: Search querying
     And I see an `error notice` with the text "Error"
 
   Scenario: Search and navigate to record
-
     When I visit a `search page`
     And I enter "paris" in the `search box`
     And I click the `search button`
@@ -65,3 +61,10 @@ Feature: Search querying
     And I enter "World" in the `search box`
     And I wait 1 second
     Then there are no `search suggestions`
+
+  Scenario: Back button restores previous query
+    Given I am on the `home page`
+    When I search for "frog"
+    And I search for "spawn"
+    And I go back
+    Then I see "frog" in the `search box`

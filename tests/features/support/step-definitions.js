@@ -112,3 +112,6 @@ defineStep('I go back', () =>
 
 defineStep('my browser accepts the language {string}', (locale) =>
   i.preferBrowserLanguage(locale));
+
+defineStep('I search for {string}', (query) =>
+  i.searchFor(query));

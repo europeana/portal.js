@@ -201,5 +201,9 @@ module.exports = {
   },
   async goBack() {
     await client.back();
+  },
+  async searchFor(query) {
+    await this.enterTextInTarget(query, 'search box');
+    await this.clickOnTheTarget('search button');
   }
 };
