@@ -75,6 +75,10 @@
       enableAutoSuggest: {
         type: Boolean,
         default: false
+      },
+      enableSuggestionValidation: {
+        type: Boolean,
+        default: false
       }
     },
 
@@ -170,7 +174,7 @@
         const suggestions = await getEntitySuggestions(query, {
           wskey: process.env.EUROPEANA_ENTITY_API_KEY, language: languageParam
         }, {
-          recordValidation: Boolean(Number(process.env.ENABLE_ENTITY_SUGGESTION_RECORD_VALIDATION))
+          recordValidation: this.enableSuggestionValidation
         });
 
         this.suggestions = suggestions.reduce((memo, suggestion) => {

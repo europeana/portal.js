@@ -74,5 +74,12 @@ storiesOf('Search / Form', module)
     store,
     i18n,
     router,
-    template: '<b-container class="mt-3"><SearchForm :enableAutoSuggest="true" /></b-container>'
+    template: '<b-container class="mt-3"><SearchForm :enable-auto-suggest="true" /></b-container>'
+  }))
+  .add('With autocomplete & record validation', () => ({
+    components: { SearchForm },
+    store,
+    i18n,
+    router,
+    template: '<b-container class="mt-3"><SearchForm :enable-auto-suggest="true" :enable-suggestion-validation="true" /></b-container>'
   }));

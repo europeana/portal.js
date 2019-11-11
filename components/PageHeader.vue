@@ -24,6 +24,7 @@
             data-qa="search form"
             class="justify-content-center justify-content-md-end w-100"
             :enable-auto-suggest="enableAutoSuggest"
+            :enable-suggestion-validation="enableSuggestionValidation"
           />
         </div>
         <LangSelector
@@ -48,9 +49,13 @@
     props: {
       enableLanguageSelector: {
         type: Boolean,
-        default: Boolean(Number(process.env['ENABLE_LANGUAGE_SELECTOR']))
+        default: false
       },
       enableAutoSuggest: {
+        type: Boolean,
+        default: false
+      },
+      enableSuggestionValidation: {
         type: Boolean,
         default: false
       }
