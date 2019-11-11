@@ -71,14 +71,18 @@ function checkNotNull(value) {
  */
 function lookupEntities(fields, entities) {
   for (const key in fields) {
-    // Only looks for entities in 'def'
-    for (const [index, value] of (fields[key]['def'] || []).entries()) {
-      if (entities[value]) {
-        fields[key]['def'][index] = entities[value];
-      }
-    }
+    setMatchingEntities(fields, key, entities);
   }
   return fields;
+}
+
+function setMatchingEntities(fields, key, entities) {
+  // Only looks for entities in 'def'
+  for (const [index, value] of (fields[key]['def'] || []).entries()) {
+    if (entities[value]) {
+      fields[key]['def'][index] = entities[value];
+    }
+  }
 }
 
 /**
