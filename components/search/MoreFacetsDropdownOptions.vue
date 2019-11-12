@@ -79,7 +79,7 @@
 
     methods: {
       selected(value) {
-        this.$emit('selectedOptions', { [this.name]: [ ...value ] });
+        this.$emit('selectedOptions', this.name, value);
       }
     }
   };

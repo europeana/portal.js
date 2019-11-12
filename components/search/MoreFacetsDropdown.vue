@@ -75,17 +75,13 @@
       },
 
       selectedAmount() {
-        let sum = 0;
-        for (const key in this.selected) {
-          sum += this.selected[key].length;
-        }
-        return sum;
+        return [].concat(...Object.values(this.selected)).length;
       }
     },
 
     methods: {
-      updateSelected(value) {
-        Vue.set(this.selected, Object.keys(value), value[Object.keys(value)]);
+      updateSelected(facetName, selectedFields) {
+        Vue.set(this.selected, facetName, selectedFields);
       }
     }
   };

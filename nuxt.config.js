@@ -3,7 +3,7 @@ require('dotenv').config();
 const pkg = require('./package');
 const bootstrapPkg = require('bootstrap/package');
 const bootstrapVuePkg = require('bootstrap-vue/package');
-const i18nLocales = require('./plugins/i18n/locales.json');
+const i18nLocales = require('./plugins/i18n/locales.js');
 const i18nDateTime = require('./plugins/i18n/datetime.js');
 
 module.exports = {
