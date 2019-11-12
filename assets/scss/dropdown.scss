@@ -6,10 +6,24 @@
     }
 
     > button {
-      color: $blue;
       font-size: 1rem;
       padding-left: 3rem;
       padding-right: 3rem;
+    }
+
+    &.is-active {
+      > button {
+        color: $blue;
+      }
+    }
+
+    .selected-amount {
+      padding-left: .25rem;
+
+      &:before {
+        content: '\2219';
+        font-weight: bold;
+      }
     }
 
     .dropdown-menu {
