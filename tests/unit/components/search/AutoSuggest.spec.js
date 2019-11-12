@@ -44,14 +44,17 @@ const store = (options = {}) => {
   });
 };
 
+const query = 'dor';
 const suggestions = {
-  '/en/entity/topic/83': {
-    'en': 'World War I',
-    'fr': 'Première Guerre mondiale'
+  'http://data.europeana.eu/concept/base/17': {
+    en: 'Manuscript',
+    sq: 'Dorëshkrimi'
   },
-  '/en/entity/topic/94': {
-    'en': 'Architecture',
-    'fr': 'Architecture'
+  'http://data.europeana.eu/agent/base/57083': {
+    en: 'Gustave Doré'
+  },
+  'http://data.europeana.eu/agent/base/146799': {
+    en: 'Doris Day'
   }
 };
 
@@ -83,30 +86,31 @@ describe('components/search/AutoSuggest', () => {
       });
 
       const suggestionElements = autoSuggestWrapper.findAll('[data-qa="search suggestion"]');
-      suggestionElements.length.should.eq(Object.values(suggestions).length);
+      const suggestionValues = Object.values(suggestions);
 
-      suggestionElements.at(0).text().should.eq(Object.values(suggestions)[0].en);
-      suggestionElements.at(1).text().should.eq(Object.values(suggestions)[1].en);
+      suggestionElements.length.should.eq(suggestionValues.length);
+
+      suggestionValues.forEach((value, index) => {
+        Object.values(value).should.include(suggestionElements.at(index).text());
+      });
     });
 
-    // it('highlights matching characters', async() => {
-    //   const wrapper = factory({
-    //     store
-    //   });
-    //   let suggestion;
-    //   wrapper.setData({ query: 'world' });
-    //   await wrapper.vm.getSuggestions();
-    //   suggestion = wrapper.find('[data-qa="search suggestion world war i link"]');
-    //
-    //   wrapper.setData({ query: 'World' });
-    //   suggestion.find('[data-qa="highlighted"]').text().should.eq('World');
-    //   wrapper.setData({ query: 'WORLD' });
-    //   suggestion.find('[data-qa="highlighted"]').text().should.eq('World');
-    //   wrapper.setData({ query: 'Wor' });
-    //   suggestion.find('[data-qa="highlighted"]').text().should.eq('Wor');
-    //   suggestion.find('[data-qa="base"]').text().should.eq('ld War I');
-    // });
-    //
+    it('highlights matching characters', () => {
+      const wrapper = factory();
+      const autoSuggestWrapper = wrapper.find('[data-qa="search suggestions"]');
+
+      autoSuggestWrapper.setProps({
+        value: suggestions,
+        query
+      });
+
+      const highlightedElements = autoSuggestWrapper.findAll('[data-qa="search suggestion"] [data-qa="highlighted"]');
+
+      highlightedElements.wrappers.forEach((element) => {
+        element.text().toLowerCase().should.eq(query.toLowerCase());
+      });
+    });
+
     // it('allows the user to navigate through suggestions using keyboards up and down arrows', async() => {
     //   wrapper.setData({ query: 'World' });
     //   await wrapper.vm.getSuggestions();

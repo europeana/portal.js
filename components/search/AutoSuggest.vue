@@ -38,7 +38,6 @@
         <span
           v-else
           :key="partIndex"
-          data-qa="base"
         >{{ part.text }}</span> <!-- Do not put onto a new line -->
       </template>
     </b-list-group-item>
