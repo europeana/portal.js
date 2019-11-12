@@ -60,13 +60,17 @@ export function langMapValueForLocale(langMap, locale) {
   let returnVal = { values: [] };
   for (let key of languageKeys(locale)) { // loop through all language key to find a match
     if (langMap[key]) {
-      setLangMapValues(returnVal, langMap, key, locale);
-      setLangCode(returnVal, key, locale);
-      if (key === 'def' || key === 'und') filterEntities(returnVal);
+      setLangMapValuesAndCode(returnVal, langMap, key, locale);
       if (returnVal['values'].length >= 1) break;
     }
   }
   return addEntityValues(returnVal, entityValues(langMap['def'], locale));
+}
+
+function setLangMapValuesAndCode(returnValue, langMap, key, locale) {
+  setLangMapValues(returnValue, langMap, key, locale);
+  setLangCode(returnValue, key, locale);
+  if (['def', 'und'].includes(key)) filterEntities(returnValue);
 }
 
 function addEntityValues(localizedLangmap, localizedEntities) {
@@ -79,12 +83,16 @@ function setLangMapValues(returnValues, langMap, key) {
 }
 
 function setLangCode(map, key, locale) {
-  if (key === 'def' || key === 'und') {
+  if (['def', 'und'].includes(key)) {
     map['code'] = '';
   } else {
-    const langCode = key.length === 3 ? isoAlpha3Map[key] : key; // if there is a match, find language code
+    const langCode = normalizedLangCode(key);
     map['code'] = locale !== langCode ? langCode : null; // output if different from UI language
   }
+}
+
+function normalizedLangCode(key) {
+  return key.length === 3 ? isoAlpha3Map[key] : key; // if there is a match, find language code
 }
 
 function filterEntities(mappedObject) {
