@@ -16,7 +16,7 @@
         >
           <li
             v-for="(nestedValue, nestedIndex) of value.values"
-            :key="nestedIndex"
+            :key="index + '_' + nestedIndex" "
             :lang="value.code"
             data-qa="entity value"
           >
