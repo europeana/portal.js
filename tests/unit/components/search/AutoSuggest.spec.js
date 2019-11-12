@@ -15,7 +15,7 @@ const parentInputComponent = {
   components: {
     AutoSuggest
   },
-  template: '<div><input ref="searchbox" type="text" /><AutoSuggest /></div>'
+  template: '<div><input id="searchbox" ref="searchbox" type="text" /><AutoSuggest /></div>'
 };
 
 const factory = (options = {}) => {
@@ -111,15 +111,44 @@ describe('components/search/AutoSuggest', () => {
       });
     });
 
-    // it('allows the user to navigate through suggestions using keyboards up and down arrows', async() => {
-    //   wrapper.setData({ query: 'World' });
-    //   await wrapper.vm.getSuggestions();
-    //   wrapper.trigger('keyup.down');
-    //   wrapper.vm.focus.should.eq(0);
-    //   wrapper.trigger('keyup.down');
-    //   wrapper.vm.focus.should.eq(1);
-    //   wrapper.trigger('keyup.up');
-    //   wrapper.vm.focus.should.eq(0);
-    // });
+    it('is navigable by keyboard on the parent input', () => {
+      const wrapper = factory();
+      const searchInput = wrapper.find('#searchbox');
+      const autoSuggestWrapper = wrapper.find('[data-qa="search suggestions"]');
+
+      autoSuggestWrapper.setProps({
+        value: suggestions,
+        query
+      });
+
+      searchInput.trigger('keyup.down');
+      autoSuggestWrapper.vm.focus.should.eq(0);
+      searchInput.trigger('keyup.down');
+      autoSuggestWrapper.vm.focus.should.eq(1);
+      searchInput.trigger('keyup.up');
+      autoSuggestWrapper.vm.focus.should.eq(0);
+      searchInput.trigger('keyup.up');
+      autoSuggestWrapper.vm.focus.should.eq(2);
+      searchInput.trigger('keyup.down');
+      autoSuggestWrapper.vm.focus.should.eq(0);
+    });
+
+    for (const key of ['tab', 'esc']) {
+      it(`is closable by ${key} key on the parent input`, () => {
+        const wrapper = factory();
+        const searchInput = wrapper.find('#searchbox');
+        const autoSuggestWrapper = wrapper.find('[data-qa="search suggestions"]');
+
+        autoSuggestWrapper.setProps({
+          value: suggestions,
+          query
+        });
+
+        autoSuggestWrapper.isVisible().should.be.true;
+
+        searchInput.trigger(`keyup.${key}`);
+        autoSuggestWrapper.isVisible().should.be.false;
+      });
+    }
   });
 });

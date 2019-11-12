@@ -166,7 +166,7 @@
     },
 
     methods: {
-      keyup() {
+      keyup(event) {
         if (!this.isActive) return;
 
         switch (event.keyCode) {
