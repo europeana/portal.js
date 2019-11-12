@@ -8,7 +8,10 @@
   >
     <template v-slot:button-content>
       {{ $t('facets.button.morefilters') }}
-      <span class="selected-amount">
+      <span
+        v-if="selectedAmount > 0"
+        class="selected-amount"
+      >
         {{ selectedAmount }}
       </span>
     </template>
