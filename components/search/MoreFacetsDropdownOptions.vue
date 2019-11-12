@@ -6,9 +6,10 @@
       {{ $tc(`facets.${name}.name`, 1) }}
     </strong>
     <b-form-checkbox-group
+      v-model="selected"
       class="option-group"
       plain
-      @change="selected"
+      @change="selectedHandler"
     >
       <b-form-checkbox
         v-for="(filter, index) in fields.slice(0, limitTo)"
@@ -72,14 +73,23 @@
 
     data() {
       return {
+        selected: [],
         isActive: false,
         limitTo: 9
       };
     },
 
+    mounted() {
+      this.$root.$on('clearSelectedOptions', this.clearSelected);
+    },
+
     methods: {
-      selected(value) {
+      selectedHandler(value) {
         this.$emit('selectedOptions', this.name, value);
+      },
+
+      clearSelected() {
+        this.selected = [];
       }
     }
   };

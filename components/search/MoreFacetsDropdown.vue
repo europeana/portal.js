@@ -4,16 +4,16 @@
     variant="light"
     no-caret
     class="more-facets position-static"
-    :class="{ 'is-active' : isActive && applied }"
+    :class="{ 'is-active' : savedOptionsAmount > 0 }"
     data-qa="more filters dropdown button"
   >
     <template v-slot:button-content>
       {{ $t('facets.button.morefilters') }}
       <span
-        v-if="isActive && applied"
+        v-if="savedOptionsAmount > 0"
         class="selected-amount"
       >
-        {{ selectedAmount }}
+        {{ savedOptionsAmount }}
       </span>
     </template>
     <b-dropdown-group class="more-facets-wrapper">
@@ -31,14 +31,22 @@
     >
       <b-button
         variant="link"
-        @click="$refs.dropdown.hide(true)"
+        :disabled="preSavedOptionsAmount < 1"
+        @click="clearFilters"
+      >
+        {{ $t('facets.button.reset') }}
+      </b-button>
+      <b-button
+        variant="link"
+        :disabled="preSavedOptionsAmount < 1"
+        @click="cancelHandler"
       >
         {{ $t('facets.button.cancel') }}
       </b-button>
       <b-button
         variant="primary"
-        :disabled="!isActive"
-        @click="applied = true"
+        :disabled="preSavedOptionsAmount < 1"
+        @click="saveOptions()"
       >
         {{ $t('facets.button.apply') }}
       </b-button>
@@ -64,24 +72,53 @@
 
     data() {
       return {
-        selected: {},
-        applied: false
+        preSavedOptions: {},
+        savedOptions: {}
       };
     },
 
     computed: {
-      isActive() {
-        return this.selectedAmount > 0;
+      preSavedOptionsAmount() {
+        return [].concat(...Object.values(this.preSavedOptions)).length;
       },
 
-      selectedAmount() {
-        return [].concat(...Object.values(this.selected)).length;
+      savedOptionsAmount() {
+        return [].concat(...Object.values(this.savedOptions)).length;
       }
     },
 
     methods: {
       updateSelected(facetName, selectedFields) {
-        Vue.set(this.selected, facetName, selectedFields);
+        Vue.set(this.preSavedOptions, facetName, selectedFields);
+      },
+
+      saveOptions() {
+        this.savedOptions = Object.assign({}, this.preSavedOptions);
+        this.clearPreSavedOptions();
+      },
+
+      cancelHandler() {
+        this.clearFilters();
+        this.$refs.dropdown.hide(true);
+      },
+
+      clearFilters() {
+        this.clearSavedOptions();
+        this.clearPreSavedOptions();
+        // Calls `clearSelectedOptions` method in child componen: `MoreFacetsDropdownOptions.vue`
+        this.$root.$emit('clearSelectedOptions');
+      },
+
+      clearSavedOptions() {
+        for (let key in this.savedOptions) {
+          Vue.delete(this.savedOptions, key);
+        }
+      },
+
+      clearPreSavedOptions() {
+        for (let key in this.preSavedOptions) {
+          Vue.delete(this.preSavedOptions, key);
+        }
       }
     }
   };
