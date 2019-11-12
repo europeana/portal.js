@@ -1,15 +1,16 @@
 <template>
   <b-dropdown
+    ref="dropdown"
     variant="light"
     no-caret
     class="more-facets position-static"
-    :class="{ 'is-active' : selectedAmount > 0 }"
+    :class="{ 'is-active' : isActive && applied }"
     data-qa="more filters dropdown button"
   >
     <template v-slot:button-content>
       {{ $t('facets.button.morefilters') }}
       <span
-        v-if="selectedAmount > 0"
+        v-if="isActive && applied"
         class="selected-amount"
       >
         {{ selectedAmount }}
@@ -30,11 +31,14 @@
     >
       <b-button
         variant="link"
+        @click="$refs.dropdown.hide(true)"
       >
         {{ $t('facets.button.cancel') }}
       </b-button>
       <b-button
         variant="primary"
+        :disabled="!isActive"
+        @click="applied = true"
       >
         {{ $t('facets.button.apply') }}
       </b-button>
@@ -60,11 +64,16 @@
 
     data() {
       return {
-        selected: {}
+        selected: {},
+        applied: false
       };
     },
 
     computed: {
+      isActive() {
+        return this.selectedAmount > 0;
+      },
+
       selectedAmount() {
         let sum = 0;
         for (const key in this.selected) {
