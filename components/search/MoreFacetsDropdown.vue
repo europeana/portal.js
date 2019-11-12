@@ -75,8 +75,8 @@
     },
 
     methods: {
-      updateSelected(value) {
-        Vue.set(this.selected, Object.keys(value), value[Object.keys(value)]);
+      updateSelected(facetName, selectedFields) {
+        Vue.set(this.selected, facetName, selectedFields);
       }
     }
   };
