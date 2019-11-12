@@ -40,11 +40,12 @@ const factory = (options = {}) => mount(SearchForm, {
 const getters = {
   'search/activeView': (state) => state.search.view
 };
-const store = (options = {}) => {
+const store = (searchState = {}) => {
   return new Vuex.Store({
     getters,
-    state: options.state || {
-      search: {}
+    state: {
+      i18n: { locale: 'en' },
+      search: searchState
     }
   });
 };
@@ -77,12 +78,8 @@ describe('components/search/SearchForm', () => {
     context('when on a search page', () => {
       const wrapper = factory({
         store: store({
-          state: {
-            search: {
-              active: true,
-              query: 'cartography'
-            }
-          }
+          active: true,
+          query: 'cartography'
         })
       });
 
@@ -94,12 +91,8 @@ describe('components/search/SearchForm', () => {
     context('when not on a search page', () => {
       const wrapper = factory({
         store: store({
-          state: {
-            search: {
-              active: false,
-              query: 'cartography'
-            }
-          }
+          active: false,
+          query: 'cartography'
         })
       });
 
@@ -113,11 +106,7 @@ describe('components/search/SearchForm', () => {
     context('when on a search page', () => {
       const wrapper = factory({
         store: store({
-          state: {
-            search: {
-              active: true
-            }
-          }
+          active: true
         })
       });
 
@@ -129,11 +118,7 @@ describe('components/search/SearchForm', () => {
     context('when not on a search page', () => {
       const wrapper = factory({
         store: store({
-          state: {
-            search: {
-              active: false
-            }
-          }
+          active: false
         })
       });
 
@@ -142,8 +127,6 @@ describe('components/search/SearchForm', () => {
       });
     });
   });
-
-  // TODO: nock the entity api requests
 
   describe('form submission', () => {
     const inputQueryAndSubmitForm = (wrapper, query) => {
@@ -171,20 +154,18 @@ describe('components/search/SearchForm', () => {
 
     context('when on a search page', () => {
       const state = {
-        search: {
-          active: true,
-          query: '',
-          view: 'grid'
-        }
+        active: true,
+        query: '',
+        view: 'grid'
       };
-      const wrapper = factory({ store: store({ state }) });
+      const wrapper = factory({ store: store(state) });
 
       it('updates current route', async() => {
         await inputQueryAndSubmitForm(wrapper, newQuery);
 
         const newRouteParams = {
           path: wrapper.vm.$route.path,
-          query: { query: newQuery, page: 1, view: state.search.view }
+          query: { query: newQuery, page: 1, view: state.view }
         };
         routerPush.should.have.been.calledWith(newRouteParams);
       });
@@ -192,20 +173,18 @@ describe('components/search/SearchForm', () => {
 
     context('when not on a search page', () => {
       const state = {
-        search: {
-          active: false,
-          query: '',
-          view: 'list'
-        }
+        active: false,
+        query: '',
+        view: 'list'
       };
-      const wrapper = factory({ store: store({ state }) });
+      const wrapper = factory({ store: store(state) });
 
       it('reroutes to search', async() => {
         await inputQueryAndSubmitForm(wrapper, newQuery);
 
         const newRouteParams = {
           path: '/search',
-          query: { query: newQuery, page: 1, view: state.search.view }
+          query: { query: newQuery, page: 1, view: state.view }
         };
         routerPush.should.have.been.calledWith(newRouteParams);
       });
@@ -226,11 +205,15 @@ describe('components/search/SearchForm', () => {
   });
 
   describe('getSearchSuggestions', () => {
-    const baseRequest = nock(entities.constants.API_ORIGIN).get('/entity/suggest');
+    beforeEach(() => {
+      nock(entities.constants.API_ORIGIN).get('/entity/suggest')
+        .query(true)
+        .reply(200, entityApiSuggestionsResponse);
+    });
 
-    baseRequest
-      .query(true)
-      .reply(200, entityApiSuggestionsResponse);
+    afterEach(() => {
+      nock.cleanAll();
+    });
 
     context('auto-suggest is not enabled (by default)', () => {
       const wrapper = factory();
@@ -245,14 +228,18 @@ describe('components/search/SearchForm', () => {
       const wrapper = factory();
       wrapper.setProps({ enableAutoSuggest: true });
 
-      // FIXME
       it('gets suggestions from the Entity API', async() => {
         await wrapper.vm.getSearchSuggestions();
 
         nock.isDone().should.be.true;
       });
 
-      it('parses and stores suggestions locally');
+      // FIXME
+      // it('parses and stores suggestions locally', async() => {
+      //   await wrapper.vm.getSearchSuggestions();
+      //
+      //   wrapper.vm.suggestions.should.deep.eq(parsedSuggestions);
+      // });
     });
   });
 });
