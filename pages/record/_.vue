@@ -83,7 +83,7 @@
         </div>
         <div
           class="card p-3 mb-3"
-          data-qa="Main metadata"
+          data-qa="main metadata section"
         >
           <MetadataField
             v-for="(value, name) in coreFields"

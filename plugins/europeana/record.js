@@ -14,7 +14,7 @@ function parseRecordDataFromApiResponse(response) {
   const providerAggregation = edm.aggregations[0];
   const europeanaAggregation = edm.europeanaAggregation;
   const entities = [].concat(edm.concepts, edm.places, edm.agents)
-    .filter(checkNotNull)
+    .filter(isNotUndefined)
     .reduce((memo, entity) => {
       memo[entity.about] = entity;
       return memo;
@@ -36,13 +36,13 @@ function parseRecordDataFromApiResponse(response) {
       dcSubject: proxyData.dcSubject,
       dcType: proxyData.dcType,
       dcTermsMedium: proxyData.dctermsMedium
-    }, checkNull), entities),
+    }, isUndefined), entities),
     fields: lookupEntities(omitBy({
       dcTermsCreated: proxyData.dcTermsCreated,
       edmCountry: europeanaAggregation.edmCountry,
       edmDataProvider: providerAggregation.edmDataProvider,
       edmRights: providerAggregation.edmRights
-    }, checkNull), entities),
+    }, isUndefined), entities),
     media: providerAggregation.webResources.filter((webResource) => {
       return (webResource.about === providerAggregation.edmIsShownBy) ||
         (providerAggregation.hasView || []).includes(webResource.about);
@@ -53,11 +53,11 @@ function parseRecordDataFromApiResponse(response) {
   };
 }
 
-function checkNull(value) {
+function isUndefined(value) {
   return value === undefined;
 }
-function checkNotNull(value) {
-  return !checkNull(value);
+function isNotUndefined(value) {
+  return !isUndefined(value);
 }
 
 /**

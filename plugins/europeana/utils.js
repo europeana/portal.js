@@ -19,15 +19,16 @@ function isEntity(value) {
 }
 
 function entityValues(values, locale) {
-  return ((typeof(values) === 'string') ? [values] : values || []).filter((value) => isEntity(value))
-    .map((value) => entityValue(value, locale));
+  const iterableValues = ((typeof(values) === 'string') ? [values] : values || []);
+  const iterableEntities = iterableValues.filter((value) => isEntity(value));
+  return iterableEntities.map((value) => entityValue(value, locale));
 }
 
 function entityValue(value, locale) {
   if (value.prefLabel) {
-    const entityValue = langMapValueForLocale(value.prefLabel, locale);
+    let entityValue = langMapValueForLocale(value.prefLabel, locale);
+    if (entityValue.values.length === 0) entityValue = { code: '', values: [value.about] };
     entityValue.about = value.about;
-    if (entityValue.values.length === 0) entityValue.values = [value.about];
     return entityValue;
   }
   return { code: '', values: [value.about], about: value.about };

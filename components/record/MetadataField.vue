@@ -16,14 +16,13 @@
         >
           <li
             v-for="(nestedValue, nestedIndex) of value.values"
-            :key="index + '_' + nestedIndex"
-            :lang="locale"
+            :key="nestedIndex"
+            :lang="value.code"
             data-qa="entity value"
           >
             <EntityField
               :value="nestedValue"
               :about="value.about"
-              data-qa="entity value"
             />
           </li>
         </template>

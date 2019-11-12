@@ -4,6 +4,7 @@ Feature: Record page
 
     When I open a `record page`
     Then I see the `record page`
+    And I see the `main metadata section`
     And I see a `metadata field`
     And I am on an accessible page
 
