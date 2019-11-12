@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "name": "Europeana 1",
+    "name": "Europeana",
     "lastOpened": 0,
     "created": 1573480672194
   },
@@ -130,7 +130,7 @@
     {
       "selection": [
         {
-          "order": 1,
+          "order": 0,
           "id": 2,
           "prevSize": 28,
           "code": 59653,
@@ -143,7 +143,7 @@
           "prevSize": 28,
           "code": 59651,
           "name": "caret-down",
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "order": 1,
@@ -151,7 +151,7 @@
           "prevSize": 28,
           "code": 59648,
           "name": "external-link",
-          "tempChar": ""
+          "tempChar": ""
         }
       ],
       "id": 0,

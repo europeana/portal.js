@@ -19,10 +19,9 @@
 
     .selected-amount {
       padding-left: .25rem;
+
       &:before {
-        @extend .icon-font;
-        content: '\e905';
-        font-size: .25rem;
+        content: '\2219';
       }
     }
 
