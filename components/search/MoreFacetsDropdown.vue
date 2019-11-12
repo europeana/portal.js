@@ -67,7 +67,7 @@
     computed: {
       selectedAmount() {
         let sum = 0;
-        for (const key of Object.keys(this.selected)) {
+        for (const key in this.selected) {
           sum += this.selected[key].length;
         }
         return sum;
