@@ -161,15 +161,54 @@
     },
 
     mounted() {
-      this.inputElement.addEventListener('keyup', this.handleInputKeyup);
+      this.inputElement.addEventListener('keyup', this.keyup);
       document.addEventListener('mouseup', this.clickOutside);
     },
 
     methods: {
+      keyup() {
+        if (!this.isActive) return;
+
+        switch (event.keyCode) {
+        case 9: // Tab key
+        case 27: // Escape key
+          this.closeDropdown();
+          break;
+        case 38: // Up key
+          this.keyupUp();
+          break;
+        case 40: // Down key
+          this.keyupDown();
+          break;
+        }
+      },
+
+      keyupUp() {
+        if (this.noSuggestionHasFocus || this.firstSuggestionHasFocus) {
+          this.focus = this.numberOfSuggestions - 1;
+        } else {
+          this.focus--;
+        }
+
+        this.selectSuggestion();
+      },
+
+      keyupDown() {
+        if (this.noSuggestionHasFocus || this.lastSuggestionHasFocus) {
+          this.focus = 0;
+        } else {
+          this.focus++;
+        }
+
+        this.selectSuggestion();
+      },
+
       clickOutside(event) {
         if (!this.isActive) return;
+
         const isParent = (event.target === this.inputElement);
         const isChild = this.$el.contains(event.target);
+
         if (!(isParent || isChild)) {
           this.closeDropdown();
         }
@@ -225,33 +264,6 @@
 
       selectSuggestion() {
         this.$emit('select', this.selectedSuggestionValue);
-      },
-
-      handleInputKeyup(event) {
-        if (!this.isActive) return;
-
-        switch (event.keyCode) {
-        case 9: // Tab key
-        case 27: // Escape key
-          this.closeDropdown();
-          break;
-        case 38: // Up key
-          if (this.noSuggestionHasFocus || this.firstSuggestionHasFocus) {
-            this.focus = this.numberOfSuggestions - 1;
-          } else {
-            this.focus--;
-          }
-          this.selectSuggestion();
-          break;
-        case 40: // Down key
-          if (this.noSuggestionHasFocus || this.lastSuggestionHasFocus) {
-            this.focus = 0;
-          } else {
-            this.focus++;
-          }
-          this.selectSuggestion();
-          break;
-        }
       }
     }
   };
