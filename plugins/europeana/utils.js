@@ -59,18 +59,18 @@ function languageKeys(currentLocale) {
 export function langMapValueForLocale(langMap, locale) {
   let returnVal = { values: [] };
   for (let key of languageKeys(locale)) { // loop through all language key to find a match
-    if (langMap[key]) {
-      setLangMapValuesAndCode(returnVal, langMap, key, locale);
-      if (returnVal['values'].length >= 1) break;
-    }
+    setLangMapValuesAndCode(returnVal, langMap, key, locale);
+    if (returnVal['values'].length >= 1) break;
   }
   return addEntityValues(returnVal, entityValues(langMap['def'], locale));
 }
 
 function setLangMapValuesAndCode(returnValue, langMap, key, locale) {
-  setLangMapValues(returnValue, langMap, key, locale);
-  setLangCode(returnValue, key, locale);
-  if (['def', 'und'].includes(key)) filterEntities(returnValue);
+  if (langMap[key]) {
+    setLangMapValues(returnValue, langMap, key, locale);
+    setLangCode(returnValue, key, locale);
+    if (['def', 'und'].includes(key)) filterEntities(returnValue);
+  }
 }
 
 function addEntityValues(localizedLangmap, localizedEntities) {
