@@ -92,6 +92,8 @@ function sortByIsNextInSequence(source) {
   const itemUris = items.map((item) => item.about);
 
   for (const uri of itemUris) {
+    // It's necessary to find the item on each iteration to sort as it may have
+    // been moved from its original position by a previous iteration.
     const sortItemIndex = items.findIndex((item) => item.about === uri);
     const sortItem = items[sortItemIndex];
 
@@ -100,7 +102,9 @@ function sortByIsNextInSequence(source) {
     if (sortItem.isNextInSequence) {
       const isPreviousInSequenceIndex = items.findIndex((item) => item.about === sortItem.isNextInSequence);
       if (isPreviousInSequenceIndex !== -1) {
+        // Remove the item from its original position.
         items.splice(sortItemIndex, 1);
+        // Insert the item after its predecessor.
         items.splice(isPreviousInSequenceIndex + 1, 0, sortItem);
       }
     }
