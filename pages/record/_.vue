@@ -94,13 +94,27 @@
           />
         </div>
         <div class="card p-3">
-          <MetadataField
-            v-for="(value, name) in fields"
-            :key="name"
-            :name="name"
-            :field-data="value"
-            class="mb-3"
-          />
+          <div class="d-flex justify-content-between align-items-center">
+            <h2>{{ $t('record.extendedInformation') }}</h2>
+            <b-button
+              v-b-toggle.extended-metadata
+              variant="outline-primary"
+              class="mb-3 d-inline"
+              @click="saveExtendedMetadataPreference"
+            >
+              <span class="extended-opened">{{ $t('record.hideAll') }}</span>
+              <span class="extended-closed">{{ $t('record.showAll') }}</span>
+            </b-button>
+          </div>
+          <b-collapse id="extended-metadata">
+            <MetadataField
+              v-for="(value, name) in fields"
+              :key="name"
+              :name="name"
+              :field-data="value"
+              class="mb-3"
+            />
+          </b-collapse>
         </div>
       </b-col>
       <b-col
@@ -212,10 +226,23 @@
     },
     async mounted() {
       this.relatedEntities = await searchEntities(this.europeanaEntityUris, { wskey: process.env.EUROPEANA_ENTITY_API_KEY });
+
+      if (process.browser) {
+        if (localStorage.extendedMetadataIsOpen && JSON.parse(localStorage.extendedMetadataIsOpen)) {
+          this.$root.$emit('bv::toggle::collapse', 'extended-metadata');
+        }
+      }
+    },
+    methods: {
+      saveExtendedMetadataPreference() {
+        if (process.browser) {
+          localStorage.extendedMetadataIsOpen = !JSON.parse(localStorage.extendedMetadataIsOpen);
+        }
+      }
     },
     head() {
       return {
-        title: this.titlesInCurrentLanguage[0] ? this.titlesInCurrentLanguage[0].value : this.$t('record')
+        title: this.titlesInCurrentLanguage[0] ? this.titlesInCurrentLanguage[0].value : this.$t('record.record')
       };
     }
   };
@@ -271,5 +298,10 @@
   .card-grid-richmedia .description {
     grid-column: col1-start/col2-end;
     grid-row: row3-start;
+  }
+
+  .collapsed > .extended-opened,
+  :not(.collapsed) > .extended-closed {
+    display: none;
   }
 </style>

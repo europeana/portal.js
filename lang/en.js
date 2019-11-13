@@ -74,7 +74,12 @@ export default {
   "depiction": "A depiction of {title}",
   "showLess": "Show less",
   "showMore": "Show more",
-  "record": "Record",
+  "record": {
+    "extendedInformation": "Extended Information",
+    "hideAll": "Hide all information",
+    "record": "Record",
+    "showAll": "Show all information"
+  },
   "messages": {
     "externalContentError": "The external content failed to load",
     "notFound": "Not Found",

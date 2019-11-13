@@ -4,7 +4,7 @@
   >
     <b-button
       :href="url | proxyMedia(europeanaIdentifier)"
-      variant="outline-primary primary"
+      variant="outline-primary"
       data-qa="download button"
       size="lg"
     >
