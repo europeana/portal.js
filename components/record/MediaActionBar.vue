@@ -17,6 +17,7 @@
       v-if="rightsStatementUrl"
       :destination="rightsStatementUrl"
       class="attribution"
+      data-qa="rights statement link"
     >
       <RightsStatement
         :rights-statement-url="rightsStatementUrl"
