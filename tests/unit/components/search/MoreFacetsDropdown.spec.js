@@ -13,16 +13,16 @@ const factory = () => shallowMount(MoreFacetsDropdown, {
 });
 
 describe('components/search/MoreFacetsDropdown', () => {
-  it('displays the correct number of selected options', () => {
+  it('displays the correct number of saved options', () => {
     const wrapper = factory();
 
     wrapper.setData({
-      selected: {
+      saved: {
         LANGUAGE: ['de', 'sv'],
         PROVIDER: ['OpenUp!']
       }
     });
 
-    wrapper.vm.selectedAmount.should.eql(3);
+    wrapper.vm.savedOptions.length.should.eql(3);
   });
 });
