@@ -53,6 +53,10 @@
               :height="selectedMedia.ebucoreHeight"
               class="mb-3"
             />
+            <ThumbnailGrid
+              v-if="media.length > 1"
+              :thumbnails="mediaThumbnails"
+            />
             <div
               v-if="descriptionInCurrentLanguage"
               class="description"
@@ -121,12 +125,13 @@
   import EntityCards from '../../components/entity/EntityCards';
   import MediaActionBar from '../../components/record/MediaActionBar';
   import AlertMessage from '../../components/generic/AlertMessage';
+  import ThumbnailGrid from '../../components/generic/ThumbnailGrid';
   import MetadataField from '../../components/record/MetadataField';
   import MediaPresentation from '../../components/record/MediaPresentation';
 
   import getRecord from '../../plugins/europeana/record';
-  import { langMapValueForLocale } from  '../../plugins/europeana/utils';
-  import { isRichMedia } from '../../plugins/media.js';
+  import { langMapValueForLocale, thumbnailUrl } from  '../../plugins/europeana/utils';
+  import { isRichMedia } from '../../plugins/media';
   import { searchEntities } from '../../plugins/europeana/entity';
 
   export default {
@@ -134,8 +139,9 @@
       AlertMessage,
       EntityCards,
       MediaActionBar,
+      MediaPresentation,
       MetadataField,
-      MediaPresentation
+      ThumbnailGrid
     },
     data() {
       return {
@@ -154,6 +160,15 @@
       };
     },
     computed: {
+      mediaThumbnails() {
+        return this.media.map((item) => {
+          return {
+            key: item.about,
+            // TODO: pass `type` for the web resource
+            src: thumbnailUrl(item.about, { size: 'w200' })
+          };
+        });
+      },
       europeanaAgents() {
         return (this.agents || []).filter((agent) => agent.about.startsWith('http://data.europeana.eu/agent/'));
       },
