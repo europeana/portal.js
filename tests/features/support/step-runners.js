@@ -9,6 +9,8 @@ const { url } = require('../config/nightwatch.conf.js').test_settings.default.gl
 
 const pages = {
   'home page': `${url}/en`,
+  'English home page': `${url}/en`,
+  'Swedish home page': `${url}/sv`,
   'exhibition page': `${url}/en/exhibition/the-pink-flowers`,
   'exhibition chapter': `${url}/en/exhibition/the-pink-flowers/allium`,
   'exhibitions page': `${url}/en/exhibitions`,

@@ -27,7 +27,6 @@
           />
         </div>
         <LangSelector
-          v-if="enableLanguageSelector"
           data-qa="language selector"
         />
       </b-navbar>
@@ -45,10 +44,6 @@
       LangSelector
     },
     props: {
-      enableLanguageSelector: {
-        type: Boolean,
-        default: Boolean(Number(process.env['ENABLE_LANGUAGE_SELECTOR']))
-      },
       enableAutosuggest: {
         type: Boolean,
         default: false
