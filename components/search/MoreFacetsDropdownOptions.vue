@@ -80,7 +80,7 @@
     },
 
     mounted() {
-      this.$root.$on('clearSelectedOptions', this.clearSelected);
+      this.$root.$on('updateSelectedOptions', this.updateOptions);
     },
 
     methods: {
@@ -88,8 +88,8 @@
         this.$emit('selectedOptions', this.name, value);
       },
 
-      clearSelected() {
-        this.selected = [];
+      updateOptions(values) {
+        this.selected = values;
       }
     }
   };

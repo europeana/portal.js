@@ -31,8 +31,8 @@
     >
       <b-button
         variant="link"
-        :disabled="preSavedOptionsAmount < 1"
-        @click="clearFilters"
+        :disabled="preSavedOptionsAmount < 1 && savedOptionsAmount < 1"
+        @click="resetFilters"
       >
         {{ $t('facets.button.reset') }}
       </b-button>
@@ -98,15 +98,17 @@
       },
 
       cancelHandler() {
-        this.clearFilters();
-        this.$refs.dropdown.hide(true);
+        const savedOptions = [].concat(...Object.values(this.savedOptions));
+        this.clearPreSavedOptions();
+        // Calls `updateSelectedOptions` method in child componen: `MoreFacetsDropdownOptions.vue`
+        this.$root.$emit('updateSelectedOptions', savedOptions);
       },
 
-      clearFilters() {
+      resetFilters() {
         this.clearSavedOptions();
         this.clearPreSavedOptions();
-        // Calls `clearSelectedOptions` method in child componen: `MoreFacetsDropdownOptions.vue`
-        this.$root.$emit('clearSelectedOptions');
+        // Calls `updateSelectedOptions` method in child componen: `MoreFacetsDropdownOptions.vue`
+        this.$root.$emit('updateSelectedOptions', []);
       },
 
       clearSavedOptions() {
