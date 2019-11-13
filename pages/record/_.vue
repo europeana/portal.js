@@ -236,7 +236,7 @@
     methods: {
       saveExtendedMetadataPreference() {
         if (process.browser) {
-          localStorage.extendedMetadataIsOpen = !JSON.parse(localStorage.extendedMetadataIsOpen);
+          localStorage.extendedMetadataIsOpen = localStorage.extendedMetadataIsOpen ? !JSON.parse(localStorage.extendedMetadataIsOpen) : true;
         }
       }
     },
