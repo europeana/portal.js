@@ -79,6 +79,7 @@
             v-if="selectedMedia.about"
             :url="selectedMedia.about"
             :europeana-identifier="identifier"
+            :rights-statement-url="rightsStatement"
           />
         </div>
         <div
@@ -187,6 +188,15 @@
       },
       isRichMedia() {
         return isRichMedia(this.selectedMedia.ebucoreHasMimeType, this.selectedMedia.edmCodecName, this.selectedMedia.about);
+      },
+      rightsStatement() {
+        if (this.selectedMedia.webResourceEdmRights) {
+          return langMapValueForLocale(this.selectedMedia.webResourceEdmRights, this.$i18n.locale).values[0];
+        } else if (this.fields.edmRights) {
+          return langMapValueForLocale(this.fields.edmRights, this.$i18n.locale).values[0];
+        } else {
+          return false;
+        }
       },
       selectedMedia() {
         return this.media[0] || {};
