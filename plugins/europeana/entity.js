@@ -261,6 +261,7 @@ function getRelatedEntityTitleLink(entities) {
       entityDetails.push({
         type: getEntityTypeHumanReadable(entity.type),
         path: getEntitySlug(entity),
+        // TODO: l10n
         title: entity.prefLabel.en
       });
     }
@@ -294,9 +295,31 @@ export function getEntityDescription(entity) {
 }
 
 /**
+ * A check for a URI to see if it conforms ot the entity URI pattern
+ * Will return true/false
+ * @param {String} A URI to check
+ * @return {Boolean} true if the URI is a valid entity URI
+ */
+export function isEntityUri(uri) {
+  return RegExp(/^http:\/\/data\.europeana\.eu\/(concept|agent|place)\/base\/\d+$/).test(uri);
+}
+
+/**
+ * From a URI split params as required by the portal
+ * @param {String} A URI to check
+ * @return {{type: String, identifier: string}} Object with the portal relevant identifiers.
+ */
+export function entityParamsFromUri(uri) {
+  const matched = uri.match(/^http:\/\/data\.europeana\.eu\/(concept|agent|place)\/base\/(\d+)$/);
+  const id = matched[2];
+  const type = getEntityTypeHumanReadable(matched[1]);
+  return { id, type };
+}
+
+/**
  * The logic for going from: http://commons.wikimedia.org/wiki/Special:FilePath/[image] to
  * https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/[image]/200px-[image]:
- * @image {String} image url
+ * @image {String} image URL of wikimedia image
  * @return {String} formatted thumbnail url
  */
 export function getWikimediaThumbnailUrl(image) {

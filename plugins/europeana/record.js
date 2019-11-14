@@ -1,6 +1,7 @@
 import { apiError } from './utils';
 import axios from 'axios';
 import omitBy from 'lodash/omitBy';
+import merge from 'deepmerge';
 
 /**
  * Parse the record data based on the data from the API response
@@ -12,37 +13,136 @@ function parseRecordDataFromApiResponse(response) {
 
   const providerAggregation = edm.aggregations[0];
   const europeanaAggregation = edm.europeanaAggregation;
-  const providerProxy = edm.proxies.find((proxy) => {
-    return proxy.europeanaProxy === false;
-  });
+  const entities = [].concat(edm.concepts, edm.places, edm.agents)
+    .filter(isNotUndefined)
+    .reduce((memo, entity) => {
+      memo[entity.about] = entity;
+      return memo;
+    }, {});
+  const proxyData = merge.all(edm.proxies);
 
   return {
-    altTitle: providerProxy.dctermsAlternative,
-    description: providerProxy.dcDescription,
+    altTitle: proxyData.dctermsAlternative,
+    description: proxyData.dcDescription,
     identifier: edm.about,
     image: {
       link: providerAggregation.edmIsShownAt,
       src: europeanaAggregation.edmPreview
     },
-    fields: omitBy({
-      dcContributor: providerProxy.dcContributor,
-      dcCreator: providerProxy.dcCreator,
-      dcType: providerProxy.dcType,
-      dctermsCreated: providerProxy.dctermsCreated,
+    coreFields: lookupEntities(omitBy({
+      dcContributor: proxyData.dcContributor, // Plus rdaGr2DateOfBirth & rdaGr2DateOfDeath
+      dcCreator: proxyData.dcCreator, // Plus rdaGr2DateOfBirth & rdaGr2DateOfDeath
+      dcPublisher: proxyData.dcPublisher,
+      dcSubject: proxyData.dcSubject,
+      dcType: proxyData.dcType,
+      dcTermsMedium: proxyData.dctermsMedium
+    }, isUndefined), entities),
+    fields: lookupEntities(omitBy({
+      dcTermsCreated: proxyData.dcTermsCreated,
       edmCountry: europeanaAggregation.edmCountry,
       edmDataProvider: providerAggregation.edmDataProvider,
       edmRights: providerAggregation.edmRights
-    }, (v) => {
-      return v === null;
-    }),
-    media: providerAggregation.webResources.filter((webResource) => {
-      return (webResource.about === providerAggregation.edmIsShownBy) ||
-        (providerAggregation.hasView || []).includes(webResource.about);
-    }),
+    }, isUndefined), entities),
+    media: aggregationMedia(providerAggregation),
     agents: edm.agents,
     concepts: edm.concepts,
-    title: providerProxy.dcTitle
+    title: proxyData.dcTitle
   };
+}
+
+function aggregationMedia(aggregation) {
+  // Gather all isShownBy and hasView URIs
+  const mediaUris = [aggregation.edmIsShownBy].concat(aggregation.hasView || []).filter(isNotUndefined);
+
+  // Filter web resources to isShownBy and hasView
+  const media = aggregation.webResources.filter((webResource) => mediaUris.includes(webResource.about));
+
+  // Sort by isNextInSequence property if present
+  return sortByIsNextInSequence(media);
+}
+
+/**
+ * Sorts an array of objects by the `isNextInSequence` property.
+ *
+ * Logic:
+ * * Any objects not having `isNextInSequence` will not be moved.
+ * * Any objects having `isNextInSequence` will be moved to the position
+ *   immediately following the other object whose `about` property matches this
+ *   one's `isNextInSequence`
+ *
+ * @param {Object[]} source items to sort
+ * @return {Object[]} sorted items
+ * @example
+ *    const unsorted = [
+ *      { about: 'd', isNextInSequence: 'c' },
+ *      { about: 'b', isNextInSequence: 'a' },
+ *      { about: 'a' },
+ *      { about: 'c', isNextInSequence: 'b' }
+ *    ];
+ *    const sorted = sortByIsNextInSequence(unsorted);
+ *    console.log(sorted[0].about); // expected output: 'a'
+ *    console.log(sorted[1].about); // expected output: 'b'
+ *    console.log(sorted[2].about); // expected output: 'c'
+ *    console.log(sorted[3].about); // expected output: 'd'
+ */
+function sortByIsNextInSequence(source) {
+  // Make a copy to work on
+  const items = [].concat(source);
+
+  const itemUris = items.map((item) => item.about);
+
+  for (const uri of itemUris) {
+    // It's necessary to find the item on each iteration to sort as it may have
+    // been moved from its original position by a previous iteration.
+    const sortItemIndex = items.findIndex((item) => item.about === uri);
+    const sortItem = items[sortItemIndex];
+
+    // If it has isNextInSequence property, move it after that item; else
+    // leave it be.
+    if (sortItem.isNextInSequence) {
+      const isPreviousInSequenceIndex = items.findIndex((item) => item.about === sortItem.isNextInSequence);
+      if (isPreviousInSequenceIndex !== -1) {
+        // Remove the item from its original position.
+        items.splice(sortItemIndex, 1);
+        // Insert the item after its predecessor.
+        items.splice(isPreviousInSequenceIndex + 1, 0, sortItem);
+      }
+    }
+  }
+
+  return items;
+}
+
+function isUndefined(value) {
+  return value === undefined;
+}
+function isNotUndefined(value) {
+  return !isUndefined(value);
+}
+
+/**
+ * Update a set of fields, in order to find linked entity data.
+ * will match any literal values in  the 'def' key to about fields
+ * in any of the entities and return the related object instead of
+ * the plain string.
+ * @param fields Object representing the metadata fields
+ * @param entities key(URI) value(JSON object) map of entity objects for this record
+ * @return {Object[]} The fields with any entities as JSON objects
+ */
+function lookupEntities(fields, entities) {
+  for (const key in fields) {
+    setMatchingEntities(fields, key, entities);
+  }
+  return fields;
+}
+
+function setMatchingEntities(fields, key, entities) {
+  // Only looks for entities in 'def'
+  for (const [index, value] of (fields[key]['def'] || []).entries()) {
+    if (entities[value]) {
+      fields[key]['def'][index] = entities[value];
+    }
+  }
 }
 
 /**

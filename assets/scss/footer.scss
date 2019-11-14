@@ -1,5 +1,4 @@
 footer {
-  
   .footer-link-list {
     list-style-type: none;
     background-color: $darkblue;
@@ -13,7 +12,7 @@ footer {
         text-align: center;
         padding: 1rem;
         text-decoration: none;
-        
+
         &:hover {
           background-color: $extradarkblue;
         }
@@ -21,9 +20,30 @@ footer {
         &.is-external-link::after {
           content: '\e900';
           color: $white;
-          @extend .icon-font;          
+          @extend .icon-font;
         }
       }
     }
   }
+
+  .dropdown {
+    .dropdown-toggle {
+      color: $blue;
+      padding-left: 1rem;
+      padding-right: 1rem;
+
+      &:before {
+        content: '\e905';
+        margin-right: 0.5rem;
+        @extend .icon-font;
+      }
+    }
+
+    .dropdown-menu {
+      max-height: 50vh;
+      overflow: auto;
+    }
+
+  }
+  
 }

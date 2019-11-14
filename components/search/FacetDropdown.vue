@@ -239,14 +239,14 @@
 
   .options-container {
     overflow: auto;
-    max-height: 380px;
+    max-height: 50vh;
 
     &::-webkit-scrollbar {
-      width: 4px;
+      width: 0.25rem;
     }
 
     &::-webkit-scrollbar-thumb {
-      background-color: grey;
+      background-color: $grey;
     }
   }
 </style>

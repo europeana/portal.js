@@ -27,10 +27,6 @@
             :enable-suggestion-validation="enableSuggestionValidation"
           />
         </div>
-        <LangSelector
-          v-if="enableLanguageSelector"
-          data-qa="language selector"
-        />
       </b-navbar>
     </b-container>
   </b-container>
@@ -38,19 +34,13 @@
 
 <script>
   import SearchForm from './search/SearchForm';
-  import LangSelector from './generic/LanguageSelector';
 
   export default {
     components: {
-      SearchForm,
-      LangSelector
+      SearchForm
     },
 
     props: {
-      enableLanguageSelector: {
-        type: Boolean,
-        default: false
-      },
       enableAutoSuggest: {
         type: Boolean,
         default: false

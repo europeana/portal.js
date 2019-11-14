@@ -58,7 +58,7 @@
               class="description"
             >
               <div
-                v-for="(value, index) in descriptionInCurrentLanguage.value"
+                v-for="(value, index) in descriptionInCurrentLanguage.values"
                 :key="index"
               >
                 <!-- eslint-disable vue/no-v-html -->
@@ -68,42 +68,49 @@
                 />
                 <!-- eslint-disable vue/no-v-html -->
                 <hr
-                  v-if="(index + 1) < descriptionInCurrentLanguage.value.length"
+                  v-if="(index + 1) < descriptionInCurrentLanguage.values.length"
                 >
               </div>
             </div>
           </div>
-          <MetadataField
-            v-for="(value, name) in fields"
-            :key="name"
-            :name="name"
-            :value="value"
-            class="mb-3"
-          />
         </div>
-        <div class="card p-3">
+        <div class="card p-3 mb-3">
           <MediaActionBar
             v-if="selectedMedia.about"
             :url="selectedMedia.about"
             :europeana-identifier="identifier"
           />
         </div>
+        <div
+          class="card p-3 mb-3"
+          data-qa="main metadata section"
+        >
+          <MetadataField
+            v-for="(value, name) in coreFields"
+            :key="name"
+            :name="name"
+            :field-data="value"
+            class="mb-3"
+          />
+        </div>
+        <div class="card p-3">
+          <MetadataField
+            v-for="(value, name) in fields"
+            :key="name"
+            :name="name"
+            :field-data="value"
+            class="mb-3"
+          />
+        </div>
       </b-col>
       <b-col
         cols="12"
         lg="3"
-        style="background-color: #FFF"
       >
-        <!-- TODO: add related entities / EC-3716 -->
-        Placeholder for related entities
-      </b-col>
-    </b-row>
-    <b-row class="mb-3">
-      <!-- TODO: remove when the carousel has come to town. -->
-      <b-col>
-        <h2>Media</h2>
-        <WebResources
-          :media="media"
+        <EntityCards
+          v-if="relatedEntities"
+          :entities="relatedEntities"
+          data-qa="related entities"
         />
       </b-col>
     </b-row>
@@ -111,21 +118,22 @@
 </template>
 
 <script>
+  import EntityCards from '../../components/entity/EntityCards';
   import MediaActionBar from '../../components/record/MediaActionBar';
   import AlertMessage from '../../components/generic/AlertMessage';
-  import WebResources from '../../components/record/WebResources';
   import MetadataField from '../../components/record/MetadataField';
   import MediaPresentation from '../../components/record/MediaPresentation';
 
   import getRecord from '../../plugins/europeana/record';
+  import { langMapValueForLocale } from  '../../plugins/europeana/utils';
   import { isRichMedia } from '../../plugins/media.js';
   import { searchEntities } from '../../plugins/europeana/entity';
 
   export default {
     components: {
-      MediaActionBar,
       AlertMessage,
-      WebResources,
+      EntityCards,
+      MediaActionBar,
       MetadataField,
       MediaPresentation
     },
@@ -136,11 +144,12 @@
         concepts: null,
         description: null,
         error: null,
+        coreFields: null,
         fields: null,
         identifier: null,
         image: null,
         media: null,
-        relatedEntities: null,
+        relatedEntities: [],
         title: null
       };
     },
@@ -158,12 +167,12 @@
       titlesInCurrentLanguage() {
         let titles = [];
 
-        const mainTitle = this.title ? this.$options.filters.inCurrentLanguage(this.title, this.$i18n.locale) : '';
-        const alternativeTitle = this.altTitle ? this.$options.filters.inCurrentLanguage(this.altTitle, this.$i18n.locale) : '';
+        const mainTitle = this.title ? langMapValueForLocale(this.title, this.$i18n.locale) : '';
+        const alternativeTitle = this.altTitle ? langMapValueForLocale(this.altTitle, this.$i18n.locale) : '';
 
         const allTitles = [].concat(mainTitle, alternativeTitle).filter(Boolean);
         for (let title of allTitles) {
-          for (let value of title.value) {
+          for (let value of title.values) {
             titles.push({ 'code': title.code, value });
           }
         }
@@ -174,7 +183,7 @@
         if (!this.description) {
           return false;
         }
-        return this.$options.filters.inCurrentLanguage(this.description, this.$i18n.locale);
+        return langMapValueForLocale(this.description, this.$i18n.locale);
       },
       isRichMedia() {
         return isRichMedia(this.selectedMedia.ebucoreHasMimeType, this.selectedMedia.edmCodecName, this.selectedMedia.about);
@@ -212,7 +221,9 @@
   };
 </script>
 
-<style>
+<style lang="scss" scoped>
+  @import "./assets/scss/variables.scss";
+
   .card-grid {
     display: grid;
     column-gap: 1rem;
@@ -221,18 +232,31 @@
   }
 
   .card-heading {
-    grid-column: col2-start/col2-end;
     grid-row: row1-start;
+    grid-column: col1-start/col2-end;
+
+    @media (min-width: $bp-large) {
+      grid-column: col2-start/col2-end;
+    }
   }
 
   .media-presentation {
-    grid-column: col1-start/col2-start;
-    grid-row: row1-start/row3-end;
+    grid-row: row3-start;
+    grid-column: col1-start/col2-end;
+
+    @media (min-width: $bp-large) {
+      grid-column: col1-start/col2-start;
+      grid-row: row1-start/row3-end;
+    }
   }
 
   .description {
-    grid-column: col2-start/col2-end;
+    grid-column: col1-start/col2-end;
     grid-row: row2-start;
+
+    @media (min-width: $bp-large) {
+      grid-column: col2-start/col2-end;
+    }
   }
 
   .card-grid-richmedia .card-heading {

@@ -29,6 +29,9 @@ defineStep('I find/identify/see/spot (a/an/the)( ){target} in/on a/an/the {targe
 defineStep('I find/identify/see/spot (a/an/the)( ){target} with the text {string}', (qa, text) =>
   i.seeATargetWithText(qa, text));
 
+defineStep('I find/identify/see/spot (a/an/the)( )level {int} (section )heading with the text {string}', (headingLevel, text) =>
+  i.seeASectionHeadingWithText(headingLevel, text));
+
 defineStep('I can\'t/don\'t find/identify/see/spot (a/an/the)( ){target}', (qa) =>
   i.doNotSeeATarget(qa));
 

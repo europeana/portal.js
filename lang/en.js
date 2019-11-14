@@ -21,9 +21,12 @@ export default {
       "dcContributor": "Contributors",
       "dcCreator": "Creators",
       "dcDescription": "Description",
+      "dcPublisher": "Publisher",
+      "dcSubject": "Subject",
       "dcTitle": "Title",
       "dcType": "Type of object",
       "dctermsCreated": "Creation date",
+      "dcTermsMedium": "Medium",
       "edmCountry": "Providing country",
       "edmDataProvider": "Providing institution",
       "edmRights": "License of the media in this record (unless otherwise specified)"
@@ -46,20 +49,24 @@ export default {
       "name": "Type of media"
     },
     "LANGUAGE": {
-      "name": "Language"
+      "name": "Language | Languages"
     },
     "PROVIDER": {
-      "name": "Aggregator"
+      "name": "Aggregator | Aggregators"
     },
     "DATA_PROVIDER": {
-      "name": "Institution"
+      "name": "Institution | Institutions"
     },
     "contentTier": {
       "name": "Includes broken items"
     },
     "button": {
+      "cancel": "Cancel",
       "reset": "Reset",
-      "apply": "Apply"
+      "apply": "Apply",
+      "morefilters": "More filters",
+      "showAll": "Show all {label}",
+      "showLess": "Show less {label}"
     }
   },
   "entity": "Entity",
