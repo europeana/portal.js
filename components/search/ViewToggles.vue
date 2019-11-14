@@ -85,7 +85,7 @@
       left: -10px;
       right: -10px;
       top: -10px;
-      background: $offwhite;
+      background: $white;
       border-radius: 50%;
       box-sizing: border-box;
       transform: scale(0);
