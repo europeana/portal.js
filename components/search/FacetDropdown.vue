@@ -36,16 +36,15 @@
           :value="option.label"
           :name="name"
           :data-qa="`${option.label} ${CHECKBOX}`"
-          :class="{ 'font-weight-bold' : selected.some(s => s === option.label) }"
         >
-          {{ option.label }} ({{ option.count | localise }})
+          {{ option.label }} <span>({{ option.count | localise }})</span>
         </b-form-checkbox>
       </template>
     </b-dropdown-form>
 
     <li
       v-if="type === 'checkbox'"
-      class="p-2 float-right"
+      class="dropdown-buttons mt-3"
     >
       <b-button
         variant="link"
@@ -148,7 +147,7 @@
       },
 
       dropdownVariant() {
-        return (this.radioSelected || this.selected.length > 0) ? 'secondary' : 'light';
+        return (this.radioSelected || this.selected.length > 0) ? 'selected' : 'light';
       }
     },
 
@@ -226,6 +225,7 @@
   }
 
   /deep/ .dropdown-menu {
+    font-size: $font-size-small;
     width: 100%;
 
     @media (min-width: $bp-large) {
@@ -234,6 +234,11 @@
 
     .custom-control  {
       margin-bottom: 4px;
+      min-height: auto;
+
+      label span {
+        font-size: $font-size-extrasmall;
+      }
     }
   }
 

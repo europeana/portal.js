@@ -1,4 +1,32 @@
 .dropdown {
+
+  .btn-light {
+    background: $white;
+  }
+
+  .btn-selected {
+    background: $white;
+    border-color: $blue;
+  }
+
+  .dropdown-buttons {
+      border-top: 1px solid $lightgrey-2;
+      display: flex;
+      justify-content: flex-end; 
+      padding: 0.5rem 0.5rem 0;
+      width: 100%;
+
+      .btn {
+        font-size: 0.875rem;
+        margin-left: 0.75rem;
+        text-transform: uppercase;
+      }
+
+      .btn-link {
+        padding: 0;
+      }
+    }
+
   &.more-facets {    
     strong {
       font-size: 1.5rem;
@@ -7,12 +35,11 @@
 
     > button {
       font-size: 1rem;
-      padding-left: 3rem;
-      padding-right: 3rem;
     }
 
     &.is-active {
       > button {
+        border-color: $blue;
         color: $blue;
       }
     }
@@ -27,13 +54,12 @@
     }
 
     .dropdown-menu {
-      border: 0;
       box-shadow: 0 2px 4px 0 rgba(0,0,0,0.1);
-      margin: 0.5rem $grid-gutter 0;
+      margin: 0.5rem $grid-gutter 0;      
       width: calc(100% - (2 * #{$grid-gutter}));
-      
+
       .more-facets-wrapper {
-        max-height: 50vh;
+        max-height: 70vh;
         overflow: auto;
         padding: 1.5rem;
       
@@ -46,7 +72,7 @@
         }
 
         li:not(.dropdown-buttons) {
-          border-bottom: 1px solid $grey;
+          border-bottom: 1px solid $lightgrey-2;
           margin-bottom: 2rem;
           padding-bottom: 2rem;
 
@@ -80,8 +106,10 @@
         }
 
         label {
-          border: 1px solid $grey;
+          border: 1px solid $lightgrey-2;
           border-radius: 1rem;
+          display: flex;
+          align-items: center;
           padding: 0.25rem 1rem;
         }
 
@@ -94,13 +122,9 @@
           line-height: 0.9rem;
           margin-left: 0.5rem;
           text-align: center;
-          font-size: .75rem;
+          font-size: 0.6rem;
           width: 1rem;
           padding-top: 2px;
-
-          .icon-close {
-            font-size: .70rem;
-          }
         }
 
         input[type="checkbox"] {
@@ -122,6 +146,7 @@
         }
 
         .btn-toggle {
+          font-size: $font-size-small;
           position: relative;
           padding-right: 1.2rem;
           padding-left: 0;
@@ -144,24 +169,6 @@
           }
         }
       }
-
-      .dropdown-buttons {
-        border-top: 1px solid $grey;
-        display: flex;
-        justify-content: flex-end; 
-        padding: 1.5rem;
-        width: 100%;
-
-        .btn {
-          font-size: 0.875rem;
-          margin-left: 0.75rem;
-          text-transform: uppercase;
-        }
-
-        .btn-link {
-          padding: 0;
-        }
-      }      
     }
   }
 }
