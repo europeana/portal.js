@@ -45,7 +45,6 @@ function parseRecordDataFromApiResponse(response) {
       dcRights: proxyData.dcRights,
       dcDate: proxyData.dcDate,
       dcTermsIssued: proxyData.dcTermsIssued,
-      timespans: edm.timespans,
       dcTermsPublished: proxyData.dcTermsPublished,
       dcTermsTemporal: proxyData.dcTermsTemporal,
       dcCoverage: proxyData.dcCoverage,

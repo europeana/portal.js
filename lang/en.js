@@ -32,7 +32,6 @@ export default {
       "edmRights": "License of the media in this record (unless otherwise specified)",
       "dcRights": "Rights",
       "dcDate": "Date",
-      "timespans": "Period",
       "dcTermsPublished": "Publication Date",
       "dcTermsIssued": "Issue date",
       "dcTermsTemporal": "Temporal",
