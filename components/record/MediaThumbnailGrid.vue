@@ -1,5 +1,7 @@
 <template>
-  <section>
+  <section
+    data-qa="media thumbnail grid"
+  >
     <!-- TODO: populate alt, but with what? -->
     <b-img
       v-for="thumbnail of thumbnails"
