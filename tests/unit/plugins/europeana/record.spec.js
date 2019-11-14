@@ -44,6 +44,7 @@ describe('plugins/europeana/record', () => {
       });
 
       describe('with object in response', () => {
+        const edmIsShownAt = 'https://example.org';
         const edmIsShownByWebResource = {
           about: 'https://example.org/doc.pdf',
           dcDescription: {
@@ -81,7 +82,7 @@ describe('plugins/europeana/record', () => {
           object: {
             about: europeanaId,
             aggregations: [{
-              edmIsShownAt: 'https://example.org',
+              edmIsShownAt,
               edmIsShownBy: edmIsShownByWebResource.about,
               hasView: [edmHasViewWebResourceSecond.about, edmHasViewWebResourceThird.about, edmHasViewWebResourceFirst.about],
               webResources: [
@@ -133,6 +134,11 @@ describe('plugins/europeana/record', () => {
         it('includes identifier', async() => {
           const response = await getRecord(europeanaId, { wskey: apiKey });
           response.record.identifier.should.eq(europeanaId);
+        });
+
+        it('includes edmIsShownAt', async() => {
+          const response = await getRecord(europeanaId, { wskey: apiKey });
+          response.record.isShownAt.should.eq(edmIsShownAt);
         });
 
         describe('.media', () => {
