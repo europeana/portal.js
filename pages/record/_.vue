@@ -53,9 +53,9 @@
               :height="selectedMedia.ebucoreHeight"
               class="mb-3"
             />
-            <ThumbnailGrid
+            <MediaThumbnailGrid
               v-if="media.length > 1"
-              :thumbnails="mediaThumbnails"
+              :media="media"
             />
             <div
               v-if="descriptionInCurrentLanguage"
@@ -122,15 +122,15 @@
 </template>
 
 <script>
+  import AlertMessage from '../../components/generic/AlertMessage';
   import EntityCards from '../../components/entity/EntityCards';
   import MediaActionBar from '../../components/record/MediaActionBar';
-  import AlertMessage from '../../components/generic/AlertMessage';
-  import ThumbnailGrid from '../../components/generic/ThumbnailGrid';
-  import MetadataField from '../../components/record/MetadataField';
   import MediaPresentation from '../../components/record/MediaPresentation';
+  import MediaThumbnailGrid from '../../components/record/MediaThumbnailGrid';
+  import MetadataField from '../../components/record/MetadataField';
 
   import getRecord from '../../plugins/europeana/record';
-  import { langMapValueForLocale, thumbnailUrl } from  '../../plugins/europeana/utils';
+  import { langMapValueForLocale } from  '../../plugins/europeana/utils';
   import { isRichMedia } from '../../plugins/media';
   import { searchEntities } from '../../plugins/europeana/entity';
 
@@ -140,8 +140,8 @@
       EntityCards,
       MediaActionBar,
       MediaPresentation,
-      MetadataField,
-      ThumbnailGrid
+      MediaThumbnailGrid,
+      MetadataField
     },
     data() {
       return {
@@ -160,15 +160,6 @@
       };
     },
     computed: {
-      mediaThumbnails() {
-        return this.media.map((item) => {
-          return {
-            key: item.about,
-            // TODO: pass `type` for the web resource
-            src: thumbnailUrl(item.about, { size: 'w200' })
-          };
-        });
-      },
       europeanaAgents() {
         return (this.agents || []).filter((agent) => agent.about.startsWith('http://data.europeana.eu/agent/'));
       },
