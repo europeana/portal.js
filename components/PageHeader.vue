@@ -26,9 +26,6 @@
             :enable-autosuggest="enableAutosuggest"
           />
         </div>
-        <LangSelector
-          data-qa="language selector"
-        />
       </b-navbar>
     </b-container>
   </b-container>
@@ -36,12 +33,10 @@
 
 <script>
   import AutoSuggest from './search/AutoSuggest';
-  import LangSelector from './generic/LanguageSelector';
 
   export default {
     components: {
-      AutoSuggest,
-      LangSelector
+      AutoSuggest
     },
     props: {
       enableAutosuggest: {

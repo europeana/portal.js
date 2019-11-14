@@ -1,11 +1,9 @@
 <template>
   <b-dropdown
-    right
-    variant="text-grey"
+    variant="light"
     toggle-class="text-decoration-none"
   >
     <template slot="button-content">
-      <i class="language-icon" />
       {{ selectedLocale.name }}
     </template>
 
@@ -47,10 +45,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @import "./assets/scss/variables.scss";
-
-  .dropdown {
-    margin-top: 20px;
+  /*.dropdown {
     align-self: flex-end;
 
     @media (min-width: $bp-medium) {
@@ -85,5 +80,5 @@
     display: inline-block;
     padding-top: 0;
     padding-bottom: 0;
-  }
+  }*/
 </style>
