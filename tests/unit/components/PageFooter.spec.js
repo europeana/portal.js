@@ -44,5 +44,4 @@ describe('components/search/PageFooter', () => {
 
     selector.isVisible().should.equal(true);
   });
-  
 });
