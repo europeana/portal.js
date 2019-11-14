@@ -5,12 +5,13 @@
     <!-- TODO: populate alt, but with what? -->
     <b-img
       v-for="thumbnail of thumbnails"
-      :key="thumbnail.key"
+      :key="thumbnail.about"
       :src="thumbnail.src"
       :class="{ 'selected' : isSelected(thumbnail) }"
+      :data-about="thumbnail.about"
       thumbnail
       alt=""
-      @click="clickThumbnail(thumbnail.key)"
+      @click="clickThumbnail(thumbnail.about)"
     />
   </section>
 </template>
@@ -58,14 +59,14 @@
        * Construct thumbnails for media items using the Thumbnail API.
        *
        * Each object in the response has properties:
-       * * `key`: the URI of the media item
+       * * `about`: the URI of the media item
        * * `src`: the URL of the thumbnail
        * @return {Object[]} Array of thumbnail objects
        */
       thumbnails() {
         return this.media.map((item) => {
           return {
-            key: item.about,
+            about: item.about,
             // TODO: derive `type` for the web resource, and pass to API
             src: thumbnailUrl(item.about, { size: this.size })
           };
@@ -80,17 +81,17 @@
        * @return {Boolean}
        */
       isSelected(thumbnail) {
-        return thumbnail.key === this.currentSelection;
+        return thumbnail.about === this.currentSelection;
       },
 
       /**
        * Handle clicking on a thumbnail to make it the selected one, and
        * emit the `select` event with the media's URI.
-       * @param {string} thumbnailKey Key of the thumbnail object, i.e. its URI
+       * @param {string} thumbnailabout about of the thumbnail object, i.e. its URI
        */
-      clickThumbnail(thumbnailKey) {
-        this.currentSelection = thumbnailKey;
-        this.$emit('select', thumbnailKey);
+      clickThumbnail(thumbnailabout) {
+        this.currentSelection = thumbnailabout;
+        this.$emit('select', thumbnailabout);
       }
     }
   };
