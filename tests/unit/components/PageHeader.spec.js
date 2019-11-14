@@ -27,14 +27,4 @@ describe('components/PageHeader', () => {
     const logo = wrapper.find('[data-qa="logo"]');
     logo.attributes().src.should.match(/\/logo\..+\.svg$/);
   });
-
-  it('contains the language selector', () => {
-    const wrapper = factory();
-    wrapper.setProps({
-      enableLanguageSelector: true
-    });
-    const selector = wrapper.find('[data-qa="language selector"]');
-
-    selector.isVisible().should.equal(true);
-  });
 });
