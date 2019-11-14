@@ -25,10 +25,7 @@ function parseRecordDataFromApiResponse(response) {
     altTitle: proxyData.dctermsAlternative,
     description: proxyData.dcDescription,
     identifier: edm.about,
-    image: {
-      link: providerAggregation.edmIsShownAt,
-      src: europeanaAggregation.edmPreview
-    },
+    isShownAt: providerAggregation.edmIsShownAt,
     coreFields: lookupEntities(omitBy({
       dcContributor: proxyData.dcContributor, // Plus rdaGr2DateOfBirth & rdaGr2DateOfDeath
       dcCreator: proxyData.dcCreator, // Plus rdaGr2DateOfBirth & rdaGr2DateOfDeath

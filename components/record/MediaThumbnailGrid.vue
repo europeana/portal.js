@@ -1,9 +1,14 @@
 <template>
   <section>
+    <!-- TODO: populate alt, but with what? -->
     <b-img
       v-for="thumbnail of thumbnails"
       :key="thumbnail.key"
       :src="thumbnail.src"
+      :class="{ 'selected' : isSelected(thumbnail) }"
+      thumbnail
+      alt=""
+      @click="clickThumbnail(thumbnail.key)"
     />
   </section>
 </template>
@@ -20,10 +25,21 @@
         required: true
       },
 
+      selected: {
+        type: String,
+        required: true
+      },
+
       size: {
         type: String,
         default: 'w200'
       }
+    },
+
+    data() {
+      return {
+        currentSelection: this.selected
+      };
     },
 
     computed: {
@@ -36,6 +52,25 @@
           };
         });
       }
+    },
+
+    methods: {
+      isSelected(thumbnail) {
+        return thumbnail.key === this.currentSelection;
+      },
+
+      clickThumbnail(thumbnailKey) {
+        this.currentSelection = thumbnailKey;
+        this.$emit('select', thumbnailKey);
+      }
     }
   };
 </script>
+
+<style lang="scss" scoped>
+  @import "./assets/scss/variables.scss";
+
+  .img-thumbnail.selected {
+    border-color: $blue;
+  }
+</style>

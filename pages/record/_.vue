@@ -45,8 +45,8 @@
             </header>
             <MediaPresentation
               :codec-name="selectedMedia.edmCodecName"
-              :image-link="image.link"
-              :image-src="image.src"
+              :image-link="selectedMediaImage.link"
+              :image-src="selectedMediaImage.src"
               :mime-type="selectedMedia.ebucoreHasMimeType"
               :url="selectedMedia.about"
               :width="selectedMedia.ebucoreWidth"
@@ -54,8 +54,10 @@
               class="mb-3"
             />
             <MediaThumbnailGrid
-              v-if="media.length > 1"
+              v-if="displayMediaThumbnailGrid"
               :media="media"
+              :selected="selectedMedia.about"
+              @select="selectMedia"
             />
             <div
               v-if="descriptionInCurrentLanguage"
@@ -130,7 +132,7 @@
   import MetadataField from '../../components/record/MetadataField';
 
   import getRecord from '../../plugins/europeana/record';
-  import { langMapValueForLocale } from  '../../plugins/europeana/utils';
+  import { langMapValueForLocale, thumbnailUrl } from  '../../plugins/europeana/utils';
   import { isRichMedia } from '../../plugins/media';
   import { searchEntities } from '../../plugins/europeana/entity';
 
@@ -143,6 +145,7 @@
       MediaThumbnailGrid,
       MetadataField
     },
+
     data() {
       return {
         agents: null,
@@ -153,12 +156,14 @@
         coreFields: null,
         fields: null,
         identifier: null,
-        image: null,
+        isShownAt: null,
         media: null,
         relatedEntities: [],
+        selectedMediaItem: null,
         title: null
       };
     },
+
     computed: {
       europeanaAgents() {
         return (this.agents || []).filter((agent) => agent.about.startsWith('http://data.europeana.eu/agent/'));
@@ -194,10 +199,25 @@
       isRichMedia() {
         return isRichMedia(this.selectedMedia.ebucoreHasMimeType, this.selectedMedia.edmCodecName, this.selectedMedia.about);
       },
-      selectedMedia() {
-        return this.media[0] || {};
+      selectedMedia: {
+        get() {
+          return this.selectedMediaItem || this.media[0] || {};
+        },
+        set(about) {
+          this.selectedMediaItem = this.media.find((item) => item.about === about) || {};
+        }
+      },
+      selectedMediaImage() {
+        return {
+          src: thumbnailUrl(this.selectedMedia.about, { size: 'w400' }),
+          link: this.isShownAt
+        };
+      },
+      displayMediaThumbnailGrid() {
+        return Boolean(Number(process.env.ENABLE_RECORD_MEDIA_THUMBNAIL_GRID)) && (this.media.length > 1);
       }
     },
+
     asyncData({ env, params, res, app, redirect }) {
       if (env.RECORD_PAGE_REDIRECT_PATH) {
         return redirect(app.localePath({ path: env.RECORD_PAGE_REDIRECT_PATH }));
@@ -216,9 +236,17 @@
           return { error: error.message };
         });
     },
+
     async mounted() {
       this.relatedEntities = await searchEntities(this.europeanaEntityUris, { wskey: process.env.EUROPEANA_ENTITY_API_KEY });
     },
+
+    methods: {
+      selectMedia(about) {
+        this.selectedMedia = about;
+      }
+    },
+
     head() {
       return {
         title: this.titlesInCurrentLanguage[0] ? this.titlesInCurrentLanguage[0].value : this.$t('record')
