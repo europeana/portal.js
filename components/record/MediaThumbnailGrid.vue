@@ -4,11 +4,12 @@
   >
     <!-- TODO: populate alt, but with what? -->
     <b-img
-      v-for="thumbnail of thumbnails"
-      :key="thumbnail.about"
+      v-for="(thumbnail, index) of thumbnails"
+      :key="index"
       :src="thumbnail.src"
       :class="{ 'selected' : isSelected(thumbnail) }"
       :data-about="thumbnail.about"
+      :data-qa="`media thumbnail #${index + 1}`"
       thumbnail
       alt=""
       @click="clickThumbnail(thumbnail.about)"

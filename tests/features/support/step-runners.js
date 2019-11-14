@@ -128,6 +128,11 @@ module.exports = {
     await client.waitForElementVisible(selector);
     await client.setValue(selector, text);
   },
+  async observeTargetHasClass(qaElementName, klass) {
+    await client.getAttribute(qaSelector(qaElementName), 'class', async(result) => {
+      await client.expect(result.value.split(' ')).to.include(klass);
+    });
+  },
   async openAPage(pageName) {
     await client.url(pageUrl(pageName));
   },
