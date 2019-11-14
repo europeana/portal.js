@@ -19,7 +19,7 @@ Feature: Record page
     When I open a `record page`
     Then I see an `action bar`
     And I see a `download button`
-    And I see a `rights statement link`
+    And I see a `rights statement`
 
   Scenario: Record without isShownBy or hasView
 

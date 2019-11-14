@@ -4,6 +4,7 @@
     class="d-flex align-items-center"
   >
     <b-button
+      v-if="url"
       :href="url | proxyMedia(europeanaIdentifier)"
       variant="outline-primary primary"
       data-qa="download button"
@@ -14,15 +15,21 @@
     </b-button>
 
     <SmartLink
-      v-if="rightsStatementUrl"
-      :destination="rightsStatementUrl"
+      v-if="rightsStatementIsUrl"
+      :destination="rightsStatement"
       class="attribution"
-      data-qa="rights statement link"
+      data-qa="rights statement"
     >
       <RightsStatement
-        :rights-statement-url="rightsStatementUrl"
+        :rights-statement-url="rightsStatement"
       />
     </SmartLink>
+    <span
+      v-else
+      data-qa="rights statement"
+    >
+      {{ rightsStatement }}
+    </span>
   </section>
 </template>
 
@@ -41,15 +48,21 @@
     props: {
       url: {
         type: String,
-        required: true
+        default: null
       },
       europeanaIdentifier: {
         type: String,
         required: true
       },
-      rightsStatementUrl: {
+      rightsStatement: {
         type: String,
         default: null
+      }
+    },
+
+    computed: {
+      rightsStatementIsUrl() {
+        return RegExp('^https?://*').test(this.rightsStatement);
       }
     }
   };

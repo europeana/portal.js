@@ -17,7 +17,7 @@ const factory = (propsData) => mount(MediaActionBar, {
 describe('components/record/MediaActionBar', () => {
   const europeanaIdentifier = '/09876/zyxwvu';
   const url = 'https://www.example.org/videos/zyxwvu.mp4';
-  const rightsStatementUrl = 'https://creativecommons.org/publicdomain/mark/1.0/';
+  const rightsStatement = 'https://creativecommons.org/publicdomain/mark/1.0/';
 
   it('includes a proxied media download button', () => {
     const wrapper = factory({
@@ -32,14 +32,27 @@ describe('components/record/MediaActionBar', () => {
     downloadLink.attributes().href.should.eq(expectedHref);
   });
 
-  it('includes a rights statement', () => {
+  it('includes a rights statement as a link', () => {
     const wrapper = factory({
       europeanaIdentifier,
       url,
-      rightsStatementUrl
+      rightsStatement
     });
 
-    const rightsStatementLink = wrapper.find('[data-qa="rights statement link"]');
+    const rightsStatementLink = wrapper.find('[data-qa="rights statement"]');
+
     rightsStatementLink.text().should.contain('Public Domain');
+    rightsStatementLink.attributes().href.should.eq(rightsStatement);
+  });
+
+  it('includes a rights statement as a text', () => {
+    const wrapper = factory({
+      europeanaIdentifier,
+      url,
+      rightsStatement: 'CC BY-SA 4.0'
+    });
+
+    const rightsStatementLink = wrapper.find('[data-qa="rights statement"]');
+    rightsStatementLink.text().should.contain('CC BY-SA 4.0');
   });
 });
