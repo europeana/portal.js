@@ -22,7 +22,7 @@ function parseRecordDataFromApiResponse(response) {
   const proxyData = merge.all(edm.proxies);
 
   return {
-    altTitle: proxyData.dctermsAlternative,
+    altTitle: proxyData.dcTermsAlternative,
     description: proxyData.dcDescription,
     identifier: edm.about,
     image: {
@@ -35,13 +35,55 @@ function parseRecordDataFromApiResponse(response) {
       dcPublisher: proxyData.dcPublisher,
       dcSubject: proxyData.dcSubject,
       dcType: proxyData.dcType,
-      dcTermsMedium: proxyData.dctermsMedium
+      dcTermsMedium: proxyData.dcTermsMedium
     }, isUndefined), entities),
     fields: lookupEntities(omitBy({
       dcTermsCreated: proxyData.dcTermsCreated,
       edmCountry: europeanaAggregation.edmCountry,
       edmDataProvider: providerAggregation.edmDataProvider,
-      edmRights: providerAggregation.edmRights
+      edmRights: providerAggregation.edmRights,
+      dcRights: proxyData.dcRights,
+      dcDate: proxyData.dcDate,
+      dcTermsIssued: proxyData.dcTermsIssued,
+      timespans: edm.timespans,
+      dcTermsPublished: proxyData.dcTermsPublished,
+      dcTermsTemporal: proxyData.dcTermsTemporal,
+      dcCoverage: proxyData.dcCoverage,
+      dcTermsTOC: proxyData.dcTermsTOC,
+      dcTermsSpacial: proxyData.dcTermsSpatial,
+      edmCurentLocation: proxyData.edmCurrentLocation,
+      edmUgc: providerAggregation.edmUgc,
+      dcTermsProvenance: proxyData.dcTermsProvenance,
+      dcSource: proxyData.dcSource,
+      dcPublisher: proxyData.dcPublisher,
+      dcIdentifier: proxyData.dcIdentifier,
+      edmIntermediateProvider: providerAggregation.edmIntermediateProvider,
+      edmProvider: providerAggregation.edmProvider,
+      timestampCreated: edm.timestamp_created,
+      timestampUpdated: edm.timestamp_updated,
+      dcTermsExtent: proxyData.dcTermsExtent,
+      dcDuration: proxyData.dcDuration,
+      dcMedium: proxyData.dcMedium,
+      dcFormat: proxyData.dcFormat,
+      dcLanguage: proxyData.dcLanguage,
+      dcTermsIsPartOf: proxyData.dcTermsIsPartOf,
+      europeanaCollectionName: edm.europeanaCollectionName,
+      dcRelation: proxyData.dcRelation,
+      dcTermsReferences: proxyData.dcTermsReferences,
+      dcTermsHasPart: proxyData.dcTermsHasPart,
+      dcTermsHasVersion: proxyData.dcTermsHasVersion,
+      dcTermsIsFormatOf: proxyData.dcTermsIsFormatOf,
+      dcTermsIsReferencedBy: proxyData.dcTermsIsReferencedBy,
+      dcTermsIsReplacedBy: proxyData.dcTermsIsReplacedBy,
+      dcTermsIsRequiredBy: proxyData.dcTermsIsRequiredBy,
+      edmHasMet: proxyData.edmHasMet,
+      edmIncorporates: proxyData.edmIncorporates,
+      edmIsDerivativeOf: proxyData.edmIsDerivativeOf,
+      edmIsRepresentationOf: proxyData.edmIsRepresentationOf,
+      edmIsSimilarTo: proxyData.edmIsSimilarTo,
+      edmIsSuccessorOf: proxyData.edmIsSuccessorOf,
+      edmRealizes: proxyData.edmRealizes,
+      wasPresentAt: proxyData.wasPresentAt
     }, isUndefined), entities),
     media: providerAggregation.webResources.filter((webResource) => {
       return (webResource.about === providerAggregation.edmIsShownBy) ||
