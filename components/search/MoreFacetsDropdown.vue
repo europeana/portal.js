@@ -33,6 +33,7 @@
       <b-button
         variant="link"
         :disabled="preSavedOptions.length < 1 && savedOptions.length < 1"
+        data-qa="reset filter button"
         @click="resetFilters"
       >
         {{ $t('facets.button.reset') }}
@@ -40,6 +41,7 @@
       <b-button
         variant="link"
         :disabled="preSavedOptions.length < 1"
+        data-qa="cancel button"
         @click="cancelHandler"
       >
         {{ $t('facets.button.cancel') }}
@@ -47,6 +49,7 @@
       <b-button
         variant="primary"
         :disabled="disableAppliedButton"
+        data-qa="apply button"
         @click="saveOptions()"
       >
         {{ $t('facets.button.apply') }}
