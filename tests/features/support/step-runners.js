@@ -9,6 +9,8 @@ const { url } = require('../config/nightwatch.conf.js').test_settings.default.gl
 
 const pages = {
   'home page': `${url}/en`,
+  'English home page': `${url}/en`,
+  'Swedish home page': `${url}/sv`,
   'exhibition page': `${url}/en/exhibition/the-pink-flowers`,
   'exhibition chapter': `${url}/en/exhibition/the-pink-flowers/allium`,
   'exhibitions page': `${url}/en/exhibitions`,
@@ -17,6 +19,7 @@ const pages = {
   'record page without isShownBy or hasView': `${url}/en/record/9200102/BibliographicResource_3000134083514`,
   '"The Milkmaid" record page': `${url}/en/record/90402/SK_A_2344`,
   '"Het laatste avondmaal" record page': `${url}/en/record/90402/RP_P_OB_70_879`,
+  '"Hammerflügel" record page': `${url}/en/record/09102/_GNM_693983`,
   'first page of results': `${url}/en/search?query=&page=1`,
   'entity page': `${url}/en/entity/topic/18-newspaper`,
   'blog page': `${url}/en/blog`
@@ -155,6 +158,9 @@ module.exports = {
   },
   async seeATargetWithText(qaElementNames, text) {
     await client.expect.element(qaSelector(qaElementNames)).text.to.contain(text);
+  },
+  async seeASectionHeadingWithText(headingLevel, text) {
+    await client.expect.element(`h${headingLevel}`).text.to.contain(text);
   },
   async seeTextInTargetPlaceholder(text, qaElementNames) {
     await client.expect.element(qaSelector(qaElementNames)).to.have.attribute('placeholder').to.contain(text);

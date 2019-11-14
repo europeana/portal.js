@@ -85,14 +85,74 @@ function parseRecordDataFromApiResponse(response) {
       edmRealizes: proxyData.edmRealizes,
       wasPresentAt: proxyData.wasPresentAt
     }, isUndefined), entities),
-    media: providerAggregation.webResources.filter((webResource) => {
-      return (webResource.about === providerAggregation.edmIsShownBy) ||
-        (providerAggregation.hasView || []).includes(webResource.about);
-    }),
+    media: aggregationMedia(providerAggregation),
     agents: edm.agents,
     concepts: edm.concepts,
     title: proxyData.dcTitle
   };
+}
+
+function aggregationMedia(aggregation) {
+  // Gather all isShownBy and hasView URIs
+  const mediaUris = [aggregation.edmIsShownBy].concat(aggregation.hasView || []).filter(isNotUndefined);
+
+  // Filter web resources to isShownBy and hasView
+  const media = aggregation.webResources.filter((webResource) => mediaUris.includes(webResource.about));
+
+  // Sort by isNextInSequence property if present
+  return sortByIsNextInSequence(media);
+}
+
+/**
+ * Sorts an array of objects by the `isNextInSequence` property.
+ *
+ * Logic:
+ * * Any objects not having `isNextInSequence` will not be moved.
+ * * Any objects having `isNextInSequence` will be moved to the position
+ *   immediately following the other object whose `about` property matches this
+ *   one's `isNextInSequence`
+ *
+ * @param {Object[]} source items to sort
+ * @return {Object[]} sorted items
+ * @example
+ *    const unsorted = [
+ *      { about: 'd', isNextInSequence: 'c' },
+ *      { about: 'b', isNextInSequence: 'a' },
+ *      { about: 'a' },
+ *      { about: 'c', isNextInSequence: 'b' }
+ *    ];
+ *    const sorted = sortByIsNextInSequence(unsorted);
+ *    console.log(sorted[0].about); // expected output: 'a'
+ *    console.log(sorted[1].about); // expected output: 'b'
+ *    console.log(sorted[2].about); // expected output: 'c'
+ *    console.log(sorted[3].about); // expected output: 'd'
+ */
+function sortByIsNextInSequence(source) {
+  // Make a copy to work on
+  const items = [].concat(source);
+
+  const itemUris = items.map((item) => item.about);
+
+  for (const uri of itemUris) {
+    // It's necessary to find the item on each iteration to sort as it may have
+    // been moved from its original position by a previous iteration.
+    const sortItemIndex = items.findIndex((item) => item.about === uri);
+    const sortItem = items[sortItemIndex];
+
+    // If it has isNextInSequence property, move it after that item; else
+    // leave it be.
+    if (sortItem.isNextInSequence) {
+      const isPreviousInSequenceIndex = items.findIndex((item) => item.about === sortItem.isNextInSequence);
+      if (isPreviousInSequenceIndex !== -1) {
+        // Remove the item from its original position.
+        items.splice(sortItemIndex, 1);
+        // Insert the item after its predecessor.
+        items.splice(isPreviousInSequenceIndex + 1, 0, sortItem);
+      }
+    }
+  }
+
+  return items;
 }
 
 function isUndefined(value) {
