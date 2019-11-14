@@ -37,3 +37,7 @@ Feature: Record page
     And I see the `Leonardo da Vinci entity card` in the `related entities`
     And I see the `Teodoro Matteini entity card` in the `related entities`
     And I see the `Engraving entity card` in the `related entities`
+
+  Scenario: Metadata in another language
+    When I open the `"Hammerflügel" record page`
+    Then I see a level 1 section heading with the text "Hammerflügel"

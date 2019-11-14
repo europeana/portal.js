@@ -64,7 +64,7 @@ function languageKeys(currentLocale) {
 
 /**
  * Get the localised value for the current locale, with preferred fallbacks.
- * Will return nothing if no value was found in any of the preferred locales.
+ * Will return the first value if no value was found in any of the preferred locales.
  * @param {Object} The LangMap
  * @param {String} locale Current locale as a 2 letter code
  * @return {{Object[]{language: String, values: Object[]}}} Language code and values, values may be strings or language maps themselves.
@@ -75,6 +75,12 @@ export function langMapValueForLocale(langMap, locale) {
     setLangMapValuesAndCode(returnVal, langMap, key, locale);
     if (returnVal['values'].length >= 1) break;
   }
+
+  // No preferred language found, so just add the first
+  if (returnVal['values'].length === 0) {
+    setLangMapValuesAndCode(returnVal, langMap, Object.keys(langMap)[0], locale);
+  }
+
   return addEntityValues(returnVal, entityValues(langMap['def'], locale));
 }
 

@@ -68,6 +68,19 @@ describe('components/record/MetadataField', () => {
       const fieldValue = wrapper.find('[data-qa="metadata field"] ul [data-qa="literal value"]');
       fieldValue.text().should.include(props.fieldData.def);
     });
+
+    context('when value is not available in the preferred languages', () => {
+      const props = { name: 'dcTitle', fieldData: { de: ['Hammerflügel'] } };
+
+      it('uses the first available value in any language', () => {
+        const wrapper = factory();
+
+        wrapper.setProps(props);
+
+        const fieldValue = wrapper.find('[data-qa="metadata field"] ul [data-qa="literal value"]');
+        fieldValue.text().should.include(props.fieldData.de);
+      });
+    });
   });
 
   context('when there is a string value as data', () => {
