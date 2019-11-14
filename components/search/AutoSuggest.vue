@@ -337,17 +337,11 @@
 
     .input-group-prepend {
       align-items: center;
-      background-color: $lightgrey;
-      padding-left: .75rem;
-      padding-right: .1rem;
+      background-color: $offwhite;
+      padding-left: 0.75rem;
+      padding-right: 0.1rem;
       border-radius: 0.375rem 0 0 0.375rem;
     }
-  }
-
-  .form-control {
-    background-color: $lightgrey;
-    border-radius: $border-radius 0 0 $border-radius;
-    margin-right: 0;
   }
 
   .btn {

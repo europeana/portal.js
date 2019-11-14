@@ -74,7 +74,7 @@
             </div>
           </div>
         </div>
-        <div class="card p-3 mb-3">
+        <div class="card p-3 mb-3 bg-grey">
           <MediaActionBar
             v-if="selectedMedia.about"
             :url="selectedMedia.about"
@@ -93,7 +93,7 @@
             class="mb-3"
           />
         </div>
-        <div class="card p-3">
+        <div class="card p-3 bg-transparent border-0">
           <MetadataField
             v-for="(value, name) in fields"
             :key="name"
@@ -223,6 +223,10 @@
 
 <style lang="scss" scoped>
   @import "./assets/scss/variables.scss";
+
+  .bg-grey {
+    background-color: rgba(255, 255, 255, 0.5);
+  }
 
   .card-grid {
     display: grid;

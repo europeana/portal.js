@@ -203,7 +203,7 @@
 <style lang="scss" scoped>
   @import "./assets/scss/variables.scss";
 
-  .dropdown {
+  .dropdown { // TODO: move this code to the dropdown.scss where possible, to avoid duplication
     width: 100%;
     margin-bottom: 5px;
 
@@ -220,7 +220,7 @@
   .has-selected {
     /deep/ > .btn {
       background: $white;
-      color: $darkgrey;
+      color: $mediumgrey;
     }
   }
 
@@ -230,6 +230,10 @@
 
     @media (min-width: $bp-large) {
       min-width: 280px;
+
+      &.show {
+        transform: translate3d(0, 3rem, 0) !important;
+      }
     }
 
     .custom-control  {

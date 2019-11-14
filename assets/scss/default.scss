@@ -71,6 +71,7 @@ figcaption {
     border-top-right-radius: $border-radius-small;
     bottom: 0;
     font-size: 0.625rem;
+    font-style: normal;
     left: 1rem;
     line-height: 1;
     margin-right: 1rem;
@@ -80,10 +81,11 @@ figcaption {
 }
 
 a {
-  color: $blue;
+  color: $black;
+  text-decoration: underline;
 
   &:hover {
-    color: $extradarkblue;
+    text-decoration: none;
   }
 
   &.skip-main {
@@ -133,6 +135,7 @@ video {
 
 .page-link {
   color: $black;
+  text-decoration: none;
   &:hover {
     color: $black;
   }

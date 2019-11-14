@@ -10,22 +10,22 @@
   }
 
   .dropdown-buttons {
-      border-top: 1px solid $lightgrey-2;
-      display: flex;
-      justify-content: flex-end; 
-      padding: 0.5rem 0.5rem 0;
-      width: 100%;
+    border-top: 1px solid $offwhite;
+    display: flex;
+    justify-content: flex-end; 
+    padding: 0.5rem 0.5rem 0;
+    width: 100%;
 
-      .btn {
-        font-size: 0.875rem;
-        margin-left: 0.75rem;
-        text-transform: uppercase;
-      }
-
-      .btn-link {
-        padding: 0;
-      }
+    .btn {
+      font-size: 0.875rem;
+      margin-left: 0.75rem;
+      text-transform: uppercase;
     }
+
+    .btn-link {
+      padding: 0;
+    }
+  }
 
   &.more-facets {    
     strong {
@@ -72,7 +72,7 @@
         }
 
         li:not(.dropdown-buttons) {
-          border-bottom: 1px solid $lightgrey-2;
+          border-bottom: 1px solid $offwhite;
           margin-bottom: 2rem;
           padding-bottom: 2rem;
 
@@ -106,7 +106,7 @@
         }
 
         label {
-          border: 1px solid $lightgrey-2;
+          border: 1px solid $offwhite;
           border-radius: 1rem;
           display: flex;
           align-items: center;
@@ -114,17 +114,18 @@
         }
 
         .reset {
-          border-radius: 50%;
-          display: none;
           background: $white;
+          border-radius: 50%;
           color: $blue;
+          display: none;
+          flex-shrink: 0;
+          font-size: 0.6rem;
           height: 1rem;
           line-height: 0.9rem;
           margin-left: 0.5rem;
-          text-align: center;
-          font-size: 0.6rem;
-          width: 1rem;
           padding-top: 2px;
+          text-align: center;
+          width: 1rem;          
         }
 
         input[type="checkbox"] {
