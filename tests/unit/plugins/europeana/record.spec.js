@@ -58,9 +58,20 @@ describe('plugins/europeana/record', () => {
           },
           ebucoreHasMimeType: 'application/pdf'
         };
-        const edmHasViewWebResource = {
-          about: 'https://example.org/image.jpeg',
-          ebucoreHasMimeType: 'image/jpeg'
+        const edmHasViewWebResourceFirst = {
+          about: 'https://example.org/image1.jpeg',
+          ebucoreHasMimeType: 'image/jpeg',
+          isNextInSequence: edmIsShownByWebResource.about
+        };
+        const edmHasViewWebResourceSecond = {
+          about: 'https://example.org/image2.jpeg',
+          ebucoreHasMimeType: 'image/jpeg',
+          isNextInSequence: edmHasViewWebResourceFirst.about
+        };
+        const edmHasViewWebResourceThird = {
+          about: 'https://example.org/image3.jpeg',
+          ebucoreHasMimeType: 'image/jpeg',
+          isNextInSequence: edmHasViewWebResourceSecond.about
         };
         const someOtherWebResource = {
           about: 'https://example.org/'
@@ -71,11 +82,13 @@ describe('plugins/europeana/record', () => {
             about: europeanaId,
             aggregations: [{
               edmIsShownAt: 'https://example.org',
-              edmIsShownBy: 'https://example.org/doc.pdf',
-              hasView: ['https://example.org/image.jpeg'],
+              edmIsShownBy: edmIsShownByWebResource.about,
+              hasView: [edmHasViewWebResourceSecond.about, edmHasViewWebResourceThird.about, edmHasViewWebResourceFirst.about],
               webResources: [
                 edmIsShownByWebResource,
-                edmHasViewWebResource,
+                edmHasViewWebResourceSecond,
+                edmHasViewWebResourceThird,
+                edmHasViewWebResourceFirst,
                 someOtherWebResource
               ]
             }],
@@ -130,12 +143,23 @@ describe('plugins/europeana/record', () => {
 
           it('includes edmHasView web resource', async() => {
             const response = await getRecord(europeanaId, { wskey: apiKey });
-            response.record.media.should.include.deep.members([edmHasViewWebResource]);
+            response.record.media.should.include.deep.members([
+              edmHasViewWebResourceFirst, edmHasViewWebResourceSecond, edmHasViewWebResourceThird
+            ]);
           });
 
           it('omits other web resources', async() => {
             const response = await getRecord(europeanaId, { wskey: apiKey });
             response.record.media.should.not.include.deep.members([someOtherWebResource]);
+          });
+
+          it('sorts by isNextInSequence', async() => {
+            const response = await getRecord(europeanaId, { wskey: apiKey });
+
+            response.record.media[0].should.deep.eq(edmIsShownByWebResource);
+            response.record.media[1].should.deep.eq(edmHasViewWebResourceFirst);
+            response.record.media[2].should.deep.eq(edmHasViewWebResourceSecond);
+            response.record.media[3].should.deep.eq(edmHasViewWebResourceThird);
           });
         });
 
