@@ -85,7 +85,7 @@
     data() {
       return {
         query: '',
-        gettingSuggestions: null,
+        gettingSuggestions: false,
         suggestions: {},
         selectedSuggestion: null
       };
@@ -127,15 +127,19 @@
 
     watch: {
       '$route'() {
-        this.query = this.onSearchablePage ? this.$store.state.search.query : '';
+        this.initQuery();
       }
     },
 
     mounted() {
-      this.query = this.onSearchablePage ? this.$store.state.search.query : '';
+      this.initQuery();
     },
 
     methods: {
+      initQuery() {
+        this.query = this.onSearchablePage ? this.$store.state.search.query : '';
+      },
+
       selectSuggestion(value) {
         this.selectedSuggestion = value;
       },
