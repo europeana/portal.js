@@ -8,10 +8,10 @@
         <ContentCard
           v-for="(item, index) in items"
           :key="index"
-          :title="item.name"
-          :texts="texts"
-          :url="item.identifier"
-          :thumbnail="item.thumbnail"
+          :title="item.title"
+          :image-url="item.thumbnail"
+          :url="{ name: 'record-all', params: { pathMatch: item.identifier.slice(1) } }"
+          is-square
         />
       </b-card-group>
     </b-col>
