@@ -62,29 +62,31 @@ export function getEntitySuggestions(text, params = {}, options = {}) {
   })
     .then((response) => {
       if (!response.data.items) return [];
-      if (!options.recordValidation) return response.data.items;
-
-      const searches = response.data.items.map((entity) => {
-        return search({
-          query: getEntityQuery(entity.id),
-          rows: 0,
-          profile: 'minimal',
-          qf: ['contentTier:(2 OR 3 OR 4)'],
-          wskey: process.env.EUROPEANA_API_KEY
-        });
-      });
-
-      return axios.all(searches)
-        .then(axios.spread(function() {
-          const searchResponses = arguments;
-          return response.data.items.filter((entity, index) => {
-            return searchResponses[index].totalResults > 0;
-          });
-        }));
+      return options.recordValidation ? filterSuggestionsByRecordValidation(response.data.items) : response.data.items;
     })
     .catch((error) => {
       throw apiError(error);
     });
+}
+
+function filterSuggestionsByRecordValidation(suggestions) {
+  const searches = suggestions.map((entity) => {
+    return search({
+      query: getEntityQuery(entity.id),
+      rows: 0,
+      profile: 'minimal',
+      qf: ['contentTier:(2 OR 3 OR 4)'],
+      wskey: process.env.EUROPEANA_API_KEY
+    });
+  });
+
+  return axios.all(searches)
+    .then(axios.spread(function() {
+      const searchResponses = arguments;
+      return suggestions.filter((entity, index) => {
+        return searchResponses[index].totalResults > 0;
+      });
+    }));
 }
 
 /**
