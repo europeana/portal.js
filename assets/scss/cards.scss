@@ -113,11 +113,23 @@
     margin-bottom: 0;
   }
 
-  .img-thumbnail {
+  .card-link {
+    display: initial;
+  }
+
+  .card-img {
     border: 0;
     padding: 0;
     border-radius: 0;
     width: 100%;
+  }
+
+  .is-square {
+    &:after {
+      content: '';
+      display: block;
+      padding-bottom: 100%;
+    }
   }
 
   .card-body {
