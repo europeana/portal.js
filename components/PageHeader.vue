@@ -20,10 +20,11 @@
           >
         </b-navbar-brand>
         <div class="navbar-nav ml-auto w-100 col-md-6 col-lg-6 p-0 pt-3 pt-md-0">
-          <AutoSuggest
+          <SearchForm
             data-qa="search form"
             class="justify-content-center justify-content-md-end w-100"
-            :enable-autosuggest="enableAutosuggest"
+            :enable-auto-suggest="enableAutoSuggest"
+            :enable-suggestion-validation="enableSuggestionValidation"
           />
         </div>
       </b-navbar>
@@ -32,14 +33,19 @@
 </template>
 
 <script>
-  import AutoSuggest from './search/AutoSuggest';
+  import SearchForm from './search/SearchForm';
 
   export default {
     components: {
-      AutoSuggest
+      SearchForm
     },
+
     props: {
-      enableAutosuggest: {
+      enableAutoSuggest: {
+        type: Boolean,
+        default: false
+      },
+      enableSuggestionValidation: {
         type: Boolean,
         default: false
       }

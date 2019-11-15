@@ -7,7 +7,11 @@
     >
       {{ $t('layout.skipToMain') }}
     </a>
-    <PageHeader :enable-autosuggest="enableAutosuggest" />
+    <PageHeader
+      :enable-auto-suggest="enableAutoSuggest"
+      :enable-language-selector="enableLanguageSelector"
+      :enable-suggestion-validation="enableSuggestionValidation"
+    />
     <PageNavigation />
     <b-container v-if="breadcrumbs">
       <b-row>
@@ -39,8 +43,16 @@
     },
 
     computed: {
-      enableAutosuggest() {
-        return Boolean(Number(process.env['ENABLE_AUTOSUGGEST']));
+      enableAutoSuggest() {
+        // Auto suggest on search form will be disabled unless toggled on by env var,
+        // and always disabled on entity pages.
+        return Boolean(Number(process.env['ENABLE_AUTOSUGGEST'])) && !(this.$store.state.entity && this.$store.state.entity.id);
+      },
+      enableLanguageSelector() {
+        return Boolean(Number(process.env['ENABLE_LANGUAGE_SELECTOR']));
+      },
+      enableSuggestionValidation() {
+        return Boolean(Number(process.env['ENABLE_ENTITY_SUGGESTION_RECORD_VALIDATION']));
       },
       breadcrumbs() {
         return this.$store.state.breadcrumb.data;
