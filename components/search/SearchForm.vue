@@ -6,7 +6,7 @@
   >
     <b-input-group
       role="combobox"
-      aria-owns="autocomplete-results"
+      aria-owns="search-form-auto-suggest"
       :aria-expanded="isAutoSuggestActive"
       class="auto-suggest"
     >
