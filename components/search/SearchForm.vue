@@ -6,7 +6,7 @@
   >
     <b-input-group
       role="combobox"
-      aria-owns="search-form-auto-suggest"
+      :aria-owns="enableAutoSuggest ? 'search-form-auto-suggest' : null"
       :aria-expanded="isAutoSuggestActive"
       class="auto-suggest"
     >
@@ -29,7 +29,7 @@
         data-qa="search box"
         role="searchbox"
         aria-autocomplete="list"
-        aria-controls="search-form-auto-suggest"
+        :aria-controls="enableAutoSuggest ? 'search-form-auto-suggest' : null"
         :aria-label="$t('search')"
         @input="getSearchSuggestions"
       />
