@@ -1,5 +1,6 @@
 import { apiError } from './utils';
 import axios from 'axios';
+import escapeRegExp from 'lodash/escapeRegExp';
 import omitBy from 'lodash/omitBy';
 import merge from 'deepmerge';
 
@@ -174,6 +175,47 @@ function getRecord(europeanaId, params) {
  */
 export function isEuropeanaRecordId(value) {
   return /^\/[0-9]+\/[a-zA-Z0-9_]+$/.test(value);
+}
+
+const SIMILAR_ITEMS_FIELDS = new Map([
+  ['what', { data: ['dcSubject', 'dcType'], boost: 0.8 }],
+  ['who', { data: ['dcCreator'], boost: 0.5 } ],
+  ['DATA_PROVIDER', { data: ['edmDataProvider'], boost: 0.2 } ]
+]);
+
+export function similarItemsQuery(about, data = {}) {
+  const queryTerms = new Map;
+
+  for (const [queryField, queryFieldOptions] of SIMILAR_ITEMS_FIELDS) {
+    for (const dataField of queryFieldOptions.data) {
+      if (data[dataField]) {
+        queryTerms.set(queryField, (queryTerms.get(queryField) || []).concat(data[dataField]));
+      }
+    }
+  }
+
+  const fieldQueries = [];
+  for (const [queryField, queryFieldTerms] of queryTerms) {
+    const boost = SIMILAR_ITEMS_FIELDS.get(queryField).boost;
+    const fieldQuery = `${queryField}:(` + queryFieldTerms.map((term) => {
+      return '"' + escapeLuceneSpecials(term) + '"';
+    }).join(' OR ') + `)^${boost}`;
+    fieldQueries.push(fieldQuery);
+  }
+
+  if (fieldQueries.length === 0) return null;
+
+  const query = '(' + fieldQueries.join(' OR ') + `) NOT europeana_id:"${about}"`;
+  return query;
+}
+
+function escapeLuceneSpecials(string) {
+  const specials = ['\\', '+', '-', '&', '|', '!', '(', ')', '{', '}', '[', ']', '^', '"', '~', '*', '?', ':', '/'];
+
+  return specials.reduce((memo, special) => {
+    memo = memo.replace(new RegExp(escapeRegExp(special), 'g'), `\\${special}`);
+    return memo;
+  }, string);
 }
 
 export default getRecord;
