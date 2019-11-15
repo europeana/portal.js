@@ -20,22 +20,22 @@ storiesOf('Generic', module)
           {
             identifier: 'en/entity/person/60404-johannes-vermeer',
             thumbnail: 'https://www.placecage.com/200/200',
-            name: 'Woman Reading a letter'
+            title: 'Woman Reading a letter'
           },
           {
             identifier: 'en/entity/person/60404-johannes-vermeer',
             thumbnail: 'https://www.fillmurray.com/200/200',
-            name: 'View of house in Delt'
+            title: 'View of house in Delt'
           },
           {
             identifier: 'en/entity/person/60404-johannes-vermeer',
             thumbnail: 'https://www.placecage.com/200/200',
-            name: 'The Love Letter'
+            title: 'The Love Letter'
           },
           {
             identifier: 'en/entity/person/60404-johannes-vermeer',
             thumbnail: 'https://www.fillmurray.com/200/200',
-            name: 'Dienstbode met een takshond in de'
+            title: 'Dienstbode met een takshond in de'
           }
         ]
       };
