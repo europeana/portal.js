@@ -4,6 +4,7 @@ module.exports = function(migration) {
   entityPage
     .editField('name')
     .localized(true)
+    .required(true)
     .validations([
       {
         size: {
@@ -12,9 +13,7 @@ module.exports = function(migration) {
       }
     ]);
 
-  entityPage.changeFieldControl('name', 'builtin', 'singleLine', {
-    helpText: 'If present, will be used. Otherwise, the title will be read from the API'
-  });
+  entityPage.changeFieldControl('name', 'builtin', 'singleLine', { });
 
   entityPage
     .createField('description')
@@ -31,6 +30,6 @@ module.exports = function(migration) {
     .afterField('identifier');
 
   entityPage.changeFieldControl('description', 'builtin', 'singleLine', {
-    helpText: 'If present, will be used. Otherwise, the description will be read from the API'
+    helpText: 'If present, will be used. Otherwise, the description will be read from the API.'
   });
 };
