@@ -10,7 +10,7 @@ const i18n = {
   }
 };
 
-storiesOf('Search page / Pills', module)
+storiesOf('Search / Pills', module)
   .add('Default aria label', () => ({
     components: { SearchBarPill },
     i18n,
