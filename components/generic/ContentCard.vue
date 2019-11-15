@@ -15,14 +15,7 @@
         :aria-label="title"
         :style="!isRelated && cardImageStyle"
         class="card-img"
-        thumbnail
-      />
-      <b-img
-        v-if="thumbnail"
-        :src="thumbnail"
-        :alt="title"
-        thumbnail
-        fluid
+        :class="{ 'is-square' : isSquare }"
       />
       <b-card-body>
         <b-card-title>
@@ -85,9 +78,9 @@
         type: Boolean,
         default: false
       },
-      thumbnail: {
-        type: String,
-        default: ''
+      isSquare: {
+        type: Boolean,
+        default: false
       }
     },
     computed: {
