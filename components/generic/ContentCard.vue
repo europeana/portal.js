@@ -15,6 +15,14 @@
         :aria-label="title"
         :style="!isRelated && cardImageStyle"
         class="card-img"
+        thumbnail
+      />
+      <b-img
+        v-if="thumbnail"
+        :src="thumbnail"
+        :alt="title"
+        thumbnail
+        fluid
       />
       <b-card-body>
         <b-card-title>
@@ -76,6 +84,10 @@
       isRelated: {
         type: Boolean,
         default: false
+      },
+      thumbnail: {
+        type: String,
+        default: ''
       }
     },
     computed: {

@@ -104,6 +104,28 @@
   flex: 0 0 100%;
 }
 
+.similar-items {
+  .content-card {
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+    min-height: auto;
+    margin-bottom: 0;
+  }
+
+  .img-thumbnail {
+    border: 0;
+    padding: 0;
+    border-radius: 0;
+    width: 100%;
+  }
+
+  .card-body {
+    min-height: auto;
+    padding-bottom: 0;
+  }
+}
+
 @media (min-width: $bp-medium) {
   .card-deck-3-cols .card {
     flex: 0 0 calc(100% / 3 - #{$grid-gutter*2});
