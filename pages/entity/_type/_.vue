@@ -101,7 +101,15 @@
         return (!this.entity || !this.entity.depiction) ? null : entities.getWikimediaThumbnailUrl(this.entity.depiction.id);
       },
       description() {
-        return entities.getEntityDescription(this.entity);
+        return this.pageDescription ? this.pageDescription : entities.getEntityDescription(this.entity);
+      },
+      // Description from the Contentful entry
+      pageDescription() {
+        return this.page ? this.page.description : null;
+      },
+      // Title from the Contentful entry
+      pageTitle() {
+        return this.page ? this.page.name : null;
       },
       perPage() {
         return PER_PAGE;
@@ -116,7 +124,9 @@
         };
       },
       title() {
-        return !this.entity ? this.$t('entity') : this.entity.prefLabel.en;
+        if (!this.entity) return this.$t('entity');
+        if (this.pageTitle) return this.pageTitle;
+        return this.entity.prefLabel.en;
       }
     },
     asyncData({ env, query, params, res, redirect, app, store }) {
@@ -212,7 +222,13 @@
     },
     head() {
       return {
-        title: this.title
+        title: this.title,
+        meta: [
+          { hid: 'title', name: 'title', content: this.title },
+          { hid: 'description', name: 'description', content: this.description },
+          { hid: 'og:title', property: 'og:title', content: this.title },
+          { hid: 'og:description', property: 'og:description', content: this.description }
+        ]
       };
     },
     beforeRouteLeave(to, from, next) {
