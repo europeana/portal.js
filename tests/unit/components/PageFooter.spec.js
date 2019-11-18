@@ -34,4 +34,14 @@ describe('components/search/PageFooter', () => {
     const renderedList = wrapper.findAll('footer ul li');
     renderedList.length.should.eq(2);
   });
+
+  it('contains the language selector', () => {
+    const wrapper = factory();
+    wrapper.setProps({
+      enableLanguageSelector: true
+    });
+    const selector = wrapper.find('[data-qa="language selector"]');
+
+    selector.isVisible().should.equal(true);
+  });
 });

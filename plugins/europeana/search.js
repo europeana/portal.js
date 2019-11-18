@@ -152,7 +152,7 @@ export function selectedFacetsFromQuery(query) {
  */
 function search(params) {
   const maxResults = 1000;
-  const perPage = Number(params.rows) || 24;
+  const perPage = params.rows === undefined ? 24 : Number(params.rows);
   const page = params.page || 1;
   const start = ((page - 1) * perPage) + 1;
   const rows = Math.max(0, Math.min(maxResults + 1 - start, perPage));
@@ -165,7 +165,7 @@ function search(params) {
     },
     params: {
       facet: params.facet ? params.facet : defaultFacets.join(','),
-      profile: 'minimal,facets',
+      profile: params.profile ? params.profile : 'minimal,facets',
       qf: qfHandler(params.qf),
       query,
       reusability: params.reusability,

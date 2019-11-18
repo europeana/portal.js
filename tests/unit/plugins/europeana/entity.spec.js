@@ -7,7 +7,7 @@ axios.defaults.adapter = require('axios/lib/adapters/http');
 const entityId = '94-architecture';
 const entityType = 'topic';
 const entityIdMisspelled = '94-architectuz';
-const apiUrl = 'https://api.europeana.eu';
+const apiUrl = entities.constants.API_ORIGIN;
 const apiEndpoint = '/entity/concept/base/94.json';
 const entityUri = 'http://data.europeana.eu/concept/base/94';
 const entityFilterField = 'skos_concept';
@@ -96,8 +96,7 @@ describe('plugins/europeana/entity', () => {
         const apiResponse = entitiesResponse.items[0];
 
         beforeEach('stub API response', () => {
-          nock(apiUrl)
-            .get(apiEndpoint)
+          baseRequest
             .query(true)
             .reply(200, apiResponse);
         });

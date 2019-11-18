@@ -82,9 +82,9 @@
         </div>
         <div class="card p-3 mb-3">
           <MediaActionBar
-            v-if="selectedMedia.about"
             :url="selectedMedia.about"
             :europeana-identifier="identifier"
+            :rights-statement="rightsStatement"
           />
         </div>
         <div
@@ -215,6 +215,13 @@
       },
       displayMediaThumbnailGrid() {
         return Boolean(Number(process.env.ENABLE_RECORD_MEDIA_THUMBNAIL_GRID)) && (this.media.length > 1);
+      },
+      edmRights() {
+        return this.selectedMedia.webResourceEdmRights ? this.selectedMedia.webResourceEdmRights : this.fields.edmRights;
+      },
+      rightsStatement() {
+        if (this.edmRights) return langMapValueForLocale(this.edmRights, this.$i18n.locale).values[0];
+        return false;
       }
     },
 
