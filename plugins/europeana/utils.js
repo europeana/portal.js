@@ -1,6 +1,3 @@
-// TODO: remove this when the issue noted in the url plugin is resolved upstream
-import { URL } from '../url';
-
 export function apiError(error) {
   let statusCode = 500;
   let message = error.message;
@@ -19,15 +16,6 @@ const locales = require('../i18n/locales.js');
 
 function isEntity(value) {
   return !!value && !!value.about;
-}
-
-export function thumbnailUrl(uri, params = {}) {
-  const url = new URL('https://api.europeana.eu/api/v2/thumbnail-by-url.json');
-  for (const key of Object.keys(params)) {
-    url.searchParams.set(key, params[key]);
-  }
-  url.searchParams.set('uri', uri);
-  return url.toString();
 }
 
 function entityValues(values, locale) {

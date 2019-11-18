@@ -1,7 +1,7 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 
-import { thumbnailUrl } from  '../../../../plugins/europeana/utils';
+import thumbnailUrl from  '../../../../plugins/europeana/thumbnail';
 import MediaThumbnailGrid from '../../../../components/record/MediaThumbnailGrid.vue';
 
 const localVue = createLocalVue();
