@@ -51,8 +51,8 @@ function aggregationMedia(aggregation) {
   // Gather all isShownBy and hasView URIs
   const mediaUris = [aggregation.edmIsShownBy].concat(aggregation.hasView || []).filter(isNotUndefined);
 
-  // Filter web resources to isShownBy and hasView
-  const media = aggregation.webResources.filter((webResource) => mediaUris.includes(webResource.about));
+  // Filter web resources to isShownBy and hasView, respecting the ordering
+  const media = mediaUris.map((mediaUri) => aggregation.webResources.find((webResource) => mediaUri === webResource.about));
 
   // Sort by isNextInSequence property if present
   return sortByIsNextInSequence(media);
