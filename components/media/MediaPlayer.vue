@@ -11,11 +11,6 @@
         type: String,
         default: null,
         require: true
-      },
-      duration: {
-        type: Number,
-        default: null,
-        require: true
       }
     },
     created() {
@@ -27,10 +22,14 @@
     methods: {
       videoObject() {
         return {
-          source: this.src,
-          duration: this.duration,
+          source: this.iifManifestSrc(this.src),
+          duration: -1,
           id: this.src
         };
+      },
+      iifManifestSrc(src) {
+        console.log(src);
+        return 'https://iiif.europeana.eu/presentation/2051906/data_euscreenXL_http___www_openbeelden_nl_media_664892/manifest?format=3&wskey=XYZ';
       },
       initPlayer() {
         let component = document.getElementById('playerElement');
