@@ -133,7 +133,7 @@
   import MetadataField from '../../components/record/MetadataField';
 
   import getRecord from '../../plugins/europeana/record';
-  import thumbnailUrl from  '../../plugins/europeana/thumbnail';
+  import thumbnailUrl, { thumbnailTypeForMimeType } from  '../../plugins/europeana/thumbnail';
   import { isRichMedia } from '../../plugins/media';
   import { langMapValueForLocale } from  '../../plugins/europeana/utils';
   import { searchEntities } from '../../plugins/europeana/entity';
@@ -213,7 +213,10 @@
       },
       selectedMediaImage() {
         return {
-          src: thumbnailUrl(this.selectedMedia.about, { size: 'w400' }),
+          src: thumbnailUrl(this.selectedMedia.about, {
+            size: 'w400',
+            type: thumbnailTypeForMimeType(this.selectedMedia.ebucoreHasMimeType) || this.type
+          }),
           link: this.isShownAt
         };
       },
