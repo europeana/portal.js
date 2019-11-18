@@ -26,22 +26,22 @@ storiesOf('Generic', module)
       return {
         items: [
           {
-            identifier: '/en/entity/person/60404-johannes-vermeer',
+            identifier: '/123/abc',
             thumbnail: 'img/landscape.jpg',
             title: 'Woman Reading a letter'
           },
           {
-            identifier: 'en/entity/person/60404-johannes-vermeer',
+            identifier: '/123/abc',
             thumbnail: 'img/portrait.jpg',
             title: 'View of house in Delt'
           },
           {
-            identifier: '/en/entity/person/60404-johannes-vermeer',
+            identifier: '/123/abc',
             thumbnail: 'img/landscape.jpg',
             title: 'The Love Letter'
           },
           {
-            identifier: 'en/entity/person/60404-johannes-vermeer',
+            identifier: '/123/abc',
             thumbnail: 'img/portrait.jpg',
             title: 'Dienstbode met een takshond in de'
           }
