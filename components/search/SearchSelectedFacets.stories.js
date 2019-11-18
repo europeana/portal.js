@@ -2,15 +2,41 @@ import { storiesOf } from '@storybook/vue';
 
 import SearchSelectedFacets from './SearchSelectedFacets.vue';
 
-storiesOf('Search page', module)
-  .add('Search selected facets', () => ({
+const i18n = {
+  locale: 'en',
+  messages: {
+    en: {
+      facets: {
+        'TYPE': {
+          name: 'Type'
+        },
+        'REUSABILITY': {
+          name: 'Can I reuse this?'
+        }
+      },
+      formatting: {
+        labelledValue: '{label}: {value}'
+      }
+    }
+  }
+};
+
+const template = '<b-container class="mt-3"><SearchSelectedFacets :facets="facets"/></b-container>';
+
+storiesOf('Search / Selected facets', module)
+  .add('One selected facet', () => ({
     components: { SearchSelectedFacets },
     data() {
-      return { selected: ['Image', 'Video', 'PDF'] };
+      return { facets: { 'TYPE': ['IMAGE'] } };
     },
-    template: ` <b-container
-      class="mt-3"
-      >
-        <SearchSelectedFacets :selected="selected"/>
-      </b-container>`
+    i18n,
+    template
+  }))
+  .add('Multiple selected facets', () => ({
+    components: { SearchSelectedFacets },
+    data() {
+      return { facets: { 'TYPE': ['IMAGE', 'VIDEO'], 'REUSABILITY': ['open'] } };
+    },
+    i18n,
+    template
   }));

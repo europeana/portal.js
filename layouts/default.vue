@@ -7,7 +7,22 @@
     >
       {{ $t('layout.skipToMain') }}
     </a>
-    <PageHeader :search-query="searchQuery" />
+    <PageHeader
+      :enable-auto-suggest="enableAutoSuggest"
+      :enable-language-selector="enableLanguageSelector"
+      :enable-suggestion-validation="enableSuggestionValidation"
+    />
+    <PageNavigation />
+    <b-container v-if="breadcrumbs">
+      <b-row>
+        <b-col class="col-12">
+          <b-breadcrumb
+            :items="breadcrumbs"
+            class="px-0"
+          />
+        </b-col>
+      </b-row>
+    </b-container>
     <nuxt
       id="main"
     />
@@ -17,29 +32,30 @@
 
 <script>
   import PageHeader from '../components/PageHeader.vue';
+  import PageNavigation from '../components/PageNavigation.vue';
   import PageFooter from '../components/PageFooter.vue';
 
   export default {
     components: {
       PageHeader,
+      PageNavigation,
       PageFooter
     },
-    data() {
-      return {
-        searchQuery: this.$route.query || {}
-      };
-    },
-    created() {
-      this.$root.$on('leaveSearchPage', () => {
-        this.searchQuery = {};
-      });
-      this.$root.$on('updateSearchQuery', (val) => {
-        this.searchQuery = val;
-      });
-    },
-    updated() {
-      if (!Object.prototype.hasOwnProperty.call(this.searchQuery, 'view')) {
-        this.searchQuery.view = sessionStorage.searchResultsView || localStorage.searchResultsView || 'grid';
+
+    computed: {
+      enableAutoSuggest() {
+        // Auto suggest on search form will be disabled unless toggled on by env var,
+        // and always disabled on entity pages.
+        return Boolean(Number(process.env['ENABLE_AUTOSUGGEST'])) && !(this.$store.state.entity && this.$store.state.entity.id);
+      },
+      enableLanguageSelector() {
+        return Boolean(Number(process.env['ENABLE_LANGUAGE_SELECTOR']));
+      },
+      enableSuggestionValidation() {
+        return Boolean(Number(process.env['ENABLE_ENTITY_SUGGESTION_RECORD_VALIDATION']));
+      },
+      breadcrumbs() {
+        return this.$store.state.breadcrumb.data;
       }
     }
   };

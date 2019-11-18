@@ -4,6 +4,7 @@
     :texts="texts"
     :url="destination"
     :image-url="imageUrl"
+    :image-content-type="imageContentType"
   />
 </template>
 
@@ -26,20 +27,24 @@
       title() {
         return this.fields.name;
       },
+      imageIsContentfulAsset() {
+        return this.fields.image && this.fields.image.fields && this.fields.image.fields.file;
+      },
       imageUrl() {
         if (this.fields.thumbnailUrl) {
           return this.fields.thumbnailUrl;
         } else if (typeof this.fields.image === 'string') {
-          if (this.fields.image.startsWith('http://commons.wikimedia.org/wiki/Special:FilePath/')) {
+          if (new RegExp('.wiki[mp]edia.org/wiki/Special:FilePath/').test(this.fields.image)) {
             return getWikimediaThumbnailUrl(this.fields.image);
-          } else {
-            return this.fields.image;
           }
-        } else if (this.fields.image && this.fields.image.fields && this.fields.image.fields.file) {
+          return this.fields.image;
+        } else if (this.imageIsContentfulAsset) {
           return this.fields.image.fields.file.url;
-        } else {
-          return '';
         }
+        return '';
+      },
+      imageContentType() {
+        return this.imageIsContentfulAsset ? this.fields.image.fields.file.contentType : null;
       },
       destination() {
         if (this.fields.url) {
@@ -75,12 +80,14 @@
       },
       entityRouterLink(uri, slug) {
         const uriMatch = uri.match('^http://data.europeana.eu/([^/]+)(/base)?/(.+)$');
-        return this.localePath({
-          name: 'entity-type-all', params: { type: getEntityTypeHumanReadable(uriMatch[1]), pathMatch: slug ? slug : uriMatch[3] } }
-        );
+        return {
+          name: 'entity-type-all', params: { type: getEntityTypeHumanReadable(uriMatch[1]), pathMatch: slug ? slug : uriMatch[3] }
+        };
       },
       recordRouterLink(identifier) {
-        return this.localePath({ name: 'record-all', params: { pathMatch: identifier.slice(1) } });
+        return {
+          name: 'record-all', params: { pathMatch: identifier.slice(1) }
+        };
       }
     }
   };

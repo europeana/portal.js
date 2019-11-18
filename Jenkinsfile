@@ -12,16 +12,15 @@ pipeline {
     CF_API="${env.CF_API}"
     CF_LOGIN=credentials('portaljs.cloudfoundry.login')
     CF_ORG="${env.CF_ORG}"
-    CF_SPACE="${env.BRANCH_NAME == 'master' ? 'test': 'production'}"
+    CF_SPACE="${env.BRANCH_NAME == 'master' ? 'test' : 'production'}"
+    S3_PATH="${env.BRANCH_NAME == 'master' ? '/' : '/' + env.BRANCH_NAME}"
   }
   stages {
     stage('Build') {
-      environment {
-        NUXT_ENV_BUILD_PUBLIC_PATH="${env.S3_ENDPOINT}/europeana-portaljs-${env.CF_SPACE}"
-      }
       steps {
         configFileProvider([configFile(fileId: "portaljs.${env.CF_SPACE}.env", targetLocation: '.env')]) {
-          sh 'rm -r node_modules'
+          sh 'envsubst \'${S3_PATH}\' < .env >> .env.subst && mv .env.subst .env'
+          sh 'rm -rf node_modules'
           sh 'npm install'
           sh 'npm run build'
         }
@@ -35,7 +34,7 @@ pipeline {
         S3_REGION='eu-geo'
       }
       steps {
-        sh 'AWS_ACCESS_KEY_ID="${S3_ACCESS_USR}" AWS_SECRET_ACCESS_KEY="${S3_ACCESS_PSW}" aws --region ${S3_REGION} --endpoint-url ${S3_ENDPOINT} s3 sync .nuxt/dist/client s3://${S3_BUCKET} --acl public-read --delete'
+        sh 'AWS_ACCESS_KEY_ID="${S3_ACCESS_USR}" AWS_SECRET_ACCESS_KEY="${S3_ACCESS_PSW}" aws --region ${S3_REGION} --endpoint-url ${S3_ENDPOINT} s3 sync .nuxt/dist/client s3://${S3_BUCKET}${S3_PATH} --acl public-read --delete'
       }
     }
     stage('Login to CF') {
@@ -47,11 +46,13 @@ pipeline {
       environment {
         CF_APP_NAME="portaljs${env.CF_SPACE == 'production' ? '' : '-' + env.CF_SPACE}"
         CTF_CPA_ACCESS_TOKEN=credentials("portaljs.${env.CF_SPACE}.contentful.cpa")
+        HTTP_DIGEST_ACL=credentials("portaljs.${env.CF_SPACE}.http.digest.acl")
       }
       steps {
         sh 'echo "services:" >> manifest.yml'
         sh 'echo "  - elastic-apm" >> manifest.yml'
         sh 'sed -i "s|env:|env:\\n  CTF_CPA_ACCESS_TOKEN: ${CTF_CPA_ACCESS_TOKEN}|" manifest.yml'
+        sh 'sed -i "s|env:|env:\\n  HTTP_DIGEST_ACL: ${HTTP_DIGEST_ACL}|" manifest.yml'
         sh 'cf blue-green-deploy ${CF_APP_NAME} -f manifest.yml --delete-old-apps'
       }
     }

@@ -1,7 +1,7 @@
 <template>
   <b-container
     fluid
-    class="border-bottom mb-3 p-0"
+    class="border-bottom p-0"
   >
     <b-container class="p-0">
       <b-navbar
@@ -19,16 +19,14 @@
             data-qa="logo"
           >
         </b-navbar-brand>
-        <div class="navbar-nav ml-auto w-100 col-md-6 col-lg-6 p-0 pt-3 pt-md-0 mr-auto">
+        <div class="navbar-nav ml-auto w-100 col-md-6 col-lg-6 p-0 pt-3 pt-md-0">
           <SearchForm
-            v-model="query"
             data-qa="search form"
-            :is-loading="isLoading"
             class="justify-content-center justify-content-md-end w-100"
-            @submit:searchForm="submitSearchForm"
+            :enable-auto-suggest="enableAutoSuggest"
+            :enable-suggestion-validation="enableSuggestionValidation"
           />
         </div>
-        <LangSelector data-qa="language selector" />
       </b-navbar>
     </b-container>
   </b-container>
@@ -36,37 +34,20 @@
 
 <script>
   import SearchForm from './search/SearchForm';
-  import LangSelector from './generic/LanguageSelector';
 
   export default {
     components: {
-      SearchForm,
-      LangSelector
+      SearchForm
     },
+
     props: {
-      searchQuery: {
-        type: Object,
-        default: () => {}
-      }
-    },
-    data() {
-      return {
-        query: (this.searchQuery || {}).query || '',
-        isLoading: false
-      };
-    },
-    watch: {
-      searchQuery: {
-        immediate: true,
-        handler(val = {}) {
-          this.query = val.query || '';
-        }
-      }
-    },
-    methods: {
-      submitSearchForm() {
-        const newSearchQuery = { ...this.searchQuery, ...{ query: this.query, page: 1 } };
-        this.$router.push(this.localePath({ name: 'search', query: newSearchQuery }));
+      enableAutoSuggest: {
+        type: Boolean,
+        default: false
+      },
+      enableSuggestionValidation: {
+        type: Boolean,
+        default: false
       }
     }
   };

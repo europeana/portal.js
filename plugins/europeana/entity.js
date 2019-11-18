@@ -1,7 +1,16 @@
+import { apiError } from './utils';
 import axios from 'axios';
 
+export const constants = Object.freeze({
+  API_ORIGIN: 'https://api.europeana.eu',
+  API_PATH_PREFIX: '/entity',
+  API_ENDPOINT_SEARCH: '/search',
+  API_ENDPOINT_SUGGEST: '/suggest',
+  URI_ORIGIN: 'http://data.europeana.eu'
+});
+
 /**
- * Get the entity data from the API
+ * Get data for one entity from the API
  * @param {string} type the type of the entity, will be normalized to the EntityAPI type if it's a human readable type
  * @param {string} id the id of the entity (can contain trailing slug parts as these will be normalized)
  * @param {Object} params additional parameters sent to the API
@@ -21,9 +30,63 @@ export function getEntity(type, id, params) {
       };
     })
     .catch((error) => {
-      const message = error.response ? error.response.data.error : error.message;
-      throw new Error(message);
+      throw apiError(error);
     });
+}
+
+function entityApiUrl(endpoint) {
+  return `${constants.API_ORIGIN}${constants.API_PATH_PREFIX}${endpoint}`;
+}
+
+import search from './search';
+
+/**
+ * Get entity suggestions from the API
+ * @param {string} text the query text to supply suggestions for
+ * @param {Object} params additional parameters sent to the API
+ * @param {string} params.language language(s), comma-separated, to request
+ * @param {string} params.wskey API key
+ * @param {Object} options optional settings
+ * @param {boolean} options.recordValidation if `true`, filter suggestions to those with record matches
+ * @return {Object[]} entity suggestions from the API
+ */
+export function getEntitySuggestions(text, params = {}, options = {}) {
+  return axios.get(entityApiUrl(constants.API_ENDPOINT_SUGGEST), {
+    params: {
+      text,
+      type: 'agent,concept',
+      language: params.language,
+      scope: 'europeana',
+      wskey: params.wskey
+    }
+  })
+    .then((response) => {
+      if (!response.data.items) return [];
+      return options.recordValidation ? filterSuggestionsByRecordValidation(response.data.items) : response.data.items;
+    })
+    .catch((error) => {
+      throw apiError(error);
+    });
+}
+
+function filterSuggestionsByRecordValidation(suggestions) {
+  const searches = suggestions.map((entity) => {
+    return search({
+      query: getEntityQuery(entity.id),
+      rows: 0,
+      profile: 'minimal',
+      qf: ['contentTier:(2 OR 3 OR 4)'],
+      wskey: process.env.EUROPEANA_API_KEY
+    });
+  });
+
+  return axios.all(searches)
+    .then(axios.spread(function() {
+      const searchResponses = arguments;
+      return suggestions.filter((entity, index) => {
+        return searchResponses[index].totalResults > 0;
+      });
+    }));
 }
 
 /**
@@ -61,7 +124,21 @@ export function getEntityTypeHumanReadable(type) {
  * @return {string} retrieved human readable name of type
  */
 export function getEntityUri(type, id) {
-  return `http://data.europeana.eu/${getEntityTypeApi(type)}/base/${normalizeEntityId(id)}`;
+  return `${constants.URI_ORIGIN}/${getEntityTypeApi(type)}/base/${normalizeEntityId(id)}`;
+}
+
+/**
+ * Construct an entity-type-specific Record API query for an entity
+ * @param {string} uri entity URI
+ * @return {string} Record API query
+ */
+export function getEntityQuery(uri) {
+  if (uri.includes('/concept/base/')) {
+    return `skos_concept:"${uri}"`;
+  } else if (uri.includes('/agent/base/')) {
+    return `edm_agent:"${uri}"`;
+  }
+  return null;
 }
 
 /**
@@ -71,7 +148,7 @@ export function getEntityUri(type, id) {
  * @return {string} retrieved human readable name of type
  */
 function getEntityUrl(type, id) {
-  return `https://api.europeana.eu/entity/${getEntityTypeApi(type)}/base/${normalizeEntityId(id)}`;
+  return entityApiUrl(`/${getEntityTypeApi(type)}/base/${normalizeEntityId(id)}.json`);
 }
 
 /**
@@ -102,16 +179,20 @@ export function getEntitySlug(entity) {
  * @param {string} id the id of the entity, (can contain trailing slug parts as these will be normalized)
  * @param {Object} params additional parameters sent to the API
  * @return {Object} related entities
+ * TODO: add people as related entities again
  */
 export function relatedEntities(type, id, params) {
+  const entityUri = getEntityUri(type, id);
+  let apiParams = {
+    wskey: params.wskey,
+    profile: 'facets',
+    facet: 'skos_concept',
+    query: getEntityQuery(entityUri),
+    rows: 0
+  };
+
   return axios.get('https://api.europeana.eu/api/v2/search.json', {
-    params: {
-      wskey: params.wskey,
-      profile: 'facets',
-      facet: 'edm_agent,skos_concept',
-      query: `"${getEntityUri(type, id)}"`,
-      rows: 0
-    }
+    params: apiParams
   })
     .then((response) => {
       return response.data.facets ? getEntityFacets(response.data.facets, normalizeEntityId(id), params.entityKey) : [];
@@ -130,38 +211,38 @@ export function relatedEntities(type, id, params) {
  * @return {Object} related entities
  * TODO: limit results
  */
-function getEntityFacets(facets, currentId, entityKey) {
+async function getEntityFacets(facets, currentId, entityKey) {
   let entities = [];
   for (let facet of facets) {
     entities = entities.concat(facet['fields'].filter(value =>
-      value['label'].includes('http://data.europeana.eu') && value['label'].split('/').pop() !== currentId
+      value['label'].includes(constants.URI_ORIGIN) && value['label'].split('/').pop() !== currentId
     ));
   }
-  return getDataForEntities(entities, entityKey);
+  const entityUris = entities.slice(0, 4).map(entity => {
+    return entity['label'];
+  });
+  return getRelatedEntityTitleLink(await searchEntities(entityUris, { wskey: entityKey }));
 }
 
 /**
  * Lookup data for the given list of entity URIs
- * @param {Object} entities the entities retrieved from the facet search
- * @param {String} entityKey the key for the entity api
- * @return {Object} looked up entities data
+ * @param {Array} entityUris the URIs of the entities to retrieve
+ * @param {Object} params additional parameters sent to the API
+ * @return {Object} entity data
  */
-function getDataForEntities(entities, entityKey) {
-  if (entities.length === 0) return;
+export function searchEntities(entityUris, params) {
+  if (entityUris.length === 0) return;
 
-  const entityLabels = entities.slice(0,4).map(entity => {
-    return entity['label'];
-  });
-
-  const q = entityLabels.join('"+OR+"');
-  return axios.get(`https://api.europeana.eu/entity/search?query=entity_uri:("${q}")`, {
+  const q = entityUris.join('" OR "');
+  return axios.get(entityApiUrl(constants.API_ENDPOINT_SEARCH), {
     params: {
-      wskey: entityKey
+      query: `entity_uri:("${q}")`,
+      wskey: params.wskey
     }
   })
     .then((response) => {
       let items = response.data.items ? response.data.items : [];
-      return getRelatedEntityTitleLink(items);
+      return items;
     })
     .catch((error) => {
       const message = error.response ? error.response.data.error : error.message;
@@ -171,7 +252,7 @@ function getDataForEntities(entities, entityKey) {
 
 /**
  * Format the the entity data
- * @param {Object} entities the lookuped data for entities
+ * @param {Object} entities the data returned from the Entity API
  * @return {Object} entity links and titles
  */
 function getRelatedEntityTitleLink(entities) {
@@ -182,6 +263,7 @@ function getRelatedEntityTitleLink(entities) {
       entityDetails.push({
         type: getEntityTypeHumanReadable(entity.type),
         path: getEntitySlug(entity),
+        // TODO: l10n
         title: entity.prefLabel.en
       });
     }
@@ -193,15 +275,14 @@ function getRelatedEntityTitleLink(entities) {
  * Get the description for the entity
  * If type is topic, use note
  * If type is person, use biographicalInformation
- * @param {String} type entity type, either topic or person
  * @param {Object} entity data
  * @return {String} description when available in English
  */
-export function getEntityDescription(type, entity) {
+export function getEntityDescription(entity) {
   let description;
-  if (type === 'topic' && entity.note) {
+  if (entity.type === 'Concept' && entity.note) {
     description = entity.note.en ? entity.note.en[0] : '';
-  } else if (type === 'person' && entity.biographicalInformation) {
+  } else if (entity.type === 'Agent' && entity.biographicalInformation) {
     // check if biographicalInformation is an array of objects
     // TODO: it _should_ always be an array. this is an Entity API bug. remove
     //       the condition when fixed upstream.
@@ -216,20 +297,42 @@ export function getEntityDescription(type, entity) {
 }
 
 /**
+ * A check for a URI to see if it conforms ot the entity URI pattern
+ * Will return true/false
+ * @param {String} A URI to check
+ * @return {Boolean} true if the URI is a valid entity URI
+ */
+export function isEntityUri(uri) {
+  return RegExp(/^http:\/\/data\.europeana\.eu\/(concept|agent|place)\/base\/\d+$/).test(uri);
+}
+
+/**
+ * From a URI split params as required by the portal
+ * @param {String} A URI to check
+ * @return {{type: String, identifier: string}} Object with the portal relevant identifiers.
+ */
+export function entityParamsFromUri(uri) {
+  const matched = uri.match(/^http:\/\/data\.europeana\.eu\/(concept|agent|place)\/base\/(\d+)$/);
+  const id = matched[2];
+  const type = getEntityTypeHumanReadable(matched[1]);
+  return { id, type };
+}
+
+/**
  * The logic for going from: http://commons.wikimedia.org/wiki/Special:FilePath/[image] to
  * https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/[image]/200px-[image]:
- * @image {String} image url
+ * @image {String} image URL of wikimedia image
  * @return {String} formatted thumbnail url
  */
 export function getWikimediaThumbnailUrl(image) {
-  const crypto = require('crypto');
+  const md5 = require('md5');
 
   const filename = image.split('/').pop();
   const suffix = filename.endsWith('.svg') ? '.png' : '';
   const underscoredFilename = decodeURIComponent(filename).replace(/ /g, '_');
-  const md5 = crypto.createHash('md5').update(underscoredFilename).digest('hex');
+  const hash = md5(underscoredFilename);
 
   return 'https://upload.wikimedia.org/wikipedia/commons/thumb/' +
-      md5.substring(0, 1) + '/' + md5.substring(0, 2) + '/' +
+      hash.substring(0, 1) + '/' + hash.substring(0, 2) + '/' +
       underscoredFilename + '/255px-' + underscoredFilename + suffix;
 }

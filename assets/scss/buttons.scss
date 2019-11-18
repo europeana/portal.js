@@ -1,8 +1,20 @@
-.btn {
-  border: 0;
-  height: 2.625rem;
-}
-
 .btn-primary {
   background: $blue;
+  border-color: $blue;
+}
+
+.btn-link {
+  color: $blue;
+}
+
+.btn-outline-primary {
+  border-color: $blue;
+  color: $blue;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+
+  &:hover {
+    background-color: $blue;
+    border-color: inherit;
+  }
 }

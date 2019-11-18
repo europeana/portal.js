@@ -17,6 +17,9 @@ defineParameterType({
 defineStep('I browse/open/visit (a/an/the)( ){target}', (pageName) =>
   i.openAPage(pageName));
 
+defineStep('I am on (a/an/the)( ){target}', (pageName) =>
+  i.openAPage(pageName));
+
 defineStep('I find/identify/see/spot (a/an/the)( ){target}', (qa) =>
   i.seeATarget(qa));
 
@@ -26,11 +29,20 @@ defineStep('I find/identify/see/spot (a/an/the)( ){target} in/on a/an/the {targe
 defineStep('I find/identify/see/spot (a/an/the)( ){target} with the text {string}', (qa, text) =>
   i.seeATargetWithText(qa, text));
 
+defineStep('I find/identify/see/spot (a/an/the)( )level {int} (section )heading with the text {string}', (headingLevel, text) =>
+  i.seeASectionHeadingWithText(headingLevel, text));
+
 defineStep('I can\'t/don\'t find/identify/see/spot (a/an/the)( ){target}', (qa) =>
   i.doNotSeeATarget(qa));
 
-defineStep('I can\'t/don\'t find/identify/see/spot (a/an/the)( ){target} in/on the {target}', (qa, parentQa) =>
-  i.doNotSeeATarget([qa, parentQa]));
+defineStep('I can\'t/don\'t have (a/an/the)( ){target}', (qa) =>
+  i.doNotHaveATarget(qa));
+
+defineStep('there are no (a/an/the)( ){target}', (qa) =>
+  i.doNotHaveATarget(qa));
+
+defineStep('I can\'t/don\'t have (a/an/the)( ){target} in/on the {target}', (qa, parentQa) =>
+  i.doNotHaveATarget([qa, parentQa]));
 
 defineStep('I wait/pause {int} second(s)', (seconds) =>
   i.waitSomeSeconds(seconds));
@@ -53,11 +65,11 @@ defineStep('I activate/click (the/a/an)( ){target}', (qa) =>
 defineStep('I activate/click (on )(the/a/an)( ){target} in/on a/an/the {target}', (qa, parentQa) =>
   i.clickOnTheTarget([qa, parentQa]));
 
-defineStep('I check/click the {string} checkbox', (inputValue) =>
-  i.checkTheCheckbox(inputValue));
+defineStep('I check/click the {string} {string} checkbox', (inputValue, inputName) =>
+  i.checkTheCheckbox(inputName, inputValue));
 
-defineStep('I check/click the {string} radio', (inputValue) =>
-  i.checkTheRadio(inputValue));
+defineStep('I check/click the {string} {string} radio', (inputValue, inputName) =>
+  i.checkTheRadio(inputName, inputValue));
 
 defineStep('I activate/click (the/a/an)( ){string} link', (href) =>
   i.clickOnLink(href));
@@ -89,5 +101,20 @@ defineStep('I should have/see/see/spot a meta label {target} with the value {str
 defineStep('I have selected/chosen (the ){target} search results view', (viewName) =>
   i.selectSearchResultsView(viewName));
 
-defineStep('I am on an accessible page',() =>
+defineStep('I am on an accessible page', () =>
   i.checkPageAccesibility());
+
+defineStep('I paginate/switch/go to page (number ){int}', (page) =>
+  i.paginateToPage(page));
+
+defineStep('I am on page (number ){int}', (page) =>
+  i.amOnPageNumber(page));
+
+defineStep('I go back', () =>
+  i.goBack());
+
+defineStep('my browser accepts the language {string}', (locale) =>
+  i.preferBrowserLanguage(locale));
+
+defineStep('I search for {string}', (query) =>
+  i.searchFor(query));

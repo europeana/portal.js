@@ -1,10 +1,116 @@
-@import "variables.scss";
+.content-card {
+  background: $extralightgrey;
+  border-radius: $border-radius-small;
+  box-shadow: $boxshadow-small;
+  color: $black;
+  font-size: $font-size-extrasmall;
+  height: auto;
+  line-height: 1.1875rem;
+  transition: box-shadow 0.25s;
 
-.card-deck-3-cols .card {
-  flex: 0 0 100%;
+  &.card {
+    margin-bottom: 1.5rem;
+  }
 
   @media (min-width: $bp-medium) {
+    min-height: 20rem;
+  }
+
+  &:hover {
+    box-shadow: $boxshadow-large;
+    background-color: $lightgrey;
+  }
+
+  a {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .card-img {
+    background-position: center center;
+    background-size: cover;
+    border-radius: 4px 4px 0 0;
+    display: flex;
+    flex: 1 1 auto;
+    min-height: 10rem;
+    width: 100%;
+  }
+
+  .card-body {
+    min-height: calc(50% + 1rem); // TODO: a min-height for now, else text will run out of the box, can probably be a height when we truncate the description
+    padding: 1rem;
+    width: 100%;
+  }
+
+  .card-title {
+    font-size: $font-size-small;
+    font-weight: normal;
+  }
+
+  .card-title:last-child {
+    margin-bottom: 0;
+  }
+
+  .card-text {
+    color: $darkgrey;
+  }
+
+  .card-link {
+    min-height: 100%;
+    color: $black;
+    &:hover {
+      color: $black;
+    }
+  }
+
+  &.related-card {
+    background-position: center center;
+    background-size: cover;
+    border: 0;
+    justify-content: flex-end;
+    margin-bottom: 2.5rem;
+    margin-left: 0.9rem;
+    
+    &:not([style^="background"]) {
+      background: transparent;
+      box-shadow: none;
+      min-height: auto;
+    }
+
+    a {
+      justify-content: flex-end;
+    }
+
+    .card-body {
+      background: $extralightgrey;
+      border-radius: $border-radius-small;
+      box-shadow: $boxshadow-small;
+      margin-bottom: -1rem;
+      margin-left: -1rem;
+      transition: box-shadow 0.25s;
+    }
+
+    &:hover {
+      .card-body {
+        box-shadow: $boxshadow-large;
+        background-color: $lightgrey;
+      }
+    }
+  }
+}
+
+.card-deck-3-cols .card,
+.card-deck-4-cols .card {
+  flex: 0 0 100%;
+}
+
+@media (min-width: $bp-medium) {
+  .card-deck-3-cols .card {
     flex: 0 0 calc(100% / 3 - #{$grid-gutter*2});
+  }
+
+  .card-deck-4-cols .card {
+    flex: 0 0 calc(100% / 4 - #{$grid-gutter*2});
   }
 }
 
@@ -14,4 +120,9 @@
       color: $darkpurple;
     }
   }
+}
+
+.is-external-link.card-link .card-title:after {
+  content: '\e900';
+  @extend .icon-font;
 }

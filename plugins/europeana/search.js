@@ -2,10 +2,20 @@
  * @file Interface to Europeana Record Search API
  */
 
+import { apiError } from './utils';
 import axios from 'axios';
 import qs from 'qs';
-import Vue from 'vue';
-export const $t = (key, opts) => Vue.prototype.$nuxt.$options.i18n.t(key, opts);
+
+// Default facets to request and display if none are specified.
+// Order is significant as it will be reflected on search results.
+export const defaultFacets = [
+  'TYPE',
+  'REUSABILITY',
+  'COUNTRY',
+  'LANGUAGE',
+  'PROVIDER',
+  'DATA_PROVIDER'
+];
 
 function genericThumbnail(edmType) {
   return `https://api.europeana.eu/api/v2/thumbnail-by-url.json?size=w200&uri=&type=${edmType}`;
@@ -54,7 +64,7 @@ function display(field) {
 function fieldsForSearchResult(item) {
   let fields = {
     // TODO: fallback to description when API returns dcDescriptionLangAware
-    dcTitle: item.dcTitleLangAware ? display(item.dcTitleLangAware) : [$t('messages.noTitle', { record: item.id })],
+    dcTitle: display(item.dcTitleLangAware) || [],
     // TODO: enable when API returns dcDescriptionLangAware
     // dcDescription: item.dcDescriptionLangAware,
     edmDataProvider: item.dataProvider
@@ -88,27 +98,6 @@ function resultsFromApiResponse(response) {
 }
 
 /**
- * Page to request from API based on URL query parameter
- * If parameter is not present, returns default of page 1.
- * If parameter is present, and represents a positive integer, return it
- * typecast to Number.
- * Otherwise, parameter is invalid for page number, and return `null`.
- * @param {string} queryPage `page` query parameter from URL
- * @return {?number}
- */
-export function pageFromQuery(queryPage) {
-  if (queryPage) {
-    if (/^[1-9]\d*$/.test(queryPage)) {
-      return Number(queryPage);
-    } else {
-      return null;
-    }
-  } else {
-    return 1;
-  }
-}
-
-/**
  * A set of selected facets from the user's request.
  *
  * The object is keyed by the facet name, each property being an array of
@@ -124,14 +113,15 @@ export function pageFromQuery(queryPage) {
  */
 
 /**
- * Extract selected facets from URL `qf`, `reusability` and `theme` value(s)
+ * Extract selected facets from URL `qf` and `reusability` value(s)
  * @param {Object} query URL query parameters
  * @return {SelectedFacetSet} selected facets
+ * TODO: move into /store/search.js?
  */
 export function selectedFacetsFromQuery(query) {
   let selectedFacets = {};
   if (query.qf) {
-    for (const qf of [query.qf].flat()) {
+    for (const qf of [].concat(query.qf)) {
       const qfParts = qf.split(':');
       const facetName = qfParts[0];
       const facetValue = qfParts[1].match(/^".*"$/) ? qfParts[1].slice(1, -1) : qfParts[1]; // Slice only if double quotes exist
@@ -145,10 +135,6 @@ export function selectedFacetsFromQuery(query) {
     selectedFacets['REUSABILITY'] = query.reusability.split(',');
   }
 
-  if (query.theme) {
-    selectedFacets['THEME'] = query.theme;
-  }
-
   return selectedFacets;
 }
 
@@ -156,6 +142,7 @@ export function selectedFacetsFromQuery(query) {
  * Search Europeana Record API
  * @param {Object} params parameters for search query
  * @param {number} params.page page of results to retrieve
+ * @param {number} params.rows number of results to retrieve per page
  * @param {string} params.reusability reusability filter
  * @param {string} params.facet facet names, comma separated
  * @param {(string|string[])} params.qf query filter(s)
@@ -165,25 +152,26 @@ export function selectedFacetsFromQuery(query) {
  */
 function search(params) {
   const maxResults = 1000;
-  const perPage = 24;
+  const perPage = params.rows === undefined ? 24 : Number(params.rows);
   const page = params.page || 1;
-
   const start = ((page - 1) * perPage) + 1;
   const rows = Math.max(0, Math.min(maxResults + 1 - start, perPage));
+
+  const query = (typeof params.query === 'undefined' || params.query === '') ? '*:*' : params.query;
 
   return axios.get('https://api.europeana.eu/api/v2/search.json', {
     paramsSerializer(params) {
       return qs.stringify(params, { arrayFormat: 'repeat' });
     },
     params: {
-      profile: 'minimal,facets',
-      facet: params.facet,
-      query: params.query === '' ? '*:*' : params.query,
+      facet: params.facet ? params.facet : defaultFacets.join(','),
+      profile: params.profile ? params.profile : 'minimal,facets',
       qf: qfHandler(params.qf),
+      query,
       reusability: params.reusability,
-      theme: params.theme,
       rows,
       start,
+      theme: params.theme,
       wskey: params.wskey
     }
   })
@@ -191,14 +179,13 @@ function search(params) {
       return {
         error: null,
         results: resultsFromApiResponse(response),
-        facets: response.data.facets || null,
+        facets: response.data.facets || [],
         totalResults: response.data.totalResults,
         lastAvailablePage: start + perPage > maxResults
       };
     })
     .catch((error) => {
-      const message = error.response ? error.response.data.error : error.message;
-      throw new Error(message);
+      throw apiError(error);
     });
 }
 

@@ -9,7 +9,6 @@
     size="sm"
     align="center"
     data-qa="pagination navigation"
-    @change="pageChanged"
   />
 </template>
 
@@ -59,13 +58,9 @@
       value: {
         immediate: true,
         handler(val) {
+          // Without this, using the browser back button will not update the highlighted pagination
           this.currentPage = val;
         }
-      }
-    },
-    methods: {
-      pageChanged(page) {
-        this.$emit('changed', page);
       }
     }
   };

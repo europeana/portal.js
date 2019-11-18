@@ -1,5 +1,5 @@
 import nock from 'nock';
-import { getEntity, relatedEntities, getEntityUri, getEntitySlug, getWikimediaThumbnailUrl, getEntityDescription } from '../../../../plugins/europeana/entity';
+import * as entities from '../../../../plugins/europeana/entity';
 
 const axios = require('axios');
 axios.defaults.adapter = require('axios/lib/adapters/http');
@@ -7,8 +7,10 @@ axios.defaults.adapter = require('axios/lib/adapters/http');
 const entityId = '94-architecture';
 const entityType = 'topic';
 const entityIdMisspelled = '94-architectuz';
-const apiUrl = 'https://api.europeana.eu';
-const apiEndpoint = '/entity/concept/base/94';
+const apiUrl = entities.constants.API_ORIGIN;
+const apiEndpoint = '/entity/concept/base/94.json';
+const entityUri = 'http://data.europeana.eu/concept/base/94';
+const entityFilterField = 'skos_concept';
 const apiKey = 'abcdef';
 const baseRequest = nock(apiUrl).get(apiEndpoint);
 
@@ -26,7 +28,7 @@ const searchResponse = {
 
 const entitiesResponse = {
   items: [
-    { type: 'Agent',
+    { type: 'Concept',
       id: 'http://data.europeana.eu/agent/base/147831',
       prefLabel: { en: 'Architecture' },
       note: {
@@ -37,11 +39,26 @@ const entitiesResponse = {
         source: 'http://commons.wikimedia.org/wiki/File:View_of_Santa_Maria_del_Fiore_in_Florence.jpg'
       }
     },
-    { type: 'Agent',
+    { type: 'Concept',
       id: 'http://data.europeana.eu/agent/base/49928',
       prefLabel: { en: 'Painting' }
     }
   ]
+};
+
+const entitySuggestionsResponse = {
+  '@context': ['https://www.w3.org/ns/ldp.jsonld', 'http://www.europeana.eu/schemas/context/entity.jsonld'],
+  type: 'ResultPage',
+  total: 1,
+  items: [{
+    id: 'http://data.europeana.eu/concept/base/83',
+    type: 'Concept',
+    depiction: 'http://commons.wikimedia.org/wiki/Special:FilePath/Map_Europe_alliances_1914-en.svg',
+    prefLabel: {
+      en: 'World War I',
+      sq: 'Lufta e Parë Botërore'
+    }
+  }]
 };
 
 describe('plugins/europeana/entity', () => {
@@ -51,7 +68,7 @@ describe('plugins/europeana/entity', () => {
 
   describe('getEntity()', () => {
     describe('API response', () => {
-      describe('with "No resource found with ID: ..." error', () => {
+      context('with "No resource found with ID: ..." error', () => {
         const errorMessage = 'No resource found with ID:';
 
         beforeEach('stub API response', () => {
@@ -62,120 +79,237 @@ describe('plugins/europeana/entity', () => {
             });
         });
 
-        it('throws API error message', () => {
-          const response = getEntity(entityType, entityId, { wskey: apiKey });
-          return response.should.be.rejectedWith(errorMessage);
+        it('throws error with API error message and status code', async() => {
+          let error;
+          try {
+            await entities.getEntity(entityType, entityId, { wskey: apiKey });
+          } catch (e) {
+            error = e;
+          }
+
+          error.message.should.eq(errorMessage);
+          error.statusCode.should.eq(404);
         });
       });
 
-      describe('with object in response', () => {
+      context('with object in response', () => {
         const apiResponse = entitiesResponse.items[0];
 
         beforeEach('stub API response', () => {
-          nock(apiUrl)
-            .get(apiEndpoint)
+          baseRequest
             .query(true)
             .reply(200, apiResponse);
         });
 
         it('returns entity title', async() => {
-          const response = await getEntity(entityType, entityId, { wskey: apiKey });
+          const response = await entities.getEntity(entityType, entityId, { wskey: apiKey });
           response.entity.prefLabel.en.should.eq('Architecture');
         });
 
         it('returns entity description', async() => {
-          const response = await getEntity(entityType, entityId, { wskey: apiKey });
+          const response = await entities.getEntity(entityType, entityId, { wskey: apiKey });
           response.entity.note.en[0].should.contain('Architecture is both the process and the product of planning');
         });
 
         it('returns entity depiction', async() => {
-          const response = await getEntity(entityType, entityId, { wskey: apiKey });
+          const response = await entities.getEntity(entityType, entityId, { wskey: apiKey });
           response.entity.depiction.id.should.contain('Special:FilePath/View_of_Santa_Maria_del_Fiore_in_Florence.jpg');
         });
 
         it('returns entity attribution', async() => {
-          const response = await getEntity(entityType, entityId, { wskey: apiKey });
+          const response = await entities.getEntity(entityType, entityId, { wskey: apiKey });
           response.entity.depiction.source.should.contain('File:View_of_Santa_Maria_del_Fiore_in_Florence.jpg');
         });
 
         it('has a misspelled id and returns entity title', async() => {
-          const response = await getEntity(entityType, entityIdMisspelled, { wskey: apiKey });
+          const response = await entities.getEntity(entityType, entityIdMisspelled, { wskey: apiKey });
           response.entity.prefLabel.en.should.eq('Architecture');
         });
       });
     });
   });
 
+  describe('searchEntities()', () => {
+    const uris = [
+      'http://data.europeana.eu/agent/base/123',
+      'http://data.europeana.eu/concept/base/456'
+    ];
+    const uriQuery = 'entity_uri:("http://data.europeana.eu/agent/base/123" OR "http://data.europeana.eu/concept/base/456")';
+    const entitySearchResponse = {
+      items: []
+    };
+    const searchEndpoint = '/entity/search';
+
+    it('searches the API by entity URIs', async() => {
+      nock(apiUrl)
+        .get(searchEndpoint)
+        .query(query => {
+          return query.query === uriQuery;
+        })
+        .reply(200, entitySearchResponse);
+
+      await entities.searchEntities(uris, { wskey: apiKey });
+
+      nock.isDone().should.be.true;
+    });
+  });
+
+  describe('getEntitySuggestions()', () => {
+    const text = 'world';
+    const suggestEndpoint = '/entity/suggest';
+
+    it('passes `text` to the API', async() => {
+      nock(apiUrl)
+        .get(suggestEndpoint)
+        .query(query => {
+          return query.text === text;
+        })
+        .reply(200, entitySuggestionsResponse);
+
+      await entities.getEntitySuggestions(text, { wskey: apiKey });
+
+      nock.isDone().should.be.true;
+    });
+
+    it('passes `language` to API', async() => {
+      nock(apiUrl)
+        .get(suggestEndpoint)
+        .query(query => {
+          return query.language === 'fr';
+        })
+        .reply(200, entitySuggestionsResponse);
+
+      await entities.getEntitySuggestions(text, { language: 'fr', wskey: apiKey });
+
+      nock.isDone().should.be.true;
+    });
+
+    it('restricts types to agent & concept', async() => {
+      nock(apiUrl)
+        .get(suggestEndpoint)
+        .query(query => {
+          return query.type === 'agent,concept';
+        })
+        .reply(200, entitySuggestionsResponse);
+
+      await entities.getEntitySuggestions(text, { wskey: apiKey });
+
+      nock.isDone().should.be.true;
+    });
+
+    it('returns the "items"', async() => {
+      nock(apiUrl)
+        .get(suggestEndpoint)
+        .query(true)
+        .reply(200, entitySuggestionsResponse);
+
+      const items = await entities.getEntitySuggestions(text, { wskey: apiKey });
+
+      items.should.deep.eq(entitySuggestionsResponse.items);
+    });
+  });
+
   describe('relatedEntities()', () => {
-    describe('API response', () => {
-      describe('with object in response', () => {
+    beforeEach('stub API response', () => {
+      nock(apiUrl)
+        .get('/entity/search')
+        .query(true)
+        .reply(200, entitiesResponse);
+    });
 
-        beforeEach('stub API response', () => {
-          nock(apiUrlSearch)
-            .get(apiEndpointSearch)
-            .query(true)
-            .reply(200, searchResponse);
+    it('returns related entities', async() => {
+      nock(apiUrlSearch)
+        .get(apiEndpointSearch)
+        .query(true)
+        .reply(200, searchResponse);
 
-          nock(apiUrl)
-            .get('/entity/search')
-            .query(true)
-            .reply(200, entitiesResponse);
-        });
+      const response = await entities.relatedEntities(entityType, entityId, { wskey: apiKey, entityKey: apiKey });
+      response.length.should.eq(entitiesResponse.items.length);
+    });
 
-        it('returns related entities', async() => {
-          const response = await relatedEntities(entityType, entityId, { wskey: apiKey, entityKey: apiKey });
-          response.length.should.eq(entitiesResponse.items.length);
-        });
-      });
+    it('filters on entity URI', async() => {
+      nock(apiUrlSearch)
+        .get(apiEndpointSearch)
+        .query(query => {
+          return query.query === `${entityFilterField}:"${entityUri}"`;
+        })
+        .reply(200, searchResponse);
+
+      await entities.relatedEntities(entityType, entityId, { wskey: apiKey, entityKey: apiKey });
+
+      nock.isDone().should.be.true;
     });
   });
 
   describe('getEntityUri', () => {
-    describe('with an id of "100-test-slug', () => {
+    context('with an id of "100-test-slug', () => {
       let id = '100-test-slug';
-      describe('with type Agent', () => {
+      context('with type Agent', () => {
         let type = 'person';
         it('returns an agent URI, without any human readable labels', () => {
-          const uri = getEntityUri(type, id);
+          const uri = entities.getEntityUri(type, id);
           return uri.should.eq('http://data.europeana.eu/agent/base/100');
         });
       });
 
-      describe('with type Concept', () => {
+      context('with type Concept', () => {
         let type = 'topic';
         it('returns an agent URI, without any human readable labels', () => {
-          const uri = getEntityUri(type, id);
+          const uri = entities.getEntityUri(type, id);
           return uri.should.eq('http://data.europeana.eu/concept/base/100');
         });
       });
     });
   });
 
+  describe('getEntityQuery', () => {
+    context('when entity is a concept', () => {
+      const uri = 'http://data.europeana.eu/concept/base/12345';
+      it('queries on skos_concept', () => {
+        entities.getEntityQuery(uri).should.eq(`skos_concept:"${uri}"`);
+      });
+    });
+
+    context('when entity is an agent', () => {
+      const uri = 'http://data.europeana.eu/agent/base/12345';
+      it('queries on edm_agent', () => {
+        entities.getEntityQuery(uri).should.eq(`edm_agent:"${uri}"`);
+      });
+    });
+
+    context('otherwise', () => {
+      const uri = 'http://data.europeana.eu/place/base/12345';
+      it('is `null`', () => {
+        (entities.getEntityQuery(uri) === null).should.be.true;
+      });
+    });
+  });
+
   describe('getEntitySlug', () => {
-    describe('with an entity', () => {
+    context('with an entity', () => {
       let entity = entitiesResponse.items[0];
       it('returns an agent URI, without any human readable labels', () => {
-        const slug = getEntitySlug(entity);
+        const slug = entities.getEntitySlug(entity);
         return slug.should.eq('147831-architecture');
       });
     });
   });
 
   describe('getEntityDescription', () => {
-    describe('with an entity', () => {
+    context('with an entity', () => {
       let entity = entitiesResponse.items[0];
       it('returns a description', () => {
-        const description = getEntityDescription('topic', entity);
+        const description = entities.getEntityDescription(entity);
         return description.should.contain('Architecture');
       });
     });
   });
 
   describe('getWikimediaThumbnailUrl', () => {
-    describe('with an entity', () => {
+    context('with an entity', () => {
       let entity = entitiesResponse.items[0];
       it('returns an wikimedia thumbnail url starting with https://upload.wikimedia.org', () => {
-        const thumbnail = getWikimediaThumbnailUrl(entity.depiction.id);
+        const thumbnail = entities.getWikimediaThumbnailUrl(entity.depiction.id);
         return thumbnail.should.contain('https://upload.wikimedia.org');
       });
     });

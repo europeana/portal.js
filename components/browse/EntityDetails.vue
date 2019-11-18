@@ -7,6 +7,7 @@
     >
       <b-link
         :href="attribution"
+        :title="$t('entityDepictionCredit')"
         class="depiction mb-3 d-block overflow-hidden rounded-circle position-relative"
         target="_blank"
         data-qa="entity attribution"
@@ -25,6 +26,7 @@
         {{ title }}
       </h1>
       <p
+        v-if="description"
         data-qa="entity description"
       >
         {{ showAll ? description : truncatedDescription }}

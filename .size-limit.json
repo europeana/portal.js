@@ -1,0 +1,26 @@
+[
+  {
+    "name": "portal.js client (en)",
+    "running": false,
+    "limit": "225 KB",
+    "path": [
+      "./.nuxt/dist/client/runtime.*.js",
+      "./.nuxt/dist/client/commons.app.*.js",
+      "./.nuxt/dist/client/vendors.app.*.js",
+      "./.nuxt/dist/client/app.*.js",
+      "./.nuxt/dist/client/lang-en.*.js",
+      "./.nuxt/dist/client/pages/**/*.js",
+      "./.nuxt/dist/client/vendors.pages/**/*.js"
+    ]
+  },
+  {
+    "name": "portal.js server (en)",
+    "running": false,
+    "limit": "100 KB",
+    "path": [
+      "./.nuxt/dist/server/server.js",
+      "./.nuxt/dist/server/lang-en.*.js",
+      "./.nuxt/dist/server/pages/**/*.js"
+    ]
+  }
+]

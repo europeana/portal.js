@@ -22,15 +22,6 @@ describe('components/search/SearchResult', () => {
   });
 
   describe('result.fields properties', () => {
-    it('is displayed as a code block if an Object', () => {
-      const wrapper = factory();
-
-      wrapper.setProps({ result: { fields: { dcSpatial: { fr: ['Paris'] } } } });
-
-      const code =  wrapper.find('[data-field-name="dcSpatial"] pre code');
-      code.text().should.match(/{\s+"fr": \[\s+"Paris"\s+\]\s+}/);
-    });
-
     it('is displayed unadorned if a single value', () => {
       const wrapper = factory();
 

@@ -9,12 +9,11 @@ const factory = () => shallowMount(PageHeader, {
   localVue,
   mocks: {
     $t: () => {},
-    $route: () => {},
     localePath: (code) => window.location.href + code
   }
 });
 
-describe('components/search/PageHeader', () => {
+describe('components/PageHeader', () => {
   it('contains a search form', () => {
     const wrapper = factory();
     const form =  wrapper.find('[data-qa="search form"]');
@@ -28,12 +27,4 @@ describe('components/search/PageHeader', () => {
     const logo = wrapper.find('[data-qa="logo"]');
     logo.attributes().src.should.match(/\/logo\..+\.svg$/);
   });
-
-  it('contains a language selector', () => {
-    const wrapper = factory();
-    const selector = wrapper.find('[data-qa="language selector"]');
-
-    selector.isVisible().should.equal(true);
-  });
-
 });

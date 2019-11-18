@@ -1,8 +1,5 @@
 <template>
-  <b-container
-    v-if="error"
-    class="mb-3"
-  >
+  <b-container v-if="error">
     <AlertMessage
       :error="error"
     />
@@ -11,38 +8,23 @@
     v-else
     data-qa="entity page"
   >
-    <b-row class="flex-md-row">
+    <b-row class="flex-md-row pt-3">
       <b-col
         cols="12"
         md="9"
       >
         <EntityDetails
-          :title="title"
-          :depiction="depiction"
           :attribution="attribution"
+          :depiction="depiction"
           :description="description"
+          :title="title"
         />
-        <p
-          v-if="searchResults.results && searchResults.results.length === 0"
-          data-qa="warning notice"
-        >
-          {{ $t('noMoreResults') }}
-        </p>
-        <SearchResultsGrid
-          v-else
-          :results="searchResults.results"
-        />
-        <InfoMessage
-          v-if="searchResults.lastAvailablePage"
-          :message="$t('resultsLimitWarning')"
-        />
-        <PaginationNav
-          v-if="searchResults.totalResults > perPage"
-          v-model="searchResults.page"
-          :total-results="searchResults.totalResults"
+        <SearchInterface
+          class="px-0"
+          :per-row="3"
           :per-page="perPage"
-          :link-gen="paginationLink"
-          @changed="changeSearchPage"
+          :route="route"
+          :show-content-tier-toggle="false"
         />
       </b-col>
       <b-col
@@ -69,6 +51,14 @@
         </ul>
       </b-col>
     </b-row>
+    <b-row>
+      <b-col>
+        <BrowseSections
+          v-if="page"
+          :sections="page.hasPart"
+        />
+      </b-col>
+    </b-row>
   </b-container>
 </template>
 
@@ -76,56 +66,68 @@
   import axios from 'axios';
 
   import AlertMessage from '../../../components/generic/AlertMessage';
-  import InfoMessage from '../../../components/generic/InfoMessage';
   import BrowseChip from '../../../components/browse/BrowseChip';
+  import BrowseSections from '../../../components/browse/BrowseSections';
   import EntityDetails from '../../../components/browse/EntityDetails';
-  import SearchResultsGrid from '../../../components/search/SearchResultsGrid';
-  import PaginationNav from '../../../components/generic/PaginationNav';
+  import SearchInterface from '../../../components/search/SearchInterface';
 
   import * as entities from '../../../plugins/europeana/entity';
-  import search, { pageFromQuery } from '../../../plugins/europeana/search';
+  import { pageFromQuery } from '../../../plugins/utils';
+  import createClient from '../../../plugins/contentful';
+
+  const PER_PAGE = 9;
 
   export default {
     components: {
       AlertMessage,
       BrowseChip,
+      BrowseSections,
       EntityDetails,
-      InfoMessage,
-      SearchResultsGrid,
-      PaginationNav
-    },
-    props: {
-      perPage: {
-        type: Number,
-        default: 24
-      }
+      SearchInterface
     },
     data() {
       return {
-        error: null,
-        title: null,
-        depiction: null,
-        attribution: null,
-        description: null,
         entity: null,
-        relatedEntities: null,
-        searchResults: {
-          error: null,
-          results: null,
-          totalResults: null,
-          lastAvailablePage: false,
-          query: null,
-          page: 1
-        }
+        error: null,
+        page: null,
+        relatedEntities: null
       };
     },
     computed: {
-      hasResults() {
-        return this.searchResults.results !== null && this.searchResults.totalResults > 0;
+      attribution() {
+        return (!this.entity || !this.entity.depiction) ? null : this.entity.depiction.source;
+      },
+      depiction() {
+        return (!this.entity || !this.entity.depiction) ? null : entities.getWikimediaThumbnailUrl(this.entity.depiction.id);
+      },
+      description() {
+        return entities.getEntityDescription(this.entity);
+      },
+      perPage() {
+        return PER_PAGE;
+      },
+      route() {
+        return {
+          name: 'entity-type-all',
+          params: {
+            type: this.$route.params.type,
+            pathMatch: this.$route.params.pathMatch
+          }
+        };
+      },
+      title() {
+        return !this.entity ? this.$t('entity') : this.entity.prefLabel.en;
       }
     },
-    asyncData({ env, query, params, res, redirect, app }) {
+    asyncData({ env, query, params, res, redirect, app, store }) {
       const currentPage = pageFromQuery(query.page);
+      const entityUri = entities.getEntityUri(params.type, params.pathMatch);
+
+      // Prevent re-requesting entity content from APIs if already loaded,
+      // e.g. when paginating through entity search results
+      if (entityUri === store.state.entity.id) return;
+      store.commit('entity/setId', entityUri);
+
       if (currentPage === null) {
         // Redirect non-positive integer values for `page` to `page=1`
         query.page = '1';
@@ -135,19 +137,24 @@
           query: { page: 1 }
         }));
       }
+
+      const contentfulClient = createClient(query.mode);
+
       return axios.all([
         entities.getEntity(params.type, params.pathMatch, { wskey: env.EUROPEANA_ENTITY_API_KEY }),
         entities.relatedEntities(params.type, params.pathMatch, {
           wskey: env.EUROPEANA_API_KEY,
           entityKey: env.EUROPEANA_ENTITY_API_KEY
         }),
-        search({
-          page: currentPage,
-          query: `"${entities.getEntityUri(params.type, params.pathMatch)}"`,
-          wskey: env.EUROPEANA_API_KEY
+        contentfulClient.getEntries({
+          'locale': app.i18n.isoLocale(),
+          'content_type': 'entityPage',
+          'fields.identifier': entityUri,
+          'include': 2,
+          'limit': 1
         })
       ])
-        .then(axios.spread((entity, related, searchResults) => {
+        .then(axios.spread((entity, related, entries) => {
           const desiredPath = entities.getEntitySlug(entity.entity);
 
           if (params.pathMatch !== desiredPath) {
@@ -155,58 +162,65 @@
               name: 'entity-type-all',
               params: { type: params.type, pathMatch: encodeURIComponent(desiredPath) }
             });
+            store.commit('entity/setId', null);
             return redirect(302, redirectPath);
           }
 
+          const entityPage = entries.total > 0 ? entries.items[0].fields : null;
+
+          store.commit('search/setPill', entity.entity.prefLabel[store.state.i18n.locale]);
+
           return {
-            error: null,
-            title: entity.entity.prefLabel.en,
-            depiction: entity.entity.depiction ? entities.getWikimediaThumbnailUrl(entity.entity.depiction.id) : '',
-            attribution: entity.entity.depiction ? entity.entity.depiction.source : '',
-            description: entities.getEntityDescription(params.type, entity.entity),
             entity: entity.entity,
-            relatedEntities: related,
-            searchResults: { ...searchResults, isLoading: false, page: Number(currentPage) }
+            page: entityPage,
+            relatedEntities: related
           };
         }))
-        .catch((err) => {
-          let errorMessage = err.message;
+        .catch((error) => {
           if (typeof res !== 'undefined') {
-            res.statusCode = err.message.startsWith('No resource found with ID:') ? 404 : 500;
-            if (err.message.startsWith('Invalid query')) {
-              res.statusCode = 400;
-            } else {
-              const paginationError = err.message.match(/It is not possible to paginate beyond the first (\d+)/);
-              if (paginationError !== null) {
-                res.statusCode = 400;
-                errorMessage = `It is only possible to view the first ${paginationError[1]} search results.`;
-              } else {
-                res.statusCode = 500;
-              }
-            }
+            res.statusCode = (typeof error.statusCode !== 'undefined') ? error.statusCode : 500;
           }
-          return { error: errorMessage };
+          return { error: error.message };
         });
     },
-    methods: {
-      async changeSearchPage(page) {
-        const searchResults = await search({
-          page,
-          query: `"${this.entity.id}"`,
-          wskey: process.env.EUROPEANA_API_KEY
-        });
-        this.searchResults = { ...searchResults, isLoading: false, page: Number(page) };
-      },
-      paginationLink(val) {
-        return this.localePath({
-          name: 'entity-type-all', params: { type: entities.getEntityTypeHumanReadable(this.entity.type), pathMatch: entities.getEntitySlug(this.entity) }, query: { page: val }
-        });
+    async fetch({ store, query, res }) {
+      store.commit('search/setActive', true);
+
+      const entityUri = store.state.entity.id;
+      const contentTierQuery = 'contentTier:(2 OR 3 OR 4)';
+
+      let hiddenParams = {
+        qf: [contentTierQuery]
+      };
+
+      if (store.state.entity.themes[entityUri]) {
+        hiddenParams.theme = store.state.entity.themes[entityUri];
+      } else {
+        const entityQuery = entities.getEntityQuery(entityUri);
+        hiddenParams.qf.push(entityQuery);
+      }
+
+      const apiParams = {
+        ...query,
+        hidden: hiddenParams,
+        rows: PER_PAGE
+      };
+      await store.dispatch('search/run', apiParams);
+      if (store.state.search.error && typeof res !== 'undefined') {
+        res.statusCode = store.state.search.errorStatusCode;
       }
     },
     head() {
       return {
-        title: this.$t('entity')
+        title: this.title
       };
-    }
+    },
+    beforeRouteLeave(to, from, next) {
+      this.$store.commit('entity/setId', null);
+      this.$store.commit('search/setActive', false);
+      this.$store.commit('search/setPill', null);
+      next();
+    },
+    watchQuery: ['page', 'qf', 'query', 'reusability']
   };
 </script>

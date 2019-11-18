@@ -2,55 +2,66 @@
   <div
     data-qa="browse page"
   >
-    <HeroBanner
-      v-if="page.primaryImageOfPage"
-      :hero-image="page.primaryImageOfPage.fields.image.fields.file.url"
-      :headline="page.primaryImageOfPage.fields.headline"
-      :description="page.primaryImageOfPage.fields.description"
-      :identifier="page.primaryImageOfPage.fields.identifier"
-      :attribution="page.primaryImageOfPage.fields.citation"
-      :rights-statement="page.primaryImageOfPage.fields.license"
+    <HeroImage
+      v-if="hero"
+      :image-url="heroImage.url"
+      :image-content-type="heroImage.contentType"
+      :header="page.name"
+      :lead="page.headline"
+      :identifier="hero.identifier"
+      :citation="hero.citation"
+      :rights-statement="hero.license"
+      :name="hero.name"
+      :provider="hero.provider"
+      :creator="hero.creator"
+      :url="hero.url"
     />
-    <section class="container">
-      <div class="mt-3 w-100">
-        <ContentCardSection
-          v-for="section in page.hasPart"
-          :key="section.sys.id"
-          :section="section"
-        />
-      </div>
-    </section>
+    <b-container>
+      <header v-if="!hero">
+        <div class="col-12 col-lg-9 col">
+          <h1>{{ page.name }}</h1>
+          <p
+            v-if="page.headline"
+            class="lead"
+          >
+            {{ page.headline }}
+          </p>
+        </div>
+      </header>
+      <BrowseSections
+        v-if="page"
+        :sections="page.hasPart"
+      />
+    </b-container>
   </div>
 </template>
 
 <script>
-  import ContentCardSection from '../components/browse/ContentCardSection';
-  import HeroBanner from '../components/generic/HeroBanner';
-  import { createClient }  from '../plugins/contentful.js';
+  import BrowseSections from '../components/browse/BrowseSections';
+  import HeroImage from '../components/generic/HeroImage';
+  import createClient from '../plugins/contentful';
 
   export default {
     components: {
-      ContentCardSection,
-      HeroBanner
+      BrowseSections,
+      HeroImage
+    },
+    computed: {
+      hero() {
+        return this.page.primaryImageOfPage ? this.page.primaryImageOfPage.fields : null;
+      },
+      heroImage() {
+        return this.hero ? this.hero.image.fields.file : null;
+      }
     },
     asyncData({ params, query, error, app }) {
-      let contentfulClient;
-      if (query.mode === 'preview' && process.env['CTF_CPA_ACCESS_TOKEN']) {
-        contentfulClient = createClient(query.mode);
-      } else {
-        contentfulClient = createClient();
-      }
-      const setLocale = app.i18n.locale;
-      const isoLookUp = (code) => {
-        const locales = app.i18n.locales;
-        return locales.find(locale => locale.code === code)['iso'];
-      };
+      const contentfulClient = createClient(query.mode);
 
       // fetch the browsePage data, include set to 2 in order to get nested card data
       return contentfulClient.getEntries({
-        'locale': isoLookUp(setLocale),
+        'locale': app.i18n.isoLocale(),
         'content_type': 'browsePage',
-        'fields.identifier': params.slug ? params.slug : 'home',
+        'fields.identifier': params.pathMatch ? params.pathMatch : 'home',
         'include': 2,
         'limit': 1
       })
@@ -69,45 +80,14 @@
     },
     head() {
       return {
-        title: this.page.headline
+        title: this.page.name,
+        meta: [
+          { hid: 'title', name: 'title', content: this.page.name },
+          { hid: 'description', name: 'description', content: this.page.description },
+          { hid: 'og:title', property: 'og:title', content: this.page.name },
+          { hid: 'og:description', property: 'og:description', content: this.page.description }
+        ]
       };
-    },
-    methods: {
     }
   };
 </script>
-
-<style scoped>
-  .container {
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-  }
-
-  .title {
-    font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-    display: block;
-    font-weight: 300;
-    font-size: 100px;
-    color: #35495e;
-    letter-spacing: 1px;
-  }
-
-  .subtitle {
-    font-weight: 300;
-    font-size: 42px;
-    color: #526488;
-    word-spacing: 5px;
-    padding-bottom: 15px;
-  }
-
-  .banner {
-    text-align: center;
-  }
-
-  .banner ul {
-    margin: auto;
-  }
-</style>

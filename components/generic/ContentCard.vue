@@ -1,8 +1,10 @@
 <template>
   <b-card
-    class="mb-4 text-left"
+    class="text-left content-card"
     data-qa="content card"
     no-body
+    :class="{ 'related-card' : isRelated }"
+    :style="isRelated && imageUrl && cardImageStyle"
   >
     <SmartLink
       :destination="url"
@@ -11,26 +13,41 @@
       <div
         v-if="imageUrl"
         :aria-label="title"
-        :style="cardImageStyle"
+        :style="!isRelated && cardImageStyle"
         class="card-img"
       />
       <b-card-body>
         <b-card-title>
-          {{ title }}
+          {{ title | truncate(90, $t('formatting.ellipsis')) }}
         </b-card-title>
-        <b-card-text
-          v-for="(text, index) in texts"
-          :key="index"
+        <time
+          v-if="datetime"
+          class="font-weight-bold pb-3"
+          data-qa="date"
+          :datetime="datetime"
         >
-          {{ text }}
-        </b-card-text>
+          {{ $d(new Date(datetime), 'short') }}
+        </time>
+        <template v-if="texts.length > 0">
+          <b-card-text
+            v-for="(text, index) in texts"
+            :key="index"
+          >
+            {{ text | truncate(255, $t('formatting.ellipsis')) }}
+          </b-card-text>
+        </template>
       </b-card-body>
     </SmartLink>
   </b-card>
 </template>
 
 <script>
+  import SmartLink from './SmartLink';
+
   export default {
+    components: {
+      SmartLink
+    },
     props: {
       title: {
         type: String,
@@ -47,81 +64,29 @@
       imageUrl: {
         type: String,
         default: ''
+      },
+      imageContentType: {
+        type: String,
+        default: null
+      },
+      datetime: {
+        type: String,
+        default: ''
+      },
+      isRelated: {
+        type: Boolean,
+        default: false
       }
     },
     computed: {
       cardImageStyle() {
         return {
-          backgroundImage: `url("${this.imageUrl}")`
+          backgroundImage: `url("${this.optimisedImageUrl}")`
         };
+      },
+      optimisedImageUrl() {
+        return this.$options.filters.optimisedImageUrl(this.imageUrl, this.imageContentType);
       }
     }
   };
 </script>
-
-<style lang="scss" scoped>
-  @import "./assets/scss/variables.scss";
-
-  a {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .card-img {
-    background-position: center center;
-    background-size: cover;
-    border-top-left-radius: 4px;
-    border-top-right-radius: 4px;
-    display: flex;
-    flex: 1 1 auto;
-    min-height: 10rem;
-    width: 100%;
-  }
-
-  .card {
-    background: $extralightgrey;
-    border-radius: $border-radius-small;
-    box-shadow: $boxshadow-small;
-    color: $black;
-    font-size: $font-size-extrasmall;
-    height: auto;
-    line-height: 1.1875rem;
-    transition: box-shadow 0.25s;
-
-    @media (min-width: $bp-medium) {
-      min-height: 20rem;
-    }
-
-    &:hover {
-      box-shadow: $boxshadow-large;
-      background-color: $lightgrey;
-    }
-
-    .card-body {
-      flex: 0;
-      padding: 1rem;
-      width: 100%;
-    }
-
-    .card-title {
-      font-size: $font-size-small;
-      font-weight: normal;
-    }
-
-    .card-title:last-child {
-      margin-bottom: 0;
-    }
-
-    .card-text {
-      color: $darkgrey;
-    }
-
-    .card-link {
-      min-height: 100%;
-      color: $black;
-      &:hover {
-        color: $black;
-      }
-    }
-  }
-</style>

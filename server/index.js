@@ -47,6 +47,11 @@ async function start() {
     // Use morgan for request logging
     app.use(morgan('combined'));
 
+    if (!process.env.DISABLE_REDIRECT_SSL) {
+      const redirectSSL = require('redirect-ssl');
+      app.use(redirectSSL.create({ redirect: true }));
+    }
+
     // IP access retriction
     if (process.env.IP_FILTER_ALLOW) {
       consola.info(`Restricting access to IPs: ${process.env.IP_FILTER_ALLOW}`);
@@ -58,6 +63,36 @@ async function start() {
         ipfilterOptions.trustProxy = process.env.IP_FILTER_TRUST_PROXY.split(' ');
       }
       app.use(ipfilter(allowIps, ipfilterOptions));
+    }
+
+    // HTTP Digest authentication
+    if (process.env.HTTP_DIGEST_REALM && process.env.HTTP_DIGEST_ACL) {
+      consola.info('HTTP Digest authentication enabled');
+
+      const acl = JSON.parse(process.env.HTTP_DIGEST_ACL);
+      const realm = process.env.HTTP_DIGEST_REALM;
+
+      const crypto = require('crypto');
+      const httpAuth = require('http-auth');
+
+      const digest = httpAuth.digest({
+        realm
+      }, (username, callback) => {
+        consola.info(`Authenticating username "${username}" in realm "${realm}"`);
+
+        const credentials = acl.find((account) => {
+          return account.username === username;
+        }) || {};
+
+        // Callback expects md5(username:realm:password)
+        const htdigest = `${credentials.username}:${realm}:${credentials.password}`;
+        let hash = crypto.createHash('MD5');
+        hash.update(htdigest);
+
+        callback(hash.digest('hex'));
+      });
+
+      app.use(httpAuth.connect(digest));
     }
   }
 

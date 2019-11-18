@@ -9,11 +9,13 @@ localVue.component('SmartLink', SmartLink);
 
 const dummyStore = {
   state: {
-    footer: {
-      links: [
-        { url: 'https://www.example.org', text: 'Example link' },
-        { url: 'https://www.europeana.eu', text: 'Europeana link' }
-      ]
+    'link-group': {
+      links: {
+        footer: [
+          { url: 'https://www.example.org', text: 'Example link' },
+          { url: 'https://www.europeana.eu', text: 'Europeana link' }
+        ]
+      }
     }
   }
 };
@@ -31,5 +33,15 @@ describe('components/search/PageFooter', () => {
     const wrapper = factory();
     const renderedList = wrapper.findAll('footer ul li');
     renderedList.length.should.eq(2);
+  });
+
+  it('contains the language selector', () => {
+    const wrapper = factory();
+    wrapper.setProps({
+      enableLanguageSelector: true
+    });
+    const selector = wrapper.find('[data-qa="language selector"]');
+
+    selector.isVisible().should.equal(true);
   });
 });

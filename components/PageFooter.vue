@@ -1,41 +1,63 @@
 <template>
   <footer
     data-qa="footer"
-    class="footer"
+    class="p-3"
   >
     <b-container>
-      <ul
-        v-if="links"
-        class="footer-link-list"
-      >
-        <li
-          v-for="footerLink in links"
-          :key="footerLink.url"
+      <b-row>
+        <b-col
+          cols="12"
+          lg="9"
         >
-          <template
-            v-if="footerLink.url"
+          <ul
+            v-if="links"
+            class="footer-link-list m-0 p-0"
           >
-            <SmartLink
-              :destination="footerLink.url"
-              link-class="footer-link"
+            <li
+              v-for="(footerLink, index) in links"
+              :key="index"
             >
-              {{ footerLink.text }}
-            </SmartLink>
-          </template>
-          <p v-else>
-            {{ footerLink.text }}
-          </p>
-        </li>
-      </ul>
+              <template
+                v-if="footerLink.url"
+              >
+                <SmartLink
+                  :destination="footerLink.url"
+                  link-class="footer-link"
+                >
+                  {{ footerLink.text }}
+                </SmartLink>
+              </template>
+              <p v-else>
+                {{ footerLink.text }}
+              </p>
+            </li>
+          </ul>
+        </b-col>
+        <b-col
+          cols="12"
+          lg="3"
+        >
+          <LangSelector
+            data-qa="language selector"
+          />
+        </b-col>
+      </b-row>
     </b-container>
   </footer>
 </template>
 
 <script>
+  import SmartLink from './generic/SmartLink';
+  import LangSelector from './generic/LanguageSelector';
+
   export default {
+    components: {
+      SmartLink,
+      LangSelector
+    },
     computed: {
       links() {
-        return this.$store.state.footer.links;
+        return this.$store.state['link-group'].links.footer;
       }
     }
   };

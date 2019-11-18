@@ -33,5 +33,6 @@ describe('components/search/TierToggler', () => {
     wrapper.vm.active.should.be.true;
     tierToggle.trigger('click');
     wrapper.vm.active.should.be.false;
+    wrapper.emitted()['changed'].length.should.equal(2);
   });
 });
