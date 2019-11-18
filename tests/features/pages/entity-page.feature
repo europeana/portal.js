@@ -29,7 +29,7 @@ Feature: Entity page
     When I open an `entity page`
     And I see the `entity page`
     And I click a `browse chip`
-    And I wait 2 seconds
+    And I wait 5 seconds
     Then I should not be on the `entity page`
 
   Scenario: Navigating to a related record
