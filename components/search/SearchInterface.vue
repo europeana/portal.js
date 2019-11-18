@@ -36,6 +36,8 @@
           <MoreFacetsDropdown
             v-if="enableMoreFacets"
             :more-facets="orderedFacets.slice(3)"
+            :selected="selectedFacets"
+            @changed="changeMoreFacets"
           />
           <button
             v-if="isFilteredByDefaultFacets()"
@@ -257,7 +259,10 @@
       changeFacet(name, selected) {
         if (typeof this.selectedFacets[name] === 'undefined' && selected.length === 0) return;
         if (isEqual(this.selectedFacets[name], selected)) return;
-        this.rerouteSearch(this.queryUpdatesForFacetChange(name, selected));
+        this.rerouteSearch(this.queryUpdatesForFacetChanges({ [name]: selected }));
+      },
+      changeMoreFacets(selected) {
+        this.rerouteSearch(this.queryUpdatesForFacetChanges(selected));
       },
       paginationLink(val) {
         return this.localePath({ ...this.route, ...{ query: this.updateCurrentSearchQuery({ page: val }) } });
@@ -265,9 +270,11 @@
       rerouteSearch(queryUpdates) {
         this.$router.push(this.localePath({ ...this.route, ...{ query: this.updateCurrentSearchQuery(queryUpdates) } }));
       },
-      queryUpdatesForFacetChange(name, selected) {
+      queryUpdatesForFacetChanges(selected) {
         let selectedFacets = Object.assign({}, this.selectedFacets);
-        selectedFacets[name] = selected;
+        for (const name in selected) {
+          selectedFacets[name] = selected[name];
+        }
 
         return this.queryUpdatesForSelectedFacets(selectedFacets);
       },
