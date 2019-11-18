@@ -68,6 +68,10 @@
       name: {
         type: String,
         required: true
+      },
+      preSelected: {
+        type: Array,
+        default: () => []
       }
     },
 
@@ -79,17 +83,26 @@
       };
     },
 
+    watch: {
+      preSelected(value) {
+        this.selected = value;
+      }
+    },
+
     mounted() {
       this.$root.$on('updateSelectedOptions', this.updateOptions);
+      this.selected = this.preSelected;
     },
+
 
     methods: {
       selectedHandler(value) {
         this.$emit('selectedOptions', this.name, value);
       },
 
-      updateOptions(values) {
-        this.selected = values;
+      updateOptions() {
+        this.selected = this.selected.filter(item => this.preSelected.includes(item));
+        this.$emit('selectedOptions', this.name, this.selected);
       }
     }
   };

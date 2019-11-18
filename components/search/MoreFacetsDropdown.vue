@@ -4,17 +4,17 @@
     variant="light"
     no-caret
     class="more-facets position-static"
-    :class="{ 'is-active' : savedOptions.length > 0 }"
+    :class="{ 'is-active' : selectedOptions.length > 0 }"
     data-qa="more filters dropdown button"
     @hidden="cancelHandler"
   >
     <template v-slot:button-content>
       {{ $t('facets.button.morefilters') }}
       <span
-        v-if="savedOptions.length > 0"
+        v-if="selectedOptions.length > 0"
         class="selected-amount"
       >
-        {{ savedOptions.length }}
+        {{ selectedOptions.length }}
       </span>
     </template>
     <b-dropdown-group class="more-facets-wrapper">
@@ -23,6 +23,7 @@
         :key="index"
         :fields="facet.fields"
         :name="facet.name"
+        :pre-selected="selected[facet.name]"
         @selectedOptions="updateSelected"
       />
     </b-dropdown-group>
@@ -32,7 +33,7 @@
     >
       <b-button
         variant="link"
-        :disabled="preSavedOptions.length < 1 && savedOptions.length < 1"
+        :disabled="selectedOptions.length < 1"
         data-qa="reset filter button"
         @click="resetFilters"
       >
@@ -40,7 +41,7 @@
       </b-button>
       <b-button
         variant="link"
-        :disabled="preSavedOptions.length < 1"
+        :disabled="disableButton"
         data-qa="cancel button"
         @click="cancelHandler"
       >
@@ -48,9 +49,9 @@
       </b-button>
       <b-button
         variant="primary"
-        :disabled="disableAppliedButton"
+        :disabled="disableButton"
         data-qa="apply button"
-        @click="saveOptions()"
+        @click="applySelected"
       >
         {{ $t('facets.button.apply') }}
       </b-button>
@@ -72,58 +73,62 @@
       moreFacets: {
         type: Array,
         default: () => []
+      },
+      selected: {
+        type: Object,
+        default: () => {}
       }
     },
 
     data() {
       return {
-        preSaved: {},
-        saved: {}
+        preSelected: {}
       };
     },
 
     computed: {
-      preSavedOptions() {
-        return [].concat(...Object.values(this.preSaved));
+      preSelectedOptions() {
+        return [].concat(...Object.values(this.preSelected));
       },
 
-      savedOptions() {
-        return [].concat(...Object.values(this.saved));
+      selectedOptions() {
+        return [].concat(...Object.values(this.selected));
       },
 
-      disableAppliedButton() {
-        return this.preSavedOptions.length > 0 ? isEqual(this.preSavedOptions, this.savedOptions) : true;
+      disableButton() {
+        return isEqual(this.preSelected, this.selected);
       }
+    },
+
+    mounted() {
+      this.preSelected = Object.assign({}, this.selected);
     },
 
     methods: {
       updateSelected(facetName, selectedFields) {
-        if (this.preSaved[facetName] && selectedFields.length < 1) {
-          Vue.delete(this.preSaved, facetName);
-        } else {
-          Vue.set(this.preSaved, facetName, selectedFields);
+        Vue.set(this.preSelected, facetName, selectedFields);
+
+        if (this.selectedOptions.length === 0) {
+          this.clearEmpty();
         }
       },
 
-      saveOptions() {
-        for (let key in this.preSaved) {
-          Vue.set(this.saved, key, this.preSaved[key]);
-        }
-        this.clearPreSaved();
+      applySelected() {
+        this.$emit('changed', this.preSelected);
+        this.clearEmpty();
       },
 
       cancelHandler() {
-        this.clearPreSaved();
-        // Calls `updateSelectedOptions` method in child componen: `MoreFacetsDropdownOptions.vue`
-        this.$root.$emit('updateSelectedOptions', this.savedOptions);
+        this.clearPreSelected();
+        this.clearEmpty();
+        this.$root.$emit('updateSelectedOptions');
         this.$refs.dropdown.hide(true);
       },
 
       resetFilters() {
-        this.clearSaved();
-        this.clearPreSaved();
-        // Calls `updateSelectedOptions` method in child componen: `MoreFacetsDropdownOptions.vue`
-        this.$root.$emit('updateSelectedOptions', []);
+        this.clearPreSelected();
+        this.$emit('changed', this.preSelected);
+        this.clearEmpty();
       },
 
       clearSaved() {
@@ -132,9 +137,17 @@
         }
       },
 
-      clearPreSaved() {
-        for (let key in this.preSaved) {
-          Vue.delete(this.preSaved, key);
+      clearEmpty() {
+        for (let key in this.preSelected) {
+          if (this.preSelected[key].length < 1) {
+            Vue.delete(this.preSelected, key);
+          }
+        }
+      },
+
+      clearPreSelected() {
+        for (let key in this.preSelected) {
+          this.preSelected[key] = [];
         }
       }
     }
