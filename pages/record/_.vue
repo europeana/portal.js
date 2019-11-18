@@ -17,7 +17,7 @@
         <div class="card p-3 mb-3">
           <div
             class="card-grid"
-            :class="isRichMedia && 'card-grid-richmedia'"
+            :class="cardGridClass"
           >
             <header
               v-if="titlesInCurrentLanguage"
@@ -152,6 +152,7 @@
       return {
         agents: null,
         altTitle: null,
+        cardGridClass: null,
         concepts: null,
         description: null,
         error: null,
@@ -248,6 +249,7 @@
     },
 
     async mounted() {
+      this.cardGridClass = this.isRichMedia && 'card-grid-richmedia';
       this.relatedEntities = await searchEntities(this.europeanaEntityUris, { wskey: process.env.EUROPEANA_ENTITY_API_KEY });
     },
 
