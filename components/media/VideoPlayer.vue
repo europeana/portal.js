@@ -6,14 +6,9 @@
     :muted="muted"
     :width="width"
     :height="height"
+    :src="src"
     data-qa="video"
-  >
-    <source
-      :src="src"
-      :type="type"
-      data-qa="video source"
-    >
-  </video>
+  />
 </template>
 
 <script>
@@ -22,10 +17,6 @@
 
     props: {
       src: {
-        type: String,
-        required: true
-      },
-      type: {
         type: String,
         required: true
       },
