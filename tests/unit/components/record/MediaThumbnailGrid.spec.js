@@ -16,22 +16,23 @@ const media = [
 ];
 const selected = 'http://www.mimo-db.eu/media/GNM/IMAGE/MIR1097_1279787057222_2.jpg';
 const nonSelected = 'http://www.mimo-db.eu/media/GNM/IMAGE/MIR1097_1289919650555_2.jpg';
+const defaultThumbnailType = 'TEXT';
 
 describe('components/record/MediaThumbnailGrid', () => {
   it('shows a thumbnail for each media item', () => {
-    const wrapper = factory({ media, selected });
+    const wrapper = factory({ media, selected, defaultThumbnailType });
 
     for (const item of media) {
-      const src = thumbnailUrl(item.about, { size: 'w200' });
+      const src = thumbnailUrl(item.about, { size: 'w200', type: defaultThumbnailType });
       wrapper.find(`img[data-about="${item.about}"][src="${src}"]`).isVisible().should.be.true;
     }
   });
 
   it('permits specification of size', () => {
-    const wrapper = factory({ media, selected, size: 'w400' });
+    const wrapper = factory({ media, selected, defaultThumbnailType, size: 'w400' });
 
     for (const item of media) {
-      const src = thumbnailUrl(item.about, { size: 'w400' });
+      const src = thumbnailUrl(item.about, { size: 'w400', type: defaultThumbnailType });
       wrapper.find(`img[src="${src}"]`).isVisible().should.be.true;
     }
   });

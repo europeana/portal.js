@@ -57,6 +57,7 @@
               v-if="displayMediaThumbnailGrid"
               :media="media"
               :selected="selectedMedia.about"
+              :default-thumbnail-type="type"
               @select="selectMedia"
             />
             <div
@@ -132,8 +133,9 @@
   import MetadataField from '../../components/record/MetadataField';
 
   import getRecord from '../../plugins/europeana/record';
-  import { langMapValueForLocale, thumbnailUrl } from  '../../plugins/europeana/utils';
+  import thumbnailUrl from  '../../plugins/europeana/thumbnail';
   import { isRichMedia } from '../../plugins/media';
+  import { langMapValueForLocale } from  '../../plugins/europeana/utils';
   import { searchEntities } from '../../plugins/europeana/entity';
 
   export default {
@@ -160,7 +162,8 @@
         media: null,
         relatedEntities: [],
         selectedMediaItem: null,
-        title: null
+        title: null,
+        type: null
       };
     },
 
