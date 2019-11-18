@@ -36,7 +36,7 @@
           <MoreFacetsDropdown
             v-if="enableMoreFacets"
             :more-facets="orderedFacets.slice(3)"
-            :selected="selectedFacets"
+            :selected="moreSelectedFacets"
             @changed="changeMoreFacets"
           />
           <button
@@ -240,6 +240,18 @@
 
         return ordered.concat(unordered);
       },
+      moreSelectedFacets() {
+        const obj = {};
+        this.orderedFacets.slice(3).map(facet => {
+          for (let key in this.selectedFacets) {
+            if (facet.name === key) {
+              obj[key] = this.selectedFacets[key];
+            }
+          }
+        });
+
+        return obj;
+      },
       showPagination() {
         return this.totalResults > this.perPage;
       },
@@ -272,10 +284,10 @@
       },
       queryUpdatesForFacetChanges(selected) {
         let selectedFacets = Object.assign({}, this.selectedFacets);
+
         for (const name in selected) {
           selectedFacets[name] = selected[name];
         }
-
         return this.queryUpdatesForSelectedFacets(selectedFacets);
       },
       queryUpdatesForSelectedFacets(selectedFacets) {
