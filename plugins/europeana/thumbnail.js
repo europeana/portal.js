@@ -16,6 +16,7 @@ export default function thumbnailUrl(uri, params = {}) {
 }
 
 export function thumbnailTypeForMimeType(mimeType) {
+  if (typeof mimeType === 'undefined') return null;
   if (mimeType.startsWith('image/')) {
     return 'IMAGE';
   }

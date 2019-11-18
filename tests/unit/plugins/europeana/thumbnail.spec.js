@@ -57,5 +57,10 @@ describe('plugins/europeana/thumbnail', () => {
         (thumbnailTypeForMimeType('application/octet-stream') === null).should.be.true;
       });
     });
+    context('when MIME type is undefined', () => {
+      it('is null', () => {
+        (thumbnailTypeForMimeType(undefined) === null).should.be.true;
+      });
+    });
   });
 });
