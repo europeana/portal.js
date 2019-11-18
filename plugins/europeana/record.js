@@ -30,7 +30,7 @@ function parseRecordDataFromApiResponse(response) {
       src: europeanaAggregation.edmPreview
     },
     coreFields: coreFields(proxyData, entities),
-    fields: extraFields(proxyData, europeanaAggregation, providerAggregation, edm, entities),
+    fields: extraFields(proxyData, edm, entities),
     media: aggregationMedia(providerAggregation),
     agents: edm.agents,
     concepts: edm.concepts,
@@ -78,13 +78,13 @@ function coreFields(proxyData, entities) {
  * Retrieves all additional fields which will be displayed on record pages in the collapsable section.
  *
  * @param {Object[]} proxyData To take the fields from.
- * @param {Object[]} europeanaAggregation To take additional fields from.
- * @param {Object[]} providerAggregation To take additional fields from.
  * @param {Object[]} edm To take additional fields from.
  * @param {Object[]} entities Entities in order to perform entity lookups
  * @return {Object[]} Key value pairs of the metadata fields.
  */
-function extraFields(proxyData, europeanaAggregation, providerAggregation, edm, entities) {
+function extraFields(proxyData, edm, entities) {
+  const providerAggregation = edm.aggregations[0];
+  const europeanaAggregation = edm.europeanaAggregation;
   return lookupEntities(omitBy({
     dcTermsCreated: proxyData.dctermsCreated,
     edmCountry: europeanaAggregation.edmCountry,
