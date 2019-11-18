@@ -241,6 +241,7 @@
         return ordered.concat(unordered);
       },
       moreSelectedFacets() {
+        // Strips out facets which don't belong to the More Facets dropdown
         const obj = {};
         this.orderedFacets.slice(3).map(facet => {
           for (let key in this.selectedFacets) {
