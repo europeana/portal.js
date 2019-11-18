@@ -266,7 +266,7 @@ export function getEntityDescription(entity) {
  */
 export function isEntityUri(uri, types) {
   types = types ? types : ['concept', 'agent', 'place'];
-  return RegExp(/^http:\/\/data\.europeana\.eu\/( + types + /)\/base\/\d+$/).test(uri);
+  return RegExp(`^http://data\\.europeana\\.eu/${types.join('|')}/base/\\d+$`).test(uri);
 }
 
 /**
