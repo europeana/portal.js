@@ -165,7 +165,8 @@
         })
       ])
         .then(axios.spread((entity, related, entries) => {
-          const desiredPath = entities.getEntitySlug(entity.entity);
+          const entityPage = entries.total > 0 ? entries.items[0].fields : null;
+          const desiredPath = entities.getEntitySlug(entity.entity, entityPage);
 
           if (params.pathMatch !== desiredPath) {
             const redirectPath = app.localePath({
@@ -175,8 +176,6 @@
             store.commit('entity/setId', null);
             return redirect(302, redirectPath);
           }
-
-          const entityPage = entries.total > 0 ? entries.items[0].fields : null;
 
           store.commit('search/setPill', entity.entity.prefLabel[store.state.i18n.locale]);
 

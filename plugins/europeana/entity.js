@@ -163,13 +163,39 @@ function normalizeEntityId(id) {
 
 /**
  * Retrieves the path for the entity, based on id and title
+ *
+ * If `entityPage.name` is present, that will be used in the slug. Otherwise
+ * `prefLabel.en` if present.
+ *
  * @param {Object} entity an entity object as retrieved from the entity API
  * @param {string} title the title of the entity
+ * @param {Object} entityPage Contentful entry for the entity page
  * @return {string} path
+ * @example Slug based on `entityPage.name`
+ *    const slug = getEntitySlug({
+ *      id: 'http://data.europeana.eu/concept/base/48',
+ *      prefLabel: { en: 'Photograph' }
+ *    }, {
+ *      name: 'Photography'
+ *    });
+ *    console.log(slug); // expected output: '48-photography'
+ * @example Slug based on `entity.prefLabel.en`
+ *    const slug = getEntitySlug({
+ *      id: 'http://data.europeana.eu/agent/base/59832',
+ *      prefLabel: { en: 'Vincent van Gogh' }
+ *    });
+ *    console.log(slug); // expected output: '59832-vincent-van-gogh'
  */
-export function getEntitySlug(entity) {
+export function getEntitySlug(entity, entityPage) {
+  let name;
+  if (entityPage && entityPage.name) {
+    // FIXME: this needs to always be the English version
+    name = entityPage.name;
+  } else if (entity.prefLabel.en) {
+    name = entity.prefLabel.en;
+  }
   const entityId = entity.id.toString().split('/').pop();
-  const path = entityId + (entity.prefLabel.en ? '-' + entity.prefLabel.en.toLowerCase().replace(/ /g, '-') : '');
+  const path = entityId + (name ? '-' + name.toLowerCase().replace(/ /g, '-') : '');
   return path;
 }
 
