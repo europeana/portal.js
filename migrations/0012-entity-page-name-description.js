@@ -13,7 +13,9 @@ module.exports = function(migration) {
       }
     ]);
 
-  entityPage.changeFieldControl('name', 'builtin', 'singleLine', { });
+  entityPage.changeFieldControl('name', 'builtin', 'singleLine', {
+    helpText: ''
+  });
 
   entityPage
     .createField('description')
