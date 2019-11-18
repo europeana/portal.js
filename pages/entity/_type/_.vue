@@ -68,7 +68,7 @@
   import AlertMessage from '../../../components/generic/AlertMessage';
   import BrowseChip from '../../../components/browse/BrowseChip';
   import BrowseSections from '../../../components/browse/BrowseSections';
-  import EntityDetails from '../../../components/browse/EntityDetails';
+  import EntityDetails from '../../../components/entity/EntityDetails';
   import SearchInterface from '../../../components/search/SearchInterface';
 
   import * as entities from '../../../plugins/europeana/entity';

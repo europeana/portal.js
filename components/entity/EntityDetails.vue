@@ -72,10 +72,7 @@
     },
     computed: {
       truncatedDescription() {
-        if (!this.description) {
-          return;
-        }
-        return this.description.length > this.limitCharacters ? this.description.slice(0, this.limitCharacters) + '...' : this.description;
+        return this.$options.filters.truncate(this.description, 255, this.$t('formatting.ellipsis'));
       }
     },
     methods: {

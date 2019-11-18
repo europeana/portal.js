@@ -1,7 +1,7 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 
-import EntityDetails from '../../../../components/browse/EntityDetails.vue';
+import EntityDetails from '../../../../components/entity/EntityDetails.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
@@ -79,5 +79,3 @@ describe('components/browse/EntityDetails', () => {
     wrapper.findAll('a[data-qa="entity show link"]').length.should.eq(1);
   });
 });
-
-
