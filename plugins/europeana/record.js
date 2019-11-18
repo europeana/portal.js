@@ -13,7 +13,7 @@ function parseRecordDataFromApiResponse(response) {
 
   const providerAggregation = edm.aggregations[0];
   const europeanaAggregation = edm.europeanaAggregation;
-  const entities = [].concat(edm.concepts, edm.places, edm.agents)
+  const entities = [].concat(edm.concepts, edm.places, edm.agents, edm.timespans)
     .filter(isNotUndefined)
     .reduce((memo, entity) => {
       memo[entity.about] = entity;
@@ -22,7 +22,7 @@ function parseRecordDataFromApiResponse(response) {
   const proxyData = merge.all(edm.proxies, { arrayMerge: combineMerge });
 
   return {
-    altTitle: proxyData.dcTermsAlternative,
+    altTitle: proxyData.dctermsAlternative,
     description: proxyData.dcDescription,
     identifier: edm.about,
     image: {
@@ -70,7 +70,7 @@ function coreFields(proxyData, entities) {
     dcPublisher: proxyData.dcPublisher,
     dcSubject: proxyData.dcSubject,
     dcType: proxyData.dcType,
-    dcTermsMedium: proxyData.dcTermsMedium
+    dctermsMedium: proxyData.dctermsMedium
   }, isUndefined), entities);
 }
 
@@ -86,20 +86,20 @@ function extraFields(proxyData, edm, entities) {
   const providerAggregation = edm.aggregations[0];
   const europeanaAggregation = edm.europeanaAggregation;
   return lookupEntities(omitBy({
-    dcTermsCreated: proxyData.dctermsCreated,
+    dctermsCreated: proxyData.dctermsCreated,
     edmCountry: europeanaAggregation.edmCountry,
     edmDataProvider: providerAggregation.edmDataProvider,
     edmRights: providerAggregation.edmRights,
     dcRights: proxyData.dcRights,
     dcDate: proxyData.dcDate,
-    dcTermsIssued: proxyData.dctermsIssued,
-    dcTermsPublished: proxyData.dctermsPublished,
-    dcTermsTemporal: proxyData.dctermsTemporal,
+    dctermsIssued: proxyData.dctermsIssued,
+    dctermsPublished: proxyData.dctermsPublished,
+    dctermsTemporal: proxyData.dctermsTemporal,
     dcCoverage: proxyData.dcCoverage,
-    dcTermsSpacial: proxyData.dctermsSpatial,
+    dctermsSpacial: proxyData.dctermsSpatial,
     edmCurentLocation: proxyData.edmCurrentLocation,
     edmUgc: providerAggregation.edmUgc,
-    dcTermsProvenance: proxyData.dctermsProvenance,
+    dctermsProvenance: proxyData.dctermsProvenance,
     dcSource: proxyData.dcSource,
     dcPublisher: proxyData.dcPublisher,
     dcIdentifier: proxyData.dcIdentifier,
@@ -107,21 +107,21 @@ function extraFields(proxyData, edm, entities) {
     edmProvider: providerAggregation.edmProvider,
     timestampCreated: edm.timestamp_created,
     timestampUpdated: edm.timestamp_updated,
-    dcTermsExtent: proxyData.dctermsExtent,
+    dctermsExtent: proxyData.dctermsExtent,
     dcDuration: proxyData.dcDuration,
     dcMedium: proxyData.dcMedium,
     dcFormat: proxyData.dcFormat,
     dcLanguage: proxyData.dcLanguage,
-    dcTermsIsPartOf: proxyData.dctermsIsPartOf,
+    dctermsIsPartOf: proxyData.dctermsIsPartOf,
     europeanaCollectionName: edm.europeanaCollectionName,
     dcRelation: proxyData.dcRelation,
-    dcTermsReferences: proxyData.dctermsReferences,
-    dcTermsHasPart: proxyData.dctermsHasPart,
-    dcTermsHasVersion: proxyData.dctermsHasVersion,
-    dcTermsIsFormatOf: proxyData.dctermsIsFormatOf,
-    dcTermsIsReferencedBy: proxyData.dctermsIsReferencedBy,
-    dcTermsIsReplacedBy: proxyData.dctermsIsReplacedBy,
-    dcTermsIsRequiredBy: proxyData.dctermsIsRequiredBy,
+    dctermsReferences: proxyData.dctermsReferences,
+    dctermsHasPart: proxyData.dctermsHasPart,
+    dctermsHasVersion: proxyData.dctermsHasVersion,
+    dctermsIsFormatOf: proxyData.dctermsIsFormatOf,
+    dctermsIsReferencedBy: proxyData.dctermsIsReferencedBy,
+    dctermsIsReplacedBy: proxyData.dctermsIsReplacedBy,
+    dctermsIsRequiredBy: proxyData.dctermsIsRequiredBy,
     edmHasMet: proxyData.edmHasMet,
     edmIncorporates: proxyData.edmIncorporates,
     edmIsDerivativeOf: proxyData.edmIsDerivativeOf,

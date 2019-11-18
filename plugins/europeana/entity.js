@@ -297,9 +297,11 @@ export function getEntityDescription(entity) {
 }
 
 /**
- * A check for a URI to see if it conforms ot the entity URI pattern
+ * A check for a URI to see if it conforms ot the entity URI pattern,
+ * optionally takes entity types as an array of values to check for.
  * Will return true/false
- * @param {String} A URI to check
+ * @param {string} uri A URI to check
+ * @param {string[]} types the entity types to check, defaults to all.
  * @return {Boolean} true if the URI is a valid entity URI
  */
 export function isEntityUri(uri, types) {
@@ -309,7 +311,7 @@ export function isEntityUri(uri, types) {
 
 /**
  * From a URI split params as required by the portal
- * @param {String} A URI to check
+ * @param {string} uri A URI to check
  * @return {{type: String, identifier: string}} Object with the portal relevant identifiers.
  */
 export function entityParamsFromUri(uri) {
