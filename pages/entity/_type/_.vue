@@ -85,6 +85,7 @@
       EntityDetails,
       SearchInterface
     },
+
     data() {
       return {
         entity: null,
@@ -93,6 +94,7 @@
         relatedEntities: null
       };
     },
+
     computed: {
       attribution() {
         return (!this.entity || !this.entity.depiction) ? null : this.entity.depiction.source;
@@ -126,9 +128,10 @@
       title() {
         if (!this.entity) return this.$t('entity');
         if (this.pageTitle) return this.pageTitle;
-        return this.entity.prefLabel.en;
+        return this.entity.prefLabel[this.$store.state.i18n.locale];
       }
     },
+
     asyncData({ env, query, params, res, redirect, app, store }) {
       const currentPage = pageFromQuery(query.page);
       const entityUri = entities.getEntityUri(params.type, params.pathMatch);
@@ -150,7 +153,7 @@
 
       const contentfulClient = createClient(query.mode);
 
-      return axios.all([
+      const requests = [
         entities.getEntity(params.type, params.pathMatch, { wskey: env.EUROPEANA_ENTITY_API_KEY }),
         entities.relatedEntities(params.type, params.pathMatch, {
           wskey: env.EUROPEANA_API_KEY,
@@ -163,10 +166,25 @@
           'include': 2,
           'limit': 1
         })
-      ])
-        .then(axios.spread((entity, related, entries) => {
-          const entityPage = entries.total > 0 ? entries.items[0].fields : null;
-          const desiredPath = entities.getEntitySlug(entity.entity, entityPage);
+      ];
+
+      // URL slug is always derived from English, so if viewing in another locale,
+      // we also need to get the English, solely for the URL slug from `name`.
+      if (app.i18n.locale !== 'en') {
+        requests.push(contentfulClient.getEntries({
+          'locale': 'en-GB',
+          'content_type': 'entityPage',
+          'fields.identifier': entityUri,
+          'include': 2,
+          'limit': 1
+        }));
+      }
+
+      return axios.all(requests)
+        .then(axios.spread((entity, related, localisedEntries, defaultLocaleEntries) => {
+          const localisedEntityPage = localisedEntries.total > 0 ? localisedEntries.items[0].fields : null;
+          const defaultEntityPage = defaultLocaleEntries && defaultLocaleEntries.total > 0 ? defaultLocaleEntries.items[0].fields : null;
+          const desiredPath = entities.getEntitySlug(entity.entity, defaultEntityPage || localisedEntityPage);
 
           if (params.pathMatch !== desiredPath) {
             const redirectPath = app.localePath({
@@ -177,11 +195,9 @@
             return redirect(302, redirectPath);
           }
 
-          store.commit('search/setPill', entity.entity.prefLabel[store.state.i18n.locale]);
-
           return {
             entity: entity.entity,
-            page: entityPage,
+            page: localisedEntityPage,
             relatedEntities: related
           };
         }))
@@ -192,6 +208,7 @@
           return { error: error.message };
         });
     },
+
     async fetch({ store, query, res }) {
       store.commit('search/setActive', true);
 
@@ -219,6 +236,11 @@
         res.statusCode = store.state.search.errorStatusCode;
       }
     },
+
+    mounted() {
+      this.$store.commit('search/setPill', this.title);
+    },
+
     head() {
       return {
         title: this.title,
@@ -230,12 +252,14 @@
         ]
       };
     },
+
     beforeRouteLeave(to, from, next) {
       this.$store.commit('entity/setId', null);
       this.$store.commit('search/setActive', false);
       this.$store.commit('search/setPill', null);
       next();
     },
+
     watchQuery: ['page', 'qf', 'query', 'reusability']
   };
 </script>

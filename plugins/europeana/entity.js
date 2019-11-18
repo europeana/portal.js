@@ -187,13 +187,7 @@ function normalizeEntityId(id) {
  *    console.log(slug); // expected output: '59832-vincent-van-gogh'
  */
 export function getEntitySlug(entity, entityPage) {
-  let name;
-  if (entityPage && entityPage.name) {
-    // FIXME: this needs to always be the English version
-    name = entityPage.name;
-  } else if (entity.prefLabel.en) {
-    name = entity.prefLabel.en;
-  }
+  const name = (entityPage && entityPage.name) ? entityPage.name : entity.prefLabel.en;
   const entityId = entity.id.toString().split('/').pop();
   const path = entityId + (name ? '-' + name.toLowerCase().replace(/ /g, '-') : '');
   return path;
@@ -277,7 +271,7 @@ export function searchEntities(entityUris, params) {
 }
 
 /**
- * Format the the entity data
+ * Format the the entity data for a related entity
  * @param {Object} entities the data returned from the Entity API
  * @return {Object} entity links and titles
  */
@@ -303,6 +297,7 @@ function getRelatedEntityTitleLink(entities) {
  * If type is person, use biographicalInformation
  * @param {Object} entity data
  * @return {String} description when available in English
+ * TODO: l10n
  */
 export function getEntityDescription(entity) {
   let description;
