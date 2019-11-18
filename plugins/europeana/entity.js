@@ -300,6 +300,7 @@ function getRelatedEntityTitleLink(entities) {
  * TODO: l10n
  */
 export function getEntityDescription(entity) {
+  if (!entity) return null;
   let description;
   if (entity.type === 'Concept' && entity.note) {
     description = entity.note.en ? entity.note.en[0] : '';
