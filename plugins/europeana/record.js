@@ -29,66 +29,90 @@ function parseRecordDataFromApiResponse(response) {
       link: providerAggregation.edmIsShownAt,
       src: europeanaAggregation.edmPreview
     },
-    coreFields: lookupEntities(omitBy({
-      dcContributor: proxyData.dcContributor, // Plus rdaGr2DateOfBirth & rdaGr2DateOfDeath
-      dcCreator: proxyData.dcCreator, // Plus rdaGr2DateOfBirth & rdaGr2DateOfDeath
-      dcPublisher: proxyData.dcPublisher,
-      dcSubject: proxyData.dcSubject,
-      dcType: proxyData.dcType,
-      dcTermsMedium: proxyData.dcTermsMedium
-    }, isUndefined), entities),
-    fields: lookupEntities(omitBy({
-      dcTermsCreated: proxyData.dcTermsCreated,
-      edmCountry: europeanaAggregation.edmCountry,
-      edmDataProvider: providerAggregation.edmDataProvider,
-      edmRights: providerAggregation.edmRights,
-      dcRights: proxyData.dcRights,
-      dcDate: proxyData.dcDate,
-      dcTermsIssued: proxyData.dcTermsIssued,
-      dcTermsPublished: proxyData.dcTermsPublished,
-      dcTermsTemporal: proxyData.dcTermsTemporal,
-      dcCoverage: proxyData.dcCoverage,
-      dcTermsTOC: proxyData.dcTermsTOC,
-      dcTermsSpacial: proxyData.dcTermsSpatial,
-      edmCurentLocation: proxyData.edmCurrentLocation,
-      edmUgc: providerAggregation.edmUgc,
-      dcTermsProvenance: proxyData.dcTermsProvenance,
-      dcSource: proxyData.dcSource,
-      dcPublisher: proxyData.dcPublisher,
-      dcIdentifier: proxyData.dcIdentifier,
-      edmIntermediateProvider: providerAggregation.edmIntermediateProvider,
-      edmProvider: providerAggregation.edmProvider,
-      timestampCreated: edm.timestamp_created,
-      timestampUpdated: edm.timestamp_updated,
-      dcTermsExtent: proxyData.dcTermsExtent,
-      dcDuration: proxyData.dcDuration,
-      dcMedium: proxyData.dcMedium,
-      dcFormat: proxyData.dcFormat,
-      dcLanguage: proxyData.dcLanguage,
-      dcTermsIsPartOf: proxyData.dcTermsIsPartOf,
-      europeanaCollectionName: edm.europeanaCollectionName,
-      dcRelation: proxyData.dcRelation,
-      dcTermsReferences: proxyData.dcTermsReferences,
-      dcTermsHasPart: proxyData.dcTermsHasPart,
-      dcTermsHasVersion: proxyData.dcTermsHasVersion,
-      dcTermsIsFormatOf: proxyData.dcTermsIsFormatOf,
-      dcTermsIsReferencedBy: proxyData.dcTermsIsReferencedBy,
-      dcTermsIsReplacedBy: proxyData.dcTermsIsReplacedBy,
-      dcTermsIsRequiredBy: proxyData.dcTermsIsRequiredBy,
-      edmHasMet: proxyData.edmHasMet,
-      edmIncorporates: proxyData.edmIncorporates,
-      edmIsDerivativeOf: proxyData.edmIsDerivativeOf,
-      edmIsRepresentationOf: proxyData.edmIsRepresentationOf,
-      edmIsSimilarTo: proxyData.edmIsSimilarTo,
-      edmIsSuccessorOf: proxyData.edmIsSuccessorOf,
-      edmRealizes: proxyData.edmRealizes,
-      wasPresentAt: proxyData.wasPresentAt
-    }, isUndefined), entities),
+    coreFields: coreFields(proxyData, entities),
+    fields: extraFields(proxyData, europeanaAggregation, providerAggregation, edm, entities),
     media: aggregationMedia(providerAggregation),
     agents: edm.agents,
     concepts: edm.concepts,
     title: proxyData.dcTitle
   };
+}
+
+/**
+ * Retrieves the "Core" fields which will always be displayed on record pages.
+ *
+ * @param {Object[]} proxyData All core fields are in the proxyData.
+ * @param {Object[]} entities Entities in order to perform entity lookups
+ * @return {Object[]} Key value pairs of the metadata fields.
+ */
+function coreFields(proxyData, entities) {
+  return lookupEntities(omitBy({
+    dcContributor: proxyData.dcContributor, // Plus rdaGr2DateOfBirth & rdaGr2DateOfDeath
+    dcCreator: proxyData.dcCreator, // Plus rdaGr2DateOfBirth & rdaGr2DateOfDeath
+    dcPublisher: proxyData.dcPublisher,
+    dcSubject: proxyData.dcSubject,
+    dcType: proxyData.dcType,
+    dcTermsMedium: proxyData.dcTermsMedium
+  }, isUndefined), entities);
+}
+
+/**
+ * Retrieves all additional fields which will be displayed on record pages in the collapsable section.
+ *
+ * @param {Object[]} proxyData To take the fields from.
+ * @param {Object[]} europeanaAggregation To take additional fields from.
+ * @param {Object[]} providerAggregation To take additional fields from.
+ * @param {Object[]} edm To take additional fields from.
+ * @param {Object[]} entities Entities in order to perform entity lookups
+ * @return {Object[]} Key value pairs of the metadata fields.
+ */
+function extraFields(proxyData, europeanaAggregation, providerAggregation, edm, entities) {
+  return lookupEntities(omitBy({
+    dcTermsCreated: proxyData.dcTermsCreated,
+    edmCountry: europeanaAggregation.edmCountry,
+    edmDataProvider: providerAggregation.edmDataProvider,
+    edmRights: providerAggregation.edmRights,
+    dcRights: proxyData.dcRights,
+    dcDate: proxyData.dcDate,
+    dcTermsIssued: proxyData.dcTermsIssued,
+    dcTermsPublished: proxyData.dcTermsPublished,
+    dcTermsTemporal: proxyData.dcTermsTemporal,
+    dcCoverage: proxyData.dcCoverage,
+    dcTermsSpacial: proxyData.dcTermsSpatial,
+    edmCurentLocation: proxyData.edmCurrentLocation,
+    edmUgc: providerAggregation.edmUgc,
+    dcTermsProvenance: proxyData.dcTermsProvenance,
+    dcSource: proxyData.dcSource,
+    dcPublisher: proxyData.dcPublisher,
+    dcIdentifier: proxyData.dcIdentifier,
+    edmIntermediateProvider: providerAggregation.edmIntermediateProvider,
+    edmProvider: providerAggregation.edmProvider,
+    timestampCreated: edm.timestamp_created,
+    timestampUpdated: edm.timestamp_updated,
+    dcTermsExtent: proxyData.dcTermsExtent,
+    dcDuration: proxyData.dcDuration,
+    dcMedium: proxyData.dcMedium,
+    dcFormat: proxyData.dcFormat,
+    dcLanguage: proxyData.dcLanguage,
+    dcTermsIsPartOf: proxyData.dcTermsIsPartOf,
+    europeanaCollectionName: edm.europeanaCollectionName,
+    dcRelation: proxyData.dcRelation,
+    dcTermsReferences: proxyData.dcTermsReferences,
+    dcTermsHasPart: proxyData.dcTermsHasPart,
+    dcTermsHasVersion: proxyData.dcTermsHasVersion,
+    dcTermsIsFormatOf: proxyData.dcTermsIsFormatOf,
+    dcTermsIsReferencedBy: proxyData.dcTermsIsReferencedBy,
+    dcTermsIsReplacedBy: proxyData.dcTermsIsReplacedBy,
+    dcTermsIsRequiredBy: proxyData.dcTermsIsRequiredBy,
+    edmHasMet: proxyData.edmHasMet,
+    edmIncorporates: proxyData.edmIncorporates,
+    edmIsDerivativeOf: proxyData.edmIsDerivativeOf,
+    edmIsRepresentationOf: proxyData.edmIsRepresentationOf,
+    edmIsSimilarTo: proxyData.edmIsSimilarTo,
+    edmIsSuccessorOf: proxyData.edmIsSuccessorOf,
+    edmRealizes: proxyData.edmRealizes,
+    wasPresentAt: proxyData.wasPresentAt
+  }, isUndefined), entities);
 }
 
 function aggregationMedia(aggregation) {

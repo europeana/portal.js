@@ -264,8 +264,9 @@ export function getEntityDescription(entity) {
  * @param {String} A URI to check
  * @return {Boolean} true if the URI is a valid entity URI
  */
-export function isEntityUri(uri) {
-  return RegExp(/^http:\/\/data\.europeana\.eu\/(concept|agent|place)\/base\/\d+$/).test(uri);
+export function isEntityUri(uri, types) {
+  types = types ? types : ['concept', 'agent', 'place'];
+  return RegExp(/^http:\/\/data\.europeana\.eu\/( + types + /)\/base\/\d+$/).test(uri);
 }
 
 /**

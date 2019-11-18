@@ -100,7 +100,7 @@
               v-b-toggle.extended-metadata
               variant="outline-primary"
               class="mb-3 d-inline"
-              @click="saveExtendedMetadataPreference"
+              @click="toggleExtendedMetadataPreference"
             >
               <span class="extended-opened">{{ $t('record.hideAll') }}</span>
               <span class="extended-closed">{{ $t('record.showAll') }}</span>
@@ -228,15 +228,15 @@
       this.relatedEntities = await searchEntities(this.europeanaEntityUris, { wskey: process.env.EUROPEANA_ENTITY_API_KEY });
 
       if (process.browser) {
-        if (localStorage.extendedMetadataIsOpen && JSON.parse(localStorage.extendedMetadataIsOpen)) {
+        if (localStorage.itemShowExtendedMetadata && JSON.parse(localStorage.itemShowExtendedMetadata)) {
           this.$root.$emit('bv::toggle::collapse', 'extended-metadata');
         }
       }
     },
     methods: {
-      saveExtendedMetadataPreference() {
+      toggleExtendedMetadataPreference() {
         if (process.browser) {
-          localStorage.extendedMetadataIsOpen = localStorage.extendedMetadataIsOpen ? !JSON.parse(localStorage.extendedMetadataIsOpen) : true;
+          localStorage.itemShowExtendedMetadata = localStorage.itemShowExtendedMetadata ? !JSON.parse(localStorage.itemShowExtendedMetadata) : true;
         }
       }
     },
