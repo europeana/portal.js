@@ -1,6 +1,14 @@
 import { apiError } from './utils';
 import axios from 'axios';
 
+export const constants = Object.freeze({
+  API_ORIGIN: 'https://api.europeana.eu',
+  API_PATH_PREFIX: '/entity',
+  API_ENDPOINT_SEARCH: '/search',
+  API_ENDPOINT_SUGGEST: '/suggest',
+  URI_ORIGIN: 'http://data.europeana.eu'
+});
+
 /**
  * Get data for one entity from the API
  * @param {string} type the type of the entity, will be normalized to the EntityAPI type if it's a human readable type
@@ -26,29 +34,59 @@ export function getEntity(type, id, params) {
     });
 }
 
+function entityApiUrl(endpoint) {
+  return `${constants.API_ORIGIN}${constants.API_PATH_PREFIX}${endpoint}`;
+}
+
+import search from './search';
+
 /**
  * Get entity suggestions from the API
  * @param {string} text the query text to supply suggestions for
  * @param {Object} params additional parameters sent to the API
  * @param {string} params.language language(s), comma-separated, to request
  * @param {string} params.wskey API key
+ * @param {Object} options optional settings
+ * @param {boolean} options.recordValidation if `true`, filter suggestions to those with record matches
  * @return {Object[]} entity suggestions from the API
  */
-export function getEntitySuggestions(text, params) {
-  return axios.get('https://api.europeana.eu/entity/suggest', {
+export function getEntitySuggestions(text, params = {}, options = {}) {
+  return axios.get(entityApiUrl(constants.API_ENDPOINT_SUGGEST), {
     params: {
       text,
       type: 'agent,concept',
       language: params.language,
+      scope: 'europeana',
       wskey: params.wskey
     }
   })
     .then((response) => {
-      return response.data.items ? response.data.items : [];
+      if (!response.data.items) return [];
+      return options.recordValidation ? filterSuggestionsByRecordValidation(response.data.items) : response.data.items;
     })
     .catch((error) => {
       throw apiError(error);
     });
+}
+
+function filterSuggestionsByRecordValidation(suggestions) {
+  const searches = suggestions.map((entity) => {
+    return search({
+      query: getEntityQuery(entity.id),
+      rows: 0,
+      profile: 'minimal',
+      qf: ['contentTier:(2 OR 3 OR 4)'],
+      wskey: process.env.EUROPEANA_API_KEY
+    });
+  });
+
+  return axios.all(searches)
+    .then(axios.spread(function() {
+      const searchResponses = arguments;
+      return suggestions.filter((entity, index) => {
+        return searchResponses[index].totalResults > 0;
+      });
+    }));
 }
 
 /**
@@ -86,7 +124,7 @@ export function getEntityTypeHumanReadable(type) {
  * @return {string} retrieved human readable name of type
  */
 export function getEntityUri(type, id) {
-  return `http://data.europeana.eu/${getEntityTypeApi(type)}/base/${normalizeEntityId(id)}`;
+  return `${constants.URI_ORIGIN}/${getEntityTypeApi(type)}/base/${normalizeEntityId(id)}`;
 }
 
 /**
@@ -110,7 +148,7 @@ export function getEntityQuery(uri) {
  * @return {string} retrieved human readable name of type
  */
 function getEntityUrl(type, id) {
-  return `https://api.europeana.eu/entity/${getEntityTypeApi(type)}/base/${normalizeEntityId(id)}.json`;
+  return entityApiUrl(`/${getEntityTypeApi(type)}/base/${normalizeEntityId(id)}.json`);
 }
 
 /**
@@ -177,7 +215,7 @@ async function getEntityFacets(facets, currentId, entityKey) {
   let entities = [];
   for (let facet of facets) {
     entities = entities.concat(facet['fields'].filter(value =>
-      value['label'].includes('http://data.europeana.eu') && value['label'].split('/').pop() !== currentId
+      value['label'].includes(constants.URI_ORIGIN) && value['label'].split('/').pop() !== currentId
     ));
   }
   const entityUris = entities.slice(0, 4).map(entity => {
@@ -196,7 +234,7 @@ export function searchEntities(entityUris, params) {
   if (entityUris.length === 0) return;
 
   const q = entityUris.join('" OR "');
-  return axios.get('https://api.europeana.eu/entity/search', {
+  return axios.get(entityApiUrl(constants.API_ENDPOINT_SEARCH), {
     params: {
       query: `entity_uri:("${q}")`,
       wskey: params.wskey

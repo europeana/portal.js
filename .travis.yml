@@ -1,10 +1,8 @@
 dist: xenial
 language: node_js
-env:
-  - CHROMIUM_VERSION="78.0.3904.70-0ubuntu0.16.04.2"
 before_install:
   - sudo apt-get remove --purge -yq google-chrome-stable
-  - sudo apt-get install -yq chromium-browser=${CHROMIUM_VERSION}
+  - sudo apt-get install -yq chromium-browser
 before_script:
   - env > .env
 script:
