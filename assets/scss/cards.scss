@@ -1,37 +1,3 @@
-.similar-items {
-  .content-card {
-    background: transparent;
-    border: 0;
-    box-shadow: none;
-    min-height: auto;
-    margin-bottom: 0;
-  }
-
-  .card-link {
-    display: initial;
-  }
-
-  .card-img {
-    border: 0;
-    padding: 0;
-    border-radius: 0;
-    width: 100%;
-  }
-
-  .is-square {
-    &:after {
-      content: '';
-      display: block;
-      padding-bottom: 100%;
-    }
-  }
-
-  .card-body {
-    min-height: auto;
-    padding-bottom: 0;
-  }
-}
-
 .content-card {
   background: $extralightgrey;
   border-radius: $border-radius-small;
