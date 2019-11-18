@@ -110,6 +110,13 @@
 <style lang="scss" scoped>
   @import "./assets/scss/variables.scss";
 
+  .img-thumbnail {
+    width: 100px;
+    margin-right: $grid-gutter;
+    margin-bottom: $grid-gutter;
+    cursor: pointer;
+  }
+
   .img-thumbnail.selected {
     border-color: $blue;
   }
