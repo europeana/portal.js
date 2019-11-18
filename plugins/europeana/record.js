@@ -25,6 +25,7 @@ function parseRecordDataFromApiResponse(response) {
     altTitle: proxyData.dctermsAlternative,
     description: proxyData.dcDescription,
     identifier: edm.about,
+    type: edm.type,
     isShownAt: providerAggregation.edmIsShownAt,
     coreFields: lookupEntities(omitBy({
       dcContributor: proxyData.dcContributor, // Plus rdaGr2DateOfBirth & rdaGr2DateOfDeath

@@ -77,6 +77,7 @@ describe('plugins/europeana/record', () => {
         const someOtherWebResource = {
           about: 'https://example.org/'
         };
+        const type = 'TEXT';
         const apiResponse = {
           success: true,
           object: {
@@ -115,7 +116,8 @@ describe('plugins/europeana/record', () => {
             ],
             concepts: [
               { about: 'http://data.europeana.eu/concept/base/456' }
-            ]
+            ],
+            type
           }
         };
 
@@ -139,6 +141,11 @@ describe('plugins/europeana/record', () => {
         it('includes edmIsShownAt', async() => {
           const response = await getRecord(europeanaId, { wskey: apiKey });
           response.record.isShownAt.should.eq(edmIsShownAt);
+        });
+
+        it('includes type', async() => {
+          const response = await getRecord(europeanaId, { wskey: apiKey });
+          response.record.type.should.eq(type);
         });
 
         describe('.media', () => {
