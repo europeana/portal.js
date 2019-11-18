@@ -5,12 +5,20 @@ import SimilarItems from './SimilarItems.vue';
 const i18n = {
   locale: 'en',
   messages: {
-    en: {}
+    en: {
+      formatting: {
+        ellipsis: '…'
+      }
+    }
   }
 };
 
 storiesOf('Generic', module)
-  .addDecorator(StoryRouter())
+  .addDecorator(StoryRouter({}, {
+    routes: [
+      { name: 'record-all', path: '/record/*' }
+    ]
+  }))
   .add('Similar items', () => ({
     i18n,
     components: { SimilarItems },
@@ -18,23 +26,23 @@ storiesOf('Generic', module)
       return {
         items: [
           {
-            identifier: 'en/entity/person/60404-johannes-vermeer',
-            thumbnail: 'https://www.placecage.com/200/200',
+            identifier: '/en/entity/person/60404-johannes-vermeer',
+            thumbnail: 'img/landscape.jpg',
             title: 'Woman Reading a letter'
           },
           {
             identifier: 'en/entity/person/60404-johannes-vermeer',
-            thumbnail: 'https://www.fillmurray.com/200/200',
+            thumbnail: 'img/portrait.jpg',
             title: 'View of house in Delt'
           },
           {
-            identifier: 'en/entity/person/60404-johannes-vermeer',
-            thumbnail: 'https://www.placecage.com/200/200',
+            identifier: '/en/entity/person/60404-johannes-vermeer',
+            thumbnail: 'img/landscape.jpg',
             title: 'The Love Letter'
           },
           {
             identifier: 'en/entity/person/60404-johannes-vermeer',
-            thumbnail: 'https://www.fillmurray.com/200/200',
+            thumbnail: 'img/portrait.jpg',
             title: 'Dienstbode met een takshond in de'
           }
         ]
