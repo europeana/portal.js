@@ -290,7 +290,9 @@ describe('plugins/europeana/entity', () => {
 
     context('with an entity page', () => {
       const entityPage = {
-        name: 'Architectural Engineering'
+        name: {
+          'en-GB': 'Architectural Engineering'
+        }
       };
 
       it('constructs URL slug from numeric ID and entityPage.name', () => {

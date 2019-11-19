@@ -73,6 +73,7 @@
 
   import * as entities from '../../../plugins/europeana/entity';
   import { pageFromQuery } from '../../../plugins/utils';
+  import { langMapValueForLocale } from '../../../plugins/europeana/utils';
   import createClient from '../../../plugins/contentful';
 
   const PER_PAGE = 9;
@@ -103,15 +104,17 @@
         return (!this.entity || !this.entity.depiction) ? null : entities.getWikimediaThumbnailUrl(this.entity.depiction.id);
       },
       description() {
-        return this.pageDescription ? this.pageDescription : entities.getEntityDescription(this.entity);
+        return this.editorialDescription ? this.editorialDescription : entities.getEntityDescription(this.entity);
       },
       // Description from the Contentful entry
-      pageDescription() {
-        return this.page ? this.page.description : null;
+      editorialDescription() {
+        if (!this.page) return null;
+        return langMapValueForLocale(this.page.description, this.$store.state.i18n.locale).values[0];
       },
       // Title from the Contentful entry
-      pageTitle() {
-        return this.page ? this.page.name : null;
+      editorialTitle() {
+        if (!this.page) return null;
+        return langMapValueForLocale(this.page.name, this.$store.state.i18n.locale).values[0];
       },
       perPage() {
         return PER_PAGE;
@@ -127,7 +130,7 @@
       },
       title() {
         if (!this.entity) return this.$t('entity');
-        if (this.pageTitle) return this.pageTitle;
+        if (this.editorialTitle) return this.editorialTitle;
         return this.entity.prefLabel[this.$store.state.i18n.locale];
       }
     },
@@ -160,25 +163,17 @@
           entityKey: env.EUROPEANA_ENTITY_API_KEY
         }),
         contentfulClient.getEntries({
-          'locale': app.i18n.isoLocale(),
+          // Get all locales as URL slug is always derived from English.
+          'locale': '*',
           'content_type': 'entityPage',
           'fields.identifier': entityUri,
           'include': 2,
           'limit': 1
         })
-        // URL slug is always derived from English, so if viewing in another locale,
-        // we also need to get the English, solely for the URL slug from `name`.
-      ].concat(app.i18n.locale === 'en' ? [] : contentfulClient.getEntries({
-        'locale': 'en-GB',
-        'content_type': 'entityPage',
-        'fields.identifier': entityUri,
-        'include': 2,
-        'limit': 1
-      })))
-        .then(axios.spread((entity, related, localisedEntries, defaultLocaleEntries) => {
-          const localisedEntityPage = localisedEntries.total > 0 ? localisedEntries.items[0].fields : null;
-          const defaultEntityPage = defaultLocaleEntries && defaultLocaleEntries.total > 0 ? defaultLocaleEntries.items[0].fields : null;
-          const desiredPath = entities.getEntitySlug(entity.entity, defaultEntityPage || localisedEntityPage);
+      ])
+        .then(axios.spread((entity, related, entityPageEntries) => {
+          const entityPage = entityPageEntries.total > 0 ? entityPageEntries.items[0].fields : null;
+          const desiredPath = entities.getEntitySlug(entity.entity, entityPage);
 
           if (params.pathMatch !== desiredPath) {
             const redirectPath = app.localePath({
@@ -191,7 +186,7 @@
 
           return {
             entity: entity.entity,
-            page: localisedEntityPage,
+            page: entityPage,
             relatedEntities: related
           };
         }))
