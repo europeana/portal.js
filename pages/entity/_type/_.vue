@@ -133,7 +133,6 @@
     },
 
     asyncData({ env, query, params, res, redirect, app, store }) {
-      console.log('asyncData');
       const currentPage = pageFromQuery(query.page);
       const entityUri = entities.getEntityUri(params.type, params.pathMatch);
 
@@ -205,7 +204,6 @@
     },
 
     async fetch({ store, query, res }) {
-      console.log('fetch');
       store.commit('search/setActive', true);
 
       const entityUri = store.state.entity.id;
@@ -234,7 +232,6 @@
     },
 
     mounted() {
-      console.log('mounted');
       this.$store.commit('search/setPill', this.title);
     },
 
