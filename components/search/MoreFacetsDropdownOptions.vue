@@ -6,7 +6,7 @@
       {{ $tc(`facets.${name}.name`, 1) }}
     </strong>
     <b-form-checkbox-group
-      v-model="selected"
+      v-model="selectedOptions"
       class="option-group"
       plain
       @change="selectedHandler"
@@ -69,7 +69,7 @@
         type: String,
         required: true
       },
-      preSelected: {
+      selected: {
         type: Array,
         default: () => []
       }
@@ -77,21 +77,21 @@
 
     data() {
       return {
-        selected: [],
+        selectedOptions: [],
         isActive: false,
         limitTo: 9
       };
     },
 
     watch: {
-      preSelected(value) {
-        this.selected = value;
+      selected(value) {
+        this.selectedOptions = value;
       }
     },
 
     mounted() {
       this.$root.$on('updateSelectedOptions', this.updateOptions);
-      this.selected = this.preSelected;
+      this.selectedOptions = this.selected;
     },
 
 
@@ -101,8 +101,8 @@
       },
 
       updateOptions() {
-        this.selected = this.selected.filter(item => this.preSelected.includes(item));
-        this.$emit('selectedOptions', this.name, this.selected);
+        this.selectedOptions = this.selectedOptions.filter(item => this.selected.includes(item));
+        this.$emit('selectedOptions', this.name, this.selectedOptions);
       }
     }
   };
