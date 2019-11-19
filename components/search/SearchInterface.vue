@@ -25,7 +25,7 @@
       <b-row class="mb-4">
         <b-col>
           <FacetDropdown
-            v-for="facet in orderedFacets.slice(0,3)"
+            v-for="facet in coreFacets"
             :key="facet.name"
             :name="facet.name"
             :fields="facet.fields"
@@ -35,7 +35,7 @@
           />
           <MoreFacetsDropdown
             v-if="enableMoreFacets"
-            :more-facets="orderedFacets.slice(3)"
+            :more-facets="moreFacets"
             :selected="moreSelectedFacets"
             @changed="changeMoreFacets"
           />
@@ -240,10 +240,18 @@
 
         return ordered.concat(unordered);
       },
+      coreFacets() {
+        return this.orderedFacets.filter(facet => ['TYPE', 'COUNTRY', 'REUSABILITY'].includes(facet.name));
+      },
+      moreFacets() {
+        const coreFacetNames = this.coreFacets.map(facet => facet.name);
+        return this.orderedFacets.filter(facet => !coreFacetNames.includes(facet.name));
+      },
       moreSelectedFacets() {
         // Strips out facets which don't belong to the More Facets dropdown
         const obj = {};
-        this.orderedFacets.slice(3).map(facet => {
+        this.moreFacets.map(facet => {
+          console.log(facet);
           for (let key in this.selectedFacets) {
             if (facet.name === key) {
               obj[key] = this.selectedFacets[key];
