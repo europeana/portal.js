@@ -56,13 +56,14 @@
 
     .card-link {
       display: initial;
+
+      &:hover, &:focus {
+        color: $blue;
+      }
     }
 
     .card-img {
-      border: 0;
-      padding: 0;
       border-radius: 0;
-      width: 100%;
     }
 
     .is-square {
