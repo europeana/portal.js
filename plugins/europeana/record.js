@@ -4,6 +4,8 @@ import escapeRegExp from 'lodash/escapeRegExp';
 import omitBy from 'lodash/omitBy';
 import merge, { emptyTarget } from 'deepmerge';
 
+import thumbnailUrl, { thumbnailTypeForMimeType } from  '../../plugins/europeana/thumbnail';
+
 /**
  * Parse the record data based on the data from the API response
  * @param {Object} response data from API response
@@ -29,7 +31,7 @@ function parseRecordDataFromApiResponse(response) {
     isShownAt: providerAggregation.edmIsShownAt,
     coreFields: coreFields(proxyData, entities),
     fields: extraFields(proxyData, edm, entities),
-    media: aggregationMedia(providerAggregation),
+    media: aggregationMedia(providerAggregation, edm.type),
     agents: edm.agents,
     concepts: edm.concepts,
     title: proxyData.dcTitle
@@ -94,7 +96,7 @@ function extraFields(proxyData, edm, entities) {
     dctermsPublished: proxyData.dctermsPublished,
     dctermsTemporal: proxyData.dctermsTemporal,
     dcCoverage: proxyData.dcCoverage,
-    dctermsSpacial: proxyData.dctermsSpatial,
+    dctermsSpatial: proxyData.dctermsSpatial,
     edmCurentLocation: proxyData.edmCurrentLocation,
     edmUgc: providerAggregation.edmUgc,
     dctermsProvenance: proxyData.dctermsProvenance,
@@ -131,12 +133,33 @@ function extraFields(proxyData, edm, entities) {
   }, isUndefined), entities);
 }
 
-function aggregationMedia(aggregation) {
+function aggregationMedia(aggregation, recordType) {
   // Gather all isShownBy and hasView URIs
   const mediaUris = [aggregation.edmIsShownBy].concat(aggregation.hasView || []).filter(isNotUndefined);
 
   // Filter web resources to isShownBy and hasView, respecting the ordering
   const media = mediaUris.map((mediaUri) => aggregation.webResources.find((webResource) => mediaUri === webResource.about));
+
+  // Inject thumbnail URLs
+  for (const webResource of media) {
+    const thumbnailType = thumbnailTypeForMimeType(webResource.ebucoreHasMimeType) || recordType;
+
+    let uri = webResource.about;
+    if (aggregation.edmObject && (uri === aggregation.edmIsShownBy)) {
+      uri = aggregation.edmObject;
+    }
+
+    webResource.thumbnails = {
+      small: thumbnailUrl(uri, {
+        size: 'w200',
+        type: thumbnailType
+      }),
+      large: thumbnailUrl(uri, {
+        size: 'w400',
+        type: thumbnailType
+      })
+    };
+  }
 
   // Sort by isNextInSequence property if present
   return sortByIsNextInSequence(media);

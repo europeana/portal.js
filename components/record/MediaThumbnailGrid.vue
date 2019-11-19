@@ -18,21 +18,13 @@
 </template>
 
 <script>
-  import thumbnailUrl, { thumbnailTypeForMimeType } from  '../../plugins/europeana/thumbnail';
-
   export default {
     name: 'MediaThumbnailGrid',
 
     props: {
-      // `type` parameter to include in thumbnail URLs if one can not be
-      // derived from the MIME type of a media item.
-      defaultThumbnailType: {
-        type: String,
-        default: null
-      },
-
       // Array of media items as returned by the API's standard JSON response.
-      // Expected to have `about` property with the web resource's URI.
+      // Expected to have `about` property with the web resource's URI, and
+      // `thumbnails` property with `small` and `large` thumbnail URLs.
       media: {
         type: Array,
         required: true
@@ -44,13 +36,13 @@
         required: true
       },
 
-      // Size of thumbnail to display, passed to the thumbnail API.
-      // Valid values are 'w200' and 'w400'.
+      // Size of thumbnail to display.
+      // Valid values are 'small' and 'large'.
       size: {
         type: String,
-        default: 'w200',
+        default: 'small',
         validator: (size) => {
-          return ['w200', 'w400'].includes(size);
+          return ['small', 'large'].includes(size);
         }
       }
     },
@@ -75,10 +67,7 @@
         return this.media.map((item) => {
           return {
             about: item.about,
-            src: thumbnailUrl(item.about, {
-              size: this.size,
-              type: thumbnailTypeForMimeType(item.ebucoreHasMimeType) || this.defaultThumbnailType
-            })
+            src: item.thumbnails[this.size]
           };
         });
       }
