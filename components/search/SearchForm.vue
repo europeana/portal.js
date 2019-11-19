@@ -27,6 +27,7 @@
         :placeholder="$t('searchPlaceholder')"
         name="query"
         data-qa="search box"
+        role="searchbox"
         aria-autocomplete="list"
         :aria-controls="enableAutoSuggest ? 'search-form-auto-suggest' : null"
         :aria-label="$t('search')"
