@@ -108,12 +108,12 @@
       },
       // Description from the Contentful entry
       editorialDescription() {
-        if (!this.page) return null;
+        if (!this.page || !this.page.description) return null;
         return langMapValueForLocale(this.page.description, this.$store.state.i18n.locale).values[0];
       },
       // Title from the Contentful entry
       editorialTitle() {
-        if (!this.page) return null;
+        if (!this.page || !this.page.name) return null;
         return langMapValueForLocale(this.page.name, this.$store.state.i18n.locale).values[0];
       },
       perPage() {
@@ -141,7 +141,13 @@
 
       // Prevent re-requesting entity content from APIs if already loaded,
       // e.g. when paginating through entity search results
-      if (entityUri === store.state.entity.id) return;
+      if (entityUri === store.state.entity.id) {
+        return {
+          entity: store.state.entity.entity,
+          page: store.state.entity.page,
+          relatedEntities: store.state.entity.relatedEntities
+        };
+      }
       store.commit('entity/setId', entityUri);
 
       if (currentPage === null) {
@@ -175,12 +181,17 @@
           const entityPage = entityPageEntries.total > 0 ? entityPageEntries.items[0].fields : null;
           const desiredPath = entities.getEntitySlug(entity.entity, entityPage);
 
+          // Store content for reuse should a redirect be needed, below, or when
+          // navigating back to this page, e.g. from a search result.
+          store.commit('entity/setEntity', entity.entity);
+          store.commit('entity/setPage', entityPage);
+          store.commit('entity/setRelatedEntities', related);
+
           if (params.pathMatch !== desiredPath) {
             const redirectPath = app.localePath({
               name: 'entity-type-all',
               params: { type: params.type, pathMatch: encodeURIComponent(desiredPath) }
             });
-            store.commit('entity/setId', null);
             return redirect(302, redirectPath);
           }
 
@@ -243,7 +254,6 @@
     },
 
     beforeRouteLeave(to, from, next) {
-      this.$store.commit('entity/setId', null);
       this.$store.commit('search/setActive', false);
       this.$store.commit('search/setPill', null);
       next();
