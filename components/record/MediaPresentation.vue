@@ -20,6 +20,7 @@
     <VideoPlayer
       v-else-if="isHTMLVideo"
       :src="url"
+      :type="mimeType"
       :width="width"
       :height="height"
     />

@@ -1,14 +1,25 @@
 <template>
+  <!--
+    `key` attribute is needed to force replacement of the entire video element
+    when `src` updates as `source` elements may not have their `src` attribute
+    updated after render.
+  -->
   <video
+    :key="src"
     :controls="controls"
     :autoplay="autoplay"
     :loop="loop"
     :muted="muted"
     :width="width"
     :height="height"
-    :src="src"
     data-qa="video"
-  />
+  >
+    <source
+      :src="src"
+      :type="type"
+      data-qa="video source"
+    >
+  </video>
 </template>
 
 <script>
@@ -17,6 +28,10 @@
 
     props: {
       src: {
+        type: String,
+        required: true
+      },
+      type: {
         type: String,
         required: true
       },
