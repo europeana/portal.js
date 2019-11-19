@@ -15,7 +15,6 @@
         :aria-label="title"
         :style="!isRelated && cardImageStyle"
         class="card-img"
-        :class="{ 'is-square' : isSquare }"
       />
       <b-card-body>
         <b-card-title>
@@ -75,10 +74,6 @@
         default: ''
       },
       isRelated: {
-        type: Boolean,
-        default: false
-      },
-      isSquare: {
         type: Boolean,
         default: false
       }

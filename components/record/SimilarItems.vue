@@ -11,7 +11,6 @@
           :title="item.title"
           :image-url="item.thumbnail"
           :url="{ name: 'record-all', params: { pathMatch: item.identifier.slice(1) } }"
-          is-square
         />
       </b-card-group>
     </b-col>
@@ -64,9 +63,7 @@
 
     .card-img {
       border-radius: 0;
-    }
 
-    .is-square {
       &:after {
         content: '';
         display: block;
