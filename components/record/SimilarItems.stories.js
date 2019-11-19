@@ -13,7 +13,7 @@ const i18n = {
   }
 };
 
-storiesOf('Generic', module)
+storiesOf('Record', module)
   .addDecorator(StoryRouter({}, {
     routes: [
       { name: 'record-all', path: '/record/*' }

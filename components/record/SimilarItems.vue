@@ -19,7 +19,7 @@
 </template>
 
 <script>
-  import ContentCard from './ContentCard';
+  import ContentCard from '../generic/ContentCard';
 
   export default {
     name: 'SimilarItems',
