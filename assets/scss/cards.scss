@@ -1,5 +1,5 @@
 .content-card {
-  background: $extralightgrey;
+  background: $white;
   border-radius: $border-radius-small;
   box-shadow: $boxshadow-small;
   color: $black;
@@ -18,12 +18,13 @@
 
   &:hover {
     box-shadow: $boxshadow-large;
-    background-color: $lightgrey;
+    background-color: $offwhite;
   }
 
   a {
     display: flex;
     flex-direction: column;
+    text-decoration: none;
   }
 
   .card-img {
@@ -52,7 +53,7 @@
   }
 
   .card-text {
-    color: $darkgrey;
+    color: $mediumgrey;
   }
 
   .card-link {
@@ -82,7 +83,7 @@
     }
 
     .card-body {
-      background: $extralightgrey;
+      background: $white;
       border-radius: $border-radius-small;
       box-shadow: $boxshadow-small;
       margin-bottom: -1rem;
@@ -93,7 +94,7 @@
     &:hover {
       .card-body {
         box-shadow: $boxshadow-large;
-        background-color: $lightgrey;
+        background-color: $offwhite;
       }
     }
   }
@@ -111,14 +112,6 @@
 
   .card-deck-4-cols .card {
     flex: 0 0 calc(100% / 4 - #{$grid-gutter*2});
-  }
-}
-
-.card-deck-search .card {
-  .card-link {
-    &:visited {
-      color: $darkpurple;
-    }
   }
 }
 

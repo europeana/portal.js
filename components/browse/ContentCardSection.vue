@@ -58,7 +58,7 @@
 .browse-section {
   h2,
   p {
-    color: $darkgrey;
+    color: $mediumgrey;
     text-align: left;
   }
 

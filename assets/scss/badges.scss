@@ -1,0 +1,19 @@
+.badge {
+  text-decoration: none;
+}
+
+.badge-secondary {
+  background: $blue;
+  font-size: $font-size-smallest;
+  font-weight: normal;
+  padding: 0.5rem;
+}
+
+.badge-pill {
+  background-color: $darkblue;
+  
+  .pill-close {
+    color: $white;
+    text-decoration: none;
+  }
+}
