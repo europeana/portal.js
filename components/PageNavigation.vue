@@ -1,25 +1,18 @@
 <template>
-  <b-navbar
-    class="border-bottom py-0 mb-3"
-    data-qa="main navigation"
-  >
-    <b-container class="p-0">
-      <b-navbar-nav class="px-2">
-        <li
-          v-for="(nav, index) in navigation"
-          :key="index"
-          class="nav-item"
-        >
-          <SmartLink
-            :destination="nav.url"
-            link-class="nav-link"
-          >
-            {{ nav.text }}
-          </SmartLink>
-        </li>
-      </b-navbar-nav>
-    </b-container>
-  </b-navbar>
+  <b-navbar-nav class="px-2 ml-xl-auto">
+    <li
+      v-for="(nav, index) in navigation"
+      :key="index"
+      class="nav-item"
+    >
+      <SmartLink
+        :destination="nav.url"
+        link-class="nav-link"
+      >
+        {{ nav.text }}
+      </SmartLink>
+    </li>
+  </b-navbar-nav>
 </template>
 
 <script>
@@ -65,6 +58,7 @@
 
     .nav-link {
       color: $darkgrey;
+      text-transform: uppercase;
 
       &.nuxt-link-active {
         font-weight: bold;
