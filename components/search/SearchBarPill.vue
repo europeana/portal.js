@@ -41,17 +41,3 @@
     }
   };
 </script>
-
-<style lang="scss" scoped>
-  @import "./assets/scss/variables.scss";
-
-  .badge-pill {
-    background-color: $darkblue;
-    .pill-close {
-      color: $white;
-      &:hover {
-        text-decoration: none;
-      }
-    }
-  }
-</style>

@@ -36,16 +36,15 @@
           :value="option.label"
           :name="name"
           :data-qa="`${option.label} ${CHECKBOX}`"
-          :class="{ 'font-weight-bold' : selected.some(s => s === option.label) }"
         >
-          {{ option.label }} ({{ option.count | localise }})
+          {{ option.label }} <span>({{ option.count | localise }})</span>
         </b-form-checkbox>
       </template>
     </b-dropdown-form>
 
     <li
       v-if="type === 'checkbox'"
-      class="p-2 float-right"
+      class="dropdown-buttons mt-3"
     >
       <b-button
         variant="link"
@@ -148,7 +147,7 @@
       },
 
       dropdownVariant() {
-        return (this.radioSelected || this.selected.length > 0) ? 'secondary' : 'light';
+        return (this.radioSelected || this.selected.length > 0) ? 'selected' : 'light';
       }
     },
 
@@ -204,7 +203,7 @@
 <style lang="scss" scoped>
   @import "./assets/scss/variables.scss";
 
-  .dropdown {
+  .dropdown { // TODO: move this code to the dropdown.scss where possible, to avoid duplication
     width: 100%;
     margin-bottom: 5px;
 
@@ -221,19 +220,29 @@
   .has-selected {
     /deep/ > .btn {
       background: $white;
-      color: $darkgrey;
+      color: $mediumgrey;
     }
   }
 
   /deep/ .dropdown-menu {
+    font-size: $font-size-small;
     width: 100%;
 
     @media (min-width: $bp-large) {
       min-width: 280px;
+
+      &.show {
+        transform: translate3d(0, 3rem, 0) !important;
+      }
     }
 
     .custom-control  {
       margin-bottom: 4px;
+      min-height: auto;
+
+      label span {
+        font-size: $font-size-extrasmall;
+      }
     }
   }
 
