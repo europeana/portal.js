@@ -116,6 +116,7 @@
       applySelected() {
         this.$emit('changed', this.preSelected);
         this.clearEmpty();
+        this.$refs.dropdown.hide(true);
       },
 
       cancelHandler() {
