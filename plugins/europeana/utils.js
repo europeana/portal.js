@@ -13,6 +13,30 @@ export function apiError(error) {
 }
 
 const locales = require('../i18n/locales.js');
+const undefinedLocaleCodes = ['def', 'und'];
+
+const isoAlpha3Map = locales.reduce((memo, locale) => {
+  memo[locale.isoAlpha3] = locale.code;
+  return memo;
+}, {});
+
+const languageKeyMap = locales.reduce((memo, locale) => {
+  memo[locale.code] = [locale.code, locale.isoAlpha3, locale.iso];
+  return memo;
+}, {});
+
+const languageKeysWithFallbacks = locales.reduce((memo, locale) => {
+  memo[locale.code] = languageKeyMap[locale.code] || [];
+
+  if (locale.code !== 'en') {
+    // Add English locale keys as fallbacks for other languages
+    memo[locale.code] = memo[locale.code].concat(languageKeyMap.en);
+  }
+
+  memo[locale.code] = memo[locale.code].concat(undefinedLocaleCodes); // Also fallback to "undefined" language literals
+
+  return memo;
+}, {});
 
 function isEntity(value) {
   return !!value && !!value.about;
@@ -34,20 +58,9 @@ function entityValue(value, locale) {
   return { code: '', values: [value.about], about: value.about };
 }
 
-const isoAlpha3Map = locales.reduce((memo, locale) => {
-  memo[locale.isoAlpha3] = locale.code;
-  return memo;
-}, {});
-
-const languageKeyMap = locales.reduce((memo, locale) => {
-  if (locale.code === 'en') return memo;
-  memo[locale.code] = [locale.code, locale.isoAlpha3];
-  return memo;
-}, {});
-
-function languageKeys(currentLocale) {
-  const languageKeys = languageKeyMap[currentLocale] || [];
-  return languageKeys.concat(['en', 'eng', 'def', 'und']); // predefined set of preferred/fallback languages
+function languageKeys(locale) {
+  const localeFallbackKeys = undefinedLocaleCodes.concat(languageKeyMap.en);
+  return languageKeysWithFallbacks[locale] || localeFallbackKeys;
 }
 
 /**
@@ -76,7 +89,7 @@ function setLangMapValuesAndCode(returnValue, langMap, key, locale) {
   if (langMap[key]) {
     setLangMapValues(returnValue, langMap, key, locale);
     setLangCode(returnValue, key, locale);
-    if (['def', 'und'].includes(key)) filterEntities(returnValue);
+    if (undefinedLocaleCodes.includes(key)) filterEntities(returnValue);
   }
 }
 
@@ -90,7 +103,7 @@ function setLangMapValues(returnValues, langMap, key) {
 }
 
 function setLangCode(map, key, locale) {
-  if (['def', 'und'].includes(key)) {
+  if (undefinedLocaleCodes.includes(key)) {
     map['code'] = '';
   } else {
     const langCode = normalizedLangCode(key);

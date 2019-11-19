@@ -68,11 +68,12 @@
   import AlertMessage from '../../../components/generic/AlertMessage';
   import BrowseChip from '../../../components/browse/BrowseChip';
   import BrowseSections from '../../../components/browse/BrowseSections';
-  import EntityDetails from '../../../components/browse/EntityDetails';
+  import EntityDetails from '../../../components/entity/EntityDetails';
   import SearchInterface from '../../../components/search/SearchInterface';
 
   import * as entities from '../../../plugins/europeana/entity';
   import { pageFromQuery } from '../../../plugins/utils';
+  import { langMapValueForLocale } from '../../../plugins/europeana/utils';
   import createClient from '../../../plugins/contentful';
 
   const PER_PAGE = 9;
@@ -85,6 +86,7 @@
       EntityDetails,
       SearchInterface
     },
+
     data() {
       return {
         entity: null,
@@ -93,6 +95,7 @@
         relatedEntities: null
       };
     },
+
     computed: {
       attribution() {
         return (!this.entity || !this.entity.depiction) ? null : this.entity.depiction.source;
@@ -101,7 +104,17 @@
         return (!this.entity || !this.entity.depiction) ? null : entities.getWikimediaThumbnailUrl(this.entity.depiction.id);
       },
       description() {
-        return entities.getEntityDescription(this.entity);
+        return this.editorialDescription ? this.editorialDescription : entities.getEntityDescription(this.entity);
+      },
+      // Description from the Contentful entry
+      editorialDescription() {
+        if (!this.page || !this.page.description) return null;
+        return langMapValueForLocale(this.page.description, this.$store.state.i18n.locale).values[0];
+      },
+      // Title from the Contentful entry
+      editorialTitle() {
+        if (!this.page || !this.page.name) return null;
+        return langMapValueForLocale(this.page.name, this.$store.state.i18n.locale).values[0];
       },
       perPage() {
         return PER_PAGE;
@@ -116,16 +129,25 @@
         };
       },
       title() {
-        return !this.entity ? this.$t('entity') : this.entity.prefLabel.en;
+        if (!this.entity) return this.$t('entity');
+        if (this.editorialTitle) return this.editorialTitle;
+        return this.entity.prefLabel[this.$store.state.i18n.locale];
       }
     },
+
     asyncData({ env, query, params, res, redirect, app, store }) {
       const currentPage = pageFromQuery(query.page);
       const entityUri = entities.getEntityUri(params.type, params.pathMatch);
 
       // Prevent re-requesting entity content from APIs if already loaded,
       // e.g. when paginating through entity search results
-      if (entityUri === store.state.entity.id) return;
+      if (entityUri === store.state.entity.id) {
+        return {
+          entity: store.state.entity.entity,
+          page: store.state.entity.page,
+          relatedEntities: store.state.entity.relatedEntities
+        };
+      }
       store.commit('entity/setId', entityUri);
 
       if (currentPage === null) {
@@ -147,28 +169,31 @@
           entityKey: env.EUROPEANA_ENTITY_API_KEY
         }),
         contentfulClient.getEntries({
-          'locale': app.i18n.isoLocale(),
+          // Get all locales as URL slug is always derived from English.
+          'locale': '*',
           'content_type': 'entityPage',
           'fields.identifier': entityUri,
           'include': 2,
           'limit': 1
         })
       ])
-        .then(axios.spread((entity, related, entries) => {
-          const desiredPath = entities.getEntitySlug(entity.entity);
+        .then(axios.spread((entity, related, entityPageEntries) => {
+          const entityPage = entityPageEntries.total > 0 ? entityPageEntries.items[0].fields : null;
+          const desiredPath = entities.getEntitySlug(entity.entity, entityPage);
+
+          // Store content for reuse should a redirect be needed, below, or when
+          // navigating back to this page, e.g. from a search result.
+          store.commit('entity/setEntity', entity.entity);
+          store.commit('entity/setPage', entityPage);
+          store.commit('entity/setRelatedEntities', related);
 
           if (params.pathMatch !== desiredPath) {
             const redirectPath = app.localePath({
               name: 'entity-type-all',
               params: { type: params.type, pathMatch: encodeURIComponent(desiredPath) }
             });
-            store.commit('entity/setId', null);
             return redirect(302, redirectPath);
           }
-
-          const entityPage = entries.total > 0 ? entries.items[0].fields : null;
-
-          store.commit('search/setPill', entity.entity.prefLabel[store.state.i18n.locale]);
 
           return {
             entity: entity.entity,
@@ -183,6 +208,7 @@
           return { error: error.message };
         });
     },
+
     async fetch({ store, query, res }) {
       store.commit('search/setActive', true);
 
@@ -210,17 +236,29 @@
         res.statusCode = store.state.search.errorStatusCode;
       }
     },
+
+    mounted() {
+      this.$store.commit('search/setPill', this.title);
+    },
+
     head() {
       return {
-        title: this.title
+        title: this.title,
+        meta: [
+          { hid: 'title', name: 'title', content: this.title },
+          { hid: 'description', name: 'description', content: this.description },
+          { hid: 'og:title', property: 'og:title', content: this.title },
+          { hid: 'og:description', property: 'og:description', content: this.description }
+        ]
       };
     },
+
     beforeRouteLeave(to, from, next) {
-      this.$store.commit('entity/setId', null);
       this.$store.commit('search/setActive', false);
       this.$store.commit('search/setPill', null);
       next();
     },
+
     watchQuery: ['page', 'qf', 'query', 'reusability']
   };
 </script>
