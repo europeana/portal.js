@@ -100,6 +100,12 @@
       }
     },
 
+    watch: {
+      $route() {
+        this.preSelected = Object.assign({}, this.selected);
+      }
+    },
+
     mounted() {
       this.preSelected = Object.assign({}, this.selected);
     },
