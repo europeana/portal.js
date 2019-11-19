@@ -13,7 +13,6 @@ function parseRecordDataFromApiResponse(response) {
   const edm = response.data.object;
 
   const providerAggregation = edm.aggregations[0];
-  const europeanaAggregation = edm.europeanaAggregation;
   const entities = [].concat(edm.concepts, edm.places, edm.agents, edm.timespans)
     .filter(isNotUndefined)
     .reduce((memo, entity) => {
@@ -26,10 +25,8 @@ function parseRecordDataFromApiResponse(response) {
     altTitle: proxyData.dctermsAlternative,
     description: proxyData.dcDescription,
     identifier: edm.about,
-    image: {
-      link: providerAggregation.edmIsShownAt,
-      src: europeanaAggregation.edmPreview
-    },
+    type: edm.type,
+    isShownAt: providerAggregation.edmIsShownAt,
     coreFields: coreFields(proxyData, entities),
     fields: extraFields(proxyData, edm, entities),
     media: aggregationMedia(providerAggregation),
@@ -138,8 +135,8 @@ function aggregationMedia(aggregation) {
   // Gather all isShownBy and hasView URIs
   const mediaUris = [aggregation.edmIsShownBy].concat(aggregation.hasView || []).filter(isNotUndefined);
 
-  // Filter web resources to isShownBy and hasView
-  const media = aggregation.webResources.filter((webResource) => mediaUris.includes(webResource.about));
+  // Filter web resources to isShownBy and hasView, respecting the ordering
+  const media = mediaUris.map((mediaUri) => aggregation.webResources.find((webResource) => mediaUri === webResource.about));
 
   // Sort by isNextInSequence property if present
   return sortByIsNextInSequence(media);
