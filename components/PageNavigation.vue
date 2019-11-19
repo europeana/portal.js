@@ -1,5 +1,8 @@
 <template>
-  <b-navbar-nav class="px-2 ml-xl-auto">
+  <b-navbar-nav
+    class="px-2 ml-xl-auto"
+    data-qa="main navigation"
+  >
     <li
       v-for="(nav, index) in navigation"
       :key="index"
