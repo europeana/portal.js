@@ -97,7 +97,7 @@ function extraFields(proxyData, edm, entities) {
     dctermsPublished: proxyData.dctermsPublished,
     dctermsTemporal: proxyData.dctermsTemporal,
     dcCoverage: proxyData.dcCoverage,
-    dctermsSpacial: proxyData.dctermsSpatial,
+    dctermsSpatial: proxyData.dctermsSpatial,
     edmCurentLocation: proxyData.edmCurrentLocation,
     edmUgc: providerAggregation.edmUgc,
     dctermsProvenance: proxyData.dctermsProvenance,
