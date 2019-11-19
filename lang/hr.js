@@ -16,7 +16,7 @@ export default {
   "fieldLabels": {
     "default": {
       "dcContributor": "Suradnici",
-      "dcCreator": "Stvorio\/la",
+      "dcCreator": "Stvorio/la",
       "dcDescription": "Opis",
       "dcTitle": "Naslov",
       "dcType": "Vrsta objekta",
