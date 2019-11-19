@@ -174,7 +174,7 @@
         fields: null,
         identifier: null,
         isShownAt: null,
-        media: null,
+        media: [],
         relatedEntities: [],
         selectedMediaItem: null,
         title: null,
