@@ -134,8 +134,9 @@ function extraFields(proxyData, edm, entities) {
 }
 
 function aggregationMedia(aggregation, recordType) {
-  // Gather all isShownBy and hasView URIs
-  const mediaUris = [aggregation.edmIsShownBy].concat(aggregation.hasView || []).filter(isNotUndefined);
+  // Gather all isShownBy/At and hasView URIs
+  const edmIsShownByOrAt = aggregation.edmIsShownBy || aggregation.edmIsShownAt;
+  const mediaUris = [edmIsShownByOrAt].concat(aggregation.hasView || []).filter(isNotUndefined);
 
   // Filter web resources to isShownBy and hasView, respecting the ordering
   const media = mediaUris.map((mediaUri) => aggregation.webResources.find((webResource) => mediaUri === webResource.about));
@@ -153,7 +154,7 @@ function webResourceThumbnails(webResource, aggregation, recordType) {
   const type = thumbnailTypeForMimeType(webResource.ebucoreHasMimeType) || recordType;
 
   let uri = webResource.about;
-  if (aggregation.edmObject && (uri === aggregation.edmIsShownBy)) {
+  if (aggregation.edmObject && ([aggregation.edmIsShownBy, aggregation.edmIsShownAt].includes(uri))) {
     uri = aggregation.edmObject;
   }
 
