@@ -4,17 +4,17 @@
     variant="light"
     no-caret
     class="more-facets position-static"
-    :class="{ 'is-active' : selectedOptions.length > 0 }"
+    :class="{ 'is-active' : selectedOptionsCount > 0 }"
     data-qa="more filters dropdown button"
     @hidden="cancelHandler"
   >
     <template v-slot:button-content>
       {{ $t('facets.button.morefilters') }}
       <span
-        v-if="selectedOptions.length > 0"
+        v-if="selectedOptionsCount > 0"
         class="selected-amount"
       >
-        {{ selectedOptions.length }}
+        {{ selectedOptionsCount }}
       </span>
     </template>
     <b-dropdown-group class="more-facets-wrapper">
@@ -23,7 +23,7 @@
         :key="index"
         :fields="facet.fields"
         :name="facet.name"
-        :pre-selected="selected[facet.name]"
+        :selected="selected[facet.name]"
         @selectedOptions="updateSelected"
       />
     </b-dropdown-group>
@@ -33,7 +33,7 @@
     >
       <b-button
         variant="link"
-        :disabled="selectedOptions.length < 1"
+        :disabled="selectedOptionsCount < 1"
         data-qa="reset filter button"
         @click="resetFilters"
       >
@@ -87,12 +87,8 @@
     },
 
     computed: {
-      preSelectedOptions() {
-        return [].concat(...Object.values(this.preSelected));
-      },
-
-      selectedOptions() {
-        return [].concat(...Object.values(this.selected));
+      selectedOptionsCount() {
+        return Object.values(this.selected).length;
       },
 
       disableButton() {
@@ -114,7 +110,7 @@
       updateSelected(facetName, selectedFields) {
         Vue.set(this.preSelected, facetName, selectedFields);
 
-        if (this.selectedOptions.length === 0) {
+        if (this.selectedOptionsCount === 0) {
           this.clearEmpty();
         }
       },
@@ -136,12 +132,6 @@
         this.clearPreSelected();
         this.$emit('changed', this.preSelected);
         this.clearEmpty();
-      },
-
-      clearSaved() {
-        for (let key in this.saved) {
-          Vue.delete(this.saved, key);
-        }
       },
 
       clearEmpty() {
