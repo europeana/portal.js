@@ -65,8 +65,8 @@ function combineMerge(target, source, options) {
  */
 function coreFields(proxyData, entities) {
   return lookupEntities(omitBy({
-    dcContributor: proxyData.dcContributor, // Plus rdaGr2DateOfBirth & rdaGr2DateOfDeath
-    dcCreator: proxyData.dcCreator, // Plus rdaGr2DateOfBirth & rdaGr2DateOfDeath
+    dcContributor: proxyData.dcContributor,
+    dcCreator: proxyData.dcCreator,
     dcPublisher: proxyData.dcPublisher,
     dcSubject: proxyData.dcSubject,
     dcType: proxyData.dcType,
