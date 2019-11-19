@@ -133,6 +133,7 @@
     },
 
     asyncData({ env, query, params, res, redirect, app, store }) {
+      console.log('asyncData');
       const currentPage = pageFromQuery(query.page);
       const entityUri = entities.getEntityUri(params.type, params.pathMatch);
 
@@ -153,7 +154,7 @@
 
       const contentfulClient = createClient(query.mode);
 
-      const requests = [
+      return axios.all([
         entities.getEntity(params.type, params.pathMatch, { wskey: env.EUROPEANA_ENTITY_API_KEY }),
         entities.relatedEntities(params.type, params.pathMatch, {
           wskey: env.EUROPEANA_API_KEY,
@@ -166,21 +167,15 @@
           'include': 2,
           'limit': 1
         })
-      ];
-
-      // URL slug is always derived from English, so if viewing in another locale,
-      // we also need to get the English, solely for the URL slug from `name`.
-      if (app.i18n.locale !== 'en') {
-        requests.push(contentfulClient.getEntries({
-          'locale': 'en-GB',
-          'content_type': 'entityPage',
-          'fields.identifier': entityUri,
-          'include': 2,
-          'limit': 1
-        }));
-      }
-
-      return axios.all(requests)
+        // URL slug is always derived from English, so if viewing in another locale,
+        // we also need to get the English, solely for the URL slug from `name`.
+      ].concat(app.i18n.locale === 'en' ? [] : contentfulClient.getEntries({
+        'locale': 'en-GB',
+        'content_type': 'entityPage',
+        'fields.identifier': entityUri,
+        'include': 2,
+        'limit': 1
+      })))
         .then(axios.spread((entity, related, localisedEntries, defaultLocaleEntries) => {
           const localisedEntityPage = localisedEntries.total > 0 ? localisedEntries.items[0].fields : null;
           const defaultEntityPage = defaultLocaleEntries && defaultLocaleEntries.total > 0 ? defaultLocaleEntries.items[0].fields : null;
@@ -210,6 +205,7 @@
     },
 
     async fetch({ store, query, res }) {
+      console.log('fetch');
       store.commit('search/setActive', true);
 
       const entityUri = store.state.entity.id;
@@ -238,6 +234,7 @@
     },
 
     mounted() {
+      console.log('mounted');
       this.$store.commit('search/setPill', this.title);
     },
 
