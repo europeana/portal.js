@@ -17,7 +17,10 @@
       :url="hero.url"
     />
     <b-container>
-      <header v-if="!hero">
+      <header
+        v-if="!hero"
+        class="row"
+      >
         <div class="col-12 col-lg-9 col">
           <h1>{{ page.name }}</h1>
           <p

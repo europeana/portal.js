@@ -64,7 +64,8 @@
     }
 
     .nav-link {
-      color: $darkgrey;
+      color: $mediumgrey;
+      text-decoration: none;
 
       &.nuxt-link-active {
         font-weight: bold;
