@@ -12,10 +12,10 @@
         {{ $t(`facets.${selectedFacet.facetName}.name`) }}
       </template>
       <template v-else-if="$te(`facets.${selectedFacet.facetName}.options.${selectedFacet.fieldValue}`)">
-        {{ $t('formatting.labelledValue', { label: $t(`facets.${selectedFacet.facetName}.name`), value: $t(`facets.${selectedFacet.facetName}.options.${selectedFacet.fieldValue}`)}) }}
+        {{ $t('formatting.labelledValue', { label: $tc(`facets.${selectedFacet.facetName}.name`, 1), value: $t(`facets.${selectedFacet.facetName}.options.${selectedFacet.fieldValue}`)}) }}
       </template>
       <template v-else>
-        {{ $t('formatting.labelledValue', { label: $t(`facets.${selectedFacet.facetName}.name`), value: selectedFacet.fieldValue}) }}
+        {{ $t('formatting.labelledValue', { label: $tc(`facets.${selectedFacet.facetName}.name`, 1), value: selectedFacet.fieldValue}) }}
       </template>
     </b-badge>
   </div>
