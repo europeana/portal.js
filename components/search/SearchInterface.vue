@@ -139,6 +139,7 @@
   import { defaultFacets } from '../../plugins/europeana/search';
 
   import isEqual from 'lodash/isEqual';
+  import omitBy from 'lodash/omitBy';
   import { mapState } from 'vuex';
 
   export default {
@@ -176,6 +177,11 @@
         type: Boolean,
         default: Boolean(Number(process.env['ENABLE_MORE_FACETS']))
       }
+    },
+    data() {
+      return {
+        coreFacetNames: ['TYPE', 'COUNTRY', 'REUSABILITY']
+      };
     },
     computed: {
       ...mapState({
@@ -241,25 +247,13 @@
         return ordered.concat(unordered);
       },
       coreFacets() {
-        return this.orderedFacets.filter(facet => ['TYPE', 'COUNTRY', 'REUSABILITY'].includes(facet.name));
+        return this.orderedFacets.filter(facet => this.coreFacetNames.includes(facet.name));
       },
       moreFacets() {
-        const coreFacetNames = this.coreFacets.map(facet => facet.name);
-        return this.orderedFacets.filter(facet => !coreFacetNames.includes(facet.name));
+        return this.orderedFacets.filter(facet => !this.coreFacetNames.includes(facet.name));
       },
       moreSelectedFacets() {
-        // Strips out facets which don't belong to the More Facets dropdown
-        const obj = {};
-        this.moreFacets.map(facet => {
-          console.log(facet);
-          for (let key in this.selectedFacets) {
-            if (facet.name === key) {
-              obj[key] = this.selectedFacets[key];
-            }
-          }
-        });
-
-        return obj;
+        return omitBy(this.selectedFacets, (selected, name) => this.coreFacetNames.includes(name));
       },
       showPagination() {
         return this.totalResults > this.perPage;
