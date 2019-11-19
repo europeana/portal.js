@@ -288,7 +288,7 @@
         color: $black;
 
         &.hover {
-          background-color: $lightgrey;
+          background-color: $offwhite;
         }
 
         &:last-child {
@@ -303,6 +303,26 @@
       .loading {
         font-size: 0.75rem;
       }
+    }
+  }
+
+  .input-group {
+    width: 100%;
+
+    .input-group-prepend {
+      align-items: center;
+      background-color: $offwhite;
+      padding-left: 0.75rem;
+      padding-right: 0.1rem;
+      border-radius: 0.375rem 0 0 0.375rem;
+    }
+  }
+
+  .btn {
+    border-radius: 0 $border-radius $border-radius 0;
+
+    img {
+      display: flex;
     }
   }
 </style>

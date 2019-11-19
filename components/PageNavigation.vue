@@ -60,7 +60,8 @@
     }
 
     .nav-link {
-      color: $darkgrey;
+      color: $mediumgrey;
+      text-decoration: none;
       text-transform: uppercase;
 
       &.nuxt-link-active {

@@ -81,7 +81,7 @@
             </div>
           </div>
         </div>
-        <div class="card p-3 mb-3">
+        <div class="card p-3 mb-3 bg-grey">
           <MediaActionBar
             :url="selectedMedia.about"
             :europeana-identifier="identifier"
@@ -100,7 +100,7 @@
             class="mb-3"
           />
         </div>
-        <div class="card p-3">
+        <div class="card p-3 bg-transparent border-0">
           <div class="d-flex justify-content-between align-items-center">
             <h2>{{ $t('record.extendedInformation') }}</h2>
             <b-button
@@ -297,6 +297,10 @@
 
 <style lang="scss" scoped>
   @import "./assets/scss/variables.scss";
+
+  .bg-grey {
+    background-color: rgba(255, 255, 255, 0.5);
+  }
 
   .card-grid {
     display: grid;
