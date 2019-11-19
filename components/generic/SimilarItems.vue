@@ -1,5 +1,5 @@
 <template>
-  <section class="row py-4 px-2 bg-white">
+  <section class="row py-4 px-2 card">
     <b-col>
       <b-card-group
         class="card-deck-4-cols similar-items"
