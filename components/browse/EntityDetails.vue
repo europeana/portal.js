@@ -118,8 +118,14 @@
   }
 
   .btn-link {
+    color: $black;
     display: inline-block;
-    text-transform: uppercase;
     font-size: $font-size-small;
+    text-decoration: underline;
+    text-transform: uppercase;
+
+    &:hover {
+      text-decoration: none;
+    }
   }
 </style>
