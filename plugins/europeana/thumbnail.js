@@ -16,18 +16,24 @@ export default function thumbnailUrl(uri, params = {}) {
 }
 
 export function thumbnailTypeForMimeType(mimeType) {
-  if (typeof mimeType === 'undefined') return null;
-  if (mimeType.startsWith('image/')) {
-    return 'IMAGE';
+  let thumbnailType = null;
+
+  switch (true) {
+    case typeof mimeType === 'undefined':
+      break;
+    case mimeType.startsWith('image/'):
+      thumbnailType = 'IMAGE';
+      break;
+    case mimeType.startsWith('audio/'):
+      thumbnailType = 'SOUND';
+      break;
+    case mimeType.startsWith('video/'):
+      thumbnailType = 'VIDEO';
+      break;
+    case mimeType.startsWith('text/') || ['application/pdf', 'application/rtf'].includes(mimeType):
+      thumbnailType = 'TEXT';
+      break;
   }
-  if (mimeType.startsWith('audio/')) {
-    return 'SOUND';
-  }
-  if (mimeType.startsWith('video/')) {
-    return 'VIDEO';
-  }
-  if (mimeType.startsWith('text/') || ['application/pdf', 'application/rtf'].includes(mimeType)) {
-    return 'TEXT';
-  }
-  return null;
+
+  return thumbnailType;
 }
