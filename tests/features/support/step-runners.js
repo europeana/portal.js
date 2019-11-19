@@ -22,6 +22,7 @@ const pages = {
   '"Hammerflügel" record page': `${url}/en/record/09102/_GNM_693983`,
   'first page of results': `${url}/en/search?query=&page=1`,
   'entity page': `${url}/en/entity/topic/18-newspaper`,
+  '"World War I" entity page': `${url}/en/entity/topic/83-world-war-i`,
   'blog page': `${url}/en/blog`
 };
 
@@ -208,5 +209,9 @@ module.exports = {
   },
   async goBack() {
     await client.back();
+  },
+  async searchFor(query) {
+    await this.enterTextInTarget(query, 'search box');
+    await this.clickOnTheTarget('search button');
   }
 };
