@@ -142,27 +142,31 @@ function aggregationMedia(aggregation, recordType) {
 
   // Inject thumbnail URLs
   for (const webResource of media) {
-    const thumbnailType = thumbnailTypeForMimeType(webResource.ebucoreHasMimeType) || recordType;
-
-    let uri = webResource.about;
-    if (aggregation.edmObject && (uri === aggregation.edmIsShownBy)) {
-      uri = aggregation.edmObject;
-    }
-
-    webResource.thumbnails = {
-      small: thumbnailUrl(uri, {
-        size: 'w200',
-        type: thumbnailType
-      }),
-      large: thumbnailUrl(uri, {
-        size: 'w400',
-        type: thumbnailType
-      })
-    };
+    webResource.thumbnails = webResourceThumbnails(webResource, aggregation, recordType);
   }
 
   // Sort by isNextInSequence property if present
   return sortByIsNextInSequence(media);
+}
+
+function webResourceThumbnails(webResource, aggregation, recordType) {
+  const type = thumbnailTypeForMimeType(webResource.ebucoreHasMimeType) || recordType;
+
+  let uri = webResource.about;
+  if (aggregation.edmObject && (uri === aggregation.edmIsShownBy)) {
+    uri = aggregation.edmObject;
+  }
+
+  return {
+    small: thumbnailUrl(uri, {
+      size: 'w200',
+      type
+    }),
+    large: thumbnailUrl(uri, {
+      size: 'w400',
+      type
+    })
+  };
 }
 
 /**
