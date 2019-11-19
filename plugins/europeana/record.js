@@ -2,7 +2,7 @@ import { apiError } from './utils';
 import axios from 'axios';
 import escapeRegExp from 'lodash/escapeRegExp';
 import omitBy from 'lodash/omitBy';
-import merge from 'deepmerge';
+import merge, { emptyTarget } from 'deepmerge';
 
 /**
  * Parse the record data based on the data from the API response
@@ -14,13 +14,13 @@ function parseRecordDataFromApiResponse(response) {
 
   const providerAggregation = edm.aggregations[0];
   const europeanaAggregation = edm.europeanaAggregation;
-  const entities = [].concat(edm.concepts, edm.places, edm.agents)
+  const entities = [].concat(edm.concepts, edm.places, edm.agents, edm.timespans)
     .filter(isNotUndefined)
     .reduce((memo, entity) => {
       memo[entity.about] = entity;
       return memo;
     }, {});
-  const proxyData = merge.all(edm.proxies);
+  const proxyData = merge.all(edm.proxies, { arrayMerge: combineMerge });
 
   return {
     altTitle: proxyData.dctermsAlternative,
@@ -30,25 +30,108 @@ function parseRecordDataFromApiResponse(response) {
       link: providerAggregation.edmIsShownAt,
       src: europeanaAggregation.edmPreview
     },
-    coreFields: lookupEntities(omitBy({
-      dcContributor: proxyData.dcContributor, // Plus rdaGr2DateOfBirth & rdaGr2DateOfDeath
-      dcCreator: proxyData.dcCreator, // Plus rdaGr2DateOfBirth & rdaGr2DateOfDeath
-      dcPublisher: proxyData.dcPublisher,
-      dcSubject: proxyData.dcSubject,
-      dcType: proxyData.dcType,
-      dcTermsMedium: proxyData.dctermsMedium
-    }, isUndefined), entities),
-    fields: lookupEntities(omitBy({
-      dcTermsCreated: proxyData.dcTermsCreated,
-      edmCountry: europeanaAggregation.edmCountry,
-      edmDataProvider: providerAggregation.edmDataProvider,
-      edmRights: providerAggregation.edmRights
-    }, isUndefined), entities),
+    coreFields: coreFields(proxyData, entities),
+    fields: extraFields(proxyData, edm, entities),
     media: aggregationMedia(providerAggregation),
     agents: edm.agents,
     concepts: edm.concepts,
     title: proxyData.dcTitle
   };
+}
+
+/**
+ * See: https://github.com/TehShrike/deepmerge#arraymerge-example-combine-arrays
+ */
+function combineMerge(target, source, options) {
+  const destination = target.slice();
+
+  source.forEach((item, index) => {
+    if (typeof destination[index] === 'undefined') {
+      destination[index] = options.isMergeableObject(item) ? merge(emptyTarget(item), item, options) : item;
+    } else if (options.isMergeableObject(item)) {
+      destination[index] = merge(target[index], item, options);
+    } else if (target.indexOf(item) === -1) { // Only add values not yet present
+      destination.push(item);
+    }
+  });
+  return destination;
+}
+
+/**
+ * Retrieves the "Core" fields which will always be displayed on record pages.
+ *
+ * @param {Object[]} proxyData All core fields are in the proxyData.
+ * @param {Object[]} entities Entities in order to perform entity lookups
+ * @return {Object[]} Key value pairs of the metadata fields.
+ */
+function coreFields(proxyData, entities) {
+  return lookupEntities(omitBy({
+    dcContributor: proxyData.dcContributor,
+    dcCreator: proxyData.dcCreator,
+    dcPublisher: proxyData.dcPublisher,
+    dcSubject: proxyData.dcSubject,
+    dcType: proxyData.dcType,
+    dctermsMedium: proxyData.dctermsMedium
+  }, isUndefined), entities);
+}
+
+/**
+ * Retrieves all additional fields which will be displayed on record pages in the collapsable section.
+ *
+ * @param {Object[]} proxyData To take the fields from.
+ * @param {Object[]} edm To take additional fields from.
+ * @param {Object[]} entities Entities in order to perform entity lookups
+ * @return {Object[]} Key value pairs of the metadata fields.
+ */
+function extraFields(proxyData, edm, entities) {
+  const providerAggregation = edm.aggregations[0];
+  const europeanaAggregation = edm.europeanaAggregation;
+  return lookupEntities(omitBy({
+    dctermsCreated: proxyData.dctermsCreated,
+    edmCountry: europeanaAggregation.edmCountry,
+    edmDataProvider: providerAggregation.edmDataProvider,
+    edmRights: providerAggregation.edmRights,
+    dcRights: proxyData.dcRights,
+    dcDate: proxyData.dcDate,
+    dctermsIssued: proxyData.dctermsIssued,
+    dctermsPublished: proxyData.dctermsPublished,
+    dctermsTemporal: proxyData.dctermsTemporal,
+    dcCoverage: proxyData.dcCoverage,
+    dctermsSpacial: proxyData.dctermsSpatial,
+    edmCurentLocation: proxyData.edmCurrentLocation,
+    edmUgc: providerAggregation.edmUgc,
+    dctermsProvenance: proxyData.dctermsProvenance,
+    dcSource: proxyData.dcSource,
+    dcPublisher: proxyData.dcPublisher,
+    dcIdentifier: proxyData.dcIdentifier,
+    edmIntermediateProvider: providerAggregation.edmIntermediateProvider,
+    edmProvider: providerAggregation.edmProvider,
+    timestampCreated: edm.timestamp_created,
+    timestampUpdated: edm.timestamp_updated,
+    dctermsExtent: proxyData.dctermsExtent,
+    dcDuration: proxyData.dcDuration,
+    dcMedium: proxyData.dcMedium,
+    dcFormat: proxyData.dcFormat,
+    dcLanguage: proxyData.dcLanguage,
+    dctermsIsPartOf: proxyData.dctermsIsPartOf,
+    europeanaCollectionName: edm.europeanaCollectionName,
+    dcRelation: proxyData.dcRelation,
+    dctermsReferences: proxyData.dctermsReferences,
+    dctermsHasPart: proxyData.dctermsHasPart,
+    dctermsHasVersion: proxyData.dctermsHasVersion,
+    dctermsIsFormatOf: proxyData.dctermsIsFormatOf,
+    dctermsIsReferencedBy: proxyData.dctermsIsReferencedBy,
+    dctermsIsReplacedBy: proxyData.dctermsIsReplacedBy,
+    dctermsIsRequiredBy: proxyData.dctermsIsRequiredBy,
+    edmHasMet: proxyData.edmHasMet,
+    edmIncorporates: proxyData.edmIncorporates,
+    edmIsDerivativeOf: proxyData.edmIsDerivativeOf,
+    edmIsRepresentationOf: proxyData.edmIsRepresentationOf,
+    edmIsSimilarTo: proxyData.edmIsSimilarTo,
+    edmIsSuccessorOf: proxyData.edmIsSuccessorOf,
+    edmRealizes: proxyData.edmRealizes,
+    wasPresentAt: proxyData.wasPresentAt
+  }, isUndefined), entities);
 }
 
 function aggregationMedia(aggregation) {
