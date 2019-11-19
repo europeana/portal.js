@@ -6,7 +6,7 @@
     <b-button
       v-if="url"
       :href="url | proxyMedia(europeanaIdentifier)"
-      variant="outline-primary primary text-decoration-none"
+      variant="outline-primary text-decoration-none"
       data-qa="download button"
       size="lg"
       class="mr-3"
