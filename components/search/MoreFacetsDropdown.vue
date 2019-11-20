@@ -131,7 +131,7 @@
       },
 
       clearPreSelected() {
-        for (const facetName of this.moreFacetNames) {
+        for (const facetName in this.preSelected) {
           this.preSelected[facetName] = [];
         }
       }
