@@ -163,13 +163,33 @@ function normalizeEntityId(id) {
 
 /**
  * Retrieves the path for the entity, based on id and title
+ *
+ * If `entityPage.name` is present, that will be used in the slug. Otherwise
+ * `prefLabel.en` if present.
+ *
  * @param {Object} entity an entity object as retrieved from the entity API
  * @param {string} title the title of the entity
+ * @param {Object} entityPage Contentful entry for the entity page, with all locales
  * @return {string} path
+ * @example Slug based on `entityPage.name`
+ *    const slug = getEntitySlug({
+ *      id: 'http://data.europeana.eu/concept/base/48',
+ *      prefLabel: { en: 'Photograph' }
+ *    }, {
+ *      name: 'Photography'
+ *    });
+ *    console.log(slug); // expected output: '48-photography'
+ * @example Slug based on `entity.prefLabel.en`
+ *    const slug = getEntitySlug({
+ *      id: 'http://data.europeana.eu/agent/base/59832',
+ *      prefLabel: { en: 'Vincent van Gogh' }
+ *    });
+ *    console.log(slug); // expected output: '59832-vincent-van-gogh'
  */
-export function getEntitySlug(entity) {
+export function getEntitySlug(entity, entityPage) {
+  const name = (entityPage && entityPage.name) ? entityPage.name['en-GB'] : entity.prefLabel.en;
   const entityId = entity.id.toString().split('/').pop();
-  const path = entityId + (entity.prefLabel.en ? '-' + entity.prefLabel.en.toLowerCase().replace(/ /g, '-') : '');
+  const path = entityId + (name ? '-' + name.toLowerCase().replace(/ /g, '-') : '');
   return path;
 }
 
@@ -251,7 +271,7 @@ export function searchEntities(entityUris, params) {
 }
 
 /**
- * Format the the entity data
+ * Format the the entity data for a related entity
  * @param {Object} entities the data returned from the Entity API
  * @return {Object} entity links and titles
  */
@@ -277,8 +297,10 @@ function getRelatedEntityTitleLink(entities) {
  * If type is person, use biographicalInformation
  * @param {Object} entity data
  * @return {String} description when available in English
+ * TODO: l10n
  */
 export function getEntityDescription(entity) {
+  if (!entity) return null;
   let description;
   if (entity.type === 'Concept' && entity.note) {
     description = entity.note.en ? entity.note.en[0] : '';
@@ -306,7 +328,7 @@ export function getEntityDescription(entity) {
  */
 export function isEntityUri(uri, types) {
   types = types ? types : ['concept', 'agent', 'place'];
-  return RegExp(`^http://data\\.europeana\\.eu/${types.join('|')}/base/\\d+$`).test(uri);
+  return RegExp(`^http://data\\.europeana\\.eu/(${types.join('|')})/base/\\d+$`).test(uri);
 }
 
 /**

@@ -17,7 +17,7 @@
         <div class="card p-3 mb-3">
           <div
             class="card-grid"
-            :class="isRichMedia && 'card-grid-richmedia'"
+            :class="cardGridClass"
           >
             <header
               v-if="titlesInCurrentLanguage"
@@ -45,13 +45,19 @@
             </header>
             <MediaPresentation
               :codec-name="selectedMedia.edmCodecName"
-              :image-link="image.link"
-              :image-src="image.src"
+              :image-link="selectedMediaImage.link"
+              :image-src="selectedMediaImage.src"
               :mime-type="selectedMedia.ebucoreHasMimeType"
               :url="selectedMedia.about"
               :width="selectedMedia.ebucoreWidth"
               :height="selectedMedia.ebucoreHeight"
               class="mb-3"
+            />
+            <MediaThumbnailGrid
+              v-if="displayMediaThumbnailGrid"
+              :media="media"
+              :selected="selectedMedia.about"
+              @select="selectMedia"
             />
             <div
               v-if="descriptionInCurrentLanguage"
@@ -74,7 +80,7 @@
             </div>
           </div>
         </div>
-        <div class="card p-3 mb-3">
+        <div class="card p-3 mb-3 bg-grey">
           <MediaActionBar
             :url="selectedMedia.about"
             :europeana-identifier="identifier"
@@ -93,7 +99,7 @@
             class="mb-3"
           />
         </div>
-        <div class="card p-3 mb-3">
+        <div class="card p-3 mb-3 bg-transparent border-0">
           <div class="d-flex justify-content-between align-items-center">
             <h2>{{ $t('record.extendedInformation') }}</h2>
             <b-button
@@ -119,6 +125,7 @@
         <SimilarItems
           v-if="similarItems"
           :items="similarItems"
+          class="mb-3"
         />
       </b-col>
       <b-col
@@ -136,17 +143,18 @@
 </template>
 
 <script>
+  import AlertMessage from '../../components/generic/AlertMessage';
   import EntityCards from '../../components/entity/EntityCards';
   import MediaActionBar from '../../components/record/MediaActionBar';
-  import AlertMessage from '../../components/generic/AlertMessage';
-  import MetadataField from '../../components/record/MetadataField';
   import SimilarItems from '../../components/record/SimilarItems';
   import MediaPresentation from '../../components/record/MediaPresentation';
+  import MediaThumbnailGrid from '../../components/record/MediaThumbnailGrid';
+  import MetadataField from '../../components/record/MetadataField';
 
   import getRecord, { similarItemsQuery } from '../../plugins/europeana/record';
   import search from '../../plugins/europeana/search';
+  import { isRichMedia } from '../../plugins/media';
   import { langMapValueForLocale } from  '../../plugins/europeana/utils';
-  import { isRichMedia } from '../../plugins/media.js';
   import { searchEntities } from '../../plugins/europeana/entity';
 
   export default {
@@ -154,27 +162,33 @@
       AlertMessage,
       EntityCards,
       MediaActionBar,
-      MetadataField,
       SimilarItems,
-      MediaPresentation
+      MediaPresentation,
+      MediaThumbnailGrid,
+      MetadataField
     },
+
     data() {
       return {
         agents: null,
         altTitle: null,
+        cardGridClass: null,
         concepts: null,
         description: null,
         error: null,
         coreFields: null,
         fields: null,
         identifier: null,
-        image: null,
-        media: null,
+        isShownAt: null,
+        media: [],
         relatedEntities: [],
         similarItems: [],
-        title: null
+        selectedMediaItem: null,
+        title: null,
+        type: null
       };
     },
+
     computed: {
       europeanaAgents() {
         return (this.agents || []).filter((agent) => agent.about.startsWith('http://data.europeana.eu/agent/'));
@@ -210,17 +224,32 @@
       isRichMedia() {
         return isRichMedia(this.selectedMedia.ebucoreHasMimeType, this.selectedMedia.edmCodecName, this.selectedMedia.about);
       },
+      selectedMedia: {
+        get() {
+          return this.selectedMediaItem || this.media[0] || {};
+        },
+        set(about) {
+          this.selectedMediaItem = this.media.find((item) => item.about === about) || {};
+        }
+      },
+      selectedMediaImage() {
+        return {
+          src: this.selectedMedia.thumbnails.large,
+          link: this.isShownAt
+        };
+      },
+      displayMediaThumbnailGrid() {
+        return Boolean(Number(process.env.ENABLE_RECORD_MEDIA_THUMBNAIL_GRID)) && (this.media.length > 1);
+      },
       edmRights() {
         return this.selectedMedia.webResourceEdmRights ? this.selectedMedia.webResourceEdmRights : this.fields.edmRights;
       },
       rightsStatement() {
         if (this.edmRights) return langMapValueForLocale(this.edmRights, this.$i18n.locale).values[0];
         return false;
-      },
-      selectedMedia() {
-        return this.media[0] || {};
       }
     },
+
     asyncData({ env, params, res, app, redirect }) {
       if (env.RECORD_PAGE_REDIRECT_PATH) {
         return redirect(app.localePath({ path: env.RECORD_PAGE_REDIRECT_PATH }));
@@ -239,7 +268,9 @@
           return { error: error.message };
         });
     },
+
     async mounted() {
+      this.cardGridClass = this.isRichMedia && 'card-grid-richmedia';
       this.relatedEntities = await searchEntities(this.europeanaEntityUris, { wskey: process.env.EUROPEANA_ENTITY_API_KEY });
 
       const similar = await this.getSimilarItems();
@@ -252,6 +283,10 @@
       }
     },
     methods: {
+      selectMedia(about) {
+        this.selectedMedia = about;
+      },
+
       toggleExtendedMetadataPreference() {
         if (process.browser) {
           localStorage.itemShowExtendedMetadata = localStorage.itemShowExtendedMetadata ? !JSON.parse(localStorage.itemShowExtendedMetadata) : true;
@@ -284,6 +319,7 @@
         return data.filter(item => typeof item === 'string');
       }
     },
+
     head() {
       return {
         title: this.titlesInCurrentLanguage[0] ? this.titlesInCurrentLanguage[0].value : this.$t('record.record')
@@ -294,6 +330,10 @@
 
 <style lang="scss" scoped>
   @import "./assets/scss/variables.scss";
+
+  .bg-grey {
+    background-color: rgba(255, 255, 255, 0.5);
+  }
 
   .card-grid {
     display: grid;

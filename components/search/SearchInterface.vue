@@ -339,13 +339,12 @@
 
 <style lang="scss" scoped>
   @import "./assets/scss/variables.scss";
-  @import "./assets/scss/icons.scss";
 
   .reset {
     background: none;
     border: none;
-    color: $blue;
+    color: $black;
+    font-size: $font-size-small;
     text-transform: uppercase;
-    font-weight: bold;
   }
 </style>

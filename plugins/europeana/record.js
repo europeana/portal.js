@@ -4,6 +4,8 @@ import escapeRegExp from 'lodash/escapeRegExp';
 import omitBy from 'lodash/omitBy';
 import merge, { emptyTarget } from 'deepmerge';
 
+import thumbnailUrl, { thumbnailTypeForMimeType } from  '../../plugins/europeana/thumbnail';
+
 /**
  * Parse the record data based on the data from the API response
  * @param {Object} response data from API response
@@ -13,7 +15,6 @@ function parseRecordDataFromApiResponse(response) {
   const edm = response.data.object;
 
   const providerAggregation = edm.aggregations[0];
-  const europeanaAggregation = edm.europeanaAggregation;
   const entities = [].concat(edm.concepts, edm.places, edm.agents, edm.timespans)
     .filter(isNotUndefined)
     .reduce((memo, entity) => {
@@ -26,13 +27,11 @@ function parseRecordDataFromApiResponse(response) {
     altTitle: proxyData.dctermsAlternative,
     description: proxyData.dcDescription,
     identifier: edm.about,
-    image: {
-      link: providerAggregation.edmIsShownAt,
-      src: europeanaAggregation.edmPreview
-    },
+    type: edm.type,
+    isShownAt: providerAggregation.edmIsShownAt,
     coreFields: coreFields(proxyData, entities),
     fields: extraFields(proxyData, edm, entities),
-    media: aggregationMedia(providerAggregation),
+    media: aggregationMedia(providerAggregation, edm.type),
     agents: edm.agents,
     concepts: edm.concepts,
     title: proxyData.dcTitle
@@ -97,8 +96,8 @@ function extraFields(proxyData, edm, entities) {
     dctermsPublished: proxyData.dctermsPublished,
     dctermsTemporal: proxyData.dctermsTemporal,
     dcCoverage: proxyData.dcCoverage,
-    dctermsSpacial: proxyData.dctermsSpatial,
-    edmCurrentLocation: proxyData.edmCurrentLocation,
+    dctermsSpatial: proxyData.dctermsSpatial,
+    edmCurentLocation: proxyData.edmCurrentLocation,
     edmUgc: providerAggregation.edmUgc,
     dctermsProvenance: proxyData.dctermsProvenance,
     dcSource: proxyData.dcSource,
@@ -134,15 +133,41 @@ function extraFields(proxyData, edm, entities) {
   }, isUndefined), entities);
 }
 
-function aggregationMedia(aggregation) {
-  // Gather all isShownBy and hasView URIs
-  const mediaUris = [aggregation.edmIsShownBy].concat(aggregation.hasView || []).filter(isNotUndefined);
+function aggregationMedia(aggregation, recordType) {
+  // Gather all isShownBy/At and hasView URIs
+  const edmIsShownByOrAt = aggregation.edmIsShownBy || aggregation.edmIsShownAt;
+  const mediaUris = [edmIsShownByOrAt].concat(aggregation.hasView || []).filter(isNotUndefined);
 
-  // Filter web resources to isShownBy and hasView
-  const media = aggregation.webResources.filter((webResource) => mediaUris.includes(webResource.about));
+  // Filter web resources to isShownBy and hasView, respecting the ordering
+  const media = mediaUris.map((mediaUri) => aggregation.webResources.find((webResource) => mediaUri === webResource.about));
+
+  // Inject thumbnail URLs
+  for (const webResource of media) {
+    webResource.thumbnails = webResourceThumbnails(webResource, aggregation, recordType);
+  }
 
   // Sort by isNextInSequence property if present
   return sortByIsNextInSequence(media);
+}
+
+function webResourceThumbnails(webResource, aggregation, recordType) {
+  const type = thumbnailTypeForMimeType(webResource.ebucoreHasMimeType) || recordType;
+
+  let uri = webResource.about;
+  if (aggregation.edmObject && ([aggregation.edmIsShownBy, aggregation.edmIsShownAt].includes(uri))) {
+    uri = aggregation.edmObject;
+  }
+
+  return {
+    small: thumbnailUrl(uri, {
+      size: 'w200',
+      type
+    }),
+    large: thumbnailUrl(uri, {
+      size: 'w400',
+      type
+    })
+  };
 }
 
 /**

@@ -2,13 +2,25 @@ import createClient from '../plugins/contentful';
 const contentfulClient = createClient();
 
 export const state = () => ({
+  entity: null,
   id: null,
+  page: null,
+  relatedEntities: null,
   themes: {}
 });
 
 export const mutations = {
+  setEntity(state, value) {
+    state.entity = value;
+  },
   setId(state, value) {
     state.id = value;
+  },
+  setPage(state, value) {
+    state.page = value;
+  },
+  setRelatedEntities(state, value) {
+    state.relatedEntities = value;
   },
   setThemes(state, value) {
     state.themes = value;

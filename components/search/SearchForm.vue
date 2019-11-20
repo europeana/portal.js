@@ -218,7 +218,7 @@
 
     .input-group-prepend {
       align-items: center;
-      background-color: $lightgrey;
+      background-color: $offwhite;
       padding-left: .75rem;
       padding-right: .1rem;
       border-radius: 0.375rem 0 0 0.375rem;
@@ -226,7 +226,7 @@
   }
 
   .form-control {
-    background-color: $lightgrey;
+    background-color: $offwhite;
     border-radius: $border-radius 0 0 $border-radius;
     margin-right: 0;
   }

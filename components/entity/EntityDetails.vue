@@ -3,7 +3,7 @@
     <b-col
       v-if="depictionThumbnail && attribution"
       cols="12"
-      sm="4"
+      sm="3"
     >
       <b-link
         :href="attribution"
@@ -34,6 +34,7 @@
         <b-link
           v-if="description.length > limitCharacters"
           data-qa="entity show link"
+          class="mt-3 btn-link"
           @click="toggleMoreDescription"
         >
           {{ showAll ? $t('showLess') : $t('showMore') }}
@@ -72,10 +73,7 @@
     },
     computed: {
       truncatedDescription() {
-        if (!this.description) {
-          return;
-        }
-        return this.description.length > this.limitCharacters ? this.description.slice(0, this.limitCharacters) + '...' : this.description;
+        return this.$options.filters.truncate(this.description, 255, this.$t('formatting.ellipsis'));
       }
     },
     methods: {
@@ -114,5 +112,17 @@
 
   .attribution {
     font-size: $font-size-extrasmall;
+  }
+
+  .btn-link {
+    color: $black;
+    display: inline-block;
+    font-size: $font-size-small;
+    text-decoration: underline;
+    text-transform: uppercase;
+
+    &:hover {
+      text-decoration: none;
+    }
   }
 </style>

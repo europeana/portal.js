@@ -32,7 +32,7 @@
   @import "./assets/scss/variables.scss";
 
   .badge-nocolor {
-    border: 1px solid $darkgrey;
+    border: 1px solid $mediumgrey;
     color: $black;
     font-size: $font-size-small;
     height: 4rem;
