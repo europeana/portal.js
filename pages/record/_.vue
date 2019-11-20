@@ -57,7 +57,6 @@
               v-if="displayMediaThumbnailGrid"
               :media="media"
               :selected="selectedMedia.about"
-              :default-thumbnail-type="type"
               @select="selectMedia"
             />
             <div
@@ -147,7 +146,6 @@
   import MetadataField from '../../components/record/MetadataField';
 
   import getRecord from '../../plugins/europeana/record';
-  import thumbnailUrl, { thumbnailTypeForMimeType } from  '../../plugins/europeana/thumbnail';
   import { isRichMedia } from '../../plugins/media';
   import { langMapValueForLocale } from  '../../plugins/europeana/utils';
   import { searchEntities } from '../../plugins/europeana/entity';
@@ -227,10 +225,7 @@
       },
       selectedMediaImage() {
         return {
-          src: thumbnailUrl(this.selectedMedia.about, {
-            size: 'w400',
-            type: thumbnailTypeForMimeType(this.selectedMedia.ebucoreHasMimeType) || this.type
-          }),
+          src: this.selectedMedia.thumbnails.large,
           link: this.isShownAt
         };
       },

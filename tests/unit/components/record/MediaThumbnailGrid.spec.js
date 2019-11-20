@@ -1,7 +1,6 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 
-import thumbnailUrl from  '../../../../plugins/europeana/thumbnail';
 import MediaThumbnailGrid from '../../../../components/record/MediaThumbnailGrid.vue';
 
 const localVue = createLocalVue();
@@ -10,45 +9,47 @@ localVue.use(BootstrapVue);
 const factory = (propsData) => mount(MediaThumbnailGrid, { localVue, propsData });
 
 const media = [
-  { about: 'http://www.mimo-db.eu/media/GNM/IMAGE/MIR1097_1279787057222_2.jpg' },
-  { about: 'http://www.mimo-db.eu/media/GNM/IMAGE/MIR1097_1289919650555_2.jpg' },
-  { about: 'http://www.mimo-db.eu/media/GNM/IMAGE/MIR1097_1279787078144_2.jpg' }
+  {
+    about: 'http://www.mimo-db.eu/media/GNM/IMAGE/MIR1097_1279787057222_2.jpg',
+    thumbnails: {
+      small: 'http://www.mimo-db.eu/media/GNM/IMAGE/MIR1097_1279787057222_2/small.jpg',
+      large: 'http://www.mimo-db.eu/media/GNM/IMAGE/MIR1097_1279787057222_2/large.jpg'
+    }
+  },
+  {
+    about: 'http://www.mimo-db.eu/media/GNM/IMAGE/MIR1097_1289919650555_2.jpg',
+    thumbnails: {
+      small: 'http://www.mimo-db.eu/media/GNM/IMAGE/MIR1097_1289919650555_2/small.jpg',
+      large: 'http://www.mimo-db.eu/media/GNM/IMAGE/MIR1097_1289919650555_2/large.jpg'
+    }
+  },
+  {
+    about: 'http://www.mimo-db.eu/media/GNM/IMAGE/MIR1097_1279787078144_2.jpg',
+    thumbnails: {
+      small: 'http://www.mimo-db.eu/media/GNM/IMAGE/MIR1097_1279787078144_2/small.jpg',
+      large: 'http://www.mimo-db.eu/media/GNM/IMAGE/MIR1097_1279787078144_2/large.jpg'
+    }
+  }
 ];
 const selected = 'http://www.mimo-db.eu/media/GNM/IMAGE/MIR1097_1279787057222_2.jpg';
 const nonSelected = 'http://www.mimo-db.eu/media/GNM/IMAGE/MIR1097_1289919650555_2.jpg';
 const defaultThumbnailType = 'TEXT';
 
 describe('components/record/MediaThumbnailGrid', () => {
-  it('shows a thumbnail for each media item', () => {
+  it('shows a thumbnail for each media item, small by default', () => {
     const wrapper = factory({ media, selected, defaultThumbnailType });
 
     for (const item of media) {
-      const src = thumbnailUrl(item.about, { size: 'w200', type: defaultThumbnailType });
+      const src = item.thumbnails.small;
       wrapper.find(`img[data-about="${item.about}"][src="${src}"]`).isVisible().should.be.true;
     }
   });
 
-  context('when media has explicit MIME type', () => {
-    const media = [{
-      about: 'http://www.mimo-db.eu/media/GNM/IMAGE/MIR1097_1279787057222_2.jpg',
-      ebucoreHasMimeType: 'image/jpeg'
-    }];
-
-    it('is used to derive thumbnail type instead of default', () => {
-      const wrapper = factory({ media, selected, defaultThumbnailType });
-
-      const item = media[0];
-      const src = thumbnailUrl(item.about, { size: 'w200', type: 'IMAGE' });
-
-      wrapper.find(`img[data-about="${item.about}"][src="${src}"]`).isVisible().should.be.true;
-    });
-  });
-
   it('permits specification of size', () => {
-    const wrapper = factory({ media, selected, defaultThumbnailType, size: 'w400' });
+    const wrapper = factory({ media, selected, defaultThumbnailType, size: 'large' });
 
     for (const item of media) {
-      const src = thumbnailUrl(item.about, { size: 'w400', type: defaultThumbnailType });
+      const src = item.thumbnails.large;
       wrapper.find(`img[src="${src}"]`).isVisible().should.be.true;
     }
   });
