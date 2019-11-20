@@ -102,6 +102,12 @@ module.exports = {
       await client.expect(result.value).to.have.lengthOf(count);
     });
   },
+  countTargetByNameAttribute: async(count, inputName) => {
+    const inputSelector = `input[name="${inputName}"]`;
+    await client.elements('css selector', inputSelector, async(result) => {
+      await client.expect(result.value).to.have.lengthOf(count);
+    });
+  },
   pressKey: async(key) => {
     if (key.length > 1) {
       key = client.Keys[key];
