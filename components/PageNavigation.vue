@@ -1,6 +1,6 @@
 <template>
   <b-navbar-nav
-    class="px-2 ml-xl-auto"
+    class="ml-xl-auto"
     data-qa="main navigation"
   >
     <li
@@ -57,6 +57,12 @@
   .nav-item {
     &:not(:last-child) {
       margin-right: 1rem;
+    }
+
+    &:last-child {
+      .nav-link {
+        padding-right: 0;
+      }
     }
 
     .nav-link {
