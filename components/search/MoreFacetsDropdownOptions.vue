@@ -8,6 +8,7 @@
     <b-form-checkbox-group
       v-model="selectedOptions"
       class="option-group"
+      :name="$tc(`facets.${name}.name`, 1)"
       plain
       @change="selectedHandler"
     >
@@ -15,8 +16,7 @@
         v-for="(filter, index) in fields.slice(0, limitTo)"
         :key="index"
         :value="filter.label"
-        :name="filter.label"
-        :data-qa="`${$tc(`facets.${name}.name`, 1)} ${$t(filter.label)} checkbox`"
+        :data-qa="`${filter.label} checkbox`"
         class="mb-3"
       >
         {{ filter.label }}
@@ -33,8 +33,7 @@
           v-for="(filter, index) in fields.slice(limitTo)"
           :key="index"
           :value="filter.label"
-          :name="filter.label"
-          :data-qa="`${$tc(`facets.${name}.name`, 1)} ${$t(filter.label)} checkbox`"
+          :data-qa="`${filter.label} checkbox`"
           class="mb-3"
         >
           {{ filter.label }}

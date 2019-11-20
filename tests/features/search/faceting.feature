@@ -141,18 +141,35 @@ Feature: Search faceting
     Then I am on page number 1
   
   Scenario: Toggle show all options in More Filters facet
-     When I visit the `search page`
-     And I click the `more filters dropdown button`
-     And I should see 9 `Language checkbox`
-     And I click the `Show all Language button`
-     Then I should see 37 `Language checkbox`
-     And I click the `Show less Language button`
-     And I should see 9 `Language checkbox`
+    When I visit the `search page`
+    And I click the `more filters dropdown button`
+    And I should see 9 `Language` checkboxes
+    And I click the `Show all Language button`
+    Then I should see 37 `Language` checkboxes
+    And I click the `Show less Language button`
+    And I should see 9 `Language` checkboxes
   
   Scenario: Filtering results using the more facets dropdown
     When I visit the `search page`
     And I click the `more filters dropdown button`
-    And I check the "Language en" checkbox
+    And I check the "en" "Language" checkbox
+    And I check the "sv" "Language" checkbox
+    And I click the `apply button`
+    And I wait 2 seconds
+    Then I should be on `/en/search?page=1&qf=LANGUAGE%3A%22en%22&qf=LANGUAGE%3A%22sv%22&query=&view=grid`
+  
+  Scenario: Clicking reset button in more facets
+    When I visit the `search page`
+    And I click the `more filters dropdown button`
+    And I check the "en" "Language" checkbox
+    And I check the "sv" "Language" checkbox
+    And I click the `apply button`
+    And I wait 2 seconds
+    And I click the `more filters dropdown button`
+    And I click the `reset filter button`
+    And I click the `apply button`
+    And I wait 2 seconds
+    Then I should be on `/en/search?page=1&query=&view=grid`
 
   Scenario: Clear filters using using `clear all filter` button
     When I visit the `search page`
