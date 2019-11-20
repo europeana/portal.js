@@ -59,12 +59,6 @@
       margin-right: 1rem;
     }
 
-    &:last-child {
-      .nav-link {
-        padding-right: 0;
-      }
-    }
-
     .nav-link {
       color: $mediumgrey;
       text-decoration: none;
@@ -77,6 +71,12 @@
       &.is-external-link:after {
         @extend .icon-font;
         content: '\e900';
+      }
+    }
+
+    &:last-child {
+      .nav-link {
+        padding-right: 0;
       }
     }
   }
