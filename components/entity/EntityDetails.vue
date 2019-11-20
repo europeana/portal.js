@@ -5,11 +5,10 @@
       cols="12"
       sm="3"
     >
-      <b-link
-        :href="attribution"
-        :title="$t('entityDepictionCredit')"
-        class="depiction mb-3 d-block overflow-hidden rounded-circle position-relative"
-        target="_blank"
+      <SmartLink
+        :destination="depictionAttribution"
+        :title="depictionLinkTitle"
+        link-class="depiction mb-3 d-block overflow-hidden rounded-circle position-relative"
         data-qa="entity attribution"
       >
         <b-img
@@ -19,7 +18,7 @@
           data-qa="entity depiction"
           @error="depictionNotFound"
         />
-      </b-link>
+      </SmartLink>
     </b-col>
     <b-col>
       <h1 data-qa="entity title">
@@ -45,7 +44,13 @@
 </template>
 
 <script>
+  import SmartLink from '../../components/generic/SmartLink';
+
   export default {
+    components: {
+      SmartLink
+    },
+
     props: {
       title: {
         type: String,
@@ -62,10 +67,15 @@
       description: {
         type: String,
         default: ''
+      },
+      depictionLinkTitle: {
+        type: String,
+        default: null
       }
     },
     data() {
       return {
+        depictionAttribution: this.attribution,
         depictionThumbnail: this.depiction,
         limitCharacters: 200,
         showAll: false
@@ -81,7 +91,7 @@
         // clear depictionThumbnail and attribution to prevent showing a broken image and
         // contextless link
         this.depictionThumbnail = '';
-        this.attribution = '';
+        this.depictionAttribution = '';
       },
       toggleMoreDescription() {
         this.showAll = !this.showAll;
