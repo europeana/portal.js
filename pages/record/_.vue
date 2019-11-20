@@ -305,6 +305,9 @@
       },
 
       getSimilarItems() {
+        const noSimilarItems = { results: [] };
+        if (this.error) return noSimilarItems;
+
         const dataSimilarItems = {
           dcSubject: this.getSimilarItemsData(this.coreFields.dcSubject),
           dcType: this.getSimilarItemsData(this.title),
@@ -320,7 +323,7 @@
           wskey: process.env.EUROPEANA_API_KEY
         })
           .catch(() => {
-            return { results: [] };
+            return noSimilarItems;
           });
       },
 
