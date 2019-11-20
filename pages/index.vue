@@ -8,8 +8,6 @@
       :image-content-type="heroImage.contentType"
       :header="page.name"
       :lead="page.headline"
-      :identifier="hero.identifier"
-      :citation="hero.citation"
       :rights-statement="hero.license"
       :name="hero.name"
       :provider="hero.provider"
