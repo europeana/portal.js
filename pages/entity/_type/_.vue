@@ -117,9 +117,15 @@
       },
       // Depiction from the Contentful entry
       editorialDepiction() {
-        if (!this.page || !this.page.primaryImageOfPage) return null;
-        const image = this.page.primaryImageOfPage['en-GB'].fields.image['en-GB'].fields.file['en-GB'];
-        return this.$options.filters.optimisedImageUrl(image.url, image.contentType, { width: 255 });
+        try {
+          const image = this.page.primaryImageOfPage['en-GB'].fields.image['en-GB'].fields.file['en-GB'];
+          return this.$options.filters.optimisedImageUrl(image.url, image.contentType, { width: 255 });
+        } catch (error) {
+          if (error instanceof TypeError) {
+            return null;
+          }
+          throw error;
+        }
       },
       // Description from the Contentful entry
       editorialDescription() {
