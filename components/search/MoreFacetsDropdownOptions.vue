@@ -16,7 +16,7 @@
         :key="index"
         :value="filter.label"
         :name="filter.label"
-        :data-qa="`${$tc(`facets.${name}.name`, 1)} checkbox`"
+        :data-qa="`${$tc(`facets.${name}.name`, 1)} ${$t(filter.label)} checkbox`"
         class="mb-3"
       >
         {{ filter.label }}
@@ -34,7 +34,7 @@
           :key="index"
           :value="filter.label"
           :name="filter.label"
-          :data-qa="`${$tc(`facets.${name}.name`, 1)} checkbox`"
+          :data-qa="`${$tc(`facets.${name}.name`, 1)} ${$t(filter.label)} checkbox`"
           class="mb-3"
         >
           {{ filter.label }}
