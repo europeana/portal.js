@@ -1,21 +1,21 @@
 <template>
-  <section>
-    <h3>{{ $t('similarItems') }}</h3>
-    <div class="p-3 pb-5 card">
-      <b-card-group
-        class="card-deck-4-cols similar-items"
-        deck
-      >
-        <ContentCard
-          v-for="(item, index) in items"
-          :key="index"
-          :title="item.fields.dcTitle[0]"
-          :image-url="item.edmPreview"
-          :url="{ name: 'record-all', params: { pathMatch: item.europeanaId } }"
-        />
-      </b-card-group>
-    </div>
-  </section>
+  <div
+    class="p-3 pb-5 card"
+    data-qa="similar items"
+  >
+    <b-card-group
+      class="card-deck-4-cols similar-items"
+      deck
+    >
+      <ContentCard
+        v-for="(item, index) in items"
+        :key="index"
+        :title="item.fields.dcTitle[0]"
+        :image-url="item.edmPreview"
+        :url="{ name: 'record-all', params: { pathMatch: item.europeanaId.slice(1) } }"
+      />
+    </b-card-group>
+  </div>
 </template>
 
 <script>
