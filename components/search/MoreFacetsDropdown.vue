@@ -23,7 +23,7 @@
         :key="index"
         :fields="facet.fields"
         :name="facet.name"
-        :selected="selected[facet.name]"
+        :selected="preSelected[facet.name]"
         @selectedOptions="updateSelected"
       />
     </b-dropdown-group>
@@ -74,6 +74,7 @@
         type: Array,
         default: () => []
       },
+
       selected: {
         type: Object,
         default: () => {}
@@ -82,7 +83,7 @@
 
     data() {
       return {
-        preSelected: {}
+        preSelected: this.cloneSelected()
       };
     },
 
@@ -93,58 +94,45 @@
 
       disableButton() {
         return isEqual(this.preSelected, this.selected);
+      },
+
+      moreFacetNames() {
+        return this.moreFacets.map((facet) => facet.name);
       }
     },
 
     watch: {
-      $route() {
-        this.preSelected = Object.assign({}, this.selected);
+      selected() {
+        this.preSelected = this.cloneSelected();
       }
     },
 
-    mounted() {
-      this.preSelected = Object.assign({}, this.selected);
-    },
-
     methods: {
+      cloneSelected() {
+        return Object.assign({}, this.selected);
+      },
+
       updateSelected(facetName, selectedFields) {
         Vue.set(this.preSelected, facetName, selectedFields);
-
-        if (this.selectedOptionsCount === 0) {
-          this.clearEmpty();
-        }
       },
 
       applySelected() {
         this.$emit('changed', this.preSelected);
-        this.clearEmpty();
         this.$refs.dropdown.hide(true);
       },
 
       cancelHandler() {
-        this.clearPreSelected();
-        this.clearEmpty();
-        this.$root.$emit('updateSelectedOptions');
+        this.preSelected = this.cloneSelected();
         this.$refs.dropdown.hide(true);
       },
 
       resetFilters() {
         this.clearPreSelected();
-        this.$emit('changed', this.preSelected);
-        this.clearEmpty();
-      },
-
-      clearEmpty() {
-        for (let key in this.preSelected) {
-          if (this.preSelected[key].length < 1) {
-            Vue.delete(this.preSelected, key);
-          }
-        }
       },
 
       clearPreSelected() {
-        for (let key in this.preSelected) {
-          this.preSelected[key] = [];
+        for (const facetName of this.moreFacetNames) {
+          this.preSelected[facetName] = [];
         }
       }
     }

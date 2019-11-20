@@ -65,10 +65,12 @@
         type: Array,
         required: true
       },
+
       name: {
         type: String,
         required: true
       },
+
       selected: {
         type: Array,
         default: () => []
@@ -77,7 +79,7 @@
 
     data() {
       return {
-        selectedOptions: [],
+        selectedOptions: this.selected,
         isActive: false,
         limitTo: 9
       };
@@ -89,20 +91,9 @@
       }
     },
 
-    mounted() {
-      this.$root.$on('updateSelectedOptions', this.updateOptions);
-      this.selectedOptions = this.selected;
-    },
-
-
     methods: {
       selectedHandler(value) {
         this.$emit('selectedOptions', this.name, value);
-      },
-
-      updateOptions() {
-        this.selectedOptions = this.selectedOptions.filter(item => this.selected.includes(item));
-        this.$emit('selectedOptions', this.name, this.selectedOptions);
       }
     }
   };
