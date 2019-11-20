@@ -1,116 +1,96 @@
 <template>
-  <b-form
-    ref="form"
-    inline
-    @submit.prevent="submitForm"
+  <b-list-group
+    v-show="isActive"
+    :id="elementId"
+    class="auto-suggest-dropdown"
+    data-qa="search suggestions"
+    :aria-hidden="!isActive"
   >
-    <b-input-group
-      role="combobox"
-      aria-owns="autocomplete-results"
-      :aria-expanded="isActive"
-      class="auto-suggest"
+    <b-list-group-item
+      v-if="showLoader && isLoading"
+      class="loading"
+    >
+      {{ $t('loadingResults') }}{{ $t('formatting.ellipsis') }}
+    </b-list-group-item>
+
+    <b-list-group-item
+      v-for="(val, name, index) in value"
+      v-else
+      :key="index"
+      role="option"
+      data-qa="search suggestion"
+      :aria-selected="index === focus"
+      :to="linkGen(name)"
+      :class="{ 'hover': index === focus }"
+      :data-index="index"
+      @mouseover="focus = index"
+      @focus="index === focus"
     >
       <template
-        v-if="pillLabel"
-        v-slot:prepend
+        v-for="(part, partIndex) in highlightResult(val)"
       >
-        <SearchBarPill
-          :text="pillLabel"
-          :remove-link-label="$t('removeFilter', { filterLabel: pillLabel })"
-          :remove-link-to="removeLinkTo"
-        />
-      </template>
-      <b-form-input
-        ref="searchbox"
-        v-model="query"
-        :autocomplete="isDisabled ? 'on' : 'off'"
-        :placeholder="$t('searchPlaceholder')"
-        name="query"
-        data-qa="search box"
-        role="searchbox"
-        aria-autocomplete="list"
-        aria-controls="autocomplete-results"
-        :aria-label="$t('search')"
-        @input="getSuggestions"
-        @focus="activateDropdown"
-      />
-      <b-button
-        type="submit"
-        data-qa="search button"
-        variant="primary"
-      >
-        <span class="sr-only">
-          {{ $t('search') }}
-        </span>
-        <img
-          src="../../assets/img/magnifier.svg"
-          :alt="$t('search')"
-        >
-      </b-button>
-      <b-list-group
-        v-show="isActive"
-        id="autocomplete-results"
-        class="auto-suggest-dropdown"
-        data-qa="search suggestions"
-        :aria-hidden="!isActive"
-      >
-        <b-list-group-item
-          v-if="isLoading"
-          class="loading"
-        >
-          {{ $t('loadingResults') }}...
-        </b-list-group-item>
-
-        <b-list-group-item
-          v-for="(value, name, index) in options"
+        <strong
+          v-if="part.highlight"
+          :key="partIndex"
+          class="highlight"
+          data-qa="highlighted"
+        >{{ part.text }}</strong> <!-- Do not put onto a new line -->
+        <span
           v-else
-          :key="index"
-          role="option"
-          :aria-selected="index === focus"
-          :href="name"
-          :class="{ 'hover': index === focus }"
-          :value="value[locale]"
-          :data-qa="`search suggestion ${value[locale].toLowerCase()} link`"
-          :data-index="index"
-          @mouseover="focus = index"
-          @focus="index === focus"
-          @click="closeDropdown"
-        >
-          <template
-            v-for="(part, partIndex) in highlightResult(value)"
-          >
-            <strong
-              v-if="part.highlight"
-              :key="partIndex"
-              class="highlight"
-              data-qa="highlighted"
-            >{{ part.text }}</strong> <!-- Do not put onto a new line -->
-            <span
-              v-else
-              :key="partIndex"
-              data-qa="base"
-            >{{ part.text }}</span> <!-- Do not put onto a new line -->
-          </template>
-        </b-list-group-item>
-      </b-list-group>
-    </b-input-group>
-  </b-form>
+          :key="partIndex"
+        >{{ part.text }}</span> <!-- Do not put onto a new line -->
+      </template>
+    </b-list-group-item>
+  </b-list-group>
 </template>
 
 <script>
-  import SearchBarPill from './SearchBarPill.vue';
   import match from 'autosuggest-highlight/match';
   import parse from 'autosuggest-highlight/parse';
 
   export default {
     name: 'AutoSuggest',
 
-    components: {
-      SearchBarPill
-    },
-
     props: {
-      enableAutosuggest: {
+      // Property names are identifiers, emitted when suggestion is selected.
+      // Property values are lang maps for labels to display.
+      // @example
+      //     {
+      //       'http://data.europeana.eu/concept/base/83': {
+      //         en: 'World War I',
+      //         es: 'Primera Guerra Mundial'
+      //       },
+      //       'http://data.europeana.eu/concept/base/1615': {
+      //         en: 'gospel music',
+      //         es: 'góspel'
+      //       }
+      //     }
+      value: {
+        type: Object,
+        default: () => {}
+      },
+
+      query: {
+        type: String,
+        default: ''
+      },
+
+      linkGen: {
+        type: Function,
+        default: (val) => val
+      },
+
+      elementId: {
+        type: String,
+        default: null
+      },
+
+      inputRefName: {
+        type: String,
+        default: 'searchbox'
+      },
+
+      showLoader: {
         type: Boolean,
         default: false
       }
@@ -118,11 +98,9 @@
 
     data() {
       return {
-        query: null,
         focus: null,
-        isActive: false,
-        isLoading: false,
-        options: {}
+        isActive: Object.keys(this.value || {}).length > 0,
+        isLoading: false
       };
     },
 
@@ -131,165 +109,161 @@
         return this.$store.state.i18n.locale;
       },
 
-      onSearchablePage() {
-        return this.$store.state.search.active;
+      suggestionValues() {
+        return Object.keys(this.value);
       },
 
-      pillLabel() {
-        return this.$store.state.search.pill;
+      numberOfSuggestions() {
+        return this.suggestionValues.length;
       },
 
-      routePath() {
-        if (this.onSearchablePage) {
-          return this.$route.path;
-        }
-        return this.localePath({ name: 'search' });
+      noSuggestionHasFocus() {
+        return this.focus === null;
       },
 
-      removeLinkTo() {
-        return {
-          path: this.localePath({
-            name: 'search'
-          }),
-          query: { ...this.$route.query, page: 1 }
-        };
+      inputRef() {
+        return this.$parent.$refs[this.inputRefName];
       },
 
-      isDisabled() {
-        return !this.enableAutosuggest || !!(this.$store.state.entity && this.$store.state.entity.id);
+      inputElement() {
+        // refs may point to a component or direct to an HTML element
+        return this.inputRef.$el ? this.inputRef.$el : this.inputRef;
       },
 
-      view() {
-        return this.$store.getters['search/activeView'];
+      firstSuggestionHasFocus() {
+        return this.focus === 0;
+      },
+
+      lastSuggestionHasFocus() {
+        return this.focus === (this.numberOfSuggestions - 1);
+      },
+
+      selectedSuggestionValue() {
+        return this.suggestionValues[this.focus] || null;
       }
     },
 
     watch: {
-      options() {
-        this.isActive = !!this.options;
-      },
       '$route.query'() {
-        this.queryOnSearchablePage();
         this.closeDropdown();
+      },
+
+      value() {
+        this.isActive = true;
+        this.isLoading = false;
+        this.focus = null;
+        this.selectSuggestion();
+      },
+
+      query() {
+        this.isLoading = true;
       }
     },
 
     mounted() {
-      if (this.isDisabled) return;
-
-      this.queryOnSearchablePage();
-      document.addEventListener('keyup', this.navigateDropdown);
+      this.inputElement.addEventListener('keyup', this.keyup);
       document.addEventListener('mouseup', this.clickOutside);
     },
 
     methods: {
-      highlightResult(value) {
-        const string = value[this.locale];
-        const matches = match(string, this.query);
-        const parts = parse(string, matches);
-        return parts;
+      keyup(event) {
+        if (!this.isActive) return;
+
+        switch (event.keyCode) {
+        case 9: // Tab key
+        case 27: // Escape key
+          this.closeDropdown();
+          break;
+        case 38: // Up key
+          this.keyupUp();
+          break;
+        case 40: // Down key
+          this.keyupDown();
+          break;
+        }
       },
 
-      closeDropdown() {
-        this.isActive = false;
-        this.focus = null;
+      keyupUp() {
+        if (this.noSuggestionHasFocus || this.firstSuggestionHasFocus) {
+          this.focus = this.numberOfSuggestions - 1;
+        } else {
+          this.focus--;
+        }
+
+        this.selectSuggestion();
+      },
+
+      keyupDown() {
+        if (this.noSuggestionHasFocus || this.lastSuggestionHasFocus) {
+          this.focus = 0;
+        } else {
+          this.focus++;
+        }
+
+        this.selectSuggestion();
       },
 
       clickOutside(event) {
         if (!this.isActive) return;
 
+        const isParent = (event.target === this.inputElement);
         const isChild = this.$el.contains(event.target);
 
-        if (!isChild) {
+        if (!(isParent || isChild)) {
           this.closeDropdown();
         }
       },
 
-      focusOnSuggestion() {
-        if (!this.focus) return;
-
-        const selectedSuggestion = this.$el.querySelector(`[data-index="${this.focus}"]`);
-        selectedSuggestion.focus();
-      },
-      navigateDropdown(event) {
-        if (!this.isActive) return;
-
-        switch (event.keyCode) {
-        case 9: // Tab Key
-          this.clickOutside(event);
-          break;
-        case 27: // Escape Key
-          this.closeDropdown();
-          break;
-        case 38: // Up Key
-          if (this.focus === null) {
-            this.focus = 0;
-          } else if (this.focus > 0) {
-            this.focus--;
-          } else if (this.focus === 0) {
-            this.focus = null;
-            this.$refs.searchbox.focus();
-          }
-          this.focusOnSuggestion();
-          break;
-        case 40: // Down key
-          if (this.focus === null) {
-            this.focus = 0;
-          } else if (this.focus < Object.keys(this.options).length - 1) {
-            this.focus++;
-          }
-          this.focusOnSuggestion();
-          break;
+      // Localise a lang map
+      //
+      // Order of priority:
+      // 1. User's UI language
+      // 2. English
+      // 3. First available value
+      localiseSuggestionLabel(value) {
+        if (value[this.locale]) {
+          return value[this.locale];
+        } else if (value.en) {
+          return value.en;
         }
+        return Object.values(value)[0];
       },
 
-      activateDropdown() {
-        return !this.isActive && this.options;
-      },
+      // Highlight the user's query in a suggestion
+      // FIXME: only re-highlight when new suggestions come in, not immediately
+      //        after the query changes?
+      highlightResult(value) {
+        let matchingValues = {};
 
-      queryOnSearchablePage() {
-        this.onSearchablePage ? this.query = this.$store.state.search.query : this.query = '';
-      },
-
-      async submitForm() {
-        const newRouteQuery = { ...this.$route.query, ...{ query: this.query, page: 1, view: this.view } };
-        const newRoute = { path: this.routePath, query: newRouteQuery };
-        this.closeDropdown;
-        await this.$router.push(newRoute);
-      },
-
-      // FAKE DATA
-      async getSuggestions() {
-        // If entity page, disable autosuggest
-        if (this.isDisabled) return;
-        // Fetch suggestions if characters are 3 or more
-        if (this.query.length < 3) {
-          this.focus = null;
-          this.options = {};
-          return;
+        // Find all the suggestion labels that match the query
+        for (const locale in value) {
+          const string = value[locale];
+          const matches = match(string, this.query);
+          if (matches.length > 0) {
+            matchingValues[locale] = parse(string, matches);
+          }
         }
 
-        this.isLoading = true;
+        // If any suggestions match, return the localised one with higlight
+        if (Object.values(matchingValues).length > 0) {
+          return this.localiseSuggestionLabel(matchingValues);
+        }
 
-        const promise = await new Promise(resolve => {
-          setTimeout(() => {
-            this.isLoading = false;
-            const fakeData = {
-              '/en/entity/topic/83': {
-                en: 'World War I',
-                fr: 'Première Guerre mondiale'
-              },
-              '/en/entity/topic/94': {
-                en: 'Architecture',
-                fr: 'Architecture'
-              }
-            };
-            resolve(fakeData);
-          }, 500);
-        });
+        // No matches, so return a localised suggestion without highlight
+        return [{
+          text: this.localiseSuggestionLabel(value),
+          highlight: false
+        }];
+      },
 
-        this.options = promise;
+      closeDropdown() {
+        this.isActive = false;
+        this.focus = null;
+        this.selectSuggestion();
+      },
 
+      selectSuggestion() {
+        this.$emit('select', this.selectedSuggestionValue);
       }
     }
   };
@@ -314,7 +288,7 @@
         color: $black;
 
         &.hover {
-          background-color: $lightgrey;
+          background-color: $offwhite;
         }
 
         &:last-child {
@@ -337,17 +311,11 @@
 
     .input-group-prepend {
       align-items: center;
-      background-color: $lightgrey;
-      padding-left: .75rem;
-      padding-right: .1rem;
+      background-color: $offwhite;
+      padding-left: 0.75rem;
+      padding-right: 0.1rem;
       border-radius: 0.375rem 0 0 0.375rem;
     }
-  }
-
-  .form-control {
-    background-color: $lightgrey;
-    border-radius: $border-radius 0 0 $border-radius;
-    margin-right: 0;
   }
 
   .btn {

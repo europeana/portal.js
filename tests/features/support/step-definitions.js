@@ -17,6 +17,9 @@ defineParameterType({
 defineStep('I browse/open/visit (a/an/the)( ){target}', (pageName) =>
   i.openAPage(pageName));
 
+defineStep('I am on (a/an/the)( ){target}', (pageName) =>
+  i.openAPage(pageName));
+
 defineStep('I find/identify/see/spot (a/an/the)( ){target}', (qa) =>
   i.seeATarget(qa));
 
@@ -26,10 +29,16 @@ defineStep('I find/identify/see/spot (a/an/the)( ){target} in/on a/an/the {targe
 defineStep('I find/identify/see/spot (a/an/the)( ){target} with the text {string}', (qa, text) =>
   i.seeATargetWithText(qa, text));
 
+defineStep('I find/identify/see/spot (a/an/the)( )level {int} (section )heading with the text {string}', (headingLevel, text) =>
+  i.seeASectionHeadingWithText(headingLevel, text));
+
 defineStep('I can\'t/don\'t find/identify/see/spot (a/an/the)( ){target}', (qa) =>
   i.doNotSeeATarget(qa));
 
 defineStep('I can\'t/don\'t have (a/an/the)( ){target}', (qa) =>
+  i.doNotHaveATarget(qa));
+
+defineStep('there are no (a/an/the)( ){target}', (qa) =>
   i.doNotHaveATarget(qa));
 
 defineStep('I can\'t/don\'t have (a/an/the)( ){target} in/on the {target}', (qa, parentQa) =>
@@ -64,6 +73,9 @@ defineStep('I check/click the {string} {string} radio', (inputValue, inputName) 
 
 defineStep('I activate/click (the/a/an)( ){string} link', (href) =>
   i.clickOnLink(href));
+
+defineStep('the {target} is/are marked (as ){string}', (qa, klass) =>
+  i.observeTargetHasClass(qa, klass));
 
 defineStep('I should be on (the ){target}', (pageName) =>
   i.shouldBeOn(pageName));
@@ -106,3 +118,6 @@ defineStep('I go back', () =>
 
 defineStep('my browser accepts the language {string}', (locale) =>
   i.preferBrowserLanguage(locale));
+
+defineStep('I search for {string}', (query) =>
+  i.searchFor(query));

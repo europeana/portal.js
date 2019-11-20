@@ -29,7 +29,6 @@
     </b-dropdown-group>
     <li
       class="dropdown-buttons"
-      role="group"
     >
       <b-button
         variant="link"

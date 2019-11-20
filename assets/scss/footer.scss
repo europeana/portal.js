@@ -1,5 +1,4 @@
 footer {
-
   .footer-link-list {
     list-style-type: none;
     background-color: $darkblue;
@@ -15,7 +14,7 @@ footer {
         text-decoration: none;
 
         &:hover {
-          background-color: $extradarkblue;
+          background-color: $blue
         }
 
         &.is-external-link::after {
@@ -26,4 +25,25 @@ footer {
       }
     }
   }
+
+  .dropdown {
+    .dropdown-toggle {
+      color: $blue;
+      padding-left: 1rem;
+      padding-right: 1rem;
+
+      &:before {
+        content: '\e905';
+        margin-right: 0.5rem;
+        @extend .icon-font;
+      }
+    }
+
+    .dropdown-menu {
+      max-height: 50vh;
+      overflow: auto;
+    }
+
+  }
+  
 }

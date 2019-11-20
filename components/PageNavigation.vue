@@ -1,25 +1,21 @@
 <template>
-  <b-navbar
-    class="border-bottom py-0 mb-3"
+  <b-navbar-nav
+    class="ml-xl-auto"
     data-qa="main navigation"
   >
-    <b-container class="p-0">
-      <b-navbar-nav class="px-2">
-        <li
-          v-for="(nav, index) in navigation"
-          :key="index"
-          class="nav-item"
-        >
-          <SmartLink
-            :destination="nav.url"
-            link-class="nav-link"
-          >
-            {{ nav.text }}
-          </SmartLink>
-        </li>
-      </b-navbar-nav>
-    </b-container>
-  </b-navbar>
+    <li
+      v-for="(nav, index) in navigation"
+      :key="index"
+      class="nav-item"
+    >
+      <SmartLink
+        :destination="nav.url"
+        link-class="nav-link"
+      >
+        {{ nav.text }}
+      </SmartLink>
+    </li>
+  </b-navbar-nav>
 </template>
 
 <script>
@@ -64,7 +60,9 @@
     }
 
     .nav-link {
-      color: $darkgrey;
+      color: $mediumgrey;
+      text-decoration: none;
+      text-transform: uppercase;
 
       &.nuxt-link-active {
         font-weight: bold;
@@ -73,6 +71,12 @@
       &.is-external-link:after {
         @extend .icon-font;
         content: '\e900';
+      }
+    }
+
+    &:last-child {
+      .nav-link {
+        padding-right: 0;
       }
     }
   }

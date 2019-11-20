@@ -46,31 +46,29 @@
   }
 }
 
-figcaption {
-  .is-external-link:after {
-    content: '\e900';
-    @extend .icon-font;
+.attribution {
+  color: $black;
+  text-decoration: none;
+
+  &:hover {
+    color: $blue;
+    text-decoration: none;
   }
 
-  .attribution {
-    color: $black;
-
-    &:hover {
-      color: $blue;
-      text-decoration: none;
-    }
+  &.is-external-link:after {
+    content: '\e900';
+    @extend .icon-font;
   }
 
   .license {
     background-position: left center;
     background-repeat: no-repeat;
     background-size: 13px 13px;
-    line-height: 2;
     padding-left: 1rem;
     padding-top: 3px;
   }
 
   .icon-license-rr {
     padding-left: 0.5rem;
-  }
+  }  
 }

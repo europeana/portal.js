@@ -144,9 +144,9 @@ Feature: Search faceting
      When I visit the `search page`
      And I click the `more filters dropdown button`
      And I should see 9 `Language checkbox`
-     And I click the `Show all Languages button`
+     And I click the `Show all Language button`
      Then I should see 37 `Language checkbox`
-     And I click the `Show less Languages button`
+     And I click the `Show less Language button`
      And I should see 9 `Language checkbox`
   
   Scenario: Filtering results using the more facets dropdown

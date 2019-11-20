@@ -19,6 +19,7 @@ Feature: Record page
     When I open a `record page`
     Then I see an `action bar`
     And I see a `download button`
+    And I see a `rights statement`
 
   Scenario: Record without isShownBy or hasView
 
@@ -37,3 +38,18 @@ Feature: Record page
     And I see the `Leonardo da Vinci entity card` in the `related entities`
     And I see the `Teodoro Matteini entity card` in the `related entities`
     And I see the `Engraving entity card` in the `related entities`
+
+  Scenario: Metadata in another language
+    When I open the `"Hammerflügel" record page`
+    Then I see a level 1 section heading with the text "Hammerflügel"
+
+  Scenario: Media thumbnail grid for multiple web resources
+    When I open the `"Hammerflügel" record page`
+    And I see the `media thumbnail grid`
+    And the `media thumbnail #1` is marked as "selected"
+    And I click the `media thumbnail #2`
+    Then the `media thumbnail #2` is marked as "selected"
+
+  Scenario: No media thumbnail grid for single web resources
+    When I open `"The Milkmaid" record page`
+    Then I don't have the `media thumbnail grid`

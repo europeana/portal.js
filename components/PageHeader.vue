@@ -1,16 +1,16 @@
 <template>
   <b-container
     fluid
-    class="border-bottom p-0"
+    class="border-bottom p-0 mb-3"
   >
     <b-container class="p-0">
       <b-navbar
-        class="pb-3 pt-sm-3 flex-column flex-md-row"
+        class="pb-3 pt-3 flex-column flex-xl-row"
         data-qa="header"
       >
         <b-navbar-brand
           :to="localePath('index')"
-          class="col-md-4 p-0 m-0 text-center text-md-left"
+          class="col-xl-4 p-0 m-0 text-center text-xl-left"
         >
           <img
             src="../assets/img/logo.svg"
@@ -19,37 +19,34 @@
             data-qa="logo"
           >
         </b-navbar-brand>
-        <div class="navbar-nav ml-auto w-100 col-md-6 col-lg-6 p-0 pt-3 pt-md-0">
-          <AutoSuggest
-            data-qa="search form"
-            class="justify-content-center justify-content-md-end w-100"
-            :enable-autosuggest="enableAutosuggest"
-          />
-        </div>
-        <LangSelector
-          v-if="enableLanguageSelector"
-          data-qa="language selector"
+        <SearchForm
+          data-qa="search form"
+          class="col-xl-4 w-100 py-3 py-xl-0"
+          :enable-auto-suggest="enableAutoSuggest"
+          :enable-suggestion-validation="enableSuggestionValidation"
         />
+        <PageNavigation />
       </b-navbar>
     </b-container>
   </b-container>
 </template>
 
 <script>
-  import AutoSuggest from './search/AutoSuggest';
-  import LangSelector from './generic/LanguageSelector';
+  import SearchForm from './search/SearchForm';
+  import PageNavigation from './PageNavigation';
 
   export default {
     components: {
-      AutoSuggest,
-      LangSelector
+      SearchForm,
+      PageNavigation
     },
+
     props: {
-      enableLanguageSelector: {
+      enableAutoSuggest: {
         type: Boolean,
-        default: Boolean(Number(process.env['ENABLE_LANGUAGE_SELECTOR']))
+        default: false
       },
-      enableAutosuggest: {
+      enableSuggestionValidation: {
         type: Boolean,
         default: false
       }

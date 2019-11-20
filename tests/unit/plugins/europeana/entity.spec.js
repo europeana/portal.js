@@ -7,7 +7,7 @@ axios.defaults.adapter = require('axios/lib/adapters/http');
 const entityId = '94-architecture';
 const entityType = 'topic';
 const entityIdMisspelled = '94-architectuz';
-const apiUrl = 'https://api.europeana.eu';
+const apiUrl = entities.constants.API_ORIGIN;
 const apiEndpoint = '/entity/concept/base/94.json';
 const entityUri = 'http://data.europeana.eu/concept/base/94';
 const entityFilterField = 'skos_concept';
@@ -96,8 +96,7 @@ describe('plugins/europeana/entity', () => {
         const apiResponse = entitiesResponse.items[0];
 
         beforeEach('stub API response', () => {
-          nock(apiUrl)
-            .get(apiEndpoint)
+          baseRequest
             .query(true)
             .reply(200, apiResponse);
         });
@@ -287,9 +286,25 @@ describe('plugins/europeana/entity', () => {
   });
 
   describe('getEntitySlug', () => {
-    context('with an entity', () => {
-      let entity = entitiesResponse.items[0];
-      it('returns an agent URI, without any human readable labels', () => {
+    const entity = entitiesResponse.items[0];
+
+    context('with an entity page', () => {
+      const entityPage = {
+        name: {
+          'en-GB': 'Architectural Engineering'
+        }
+      };
+
+      it('constructs URL slug from numeric ID and entityPage.name', () => {
+        const slug = entities.getEntitySlug(entity, entityPage);
+        return slug.should.eq('147831-architectural-engineering');
+      });
+    });
+
+    context('without an entity page', () => {
+      const entity = entitiesResponse.items[0];
+
+      it('constructs URL slug from numeric ID and prefLabel.en', () => {
         const slug = entities.getEntitySlug(entity);
         return slug.should.eq('147831-architecture');
       });
@@ -298,7 +313,8 @@ describe('plugins/europeana/entity', () => {
 
   describe('getEntityDescription', () => {
     context('with an entity', () => {
-      let entity = entitiesResponse.items[0];
+      const entity = entitiesResponse.items[0];
+
       it('returns a description', () => {
         const description = entities.getEntityDescription(entity);
         return description.should.contain('Architecture');

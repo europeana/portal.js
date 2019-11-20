@@ -5,37 +5,74 @@ export default {
     "listSeperator": ";"
   },
   "error": "Error",
-  "exhibitions": {
-    "exhibitions": "Exhibitions"
-  },
+  "goToRecord": "Go to record",
+  "readMore": "Read more",
   "search": "Search",
-  "delete": "Delete",
   "results": "Results",
-  "homeLinkAlt": "Europeana Collections home",
-  "edmIsShownAtLinkAlt": "View at the provider's website",
+  "homeLinkAlt": "Europeana home",
   "noMoreResults": "There are no more results for your search query.",
-  "resultsLimitWarning": "Additional results are not shown as only the first 1,000 most relevant results are shown. If you haven't found what you're looking for, please consider refining your search.",
+  "resultsLimitWarning": "Additional results are not shown as only the first 1000 most relevant results are shown. If you haven't found what you're looking for, please consider refining your search.",
   "noResults": "No results",
   "fieldLabels": {
     "default": {
       "dcContributor": "Contributors",
-      "dcCreator": "Creators",
+      "dcCreator": "Creator",
       "dcDescription": "Description",
-      "dcPublisher": "Publisher",
-      "dcSubject": "Subject",
       "dcTitle": "Title",
       "dcType": "Type of object",
       "dctermsCreated": "Creation date",
-      "dcTermsMedium": "Medium",
+      "dctermsMedium": "Medium",
       "edmCountry": "Providing country",
       "edmDataProvider": "Providing institution",
-      "edmRights": "License of the media in this record (unless otherwise specified)"
+      "edmRights": "License of the media in this record (unless otherwise specified)",
+      "dcRights": "Rights",
+      "dcDate": "Date",
+      "dcPublisher": "Publisher",
+      "dcSubject": "Subject",
+      "dctermsPublished": "Publication date",
+      "dctermsIssued": "Issue date",
+      "dctermsTemporal": "Temporal",
+      "dcCoverage": "Place-Time",
+      "dctermsSpatial": "Places",
+      "edmCurrentLocation": "Current location",
+      "edmUgc": "User generated content",
+      "dctermsProvenance": "Provenance",
+      "dcSource": "Source",
+      "dcIdentifier": "Identifier",
+      "edmIntermediateProvider": "Intermediate provider",
+      "edmProvider": "Provider",
+      "timestampCreated": "Timestamp created",
+      "timestampUpdate": "Timestamp updated",
+      "dctermsExtent": "Extent",
+      "dcDuration": "Duration",
+      "dcMedium": "Medium",
+      "dcFormat": "Format",
+      "dcLanguage": "Language",
+      "dctermsIsPartOf": "Is part of",
+      "europeanaCollectionName": "Collection name",
+      "dcRelation": "Relations",
+      "dctermsReferences": "References",
+      "dctermsHasPart": "Consists of",
+      "dctermsHasVersion": "Has version",
+      "dctermsIsFormatOf": "Is format of",
+      "dctermsIsReferencedBy": "Is referenced by",
+      "dctermsIsReplacedBy": "Is replaced by",
+      "dctermsIsRequiredBy": "Is required by",
+      "edmHasMet": "Has Met",
+      "edmIncorporates": "Incorporates",
+      "edmIsDerivativeOf": "Is derivative of",
+      "edmIsRepresentationOf": "Is representation of",
+      "edmIsSimilarTo": "Is similar to",
+      "edmIsSuccessorOf": "Is successor of",
+      "edmRealizes": "Realises",
+      "wasPresentAt": "Was present at"
     },
     "webResource": {
       "dcDescription": "Description",
-      "about": "RDF About",
+      "rdfAbout": "RDF About",
       "edmRights": "License for this media resource",
-      "ebucoreHasMimeType": "Ebucore MIME Type"
+      "ebucoreHasMimeType": "Ebucore MIME Type",
+      "about": "RDF About"
     }
   },
   "facets": {
@@ -45,39 +82,64 @@ export default {
     "REUSABILITY": {
       "name": "Can I reuse this?"
     },
+    "THEME": {
+      "name": "Category",
+      "options": {
+        "all": "All items",
+        "ww1": "1914-1918",
+        "archaeology": "Archaeology",
+        "art": "Art",
+        "fashion": "Fashion",
+        "manuscript": "Manuscripts",
+        "map": "Maps and Geography",
+        "migration": "Migration",
+        "music": "Music",
+        "nature": "Natural History",
+        "newspaper": "Newspapers",
+        "photography": "Photography",
+        "sport": "Sport",
+        "industrial": "Industrial Heritage"
+      }
+    },
     "TYPE": {
       "name": "Type of media"
     },
-    "LANGUAGE": {
-      "name": "Language | Languages"
-    },
-    "PROVIDER": {
-      "name": "Aggregator | Aggregators"
-    },
-    "DATA_PROVIDER": {
-      "name": "Institution | Institutions"
-    },
     "contentTier": {
-      "name": "Includes broken items"
+      "name": "Includes items not meeting our publishing criteria"
     },
     "button": {
-      "cancel": "Cancel",
       "reset": "Reset",
       "apply": "Apply",
+      "cancel": "Cancel",
       "morefilters": "More filters",
       "showAll": "Show all {label}",
       "showLess": "Show less {label}"
+    },
+    "LANGUAGE": {
+      "name": "Language"
+    },
+    "PROVIDER": {
+      "name": "Aggregator"
+    },
+    "DATA_PROVIDER": {
+      "name": "Institution"
     }
   },
   "entity": "Entity",
+  "resourceWikimedia": "Resource from Wikimedia Commons",
   "entityDepictionCredit": "Resource obtained from Wikimedia Commons",
   "depiction": "A depiction of {title}",
   "showLess": "Show less",
   "showMore": "Show more",
-  "record": "Record",
+  "record": {
+    "extendedInformation": "Extended information",
+    "hideAll": "Hide all information",
+    "record": "Record",
+    "showAll": "Show all information"
+  },
   "messages": {
-    "externalContentError": "The external content failed to load",
     "notFound": "Not Found",
+    "externalContentError": "The external content failed to load",
     "paginationLimitExceeded": "It is only possible to view the first {limit} search results."
   },
   "searchViews": {
@@ -85,7 +147,7 @@ export default {
     "list": "List view"
   },
   "layout": {
-    "skipToMain": "Skip to main content"
+    "skipToMain": "Skip to page contents"
   },
   "searchPlaceholder": "What are you looking for?",
   "searchTier": {
@@ -98,6 +160,7 @@ export default {
       "hide": "Items that don't meet our publishing criteria are being shown."
     }
   },
+  "delete": "Delete",
   "removeFilter": "Remove {filterLabel} filter",
   "newWindow": "opens in new window",
   "blog": {
@@ -112,10 +175,14 @@ export default {
     "left": "Left",
     "right": "Right"
   },
+  "exhibitions": {
+    "exhibitions": "Exhibitions"
+  },
   "actions": {
     "download": "Download"
   },
-  "loadingResults": "Loading results",
   "clearAllFilters": "clear all filters",
-  "reset": "Reset"
+  "reset": "Reset",
+  "loadingResults": "Loading results",
+  "edmIsShownAtLinkAlt": "View at the provider's website"
 };

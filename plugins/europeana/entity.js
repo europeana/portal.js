@@ -1,6 +1,14 @@
 import { apiError } from './utils';
 import axios from 'axios';
 
+export const constants = Object.freeze({
+  API_ORIGIN: 'https://api.europeana.eu',
+  API_PATH_PREFIX: '/entity',
+  API_ENDPOINT_SEARCH: '/search',
+  API_ENDPOINT_SUGGEST: '/suggest',
+  URI_ORIGIN: 'http://data.europeana.eu'
+});
+
 /**
  * Get data for one entity from the API
  * @param {string} type the type of the entity, will be normalized to the EntityAPI type if it's a human readable type
@@ -26,29 +34,59 @@ export function getEntity(type, id, params) {
     });
 }
 
+function entityApiUrl(endpoint) {
+  return `${constants.API_ORIGIN}${constants.API_PATH_PREFIX}${endpoint}`;
+}
+
+import search from './search';
+
 /**
  * Get entity suggestions from the API
  * @param {string} text the query text to supply suggestions for
  * @param {Object} params additional parameters sent to the API
  * @param {string} params.language language(s), comma-separated, to request
  * @param {string} params.wskey API key
+ * @param {Object} options optional settings
+ * @param {boolean} options.recordValidation if `true`, filter suggestions to those with record matches
  * @return {Object[]} entity suggestions from the API
  */
-export function getEntitySuggestions(text, params) {
-  return axios.get('https://api.europeana.eu/entity/suggest', {
+export function getEntitySuggestions(text, params = {}, options = {}) {
+  return axios.get(entityApiUrl(constants.API_ENDPOINT_SUGGEST), {
     params: {
       text,
       type: 'agent,concept',
       language: params.language,
+      scope: 'europeana',
       wskey: params.wskey
     }
   })
     .then((response) => {
-      return response.data.items ? response.data.items : [];
+      if (!response.data.items) return [];
+      return options.recordValidation ? filterSuggestionsByRecordValidation(response.data.items) : response.data.items;
     })
     .catch((error) => {
       throw apiError(error);
     });
+}
+
+function filterSuggestionsByRecordValidation(suggestions) {
+  const searches = suggestions.map((entity) => {
+    return search({
+      query: getEntityQuery(entity.id),
+      rows: 0,
+      profile: 'minimal',
+      qf: ['contentTier:(2 OR 3 OR 4)'],
+      wskey: process.env.EUROPEANA_API_KEY
+    });
+  });
+
+  return axios.all(searches)
+    .then(axios.spread(function() {
+      const searchResponses = arguments;
+      return suggestions.filter((entity, index) => {
+        return searchResponses[index].totalResults > 0;
+      });
+    }));
 }
 
 /**
@@ -86,7 +124,7 @@ export function getEntityTypeHumanReadable(type) {
  * @return {string} retrieved human readable name of type
  */
 export function getEntityUri(type, id) {
-  return `http://data.europeana.eu/${getEntityTypeApi(type)}/base/${normalizeEntityId(id)}`;
+  return `${constants.URI_ORIGIN}/${getEntityTypeApi(type)}/base/${normalizeEntityId(id)}`;
 }
 
 /**
@@ -110,7 +148,7 @@ export function getEntityQuery(uri) {
  * @return {string} retrieved human readable name of type
  */
 function getEntityUrl(type, id) {
-  return `https://api.europeana.eu/entity/${getEntityTypeApi(type)}/base/${normalizeEntityId(id)}.json`;
+  return entityApiUrl(`/${getEntityTypeApi(type)}/base/${normalizeEntityId(id)}.json`);
 }
 
 /**
@@ -125,13 +163,33 @@ function normalizeEntityId(id) {
 
 /**
  * Retrieves the path for the entity, based on id and title
+ *
+ * If `entityPage.name` is present, that will be used in the slug. Otherwise
+ * `prefLabel.en` if present.
+ *
  * @param {Object} entity an entity object as retrieved from the entity API
  * @param {string} title the title of the entity
+ * @param {Object} entityPage Contentful entry for the entity page, with all locales
  * @return {string} path
+ * @example Slug based on `entityPage.name`
+ *    const slug = getEntitySlug({
+ *      id: 'http://data.europeana.eu/concept/base/48',
+ *      prefLabel: { en: 'Photograph' }
+ *    }, {
+ *      name: 'Photography'
+ *    });
+ *    console.log(slug); // expected output: '48-photography'
+ * @example Slug based on `entity.prefLabel.en`
+ *    const slug = getEntitySlug({
+ *      id: 'http://data.europeana.eu/agent/base/59832',
+ *      prefLabel: { en: 'Vincent van Gogh' }
+ *    });
+ *    console.log(slug); // expected output: '59832-vincent-van-gogh'
  */
-export function getEntitySlug(entity) {
+export function getEntitySlug(entity, entityPage) {
+  const name = (entityPage && entityPage.name) ? entityPage.name['en-GB'] : entity.prefLabel.en;
   const entityId = entity.id.toString().split('/').pop();
-  const path = entityId + (entity.prefLabel.en ? '-' + entity.prefLabel.en.toLowerCase().replace(/ /g, '-') : '');
+  const path = entityId + (name ? '-' + name.toLowerCase().replace(/ /g, '-') : '');
   return path;
 }
 
@@ -177,7 +235,7 @@ async function getEntityFacets(facets, currentId, entityKey) {
   let entities = [];
   for (let facet of facets) {
     entities = entities.concat(facet['fields'].filter(value =>
-      value['label'].includes('http://data.europeana.eu') && value['label'].split('/').pop() !== currentId
+      value['label'].includes(constants.URI_ORIGIN) && value['label'].split('/').pop() !== currentId
     ));
   }
   const entityUris = entities.slice(0, 4).map(entity => {
@@ -196,7 +254,7 @@ export function searchEntities(entityUris, params) {
   if (entityUris.length === 0) return;
 
   const q = entityUris.join('" OR "');
-  return axios.get('https://api.europeana.eu/entity/search', {
+  return axios.get(entityApiUrl(constants.API_ENDPOINT_SEARCH), {
     params: {
       query: `entity_uri:("${q}")`,
       wskey: params.wskey
@@ -213,7 +271,7 @@ export function searchEntities(entityUris, params) {
 }
 
 /**
- * Format the the entity data
+ * Format the the entity data for a related entity
  * @param {Object} entities the data returned from the Entity API
  * @return {Object} entity links and titles
  */
@@ -239,8 +297,10 @@ function getRelatedEntityTitleLink(entities) {
  * If type is person, use biographicalInformation
  * @param {Object} entity data
  * @return {String} description when available in English
+ * TODO: l10n
  */
 export function getEntityDescription(entity) {
+  if (!entity) return null;
   let description;
   if (entity.type === 'Concept' && entity.note) {
     description = entity.note.en ? entity.note.en[0] : '';
@@ -259,18 +319,21 @@ export function getEntityDescription(entity) {
 }
 
 /**
- * A check for a URI to see if it conforms ot the entity URI pattern
+ * A check for a URI to see if it conforms ot the entity URI pattern,
+ * optionally takes entity types as an array of values to check for.
  * Will return true/false
- * @param {String} A URI to check
+ * @param {string} uri A URI to check
+ * @param {string[]} types the entity types to check, defaults to all.
  * @return {Boolean} true if the URI is a valid entity URI
  */
-export function isEntityUri(uri) {
-  return RegExp(/^http:\/\/data\.europeana\.eu\/(concept|agent|place)\/base\/\d+$/).test(uri);
+export function isEntityUri(uri, types) {
+  types = types ? types : ['concept', 'agent', 'place'];
+  return RegExp(`^http://data\\.europeana\\.eu/(${types.join('|')})/base/\\d+$`).test(uri);
 }
 
 /**
  * From a URI split params as required by the portal
- * @param {String} A URI to check
+ * @param {string} uri A URI to check
  * @return {{type: String, identifier: string}} Object with the portal relevant identifiers.
  */
 export function entityParamsFromUri(uri) {
