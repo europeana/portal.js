@@ -1,7 +1,7 @@
 <template>
   <b-row>
     <b-col
-      v-if="depictionThumbnail && attribution"
+      v-if="depictionThumbnail && depictionAttribution"
       cols="12"
       sm="3"
     >

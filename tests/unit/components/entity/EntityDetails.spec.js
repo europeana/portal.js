@@ -6,38 +6,29 @@ import EntityDetails from '../../../../components/entity/EntityDetails.vue';
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
-const $route = {
-  fullPath: '/entity/topic/94-architecture'
-};
-
 const $i18n = {
-  locales: [
-    { code: 'en', name: 'English' },
-    { code: 'de', name: 'Deutsch' }
-  ],
   locale: 'en'
 };
 
-const factory = () => mount(EntityDetails, {
+const factory = (propsData = {}) => mount(EntityDetails, {
   localVue,
+  propsData,
   mocks: {
-    $route,
-    $t: () => {},
+    $t: (val) => val,
     $i18n,
-    localePath: () => {}
+    localePath: (val) => val
   }
 });
 
-const entityDetails = { description: 'Architecture is both the process and the product of planning, designing, and constructing buildings and other physical structures.',
+const entityDetails = {
+  description: 'Architecture is both the process and the product of planning, designing, and constructing buildings and other physical structures.',
   attribution: 'http://commons.wikimedia.org/wiki/Special:FilePath/View_of_Santa_Maria_del_Fiore_in_Florence.jpg',
   depiction: 'https://commons.wikimedia.org/wiki/File:View_of_Santa_Maria_del_Fiore_in_Florence.jpg'
 };
 
-describe('components/browse/EntityDetails', () => {
+describe('components/entity/EntityDetails', () => {
   it('shows a description, attribution and depiction', () => {
-    const wrapper = factory();
-    wrapper.setProps(entityDetails);
-    wrapper.setData({ depictionThumbnail: entityDetails.depiction });
+    const wrapper = factory(entityDetails);
 
     wrapper.find('img').attributes('src').should.eq(entityDetails.depiction);
     wrapper.find('a[data-qa="entity attribution"]').attributes('href').should.eq(entityDetails.attribution);
@@ -45,8 +36,7 @@ describe('components/browse/EntityDetails', () => {
   });
 
   it('shows a description only', () => {
-    const wrapper = factory();
-    wrapper.setProps({ 'description': entityDetails.description });
+    const wrapper = factory({ 'description': entityDetails.description });
 
     wrapper.findAll('img').length.should.eq(0);
     wrapper.findAll('a[data-qa="entity attribution"]').length.should.eq(0);
@@ -54,27 +44,20 @@ describe('components/browse/EntityDetails', () => {
   });
 
   it('shows a depiction only', () => {
-    const wrapper = factory();
-    wrapper.setProps({ 'depiction': entityDetails.depiction, 'attribution': entityDetails.attribution });
-    wrapper.setData({ depictionThumbnail: entityDetails.depiction });
+    const wrapper = factory({ 'depiction': entityDetails.depiction, 'attribution': entityDetails.attribution });
 
     wrapper.findAll('img').length.should.eq(1);
     wrapper.text().should.not.contain(entityDetails.description);
   });
 
   it('does not show a show more link', () => {
-    const wrapper = factory();
-    wrapper.setProps(entityDetails);
-    wrapper.setData({ depictionThumbnail: entityDetails.depiction });
+    const wrapper = factory(entityDetails);
 
     wrapper.findAll('a[data-qa="entity show link"]').length.should.eq(0);
   });
 
   it('shows a show more link', () => {
-    const wrapper = factory();
-    wrapper.setProps(entityDetails);
-    wrapper.setProps({ description: entityDetails.description + entityDetails.description + entityDetails.description });
-    wrapper.setData({ depictionThumbnail: entityDetails.depiction });
+    const wrapper = factory({ description: entityDetails.description + entityDetails.description + entityDetails.description });
 
     wrapper.findAll('a[data-qa="entity show link"]').length.should.eq(1);
   });
