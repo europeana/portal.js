@@ -122,10 +122,11 @@
             />
           </b-collapse>
         </div>
-        <section>
+        <section
+          v-if="similarItems.length > 0"
+        >
           <h2>{{ $t('record.similarItems') }}</h2>
           <SimilarItems
-            v-if="similarItems.length > 0"
             :items="similarItems"
             class="mb-3"
           />
