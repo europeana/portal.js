@@ -94,6 +94,7 @@
         padding: 0;
 
         .option-group {
+          align-items: flex-start;
           flex-flow: row wrap;
           display: flex;
         }        
@@ -106,14 +107,15 @@
           @media (min-width: $bp-large) {
             flex: 0 0 calc(100% / 3);
           }
-
         }
 
         label {
+          align-items: center;
           border: 1px solid $lightgrey;
           border-radius: 1rem;
+          cursor: pointer;
           display: flex;
-          align-items: center;
+          font-size: $font-size-small;
           padding: 0.25rem 1rem;
         }
 

@@ -2,7 +2,7 @@
   <b-dropdown
     variant="light"
     no-caret
-    class="more-facets position-static"
+    class="more-facets position-static mb-2"
     :class="{ 'is-active' : selectedAmount > 0 }"
     data-qa="more filters dropdown button"
   >

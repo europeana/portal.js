@@ -14,7 +14,7 @@
         cols="12"
         lg="9"
       >
-        <div class="card p-3 mb-3">
+        <div class="card px-3 pt-3 mb-3">
           <div
             class="card-grid"
             :class="cardGridClass"
@@ -88,7 +88,7 @@
           />
         </div>
         <div
-          class="card p-3 mb-3"
+          class="card px-3 pt-3 mb-5 meta-data"
           data-qa="main metadata section"
         >
           <MetadataField
@@ -96,16 +96,19 @@
             :key="name"
             :name="name"
             :field-data="value"
-            class="mb-3"
           />
         </div>
-        <div class="card p-3 bg-transparent border-0">
+        <div>
           <div class="d-flex justify-content-between align-items-center">
-            <h2>{{ $t('record.extendedInformation') }}</h2>
+            <h2
+              class="mb-3"
+            >
+              {{ $t('record.extendedInformation') }}
+            </h2>
             <b-button
               v-b-toggle.extended-metadata
               variant="outline-primary"
-              class="mb-3 d-inline"
+              class="mb-3 d-inline extended-toggle p-0"
               @click="toggleExtendedMetadataPreference"
             >
               <span class="extended-opened">{{ $t('record.hideAll') }}</span>
@@ -292,6 +295,12 @@
 
 <style lang="scss" scoped>
   @import "./assets/scss/variables.scss";
+  @import "./assets/scss/icons.scss";
+
+  h2 { // TODO: should this be the default sizing/styling of the h2, or just on this page?
+    font-size: $font-size-medium;
+    font-weight: bold;
+  }
 
   .bg-grey {
     background-color: rgba(255, 255, 255, 0.5);
@@ -346,8 +355,50 @@
     grid-row: row3-start;
   }
 
+  .meta-data {
+    > div:not(:last-child) {
+      margin-bottom: 1rem;
+    }
+  }
+
   .collapsed > .extended-opened,
   :not(.collapsed) > .extended-closed {
     display: none;
+  }
+
+  .extended-toggle {
+    border: 0;
+    color: $black;
+
+    span {
+      align-items: center;
+      display: flex;
+
+      &:after {
+        content: '\e906';
+        border: 1px solid $black;
+        display: inline-block;
+        font-size: 0.5rem;
+        height: 1rem;
+        line-height: 1rem;
+        margin-left: 1rem;
+        text-align: center;
+        width: 1rem;
+        @extend .icon-font;
+      }
+
+      &.extended-closed:after {
+        content: '\e907';
+      }
+    }
+
+    &:hover {
+      background: transparent;
+      color: $blue;
+
+      span:after {
+        border-color: $blue;
+      }
+    }
   }
 </style>
