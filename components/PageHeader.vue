@@ -19,14 +19,12 @@
             data-qa="logo"
           >
         </b-navbar-brand>
-        <div class="navbar-nav w-100 col-xl-4 p-0 pt-3 pt-md-0">
-          <SearchForm
-            data-qa="search form"
-            class="justify-content-center justify-content-md-end w-100 py-3 py-xl-0"
-            :enable-auto-suggest="enableAutoSuggest"
-            :enable-suggestion-validation="enableSuggestionValidation"
-          />
-        </div>
+        <SearchForm
+          data-qa="search form"
+          class="col-xl-4 w-100 py-3 py-xl-0"
+          :enable-auto-suggest="enableAutoSuggest"
+          :enable-suggestion-validation="enableSuggestionValidation"
+        />
         <PageNavigation />
       </b-navbar>
     </b-container>
