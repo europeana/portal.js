@@ -135,9 +135,9 @@ export default {
     "extendedInformation": "Extended information",
     "hideAll": "Hide all information",
     "record": "Record",
-    "showAll": "Show all information"
+    "showAll": "Show all information",
+    "similarItems": "Similar items"
   },
-  "similarItems": "Similar Items",
   "messages": {
     "notFound": "Not Found",
     "externalContentError": "The external content failed to load",

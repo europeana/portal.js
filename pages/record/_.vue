@@ -122,11 +122,14 @@
             />
           </b-collapse>
         </div>
-        <SimilarItems
-          v-if="similarItems"
-          :items="similarItems"
-          class="mb-3"
-        />
+        <section>
+          <h2>{{ $t('record.similarItems') }}</h2>
+          <SimilarItems
+            v-if="similarItems.length > 0"
+            :items="similarItems"
+            class="mb-3"
+          />
+        </section>
       </b-col>
       <b-col
         cols="12"
@@ -143,6 +146,8 @@
 </template>
 
 <script>
+  import axios from 'axios';
+
   import AlertMessage from '../../components/generic/AlertMessage';
   import EntityCards from '../../components/entity/EntityCards';
   import MediaActionBar from '../../components/record/MediaActionBar';
@@ -269,19 +274,25 @@
         });
     },
 
-    async mounted() {
+    mounted() {
       this.cardGridClass = this.isRichMedia && 'card-grid-richmedia';
-      this.relatedEntities = await searchEntities(this.europeanaEntityUris, { wskey: process.env.EUROPEANA_ENTITY_API_KEY });
-
-      const similar = await this.getSimilarItems();
-      this.similarItems = similar.results;
 
       if (process.browser) {
         if (localStorage.itemShowExtendedMetadata && JSON.parse(localStorage.itemShowExtendedMetadata)) {
           this.$root.$emit('bv::toggle::collapse', 'extended-metadata');
         }
       }
+
+      axios.all([
+        searchEntities(this.europeanaEntityUris, { wskey: process.env.EUROPEANA_ENTITY_API_KEY }),
+        this.getSimilarItems()
+      ])
+        .then(axios.spread((related, similar) => {
+          this.relatedEntities = related;
+          this.similarItems = similar.results;
+        }));
     },
+
     methods: {
       selectMedia(about) {
         this.selectedMedia = about;
@@ -292,6 +303,7 @@
           localStorage.itemShowExtendedMetadata = localStorage.itemShowExtendedMetadata ? !JSON.parse(localStorage.itemShowExtendedMetadata) : true;
         }
       },
+
       getSimilarItems() {
         const dataSimilarItems = {
           dcSubject: this.getSimilarItemsData(this.coreFields.dcSubject),
@@ -303,18 +315,20 @@
         return search({
           query: similarItemsQuery(this.identifier, dataSimilarItems),
           rows: 4,
+          profile: 'minimal',
+          facet: '',
           wskey: process.env.EUROPEANA_API_KEY
-        });
+        })
+          .catch(() => {
+            return { results: [] };
+          });
       },
-      getSimilarItemsData(value) {
-        if (!value) {
-          return;
-        }
 
-        let data = langMapValueForLocale(value).values;
-        if (!data) {
-          return;
-        }
+      getSimilarItemsData(value) {
+        if (!value) return;
+
+        const data = langMapValueForLocale(value, this.$i18n.locale).values;
+        if (!data) return;
 
         return data.filter(item => typeof item === 'string');
       }
