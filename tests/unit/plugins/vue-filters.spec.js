@@ -37,6 +37,16 @@ describe('Vue filters', () => {
           optimised.should.eq(imageUrl);
         });
       });
+
+      it('applies width and height options', () => {
+        const imageUrl = '//images.ctfassets.net/image.png';
+        const contentType = 'image/png';
+        const options = { width: 200, height: 150 };
+
+        const optimised = optimisedImageUrl(imageUrl, contentType, options);
+        optimised.should.startWith(imageUrl);
+        optimised.should.endWith(`?w=${options.width}&h=${options.height}`);
+      });
     });
 
     context('otherwise', () => {
