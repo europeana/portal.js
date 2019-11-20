@@ -43,22 +43,23 @@
                 </p>
               </template>
             </header>
-            <MediaPresentation
-              :codec-name="selectedMedia.edmCodecName"
-              :image-link="selectedMediaImage.link"
-              :image-src="selectedMediaImage.src"
-              :mime-type="selectedMedia.ebucoreHasMimeType"
-              :url="selectedMedia.about"
-              :width="selectedMedia.ebucoreWidth"
-              :height="selectedMedia.ebucoreHeight"
-              class="mb-3"
-            />
-            <MediaThumbnailGrid
-              v-if="displayMediaThumbnailGrid"
-              :media="media"
-              :selected="selectedMedia.about"
-              @select="selectMedia"
-            />
+            <div class="media-presentation">
+              <MediaPresentation
+                :codec-name="selectedMedia.edmCodecName"
+                :image-link="selectedMediaImage.link"
+                :image-src="selectedMediaImage.src"
+                :mime-type="selectedMedia.ebucoreHasMimeType"
+                :url="selectedMedia.about"
+                :width="selectedMedia.ebucoreWidth"
+                :height="selectedMedia.ebucoreHeight"
+              />
+              <MediaThumbnailGrid
+                v-if="displayMediaThumbnailGrid"
+                :media="media"
+                :selected="selectedMedia.about"
+                @select="selectMedia"
+              />
+            </div>
             <div
               v-if="descriptionInCurrentLanguage"
               class="description"
@@ -230,7 +231,7 @@
         };
       },
       displayMediaThumbnailGrid() {
-        return Boolean(Number(process.env.ENABLE_RECORD_MEDIA_THUMBNAIL_GRID)) && (this.media.length > 1);
+        return this.media.length > 1;
       },
       edmRights() {
         return this.selectedMedia.webResourceEdmRights ? this.selectedMedia.webResourceEdmRights : this.fields.edmRights;

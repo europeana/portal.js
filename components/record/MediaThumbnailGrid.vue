@@ -1,6 +1,7 @@
 <template>
   <section
     data-qa="media thumbnail grid"
+    class="d-flex flex-wrap mb-3"
   >
     <!-- TODO: populate alt, but with what? -->
     <b-img
@@ -8,12 +9,21 @@
       :key="index"
       :src="thumbnail.src"
       :class="{ 'selected' : isSelected(thumbnail) }"
+      :style="{ 'display' : index > 10 && !showAll ? 'none' : 'inline' }"
       :data-about="thumbnail.about"
       :data-qa="`media thumbnail #${index + 1}`"
       thumbnail
       alt=""
+      class="mb-2 mr-2 rounded-0"
       @click="clickThumbnail(thumbnail.about)"
     />
+    <button
+      v-if="thumbnails.length > 10"
+      class="pb-0"
+      @click="toggleThumbnails()"
+    >
+      {{ showAll ? $t('showLess') : $t('showMore') }}
+    </button>
   </section>
 </template>
 
@@ -50,7 +60,9 @@
     data() {
       return {
         // URI of the currently selected thumbnail.
-        currentSelection: this.selected
+        currentSelection: this.selected,
+        // show all thumbnails, default is a selection
+        showAll: false
       };
     },
 
@@ -91,6 +103,12 @@
       clickThumbnail(thumbnailabout) {
         this.currentSelection = thumbnailabout;
         this.$emit('select', thumbnailabout);
+      },
+      /**
+       * Toggle the display of all thumbnails
+       */
+      toggleThumbnails() {
+        this.showAll = !this.showAll;
       }
     }
   };
@@ -100,13 +118,27 @@
   @import "./assets/scss/variables.scss";
 
   .img-thumbnail {
-    width: 100px;
-    margin-right: $grid-gutter;
-    margin-bottom: $grid-gutter;
+    border-color: $paper;
     cursor: pointer;
+    height: 5.5rem;
+    object-fit: cover;
+    padding: 0;
+    width: 5.5rem;
+
+    &.selected {
+      border-color: $blue;
+      border-width: 2px;
+    }
   }
 
-  .img-thumbnail.selected {
+  button {
+    background-color: transparent;
     border-color: $blue;
+    color: $blue;
+    font-size: $font-size-small;
+    height: 5.5rem;
+    text-transform: uppercase;
+    width: 5.5rem;
   }
+
 </style>
