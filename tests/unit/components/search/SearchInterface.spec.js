@@ -28,6 +28,7 @@ const router = new VueRouter({
 const factory = (options = {}) => {
   const mocks = {
     $t: (key) => key,
+    $tc: (key) => key,
     $te: () => false,
     localePath: (opts) => opts,
     ...options.mocks
@@ -189,18 +190,42 @@ describe('components/search/SearchInterface', () => {
         wrapper.vm.orderedFacets[7].name.should.eq('CONTRIBUTOR');
       });
     });
+
+    describe('coreFacets', () => {
+      const wrapper = factory({
+        storeState: {
+          facets: [
+            { name: 'COUNTRY' },
+            { name: 'RIGHTS' },
+            { name: 'CONTRIBUTOR' },
+            { name: 'DATA_PROVIDER' },
+            { name: 'PROVIDER' },
+            { name: 'LANGUAGE' },
+            { name: 'REUSABILITY' },
+            { name: 'TYPE' }
+          ]
+        }
+      });
+
+      it('returns core facets only', () => {
+        wrapper.vm.coreFacets.should.eql([ { 'name': 'TYPE' }, { 'name': 'REUSABILITY' }, { 'name': 'COUNTRY' } ]);
+      });
+      it('returns core facets only', () => {
+        wrapper.vm.moreFacets.should.eql([ { 'name': 'LANGUAGE' }, { 'name': 'PROVIDER' }, { 'name': 'DATA_PROVIDER' }, { 'name': 'RIGHTS' }, { 'name': 'CONTRIBUTOR' } ]);
+      });
+    });
   });
 
   describe('methods', () => {
-    describe('queryUpdatesForFacetChange', () => {
+    describe('queryUpdatesForFacetChanges', () => {
       const wrapper = factory();
 
       context('when facet is REUSABILITY', () => {
-        const facetName = 'REUSABILITY';
+        const selected = { 'REUSABILITY': ['open', 'permission' ] };
 
         context('with values selected', () => {
           it('sets `reusability` to values joined with ","', () => {
-            const updates = wrapper.vm.queryUpdatesForFacetChange(facetName, ['open', 'permission']);
+            const updates = wrapper.vm.queryUpdatesForFacetChanges(selected);
             updates.reusability.should.eq('open,permission');
           });
         });
@@ -208,28 +233,26 @@ describe('components/search/SearchInterface', () => {
         context('with no values selected', () => {
           it('sets `reusability` to `null`', () => {
             const wrapper = factory();
-
-            const updates = wrapper.vm.queryUpdatesForFacetChange(facetName, []);
-            (updates.reusability === null).should.be.true;
+            const updates = wrapper.vm.queryUpdatesForFacetChanges();
+            updates.should.eql({ qf: [], page: 1 });
           });
         });
       });
 
       context('for default facets from search plugin', () => {
-        const facetName = 'TYPE';
-
         it('includes fielded and quoted queries for each value in `qf`', () => {
-          const updates = wrapper.vm.queryUpdatesForFacetChange(facetName, ['IMAGE', 'SOUND']);
+          const selected = { 'TYPE': ['IMAGE', 'SOUND'] };
+          const updates = wrapper.vm.queryUpdatesForFacetChanges(selected);
           updates.qf.should.include('TYPE:"IMAGE"');
           updates.qf.should.include('TYPE:"SOUND"');
         });
       });
 
       context('for any other facets', () => {
-        const facetName = 'contentTier';
+        const facetName = { 'contentTier': [4] };
 
         it('includes fielded but unquoted queries for each value in `qf`', () => {
-          const updates = wrapper.vm.queryUpdatesForFacetChange(facetName, ['4']);
+          const updates = wrapper.vm.queryUpdatesForFacetChanges(facetName, ['4']);
           updates.qf.should.include('contentTier:4');
         });
       });
