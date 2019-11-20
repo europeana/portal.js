@@ -12,7 +12,6 @@
       :enable-language-selector="enableLanguageSelector"
       :enable-suggestion-validation="enableSuggestionValidation"
     />
-    <PageNavigation />
     <b-container v-if="breadcrumbs">
       <b-row>
         <b-col class="col-12">
@@ -32,13 +31,11 @@
 
 <script>
   import PageHeader from '../components/PageHeader.vue';
-  import PageNavigation from '../components/PageNavigation.vue';
   import PageFooter from '../components/PageFooter.vue';
 
   export default {
     components: {
       PageHeader,
-      PageNavigation,
       PageFooter
     },
 
