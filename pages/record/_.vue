@@ -93,7 +93,7 @@
             class="mb-3"
           />
         </div>
-        <div class="card p-3">
+        <div class="card p-3 mb-3">
           <div class="d-flex justify-content-between align-items-center">
             <h2>{{ $t('record.extendedInformation') }}</h2>
             <b-button
@@ -116,6 +116,10 @@
             />
           </b-collapse>
         </div>
+        <SimilarItems
+          v-if="similarItems"
+          :items="similarItems"
+        />
       </b-col>
       <b-col
         cols="12"
@@ -136,9 +140,11 @@
   import MediaActionBar from '../../components/record/MediaActionBar';
   import AlertMessage from '../../components/generic/AlertMessage';
   import MetadataField from '../../components/record/MetadataField';
+  import SimilarItems from '../../components/record/SimilarItems';
   import MediaPresentation from '../../components/record/MediaPresentation';
 
-  import getRecord from '../../plugins/europeana/record';
+  import getRecord, { similarItemsQuery } from '../../plugins/europeana/record';
+  import search from '../../plugins/europeana/search';
   import { langMapValueForLocale } from  '../../plugins/europeana/utils';
   import { isRichMedia } from '../../plugins/media.js';
   import { searchEntities } from '../../plugins/europeana/entity';
@@ -149,6 +155,7 @@
       EntityCards,
       MediaActionBar,
       MetadataField,
+      SimilarItems,
       MediaPresentation
     },
     data() {
@@ -164,6 +171,7 @@
         image: null,
         media: null,
         relatedEntities: [],
+        similarItems: [],
         title: null
       };
     },
@@ -234,6 +242,9 @@
     async mounted() {
       this.relatedEntities = await searchEntities(this.europeanaEntityUris, { wskey: process.env.EUROPEANA_ENTITY_API_KEY });
 
+      const similar = await this.getSimilarItems();
+      this.similarItems = similar.results;
+
       if (process.browser) {
         if (localStorage.itemShowExtendedMetadata && JSON.parse(localStorage.itemShowExtendedMetadata)) {
           this.$root.$emit('bv::toggle::collapse', 'extended-metadata');
@@ -245,6 +256,20 @@
         if (process.browser) {
           localStorage.itemShowExtendedMetadata = localStorage.itemShowExtendedMetadata ? !JSON.parse(localStorage.itemShowExtendedMetadata) : true;
         }
+      },
+      getSimilarItems() {
+        const dataSimilarItems = {
+          dcSubject: langMapValueForLocale(this.coreFields.dcSubject).values.filter(item => typeof item === 'string'),
+          dcType: langMapValueForLocale(this.title).values.filter(item => typeof item === 'string'),
+          dcCreator: langMapValueForLocale(this.coreFields.dcCreator).values.filter(item => typeof item === 'string'),
+          edmDataProvider: langMapValueForLocale(this.fields.edmDataProvider).values.filter(item => typeof item === 'string')
+        };
+
+        return search({
+          query: similarItemsQuery(this.identifier, dataSimilarItems),
+          rows: 4,
+          wskey: process.env.EUROPEANA_API_KEY
+        });
       }
     },
     head() {

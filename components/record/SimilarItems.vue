@@ -1,6 +1,7 @@
 <template>
-  <section class="row py-4 px-2 card">
-    <b-col>
+  <section>
+    <h3>Similar items</h3>
+    <div class="p-3 pb-5 card">
       <b-card-group
         class="card-deck-4-cols similar-items"
         deck
@@ -8,12 +9,12 @@
         <ContentCard
           v-for="(item, index) in items"
           :key="index"
-          :title="item.title"
-          :image-url="item.thumbnail"
-          :url="{ name: 'record-all', params: { pathMatch: item.identifier.slice(1) } }"
+          :title="item.fields.dcTitle[0]"
+          :image-url="item.edmPreview"
+          :url="{ name: 'record-all', params: { pathMatch: item.europeanaId } }"
         />
       </b-card-group>
-    </b-col>
+    </div>
   </section>
 </template>
 
@@ -63,6 +64,7 @@
 
     .card-img {
       border-radius: 0;
+      margin-bottom: 1rem;
 
       &:after {
         content: '';
@@ -73,7 +75,7 @@
 
     .card-body {
       min-height: auto;
-      padding-bottom: 0;
+      padding: 0;
     }
   }
 </style>
