@@ -259,10 +259,10 @@
       },
       getSimilarItems() {
         const dataSimilarItems = {
-          dcSubject: langMapValueForLocale(this.coreFields.dcSubject).values.filter(item => typeof item === 'string'),
-          dcType: langMapValueForLocale(this.title).values.filter(item => typeof item === 'string'),
-          dcCreator: langMapValueForLocale(this.coreFields.dcCreator).values.filter(item => typeof item === 'string'),
-          edmDataProvider: langMapValueForLocale(this.fields.edmDataProvider).values.filter(item => typeof item === 'string')
+          dcSubject: this.getSimilarItemsData(this.coreFields.dcSubject),
+          dcType: this.getSimilarItemsData(this.title),
+          dcCreator: this.getSimilarItemsData(this.coreFields.dcCreator),
+          edmDataProvider: this.getSimilarItemsData(this.fields.edmDataProvider)
         };
 
         return search({
@@ -270,6 +270,18 @@
           rows: 4,
           wskey: process.env.EUROPEANA_API_KEY
         });
+      },
+      getSimilarItemsData(value) {
+        if (!value) {
+          return;
+        }
+
+        let data = langMapValueForLocale(value).values;
+        if (!data) {
+          return;
+        }
+
+        return data.filter(item => typeof item === 'string');
       }
     },
     head() {

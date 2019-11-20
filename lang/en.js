@@ -119,6 +119,7 @@ export default {
     "record": "Record",
     "showAll": "Show all information"
   },
+  "similarItems": "Similar Items",
   "messages": {
     "externalContentError": "The external content failed to load",
     "notFound": "Not Found",

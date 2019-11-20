@@ -1,6 +1,6 @@
 <template>
   <section>
-    <h3>Similar items</h3>
+    <h3>{{ $t('similarItems') }}</h3>
     <div class="p-3 pb-5 card">
       <b-card-group
         class="card-deck-4-cols similar-items"
