@@ -89,7 +89,7 @@
 
     computed: {
       selectedOptionsCount() {
-        return Object.values(this.selected).length;
+        return [].concat(...Object.values(this.selected)).length;
       },
 
       disableButton() {
