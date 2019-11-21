@@ -60,4 +60,9 @@
   .container-fluid {
     background: $white;
   }
-</style>
+
+  .form-inline {
+    width: 40%;
+  }
+
+  </style>

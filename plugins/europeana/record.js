@@ -30,7 +30,7 @@ function parseRecordDataFromApiResponse(response) {
     identifier: edm.about,
     type: edm.type,
     isShownAt: providerAggregation.edmIsShownAt,
-    coreFields: coreFields(proxyData, entities),
+    coreFields: coreFields(proxyData, providerAggregation.edmDataProvider, entities),
     fields: extraFields(proxyData, edm, entities),
     media: aggregationMedia(providerAggregation, edm.type),
     agents: edm.agents,
@@ -64,8 +64,10 @@ function combineMerge(target, source, options) {
  * @param {Object[]} entities Entities in order to perform entity lookups
  * @return {Object[]} Key value pairs of the metadata fields.
  */
-function coreFields(proxyData, entities) {
+function coreFields(proxyData, edmDataProvider, entities) {
   return lookupEntities(omitBy({
+    edmDataProvider,
+
     dcContributor: proxyData.dcContributor,
     dcCreator: proxyData.dcCreator,
     dcPublisher: proxyData.dcPublisher,
@@ -87,11 +89,13 @@ function extraFields(proxyData, edm, entities) {
   const providerAggregation = edm.aggregations[0];
   const europeanaAggregation = edm.europeanaAggregation;
   return lookupEntities(omitBy({
-    dctermsCreated: proxyData.dctermsCreated,
+    edmProvider: providerAggregation.edmProvider,
+    edmIntermediateProvider: providerAggregation.edmIntermediateProvider,
     edmCountry: europeanaAggregation.edmCountry,
-    edmDataProvider: providerAggregation.edmDataProvider,
     edmRights: providerAggregation.edmRights,
     dcRights: proxyData.dcRights,
+    dcPublisher: proxyData.dcPublisher,
+    dctermsCreated: proxyData.dctermsCreated,
     dcDate: proxyData.dcDate,
     dctermsIssued: proxyData.dctermsIssued,
     dctermsPublished: proxyData.dctermsPublished,
@@ -102,10 +106,8 @@ function extraFields(proxyData, edm, entities) {
     edmUgc: providerAggregation.edmUgc,
     dctermsProvenance: proxyData.dctermsProvenance,
     dcSource: proxyData.dcSource,
-    dcPublisher: proxyData.dcPublisher,
     dcIdentifier: proxyData.dcIdentifier,
-    edmIntermediateProvider: providerAggregation.edmIntermediateProvider,
-    edmProvider: providerAggregation.edmProvider,
+    europeanaCollectionName: edm.europeanaCollectionName,
     timestampCreated: edm.timestamp_created,
     timestampUpdated: edm.timestamp_updated,
     dctermsExtent: proxyData.dctermsExtent,
@@ -114,7 +116,6 @@ function extraFields(proxyData, edm, entities) {
     dcFormat: proxyData.dcFormat,
     dcLanguage: proxyData.dcLanguage,
     dctermsIsPartOf: proxyData.dctermsIsPartOf,
-    europeanaCollectionName: edm.europeanaCollectionName,
     dcRelation: proxyData.dcRelation,
     dctermsReferences: proxyData.dctermsReferences,
     dctermsHasPart: proxyData.dctermsHasPart,

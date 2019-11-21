@@ -136,7 +136,10 @@ export default {
     "hideAll": "Hide all information",
     "record": "Record",
     "showAll": "Show all information",
-    "similarItems": "Similar items"
+    "similarItems": "Similar items",
+    "view": {
+      "pdf": "View PDF"
+    }
   },
   "messages": {
     "notFound": "Not Found",
@@ -185,5 +188,8 @@ export default {
   "clearAllFilters": "clear all filters",
   "reset": "Reset",
   "loadingResults": "Loading results",
-  "edmIsShownAtLinkAlt": "View at the provider's website"
+  "edmIsShownAtLinkAlt": "View at the provider's website",
+  "imageSlider": {
+    "handle": "Slider Handle"
+  }
 };

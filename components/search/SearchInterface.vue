@@ -22,7 +22,7 @@
           />
         </b-col>
       </b-row>
-      <b-row class="mb-4">
+      <b-row class="mb-3">
         <b-col>
           <FacetDropdown
             v-for="facet in coreFacets"

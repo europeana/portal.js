@@ -38,7 +38,6 @@
   }
 
   .card-body {
-    min-height: calc(50% + 1rem); // TODO: a min-height for now, else text will run out of the box, can probably be a height when we truncate the description
     padding: 1rem;
     width: 100%;
   }
