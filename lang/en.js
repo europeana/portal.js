@@ -135,7 +135,8 @@ export default {
     "extendedInformation": "Extended information",
     "hideAll": "Hide all information",
     "record": "Record",
-    "showAll": "Show all information"
+    "showAll": "Show all information",
+    "similarItems": "Similar items"
   },
   "messages": {
     "notFound": "Not Found",

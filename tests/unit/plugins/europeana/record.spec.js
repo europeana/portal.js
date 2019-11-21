@@ -1,4 +1,5 @@
 import nock from 'nock';
+import thumbnailUrl from  '../../../../plugins/europeana/thumbnail';
 import getRecord, {
   isEuropeanaRecordId, similarItemsQuery
 } from '../../../../plugins/europeana/record';
@@ -72,8 +73,8 @@ describe('plugins/europeana/record', () => {
           isNextInSequence: edmHasViewWebResourceFirst.about
         };
         const edmHasViewWebResourceThird = {
-          about: 'https://example.org/image3.jpeg',
-          ebucoreHasMimeType: 'image/jpeg',
+          about: 'https://example.org/unknown.bin',
+          ebucoreHasMimeType: 'application.octet-stream',
           isNextInSequence: edmHasViewWebResourceSecond.about
         };
         const someOtherWebResource = {
@@ -153,28 +154,60 @@ describe('plugins/europeana/record', () => {
         describe('.media', () => {
           it('includes edmIsShownBy web resource', async() => {
             const response = await getRecord(europeanaId, { wskey: apiKey });
-            response.record.media.should.include.deep.members([edmIsShownByWebResource]);
+            response.record.media.find((item) => item.about === edmIsShownByWebResource.about).should.exist;
           });
 
           it('includes edmHasView web resource', async() => {
             const response = await getRecord(europeanaId, { wskey: apiKey });
-            response.record.media.should.include.deep.members([
-              edmHasViewWebResourceFirst, edmHasViewWebResourceSecond, edmHasViewWebResourceThird
-            ]);
+            for (const hasView of [edmHasViewWebResourceFirst, edmHasViewWebResourceSecond, edmHasViewWebResourceThird]) {
+              response.record.media.find((item) => item.about === hasView.about).should.exist;
+            }
           });
 
           it('omits other web resources', async() => {
             const response = await getRecord(europeanaId, { wskey: apiKey });
-            response.record.media.should.not.include.deep.members([someOtherWebResource]);
+            (typeof response.record.media.find((item) => item.about === someOtherWebResource.about)).should.eq('undefined');
           });
 
           it('sorts by isNextInSequence', async() => {
             const response = await getRecord(europeanaId, { wskey: apiKey });
 
-            response.record.media[0].should.deep.eq(edmIsShownByWebResource);
-            response.record.media[1].should.deep.eq(edmHasViewWebResourceFirst);
-            response.record.media[2].should.deep.eq(edmHasViewWebResourceSecond);
-            response.record.media[3].should.deep.eq(edmHasViewWebResourceThird);
+            response.record.media[0].about.should.eq(edmIsShownByWebResource.about);
+            response.record.media[1].about.should.eq(edmHasViewWebResourceFirst.about);
+            response.record.media[2].about.should.eq(edmHasViewWebResourceSecond.about);
+            response.record.media[3].about.should.eq(edmHasViewWebResourceThird.about);
+          });
+
+          describe('injected thumbnail URLs', () => {
+            context('when item has a supported MIME type', () => {
+              const item = edmHasViewWebResourceFirst;
+              it('includes item-specific-type thumbnails', async() => {
+                const expectedThumbnails = {
+                  small: thumbnailUrl(item.about, { size: 'w200', type: 'IMAGE' }),
+                  large: thumbnailUrl(item.about, { size: 'w400', type: 'IMAGE' })
+                };
+
+                const response = await getRecord(europeanaId, { wskey: apiKey });
+                const actualThumbnails = response.record.media.find((m) => m.about === item.about).thumbnails;
+
+                actualThumbnails.should.deep.eq(expectedThumbnails);
+              });
+            });
+
+            context('when item has an unsupported MIME type', () => {
+              const item = edmHasViewWebResourceThird;
+              it('includes record-type thumbnails', async() => {
+                const expectedThumbnails = {
+                  small: thumbnailUrl(item.about, { size: 'w200', type }),
+                  large: thumbnailUrl(item.about, { size: 'w400', type })
+                };
+
+                const response = await getRecord(europeanaId, { wskey: apiKey });
+                const actualThumbnails = response.record.media.find((m) => m.about === item.about).thumbnails;
+
+                actualThumbnails.should.deep.eq(expectedThumbnails);
+              });
+            });
           });
         });
 
@@ -280,6 +313,15 @@ describe('plugins/europeana/record', () => {
       };
 
       similarItemsQuery(about, data).should.include('(what:("Type")^0.8 OR who:("Creator")^0.5)');
+    });
+
+    it('omits empty fields', () => {
+      const data = {
+        dcCreator: [],
+        dcType: ['Type']
+      };
+
+      similarItemsQuery(about, data).should.not.include('who:(');
     });
 
     it('handles no relevant query terms sensibly', () => {

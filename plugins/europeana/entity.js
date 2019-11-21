@@ -187,7 +187,7 @@ function normalizeEntityId(id) {
  *    console.log(slug); // expected output: '59832-vincent-van-gogh'
  */
 export function getEntitySlug(entity, entityPage) {
-  const name = (entityPage && entityPage.name) ? entityPage.name['en-GB'] : entity.prefLabel.en;
+  const name = (entityPage && entityPage.name) ? entityPage.name : entity.prefLabel.en;
   const entityId = entity.id.toString().split('/').pop();
   const path = entityId + (name ? '-' + name.toLowerCase().replace(/ /g, '-') : '');
   return path;

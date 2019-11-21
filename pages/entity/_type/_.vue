@@ -74,7 +74,6 @@
 
   import * as entities from '../../../plugins/europeana/entity';
   import { pageFromQuery } from '../../../plugins/utils';
-  import { langMapValueForLocale } from '../../../plugins/europeana/utils';
   import createClient from '../../../plugins/contentful';
 
   const PER_PAGE = 9;
@@ -130,12 +129,12 @@
       // Description from the Contentful entry
       editorialDescription() {
         if (!this.page || !this.page.description) return null;
-        return langMapValueForLocale(this.page.description, this.$store.state.i18n.locale).values[0];
+        return this.page.description;
       },
       // Title from the Contentful entry
       editorialTitle() {
         if (!this.page || !this.page.name) return null;
-        return langMapValueForLocale(this.page.name, this.$store.state.i18n.locale).values[0];
+        return this.page.name;
       },
       perPage() {
         return PER_PAGE;
@@ -190,22 +189,30 @@
           entityKey: env.EUROPEANA_ENTITY_API_KEY
         }),
         contentfulClient.getEntries({
-          // Get all locales as URL slug is always derived from English.
-          'locale': '*',
+          'locale': app.i18n.isoLocale(),
           'content_type': 'entityPage',
           'fields.identifier': entityUri,
           'include': 2,
           'limit': 1
         })
-      ])
-        .then(axios.spread((entity, related, entityPageEntries) => {
-          const entityPage = entityPageEntries.total > 0 ? entityPageEntries.items[0].fields : null;
-          const desiredPath = entities.getEntitySlug(entity.entity, entityPage);
+        // URL slug is always derived from English, so if viewing in another locale,
+        // we also need to get the English, solely for the URL slug from `name`.
+      ].concat(app.i18n.locale === 'en' ? [] : contentfulClient.getEntries({
+        'locale': 'en-GB',
+        'content_type': 'entityPage',
+        'fields.identifier': entityUri,
+        'include': 2,
+        'limit': 1
+      })))
+        .then(axios.spread((entity, related, localisedEntries, defaultLocaleEntries) => {
+          const localisedEntityPage = localisedEntries.total > 0 ? localisedEntries.items[0].fields : null;
+          const defaultEntityPage = defaultLocaleEntries && defaultLocaleEntries.total > 0 ? defaultLocaleEntries.items[0].fields : null;
+          const desiredPath = entities.getEntitySlug(entity.entity, defaultEntityPage || localisedEntityPage);
 
           // Store content for reuse should a redirect be needed, below, or when
           // navigating back to this page, e.g. from a search result.
           store.commit('entity/setEntity', entity.entity);
-          store.commit('entity/setPage', entityPage);
+          store.commit('entity/setPage', localisedEntityPage);
           store.commit('entity/setRelatedEntities', related);
 
           if (params.pathMatch !== desiredPath) {
@@ -218,7 +225,7 @@
 
           return {
             entity: entity.entity,
-            page: entityPage,
+            page: localisedEntityPage,
             relatedEntities: related
           };
         }))

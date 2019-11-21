@@ -1,38 +1,39 @@
 <template>
   <section
     data-qa="media thumbnail grid"
+    class="d-flex flex-wrap mb-3"
   >
     <!-- TODO: populate alt, but with what? -->
     <b-img
       v-for="(thumbnail, index) of thumbnails"
       :key="index"
       :src="thumbnail.src"
-      :class="{ 'selected' : isSelected(thumbnail) }"
+      :class="thumbnailImgClass(thumbnail, index)"
       :data-about="thumbnail.about"
       :data-qa="`media thumbnail #${index + 1}`"
       thumbnail
       alt=""
+      class="mb-2 mr-2 rounded-0"
       @click="clickThumbnail(thumbnail.about)"
     />
+    <button
+      v-if="thumbnails.length > 10"
+      class="pb-0"
+      @click="toggleThumbnails"
+    >
+      {{ showAll ? $t('showLess') : $t('showMore') }}
+    </button>
   </section>
 </template>
 
 <script>
-  import thumbnailUrl, { thumbnailTypeForMimeType } from  '../../plugins/europeana/thumbnail';
-
   export default {
     name: 'MediaThumbnailGrid',
 
     props: {
-      // `type` parameter to include in thumbnail URLs if one can not be
-      // derived from the MIME type of a media item.
-      defaultThumbnailType: {
-        type: String,
-        default: null
-      },
-
       // Array of media items as returned by the API's standard JSON response.
-      // Expected to have `about` property with the web resource's URI.
+      // Expected to have `about` property with the web resource's URI, and
+      // `thumbnails` property with `small` and `large` thumbnail URLs.
       media: {
         type: Array,
         required: true
@@ -44,13 +45,13 @@
         required: true
       },
 
-      // Size of thumbnail to display, passed to the thumbnail API.
-      // Valid values are 'w200' and 'w400'.
+      // Size of thumbnail to display.
+      // Valid values are 'small' and 'large'.
       size: {
         type: String,
-        default: 'w200',
+        default: 'small',
         validator: (size) => {
-          return ['w200', 'w400'].includes(size);
+          return ['small', 'large'].includes(size);
         }
       }
     },
@@ -58,7 +59,9 @@
     data() {
       return {
         // URI of the currently selected thumbnail.
-        currentSelection: this.selected
+        currentSelection: this.selected,
+        // show all thumbnails, default is a selection
+        showAll: false
       };
     },
 
@@ -75,10 +78,7 @@
         return this.media.map((item) => {
           return {
             about: item.about,
-            src: thumbnailUrl(item.about, {
-              size: this.size,
-              type: thumbnailTypeForMimeType(item.ebucoreHasMimeType) || this.defaultThumbnailType
-            })
+            src: item.thumbnails[this.size]
           };
         });
       }
@@ -102,6 +102,20 @@
       clickThumbnail(thumbnailabout) {
         this.currentSelection = thumbnailabout;
         this.$emit('select', thumbnailabout);
+      },
+
+      /**
+       * Toggle the display of all thumbnails
+       */
+      toggleThumbnails() {
+        this.showAll = !this.showAll;
+      },
+
+      thumbnailImgClass(thumbnail, index) {
+        const classes = [];
+        if (this.isSelected(thumbnail)) classes.push('selected');
+        if (index > 10 && !this.showAll) classes.push('d-none');
+        return classes.join(' ');
       }
     }
   };
@@ -111,13 +125,27 @@
   @import "./assets/scss/variables.scss";
 
   .img-thumbnail {
-    width: 100px;
-    margin-right: $grid-gutter;
-    margin-bottom: $grid-gutter;
+    border-color: $paper;
     cursor: pointer;
+    height: 5.5rem;
+    object-fit: cover;
+    padding: 0;
+    width: 5.5rem;
+
+    &.selected {
+      border-color: $blue;
+      border-width: 2px;
+    }
   }
 
-  .img-thumbnail.selected {
+  button {
+    background-color: transparent;
     border-color: $blue;
+    color: $blue;
+    font-size: $font-size-small;
+    height: 5.5rem;
+    text-transform: uppercase;
+    width: 5.5rem;
   }
+
 </style>
