@@ -112,12 +112,12 @@
         return this.editorialDescription ? this.editorialDescription : entities.getEntityDescription(this.entity);
       },
       editorialAttribution() {
-        return this.page.primaryImageOfPage['en-GB'].fields.url['en-GB'];
+        return this.page.primaryImageOfPage.fields.url;
       },
       // Depiction from the Contentful entry
       editorialDepiction() {
         try {
-          const image = this.page.primaryImageOfPage['en-GB'].fields.image['en-GB'].fields.file['en-GB'];
+          const image = this.page.primaryImageOfPage.fields.image.fields.file;
           return this.$options.filters.optimisedImageUrl(image.url, image.contentType, { width: 255 });
         } catch (error) {
           if (error instanceof TypeError) {
