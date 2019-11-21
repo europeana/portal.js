@@ -29,7 +29,7 @@ const factory = () => mount(MoreFacetsDropdownOptions, {
 describe('components/search/MoreFacetsDropdownOptions', () => {
   it('emits `selectedOptions` event when selected method is called', async() => {
     const wrapper = factory();
-    const checkbox = wrapper.find('[data-qa="facets.LANGUAGE.name checkbox"]');
+    const checkbox = wrapper.find('[data-qa="de checkbox"]');
 
     wrapper.setData({ limitTo: 9 });
 
