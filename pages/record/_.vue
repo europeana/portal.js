@@ -107,8 +107,8 @@
             </h2>
             <b-button
               v-b-toggle.extended-metadata
-              variant="outline-primary"
               class="mb-3 d-inline extended-toggle p-0"
+              variant="link"
               @click="toggleExtendedMetadataPreference"
             >
               <span class="extended-opened">{{ $t('record.hideAll') }}</span>
@@ -423,12 +423,17 @@
   }
 
   .extended-toggle {
+    background: transparent;
     border: 0;
     color: $black;
+    font-size: 0.875rem;
+    text-decoration: none;
+    text-transform: uppercase;
 
     span {
       align-items: center;
       display: flex;
+      position: relative;
 
       &:after {
         content: '\e906';
@@ -449,12 +454,15 @@
     }
 
     &:hover {
-      background: transparent;
-      color: $blue;
+      color: inherit;
+    }
 
-      span:after {
-        border-color: $blue;
-      }
+    &:before {
+      background: $white;
+      bottom: -0.5rem;
+      left: -0.5rem;
+      right: -0.5rem;
+      top: -0.5rem;
     }
   }
 </style>

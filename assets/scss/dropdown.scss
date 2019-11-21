@@ -95,8 +95,9 @@
 
         .option-group {
           align-items: flex-start;
-          flex-flow: row wrap;
           display: flex;
+          flex-flow: row wrap;
+          width: 100%;
         }        
 
         .form-check {

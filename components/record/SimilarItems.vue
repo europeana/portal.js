@@ -1,6 +1,6 @@
 <template>
   <div
-    class="p-3 pb-5 card"
+    class="p-3 card"
     data-qa="similar items"
   >
     <b-card-group
