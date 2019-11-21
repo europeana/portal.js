@@ -283,6 +283,7 @@
 
     beforeRouteLeave(to, from, next) {
       this.$store.commit('search/setActive', false);
+      this.$store.commit('entity/setId', null); // needed to re-enable auto-suggest in header
       this.$store.commit('search/setPill', null);
       next();
     },
