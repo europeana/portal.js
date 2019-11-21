@@ -172,10 +172,6 @@
       showContentTierToggle: {
         type: Boolean,
         default: true
-      },
-      enableMoreFacets: { // TODO: to be removed when the more facets are fully functional
-        type: Boolean,
-        default: Boolean(Number(process.env['ENABLE_MORE_FACETS']))
       }
     },
     data() {
@@ -254,6 +250,9 @@
       },
       moreSelectedFacets() {
         return omitBy(this.selectedFacets, (selected, name) => this.coreFacetNames.includes(name));
+      },
+      enableMoreFacets() {
+        return this.moreFacets.length > 0;
       },
       showPagination() {
         return this.totalResults > this.perPage;

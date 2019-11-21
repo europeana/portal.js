@@ -18,14 +18,18 @@
       </span>
     </template>
     <b-dropdown-group class="more-facets-wrapper">
-      <MoreFacetsDropdownOptions
+      <template
         v-for="(facet, index) in moreFacets"
-        :key="index"
-        :fields="facet.fields"
-        :name="facet.name"
-        :selected="preSelected[facet.name]"
-        @selectedOptions="updateSelected"
-      />
+      >
+        <MoreFacetsDropdownOptions
+          v-if="facet.fields && facet.fields.length > 0"
+          :key="index"
+          :fields="facet.fields"
+          :name="facet.name"
+          :selected="preSelected[facet.name]"
+          @selectedOptions="updateSelected"
+        />
+      </template>
     </b-dropdown-group>
     <li
       class="dropdown-buttons"

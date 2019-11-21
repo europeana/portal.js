@@ -8,6 +8,7 @@ import SearchInterface from '../../../../components/search/SearchInterface.vue';
 
 const localVue = createLocalVue();
 localVue.filter('localise', (number) => number);
+localVue.filter('truncate', (string) => string);
 localVue.use(BootstrapVue);
 localVue.use(VueRouter);
 localVue.use(Vuex);
