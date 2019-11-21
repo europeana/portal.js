@@ -93,6 +93,7 @@
       display: inline;
       &:not(:last-child):after {
         content: ';';
+        padding: 0 0.2rem;
       }
     }
   }

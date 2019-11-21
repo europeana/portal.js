@@ -6,7 +6,7 @@
       :key="entity.id"
       :is-related="true"
       :title="entity.prefLabel.en"
-      :texts="[getEntityDescription(entity)]"
+      :texts="getEntityDescription(entity) ? [getEntityDescription(entity)] : []"
       :image-url="depiction(entity)"
       :url="entityRoute(entity)"
       :data-qa="entity.prefLabel.en + ' entity card'"
