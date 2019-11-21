@@ -1,5 +1,6 @@
 <template>
   <b-dropdown
+    id="more"
     ref="dropdown"
     variant="light"
     no-caret
@@ -7,6 +8,7 @@
     :class="{ 'is-active' : anyOptionsSelected }"
     data-qa="more filters dropdown button"
     @hidden="cancelHandler"
+    @show="addHash"
   >
     <template v-slot:button-content>
       {{ $t('facets.button.morefilters') }}
@@ -140,6 +142,10 @@
         for (const facetName in this.preSelected) {
           this.preSelected[facetName] = [];
         }
+      },
+
+      addHash() {
+        location.hash = '#more';
       }
     }
   };
