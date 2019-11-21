@@ -31,19 +31,19 @@ a {
   }
 
   &.skip-main:focus, &.skip-main:active {
-    color: #fff;
-    background-color: #000;
+    color: $white;
+    background-color: $black;
     left: auto;
     top: auto;
     width: 30%;
     height: auto;
     overflow: auto;
     margin: 10px 35%;
-    padding: 5px;
-    border-radius: 15px;
-    border: 4px solid yellow;
+    padding: 0.5rem;
+    border-radius: 1rem;
+    border: 4px solid $yellow;
     text-align: center;
-    font-size: 1.2em;
+    font-size: 1.2rem;
     z-index: 999;
   }
 }
