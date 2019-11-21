@@ -2,6 +2,7 @@ import { apiError } from './utils';
 import axios from 'axios';
 import escapeRegExp from 'lodash/escapeRegExp';
 import omitBy from 'lodash/omitBy';
+import uniq from 'lodash/uniq';
 import merge, { emptyTarget } from 'deepmerge';
 
 import thumbnailUrl, { thumbnailTypeForMimeType } from  '../../plugins/europeana/thumbnail';
@@ -136,7 +137,7 @@ function extraFields(proxyData, edm, entities) {
 function aggregationMedia(aggregation, recordType) {
   // Gather all isShownBy/At and hasView URIs
   const edmIsShownByOrAt = aggregation.edmIsShownBy || aggregation.edmIsShownAt;
-  const mediaUris = [edmIsShownByOrAt].concat(aggregation.hasView || []).filter(isNotUndefined);
+  const mediaUris = uniq([edmIsShownByOrAt].concat(aggregation.hasView || []).filter(isNotUndefined));
 
   // Filter web resources to isShownBy and hasView, respecting the ordering
   const media = mediaUris.map((mediaUri) => aggregation.webResources.find((webResource) => mediaUri === webResource.about));
