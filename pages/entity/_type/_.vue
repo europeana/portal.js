@@ -18,6 +18,7 @@
           :depiction="depiction"
           :description="description"
           :title="title"
+          :depiction-link-title="depictionLinkTitle"
         />
         <SearchInterface
           class="px-0"
@@ -97,13 +98,33 @@
 
     computed: {
       attribution() {
+        if (this.editorialDepiction) return this.editorialAttribution;
         return (!this.entity || !this.entity.depiction) ? null : this.entity.depiction.source;
       },
       depiction() {
+        if (this.editorialDepiction) return this.editorialDepiction;
         return (!this.entity || !this.entity.depiction) ? null : entities.getWikimediaThumbnailUrl(this.entity.depiction.id);
+      },
+      depictionLinkTitle() {
+        return this.editorialDepiction ? this.$t('goToRecord') : this.$t('entityDepictionCredit');
       },
       description() {
         return this.editorialDescription ? this.editorialDescription : entities.getEntityDescription(this.entity);
+      },
+      editorialAttribution() {
+        return this.page.primaryImageOfPage.fields.url;
+      },
+      // Depiction from the Contentful entry
+      editorialDepiction() {
+        try {
+          const image = this.page.primaryImageOfPage.fields.image.fields.file;
+          return this.$options.filters.optimisedImageUrl(image.url, image.contentType, { width: 255 });
+        } catch (error) {
+          if (error instanceof TypeError) {
+            return null;
+          }
+          throw error;
+        }
       },
       // Description from the Contentful entry
       editorialDescription() {

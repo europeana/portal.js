@@ -11,8 +11,6 @@
   >
     <figcaption>
       <CiteAttribution
-        :citation="citation"
-        :identifier="identifier"
         :name="name"
         :creator="creator"
         :provider="provider"
@@ -64,16 +62,6 @@
         default: ''
       },
       url: {
-        type: String,
-        default: ''
-      },
-      // TODO: remove in future when url always supplied
-      identifier: {
-        type: String,
-        default: ''
-      },
-      // TODO: remove in future when split fields (name/creator/provider) always supplied
-      citation: {
         type: String,
         default: ''
       }
