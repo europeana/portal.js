@@ -14,7 +14,7 @@
         :href="url"
         target="_blank"
       >
-        View PDF
+        {{ $t('record.view.pdf') }}
       </b-link>
     </p>
     <VideoPlayer

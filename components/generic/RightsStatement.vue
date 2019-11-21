@@ -23,6 +23,7 @@
         const val = this.rightsStatementUrl;
         let rights = [];
 
+        // TODO: localise the names?
         switch (true) {
         case new RegExp('https?://creativecommons.org/publicdomain/mark').test(val):
           rights.name = 'Public Domain';

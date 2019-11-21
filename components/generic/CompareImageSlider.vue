@@ -31,7 +31,7 @@
           class="slider-handle"
           data-qa="compare image slider handler"
         >
-          <span class="sr-only">Slider Handle</span>
+          <span class="sr-only">{{ $t('imageSlider.handle') }}</span>
         </button>
       </div>
     </div>
