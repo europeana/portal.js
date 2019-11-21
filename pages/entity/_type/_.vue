@@ -18,6 +18,7 @@
           :depiction="depiction"
           :description="description"
           :title="title"
+          :depiction-link-title="depictionLinkTitle"
         />
         <SearchInterface
           class="px-0"
@@ -73,7 +74,6 @@
 
   import * as entities from '../../../plugins/europeana/entity';
   import { pageFromQuery } from '../../../plugins/utils';
-  import { langMapValueForLocale } from '../../../plugins/europeana/utils';
   import createClient from '../../../plugins/contentful';
 
   const PER_PAGE = 9;
@@ -98,23 +98,43 @@
 
     computed: {
       attribution() {
+        if (this.editorialDepiction) return this.editorialAttribution;
         return (!this.entity || !this.entity.depiction) ? null : this.entity.depiction.source;
       },
       depiction() {
+        if (this.editorialDepiction) return this.editorialDepiction;
         return (!this.entity || !this.entity.depiction) ? null : entities.getWikimediaThumbnailUrl(this.entity.depiction.id);
+      },
+      depictionLinkTitle() {
+        return this.editorialDepiction ? this.$t('goToRecord') : this.$t('entityDepictionCredit');
       },
       description() {
         return this.editorialDescription ? this.editorialDescription : entities.getEntityDescription(this.entity);
       },
+      editorialAttribution() {
+        return this.page.primaryImageOfPage.fields.url;
+      },
+      // Depiction from the Contentful entry
+      editorialDepiction() {
+        try {
+          const image = this.page.primaryImageOfPage.fields.image.fields.file;
+          return this.$options.filters.optimisedImageUrl(image.url, image.contentType, { width: 255 });
+        } catch (error) {
+          if (error instanceof TypeError) {
+            return null;
+          }
+          throw error;
+        }
+      },
       // Description from the Contentful entry
       editorialDescription() {
         if (!this.page || !this.page.description) return null;
-        return langMapValueForLocale(this.page.description, this.$store.state.i18n.locale).values[0];
+        return this.page.description;
       },
       // Title from the Contentful entry
       editorialTitle() {
         if (!this.page || !this.page.name) return null;
-        return langMapValueForLocale(this.page.name, this.$store.state.i18n.locale).values[0];
+        return this.page.name;
       },
       perPage() {
         return PER_PAGE;
@@ -169,22 +189,30 @@
           entityKey: env.EUROPEANA_ENTITY_API_KEY
         }),
         contentfulClient.getEntries({
-          // Get all locales as URL slug is always derived from English.
-          'locale': '*',
+          'locale': app.i18n.isoLocale(),
           'content_type': 'entityPage',
           'fields.identifier': entityUri,
           'include': 2,
           'limit': 1
         })
-      ])
-        .then(axios.spread((entity, related, entityPageEntries) => {
-          const entityPage = entityPageEntries.total > 0 ? entityPageEntries.items[0].fields : null;
-          const desiredPath = entities.getEntitySlug(entity.entity, entityPage);
+        // URL slug is always derived from English, so if viewing in another locale,
+        // we also need to get the English, solely for the URL slug from `name`.
+      ].concat(app.i18n.locale === 'en' ? [] : contentfulClient.getEntries({
+        'locale': 'en-GB',
+        'content_type': 'entityPage',
+        'fields.identifier': entityUri,
+        'include': 2,
+        'limit': 1
+      })))
+        .then(axios.spread((entity, related, localisedEntries, defaultLocaleEntries) => {
+          const localisedEntityPage = localisedEntries.total > 0 ? localisedEntries.items[0].fields : null;
+          const defaultEntityPage = defaultLocaleEntries && defaultLocaleEntries.total > 0 ? defaultLocaleEntries.items[0].fields : null;
+          const desiredPath = entities.getEntitySlug(entity.entity, defaultEntityPage || localisedEntityPage);
 
           // Store content for reuse should a redirect be needed, below, or when
           // navigating back to this page, e.g. from a search result.
           store.commit('entity/setEntity', entity.entity);
-          store.commit('entity/setPage', entityPage);
+          store.commit('entity/setPage', localisedEntityPage);
           store.commit('entity/setRelatedEntities', related);
 
           if (params.pathMatch !== desiredPath) {
@@ -197,7 +225,7 @@
 
           return {
             entity: entity.entity,
-            page: entityPage,
+            page: localisedEntityPage,
             relatedEntities: related
           };
         }))

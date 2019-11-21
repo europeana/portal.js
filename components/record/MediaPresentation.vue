@@ -1,6 +1,6 @@
 <template>
   <div
-    class="media-presentation text-center"
+    class="text-left text-lg-center mb-3"
   >
     <MediaImage
       v-if="displayImage"

@@ -315,6 +315,15 @@ describe('plugins/europeana/record', () => {
       similarItemsQuery(about, data).should.include('(what:("Type")^0.8 OR who:("Creator")^0.5)');
     });
 
+    it('omits empty fields', () => {
+      const data = {
+        dcCreator: [],
+        dcType: ['Type']
+      };
+
+      similarItemsQuery(about, data).should.not.include('who:(');
+    });
+
     it('handles no relevant query terms sensibly', () => {
       const data = {};
 

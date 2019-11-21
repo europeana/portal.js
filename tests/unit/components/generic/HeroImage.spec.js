@@ -40,7 +40,7 @@ describe('components/generic/HeroImage', () => {
 
   it('has an attribution', () => {
     const wrapper = factory();
-    wrapper.setProps({ citation: 'Johannes Vermeer' });
+    wrapper.setProps({ creator: 'Johannes Vermeer' });
 
     const attribution = wrapper.find('[data-qa="hero banner"] cite a');
     attribution.text().should.contain('Johannes Vermeer');
