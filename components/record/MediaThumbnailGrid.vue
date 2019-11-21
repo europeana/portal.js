@@ -8,8 +8,7 @@
       v-for="(thumbnail, index) of thumbnails"
       :key="index"
       :src="thumbnail.src"
-      :class="{ 'selected' : isSelected(thumbnail) }"
-      :style="{ 'display' : index > 10 && !showAll ? 'none' : 'inline' }"
+      :class="thumbnailImgClass(thumbnail, index)"
       :data-about="thumbnail.about"
       :data-qa="`media thumbnail #${index + 1}`"
       thumbnail
@@ -20,7 +19,7 @@
     <button
       v-if="thumbnails.length > 10"
       class="pb-0"
-      @click="toggleThumbnails()"
+      @click="toggleThumbnails"
     >
       {{ showAll ? $t('showLess') : $t('showMore') }}
     </button>
@@ -104,11 +103,19 @@
         this.currentSelection = thumbnailabout;
         this.$emit('select', thumbnailabout);
       },
+
       /**
        * Toggle the display of all thumbnails
        */
       toggleThumbnails() {
         this.showAll = !this.showAll;
+      },
+
+      thumbnailImgClass(thumbnail, index) {
+        const classes = [];
+        if (this.isSelected(thumbnail)) classes.push('selected');
+        if (index > 10 && !this.showAll) classes.push('d-none');
+        return classes.join(' ');
       }
     }
   };
