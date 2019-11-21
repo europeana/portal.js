@@ -30,7 +30,7 @@ function parseRecordDataFromApiResponse(response) {
     identifier: edm.about,
     type: edm.type,
     isShownAt: providerAggregation.edmIsShownAt,
-    coreFields: coreFields(proxyData, providerAggregation, entities),
+    coreFields: coreFields(proxyData, providerAggregation.edmDataProvider, entities),
     fields: extraFields(proxyData, edm, entities),
     media: aggregationMedia(providerAggregation, edm.type),
     agents: edm.agents,
@@ -64,9 +64,9 @@ function combineMerge(target, source, options) {
  * @param {Object[]} entities Entities in order to perform entity lookups
  * @return {Object[]} Key value pairs of the metadata fields.
  */
-function coreFields(proxyData, providerAggregation, entities) {
+function coreFields(proxyData, edmDataProvider, entities) {
   return lookupEntities(omitBy({
-    edmDataProvider: providerAggregation.edmDataProvider,
+    edmDataProvider,
 
     dcContributor: proxyData.dcContributor,
     dcCreator: proxyData.dcCreator,
