@@ -4,14 +4,14 @@
     variant="light"
     no-caret
     class="more-facets position-static"
-    :class="{ 'is-active' : selectedOptionsCount > 0 }"
+    :class="{ 'is-active' : anyOptionsSelected }"
     data-qa="more filters dropdown button"
     @hidden="cancelHandler"
   >
     <template v-slot:button-content>
       {{ $t('facets.button.morefilters') }}
       <span
-        v-if="selectedOptionsCount > 0"
+        v-if="anyOptionsSelected"
         class="selected-amount"
       >
         {{ selectedOptionsCount }}
@@ -32,7 +32,7 @@
     >
       <b-button
         variant="link"
-        :disabled="selectedOptionsCount < 1"
+        :disabled="!anyOptionsSelected"
         data-qa="reset filter button"
         @click="resetFilters"
       >
@@ -40,7 +40,7 @@
       </b-button>
       <b-button
         variant="link"
-        :disabled="disableButton"
+        :disabled="selectedOptionsUnchanged"
         data-qa="cancel button"
         @click="cancelHandler"
       >
@@ -48,7 +48,7 @@
       </b-button>
       <b-button
         variant="primary"
-        :disabled="disableButton"
+        :disabled="selectedOptionsUnchanged"
         data-qa="apply button"
         @click="applySelected"
       >
@@ -87,11 +87,15 @@
     },
 
     computed: {
+      anyOptionsSelected() {
+        return this.selectedOptionsCount > 0;
+      },
+
       selectedOptionsCount() {
         return [].concat(...Object.values(this.selected)).length;
       },
 
-      disableButton() {
+      selectedOptionsUnchanged() {
         return isEqual(this.preSelected, this.selected);
       },
 

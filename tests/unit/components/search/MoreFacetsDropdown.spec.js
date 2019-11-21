@@ -41,7 +41,7 @@ describe('components/search/MoreFacetsDropdown', () => {
       preSelected: {}
     });
 
-    wrapper.vm.disableButton.should.eql(true);
+    wrapper.vm.selectedOptionsUnchanged.should.eql(true);
   });
 
   it('disables the cancel and apply button when nothing new has been selected', () => {
@@ -58,7 +58,7 @@ describe('components/search/MoreFacetsDropdown', () => {
       preSelected: {}
     });
 
-    wrapper.vm.disableButton.should.eql(true);
+    wrapper.vm.selectedOptionsUnchanged.should.eql(true);
   });
 
   it('enables the cancel and apply button when an option has been selected', () => {
@@ -74,7 +74,7 @@ describe('components/search/MoreFacetsDropdown', () => {
       }
     });
 
-    wrapper.vm.disableButton.should.eql(false);
+    wrapper.vm.selectedOptionsUnchanged.should.eql(false);
   });
 
   it('maps an array of more facet names', () => {
