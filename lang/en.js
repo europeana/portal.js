@@ -116,13 +116,13 @@ export default {
       "showLess": "Show less {label}"
     },
     "LANGUAGE": {
-      "name": "Language"
+      "name": "Language | Languages"
     },
     "PROVIDER": {
-      "name": "Aggregator"
+      "name": "Aggregator | Aggregators"
     },
     "DATA_PROVIDER": {
-      "name": "Institution"
+      "name": "Institution | Institutions"
     }
   },
   "entity": "Entity",
