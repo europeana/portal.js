@@ -12,7 +12,7 @@
         :destination="nav.url"
         link-class="nav-link"
       >
-        {{ nav.text }}
+        <span>{{ nav.text }}</span>
       </SmartLink>
     </li>
   </b-navbar-nav>
@@ -72,11 +72,19 @@
         @extend .icon-font;
         content: '\e900';
       }
+
+      span {
+        position: relative;
+      }
     }
 
     &:last-child {
       .nav-link {
         padding-right: 0;
+
+        &:before {
+          right: -0.5rem;
+        }
       }
     }
   }
