@@ -42,3 +42,10 @@
     }
   };
 </script>
+
+<style lang="scss" scoped>
+  a {
+    display: inline-block;
+    padding-left: 0.2rem;
+  }
+</style>
