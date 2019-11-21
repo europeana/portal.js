@@ -20,7 +20,7 @@
 
 <script>
   export default {
-    name: 'TagAndShare',
+    name: 'BlogTags',
 
     props: {
       tags: {

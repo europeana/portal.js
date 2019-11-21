@@ -1,7 +1,11 @@
 import { shallowMount } from '@vue/test-utils';
 import MediaPresentation from '../../../../components/record/MediaPresentation.vue';
 
-const factory = () => shallowMount(MediaPresentation);
+const factory = () => shallowMount(MediaPresentation, {
+  mocks: {
+    $t: (key) => key
+  }
+});
 
 describe('components/record/MediaPresentation', () => {
   describe('isPDF', () => {
