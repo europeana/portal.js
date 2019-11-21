@@ -98,7 +98,7 @@
             :field-data="value"
           />
         </div>
-        <div>
+        <div class="mb-3">
           <div class="d-flex justify-content-between align-items-center">
             <h2
               class="mb-3"
@@ -125,6 +125,15 @@
             />
           </b-collapse>
         </div>
+        <section
+          v-if="similarItems.length > 0"
+        >
+          <h2>{{ $t('record.similarItems') }}</h2>
+          <SimilarItems
+            :items="similarItems"
+            class="mb-3"
+          />
+        </section>
       </b-col>
       <b-col
         cols="12"
@@ -141,14 +150,18 @@
 </template>
 
 <script>
+  import axios from 'axios';
+
   import AlertMessage from '../../components/generic/AlertMessage';
   import EntityCards from '../../components/entity/EntityCards';
   import MediaActionBar from '../../components/record/MediaActionBar';
+  import SimilarItems from '../../components/record/SimilarItems';
   import MediaPresentation from '../../components/record/MediaPresentation';
   import MediaThumbnailGrid from '../../components/record/MediaThumbnailGrid';
   import MetadataField from '../../components/record/MetadataField';
 
-  import getRecord from '../../plugins/europeana/record';
+  import getRecord, { similarItemsQuery } from '../../plugins/europeana/record';
+  import search from '../../plugins/europeana/search';
   import { isRichMedia } from '../../plugins/media';
   import { langMapValueForLocale } from  '../../plugins/europeana/utils';
   import { searchEntities } from '../../plugins/europeana/entity';
@@ -158,6 +171,7 @@
       AlertMessage,
       EntityCards,
       MediaActionBar,
+      SimilarItems,
       MediaPresentation,
       MediaThumbnailGrid,
       MetadataField
@@ -177,6 +191,7 @@
         isShownAt: null,
         media: [],
         relatedEntities: [],
+        similarItems: [],
         selectedMediaItem: null,
         title: null,
         type: null
@@ -263,16 +278,25 @@
         });
     },
 
-    async mounted() {
+    mounted() {
       this.cardGridClass = this.isRichMedia && 'card-grid-richmedia';
-      this.relatedEntities = await searchEntities(this.europeanaEntityUris, { wskey: process.env.EUROPEANA_ENTITY_API_KEY });
 
       if (process.browser) {
         if (localStorage.itemShowExtendedMetadata && JSON.parse(localStorage.itemShowExtendedMetadata)) {
           this.$root.$emit('bv::toggle::collapse', 'extended-metadata');
         }
       }
+
+      axios.all([
+        searchEntities(this.europeanaEntityUris, { wskey: process.env.EUROPEANA_ENTITY_API_KEY }),
+        this.getSimilarItems()
+      ])
+        .then(axios.spread((related, similar) => {
+          this.relatedEntities = related;
+          this.similarItems = similar.results;
+        }));
     },
+
     methods: {
       selectMedia(about) {
         this.selectedMedia = about;
@@ -282,6 +306,38 @@
         if (process.browser) {
           localStorage.itemShowExtendedMetadata = localStorage.itemShowExtendedMetadata ? !JSON.parse(localStorage.itemShowExtendedMetadata) : true;
         }
+      },
+
+      getSimilarItems() {
+        const noSimilarItems = { results: [] };
+        if (this.error) return noSimilarItems;
+
+        const dataSimilarItems = {
+          dcSubject: this.getSimilarItemsData(this.coreFields.dcSubject),
+          dcType: this.getSimilarItemsData(this.title),
+          dcCreator: this.getSimilarItemsData(this.coreFields.dcCreator),
+          edmDataProvider: this.getSimilarItemsData(this.fields.edmDataProvider)
+        };
+
+        return search({
+          query: similarItemsQuery(this.identifier, dataSimilarItems),
+          rows: 4,
+          profile: 'minimal',
+          facet: '',
+          wskey: process.env.EUROPEANA_API_KEY
+        })
+          .catch(() => {
+            return noSimilarItems;
+          });
+      },
+
+      getSimilarItemsData(value) {
+        if (!value) return;
+
+        const data = langMapValueForLocale(value, this.$i18n.locale).values;
+        if (!data) return;
+
+        return data.filter(item => typeof item === 'string');
       }
     },
 

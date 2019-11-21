@@ -97,7 +97,7 @@ function extraFields(proxyData, edm, entities) {
     dctermsTemporal: proxyData.dctermsTemporal,
     dcCoverage: proxyData.dcCoverage,
     dctermsSpatial: proxyData.dctermsSpatial,
-    edmCurentLocation: proxyData.edmCurrentLocation,
+    edmCurrentLocation: proxyData.edmCurrentLocation,
     edmUgc: providerAggregation.edmUgc,
     dctermsProvenance: proxyData.dctermsProvenance,
     dcSource: proxyData.dcSource,
@@ -306,6 +306,7 @@ export function similarItemsQuery(about, data = {}) {
     for (const dataField of queryFieldOptions.data) {
       if (data[dataField]) {
         queryTerms.set(queryField, (queryTerms.get(queryField) || []).concat(data[dataField]));
+        if (queryTerms.get(queryField).length === 0) queryTerms.delete(queryField);
       }
     }
   }
