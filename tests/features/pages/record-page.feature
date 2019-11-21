@@ -53,3 +53,7 @@ Feature: Record page
   Scenario: No media thumbnail grid for single web resources
     When I open `"The Milkmaid" record page`
     Then I don't have the `media thumbnail grid`
+
+  Scenario: Similar items
+    When I open `"The Milkmaid" record page`
+    Then I see `similar items`
