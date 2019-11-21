@@ -44,7 +44,6 @@
       </b-button>
       <b-button
         variant="link"
-        :disabled="selectedOptionsUnchanged"
         data-qa="cancel button"
         @click="cancelHandler"
       >
