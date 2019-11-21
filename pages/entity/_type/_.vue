@@ -187,7 +187,7 @@
           const localisedEntityPage = localisedEntries.total > 0 ? localisedEntries.items[0].fields : null;
           const defaultEntityPage = defaultLocaleEntries && defaultLocaleEntries.total > 0 ? defaultLocaleEntries.items[0].fields : null;
           const desiredPath = entities.getEntitySlug(entity.entity, defaultEntityPage || localisedEntityPage);
-          console.log(`desiredPath: ${desiredPath}`);
+
           // Store content for reuse should a redirect be needed, below, or when
           // navigating back to this page, e.g. from a search result.
           store.commit('entity/setEntity', entity.entity);
