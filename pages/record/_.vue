@@ -354,7 +354,7 @@
   @import "./assets/scss/variables.scss";
   @import "./assets/scss/icons.scss";
 
-  h2 { // TODO: should this be the default sizing/styling of the h2, or just on this page?
+  h2 {
     font-size: $font-size-medium;
     font-weight: bold;
   }
