@@ -17,7 +17,7 @@
       @click="clickThumbnail(thumbnail.about)"
     />
     <button
-      v-if="thumbnails.length > 10"
+      v-if="thumbnails.length > 11"
       class="pb-0"
       @click="toggleThumbnails"
     >
