@@ -5,8 +5,10 @@
     <b-container>
       <b-row>
         <b-col>
-          <h1>Error {{ error.statusCode }}</h1>
-          <p>{{ error.message }}</p>
+          <h1>{{ $t('error') }}</h1>
+          <p class="lead">
+            {{ error.message }}
+          </p>
         </b-col>
       </b-row>
     </b-container>
