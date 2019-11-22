@@ -5,7 +5,6 @@
     class="mr-2 mb-2"
     :data-type="type"
     data-qa="search facet"
-    @hidden="applySelection"
   >
     <template v-slot:button-content>
       <span :data-qa="`${name} dropdown button`">
@@ -58,7 +57,7 @@
         variant="primary"
         :disabled="disableApplyButton"
         :data-qa="`${name} apply button`"
-        @click.stop="$refs.dropdown.hide(true);"
+        @click.stop="applySelection"
       >
         {{ $t('facets.button.apply') }}
       </b-button>
@@ -195,6 +194,8 @@
         } else {
           this.$emit('changed', this.name, this.preSelected);
         }
+
+        this.$refs.dropdown.hide(true);
       }
     }
   };
