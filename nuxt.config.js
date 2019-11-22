@@ -113,10 +113,6 @@ module.exports = {
   ** Build configuration
   */
   build: {
-    filenames: {
-      app: ({ isDev }) => isDev ? '[name].js' : '[name].[chunkhash].js',
-      chunk: ({ isDev }) => isDev ? '[name].js' : '[name].[chunkhash].js'
-    },
     stats: process.env.NODE_ENV === 'test' ? 'errors-only' : {
       chunks: false,
       children: false,
