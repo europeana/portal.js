@@ -5,6 +5,7 @@
     class="mr-2 mb-2"
     :data-type="type"
     data-qa="search facet"
+    @hidden="cancelHandler"
   >
     <template v-slot:button-content>
       <span :data-qa="`${name} dropdown button`">
@@ -175,6 +176,11 @@
         } else if (this.preSelected.length > 0 && this.selected.length < 1) {
           this.preSelected = [];
         }
+      },
+
+      cancelHandler() {
+        this.resetCheckboxSelection();
+        this.resetRadioSelection();
       },
 
       resetCheckboxSelection() {
