@@ -51,6 +51,6 @@ Vue.filter('convertNewLine', (val) => {
 Vue.filter('proxyMedia', (mediaUrl, europeanaId) => {
   const proxyUrl = new URL('https://proxy.europeana.eu');
   proxyUrl.pathname = europeanaId;
-  proxyUrl.searchParams.append('url', mediaUrl);
+  proxyUrl.searchParams.append('view', mediaUrl);
   return proxyUrl.toString();
 });
