@@ -66,7 +66,7 @@ describe('Vue filters', () => {
 
     it('returns media proxy URL for item web resource', () => {
       const expected = `https://proxy.europeana.eu${europeanaId}?` +
-        new URLSearchParams({ url: mediaUrl }).toString();
+        new URLSearchParams({ view: mediaUrl }).toString();
 
       const proxyUrl = proxyMedia(mediaUrl, europeanaId);
 
