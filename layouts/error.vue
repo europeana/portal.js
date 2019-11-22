@@ -24,6 +24,12 @@
         type: Object,
         required: true
       }
+    },
+
+    head() {
+      return {
+        title: this.$t('error')
+      };
     }
   };
 </script>
