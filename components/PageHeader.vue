@@ -10,7 +10,7 @@
       >
         <b-navbar-brand
           :to="localePath('index')"
-          class="col-xl-4 p-0 m-0 text-center text-xl-left"
+          class="col-xl-3 p-0 m-0 text-center text-xl-left"
         >
           <img
             src="../assets/img/logo.svg"
@@ -21,7 +21,7 @@
         </b-navbar-brand>
         <SearchForm
           data-qa="search form"
-          class="col-xl-4 w-100 py-3 py-xl-0"
+          class="col-xl-5 w-100 py-3 py-xl-0"
           :enable-auto-suggest="enableAutoSuggest"
           :enable-suggestion-validation="enableSuggestionValidation"
         />
