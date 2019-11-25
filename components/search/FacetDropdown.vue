@@ -179,7 +179,7 @@
       },
 
       cancelHandler() {
-        this.resetCheckboxSelection();
+        this.preSelected = this.selected;
         this.resetRadioSelection();
       },
 
