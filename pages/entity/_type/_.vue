@@ -155,7 +155,7 @@
       }
     },
 
-    asyncData({ env, query, params, res, redirect, app, store }) {
+    async asyncData({ env, query, params, res, redirect, app, store }) {
       const currentPage = pageFromQuery(query.page);
       const entityUri = entities.getEntityUri(params.type, params.pathMatch);
 
@@ -182,22 +182,38 @@
 
       const contentfulClient = createClient(query.mode);
 
+      if (store.state.entity.curatedEntities === null) {
+        console.log('NO STORE SET');
+        const allEntityPages = await contentfulClient.getEntries({
+          'locale': 'en-GB',
+          'content_type': 'entityPage',
+          'include': 0,
+          'limit': 1000 // 1000 is the maximum number of results returned by contentful
+        });
+        await store.commit('entity/setCuratedEntities', allEntityPages.items.map(entityPage => entityPage.fields.identifier));
+      }
+      console.log('store is:');
+      console.log(store.state.entity.curatedEntities);
+      console.log('current:');
+      console.log(entityUri);
+      console.log('includes:');
+      console.log(store.state.entity.curatedEntities.includes(entityUri));
       return axios.all([
         entities.getEntity(params.type, params.pathMatch, { wskey: env.EUROPEANA_ENTITY_API_KEY }),
         entities.relatedEntities(params.type, params.pathMatch, {
           wskey: env.EUROPEANA_API_KEY,
           entityKey: env.EUROPEANA_ENTITY_API_KEY
-        }),
-        contentfulClient.getEntries({
-          'locale': app.i18n.isoLocale(),
-          'content_type': 'entityPage',
-          'fields.identifier': entityUri,
-          'include': 2,
-          'limit': 1
         })
-        // URL slug is always derived from English, so if viewing in another locale,
-        // we also need to get the English, solely for the URL slug from `name`.
-      ].concat(app.i18n.locale === 'en' ? [] : contentfulClient.getEntries({
+      ].concat(store.state.entity.curatedEntities.includes(entityUri) ? [] : contentfulClient.getEntries({
+        'locale': app.i18n.isoLocale(),
+        'content_type': 'entityPage',
+        'fields.identifier': entityUri,
+        'include': 2,
+        'limit': 1
+      })
+      // URL slug is always derived from English, so if viewing in another locale,
+      // we also need to get the English, solely for the URL slug from `name`.
+      ).concat(app.i18n.locale === 'en' && store.state.entity.curatedEntities.includes(entityUri) ? [] : contentfulClient.getEntries({
         'locale': 'en-GB',
         'content_type': 'entityPage',
         'fields.identifier': entityUri,

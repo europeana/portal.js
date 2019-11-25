@@ -6,7 +6,8 @@ export const state = () => ({
   id: null,
   page: null,
   relatedEntities: null,
-  themes: {}
+  themes: {},
+  curatedEntities: null
 });
 
 export const mutations = {
@@ -24,6 +25,9 @@ export const mutations = {
   },
   setThemes(state, value) {
     state.themes = value;
+  },
+  setCuratedEntities(state, value) {
+    state.curatedEntities = value;
   }
 };
 
