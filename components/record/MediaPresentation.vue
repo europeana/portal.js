@@ -24,6 +24,11 @@
       :width="width"
       :height="height"
     />
+    <AudioPlayer
+      v-else-if="isHTMLAudio"
+      :src="url"
+      :type="mimeType"
+    />
     <HTMLEmbed
       v-else-if="isOEmbed"
       :html="oEmbedData.html"
@@ -35,15 +40,17 @@
 <script>
   import MediaImage from '../../components/record/MediaImage';
   import VideoPlayer from '../../components/media/VideoPlayer';
+  import AudioPlayer from '../../components/media/AudioPlayer';
   import HTMLEmbed from '../../components/generic/HTMLEmbed';
 
   import oEmbed from '../../plugins/oembed.js';
-  import { isPDF, isHTMLVideo, isOEmbed } from '../../plugins/media.js';
+  import { isPDF, isHTMLVideo, isHTMLAudio, isOEmbed } from '../../plugins/media.js';
 
   export default {
     components: {
       MediaImage,
       VideoPlayer,
+      AudioPlayer,
       HTMLEmbed
     },
     props: {
@@ -83,13 +90,16 @@
     },
     computed: {
       displayImage() {
-        return (this.imageSrc !== '') && !this.isHTMLVideo && !this.isOEmbed;
+        return (this.imageSrc !== '') && !this.isHTMLVideo && !this.isOEmbed && !this.isHTMLAudio;
       },
       isPDF() {
         return isPDF(this.mimeType);
       },
       isHTMLVideo() {
         return isHTMLVideo(this.mimeType, this.codecName);
+      },
+      isHTMLAudio() {
+        return isHTMLAudio(this.mimeType);
       },
       isOEmbed() {
         return isOEmbed(this.url);
