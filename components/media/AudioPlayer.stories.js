@@ -47,7 +47,7 @@ storiesOf('Media/Audio Player', module)
     data() {
       return {
         src: '/audio/europeana-radio-welcome.mp3',
-        type: 'audio/mp3'
+        type: 'audio/mpeg'
       };
     },
     template: `
