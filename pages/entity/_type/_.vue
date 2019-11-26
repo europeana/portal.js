@@ -183,13 +183,16 @@
       const contentfulClient = createClient(query.mode);
 
       if (store.state.entity.curatedEntities === null) {
-        const allEntityPages = await contentfulClient.getEntries({
+        await contentfulClient.getEntries({
           'locale': 'en-GB',
           'content_type': 'entityPage',
           'include': 0,
           'limit': 1000 // 1000 is the maximum number of results returned by contentful
+        }).then(async(response) => {
+          await store.commit('entity/setCuratedEntities', response.items.map(entityPage => entityPage.fields.identifier));
+        }).catch(async() => {
+          await store.commit('entity/setCuratedEntities', []);
         });
-        await store.commit('entity/setCuratedEntities', allEntityPages.items.map(entityPage => entityPage.fields.identifier));
       }
       return axios.all([
         entities.getEntity(params.type, params.pathMatch, { wskey: env.EUROPEANA_ENTITY_API_KEY }),
