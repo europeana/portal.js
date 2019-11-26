@@ -34,7 +34,7 @@ pipeline {
         S3_REGION='eu-geo'
       }
       steps {
-        sh 'AWS_ACCESS_KEY_ID="${S3_ACCESS_USR}" AWS_SECRET_ACCESS_KEY="${S3_ACCESS_PSW}" aws --region ${S3_REGION} --endpoint-url ${S3_ENDPOINT} s3 sync .nuxt/dist/client s3://${S3_BUCKET}${S3_PATH} --acl public-read --delete'
+        sh 'AWS_ACCESS_KEY_ID="${S3_ACCESS_USR}" AWS_SECRET_ACCESS_KEY="${S3_ACCESS_PSW}" aws --region ${S3_REGION} --endpoint-url ${S3_ENDPOINT} s3 sync .nuxt/dist/client s3://${S3_BUCKET}${S3_PATH} --acl public-read --cache-control "public,max-age=31536000" --delete'
       }
     }
     stage('Login to CF') {
