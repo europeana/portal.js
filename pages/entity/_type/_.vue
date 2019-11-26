@@ -86,7 +86,23 @@
       EntityDetails,
       SearchInterface
     },
+    async middleware({ store, query }) {
+      const contentfulClient = createClient(query.mode);
 
+      // fetch all curated entity pages
+      if (!store.state.entity.curatedEntities) {
+        await contentfulClient.getEntries({
+          'locale': 'en-GB',
+          'content_type': 'entityPage',
+          'include': 0,
+          'limit': 1000 // 1000 is the maximum number of results returned by contentful
+        }).then(async(response) => {
+          await store.commit('entity/setCuratedEntities', response.items.map(entityPage => entityPage.fields.identifier));
+        }).catch(async() => {
+          await store.commit('entity/setCuratedEntities', []);
+        });
+      }
+    },
     data() {
       return {
         entity: null,
@@ -155,7 +171,7 @@
       }
     },
 
-    async asyncData({ env, query, params, res, redirect, app, store }) {
+    asyncData({ env, query, params, res, redirect, app, store }) {
       const currentPage = pageFromQuery(query.page);
       const entityUri = entities.getEntityUri(params.type, params.pathMatch);
 
@@ -182,18 +198,6 @@
 
       const contentfulClient = createClient(query.mode);
 
-      if (store.state.entity.curatedEntities === null) {
-        await contentfulClient.getEntries({
-          'locale': 'en-GB',
-          'content_type': 'entityPage',
-          'include': 0,
-          'limit': 1000 // 1000 is the maximum number of results returned by contentful
-        }).then(async(response) => {
-          await store.commit('entity/setCuratedEntities', response.items.map(entityPage => entityPage.fields.identifier));
-        }).catch(async() => {
-          await store.commit('entity/setCuratedEntities', []);
-        });
-      }
       return axios.all([
         entities.getEntity(params.type, params.pathMatch, { wskey: env.EUROPEANA_ENTITY_API_KEY }),
         entities.relatedEntities(params.type, params.pathMatch, {
