@@ -183,7 +183,6 @@
       const contentfulClient = createClient(query.mode);
 
       if (store.state.entity.curatedEntities === null) {
-        console.log('NO STORE SET');
         const allEntityPages = await contentfulClient.getEntries({
           'locale': 'en-GB',
           'content_type': 'entityPage',
@@ -192,19 +191,13 @@
         });
         await store.commit('entity/setCuratedEntities', allEntityPages.items.map(entityPage => entityPage.fields.identifier));
       }
-      console.log('store is:');
-      console.log(store.state.entity.curatedEntities);
-      console.log('current:');
-      console.log(entityUri);
-      console.log('includes:');
-      console.log(store.state.entity.curatedEntities.includes(entityUri));
       return axios.all([
         entities.getEntity(params.type, params.pathMatch, { wskey: env.EUROPEANA_ENTITY_API_KEY }),
         entities.relatedEntities(params.type, params.pathMatch, {
           wskey: env.EUROPEANA_API_KEY,
           entityKey: env.EUROPEANA_ENTITY_API_KEY
         })
-      ].concat(store.state.entity.curatedEntities.includes(entityUri) ? [] : contentfulClient.getEntries({
+      ].concat(!store.state.entity.curatedEntities.includes(entityUri) ? [] : contentfulClient.getEntries({
         'locale': app.i18n.isoLocale(),
         'content_type': 'entityPage',
         'fields.identifier': entityUri,
@@ -213,7 +206,7 @@
       })
       // URL slug is always derived from English, so if viewing in another locale,
       // we also need to get the English, solely for the URL slug from `name`.
-      ).concat(app.i18n.locale === 'en' && store.state.entity.curatedEntities.includes(entityUri) ? [] : contentfulClient.getEntries({
+      ).concat(app.i18n.locale === 'en' || !store.state.entity.curatedEntities.includes(entityUri) ? [] : contentfulClient.getEntries({
         'locale': 'en-GB',
         'content_type': 'entityPage',
         'fields.identifier': entityUri,
@@ -221,7 +214,7 @@
         'limit': 1
       })))
         .then(axios.spread((entity, related, localisedEntries, defaultLocaleEntries) => {
-          const localisedEntityPage = localisedEntries.total > 0 ? localisedEntries.items[0].fields : null;
+          const localisedEntityPage = localisedEntries && localisedEntries.total > 0 ? localisedEntries.items[0].fields : null;
           const defaultEntityPage = defaultLocaleEntries && defaultLocaleEntries.total > 0 ? defaultLocaleEntries.items[0].fields : null;
           const desiredPath = entities.getEntitySlug(entity.entity, defaultEntityPage || localisedEntityPage);
 
