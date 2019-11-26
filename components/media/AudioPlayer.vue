@@ -9,6 +9,7 @@
     :controls="controls"
     :autoplay="autoplay"
     :loop="loop"
+    class="w-100"
     data-qa="audio player"
   >
     <source
