@@ -57,3 +57,8 @@ Feature: Record page
   Scenario: Similar items
     When I open `"The Milkmaid" record page`
     Then I see `similar items`
+  
+  Scenario: Audio player
+    When I open the `"The pride of Glencoe, song" record page`
+    Then I see a `audio player`
+    And I am on an accessible page

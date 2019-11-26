@@ -91,6 +91,41 @@ describe('components/record/MediaPresentation', () => {
     });
   });
 
+  describe('isHTMLAudio', () => {
+    context('when mimeType is "audio/ogg"', () => {
+      it('is `true`', () => {
+        const wrapper = factory();
+        const props = { mimeType: 'audio/ogg' };
+
+        wrapper.setProps(props);
+
+        wrapper.vm.isHTMLAudio.should.be.true;
+      });
+    });
+
+    context('when mimeType is "audio/flac"', () => {
+      it('is `true`', () => {
+        const wrapper = factory();
+        const props = { mimeType: 'audio/flac' };
+
+        wrapper.setProps(props);
+
+        wrapper.vm.isHTMLAudio.should.be.true;
+      });
+    });
+
+    context('when mimeType is "audio/mpeg"', () => {
+      it('is `true`', () => {
+        const wrapper = factory();
+        const props = { mimeType: 'audio/mpeg' };
+
+        wrapper.setProps(props);
+
+        wrapper.vm.isHTMLAudio.should.be.true;
+      });
+    });
+  });
+
   describe('isOEmbed', () => {
     context('when url is for SoundCloud media', () => {
       it('is `true`', () => {
