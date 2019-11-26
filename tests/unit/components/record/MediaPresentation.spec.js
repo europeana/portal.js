@@ -114,10 +114,10 @@ describe('components/record/MediaPresentation', () => {
       });
     });
 
-    context('when mimeType is "audio/mp3"', () => {
+    context('when mimeType is "audio/mpeg"', () => {
       it('is `true`', () => {
         const wrapper = factory();
-        const props = { mimeType: 'audio/mp3' };
+        const props = { mimeType: 'audio/mpeg' };
 
         wrapper.setProps(props);
 

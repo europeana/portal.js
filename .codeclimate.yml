@@ -3,6 +3,7 @@ exclude_patterns:
   - "migrations/"
   - "tests/"
   - "lang/"
+  - "**/*.stories.js"
 plugins:
   eslint:
     enabled: true

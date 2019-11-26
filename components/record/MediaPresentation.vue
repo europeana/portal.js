@@ -44,7 +44,7 @@
   import HTMLEmbed from '../../components/generic/HTMLEmbed';
 
   import oEmbed from '../../plugins/oembed.js';
-  import { isPDF, isHTMLVideo, isHTMLAudio, isOEmbed } from '../../plugins/media.js';
+  import { isPDF, isHTMLVideo, isHTMLAudio, isOEmbed, isRichMedia } from '../../plugins/media.js';
 
   export default {
     components: {
@@ -90,7 +90,7 @@
     },
     computed: {
       displayImage() {
-        return (this.imageSrc !== '') && !this.isHTMLVideo && !this.isOEmbed && !this.isHTMLAudio;
+        return (this.imageSrc !== '') && !isRichMedia(this.mimeType, this.codecName, this.url);
       },
       isPDF() {
         return isPDF(this.mimeType);

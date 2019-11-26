@@ -23,7 +23,7 @@ describe('plugins/media', () => {
 
   describe('isHTMLAudio()', () => {
     it('returns `true` if mimeType is correct', () => {
-      const mimeType = ['audio/flac', 'audio/ogg', 'audio/mp3'];
+      const mimeType = ['audio/flac', 'audio/ogg', 'audio/mpeg'];
 
       for (const type of mimeType) {
         isHTMLAudio(type).should.be.true;
@@ -43,7 +43,7 @@ describe('plugins/media', () => {
     it('returns `true` if correct parameters are present', () => {
       isRichMedia(undefined, undefined, 'https://soundcloud.com/oembed').should.be.true;
       isRichMedia('video/mp4', 'h264', undefined).should.be.true;
-      isRichMedia('audio/mp3', undefined, undefined).should.be.true;
+      isRichMedia('audio/mpeg', undefined, undefined).should.be.true;
     });
   });
 });

@@ -8,7 +8,7 @@ localVue.use(BootstrapVue);
 const factory = () => shallowMount(AudioPlayer, {
   propsData: {
     src: 'https://example.org',
-    type: 'audio/mp3'
+    type: 'audio/mpeg'
   },
   localVue
 });
@@ -25,6 +25,6 @@ describe('components/media/AudioPlayer', () => {
     const wrapper = factory();
     const audioSource = wrapper.find('[data-qa="audio source"]');
 
-    audioSource.attributes().type.should.eq('audio/mp3');
+    audioSource.attributes().type.should.eq('audio/mpeg');
   });
 });

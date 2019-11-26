@@ -11,7 +11,7 @@ export function isHTMLVideo(mimeType, codec) {
 }
 
 export function isHTMLAudio(mimeType) {
-  return (mimeType === 'audio/flac') || (mimeType === 'audio/ogg') || (mimeType === 'audio/mp3');
+  return (mimeType === 'audio/flac') || (mimeType === 'audio/ogg') || (mimeType === 'audio/mpeg');
 }
 
 export function isOEmbed(oembedUrl) {
