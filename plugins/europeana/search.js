@@ -12,6 +12,7 @@ export const defaultFacets = [
   'TYPE',
   'REUSABILITY',
   'COUNTRY',
+  'COLOURPALETTE',
   'LANGUAGE',
   'PROVIDER',
   'DATA_PROVIDER'

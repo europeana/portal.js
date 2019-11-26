@@ -19,7 +19,14 @@
         :data-qa="`${filter.label} checkbox`"
         class="mb-3"
       >
-        {{ filter.label }}
+        <span
+          v-if="isColourPalette"
+          class="colour-palette"
+          :style="`backgroundColor: ${filter.label}`"
+          :data-qa="`colour swatch ${colorHexToStandardColorName(filter.label)}`"
+          :aria-label="`${$t('colourSwatch')} - ${colorHexToStandardColorName(filter.label)}`"
+        />
+        {{ colorHexToStandardColorName(filter.label) }}
         <span
           class="reset icon-close"
           :aria-label="$t('facets.button.reset')"
@@ -36,7 +43,14 @@
           :data-qa="`${filter.label} checkbox`"
           class="mb-3"
         >
-          {{ filter.label }}
+          <span
+            v-if="isColourPalette"
+            class="colour-palette"
+            :style="`backgroundColor: ${filter.label}`"
+            :data-qa="`colour swatch ${colorHexToStandardColorName(filter.label)}`"
+            :aria-label="`${$t('colourSwatch')} - ${colorHexToStandardColorName(filter.label)}`"
+          />
+          {{ colorHexToStandardColorName(filter.label) }}
           <span
             class="reset icon-close"
             :aria-label="$t('facets.button.reset')"
@@ -80,8 +94,15 @@
       return {
         selectedOptions: this.selected,
         isActive: false,
-        limitTo: 9
+        limitTo: 9,
+        COLOURPALETTE: 'COLOURPALETTE'
       };
+    },
+
+    computed: {
+      isColourPalette() {
+        return this.name === this.COLOURPALETTE;
+      }
     },
 
     watch: {
@@ -93,6 +114,15 @@
     methods: {
       selectedHandler(value) {
         this.$emit('selectedOptions', this.name, value);
+      },
+
+      // Takes hex value `#000000` and converts it to it's Standard Color Name `Black`
+      colorHexToStandardColorName(label) {
+        if (this.isColourPalette) {
+          label = label.replace(/^#/, '');
+          return this.$t(`facets.${this.COLOURPALETTE}.options.${label}`);
+        }
+        return label;
       }
     }
   };
