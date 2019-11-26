@@ -8,7 +8,7 @@ storiesOf('Media/Audio Player', module)
     },
     data() {
       return {
-        src: 'https://proxy.europeana.eu/9200369/webclient_DeliveryManager_pid_8412047_custom_att_2_simple_viewer?api_url=https%3A%2F%2Fapi.europeana.eu%2Fapi&view=http%3A%2F%2Fatena.beic.it%2Fwebclient%2FDeliveryManager%3Fpid%3D8412117%26custom_att_2%3Ddeeplink',
+        src: '/audio/europeana-radio-welcome.ogg',
         type: 'audio/ogg'
       };
     },
@@ -27,7 +27,7 @@ storiesOf('Media/Audio Player', module)
     },
     data() {
       return {
-        src: 'https://hpr.dogphilosophy.net/test/flac.flac',
+        src: '/audio/europeana-radio-welcome.flac',
         type: 'audio/flac'
       };
     },
@@ -46,7 +46,7 @@ storiesOf('Media/Audio Player', module)
     },
     data() {
       return {
-        src: 'https://proxy.europeana.eu/2059203/data_sounds_http___www_statsbiblioteket_dk_nationalbibliotek_adgang_til_samlingerne_musik_og_lyd_rubensamlingen_lydoptagelser_resolveuid_12eb142eb7cd491199a60d5b89bd8773?api_url=https%3A%2F%2Fapi.europeana.eu%2Fapi&view=http%3A%2F%2Fwww.statsbiblioteket.dk%2Fnationalbibliotek%2Fadgang-til-samlingerne%2Fmusik-og-lyd%2Frubensamlingen-lydoptagelser%2Fresolveuid%2F12eb142eb7cd491199a60d5b89bd8773',
+        src: '/audio/europeana-radio-welcome.mp3',
         type: 'audio/mp3'
       };
     },
