@@ -127,7 +127,7 @@
 
     &.is-open {
       opacity: 1;
-      bottom: 0px
+      bottom: 0px;
     }
   }
 
@@ -144,7 +144,7 @@
       cursor: pointer;
 
       &:hover {
-        opacity: .8;;
+        opacity: .8;
       }
     }
 
