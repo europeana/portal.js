@@ -26,10 +26,52 @@ export default {
       "edmRights": "Лиценз на медиите в този запис (освен ако не е посочено друго)",
       "dcPublisher": "Издател",
       "dcSubject": "Тема",
-      "dcTermsMedium": "Среден(а)"
+      "dcTermsMedium": "Среден(а)",
+      "dctermsMedium": "Среден(а)",
+      "dcRights": "Права",
+      "dcDate": "Дата",
+      "dctermsPublished": "Дата на публикуване",
+      "dctermsIssued": "Дата на издаване",
+      "dctermsTemporal": "Времеви",
+      "dcCoverage": "Място-време",
+      "dctermsSpatial": "Места",
+      "edmCurrentLocation": "Настоящо местоположение",
+      "edmUgc": "Генерирано от потребителите съдържание",
+      "dctermsProvenance": "Произход",
+      "dcSource": "Източник",
+      "dcIdentifier": "Идентификатор",
+      "edmIntermediateProvider": "Междинен доставчик",
+      "edmProvider": "Доставчик",
+      "timestampCreated": "Времевият печат е създаден",
+      "timestampUpdate": "Времевият печат е актуализиран",
+      "dctermsExtent": "Степен",
+      "dcDuration": "Продължителност",
+      "dcMedium": "Среден(а)",
+      "dcFormat": "Формат",
+      "dcLanguage": "Език",
+      "dctermsIsPartOf": "е част от",
+      "europeanaCollectionName": "Име на колекцията",
+      "dcRelation": "Отношения",
+      "dctermsReferences": "Препратки",
+      "dctermsHasPart": "съдържа",
+      "dctermsHasVersion": "притежава версия",
+      "dctermsIsFormatOf": "е формат на",
+      "dctermsIsReferencedBy": "е посочено от",
+      "dctermsIsReplacedBy": "се заменя от",
+      "dctermsIsRequiredBy": "изисква се от",
+      "edmHasMet": "отговаря на",
+      "edmIncorporates": "включва",
+      "edmIsDerivativeOf": "е производно на",
+      "edmIsRepresentationOf": "представлява",
+      "edmIsSimilarTo": "наподобява",
+      "edmIsSuccessorOf": "е продължение на",
+      "edmRealizes": "Осъзнава",
+      "wasPresentAt": "присъства на"
     },
     "webResource": {
       "dcDescription": "Описание",
+      "rdfAbout": "Относно RDF",
+      "edmRights": "Лиценз за този медиен ресурс",
       "ebucoreHasMimeType": "Тип Ebucore MIME",
       "about": "Относно RDF"
     }
@@ -45,6 +87,7 @@ export default {
       "name": "Категория",
       "options": {
         "all": "Всички елементи",
+        "ww1": "1914-1918",
         "archaeology": "Археология",
         "art": "Изкуство",
         "fashion": "Мода",
@@ -137,5 +180,22 @@ export default {
   "clearAllFilters": "изчистване на всички филтри",
   "reset": "Нулиране",
   "loadingResults": "Зареждане на резултати",
-  "edmIsShownAtLinkAlt": "Преглед на уебсайта на доставчика"
+  "edmIsShownAtLinkAlt": "Преглед на уебсайта на доставчика",
+  "contentfulManual": {
+    "headerNavigation": {
+      "teachers": "Учители",
+      "explore": "Проучи"
+    },
+    "footerNavigation": {
+      "about": "Относно колекциите на Europeana",
+      "forDevelopers": "За разработчици",
+      "terms": "Условия за ползване и Политика за поверителност",
+      "provide": "Станете доставчик на данни",
+      "meetUs": "Запознайте се с екипа",
+      "help": "Помощ"
+    }
+  },
+  "imageSlider": {
+    "handle": "Манипулатор на плъзгач"
+  }
 };
