@@ -12,29 +12,16 @@ pipeline {
     CF_API="${env.CF_API}"
     CF_LOGIN=credentials('portaljs.cloudfoundry.login')
     CF_ORG="${env.CF_ORG}"
-    CF_SPACE="${env.BRANCH_NAME == 'master' ? 'test' : 'production'}"
-    S3_PATH="${env.BRANCH_NAME == 'master' ? '/' : '/' + env.BRANCH_NAME}"
+    CF_SPACE="${env.BRANCH_NAME ==~ /\Av\d+\.\d+\.\d+\z/ ? 'production' : 'test'}"
   }
   stages {
     stage('Build') {
       steps {
         configFileProvider([configFile(fileId: "portaljs.${env.CF_SPACE}.env", targetLocation: '.env')]) {
-          sh 'envsubst \'${S3_PATH}\' < .env >> .env.subst && mv .env.subst .env'
           sh 'rm -rf node_modules'
           sh 'npm install'
           sh 'npm run build'
         }
-      }
-    }
-    stage('Sync assets to S3') {
-      environment {
-        S3_ENDPOINT="${env.S3_ENDPOINT}"
-        S3_ACCESS=credentials("portaljs.${env.CF_SPACE}.s3")
-        S3_BUCKET="europeana-portaljs-${env.CF_SPACE}"
-        S3_REGION='eu-geo'
-      }
-      steps {
-        sh 'AWS_ACCESS_KEY_ID="${S3_ACCESS_USR}" AWS_SECRET_ACCESS_KEY="${S3_ACCESS_PSW}" aws --region ${S3_REGION} --endpoint-url ${S3_ENDPOINT} s3 sync .nuxt/dist/client s3://${S3_BUCKET}${S3_PATH} --acl public-read --cache-control "public,max-age=31536000" --delete'
       }
     }
     stage('Login to CF') {
