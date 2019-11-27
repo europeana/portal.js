@@ -26,10 +26,52 @@ export default {
       "edmRights": "Selle kirje meediumite litsents (kui pole teisiti täpsustatud)",
       "dcPublisher": "Kirjastus",
       "dcSubject": "Teema",
-      "dcTermsMedium": "Meedium"
+      "dcTermsMedium": "Meedium",
+      "dctermsMedium": "Meedium",
+      "dcRights": "Õigused",
+      "dcDate": "Kuupäev",
+      "dctermsPublished": "Avaldamise kuupäev",
+      "dctermsIssued": "Väljaandmise kuupäev",
+      "dctermsTemporal": "Ajaline",
+      "dcCoverage": "Koht-aeg",
+      "dctermsSpatial": "Kohad",
+      "edmCurrentLocation": "Praegune asukoht",
+      "edmUgc": "Kasutaja loodud sisu",
+      "dctermsProvenance": "Päritolu",
+      "dcSource": "Allikas",
+      "dcIdentifier": "Identifikaator",
+      "edmIntermediateProvider": "Vahendusteenuse osutaja",
+      "edmProvider": "Pakkuja",
+      "timestampCreated": "Ajatempel loodud",
+      "timestampUpdate": "Ajatempel värskendatud",
+      "dctermsExtent": "Ulatus ",
+      "dcDuration": "Kestus",
+      "dcMedium": "Meedium",
+      "dcFormat": "Formaat",
+      "dcLanguage": "Keel",
+      "dctermsIsPartOf": "On osa",
+      "europeanaCollectionName": "Kollektsiooni nimi",
+      "dcRelation": "Seosed",
+      "dctermsReferences": "Viitab",
+      "dctermsHasPart": "Koosneb",
+      "dctermsHasVersion": "Omab versiooni",
+      "dctermsIsFormatOf": "On formaat",
+      "dctermsIsReferencedBy": "Viidatakse",
+      "dctermsIsReplacedBy": "Asendatakse",
+      "dctermsIsRequiredBy": "On vajalik",
+      "edmHasMet": "On kohtunud",
+      "edmIncorporates": "Sisaldab",
+      "edmIsDerivativeOf": "Tuleneb",
+      "edmIsRepresentationOf": "Esindab",
+      "edmIsSimilarTo": "on sarnane",
+      "edmIsSuccessorOf": "on järeltulija",
+      "edmRealizes": "Mõistab",
+      "wasPresentAt": "Oli kohal"
     },
     "webResource": {
       "dcDescription": "Kirjeldus",
+      "rdfAbout": "RDF kohta",
+      "edmRights": "Selle meediumiressursi litsents",
       "ebucoreHasMimeType": "Ebucore MIME tüüp",
       "about": "RDF kohta"
     }
@@ -45,6 +87,7 @@ export default {
       "name": "Kategooria",
       "options": {
         "all": "Kõik üksused",
+        "ww1": "1914–1918",
         "archaeology": "Arheoloogia",
         "art": "Kunst",
         "fashion": "Mood",
@@ -137,5 +180,19 @@ export default {
   "clearAllFilters": "tühjenda kõik filtrid",
   "reset": "Lähtesta",
   "loadingResults": "Tulemuste laadimine",
-  "edmIsShownAtLinkAlt": "Vaadake teenusepakkuja veebisaidil"
+  "edmIsShownAtLinkAlt": "Vaadake teenusepakkuja veebisaidil",
+  "contentfulManual": {
+    "headerNavigation": {
+      "teachers": "Õpetajad",
+      "explore": "Tutvuge"
+    },
+    "footerNavigation": {
+      "about": "Infot Europeana Collections kohta",
+      "forDevelopers": "Arendajatele",
+      "terms": "Kasutustingimused ja privaatsuspoliitika",
+      "provide": "Hakka andmepakkujaks",
+      "meetUs": "Tutvu meeskonnaga",
+      "help": "Abimaterjal"
+    }
+  }
 };
