@@ -26,11 +26,51 @@ export default {
       "edmRights": "Licentie van de media in dit record (tenzij anders vermeld)",
       "dcPublisher": "Uitgever",
       "dcSubject": "Onderwerp",
-      "dcTermsMedium": "Medium"
+      "dcTermsMedium": "Medium",
+      "dctermsMedium": "Medium",
+      "dcRights": "Rechten",
+      "dcDate": "Datum",
+      "dctermsPublished": "Publicatiedatum",
+      "dctermsIssued": "Datum van uitgifte",
+      "dctermsTemporal": "Tijdsperiode",
+      "dcCoverage": "Plaats-Tijd",
+      "dctermsSpatial": "Plaatsen",
+      "edmCurrentLocation": "Huidige locatie",
+      "edmUgc": "Door gebruikers gegenereerde inhoud",
+      "dctermsProvenance": "Herkomst",
+      "dcSource": "Bron",
+      "dcIdentifier": "Identificatie",
+      "edmIntermediateProvider": "Tussenleverancier",
+      "edmProvider": "Leverancier",
+      "timestampCreated": "Tijdstempel gemaakt",
+      "timestampUpdate": "Tijdstempel bijgewerkt",
+      "dctermsExtent": "Mate",
+      "dcDuration": "Duur",
+      "dcMedium": "Medium",
+      "dcFormat": "Vorm",
+      "dcLanguage": "Taal",
+      "dctermsIsPartOf": "Is onderdeel van",
+      "europeanaCollectionName": "Naam van de collectie",
+      "dcRelation": "Relaties",
+      "dctermsReferences": "Verwijst naar",
+      "dctermsHasPart": "Bestaat uit",
+      "dctermsHasVersion": "Heeft versie",
+      "dctermsIsFormatOf": "Is een vorm van",
+      "dctermsIsReferencedBy": "Wordt aan gerefereerd door",
+      "dctermsIsReplacedBy": "Wordt vervangen door",
+      "dctermsIsRequiredBy": "Wordt vereist door",
+      "edmHasMet": "Heeft ontmoet",
+      "edmIncorporates": "Bevat",
+      "edmIsDerivativeOf": "Is afgeleid van",
+      "edmIsRepresentationOf": "Is een vertegenwoordiging van",
+      "edmIsSimilarTo": "Is vergelijkbaar met",
+      "edmIsSuccessorOf": "Is de opvolger van",
+      "edmRealizes": "Realiseert",
+      "wasPresentAt": "Was aanwezig in"
     },
     "webResource": {
       "dcDescription": "Omschrijving",
-      "rdfAbout": "RDF About",
+      "rdfAbout": "RDF Over",
       "edmRights": "Licentie voor deze mediabron",
       "ebucoreHasMimeType": "Ebucore MIME-type",
       "about": "RDF Over"
@@ -140,5 +180,19 @@ export default {
   "clearAllFilters": "alle filters wissen",
   "reset": "Opnieuw instellen",
   "loadingResults": "Resultaten worden geladen",
-  "edmIsShownAtLinkAlt": "Bekijken op de website van de provider"
+  "edmIsShownAtLinkAlt": "Bekijken op de website van de provider",
+  "contentfulManual": {
+    "headerNavigation": {
+      "teachers": "Leraren",
+      "explore": "Verkennen"
+    },
+    "footerNavigation": {
+      "about": "Over Europeana Collections",
+      "forDevelopers": "Voor ontwikkelaars",
+      "terms": "Gebruiksvoorwaarden en privacybeleid",
+      "provide": "Word een gegevensprovider",
+      "meetUs": "Ontmoet het team",
+      "help": "Help"
+    }
+  }
 };
