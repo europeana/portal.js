@@ -26,10 +26,52 @@ export default {
       "edmRights": "Mediální licence tohoto záznamu (není-li uvedeno jinak)",
       "dcPublisher": "Vydavatel",
       "dcSubject": "Předmět",
-      "dcTermsMedium": "Médium"
+      "dcTermsMedium": "Médium",
+      "dctermsMedium": "Médium",
+      "dcRights": "Práva",
+      "dcDate": "Datum",
+      "dctermsPublished": "Datum publikace",
+      "dctermsIssued": "Datum vydání",
+      "dctermsTemporal": "Časové",
+      "dcCoverage": "Místo–čas",
+      "dctermsSpatial": "Místa",
+      "edmCurrentLocation": "Aktuální umístění",
+      "edmUgc": "Uživatelský obsah",
+      "dctermsProvenance": "Původ",
+      "dcSource": "Zdroj",
+      "dcIdentifier": "Identifikátor",
+      "edmIntermediateProvider": "Zprostředkovatel třetí strany",
+      "edmProvider": "Poskytovatel",
+      "timestampCreated": "Časové razítko vytvořeno",
+      "timestampUpdate": "Časové razítko bylo aktualizováno",
+      "dctermsExtent": "Rozsah",
+      "dcDuration": "Doba trvání",
+      "dcMedium": "Médium",
+      "dcFormat": "Formát",
+      "dcLanguage": "Jazyk",
+      "dctermsIsPartOf": "je součástí",
+      "europeanaCollectionName": "Název kolekce",
+      "dcRelation": "souvislosti",
+      "dctermsReferences": "odkazuje na",
+      "dctermsHasPart": "se skládá z",
+      "dctermsHasVersion": "vlastní verzi",
+      "dctermsIsFormatOf": "je formou",
+      "dctermsIsReferencedBy": "je zmiňován\/a",
+      "dctermsIsReplacedBy": "se nahradí",
+      "dctermsIsRequiredBy": "je potřeba pro",
+      "edmHasMet": "se setkal\/a s",
+      "edmIncorporates": "zahrnuje",
+      "edmIsDerivativeOf": "je zpodobněním",
+      "edmIsRepresentationOf": "představuje",
+      "edmIsSimilarTo": "se podobá",
+      "edmIsSuccessorOf": "je nástupcem",
+      "edmRealizes": "ztvárňuje",
+      "wasPresentAt": "se účastnil\/a"
     },
     "webResource": {
       "dcDescription": "Popis",
+      "rdfAbout": "RDF About",
+      "edmRights": "Licence pro tento mediální zdroj",
       "ebucoreHasMimeType": "Ebucore typ MIME",
       "about": "RDF About"
     }
@@ -45,6 +87,7 @@ export default {
       "name": "Kategorie",
       "options": {
         "all": "Všechny položky",
+        "ww1": "1914–1918",
         "archaeology": "Archeologie",
         "art": "Umění",
         "fashion": "Móda",
@@ -85,7 +128,6 @@ export default {
   },
   "entity": "Entita",
   "resourceWikimedia": "Zdroj z Wikimedia Commons",
-  "record": "Záznam",
   "messages": {
     "notFound": "Nenalezno",
     "externalContentError": "Načtení externího obsahu se nezdařilo.",
@@ -137,5 +179,25 @@ export default {
   "clearAllFilters": "Vymazat všechny filtry",
   "reset": "Obnovit",
   "loadingResults": "Načítání výsledků",
-  "edmIsShownAtLinkAlt": "Zobrazit na webu poskytovatele"
+  "edmIsShownAtLinkAlt": "Zobrazit na webu poskytovatele",
+  "record": {
+    "extendedInformation": "Bližší informace",
+    "hideAll": "Skrýt všechny informace",
+    "record": "Záznam",
+    "showAll": "Zobrazit všechny informace"
+  },
+  "contentfulManual": {
+    "headerNavigation": {
+      "teachers": "Učitelé",
+      "explore": "Prozkoumat"
+    },
+    "footerNavigation": {
+      "about": "O stránkách Europeana Collections",
+      "forDevelopers": "Pro vývojáře",
+      "terms": "Podmínky používání a zásady ochrany osobních údajů",
+      "provide": "Přispívejte do naší databáze",
+      "meetUs": "O nás",
+      "help": "Nápověda"
+    }
+  }
 };
