@@ -16,7 +16,7 @@ export default {
   "fieldLabels": {
     "default": {
       "dcContributor": "Suradnici",
-      "dcCreator": "Stvorio/la",
+      "dcCreator": "Stvorio\/la",
       "dcDescription": "Opis",
       "dcTitle": "Naslov",
       "dcType": "Vrsta objekta",
@@ -26,10 +26,52 @@ export default {
       "edmRights": "Licenca medija u ovom zapisu (osim ako nije drugačije navedeno)",
       "dcPublisher": "Izdavač",
       "dcSubject": "Tema",
-      "dcTermsMedium": "Medij"
+      "dcTermsMedium": "Medij",
+      "dctermsMedium": "Medij",
+      "dcRights": "Prava",
+      "dcDate": "Datum",
+      "dctermsPublished": "Datum objave",
+      "dctermsIssued": "Datum izdavanja",
+      "dctermsTemporal": "Vremenski",
+      "dcCoverage": "Mjesto-vrijeme",
+      "dctermsSpatial": "Mjesta",
+      "edmCurrentLocation": "Trenutna lokacija",
+      "edmUgc": "Korisnički generirani sadržaj",
+      "dctermsProvenance": "Podrijetlo",
+      "dcSource": "Izvor",
+      "dcIdentifier": "Identifikator",
+      "edmIntermediateProvider": "Posredni dobavljač",
+      "edmProvider": "Dobavljač",
+      "timestampCreated": "Vremenska oznaka stvorena",
+      "timestampUpdate": "Vremenska oznaka ažurirana",
+      "dctermsExtent": "Opseg",
+      "dcDuration": "Trajanje",
+      "dcMedium": "Medij",
+      "dcFormat": "Format",
+      "dcLanguage": "Jezik",
+      "dctermsIsPartOf": "Dio je",
+      "europeanaCollectionName": "Naziv zbirke",
+      "dcRelation": "Odnosi",
+      "dctermsReferences": "Reference",
+      "dctermsHasPart": "Sastoji se od",
+      "dctermsHasVersion": "Ima verziju",
+      "dctermsIsFormatOf": "Je format",
+      "dctermsIsReferencedBy": "Na kojeg se poziva",
+      "dctermsIsReplacedBy": "Zamjenjuje",
+      "dctermsIsRequiredBy": "je potreban",
+      "edmHasMet": "je upoznao",
+      "edmIncorporates": "Uključuje",
+      "edmIsDerivativeOf": "Izveden je od",
+      "edmIsRepresentationOf": "Predstavlja",
+      "edmIsSimilarTo": "je slično",
+      "edmIsSuccessorOf": "Nasljednik je",
+      "edmRealizes": "Shvaća",
+      "wasPresentAt": "Bio je prisutan u"
     },
     "webResource": {
       "dcDescription": "Opis",
+      "rdfAbout": "RDF O",
+      "edmRights": "Licenca za ovaj medijski resurs",
       "ebucoreHasMimeType": "Ebucore MIME tip",
       "about": "O RDF"
     }
@@ -45,6 +87,7 @@ export default {
       "name": "Kategorija",
       "options": {
         "all": "Sve stavke",
+        "ww1": "1914.-1918.",
         "archaeology": "Arheologija",
         "art": "Umjetnost",
         "fashion": "Moda",
@@ -85,7 +128,6 @@ export default {
   },
   "entity": "Cjelina",
   "resourceWikimedia": "Resurs s Wikimedia Commonsa",
-  "record": "Zapis",
   "messages": {
     "notFound": "Nije pronađeno",
     "externalContentError": "Nije se mogao učitati vanjski sadržaj",
@@ -137,5 +179,26 @@ export default {
   "clearAllFilters": "očistiti sve filtre",
   "reset": "Resetiraj",
   "loadingResults": "Učitavanje rezultata",
-  "edmIsShownAtLinkAlt": "Prikaz na internetskoj stranici pružatelja"
+  "edmIsShownAtLinkAlt": "Prikaz na internetskoj stranici pružatelja",
+  "record": {
+    "extendedInformation": "Proširene informacije",
+    "hideAll": "Sakrij sve informacije",
+    "record": "Zapis",
+    "showAll": "Prikaži sve informacije",
+    "similarItems": "Slične stavke"
+  },
+  "contentfulManual": {
+    "headerNavigation": {
+      "teachers": "Nastavnici",
+      "explore": "Istraži"
+    },
+    "footerNavigation": {
+      "about": "O zbirkama Europeana",
+      "forDevelopers": "Za programere",
+      "terms": "Uvjeti korištenja i pravila o privatnosti",
+      "provide": "Postanite davatelj podataka",
+      "meetUs": "Upoznajte tim",
+      "help": "Pomoć"
+    }
+  }
 };
