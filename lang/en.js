@@ -123,6 +123,25 @@ export default {
     },
     "DATA_PROVIDER": {
       "name": "Institution | Institutions"
+    },
+    "IMAGE_ASPECTRATIO": {
+      "name": "Image orientation | Image orientations",
+      "options": {
+        "landscape": "Landscape",
+        "portrait": "Portrait"
+      }
+    },
+    "IMAGE_SIZE": {
+      "name": "Image size | Image sizes",
+      "options": {
+        "small": "Small",
+        "medium": "Medium",
+        "large": "Large",
+        "extra_large": "Extra large"
+      }
+    },
+    "MIME_TYPE": {
+      "name": "File format | File formats"
     }
   },
   "entity": "Entity",
