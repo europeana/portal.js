@@ -24,7 +24,7 @@
         return {
           source: this.iiifManifestSrc(this.identifier),
           duration: -1,
-          id: this.src
+          id: this.identifier
         };
       },
       iiifManifestSrc(identifier) {
