@@ -26,10 +26,52 @@ export default {
       "edmRights": "Licencja na media w tym rekordzie (chyba że określono inaczej)",
       "dcPublisher": "Wydawca",
       "dcSubject": "Temat",
-      "dcTermsMedium": "Medium"
+      "dcTermsMedium": "Medium",
+      "dctermsMedium": "Medium",
+      "dcRights": "Prawa",
+      "dcDate": "Data",
+      "dctermsPublished": "Data publikacji",
+      "dctermsIssued": "Data wydania",
+      "dctermsTemporal": "Okres",
+      "dcCoverage": "Miejsce i czas",
+      "dctermsSpatial": "Miejsca",
+      "edmCurrentLocation": "Aktualna lokalizacja",
+      "edmUgc": "Treści użytkownika",
+      "dctermsProvenance": "Pochodzenie",
+      "dcSource": "Źródło",
+      "dcIdentifier": "Identyfikator",
+      "edmIntermediateProvider": "Dostawca pośredni",
+      "edmProvider": "Dostawca",
+      "timestampCreated": "Utworzono znacznik czasu",
+      "timestampUpdate": "Zaktualizowano znacznik czasu",
+      "dctermsExtent": "Zakres",
+      "dcDuration": "Długość",
+      "dcMedium": "Medium",
+      "dcFormat": "Format",
+      "dcLanguage": "Język",
+      "dctermsIsPartOf": "jest częścią",
+      "europeanaCollectionName": "Nazwa kolejki",
+      "dcRelation": "Relacje",
+      "dctermsReferences": "przywołuje",
+      "dctermsHasPart": "składa się z",
+      "dctermsHasVersion": "ma wersję",
+      "dctermsIsFormatOf": "jest rodzajem",
+      "dctermsIsReferencedBy": "jest przywoływany przez",
+      "dctermsIsReplacedBy": "wymienia",
+      "dctermsIsRequiredBy": "wymaga",
+      "edmHasMet": "spotkał",
+      "edmIncorporates": "zawiera",
+      "edmIsDerivativeOf": "jest pochodną",
+      "edmIsRepresentationOf": "reprezentuje",
+      "edmIsSimilarTo": "jest podobna do",
+      "edmIsSuccessorOf": "jest następcą",
+      "edmRealizes": "Realizuje",
+      "wasPresentAt": "Był obecny w"
     },
     "webResource": {
       "dcDescription": "Opis",
+      "rdfAbout": "RDF Informacje",
+      "edmRights": "Licencja na ten zasób medialny",
       "ebucoreHasMimeType": "Typ MIME Ebucore",
       "about": "RDF Informacje"
     }
@@ -45,6 +87,7 @@ export default {
       "name": "Kategoria",
       "options": {
         "all": "Wszystkie elementy",
+        "ww1": "1914–1918",
         "archaeology": "Archeologia",
         "art": "Sztuka",
         "fashion": "Moda",
@@ -137,5 +180,19 @@ export default {
   "clearAllFilters": "wyczyść wszystkie filtry",
   "reset": "Resetuj",
   "loadingResults": "Ładowanie wyników",
-  "edmIsShownAtLinkAlt": "Zobacz na stronie internetowej dostawcy"
+  "edmIsShownAtLinkAlt": "Zobacz na stronie internetowej dostawcy",
+  "contentfulManual": {
+    "headerNavigation": {
+      "teachers": "Nauczyciele",
+      "explore": "Odkryj"
+    },
+    "footerNavigation": {
+      "about": "O kolekcjach Europeana",
+      "forDevelopers": "Dla deweloperów",
+      "terms": "Regulamin i Polityka prywatności",
+      "provide": "Zostań dostawcą danych",
+      "meetUs": "Poznaj zespół",
+      "help": "Pomoc"
+    }
+  }
 };
