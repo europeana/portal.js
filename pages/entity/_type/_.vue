@@ -134,7 +134,7 @@
       editorialDepiction() {
         try {
           const image = this.page.primaryImageOfPage.fields.image.fields.file;
-          return this.$options.filters.optimisedImageUrl(image.url, image.contentType, { width: 255 });
+          return this.$options.filters.optimisedImageUrl(image.url, image.contentType, { width: 510 });
         } catch (error) {
           if (error instanceof TypeError) {
             return null;
