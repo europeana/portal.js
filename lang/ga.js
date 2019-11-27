@@ -26,10 +26,52 @@ export default {
       "edmRights": "Ceadúnas faoi na meáin sa taifead seo (mura sonraítear a mhalairt)",
       "dcPublisher": "Foilsitheoir",
       "dcSubject": "Ábhar",
-      "dcTermsMedium": "Meán"
+      "dcTermsMedium": "Meán",
+      "dctermsMedium": "Meánach",
+      "dcRights": "Cearta",
+      "dcDate": "Dáta",
+      "dctermsPublished": "Dáta foilsithe",
+      "dctermsIssued": "Dáta eisiúna",
+      "dctermsTemporal": "Ama",
+      "dcCoverage": "Láthair-Am",
+      "dctermsSpatial": "Áiteanna",
+      "edmCurrentLocation": "Suíomh reatha",
+      "edmUgc": "Inneachar ginte le húsáideoirí",
+      "dctermsProvenance": "Bunadh",
+      "dcSource": "Foinse",
+      "dcIdentifier": "Aitheantóir",
+      "edmIntermediateProvider": "Soláthraí idirmheánach",
+      "edmProvider": "Soláthraí",
+      "timestampCreated": "Stampa ama cruthaithe",
+      "timestampUpdate": "Stampa ama nuashonraithe",
+      "dctermsExtent": "Meid",
+      "dcDuration": "Fad",
+      "dcMedium": "Meánach",
+      "dcFormat": "Formáid",
+      "dcLanguage": "Teanga",
+      "dctermsIsPartOf": "Is cuid de",
+      "europeanaCollectionName": "Ainm bailiúcháin",
+      "dcRelation": "Caidrimh",
+      "dctermsReferences": "Tagairtí",
+      "dctermsHasPart": "Lena gcuimsítear",
+      "dctermsHasVersion": "Tá leagan aige",
+      "dctermsIsFormatOf": "Is formáid de",
+      "dctermsIsReferencedBy": "Tagraítear dó",
+      "dctermsIsReplacedBy": "Tagann in ionad",
+      "dctermsIsRequiredBy": "Ní foláir dó nó di",
+      "edmHasMet": "Shásaigh",
+      "edmIncorporates": "Ionchorpraítear leis",
+      "edmIsDerivativeOf": "Is díorthach é de",
+      "edmIsRepresentationOf": "Is léiriú é de",
+      "edmIsSimilarTo": "Is cosúil leis",
+      "edmIsSuccessorOf": "Is comharba é ar",
+      "edmRealizes": "Tuigeann sé\/sí",
+      "wasPresentAt": "Bhí i láthair ag"
     },
     "webResource": {
       "dcDescription": "Tuairisc",
+      "rdfAbout": "Maidir le RDF",
+      "edmRights": "Ceadúnas don acmhainn meán seo",
       "ebucoreHasMimeType": "Cineál MIME Ebucore",
       "about": "Maidir le RDF"
     }
@@ -45,6 +87,7 @@ export default {
       "name": "Catagóir",
       "options": {
         "all": "Gach mír",
+        "ww1": "1914-1918",
         "archaeology": "Seandálaíocht",
         "art": "Ealaín",
         "fashion": "Faisean",
@@ -113,7 +156,7 @@ export default {
   "showLess": "Taispeáin níos lú",
   "showMore": "Taispeáin níos mó",
   "delete": "Scrios",
-  "removeFilter": "Bain scagaire",
+  "removeFilter": "Bain {filterLabel} scagaire",
   "entityDepictionCredit": "Fuarthas an acmhainn ó Wikimedia Commons",
   "newWindow": "osclaítear i bhfuinneog nua é",
   "blog": {
@@ -137,5 +180,19 @@ export default {
   "clearAllFilters": "glan gach scagaire",
   "reset": "Athshocraigh",
   "loadingResults": "Torthaí á lódáil",
-  "edmIsShownAtLinkAlt": "Amharc air ag láithreán gréasáin an tsoláthraí"
+  "edmIsShownAtLinkAlt": "Amharc air ag láithreán gréasáin an tsoláthraí",
+  "contentfulManual": {
+    "headerNavigation": {
+      "teachers": "Múinteoirí",
+      "explore": "Taiscéal"
+    },
+    "footerNavigation": {
+      "about": "Maidir le Bailiúcháin Europeana",
+      "forDevelopers": "Faoi chomhair forbróirí",
+      "terms": "Téarmaí úsáide agus Beartas príobháideachta",
+      "provide": "Bí I do sholátharí sonraí",
+      "meetUs": "Cuir aithne ar an bhfoireann",
+      "help": "Cabhair"
+    }
+  }
 };
