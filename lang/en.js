@@ -21,14 +21,15 @@ export default {
       "dcTitle": "Title",
       "dcType": "Type of object",
       "dctermsCreated": "Creation date",
-      "dctermsMedium": "Medium",
       "edmCountry": "Providing country",
       "edmDataProvider": "Providing institution",
       "edmRights": "License of the media in this record (unless otherwise specified)",
-      "dcRights": "Rights",
-      "dcDate": "Date",
       "dcPublisher": "Publisher",
       "dcSubject": "Subject",
+      "dcTermsMedium": "Medium",
+      "dctermsMedium": "Medium",
+      "dcRights": "Rights",
+      "dcDate": "Date",
       "dctermsPublished": "Publication date",
       "dctermsIssued": "Issue date",
       "dctermsTemporal": "Temporal",
@@ -127,20 +128,6 @@ export default {
   },
   "entity": "Entity",
   "resourceWikimedia": "Resource from Wikimedia Commons",
-  "entityDepictionCredit": "Resource obtained from Wikimedia Commons",
-  "depiction": "A depiction of {title}",
-  "showLess": "Show less",
-  "showMore": "Show more",
-  "record": {
-    "extendedInformation": "Extended information",
-    "hideAll": "Hide all information",
-    "record": "Record",
-    "showAll": "Show all information",
-    "similarItems": "Similar items",
-    "view": {
-      "pdf": "View PDF"
-    }
-  },
   "messages": {
     "notFound": "Not Found",
     "externalContentError": "The external content failed to load",
@@ -164,8 +151,12 @@ export default {
       "hide": "Items that don't meet our publishing criteria are being shown."
     }
   },
+  "depiction": "A depiction of {title}",
+  "showLess": "Show less",
+  "showMore": "Show more",
   "delete": "Delete",
   "removeFilter": "Remove {filterLabel} filter",
+  "entityDepictionCredit": "Resource obtained from Wikimedia Commons",
   "newWindow": "opens in new window",
   "blog": {
     "blog": "Blog",
@@ -189,6 +180,30 @@ export default {
   "reset": "Reset",
   "loadingResults": "Loading results",
   "edmIsShownAtLinkAlt": "View at the provider's website",
+  "record": {
+    "extendedInformation": "Extended information",
+    "hideAll": "Hide all information",
+    "record": "Record",
+    "showAll": "Show all information",
+    "similarItems": "Similar items",
+    "view": {
+      "pdf": "View PDF"
+    }
+  },
+  "contentfulManual": {
+    "headerNavigation": {
+      "teachers": "Teachers",
+      "explore": "Explore"
+    },
+    "footerNavigation": {
+      "about": "About Europeana Collections",
+      "forDevelopers": "For developers",
+      "terms": "Terms of Use and Privacy Policy",
+      "provide": "Become a data provider",
+      "meetUs": "Meet the team",
+      "help": "Help"
+    }
+  },
   "imageSlider": {
     "handle": "Slider Handle"
   }
