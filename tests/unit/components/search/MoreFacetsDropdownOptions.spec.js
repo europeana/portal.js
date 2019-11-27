@@ -27,7 +27,7 @@ const factory = () => mount(MoreFacetsDropdownOptions, {
 });
 
 describe('components/search/MoreFacetsDropdownOptions', () => {
-  it('emits `selectedOptions` event when selected method is called', async() => {
+  it('emits `selectedOptions` event when selected method is called', () => {
     const wrapper = factory();
     const checkbox = wrapper.find('[data-qa="de checkbox"]');
 
@@ -35,5 +35,14 @@ describe('components/search/MoreFacetsDropdownOptions', () => {
 
     checkbox.trigger('click');
     wrapper.emitted()['selectedOptions'].should.eql([ [ 'LANGUAGE', [ 'de' ] ] ]);
+  });
+
+  it('removes hex from color code', () => {
+    const wrapper = factory();
+    const label = '#000000';
+
+    wrapper.setProps({ name: 'COLOURPALETTE' });
+
+    wrapper.vm.colorHexToStandardColorName(label).should.eq('facets.COLOURPALETTE.options.000000');
   });
 });
