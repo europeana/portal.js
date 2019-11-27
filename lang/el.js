@@ -26,10 +26,52 @@ export default {
       "edmRights": "Άδεια των μέσων σε αυτό το αρχείο (εκτός αν ορίζεται διαφορετικά)",
       "dcPublisher": "Εκδότης",
       "dcSubject": "Θέμα",
-      "dcTermsMedium": "Μέσο"
+      "dcTermsMedium": "Μέσο",
+      "dctermsMedium": "Μέσο",
+      "dcRights": "Δικαιώματα",
+      "dcDate": "Ημερομηνία",
+      "dctermsPublished": "Ημερομηνία δημοσίευσης",
+      "dctermsIssued": "Ημερομηνία έκδοσης",
+      "dctermsTemporal": "Χρονική περίοδος",
+      "dcCoverage": "Μέρος-Ώρα",
+      "dctermsSpatial": "Μέρη",
+      "edmCurrentLocation": "Τρέχουσα τοποθεσία",
+      "edmUgc": "Περιεχόμενο δημιουργημένο από το χρήστη",
+      "dctermsProvenance": "Προέλευση",
+      "dcSource": "Πηγή",
+      "dcIdentifier": "Αναγνωριστικό",
+      "edmIntermediateProvider": "Ενδιάμεσος πάροχος",
+      "edmProvider": "Πάροχος",
+      "timestampCreated": "Δημιουργήθηκε χρονική σήμανση",
+      "timestampUpdate": "Η χρονική σήμανση ενημερώθηκε",
+      "dctermsExtent": "Έκταση",
+      "dcDuration": "Διάρκεια",
+      "dcMedium": "Μέσο",
+      "dcFormat": "Μορφή",
+      "dcLanguage": "Γλώσσα",
+      "dctermsIsPartOf": "Είναι μέρος του",
+      "europeanaCollectionName": "Όνομα συλλογής",
+      "dcRelation": "Σχέσεις",
+      "dctermsReferences": "Αναφέρει",
+      "dctermsHasPart": "Αποτελείται από",
+      "dctermsHasVersion": "Έχει έκδοση",
+      "dctermsIsFormatOf": "Είναι μορφή του",
+      "dctermsIsReferencedBy": "Αναφέρεται από",
+      "dctermsIsReplacedBy": "Αντικαθίσταται από",
+      "dctermsIsRequiredBy": "Απαιτείται από",
+      "edmHasMet": "Έχει συναντήσει",
+      "edmIncorporates": "Ενσωματώνει",
+      "edmIsDerivativeOf": "Είναι παράγωγο του",
+      "edmIsRepresentationOf": "Είναι αναπαράσταση του",
+      "edmIsSimilarTo": "Είναι παρόμοιο με",
+      "edmIsSuccessorOf": "Είναι διάδοχος του",
+      "edmRealizes": "Πραγματοποιεί",
+      "wasPresentAt": "Ήταν παρών\/ούσα στο"
     },
     "webResource": {
       "dcDescription": "Περιγραφή",
+      "rdfAbout": "RDF Σχετικά με",
+      "edmRights": "Άδεια χρήσης για αυτόν τον πόρο πολυμέσων",
       "ebucoreHasMimeType": "Τύπος Ebucore MIME",
       "about": "RDF σχετικά με"
     }
@@ -45,6 +87,7 @@ export default {
       "name": "Κατηγορία",
       "options": {
         "all": "Όλα τα στοιχεία",
+        "ww1": "1914-1918",
         "archaeology": "Αρχαιολογία",
         "art": "Τέχνη",
         "fashion": "Μόδα",
@@ -85,7 +128,6 @@ export default {
   },
   "entity": "Οντότητα",
   "resourceWikimedia": "Πηγή από τα Wikimedia Commons",
-  "record": "Αρχείο",
   "messages": {
     "notFound": "Δεν βρέθηκε",
     "externalContentError": "Η φόρτωση του εξωτερικού περιεχομένου απέτυχε",
@@ -137,5 +179,25 @@ export default {
   "clearAllFilters": "απαλοιφή όλων των φίλτρων",
   "reset": "Επαναφορά",
   "loadingResults": "Φόρτωση αποτελέσματα",
-  "edmIsShownAtLinkAlt": "Προβολή στον ιστότοπο του παρόχου"
+  "edmIsShownAtLinkAlt": "Προβολή στον ιστότοπο του παρόχου",
+  "record": {
+    "extendedInformation": "Εκτεταμένες πληροφορίες",
+    "hideAll": "Απόκρυψη όλων των πληροφοριών",
+    "record": "Εγγραφή",
+    "showAll": "Εμφάνιση όλων των πληροφοριών"
+  },
+  "contentfulManual": {
+    "headerNavigation": {
+      "teachers": "Εκπαιδευτικοί",
+      "explore": "Εξερεύνηση"
+    },
+    "footerNavigation": {
+      "about": "Σχετικά με τις συλλογές της Europeana",
+      "forDevelopers": "Για προγραμματιστές",
+      "terms": "Όροι χρήσης και πολιτική απορρήτου",
+      "provide": "Γίνετε πάροχος δεδομένων",
+      "meetUs": "Γνωρίστε την ομάδα",
+      "help": "Βοήθεια"
+    }
+  }
 };
