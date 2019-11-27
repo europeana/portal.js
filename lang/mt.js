@@ -26,10 +26,52 @@ export default {
       "edmRights": "Il-liċenzja tal-midja f'dan ir-rekord (sakemm mhux speċifikat mod ieħor)",
       "dcPublisher": "Pubblikatur",
       "dcSubject": "Suġġett",
-      "dcTermsMedium": "Medju"
+      "dcTermsMedium": "Medju",
+      "dctermsMedium": "Mezz",
+      "dcRights": "Drittijiet",
+      "dcDate": "Data",
+      "dctermsPublished": "Data tal-pubblikazzjoni",
+      "dctermsIssued": "Data tal-ħruġ",
+      "dctermsTemporal": "Temporali",
+      "dcCoverage": "Post-Ħin",
+      "dctermsSpatial": "Postijiet",
+      "edmCurrentLocation": "Post attwali",
+      "edmUgc": "Kontenut iġġenerat mill-utent",
+      "dctermsProvenance": "Provenjenza",
+      "dcSource": "Sors",
+      "dcIdentifier": "Identifikatur",
+      "edmIntermediateProvider": "Fornitur intermedjarju",
+      "edmProvider": "Fornitur",
+      "timestampCreated": "Il-kronogramma ġiet maħluqa",
+      "timestampUpdate": "Kronogramma aġġornata",
+      "dctermsExtent": "Limitu",
+      "dcDuration": "Kemm iddum",
+      "dcMedium": "Mezz",
+      "dcFormat": "Format",
+      "dcLanguage": "Lingwa",
+      "dctermsIsPartOf": "Huwa parti minn",
+      "europeanaCollectionName": "Isem il-kollezzjoni",
+      "dcRelation": "Relazzjonijiet",
+      "dctermsReferences": "Jagħmel referenza għal",
+      "dctermsHasPart": "Jikkonsisti minn",
+      "dctermsHasVersion": "Għandha l-verżjoni",
+      "dctermsIsFormatOf": "Huwa format ta'",
+      "dctermsIsReferencedBy": "Huwa msemmi minn",
+      "dctermsIsReplacedBy": "Hija sostitwita minn",
+      "dctermsIsRequiredBy": "Huwa meħtieġ minn",
+      "edmHasMet": "Iltaqa'",
+      "edmIncorporates": "Jinkorpora",
+      "edmIsDerivativeOf": "Hija derivattiv ta'",
+      "edmIsRepresentationOf": "Hija rappreżentazzjoni ta'",
+      "edmIsSimilarTo": "Hija simili għal",
+      "edmIsSuccessorOf": "Huwa s-suċċessur ta'",
+      "edmRealizes": "Iwettaq",
+      "wasPresentAt": "Kien preżenti fi"
     },
     "webResource": {
       "dcDescription": "Deskrizzjoni",
+      "rdfAbout": "Dwar RDF",
+      "edmRights": "Liċenzja għal din ir-riżorsa tal-midja",
       "ebucoreHasMimeType": "It-Tip Ebucore MIME",
       "about": "Dwar RDF"
     }
@@ -45,6 +87,7 @@ export default {
       "name": "Kategorija",
       "options": {
         "all": "L-oġġetti kollha",
+        "ww1": "1914-1918",
         "archaeology": "Arkeoloġija",
         "art": "Arti",
         "fashion": "Moda",
@@ -137,5 +180,22 @@ export default {
   "clearAllFilters": "ħassar il-filtri kollha",
   "reset": "Irrisettja",
   "loadingResults": "Qed jillowdja r-riżultati",
-  "edmIsShownAtLinkAlt": "Ara fuq il-websajt tal-fornitur"
+  "edmIsShownAtLinkAlt": "Ara fuq il-websajt tal-fornitur",
+  "contentfulManual": {
+    "headerNavigation": {
+      "teachers": "Għalliema",
+      "explore": "Esplora"
+    },
+    "footerNavigation": {
+      "about": "Dwar il-Kollezzjonijiet ta' Europeana",
+      "forDevelopers": "Għall-iżviluppaturi",
+      "terms": "Termini tal-Użu u Politika ta' Privatezza",
+      "provide": "Sir fornitur tad-dejta",
+      "meetUs": "Iltaqa' mat-tim",
+      "help": "Għajnuna"
+    }
+  },
+  "imageSlider": {
+    "handle": "Manku tas-Slajder"
+  }
 };
