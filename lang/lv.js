@@ -26,10 +26,52 @@ export default {
       "edmRights": "Mediju licence šajā ierakstā (ja nav norādīts citādi)",
       "dcPublisher": "Izdevējs",
       "dcSubject": "Temats",
-      "dcTermsMedium": "Līdzeklis"
+      "dcTermsMedium": "Līdzeklis",
+      "dctermsMedium": "Veids",
+      "dcRights": "Tiesības",
+      "dcDate": "Datums",
+      "dctermsPublished": "Publicēšanas datums",
+      "dctermsIssued": "Izdošanas datums",
+      "dctermsTemporal": "Periods",
+      "dcCoverage": "Vieta un laiks",
+      "dctermsSpatial": "Vietas",
+      "edmCurrentLocation": "Pašreizējā atrašanās vieta",
+      "edmUgc": "Lietotāja radīts saturs",
+      "dctermsProvenance": "Izcelsme",
+      "dcSource": "Avots",
+      "dcIdentifier": "Identifikators",
+      "edmIntermediateProvider": "Starpnieks",
+      "edmProvider": "Oriģinālais nodrošinātājs",
+      "timestampCreated": "Laikspiedogs izveidots",
+      "timestampUpdate": "Laikspiedogs atjaunināts",
+      "dctermsExtent": "Apjoms",
+      "dcDuration": "Ilgums",
+      "dcMedium": "Veids",
+      "dcFormat": "Formāts",
+      "dcLanguage": "Valoda",
+      "dctermsIsPartOf": "Ir daļa no",
+      "europeanaCollectionName": "Kolekcijas nosaukums",
+      "dcRelation": "Saistības",
+      "dctermsReferences": "Atsaucas uz",
+      "dctermsHasPart": "Sastāv no",
+      "dctermsHasVersion": "Ir versija",
+      "dctermsIsFormatOf": "Ir formāts",
+      "dctermsIsReferencedBy": "Atsaucas",
+      "dctermsIsReplacedBy": "Aizstāj",
+      "dctermsIsRequiredBy": "Ir nepieciešams(-a)",
+      "edmHasMet": "Ir ticies(-kusies) ar",
+      "edmIncorporates": "Ietver",
+      "edmIsDerivativeOf": "Ir atvasināts(-a) no",
+      "edmIsRepresentationOf": "Pārstāv",
+      "edmIsSimilarTo": "Ir līdzīgs(-a)",
+      "edmIsSuccessorOf": "Ir pēctecis(-e)",
+      "edmRealizes": "Sasniegumi",
+      "wasPresentAt": "Bija"
     },
     "webResource": {
       "dcDescription": "Apraksts",
+      "rdfAbout": "Par radiopeilētāju (RDF)",
+      "edmRights": "Šī multivides resursa licence",
       "ebucoreHasMimeType": "Ebucore MIME veids",
       "about": "RDF Par"
     }
@@ -45,6 +87,7 @@ export default {
       "name": "Kategorija",
       "options": {
         "all": "Visi vienumi",
+        "ww1": "1914.–1918. gads",
         "archaeology": "Arheoloģija",
         "art": "Māksla",
         "fashion": "Mode",
@@ -137,5 +180,19 @@ export default {
   "clearAllFilters": "notīrīt visus filtrus",
   "reset": "Atiestatīt",
   "loadingResults": "Notiek rezultātu ielāde",
-  "edmIsShownAtLinkAlt": "Skatīt pakalpojumu sniedzēja vietnē"
+  "edmIsShownAtLinkAlt": "Skatīt pakalpojumu sniedzēja vietnē",
+  "contentfulManual": {
+    "headerNavigation": {
+      "teachers": "Skolotājiem",
+      "explore": "Jaunumi"
+    },
+    "footerNavigation": {
+      "about": "Par Europeana Collections",
+      "forDevelopers": "Izstrādātājiem",
+      "terms": "Lietošanas noteikumi un Privātuma politika",
+      "provide": "Kļūsti par datu nodrošinātāju",
+      "meetUs": "Mūsu komanda",
+      "help": "Palīdzība"
+    }
+  }
 };
