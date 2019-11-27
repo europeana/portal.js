@@ -102,7 +102,7 @@
     "eslint": "^6.6.0",
     "eslint-loader": "^3.0.2",
     "eslint-plugin-vue": "^5.2.2",
-    "europeana-media-player": "git+https://git@github.com/europeana/media-player.git",
+    "europeana-media-player": "git+https://git@github.com/europeana/media-player.git#master",
     "geckodriver": "^1.19.1",
     "is-reachable": "^3.0.0",
     "nightwatch": "^1.2.4",
