@@ -6,16 +6,17 @@
       {{ $tc(`facets.${name}.name`, 1) }}
     </strong>
     <b-form-checkbox-group
+      v-model="selectedOptions"
       class="option-group"
+      :name="$tc(`facets.${name}.name`, 1)"
       plain
-      @change="selected"
+      @change="selectedHandler"
     >
       <b-form-checkbox
         v-for="(filter, index) in fields.slice(0, limitTo)"
         :key="index"
         :value="filter.label"
-        :name="filter.label"
-        :data-qa="`${$tc(`facets.${name}.name`, 1)} checkbox`"
+        :data-qa="`${filter.label} checkbox`"
         class="mb-3"
       >
         {{ filter.label }}
@@ -32,8 +33,7 @@
           v-for="(filter, index) in fields.slice(limitTo)"
           :key="index"
           :value="filter.label"
-          :name="filter.label"
-          :data-qa="`${$tc(`facets.${name}.name`, 1)} checkbox`"
+          :data-qa="`${filter.label} checkbox`"
           class="mb-3"
         >
           {{ filter.label }}
@@ -64,21 +64,34 @@
         type: Array,
         required: true
       },
+
       name: {
         type: String,
         required: true
+      },
+
+      selected: {
+        type: Array,
+        default: () => []
       }
     },
 
     data() {
       return {
+        selectedOptions: this.selected,
         isActive: false,
         limitTo: 9
       };
     },
 
-    methods: {
+    watch: {
       selected(value) {
+        this.selectedOptions = value;
+      }
+    },
+
+    methods: {
+      selectedHandler(value) {
         this.$emit('selectedOptions', this.name, value);
       }
     }

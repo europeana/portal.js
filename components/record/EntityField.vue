@@ -34,7 +34,7 @@
     },
     computed: {
       isEuropeanaEntity() {
-        return !this.about ? false : isEntityUri(this.about);
+        return !this.about ? false : isEntityUri(this.about, ['concept', 'agent']);
       },
       destination() {
         return !this.isEuropeanaEntity ? this.about : entityParamsFromUri(this.about);
@@ -42,3 +42,10 @@
     }
   };
 </script>
+
+<style lang="scss" scoped>
+  a {
+    display: inline-block;
+    padding-left: 0.2rem;
+  }
+</style>

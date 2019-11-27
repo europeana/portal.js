@@ -1,5 +1,11 @@
 <template>
+  <!--
+    `key` attribute is needed to force replacement of the entire video element
+    when `src` updates as `source` elements may not have their `src` attribute
+    updated after render.
+  -->
   <video
+    :key="src"
     :controls="controls"
     :autoplay="autoplay"
     :loop="loop"

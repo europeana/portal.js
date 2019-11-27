@@ -26,7 +26,7 @@ describe('components/record/MediaActionBar', () => {
     });
 
     const expectedHref = `https://proxy.europeana.eu${europeanaIdentifier}?` +
-      new URLSearchParams({ url }).toString();
+      new URLSearchParams({ view: url }).toString();
     const downloadLink = wrapper.find('[data-qa="download button"]');
 
     downloadLink.attributes().href.should.eq(expectedHref);

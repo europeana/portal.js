@@ -2,10 +2,10 @@
   <b-dropdown
     ref="dropdown"
     :variant="dropdownVariant"
-    class="mr-2"
+    class="mr-2 mb-2"
     :data-type="type"
     data-qa="search facet"
-    @hidden="applySelection"
+    @hidden="cancelHandler"
   >
     <template v-slot:button-content>
       <span :data-qa="`${name} dropdown button`">
@@ -36,16 +36,15 @@
           :value="option.label"
           :name="name"
           :data-qa="`${option.label} ${CHECKBOX}`"
-          :class="{ 'font-weight-bold' : selected.some(s => s === option.label) }"
         >
-          {{ option.label }} ({{ option.count | localise }})
+          {{ option.label }} <span>({{ option.count | localise }})</span>
         </b-form-checkbox>
       </template>
     </b-dropdown-form>
 
     <li
       v-if="type === 'checkbox'"
-      class="p-2 float-right"
+      class="dropdown-buttons mt-3"
     >
       <b-button
         variant="link"
@@ -59,7 +58,7 @@
         variant="primary"
         :disabled="disableApplyButton"
         :data-qa="`${name} apply button`"
-        @click.stop="$refs.dropdown.hide(true);"
+        @click.stop="applySelection"
       >
         {{ $t('facets.button.apply') }}
       </b-button>
@@ -148,7 +147,7 @@
       },
 
       dropdownVariant() {
-        return (this.radioSelected || this.selected.length > 0) ? 'secondary' : 'light';
+        return (this.radioSelected || this.selected.length > 0) ? 'selected' : 'light';
       }
     },
 
@@ -179,6 +178,11 @@
         }
       },
 
+      cancelHandler() {
+        this.preSelected = this.selected;
+        this.resetRadioSelection();
+      },
+
       resetCheckboxSelection() {
         this.preSelected = [];
       },
@@ -196,6 +200,8 @@
         } else {
           this.$emit('changed', this.name, this.preSelected);
         }
+
+        this.$refs.dropdown.hide(true);
       }
     }
   };
@@ -204,7 +210,7 @@
 <style lang="scss" scoped>
   @import "./assets/scss/variables.scss";
 
-  .dropdown {
+  .dropdown { // TODO: move this code to the dropdown.scss where possible, to avoid duplication
     width: 100%;
     margin-bottom: 5px;
 
@@ -221,19 +227,29 @@
   .has-selected {
     /deep/ > .btn {
       background: $white;
-      color: $darkgrey;
+      color: $mediumgrey;
     }
   }
 
   /deep/ .dropdown-menu {
+    font-size: $font-size-small;
     width: 100%;
 
     @media (min-width: $bp-large) {
       min-width: 280px;
+
+      &.show {
+        transform: translate3d(0, 3rem, 0) !important;
+      }
     }
 
     .custom-control  {
       margin-bottom: 4px;
+      min-height: auto;
+
+      label span {
+        font-size: $font-size-extrasmall;
+      }
     }
   }
 

@@ -8,8 +8,6 @@
       :image-content-type="heroImage.contentType"
       :header="page.name"
       :lead="page.headline"
-      :identifier="hero.identifier"
-      :citation="hero.citation"
       :rights-statement="hero.license"
       :name="hero.name"
       :provider="hero.provider"
@@ -17,7 +15,10 @@
       :url="hero.url"
     />
     <b-container>
-      <header v-if="!hero">
+      <header
+        v-if="!hero"
+        class="row"
+      >
         <div class="col-12 col-lg-9 col">
           <h1>{{ page.name }}</h1>
           <p

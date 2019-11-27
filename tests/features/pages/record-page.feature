@@ -42,3 +42,23 @@ Feature: Record page
   Scenario: Metadata in another language
     When I open the `"Hammerflügel" record page`
     Then I see a level 1 section heading with the text "Hammerflügel"
+
+  Scenario: Media thumbnail grid for multiple web resources
+    When I open the `"Hammerflügel" record page`
+    And I see the `media thumbnail grid`
+    And the `media thumbnail #1` is marked as "selected"
+    And I click the `media thumbnail #2`
+    Then the `media thumbnail #2` is marked as "selected"
+
+  Scenario: No media thumbnail grid for single web resources
+    When I open `"The Milkmaid" record page`
+    Then I don't have the `media thumbnail grid`
+
+  Scenario: Similar items
+    When I open `"The Milkmaid" record page`
+    Then I see `similar items`
+  
+  Scenario: Audio player
+    When I open the `"The pride of Glencoe, song" record page`
+    Then I see a `audio player`
+    And I am on an accessible page

@@ -1,15 +1,14 @@
 <template>
   <b-row>
     <b-col
-      v-if="depictionThumbnail && attribution"
+      v-if="depictionThumbnail && depictionAttribution"
       cols="12"
-      sm="4"
+      sm="3"
     >
-      <b-link
-        :href="attribution"
-        :title="$t('entityDepictionCredit')"
-        class="depiction mb-3 d-block overflow-hidden rounded-circle position-relative"
-        target="_blank"
+      <SmartLink
+        :destination="depictionAttribution"
+        :title="depictionLinkTitle"
+        link-class="depiction mb-3 d-block overflow-hidden rounded-circle position-relative"
         data-qa="entity attribution"
       >
         <b-img
@@ -19,7 +18,7 @@
           data-qa="entity depiction"
           @error="depictionNotFound"
         />
-      </b-link>
+      </SmartLink>
     </b-col>
     <b-col>
       <h1 data-qa="entity title">
@@ -34,6 +33,7 @@
         <b-link
           v-if="description.length > limitCharacters"
           data-qa="entity show link"
+          class="mt-3 btn-link"
           @click="toggleMoreDescription"
         >
           {{ showAll ? $t('showLess') : $t('showMore') }}
@@ -44,7 +44,13 @@
 </template>
 
 <script>
+  import SmartLink from '../../components/generic/SmartLink';
+
   export default {
+    components: {
+      SmartLink
+    },
+
     props: {
       title: {
         type: String,
@@ -61,10 +67,15 @@
       description: {
         type: String,
         default: ''
+      },
+      depictionLinkTitle: {
+        type: String,
+        default: null
       }
     },
     data() {
       return {
+        depictionAttribution: this.attribution,
         depictionThumbnail: this.depiction,
         limitCharacters: 200,
         showAll: false
@@ -72,10 +83,7 @@
     },
     computed: {
       truncatedDescription() {
-        if (!this.description) {
-          return;
-        }
-        return this.description.length > this.limitCharacters ? this.description.slice(0, this.limitCharacters) + '...' : this.description;
+        return this.$options.filters.truncate(this.description, 255, this.$t('formatting.ellipsis'));
       }
     },
     methods: {
@@ -83,7 +91,7 @@
         // clear depictionThumbnail and attribution to prevent showing a broken image and
         // contextless link
         this.depictionThumbnail = '';
-        this.attribution = '';
+        this.depictionAttribution = '';
       },
       toggleMoreDescription() {
         this.showAll = !this.showAll;
@@ -114,5 +122,17 @@
 
   .attribution {
     font-size: $font-size-extrasmall;
+  }
+
+  .btn-link {
+    color: $black;
+    display: inline-block;
+    font-size: $font-size-small;
+    text-decoration: underline;
+    text-transform: uppercase;
+
+    &:hover {
+      text-decoration: none;
+    }
   }
 </style>

@@ -115,10 +115,6 @@ module.exports = {
   ** Build configuration
   */
   build: {
-    filenames: {
-      app: ({ isDev }) => isDev ? '[name].js' : '[name].[chunkhash].js',
-      chunk: ({ isDev }) => isDev ? '[name].js' : '[name].[chunkhash].js'
-    },
     stats: process.env.NODE_ENV === 'test' ? 'errors-only' : {
       chunks: false,
       children: false,
@@ -133,7 +129,6 @@ module.exports = {
       ]
     },
     extractCSS: true,
-    publicPath: process.env.NUXT_ENV_BUILD_PUBLIC_PATH,
     /*
     ** You can extend webpack config here
     */

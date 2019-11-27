@@ -1,7 +1,11 @@
 import { apiError } from './utils';
 import axios from 'axios';
+import escapeRegExp from 'lodash/escapeRegExp';
 import omitBy from 'lodash/omitBy';
-import merge from 'deepmerge';
+import uniq from 'lodash/uniq';
+import merge, { emptyTarget } from 'deepmerge';
+
+import thumbnailUrl, { thumbnailTypeForMimeType } from  '../../plugins/europeana/thumbnail';
 
 /**
  * Parse the record data based on the data from the API response
@@ -12,53 +16,160 @@ function parseRecordDataFromApiResponse(response) {
   const edm = response.data.object;
 
   const providerAggregation = edm.aggregations[0];
-  const europeanaAggregation = edm.europeanaAggregation;
-  const entities = [].concat(edm.concepts, edm.places, edm.agents)
+  const entities = [].concat(edm.concepts, edm.places, edm.agents, edm.timespans)
     .filter(isNotUndefined)
     .reduce((memo, entity) => {
       memo[entity.about] = entity;
       return memo;
     }, {});
-  const proxyData = merge.all(edm.proxies);
+  const proxyData = merge.all(edm.proxies, { arrayMerge: combineMerge });
 
   return {
     altTitle: proxyData.dctermsAlternative,
     description: proxyData.dcDescription,
     identifier: edm.about,
-    image: {
-      link: providerAggregation.edmIsShownAt,
-      src: europeanaAggregation.edmPreview
-    },
-    coreFields: lookupEntities(omitBy({
-      dcContributor: proxyData.dcContributor, // Plus rdaGr2DateOfBirth & rdaGr2DateOfDeath
-      dcCreator: proxyData.dcCreator, // Plus rdaGr2DateOfBirth & rdaGr2DateOfDeath
-      dcPublisher: proxyData.dcPublisher,
-      dcSubject: proxyData.dcSubject,
-      dcType: proxyData.dcType,
-      dcTermsMedium: proxyData.dctermsMedium
-    }, isUndefined), entities),
-    fields: lookupEntities(omitBy({
-      dcTermsCreated: proxyData.dcTermsCreated,
-      edmCountry: europeanaAggregation.edmCountry,
-      edmDataProvider: providerAggregation.edmDataProvider,
-      edmRights: providerAggregation.edmRights
-    }, isUndefined), entities),
-    media: aggregationMedia(providerAggregation),
+    type: edm.type,
+    isShownAt: providerAggregation.edmIsShownAt,
+    coreFields: coreFields(proxyData, providerAggregation.edmDataProvider, entities),
+    fields: extraFields(proxyData, edm, entities),
+    media: aggregationMedia(providerAggregation, edm.type),
     agents: edm.agents,
     concepts: edm.concepts,
     title: proxyData.dcTitle
   };
 }
 
-function aggregationMedia(aggregation) {
-  // Gather all isShownBy and hasView URIs
-  const mediaUris = [aggregation.edmIsShownBy].concat(aggregation.hasView || []).filter(isNotUndefined);
+/**
+ * See: https://github.com/TehShrike/deepmerge#arraymerge-example-combine-arrays
+ */
+function combineMerge(target, source, options) {
+  const destination = target.slice();
 
-  // Filter web resources to isShownBy and hasView
-  const media = aggregation.webResources.filter((webResource) => mediaUris.includes(webResource.about));
+  source.forEach((item, index) => {
+    if (typeof destination[index] === 'undefined') {
+      destination[index] = options.isMergeableObject(item) ? merge(emptyTarget(item), item, options) : item;
+    } else if (options.isMergeableObject(item)) {
+      destination[index] = merge(target[index], item, options);
+    } else if (target.indexOf(item) === -1) { // Only add values not yet present
+      destination.push(item);
+    }
+  });
+  return destination;
+}
+
+/**
+ * Retrieves the "Core" fields which will always be displayed on record pages.
+ *
+ * @param {Object[]} proxyData All core fields are in the proxyData.
+ * @param {Object[]} entities Entities in order to perform entity lookups
+ * @return {Object[]} Key value pairs of the metadata fields.
+ */
+function coreFields(proxyData, edmDataProvider, entities) {
+  return lookupEntities(omitBy({
+    edmDataProvider,
+
+    dcContributor: proxyData.dcContributor,
+    dcCreator: proxyData.dcCreator,
+    dcPublisher: proxyData.dcPublisher,
+    dcSubject: proxyData.dcSubject,
+    dcType: proxyData.dcType,
+    dctermsMedium: proxyData.dctermsMedium
+  }, isUndefined), entities);
+}
+
+/**
+ * Retrieves all additional fields which will be displayed on record pages in the collapsable section.
+ *
+ * @param {Object[]} proxyData To take the fields from.
+ * @param {Object[]} edm To take additional fields from.
+ * @param {Object[]} entities Entities in order to perform entity lookups
+ * @return {Object[]} Key value pairs of the metadata fields.
+ */
+function extraFields(proxyData, edm, entities) {
+  const providerAggregation = edm.aggregations[0];
+  const europeanaAggregation = edm.europeanaAggregation;
+  return lookupEntities(omitBy({
+    edmProvider: providerAggregation.edmProvider,
+    edmIntermediateProvider: providerAggregation.edmIntermediateProvider,
+    edmCountry: europeanaAggregation.edmCountry,
+    edmRights: providerAggregation.edmRights,
+    dcRights: proxyData.dcRights,
+    dcPublisher: proxyData.dcPublisher,
+    dctermsCreated: proxyData.dctermsCreated,
+    dcDate: proxyData.dcDate,
+    dctermsIssued: proxyData.dctermsIssued,
+    dctermsPublished: proxyData.dctermsPublished,
+    dctermsTemporal: proxyData.dctermsTemporal,
+    dcCoverage: proxyData.dcCoverage,
+    dctermsSpatial: proxyData.dctermsSpatial,
+    edmCurrentLocation: proxyData.edmCurrentLocation,
+    edmUgc: providerAggregation.edmUgc,
+    dctermsProvenance: proxyData.dctermsProvenance,
+    dcSource: proxyData.dcSource,
+    dcIdentifier: proxyData.dcIdentifier,
+    europeanaCollectionName: edm.europeanaCollectionName,
+    timestampCreated: edm.timestamp_created,
+    timestampUpdated: edm.timestamp_updated,
+    dctermsExtent: proxyData.dctermsExtent,
+    dcDuration: proxyData.dcDuration,
+    dcMedium: proxyData.dcMedium,
+    dcFormat: proxyData.dcFormat,
+    dcLanguage: proxyData.dcLanguage,
+    dctermsIsPartOf: proxyData.dctermsIsPartOf,
+    dcRelation: proxyData.dcRelation,
+    dctermsReferences: proxyData.dctermsReferences,
+    dctermsHasPart: proxyData.dctermsHasPart,
+    dctermsHasVersion: proxyData.dctermsHasVersion,
+    dctermsIsFormatOf: proxyData.dctermsIsFormatOf,
+    dctermsIsReferencedBy: proxyData.dctermsIsReferencedBy,
+    dctermsIsReplacedBy: proxyData.dctermsIsReplacedBy,
+    dctermsIsRequiredBy: proxyData.dctermsIsRequiredBy,
+    edmHasMet: proxyData.edmHasMet,
+    edmIncorporates: proxyData.edmIncorporates,
+    edmIsDerivativeOf: proxyData.edmIsDerivativeOf,
+    edmIsRepresentationOf: proxyData.edmIsRepresentationOf,
+    edmIsSimilarTo: proxyData.edmIsSimilarTo,
+    edmIsSuccessorOf: proxyData.edmIsSuccessorOf,
+    edmRealizes: proxyData.edmRealizes,
+    wasPresentAt: proxyData.wasPresentAt
+  }, isUndefined), entities);
+}
+
+function aggregationMedia(aggregation, recordType) {
+  // Gather all isShownBy/At and hasView URIs
+  const edmIsShownByOrAt = aggregation.edmIsShownBy || aggregation.edmIsShownAt;
+  const mediaUris = uniq([edmIsShownByOrAt].concat(aggregation.hasView || []).filter(isNotUndefined));
+
+  // Filter web resources to isShownBy and hasView, respecting the ordering
+  const media = mediaUris.map((mediaUri) => aggregation.webResources.find((webResource) => mediaUri === webResource.about));
+
+  // Inject thumbnail URLs
+  for (const webResource of media) {
+    webResource.thumbnails = webResourceThumbnails(webResource, aggregation, recordType);
+  }
 
   // Sort by isNextInSequence property if present
   return sortByIsNextInSequence(media);
+}
+
+function webResourceThumbnails(webResource, aggregation, recordType) {
+  const type = thumbnailTypeForMimeType(webResource.ebucoreHasMimeType) || recordType;
+
+  let uri = webResource.about;
+  if (aggregation.edmObject && ([aggregation.edmIsShownBy, aggregation.edmIsShownAt].includes(uri))) {
+    uri = aggregation.edmObject;
+  }
+
+  return {
+    small: thumbnailUrl(uri, {
+      size: 'w200',
+      type
+    }),
+    large: thumbnailUrl(uri, {
+      size: 'w400',
+      type
+    })
+  };
 }
 
 /**
@@ -174,6 +285,65 @@ function getRecord(europeanaId, params) {
  */
 export function isEuropeanaRecordId(value) {
   return /^\/[0-9]+\/[a-zA-Z0-9_]+$/.test(value);
+}
+
+// Configuration for constructing similar items queries
+const SIMILAR_ITEMS_FIELDS = new Map([
+  ['what', { data: ['dcSubject', 'dcType'], boost: 0.8 }],
+  ['who', { data: ['dcCreator'], boost: 0.5 } ],
+  ['DATA_PROVIDER', { data: ['edmDataProvider'], boost: 0.2 } ]
+]);
+
+/**
+ * Construct Record API similar items query
+ * @param {string} about Europeana identifier of the current item
+ * @param {Object} [data={}] Current item data
+ * @return {string} Query to send to the Record API
+ */
+export function similarItemsQuery(about, data = {}) {
+  const queryTerms = new Map;
+
+  // Map the terms from item data onto their respective similar items query fields
+  for (const [queryField, queryFieldOptions] of SIMILAR_ITEMS_FIELDS) {
+    for (const dataField of queryFieldOptions.data) {
+      if (data[dataField]) {
+        queryTerms.set(queryField, (queryTerms.get(queryField) || []).concat(data[dataField]));
+        if (queryTerms.get(queryField).length === 0) queryTerms.delete(queryField);
+      }
+    }
+  }
+
+  // Construct one fielded and boosted query of potentially multiple terms
+  const fieldQueries = [];
+  for (const [queryField, queryFieldTerms] of queryTerms) {
+    const boost = SIMILAR_ITEMS_FIELDS.get(queryField).boost;
+    const fieldQuery = `${queryField}:(` + queryFieldTerms.map((term) => {
+      return '"' + escapeLuceneSpecials(term) + '"';
+    }).join(' OR ') + `)^${boost}`;
+    fieldQueries.push(fieldQuery);
+  }
+
+  // No queries, no query
+  if (fieldQueries.length === 0) return null;
+
+  // Combine fielded queries, and exclude the current item
+  const query = '(' + fieldQueries.join(' OR ') + `) NOT europeana_id:"${about}"`;
+  return query;
+}
+
+/**
+ * Escapes Lucene syntax special characters
+ * For instance, so that a string may be used in a Record API search query.
+ * @param {string} unescaped Unescaped string
+ * @return {string} Escaped string
+ */
+function escapeLuceneSpecials(unescaped) {
+  const specials = ['\\', '+', '-', '&', '|', '!', '(', ')', '{', '}', '[', ']', '^', '"', '~', '*', '?', ':', '/'];
+
+  return specials.reduce((memo, special) => {
+    memo = memo.replace(new RegExp(escapeRegExp(special), 'g'), `\\${special}`);
+    return memo;
+  }, unescaped);
 }
 
 export default getRecord;

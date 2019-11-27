@@ -2,39 +2,38 @@
   <div
     id="playerElement"
     title="The media player"
+    class="w-100"
+    style="min-height: 70vh;"
   />
 </template>
 <script>
   export default {
     props: {
-      src: {
+      identifier: {
         type: String,
-        default: null,
-        require: true
+        required: true
       }
     },
-    created() {
-      console.log('created');
+    mounted() {
       if (process.browser) {
         this.initPlayer();
       }
     },
     methods: {
-      videoObject() {
+      mediaObject() {
         return {
-          source: this.iifManifestSrc(this.src),
+          source: this.iiifManifestSrc(this.identifier),
           duration: -1,
           id: this.src
         };
       },
-      iifManifestSrc(src) {
-        console.log(src);
-        return 'https://iiif.europeana.eu/presentation/2051906/data_euscreenXL_http___www_openbeelden_nl_media_664892/manifest?format=3&wskey=XYZ';
+      iiifManifestSrc(identifier) {
+        return `https://iiif.europeana.eu/presentation${identifier}/manifest?format=3&wskey=${process.env.EUROPEANA_API_KEY}`;
       },
       initPlayer() {
         let component = document.getElementById('playerElement');
         const EuropeanaMediaPlayer = require('europeana-media-player').default;
-        new EuropeanaMediaPlayer(component, this.videoObject());
+        new EuropeanaMediaPlayer(component, this.mediaObject());
       }
     }
   };

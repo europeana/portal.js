@@ -74,6 +74,9 @@ defineStep('I check/click the {string} {string} radio', (inputValue, inputName) 
 defineStep('I activate/click (the/a/an)( ){string} link', (href) =>
   i.clickOnLink(href));
 
+defineStep('the {target} is/are marked (as ){string}', (qa, klass) =>
+  i.observeTargetHasClass(qa, klass));
+
 defineStep('I should be on (the ){target}', (pageName) =>
   i.shouldBeOn(pageName));
 
@@ -91,6 +94,9 @@ defineStep('I find/identify/see/spot the text {string} in (a/an/the)( ){target} 
 
 defineStep('I should have/see/see/spot {int} {target}(s)', (count, qa) =>
   i.countTarget(count, qa));
+
+defineStep('I should see {int} {target} checkboxes/radio( )(buttons)', (count, inputName) =>
+  i.countTargetByNameAttribute(count, inputName));
 
 defineStep('I should have/see/see/spot a meta label {target} with the value {string}', (label, value) =>
   i.matchMetaLabelAndValue(label, value));

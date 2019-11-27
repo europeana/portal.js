@@ -22,10 +22,10 @@
           />
         </b-col>
       </b-row>
-      <b-row class="mb-4">
+      <b-row class="mb-3">
         <b-col>
           <FacetDropdown
-            v-for="facet in orderedFacets.slice(0,3)"
+            v-for="facet in coreFacets"
             :key="facet.name"
             :name="facet.name"
             :fields="facet.fields"
@@ -35,7 +35,9 @@
           />
           <MoreFacetsDropdown
             v-if="enableMoreFacets"
-            :more-facets="orderedFacets.slice(3)"
+            :more-facets="moreFacets"
+            :selected="moreSelectedFacets"
+            @changed="changeMoreFacets"
           />
           <button
             v-if="isFilteredByDefaultFacets()"
@@ -137,6 +139,7 @@
   import { defaultFacets } from '../../plugins/europeana/search';
 
   import isEqual from 'lodash/isEqual';
+  import omitBy from 'lodash/omitBy';
   import { mapState } from 'vuex';
 
   export default {
@@ -169,11 +172,12 @@
       showContentTierToggle: {
         type: Boolean,
         default: true
-      },
-      enableMoreFacets: { // TODO: to be removed when the more facets are fully functional
-        type: Boolean,
-        default: Boolean(Number(process.env['ENABLE_MORE_FACETS']))
       }
+    },
+    data() {
+      return {
+        coreFacetNames: ['TYPE', 'COUNTRY', 'REUSABILITY']
+      };
     },
     computed: {
       ...mapState({
@@ -238,6 +242,18 @@
 
         return ordered.concat(unordered);
       },
+      coreFacets() {
+        return this.orderedFacets.filter(facet => this.coreFacetNames.includes(facet.name));
+      },
+      moreFacets() {
+        return this.orderedFacets.filter(facet => !this.coreFacetNames.includes(facet.name));
+      },
+      moreSelectedFacets() {
+        return omitBy(this.selectedFacets, (selected, name) => this.coreFacetNames.includes(name));
+      },
+      enableMoreFacets() {
+        return this.moreFacets.length > 0;
+      },
       showPagination() {
         return this.totalResults > this.perPage;
       },
@@ -257,7 +273,10 @@
       changeFacet(name, selected) {
         if (typeof this.selectedFacets[name] === 'undefined' && selected.length === 0) return;
         if (isEqual(this.selectedFacets[name], selected)) return;
-        this.rerouteSearch(this.queryUpdatesForFacetChange(name, selected));
+        this.rerouteSearch(this.queryUpdatesForFacetChanges({ [name]: selected }));
+      },
+      changeMoreFacets(selected) {
+        this.rerouteSearch(this.queryUpdatesForFacetChanges(selected));
       },
       paginationLink(val) {
         return this.localePath({ ...this.route, ...{ query: this.updateCurrentSearchQuery({ page: val }) } });
@@ -265,10 +284,12 @@
       rerouteSearch(queryUpdates) {
         this.$router.push(this.localePath({ ...this.route, ...{ query: this.updateCurrentSearchQuery(queryUpdates) } }));
       },
-      queryUpdatesForFacetChange(name, selected) {
+      queryUpdatesForFacetChanges(selected) {
         let selectedFacets = Object.assign({}, this.selectedFacets);
-        selectedFacets[name] = selected;
 
+        for (const name in selected) {
+          selectedFacets[name] = selected[name];
+        }
         return this.queryUpdatesForSelectedFacets(selectedFacets);
       },
       queryUpdatesForSelectedFacets(selectedFacets) {
@@ -339,13 +360,12 @@
 
 <style lang="scss" scoped>
   @import "./assets/scss/variables.scss";
-  @import "./assets/scss/icons.scss";
 
   .reset {
     background: none;
     border: none;
-    color: $blue;
+    color: $black;
+    font-size: $font-size-small;
     text-transform: uppercase;
-    font-weight: bold;
   }
 </style>

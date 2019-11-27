@@ -1,7 +1,11 @@
 import { shallowMount } from '@vue/test-utils';
 import MediaPresentation from '../../../../components/record/MediaPresentation.vue';
 
-const factory = () => shallowMount(MediaPresentation);
+const factory = () => shallowMount(MediaPresentation, {
+  mocks: {
+    $t: (key) => key
+  }
+});
 
 describe('components/record/MediaPresentation', () => {
   describe('isPDF', () => {
@@ -83,6 +87,41 @@ describe('components/record/MediaPresentation', () => {
         wrapper.setProps(props);
 
         wrapper.vm.isHTMLVideo.should.be.false;
+      });
+    });
+  });
+
+  describe('isHTMLAudio', () => {
+    context('when mimeType is "audio/ogg"', () => {
+      it('is `true`', () => {
+        const wrapper = factory();
+        const props = { mimeType: 'audio/ogg' };
+
+        wrapper.setProps(props);
+
+        wrapper.vm.isHTMLAudio.should.be.true;
+      });
+    });
+
+    context('when mimeType is "audio/flac"', () => {
+      it('is `true`', () => {
+        const wrapper = factory();
+        const props = { mimeType: 'audio/flac' };
+
+        wrapper.setProps(props);
+
+        wrapper.vm.isHTMLAudio.should.be.true;
+      });
+    });
+
+    context('when mimeType is "audio/mpeg"', () => {
+      it('is `true`', () => {
+        const wrapper = factory();
+        const props = { mimeType: 'audio/mpeg' };
+
+        wrapper.setProps(props);
+
+        wrapper.vm.isHTMLAudio.should.be.true;
       });
     });
   });

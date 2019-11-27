@@ -1,6 +1,6 @@
 <template>
   <div
-    class="media-presentation text-center"
+    class="text-left text-lg-center mb-3"
   >
     <MediaImage
       v-if="displayImage"
@@ -14,9 +14,13 @@
         :href="url"
         target="_blank"
       >
-        View PDF
+        {{ $t('record.view.pdf') }}
       </b-link>
     </p>
+    <MediaPlayer
+      v-else-if="isPlayableMedia"
+      :identifier="identifier"
+    />
     <VideoPlayer
       v-else-if="isHTMLVideo"
       :src="url"
@@ -24,9 +28,10 @@
       :width="width"
       :height="height"
     />
-    <MediaPlayer
-      v-else-if="isMediaPlayerVideo"
+    <AudioPlayer
+      v-else-if="isHTMLAudio"
       :src="url"
+      :type="mimeType"
     />
     <HTMLEmbed
       v-else-if="isOEmbed"
@@ -40,15 +45,17 @@
   import MediaImage from '../../components/record/MediaImage';
   import VideoPlayer from '../../components/media/VideoPlayer';
   import MediaPlayer from '../../components/media/MediaPlayer';
+  import AudioPlayer from '../../components/media/AudioPlayer';
   import HTMLEmbed from '../../components/generic/HTMLEmbed';
 
   import oEmbed from '../../plugins/oembed.js';
-  import { isPDF, isHTMLVideo, isOEmbed } from '../../plugins/media.js';
+  import { isPDF, isPlayableMedia, isHTMLVideo, isHTMLAudio, isOEmbed, isRichMedia } from '../../plugins/media.js';
 
   export default {
     components: {
       MediaImage,
       VideoPlayer,
+      AudioPlayer,
       MediaPlayer,
       HTMLEmbed
     },
@@ -80,6 +87,10 @@
       height: {
         type: Number,
         default: null
+      },
+      identifier: {
+        type: String,
+        required: true
       }
     },
     data() {
@@ -89,16 +100,19 @@
     },
     computed: {
       displayImage() {
-        return (this.imageSrc !== '') && !this.isMediaPlayerVideo && !this.isOEmbed;
+        return (this.imageSrc !== '') && !isRichMedia(this.mimeType, this.codecName, this.url);
       },
       isPDF() {
         return isPDF(this.mimeType);
       },
-      isHTMLVideo() {
-        return false;// isHTMLVideo(this.mimeType, this.codecName);
+      isPlayableMedia() {
+        return isPlayableMedia(this.mimeType, this.codecName);
       },
-      isMediaPlayerVideo() {
+      isHTMLVideo() {
         return isHTMLVideo(this.mimeType, this.codecName);
+      },
+      isHTMLAudio() {
+        return isHTMLAudio(this.mimeType);
       },
       isOEmbed() {
         return isOEmbed(this.url);
