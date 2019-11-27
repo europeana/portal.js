@@ -10,11 +10,17 @@
         <b-col class="col-12">
           <div class="cookie-disclaimer-inner">
             <p class="mb-0">
-              This website uses cookies to ensure you get the best experience on our website. By clicking or navigating the site, you agree to allow our collection of information through cookies. More info
+              {{ $t('cookieDisclaimer.terms') }}
+              <SmartLink
+                class="more-info"
+                destination="https://www.europeana.eu/portal/en/rights.html"
+              >
+                {{ $t('cookieDisclaimer.link') }}
+              </SmartLink>
             </p>
             <span
               class="accept-btn icon-close"
-              aria-label="Accept cookie disclaimer"
+              :aria-label="$t('cookieDisclaimer.acceptCookieDisclaimer')"
               @click="accept"
             />
           </div>
@@ -26,9 +32,14 @@
 
 <script>
   import * as tinyCookie from 'tiny-cookie';
+  import SmartLink from '../generic/SmartLink';
 
   export default {
     name: 'CookieDisclaimer',
+
+    components: {
+      SmartLink
+    },
 
     data() {
       return {
@@ -78,7 +89,7 @@
           localStorage.setItem(test, test);
           localStorage.removeItem(test);
         } catch (e) {
-          console.error('Local storage is not supported, falling back to cookie use');
+          // Local storage is not supported, falling back to cookie use
           this.supportsLocalStorage = false;
         }
       },
@@ -135,6 +146,10 @@
       &:hover {
         opacity: .8;;
       }
+    }
+
+    .more-info {
+      color: $white;
     }
   }
 </style>

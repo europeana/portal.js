@@ -191,5 +191,10 @@ export default {
   "edmIsShownAtLinkAlt": "View at the provider's website",
   "imageSlider": {
     "handle": "Slider Handle"
+  },
+  "cookieDisclaimer": {
+    "acceptCookieDisclaimer": "Accept cookie disclaimer",
+    "terms": "This website uses cookies to ensure you get the best experience on our website. By clicking or navigating the site, you agree to allow our collection of information through cookies.",
+    "link": "More info"
   }
 };
