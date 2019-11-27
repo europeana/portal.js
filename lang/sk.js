@@ -26,10 +26,52 @@ export default {
       "edmRights": "Licencia na médiá v tomto zázname (pokiaľ nie je uvedené inak)",
       "dcPublisher": "Vydavateľ",
       "dcSubject": "Predmet",
-      "dcTermsMedium": "Stredný"
+      "dcTermsMedium": "Stredný",
+      "dctermsMedium": "Médium",
+      "dcRights": "Práva",
+      "dcDate": "Dátum",
+      "dctermsPublished": "Dátum publikácie",
+      "dctermsIssued": "Dátum vydania",
+      "dctermsTemporal": "Časové obdobie",
+      "dcCoverage": "Miesto-Čas",
+      "dctermsSpatial": "Miesta",
+      "edmCurrentLocation": "Aktuálna poloha",
+      "edmUgc": "Obsah generovaný používateľmi",
+      "dctermsProvenance": "Proveniencia",
+      "dcSource": "Zdroj",
+      "dcIdentifier": "Identifikátor",
+      "edmIntermediateProvider": "Sprostredkovateľ",
+      "edmProvider": "Poskytovateľ",
+      "timestampCreated": "Vytvorenie časovej pečiatky",
+      "timestampUpdate": "Aktualizácia časovej pečiatky",
+      "dctermsExtent": "Rozsah",
+      "dcDuration": "Trvanie",
+      "dcMedium": "Médium",
+      "dcFormat": "Formát",
+      "dcLanguage": "Jazyk",
+      "dctermsIsPartOf": "Je súčasťou",
+      "europeanaCollectionName": "Názov zbierky",
+      "dcRelation": "Vzťahy",
+      "dctermsReferences": "Odkazuje na",
+      "dctermsHasPart": "Pozostáva z",
+      "dctermsHasVersion": "Má verziu",
+      "dctermsIsFormatOf": "Je formát",
+      "dctermsIsReferencedBy": "Odkazuje sa naň v",
+      "dctermsIsReplacedBy": "Nahrádza ho",
+      "dctermsIsRequiredBy": "Vyžaduje sa od",
+      "edmHasMet": "Spĺňa",
+      "edmIncorporates": "Zahŕňa",
+      "edmIsDerivativeOf": "Je odvodený z",
+      "edmIsRepresentationOf": "Znázorňuje",
+      "edmIsSimilarTo": "Podobá sa",
+      "edmIsSuccessorOf": "nasleduje po",
+      "edmRealizes": "Zachytáva",
+      "wasPresentAt": "bol prítomný na mieste"
     },
     "webResource": {
       "dcDescription": "Popis",
+      "rdfAbout": "RDF o",
+      "edmRights": "Licencia na tento mediálny zdroj",
       "ebucoreHasMimeType": "Typ Ebucore MIME",
       "about": "RDF o"
     }
@@ -45,6 +87,7 @@ export default {
       "name": "Kategória",
       "options": {
         "all": "Všetky položky",
+        "ww1": "1914 – 1918",
         "archaeology": "Archeológia",
         "art": "Umenie",
         "fashion": "Móda",
@@ -85,7 +128,6 @@ export default {
   },
   "entity": "Subjekt",
   "resourceWikimedia": "Zdroj z Wikimedia Commons",
-  "record": "Záznam",
   "messages": {
     "notFound": "Nenašlo sa",
     "externalContentError": "Nepodarilo sa načítať externý obsah",
@@ -137,5 +179,25 @@ export default {
   "clearAllFilters": "Vymazať všetky filtre",
   "reset": "Obnoviť",
   "loadingResults": "Načítavajú sa výsledky",
-  "edmIsShownAtLinkAlt": "Zobrazenie na webovej stránke poskytovateľa"
+  "edmIsShownAtLinkAlt": "Zobrazenie na webovej stránke poskytovateľa",
+  "record": {
+    "extendedInformation": "Ďalšie informácie",
+    "hideAll": "Skryť všetky informácie",
+    "record": "Záznam",
+    "showAll": "Zobraziť všetky informácie"
+  },
+  "contentfulManual": {
+    "headerNavigation": {
+      "teachers": "Učitelia",
+      "explore": "Objavujte"
+    },
+    "footerNavigation": {
+      "about": "Informácie o zbierkach Europeana",
+      "forDevelopers": "Pre vývojárov",
+      "terms": "Podmienky používania služby a zásady ochrany osobných údajov",
+      "provide": "Staňte sa poskytovateľom údajov",
+      "meetUs": "Spoznajte členov tímu",
+      "help": "Pomoc"
+    }
+  }
 };
