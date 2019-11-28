@@ -19,14 +19,12 @@
         :data-qa="`${filter.label} checkbox`"
         class="mb-3"
       >
-        <span
+        <ColourSwatch
           v-if="isColourPalette"
-          class="colour-palette"
-          :style="`backgroundColor: ${filter.label}`"
-          :data-qa="`colour swatch ${colorHexToStandardColorName(filter.label)}`"
-          :aria-label="`${$t('colourSwatch')} - ${colorHexToStandardColorName(filter.label)}`"
+          :hex-code="filter.label"
+          :label="localiseFilterLabel(filter.label)"
         />
-        {{ colorHexToStandardColorName(filter.label) }}
+        {{ localiseFilterLabel(filter.label) }}
         <span
           class="reset icon-close"
           :aria-label="$t('facets.button.reset')"
@@ -43,14 +41,12 @@
           :data-qa="`${filter.label} checkbox`"
           class="mb-3"
         >
-          <span
+          <ColourSwatch
             v-if="isColourPalette"
-            class="colour-palette"
-            :style="`backgroundColor: ${filter.label}`"
-            :data-qa="`colour swatch ${colorHexToStandardColorName(filter.label)}`"
-            :aria-label="`${$t('colourSwatch')} - ${colorHexToStandardColorName(filter.label)}`"
+            :hex-code="colourSwatch"
+            :label="filter.label"
           />
-          {{ colorHexToStandardColorName(filter.label) }}
+          {{ localiseFilterLabel(filter.label) }}
           <span
             class="reset icon-close"
             :aria-label="$t('facets.button.reset')"
@@ -72,7 +68,13 @@
 </template>
 
 <script>
+  import ColourSwatch from '../generic/ColourSwatch';
+
   export default {
+    components: {
+      ColourSwatch
+    },
+
     props: {
       fields: {
         type: Array,
@@ -116,13 +118,9 @@
         this.$emit('selectedOptions', this.name, value);
       },
 
-      // Takes hex value `#000000` and converts it to it's Standard Color Name `Black`
-      colorHexToStandardColorName(label) {
-        if (this.isColourPalette) {
-          label = label.replace(/^#/, '');
-          return this.$t(`facets.${this.COLOURPALETTE}.options.${label}`);
-        }
-        return label;
+      localiseFilterLabel(label) {
+        const key = `facets.${this.name}.options.${label}`;
+        return this.$te(key) ? this.$t(key) : label;
       }
     }
   };
