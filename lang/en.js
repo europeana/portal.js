@@ -105,7 +105,10 @@ export default {
       "name": "Type of media"
     },
     "contentTier": {
-      "name": "Includes items not meeting our publishing criteria"
+      "name": "Content quality",
+      "options": {
+        "*": "Includes items not meeting our publishing criteria"
+      }
     },
     "button": {
       "reset": "Reset",
@@ -141,7 +144,10 @@ export default {
       }
     },
     "MIME_TYPE": {
-      "name": "File format | File formats"
+      "name": "File format | File formats",
+      "options": {
+        "text/plain": "Plain text"
+      }
     }
   },
   "entity": "Entity",

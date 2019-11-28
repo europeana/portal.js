@@ -19,7 +19,7 @@
         :data-qa="`${filter.label} checkbox`"
         class="mb-3"
       >
-        {{ filter.label }}
+        {{ $localiseFilterLabel(name, filter.label) }}
         <span
           class="reset icon-close"
           :aria-label="$t('facets.button.reset')"
@@ -36,7 +36,7 @@
           :data-qa="`${filter.label} checkbox`"
           class="mb-3"
         >
-          {{ filter.label }}
+          {{ $localiseFilterLabel(name, filter.label) }}
           <span
             class="reset icon-close"
             :aria-label="$t('facets.button.reset')"
