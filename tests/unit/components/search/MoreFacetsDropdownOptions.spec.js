@@ -9,7 +9,8 @@ const factory = () => mount(MoreFacetsDropdownOptions, {
   localVue,
   mocks: {
     $t: (key) => key,
-    $tc: (key) => key
+    $tc: (key) => key,
+    $te: () => true
   },
   propsData: {
     name: 'LANGUAGE',
@@ -37,12 +38,12 @@ describe('components/search/MoreFacetsDropdownOptions', () => {
     wrapper.emitted()['selectedOptions'].should.eql([ [ 'LANGUAGE', [ 'de' ] ] ]);
   });
 
-  it('removes hex from color code', () => {
+  it('localiseFilterLabel() returns correct label', () => {
     const wrapper = factory();
     const label = '#000000';
 
     wrapper.setProps({ name: 'COLOURPALETTE' });
 
-    wrapper.vm.colorHexToStandardColorName(label).should.eq('facets.COLOURPALETTE.options.000000');
+    wrapper.vm.localiseFilterLabel(label).should.eq('facets.COLOURPALETTE.options.#000000');
   });
 });

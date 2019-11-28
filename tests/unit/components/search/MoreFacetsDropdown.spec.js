@@ -12,7 +12,8 @@ const factory = () => mount(MoreFacetsDropdown, {
   },
   mocks: {
     $t: (key) => key,
-    $tc: (key) => key
+    $tc: (key) => key,
+    $te: () => true
   }
 });
 
