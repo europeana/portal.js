@@ -26,10 +26,52 @@ export default {
       "edmRights": "Licença dos média neste registo (a menos que especificado de outra forma)",
       "dcPublisher": "Editor",
       "dcSubject": "Assunto",
-      "dcTermsMedium": "Médio"
+      "dcTermsMedium": "Médio",
+      "dctermsMedium": "Médio",
+      "dcRights": "Direitos",
+      "dcDate": "Data",
+      "dctermsPublished": "Data de publicação",
+      "dctermsIssued": "Data de emissão",
+      "dctermsTemporal": "Temporal",
+      "dcCoverage": "Local - Hora",
+      "dctermsSpatial": "Locais",
+      "edmCurrentLocation": "Localização atual",
+      "edmUgc": "Conteúdo gerado por utilizadores",
+      "dctermsProvenance": "Proveniência",
+      "dcSource": "Fonte",
+      "dcIdentifier": "Identificador",
+      "edmIntermediateProvider": "Fornecedor intermediário",
+      "edmProvider": "Fornecedor",
+      "timestampCreated": "Registo de data e hora criado",
+      "timestampUpdate": "Registo de data e hora atualizado",
+      "dctermsExtent": "Extensão",
+      "dcDuration": "Duração",
+      "dcMedium": "Médio",
+      "dcFormat": "Formato",
+      "dcLanguage": "Língua",
+      "dctermsIsPartOf": "É parte de",
+      "europeanaCollectionName": "Nome da coleção",
+      "dcRelation": "Relações",
+      "dctermsReferences": "Referências",
+      "dctermsHasPart": "Consiste em",
+      "dctermsHasVersion": "Tem variante",
+      "dctermsIsFormatOf": "É o formato de",
+      "dctermsIsReferencedBy": "É referenciado por",
+      "dctermsIsReplacedBy": "É substituído por",
+      "dctermsIsRequiredBy": "É exigido por",
+      "edmHasMet": "Cumpriu",
+      "edmIncorporates": "Incorpora",
+      "edmIsDerivativeOf": "Deriva de",
+      "edmIsRepresentationOf": "É representação de",
+      "edmIsSimilarTo": "É similar a",
+      "edmIsSuccessorOf": "É sucessor de",
+      "edmRealizes": "Alcança",
+      "wasPresentAt": "Estava presente em"
     },
     "webResource": {
       "dcDescription": "Descrição",
+      "rdfAbout": "RDF Sobre",
+      "edmRights": "Licença para este recurso de média",
       "ebucoreHasMimeType": "Ebucore Tipo MIME",
       "about": "RDF Sobre"
     }
@@ -45,6 +87,7 @@ export default {
       "name": "Categoria",
       "options": {
         "all": "Todos os itens",
+        "ww1": "1914-1918",
         "archaeology": "Arqueologia",
         "art": "Arte",
         "fashion": "Moda",
@@ -85,7 +128,6 @@ export default {
   },
   "entity": "Entidade",
   "resourceWikimedia": "Recurso do Wikimedia Commons",
-  "record": "Registo",
   "messages": {
     "notFound": "Não encontrado",
     "externalContentError": "Falha ao carregar o conteúdo externo",
@@ -137,5 +179,25 @@ export default {
   "clearAllFilters": "limpar todos os filtros",
   "reset": "Repor",
   "loadingResults": "A carregar resultados",
-  "edmIsShownAtLinkAlt": "Ver no site do fornecedor"
+  "edmIsShownAtLinkAlt": "Ver no site do fornecedor",
+  "record": {
+    "extendedInformation": "Informação detalhada",
+    "hideAll": "Ocultar todas as informações",
+    "record": "Registo",
+    "showAll": "Mostrar todas as informações"
+  },
+  "contentfulManual": {
+    "headerNavigation": {
+      "teachers": "Professores",
+      "explore": "Explorar"
+    },
+    "footerNavigation": {
+      "about": "Sobre Europeana Collections",
+      "forDevelopers": "Para desenvolvedores",
+      "terms": "Termos de uso e política de privacidade",
+      "provide": "Torne-se um fornecedor de dados",
+      "meetUs": "Conheça a equipa",
+      "help": "Ajuda"
+    }
+  }
 };

@@ -26,10 +26,52 @@ export default {
       "edmRights": "Šiame įraše esančios medijos licencija (jei nenurodyta kitaip)",
       "dcPublisher": "Leidėjas",
       "dcSubject": "Tema",
-      "dcTermsMedium": "Medija"
+      "dcTermsMedium": "Medija",
+      "dctermsMedium": "Medija",
+      "dcRights": "Teisės",
+      "dcDate": "Data",
+      "dctermsPublished": "Paskelbimo data",
+      "dctermsIssued": "Išleidimo data",
+      "dctermsTemporal": "Laiko",
+      "dcCoverage": "Vieta-laikas",
+      "dctermsSpatial": "Vietos",
+      "edmCurrentLocation": "Dabartinė vieta",
+      "edmUgc": "Vartotojo sugeneruotas turinys",
+      "dctermsProvenance": "Kilmė",
+      "dcSource": "Šaltinis",
+      "dcIdentifier": "Identifikatorius",
+      "edmIntermediateProvider": "Tarpinis teikėjas",
+      "edmProvider": "Teikėjas",
+      "timestampCreated": "Sukurtas laiko žyma",
+      "timestampUpdate": "Laiko žyma atnaujinta",
+      "dctermsExtent": "Apimtis",
+      "dcDuration": "Trukmė",
+      "dcMedium": "Medija",
+      "dcFormat": "Formatas",
+      "dcLanguage": "Kalba",
+      "dctermsIsPartOf": "Yra dalis",
+      "europeanaCollectionName": "Kolekcijos pavadinimas",
+      "dcRelation": "Santykiai",
+      "dctermsReferences": "Nurodo",
+      "dctermsHasPart": "Susideda iš",
+      "dctermsHasVersion": "Turi versiją",
+      "dctermsIsFormatOf": "Yra formatas",
+      "dctermsIsReferencedBy": "Nurodomas",
+      "dctermsIsReplacedBy": "Pakeičiamas",
+      "dctermsIsRequiredBy": "Reikalingas",
+      "edmHasMet": "Susitiko",
+      "edmIncorporates": "Įtraukia",
+      "edmIsDerivativeOf": "Yra išvestinė iš",
+      "edmIsRepresentationOf": "Ar atstovavimas",
+      "edmIsSimilarTo": "Yra panašus į",
+      "edmIsSuccessorOf": "Yra įpėdinis",
+      "edmRealizes": "Suvokia",
+      "wasPresentAt": "Dalyvavo"
     },
     "webResource": {
       "dcDescription": "Aprašymas",
+      "rdfAbout": "RDF Apie",
+      "edmRights": "Šio medijos šaltinio licencija",
       "ebucoreHasMimeType": "„Ebucore“ MIME tipas",
       "about": "RDF Apie"
     }
@@ -45,6 +87,7 @@ export default {
       "name": "Kategorija",
       "options": {
         "all": "Visi elementai",
+        "ww1": "1914-1918",
         "archaeology": "Archeologija",
         "art": "Menas",
         "fashion": "Mada",
@@ -85,7 +128,6 @@ export default {
   },
   "entity": "Subjektas",
   "resourceWikimedia": "Šaltinis iš „Wikimedia Commons“",
-  "record": "Įrašas",
   "messages": {
     "notFound": "Nerasta",
     "externalContentError": "Nepavyko įkelti išorinio turinio",
@@ -137,5 +179,25 @@ export default {
   "clearAllFilters": "išvalyti visus filtrus",
   "reset": "Atstatyti",
   "loadingResults": "Įkeliami rezultatai",
-  "edmIsShownAtLinkAlt": "Peržiūrėti teikėjo svetainę"
+  "edmIsShownAtLinkAlt": "Peržiūrėti teikėjo svetainę",
+  "record": {
+    "extendedInformation": "Išplėstinė informacija",
+    "hideAll": "Slėpti visą informaciją",
+    "record": "Įrašas",
+    "showAll": "Rodyti visą informaciją"
+  },
+  "contentfulManual": {
+    "headerNavigation": {
+      "teachers": "Mokytojai",
+      "explore": "Tyrinėkite"
+    },
+    "footerNavigation": {
+      "about": "Apie „Europeana“ kolekcijas",
+      "forDevelopers": "Programuotojams",
+      "terms": "Naudojimo sąlygos ir privatumo politika",
+      "provide": "Tapkite duomenų teikėju",
+      "meetUs": "Susipažinkite su komanda",
+      "help": "Pagalba"
+    }
+  }
 };
