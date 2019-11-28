@@ -6,6 +6,8 @@
 
 <script>
   export default {
+    name: 'FacetFieldLabel',
+
     props: {
       facetName: {
         type: String,
@@ -32,12 +34,15 @@
     computed: {
       label() {
         const fieldLabel = (this.facetName === this.MIME_TYPE) ? this.mediaTypeLabel : this.genericLabel;
+
         if (!this.prefixed) return fieldLabel;
+
         return this.$t('formatting.labelledValue', { label: this.$tc(`facets.${this.facetName}.name`, 1), value: fieldLabel });
       },
 
       genericLabel() {
         const key = `facets.${this.facetName}.options.${this.fieldValue}`;
+
         return this.$te(key) ? this.$t(key) : this.fieldValue;
       },
 
