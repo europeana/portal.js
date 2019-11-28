@@ -4,6 +4,7 @@
     :class="{ 'is-open' : isOpen }"
     :style="bottomPosition"
     class="cookie-disclaimer py-4"
+    data-qa="cookie disclaimer"
   >
     <b-container>
       <b-row>
@@ -21,6 +22,7 @@
             <span
               class="accept-btn icon-close"
               :aria-label="$t('cookieDisclaimer.acceptCookieDisclaimer')"
+              data-qa="cookie disclaimer button"
               @click="accept"
             />
           </div>
