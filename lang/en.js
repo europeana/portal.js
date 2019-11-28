@@ -102,7 +102,14 @@ export default {
       }
     },
     "TYPE": {
-      "name": "Type of media"
+      "name": "Type of media",
+      "options": {
+        "IMAGE": "Image",
+        "TEXT": "Text",
+        "VIDEO": "Video",
+        "SOUND": "Sound",
+        "3D": "3D"
+      }
     },
     "contentTier": {
       "name": "Content tier",
