@@ -19,7 +19,10 @@
         :data-qa="`${filter.label} checkbox`"
         class="mb-3"
       >
-        {{ $localiseFilterLabel(name, filter.label) }}
+        <FacetFieldLabel
+          :facet-name="name"
+          :field-value="filter.label"
+        />
         <span
           class="reset icon-close"
           :aria-label="$t('facets.button.reset')"
@@ -36,7 +39,10 @@
           :data-qa="`${filter.label} checkbox`"
           class="mb-3"
         >
-          {{ $localiseFilterLabel(name, filter.label) }}
+          <FacetFieldLabel
+            :facet-name="name"
+            :field-value="filter.label"
+          />
           <span
             class="reset icon-close"
             :aria-label="$t('facets.button.reset')"
@@ -58,7 +64,13 @@
 </template>
 
 <script>
+  import FacetFieldLabel from './FacetFieldLabel';
+
   export default {
+    components: {
+      FacetFieldLabel
+    },
+
     props: {
       fields: {
         type: Array,

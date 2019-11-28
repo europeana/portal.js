@@ -7,13 +7,23 @@
       class="mr-2"
       data-qa="filter badge"
     >
-      {{ badgeLabel(selectedFacet.facetName, selectedFacet.fieldValue) }}
+      <FacetFieldLabel
+        :facet-name="selectedFacet.facetName"
+        :field-value="selectedFacet.fieldValue"
+        :prefixed="true"
+      />
     </b-badge>
   </div>
 </template>
 
 <script>
+  import FacetFieldLabel from './FacetFieldLabel';
+
   export default {
+    components: {
+      FacetFieldLabel
+    },
+
     props: {
       facets: {
         type: Object,
@@ -40,13 +50,6 @@
         }
 
         return listOfFacets;
-      }
-    },
-
-    methods: {
-      badgeLabel(facetName, fieldValue) {
-        const label = this.$localiseFilterLabel(facetName, fieldValue);
-        return this.$t('formatting.labelledValue', { label: this.$tc(`facets.${facetName}.name`, 1), value: label });
       }
     }
   };
