@@ -27,7 +27,8 @@ const countryFields = [
 const factory = () => mount(FacetDropdown, {
   localVue,
   mocks: {
-    $t: (key) => key
+    $t: (key) => key,
+    $te: () => true
   },
   propsData: {
     type: 'checkbox',
