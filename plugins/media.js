@@ -4,13 +4,10 @@ export function isPDF(mimeType) {
   return mimeType === 'application/pdf';
 }
 
-export function isPlayableMedia(mimeType, codec) {
-  return (mimeType === 'video/ogg') ||
-    (mimeType === 'video/webm') ||
-    ((mimeType === 'video/mp4') && (codec === 'h264')) ||
-    (mimeType === 'audio/flac') ||
-    (mimeType === 'audio/ogg') ||
-    (mimeType === 'audio/mpeg');
+export function isPlayableMedia(mimeType) {
+  return (mimeType.startsWith('video/') ||
+    mimeType.startsWith('audio/') ||
+    (mimeType === 'application/dash+xml'));
 }
 
 // TODO: Remove this if using Media Player for all these cases

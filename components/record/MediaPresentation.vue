@@ -106,7 +106,7 @@
         return isPDF(this.mimeType);
       },
       isPlayableMedia() {
-        return isPlayableMedia(this.mimeType, this.codecName);
+        return isPlayableMedia(this.mimeType);
       },
       isHTMLVideo() {
         return isHTMLVideo(this.mimeType, this.codecName);
