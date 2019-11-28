@@ -6,6 +6,10 @@ import CookieDisclaimer from '../../../../components/generic/CookieDisclaimer.vu
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
+global.localStorage = {
+  getItem: () => {}
+};
+
 const factory = (setBannerHeightSpy) => shallowMount(CookieDisclaimer, {
   localVue,
   methods: { setBannerHeight: setBannerHeightSpy || sinon.spy() },
