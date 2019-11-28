@@ -10,7 +10,7 @@
       <FacetFieldLabel
         :facet-name="selectedFacet.facetName"
         :field-value="selectedFacet.fieldValue"
-        :prefixed="true"
+        :prefixed="selectedFacet.facetName !== 'contentTier'"
       />
     </b-badge>
   </div>
