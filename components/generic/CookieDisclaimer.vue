@@ -64,7 +64,7 @@
       init() {
         const status = this.getCookieStatus();
 
-        if (!status) {
+        if (status !== 'accepted') {
           this.isOpen = true;
         }
 
