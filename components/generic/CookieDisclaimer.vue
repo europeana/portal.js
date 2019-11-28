@@ -14,7 +14,7 @@
               {{ $t('cookieDisclaimer.terms') }}
               <SmartLink
                 class="more-info"
-                destination="https://www.europeana.eu/portal/en/rights.html"
+                destination="/rights"
               >
                 {{ $t('cookieDisclaimer.link') }}
               </SmartLink>
@@ -33,7 +33,6 @@
 </template>
 
 <script>
-  import * as tinyCookie from 'tiny-cookie';
   import SmartLink from '../generic/SmartLink';
 
   export default {
@@ -45,7 +44,6 @@
 
     data() {
       return {
-        supportsLocalStorage: true,
         isOpen: false,
         COOKIE_CONSENT: 'cookie_consent',
         bannerHeight: 0
@@ -59,7 +57,6 @@
     },
 
     mounted() {
-      this.checkLocalStorageFunctionality();
       this.init();
     },
 
@@ -84,31 +81,12 @@
         this.isOpen = false;
       },
 
-      checkLocalStorageFunctionality() {
-        // Check for availability of localStorage
-        try {
-          const test = 'cookie_consent_check_localStorage';
-          localStorage.setItem(test, test);
-          localStorage.removeItem(test);
-        } catch (e) {
-          // Local storage is not supported, falling back to cookie use
-          this.supportsLocalStorage = false;
-        }
-      },
-
       setCookieStatus() {
-        if (this.supportsLocalStorage) {
-          localStorage.setItem(this.COOKIE_CONSENT, 'accepted');
-        } else {
-          tinyCookie.set(this.COOKIE_CONSENT, 'accepted');
-        }
+        localStorage.setItem(this.COOKIE_CONSENT, 'accepted');
       },
 
       getCookieStatus() {
-        if (this.supportsLocalStorage) {
-          return localStorage.getItem(this.COOKIE_CONSENT);
-        }
-        return tinyCookie.get(this.COOKIE_CONSENT);
+        return localStorage.getItem(this.COOKIE_CONSENT);
       }
     }
   };
