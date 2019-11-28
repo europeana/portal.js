@@ -105,7 +105,7 @@ export default {
       "name": "Type of media"
     },
     "contentTier": {
-      "name": "Content quality",
+      "name": "Content tier",
       "options": {
         "*": "Includes items not meeting our publishing criteria"
       }
