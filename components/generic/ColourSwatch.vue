@@ -8,12 +8,8 @@
 </template>
 
 <script>
-  import { localiseFilterLabel } from '../../mixins';
-
   export default {
     name: 'ColourSwatch',
-
-    mixins: [localiseFilterLabel],
 
     props: {
       label: {
