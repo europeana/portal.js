@@ -17,6 +17,6 @@ Feature: Home page
     When I open `/en`
     And I see a `cookie disclaimer`
     And I click the `cookie disclaimer button`
-    And I don't see `cookie disclaimer`
+    And I don't see the `cookie disclaimer`
     And I open `/en`
-    Then I don't see `cookie disclaimer`
+    Then I don't see the `cookie disclaimer`
