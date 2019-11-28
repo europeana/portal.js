@@ -12,10 +12,7 @@
         {{ $t(`facets.${selectedFacet.facetName}.name`) }}
       </template>
       <template v-else-if="$te(`facets.${selectedFacet.facetName}.options.${selectedFacet.fieldValue}`)">
-        {{ $t('formatting.labelledValue', { label: $tc(`facets.${selectedFacet.facetName}.name`, 1), value: $t(`facets.${selectedFacet.facetName}.options.${selectedFacet.fieldValue}`)}) }}
-      </template>
-      <template v-else-if="selectedFacet.facetName === 'COLOURPALETTE'">
-        {{ $t('formatting.labelledValue', { label: $tc(`facets.${selectedFacet.facetName}.name`, 1), value: colorHexToStandardColorName(selectedFacet.fieldValue)}) }}
+        {{ $t('formatting.labelledValue', { label: $tc(`facets.${selectedFacet.facetName}.name`, 1), value: localiseFilterLabel(selectedFacet.facetName, selectedFacet.fieldValue)}) }}
       </template>
       <template v-else>
         {{ $t('formatting.labelledValue', { label: $tc(`facets.${selectedFacet.facetName}.name`, 1), value: selectedFacet.fieldValue}) }}
@@ -55,10 +52,9 @@
     },
 
     methods: {
-      // Takes hex value `#000000` and converts it to it's Standard Color Name `Black`
-      colorHexToStandardColorName(label) {
-        label = label.replace(/^#/, '');
-        return this.$t(`facets.COLOURPALETTE.options.${label}`);
+      localiseFilterLabel(facetName, label) {
+        const key = `facets.${facetName}.options.${label}`;
+        return this.$te(key) ? this.$t(key) : label;
       }
     }
   };
