@@ -1,9 +1,9 @@
-import { createLocalVue, mount } from '@vue/test-utils';
+import { createLocalVue, shallowMount } from '@vue/test-utils';
 import FacetFieldLabel from '../../../../components/search/FacetFieldLabel.vue';
 
 const localVue = createLocalVue();
 
-const factory = (propsData = {}, mocks = {}) => mount(FacetFieldLabel, {
+const factory = (propsData = {}, mocks = {}) => shallowMount(FacetFieldLabel, {
   localVue,
   propsData,
   mocks
