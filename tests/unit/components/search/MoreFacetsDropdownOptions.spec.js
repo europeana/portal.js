@@ -37,13 +37,4 @@ describe('components/search/MoreFacetsDropdownOptions', () => {
     checkbox.trigger('click');
     wrapper.emitted()['selectedOptions'].should.eql([ [ 'LANGUAGE', [ 'de' ] ] ]);
   });
-
-  it('localiseFilterLabel() returns correct label', () => {
-    const wrapper = factory();
-    const label = '#000000';
-
-    wrapper.setProps({ name: 'COLOURPALETTE' });
-
-    wrapper.vm.localiseFilterLabel(label).should.eq('facets.COLOURPALETTE.options.#000000');
-  });
 });
