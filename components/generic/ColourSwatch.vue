@@ -2,8 +2,8 @@
   <span
     class="colour-palette"
     :style="`backgroundColor: ${hexCode}`"
-    :data-qa="`colour swatch ${label}`"
-    :aria-label="`${$t('colourSwatch')} - ${label}`"
+    :data-qa="`colour swatch ${hexCode}`"
+    :aria-labelledby="ariaLabelledby"
   />
 </template>
 
@@ -12,7 +12,7 @@
     name: 'ColourSwatch',
 
     props: {
-      label: {
+      ariaLabelledby: {
         type: String,
         default: ''
       },

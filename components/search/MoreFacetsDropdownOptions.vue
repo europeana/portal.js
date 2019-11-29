@@ -22,9 +22,10 @@
         <ColourSwatch
           v-if="isColourPalette"
           :hex-code="filter.label"
-          :label="localiseFilterLabel(filter.label)"
+          :aria-labelledby="`facet-field-${name}-${index}`"
         />
         <FacetFieldLabel
+          :id="`facet-field-${name}-${index}`"
           :facet-name="name"
           :field-value="filter.label"
         />
@@ -47,9 +48,10 @@
           <ColourSwatch
             v-if="isColourPalette"
             :hex-code="filter.label"
-            :label="localiseFilterLabel(filter.label)"
+            :aria-labelledby="`facet-field-${name}-${index}`"
           />
           <FacetFieldLabel
+            :id="`facet-field-${name}-${index}`"
             :facet-name="name"
             :field-value="filter.label"
           />
@@ -124,11 +126,6 @@
     methods: {
       selectedHandler(value) {
         this.$emit('selectedOptions', this.name, value);
-      },
-
-      localiseFilterLabel(label) {
-        const key = `facets.${this.name}.options.${label}`;
-        return this.$te(key) ? this.$t(key) : label;
       }
     }
   };
