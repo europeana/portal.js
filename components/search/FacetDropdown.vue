@@ -24,7 +24,10 @@
           :data-qa="`${option} ${RADIO}`"
           @change="$refs.dropdown.hide(true)"
         >
-          {{ $t(`facets.${name}.options.${option}`) }}
+          <FacetFieldLabel
+            :facet-name="name"
+            :field-value="option"
+          />
         </b-form-radio>
       </template>
 
@@ -37,7 +40,11 @@
           :name="name"
           :data-qa="`${option.label} ${CHECKBOX}`"
         >
-          {{ option.label }} <span>({{ option.count | localise }})</span>
+          <FacetFieldLabel
+            :facet-name="name"
+            :field-value="option.label"
+          />
+          <span>({{ option.count | localise }})</span>
         </b-form-checkbox>
       </template>
     </b-dropdown-form>
@@ -83,7 +90,13 @@
   import Vue from 'vue';
   import isEqual from 'lodash/isEqual';
 
+  import FacetFieldLabel from './FacetFieldLabel';
+
   export default {
+    components: {
+      FacetFieldLabel
+    },
+
     props: {
       name: {
         type: String,

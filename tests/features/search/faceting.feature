@@ -8,7 +8,7 @@ Feature: Search faceting
     And I wait 2 seconds
     Then I should be on `/en/search?page=1&qf=TYPE%3A%22IMAGE%22&query=&view=grid`
     And I am on page number 1
-    And I see a `filter badge` with the text "Type of media: IMAGE"
+    And I see a `filter badge` with the text "Type of media: Image"
     And I am on an accessible page
 
   Scenario: Filtering results by reusability

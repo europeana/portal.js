@@ -9,7 +9,8 @@ const factory = () => mount(MoreFacetsDropdownOptions, {
   localVue,
   mocks: {
     $t: (key) => key,
-    $tc: (key) => key
+    $tc: (key) => key,
+    $te: (key) => key
   },
   propsData: {
     name: 'LANGUAGE',
