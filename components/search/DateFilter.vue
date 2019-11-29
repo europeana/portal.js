@@ -1,26 +1,29 @@
 <template>
   <b-form inline>
+    <legend>Legend</legend>
     <label
       class="sr-only"
-      for="inline-form-input-name"
+      for="start-date"
     >
-      Name
+      {{ $t('dateFilter.startDate') }}
     </label>
     <b-input
-      id="inline-form-input-name"
+      id="start-date"
+      v-model="form.start"
       class="mb-2 mr-sm-2 mb-sm-0"
-      placeholder="Jane Doe"
+      type="date"
     />
 
     <label
       class="sr-only"
-      for="inline-form-input-username"
+      for="end-date"
     >
-      Username
+      {{ $t('dateFilter.endDate') }}
     </label>
     <b-input
-      id="inline-form-input-username"
-      placeholder="Username"
+      id="end-date"
+      v-model="form.end"
+      type="date"
     />
   </b-form>
 </template>
@@ -44,6 +47,30 @@
         type: String,
         default: ''
       }
+    },
+
+    data() {
+      return {
+        form: {
+          name: this.name,
+          start: this.start,
+          end: this.end
+        }
+      };
+    },
+
+    watch: {
+      form: {
+        deep: true,
+        handler() {
+          console.log('form', this.form);
+          this.$emit('dateFilter', this.form);
+        }
+      }
+    },
+
+    mounted() {
+      console.log('form');
     }
   };
 </script>

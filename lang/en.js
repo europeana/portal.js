@@ -238,5 +238,9 @@ export default {
   },
   "imageSlider": {
     "handle": "Slider Handle"
+  },
+  "dateFilter": {
+    "startDate": "Start date",
+    "endDate": "End date"
   }
 };
