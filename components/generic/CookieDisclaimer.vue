@@ -45,7 +45,7 @@
     data() {
       return {
         isOpen: false,
-        COOKIE_CONSENT: 'cookie_consent',
+        COOKIE_CONSENT: 'cookieConsent',
         bannerHeight: 0
       };
     },
@@ -57,21 +57,17 @@
     },
 
     mounted() {
-      this.init();
+      const status = this.getCookieStatus();
+
+      if (status !== 'accepted') {
+        this.isOpen = true;
+      }
+
+      this.setBannerHeight();
+      window.addEventListener('resize', this.setBannerHeight);
     },
 
     methods: {
-      init() {
-        const status = this.getCookieStatus();
-
-        if (status !== 'accepted') {
-          this.isOpen = true;
-        }
-
-        this.setBannerHeight();
-        window.addEventListener('resize', this.setBannerHeight);
-      },
-
       setBannerHeight() {
         this.bannerHeight = this.$refs.banner.getBoundingClientRect().height;
       },
