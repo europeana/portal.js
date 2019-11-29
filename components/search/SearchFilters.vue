@@ -1,21 +1,21 @@
 <template>
   <div class="mt-3">
     <b-badge
-      v-for="selectedFacet in facetList"
-      :key="selectedFacet.key"
+      v-for="selectedFilter in filterList"
+      :key="selectedFilter.key"
       variant="secondary"
       class="mr-2"
       data-qa="filter badge"
     >
       <!-- TODO: move these if/else-if/else elements into a `badgeLabel` computed method -->
-      <template v-if="selectedFacet.facetName === 'contentTier' && selectedFacet.fieldValue === '*'">
-        {{ $t(`facets.${selectedFacet.facetName}.name`) }}
+      <template v-if="selectedFilter.filterName === 'contentTier' && selectedFilter.fieldValue === '*'">
+        {{ $t(`facets.${selectedFilter.filterName}.name`) }}
       </template>
-      <template v-else-if="$te(`facets.${selectedFacet.facetName}.options.${selectedFacet.fieldValue}`)">
-        {{ $t('formatting.labelledValue', { label: $tc(`facets.${selectedFacet.facetName}.name`, 1), value: $t(`facets.${selectedFacet.facetName}.options.${selectedFacet.fieldValue}`)}) }}
+      <template v-else-if="$te(`facets.${selectedFilter.filterName}.options.${selectedFilter.fieldValue}`)">
+        {{ $t('formatting.labelledValue', { label: $tc(`facets.${selectedFilter.filterName}.name`, 1), value: $t(`facets.${selectedFilter.filterName}.options.${selectedFilter.fieldValue}`)}) }}
       </template>
       <template v-else>
-        {{ $t('formatting.labelledValue', { label: $tc(`facets.${selectedFacet.facetName}.name`, 1), value: selectedFacet.fieldValue}) }}
+        {{ $t('formatting.labelledValue', { label: $tc(`facets.${selectedFilter.filterName}.name`, 1), value: selectedFilter.fieldValue}) }}
       </template>
     </b-badge>
   </div>
@@ -26,30 +26,31 @@
     name: 'SearchFilters',
 
     props: {
-      facets: {
+      filters: {
         type: Object,
         default: () => {}
       }
     },
+
     computed: {
-      facetList() {
-        let listOfFacets = [];
-        for (let facetName in this.facets) {
-          if (typeof this.facets[facetName] === 'string') {
-            let fieldValue = this.facets[facetName];
+      filterList() {
+        let listOfFilters = [];
+        for (let filterName in this.filters) {
+          if (typeof this.filters[filterName] === 'string') {
+            let fieldValue = this.filters[filterName];
             if (fieldValue !== '') {
-              listOfFacets.push({ key: `${facetName}:${fieldValue}`, facetName, fieldValue });
+              listOfFilters.push({ key: `${filterName}:${fieldValue}`, filterName, fieldValue });
             }
           }
 
-          for (let fieldValue of this.facets[facetName]) {
-            if (typeof this.facets[facetName] !== 'string') {
-              listOfFacets.push({ key: `${facetName}:${fieldValue}`, facetName, fieldValue });
+          for (let fieldValue of this.filters[filterName]) {
+            if (typeof this.filters[filterName] !== 'string') {
+              listOfFilters.push({ key: `${filterName}:${fieldValue}`, filterName, fieldValue });
             }
           }
         }
 
-        return listOfFacets;
+        return listOfFilters;
       }
     }
   };

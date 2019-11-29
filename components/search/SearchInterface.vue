@@ -1,4 +1,4 @@
-<template>
+defaultFacetNames<template>
   <b-container>
     <b-row
       v-if="errorMessage"
@@ -18,7 +18,7 @@
       >
         <b-col>
           <SearchFilters
-            :facets="filters"
+            :filters="filters"
           />
         </b-col>
       </b-row>
@@ -36,7 +36,7 @@
           <MoreFacetsDropdown
             v-if="enableMoreFacets"
             :more-facets="moreFacets"
-            :selected="morefilters"
+            :selected="moreSelectedFacets"
             @changed="changeMoreFacets"
           />
           <button
@@ -136,10 +136,10 @@
   import PaginationNav from '../../components/generic/PaginationNav';
   import ViewToggles from '../../components/search/ViewToggles';
   import TierToggler from '../../components/search/TierToggler';
-  import { defaultFacets } from '../../plugins/europeana/search';
+  import { defaultFacetNames } from '../../plugins/europeana/search';
 
   import isEqual from 'lodash/isEqual';
-  import omitBy from 'lodash/omitBy';
+  import pickBy from 'lodash/pickBy';
   import { mapState } from 'vuex';
 
   export default {
@@ -183,7 +183,6 @@
       ...mapState({
         error: state => state.search.error,
         facets: state => state.search.facets,
-        filters: state => state.search.filters,
         lastAvailablePage: state => state.search.lastAvailablePage,
         // This causes double jumps on pagination when using the > arrow, for some reason
         // page: state => state.search.page,
@@ -191,6 +190,7 @@
         query: state => state.search.query,
         results: state => state.search.results,
         reusability: state => state.search.reusability,
+        filters: state => state.search.filters,
         totalResults: state => state.search.totalResults
       }),
       // workaround for double jump mentioned in store mapState call above
@@ -231,7 +231,7 @@
         let unordered = this.facets.slice();
         let ordered = [];
 
-        for (const facetName of defaultFacets) {
+        for (const facetName of defaultFacetNames) {
           const index = unordered.findIndex((f) => {
             return f.name === facetName;
           });
@@ -245,11 +245,14 @@
       coreFacets() {
         return this.orderedFacets.filter(facet => this.coreFacetNames.includes(facet.name));
       },
-      moreFacets() {
-        return this.orderedFacets.filter(facet => !this.coreFacetNames.includes(facet.name));
+      moreFacetNames() {
+        return defaultFacetNames.filter(facetName => !this.coreFacetNames.includes(facetName));
       },
-      morefilters() {
-        return omitBy(this.filters, (selected, name) => this.coreFacetNames.includes(name));
+      moreFacets() {
+        return this.orderedFacets.filter(facet => this.moreFacetNames.includes(facet.name));
+      },
+      moreSelectedFacets() {
+        return pickBy(this.filters, (selected, name) => this.moreFacetNames.includes(name));
       },
       enableMoreFacets() {
         return this.moreFacets.length > 0;
@@ -290,9 +293,9 @@
         for (const name in selected) {
           filters[name] = selected[name];
         }
-        return this.queryUpdatesForfilters(filters);
+        return this.queryUpdatesForFilters(filters);
       },
-      queryUpdatesForfilters(filters) {
+      queryUpdatesForFilters(filters) {
         let queryUpdates = {
           qf: [],
           page: 1
@@ -309,7 +312,7 @@
             }
           } else {
             for (const facetValue of selectedValues) {
-              if (defaultFacets.includes(facetName)) {
+              if (defaultFacetNames.includes(facetName)) {
                 queryUpdates.qf.push(`${facetName}:"${facetValue}"`);
               } else {
                 queryUpdates.qf.push(`${facetName}:${facetValue}`);
@@ -341,13 +344,13 @@
       resetFilters() {
         const filters = Object.assign({}, this.filters);
 
-        for (const facetName of defaultFacets) {
+        for (const facetName of defaultFacetNames) {
           filters[facetName] = [];
         }
-        this.rerouteSearch(this.queryUpdatesForfilters(filters));
+        this.rerouteSearch(this.queryUpdatesForFilters(filters));
       },
       isFilteredByDefaultFacets() {
-        for (const facetName of defaultFacets) {
+        for (const facetName of defaultFacetNames) {
           if (Object.prototype.hasOwnProperty.call(this.filters, facetName)) {
             return true;
           }

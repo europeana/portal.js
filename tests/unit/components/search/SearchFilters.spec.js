@@ -23,7 +23,7 @@ const factory = () => mount(SearchFilters, {
 describe('components/search/SearchFilters', () => {
   it('shows a badge for each supplied facet', () => {
     const wrapper = factory();
-    wrapper.setProps({ facets: { TYPE: ['IMAGE', 'VIDEO'] } });
+    wrapper.setProps({ filters: { TYPE: ['IMAGE', 'VIDEO'] } });
 
     const badges = wrapper.findAll('.badge');
     badges.length.should.eq(2);
@@ -31,7 +31,7 @@ describe('components/search/SearchFilters', () => {
 
   it('shows the translated facet name and field value', () => {
     const wrapper = factory();
-    wrapper.setProps({ facets: { TYPE: ['IMAGE'] } });
+    wrapper.setProps({ filters: { TYPE: ['IMAGE'] } });
 
     const badge = wrapper.find('.badge');
     badge.text().should.eq('formatting.labelledValue: {"label":"facets.TYPE.name: 1","value":"IMAGE"}');
@@ -39,7 +39,7 @@ describe('components/search/SearchFilters', () => {
 
   it('shows a customised badge when it displays content tier', () => {
     const wrapper = factory();
-    wrapper.setProps({ facets: { contentTier: ['*'] } });
+    wrapper.setProps({ filters: { contentTier: ['*'] } });
 
     const badge = wrapper.find('.badge');
     badge.text().should.eq('facets.contentTier.name: undefined');

@@ -211,8 +211,26 @@ describe('components/search/SearchInterface', () => {
       it('returns core facets only', () => {
         wrapper.vm.coreFacets.should.eql([ { 'name': 'TYPE' }, { 'name': 'REUSABILITY' }, { 'name': 'COUNTRY' } ]);
       });
-      it('returns core facets only', () => {
-        wrapper.vm.moreFacets.should.eql([ { 'name': 'LANGUAGE' }, { 'name': 'PROVIDER' }, { 'name': 'DATA_PROVIDER' }, { 'name': 'RIGHTS' }, { 'name': 'CONTRIBUTOR' } ]);
+    });
+
+    describe('moreFacets', () => {
+      const wrapper = factory({
+        storeState: {
+          facets: [
+            { name: 'COUNTRY' },
+            { name: 'RIGHTS' },
+            { name: 'CONTRIBUTOR' },
+            { name: 'DATA_PROVIDER' },
+            { name: 'PROVIDER' },
+            { name: 'LANGUAGE' },
+            { name: 'REUSABILITY' },
+            { name: 'TYPE' }
+          ]
+        }
+      });
+
+      it('returns non-core facets only', () => {
+        wrapper.vm.moreFacets.should.eql([ { 'name': 'LANGUAGE' }, { 'name': 'PROVIDER' }, { 'name': 'DATA_PROVIDER' } ]);
       });
     });
   });

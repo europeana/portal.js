@@ -8,7 +8,7 @@ import qs from 'qs';
 
 // Default facets to request and display if none are specified.
 // Order is significant as it will be reflected on search results.
-export const defaultFacets = [
+export const defaultFacetNames = [
   'TYPE',
   'REUSABILITY',
   'COUNTRY',
@@ -164,7 +164,7 @@ function search(params) {
       return qs.stringify(params, { arrayFormat: 'repeat' });
     },
     params: {
-      facet: params.facet ? params.facet : defaultFacets.join(','),
+      facet: params.facet ? params.facet : defaultFacetNames.join(','),
       profile: params.profile ? params.profile : 'minimal,facets',
       qf: qfHandler(params.qf),
       query,
