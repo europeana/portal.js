@@ -51,13 +51,6 @@
 
         return listOfFacets;
       }
-    },
-
-    methods: {
-      localiseFilterLabel(facetName, label) {
-        const key = `facets.${facetName}.options.${label}`;
-        return this.$te(key) ? this.$t(key) : label;
-      }
     }
   };
 </script>
