@@ -28,7 +28,6 @@
           :facet-name="name"
           :field-value="filter.label"
         />
-        {{ localiseFilterLabel(filter.label) }}
         <span
           class="reset icon-close"
           :aria-label="$t('facets.button.reset')"
@@ -47,14 +46,13 @@
         >
           <ColourSwatch
             v-if="isColourPalette"
-            :hex-code="colourSwatch"
-            :label="filter.label"
+            :hex-code="filter.label"
+            :label="localiseFilterLabel(filter.label)"
           />
           <FacetFieldLabel
             :facet-name="name"
             :field-value="filter.label"
           />
-          {{ localiseFilterLabel(filter.label) }}
           <span
             class="reset icon-close"
             :aria-label="$t('facets.button.reset')"
