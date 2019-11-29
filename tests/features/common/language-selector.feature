@@ -1,8 +1,9 @@
 Feature: Select language
 
 Scenario: Change language
-  When I visit the `English home page`
-  And I click the `language selector`
+  Given I am on the `English home page`
+  And I accept cookies
+  When I click the `language selector`
   And I see a `Svenska language option` in the `language selector`
   And I click the `Svenska language option`
   And I wait 2 seconds
