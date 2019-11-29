@@ -144,6 +144,11 @@ module.exports = {
   async openAPage(pageName) {
     await client.url(pageUrl(pageName));
   },
+  async acceptCookies() {
+    await client.waitForElementVisible('.cookie-disclaimer .accept-btn');
+    await client.click('.cookie-disclaimer .accept-btn');
+    await client.expect.element('.cookie-disclaimer').to.not.be.visible;
+  },
   async paginateToPage(page) {
     const selector = qaSelector('pagination navigation') + ` a[aria-posinset="${page}"]`;
     await client.click(selector);
