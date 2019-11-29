@@ -17,8 +17,8 @@
         class="mb-3"
       >
         <b-col>
-          <SearchSelectedFacets
-            :facets="selectedFacets"
+          <SearchFilters
+            :facets="filters"
           />
         </b-col>
       </b-row>
@@ -30,13 +30,13 @@
             :name="facet.name"
             :fields="facet.fields"
             type="checkbox"
-            :selected="selectedFacets[facet.name]"
+            :selected="filters[facet.name]"
             @changed="changeFacet"
           />
           <MoreFacetsDropdown
             v-if="enableMoreFacets"
             :more-facets="moreFacets"
-            :selected="moreSelectedFacets"
+            :selected="morefilters"
             @changed="changeMoreFacets"
           />
           <button
@@ -132,7 +132,7 @@
   import InfoMessage from '../../components/generic/InfoMessage';
   import FacetDropdown from '../../components/search/FacetDropdown';
   import MoreFacetsDropdown from '../../components/search/MoreFacetsDropdown';
-  import SearchSelectedFacets from '../../components/search/SearchSelectedFacets';
+  import SearchFilters from '../../components/search/SearchFilters';
   import PaginationNav from '../../components/generic/PaginationNav';
   import ViewToggles from '../../components/search/ViewToggles';
   import TierToggler from '../../components/search/TierToggler';
@@ -149,7 +149,7 @@
       FacetDropdown,
       MoreFacetsDropdown,
       SearchResults,
-      SearchSelectedFacets,
+      SearchFilters,
       PaginationNav,
       ViewToggles,
       TierToggler
@@ -183,6 +183,7 @@
       ...mapState({
         error: state => state.search.error,
         facets: state => state.search.facets,
+        filters: state => state.search.filters,
         lastAvailablePage: state => state.search.lastAvailablePage,
         // This causes double jumps on pagination when using the > arrow, for some reason
         // page: state => state.search.page,
@@ -190,7 +191,6 @@
         query: state => state.search.query,
         results: state => state.search.results,
         reusability: state => state.search.reusability,
-        selectedFacets: state => state.search.selectedFacets,
         totalResults: state => state.search.totalResults
       }),
       // workaround for double jump mentioned in store mapState call above
@@ -198,7 +198,7 @@
         return Number(this.$route.query.page || 1);
       },
       contentTierActiveState() {
-        return this.selectedFacets.contentTier && this.selectedFacets.contentTier.includes('*');
+        return this.filters.contentTier && this.filters.contentTier.includes('*');
       },
       errorMessage() {
         if (!this.error) return null;
@@ -248,8 +248,8 @@
       moreFacets() {
         return this.orderedFacets.filter(facet => !this.coreFacetNames.includes(facet.name));
       },
-      moreSelectedFacets() {
-        return omitBy(this.selectedFacets, (selected, name) => this.coreFacetNames.includes(name));
+      morefilters() {
+        return omitBy(this.filters, (selected, name) => this.coreFacetNames.includes(name));
       },
       enableMoreFacets() {
         return this.moreFacets.length > 0;
@@ -271,8 +271,8 @@
     },
     methods: {
       changeFacet(name, selected) {
-        if (typeof this.selectedFacets[name] === 'undefined' && selected.length === 0) return;
-        if (isEqual(this.selectedFacets[name], selected)) return;
+        if (typeof this.filters[name] === 'undefined' && selected.length === 0) return;
+        if (isEqual(this.filters[name], selected)) return;
         this.rerouteSearch(this.queryUpdatesForFacetChanges({ [name]: selected }));
       },
       changeMoreFacets(selected) {
@@ -285,21 +285,21 @@
         this.$router.push(this.localePath({ ...this.route, ...{ query: this.updateCurrentSearchQuery(queryUpdates) } }));
       },
       queryUpdatesForFacetChanges(selected) {
-        let selectedFacets = Object.assign({}, this.selectedFacets);
+        let filters = Object.assign({}, this.filters);
 
         for (const name in selected) {
-          selectedFacets[name] = selected[name];
+          filters[name] = selected[name];
         }
-        return this.queryUpdatesForSelectedFacets(selectedFacets);
+        return this.queryUpdatesForfilters(filters);
       },
-      queryUpdatesForSelectedFacets(selectedFacets) {
+      queryUpdatesForfilters(filters) {
         let queryUpdates = {
           qf: [],
           page: 1
         };
 
-        for (const facetName in selectedFacets) {
-          const selectedValues = selectedFacets[facetName];
+        for (const facetName in filters) {
+          const selectedValues = filters[facetName];
           // `reusability` has its own API parameter and can not be queried in `qf`
           if (facetName === 'REUSABILITY') {
             if (selectedValues.length > 0) {
@@ -339,16 +339,16 @@
         return updated;
       },
       resetFilters() {
-        const selectedFacets = Object.assign({}, this.selectedFacets);
+        const filters = Object.assign({}, this.filters);
 
         for (const facetName of defaultFacets) {
-          selectedFacets[facetName] = [];
+          filters[facetName] = [];
         }
-        this.rerouteSearch(this.queryUpdatesForSelectedFacets(selectedFacets));
+        this.rerouteSearch(this.queryUpdatesForfilters(filters));
       },
       isFilteredByDefaultFacets() {
         for (const facetName of defaultFacets) {
-          if (Object.prototype.hasOwnProperty.call(this.selectedFacets, facetName)) {
+          if (Object.prototype.hasOwnProperty.call(this.filters, facetName)) {
             return true;
           }
         }

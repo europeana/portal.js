@@ -1,11 +1,11 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
-import SearchSelectedFacets from '../../../../components/search/SearchSelectedFacets.vue';
+import SearchFilters from '../../../../components/search/SearchFilters.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
-const factory = () => mount(SearchSelectedFacets, {
+const factory = () => mount(SearchFilters, {
   localVue,
   mocks: {
     $t: (key, opts) => {
@@ -20,7 +20,7 @@ const factory = () => mount(SearchSelectedFacets, {
   }
 });
 
-describe('components/search/SearchSelectedFacets', () => {
+describe('components/search/SearchFilters', () => {
   it('shows a badge for each supplied facet', () => {
     const wrapper = factory();
     wrapper.setProps({ facets: { TYPE: ['IMAGE', 'VIDEO'] } });

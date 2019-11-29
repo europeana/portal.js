@@ -40,7 +40,7 @@ const factory = (options = {}) => {
         facets: [],
         qf: [],
         results: [],
-        selectedFacets: {},
+        filters: {},
         ...options.storeState
       }
     }
@@ -78,7 +78,7 @@ describe('components/search/SearchInterface', () => {
         it('is `true`', () => {
           const wrapper = factory({
             storeState: {
-              selectedFacets: {
+              filters: {
                 contentTier: ['*']
               }
             }
@@ -92,7 +92,7 @@ describe('components/search/SearchInterface', () => {
         it('is `false`', () => {
           const wrapper = factory({
             storeState: {
-              selectedFacets: {
+              filters: {
                 contentTier: ['1 OR 2 OR 3 OR 4']
               }
             }
@@ -267,8 +267,8 @@ describe('components/search/SearchInterface', () => {
         context('and they changed', () => {
           const newSelectedValues = ['IMAGE', 'TEXT'];
           it('triggers rerouting', () => {
-            const storeState = { selectedFacets: {} };
-            storeState.selectedFacets[facetName] = initialSelectedValues;
+            const storeState = { filters: {} };
+            storeState.filters[facetName] = initialSelectedValues;
 
             const wrapper = factory({ storeState });
             const searchRerouter = sinon.spy(wrapper.vm, 'rerouteSearch');
@@ -280,8 +280,8 @@ describe('components/search/SearchInterface', () => {
 
         context('and they were unchanged', () => {
           it('does not trigger rerouting', () => {
-            const storeState = { selectedFacets: {} };
-            storeState.selectedFacets[facetName] = initialSelectedValues;
+            const storeState = { filters: {} };
+            storeState.filters[facetName] = initialSelectedValues;
 
             const wrapper = factory({ storeState });
             const searchRerouter = sinon.spy(wrapper.vm, 'rerouteSearch');
@@ -296,7 +296,7 @@ describe('components/search/SearchInterface', () => {
         context('and some were selected', () => {
           const newSelectedValues = ['IMAGE', 'TEXT'];
           it('triggers rerouting', () => {
-            const storeState = { selectedFacets: {} };
+            const storeState = { filters: {} };
 
             const wrapper = factory({ storeState });
             const searchRerouter = sinon.spy(wrapper.vm, 'rerouteSearch');
@@ -309,7 +309,7 @@ describe('components/search/SearchInterface', () => {
         context('and none were selected', () => {
           const newSelectedValues = [];
           it('does not trigger rerouting', () => {
-            const storeState = { selectedFacets: {} };
+            const storeState = { filters: {} };
 
             const wrapper = factory({ storeState });
             const searchRerouter = sinon.spy(wrapper.vm, 'rerouteSearch');

@@ -23,6 +23,8 @@
 
 <script>
   export default {
+    name: 'SearchFilters',
+
     props: {
       facets: {
         type: Object,
