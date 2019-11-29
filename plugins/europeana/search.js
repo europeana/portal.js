@@ -15,7 +15,10 @@ export const defaultFacets = [
   'COLOURPALETTE',
   'LANGUAGE',
   'PROVIDER',
-  'DATA_PROVIDER'
+  'DATA_PROVIDER',
+  'IMAGE_ASPECTRATIO',
+  'IMAGE_SIZE',
+  'MIME_TYPE'
 ];
 
 function genericThumbnail(edmType) {

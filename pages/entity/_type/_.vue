@@ -86,7 +86,23 @@
       EntityDetails,
       SearchInterface
     },
+    async middleware({ store, query }) {
+      const contentfulClient = createClient(query.mode);
 
+      // fetch all curated entity pages
+      if (!store.state.entity.curatedEntities) {
+        await contentfulClient.getEntries({
+          'locale': 'en-GB',
+          'content_type': 'entityPage',
+          'include': 0,
+          'limit': 1000 // 1000 is the maximum number of results returned by contentful
+        }).then(async(response) => {
+          await store.commit('entity/setCuratedEntities', response.items.map(entityPage => entityPage.fields.identifier));
+        }).catch(async() => {
+          await store.commit('entity/setCuratedEntities', []);
+        });
+      }
+    },
     data() {
       return {
         entity: null,
@@ -118,7 +134,7 @@
       editorialDepiction() {
         try {
           const image = this.page.primaryImageOfPage.fields.image.fields.file;
-          return this.$options.filters.optimisedImageUrl(image.url, image.contentType, { width: 255 });
+          return this.$options.filters.optimisedImageUrl(image.url, image.contentType, { width: 510 });
         } catch (error) {
           if (error instanceof TypeError) {
             return null;
@@ -187,17 +203,17 @@
         entities.relatedEntities(params.type, params.pathMatch, {
           wskey: env.EUROPEANA_API_KEY,
           entityKey: env.EUROPEANA_ENTITY_API_KEY
-        }),
-        contentfulClient.getEntries({
-          'locale': app.i18n.isoLocale(),
-          'content_type': 'entityPage',
-          'fields.identifier': entityUri,
-          'include': 2,
-          'limit': 1
         })
-        // URL slug is always derived from English, so if viewing in another locale,
-        // we also need to get the English, solely for the URL slug from `name`.
-      ].concat(app.i18n.locale === 'en' ? [] : contentfulClient.getEntries({
+      ].concat(!store.state.entity.curatedEntities.includes(entityUri) ? [] : contentfulClient.getEntries({
+        'locale': app.i18n.isoLocale(),
+        'content_type': 'entityPage',
+        'fields.identifier': entityUri,
+        'include': 2,
+        'limit': 1
+      })
+      // URL slug is always derived from English, so if viewing in another locale,
+      // we also need to get the English, solely for the URL slug from `name`.
+      ).concat(app.i18n.locale === 'en' || !store.state.entity.curatedEntities.includes(entityUri) ? [] : contentfulClient.getEntries({
         'locale': 'en-GB',
         'content_type': 'entityPage',
         'fields.identifier': entityUri,
@@ -205,7 +221,7 @@
         'limit': 1
       })))
         .then(axios.spread((entity, related, localisedEntries, defaultLocaleEntries) => {
-          const localisedEntityPage = localisedEntries.total > 0 ? localisedEntries.items[0].fields : null;
+          const localisedEntityPage = localisedEntries && localisedEntries.total > 0 ? localisedEntries.items[0].fields : null;
           const defaultEntityPage = defaultLocaleEntries && defaultLocaleEntries.total > 0 ? defaultLocaleEntries.items[0].fields : null;
           const desiredPath = entities.getEntitySlug(entity.entity, defaultEntityPage || localisedEntityPage);
 

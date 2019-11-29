@@ -34,7 +34,10 @@
           v-if="page.author"
           :authors="page.author"
         />
-        <BlogCategories :categories="page.genre" />
+        <BlogCategories
+          v-if="page.genre"
+          :categories="page.genre"
+        />
       </b-col>
     </b-row>
   </b-container>

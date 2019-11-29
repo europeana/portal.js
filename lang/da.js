@@ -26,10 +26,52 @@ export default {
       "edmRights": "Licens for medierne i denne optagelse (medmindre andet er angivet)",
       "dcPublisher": "Udgiver",
       "dcSubject": "Emne",
-      "dcTermsMedium": "Medium"
+      "dcTermsMedium": "Medium",
+      "dctermsMedium": "Medium",
+      "dcRights": "Rettigheder",
+      "dcDate": "Dato",
+      "dctermsPublished": "Udgivelsesdato",
+      "dctermsIssued": "Udstedelsesdato",
+      "dctermsTemporal": "Tidsmæssig",
+      "dcCoverage": "Sted-tid",
+      "dctermsSpatial": "Steder",
+      "edmCurrentLocation": "Nuværende placering",
+      "edmUgc": "Brugergenereret indhold",
+      "dctermsProvenance": "Oprindelse",
+      "dcSource": "Kilde",
+      "dcIdentifier": "Identifikator",
+      "edmIntermediateProvider": "Mellemliggende udbyder",
+      "edmProvider": "Udbyder",
+      "timestampCreated": "Tidsstempel oprettet",
+      "timestampUpdate": "Tidstempel opdateret",
+      "dctermsExtent": "Omfang",
+      "dcDuration": "Varighed",
+      "dcMedium": "Medium",
+      "dcFormat": "Format",
+      "dcLanguage": "Sprog",
+      "dctermsIsPartOf": "Er en del af",
+      "europeanaCollectionName": "Navn på samling",
+      "dcRelation": "Forbindelser",
+      "dctermsReferences": "Referencer",
+      "dctermsHasPart": "Består af",
+      "dctermsHasVersion": "Har version",
+      "dctermsIsFormatOf": "Er format af",
+      "dctermsIsReferencedBy": "Er refereret til",
+      "dctermsIsReplacedBy": "Er erstattet af",
+      "dctermsIsRequiredBy": "Er krævet af",
+      "edmHasMet": "Har mødt",
+      "edmIncorporates": "Indeholder",
+      "edmIsDerivativeOf": "Er afledt af",
+      "edmIsRepresentationOf": "Er repræsentation af",
+      "edmIsSimilarTo": "Svarer til",
+      "edmIsSuccessorOf": "Er efterfølger til",
+      "edmRealizes": "Indser",
+      "wasPresentAt": "Var til stede på"
     },
     "webResource": {
       "dcDescription": "Beskrivelse",
+      "rdfAbout": "RDF Om",
+      "edmRights": "Licens til denne medieressource",
       "ebucoreHasMimeType": "Ebucore MIME-type",
       "about": "RDF Om"
     }
@@ -45,6 +87,7 @@ export default {
       "name": "Kategori",
       "options": {
         "all": "Alle emner",
+        "ww1": "1914-1918",
         "archaeology": "Arkæologi",
         "art": "Kunst",
         "fashion": "Mode",
@@ -85,7 +128,6 @@ export default {
   },
   "entity": "Entitet",
   "resourceWikimedia": "Ressource fra Wikimedia Commons",
-  "record": "Optagelse",
   "messages": {
     "notFound": "Ikke fundet",
     "externalContentError": "Det eksterne indhold kunne ikke indlæses",
@@ -137,5 +179,25 @@ export default {
   "clearAllFilters": "ryd alle filtre",
   "reset": "Nulstil",
   "loadingResults": "Indlæser resultater",
-  "edmIsShownAtLinkAlt": "Vis på udbyderens websted"
+  "edmIsShownAtLinkAlt": "Vis på udbyderens websted",
+  "record": {
+    "extendedInformation": "Udvidede oplysninger",
+    "hideAll": "Skjul alle oplysninger",
+    "record": "Registrering",
+    "showAll": "Vis alle oplysninger"
+  },
+  "contentfulManual": {
+    "headerNavigation": {
+      "teachers": "Lærere",
+      "explore": "Udforsk"
+    },
+    "footerNavigation": {
+      "about": "Om Europeana-samlinger",
+      "forDevelopers": "For udviklere",
+      "terms": "Vilkår for brug og Fortrolighedspolitik",
+      "provide": "Bliv dataleverandør",
+      "meetUs": "Mød holdet",
+      "help": "Hjælp"
+    }
+  }
 };

@@ -20,6 +20,7 @@ const pages = {
   '"The Milkmaid" record page': `${url}/en/record/90402/SK_A_2344`,
   '"Het laatste avondmaal" record page': `${url}/en/record/90402/RP_P_OB_70_879`,
   '"Hammerflügel" record page': `${url}/en/record/09102/_GNM_693983`,
+  '"The pride of Glencoe, song" record page': `${url}/en/record/2059213/data_sounds_455`,
   'first page of results': `${url}/en/search?query=&page=1`,
   'entity page': `${url}/en/entity/topic/18-newspaper`,
   '"World War I" entity page': `${url}/en/entity/topic/83-world-war-i`,

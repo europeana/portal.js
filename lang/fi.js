@@ -26,10 +26,52 @@ export default {
       "edmRights": "Tämän tietueen median lisenssi (ellei toisin mainita)",
       "dcPublisher": "Julkaisija",
       "dcSubject": "Aihe",
-      "dcTermsMedium": "Media"
+      "dcTermsMedium": "Media",
+      "dctermsMedium": "Media",
+      "dcRights": "Oikeudet",
+      "dcDate": "Päivämäärä",
+      "dctermsPublished": "Julkaisupäivä",
+      "dctermsIssued": "Julkaisupäivämäärä",
+      "dctermsTemporal": "Ajoitus",
+      "dcCoverage": "Paikka-aika",
+      "dctermsSpatial": "Paikat",
+      "edmCurrentLocation": "Nykyinen sijainti",
+      "edmUgc": "Käyttäjien tuottama sisältö",
+      "dctermsProvenance": "Alkuperä",
+      "dcSource": "Lähde",
+      "dcIdentifier": "Tunniste",
+      "edmIntermediateProvider": "Välillinen tarjoaja",
+      "edmProvider": "Tarjoaja",
+      "timestampCreated": "Aikaleima luotu",
+      "timestampUpdate": "Aikaleima päivitetty",
+      "dctermsExtent": "Laajuus",
+      "dcDuration": "Kesto",
+      "dcMedium": "Media",
+      "dcFormat": "Muoto",
+      "dcLanguage": "Kieli",
+      "dctermsIsPartOf": "On osa kohdetta",
+      "europeanaCollectionName": "Kokoelman nimi",
+      "dcRelation": "Suhteet",
+      "dctermsReferences": "Viittaa kohteeseen",
+      "dctermsHasPart": "Koostuu seuraavista:",
+      "dctermsHasVersion": "-kohteessa on versio",
+      "dctermsIsFormatOf": "on formaatti kohteelle",
+      "dctermsIsReferencedBy": "-kohteeseen viittaa",
+      "dctermsIsReplacedBy": "-kohteen vaihtaa",
+      "dctermsIsRequiredBy": "Edellyttää kohteen",
+      "edmHasMet": "On tavannut henkilön",
+      "edmIncorporates": "Sisältää",
+      "edmIsDerivativeOf": "On johdannainen kohteesta",
+      "edmIsRepresentationOf": "Kuvaa kohdetta",
+      "edmIsSimilarTo": "On samanlainen kuin",
+      "edmIsSuccessorOf": "On seuraaja kohteelle",
+      "edmRealizes": "Sisältää",
+      "wasPresentAt": "Oli läsnä paikassa"
     },
     "webResource": {
       "dcDescription": "Kuvaus",
+      "rdfAbout": "RDF-tiedot",
+      "edmRights": "Tämän mediaresurssin lisenssi",
       "ebucoreHasMimeType": "Ebucore MIME -tyyppi",
       "about": "RDF-tiedot"
     }
@@ -45,6 +87,7 @@ export default {
       "name": "Kategoria",
       "options": {
         "all": "Kaikki",
+        "ww1": "1914–1918",
         "archaeology": "Arkeologia",
         "art": "Taide",
         "fashion": "Muoti",
@@ -85,7 +128,6 @@ export default {
   },
   "entity": "Yksikkö",
   "resourceWikimedia": "Sisältö Wikimedia Commonsista",
-  "record": "Tietue",
   "messages": {
     "notFound": "Ei löydy",
     "externalContentError": "Ulkoisen sisällön lataaminen epäonnistui",
@@ -137,5 +179,25 @@ export default {
   "clearAllFilters": "tyhjennä kaikki suodattimet",
   "reset": "Nollaa",
   "loadingResults": "Ladataan tuloksia",
-  "edmIsShownAtLinkAlt": "Näytä palveluntarjoajan verkkosivustolla"
+  "edmIsShownAtLinkAlt": "Näytä palveluntarjoajan verkkosivustolla",
+  "record": {
+    "extendedInformation": "Tarkemmat tiedot",
+    "hideAll": "Piilota kaikki tiedot",
+    "record": "Tietue",
+    "showAll": "Näytä kaikki tiedot"
+  },
+  "contentfulManual": {
+    "headerNavigation": {
+      "teachers": "Opettajat",
+      "explore": "Tutki"
+    },
+    "footerNavigation": {
+      "about": "Tietoja Europeana Collections",
+      "forDevelopers": "Kehittäjille",
+      "terms": "Käyttöehdot ja tietosuojakäytäntö",
+      "provide": "Ryhdy tietojentarjoajaksi",
+      "meetUs": "Tutustu tiimiin",
+      "help": "Apua"
+    }
+  }
 };

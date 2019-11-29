@@ -127,7 +127,6 @@ module.exports = {
       ]
     },
     extractCSS: true,
-    publicPath: process.env.NUXT_ENV_BUILD_PUBLIC_PATH,
     /*
     ** You can extend webpack config here
     */

@@ -24,6 +24,10 @@
           :hex-code="filter.label"
           :label="localiseFilterLabel(filter.label)"
         />
+        <FacetFieldLabel
+          :facet-name="name"
+          :field-value="filter.label"
+        />
         {{ localiseFilterLabel(filter.label) }}
         <span
           class="reset icon-close"
@@ -45,6 +49,10 @@
             v-if="isColourPalette"
             :hex-code="colourSwatch"
             :label="filter.label"
+          />
+          <FacetFieldLabel
+            :facet-name="name"
+            :field-value="filter.label"
           />
           {{ localiseFilterLabel(filter.label) }}
           <span
@@ -69,10 +77,12 @@
 
 <script>
   import ColourSwatch from '../generic/ColourSwatch';
+  import FacetFieldLabel from './FacetFieldLabel';
 
   export default {
     components: {
-      ColourSwatch
+      ColourSwatch,
+      FacetFieldLabel
     },
 
     props: {

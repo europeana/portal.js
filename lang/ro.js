@@ -26,10 +26,52 @@ export default {
       "edmRights": "Licența media pentru această înregistrare (cu excepția cazului în care se specifică altfel)",
       "dcPublisher": "Editor",
       "dcSubject": "Subiect",
-      "dcTermsMedium": "Mediu"
+      "dcTermsMedium": "Mediu",
+      "dctermsMedium": "Mediu",
+      "dcRights": "Drepturi",
+      "dcDate": "Dată",
+      "dctermsPublished": "Data publicării",
+      "dctermsIssued": "Data apariției",
+      "dctermsTemporal": "Temporal",
+      "dcCoverage": "Loc-Timp",
+      "dctermsSpatial": "Locații",
+      "edmCurrentLocation": "Locația curenta",
+      "edmUgc": "Conținut generat de utilizator",
+      "dctermsProvenance": "Provenienţă",
+      "dcSource": "Sursă",
+      "dcIdentifier": "Identificator",
+      "edmIntermediateProvider": "Furnizor intermediar",
+      "edmProvider": "Furnizor",
+      "timestampCreated": "Marcaj temporal creat",
+      "timestampUpdate": "Marcaj temporal actualizat",
+      "dctermsExtent": "Măsură",
+      "dcDuration": "Durată",
+      "dcMedium": "Mediu",
+      "dcFormat": "Format",
+      "dcLanguage": "Limbă",
+      "dctermsIsPartOf": "Face parte din",
+      "europeanaCollectionName": "Numele colecției",
+      "dcRelation": "Relaţii",
+      "dctermsReferences": "Referințe",
+      "dctermsHasPart": "Este format din",
+      "dctermsHasVersion": "Are versiunea",
+      "dctermsIsFormatOf": "Este format din",
+      "dctermsIsReferencedBy": "Este menționat de",
+      "dctermsIsReplacedBy": "Se înlocuiește de către",
+      "dctermsIsRequiredBy": "Este necesar pentru",
+      "edmHasMet": "S-a întâlnit cu",
+      "edmIncorporates": "Încorporează",
+      "edmIsDerivativeOf": "Este derivat din",
+      "edmIsRepresentationOf": "Este reprezentarea",
+      "edmIsSimilarTo": "Este asemănător cu",
+      "edmIsSuccessorOf": "Urmează după",
+      "edmRealizes": "Își dă seama",
+      "wasPresentAt": "A fost prezent la"
     },
     "webResource": {
       "dcDescription": "Descriere",
+      "rdfAbout": "Despre RDF",
+      "edmRights": "Licență pentru această resursă media",
       "ebucoreHasMimeType": "Tip Ebucore MIME",
       "about": "Despre RDF"
     }
@@ -45,6 +87,7 @@ export default {
       "name": "Categorie",
       "options": {
         "all": "Toate articolele",
+        "ww1": "1914-1918",
         "archaeology": "Arheologie",
         "art": "Artă",
         "fashion": "Modă",
@@ -85,7 +128,6 @@ export default {
   },
   "entity": "Entitate",
   "resourceWikimedia": "Material de la Wikimedia Commons",
-  "record": "Înregistrare",
   "messages": {
     "notFound": "Nu a fost găsit",
     "externalContentError": "Nu a putut fi încărcat conținutul extern",
@@ -137,5 +179,25 @@ export default {
   "clearAllFilters": "șterge toate filtrele",
   "reset": "Resetează",
   "loadingResults": "Se încarcă rezultatele",
-  "edmIsShownAtLinkAlt": "Vizualizează pe site-ul furnizorului"
+  "edmIsShownAtLinkAlt": "Vizualizează pe site-ul furnizorului",
+  "record": {
+    "extendedInformation": "Informații extinse",
+    "hideAll": "Ascunde toate informațiile",
+    "record": "Înregistrare",
+    "showAll": "Afișează toate informațiile"
+  },
+  "contentfulManual": {
+    "headerNavigation": {
+      "teachers": "Profesori",
+      "explore": "Explorează"
+    },
+    "footerNavigation": {
+      "about": "Despre colecțiile Europeana",
+      "forDevelopers": "Pentru dezvoltatori",
+      "terms": "Termeni de utilizare și Politica de confidențialitate",
+      "provide": "Deveni un furnizor de date",
+      "meetUs": "Faceți cunoștință cu echipa",
+      "help": "Ajutor"
+    }
+  }
 };

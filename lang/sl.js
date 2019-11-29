@@ -26,10 +26,52 @@ export default {
       "edmRights": "Licenca za medije v tem zapisu (če ni navedeno drugače)",
       "dcPublisher": "Založnik",
       "dcSubject": "Zadeva",
-      "dcTermsMedium": "Srednja"
+      "dcTermsMedium": "Srednja",
+      "dctermsMedium": "Medij",
+      "dcRights": "Pravice",
+      "dcDate": "Datum",
+      "dctermsPublished": "Datum objave",
+      "dctermsIssued": "Datum izdaje",
+      "dctermsTemporal": "Časovno obdobje",
+      "dcCoverage": "Kraj-čas",
+      "dctermsSpatial": "Kraji",
+      "edmCurrentLocation": "Trenutna lokacija",
+      "edmUgc": "Vsebina, ki so jo ustvarili uporabniki",
+      "dctermsProvenance": "Poreklo",
+      "dcSource": "Vir",
+      "dcIdentifier": "Identifikator",
+      "edmIntermediateProvider": "Vmesni ponudnik",
+      "edmProvider": "Ponudnik",
+      "timestampCreated": "Časovni žig ustvarjen",
+      "timestampUpdate": "Časovni žig posodobljen",
+      "dctermsExtent": "Obseg",
+      "dcDuration": "Trajanje",
+      "dcMedium": "Medij",
+      "dcFormat": "Oblika",
+      "dcLanguage": "Jezik",
+      "dctermsIsPartOf": "Je del",
+      "europeanaCollectionName": "Ime zbirke",
+      "dcRelation": "Odnosi",
+      "dctermsReferences": "Sklici",
+      "dctermsHasPart": "Je sestavljen iz",
+      "dctermsHasVersion": "Ima različico",
+      "dctermsIsFormatOf": "Je oblika",
+      "dctermsIsReferencedBy": "Nanj se sklicuje",
+      "dctermsIsReplacedBy": "Je nadomeščen z",
+      "dctermsIsRequiredBy": "Ga zahteva",
+      "edmHasMet": "Je srečal",
+      "edmIncorporates": "Vključuje",
+      "edmIsDerivativeOf": "Je izpeljan iz",
+      "edmIsRepresentationOf": "Predstavlja",
+      "edmIsSimilarTo": "Je podoben",
+      "edmIsSuccessorOf": "Je naslednik",
+      "edmRealizes": "Uresničuje",
+      "wasPresentAt": "Bil prisoten v"
     },
     "webResource": {
       "dcDescription": "Opis",
+      "rdfAbout": "RDF o",
+      "edmRights": "Licenca za ta medijski vir",
       "ebucoreHasMimeType": "Vrsta Ebucore MIME",
       "about": "RDF o"
     }
@@ -45,6 +87,7 @@ export default {
       "name": "Kategorija",
       "options": {
         "all": "Vsi elementi",
+        "ww1": "1914-1918",
         "archaeology": "Arheologija",
         "art": "Umetnost",
         "fashion": "Moda",
@@ -85,7 +128,6 @@ export default {
   },
   "entity": "Subjekt",
   "resourceWikimedia": "Vir iz Wikimedia Commons",
-  "record": "Zapis",
   "messages": {
     "notFound": "Ni najdeno",
     "externalContentError": "Zunanje vsebine ni bilo mogoče naložiti",
@@ -137,5 +179,25 @@ export default {
   "clearAllFilters": "počisti vse filtre",
   "reset": "Ponastavi",
   "loadingResults": "Nalaganje rezultatov",
-  "edmIsShownAtLinkAlt": "Ogled na spletni strani ponudnika"
+  "edmIsShownAtLinkAlt": "Ogled na spletni strani ponudnika",
+  "record": {
+    "extendedInformation": "Razširjene informacije",
+    "hideAll": "Skrij vse informacije",
+    "record": "Zapis",
+    "showAll": "Pokaži vse informacije"
+  },
+  "contentfulManual": {
+    "headerNavigation": {
+      "teachers": "Učitelji",
+      "explore": "Razišči"
+    },
+    "footerNavigation": {
+      "about": "O zbirkah Europeana",
+      "forDevelopers": "Za razvijalce",
+      "terms": "Pogoji uporabe in Pravilnik o zasebnosti",
+      "provide": "Postanite ponudnik podatkov",
+      "meetUs": "Spoznajte ekipo",
+      "help": "Pomoč"
+    }
+  }
 };
