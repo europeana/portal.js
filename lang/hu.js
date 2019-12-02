@@ -26,10 +26,52 @@ export default {
       "edmRights": "Az ebben a nyilvántartásban szereplő adathordozó licence (hacsak másképp nincs meghatározva)",
       "dcPublisher": "Kiadó",
       "dcSubject": "Tárgy",
-      "dcTermsMedium": "Közepes"
+      "dcTermsMedium": "Közepes",
+      "dctermsMedium": "Közepes",
+      "dcRights": "Jogok",
+      "dcDate": "Dátum",
+      "dctermsPublished": "Közzététel dátuma",
+      "dctermsIssued": "Kiadás dátuma",
+      "dctermsTemporal": "Időbeli",
+      "dcCoverage": "Hely-idő",
+      "dctermsSpatial": "Helyek",
+      "edmCurrentLocation": "Jelenlegi tartózkodási hely",
+      "edmUgc": "Felhasználó által generált tartalom",
+      "dctermsProvenance": "Származási hely",
+      "dcSource": "Forrás",
+      "dcIdentifier": "Azonosító",
+      "edmIntermediateProvider": "Köztes szolgáltató",
+      "edmProvider": "Szolgáltató",
+      "timestampCreated": "Időbélyeg létrehozva",
+      "timestampUpdate": "Időbélyeg frissítve",
+      "dctermsExtent": "Terjedelem",
+      "dcDuration": "Időtartam",
+      "dcMedium": "Közepes",
+      "dcFormat": "Formátum",
+      "dcLanguage": "Nyelv",
+      "dctermsIsPartOf": "Része",
+      "europeanaCollectionName": "Gyűjtemény neve",
+      "dcRelation": "Kapcsolatok",
+      "dctermsReferences": "Hivatkozások",
+      "dctermsHasPart": "Tartalma",
+      "dctermsHasVersion": "Verziószáma",
+      "dctermsIsFormatOf": "Formátuma",
+      "dctermsIsReferencedBy": "Hivatkozik rá",
+      "dctermsIsReplacedBy": "Lecserélve a következővel",
+      "dctermsIsRequiredBy": "Megköveteli",
+      "edmHasMet": "Teljesítette",
+      "edmIncorporates": "Magában foglalja",
+      "edmIsDerivativeOf": "Leszármazottja",
+      "edmIsRepresentationOf": "Képviselete",
+      "edmIsSimilarTo": "Hasonló",
+      "edmIsSuccessorOf": "Utódja",
+      "edmRealizes": "Rájön",
+      "wasPresentAt": "Jelen volt itt"
     },
     "webResource": {
       "dcDescription": "Leírás",
+      "rdfAbout": "RDF Névjegy",
+      "edmRights": "Licenc ehhez a média-erőforráshoz",
       "ebucoreHasMimeType": "Ebucore MIME típus",
       "about": "RDF Névjegy"
     }
@@ -45,6 +87,7 @@ export default {
       "name": "Kategória",
       "options": {
         "all": "Minden elem",
+        "ww1": "1914-1918",
         "archaeology": "Régészet",
         "art": "Művészet",
         "fashion": "Divat",
@@ -85,7 +128,6 @@ export default {
   },
   "entity": "Entitás",
   "resourceWikimedia": "Forrás: Wikimedia Commons",
-  "record": "Rekord",
   "messages": {
     "notFound": "Nem található",
     "externalContentError": "A külső tartalom betöltése sikertelen",
@@ -137,5 +179,25 @@ export default {
   "clearAllFilters": "összes szűrő törlése",
   "reset": "Visszaállítás",
   "loadingResults": "Eredmények betöltése",
-  "edmIsShownAtLinkAlt": "Megtekintés a szolgáltató webhelyén"
+  "edmIsShownAtLinkAlt": "Megtekintés a szolgáltató webhelyén",
+  "record": {
+    "extendedInformation": "Kiterjesztett információk",
+    "hideAll": "Az összes információ elrejtése",
+    "record": "Rekord",
+    "showAll": "Az összes információ megjelenítése"
+  },
+  "contentfulManual": {
+    "headerNavigation": {
+      "teachers": "Tanárok",
+      "explore": "Ismerje meg"
+    },
+    "footerNavigation": {
+      "about": "Az Europeana gyűjteményekről",
+      "forDevelopers": "Fejlesztőknek",
+      "terms": "Felhasználási feltételek és adatvédelmi irányelv",
+      "provide": "Legyen adatszolgáltató",
+      "meetUs": "Találkozzon a csapattal",
+      "help": "Súgó"
+    }
+  }
 };

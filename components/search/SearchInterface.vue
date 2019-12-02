@@ -17,8 +17,8 @@
         class="mb-3"
       >
         <b-col>
-          <SearchSelectedFacets
-            :facets="selectedFacets"
+          <SearchFilters
+            :filters="filters"
           />
         </b-col>
       </b-row>
@@ -30,7 +30,7 @@
             :name="facet.name"
             :fields="facet.fields"
             type="checkbox"
-            :selected="selectedFacets[facet.name]"
+            :selected="filters[facet.name]"
             @changed="changeFacet"
           />
           <MoreFacetsDropdown
@@ -132,14 +132,14 @@
   import InfoMessage from '../../components/generic/InfoMessage';
   import FacetDropdown from '../../components/search/FacetDropdown';
   import MoreFacetsDropdown from '../../components/search/MoreFacetsDropdown';
-  import SearchSelectedFacets from '../../components/search/SearchSelectedFacets';
+  import SearchFilters from '../../components/search/SearchFilters';
   import PaginationNav from '../../components/generic/PaginationNav';
   import ViewToggles from '../../components/search/ViewToggles';
   import TierToggler from '../../components/search/TierToggler';
-  import { defaultFacets } from '../../plugins/europeana/search';
+  import { defaultFacetNames } from '../../plugins/europeana/search';
 
   import isEqual from 'lodash/isEqual';
-  import omitBy from 'lodash/omitBy';
+  import pickBy from 'lodash/pickBy';
   import { mapState } from 'vuex';
 
   export default {
@@ -149,7 +149,7 @@
       FacetDropdown,
       MoreFacetsDropdown,
       SearchResults,
-      SearchSelectedFacets,
+      SearchFilters,
       PaginationNav,
       ViewToggles,
       TierToggler
@@ -190,7 +190,7 @@
         query: state => state.search.query,
         results: state => state.search.results,
         reusability: state => state.search.reusability,
-        selectedFacets: state => state.search.selectedFacets,
+        filters: state => state.search.filters,
         totalResults: state => state.search.totalResults
       }),
       // workaround for double jump mentioned in store mapState call above
@@ -198,7 +198,7 @@
         return Number(this.$route.query.page || 1);
       },
       contentTierActiveState() {
-        return this.selectedFacets.contentTier && this.selectedFacets.contentTier.includes('*');
+        return this.filters.contentTier && this.filters.contentTier.includes('*');
       },
       errorMessage() {
         if (!this.error) return null;
@@ -231,7 +231,7 @@
         let unordered = this.facets.slice();
         let ordered = [];
 
-        for (const facetName of defaultFacets) {
+        for (const facetName of defaultFacetNames) {
           const index = unordered.findIndex((f) => {
             return f.name === facetName;
           });
@@ -245,11 +245,14 @@
       coreFacets() {
         return this.orderedFacets.filter(facet => this.coreFacetNames.includes(facet.name));
       },
+      moreFacetNames() {
+        return defaultFacetNames.filter(facetName => !this.coreFacetNames.includes(facetName));
+      },
       moreFacets() {
-        return this.orderedFacets.filter(facet => !this.coreFacetNames.includes(facet.name));
+        return this.orderedFacets.filter(facet => this.moreFacetNames.includes(facet.name));
       },
       moreSelectedFacets() {
-        return omitBy(this.selectedFacets, (selected, name) => this.coreFacetNames.includes(name));
+        return pickBy(this.filters, (selected, name) => this.moreFacetNames.includes(name));
       },
       enableMoreFacets() {
         return this.moreFacets.length > 0;
@@ -271,8 +274,8 @@
     },
     methods: {
       changeFacet(name, selected) {
-        if (typeof this.selectedFacets[name] === 'undefined' && selected.length === 0) return;
-        if (isEqual(this.selectedFacets[name], selected)) return;
+        if (typeof this.filters[name] === 'undefined' && selected.length === 0) return;
+        if (isEqual(this.filters[name], selected)) return;
         this.rerouteSearch(this.queryUpdatesForFacetChanges({ [name]: selected }));
       },
       changeMoreFacets(selected) {
@@ -285,21 +288,21 @@
         this.$router.push(this.localePath({ ...this.route, ...{ query: this.updateCurrentSearchQuery(queryUpdates) } }));
       },
       queryUpdatesForFacetChanges(selected) {
-        let selectedFacets = Object.assign({}, this.selectedFacets);
+        let filters = Object.assign({}, this.filters);
 
         for (const name in selected) {
-          selectedFacets[name] = selected[name];
+          filters[name] = selected[name];
         }
-        return this.queryUpdatesForSelectedFacets(selectedFacets);
+        return this.queryUpdatesForFilters(filters);
       },
-      queryUpdatesForSelectedFacets(selectedFacets) {
+      queryUpdatesForFilters(filters) {
         let queryUpdates = {
           qf: [],
           page: 1
         };
 
-        for (const facetName in selectedFacets) {
-          const selectedValues = selectedFacets[facetName];
+        for (const facetName in filters) {
+          const selectedValues = filters[facetName];
           // `reusability` has its own API parameter and can not be queried in `qf`
           if (facetName === 'REUSABILITY') {
             if (selectedValues.length > 0) {
@@ -309,7 +312,7 @@
             }
           } else {
             for (const facetValue of selectedValues) {
-              if (defaultFacets.includes(facetName)) {
+              if (defaultFacetNames.includes(facetName)) {
                 queryUpdates.qf.push(`${facetName}:"${facetValue}"`);
               } else {
                 queryUpdates.qf.push(`${facetName}:${facetValue}`);
@@ -339,16 +342,16 @@
         return updated;
       },
       resetFilters() {
-        const selectedFacets = Object.assign({}, this.selectedFacets);
+        const filters = Object.assign({}, this.filters);
 
-        for (const facetName of defaultFacets) {
-          selectedFacets[facetName] = [];
+        for (const facetName of defaultFacetNames) {
+          filters[facetName] = [];
         }
-        this.rerouteSearch(this.queryUpdatesForSelectedFacets(selectedFacets));
+        this.rerouteSearch(this.queryUpdatesForFilters(filters));
       },
       isFilteredByDefaultFacets() {
-        for (const facetName of defaultFacets) {
-          if (Object.prototype.hasOwnProperty.call(this.selectedFacets, facetName)) {
+        for (const facetName of defaultFacetNames) {
+          if (Object.prototype.hasOwnProperty.call(this.filters, facetName)) {
             return true;
           }
         }

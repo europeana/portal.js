@@ -40,7 +40,7 @@ const factory = (options = {}) => {
         facets: [],
         qf: [],
         results: [],
-        selectedFacets: {},
+        filters: {},
         ...options.storeState
       }
     }
@@ -78,7 +78,7 @@ describe('components/search/SearchInterface', () => {
         it('is `true`', () => {
           const wrapper = factory({
             storeState: {
-              selectedFacets: {
+              filters: {
                 contentTier: ['*']
               }
             }
@@ -92,7 +92,7 @@ describe('components/search/SearchInterface', () => {
         it('is `false`', () => {
           const wrapper = factory({
             storeState: {
-              selectedFacets: {
+              filters: {
                 contentTier: ['1 OR 2 OR 3 OR 4']
               }
             }
@@ -211,8 +211,26 @@ describe('components/search/SearchInterface', () => {
       it('returns core facets only', () => {
         wrapper.vm.coreFacets.should.eql([ { 'name': 'TYPE' }, { 'name': 'REUSABILITY' }, { 'name': 'COUNTRY' } ]);
       });
-      it('returns core facets only', () => {
-        wrapper.vm.moreFacets.should.eql([ { 'name': 'LANGUAGE' }, { 'name': 'PROVIDER' }, { 'name': 'DATA_PROVIDER' }, { 'name': 'RIGHTS' }, { 'name': 'CONTRIBUTOR' } ]);
+    });
+
+    describe('moreFacets', () => {
+      const wrapper = factory({
+        storeState: {
+          facets: [
+            { name: 'COUNTRY' },
+            { name: 'RIGHTS' },
+            { name: 'CONTRIBUTOR' },
+            { name: 'DATA_PROVIDER' },
+            { name: 'PROVIDER' },
+            { name: 'LANGUAGE' },
+            { name: 'REUSABILITY' },
+            { name: 'TYPE' }
+          ]
+        }
+      });
+
+      it('returns non-core facets only', () => {
+        wrapper.vm.moreFacets.should.eql([ { 'name': 'LANGUAGE' }, { 'name': 'PROVIDER' }, { 'name': 'DATA_PROVIDER' } ]);
       });
     });
   });
@@ -267,8 +285,8 @@ describe('components/search/SearchInterface', () => {
         context('and they changed', () => {
           const newSelectedValues = ['IMAGE', 'TEXT'];
           it('triggers rerouting', () => {
-            const storeState = { selectedFacets: {} };
-            storeState.selectedFacets[facetName] = initialSelectedValues;
+            const storeState = { filters: {} };
+            storeState.filters[facetName] = initialSelectedValues;
 
             const wrapper = factory({ storeState });
             const searchRerouter = sinon.spy(wrapper.vm, 'rerouteSearch');
@@ -280,8 +298,8 @@ describe('components/search/SearchInterface', () => {
 
         context('and they were unchanged', () => {
           it('does not trigger rerouting', () => {
-            const storeState = { selectedFacets: {} };
-            storeState.selectedFacets[facetName] = initialSelectedValues;
+            const storeState = { filters: {} };
+            storeState.filters[facetName] = initialSelectedValues;
 
             const wrapper = factory({ storeState });
             const searchRerouter = sinon.spy(wrapper.vm, 'rerouteSearch');
@@ -296,7 +314,7 @@ describe('components/search/SearchInterface', () => {
         context('and some were selected', () => {
           const newSelectedValues = ['IMAGE', 'TEXT'];
           it('triggers rerouting', () => {
-            const storeState = { selectedFacets: {} };
+            const storeState = { filters: {} };
 
             const wrapper = factory({ storeState });
             const searchRerouter = sinon.spy(wrapper.vm, 'rerouteSearch');
@@ -309,7 +327,7 @@ describe('components/search/SearchInterface', () => {
         context('and none were selected', () => {
           const newSelectedValues = [];
           it('does not trigger rerouting', () => {
-            const storeState = { selectedFacets: {} };
+            const storeState = { filters: {} };
 
             const wrapper = factory({ storeState });
             const searchRerouter = sinon.spy(wrapper.vm, 'rerouteSearch');

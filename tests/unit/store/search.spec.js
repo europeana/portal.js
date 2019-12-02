@@ -77,7 +77,7 @@ describe('store/search', () => {
           query: 'migration',
           reusability: 'open'
         };
-        const selectedFacets = { 'REUSABILITY': ['open'], 'TYPE': ['VIDEO'] };
+        const filters = { 'REUSABILITY': ['open'], 'TYPE': ['VIDEO'] };
 
         await store.actions.run({ commit, dispatch }, params);
 
@@ -85,7 +85,7 @@ describe('store/search', () => {
         commit.should.have.been.calledWith('setQf', params.qf);
         commit.should.have.been.calledWith('setQuery', params.query);
         commit.should.have.been.calledWith('setReusability', params.reusability);
-        commit.should.have.been.calledWith('setSelectedFacets', selectedFacets);
+        commit.should.have.been.calledWith('setFilters', filters);
       });
 
       context('on success', () => {

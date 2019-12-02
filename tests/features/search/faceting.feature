@@ -8,7 +8,7 @@ Feature: Search faceting
     And I wait 2 seconds
     Then I should be on `/en/search?page=1&qf=TYPE%3A%22IMAGE%22&query=&view=grid`
     And I am on page number 1
-    And I see a `filter badge` with the text "Type of media: IMAGE"
+    And I see a `filter badge` with the text "Type of media: Image"
     And I am on an accessible page
 
   Scenario: Filtering results by reusability
@@ -146,6 +146,7 @@ Feature: Search faceting
     And I click the `apply button`
     And I wait 2 seconds
     Then I should be on `/en/search?page=1&qf=LANGUAGE%3A%22en%22&qf=LANGUAGE%3A%22sv%22&query=&view=grid`
+    And I see a `more filters selected options count` with the text "2"
 
   Scenario: Clicking reset button in more facets
     Given I am on the `search page`
@@ -174,3 +175,7 @@ Feature: Search faceting
     And I click the `reset filters button`
     And I wait 2 seconds
     Then I should be on `/en/search?page=1&query=&view=grid`
+
+  Scenario: Non-facet filters excluded from options count
+    Given I am on `/en/search?qf=proxy_dcterms_issued:*`
+    Then I don't have a `more filters selected options count`

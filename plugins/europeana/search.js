@@ -8,13 +8,16 @@ import qs from 'qs';
 
 // Default facets to request and display if none are specified.
 // Order is significant as it will be reflected on search results.
-export const defaultFacets = [
+export const defaultFacetNames = [
   'TYPE',
   'REUSABILITY',
   'COUNTRY',
   'LANGUAGE',
   'PROVIDER',
-  'DATA_PROVIDER'
+  'DATA_PROVIDER',
+  'IMAGE_ASPECTRATIO',
+  'IMAGE_SIZE',
+  'MIME_TYPE'
 ];
 
 function genericThumbnail(edmType) {
@@ -109,33 +112,33 @@ function resultsFromApiResponse(response) {
  *   "TYPE": ["IMAGE", "VIDEO"]
  * }
  * ```
- * @typedef {Object.<string, Array>} SelectedFacetSet
+ * @typedef {Object.<string, Array>} FilterSet
  */
 
 /**
- * Extract selected facets from URL `qf` and `reusability` value(s)
+ * Extract applied filters from URL `qf` and `reusability` value(s)
  * @param {Object} query URL query parameters
- * @return {SelectedFacetSet} selected facets
+ * @return {FilterSet} selected facets
  * TODO: move into /store/search.js?
  */
-export function selectedFacetsFromQuery(query) {
-  let selectedFacets = {};
+export function filtersFromQuery(query) {
+  let filters = {};
   if (query.qf) {
     for (const qf of [].concat(query.qf)) {
       const qfParts = qf.split(':');
       const facetName = qfParts[0];
       const facetValue = qfParts[1].match(/^".*"$/) ? qfParts[1].slice(1, -1) : qfParts[1]; // Slice only if double quotes exist
-      if (typeof selectedFacets[facetName] === 'undefined') {
-        selectedFacets[facetName] = [];
+      if (typeof filters[facetName] === 'undefined') {
+        filters[facetName] = [];
       }
-      selectedFacets[facetName].push(facetValue);
+      filters[facetName].push(facetValue);
     }
   }
   if (query.reusability) {
-    selectedFacets['REUSABILITY'] = query.reusability.split(',');
+    filters['REUSABILITY'] = query.reusability.split(',');
   }
 
-  return selectedFacets;
+  return filters;
 }
 
 /**
@@ -164,7 +167,7 @@ function search(params) {
       return qs.stringify(params, { arrayFormat: 'repeat' });
     },
     params: {
-      facet: params.facet ? params.facet : defaultFacets.join(','),
+      facet: params.facet ? params.facet : defaultFacetNames.join(','),
       profile: params.profile ? params.profile : 'minimal,facets',
       qf: qfHandler(params.qf),
       query,
