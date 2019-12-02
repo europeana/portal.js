@@ -48,10 +48,10 @@
           <ColourSwatch
             v-if="isColourPalette"
             :hex-code="filter.label"
-            :aria-labelledby="fieldLabelId(index)"
+            :aria-labelledby="fieldLabelId(index, { overLimit: true })"
           />
           <FacetFieldLabel
-            :id="fieldLabelId(index)"
+            :id="fieldLabelId(index, { overLimit: true })"
             :facet-name="name"
             :field-value="filter.label"
           />
