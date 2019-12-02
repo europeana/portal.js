@@ -177,6 +177,15 @@
           }
         }
       }
+
+      .colour-palette {
+        border-radius: 50%;
+        width: 1.25rem;
+        height: 1.25rem;
+        margin-right: .25rem;
+        border: 1px solid $lightgrey;
+        margin-left: -.75rem;
+      }
     }
   }
 }

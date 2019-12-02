@@ -105,7 +105,7 @@ describe('plugins/europeana/search', () => {
       it('requests default facets if `facet` param absent', async() => {
         baseRequest
           .query(query => {
-            return query.facet === 'TYPE,REUSABILITY,COUNTRY,LANGUAGE,PROVIDER,DATA_PROVIDER,IMAGE_ASPECTRATIO,IMAGE_SIZE,MIME_TYPE';
+            return query.facet === 'TYPE,REUSABILITY,COUNTRY,LANGUAGE,PROVIDER,DATA_PROVIDER,COLOURPALETTE,IMAGE_ASPECTRATIO,IMAGE_SIZE,MIME_TYPE';
           })
           .reply(200, defaultResponse);
 

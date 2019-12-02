@@ -15,6 +15,7 @@ export const defaultFacetNames = [
   'LANGUAGE',
   'PROVIDER',
   'DATA_PROVIDER',
+  'COLOURPALETTE',
   'IMAGE_ASPECTRATIO',
   'IMAGE_SIZE',
   'MIME_TYPE'
