@@ -37,7 +37,8 @@ pipeline {
       }
       steps {
         sh 'echo "services:" >> manifest.yml'
-        sh 'echo "  - elastic-apm" >> manifest.yml'
+        // TODO: restore when implementing APM connection
+        // sh 'echo "  - elastic-apm" >> manifest.yml'
         sh 'sed -i "s|env:|env:\\n  CTF_CPA_ACCESS_TOKEN: ${CTF_CPA_ACCESS_TOKEN}|" manifest.yml'
         sh 'sed -i "s|env:|env:\\n  HTTP_DIGEST_ACL: ${HTTP_DIGEST_ACL}|" manifest.yml'
         sh 'cf blue-green-deploy ${CF_APP_NAME} -f manifest.yml --delete-old-apps'
