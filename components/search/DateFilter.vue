@@ -1,6 +1,8 @@
 <template>
   <b-form inline>
-    <legend>Legend</legend>
+    <legend>
+      {{ name }}
+    </legend>
     <label
       class="sr-only"
       for="start-date"
