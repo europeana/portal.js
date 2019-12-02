@@ -65,14 +65,9 @@
       form: {
         deep: true,
         handler() {
-          console.log('form', this.form);
           this.$emit('dateFilter', this.form);
         }
       }
-    },
-
-    mounted() {
-      console.log('form');
     }
   };
 </script>
