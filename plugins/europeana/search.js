@@ -83,27 +83,27 @@ function fieldsForSearchResult(item) {
 
 /**
  * Construct a range query from two values, if keys are omitted they will default to '*'
- * @param {Object[]} values An object containging 'from' and 'to' values
+ * @param {Object[]} values An object containing 'start' and 'end' values
  * @return {string} The range as a value that can be used by the API
  */
 export function rangeToQueryParam(values) {
-  const valueFrom = values['from'] ? values['from'] : '*';
-  const valueTo = values['to'] ? values['to'] : '*';
-  return `[${valueFrom} TO ${valueTo}]`;
+  const start = values['start'] ? values['start'] : '*';
+  const end = values['end'] ? values['end'] : '*';
+  return `[${start} TO ${end}]`;
 }
 
 /**
  * Deconstruct a range query string value into the upper and lower bounds.
  * From/to values that are '*' will default to null.
  * @param {string} paramValue The value as a string for a qf or query as used in the search API request
- * @return {Object[]} search results
+ * @return {Object} Object with start and end keys
  */
 export function rangeFromQueryParam(paramValue) {
   const matches = paramValue.match(/^\[(.*) TO (.*)\]$/);
-  if (matches === null) return;
-  const valueFrom = matches[1] !== '*' ? matches[1] : null;
-  const valueTo = matches[2] !== '*' ? matches[2] : null;
-  return { from: valueFrom, to: valueTo };
+  if (matches === null) return null;
+  const start = matches[1] !== '*' ? matches[1] : null;
+  const end = matches[2] !== '*' ? matches[2] : null;
+  return { start, end };
 }
 /**
  * Extract search results from API response
