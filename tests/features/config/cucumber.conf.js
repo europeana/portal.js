@@ -55,7 +55,7 @@ After(async() => {
   await client.deleteCookies();
 });
 
-After({ tags: '@non-default-browser' }, async() => {
+After({ tags: '@non-default-browser or @reset-local-storage' }, async() => {
   // Restore default browser config
   await stopBrowser();
   await startBrowser();

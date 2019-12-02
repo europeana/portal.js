@@ -1,5 +1,6 @@
 Feature: Select language
 
+@reset-local-storage
 Scenario: Change language
   Given I am on the `English home page`
   And I accept cookies
