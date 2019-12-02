@@ -47,6 +47,7 @@ Feature: Entity page
 
   Scenario: Pagination links work when the page was accessed from the url
     When I visit `/en/entity/topic/18-newspaper?page=2`
+    And I accept cookies
     And I go to page number 3
     And I wait 2 seconds
     Then I should be on `/en/entity/topic/18-newspaper?page=3&view=grid`
