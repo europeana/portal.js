@@ -13,6 +13,7 @@
       <span
         v-if="anyOptionsSelected"
         class="selected-amount"
+        data-qa="more filters selected options count"
       >
         {{ selectedOptionsCount }}
       </span>
