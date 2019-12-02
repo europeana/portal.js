@@ -1,33 +1,41 @@
 <template>
-  <b-form inline>
-    <legend>
-      {{ name }}
-    </legend>
-    <label
-      class="sr-only"
-      for="start-date"
-    >
-      {{ $t('dateFilter.startDate') }}
-    </label>
-    <b-input
-      id="start-date"
-      v-model="form.start"
-      class="mb-2 mr-sm-2 mb-sm-0"
-      type="date"
-    />
+  <b-row>
+    <b-col cols="12">
+      <legend>
+        {{ facetName }}
+      </legend>
+    </b-col>
+    <b-col>
+      <label
+        class="sr-only"
+        for="start-date"
+      >
+        {{ $t('dateFilter.startDate') }}
+      </label>
+      <b-input
+        id="start-date"
+        v-model="form.start"
+        class="mb-2 mr-sm-2 mb-sm-0"
+        type="date"
+        @change="emitDateForm"
+      />
+    </b-col>
 
-    <label
-      class="sr-only"
-      for="end-date"
-    >
-      {{ $t('dateFilter.endDate') }}
-    </label>
-    <b-input
-      id="end-date"
-      v-model="form.end"
-      type="date"
-    />
-  </b-form>
+    <b-col>
+      <label
+        class="sr-only"
+        for="end-date"
+      >
+        {{ $t('dateFilter.endDate') }}
+      </label>
+      <b-input
+        id="end-date"
+        v-model="form.end"
+        type="date"
+        @change="emitDateForm"
+      />
+    </b-col>
+  </b-row>
 </template>
 
 <script>
@@ -54,19 +62,21 @@
     data() {
       return {
         form: {
-          name: this.name,
           start: this.start,
           end: this.end
         }
       };
     },
 
-    watch: {
-      form: {
-        deep: true,
-        handler() {
-          this.$emit('dateFilter', this.form);
-        }
+    computed: {
+      facetName() {
+        return this.$t(`facets.${this.name}.name`);
+      }
+    },
+
+    methods: {
+      emitDateForm() {
+        this.$emit('dateFilter', this.name, this.form);
       }
     }
   };
