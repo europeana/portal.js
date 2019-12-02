@@ -136,7 +136,7 @@
   import PaginationNav from '../../components/generic/PaginationNav';
   import ViewToggles from '../../components/search/ViewToggles';
   import TierToggler from '../../components/search/TierToggler';
-  import { defaultFacetNames } from '../../plugins/europeana/search';
+  import { defaultFacetNames, unquotableFacets } from '../../plugins/europeana/search';
 
   import isEqual from 'lodash/isEqual';
   import pickBy from 'lodash/pickBy';
@@ -312,7 +312,7 @@
             }
           } else {
             for (const facetValue of selectedValues) {
-              if (defaultFacetNames.includes(facetName)) {
+              if (this.enquoteFacet(facetName)) {
                 queryUpdates.qf.push(`${facetName}:"${facetValue}"`);
               } else {
                 queryUpdates.qf.push(`${facetName}:${facetValue}`);
@@ -321,6 +321,9 @@
           }
         }
         return queryUpdates;
+      },
+      enquoteFacet(facetName) {
+        return defaultFacetNames.includes(facetName) && !unquotableFacets.includes(facetName);
       },
       updateCurrentSearchQuery(updates = {}) {
         const current = {
