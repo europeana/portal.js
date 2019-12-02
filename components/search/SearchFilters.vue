@@ -7,23 +7,24 @@
       class="mr-2"
       data-qa="filter badge"
     >
-      <!-- TODO: move these if/else-if/else elements into a `badgeLabel` computed method -->
-      <template v-if="selectedFilter.filterName === 'contentTier' && selectedFilter.fieldValue === '*'">
-        {{ $t(`facets.${selectedFilter.filterName}.name`) }}
-      </template>
-      <template v-else-if="$te(`facets.${selectedFilter.filterName}.options.${selectedFilter.fieldValue}`)">
-        {{ $t('formatting.labelledValue', { label: $tc(`facets.${selectedFilter.filterName}.name`, 1), value: $t(`facets.${selectedFilter.filterName}.options.${selectedFilter.fieldValue}`)}) }}
-      </template>
-      <template v-else>
-        {{ $t('formatting.labelledValue', { label: $tc(`facets.${selectedFilter.filterName}.name`, 1), value: selectedFilter.fieldValue}) }}
-      </template>
+      <FacetFieldLabel
+        :facet-name="selectedFilter.filterName"
+        :field-value="selectedFilter.fieldValue"
+        :prefixed="selectedFilter.filterName !== 'contentTier'"
+      />
     </b-badge>
   </div>
 </template>
 
 <script>
+  import FacetFieldLabel from './FacetFieldLabel';
+
   export default {
     name: 'SearchFilters',
+
+    components: {
+      FacetFieldLabel
+    },
 
     props: {
       filters: {

@@ -37,11 +37,11 @@ describe('components/search/SearchFilters', () => {
     badge.text().should.eq('formatting.labelledValue: {"label":"facets.TYPE.name: 1","value":"IMAGE"}');
   });
 
-  it('shows a customised badge when it displays content tier', () => {
+  it('omits facet name when it displays content tier', () => {
     const wrapper = factory();
     wrapper.setProps({ filters: { contentTier: ['*'] } });
 
     const badge = wrapper.find('.badge');
-    badge.text().should.eq('facets.contentTier.name: undefined');
+    badge.text().should.eq('*');
   });
 });

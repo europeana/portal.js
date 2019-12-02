@@ -103,10 +103,20 @@ export default {
       }
     },
     "TYPE": {
-      "name": "Type of media"
+      "name": "Type of media",
+      "options": {
+        "IMAGE": "Image",
+        "TEXT": "Text",
+        "VIDEO": "Video",
+        "SOUND": "Sound",
+        "3D": "3D"
+      }
     },
     "contentTier": {
-      "name": "Includes items not meeting our publishing criteria"
+      "name": "Content tier",
+      "options": {
+        "*": "Includes items not meeting our publishing criteria"
+      }
     },
     "button": {
       "reset": "Reset",
@@ -124,6 +134,28 @@ export default {
     },
     "DATA_PROVIDER": {
       "name": "Institution | Institutions"
+    },
+    "IMAGE_ASPECTRATIO": {
+      "name": "Image orientation | Image orientations",
+      "options": {
+        "landscape": "Landscape",
+        "portrait": "Portrait"
+      }
+    },
+    "IMAGE_SIZE": {
+      "name": "Image size | Image sizes",
+      "options": {
+        "small": "Small",
+        "medium": "Medium",
+        "large": "Large",
+        "extra_large": "Extra large"
+      }
+    },
+    "MIME_TYPE": {
+      "name": "File format | File formats",
+      "options": {
+        "text/plain": "Plain text"
+      }
     }
   },
   "entity": "Entity",
