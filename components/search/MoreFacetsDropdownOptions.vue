@@ -22,10 +22,10 @@
         <ColourSwatch
           v-if="isColourPalette"
           :hex-code="filter.label"
-          :aria-labelledby="`facet-field-${name}-${index}`"
+          :aria-labelledby="fieldLabelId(index)"
         />
         <FacetFieldLabel
-          :id="`facet-field-${name}-${index}`"
+          :id="fieldLabelId(index)"
           :facet-name="name"
           :field-value="filter.label"
         />
@@ -48,10 +48,10 @@
           <ColourSwatch
             v-if="isColourPalette"
             :hex-code="filter.label"
-            :aria-labelledby="`facet-field-${name}-${index}`"
+            :aria-labelledby="fieldLabelId(index)"
           />
           <FacetFieldLabel
-            :id="`facet-field-${name}-${index}`"
+            :id="fieldLabelId(index)"
             :facet-name="name"
             :field-value="filter.label"
           />
@@ -124,6 +124,11 @@
     },
 
     methods: {
+      fieldLabelId(index, options = {}) {
+        const fieldIndex = options.overLimit ? index + this.limitTo : index;
+        return `facet-field-${this.name}-${fieldIndex}`;
+      },
+
       selectedHandler(value) {
         this.$emit('selectedOptions', this.name, value);
       }
