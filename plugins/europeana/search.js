@@ -12,10 +12,10 @@ export const defaultFacets = [
   'TYPE',
   'REUSABILITY',
   'COUNTRY',
-  'COLOURPALETTE',
   'LANGUAGE',
   'PROVIDER',
   'DATA_PROVIDER',
+  'COLOURPALETTE',
   'IMAGE_ASPECTRATIO',
   'IMAGE_SIZE',
   'MIME_TYPE'
