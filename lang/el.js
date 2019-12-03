@@ -26,7 +26,6 @@ export default {
       "edmRights": "Άδεια των μέσων σε αυτό το αρχείο (εκτός αν ορίζεται διαφορετικά)",
       "dcPublisher": "Εκδότης",
       "dcSubject": "Θέμα",
-      "dcTermsMedium": "Μέσο",
       "dctermsMedium": "Μέσο",
       "dcRights": "Δικαιώματα",
       "dcDate": "Ημερομηνία",
@@ -66,7 +65,7 @@ export default {
       "edmIsSimilarTo": "Είναι παρόμοιο με",
       "edmIsSuccessorOf": "Είναι διάδοχος του",
       "edmRealizes": "Πραγματοποιεί",
-      "wasPresentAt": "Ήταν παρών/ούσα στο"
+      "wasPresentAt": "Ήταν παρών\/ούσα στο"
     },
     "webResource": {
       "dcDescription": "Περιγραφή",
