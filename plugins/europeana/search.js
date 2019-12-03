@@ -26,6 +26,7 @@ export const unquotableFacets = [
   'COLOURPALETTE',
   'IMAGE_COLOUR',
   'IMAGE_GREYSCALE', // WARNING: always returns zero results anyway
+  'IMAGE_SIZE',
   'MEDIA',
   'MIME_TYPE',
   'SOUND_DURATION',
