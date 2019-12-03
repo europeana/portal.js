@@ -26,7 +26,6 @@ export default {
       "edmRights": "Lizenz der Medien in diesem Datensatz (sofern nicht anders angegeben)",
       "dcPublisher": "Herausgeber",
       "dcSubject": "Betreff",
-      "dcTermsMedium": "Medium",
       "dctermsMedium": "Medium",
       "dcRights": "Rechte",
       "dcDate": "Datum",
