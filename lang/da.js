@@ -26,7 +26,6 @@ export default {
       "edmRights": "Licens for medierne i denne optagelse (medmindre andet er angivet)",
       "dcPublisher": "Udgiver",
       "dcSubject": "Emne",
-      "dcTermsMedium": "Medium",
       "dctermsMedium": "Medium",
       "dcRights": "Rettigheder",
       "dcDate": "Dato",
