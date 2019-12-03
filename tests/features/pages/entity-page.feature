@@ -36,7 +36,7 @@ Feature: Entity page
     Given I am on an `entity page`
     And I see the `entity page`
     And I see a `search result`
-    And I click a `search result`
+    When I click a `search result`
     Then I see a `record page`
 
   Scenario: Pagination links
