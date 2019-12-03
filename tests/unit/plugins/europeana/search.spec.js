@@ -444,6 +444,11 @@ describe('plugins/europeana/search', () => {
         (rangeFromQueryParam('[abc OR xyz]') === null).should.be.true;
       });
     });
+    context('with blank start and end values', () => {
+      it('returns both values', () => {
+        (rangeFromQueryParam('[ TO ]') === null).should.be.true;
+      });
+    });
     context('with only a start', () => {
       it('returns null for the end', () => {
         const expected = { start: 'START', end: null };
@@ -466,6 +471,12 @@ describe('plugins/europeana/search', () => {
       it('returns both values', () => {
         const expected = { start: '10/Новембар/2000', end: 'Value with spaces' };
         rangeFromQueryParam('[10/Новембар/2000 TO Value with spaces]').should.deep.eql(expected);
+      });
+    });
+    context('with quoted values', () => {
+      it('returns both values', () => {
+        const expected = { start: '"START"', end: '\'END\'' };
+        rangeFromQueryParam('["START" TO \'END\']').should.deep.eql(expected);
       });
     });
   });

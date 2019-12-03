@@ -87,8 +87,8 @@ function fieldsForSearchResult(item) {
  * @return {string} The range as a value that can be used by the API
  */
 export function rangeToQueryParam(values) {
-  const start = values['start'] ? values['start'] : '*';
-  const end = values['end'] ? values['end'] : '*';
+  const start = values.start ? values.start : '*';
+  const end = values.end ? values.end : '*';
   return `[${start} TO ${end}]`;
 }
 
@@ -99,7 +99,7 @@ export function rangeToQueryParam(values) {
  * @return {Object} Object with start and end keys
  */
 export function rangeFromQueryParam(paramValue) {
-  const matches = paramValue.match(/^\[(.*) TO (.*)\]$/);
+  const matches = paramValue.match(/^\[([^ ].*) TO ([^ ].*)\]$/);
   if (matches === null) return null;
   const start = matches[1] !== '*' ? matches[1] : null;
   const end = matches[2] !== '*' ? matches[2] : null;
