@@ -4,12 +4,15 @@
     :data-field-name="name"
     data-qa="metadata field"
   >
-    <label data-qa="label">
+    <label
+      v-if="labelled"
+      data-qa="label"
+    >
       {{ $t(`fieldLabels.${context}.${name}`) }}
     </label>
     <ul>
       <template
-        v-for="(value, index) of langMappedValues.values"
+        v-for="(value, index) of displayValues.values"
       >
         <template
           v-if="value.about"
@@ -44,9 +47,12 @@
   import EntityField from './EntityField';
 
   export default {
+    name: 'MetadataField',
+
     components: {
       EntityField
     },
+
     props: {
       name: {
         type: String,
@@ -59,9 +65,36 @@
       context: {
         type: String,
         default: 'default'
+      },
+      labelled: {
+        type: Boolean,
+        default: true
+      },
+      limit: {
+        type: Number,
+        default: -1
+      },
+      omitUrisIfOtherValues: {
+        type: Boolean,
+        default: false
       }
     },
+
     computed: {
+      displayValues() {
+        const display = Object.assign({}, this.langMappedValues);
+
+        if (this.omitUrisIfOtherValues) {
+          const withoutUris = display.values.filter((value) => !/^https?:\/\//.test(value));
+          if (withoutUris.length > 0) display.values = withoutUris;
+        }
+
+        if (display.values.length > this.limit) {
+          display.values = display.values.slice(0, this.limit).concat(this.$t('formatting.ellipsis'));
+        }
+        return display;
+      },
+
       langMappedValues() {
         if (this.fieldData === null) {
           return null;
@@ -70,8 +103,10 @@
         } else if (Array.isArray(this.fieldData)) {
           return { values: this.fieldData, code: '' };
         }
+
         return langMapValueForLocale(this.fieldData, this.$i18n.locale);
       },
+
       hasValuesForLocale() {
         if (this.langMappedValues === null) {
           return null;
