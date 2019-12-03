@@ -26,7 +26,6 @@ export default {
       "edmRights": "License of the media in this record (unless otherwise specified)",
       "dcPublisher": "Publisher",
       "dcSubject": "Subject",
-      "dcTermsMedium": "Medium",
       "dctermsMedium": "Medium",
       "dcRights": "Rights",
       "dcDate": "Date",
@@ -66,7 +65,8 @@ export default {
       "edmIsSimilarTo": "Is similar to",
       "edmIsSuccessorOf": "Is successor of",
       "edmRealizes": "Realises",
-      "wasPresentAt": "Was present at"
+      "wasPresentAt": "Was present at",
+      "dcTermsMedium": "Medium"
     },
     "webResource": {
       "dcDescription": "Description",
@@ -113,7 +113,7 @@ export default {
       }
     },
     "contentTier": {
-      "name": "Content tier",
+      "name": "Includes items not meeting our publishing criteria",
       "options": {
         "*": "Includes items not meeting our publishing criteria"
       }
@@ -154,7 +154,7 @@ export default {
     "MIME_TYPE": {
       "name": "File format | File formats",
       "options": {
-        "text/plain": "Plain text"
+        "text\/plain": "Plain text"
       }
     },
     "COLOURPALETTE": {
