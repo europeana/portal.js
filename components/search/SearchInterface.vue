@@ -312,11 +312,8 @@
             }
           } else {
             for (const facetValue of selectedValues) {
-              if (this.enquoteFacet(facetName)) {
-                queryUpdates.qf.push(`${facetName}:"${facetValue}"`);
-              } else {
-                queryUpdates.qf.push(`${facetName}:${facetValue}`);
-              }
+              const quotedValue = this.enquoteFacet(facetName) ? `"${facetValue}"` : facetValue;
+              queryUpdates.qf.push(`${facetName}:${quotedValue}`);
             }
           }
         }
