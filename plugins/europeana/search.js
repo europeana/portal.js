@@ -21,6 +21,19 @@ export const defaultFacetNames = [
   'MIME_TYPE'
 ];
 
+// Some facets do not support enquoting of their field values.
+export const unquotableFacets = [
+  'COLOURPALETTE',
+  'IMAGE_COLOUR',
+  'IMAGE_GREYSCALE', // WARNING: always returns zero results anyway
+  'MEDIA',
+  'MIME_TYPE',
+  'SOUND_DURATION',
+  'SOUND_HQ',
+  'TEXT_FULLTEXT',
+  'VIDEO_HD'
+];
+
 function genericThumbnail(edmType) {
   return `https://api.europeana.eu/api/v2/thumbnail-by-url.json?size=w200&uri=&type=${edmType}`;
 }
