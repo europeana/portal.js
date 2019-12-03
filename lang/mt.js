@@ -26,7 +26,6 @@ export default {
       "edmRights": "Il-liċenzja tal-midja f'dan ir-rekord (sakemm mhux speċifikat mod ieħor)",
       "dcPublisher": "Pubblikatur",
       "dcSubject": "Suġġett",
-      "dcTermsMedium": "Medju",
       "dctermsMedium": "Mezz",
       "dcRights": "Drittijiet",
       "dcDate": "Data",
