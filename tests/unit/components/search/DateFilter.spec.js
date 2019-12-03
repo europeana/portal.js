@@ -13,8 +13,8 @@ const factory = () => mount(DateFilter, {
   },
   propsData: {
     name: 'proxy_dcterms_issued',
-    start: '00/00/0000',
-    end: '00/00/0000'
+    start: null,
+    end: null
   }
 });
 
@@ -24,9 +24,9 @@ describe('components/search/DateFilter', () => {
     const startInput = wrapper.find('[data-qa="start input"]');
 
     startInput.trigger('change');
-    wrapper.vm.form.start = '10/02/2019';
+    wrapper.vm.form.start = '2019-01-01';
 
-    wrapper.emitted()['dateFilter'].should.eql([[ 'proxy_dcterms_issued', { 'end': '00/00/0000', 'start': '10/02/2019' } ]]);
+    wrapper.emitted()['dateFilter'].should.eql([[ 'proxy_dcterms_issued', { 'end': null, 'start': '2019-01-01' } ]]);
   });
 
   it('emits `dateFilter` event with name and form arguments when user changes End date input', async() => {
@@ -34,8 +34,8 @@ describe('components/search/DateFilter', () => {
     const endInput = wrapper.find('[data-qa="end input"]');
 
     endInput.trigger('change');
-    wrapper.vm.form.end = '10/02/2019';
+    wrapper.vm.form.end = '2019-01-01';
 
-    wrapper.emitted()['dateFilter'].should.eql([[ 'proxy_dcterms_issued', { 'end': '10/02/2019', 'start': '00/00/0000' } ]]);
+    wrapper.emitted()['dateFilter'].should.eql([[ 'proxy_dcterms_issued', { 'end': '2019-01-01', 'start': null } ]]);
   });
 });
