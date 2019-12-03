@@ -26,7 +26,6 @@ export default {
       "edmRights": "Mediální licence tohoto záznamu (není-li uvedeno jinak)",
       "dcPublisher": "Vydavatel",
       "dcSubject": "Předmět",
-      "dcTermsMedium": "Médium",
       "dctermsMedium": "Médium",
       "dcRights": "Práva",
       "dcDate": "Datum",
@@ -56,17 +55,17 @@ export default {
       "dctermsHasPart": "se skládá z",
       "dctermsHasVersion": "vlastní verzi",
       "dctermsIsFormatOf": "je formou",
-      "dctermsIsReferencedBy": "je zmiňován/a",
+      "dctermsIsReferencedBy": "je zmiňován\/a",
       "dctermsIsReplacedBy": "se nahradí",
       "dctermsIsRequiredBy": "je potřeba pro",
-      "edmHasMet": "se setkal/a s",
+      "edmHasMet": "se setkal\/a s",
       "edmIncorporates": "zahrnuje",
       "edmIsDerivativeOf": "je zpodobněním",
       "edmIsRepresentationOf": "představuje",
       "edmIsSimilarTo": "se podobá",
       "edmIsSuccessorOf": "je nástupcem",
       "edmRealizes": "ztvárňuje",
-      "wasPresentAt": "se účastnil/a"
+      "wasPresentAt": "se účastnil\/a"
     },
     "webResource": {
       "dcDescription": "Popis",
