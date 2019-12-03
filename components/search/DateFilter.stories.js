@@ -12,7 +12,7 @@ const i18n = {
       },
       facets: {
         'proxy_dcterms_issued': {
-          name: 'Example'
+          name: 'Date Issued'
         }
       }
     }
@@ -25,7 +25,7 @@ storiesOf('Search', module)
     components: { DateFilter },
     methods: {
       log(a, b) {
-        action('Change event emitted')(a, b);
+        action('Change event emitted')(a, JSON.stringify(b));
       }
     },
     data() {
