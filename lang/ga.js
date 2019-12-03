@@ -26,7 +26,6 @@ export default {
       "edmRights": "Ceadúnas faoi na meáin sa taifead seo (mura sonraítear a mhalairt)",
       "dcPublisher": "Foilsitheoir",
       "dcSubject": "Ábhar",
-      "dcTermsMedium": "Meán",
       "dctermsMedium": "Meánach",
       "dcRights": "Cearta",
       "dcDate": "Dáta",
@@ -65,7 +64,7 @@ export default {
       "edmIsRepresentationOf": "Is léiriú é de",
       "edmIsSimilarTo": "Is cosúil leis",
       "edmIsSuccessorOf": "Is comharba é ar",
-      "edmRealizes": "Tuigeann sé/sí",
+      "edmRealizes": "Tuigeann sé\/sí",
       "wasPresentAt": "Bhí i láthair ag"
     },
     "webResource": {
