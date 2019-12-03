@@ -33,10 +33,10 @@ Feature: Entity page
     Then I should not be on the `entity page`
 
   Scenario: Navigating to a related record
-    When I open an `entity page`
+    Given I am on an `entity page`
     And I see the `entity page`
     And I see a `search result`
-    And I click a `search result`
+    When I click a `search result`
     Then I see a `record page`
 
   Scenario: Pagination links
@@ -47,7 +47,6 @@ Feature: Entity page
 
   Scenario: Pagination links work when the page was accessed from the url
     When I visit `/en/entity/topic/18-newspaper?page=2`
-    And I accept cookies
     And I go to page number 3
     And I wait 2 seconds
     Then I should be on `/en/entity/topic/18-newspaper?page=3&view=grid`

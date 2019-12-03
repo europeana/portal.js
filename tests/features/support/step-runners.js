@@ -145,9 +145,25 @@ module.exports = {
     await client.url(pageUrl(pageName));
   },
   async acceptCookies() {
-    await client.waitForElementVisible('.cookie-disclaimer .accept-btn');
+    await client.expect.element('.cookie-disclaimer').to.be.visible;
     await client.click('.cookie-disclaimer .accept-btn');
     await client.expect.element('.cookie-disclaimer').to.not.be.visible;
+  },
+  async havePreviouslyAcceptedCookies() {
+    /* eslint-disable prefer-arrow-callback */
+    /* DO NOT MAKE INTO A ARROW FUNCTION - If you do, it will break the tests */
+    await client.execute(function() {
+      localStorage.cookieConsent = 'accepted';
+    }, []);
+    /* eslint-enable prefer-arrow-callback */
+  },
+  async haveNotYetAcceptedCookies() {
+    /* eslint-disable prefer-arrow-callback */
+    /* DO NOT MAKE INTO A ARROW FUNCTION - If you do, it will break the tests */
+    await client.execute(function() {
+      localStorage.cookieConsent = null;
+    }, []);
+    /* eslint-enable prefer-arrow-callback */
   },
   async paginateToPage(page) {
     const selector = qaSelector('pagination navigation') + ` a[aria-posinset="${page}"]`;
