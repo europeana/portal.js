@@ -26,7 +26,6 @@ export default {
       "edmRights": "Licenza del supporto in questo record (se non diversamente specificato)",
       "dcPublisher": "Editore",
       "dcSubject": "Argomento",
-      "dcTermsMedium": "Mezzo",
       "dctermsMedium": "Medium",
       "dcRights": "Diritti",
       "dcDate": "Data",
