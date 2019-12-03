@@ -26,7 +26,6 @@ export default {
       "edmRights": "Licencja na media w tym rekordzie (chyba że określono inaczej)",
       "dcPublisher": "Wydawca",
       "dcSubject": "Temat",
-      "dcTermsMedium": "Medium",
       "dctermsMedium": "Medium",
       "dcRights": "Prawa",
       "dcDate": "Data",
