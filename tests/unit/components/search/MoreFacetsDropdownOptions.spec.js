@@ -28,7 +28,7 @@ const factory = () => mount(MoreFacetsDropdownOptions, {
 });
 
 describe('components/search/MoreFacetsDropdownOptions', () => {
-  it('emits `selectedOptions` event when selected method is called', async() => {
+  it('emits `selectedOptions` event when selected method is called', () => {
     const wrapper = factory();
     const checkbox = wrapper.find('[data-qa="de checkbox"]');
 

@@ -19,7 +19,13 @@
         :data-qa="`${filter.label} checkbox`"
         class="mb-3"
       >
+        <ColourSwatch
+          v-if="isColourPalette"
+          :hex-code="filter.label"
+          :aria-labelledby="fieldLabelId(index)"
+        />
         <FacetFieldLabel
+          :id="fieldLabelId(index)"
           :facet-name="name"
           :field-value="filter.label"
         />
@@ -39,7 +45,13 @@
           :data-qa="`${filter.label} checkbox`"
           class="mb-3"
         >
+          <ColourSwatch
+            v-if="isColourPalette"
+            :hex-code="filter.label"
+            :aria-labelledby="fieldLabelId(index, { overLimit: true })"
+          />
           <FacetFieldLabel
+            :id="fieldLabelId(index, { overLimit: true })"
             :facet-name="name"
             :field-value="filter.label"
           />
@@ -64,10 +76,12 @@
 </template>
 
 <script>
+  import ColourSwatch from '../generic/ColourSwatch';
   import FacetFieldLabel from './FacetFieldLabel';
 
   export default {
     components: {
+      ColourSwatch,
       FacetFieldLabel
     },
 
@@ -92,8 +106,15 @@
       return {
         selectedOptions: this.selected,
         isActive: false,
-        limitTo: 9
+        limitTo: 9,
+        COLOURPALETTE: 'COLOURPALETTE'
       };
+    },
+
+    computed: {
+      isColourPalette() {
+        return this.name === this.COLOURPALETTE;
+      }
     },
 
     watch: {
@@ -103,6 +124,11 @@
     },
 
     methods: {
+      fieldLabelId(index, options = {}) {
+        const fieldIndex = options.overLimit ? index + this.limitTo : index;
+        return `facet-field-${this.name}-${fieldIndex}`;
+      },
+
       selectedHandler(value) {
         this.$emit('selectedOptions', this.name, value);
       }

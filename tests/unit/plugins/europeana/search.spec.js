@@ -1,5 +1,5 @@
 import nock from 'nock';
-import search, { selectedFacetsFromQuery, qfHandler } from '../../../../plugins/europeana/search';
+import search, { filtersFromQuery, qfHandler } from '../../../../plugins/europeana/search';
 
 import axios from 'axios';
 axios.defaults.adapter = require('axios/lib/adapters/http');
@@ -105,7 +105,7 @@ describe('plugins/europeana/search', () => {
       it('requests default facets if `facet` param absent', async() => {
         baseRequest
           .query(query => {
-            return query.facet === 'TYPE,REUSABILITY,COUNTRY,LANGUAGE,PROVIDER,DATA_PROVIDER,IMAGE_ASPECTRATIO,IMAGE_SIZE,MIME_TYPE';
+            return query.facet === 'TYPE,REUSABILITY,COUNTRY,LANGUAGE,PROVIDER,DATA_PROVIDER,COLOURPALETTE,IMAGE_ASPECTRATIO,IMAGE_SIZE,MIME_TYPE';
           })
           .reply(200, defaultResponse);
 
@@ -335,16 +335,16 @@ describe('plugins/europeana/search', () => {
     });
   });
 
-  describe('selectedFacetsFromQuery()', () => {
+  describe('filtersFromQuery()', () => {
     context('with `null` query qf', () => {
       it('returns {}', () => {
-        selectedFacetsFromQuery({ qf: null }).should.eql({});
+        filtersFromQuery({ qf: null }).should.eql({});
       });
     });
 
     context('with single query qf value', () => {
       it('returns it in an array on a property named for the facet', () => {
-        selectedFacetsFromQuery({ qf: 'TYPE:"IMAGE"' }).should.deep.eql({ 'TYPE': ['IMAGE'] });
+        filtersFromQuery({ qf: 'TYPE:"IMAGE"' }).should.deep.eql({ 'TYPE': ['IMAGE'] });
       });
     });
 
@@ -353,7 +353,7 @@ describe('plugins/europeana/search', () => {
         const query = { qf: ['TYPE:"IMAGE"', 'TYPE:"VIDEO"', 'REUSABILITY:"open"'] };
         const expected = { 'TYPE': ['IMAGE', 'VIDEO'], 'REUSABILITY': ['open'] };
 
-        selectedFacetsFromQuery(query).should.deep.eql(expected);
+        filtersFromQuery(query).should.deep.eql(expected);
       });
     });
 
@@ -361,7 +361,7 @@ describe('plugins/europeana/search', () => {
       it('returns them in an array on REUSABILITY property', () => {
         const query = { reusability: 'open,restricted' };
         const expected = { 'REUSABILITY': ['open', 'restricted'] };
-        selectedFacetsFromQuery(query).should.deep.eql(expected);
+        filtersFromQuery(query).should.deep.eql(expected);
       });
     });
   });

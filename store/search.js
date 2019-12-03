@@ -1,21 +1,21 @@
-import search, { selectedFacetsFromQuery } from '../plugins/europeana/search';
+import search, { filtersFromQuery } from '../plugins/europeana/search';
 
 export const state = () => ({
   active: false,
+  autoSuggestDisabled: false,
   error: null,
   errorStatusCode: null,
   facets: [],
+  filters: {},
   lastAvailablePage: null,
   page: 1,
+  pill: null,
   qf: [],
   query: '',
   results: [],
   reusability: null,
-  selectedFacets: {},
   totalResults: null,
-  view: null,
-  pill: null,
-  autoSuggestDisabled: false
+  view: null
 });
 
 export const mutations = {
@@ -24,13 +24,13 @@ export const mutations = {
     state.error = null;
     state.errorStatusCode = null;
     state.facets = [];
+    state.filters = {};
     state.lastAvailablePage = null;
     state.page = 1;
     state.qf = [];
     state.query = '';
     state.results = [];
     state.reusability = null;
-    state.selectedFacets = {};
     state.totalResults = null;
   },
   setActive(state, value) {
@@ -44,6 +44,9 @@ export const mutations = {
   },
   setFacets(state, value) {
     state.facets = value;
+  },
+  setFilters(state, value) {
+    state.filters = value;
   },
   setLastAvailablePage(state, value) {
     state.lastAvailablePage = value;
@@ -62,9 +65,6 @@ export const mutations = {
   },
   setReusability(state, value) {
     state.reusability = value;
-  },
-  setSelectedFacets(state, value) {
-    state.selectedFacets = value;
   },
   setTotalResults(state, value) {
     state.totalResults = value;
@@ -114,7 +114,7 @@ export const actions = {
     commit('setQf', params.qf);
     commit('setQuery', params.query);
     commit('setReusability', params.reusability);
-    commit('setSelectedFacets', selectedFacetsFromQuery(params));
+    commit('setFilters', filtersFromQuery(params));
 
     params.qf = (hiddenParams.qf || []).concat(params.qf || []);
     if (hiddenParams.theme) {
