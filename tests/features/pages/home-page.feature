@@ -11,6 +11,7 @@ Feature: Home page
     Then I see a `browse page`
     And I am on an accessible page
 
+  @cookie-notice-not-dismissed
   Scenario: Seeing the cookie disclaimer on first visit
 
     When I open `/en`

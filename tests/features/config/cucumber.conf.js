@@ -56,12 +56,12 @@ BeforeAll(async() => {
   await runners.openAPage('/en');
 });
 
-Before({ tags: '@cookie-notice-dismissed' }, async() => {
-  await runners.havePreviouslyAcceptedCookies();
+Before({ tags: '@cookie-notice-not-dismissed' }, async() => {
+  await runners.haveNotYetAcceptedCookies();
 });
 
-Before({ tags: 'not @cookie-notice-dismissed' }, async() => {
-  await runners.haveNotYetAcceptedCookies();
+Before({ tags: 'not @cookie-notice-not-dismissed' }, async() => {
+  await runners.havePreviouslyAcceptedCookies();
 });
 
 After(async() => {

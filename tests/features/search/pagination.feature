@@ -22,7 +22,6 @@ Feature: Search pagination
     And I see a `pagination navigation`
     Then I see a link to "/en/search?page=2&qf=TYPE%3A%22IMAGE%22&query=paris&view=grid" in the `pagination navigation`
 
-  @cookie-notice-dismissed
   Scenario: Changing pagination with browser history
 
     When I visit the `home page`
@@ -41,7 +40,6 @@ Feature: Search pagination
     When I visit `/en/search?query=paris&page=1&qf=TYPE%3A%22IMAGE%22`
     Then I see a link to "/en/search?page=2&qf=TYPE%3A%22IMAGE%22&query=paris&view=grid" in the `pagination navigation`
 
-  @cookie-notice-dismissed
   Scenario: Pagination links work when the page was accessed from the url.
 
     When I visit `/en/search?query=paris&page=1&qf=TYPE%3A%22IMAGE%22`

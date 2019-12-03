@@ -32,7 +32,6 @@ Feature: Entity page
     And I wait 5 seconds
     Then I should not be on the `entity page`
 
-  @cookie-notice-dismissed
   Scenario: Navigating to a related record
     Given I am on an `entity page`
     And I see the `entity page`
@@ -46,7 +45,6 @@ Feature: Entity page
     And I see a `search result`
     Then I see a link to "/en/entity/topic/18-newspaper?page=2&view=grid" in the `pagination navigation`
 
-  @cookie-notice-dismissed
   Scenario: Pagination links work when the page was accessed from the url
     When I visit `/en/entity/topic/18-newspaper?page=2`
     And I go to page number 3
@@ -62,7 +60,6 @@ Feature: Entity page
     Then I see the `entity page`
     And I see "newspaper" in the `search box`
 
-  @cookie-notice-dismissed
   Scenario: Removing search pill
     When I open an `entity page`
     And I go to page number 2

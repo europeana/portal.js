@@ -8,7 +8,6 @@ Feature: View styles (List and Grid)
     And I click the `search button`
     Then I see a `search results grid`
 
-  @cookie-notice-dismissed
   Scenario: Defaulting to grid view after paginating
     When I visit the `search page`
     And I click the `search button`
@@ -26,7 +25,6 @@ Feature: View styles (List and Grid)
     And I click the `search grid view toggle`
     Then I see a `search results grid`
 
-  @cookie-notice-dismissed
   Scenario: Switching to the list view and paginating
     When I visit the `search page`
     And I click the `search button`

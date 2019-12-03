@@ -114,7 +114,6 @@ Feature: Search faceting
     And I am on page number 1
     And I should have 1 `filter badge`
 
-  @cookie-notice-dismissed
   Scenario: Paginating with facets
     Given I am on the `search page`
     When I click the `TYPE dropdown button`
@@ -139,7 +138,6 @@ Feature: Search faceting
     And I click the `Show less Languages button`
     And I should see 9 `Language` checkboxes
 
-  @cookie-notice-dismissed
   Scenario: Filtering results using the more facets dropdown
     Given I am on the `search page`
     When I click the `more filters dropdown button`
@@ -150,7 +148,6 @@ Feature: Search faceting
     Then I should be on `/en/search?page=1&qf=LANGUAGE%3A%22en%22&qf=LANGUAGE%3A%22sv%22&query=&view=grid`
     And I see a `more filters selected options count` with the text "2"
 
-  @cookie-notice-dismissed
   Scenario: Clicking reset button in more facets
     Given I am on the `search page`
     When I click the `more filters dropdown button`
@@ -164,7 +161,6 @@ Feature: Search faceting
     And I wait 2 seconds
     Then I should be on `/en/search?page=1&query=&view=grid`
 
-  @cookie-notice-dismissed
   Scenario: Clear filters using using `clear all filter` button
     Given I am on the `search page`
     When I click the `COUNTRY dropdown button`
