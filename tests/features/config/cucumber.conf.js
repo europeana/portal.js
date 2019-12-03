@@ -34,6 +34,13 @@ async function stopBrowser() {
   process.removeAllListeners();
 }
 
+// Request a page and wait for the cookie notice
+async function warmupBrowser() {
+  // TODO: replace with a low cost static page not hitting any APIs
+  await runners.openAPage('/en');
+  await client.waitForElementVisible('.cookie-disclaimer');
+}
+
 // Before running cucumber make sure the test server and webdriver are running.
 // The test server is started by the test script in package.json.
 // The web driver is started in this before block.
@@ -51,9 +58,7 @@ BeforeAll(async() => {
   }
 
   await startBrowser();
-  // Do this first so that the cookie acceptance on the first scenario does not fail
-  // TODO: replace with a low cost static page not hitting any APIs
-  await runners.openAPage('/en');
+  await warmupBrowser();
 });
 
 Before({ tags: '@cookie-notice-not-dismissed' }, async() => {
@@ -72,8 +77,7 @@ After({ tags: '@non-default-browser' }, async() => {
   // Restore default browser config
   await stopBrowser();
   await startBrowser();
-  // TODO: replace with a low cost static page not hitting any APIs
-  await runners.openAPage('/en');
+  await warmupBrowser();
 });
 
 AfterAll(async() => {
