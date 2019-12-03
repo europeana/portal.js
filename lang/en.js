@@ -391,7 +391,7 @@ export default {
   "dateFilter": {
     "startDate": "Start date",
     "endDate": "End date"
-  }
+  },
   "cookieDisclaimer": {
     "acceptCookieDisclaimer": "Accept cookie disclaimer",
     "terms": "This website uses cookies to ensure you get the best experience on our website. By clicking or navigating the site, you agree to allow our collection of information through cookies.",
