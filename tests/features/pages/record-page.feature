@@ -43,6 +43,7 @@ Feature: Record page
     When I open the `"Hammerflügel" record page`
     Then I see a level 1 section heading with the text "Hammerflügel"
 
+  @cookie-notice-dismissed
   Scenario: Media thumbnail grid for multiple web resources
     When I open the `"Hammerflügel" record page`
     And I see the `media thumbnail grid`
@@ -57,7 +58,7 @@ Feature: Record page
   Scenario: Similar items
     When I open `"The Milkmaid" record page`
     Then I see `similar items`
-  
+
   Scenario: Audio player
     When I open the `"The pride of Glencoe, song" record page`
     Then I see a `audio player`

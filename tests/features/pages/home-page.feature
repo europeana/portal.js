@@ -10,9 +10,8 @@ Feature: Home page
     When I open `/en`
     Then I see a `browse page`
     And I am on an accessible page
-  
-  Scenario: Seeing the Cookie Disclaimer on first visit
-    The homepage is a browse page from Contentful
+
+  Scenario: Seeing the cookie disclaimer on first visit
 
     When I open `/en`
     And I see a `cookie disclaimer`
