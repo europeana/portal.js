@@ -16,7 +16,7 @@ export default {
   "fieldLabels": {
     "default": {
       "dcContributor": "Suradnici",
-      "dcCreator": "Stvorio/la",
+      "dcCreator": "Stvorio\/la",
       "dcDescription": "Opis",
       "dcTitle": "Naslov",
       "dcType": "Vrsta objekta",
@@ -26,7 +26,6 @@ export default {
       "edmRights": "Licenca medija u ovom zapisu (osim ako nije drugačije navedeno)",
       "dcPublisher": "Izdavač",
       "dcSubject": "Tema",
-      "dcTermsMedium": "Medij",
       "dctermsMedium": "Medij",
       "dcRights": "Prava",
       "dcDate": "Datum",
