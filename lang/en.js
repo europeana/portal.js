@@ -65,8 +65,7 @@ export default {
       "edmIsSimilarTo": "Is similar to",
       "edmIsSuccessorOf": "Is successor of",
       "edmRealizes": "Realises",
-      "wasPresentAt": "Was present at",
-      "dcTermsMedium": "Medium"
+      "wasPresentAt": "Was present at"
     },
     "webResource": {
       "dcDescription": "Description",
