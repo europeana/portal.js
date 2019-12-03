@@ -26,17 +26,20 @@
       id="main"
     />
     <PageFooter />
+    <CookieDisclaimer />
   </div>
 </template>
 
 <script>
   import PageHeader from '../components/PageHeader.vue';
   import PageFooter from '../components/PageFooter.vue';
+  import CookieDisclaimer from '../components/generic/CookieDisclaimer';
 
   export default {
     components: {
       PageHeader,
-      PageFooter
+      PageFooter,
+      CookieDisclaimer
     },
 
     computed: {

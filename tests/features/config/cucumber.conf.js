@@ -1,8 +1,10 @@
 /* eslint-disable no-console */
 
-const { setDefaultTimeout, After, AfterAll, BeforeAll } = require('cucumber');
+const { setDefaultTimeout, After, AfterAll, Before, BeforeAll } = require('cucumber');
 const { client, createSession, closeSession, startWebDriver, stopWebDriver } = require('nightwatch-api');
 const isReachable = require('is-reachable');
+const runners = require('../support/step-runners');
+
 const sleep = (milliseconds) => {
   return new Promise(resolve => setTimeout(resolve, milliseconds));
 };
@@ -32,6 +34,13 @@ async function stopBrowser() {
   process.removeAllListeners();
 }
 
+// Request a page and wait for the cookie notice
+async function warmupBrowser() {
+  // TODO: replace with a low cost static page not hitting any APIs
+  await runners.openAPage('/en');
+  await client.waitForElementVisible('.cookie-disclaimer');
+}
+
 // Before running cucumber make sure the test server and webdriver are running.
 // The test server is started by the test script in package.json.
 // The web driver is started in this before block.
@@ -49,6 +58,15 @@ BeforeAll(async() => {
   }
 
   await startBrowser();
+  await warmupBrowser();
+});
+
+Before({ tags: '@cookie-notice-not-dismissed' }, async() => {
+  await runners.haveNotYetAcceptedCookies();
+});
+
+Before({ tags: 'not @cookie-notice-not-dismissed' }, async() => {
+  await runners.havePreviouslyAcceptedCookies();
 });
 
 After(async() => {
@@ -59,6 +77,7 @@ After({ tags: '@non-default-browser' }, async() => {
   // Restore default browser config
   await stopBrowser();
   await startBrowser();
+  await warmupBrowser();
 });
 
 AfterAll(async() => {
