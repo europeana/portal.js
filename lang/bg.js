@@ -26,7 +26,6 @@ export default {
       "edmRights": "Лиценз на медиите в този запис (освен ако не е посочено друго)",
       "dcPublisher": "Издател",
       "dcSubject": "Тема",
-      "dcTermsMedium": "Среден(а)",
       "dctermsMedium": "Среден(а)",
       "dcRights": "Права",
       "dcDate": "Дата",

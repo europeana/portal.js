@@ -258,7 +258,7 @@ describe('components/search/SearchInterface', () => {
         });
       });
 
-      context('for default facets from search plugin', () => {
+      context('for default facets from search plugin supporting quotes', () => {
         it('includes fielded and quoted queries for each value in `qf`', () => {
           const selected = { 'TYPE': ['IMAGE', 'SOUND'] };
           const updates = wrapper.vm.queryUpdatesForFacetChanges(selected);
@@ -267,11 +267,18 @@ describe('components/search/SearchInterface', () => {
         });
       });
 
-      context('for any other facets', () => {
-        const facetName = { 'contentTier': [4] };
-
+      context('for default facets from search plugin not supporting quotes', () => {
         it('includes fielded but unquoted queries for each value in `qf`', () => {
-          const updates = wrapper.vm.queryUpdatesForFacetChanges(facetName, ['4']);
+          const selected = { 'MIME_TYPE': ['application/pdf'] };
+          const updates = wrapper.vm.queryUpdatesForFacetChanges(selected);
+          updates.qf.should.include('MIME_TYPE:application/pdf');
+        });
+      });
+
+      context('for any other facets', () => {
+        it('includes fielded but unquoted queries for each value in `qf`', () => {
+          const selected = { 'contentTier': ['4'] };
+          const updates = wrapper.vm.queryUpdatesForFacetChanges(selected);
           updates.qf.should.include('contentTier:4');
         });
       });

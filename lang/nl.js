@@ -26,7 +26,6 @@ export default {
       "edmRights": "Licentie van de media in dit record (tenzij anders vermeld)",
       "dcPublisher": "Uitgever",
       "dcSubject": "Onderwerp",
-      "dcTermsMedium": "Medium",
       "dctermsMedium": "Medium",
       "dcRights": "Rechten",
       "dcDate": "Datum",
@@ -124,6 +123,13 @@ export default {
     },
     "DATA_PROVIDER": {
       "name": "Instelling | Instellingen"
+    },
+    "COLOURPALETTE": {
+      "options": {
+        "#2E8B57": "Zeegroen",
+        "#3CB371": "Medium zeegroen",
+        "#8FBC8F": "Donker zeegroen"
+      }
     }
   },
   "entity": "Entiteit",

@@ -26,7 +26,6 @@ export default {
       "edmRights": "Mediální licence tohoto záznamu (není-li uvedeno jinak)",
       "dcPublisher": "Vydavatel",
       "dcSubject": "Předmět",
-      "dcTermsMedium": "Médium",
       "dctermsMedium": "Médium",
       "dcRights": "Práva",
       "dcDate": "Datum",

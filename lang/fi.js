@@ -26,7 +26,6 @@ export default {
       "edmRights": "Tämän tietueen median lisenssi (ellei toisin mainita)",
       "dcPublisher": "Julkaisija",
       "dcSubject": "Aihe",
-      "dcTermsMedium": "Media",
       "dctermsMedium": "Media",
       "dcRights": "Oikeudet",
       "dcDate": "Päivämäärä",

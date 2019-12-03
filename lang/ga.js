@@ -26,7 +26,6 @@ export default {
       "edmRights": "Ceadúnas faoi na meáin sa taifead seo (mura sonraítear a mhalairt)",
       "dcPublisher": "Foilsitheoir",
       "dcSubject": "Ábhar",
-      "dcTermsMedium": "Meán",
       "dctermsMedium": "Meánach",
       "dcRights": "Cearta",
       "dcDate": "Dáta",
