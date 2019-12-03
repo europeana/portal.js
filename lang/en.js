@@ -388,5 +388,9 @@ export default {
   "imageSlider": {
     "handle": "Slider Handle"
   },
-  "colourSwatch": "Colour swatch"
+  "colourSwatch": "Colour swatch",
+  "dateFilter": {
+    "startDate": "Start date",
+    "endDate": "End date"
+  }
 };
