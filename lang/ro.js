@@ -26,7 +26,6 @@ export default {
       "edmRights": "Licența media pentru această înregistrare (cu excepția cazului în care se specifică altfel)",
       "dcPublisher": "Editor",
       "dcSubject": "Subiect",
-      "dcTermsMedium": "Mediu",
       "dctermsMedium": "Mediu",
       "dcRights": "Drepturi",
       "dcDate": "Dată",
