@@ -25,7 +25,7 @@ storiesOf('Search', module)
     components: { DateFilter },
     methods: {
       log(a, b) {
-        action('Change event emitted')(a, JSON.stringify(b));
+        action('Change event emitted')(a, b);
       }
     },
     data() {
