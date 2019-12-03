@@ -26,7 +26,6 @@ export default {
       "edmRights": "Mediju licence šajā ierakstā (ja nav norādīts citādi)",
       "dcPublisher": "Izdevējs",
       "dcSubject": "Temats",
-      "dcTermsMedium": "Līdzeklis",
       "dctermsMedium": "Veids",
       "dcRights": "Tiesības",
       "dcDate": "Datums",
