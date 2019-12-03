@@ -26,7 +26,6 @@ export default {
       "edmRights": "License of the media in this record (unless otherwise specified)",
       "dcPublisher": "Publisher",
       "dcSubject": "Subject",
-      "dcTermsMedium": "Medium",
       "dctermsMedium": "Medium",
       "dcRights": "Rights",
       "dcDate": "Date",
@@ -113,7 +112,7 @@ export default {
       }
     },
     "contentTier": {
-      "name": "Content tier",
+      "name": "Includes items not meeting our publishing criteria",
       "options": {
         "*": "Includes items not meeting our publishing criteria"
       }

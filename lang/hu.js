@@ -26,7 +26,6 @@ export default {
       "edmRights": "Az ebben a nyilvántartásban szereplő adathordozó licence (hacsak másképp nincs meghatározva)",
       "dcPublisher": "Kiadó",
       "dcSubject": "Tárgy",
-      "dcTermsMedium": "Közepes",
       "dctermsMedium": "Közepes",
       "dcRights": "Jogok",
       "dcDate": "Dátum",

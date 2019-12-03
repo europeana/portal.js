@@ -26,7 +26,6 @@ export default {
       "edmRights": "Άδεια των μέσων σε αυτό το αρχείο (εκτός αν ορίζεται διαφορετικά)",
       "dcPublisher": "Εκδότης",
       "dcSubject": "Θέμα",
-      "dcTermsMedium": "Μέσο",
       "dctermsMedium": "Μέσο",
       "dcRights": "Δικαιώματα",
       "dcDate": "Ημερομηνία",

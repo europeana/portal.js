@@ -26,7 +26,6 @@ export default {
       "edmRights": "Licencia de los medios en este registro (a menos que se especifique lo contrario)",
       "dcPublisher": "Editor",
       "dcSubject": "Asunto",
-      "dcTermsMedium": "Medio",
       "dctermsMedium": "Mediano",
       "dcRights": "Derechos",
       "dcDate": "Fecha",

@@ -26,7 +26,6 @@ export default {
       "edmRights": "Licence du support dans cet enregistrement (sauf indication contraire)",
       "dcPublisher": "Éditeur",
       "dcSubject": "Thème",
-      "dcTermsMedium": "Support",
       "dctermsMedium": "Support",
       "dcRights": "Droits",
       "dcDate": "Date",

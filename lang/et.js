@@ -26,7 +26,6 @@ export default {
       "edmRights": "Selle kirje meediumite litsents (kui pole teisiti täpsustatud)",
       "dcPublisher": "Kirjastus",
       "dcSubject": "Teema",
-      "dcTermsMedium": "Meedium",
       "dctermsMedium": "Meedium",
       "dcRights": "Õigused",
       "dcDate": "Kuupäev",

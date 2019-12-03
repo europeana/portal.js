@@ -26,7 +26,6 @@ export default {
       "edmRights": "Licens för media i detta dokument (om inte annat anges)",
       "dcPublisher": "Utgivare",
       "dcSubject": "Ämne",
-      "dcTermsMedium": "Medium",
       "dctermsMedium": "Medium",
       "dcRights": "Rättigheter",
       "dcDate": "Datum",

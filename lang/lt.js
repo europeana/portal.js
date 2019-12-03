@@ -26,7 +26,6 @@ export default {
       "edmRights": "Šiame įraše esančios medijos licencija (jei nenurodyta kitaip)",
       "dcPublisher": "Leidėjas",
       "dcSubject": "Tema",
-      "dcTermsMedium": "Medija",
       "dctermsMedium": "Medija",
       "dcRights": "Teisės",
       "dcDate": "Data",
