@@ -17,6 +17,7 @@
         v-model="form.start"
         class="mb-2 mr-sm-2 mb-sm-0"
         type="date"
+        data-qa="start input"
         @change="emitDateForm"
       />
     </b-col>
@@ -32,6 +33,7 @@
         id="end-date"
         v-model="form.end"
         type="date"
+        data-qa="end input"
         @change="emitDateForm"
       />
     </b-col>
