@@ -101,6 +101,28 @@ describe('components/record/MetadataField', () => {
         fieldValues.at(0).text().should.eq(props.fieldData.def[0]);
         fieldValues.at(1).text().should.eq('formatting.ellipsis');
       });
+
+      describe('URIs', () => {
+        it('omits them if there are other values', () => {
+          const props = { name: 'dcCreator', fieldData: { def: ['http://data.europeana.eu/agent/base/123', 'Artist'] }, omitUrisIfOtherValues: true };
+          const wrapper = factory();
+
+          wrapper.setProps(props);
+
+          const fieldValue = wrapper.find('[data-qa="metadata field"] ul [data-qa="literal value"]');
+          fieldValue.text().should.eq(props.fieldData.def[1]);
+        });
+
+        it('includes them if there are no other values', () => {
+          const props = { name: 'dcCreator', fieldData: { def: ['http://data.europeana.eu/agent/base/123'] }, omitUrisIfOtherValues: true };
+          const wrapper = factory();
+
+          wrapper.setProps(props);
+
+          const fieldValue = wrapper.find('[data-qa="metadata field"] ul [data-qa="literal value"]');
+          fieldValue.text().should.eq(props.fieldData.def[0]);
+        });
+      });
     });
 
     context('when value is not available in the preferred languages', () => {
