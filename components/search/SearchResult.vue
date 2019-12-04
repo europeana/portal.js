@@ -7,12 +7,14 @@
       <div
         v-if="localisedHeading"
         :lang="localisedHeading.code"
+        :data-field-name="localisedTitle ? 'dcTitle' : 'dcDescription'"
       >
         <!-- TODO: this is _list_ view... do we need to truncate? -->
         {{ localisedHeading.values[0] | truncate(90, $t('formatting.ellipsis')) }}
       </div>
       <div
         lang=""
+        data-field-name="edmDataProvider"
       >
         {{ edmDataProvider[0] }}
       </div>

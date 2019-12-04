@@ -41,7 +41,7 @@
 <script>
   import ContentCard from '../generic/ContentCard';
   import SearchResult from './SearchResult';
-  
+
   export default {
     name: 'SearchResults',
 
