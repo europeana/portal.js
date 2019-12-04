@@ -26,7 +26,6 @@ export default {
       "edmRights": "License of the media in this record (unless otherwise specified)",
       "dcPublisher": "Publisher",
       "dcSubject": "Subject",
-      "dcTermsMedium": "Medium",
       "dctermsMedium": "Medium",
       "dcRights": "Rights",
       "dcDate": "Date",
@@ -113,7 +112,7 @@ export default {
       }
     },
     "contentTier": {
-      "name": "Content tier",
+      "name": "Includes items not meeting our publishing criteria",
       "options": {
         "*": "Includes items not meeting our publishing criteria"
       }
@@ -388,5 +387,14 @@ export default {
   "imageSlider": {
     "handle": "Slider Handle"
   },
-  "colourSwatch": "Colour swatch"
+  "colourSwatch": "Colour swatch",
+  "dateFilter": {
+    "startDate": "Start date",
+    "endDate": "End date"
+  },
+  "cookieDisclaimer": {
+    "acceptCookieDisclaimer": "Accept cookie disclaimer",
+    "terms": "This website uses cookies to ensure you get the best experience on our website. By clicking or navigating the site, you agree to allow our collection of information through cookies.",
+    "link": "More info"
+  }
 };

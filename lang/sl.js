@@ -26,7 +26,6 @@ export default {
       "edmRights": "Licenca za medije v tem zapisu (če ni navedeno drugače)",
       "dcPublisher": "Založnik",
       "dcSubject": "Zadeva",
-      "dcTermsMedium": "Srednja",
       "dctermsMedium": "Medij",
       "dcRights": "Pravice",
       "dcDate": "Datum",

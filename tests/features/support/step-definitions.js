@@ -14,6 +14,9 @@ defineParameterType({
   }
 });
 
+defineStep('I accept cookies', () =>
+  i.acceptCookies());
+
 defineStep('I browse/open/visit (a/an/the)( ){target}', (pageName) =>
   i.openAPage(pageName));
 

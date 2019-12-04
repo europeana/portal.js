@@ -1,5 +1,5 @@
 import nock from 'nock';
-import search, { filtersFromQuery, qfHandler } from '../../../../plugins/europeana/search';
+import search, { filtersFromQuery, qfHandler, rangeToQueryParam, rangeFromQueryParam } from '../../../../plugins/europeana/search';
 
 import axios from 'axios';
 axios.defaults.adapter = require('axios/lib/adapters/http');
@@ -406,6 +406,77 @@ describe('plugins/europeana/search', () => {
       it('returns the qf without the qf', () => {
         const expected = [];
         qfHandler(qf).should.deep.eql(expected);
+      });
+    });
+  });
+
+
+  describe('rangeToQueryParam', () => {
+    context('with no start or end', () => {
+      it('returns "[* TO *]"', () => {
+        const expected = '[* TO *]';
+        rangeToQueryParam({}).should.eql(expected);
+      });
+    });
+    context('with only a start', () => {
+      it('returns "[START TO *]"', () => {
+        const expected = '[START TO *]';
+        rangeToQueryParam({ start: 'START' }).should.deep.eql(expected);
+      });
+    });
+    context('with only an end', () => {
+      it('returns "[* TO END]"', () => {
+        const expected = '[* TO END]';
+        rangeToQueryParam({ end: 'END' }).should.deep.eql(expected);
+      });
+    });
+    context('with both start and end', () => {
+      it('returns "[START TO END]"', () => {
+        const expected = '[START TO END]';
+        rangeToQueryParam({ start: 'START', end: 'END' }).should.deep.eql(expected);
+      });
+    });
+  });
+
+  describe('rangeFromQueryParam', () => {
+    context('when the pattern does NOT match', () => {
+      it('returns null', () => {
+        (rangeFromQueryParam('[abc OR xyz]') === null).should.be.true;
+      });
+    });
+    context('with blank start and end values', () => {
+      it('returns both values', () => {
+        (rangeFromQueryParam('[ TO ]') === null).should.be.true;
+      });
+    });
+    context('with only a start', () => {
+      it('returns null for the end', () => {
+        const expected = { start: 'START', end: null };
+        rangeFromQueryParam('[START TO *]').should.deep.eql(expected);
+      });
+    });
+    context('with only an end', () => {
+      it('returns null for the start', () => {
+        const expected = { start: null, end: 'END' };
+        rangeFromQueryParam('[* TO END]').should.deep.eql(expected);
+      });
+    });
+    context('with both start and end', () => {
+      it('returns both values', () => {
+        const expected = { start: 'START', end: 'END' };
+        rangeFromQueryParam('[START TO END]').should.deep.eql(expected);
+      });
+    });
+    context('with special characters', () => {
+      it('returns both values', () => {
+        const expected = { start: '10/Новембар/2000', end: 'Value with spaces' };
+        rangeFromQueryParam('[10/Новембар/2000 TO Value with spaces]').should.deep.eql(expected);
+      });
+    });
+    context('with quoted values', () => {
+      it('returns both values', () => {
+        const expected = { start: '"START"', end: '\'END\'' };
+        rangeFromQueryParam('["START" TO \'END\']').should.deep.eql(expected);
       });
     });
   });
