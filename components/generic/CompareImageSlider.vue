@@ -24,6 +24,7 @@
         :style="sliderBarPosition"
         data-qa="compare image slider"
         @mousedown="initDrag"
+        @touchstart="initDrag"
       >
         <span class="slider-bar" />
         <button
@@ -135,6 +136,8 @@
       window.addEventListener('resize', this.setImageWidth);
       window.addEventListener('mousemove', this.drag);
       window.addEventListener('mouseup', this.stopDrag);
+      window.addEventListener('touchmove', this.drag);
+      window.addEventListener('touchend', this.stopDrag);
     },
 
     methods: {
@@ -166,7 +169,7 @@
 
       drag(event) {
         // Calc Cursor Position from the left edge of the viewport
-        const cursorXfromViewport = event.pageX;
+        const cursorXfromViewport = event.touches ? event.touches[0].pageX : event.pageX;
         // Calc Cursor Position from the left edge of the window (consider any page scrolling)
         const cursorXfromWindow = cursorXfromViewport - window.pageXOffset;
         // Calc Cursor Position from the left edge of the image
