@@ -51,11 +51,6 @@
     },
 
     props: {
-      europeanaId: {
-        type: String,
-        required: true
-      },
-
       edmPreview: {
         type: String,
         required: true

@@ -12,7 +12,6 @@
     >
       <SearchResult
         :edm-preview="result.edmPreview"
-        :europeana-id="result.europeanaId"
         :edm-data-provider="result.edmDataProvider"
         :dc-title="result.dcTitle"
         :dc-description="result.dcDescription"
