@@ -38,9 +38,6 @@
         data-qa="search button"
         variant="primary"
       >
-        <span class="sr-only">
-          {{ $t('search') }}
-        </span>
         <img
           src="../../assets/img/magnifier.svg"
           :alt="$t('search')"
