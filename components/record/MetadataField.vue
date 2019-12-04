@@ -89,10 +89,14 @@
           if (withoutUris.length > 0) display.values = withoutUris;
         }
 
-        if (display.values.length > this.limit) {
+        if (this.limitDisplayValues && (display.values.length > this.limit)) {
           display.values = display.values.slice(0, this.limit).concat(this.$t('formatting.ellipsis'));
         }
         return display;
+      },
+
+      limitDisplayValues() {
+        return (this.limit > -1);
       },
 
       langMappedValues() {
