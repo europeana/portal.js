@@ -99,22 +99,6 @@
       localisedHeading() {
         return this.localisedTitle || this.localisedDescription;
       }
-    },
-
-    methods: {
-      displayableValues(values) {
-        if (Array.isArray(values)) {
-          return values.slice(0, 3);
-        }
-        return values;
-      },
-
-      trimmedValueArray(values) {
-        if (Array.isArray(values)) {
-          return values.length > 3;
-        }
-        return false;
-      }
     }
   };
 </script>
