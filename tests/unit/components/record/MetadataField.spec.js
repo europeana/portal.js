@@ -69,13 +69,38 @@ describe('components/record/MetadataField', () => {
       });
     });
 
-    it('outputs the field value', () => {
-      const wrapper = factory();
+    describe('field values', () => {
+      it('outputs a single value', () => {
+        const props = { name: 'dcCreator', fieldData: { def: ['Artist'] } };
+        const wrapper = factory();
 
-      wrapper.setProps(props);
+        wrapper.setProps(props);
 
-      const fieldValue = wrapper.find('[data-qa="metadata field"] ul [data-qa="literal value"]');
-      fieldValue.text().should.include(props.fieldData.def);
+        const fieldValue = wrapper.find('[data-qa="metadata field"] ul [data-qa="literal value"]');
+        fieldValue.text().should.eq(props.fieldData.def[0]);
+      });
+
+      it('outputs multiple values', () => {
+        const props = { name: 'dcCreator', fieldData: { def: ['Artist1', 'Artist2'] } };
+        const wrapper = factory();
+
+        wrapper.setProps(props);
+
+        const fieldValues = wrapper.findAll('[data-qa="metadata field"] ul [data-qa="literal value"]');
+        fieldValues.at(0).text().should.eq(props.fieldData.def[0]);
+        fieldValues.at(1).text().should.eq(props.fieldData.def[1]);
+      });
+
+      it('optionally limits the number of values output', () => {
+        const props = { name: 'dcCreator', fieldData: { def: ['Artist1', 'Artist2'] }, limit: 1 };
+        const wrapper = factory();
+
+        wrapper.setProps(props);
+
+        const fieldValues = wrapper.findAll('[data-qa="metadata field"] ul [data-qa="literal value"]');
+        fieldValues.at(0).text().should.eq(props.fieldData.def[0]);
+        fieldValues.at(1).text().should.eq('formatting.ellipsis');
+      });
     });
 
     context('when value is not available in the preferred languages', () => {
