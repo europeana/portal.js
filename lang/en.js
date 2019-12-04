@@ -117,6 +117,9 @@ export default {
         "*": "Includes items not meeting our publishing criteria"
       }
     },
+    "proxy_dcterms_issued": {
+      "name": "Date Issued"
+    },
     "button": {
       "reset": "Reset",
       "apply": "Apply",
