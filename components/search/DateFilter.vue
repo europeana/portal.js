@@ -76,6 +76,15 @@
       }
     },
 
+    watch: {
+      start() {
+        this.form.start = this.start;
+      },
+      end() {
+        this.form.end = this.end;
+      }
+    },
+
     methods: {
       emitDateForm() {
         this.$emit('dateFilter', this.name, this.form);

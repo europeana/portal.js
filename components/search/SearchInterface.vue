@@ -37,6 +37,7 @@
             v-if="enableMoreFacets"
             :more-facets="moreFacets"
             :selected="moreSelectedFacets"
+            :filters="filters"
             @changed="changeMoreFacets"
           />
           <button
@@ -252,7 +253,7 @@
         return this.orderedFacets.filter(facet => this.moreFacetNames.includes(facet.name));
       },
       moreSelectedFacets() {
-        return pickBy(this.filters, (selected, name) => this.moreFacetNames.includes(name));
+        return pickBy(this.filters, (selected, name) => this.moreFacetNames.includes(name) || name === 'proxy_dcterms_issued');
       },
       enableMoreFacets() {
         return this.moreFacets.length > 0;

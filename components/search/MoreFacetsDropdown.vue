@@ -19,6 +19,14 @@
       </span>
     </template>
     <b-dropdown-group class="more-facets-wrapper">
+      <b-dropdown-form>
+        <DateFilter
+          :name="PROXY_DCTERMS_ISSUED"
+          :start="dateFilter.start"
+          :end="dateFilter.end"
+          @dateFilter="dateFilterSelected"
+        />
+      </b-dropdown-form>
       <template
         v-for="(facet, index) in moreFacets"
       >
@@ -65,11 +73,14 @@
 <script>
   import Vue from 'vue';
   import isEqual from 'lodash/isEqual';
+  import { rangeToQueryParam, rangeFromQueryParam } from '../../plugins/europeana/search';
   import MoreFacetsDropdownOptions from '../../components/search/MoreFacetsDropdownOptions';
+  import DateFilter from '../../components/search/DateFilter';
 
   export default {
     components: {
-      MoreFacetsDropdownOptions
+      MoreFacetsDropdownOptions,
+      DateFilter
     },
 
     props: {
@@ -81,12 +92,18 @@
       selected: {
         type: Object,
         default: () => {}
+      },
+
+      filters: {
+        type: Object,
+        default: () => []
       }
     },
 
     data() {
       return {
-        preSelected: this.cloneSelected()
+        preSelected: this.cloneSelected(),
+        PROXY_DCTERMS_ISSUED: 'proxy_dcterms_issued'
       };
     },
 
@@ -105,6 +122,15 @@
 
       moreFacetNames() {
         return this.moreFacets.map((facet) => facet.name);
+      },
+
+      dateFilter() {
+        const proxyDctermsIssued = this.preSelected[this.PROXY_DCTERMS_ISSUED];
+
+        if (!proxyDctermsIssued || proxyDctermsIssued.length < 1) {
+          return { start: null, end: null };
+        }
+        return rangeFromQueryParam(proxyDctermsIssued[0]);
       }
     },
 
@@ -117,6 +143,10 @@
     methods: {
       cloneSelected() {
         return Object.assign({}, this.selected);
+      },
+
+      dateFilterSelected(facetName, selectedFields) {
+        this.updateSelected(facetName, [].concat(rangeToQueryParam(selectedFields)));
       },
 
       updateSelected(facetName, selectedFields) {
