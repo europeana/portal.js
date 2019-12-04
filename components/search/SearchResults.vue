@@ -28,7 +28,7 @@
     <ContentCard
       v-for="result in value"
       :key="result.europeanaId"
-      :title="result.fields.dcTitle[0]"
+      :title="result.dcTitle || result.dcDescription"
       :url="{ name: 'record-all', params: { pathMatch: result.europeanaId.slice(1) } }"
       :image-url="result.edmPreview"
       :texts="cardTexts(result)"
@@ -68,25 +68,9 @@
 
     methods: {
       cardTexts(result) {
-        let texts = [];
-        for (const field of ['dcCreator', 'edmDataProvider']) {
-          if (result.fields[field]) {
-            texts.push(this.stringifyField(result.fields[field]));
-          }
-        }
+        let texts = [result.edmDataProvider];
+        if (result.dcCreator) texts.push(result.dcCreator);
         return texts;
-      },
-
-      stringifyField(field) {
-        // TODO: Rather than joining as strings, cards should handle arrays so this method can be skipped.
-        let returnString = field;
-        if (Array.isArray(field)) {
-          returnString = field.slice(0, 3).join(this.$t('formatting.listSeperator') + ' ');
-          if (field.length > 3) {
-            returnString = returnString + this.$t('formatting.listSeperator') + this.$t('formatting.ellipsis');
-          }
-        }
-        return returnString;
       }
     }
   };
