@@ -321,7 +321,7 @@ export default {
     "skipToMain": "Skip to page contents"
   },
   "searchPlaceholder": "What are you looking for?",
-  "searchSuggestions": "Search Suggestions",
+  "searchSuggestions": "Search suggestions",
   "searchTier": {
     "button": {
       "show": "Show these items",
