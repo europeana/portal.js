@@ -51,11 +51,20 @@ describe('components/record/MetadataField', () => {
           context: 'webResource'
         };
         it('outputs the context specific translated label', () => {
-
           wrapper.setProps(props);
 
           const fieldName = wrapper.find('[data-qa="metadata field"] [data-qa="label"]');
           fieldName.text().should.eq('fieldLabels.webResource.edmRights');
+        });
+      });
+
+      context('with labelling disabled', () => {
+        const props = { name: 'dcCreator', fieldData: { def: ['Artist'] }, labelled: false };
+        it('does not output a label', () => {
+          wrapper.setProps(props);
+
+          const label = wrapper.find('[data-qa="metadata field"] [data-qa="label"]');
+          label.exists().should.be.false;
         });
       });
     });
