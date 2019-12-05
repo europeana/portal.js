@@ -44,23 +44,11 @@
             v-for="(text, index) in displayTexts"
           >
             <b-card-text
-              v-if="typeof text === 'string'"
               :key="index"
+              :lang="text.code"
             >
-              {{ text | truncate(255, $t('formatting.ellipsis')) }}
+              {{ cardText(text.values) }}
             </b-card-text>
-            <div
-              v-else
-              :key="index"
-            >
-              <b-card-text
-                v-for="(langMapValue, langMapIndex) in text.values"
-                :key="index + '.' + langMapIndex"
-                :lang="text.code"
-              >
-                {{ langMapValue | truncate(255, $t('formatting.ellipsis')) }}
-              </b-card-text>
-            </div>
           </template>
         </template>
       </b-card-body>
@@ -109,6 +97,14 @@
       isRelated: {
         type: Boolean,
         default: false
+      },
+      omitUrisIfOtherValues: {
+        type: Boolean,
+        default: false
+      },
+      limitValuesWithinEachText: {
+        type: Number,
+        default: -1
       }
     },
 
@@ -127,26 +123,29 @@
         }
       },
 
-      // TODO: limit to three values, bearing in mind the need to annotate language
-      //       of lang maps... (per former stringifyField in SearchResults.vue)
       displayTexts() {
-        let texts = [];
-        for (const value of this.texts) {
+        return this.texts.map((value) => {
           if (typeof value === 'string') {
-            texts.push(value);
+            return { values: [value], code: null };
           } else if (Array.isArray(value)) {
-            texts = texts.concat(value);
-          } else if (typeof value === 'object') {
-            texts.push(langMapValueForLocale(value, this.$i18n.locale));
+            return { values: value, code: null };
           } else {
-            throw new TypeError(`Unsupported text value type: ${value}`);
+            return langMapValueForLocale(value, this.$i18n.locale, { omitUrisIfOtherValues: this.omitUrisIfOtherValues });
           }
-        }
-        return texts;
+        });
       },
 
       optimisedImageUrl() {
         return this.$options.filters.optimisedImageUrl(this.imageUrl, this.imageContentType);
+      }
+    },
+
+    methods: {
+      cardText(values) {
+        const limited = (this.limitValuesWithinEachText > -1) ? values.slice(0, this.limitValuesWithinEachText) : [].concat(values);
+        if (values.length > limited.length) limited.push(this.$t('formatting.ellipsis'));
+        const joined = limited.join(this.$t('formatting.listSeperator') + ' ');
+        return this.$options.filters.truncate(joined, 255, this.$t('formatting.ellipsis'));
       }
     }
   };

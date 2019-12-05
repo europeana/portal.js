@@ -84,11 +84,6 @@
       displayValues() {
         const display = Object.assign({}, this.langMappedValues);
 
-        if (this.omitUrisIfOtherValues) {
-          const withoutUris = display.values.filter((value) => !/^https?:\/\//.test(value));
-          if (withoutUris.length > 0) display.values = withoutUris;
-        }
-
         if (this.limitDisplayValues && (display.values.length > this.limit)) {
           display.values = display.values.slice(0, this.limit).concat(this.$t('formatting.ellipsis'));
         }
@@ -108,7 +103,7 @@
           return { values: this.fieldData, code: '' };
         }
 
-        return langMapValueForLocale(this.fieldData, this.$i18n.locale);
+        return langMapValueForLocale(this.fieldData, this.$i18n.locale, { omitUrisIfOtherValues: this.omitUrisIfOtherValues });
       },
 
       hasValuesForLocale() {

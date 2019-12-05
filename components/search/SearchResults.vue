@@ -33,6 +33,8 @@
       :image-url="result.edmPreview"
       :texts="cardTexts(result)"
       data-qa="search result"
+      :limit-values-within-each-text="3"
+      :omit-uris-if-other-values="true"
     />
   </b-card-group>
 </template>
@@ -68,8 +70,8 @@
 
     methods: {
       cardTexts(result) {
-        let texts = [result.edmDataProvider];
-        if (result.dcCreator) texts.push(result.dcCreator);
+        const texts = [result.edmDataProvider];
+        if (result.dcCreator) texts.unshift(result.dcCreator);
         return texts;
       }
     }

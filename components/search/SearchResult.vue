@@ -7,7 +7,7 @@
       <div
         v-if="localisedHeading"
         :lang="localisedHeading.code"
-        :data-field-name="localisedTitle ? 'dcTitle' : 'dcDescription'"
+        :data-field-name="localisedHeadingFieldName"
       >
         <!-- TODO: this is _list_ view... do we need to truncate? -->
         {{ localisedHeading.values[0] | truncate(90, $t('formatting.ellipsis')) }}
@@ -88,16 +88,12 @@
     },
 
     computed: {
-      localisedTitle() {
-        return this.dcTitle ? langMapValueForLocale(this.dcTitle, this.$i18n.locale) : null;
-      },
-
-      localisedDescription() {
-        return this.dcDescription ? langMapValueForLocale(this.dcDescription, this.$i18n.locale) : null;
+      localisedHeadingFieldName() {
+        return this.dcTitle ? 'dcTitle' : (this.dcDescription ? 'dcDescription' : null);
       },
 
       localisedHeading() {
-        return this.localisedTitle || this.localisedDescription;
+        return langMapValueForLocale(this.dcTitle || this.dcDescription, this.$i18n.locale, { omitUrisIfOtherValues: true });
       }
     }
   };
