@@ -4,6 +4,8 @@
     :id="elementId"
     class="auto-suggest-dropdown"
     data-qa="search suggestions"
+    role="listbox"
+    :aria-label="$t('searchSuggestions')"
     :aria-hidden="!isActive"
   >
     <b-list-group-item
@@ -279,6 +281,7 @@
       width: 100%;
       z-index: 20;
       border-radius: 10px;
+      background-color: $white;
 
       a.list-group-item {
         border: 0;
@@ -296,7 +299,7 @@
         }
 
         /deep/.highlight {
-          color: $blue;
+          color: $darkblue;
         }
       }
 

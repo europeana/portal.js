@@ -129,6 +129,11 @@
       }
     },
 
+    beforeDestroy() {
+      window.removeEventListener('touchmove', this.stopDrag);
+      window.removeEventListener('mousemove', this.drag);
+    },
+
     mounted() {
       this.setImageWidth();
       this.setSliderWidth();
