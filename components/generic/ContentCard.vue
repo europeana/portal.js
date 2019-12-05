@@ -116,7 +116,7 @@
       },
 
       displayTexts() {
-        return this.texts.map((value) => {
+        return this.texts.filter(Boolean).map((value) => {
           if (typeof value === 'string') {
             return { values: [value], code: null };
           } else if (Array.isArray(value)) {
