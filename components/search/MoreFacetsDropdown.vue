@@ -19,7 +19,7 @@
       </span>
     </template>
     <b-dropdown-group class="more-facets-wrapper">
-      <b-dropdown-form>
+      <b-dropdown-form v-if="showDateFilter">
         <DateFilter
           :name="PROXY_DCTERMS_ISSUED"
           :start="dateFilter.start"
@@ -122,6 +122,11 @@
 
       moreFacetNames() {
         return this.moreFacets.map((facet) => facet.name);
+      },
+
+      showDateFilter() {
+        // Hardcoded for now - https://europeana.atlassian.net/browse/EC-4033
+        return this.$store.state.entity.id === 'http://data.europeana.eu/concept/base/18';
       },
 
       dateFilter() {
