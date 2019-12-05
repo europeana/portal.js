@@ -21,9 +21,12 @@ export const actions = {
     })
       .then((response) => {
         response.items.forEach(item => {
+          console.log('monkey', item.fields.footerMoreInfo);
           commit('setLinks', {
             identifier: item.fields.identifier,
-            links: item.fields.links.map(item => item.fields)
+            links: item.fields.links.map(item => item.fields),
+            footerMoreInfo: item.fields.footerMoreInfo ? item.fields.footerMoreInfo.map(item => item.fields) : null,
+            footerHelp: item.fields.footerHelp ? item.fields.footerHelp.map(item => item.fields) : null
           });
         });
       }).catch(err => {
