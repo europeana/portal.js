@@ -93,7 +93,7 @@
       },
 
       localisedHeading() {
-        return langMapValueForLocale(this.dcTitle || this.dcDescription, this.$i18n.locale, { omitUrisIfOtherValues: true });
+        return langMapValueForLocale(this.dcTitle || this.dcDescription || {}, this.$i18n.locale, { omitUrisIfOtherValues: true });
       }
     }
   };
