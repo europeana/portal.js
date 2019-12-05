@@ -151,7 +151,14 @@
       },
 
       dateFilterSelected(facetName, selectedFields) {
-        this.updateSelected(facetName, [].concat(rangeToQueryParam(selectedFields)));
+        const getRange = rangeToQueryParam(selectedFields);
+        let newArray = [];
+
+        if (getRange !== '[* TO *]') {
+          newArray.push(getRange);
+        }
+
+        this.updateSelected(facetName, newArray);
       },
 
       updateSelected(facetName, selectedFields) {
