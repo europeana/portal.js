@@ -21,9 +21,12 @@ const entities = [
     prefLabel: {
       en: 'Painting'
     },
-    note: {
-      en: ['Painting is the practice of applying paint, pigment, color or other medium to a surface (support base).']
-    }
+    note: [
+      {
+        '@language': 'en',
+        '@value': 'Painting is the practice of applying paint, pigment, color or other medium to a surface (support base).'
+      }
+    ]
   }
 ];
 

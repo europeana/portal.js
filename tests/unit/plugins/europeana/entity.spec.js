@@ -312,9 +312,10 @@ describe('plugins/europeana/entity', () => {
   describe('getEntityDescription', () => {
     context('with an entity', () => {
       const entity = entitiesResponse.items[0];
+      const locale = 'en';
 
       it('returns a description', () => {
-        const description = entities.getEntityDescription(entity);
+        const description = entities.getEntityDescription(entity, locale);
         return description.should.contain('Architecture');
       });
     });

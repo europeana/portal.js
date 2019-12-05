@@ -125,7 +125,7 @@
         return this.editorialDepiction ? this.$t('goToRecord') : this.$t('entityDepictionCredit');
       },
       description() {
-        return this.editorialDescription ? this.editorialDescription : entities.getEntityDescription(this.entity);
+        return this.editorialDescription ? { values: [this.editorialDescription], code: null } : entities.getEntityDescription(this.entity, this.$i18n.locale);
       },
       editorialAttribution() {
         return this.page.primaryImageOfPage.fields.url;
@@ -144,7 +144,7 @@
       },
       // Description from the Contentful entry
       editorialDescription() {
-        if (!this.page || !this.page.description) return null;
+        if (!this.page || !this.page.description || this.page.description.length === 0) return null;
         return this.page.description;
       },
       // Title from the Contentful entry

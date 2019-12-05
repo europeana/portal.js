@@ -25,13 +25,13 @@
         {{ title }}
       </h1>
       <p
-        v-if="description"
+        v-if="description.values && description.values.length >= 1"
         data-qa="entity description"
       >
-        {{ showAll ? description : truncatedDescription }}
+        {{ showAll ? description.values[0] : truncatedDescription }}
         <br>
         <b-link
-          v-if="description.length > limitCharacters"
+          v-if="description.values[0].length > limitCharacters"
           data-qa="entity show link"
           class="mt-3 btn-link"
           @click="toggleMoreDescription"
@@ -65,8 +65,8 @@
         default: ''
       },
       description: {
-        type: String,
-        default: ''
+        type: Object,
+        default: null
       },
       depictionLinkTitle: {
         type: String,
@@ -83,7 +83,7 @@
     },
     computed: {
       truncatedDescription() {
-        return this.$options.filters.truncate(this.description, 255, this.$t('formatting.ellipsis'));
+        return this.$options.filters.truncate(this.description.values[0], 255, this.$t('formatting.ellipsis'));
       }
     },
     methods: {

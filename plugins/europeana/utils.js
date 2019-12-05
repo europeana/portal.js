@@ -85,11 +85,24 @@ export function langMapValueForLocale(langMap, locale) {
   return addEntityValues(returnVal, entityValues(langMap['def'], locale));
 }
 
+function isJSONLDExpanded(values) {
+  return values[0] && Object.prototype.hasOwnProperty.call(values[0], '@language');
+}
+
+function langMapValueFromJSONLD(value, locale) {
+  const forCurrentLang = value.find(element => element['@language'] === locale);
+  return forCurrentLang && forCurrentLang['@value'];
+}
+
 function setLangMapValuesAndCode(returnValue, langMap, key, locale) {
   if (langMap[key]) {
     setLangMapValues(returnValue, langMap, key, locale);
     setLangCode(returnValue, key, locale);
     if (undefinedLocaleCodes.includes(key)) filterEntities(returnValue);
+  } else if (isJSONLDExpanded(langMap)) {
+    const matchedValue = langMapValueFromJSONLD(langMap, key);
+    if (matchedValue) returnValue['values'] = [matchedValue];
+    setLangCode(returnValue, key, locale);
   }
 }
 
