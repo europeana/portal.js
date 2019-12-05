@@ -1,41 +1,47 @@
 <template>
   <b-row>
-    <b-col cols="12">
-      <legend>
-        {{ facetName }}
-      </legend>
-    </b-col>
     <b-col>
-      <label
-        class="sr-only"
-        for="start-date"
-      >
-        {{ $t('dateFilter.startDate') }}
-      </label>
-      <b-input
-        id="start-date"
-        v-model="form.start"
-        class="mb-2 mr-sm-2 mb-sm-0"
-        type="date"
-        data-qa="start input"
-        @change="emitDateForm"
-      />
-    </b-col>
+      <b-row>
+        <b-col>
+          <legend class="mb-4 d-inline-block">
+            {{ facetName }}
+          </legend>
+        </b-col>
+      </b-row>
+      <b-row>
+        <b-col cols="4">
+          <label
+            class="sr-only"
+            for="start-date"
+          >
+            {{ $t('dateFilter.startDate') }}
+          </label>
+          <b-input
+            id="start-date"
+            v-model="form.start"
+            class="mb-2 mr-sm-2 mb-sm-0"
+            type="date"
+            data-qa="start input"
+            @change="emitDateForm"
+          />
+        </b-col>
 
-    <b-col>
-      <label
-        class="sr-only"
-        for="end-date"
-      >
-        {{ $t('dateFilter.endDate') }}
-      </label>
-      <b-input
-        id="end-date"
-        v-model="form.end"
-        type="date"
-        data-qa="end input"
-        @change="emitDateForm"
-      />
+        <b-col cols="4">
+          <label
+            class="sr-only"
+            for="end-date"
+          >
+            {{ $t('dateFilter.endDate') }}
+          </label>
+          <b-input
+            id="end-date"
+            v-model="form.end"
+            type="date"
+            data-qa="end input"
+            @change="emitDateForm"
+          />
+        </b-col>
+      </b-row>
     </b-col>
   </b-row>
 </template>

@@ -19,7 +19,7 @@
       </span>
     </template>
     <b-dropdown-group class="more-facets-wrapper">
-      <b-dropdown-form v-if="showDateFilter">
+      <b-dropdown-form v-if="!showDateFilter">
         <DateFilter
           :name="PROXY_DCTERMS_ISSUED"
           :start="dateFilter.start"
