@@ -30,7 +30,7 @@
       <template
         v-for="(facet, index) in moreFacets"
       >
-        <MoreFacetsDropdownOptions
+        <MoreFiltersDropdownFacet
           v-if="facet.fields && facet.fields.length > 0"
           :key="index"
           :fields="facet.fields"
@@ -74,12 +74,12 @@
   import Vue from 'vue';
   import isEqual from 'lodash/isEqual';
   import { rangeToQueryParam, rangeFromQueryParam } from '../../plugins/europeana/search';
-  import MoreFacetsDropdownOptions from '../../components/search/MoreFacetsDropdownOptions';
+  import MoreFiltersDropdownFacet from '../../components/search/MoreFiltersDropdownFacet';
   import DateFilter from '../../components/search/DateFilter';
 
   export default {
     components: {
-      MoreFacetsDropdownOptions,
+      MoreFiltersDropdownFacet,
       DateFilter
     },
 

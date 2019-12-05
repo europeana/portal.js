@@ -1,5 +1,5 @@
 import { storiesOf } from '@storybook/vue';
-import MoreFacetsDropdown from './MoreFacetsDropdown.vue';
+import MoreFiltersDropdown from './MoreFiltersDropdown.vue';
 
 const i18n = {
   locale: 'en',
@@ -28,9 +28,9 @@ const i18n = {
   }
 };
 
-storiesOf('Search/MoreFacetsDropdown', module)
+storiesOf('Search/MoreFiltersDropdown', module)
   .add('More Filters', () => ({
-    components: { MoreFacetsDropdown },
+    components: { MoreFiltersDropdown },
     i18n,
     data() {
       return { facets: [
@@ -146,7 +146,7 @@ storiesOf('Search/MoreFacetsDropdown', module)
     template: ` <b-container
       class="mt-3"
       >
-        <MoreFacetsDropdown :more-facets="facets" />
+        <MoreFiltersDropdown :more-facets="facets" />
       </b-container>`
   }));
 
