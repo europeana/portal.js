@@ -118,7 +118,7 @@ export default {
       }
     },
     "proxy_dcterms_issued": {
-      "name": "Date Issued"
+      "name": "Date issued"
     },
     "button": {
       "reset": "Reset",
