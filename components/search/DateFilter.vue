@@ -9,7 +9,10 @@
         </b-col>
       </b-row>
       <b-row>
-        <b-col cols="4">
+        <b-col
+          lg="4"
+          class="pr-lg-0"
+        >
           <label
             class="sr-only"
             for="start-date"
@@ -27,7 +30,17 @@
           />
         </b-col>
 
-        <b-col cols="4">
+        <b-col
+          lg="1"
+          class="d-flex align-items-center justify-content-center px-lg-0 py-3 py-lg-0"
+        >
+          {{ $t('dateFilter.to') }}
+        </b-col>
+
+        <b-col
+          lg="4"
+          class="pl-lg-0"
+        >
           <label
             class="sr-only"
             for="end-date"

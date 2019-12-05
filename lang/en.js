@@ -393,7 +393,8 @@ export default {
   "colourSwatch": "Colour swatch",
   "dateFilter": {
     "startDate": "Start date",
-    "endDate": "End date"
+    "endDate": "End date",
+    "to": "To"
   },
   "cookieDisclaimer": {
     "acceptCookieDisclaimer": "Accept cookie disclaimer",
