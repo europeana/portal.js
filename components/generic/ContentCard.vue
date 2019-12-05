@@ -18,18 +18,10 @@
         class="card-img"
       />
       <b-card-body>
-        <b-card-title>
-          <template
-            v-if="typeof displayTitle === 'string'"
-          >
-            {{ displayTitle | truncate(90, $t('formatting.ellipsis')) }}
-          </template>
-          <span
-            v-else
-            :lang="displayTitle.code"
-          >
-            {{ displayTitle.values[0] | truncate(90, $t('formatting.ellipsis')) }}
-          </span>
+        <b-card-title
+          :lang="displayTitle.code"
+        >
+          {{ displayTitle.values[0] | truncate(90, $t('formatting.ellipsis')) }}
         </b-card-title>
         <time
           v-if="datetime"
@@ -117,7 +109,7 @@
 
       displayTitle() {
         if (typeof this.title === 'string') {
-          return this.title;
+          return { values: [this.title], code: null };
         } else {
           return langMapValueForLocale(this.title, this.$i18n.locale);
         }
