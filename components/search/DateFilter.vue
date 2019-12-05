@@ -22,6 +22,7 @@
             class="mb-2 mr-sm-2 mb-sm-0"
             type="date"
             data-qa="start input"
+            :class="{ 'is-active' : form.start }"
             @change="emitDateForm"
           />
         </b-col>
@@ -38,6 +39,7 @@
             v-model="form.end"
             type="date"
             data-qa="end input"
+            :class="{ 'is-active' : form.end }"
             @change="emitDateForm"
           />
         </b-col>
@@ -98,3 +100,12 @@
     }
   };
 </script>
+
+<style lang="scss" scoped>
+  @import "./assets/scss/variables.scss";
+
+  .form-control.is-active {
+    border: 1px solid $innovationblue;
+    color: $innovationblue;
+  }
+</style>
