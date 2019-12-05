@@ -103,7 +103,8 @@
     data() {
       return {
         preSelected: this.cloneSelected(),
-        PROXY_DCTERMS_ISSUED: 'proxy_dcterms_issued'
+        PROXY_DCTERMS_ISSUED: 'proxy_dcterms_issued',
+        NEWSPAPERS_CONCEPT_URI: 'http://data.europeana.eu/concept/base/18'
       };
     },
 
@@ -126,7 +127,7 @@
 
       showDateFilter() {
         // Hardcoded for now - https://europeana.atlassian.net/browse/EC-4033
-        return this.$store.state.entity.id === 'http://data.europeana.eu/concept/base/18';
+        return this.$store.state.entity.id === this.NEWSPAPERS_CONCEPT_URI;
       },
 
       dateFilter() {
@@ -150,15 +151,9 @@
         return Object.assign({}, this.selected);
       },
 
-      dateFilterSelected(facetName, selectedFields) {
-        const getRange = rangeToQueryParam(selectedFields);
-        let newArray = [];
-
-        if (getRange !== '[* TO *]') {
-          newArray.push(getRange);
-        }
-
-        this.updateSelected(facetName, newArray);
+      dateFilterSelected(facetName, dateRange) {
+        const rangeQuery = (!dateRange.start && !dateRange.end) ? [] : [rangeToQueryParam(dateRange)];
+        this.updateSelected(facetName, rangeQuery);
       },
 
       updateSelected(facetName, selectedFields) {
