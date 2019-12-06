@@ -32,7 +32,7 @@
 
 <script>
   import PageHeader from '../components/PageHeader.vue';
-  import PageFooter from '../components/PageFooterBeta.vue';
+  import PageFooter from '../components/PageFooter.vue';
   import CookieDisclaimer from '../components/generic/CookieDisclaimer';
 
   export default {
