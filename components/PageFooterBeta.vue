@@ -10,10 +10,10 @@
           class="pb-4"
         >
           <h5 class="text-uppercase font-weight-bold">
-            Our mission
+            {{ $t('footer.ourMission') }}
           </h5>
           <p class="font-italic mb-0">
-            We transform the world with culture! We want to build on Europe's rich heritage and make it easier for people to use, whether for work, for learning or just for fun.
+            {{ $t('footer.ourMissionQuote') }}
           </p>
         </b-col>
         <b-col
@@ -26,7 +26,7 @@
               lg="12"
             >
               <h5 class="text-uppercase font-weight-bold">
-                More Info
+                {{ $t('footer.moreInfo') }}
               </h5>
               <ul class="footer-link-list m-0 p-0 pb-lg-5">
                 <li
@@ -54,7 +54,7 @@
               lg="12"
             >
               <h5 class="text-uppercase font-weight-bold">
-                Help
+                {{ $t('footer.help') }}
               </h5>
               <ul class="footer-link-list m-0 p-0">
                 <li
@@ -81,7 +81,7 @@
         </b-col>
         <b-col lg="3">
           <h5 class="text-uppercase font-weight-bold">
-            Customise website language
+            {{ $t('footer.customiseWebsiteLanguage') }}
           </h5>
           <LangSelector data-qa="language selector" />
         </b-col>
@@ -96,9 +96,9 @@
               alt="Co-financed by the Connecting Europe Facility of the European Union"
               class="mb-3"
             >
-            <p>Europeana is an initiative of the European Union, financed by the European Union’s Connecting Europe Facility and European Union Member States. The Europeana services, including this website, are operated by a consortium led by the Europeana Foundation under a service contract with the European Commission.</p>
+            <p>{{ $t('footer.disclaimerLine1') }}</p>
 
-            <p>The European Commission does not guarantee the accuracy of the information and accepts no responsibility or liability whatsoever with regard to the information on this website. Neither the European Commission, nor any person acting on the European Commission’s behalf, is responsible or liable for the accuracy or use of the information on this website.</p>
+            <p>{{ $t('footer.disclaimerLine2') }}</p>
           </div>
         </b-col>
       </b-row>

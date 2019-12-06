@@ -385,6 +385,15 @@ export default {
       "help": "Help"
     }
   },
+  "footer": {
+    "ourMission": "Our mission",
+    "ourMissionQuote": "We transform the world with culture! We want to build on Europe's rich heritage and make it easier for people to use, whether for work, for learning or just for fun.",
+    "moreInfo": "More info",
+    "help": "Help",
+    "customiseWebsiteLanguage": "Customise website language",
+    "disclaimerLine1": "Europeana is an initiative of the European Union, financed by the European Union’s Connecting Europe Facility and European Union Member States. The Europeana services, including this website, are operated by a consortium led by the Europeana Foundation under a service contract with the European Commission.",
+    "disclaimerLine2": "The European Commission does not guarantee the accuracy of the information and accepts no responsibility or liability whatsoever with regard to the information on this website. Neither the European Commission, nor any person acting on the European Commission’s behalf, is responsible or liable for the accuracy or use of the information on this website."
+  },
   "imageSlider": {
     "handle": "Slider Handle"
   },
