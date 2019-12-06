@@ -127,7 +127,7 @@
 
       showDateFilter() {
         // Hardcoded for now - https://europeana.atlassian.net/browse/EC-4033
-        return this.$store.state.entity.id === this.NEWSPAPERS_CONCEPT_URI;
+        return true; //this.$store.state.entity.id === this.NEWSPAPERS_CONCEPT_URI;
       },
 
       dateFilter() {
@@ -136,6 +136,7 @@
         if (!proxyDctermsIssued || proxyDctermsIssued.length < 1) {
           return { start: null, end: null };
         }
+
         return rangeFromQueryParam(proxyDctermsIssued[0]);
       }
     },
