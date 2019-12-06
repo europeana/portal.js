@@ -30,6 +30,10 @@ footer {
         text-decoration: none;
         font-weight: bold;
 
+        @media (min-width: $bp-large) {
+          font-weight: normal;
+        }
+
         &:hover {
           text-decoration: underline;
         }

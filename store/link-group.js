@@ -17,16 +17,13 @@ export const actions = {
     await contentfulClient.getEntries({
       'locale': this.app.i18n.isoLocale(),
       'content_type': 'linkGroup',
-      'fields.identifier[in]': 'mainNavigation,footer'
+      'fields.identifier[in]': 'mainNavigation,footer,footerMoreInfo,footerHelp'
     })
       .then((response) => {
         response.items.forEach(item => {
-          console.log('monkey', item.fields.footerMoreInfo);
           commit('setLinks', {
             identifier: item.fields.identifier,
-            links: item.fields.links.map(item => item.fields),
-            footerMoreInfo: item.fields.footerMoreInfo ? item.fields.footerMoreInfo.map(item => item.fields) : null,
-            footerHelp: item.fields.footerHelp ? item.fields.footerHelp.map(item => item.fields) : null
+            links: item.fields.links.map(item => item.fields)
           });
         });
       }).catch(err => {

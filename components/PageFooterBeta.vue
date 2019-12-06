@@ -21,16 +21,16 @@
           class="pb-4"
         >
           <b-row>
-            <b-col>
+            <b-col
+              col="6"
+              lg="12"
+            >
               <h5 class="text-uppercase font-weight-bold">
                 More Info
               </h5>
-              <ul
-                v-if="links"
-                class="footer-link-list m-0 p-0"
-              >
+              <ul class="footer-link-list m-0 p-0 pb-lg-5">
                 <li
-                  v-for="(footerLink, index) in links"
+                  v-for="(footerLink, index) in footerMoreInfo"
                   :key="index"
                 >
                   <template
@@ -49,18 +49,44 @@
                 </li>
               </ul>
             </b-col>
-            <b-col>
+            <b-col
+              col="6"
+              lg="12"
+            >
               <h5 class="text-uppercase font-weight-bold">
                 Help
               </h5>
+              <ul class="footer-link-list m-0 p-0">
+                <li
+                  v-for="(footerLink, index) in footerHelp"
+                  :key="index"
+                >
+                  <template
+                    v-if="footerLink.url"
+                  >
+                    <SmartLink
+                      :destination="footerLink.url"
+                      link-class="footer-link"
+                    >
+                      {{ footerLink.text }}
+                    </SmartLink>
+                  </template>
+                  <p v-else>
+                    {{ footerLink.text }}
+                  </p>
+                </li>
+              </ul>
             </b-col>
           </b-row>
         </b-col>
-        <b-col lg="5">
-          sign up here
+        <b-col lg="3">
+          <h5 class="text-uppercase font-weight-bold">
+            Customise website language
+          </h5>
+          <LangSelector data-qa="language selector" />
         </b-col>
       </b-row>
-      <hr class="my-4">
+      <hr class="my-5">
       <b-row>
         <b-col lg="6">
           <div class="sub-footer">
@@ -82,16 +108,19 @@
 
 <script>
   import SmartLink from './generic/SmartLink';
-  // import LangSelector from './generic/LanguageSelector';
+  import LangSelector from './generic/LanguageSelector';
 
   export default {
     components: {
-      SmartLink
-      // LangSelector
+      SmartLink,
+      LangSelector
     },
     computed: {
-      links() {
-        return this.$store.state['link-group'].links.footer;
+      footerMoreInfo() {
+        return this.$store.state['link-group'].links.footerMoreInfo;
+      },
+      footerHelp() {
+        return this.$store.state['link-group'].links.footerHelp;
       }
     }
   };
