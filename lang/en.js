@@ -307,6 +307,7 @@ export default {
     }
   },
   "entity": "Entity",
+  "learnMore": "Learn more about where these descriptions are obtained.",
   "resourceWikimedia": "Resource from Wikimedia Commons",
   "messages": {
     "notFound": "Not Found",
