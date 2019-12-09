@@ -15,16 +15,16 @@
         >
           <label
             class="sr-only"
-            for="start-date"
+            :for="`${name}.start`"
           >
             {{ $t('dateFilter.startDate') }}
           </label>
           <b-input
-            id="start-date"
+            :id="`${name}.start`"
             v-model="form.start"
             class="mb-2 mr-sm-2 mb-sm-0"
             type="date"
-            data-qa="start input"
+            data-qa="date range start input"
             :class="{ 'is-active' : form.start }"
             @change="emitDateForm"
           />
@@ -43,15 +43,15 @@
         >
           <label
             class="sr-only"
-            for="end-date"
+            :for="`${name}.end`"
           >
             {{ $t('dateFilter.endDate') }}
           </label>
           <b-input
-            id="end-date"
+            :id="`${name}.end`"
             v-model="form.end"
             type="date"
-            data-qa="end input"
+            data-qa="date range end input"
             :class="{ 'is-active' : form.end }"
             @change="emitDateForm"
           />

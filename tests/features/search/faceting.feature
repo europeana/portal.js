@@ -149,10 +149,10 @@ Feature: Search faceting
     And I see a `more filters selected options count` with the text "2"
   
   Scenario: Filtering results using the date filter in more facets dropdown
-    Given I am on the `newspaper page`
+    Given I am on the `Newspapers collection page`
     When I click the `more filters dropdown button`
-    And I enter "18-05-1982" in the `start input`
-    And I enter "18-05-2004" in the `end input`
+    And I enter "18-05-1982" in the `date range start input`
+    And I enter "18-05-2004" in the `date range end input`
     And I click the `apply button`
     And I wait 2 seconds
     Then I should be on `/en/entity/topic/18-newspaper?page=1&qf=proxy_dcterms_issued%3A%5B1982-05-18%20TO%202004-05-18%5D&view=grid`
