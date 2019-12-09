@@ -28,7 +28,10 @@
               <h5 class="text-uppercase font-weight-bold">
                 {{ $t('footer.moreInfo') }}
               </h5>
-              <ul class="footer-link-list m-0 p-0 pb-lg-5">
+              <ul
+                data-qa="footer more info links"
+                class="footer-link-list m-0 p-0 pb-lg-5"
+              >
                 <li
                   v-for="(footerLink, index) in footerMoreInfo"
                   :key="index"
@@ -53,7 +56,10 @@
               <h5 class="text-uppercase font-weight-bold">
                 {{ $t('footer.help') }}
               </h5>
-              <ul class="footer-link-list m-0 p-0">
+              <ul
+                class="footer-link-list m-0 p-0"
+                data-qa="footer help links"
+              >
                 <li
                   v-for="(footerLink, index) in footerHelp"
                   :key="index"

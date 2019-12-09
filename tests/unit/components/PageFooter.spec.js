@@ -11,7 +11,11 @@ const dummyStore = {
   state: {
     'link-group': {
       links: {
-        footer: [
+        footerMoreInfo: [
+          { url: 'https://www.example.org', text: 'Example link' },
+          { url: 'https://www.europeana.eu', text: 'Europeana link' }
+        ],
+        footerHelp: [
           { url: 'https://www.example.org', text: 'Example link' },
           { url: 'https://www.europeana.eu', text: 'Europeana link' }
         ]
@@ -28,10 +32,18 @@ const factory = () => shallowMount(PageFooter, {
   }
 });
 
-describe('components/search/PageFooter', () => {
+describe('components/PageFooter', () => {
   it('it contains elements for each link', async() => {
     const wrapper = factory();
-    const renderedList = wrapper.findAll('footer ul li');
+    const moreInfo = wrapper.find('[data-qa="footer more info links"]');
+    const renderedList = moreInfo.findAll('li');
+    renderedList.length.should.eq(2);
+  });
+
+  it('it contains elements for each link', async() => {
+    const wrapper = factory();
+    const help = wrapper.find('[data-qa="footer help links"]');
+    const renderedList = help.findAll('li');
     renderedList.length.should.eq(2);
   });
 
