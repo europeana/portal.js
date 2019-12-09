@@ -1,17 +1,19 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
+import Vuex from 'vuex';
 import MoreFacetsDropdown from '../../../../components/search/MoreFiltersDropdown.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
+localVue.use(Vuex);
 
-const $store = {
+const store = new Vuex.Store({
   state: {
     entity: {
       id: null
     }
   }
-};
+});
 
 
 const factory = () => mount(MoreFacetsDropdown, {
@@ -20,11 +22,11 @@ const factory = () => mount(MoreFacetsDropdown, {
     selected: {}
   },
   mocks: {
-    $store,
     $t: (key) => key,
     $tc: (key) => key,
     $te: (key) => key
-  }
+  },
+  store
 });
 
 describe('components/search/MoreFacetsDropdown', () => {
