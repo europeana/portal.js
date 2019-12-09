@@ -142,5 +142,14 @@ module.exports = {
         });
       }
     }
+  },
+
+  /*
+  ** Render configuration
+   */
+  render: {
+    static: {
+      maxAge: '1d'
+    }
   }
 };
