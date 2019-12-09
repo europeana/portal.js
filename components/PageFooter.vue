@@ -33,16 +33,13 @@
                   v-for="(footerLink, index) in footerMoreInfo"
                   :key="index"
                 >
-                  <template
+                  <SmartLink
                     v-if="footerLink.url"
+                    :destination="footerLink.url"
+                    link-class="footer-link"
                   >
-                    <SmartLink
-                      :destination="footerLink.url"
-                      link-class="footer-link"
-                    >
-                      {{ footerLink.text }}
-                    </SmartLink>
-                  </template>
+                    {{ footerLink.text }}
+                  </SmartLink>
                   <p v-else>
                     {{ footerLink.text }}
                   </p>
@@ -61,16 +58,13 @@
                   v-for="(footerLink, index) in footerHelp"
                   :key="index"
                 >
-                  <template
+                  <SmartLink
                     v-if="footerLink.url"
+                    :destination="footerLink.url"
+                    link-class="footer-link"
                   >
-                    <SmartLink
-                      :destination="footerLink.url"
-                      link-class="footer-link"
-                    >
-                      {{ footerLink.text }}
-                    </SmartLink>
-                  </template>
+                    {{ footerLink.text }}
+                  </SmartLink>
                   <p v-else>
                     {{ footerLink.text }}
                   </p>
@@ -93,8 +87,8 @@
             <img
               width="250"
               src="../assets/img/eu-flag.svg"
-              alt="Co-financed by the Connecting Europe Facility of the European Union"
               class="mb-3"
+              :alt="$t('footer.imageDescription')"
             >
             <p>{{ $t('footer.disclaimerLine1') }}</p>
 
