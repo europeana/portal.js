@@ -42,6 +42,9 @@ const factory = (options = {}) => {
         results: [],
         filters: {},
         ...options.storeState
+      },
+      entity: {
+        id: null
       }
     }
   });

@@ -185,6 +185,6 @@ Feature: Search faceting
     And I wait 2 seconds
     Then I should be on `/en/search?page=1&query=&view=grid`
 
-  Scenario: Non-facet filters excluded from options count
-    Given I am on `/en/search?qf=proxy_dcterms_issued:*`
+  Scenario: Non-core/non-more filters excluded from options count
+    Given I am on `/en/search?qf=proxy_dcterms_alternative:*`
     Then I don't have a `more filters selected options count`
