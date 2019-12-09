@@ -25,20 +25,21 @@
         {{ title }}
       </h1>
       <p
-        v-if="description.values && description.values.length >= 1"
+        v-if="hasDescription"
         data-qa="entity description"
+        :lang="description.code"
       >
         {{ showAll ? description.values[0] : truncatedDescription }}
         <br>
-        <b-link
-          v-if="description.values[0].length > limitCharacters"
-          data-qa="entity show link"
-          class="mt-3 btn-link"
-          @click="toggleMoreDescription"
-        >
-          {{ showAll ? $t('showLess') : $t('showMore') }}
-        </b-link>
       </p>
+      <b-link
+        v-if="hasDescription && description.values[0].length > limitCharacters"
+        data-qa="entity show link"
+        class="btn-link"
+        @click="toggleMoreDescription"
+      >
+        {{ showAll ? $t('showLess') : $t('showMore') }}
+      </b-link>
     </b-col>
   </b-row>
 </template>
@@ -77,13 +78,16 @@
       return {
         depictionAttribution: this.attribution,
         depictionThumbnail: this.depiction,
-        limitCharacters: 200,
+        limitCharacters: 255,
         showAll: false
       };
     },
     computed: {
       truncatedDescription() {
-        return this.$options.filters.truncate(this.description.values[0], 255, this.$t('formatting.ellipsis'));
+        return this.$options.filters.truncate(this.description.values[0], this.limitCharacters, this.$t('formatting.ellipsis'));
+      },
+      hasDescription() {
+        return this.description && this.description.values && this.description.values.length >= 1;
       }
     },
     methods: {

@@ -29,7 +29,7 @@ const searchResponse = {
 const entitiesResponse = {
   items: [
     { type: 'Concept',
-      id: 'http://data.europeana.eu/agent/base/147831',
+      id: 'http://data.europeana.eu/concept/base/147831',
       prefLabel: { en: 'Architecture' },
       note: {
         en: ['Architecture is both the process and the product of planning, designing, and constructing buildings and other physical structures.']
@@ -40,8 +40,18 @@ const entitiesResponse = {
       }
     },
     { type: 'Concept',
-      id: 'http://data.europeana.eu/agent/base/49928',
+      id: 'http://data.europeana.eu/concept/base/49928',
       prefLabel: { en: 'Painting' }
+    },
+    { type: 'Agent',
+      id: 'http://data.europeana.eu/agent/base/147831',
+      prefLabel: { en: 'Albert Edelfelt' },
+      biographicalInformation: [
+        {
+          '@language': 'en',
+          '@value': 'Albert Gustaf Aristides Edelfelt (21 July 1854 – 18 August 1905) was a Finnish painter.'
+        }
+      ]
     }
   ]
 };
@@ -310,13 +320,25 @@ describe('plugins/europeana/entity', () => {
   });
 
   describe('getEntityDescription', () => {
-    context('with an entity', () => {
+    context('with a Concept entity', () => {
       const entity = entitiesResponse.items[0];
-      const locale = 'en';
+      const locale = 'nl';
 
-      it('returns a description', () => {
+      it('returns the description with values and language code', () => {
         const description = entities.getEntityDescription(entity, locale);
-        return description.should.contain('Architecture');
+        description.values[0].should.contain('Architecture');
+        description.code.should.contain('en');
+      });
+    });
+
+    context('with an Agent entity', () => {
+      const entity = entitiesResponse.items[2];
+      const locale = 'nl';
+
+      it('returns the description with values and language code', () => {
+        const description = entities.getEntityDescription(entity, locale);
+        description.values[0].should.contain('Albert Gustaf Aristides Edelfelt');
+        description.code.should.contain('en');
       });
     });
   });
