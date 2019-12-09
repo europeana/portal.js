@@ -3,9 +3,11 @@
     <b-col>
       <b-row>
         <b-col>
-          <legend class="mb-4 d-inline-block">
+          <strong
+            class="mb-4 d-inline-block"
+          >
             {{ facetName }}
-          </legend>
+          </strong>
         </b-col>
       </b-row>
       <b-row>
@@ -26,6 +28,7 @@
             type="date"
             data-qa="date range start input"
             :class="{ 'is-active' : form.start }"
+            placeholder="dd/mm/yyyy"
             @change="emitDateForm"
           />
         </b-col>
@@ -53,6 +56,7 @@
             type="date"
             data-qa="date range end input"
             :class="{ 'is-active' : form.end }"
+            placeholder="dd/mm/yyyy"
             @change="emitDateForm"
           />
         </b-col>
