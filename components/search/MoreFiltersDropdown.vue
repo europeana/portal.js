@@ -92,11 +92,6 @@
       selected: {
         type: Object,
         default: () => {}
-      },
-
-      filters: {
-        type: Object,
-        default: () => []
       }
     },
 
@@ -127,7 +122,7 @@
 
       showDateFilter() {
         // Hardcoded for now - https://europeana.atlassian.net/browse/EC-4033
-        return true; //this.$store.state.entity.id === this.NEWSPAPERS_CONCEPT_URI;
+        return this.$store.state.entity.id === this.NEWSPAPERS_CONCEPT_URI;
       },
 
       dateFilter() {

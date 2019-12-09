@@ -37,7 +37,6 @@
             v-if="enableMoreFacets"
             :more-facets="moreFacets"
             :selected="moreSelectedFacets"
-            :filters="filters"
             @changed="changeMoreFacets"
           />
           <button
