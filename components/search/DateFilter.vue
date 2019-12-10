@@ -1,41 +1,66 @@
 <template>
   <b-row>
-    <b-col cols="12">
-      <legend>
-        {{ facetName }}
-      </legend>
-    </b-col>
     <b-col>
-      <label
-        class="sr-only"
-        for="start-date"
-      >
-        {{ $t('dateFilter.startDate') }}
-      </label>
-      <b-input
-        id="start-date"
-        v-model="form.start"
-        class="mb-2 mr-sm-2 mb-sm-0"
-        type="date"
-        data-qa="start input"
-        @change="emitDateForm"
-      />
-    </b-col>
+      <b-row>
+        <b-col>
+          <strong
+            class="mb-4 d-inline-block"
+          >
+            {{ facetName }}
+          </strong>
+        </b-col>
+      </b-row>
+      <b-row>
+        <b-col
+          lg="4"
+          class="pr-lg-0"
+        >
+          <label
+            class="sr-only"
+            :for="`${name}.start`"
+          >
+            {{ $t('dateFilter.startDate') }}
+          </label>
+          <b-input
+            :id="`${name}.start`"
+            v-model="form.start"
+            class="mb-2 mr-sm-2 mb-sm-0"
+            type="date"
+            data-qa="date range start input"
+            :class="{ 'is-active' : form.start }"
+            placeholder="dd/mm/yyyy"
+            @change="emitDateForm"
+          />
+        </b-col>
 
-    <b-col>
-      <label
-        class="sr-only"
-        for="end-date"
-      >
-        {{ $t('dateFilter.endDate') }}
-      </label>
-      <b-input
-        id="end-date"
-        v-model="form.end"
-        type="date"
-        data-qa="end input"
-        @change="emitDateForm"
-      />
+        <b-col
+          lg="1"
+          class="d-flex align-items-center justify-content-center px-lg-0 py-3 py-lg-0"
+        >
+          {{ $t('dateFilter.to') }}
+        </b-col>
+
+        <b-col
+          lg="4"
+          class="pl-lg-0"
+        >
+          <label
+            class="sr-only"
+            :for="`${name}.end`"
+          >
+            {{ $t('dateFilter.endDate') }}
+          </label>
+          <b-input
+            :id="`${name}.end`"
+            v-model="form.end"
+            type="date"
+            data-qa="date range end input"
+            :class="{ 'is-active' : form.end }"
+            placeholder="dd/mm/yyyy"
+            @change="emitDateForm"
+          />
+        </b-col>
+      </b-row>
     </b-col>
   </b-row>
 </template>
@@ -76,6 +101,15 @@
       }
     },
 
+    watch: {
+      start() {
+        this.form.start = this.start;
+      },
+      end() {
+        this.form.end = this.end;
+      }
+    },
+
     methods: {
       emitDateForm() {
         this.$emit('dateFilter', this.name, this.form);
@@ -83,3 +117,12 @@
     }
   };
 </script>
+
+<style lang="scss" scoped>
+  @import "./assets/scss/variables.scss";
+
+  .form-control.is-active {
+    border: 1px solid $innovationblue;
+    color: $innovationblue;
+  }
+</style>

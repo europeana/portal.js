@@ -51,22 +51,78 @@ describe('components/record/MetadataField', () => {
           context: 'webResource'
         };
         it('outputs the context specific translated label', () => {
-
           wrapper.setProps(props);
 
           const fieldName = wrapper.find('[data-qa="metadata field"] [data-qa="label"]');
           fieldName.text().should.eq('fieldLabels.webResource.edmRights');
         });
       });
+
+      context('with labelling disabled', () => {
+        const props = { name: 'dcCreator', fieldData: { def: ['Artist'] }, labelled: false };
+        it('does not output a label', () => {
+          wrapper.setProps(props);
+
+          const label = wrapper.find('[data-qa="metadata field"] [data-qa="label"]');
+          label.exists().should.be.false;
+        });
+      });
     });
 
-    it('outputs the field value', () => {
-      const wrapper = factory();
+    describe('field values', () => {
+      it('outputs a single value', () => {
+        const props = { name: 'dcCreator', fieldData: { def: ['Artist'] } };
+        const wrapper = factory();
 
-      wrapper.setProps(props);
+        wrapper.setProps(props);
 
-      const fieldValue = wrapper.find('[data-qa="metadata field"] ul [data-qa="literal value"]');
-      fieldValue.text().should.include(props.fieldData.def);
+        const fieldValue = wrapper.find('[data-qa="metadata field"] ul [data-qa="literal value"]');
+        fieldValue.text().should.eq(props.fieldData.def[0]);
+      });
+
+      it('outputs multiple values', () => {
+        const props = { name: 'dcCreator', fieldData: { def: ['Artist1', 'Artist2'] } };
+        const wrapper = factory();
+
+        wrapper.setProps(props);
+
+        const fieldValues = wrapper.findAll('[data-qa="metadata field"] ul [data-qa="literal value"]');
+        fieldValues.at(0).text().should.eq(props.fieldData.def[0]);
+        fieldValues.at(1).text().should.eq(props.fieldData.def[1]);
+      });
+
+      it('optionally limits the number of values output', () => {
+        const props = { name: 'dcCreator', fieldData: { def: ['Artist1', 'Artist2'] }, limit: 1 };
+        const wrapper = factory();
+
+        wrapper.setProps(props);
+
+        const fieldValues = wrapper.findAll('[data-qa="metadata field"] ul [data-qa="literal value"]');
+        fieldValues.at(0).text().should.eq(props.fieldData.def[0]);
+        fieldValues.at(1).text().should.eq('formatting.ellipsis');
+      });
+
+      describe('URIs', () => {
+        it('omits them if there are other values', () => {
+          const props = { name: 'dcCreator', fieldData: { def: ['http://data.europeana.eu/agent/base/123', 'Artist'] }, omitUrisIfOtherValues: true };
+          const wrapper = factory();
+
+          wrapper.setProps(props);
+
+          const fieldValue = wrapper.find('[data-qa="metadata field"] ul [data-qa="literal value"]');
+          fieldValue.text().should.eq(props.fieldData.def[1]);
+        });
+
+        it('includes them if there are no other values', () => {
+          const props = { name: 'dcCreator', fieldData: { def: ['http://data.europeana.eu/agent/base/123'] }, omitUrisIfOtherValues: true };
+          const wrapper = factory();
+
+          wrapper.setProps(props);
+
+          const fieldValue = wrapper.find('[data-qa="metadata field"] ul [data-qa="literal value"]');
+          fieldValue.text().should.eq(props.fieldData.def[0]);
+        });
+      });
     });
 
     context('when value is not available in the preferred languages', () => {

@@ -10,15 +10,18 @@
       :destination="url"
       link-class="card-link"
     >
+      <!-- TODO: replace aria-label with labelledby indicating the title element -->
       <div
         v-if="imageUrl"
-        :aria-label="title"
+        :aria-label="displayTitle"
         :style="!isRelated && cardImageStyle"
         class="card-img"
       />
       <b-card-body>
-        <b-card-title>
-          {{ title | truncate(90, $t('formatting.ellipsis')) }}
+        <b-card-title
+          :lang="displayTitle.code"
+        >
+          {{ displayTitle.values[0] | truncate(90, $t('formatting.ellipsis')) }}
         </b-card-title>
         <time
           v-if="datetime"
@@ -28,13 +31,17 @@
         >
           {{ $d(new Date(datetime), 'short') }}
         </time>
-        <template v-if="texts.length > 0">
-          <b-card-text
-            v-for="(text, index) in texts"
-            :key="index"
+        <template v-if="displayTexts.length > 0">
+          <template
+            v-for="(text, index) in displayTexts"
           >
-            {{ text | truncate(255, $t('formatting.ellipsis')) }}
-          </b-card-text>
+            <b-card-text
+              :key="index"
+              :lang="text.code"
+            >
+              {{ cardText(text.values) }}
+            </b-card-text>
+          </template>
         </template>
       </b-card-body>
     </SmartLink>
@@ -43,16 +50,22 @@
 
 <script>
   import SmartLink from './SmartLink';
+  import { langMapValueForLocale } from  '../../plugins/europeana/utils';
 
   export default {
+    name: 'ContentCard',
+
     components: {
       SmartLink
     },
+
     props: {
       title: {
-        type: String,
+        // may be a string or a lang map
+        type: [String, Object],
         default: ''
       },
+      // each element may be a string, an array of strings, or a lang map
       texts: {
         type: Array,
         default: () => []
@@ -76,16 +89,55 @@
       isRelated: {
         type: Boolean,
         default: false
+      },
+      omitUrisIfOtherValues: {
+        type: Boolean,
+        default: false
+      },
+      limitValuesWithinEachText: {
+        type: Number,
+        default: -1
       }
     },
+
     computed: {
       cardImageStyle() {
         return {
           backgroundImage: `url("${this.optimisedImageUrl}")`
         };
       },
+
+      displayTitle() {
+        if (typeof this.title === 'string') {
+          return { values: [this.title], code: null };
+        } else {
+          return langMapValueForLocale(this.title, this.$i18n.locale);
+        }
+      },
+
+      displayTexts() {
+        return this.texts.filter(Boolean).map((value) => {
+          if (typeof value === 'string') {
+            return { values: [value], code: null };
+          } else if (Array.isArray(value)) {
+            return { values: value, code: null };
+          } else {
+            return langMapValueForLocale(value, this.$i18n.locale, { omitUrisIfOtherValues: this.omitUrisIfOtherValues });
+          }
+        });
+      },
+
       optimisedImageUrl() {
         return this.$options.filters.optimisedImageUrl(this.imageUrl, this.imageContentType);
+      }
+    },
+
+    methods: {
+      cardText(values) {
+        const limited = (this.limitValuesWithinEachText > -1) ? values.slice(0, this.limitValuesWithinEachText) : [].concat(values);
+        if (values.length > limited.length) limited.push(this.$t('formatting.ellipsis'));
+        const joined = limited.join(this.$t('formatting.listSeperator') + ' ');
+        return this.$options.filters.truncate(joined, 255, this.$t('formatting.ellipsis'));
       }
     }
   };

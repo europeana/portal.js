@@ -33,14 +33,14 @@
             :selected="filters[facet.name]"
             @changed="changeFacet"
           />
-          <MoreFacetsDropdown
+          <MoreFiltersDropdown
             v-if="enableMoreFacets"
             :more-facets="moreFacets"
             :selected="moreSelectedFacets"
             @changed="changeMoreFacets"
           />
           <button
-            v-if="isFilteredByDefaultFacets()"
+            v-if="isFilteredByDropdowns()"
             class="reset"
             data-qa="reset filters button"
             @click="resetFilters"
@@ -131,7 +131,7 @@
   import SearchResults from '../../components/search/SearchResults'; // Sorted before InfoMessage to prevent Conflicting CSS sorting warning
   import InfoMessage from '../../components/generic/InfoMessage';
   import FacetDropdown from '../../components/search/FacetDropdown';
-  import MoreFacetsDropdown from '../../components/search/MoreFacetsDropdown';
+  import MoreFiltersDropdown from '../../components/search/MoreFiltersDropdown';
   import SearchFilters from '../../components/search/SearchFilters';
   import PaginationNav from '../../components/generic/PaginationNav';
   import ViewToggles from '../../components/search/ViewToggles';
@@ -147,7 +147,7 @@
       AlertMessage,
       InfoMessage,
       FacetDropdown,
-      MoreFacetsDropdown,
+      MoreFiltersDropdown,
       SearchResults,
       SearchFilters,
       PaginationNav,
@@ -176,7 +176,8 @@
     },
     data() {
       return {
-        coreFacetNames: ['TYPE', 'COUNTRY', 'REUSABILITY']
+        coreFacetNames: ['TYPE', 'COUNTRY', 'REUSABILITY'],
+        PROXY_DCTERMS_ISSUED: 'proxy_dcterms_issued'
       };
     },
     computed: {
@@ -252,7 +253,10 @@
         return this.orderedFacets.filter(facet => this.moreFacetNames.includes(facet.name));
       },
       moreSelectedFacets() {
-        return pickBy(this.filters, (selected, name) => this.moreFacetNames.includes(name));
+        return pickBy(this.filters, (selected, name) => this.moreFacetNames.includes(name) || name === this.PROXY_DCTERMS_ISSUED);
+      },
+      dropdownFilterNames() {
+        return defaultFacetNames.concat(this.PROXY_DCTERMS_ISSUED);
       },
       enableMoreFacets() {
         return this.moreFacets.length > 0;
@@ -344,14 +348,14 @@
       resetFilters() {
         const filters = Object.assign({}, this.filters);
 
-        for (const facetName of defaultFacetNames) {
-          filters[facetName] = [];
+        for (const filterName of this.dropdownFilterNames) {
+          filters[filterName] = [];
         }
         this.rerouteSearch(this.queryUpdatesForFilters(filters));
       },
-      isFilteredByDefaultFacets() {
-        for (const facetName of defaultFacetNames) {
-          if (Object.prototype.hasOwnProperty.call(this.filters, facetName)) {
+      isFilteredByDropdowns() {
+        for (const filterName of this.dropdownFilterNames) {
+          if (Object.prototype.hasOwnProperty.call(this.filters, filterName)) {
             return true;
           }
         }
