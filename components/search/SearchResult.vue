@@ -1,44 +1,35 @@
 <template>
   <b-media
-    v-if="result"
     no-body
     class="flex-column-reverse flex-md-row"
   >
     <b-media-body class="m-4">
       <div
-        v-for="(value, key) in result.fields"
-        :key="key"
-        :data-field-name="key"
-        data-qa="result field"
+        v-if="localisedHeading"
+        :lang="localisedHeading.code"
+        :data-field-name="localisedHeadingFieldName"
       >
-        <template v-if="Array.isArray(value) && value.length === 1">
-          <template v-if="key === 'dcTitle'">
-            {{ value[0] | truncate(90, $t('formatting.ellipsis')) }}
-          </template>
-          <template v-else>
-            {{ value[0] }}
-          </template>
-        </template>
-        <ul v-else-if="Array.isArray(value)">
-          <li
-            v-for="(element, index) in displayableValues(value)"
-            :key="index"
-          >
-            {{ element }}
-          </li>
-          <li
-            v-if="trimmedValueArray(value)"
-          >
-            {{ $t('formatting.ellipsis') }}
-          </li>
-        </ul>
+        <!-- TODO: this is _list_ view... do we need to truncate? -->
+        {{ localisedHeading.values[0] | truncate(90, $t('formatting.ellipsis')) }}
       </div>
+      <div
+        lang=""
+        data-field-name="edmDataProvider"
+      >
+        {{ edmDataProvider[0] }}
+      </div>
+      <MetadataField
+        name="dcCreator"
+        :field-data="dcCreator"
+        :limit="LIMIT_CREATORS"
+        :labelled="false"
+        :omit-uris-if-other-values="true"
+      />
     </b-media-body>
     <b-media-aside class="media-image">
       <b-img
-        v-if="result.edmPreview"
         slot="aside"
-        :src="result.edmPreview"
+        :src="edmPreview"
         alt=""
         class="mw-100 w-100"
         data-field-name="edmPreview"
@@ -49,25 +40,60 @@
 </template>
 
 <script>
+  import MetadataField from '../record/MetadataField';
+  import { langMapValueForLocale } from  '../../plugins/europeana/utils';
+
   export default {
+    name: 'SearchResult',
+
+    components: {
+      MetadataField
+    },
+
     props: {
-      result: {
+      edmPreview: {
+        type: String,
+        required: true
+      },
+
+      // only ever a single value, but in an array for some reason
+      edmDataProvider: {
+        type: Array,
+        required: true
+      },
+
+      // lang map
+      dcTitle: {
+        type: Object,
+        default: () => {}
+      },
+
+      // lang map
+      dcDescription: {
+        type: Object,
+        default: () => {}
+      },
+
+      // lang map
+      dcCreator: {
         type: Object,
         default: () => {}
       }
     },
-    methods: {
-      displayableValues(values) {
-        if (Array.isArray(values)) {
-          return values.slice(0, 3);
-        }
-        return values;
+
+    data() {
+      return {
+        LIMIT_CREATORS: 3
+      };
+    },
+
+    computed: {
+      localisedHeadingFieldName() {
+        return this.dcTitle ? 'dcTitle' : (this.dcDescription ? 'dcDescription' : null);
       },
-      trimmedValueArray(values) {
-        if (Array.isArray(values)) {
-          return values.length > 3;
-        }
-        return false;
+
+      localisedHeading() {
+        return langMapValueForLocale(this.dcTitle || this.dcDescription || {}, this.$i18n.locale, { omitUrisIfOtherValues: true });
       }
     }
   };

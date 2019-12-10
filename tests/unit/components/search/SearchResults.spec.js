@@ -24,41 +24,40 @@ const factory = (options = {}) => {
     store,
     mocks: {
       localePath: (opts) => `/record/${opts.params.pathMatch}`,
+      $i18n: {
+        locale: 'en'
+      },
       $t: () => {}
     }
   });
 };
 
+const results = [
+  {
+    europeanaId: '/123/abc',
+    dcTitle: { def: ['Record 123/abc'] },
+    edmPreview: 'https://www.example.org/abc.jpg',
+    edmDataProvider: ['Provider 123']
+  },
+  {
+    europeanaId: '/123/def',
+    dcTitle: { def: ['Record 123/def'] },
+    edmPreview: 'https://www.example.org/def.jpg',
+    edmDataProvider: ['Provider 123']
+  }
+];
+
 describe('components/search/SearchResults', () => {
   context('when view is grid', () => {
     const wrapper = factory({ view: 'grid' });
+
     it('renders each result with a link', () => {
-      const results = [
-        {
-          linkTo: '/record/123/abc',
-          europeanaId: '/123/abc',
-          fields: {
-            dcTitle: [
-              'Record 123/abc'
-            ]
-          }
-        },
-        {
-          linkTo: '/record/123/def',
-          europeanaId: '/123/def',
-          fields: {
-            dcTitle: [
-              'Record 123/def'
-            ]
-          }
-        }
-      ];
-
       wrapper.setProps({ value: results });
-      const renderedResults =  wrapper.findAll('[data-qa="search result"]');
 
-      renderedResults.at(0).html().should.contain(results[0].linkTo);
-      renderedResults.at(1).html().should.contain(results[1].linkTo);
+      const renderedResults =  wrapper.findAll('[data-qa="search result"] a');
+
+      renderedResults.at(0).attributes().href.should.endWith(`/record${results[0].europeanaId}`);
+      renderedResults.at(1).attributes().href.should.endWith(`/record${results[1].europeanaId}`);
     });
   });
 
@@ -66,22 +65,12 @@ describe('components/search/SearchResults', () => {
     const wrapper = factory({ view: 'list' });
 
     it('renders each result with a link', () => {
-      const results = [
-        {
-          linkTo: '/record/123/abc',
-          europeanaId: '/123/abc'
-        },
-        {
-          linkTo: '/record/123/def',
-          europeanaId: '/123/def'
-        }
-      ];
-
       wrapper.setProps({ value: results });
-      const renderedResults =  wrapper.findAll('[data-qa="search result"]');
 
-      renderedResults.at(0).html().should.contain(results[0].linkTo);
-      renderedResults.at(1).html().should.contain(results[1].linkTo);
+      const renderedResults =  wrapper.findAll('a[data-qa="search result"]');
+
+      renderedResults.at(0).attributes().href.should.endWith(`/record${results[0].europeanaId}`);
+      renderedResults.at(1).attributes().href.should.endWith(`/record${results[1].europeanaId}`);
     });
   });
 });

@@ -213,6 +213,9 @@ describe('plugins/europeana/search', () => {
               dcTitleLangAware: {
                 en: ['A painting']
               },
+              dcDescriptionLangAware: {
+                en: ['More information about this painting']
+              },
               dcCreatorLangAware: {
                 en: ['An artist']
               },
@@ -266,24 +269,28 @@ describe('plugins/europeana/search', () => {
             response.results[0].europeanaId.should.eq(apiResponse.items[0].id);
           });
 
-          describe('.fields', () => {
-            it('includes dcTitleLangAware in .dcTitle', async() => {
-              const response = await searchResponse();
+          it('includes dcTitleLangAware in .dcTitle', async() => {
+            const response = await searchResponse();
 
-              response.results[0].fields.dcTitle.should.deep.eq(apiResponse.items[0].dcTitleLangAware['en']);
-            });
+            response.results[0].dcTitle.should.deep.eq(apiResponse.items[0].dcTitleLangAware);
+          });
 
-            it('includes dcCreatorLangAware in .dcCreator', async() => {
-              const response = await searchResponse();
+          it('includes dcDescriptionLangAware in .dcTitle', async() => {
+            const response = await searchResponse();
 
-              response.results[0].fields.dcCreator.should.deep.eq(apiResponse.items[0].dcCreatorLangAware['en']);
-            });
+            response.results[0].dcDescription.should.deep.eq(apiResponse.items[0].dcDescriptionLangAware);
+          });
 
-            it('includes dataProvider in .edmDataProvider', async() => {
-              const response = await searchResponse();
+          it('includes dcCreatorLangAware in .dcCreator', async() => {
+            const response = await searchResponse();
 
-              response.results[0].fields.edmDataProvider.should.deep.eq(apiResponse.items[0].dataProvider);
-            });
+            response.results[0].dcCreator.should.deep.eq(apiResponse.items[0].dcCreatorLangAware);
+          });
+
+          it('includes dataProvider in .edmDataProvider', async() => {
+            const response = await searchResponse();
+
+            response.results[0].edmDataProvider.should.deep.eq(apiResponse.items[0].dataProvider);
           });
         });
 
