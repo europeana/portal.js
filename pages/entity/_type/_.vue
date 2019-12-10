@@ -17,6 +17,7 @@
           :attribution="attribution"
           :depiction="depiction"
           :description="description"
+          :is-editorial-description="hasEditorialDescription"
           :title="title"
           :depiction-link-title="depictionLinkTitle"
         />
@@ -125,7 +126,10 @@
         return this.editorialDepiction ? this.$t('goToRecord') : this.$t('entityDepictionCredit');
       },
       description() {
-        return this.editorialDescription ? this.editorialDescription : entities.getEntityDescription(this.entity);
+        return this.editorialDescription ? { values: [this.editorialDescription], code: null } : entities.getEntityDescription(this.entity, this.$i18n.locale);
+      },
+      descriptionText() {
+        return (this.description && this.description.values.length >= 1) ? this.description.values[0] : null;
       },
       editorialAttribution() {
         return this.page.primaryImageOfPage.fields.url;
@@ -144,8 +148,11 @@
       },
       // Description from the Contentful entry
       editorialDescription() {
-        if (!this.page || !this.page.description) return null;
+        if (!this.hasEditorialDescription) return null;
         return this.page.description;
+      },
+      hasEditorialDescription() {
+        return this.page && this.page.description && this.page.description.length >= 1;
       },
       // Title from the Contentful entry
       editorialTitle() {
@@ -290,10 +297,11 @@
         title: this.title,
         meta: [
           { hid: 'title', name: 'title', content: this.title },
-          { hid: 'description', name: 'description', content: this.description },
-          { hid: 'og:title', property: 'og:title', content: this.title },
-          { hid: 'og:description', property: 'og:description', content: this.description }
-        ]
+          { hid: 'og:title', property: 'og:title', content: this.title }
+        ].concat(this.descriptionText ? [
+          { hid: 'description', name: 'description', content: this.descriptionText },
+          { hid: 'og:description', property: 'og:description', content: this.descriptionText }
+        ] : [])
       };
     },
 
