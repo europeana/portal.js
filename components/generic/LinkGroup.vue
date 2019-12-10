@@ -49,10 +49,6 @@
         type: Array,
         required: true
       }
-    },
-
-    mounted() {
-      console.log('POO', this.caption);
     }
   };
 </script>
