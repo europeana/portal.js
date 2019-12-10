@@ -1,6 +1,7 @@
 <template>
   <figure>
     <figcaption
+      v-if="caption"
       class="text-uppercase font-weight-bold"
       data-qa="link group caption"
     >
@@ -43,7 +44,7 @@
     props: {
       caption: {
         type: String,
-        required: true
+        default: ''
       },
 
       links: {
