@@ -33,20 +33,6 @@ const factory = () => shallowMount(PageFooter, {
 });
 
 describe('components/PageFooter', () => {
-  it('it contains elements for each link', async() => {
-    const wrapper = factory();
-    const moreInfo = wrapper.find('[data-qa="footer more info links"]');
-    const renderedList = moreInfo.findAll('li');
-    renderedList.length.should.eq(2);
-  });
-
-  it('it contains elements for each link', async() => {
-    const wrapper = factory();
-    const help = wrapper.find('[data-qa="footer help links"]');
-    const renderedList = help.findAll('li');
-    renderedList.length.should.eq(2);
-  });
-
   it('contains the language selector', () => {
     const wrapper = factory();
     wrapper.setProps({
