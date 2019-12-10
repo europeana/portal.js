@@ -40,6 +40,7 @@
         </b-link>
       </p>
       <SmartLink
+        v-if="description"
         destination="/rights/europeana-data-sources"
         class="d-flex mt-5"
       >
