@@ -3,7 +3,7 @@
 const chromedriver = require('chromedriver');
 const geckodriver = require('geckodriver');
 
-function chrome(locale = 'en', args = []) {
+function chrome(locale = 'en-GB', args = []) {
   args = ['disable-gpu', `--lang=${locale}`].concat(args);
   return {
     webdriver: {
@@ -21,7 +21,7 @@ function chrome(locale = 'en', args = []) {
   };
 }
 
-function headlessChrome(locale = 'en') {
+function headlessChrome(locale = 'en-GB') {
   return chrome(locale, ['headless']);
 }
 

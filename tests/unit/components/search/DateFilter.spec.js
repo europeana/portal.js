@@ -21,7 +21,7 @@ const factory = () => mount(DateFilter, {
 describe('components/search/DateFilter', () => {
   it('emits `dateFilter` event with name and form arguments when user changes Start date input', async() => {
     const wrapper = factory();
-    const startInput = wrapper.find('[data-qa="start input"]');
+    const startInput = wrapper.find('[data-qa="date range start input"]');
 
     startInput.trigger('change');
     wrapper.vm.form.start = '2019-01-01';
@@ -31,7 +31,7 @@ describe('components/search/DateFilter', () => {
 
   it('emits `dateFilter` event with name and form arguments when user changes End date input', async() => {
     const wrapper = factory();
-    const endInput = wrapper.find('[data-qa="end input"]');
+    const endInput = wrapper.find('[data-qa="date range end input"]');
 
     endInput.trigger('change');
     wrapper.vm.form.end = '2019-01-01';
