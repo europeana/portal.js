@@ -52,7 +52,6 @@ describe('components/entity/EntityDetails', () => {
 
   it('does not show a show more link', () => {
     const wrapper = factory(entityDetails);
-    console.log(wrapper.html());
     wrapper.findAll('a[data-qa="entity show link"]').length.should.eq(0);
   });
 
