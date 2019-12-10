@@ -313,7 +313,8 @@ export function getEntityDescription(entity, locale) {
     if (entity.biographicalInformation.length !== undefined) {
       description = langMapValueForLocale(entity.biographicalInformation, locale);
     } else {
-      description = entity.biographicalInformation['@language'] === 'en' ? entity.biographicalInformation['@value'] : '';
+      const text = entity.biographicalInformation['@language'] === 'en' ? entity.biographicalInformation['@value'] : '';
+      description = { values: [text], code: 'en' };
     }
   }
   return description;

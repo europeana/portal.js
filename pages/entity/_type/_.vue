@@ -17,6 +17,7 @@
           :attribution="attribution"
           :depiction="depiction"
           :description="description"
+          :is-editorial-description="hasEditorialDescription"
           :title="title"
           :depiction-link-title="depictionLinkTitle"
         />
@@ -127,6 +128,9 @@
       description() {
         return this.editorialDescription ? { values: [this.editorialDescription], code: null } : entities.getEntityDescription(this.entity, this.$i18n.locale);
       },
+      descriptionText() {
+        return (this.description && this.description.values.length >= 1) ? this.description.values[0] : `${this.title} ${this.$t('entity')}`;
+      },
       editorialAttribution() {
         return this.page.primaryImageOfPage.fields.url;
       },
@@ -144,8 +148,11 @@
       },
       // Description from the Contentful entry
       editorialDescription() {
-        if (!this.page || !this.page.description || this.page.description.length === 0) return null;
+        if (!this.hasEditorialDescription) return null;
         return this.page.description;
+      },
+      hasEditorialDescription() {
+        return this.page && this.page.description && this.page.description.length >= 1;
       },
       // Title from the Contentful entry
       editorialTitle() {
@@ -290,9 +297,9 @@
         title: this.title,
         meta: [
           { hid: 'title', name: 'title', content: this.title },
-          { hid: 'description', name: 'description', content: this.description },
+          { hid: 'description', name: 'description', content: this.descriptionText },
           { hid: 'og:title', property: 'og:title', content: this.title },
-          { hid: 'og:description', property: 'og:description', content: this.description }
+          { hid: 'og:description', property: 'og:description', content: this.descriptionText }
         ]
       };
     },

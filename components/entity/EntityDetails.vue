@@ -29,11 +29,11 @@
         data-qa="entity description"
         :lang="description.code"
       >
-        {{ showAll ? description.values[0] : truncatedDescription }}
+        {{ showAll ? fullDescription : truncatedDescription }}
         <br>
       </p>
       <b-link
-        v-if="hasDescription && description.values[0].length > limitCharacters"
+        v-if="hasDescription && fullDescription.length > limitCharacters"
         data-qa="entity show link"
         class="btn-link"
         @click="toggleMoreDescription"
@@ -41,7 +41,7 @@
         {{ showAll ? $t('showLess') : $t('showMore') }}
       </b-link>
       <SmartLink
-        v-if="hasDescription"
+        v-if="hasDescription && !isEditorialDescription"
         destination="/rights/europeana-data-sources"
         class="d-flex mt-5"
       >
@@ -74,10 +74,14 @@
         type: String,
         default: ''
       },
-      // Description as object with 'values'(array of strings) and 'code' two letter language code
+      // Description as object with 'values' (array of strings) and 'code' two letter language code
       description: {
         type: Object,
         default: null
+      },
+      isEditorialDescription: {
+        type: Boolean,
+        default: false
       },
       depictionLinkTitle: {
         type: String,
@@ -94,10 +98,13 @@
     },
     computed: {
       truncatedDescription() {
-        return this.$options.filters.truncate(this.description.values[0], this.limitCharacters, this.$t('formatting.ellipsis'));
+        return this.$options.filters.truncate(this.fullDescription, this.limitCharacters, this.$t('formatting.ellipsis'));
       },
       hasDescription() {
         return this.description && this.description.values && this.description.values.length >= 1;
+      },
+      fullDescription() {
+        return this.hasDescription ? this.description.values[0] : '';
       }
     },
     methods: {
