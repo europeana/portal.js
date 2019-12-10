@@ -21,11 +21,8 @@ const factory = () => shallowMount(LinkGroup, {
 describe('components/generic/LinkGroup', () => {
   it('contains a caption title', () => {
     const wrapper = factory();
-    // wrapper.setProps({
-    //   caption: 'Caption text'
-    // });
     const footerCaption = wrapper.find('[data-qa="footer caption"]');
-    footerCaption.should.contain('Caption text');
+    footerCaption.text().should.contain('Caption text');
   });
 
   it('contains elements for each link', () => {
