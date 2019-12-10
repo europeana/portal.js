@@ -34,6 +34,11 @@
       :html="oEmbedData.html"
       :error="oEmbedData.error"
     />
+    <div
+      v-else-if="isIIIFImage"
+    >
+      <strong>IIIF</strong>
+    </div>
   </div>
 </template>
 
@@ -44,15 +49,18 @@
   import HTMLEmbed from '../../components/generic/HTMLEmbed';
 
   import oEmbed from '../../plugins/oembed.js';
-  import { isPDF, isHTMLVideo, isHTMLAudio, isOEmbed, isRichMedia } from '../../plugins/media.js';
+  import { isHTMLVideo, isHTMLAudio, isIIIFImage, isOEmbed, isPDF, isRichMedia } from '../../plugins/media.js';
 
   export default {
+    name: 'MediaPresentation',
+
     components: {
       MediaImage,
       VideoPlayer,
       AudioPlayer,
       HTMLEmbed
     },
+
     props: {
       codecName: {
         type: String,
@@ -81,16 +89,22 @@
       height: {
         type: Number,
         default: null
+      },
+      services: {
+        type: Array,
+        default: () => []
       }
     },
+
     data() {
       return {
         oEmbedData: {}
       };
     },
+
     computed: {
       displayImage() {
-        return (this.imageSrc !== '') && !isRichMedia(this.mimeType, this.codecName, this.url);
+        return (this.imageSrc !== '') && !isRichMedia(this.mimeType, this.codecName, this.url, this.services);
       },
       isPDF() {
         return isPDF(this.mimeType);
@@ -101,10 +115,14 @@
       isHTMLAudio() {
         return isHTMLAudio(this.mimeType);
       },
+      isIIIFImage() {
+        return isIIIFImage(this.services);
+      },
       isOEmbed() {
         return isOEmbed(this.url);
       }
     },
+
     created() {
       if (this.isOEmbed) {
         oEmbed(this.url).then((response) => {

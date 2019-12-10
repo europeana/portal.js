@@ -52,6 +52,7 @@
                 :url="selectedMedia.about"
                 :width="selectedMedia.ebucoreWidth"
                 :height="selectedMedia.ebucoreHeight"
+                :services="selectedMedia.services"
               />
               <MediaThumbnailGrid
                 v-if="displayMediaThumbnailGrid"
