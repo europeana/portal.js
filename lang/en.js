@@ -395,7 +395,8 @@ export default {
   "dateFilter": {
     "startDate": "Start date",
     "endDate": "End date",
-    "to": "to"
+    "to": "to",
+    "specificDate": "Specific date"
   },
   "cookieDisclaimer": {
     "acceptCookieDisclaimer": "Accept cookie disclaimer",

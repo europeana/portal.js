@@ -8,6 +8,14 @@
           >
             {{ facetName }}
           </strong>
+          {{ specificDate }} {{ end }}
+          <b-form-checkbox
+            class="unstyled mb-2"
+            :checked="specificDate"
+            @change="setSpecificDate($event)"
+          >
+            {{ $t('dateFilter.specificDate') }}
+          </b-form-checkbox>
         </b-col>
       </b-row>
       <b-row>
@@ -34,6 +42,7 @@
         </b-col>
 
         <b-col
+          v-if="!specificDate"
           lg="1"
           class="d-flex align-items-center justify-content-center px-lg-0 py-3 py-lg-0"
         >
@@ -41,6 +50,7 @@
         </b-col>
 
         <b-col
+          v-if="!specificDate"
           lg="4"
           class="pl-lg-0"
         >
@@ -91,7 +101,8 @@
         form: {
           start: this.start,
           end: this.end
-        }
+        },
+        specificDate: false
       };
     },
 
@@ -106,12 +117,38 @@
         this.form.start = this.start;
       },
       end() {
+        if (this.end === null && this.start === null && this.specificDate) {
+          this.specificDate = false;
+        }
         this.form.end = this.end;
+      }
+    },
+
+    created() {
+      console.log('created');
+      if (this.start !== null && this.end !== null && this.start === this.end) {
+        this.specificDate = true;
       }
     },
 
     methods: {
       emitDateForm() {
+        console.log('emitDateForm');
+        if (this.specificDate) {
+          this.form.end = this.form.start;
+        }
+        this.$emit('dateFilter', this.name, this.form);
+      },
+      setSpecificDate(checked) {
+        console.log('setSpecificDate', checked);
+        this.specificDate = checked;
+
+        if (!this.specificDate) {
+          this.form.end = '';
+        } else {
+          this.form.end = this.form.start;
+        }
+
         this.$emit('dateFilter', this.name, this.form);
       }
     }

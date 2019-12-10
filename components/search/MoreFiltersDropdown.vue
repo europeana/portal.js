@@ -20,6 +20,7 @@
     </template>
     <b-dropdown-group class="more-facets-wrapper">
       <b-dropdown-form v-if="showDateFilter">
+        {{ dateFilter }}
         <DateFilter
           :name="PROXY_DCTERMS_ISSUED"
           :start="dateFilter.start"
@@ -167,6 +168,7 @@
       },
 
       resetFilters() {
+        console.log('resetFilters');
         this.clearPreSelected();
       },
 
