@@ -129,7 +129,7 @@
         return this.editorialDescription ? { values: [this.editorialDescription], code: null } : entities.getEntityDescription(this.entity, this.$i18n.locale);
       },
       descriptionText() {
-        return (this.description && this.description.values.length >= 1) ? this.description.values[0] : `${this.title} ${this.$t('entity')}`;
+        return (this.description && this.description.values.length >= 1) ? this.description.values[0] : null;
       },
       editorialAttribution() {
         return this.page.primaryImageOfPage.fields.url;
@@ -297,10 +297,11 @@
         title: this.title,
         meta: [
           { hid: 'title', name: 'title', content: this.title },
+          { hid: 'og:title', property: 'og:title', content: this.title }
+        ].concat(this.descriptionText ? [
           { hid: 'description', name: 'description', content: this.descriptionText },
-          { hid: 'og:title', property: 'og:title', content: this.title },
           { hid: 'og:description', property: 'og:description', content: this.descriptionText }
-        ]
+        ] : [])
       };
     },
 
