@@ -9,6 +9,7 @@ import SearchInterface from '../../../../components/search/SearchInterface.vue';
 const localVue = createLocalVue();
 localVue.filter('localise', (number) => number);
 localVue.filter('truncate', (string) => string);
+localVue.filter('optimisedImageUrl', (string) => string);
 localVue.use(BootstrapVue);
 localVue.use(VueRouter);
 localVue.use(Vuex);
@@ -28,6 +29,9 @@ const router = new VueRouter({
 
 const factory = (options = {}) => {
   const mocks = {
+    $i18n: {
+      locale: 'en'
+    },
     $t: (key) => key,
     $tc: (key) => key,
     $te: () => false,
@@ -42,6 +46,9 @@ const factory = (options = {}) => {
         results: [],
         filters: {},
         ...options.storeState
+      },
+      entity: {
+        id: null
       }
     }
   });
@@ -135,9 +142,9 @@ describe('components/search/SearchInterface', () => {
               totalResults: 100,
               results: [{
                 europeanaId: '/123/abc',
-                fields: {
-                  dcTitle: ['Title']
-                }
+                dcTitle: { def: ['Record 123/abc'] },
+                edmPreview: 'https://www.example.org/abc.jpg',
+                edmDataProvider: ['Provider 123']
               }]
             }
           });

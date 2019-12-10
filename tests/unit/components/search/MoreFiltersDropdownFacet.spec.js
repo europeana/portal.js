@@ -1,11 +1,11 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
-import MoreFacetsDropdownOptions from '../../../../components/search/MoreFacetsDropdownOptions.vue';
+import MoreFiltersDropdownFacet from '../../../../components/search/MoreFiltersDropdownFacet.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
-const factory = () => mount(MoreFacetsDropdownOptions, {
+const factory = () => mount(MoreFiltersDropdownFacet, {
   localVue,
   mocks: {
     $t: (key) => key,
@@ -27,7 +27,7 @@ const factory = () => mount(MoreFacetsDropdownOptions, {
   }
 });
 
-describe('components/search/MoreFacetsDropdownOptions', () => {
+describe('components/search/MoreFiltersDropdownFacet', () => {
   it('emits `selectedOptions` event when selected method is called', () => {
     const wrapper = factory();
     const checkbox = wrapper.find('[data-qa="de checkbox"]');

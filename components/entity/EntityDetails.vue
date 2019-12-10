@@ -40,6 +40,15 @@
       >
         {{ showAll ? $t('showLess') : $t('showMore') }}
       </b-link>
+      <SmartLink
+        v-if="hasDescription"
+        destination="/rights/europeana-data-sources"
+        class="d-flex mt-5"
+      >
+        <small class="font-weight-bold">
+          {{ $t('learnMore') }}
+        </small>
+      </SmartLink>
     </b-col>
   </b-row>
 </template>

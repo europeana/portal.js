@@ -147,6 +147,15 @@ Feature: Search faceting
     And I wait 2 seconds
     Then I should be on `/en/search?page=1&qf=LANGUAGE%3A%22en%22&qf=LANGUAGE%3A%22sv%22&query=&view=grid`
     And I see a `more filters selected options count` with the text "2"
+  
+  Scenario: Filtering results using the date filter in more facets dropdown
+    Given I am on the `Newspapers collection page`
+    When I click the `more filters dropdown button`
+    And I enter "18-05-1982" in the `date range start input`
+    And I enter "18-05-2004" in the `date range end input`
+    And I click the `apply button`
+    And I wait 2 seconds
+    Then I should be on `/en/entity/topic/18-newspaper?page=1&qf=proxy_dcterms_issued%3A%5B1982-05-18%20TO%202004-05-18%5D&view=grid`
 
   Scenario: Clicking reset button in more facets
     Given I am on the `search page`
@@ -176,6 +185,6 @@ Feature: Search faceting
     And I wait 2 seconds
     Then I should be on `/en/search?page=1&query=&view=grid`
 
-  Scenario: Non-facet filters excluded from options count
-    Given I am on `/en/search?qf=proxy_dcterms_issued:*`
+  Scenario: Non-core/non-more filters excluded from options count
+    Given I am on `/en/search?qf=proxy_dcterms_alternative:*`
     Then I don't have a `more filters selected options count`

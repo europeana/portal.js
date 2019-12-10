@@ -19,10 +19,18 @@
       </span>
     </template>
     <b-dropdown-group class="more-facets-wrapper">
+      <b-dropdown-form v-if="showDateFilter">
+        <DateFilter
+          :name="PROXY_DCTERMS_ISSUED"
+          :start="dateFilter.start"
+          :end="dateFilter.end"
+          @dateFilter="dateFilterSelected"
+        />
+      </b-dropdown-form>
       <template
         v-for="(facet, index) in moreFacets"
       >
-        <MoreFacetsDropdownOptions
+        <MoreFiltersDropdownFacet
           v-if="facet.fields && facet.fields.length > 0"
           :key="index"
           :fields="facet.fields"
@@ -65,11 +73,14 @@
 <script>
   import Vue from 'vue';
   import isEqual from 'lodash/isEqual';
-  import MoreFacetsDropdownOptions from '../../components/search/MoreFacetsDropdownOptions';
+  import { rangeToQueryParam, rangeFromQueryParam } from '../../plugins/europeana/search';
+  import MoreFiltersDropdownFacet from '../../components/search/MoreFiltersDropdownFacet';
+  import DateFilter from '../../components/search/DateFilter';
 
   export default {
     components: {
-      MoreFacetsDropdownOptions
+      MoreFiltersDropdownFacet,
+      DateFilter
     },
 
     props: {
@@ -86,7 +97,9 @@
 
     data() {
       return {
-        preSelected: this.cloneSelected()
+        preSelected: this.cloneSelected(),
+        PROXY_DCTERMS_ISSUED: 'proxy_dcterms_issued',
+        NEWSPAPERS_CONCEPT_URI: 'http://data.europeana.eu/concept/base/18'
       };
     },
 
@@ -105,6 +118,21 @@
 
       moreFacetNames() {
         return this.moreFacets.map((facet) => facet.name);
+      },
+
+      showDateFilter() {
+        // Hardcoded for now - https://europeana.atlassian.net/browse/EC-4033
+        return this.$store.state.entity.id === this.NEWSPAPERS_CONCEPT_URI;
+      },
+
+      dateFilter() {
+        const proxyDctermsIssued = this.preSelected[this.PROXY_DCTERMS_ISSUED];
+
+        if (!proxyDctermsIssued || proxyDctermsIssued.length < 1) {
+          return { start: null, end: null };
+        }
+
+        return rangeFromQueryParam(proxyDctermsIssued[0]);
       }
     },
 
@@ -117,6 +145,11 @@
     methods: {
       cloneSelected() {
         return Object.assign({}, this.selected);
+      },
+
+      dateFilterSelected(facetName, dateRange) {
+        const rangeQuery = (!dateRange.start && !dateRange.end) ? [] : [rangeToQueryParam(dateRange)];
+        this.updateSelected(facetName, rangeQuery);
       },
 
       updateSelected(facetName, selectedFields) {

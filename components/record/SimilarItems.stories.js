@@ -26,24 +26,24 @@ storiesOf('Record', module)
       return {
         items: [
           {
-            identifier: '/123/abc',
-            thumbnail: 'img/landscape.jpg',
-            title: 'Woman Reading a letter'
+            europeanaId: '/123/abc',
+            edmPreview: 'img/landscape.jpg',
+            dcTitle: 'Woman Reading a letter'
           },
           {
-            identifier: '/123/abc',
-            thumbnail: 'img/portrait.jpg',
-            title: 'View of house in Delt'
+            europeanaId: '/123/abc',
+            edmPreview: 'img/portrait.jpg',
+            dcTitle: 'View of house in Delft'
           },
           {
-            identifier: '/123/abc',
-            thumbnail: 'img/landscape.jpg',
-            title: 'The Love Letter'
+            europeanaId: '/123/abc',
+            edmPreview: 'img/landscape.jpg',
+            dcTitle: 'The Love Letter'
           },
           {
-            identifier: '/123/abc',
-            thumbnail: 'img/portrait.jpg',
-            title: 'Dienstbode met een takshond in de'
+            europeanaId: '/123/abc',
+            edmPreview: 'img/portrait.jpg',
+            dcTitle: 'Dienstbode met een takshond in de'
           }
         ]
       };

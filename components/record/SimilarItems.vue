@@ -10,7 +10,7 @@
       <ContentCard
         v-for="(item, index) in items"
         :key="index"
-        :title="item.fields.dcTitle[0]"
+        :title="item.dcTitle"
         :image-url="item.edmPreview"
         :url="{ name: 'record-all', params: { pathMatch: item.europeanaId.slice(1) } }"
       />

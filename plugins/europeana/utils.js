@@ -70,7 +70,7 @@ function languageKeys(locale) {
  * @param {String} locale Current locale as a 2 letter code
  * @return {{Object[]{language: String, values: Object[]}}} Language code and values, values may be strings or language maps themselves.
  */
-export function langMapValueForLocale(langMap, locale) {
+export function langMapValueForLocale(langMap, locale, options = {}) {
   let returnVal = { values: [] };
   for (let key of languageKeys(locale)) { // loop through all language key to find a match
     setLangMapValuesAndCode(returnVal, langMap, key, locale);
@@ -82,7 +82,16 @@ export function langMapValueForLocale(langMap, locale) {
     setLangMapValuesAndCode(returnVal, langMap, Object.keys(langMap)[0], locale);
   }
 
-  return addEntityValues(returnVal, entityValues(langMap['def'], locale));
+  const withEntities = addEntityValues(returnVal, entityValues(langMap['def'], locale));
+  if (!options.omitUrisIfOtherValues) return withEntities;
+
+  return omitUrisIfOtherValues(withEntities);
+}
+
+function omitUrisIfOtherValues(localizedLangmap) {
+  const withoutUris = localizedLangmap.values.filter((value) => !/^https?:\/\//.test(value));
+  if (withoutUris.length > 0) localizedLangmap.values = withoutUris;
+  return localizedLangmap;
 }
 
 function isJSONLDExpanded(values) {

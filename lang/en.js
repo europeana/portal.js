@@ -117,6 +117,9 @@ export default {
         "*": "Includes items not meeting our publishing criteria"
       }
     },
+    "proxy_dcterms_issued": {
+      "name": "Date issued"
+    },
     "button": {
       "reset": "Reset",
       "apply": "Apply",
@@ -307,6 +310,7 @@ export default {
     }
   },
   "entity": "Entity",
+  "learnMore": "Learn about the source of this description",
   "resourceWikimedia": "Resource from Wikimedia Commons",
   "messages": {
     "notFound": "Not Found",
@@ -391,7 +395,8 @@ export default {
   "colourSwatch": "Colour swatch",
   "dateFilter": {
     "startDate": "Start date",
-    "endDate": "End date"
+    "endDate": "End date",
+    "to": "to"
   },
   "cookieDisclaimer": {
     "acceptCookieDisclaimer": "Accept cookie disclaimer",

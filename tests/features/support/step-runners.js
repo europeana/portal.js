@@ -15,6 +15,7 @@ const pages = {
   'exhibition chapter': `${url}/en/exhibition/the-pink-flowers/allium`,
   'exhibitions page': `${url}/en/exhibitions`,
   'search page': `${url}/en/search?query=`,
+  'Newspapers collection page': `${url}/en/entity/topic/18-newspaper`,
   'record page': `${url}/en/record${europeanaId()}`,
   'record page without isShownBy or hasView': `${url}/en/record/9200102/BibliographicResource_3000134083514`,
   '"The Milkmaid" record page': `${url}/en/record/90402/SK_A_2344`,

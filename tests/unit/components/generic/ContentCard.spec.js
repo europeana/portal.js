@@ -18,6 +18,9 @@ const $store = {
 const factory = () => mount(ContentCard, {
   localVue,
   mocks: {
+    $i18n: {
+      locale: 'en'
+    },
     $t: () => {},
     $store
   }
