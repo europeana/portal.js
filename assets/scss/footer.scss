@@ -2,9 +2,10 @@ footer {
   background: $midnight;
   color: $white;
 
-  h5 {
+  figcaption {
     font-size: $font-size-small;
     color: $paper;
+    margin-bottom: 1rem;
   }
 
   p {
