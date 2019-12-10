@@ -35,6 +35,9 @@
   import PageFooter from '../components/PageFooter.vue';
   import CookieDisclaimer from '../components/generic/CookieDisclaimer';
 
+  import 'bootstrap/dist/css/bootstrap.css';
+  import 'bootstrap-vue/dist/bootstrap-vue.css';
+
   export default {
     components: {
       PageHeader,
@@ -57,6 +60,14 @@
       breadcrumbs() {
         return this.$store.state.breadcrumb.data;
       }
+    },
+
+    head() {
+      return {
+        link: [
+          { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Ubuntu:300,400,700%7COpen+Sans:400italic,700italic,400,700&amp;subset=latin,greek,cyrillic' }
+        ]
+      };
     }
   };
 </script>
