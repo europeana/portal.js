@@ -310,6 +310,7 @@ export default {
     }
   },
   "entity": "Entity",
+  "learnMore": "Learn about the source of this description",
   "resourceWikimedia": "Resource from Wikimedia Commons",
   "messages": {
     "notFound": "Not Found",
