@@ -65,6 +65,7 @@
         type: String,
         default: ''
       },
+      // Description as object with 'values'(array of strings) and 'code' two letter language code
       description: {
         type: Object,
         default: null
