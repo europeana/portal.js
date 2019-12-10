@@ -96,14 +96,22 @@ function langMapValueFromJSONLD(value, locale) {
 
 function setLangMapValuesAndCode(returnValue, langMap, key, locale) {
   if (langMap[key]) {
-    setLangMapValues(returnValue, langMap, key, locale);
-    setLangCode(returnValue, key, locale);
-    if (undefinedLocaleCodes.includes(key)) filterEntities(returnValue);
+    langMapValueAndCodeFromMap(returnValue, langMap, key, locale);
   } else if (isJSONLDExpanded(langMap)) {
-    const matchedValue = langMapValueFromJSONLD(langMap, key);
-    if (matchedValue) returnValue['values'] = [matchedValue];
-    setLangCode(returnValue, key, locale);
+    langMapValueAndCodeFromJSONLD(returnValue, langMap, key, locale);
   }
+}
+
+function langMapValueAndCodeFromMap(returnValue, langMap, key, locale) {
+  setLangMapValues(returnValue, langMap, key, locale);
+  setLangCode(returnValue, key, locale);
+  if (undefinedLocaleCodes.includes(key)) filterEntities(returnValue);
+}
+
+function langMapValueAndCodeFromJSONLD(returnValue, langMap, key, locale) {
+  const matchedValue = langMapValueFromJSONLD(langMap, key);
+  if (matchedValue) returnValue['values'] = [matchedValue];
+  setLangCode(returnValue, key, locale);
 }
 
 function addEntityValues(localizedLangmap, localizedEntities) {
