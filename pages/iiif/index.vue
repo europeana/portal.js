@@ -10,7 +10,7 @@
 
     data() {
       return {
-        MIRADOR_BUILD_PATH: 'https://unpkg.com/mirador@2.7.2/dist',
+        MIRADOR_BUILD_PATH: 'https://unpkg.com/mirador@3.0.0-alpha.16/dist/',
         uri: null
       };
     },
@@ -23,25 +23,12 @@
 
     mounted() {
       this.$nextTick(() => {
-        Mirador({ // eslint-disable-line no-undef
+        Mirador.viewer({ // eslint-disable-line no-undef
           id: 'viewer',
-          buildPath: `${this.MIRADOR_BUILD_PATH}/`,
-          data: [
-            { manifestUri: this.uri }
-          ],
-          mainMenuSettings: {
-            show: false
-          },
-          windowObjects: [
-            {
-              loadedManifest: this.uri,
-              viewType: 'BookView',
-              displayLayout: false,
-              bottomPanel: true,
-              sidePanel: false,
-              annotationLayer: false
-            }
-          ]
+          windows: [{
+            manifestId: this.uri,
+            thumbnailNavigationPosition: 'far-bottom'
+          }]
         });
       });
     },
@@ -51,11 +38,7 @@
         title: 'IIIF',
 
         script: [
-          { src: `${this.MIRADOR_BUILD_PATH}/mirador.js` }
-        ],
-
-        link: [
-          { rel: 'stylesheet', href: `${this.MIRADOR_BUILD_PATH}/css/mirador-combined.css` }
+          { src: `${this.MIRADOR_BUILD_PATH}/mirador.min.js` }
         ]
       };
     }
