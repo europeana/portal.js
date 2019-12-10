@@ -10,15 +10,21 @@ localVue.component('SmartLink', SmartLink);
 const dummyStore = {
   state: {
     'link-group': {
-      links: {
-        footerMoreInfo: [
-          { url: 'https://www.example.org', text: 'Example link' },
-          { url: 'https://www.europeana.eu', text: 'Europeana link' }
-        ],
-        footerHelp: [
-          { url: 'https://www.example.org', text: 'Example link' },
-          { url: 'https://www.europeana.eu', text: 'Europeana link' }
-        ]
+      data: {
+        footerMoreInfo: {
+          name: 'More info',
+          links: [
+            { url: 'https://www.example.org', text: 'Example link' },
+            { url: 'https://www.europeana.eu', text: 'Europeana link' }
+          ]
+        },
+        footerHelp: {
+          name: 'Help',
+          links: [
+            { url: 'https://www.example.org', text: 'Example link' },
+            { url: 'https://www.europeana.eu', text: 'Europeana link' }
+          ]
+        }
       }
     }
   }

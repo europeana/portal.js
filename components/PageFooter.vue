@@ -28,8 +28,8 @@
               lg="12"
             >
               <LinkGroup
-                :caption="$t('footer.moreInfo')"
-                :links="footerMoreInfo"
+                :caption="footerMoreInfo.name"
+                :links="footerMoreInfo.links"
               />
             </b-col>
             <b-col
@@ -37,8 +37,8 @@
               lg="12"
             >
               <LinkGroup
-                :caption="$t('footer.help')"
-                :links="footerHelp"
+                :caption="footerHelp.name"
+                :links="footerHelp.links"
               />
             </b-col>
           </b-row>
@@ -83,10 +83,10 @@
     },
     computed: {
       footerMoreInfo() {
-        return this.$store.state['link-group'].links.footerMoreInfo;
+        return this.$store.state['link-group'].data.footerMoreInfo;
       },
       footerHelp() {
-        return this.$store.state['link-group'].links.footerHelp;
+        return this.$store.state['link-group'].data.footerHelp;
       }
     }
   };
