@@ -21,13 +21,13 @@ const factory = () => shallowMount(LinkGroup, {
 describe('components/generic/LinkGroup', () => {
   it('contains a caption title', () => {
     const wrapper = factory();
-    const footerCaption = wrapper.find('[data-qa="footer caption"]');
+    const footerCaption = wrapper.find('[data-qa="link group caption"]');
     footerCaption.text().should.contain('Caption text');
   });
 
   it('contains elements for each link', () => {
     const wrapper = factory();
-    const footerLinks = wrapper.find('[data-qa="footer links"]');
+    const footerLinks = wrapper.find('[data-qa="link group links"]');
     const renderedList = footerLinks.findAll('li');
     renderedList.length.should.eq(2);
   });

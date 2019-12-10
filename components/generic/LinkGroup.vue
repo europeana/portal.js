@@ -2,28 +2,29 @@
   <figure>
     <figcaption
       class="text-uppercase font-weight-bold"
-      data-qa="footer caption"
+      data-qa="link group caption"
     >
       {{ caption }}
     </figcaption>
     <ul
-      class="footer-link-list m-0 p-0"
-      data-qa="footer links"
+      class="m-0 p-0"
+      data-qa="link group links"
+      :class="listClass"
     >
       <li
-        v-for="(footerLink, index) in links"
+        v-for="(link, index) in links"
         :key="index"
       >
         <SmartLink
-          v-if="footerLink.url"
-          :destination="footerLink.url"
-          link-class="footer-link"
+          v-if="link.url"
+          :destination="link.url"
+          :link-class="linkClass"
         >
-          {{ footerLink.text }}
+          {{ link.text }}
         </SmartLink>
-        <p v-else>
-          {{ footerLink.text }}
-        </p>
+        <template v-else>
+          {{ link.text }}
+        </template>
       </li>
     </ul>
   </figure>
@@ -48,6 +49,16 @@
       links: {
         type: Array,
         required: true
+      },
+
+      linkClass: {
+        type: String,
+        default: ''
+      },
+
+      listClass: {
+        type: String,
+        default: ''
       }
     }
   };

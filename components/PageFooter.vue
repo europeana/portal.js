@@ -28,6 +28,8 @@
               lg="12"
             >
               <LinkGroup
+                list-class="footer-link-list"
+                link-class="footer-link"
                 :caption="footerMoreInfo.name"
                 :links="footerMoreInfo.links"
               />
@@ -37,6 +39,8 @@
               lg="12"
             >
               <LinkGroup
+                list-class="footer-link-list"
+                link-class="footer-link"
                 :caption="footerHelp.name"
                 :links="footerHelp.links"
               />
