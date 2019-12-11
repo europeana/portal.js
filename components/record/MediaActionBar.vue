@@ -30,12 +30,15 @@
     >
       {{ rightsStatement }}
     </span>
-    <span class="ml-auto">
-      View more at
-      <SmartLink :destination="rightsStatement">
+    <small class="ml-auto is-display-4 view-at">
+      {{ isShownAt ? $t('actions.viewAt') : $t('actions.providedBy', { provider: providerName }) }}
+      <SmartLink
+        v-if="isShownAt"
+        :destination="isShownAt"
+      >
         {{ providerName }}
       </SmartLink>
-    </span>
+    </small>
   </section>
 </template>
 
@@ -68,6 +71,16 @@
         type: String,
         default: null
       }
+      // isShownAt: {
+      //   type: String,
+      //   default: null
+      // }
+    },
+
+    data() {
+      return {
+        isShownAt: ''
+      };
     },
 
     computed: {
@@ -77,3 +90,22 @@
     }
   };
 </script>
+
+<style lang="scss" scoped>
+  @import '../../assets/scss/icons.scss';
+
+  .view-at {
+    .is-external-link {
+      position: relative;
+      padding-right: 1.2rem;
+
+      &:after {
+        content: '\e900';
+        @extend .icon-font;
+        position: absolute;
+        right: 0;
+        top: 3px;
+      }
+    }
+  }
+</style>

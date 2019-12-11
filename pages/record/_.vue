@@ -87,6 +87,7 @@
             :europeana-identifier="identifier"
             :rights-statement="rightsStatement"
             :provider-name="providerName"
+            :is-shown-at="isShownAt"
           />
         </div>
         <div
