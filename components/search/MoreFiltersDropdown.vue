@@ -20,11 +20,11 @@
     </template>
     <b-dropdown-group class="more-facets-wrapper">
       <b-dropdown-form v-if="showDateFilter">
-        {{ dateFilter }}
         <DateFilter
           :name="PROXY_DCTERMS_ISSUED"
           :start="dateFilter.start"
           :end="dateFilter.end"
+          :specific="dateFilter.specific"
           @dateFilter="dateFilterSelected"
         />
       </b-dropdown-form>
@@ -130,7 +130,7 @@
         const proxyDctermsIssued = this.preSelected[this.PROXY_DCTERMS_ISSUED];
 
         if (!proxyDctermsIssued || proxyDctermsIssued.length < 1) {
-          return { start: null, end: null };
+          return { start: null, end: null, specific: false };
         }
 
         return rangeFromQueryParam(proxyDctermsIssued[0]);
@@ -168,7 +168,6 @@
       },
 
       resetFilters() {
-        console.log('resetFilters');
         this.clearPreSelected();
       },
 

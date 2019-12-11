@@ -8,14 +8,13 @@
           >
             {{ facetName }}
           </strong>
-          {{ specificDate }} {{ end }}
-          <b-form-checkbox
+          <b-checkbox
+            v-model="form.specific"
             class="unstyled mb-2"
-            :checked="specificDate"
-            @change="setSpecificDate($event)"
+            @change="emitDateForm"
           >
             {{ $t('dateFilter.specificDate') }}
-          </b-form-checkbox>
+          </b-checkbox>
         </b-col>
       </b-row>
       <b-row>
@@ -42,7 +41,7 @@
         </b-col>
 
         <b-col
-          v-if="!specificDate"
+          v-if="!form.specific"
           lg="1"
           class="d-flex align-items-center justify-content-center px-lg-0 py-3 py-lg-0"
         >
@@ -50,7 +49,7 @@
         </b-col>
 
         <b-col
-          v-if="!specificDate"
+          v-if="!form.specific"
           lg="4"
           class="pl-lg-0"
         >
@@ -76,6 +75,8 @@
 </template>
 
 <script>
+  import Vue from 'vue';
+
   export default {
     name: 'DateFilter',
 
@@ -93,6 +94,11 @@
       end: {
         type: String,
         default: ''
+      },
+
+      specific: {
+        type: Boolean,
+        default: false
       }
     },
 
@@ -100,9 +106,9 @@
       return {
         form: {
           start: this.start,
-          end: this.end
-        },
-        specificDate: false
+          end: this.end,
+          specific: this.specific
+        }
       };
     },
 
@@ -117,39 +123,25 @@
         this.form.start = this.start;
       },
       end() {
-        if (this.end === null && this.start === null && this.specificDate) {
-          this.specificDate = false;
-        }
         this.form.end = this.end;
-      }
-    },
-
-    created() {
-      console.log('created');
-      if (this.start !== null && this.end !== null && this.start === this.end) {
-        this.specificDate = true;
+      },
+      specific() {
+        this.form.specific = this.specific;
       }
     },
 
     methods: {
       emitDateForm() {
-        console.log('emitDateForm');
-        if (this.specificDate) {
-          this.form.end = this.form.start;
-        }
-        this.$emit('dateFilter', this.name, this.form);
-      },
-      setSpecificDate(checked) {
-        console.log('setSpecificDate', checked);
-        this.specificDate = checked;
-
-        if (!this.specificDate) {
-          this.form.end = '';
-        } else {
-          this.form.end = this.form.start;
-        }
-
-        this.$emit('dateFilter', this.name, this.form);
+        Vue.nextTick(() => { // Change event triggers before v-model has updated. This resolves the issue
+          if (this.form.specific) {
+            this.form.end = this.form.start;
+          } else {
+            if (this.form.end === this.form.start) {
+              this.form.end = '';
+            }
+          }
+          this.$emit('dateFilter', this.name, this.form);
+        });
       }
     }
   };

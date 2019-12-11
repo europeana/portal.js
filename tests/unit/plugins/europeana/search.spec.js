@@ -458,31 +458,31 @@ describe('plugins/europeana/search', () => {
     });
     context('with only a start', () => {
       it('returns null for the end', () => {
-        const expected = { start: 'START', end: null };
+        const expected = { start: 'START', end: null, specific: false };
         rangeFromQueryParam('[START TO *]').should.deep.eql(expected);
       });
     });
     context('with only an end', () => {
       it('returns null for the start', () => {
-        const expected = { start: null, end: 'END' };
+        const expected = { start: null, end: 'END', specific: false };
         rangeFromQueryParam('[* TO END]').should.deep.eql(expected);
       });
     });
     context('with both start and end', () => {
       it('returns both values', () => {
-        const expected = { start: 'START', end: 'END' };
+        const expected = { start: 'START', end: 'END', specific: false };
         rangeFromQueryParam('[START TO END]').should.deep.eql(expected);
       });
     });
     context('with special characters', () => {
       it('returns both values', () => {
-        const expected = { start: '10/Новембар/2000', end: 'Value with spaces' };
+        const expected = { start: '10/Новембар/2000', end: 'Value with spaces', specific: false };
         rangeFromQueryParam('[10/Новембар/2000 TO Value with spaces]').should.deep.eql(expected);
       });
     });
     context('with quoted values', () => {
       it('returns both values', () => {
-        const expected = { start: '"START"', end: '\'END\'' };
+        const expected = { start: '"START"', end: '\'END\'', specific: false };
         rangeFromQueryParam('["START" TO \'END\']').should.deep.eql(expected);
       });
     });
