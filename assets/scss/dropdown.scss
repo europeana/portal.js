@@ -110,6 +110,21 @@
           }
         }
 
+        .reset {
+          background: $white;
+          border-radius: 50%;
+          color: $blue;
+          display: none;
+          flex-shrink: 0;
+          font-size: 0.6rem;
+          height: 1rem;
+          line-height: 0.9rem;
+          margin-left: 0.5rem;
+          padding-top: 2px;
+          text-align: center;
+          width: 1rem;          
+        }
+        
         .custom-checkbox:not(.unstyled) {
           label {
             align-items: center;
@@ -139,21 +154,6 @@
             }
           }
         }       
-
-        .reset {
-          background: $white;
-          border-radius: 50%;
-          color: $blue;
-          display: none;
-          flex-shrink: 0;
-          font-size: 0.6rem;
-          height: 1rem;
-          line-height: 0.9rem;
-          margin-left: 0.5rem;
-          padding-top: 2px;
-          text-align: center;
-          width: 1rem;          
-        }
 
         .btn-toggle {
           font-size: $font-size-small;
