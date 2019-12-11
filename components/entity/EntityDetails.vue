@@ -11,7 +11,7 @@
         link-class="depiction mb-3 d-block overflow-hidden rounded-circle position-relative"
         data-qa="entity attribution"
       >
-        <b-img
+        <b-img-lazy
           :src="depictionThumbnail"
           fluid
           :alt="$t('depiction', { title: title })"
