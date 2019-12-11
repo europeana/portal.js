@@ -19,13 +19,15 @@ const store = new Vuex.Store({
     },
     'link-group': {
       state: {
-        links: {
-          mainNavigation: [
-            {
-              text: 'Our partners',
-              url: '/about/our-partners'
-            }
-          ]
+        data: {
+          mainNavigation: {
+            links: [
+              {
+                text: 'Our partners',
+                url: '/about/our-partners'
+              }
+            ]
+          }
         }
       }
     }
