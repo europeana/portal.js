@@ -70,17 +70,11 @@
       providerName: {
         type: String,
         default: null
+      },
+      isShownAt: {
+        type: String,
+        default: null
       }
-      // isShownAt: {
-      //   type: String,
-      //   default: null
-      // }
-    },
-
-    data() {
-      return {
-        isShownAt: ''
-      };
     },
 
     computed: {
