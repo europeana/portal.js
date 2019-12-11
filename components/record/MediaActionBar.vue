@@ -30,6 +30,12 @@
     >
       {{ rightsStatement }}
     </span>
+    <span class="ml-auto">
+      View more at
+      <SmartLink :destination="rightsStatement">
+        {{ providerName }}
+      </SmartLink>
+    </span>
   </section>
 </template>
 
@@ -55,6 +61,10 @@
         required: true
       },
       rightsStatement: {
+        type: String,
+        default: null
+      },
+      providerName: {
         type: String,
         default: null
       }

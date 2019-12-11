@@ -86,6 +86,7 @@
             :url="selectedMedia.about"
             :europeana-identifier="identifier"
             :rights-statement="rightsStatement"
+            :provider-name="providerName"
           />
         </div>
         <div
@@ -257,6 +258,10 @@
       rightsStatement() {
         if (this.edmRights) return langMapValueForLocale(this.edmRights, this.$i18n.locale).values[0];
         return false;
+      },
+      providerName() {
+        const def = this.coreFields.edmDataProvider.def;
+        return def.length > 0 ? def[0] : '';
       }
     },
 
