@@ -28,9 +28,13 @@
   }
 
   .card-img {
+    background-position: center center;
+    background-size: cover;
     border-radius: 4px 4px 0 0;
-    max-height: 10rem;
-    object-fit: cover;
+    display: flex;
+    flex: 1 1 auto;
+    min-height: 10rem;
+    width: 100%;
   }
 
   .card-body {

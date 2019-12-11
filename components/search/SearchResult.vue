@@ -27,7 +27,7 @@
       />
     </b-media-body>
     <b-media-aside class="media-image">
-      <b-img-lazy
+      <b-img
         slot="aside"
         :src="edmPreview"
         alt=""

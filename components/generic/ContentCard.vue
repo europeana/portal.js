@@ -11,11 +11,11 @@
       link-class="card-link"
     >
       <!-- TODO: replace aria-label with labelledby indicating the title element -->
-      <b-img-lazy
-        v-if="optimisedImageUrl"
+      <div
+        v-if="imageUrl"
+        :aria-label="displayTitle"
+        :style="!isRelated && cardImageStyle"
         class="card-img"
-        :src="optimisedImageUrl"
-        :alt="displayTitle"
       />
       <b-card-body>
         <b-card-title
@@ -101,6 +101,12 @@
     },
 
     computed: {
+      cardImageStyle() {
+        return {
+          backgroundImage: `url("${this.optimisedImageUrl}")`
+        };
+      },
+
       displayTitle() {
         if (typeof this.title === 'string') {
           return { values: [this.title], code: null };

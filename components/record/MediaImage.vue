@@ -4,19 +4,19 @@
     :href="link"
     target="_blank"
   >
-    <b-img-lazy
+    <img
       :src="src"
       class="mw-100"
       :alt="$t('edmIsShownAtLinkAlt')"
       data-qa="media preview image"
-    />
+    >
   </b-link>
-  <b-img-lazy
+  <img
     v-else-if="!link && src"
     :src="src"
     alt=""
     class="mw-100"
-  />
+  >
 </template>
 
 <script>
