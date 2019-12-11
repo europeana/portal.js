@@ -24,7 +24,7 @@
         >
           <b-row>
             <b-col
-              col="6"
+              cols="6"
               lg="12"
             >
               <LinkGroup
@@ -35,7 +35,7 @@
               />
             </b-col>
             <b-col
-              col="6"
+              cols="6"
               lg="12"
             >
               <LinkGroup
