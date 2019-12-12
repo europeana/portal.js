@@ -20,6 +20,7 @@ Feature: Record page
     Then I see an `action bar`
     And I see a `download button`
     And I see a `rights statement`
+    And I see a `provider name`
 
   Scenario: Record without isShownBy or hasView
 

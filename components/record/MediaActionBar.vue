@@ -30,7 +30,10 @@
     >
       {{ rightsStatement }}
     </span>
-    <small class="ml-auto is-display-4 view-at">
+    <small
+      data-qa="provider name"
+      class="ml-auto is-display-4 view-at"
+    >
       {{ isShownAt ? $t('actions.viewAt') : $t('actions.providedBy', { provider: providerName }) }}
       <SmartLink
         v-if="isShownAt"
