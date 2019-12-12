@@ -13,10 +13,8 @@
         v-if="isRelated && imageUrl"
         :src="optimisedImageUrl"
       />
-      <!-- TODO: replace aria-label with labelledby indicating the title element -->
-     <div
+      <div
         v-if="imageUrl"
-        :aria-label="displayTitle"
         class="card-img"
       >
         <b-img-lazy
