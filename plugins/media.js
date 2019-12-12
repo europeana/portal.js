@@ -33,6 +33,7 @@ export function isIIIFPresentation(media) {
   return isIIIFMedia(media) && ((media.dctermsIsReferencedBy || []).length > 0);
 }
 
-export function isRichMedia(media) {
-  return isOEmbed(media) || isHTMLVideo(media) || isHTMLAudio(media) || isIIIFMedia(media);
+export function isRichMedia(media, options = {}) {
+  return isOEmbed(media) || isHTMLVideo(media) || isHTMLAudio(media) ||
+    (options.iiif && isIIIFMedia(media));
 }

@@ -91,7 +91,7 @@
 
     computed: {
       displayImage() {
-        return (this.imageSrc !== '') && !isRichMedia(this.media);
+        return (this.imageSrc !== '') && !isRichMedia(this.media, { iiif: Number(process.env.ENABLE_IIIF_MEDIA) });
       },
       isPDF() {
         return isPDF(this.media);
