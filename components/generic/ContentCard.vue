@@ -10,12 +10,10 @@
       :destination="url"
       link-class="card-link"
     >
-      <!-- TODO: replace aria-label with labelledby indicating the title element -->
       <b-img-lazy
-        v-if="optimisedImageUrl"
+        v-if="imageUrl"
         class="card-img"
         :src="optimisedImageUrl"
-        :alt="displayTitle"
       />
       <b-card-body>
         <b-card-title
