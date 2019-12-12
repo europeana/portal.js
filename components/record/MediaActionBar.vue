@@ -1,47 +1,53 @@
 <template>
-  <section
-    data-qa="action bar"
-    class="d-flex align-items-center"
-  >
-    <b-button
-      v-if="url"
-      :href="url | proxyMedia(europeanaIdentifier)"
-      variant="outline-primary text-decoration-none"
-      data-qa="download button"
-      size="lg"
-      class="mr-3"
-    >
-      {{ $t('actions.download') }}
-    </b-button>
+  <section data-qa="action bar">
+    <b-row>
+      <b-col cols="6">
+        <b-button
+          v-if="url"
+          :href="url | proxyMedia(europeanaIdentifier)"
+          variant="outline-primary text-decoration-none"
+          data-qa="download button"
+          size="lg"
+          class="mr-3"
+        >
+          {{ $t('actions.download') }}
+        </b-button>
 
-    <SmartLink
-      v-if="rightsStatementIsUrl"
-      :destination="rightsStatement"
-      class="attribution"
-      data-qa="rights statement"
-    >
-      <RightsStatement
-        :rights-statement-url="rightsStatement"
-      />
-    </SmartLink>
-    <span
-      v-else
-      data-qa="rights statement"
-    >
-      {{ rightsStatement }}
-    </span>
-    <small
-      data-qa="provider name"
-      class="ml-auto is-display-4 view-at"
-    >
-      {{ isShownAt ? $t('actions.viewAt') : $t('actions.providedBy', { provider: providerName }) }}
-      <SmartLink
-        v-if="isShownAt"
-        :destination="isShownAt"
+        <SmartLink
+          v-if="rightsStatementIsUrl"
+          :destination="rightsStatement"
+          class="attribution"
+          data-qa="rights statement"
+        >
+          <RightsStatement
+            :rights-statement-url="rightsStatement"
+          />
+        </SmartLink>
+        <span
+          v-else
+          data-qa="rights statement"
+        >
+          {{ rightsStatement }}
+        </span>
+      </b-col>
+      <b-col
+        cols="6"
+        class="d-flex align-items-center justify-content-end"
       >
-        {{ providerName }}
-      </SmartLink>
-    </small>
+        <small
+          data-qa="provider name"
+          class="is-display-4 view-at"
+        >
+          {{ isShownAt ? $t('actions.viewAt') : $t('actions.providedBy', { provider: providerName }) }}
+          <SmartLink
+            v-if="isShownAt"
+            :destination="isShownAt"
+          >
+            {{ providerName }}
+          </SmartLink>
+        </small>
+      </b-col>
+    </b-row>
   </section>
 </template>
 
@@ -93,15 +99,11 @@
 
   .view-at {
     .is-external-link {
-      position: relative;
-      padding-right: 1.2rem;
-
       &:after {
         content: '\e900';
         @extend .icon-font;
-        position: absolute;
-        right: 0;
-        top: 3px;
+        margin-left: 4px;
+        display: inline-block
       }
     }
   }
