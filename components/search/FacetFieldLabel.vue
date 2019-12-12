@@ -65,7 +65,7 @@
 
       dateLabel() {
         const dateRegEx = /(\d{4}([-])\d{2}([-])\d{2})/g;
-        const value = this.fieldValue.match(re);
+        const value = this.fieldValue.match(dateRegEx);
 
         if (value[0] === value[1]) {
           return `[${value[0]}]`;
