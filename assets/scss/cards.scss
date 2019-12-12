@@ -28,13 +28,16 @@
   }
 
   .card-img {
-    border-radius: 4px 4px 0 0;
-    height: 100%;
-    height: 10rem;
-    object-fit: cover;
+    display: flex;
+    flex: 1 1 auto;
+    max-height: 13rem;
+    min-height: 10rem;
+    width: 100%;
 
-    @media (min-width: $bp-large) {
-      height: 13.3125rem;
+    img {
+      border-radius: 4px 4px 0 0;
+      object-fit: cover;
+      width: 100%;
     }
   }
 
@@ -65,13 +68,20 @@
   }
 
   &.related-card {
-    background-position: center center;
-    background-size: cover;
     border: 0;
     justify-content: flex-end;
     margin-bottom: 2.5rem;
     margin-left: 0.9rem;
     
+    img {
+      border-radius: 4px;
+      object-fit: cover;
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      z-index: -1;
+    }
+
     &:not([style^="background"]) {
       background: transparent;
       box-shadow: none;
@@ -86,9 +96,9 @@
       background: $white;
       border-radius: $border-radius-small;
       box-shadow: $boxshadow-small;
+      margin-bottom: -1rem;
       margin-left: -1rem;
       transition: box-shadow 0.25s;
-      position: absolute;
     }
 
     &:hover {
@@ -96,10 +106,6 @@
         box-shadow: $boxshadow-large;
         background-color: $offwhite;
       }
-    }
-
-    .card-img {
-      height: 100%;
     }
   }
 }

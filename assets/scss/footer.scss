@@ -1,20 +1,37 @@
 footer {
+  background: $midnight;
+  color: $white;
+
+  figcaption {
+    font-size: $font-size-small;
+    color: $paper;
+    margin-bottom: 1rem;
+  }
+
+  p {
+    font-size: $font-size-medium;
+  }
+
+  hr {
+    border-top-color: $white;
+  }
+
+  .sub-footer {
+    p {
+      font-size: $font-size-smallest;
+    }
+  }
+
   .footer-link-list {
     list-style-type: none;
-    background-color: $darkblue;
 
     li {
-      display: inline-block;
-
       .footer-link {
-        display: block;
         color: white;
-        text-align: center;
-        padding: 1rem;
         text-decoration: none;
 
         &:hover {
-          background-color: $blue
+          text-decoration: underline;
         }
 
         &.is-external-link::after {

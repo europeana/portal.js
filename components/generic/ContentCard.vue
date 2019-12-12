@@ -4,17 +4,26 @@
     data-qa="content card"
     no-body
     :class="{ 'related-card' : isRelated }"
-    :style="isRelated && imageUrl && cardImageStyle"
   >
     <SmartLink
       :destination="url"
       link-class="card-link"
     >
       <b-img-lazy
-        v-if="imageUrl"
-        class="card-img"
+        v-if="isRelated && imageUrl"
         :src="optimisedImageUrl"
       />
+      <!-- TODO: replace aria-label with labelledby indicating the title element -->
+     <div
+        v-if="imageUrl"
+        :aria-label="displayTitle"
+        class="card-img"
+      >
+        <b-img-lazy
+          v-if="!isRelated"
+          :src="optimisedImageUrl"
+        />
+      </div>
       <b-card-body>
         <b-card-title
           :lang="displayTitle.code"

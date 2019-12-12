@@ -28,7 +28,7 @@
 
     computed: {
       navigation() {
-        return this.$store.state['link-group'].links.mainNavigation;
+        return this.$store.state['link-group'].data.mainNavigation.links;
       },
 
       i18n() {
