@@ -103,9 +103,11 @@
         return isHTMLAudio(this.media);
       },
       isIIIFImage() {
+        if (!Number(process.env.ENABLE_IIIF_MEDIA)) return false;
         return isIIIFImage(this.media);
       },
       isIIIFPresentation() {
+        if (!Number(process.env.ENABLE_IIIF_MEDIA)) return false;
         return isIIIFPresentation(this.media);
       },
       isOEmbed() {

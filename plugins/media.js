@@ -14,7 +14,7 @@ export function isHTMLAudio(media) {
 }
 
 export function isOEmbed(media) {
-  return oEmbeddable(media.url);
+  return oEmbeddable(media.about);
 }
 
 function serviceConformsToIIIFImageAPI(service = {}) {
@@ -22,8 +22,6 @@ function serviceConformsToIIIFImageAPI(service = {}) {
 }
 
 export function isIIIFMedia(media) {
-  if (!Number(process.env.ENABLE_IIIF_MEDIA)) return false;
-
   return (media.services || []).some((service) => serviceConformsToIIIFImageAPI(service));
 }
 

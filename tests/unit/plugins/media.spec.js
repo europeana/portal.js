@@ -1,49 +1,74 @@
-import { isPDF, isHTMLVideo, isHTMLAudio, isOEmbed, isRichMedia } from '../../../plugins/media';
+import * as media from '../../../plugins/media';
 
 describe('plugins/media', () => {
   describe('isPDF()', () => {
-    it('returns `true` if mimeType is correct', () => {
-      const mimeType = 'application/pdf';
+    it('returns `true` if ebucoreHasMimeType is for PDF', () => {
+      const ebucoreHasMimeType = 'application/pdf';
 
-      isPDF(mimeType).should.be.true;
+      media.isPDF({ ebucoreHasMimeType }).should.be.true;
     });
   });
 
   describe('isHTMLVideo()', () => {
-    it('returns `true` if mimeType is correct', () => {
-      const mimeType = ['video/ogg', 'video/webm', 'video/mp4'];
+    it('returns `true` if ebucoreHasMimeType is for HTML video', () => {
+      const mediaTypes = ['video/ogg', 'video/webm', 'video/mp4'];
 
-      for (const type of mimeType) {
-        const codec = type === 'video/mp4' ? 'h264' : '';
+      for (const ebucoreHasMimeType of mediaTypes) {
+        const edmCodecName = ebucoreHasMimeType === 'video/mp4' ? 'h264' : null;
 
-        isHTMLVideo(type, codec).should.be.true;
+        media.isHTMLVideo({ ebucoreHasMimeType, edmCodecName }).should.be.true;
       }
     });
   });
 
   describe('isHTMLAudio()', () => {
-    it('returns `true` if mimeType is correct', () => {
-      const mimeType = ['audio/flac', 'audio/ogg', 'audio/mpeg'];
+    it('returns `true` if ebucoreHasMimeType is for HTML audio', () => {
+      const mediaTypes = ['audio/flac', 'audio/ogg', 'audio/mpeg'];
 
-      for (const type of mimeType) {
-        isHTMLAudio(type).should.be.true;
+      for (const ebucoreHasMimeType of mediaTypes) {
+        media.isHTMLAudio({ ebucoreHasMimeType }).should.be.true;
       }
     });
   });
 
   describe('isOEmbed()', () => {
-    it('returns `true` if URL is correct', () => {
-      const URL = 'https://soundcloud.com/oembed';
+    it('returns `true` if URL is oEmbeddable', () => {
+      const about = 'https://soundcloud.com/oembed';
 
-      isOEmbed(URL).should.be.true;
+      media.isOEmbed({ about }).should.be.true;
+    });
+  });
+
+  describe('isIIIFImage()', () => {
+    it('returns `true` if item has IIIF Image service but no dctermsIsReferencedBy', () => {
+      const item = {
+        services: [{
+          dctermsConformsTo: ['http://iiif.io/api/image']
+        }]
+      };
+
+      media.isIIIFImage(item).should.be.true;
+    });
+  });
+
+  describe('isIIIFPresentation()', () => {
+    it('returns `true` if item has IIIF Image service and a dctermsIsReferencedBy', () => {
+      const item = {
+        services: [{
+          dctermsConformsTo: ['http://iiif.io/api/image']
+        }],
+        dctermsIsReferencedBy: ['http://www.example.org/iiif/manifest']
+      };
+
+      media.isIIIFPresentation(item).should.be.true;
     });
   });
 
   describe('isRichMedia()', () => {
-    it('returns `true` if correct parameters are present', () => {
-      isRichMedia(undefined, undefined, 'https://soundcloud.com/oembed').should.be.true;
-      isRichMedia('video/mp4', 'h264', undefined).should.be.true;
-      isRichMedia('audio/mpeg', undefined, undefined).should.be.true;
+    it('returns `true` if media considered rich', () => {
+      media.isRichMedia({ about: 'https://soundcloud.com/oembed' }).should.be.true;
+      media.isRichMedia({ ebucoreHasMimeType: 'video/mp4', edmCodecName: 'h264' }).should.be.true;
+      media.isRichMedia({ ebucoreHasMimeType: 'audio/mpeg' }).should.be.true;
     });
   });
 });
