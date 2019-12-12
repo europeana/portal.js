@@ -36,11 +36,13 @@
     />
     <div
       v-else-if="isIIIFImage"
+      data-qa="IIIF Image viewer"
     >
       <strong>IIIF Image</strong>
     </div>
     <div
       v-else-if="isIIIFPresentation"
+      data-qa="IIIF Presentation viewer"
     >
       <strong>IIIF Presentation</strong>
     </div>
