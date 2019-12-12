@@ -45,14 +45,9 @@
             </header>
             <div class="media-presentation">
               <MediaPresentation
-                :codec-name="selectedMedia.edmCodecName"
+                :media="selectedMedia"
                 :image-link="selectedMediaImage.link"
                 :image-src="selectedMediaImage.src"
-                :mime-type="selectedMedia.ebucoreHasMimeType"
-                :url="selectedMedia.about"
-                :width="selectedMedia.ebucoreWidth"
-                :height="selectedMedia.ebucoreHeight"
-                :services="selectedMedia.services"
               />
               <MediaThumbnailGrid
                 v-if="displayMediaThumbnailGrid"
@@ -233,7 +228,7 @@
         return langMapValueForLocale(this.description, this.$i18n.locale);
       },
       isRichMedia() {
-        return isRichMedia(this.selectedMedia.ebucoreHasMimeType, this.selectedMedia.edmCodecName, this.selectedMedia.about);
+        return isRichMedia(this.selectedMedia);
       },
       selectedMedia: {
         get() {

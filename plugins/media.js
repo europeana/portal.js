@@ -1,31 +1,40 @@
 import { oEmbeddable } from './oembed.js';
 
-export function isPDF(mimeType) {
-  return mimeType === 'application/pdf';
+export function isPDF(media) {
+  return media.ebucoreHasMimeType === 'application/pdf';
 }
 
-export function isHTMLVideo(mimeType, codec) {
-  return (mimeType === 'video/ogg') ||
-    (mimeType === 'video/webm') ||
-    ((mimeType === 'video/mp4') && (codec === 'h264'));
+export function isHTMLVideo(media) {
+  return ['video/ogg', 'video/webm'].includes(media.ebucoreHasMimeType) ||
+    ((media.ebucoreHasMimeType === 'video/mp4') && (media.edmCodecName === 'h264'));
 }
 
-export function isHTMLAudio(mimeType) {
-  return (mimeType === 'audio/flac') || (mimeType === 'audio/ogg') || (mimeType === 'audio/mpeg');
+export function isHTMLAudio(media) {
+  return ['audio/flac', 'audio/ogg', 'audio/mpeg'].includes(media.ebucoreHasMimeType);
 }
 
-export function isOEmbed(oembedUrl) {
-  return oEmbeddable(oembedUrl);
+export function isOEmbed(media) {
+  return oEmbeddable(media.url);
 }
 
-export function isIIIFImage(services = []) {
-  return services.some((service) => service.dctermsConformsTo.includes('http://iiif.io/api/image'));
+function serviceConformsToIIIFImageAPI(service = {}) {
+  return service.dctermsConformsTo.includes('http://iiif.io/api/image');
 }
 
-// TODO: as the pdf is currently just an image with a link, it is not marked as "rich media", this might change in the future
-export function isRichMedia(mimeType, codec, mediaUrl, services = []) {
-  return isOEmbed(mediaUrl) ||
-    isHTMLVideo(mimeType, codec) ||
-    isHTMLAudio(mimeType) ||
-    isIIIFImage(services);
+export function isIIIFMedia(media) {
+  if (!Number(process.env.ENABLE_IIIF_MEDIA)) return false;
+
+  return (media.services || []).some((service) => serviceConformsToIIIFImageAPI(service));
+}
+
+export function isIIIFImage(media) {
+  return isIIIFMedia(media) && ((media.dctermsIsReferencedBy || []).length === 0);
+}
+
+export function isIIIFPresentation(media) {
+  return isIIIFMedia(media) && ((media.dctermsIsReferencedBy || []).length > 0);
+}
+
+export function isRichMedia(media) {
+  return isOEmbed(media) || isHTMLVideo(media) || isHTMLAudio(media) || isIIIFMedia(media);
 }
