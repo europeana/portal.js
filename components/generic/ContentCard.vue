@@ -13,7 +13,7 @@
       <b-img-lazy
         v-if="imageUrl"
         class="card-img"
-        :src="optimisedImageUrl"
+        :src="imageUrl"
       />
       <b-card-body>
         <b-card-title
@@ -117,10 +117,6 @@
             return langMapValueForLocale(value, this.$i18n.locale, { omitUrisIfOtherValues: this.omitUrisIfOtherValues });
           }
         });
-      },
-
-      optimisedImageUrl() {
-        return this.$options.filters.optimisedImageUrl(this.imageUrl, this.imageContentType);
       }
     },
 
