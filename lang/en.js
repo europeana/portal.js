@@ -361,7 +361,8 @@ export default {
   "actions": {
     "download": "Download",
     "viewAt": "View at",
-    "providedBy": "Provided by {provider}"
+    "providedBy": "Provided by {provider}",
+    "provider": "provider"
   },
   "clearAllFilters": "clear all filters",
   "reset": "Reset",
