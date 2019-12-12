@@ -317,7 +317,7 @@ export function getEntityDescription(entity, locale) {
       description = { values: [text], code: 'en' };
     }
   }
-  return description;
+  return description | [];
 }
 
 /**
