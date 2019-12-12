@@ -1,45 +1,75 @@
 <template>
   <footer
     data-qa="footer"
-    class="p-3"
+    class="py-5 px-3"
   >
     <b-container>
       <b-row>
         <b-col
-          cols="12"
-          lg="9"
+          lg="5"
+          class="pb-4"
         >
-          <ul
-            v-if="links"
-            class="footer-link-list m-0 p-0"
-          >
-            <li
-              v-for="(footerLink, index) in links"
-              :key="index"
-            >
-              <template
-                v-if="footerLink.url"
-              >
-                <SmartLink
-                  :destination="footerLink.url"
-                  link-class="footer-link"
-                >
-                  {{ footerLink.text }}
-                </SmartLink>
-              </template>
-              <p v-else>
-                {{ footerLink.text }}
-              </p>
-            </li>
-          </ul>
+          <figure>
+            <figcaption class="text-uppercase font-weight-bold">
+              {{ $t('footer.ourMission') }}
+            </figcaption>
+            <p class="font-italic mb-0">
+              {{ $t('footer.ourMissionQuote') }}
+            </p>
+          </figure>
         </b-col>
         <b-col
-          cols="12"
-          lg="3"
+          lg="4"
+          class="pb-4"
         >
-          <LangSelector
-            data-qa="language selector"
-          />
+          <b-row>
+            <b-col
+              cols="6"
+              lg="12"
+            >
+              <LinkGroup
+                list-class="footer-link-list"
+                link-class="footer-link"
+                :caption="footerMoreInfo.name"
+                :links="footerMoreInfo.links"
+              />
+            </b-col>
+            <b-col
+              cols="6"
+              lg="12"
+            >
+              <LinkGroup
+                list-class="footer-link-list"
+                link-class="footer-link"
+                :caption="footerHelp.name"
+                :links="footerHelp.links"
+              />
+            </b-col>
+          </b-row>
+        </b-col>
+        <b-col lg="3">
+          <figure>
+            <figcaption class="text-uppercase font-weight-bold">
+              {{ $t('footer.customiseWebsiteLanguage') }}
+            </figcaption>
+            <LangSelector data-qa="language selector" />
+          </figure>
+        </b-col>
+      </b-row>
+      <hr class="my-5">
+      <b-row>
+        <b-col lg="6">
+          <div class="sub-footer">
+            <img
+              width="250"
+              src="../assets/img/eu-funding.svg"
+              class="mb-3"
+              :alt="$t('footer.imageDescription')"
+            >
+            <p>{{ $t('footer.disclaimerLine1') }}</p>
+
+            <p>{{ $t('footer.disclaimerLine2') }}</p>
+          </div>
         </b-col>
       </b-row>
     </b-container>
@@ -47,27 +77,21 @@
 </template>
 
 <script>
-  import SmartLink from './generic/SmartLink';
   import LangSelector from './generic/LanguageSelector';
+  import LinkGroup from './generic/LinkGroup';
 
   export default {
     components: {
-      SmartLink,
-      LangSelector
+      LangSelector,
+      LinkGroup
     },
     computed: {
-      links() {
-        return this.$store.state['link-group'].links.footer;
+      footerMoreInfo() {
+        return this.$store.state['link-group'].data.footerMoreInfo;
+      },
+      footerHelp() {
+        return this.$store.state['link-group'].data.footerHelp;
       }
     }
   };
 </script>
-
-<style lang="scss">
-  @import '../assets/scss/variables.scss';
-
-  footer {
-    background-color: $darkblue;
-    color: #fff;
-  }
-</style>

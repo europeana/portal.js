@@ -11,7 +11,7 @@
       v-if="isPDF"
     >
       <b-link
-        :href="url"
+        :href="media.about"
         target="_blank"
       >
         {{ $t('record.view.pdf') }}
@@ -19,21 +19,33 @@
     </p>
     <VideoPlayer
       v-else-if="isHTMLVideo"
-      :src="url"
-      :type="mimeType"
-      :width="width"
-      :height="height"
+      :src="media.about"
+      :type="media.ebucoreHasMimeType"
+      :width="media.ebucoreWidth"
+      :height="media.ebucoreHeight"
     />
     <AudioPlayer
       v-else-if="isHTMLAudio"
-      :src="url"
-      :type="mimeType"
+      :src="media.about"
+      :type="media.ebucoreHasMimeType"
     />
     <HTMLEmbed
       v-else-if="isOEmbed"
       :html="oEmbedData.html"
       :error="oEmbedData.error"
     />
+    <div
+      v-else-if="isIIIFImage"
+      data-qa="IIIF Image viewer"
+    >
+      <strong>IIIF Image</strong>
+    </div>
+    <div
+      v-else-if="isIIIFPresentation"
+      data-qa="IIIF Presentation viewer"
+    >
+      <strong>IIIF Presentation</strong>
+    </div>
   </div>
 </template>
 
@@ -44,19 +56,24 @@
   import HTMLEmbed from '../../components/generic/HTMLEmbed';
 
   import oEmbed from '../../plugins/oembed.js';
-  import { isPDF, isHTMLVideo, isHTMLAudio, isOEmbed, isRichMedia } from '../../plugins/media.js';
+  import {
+    isHTMLVideo, isHTMLAudio, isIIIFImage, isIIIFPresentation, isOEmbed, isPDF, isRichMedia
+  } from '../../plugins/media.js';
 
   export default {
+    name: 'MediaPresentation',
+
     components: {
       MediaImage,
       VideoPlayer,
       AudioPlayer,
       HTMLEmbed
     },
+
     props: {
-      codecName: {
-        type: String,
-        default: ''
+      media: {
+        type: Object,
+        required: true
       },
       imageLink: {
         type: String,
@@ -65,49 +82,44 @@
       imageSrc: {
         type: String,
         default: ''
-      },
-      mimeType: {
-        type: String,
-        default: ''
-      },
-      url: {
-        type: String,
-        default: ''
-      },
-      width: {
-        type: Number,
-        default: null
-      },
-      height: {
-        type: Number,
-        default: null
       }
     },
+
     data() {
       return {
         oEmbedData: {}
       };
     },
+
     computed: {
       displayImage() {
-        return (this.imageSrc !== '') && !isRichMedia(this.mimeType, this.codecName, this.url);
+        return (this.imageSrc !== '') && !isRichMedia(this.media, { iiif: Number(process.env.ENABLE_IIIF_MEDIA) });
       },
       isPDF() {
-        return isPDF(this.mimeType);
+        return isPDF(this.media);
       },
       isHTMLVideo() {
-        return isHTMLVideo(this.mimeType, this.codecName);
+        return isHTMLVideo(this.media);
       },
       isHTMLAudio() {
-        return isHTMLAudio(this.mimeType);
+        return isHTMLAudio(this.media);
+      },
+      isIIIFImage() {
+        if (!Number(process.env.ENABLE_IIIF_MEDIA)) return false;
+        return isIIIFImage(this.media);
+      },
+      isIIIFPresentation() {
+        if (!Number(process.env.ENABLE_IIIF_MEDIA)) return false;
+        return isIIIFPresentation(this.media);
       },
       isOEmbed() {
-        return isOEmbed(this.url);
+        return isOEmbed(this.media);
       }
     },
+
     created() {
       if (this.isOEmbed) {
-        oEmbed(this.url).then((response) => {
+        oEmbed(this.media.about).then((response) => {
           if (response.data && response.data.html) {
             this.oEmbedData = response.data;
           } else {

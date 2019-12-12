@@ -1,12 +1,12 @@
 import createClient from '../plugins/contentful';
 
 export const state = () => ({
-  links: {}
+  data: {}
 });
 
 export const mutations = {
   setLinks(state, data) {
-    state.links[data.identifier] = data.links;
+    state.data[data.identifier] = data.data;
   }
 };
 
@@ -17,13 +17,16 @@ export const actions = {
     await contentfulClient.getEntries({
       'locale': this.app.i18n.isoLocale(),
       'content_type': 'linkGroup',
-      'fields.identifier[in]': 'mainNavigation,footer'
+      'fields.identifier[in]': 'mainNavigation,footerMoreInfo,footerHelp'
     })
       .then((response) => {
         response.items.forEach(item => {
           commit('setLinks', {
             identifier: item.fields.identifier,
-            links: item.fields.links.map(item => item.fields)
+            data: {
+              name: item.fields.name ? item.fields.name : null,
+              links: item.fields.links.map(item => item.fields)
+            }
           });
         });
       }).catch(err => {

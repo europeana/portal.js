@@ -10,11 +10,21 @@ localVue.component('SmartLink', SmartLink);
 const dummyStore = {
   state: {
     'link-group': {
-      links: {
-        footer: [
-          { url: 'https://www.example.org', text: 'Example link' },
-          { url: 'https://www.europeana.eu', text: 'Europeana link' }
-        ]
+      data: {
+        footerMoreInfo: {
+          name: 'More info',
+          links: [
+            { url: 'https://www.example.org', text: 'Example link' },
+            { url: 'https://www.europeana.eu', text: 'Europeana link' }
+          ]
+        },
+        footerHelp: {
+          name: 'Help',
+          links: [
+            { url: 'https://www.example.org', text: 'Example link' },
+            { url: 'https://www.europeana.eu', text: 'Europeana link' }
+          ]
+        }
       }
     }
   }
@@ -28,13 +38,7 @@ const factory = () => shallowMount(PageFooter, {
   }
 });
 
-describe('components/search/PageFooter', () => {
-  it('it contains elements for each link', async() => {
-    const wrapper = factory();
-    const renderedList = wrapper.findAll('footer ul li');
-    renderedList.length.should.eq(2);
-  });
-
+describe('components/PageFooter', () => {
   it('contains the language selector', () => {
     const wrapper = factory();
     wrapper.setProps({

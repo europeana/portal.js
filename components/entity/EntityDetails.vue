@@ -25,20 +25,30 @@
         {{ title }}
       </h1>
       <p
-        v-if="description"
+        v-if="hasDescription"
         data-qa="entity description"
+        :lang="description.code"
       >
-        {{ showAll ? description : truncatedDescription }}
+        {{ showAll ? fullDescription : truncatedDescription }}
         <br>
-        <b-link
-          v-if="description.length > limitCharacters"
-          data-qa="entity show link"
-          class="mt-3 btn-link"
-          @click="toggleMoreDescription"
-        >
-          {{ showAll ? $t('showLess') : $t('showMore') }}
-        </b-link>
       </p>
+      <b-link
+        v-if="hasDescription && fullDescription.length > limitCharacters"
+        data-qa="entity show link"
+        class="btn-link"
+        @click="toggleMoreDescription"
+      >
+        {{ showAll ? $t('showLess') : $t('showMore') }}
+      </b-link>
+      <SmartLink
+        v-if="hasDescription && !isEditorialDescription"
+        destination="/rights/europeana-data-sources"
+        class="d-flex mt-5"
+      >
+        <small class="font-weight-bold">
+          {{ $t('learnMore') }}
+        </small>
+      </SmartLink>
     </b-col>
   </b-row>
 </template>
@@ -64,9 +74,14 @@
         type: String,
         default: ''
       },
+      // Description as object with 'values' (array of strings) and 'code' two letter language code
       description: {
-        type: String,
-        default: ''
+        type: Object,
+        default: null
+      },
+      isEditorialDescription: {
+        type: Boolean,
+        default: false
       },
       depictionLinkTitle: {
         type: String,
@@ -77,13 +92,19 @@
       return {
         depictionAttribution: this.attribution,
         depictionThumbnail: this.depiction,
-        limitCharacters: 200,
+        limitCharacters: 255,
         showAll: false
       };
     },
     computed: {
       truncatedDescription() {
-        return this.$options.filters.truncate(this.description, 255, this.$t('formatting.ellipsis'));
+        return this.$options.filters.truncate(this.fullDescription, this.limitCharacters, this.$t('formatting.ellipsis'));
+      },
+      hasDescription() {
+        return this.description && this.description.values && this.description.values.length >= 1;
+      },
+      fullDescription() {
+        return this.hasDescription ? this.description.values[0] : '';
       }
     },
     methods: {
