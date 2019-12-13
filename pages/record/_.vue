@@ -86,7 +86,7 @@
             :url="selectedMedia.about"
             :europeana-identifier="identifier"
             :rights-statement="rightsStatement"
-            :provider-name="providerName"
+            :provider-name="dataProvider.values[0]"
             :is-shown-at="isShownAt"
           />
         </div>
@@ -260,9 +260,9 @@
         if (this.edmRights) return langMapValueForLocale(this.edmRights, this.$i18n.locale).values[0];
         return false;
       },
-      providerName() {
-        const def = this.coreFields.edmDataProvider.def;
-        return langMapValueForLocale(def, this.$i18n.locale).values[0];
+      dataProvider() {
+        const edmDataProvider = this.coreFields.edmDataProvider;
+        return langMapValueForLocale(edmDataProvider);
       }
     },
 
@@ -287,6 +287,9 @@
 
     mounted() {
       this.cardGridClass = this.isRichMedia && 'card-grid-richmedia';
+
+      // Set page Lang
+      this.$i18n.locale = this.dataProvider.code || this.$i18n.locale;
 
       if (process.browser) {
         if (localStorage.itemShowExtendedMetadata && JSON.parse(localStorage.itemShowExtendedMetadata)) {
