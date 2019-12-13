@@ -42,6 +42,7 @@
           <SmartLink
             v-if="isShownAt"
             :destination="isShownAt"
+            :lang="lang"
           >{{ providerName }}</SmartLink>
         </small>
       </b-col>
@@ -75,6 +76,10 @@
         default: null
       },
       providerName: {
+        type: String,
+        default: null
+      },
+      lang: {
         type: String,
         default: null
       },

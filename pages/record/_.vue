@@ -87,6 +87,7 @@
             :europeana-identifier="identifier"
             :rights-statement="rightsStatement"
             :provider-name="dataProvider.values[0]"
+            :lang="dataProvider.code"
             :is-shown-at="isShownAt"
           />
         </div>
@@ -287,9 +288,6 @@
 
     mounted() {
       this.cardGridClass = this.isRichMedia && 'card-grid-richmedia';
-
-      // Set page Lang
-      this.$i18n.locale = this.dataProvider.code || this.$i18n.locale;
 
       if (process.browser) {
         if (localStorage.itemShowExtendedMetadata && JSON.parse(localStorage.itemShowExtendedMetadata)) {
