@@ -37,9 +37,9 @@
         cols="6"
         class="d-flex align-items-center justify-content-end"
       >
-        <small
+        <span
           data-qa="provider name"
-          class="is-display-4 view-at"
+          class="is-size-4 view-at"
         >
           {{ isShownAt ? $t('actions.viewAt') : $t('actions.providedBy', { provider: providerName }) }}
           <SmartLink
@@ -47,7 +47,7 @@
             :destination="isShownAt"
             :lang="lang"
           >{{ providerName }}</SmartLink>
-        </small>
+        </span>
       </b-col>
     </b-row>
   </section>
