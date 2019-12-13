@@ -262,7 +262,7 @@
       },
       providerName() {
         const def = this.coreFields.edmDataProvider.def;
-        return (def && def.length > 0) ? def[0] : '';
+        return langMapValueForLocale(def, this.$i18n.locale).values[0];
       }
     },
 

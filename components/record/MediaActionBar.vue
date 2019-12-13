@@ -42,7 +42,7 @@
           <SmartLink
             v-if="isShownAt"
             :destination="isShownAt"
-          >{{ providerName ? providerName : $t('actions.provider') }}</SmartLink>
+          >{{ providerName }}</SmartLink>
         </small>
       </b-col>
     </b-row>
