@@ -30,9 +30,13 @@
   .card-img {
     display: flex;
     flex: 1 1 auto;
-    max-height: 13rem;
+    max-height: 10rem;
     min-height: 10rem;
     width: 100%;
+
+    @media (min-width: $bp-medium) {
+      max-height: 13rem;
+    }
 
     img {
       border-radius: 4px 4px 0 0;
