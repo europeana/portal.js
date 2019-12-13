@@ -1,7 +1,10 @@
 <template>
   <section data-qa="action bar">
     <b-row>
-      <b-col cols="6">
+      <b-col
+        cols="6"
+        class="d-flex align-items-center"
+      >
         <b-button
           v-if="url"
           :href="url | proxyMedia(europeanaIdentifier)"
