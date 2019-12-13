@@ -12,6 +12,7 @@
       <b-img-lazy
         v-if="isRelated && imageUrl"
         :src="optimisedImageUrl"
+        alt=""
       />
       <div
         v-if="imageUrl"
@@ -20,6 +21,7 @@
         <b-img-lazy
           v-if="!isRelated"
           :src="optimisedImageUrl"
+          alt=""
         />
       </div>
       <b-card-body>
