@@ -34,20 +34,17 @@
       :html="oEmbedData.html"
       :error="oEmbedData.error"
     />
-    <div
+    <!-- FIXME: Mirador does not support (non-Presentation) IIIF Image resources -->
+    <!-- <iframe
       v-else-if="isIIIFImage"
       data-qa="IIIF Image viewer"
-    >
-      <strong>IIIF Image</strong>
-    </div>
-    <div
+      :src="localePath({ name: 'iiif', query: { uri: media.about } })"
+    /> -->
+    <iframe
       v-else-if="isIIIFPresentation"
       data-qa="IIIF Presentation viewer"
-    >
-      <iframe
-        :src="localePath({ name: 'iiif', query: { uri: iiifManifest } })"
-      />
-    </div>
+      :src="localePath({ name: 'iiif', query: { uri: iiifManifest } })"
+    />
   </div>
 </template>
 

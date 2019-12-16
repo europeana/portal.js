@@ -35,5 +35,5 @@ export function isIIIFPresentation(media) {
 
 export function isRichMedia(media, options = {}) {
   return isOEmbed(media) || isHTMLVideo(media) || isHTMLAudio(media) ||
-    (options.iiif && isIIIFMedia(media));
+    (options.iiif && isIIIFPresentation(media));
 }
