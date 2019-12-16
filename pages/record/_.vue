@@ -159,7 +159,7 @@
 
   import getRecord, { similarItemsQuery } from '../../plugins/europeana/record';
   import search from '../../plugins/europeana/search';
-  import { isRichMedia } from '../../plugins/media';
+  import { isIIIFPresentation, isRichMedia } from '../../plugins/media';
   import { langMapValueForLocale } from  '../../plugins/europeana/utils';
   import { searchEntities } from '../../plugins/europeana/entity';
 
@@ -245,7 +245,10 @@
         };
       },
       displayMediaThumbnailGrid() {
-        return this.media.length > 1;
+        // TODO: the IIIF Presentation check may need to account for potentially
+        //       some media items being in one Presentation manifest, but
+        //       others being, say, audio or video.
+        return this.media.length > 1 && !isIIIFPresentation(this.selectedMedia);
       },
       edmRights() {
         return this.selectedMedia.webResourceEdmRights ? this.selectedMedia.webResourceEdmRights : this.fields.edmRights;
