@@ -23,12 +23,25 @@
 
     mounted() {
       this.$nextTick(() => {
+        // Doc: https://github.com/ProjectMirador/mirador/blob/master/src/config/settings.js
         Mirador.viewer({ // eslint-disable-line no-undef
           id: 'viewer',
           windows: [{
             manifestId: this.uri,
             thumbnailNavigationPosition: 'far-bottom'
-          }]
+          }],
+          window: {
+            allowClose: false,
+            allowFullscreen: true,
+            allowMaximize: false
+          },
+          workspace: {
+            showZoomControls: true,
+            type: 'mosaic'
+          },
+          workspaceControlPanel: {
+            enabled: false
+          }
         });
       });
     },
