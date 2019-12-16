@@ -32,7 +32,7 @@ function parseRecordDataFromApiResponse(response) {
     isShownAt: providerAggregation.edmIsShownAt,
     coreFields: coreFields(proxyData, providerAggregation.edmDataProvider, entities),
     fields: extraFields(proxyData, edm, entities),
-    media: aggregationMedia(providerAggregation, edm.type),
+    media: aggregationMedia(providerAggregation, edm.type, edm.services),
     agents: edm.agents,
     concepts: edm.concepts,
     title: proxyData.dcTitle
@@ -135,7 +135,7 @@ function extraFields(proxyData, edm, entities) {
   }, isUndefined), entities);
 }
 
-function aggregationMedia(aggregation, recordType) {
+function aggregationMedia(aggregation, recordType, services = []) {
   // Gather all isShownBy/At and hasView URIs
   const edmIsShownByOrAt = aggregation.edmIsShownBy || aggregation.edmIsShownAt;
   const mediaUris = uniq([edmIsShownByOrAt].concat(aggregation.hasView || []).filter(isNotUndefined));
@@ -143,9 +143,12 @@ function aggregationMedia(aggregation, recordType) {
   // Filter web resources to isShownBy and hasView, respecting the ordering
   const media = mediaUris.map((mediaUri) => aggregation.webResources.find((webResource) => mediaUri === webResource.about));
 
-  // Inject thumbnail URLs
   for (const webResource of media) {
+    // Inject thumbnail URLs
     webResource.thumbnails = webResourceThumbnails(webResource, aggregation, recordType);
+
+    // Inject service definitions, e.g. for IIIF
+    webResource.services = services.filter((service) => webResource.svcsHasService.includes(service.about));
   }
 
   // Sort by isNextInSequence property if present
