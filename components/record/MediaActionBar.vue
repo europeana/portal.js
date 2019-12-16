@@ -38,17 +38,14 @@
         class="d-flex align-items-center justify-content-end"
       >
         <i18n
+          v-if="isShownAt"
           path="actions.viewAt"
           tag="span"
           data-qa="provider name"
           class="is-size-4 view-at"
-          :lang="!isShownAt ? dataProviderName : null"
+          :lang="dataProviderLang"
         >
-          {{ isShownAt ? $t('actions.viewAt') : $t('actions.providedBy', { provider: dataProviderName }) }}
-          <template
-            v-if="isShownAt"
-            v-slot:link
-          >
+          <template v-slot:link>
             <!-- eslint-disable vue/multiline-html-element-content-newline -->
             <SmartLink
               :destination="isShownAt"
@@ -57,6 +54,13 @@
             <!-- eslint-enable vue/multiline-html-element-content-newline -->
           </template>
         </i18n>
+        <span
+          v-else
+          class="is-size-4 view-at"
+          :lang="dataProviderLang"
+        >
+          {{ $t('actions.providedBy', { provider: dataProviderName }) }}
+        </span>
       </b-col>
     </b-row>
   </section>
