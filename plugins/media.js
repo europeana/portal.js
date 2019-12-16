@@ -18,7 +18,7 @@ export function isOEmbed(media) {
 }
 
 function serviceConformsToIIIFImageAPI(service = {}) {
-  return [service.dctermsConformsTo || []].includes('http://iiif.io/api/image');
+  return (service.dctermsConformsTo || []).includes('http://iiif.io/api/image');
 }
 
 export function isIIIFMedia(media) {
