@@ -133,7 +133,11 @@
           return { start: null, end: null, specific: false };
         }
 
-        return rangeFromQueryParam(proxyDctermsIssued[0]);
+        const range = rangeFromQueryParam(proxyDctermsIssued[0]);
+        if (!range) {
+          return { start: proxyDctermsIssued[0], end: null, specific: true };
+        }
+        return range;
       }
     },
 
@@ -149,8 +153,15 @@
       },
 
       dateFilterSelected(facetName, dateRange) {
-        const rangeQuery = (!dateRange.start && !dateRange.end) ? [] : [rangeToQueryParam(dateRange)];
-        this.updateSelected(facetName, rangeQuery);
+        let dateQuery;
+        if (!dateRange.start && !dateRange.end) {
+          dateQuery = [];
+        } else if (dateRange.specific) {
+          dateQuery = [dateRange.start];
+        } else {
+          dateQuery = [rangeToQueryParam(dateRange)];
+        }
+        this.updateSelected(facetName, dateQuery);
       },
 
       updateSelected(facetName, selectedFields) {

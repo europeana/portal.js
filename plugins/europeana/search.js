@@ -61,13 +61,8 @@ export function rangeFromQueryParam(paramValue) {
   if (matches === null) return null;
   const start = matches[1] !== '*' ? matches[1] : null;
   const end = matches[2] !== '*' ? matches[2] : null;
-  let specific = false;
 
-  if (start === end) {
-    specific = true;
-  }
-
-  return { start, end, specific };
+  return { start, end };
 }
 /**
  * Extract search results from API response
