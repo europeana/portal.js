@@ -37,15 +37,46 @@ module.exports = {
   /*
   ** Global CSS
   */
-  css: [
-    '@/assets/scss/style.scss'
-  ],
+  css: [],
+
+  // BootstrapVue
+  // Doc: https://bootstrap-vue.js.org/docs/
+  bootstrapVue: {
+    // Set these two settings to `false` to prevent auto-importing of Bootstrap(Vue)
+    // CSS. It will then need to be manually imported, e.g. with
+    // assets/scss/bootstrap.scss
+    bootstrapCSS: true,
+    bootstrapVueCSS: true,
+
+    // Tree shake plugins
+    componentPlugins: [
+      'AlertPlugin',
+      'BadgePlugin',
+      'BreadcrumbPlugin',
+      'ButtonPlugin',
+      'CardPlugin',
+      'DropdownPlugin',
+      'FormCheckboxPlugin',
+      'FormInputPlugin',
+      'FormPlugin',
+      'FormRadioPlugin',
+      'ImagePlugin',
+      'InputGroupPlugin',
+      'JumbotronPlugin',
+      'LayoutPlugin',
+      'LinkPlugin',
+      'ListGroupPlugin',
+      'MediaPlugin',
+      'NavbarPlugin',
+      'NavPlugin',
+      'PaginationNavPlugin'
+    ]
+  },
 
   /*
   ** Plugins to load before mounting the App
   */
   plugins: [
-    '~/plugins/bootstrap-vue-plugins',
     '~/plugins/i18n.js',
     '~/plugins/vue-filters'
   ],
@@ -61,6 +92,7 @@ module.exports = {
       id: process.env.GOOGLE_TAG_MANAGER_ID,
       pageTracking: true
     }],
+    'bootstrap-vue/nuxt',
     'cookie-universal-nuxt',
     ['nuxt-i18n', {
       locales: i18nLocales,

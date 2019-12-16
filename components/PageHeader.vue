@@ -55,7 +55,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '../assets/scss/variables.scss';
+  @import '~assets/scss/variables.scss';
 
   .container-fluid {
     background: $white;
@@ -64,5 +64,4 @@
   .form-inline {
     width: 40%;
   }
-
-  </style>
+</style>
