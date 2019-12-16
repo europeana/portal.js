@@ -371,6 +371,14 @@ describe('plugins/europeana/search', () => {
         filtersFromQuery(query).should.deep.eql(expected);
       });
     });
+
+    context('with query that has two colons', () => {
+      it('returns an array with a string seperated by a colon ', () => {
+        const query = { qf: 'DATA_PROVIDER:"Galiciana: Biblioteca Digital de Galicia"' };
+        const expected = { 'DATA_PROVIDER': ['Galiciana: Biblioteca Digital de Galicia'] };
+        filtersFromQuery(query).should.deep.eql(expected);
+      });
+    });
   });
 
   describe('qfHandler', () => {
