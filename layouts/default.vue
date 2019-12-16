@@ -57,6 +57,16 @@
       breadcrumbs() {
         return this.$store.state.breadcrumb.data;
       }
+    },
+
+    head: {
+      link: [
+        { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Ubuntu:300,400,700%7COpen+Sans:400italic,700italic,400,700&subset=latin,greek,cyrillic&display=swap', body: true }
+      ]
     }
   };
 </script>
+
+<style lang="scss">
+  @import '~assets/scss/style';
+</style>
