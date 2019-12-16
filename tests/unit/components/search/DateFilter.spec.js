@@ -44,6 +44,18 @@ describe('components/search/DateFilter', () => {
     localVue.nextTick(() => {
       wrapper.emitted()['dateFilter'].should.eql([[ 'proxy_dcterms_issued', { 'end': '2019-01-01', 'start': null, 'specific': false } ]]);
     });
-    
+  });
+
+  it('should have same start and end date when specific is selected', async() => {
+    const wrapper = factory();
+    const startInput = wrapper.find('[data-qa="date range end input"]');
+
+    startInput.trigger('change');
+    wrapper.vm.form.specific = true;
+    wrapper.vm.form.start = '2019-01-01';
+
+    localVue.nextTick(() => {
+      wrapper.vm.form.end.should.eq('2019-01-01');
+    });
   });
 });
