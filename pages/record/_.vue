@@ -228,7 +228,7 @@
         return langMapValueForLocale(this.description, this.$i18n.locale);
       },
       isRichMedia() {
-        return isRichMedia(this.selectedMedia);
+        return isRichMedia(this.selectedMedia, { iiif: Number(process.env.ENABLE_IIIF_MEDIA) });
       },
       selectedMedia: {
         get() {

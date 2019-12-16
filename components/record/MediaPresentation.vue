@@ -44,7 +44,9 @@
       v-else-if="isIIIFPresentation"
       data-qa="IIIF Presentation viewer"
     >
-      <strong>IIIF Presentation</strong>
+      <iframe
+        :src="localePath({ name: 'iiif', query: { uri: iiifManifest } })"
+      />
     </div>
   </div>
 </template>
@@ -114,6 +116,9 @@
       },
       isOEmbed() {
         return isOEmbed(this.media);
+      },
+      iiifManifest() {
+        return this.media.dctermsIsReferencedBy[0];
       }
     },
 
@@ -134,14 +139,24 @@
 </script>
 
 <style lang="scss" scoped>
+  @import '../../assets/scss/variables.scss';
+
   /* TODO: fixed max height is subject to change */
   .media-presentation {
     /deep/ img,
-    video {
+    video,
+    iframe {
       height: auto;
       max-height: 800px;
       object-fit: contain;
       width: 100%;
+    }
+
+    iframe {
+      height: 800px;
+      border: 1px solid $lightgrey;
+      border-radius: $border-radius-small;
+      box-shadow: $boxshadow-small;
     }
   }
 </style>
