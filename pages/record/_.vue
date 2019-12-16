@@ -86,8 +86,8 @@
             :url="selectedMedia.about"
             :europeana-identifier="identifier"
             :rights-statement="rightsStatement"
-            :provider-name="dataProvider.values[0]"
-            :lang="dataProvider.code"
+            :data-provider-name="dataProvider.values[0]"
+            :data-provider-lang="dataProvider.code"
             :is-shown-at="isShownAt"
           />
         </div>
@@ -263,7 +263,7 @@
       },
       dataProvider() {
         const edmDataProvider = this.coreFields.edmDataProvider;
-        return langMapValueForLocale(edmDataProvider);
+        return langMapValueForLocale(edmDataProvider, this.$i18n.locale);
       }
     },
 

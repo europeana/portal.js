@@ -37,17 +37,26 @@
         cols="6"
         class="d-flex align-items-center justify-content-end"
       >
-        <span
+        <i18n
+          path="actions.viewAt"
+          tag="span"
           data-qa="provider name"
           class="is-size-4 view-at"
+          :lang="!isShownAt ? dataProviderName : null"
         >
-          {{ isShownAt ? $t('actions.viewAt') : $t('actions.providedBy', { provider: providerName }) }}
-          <SmartLink
+          {{ isShownAt ? $t('actions.viewAt') : $t('actions.providedBy', { provider: dataProviderName }) }}
+          <template
             v-if="isShownAt"
-            :destination="isShownAt"
-            :lang="lang"
-          >{{ providerName }}</SmartLink>
-        </span>
+            v-slot:link
+          >
+            <!-- eslint-disable vue/multiline-html-element-content-newline -->
+            <SmartLink
+              :destination="isShownAt"
+              :lang="dataProviderLang"
+            >{{ dataProviderName }}</SmartLink>
+            <!-- eslint-enable vue/multiline-html-element-content-newline -->
+          </template>
+        </i18n>
       </b-col>
     </b-row>
   </section>
@@ -78,11 +87,11 @@
         type: String,
         default: null
       },
-      providerName: {
+      dataProviderName: {
         type: String,
         default: null
       },
-      lang: {
+      dataProviderLang: {
         type: String,
         default: null
       },
@@ -108,8 +117,8 @@
       &:after {
         content: '\e900';
         @extend .icon-font;
-        margin-left: 4px;
-        display: inline-block
+        margin-left: 0.25rem;
+        display: inline-block;
       }
     }
   }

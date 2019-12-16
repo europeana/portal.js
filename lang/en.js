@@ -360,7 +360,7 @@ export default {
   },
   "actions": {
     "download": "Download",
-    "viewAt": "View at",
+    "viewAt": "View at {link}",
     "providedBy": "Provided by {provider}"
   },
   "clearAllFilters": "clear all filters",
