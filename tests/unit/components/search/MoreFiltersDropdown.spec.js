@@ -187,8 +187,8 @@ describe('components/search/MoreFacetsDropdown', () => {
 
       wrapper.vm.dateFilter.should.eql({
         end: null,
-        start: null,
-        specific: false
+        specific: false,
+        start: null
       });
     });
 
@@ -203,8 +203,7 @@ describe('components/search/MoreFacetsDropdown', () => {
 
       wrapper.vm.dateFilter.should.eql({
         end: null,
-        start: '2019-12-06',
-        specific: false
+        start: '2019-12-06'
       });
     });
   });
