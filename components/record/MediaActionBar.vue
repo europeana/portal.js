@@ -35,14 +35,14 @@
       </b-col>
       <b-col
         cols="6"
-        class="d-flex align-items-center justify-content-end"
+        class="d-flex align-items-center justify-content-end is-size-4 view-at"
       >
         <i18n
           v-if="isShownAt"
           path="actions.viewAt"
-          tag="span"
+          tag="p"
           data-qa="provider name"
-          class="is-size-4 view-at"
+          class="mb-0"
           :lang="dataProviderLang"
         >
           <template v-slot:link>
@@ -54,13 +54,18 @@
             <!-- eslint-enable vue/multiline-html-element-content-newline -->
           </template>
         </i18n>
-        <span
+        <i18n
           v-else
-          class="is-size-4 view-at"
-          :lang="dataProviderLang"
+          path="actions.providedBy"
+          tag="p"
+          class="mb-0"
         >
-          {{ $t('actions.providedBy', { provider: dataProviderName }) }}
-        </span>
+          <template v-slot:provider>
+            <span :lang="dataProviderLang">
+              {{ $t('actions.providedBy', { provider: dataProviderName }) }}
+            </span>
+          </template>
+        </i18n>
       </b-col>
     </b-row>
   </section>
