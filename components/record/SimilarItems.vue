@@ -70,6 +70,10 @@
         max-height: 10rem;
       }
 
+      img {
+        border-radius: 0;
+      }
+
       &:after {
         content: '';
         display: block;
