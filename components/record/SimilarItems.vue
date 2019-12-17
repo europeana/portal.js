@@ -72,6 +72,7 @@
       img {
         border-radius: 0;
         position: absolute;
+        height: 100%;
       }
 
       &:after {
