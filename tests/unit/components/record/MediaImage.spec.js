@@ -21,7 +21,7 @@ describe('components/record/MediaImage', () => {
       wrapper.setProps(props);
 
       wrapper.attributes().href.should.eq(props.link);
-      const image = wrapper.find('img');
+      const image = wrapper.find('b-img-lazy');
       image.attributes().src.should.eq(props.src);
     });
   });
@@ -34,7 +34,7 @@ describe('components/record/MediaImage', () => {
       wrapper.setProps(props);
 
       wrapper.contains('a').should.be.false;
-      const image = wrapper.find('img');
+      const image = wrapper.find('b-img-lazy');
       image.attributes().src.should.eq(props.src);
     });
   });

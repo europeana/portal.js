@@ -1,8 +1,6 @@
 // Load dotenv for server/index.js to access env vars from .env file
 require('dotenv').config();
 const pkg = require('./package');
-const bootstrapPkg = require('bootstrap/package');
-const bootstrapVuePkg = require('bootstrap-vue/package');
 const i18nLocales = require('./plugins/i18n/locales.js');
 const i18nDateTime = require('./plugins/i18n/datetime.js');
 
@@ -23,10 +21,7 @@ module.exports = {
       { hid: 'description', name: 'description', content: pkg.description }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Ubuntu:300,400,700%7COpen+Sans:400italic,700italic,400,700&amp;subset=latin,greek,cyrillic' },
-      { rel: 'stylesheet', href: `https://cdn.jsdelivr.net/npm/bootstrap@${bootstrapPkg.version}/dist/css/bootstrap.min.css` },
-      { rel: 'stylesheet', href: `https://cdn.jsdelivr.net/npm/bootstrap-vue@${bootstrapVuePkg.version}/dist/bootstrap-vue.css` }
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
   },
 
@@ -42,15 +37,46 @@ module.exports = {
   /*
   ** Global CSS
   */
-  css: [
-    '@/assets/scss/style.scss'
-  ],
+  css: [],
+
+  // BootstrapVue
+  // Doc: https://bootstrap-vue.js.org/docs/
+  bootstrapVue: {
+    // Set these two settings to `false` to prevent auto-importing of Bootstrap(Vue)
+    // CSS. It will then need to be manually imported, e.g. with
+    // assets/scss/bootstrap.scss
+    bootstrapCSS: true,
+    bootstrapVueCSS: true,
+
+    // Tree shake plugins
+    componentPlugins: [
+      'AlertPlugin',
+      'BadgePlugin',
+      'BreadcrumbPlugin',
+      'ButtonPlugin',
+      'CardPlugin',
+      'DropdownPlugin',
+      'FormCheckboxPlugin',
+      'FormInputPlugin',
+      'FormPlugin',
+      'FormRadioPlugin',
+      'ImagePlugin',
+      'InputGroupPlugin',
+      'JumbotronPlugin',
+      'LayoutPlugin',
+      'LinkPlugin',
+      'ListGroupPlugin',
+      'MediaPlugin',
+      'NavbarPlugin',
+      'NavPlugin',
+      'PaginationNavPlugin'
+    ]
+  },
 
   /*
   ** Plugins to load before mounting the App
   */
   plugins: [
-    '~/plugins/bootstrap-vue-plugins',
     '~/plugins/i18n.js',
     '~/plugins/vue-filters'
   ],
@@ -66,6 +92,7 @@ module.exports = {
       id: process.env.GOOGLE_TAG_MANAGER_ID,
       pageTracking: true
     }],
+    'bootstrap-vue/nuxt',
     'cookie-universal-nuxt',
     ['nuxt-i18n', {
       locales: i18nLocales,
