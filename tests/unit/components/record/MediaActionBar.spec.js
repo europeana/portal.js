@@ -55,4 +55,86 @@ describe('components/record/MediaActionBar', () => {
     const rightsStatementLink = wrapper.find('[data-qa="rights statement"]');
     rightsStatementLink.text().should.contain('CC BY-SA 4.0');
   });
+
+  describe('data provider attribution', () => {
+    context('when isShownAt is present', () => {
+      context('and provider name is in UI language', () => {
+        const props = {
+          europeanaIdentifier,
+          isShownAt: 'http://www.example.org/page.html',
+          dataProviderName: 'Data Provider',
+          dataProviderLang: null
+        };
+
+        it('is a non-language-tagged link', () => {
+          const wrapper = factory(props);
+
+          const attribution = wrapper.find('[data-qa="provider name"]');
+          (attribution.attributes('lang') === undefined).should.be.true;
+          const link = attribution.find('a');
+          link.attributes('lang' === undefined).should.be.true;
+          link.attributes('href').should.eq(props.isShownAt);
+          link.text().should.eq(props.dataProviderName);
+        });
+      });
+
+      context('and provider name is not in UI language', () => {
+        const props = {
+          europeanaIdentifier,
+          isShownAt: 'http://www.example.org/page.html',
+          dataProviderName: 'Data Provider',
+          dataProviderLang: 'fr'
+        };
+
+        it('is a language-tagged link', () => {
+          const wrapper = factory(props);
+
+          const attribution = wrapper.find('[data-qa="provider name"]');
+          attribution.attributes('lang').should.eq(props.dataProviderLang);
+          const link = attribution.find('a');
+          link.attributes('lang').should.eq(props.dataProviderLang);
+          link.attributes('href').should.eq(props.isShownAt);
+          link.text().should.eq(props.dataProviderName);
+        });
+      });
+    });
+
+    context('when isShownAt is absent', () => {
+      context('and provider name is in UI language', () => {
+        const props = {
+          europeanaIdentifier,
+          dataProviderName: 'Data Provider',
+          dataProviderLang: null
+        };
+
+        it('is displayed non-language-tagged', () => {
+          const wrapper = factory(props);
+
+          const attribution = wrapper.find('[data-qa="provider name"]');
+          (attribution.attributes('lang') === undefined).should.be.true;
+          const span = attribution.find('span');
+          span.attributes('lang' === undefined).should.be.true;
+          span.text().should.eq(props.dataProviderName);
+        });
+      });
+
+      context('and provider name is not in UI language', () => {
+        const props = {
+          europeanaIdentifier,
+          dataProviderName: 'Data Provider',
+          dataProviderLang: 'fr'
+        };
+
+        it('is displayed language-tagged', () => {
+          const wrapper = factory(props);
+
+          const attribution = wrapper.find('[data-qa="provider name"]');
+          attribution.attributes('lang').should.eq(props.dataProviderLang);
+          const span = attribution.find('span');
+          span.attributes('lang').should.eq(props.dataProviderLang);
+          span.text().should.eq(props.dataProviderName);
+        });
+      });
+    });
+  });
 });
