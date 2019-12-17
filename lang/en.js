@@ -83,9 +83,8 @@ export default {
       "name": "Can I reuse this?"
     },
     "THEME": {
-      "name": "Category",
+      "name": "Collection",
       "options": {
-        "all": "All items",
         "ww1": "1914-1918",
         "archaeology": "Archaeology",
         "art": "Art",

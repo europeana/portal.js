@@ -35,6 +35,24 @@ export const unquotableFacets = [
   'VIDEO_HD'
 ];
 
+// Thematic collections available via the `theme` parameter.
+// Order is significant as it will be reflected on search results.
+export const thematicCollections = [
+  'ww1',
+  'archaeology',
+  'art',
+  'fashion',
+  'industrial',
+  'manuscript',
+  'map',
+  'migration',
+  'music',
+  'nature',
+  'newspaper',
+  'photography',
+  'sport'
+];
+
 function genericThumbnail(edmType) {
   return `https://api.europeana.eu/api/v2/thumbnail-by-url.json?size=w200&uri=&type=${edmType}`;
 }
@@ -101,9 +119,9 @@ function resultsFromApiResponse(response) {
  */
 
 /**
- * Extract applied filters from URL `qf` and `reusability` value(s)
+ * Extract applied filters from URL `qf`, `reusability` and `theme`
  * @param {Object} query URL query parameters
- * @return {FilterSet} selected facets
+ * @return {FilterSet} selected filters
  * TODO: move into /store/search.js?
  */
 export function filtersFromQuery(query) {
@@ -119,8 +137,13 @@ export function filtersFromQuery(query) {
       filters[facetName].push(facetValue);
     }
   }
+
   if (query.reusability) {
     filters['REUSABILITY'] = query.reusability.split(',');
+  }
+
+  if (query.theme) {
+    filters['THEME'] = query.theme;
   }
 
   return filters;
@@ -132,6 +155,7 @@ export function filtersFromQuery(query) {
  * @param {number} params.page page of results to retrieve
  * @param {number} params.rows number of results to retrieve per page
  * @param {string} params.reusability reusability filter
+ * @param {string} params.theme theme filter
  * @param {string} params.facet facet names, comma separated
  * @param {(string|string[])} params.qf query filter(s)
  * @param {string} params.query search query

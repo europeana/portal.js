@@ -22,7 +22,7 @@
           :value="option"
           :name="name"
           :data-qa="`${option} ${RADIO}`"
-          @change="$refs.dropdown.hide(true)"
+          @change="applySelection"
         >
           <FacetFieldLabel
             :facet-name="name"

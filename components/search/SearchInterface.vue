@@ -29,7 +29,7 @@
             :key="facet.name"
             :name="facet.name"
             :fields="facet.fields"
-            type="checkbox"
+            :type="facetDropdownType(facet.name)"
             :selected="filters[facet.name]"
             @changed="changeFacet"
           />
@@ -136,7 +136,7 @@
   import PaginationNav from '../../components/generic/PaginationNav';
   import ViewToggles from '../../components/search/ViewToggles';
   import TierToggler from '../../components/search/TierToggler';
-  import { defaultFacetNames, unquotableFacets } from '../../plugins/europeana/search';
+  import { defaultFacetNames, unquotableFacets, thematicCollections } from '../../plugins/europeana/search';
 
   import isEqual from 'lodash/isEqual';
   import pickBy from 'lodash/pickBy';
@@ -176,7 +176,7 @@
     },
     data() {
       return {
-        coreFacetNames: ['TYPE', 'COUNTRY', 'REUSABILITY'],
+        coreFacetNames: ['THEME', 'TYPE', 'COUNTRY', 'REUSABILITY'],
         PROXY_DCTERMS_ISSUED: 'proxy_dcterms_issued'
       };
     },
@@ -191,6 +191,7 @@
         query: state => state.search.query,
         results: state => state.search.results,
         reusability: state => state.search.reusability,
+        theme: state => state.search.theme,
         filters: state => state.search.filters,
         totalResults: state => state.search.totalResults
       }),
@@ -241,6 +242,7 @@
           }
         }
 
+        ordered.unshift({ name: 'THEME', fields: thematicCollections });
         return ordered.concat(unordered);
       },
       coreFacets() {
@@ -277,6 +279,9 @@
       }
     },
     methods: {
+      facetDropdownType(name) {
+        return name === 'THEME' ? 'radio' : 'checkbox';
+      },
       changeFacet(name, selected) {
         if (typeof this.filters[name] === 'undefined' && selected.length === 0) return;
         if (isEqual(this.filters[name], selected)) return;
@@ -314,6 +319,8 @@
             } else {
               queryUpdates.reusability = null;
             }
+          } else if (facetName === 'THEME') {
+            queryUpdates.theme = selectedValues;
           } else {
             for (const facetValue of selectedValues) {
               const quotedValue = this.enquoteFacet(facetName) ? `"${facetValue}"` : facetValue;
