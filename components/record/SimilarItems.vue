@@ -65,19 +65,20 @@
     .card-img {
       border-radius: 0;
       margin-bottom: 1rem;
-
-      @media (min-width: $bp-medium) {
-        max-height: 10rem;
-      }
+      overflow: hidden;
+      position: relative;
+      max-height: 100%;
 
       img {
         border-radius: 0;
+        position: absolute;
       }
 
       &:after {
         content: '';
         display: block;
         padding-bottom: 100%;
+        width: 100%;
       }
     }
 
