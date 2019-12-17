@@ -66,6 +66,10 @@
       border-radius: 0;
       margin-bottom: 1rem;
 
+      @media (min-width: $bp-medium) {
+        max-height: 10rem;
+      }
+
       &:after {
         content: '';
         display: block;
