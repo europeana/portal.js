@@ -56,7 +56,7 @@ describe('components/generic/ContentCard', () => {
     const wrapper = factory();
     wrapper.setProps({ imageUrl: 'https://example.org' });
 
-    const card =  wrapper.find('[data-qa="content card"] .card-img');
-    card.attributes('style').should.contain('https://example.org');
+    const card =  wrapper.find('[data-qa="content card"] .card-img img');
+    card.should.exist;
   });
 });
