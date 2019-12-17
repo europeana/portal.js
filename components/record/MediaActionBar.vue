@@ -54,18 +54,14 @@
             <!-- eslint-enable vue/multiline-html-element-content-newline -->
           </template>
         </i18n>
-        <i18n
+        <p
           v-else
-          path="actions.providedBy"
-          tag="p"
           class="mb-0"
         >
-          <template v-slot:provider>
-            <span :lang="dataProviderLang">
-              {{ $t('actions.providedBy', { provider: dataProviderName }) }}
-            </span>
-          </template>
-        </i18n>
+          <span :lang="dataProviderLang">
+            {{ $t('actions.providedBy', { provider: dataProviderName }) }}
+          </span>
+        </p>
       </b-col>
     </b-row>
   </section>
