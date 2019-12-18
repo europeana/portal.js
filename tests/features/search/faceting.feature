@@ -11,6 +11,16 @@ Feature: Search faceting
     And I see a `filter badge` with the text "Type of media: Image"
     And I am on an accessible page
 
+  Scenario: Filtering results by Collection
+
+    When I visit the `search page`
+    And I click the `THEME dropdown button`
+    And I check the "art" "THEME" radio
+    And I click the `THEME apply button`
+    And I wait 4 seconds
+    Then I should be on `/en/search?page=1&query=&view=grid&theme=art`
+    And I see a `filter badge` with the text "Collection: Art"
+
   Scenario: Filtering results by reusability
     Given I am on the `search page`
     When I click the `REUSABILITY dropdown button`
@@ -147,7 +157,7 @@ Feature: Search faceting
     And I wait 2 seconds
     Then I should be on `/en/search?page=1&qf=LANGUAGE%3A%22en%22&qf=LANGUAGE%3A%22sv%22&query=&view=grid`
     And I see a `more filters selected options count` with the text "2"
-  
+
   Scenario: Filtering results using the date filter in more facets dropdown
     Given I am on the `Newspapers collection page`
     When I click the `more filters dropdown button`
