@@ -40,35 +40,37 @@
           />
         </b-col>
 
-        <b-col
+        <template
           v-if="!form.specific"
-          lg="1"
-          class="d-flex align-items-center justify-content-center px-lg-0 py-3 py-lg-0"
         >
-          {{ $t('dateFilter.to') }}
-        </b-col>
-
-        <b-col
-          v-if="!form.specific"
-          lg="4"
-          class="pl-lg-0"
-        >
-          <label
-            class="sr-only"
-            :for="`${name}.end`"
+          <b-col
+            lg="1"
+            class="d-flex align-items-center justify-content-center px-lg-0 py-3 py-lg-0"
           >
-            {{ $t('dateFilter.endDate') }}
-          </label>
-          <b-input
-            :id="`${name}.end`"
-            v-model="form.end"
-            type="date"
-            data-qa="date range end input"
-            :class="{ 'is-active' : form.end }"
-            placeholder="dd/mm/yyyy"
-            @change="emitDateForm"
-          />
-        </b-col>
+            {{ $t('dateFilter.to') }}
+          </b-col>
+
+          <b-col
+            lg="4"
+            class="pl-lg-0"
+          >
+            <label
+              class="sr-only"
+              :for="`${name}.end`"
+            >
+              {{ $t('dateFilter.endDate') }}
+            </label>
+            <b-input
+              :id="`${name}.end`"
+              v-model="form.end"
+              type="date"
+              data-qa="date range end input"
+              :class="{ 'is-active' : form.end }"
+              placeholder="dd/mm/yyyy"
+              @change="emitDateForm"
+            />
+          </b-col>
+        </template>
       </b-row>
     </b-col>
   </b-row>
@@ -133,13 +135,6 @@
     methods: {
       emitDateForm() {
         Vue.nextTick(() => { // Change event triggers before v-model has updated. This resolves the issue
-          if (this.form.specific) {
-            this.form.end = this.form.start;
-          } else {
-            if (this.form.end === this.form.start) {
-              this.form.end = '';
-            }
-          }
           this.$emit('dateFilter', this.name, this.form);
         });
       }

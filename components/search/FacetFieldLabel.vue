@@ -39,8 +39,6 @@
 
         if (this.facetName === this.MIME_TYPE) {
           fieldLabel = this.mediaTypeLabel;
-        } else if (this.facetName === this.DATE) {
-          fieldLabel = this.dateLabel;
         }
 
         if (!this.prefixed) return fieldLabel;
@@ -61,17 +59,6 @@
         let subtype = this.fieldValue.split('/')[1];
 
         return subtype.replace(/^x-/, '').toUpperCase();
-      },
-
-      dateLabel() {
-        const dateRegEx = /(\d{4}([-])\d{2}([-])\d{2})/g;
-        const value = this.fieldValue.match(dateRegEx);
-
-        if (value[0] === value[1]) {
-          return `[${value[0]}]`;
-        }
-
-        return this.fieldValue;
       }
     }
   };

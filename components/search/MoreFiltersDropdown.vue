@@ -130,7 +130,7 @@
       dateFilter() {
         const proxyDctermsIssued = this.preSelected[this.PROXY_DCTERMS_ISSUED];
         if (!proxyDctermsIssued || proxyDctermsIssued.length < 1) {
-          return { start: null, end: '', specific: this.isCheckedSpecificDate };
+          return { start: null, end: null, specific: this.isCheckedSpecificDate };
         }
 
         const range = rangeFromQueryParam(proxyDctermsIssued[0]);
@@ -153,13 +153,13 @@
       },
 
       dateFilterSelected(facetName, dateRange) {
-        let dateQuery;
+        let dateQuery = [];
 
-        if (!dateRange.start && !dateRange.end) {
-          dateQuery = [];
-        } else if (dateRange.specific) {
-          dateQuery = [dateRange.start];
-        } else {
+        if (dateRange.specific) {
+          if (dateRange.start) {
+            dateQuery = [dateRange.start];
+          }
+        } else if (dateRange.start || dateRange.end) {
           dateQuery = [rangeToQueryParam(dateRange)];
         }
 
@@ -168,7 +168,11 @@
       },
 
       updateSelected(facetName, selectedFields) {
-        Vue.set(this.preSelected, facetName, selectedFields);
+        if (selectedFields.length === 0) {
+          Vue.delete(this.preSelected, facetName);
+        } else {
+          Vue.set(this.preSelected, facetName, selectedFields);
+        }
       },
 
       applySelected() {
