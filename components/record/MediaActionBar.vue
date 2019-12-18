@@ -2,8 +2,9 @@
   <section data-qa="action bar">
     <b-row>
       <b-col
-        cols="6"
-        class="d-flex align-items-center"
+        cols="12"
+        lg="6"
+        class="d-flex align-items-center mb-3 mb-lg-0"
       >
         <b-button
           v-if="url"
@@ -34,7 +35,8 @@
         </span>
       </b-col>
       <b-col
-        cols="6"
+        cols="12"
+        lg="6"
         class="d-flex align-items-center justify-content-end is-size-4 view-at"
       >
         <i18n
@@ -42,7 +44,7 @@
           path="actions.viewAt"
           tag="p"
           data-qa="provider name"
-          class="mb-0"
+          class="mb-0 text-lg-right"
         >
           <template v-slot:link>
             <!-- eslint-disable vue/multiline-html-element-content-newline -->
@@ -55,7 +57,7 @@
         </i18n>
         <i18n
           v-else
-          class="mb-0"
+          class="mb-0 text-lg-right"
           data-qa="provider name"
           path="actions.providedBy"
           tag="p"
