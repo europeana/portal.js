@@ -45,6 +45,7 @@ const factory = (options = {}) => {
         qf: [],
         results: [],
         filters: {},
+        themeFacetEnabled: true,
         ...options.storeState
       },
       entity: {
