@@ -99,6 +99,7 @@
     data() {
       return {
         preSelected: this.cloneSelected(),
+        isCheckedSpecificDate: false,
         PROXY_DCTERMS_ISSUED: 'proxy_dcterms_issued',
         NEWSPAPERS_CONCEPT_URI: 'http://data.europeana.eu/concept/base/18'
       };
@@ -128,9 +129,8 @@
 
       dateFilter() {
         const proxyDctermsIssued = this.preSelected[this.PROXY_DCTERMS_ISSUED];
-
         if (!proxyDctermsIssued || proxyDctermsIssued.length < 1) {
-          return { start: null, end: null, specific: false };
+          return { start: null, end: '', specific: this.isCheckedSpecificDate };
         }
 
         const range = rangeFromQueryParam(proxyDctermsIssued[0]);
@@ -154,6 +154,7 @@
 
       dateFilterSelected(facetName, dateRange) {
         let dateQuery;
+
         if (!dateRange.start && !dateRange.end) {
           dateQuery = [];
         } else if (dateRange.specific) {
@@ -161,6 +162,8 @@
         } else {
           dateQuery = [rangeToQueryParam(dateRange)];
         }
+
+        this.isCheckedSpecificDate = dateRange.specific;
         this.updateSelected(facetName, dateQuery);
       },
 
@@ -180,6 +183,7 @@
 
       resetFilters() {
         this.clearPreSelected();
+        this.isCheckedSpecificDate = false;
       },
 
       clearPreSelected() {
