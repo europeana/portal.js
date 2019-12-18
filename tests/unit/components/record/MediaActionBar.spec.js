@@ -104,7 +104,7 @@ describe('components/record/MediaActionBar', () => {
         it('is a language-tagged link', () => {
           const wrapper = factory(props);
           const attribution = wrapper.find('[data-qa="provider name"]');
-          attribution.attributes('lang').should.eq(props.dataProviderLang);
+          (attribution.attributes('lang') === undefined).should.be.true;
           const link = attribution.find('a');
           link.attributes('lang').should.eq(props.dataProviderLang);
           link.attributes('href').should.eq(props.isShownAt);
@@ -141,7 +141,7 @@ describe('components/record/MediaActionBar', () => {
         it('is displayed language-tagged', () => {
           const wrapper = factory(props);
           const attribution = wrapper.find('[data-qa="provider name"]');
-          attribution.attributes('lang').should.eq(props.dataProviderLang);
+          (attribution.attributes('lang') === undefined).should.be.true;
           const span = attribution.find('span');
           span.attributes('lang').should.eq(props.dataProviderLang);
           span.text().should.eq(props.dataProviderName);

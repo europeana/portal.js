@@ -43,7 +43,6 @@
           tag="p"
           data-qa="provider name"
           class="mb-0"
-          :lang="dataProviderLang"
         >
           <template v-slot:link>
             <!-- eslint-disable vue/multiline-html-element-content-newline -->
@@ -60,7 +59,6 @@
           data-qa="provider name"
           path="actions.providedBy"
           tag="p"
-          :lang="dataProviderLang"
         >
           <template v-slot:provider>
             <span :lang="dataProviderLang">
