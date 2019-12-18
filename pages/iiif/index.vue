@@ -10,7 +10,7 @@
 
     data() {
       return {
-        MIRADOR_BUILD_PATH: 'https://unpkg.com/mirador@3.0.0-beta.0/dist/',
+        MIRADOR_BUILD_PATH: 'https://unpkg.com/mirador@3.0.0-beta.0/dist',
         uri: null
       };
     },

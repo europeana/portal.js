@@ -4,19 +4,26 @@
     data-qa="content card"
     no-body
     :class="{ 'related-card' : isRelated }"
-    :style="isRelated && imageUrl && cardImageStyle"
   >
     <SmartLink
       :destination="url"
       link-class="card-link"
     >
-      <!-- TODO: replace aria-label with labelledby indicating the title element -->
+      <b-img-lazy
+        v-if="isRelated && imageUrl"
+        :src="optimisedImageUrl"
+        alt=""
+      />
       <div
         v-if="imageUrl"
-        :aria-label="displayTitle"
-        :style="!isRelated && cardImageStyle"
         class="card-img"
-      />
+      >
+        <b-img-lazy
+          v-if="!isRelated"
+          :src="optimisedImageUrl"
+          alt=""
+        />
+      </div>
       <b-card-body>
         <b-card-title
           :lang="displayTitle.code"
@@ -101,12 +108,6 @@
     },
 
     computed: {
-      cardImageStyle() {
-        return {
-          backgroundImage: `url("${this.optimisedImageUrl}")`
-        };
-      },
-
       displayTitle() {
         if (typeof this.title === 'string') {
           return { values: [this.title], code: null };

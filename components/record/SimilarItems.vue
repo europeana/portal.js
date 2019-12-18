@@ -65,11 +65,21 @@
     .card-img {
       border-radius: 0;
       margin-bottom: 1rem;
+      overflow: hidden;
+      position: relative;
+      max-height: 100%;
+
+      img {
+        border-radius: 0;
+        position: absolute;
+        height: 100%;
+      }
 
       &:after {
         content: '';
         display: block;
         padding-bottom: 100%;
+        width: 100%;
       }
     }
 
