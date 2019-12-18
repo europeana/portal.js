@@ -177,7 +177,8 @@
     data() {
       return {
         coreFacetNames: ['THEME', 'TYPE', 'COUNTRY', 'REUSABILITY'],
-        PROXY_DCTERMS_ISSUED: 'proxy_dcterms_issued'
+        PROXY_DCTERMS_ISSUED: 'proxy_dcterms_issued',
+        THEME: 'THEME'
       };
     },
     computed: {
@@ -242,7 +243,7 @@
           }
         }
 
-        ordered.unshift({ name: 'THEME', fields: thematicCollections });
+        ordered.unshift({ name: this.THEME, fields: thematicCollections });
         return ordered.concat(unordered);
       },
       coreFacets() {
@@ -258,7 +259,7 @@
         return pickBy(this.filters, (selected, name) => this.moreFacetNames.includes(name) || name === this.PROXY_DCTERMS_ISSUED);
       },
       dropdownFilterNames() {
-        return defaultFacetNames.concat(this.PROXY_DCTERMS_ISSUED);
+        return defaultFacetNames.concat(this.PROXY_DCTERMS_ISSUED, this.THEME);
       },
       enableMoreFacets() {
         return this.moreFacets.length > 0;
@@ -283,7 +284,7 @@
         return name === 'THEME' ? 'radio' : 'checkbox';
       },
       changeFacet(name, selected) {
-        if (typeof this.filters[name] === 'undefined' && selected.length === 0) return;
+        // if (typeof this.filters[name] === 'undefined' && selected.length === 0) return;
         if (isEqual(this.filters[name], selected)) return;
         this.rerouteSearch(this.queryUpdatesForFacetChanges({ [name]: selected }));
       },

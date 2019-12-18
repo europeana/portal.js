@@ -49,6 +49,6 @@
       this.$store.commit('search/setActive', false);
       next();
     },
-    watchQuery: ['page', 'qf', 'query', 'reusability']
+    watchQuery: ['page', 'qf', 'query', 'reusability', 'theme']
   };
 </script>
