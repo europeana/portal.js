@@ -183,6 +183,7 @@
     },
     computed: {
       ...mapState({
+        entityId: state => state.entity.id,
         error: state => state.search.error,
         facets: state => state.search.facets,
         lastAvailablePage: state => state.search.lastAvailablePage,
@@ -199,6 +200,9 @@
       // workaround for double jump mentioned in store mapState call above
       page() {
         return Number(this.$route.query.page || 1);
+      },
+      displayThemeFilter() {
+        return this.entityId === null;
       },
       contentTierActiveState() {
         return this.filters.contentTier && this.filters.contentTier.includes('*');
@@ -243,7 +247,9 @@
           }
         }
 
-        ordered.unshift({ name: this.THEME, fields: thematicCollections });
+        if (this.displayThemeFilter) {
+          ordered.unshift({ name: this.THEME, fields: thematicCollections });
+        }
         return ordered.concat(unordered);
       },
       coreFacets() {

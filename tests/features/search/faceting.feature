@@ -21,6 +21,11 @@ Feature: Search faceting
     Then I should be on `/en/search?page=1&query=&view=grid&theme=art`
     And I see a `filter badge` with the text "Collection: Art"
 
+  Scenario: No Collection filter on entity pages
+
+    Given I am on an `entity page`
+    Then I don't have a `THEME dropdown button`
+
   Scenario: Filtering results by reusability
     Given I am on the `search page`
     When I click the `REUSABILITY dropdown button`
