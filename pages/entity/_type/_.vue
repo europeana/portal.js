@@ -173,8 +173,8 @@
         };
       },
       title() {
-        if (!this.entity) return this.$t('entity');
-        if (this.editorialTitle) return this.editorialTitle;
+        if (!this.entity) return this.titleFallback(this.$t('entity'));
+        if (this.editorialTitle) return this.titleFallback(this.editorialTitle);
         return langMapValueForLocale(this.entity.prefLabel, this.$store.state.i18n.locale);
       }
     },
@@ -291,6 +291,15 @@
 
     mounted() {
       this.$store.commit('search/setPill', this.title);
+    },
+
+    methods: {
+      titleFallback(title) {
+        return {
+          values: [title],
+          code: this.$i18n.locale
+        };
+      }
     },
 
     head() {
