@@ -21,8 +21,11 @@
       </SmartLink>
     </b-col>
     <b-col>
-      <h1 data-qa="entity title">
-        {{ title }}
+      <h1
+        :lang="title.code"
+        data-qa="entity title"
+      >
+        {{ title.values[0] }}
       </h1>
       <p
         v-if="hasDescription"
@@ -63,8 +66,8 @@
 
     props: {
       title: {
-        type: String,
-        default: ''
+        type: Object,
+        required: true
       },
       depiction: {
         type: String,

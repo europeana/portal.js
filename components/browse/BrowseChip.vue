@@ -3,17 +3,19 @@
     <b-badge
       v-if="title"
       :to="linkTo"
+      :lang="browseChipTitle.code"
       pill
       variant="nocolor"
       class="mb-3 mr-3 font-weight-normal bg-transparent"
       data-qa="browse chip"
     >
-      {{ title }}
+      {{ browseChipTitle.values[0] }}
     </b-badge>
   </li>
 </template>
 
 <script>
+  import { langMapValueForLocale } from  '../../plugins/europeana/utils';
   export default {
     props: {
       linkTo: {
@@ -21,8 +23,14 @@
         required: true
       },
       title: {
-        type: String,
-        default: ''
+        type: Object,
+        default: () => {}
+      }
+    },
+
+    computed: {
+      browseChipTitle() {
+        return langMapValueForLocale(this.title, this.$i18n.locale);
       }
     }
   };

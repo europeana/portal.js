@@ -50,7 +50,7 @@ describe('components/generic/EntityCards', () => {
 
     paintingCard.should.exist;
     paintingCard.props().isRelated.should.be.true;
-    paintingCard.props().title.should.eq('Painting');
+    paintingCard.props().title.should.eql({ values: [ 'Painting' ], code: 'en' });
     paintingCard.props().imageUrl.should.eq('https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Mona_Lisa,_by_Leonardo_da_Vinci,_from_C2RMF_retouched.jpg/255px-Mona_Lisa,_by_Leonardo_da_Vinci,_from_C2RMF_retouched.jpg');
     paintingCard.props().texts.should.deep.eq(['Painting is the practice of applying paint, pigment, color or other medium to a surface (support base).']);
     paintingCard.props().url.should.deep.eq({
@@ -60,7 +60,7 @@ describe('components/generic/EntityCards', () => {
 
     augarCard.should.exist;
     augarCard.props().isRelated.should.be.true;
-    augarCard.props().title.should.eq('Philip Augar');
+    augarCard.props().title.should.eql({ values: [ 'Philip Augar' ], code: 'en' });
     augarCard.props().texts.should.deep.eq(['Philip Augar is a British author, and was an equities broker in the City of London, for twenty years from the 1970s, first with NatWest and J. Henry Schroder, and was part of the team that negotiated the sale of Schroders investment bank to Citigroup.']);
     augarCard.props().url.should.deep.eq({
       name: 'entity-type-all',

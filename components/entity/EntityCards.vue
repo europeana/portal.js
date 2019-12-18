@@ -5,7 +5,7 @@
       v-for="entity in entities"
       :key="entity.id"
       :is-related="true"
-      :title="entity.prefLabel.en"
+      :title="entityTitle(entity)"
       :texts="(getEntityDescription(entity, $i18n.locale) || {}).values"
       :image-url="depiction(entity)"
       :url="entityRoute(entity)"
@@ -16,6 +16,7 @@
 
 <script>
   import ContentCard from '../../components/generic/ContentCard';
+  import { langMapValueForLocale } from  '../../plugins/europeana/utils';
 
   import {
     getEntityDescription,
@@ -46,6 +47,10 @@
 
       depiction(entity) {
         return (!entity || !entity.depiction) ? null : getWikimediaThumbnailUrl(entity.depiction.id);
+      },
+
+      entityTitle(entity) {
+        return langMapValueForLocale(entity.prefLabel, this.$i18nlocale);
       },
 
       entityRoute(entity) {
