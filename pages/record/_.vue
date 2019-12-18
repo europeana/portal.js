@@ -46,7 +46,6 @@
             <div class="media-presentation">
               <MediaPresentation
                 :codec-name="selectedMedia.edmCodecName"
-                :image-link="selectedMediaImage.link"
                 :image-src="selectedMediaImage.src"
                 :mime-type="selectedMedia.ebucoreHasMimeType"
                 :url="selectedMedia.about"
