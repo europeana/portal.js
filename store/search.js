@@ -15,11 +15,18 @@ export const state = () => ({
   results: [],
   reusability: null,
   theme: null,
+  themeFacetEnabled: true,
   totalResults: null,
   view: null
 });
 
 export const mutations = {
+  disableThemeFacet(state) {
+    state.themeFacetEnabled = false;
+  },
+  enableThemeFacet(state) {
+    state.themeFacetEnabled = true;
+  },
   setActive(state, value) {
     state.active = value;
   },

@@ -19,6 +19,7 @@
     components: {
       SearchInterface
     },
+
     asyncData({ query, redirect, app }) {
       const currentPage = pageFromQuery(query.page);
 
@@ -33,6 +34,7 @@
         return redirect(app.localePath({ name: 'search', query }));
       }
     },
+
     async fetch({ store, query, res }) {
       store.commit('search/setActive', true);
       await store.dispatch('search/run', query);
@@ -40,15 +42,23 @@
         res.statusCode = store.state.search.errorStatusCode;
       }
     },
+
+    mounted() {
+      this.$store.commit('search/setPill', this.title);
+      this.$store.commit('search/enableThemeFacet');
+    },
+
     head() {
       return {
         title: this.$t('search')
       };
     },
+
     beforeRouteLeave(to, from, next) {
       this.$store.commit('search/setActive', false);
       next();
     },
+
     watchQuery: ['page', 'qf', 'query', 'reusability', 'theme']
   };
 </script>

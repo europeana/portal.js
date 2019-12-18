@@ -201,9 +201,6 @@
       page() {
         return Number(this.$route.query.page || 1);
       },
-      displayThemeFilter() {
-        return this.entityId === null;
-      },
       contentTierActiveState() {
         return this.filters.contentTier && this.filters.contentTier.includes('*');
       },
@@ -247,7 +244,7 @@
           }
         }
 
-        if (this.displayThemeFilter) {
+        if (this.$store.state.search.themeFacetEnabled) {
           ordered.unshift({ name: this.THEME, fields: thematicCollections });
         }
         return ordered.concat(unordered);
