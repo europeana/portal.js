@@ -1,13 +1,29 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
-
+import VueI18n from 'vue-i18n';
+import SmartLink from '../../../../components/generic/SmartLink.vue';
 import MediaActionBar from '../../../../components/record/MediaActionBar.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
+localVue.use(VueI18n);
+localVue.component('SmartLink', SmartLink);
+const i18n = new VueI18n({
+  locale: 'en',
+  messages: {
+    en: {
+      actions: {
+        viewAt: 'View at {link}',
+        providedBy: 'Provided by {provider}'
+      }
+    }
+  }
+});
+
 
 const factory = (propsData) => mount(MediaActionBar, {
   localVue,
+  i18n,
   propsData,
   mocks: {
     $t: (key) => key
@@ -68,13 +84,12 @@ describe('components/record/MediaActionBar', () => {
 
         it('is a non-language-tagged link', () => {
           const wrapper = factory(props);
-
           const attribution = wrapper.find('[data-qa="provider name"]');
           (attribution.attributes('lang') === undefined).should.be.true;
           const link = attribution.find('a');
-          link.attributes('lang' === undefined).should.be.true;
+          (link.attributes('lang') === undefined).should.be.true;
           link.attributes('href').should.eq(props.isShownAt);
-          link.text().should.eq(props.dataProviderName);
+          link.html().should.contain(props.dataProviderName);
         });
       });
 
@@ -88,13 +103,12 @@ describe('components/record/MediaActionBar', () => {
 
         it('is a language-tagged link', () => {
           const wrapper = factory(props);
-
           const attribution = wrapper.find('[data-qa="provider name"]');
           attribution.attributes('lang').should.eq(props.dataProviderLang);
           const link = attribution.find('a');
           link.attributes('lang').should.eq(props.dataProviderLang);
           link.attributes('href').should.eq(props.isShownAt);
-          link.text().should.eq(props.dataProviderName);
+          link.text().should.contain(props.dataProviderName);
         });
       });
     });
@@ -109,11 +123,10 @@ describe('components/record/MediaActionBar', () => {
 
         it('is displayed non-language-tagged', () => {
           const wrapper = factory(props);
-
           const attribution = wrapper.find('[data-qa="provider name"]');
           (attribution.attributes('lang') === undefined).should.be.true;
           const span = attribution.find('span');
-          span.attributes('lang' === undefined).should.be.true;
+          (span.attributes('lang') === undefined).should.be.true;
           span.text().should.eq(props.dataProviderName);
         });
       });
@@ -127,7 +140,6 @@ describe('components/record/MediaActionBar', () => {
 
         it('is displayed language-tagged', () => {
           const wrapper = factory(props);
-
           const attribution = wrapper.find('[data-qa="provider name"]');
           attribution.attributes('lang').should.eq(props.dataProviderLang);
           const span = attribution.find('span');
