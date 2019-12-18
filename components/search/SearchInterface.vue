@@ -284,7 +284,9 @@
         return name === 'THEME' ? 'radio' : 'checkbox';
       },
       changeFacet(name, selected) {
-        // if (typeof this.filters[name] === 'undefined' && selected.length === 0) return;
+        if (typeof this.filters[name] === 'undefined') {
+          if ((Array.isArray(selected) && selected.length === 0) || !selected) return;
+        }
         if (isEqual(this.filters[name], selected)) return;
         this.rerouteSearch(this.queryUpdatesForFacetChanges({ [name]: selected }));
       },

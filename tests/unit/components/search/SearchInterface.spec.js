@@ -184,18 +184,22 @@ describe('components/search/SearchInterface', () => {
         }
       });
 
+      it('injects THEME first', () => {
+        wrapper.vm.orderedFacets[0].name.should.eq('THEME');
+      });
+
       it('follows with ordered default facets from search plugin', () => {
-        wrapper.vm.orderedFacets[0].name.should.eq('TYPE');
-        wrapper.vm.orderedFacets[1].name.should.eq('REUSABILITY');
-        wrapper.vm.orderedFacets[2].name.should.eq('COUNTRY');
-        wrapper.vm.orderedFacets[3].name.should.eq('LANGUAGE');
-        wrapper.vm.orderedFacets[4].name.should.eq('PROVIDER');
-        wrapper.vm.orderedFacets[5].name.should.eq('DATA_PROVIDER');
+        wrapper.vm.orderedFacets[1].name.should.eq('TYPE');
+        wrapper.vm.orderedFacets[2].name.should.eq('REUSABILITY');
+        wrapper.vm.orderedFacets[3].name.should.eq('COUNTRY');
+        wrapper.vm.orderedFacets[4].name.should.eq('LANGUAGE');
+        wrapper.vm.orderedFacets[5].name.should.eq('PROVIDER');
+        wrapper.vm.orderedFacets[6].name.should.eq('DATA_PROVIDER');
       });
 
       it('ends with any other facets in their original order', () => {
-        wrapper.vm.orderedFacets[6].name.should.eq('RIGHTS');
-        wrapper.vm.orderedFacets[7].name.should.eq('CONTRIBUTOR');
+        wrapper.vm.orderedFacets[7].name.should.eq('RIGHTS');
+        wrapper.vm.orderedFacets[8].name.should.eq('CONTRIBUTOR');
       });
     });
 
@@ -216,7 +220,7 @@ describe('components/search/SearchInterface', () => {
       });
 
       it('returns core facets only', () => {
-        wrapper.vm.coreFacets.should.eql([ { 'name': 'TYPE' }, { 'name': 'REUSABILITY' }, { 'name': 'COUNTRY' } ]);
+        wrapper.vm.coreFacets.map(coreFacet => coreFacet.name).should.eql(['THEME', 'TYPE', 'REUSABILITY', 'COUNTRY']);
       });
     });
 
@@ -237,7 +241,7 @@ describe('components/search/SearchInterface', () => {
       });
 
       it('returns non-core facets only', () => {
-        wrapper.vm.moreFacets.should.eql([ { 'name': 'LANGUAGE' }, { 'name': 'PROVIDER' }, { 'name': 'DATA_PROVIDER' } ]);
+        wrapper.vm.moreFacets.map(moreFacet => moreFacet.name).should.eql(['LANGUAGE', 'PROVIDER', 'DATA_PROVIDER']);
       });
     });
   });
