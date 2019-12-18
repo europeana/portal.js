@@ -298,13 +298,6 @@
           filters[name] = selected[name];
         }
 
-        // delete property from filters when no longer selected
-        for (const name in filters) {
-          if (!selected[name]) {
-            delete filters[name];
-          }
-        }
-
         return this.queryUpdatesForFilters(filters);
       },
       queryUpdatesForFilters(filters) {

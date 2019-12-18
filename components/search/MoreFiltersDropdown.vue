@@ -168,11 +168,7 @@
       },
 
       updateSelected(facetName, selectedFields) {
-        if (selectedFields.length === 0) {
-          Vue.delete(this.preSelected, facetName);
-        } else {
-          Vue.set(this.preSelected, facetName, selectedFields);
-        }
+        Vue.set(this.preSelected, facetName, selectedFields);
       },
 
       applySelected() {
