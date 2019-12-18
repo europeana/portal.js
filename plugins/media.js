@@ -29,11 +29,19 @@ export function isIIIFImage(media) {
   return isIIIFMedia(media) && ((media.dctermsIsReferencedBy || []).length === 0);
 }
 
-export function isIIIFPresentation(media) {
-  return isIIIFMedia(media) && ((media.dctermsIsReferencedBy || []).length > 0);
+export function isIIIFPresentation(media, options = {}) {
+  let presentation = false;
+  if (isIIIFMedia(media) && ((media.dctermsIsReferencedBy || []).length > 0)) {
+    if (!options.ssl || iiifManifest(media).startsWith('https://')) presentation = true;
+  }
+  return presentation;
+}
+
+export function iiifManifest(media) {
+  return (media.dctermsIsReferencedBy || [])[0];
 }
 
 export function isRichMedia(media, options = {}) {
   return isOEmbed(media) || isHTMLVideo(media) || isHTMLAudio(media) ||
-    (options.iiif && isIIIFPresentation(media));
+    (options.iiif && isIIIFPresentation(media, options));
 }

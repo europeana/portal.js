@@ -56,8 +56,8 @@
 
   import oEmbed from '../../plugins/oembed.js';
   import {
-    isHTMLVideo, isHTMLAudio, isIIIFImage, isIIIFPresentation, isOEmbed, isPDF, isRichMedia
-  } from '../../plugins/media.js';
+    isHTMLVideo, isHTMLAudio, isIIIFImage, isIIIFPresentation, isOEmbed, isPDF, isRichMedia, iiifManifest
+  } from '../../plugins/media';
 
   export default {
     name: 'MediaPresentation',
@@ -92,7 +92,10 @@
 
     computed: {
       displayImage() {
-        return (this.imageSrc !== '') && !isRichMedia(this.media, { iiif: Number(process.env.ENABLE_IIIF_MEDIA) });
+        return (this.imageSrc !== '') && !isRichMedia(this.media, {
+          iiif: Number(process.env.ENABLE_IIIF_MEDIA),
+          ssl: !Number(process.env.DISABLE_REDIRECT_SSL)
+        });
       },
       isPDF() {
         return isPDF(this.media);
@@ -109,13 +112,15 @@
       },
       isIIIFPresentation() {
         if (!Number(process.env.ENABLE_IIIF_MEDIA)) return false;
-        return isIIIFPresentation(this.media);
+        return isIIIFPresentation(this.media, {
+          ssl: !Number(process.env.DISABLE_REDIRECT_SSL)
+        });
+      },
+      iiifManifest() {
+        return iiifManifest(this.media);
       },
       isOEmbed() {
         return isOEmbed(this.media);
-      },
-      iiifManifest() {
-        return this.media.dctermsIsReferencedBy[0];
       }
     },
 
