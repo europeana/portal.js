@@ -64,5 +64,4 @@
   .form-inline {
     width: 40%;
   }
-
-  </style>
+</style>

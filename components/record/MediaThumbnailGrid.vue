@@ -4,7 +4,7 @@
     class="d-flex flex-wrap mb-3"
   >
     <!-- TODO: populate alt, but with what? -->
-    <b-img
+    <b-img-lazy
       v-for="(thumbnail, index) of thumbnails"
       :key="index"
       :src="thumbnail.src"
@@ -14,7 +14,7 @@
       thumbnail
       alt=""
       class="mb-2 mr-2 rounded-0"
-      @click="clickThumbnail(thumbnail.about)"
+      @click.native="clickThumbnail(thumbnail.about)"
     />
     <button
       v-if="thumbnails.length > 11"

@@ -63,3 +63,13 @@ Feature: Record page
     When I open the `"The pride of Glencoe, song" record page`
     Then I see a `audio player`
     And I am on an accessible page
+
+  Scenario: IIIF Image viewer
+    When I open a `record page with a IIIF Image`
+    Then I see the `IIIF Image viewer`
+    And I am on an accessible page
+
+  Scenario: IIIF Presentation viewer
+    When I open a `record page with a IIIF Presentation`
+    Then I see the `IIIF Presentation viewer`
+    And I am on an accessible page

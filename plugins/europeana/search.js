@@ -112,7 +112,7 @@ export function filtersFromQuery(query) {
     for (const qf of [].concat(query.qf)) {
       const qfParts = qf.split(':');
       const facetName = qfParts[0];
-      const facetValue = qfParts[1].match(/^".*"$/) ? qfParts[1].slice(1, -1) : qfParts[1]; // Slice only if double quotes exist
+      const facetValue = qfParts.slice(1).join(':').replace(/^"(.*)"$/, '$1');
       if (typeof filters[facetName] === 'undefined') {
         filters[facetName] = [];
       }
