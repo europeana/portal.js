@@ -24,6 +24,7 @@
           :name="PROXY_DCTERMS_ISSUED"
           :start="dateFilter.start"
           :end="dateFilter.end"
+          :specific="dateFilter.specific"
           @dateFilter="dateFilterSelected"
         />
       </b-dropdown-form>
@@ -98,6 +99,7 @@
     data() {
       return {
         preSelected: this.cloneSelected(),
+        isCheckedSpecificDate: false,
         PROXY_DCTERMS_ISSUED: 'proxy_dcterms_issued',
         NEWSPAPERS_CONCEPT_URI: 'http://data.europeana.eu/concept/base/18'
       };
@@ -127,12 +129,15 @@
 
       dateFilter() {
         const proxyDctermsIssued = this.preSelected[this.PROXY_DCTERMS_ISSUED];
-
         if (!proxyDctermsIssued || proxyDctermsIssued.length < 1) {
-          return { start: null, end: null };
+          return { start: null, end: null, specific: this.isCheckedSpecificDate };
         }
 
-        return rangeFromQueryParam(proxyDctermsIssued[0]);
+        const range = rangeFromQueryParam(proxyDctermsIssued[0]);
+        if (!range) {
+          return { start: proxyDctermsIssued[0], end: null, specific: true };
+        }
+        return range;
       }
     },
 
@@ -148,8 +153,18 @@
       },
 
       dateFilterSelected(facetName, dateRange) {
-        const rangeQuery = (!dateRange.start && !dateRange.end) ? [] : [rangeToQueryParam(dateRange)];
-        this.updateSelected(facetName, rangeQuery);
+        let dateQuery = [];
+
+        if (dateRange.specific) {
+          if (dateRange.start) {
+            dateQuery = [dateRange.start];
+          }
+        } else if (dateRange.start || dateRange.end) {
+          dateQuery = [rangeToQueryParam(dateRange)];
+        }
+
+        this.isCheckedSpecificDate = dateRange.specific;
+        this.updateSelected(facetName, dateQuery);
       },
 
       updateSelected(facetName, selectedFields) {
@@ -168,6 +183,7 @@
 
       resetFilters() {
         this.clearPreSelected();
+        this.isCheckedSpecificDate = false;
       },
 
       clearPreSelected() {

@@ -297,6 +297,7 @@
         for (const name in selected) {
           filters[name] = selected[name];
         }
+
         return this.queryUpdatesForFilters(filters);
       },
       queryUpdatesForFilters(filters) {

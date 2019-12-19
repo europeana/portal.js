@@ -187,6 +187,7 @@ describe('components/search/MoreFacetsDropdown', () => {
 
       wrapper.vm.dateFilter.should.eql({
         end: null,
+        specific: false,
         start: null
       });
     });
