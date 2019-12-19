@@ -44,6 +44,7 @@
       v-else-if="isIIIFPresentation"
       data-qa="IIIF Presentation viewer"
       :src="localePath({ name: 'iiif', query: { uri: iiifManifest } })"
+      :aria-label="$t('actions.viewDocument')"
     />
   </div>
 </template>

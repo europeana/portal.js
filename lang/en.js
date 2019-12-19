@@ -359,7 +359,8 @@ export default {
     "exhibitions": "Exhibitions"
   },
   "actions": {
-    "download": "Download"
+    "download": "Download",
+    "viewDocument": "View document"
   },
   "clearAllFilters": "clear all filters",
   "reset": "Reset",
