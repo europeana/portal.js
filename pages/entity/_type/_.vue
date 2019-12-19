@@ -290,6 +290,7 @@
 
     mounted() {
       this.$store.commit('search/setPill', this.title);
+      this.$store.commit('search/disableThemeFacet');
     },
 
     head() {
