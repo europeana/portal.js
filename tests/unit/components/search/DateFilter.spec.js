@@ -46,7 +46,7 @@ describe('components/search/DateFilter', () => {
     });
   });
 
-  it('should have same start and end date when specific is selected', async() => {
+  it('should not display end date field when specific is selected', async() => {
     const wrapper = factory();
     const startInput = wrapper.find('[data-qa="date range end input"]');
 
@@ -55,7 +55,7 @@ describe('components/search/DateFilter', () => {
     wrapper.vm.form.start = '2019-01-01';
 
     localVue.nextTick(() => {
-      wrapper.vm.form.end.should.eq('2019-01-01');
+      wrapper.find('[data-qa="date range end input"]').exists().should.be.false;
     });
   });
 });
