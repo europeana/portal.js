@@ -6,9 +6,6 @@
   >
     <b-col class="col-12 col-lg-9">
       <b-card>
-        <h2 v-if="headline">
-          {{ headline }}
-        </h2>
         <!-- eslint-disable vue/no-v-html -->
         <div
           v-html="html"
@@ -25,10 +22,6 @@
 
   export default {
     props: {
-      headline: {
-        type: String,
-        default: null
-      },
       text: {
         type: String,
         required: true
