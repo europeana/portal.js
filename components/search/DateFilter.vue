@@ -35,7 +35,7 @@
             type="date"
             data-qa="date range start input"
             :class="{ 'is-active' : form.start }"
-            placeholder="dd/mm/yyyy"
+            placeholder="YYYY-MM-DD"
             @change="emitDateForm"
           />
         </b-col>
@@ -66,7 +66,7 @@
               type="date"
               data-qa="date range end input"
               :class="{ 'is-active' : form.end }"
-              placeholder="dd/mm/yyyy"
+              placeholder="YYYY-MM-DD"
               @change="emitDateForm"
             />
           </b-col>
