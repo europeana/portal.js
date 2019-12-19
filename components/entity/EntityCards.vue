@@ -16,7 +16,6 @@
 
 <script>
   import ContentCard from '../../components/generic/ContentCard';
-  import { langMapValueForLocale } from  '../../plugins/europeana/utils';
 
   import {
     getEntityDescription,
@@ -50,7 +49,7 @@
       },
 
       entityTitle(entity) {
-        return langMapValueForLocale(entity.prefLabel, this.$i18nlocale);
+        return entity.prefLabel;
       },
 
       entityRoute(entity) {
