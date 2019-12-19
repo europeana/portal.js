@@ -34,8 +34,6 @@ describe('components/browse/BrowseChip', () => {
       title: { en: 'Painting'  }
     });
 
-    console.log('poo', wrapper.html());
-
     const chip = wrapper.find('[data-qa="browse chip"]');
     chip.text().should.eq('Painting');
     chip.attributes().to.should.contain('47-painting');
