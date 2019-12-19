@@ -24,30 +24,31 @@
       <h1 data-qa="entity title">
         {{ title }}
       </h1>
-      <p
+      <div
         v-if="hasDescription"
-        data-qa="entity description"
-        :lang="description.code"
+        class="mb-3"
       >
-        {{ showAll ? fullDescription : truncatedDescription }}
-        <br>
-      </p>
-      <b-link
-        v-if="hasDescription && fullDescription.length > limitCharacters"
-        data-qa="entity show link"
-        class="btn-link"
-        @click="toggleMoreDescription"
-      >
-        {{ showAll ? $t('showLess') : $t('showMore') }}
-      </b-link>
+        <p
+          data-qa="entity description"
+          :lang="description.code"
+        >
+          {{ showAll ? fullDescription : truncatedDescription }}
+        </p>
+        <b-link
+          v-if="fullDescription.length > limitCharacters"
+          data-qa="entity show link"
+          class="btn-link is-size-4"
+          @click="toggleMoreDescription"
+        >
+          {{ showAll ? $t('showLess') : $t('showMore') }}
+        </b-link>
+      </div>
       <SmartLink
         v-if="hasDescription && !isEditorialDescription"
         destination="/rights/europeana-data-sources"
-        class="d-flex mt-5"
+        class="d-flex font-weight-bold is-size-4"
       >
-        <small class="font-weight-bold">
-          {{ $t('learnMore') }}
-        </small>
+        {{ $t('learnMore') }}
       </SmartLink>
     </b-col>
   </b-row>
@@ -141,14 +142,9 @@
     }
   }
 
-  .attribution {
-    font-size: $font-size-extrasmall;
-  }
-
   .btn-link {
     color: $black;
     display: inline-block;
-    font-size: $font-size-small;
     text-decoration: underline;
     text-transform: uppercase;
 

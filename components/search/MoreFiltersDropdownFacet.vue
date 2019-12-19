@@ -1,7 +1,7 @@
 <template>
   <b-dropdown-form>
     <strong
-      class="mb-4 d-inline-block"
+      class="mb-3 d-inline-block"
     >
       {{ $tc(`facets.${name}.name`, 1) }}
     </strong>
@@ -17,7 +17,7 @@
         :key="index"
         :value="filter.label"
         :data-qa="`${filter.label} checkbox`"
-        class="mb-3"
+        class="mb-2"
       >
         <ColourSwatch
           v-if="isColourPalette"
@@ -43,7 +43,7 @@
           :key="index"
           :value="filter.label"
           :data-qa="`${filter.label} checkbox`"
-          class="mb-3"
+          class="mb-2"
         >
           <ColourSwatch
             v-if="isColourPalette"
@@ -70,7 +70,7 @@
       :data-qa="(isActive ? $t(`facets.button.showLess`, { label: $tc(`facets.${name}.name`, 2) }) + ' button' : $t(`facets.button.showAll`, { label: $tc(`facets.${name}.name`, 2) }) + ' button')"
       @click.prevent="isActive = !isActive"
     >
-      {{ isActive ? $t(`facets.button.showLess`, { label: $tc(`facets.${name}.name`, 2) }) : $t(`facets.button.showAll`, { label: $tc(`facets.${name}.name`, 2) }) }}
+      {{ isActive ? $t(`facets.button.showLess`, { label: $tc(`facets.${name}.name`, 2) }) : $t(`facets.button.showAll`, { label: $tc(`facets.${name}.name`, 2).toLowerCase() }) }}
     </button>
   </b-dropdown-form>
 </template>
