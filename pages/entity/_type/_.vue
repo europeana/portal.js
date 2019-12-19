@@ -297,7 +297,7 @@
       titleFallback(title) {
         return {
           values: [title],
-          code: this.$i18n.locale
+          code: null
         };
       }
     },

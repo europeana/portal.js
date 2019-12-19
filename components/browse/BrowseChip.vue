@@ -3,13 +3,13 @@
     <b-badge
       v-if="title"
       :to="linkTo"
-      :lang="browseChipTitle.code"
+      :lang="localisedTitle.code"
       pill
       variant="nocolor"
       class="mb-3 mr-3 font-weight-normal bg-transparent"
       data-qa="browse chip"
     >
-      {{ browseChipTitle.values[0] }}
+      {{ localisedTitle.values[0] }}
     </b-badge>
   </li>
 </template>
@@ -29,7 +29,7 @@
     },
 
     computed: {
-      browseChipTitle() {
+      localisedTitle() {
         return langMapValueForLocale(this.title, this.$i18n.locale);
       }
     }
