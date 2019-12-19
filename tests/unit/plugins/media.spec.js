@@ -62,6 +62,41 @@ describe('plugins/media', () => {
 
       media.isIIIFPresentation(item).should.be.true;
     });
+
+    context('when `ssl` option is `true`', () => {
+      it('returns `false` if manifest is http:// not https://', () => {
+        const item = {
+          services: [{
+            dctermsConformsTo: ['http://iiif.io/api/image']
+          }],
+          dctermsIsReferencedBy: ['http://www.example.org/iiif/manifest']
+        };
+
+        media.isIIIFPresentation(item, { ssl: true }).should.be.false;
+      });
+
+      it('returns `true` if manifest is https:// not http://', () => {
+        const item = {
+          services: [{
+            dctermsConformsTo: ['http://iiif.io/api/image']
+          }],
+          dctermsIsReferencedBy: ['https://www.example.org/iiif/manifest']
+        };
+
+        media.isIIIFPresentation(item, { ssl: true }).should.be.true;
+      });
+    });
+  });
+
+  describe('iiifManifest()', () => {
+    it('returns the first element in dctermsIsReferencedBy', () => {
+      const manifest = 'http://www.example.org/iiif/manifest';
+      const item = {
+        dctermsIsReferencedBy: [manifest]
+      };
+
+      media.iiifManifest(item).should.eq(manifest);
+    });
   });
 
   describe('isRichMedia()', () => {
