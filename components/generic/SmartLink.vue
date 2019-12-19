@@ -12,8 +12,8 @@
     :target="isExternalLink ? '_blank' : '_self'"
     :class="[{ 'is-external-link' : isExternalLink }, linkClass]"
   >
-    <slot />
-    <span
+    <slot /><!-- This comment removes white space which gets underlined
+ --><span
       v-if="isExternalLink"
       class="sr-only"
     >
