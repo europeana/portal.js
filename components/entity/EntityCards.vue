@@ -1,6 +1,5 @@
 <template>
   <section>
-    <!-- TODO: l10n -->
     <ContentCard
       v-for="entity in entities"
       :key="entity.id"
