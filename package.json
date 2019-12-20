@@ -62,14 +62,14 @@
     "md5": "^2.2.1",
     "morgan": "^1.9.1",
     "nightwatch-accessibility": "^1.8.0",
-    "nuxt": "^2.9.2",
+    "nuxt": "^2.11.0",
     "nuxt-i18n": "^6.3.0",
     "qs": "^6.6.0",
     "redirect-ssl": "^1.4.1",
     "vcap_services": "^0.7.0",
-    "vue": "^2.6.10",
+    "vue": "^2.6.11",
     "vue-resize-directive": "^1.1.4",
-    "vue-server-renderer": "^2.6.8"
+    "vue-server-renderer": "^2.6.11"
   },
   "devDependencies": {
     "@babel/core": "^7.6.0",
@@ -85,7 +85,7 @@
     "@vue/cli-plugin-babel": "^3.5.1",
     "@vue/cli-plugin-eslint": "^3.5.1",
     "@vue/cli-plugin-unit-mocha": "^3.5.1",
-    "@vue/cli-service": "^3.5.3",
+    "@vue/cli-service": "^4.1.1",
     "@vue/test-utils": "^1.0.0-beta.29",
     "babel-eslint": "^10.0.1",
     "babel-loader": "^8.0.5",
@@ -95,14 +95,14 @@
     "chai-string": "^1.5.0",
     "chromedriver": "^78.0.0",
     "concurrently": "^4.1.0",
-    "contentful-cli": "^1.1.1",
+    "contentful-cli": "^1.2.3",
     "cssesc": "^3.0.0",
     "cucumber": "^5.1.0",
     "cucumber-pretty": "^1.5.0",
     "eslint": "^6.3.0",
     "eslint-loader": "^3.0.0",
     "eslint-plugin-vue": "^5.2.2",
-    "geckodriver": "^1.16.2",
+    "geckodriver": "^1.19.1",
     "is-reachable": "^3.0.0",
     "nightwatch": "^1.2.2",
     "nightwatch-api": "^2.1.2",
@@ -119,6 +119,6 @@
     "svg-url-loader": "^3.0.2",
     "vue-i18n": "^8.14.1",
     "vue-loader": "^15.7.0",
-    "vue-template-compiler": "^2.6.10"
+    "vue-template-compiler": "^2.6.11"
   }
 }
