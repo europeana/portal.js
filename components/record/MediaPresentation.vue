@@ -147,8 +147,7 @@
   /* TODO: fixed max height is subject to change */
   .media-presentation {
     /deep/ img,
-    video,
-    iframe {
+    video {
       height: auto;
       max-height: 800px;
       object-fit: contain;
@@ -160,6 +159,7 @@
       border: 1px solid $lightgrey;
       border-radius: $border-radius-small;
       box-shadow: $boxshadow-small;
+      width: 100%;
     }
   }
 </style>
