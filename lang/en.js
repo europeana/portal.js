@@ -80,7 +80,13 @@ export default {
       "name": "Providing country"
     },
     "REUSABILITY": {
-      "name": "Can I reuse this?"
+      "name": "Can I reuse this?",
+      "options": {
+        "open": "Open",
+        "restricted": "Restricted",
+        "permission": "Permission",
+        "uncategorized": "Uncategorized"
+      }
     },
     "THEME": {
       "name": "Collection",
