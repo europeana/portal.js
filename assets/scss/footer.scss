@@ -41,6 +41,42 @@ footer {
         }
       }
     }
+
+    &.social-links {
+      display: flex;
+
+      li {
+        &:not(:last-child) {
+          margin-right: .5rem;
+        }
+
+        .footer-link {
+          &:hover {
+            text-decoration: none;
+          }
+          &.is-external-link {
+            &::after {
+              content: '';
+            }
+          }
+        }
+      }
+
+      .icon-background {
+        width: 2.5rem;
+        height: 2.5rem;
+        background: $white;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        i {
+          color: $midnight;
+          font-size: 1.5rem;
+        }
+      }
+    }
   }
 
   .dropdown {

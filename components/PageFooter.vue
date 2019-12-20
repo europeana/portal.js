@@ -17,6 +17,12 @@
               {{ $t('footer.ourMissionQuote') }}
             </p>
           </figure>
+          <LinkGroup
+            list-class="footer-link-list social-links"
+            link-class="footer-link"
+            caption="Find us elsewhere"
+            :links="social"
+          />
         </b-col>
         <b-col
           lg="4"
@@ -85,6 +91,34 @@
       LangSelector,
       LinkGroup
     },
+
+    data() {
+      return {
+        social: [
+          {
+            text: 'Facebook',
+            url: 'https://www.facebook.com/Europeana',
+            icon: 'icon-facebook'
+          },
+          {
+            text: 'Twitter',
+            url: 'https://twitter.com/europeanaeu',
+            icon: 'icon-twitter'
+          },
+          {
+            text: 'Pinterest',
+            url: 'https://www.pinterest.com/europeana',
+            icon: 'icon-pinterest'
+          },
+          {
+            text: 'Instagram',
+            url: 'https://www.instagram.com/europeana_eu/',
+            icon: 'icon-instagram'
+          }
+        ]
+      };
+    },
+
     computed: {
       footerMoreInfo() {
         return this.$store.state['link-group'].data.footerMoreInfo;
