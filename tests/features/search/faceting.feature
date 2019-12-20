@@ -34,7 +34,7 @@ Feature: Search faceting
     And I wait 2 seconds
     Then I should be on `/en/search?page=1&query=&reusability=open&view=grid`
     And I am on page number 1
-    And I see a `filter badge` with the text "Can I reuse this?: open"
+    And I see a `filter badge` with the text "Can I reuse this?: Open"
 
   Scenario: Filtering results by country
     Given I am on the `search page`
