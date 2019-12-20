@@ -45,6 +45,7 @@
             </header>
             <div class="media-presentation">
               <MediaPresentation
+                :europeana-identifier="identifier"
                 :media="selectedMedia"
                 :image-src="selectedMediaImage.src"
               />

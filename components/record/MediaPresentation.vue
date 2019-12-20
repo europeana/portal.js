@@ -34,15 +34,9 @@
       :html="oEmbedData.html"
       :error="oEmbedData.error"
     />
-    <!-- FIXME: Mirador does not support (non-Presentation) IIIF Image resources -->
-    <!-- <iframe
-      v-else-if="isIIIFImage"
-      data-qa="IIIF Image viewer"
-      :src="localePath({ name: 'iiif', query: { uri: media.about } })"
-    /> -->
     <iframe
-      v-else-if="isIIIFPresentation"
-      data-qa="IIIF Presentation viewer"
+      v-else-if="isIIIFImage || isIIIFPresentation"
+      data-qa="IIIF viewer"
       :src="localePath({ name: 'iiif', query: { uri: iiifManifest } })"
       :aria-label="$t('actions.viewDocument')"
     />
@@ -57,7 +51,8 @@
 
   import oEmbed from '../../plugins/oembed.js';
   import {
-    isHTMLVideo, isHTMLAudio, isIIIFImage, isIIIFPresentation, isOEmbed, isPDF, isRichMedia, iiifManifest
+    isHTMLVideo, isHTMLAudio, isIIIFImage, isIIIFPresentation,
+    isOEmbed, isPDF, isRichMedia, iiifManifest
   } from '../../plugins/media';
 
   export default {
@@ -71,6 +66,10 @@
     },
 
     props: {
+      europeanaIdentifier: {
+        type: String,
+        required: true
+      },
       media: {
         type: Object,
         required: true
@@ -94,8 +93,7 @@
     computed: {
       displayImage() {
         return (this.imageSrc !== '') && !isRichMedia(this.media, {
-          iiif: Number(process.env.ENABLE_IIIF_MEDIA),
-          ssl: !Number(process.env.DISABLE_REDIRECT_SSL)
+          iiif: Number(process.env.ENABLE_IIIF_MEDIA)
         });
       },
       isPDF() {
@@ -113,12 +111,10 @@
       },
       isIIIFPresentation() {
         if (!Number(process.env.ENABLE_IIIF_MEDIA)) return false;
-        return isIIIFPresentation(this.media, {
-          ssl: !Number(process.env.DISABLE_REDIRECT_SSL)
-        });
+        return isIIIFPresentation(this.media);
       },
       iiifManifest() {
-        return iiifManifest(this.media);
+        return iiifManifest(this.media, this.europeanaIdentifier);
       },
       isOEmbed() {
         return isOEmbed(this.media);
