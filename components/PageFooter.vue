@@ -20,7 +20,7 @@
           <LinkGroup
             list-class="footer-link-list social-links"
             link-class="footer-link"
-            caption="Find us elsewhere"
+            :caption="$t('footer.findUsElsewhere')"
             :links="social"
           />
         </b-col>
