@@ -20,7 +20,6 @@
         uri: query.uri
       };
     },
-
     mounted() {
       this.$nextTick(() => {
         // Doc: https://github.com/ProjectMirador/mirador/blob/master/src/config/settings.js
@@ -33,7 +32,16 @@
           window: {
             allowClose: false,
             allowFullscreen: true,
-            allowMaximize: false
+            allowMaximize: false,
+            panels: {
+              info: true,
+              attribution: true,
+              canvas: true,
+              // Disabled due to performance issues with many annotations, pending
+              // https://github.com/ProjectMirador/mirador/issues/2915
+              annotations: false,
+              search: true
+            }
           },
           workspace: {
             showZoomControls: true,
