@@ -20,15 +20,4 @@ describe('components/browse/RichText', () => {
 
     markdown.html().should.contain('<strong>This is bold text</strong>');
   });
-
-  it('shows a heading if property exists', () => {
-    const wrapper = factory();
-
-    wrapper.setProps({
-      headline: 'This will be a title'
-    });
-
-    const markdown = wrapper.find('[data-qa="markdown"]');
-    markdown.find('h2').text().should.contain('This will be a title');
-  });
 });

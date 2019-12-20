@@ -80,12 +80,17 @@ export default {
       "name": "Providing country"
     },
     "REUSABILITY": {
-      "name": "Can I reuse this?"
+      "name": "Can I reuse this?",
+      "options": {
+        "open": "Open",
+        "restricted": "Restricted",
+        "permission": "Permission",
+        "uncategorized": "Uncategorized"
+      }
     },
     "THEME": {
-      "name": "Category",
+      "name": "Collection",
       "options": {
-        "all": "All items",
         "ww1": "1914-1918",
         "archaeology": "Archaeology",
         "art": "Art",
@@ -360,7 +365,9 @@ export default {
   },
   "actions": {
     "download": "Download",
-    "viewDocument": "View document"
+    "viewDocument": "View document",
+    "viewAt": "View at {link}",
+    "providedBy": "Provided by {provider}"
   },
   "clearAllFilters": "clear all filters",
   "reset": "Reset",
@@ -405,7 +412,8 @@ export default {
   "dateFilter": {
     "startDate": "Start date",
     "endDate": "End date",
-    "to": "to"
+    "to": "to",
+    "specificDate": "Specific date"
   },
   "cookieDisclaimer": {
     "acceptCookieDisclaimer": "Accept cookie disclaimer",

@@ -27,13 +27,19 @@
 
     data() {
       return {
-        MIME_TYPE: 'MIME_TYPE'
+        MIME_TYPE: 'MIME_TYPE',
+        DATE: 'proxy_dcterms_issued'
       };
     },
 
     computed: {
       label() {
-        const fieldLabel = (this.facetName === this.MIME_TYPE) ? this.mediaTypeLabel : this.genericLabel;
+
+        let fieldLabel = this.genericLabel;
+
+        if (this.facetName === this.MIME_TYPE) {
+          fieldLabel = this.mediaTypeLabel;
+        }
 
         if (!this.prefixed) return fieldLabel;
 

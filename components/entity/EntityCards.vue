@@ -1,11 +1,10 @@
 <template>
   <section>
-    <!-- TODO: l10n -->
     <ContentCard
       v-for="entity in entities"
       :key="entity.id"
       :is-related="true"
-      :title="entity.prefLabel.en"
+      :title="entityTitle(entity)"
       :texts="(getEntityDescription(entity, $i18n.locale) || {}).values"
       :image-url="depiction(entity)"
       :url="entityRoute(entity)"
@@ -46,6 +45,10 @@
 
       depiction(entity) {
         return (!entity || !entity.depiction) ? null : getWikimediaThumbnailUrl(entity.depiction.id);
+      },
+
+      entityTitle(entity) {
+        return entity.prefLabel;
       },
 
       entityRoute(entity) {
