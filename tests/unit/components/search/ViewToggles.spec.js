@@ -70,16 +70,14 @@ describe('components/search/ViewToggles', () => {
       it('displays icon', () => {
         const wrapper = factory();
 
-        const viewToggleIcon = wrapper.find(`[data-qa="search ${view} view toggle"] img`);
-
-        const regexp = new RegExp(`/${view}.([^/]+.)?svg$`);
-        viewToggleIcon.attributes('src').should.match(regexp);
+        const viewToggleIcon = wrapper.find(`[data-qa="search ${view} view toggle"] i`);
+        viewToggleIcon.attributes('class').should.eq(`icon-view-toggle ${view}`);
       });
 
       it('changes active view when clicked', () => {
         const wrapper = factory();
 
-        const viewToggle = wrapper.find(`[data-qa="search ${view} view toggle"] img`);
+        const viewToggle = wrapper.find(`[data-qa="search ${view} view toggle"] a`);
         viewToggle.trigger('click');
 
         storeMutations['search/setView'].should.have.been.calledWith({ search: { view: null } }, view);
