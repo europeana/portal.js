@@ -18,11 +18,10 @@
         <b-form-radio
           v-for="(option, index) in sortedOptions"
           :key="index"
-          v-model="radioSelected"
+          v-model="preSelected"
           :value="option"
           :name="name"
           :data-qa="`${option} ${RADIO}`"
-          @change="$refs.dropdown.hide(true)"
         >
           <FacetFieldLabel
             :facet-name="name"
@@ -50,14 +49,13 @@
     </b-dropdown-form>
 
     <li
-      v-if="type === 'checkbox'"
       class="dropdown-buttons mt-3"
     >
       <b-button
         variant="link"
-        :disabled="!(preSelected.length > 0)"
+        :disabled="disableResetButton"
         :data-qa="`${name} reset button`"
-        @click="resetCheckboxSelection"
+        @click="resetSelection"
       >
         {{ $t('facets.button.reset') }}
       </b-button>
@@ -70,24 +68,10 @@
         {{ $t('facets.button.apply') }}
       </b-button>
     </li>
-
-    <li
-      v-else
-      class="p-2 float-right"
-    >
-      <b-button
-        variant="link"
-        :disabled="!radioSelected"
-        @click.stop="resetRadioSelection"
-      >
-        {{ $t('facets.button.reset') }}
-      </b-button>
-    </li>
   </b-dropdown>
 </template>
 
 <script>
-  import Vue from 'vue';
   import isEqual from 'lodash/isEqual';
 
   import FacetFieldLabel from './FacetFieldLabel';
@@ -111,7 +95,6 @@
 
       selected: {
         type: [Array, String],
-        required: false,
         default: () => []
       },
 
@@ -125,16 +108,16 @@
       return {
         RADIO: 'radio',
         CHECKBOX: 'checkbox',
-        preSelected: [],
-        radioSelected: null
+        preSelected: null
       };
     },
 
     computed: {
       sortedOptions() {
+        if (this.isRadio) return this.fields;
+
         const selected = [];
 
-        /* TODO: THIS NEEDS TO BE CLEANED UP */
         this.fields.map(field => {
           if (this.selected.includes(field.label)) {
             selected.push(field);
@@ -144,7 +127,6 @@
         const leftOver = this.fields.filter(field => !this.selected.includes(field.label));
 
         return selected.sort((a, b) => a.count + b.count).concat(leftOver);
-        /* END TODO */
       },
 
       facetName() {
@@ -156,11 +138,19 @@
       },
 
       disableApplyButton() {
+        if (this.isRadio && Array.isArray(this.selected)) {
+          return this.preSelected === null;
+        }
         return isEqual(this.preSelected, this.selected);
       },
 
+      disableResetButton() {
+        if (!this.preSelected) return true;
+        return Array.isArray(this.preSelected) && (this.preSelected.length === 0);
+      },
+
       dropdownVariant() {
-        return (this.radioSelected || this.selected.length > 0) ? 'selected' : 'light';
+        return ((typeof this.selected === 'string') || (Array.isArray(this.selected) && this.selected.length > 0)) ? 'selected' : 'light';
       }
     },
 
@@ -178,42 +168,23 @@
 
     methods: {
       init() {
-        if (this.isRadio) {
-          if (Array.isArray(this.selected)) {
-            this.radioSelected = '';
-          } else {
-            this.radioSelected = this.selected;
-          }
-        } else if (this.selected.length > 0) {
+        if (this.isRadio && Array.isArray(this.selected)) {
+          this.preSelected = null;
+        } else {
           this.preSelected = this.selected;
-        } else if (this.preSelected.length > 0 && this.selected.length < 1) {
-          this.preSelected = [];
         }
       },
 
       cancelHandler() {
-        this.preSelected = this.selected;
-        this.resetRadioSelection();
+        this.init();
       },
 
-      resetCheckboxSelection() {
-        this.preSelected = [];
+      resetSelection() {
+        this.preSelected = this.isRadio ? null : [];
       },
 
-      resetRadioSelection() {
-        this.radioSelected = '';
-        this.$refs.dropdown.hide(true);
-      },
-
-      applySelection() {
-        if (this.isRadio) {
-          Vue.nextTick(() => { // Change event triggers before v-model has updated. This resolves the issue
-            this.$emit('changed', this.name, this.radioSelected);
-          });
-        } else {
-          this.$emit('changed', this.name, this.preSelected);
-        }
-
+      async applySelection() {
+        await this.$emit('changed', this.name, this.preSelected);
         this.$refs.dropdown.hide(true);
       }
     }

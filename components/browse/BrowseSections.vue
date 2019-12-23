@@ -6,7 +6,6 @@
       <RichText
         v-if="contentType(section, 'richText')"
         :key="section.sys.id"
-        :headline="section.fields.headline"
         :text="section.fields.text"
       />
       <ContentCardSection

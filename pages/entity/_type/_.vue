@@ -76,6 +76,7 @@
   import * as entities from '../../../plugins/europeana/entity';
   import { pageFromQuery } from '../../../plugins/utils';
   import createClient from '../../../plugins/contentful';
+  import { langMapValueForLocale } from  '../../../plugins/europeana/utils';
 
   const PER_PAGE = 9;
 
@@ -172,9 +173,9 @@
         };
       },
       title() {
-        if (!this.entity) return this.$t('entity');
-        if (this.editorialTitle) return this.editorialTitle;
-        return this.entity.prefLabel[this.$store.state.i18n.locale];
+        if (!this.entity) return this.titleFallback(this.$t('entity'));
+        if (this.editorialTitle) return this.titleFallback(this.editorialTitle);
+        return langMapValueForLocale(this.entity.prefLabel, this.$store.state.i18n.locale);
       }
     },
 
@@ -290,14 +291,24 @@
 
     mounted() {
       this.$store.commit('search/setPill', this.title);
+      this.$store.commit('search/disableThemeFacet');
+    },
+
+    methods: {
+      titleFallback(title) {
+        return {
+          values: [title],
+          code: null
+        };
+      }
     },
 
     head() {
       return {
-        title: this.title,
+        title: this.title.values[0],
         meta: [
-          { hid: 'title', name: 'title', content: this.title },
-          { hid: 'og:title', property: 'og:title', content: this.title }
+          { hid: 'title', name: 'title', content: this.title.values[0] },
+          { hid: 'og:title', property: 'og:title', content: this.title.values[0] }
         ].concat(this.descriptionText ? [
           { hid: 'description', name: 'description', content: this.descriptionText },
           { hid: 'og:description', property: 'og:description', content: this.descriptionText }

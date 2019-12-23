@@ -46,7 +46,6 @@
             <div class="media-presentation">
               <MediaPresentation
                 :media="selectedMedia"
-                :image-link="selectedMediaImage.link"
                 :image-src="selectedMediaImage.src"
               />
               <MediaThumbnailGrid
@@ -82,6 +81,9 @@
             :url="selectedMedia.about"
             :europeana-identifier="identifier"
             :rights-statement="rightsStatement"
+            :data-provider-name="dataProvider.values[0]"
+            :data-provider-lang="dataProvider.code"
+            :is-shown-at="isShownAt"
           />
         </div>
         <div
@@ -253,6 +255,10 @@
       rightsStatement() {
         if (this.edmRights) return langMapValueForLocale(this.edmRights, this.$i18n.locale).values[0];
         return false;
+      },
+      dataProvider() {
+        const edmDataProvider = this.coreFields.edmDataProvider;
+        return langMapValueForLocale(edmDataProvider, this.$i18n.locale);
       }
     },
 

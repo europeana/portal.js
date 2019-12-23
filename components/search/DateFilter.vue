@@ -8,6 +8,13 @@
           >
             {{ facetName }}
           </strong>
+          <b-checkbox
+            v-model="form.specific"
+            class="unstyled mb-2"
+            @change="emitDateForm"
+          >
+            {{ $t('dateFilter.specificDate') }}
+          </b-checkbox>
         </b-col>
       </b-row>
       <b-row>
@@ -28,44 +35,50 @@
             type="date"
             data-qa="date range start input"
             :class="{ 'is-active' : form.start }"
-            placeholder="dd/mm/yyyy"
-            @change="emitDateForm"
+            placeholder="YYYY-MM-DD"
+            @input="emitDateForm"
           />
         </b-col>
 
-        <b-col
-          lg="1"
-          class="d-flex align-items-center justify-content-center px-lg-0 py-3 py-lg-0"
+        <template
+          v-if="!form.specific"
         >
-          {{ $t('dateFilter.to') }}
-        </b-col>
-
-        <b-col
-          lg="4"
-          class="pl-lg-0"
-        >
-          <label
-            class="sr-only"
-            :for="`${name}.end`"
+          <b-col
+            lg="1"
+            class="d-flex align-items-center justify-content-center px-lg-0 py-3 py-lg-0"
           >
-            {{ $t('dateFilter.endDate') }}
-          </label>
-          <b-input
-            :id="`${name}.end`"
-            v-model="form.end"
-            type="date"
-            data-qa="date range end input"
-            :class="{ 'is-active' : form.end }"
-            placeholder="dd/mm/yyyy"
-            @change="emitDateForm"
-          />
-        </b-col>
+            {{ $t('dateFilter.to') }}
+          </b-col>
+
+          <b-col
+            lg="4"
+            class="pl-lg-0"
+          >
+            <label
+              class="sr-only"
+              :for="`${name}.end`"
+            >
+              {{ $t('dateFilter.endDate') }}
+            </label>
+            <b-input
+              :id="`${name}.end`"
+              v-model="form.end"
+              type="date"
+              data-qa="date range end input"
+              :class="{ 'is-active' : form.end }"
+              placeholder="YYYY-MM-DD"
+              @input="emitDateForm"
+            />
+          </b-col>
+        </template>
       </b-row>
     </b-col>
   </b-row>
 </template>
 
 <script>
+  import Vue from 'vue';
+
   export default {
     name: 'DateFilter',
 
@@ -83,6 +96,11 @@
       end: {
         type: String,
         default: ''
+      },
+
+      specific: {
+        type: Boolean,
+        default: false
       }
     },
 
@@ -90,7 +108,8 @@
       return {
         form: {
           start: this.start,
-          end: this.end
+          end: this.end,
+          specific: this.specific
         }
       };
     },
@@ -107,12 +126,17 @@
       },
       end() {
         this.form.end = this.end;
+      },
+      specific() {
+        this.form.specific = this.specific;
       }
     },
 
     methods: {
       emitDateForm() {
-        this.$emit('dateFilter', this.name, this.form);
+        Vue.nextTick(() => { // Change event triggers before v-model has updated. This resolves the issue
+          this.$emit('dateFilter', this.name, this.form);
+        });
       }
     }
   };

@@ -372,6 +372,14 @@ describe('plugins/europeana/search', () => {
       });
     });
 
+    context('with theme value', () => {
+      it('returns it as a string on THEME property', () => {
+        const query = { theme: 'art' };
+        const expected = { 'THEME': 'art' };
+        filtersFromQuery(query).should.deep.eql(expected);
+      });
+    });
+
     context('with query that has two colons', () => {
       it('returns an array with a string seperated by a colon ', () => {
         const query = { qf: 'DATA_PROVIDER:"Galiciana: Biblioteca Digital de Galicia"' };

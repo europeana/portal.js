@@ -14,24 +14,18 @@ export const state = () => ({
   query: '',
   results: [],
   reusability: null,
+  theme: null,
+  themeFacetEnabled: true,
   totalResults: null,
   view: null
 });
 
 export const mutations = {
-  // TODO: unused at present; consider removing
-  reset(state) {
-    state.error = null;
-    state.errorStatusCode = null;
-    state.facets = [];
-    state.filters = {};
-    state.lastAvailablePage = null;
-    state.page = 1;
-    state.qf = [];
-    state.query = '';
-    state.results = [];
-    state.reusability = null;
-    state.totalResults = null;
+  disableThemeFacet(state) {
+    state.themeFacetEnabled = false;
+  },
+  enableThemeFacet(state) {
+    state.themeFacetEnabled = true;
   },
   setActive(state, value) {
     state.active = value;
@@ -65,6 +59,9 @@ export const mutations = {
   },
   setReusability(state, value) {
     state.reusability = value;
+  },
+  setTheme(state, value) {
+    state.theme = value;
   },
   setTotalResults(state, value) {
     state.totalResults = value;
@@ -106,7 +103,8 @@ export const actions = {
    * @param {Object} dispatch dispatch from Vuex context
    * @param {Object} params parameters for search
    */
-  async run({ commit, dispatch }, params) {
+  async run({ commit, dispatch }, queryParams) {
+    const params = Object.assign({}, queryParams);
     const hiddenParams = params.hidden || {};
     delete params.hidden;
 
@@ -114,6 +112,7 @@ export const actions = {
     commit('setQf', params.qf);
     commit('setQuery', params.query);
     commit('setReusability', params.reusability);
+    commit('setTheme', params.theme);
     commit('setFilters', filtersFromQuery(params));
 
     params.qf = (hiddenParams.qf || []).concat(params.qf || []);

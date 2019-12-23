@@ -1,4 +1,5 @@
 import { createLocalVue, mount } from '@vue/test-utils';
+
 import BootstrapVue from 'bootstrap-vue';
 import DateFilter from '../../../../components/search/DateFilter.vue';
 
@@ -25,8 +26,11 @@ describe('components/search/DateFilter', () => {
 
     startInput.trigger('change');
     wrapper.vm.form.start = '2019-01-01';
+    wrapper.vm.form.specific = false;
 
-    wrapper.emitted()['dateFilter'].should.eql([[ 'proxy_dcterms_issued', { 'end': null, 'start': '2019-01-01' } ]]);
+    localVue.nextTick(() => {
+      wrapper.emitted()['dateFilter'].should.eql([[ 'proxy_dcterms_issued', { 'end': null, 'start': '2019-01-01', 'specific': false } ]]);
+    });
   });
 
   it('emits `dateFilter` event with name and form arguments when user changes End date input', async() => {
@@ -34,8 +38,24 @@ describe('components/search/DateFilter', () => {
     const endInput = wrapper.find('[data-qa="date range end input"]');
 
     endInput.trigger('change');
+    wrapper.vm.form.specific = false;
     wrapper.vm.form.end = '2019-01-01';
 
-    wrapper.emitted()['dateFilter'].should.eql([[ 'proxy_dcterms_issued', { 'end': '2019-01-01', 'start': null } ]]);
+    localVue.nextTick(() => {
+      wrapper.emitted()['dateFilter'].should.eql([[ 'proxy_dcterms_issued', { 'end': '2019-01-01', 'start': null, 'specific': false } ]]);
+    });
+  });
+
+  it('should not display end date field when specific is selected', async() => {
+    const wrapper = factory();
+    const startInput = wrapper.find('[data-qa="date range end input"]');
+
+    startInput.trigger('change');
+    wrapper.vm.form.specific = true;
+    wrapper.vm.form.start = '2019-01-01';
+
+    localVue.nextTick(() => {
+      wrapper.find('[data-qa="date range end input"]').exists().should.be.false;
+    });
   });
 });

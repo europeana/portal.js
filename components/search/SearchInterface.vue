@@ -29,7 +29,7 @@
             :key="facet.name"
             :name="facet.name"
             :fields="facet.fields"
-            type="checkbox"
+            :type="facetDropdownType(facet.name)"
             :selected="filters[facet.name]"
             @changed="changeFacet"
           />
@@ -136,7 +136,7 @@
   import PaginationNav from '../../components/generic/PaginationNav';
   import ViewToggles from '../../components/search/ViewToggles';
   import TierToggler from '../../components/search/TierToggler';
-  import { defaultFacetNames, unquotableFacets } from '../../plugins/europeana/search';
+  import { defaultFacetNames, unquotableFacets, thematicCollections } from '../../plugins/europeana/search';
 
   import isEqual from 'lodash/isEqual';
   import pickBy from 'lodash/pickBy';
@@ -176,12 +176,14 @@
     },
     data() {
       return {
-        coreFacetNames: ['TYPE', 'COUNTRY', 'REUSABILITY'],
-        PROXY_DCTERMS_ISSUED: 'proxy_dcterms_issued'
+        coreFacetNames: ['THEME', 'TYPE', 'COUNTRY', 'REUSABILITY'],
+        PROXY_DCTERMS_ISSUED: 'proxy_dcterms_issued',
+        THEME: 'THEME'
       };
     },
     computed: {
       ...mapState({
+        entityId: state => state.entity.id,
         error: state => state.search.error,
         facets: state => state.search.facets,
         lastAvailablePage: state => state.search.lastAvailablePage,
@@ -191,6 +193,7 @@
         query: state => state.search.query,
         results: state => state.search.results,
         reusability: state => state.search.reusability,
+        theme: state => state.search.theme,
         filters: state => state.search.filters,
         totalResults: state => state.search.totalResults
       }),
@@ -241,6 +244,9 @@
           }
         }
 
+        if (this.$store.state.search.themeFacetEnabled) {
+          ordered.unshift({ name: this.THEME, fields: thematicCollections });
+        }
         return ordered.concat(unordered);
       },
       coreFacets() {
@@ -256,7 +262,7 @@
         return pickBy(this.filters, (selected, name) => this.moreFacetNames.includes(name) || name === this.PROXY_DCTERMS_ISSUED);
       },
       dropdownFilterNames() {
-        return defaultFacetNames.concat(this.PROXY_DCTERMS_ISSUED);
+        return defaultFacetNames.concat(this.PROXY_DCTERMS_ISSUED, this.THEME);
       },
       enableMoreFacets() {
         return this.moreFacets.length > 0;
@@ -277,8 +283,13 @@
       }
     },
     methods: {
+      facetDropdownType(name) {
+        return name === 'THEME' ? 'radio' : 'checkbox';
+      },
       changeFacet(name, selected) {
-        if (typeof this.filters[name] === 'undefined' && selected.length === 0) return;
+        if (typeof this.filters[name] === 'undefined') {
+          if ((Array.isArray(selected) && selected.length === 0) || !selected) return;
+        }
         if (isEqual(this.filters[name], selected)) return;
         this.rerouteSearch(this.queryUpdatesForFacetChanges({ [name]: selected }));
       },
@@ -297,6 +308,7 @@
         for (const name in selected) {
           filters[name] = selected[name];
         }
+
         return this.queryUpdatesForFilters(filters);
       },
       queryUpdatesForFilters(filters) {
@@ -314,6 +326,8 @@
             } else {
               queryUpdates.reusability = null;
             }
+          } else if (facetName === 'THEME') {
+            queryUpdates.theme = selectedValues;
           } else {
             for (const facetValue of selectedValues) {
               const quotedValue = this.enquoteFacet(facetName) ? `"${facetValue}"` : facetValue;

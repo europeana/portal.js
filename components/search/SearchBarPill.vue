@@ -5,8 +5,9 @@
     class="pl-3 py-2"
     data-qa="search bar pill"
     :title="text"
+    :lang="text.code"
   >
-    {{ text | truncate(20, $t('formatting.ellipsis')) }}
+    {{ text.values[0] | truncate(20, $t('formatting.ellipsis')) }}
     <nuxt-link
       :to="removeLinkTo"
       :aria-label="removeLinkLabel"
@@ -25,7 +26,7 @@
   export default {
     props: {
       text: {
-        type: String,
+        type: Object,
         required: true
       },
       removeLinkTo: {

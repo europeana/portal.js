@@ -16,7 +16,7 @@ const factory = () => shallowMount(BrowseChip, {
   },
   propsData: {
     linkTo: '/entity/topic/47-painting',
-    title: 'Painting'
+    title: { en: 'Painting'  }
   }
 });
 
@@ -26,12 +26,17 @@ describe('components/browse/BrowseChip', () => {
     wrapper.findAll('[data-qa="browse chip"]').length.should.eq(1);
   });
 
-  it('has an entity title and link', () => {
+  it('has an entity title, lang and link', () => {
     const wrapper = factory();
-    wrapper.setProps({ linkTo: '/entity/topic/47-painting', title: 'Painting' });
+
+    wrapper.setProps({
+      linkTo: '/entity/topic/47-painting',
+      title: { en: 'Painting'  }
+    });
 
     const chip = wrapper.find('[data-qa="browse chip"]');
     chip.text().should.eq('Painting');
     chip.attributes().to.should.contain('47-painting');
+    chip.attributes('lang').should.eq('en');
   });
 });

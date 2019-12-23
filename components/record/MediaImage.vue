@@ -7,7 +7,7 @@
     <b-img-lazy
       :src="src"
       class="mw-100"
-      :alt="$t('edmIsShownAtLinkAlt')"
+      alt=""
       data-qa="media preview image"
     />
   </b-link>
@@ -16,6 +16,7 @@
     :src="src"
     alt=""
     class="mw-100"
+    data-qa="media preview image"
   />
 </template>
 

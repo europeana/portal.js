@@ -16,7 +16,7 @@ const factory = () => shallowMount(SearchBarPill, {
   propsData: {
     removeLinkTo: {},
     removeLinkLabel: {},
-    text: ''
+    text: { values: ['This is text that needs to be truncated'], code: 'en' }
   },
   mocks: {
     $t: () => {}
@@ -27,10 +27,6 @@ describe('components/search/SearchBarPill', () => {
   it('truncates text if characters are over `set character state` characters', () => {
     const wrapper = factory();
 
-    wrapper.setProps({
-      text: 'This is text that needs to be truncated'
-    });
-
     wrapper.text().should.startWith('This is text that ne...');
   });
 
@@ -38,7 +34,7 @@ describe('components/search/SearchBarPill', () => {
     const wrapper = factory();
 
     wrapper.setProps({
-      text: 'Less than twenty'
+      text: { values: ['Less than twenty'], code: 'en' }
     });
 
     wrapper.text().should.startWith('Less than twenty');
