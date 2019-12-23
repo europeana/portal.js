@@ -22,12 +22,10 @@
           :link-class="linkClass"
         >
           <template v-if="link.icon">
-            <span class="icon-background">
-              <i
-                :class="link.icon"
-                :aria-label="link.text"
-              />
-            </span>
+            <i
+              :class="link.icon"
+              :title="link.text"
+            />
           </template>
           <template v-else>
             {{ link.text }}
