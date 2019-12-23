@@ -11,11 +11,11 @@
       class="pl-3"
       @click="selectView(view)"
     >
-      <img
-        :src="iconSrc(view)"
-        :alt="$t(`searchViews.${view}`)"
+      <i
+        :class="view"
+        class="icon-view-toggle"
         :title="$t(`searchViews.${view}`)"
-      >
+      />
     </b-nav-item>
   </b-nav>
 </template>
@@ -46,10 +46,6 @@
       }
     },
     methods: {
-      iconSrc(view) {
-        // `require` for webpack'd assets to work with dynamic paths
-        return require(`../../assets/img/search/${view}.svg`);
-      },
       linkGen(view) {
         return this.localePath({ ...this.linkGenRoute, ...{ query: { ...this.$route.query, ...{ view } } } });
       },
@@ -63,28 +59,43 @@
 </script>
 
 <style lang="scss" scoped>
-  @import "./assets/scss/variables.scss";
+  @import './assets/scss/variables.scss';
+  @import './assets/scss/icons.scss';
 
   .nav-link {
     padding: 0;
     position: relative;
+    text-decoration: none;
 
-    img {
-      filter: invert(0.5);
+    .icon-view-toggle {
+      color: $grey;
+      font-size: 1.5rem;
+      z-index: 1;
+
+      &:before {
+        @extend .icon-font;
+        content: '\e929';
+      }
+
+      &.grid:before {
+        content: '\e92a';
+      }
     }
 
     &:before {
       background: $white;
       border-radius: 50%;
+      position: absolute;
       bottom: -10px;
       left: -10px;
       right: -10px;
       top: -10px;
+      z-index: -1;
     }
 
-    &:hover img,
-    &.active img {
-      filter: invert(0);
+    &:hover .icon-view-toggle,
+    &.active .icon-view-toggle {
+      color: $black;
     }
 
     &.active {

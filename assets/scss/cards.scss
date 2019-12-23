@@ -75,7 +75,7 @@
     justify-content: flex-end;
     margin-bottom: 2.5rem;
     margin-left: 0.9rem;
-    
+
     img {
       border-radius: 4px;
       object-fit: cover;
@@ -103,6 +103,12 @@
         box-shadow: $boxshadow-large;
         background-color: $offwhite;
       }
+    }
+
+    @media (min-width: $bp-medium) {
+      background: transparent;
+      box-shadow: none;
+      min-height: auto;
     }
   }
 }
