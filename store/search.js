@@ -103,7 +103,8 @@ export const actions = {
    * @param {Object} dispatch dispatch from Vuex context
    * @param {Object} params parameters for search
    */
-  async run({ commit, dispatch }, params) {
+  async run({ commit, dispatch }, queryParams) {
+    const params = Object.assign({}, queryParams);
     const hiddenParams = params.hidden || {};
     delete params.hidden;
 
