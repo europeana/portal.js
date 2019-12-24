@@ -257,8 +257,13 @@
         return false;
       },
       dataProvider() {
-        const edmDataProvider = this.coreFields.edmDataProvider;
-        return langMapValueForLocale(edmDataProvider, this.$i18n.locale);
+        const edmDataProvider = langMapValueForLocale(this.coreFields.edmDataProvider, this.$i18n.locale);
+
+        if (edmDataProvider.values[0].about) {
+          return edmDataProvider.values[0];
+        }
+
+        return edmDataProvider;
       }
     },
 
