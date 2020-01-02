@@ -116,6 +116,12 @@ export default {
         "3D": "3D"
       }
     },
+    "api": {
+      "name": "Search for",
+      "options": {
+        "metadata": "Metadata"
+      }
+    },
     "contentTier": {
       "name": "Includes items not meeting our publishing criteria",
       "options": {

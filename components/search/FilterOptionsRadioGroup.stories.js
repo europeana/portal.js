@@ -1,6 +1,6 @@
 import { storiesOf } from '@storybook/vue';
 import { action } from '@storybook/addon-actions';
-import RecordApiToggle from './RecordApiToggle.vue';
+import FilterOptionsRadioGroup from './FilterOptionsRadioGroup.vue';
 
 const i18n = {
   locale: 'en',
@@ -22,7 +22,7 @@ const i18n = {
 storiesOf('Search', module)
   .add('Record API toggle', () => ({
     i18n,
-    components: { RecordApiToggle },
+    components: { FilterOptionsRadioGroup },
     methods: {
       log(value) {
         action('Change event emitted')(value);
@@ -30,13 +30,16 @@ storiesOf('Search', module)
     },
     data() {
       return {
-        preSelected: 'fulltext'
+        selectedOption: 'fulltext'
       };
     },
-    template: ` <b-container
+    template: `<b-container
       class="mt-3"
       >
-        <RecordApiToggle
+        <FilterOptionsRadioGroup
+          facet-name="api"
+          :options="['fulltext', 'metadata']"
+          selected="fulltext"
           @change="log"
         />
       </b-container>`
