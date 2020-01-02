@@ -23,7 +23,19 @@ describe('components/search/FacetFieldLabel', () => {
       wrapper.find('span').text().should.eq('Translated facets.TYPE.options.IMAGE');
     });
 
-    it('falls back to the field value if no translation', () => {
+    it('first falls back to the English translation', () => {
+      const wrapper = factory({
+        facetName: 'TYPE',
+        fieldValue: 'IMAGE'
+      }, {
+        $t: (key) => `English ${key}`,
+        $te: (key, locale) => locale === 'en'
+      });
+
+      wrapper.find('span').text().should.eq('English facets.TYPE.options.IMAGE');
+    });
+
+    it('finally falls back to the field value', () => {
       const wrapper = factory({
         facetName: 'TYPE',
         fieldValue: 'IMAGE'

@@ -49,7 +49,15 @@
       genericLabel() {
         const key = `facets.${this.facetName}.options.${this.fieldValue}`;
 
-        return this.$te(key) ? this.$t(key) : this.fieldValue;
+        let genericLabel;
+        if (this.$te(key)) {
+          genericLabel = this.$t(key);
+        } else if (this.$te(key, 'en')) {
+          genericLabel = this.$t(key, 'en');
+        } else {
+          genericLabel = this.fieldValue;
+        }
+        return genericLabel;
       },
 
       mediaTypeLabel() {
