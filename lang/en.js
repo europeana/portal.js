@@ -119,7 +119,8 @@ export default {
     "api": {
       "name": "Search for",
       "options": {
-        "metadata": "Metadata"
+        "fulltext": "Records with full-text",
+        "metadata": "Metadata-only records"
       }
     },
     "contentTier": {

@@ -19,15 +19,20 @@
       </span>
     </template>
     <b-dropdown-group class="more-facets-wrapper">
-      <b-dropdown-form v-if="showDateFilter">
-        <DateFilter
-          :name="PROXY_DCTERMS_ISSUED"
-          :start="dateFilter.start"
-          :end="dateFilter.end"
-          :specific="dateFilter.specific"
-          @dateFilter="dateFilterSelected"
-        />
-      </b-dropdown-form>
+      <FilterOptionsRadioGroup
+        v-if="showApiToggle"
+        facet-name="api"
+        :options="['fulltext', 'metadata']"
+        selected="fulltext"
+      />
+      <DateFilter
+        v-if="showDateFilter"
+        :name="PROXY_DCTERMS_ISSUED"
+        :start="dateFilter.start"
+        :end="dateFilter.end"
+        :specific="dateFilter.specific"
+        @dateFilter="dateFilterSelected"
+      />
       <template
         v-for="(facet, index) in moreFacets"
       >
@@ -75,13 +80,15 @@
   import Vue from 'vue';
   import isEqual from 'lodash/isEqual';
   import { rangeToQueryParam, rangeFromQueryParam } from '../../plugins/europeana/search';
-  import MoreFiltersDropdownFacet from '../../components/search/MoreFiltersDropdownFacet';
-  import DateFilter from '../../components/search/DateFilter';
+  import MoreFiltersDropdownFacet from './MoreFiltersDropdownFacet';
+  import DateFilter from './DateFilter';
+  import FilterOptionsRadioGroup from './FilterOptionsRadioGroup';
 
   export default {
     components: {
       MoreFiltersDropdownFacet,
-      DateFilter
+      DateFilter,
+      FilterOptionsRadioGroup
     },
 
     props: {
@@ -124,6 +131,10 @@
 
       showDateFilter() {
         // Hardcoded for now - https://europeana.atlassian.net/browse/EC-4033
+        return this.$store.state.entity.id === this.NEWSPAPERS_CONCEPT_URI;
+      },
+
+      showApiToggle() {
         return this.$store.state.entity.id === this.NEWSPAPERS_CONCEPT_URI;
       },
 
