@@ -232,8 +232,7 @@
       },
       isRichMedia() {
         return isRichMedia(this.selectedMedia, {
-          iiif: Number(process.env.ENABLE_IIIF_MEDIA),
-          ssl: !Number(process.env.DISABLE_REDIRECT_SSL)
+          iiif: Number(process.env.ENABLE_IIIF_MEDIA)
         });
       },
       selectedMedia: {
