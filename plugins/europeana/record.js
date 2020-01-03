@@ -148,7 +148,7 @@ function aggregationMedia(aggregation, recordType, services = []) {
     webResource.thumbnails = webResourceThumbnails(webResource, aggregation, recordType);
 
     // Inject service definitions, e.g. for IIIF
-    webResource.services = services.filter((service) => webResource.svcsHasService.includes(service.about));
+    webResource.services = services.filter((service) => (webResource.svcsHasService || []).includes(service.about));
   }
 
   // Sort by isNextInSequence property if present

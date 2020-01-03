@@ -365,6 +365,7 @@ export default {
   },
   "actions": {
     "download": "Download",
+    "viewDocument": "View document",
     "viewAt": "View at {link}",
     "providedBy": "Provided by {provider}"
   },

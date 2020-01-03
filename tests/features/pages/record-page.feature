@@ -66,10 +66,10 @@ Feature: Record page
 
   Scenario: IIIF Image viewer
     When I open a `record page with a IIIF Image`
-    Then I see the `IIIF Image viewer`
+    Then I see the `IIIF viewer`
     And I am on an accessible page
 
   Scenario: IIIF Presentation viewer
     When I open a `record page with a IIIF Presentation`
-    Then I see the `IIIF Presentation viewer`
+    Then I see the `IIIF viewer`
     And I am on an accessible page
