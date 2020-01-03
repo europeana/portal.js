@@ -72,7 +72,9 @@
 
     methods: {
       emitChange() {
-        this.$emit('change', this.selectedOption);
+        this.$nextTick(() => {
+          this.$emit('change', this.facetName, this.selectedOption);
+        });
       }
     }
   };

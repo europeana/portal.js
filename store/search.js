@@ -2,6 +2,7 @@ import search, { filtersFromQuery } from '../plugins/europeana/search';
 
 export const state = () => ({
   active: false,
+  api: 'metadata',
   autoSuggestDisabled: false,
   error: null,
   errorStatusCode: null,
@@ -29,6 +30,9 @@ export const mutations = {
   },
   setActive(state, value) {
     state.active = value;
+  },
+  setApi(state, value) {
+    state.api = value;
   },
   setError(state, value) {
     state.error = value;
@@ -104,9 +108,11 @@ export const actions = {
    * @param {Object} params parameters for search
    */
   async run({ commit, dispatch }, queryParams) {
-    const params = Object.assign({}, queryParams);
+    const params = Object.assign({ wskey: process.env.EUROPEANA_API_KEY }, queryParams);
     const hiddenParams = params.hidden || {};
     delete params.hidden;
+
+    const options = {};
 
     commit('setPage', params.page || 1);
     commit('setQf', params.qf);
@@ -114,16 +120,21 @@ export const actions = {
     commit('setReusability', params.reusability);
     commit('setTheme', params.theme);
     commit('setFilters', filtersFromQuery(params));
+    commit('setApi', params.api);
 
     params.qf = (hiddenParams.qf || []).concat(params.qf || []);
     if (hiddenParams.theme) {
       params.theme = hiddenParams.theme;
     }
 
-    await search({
-      ...params,
-      wskey: process.env.EUROPEANA_API_KEY
-    })
+    if (params.api) {
+      if (params.api === 'fulltext') {
+        options.origin = 'https://newspapers.eanadev.org';
+      }
+      delete params.api;
+    }
+
+    await search(params, options)
       .then((response) => {
         dispatch('updateForSuccess', response);
       })

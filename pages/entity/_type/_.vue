@@ -27,6 +27,7 @@
           :per-page="perPage"
           :route="route"
           :show-content-tier-toggle="false"
+          :enable-api-toggle="enableApiToggle"
         />
       </b-col>
       <b-col
@@ -77,6 +78,7 @@
   import { pageFromQuery } from '../../../plugins/utils';
   import createClient from '../../../plugins/contentful';
   import { langMapValueForLocale } from  '../../../plugins/europeana/utils';
+  import { thematicCollections } from  '../../../plugins/europeana/search';
 
   const PER_PAGE = 9;
 
@@ -159,6 +161,9 @@
       editorialTitle() {
         if (!this.page || !this.page.name) return null;
         return this.page.name;
+      },
+      enableApiToggle() {
+        return Boolean(Number(process.env.ENABLE_NEWSPAPERS_API_TOGGLE));
       },
       perPage() {
         return PER_PAGE;
@@ -265,9 +270,15 @@
       store.commit('search/setActive', true);
 
       const entityUri = store.state.entity.id;
-      const contentTierQuery = 'contentTier:(2 OR 3 OR 4)';
+      let contentTierQuery = 'contentTier:(2 OR 3 OR 4)';
 
-      let hiddenParams = {
+      // TODO: fulltext search API should be aware of contentTier, but is not.
+      //       if & when it is, this can be removed.
+      if ((entityUri === thematicCollections.get('newspaper')) && (query.api !== 'metadata')) {
+        contentTierQuery = 'contentTier:*';
+      }
+
+      const hiddenParams = {
         qf: [contentTierQuery]
       };
 
@@ -283,6 +294,12 @@
         hidden: hiddenParams,
         rows: PER_PAGE
       };
+
+      // Ensure newspapers collection gets fulltext API by default
+      if ((entityUri === thematicCollections.get('newspaper')) && !query.api) {
+        apiParams.api = 'fulltext';
+      }
+
       await store.dispatch('search/run', apiParams);
       if (store.state.search.error && typeof res !== 'undefined') {
         res.statusCode = store.state.search.errorStatusCode;
@@ -323,6 +340,6 @@
       next();
     },
 
-    watchQuery: ['page', 'qf', 'query', 'reusability']
+    watchQuery: ['api', 'page', 'qf', 'query', 'reusability']
   };
 </script>

@@ -36,22 +36,22 @@ export const unquotableFacets = [
 ];
 
 // Thematic collections available via the `theme` parameter.
-// Order is significant as it will be reflected on search results.
-export const thematicCollections = [
-  'ww1',
-  'archaeology',
-  'art',
-  'fashion',
-  'industrial',
-  'manuscript',
-  'map',
-  'migration',
-  'music',
-  'nature',
-  'newspaper',
-  'photography',
-  'sport'
-];
+// Order is significant as it will be reflected in the search results filter.
+export const thematicCollections = new Map([
+  ['ww1'],
+  ['archaeology'],
+  ['art'],
+  ['fashion'],
+  ['industrial'],
+  ['manuscript'],
+  ['map'],
+  ['migration'],
+  ['music'],
+  ['nature'],
+  ['newspaper', 'http://data.europeana.eu/concept/base/18'],
+  ['photography'],
+  ['sport']
+]);
 
 function genericThumbnail(edmType) {
   return `https://api.europeana.eu/api/v2/thumbnail-by-url.json?size=w200&uri=&type=${edmType}`;
@@ -145,6 +145,10 @@ export function filtersFromQuery(query) {
 
   if (query.theme) {
     filters['THEME'] = query.theme;
+  }
+
+  if (query.api) {
+    filters['api'] = query.api;
   }
 
   return filters;

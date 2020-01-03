@@ -27,7 +27,8 @@
           v-if="showApiToggle"
           facet-name="api"
           :options="['fulltext', 'metadata']"
-          selected="fulltext"
+          :selected="preSelected['api'] || 'fulltext'"
+          @change="updateSelected"
         />
         <DateFilter
           v-if="showDateFilter"
@@ -86,7 +87,7 @@
 <script>
   import Vue from 'vue';
   import isEqual from 'lodash/isEqual';
-  import { rangeToQueryParam, rangeFromQueryParam } from '../../plugins/europeana/search';
+  import { rangeToQueryParam, rangeFromQueryParam, thematicCollections } from '../../plugins/europeana/search';
   import MoreFiltersDropdownFacet from './MoreFiltersDropdownFacet';
   import DateFilter from './DateFilter';
   import FilterOptionsRadioGroup from './FilterOptionsRadioGroup';
@@ -107,6 +108,11 @@
       selected: {
         type: Object,
         default: () => {}
+      },
+
+      enableApiToggle: {
+        type: Boolean,
+        default: false
       }
     },
 
@@ -114,8 +120,7 @@
       return {
         preSelected: this.cloneSelected(),
         isCheckedSpecificDate: false,
-        PROXY_DCTERMS_ISSUED: 'proxy_dcterms_issued',
-        NEWSPAPERS_CONCEPT_URI: 'http://data.europeana.eu/concept/base/18'
+        PROXY_DCTERMS_ISSUED: 'proxy_dcterms_issued'
       };
     },
 
@@ -137,12 +142,15 @@
       },
 
       showDateFilter() {
-        // Hardcoded for now - https://europeana.atlassian.net/browse/EC-4033
-        return this.$store.state.entity.id === this.NEWSPAPERS_CONCEPT_URI;
+        return this.searchingNewspaperCollecion;
       },
 
       showApiToggle() {
-        return this.$store.state.entity.id === this.NEWSPAPERS_CONCEPT_URI;
+        return this.enableApiToggle && this.searchingNewspaperCollecion;
+      },
+
+      searchingNewspaperCollecion() {
+        return this.$store.state.entity.id === thematicCollections.get('newspaper');
       },
 
       dateFilter() {

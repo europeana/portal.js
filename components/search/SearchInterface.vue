@@ -37,6 +37,7 @@
             v-if="enableMoreFacets"
             :more-facets="moreFacets"
             :selected="moreSelectedFacets"
+            :enable-api-toggle="enableApiToggle"
             @changed="changeMoreFacets"
           />
           <button
@@ -155,6 +156,10 @@
       TierToggler
     },
     props: {
+      enableApiToggle: {
+        type: Boolean,
+        default: false
+      },
       perPage: {
         type: Number,
         default: 24
@@ -245,7 +250,7 @@
         }
 
         if (this.$store.state.search.themeFacetEnabled) {
-          ordered.unshift({ name: this.THEME, fields: thematicCollections });
+          ordered.unshift({ name: this.THEME, fields: Array.from(thematicCollections.keys()) });
         }
         return ordered.concat(unordered);
       },
@@ -259,7 +264,8 @@
         return this.orderedFacets.filter(facet => this.moreFacetNames.includes(facet.name));
       },
       moreSelectedFacets() {
-        return pickBy(this.filters, (selected, name) => this.moreFacetNames.includes(name) || name === this.PROXY_DCTERMS_ISSUED);
+        return pickBy(this.filters, (selected, name) =>
+          this.moreFacetNames.includes(name) || ['api', this.PROXY_DCTERMS_ISSUED].includes(name));
       },
       dropdownFilterNames() {
         return defaultFacetNames.concat(this.PROXY_DCTERMS_ISSUED, this.THEME);
@@ -317,21 +323,25 @@
           page: 1
         };
 
-        for (const facetName in filters) {
-          const selectedValues = filters[facetName];
+        for (const name in filters) {
+          const selectedValues = filters[name];
           // `reusability` has its own API parameter and can not be queried in `qf`
-          if (facetName === 'REUSABILITY') {
+          if (name === 'REUSABILITY') {
             if (selectedValues.length > 0) {
               queryUpdates.reusability = selectedValues.join(',');
             } else {
               queryUpdates.reusability = null;
             }
-          } else if (facetName === 'THEME') {
+          // Likewise `theme`
+          } else if (name === 'THEME') {
             queryUpdates.theme = selectedValues;
+          // `api` is an option to /plugins/europeana/search/search()
+          } else if (name === 'api') {
+            queryUpdates.api = selectedValues;
           } else {
             for (const facetValue of selectedValues) {
-              const quotedValue = this.enquoteFacet(facetName) ? `"${facetValue}"` : facetValue;
-              queryUpdates.qf.push(`${facetName}:${quotedValue}`);
+              const quotedValue = this.enquoteFacet(name) ? `"${facetValue}"` : facetValue;
+              queryUpdates.qf.push(`${name}:${quotedValue}`);
             }
           }
         }

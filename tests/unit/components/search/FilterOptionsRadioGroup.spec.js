@@ -17,7 +17,7 @@ const factory = (propsData) => mount(FilterOptionsRadioGroup, {
 });
 
 describe('components/search/FilterOptionsRadioGroup', () => {
-  it('emits `change` event with new value when user changes selection', async() => {
+  it('emits `change` event with facet name and new value when user changes selection', async() => {
     const wrapper = factory({
       facetName: 'api',
       options: ['fulltext', 'metadata'],
@@ -25,10 +25,8 @@ describe('components/search/FilterOptionsRadioGroup', () => {
     });
     const metadataRadio = wrapper.find('input[value="metadata"]');
 
-    metadataRadio.trigger('click');
+    await metadataRadio.trigger('click');
 
-    localVue.nextTick(() => {
-      wrapper.emitted()['change'].should.eql([['metadata']]);
-    });
+    wrapper.emitted()['change'].should.eql([['api', 'metadata']]);
   });
 });
