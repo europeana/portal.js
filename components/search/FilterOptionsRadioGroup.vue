@@ -1,32 +1,34 @@
 <template>
-  <b-row>
-    <b-col>
-      <strong
-        class="mb-4 d-inline-block"
-      >
-        {{ $t(`facets.${facetName}.name`) }}
-      </strong>
-      <b-form-radio-group
-        v-model="selectedOption"
-        class="option-group"
-        :name="$tc(`facets.${facetName}.name`, 1)"
-        plain
-        @change="emitChange"
-      >
-        <b-form-radio
-          v-for="(option, index) in options"
-          :key="index"
-          :value="option"
-          name="api"
+  <b-form-group
+    :label="$t(`facets.${facetName}.name`)"
+  >
+    <b-row>
+      <b-col>
+        <b-form-radio-group
+          v-model="selectedOption"
+          :name="$tc(`facets.${facetName}.name`, 1)"
+          plain
+          @change="emitChange"
         >
-          <FacetFieldLabel
-            :facet-name="facetName"
-            :field-value="option"
-          />
-        </b-form-radio>
-      </b-form-radio-group>
-    </b-col>
-  </b-row>
+          <div
+            class="option-group"
+          >
+            <b-form-radio
+              v-for="(option, index) in options"
+              :key="index"
+              :value="option"
+              name="api"
+            >
+              <FacetFieldLabel
+                :facet-name="facetName"
+                :field-value="option"
+              />
+            </b-form-radio>
+          </div>
+        </b-form-radio-group>
+      </b-col>
+    </b-row>
+  </b-form-group>
 </template>
 
 <script>

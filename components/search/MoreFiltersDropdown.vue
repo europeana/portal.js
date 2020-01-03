@@ -18,61 +18,68 @@
         {{ selectedOptionsCount }}
       </span>
     </template>
-    <b-dropdown-group class="more-facets-wrapper">
-      <FilterOptionsRadioGroup
-        v-if="showApiToggle"
-        facet-name="api"
-        :options="['fulltext', 'metadata']"
-        selected="fulltext"
-      />
-      <DateFilter
-        v-if="showDateFilter"
-        :name="PROXY_DCTERMS_ISSUED"
-        :start="dateFilter.start"
-        :end="dateFilter.end"
-        :specific="dateFilter.specific"
-        @dateFilter="dateFilterSelected"
-      />
-      <template
-        v-for="(facet, index) in moreFacets"
+    <b-dropdown-form>
+      <li
+        class="more-facets-wrapper"
+        role="presentation"
       >
-        <MoreFiltersDropdownFacet
-          v-if="facet.fields && facet.fields.length > 0"
-          :key="index"
-          :fields="facet.fields"
-          :name="facet.name"
-          :selected="preSelected[facet.name]"
-          @selectedOptions="updateSelected"
+        <FilterOptionsRadioGroup
+          v-if="showApiToggle"
+          facet-name="api"
+          :options="['fulltext', 'metadata']"
+          selected="fulltext"
         />
-      </template>
-    </b-dropdown-group>
-    <li
-      class="dropdown-buttons"
-    >
-      <b-button
-        variant="link"
-        :disabled="!anyOptionsSelected"
-        data-qa="reset filter button"
-        @click="resetFilters"
+        <DateFilter
+          v-if="showDateFilter"
+          :name="PROXY_DCTERMS_ISSUED"
+          :start="dateFilter.start"
+          :end="dateFilter.end"
+          :specific="dateFilter.specific"
+          @dateFilter="dateFilterSelected"
+        />
+        <template
+          v-for="(facet, index) in moreFacets"
+        >
+          <MoreFiltersDropdownFacet
+            v-if="facet.fields && facet.fields.length > 0"
+            :key="index"
+            :fields="facet.fields"
+            :name="facet.name"
+            :selected="preSelected[facet.name]"
+            @selectedOptions="updateSelected"
+          />
+        </template>
+      </li>
+      <li
+        class="dropdown-buttons"
+        role="presentation"
       >
-        {{ $t('facets.button.reset') }}
-      </b-button>
-      <b-button
-        variant="link"
-        data-qa="cancel button"
-        @click="cancelHandler"
-      >
-        {{ $t('facets.button.cancel') }}
-      </b-button>
-      <b-button
-        variant="primary"
-        :disabled="selectedOptionsUnchanged"
-        data-qa="apply button"
-        @click="applySelected"
-      >
-        {{ $t('facets.button.apply') }}
-      </b-button>
-    </li>
+        <b-button
+          variant="link"
+          :disabled="!anyOptionsSelected"
+          data-qa="reset filter button"
+          @click="resetFilters"
+        >
+          {{ $t('facets.button.reset') }}
+        </b-button>
+        <b-button
+          variant="link"
+          data-qa="cancel button"
+          @click="cancelHandler"
+        >
+          {{ $t('facets.button.cancel') }}
+        </b-button>
+        <b-button
+          variant="primary"
+          :disabled="selectedOptionsUnchanged"
+          data-qa="apply button"
+          type="submit"
+          @click.stop="applySelected"
+        >
+          {{ $t('facets.button.apply') }}
+        </b-button>
+      </li>
+    </b-dropdown-form>
   </b-dropdown>
 </template>
 
