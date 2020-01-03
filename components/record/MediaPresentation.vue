@@ -34,18 +34,12 @@
       :html="oEmbedData.html"
       :error="oEmbedData.error"
     />
-    <div
-      v-else-if="isIIIFImage"
-      data-qa="IIIF Image viewer"
-    >
-      <strong>IIIF Image</strong>
-    </div>
-    <div
-      v-else-if="isIIIFPresentation"
-      data-qa="IIIF Presentation viewer"
-    >
-      <strong>IIIF Presentation</strong>
-    </div>
+    <iframe
+      v-else-if="isIIIFImage || isIIIFPresentation"
+      data-qa="IIIF viewer"
+      :src="localePath({ name: 'iiif', query: { uri: iiifManifest } })"
+      :aria-label="$t('actions.viewDocument')"
+    />
   </div>
 </template>
 
@@ -57,8 +51,9 @@
 
   import oEmbed from '../../plugins/oembed.js';
   import {
-    isHTMLVideo, isHTMLAudio, isIIIFImage, isIIIFPresentation, isOEmbed, isPDF, isRichMedia
-  } from '../../plugins/media.js';
+    isHTMLVideo, isHTMLAudio, isIIIFImage, isIIIFPresentation,
+    isOEmbed, isPDF, isRichMedia, iiifManifest
+  } from '../../plugins/media';
 
   export default {
     name: 'MediaPresentation',
@@ -71,6 +66,10 @@
     },
 
     props: {
+      europeanaIdentifier: {
+        type: String,
+        required: true
+      },
       media: {
         type: Object,
         required: true
@@ -93,7 +92,9 @@
 
     computed: {
       displayImage() {
-        return (this.imageSrc !== '') && !isRichMedia(this.media, { iiif: Number(process.env.ENABLE_IIIF_MEDIA) });
+        return (this.imageSrc !== '') && !isRichMedia(this.media, {
+          iiif: Number(process.env.ENABLE_IIIF_MEDIA)
+        });
       },
       isPDF() {
         return isPDF(this.media);
@@ -111,6 +112,9 @@
       isIIIFPresentation() {
         if (!Number(process.env.ENABLE_IIIF_MEDIA)) return false;
         return isIIIFPresentation(this.media);
+      },
+      iiifManifest() {
+        return iiifManifest(this.media, this.europeanaIdentifier);
       },
       isOEmbed() {
         return isOEmbed(this.media);
@@ -134,6 +138,8 @@
 </script>
 
 <style lang="scss" scoped>
+  @import '../../assets/scss/variables.scss';
+
   /* TODO: fixed max height is subject to change */
   .media-presentation {
     /deep/ img,
@@ -141,6 +147,14 @@
       height: auto;
       max-height: 800px;
       object-fit: contain;
+      width: 100%;
+    }
+
+    iframe {
+      height: 800px;
+      border: 1px solid $lightgrey;
+      border-radius: $border-radius-small;
+      box-shadow: $boxshadow-small;
       width: 100%;
     }
   }

@@ -18,7 +18,7 @@ export function isOEmbed(media) {
 }
 
 function serviceConformsToIIIFImageAPI(service = {}) {
-  return service.dctermsConformsTo.includes('http://iiif.io/api/image');
+  return (service.dctermsConformsTo || []).includes('http://iiif.io/api/image');
 }
 
 export function isIIIFMedia(media) {
@@ -31,6 +31,14 @@ export function isIIIFImage(media) {
 
 export function isIIIFPresentation(media) {
   return isIIIFMedia(media) && ((media.dctermsIsReferencedBy || []).length > 0);
+}
+
+export function iiifManifest(media, europeanaIdentifier) {
+  if (isIIIFPresentation(media)) {
+    return media.dctermsIsReferencedBy[0];
+  }
+
+  return `https://iiif.europeana.eu/presentation${europeanaIdentifier}/manifest`;
 }
 
 export function isRichMedia(media, options = {}) {
