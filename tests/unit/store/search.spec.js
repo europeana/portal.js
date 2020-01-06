@@ -50,6 +50,7 @@ describe('store/search', () => {
             .reply(200, defaultResponse);
 
           const params = {
+            api: 'fulltext',
             query: searchQuery
           };
           await store.actions.run({ commit, dispatch }, params);
