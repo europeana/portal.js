@@ -23,7 +23,7 @@
         class="more-facets-wrapper"
         role="presentation"
       >
-        <FilterOptionsRadioGroup
+        <RadioGroupFilter
           v-if="showApiToggle"
           facet-name="api"
           :options="['fulltext', 'metadata']"
@@ -90,13 +90,13 @@
   import { rangeToQueryParam, rangeFromQueryParam, thematicCollections } from '../../plugins/europeana/search';
   import MoreFiltersDropdownFacet from './MoreFiltersDropdownFacet';
   import DateFilter from './DateFilter';
-  import FilterOptionsRadioGroup from './FilterOptionsRadioGroup';
+  import RadioGroupFilter from './RadioGroupFilter';
 
   export default {
     components: {
       MoreFiltersDropdownFacet,
       DateFilter,
-      FilterOptionsRadioGroup
+      RadioGroupFilter
     },
 
     props: {

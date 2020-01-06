@@ -1,12 +1,12 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 
 import BootstrapVue from 'bootstrap-vue';
-import FilterOptionsRadioGroup from '../../../../components/search/FilterOptionsRadioGroup.vue';
+import RadioGroupFilter from '../../../../components/search/RadioGroupFilter.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
-const factory = (propsData) => mount(FilterOptionsRadioGroup, {
+const factory = (propsData) => mount(RadioGroupFilter, {
   localVue,
   mocks: {
     $t: (key) => key,
@@ -16,7 +16,7 @@ const factory = (propsData) => mount(FilterOptionsRadioGroup, {
   propsData
 });
 
-describe('components/search/FilterOptionsRadioGroup', () => {
+describe('components/search/RadioGroupFilter', () => {
   it('emits `change` event with facet name and new value when user changes selection', async() => {
     const wrapper = factory({
       facetName: 'api',

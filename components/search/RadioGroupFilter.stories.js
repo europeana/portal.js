@@ -1,6 +1,6 @@
 import { storiesOf } from '@storybook/vue';
 import { action } from '@storybook/addon-actions';
-import FilterOptionsRadioGroup from './FilterOptionsRadioGroup.vue';
+import RadioGroupFilter from './RadioGroupFilter.vue';
 
 const i18n = {
   locale: 'en',
@@ -22,7 +22,7 @@ const i18n = {
 storiesOf('Search', module)
   .add('Record API toggle', () => ({
     i18n,
-    components: { FilterOptionsRadioGroup },
+    components: { RadioGroupFilter },
     methods: {
       log(value) {
         action('Change event emitted')(value);
@@ -36,7 +36,7 @@ storiesOf('Search', module)
     template: `<b-container
       class="mt-3"
       >
-        <FilterOptionsRadioGroup
+        <RadioGroupFilter
           facet-name="api"
           :options="['fulltext', 'metadata']"
           selected="fulltext"

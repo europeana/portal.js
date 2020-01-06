@@ -35,7 +35,7 @@
   import FacetFieldLabel from './FacetFieldLabel';
 
   export default {
-    name: 'FilterOptionsRadioGroup',
+    name: 'RadioGroupFilter',
 
     components: {
       FacetFieldLabel
