@@ -2,13 +2,13 @@
   "metadata": {
     "name": "Europeana",
     "lastOpened": 0,
-    "created": 1577099247223
+    "created": 1578316382743
   },
   "iconSets": [
     {
       "selection": [
         {
-          "order": 0,
+          "order": 5,
           "id": 15,
           "name": "by",
           "prevSize": 32,
@@ -23,7 +23,7 @@
           ]
         },
         {
-          "order": 0,
+          "order": 6,
           "id": 14,
           "name": "zero",
           "prevSize": 32,
@@ -40,7 +40,7 @@
           ]
         },
         {
-          "order": 0,
+          "order": 7,
           "id": 13,
           "name": "cc",
           "prevSize": 32,
@@ -55,7 +55,7 @@
           ]
         },
         {
-          "order": 0,
+          "order": 8,
           "id": 12,
           "name": "nc-eu",
           "prevSize": 32,
@@ -70,7 +70,7 @@
           ]
         },
         {
-          "order": 0,
+          "order": 9,
           "id": 11,
           "name": "nc-jp",
           "prevSize": 32,
@@ -85,7 +85,7 @@
           ]
         },
         {
-          "order": 0,
+          "order": 10,
           "id": 10,
           "name": "nc",
           "prevSize": 32,
@@ -100,7 +100,7 @@
           ]
         },
         {
-          "order": 0,
+          "order": 11,
           "id": 9,
           "name": "rs-unknown",
           "prevSize": 32,
@@ -108,7 +108,7 @@
           "tempChar": ""
         },
         {
-          "order": 0,
+          "order": 12,
           "id": 8,
           "name": "rs-no",
           "prevSize": 32,
@@ -116,7 +116,7 @@
           "tempChar": ""
         },
         {
-          "order": 0,
+          "order": 13,
           "id": 7,
           "name": "remix",
           "prevSize": 32,
@@ -131,7 +131,7 @@
           ]
         },
         {
-          "order": 0,
+          "order": 14,
           "id": 6,
           "name": "pd",
           "prevSize": 32,
@@ -146,7 +146,7 @@
           ]
         },
         {
-          "order": 0,
+          "order": 15,
           "id": 5,
           "name": "nd",
           "prevSize": 32,
@@ -161,7 +161,7 @@
           ]
         },
         {
-          "order": 0,
+          "order": 16,
           "id": 4,
           "name": "rs-yes",
           "prevSize": 32,
@@ -169,7 +169,7 @@
           "tempChar": ""
         },
         {
-          "order": 0,
+          "order": 17,
           "id": 3,
           "name": "sa",
           "prevSize": 32,
@@ -184,7 +184,7 @@
           ]
         },
         {
-          "order": 0,
+          "order": 18,
           "id": 2,
           "name": "samplingplus",
           "prevSize": 32,
@@ -201,7 +201,7 @@
           ]
         },
         {
-          "order": 0,
+          "order": 19,
           "id": 1,
           "name": "sampling",
           "prevSize": 32,
@@ -216,7 +216,7 @@
           ]
         },
         {
-          "order": 0,
+          "order": 20,
           "id": 0,
           "name": "share",
           "prevSize": 32,
@@ -756,7 +756,7 @@
           "name": "list",
           "prevSize": 32,
           "code": 59689,
-          "tempChar": ""
+          "tempChar": ""
         }
       ],
       "id": 6,
@@ -798,7 +798,7 @@
           "name": "grid",
           "prevSize": 32,
           "code": 59690,
-          "tempChar": ""
+          "tempChar": ""
         }
       ],
       "id": 5,
@@ -835,11 +835,19 @@
       "selection": [
         {
           "order": 1,
+          "id": 2,
+          "prevSize": 20,
+          "code": 59657,
+          "name": "instagram",
+          "tempChar": ""
+        },
+        {
+          "order": 0,
           "id": 1,
           "prevSize": 20,
           "code": 59657,
           "name": "google",
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "order": 1,
@@ -847,7 +855,7 @@
           "prevSize": 20,
           "code": 59656,
           "name": "pinterest",
-          "tempChar": ""
+          "tempChar": ""
         }
       ],
       "id": 4,
@@ -867,6 +875,21 @@
       "height": 1024,
       "prevSize": 20,
       "icons": [
+        {
+          "id": 2,
+          "paths": [
+            "M870.4 51.2h-716.8c-56.32 0-102.4 46.080-102.4 102.4v716.8c0 56.371 46.080 102.4 102.4 102.4h716.8c56.32 0 102.4-46.029 102.4-102.4v-716.8c0-56.32-46.080-102.4-102.4-102.4zM511.181 794.778c156.621 0 283.546-127.027 283.546-283.597 0-17.306-2.202-33.997-5.274-50.381h80.947v369.459c0 19.558-15.872 35.328-35.482 35.328h-645.837c-19.61 0-35.482-15.77-35.482-35.328v-369.459h79.309c-3.123 16.384-5.325 33.075-5.325 50.381 0 156.621 127.027 283.597 283.597 283.597zM333.978 511.181c0-97.894 79.36-177.203 177.254-177.203 97.843 0 177.254 79.309 177.254 177.203s-79.411 177.254-177.254 177.254c-97.946 0-177.254-79.36-177.254-177.254zM834.918 307.2h-82.688c-19.558 0-35.43-15.974-35.43-35.43v-82.79c0-19.558 15.872-35.379 35.379-35.379h82.688c19.661 0 35.533 15.821 35.533 35.379v82.739c0 19.507-15.872 35.482-35.482 35.482z"
+          ],
+          "attrs": [
+            {}
+          ],
+          "isMulticolor": false,
+          "isMulticolor2": false,
+          "tags": [
+            "instagram"
+          ],
+          "grid": 20
+        },
         {
           "id": 1,
           "paths": [
@@ -909,7 +932,7 @@
           "prevSize": 32,
           "name": "search",
           "code": 59691,
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "order": 1,
@@ -917,7 +940,7 @@
           "prevSize": 32,
           "code": 59654,
           "name": "minus",
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "order": 1,
@@ -925,7 +948,7 @@
           "name": "plus, add, sum",
           "prevSize": 32,
           "code": 59655,
-          "tempChar": ""
+          "tempChar": ""
         }
       ],
       "id": 3,
@@ -1011,7 +1034,7 @@
           "prevSize": 20,
           "code": 59652,
           "name": "close",
-          "tempChar": ""
+          "tempChar": ""
         }
       ],
       "id": 2,
@@ -1058,7 +1081,7 @@
           "prevSize": 32,
           "code": 59650,
           "name": "twitter",
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "order": 1,
@@ -1066,7 +1089,7 @@
           "name": "facebook",
           "prevSize": 32,
           "code": 59649,
-          "tempChar": ""
+          "tempChar": ""
         }
       ],
       "id": 1,
@@ -1133,7 +1156,7 @@
           "prevSize": 28,
           "code": 59653,
           "name": "language",
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "order": 1,
@@ -1141,7 +1164,7 @@
           "prevSize": 28,
           "code": 59651,
           "name": "caret-down",
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "order": 1,
@@ -1149,7 +1172,7 @@
           "prevSize": 28,
           "code": 59648,
           "name": "external-link",
-          "tempChar": ""
+          "tempChar": ""
         }
       ],
       "id": 0,
