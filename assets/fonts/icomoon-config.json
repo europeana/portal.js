@@ -8,7 +8,7 @@
     {
       "selection": [
         {
-          "order": 5,
+          "order": 0,
           "id": 15,
           "name": "by",
           "prevSize": 32,
@@ -23,7 +23,7 @@
           ]
         },
         {
-          "order": 6,
+          "order": 0,
           "id": 14,
           "name": "zero",
           "prevSize": 32,
@@ -40,7 +40,7 @@
           ]
         },
         {
-          "order": 7,
+          "order": 0,
           "id": 13,
           "name": "cc",
           "prevSize": 32,
@@ -55,7 +55,7 @@
           ]
         },
         {
-          "order": 8,
+          "order": 0,
           "id": 12,
           "name": "nc-eu",
           "prevSize": 32,
@@ -70,7 +70,7 @@
           ]
         },
         {
-          "order": 9,
+          "order": 0,
           "id": 11,
           "name": "nc-jp",
           "prevSize": 32,
@@ -85,7 +85,7 @@
           ]
         },
         {
-          "order": 10,
+          "order": 0,
           "id": 10,
           "name": "nc",
           "prevSize": 32,
@@ -100,7 +100,7 @@
           ]
         },
         {
-          "order": 11,
+          "order": 0,
           "id": 9,
           "name": "rs-unknown",
           "prevSize": 32,
@@ -108,7 +108,7 @@
           "tempChar": ""
         },
         {
-          "order": 12,
+          "order": 0,
           "id": 8,
           "name": "rs-no",
           "prevSize": 32,
@@ -116,7 +116,7 @@
           "tempChar": ""
         },
         {
-          "order": 13,
+          "order": 0,
           "id": 7,
           "name": "remix",
           "prevSize": 32,
@@ -131,7 +131,7 @@
           ]
         },
         {
-          "order": 14,
+          "order": 0,
           "id": 6,
           "name": "pd",
           "prevSize": 32,
@@ -146,7 +146,7 @@
           ]
         },
         {
-          "order": 15,
+          "order": 0,
           "id": 5,
           "name": "nd",
           "prevSize": 32,
@@ -161,7 +161,7 @@
           ]
         },
         {
-          "order": 16,
+          "order": 0,
           "id": 4,
           "name": "rs-yes",
           "prevSize": 32,
@@ -169,7 +169,7 @@
           "tempChar": ""
         },
         {
-          "order": 17,
+          "order": 0,
           "id": 3,
           "name": "sa",
           "prevSize": 32,
@@ -184,7 +184,7 @@
           ]
         },
         {
-          "order": 18,
+          "order": 0,
           "id": 2,
           "name": "samplingplus",
           "prevSize": 32,
@@ -201,7 +201,7 @@
           ]
         },
         {
-          "order": 19,
+          "order": 0,
           "id": 1,
           "name": "sampling",
           "prevSize": 32,
@@ -216,7 +216,7 @@
           ]
         },
         {
-          "order": 20,
+          "order": 0,
           "id": 0,
           "name": "share",
           "prevSize": 32,
@@ -756,7 +756,7 @@
           "name": "list",
           "prevSize": 32,
           "code": 59689,
-          "tempChar": ""
+          "tempChar": ""
         }
       ],
       "id": 6,
@@ -798,7 +798,7 @@
           "name": "grid",
           "prevSize": 32,
           "code": 59690,
-          "tempChar": ""
+          "tempChar": ""
         }
       ],
       "id": 5,
@@ -839,7 +839,7 @@
           "prevSize": 20,
           "code": 59657,
           "name": "google",
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "order": 1,
@@ -847,7 +847,7 @@
           "prevSize": 20,
           "code": 59656,
           "name": "pinterest",
-          "tempChar": ""
+          "tempChar": ""
         }
       ],
       "id": 4,
@@ -909,7 +909,7 @@
           "prevSize": 32,
           "name": "search",
           "code": 59691,
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "order": 1,
@@ -917,7 +917,7 @@
           "prevSize": 32,
           "code": 59654,
           "name": "minus",
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "order": 1,
@@ -925,7 +925,7 @@
           "name": "plus, add, sum",
           "prevSize": 32,
           "code": 59655,
-          "tempChar": ""
+          "tempChar": ""
         }
       ],
       "id": 3,
@@ -1011,7 +1011,7 @@
           "prevSize": 20,
           "code": 59652,
           "name": "close",
-          "tempChar": ""
+          "tempChar": ""
         }
       ],
       "id": 2,
@@ -1058,7 +1058,7 @@
           "prevSize": 32,
           "code": 59650,
           "name": "twitter",
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "order": 1,
@@ -1066,7 +1066,7 @@
           "name": "facebook",
           "prevSize": 32,
           "code": 59649,
-          "tempChar": ""
+          "tempChar": ""
         }
       ],
       "id": 1,
@@ -1133,7 +1133,7 @@
           "prevSize": 28,
           "code": 59653,
           "name": "language",
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "order": 1,
@@ -1141,7 +1141,7 @@
           "prevSize": 28,
           "code": 59651,
           "name": "caret-down",
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "order": 1,
@@ -1149,7 +1149,7 @@
           "prevSize": 28,
           "code": 59648,
           "name": "external-link",
-          "tempChar": ""
+          "tempChar": ""
         }
       ],
       "id": 0,

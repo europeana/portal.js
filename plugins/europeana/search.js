@@ -161,18 +161,21 @@ export function filtersFromQuery(query) {
  * @param {(string|string[])} params.qf query filter(s)
  * @param {string} params.query search query
  * @param {string} params.wskey API key
+ * @param {Object} options search options
+ * @param {string} options.origin base URL for API, overriding default 'https://api.europeana.eu'
  * @return {{results: Object[], totalResults: number, facets: FacetSet, error: string}} search results for display
  */
-function search(params) {
+function search(params, options = {}) {
   const maxResults = 1000;
   const perPage = params.rows === undefined ? 24 : Number(params.rows);
   const page = params.page || 1;
   const start = ((page - 1) * perPage) + 1;
   const rows = Math.max(0, Math.min(maxResults + 1 - start, perPage));
 
+  const origin = options.origin || 'https://api.europeana.eu';
   const query = (typeof params.query === 'undefined' || params.query === '') ? '*:*' : params.query;
 
-  return axios.get('https://api.europeana.eu/api/v2/search.json', {
+  return axios.get(`${origin}/api/v2/search.json`, {
     paramsSerializer(params) {
       return qs.stringify(params, { arrayFormat: 'repeat' });
     },

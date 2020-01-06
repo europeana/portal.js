@@ -64,6 +64,36 @@ describe('plugins/media', () => {
     });
   });
 
+  describe('iiifManifest()', () => {
+    const europeanaIdentifier = '/123/abc';
+
+    context('for a Presentation', () => {
+      it('returns the first element in dctermsIsReferencedBy', () => {
+        const manifest = 'http://www.example.org/iiif/manifest';
+        const item = {
+          services: [{
+            dctermsConformsTo: ['http://iiif.io/api/image']
+          }],
+          dctermsIsReferencedBy: [manifest]
+        };
+
+        media.iiifManifest(item, europeanaIdentifier).should.eq(manifest);
+      });
+    });
+
+    context('for an Image', () => {
+      it('uses the Europeana IIIF Presentation API', () => {
+        const item = {
+          services: [{
+            dctermsConformsTo: ['http://iiif.io/api/image']
+          }]
+        };
+
+        media.iiifManifest(item, europeanaIdentifier).should.eq(`https://iiif.europeana.eu/presentation${europeanaIdentifier}/manifest`);
+      });
+    });
+  });
+
   describe('isRichMedia()', () => {
     it('returns `true` if media considered rich', () => {
       media.isRichMedia({ about: 'https://soundcloud.com/oembed' }).should.be.true;

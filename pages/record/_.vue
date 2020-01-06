@@ -45,6 +45,7 @@
             </header>
             <div class="media-presentation">
               <MediaPresentation
+                :europeana-identifier="identifier"
                 :media="selectedMedia"
                 :image-src="selectedMediaImage.src"
               />
@@ -161,7 +162,7 @@
 
   import getRecord, { similarItemsQuery } from '../../plugins/europeana/record';
   import search from '../../plugins/europeana/search';
-  import { isRichMedia } from '../../plugins/media';
+  import { isIIIFPresentation, isRichMedia } from '../../plugins/media';
   import { langMapValueForLocale } from  '../../plugins/europeana/utils';
   import { searchEntities } from '../../plugins/europeana/entity';
 
@@ -230,7 +231,9 @@
         return langMapValueForLocale(this.description, this.$i18n.locale);
       },
       isRichMedia() {
-        return isRichMedia(this.selectedMedia);
+        return isRichMedia(this.selectedMedia, {
+          iiif: Number(process.env.ENABLE_IIIF_MEDIA)
+        });
       },
       selectedMedia: {
         get() {
@@ -247,7 +250,10 @@
         };
       },
       displayMediaThumbnailGrid() {
-        return this.media.length > 1;
+        // TODO: the IIIF Presentation check may need to account for potentially
+        //       some media items being in one Presentation manifest, but
+        //       others being, say, audio or video.
+        return this.media.length > 1 && !isIIIFPresentation(this.selectedMedia);
       },
       edmRights() {
         return this.selectedMedia.webResourceEdmRights ? this.selectedMedia.webResourceEdmRights : this.fields.edmRights;
@@ -257,8 +263,13 @@
         return false;
       },
       dataProvider() {
-        const edmDataProvider = this.coreFields.edmDataProvider;
-        return langMapValueForLocale(edmDataProvider, this.$i18n.locale);
+        const edmDataProvider = langMapValueForLocale(this.coreFields.edmDataProvider, this.$i18n.locale);
+
+        if (edmDataProvider.values[0].about) {
+          return edmDataProvider.values[0];
+        }
+
+        return edmDataProvider;
       }
     },
 

@@ -174,6 +174,14 @@ describe('plugins/europeana/search', () => {
         nock.isDone().should.be.true;
       });
 
+      it('supports API override', async() => {
+        const overrideApiUrl = 'https://api.example.org';
+        nock(overrideApiUrl).get(apiEndpoint).query(true).reply(200, defaultResponse);
+
+        await search({ query: 'anything', wskey: apiKey }, { origin: overrideApiUrl });
+
+        nock.isDone().should.be.true;
+      });
     });
 
     describe('API response', () => {

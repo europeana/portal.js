@@ -21,7 +21,15 @@
           :destination="link.url"
           :link-class="linkClass"
         >
-          {{ link.text }}
+          <template v-if="link.icon">
+            <i
+              :class="link.icon"
+              :title="link.text"
+            />
+          </template>
+          <template v-else>
+            {{ link.text }}
+          </template>
         </SmartLink>
         <template v-else>
           {{ link.text }}
