@@ -23,7 +23,9 @@
         </b-col>
       </b-row>
       <b-row class="mb-3">
-        <b-col>
+        <b-col
+          data-qa="search filters"
+        >
           <FacetDropdown
             v-for="facet in coreFacets"
             :key="facet.name"
