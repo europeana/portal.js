@@ -1,5 +1,7 @@
 import nock from 'nock';
-import search, { filtersFromQuery, qfHandler, rangeToQueryParam, rangeFromQueryParam } from '../../../../plugins/europeana/search';
+import search, {
+  filtersFromQuery, qfHandler, rangeToQueryParam, rangeFromQueryParam, thematicCollections
+} from '../../../../plugins/europeana/search';
 
 import axios from 'axios';
 axios.defaults.adapter = require('axios/lib/adapters/http');
@@ -388,6 +390,14 @@ describe('plugins/europeana/search', () => {
       });
     });
 
+    context('with api value', () => {
+      it('returns it as a string on api property', () => {
+        const query = { api: 'metadata' };
+        const expected = { 'api': 'metadata' };
+        filtersFromQuery(query).should.deep.eql(expected);
+      });
+    });
+
     context('with query that has two colons', () => {
       it('returns an array with a string seperated by a colon ', () => {
         const query = { qf: 'DATA_PROVIDER:"Galiciana: Biblioteca Digital de Galicia"' };
@@ -509,6 +519,20 @@ describe('plugins/europeana/search', () => {
         const expected = { start: '"START"', end: '\'END\'' };
         rangeFromQueryParam('["START" TO \'END\']').should.deep.eql(expected);
       });
+    });
+  });
+
+  describe('thematicCollections', () => {
+    it('is a Map', () => {
+      Object.getPrototypeOf(thematicCollections).should.eq(Map.prototype);
+    });
+
+    it('is keyed by collection aliases', () => {
+      thematicCollections.has('art').should.be.true;
+    });
+
+    it('has the URI of the Newspapers collection', () => {
+      thematicCollections.get('newspaper').should.startWith('http://data.europeana.eu/concept/');
     });
   });
 });

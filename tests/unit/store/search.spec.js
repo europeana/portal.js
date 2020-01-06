@@ -39,6 +39,25 @@ describe('store/search', () => {
         nock.isDone().should.be.true;
       });
 
+      context('when `api` param is "fulltext"', () => {
+        it('queries the Newspapers API', async() => {
+          const commit = sinon.spy();
+          const dispatch = sinon.spy();
+          const searchQuery = 'anything';
+
+          nock('https://newspapers.eanadev.org').get(apiEndpoint)
+            .query(true)
+            .reply(200, defaultResponse);
+
+          const params = {
+            query: searchQuery
+          };
+          await store.actions.run({ commit, dispatch }, params);
+
+          nock.isDone().should.be.true;
+        });
+      });
+
       it('includes "hidden" params in API request', async() => {
         const commit = sinon.spy();
         const dispatch = sinon.spy();
