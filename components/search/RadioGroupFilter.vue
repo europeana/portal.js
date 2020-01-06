@@ -1,12 +1,13 @@
 <template>
   <b-form-group
     :label="$t(`facets.${facetName}.name`)"
+    :data-qa="`${facetName} filter`"
   >
     <b-row>
       <b-col>
         <b-form-radio-group
           v-model="selectedOption"
-          :name="$tc(`facets.${facetName}.name`, 1)"
+          :name="facetName"
           plain
           @change="emitChange"
         >
@@ -17,7 +18,7 @@
               v-for="(option, index) in options"
               :key="index"
               :value="option"
-              name="api"
+              :data-qa="`${option} radio`"
             >
               <FacetFieldLabel
                 :facet-name="facetName"
