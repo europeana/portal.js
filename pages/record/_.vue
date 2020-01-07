@@ -309,6 +309,13 @@
           this.relatedEntities = related;
           this.similarItems = similar.results;
         }));
+
+      window.addEventListener('message', (msg) => {
+        if (msg.data.event === 'updateDownloadLink') {
+          this.selectedMedia.about = msg.data.data;
+        }
+      });
+
     },
 
     methods: {
