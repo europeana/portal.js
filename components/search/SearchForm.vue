@@ -137,7 +137,7 @@
 
     methods: {
       initQuery() {
-        this.query = this.onSearchablePage ? this.$store.state.search.query : '';
+        this.query = this.onSearchablePage ? (this.$store.state.search.userParams || {}).query : '';
       },
 
       selectSuggestion(value) {

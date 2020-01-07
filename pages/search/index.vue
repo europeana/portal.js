@@ -36,8 +36,9 @@
     },
 
     async fetch({ store, query, res }) {
-      store.commit('search/setActive', true);
-      await store.dispatch('search/run', query);
+      await store.dispatch('search/activate');
+      store.commit('search/setUserParams', query);
+      await store.dispatch('search/run');
       if (store.state.search.error && typeof res !== 'undefined') {
         res.statusCode = store.state.search.errorStatusCode;
       }
@@ -54,8 +55,8 @@
       };
     },
 
-    beforeRouteLeave(to, from, next) {
-      this.$store.commit('search/setActive', false);
+    async beforeRouteLeave(to, from, next) {
+      await this.$store.dispatch('search/deactivate');
       next();
     },
 

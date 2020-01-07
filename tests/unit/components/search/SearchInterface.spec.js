@@ -42,9 +42,8 @@ const factory = (options = {}) => {
     state: {
       search: {
         facets: [],
-        qf: [],
+        userParams: {},
         results: [],
-        filters: {},
         themeFacetEnabled: true,
         ...options.storeState
       },
@@ -83,11 +82,11 @@ describe('components/search/SearchInterface', () => {
   describe('computed properties', () => {
     describe('contentTierActiveState', () => {
       context('when contentTier facet includes "*"', () => {
-        it('is `true`', () => {
-          const wrapper = factory({
+        it('is `true`', async() => {
+          const wrapper = await factory({
             storeState: {
-              filters: {
-                contentTier: ['*']
+              userParams: {
+                qf: 'contentTier:*'
               }
             }
           });
@@ -97,11 +96,11 @@ describe('components/search/SearchInterface', () => {
       });
 
       context('when contentTier facet does not include "*"', () => {
-        it('is `false`', () => {
-          const wrapper = factory({
+        it('is `false`', async() => {
+          const wrapper = await factory({
             storeState: {
-              filters: {
-                contentTier: ['1 OR 2 OR 3 OR 4']
+              userParams: {
+                qf: 'contentTier:1 OR 2 OR 3 OR 4'
               }
             }
           });
@@ -301,57 +300,55 @@ describe('components/search/SearchInterface', () => {
 
       context('when facet had selected values', () => {
         const initialSelectedValues = ['IMAGE'];
+        const initialSelectedQf = 'TYPE:"IMAGE"';
+        const storeState = { userParams: { qf: initialSelectedQf } };
+
         context('and they changed', () => {
           const newSelectedValues = ['IMAGE', 'TEXT'];
-          it('triggers rerouting', () => {
-            const storeState = { filters: {} };
-            storeState.filters[facetName] = initialSelectedValues;
 
+          it('triggers rerouting', async() => {
             const wrapper = factory({ storeState });
             const searchRerouter = sinon.spy(wrapper.vm, 'rerouteSearch');
 
-            wrapper.vm.changeFacet(facetName, newSelectedValues);
+            await wrapper.vm.changeFacet(facetName, newSelectedValues);
             searchRerouter.should.have.been.calledWith({ page: 1, qf: ['TYPE:"IMAGE"', 'TYPE:"TEXT"'] });
           });
         });
 
         context('and they were unchanged', () => {
-          it('does not trigger rerouting', () => {
-            const storeState = { filters: {} };
-            storeState.filters[facetName] = initialSelectedValues;
-
+          it('does not trigger rerouting', async() => {
             const wrapper = factory({ storeState });
             const searchRerouter = sinon.spy(wrapper.vm, 'rerouteSearch');
 
-            wrapper.vm.changeFacet(facetName, initialSelectedValues);
+            await wrapper.vm.changeFacet(facetName, initialSelectedValues);
             searchRerouter.should.not.have.been.called;
           });
         });
       });
 
       context('when facet had no selected values', () => {
+        const storeState = { userParams: {} };
+
         context('and some were selected', () => {
           const newSelectedValues = ['IMAGE', 'TEXT'];
-          it('triggers rerouting', () => {
-            const storeState = { filters: {} };
 
-            const wrapper = factory({ storeState });
+          it('triggers rerouting', async() => {
+            const wrapper = await factory({ storeState });
             const searchRerouter = sinon.spy(wrapper.vm, 'rerouteSearch');
 
-            wrapper.vm.changeFacet(facetName, newSelectedValues);
+            await wrapper.vm.changeFacet(facetName, newSelectedValues);
             searchRerouter.should.have.been.calledWith({ page: 1, qf: ['TYPE:"IMAGE"', 'TYPE:"TEXT"'] });
           });
         });
 
         context('and none were selected', () => {
           const newSelectedValues = [];
-          it('does not trigger rerouting', () => {
-            const storeState = { filters: {} };
 
+          it('does not trigger rerouting', async() => {
             const wrapper = factory({ storeState });
             const searchRerouter = sinon.spy(wrapper.vm, 'rerouteSearch');
 
-            wrapper.vm.changeFacet(facetName, newSelectedValues);
+            await wrapper.vm.changeFacet(facetName, newSelectedValues);
             searchRerouter.should.not.have.been.called;
           });
         });

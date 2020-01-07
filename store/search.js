@@ -1,26 +1,50 @@
+import merge from 'deepmerge';
 import search, { filtersFromQuery } from '../plugins/europeana/search';
 
 export const state = () => ({
   active: false,
-  autoSuggestDisabled: false,
+  apiOptions: {},
+  apiParams: {},
   error: null,
   errorStatusCode: null,
   facets: [],
   filters: {},
   lastAvailablePage: null,
-  page: 1,
+  overrideParams: {},
   pill: null,
-  qf: [],
-  query: '',
   results: [],
-  reusability: null,
-  theme: null,
   themeFacetEnabled: true,
   totalResults: null,
+  userParams: {},
   view: null
 });
 
 export const mutations = {
+  setUserParams(state, value) {
+    state.userParams = value;
+  },
+  setOverrideParams(state, value) {
+    state.overrideParams = value;
+  },
+  // TODO: should this be an action, triggering multiple mutations?
+  deriveApiParams(state) {
+    // Coax qf from user input into an array
+    const userParams = Object.assign({}, state.userParams);
+    userParams.qf = [].concat(userParams.qf || []);
+
+    const apiParams = merge(userParams, state.overrideParams);
+    if (!apiParams.wskey) apiParams.wskey = process.env.EUROPEANA_API_KEY;
+
+    state.apiParams = apiParams;
+
+    // TODO: any additional derived params, e.g. newspapers api, go here
+  },
+  deriveFilters(state) {
+    state.filters = filtersFromQuery(state.userParams);
+  },
+  setApiOptions(state, value) {
+    state.apiOptions = value;
+  },
   disableThemeFacet(state) {
     state.themeFacetEnabled = false;
   },
@@ -39,29 +63,11 @@ export const mutations = {
   setFacets(state, value) {
     state.facets = value;
   },
-  setFilters(state, value) {
-    state.filters = value;
-  },
   setLastAvailablePage(state, value) {
     state.lastAvailablePage = value;
   },
-  setPage(state, value) {
-    state.page = Number(value);
-  },
-  setQf(state, value) {
-    state.qf = value;
-  },
-  setQuery(state, value) {
-    state.query = value;
-  },
   setResults(state, value) {
     state.results = value;
-  },
-  setReusability(state, value) {
-    state.reusability = value;
-  },
-  setTheme(state, value) {
-    state.theme = value;
   },
   setTotalResults(state, value) {
     state.totalResults = value;
@@ -75,9 +81,6 @@ export const mutations = {
   },
   setPill(state, value) {
     state.pill = value;
-  },
-  setAutoSuggestDisable(state, value) {
-    state.autoSuggestDisabled = value;
   }
 };
 
@@ -96,40 +99,37 @@ export const getters = {
   }
 };
 
+// TODO: add new action or mutation to start a new search, i.e. reset all options and params?
 export const actions = {
+  activate({ commit }) {
+    commit('setActive', true);
+  },
+
+  async deactivate({ commit, dispatch }) {
+    commit('setActive', false);
+    await dispatch('reset');
+  },
+
+  reset({ commit }) {
+    commit('setApiOptions', {});
+    commit('setUserParams', {});
+    commit('setOverrideParams', {});
+    commit('setPill', null);
+  },
+
   /**
    * Run a Record API search and store the results
    * @param {Object} commit commit from Vuex context
    * @param {Object} dispatch dispatch from Vuex context
-   * @param {Object} params parameters for search
+   * @param {Object} state state from Vuex context
    */
-  async run({ commit, dispatch }, queryParams) {
-    const params = Object.assign({}, queryParams);
-    const hiddenParams = params.hidden || {};
-    delete params.hidden;
+  async run({ commit, dispatch, state }) {
+    commit('deriveApiParams');
+    commit('deriveFilters');
 
-    commit('setPage', params.page || 1);
-    commit('setQf', params.qf);
-    commit('setQuery', params.query);
-    commit('setReusability', params.reusability);
-    commit('setTheme', params.theme);
-    commit('setFilters', filtersFromQuery(params));
-
-    params.qf = (hiddenParams.qf || []).concat(params.qf || []);
-    if (hiddenParams.theme) {
-      params.theme = hiddenParams.theme;
-    }
-
-    await search({
-      ...params,
-      wskey: process.env.EUROPEANA_API_KEY
-    })
-      .then((response) => {
-        dispatch('updateForSuccess', response);
-      })
-      .catch((error) => {
-        dispatch('updateForFailure', error);
-      });
+    await search(state.apiParams, state.apiOptions)
+      .then((response) => dispatch('updateForSuccess', response))
+      .catch((error) => dispatch('updateForFailure', error));
   },
   updateForSuccess({ commit }, response) {
     commit('setError', response.error);
