@@ -54,7 +54,7 @@
       <li
         class="dropdown-buttons"
         role="presentation"
-      >
+      >    
         <b-button
           variant="link"
           :disabled="!anyOptionsSelected"
@@ -74,6 +74,7 @@
           variant="primary"
           :disabled="selectedOptionsUnchanged"
           data-qa="apply button"
+          :data-changed="filtersChanged.join(',')"
           type="submit"
           @click.stop="applySelected"
         >
@@ -134,7 +135,28 @@
       },
 
       selectedOptionsUnchanged() {
-        return isEqual(this.preSelected, this.selected);
+        return this.filtersChanged.length === 0;
+      },
+
+      /**
+       * Gets the names of the filters whose selections have changed
+       * @return {string[]} Changed filter names
+       */
+      filtersChanged() {
+        const filtersChanged = [];
+        for (const name in this.preSelected) {
+          const selectedValues = this.selected[name] || [];
+          if (!isEqual(this.preSelected[name], selectedValues)) {
+            filtersChanged.push(name);
+          }
+        }
+        for (const name in this.selected) {
+          const preSelectedValues = this.preSelected[name] || [];
+          if (!filtersChanged.includes(name) && !isEqual(preSelectedValues, this.selected[name])) {
+            filtersChanged.push(name);
+          }
+        }
+        return filtersChanged;
       },
 
       moreFacetNames() {

@@ -35,8 +35,8 @@ describe('components/search/MoreFacetsDropdown', () => {
 
     wrapper.setProps({
       selected: {
-        LANGUAGE: ['de', 'sv'],
-        PROVIDER: ['OpenUp!']
+        'LANGUAGE': ['de', 'sv'],
+        'PROVIDER': ['OpenUp!']
       }
     });
 
@@ -62,8 +62,8 @@ describe('components/search/MoreFacetsDropdown', () => {
 
     wrapper.setProps({
       selected: {
-        LANGUAGE: ['de', 'sv'],
-        PROVIDER: ['OpenUp!']
+        'LANGUAGE': ['de', 'sv'],
+        'PROVIDER': ['OpenUp!']
       }
     });
 
@@ -83,7 +83,7 @@ describe('components/search/MoreFacetsDropdown', () => {
 
     wrapper.setData({
       preSelected: {
-        LANGUAGE: ['de', 'sv']
+        'LANGUAGE': ['de', 'sv']
       }
     });
 
@@ -116,15 +116,15 @@ describe('components/search/MoreFacetsDropdown', () => {
       ]
     });
 
-    wrapper.vm.moreFacetNames.should.eql([ 'LANGUAGE', 'PROVIDER' ]);
+    wrapper.vm.moreFacetNames.should.eql(['LANGUAGE', 'PROVIDER']);
 
   });
 
   it('clones selected data', () => {
     const wrapper = factory();
     const selected = {
-      LANGUAGE: ['de', 'sv'],
-      PROVIDER: ['OpenUp!']
+      'LANGUAGE': ['de', 'sv'],
+      'PROVIDER': ['OpenUp!']
     };
 
     wrapper.setProps({ selected });
@@ -137,13 +137,13 @@ describe('components/search/MoreFacetsDropdown', () => {
 
     wrapper.setProps({
       selected: {
-        PROVIDER: ['OpenUp!']
+        'PROVIDER': ['OpenUp!']
       }
     });
 
     wrapper.setData({
       preSelected: {
-        LANGUAGE: ['de', 'sv']
+        'LANGUAGE': ['de', 'sv']
       }
     });
 
@@ -157,7 +157,7 @@ describe('components/search/MoreFacetsDropdown', () => {
 
     wrapper.setData({
       preSelected: {
-        LANGUAGE: ['de', 'sv']
+        'LANGUAGE': ['de', 'sv']
       }
     });
 
@@ -167,7 +167,7 @@ describe('components/search/MoreFacetsDropdown', () => {
     wrapper.vm.preSelected.should.eql({ LANGUAGE: [] });
   });
 
-  context('dateFilter', () => {
+  describe('dateFilterSelected()', () => {
     it('populates preSelected with `start` and `end` dates when user uses date filter', () => {
       const wrapper = factory();
       const facetName = 'proxy_dcterms_issued';
@@ -176,13 +176,13 @@ describe('components/search/MoreFacetsDropdown', () => {
       wrapper.vm.dateFilterSelected(facetName, dateRange);
 
       wrapper.vm.preSelected.should.eql({
-        'proxy_dcterms_issued': [ '[2019-12-07 TO *]' ]
+        'proxy_dcterms_issued': ['[2019-12-07 TO *]']
       });
     });
   });
 
-  context('dateFilter computed property', () => {
-    it('return empty `end` and `start` properties when `proxy_dcterms_issued` doesn`t exist in preSelected', () => {
+  describe('dateFilter computed property', () => {
+    it('returns empty `end` and `start` properties when `proxy_dcterms_issued` doesn`t exist in preSelected', () => {
       const wrapper = factory();
 
       wrapper.vm.dateFilter.should.eql({
@@ -205,6 +205,57 @@ describe('components/search/MoreFacetsDropdown', () => {
         end: null,
         start: '2019-12-06'
       });
+    });
+  });
+
+  describe('filtersChanged computed property', () => {
+    const wrapper = factory();
+
+    it('detects filters that have been added', () => {
+      wrapper.setProps({
+        selected: {
+          'LANGUAGE': ['de']
+        }
+      });
+      wrapper.setData({
+        preSelected: {
+          'LANGUAGE': ['de', 'fr'],
+          'IMAGE_SIZE': ['MEDIUM']
+        }
+      });
+
+      wrapper.vm.filtersChanged.should.eql(['LANGUAGE', 'IMAGE_SIZE']);
+    });
+
+    it('detects filters that have been removed', () => {
+      wrapper.setProps({
+        selected: {
+          'LANGUAGE': ['de']
+        }
+      });
+      wrapper.setData({
+        preSelected: {
+          'LANGUAGE': []
+        }
+      });
+
+      wrapper.vm.filtersChanged.should.eql(['LANGUAGE']);
+    });
+
+    it('detects filters that are unchanged', () => {
+      wrapper.setProps({
+        selected: {
+          'LANGUAGE': ['de']
+        }
+      });
+      wrapper.setData({
+        preSelected: {
+          'LANGUAGE': ['de'],
+          'IMAGE_SIZE': []
+        }
+      });
+
+      wrapper.vm.filtersChanged.should.eql([]);
     });
   });
 });
