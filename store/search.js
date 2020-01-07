@@ -128,7 +128,7 @@ export const actions = {
     }
 
     if (params.api) {
-      if (params.api === 'fulltext' && Number(process.env.ENABLE_NEWSPAPERS_API_TOGGLE)) {
+      if (params.api === 'fulltext') {
         options.origin = 'https://newspapers.eanadev.org';
       }
       delete params.api;
