@@ -28,6 +28,7 @@ footer {
     li {
       .footer-link {
         color: white;
+        font-size: $font-size-small;
         text-decoration: none;
 
         &:hover {

@@ -2,7 +2,7 @@
   <b-form-checkbox
     :value="option"
     :data-qa="`${option} checkbox`"
-    class="mb-3"
+    class="mb-2"
   >
     <ColourSwatch
       v-if="forColourPalette"

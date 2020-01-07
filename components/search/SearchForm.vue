@@ -41,10 +41,6 @@
         <span class="sr-only">
           {{ $t('search') }}
         </span>
-        <img
-          src="../../assets/img/magnifier.svg"
-          :alt="$t('search')"
-        >
       </b-button>
       <AutoSuggest
         v-if="enableAutoSuggest"
@@ -211,7 +207,8 @@
 </script>
 
 <style lang="scss" scoped>
-  @import "./assets/scss/variables.scss";
+  @import './assets/scss/variables.scss';
+  @import './assets/scss/icons.scss';
 
   .input-group {
     width: 100%;
@@ -219,9 +216,9 @@
     .input-group-prepend {
       align-items: center;
       background-color: $offwhite;
-      padding-left: .75rem;
-      padding-right: .1rem;
-      border-radius: 0.375rem 0 0 0.375rem;
+      padding-left: 0.75rem;
+      padding-right: 0.1rem;
+      border-radius: $border-radius 0 0 $border-radius;
     }
   }
 
@@ -234,8 +231,11 @@
   .btn {
     border-radius: 0 $border-radius $border-radius 0;
 
-    img {
-      display: flex;
+    &:before {
+      @extend .icon-font;
+      content: '\e92b';
+      display: inline-block;
+      transform: scaleX(-1);
     }
   }
 </style>

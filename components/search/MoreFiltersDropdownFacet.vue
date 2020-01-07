@@ -1,7 +1,7 @@
 <template>
   <b-dropdown-form>
     <strong
-      class="mb-4 d-inline-block"
+      class="mb-3 d-inline-block"
     >
       {{ $tc(`facets.${name}.name`, 1) }}
     </strong>
@@ -40,36 +40,31 @@
       :data-qa="(isActive ? $t(`facets.button.showLess`, { label: $tc(`facets.${name}.name`, 2) }) + ' button' : $t(`facets.button.showAll`, { label: $tc(`facets.${name}.name`, 2) }) + ' button')"
       @click.prevent="isActive = !isActive"
     >
-      {{ isActive ? $t(`facets.button.showLess`, { label: $tc(`facets.${name}.name`, 2) }) : $t(`facets.button.showAll`, { label: $tc(`facets.${name}.name`, 2) }) }}
+      {{ showMoreOrLess }}
     </button>
   </b-dropdown-form>
 </template>
 
 <script>
   import MoreFiltersDropdownFacetOption from './MoreFiltersDropdownFacetOption';
-
   export default {
     components: {
       MoreFiltersDropdownFacetOption
     },
-
     props: {
       fields: {
         type: Array,
         required: true
       },
-
       name: {
         type: String,
         required: true
       },
-
       selected: {
         type: Array,
         default: () => []
       }
     },
-
     data() {
       return {
         selectedOptions: this.selected,
@@ -77,13 +72,20 @@
         limitTo: 9
       };
     },
-
+    computed: {
+      showMoreOrLess() {
+        if (this.isActive) {
+          return this.$t('facets.button.showLess', { label: this.$tc(`facets.${this.name}.name`, 2).toLowerCase() });
+        } else {
+          return this.$t('facets.button.showAll', { label: this.$tc(`facets.${this.name}.name`, 2).toLowerCase() });
+        }
+      }
+    },
     watch: {
       selected(value) {
         this.selectedOptions = value;
       }
     },
-
     methods: {
       selectedHandler(value) {
         this.$emit('selectedOptions', this.name, value);
