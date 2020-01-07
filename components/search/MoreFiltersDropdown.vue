@@ -54,7 +54,7 @@
       <li
         class="dropdown-buttons"
         role="presentation"
-      >    
+      >
         <b-button
           variant="link"
           :disabled="!anyOptionsSelected"
