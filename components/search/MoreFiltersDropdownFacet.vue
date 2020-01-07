@@ -40,7 +40,7 @@
       :data-qa="(isActive ? $t(`facets.button.showLess`, { label: $tc(`facets.${name}.name`, 2) }) + ' button' : $t(`facets.button.showAll`, { label: $tc(`facets.${name}.name`, 2) }) + ' button')"
       @click.prevent="isActive = !isActive"
     >
-      {{ isActive ? $t(`facets.button.showLess`, { label: $tc(`facets.${name}.name`, 2) }) : $t(`facets.button.showAll`, { label: $tc(`facets.${name}.name`, 2).toLowerCase() }) }}
+      {{ showMoreOrLess }}
     </button>
   </b-dropdown-form>
 </template>
@@ -71,6 +71,15 @@
         isActive: false,
         limitTo: 9
       };
+    },
+    computed: {
+      showMoreOrLess() {
+        if (this.isActive) {
+          return this.$t('facets.button.showLess', { label: this.$tc(`facets.${this.name}.name`, 2).toLowerCase() });
+        } else {
+          return this.$t('facets.button.showAll', { label: this.$tc(`facets.${this.name}.name`, 2).toLowerCase() });
+        }
+      }
     },
     watch: {
       selected(value) {
