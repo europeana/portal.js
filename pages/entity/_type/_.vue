@@ -274,8 +274,10 @@
 
       // TODO: fulltext search API should be aware of contentTier, but is not.
       //       if & when it is, this can be removed.
-      if ((entityUri === thematicCollections.get('newspaper')) && (query.api !== 'metadata')) {
-        contentTierQuery = 'contentTier:*';
+      if (Number(process.env.ENABLE_NEWSPAPERS_API_TOGGLE)) {
+        if ((entityUri === thematicCollections.get('newspaper')) && (query.api !== 'metadata')) {
+          contentTierQuery = 'contentTier:*';
+        }
       }
 
       const hiddenParams = {
@@ -296,8 +298,10 @@
       };
 
       // Ensure newspapers collection gets fulltext API by default
-      if ((entityUri === thematicCollections.get('newspaper')) && !query.api) {
-        apiParams.api = 'fulltext';
+      if (Number(process.env.ENABLE_NEWSPAPERS_API_TOGGLE)) {
+        if ((entityUri === thematicCollections.get('newspaper')) && !query.api) {
+          apiParams.api = 'fulltext';
+        }
       }
 
       await store.dispatch('search/run', apiParams);
