@@ -5,7 +5,7 @@
     :url="destination"
     :image-url="imageUrl"
     :image-content-type="imageContentType"
-    :is-related="isRelated"
+    :is-entity="isEntity"
   />
 </template>
 
@@ -75,7 +75,7 @@
         }
         return texts;
       },
-      isRelated() {
+      isEntity() {
         if (this.cardType && this.cardType.sys.id === 'automatedEntityCard') {
           return true;
         } else {

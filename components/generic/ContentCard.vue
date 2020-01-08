@@ -3,14 +3,14 @@
     class="text-left content-card"
     data-qa="content card"
     no-body
-    :class="{ 'related-card' : isRelated }"
+    :class="{ 'entity-card' : isEntity }"
   >
     <SmartLink
       :destination="url"
       link-class="card-link"
     >
       <b-img-lazy
-        v-if="isRelated && imageUrl"
+        v-if="isEntity && imageUrl"
         :src="optimisedImageUrl"
         alt=""
       />
@@ -19,7 +19,7 @@
         class="card-img"
       >
         <b-img-lazy
-          v-if="!isRelated"
+          v-if="!isEntity"
           :src="optimisedImageUrl"
           alt=""
         />
@@ -93,7 +93,7 @@
         type: String,
         default: ''
       },
-      isRelated: {
+      isEntity: {
         type: Boolean,
         default: false
       },
