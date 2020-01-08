@@ -28,7 +28,7 @@ export const mutations = {
   },
   // TODO: should this be an action, triggering multiple mutations?
   deriveApiParams(state) {
-    // Coax qf from user input into an array
+    // Coerce qf from user input into an array
     const userParams = Object.assign({}, state.userParams);
     userParams.qf = [].concat(userParams.qf || []);
 
@@ -99,7 +99,6 @@ export const getters = {
   }
 };
 
-// TODO: add new action or mutation to start a new search, i.e. reset all options and params?
 export const actions = {
   activate({ commit }) {
     commit('setActive', true);
@@ -119,9 +118,6 @@ export const actions = {
 
   /**
    * Run a Record API search and store the results
-   * @param {Object} commit commit from Vuex context
-   * @param {Object} dispatch dispatch from Vuex context
-   * @param {Object} state state from Vuex context
    */
   async run({ commit, dispatch, state }) {
     commit('deriveApiParams');
