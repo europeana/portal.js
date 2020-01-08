@@ -34,11 +34,13 @@ describe('components/record/MediaActionBar', () => {
   const europeanaIdentifier = '/09876/zyxwvu';
   const url = 'https://www.example.org/videos/zyxwvu.mp4';
   const rightsStatement = 'https://creativecommons.org/publicdomain/mark/1.0/';
+  const useProxy = true;
 
   it('includes a proxied media download button', () => {
     const wrapper = factory({
       europeanaIdentifier,
-      url
+      url,
+      useProxy
     });
 
     const expectedHref = `https://proxy.europeana.eu${europeanaIdentifier}?` +

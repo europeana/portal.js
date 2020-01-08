@@ -76,7 +76,7 @@
           return item['@id'] === pageId;
         });
 
-        if (page) {
+        if (page && page[0]) {
           window.parent.postMessage({ 'event': 'updateDownloadLink', 'data': page[0].images[0].resource['@id'] }, '*');
         }
       }

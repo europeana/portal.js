@@ -81,6 +81,7 @@
           <MediaActionBar
             :url="selectedMedia.about"
             :europeana-identifier="identifier"
+            :use-proxy="useProxy"
             :rights-statement="rightsStatement"
             :data-provider-name="dataProvider.values[0]"
             :data-provider-lang="dataProvider.code"
@@ -193,6 +194,7 @@
         relatedEntities: [],
         similarItems: [],
         selectedMediaItem: null,
+        useProxy: true,
         title: null,
         type: null
       };
@@ -312,6 +314,10 @@
 
       window.addEventListener('message', (msg) => {
         if (msg.data.event === 'updateDownloadLink') {
+          if (!this.media.find((item) => item.about === msg.data.data)) {
+            this.useProxy = false;
+          }
+
           this.selectedMedia.about = msg.data.data;
         }
       });

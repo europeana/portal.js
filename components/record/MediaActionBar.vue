@@ -8,11 +8,12 @@
       >
         <b-button
           v-if="url"
-          :href="url | proxyMedia(europeanaIdentifier)"
+          :href="downloadUrl"
           variant="outline-primary text-decoration-none"
           data-qa="download button"
           size="lg"
           class="mr-3"
+          :target="!useProxy ? '_blank' : '_self'"
         >
           {{ $t('actions.download') }}
         </b-button>
@@ -94,6 +95,10 @@
         type: String,
         required: true
       },
+      useProxy: {
+        type: Boolean,
+        required: true
+      },
       rightsStatement: {
         type: String,
         default: null
@@ -115,6 +120,10 @@
     computed: {
       rightsStatementIsUrl() {
         return RegExp('^https?://*').test(this.rightsStatement);
+      },
+
+      downloadUrl() {
+        return this.useProxy ? this.$options.filters.proxyMedia(this.url, this.europeanaIdentifier) : this.url;
       }
     }
   };
