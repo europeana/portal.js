@@ -45,6 +45,7 @@
   }
 
   .card-body {
+    flex: 0;
     padding: 1rem;
     width: 100%;
   }
@@ -72,9 +73,15 @@
 
   &.related-card {
     border: 0;
+    font-size: $font-size-small;
     justify-content: flex-end;
     margin-bottom: 2.5rem;
     margin-left: 0.9rem;
+
+    .card-title {
+      font-size: $font-size-base;
+      font-weight: 600;
+    }
 
     img {
       border-radius: 4px;

@@ -5,6 +5,7 @@
     :url="destination"
     :image-url="imageUrl"
     :image-content-type="imageContentType"
+    :is-related="isRelated"
   />
 </template>
 
@@ -19,6 +20,10 @@
     },
     props: {
       fields: {
+        type: Object,
+        default: () => {}
+      },
+      cardType: {
         type: Object,
         default: () => {}
       }
@@ -69,6 +74,13 @@
           }
         }
         return texts;
+      },
+      isRelated() {
+        if (this.cardType && this.cardType.sys.id === 'automatedEntityCard') {
+          return true;
+        } else {
+          return false;
+        }
       }
     },
     methods: {
