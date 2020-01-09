@@ -1,24 +1,24 @@
 <template>
-  <b-dropdown-form>
-    <strong
-      class="mb-3 d-inline-block"
-    >
-      {{ $tc(`facets.${name}.name`, 1) }}
-    </strong>
+  <b-form-group
+    :label="$tc(`facets.${name}.name`, 1)"
+  >
     <b-form-checkbox-group
       v-model="selectedOptions"
-      class="option-group"
       :name="$tc(`facets.${name}.name`, 1)"
       plain
       @change="selectedHandler"
     >
-      <MoreFiltersDropdownFacetOption
-        v-for="(filter, index) in fields.slice(0, limitTo)"
-        :key="index"
-        :facet-name="name"
-        :option="filter.label"
-        :index="index"
-      />
+      <div
+        class="option-group"
+      >
+        <MoreFiltersDropdownFacetOption
+          v-for="(filter, index) in fields.slice(0, limitTo)"
+          :key="index"
+          :facet-name="name"
+          :option="filter.label"
+          :index="index"
+        />
+      </div>
       <div
         v-if="fields.length > limitTo && isActive"
         class="option-group"
@@ -31,40 +31,45 @@
           :index="index + limitTo"
         />
       </div>
+      <button
+        v-if="fields.length > limitTo"
+        type="button"
+        class="btn btn-link btn-toggle"
+        :class="{ 'is-active': isActive }"
+        :data-qa="(isActive ? $t(`facets.button.showLess`, { label: $tc(`facets.${name}.name`, 2) }) + ' button' : $t(`facets.button.showAll`, { label: $tc(`facets.${name}.name`, 2) }) + ' button')"
+        @click.prevent="isActive = !isActive"
+      >
+        {{ isActive ? $t(`facets.button.showLess`, { label: $tc(`facets.${name}.name`, 2) }) : $t(`facets.button.showAll`, { label: $tc(`facets.${name}.name`, 2) }) }}
+      </button>
     </b-form-checkbox-group>
-    <button
-      v-if="fields.length > limitTo"
-      type="button"
-      class="btn btn-link btn-toggle"
-      :class="{ 'is-active': isActive }"
-      :data-qa="(isActive ? $t(`facets.button.showLess`, { label: $tc(`facets.${name}.name`, 2) }) + ' button' : $t(`facets.button.showAll`, { label: $tc(`facets.${name}.name`, 2) }) + ' button')"
-      @click.prevent="isActive = !isActive"
-    >
-      {{ showMoreOrLess }}
-    </button>
-  </b-dropdown-form>
+  </b-form-group>
 </template>
 
 <script>
   import MoreFiltersDropdownFacetOption from './MoreFiltersDropdownFacetOption';
+
   export default {
     components: {
       MoreFiltersDropdownFacetOption
     },
+
     props: {
       fields: {
         type: Array,
         required: true
       },
+
       name: {
         type: String,
         required: true
       },
+
       selected: {
         type: Array,
         default: () => []
       }
     },
+
     data() {
       return {
         selectedOptions: this.selected,
@@ -72,20 +77,13 @@
         limitTo: 9
       };
     },
-    computed: {
-      showMoreOrLess() {
-        if (this.isActive) {
-          return this.$t('facets.button.showLess', { label: this.$tc(`facets.${this.name}.name`, 2).toLowerCase() });
-        } else {
-          return this.$t('facets.button.showAll', { label: this.$tc(`facets.${this.name}.name`, 2).toLowerCase() });
-        }
-      }
-    },
+
     watch: {
       selected(value) {
         this.selectedOptions = value;
       }
     },
+
     methods: {
       selectedHandler(value) {
         this.$emit('selectedOptions', this.name, value);
