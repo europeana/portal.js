@@ -69,7 +69,7 @@
     },
 
     methods: {
-      async fetchImageData(url, pageId) {
+      fetchImageData(url, pageId) {
         const page = this.manifest.sequences[0].canvases.filter((item) => {
           return item['@id'] === pageId;
         });
