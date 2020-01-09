@@ -23,12 +23,16 @@ Feature: Entity page
   Scenario: View related entities
     When I open an `entity page`
     And I see the `entity page`
-    Then I should have 4 `browse chip`s
+    Then I see `related entities`
+    And I see the `Music entity card` in the `related entities`
+    And I see the `Theatre entity card` in the `related entities`
+    And I see the `Art entity card` in the `related entities`
+    And I see the `Black-and-white prints entity card` in the `related entities`
 
   Scenario: Click on a related entity
     When I open an `entity page`
     And I see the `entity page`
-    And I click a `browse chip`
+    And I click an `Music entity card`
     And I wait 5 seconds
     Then I should not be on the `entity page`
 

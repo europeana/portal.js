@@ -34,23 +34,11 @@
         md="3"
         class="pb-3"
       >
-        <ul
+        <EntityCards
           v-if="relatedEntities"
-          class="list-unstyled"
-        >
-          <BrowseChip
-            v-for="relatedEntity in relatedEntities"
-            :key="relatedEntity.path"
-            :link-to="localePath({
-              name: 'entity-type-all',
-              params: {
-                type: relatedEntity.type,
-                pathMatch: relatedEntity.path
-              }
-            })"
-            :title="relatedEntity.title"
-          />
-        </ul>
+          :entities="relatedEntities"
+          data-qa="related entities"
+        />
       </b-col>
     </b-row>
     <b-row>
@@ -68,7 +56,7 @@
   import axios from 'axios';
 
   import AlertMessage from '../../../components/generic/AlertMessage';
-  import BrowseChip from '../../../components/browse/BrowseChip';
+  import EntityCards from '../../../components/entity/EntityCards';
   import BrowseSections from '../../../components/browse/BrowseSections';
   import EntityDetails from '../../../components/entity/EntityDetails';
   import SearchInterface from '../../../components/search/SearchInterface';
@@ -83,8 +71,8 @@
   export default {
     components: {
       AlertMessage,
-      BrowseChip,
       BrowseSections,
+      EntityCards,
       EntityDetails,
       SearchInterface
     },
