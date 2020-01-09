@@ -4,19 +4,10 @@
   >
     <MediaImage
       v-if="displayImage"
-      :link="imageLink"
       :src="imageSrc"
+      :link="imageLink(isPDF)"
+      :pdf="isPDF"
     />
-    <p
-      v-if="isPDF"
-    >
-      <b-link
-        :href="media.about"
-        target="_blank"
-      >
-        {{ $t('record.view.pdf') }}
-      </b-link>
-    </p>
     <VideoPlayer
       v-else-if="isHTMLVideo"
       :src="media.about"
@@ -75,10 +66,6 @@
         type: Object,
         required: true
       },
-      imageLink: {
-        type: String,
-        default: ''
-      },
       imageSrc: {
         type: String,
         default: ''
@@ -134,7 +121,14 @@
           this.oEmbedData = { error: err };
         });
       }
+    },
+
+    methods: {
+      imageLink(pdf) {
+        return pdf ? this.media.about : this.$options.filters.proxyMedia(this.media.about, this.europeanaIdentifier);
+      }
     }
+
   };
 </script>
 
