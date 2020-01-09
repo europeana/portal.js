@@ -55,9 +55,13 @@
         });
 
         mirador.store.subscribe(() => {
-          const state = mirador.store.getState().windows;
-          if (Object.values(state)[0].canvasId !== this.page) {
-            this.page = Object.values(state)[0].canvasId;
+          const miradorWindow = Object.values(mirador.store.getState().windows)[0]; // only takes one window into account at the moment
+          if (!this.manifest) {
+            this.manifest = mirador.store.getState().manifests[miradorWindow.manifestId].json;
+          }
+
+          if (miradorWindow.canvasId !== this.page) {
+            this.page = miradorWindow.canvasId;
             this.fetchImageData(this.uri, this.page);
           }
         });
@@ -66,18 +70,12 @@
 
     methods: {
       async fetchImageData(url, pageId) {
-        if (!this.manifest) {
-          const response = await fetch(url);
-          const manifest = await response.json();
-          this.manifest = manifest;
-        }
-
         const page = this.manifest.sequences[0].canvases.filter((item) => {
           return item['@id'] === pageId;
         });
 
         if (page && page[0]) {
-          window.parent.postMessage({ 'event': 'updateDownloadLink', 'data': page[0].images[0].resource['@id'] }, '*');
+          window.parent.postMessage({ 'event': 'updateDownloadLink', 'id': page[0].images[0].resource['@id'] }, '*');
         }
       }
     },

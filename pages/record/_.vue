@@ -314,11 +314,8 @@
 
       window.addEventListener('message', (msg) => {
         if (msg.data.event === 'updateDownloadLink') {
-          if (!this.media.find((item) => item.about === msg.data.data)) {
-            this.useProxy = false;
-          }
-
-          this.selectedMedia.about = msg.data.data;
+          this.useProxy = (this.media.some((item) => item.about === msg.data.id));
+          this.selectedMedia.about = msg.data.id;
         }
       });
 
