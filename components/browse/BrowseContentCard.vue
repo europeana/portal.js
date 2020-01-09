@@ -24,8 +24,8 @@
         default: () => {}
       },
       cardType: {
-        type: Object,
-        default: () => {}
+        type: String,
+        default: null
       }
     },
     computed: {
@@ -76,11 +76,7 @@
         return texts;
       },
       isEntity() {
-        if (this.cardType && this.cardType.sys.id === 'automatedEntityCard') {
-          return true;
-        } else {
-          return false;
-        }
+        return this.cardType === 'automatedEntityCard';
       }
     },
     methods: {

@@ -24,7 +24,7 @@
           v-for="card in cards"
           :key="card.sys.id"
           :fields="card.fields"
-          :card-type="card.sys.contentType"
+          :card-type="card.sys.contentType ? card.sys.contentType.sys.id : ''"
         />
       </b-card-group>
     </div>
