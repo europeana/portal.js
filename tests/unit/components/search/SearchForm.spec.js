@@ -79,7 +79,9 @@ describe('components/search/SearchForm', () => {
       const wrapper = factory({
         store: store({
           active: true,
-          query: 'cartography'
+          userParams: {
+            query: 'cartography'
+          }
         })
       });
 
@@ -92,7 +94,9 @@ describe('components/search/SearchForm', () => {
       const wrapper = factory({
         store: store({
           active: false,
-          query: 'cartography'
+          userParams: {
+            query: 'cartography'
+          }
         })
       });
 
@@ -155,7 +159,9 @@ describe('components/search/SearchForm', () => {
     context('when on a search page', () => {
       const state = {
         active: true,
-        query: '',
+        userParams: {
+          query: ''
+        },
         view: 'grid'
       };
       const wrapper = factory({ store: store(state) });
@@ -174,7 +180,9 @@ describe('components/search/SearchForm', () => {
     context('when not on a search page', () => {
       const state = {
         active: false,
-        query: '',
+        userParams: {
+          query: ''
+        },
         view: 'list'
       };
       const wrapper = factory({ store: store(state) });

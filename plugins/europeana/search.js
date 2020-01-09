@@ -188,7 +188,7 @@ function search(params, options = {}) {
       rows,
       start,
       theme: params.theme,
-      wskey: params.wskey
+      wskey: params.wskey || process.env.EUROPEANA_API_KEY
     }
   })
     .then((response) => {

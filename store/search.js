@@ -1,26 +1,46 @@
-import search, { filtersFromQuery } from '../plugins/europeana/search';
+import merge from 'deepmerge';
+import search from '../plugins/europeana/search';
 
 export const state = () => ({
   active: false,
-  autoSuggestDisabled: false,
+  apiOptions: {},
+  apiParams: {},
   error: null,
   errorStatusCode: null,
   facets: [],
   filters: {},
   lastAvailablePage: null,
-  page: 1,
+  overrideParams: {},
   pill: null,
-  qf: [],
-  query: '',
   results: [],
-  reusability: null,
-  theme: null,
   themeFacetEnabled: true,
   totalResults: null,
+  userParams: {},
   view: null
 });
 
 export const mutations = {
+  setUserParams(state, value) {
+    state.userParams = value;
+  },
+  setOverrideParams(state, value) {
+    state.overrideParams = value;
+  },
+  // TODO: should this be an action, triggering multiple mutations?
+  deriveApiParams(state) {
+    // Coerce qf from user input into an array as it may be a single string
+    const userParams = Object.assign({}, state.userParams || {});
+    userParams.qf = [].concat(userParams.qf || []);
+
+    const apiParams = merge(userParams, state.overrideParams || {});
+
+    state.apiParams = apiParams;
+
+    // TODO: any additional derived params, e.g. newspapers api, go here
+  },
+  setApiOptions(state, value) {
+    state.apiOptions = value;
+  },
   disableThemeFacet(state) {
     state.themeFacetEnabled = false;
   },
@@ -39,29 +59,11 @@ export const mutations = {
   setFacets(state, value) {
     state.facets = value;
   },
-  setFilters(state, value) {
-    state.filters = value;
-  },
   setLastAvailablePage(state, value) {
     state.lastAvailablePage = value;
   },
-  setPage(state, value) {
-    state.page = Number(value);
-  },
-  setQf(state, value) {
-    state.qf = value;
-  },
-  setQuery(state, value) {
-    state.query = value;
-  },
   setResults(state, value) {
     state.results = value;
-  },
-  setReusability(state, value) {
-    state.reusability = value;
-  },
-  setTheme(state, value) {
-    state.theme = value;
   },
   setTotalResults(state, value) {
     state.totalResults = value;
@@ -75,9 +77,6 @@ export const mutations = {
   },
   setPill(state, value) {
     state.pill = value;
-  },
-  setAutoSuggestDisable(state, value) {
-    state.autoSuggestDisabled = value;
   }
 };
 
@@ -97,39 +96,31 @@ export const getters = {
 };
 
 export const actions = {
+  activate({ commit }) {
+    commit('setActive', true);
+  },
+
+  async deactivate({ commit, dispatch }) {
+    commit('setActive', false);
+    await dispatch('reset');
+  },
+
+  reset({ commit }) {
+    commit('setApiOptions', {});
+    commit('setUserParams', {});
+    commit('setOverrideParams', {});
+    commit('setPill', null);
+  },
+
   /**
    * Run a Record API search and store the results
-   * @param {Object} commit commit from Vuex context
-   * @param {Object} dispatch dispatch from Vuex context
-   * @param {Object} params parameters for search
    */
-  async run({ commit, dispatch }, queryParams) {
-    const params = Object.assign({}, queryParams);
-    const hiddenParams = params.hidden || {};
-    delete params.hidden;
+  async run({ commit, dispatch, state }) {
+    commit('deriveApiParams');
 
-    commit('setPage', params.page || 1);
-    commit('setQf', params.qf);
-    commit('setQuery', params.query);
-    commit('setReusability', params.reusability);
-    commit('setTheme', params.theme);
-    commit('setFilters', filtersFromQuery(params));
-
-    params.qf = (hiddenParams.qf || []).concat(params.qf || []);
-    if (hiddenParams.theme) {
-      params.theme = hiddenParams.theme;
-    }
-
-    await search({
-      ...params,
-      wskey: process.env.EUROPEANA_API_KEY
-    })
-      .then((response) => {
-        dispatch('updateForSuccess', response);
-      })
-      .catch((error) => {
-        dispatch('updateForFailure', error);
-      });
+    await search(state.apiParams || {}, state.apiOptions || {})
+      .then((response) => dispatch('updateForSuccess', response))
+      .catch((error) => dispatch('updateForFailure', error));
   },
   updateForSuccess({ commit }, response) {
     commit('setError', response.error);

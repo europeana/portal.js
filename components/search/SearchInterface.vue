@@ -138,7 +138,9 @@
   import PaginationNav from '../../components/generic/PaginationNav';
   import ViewToggles from '../../components/search/ViewToggles';
   import TierToggler from '../../components/search/TierToggler';
-  import { defaultFacetNames, unquotableFacets, thematicCollections } from '../../plugins/europeana/search';
+  import {
+    defaultFacetNames, filtersFromQuery, unquotableFacets, thematicCollections
+  } from '../../plugins/europeana/search';
 
   import isEqual from 'lodash/isEqual';
   import pickBy from 'lodash/pickBy';
@@ -185,22 +187,34 @@
     },
     computed: {
       ...mapState({
+        userParams: state => state.search.userParams,
         entityId: state => state.entity.id,
         error: state => state.search.error,
         facets: state => state.search.facets,
         lastAvailablePage: state => state.search.lastAvailablePage,
-        // This causes double jumps on pagination when using the > arrow, for some reason
-        // page: state => state.search.page,
-        qf: state => state.search.qf,
-        query: state => state.search.query,
         results: state => state.search.results,
-        reusability: state => state.search.reusability,
-        theme: state => state.search.theme,
-        filters: state => state.search.filters,
         totalResults: state => state.search.totalResults
       }),
-      // workaround for double jump mentioned in store mapState call above
+      qf() {
+        return this.userParams.qf;
+      },
+      query() {
+        return this.userParams.query;
+      },
+      reusability() {
+        return this.userParams.reusability;
+      },
+      theme() {
+        return this.userParams.theme;
+      },
+      filters() {
+        return filtersFromQuery(this.userParams);
+      },
       page() {
+        // This causes double jumps on pagination when using the > arrow, for some reason
+        // return this.userParams.page;
+
+        // This is a workaround
         return Number(this.$route.query.page || 1);
       },
       contentTierActiveState() {
@@ -293,16 +307,16 @@
           if ((Array.isArray(selected) && selected.length === 0) || !selected) return;
         }
         if (isEqual(this.filters[name], selected)) return;
-        this.rerouteSearch(this.queryUpdatesForFacetChanges({ [name]: selected }));
+        return this.rerouteSearch(this.queryUpdatesForFacetChanges({ [name]: selected }));
       },
       changeMoreFacets(selected) {
-        this.rerouteSearch(this.queryUpdatesForFacetChanges(selected));
+        return this.rerouteSearch(this.queryUpdatesForFacetChanges(selected));
       },
       paginationLink(val) {
         return this.localePath({ ...this.route, ...{ query: this.updateCurrentSearchQuery({ page: val }) } });
       },
       rerouteSearch(queryUpdates) {
-        this.$router.push(this.localePath({ ...this.route, ...{ query: this.updateCurrentSearchQuery(queryUpdates) } }));
+        return this.$router.push(this.localePath({ ...this.route, ...{ query: this.updateCurrentSearchQuery(queryUpdates) } }));
       },
       queryUpdatesForFacetChanges(selected) {
         let filters = Object.assign({}, this.filters);
@@ -367,7 +381,7 @@
         for (const filterName of this.dropdownFilterNames) {
           filters[filterName] = [];
         }
-        this.rerouteSearch(this.queryUpdatesForFilters(filters));
+        return this.rerouteSearch(this.queryUpdatesForFilters(filters));
       },
       isFilteredByDropdowns() {
         for (const filterName of this.dropdownFilterNames) {
