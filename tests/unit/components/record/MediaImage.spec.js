@@ -24,6 +24,26 @@ describe('components/record/MediaImage', () => {
       const image = wrapper.find('b-img-lazy');
       image.attributes().src.should.eq(props.src);
     });
+
+    it('shows a view image link', () => {
+      const wrapper = factory();
+      const props = { link: 'http://www.example.org/', src: 'http://www.example.org/image.jpg' };
+
+      wrapper.setProps(props);
+
+      const viewLink = wrapper.find('p');
+      viewLink.text().should.eq('record.view.image');
+    });
+
+    it('shows a view pdf link', () => {
+      const wrapper = factory();
+      const props = { link: 'http://www.example.org/', src: 'http://www.example.org/image.pdf', pdf: true };
+
+      wrapper.setProps(props);
+
+      const viewLink = wrapper.find('p');
+      viewLink.text().should.eq('record.view.pdf');
+    });
   });
 
   describe('when only src is present', () => {
