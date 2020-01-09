@@ -14,20 +14,20 @@ localVue.use(BootstrapVue);
 localVue.use(VueRouter);
 localVue.use(Vuex);
 
-const router = new VueRouter({
-  routes: [
-    {
-      path: '/search',
-      name: 'search'
-    },
-    {
-      path: '/record/*',
-      name: 'record-all'
-    }
-  ]
-});
-
 const factory = (options = {}) => {
+  const router = new VueRouter({
+    routes: [
+      {
+        path: '/search',
+        name: 'search'
+      },
+      {
+        path: '/record/*',
+        name: 'record-all'
+      }
+    ]
+  });
+
   const mocks = {
     $i18n: {
       locale: 'en'
