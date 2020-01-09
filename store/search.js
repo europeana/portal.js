@@ -1,5 +1,5 @@
 import merge from 'deepmerge';
-import search, { filtersFromQuery } from '../plugins/europeana/search';
+import search from '../plugins/europeana/search';
 
 export const state = () => ({
   active: false,
@@ -28,19 +28,15 @@ export const mutations = {
   },
   // TODO: should this be an action, triggering multiple mutations?
   deriveApiParams(state) {
-    // Coerce qf from user input into an array
-    const userParams = Object.assign({}, state.userParams);
+    // Coerce qf from user input into an array as it may be a single string
+    const userParams = Object.assign({}, state.userParams || {});
     userParams.qf = [].concat(userParams.qf || []);
 
-    const apiParams = merge(userParams, state.overrideParams);
-    if (!apiParams.wskey) apiParams.wskey = process.env.EUROPEANA_API_KEY;
+    const apiParams = merge(userParams, state.overrideParams || {});
 
     state.apiParams = apiParams;
 
     // TODO: any additional derived params, e.g. newspapers api, go here
-  },
-  deriveFilters(state) {
-    state.filters = filtersFromQuery(state.userParams);
   },
   setApiOptions(state, value) {
     state.apiOptions = value;
@@ -121,9 +117,8 @@ export const actions = {
    */
   async run({ commit, dispatch, state }) {
     commit('deriveApiParams');
-    commit('deriveFilters');
 
-    await search(state.apiParams, state.apiOptions)
+    await search(state.apiParams || {}, state.apiOptions || {})
       .then((response) => dispatch('updateForSuccess', response))
       .catch((error) => dispatch('updateForFailure', error));
   },
