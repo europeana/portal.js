@@ -26,11 +26,18 @@ export function isIIIFMedia(media) {
 }
 
 export function isIIIFImage(media) {
-  return isIIIFMedia(media) && ((media.dctermsIsReferencedBy || []).length === 0);
+  return isIIIFMedia(media) &&
+    (((media.dctermsIsReferencedBy || []).length === 0) || iiifReferenceIsImageInfo(media));
+}
+
+function iiifReferenceIsImageInfo(media) {
+  return `${media.services[0].about}/info.json` === media.dctermsIsReferencedBy[0];
 }
 
 export function isIIIFPresentation(media) {
-  return isIIIFMedia(media) && ((media.dctermsIsReferencedBy || []).length > 0);
+  if (!isIIIFMedia(media) || ((media.dctermsIsReferencedBy || []).length === 0)) return false;
+
+  return !iiifReferenceIsImageInfo(media);
 }
 
 export function iiifManifest(media, europeanaIdentifier) {
