@@ -1,5 +1,6 @@
 import nock from 'nock';
 import * as entities from '../../../../plugins/europeana/entity';
+import config from '../../../../plugins/europeana/api';
 
 const axios = require('axios');
 axios.defaults.adapter = require('axios/lib/adapters/http');
@@ -13,6 +14,8 @@ const entityUri = 'http://data.europeana.eu/concept/base/94';
 const entityFilterField = 'skos_concept';
 const apiKey = 'abcdef';
 const baseRequest = nock(apiUrl).get(apiEndpoint);
+
+config.keys.entity = apiKey;
 
 const apiUrlSearch = 'https://api.europeana.eu';
 const apiEndpointSearch = '/api/v2/search.json';
@@ -92,7 +95,7 @@ describe('plugins/europeana/entity', () => {
         it('throws error with API error message and status code', async() => {
           let error;
           try {
-            await entities.getEntity(entityType, entityId, { wskey: apiKey });
+            await entities.getEntity(entityType, entityId);
           } catch (e) {
             error = e;
           }
@@ -112,27 +115,27 @@ describe('plugins/europeana/entity', () => {
         });
 
         it('returns entity title', async() => {
-          const response = await entities.getEntity(entityType, entityId, { wskey: apiKey });
+          const response = await entities.getEntity(entityType, entityId);
           response.entity.prefLabel.en.should.eq('Architecture');
         });
 
         it('returns entity description', async() => {
-          const response = await entities.getEntity(entityType, entityId, { wskey: apiKey });
+          const response = await entities.getEntity(entityType, entityId);
           response.entity.note.en[0].should.contain('Architecture is both the process and the product of planning');
         });
 
         it('returns entity depiction', async() => {
-          const response = await entities.getEntity(entityType, entityId, { wskey: apiKey });
+          const response = await entities.getEntity(entityType, entityId);
           response.entity.depiction.id.should.contain('Special:FilePath/View_of_Santa_Maria_del_Fiore_in_Florence.jpg');
         });
 
         it('returns entity attribution', async() => {
-          const response = await entities.getEntity(entityType, entityId, { wskey: apiKey });
+          const response = await entities.getEntity(entityType, entityId);
           response.entity.depiction.source.should.contain('File:View_of_Santa_Maria_del_Fiore_in_Florence.jpg');
         });
 
         it('has a misspelled id and returns entity title', async() => {
-          const response = await entities.getEntity(entityType, entityIdMisspelled, { wskey: apiKey });
+          const response = await entities.getEntity(entityType, entityIdMisspelled);
           response.entity.prefLabel.en.should.eq('Architecture');
         });
       });
@@ -158,7 +161,7 @@ describe('plugins/europeana/entity', () => {
         })
         .reply(200, entitySearchResponse);
 
-      await entities.searchEntities(uris, { wskey: apiKey });
+      await entities.searchEntities(uris);
 
       nock.isDone().should.be.true;
     });
@@ -176,7 +179,7 @@ describe('plugins/europeana/entity', () => {
         })
         .reply(200, entitySuggestionsResponse);
 
-      await entities.getEntitySuggestions(text, { wskey: apiKey });
+      await entities.getEntitySuggestions(text);
 
       nock.isDone().should.be.true;
     });
@@ -189,7 +192,7 @@ describe('plugins/europeana/entity', () => {
         })
         .reply(200, entitySuggestionsResponse);
 
-      await entities.getEntitySuggestions(text, { language: 'fr', wskey: apiKey });
+      await entities.getEntitySuggestions(text, { language: 'fr' });
 
       nock.isDone().should.be.true;
     });
@@ -202,7 +205,7 @@ describe('plugins/europeana/entity', () => {
         })
         .reply(200, entitySuggestionsResponse);
 
-      await entities.getEntitySuggestions(text, { wskey: apiKey });
+      await entities.getEntitySuggestions(text);
 
       nock.isDone().should.be.true;
     });
@@ -213,7 +216,7 @@ describe('plugins/europeana/entity', () => {
         .query(true)
         .reply(200, entitySuggestionsResponse);
 
-      const items = await entities.getEntitySuggestions(text, { wskey: apiKey });
+      const items = await entities.getEntitySuggestions(text);
 
       items.should.deep.eq(entitySuggestionsResponse.items);
     });
@@ -233,7 +236,7 @@ describe('plugins/europeana/entity', () => {
         .query(true)
         .reply(200, searchResponse);
 
-      const response = await entities.relatedEntities(entityType, entityId, { wskey: apiKey, entityKey: apiKey });
+      const response = await entities.relatedEntities(entityType, entityId);
       response.length.should.eq(entitiesResponse.items.length);
     });
 
@@ -245,7 +248,7 @@ describe('plugins/europeana/entity', () => {
         })
         .reply(200, searchResponse);
 
-      await entities.relatedEntities(entityType, entityId, { wskey: apiKey, entityKey: apiKey });
+      await entities.relatedEntities(entityType, entityId);
 
       nock.isDone().should.be.true;
     });

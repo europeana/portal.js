@@ -172,7 +172,7 @@
         const languageParam = Array.from(new Set([this.$i18n.locale, 'en'])).join(',');
 
         const suggestions = await getEntitySuggestions(query, {
-          wskey: process.env.EUROPEANA_ENTITY_API_KEY, language: languageParam
+          language: languageParam
         }, {
           recordValidation: this.enableSuggestionValidation
         });
