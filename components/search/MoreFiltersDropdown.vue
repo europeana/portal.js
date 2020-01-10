@@ -18,57 +18,63 @@
         {{ selectedOptionsCount }}
       </span>
     </template>
-    <b-dropdown-group class="more-facets-wrapper">
-      <b-dropdown-form v-if="showDateFilter">
+    <b-dropdown-form>
+      <li
+        class="more-facets-wrapper"
+        role="presentation"
+      >
         <DateFilter
+          v-if="showDateFilter"
           :name="PROXY_DCTERMS_ISSUED"
           :start="dateFilter.start"
           :end="dateFilter.end"
           :specific="dateFilter.specific"
           @dateFilter="dateFilterSelected"
         />
-      </b-dropdown-form>
-      <template
-        v-for="(facet, index) in moreFacets"
+        <template
+          v-for="(facet, index) in moreFacets"
+        >
+          <MoreFiltersDropdownFacet
+            v-if="facet.fields && facet.fields.length > 0"
+            :key="index"
+            :fields="facet.fields"
+            :name="facet.name"
+            :selected="preSelected[facet.name]"
+            @selectedOptions="updateSelected"
+          />
+        </template>
+      </li>
+      <li
+        class="dropdown-buttons"
+        role="presentation"
       >
-        <MoreFiltersDropdownFacet
-          v-if="facet.fields && facet.fields.length > 0"
-          :key="index"
-          :fields="facet.fields"
-          :name="facet.name"
-          :selected="preSelected[facet.name]"
-          @selectedOptions="updateSelected"
-        />
-      </template>
-    </b-dropdown-group>
-    <li
-      class="dropdown-buttons"
-    >
-      <b-button
-        variant="link"
-        :disabled="!anyOptionsSelected"
-        data-qa="reset filter button"
-        @click="resetFilters"
-      >
-        {{ $t('facets.button.reset') }}
-      </b-button>
-      <b-button
-        variant="link"
-        data-qa="cancel button"
-        @click="cancelHandler"
-      >
-        {{ $t('facets.button.cancel') }}
-      </b-button>
-      <b-button
-        variant="primary"
-        :disabled="selectedOptionsUnchanged"
-        data-qa="apply button"
-        :data-changed="filtersChanged.join(',')"
-        @click="applySelected"
-      >
-        {{ $t('facets.button.apply') }}
-      </b-button>
-    </li>
+        <b-button
+          variant="link"
+          :disabled="!anyOptionsSelected"
+          data-qa="reset filter button"
+          @click="resetFilters"
+        >
+          {{ $t('facets.button.reset') }}
+        </b-button>
+        <b-button
+          variant="link"
+          data-qa="cancel button"
+          @click="cancelHandler"
+        >
+          {{ $t('facets.button.cancel') }}
+        </b-button>
+        <b-button
+          variant="primary"
+          :disabled="selectedOptionsUnchanged"
+          data-qa="apply button"
+          :data-changed="filtersChanged.join(',')"
+          type="submit"
+          @click.prevent="applySelected"
+        >
+          {{ $t('facets.button.apply') }}
+        </b-button>
+      </li>
+    </b-dropdown-form>
   </b-dropdown>
 </template>
 
@@ -76,8 +82,8 @@
   import Vue from 'vue';
   import isEqual from 'lodash/isEqual';
   import { rangeToQueryParam, rangeFromQueryParam } from '../../plugins/europeana/search';
-  import MoreFiltersDropdownFacet from '../../components/search/MoreFiltersDropdownFacet';
-  import DateFilter from '../../components/search/DateFilter';
+  import MoreFiltersDropdownFacet from './MoreFiltersDropdownFacet';
+  import DateFilter from './DateFilter';
 
   export default {
     components: {
@@ -145,7 +151,6 @@
       },
 
       showDateFilter() {
-        // Hardcoded for now - https://europeana.atlassian.net/browse/EC-4033
         return this.$store.state.entity.id === this.NEWSPAPERS_CONCEPT_URI;
       },
 
