@@ -36,10 +36,10 @@
         type="button"
         class="btn btn-link btn-toggle"
         :class="{ 'is-active': isActive }"
-        :data-qa="(isActive ? $t(`facets.button.showLess`, { label: $tc(`facets.${name}.name`, 2) }) + ' button' : $t(`facets.button.showAll`, { label: $tc(`facets.${name}.name`, 2) }) + ' button')"
+        :data-qa="`${showMoreOrLess} button`"
         @click.prevent="isActive = !isActive"
       >
-        {{ isActive ? $t(`facets.button.showLess`, { label: $tc(`facets.${name}.name`, 2) }) : $t(`facets.button.showAll`, { label: $tc(`facets.${name}.name`, 2) }) }}
+        {{ showMoreOrLess }}
       </button>
     </b-form-checkbox-group>
   </b-form-group>
@@ -76,6 +76,13 @@
         isActive: false,
         limitTo: 9
       };
+    },
+
+    computed: {
+      showMoreOrLess() {
+        const key = this.isActive ? 'facets.button.showLess' : 'facets.button.showAll';
+        return this.$t(key, { label: this.$tc(`facets.${this.name}.name`, 2).toLowerCase() });
+      }
     },
 
     watch: {
