@@ -16,7 +16,7 @@
           fluid
           :alt="$t('depiction', { title: title })"
           data-qa="entity depiction"
-          @error="depictionNotFound"
+          @error.native="depictionNotFound"
         />
       </SmartLink>
     </b-col>

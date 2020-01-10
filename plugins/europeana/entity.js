@@ -242,7 +242,7 @@ async function getEntityFacets(facets, currentId, entityKey) {
   const entityUris = entities.slice(0, 4).map(entity => {
     return entity['label'];
   });
-  return getRelatedEntityTitleLink(await searchEntities(entityUris, { wskey: entityKey }));
+  return getRelatedEntityData(await searchEntities(entityUris, { wskey: entityKey }));
 }
 
 /**
@@ -274,17 +274,13 @@ export function searchEntities(entityUris, params) {
 /**
  * Format the the entity data for a related entity
  * @param {Object} entities the data returned from the Entity API
- * @return {Object[]} entity links and titles
+ * @return {Object[]} entity data
  */
-function getRelatedEntityTitleLink(entities) {
+function getRelatedEntityData(entities) {
   let entityDetails = [];
   for (let entity of entities || []) {
     if (entity.prefLabel.en) {
-      entityDetails.push({
-        type: getEntityTypeHumanReadable(entity.type),
-        path: getEntitySlug(entity),
-        title: entity.prefLabel
-      });
+      entityDetails.push(entity);
     }
   }
   return entityDetails;

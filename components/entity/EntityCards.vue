@@ -5,7 +5,6 @@
       :key="entity.id"
       :is-entity="true"
       :title="entityTitle(entity)"
-      :texts="(getEntityDescription(entity, $i18n.locale) || {}).values"
       :image-url="depiction(entity)"
       :url="entityRoute(entity)"
       :data-qa="entity.prefLabel.en + ' entity card'"
