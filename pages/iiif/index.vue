@@ -10,7 +10,9 @@
 
     data() {
       return {
+        manifest: null,
         MIRADOR_BUILD_PATH: 'https://unpkg.com/mirador@3.0.0-beta.3/dist',
+        page: null,
         uri: null
       };
     },
@@ -23,7 +25,7 @@
     mounted() {
       this.$nextTick(() => {
         // Doc: https://github.com/ProjectMirador/mirador/blob/master/src/config/settings.js
-        Mirador.viewer({ // eslint-disable-line no-undef
+        const mirador = Mirador.viewer({ // eslint-disable-line no-undef
           id: 'viewer',
           windows: [{
             manifestId: this.uri,
@@ -51,7 +53,31 @@
             enabled: false
           }
         });
+
+        mirador.store.subscribe(() => {
+          const miradorWindow = Object.values(mirador.store.getState().windows)[0]; // only takes one window into account at the moment
+          if (!this.manifest) {
+            this.manifest = mirador.store.getState().manifests[miradorWindow.manifestId].json;
+          }
+
+          if (miradorWindow.canvasId !== this.page) {
+            this.page = miradorWindow.canvasId;
+            this.fetchImageData(this.uri, this.page);
+          }
+        });
       });
+    },
+
+    methods: {
+      fetchImageData(url, pageId) {
+        const page = this.manifest.sequences[0].canvases.filter((item) => {
+          return item['@id'] === pageId;
+        });
+
+        if (page && page[0]) {
+          window.parent.postMessage({ 'event': 'updateDownloadLink', 'id': page[0].images[0].resource['@id'] }, '*');
+        }
+      }
     },
 
     head() {

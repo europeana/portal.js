@@ -34,23 +34,11 @@
         md="3"
         class="pb-3"
       >
-        <ul
+        <EntityCards
           v-if="relatedEntities"
-          class="list-unstyled"
-        >
-          <BrowseChip
-            v-for="relatedEntity in relatedEntities"
-            :key="relatedEntity.path"
-            :link-to="localePath({
-              name: 'entity-type-all',
-              params: {
-                type: relatedEntity.type,
-                pathMatch: relatedEntity.path
-              }
-            })"
-            :title="relatedEntity.title"
-          />
-        </ul>
+          :entities="relatedEntities"
+          data-qa="related entities"
+        />
       </b-col>
     </b-row>
     <b-row>
@@ -68,7 +56,7 @@
   import axios from 'axios';
 
   import AlertMessage from '../../../components/generic/AlertMessage';
-  import BrowseChip from '../../../components/browse/BrowseChip';
+  import EntityCards from '../../../components/entity/EntityCards';
   import BrowseSections from '../../../components/browse/BrowseSections';
   import EntityDetails from '../../../components/entity/EntityDetails';
   import SearchInterface from '../../../components/search/SearchInterface';
@@ -83,8 +71,8 @@
   export default {
     components: {
       AlertMessage,
-      BrowseChip,
       BrowseSections,
+      EntityCards,
       EntityDetails,
       SearchInterface
     },
@@ -262,28 +250,29 @@
     },
 
     async fetch({ store, query, res }) {
-      store.commit('search/setActive', true);
+      await store.dispatch('search/activate');
+      store.commit('search/setUserParams', query);
 
+      // TODO: consider moving the logic here into the store as mutations/actions
       const entityUri = store.state.entity.id;
       const contentTierQuery = 'contentTier:(2 OR 3 OR 4)';
 
-      let hiddenParams = {
-        qf: [contentTierQuery]
+      const overrideParams = {
+        qf: [contentTierQuery],
+        rows: PER_PAGE
       };
 
       if (store.state.entity.themes[entityUri]) {
-        hiddenParams.theme = store.state.entity.themes[entityUri];
+        overrideParams.theme = store.state.entity.themes[entityUri];
       } else {
         const entityQuery = entities.getEntityQuery(entityUri);
-        hiddenParams.qf.push(entityQuery);
+        overrideParams.qf.push(entityQuery);
       }
 
-      const apiParams = {
-        ...query,
-        hidden: hiddenParams,
-        rows: PER_PAGE
-      };
-      await store.dispatch('search/run', apiParams);
+      store.commit('search/setUserParams', query);
+      store.commit('search/setOverrideParams', overrideParams);
+
+      await store.dispatch('search/run');
       if (store.state.search.error && typeof res !== 'undefined') {
         res.statusCode = store.state.search.errorStatusCode;
       }
@@ -316,10 +305,9 @@
       };
     },
 
-    beforeRouteLeave(to, from, next) {
-      this.$store.commit('search/setActive', false);
+    async beforeRouteLeave(to, from, next) {
+      await this.$store.dispatch('search/deactivate');
       this.$store.commit('entity/setId', null); // needed to re-enable auto-suggest in header
-      this.$store.commit('search/setPill', null);
       next();
     },
 

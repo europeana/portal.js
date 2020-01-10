@@ -81,6 +81,7 @@
           <MediaActionBar
             :url="selectedMedia.about"
             :europeana-identifier="identifier"
+            :use-proxy="useProxy"
             :rights-statement="rightsStatement"
             :data-provider-name="dataProvider.values[0]"
             :data-provider-lang="dataProvider.code"
@@ -193,6 +194,7 @@
         relatedEntities: [],
         similarItems: [],
         selectedMediaItem: null,
+        useProxy: true,
         title: null,
         type: null
       };
@@ -309,6 +311,14 @@
           this.relatedEntities = related;
           this.similarItems = similar.results;
         }));
+
+      window.addEventListener('message', (msg) => {
+        if (msg.data.event === 'updateDownloadLink') {
+          this.useProxy = (this.media.some((item) => item.about === msg.data.id));
+          this.selectedMedia.about = msg.data.id;
+        }
+      });
+
     },
 
     methods: {

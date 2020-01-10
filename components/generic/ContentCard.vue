@@ -3,23 +3,24 @@
     class="text-left content-card"
     data-qa="content card"
     no-body
-    :class="{ 'related-card' : isRelated }"
+    :class="{ 'entity-card' : isEntity }"
   >
     <SmartLink
       :destination="url"
       link-class="card-link"
     >
       <b-img-lazy
-        v-if="isRelated && imageUrl"
+        v-if="isEntity && cardImageUrl"
         :src="optimisedImageUrl"
         alt=""
+        @error.native="imageNotFound"
       />
       <div
-        v-if="imageUrl"
+        v-if="cardImageUrl"
         class="card-img"
       >
         <b-img-lazy
-          v-if="!isRelated"
+          v-if="!isEntity"
           :src="optimisedImageUrl"
           alt=""
         />
@@ -93,7 +94,7 @@
         type: String,
         default: ''
       },
-      isRelated: {
+      isEntity: {
         type: Boolean,
         default: false
       },
@@ -105,6 +106,11 @@
         type: Number,
         default: -1
       }
+    },
+    data() {
+      return {
+        cardImageUrl: this.imageUrl
+      };
     },
 
     computed: {
@@ -139,6 +145,10 @@
         if (values.length > limited.length) limited.push(this.$t('formatting.ellipsis'));
         const joined = limited.join(this.$t('formatting.listSeperator') + ' ');
         return this.$options.filters.truncate(joined, 255, this.$t('formatting.ellipsis'));
+      },
+
+      imageNotFound() {
+        this.cardImageUrl = '';
       }
     }
   };

@@ -5,6 +5,7 @@
     :url="destination"
     :image-url="imageUrl"
     :image-content-type="imageContentType"
+    :is-entity="isEntity"
   />
 </template>
 
@@ -21,6 +22,10 @@
       fields: {
         type: Object,
         default: () => {}
+      },
+      cardType: {
+        type: String,
+        default: null
       }
     },
     computed: {
@@ -69,6 +74,9 @@
           }
         }
         return texts;
+      },
+      isEntity() {
+        return this.cardType === 'automatedEntityCard';
       }
     },
     methods: {

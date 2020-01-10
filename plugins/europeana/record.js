@@ -3,9 +3,10 @@ import axios from 'axios';
 import escapeRegExp from 'lodash/escapeRegExp';
 import omitBy from 'lodash/omitBy';
 import uniq from 'lodash/uniq';
-import merge, { emptyTarget } from 'deepmerge';
+import merge from 'deepmerge';
 
-import thumbnailUrl, { thumbnailTypeForMimeType } from  '../../plugins/europeana/thumbnail';
+import thumbnailUrl, { thumbnailTypeForMimeType } from  './thumbnail';
+import { combineMerge } from '../utils';
 
 /**
  * Parse the record data based on the data from the API response
@@ -37,24 +38,6 @@ function parseRecordDataFromApiResponse(response) {
     concepts: edm.concepts,
     title: proxyData.dcTitle
   };
-}
-
-/**
- * See: https://github.com/TehShrike/deepmerge#arraymerge-example-combine-arrays
- */
-function combineMerge(target, source, options) {
-  const destination = target.slice();
-
-  source.forEach((item, index) => {
-    if (typeof destination[index] === 'undefined') {
-      destination[index] = options.isMergeableObject(item) ? merge(emptyTarget(item), item, options) : item;
-    } else if (options.isMergeableObject(item)) {
-      destination[index] = merge(target[index], item, options);
-    } else if (target.indexOf(item) === -1) { // Only add values not yet present
-      destination.push(item);
-    }
-  });
-  return destination;
 }
 
 /**
