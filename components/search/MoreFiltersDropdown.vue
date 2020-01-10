@@ -69,7 +69,7 @@
           data-qa="apply button"
           :data-changed="filtersChanged.join(',')"
           type="submit"
-          @click.stop="applySelected"
+          @click.prevent="applySelected"
         >
           {{ $t('facets.button.apply') }}
         </b-button>
