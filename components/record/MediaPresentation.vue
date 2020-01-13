@@ -125,7 +125,7 @@
 
     methods: {
       imageLink(pdf) {
-        return pdf ? this.media.about : this.$options.filters.proxyMedia(this.media.about, this.europeanaIdentifier);
+        return pdf ? this.media.about : this.$options.filters.proxyMedia(this.media.about, this.europeanaIdentifier) + '&disposition=inline';
       }
     }
 
