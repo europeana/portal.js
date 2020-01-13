@@ -280,9 +280,7 @@
         return redirect(app.localePath({ path: env.RECORD_PAGE_REDIRECT_PATH }));
       }
 
-      return getRecord(`/${params.pathMatch}`, {
-        wskey: env.EUROPEANA_API_KEY
-      })
+      return getRecord(`/${params.pathMatch}`)
         .then((result) => {
           return result.record;
         })
@@ -304,7 +302,7 @@
       }
 
       axios.all([
-        searchEntities(this.europeanaEntityUris, { wskey: process.env.EUROPEANA_ENTITY_API_KEY }),
+        searchEntities(this.europeanaEntityUris),
         this.getSimilarItems()
       ])
         .then(axios.spread((related, similar) => {
@@ -347,8 +345,7 @@
           query: similarItemsQuery(this.identifier, dataSimilarItems),
           rows: 4,
           profile: 'minimal',
-          facet: '',
-          wskey: process.env.EUROPEANA_API_KEY
+          facet: ''
         })
           .catch(() => {
             return noSimilarItems;

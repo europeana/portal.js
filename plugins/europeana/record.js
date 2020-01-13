@@ -1,10 +1,11 @@
-import { apiError } from './utils';
 import axios from 'axios';
 import escapeRegExp from 'lodash/escapeRegExp';
 import omitBy from 'lodash/omitBy';
 import uniq from 'lodash/uniq';
 import merge from 'deepmerge';
 
+import { apiError } from './utils';
+import config from './api';
 import thumbnailUrl, { thumbnailTypeForMimeType } from  './thumbnail';
 import { combineMerge } from '../utils';
 
@@ -245,13 +246,13 @@ function setMatchingEntities(fields, key, entities) {
 /**
  * Get the record data from the API
  * @param {string} europeanaId ID of Europeana record
- * @param {Object} params additional parameters sent to the API
- * @param {string} params.wskey API key
  * @return {Object} parsed record data
  */
-function getRecord(europeanaId, params) {
-  return axios.get(`https://api.europeana.eu/api/v2/record${europeanaId}.json`, {
-    params
+function getRecord(europeanaId) {
+  return axios.get(`${config.origin}/api/v2/record${europeanaId}.json`, {
+    params: {
+      wskey: config.keys.record
+    }
   })
     .then((response) => {
       return {

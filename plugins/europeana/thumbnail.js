@@ -5,9 +5,10 @@
 
 // TODO: remove this when the issue noted in the url plugin is resolved upstream
 import { URL } from '../url';
+import config from './api';
 
 export default function thumbnailUrl(uri, params = {}) {
-  const url = new URL('https://api.europeana.eu/api/v2/thumbnail-by-url.json');
+  const url = new URL(`${config.origin}/api/v2/thumbnail-by-url.json`);
   for (const key of Object.keys(params)) {
     url.searchParams.set(key, params[key]);
   }

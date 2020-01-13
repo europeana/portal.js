@@ -57,6 +57,7 @@ module.exports = {
       'CardPlugin',
       'DropdownPlugin',
       'FormCheckboxPlugin',
+      'FormGroupPlugin',
       'FormInputPlugin',
       'FormPlugin',
       'FormRadioPlugin',
