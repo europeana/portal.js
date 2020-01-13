@@ -118,8 +118,8 @@ export const actions = {
   },
 
   deriveApiSettingsForNewspaperTheme({ commit, state }) {
-    const apiParams = state.apiParams;
-    const apiOptions = state.apiOptions;
+    const apiParams = Object.assign({}, state.apiParams);
+    const apiOptions = Object.assign({}, state.apiOptions);
 
     // Ensure newspapers collection gets fulltext API by default
     if (!apiParams.api) {
