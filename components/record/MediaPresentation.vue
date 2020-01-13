@@ -152,7 +152,7 @@
     }
 
     iframe {
-      height: 800px;
+      height: 80vh;
       border: 1px solid $lightgrey;
       border-radius: $border-radius-small;
       box-shadow: $boxshadow-small;
