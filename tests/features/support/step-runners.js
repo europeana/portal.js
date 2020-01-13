@@ -198,16 +198,10 @@ module.exports = {
     });
   },
   async shouldBeOn(pageName) {
-    // TODO: update if a less verbose syntax becomes available.
-    // See https://github.com/nightwatchjs/nightwatch/issues/861
-    await client.url(async(currentUrl) => {
-      await client.expect(currentUrl.value).to.eq(pageUrl(pageName));
-    });
+    await client.assert.urlEquals(pageUrl(pageName));
   },
   async shouldNotBeOn(pageName) {
-    await client.url(async(currentUrl) => {
-      await client.expect(currentUrl.value).not.to.eq(pageUrl(pageName));
-    });
+    await client.assert.not.urlEquals(pageUrl(pageName));
   },
   async waitSomeSeconds(seconds) {
     await client.pause(seconds * 1000);

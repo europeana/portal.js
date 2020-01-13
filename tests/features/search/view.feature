@@ -36,12 +36,10 @@ Feature: View styles (List and Grid)
     Given I have chosen the `list` search results view
     When I visit the `home page`
     And I click the `search button`
-    And I wait 2 seconds
     Then I see a `search results list`
 
   Scenario: The view parameter is preserved and present in the URL for the grid view
     Given I have chosen the `grid` search results view
     When I visit the `home page`
     And I click the `search button`
-    And I wait 2 seconds
     Then I see a `search results grid`

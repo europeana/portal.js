@@ -33,7 +33,6 @@ Feature: Entity page
     When I open an `entity page`
     And I see the `entity page`
     And I click an `Music entity card`
-    And I wait 5 seconds
     Then I should not be on the `entity page`
 
   Scenario: Navigating to a related record
@@ -52,7 +51,6 @@ Feature: Entity page
   Scenario: Pagination links work when the page was accessed from the url
     When I visit `/en/entity/topic/18-newspaper?page=2`
     And I go to page number 3
-    And I wait 2 seconds
     Then I should be on `/en/entity/topic/18-newspaper?page=3&view=grid`
 
   Scenario: Searching from an entity page searches within that entity
@@ -67,7 +65,6 @@ Feature: Entity page
   Scenario: Removing search pill
     When I open an `entity page`
     And I go to page number 2
-    And I wait 2 seconds
     And I am on page number 2
     And I see the `search bar pill`
     And I click the `search bar pill button`

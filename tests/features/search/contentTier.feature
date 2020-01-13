@@ -10,12 +10,10 @@ Feature: Search content tier
   #
   #   When I visit `/en/search?page=1&query=&view=grid`
   #   And I click the `tier toggle`
-  #   And I wait 3 seconds
   #   Then I should be on `/en/search?page=1&query=&view=grid&qf=contentTier%3A%2a`
   #
   # Scenario: Removes the content tier query from the URL when clicking the toggle button
   #
   #   When I visit `/en/search?page=1&qf=contentTier%3A%2a&query=&view=grid`
   #   And I click the `tier toggle`
-  #   And I wait 3 seconds
   #   Then I should be on `/en/search?page=1&query=&view=grid`
