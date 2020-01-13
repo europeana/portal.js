@@ -11,7 +11,7 @@
       data-qa="media preview image"
     />
     <p>
-      {{ pdf ? $t('record.view.pdf') : $t('record.view.image') }}
+      {{ linkText }}
     </p>
     <span
       class="sr-only"
@@ -31,17 +31,29 @@
 <script>
   export default {
     props: {
-      pdf: {
-        type: Boolean,
-        default: false
-      },
       link: {
+        type: String,
+        default: ''
+      },
+      mediaType: {
         type: String,
         default: ''
       },
       src: {
         type: String,
         default: ''
+      }
+    },
+
+    computed: {
+      linkText() {
+        if (this.mediaType === 'pdf') {
+          return this.$t('record.view.pdf');
+        } else if (this.mediaType === 'image') {
+          return this.$t('record.view.image');
+        } else {
+          return this.$t('record.view.media');
+        }
       }
     }
   };

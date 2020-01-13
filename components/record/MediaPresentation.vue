@@ -5,8 +5,8 @@
     <MediaImage
       v-if="displayImage"
       :src="imageSrc"
-      :link="imageLink(isPDF)"
-      :pdf="isPDF"
+      :link="imageLink()"
+      :media-type="imageMediaType"
     />
     <VideoPlayer
       v-else-if="isHTMLVideo"
@@ -44,7 +44,7 @@
   import oEmbed from '../../plugins/oembed.js';
   import {
     isHTMLVideo, isHTMLAudio, isIIIFImage, isIIIFPresentation,
-    isOEmbed, isPDF, isRichMedia, iiifManifest
+    isOEmbed, isPDF, isImage, isRichMedia, iiifManifest
   } from '../../plugins/media';
 
   export default {
@@ -84,8 +84,14 @@
           iiif: Number(process.env.ENABLE_IIIF_MEDIA)
         });
       },
-      isPDF() {
-        return isPDF(this.media);
+      imageMediaType() {
+        if (isPDF(this.media)) {
+          return 'pdf';
+        } else if (isImage(this.media)) {
+          return 'image';
+        } else {
+          return 'other';
+        }
       },
       isHTMLVideo() {
         return isHTMLVideo(this.media);
@@ -124,8 +130,8 @@
     },
 
     methods: {
-      imageLink(pdf) {
-        return pdf ? this.media.about : this.$options.filters.proxyMedia(this.media.about, this.europeanaIdentifier) + '&disposition=inline';
+      imageLink() {
+        return isImage(this.media) ? this.$options.filters.proxyMedia(this.media.about, this.europeanaIdentifier, { disposition: 'inline' }) : this.media.about;
       }
     }
 

@@ -48,9 +48,14 @@ Vue.filter('convertNewLine', (val) => {
   return val.replace(/\n/g, '<br/>');
 });
 
-Vue.filter('proxyMedia', (mediaUrl, europeanaId) => {
+Vue.filter('proxyMedia', (mediaUrl, europeanaId, params = {}) => {
   const proxyUrl = new URL('https://proxy.europeana.eu');
   proxyUrl.pathname = europeanaId;
   proxyUrl.searchParams.append('view', mediaUrl);
+
+  Object.keys(params).forEach(name => {
+    proxyUrl.searchParams.append(name, params[name]);
+  });
+
   return proxyUrl.toString();
 });
