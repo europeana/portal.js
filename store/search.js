@@ -26,33 +26,11 @@ export const mutations = {
   setOverrideParams(state, value) {
     state.overrideParams = value;
   },
-  // TODO: should this be an action, triggering multiple mutations?
-  deriveApiSettings(state) {
-    // Coerce qf from user input into an array as it may be a single string
-    const userParams = Object.assign({}, state.userParams || {});
-    userParams.qf = [].concat(userParams.qf || []);
-
-    const apiParams = merge(userParams, state.overrideParams || {});
-    const apiOptions = {};
-
-    if (apiParams.theme === 'newspaper') {
-      // TODO: fulltext search API should be aware of contentTier, but is not.
-      //       If & when it is, this can be removed.
-      if (userParams.api !== 'metadata') {
-        apiParams.qf = ([].concat(apiParams.qf)).filter(qf => !/^contentTier:/.test(qf));
-        apiParams.qf.push('contentTier:*');
-      }
-      // Ensure newspapers collection gets fulltext API by default
-      if (!apiParams.api || apiParams.api === 'fulltext') {
-        apiOptions.origin = 'https://newspapers.eanadev.org';
-      }
-    }
-
-    state.apiParams = apiParams;
-    state.apiOptions = apiOptions;
-  },
   setApiOptions(state, value) {
     state.apiOptions = value;
+  },
+  setApiParams(state, value) {
+    state.apiParams = value;
   },
   disableThemeFacet(state) {
     state.themeFacetEnabled = false;
@@ -125,11 +103,47 @@ export const actions = {
     commit('setPill', null);
   },
 
+  async deriveApiSettings({ commit, dispatch, state }) {
+    // Coerce qf from user input into an array as it may be a single string
+    const userParams = Object.assign({}, state.userParams || {});
+    userParams.qf = [].concat(userParams.qf || []);
+
+    const apiParams = merge(userParams, state.overrideParams || {});
+    commit('setApiParams', apiParams);
+    commit('setApiOptions', {});
+
+    if (apiParams.theme === 'newspaper') {
+      await dispatch('deriveApiSettingsForNewspaperTheme');
+    }
+  },
+
+  deriveApiSettingsForNewspaperTheme({ commit, state }) {
+    const apiParams = state.apiParams;
+    const apiOptions = state.apiOptions;
+
+    // Ensure newspapers collection gets fulltext API by default
+    if (!apiParams.api) {
+      apiParams.api = 'fulltext';
+    }
+
+    if (apiParams.api === 'fulltext') {
+      // TODO: fulltext search API should be aware of contentTier, but is not.
+      //       If & when it is, this can be removed.
+      apiParams.qf = ([].concat(apiParams.qf)).filter(qf => !/^contentTier:/.test(qf));
+      apiParams.qf.push('contentTier:*');
+
+      apiOptions.origin = 'https://newspapers.eanadev.org';
+    }
+
+    commit('setApiParams', apiParams);
+    commit('setApiOptions', apiOptions);
+  },
+
   /**
    * Run a Record API search and store the results
    */
-  async run({ commit, dispatch, state }) {
-    commit('deriveApiSettings');
+  async run({ dispatch, state }) {
+    await dispatch('deriveApiSettings');
 
     await search(state.apiParams || {}, state.apiOptions || {})
       .then((response) => dispatch('updateForSuccess', response))

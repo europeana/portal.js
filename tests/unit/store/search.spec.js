@@ -14,70 +14,6 @@ const baseRequest = nock(apiUrl).get(apiEndpoint);
 const defaultResponse = { success: true, items: [], totalResults: 123456 };
 
 describe('store/search', () => {
-  describe('mutations', () => {
-    describe('deriveApiSettings', () => {
-      it('combines userParams and overrideParams into apiParams', () => {
-        const userQuery = 'calais';
-        const userQf = 'TYPE:"IMAGE"';
-        const overrideQf = 'edm_agent:"http://data.europeana.eu/agent/base/200"';
-        const overrideTheme = 'migration';
-
-        const state = {
-          userParams: {
-            query: userQuery,
-            qf: userQf
-          },
-          overrideParams: {
-            qf: [overrideQf],
-            theme: overrideTheme
-          }
-        };
-
-        store.mutations.deriveApiSettings(state);
-
-        state.apiParams.should.deep.eql({
-          query: userQuery,
-          qf: [userQf, overrideQf],
-          theme: overrideTheme
-        });
-      });
-
-      context('when searching the Newspapers collection', () => {
-        context('when `api` param is "fulltext"', () => {
-          it('overrides contentTier qf to *', () => {
-            const state = {
-              userParams: {
-                api: 'fulltext',
-                theme: 'newspaper'
-              },
-              overrideParams: {
-                qf: ['contentTier:(2 OR 3 OR 4)']
-              }
-            };
-
-            store.mutations.deriveApiSettings(state);
-
-            state.apiParams.qf.should.include('contentTier:*');
-            state.apiParams.qf.should.not.include('contentTier:(2 OR 3 OR 4)');
-          });
-
-          it('sets origin option to the Newspapers API', async() => {
-            const state = {
-              userParams: {
-                api: 'fulltext',
-                theme: 'newspaper'
-              }
-            };
-
-            store.mutations.deriveApiSettings(state);
-
-            state.apiOptions.origin.should.eql('https://newspapers.eanadev.org');
-          });
-        });
-      });
-    });
-  });
-
   describe('actions', () => {
     describe('run', () => {
       afterEach(() => {
@@ -96,8 +32,7 @@ describe('store/search', () => {
 
         await store.actions.run({ commit, dispatch, state });
 
-        commit.should.have.been.calledWith('deriveApiSettings');
-
+        dispatch.should.have.been.calledWith('deriveApiSettings');
       });
 
       it('searches the Record API', async() => {
@@ -152,6 +87,92 @@ describe('store/search', () => {
           await store.actions.run({ commit, dispatch, state });
 
           dispatch.should.have.been.calledWith('updateForFailure');
+        });
+      });
+    });
+
+    describe('deriveApiSettings', () => {
+      it('combines userParams and overrideParams into apiParams', async() => {
+        const userQuery = 'calais';
+        const userQf = 'TYPE:"IMAGE"';
+        const overrideQf = 'edm_agent:"http://data.europeana.eu/agent/base/200"';
+        const overrideTheme = 'migration';
+
+        const commit = sinon.spy();
+        const dispatch = sinon.spy();
+        const state = {
+          userParams: {
+            query: userQuery,
+            qf: userQf
+          },
+          overrideParams: {
+            qf: [overrideQf],
+            theme: overrideTheme
+          }
+        };
+
+        await store.actions.deriveApiSettings({ commit, dispatch, state });
+
+        commit.should.have.been.calledWith('setApiParams', {
+          query: userQuery,
+          qf: [userQf, overrideQf],
+          theme: overrideTheme
+        });
+      });
+
+      context('when searching the Newspapers collection', () => {
+        it('dispatches deriveApiSettingsForNewspaperTheme action', async() => {
+          const commit = sinon.spy();
+          const dispatch = sinon.spy();
+          const state = {
+            userParams: {
+              theme: 'newspaper'
+            }
+          };
+
+          await store.actions.deriveApiSettings({ commit, dispatch, state });
+
+          dispatch.should.have.been.calledWith('deriveApiSettingsForNewspaperTheme');
+        });
+      });
+
+      describe('deriveApiSettingsForNewspaperTheme', () => {
+        context('when `api` param is "fulltext"', () => {
+          it('overrides contentTier qf to *', async() => {
+            const commit = sinon.spy();
+            const dispatch = sinon.spy();
+            const state = {
+              apiParams: {
+                api: 'fulltext',
+                qf: ['contentTier:(2 OR 3 OR 4)']
+              },
+              apiOptions: {}
+            };
+
+            await store.actions.deriveApiSettingsForNewspaperTheme({ commit, dispatch, state });
+
+            commit.should.have.been.calledWith('setApiParams', {
+              api: 'fulltext',
+              qf: ['contentTier:*']
+            });
+          });
+
+          it('sets origin option to the Newspapers API', async() => {
+            const commit = sinon.spy();
+            const dispatch = sinon.spy();
+            const state = {
+              apiParams: {
+                api: 'fulltext'
+              },
+              apiOptions: {}
+            };
+
+            await store.actions.deriveApiSettingsForNewspaperTheme({ commit, dispatch, state });
+
+            commit.should.have.been.calledWith('setApiOptions', {
+              origin: 'https://newspapers.eanadev.org'
+            });
+          });
         });
       });
     });

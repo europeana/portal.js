@@ -139,7 +139,7 @@
   import ViewToggles from '../../components/search/ViewToggles';
   import TierToggler from '../../components/search/TierToggler';
   import {
-    defaultFacetNames, filtersFromQuery, unquotableFacets, thematicCollections
+    defaultFacetNames, unquotableFacets, thematicCollections
   } from '../../plugins/europeana/search';
 
   import isEqual from 'lodash/isEqual';
@@ -208,7 +208,32 @@
         return this.userParams.theme;
       },
       filters() {
-        return filtersFromQuery(this.userParams);
+        const filters = {};
+        if (this.userParams.qf) {
+          for (const qf of [].concat(this.userParams.qf)) {
+            const qfParts = qf.split(':');
+            const facetName = qfParts[0];
+            const facetValue = qfParts.slice(1).join(':').replace(/^"(.*)"$/, '$1');
+            if (typeof filters[facetName] === 'undefined') {
+              filters[facetName] = [];
+            }
+            filters[facetName].push(facetValue);
+          }
+        }
+
+        if (this.userParams.reusability) {
+          filters['REUSABILITY'] = this.userParams.reusability.split(',');
+        }
+
+        if (this.userParams.theme) {
+          filters['THEME'] = this.userParams.theme;
+        }
+
+        if (this.$store.state.search.apiParams.api) {
+          filters['api'] = this.$store.state.search.apiParams.api;
+        }
+
+        return filters;
       },
       page() {
         // This causes double jumps on pagination when using the > arrow, for some reason

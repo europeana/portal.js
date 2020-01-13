@@ -105,56 +105,6 @@ function resultsFromApiResponse(response) {
 }
 
 /**
- * A set of selected facets from the user's request.
- *
- * The object is keyed by the facet name, each property being an array of
- * selected values.
- *
- * For example:
- * ```
- * {
- *   "TYPE": ["IMAGE", "VIDEO"]
- * }
- * ```
- * @typedef {Object.<string, Array>} FilterSet
- */
-
-/**
- * Extract applied filters from URL `qf`, `reusability` and `theme`
- * @param {Object} query URL query parameters
- * @return {FilterSet} selected filters
- * TODO: move into /store/search.js?
- */
-export function filtersFromQuery(query) {
-  let filters = {};
-  if (query.qf) {
-    for (const qf of [].concat(query.qf)) {
-      const qfParts = qf.split(':');
-      const facetName = qfParts[0];
-      const facetValue = qfParts.slice(1).join(':').replace(/^"(.*)"$/, '$1');
-      if (typeof filters[facetName] === 'undefined') {
-        filters[facetName] = [];
-      }
-      filters[facetName].push(facetValue);
-    }
-  }
-
-  if (query.reusability) {
-    filters['REUSABILITY'] = query.reusability.split(',');
-  }
-
-  if (query.theme) {
-    filters['THEME'] = query.theme;
-  }
-
-  if (query.api) {
-    filters['api'] = query.api;
-  }
-
-  return filters;
-}
-
-/**
  * Search Europeana Record API
  * @param {Object} params parameters for search query
  * @param {number} params.page page of results to retrieve
