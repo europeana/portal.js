@@ -172,6 +172,19 @@ Feature: Search faceting
     And I wait 2 seconds
     Then I should be on `/en/entity/topic/18-newspaper?page=1&qf=proxy_dcterms_issued%3A%5B1982-05-18%20TO%202004-05-18%5D&view=grid`
 
+  Scenario: Newspapers collection API toggle defaults to fulltext
+    Given I am on the `Newspapers collection page`
+    When I click the `more filters dropdown button`
+    Then the "fulltext" "api" radio is checked
+
+  Scenario: Newspapers collection API toggle changes API
+    Given I am on the `Newspapers collection page`
+    When I click the `more filters dropdown button`
+    And I click the "metadata" "api" radio
+    And I click the `apply button`
+    And I wait 2 seconds
+    Then I should be on `/en/entity/topic/18-newspaper?page=1&view=grid&api=metadata`
+
   Scenario: Clicking reset button in more facets
     Given I am on the `search page`
     When I click the `more filters dropdown button`

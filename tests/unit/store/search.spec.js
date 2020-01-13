@@ -15,7 +15,7 @@ const defaultResponse = { success: true, items: [], totalResults: 123456 };
 
 describe('store/search', () => {
   describe('mutations', () => {
-    describe('deriveApiParams', () => {
+    describe('deriveApiSettings', () => {
       it('combines userParams and overrideParams into apiParams', () => {
         const userQuery = 'calais';
         const userQf = 'TYPE:"IMAGE"';
@@ -33,12 +33,46 @@ describe('store/search', () => {
           }
         };
 
-        store.mutations.deriveApiParams(state);
+        store.mutations.deriveApiSettings(state);
 
         state.apiParams.should.deep.eql({
           query: userQuery,
           qf: [userQf, overrideQf],
           theme: overrideTheme
+        });
+      });
+
+      context('when searching the Newspapers collection', () => {
+        context('when `api` param is "fulltext"', () => {
+          it('overrides contentTier qf to *', () => {
+            const state = {
+              userParams: {
+                api: 'fulltext',
+                theme: 'newspaper'
+              },
+              overrideParams: {
+                qf: ['contentTier:(2 OR 3 OR 4)']
+              }
+            };
+
+            store.mutations.deriveApiSettings(state);
+
+            state.apiParams.qf.should.include('contentTier:*');
+            state.apiParams.qf.should.not.include('contentTier:(2 OR 3 OR 4)');
+          });
+
+          it('sets origin option to the Newspapers API', async() => {
+            const state = {
+              userParams: {
+                api: 'fulltext',
+                theme: 'newspaper'
+              }
+            };
+
+            store.mutations.deriveApiSettings(state);
+
+            state.apiOptions.origin.should.eql('https://newspapers.eanadev.org');
+          });
         });
       });
     });
@@ -62,7 +96,7 @@ describe('store/search', () => {
 
         await store.actions.run({ commit, dispatch, state });
 
-        commit.should.have.been.calledWith('deriveApiParams');
+        commit.should.have.been.calledWith('deriveApiSettings');
 
       });
 

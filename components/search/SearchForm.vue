@@ -112,7 +112,7 @@
           path: this.localePath({
             name: 'search'
           }),
-          query: { ...this.$route.query, page: 1 }
+          query: { ...this.$route.query, page: 1, api: undefined }
         };
       },
 

@@ -275,7 +275,8 @@
         return this.orderedFacets.filter(facet => this.moreFacetNames.includes(facet.name));
       },
       moreSelectedFacets() {
-        return pickBy(this.filters, (selected, name) => this.moreFacetNames.includes(name) || name === this.PROXY_DCTERMS_ISSUED);
+        return pickBy(this.filters, (selected, name) =>
+          this.moreFacetNames.includes(name) || ['api', this.PROXY_DCTERMS_ISSUED].includes(name));
       },
       dropdownFilterNames() {
         return defaultFacetNames.concat(this.PROXY_DCTERMS_ISSUED, this.THEME);
@@ -342,8 +343,12 @@
             } else {
               queryUpdates.reusability = null;
             }
+          // Likewise `theme`
           } else if (facetName === 'THEME') {
             queryUpdates.theme = selectedValues;
+          // `api` is an option to /plugins/europeana/search/search()
+          } else if (facetName === 'api') {
+            queryUpdates.api = selectedValues;
           } else {
             for (const facetValue of selectedValues) {
               const quotedValue = this.enquoteFacet(facetName) ? `"${facetValue}"` : facetValue;

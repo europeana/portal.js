@@ -147,6 +147,10 @@ export function filtersFromQuery(query) {
     filters['THEME'] = query.theme;
   }
 
+  if (query.api) {
+    filters['api'] = query.api;
+  }
+
   return filters;
 }
 

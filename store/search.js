@@ -27,16 +27,29 @@ export const mutations = {
     state.overrideParams = value;
   },
   // TODO: should this be an action, triggering multiple mutations?
-  deriveApiParams(state) {
+  deriveApiSettings(state) {
     // Coerce qf from user input into an array as it may be a single string
     const userParams = Object.assign({}, state.userParams || {});
     userParams.qf = [].concat(userParams.qf || []);
 
     const apiParams = merge(userParams, state.overrideParams || {});
+    const apiOptions = {};
+
+    if (apiParams.theme === 'newspaper') {
+      // TODO: fulltext search API should be aware of contentTier, but is not.
+      //       If & when it is, this can be removed.
+      if (userParams.api !== 'metadata') {
+        apiParams.qf = ([].concat(apiParams.qf)).filter(qf => !/^contentTier:/.test(qf));
+        apiParams.qf.push('contentTier:*');
+      }
+      // Ensure newspapers collection gets fulltext API by default
+      if (!apiParams.api || apiParams.api === 'fulltext') {
+        apiOptions.origin = 'https://newspapers.eanadev.org';
+      }
+    }
 
     state.apiParams = apiParams;
-
-    // TODO: any additional derived params, e.g. newspapers api, go here
+    state.apiOptions = apiOptions;
   },
   setApiOptions(state, value) {
     state.apiOptions = value;
@@ -116,7 +129,7 @@ export const actions = {
    * Run a Record API search and store the results
    */
   async run({ commit, dispatch, state }) {
-    commit('deriveApiParams');
+    commit('deriveApiSettings');
 
     await search(state.apiParams || {}, state.apiOptions || {})
       .then((response) => dispatch('updateForSuccess', response))
