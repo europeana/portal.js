@@ -170,7 +170,7 @@ Feature: Search faceting
     And I enter "18-05-2004" in the `date range end input`
     And I click the `apply button`
     And I wait 2 seconds
-    Then I should be on `/en/entity/topic/18-newspaper?page=1&qf=proxy_dcterms_issued%3A%5B1982-05-18%20TO%202004-05-18%5D&view=grid`
+    Then I should be on `/en/entity/topic/18-newspaper?page=1&qf=proxy_dcterms_issued%3A%5B1982-05-18%20TO%202004-05-18%5D&view=grid&api=fulltext`
 
   Scenario: Newspapers collection API toggle defaults to fulltext
     Given I am on the `Newspapers collection page`
