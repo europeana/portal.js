@@ -27,7 +27,7 @@ describe('components/record/MediaImage', () => {
 
     it('shows a view image link', () => {
       const wrapper = factory();
-      const props = { link: 'http://www.example.org/', src: 'http://www.example.org/image.jpg' };
+      const props = { link: 'http://www.example.org/', src: 'http://www.example.org/image.jpg', mediaType: 'image' };
 
       wrapper.setProps(props);
 
@@ -37,7 +37,7 @@ describe('components/record/MediaImage', () => {
 
     it('shows a view pdf link', () => {
       const wrapper = factory();
-      const props = { link: 'http://www.example.org/', src: 'http://www.example.org/image.pdf', pdf: true };
+      const props = { link: 'http://www.example.org/', src: 'http://www.example.org/image.pdf', mediaType: 'pdf' };
 
       wrapper.setProps(props);
 

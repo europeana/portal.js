@@ -15,7 +15,7 @@ describe('components/record/MediaPresentation', () => {
         const props = { media: { ebucoreHasMimeType: 'application/pdf' } };
         const wrapper = factory(props);
 
-        wrapper.vm.isPDF.should.be.true;
+        wrapper.vm.imageMediaType.should.eq('pdf');
       });
     });
 
@@ -24,7 +24,7 @@ describe('components/record/MediaPresentation', () => {
         const props = { media: { ebucoreHasMimeType: 'image/png' } };
         const wrapper = factory(props);
 
-        wrapper.vm.isPDF.should.be.false;
+        wrapper.vm.imageMediaType.should.eq('image');
       });
     });
   });
