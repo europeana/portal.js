@@ -2,9 +2,10 @@
  * @file Interface to Europeana Record Search API
  */
 
-import { apiError } from './utils';
 import axios from 'axios';
 import qs from 'qs';
+import { apiError } from './utils';
+import config from './api';
 
 // Default facets to request and display if none are specified.
 // Order is significant as it will be reflected on search results.
@@ -54,7 +55,7 @@ export const thematicCollections = [
 ];
 
 function genericThumbnail(edmType) {
-  return `https://api.europeana.eu/api/v2/thumbnail-by-url.json?size=w200&uri=&type=${edmType}`;
+  return `${config.origin}/api/v2/thumbnail-by-url.json?size=w200&uri=&type=${edmType}`;
 }
 
 /**
@@ -160,9 +161,8 @@ export function filtersFromQuery(query) {
  * @param {string} params.facet facet names, comma separated
  * @param {(string|string[])} params.qf query filter(s)
  * @param {string} params.query search query
- * @param {string} params.wskey API key
  * @param {Object} options search options
- * @param {string} options.origin base URL for API, overriding default 'https://api.europeana.eu'
+ * @param {string} options.origin base URL for API, overriding default `config.origin`
  * @return {{results: Object[], totalResults: number, facets: FacetSet, error: string}} search results for display
  */
 function search(params, options = {}) {
@@ -172,7 +172,7 @@ function search(params, options = {}) {
   const start = ((page - 1) * perPage) + 1;
   const rows = Math.max(0, Math.min(maxResults + 1 - start, perPage));
 
-  const origin = options.origin || 'https://api.europeana.eu';
+  const origin = options.origin || config.origin;
   const query = (typeof params.query === 'undefined' || params.query === '') ? '*:*' : params.query;
 
   return axios.get(`${origin}/api/v2/search.json`, {
@@ -188,7 +188,7 @@ function search(params, options = {}) {
       rows,
       start,
       theme: params.theme,
-      wskey: params.wskey || process.env.EUROPEANA_API_KEY
+      wskey: config.keys.record
     }
   })
     .then((response) => {
