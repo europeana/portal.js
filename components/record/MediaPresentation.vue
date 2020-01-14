@@ -5,7 +5,7 @@
     <MediaImage
       v-if="displayImage"
       :src="imageSrc"
-      :link="imageLink()"
+      :link="imageLink"
       :media-type="imageMediaType"
     />
     <VideoPlayer
@@ -112,6 +112,9 @@
       },
       isOEmbed() {
         return isOEmbed(this.media);
+      },
+      imageLink() {
+        return isImage(this.media) ? this.$options.filters.proxyMedia(this.media.about, this.europeanaIdentifier, { disposition: 'inline' }) : this.media.about;
       }
     },
 
@@ -127,14 +130,7 @@
           this.oEmbedData = { error: err };
         });
       }
-    },
-
-    methods: {
-      imageLink() {
-        return isImage(this.media) ? this.$options.filters.proxyMedia(this.media.about, this.europeanaIdentifier, { disposition: 'inline' }) : this.media.about;
-      }
     }
-
   };
 </script>
 
