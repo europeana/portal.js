@@ -9,6 +9,14 @@ describe('plugins/media', () => {
     });
   });
 
+  describe('isImage()', () => {
+    it('returns `true` if ebucoreHasMimeType is for an image', () => {
+      const ebucoreHasMimeType = 'image/jpeg';
+
+      media.isImage({ ebucoreHasMimeType }).should.be.true;
+    });
+  });
+
   describe('isHTMLVideo()', () => {
     it('returns `true` if ebucoreHasMimeType is for HTML video', () => {
       const mediaTypes = ['video/ogg', 'video/webm', 'video/mp4'];

@@ -72,5 +72,14 @@ describe('Vue filters', () => {
 
       proxyUrl.should.eq(expected);
     });
+
+    it('returns media proxy URL with additional param for item web resource', () => {
+      const expected = `https://proxy.europeana.eu${europeanaId}?` +
+        new URLSearchParams({ view: mediaUrl, disposition: 'inline' }).toString();
+
+      const proxyUrl = proxyMedia(mediaUrl, europeanaId, { disposition: 'inline' });
+
+      proxyUrl.should.eq(expected);
+    });
   });
 });

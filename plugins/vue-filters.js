@@ -53,9 +53,9 @@ Vue.filter('proxyMedia', (mediaUrl, europeanaId, params = {}) => {
   proxyUrl.pathname = europeanaId;
   proxyUrl.searchParams.append('view', mediaUrl);
 
-  Object.keys(params).forEach(name => {
+  for (const name in params) {
     proxyUrl.searchParams.append(name, params[name]);
-  });
+  }
 
   return proxyUrl.toString();
 });

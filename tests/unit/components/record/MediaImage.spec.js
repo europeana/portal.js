@@ -6,65 +6,80 @@ import MediaImage from '../../../../components/record/MediaImage.vue';
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
+const propsData = { media: { ebucoreHasMimeType: 'image/jpeg', about: 'http://www.example.org/image.jpg' },
+  europeanaIdentifier: '/123/abc',
+  imageSrc: 'http://www.example.org/image.jpg' };
+
 const factory = () => mount(MediaImage, {
+  localVue,
   mocks: {
     $t: (key) => key
-  }
+  },
+  propsData
 });
 
 describe('components/record/MediaImage', () => {
   describe('when both src and link are present', () => {
     it('shows linked image', () => {
       const wrapper = factory();
-      const props = { link: 'http://www.example.org/', src: 'http://www.example.org/image.jpg' };
 
-      wrapper.setProps(props);
-
-      wrapper.attributes().href.should.eq(props.link);
-      const image = wrapper.find('b-img-lazy');
-      image.attributes().src.should.eq(props.src);
+      wrapper.attributes().href.should.contain('proxy.europeana.eu');
+      wrapper.findAll('img').length.should.eq(1);
     });
 
     it('shows a view image link', () => {
       const wrapper = factory();
-      const props = { link: 'http://www.example.org/', src: 'http://www.example.org/image.jpg', mediaType: 'image' };
-
-      wrapper.setProps(props);
-
-      const viewLink = wrapper.find('p');
-      viewLink.text().should.eq('record.view.image');
+      wrapper.text().should.contain('record.view.image');
     });
 
     it('shows a view pdf link', () => {
       const wrapper = factory();
-      const props = { link: 'http://www.example.org/', src: 'http://www.example.org/image.pdf', mediaType: 'pdf' };
+      const props = { media: { ebucoreHasMimeType: 'application/pdf', about: 'http://www.example.org/download.pdf' } };
 
       wrapper.setProps(props);
+      wrapper.text().should.contain('record.view.pdf');
+    });
 
-      const viewLink = wrapper.find('p');
-      viewLink.text().should.eq('record.view.pdf');
+    it('shows a view other media link', () => {
+      const wrapper = factory();
+      const props = { media: { ebucoreHasMimeType: 'text/html', about: 'https://sketchfab.com/models/73a52382aba8430088f1cb4a0b5784ca' } };
+
+      wrapper.setProps(props);
+      wrapper.text().should.contain('record.view.media');
     });
   });
 
   describe('when only src is present', () => {
     it('shows image without link', () => {
       const wrapper = factory();
-      const props = { src: 'http://www.example.org/image.jpg' };
+      const props = { media: { } };
 
       wrapper.setProps(props);
 
       wrapper.contains('a').should.be.false;
-      const image = wrapper.find('b-img-lazy');
-      image.attributes().src.should.eq(props.src);
+      const image = wrapper.find('img');
+      image.attributes().src.should.eq(propsData.imageSrc);
     });
   });
 
-  describe('when neither src nor link are present', () => {
-    it('does not show an image', () => {
-      const wrapper = factory();
+  describe('isPDF', () => {
+    context('when ebucoreHasMimeType is "application/pdf"', () => {
+      it('is `true`', () => {
+        const wrapper = factory();
+        const props = { media: { ebucoreHasMimeType: 'application/pdf', about: 'http://www.example.org/download.pdf' } };
 
-      wrapper.contains('a').should.be.false;
-      wrapper.contains('img').should.be.false;
+        wrapper.setProps(props);
+        wrapper.text().should.contain('record.view.pdf');
+      });
+    });
+  });
+
+  describe('isImage', () => {
+    context('when ebucoreHasMimeType is "image/jpeg"', () => {
+      it('is `true`', () => {
+        const wrapper = factory();
+        wrapper.text().should.contain('record.view.image');
+      });
     });
   });
 });
