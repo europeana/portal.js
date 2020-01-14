@@ -25,3 +25,7 @@ Feature: Localisation
     When I open `/ja`
     And I open `/about-us`
     Then I should be on `/en/about-us`
+
+  Scenario: Unsupported language is removed
+    When I open `/ru/about-us`
+    Then I should be on `/en/about-us`
