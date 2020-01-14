@@ -8,10 +8,10 @@ function stringifyPathMatch(regexpMatch) {
 export default ({ redirect, route }) => {
   // Remove legacy /portal prefix
   const legacyPortalPrefixPattern = /^\/portal(\/.*)$/;
-  const legacyRecordPrefixMatch = route.path.match(legacyPortalPrefixPattern);
-  if (legacyRecordPrefixMatch) {
+  const legacyPortalPrefixMatch = route.path.match(legacyPortalPrefixPattern);
+  if (legacyPortalPrefixMatch) {
     return redirect({
-      path: legacyRecordPrefixMatch[1],
+      path: legacyPortalPrefixMatch[1],
       query: route.query
     });
   }
