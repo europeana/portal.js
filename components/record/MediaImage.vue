@@ -10,9 +10,7 @@
       alt=""
       data-qa="media preview image"
     />
-    <p>
-      {{ linkText }}
-    </p>
+    {{ linkText }}
     <span
       class="sr-only"
     >
@@ -58,3 +56,10 @@
     }
   };
 </script>
+
+<style lang="scss" scoped>
+  img {
+    display: block;
+    margin: 0 auto;
+  }
+</style>
