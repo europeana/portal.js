@@ -49,6 +49,7 @@ Feature: Record page
     And I see the `media thumbnail grid`
     And the `media thumbnail #1` is marked as "selected"
     And I click the `media thumbnail #2`
+    And I wait 1 second
     Then the `media thumbnail #2` is marked as "selected"
 
   Scenario: No media thumbnail grid for single web resources
