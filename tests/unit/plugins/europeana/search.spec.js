@@ -9,12 +9,14 @@ const apiOrigin = config.record.origin;
 const apiEndpoint = '/api/v2/search.json';
 const apiKey = 'abcdef';
 
-config.record.key = apiKey;
-
 const baseRequest = nock(apiOrigin).get(apiEndpoint);
 const defaultResponse = { success: true, items: [], totalResults: 123456 };
 
 describe('plugins/europeana/search', () => {
+  beforeEach(() => {
+    config.record.key = apiKey;
+  });
+
   afterEach(() => {
     nock.cleanAll();
   });
@@ -22,6 +24,7 @@ describe('plugins/europeana/search', () => {
   describe('search()', () => {
     describe('API request', () => {
       it('includes API key', async() => {
+        console.log('config.record.key', config.record.key);
         baseRequest
           .query(query => {
             return query.wskey === apiKey;

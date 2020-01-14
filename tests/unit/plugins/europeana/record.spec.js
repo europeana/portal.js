@@ -13,11 +13,13 @@ const apiUrl = config.record.origin;
 const apiEndpoint = `/api/v2/record${europeanaId}.json`;
 const apiKey = 'abcdef';
 
-config.record.key = apiKey;
-
 const baseRequest = nock(apiUrl).get(apiEndpoint);
 
 describe('plugins/europeana/record', () => {
+  beforeEach(() => {
+    config.record.key = apiKey;
+  });
+
   afterEach(() => {
     nock.cleanAll();
   });

@@ -11,13 +11,16 @@ axios.defaults.adapter = require('axios/lib/adapters/http');
 const apiUrl = 'https://api.europeana.eu';
 const apiEndpoint = '/api/v2/search.json';
 const apiKey = '1234';
-apiConfig.record.key = apiKey;
-apiConfig.newspaper.key = apiKey;
 
 const baseRequest = nock(apiUrl).get(apiEndpoint);
 const defaultResponse = { success: true, items: [], totalResults: 123456 };
 
 describe('store/search', () => {
+  beforeEach(() => {
+    apiConfig.record.key = apiKey;
+    apiConfig.newspaper.key = apiKey;
+  });
+
   describe('actions', () => {
     describe('run', () => {
       afterEach(() => {
