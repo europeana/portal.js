@@ -345,10 +345,16 @@
         return this.$router.push(this.localePath({ ...this.route, ...{ query: this.updateCurrentSearchQuery(queryUpdates) } }));
       },
       queryUpdatesForFacetChanges(selected) {
-        let filters = Object.assign({}, this.filters);
+        const filters = Object.assign({}, this.filters);
 
         for (const name in selected) {
           filters[name] = selected[name];
+
+          // Remove collection-specific filters when collection is changed
+          // TODO: this is rather crude and will not scale well; improve
+          if (name === 'THEME' && !selected['api']) {
+            delete filters['api'];
+          }
         }
 
         return this.queryUpdatesForFilters(filters);

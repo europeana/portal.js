@@ -185,6 +185,14 @@ Feature: Search faceting
     And I wait 2 seconds
     Then I should be on `/en/entity/topic/18-newspaper?page=1&view=grid&api=metadata`
 
+  Scenario: Newspapers collection API toggle is removed when switching collection
+    Given I am on `/en/search?page=1&query=&view=grid&theme=newspaper&api=fulltext`
+    When I click the `THEME dropdown button`
+    And I check the "music" "THEME" radio
+    And I click the `THEME apply button`
+    And I wait 3 seconds
+    Then I should be on `/en/search?page=1&query=&view=grid&theme=music`
+
   Scenario: Clicking reset button in more facets
     Given I am on the `search page`
     When I click the `more filters dropdown button`
