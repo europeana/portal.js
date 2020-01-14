@@ -304,7 +304,7 @@
           this.moreFacetNames.includes(name) || ['api', this.PROXY_DCTERMS_ISSUED].includes(name));
       },
       dropdownFilterNames() {
-        return defaultFacetNames.concat(this.PROXY_DCTERMS_ISSUED, this.THEME);
+        return defaultFacetNames.concat(this.PROXY_DCTERMS_ISSUED, this.THEME, 'api');
       },
       enableMoreFacets() {
         return this.moreFacets.length > 0;
