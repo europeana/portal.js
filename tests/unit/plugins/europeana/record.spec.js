@@ -9,15 +9,17 @@ const axios = require('axios');
 axios.defaults.adapter = require('axios/lib/adapters/http');
 
 const europeanaId = '/123/abc';
-const apiUrl = config.origin;
+const apiUrl = config.record.origin;
 const apiEndpoint = `/api/v2/record${europeanaId}.json`;
 const apiKey = 'abcdef';
-
-config.keys.record = apiKey;
 
 const baseRequest = nock(apiUrl).get(apiEndpoint);
 
 describe('plugins/europeana/record', () => {
+  beforeEach(() => {
+    config.record.key = apiKey;
+  });
+
   afterEach(() => {
     nock.cleanAll();
   });

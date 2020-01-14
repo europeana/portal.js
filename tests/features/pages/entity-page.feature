@@ -74,3 +74,10 @@ Feature: Entity page
     Then I see the `search page`
     And I don't have the `search bar pill`
     And I am on page number 1
+
+  Scenario: Newspapers collection API toggle is removed by removing search pill
+    Given I am on `/en/entity/topic/18-newspaper?api=fulltext&view=grid`
+    And I see the `search bar pill`
+    When I click the `search bar pill button`
+    Then I see the `search page`
+    And I should be on `/en/search?view=grid&page=1&query=`

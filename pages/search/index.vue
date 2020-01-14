@@ -60,6 +60,6 @@
       next();
     },
 
-    watchQuery: ['page', 'qf', 'query', 'reusability', 'theme']
+    watchQuery: ['api', 'page', 'qf', 'query', 'reusability', 'theme']
   };
 </script>

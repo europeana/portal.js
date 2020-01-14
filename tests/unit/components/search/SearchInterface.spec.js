@@ -43,6 +43,7 @@ const factory = (options = {}) => {
       search: {
         facets: [],
         userParams: {},
+        apiParams: {},
         results: [],
         themeFacetEnabled: true,
         ...options.storeState
@@ -80,6 +81,111 @@ describe('components/search/SearchInterface', () => {
   });
 
   describe('computed properties', () => {
+    describe('filters()', () => {
+      context('with `null` query qf', () => {
+        it('returns {}', async() => {
+          const wrapper = await factory({
+            storeState: {
+              userParams: {
+                qf: null
+              }
+            }
+          });
+
+          wrapper.vm.filters.should.eql({});
+        });
+      });
+
+      context('with single query qf value', () => {
+        it('returns it in an array on a property named for the facet', async() => {
+          const wrapper = await factory({
+            storeState: {
+              userParams: {
+                qf: 'TYPE:"IMAGE"'
+              }
+            }
+          });
+
+          wrapper.vm.filters.should.deep.eql({ 'TYPE': ['IMAGE'] });
+        });
+      });
+
+      context('with multiple query qf values', () => {
+        it('returns them in arrays on properties named for each facet', async() => {
+          const query = { qf: ['TYPE:"IMAGE"', 'TYPE:"VIDEO"', 'REUSABILITY:"open"'] };
+          const expected = { 'TYPE': ['IMAGE', 'VIDEO'], 'REUSABILITY': ['open'] };
+
+          const wrapper = await factory({
+            storeState: {
+              userParams: query
+            }
+          });
+
+          wrapper.vm.filters.should.deep.eql(expected);
+        });
+      });
+
+      context('with reusability values', () => {
+        it('returns them in an array on REUSABILITY property', async() => {
+          const query = { reusability: 'open,restricted' };
+          const expected = { 'REUSABILITY': ['open', 'restricted'] };
+
+          const wrapper = await factory({
+            storeState: {
+              userParams: query
+            }
+          });
+
+          wrapper.vm.filters.should.deep.eql(expected);
+        });
+      });
+
+      context('with theme value', () => {
+        it('returns it as a string on THEME property', async() => {
+          const query = { theme: 'art' };
+          const expected = { 'THEME': 'art' };
+
+          const wrapper = await factory({
+            storeState: {
+              userParams: query
+            }
+          });
+
+          wrapper.vm.filters.should.deep.eql(expected);
+        });
+      });
+
+      context('with api value', () => {
+        it('returns it as a string on api property', async() => {
+          const query = { api: 'metadata' };
+          const expected = { 'api': 'metadata' };
+
+          const wrapper = await factory({
+            storeState: {
+              apiParams: query
+            }
+          });
+
+          wrapper.vm.filters.should.deep.eql(expected);
+        });
+      });
+
+      context('with query that has two colons', () => {
+        it('returns an array with a string seperated by a colon ', async() => {
+          const query = { qf: 'DATA_PROVIDER:"Galiciana: Biblioteca Digital de Galicia"' };
+          const expected = { 'DATA_PROVIDER': ['Galiciana: Biblioteca Digital de Galicia'] };
+
+          const wrapper = await factory({
+            storeState: {
+              userParams: query
+            }
+          });
+
+          wrapper.vm.filters.should.deep.eql(expected);
+        });
+      });
+    });
+
     describe('contentTierActiveState', () => {
       context('when contentTier facet includes "*"', () => {
         it('is `true`', async() => {

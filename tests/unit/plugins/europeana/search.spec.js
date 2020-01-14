@@ -1,20 +1,22 @@
 import nock from 'nock';
-import search, { filtersFromQuery, qfHandler, rangeToQueryParam, rangeFromQueryParam } from '../../../../plugins/europeana/search';
+import search, { qfHandler, rangeToQueryParam, rangeFromQueryParam } from '../../../../plugins/europeana/search';
 import config from '../../../../plugins/europeana/api';
 
 import axios from 'axios';
 axios.defaults.adapter = require('axios/lib/adapters/http');
 
-const apiOrigin = config.origin;
+const apiOrigin = config.record.origin;
 const apiEndpoint = '/api/v2/search.json';
 const apiKey = 'abcdef';
-
-config.keys.record = apiKey;
 
 const baseRequest = nock(apiOrigin).get(apiEndpoint);
 const defaultResponse = { success: true, items: [], totalResults: 123456 };
 
 describe('plugins/europeana/search', () => {
+  beforeEach(() => {
+    config.record.key = apiKey;
+  });
+
   afterEach(() => {
     nock.cleanAll();
   });
@@ -22,6 +24,7 @@ describe('plugins/europeana/search', () => {
   describe('search()', () => {
     describe('API request', () => {
       it('includes API key', async() => {
+        console.log('config.record.key', config.record.key);
         baseRequest
           .query(query => {
             return query.wskey === apiKey;
@@ -349,53 +352,6 @@ describe('plugins/europeana/search', () => {
             });
           });
         });
-      });
-    });
-  });
-
-  describe('filtersFromQuery()', () => {
-    context('with `null` query qf', () => {
-      it('returns {}', () => {
-        filtersFromQuery({ qf: null }).should.eql({});
-      });
-    });
-
-    context('with single query qf value', () => {
-      it('returns it in an array on a property named for the facet', () => {
-        filtersFromQuery({ qf: 'TYPE:"IMAGE"' }).should.deep.eql({ 'TYPE': ['IMAGE'] });
-      });
-    });
-
-    context('with multiple query qf values', () => {
-      it('returns them in arrays on properties named for each facet', () => {
-        const query = { qf: ['TYPE:"IMAGE"', 'TYPE:"VIDEO"', 'REUSABILITY:"open"'] };
-        const expected = { 'TYPE': ['IMAGE', 'VIDEO'], 'REUSABILITY': ['open'] };
-
-        filtersFromQuery(query).should.deep.eql(expected);
-      });
-    });
-
-    context('with reusability values', () => {
-      it('returns them in an array on REUSABILITY property', () => {
-        const query = { reusability: 'open,restricted' };
-        const expected = { 'REUSABILITY': ['open', 'restricted'] };
-        filtersFromQuery(query).should.deep.eql(expected);
-      });
-    });
-
-    context('with theme value', () => {
-      it('returns it as a string on THEME property', () => {
-        const query = { theme: 'art' };
-        const expected = { 'THEME': 'art' };
-        filtersFromQuery(query).should.deep.eql(expected);
-      });
-    });
-
-    context('with query that has two colons', () => {
-      it('returns an array with a string seperated by a colon ', () => {
-        const query = { qf: 'DATA_PROVIDER:"Galiciana: Biblioteca Digital de Galicia"' };
-        const expected = { 'DATA_PROVIDER': ['Galiciana: Biblioteca Digital de Galicia'] };
-        filtersFromQuery(query).should.deep.eql(expected);
       });
     });
   });

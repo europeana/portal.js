@@ -3,7 +3,7 @@ import config from './api';
 import axios from 'axios';
 
 export const constants = Object.freeze({
-  API_ORIGIN: config.origin,
+  API_ORIGIN: config.entity.origin,
   API_PATH_PREFIX: '/entity',
   API_ENDPOINT_SEARCH: '/search',
   API_ENDPOINT_SUGGEST: '/suggest',
@@ -19,7 +19,7 @@ export const constants = Object.freeze({
 export function getEntity(type, id) {
   return axios.get(getEntityUrl(type, id), {
     params: {
-      wskey: config.keys.entity
+      wskey: config.entity.key
     }
   })
     .then((response) => {
@@ -55,7 +55,7 @@ export function getEntitySuggestions(text, params = {}, options = {}) {
       type: 'agent,concept',
       language: params.language,
       scope: 'europeana',
-      wskey: config.keys.entity
+      wskey: config.entity.key
     }
   })
     .then((response) => {
@@ -201,14 +201,14 @@ export function getEntitySlug(entity, entityPage) {
 export function relatedEntities(type, id) {
   const entityUri = getEntityUri(type, id);
   let apiParams = {
-    wskey: config.keys.record,
+    wskey: config.record.key,
     profile: 'facets',
     facet: 'skos_concept',
     query: getEntityQuery(entityUri),
     rows: 0
   };
 
-  return axios.get(`${config.origin}/api/v2/search.json`, {
+  return axios.get(`${config.record.origin}/api/v2/search.json`, {
     params: apiParams
   })
     .then((response) => {
@@ -253,7 +253,7 @@ export function searchEntities(entityUris) {
   return axios.get(entityApiUrl(constants.API_ENDPOINT_SEARCH), {
     params: {
       query: `entity_uri:("${q}")`,
-      wskey: config.keys.entity
+      wskey: config.entity.key
     }
   })
     .then((response) => {
