@@ -167,7 +167,7 @@
       }
     },
 
-    asyncData({ env, query, params, res, redirect, app, store }) {
+    asyncData({ query, params, res, redirect, app, store }) {
       const currentPage = pageFromQuery(query.page);
       const entityUri = entities.getEntityUri(params.type, params.pathMatch);
 
@@ -195,11 +195,8 @@
       const contentfulClient = createClient(query.mode);
 
       return axios.all([
-        entities.getEntity(params.type, params.pathMatch, { wskey: env.EUROPEANA_ENTITY_API_KEY }),
-        entities.relatedEntities(params.type, params.pathMatch, {
-          wskey: env.EUROPEANA_API_KEY,
-          entityKey: env.EUROPEANA_ENTITY_API_KEY
-        })
+        entities.getEntity(params.type, params.pathMatch),
+        entities.relatedEntities(params.type, params.pathMatch)
       ].concat(!store.state.entity.curatedEntities.includes(entityUri) ? [] : contentfulClient.getEntries({
         'locale': app.i18n.isoLocale(),
         'content_type': 'entityPage',

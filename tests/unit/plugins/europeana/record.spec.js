@@ -1,5 +1,6 @@
 import nock from 'nock';
 import thumbnailUrl from  '../../../../plugins/europeana/thumbnail';
+import config from '../../../../plugins/europeana/api';
 import getRecord, {
   isEuropeanaRecordId, similarItemsQuery
 } from '../../../../plugins/europeana/record';
@@ -8,9 +9,11 @@ const axios = require('axios');
 axios.defaults.adapter = require('axios/lib/adapters/http');
 
 const europeanaId = '/123/abc';
-const apiUrl = 'https://api.europeana.eu';
+const apiUrl = config.origin;
 const apiEndpoint = `/api/v2/record${europeanaId}.json`;
 const apiKey = 'abcdef';
+
+config.keys.record = apiKey;
 
 const baseRequest = nock(apiUrl).get(apiEndpoint);
 
@@ -36,7 +39,7 @@ describe('plugins/europeana/record', () => {
         it('throws error with API error message and status code', async() => {
           let error;
           try {
-            await getRecord(europeanaId, { wskey: apiKey });
+            await getRecord(europeanaId);
           } catch (e) {
             error = e;
           }
@@ -132,45 +135,45 @@ describe('plugins/europeana/record', () => {
         });
 
         it('returns record data', async() => {
-          const response = await getRecord(europeanaId, { wskey: apiKey });
+          const response = await getRecord(europeanaId);
           response.record.should.exist;
         });
 
         it('includes identifier', async() => {
-          const response = await getRecord(europeanaId, { wskey: apiKey });
+          const response = await getRecord(europeanaId);
           response.record.identifier.should.eq(europeanaId);
         });
 
         it('includes edmIsShownAt', async() => {
-          const response = await getRecord(europeanaId, { wskey: apiKey });
+          const response = await getRecord(europeanaId);
           response.record.isShownAt.should.eq(edmIsShownAt);
         });
 
         it('includes type', async() => {
-          const response = await getRecord(europeanaId, { wskey: apiKey });
+          const response = await getRecord(europeanaId);
           response.record.type.should.eq(type);
         });
 
         describe('.media', () => {
           it('includes edmIsShownBy web resource', async() => {
-            const response = await getRecord(europeanaId, { wskey: apiKey });
+            const response = await getRecord(europeanaId);
             response.record.media.find((item) => item.about === edmIsShownByWebResource.about).should.exist;
           });
 
           it('includes edmHasView web resource', async() => {
-            const response = await getRecord(europeanaId, { wskey: apiKey });
+            const response = await getRecord(europeanaId);
             for (const hasView of [edmHasViewWebResourceFirst, edmHasViewWebResourceSecond, edmHasViewWebResourceThird]) {
               response.record.media.find((item) => item.about === hasView.about).should.exist;
             }
           });
 
           it('omits other web resources', async() => {
-            const response = await getRecord(europeanaId, { wskey: apiKey });
+            const response = await getRecord(europeanaId);
             (typeof response.record.media.find((item) => item.about === someOtherWebResource.about)).should.eq('undefined');
           });
 
           it('sorts by isNextInSequence', async() => {
-            const response = await getRecord(europeanaId, { wskey: apiKey });
+            const response = await getRecord(europeanaId);
 
             response.record.media[0].about.should.eq(edmIsShownByWebResource.about);
             response.record.media[1].about.should.eq(edmHasViewWebResourceFirst.about);
@@ -187,7 +190,7 @@ describe('plugins/europeana/record', () => {
                   large: thumbnailUrl(item.about, { size: 'w400', type: 'IMAGE' })
                 };
 
-                const response = await getRecord(europeanaId, { wskey: apiKey });
+                const response = await getRecord(europeanaId);
                 const actualThumbnails = response.record.media.find((m) => m.about === item.about).thumbnails;
 
                 actualThumbnails.should.deep.eq(expectedThumbnails);
@@ -202,7 +205,7 @@ describe('plugins/europeana/record', () => {
                   large: thumbnailUrl(item.about, { size: 'w400', type })
                 };
 
-                const response = await getRecord(europeanaId, { wskey: apiKey });
+                const response = await getRecord(europeanaId);
                 const actualThumbnails = response.record.media.find((m) => m.about === item.about).thumbnails;
 
                 actualThumbnails.should.deep.eq(expectedThumbnails);
@@ -212,12 +215,12 @@ describe('plugins/europeana/record', () => {
         });
 
         it('includes agents', async() => {
-          const response = await getRecord(europeanaId, { wskey: apiKey });
+          const response = await getRecord(europeanaId);
           response.record.agents.should.deep.eq(apiResponse.object.agents);
         });
 
         it('includes concepts', async() => {
-          const response = await getRecord(europeanaId, { wskey: apiKey });
+          const response = await getRecord(europeanaId);
           response.record.concepts.should.deep.eq(apiResponse.object.concepts);
         });
       });
