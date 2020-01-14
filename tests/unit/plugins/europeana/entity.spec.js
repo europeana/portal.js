@@ -15,8 +15,6 @@ const entityFilterField = 'skos_concept';
 const apiKey = 'abcdef';
 const baseRequest = nock(apiUrl).get(apiEndpoint);
 
-config.keys.entity = apiKey;
-
 const apiUrlSearch = 'https://api.europeana.eu';
 const apiEndpointSearch = '/api/v2/search.json';
 
@@ -75,6 +73,10 @@ const entitySuggestionsResponse = {
 };
 
 describe('plugins/europeana/entity', () => {
+  beforeEach(() => {
+    config.entity.key = apiKey;
+  });
+
   afterEach(() => {
     nock.cleanAll();
   });

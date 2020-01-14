@@ -308,6 +308,6 @@
       next();
     },
 
-    watchQuery: ['page', 'qf', 'query', 'reusability']
+    watchQuery: ['api', 'page', 'qf', 'query', 'reusability']
   };
 </script>

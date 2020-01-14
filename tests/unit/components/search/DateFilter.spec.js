@@ -19,6 +19,7 @@ const factory = () => mount(DateFilter, {
   }
 });
 
+// FIXME: stop using nextTick because failures are not flagged correctly
 describe('components/search/DateFilter', () => {
   it('emits `dateFilter` event with name and form arguments when user changes Start date input', async() => {
     const wrapper = factory();

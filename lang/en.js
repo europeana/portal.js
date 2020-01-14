@@ -116,6 +116,13 @@ export default {
         "3D": "3D"
       }
     },
+    "api": {
+      "name": "Search for",
+      "options": {
+        "fulltext": "Records with full-text",
+        "metadata": "Metadata-only records"
+      }
+    },
     "contentTier": {
       "name": "Includes items not meeting our publishing criteria",
       "options": {

@@ -23,8 +23,15 @@
         class="more-facets-wrapper"
         role="presentation"
       >
+        <RadioGroupFilter
+          v-if="theme === 'newspaper'"
+          facet-name="api"
+          :options="['fulltext', 'metadata']"
+          :selected="preSelected['api'] || 'fulltext'"
+          @change="updateSelected"
+        />
         <DateFilter
-          v-if="showDateFilter"
+          v-if="theme === 'newspaper'"
           :name="PROXY_DCTERMS_ISSUED"
           :start="dateFilter.start"
           :end="dateFilter.end"
@@ -81,14 +88,17 @@
 <script>
   import Vue from 'vue';
   import isEqual from 'lodash/isEqual';
+  import { mapState } from 'vuex';
   import { rangeToQueryParam, rangeFromQueryParam } from '../../plugins/europeana/search';
   import MoreFiltersDropdownFacet from './MoreFiltersDropdownFacet';
   import DateFilter from './DateFilter';
+  import RadioGroupFilter from './RadioGroupFilter';
 
   export default {
     components: {
       MoreFiltersDropdownFacet,
-      DateFilter
+      DateFilter,
+      RadioGroupFilter
     },
 
     props: {
@@ -107,12 +117,15 @@
       return {
         preSelected: this.cloneSelected(),
         isCheckedSpecificDate: false,
-        PROXY_DCTERMS_ISSUED: 'proxy_dcterms_issued',
-        NEWSPAPERS_CONCEPT_URI: 'http://data.europeana.eu/concept/base/18'
+        PROXY_DCTERMS_ISSUED: 'proxy_dcterms_issued'
       };
     },
 
     computed: {
+      ...mapState({
+        theme: state => state.search.apiParams.theme
+      }),
+
       anyOptionsSelected() {
         return this.selectedOptionsCount > 0;
       },
@@ -148,10 +161,6 @@
 
       moreFacetNames() {
         return this.moreFacets.map((facet) => facet.name);
-      },
-
-      showDateFilter() {
-        return this.$store.state.entity.id === this.NEWSPAPERS_CONCEPT_URI;
       },
 
       dateFilter() {

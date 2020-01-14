@@ -18,7 +18,7 @@ function appSupportsLocale(locale) {
 
 export default ({ app, route, redirect, req }) => {
   // Is there a locale in the URL path already?
-  const routePathLocaleMatch = route.path.match(/^\/([a-z]{2})(\/|$)/);
+  const routePathLocaleMatch = route.path.match(/^\/([a-z]{2})(\/.*)?$/);
 
   if (routePathLocaleMatch) {
     const routePathLocale = routePathLocaleMatch[1];
@@ -28,6 +28,12 @@ export default ({ app, route, redirect, req }) => {
       app.$cookies.set(COOKIE_NAME, routePathLocale);
       // Carry on processing the request.
       return;
+    } else {
+      // Remove unsupported locale from URL
+      return redirect({
+        path: routePathLocaleMatch[2] || '/',
+        query: route.query
+      });
     }
   }
 

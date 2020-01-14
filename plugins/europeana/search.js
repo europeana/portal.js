@@ -103,52 +103,6 @@ function resultsFromApiResponse(response) {
 }
 
 /**
- * A set of selected facets from the user's request.
- *
- * The object is keyed by the facet name, each property being an array of
- * selected values.
- *
- * For example:
- * ```
- * {
- *   "TYPE": ["IMAGE", "VIDEO"]
- * }
- * ```
- * @typedef {Object.<string, Array>} FilterSet
- */
-
-/**
- * Extract applied filters from URL `qf`, `reusability` and `theme`
- * @param {Object} query URL query parameters
- * @return {FilterSet} selected filters
- * TODO: move into /store/search.js?
- */
-export function filtersFromQuery(query) {
-  let filters = {};
-  if (query.qf) {
-    for (const qf of [].concat(query.qf)) {
-      const qfParts = qf.split(':');
-      const facetName = qfParts[0];
-      const facetValue = qfParts.slice(1).join(':').replace(/^"(.*)"$/, '$1');
-      if (typeof filters[facetName] === 'undefined') {
-        filters[facetName] = [];
-      }
-      filters[facetName].push(facetValue);
-    }
-  }
-
-  if (query.reusability) {
-    filters['REUSABILITY'] = query.reusability.split(',');
-  }
-
-  if (query.theme) {
-    filters['THEME'] = query.theme;
-  }
-
-  return filters;
-}
-
-/**
  * Search Europeana Record API
  * @param {Object} params parameters for search query
  * @param {number} params.page page of results to retrieve
@@ -158,8 +112,9 @@ export function filtersFromQuery(query) {
  * @param {string} params.facet facet names, comma separated
  * @param {(string|string[])} params.qf query filter(s)
  * @param {string} params.query search query
+ * @param {string} params.wskey API key, to override `config.record.key`
  * @param {Object} options search options
- * @param {string} options.origin base URL for API, overriding default `config.origin`
+ * @param {string} options.origin base URL for API, overriding default `config.record.origin`
  * @return {{results: Object[], totalResults: number, facets: FacetSet, error: string}} search results for display
  */
 function search(params, options = {}) {
@@ -169,7 +124,7 @@ function search(params, options = {}) {
   const start = ((page - 1) * perPage) + 1;
   const rows = Math.max(0, Math.min(maxResults + 1 - start, perPage));
 
-  const origin = options.origin || config.origin;
+  const origin = options.origin || config.record.origin;
   const query = (typeof params.query === 'undefined' || params.query === '') ? '*:*' : params.query;
 
   return axios.get(`${origin}/api/v2/search.json`, {
@@ -185,7 +140,7 @@ function search(params, options = {}) {
       rows,
       start,
       theme: params.theme,
-      wskey: config.keys.record
+      wskey: params.wskey || config.record.key
     }
   })
     .then((response) => {

@@ -11,6 +11,9 @@ const store = new Vuex.Store({
   state: {
     entity: {
       id: null
+    },
+    search: {
+      apiParams: {}
     }
   }
 });

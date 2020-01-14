@@ -1,5 +1,6 @@
 import merge from 'deepmerge';
 import search from '../plugins/europeana/search';
+import apiConfig from '../plugins/europeana/api';
 
 export const state = () => ({
   active: false,
@@ -26,20 +27,11 @@ export const mutations = {
   setOverrideParams(state, value) {
     state.overrideParams = value;
   },
-  // TODO: should this be an action, triggering multiple mutations?
-  deriveApiParams(state) {
-    // Coerce qf from user input into an array as it may be a single string
-    const userParams = Object.assign({}, state.userParams || {});
-    userParams.qf = [].concat(userParams.qf || []);
-
-    const apiParams = merge(userParams, state.overrideParams || {});
-
-    state.apiParams = apiParams;
-
-    // TODO: any additional derived params, e.g. newspapers api, go here
-  },
   setApiOptions(state, value) {
     state.apiOptions = value;
+  },
+  setApiParams(state, value) {
+    state.apiParams = value;
   },
   disableThemeFacet(state) {
     state.themeFacetEnabled = false;
@@ -112,11 +104,48 @@ export const actions = {
     commit('setPill', null);
   },
 
+  async deriveApiSettings({ commit, dispatch, state }) {
+    // Coerce qf from user input into an array as it may be a single string
+    const userParams = Object.assign({}, state.userParams || {});
+    userParams.qf = [].concat(userParams.qf || []);
+
+    const apiParams = merge(userParams, state.overrideParams || {});
+    commit('setApiParams', apiParams);
+    commit('setApiOptions', {});
+
+    if (apiParams.theme === 'newspaper') {
+      await dispatch('deriveApiSettingsForNewspaperTheme');
+    }
+  },
+
+  deriveApiSettingsForNewspaperTheme({ commit, state }) {
+    const apiParams = Object.assign({}, state.apiParams);
+    const apiOptions = Object.assign({}, state.apiOptions);
+
+    // Ensure newspapers collection gets fulltext API by default
+    if (!apiParams.api) {
+      apiParams.api = 'fulltext';
+    }
+
+    if (apiParams.api === 'fulltext') {
+      // TODO: fulltext search API should be aware of contentTier, but is not.
+      //       If & when it is, this can be removed.
+      apiParams.qf = ([].concat(apiParams.qf)).filter(qf => !/^contentTier:/.test(qf));
+      apiParams.qf.push('contentTier:*');
+
+      apiOptions.origin = apiConfig.newspaper.origin;
+      apiParams.wskey = apiConfig.newspaper.key;
+    }
+
+    commit('setApiParams', apiParams);
+    commit('setApiOptions', apiOptions);
+  },
+
   /**
    * Run a Record API search and store the results
    */
-  async run({ commit, dispatch, state }) {
-    commit('deriveApiParams');
+  async run({ dispatch, state }) {
+    await dispatch('deriveApiSettings');
 
     await search(state.apiParams || {}, state.apiOptions || {})
       .then((response) => dispatch('updateForSuccess', response))
