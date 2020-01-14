@@ -5,6 +5,9 @@ export function isPDF(media) {
 }
 
 export function isImage(media) {
+  if (!media.ebucoreHasMimeType) {
+    return false;
+  }
   return media.ebucoreHasMimeType.startsWith('image/');
 }
 
