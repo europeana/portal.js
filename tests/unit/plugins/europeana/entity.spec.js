@@ -15,7 +15,7 @@ const entityFilterField = 'skos_concept';
 const apiKey = 'abcdef';
 const baseRequest = nock(apiUrl).get(apiEndpoint);
 
-config.keys.entity = apiKey;
+config.entity.key = apiKey;
 
 const apiUrlSearch = 'https://api.europeana.eu';
 const apiEndpointSearch = '/api/v2/search.json';

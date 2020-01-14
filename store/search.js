@@ -1,5 +1,6 @@
 import merge from 'deepmerge';
 import search from '../plugins/europeana/search';
+import apiConfig from '../plugins/europeana/api';
 
 export const state = () => ({
   active: false,
@@ -132,7 +133,8 @@ export const actions = {
       apiParams.qf = ([].concat(apiParams.qf)).filter(qf => !/^contentTier:/.test(qf));
       apiParams.qf.push('contentTier:*');
 
-      apiOptions.origin = 'https://newspapers.eanadev.org';
+      apiOptions.origin = apiConfig.newspaper.origin;
+      apiParams.wskey = apiConfig.newspaper.key;
     }
 
     commit('setApiParams', apiParams);

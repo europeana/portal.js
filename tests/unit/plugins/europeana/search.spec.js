@@ -5,11 +5,11 @@ import config from '../../../../plugins/europeana/api';
 import axios from 'axios';
 axios.defaults.adapter = require('axios/lib/adapters/http');
 
-const apiOrigin = config.origin;
+const apiOrigin = config.record.origin;
 const apiEndpoint = '/api/v2/search.json';
 const apiKey = 'abcdef';
 
-config.keys.record = apiKey;
+config.record.key = apiKey;
 
 const baseRequest = nock(apiOrigin).get(apiEndpoint);
 const defaultResponse = { success: true, items: [], totalResults: 123456 };

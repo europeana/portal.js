@@ -1,6 +1,7 @@
 // TODO: move stubbed into own module? (duplicates code in plugins/europeana/search.spec.js)
 
 import * as store from '../../../store/search';
+import apiConfig from '../../../plugins/europeana/api';
 import axios from 'axios';
 import nock from 'nock';
 import sinon from 'sinon';
@@ -9,6 +10,9 @@ axios.defaults.adapter = require('axios/lib/adapters/http');
 
 const apiUrl = 'https://api.europeana.eu';
 const apiEndpoint = '/api/v2/search.json';
+const apiKey = '1234';
+apiConfig.record.key = apiKey;
+apiConfig.newspaper.key = apiKey;
 
 const baseRequest = nock(apiUrl).get(apiEndpoint);
 const defaultResponse = { success: true, items: [], totalResults: 123456 };
@@ -153,7 +157,8 @@ describe('store/search', () => {
 
             commit.should.have.been.calledWith('setApiParams', {
               api: 'fulltext',
-              qf: ['contentTier:*']
+              qf: ['contentTier:*'],
+              wskey: apiKey
             });
           });
 
