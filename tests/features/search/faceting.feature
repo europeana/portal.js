@@ -193,6 +193,12 @@ Feature: Search faceting
     And I wait 3 seconds
     Then I should be on `/en/search?page=1&query=&view=grid&theme=music`
 
+  Scenario: Newspapers collection API toggle is removed by reset button
+    Given I am on `/en/search?page=1&query=&view=grid&theme=newspaper&api=fulltext`
+    When I click the `reset filters button`
+    And I wait 3 seconds
+    Then I should be on `/en/search?page=1&query=&view=grid`
+
   Scenario: Clicking reset button in more facets
     Given I am on the `search page`
     When I click the `more filters dropdown button`
