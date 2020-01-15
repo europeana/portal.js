@@ -34,12 +34,13 @@ export default ({ redirect, route }) => {
   for (const rule of rules) {
     const redirectPath = rule(route.path);
     if (redirectPath) {
+      const redirectRoute = {
+        path: redirectPath
+      };
+      if (route.query) redirectRoute.query = route.query;
       // TODO: instead of returning here, should we keep looping over other rules
       //       so multiple rules get applied all at once?
-      return redirect({
-        path: redirectPath,
-        query: route.query
-      });
+      return redirect(redirectRoute);
     }
   }
 };
