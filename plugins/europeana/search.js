@@ -4,8 +4,9 @@
 
 import axios from 'axios';
 import qs from 'qs';
-import { apiError } from './utils';
 import config from './api';
+import { apiError } from './utils';
+import { genericThumbnail } from './thumbnail';
 
 // Default facets to request and display if none are specified.
 // Order is significant as it will be reflected on search results.
@@ -54,10 +55,6 @@ export const thematicCollections = [
   'sport'
 ];
 
-function genericThumbnail(edmType) {
-  return `${config.record.origin}/api/v2/thumbnail-by-url.json?size=w200&uri=&type=${edmType}`;
-}
-
 /**
  * Construct a range query from two values, if keys are omitted they will default to '*'
  * @param {Object[]} values An object containing 'start' and 'end' values
@@ -94,7 +91,7 @@ function resultsFromApiResponse(response) {
   const results = items.map(item => {
     return {
       europeanaId: item.id,
-      edmPreview: item.edmPreview ? `${item.edmPreview[0]}&size=w200` : genericThumbnail(item.type),
+      edmPreview: item.edmPreview ? `${item.edmPreview[0]}&size=w200` : genericThumbnail(item.id, { type: item.type, size: 'w200' }),
       dcTitle: item.dcTitleLangAware,
       dcDescription: item.dcDescriptionLangAware,
       dcCreator: item.dcCreatorLangAware,

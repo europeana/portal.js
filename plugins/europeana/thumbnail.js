@@ -38,3 +38,8 @@ export function thumbnailTypeForMimeType(mimeType) {
 
   return thumbnailType;
 }
+
+export function genericThumbnail(itemId, params = {}) {
+  const uri = `http://data.europeana.eu/item${itemId}`;
+  return thumbnailUrl(uri, params);
+}
