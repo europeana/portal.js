@@ -1,5 +1,3 @@
-// TODO: move stubbed into own module? (duplicates code in plugins/europeana/search.spec.js)
-
 import * as store from '../../../store/search';
 import apiConfig from '../../../plugins/europeana/api';
 import axios from 'axios';
@@ -175,63 +173,6 @@ describe('store/search', () => {
           theme: overrideTheme,
           profile,
           facet
-        });
-      });
-
-      context('when searching the Newspapers collection', () => {
-        it('dispatches deriveApiSettingsForNewspaperTheme action', async() => {
-          const commit = sinon.spy();
-          const dispatch = sinon.spy();
-          const state = {
-            userParams: {
-              theme: 'newspaper'
-            }
-          };
-
-          await store.actions.deriveApiSettings({ commit, dispatch, state });
-
-          dispatch.should.have.been.calledWith('deriveApiSettingsForNewspaperTheme');
-        });
-      });
-
-      describe('deriveApiSettingsForNewspaperTheme', () => {
-        context('when `api` param is "fulltext"', () => {
-          it('overrides contentTier qf to *', async() => {
-            const commit = sinon.spy();
-            const dispatch = sinon.spy();
-            const state = {
-              apiParams: {
-                api: 'fulltext',
-                qf: ['contentTier:(2 OR 3 OR 4)']
-              },
-              apiOptions: {}
-            };
-
-            await store.actions.deriveApiSettingsForNewspaperTheme({ commit, dispatch, state });
-
-            commit.should.have.been.calledWith('setApiParams', {
-              api: 'fulltext',
-              qf: ['contentTier:*'],
-              wskey: apiKey
-            });
-          });
-
-          it('sets origin option to the Newspapers API', async() => {
-            const commit = sinon.spy();
-            const dispatch = sinon.spy();
-            const state = {
-              apiParams: {
-                api: 'fulltext'
-              },
-              apiOptions: {}
-            };
-
-            await store.actions.deriveApiSettingsForNewspaperTheme({ commit, dispatch, state });
-
-            commit.should.have.been.calledWith('setApiOptions', {
-              origin: 'https://newspapers.eanadev.org'
-            });
-          });
         });
       });
     });
