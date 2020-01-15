@@ -76,6 +76,9 @@ export default {
     }
   },
   "facets": {
+    "CREATOR": {
+      "name": "Designer | Designers"
+    },
     "COUNTRY": {
       "name": "Providing country"
     },

@@ -8,21 +8,6 @@ import config from './api';
 import { apiError } from './utils';
 import { genericThumbnail } from './thumbnail';
 
-// Default facets to request and display if none are specified.
-// Order is significant as it will be reflected on search results.
-export const defaultFacetNames = [
-  'TYPE',
-  'REUSABILITY',
-  'COUNTRY',
-  'LANGUAGE',
-  'PROVIDER',
-  'DATA_PROVIDER',
-  'COLOURPALETTE',
-  'IMAGE_ASPECTRATIO',
-  'IMAGE_SIZE',
-  'MIME_TYPE'
-];
-
 // Some facets do not support enquoting of their field values.
 export const unquotableFacets = [
   'COLOURPALETTE',
@@ -132,8 +117,8 @@ function search(params, options = {}) {
       return qs.stringify(params, { arrayFormat: 'repeat' });
     },
     params: {
-      facet: params.facet ? params.facet : defaultFacetNames.join(','),
-      profile: params.profile ? params.profile : 'minimal,facets',
+      facet: params.facet,
+      profile: params.profile,
       qf: qfHandler(params.qf),
       query,
       reusability: params.reusability,

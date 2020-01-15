@@ -139,12 +139,12 @@
   import ViewToggles from '../../components/search/ViewToggles';
   import TierToggler from '../../components/search/TierToggler';
   import {
-    defaultFacetNames, unquotableFacets, thematicCollections
+    unquotableFacets, thematicCollections
   } from '../../plugins/europeana/search';
 
   import isEqual from 'lodash/isEqual';
   import pickBy from 'lodash/pickBy';
-  import { mapState } from 'vuex';
+  import { mapState, mapGetters } from 'vuex';
 
   export default {
     components: {
@@ -194,6 +194,9 @@
         lastAvailablePage: state => state.search.lastAvailablePage,
         results: state => state.search.results,
         totalResults: state => state.search.totalResults
+      }),
+      ...mapGetters({
+        facetNames: 'search/facetNames'
       }),
       qf() {
         return this.userParams.qf;
@@ -276,7 +279,7 @@
         let unordered = this.facets.slice();
         let ordered = [];
 
-        for (const facetName of defaultFacetNames) {
+        for (const facetName of this.facetNames) {
           const index = unordered.findIndex((f) => {
             return f.name === facetName;
           });
@@ -294,7 +297,7 @@
         return this.orderedFacets.filter(facet => this.coreFacetNames.includes(facet.name));
       },
       moreFacetNames() {
-        return defaultFacetNames.filter(facetName => !this.coreFacetNames.includes(facetName));
+        return this.facetNames.filter(facetName => !this.coreFacetNames.includes(facetName));
       },
       moreFacets() {
         return this.orderedFacets.filter(facet => this.moreFacetNames.includes(facet.name));
@@ -304,7 +307,7 @@
           this.moreFacetNames.includes(name) || ['api', this.PROXY_DCTERMS_ISSUED].includes(name));
       },
       dropdownFilterNames() {
-        return defaultFacetNames.concat(this.PROXY_DCTERMS_ISSUED, this.THEME, 'api');
+        return this.facetNames.concat(this.PROXY_DCTERMS_ISSUED, this.THEME, 'api');
       },
       enableMoreFacets() {
         return this.moreFacets.length > 0;
@@ -390,7 +393,7 @@
         return queryUpdates;
       },
       enquoteFacet(facetName) {
-        return defaultFacetNames.includes(facetName) && !unquotableFacets.includes(facetName);
+        return this.facetNames.includes(facetName) && !unquotableFacets.includes(facetName);
       },
       updateCurrentSearchQuery(updates = {}) {
         const current = {

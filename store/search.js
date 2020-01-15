@@ -1,6 +1,20 @@
 import merge from 'deepmerge';
 import search from '../plugins/europeana/search';
-import apiConfig from '../plugins/europeana/api';
+
+// Default facets to always request and display.
+// Order is significant as it will be reflected on search results.
+export const defaultFacetNames = [
+  'TYPE',
+  'REUSABILITY',
+  'COUNTRY',
+  'LANGUAGE',
+  'PROVIDER',
+  'DATA_PROVIDER',
+  'COLOURPALETTE',
+  'IMAGE_ASPECTRATIO',
+  'IMAGE_SIZE',
+  'MIME_TYPE'
+];
 
 export const state = () => ({
   active: false,
@@ -84,6 +98,16 @@ export const getters = {
       }
     }
     return 'grid';
+  },
+
+  facetNames(state) {
+    return (state.apiParams.facet || '').split(',');
+  },
+
+  hasCollectionSpecificSettings: (state, getters, rootState) => (theme) => {
+    return theme &&
+      rootState.collections[theme] &&
+      ((rootState.collections[theme].enabled === undefined) || rootState.collections[theme].enabled);
   }
 };
 
@@ -110,35 +134,32 @@ export const actions = {
     userParams.qf = [].concat(userParams.qf || []);
 
     const apiParams = merge(userParams, state.overrideParams || {});
+    if (!apiParams.facet) {
+      apiParams.facet = defaultFacetNames.join(',');
+    }
+    if (!apiParams.profile) {
+      apiParams.profile = 'minimal,facets';
+    }
+
     commit('setApiParams', apiParams);
     commit('setApiOptions', {});
 
-    if (apiParams.theme === 'newspaper') {
-      await dispatch('deriveApiSettingsForNewspaperTheme');
-    }
+    await dispatch('applyCollectionSpecificSettings');
   },
 
-  deriveApiSettingsForNewspaperTheme({ commit, state }) {
-    const apiParams = Object.assign({}, state.apiParams);
-    const apiOptions = Object.assign({}, state.apiOptions);
+  applyCollectionSpecificSettings({ commit, getters, rootGetters, rootState, state }) {
+    const theme = state.apiParams.theme;
+    if (!getters.hasCollectionSpecificSettings(theme)) return;
 
-    // Ensure newspapers collection gets fulltext API by default
-    if (!apiParams.api) {
-      apiParams.api = 'fulltext';
+    if (rootState.collections[theme].baseParams !== undefined) {
+      commit(`collections/${theme}/setBaseParams`, state.apiParams, { root: true });
+      commit('setApiParams', rootGetters[`collections/${theme}/apiParams`]);
     }
 
-    if (apiParams.api === 'fulltext') {
-      // TODO: fulltext search API should be aware of contentTier, but is not.
-      //       If & when it is, this can be removed.
-      apiParams.qf = ([].concat(apiParams.qf)).filter(qf => !/^contentTier:/.test(qf));
-      apiParams.qf.push('contentTier:*');
-
-      apiOptions.origin = apiConfig.newspaper.origin;
-      apiParams.wskey = apiConfig.newspaper.key;
+    if (rootState.collections[theme].baseOptions !== undefined) {
+      commit(`collections/${theme}/setBaseOptions`, state.apiOptions, { root: true });
+      commit('setApiOptions', rootGetters[`collections/${theme}/apiOptions`]);
     }
-
-    commit('setApiParams', apiParams);
-    commit('setApiOptions', apiOptions);
   },
 
   /**
@@ -151,6 +172,7 @@ export const actions = {
       .then((response) => dispatch('updateForSuccess', response))
       .catch((error) => dispatch('updateForFailure', error));
   },
+
   updateForSuccess({ commit }, response) {
     commit('setError', response.error);
     commit('setErrorStatusCode', null);
@@ -159,6 +181,7 @@ export const actions = {
     commit('setResults', response.results);
     commit('setTotalResults', response.totalResults);
   },
+
   updateForFailure({ commit }, error) {
     commit('setError', error.message);
     commit('setErrorStatusCode', (typeof error.statusCode !== 'undefined') ? error.statusCode : 500);
