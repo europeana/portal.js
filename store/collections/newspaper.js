@@ -1,13 +1,13 @@
 import apiConfig from '../../plugins/europeana/api';
 
 export const state = () => ({
-  baseOptions: {},
-  baseParams: {}
+  apiOptions: {},
+  apiParams: {}
 });
 
 export const getters = {
   apiOptions: (state, getters) => {
-    const options = Object.assign({}, state.baseOptions);
+    const options = Object.assign({}, state.apiOptions);
 
     if (getters.apiParams.api === 'fulltext') {
       options.origin = apiConfig.newspaper.origin;
@@ -17,7 +17,7 @@ export const getters = {
   },
 
   apiParams: (state) => {
-    const params = Object.assign({}, state.baseParams);
+    const params = Object.assign({}, state.apiParams);
 
     // Ensure newspapers collection gets fulltext API by default
     if (!params.api) {
@@ -38,10 +38,7 @@ export const getters = {
 };
 
 export const mutations = {
-  setBaseOptions(state, value) {
-    state.baseOptions = value;
-  },
-  setBaseParams(state, value) {
-    state.baseParams = value;
+  set(state, payload) {
+    state[payload[0]] = payload[1];
   }
 };

@@ -4,13 +4,13 @@ const fashionFacetNames = ['CREATOR'].concat(defaultFacetNames);
 const fashionFacetParam = fashionFacetNames.join(',');
 
 export const state = () => ({
-  baseParams: {},
+  apiParams: {},
   enabled: false
 });
 
 export const getters = {
   apiParams: (state) => {
-    const params = Object.assign({}, state.baseParams);
+    const params = Object.assign({}, state.apiParams);
     params.facet = fashionFacetParam;
     return params;
   }
@@ -20,7 +20,7 @@ export const mutations = {
   enable(state) {
     state.enabled = true;
   },
-  setBaseParams(state, value) {
-    state.baseParams = value;
+  set(state, payload) {
+    state[payload[0]] = payload[1];
   }
 };

@@ -83,6 +83,9 @@ export const mutations = {
   },
   setPill(state, value) {
     state.pill = value;
+  },
+  set(state, payload) {
+    state[payload[0]] = payload[1];
   }
 };
 
@@ -151,14 +154,11 @@ export const actions = {
     const theme = state.apiParams.theme;
     if (!getters.hasCollectionSpecificSettings(theme)) return;
 
-    if (rootState.collections[theme].baseParams !== undefined) {
-      commit(`collections/${theme}/setBaseParams`, state.apiParams, { root: true });
-      commit('setApiParams', rootGetters[`collections/${theme}/apiParams`]);
-    }
-
-    if (rootState.collections[theme].baseOptions !== undefined) {
-      commit(`collections/${theme}/setBaseOptions`, state.apiOptions, { root: true });
-      commit('setApiOptions', rootGetters[`collections/${theme}/apiOptions`]);
+    for (const property of ['apiParams', 'apiOptions']) {
+      if (rootState.collections[theme][property] !== undefined) {
+        commit(`collections/${theme}/set`, [property, state[property]], { root: true });
+        commit('set', [property, rootGetters[`collections/${theme}/${property}`]]);
+      }
     }
   },
 
