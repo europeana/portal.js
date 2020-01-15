@@ -24,7 +24,6 @@ describe('plugins/europeana/search', () => {
   describe('search()', () => {
     describe('API request', () => {
       it('includes API key', async() => {
-        console.log('config.record.key', config.record.key);
         baseRequest
           .query(query => {
             return query.wskey === apiKey;
@@ -84,34 +83,10 @@ describe('plugins/europeana/search', () => {
         nock.isDone().should.be.true;
       });
 
-      it('requests the minimal & facets profiles', async() => {
-        baseRequest
-          .query(query => {
-            return query.profile === 'minimal,facets';
-          })
-          .reply(200, defaultResponse);
-
-        await search({ query: 'anything' });
-
-        nock.isDone().should.be.true;
-      });
-
       it('includes contentTier query', async() => {
         baseRequest
           .query(query => {
             return query.qf === 'contentTier:(1 OR 2 OR 3 OR 4)';
-          })
-          .reply(200, defaultResponse);
-
-        await search({ query: 'anything' });
-
-        nock.isDone().should.be.true;
-      });
-
-      it('requests default facets if `facet` param absent', async() => {
-        baseRequest
-          .query(query => {
-            return query.facet === 'TYPE,REUSABILITY,COUNTRY,LANGUAGE,PROVIDER,DATA_PROVIDER,COLOURPALETTE,IMAGE_ASPECTRATIO,IMAGE_SIZE,MIME_TYPE';
           })
           .reply(200, defaultResponse);
 
