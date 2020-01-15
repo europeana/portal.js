@@ -4,19 +4,10 @@
   >
     <MediaImage
       v-if="displayImage"
-      :link="imageLink"
-      :src="imageSrc"
+      :europeana-identifier="europeanaIdentifier"
+      :image-src="imageSrc"
+      :media="media"
     />
-    <p
-      v-if="isPDF"
-    >
-      <b-link
-        :href="media.about"
-        target="_blank"
-      >
-        {{ $t('record.view.pdf') }}
-      </b-link>
-    </p>
     <VideoPlayer
       v-else-if="isHTMLVideo"
       :src="media.about"
@@ -53,7 +44,7 @@
   import oEmbed from '../../plugins/oembed.js';
   import {
     isHTMLVideo, isHTMLAudio, isIIIFImage, isIIIFPresentation,
-    isOEmbed, isPDF, isRichMedia, iiifManifest
+    isOEmbed, isRichMedia, iiifManifest
   } from '../../plugins/media';
 
   export default {
@@ -75,10 +66,6 @@
         type: Object,
         required: true
       },
-      imageLink: {
-        type: String,
-        default: ''
-      },
       imageSrc: {
         type: String,
         default: ''
@@ -96,9 +83,6 @@
         return (this.imageSrc !== '') && !isRichMedia(this.media, {
           iiif: Number(process.env.ENABLE_IIIF_MEDIA)
         });
-      },
-      isPDF() {
-        return isPDF(this.media);
       },
       isHTMLVideo() {
         return isHTMLVideo(this.media);

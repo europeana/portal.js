@@ -4,6 +4,13 @@ export function isPDF(media) {
   return media.ebucoreHasMimeType === 'application/pdf';
 }
 
+export function isImage(media) {
+  if (!media.ebucoreHasMimeType) {
+    return false;
+  }
+  return media.ebucoreHasMimeType.startsWith('image/');
+}
+
 export function isHTMLVideo(media) {
   return ['video/ogg', 'video/webm'].includes(media.ebucoreHasMimeType) ||
     ((media.ebucoreHasMimeType === 'video/mp4') && (media.edmCodecName === 'h264'));

@@ -9,26 +9,6 @@ const factory = (propsData) => shallowMount(MediaPresentation, {
 });
 
 describe('components/record/MediaPresentation', () => {
-  describe('isPDF', () => {
-    context('when ebucoreHasMimeType is "application/pdf"', () => {
-      it('is `true`', () => {
-        const props = { media: { ebucoreHasMimeType: 'application/pdf' } };
-        const wrapper = factory(props);
-
-        wrapper.vm.isPDF.should.be.true;
-      });
-    });
-
-    context('when ebucoreHasMimeType is "image/png"', () => {
-      it('is `false`', () => {
-        const props = { media: { ebucoreHasMimeType: 'image/png' } };
-        const wrapper = factory(props);
-
-        wrapper.vm.isPDF.should.be.false;
-      });
-    });
-  });
-
   describe('isHTMLVideo', () => {
     context('when ebucoreHasMimeType is "video/ogg"', () => {
       it('is `true`', () => {

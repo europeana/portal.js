@@ -387,7 +387,9 @@ export default {
     "showAll": "Show all information",
     "similarItems": "Similar items",
     "view": {
-      "pdf": "View PDF"
+      "pdf": "View PDF",
+      "image": "View image",
+      "media": "View media"
     }
   },
   "contentfulManual": {
