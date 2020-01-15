@@ -143,6 +143,10 @@ describe('store/search', () => {
       });
     });
 
+    describe('applyCollectionSpecificSettings', () => {
+      it('TODO');
+    });
+
     describe('deriveApiSettings', () => {
       it('combines userParams and overrideParams into apiParams', async() => {
         const userQuery = 'calais';
