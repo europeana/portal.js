@@ -108,8 +108,8 @@ export const getters = {
   },
 
   hasCollectionSpecificSettings: (state, getters, rootState) => (theme) => {
-    return theme &&
-      rootState.collections[theme] &&
+    return (!!theme) &&
+      (!!rootState.collections && !!rootState.collections[theme]) &&
       ((rootState.collections[theme].enabled === undefined) || rootState.collections[theme].enabled);
   }
 };

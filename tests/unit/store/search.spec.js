@@ -21,6 +21,54 @@ describe('store/search', () => {
     apiConfig.newspaper.key = apiKey;
   });
 
+  describe('getters', () => {
+    describe('hasCollectionSpecificSettings', () => {
+      context('when theme param is absent', () => {
+        const theme = undefined;
+
+        it('is false', () => {
+          store.getters.hasCollectionSpecificSettings({})(theme).should.be.false;
+        });
+      });
+
+      context('when theme param is present', () => {
+        const theme = 'music';
+
+        context('when rootState has collection store for the theme', () => {
+          context('with `enabled` property', () => {
+            context('that is enabled', () => {
+              const rootState = { collections: { [theme]: { enabled: true } } };
+              it('is true', () => {
+                store.getters.hasCollectionSpecificSettings({}, {}, rootState)(theme).should.be.true;
+              });
+            });
+
+            context('that is disabled', () => {
+              const rootState = { collections: { [theme]: { enabled: false } } };
+              it('is false', () => {
+                store.getters.hasCollectionSpecificSettings({}, {}, rootState)(theme).should.be.false;
+              });
+            });
+          });
+
+          context('without `enabled` property', () => {
+            const rootState = { collections: { [theme]: {} } };
+            it('is true', () => {
+              store.getters.hasCollectionSpecificSettings({}, {}, rootState)(theme).should.be.true;
+            });
+          });
+        });
+
+        context('when rootState lacks collection store for the theme', () => {
+          const rootState = { collections: {} };
+          it('is false', () => {
+            store.getters.hasCollectionSpecificSettings({}, {}, rootState)(theme).should.be.false;
+          });
+        });
+      });
+    });
+  });
+
   describe('actions', () => {
     describe('run', () => {
       afterEach(() => {
@@ -30,7 +78,6 @@ describe('store/search', () => {
       it('derives the API params', async() => {
         const commit = sinon.spy();
         const dispatch = sinon.spy();
-        // const searchQuery = 'anything';
         const state = {};
 
         baseRequest
@@ -104,6 +151,8 @@ describe('store/search', () => {
         const userQf = 'TYPE:"IMAGE"';
         const overrideQf = 'edm_agent:"http://data.europeana.eu/agent/base/200"';
         const overrideTheme = 'migration';
+        const profile = 'minimal,facets';
+        const facet = store.defaultFacetNames.join(',');
 
         const commit = sinon.spy();
         const dispatch = sinon.spy();
@@ -123,7 +172,9 @@ describe('store/search', () => {
         commit.should.have.been.calledWith('setApiParams', {
           query: userQuery,
           qf: [userQf, overrideQf],
-          theme: overrideTheme
+          theme: overrideTheme,
+          profile,
+          facet
         });
       });
 
