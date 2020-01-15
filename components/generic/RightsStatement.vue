@@ -61,15 +61,15 @@
           rights.name = 'No Copyright - Non-Commercial Use Only';
           rights.iconClass = ['icon-license-rs-no'];
           break;
-        case new RegExp('https?://rightsstatements.org/vocab/InC-EDU/*').test(val):
+        case new RegExp('https?://rightsstatements.org/vocab/InC-EDU/').test(val):
           rights.name = 'In Copyright - Educational Use Permitted';
           rights.iconClass = ['icon-license-rs-yes'];
           break;
-        case new RegExp('https?://rightsstatements.org/vocab/NoC-NC/*').test(val):
+        case new RegExp('https?://rightsstatements.org/vocab/NoC-NC/').test(val):
           rights.name = 'No Copyright - Non-Commercial Use Only';
           rights.iconClass = ['icon-license-rs-no'];
           break;
-        case new RegExp('https?://rightsstatements.org/(vocab|page)/NoC-OKLR/*').test(val):
+        case new RegExp('https?://rightsstatements.org/(vocab|page)/NoC-OKLR/').test(val):
           rights.name = 'No Copyright - Other Known Legal Restrictions';
           rights.iconClass = ['icon-license-rs-no'];
           break;
@@ -93,15 +93,15 @@
           rights.name = 'Orphan work';
           rights.iconClass = [];
           break;
-        case new RegExp('https?://rightsstatements.org/vocab/InC/*').test(val):
+        case new RegExp('https?://rightsstatements.org/vocab/InC/').test(val):
           rights.name = 'In Copyright';
           rights.iconClass = ['icon-license-rs-yes'];
           break;
-        case new RegExp('https?://rightsstatements.org/vocab/InC-OW-EU/*').test(val):
+        case new RegExp('https?://rightsstatements.org/vocab/InC-OW-EU/').test(val):
           rights.name = 'In Copyright - EU Orphan Work';
           rights.iconClass = ['icon-license-rs-yes'];
           break;
-        case new RegExp('https?://rightsstatements.org/vocab/CNE/*').test(val):
+        case new RegExp('https?://rightsstatements.org/vocab/CNE/').test(val):
           rights.name = 'Copyright Not Evaluated';
           rights.iconClass = ['icon-license-rs-unknown'];
           break;
