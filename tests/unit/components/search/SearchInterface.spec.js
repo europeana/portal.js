@@ -5,6 +5,7 @@ import Vuex from 'vuex';
 import sinon from 'sinon';
 
 import SearchInterface from '../../../../components/search/SearchInterface.vue';
+import { defaultFacetNames } from '../../../../store/search';
 
 const localVue = createLocalVue();
 localVue.filter('localise', (number) => number);
@@ -39,17 +40,28 @@ const factory = (options = {}) => {
     ...options.mocks
   };
   const store = new Vuex.Store({
-    state: {
-      search: {
-        facets: [],
-        userParams: {},
-        apiParams: {},
-        results: [],
-        themeFacetEnabled: true,
-        ...options.storeState
-      },
+    modules: {
       entity: {
-        id: null
+        namespaced: true,
+        state: {
+          id: null
+        }
+      },
+      search: {
+        namespaced: true,
+        state: {
+          facets: [],
+          userParams: {},
+          apiParams: {},
+          results: [],
+          themeFacetEnabled: true,
+          ...options.storeState
+        },
+        getters: {
+          facetNames() {
+            return defaultFacetNames;
+          }
+        }
       }
     }
   });
