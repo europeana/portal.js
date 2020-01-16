@@ -80,7 +80,10 @@ export default {
       "name": "Bereitstellendes Land"
     },
     "REUSABILITY": {
-      "name": "Kann ich es wiederverwenden?"
+      "name": "Kann ich es wiederverwenden?",
+      "options": {
+        "open": "Ja"
+      }
     },
     "THEME": {
       "name": "Kategorie",
@@ -187,7 +190,6 @@ export default {
   },
   "contentfulManual": {
     "headerNavigation": {
-      "teachers": "Lehrerinnen und Lehrer",
       "explore": "Erkunden"
     },
     "footerNavigation": {
