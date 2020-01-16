@@ -82,15 +82,16 @@ export default {
     "REUSABILITY": {
       "name": "Can I reuse this?",
       "options": {
-        "open": "Open",
-        "restricted": "Restricted",
-        "permission": "Permission",
+        "open": "Yes",
+        "restricted": "Yes, with conditions",
+        "permission": "Maybe, seek permission",
         "uncategorized": "Uncategorized"
       }
     },
     "THEME": {
-      "name": "Collection",
+      "name": "Category",
       "options": {
+        "all": "All items",
         "ww1": "1914-1918",
         "archaeology": "Archaeology",
         "art": "Art",
@@ -116,21 +117,11 @@ export default {
         "3D": "3D"
       }
     },
-    "api": {
-      "name": "Search for",
-      "options": {
-        "fulltext": "Records with full-text",
-        "metadata": "Metadata-only records"
-      }
-    },
     "contentTier": {
       "name": "Includes items not meeting our publishing criteria",
       "options": {
         "*": "Includes items not meeting our publishing criteria"
       }
-    },
-    "proxy_dcterms_issued": {
-      "name": "Date issued"
     },
     "button": {
       "reset": "Reset",
@@ -168,7 +159,7 @@ export default {
     "MIME_TYPE": {
       "name": "File format | File formats",
       "options": {
-        "text/plain": "Plain text"
+        "text\/plain": "Plain text"
       }
     },
     "COLOURPALETTE": {
@@ -319,10 +310,19 @@ export default {
         "#FFFFF0": "Ivory",
         "#FFFFFF": "White"
       }
+    },
+    "proxy_dcterms_issued": {
+      "name": "Date issued"
+    },
+    "api": {
+      "name": "Search for",
+      "options": {
+        "fulltext": "Records with full-text",
+        "metadata": "Metadata-only records"
+      }
     }
   },
   "entity": "Entity",
-  "learnMore": "Learn about the source of this description",
   "resourceWikimedia": "Resource from Wikimedia Commons",
   "messages": {
     "notFound": "Not Found",
@@ -337,7 +337,6 @@ export default {
     "skipToMain": "Skip to page contents"
   },
   "searchPlaceholder": "What are you looking for?",
-  "searchSuggestions": "Search suggestions",
   "searchTier": {
     "button": {
       "show": "Show these items",
@@ -372,9 +371,9 @@ export default {
   },
   "actions": {
     "download": "Download",
-    "viewDocument": "View document",
     "viewAt": "View at {link}",
-    "providedBy": "Provided by {provider}"
+    "providedBy": "Provided by {provider}",
+    "viewDocument": "View document"
   },
   "clearAllFilters": "clear all filters",
   "reset": "Reset",
@@ -394,7 +393,7 @@ export default {
   },
   "contentfulManual": {
     "headerNavigation": {
-      "teachers": "Teachers",
+      "teachers": "Educators",
       "explore": "Explore"
     },
     "footerNavigation": {
@@ -405,15 +404,6 @@ export default {
       "meetUs": "Meet the team",
       "help": "Help"
     }
-  },
-  "footer": {
-    "ourMission": "Our mission",
-    "ourMissionQuote": "We transform the world with culture! We want to build on Europe's rich heritage and make it easier for people to use, whether for work, for learning or just for fun.",
-    "customiseWebsiteLanguage": "Customise website language",
-    "disclaimerLine1": "Europeana is an initiative of the European Union, financed by the European Union’s Connecting Europe Facility and European Union Member States. The Europeana services, including this website, are operated by a consortium led by the Europeana Foundation under a service contract with the European Commission.",
-    "disclaimerLine2": "The European Commission does not guarantee the accuracy of the information and accepts no responsibility or liability whatsoever with regard to the information on this website. Neither the European Commission, nor any person acting on the European Commission’s behalf, is responsible or liable for the accuracy or use of the information on this website.",
-    "imageDescription": "Co-financed by the Connecting Europe Facility of the European Union",
-    "findUsElsewhere": "Find us elsewhere"
   },
   "imageSlider": {
     "handle": "Slider Handle"
@@ -429,5 +419,16 @@ export default {
     "acceptCookieDisclaimer": "Accept cookie disclaimer",
     "terms": "This website uses cookies to ensure you get the best experience on our website. By clicking or navigating the site, you agree to allow our collection of information through cookies.",
     "link": "More info"
+  },
+  "searchSuggestions": "Search suggestions",
+  "learnMore": "Learn about the source of this description",
+  "footer": {
+    "ourMission": "Our mission",
+    "ourMissionQuote": "We transform the world with culture! We want to build on Europe's rich heritage and make it easier for people to use, whether for work, for learning or just for fun.",
+    "customiseWebsiteLanguage": "Customise website language",
+    "disclaimerLine1": "Europeana is an initiative of the European Union, financed by the European Union’s Connecting Europe Facility and European Union Member States. The Europeana services, including this website, are operated by a consortium led by the Europeana Foundation under a service contract with the European Commission.",
+    "disclaimerLine2": "The European Commission does not guarantee the accuracy of the information and accepts no responsibility or liability whatsoever with regard to the information on this website. Neither the European Commission, nor any person acting on the European Commission’s behalf, is responsible or liable for the accuracy or use of the information on this website.",
+    "imageDescription": "Co-financed by the Connecting Europe Facility of the European Union",
+    "findUsElsewhere": "Find us elsewhere"
   }
 };
