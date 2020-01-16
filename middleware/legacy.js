@@ -1,6 +1,9 @@
 // This middleware is responsible for handling redirects for legacy URLs used on
 // previous versions of the Europeana Portal.
 
+import escapeRegExp from 'lodash/escapeRegExp';
+import staticRedirects from './legacy-redirects-static';
+
 function stringifyPathChunks(chunks) {
   return chunks.filter((chunk) => typeof chunk !== undefined).join('');
 }
@@ -27,6 +30,20 @@ const rules = [
     const legacyHTMLSuffixPattern = /^(.+)\.html$/;
     const legacyHTMLSuffixMatch = routePath.match(legacyHTMLSuffixPattern);
     return legacyHTMLSuffixMatch ? stringifyPathChunks(legacyHTMLSuffixMatch.slice(1)) : null;
+  },
+  // Static pages
+  (routePath) => {
+    for (const redirectFrom in staticRedirects) {
+      const pattern = new RegExp(`^(/[a-z]{2})?${escapeRegExp(redirectFrom)}$`);
+      const match = routePath.match(pattern);
+      if (match) {
+        return stringifyPathChunks([
+          match[1],
+          staticRedirects[redirectFrom]
+        ]);
+      }
+    }
+    return null;
   }
 ];
 
