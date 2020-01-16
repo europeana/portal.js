@@ -80,7 +80,10 @@ export default {
       "name": "Pajjiż fornitur"
     },
     "REUSABILITY": {
-      "name": "Nista' nerġa' nużah dan?"
+      "name": "Nista' nerġa' nużah dan?",
+      "options": {
+        "open": "Iva"
+      }
     },
     "THEME": {
       "name": "Kategorija",
@@ -191,7 +194,6 @@ export default {
   },
   "contentfulManual": {
     "headerNavigation": {
-      "teachers": "Għalliema",
       "explore": "Esplora"
     },
     "footerNavigation": {
