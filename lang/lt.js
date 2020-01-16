@@ -80,7 +80,10 @@ export default {
       "name": "Teikianti šalis"
     },
     "REUSABILITY": {
-      "name": "Ar galiu tai pakartotinai naudoti?"
+      "name": "Ar galiu tai pakartotinai naudoti?",
+      "options": {
+        "open": "Taip"
+      }
     },
     "THEME": {
       "name": "Kategorija",
@@ -187,7 +190,6 @@ export default {
   },
   "contentfulManual": {
     "headerNavigation": {
-      "teachers": "Mokytojai",
       "explore": "Tyrinėkite"
     },
     "footerNavigation": {
