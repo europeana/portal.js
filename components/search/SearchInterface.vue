@@ -207,6 +207,9 @@
       theme() {
         return this.userParams.theme;
       },
+      api() {
+        return this.userParams.api;
+      },
       filters() {
         const filters = {};
         if (this.userParams.qf) {
@@ -353,7 +356,7 @@
           // Remove collection-specific filters when collection is changed
           // TODO: this is rather crude and will not scale well; improve
           if (name === 'THEME' && !selected['api']) {
-            delete filters['api'];
+            filters['api'] = null;
           }
         }
 
@@ -398,7 +401,9 @@
           qf: this.qf,
           query: this.query,
           reusability: this.reusability,
-          view: this.view
+          view: this.view,
+          theme: this.theme,
+          api: this.api
         };
 
         const updated = { ...current, ...updates };
