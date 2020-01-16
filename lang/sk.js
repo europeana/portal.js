@@ -80,7 +80,10 @@ export default {
       "name": "Poskytujúca krajina"
     },
     "REUSABILITY": {
-      "name": "Môžem to znova použiť?"
+      "name": "Môžem to znova použiť?",
+      "options": {
+        "open": "Áno"
+      }
     },
     "THEME": {
       "name": "Kategória",
@@ -187,7 +190,6 @@ export default {
   },
   "contentfulManual": {
     "headerNavigation": {
-      "teachers": "Učitelia",
       "explore": "Objavujte"
     },
     "footerNavigation": {
