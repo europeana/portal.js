@@ -76,7 +76,7 @@ Run everything with your driver of choice.
 npm run test:chrome:headless -- -p all
 ```
 
-`test:chrome:headless` can be substituited for the other avialable driver commands `test:gecko` and `test:chrome`.
+`test:chrome:headless` can be substituted for the other avialable driver commands `test:gecko` and `test:chrome`.
 
 Be aware however that with `geckodriver` some tests are known to fail as it is not yet feature complete.
 It is therefore at present of limited use.
