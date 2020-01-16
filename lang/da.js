@@ -80,7 +80,10 @@ export default {
       "name": "Leverende land"
     },
     "REUSABILITY": {
-      "name": "Må jeg videreformidle dette?"
+      "name": "Må jeg videreformidle dette?",
+      "options": {
+        "open": "Ja"
+      }
     },
     "THEME": {
       "name": "Kategori",
@@ -187,7 +190,6 @@ export default {
   },
   "contentfulManual": {
     "headerNavigation": {
-      "teachers": "Lærere",
       "explore": "Udforsk"
     },
     "footerNavigation": {
