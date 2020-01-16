@@ -64,7 +64,7 @@ export default {
       "edmIsRepresentationOf": "Is léiriú é de",
       "edmIsSimilarTo": "Is cosúil leis",
       "edmIsSuccessorOf": "Is comharba é ar",
-      "edmRealizes": "Tuigeann sé/sí",
+      "edmRealizes": "Tuigeann sé\/sí",
       "wasPresentAt": "Bhí i láthair ag"
     },
     "webResource": {
@@ -187,7 +187,6 @@ export default {
   },
   "contentfulManual": {
     "headerNavigation": {
-      "teachers": "Múinteoirí",
       "explore": "Taiscéal"
     },
     "footerNavigation": {
