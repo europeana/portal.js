@@ -80,7 +80,10 @@ export default {
       "name": "Pays fournisseur"
     },
     "REUSABILITY": {
-      "name": "Puis-je le réutiliser ?"
+      "name": "Puis-je le réutiliser ?",
+      "options": {
+        "open": "Oui"
+      }
     },
     "THEME": {
       "name": "Catégorie",
@@ -188,7 +191,6 @@ export default {
   },
   "contentfulManual": {
     "headerNavigation": {
-      "teachers": "Enseignants",
       "explore": "Explorer"
     },
     "footerNavigation": {
