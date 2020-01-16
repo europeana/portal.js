@@ -70,6 +70,18 @@ describe('plugins/media', () => {
 
       media.isIIIFPresentation(item).should.be.true;
     });
+
+    it('returns `false` if dctermsIsReferencedBy is Image info.json', () => {
+      const item = {
+        services: [{
+          about: 'http://www.example.org/image',
+          dctermsConformsTo: ['http://iiif.io/api/image']
+        }],
+        dctermsIsReferencedBy: ['http://www.example.org/image/info.json']
+      };
+
+      media.isIIIFPresentation(item).should.be.false;
+    });
   });
 
   describe('iiifManifest()', () => {
