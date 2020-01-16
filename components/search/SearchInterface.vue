@@ -207,6 +207,9 @@
       theme() {
         return this.userParams.theme;
       },
+      api() {
+        return this.userParams.api;
+      },
       filters() {
         const filters = {};
         if (this.userParams.qf) {
@@ -398,8 +401,16 @@
           qf: this.qf,
           query: this.query,
           reusability: this.reusability,
-          view: this.view
+          view: this.view,
+          theme: this.theme,
+          api: this.api
         };
+
+        // override when current theme is newspaper and the new theme is not
+        // TODO: this is a bit of a hack, find a better way
+        if (this.theme === 'newspaper' && updates.theme !== 'newspaper') {
+          current.api = null;
+        }
 
         const updated = { ...current, ...updates };
 

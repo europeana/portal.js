@@ -21,6 +21,17 @@ Feature: Search faceting
     Then I should be on `/en/search?page=1&query=&view=grid&theme=art`
     And I see a `filter badge` with the text "Collection: Art"
 
+  Scenario: Filtering results by Collection and paginate
+
+    When I visit the `search page`
+    And I click the `THEME dropdown button`
+    And I check the "art" "THEME" radio
+    And I click the `THEME apply button`
+    And I wait 4 seconds
+    And I go to page number 2
+    And I wait 2 seconds
+    Then I should be on `/en/search?page=2&query=&view=grid&theme=art`
+    
   Scenario: No Collection filter on entity pages
 
     Given I am on an `entity page`
@@ -198,6 +209,16 @@ Feature: Search faceting
     When I click the `reset filters button`
     And I wait 3 seconds
     Then I should be on `/en/search?page=1&query=&view=grid`
+
+  Scenario: Newspapers collection API toggle is not removed when switching pages
+    Given I am on the `Newspapers collection page`
+    When I click the `more filters dropdown button`
+    And I click the "metadata" "api" radio
+    And I click the `apply button`
+    And I wait 2 seconds
+    And I go to page number 2
+    And I wait 2 seconds
+    Then I should be on `/en/entity/topic/18-newspaper?page=2&view=grid&api=metadata`
 
   Scenario: Clicking reset button in more facets
     Given I am on the `search page`
