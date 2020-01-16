@@ -80,7 +80,10 @@ export default {
       "name": "Țara de proveniență"
     },
     "REUSABILITY": {
-      "name": "Pot reutiliza acest lucru?"
+      "name": "Pot reutiliza acest lucru?",
+      "options": {
+        "open": "Da"
+      }
     },
     "THEME": {
       "name": "Categorie",
@@ -187,7 +190,6 @@ export default {
   },
   "contentfulManual": {
     "headerNavigation": {
-      "teachers": "Profesori",
       "explore": "Explorează"
     },
     "footerNavigation": {
