@@ -55,17 +55,17 @@ export default {
       "dctermsHasPart": "se skládá z",
       "dctermsHasVersion": "vlastní verzi",
       "dctermsIsFormatOf": "je formou",
-      "dctermsIsReferencedBy": "je zmiňován/a",
+      "dctermsIsReferencedBy": "je zmiňován\/a",
       "dctermsIsReplacedBy": "se nahradí",
       "dctermsIsRequiredBy": "je potřeba pro",
-      "edmHasMet": "se setkal/a s",
+      "edmHasMet": "se setkal\/a s",
       "edmIncorporates": "zahrnuje",
       "edmIsDerivativeOf": "je zpodobněním",
       "edmIsRepresentationOf": "představuje",
       "edmIsSimilarTo": "se podobá",
       "edmIsSuccessorOf": "je nástupcem",
       "edmRealizes": "ztvárňuje",
-      "wasPresentAt": "se účastnil/a"
+      "wasPresentAt": "se účastnil\/a"
     },
     "webResource": {
       "dcDescription": "Popis",
@@ -80,7 +80,10 @@ export default {
       "name": "Země původu"
     },
     "REUSABILITY": {
-      "name": "Mohu to znovu použít?"
+      "name": "Mohu to znovu použít?",
+      "options": {
+        "open": "Ano"
+      }
     },
     "THEME": {
       "name": "Kategorie",
@@ -187,7 +190,6 @@ export default {
   },
   "contentfulManual": {
     "headerNavigation": {
-      "teachers": "Učitelé",
       "explore": "Prozkoumat"
     },
     "footerNavigation": {
