@@ -356,7 +356,7 @@
           // Remove collection-specific filters when collection is changed
           // TODO: this is rather crude and will not scale well; improve
           if (name === 'THEME' && !selected['api']) {
-            delete filters['api'];
+            filters['api'] = null;
           }
         }
 
@@ -405,12 +405,6 @@
           theme: this.theme,
           api: this.api
         };
-
-        // override when current theme is newspaper and the new theme is not
-        // TODO: this is a bit of a hack, find a better way
-        if (this.theme === 'newspaper' && updates.theme !== 'newspaper') {
-          current.api = null;
-        }
 
         const updated = { ...current, ...updates };
 
