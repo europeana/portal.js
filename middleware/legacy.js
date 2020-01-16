@@ -7,40 +7,56 @@ function stringifyPathChunks(chunks) {
 
 const rules = [
   // Remove legacy /portal prefix
-  (routePath) => {
+  (route) => {
     const legacyPortalPrefixPattern = /^\/portal(\/.*)$/;
-    const legacyPortalPrefixMatch = routePath.match(legacyPortalPrefixPattern);
-    return legacyPortalPrefixMatch ? legacyPortalPrefixMatch[1] : null;
+    const legacyPortalPrefixMatch = route.path.match(legacyPortalPrefixPattern);
+    return legacyPortalPrefixMatch ? { path: legacyPortalPrefixMatch[1] } : null;
   },
   // Redirect legacy entity page URLs
-  (routePath) => {
+  (route) => {
     const legacyAgentEntityPagePattern = /^(\/[a-z]{2})?(\/explore\/(people|topics))(\/[0-9]+)/;
-    const legacyAgentEntityPageMatch = routePath.match(legacyAgentEntityPagePattern);
-    return legacyAgentEntityPageMatch ? stringifyPathChunks([
-      legacyAgentEntityPageMatch[1],
-      legacyAgentEntityPageMatch[2].replace('/explore', '/entity').replace('/people', '/person').replace('/topics', '/topic'),
-      legacyAgentEntityPageMatch[4]
-    ]) : null;
+    const legacyAgentEntityPageMatch = route.path.match(legacyAgentEntityPagePattern);
+    return legacyAgentEntityPageMatch ? {
+      path: stringifyPathChunks([
+        legacyAgentEntityPageMatch[1],
+        legacyAgentEntityPageMatch[2].replace('/explore', '/entity').replace('/people', '/person').replace('/topics', '/topic'),
+        legacyAgentEntityPageMatch[4]
+      ])
+    } : null;
+  },
+  // Redirect legacy search query parameters
+  (route, query) => {
+    const pattern = /^(\/[a-z]{2})\/search$/;
+    const match = route.path.match(pattern);
+    if (!match) return null;
+
+    if (!query || (!query.q && !query.f)) return null;
+
+    const redirectRoute = { path: route.path, query: {} };
+    if (query.q) {
+      redirectRoute.query.query = query.q;
+    }
+    return redirectRoute;
   },
   // Remove .html suffix
-  (routePath) => {
+  (route) => {
     const legacyHTMLSuffixPattern = /^(.+)\.html$/;
-    const legacyHTMLSuffixMatch = routePath.match(legacyHTMLSuffixPattern);
-    return legacyHTMLSuffixMatch ? stringifyPathChunks(legacyHTMLSuffixMatch.slice(1)) : null;
+    const legacyHTMLSuffixMatch = route.path.match(legacyHTMLSuffixPattern);
+    return legacyHTMLSuffixMatch ? {
+      path: stringifyPathChunks(legacyHTMLSuffixMatch.slice(1))
+    } : null;
   }
 ];
 
-export default ({ redirect, route }) => {
+export default ({ redirect, route, query }) => {
   for (const rule of rules) {
-    const redirectPath = rule(route.path);
-    if (redirectPath) {
-      const redirectRoute = {
-        path: redirectPath
-      };
-      if (route.query) redirectRoute.query = route.query;
+    const redirectRoute = rule(route, query);
+
+    if (redirectRoute) {
+      if (!redirectRoute.query && query) redirectRoute.query = query;
       // TODO: instead of returning here, should we keep looping over other rules
       //       so multiple rules get applied all at once?
-      return redirect(redirectRoute);
+      return redirect(redirectRoute.path, redirectRoute.query);
     }
   }
 };
