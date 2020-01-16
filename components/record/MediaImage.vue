@@ -1,19 +1,25 @@
 <template>
   <b-link
-    v-if="link && src"
-    :href="link"
+    v-if="imageLink && imageSrc"
+    :href="imageLink"
     target="_blank"
   >
     <b-img-lazy
-      :src="src"
+      :src="imageSrc"
       class="mw-100"
       alt=""
       data-qa="media preview image"
     />
+    {{ linkText }}
+    <span
+      class="sr-only"
+    >
+      ({{ $t('newWindow') }})
+    </span>
   </b-link>
   <b-img-lazy
-    v-else-if="!link && src"
-    :src="src"
+    v-else-if="!imageLink && imageSrc"
+    :src="imageSrc"
     alt=""
     class="mw-100"
     data-qa="media preview image"
@@ -21,16 +27,47 @@
 </template>
 
 <script>
+  import { isPDF, isImage } from '../../plugins/media';
+
   export default {
     props: {
-      link: {
+      europeanaIdentifier: {
         type: String,
         default: ''
       },
-      src: {
+      media: {
+        type: Object,
+        default: () => {}
+      },
+      imageSrc: {
         type: String,
         default: ''
+      }
+    },
+
+    computed: {
+      linkText() {
+        if (isPDF(this.media)) {
+          return this.$t('record.view.pdf');
+        } else if (isImage(this.media)) {
+          return this.$t('record.view.image');
+        } else {
+          return this.$t('record.view.media');
+        }
+      },
+      imageLink() {
+        if (!this.media.about) {
+          return false;
+        }
+        return isImage(this.media) ? this.$options.filters.proxyMedia(this.media.about, this.europeanaIdentifier, { disposition: 'inline' }) : this.media.about;
       }
     }
   };
 </script>
+
+<style lang="scss" scoped>
+  img {
+    display: block;
+    margin: 0 auto;
+  }
+</style>

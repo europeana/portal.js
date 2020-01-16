@@ -35,3 +35,13 @@ Feature: Newspapers collection
     When I click the `reset filters button`
     And I wait 3 seconds
     Then I should be on `/en/search?page=1&query=&view=grid`
+
+  Scenario: Newspapers collection API toggle is not removed when switching pages
+    Given I am on the `Newspapers collection page`
+    When I click the `more filters dropdown button`
+    And I click the "metadata" "api" radio
+    And I click the `apply button`
+    And I wait 2 seconds
+    And I go to page number 2
+    And I wait 2 seconds
+    Then I should be on `/en/entity/topic/18-newspaper?page=2&view=grid&api=metadata`
