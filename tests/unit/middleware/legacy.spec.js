@@ -18,7 +18,7 @@ describe('middleware/legacy', () => {
     });
   });
 
-  it('removes .html suffix from record page paths', () => {
+  it('removes .html suffix', () => {
     const redirect = sinon.spy();
 
     middleware({

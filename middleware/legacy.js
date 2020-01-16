@@ -12,12 +12,6 @@ const rules = [
     const legacyPortalPrefixMatch = routePath.match(legacyPortalPrefixPattern);
     return legacyPortalPrefixMatch ? legacyPortalPrefixMatch[1] : null;
   },
-  // Remove .html from record page URLs
-  (routePath) => {
-    const legacyRecordPagePattern = /^(\/[a-z]{2})?(\/record\/[0-9]+\/[a-zA-Z0-9_]+)\.html$/;
-    const legacyRecordPageMatch = routePath.match(legacyRecordPagePattern);
-    return legacyRecordPageMatch ? stringifyPathChunks(legacyRecordPageMatch.slice(1)) : null;
-  },
   // Redirect legacy entity page URLs
   (routePath) => {
     const legacyAgentEntityPagePattern = /^(\/[a-z]{2})?(\/explore\/(people|topics))(\/[0-9]+)/;
@@ -27,6 +21,12 @@ const rules = [
       legacyAgentEntityPageMatch[2].replace('/explore', '/entity').replace('/people', '/person').replace('/topics', '/topic'),
       legacyAgentEntityPageMatch[4]
     ]) : null;
+  },
+  // Remove .html suffix
+  (routePath) => {
+    const legacyHTMLSuffixPattern = /^(.+)\.html$/;
+    const legacyHTMLSuffixMatch = routePath.match(legacyHTMLSuffixPattern);
+    return legacyHTMLSuffixMatch ? stringifyPathChunks(legacyHTMLSuffixMatch.slice(1)) : null;
   }
 ];
 
