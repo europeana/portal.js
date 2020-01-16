@@ -33,16 +33,27 @@ export function isIIIFMedia(media) {
 }
 
 export function isIIIFImage(media) {
-  return isIIIFMedia(media) && ((media.dctermsIsReferencedBy || []).length === 0);
+  return isIIIFMedia(media) && (
+    ((media.dctermsIsReferencedBy || []).length === 0) ||
+    media.dctermsIsReferencedBy.every((dctermsIsReferencedBy) =>
+      dctermsIsReferencedByIsImageInfoRequest(dctermsIsReferencedBy, media.services)
+    )
+  );
+}
+
+function dctermsIsReferencedByIsImageInfoRequest(dctermsIsReferencedBy, services) {
+  return services.some((service) => `${service.about}/info.json` === dctermsIsReferencedBy);
 }
 
 export function isIIIFPresentation(media) {
-  return isIIIFMedia(media) && ((media.dctermsIsReferencedBy || []).length > 0);
+  return isIIIFMedia(media) && !isIIIFImage(media);
 }
 
 export function iiifManifest(media, europeanaIdentifier) {
   if (isIIIFPresentation(media)) {
-    return media.dctermsIsReferencedBy[0];
+    return media.dctermsIsReferencedBy.find((dctermsIsReferencedBy) =>
+      !dctermsIsReferencedByIsImageInfoRequest(dctermsIsReferencedBy, media.services)
+    );
   }
 
   return `https://iiif.europeana.eu/presentation${europeanaIdentifier}/manifest`;
