@@ -65,7 +65,7 @@ export default {
       "edmIsSimilarTo": "Είναι παρόμοιο με",
       "edmIsSuccessorOf": "Είναι διάδοχος του",
       "edmRealizes": "Πραγματοποιεί",
-      "wasPresentAt": "Ήταν παρών/ούσα στο"
+      "wasPresentAt": "Ήταν παρών\/ούσα στο"
     },
     "webResource": {
       "dcDescription": "Περιγραφή",
@@ -80,7 +80,10 @@ export default {
       "name": "Παροχή χώρας"
     },
     "REUSABILITY": {
-      "name": "Μπορώ να το επαναχρησιμοποιήσω αυτό;"
+      "name": "Μπορώ να το επαναχρησιμοποιήσω αυτό;",
+      "options": {
+        "open": "Ναί"
+      }
     },
     "THEME": {
       "name": "Κατηγορία",
@@ -187,7 +190,6 @@ export default {
   },
   "contentfulManual": {
     "headerNavigation": {
-      "teachers": "Εκπαιδευτικοί",
       "explore": "Εξερεύνηση"
     },
     "footerNavigation": {
