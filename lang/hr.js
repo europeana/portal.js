@@ -16,7 +16,7 @@ export default {
   "fieldLabels": {
     "default": {
       "dcContributor": "Suradnici",
-      "dcCreator": "Stvorio/la",
+      "dcCreator": "Stvorio\/la",
       "dcDescription": "Opis",
       "dcTitle": "Naslov",
       "dcType": "Vrsta objekta",
@@ -80,7 +80,10 @@ export default {
       "name": "Država iz koje dolazi"
     },
     "REUSABILITY": {
-      "name": "Mogu li ovo ponovno upotrijebiti?"
+      "name": "Mogu li ovo ponovno upotrijebiti?",
+      "options": {
+        "open": "Da"
+      }
     },
     "THEME": {
       "name": "Kategorija",
@@ -188,7 +191,6 @@ export default {
   },
   "contentfulManual": {
     "headerNavigation": {
-      "teachers": "Nastavnici",
       "explore": "Istraži"
     },
     "footerNavigation": {
