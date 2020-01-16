@@ -187,7 +187,6 @@ export default {
   },
   "contentfulManual": {
     "headerNavigation": {
-      "teachers": "Opettajat",
       "explore": "Tutki"
     },
     "footerNavigation": {
