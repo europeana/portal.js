@@ -80,7 +80,10 @@ export default {
       "name": "Pakkuja riik"
     },
     "REUSABILITY": {
-      "name": "Kas ma saan seda uuesti kasutada?"
+      "name": "Kas ma saan seda uuesti kasutada?",
+      "options": {
+        "open": "Jah"
+      }
     },
     "THEME": {
       "name": "Kategooria",
@@ -187,7 +190,6 @@ export default {
   },
   "contentfulManual": {
     "headerNavigation": {
-      "teachers": "Õpetajad",
       "explore": "Tutvuge"
     },
     "footerNavigation": {
