@@ -1,11 +1,10 @@
 // Remove .html suffix
 
-import { stringifyPathChunks } from '../utils';
-
 export default (route) => {
-  const legacyHTMLSuffixPattern = /^(.+)\.html$/;
-  const legacyHTMLSuffixMatch = route.path.match(legacyHTMLSuffixPattern);
-  return legacyHTMLSuffixMatch ? {
-    path: stringifyPathChunks(legacyHTMLSuffixMatch.slice(1))
+  const pattern = /^(.+)\.html$/;
+  const match = route.path.match(pattern);
+
+  return match ? {
+    path: match.slice(1)
   } : null;
 };

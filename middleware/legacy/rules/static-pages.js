@@ -2,8 +2,6 @@
 
 import escapeRegExp from 'lodash/escapeRegExp';
 
-import { stringifyPathChunks } from '../utils';
-
 const redirects = {
   '/collections/world-war-I': '/entity/topic/83-1914-1918',
   '/collections/archaeology': '/entity/topic/80-archaeology',
@@ -20,19 +18,17 @@ const redirects = {
   '/collections/sport': '/entity/topic/114-sport'
 };
 
-
 export default (route) => {
   for (const redirectFrom in redirects) {
     const pattern = new RegExp(`^(/[a-z]{2})?${escapeRegExp(redirectFrom)}$`);
     const match = route.path.match(pattern);
-    if (match) {
-      return {
-        path: stringifyPathChunks([
-          match[1],
-          redirects[redirectFrom]
-        ])
-      };
-    }
+
+    if (match) return {
+      path: [
+        match[1],
+        redirects[redirectFrom]
+      ]
+    };
   }
   return null;
 };

@@ -20,6 +20,10 @@ const rules = [
   { from: '/en/collections/newspapers', to: '/en/entity/topic/18-newspaper' },
   { from: '/en/collections/photography', to: '/en/entity/topic/48-photography' },
   { from: '/en/collections/sport', to: '/en/entity/topic/114-sport' }
+
+  // TODO: fails. Need to extract the route path and query from fixtures above
+  //       to pass into the middleware and spy below.
+  // { from: '/portal/en/search?q=fish', to: '/en/search?query=fish' }
 ];
 
 describe('middleware/legacy', () => {

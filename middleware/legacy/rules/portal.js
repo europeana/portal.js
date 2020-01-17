@@ -1,7 +1,8 @@
 // Remove legacy /portal prefix
 
 export default (route) => {
-  const legacyPortalPrefixPattern = /^\/portal(\/.*)$/;
-  const legacyPortalPrefixMatch = route.path.match(legacyPortalPrefixPattern);
-  return legacyPortalPrefixMatch ? { path: legacyPortalPrefixMatch[1] } : null;
+  const pattern = /^\/portal(\/.*)$/;
+
+  const match = route.path.match(pattern);
+  return match ? { path: match[1] } : null;
 };
