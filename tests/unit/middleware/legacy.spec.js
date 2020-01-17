@@ -28,7 +28,8 @@ const rules = [
   { from: '/portal/en/search?f%5BREUSABILITY%5D%5B%5D=open&f%5BREUSABILITY%5D%5B%5D=restricted', to: '/en/search?query=&reusability=open,restricted' },
   { from: '/portal/en/search?f%5Bapi%5D%5B%5D=default', to: '/en/search?query=&api=metadata' },
   { from: '/portal/en/search?f%5Bapi%5D%5B%5D=api', to: '/en/search?query=&api=fulltext' },
-  { from: '/portal/en/search?qf%5B%5D=whale&qf%5B%5D=haunted', to: '/en/search?query=&qf=whale&qf=haunted' }
+  { from: '/portal/en/search?qf%5B%5D=whale&qf%5B%5D=haunted', to: '/en/search?query=&qf=whale&qf=haunted' },
+  { from: '/portal/en/collections/art?q=paint', to: '/en/search?query=paint&theme=art' }
 ];
 
 describe('middleware/legacy', () => {
