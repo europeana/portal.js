@@ -1,7 +1,7 @@
 <template>
   <b-form-checkbox
     :value="option"
-    :data-qa="`${option} checkbox`"
+    :data-qa="`${option} ${facetName} checkbox`"
     class="mb-2"
   >
     <ColourSwatch

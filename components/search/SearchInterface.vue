@@ -18,6 +18,7 @@
       >
         <b-col>
           <SearchFilters
+            :facets="facets"
             :filters="filters"
           />
         </b-col>
@@ -138,9 +139,7 @@
   import PaginationNav from '../../components/generic/PaginationNav';
   import ViewToggles from '../../components/search/ViewToggles';
   import TierToggler from '../../components/search/TierToggler';
-  import {
-    unquotableFacets, thematicCollections
-  } from '../../plugins/europeana/search';
+  import { thematicCollections } from '../../plugins/europeana/search';
 
   import isEqual from 'lodash/isEqual';
   import pickBy from 'lodash/pickBy';
@@ -219,7 +218,7 @@
           for (const qf of [].concat(this.userParams.qf)) {
             const qfParts = qf.split(':');
             const facetName = qfParts[0];
-            const facetValue = qfParts.slice(1).join(':').replace(/^"(.*)"$/, '$1');
+            const facetValue = qfParts.slice(1).join(':');
             if (typeof filters[facetName] === 'undefined') {
               filters[facetName] = [];
             }
@@ -339,6 +338,7 @@
           if ((Array.isArray(selected) && selected.length === 0) || !selected) return;
         }
         if (isEqual(this.filters[name], selected)) return;
+
         return this.rerouteSearch(this.queryUpdatesForFacetChanges({ [name]: selected }));
       },
       changeMoreFacets(selected) {
@@ -388,15 +388,11 @@
             queryUpdates.api = selectedValues;
           } else {
             for (const facetValue of selectedValues) {
-              const quotedValue = this.enquoteFacet(facetName) ? `"${facetValue}"` : facetValue;
-              queryUpdates.qf.push(`${facetName}:${quotedValue}`);
+              queryUpdates.qf.push(`${facetName}:${facetValue}`);
             }
           }
         }
         return queryUpdates;
-      },
-      enquoteFacet(facetName) {
-        return this.facetNames.includes(facetName) && !unquotableFacets.includes(facetName);
       },
       updateCurrentSearchQuery(updates = {}) {
         const current = {

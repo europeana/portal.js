@@ -1,5 +1,5 @@
 import merge from 'deepmerge';
-import search from '../plugins/europeana/search';
+import search, { unquotableFacets } from '../plugins/europeana/search';
 
 // Default facets to always request and display.
 // Order is significant as it will be reflected on search results.
@@ -63,6 +63,13 @@ export const mutations = {
     state.errorStatusCode = value;
   },
   setFacets(state, value) {
+    for (const facet of value) {
+      if (!unquotableFacets.includes(facet.name)) {
+        for (const field of facet.fields) {
+          field.label = `"${field.label}"`;
+        }
+      }
+    }
     state.facets = value;
   },
   setLastAvailablePage(state, value) {

@@ -21,7 +21,7 @@
           v-model="preSelected"
           :value="option"
           :name="name"
-          :data-qa="`${option} ${RADIO}`"
+          :data-qa="`${option} ${name} ${RADIO}`"
         >
           <FacetFieldLabel
             :facet-name="name"
@@ -37,7 +37,7 @@
           v-model="preSelected"
           :value="option.label"
           :name="name"
-          :data-qa="`${option.label} ${CHECKBOX}`"
+          :data-qa="`${option.label} ${name} ${CHECKBOX}`"
         >
           <FacetFieldLabel
             :facet-name="name"

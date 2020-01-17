@@ -16,6 +16,7 @@ export const unquotableFacets = [
   'IMAGE_SIZE',
   'MEDIA',
   'MIME_TYPE',
+  'REUSABILITY',
   'SOUND_DURATION',
   'SOUND_HQ',
   'TEXT_FULLTEXT',
