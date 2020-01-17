@@ -127,7 +127,7 @@ module.exports = {
   },
 
   router: {
-    middleware: ['legacy', 'l10n'],
+    middleware: ['legacy/index', 'l10n'],
     extendRoutes(routes) {
       routes.push({
         name: 'slug',
