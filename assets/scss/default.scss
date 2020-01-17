@@ -81,6 +81,14 @@ figcaption {
     margin-right: 1rem;
     padding: 0.5rem 1rem;
     position: absolute;
+
+    .attribution > span {
+      margin-left: 0.25rem;
+
+      .license {
+        font-size: $font-size-small;
+      }
+    }
   }  
 }
 
