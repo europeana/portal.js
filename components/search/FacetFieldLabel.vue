@@ -47,7 +47,8 @@
       },
 
       genericLabel() {
-        const key = `facets.${this.facetName}.options.${this.fieldValue}`;
+        const unquotedFieldValue = this.fieldValue.replace(/^"(.*)"$/, '$1');
+        const key = `facets.${this.facetName}.options.${unquotedFieldValue}`;
 
         let genericLabel;
         if (this.$te(key)) {
@@ -55,7 +56,7 @@
         } else if (this.$te(key, 'en')) {
           genericLabel = this.$t(key, 'en');
         } else {
-          genericLabel = this.fieldValue;
+          genericLabel = unquotedFieldValue;
         }
         return genericLabel;
       },

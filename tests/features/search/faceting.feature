@@ -3,7 +3,7 @@ Feature: Search faceting
   Scenario: Filtering results by type
     Given I am on the `search page`
     When I click the `TYPE dropdown button`
-    And I check the "IMAGE" "TYPE" checkbox
+    And I check the "\"IMAGE\"" "TYPE" checkbox
     And I click the `TYPE apply button`
     And I wait 2 seconds
     Then I should be on `/en/search?page=1&qf=TYPE%3A%22IMAGE%22&query=&view=grid`
@@ -50,7 +50,7 @@ Feature: Search faceting
   Scenario: Filtering results by country
     Given I am on the `search page`
     When I click the `COUNTRY dropdown button`
-    And I check the "Belgium" "COUNTRY" checkbox
+    And I check the "\"Belgium\"" "COUNTRY" checkbox
     And I click the `COUNTRY apply button`
     And I wait 2 seconds
     Then I should be on `/en/search?page=1&qf=COUNTRY%3A%22Belgium%22&query=&view=grid`
@@ -60,8 +60,8 @@ Feature: Search faceting
   Scenario: Filtering results by two countries
     Given I am on the `search page`
     When I click the `COUNTRY dropdown button`
-    And I check the "Belgium" "COUNTRY" checkbox
-    And I check the "Germany" "COUNTRY" checkbox
+    And I check the "\"Belgium\"" "COUNTRY" checkbox
+    And I check the "\"Germany\"" "COUNTRY" checkbox
     And I click the `COUNTRY apply button`
     And I wait 2 seconds
     Then I should be on `/en/search?page=1&qf=COUNTRY%3A%22Belgium%22&qf=COUNTRY%3A%22Germany%22&query=&view=grid`
@@ -71,10 +71,10 @@ Feature: Search faceting
   Scenario: Filtering using a combination of facet fields
     Given I am on the `search page`
     When I click the `COUNTRY dropdown button`
-    And I check the "Belgium" "COUNTRY" checkbox
+    And I check the "\"Belgium\"" "COUNTRY" checkbox
     And I click the `COUNTRY apply button`
     And I click the `TYPE dropdown button`
-    And I check the "IMAGE" "TYPE" checkbox
+    And I check the "\"IMAGE\"" "TYPE" checkbox
     And I click the `TYPE apply button`
     And I click the `REUSABILITY dropdown button`
     And I check the "open" "REUSABILITY" checkbox
@@ -91,10 +91,10 @@ Feature: Search faceting
   Scenario: Unselecting facets
     Given I am on `/en/search?query=&page=1&reusability=open&qf=TYPE%3A%22IMAGE%22&qf=COUNTRY%3A%22Belgium%22`
     When I click the `COUNTRY dropdown button`
-    And I check the "Belgium" "COUNTRY" checkbox
+    And I check the "\"Belgium\"" "COUNTRY" checkbox
     And I click the `COUNTRY apply button`
     And I click the `TYPE dropdown button`
-    And I check the "IMAGE" "TYPE" checkbox
+    And I check the "\"IMAGE\"" "TYPE" checkbox
     And I click the `TYPE apply button`
     And I click the `REUSABILITY dropdown button`
     And I check the "open" "REUSABILITY" checkbox
@@ -107,7 +107,7 @@ Feature: Search faceting
   Scenario: Filtering results by country and have a corresponding record page
     Given I am on the `search page`
     When I click the `COUNTRY dropdown button`
-    And I check the "Belgium" "COUNTRY" checkbox
+    And I check the "\"Belgium\"" "COUNTRY" checkbox
     And I click the `COUNTRY apply button`
     And I wait 2 seconds
     And I click a `search result`
@@ -118,8 +118,8 @@ Feature: Search faceting
   Scenario: Filtering results by two countries and have a corresponding record page
     Given I am on the `search page`
     When I click the `COUNTRY dropdown button`
-    And I check the "Belgium" "COUNTRY" checkbox
-    And I check the "Germany" "COUNTRY" checkbox
+    And I check the "\"Belgium\"" "COUNTRY" checkbox
+    And I check the "\"Germany\"" "COUNTRY" checkbox
     And I click the `COUNTRY apply button`
     And I wait 3 seconds
     And I click a `search result`
@@ -130,7 +130,7 @@ Feature: Search faceting
   Scenario: Preserve filtering when performing a new search
     Given I am on the `search page`
     When I click the `COUNTRY dropdown button`
-    And I check the "France" "COUNTRY" checkbox
+    And I check the "\"France\"" "COUNTRY" checkbox
     And I click the `COUNTRY apply button`
     And I wait 2 seconds
     And I enter "paris" in the `search box`
@@ -143,14 +143,14 @@ Feature: Search faceting
   Scenario: Paginating with facets
     Given I am on the `search page`
     When I click the `TYPE dropdown button`
-    And I check the "IMAGE" "TYPE" checkbox
+    And I check the "\"IMAGE\"" "TYPE" checkbox
     And I click the `TYPE apply button`
     And I wait 2 seconds
     And I go to page number 2
     And I wait 2 seconds
     And I am on page number 2
     And I click the `TYPE dropdown button`
-    And I check the "VIDEO" "TYPE" checkbox
+    And I check the "\"VIDEO\"" "TYPE" checkbox
     And I click the `TYPE apply button`
     And I wait 2 seconds
     Then I am on page number 1
@@ -167,8 +167,8 @@ Feature: Search faceting
   Scenario: Filtering results using the more facets dropdown
     Given I am on the `search page`
     When I click the `more filters dropdown button`
-    And I check the "en" "Language" checkbox
-    And I check the "sv" "Language" checkbox
+    And I check the "\"en\"" "Language" checkbox
+    And I check the "\"sv\"" "Language" checkbox
     And I click the `apply button`
     And I wait 2 seconds
     Then I should be on `/en/search?page=1&qf=LANGUAGE%3A%22en%22&qf=LANGUAGE%3A%22sv%22&query=&view=grid`
@@ -177,8 +177,8 @@ Feature: Search faceting
   Scenario: Clicking reset button in more facets
     Given I am on the `search page`
     When I click the `more filters dropdown button`
-    And I check the "en" "Language" checkbox
-    And I check the "sv" "Language" checkbox
+    And I check the "\"en\"" "Language" checkbox
+    And I check the "\"sv\"" "Language" checkbox
     And I click the `apply button`
     And I wait 2 seconds
     And I click the `more filters dropdown button`
@@ -190,10 +190,10 @@ Feature: Search faceting
   Scenario: Clear filters using using `clear all filter` button
     Given I am on the `search page`
     When I click the `COUNTRY dropdown button`
-    And I check the "France" "COUNTRY" checkbox
+    And I check the "\"France\"" "COUNTRY" checkbox
     And I click the `COUNTRY apply button`
     And I click the `TYPE dropdown button`
-    And I check the "IMAGE" "TYPE" checkbox
+    And I check the "\"IMAGE\"" "TYPE" checkbox
     And I click the `TYPE apply button`
     And I wait 2 seconds
     And I should be on `/en/search?page=1&qf=COUNTRY%3A%22France%22&qf=TYPE%3A%22IMAGE%22&query=&view=grid`
