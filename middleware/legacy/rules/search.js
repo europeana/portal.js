@@ -50,5 +50,7 @@ export default (route, query = {}) => {
     mapQueryParameter(redirect.query, key, value);
   }
 
+  if (redirect.query.qf.length === 0) delete redirect.query.qf;
+
   return redirect;
 };

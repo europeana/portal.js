@@ -27,6 +27,7 @@ export default ({ redirect, route, query }) => {
     if (redirectRoute) {
       if (Array.isArray(redirectRoute.path)) redirectRoute.path = stringifyPathChunks(redirectRoute.path);
       if (!redirectRoute.query && query) redirectRoute.query = query;
+
       // TODO: instead of returning here, should we keep looping over other rules
       //       so multiple rules get applied all at once?
       return redirect(redirectRoute.path, redirectRoute.query);

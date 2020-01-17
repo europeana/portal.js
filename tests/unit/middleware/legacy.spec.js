@@ -1,3 +1,4 @@
+import qs from 'qs';
 import sinon from 'sinon';
 
 import middleware from '../../../middleware/legacy';
@@ -19,11 +20,15 @@ const rules = [
   { from: '/en/collections/natural-history', to: '/en/entity/topic/156-natural-history' },
   { from: '/en/collections/newspapers', to: '/en/entity/topic/18-newspaper' },
   { from: '/en/collections/photography', to: '/en/entity/topic/48-photography' },
-  { from: '/en/collections/sport', to: '/en/entity/topic/114-sport' }
-
-  // TODO: fails. Need to extract the route path and query from fixtures above
-  //       to pass into the middleware and spy below.
-  // { from: '/portal/en/search?q=fish', to: '/en/search?query=fish' }
+  { from: '/en/collections/sport', to: '/en/entity/topic/114-sport' },
+  { from: '/portal/en/search?q=fish', to: '/en/search?query=fish' },
+  { from: '/portal/en/search?q=fish&view=list', to: '/en/search?query=fish&view=list' },
+  { from: '/portal/en/search?f%5BTYPE%5D%5B%5D=TEXT&f%5BTYPE%5D%5B%5D=IMAGE', to: '/en/search?query=&qf=TYPE%3A"TEXT"&qf=TYPE%3A"IMAGE"' },
+  { from: '/portal/en/search?f%5BREUSABILITY%5D%5B%5D=open', to: '/en/search?query=&reusability=open' },
+  { from: '/portal/en/search?f%5BREUSABILITY%5D%5B%5D=open&f%5BREUSABILITY%5D%5B%5D=restricted', to: '/en/search?query=&reusability=open,restricted' },
+  { from: '/portal/en/search?f%5Bapi%5D%5B%5D=default', to: '/en/search?query=&api=metadata' },
+  { from: '/portal/en/search?f%5Bapi%5D%5B%5D=api', to: '/en/search?query=&api=fulltext' },
+  { from: '/portal/en/search?qf%5B%5D=whale&qf%5B%5D=haunted', to: '/en/search?query=&qf=whale&qf=haunted' }
 ];
 
 describe('middleware/legacy', () => {
@@ -31,14 +36,25 @@ describe('middleware/legacy', () => {
     it(`redirects ${rule.from} to ${rule.to}`, () => {
       const redirect = sinon.spy();
 
+      const fromPath = rule.from.split('?')[0];
+      const fromQuery = qs.parse(rule.from.split('?')[1], { depth: 0 });
+
       middleware({
         redirect,
         route: {
-          path: rule.from
-        }
+          path: fromPath
+        },
+        query: fromQuery || {}
       });
 
-      redirect.should.have.been.calledWith(rule.to);
+      const toPath = rule.to.split('?')[0];
+      const toQuery = qs.parse(rule.to.split('?')[1], { depth: 0 });
+
+      if (Object.keys(toQuery).length > 0) {
+        redirect.should.have.been.calledWith(toPath, toQuery);
+      } else {
+        redirect.should.have.been.calledWith(toPath);
+      }
     });
   }
 });
