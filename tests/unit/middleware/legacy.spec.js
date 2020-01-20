@@ -23,13 +23,27 @@ const rules = [
   { from: '/en/collections/sport', to: '/en/entity/topic/114-sport' },
   { from: '/portal/en/search?q=fish', to: '/en/search?query=fish' },
   { from: '/portal/en/search?q=fish&view=list', to: '/en/search?query=fish&view=list' },
-  { from: '/portal/en/search?f%5BTYPE%5D%5B%5D=TEXT&f%5BTYPE%5D%5B%5D=IMAGE', to: '/en/search?query=&qf=TYPE%3A"TEXT"&qf=TYPE%3A"IMAGE"' },
+  {
+    from: '/portal/en/search?f%5BTYPE%5D%5B%5D=TEXT&f%5BTYPE%5D%5B%5D=IMAGE',
+    to: '/en/search?query=&qf=TYPE%3A"TEXT"&qf=TYPE%3A"IMAGE"'
+  },
   { from: '/portal/en/search?f%5BREUSABILITY%5D%5B%5D=open', to: '/en/search?query=&reusability=open' },
-  { from: '/portal/en/search?f%5BREUSABILITY%5D%5B%5D=open&f%5BREUSABILITY%5D%5B%5D=restricted', to: '/en/search?query=&reusability=open,restricted' },
+  {
+    from: '/portal/en/search?f%5BREUSABILITY%5D%5B%5D=open&f%5BREUSABILITY%5D%5B%5D=restricted',
+    to: '/en/search?query=&reusability=open,restricted'
+  },
   { from: '/portal/en/search?f%5Bapi%5D%5B%5D=default', to: '/en/search?query=&api=metadata' },
   { from: '/portal/en/search?f%5Bapi%5D%5B%5D=api', to: '/en/search?query=&api=fulltext' },
   { from: '/portal/en/search?qf%5B%5D=whale&qf%5B%5D=haunted', to: '/en/search?query=&qf=whale&qf=haunted' },
-  { from: '/portal/en/collections/art?q=paint', to: '/en/search?query=paint&theme=art' }
+  { from: '/portal/en/collections/art?q=paint', to: '/en/search?query=paint&theme=art' },
+  {
+    from: '/portal/en/collections/newspapers?q=&range%5Bproxy_dcterms_issued%5D%5Bbegin%5D=1900-01-01&range%5Bproxy_dcterms_issued%5D%5Bend%5D=1910-01-01',
+    to: '/en/search?query=&theme=newspaper&qf=proxy_dcterms_issued%3A%5B1900-01-01+TO+1910-01-01%5D'
+  },
+  {
+    from: '/portal/en/collections/newspapers?q=&range%5Bproxy_dcterms_issued%5D%5Bbegin%5D=1900-01-01&range%5Bproxy_dcterms_issued%5D%5Bend%5D=1900-01-01',
+    to: '/en/search?query=&theme=newspaper&qf=proxy_dcterms_issued%3A1900-01-01'
+  }
 ];
 
 describe('middleware/legacy', () => {
@@ -43,7 +57,8 @@ describe('middleware/legacy', () => {
       middleware({
         redirect,
         route: {
-          path: fromPath
+          path: fromPath,
+          fullPath: rule.from
         },
         query: fromQuery || {}
       });
