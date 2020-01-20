@@ -138,13 +138,11 @@
   import PaginationNav from '../../components/generic/PaginationNav';
   import ViewToggles from '../../components/search/ViewToggles';
   import TierToggler from '../../components/search/TierToggler';
-  import {
-    defaultFacetNames, unquotableFacets, thematicCollections
-  } from '../../plugins/europeana/search';
+  import { thematicCollections } from '../../plugins/europeana/search';
 
   import isEqual from 'lodash/isEqual';
   import pickBy from 'lodash/pickBy';
-  import { mapState } from 'vuex';
+  import { mapState, mapGetters } from 'vuex';
 
   export default {
     components: {
@@ -195,6 +193,9 @@
         results: state => state.search.results,
         totalResults: state => state.search.totalResults
       }),
+      ...mapGetters({
+        facetNames: 'search/facetNames'
+      }),
       qf() {
         return this.userParams.qf;
       },
@@ -216,7 +217,7 @@
           for (const qf of [].concat(this.userParams.qf)) {
             const qfParts = qf.split(':');
             const facetName = qfParts[0];
-            const facetValue = qfParts.slice(1).join(':').replace(/^"(.*)"$/, '$1');
+            const facetValue = qfParts.slice(1).join(':');
             if (typeof filters[facetName] === 'undefined') {
               filters[facetName] = [];
             }
@@ -279,7 +280,7 @@
         let unordered = this.facets.slice();
         let ordered = [];
 
-        for (const facetName of defaultFacetNames) {
+        for (const facetName of this.facetNames) {
           const index = unordered.findIndex((f) => {
             return f.name === facetName;
           });
@@ -297,7 +298,7 @@
         return this.orderedFacets.filter(facet => this.coreFacetNames.includes(facet.name));
       },
       moreFacetNames() {
-        return defaultFacetNames.filter(facetName => !this.coreFacetNames.includes(facetName));
+        return this.facetNames.filter(facetName => !this.coreFacetNames.includes(facetName));
       },
       moreFacets() {
         return this.orderedFacets.filter(facet => this.moreFacetNames.includes(facet.name));
@@ -307,7 +308,7 @@
           this.moreFacetNames.includes(name) || ['api', this.PROXY_DCTERMS_ISSUED].includes(name));
       },
       dropdownFilterNames() {
-        return defaultFacetNames.concat(this.PROXY_DCTERMS_ISSUED, this.THEME, 'api');
+        return this.facetNames.concat(this.PROXY_DCTERMS_ISSUED, this.THEME, 'api');
       },
       enableMoreFacets() {
         return this.moreFacets.length > 0;
@@ -336,6 +337,7 @@
           if ((Array.isArray(selected) && selected.length === 0) || !selected) return;
         }
         if (isEqual(this.filters[name], selected)) return;
+
         return this.rerouteSearch(this.queryUpdatesForFacetChanges({ [name]: selected }));
       },
       changeMoreFacets(selected) {
@@ -385,15 +387,11 @@
             queryUpdates.api = selectedValues;
           } else {
             for (const facetValue of selectedValues) {
-              const quotedValue = this.enquoteFacet(facetName) ? `"${facetValue}"` : facetValue;
-              queryUpdates.qf.push(`${facetName}:${quotedValue}`);
+              queryUpdates.qf.push(`${facetName}:${facetValue}`);
             }
           }
         }
         return queryUpdates;
-      },
-      enquoteFacet(facetName) {
-        return defaultFacetNames.includes(facetName) && !unquotableFacets.includes(facetName);
       },
       updateCurrentSearchQuery(updates = {}) {
         const current = {

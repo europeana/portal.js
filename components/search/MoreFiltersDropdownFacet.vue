@@ -1,6 +1,7 @@
 <template>
   <b-form-group
     :label="$tc(`facets.${name}.name`, 1)"
+    :data-qa="`${name} facet`"
   >
     <b-form-checkbox-group
       v-model="selectedOptions"

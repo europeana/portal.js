@@ -1,6 +1,20 @@
 import merge from 'deepmerge';
-import search from '../plugins/europeana/search';
-import apiConfig from '../plugins/europeana/api';
+import search, { unquotableFacets } from '../plugins/europeana/search';
+
+// Default facets to always request and display.
+// Order is significant as it will be reflected on search results.
+export const defaultFacetNames = [
+  'TYPE',
+  'REUSABILITY',
+  'COUNTRY',
+  'LANGUAGE',
+  'PROVIDER',
+  'DATA_PROVIDER',
+  'COLOURPALETTE',
+  'IMAGE_ASPECTRATIO',
+  'IMAGE_SIZE',
+  'MIME_TYPE'
+];
 
 export const state = () => ({
   active: false,
@@ -49,6 +63,13 @@ export const mutations = {
     state.errorStatusCode = value;
   },
   setFacets(state, value) {
+    for (const facet of value) {
+      if (!unquotableFacets.includes(facet.name)) {
+        for (const field of facet.fields) {
+          field.label = `"${field.label}"`;
+        }
+      }
+    }
     state.facets = value;
   },
   setLastAvailablePage(state, value) {
@@ -69,6 +90,9 @@ export const mutations = {
   },
   setPill(state, value) {
     state.pill = value;
+  },
+  set(state, payload) {
+    state[payload[0]] = payload[1];
   }
 };
 
@@ -84,6 +108,16 @@ export const getters = {
       }
     }
     return 'grid';
+  },
+
+  facetNames(state) {
+    return (state.apiParams.facet || '').split(',');
+  },
+
+  hasCollectionSpecificSettings: (state, getters, rootState) => (theme) => {
+    return (!!theme) &&
+      (!!rootState.collections && !!rootState.collections[theme]) &&
+      ((rootState.collections[theme].enabled === undefined) || rootState.collections[theme].enabled);
   }
 };
 
@@ -110,35 +144,29 @@ export const actions = {
     userParams.qf = [].concat(userParams.qf || []);
 
     const apiParams = merge(userParams, state.overrideParams || {});
+    if (!apiParams.facet) {
+      apiParams.facet = defaultFacetNames.join(',');
+    }
+    if (!apiParams.profile) {
+      apiParams.profile = 'minimal,facets';
+    }
+
     commit('setApiParams', apiParams);
     commit('setApiOptions', {});
 
-    if (apiParams.theme === 'newspaper') {
-      await dispatch('deriveApiSettingsForNewspaperTheme');
-    }
+    await dispatch('applyCollectionSpecificSettings');
   },
 
-  deriveApiSettingsForNewspaperTheme({ commit, state }) {
-    const apiParams = Object.assign({}, state.apiParams);
-    const apiOptions = Object.assign({}, state.apiOptions);
+  applyCollectionSpecificSettings({ commit, getters, rootGetters, rootState, state }) {
+    const theme = state.apiParams.theme;
+    if (!getters.hasCollectionSpecificSettings(theme)) return;
 
-    // Ensure newspapers collection gets fulltext API by default
-    if (!apiParams.api) {
-      apiParams.api = 'fulltext';
+    for (const property of ['apiParams', 'apiOptions']) {
+      if (rootState.collections[theme][property] !== undefined) {
+        commit(`collections/${theme}/set`, [property, state[property]], { root: true });
+        commit('set', [property, rootGetters[`collections/${theme}/${property}`]]);
+      }
     }
-
-    if (apiParams.api === 'fulltext') {
-      // TODO: fulltext search API should be aware of contentTier, but is not.
-      //       If & when it is, this can be removed.
-      apiParams.qf = ([].concat(apiParams.qf)).filter(qf => !/^contentTier:/.test(qf));
-      apiParams.qf.push('contentTier:*');
-
-      apiOptions.origin = apiConfig.newspaper.origin;
-      apiParams.wskey = apiConfig.newspaper.key;
-    }
-
-    commit('setApiParams', apiParams);
-    commit('setApiOptions', apiOptions);
   },
 
   /**
@@ -151,6 +179,7 @@ export const actions = {
       .then((response) => dispatch('updateForSuccess', response))
       .catch((error) => dispatch('updateForFailure', error));
   },
+
   updateForSuccess({ commit }, response) {
     commit('setError', response.error);
     commit('setErrorStatusCode', null);
@@ -159,6 +188,7 @@ export const actions = {
     commit('setResults', response.results);
     commit('setTotalResults', response.totalResults);
   },
+
   updateForFailure({ commit }, error) {
     commit('setError', error.message);
     commit('setErrorStatusCode', (typeof error.statusCode !== 'undefined') ? error.statusCode : 500);

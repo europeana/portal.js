@@ -5,6 +5,7 @@ import Vuex from 'vuex';
 import sinon from 'sinon';
 
 import SearchInterface from '../../../../components/search/SearchInterface.vue';
+import { defaultFacetNames } from '../../../../store/search';
 
 const localVue = createLocalVue();
 localVue.filter('localise', (number) => number);
@@ -39,17 +40,28 @@ const factory = (options = {}) => {
     ...options.mocks
   };
   const store = new Vuex.Store({
-    state: {
-      search: {
-        facets: [],
-        userParams: {},
-        apiParams: {},
-        results: [],
-        themeFacetEnabled: true,
-        ...options.storeState
-      },
+    modules: {
       entity: {
-        id: null
+        namespaced: true,
+        state: {
+          id: null
+        }
+      },
+      search: {
+        namespaced: true,
+        state: {
+          facets: [],
+          userParams: {},
+          apiParams: {},
+          results: [],
+          themeFacetEnabled: true,
+          ...options.storeState
+        },
+        getters: {
+          facetNames() {
+            return defaultFacetNames;
+          }
+        }
       }
     }
   });
@@ -106,14 +118,14 @@ describe('components/search/SearchInterface', () => {
             }
           });
 
-          wrapper.vm.filters.should.deep.eql({ 'TYPE': ['IMAGE'] });
+          wrapper.vm.filters.should.deep.eql({ 'TYPE': ['"IMAGE"'] });
         });
       });
 
       context('with multiple query qf values', () => {
         it('returns them in arrays on properties named for each facet', async() => {
-          const query = { qf: ['TYPE:"IMAGE"', 'TYPE:"VIDEO"', 'REUSABILITY:"open"'] };
-          const expected = { 'TYPE': ['IMAGE', 'VIDEO'], 'REUSABILITY': ['open'] };
+          const query = { qf: ['TYPE:"IMAGE"', 'TYPE:"VIDEO"', 'REUSABILITY:open'] };
+          const expected = { 'TYPE': ['"IMAGE"', '"VIDEO"'], 'REUSABILITY': ['open'] };
 
           const wrapper = await factory({
             storeState: {
@@ -173,7 +185,7 @@ describe('components/search/SearchInterface', () => {
       context('with query that has two colons', () => {
         it('returns an array with a string seperated by a colon ', async() => {
           const query = { qf: 'DATA_PROVIDER:"Galiciana: Biblioteca Digital de Galicia"' };
-          const expected = { 'DATA_PROVIDER': ['Galiciana: Biblioteca Digital de Galicia'] };
+          const expected = { 'DATA_PROVIDER': ['"Galiciana: Biblioteca Digital de Galicia"'] };
 
           const wrapper = await factory({
             storeState: {
@@ -377,7 +389,7 @@ describe('components/search/SearchInterface', () => {
 
       context('for default facets from search plugin supporting quotes', () => {
         it('includes fielded and quoted queries for each value in `qf`', () => {
-          const selected = { 'TYPE': ['IMAGE', 'SOUND'] };
+          const selected = { 'TYPE': ['"IMAGE"', '"SOUND"'] };
           const updates = wrapper.vm.queryUpdatesForFacetChanges(selected);
           updates.qf.should.include('TYPE:"IMAGE"');
           updates.qf.should.include('TYPE:"SOUND"');
@@ -405,12 +417,12 @@ describe('components/search/SearchInterface', () => {
       const facetName = 'TYPE';
 
       context('when facet had selected values', () => {
-        const initialSelectedValues = ['IMAGE'];
+        const initialSelectedValues = ['"IMAGE"'];
         const initialSelectedQf = 'TYPE:"IMAGE"';
         const storeState = { userParams: { qf: initialSelectedQf } };
 
         context('and they changed', () => {
-          const newSelectedValues = ['IMAGE', 'TEXT'];
+          const newSelectedValues = ['"IMAGE"', '"TEXT"'];
 
           it('triggers rerouting', async() => {
             const wrapper = factory({ storeState });
@@ -436,7 +448,7 @@ describe('components/search/SearchInterface', () => {
         const storeState = { userParams: {} };
 
         context('and some were selected', () => {
-          const newSelectedValues = ['IMAGE', 'TEXT'];
+          const newSelectedValues = ['"IMAGE"', '"TEXT"'];
 
           it('triggers rerouting', async() => {
             const wrapper = await factory({ storeState });
