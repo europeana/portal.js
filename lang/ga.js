@@ -187,7 +187,6 @@ export default {
   },
   "contentfulManual": {
     "headerNavigation": {
-      "teachers": "Múinteoirí",
       "explore": "Taiscéal"
     },
     "footerNavigation": {

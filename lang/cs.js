@@ -80,7 +80,10 @@ export default {
       "name": "Země původu"
     },
     "REUSABILITY": {
-      "name": "Mohu to znovu použít?"
+      "name": "Mohu to znovu použít?",
+      "options": {
+        "open": "Ano"
+      }
     },
     "THEME": {
       "name": "Kategorie",
@@ -187,7 +190,6 @@ export default {
   },
   "contentfulManual": {
     "headerNavigation": {
-      "teachers": "Učitelé",
       "explore": "Prozkoumat"
     },
     "footerNavigation": {

@@ -80,7 +80,10 @@ export default {
       "name": "Država izvora"
     },
     "REUSABILITY": {
-      "name": "Ali lahko to ponovno uporabim?"
+      "name": "Ali lahko to ponovno uporabim?",
+      "options": {
+        "open": "Da"
+      }
     },
     "THEME": {
       "name": "Kategorija",
@@ -187,7 +190,6 @@ export default {
   },
   "contentfulManual": {
     "headerNavigation": {
-      "teachers": "Učitelji",
       "explore": "Razišči"
     },
     "footerNavigation": {

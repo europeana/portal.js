@@ -80,7 +80,10 @@ export default {
       "name": "Предоставяне на държава"
     },
     "REUSABILITY": {
-      "name": "Мога ли да го използвам повторно?"
+      "name": "Мога ли да го използвам повторно?",
+      "options": {
+        "open": "Да"
+      }
     },
     "THEME": {
       "name": "Категория",
@@ -191,7 +194,6 @@ export default {
   },
   "contentfulManual": {
     "headerNavigation": {
-      "teachers": "Учители",
       "explore": "Проучи"
     },
     "footerNavigation": {

@@ -108,6 +108,7 @@ module.exports = {
   },
   async enterTextInTarget(text, qaElementName) {
     const selector = qaSelector(qaElementName);
+    await client.clearValue(selector);
     await client.waitForElementVisible(selector);
     await client.setValue(selector, text);
   },

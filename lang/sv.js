@@ -80,7 +80,10 @@ export default {
       "name": "Tillhandahållande land"
     },
     "REUSABILITY": {
-      "name": "Kan jag återanvända det här?"
+      "name": "Kan jag återanvända det här?",
+      "options": {
+        "open": "Ja"
+      }
     },
     "THEME": {
       "name": "Kategori",
@@ -187,7 +190,6 @@ export default {
   },
   "contentfulManual": {
     "headerNavigation": {
-      "teachers": "Lärare",
       "explore": "Utforska"
     },
     "footerNavigation": {

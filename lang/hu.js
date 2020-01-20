@@ -80,7 +80,10 @@ export default {
       "name": "Szolgáltató ország"
     },
     "REUSABILITY": {
-      "name": "Használhatom ezt újból?"
+      "name": "Használhatom ezt újból?",
+      "options": {
+        "open": "igen"
+      }
     },
     "THEME": {
       "name": "Kategória",
@@ -187,7 +190,6 @@ export default {
   },
   "contentfulManual": {
     "headerNavigation": {
-      "teachers": "Tanárok",
       "explore": "Ismerje meg"
     },
     "footerNavigation": {
