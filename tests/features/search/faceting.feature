@@ -11,7 +11,7 @@ Feature: Search faceting
     And I see a `filter badge` with the text "Type of media: Image"
     And I am on an accessible page
 
-  Scenario: Filtering results by Collection
+  Scenario: Filtering results by Category
 
     When I visit the `search page`
     And I click the `THEME dropdown button`
@@ -19,9 +19,9 @@ Feature: Search faceting
     And I click the `THEME apply button`
     And I wait 4 seconds
     Then I should be on `/en/search?page=1&query=&view=grid&theme=art`
-    And I see a `filter badge` with the text "Collection: Art"
+    And I see a `filter badge` with the text "Category: Art"
 
-  Scenario: Filtering results by Collection and paginate
+  Scenario: Filtering results by Category and paginate
 
     When I visit the `search page`
     And I click the `THEME dropdown button`
@@ -31,7 +31,7 @@ Feature: Search faceting
     And I go to page number 2
     And I wait 2 seconds
     Then I should be on `/en/search?page=2&query=&view=grid&theme=art`
-    
+
   Scenario: No Collection filter on entity pages
 
     Given I am on an `entity page`
@@ -45,7 +45,7 @@ Feature: Search faceting
     And I wait 2 seconds
     Then I should be on `/en/search?page=1&query=&reusability=open&view=grid`
     And I am on page number 1
-    And I see a `filter badge` with the text "Can I reuse this?: Open"
+    And I see a `filter badge` with the text "Can I reuse this?: Yes"
 
   Scenario: Filtering results by country
     Given I am on the `search page`
