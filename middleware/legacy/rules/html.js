@@ -1,7 +1,7 @@
 // Remove .html suffix
 
 export default (route) => {
-  const pattern = /^(.+)\.html$/;
+  const pattern = /^\/portal(\/.+)\.html$/;
   const match = route.path.match(pattern);
 
   return match ? {

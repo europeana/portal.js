@@ -20,7 +20,7 @@ const redirects = {
 
 export default (route) => {
   for (const redirectFrom in redirects) {
-    const pattern = new RegExp(`^(/[a-z]{2})?${escapeRegExp(redirectFrom)}$`);
+    const pattern = new RegExp(`^/portal(/[a-z]{2})?${escapeRegExp(redirectFrom)}$`);
     const match = route.path.match(pattern);
 
     if (match) return {

@@ -10,10 +10,10 @@ import staticPages from './rules/static-pages';
 // Order matters. Do not re-order arbitrarily.
 const rules = [
   search,
-  portal,
   entity,
   html,
-  staticPages
+  staticPages,
+  portal
 ];
 
 function stringifyPathChunks(chunks) {
@@ -21,6 +21,8 @@ function stringifyPathChunks(chunks) {
 }
 
 export default ({ redirect, route, query }) => {
+  if (!/^\/portal(\/|$)/.test(route.path)) return;
+
   for (const rule of rules) {
     const redirectRoute = rule(route, query);
 

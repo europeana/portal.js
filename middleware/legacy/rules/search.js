@@ -81,7 +81,6 @@ function baseRedirect(route, query = {}) {
     }
   };
 
-  // Include /portal here as otherwise the paths for search are identical
   const pattern = /^\/portal(\/[a-z]{2})?(\/search)$/;
   const match = route.path.match(pattern);
   if (match) {
