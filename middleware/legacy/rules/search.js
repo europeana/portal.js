@@ -17,16 +17,16 @@ function mapCollectionToTheme(collection) {
 }
 
 const queryFacetParameterMappings = {
-  default(query, value, field) {
+  default(query, key, value) {
     for (const filterValue of [].concat(value)) {
-      const queryFilterValue = unquotableFacets.includes(field) ? filterValue : `"${filterValue}"`;
-      query.qf.push(`${field}:${queryFilterValue}`);
+      const queryFilterValue = unquotableFacets.includes(key) ? filterValue : `"${filterValue}"`;
+      query.qf.push(`${key}:${queryFilterValue}`);
     }
   },
-  'REUSABILITY'(query, value) {
+  'REUSABILITY'(query, key, value) {
     query.reusability = [].concat(value).join(',');
   },
-  api(query, value) {
+  api(query, key, value) {
     const apiFilter = [].concat(value)[0];
     if (apiFilter === 'default') {
       query.api = 'metadata';
@@ -37,28 +37,35 @@ const queryFacetParameterMappings = {
 };
 
 const queryParameterMappings = {
+  default(query, key, value) {
+    if (Array.isArray(query[key])) {
+      query[key] = query[key].concat([].concat(value));
+    } else {
+      query[key] = value;
+    }
+  },
   page(query) {
     delete query.page;
   },
   per_page(query) { // eslint-disable-line camelcase
     delete query.per_page;
   },
-  q(query, value) {
-    query.query = value;
+  q(query, key, value) {
+    query.query.unshift(value);
   },
-  qf(query, value) {
-    query.qf = query.qf.concat(value);
+  qf(query, key, value) {
+    query.query = query.query.concat([].concat(value));
   },
-  f(query, value) {
+  f(query, key, value) {
     for (const field in value) {
       if (queryFacetParameterMappings[field]) {
-        queryFacetParameterMappings[field](query, value[field]);
+        queryFacetParameterMappings[field](query, field, value[field]);
       } else {
-        queryFacetParameterMappings.default(query, value[field], field);
+        queryFacetParameterMappings.default(query, field, value[field]);
       }
     }
   },
-  range(query, value) {
+  range(query, key, value) {
     for (const field in value) {
       const rangeBegin = value[field]['begin'];
       const rangeEnd = value[field]['end'];
@@ -73,16 +80,16 @@ const queryParameterMappings = {
 
 function mapQueryParameter(query, key, value) {
   if (queryParameterMappings[key]) {
-    queryParameterMappings[key](query, value);
+    queryParameterMappings[key](query, key, value);
   } else {
-    query[key] = value;
+    queryParameterMappings.default(query, key, value);
   }
 }
 
 function baseRedirect(route, query = {}) {
   const redirect = {
     query: {
-      query: '',
+      query: [],
       qf: []
     }
   };
@@ -115,6 +122,7 @@ export default (route) => {
     mapQueryParameter(redirect.query, key, value);
   }
 
+  redirect.query.query = redirect.query.query.join(' AND ');
   if (redirect.query.qf.length === 0) {
     delete redirect.query.qf;
   } else if (redirect.query.qf.length === 1) {

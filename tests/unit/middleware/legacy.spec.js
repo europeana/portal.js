@@ -36,7 +36,8 @@ const rules = [
   },
   { from: '/portal/en/search?f%5Bapi%5D%5B%5D=default', to: '/en/search?query=&api=metadata' },
   { from: '/portal/en/search?f%5Bapi%5D%5B%5D=api', to: '/en/search?query=&api=fulltext' },
-  { from: '/portal/en/search?qf%5B%5D=whale&qf%5B%5D=haunted', to: '/en/search?query=&qf=whale&qf=haunted' },
+  { from: '/portal/en/search?q=fish&query=hook', to: '/en/search?query=fish+AND+hook' },
+  { from: '/portal/en/search?q=whale&qf%5B%5D=NOT+tooth', to: '/en/search?query=whale+AND+NOT+tooth' },
   { from: '/portal/en/collections/art?q=paint', to: '/en/search?query=paint&theme=art' },
   {
     from: '/portal/en/collections/newspapers?q=&range%5Bproxy_dcterms_issued%5D%5Bbegin%5D=1900-01-01&range%5Bproxy_dcterms_issued%5D%5Bend%5D=1910-01-01',
