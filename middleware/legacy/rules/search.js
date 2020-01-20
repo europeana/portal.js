@@ -16,30 +16,43 @@ function mapCollectionToTheme(collection) {
   return map[collection] || collection;
 }
 
-function mapQueryParameter(query, key, value) {
-  if (key === 'q') {
+const queryFacetParameterMappings = {
+  default(query, value, field) {
+    for (const filterValue of [].concat(value)) {
+      const queryFilterValue = unquotableFacets.includes(field) ? filterValue : `"${filterValue}"`;
+      query.qf.push(`${field}:${queryFilterValue}`);
+    }
+  },
+  'REUSABILITY'(query, value) {
+    query.reusability = [].concat(value).join(',');
+  },
+  api(query, value) {
+    const apiFilter = [].concat(value)[0];
+    if (apiFilter === 'default') {
+      query.api = 'metadata';
+    } else if (apiFilter === 'api') {
+      query.api = 'fulltext';
+    }
+  }
+};
+
+const queryParameterMappings = {
+  q(query, value) {
     query.query = value;
-  } else if (key === 'qf[]') {
+  },
+  qf(query, value) {
     query.qf = query.qf.concat(value);
-  } else if (key === 'f') {
+  },
+  f(query, value) {
     for (const field in value) {
-      if (field === 'REUSABILITY') {
-        query.reusability = [].concat(value[field]).join(',');
-      } else if (field === 'api') {
-        const apiFilter = [].concat(value[field])[0];
-        if (apiFilter === 'default') {
-          query.api = 'metadata';
-        } else if (apiFilter === 'api') {
-          query.api = 'fulltext';
-        }
+      if (queryFacetParameterMappings[field]) {
+        queryFacetParameterMappings[field](query, value[field]);
       } else {
-        for (const filterValue of [].concat(value[field])) {
-          const queryFilterValue = unquotableFacets.includes(field) ? filterValue : `"${filterValue}"`;
-          query.qf.push(`${field}:${queryFilterValue}`);
-        }
+        queryFacetParameterMappings.default(query, value[field], field);
       }
     }
-  } else if (key === 'range') {
+  },
+  range(query, value) {
     for (const field in value) {
       const rangeBegin = value[field]['begin'];
       const rangeEnd = value[field]['end'];
@@ -49,6 +62,12 @@ function mapQueryParameter(query, key, value) {
         query.qf.push(`${field}:[${rangeBegin} TO ${rangeEnd}]`);
       }
     }
+  }
+};
+
+function mapQueryParameter(query, key, value) {
+  if (queryParameterMappings[key]) {
+    queryParameterMappings[key](query, value);
   } else {
     query[key] = value;
   }
