@@ -18,7 +18,6 @@
       >
         <b-col>
           <SearchFilters
-            :facets="facets"
             :filters="filters"
           />
         </b-col>
