@@ -22,6 +22,8 @@ const rules = [
   { from: '/portal/en/collections/photography', to: '/en/entity/topic/48-photography' },
   { from: '/portal/en/collections/sport', to: '/en/entity/topic/114-sport' },
   { from: '/portal/en/search?q=fish', to: '/en/search?query=fish' },
+  { from: '/portal/en/search?q=fish&page=2', to: '/en/search?query=fish' },
+  { from: '/portal/en/search?q=fish&per_page=24', to: '/en/search?query=fish' },
   { from: '/portal/en/search?q=fish&view=list', to: '/en/search?query=fish&view=list' },
   {
     from: '/portal/en/search?f%5BTYPE%5D%5B%5D=TEXT&f%5BTYPE%5D%5B%5D=IMAGE',

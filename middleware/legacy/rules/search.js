@@ -37,6 +37,12 @@ const queryFacetParameterMappings = {
 };
 
 const queryParameterMappings = {
+  page(query) {
+    delete query.page;
+  },
+  per_page(query) { // eslint-disable-line camelcase
+    delete query.per_page;
+  },
   q(query, value) {
     query.query = value;
   },
