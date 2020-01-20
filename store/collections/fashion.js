@@ -1,6 +1,6 @@
 import { defaultFacetNames } from '../search';
 
-const fashionFacetNames = ['CREATOR'].concat(defaultFacetNames);
+const fashionFacetNames = ['CREATOR', 'proxy_dc_format', 'proxy_dcterms_medium', 'proxy_dc_type'].concat(defaultFacetNames);
 const fashionFacetParam = fashionFacetNames.join(',');
 
 export const state = () => ({

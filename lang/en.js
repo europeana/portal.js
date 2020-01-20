@@ -82,6 +82,18 @@ export default {
     "COUNTRY": {
       "name": "Providing country"
     },
+    "proxy_dc_format": {
+      "name": "Technique"
+    },
+    //"proxy_dc_format": {
+    //  "name": "Colour"
+    //},
+    "proxy_dcterms_medium": {
+      "name": "Material"
+    },
+    "proxy_dc_type": {
+      "name": "Item type"
+    },
     "REUSABILITY": {
       "name": "Can I reuse this?",
       "options": {
