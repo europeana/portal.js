@@ -12,17 +12,4 @@ module.exports = function(migration) {
     .omitted(false);
 
   exhibitionPage.moveField('datePublished').afterField('primaryImageOfPage');
-
-  const imageWithAttribution = migration.editContentType('imageWithAttribution');
-
-  imageWithAttribution
-    .editField('url')
-    .validations([
-      {
-        regexp: {
-          pattern:
-            '^(?![\\s\\S])|^(ftp|http|https):\\/\\/(\\w+:{0,1}\\w*@)?(\\S+)(:[0-9]+)?(\\/|\\/([\\w#!:.?+=&%@!\\-\\/]))?$'
-        }
-      }
-    ]);
 };
