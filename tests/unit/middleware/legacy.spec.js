@@ -44,6 +44,14 @@ const rules = [
     to: '/en/search?query=&theme=newspaper&qf=proxy_dcterms_issued%3A%5B1900-01-01+TO+1910-01-01%5D'
   },
   {
+    from: '/portal/en/collections/newspapers?q=&range%5Bproxy_dcterms_issued%5D%5Bbegin%5D=&range%5Bproxy_dcterms_issued%5D%5Bend%5D=1910-01-01',
+    to: '/en/search?query=&theme=newspaper&qf=proxy_dcterms_issued%3A%5B%2A+TO+1910-01-01%5D'
+  },
+  {
+    from: '/portal/en/collections/newspapers?q=&range%5Bproxy_dcterms_issued%5D%5Bbegin%5D=1900-01-01&range%5Bproxy_dcterms_issued%5D%5Bend%5D=',
+    to: '/en/search?query=&theme=newspaper&qf=proxy_dcterms_issued%3A%5B1900-01-01+TO+%2A%5D'
+  },
+  {
     from: '/portal/en/collections/newspapers?q=&range%5Bproxy_dcterms_issued%5D%5Bbegin%5D=1900-01-01&range%5Bproxy_dcterms_issued%5D%5Bend%5D=1900-01-01',
     to: '/en/search?query=&theme=newspaper&qf=proxy_dcterms_issued%3A1900-01-01'
   }

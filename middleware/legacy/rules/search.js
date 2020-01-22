@@ -67,8 +67,8 @@ const queryParameterMappings = {
   },
   range(query, key, value) {
     for (const field in value) {
-      const rangeBegin = value[field]['begin'];
-      const rangeEnd = value[field]['end'];
+      const rangeBegin = value[field]['begin'] || '*';
+      const rangeEnd = value[field]['end'] || '*';
       if (rangeBegin === rangeEnd) {
         query.qf.push(`${field}:${rangeBegin}`);
       } else {
