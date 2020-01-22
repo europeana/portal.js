@@ -23,7 +23,7 @@ const routerPush = sinon.spy(router, 'push');
 const factory = (options = {}) => shallowMount(SearchForm, {
   localVue,
   router,
-  stubs: ['b-button', 'b-input-group', 'b-button', 'b-form', 'b-form-input'],
+  stubs: ['b-input-group', 'b-button', 'b-form', 'b-form-input'],
   mocks: {
     ...{
       $i18n: { locale: 'en' },
