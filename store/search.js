@@ -185,11 +185,9 @@ export const actions = {
     commit('setErrorStatusCode', null);
 
     const theme = state.apiParams.theme;
-    if (getters.hasCollectionSpecificSettings(theme)) {
-      if (rootState.collections[theme]['facets'] !== undefined) {
-        commit(`collections/${theme}/filter`, ['facets', response.facets], { root: true });
-        commit('setFacets', rootState.collections[theme].facets);
-      }
+    if (getters.hasCollectionSpecificSettings(theme) && rootState.collections[theme]['facets'] !== undefined) {
+      commit(`collections/${theme}/filter`, ['facets', response.facets], { root: true });
+      commit('setFacets', rootState.collections[theme].facets);
     } else {
       commit('setFacets', response.facets);
     }
