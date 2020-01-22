@@ -1,5 +1,4 @@
-import { createLocalVue, mount } from '@vue/test-utils';
-import BootstrapVue from 'bootstrap-vue';
+import { createLocalVue, shallowMount } from '@vue/test-utils';
 import SearchForm from '../../../../components/search/SearchForm.vue';
 import VueRouter from 'vue-router';
 import Vuex from 'vuex';
@@ -11,7 +10,6 @@ const axios = require('axios');
 axios.defaults.adapter = require('axios/lib/adapters/http');
 
 const localVue = createLocalVue();
-localVue.use(BootstrapVue);
 localVue.use(VueRouter);
 localVue.use(Vuex);
 
@@ -22,9 +20,10 @@ const router = new VueRouter({
   ]
 });
 const routerPush = sinon.spy(router, 'push');
-const factory = (options = {}) => mount(SearchForm, {
+const factory = (options = {}) => shallowMount(SearchForm, {
   localVue,
   router,
+  stubs: ['b-button', 'b-input-group', 'b-button', 'b-form', 'b-form-input'],
   mocks: {
     ...{
       $i18n: { locale: 'en' },
@@ -133,66 +132,66 @@ describe('components/search/SearchForm', () => {
   });
 
   describe('form submission', () => {
-    const inputQueryAndSubmitForm = (wrapper, query) => {
-      const form =  wrapper.find('form');
-      const queryInputField = form.find('input[type="text"]');
-      queryInputField.setValue(query);
-      form.trigger('submit.prevent');
-    };
-
-    const newQuery = 'trees';
+    const query = 'trees';
 
     context('with a selected entity suggestion', () => {
-      const wrapper = factory();
-      wrapper.setData({
-        suggestions: parsedSuggestions,
-        selectedSuggestion: 'http://data.europeana.eu/concept/base/227'
-      });
-
       it('routes to the entity page', async() => {
-        await inputQueryAndSubmitForm(wrapper, newQuery);
+        const wrapper = factory();
+
+        wrapper.setData({
+          suggestions: parsedSuggestions,
+          selectedSuggestion: 'http://data.europeana.eu/concept/base/227',
+          query
+        });
+        wrapper.vm.submitForm();
 
         routerPush.should.have.been.calledWith('/entity/topic/227-fresco');
       });
     });
 
     context('when on a search page', () => {
-      const state = {
-        active: true,
-        userParams: {
-          query: ''
-        },
-        view: 'grid'
-      };
-      const wrapper = factory({ store: store(state) });
+      it('updates current route', () => {
+        const state = {
+          active: true,
+          userParams: {
+            query: ''
+          },
+          view: 'grid'
+        };
+        const wrapper = factory({ store: store(state) });
 
-      it('updates current route', async() => {
-        await inputQueryAndSubmitForm(wrapper, newQuery);
+        wrapper.setData({
+          query
+        });
+        wrapper.vm.submitForm();
 
         const newRouteParams = {
           path: wrapper.vm.$route.path,
-          query: { query: newQuery, page: 1, view: state.view }
+          query: { query, page: 1, view: state.view }
         };
         routerPush.should.have.been.calledWith(newRouteParams);
       });
     });
 
     context('when not on a search page', () => {
-      const state = {
-        active: false,
-        userParams: {
-          query: ''
-        },
-        view: 'list'
-      };
-      const wrapper = factory({ store: store(state) });
+      it('reroutes to search', () => {
+        const state = {
+          active: false,
+          userParams: {
+            query: ''
+          },
+          view: 'list'
+        };
+        const wrapper = factory({ store: store(state) });
 
-      it('reroutes to search', async() => {
-        await inputQueryAndSubmitForm(wrapper, newQuery);
+        wrapper.setData({
+          query
+        });
+        wrapper.vm.submitForm();
 
         const newRouteParams = {
           path: '/search',
-          query: { query: newQuery, page: 1, view: state.view }
+          query: { query, page: 1, view: state.view }
         };
         routerPush.should.have.been.calledWith(newRouteParams);
       });
