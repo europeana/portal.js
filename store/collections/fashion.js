@@ -14,9 +14,6 @@ export const getters = {
     const params = Object.assign({}, state.apiParams);
     params.facet = fashionFacetParam;
     return params;
-  },
-  facets: (state) => {
-    return state.facets;
   }
 };
 
@@ -26,9 +23,9 @@ export const mutations = {
   },
   filter(state, payload) {
     const facets = payload[1];
-
     facets.forEach((facet, index) => {
       facets[index] = facet;
+
       if (facet.name === 'CREATOR') {
         facets[index]['fields'] = facets[index].fields.filter(creator => creator.label.indexOf('(Designer)') !== -1);
       }

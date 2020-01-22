@@ -180,7 +180,7 @@ export const actions = {
       .catch((error) => dispatch('updateForFailure', error));
   },
 
-  updateForSuccess({ commit, getters, rootGetters, rootState, state }, response) {
+  updateForSuccess({ commit, getters, rootState, state }, response) {
     commit('setError', response.error);
     commit('setErrorStatusCode', null);
 
@@ -188,7 +188,7 @@ export const actions = {
     if (getters.hasCollectionSpecificSettings(theme)) {
       if (rootState.collections[theme]['facets'] !== undefined) {
         commit(`collections/${theme}/filter`, ['facets', response.facets], { root: true });
-        commit('set', ['facets', rootGetters[`collections/${theme}/facets`]]);
+        commit('setFacets', rootState.collections[theme].facets);
       }
     } else {
       commit('setFacets', response.facets);
