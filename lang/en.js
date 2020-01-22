@@ -82,17 +82,14 @@ export default {
     "COUNTRY": {
       "name": "Providing country"
     },
-    "proxy_dc_format": {
-      "name": "Technique"
+    "proxy_dc_format_en": {
+      "name": "Technique | Techniques"
     },
-    //"proxy_dc_format": {
-    //  "name": "Colour"
-    //},
-    "proxy_dcterms_medium": {
-      "name": "Material"
+    "proxy_dcterms_medium_en": {
+      "name": "Material | Materials"
     },
-    "proxy_dc_type": {
-      "name": "Item type"
+    "proxy_dc_type_en": {
+      "name": "Item type | Item types"
     },
     "REUSABILITY": {
       "name": "Can I reuse this?",

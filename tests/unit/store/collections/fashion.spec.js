@@ -11,16 +11,16 @@ describe('store/collections/fashion', () => {
         store.getters.apiParams(state).facet.should.include('CREATOR,');
       });
 
-      it('includes proxy_dc_format in facet param', () => {
-        store.getters.apiParams(state).facet.should.include('proxy_dc_format,');
+      it('includes proxy_dc_format.en in facet param', () => {
+        store.getters.apiParams(state).facet.should.include('proxy_dc_format.en,');
       });
 
-      it('includes proxy_dcterms_medium in facet param', () => {
-        store.getters.apiParams(state).facet.should.include('proxy_dcterms_medium,');
+      it('includes proxy_dcterms_medium.en in facet param', () => {
+        store.getters.apiParams(state).facet.should.include('proxy_dcterms_medium.en,');
       });
 
-      it('includes proxy_dc_type in facet param', () => {
-        store.getters.apiParams(state).facet.should.include('proxy_dc_type,');
+      it('includes proxy_dc_type.en in facet param', () => {
+        store.getters.apiParams(state).facet.should.include('proxy_dc_type.en,');
       });
     });
   });

@@ -43,7 +43,7 @@
 
         if (!this.prefixed) return fieldLabel;
 
-        return this.$t('formatting.labelledValue', { label: this.$tc(`facets.${this.facetName}.name`, 1), value: fieldLabel });
+        return this.$t('formatting.labelledValue', { label: this.$tc(`facets.${this.facetName.replace('.', '_')}.name`, 1), value: fieldLabel });
       },
 
       genericLabel() {
