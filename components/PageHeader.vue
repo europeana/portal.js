@@ -20,8 +20,8 @@
           >
         </b-navbar-brand>
         <SearchForm
-          class="col-xl-5 w-100 py-3 py-xl-0"
           data-qa="search form"
+          class="col-xl-5 w-100 py-3 py-xl-0"
           :enable-auto-suggest="enableAutoSuggest"
           :enable-suggestion-validation="enableSuggestionValidation"
         />
