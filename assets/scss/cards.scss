@@ -3,7 +3,7 @@
   border-radius: $border-radius-small;
   box-shadow: $boxshadow-small;
   color: $black;
-  font-size: $font-size-extrasmall;
+  font-size: $font-size-small;
   height: auto;
   line-height: 1.1875rem;
   transition: box-shadow 0.25s;
@@ -51,8 +51,8 @@
   }
 
   .card-title {
-    font-size: $font-size-small;
-    font-weight: normal;
+    font-size: 1rem;
+    font-weight: 600;
   }
 
   .card-title:last-child {
@@ -73,15 +73,9 @@
 
   &.entity-card {
     border: 0;
-    font-size: $font-size-small;
     justify-content: flex-end;
     margin-bottom: 2.5rem;
     margin-left: 0.9rem;
-
-    .card-title {
-      font-size: $font-size-base;
-      font-weight: 600;
-    }
 
     img {
       border-radius: 4px;

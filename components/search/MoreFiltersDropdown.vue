@@ -19,39 +19,34 @@
       </span>
     </template>
     <b-dropdown-form>
-      <li
-        class="more-facets-wrapper"
-        role="presentation"
+      <RadioGroupFilter
+        v-if="theme === 'newspaper'"
+        facet-name="api"
+        :options="['fulltext', 'metadata']"
+        :selected="preSelected['api'] || 'fulltext'"
+        @change="updateSelected"
+      />
+      <DateFilter
+        v-if="theme === 'newspaper'"
+        :name="PROXY_DCTERMS_ISSUED"
+        :start="dateFilter.start"
+        :end="dateFilter.end"
+        :specific="dateFilter.specific"
+        @dateFilter="dateFilterSelected"
+      />
+      <template
+        v-for="(facet, index) in moreFacets"
       >
-        <RadioGroupFilter
-          v-if="theme === 'newspaper'"
-          facet-name="api"
-          :options="['fulltext', 'metadata']"
-          :selected="preSelected['api'] || 'fulltext'"
-          @change="updateSelected"
+        <MoreFiltersDropdownFacet
+          v-if="facet.fields && facet.fields.length > 0"
+          :key="index"
+          :fields="facet.fields"
+          :name="facet.name"
+          :selected="preSelected[facet.name]"
+          @selectedOptions="updateSelected"
         />
-        <DateFilter
-          v-if="theme === 'newspaper'"
-          :name="PROXY_DCTERMS_ISSUED"
-          :start="dateFilter.start"
-          :end="dateFilter.end"
-          :specific="dateFilter.specific"
-          @dateFilter="dateFilterSelected"
-        />
-        <template
-          v-for="(facet, index) in moreFacets"
-        >
-          <MoreFiltersDropdownFacet
-            v-if="facet.fields && facet.fields.length > 0"
-            :key="index"
-            :fields="facet.fields"
-            :name="facet.name"
-            :selected="preSelected[facet.name]"
-            @selectedOptions="updateSelected"
-          />
-        </template>
-      </li>
-      <li
+      </template>
+      <div
         class="dropdown-buttons"
         role="presentation"
       >
@@ -80,7 +75,7 @@
         >
           {{ $t('facets.button.apply') }}
         </b-button>
-      </li>
+      </div>
     </b-dropdown-form>
   </b-dropdown>
 </template>

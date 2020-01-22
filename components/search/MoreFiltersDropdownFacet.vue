@@ -2,6 +2,7 @@
   <b-form-group
     :label="$tc(`facets.${name}.name`, 1)"
     :data-qa="`${name} facet`"
+    class="more-facets-wrapper"
   >
     <b-form-checkbox-group
       v-model="selectedOptions"
