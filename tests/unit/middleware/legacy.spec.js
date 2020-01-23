@@ -54,6 +54,10 @@ const rules = [
   {
     from: '/portal/en/collections/newspapers?q=&range%5Bproxy_dcterms_issued%5D%5Bbegin%5D=1900-01-01&range%5Bproxy_dcterms_issued%5D%5Bend%5D=1900-01-01',
     to: '/en/search?query=&theme=newspaper&qf=proxy_dcterms_issued%3A1900-01-01'
+  },
+  {
+    from: '/portal/en/search?q=&f%5BRIGHTS%5D%5B%5D=http%2A%3A%2F%2Fcreativecommons.org%2Flicenses%2Fby-nc-sa%2A',
+    to: '/en/search?query=&qf=RIGHTS%3Ahttp%2A%3A%2F%2Fcreativecommons.org%2Flicenses%2Fby-nc-sa%2A'
   }
 ];
 

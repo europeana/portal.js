@@ -19,7 +19,12 @@ function mapCollectionToTheme(collection) {
 const queryFacetParameterMappings = {
   default(query, key, value) {
     for (const filterValue of [].concat(value)) {
-      const queryFilterValue = unquotableFacets.includes(key) ? filterValue : `"${filterValue}"`;
+      let queryFilterValue;
+      if (unquotableFacets.includes(key) || filterValue.includes('*')) {
+        queryFilterValue = filterValue;
+      } else {
+        queryFilterValue = `"${filterValue}"`;
+      }
       query.qf.push(`${key}:${queryFilterValue}`);
     }
   },
