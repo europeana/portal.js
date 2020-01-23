@@ -1,6 +1,6 @@
 <template>
   <b-form-group
-    :label="$tc(`facets.${name}.name`, 1)"
+    :label="$tc(`facets.${name.replace('.', '_')}.name`, 1)"
     :data-qa="`${name} facet`"
   >
     <b-form-checkbox-group
@@ -83,7 +83,7 @@
     computed: {
       showMoreOrLess() {
         const key = this.isActive ? 'facets.button.showLess' : 'facets.button.showAll';
-        return this.$t(key, { label: this.$tc(`facets.${this.name}.name`, 2).toLowerCase() });
+        return this.$t(key, { label: this.$tc(`facets.${this.name.replace('.', '_')}.name`, 2).toLowerCase() });
       }
     },
 
