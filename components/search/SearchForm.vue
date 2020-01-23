@@ -1,6 +1,7 @@
 <template>
   <b-form
     ref="form"
+    data-qa="search form"
     inline
     @submit.prevent="submitForm"
   >

@@ -1,17 +1,16 @@
-import { createLocalVue, mount } from '@vue/test-utils';
-import BootstrapVue from 'bootstrap-vue';
+import { createLocalVue, shallowMount } from '@vue/test-utils';
 import MoreFiltersDropdownFacet from '../../../../components/search/MoreFiltersDropdownFacet.vue';
 
 const localVue = createLocalVue();
-localVue.use(BootstrapVue);
 
-const factory = () => mount(MoreFiltersDropdownFacet, {
+const factory = () => shallowMount(MoreFiltersDropdownFacet, {
   localVue,
   mocks: {
     $t: (key) => key,
     $tc: (key) => key,
-    $te: (key) => key
+    $store: { getters: {} }
   },
+  stubs: ['b-form-checkbox-group', 'b-form-group'],
   propsData: {
     name: 'LANGUAGE',
     fields: [
@@ -28,13 +27,14 @@ const factory = () => mount(MoreFiltersDropdownFacet, {
 });
 
 describe('components/search/MoreFiltersDropdownFacet', () => {
-  it('emits `selectedOptions` event when selected method is called', () => {
+  it('emits `selectedOptions` event when checkbox group changes', async() => {
     const wrapper = factory();
-    const checkbox = wrapper.find('[data-qa="de LANGUAGE checkbox"]');
+    const checkboxGroup = wrapper.find('[data-qa="checkbox group"]');
 
-    wrapper.setData({ limitTo: 9 });
+    wrapper.setData({ selectedOptions: ['de'] });
+    await checkboxGroup.vm.$emit('change');
+    await wrapper.vm.$nextTick();
 
-    checkbox.trigger('click');
     wrapper.emitted()['selectedOptions'].should.eql([ [ 'LANGUAGE', [ 'de' ] ] ]);
   });
 });

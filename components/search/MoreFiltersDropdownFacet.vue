@@ -5,7 +5,8 @@
   >
     <b-form-checkbox-group
       v-model="selectedOptions"
-      :name="$tc(`facets.${name.replace('.', '_')}.name`, 1)"
+      :name="name"
+      data-qa="checkbox group"
       plain
       @change="selectedHandler"
     >
@@ -93,8 +94,10 @@
     },
 
     methods: {
-      selectedHandler(value) {
-        this.$emit('selectedOptions', this.name, value);
+      selectedHandler() {
+        this.$nextTick(() => {
+          this.$emit('selectedOptions', this.name, this.selectedOptions);
+        });
       }
     }
   };

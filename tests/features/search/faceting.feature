@@ -158,17 +158,17 @@ Feature: Search faceting
   Scenario: Toggle show all options in More Filters facet
     Given I am on the `search page`
     When I click the `more filters dropdown button`
-    And I should see 9 `Language` checkboxes
+    And I should see 9 LANGUAGE checkboxes
     And I click the `Show all languages button`
-    Then I should see 37 `Language` checkboxes
+    Then I should see 37 LANGUAGE checkboxes
     And I click the `Show less languages button`
-    And I should see 9 `Language` checkboxes
+    And I should see 9 LANGUAGE checkboxes
 
   Scenario: Filtering results using the more facets dropdown
     Given I am on the `search page`
     When I click the `more filters dropdown button`
-    And I check the "\"en\"" "Language" checkbox
-    And I check the "\"sv\"" "Language" checkbox
+    And I check the "\"en\"" "LANGUAGE" checkbox
+    And I check the "\"sv\"" "LANGUAGE" checkbox
     And I click the `apply button`
     And I wait 2 seconds
     Then I should be on `/en/search?page=1&qf=LANGUAGE%3A%22en%22&qf=LANGUAGE%3A%22sv%22&query=&view=grid`
@@ -177,8 +177,8 @@ Feature: Search faceting
   Scenario: Clicking reset button in more facets
     Given I am on the `search page`
     When I click the `more filters dropdown button`
-    And I check the "\"en\"" "Language" checkbox
-    And I check the "\"sv\"" "Language" checkbox
+    And I check the "\"en\"" "LANGUAGE" checkbox
+    And I check the "\"sv\"" "LANGUAGE" checkbox
     And I click the `apply button`
     And I wait 2 seconds
     And I click the `more filters dropdown button`

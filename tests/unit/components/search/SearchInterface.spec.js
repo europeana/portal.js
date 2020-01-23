@@ -1,4 +1,4 @@
-import { createLocalVue, mount } from '@vue/test-utils';
+import { createLocalVue, shallowMount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 import VueRouter from 'vue-router';
 import Vuex from 'vuex';
@@ -30,23 +30,12 @@ const factory = (options = {}) => {
   });
 
   const mocks = {
-    $i18n: {
-      locale: 'en'
-    },
     $t: (key) => key,
-    $tc: (key) => key,
-    $te: () => false,
     localePath: (opts) => opts,
     ...options.mocks
   };
   const store = new Vuex.Store({
     modules: {
-      entity: {
-        namespaced: true,
-        state: {
-          id: null
-        }
-      },
       search: {
         namespaced: true,
         state: {
@@ -65,7 +54,7 @@ const factory = (options = {}) => {
       }
     }
   });
-  return mount(SearchInterface, {
+  return shallowMount(SearchInterface, {
     localVue,
     mocks,
     router,
@@ -85,9 +74,9 @@ describe('components/search/SearchInterface', () => {
           }
         });
 
-        const errorNotice = wrapper.find('[data-qa="error notice"]');
+        const errorNotice = wrapper.find(`[error="${errorMessage}"]`);
 
-        errorNotice.text().should.include(errorMessage);
+        errorNotice.should.exist;
       });
     });
   });

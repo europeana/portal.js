@@ -9,6 +9,7 @@
           v-model="selectedOption"
           :name="facetName"
           plain
+          data-qa="radio group"
           @change="emitChange"
         >
           <div
