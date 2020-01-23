@@ -5,12 +5,16 @@ import search from './rules/search';
 import portal from './rules/portal';
 import entity from './rules/entity';
 import html from './rules/html';
+import exhibitions from './rules/exhibitions';
+import galleries from './rules/galleries';
 import staticPages from './rules/static-pages';
 
 // Order matters. Do not re-order arbitrarily.
 const rules = [
   search,
   entity,
+  exhibitions,
+  galleries,
   html,
   staticPages,
   portal
