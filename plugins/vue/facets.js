@@ -8,7 +8,7 @@ function tFacetName(facetName, count = 1) {
     return this.$tcNull(`facets.${facetName}.name`, count);
   };
 
-  const facetNameKey = facetName.replace('.', '_');
+  const facetNameKey = facetName.replace('.', '/');
   return themeLabel(facetNameKey, count) || genericLabel(facetNameKey, count) || facetName;
 }
 

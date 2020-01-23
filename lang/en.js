@@ -18,6 +18,15 @@ export default {
       "facets": {
         "CREATOR": {
           "name": "Designer | Designers"
+        },
+        "proxy_dc_format/en": {
+          "name": "Technique | Techniques"
+        },
+        "proxy_dcterms_medium/en": {
+          "name": "Material | Materials"
+        },
+        "proxy_dc_type/en": {
+          "name": "Item type | Item types"
         }
       }
     }
@@ -87,15 +96,6 @@ export default {
   "facets": {
     "COUNTRY": {
       "name": "Providing country"
-    },
-    "proxy_dc_format_en": {
-      "name": "Technique | Techniques"
-    },
-    "proxy_dcterms_medium_en": {
-      "name": "Material | Materials"
-    },
-    "proxy_dc_type_en": {
-      "name": "Item type | Item types"
     },
     "REUSABILITY": {
       "name": "Can I reuse this?",
