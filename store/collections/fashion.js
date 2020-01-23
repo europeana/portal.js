@@ -5,7 +5,8 @@ const fashionFacetParam = fashionFacetNames.join(',');
 
 export const state = () => ({
   apiParams: {},
-  enabled: false
+  enabled: false,
+  facets: []
 });
 
 export const getters = {
@@ -19,6 +20,15 @@ export const getters = {
 export const mutations = {
   enable(state) {
     state.enabled = true;
+  },
+  filterFacets(state, facets) {
+    facets.forEach((facet, index) => {
+      if (facet.name === 'CREATOR') {
+        facets[index]['fields'] = facets[index].fields.filter(creator => creator.label.endsWith('(Designer)'));
+      }
+    });
+
+    state.facets = facets;
   },
   set(state, payload) {
     state[payload[0]] = payload[1];
