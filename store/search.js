@@ -118,6 +118,10 @@ export const getters = {
     return (!!theme) &&
       (!!rootState.collections && !!rootState.collections[theme]) &&
       ((rootState.collections[theme].enabled === undefined) || rootState.collections[theme].enabled);
+  },
+
+  theme(state) {
+    return state.apiParams.theme || null;
   }
 };
 

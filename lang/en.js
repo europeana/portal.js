@@ -13,6 +13,15 @@ export default {
   "noMoreResults": "There are no more results for your search query.",
   "resultsLimitWarning": "Additional results are not shown as only the first 1000 most relevant results are shown. If you haven't found what you're looking for, please consider refining your search.",
   "noResults": "No results",
+  "themes": {
+    "fashion": {
+      "facets": {
+        "CREATOR": {
+          "name": "Designer | Designers"
+        }
+      }
+    }
+  },
   "fieldLabels": {
     "default": {
       "dcContributor": "Contributors",
@@ -76,9 +85,6 @@ export default {
     }
   },
   "facets": {
-    "CREATOR": {
-      "name": "Designer | Designers"
-    },
     "COUNTRY": {
       "name": "Providing country"
     },

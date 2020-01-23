@@ -130,7 +130,7 @@
       },
 
       facetName() {
-        return this.$t(`facets.${this.name}.name`);
+        return this.$tFacetName(this.name);
       },
 
       isRadio() {
