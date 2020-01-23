@@ -1,13 +1,12 @@
-import { createLocalVue, mount } from '@vue/test-utils';
-import BootstrapVue from 'bootstrap-vue';
+import { createLocalVue, shallowMount } from '@vue/test-utils';
 import SearchResult from '../../../../components/search/SearchResult.vue';
 
 const localVue = createLocalVue();
-localVue.use(BootstrapVue);
 
-const factory = (propsData) => mount(SearchResult, {
+const factory = (propsData) => shallowMount(SearchResult, {
   localVue,
   propsData,
+  stubs: ['b-media', 'b-media-body', 'b-media-aside', 'b-img-lazy'],
   mocks: {
     $i18n: {
       locale: 'en'
@@ -22,10 +21,10 @@ describe('components/search/SearchResult', () => {
     edmDataProvider: ['Data Provider']
   };
 
-  it('displays edmPreview as an img element', () => {
+  it('displays edmPreview thumbnail image', () => {
     const wrapper = factory(requiredProps);
 
-    const image =  wrapper.find('img[data-field-name="edmPreview"]');
+    const image =  wrapper.find('[data-qa="result thumbnail"]');
 
     image.attributes().src.should.eq(requiredProps.edmPreview);
   });
@@ -38,16 +37,15 @@ describe('components/search/SearchResult', () => {
     element.text().should.eq(requiredProps.edmDataProvider[0]);
   });
 
-  it('displays dcCreator as a list', () => {
+  it('displays dcCreator', () => {
     const props = Object.assign({
       dcCreator: { def: ['Anna', 'Bob'] }
     }, requiredProps);
     const wrapper = factory(props);
 
-    const fields = wrapper.findAll('[data-field-name="dcCreator"] ul li');
+    const dcCreator = wrapper.find('[name="dcCreator"]');
 
-    fields.at(0).text().should.eq(props.dcCreator.def[0]);
-    fields.at(1).text().should.eq(props.dcCreator.def[1]);
+    dcCreator.props('fieldData').should.deep.eql(props.dcCreator);
   });
 
   context('when dcTitle is present', () => {
