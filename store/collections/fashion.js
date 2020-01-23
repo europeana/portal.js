@@ -21,17 +21,14 @@ export const mutations = {
   enable(state) {
     state.enabled = true;
   },
-  filter(state, payload) {
-    const facets = payload[1];
+  filterFacets(state, facets) {
     facets.forEach((facet, index) => {
-      facets[index] = facet;
-
       if (facet.name === 'CREATOR') {
-        facets[index]['fields'] = facets[index].fields.filter(creator => creator.label.indexOf('(Designer)') !== -1);
+        facets[index]['fields'] = facets[index].fields.filter(creator => creator.label.endsWith('(Designer)'));
       }
     });
 
-    state[payload[0]] = facets;
+    state.facets = facets;
   },
   set(state, payload) {
     state[payload[0]] = payload[1];

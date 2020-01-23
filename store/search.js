@@ -186,7 +186,7 @@ export const actions = {
 
     const theme = state.apiParams.theme;
     if (getters.hasCollectionSpecificSettings(theme) && rootState.collections[theme]['facets'] !== undefined) {
-      commit(`collections/${theme}/filter`, ['facets', response.facets], { root: true });
+      commit(`collections/${theme}/filterFacets`, response.facets, { root: true });
       commit('setFacets', rootState.collections[theme].facets);
     } else {
       commit('setFacets', response.facets);

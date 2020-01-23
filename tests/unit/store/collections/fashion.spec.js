@@ -8,17 +8,14 @@ describe('store/collections/fashion', () => {
         facets: []
       };
 
-      const payload = [
-        'facets',
-        [
-          { name: 'CREATOR',
-            fields: [
-              { label: '"Missoni (Designer)"' },
-              { label: '"Emilio Pucci (Designer)"' },
-              { label: '"Holmén, Erik (Photographer)"' }
-            ]
-          }
-        ]
+      const facets = [
+        { name: 'CREATOR',
+          fields: [
+            { label: 'Missoni (Designer)' },
+            { label: 'Emilio Pucci (Designer)' },
+            { label: 'Holmén, Erik (Photographer)' }
+          ]
+        }
       ];
 
       it('includes CREATOR in facet param', () => {
@@ -26,9 +23,8 @@ describe('store/collections/fashion', () => {
       });
 
       it('filters the Fashion facets', () => {
-        const beforeFilter = payload[1][0].fields.length;
-        store.mutations.filter(state, payload);
-        state.facets[0].fields.length.should.not.eq(beforeFilter);
+        store.mutations.filterFacets(state, facets);
+        state.facets[0].fields.length.should.eq(2);
       });
     });
   });
