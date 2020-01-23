@@ -20,6 +20,7 @@ export const unquotableFacets = [
   'SOUND_DURATION',
   'SOUND_HQ',
   'TEXT_FULLTEXT',
+  'THUMBNAIL',
   'VIDEO_HD'
 ];
 

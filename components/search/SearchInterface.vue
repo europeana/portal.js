@@ -211,6 +211,7 @@
       api() {
         return this.userParams.api;
       },
+      // TODO: do not assume filters are fielded, e.g. `qf=whale`
       filters() {
         const filters = {};
         if (this.userParams.qf) {
