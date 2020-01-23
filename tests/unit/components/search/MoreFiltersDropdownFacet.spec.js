@@ -7,7 +7,7 @@ const factory = () => shallowMount(MoreFiltersDropdownFacet, {
   localVue,
   mocks: {
     $t: (key) => key,
-    $tc: (key) => key,
+    $tFacetName: (key) => key,
     $store: { getters: {} }
   },
   stubs: ['b-form-checkbox-group', 'b-form-group'],

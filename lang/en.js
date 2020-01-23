@@ -13,6 +13,24 @@ export default {
   "noMoreResults": "There are no more results for your search query.",
   "resultsLimitWarning": "Additional results are not shown as only the first 1000 most relevant results are shown. If you haven't found what you're looking for, please consider refining your search.",
   "noResults": "No results",
+  "themes": {
+    "fashion": {
+      "facets": {
+        "CREATOR": {
+          "name": "Designer | Designers"
+        },
+        "proxy_dc_format/en": {
+          "name": "Technique | Techniques"
+        },
+        "proxy_dcterms_medium/en": {
+          "name": "Material | Materials"
+        },
+        "proxy_dc_type/en": {
+          "name": "Item type | Item types"
+        }
+      }
+    }
+  },
   "fieldLabels": {
     "default": {
       "dcContributor": "Contributors",
@@ -76,20 +94,8 @@ export default {
     }
   },
   "facets": {
-    "CREATOR": {
-      "name": "Designer | Designers"
-    },
     "COUNTRY": {
       "name": "Providing country"
-    },
-    "proxy_dc_format_en": {
-      "name": "Technique | Techniques"
-    },
-    "proxy_dcterms_medium_en": {
-      "name": "Material | Materials"
-    },
-    "proxy_dc_type_en": {
-      "name": "Item type | Item types"
     },
     "REUSABILITY": {
       "name": "Can I reuse this?",
