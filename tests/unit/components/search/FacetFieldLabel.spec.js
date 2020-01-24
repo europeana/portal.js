@@ -1,11 +1,25 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 
 import FacetFieldLabel from '../../../../components/search/FacetFieldLabel.vue';
+import Vuex from 'vuex';
 
 const localVue = createLocalVue();
+localVue.use(Vuex);
+
+const store = new Vuex.Store({
+  modules: {
+    search: {
+      namespaced: true,
+      getters: {
+        formatFacetFieldLabel: () => () => null
+      }
+    }
+  }
+});
 
 const factory = (options = {}) => shallowMount(FacetFieldLabel, {
   localVue,
+  store,
   ...options
 });
 
