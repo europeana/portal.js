@@ -110,6 +110,14 @@ export const getters = {
     return 'grid';
   },
 
+  formatFacetFieldLabel: (state, getters, rootState, rootGetters) => (facetName, facetFieldLabel) => {
+    const theme = state.apiParams.theme;
+    if (!getters.hasCollectionSpecificSettings(theme)) return;
+    if (!rootGetters[`collections/${theme}/formatFacetFieldLabel`]) return;
+
+    return rootGetters[`collections/${theme}/formatFacetFieldLabel`](facetName, facetFieldLabel);
+  },
+
   facetNames(state) {
     return (state.apiParams.facet || '').split(',');
   },
