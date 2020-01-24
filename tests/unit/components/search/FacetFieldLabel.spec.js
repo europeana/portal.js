@@ -2,6 +2,7 @@ import { createLocalVue, shallowMount } from '@vue/test-utils';
 
 import FacetFieldLabel from '../../../../components/search/FacetFieldLabel.vue';
 import Vuex from 'vuex';
+import sinon from 'sinon';
 
 const localVue = createLocalVue();
 localVue.use(Vuex);
@@ -25,6 +26,34 @@ const factory = (options = {}) => shallowMount(FacetFieldLabel, {
 
 describe('components/search/FacetFieldLabel', () => {
   describe('genericLabel', () => {
+    it('favours a formatted value from the store getter formatFacetFieldLabel', () => {
+      const formatFacetFieldLabel = sinon.stub();
+      formatFacetFieldLabel.returns('store formatted');
+      const store = new Vuex.Store({
+        modules: {
+          search: {
+            namespaced: true,
+            getters: {
+              formatFacetFieldLabel: () => formatFacetFieldLabel
+            }
+          }
+        }
+      });
+
+      const wrapper = factory({
+        propsData: {
+          facetName: 'TYPE',
+          fieldValue: '"IMAGE"'
+        },
+        store,
+        mocks: {
+          $tNull: () => null
+        }
+      });
+
+      wrapper.vm.genericLabel.should.eq('store formatted');
+    });
+
     it('removes quotes from the field value', () => {
       const wrapper = factory({
         propsData: {
