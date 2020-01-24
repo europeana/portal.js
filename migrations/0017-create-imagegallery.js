@@ -1,12 +1,12 @@
 module.exports = function(migration) {
   const imageGallery = migration
     .createContentType('imageGallery')
-    .description('')
-    .name('Gallery')
-    .displayField('headline');
+    .description('A gallery of images from Europeana records')
+    .name('Image gallery')
+    .displayField('name');
 
   imageGallery
-    .createField('headline')
+    .createField('name')
     .name('Title')
     .type('Symbol')
     .localized(true)
@@ -121,10 +121,10 @@ module.exports = function(migration) {
     .disabled(false)
     .omitted(false);
 
-  imageGallery.changeFieldControl('headline', 'builtin', 'singleLine', {});
+  imageGallery.changeFieldControl('name', 'builtin', 'singleLine', {});
 
   imageGallery.changeFieldControl('identifier', 'builtin', 'slugEditor', {
-    helpText: 'Do not include a leading slash.'
+    helpText: 'Will always be prefixed with "/gallery/"'
   });
 
   imageGallery.changeFieldControl('description', 'builtin', 'markdown', {});
