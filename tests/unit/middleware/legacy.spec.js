@@ -84,11 +84,12 @@ describe('middleware/legacy', () => {
 
       const toPath = rule.to.split('?')[0];
       const toQuery = qs.parse(rule.to.split('?')[1], { depth: 0 });
+      const status = rule.status || 301;
 
       if (Object.keys(toQuery).length > 0) {
-        redirect.should.have.been.calledWith(toPath, toQuery);
+        redirect.should.have.been.calledWith(status, toPath, toQuery);
       } else {
-        redirect.should.have.been.calledWith(toPath);
+        redirect.should.have.been.calledWith(status, toPath);
       }
     });
   }

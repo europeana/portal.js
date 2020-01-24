@@ -33,8 +33,9 @@ export default ({ redirect, route, query }) => {
     if (redirectRoute) {
       if (Array.isArray(redirectRoute.path)) redirectRoute.path = stringifyPathChunks(redirectRoute.path);
       if (!redirectRoute.query && query) redirectRoute.query = query;
+      if (!redirectRoute.status) redirectRoute.status = 301;
 
-      return redirect(redirectRoute.path, redirectRoute.query);
+      return redirect(redirectRoute.status, redirectRoute.path, redirectRoute.query);
     }
   }
 };
