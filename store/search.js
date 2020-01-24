@@ -184,20 +184,19 @@ export const actions = {
       .catch((error) => dispatch('updateForFailure', error));
   },
 
-  updateForSuccess({ commit, getters, rootState, state }, response) {
+  updateForSuccess({ commit, getters, rootGetters, rootState, state }, response) {
     commit('setError', response.error);
     commit('setErrorStatusCode', null);
-
-    const theme = state.apiParams.theme;
-    if (getters.hasCollectionSpecificSettings(theme) && rootState.collections[theme]['facets'] !== undefined) {
-      commit(`collections/${theme}/filterFacets`, response.facets, { root: true });
-      commit('setFacets', rootState.collections[theme].facets);
-    } else {
-      commit('setFacets', response.facets);
-    }
     commit('setLastAvailablePage', response.lastAvailablePage);
     commit('setResults', response.results);
     commit('setTotalResults', response.totalResults);
+
+    commit('setFacets', response.facets);
+    const theme = state.apiParams.theme;
+    if (getters.hasCollectionSpecificSettings(theme) && rootState.collections[theme]['facets'] !== undefined) {
+      commit(`collections/${theme}/set`, ['facets', state.facets], { root: true });
+      commit('set', ['facets', rootGetters[`collections/${theme}/facets`]]);
+    }
   },
 
   updateForFailure({ commit }, error) {
