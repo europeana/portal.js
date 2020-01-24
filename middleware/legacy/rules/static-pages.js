@@ -15,7 +15,9 @@ const redirects = {
   '/collections/natural-history': { path: '/entity/topic/156-natural-history' },
   '/collections/newspapers': { path: '/entity/topic/18-newspaper' },
   '/collections/photography': { path: '/entity/topic/48-photography' },
-  '/collections/sport': { path: '/entity/topic/114-sport' }
+  '/collections/sport': { path: '/entity/topic/114-sport' },
+  '/exhibitions/foyer': { path: '/exhibitions' },
+  '/explore/galleries': { path: '/galleries' }
 };
 
 export default (route) => {
