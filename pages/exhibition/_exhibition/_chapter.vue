@@ -40,6 +40,10 @@
       </b-row>
       <b-row v-if="chapters">
         <b-col>
+          <ExhibitionChaptersNavigation
+            :exhibition-identifier="exhibitionIdentifier"
+            :chapters="chapters"
+          />
           <ExhibitionChapters
             :exhibition-identifier="exhibitionIdentifier"
             :chapters="chapters"
@@ -54,12 +58,14 @@
   import createClient from '../../../plugins/contentful';
   import BrowseSections from '../../../components/browse/BrowseSections';
   import ExhibitionChapters from '../../../components/exhibition/ExhibitionChapters';
+  import ExhibitionChaptersNavigation from '../../../components/exhibition/ExhibitionChaptersNavigation';
   import HeroImage from '../../../components/generic/HeroImage';
 
   export default {
     components: {
       BrowseSections,
       ExhibitionChapters,
+      ExhibitionChaptersNavigation,
       HeroImage
     },
     computed: {
