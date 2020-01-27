@@ -6,10 +6,10 @@ const fashionFacetNames = [
 const fashionFacetParam = fashionFacetNames.join(',');
 
 const facetFieldLabelPatterns = {
-  'CREATOR': / \(Designer\)(?="$)/,
-  'proxy_dc_type.en': /(?<=^")Object Type: /,
-  'proxy_dc_format.en': /(?<=^")Technique: /,
-  'proxy_dcterms_medium.en': /(?<=^")Material: /
+  'CREATOR': / \(Designer\)/,
+  'proxy_dc_type.en': /Object Type: /,
+  'proxy_dc_format.en': /Technique: /,
+  'proxy_dcterms_medium.en': /Material: /
 };
 
 export const state = () => ({

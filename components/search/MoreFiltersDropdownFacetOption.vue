@@ -11,7 +11,7 @@
     />
     <FacetFieldLabel
       :id="fieldLabelId"
-      :facet-name="facetName.replace('.', '_')"
+      :facet-name="facetName"
       :field-value="option"
     />
     <span
