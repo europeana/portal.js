@@ -15,8 +15,8 @@ const rules = [
   entity,
   exhibitions,
   galleries,
-  html,
   staticPages,
+  html,
   portal
 ];
 

@@ -11,7 +11,7 @@ const redirects = {
   '/collections/manuscripts': '/entity/topic/17-manuscripts',
   '/collections/maps': '/entity/topic/151-maps-and-geography',
   '/collections/migration': '/entity/topic/128-migration',
-  '/collections/migration/collection-days-stories.html': '/migration/explore-migration-stories-from-events-in-these-cities',
+  '/collections/migration/collection-days-stories': '/migration/explore-migration-stories-from-events-in-these-cities',
   '/collections/migration/collection-days': '/europeana-migration-collection-days',
   '/collections/migration/explore-migration-stories': '/entity/topic/128-migration',
   '/collections/music': '/entity/topic/62-music',
@@ -40,7 +40,7 @@ export default (route) => {
   for (const redirectFrom in redirects) {
     const redirectTo = typeof redirects[redirectFrom] === 'string' ? { path: redirects[redirectFrom] } : redirects[redirectFrom];
 
-    const pattern = new RegExp(`^/portal(/[a-z]{2})?${escapeRegExp(redirectFrom)}$`);
+    const pattern = new RegExp(`^/portal(/[a-z]{2})?${escapeRegExp(redirectFrom)}(.html)?$`);
     const match = route.path.match(pattern);
 
     if (match) return {
