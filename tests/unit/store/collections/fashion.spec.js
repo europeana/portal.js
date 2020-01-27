@@ -9,11 +9,33 @@ describe('store/collections/fashion', () => {
       };
 
       const facets = [
-        { name: 'CREATOR',
+        {
+          name: 'CREATOR',
           fields: [
             { label: 'Missoni (Designer)' },
             { label: 'Emilio Pucci (Designer)' },
             { label: 'Holmén, Erik (Photographer)' }
+          ]
+        },
+        {
+          name: 'proxy_dc_type.en',
+          fields: [
+            { label: 'Object Type: fabric' },
+            { label: 'Manuscript' }
+          ]
+        },
+        {
+          name: 'proxy_dc_format.en',
+          fields: [
+            { label: 'Technique: weave' },
+            { label: 'Color: red' }
+          ]
+        },
+        {
+          name: 'proxy_dcterms_medium.en',
+          fields: [
+            { label: 'Material: cotton' },
+            { label: 'Paper' }
           ]
         }
       ];
@@ -37,6 +59,9 @@ describe('store/collections/fashion', () => {
       it('filters the Fashion facets', () => {
         store.mutations.filterFacets(state, facets);
         state.facets[0].fields.length.should.eq(2);
+        state.facets[1].fields.length.should.eq(1);
+        state.facets[2].fields.length.should.eq(1);
+        state.facets[3].fields.length.should.eq(1);
       });
     });
   });
