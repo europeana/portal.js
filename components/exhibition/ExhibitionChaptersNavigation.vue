@@ -71,6 +71,7 @@
       @extend .icon-font;
       content: '\e91c';
       padding-left: 0.5rem;
+      padding-top: 0.1rem;
     }
 
     &.prev {
@@ -81,6 +82,7 @@
         @extend .icon-font;
         content: '\e91b';
         padding-right: 0.5rem;
+        padding-top: 0.1rem;
       }
     }
   }
