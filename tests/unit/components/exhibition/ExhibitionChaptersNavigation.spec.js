@@ -9,23 +9,20 @@ const $route = {
   }
 };
 
-const chapters = [{
-  fields: {
-    name: 'Allium',
-    identifier: 'allium'
-  }
+const chapterNavigation = [{
+  name: 'Allium',
+  identifier: 'allium',
+  url: 'en/exhibition/flowers/allium'
 },
 {
-  fields: {
-    name: 'Astilbe',
-    identifier: 'astilbe'
-  }
+  name: 'Astilbe',
+  identifier: 'astilbe',
+  url: 'en/exhibition/flowers/astilbe'
 },
 {
-  fields: {
-    name: 'Calls for education',
-    identifier: 'calls-for-education'
-  }
+  name: 'Calls for education',
+  identifier: 'calls-for-education',
+  url: 'en/exhibition/flowers/calls-for-education'
 }];
 
 const factory = () => mount(ExhibitionChaptersNavigation, {
@@ -36,8 +33,8 @@ const factory = () => mount(ExhibitionChaptersNavigation, {
     localePath: (opts) => opts
   },
   propsData: {
-    exhibitionIdentifier: 'an-exhibition',
-    chapters
+    exhibitionIdentifier: 'flowers',
+    chapterNavigation
   }
 });
 

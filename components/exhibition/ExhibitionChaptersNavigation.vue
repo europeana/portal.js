@@ -26,7 +26,7 @@
         type: String,
         required: true
       },
-      chapters: {
+      chapterNavigation: {
         type: Array,
         required: true
       }
@@ -37,31 +37,22 @@
       };
     },
     computed: {
+      currentChapterIndex() {
+        if (this.chapterNavigation.length <= 1) return false;
+        return this.chapterNavigation.findIndex(chapter => chapter.identifier === this.currentChapter);
+      },
       nextChapter() {
-        const nextIndex = this.currentChapterIndex() + 1;
+        const nextIndex = this.currentChapterIndex + 1;
         return this.getChapter(nextIndex);
       },
       previousChapter() {
-        const prevIndex = this.currentChapterIndex() - 1;
+        const prevIndex = this.currentChapterIndex - 1;
         return this.getChapter(prevIndex);
       }
     },
     methods: {
-      currentChapterIndex() {
-        if (this.chapters.length <= 1) return false;
-        return this.chapters.findIndex(chapter => chapter.fields.identifier === this.currentChapter);
-      },
       getChapter(index) {
-        return this.chapters[index] ?
-          { 'name': this.chapters[index].fields.name, 'url': this.chapterUrl(this.chapters[index]) } : null;
-      },
-      chapterUrl(chapter) {
-        return this.localePath({
-          name: 'exhibition-exhibition-chapter',
-          params: {
-            exhibition: this.exhibitionIdentifier, chapter: chapter.fields.identifier
-          }
-        });
+        return this.chapterNavigation[index] ? this.chapterNavigation[index] : null;
       }
     }
   };
@@ -71,19 +62,25 @@
   @import '../../assets/scss/icons.scss';
 
   .chapter-nav {
+    align-items: center;
+    display: flex;
+    text-align: right;
     text-decoration: none;
 
     &.next:after {
       @extend .icon-font;
       content: '\e91c';
+      padding-left: 0.5rem;
     }
 
     &.prev {
       margin-right: auto;
+      text-align: left;
 
       &:before {
         @extend .icon-font;
         content: '\e91b';
+        padding-right: 0.5rem;
       }
     }
   }

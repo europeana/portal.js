@@ -42,7 +42,7 @@
         <b-col>
           <ExhibitionChaptersNavigation
             :exhibition-identifier="exhibitionIdentifier"
-            :chapters="chapters"
+            :chapter-navigation="chapterNavigation"
           />
           <ExhibitionChapters
             :exhibition-identifier="exhibitionIdentifier"
@@ -69,6 +69,13 @@
       HeroImage
     },
     computed: {
+      chapterNavigation() {
+        let navigation = [];
+        for (const chapter of this.chapters) {
+          navigation.push({ identifier: chapter.fields.identifier, name: chapter.fields.name, url: this.chapterUrl(chapter.fields.identifier) });
+        }
+        return navigation;
+      },
       hero() {
         return this.page.primaryImageOfPage ? this.page.primaryImageOfPage.fields : null;
       },
@@ -122,6 +129,16 @@
         .catch((e) => {
           error({ statusCode: 500, message: e.toString() });
         });
+    },
+    methods: {
+      chapterUrl(identifier) {
+        return this.localePath({
+          name: 'exhibition-exhibition-chapter',
+          params: {
+            exhibition: this.exhibitionIdentifier, chapter: identifier
+          }
+        });
+      }
     },
     beforeRouteLeave(to, from, next) {
       this.$store.commit('breadcrumb/clearBreadcrumb');
