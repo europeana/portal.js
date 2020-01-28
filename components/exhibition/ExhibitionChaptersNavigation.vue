@@ -1,9 +1,10 @@
 <template>
-  <div class="mb-3 d-flex justify-content-center">
+  <div class="my-3 d-flex justify-content-end">
     <b-link
       v-if="previousChapter"
       :to="previousChapter.url"
       class="chapter-nav prev"
+      data-qa="previous chapter button"
     >
       {{ previousChapter.name }}
     </b-link>
@@ -11,6 +12,7 @@
       v-if="nextChapter"
       :to="nextChapter.url"
       class="chapter-nav next"
+      data-qa="next chapter button"
     >
       {{ nextChapter.name }}
     </b-link>
@@ -46,6 +48,7 @@
     },
     methods: {
       currentChapterIndex() {
+        if (this.chapters.length <= 1) return false;
         return this.chapters.findIndex(chapter => chapter.fields.identifier === this.currentChapter);
       },
       getChapter(index) {
@@ -68,7 +71,6 @@
   @import '../../assets/scss/icons.scss';
 
   .chapter-nav {
-    padding: 0 1rem;
     text-decoration: none;
 
     &.next:after {
@@ -76,11 +78,13 @@
       content: '\e91c';
     }
 
-    &.prev:before {
-      @extend .icon-font;
-      content: '\e91b';
+    &.prev {
+      margin-right: auto;
+
+      &:before {
+        @extend .icon-font;
+        content: '\e91b';
+      }
     }
   }
-
-
 </style>
