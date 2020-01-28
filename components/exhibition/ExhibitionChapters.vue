@@ -18,6 +18,7 @@
         v-if="credits"
         :title="$t('exhibitions.credits')"
         :url="{ name: 'exhibition-exhibition-credits', params: { exhibition: exhibitionIdentifier } }"
+        data-qa="exhibitions credits card"
       />
     </b-card-group>
   </section>
