@@ -387,9 +387,6 @@ export default {
     "exhibitions": "Exhibitions",
     "credits": "Credits"
   },
-  "galleries": {
-    "galleries": "Galleries"
-  },
   "actions": {
     "download": "Download",
     "viewAt": "View at {link}",
