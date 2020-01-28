@@ -14,6 +14,7 @@ const pages = {
   'exhibitions page': `${url}/en/exhibitions`,
   'Fashion collection search page': `${url}/en/search?query=&theme=fashion`,
   'first page of results': `${url}/en/search?query=&page=1`,
+  'gallery foyer page': `${url}/en/gallery`,
   'home page': `${url}/en`,
   'Newspapers collection page': `${url}/en/entity/topic/18-newspaper`,
   'record page with a IIIF Image': `${url}/en/record/9200357/BibliographicResource_3000095247457`,

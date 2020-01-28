@@ -386,6 +386,9 @@ export default {
   "exhibitions": {
     "exhibitions": "Exhibitions"
   },
+  "galleries": {
+    "galleries": "Galleries"
+  },
   "actions": {
     "download": "Download",
     "viewAt": "View at {link}",
