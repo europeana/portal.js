@@ -42,7 +42,12 @@
       },
 
       genericLabel() {
-        const unquotedFieldValue = this.fieldValue.replace(/^"(.*)"$/, '$1');
+        let fieldLabel;
+
+        fieldLabel = this.$store.getters['search/formatFacetFieldLabel'](this.facetName, this.fieldValue);
+        if (!fieldLabel) fieldLabel = this.fieldValue;
+
+        const unquotedFieldValue = fieldLabel.replace(/^"(.*)"$/, '$1');
         const key = `facets.${this.facetName}.options.${unquotedFieldValue}`;
 
         return this.$tNull(key) || unquotedFieldValue;

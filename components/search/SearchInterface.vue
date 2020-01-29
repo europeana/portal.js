@@ -17,9 +17,7 @@
         class="mb-3"
       >
         <b-col>
-          <SearchFilters
-            :filters="filters"
-          />
+          <SearchFilters />
         </b-col>
       </b-row>
       <b-row class="mb-3">
@@ -190,11 +188,16 @@
         error: state => state.search.error,
         facets: state => state.search.facets,
         lastAvailablePage: state => state.search.lastAvailablePage,
+        resettableFilters: state => state.search.resettableFilters,
         results: state => state.search.results,
         totalResults: state => state.search.totalResults
       }),
       ...mapGetters({
-        facetNames: 'search/facetNames'
+        facetNames: 'search/facetNames',
+        filters: 'search/filters',
+        queryUpdatesForFacetChanges: 'search/queryUpdatesForFacetChanges',
+        queryUpdatesForFilters: 'search/queryUpdatesForFilters',
+        theme: 'search/theme'
       }),
       qf() {
         return this.userParams.qf;
@@ -205,40 +208,8 @@
       reusability() {
         return this.userParams.reusability;
       },
-      theme() {
-        return this.userParams.theme;
-      },
       api() {
         return this.userParams.api;
-      },
-      // TODO: do not assume filters are fielded, e.g. `qf=whale`
-      filters() {
-        const filters = {};
-        if (this.userParams.qf) {
-          for (const qf of [].concat(this.userParams.qf)) {
-            const qfParts = qf.split(':');
-            const facetName = qfParts[0];
-            const facetValue = qfParts.slice(1).join(':');
-            if (typeof filters[facetName] === 'undefined') {
-              filters[facetName] = [];
-            }
-            filters[facetName].push(facetValue);
-          }
-        }
-
-        if (this.userParams.reusability) {
-          filters['REUSABILITY'] = this.userParams.reusability.split(',');
-        }
-
-        if (this.userParams.theme) {
-          filters['THEME'] = this.userParams.theme;
-        }
-
-        if (this.$store.state.search.apiParams.api) {
-          filters['api'] = this.$store.state.search.apiParams.api;
-        }
-
-        return filters;
       },
       page() {
         // This causes double jumps on pagination when using the > arrow, for some reason
@@ -305,11 +276,10 @@
         return this.orderedFacets.filter(facet => this.moreFacetNames.includes(facet.name));
       },
       moreSelectedFacets() {
+        // TODO: use resettableFilters here?
+        // TODO: if not, move newspaper filter names into store/collections/newspapers?
         return pickBy(this.filters, (selected, name) =>
           this.moreFacetNames.includes(name) || ['api', this.PROXY_DCTERMS_ISSUED].includes(name));
-      },
-      dropdownFilterNames() {
-        return this.facetNames.concat(this.PROXY_DCTERMS_ISSUED, this.THEME, 'api');
       },
       enableMoreFacets() {
         return this.moreFacets.length > 0;
@@ -331,7 +301,7 @@
     },
     methods: {
       facetDropdownType(name) {
-        return name === 'THEME' ? 'radio' : 'checkbox';
+        return name === this.THEME ? 'radio' : 'checkbox';
       },
       changeFacet(name, selected) {
         if (typeof this.filters[name] === 'undefined') {
@@ -350,50 +320,6 @@
       rerouteSearch(queryUpdates) {
         return this.$router.push(this.localePath({ ...this.route, ...{ query: this.updateCurrentSearchQuery(queryUpdates) } }));
       },
-      queryUpdatesForFacetChanges(selected) {
-        const filters = Object.assign({}, this.filters);
-
-        for (const name in selected) {
-          filters[name] = selected[name];
-
-          // Remove collection-specific filters when collection is changed
-          // TODO: this is rather crude and will not scale well; improve
-          if (name === 'THEME' && !selected['api']) {
-            filters['api'] = null;
-          }
-        }
-
-        return this.queryUpdatesForFilters(filters);
-      },
-      queryUpdatesForFilters(filters) {
-        let queryUpdates = {
-          qf: [],
-          page: 1
-        };
-
-        for (const facetName in filters) {
-          const selectedValues = filters[facetName];
-          // `reusability` has its own API parameter and can not be queried in `qf`
-          if (facetName === 'REUSABILITY') {
-            if (selectedValues.length > 0) {
-              queryUpdates.reusability = selectedValues.join(',');
-            } else {
-              queryUpdates.reusability = null;
-            }
-          // Likewise `theme`
-          } else if (facetName === 'THEME') {
-            queryUpdates.theme = selectedValues;
-          // `api` is an option to /plugins/europeana/search/search()
-          } else if (facetName === 'api') {
-            queryUpdates.api = selectedValues;
-          } else {
-            for (const facetValue of selectedValues) {
-              queryUpdates.qf.push(`${facetName}:${facetValue}`);
-            }
-          }
-        }
-        return queryUpdates;
-      },
       updateCurrentSearchQuery(updates = {}) {
         const current = {
           page: this.page,
@@ -401,7 +327,7 @@
           query: this.query,
           reusability: this.reusability,
           view: this.view,
-          theme: this.theme,
+          theme: this.userParams.theme,
           api: this.api
         };
 
@@ -418,18 +344,14 @@
       resetFilters() {
         const filters = Object.assign({}, this.filters);
 
-        for (const filterName of this.dropdownFilterNames) {
+        for (const filterName of this.resettableFilters) {
           filters[filterName] = [];
         }
+        this.$store.commit('search/clearResettableFilters');
         return this.rerouteSearch(this.queryUpdatesForFilters(filters));
       },
       isFilteredByDropdowns() {
-        for (const filterName of this.dropdownFilterNames) {
-          if (Object.prototype.hasOwnProperty.call(this.filters, filterName)) {
-            return true;
-          }
-        }
-        return false;
+        return this.$store.getters['search/hasResettableFilters'];
       }
     }
   };

@@ -23,7 +23,7 @@ export const state = () => ({
   error: null,
   errorStatusCode: null,
   facets: [],
-  filters: {},
+  resettableFilters: [],
   lastAvailablePage: null,
   overrideParams: {},
   pill: null,
@@ -35,6 +35,16 @@ export const state = () => ({
 });
 
 export const mutations = {
+  clearResettableFilters(state) {
+    state.resettableFilters = [];
+  },
+  addResettableFilter(state, filterName) {
+    if (!state.resettableFilters.includes(filterName)) state.resettableFilters.push(filterName);
+  },
+  removeResettableFilter(state, filterName) {
+    const index = state.resettableFilters.indexOf(filterName);
+    if (index !== -1) state.resettableFilters.splice(index, 1);
+  },
   setUserParams(state, value) {
     state.userParams = value;
   },
@@ -110,6 +120,14 @@ export const getters = {
     return 'grid';
   },
 
+  formatFacetFieldLabel: (state, getters, rootState, rootGetters) => (facetName, facetFieldLabel) => {
+    const theme = getters.theme;
+    if (!getters.hasCollectionSpecificSettings(theme)) return;
+    if (!rootGetters[`collections/${theme}/formatFacetFieldLabel`]) return;
+
+    return rootGetters[`collections/${theme}/formatFacetFieldLabel`](facetName, facetFieldLabel);
+  },
+
   facetNames(state) {
     return (state.apiParams.facet || '').split(',');
   },
@@ -120,8 +138,92 @@ export const getters = {
       ((rootState.collections[theme].enabled === undefined) || rootState.collections[theme].enabled);
   },
 
+  hasResettableFilters(state) {
+    return state.resettableFilters.length > 0;
+  },
+
   theme(state) {
     return state.apiParams.theme || null;
+  },
+
+  queryUpdatesForFacetChanges: (state, getters) => (selected = {}) => {
+    const filters = Object.assign({}, getters.filters);
+
+    for (const name in selected) {
+      filters[name] = selected[name];
+    }
+
+    // Remove collection-specific filters when collection is changed
+    if (Object.prototype.hasOwnProperty.call(selected, 'THEME') || !getters.theme) {
+      for (const name in filters) {
+        if ((name !== 'THEME') && !defaultFacetNames.includes(name) && state.resettableFilters.includes(name)) {
+          filters[name] = [];
+        }
+      }
+    }
+
+    return getters.queryUpdatesForFilters(filters);
+  },
+
+  queryUpdatesForFilters: () => (filters) => {
+    const queryUpdates = {
+      qf: [],
+      page: 1
+    };
+
+    for (const facetName in filters) {
+      const selectedValues = filters[facetName];
+      // `reusability` has its own API parameter and can not be queried in `qf`
+      if (facetName === 'REUSABILITY') {
+        if (selectedValues.length > 0) {
+          queryUpdates.reusability = selectedValues.join(',');
+        } else {
+          queryUpdates.reusability = null;
+        }
+      // Likewise `theme`
+      } else if (facetName === 'THEME') {
+        queryUpdates.theme = selectedValues;
+      // `api` is an option to /plugins/europeana/search/search()
+      } else if (facetName === 'api') {
+        queryUpdates.api = selectedValues;
+      } else {
+        for (const facetValue of selectedValues) {
+          queryUpdates.qf.push(`${facetName}:${facetValue}`);
+        }
+      }
+    }
+    return queryUpdates;
+  },
+
+  // TODO: do not assume filters are fielded, e.g. `qf=whale`
+  filters: (state) => {
+    const filters = {};
+
+    if (state.userParams.qf) {
+      for (const qf of [].concat(state.userParams.qf)) {
+        const qfParts = qf.split(':');
+        const facetName = qfParts[0];
+        const facetValue = qfParts.slice(1).join(':');
+        if (typeof filters[facetName] === 'undefined') {
+          filters[facetName] = [];
+        }
+        filters[facetName].push(facetValue);
+      }
+    }
+
+    if (state.userParams.reusability) {
+      filters['REUSABILITY'] = state.userParams.reusability.split(',');
+    }
+
+    if (state.userParams.theme) {
+      filters['THEME'] = state.userParams.theme;
+    }
+
+    if (state.apiParams.api) {
+      filters['api'] = state.apiParams.api;
+    }
+
+    return filters;
   }
 };
 
@@ -162,7 +264,7 @@ export const actions = {
   },
 
   applyCollectionSpecificSettings({ commit, getters, rootGetters, rootState, state }) {
-    const theme = state.apiParams.theme;
+    const theme = getters.theme;
     if (!getters.hasCollectionSpecificSettings(theme)) return;
 
     for (const property of ['apiParams', 'apiOptions']) {
@@ -184,20 +286,19 @@ export const actions = {
       .catch((error) => dispatch('updateForFailure', error));
   },
 
-  updateForSuccess({ commit, getters, rootState, state }, response) {
+  updateForSuccess({ commit, getters, rootGetters, rootState, state }, response) {
     commit('setError', response.error);
     commit('setErrorStatusCode', null);
-
-    const theme = state.apiParams.theme;
-    if (getters.hasCollectionSpecificSettings(theme) && rootState.collections[theme]['facets'] !== undefined) {
-      commit(`collections/${theme}/filterFacets`, response.facets, { root: true });
-      commit('setFacets', rootState.collections[theme].facets);
-    } else {
-      commit('setFacets', response.facets);
-    }
     commit('setLastAvailablePage', response.lastAvailablePage);
     commit('setResults', response.results);
     commit('setTotalResults', response.totalResults);
+
+    commit('setFacets', response.facets);
+    const theme = getters.theme;
+    if (getters.hasCollectionSpecificSettings(theme) && rootState.collections[theme]['facets'] !== undefined) {
+      commit(`collections/${theme}/set`, ['facets', state.facets], { root: true });
+      commit('set', ['facets', rootGetters[`collections/${theme}/facets`]]);
+    }
   },
 
   updateForFailure({ commit }, error) {
@@ -207,5 +308,13 @@ export const actions = {
     commit('setLastAvailablePage', null);
     commit('setResults', []);
     commit('setTotalResults', null);
+  },
+
+  async setResettableFilter({ commit }, { name, selected }) {
+    if ((Array.isArray(selected) && selected.length === 0) || !selected) {
+      await commit('removeResettableFilter', name);
+    } else {
+      await commit('addResettableFilter', name);
+    }
   }
 };

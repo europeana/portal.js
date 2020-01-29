@@ -62,17 +62,30 @@
 
     data() {
       return {
-        selectedOption: this.selected
+        selectedOption: null
       };
     },
 
     watch: {
       selected() {
-        this.selectedOption = this.selected;
+        this.init();
       }
     },
 
+    mounted() {
+      this.init();
+    },
+
     methods: {
+      init() {
+        this.selectedOption = this.selected;
+
+        this.$store.dispatch('search/setResettableFilter', {
+          name: this.facetName,
+          selected: this.selected
+        });
+      },
+
       emitChange() {
         this.$nextTick(() => {
           this.$emit('change', this.facetName, this.selectedOption);
