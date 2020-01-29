@@ -42,16 +42,11 @@
       },
       nextChapter() {
         const nextIndex = this.currentChapterIndex + 1;
-        return this.getChapter(nextIndex);
+        return this.chapterNavigation[nextIndex];
       },
       previousChapter() {
         const prevIndex = this.currentChapterIndex - 1;
-        return this.getChapter(prevIndex);
-      }
-    },
-    methods: {
-      getChapter(index) {
-        return this.chapterNavigation[index];
+        return this.chapterNavigation[prevIndex];
       }
     }
   };

@@ -1,4 +1,4 @@
-import { createLocalVue, mount } from '@vue/test-utils';
+import { createLocalVue, shallowMount } from '@vue/test-utils';
 import ExhibitionChaptersNavigation from '../../../../components/exhibition/ExhibitionChaptersNavigation.vue';
 
 const localVue = createLocalVue();
@@ -25,7 +25,7 @@ const chapterNavigation = [{
   url: 'en/exhibition/flowers/calls-for-education'
 }];
 
-const factory = () => mount(ExhibitionChaptersNavigation, {
+const factory = () => shallowMount(ExhibitionChaptersNavigation, {
   localVue,
   stubs: ['b-link'],
   mocks: {
@@ -39,38 +39,40 @@ const factory = () => mount(ExhibitionChaptersNavigation, {
 });
 
 describe('components/exhibition/ExhibitionChaptersNavigation', () => {
-  it('shows a previous and next chapter button', () => {
-    const wrapper = factory();
-    const previous = wrapper.find('[data-qa="previous chapter button"]');
-    previous.isVisible().should.be.true;
+  context('when there are both previous and next chapters', () => {
+    it('has buttons for both', () => {
+      const wrapper = factory();
+      const previous = wrapper.find('[data-qa="previous chapter button"]');
+      previous.isVisible().should.be.true;
 
-    const next = wrapper.find('[data-qa="next chapter button"]');
-    next.isVisible().should.be.true;
+      const next = wrapper.find('[data-qa="next chapter button"]');
+      next.isVisible().should.be.true;
+    });
   });
-});
 
-describe('components/exhibition/ExhibitionChaptersNavigation', () => {
-  it('shows a previous chapter button only', () => {
-    const wrapper = factory();
-    wrapper.vm.currentChapter = 'allium';
+  context('when the current chapter is the last chapter', () => {
+    it('has a previous chapter button only', () => {
+      const wrapper = factory();
+      wrapper.vm.currentChapter = 'allium';
 
-    const previous = wrapper.find('[data-qa="previous chapter button"]');
-    previous.exists().should.be.false;
+      const previous = wrapper.find('[data-qa="previous chapter button"]');
+      previous.exists().should.be.false;
 
-    const next = wrapper.find('[data-qa="next chapter button"]');
-    next.isVisible().should.be.true;
+      const next = wrapper.find('[data-qa="next chapter button"]');
+      next.isVisible().should.be.true;
+    });
   });
-});
 
-describe('components/exhibition/ExhibitionChaptersNavigation', () => {
-  it('shows a next chapter button only', () => {
-    const wrapper = factory();
-    wrapper.vm.currentChapter = 'calls-for-education';
+  context('when the current chapter is the first chapter', () => {
+    it('has a next chapter button only', () => {
+      const wrapper = factory();
+      wrapper.vm.currentChapter = 'calls-for-education';
 
-    const previous = wrapper.find('[data-qa="previous chapter button"]');
-    previous.isVisible().should.be.true;
+      const previous = wrapper.find('[data-qa="previous chapter button"]');
+      previous.isVisible().should.be.true;
 
-    const next = wrapper.find('[data-qa="next chapter button"]');
-    next.exists().should.be.false;
+      const next = wrapper.find('[data-qa="next chapter button"]');
+      next.exists().should.be.false;
+    });
   });
 });
