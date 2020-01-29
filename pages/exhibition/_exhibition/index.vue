@@ -26,11 +26,6 @@
               data-qa="exhibition text"
               v-html="mainContent"
             />
-            <!-- TODO: remove when credits go to their own page? -->
-            <div
-              v-if="credits"
-              v-html="credits"
-            />
             <!-- eslint-enable vue/no-v-html -->
           </article>
         </b-col>
@@ -40,6 +35,7 @@
           <ExhibitionChapters
             :exhibition-identifier="page.identifier"
             :chapters="page.hasPart"
+            :credits="page.credits"
           />
         </b-col>
       </b-row>
@@ -66,12 +62,8 @@
         return this.hero ? this.hero.image.fields.file : null;
       },
       mainContent() {
+        if (this.page.text === undefined) return;
         return marked(this.page.text);
-      },
-      // TODO: remove when credits go to their own page
-      credits() {
-        if (this.page.credits === undefined) return false;
-        return marked(this.page.credits);
       }
     },
     asyncData({ params, query, error, app, store, redirect }) {

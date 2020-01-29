@@ -19,3 +19,9 @@ Feature: Exhibition chapter page
     And I see a `next chapter button`
     And I click the `next chapter button`
     Then I see a `previous chapter button`
+
+  Scenario: See a credits card
+
+    When I open the `exhibition chapter`
+    Then I see `exhibition chapters`
+    And I see an `exhibitions credits card`

@@ -47,6 +47,7 @@
           <ExhibitionChapters
             :exhibition-identifier="exhibitionIdentifier"
             :chapters="chapters"
+            :credits="credits"
           />
         </b-col>
       </b-row>
@@ -122,6 +123,7 @@
           ]);
           return {
             chapters: response.items[0].fields.hasPart,
+            credits: response.items[0].fields.credits,
             exhibitionIdentifier: params.exhibition,
             page: chapter.fields
           };
