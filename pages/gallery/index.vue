@@ -78,8 +78,7 @@
         'locale': app.i18n.isoLocale(),
         'content_type': 'imageGallery',
         'skip': (currentPage - 1) * PER_PAGE,
-        // TODO refactor this to use firstPublishedAt, which is not searchable and may require a custom field + webhook
-        'order': '-sys.createdAt',
+        'order': '-fields.datePublished',
         limit: PER_PAGE
       })
         .then((response) => {
