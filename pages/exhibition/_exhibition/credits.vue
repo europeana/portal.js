@@ -43,6 +43,9 @@
       credits() {
         if (this.page.credits === undefined) return false;
         return marked(this.page.credits);
+      },
+      title() {
+        return `${this.page.name} - ${this.$t('exhibitions.credits')}`;
       }
     },
     asyncData({ params, query, error, app }) {
@@ -69,7 +72,11 @@
     },
     head() {
       return {
-        title: `${this.page.name} - ${this.$t('exhibitions.credits')}`
+        title: this.title,
+        meta: [
+          { hid: 'title', name: 'title', content: this.title },
+          { hid: 'og:title', property: 'og:title', content: this.title }
+        ]
       };
     }
   };
