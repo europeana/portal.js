@@ -5,6 +5,12 @@ import middleware from '../../../middleware/legacy';
 
 const rules = [
   { from: '/portal/en/about-us', to: '/en/about-us' },
+  { from: '/portal/en/explore/colours.html', to: '/en/collections', status: 302 },
+  { from: '/portal/en/explore/periods.html', to: '/en/collections', status: 302 },
+  { from: '/portal/en/explore/people.html', to: '/en/collections', status: 302 },
+  { from: '/portal/en/explore/topics.html', to: '/en/collections', status: 302 },
+  { from: '/portal/en/explore/sources.html', to: '/en/collections', status: 302 },
+  { from: '/portal/en/explore/newcontent.html', to: '/en/collections', status: 302 },
   { from: '/portal/de/record/90402/SK_A_2344.html', to: '/de/record/90402/SK_A_2344' },
   { from: '/portal/fr/explore/people/60404-johannes-vermeer.html', to: '/fr/entity/person/60404' },
   { from: '/portal/nl/explore/topics/47-painting.html', to: '/nl/entity/topic/47' },
@@ -84,11 +90,12 @@ describe('middleware/legacy', () => {
 
       const toPath = rule.to.split('?')[0];
       const toQuery = qs.parse(rule.to.split('?')[1], { depth: 0 });
+      const status = rule.status || 301;
 
       if (Object.keys(toQuery).length > 0) {
-        redirect.should.have.been.calledWith(toPath, toQuery);
+        redirect.should.have.been.calledWith(status, toPath, toQuery);
       } else {
-        redirect.should.have.been.calledWith(toPath);
+        redirect.should.have.been.calledWith(status, toPath);
       }
     });
   }

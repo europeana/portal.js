@@ -384,7 +384,8 @@ export default {
     "right": "Right"
   },
   "exhibitions": {
-    "exhibitions": "Exhibitions"
+    "exhibitions": "Exhibitions",
+    "credits": "Credits"
   },
   "actions": {
     "download": "Download",
