@@ -38,7 +38,6 @@
     },
     computed: {
       currentChapterIndex() {
-        if (this.chapterNavigation.length <= 1) return false;
         return this.chapterNavigation.findIndex(chapter => chapter.identifier === this.currentChapter);
       },
       nextChapter() {
@@ -52,7 +51,7 @@
     },
     methods: {
       getChapter(index) {
-        return this.chapterNavigation[index] ? this.chapterNavigation[index] : null;
+        return this.chapterNavigation[index];
       }
     }
   };

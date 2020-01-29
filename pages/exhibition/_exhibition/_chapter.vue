@@ -70,11 +70,11 @@
     },
     computed: {
       chapterNavigation() {
-        let navigation = [];
-        for (const chapter of this.chapters) {
-          navigation.push({ identifier: chapter.fields.identifier, name: chapter.fields.name, url: this.chapterUrl(chapter.fields.identifier) });
-        }
-        return navigation;
+        return this.chapters.map((chapter) => {
+          return {
+            identifier: chapter.fields.identifier, name: chapter.fields.name, url: this.chapterUrl(chapter.fields.identifier)
+          };
+        });
       },
       hero() {
         return this.page.primaryImageOfPage ? this.page.primaryImageOfPage.fields : null;
