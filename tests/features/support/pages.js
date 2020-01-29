@@ -10,6 +10,7 @@ const pages = {
   'English home page': `${url}/en`,
   'entity page': `${url}/en/entity/topic/18-newspaper`,
   'exhibition chapter': `${url}/en/exhibition/faces-of-europe/introduction`,
+  'exhibition credits': `${url}/en/exhibition/faces-of-europe/credits`,
   'exhibition page': `${url}/en/exhibition/faces-of-europe`,
   'exhibitions page': `${url}/en/exhibitions`,
   'Fashion collection search page': `${url}/en/search?query=&theme=fashion`,

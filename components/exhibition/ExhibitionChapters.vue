@@ -14,6 +14,12 @@
         :image-content-type="chapterImageContentType(chapter)"
         :texts="[chapter.fields.description]"
       />
+      <ContentCard
+        v-if="credits"
+        :title="$t('exhibitions.credits')"
+        :url="{ name: 'exhibition-exhibition-credits', params: { exhibition: exhibitionIdentifier } }"
+        data-qa="exhibitions credits card"
+      />
     </b-card-group>
   </section>
 </template>
@@ -33,6 +39,10 @@
       chapters: {
         type: Array,
         required: true
+      },
+      credits: {
+        type: String,
+        default: null
       }
     },
     methods: {
