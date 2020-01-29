@@ -66,6 +66,11 @@
         .catch((e) => {
           error({ statusCode: 500, message: e.toString() });
         });
+    },
+    head() {
+      return {
+        title: `${this.page.name} - ${this.$t('exhibitions.credits')}`
+      };
     }
   };
 </script>
