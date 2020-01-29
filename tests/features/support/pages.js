@@ -10,7 +10,7 @@ const pages = {
   'English home page': `${url}/en`,
   'entity page': `${url}/en/entity/topic/18-newspaper`,
   'exhibition chapter': `${url}/en/exhibition/the-pink-flowers/allium`,
-  'exhibition credits': `${url}/en/exhibition/the-pink-flowers/credits`,
+  'exhibition credits': `${url}/en/exhibition/faces-of-europe/credits`,
   'exhibition page': `${url}/en/exhibition/the-pink-flowers`,
   'exhibitions page': `${url}/en/exhibitions`,
   'Fashion collection search page': `${url}/en/search?query=&theme=fashion`,
