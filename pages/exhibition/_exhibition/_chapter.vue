@@ -40,6 +40,10 @@
       </b-row>
       <b-row v-if="chapters">
         <b-col>
+          <ExhibitionChaptersNavigation
+            :exhibition-identifier="exhibitionIdentifier"
+            :chapter-navigation="chapterNavigation"
+          />
           <ExhibitionChapters
             :exhibition-identifier="exhibitionIdentifier"
             :chapters="chapters"
@@ -55,15 +59,24 @@
   import createClient from '../../../plugins/contentful';
   import BrowseSections from '../../../components/browse/BrowseSections';
   import ExhibitionChapters from '../../../components/exhibition/ExhibitionChapters';
+  import ExhibitionChaptersNavigation from '../../../components/exhibition/ExhibitionChaptersNavigation';
   import HeroImage from '../../../components/generic/HeroImage';
 
   export default {
     components: {
       BrowseSections,
       ExhibitionChapters,
+      ExhibitionChaptersNavigation,
       HeroImage
     },
     computed: {
+      chapterNavigation() {
+        return this.chapters.map((chapter) => {
+          return {
+            identifier: chapter.fields.identifier, name: chapter.fields.name, url: this.chapterUrl(chapter.fields.identifier)
+          };
+        });
+      },
       hero() {
         return this.page.primaryImageOfPage ? this.page.primaryImageOfPage.fields : null;
       },
@@ -118,6 +131,16 @@
         .catch((e) => {
           error({ statusCode: 500, message: e.toString() });
         });
+    },
+    methods: {
+      chapterUrl(identifier) {
+        return this.localePath({
+          name: 'exhibition-exhibition-chapter',
+          params: {
+            exhibition: this.exhibitionIdentifier, chapter: identifier
+          }
+        });
+      }
     },
     beforeRouteLeave(to, from, next) {
       this.$store.commit('breadcrumb/clearBreadcrumb');
