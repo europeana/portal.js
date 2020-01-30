@@ -1,17 +1,33 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
+import Vuex from 'vuex';
+
 import SearchFilters from '../../../../components/search/SearchFilters.vue';
 
 const localVue = createLocalVue();
+localVue.use(Vuex);
 
-const factory = (propsData) => shallowMount(SearchFilters, {
-  localVue,
-  propsData,
-  stubs: ['b-badge']
-});
+const factory = (filters) => {
+  const store = new Vuex.Store({
+    modules: {
+      search: {
+        namespaced: true,
+        getters: {
+          filters: () => filters
+        }
+      }
+    }
+  });
+
+  return shallowMount(SearchFilters, {
+    localVue,
+    stubs: ['b-badge'],
+    store
+  });
+};
 
 describe('components/search/SearchFilters', () => {
   it('shows a badge for each supplied filter', () => {
-    const wrapper = factory({ filters: { TYPE: ['IMAGE', 'VIDEO'] } });
+    const wrapper = factory({ TYPE: ['IMAGE', 'VIDEO'] });
 
     const badges = wrapper.findAll('[data-qa="filter badge"]');
     badges.length.should.eq(2);
@@ -20,7 +36,7 @@ describe('components/search/SearchFilters', () => {
   describe('labels', () => {
     context('when facet name is contentTier', () => {
       it('is not prefixed', () => {
-        const wrapper = factory({ filters: { contentTier: ['*'] } });
+        const wrapper = factory({ contentTier: ['*'] });
 
         const label = wrapper.find('[facetname="contentTier"]');
 
@@ -30,7 +46,7 @@ describe('components/search/SearchFilters', () => {
 
     context('when facet name is not contentTier', () => {
       it('is prefixed', () => {
-        const wrapper = factory({ filters: { TYPE: ['IMAGE'] } });
+        const wrapper = factory({ TYPE: ['IMAGE'] });
 
         const label = wrapper.find('[facetname="TYPE"]');
 
