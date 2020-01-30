@@ -5,7 +5,9 @@
         cols="9"
         class="pb-3"
       >
-        <h1 data-qa="gallery title">{{ title }}</h1>
+        <h1 data-qa="gallery title">
+          {{ title }}
+        </h1>
         <p
           v-if="description"
         >
