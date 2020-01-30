@@ -121,7 +121,7 @@ function search(params, options = {}) {
     params: {
       facet: params.facet,
       profile: params.profile,
-      qf: qfHandler(params.qf),
+      qf: addContentTierFilter(params.qf),
       query,
       reusability: params.reusability,
       rows,
@@ -152,7 +152,7 @@ function search(params, options = {}) {
  * @param {(string|string[])} params.qf query filter(s) as passed into the search plugin.
  * @return {string[]} qf adjusted with the desired content tier filter
  */
-export function qfHandler(qf) {
+export function addContentTierFilter(qf) {
   let newQf = qf ? [].concat(qf) : [];
   if (!newQf.some(v => /^contentTier:/.test(v))) {
     // If no content tier qf is queried, tier 0 content is
