@@ -62,6 +62,7 @@
         return this.hero ? this.hero.image.fields.file : null;
       },
       mainContent() {
+        if (this.page.text === undefined) return;
         return marked(this.page.text);
       }
     },

@@ -795,11 +795,27 @@
       "selection": [
         {
           "order": 1,
+          "id": 5,
+          "prevSize": 28,
+          "code": 59676,
+          "name": "chevron-right",
+          "tempChar": ""
+        },
+        {
+          "order": 1,
+          "id": 4,
+          "name": "chevron-left",
+          "prevSize": 28,
+          "code": 59675,
+          "tempChar": ""
+        },
+        {
+          "order": 1,
           "id": 3,
           "prevSize": 28,
           "code": 59674,
           "name": "copyright",
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "order": 1,
@@ -807,7 +823,7 @@
           "prevSize": 28,
           "code": 59653,
           "name": "language",
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "order": 1,
@@ -815,7 +831,7 @@
           "prevSize": 28,
           "code": 59651,
           "name": "caret-down",
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "order": 1,
@@ -823,7 +839,7 @@
           "prevSize": 28,
           "code": 59648,
           "name": "external-link",
-          "tempChar": ""
+          "tempChar": ""
         }
       ],
       "id": 0,
@@ -836,13 +852,45 @@
         "licenseURL": "https://github.com/FortAwesome/Font-Awesome#license",
         "iconsHash": 309851062,
         "importSize": {
-          "width": 24,
+          "width": 19,
           "height": 28
         }
       },
       "height": 1024,
       "prevSize": 28,
       "icons": [
+        {
+          "id": 5,
+          "paths": [
+            "M632.571 501.143l-424 424c-14.286 14.286-37.143 14.286-51.429 0l-94.857-94.857c-14.286-14.286-14.286-37.143 0-51.429l303.429-303.429-303.429-303.429c-14.286-14.286-14.286-37.143 0-51.429l94.857-94.857c14.286-14.286 37.143-14.286 51.429 0l424 424c14.286 14.286 14.286 37.143 0 51.429z"
+          ],
+          "attrs": [
+            {}
+          ],
+          "width": 695,
+          "isMulticolor": false,
+          "isMulticolor2": false,
+          "tags": [
+            "chevron-right"
+          ],
+          "grid": 14
+        },
+        {
+          "id": 4,
+          "paths": [
+            "M669.143 172l-303.429 303.429 303.429 303.429c14.286 14.286 14.286 37.143 0 51.429l-94.857 94.857c-14.286 14.286-37.143 14.286-51.429 0l-424-424c-14.286-14.286-14.286-37.143 0-51.429l424-424c14.286-14.286 37.143-14.286 51.429 0l94.857 94.857c14.286 14.286 14.286 37.143 0 51.429z"
+          ],
+          "attrs": [
+            {}
+          ],
+          "width": 768,
+          "isMulticolor": false,
+          "isMulticolor2": false,
+          "tags": [
+            "chevron-left"
+          ],
+          "grid": 14
+        },
         {
           "id": 3,
           "paths": [
