@@ -29,7 +29,7 @@ module.exports = function(migration) {
     .name('URL slug')
     .type('Symbol')
     .localized(false)
-    .required(false)
+    .required(true)
     .validations([
       {
         unique: true
@@ -51,6 +51,36 @@ module.exports = function(migration) {
         }
       }
     ])
+    .disabled(false)
+    .omitted(false);
+
+  imageGallery
+    .createField('hasPart')
+    .name('Images')
+    .type('Array')
+    .localized(false)
+    .required(true)
+    .validations([])
+    .disabled(false)
+    .omitted(false)
+    .items({
+      type: 'Link',
+
+      validations: [
+        {
+          linkContentType: ['automatedRecordCard']
+        }
+      ],
+      linkType: 'Entry'
+    });
+
+  imageGallery
+    .createField('datePublished')
+    .name('Publish at')
+    .type('Date')
+    .localized(false)
+    .required(true)
+    .validations([])
     .disabled(false)
     .omitted(false);
 
@@ -90,36 +120,6 @@ module.exports = function(migration) {
         }
       ]
     });
-
-  imageGallery
-    .createField('hasPart')
-    .name('Images')
-    .type('Array')
-    .localized(false)
-    .required(true)
-    .validations([])
-    .disabled(false)
-    .omitted(false)
-    .items({
-      type: 'Link',
-
-      validations: [
-        {
-          linkContentType: ['automatedRecordCard']
-        }
-      ],
-      linkType: 'Entry'
-    });
-
-  imageGallery
-    .createField('datePublished')
-    .name('Publish at')
-    .type('Date')
-    .localized(false)
-    .required(true)
-    .validations([])
-    .disabled(false)
-    .omitted(false);
 
   imageGallery.changeFieldControl('name', 'builtin', 'singleLine', {});
 
