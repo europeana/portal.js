@@ -39,7 +39,7 @@
   import ContentCard from '../../components/generic/ContentCard';
 
   export default {
-    name: 'GalleryFoyer',
+    name: 'ImageGallery',
     components: {
       ContentCard
     },
