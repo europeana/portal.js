@@ -19,13 +19,13 @@ export default {
         "CREATOR": {
           "name": "Designer | Designers"
         },
-        "proxy_dc_format/en": {
+        "proxy_dc_format": {
           "name": "Technique | Techniques"
         },
-        "proxy_dcterms_medium/en": {
+        "proxy_dcterms_medium": {
           "name": "Material | Materials"
         },
-        "proxy_dc_type/en": {
+        "proxy_dc_type": {
           "name": "Item type | Item types"
         }
       }
@@ -105,6 +105,9 @@ export default {
         "permission": "Maybe, seek permission",
         "uncategorized": "Uncategorized"
       }
+    },
+    "CREATOR": {
+      "name": "Creator | Creators"
     },
     "THEME": {
       "name": "Category",
@@ -330,6 +333,15 @@ export default {
     },
     "proxy_dcterms_issued": {
       "name": "Date issued"
+    },
+    "proxy_dc_format": {
+      "name": "Format | Formats"
+    },
+    "proxy_dcterms_medium": {
+      "name": "Medium | Media"
+    },
+    "proxy_dc_type": {
+      "name": "Type | Types"
     },
     "api": {
       "name": "Search for",
