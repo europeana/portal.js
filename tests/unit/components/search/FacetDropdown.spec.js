@@ -1,9 +1,9 @@
-import { createLocalVue, mount } from '@vue/test-utils';
-import BootstrapVue from 'bootstrap-vue';
+import { createLocalVue, shallowMount } from '@vue/test-utils';
+import sinon from 'sinon';
+
 import FacetDropdown from '../../../../components/search/FacetDropdown.vue';
 
 const localVue = createLocalVue();
-localVue.use(BootstrapVue);
 
 const countryFields = [
   {
@@ -24,12 +24,15 @@ const countryFields = [
   }
 ];
 
-const factory = () => mount(FacetDropdown, {
+const factory = () => shallowMount(FacetDropdown, {
   localVue,
   mocks: {
     $t: (key) => key,
-    $te: () => true
+    $store: {
+      dispatch: sinon.stub()
+    }
   },
+  stubs: ['b-button', 'b-form-checkbox', 'b-dropdown', 'b-dropdown-form'],
   propsData: {
     type: 'checkbox',
     fields: countryFields,
@@ -65,63 +68,78 @@ describe('components/search/FacetDropdown', () => {
     ]);
   });
 
-  it('sets Reset button to disabled if nothing has been selected', () => {
-    const wrapper = factory();
+  describe('reset button', () => {
+    context('when nothing has been selected', () => {
+      it('is disabled', () => {
+        const wrapper = factory();
 
-    wrapper.setProps({
-      selected: []
+        wrapper.setProps({
+          selected: []
+        });
+
+        wrapper.setData({
+          preSelected: []
+        });
+
+        const resetButton = wrapper.find('[data-qa="COUNTRY reset button"]');
+
+        resetButton.attributes('disabled').should.eq('true');
+      });
+
+      context('when option has been selected', () => {
+        it('is enabled', () => {
+          const wrapper = factory();
+
+          wrapper.setData({
+            preSelected: ['Spain']
+          });
+
+          const resetButton = wrapper.find('[data-qa="COUNTRY reset button"]');
+
+          (resetButton.attributes('disabled') === undefined).should.be.true;
+        });
+      });
     });
-
-    wrapper.setData({
-      preSelected: []
-    });
-
-    const countryResetButtonDisabled = wrapper.find('[data-qa="COUNTRY reset button"][disabled="disabled"]');
-
-    countryResetButtonDisabled.exists().should.eq(true);
   });
 
-  it('sets Reset button to be enabled if option has been selected', () => {
-    const wrapper = factory();
+  describe('apply button', () => {
+    context('when new facet option has been selected', () => {
+      it('is enabled', () => {
+        const wrapper = factory();
 
-    wrapper.setData({
-      preSelected: ['Spain']
+        wrapper.setData({
+          preSelected: ['Spain', 'United Kingdom']
+        });
+
+        const applyButton = wrapper.find('[data-qa="COUNTRY apply button"]');
+
+        (applyButton.attributes('disabled') === undefined).should.be.true;
+      });
     });
 
-    const countryResetButtonDisabled = wrapper.find('[data-qa="COUNTRY reset button"][disabled="disabled"]');
+    context('when no new facet options have been selected', () => {
+      it('is disabled', () => {
+        const wrapper = factory();
 
-    countryResetButtonDisabled.exists().should.eq(false);
-  });
+        wrapper.setData({
+          preSelected: []
+        });
 
-  it('sets Apply button to enabled if new facet option has been selected', () => {
-    const wrapper = factory();
+        const applyButton = wrapper.find('[data-qa="COUNTRY apply button"]');
 
-    wrapper.setData({
-      preSelected: ['Spain', 'United Kingdom']
+        applyButton.attributes('disabled').should.eq('true');
+      });
     });
-
-    const countryApplyButtonDisabled = wrapper.find('[data-qa="COUNTRY apply button"][disabled="disabled"]');
-
-    countryApplyButtonDisabled.exists().should.eq(false);
   });
 
-  it('sets Apply button to be disabled if no new facet options have been selected', () => {
-    const wrapper = factory();
+  describe('applySelection', () => {
+    it('emits `updated` event', async() => {
+      const wrapper = factory();
 
-    wrapper.setData({
-      preSelected: []
+      wrapper.vm.$refs.dropdown.hide = sinon.spy();
+
+      wrapper.vm.applySelection();
+      wrapper.emitted()['changed'].length.should.equal(1);
     });
-
-    const countryApplyButtonDisabled = wrapper.find('[data-qa="COUNTRY apply button"][disabled="disabled"]');
-
-    countryApplyButtonDisabled.exists().should.eq(true);
-  });
-
-
-  it('emits `updated` event when applySelection method is called', async() => {
-    const wrapper = factory();
-
-    wrapper.vm.applySelection();
-    wrapper.emitted()['changed'].length.should.equal(1);
   });
 });

@@ -13,6 +13,24 @@ export default {
   "noMoreResults": "There are no more results for your search query.",
   "resultsLimitWarning": "Additional results are not shown as only the first 1000 most relevant results are shown. If you haven't found what you're looking for, please consider refining your search.",
   "noResults": "No results",
+  "themes": {
+    "fashion": {
+      "facets": {
+        "CREATOR": {
+          "name": "Designer | Designers"
+        },
+        "proxy_dc_format": {
+          "name": "Technique | Techniques"
+        },
+        "proxy_dcterms_medium": {
+          "name": "Material | Materials"
+        },
+        "proxy_dc_type": {
+          "name": "Item type | Item types"
+        }
+      }
+    }
+  },
   "fieldLabels": {
     "default": {
       "dcContributor": "Contributors",
@@ -76,9 +94,6 @@ export default {
     }
   },
   "facets": {
-    "CREATOR": {
-      "name": "Designer | Designers"
-    },
     "COUNTRY": {
       "name": "Providing country"
     },
@@ -90,6 +105,9 @@ export default {
         "permission": "Maybe, seek permission",
         "uncategorized": "Uncategorized"
       }
+    },
+    "CREATOR": {
+      "name": "Creator | Creators"
     },
     "THEME": {
       "name": "Category",
@@ -316,6 +334,15 @@ export default {
     "proxy_dcterms_issued": {
       "name": "Date issued"
     },
+    "proxy_dc_format": {
+      "name": "Format | Formats"
+    },
+    "proxy_dcterms_medium": {
+      "name": "Medium | Media"
+    },
+    "proxy_dc_type": {
+      "name": "Type | Types"
+    },
     "api": {
       "name": "Search for",
       "options": {
@@ -369,7 +396,11 @@ export default {
     "right": "Right"
   },
   "exhibitions": {
-    "exhibitions": "Exhibitions"
+    "exhibitions": "Exhibitions",
+    "credits": "Credits"
+  },
+  "galleries": {
+    "galleries": "Galleries"
   },
   "actions": {
     "download": "Download",

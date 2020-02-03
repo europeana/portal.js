@@ -130,7 +130,7 @@
       },
 
       facetName() {
-        return this.$t(`facets.${this.name}.name`);
+        return this.$tFacetName(this.name);
       },
 
       isRadio() {
@@ -173,6 +173,11 @@
         } else {
           this.preSelected = this.selected;
         }
+
+        this.$store.dispatch('search/setResettableFilter', {
+          name: this.name,
+          selected: this.preSelected
+        });
       },
 
       cancelHandler() {

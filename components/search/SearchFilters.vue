@@ -17,6 +17,7 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex';
   import FacetFieldLabel from './FacetFieldLabel';
 
   export default {
@@ -26,14 +27,11 @@
       FacetFieldLabel
     },
 
-    props: {
-      filters: {
-        type: Object,
-        required: true
-      }
-    },
-
     computed: {
+      ...mapGetters({
+        filters: 'search/filters'
+      }),
+
       filterList() {
         const listOfFilters = [];
 

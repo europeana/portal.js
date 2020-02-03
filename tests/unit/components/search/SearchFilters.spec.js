@@ -1,47 +1,57 @@
-import { createLocalVue, mount } from '@vue/test-utils';
-import BootstrapVue from 'bootstrap-vue';
+import { createLocalVue, shallowMount } from '@vue/test-utils';
+import Vuex from 'vuex';
+
 import SearchFilters from '../../../../components/search/SearchFilters.vue';
 
 const localVue = createLocalVue();
-localVue.use(BootstrapVue);
+localVue.use(Vuex);
 
-const factory = () => mount(SearchFilters, {
-  localVue,
-  mocks: {
-    $t: (key, opts) => {
-      return `${key}: ${JSON.stringify(opts)}`;
-    },
-    $tc: (key, opts) => {
-      return `${key}: ${JSON.stringify(opts)}`;
-    },
-    $te: () => {
-      return false;
+const factory = (filters) => {
+  const store = new Vuex.Store({
+    modules: {
+      search: {
+        namespaced: true,
+        getters: {
+          filters: () => filters
+        }
+      }
     }
-  }
-});
+  });
+
+  return shallowMount(SearchFilters, {
+    localVue,
+    stubs: ['b-badge'],
+    store
+  });
+};
 
 describe('components/search/SearchFilters', () => {
-  it('shows a badge for each supplied facet', () => {
-    const wrapper = factory();
-    wrapper.setProps({ filters: { TYPE: ['IMAGE', 'VIDEO'] } });
+  it('shows a badge for each supplied filter', () => {
+    const wrapper = factory({ TYPE: ['IMAGE', 'VIDEO'] });
 
-    const badges = wrapper.findAll('.badge');
+    const badges = wrapper.findAll('[data-qa="filter badge"]');
     badges.length.should.eq(2);
   });
 
-  it('shows the translated facet name and field value', () => {
-    const wrapper = factory();
-    wrapper.setProps({ filters: { TYPE: ['IMAGE'] } });
+  describe('labels', () => {
+    context('when facet name is contentTier', () => {
+      it('is not prefixed', () => {
+        const wrapper = factory({ contentTier: ['*'] });
 
-    const badge = wrapper.find('.badge');
-    badge.text().should.eq('formatting.labelledValue: {"label":"facets.TYPE.name: 1","value":"IMAGE"}');
-  });
+        const label = wrapper.find('[facetname="contentTier"]');
 
-  it('omits facet name when it displays content tier', () => {
-    const wrapper = factory();
-    wrapper.setProps({ filters: { contentTier: ['*'] } });
+        label.props('prefixed').should.be.false;
+      });
+    });
 
-    const badge = wrapper.find('.badge');
-    badge.text().should.eq('*');
+    context('when facet name is not contentTier', () => {
+      it('is prefixed', () => {
+        const wrapper = factory({ TYPE: ['IMAGE'] });
+
+        const label = wrapper.find('[facetname="TYPE"]');
+
+        label.props('prefixed').should.be.true;
+      });
+    });
   });
 });

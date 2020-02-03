@@ -1,103 +1,198 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
+
 import FacetFieldLabel from '../../../../components/search/FacetFieldLabel.vue';
+import Vuex from 'vuex';
+import sinon from 'sinon';
 
 const localVue = createLocalVue();
+localVue.use(Vuex);
 
-const factory = (propsData = {}, mocks = {}) => shallowMount(FacetFieldLabel, {
+const store = new Vuex.Store({
+  modules: {
+    search: {
+      namespaced: true,
+      getters: {
+        formatFacetFieldLabel: () => () => null
+      }
+    }
+  }
+});
+
+const factory = (options = {}) => shallowMount(FacetFieldLabel, {
   localVue,
-  propsData,
-  mocks
+  store,
+  ...options
 });
 
 describe('components/search/FacetFieldLabel', () => {
-  context('for a generic facet', () => {
+  describe('genericLabel', () => {
+    it('favours a formatted value from the store getter formatFacetFieldLabel', () => {
+      const formatFacetFieldLabel = sinon.stub();
+      formatFacetFieldLabel.returns('store formatted');
+      const store = new Vuex.Store({
+        modules: {
+          search: {
+            namespaced: true,
+            getters: {
+              formatFacetFieldLabel: () => formatFacetFieldLabel
+            }
+          }
+        }
+      });
+
+      const wrapper = factory({
+        propsData: {
+          facetName: 'TYPE',
+          fieldValue: '"IMAGE"'
+        },
+        store,
+        mocks: {
+          $tNull: () => null
+        }
+      });
+
+      wrapper.vm.genericLabel.should.eq('store formatted');
+    });
+
+    it('removes quotes from the field value', () => {
+      const wrapper = factory({
+        propsData: {
+          facetName: 'TYPE',
+          fieldValue: '"IMAGE"'
+        },
+        mocks: {
+          $tNull: () => null
+        }
+      });
+
+      wrapper.vm.genericLabel.should.eq('IMAGE');
+    });
+
     it('translates the field value', () => {
       const wrapper = factory({
-        facetName: 'TYPE',
-        fieldValue: 'IMAGE'
-      }, {
-        $t: (key) => `Translated ${key}`,
-        $te: () => true
+        propsData: {
+          facetName: 'TYPE',
+          fieldValue: 'IMAGE'
+        },
+        mocks: {
+          $tNull: () => 'Image'
+        }
       });
 
-      wrapper.find('span').text().should.eq('Translated facets.TYPE.options.IMAGE');
+      wrapper.vm.genericLabel.should.eq('Image');
     });
 
-    it('first falls back to the English translation', () => {
+    it('falls back to the field value if no translation', () => {
       const wrapper = factory({
-        facetName: 'TYPE',
-        fieldValue: 'IMAGE'
-      }, {
-        $t: (key) => `English ${key}`,
-        $te: (key, locale) => locale === 'en'
+        propsData: {
+          facetName: 'TYPE',
+          fieldValue: 'IMAGE'
+        },
+        mocks: {
+          $tNull: () => null
+        }
       });
 
-      wrapper.find('span').text().should.eq('English facets.TYPE.options.IMAGE');
-    });
-
-    it('finally falls back to the field value', () => {
-      const wrapper = factory({
-        facetName: 'TYPE',
-        fieldValue: 'IMAGE'
-      }, {
-        $te: () => false
-      });
-
-      wrapper.find('span').text().should.eq('IMAGE');
+      wrapper.vm.genericLabel.should.eq('IMAGE');
     });
   });
 
-  context('for the MIME_TYPE facet', () => {
-    it('translates the field value', () => {
+  describe('mediaTypeLabel', () => {
+    it('favours translated value', () => {
       const wrapper = factory({
-        facetName: 'MIME_TYPE',
-        fieldValue: 'text/plain'
-      }, {
-        $t: (key) => `Translated ${key}`,
-        $te: () => true
+        propsData: {
+          facetName: 'MIME_TYPE',
+          fieldValue: 'text/plain'
+        },
+        mocks: {
+          $tNull: () => 'Plain text'
+        }
       });
 
-      wrapper.find('span').text().should.eq('Translated facets.MIME_TYPE.options.text/plain');
+      wrapper.vm.mediaTypeLabel.should.eq('Plain text');
     });
 
     describe('fallback with no translation', () => {
       it('uppercases the subtype', () => {
         const wrapper = factory({
-          facetName: 'MIME_TYPE',
-          fieldValue: 'image/jpeg'
-        }, {
-          $te: () => false
+          propsData: {
+            facetName: 'MIME_TYPE',
+            fieldValue: 'image/jpeg'
+          },
+          mocks: {
+            $tNull: () => null
+          }
         });
 
-        wrapper.find('span').text().should.eq('JPEG');
+        wrapper.vm.mediaTypeLabel.should.eq('JPEG');
       });
 
       it('removes a leading "x-" from the subtype', () => {
         const wrapper = factory({
-          facetName: 'MIME_TYPE',
-          fieldValue: 'audio/x-flac'
-        }, {
-          $te: () => false
+          propsData: {
+            facetName: 'MIME_TYPE',
+            fieldValue: 'audio/x-flac'
+          },
+          mocks: {
+            $tNull: () => null
+          }
         });
 
-        wrapper.find('span').text().should.eq('FLAC');
+        wrapper.vm.mediaTypeLabel.should.eq('FLAC');
       });
     });
   });
 
-  context('with prefixing', () => {
-    it('prefixes with the translated facet name', () => {
-      const wrapper = factory({
-        facetName: 'TYPE',
-        fieldValue: 'TEXT',
-        prefixed: true
-      }, {
-        $t: (key, options) => `${options.label} ${options.value}`,
-        $tc: (key) => key,
-        $te: () => false
-      });
+  describe('label', () => {
+    context('for MIME_TYPE facet', () => {
+      it('uses media type label', () => {
+        const wrapper = factory({
+          propsData: {
+            facetName: 'MIME_TYPE',
+            fieldValue: 'image/jpeg'
+          },
+          mocks: {
+            $tNull: () => null
+          }
+        });
 
-      wrapper.find('span').text().should.eq('facets.TYPE.name TEXT');
+        wrapper.vm.label.should.eq('JPEG');
+      });
+    });
+
+    context('not for MIME_TYPE facet', () => {
+      it('uses generic label', () => {
+        const wrapper = factory({
+          propsData: {
+            facetName: 'TYPE',
+            fieldValue: 'VIDEO'
+          },
+          mocks: {
+            $tNull: () => null
+          }
+        });
+
+        wrapper.vm.label.should.eq('VIDEO');
+      });
+    });
+
+    context('with prefixing', () => {
+      it('prefixes with the translated facet name', () => {
+        const wrapper = factory({
+          propsData: {
+            facetName: 'TYPE',
+            fieldValue: 'TEXT',
+            prefixed: true
+          },
+          mocks: {
+            $t: (key, options) => `${options.label}: ${options.value}`,
+            $tNull: () => null,
+            $tFacetName: (key) => key
+          }
+        });
+
+        wrapper.vm.label.should.eq('TYPE: TEXT');
+      });
     });
   });
 });
