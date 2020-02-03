@@ -4,7 +4,7 @@
       <b-col
         cols="12"
         lg="6"
-        class="d-flex align-items-center mb-3 mb-lg-0"
+        class="d-flex flex-column flex-lg-row align-items-start align-items-lg-center mb-3 mb-lg-0"
       >
         <b-button
           v-if="url"
@@ -38,7 +38,7 @@
       <b-col
         cols="12"
         lg="6"
-        class="d-flex align-items-center justify-content-end is-size-4 view-at"
+        class="d-flex align-items-center justify-content-lg-end is-size-4 view-at"
       >
         <i18n
           v-if="isShownAt"
