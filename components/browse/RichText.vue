@@ -5,7 +5,7 @@
     tag="section"
   >
     <b-col class="col-12 col-lg-9">
-      <b-card>
+      <b-card v-if="html">
         <!-- eslint-disable vue/no-v-html -->
         <div
           v-html="html"
