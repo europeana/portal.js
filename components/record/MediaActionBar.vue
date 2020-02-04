@@ -1,6 +1,11 @@
 <template>
   <section data-qa="action bar">
     <b-row>
+      <b-col>
+        <SocialShare />
+      </b-col>
+    </b-row>
+    <b-row>
       <b-col
         cols="12"
         lg="6"
@@ -77,13 +82,15 @@
 <script>
   import RightsStatement from '../../components/generic/RightsStatement';
   import SmartLink from '../../components/generic/SmartLink';
+  import SocialShare from '../../components/generic/SocialShare';
 
   export default {
     name: 'MediaActionBar',
 
     components: {
       RightsStatement,
-      SmartLink
+      SmartLink,
+      SocialShare
     },
 
     props: {
