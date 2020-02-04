@@ -59,4 +59,21 @@ describe('components/generic/ContentCard', () => {
     const card =  wrapper.find('[data-qa="content card"] .card-img img');
     card.should.exist;
   });
+
+  it('has an optimised image', () => {
+    const wrapper = factory();
+    wrapper.setProps({ imageUrl: '//images.ctfassets.net/example/example.jpg', imageContentType: 'image/jpeg' });
+
+    wrapper.vm.optimisedImageUrl.should.contain('fm=jpg&fl=progressive&q=50');
+  });
+
+  it('has an optimised image with max width', () => {
+    const wrapper = factory();
+    wrapper.setProps({ imageUrl: '//images.ctfassets.net/example/example.jpg',
+      imageContentType: 'image/jpeg',
+      imageMaxDimensions: { width: 510 }
+    });
+
+    wrapper.vm.optimisedImageUrl.should.contain('fm=jpg&fl=progressive&q=50&w=510');
+  });
 });
