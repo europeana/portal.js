@@ -12,6 +12,7 @@
         :url="chapterUrl(chapter)"
         :image-url="chapterImageUrl(chapter)"
         :image-content-type="chapterImageContentType(chapter)"
+        :image-max-dimensions="{ width: 510 }"
         :texts="[chapter.fields.description]"
       />
       <ContentCard

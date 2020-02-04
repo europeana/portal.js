@@ -11,11 +11,13 @@
           data-qa="exhibitions section"
         >
           <ContentCard
-            v-for="exhibition in exhibitions"
+            v-for="(exhibition, index) in exhibitions"
             :key="exhibition.identifier"
             :title="exhibition.fields.name"
             :url="{ name: 'exhibition-exhibition', params: { exhibition: exhibition.fields.identifier } }"
-            :image-url="exhibition.fields.primaryImageOfPage && exhibition.fields.primaryImageOfPage.fields.image.fields.file.url"
+            :image-url="cardImage[index].url"
+            :image-content-type="cardImage[index].contentType"
+            :image-max-dimensions="{ width: 510 }"
             :texts="[exhibition.fields.description]"
           />
         </b-card-group>
@@ -64,6 +66,12 @@
     computed: {
       showPagination() {
         return this.total > this.perPage;
+      },
+      cardImage() {
+        return this.exhibitions.map((item) => {
+          return item.fields.primaryImageOfPage ?
+            item.fields.primaryImageOfPage.fields.image.fields.file : '';
+        });
       }
     },
     asyncData({ query, redirect, error, app, store }) {

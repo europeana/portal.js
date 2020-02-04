@@ -90,6 +90,10 @@
         type: String,
         default: null
       },
+      imageMaxDimensions: {
+        type: Object,
+        default: () => {}
+      },
       datetime: {
         type: String,
         default: ''
@@ -135,7 +139,7 @@
       },
 
       optimisedImageUrl() {
-        return this.$options.filters.optimisedImageUrl(this.imageUrl, this.imageContentType);
+        return this.$options.filters.optimisedImageUrl(this.imageUrl, this.imageContentType, this.imageMaxDimensions);
       }
     },
 
