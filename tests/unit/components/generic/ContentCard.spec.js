@@ -71,7 +71,7 @@ describe('components/generic/ContentCard', () => {
     const wrapper = factory();
     wrapper.setProps({ imageUrl: '//images.ctfassets.net/example/example.jpg',
       imageContentType: 'image/jpeg',
-      imageMaxDimensions: { width: 510 }
+      imageOptimisationOptions: { width: 510 }
     });
 
     wrapper.vm.optimisedImageUrl.should.contain('fm=jpg&fl=progressive&q=50&w=510');

@@ -90,7 +90,7 @@
         type: String,
         default: null
       },
-      imageMaxDimensions: {
+      imageOptimisationOptions: {
         type: Object,
         default: () => {}
       },
@@ -139,7 +139,7 @@
       },
 
       optimisedImageUrl() {
-        return this.$options.filters.optimisedImageUrl(this.imageUrl, this.imageContentType, this.imageMaxDimensions);
+        return this.$options.filters.optimisedImageUrl(this.imageUrl, this.imageContentType, this.imageOptimisationOptions);
       }
     },
 
