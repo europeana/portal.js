@@ -182,6 +182,7 @@
       return {
         agents: null,
         altTitle: null,
+        canonicalURL: null,
         cardGridClass: null,
         concepts: null,
         description: null,
@@ -231,6 +232,13 @@
           return false;
         }
         return langMapValueForLocale(this.description, this.$i18n.locale);
+      },
+      metaTitle() {
+        return this.titlesInCurrentLanguage[0] ? this.titlesInCurrentLanguage[0].value : this.$t('record.record');
+      },
+      metaDescription() {
+        if (!this.descriptionInCurrentLanguage) return;
+        return this.descriptionInCurrentLanguage.values[0] ? this.descriptionInCurrentLanguage.values[0] : '';
       },
       isRichMedia() {
         return isRichMedia(this.selectedMedia, {
@@ -317,6 +325,8 @@
         }
       });
 
+      this.canonicalURL = window.location.href;
+
     },
 
     methods: {
@@ -364,7 +374,16 @@
 
     head() {
       return {
-        title: this.titlesInCurrentLanguage[0] ? this.titlesInCurrentLanguage[0].value : this.$t('record.record')
+        title: this.metaTitle,
+        meta: [
+          { hid: 'title', name: 'title', content: this.metaTitle },
+          { hid: 'description', name: 'description', content: this.metaDescription },
+          { hid: 'og:title', property: 'og:title', content: this.metaTitle },
+          { hid: 'og:description', property: 'og:description', content: this.metaDescription },
+          { hid: 'og:image', property: 'og:image', content: this.selectedMediaImage.src },
+          { hid: 'og:type', property: 'og:type', content: 'article' },
+          { hid: 'og:url', property: 'og:url', content: this.canonicalURL }
+        ]
       };
     }
   };

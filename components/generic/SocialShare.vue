@@ -1,33 +1,42 @@
 <template>
-  <p>
+  <div>
     <b-link
-      title="Share on Instagram"
-    >
-      <span class="icon-instagram" />
-    </b-link>
-    <b-link
-      title="Share on Facebook"
+      target="_blank"
+      :title="$t('actions.shareOn', { social: 'Facebook' })"
       :href="facebookShareUrl"
+      data-qa="share facebook"
     >
       <span class="icon-facebook" />
     </b-link>
     <b-link
-      title="Share on Twitter"
+      target="_blank"
+      :title="$t('actions.shareOn', { social: 'Twitter' })"
       :href="twitterShareUrl"
+      data-qa="share twitter"
     >
       <span class="icon-twitter" />
     </b-link>
     <b-link
-      title="Share on Pinterest"
+      target="_blank"
+      :title="$t('actions.shareOn', { social: 'Pinterest' })"
+      :href="pinterestShareUrl"
+      data-qa="share pinterest"
     >
       <span class="icon-pinterest" />
     </b-link>
-  </p>
+  </div>
 </template>
 
 <script>
   export default {
     name: 'SocialShare',
+
+    props: {
+      mediaUrl: {
+        type: String,
+        default: ''
+      }
+    },
 
     data() {
       return {
@@ -37,10 +46,13 @@
 
     computed: {
       facebookShareUrl() {
-        return `https://www.facebook.com/sharer/sharer.php?u=${this.location}${this.$route.fullPath}`;
+        return `https://www.facebook.com/sharer/sharer.php?display=page&u=${this.location}`;
       },
       twitterShareUrl() {
-        return `https://twitter.com/intent/tweet?text=${this.location}${this.$route.fullPath}`;
+        return `https://twitter.com/intent/tweet?text=${this.location}`;
+      },
+      pinterestShareUrl() {
+        return `https://pinterest.com/pin/create/link/?url=${this.location}&media=${this.mediaUrl}`;
       }
     },
 
@@ -49,3 +61,34 @@
     }
   };
 </script>
+
+<style lang="scss" scoped>
+  @import '../../assets/scss/variables.scss';
+
+  a {
+    align-items: center;
+    background: $black;
+    border: 1px solid $black;
+    border-radius: 50%;
+    color: $white;
+    display: inline-flex;
+    height: calc(2.5rem - 1px);
+    justify-content: center;
+    text-decoration: none;
+    transition: background 0.25s;
+    width: calc(2.5rem - 1px);
+
+    [class^="icon"] {
+      color: $white;
+      font-size: $font-size-medium;
+    }
+
+    &:hover {
+      background: transparent;
+
+      [class^="icon"] {
+        color: $black;
+      }
+    }
+  }
+</style>
