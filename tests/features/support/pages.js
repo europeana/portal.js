@@ -15,6 +15,7 @@ const pages = {
   'exhibitions page': `${url}/en/exhibitions`,
   'Fashion collection search page': `${url}/en/search?query=&theme=fashion`,
   'first page of results': `${url}/en/search?query=&page=1`,
+  'gallery page': `${url}/en/gallery/blue`,
   'gallery foyer page': `${url}/en/gallery`,
   'home page': `${url}/en`,
   'Newspapers collection page': `${url}/en/entity/topic/18-newspaper`,

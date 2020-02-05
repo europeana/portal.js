@@ -1,4 +1,5 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
+import sinon from 'sinon';
 
 import RadioGroupFilter from '../../../../components/search/RadioGroupFilter.vue';
 
@@ -8,6 +9,9 @@ const factory = (propsData) => shallowMount(RadioGroupFilter, {
   localVue,
   stubs: ['b-row', 'b-col', 'b-form-group', 'b-form-radio-group', 'b-form-radio'],
   mocks: {
+    $store: {
+      dispatch: sinon.stub()
+    },
     $t: (key) => key,
     $tc: (key) => key,
     $te: () => true

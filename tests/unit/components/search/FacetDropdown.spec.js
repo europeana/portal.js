@@ -1,7 +1,7 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
-import FacetDropdown from '../../../../components/search/FacetDropdown.vue';
-
 import sinon from 'sinon';
+
+import FacetDropdown from '../../../../components/search/FacetDropdown.vue';
 
 const localVue = createLocalVue();
 
@@ -27,7 +27,10 @@ const countryFields = [
 const factory = () => shallowMount(FacetDropdown, {
   localVue,
   mocks: {
-    $t: (key) => key
+    $t: (key) => key,
+    $store: {
+      dispatch: sinon.stub()
+    }
   },
   stubs: ['b-button', 'b-form-checkbox', 'b-dropdown', 'b-dropdown-form'],
   propsData: {

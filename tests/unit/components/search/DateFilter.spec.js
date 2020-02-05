@@ -1,4 +1,5 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
+import sinon from 'sinon';
 
 import BootstrapVue from 'bootstrap-vue';
 import DateFilter from '../../../../components/search/DateFilter.vue';
@@ -9,7 +10,10 @@ localVue.use(BootstrapVue);
 const factory = () => shallowMount(DateFilter, {
   localVue,
   mocks: {
-    $t: (key) => key
+    $t: (key) => key,
+    $store: {
+      dispatch: sinon.stub()
+    }
   },
   propsData: {
     name: 'proxy_dcterms_issued',

@@ -12,8 +12,9 @@
         >
           <ContentCard
             v-for="gallery in galleries"
-            :key="gallery.identifier"
+            :key="gallery.fields.identifier"
             :title="gallery.fields.name"
+            :url="{ name: 'gallery-all', params: { pathMatch: gallery.fields.identifier } }"
             :image-url="gallery.fields.hasPart[0] && gallery.fields.hasPart[0].fields.thumbnailUrl"
             :texts="[gallery.fields.description]"
           />

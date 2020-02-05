@@ -74,7 +74,7 @@
 
     data() {
       return {
-        selectedOptions: this.selected,
+        selectedOptions: null,
         isActive: false,
         limitTo: 9
       };
@@ -88,12 +88,25 @@
     },
 
     watch: {
-      selected(value) {
-        this.selectedOptions = value;
+      selected() {
+        this.init();
       }
     },
 
+    mounted() {
+      this.init();
+    },
+
     methods: {
+      init() {
+        this.selectedOptions = this.selected;
+
+        this.$store.dispatch('search/setResettableFilter', {
+          name: this.name,
+          selected: this.selectedOptions
+        });
+      },
+
       selectedHandler() {
         this.$nextTick(() => {
           this.$emit('selectedOptions', this.name, this.selectedOptions);

@@ -59,6 +59,7 @@
   import AutoSuggest from './AutoSuggest';
   import SearchBarPill from './SearchBarPill';
   import { getEntitySuggestions, getEntityTypeHumanReadable, getEntitySlug } from '../../plugins/europeana/entity';
+  import { mapGetters } from 'vuex';
 
   export default {
     name: 'SearchForm',
@@ -89,6 +90,10 @@
     },
 
     computed: {
+      ...mapGetters({
+        queryUpdatesForFacetChanges: 'search/queryUpdatesForFacetChanges'
+      }),
+
       isAutoSuggestActive() {
         return this.enableAutoSuggest && (this.suggestions.length > 0);
       },
@@ -113,7 +118,11 @@
           path: this.localePath({
             name: 'search'
           }),
-          query: { ...this.$route.query, page: 1, api: undefined }
+          query: {
+            view: this.view,
+            ...this.queryUpdatesForFacetChanges({ 'THEME': undefined }),
+            query: this.query
+          }
         };
       },
 

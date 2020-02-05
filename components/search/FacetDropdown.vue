@@ -173,6 +173,11 @@
         } else {
           this.preSelected = this.selected;
         }
+
+        this.$store.dispatch('search/setResettableFilter', {
+          name: this.name,
+          selected: this.preSelected
+        });
       },
 
       cancelHandler() {

@@ -1,4 +1,6 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
+import sinon from 'sinon';
+
 import MoreFiltersDropdownFacet from '../../../../components/search/MoreFiltersDropdownFacet.vue';
 
 const localVue = createLocalVue();
@@ -8,7 +10,10 @@ const factory = () => shallowMount(MoreFiltersDropdownFacet, {
   mocks: {
     $t: (key) => key,
     $tFacetName: (key) => key,
-    $store: { getters: {} }
+    $store: {
+      getters: {},
+      dispatch: sinon.stub()
+    }
   },
   stubs: ['b-form-checkbox-group', 'b-form-group'],
   propsData: {
