@@ -237,7 +237,7 @@
         return this.titlesInCurrentLanguage[0] ? this.titlesInCurrentLanguage[0].value : this.$t('record.record');
       },
       metaDescription() {
-        if (!this.descriptionInCurrentLanguage) return;
+        if (!this.descriptionInCurrentLanguage) return '';
         return this.descriptionInCurrentLanguage.values[0] ? this.descriptionInCurrentLanguage.values[0] : '';
       },
       isRichMedia() {
@@ -254,6 +254,7 @@
         }
       },
       selectedMediaImage() {
+        if (!this.selectedMedia.thumbnails) return {};
         return {
           src: this.selectedMedia.thumbnails.large,
           link: this.isShownAt
@@ -380,7 +381,7 @@
           { hid: 'description', name: 'description', content: this.metaDescription },
           { hid: 'og:title', property: 'og:title', content: this.metaTitle },
           { hid: 'og:description', property: 'og:description', content: this.metaDescription },
-          { hid: 'og:image', property: 'og:image', content: this.selectedMediaImage.src },
+          { hid: 'og:image', property: 'og:image', content: this.selectedMediaImage.src ? this.selectedMediaImage.src : '' },
           { hid: 'og:type', property: 'og:type', content: 'article' },
           { hid: 'og:url', property: 'og:url', content: this.canonicalURL }
         ]
