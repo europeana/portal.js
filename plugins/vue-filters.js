@@ -7,6 +7,7 @@ import Vue from 'vue';
 // TODO: remove this when the issue noted in the url plugin is resolved upstream
 import { URL } from './url';
 
+
 Vue.filter('localise', val => {
   if (typeof val === 'undefined' || val === null) {
     return val;
@@ -36,6 +37,10 @@ Vue.filter('optimisedImageUrl', (imageUrl, contentType, options = {}) => {
   if (imageQueryParams.length > 0) imageUrl += '?' + imageQueryParams.join('&');
 
   return imageUrl;
+});
+
+Vue.filter('plainTex', (text) => {
+  return text;
 });
 
 /**

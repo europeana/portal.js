@@ -8,11 +8,12 @@
         <h1 data-qa="gallery title">
           {{ title }}
         </h1>
-        <p
+        <!-- eslint-disable vue/no-v-html -->
+        <div
+          v-html="description"
           v-if="description"
-        >
-          {{ description }}
-        </p>
+        />
+        <!-- eslint-enable vue/no-v-html -->
       </b-col>
       <b-col cols="12">
         <b-card-group
@@ -37,6 +38,7 @@
 <script>
   import createClient from '../../plugins/contentful';
   import ContentCard from '../../components/generic/ContentCard';
+  import marked from 'marked';
 
   export default {
     name: 'ImageGallery',
@@ -52,7 +54,7 @@
       })
         .then((response) => {
           return {
-            description: response.items[0].fields.description,
+            rawDescription: response.items[0].fields.description,
             images: response.items[0].fields.hasPart,
             title: response.items[0].fields.name
           };
@@ -60,6 +62,11 @@
         .catch((e) => {
           error({ statusCode: 500, message: e.toString() });
         });
+    },
+    computed: {
+      description() {
+        return marked(this.rawDescription);
+      }
     },
     head() {
       return {

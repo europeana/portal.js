@@ -82,4 +82,35 @@ describe('Vue filters', () => {
       proxyUrl.should.eq(expected);
     });
   });
+
+  describe('plainText', () => {
+    const plainText = Vue.filter('plainText');
+
+    context('when the text is plain', () => {
+      const textBefore = 'Contains only plain text.';
+
+      it('returns the text as is', () => {
+        const result = plainText(textBefore);
+        result.should.eq('Contains only plain text.');
+      });
+    });
+
+    context('when the text contains markdown"', () => {
+      const textBefore = 'Contains _markdown_ with (a link)[http://example.org]!';
+
+      it('returns the text as plain text', () => {
+        const result = plainText(textBefore);
+        result.should.eq('Contains markdown with a link!');
+      });
+    });
+
+    context('when the text contains html"', () => {
+      const textBefore = '<p>Contains <em>HTML</em> with <a href="http://example.org">a link</a>!</p>';
+
+      it('returns the text as plain text', () => {
+        const result = plainText(textBefore);
+        result.should.eq('Contains HTML with a link!');
+      });
+    });
+  });
 });
