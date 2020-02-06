@@ -91,6 +91,10 @@
         type: String,
         default: null
       },
+      imageOptimisationOptions: {
+        type: Object,
+        default: () => {}
+      },
       datetime: {
         type: String,
         default: ''
@@ -136,7 +140,7 @@
       },
 
       optimisedImageUrl() {
-        return this.$options.filters.optimisedImageUrl(this.imageUrl, this.imageContentType);
+        return this.$options.filters.optimisedImageUrl(this.imageUrl, this.imageContentType, this.imageOptimisationOptions);
       }
     },
 
