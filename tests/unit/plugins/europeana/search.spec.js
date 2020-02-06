@@ -1,5 +1,7 @@
 import nock from 'nock';
-import search, { addContentTierFilter, rangeToQueryParam, rangeFromQueryParam } from '../../../../plugins/europeana/search';
+import search, {
+  addContentTierFilter, rangeToQueryParam, rangeFromQueryParam
+} from '../../../../plugins/europeana/search';
 import config from '../../../../plugins/europeana/api';
 
 import axios from 'axios';
@@ -370,6 +372,13 @@ describe('plugins/europeana/search', () => {
       const qf = 'contentTier:*';
       it('returns the qf without the qf', () => {
         const expected = [];
+        addContentTierFilter(qf).should.deep.eql(expected);
+      });
+    });
+    context('with a collection qf', () => {
+      const qf = ['collection:art', 'contentTier:3'];
+      it('combines the contentTier qf into it', () => {
+        const expected = ['collection:art AND contentTier:3'];
         addContentTierFilter(qf).should.deep.eql(expected);
       });
     });

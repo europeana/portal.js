@@ -10,6 +10,7 @@ import { genericThumbnail } from './thumbnail';
 
 // Some facets do not support enquoting of their field values.
 export const unquotableFacets = [
+  'collection',
   'COLOURPALETTE',
   'IMAGE_COLOUR',
   'IMAGE_GREYSCALE', // WARNING: always returns zero results anyway
@@ -162,6 +163,17 @@ export function addContentTierFilter(qf) {
   }
   // contentTier:* is irrelevant so is removed
   newQf = newQf.filter(v => v !== 'contentTier:*');
+
+  // combine collection and contentTier filters if both are present, to take
+  // advantage of pre-warmed Solr query filters depending on precise queries
+  const collectionQfIndex = newQf.findIndex((v) => /^collection:/.test(v));
+  const contentTierQfIndex = newQf.findIndex((v) => /^contentTier:/.test(v));
+  if (collectionQfIndex !== -1 && contentTierQfIndex !== -1) {
+    const combinedQf = [newQf[collectionQfIndex], newQf[contentTierQfIndex]].join(' AND ');
+    newQf.splice(collectionQfIndex, 1, combinedQf);
+    newQf.splice(contentTierQfIndex, 1);
+  }
+
   return newQf;
 }
 
