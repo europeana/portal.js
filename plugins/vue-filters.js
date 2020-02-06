@@ -6,6 +6,7 @@
 import Vue from 'vue';
 // TODO: remove this when the issue noted in the url plugin is resolved upstream
 import { URL } from './url';
+import marked from 'marked';
 
 
 Vue.filter('localise', val => {
@@ -39,9 +40,24 @@ Vue.filter('optimisedImageUrl', (imageUrl, contentType, options = {}) => {
   return imageUrl;
 });
 
-Vue.filter('plainText', (text) => {
+const htmlRemovalPatternsFromTags = (tags) => {
+  const patterns = [].concat.apply([/\n$/], tags.map((tag) => {
+    return [new RegExp(`<${tag}.*?>`, 'g'), new RegExp(`</${tag}.*?>`, 'g')];
+  }));
+  return patterns;
+};
+
+Vue.filter('stripMarkdown', (text, tags) => {
+  text = marked(text);
+  const patternsToRemove = tags ? htmlRemovalPatternsFromTags(tags) : [/(<.*?>)+/gi, /\n$/];
+  for (const pattern of patternsToRemove) {
+    console.log(`removing for ${pattern}`);
+    text = text.replace(pattern, '');
+  }
   return text;
 });
+
+
 
 /**
  * Convert new lines to <br/>
