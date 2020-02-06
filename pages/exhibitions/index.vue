@@ -68,7 +68,7 @@
         return this.total > this.perPage;
       }
     },
-    asyncData({ query, redirect, error, app, store }) {
+    asyncData({ query, redirect, error, app }) {
       const currentPage = pageFromQuery(query.page);
       if (currentPage === null) {
         // Redirect non-positive integer values for `page` to `page=1`
@@ -86,12 +86,6 @@
         limit: PER_PAGE
       })
         .then((response) => {
-          store.commit('breadcrumb/setBreadcrumbs', [
-            {
-              text:  app.i18n.t('exhibitions.exhibitions'),
-              active: true
-            }
-          ]);
           return {
             exhibitions: response.items,
             total: response.total,

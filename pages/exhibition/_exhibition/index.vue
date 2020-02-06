@@ -31,7 +31,10 @@
         </b-col>
       </b-row>
       <b-row v-if="page.hasPart">
-        <b-col>
+        <b-col class="my-3">
+          <h2 class="is-size-1-5">
+            {{ $t('exhibitions.chapters') }}
+          </h2>
           <ExhibitionChapters
             :exhibition-identifier="page.identifier"
             :chapters="page.hasPart"

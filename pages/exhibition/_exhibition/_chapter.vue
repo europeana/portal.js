@@ -25,7 +25,9 @@
             {{ page.name }}
           </h1>
           <article>
-            <h2>{{ page.description }}</h2>
+            <h2>
+              {{ page.description }}
+            </h2>
             {{ page.text }}
           </article>
         </b-col>
@@ -35,15 +37,19 @@
           <BrowseSections
             v-if="page"
             :sections="page.hasPart"
+            :rich-text-is-card="false"
           />
         </b-col>
       </b-row>
       <b-row v-if="chapters">
-        <b-col>
+        <b-col class="my-3">
           <ExhibitionChaptersNavigation
             :exhibition-identifier="exhibitionIdentifier"
             :chapter-navigation="chapterNavigation"
           />
+          <h2 class="is-size-1-5">
+            {{ $t('exhibitions.chapters') }}
+          </h2>
           <ExhibitionChapters
             :exhibition-identifier="exhibitionIdentifier"
             :chapters="chapters"
@@ -159,3 +165,16 @@
     }
   };
 </script>
+
+<style lang="scss" scoped>
+  /deep/ figure {
+    display: inline-block;
+    max-width: 100%;
+
+    img {
+      max-height: 80vh;
+      object-fit: cover;
+    }
+  }
+</style>
+

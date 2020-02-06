@@ -112,6 +112,51 @@
       min-height: auto;
     }
   }
+
+  &.mini-card {
+    min-height: auto;
+    padding: 1rem;
+
+    a {
+      flex-direction: row;
+      justify-content: space-between;
+
+      .card-img {
+        border-radius: 4px;
+        display: block;
+        flex: 0 0 auto;
+        height: 80px;
+        min-height: initial;
+        order: 2;
+        overflow: hidden;
+        position: relative;
+        width: 80px;
+        
+        img {
+          height: 80px;
+          position: absolute;
+        }
+
+        &:after {
+          content: '';
+          display: block;
+          padding-bottom: 100%;
+          width: 100%;
+        }
+      }
+
+      .card-body {
+        flex-grow: 1;
+        margin-right: 1rem;
+        order: 1;
+        padding: 0;
+      }
+
+      .card-text {
+        color: $blue;
+      }      
+    }    
+  }
 }
 
 .card-deck-3-cols .card,
@@ -124,6 +169,12 @@
     flex: 0 0 calc(100% / 3 - #{$grid-gutter*2});
   }
 
+  .card-deck-4-cols .card {
+    flex: 0 0 calc(100% / 2 - #{$grid-gutter*2});
+  }
+}
+
+@media (min-width: $bp-large) {
   .card-deck-4-cols .card {
     flex: 0 0 calc(100% / 4 - #{$grid-gutter*2});
   }

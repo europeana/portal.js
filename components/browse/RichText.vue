@@ -1,17 +1,25 @@
 <template>
   <b-row
     data-qa="markdown"
-    class="mb-5"
+    :class="{ 'mb-5': richTextIsCard }"
     tag="section"
   >
     <b-col class="col-12 col-lg-9">
-      <b-card v-if="html">
+      <b-card
+        v-if="html && richTextIsCard"
+      >
         <!-- eslint-disable vue/no-v-html -->
         <div
           v-html="html"
         />
         <!-- eslint-enable vue/no-v-html -->
       </b-card>
+      <!-- eslint-disable vue/no-v-html -->
+      <div
+        else
+        v-html="html"
+      />
+      <!-- eslint-enable vue/no-v-html -->
     </b-col>
   </b-row>
 </template>
@@ -25,6 +33,11 @@
       text: {
         type: String,
         required: true
+      },
+      // TODO: find a better and cleaner solution
+      richTextIsCard: {
+        type: Boolean,
+        default: true
       }
     },
     computed: {

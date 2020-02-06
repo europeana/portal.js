@@ -1,21 +1,23 @@
 <template>
   <div class="my-3 d-flex justify-content-end">
-    <b-link
+    <b-button
       v-if="previousChapter"
       :to="previousChapter.url"
       class="chapter-nav prev"
       data-qa="previous chapter button"
+      variant="outline-primary text-decoration-none"
     >
       {{ previousChapter.name }}
-    </b-link>
-    <b-link
+    </b-button>
+    <b-button
       v-if="nextChapter"
       :to="nextChapter.url"
       class="chapter-nav next"
       data-qa="next chapter button"
+      variant="outline-primary text-decoration-none"
     >
       {{ nextChapter.name }}
-    </b-link>
+    </b-button>
   </div>
 </template>
 

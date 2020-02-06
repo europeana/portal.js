@@ -13,13 +13,15 @@
         :image-url="chapterImageUrl(chapter)"
         :image-content-type="chapterImageContentType(chapter)"
         :image-optimisation-options="{ width: 510 }"
-        :texts="[chapter.fields.description]"
+        :texts="[chapterText(chapter)]"
+        :is-mini="true"
       />
       <ContentCard
         v-if="credits"
         :title="$t('exhibitions.credits')"
         :url="{ name: 'exhibition-exhibition-credits', params: { exhibition: exhibitionIdentifier } }"
         data-qa="exhibitions credits card"
+        :is-mini="true"
       />
     </b-card-group>
   </section>
@@ -32,6 +34,7 @@
     components: {
       ContentCard
     },
+
     props: {
       exhibitionIdentifier: {
         type: String,
@@ -46,6 +49,13 @@
         default: null
       }
     },
+
+    data() {
+      return {
+        currentChapter: this.$route.params.chapter
+      };
+    },
+
     methods: {
       chapterUrl(chapter) {
         return {
@@ -54,6 +64,9 @@
             exhibition: this.exhibitionIdentifier, chapter: chapter.fields.identifier
           }
         };
+      },
+      chapterText(chapter) {
+        return chapter.fields.identifier === this.currentChapter ? this.$t('exhibitions.currentChapter') : '';
       },
       chapterImageUrl(chapter) {
         if (!chapter.fields.primaryImageOfPage) return;

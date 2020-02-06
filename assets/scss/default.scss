@@ -55,6 +55,31 @@ pre {
   white-space: pre-wrap;
 }
 
+blockquote {
+  border-right: 2px solid $blue;
+  color: $black;
+  font-size: 1.125rem;
+  font-style: italic;
+  margin-left: 5rem;
+  margin-right: 5rem;
+  padding-right: 1rem;
+  text-align: right;
+
+  p:before {
+    color: $blue;
+    content: '\2018';
+    display: inline-block;
+    font-size: 1.75rem;
+    padding-right: 0.25rem;
+  }
+
+  p:after {
+    color: $black;
+    content: '\2019';
+    display: inline-block;
+  }
+}
+
 img {
   max-width: 100%;
 }
