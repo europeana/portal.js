@@ -155,9 +155,10 @@ export const getters = {
     }
 
     // Remove collection-specific filters when collection is changed
+    // console.log('')
     if (Object.prototype.hasOwnProperty.call(selected, 'collection') || !getters.collection) {
       for (const name in filters) {
-        if (!defaultFacetNames.includes(name) && state.resettableFilters.includes(name)) {
+        if (name !== 'collection' && !defaultFacetNames.includes(name) && state.resettableFilters.includes(name)) {
           filters[name] = [];
         }
       }
@@ -255,7 +256,11 @@ export const actions = {
       apiParams.facet = defaultFacetNames.join(',');
     }
     if (!apiParams.profile) {
-      apiParams.profile = 'minimal,facets';
+      if (apiParams.facet.length === 0) {
+        apiParams.profile = 'minimal';
+      } else {
+        apiParams.profile = 'minimal,facets';
+      }
     }
 
     commit('setApiParams', apiParams);

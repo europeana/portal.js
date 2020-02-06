@@ -169,7 +169,7 @@
     methods: {
       init() {
         if (this.isRadio && Array.isArray(this.selected)) {
-          this.preSelected = null;
+          this.preSelected = this.selected[0];
         } else {
           this.preSelected = this.selected;
         }
