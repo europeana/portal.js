@@ -24,8 +24,8 @@ export const unquotableFacets = [
   'VIDEO_HD'
 ];
 
-// Thematic collections available via the `theme` parameter.
-// Order is significant as it will be reflected on search results.
+// Thematic collections available via the `theme` parameter or `collection` qf
+// filter. Order is significant as it will be reflected on search results.
 export const thematicCollections = [
   'ww1',
   'archaeology',

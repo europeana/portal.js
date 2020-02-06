@@ -259,8 +259,8 @@
         rows: PER_PAGE
       };
 
-      if (store.state.entity.themes[entityUri]) {
-        overrideParams.theme = store.state.entity.themes[entityUri];
+      if (store.state.entity.collections[entityUri]) {
+        overrideParams.qf.push(`collection:${store.state.entity.collections[entityUri]}`);
       } else {
         const entityQuery = entities.getEntityQuery(entityUri);
         overrideParams.qf.push(entityQuery);
@@ -277,7 +277,7 @@
 
     mounted() {
       this.$store.commit('search/setPill', this.title);
-      this.$store.commit('search/disableThemeFacet');
+      this.$store.commit('search/disableCollectionFacet');
     },
 
     methods: {

@@ -23,21 +23,23 @@
         class="more-facets-wrapper"
         role="presentation"
       >
-        <RadioGroupFilter
-          v-if="theme === 'newspaper'"
-          facet-name="api"
-          :options="['fulltext', 'metadata']"
-          :selected="preSelected['api'] || 'fulltext'"
-          @change="updateSelected"
-        />
-        <DateFilter
-          v-if="theme === 'newspaper'"
-          :name="PROXY_DCTERMS_ISSUED"
-          :start="dateFilter.start"
-          :end="dateFilter.end"
-          :specific="dateFilter.specific"
-          @dateFilter="dateFilterSelected"
-        />
+        <template
+          v-if="collection === 'newspaper'"
+        >
+          <RadioGroupFilter
+            facet-name="api"
+            :options="['fulltext', 'metadata']"
+            :selected="preSelected['api'] || 'fulltext'"
+            @change="updateSelected"
+          />
+          <DateFilter
+            :name="PROXY_DCTERMS_ISSUED"
+            :start="dateFilter.start"
+            :end="dateFilter.end"
+            :specific="dateFilter.specific"
+            @dateFilter="dateFilterSelected"
+          />
+        </template>
         <template
           v-for="(facet, index) in moreFacets"
         >
@@ -88,7 +90,7 @@
 <script>
   import Vue from 'vue';
   import isEqual from 'lodash/isEqual';
-  import { mapState } from 'vuex';
+  import { mapGetters } from 'vuex';
   import { rangeToQueryParam, rangeFromQueryParam } from '../../plugins/europeana/search';
   import MoreFiltersDropdownFacet from './MoreFiltersDropdownFacet';
   import DateFilter from './DateFilter';
@@ -122,8 +124,8 @@
     },
 
     computed: {
-      ...mapState({
-        theme: state => state.search.apiParams.theme
+      ...mapGetters({
+        collection: 'search/collection'
       }),
 
       anyOptionsSelected() {

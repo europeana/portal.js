@@ -1,4 +1,4 @@
-<template>
+collection<template>
   <b-container>
     <b-row
       v-if="errorMessage"
@@ -176,9 +176,8 @@
     },
     data() {
       return {
-        coreFacetNames: ['THEME', 'TYPE', 'COUNTRY', 'REUSABILITY'],
-        PROXY_DCTERMS_ISSUED: 'proxy_dcterms_issued',
-        THEME: 'THEME'
+        coreFacetNames: ['collection', 'TYPE', 'COUNTRY', 'REUSABILITY'],
+        PROXY_DCTERMS_ISSUED: 'proxy_dcterms_issued'
       };
     },
     computed: {
@@ -197,7 +196,7 @@
         filters: 'search/filters',
         queryUpdatesForFacetChanges: 'search/queryUpdatesForFacetChanges',
         queryUpdatesForFilters: 'search/queryUpdatesForFilters',
-        theme: 'search/theme'
+        collection: 'search/collection'
       }),
       qf() {
         return this.userParams.qf;
@@ -261,8 +260,8 @@
           }
         }
 
-        if (this.$store.state.search.themeFacetEnabled) {
-          ordered.unshift({ name: this.THEME, fields: thematicCollections });
+        if (this.$store.state.search.collectionFacetEnabled) {
+          ordered.unshift({ name: 'collection', fields: thematicCollections });
         }
         return ordered.concat(unordered);
       },
@@ -301,7 +300,7 @@
     },
     methods: {
       facetDropdownType(name) {
-        return name === this.THEME ? 'radio' : 'checkbox';
+        return name === 'collection' ? 'radio' : 'checkbox';
       },
       changeFacet(name, selected) {
         if (typeof this.filters[name] === 'undefined') {
@@ -327,7 +326,6 @@
           query: this.query,
           reusability: this.reusability,
           view: this.view,
-          theme: this.userParams.theme,
           api: this.api
         };
 

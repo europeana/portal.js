@@ -28,7 +28,7 @@ export const state = () => ({
   overrideParams: {},
   pill: null,
   results: [],
-  themeFacetEnabled: true,
+  collectionFacetEnabled: true,
   totalResults: null,
   userParams: {},
   view: null
@@ -57,11 +57,11 @@ export const mutations = {
   setApiParams(state, value) {
     state.apiParams = value;
   },
-  disableThemeFacet(state) {
-    state.themeFacetEnabled = false;
+  disableCollectionFacet(state) {
+    state.collectionFacetEnabled = false;
   },
-  enableThemeFacet(state) {
-    state.themeFacetEnabled = true;
+  enableCollectionFacet(state) {
+    state.collectionFacetEnabled = true;
   },
   setActive(state, value) {
     state.active = value;
@@ -121,29 +121,30 @@ export const getters = {
   },
 
   formatFacetFieldLabel: (state, getters, rootState, rootGetters) => (facetName, facetFieldLabel) => {
-    const theme = getters.theme;
-    if (!getters.hasCollectionSpecificSettings(theme)) return;
-    if (!rootGetters[`collections/${theme}/formatFacetFieldLabel`]) return;
+    const collection = getters.collection;
+    if (!getters.hasCollectionSpecificSettings(collection)) return;
+    if (!rootGetters[`collections/${collection}/formatFacetFieldLabel`]) return;
 
-    return rootGetters[`collections/${theme}/formatFacetFieldLabel`](facetName, facetFieldLabel);
+    return rootGetters[`collections/${collection}/formatFacetFieldLabel`](facetName, facetFieldLabel);
   },
 
   facetNames(state) {
     return (state.apiParams.facet || '').split(',');
   },
 
-  hasCollectionSpecificSettings: (state, getters, rootState) => (theme) => {
-    return (!!theme) &&
-      (!!rootState.collections && !!rootState.collections[theme]) &&
-      ((rootState.collections[theme].enabled === undefined) || rootState.collections[theme].enabled);
+  hasCollectionSpecificSettings: (state, getters, rootState) => (collection) => {
+    return (!!collection) &&
+      (!!rootState.collections && !!rootState.collections[collection]) &&
+      ((rootState.collections[collection].enabled === undefined) || rootState.collections[collection].enabled);
   },
 
   hasResettableFilters(state) {
     return state.resettableFilters.length > 0;
   },
 
-  theme(state) {
-    return state.apiParams.theme || null;
+  collection(state) {
+    const collectionFilter = filtersFromQf(state.apiParams.qf).collection;
+    return collectionFilter ? collectionFilter[0] : null;
   },
 
   queryUpdatesForFacetChanges: (state, getters) => (selected = {}) => {
@@ -154,9 +155,9 @@ export const getters = {
     }
 
     // Remove collection-specific filters when collection is changed
-    if (Object.prototype.hasOwnProperty.call(selected, 'THEME') || !getters.theme) {
+    if (Object.prototype.hasOwnProperty.call(selected, 'collection') || !getters.collection) {
       for (const name in filters) {
-        if ((name !== 'THEME') && !defaultFacetNames.includes(name) && state.resettableFilters.includes(name)) {
+        if (!defaultFacetNames.includes(name) && state.resettableFilters.includes(name)) {
           filters[name] = [];
         }
       }
@@ -165,6 +166,7 @@ export const getters = {
     return getters.queryUpdatesForFilters(filters);
   },
 
+  // TODO: does not work on state, so move out of getters into regular function
   queryUpdatesForFilters: () => (filters) => {
     const queryUpdates = {
       qf: [],
@@ -180,15 +182,14 @@ export const getters = {
         } else {
           queryUpdates.reusability = null;
         }
-      // Likewise `theme`
-      } else if (facetName === 'THEME') {
-        queryUpdates.theme = selectedValues;
       // `api` is an option to /plugins/europeana/search/search()
       } else if (facetName === 'api') {
         queryUpdates.api = selectedValues;
       } else {
-        for (const facetValue of selectedValues) {
-          queryUpdates.qf.push(`${facetName}:${facetValue}`);
+        for (const facetValue of [].concat(selectedValues)) {
+          if (facetValue !== undefined && facetValue !== null) {
+            queryUpdates.qf.push(`${facetName}:${facetValue}`);
+          }
         }
       }
     }
@@ -197,26 +198,10 @@ export const getters = {
 
   // TODO: do not assume filters are fielded, e.g. `qf=whale`
   filters: (state) => {
-    const filters = {};
-
-    if (state.userParams.qf) {
-      for (const qf of [].concat(state.userParams.qf)) {
-        const qfParts = qf.split(':');
-        const facetName = qfParts[0];
-        const facetValue = qfParts.slice(1).join(':');
-        if (typeof filters[facetName] === 'undefined') {
-          filters[facetName] = [];
-        }
-        filters[facetName].push(facetValue);
-      }
-    }
+    const filters = filtersFromQf(state.userParams.qf);
 
     if (state.userParams.reusability) {
       filters['REUSABILITY'] = state.userParams.reusability.split(',');
-    }
-
-    if (state.userParams.theme) {
-      filters['THEME'] = state.userParams.theme;
     }
 
     if (state.apiParams.api) {
@@ -225,6 +210,22 @@ export const getters = {
 
     return filters;
   }
+};
+
+const filtersFromQf = (qfs) => {
+  const filters = {};
+
+  for (const qf of [].concat(qfs || [])) {
+    const qfParts = qf.split(':');
+    const facetName = qfParts[0];
+    const facetValue = qfParts.slice(1).join(':');
+    if (typeof filters[facetName] === 'undefined') {
+      filters[facetName] = [];
+    }
+    filters[facetName].push(facetValue);
+  }
+
+  return filters;
 };
 
 export const actions = {
@@ -264,13 +265,13 @@ export const actions = {
   },
 
   applyCollectionSpecificSettings({ commit, getters, rootGetters, rootState, state }) {
-    const theme = getters.theme;
-    if (!getters.hasCollectionSpecificSettings(theme)) return;
+    const collection = getters.collection;
+    if (!getters.hasCollectionSpecificSettings(collection)) return;
 
     for (const property of ['apiParams', 'apiOptions']) {
-      if (rootState.collections[theme][property] !== undefined) {
-        commit(`collections/${theme}/set`, [property, state[property]], { root: true });
-        commit('set', [property, rootGetters[`collections/${theme}/${property}`]]);
+      if (rootState.collections[collection][property] !== undefined) {
+        commit(`collections/${collection}/set`, [property, state[property]], { root: true });
+        commit('set', [property, rootGetters[`collections/${collection}/${property}`]]);
       }
     }
   },
@@ -294,10 +295,10 @@ export const actions = {
     commit('setTotalResults', response.totalResults);
 
     commit('setFacets', response.facets);
-    const theme = getters.theme;
-    if (getters.hasCollectionSpecificSettings(theme) && rootState.collections[theme]['facets'] !== undefined) {
-      commit(`collections/${theme}/set`, ['facets', state.facets], { root: true });
-      commit('set', ['facets', rootGetters[`collections/${theme}/facets`]]);
+    const collection = getters.collection;
+    if (getters.hasCollectionSpecificSettings(collection) && rootState.collections[collection]['facets'] !== undefined) {
+      commit(`collections/${collection}/set`, ['facets', state.facets], { root: true });
+      commit('set', ['facets', rootGetters[`collections/${collection}/facets`]]);
     }
   },
 
