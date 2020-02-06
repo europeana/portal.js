@@ -39,7 +39,7 @@ Vue.filter('optimisedImageUrl', (imageUrl, contentType, options = {}) => {
   return imageUrl;
 });
 
-Vue.filter('plainTex', (text) => {
+Vue.filter('plainText', (text) => {
   return text;
 });
 
