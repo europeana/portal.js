@@ -10,7 +10,7 @@ import { genericThumbnail } from './thumbnail';
 
 // Some facets do not support enquoting of their field values.
 export const unquotableFacets = [
-  'collection',
+  'collection', // it _may_ be quoted, but our prewarmed filters are without
   'COLOURPALETTE',
   'IMAGE_COLOUR',
   'IMAGE_GREYSCALE', // WARNING: always returns zero results anyway
