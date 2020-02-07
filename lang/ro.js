@@ -85,10 +85,9 @@ export default {
         "open": "Da"
       }
     },
-    "THEME": {
+    "collection": {
       "name": "Categorie",
       "options": {
-        "all": "Toate articolele",
         "ww1": "1914-1918",
         "archaeology": "Arheologie",
         "art": "Artă",

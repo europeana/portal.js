@@ -85,10 +85,9 @@ export default {
         "open": "igen"
       }
     },
-    "THEME": {
+    "collection": {
       "name": "Kategória",
       "options": {
-        "all": "Minden elem",
         "ww1": "1914-1918",
         "archaeology": "Régészet",
         "art": "Művészet",
