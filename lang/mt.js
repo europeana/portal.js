@@ -85,10 +85,9 @@ export default {
         "open": "Iva"
       }
     },
-    "THEME": {
+    "collection": {
       "name": "Kategorija",
       "options": {
-        "all": "L-oġġetti kollha",
         "ww1": "1914-1918",
         "archaeology": "Arkeoloġija",
         "art": "Arti",
