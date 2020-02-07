@@ -16,7 +16,7 @@ export default {
   "fieldLabels": {
     "default": {
       "dcContributor": "Suradnici",
-      "dcCreator": "Stvorio/la",
+      "dcCreator": "Stvorio\/la",
       "dcDescription": "Opis",
       "dcTitle": "Naslov",
       "dcType": "Vrsta objekta",
@@ -85,10 +85,9 @@ export default {
         "open": "Da"
       }
     },
-    "THEME": {
+    "collection": {
       "name": "Kategorija",
       "options": {
-        "all": "Sve stavke",
         "ww1": "1914.-1918.",
         "archaeology": "Arheologija",
         "art": "Umjetnost",
