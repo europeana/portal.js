@@ -59,6 +59,9 @@ const factory = (options = {}) => {
             return {};
           },
           ...options.storeGetters
+        },
+        mutations: {
+          setView: () => null
         }
       }
     }
