@@ -16,6 +16,52 @@ export const defaultFacetNames = [
   'MIME_TYPE'
 ];
 
+const filtersFromQf = (qfs) => {
+  const filters = {};
+
+  for (const qf of [].concat(qfs || [])) {
+    const qfParts = qf.split(':');
+    const name = qfParts[0];
+    const value = qfParts.slice(1).join(':');
+    if (typeof filters[name] === 'undefined') {
+      filters[name] = [];
+    }
+    filters[name].push(value);
+  }
+
+  return filters;
+};
+
+const queryUpdatesForFilters = (filters) => {
+  const queryUpdates = {
+    qf: [],
+    page: 1
+  };
+
+  for (const name in filters) {
+    switch (name) {
+      case 'REUSABILITY':
+        // `reusability` has its own API parameter and can not be queried in `qf`
+        queryUpdates.reusability = filters[name].length > 0 ? filters[name].join(',') : null;
+        break;
+      case 'api':
+        // `api` is an option to /plugins/europeana/search/search()
+        queryUpdates.api = filters[name];
+        break;
+      default:
+        // Everything else goes in `qf`
+        queryUpdates.qf = queryUpdates.qf.concat(queryUpdatesForFilter(name, filters[name]));
+    }
+  }
+  return queryUpdates;
+};
+
+export const queryUpdatesForFilter = (name, values) => {
+  return [].concat(values)
+    .filter((value) => (value !== undefined) && (value !== null))
+    .map((value) => `${name}:${value}`);
+};
+
 export const state = () => ({
   active: false,
   apiOptions: {},
@@ -164,37 +210,7 @@ export const getters = {
       }
     }
 
-    return getters.queryUpdatesForFilters(filters);
-  },
-
-  // TODO: does not work on state, so move out of getters into regular function
-  queryUpdatesForFilters: () => (filters) => {
-    const queryUpdates = {
-      qf: [],
-      page: 1
-    };
-
-    for (const facetName in filters) {
-      const selectedValues = filters[facetName];
-      // `reusability` has its own API parameter and can not be queried in `qf`
-      if (facetName === 'REUSABILITY') {
-        if (selectedValues.length > 0) {
-          queryUpdates.reusability = selectedValues.join(',');
-        } else {
-          queryUpdates.reusability = null;
-        }
-      // `api` is an option to /plugins/europeana/search/search()
-      } else if (facetName === 'api') {
-        queryUpdates.api = selectedValues;
-      } else {
-        for (const facetValue of [].concat(selectedValues)) {
-          if (facetValue !== undefined && facetValue !== null) {
-            queryUpdates.qf.push(`${facetName}:${facetValue}`);
-          }
-        }
-      }
-    }
-    return queryUpdates;
+    return queryUpdatesForFilters(filters);
   },
 
   // TODO: do not assume filters are fielded, e.g. `qf=whale`
@@ -211,22 +227,6 @@ export const getters = {
 
     return filters;
   }
-};
-
-const filtersFromQf = (qfs) => {
-  const filters = {};
-
-  for (const qf of [].concat(qfs || [])) {
-    const qfParts = qf.split(':');
-    const facetName = qfParts[0];
-    const facetValue = qfParts.slice(1).join(':');
-    if (typeof filters[facetName] === 'undefined') {
-      filters[facetName] = [];
-    }
-    filters[facetName].push(facetValue);
-  }
-
-  return filters;
 };
 
 export const actions = {

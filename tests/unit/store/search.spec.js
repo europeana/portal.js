@@ -117,9 +117,7 @@ describe('store/search', () => {
       const state = {
         resettableFilters: []
       };
-      const getters = {
-        queryUpdatesForFilters: store.getters.queryUpdatesForFilters({})
-      };
+      const getters = {};
 
       context('when facet is REUSABILITY', () => {
         context('with values selected', () => {
@@ -173,7 +171,6 @@ describe('store/search', () => {
           resettableFilters: ['proxy_dcterms_issued']
         };
         const getters = {
-          queryUpdatesForFilters: store.getters.queryUpdatesForFilters({}),
           collection: () => 'newspaper'
         };
 
@@ -197,7 +194,6 @@ describe('store/search', () => {
             'TYPE': ['"IMAGE"'],
             'contentTier': ['*']
           },
-          queryUpdatesForFilters: store.getters.queryUpdatesForFilters({}),
           collection: 'fashion'
         };
 
