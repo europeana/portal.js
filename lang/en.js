@@ -158,7 +158,7 @@ export default {
     "MIME_TYPE": {
       "name": "File format | File formats",
       "options": {
-        "text\/plain": "Plain text"
+        "text/plain": "Plain text"
       }
     },
     "COLOURPALETTE": {
@@ -458,13 +458,13 @@ export default {
         "CREATOR": {
           "name": "Designer | Designers"
         },
-        "proxy_dc_format\/en": {
+        "proxy_dc_format/en": {
           "name": "Technique | Techniques"
         },
-        "proxy_dcterms_medium\/en": {
+        "proxy_dcterms_medium/en": {
           "name": "Material | Materials"
         },
-        "proxy_dc_type\/en": {
+        "proxy_dc_type/en": {
           "name": "Item type | Item types"
         },
         "proxy_dc_format": {
