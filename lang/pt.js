@@ -85,10 +85,9 @@ export default {
         "open": "Sim"
       }
     },
-    "THEME": {
+    "collection": {
       "name": "Categoria",
       "options": {
-        "all": "Todos os itens",
         "ww1": "1914-1918",
         "archaeology": "Arqueologia",
         "art": "Arte",
