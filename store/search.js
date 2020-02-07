@@ -201,7 +201,6 @@ export const getters = {
     }
 
     // Remove collection-specific filters when collection is changed
-    // console.log('')
     if (Object.prototype.hasOwnProperty.call(selected, 'collection') || !getters.collection) {
       for (const name in filters) {
         if (name !== 'collection' && !defaultFacetNames.includes(name) && state.resettableFilters.includes(name)) {

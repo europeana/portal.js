@@ -1,4 +1,4 @@
-collection<template>
+<template>
   <b-container>
     <b-row
       v-if="errorMessage"

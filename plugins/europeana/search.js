@@ -25,7 +25,7 @@ export const unquotableFacets = [
   'VIDEO_HD'
 ];
 
-// Thematic collections available via the `theme` parameter or `collection` qf
+// Thematic collections available via the `collection` qf
 // filter. Order is significant as it will be reflected on search results.
 export const thematicCollections = [
   'ww1',
@@ -96,7 +96,6 @@ function resultsFromApiResponse(response) {
  * @param {number} params.page page of results to retrieve
  * @param {number} params.rows number of results to retrieve per page
  * @param {string} params.reusability reusability filter
- * @param {string} params.theme theme filter
  * @param {string} params.facet facet names, comma separated
  * @param {(string|string[])} params.qf query filter(s)
  * @param {string} params.query search query
@@ -127,7 +126,6 @@ function search(params, options = {}) {
       reusability: params.reusability,
       rows,
       start,
-      theme: params.theme,
       wskey: params.wskey || config.record.key
     }
   })

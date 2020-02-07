@@ -145,18 +145,6 @@ describe('plugins/europeana/search', () => {
         nock.isDone().should.be.true;
       });
 
-      it('filters by theme', async() => {
-        baseRequest
-          .query(query => {
-            return query.theme === 'art';
-          })
-          .reply(200, defaultResponse);
-
-        await search({ query: 'anything', theme: 'art' });
-
-        nock.isDone().should.be.true;
-      });
-
       it('supports API override', async() => {
         const overrideapiOrigin = 'https://api.example.org';
         nock(overrideapiOrigin).get(apiEndpoint).query(true).reply(200, defaultResponse);
