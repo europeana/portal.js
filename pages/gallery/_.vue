@@ -10,8 +10,8 @@
         </h1>
         <!-- eslint-disable vue/no-v-html -->
         <div
-          v-html="description"
-          v-if="description"
+          v-html="htmlDescription"
+          v-if="htmlDescription"
         />
         <!-- eslint-enable vue/no-v-html -->
       </b-col>
@@ -64,8 +64,11 @@
         });
     },
     computed: {
-      description() {
+      htmlDescription() {
         return marked(this.rawDescription);
+      },
+      description() {
+        return this.$options.filters.stripMarkdown(this.rawDescription);
       }
     },
     head() {

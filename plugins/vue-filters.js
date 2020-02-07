@@ -47,24 +47,31 @@ const htmlRemovalPatternsFromTags = (tags) => {
   return patterns;
 };
 
+/**
+ * Strip markdown from text.
+ * This method FIRST converts markdown to HTML, then removes HTML tags.
+ * WARNING: This also means any HTML tags already present before will be stripped.
+ *
+ * As an optional parameter specific HTML tag names can be supplied. In which case,
+ * only these will be removed.
+ * @param {string} text String containing mark1down
+ * @param {string[]} tags the HTML tags to be removed.
+ * @return {String} text value with HTML breaks
+ */
 Vue.filter('stripMarkdown', (text, tags) => {
-  text = marked(text);
+  text = marked(text); // Marked adds newlines to the end of the string, and wraps it in a <p> tag.
   const patternsToRemove = tags ? htmlRemovalPatternsFromTags(tags) : [/(<.*?>)+/gi, /\n$/];
   for (const pattern of patternsToRemove) {
-    console.log(`removing for ${pattern}`);
     text = text.replace(pattern, '');
   }
   return text;
 });
-
-
 
 /**
  * Convert new lines to <br/>
  * @param {string} val text value
  * @return {String} text value with HTML breaks
  */
-
 Vue.filter('convertNewLine', (val) => {
   return val.replace(/\n/g, '<br/>');
 });
