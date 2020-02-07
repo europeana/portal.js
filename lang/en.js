@@ -13,7 +13,7 @@ export default {
   "noMoreResults": "There are no more results for your search query.",
   "resultsLimitWarning": "Additional results are not shown as only the first 1000 most relevant results are shown. If you haven't found what you're looking for, please consider refining your search.",
   "noResults": "No results",
-  "collections": {
+  "themes": {
     "fashion": {
       "facets": {
         "CREATOR": {
@@ -109,8 +109,8 @@ export default {
     "CREATOR": {
       "name": "Creator | Creators"
     },
-    "collection": {
-      "name": "Collection",
+    "THEME": {
+      "name": "Category",
       "options": {
         "ww1": "1914-1918",
         "archaeology": "Archaeology",
