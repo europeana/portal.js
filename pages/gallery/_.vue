@@ -10,8 +10,8 @@
         </h1>
         <!-- eslint-disable vue/no-v-html -->
         <div
-          v-html="htmlDescription"
           v-if="htmlDescription"
+          v-html="htmlDescription"
         />
         <!-- eslint-enable vue/no-v-html -->
       </b-col>
@@ -45,6 +45,14 @@
     components: {
       ContentCard
     },
+    computed: {
+      description() {
+        return this.$options.filters.stripMarkdown(this.rawDescription);
+      },
+      htmlDescription() {
+        return marked(this.rawDescription);
+      }
+    },
     asyncData({ params, query, error, app }) {
       const contentfulClient = createClient(query.mode);
       return contentfulClient.getEntries({
@@ -62,14 +70,6 @@
         .catch((e) => {
           error({ statusCode: 500, message: e.toString() });
         });
-    },
-    computed: {
-      htmlDescription() {
-        return marked(this.rawDescription);
-      },
-      description() {
-        return this.$options.filters.stripMarkdown(this.rawDescription);
-      }
     },
     head() {
       return {
