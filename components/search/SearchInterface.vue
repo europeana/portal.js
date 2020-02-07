@@ -141,6 +141,7 @@ collection<template>
   import isEqual from 'lodash/isEqual';
   import pickBy from 'lodash/pickBy';
   import { mapState, mapGetters } from 'vuex';
+  import { queryUpdatesForFilters } from '../../store/search';
 
   export default {
     components: {
@@ -195,7 +196,6 @@ collection<template>
         facetNames: 'search/facetNames',
         filters: 'search/filters',
         queryUpdatesForFacetChanges: 'search/queryUpdatesForFacetChanges',
-        queryUpdatesForFilters: 'search/queryUpdatesForFilters',
         collection: 'search/collection'
       }),
       qf() {
@@ -346,7 +346,7 @@ collection<template>
           filters[filterName] = [];
         }
         this.$store.commit('search/clearResettableFilters');
-        return this.rerouteSearch(this.queryUpdatesForFilters(filters));
+        return this.rerouteSearch(queryUpdatesForFilters(filters));
       },
       isFilteredByDropdowns() {
         return this.$store.getters['search/hasResettableFilters'];

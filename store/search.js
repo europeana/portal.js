@@ -32,7 +32,7 @@ const filtersFromQf = (qfs) => {
   return filters;
 };
 
-const queryUpdatesForFilters = (filters) => {
+export const queryUpdatesForFilters = (filters) => {
   const queryUpdates = {
     qf: [],
     page: 1
