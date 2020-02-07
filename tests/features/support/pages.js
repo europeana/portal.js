@@ -13,7 +13,7 @@ const pages = {
   'exhibition credits': `${url}/en/exhibition/faces-of-europe/credits`,
   'exhibition page': `${url}/en/exhibition/faces-of-europe`,
   'exhibitions page': `${url}/en/exhibitions`,
-  'Fashion collection search page': `${url}/en/search?query=&theme=fashion`,
+  'Fashion collection search page': `${url}/en/search?query=&qf=collection:fashion`,
   'first page of results': `${url}/en/search?query=&page=1`,
   'gallery page': `${url}/en/gallery/blue`,
   'gallery foyer page': `${url}/en/gallery`,
