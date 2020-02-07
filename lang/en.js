@@ -321,7 +321,7 @@ export default {
       }
     },
     "CREATOR": {
-      "name": "Designer | Designers"
+      "name": "Creator | Creators"
     },
     "proxy_dc_format": {
       "name": "Format | Formats"
