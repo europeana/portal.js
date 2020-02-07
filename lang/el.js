@@ -65,7 +65,7 @@ export default {
       "edmIsSimilarTo": "Είναι παρόμοιο με",
       "edmIsSuccessorOf": "Είναι διάδοχος του",
       "edmRealizes": "Πραγματοποιεί",
-      "wasPresentAt": "Ήταν παρών/ούσα στο"
+      "wasPresentAt": "Ήταν παρών\/ούσα στο"
     },
     "webResource": {
       "dcDescription": "Περιγραφή",
@@ -85,10 +85,9 @@ export default {
         "open": "Ναί"
       }
     },
-    "THEME": {
+    "collection": {
       "name": "Κατηγορία",
       "options": {
-        "all": "Όλα τα στοιχεία",
         "ww1": "1914-1918",
         "archaeology": "Αρχαιολογία",
         "art": "Τέχνη",
