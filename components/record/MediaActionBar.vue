@@ -1,21 +1,5 @@
 <template>
   <section data-qa="action bar">
-    <b-row
-      v-if="showShareButtons"
-      data-qa="share buttons bar"
-    >
-      <b-col
-        class="d-flex align-items-center justify-content-between"
-      >
-        <SocialShare
-          :media-url="url"
-        />
-        <span
-          class="icon-close"
-          @click="toggleShare"
-        />
-      </b-col>
-    </b-row>
     <b-row v-if="!showShareButtons">
       <b-col
         cols="12"
@@ -96,6 +80,23 @@
         </i18n>
       </b-col>
     </b-row>
+    <b-row
+      v-else
+      data-qa="share buttons bar"
+    >
+      <b-col
+        class="d-flex align-items-center justify-content-between"
+      >
+        <SocialShare
+          :media-url="url"
+          :share-url="shareUrl"
+        />
+        <span
+          class="icon-close"
+          @click="toggleShare"
+        />
+      </b-col>
+    </b-row>
   </section>
 </template>
 
@@ -115,6 +116,10 @@
 
     props: {
       url: {
+        type: String,
+        default: null
+      },
+      shareUrl: {
         type: String,
         default: null
       },

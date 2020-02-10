@@ -15,7 +15,9 @@
             :key="exhibition.identifier"
             :title="exhibition.fields.name"
             :url="{ name: 'exhibition-exhibition', params: { exhibition: exhibition.fields.identifier } }"
-            :image-url="exhibition.fields.primaryImageOfPage && exhibition.fields.primaryImageOfPage.fields.image.fields.file.url"
+            :image-url="imageUrl(exhibition.fields.primaryImageOfPage)"
+            :image-content-type="imageContentType(exhibition.fields.primaryImageOfPage)"
+            :image-optimisation-options="{ width: 510 }"
             :texts="[exhibition.fields.description]"
           />
         </b-card-group>
@@ -104,6 +106,18 @@
     methods: {
       paginationLink(val) {
         return this.localePath({ name: 'exhibitions', query: { page: val } });
+      },
+      imageUrl(image) {
+        if (!image) return;
+        if (!image.fields.image) return;
+        if (!image.fields.image.fields.file) return;
+        return image.fields.image.fields.file.url;
+      },
+      imageContentType(image) {
+        if (!image) return;
+        if (!image.fields.image) return;
+        if (!image.fields.image.fields.file) return;
+        return image.fields.image.fields.file.contentType;
       }
     },
     watchQuery: ['page'],
