@@ -47,6 +47,7 @@
   color: $black;
   display: flex;
   text-decoration: none;
+  white-space: nowrap;
 
   > span {
     align-items: center;
