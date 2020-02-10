@@ -170,6 +170,7 @@
     max-width: 100%;
 
     img {
+      max-height: 85vh;
       max-width: 100%;
     }
 
@@ -179,6 +180,7 @@
   }
 
   /deep/ iframe {
+    max-height: initial;
     max-width: 100%;
   }
 
