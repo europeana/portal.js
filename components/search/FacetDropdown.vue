@@ -139,7 +139,7 @@
 
       disableApplyButton() {
         if (this.isRadio && Array.isArray(this.selected)) {
-          return this.preSelected === null;
+          return isEqual(this.preSelected, this.selected[0]);
         }
         return isEqual(this.preSelected, this.selected);
       },
