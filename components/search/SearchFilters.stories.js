@@ -11,7 +11,7 @@ const i18n = {
           name: 'Type'
         },
         'REUSABILITY': {
-          name: 'Can I reuse this?'
+          name: 'Can I use this?'
         }
       },
       formatting: {
