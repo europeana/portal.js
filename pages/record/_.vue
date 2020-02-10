@@ -80,6 +80,7 @@
         <div class="card p-3 mb-3 bg-grey">
           <MediaActionBar
             :url="selectedMedia.about"
+            :share-url="canonicalURL"
             :europeana-identifier="identifier"
             :use-proxy="useProxy"
             :rights-statement="rightsStatement"

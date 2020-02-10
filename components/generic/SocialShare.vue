@@ -32,6 +32,10 @@
     name: 'SocialShare',
 
     props: {
+      shareUrl: {
+        type: String,
+        default: ''
+      },
       mediaUrl: {
         type: String,
         default: ''
@@ -46,18 +50,14 @@
 
     computed: {
       facebookShareUrl() {
-        return `https://www.facebook.com/sharer/sharer.php?display=page&u=${this.location}`;
+        return `https://www.facebook.com/sharer/sharer.php?display=page&u=${this.shareUrl}`;
       },
       twitterShareUrl() {
-        return `https://twitter.com/intent/tweet?text=${this.location}`;
+        return `https://twitter.com/intent/tweet?text=${this.shareUrl}`;
       },
       pinterestShareUrl() {
-        return `https://pinterest.com/pin/create/link/?url=${this.location}&media=${this.mediaUrl}`;
+        return `https://pinterest.com/pin/create/link/?url=${this.shareUrl}&media=${this.mediaUrl}`;
       }
-    },
-
-    mounted() {
-      this.location = window.location.href.split(/\?|#/)[0];
     }
   };
 </script>
