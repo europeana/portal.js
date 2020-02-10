@@ -57,7 +57,7 @@
     },
 
     mounted() {
-      this.location = window.location.href;
+      this.location = window.location.href.split(/\?|#/)[0];
     }
   };
 </script>

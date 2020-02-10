@@ -325,9 +325,7 @@
           this.selectedMedia.about = msg.data.id;
         }
       });
-
-      this.canonicalURL = window.location.href;
-
+      this.canonicalURL = window.location.href.split(/\?|#/)[0];
     },
 
     methods: {
