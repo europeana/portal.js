@@ -1,5 +1,7 @@
 <template>
-  <figure ref="container" class="compare-image-wrapper">
+  <figure ref="container"
+    class="compare-image-wrapper"
+  >
     <div
       class="compare-image"
       data-qa="compare image"
