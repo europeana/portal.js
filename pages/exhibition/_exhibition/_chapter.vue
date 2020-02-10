@@ -25,9 +25,6 @@
             {{ page.name }}
           </h1>
           <article>
-            <h2>
-              {{ page.description }}
-            </h2>
             {{ page.text }}
           </article>
         </b-col>
@@ -172,8 +169,7 @@
     max-width: 100%;
 
     img {
-      max-height: 80vh;
-      object-fit: cover;
+      max-width: 100%;
     }
   }
 </style>
