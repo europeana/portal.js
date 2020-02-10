@@ -408,7 +408,9 @@ export default {
     "download": "Download",
     "viewAt": "View at {link}",
     "providedBy": "Provided by {provider}",
-    "viewDocument": "View document"
+    "viewDocument": "View document",
+    "share": "Share",
+    "shareOn": "Share on {social}"
   },
   "clearAllFilters": "clear all filters",
   "reset": "Reset",
