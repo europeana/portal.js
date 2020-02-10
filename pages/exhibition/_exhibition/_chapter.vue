@@ -177,5 +177,10 @@
       max-width: 60%;
     }
   }
+
+  /deep/ iframe {
+    max-width: 100%;
+  }
+
 </style>
 
