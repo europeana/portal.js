@@ -16,7 +16,7 @@
       </b-col>
       <b-col cols="12">
         <b-card-group
-          class="card-deck-4-cols"
+          class="masonry"
           deck
           data-qa="gallery images"
         >
@@ -74,3 +74,23 @@
     }
   };
 </script>
+
+<style lang="scss" scoped>
+  .masonry {
+    display: inline-block;
+    width: 100%;
+    columns: 4;
+    column-gap: 1rem;
+
+    .content-card {
+      break-inside: avoid;
+      min-height: initial;
+      width: 100%;
+
+      /deep/ .card-img {
+        min-height: initial;
+        max-height: initial;
+      }
+    }
+  }
+</style>
