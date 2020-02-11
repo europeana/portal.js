@@ -53,7 +53,7 @@
 
     mounted() {
       this.$store.commit('search/setPill', this.title);
-      this.$store.commit('search/enableThemeFacet');
+      this.$store.commit('search/enableCollectionFacet');
     },
 
     head() {
@@ -67,6 +67,6 @@
       next();
     },
 
-    watchQuery: ['api', 'page', 'qf', 'query', 'reusability', 'theme']
+    watchQuery: ['api', 'page', 'qf', 'query', 'reusability']
   };
 </script>

@@ -85,10 +85,9 @@ export default {
         "open": "Ja"
       }
     },
-    "THEME": {
+    "collection": {
       "name": "Kategorie",
       "options": {
-        "all": "Alle Artikel",
         "ww1": "1914-1918",
         "archaeology": "Archäologie",
         "art": "Kunst",

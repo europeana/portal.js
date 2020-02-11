@@ -85,10 +85,9 @@ export default {
         "open": "Jah"
       }
     },
-    "THEME": {
+    "collection": {
       "name": "Kategooria",
       "options": {
-        "all": "Kõik üksused",
         "ww1": "1914–1918",
         "archaeology": "Arheoloogia",
         "art": "Kunst",

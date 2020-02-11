@@ -120,7 +120,7 @@
           }),
           query: {
             view: this.view,
-            ...this.queryUpdatesForFacetChanges({ 'THEME': undefined }),
+            ...this.queryUpdatesForFacetChanges({ collection: null }),
             query: this.query
           }
         };

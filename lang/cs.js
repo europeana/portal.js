@@ -85,10 +85,9 @@ export default {
         "open": "Ano"
       }
     },
-    "THEME": {
+    "collection": {
       "name": "Kategorie",
       "options": {
-        "all": "Všechny položky",
         "ww1": "1914–1918",
         "archaeology": "Archeologie",
         "art": "Umění",
