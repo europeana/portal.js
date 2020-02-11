@@ -4,7 +4,7 @@
       <b-col
         cols="12"
         lg="9"
-        class="pb-3"
+        class="pb-0 pb-lg-3"
       >
         <h1 data-qa="gallery title">
           {{ title }}
@@ -18,7 +18,7 @@
       <b-col
         cols="12"
         lg="3"
-        class="py-3 text-left text-lg-right"
+        class="pt-0 pb-3 py-lg-3 text-left text-lg-right"
       >
         <SocialShare
           :media-url="shareMediaUrl"
