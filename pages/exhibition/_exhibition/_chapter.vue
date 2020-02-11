@@ -166,7 +166,6 @@
 <style lang="scss" scoped>
   /deep/ figure {
     display: inline-block;
-    margin-bottom: 3rem;
     max-width: 100%;
 
     img {

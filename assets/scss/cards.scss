@@ -16,10 +16,6 @@
     min-height: 20rem;
   }
 
-  &:hover {
-    box-shadow: $boxshadow-large;
-  }
-
   a {
     display: flex;
     flex-direction: column;
@@ -99,13 +95,6 @@
       z-index: 1;
     }
 
-    &:hover {
-      .card-body {
-        box-shadow: $boxshadow-large;
-        background-color: $offwhite;
-      }
-    }
-
     @media (min-width: $bp-medium) {
       background: transparent;
       box-shadow: none;
@@ -156,6 +145,19 @@
         color: $blue;
       }      
     }    
+  }
+
+  &:hover {
+    box-shadow: $boxshadow-large;
+  }
+
+  &.entity-card:hover {
+    box-shadow: none;
+
+    .card-body {
+      box-shadow: $boxshadow-large;
+      background-color: $offwhite;
+    }
   }
 }
 

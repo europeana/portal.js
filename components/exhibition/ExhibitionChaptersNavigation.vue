@@ -1,5 +1,5 @@
 <template>
-  <div class="my-3 d-flex justify-content-end">
+  <div class="mt-3 mb-5 d-flex justify-content-end">
     <b-button
       v-if="previousChapter"
       :to="previousChapter.url"
@@ -55,13 +55,19 @@
 </script>
 
 <style lang="scss" scoped>
+  @import '../../assets/scss/variables.scss';
   @import '../../assets/scss/icons.scss';
 
   .chapter-nav {
     align-items: center;
+    background: rgba(255, 255, 255, 0.5);
     display: flex;
     text-align: right;
     text-decoration: none;
+
+    &:hover {
+      background-color: $blue;
+    }
 
     &.next:after {
       @extend .icon-font;
