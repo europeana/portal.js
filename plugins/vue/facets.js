@@ -1,7 +1,7 @@
 function tFacetName(facetName, count = 1) {
-  const themeLabel = (facetName, count) => {
-    const theme = this.$store.getters['search/theme'];
-    if (theme) return this.$tcNull(`themes.${theme}.facets.${facetName}.name`, count);
+  const collectionLabel = (facetName, count) => {
+    const collection = this.$store.getters['search/collection'];
+    if (collection) return this.$tcNull(`collections.${collection}.facets.${facetName}.name`, count);
   };
 
   const genericLabel = (facetName, count) => {
@@ -9,7 +9,7 @@ function tFacetName(facetName, count = 1) {
   };
 
   const facetNameKey = facetName.replace(/\..*$/, '');
-  return themeLabel(facetNameKey, count) || genericLabel(facetNameKey, count) || facetNameKey;
+  return collectionLabel(facetNameKey, count) || genericLabel(facetNameKey, count) || facetNameKey;
 }
 
 export default {

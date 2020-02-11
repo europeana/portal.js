@@ -24,12 +24,12 @@ describe('plugins/vue/facets', () => {
   describe('$tFacetName()', () => {
     const facetName = 'CREATOR';
 
-    context('when theme is set in store, and theme-specific l10n key exists for the facet', () => {
+    context('when collection is set in store, and collection-specific l10n key exists for the facet', () => {
       const mocks = {
-        $tcNull: (key) => key === 'themes.fashion.facets.CREATOR.name' ? 'Designer' : null,
+        $tcNull: (key) => key === 'collections.fashion.facets.CREATOR.name' ? 'Designer' : null,
         $store: {
           getters: {
-            'search/theme': 'fashion'
+            'search/collection': 'fashion'
           }
         }
       };
@@ -41,13 +41,13 @@ describe('plugins/vue/facets', () => {
       });
     });
 
-    context('when theme is not set in store', () => {
+    context('when collection is not set in store', () => {
       context('but generic l10n key exists for the facet', () => {
         const mocks = {
           $tcNull: (key) => key === 'facets.CREATOR.name' ? 'Creator' : null,
           $store: {
             getters: {
-              'search/theme': null
+              'search/collection': null
             }
           }
         };
@@ -64,7 +64,7 @@ describe('plugins/vue/facets', () => {
           $tcNull: () => null,
           $store: {
             getters: {
-              'search/theme': null
+              'search/collection': null
             }
           }
         };

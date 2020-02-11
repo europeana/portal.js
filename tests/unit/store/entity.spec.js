@@ -27,7 +27,7 @@
 //         nock.cleanAll();
 //       });
 //
-//       it('queries Contentful for entity pages with theme set', async() => {
+//       it('queries Contentful for entity pages with collection set', async() => {
 //         const commit = sinon.spy();
 //
 //         baseRequest

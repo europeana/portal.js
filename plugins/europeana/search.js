@@ -10,6 +10,7 @@ import { genericThumbnail } from './thumbnail';
 
 // Some facets do not support enquoting of their field values.
 export const unquotableFacets = [
+  'collection', // it _may_ be quoted, but our prewarmed filters are without
   'COLOURPALETTE',
   'IMAGE_COLOUR',
   'IMAGE_GREYSCALE', // WARNING: always returns zero results anyway
@@ -24,8 +25,8 @@ export const unquotableFacets = [
   'VIDEO_HD'
 ];
 
-// Thematic collections available via the `theme` parameter.
-// Order is significant as it will be reflected on search results.
+// Thematic collections available via the `collection` qf
+// filter. Order is significant as it will be reflected on search results.
 export const thematicCollections = [
   'ww1',
   'archaeology',
@@ -95,7 +96,6 @@ function resultsFromApiResponse(response) {
  * @param {number} params.page page of results to retrieve
  * @param {number} params.rows number of results to retrieve per page
  * @param {string} params.reusability reusability filter
- * @param {string} params.theme theme filter
  * @param {string} params.facet facet names, comma separated
  * @param {(string|string[])} params.qf query filter(s)
  * @param {string} params.query search query
@@ -121,12 +121,11 @@ function search(params, options = {}) {
     params: {
       facet: params.facet,
       profile: params.profile,
-      qf: qfHandler(params.qf),
+      qf: addContentTierFilter(params.qf),
       query,
       reusability: params.reusability,
       rows,
       start,
-      theme: params.theme,
       wskey: params.wskey || config.record.key
     }
   })
@@ -152,7 +151,7 @@ function search(params, options = {}) {
  * @param {(string|string[])} params.qf query filter(s) as passed into the search plugin.
  * @return {string[]} qf adjusted with the desired content tier filter
  */
-export function qfHandler(qf) {
+export function addContentTierFilter(qf) {
   let newQf = qf ? [].concat(qf) : [];
   if (!newQf.some(v => /^contentTier:/.test(v))) {
     // If no content tier qf is queried, tier 0 content is
@@ -162,6 +161,7 @@ export function qfHandler(qf) {
   }
   // contentTier:* is irrelevant so is removed
   newQf = newQf.filter(v => v !== 'contentTier:*');
+
   return newQf;
 }
 

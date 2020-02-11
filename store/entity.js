@@ -6,7 +6,7 @@ export const state = () => ({
   id: null,
   page: null,
   relatedEntities: null,
-  themes: {},
+  collections: {},
   curatedEntities: null
 });
 
@@ -23,8 +23,8 @@ export const mutations = {
   setRelatedEntities(state, value) {
     state.relatedEntities = value;
   },
-  setThemes(state, value) {
-    state.themes = value;
+  setCollections(state, value) {
+    state.collections = value;
   },
   setCuratedEntities(state, value) {
     state.curatedEntities = value;
@@ -41,12 +41,12 @@ export const actions = {
       'limit': 1000
     })
       .then((response) => {
-        const themes = response.items.reduce((memo, entityPage) => {
+        const collections = response.items.reduce((memo, entityPage) => {
           memo[entityPage.fields.identifier] = entityPage.fields.genre;
           return memo;
         }, {});
 
-        commit('setThemes', themes);
+        commit('setCollections', collections);
       }).catch(error => {
         throw error;
       });
