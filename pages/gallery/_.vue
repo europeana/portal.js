@@ -2,8 +2,9 @@
   <b-container>
     <b-row class="flex-md-row pb-5">
       <b-col
-        cols="9"
-        class="pb-3"
+        cols="12"
+        lg="9"
+        class="pb-0 pb-lg-3"
       >
         <h1 data-qa="gallery title">
           {{ title }}
@@ -13,6 +14,16 @@
         >
           {{ description }}
         </p>
+      </b-col>
+      <b-col
+        cols="12"
+        lg="3"
+        class="pt-0 pb-3 py-lg-3 text-left text-lg-right"
+      >
+        <SocialShare
+          :media-url="shareMediaUrl"
+          :share-url="canonicalURL"
+        />
       </b-col>
       <b-col cols="12">
         <b-card-group
@@ -37,11 +48,20 @@
 <script>
   import createClient from '../../plugins/contentful';
   import ContentCard from '../../components/generic/ContentCard';
+  import SocialShare from '../../components/generic/SocialShare';
 
   export default {
     name: 'ImageGallery',
     components: {
-      ContentCard
+      ContentCard,
+      SocialShare
+    },
+    computed: {
+      shareMediaUrl() {
+        if (this.images.length <= 0) return null;
+        if (!this.images[0].fields.thumbnailUrl) return null;
+        return this.images[0].fields.thumbnailUrl;
+      }
     },
     asyncData({ params, query, error, app }) {
       const contentfulClient = createClient(query.mode);
@@ -54,12 +74,16 @@
           return {
             description: response.items[0].fields.description,
             images: response.items[0].fields.hasPart,
-            title: response.items[0].fields.name
+            title: response.items[0].fields.name,
+            canonicalURL: null
           };
         })
         .catch((e) => {
           error({ statusCode: 500, message: e.toString() });
         });
+    },
+    mounted() {
+      this.canonicalURL = window.location.href.split(/\?|#/)[0];
     },
     head() {
       return {
@@ -68,8 +92,12 @@
           { hid: 'title', name: 'title', content: this.title },
           { hid: 'description', name: 'description', content: this.description },
           { hid: 'og:title', property: 'og:title', content: this.title },
+          { hid: 'og:image', property: 'og:image', content: this.shareMediaUrl },
+          { hid: 'og:type', property: 'og:type', content: 'article' },
+          { hid: 'og:url', property: 'og:url', content: this.canonicalURL }
+        ].concat(this.description ? [
           { hid: 'og:description', property: 'og:description', content: this.description }
-        ]
+        ] : [])
       };
     }
   };
