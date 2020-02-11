@@ -2,7 +2,8 @@
   <b-container>
     <b-row class="flex-md-row pb-5">
       <b-col
-        cols="9"
+        cols="12"
+        lg="9"
         class="pb-3"
       >
         <h1 data-qa="gallery title">
@@ -15,8 +16,9 @@
         </p>
       </b-col>
       <b-col
-        cols="3"
-        class="py-3 text-right"
+        cols="12"
+        lg="3"
+        class="py-3 text-left text-lg-right"
       >
         <SocialShare
           :media-url="shareMediaUrl"
@@ -54,6 +56,13 @@
       ContentCard,
       SocialShare
     },
+    computed: {
+      shareMediaUrl() {
+        if (this.images.length <= 0) return null;
+        if (!this.images[0].fields.thumbnailUrl) return null;
+        return this.images[0].fields.thumbnailUrl;
+      }
+    },
     asyncData({ params, query, error, app }) {
       const contentfulClient = createClient(query.mode);
       return contentfulClient.getEntries({
@@ -73,13 +82,6 @@
           error({ statusCode: 500, message: e.toString() });
         });
     },
-    computed: {
-      shareMediaUrl() {
-        if (this.images.length <= 0) return null;
-        if (!this.images[0].fields.thumbnailUrl) return null;
-        return this.images[0].fields.thumbnailUrl;
-      }
-    },
     mounted() {
       this.canonicalURL = window.location.href.split(/\?|#/)[0];
     },
@@ -90,11 +92,12 @@
           { hid: 'title', name: 'title', content: this.title },
           { hid: 'description', name: 'description', content: this.description },
           { hid: 'og:title', property: 'og:title', content: this.title },
-          { hid: 'og:description', property: 'og:description', content: this.description },
           { hid: 'og:image', property: 'og:image', content: this.shareMediaUrl },
           { hid: 'og:type', property: 'og:type', content: 'article' },
           { hid: 'og:url', property: 'og:url', content: this.canonicalURL }
-        ]
+        ].concat(this.description ? [
+          { hid: 'og:description', property: 'og:description', content: this.description }
+        ] : [])
       };
     }
   };
