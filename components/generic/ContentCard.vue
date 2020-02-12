@@ -148,7 +148,7 @@
         const limited = (this.limitValuesWithinEachText > -1) ? values.slice(0, this.limitValuesWithinEachText) : [].concat(values);
         if (values.length > limited.length) limited.push(this.$t('formatting.ellipsis'));
         const joined = limited.join(this.$t('formatting.listSeperator') + ' ');
-        const stripped = this.$options.filters.stripMarkdown(joined, ['a', 'p']);
+        const stripped = this.$options.filters.stripMarkdown(joined);
         return this.$options.filters.truncate(stripped, 255, this.$t('formatting.ellipsis'));
       },
 
