@@ -76,15 +76,27 @@
 </script>
 
 <style lang="scss" scoped>
+  @import "./assets/scss/variables.scss";
+
   .masonry {
     display: inline-block;
     width: 100%;
-    columns: 4;
-    column-gap: 1rem;
+    columns: 1;
+    column-gap: 0;
+
+    @media (min-width: $bp-small) {
+      columns: 2;
+      column-gap: 1rem;
+    }
+
+    @media (min-width: $bp-large) {
+      columns: 4;
+    }
 
     .content-card {
       break-inside: avoid;
       min-height: initial;
+      transform: translateZ(0);
       width: 100%;
 
       /deep/ .card-img {
