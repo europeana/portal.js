@@ -22,11 +22,11 @@ describe('store/search', () => {
   describe('getters', () => {
     describe('filters()', () => {
 
-      context('when theme param is absent', () => {
-        const theme = undefined;
+      context('when collection param is absent', () => {
+        const collection = undefined;
 
         it('is false', () => {
-          store.getters.hasCollectionSpecificSettings({})(theme).should.be.false;
+          store.getters.hasCollectionSpecificSettings({})(collection).should.be.false;
         });
       });
 
@@ -84,20 +84,6 @@ describe('store/search', () => {
         });
       });
 
-      context('with theme value', () => {
-        it('returns it as a string on THEME property', async() => {
-          const query = { theme: 'art' };
-          const expected = { 'THEME': 'art' };
-
-          const state = {
-            apiParams: {},
-            userParams: query
-          };
-
-          store.getters.filters(state).should.deep.eql(expected);
-        });
-      });
-
       context('with api value', () => {
         it('returns it as a string on api property', async() => {
           const query = { api: 'metadata' };
@@ -131,9 +117,7 @@ describe('store/search', () => {
       const state = {
         resettableFilters: []
       };
-      const getters = {
-        queryUpdatesForFilters: store.getters.queryUpdatesForFilters({})
-      };
+      const getters = {};
 
       context('when facet is REUSABILITY', () => {
         context('with values selected', () => {
@@ -187,8 +171,7 @@ describe('store/search', () => {
           resettableFilters: ['proxy_dcterms_issued']
         };
         const getters = {
-          queryUpdatesForFilters: store.getters.queryUpdatesForFilters({}),
-          theme: () => 'newspaper'
+          collection: () => 'newspaper'
         };
 
         it('applies them', () => {
@@ -203,7 +186,7 @@ describe('store/search', () => {
 
       context('with collection-specific facets already selected', () => {
         const state = {
-          resettableFilters: ['THEME', 'CREATOR', 'TYPE']
+          resettableFilters: ['collection', 'CREATOR', 'TYPE']
         };
         const getters = {
           filters: {
@@ -211,12 +194,11 @@ describe('store/search', () => {
             'TYPE': ['"IMAGE"'],
             'contentTier': ['*']
           },
-          queryUpdatesForFilters: store.getters.queryUpdatesForFilters({}),
-          theme: 'fashion'
+          collection: 'fashion'
         };
 
-        context('when THEME is changed', () => {
-          const selected = { 'THEME': 'art' };
+        context('when collection is changed', () => {
+          const selected = { 'collection': 'art' };
 
           it('removes collection-specific facet filters', () => {
             const updates = store.getters.queryUpdatesForFacetChanges(state, getters)(selected);
@@ -237,8 +219,8 @@ describe('store/search', () => {
           });
         });
 
-        context('when THEME is removed', () => {
-          const selected = { 'THEME': null };
+        context('when collection is removed', () => {
+          const selected = { 'collection': null };
 
           it('removes collection-specific facet filters', () => {
             const updates = store.getters.queryUpdatesForFacetChanges(state, getters)(selected);
@@ -262,46 +244,46 @@ describe('store/search', () => {
     });
 
     describe('hasCollectionSpecificSettings', () => {
-      context('when theme param is absent', () => {
-        const theme = undefined;
+      context('when collection param is absent', () => {
+        const collection = undefined;
 
         it('is false', () => {
-          store.getters.hasCollectionSpecificSettings({})(theme).should.be.false;
+          store.getters.hasCollectionSpecificSettings({})(collection).should.be.false;
         });
       });
 
-      context('when theme param is present', () => {
-        const theme = 'music';
+      context('when collection param is present', () => {
+        const collection = 'music';
 
-        context('when rootState has collection store for the theme', () => {
+        context('when rootState has collection store for the collection', () => {
           context('with `enabled` property', () => {
             context('that is enabled', () => {
-              const rootState = { collections: { [theme]: { enabled: true } } };
+              const rootState = { collections: { [collection]: { enabled: true } } };
               it('is true', () => {
-                store.getters.hasCollectionSpecificSettings({}, {}, rootState)(theme).should.be.true;
+                store.getters.hasCollectionSpecificSettings({}, {}, rootState)(collection).should.be.true;
               });
             });
 
             context('that is disabled', () => {
-              const rootState = { collections: { [theme]: { enabled: false } } };
+              const rootState = { collections: { [collection]: { enabled: false } } };
               it('is false', () => {
-                store.getters.hasCollectionSpecificSettings({}, {}, rootState)(theme).should.be.false;
+                store.getters.hasCollectionSpecificSettings({}, {}, rootState)(collection).should.be.false;
               });
             });
           });
 
           context('without `enabled` property', () => {
-            const rootState = { collections: { [theme]: {} } };
+            const rootState = { collections: { [collection]: {} } };
             it('is true', () => {
-              store.getters.hasCollectionSpecificSettings({}, {}, rootState)(theme).should.be.true;
+              store.getters.hasCollectionSpecificSettings({}, {}, rootState)(collection).should.be.true;
             });
           });
         });
 
-        context('when rootState lacks collection store for the theme', () => {
+        context('when rootState lacks collection store for the collection', () => {
           const rootState = { collections: {} };
           it('is false', () => {
-            store.getters.hasCollectionSpecificSettings({}, {}, rootState)(theme).should.be.false;
+            store.getters.hasCollectionSpecificSettings({}, {}, rootState)(collection).should.be.false;
           });
         });
       });
@@ -330,15 +312,15 @@ describe('store/search', () => {
 
       it('searches the Record API', async() => {
         const searchQuery = 'anything';
-        const qf = 'TYPE:"IMAGE"';
-        const theme = 'migration';
+        const typeQf = 'TYPE:"IMAGE"';
+        const collectionQf = 'collection:"migration"';
         const commit = sinon.spy();
         const dispatch = sinon.spy();
-        const state = { apiParams: { query: searchQuery, qf: [qf], theme } };
+        const state = { apiParams: { query: searchQuery, qf: [typeQf, collectionQf] } };
 
         baseRequest
           .query(query => {
-            return query.query === searchQuery && query.qf.includes(qf) && query.theme === theme;
+            return query.query === searchQuery && query.qf.includes(typeQf) && query.qf.includes(collectionQf);
           })
           .reply(200, defaultResponse);
 
@@ -393,7 +375,6 @@ describe('store/search', () => {
         const userQuery = 'calais';
         const userQf = 'TYPE:"IMAGE"';
         const overrideQf = 'edm_agent:"http://data.europeana.eu/agent/base/200"';
-        const overrideTheme = 'migration';
         const profile = 'minimal,facets';
         const facet = store.defaultFacetNames.join(',');
 
@@ -405,8 +386,7 @@ describe('store/search', () => {
             qf: userQf
           },
           overrideParams: {
-            qf: [overrideQf],
-            theme: overrideTheme
+            qf: [overrideQf]
           }
         };
 
@@ -415,7 +395,6 @@ describe('store/search', () => {
         commit.should.have.been.calledWith('setApiParams', {
           query: userQuery,
           qf: [userQf, overrideQf],
-          theme: overrideTheme,
           profile,
           facet
         });

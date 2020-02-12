@@ -17,7 +17,7 @@ const rules = [
   { from: '/portal/en/collections/world-war-I', to: '/en/entity/topic/83-1914-1918' },
   { from: '/portal/en/collections/archaeology', to: '/en/entity/topic/80-archaeology' },
   { from: '/portal/en/collections/art', to: '/en/entity/topic/190-art' },
-  { from: '/portal/en/collections/fashion', to: '/en/search?query=&theme=fashion' },
+  { from: '/portal/en/collections/fashion', to: '/en/search?query=&qf=collection%3Afashion' },
   { from: '/portal/en/collections/industrial-heritage', to: '/en/entity/topic/129-industrial-heritage' },
   { from: '/portal/en/collections/manuscripts', to: '/en/entity/topic/17-manuscripts' },
   { from: '/portal/en/collections/maps', to: '/en/entity/topic/151-maps-and-geography' },
@@ -44,22 +44,22 @@ const rules = [
   { from: '/portal/en/search?f%5Bapi%5D%5B%5D=api', to: '/en/search?query=&api=fulltext' },
   { from: '/portal/en/search?q=fish&query=hook', to: '/en/search?query=fish+AND+hook' },
   { from: '/portal/en/search?q=whale&qf%5B%5D=NOT+tooth', to: '/en/search?query=whale+AND+NOT+tooth' },
-  { from: '/portal/en/collections/art?q=paint', to: '/en/search?query=paint&theme=art' },
+  { from: '/portal/en/collections/art?q=paint', to: '/en/search?query=paint&qf=collection%3Aart' },
   {
     from: '/portal/en/collections/newspapers?q=&range%5Bproxy_dcterms_issued%5D%5Bbegin%5D=1900-01-01&range%5Bproxy_dcterms_issued%5D%5Bend%5D=1910-01-01',
-    to: '/en/search?query=&theme=newspaper&qf=proxy_dcterms_issued%3A%5B1900-01-01+TO+1910-01-01%5D'
+    to: '/en/search?query=&qf=collection%3Anewspaper&qf=proxy_dcterms_issued%3A%5B1900-01-01+TO+1910-01-01%5D'
   },
   {
     from: '/portal/en/collections/newspapers?q=&range%5Bproxy_dcterms_issued%5D%5Bbegin%5D=&range%5Bproxy_dcterms_issued%5D%5Bend%5D=1910-01-01',
-    to: '/en/search?query=&theme=newspaper&qf=proxy_dcterms_issued%3A%5B%2A+TO+1910-01-01%5D'
+    to: '/en/search?query=&qf=collection%3Anewspaper&qf=proxy_dcterms_issued%3A%5B%2A+TO+1910-01-01%5D'
   },
   {
     from: '/portal/en/collections/newspapers?q=&range%5Bproxy_dcterms_issued%5D%5Bbegin%5D=1900-01-01&range%5Bproxy_dcterms_issued%5D%5Bend%5D=',
-    to: '/en/search?query=&theme=newspaper&qf=proxy_dcterms_issued%3A%5B1900-01-01+TO+%2A%5D'
+    to: '/en/search?query=&qf=collection%3Anewspaper&qf=proxy_dcterms_issued%3A%5B1900-01-01+TO+%2A%5D'
   },
   {
     from: '/portal/en/collections/newspapers?q=&range%5Bproxy_dcterms_issued%5D%5Bbegin%5D=1900-01-01&range%5Bproxy_dcterms_issued%5D%5Bend%5D=1900-01-01',
-    to: '/en/search?query=&theme=newspaper&qf=proxy_dcterms_issued%3A1900-01-01'
+    to: '/en/search?query=&qf=collection%3Anewspaper&qf=proxy_dcterms_issued%3A1900-01-01'
   },
   {
     from: '/portal/en/search?q=&f%5BRIGHTS%5D%5B%5D=http%2A%3A%2F%2Fcreativecommons.org%2Flicenses%2Fby-nc-sa%2A',

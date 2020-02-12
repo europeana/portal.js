@@ -141,6 +141,7 @@
   import isEqual from 'lodash/isEqual';
   import pickBy from 'lodash/pickBy';
   import { mapState, mapGetters } from 'vuex';
+  import { queryUpdatesForFilters } from '../../store/search';
 
   export default {
     components: {
@@ -176,9 +177,8 @@
     },
     data() {
       return {
-        coreFacetNames: ['THEME', 'TYPE', 'COUNTRY', 'REUSABILITY'],
-        PROXY_DCTERMS_ISSUED: 'proxy_dcterms_issued',
-        THEME: 'THEME'
+        coreFacetNames: ['collection', 'TYPE', 'COUNTRY', 'REUSABILITY'],
+        PROXY_DCTERMS_ISSUED: 'proxy_dcterms_issued'
       };
     },
     computed: {
@@ -196,8 +196,7 @@
         facetNames: 'search/facetNames',
         filters: 'search/filters',
         queryUpdatesForFacetChanges: 'search/queryUpdatesForFacetChanges',
-        queryUpdatesForFilters: 'search/queryUpdatesForFilters',
-        theme: 'search/theme'
+        collection: 'search/collection'
       }),
       qf() {
         return this.userParams.qf;
@@ -261,8 +260,8 @@
           }
         }
 
-        if (this.$store.state.search.themeFacetEnabled) {
-          ordered.unshift({ name: this.THEME, fields: thematicCollections });
+        if (this.$store.state.search.collectionFacetEnabled) {
+          ordered.unshift({ name: 'collection', fields: thematicCollections });
         }
         return ordered.concat(unordered);
       },
@@ -301,7 +300,7 @@
     },
     methods: {
       facetDropdownType(name) {
-        return name === this.THEME ? 'radio' : 'checkbox';
+        return name === 'collection' ? 'radio' : 'checkbox';
       },
       changeFacet(name, selected) {
         if (typeof this.filters[name] === 'undefined') {
@@ -327,7 +326,6 @@
           query: this.query,
           reusability: this.reusability,
           view: this.view,
-          theme: this.userParams.theme,
           api: this.api
         };
 
@@ -348,7 +346,7 @@
           filters[filterName] = [];
         }
         this.$store.commit('search/clearResettableFilters');
-        return this.rerouteSearch(this.queryUpdatesForFilters(filters));
+        return this.rerouteSearch(queryUpdatesForFilters(filters));
       },
       isFilteredByDropdowns() {
         return this.$store.getters['search/hasResettableFilters'];

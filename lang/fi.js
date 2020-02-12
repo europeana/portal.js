@@ -82,10 +82,9 @@ export default {
     "REUSABILITY": {
       "name": "Voinko käyttää tätä?"
     },
-    "THEME": {
+    "collection": {
       "name": "Kategoria",
       "options": {
-        "all": "Kaikki",
         "ww1": "1914–1918",
         "archaeology": "Arkeologia",
         "art": "Taide",

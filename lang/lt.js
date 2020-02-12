@@ -85,10 +85,9 @@ export default {
         "open": "Taip"
       }
     },
-    "THEME": {
+    "collection": {
       "name": "Kategorija",
       "options": {
-        "all": "Visi elementai",
         "ww1": "1914-1918",
         "archaeology": "Archeologija",
         "art": "Menas",

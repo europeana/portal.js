@@ -108,7 +108,7 @@ function baseRedirect(route, query = {}) {
     const collectionMatch = route.path.match(collectionPattern);
     if (collectionMatch && Object.prototype.hasOwnProperty.call(query, 'q')) {
       redirect.path = [collectionMatch[1], '/search'];
-      redirect.query.theme = mapCollectionToTheme(collectionMatch[2]);
+      redirect.query.qf.push(`collection:${mapCollectionToTheme(collectionMatch[2])}`);
     }
   }
 

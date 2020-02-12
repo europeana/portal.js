@@ -85,10 +85,9 @@ export default {
         "open": "Jā"
       }
     },
-    "THEME": {
+    "collection": {
       "name": "Kategorija",
       "options": {
-        "all": "Visi vienumi",
         "ww1": "1914.–1918. gads",
         "archaeology": "Arheoloģija",
         "art": "Māksla",
