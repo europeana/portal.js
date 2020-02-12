@@ -5,8 +5,9 @@
     <b-container class="pb-3">
       <b-row>
         <b-col
-          cols="9"
-          class="pb-3"
+          cols="12"
+          lg="9"
+          class="pb-0 pb-lg-3"
         >
           <h1>{{ $t('exhibitions.credits') }}</h1>
           <!-- eslint-disable vue/no-v-html -->
@@ -15,6 +16,15 @@
             v-html="credits"
           />
           <!-- eslint-enable vue/no-v-html -->
+        </b-col>
+        <b-col
+          cols="12"
+          lg="3"
+          class="pt-0 pb-3 py-lg-3 text-left text-lg-right"
+        >
+          <SocialShare
+            :share-url="canonicalURL"
+          />
         </b-col>
       </b-row>
       <b-row v-if="page.hasPart">
@@ -34,10 +44,17 @@
   import marked from 'marked';
   import createClient from '../../../plugins/contentful';
   import ExhibitionChapters from '../../../components/exhibition/ExhibitionChapters';
+  import SocialShare from '../../../components/generic/SocialShare';
 
   export default {
     components: {
-      ExhibitionChapters
+      ExhibitionChapters,
+      SocialShare
+    },
+    data() {
+      return {
+        canonicalURL: null
+      };
     },
     computed: {
       credits() {
@@ -70,13 +87,21 @@
           error({ statusCode: 500, message: e.toString() });
         });
     },
+    mounted() {
+      this.canonicalURL = window.location.href.split(/\?|#/)[0];
+    },
     head() {
       return {
         title: this.title,
         meta: [
           { hid: 'title', name: 'title', content: this.title },
-          { hid: 'og:title', property: 'og:title', content: this.title }
-        ]
+          { hid: 'og:title', property: 'og:title', content: this.title },
+          { hid: 'og:image', property: 'og:image', content: null },
+          { hid: 'og:type', property: 'og:type', content: 'article' },
+          { hid: 'og:url', property: 'og:url', content: this.canonicalURL }
+        ].concat(this.description ? [
+          { hid: 'og:description', property: 'og:description', content: null }
+        ] : [])
       };
     }
   };

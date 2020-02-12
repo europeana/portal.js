@@ -17,8 +17,9 @@
     <b-container class="pb-3">
       <b-row>
         <b-col
-          cols="9"
-          class="pb-3"
+          cols="12"
+          lg="9"
+          class="pb-0 pb-lg-3"
         >
           <article>
             <!-- eslint-disable vue/no-v-html -->
@@ -28,6 +29,16 @@
             />
             <!-- eslint-enable vue/no-v-html -->
           </article>
+        </b-col>
+        <b-col
+          cols="12"
+          lg="3"
+          class="pb-3 text-left text-lg-right"
+        >
+          <SocialShare
+            :media-url="heroImage.url"
+            :share-url="canonicalURL"
+          />
         </b-col>
       </b-row>
       <b-row v-if="page.hasPart">
@@ -48,11 +59,18 @@
   import createClient from '../../../plugins/contentful';
   import ExhibitionChapters from '../../../components/exhibition/ExhibitionChapters';
   import HeroImage from '../../../components/generic/HeroImage';
+  import SocialShare from '../../../components/generic/SocialShare';
 
   export default {
     components: {
       ExhibitionChapters,
-      HeroImage
+      HeroImage,
+      SocialShare
+    },
+    data() {
+      return {
+        canonicalURL: null
+      };
     },
     computed: {
       hero() {
@@ -103,6 +121,9 @@
       this.$store.commit('breadcrumb/clearBreadcrumb');
       next();
     },
+    mounted() {
+      this.canonicalURL = window.location.href.split(/\?|#/)[0];
+    },
     head() {
       return {
         title: this.page.name,
@@ -110,8 +131,12 @@
           { hid: 'title', name: 'title', content: this.page.name },
           { hid: 'description', name: 'description', content: this.page.description },
           { hid: 'og:title', property: 'og:title', content: this.page.name },
+          { hid: 'og:image', property: 'og:image', content: this.heroImage.url },
+          { hid: 'og:type', property: 'og:type', content: 'article' },
+          { hid: 'og:url', property: 'og:url', content: this.canonicalURL }
+        ].concat(this.description ? [
           { hid: 'og:description', property: 'og:description', content: this.page.description }
-        ]
+        ] : [])
       };
     }
   };
