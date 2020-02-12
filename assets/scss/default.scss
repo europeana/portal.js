@@ -80,6 +80,18 @@ blockquote {
   }
 }
 
+cite {
+  border-right: 2px solid $blue;
+  color: $black;
+  display: block;
+  font-size: $font-size-small;
+  font-style: normal;
+  margin-left: 5rem;
+  margin-right: 5rem;
+  padding-right: 1rem;
+  text-align: right;
+}
+
 img {
   max-width: 100%;
 }
@@ -96,9 +108,12 @@ figure {
 figcaption {
   cite {
     background: $white;
+    border: none;
     border-top-left-radius: $border-radius-small;
     border-top-right-radius: $border-radius-small;
     bottom: 0;
+    color: inherit;
+    display: inline;
     font-size: 0.625rem;
     font-style: normal;
     left: 1rem;
@@ -109,7 +124,6 @@ figcaption {
 
     .attribution > span {
       margin-left: 0.25rem;
-      
       .license {
         font-size: $font-size-small;
       }
