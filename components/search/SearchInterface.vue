@@ -13,17 +13,11 @@
     <template
       v-else
     >
-      <b-row
-        class="mb-3"
-      >
-        <b-col>
-          <SearchFilters />
-        </b-col>
-      </b-row>
       <b-row class="mb-3">
         <b-col
           data-qa="search filters"
         >
+          <SearchFilters />
           <FacetDropdown
             v-for="facet in coreFacets"
             :key="facet.name"

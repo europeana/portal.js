@@ -60,8 +60,8 @@ blockquote {
   color: $black;
   font-size: 1.125rem;
   font-style: italic;
-  margin-left: 5rem;
-  margin-right: 5rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
   padding-right: 1rem;
   text-align: right;
 
@@ -78,6 +78,11 @@ blockquote {
     content: '\2019';
     display: inline-block;
   }
+
+  @media (min-width: $bp-medium) {
+    margin-left: 5rem;
+    margin-right: 5rem;
+  }
 }
 
 cite {
@@ -86,10 +91,15 @@ cite {
   display: block;
   font-size: $font-size-small;
   font-style: normal;
-  margin-left: 5rem;
-  margin-right: 5rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
   padding-right: 1rem;
   text-align: right;
+
+  @media (min-width: $bp-medium) {
+    margin-left: 5rem;
+    margin-right: 5rem;
+  }
 }
 
 img {
