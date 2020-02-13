@@ -290,8 +290,6 @@
         return redirect(app.localePath({ path: env.RECORD_PAGE_REDIRECT_PATH }));
       }
 
-      console.log(JSON.stringify(req.headers));
-
       let canonicalUrl;
       if (process.server) {
         canonicalUrl = req.headers.host + route.path;
