@@ -85,10 +85,9 @@ export default {
         "open": "Да"
       }
     },
-    "THEME": {
+    "collection": {
       "name": "Категория",
       "options": {
-        "all": "Всички елементи",
         "ww1": "1914-1918",
         "archaeology": "Археология",
         "art": "Изкуство",

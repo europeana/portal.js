@@ -16,6 +16,52 @@ export const defaultFacetNames = [
   'MIME_TYPE'
 ];
 
+const filtersFromQf = (qfs) => {
+  const filters = {};
+
+  for (const qf of [].concat(qfs || [])) {
+    const qfParts = qf.split(':');
+    const name = qfParts[0];
+    const value = qfParts.slice(1).join(':');
+    if (typeof filters[name] === 'undefined') {
+      filters[name] = [];
+    }
+    filters[name].push(value);
+  }
+
+  return filters;
+};
+
+export const queryUpdatesForFilters = (filters) => {
+  const queryUpdates = {
+    qf: [],
+    page: 1
+  };
+
+  for (const name in filters) {
+    switch (name) {
+      case 'REUSABILITY':
+        // `reusability` has its own API parameter and can not be queried in `qf`
+        queryUpdates.reusability = filters[name].length > 0 ? filters[name].join(',') : null;
+        break;
+      case 'api':
+        // `api` is an option to /plugins/europeana/search/search()
+        queryUpdates.api = filters[name];
+        break;
+      default:
+        // Everything else goes in `qf`
+        queryUpdates.qf = queryUpdates.qf.concat(queryUpdatesForFilter(name, filters[name]));
+    }
+  }
+  return queryUpdates;
+};
+
+export const queryUpdatesForFilter = (name, values) => {
+  return [].concat(values)
+    .filter((value) => (value !== undefined) && (value !== null))
+    .map((value) => `${name}:${value}`);
+};
+
 export const state = () => ({
   active: false,
   apiOptions: {},
@@ -28,7 +74,7 @@ export const state = () => ({
   overrideParams: {},
   pill: null,
   results: [],
-  themeFacetEnabled: true,
+  collectionFacetEnabled: true,
   totalResults: null,
   userParams: {},
   view: null
@@ -57,11 +103,11 @@ export const mutations = {
   setApiParams(state, value) {
     state.apiParams = value;
   },
-  disableThemeFacet(state) {
-    state.themeFacetEnabled = false;
+  disableCollectionFacet(state) {
+    state.collectionFacetEnabled = false;
   },
-  enableThemeFacet(state) {
-    state.themeFacetEnabled = true;
+  enableCollectionFacet(state) {
+    state.collectionFacetEnabled = true;
   },
   setActive(state, value) {
     state.active = value;
@@ -121,29 +167,30 @@ export const getters = {
   },
 
   formatFacetFieldLabel: (state, getters, rootState, rootGetters) => (facetName, facetFieldLabel) => {
-    const theme = getters.theme;
-    if (!getters.hasCollectionSpecificSettings(theme)) return;
-    if (!rootGetters[`collections/${theme}/formatFacetFieldLabel`]) return;
+    const collection = getters.collection;
+    if (!getters.hasCollectionSpecificSettings(collection)) return;
+    if (!rootGetters[`collections/${collection}/formatFacetFieldLabel`]) return;
 
-    return rootGetters[`collections/${theme}/formatFacetFieldLabel`](facetName, facetFieldLabel);
+    return rootGetters[`collections/${collection}/formatFacetFieldLabel`](facetName, facetFieldLabel);
   },
 
   facetNames(state) {
     return (state.apiParams.facet || '').split(',');
   },
 
-  hasCollectionSpecificSettings: (state, getters, rootState) => (theme) => {
-    return (!!theme) &&
-      (!!rootState.collections && !!rootState.collections[theme]) &&
-      ((rootState.collections[theme].enabled === undefined) || rootState.collections[theme].enabled);
+  hasCollectionSpecificSettings: (state, getters, rootState) => (collection) => {
+    return (!!collection) &&
+      (!!rootState.collections && !!rootState.collections[collection]) &&
+      ((rootState.collections[collection].enabled === undefined) || rootState.collections[collection].enabled);
   },
 
   hasResettableFilters(state) {
     return state.resettableFilters.length > 0;
   },
 
-  theme(state) {
-    return state.apiParams.theme || null;
+  collection(state) {
+    const collectionFilter = filtersFromQf(state.apiParams.qf).collection;
+    return collectionFilter ? collectionFilter[0] : null;
   },
 
   queryUpdatesForFacetChanges: (state, getters) => (selected = {}) => {
@@ -154,69 +201,23 @@ export const getters = {
     }
 
     // Remove collection-specific filters when collection is changed
-    if (Object.prototype.hasOwnProperty.call(selected, 'THEME') || !getters.theme) {
+    if (Object.prototype.hasOwnProperty.call(selected, 'collection') || !getters.collection) {
       for (const name in filters) {
-        if ((name !== 'THEME') && !defaultFacetNames.includes(name) && state.resettableFilters.includes(name)) {
+        if (name !== 'collection' && !defaultFacetNames.includes(name) && state.resettableFilters.includes(name)) {
           filters[name] = [];
         }
       }
     }
 
-    return getters.queryUpdatesForFilters(filters);
-  },
-
-  queryUpdatesForFilters: () => (filters) => {
-    const queryUpdates = {
-      qf: [],
-      page: 1
-    };
-
-    for (const facetName in filters) {
-      const selectedValues = filters[facetName];
-      // `reusability` has its own API parameter and can not be queried in `qf`
-      if (facetName === 'REUSABILITY') {
-        if (selectedValues.length > 0) {
-          queryUpdates.reusability = selectedValues.join(',');
-        } else {
-          queryUpdates.reusability = null;
-        }
-      // Likewise `theme`
-      } else if (facetName === 'THEME') {
-        queryUpdates.theme = selectedValues;
-      // `api` is an option to /plugins/europeana/search/search()
-      } else if (facetName === 'api') {
-        queryUpdates.api = selectedValues;
-      } else {
-        for (const facetValue of selectedValues) {
-          queryUpdates.qf.push(`${facetName}:${facetValue}`);
-        }
-      }
-    }
-    return queryUpdates;
+    return queryUpdatesForFilters(filters);
   },
 
   // TODO: do not assume filters are fielded, e.g. `qf=whale`
   filters: (state) => {
-    const filters = {};
-
-    if (state.userParams.qf) {
-      for (const qf of [].concat(state.userParams.qf)) {
-        const qfParts = qf.split(':');
-        const facetName = qfParts[0];
-        const facetValue = qfParts.slice(1).join(':');
-        if (typeof filters[facetName] === 'undefined') {
-          filters[facetName] = [];
-        }
-        filters[facetName].push(facetValue);
-      }
-    }
+    const filters = filtersFromQf(state.userParams.qf);
 
     if (state.userParams.reusability) {
       filters['REUSABILITY'] = state.userParams.reusability.split(',');
-    }
-
-    if (state.userParams.theme) {
-      filters['THEME'] = state.userParams.theme;
     }
 
     if (state.apiParams.api) {
@@ -254,7 +255,11 @@ export const actions = {
       apiParams.facet = defaultFacetNames.join(',');
     }
     if (!apiParams.profile) {
-      apiParams.profile = 'minimal,facets';
+      if (apiParams.facet.length === 0) {
+        apiParams.profile = 'minimal';
+      } else {
+        apiParams.profile = 'minimal,facets';
+      }
     }
 
     commit('setApiParams', apiParams);
@@ -264,13 +269,13 @@ export const actions = {
   },
 
   applyCollectionSpecificSettings({ commit, getters, rootGetters, rootState, state }) {
-    const theme = getters.theme;
-    if (!getters.hasCollectionSpecificSettings(theme)) return;
+    const collection = getters.collection;
+    if (!getters.hasCollectionSpecificSettings(collection)) return;
 
     for (const property of ['apiParams', 'apiOptions']) {
-      if (rootState.collections[theme][property] !== undefined) {
-        commit(`collections/${theme}/set`, [property, state[property]], { root: true });
-        commit('set', [property, rootGetters[`collections/${theme}/${property}`]]);
+      if (rootState.collections[collection][property] !== undefined) {
+        commit(`collections/${collection}/set`, [property, state[property]], { root: true });
+        commit('set', [property, rootGetters[`collections/${collection}/${property}`]]);
       }
     }
   },
@@ -294,10 +299,10 @@ export const actions = {
     commit('setTotalResults', response.totalResults);
 
     commit('setFacets', response.facets);
-    const theme = getters.theme;
-    if (getters.hasCollectionSpecificSettings(theme) && rootState.collections[theme]['facets'] !== undefined) {
-      commit(`collections/${theme}/set`, ['facets', state.facets], { root: true });
-      commit('set', ['facets', rootGetters[`collections/${theme}/facets`]]);
+    const collection = getters.collection;
+    if (getters.hasCollectionSpecificSettings(collection) && rootState.collections[collection]['facets'] !== undefined) {
+      commit(`collections/${collection}/set`, ['facets', state.facets], { root: true });
+      commit('set', ['facets', rootGetters[`collections/${collection}/facets`]]);
     }
   },
 

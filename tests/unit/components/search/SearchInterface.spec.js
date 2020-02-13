@@ -43,7 +43,7 @@ const factory = (options = {}) => {
           userParams: {},
           apiParams: {},
           results: [],
-          themeFacetEnabled: true,
+          collectionFacetEnabled: true,
           resettableFilters: [],
           ...options.storeState
         },
@@ -54,11 +54,14 @@ const factory = (options = {}) => {
           filters: () => {
             return {};
           },
-          theme: () => null,
+          collection: () => null,
           queryUpdatesForFacetChanges: () => () => {
             return {};
           },
           ...options.storeGetters
+        },
+        mutations: {
+          setView: () => null
         }
       }
     }
@@ -195,8 +198,8 @@ describe('components/search/SearchInterface', () => {
         }
       });
 
-      it('injects THEME first', () => {
-        wrapper.vm.orderedFacets[0].name.should.eq('THEME');
+      it('injects collection first', () => {
+        wrapper.vm.orderedFacets[0].name.should.eq('collection');
       });
 
       it('follows with ordered default facets from search plugin', () => {
@@ -231,7 +234,7 @@ describe('components/search/SearchInterface', () => {
       });
 
       it('returns core facets only', () => {
-        wrapper.vm.coreFacets.map(coreFacet => coreFacet.name).should.eql(['THEME', 'TYPE', 'REUSABILITY', 'COUNTRY']);
+        wrapper.vm.coreFacets.map(coreFacet => coreFacet.name).should.eql(['collection', 'TYPE', 'REUSABILITY', 'COUNTRY']);
       });
     });
 

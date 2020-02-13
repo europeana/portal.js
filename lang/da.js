@@ -85,10 +85,9 @@ export default {
         "open": "Ja"
       }
     },
-    "THEME": {
+    "collection": {
       "name": "Kategori",
       "options": {
-        "all": "Alle emner",
         "ww1": "1914-1918",
         "archaeology": "Arkæologi",
         "art": "Kunst",

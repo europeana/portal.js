@@ -85,10 +85,9 @@ export default {
         "open": "Da"
       }
     },
-    "THEME": {
+    "collection": {
       "name": "Kategorija",
       "options": {
-        "all": "Sve stavke",
         "ww1": "1914.-1918.",
         "archaeology": "Arheologija",
         "art": "Umjetnost",

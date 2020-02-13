@@ -7,13 +7,18 @@ const localVue = createLocalVue();
 localVue.use(Vuex);
 
 const store = new Vuex.Store({
-  state: {
+  modules: {
     search: {
-      apiParams: {}
+      namespaced: true,
+      state: {
+        apiParams: {}
+      },
+      getters: {
+        collection: () => null
+      }
     }
   }
 });
-
 
 const factory = () => shallowMount(MoreFacetsDropdown, {
   localVue,
