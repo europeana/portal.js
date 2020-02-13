@@ -2,7 +2,7 @@
   <b-dropdown
     ref="dropdown"
     :variant="dropdownVariant"
-    class="mr-2 mb-2"
+    class="mr-2 my-2"
     :data-type="type"
     data-qa="search facet"
     @hidden="cancelHandler"
