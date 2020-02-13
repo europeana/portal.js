@@ -25,7 +25,6 @@
 </template>
 
 <script>
-  // import VueMarkdown from 'vue-markdown';
   import marked from 'marked';
 
   export default {

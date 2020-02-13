@@ -49,7 +49,11 @@
               :key="index"
               :lang="text.code"
             >
-              {{ cardText(text.values) }}
+              <!-- eslint-disable vue/no-v-html -->
+              <p
+                v-html="cardText(text.values)"
+              />
+              <!-- eslint-enable vue/no-v-html -->
             </b-card-text>
           </template>
         </template>
@@ -156,7 +160,8 @@
         const limited = (this.limitValuesWithinEachText > -1) ? values.slice(0, this.limitValuesWithinEachText) : [].concat(values);
         if (values.length > limited.length) limited.push(this.$t('formatting.ellipsis'));
         const joined = limited.join(this.$t('formatting.listSeperator') + ' ');
-        return this.$options.filters.truncate(joined, 255, this.$t('formatting.ellipsis'));
+        const stripped = this.$options.filters.stripMarkdown(joined);
+        return this.$options.filters.truncate(stripped, 255, this.$t('formatting.ellipsis'));
       },
 
       imageNotFound() {
