@@ -80,7 +80,7 @@
         <div class="card p-3 mb-3 bg-grey">
           <MediaActionBar
             :url="selectedMedia.about"
-            :share-url="canonicalURL"
+            :share-url="canonicalUrl"
             :europeana-identifier="identifier"
             :use-proxy="useProxy"
             :rights-statement="rightsStatement"
@@ -183,7 +183,7 @@
       return {
         agents: null,
         altTitle: null,
-        canonicalURL: null,
+        canonicalUrl: null,
         cardGridClass: null,
         concepts: null,
         description: null,
@@ -285,14 +285,25 @@
       }
     },
 
-    asyncData({ env, params, res, app, redirect }) {
+    asyncData({ env, params, res, app, redirect, req, route }) {
       if (env.RECORD_PAGE_REDIRECT_PATH) {
         return redirect(app.localePath({ path: env.RECORD_PAGE_REDIRECT_PATH }));
       }
 
+      console.log(JSON.stringify(req.headers));
+
+      let canonicalUrl;
+      if (process.server) {
+        canonicalUrl = req.headers.host + route.path;
+      } else {
+        canonicalUrl = window.location.href.split(/\?|#/)[0];
+      }
+
       return getRecord(`/${params.pathMatch}`)
         .then((result) => {
-          return result.record;
+          const data = result.record;
+          data['canonicalUrl'] = canonicalUrl;
+          return data;
         })
         .catch((error) => {
           if (typeof res !== 'undefined') {
@@ -326,7 +337,6 @@
           this.selectedMedia.about = msg.data.id;
         }
       });
-      this.canonicalURL = window.location.href.split(/\?|#/)[0];
     },
 
     methods: {
@@ -382,7 +392,7 @@
           { hid: 'og:description', property: 'og:description', content: this.metaDescription },
           { hid: 'og:image', property: 'og:image', content: this.selectedMediaImage.src ? this.selectedMediaImage.src : '' },
           { hid: 'og:type', property: 'og:type', content: 'article' },
-          { hid: 'og:url', property: 'og:url', content: this.canonicalURL }
+          { hid: 'og:url', property: 'og:url', content: this.canonicalUrl }
         ]
       };
     }
