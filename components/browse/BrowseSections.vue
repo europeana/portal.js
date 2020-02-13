@@ -86,3 +86,9 @@
     }
   };
 </script>
+
+<style lang="scss" scoped>
+  /deep/ .attribution {
+    align-items: flex-start;
+  }
+</style>

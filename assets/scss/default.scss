@@ -91,6 +91,7 @@ cite {
   display: block;
   font-size: $font-size-small;
   font-style: normal;
+  font-weight: bold;
   margin-left: 1rem;
   margin-right: 1rem;
   padding-right: 1rem;
@@ -126,8 +127,9 @@ figcaption {
     display: inline;
     font-size: 0.625rem;
     font-style: normal;
+    font-weight: normal;
     left: 1rem;
-    line-height: 2;
+    line-height: 1.5;
     margin: 0;
     margin-right: 1rem;
     padding: 0.5rem 1rem;

@@ -84,3 +84,11 @@
     }
   };
 </script>
+
+<style lang="scss" scoped>
+  /deep/ img {
+    display: block;
+    margin: 1rem 0;
+  }
+</style>
+

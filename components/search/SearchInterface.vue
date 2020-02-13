@@ -18,29 +18,31 @@
           data-qa="search filters"
         >
           <SearchFilters />
-          <FacetDropdown
-            v-for="facet in coreFacets"
-            :key="facet.name"
-            :name="facet.name"
-            :fields="facet.fields"
-            :type="facetDropdownType(facet.name)"
-            :selected="filters[facet.name]"
-            @changed="changeFacet"
-          />
-          <MoreFiltersDropdown
-            v-if="enableMoreFacets"
-            :more-facets="moreFacets"
-            :selected="moreSelectedFacets"
-            @changed="changeMoreFacets"
-          />
-          <button
-            v-if="isFilteredByDropdowns()"
-            class="reset"
-            data-qa="reset filters button"
-            @click="resetFilters"
-          >
-            {{ $t('reset') }}
-          </button>
+          <div class="position-relative">
+            <FacetDropdown
+              v-for="facet in coreFacets"
+              :key="facet.name"
+              :name="facet.name"
+              :fields="facet.fields"
+              :type="facetDropdownType(facet.name)"
+              :selected="filters[facet.name]"
+              @changed="changeFacet"
+            />
+            <MoreFiltersDropdown
+              v-if="enableMoreFacets"
+              :more-facets="moreFacets"
+              :selected="moreSelectedFacets"
+              @changed="changeMoreFacets"
+            />
+            <button
+              v-if="isFilteredByDropdowns()"
+              class="reset"
+              data-qa="reset filters button"
+              @click="resetFilters"
+            >
+              {{ $t('reset') }}
+            </button>
+          </div>
         </b-col>
       </b-row>
       <b-row
