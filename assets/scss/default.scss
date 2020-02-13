@@ -156,14 +156,14 @@ a {
 }
 
 .nuxt-progress {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 0.375rem;
-  width: 0;
-  opacity: 1;
-  transition: width 0.1s, opacity 0.4s;
   background-color: $blue;
+  height: 0.25rem;
+  left: 0;
+  opacity: 1;
+  position: fixed;
+  right: 0;
+  top: 0;
+  transition: width 0.1s, opacity 0.4s;
+  width: 0;
   z-index: 999999;
 }

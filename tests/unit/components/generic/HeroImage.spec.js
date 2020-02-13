@@ -26,7 +26,7 @@ describe('components/generic/HeroImage', () => {
     const wrapper = factory();
     wrapper.setProps({ header: 'Welcome at Europeana' });
 
-    const title = wrapper.find('[data-qa="hero banner"] h2');
+    const title = wrapper.find('[data-qa="hero banner"] h1');
     title.text().should.contain('Welcome at Europeana');
   });
 
