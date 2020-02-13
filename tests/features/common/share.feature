@@ -23,7 +23,7 @@ Feature: Gallery page
 
   Scenario: Sharing an exhibition credits page
 
-    When I open the `exhibition cre`
+    When I open the `exhibition credits`
     Then I see a `share facebook button`
     And I see a `share twitter button`
     And I see a `share pinterest button`
