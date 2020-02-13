@@ -28,6 +28,7 @@
       <b-card-body>
         <b-card-title
           v-if="displayTitle"
+          title-tag="div"
           :lang="displayTitle.code"
         >
           {{ displayTitle.values[0] | truncate(90, $t('formatting.ellipsis')) }}
