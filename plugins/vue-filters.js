@@ -41,10 +41,7 @@ Vue.filter('optimisedImageUrl', (imageUrl, contentType, options = {}) => {
 });
 
 const htmlRemovalPatternsFromTags = (tags) => {
-  const patterns = [].concat.apply([/\n$/], tags.map((tag) => {
-    return [new RegExp(`<${tag}.*?>`, 'g'), new RegExp(`</${tag}.*?>`, 'g')];
-  }));
-  return patterns;
+  return [/\n$/].concat(tags.map((tag) => new RegExp(`</?${tag}.*?>`, 'gi')));
 };
 
 /**
@@ -58,10 +55,9 @@ const htmlRemovalPatternsFromTags = (tags) => {
  * @param {string[]} tags the HTML tags to be removed.
  * @return {String} text value with HTML breaks
  */
-Vue.filter('stripMarkdown', (text, tags) => {
+Vue.filter('stripMarkdown', (text, tags = ['']) => {
   text = marked(text); // Marked adds newlines to the end of the string, and wraps it in a <p> tag.
-  const patternsToRemove = tags ? htmlRemovalPatternsFromTags(tags) : [/(<.*?>)+/gi, /\n$/];
-  for (const pattern of patternsToRemove) {
+  for (const pattern of htmlRemovalPatternsFromTags(tags)) {
     text = text.replace(pattern, '');
   }
   return text;
