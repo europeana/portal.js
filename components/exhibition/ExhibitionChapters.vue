@@ -21,6 +21,7 @@
         :title="$t('exhibitions.credits')"
         :url="{ name: 'exhibition-exhibition-credits', params: { exhibition: exhibitionIdentifier } }"
         data-qa="exhibitions credits card"
+        :texts="[chapterText()]"
         :is-mini="true"
       />
     </b-card-group>
@@ -66,6 +67,9 @@
         };
       },
       chapterText(chapter) {
+        if (!chapter) {
+          return this.$route.path.endsWith('credits') ? this.$t('exhibitions.currentChapter') : '';
+        }
         return chapter.fields.identifier === this.currentChapter ? this.$t('exhibitions.currentChapter') : '';
       },
       chapterImageUrl(chapter) {
