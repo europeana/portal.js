@@ -2,6 +2,7 @@
   <b-form-group
     :label="$t(`facets.${facetName}.name`)"
     :data-qa="`${facetName} filter`"
+    class="more-facets-wrapper"
   >
     <b-row>
       <b-col>

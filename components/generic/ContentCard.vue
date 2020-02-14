@@ -3,7 +3,7 @@
     class="text-left content-card"
     data-qa="content card"
     no-body
-    :class="{ 'entity-card' : isEntity }"
+    :class="{ 'entity-card' : isEntity, 'mini-card' : isMini }"
   >
     <SmartLink
       :destination="url"
@@ -27,6 +27,7 @@
       </div>
       <b-card-body>
         <b-card-title
+          v-if="displayTitle"
           :lang="displayTitle.code"
         >
           {{ displayTitle.values[0] | truncate(90, $t('formatting.ellipsis')) }}
@@ -106,6 +107,12 @@
         type: Boolean,
         default: false
       },
+      isMini: {
+        type: Boolean,
+        default: false
+      },
+      // TODO: instead of using isMini and isEntity, possibly refactor to use something like "variant"
+      // as it cannot be isEntity and isMini at the same time for example
       omitUrisIfOtherValues: {
         type: Boolean,
         default: false

@@ -47,7 +47,6 @@
         >
           {{ rightsStatement }}
         </span>
-
         <i18n
           v-if="isShownAt"
           path="actions.viewAt"
