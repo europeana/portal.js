@@ -15,6 +15,7 @@
         :image-optimisation-options="{ width: 510 }"
         :texts="[chapterText(chapter)]"
         :is-mini="true"
+        :data-qa="`exhibitions ${chapter.fields.identifier} card`"
       />
     </b-card-group>
   </section>
