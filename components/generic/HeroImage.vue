@@ -4,7 +4,7 @@
     :lead="lead"
     :style="jumbotronStyle"
     fluid
-    header-tag="h2"
+    header-tag="h1"
     header-level="4"
     text-variant="white"
     data-qa="hero banner"

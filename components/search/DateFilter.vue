@@ -1,7 +1,6 @@
 <template>
   <b-form-group
     :label="facetName"
-    class="more-facets-wrapper"
   >
     <b-row>
       <b-col>

@@ -3,7 +3,7 @@
     ref="dropdown"
     variant="light"
     no-caret
-    class="more-facets position-static mb-2"
+    class="more-facets position-static my-2"
     :class="{ 'is-active' : anyOptionsSelected }"
     data-qa="more filters dropdown button"
     @hidden="cancelHandler"
@@ -19,35 +19,37 @@
       </span>
     </template>
     <b-dropdown-form>
-      <template
-        v-if="collection === 'newspaper'"
-      >
-        <RadioGroupFilter
-          facet-name="api"
-          :options="['fulltext', 'metadata']"
-          :selected="preSelected['api'] || 'fulltext'"
-          @change="updateSelected"
-        />
-        <DateFilter
-          :name="PROXY_DCTERMS_ISSUED"
-          :start="dateFilter.start"
-          :end="dateFilter.end"
-          :specific="dateFilter.specific"
-          @dateFilter="dateFilterSelected"
-        />
-      </template>
-      <template
-        v-for="(facet, index) in moreFacets"
-      >
-        <MoreFiltersDropdownFacet
-          v-if="facet.fields && facet.fields.length > 0"
-          :key="index"
-          :fields="facet.fields"
-          :name="facet.name"
-          :selected="preSelected[facet.name]"
-          @selectedOptions="updateSelected"
-        />
-      </template>
+      <div class="more-facets-wrapper">
+        <template
+          v-if="collection === 'newspaper'"
+        >
+          <RadioGroupFilter
+            facet-name="api"
+            :options="['fulltext', 'metadata']"
+            :selected="preSelected['api'] || 'fulltext'"
+            @change="updateSelected"
+          />
+          <DateFilter
+            :name="PROXY_DCTERMS_ISSUED"
+            :start="dateFilter.start"
+            :end="dateFilter.end"
+            :specific="dateFilter.specific"
+            @dateFilter="dateFilterSelected"
+          />
+        </template>
+        <template
+          v-for="(facet, index) in moreFacets"
+        >
+          <MoreFiltersDropdownFacet
+            v-if="facet.fields && facet.fields.length > 0"
+            :key="index"
+            :fields="facet.fields"
+            :name="facet.name"
+            :selected="preSelected[facet.name]"
+            @selectedOptions="updateSelected"
+          />
+        </template>
+      </div>
       <div
         class="dropdown-buttons"
         role="presentation"

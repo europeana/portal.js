@@ -190,6 +190,10 @@
     }
   }
 
+  .attribution {
+    margin-right: 0.5rem;
+  }
+
   .icon-close {
     cursor: pointer;
   }

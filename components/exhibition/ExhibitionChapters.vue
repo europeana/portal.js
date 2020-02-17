@@ -23,12 +23,10 @@
 
 <script>
   import ContentCard from '../generic/ContentCard';
-
   export default {
     components: {
       ContentCard
     },
-
     props: {
       exhibitionIdentifier: {
         type: String,
@@ -43,16 +41,13 @@
         default: null
       }
     },
-
     computed: {
       currentChapter() {
         return this.$route.name.startsWith('exhibition-exhibition-credits') ? 'credits' : this.$route.params.chapter;
       },
-
       chaptersAndCredits() {
         return this.chapters.concat(this.creditsChapter || []);
       },
-
       creditsChapter() {
         if (!this.credits) return null;
         return {
@@ -63,7 +58,6 @@
         };
       }
     },
-
     methods: {
       chapterUrl(chapter) {
         return chapter.fields.identifier === 'credits' ? {

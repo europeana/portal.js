@@ -57,6 +57,10 @@
 
   .card-text {
     color: $mediumgrey;
+
+    p:last-of-type {
+      margin-bottom: 0;
+    }
   }
 
   .card-link {
