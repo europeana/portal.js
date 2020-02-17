@@ -363,6 +363,13 @@ describe('plugins/europeana/search', () => {
         addContentTierFilter(qf).should.deep.eql(expected);
       });
     });
+    context('with a collection qf', () => {
+      const qf = ['collection:art'];
+      it('returns the qf with the tier 2-4 filter applied', () => {
+        const expected = ['collection:art', 'contentTier:(2 OR 3 OR 4)'];
+        addContentTierFilter(qf).should.deep.eql(expected);
+      });
+    });
   });
 
 
