@@ -18,7 +18,7 @@ const pages = {
   'gallery page': `${url}/en/gallery/blue`,
   'gallery foyer page': `${url}/en/gallery`,
   'home page': `${url}/en`,
-  'Newspapers collection page': `${url}/en/entity/topic/18-newspaper`,
+  'Newspapers collection page': `${url}/en/entity/topic/18-newspapers`,
   'record page with a IIIF Image': `${url}/en/record/9200357/BibliographicResource_3000095247457`,
   'record page with a IIIF Presentation': `${url}/en/record/9200301/BibliographicResource_3000126341277`,
   'record page without isShownBy or hasView': `${url}/en/record/9200102/BibliographicResource_3000134083514`,

@@ -48,6 +48,7 @@
             <b-card-text
               :key="index"
               :lang="text.code"
+              text-tag="div"
             >
               <!-- eslint-disable vue/no-v-html -->
               <p

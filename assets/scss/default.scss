@@ -103,6 +103,11 @@ cite {
   }
 }
 
+blockquote + p cite {
+  padding-top: 1rem;
+  margin-top: -1rem;
+}
+
 img {
   max-width: 100%;
 }
