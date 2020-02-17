@@ -6,11 +6,11 @@ const factory = () => shallowMount(SocialShare, {
   localVue,
   stubs: ['b-link'],
   propsData: {
-    mediaUrl: '/img/portrait.jpg',
-    shareUrl: 'https://www.example.com/page'
+    mediaUrl: '/img/portrait.jpg'
   },
   mocks: {
-    $t: () => {}
+    $t: () => {},
+    $canonicalUrl: () => 'https://www.example.com/page'
   }
 });
 
