@@ -1,3 +1,4 @@
+import axios from 'axios';
 import merge from 'deepmerge';
 import search, { unquotableFacets } from '../plugins/europeana/search';
 
@@ -254,12 +255,14 @@ export const actions = {
     if (!apiParams.facet) {
       apiParams.facet = defaultFacetNames.join(',');
     }
+
     if (!apiParams.profile) {
-      if (apiParams.facet.length === 0) {
-        apiParams.profile = 'minimal';
-      } else {
-        apiParams.profile = 'minimal,facets';
-      }
+      apiParams.profile = 'minimal';
+      // if (apiParams.facet.length === 0) {
+      //   apiParams.profile = 'minimal';
+      // } else {
+      //   apiParams.profile = 'minimal,facets';
+      // }
     }
 
     commit('setApiParams', apiParams);
@@ -286,8 +289,28 @@ export const actions = {
   async run({ dispatch, state }) {
     await dispatch('deriveApiSettings');
 
-    await search(state.apiParams || {}, state.apiOptions || {})
-      .then((response) => dispatch('updateForSuccess', response))
+    // TODO: move into getters
+    const paramsForItems = {
+      ...state.apiParams,
+      facet: null
+    };
+    const paramsForFacets = {
+      ...state.apiParams,
+      rows: 0,
+      profile: [state.apiParams.profile, 'facets'].join(',')
+    };
+
+    await axios.all([
+      search(paramsForItems, state.apiOptions || {}),
+      search(paramsForFacets, state.apiOptions || {})
+    ])
+      .then(axios.spread((itemsResponse, facetsResponse) => {
+        const combinedResponse = {
+          ...itemsResponse,
+          facets: facetsResponse.facets
+        };
+        dispatch('updateForSuccess', combinedResponse);
+      }))
       .catch((error) => dispatch('updateForFailure', error));
   },
 
