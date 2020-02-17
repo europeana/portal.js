@@ -1,7 +1,7 @@
 <template>
   <figure>
     <img
-      :src="src | optimisedImageUrl(contentType)"
+      :src="src | optimisedImageUrl(contentType, { quality: 80, width: 1100 })"
       alt=""
     >
     <figcaption>

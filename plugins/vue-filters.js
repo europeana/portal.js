@@ -29,7 +29,10 @@ Vue.filter('optimisedImageUrl', (imageUrl, contentType, options = {}) => {
   const hostnameMatch = imageUrl.match(/\/\/([^/]+)\//);
   if (hostnameMatch && (hostnameMatch[1] === 'images.ctfassets.net')) {
     // TODO: are optimisations possible on any other content types?
-    if (contentType === 'image/jpeg') imageQueryParams.push('fm=jpg&fl=progressive&q=50');
+    if (contentType === 'image/jpeg') {
+      imageQueryParams.push('fm=jpg&fl=progressive');
+      imageQueryParams.push(`q=${options.quality || 50}`);
+    }
 
     if (options.width) imageQueryParams.push(`w=${options.width}`);
     if (options.height) imageQueryParams.push(`h=${options.height}`);

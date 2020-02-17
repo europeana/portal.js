@@ -9,14 +9,14 @@
     >
       <img
         ref="leftImage"
-        :src="leftImageSrc | optimisedImageUrl(leftImageContentType)"
+        :src="leftImageSrc | optimisedImageUrl(leftImageContentType, { quality: 80, width: 1100 })"
         :style="leftImageClip"
         alt=""
         data-qa="compare image left image"
       >
       <img
         ref="rightImage"
-        :src="rightImageSrc | optimisedImageUrl(rightImageContentType)"
+        :src="rightImageSrc | optimisedImageUrl(rightImageContentType, { quality: 80, width: 1100 })"
         alt=""
         data-qa="compare image right image"
       >
