@@ -302,6 +302,7 @@ export const actions = {
 
     await axios.all([
       search(paramsForItems, state.apiOptions || {}),
+      // TODO: prevent this when paginating as facets don't change then
       search(paramsForFacets, state.apiOptions || {})
     ])
       .then(axios.spread((itemsResponse, facetsResponse) => {
