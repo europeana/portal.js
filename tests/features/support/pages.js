@@ -5,7 +5,7 @@ const pages = {
   '"Het laatste avondmaal" record page': `${url}/en/record/90402/RP_P_OB_70_879`,
   '"The Milkmaid" record page': `${url}/en/record/90402/SK_A_2344`,
   '"The pride of Glencoe, song" record page': `${url}/en/record/2059213/data_sounds_455`,
-  '"World War I" entity page': `${url}/en/entity/topic/83-world-war-i`,
+  '"World War I" entity page': `${url}/en/entity/topic/83-1914-1918`,
   'blog page': `${url}/en/blog`,
   'English home page': `${url}/en`,
   'entity page': `${url}/en/entity/topic/18-newspaper`,
