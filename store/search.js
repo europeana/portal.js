@@ -1,4 +1,3 @@
-import axios from 'axios';
 import merge from 'deepmerge';
 import search, { unquotableFacets } from '../plugins/europeana/search';
 
@@ -288,46 +287,46 @@ export const actions = {
    */
   async run({ dispatch, state }) {
     await dispatch('deriveApiSettings');
+    dispatch('queryFacets');
 
-    // TODO: move into getters
     const paramsForItems = {
       ...state.apiParams,
       facet: null
     };
+
+    await search(paramsForItems, state.apiOptions || {})
+      .then((response) => {
+        dispatch('updateForSuccess', response);
+      })
+      .catch((error) => dispatch('updateForFailure', error));
+  },
+
+  async queryFacets({ commit, getters, rootState, rootGetters, dispatch, state }) {
     const paramsForFacets = {
       ...state.apiParams,
       rows: 0,
       profile: [state.apiParams.profile, 'facets'].join(',')
     };
 
-    await axios.all([
-      search(paramsForItems, state.apiOptions || {}),
-      // TODO: prevent this when paginating as facets don't change then
-      search(paramsForFacets, state.apiOptions || {})
-    ])
-      .then(axios.spread((itemsResponse, facetsResponse) => {
-        const combinedResponse = {
-          ...itemsResponse,
-          facets: facetsResponse.facets
-        };
-        dispatch('updateForSuccess', combinedResponse);
-      }))
+    // TODO: prevent this when paginating as facets don't change then
+    search(paramsForFacets, state.apiOptions || {})
+      .then((response) => {
+        commit('setFacets', response.facets);
+        const collection = getters.collection;
+        if (getters.hasCollectionSpecificSettings(collection) && rootState.collections[collection]['facets'] !== undefined) {
+          commit(`collections/${collection}/set`, ['facets', state.facets], { root: true });
+          commit('set', ['facets', rootGetters[`collections/${collection}/facets`]]);
+        }
+      })
       .catch((error) => dispatch('updateForFailure', error));
   },
 
-  updateForSuccess({ commit, getters, rootGetters, rootState, state }, response) {
+  updateForSuccess({ commit }, response) {
     commit('setError', response.error);
     commit('setErrorStatusCode', null);
     commit('setLastAvailablePage', response.lastAvailablePage);
     commit('setResults', response.results);
     commit('setTotalResults', response.totalResults);
-
-    commit('setFacets', response.facets);
-    const collection = getters.collection;
-    if (getters.hasCollectionSpecificSettings(collection) && rootState.collections[collection]['facets'] !== undefined) {
-      commit(`collections/${collection}/set`, ['facets', state.facets], { root: true });
-      commit('set', ['facets', rootGetters[`collections/${collection}/facets`]]);
-    }
   },
 
   updateForFailure({ commit }, error) {
