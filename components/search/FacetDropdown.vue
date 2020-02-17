@@ -2,7 +2,7 @@
   <b-dropdown
     ref="dropdown"
     :variant="dropdownVariant"
-    class="mr-2 mb-2"
+    class="mr-2 my-2"
     :data-type="type"
     data-qa="search facet"
     @hidden="cancelHandler"
@@ -200,8 +200,8 @@
   @import "./assets/scss/variables.scss";
 
   .dropdown { // TODO: move this code to the dropdown.scss where possible, to avoid duplication
-    width: 100%;
     margin-bottom: 5px;
+    width: 100%;
 
     &:last-child {
       margin-bottom: 0;
@@ -222,6 +222,7 @@
 
   /deep/ .dropdown-menu {
     font-size: $font-size-small;
+    margin-top: 0.5rem;
     width: 100%;
 
     @media (min-width: $bp-large) {

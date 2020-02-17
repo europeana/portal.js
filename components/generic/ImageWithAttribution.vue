@@ -1,9 +1,9 @@
 <template>
   <figure>
-    <img
+    <b-img-lazy
       :src="src | optimisedImageUrl(contentType)"
       alt=""
-    >
+    />
     <figcaption>
       <CiteAttribution
         :name="attribution.name"

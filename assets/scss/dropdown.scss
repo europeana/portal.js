@@ -2,11 +2,16 @@
 
   .btn-light {
     background: $white;
+    box-shadow: 2px 2px 4px 0 rgba(0, 0, 0, 0.1);
+    color: $mediumgrey;
+    padding: 0.75rem 1rem;
   }
 
   .btn-selected {
     background: $white;
     border-color: $blue;
+    color: $mediumgrey;
+    padding: 0.75rem 1rem;
   }
 
   .dropdown-buttons {
@@ -31,10 +36,17 @@
     text-decoration: none;
   }
 
+  &.show {
+    .btn-light {
+      background: $white;
+      border-color: $blue;
+    }
+  }
+
   &.more-facets {
     legend {
       font-size: 1.5rem;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1rem;
       padding-bottom: 0;
     }
 
@@ -60,26 +72,33 @@
 
     .dropdown-menu {
       box-shadow: 0 2px 4px 0 rgba(0,0,0,0.1);
-      margin: 0.5rem $grid-gutter 0;
-      width: calc(100% - (2 * #{$grid-gutter}));
-      max-height: 70vh;
-      overflow: auto;
-      
-      &::-webkit-scrollbar {
-        width: 0.25rem;
-      }
-
-      &::-webkit-scrollbar-thumb {
-        background-color: $grey;
-      }
+      margin: 1rem 0 0;
+      width: 100%;
       
       .more-facets-wrapper {
-        border-bottom: 1px solid $lightgrey;
-        margin: 1.5rem 1.5rem 2rem;
-        padding-bottom: 2rem;
-        
-        &:last-of-type {
-          border-bottom: 0;
+        height: calc(70vh - 4rem);
+        overflow: auto;
+
+        &::-webkit-scrollbar {
+          width: 0.25rem;
+        }
+
+        &::-webkit-scrollbar-thumb {
+          background-color: $grey;
+        }
+
+        .form-group {
+          border-bottom: 1px solid $lightgrey;
+          margin: 1.5rem 1.5rem 2rem;
+          padding-bottom: 2rem;
+
+          &:last-of-type {
+            border-bottom: 0;
+          }
+        }
+
+        .dropdown-buttons {
+          position: fixed;
         }
       }
 
@@ -113,11 +132,12 @@
           color: $blue;
           display: none;
           flex-shrink: 0;
-          font-size: 0.6rem;
+          font-size: 0.55rem;
           height: 1rem;
           line-height: 0.9rem;
           margin-left: 0.5rem;
-          padding-top: 2px;
+          margin-right: -0.25rem;
+          padding-top: 0.17rem;
           text-align: center;
           width: 1rem;
         }
@@ -130,7 +150,7 @@
             cursor: pointer;
             display: flex;
             font-size: $font-size-small;
-            padding: 0.25rem 1rem;
+            padding: 0.25rem 0.75rem;
           }
 
           input[type="checkbox"],
@@ -180,12 +200,12 @@
       }
 
       .colour-palette {
-        border-radius: 50%;
-        width: 1.25rem;
-        height: 1.25rem;
-        margin-right: .25rem;
         border: 1px solid $lightgrey;
-        margin-left: -.75rem;
+        border-radius: 50%;
+        height: 1.25rem;
+        margin-left: -0.4rem;
+        margin-right: 0.5rem;
+        width: 1.25rem;
       }
     }
   }
