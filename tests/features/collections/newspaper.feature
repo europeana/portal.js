@@ -31,7 +31,7 @@ Feature: Newspapers collection
     Then I should be on `/en/search?page=1&qf=collection%3Amusic&query=&view=grid`
 
   Scenario: Newspapers collection API toggle is removed by reset button
-    Given I am on `/en/search?page=1&query=&view=grid&qf=collection:newspapers&api=fulltext`
+    Given I am on `/en/search?page=1&query=&view=grid&qf=collection:newspaper&api=fulltext`
     When I click the `reset filters button`
     And I wait 3 seconds
     Then I should be on `/en/search?page=1&query=&view=grid`
