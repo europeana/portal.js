@@ -51,7 +51,7 @@
         return `${this.page.name} - ${this.$t('exhibitions.credits')}`;
       }
     },
-    asyncData({ params, query, error, app }) {
+    asyncData({ params, query, error, app, store }) {
       const contentfulClient = createClient(query.mode);
       return contentfulClient.getEntries({
         'locale': app.i18n.isoLocale(),
@@ -61,6 +61,26 @@
         'limit': 1
       })
         .then((response) => {
+          store.commit('breadcrumb/setBreadcrumbs', [
+            {
+              text:  app.i18n.t('exhibitions.exhibitions'),
+              to: app.localePath({ name: 'exhibitions' })
+            },
+            {
+              text: response.items[0].fields.name,
+              to: app.localePath({
+                name: 'exhibition-exhibition',
+                params: {
+                  exhibition: response.items[0].fields.identifier
+                }
+              })
+            },
+            {
+              text: app.i18n.t('exhibitions.credits'),
+              active: true
+            }
+          ]);
+
           if (response.total === 0) {
             error({ statusCode: 404, message: app.i18n.t('messages.notFound') });
             return;
@@ -72,6 +92,10 @@
         .catch((e) => {
           error({ statusCode: 500, message: e.toString() });
         });
+    },
+    beforeRouteLeave(to, from, next) {
+      this.$store.commit('breadcrumb/clearBreadcrumb');
+      next();
     },
     head() {
       return {
