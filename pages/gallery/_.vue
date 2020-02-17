@@ -22,7 +22,6 @@
       >
         <SocialShare
           :media-url="shareMediaUrl"
-          :share-url="canonicalUrl"
         />
       </b-col>
       <b-col cols="12">
@@ -63,14 +62,9 @@
         return this.images[0].fields.thumbnailUrl;
       }
     },
-    asyncData({ params, query, error, app, req, route }) {
+    asyncData({ params, query, error, app }) {
       const contentfulClient = createClient(query.mode);
-      let canonicalUrl;
-      if (process.server) {
-        canonicalUrl = req.headers.host + route.path;
-      } else {
-        canonicalUrl = window.location.href.split(/\?|#/)[0];
-      }
+
       return contentfulClient.getEntries({
         'locale': app.i18n.isoLocale(),
         'content_type': 'imageGallery',
@@ -80,8 +74,7 @@
           return {
             description: response.items[0].fields.description,
             images: response.items[0].fields.hasPart,
-            title: response.items[0].fields.name,
-            canonicalUrl
+            title: response.items[0].fields.name
           };
         })
         .catch((e) => {
@@ -96,8 +89,7 @@
           { hid: 'description', name: 'description', content: this.description },
           { hid: 'og:title', property: 'og:title', content: this.title },
           { hid: 'og:image', property: 'og:image', content: this.shareMediaUrl },
-          { hid: 'og:type', property: 'og:type', content: 'article' },
-          { hid: 'og:url', property: 'og:url', content: this.canonicalUrl }
+          { hid: 'og:type', property: 'og:type', content: 'article' }
         ].concat(this.description ? [
           { hid: 'og:description', property: 'og:description', content: this.description }
         ] : [])

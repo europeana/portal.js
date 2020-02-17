@@ -79,6 +79,7 @@ module.exports = {
   */
   plugins: [
     '~/plugins/vue/index',
+    '~/plugins/vue/canonicalUrl',
     '~/plugins/i18n.js',
     '~/plugins/vue-filters'
   ],
