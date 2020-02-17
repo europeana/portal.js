@@ -182,7 +182,6 @@
       return {
         agents: null,
         altTitle: null,
-        canonicalUrl: null,
         cardGridClass: null,
         concepts: null,
         description: null,
@@ -284,23 +283,14 @@
       }
     },
 
-    asyncData({ env, params, res, app, redirect, req, route }) {
+    asyncData({ env, params, res, app, redirect }) {
       if (env.RECORD_PAGE_REDIRECT_PATH) {
         return redirect(app.localePath({ path: env.RECORD_PAGE_REDIRECT_PATH }));
       }
 
-      let canonicalUrl;
-      if (process.server) {
-        canonicalUrl = req.headers.host + route.path;
-      } else {
-        canonicalUrl = window.location.href.split(/\?|#/)[0];
-      }
-
       return getRecord(`/${params.pathMatch}`)
         .then((result) => {
-          const data = result.record;
-          data['canonicalUrl'] = canonicalUrl;
-          return data;
+          return result.record;
         })
         .catch((error) => {
           if (typeof res !== 'undefined') {
