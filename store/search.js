@@ -287,7 +287,6 @@ export const actions = {
    */
   async run({ dispatch, state }) {
     await dispatch('deriveApiSettings');
-    dispatch('queryFacets');
 
     const paramsForItems = {
       ...state.apiParams,
@@ -308,7 +307,6 @@ export const actions = {
       profile: [state.apiParams.profile, 'facets'].join(',')
     };
 
-    // TODO: prevent this when paginating as facets don't change then
     search(paramsForFacets, state.apiOptions || {})
       .then((response) => {
         commit('setFacets', response.facets);
