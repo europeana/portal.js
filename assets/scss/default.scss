@@ -103,19 +103,6 @@ cite {
   }
 }
 
-blockquote + p cite {
-  padding-top: 1rem;
-  margin-top: -1rem;
-}
-
-img {
-  max-width: 100%;
-}
-
-video {
-  width: 100%;
-}
-
 figure {
   display: inline-block;
   position: relative;
@@ -148,6 +135,19 @@ figcaption {
       }
     }
   }  
+}
+
+blockquote + p cite {
+  padding-top: 1rem;
+  margin-top: -1rem;
+}
+
+img {
+  max-width: 100%;
+}
+
+video {
+  width: 100%;
 }
 
 a {
