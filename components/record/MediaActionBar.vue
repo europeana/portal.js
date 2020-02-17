@@ -89,7 +89,6 @@
       >
         <SocialShare
           :media-url="url"
-          :share-url="shareUrl"
         />
         <span
           class="icon-close"
@@ -116,10 +115,6 @@
 
     props: {
       url: {
-        type: String,
-        default: null
-      },
-      shareUrl: {
         type: String,
         default: null
       },
