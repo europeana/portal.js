@@ -6,8 +6,8 @@
       data-qa="exhibition chapters"
     >
       <ContentCard
-        v-for="chapter in chapters"
-        :key="chapter.sys.id"
+        v-for="chapter in chaptersAndCredits"
+        :key="chapter.fields.identifier"
         :title="chapter.fields.name"
         :url="chapterUrl(chapter)"
         :image-url="chapterImageUrl(chapter)"
@@ -15,13 +15,7 @@
         :image-optimisation-options="{ width: 510 }"
         :texts="[chapterText(chapter)]"
         :is-mini="true"
-      />
-      <ContentCard
-        v-if="credits"
-        :title="$t('exhibitions.credits')"
-        :url="{ name: 'exhibition-exhibition-credits', params: { exhibition: exhibitionIdentifier } }"
-        data-qa="exhibitions credits card"
-        :is-mini="true"
+        :data-qa="`exhibitions ${chapter.fields.identifier} card`"
       />
     </b-card-group>
   </section>
@@ -29,12 +23,10 @@
 
 <script>
   import ContentCard from '../generic/ContentCard';
-
   export default {
     components: {
       ContentCard
     },
-
     props: {
       exhibitionIdentifier: {
         type: String,
@@ -49,16 +41,29 @@
         default: null
       }
     },
-
-    data() {
-      return {
-        currentChapter: this.$route.params.chapter
-      };
+    computed: {
+      currentChapter() {
+        return this.$route.name.startsWith('exhibition-exhibition-credits') ? 'credits' : this.$route.params.chapter;
+      },
+      chaptersAndCredits() {
+        return this.chapters.concat(this.creditsChapter || []);
+      },
+      creditsChapter() {
+        if (!this.credits) return null;
+        return {
+          fields: {
+            name: this.$t('exhibitions.credits'),
+            identifier: 'credits'
+          }
+        };
+      }
     },
-
     methods: {
       chapterUrl(chapter) {
-        return {
+        return chapter.fields.identifier === 'credits' ? {
+          name: 'exhibition-exhibition-credits',
+          params: { exhibition: this.exhibitionIdentifier }
+        } : {
           name: 'exhibition-exhibition-chapter',
           params: {
             exhibition: this.exhibitionIdentifier, chapter: chapter.fields.identifier
