@@ -65,8 +65,9 @@ export const actions = {
   },
 
   async searchForRecords({ getters, dispatch, commit, state }, query) {
+    if (!state.entity) return;
+
     const englishPrefLabel = getters.englishPrefLabel;
-    if (!englishPrefLabel) return;
 
     await dispatch('search/activate', null, { root: true });
 
