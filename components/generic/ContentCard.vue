@@ -10,7 +10,13 @@
       link-class="card-link"
     >
       <b-img-lazy
-        v-if="isEntity && cardImageUrl"
+        v-if="isEntity && cardImageUrl && lazy"
+        :src="optimisedImageUrl"
+        alt=""
+        @error.native="imageNotFound"
+      />
+      <b-img
+        v-if="isEntity && cardImageUrl && !lazy"
         :src="optimisedImageUrl"
         alt=""
         @error.native="imageNotFound"
@@ -20,9 +26,13 @@
         class="card-img"
       >
         <b-img-lazy
-          v-if="!isEntity"
+          v-if="!isEntity && lazy"
           :src="optimisedImageUrl"
-          :blank-height="imageBlankHeight"
+          alt=""
+        />
+        <b-img
+          v-else
+          :src="optimisedImageUrl"
           alt=""
         />
       </div>
@@ -102,9 +112,9 @@
         type: Object,
         default: () => {}
       },
-      imageBlankHeight: {
-        type: Number,
-        default: 0
+      lazy: {
+        type: Boolean,
+        default: true
       },
       datetime: {
         type: String,

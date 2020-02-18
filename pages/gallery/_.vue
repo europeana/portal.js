@@ -37,7 +37,7 @@
             :key="image.fields.identifier"
             :title="image.fields.name"
             :image-url="image.fields.thumbnailUrl"
-            :image-blank-height="250"
+            :lazy=false
             :texts="[image.fields.description]"
             :url="{ name: 'record-all', params: { pathMatch: image.fields.identifier.slice(1) } }"
           />
