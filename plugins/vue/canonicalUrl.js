@@ -22,6 +22,9 @@ export default (context) => {
               { hid: 'og:url', property: 'og:url', content: this.$canonicalUrl }
             ]
           };
+        },
+        afterRouteUpdate() {
+          document.head.querySelector('meta[property="og:url"]').content = this.$canonicalUrl;
         }
       });
     }
