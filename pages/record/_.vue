@@ -285,12 +285,12 @@
       }
     },
 
-    asyncData({ env, params, res, app, redirect }) {
+    asyncData({ env, params, res, app, redirect, query }) {
       if (env.RECORD_PAGE_REDIRECT_PATH) {
         return redirect(app.localePath({ path: env.RECORD_PAGE_REDIRECT_PATH }));
       }
 
-      return getRecord(`/${params.pathMatch}`)
+      return getRecord(`/${params.pathMatch}`, { origin: query.recordApi })
         .then((result) => {
           return result.record;
         })
@@ -356,6 +356,8 @@
           rows: 4,
           profile: 'minimal',
           facet: ''
+        }, {
+          origin: this.$route.query.recordApi
         })
           .catch(() => {
             return noSimilarItems;

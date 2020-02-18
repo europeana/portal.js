@@ -262,8 +262,14 @@ export const actions = {
       }
     }
 
+    const apiOptions = {};
+    if (apiParams.recordApi) {
+      apiOptions.origin = apiParams.recordApi;
+      delete apiParams.recordApi;
+    }
+
     commit('setApiParams', apiParams);
-    commit('setApiOptions', {});
+    commit('setApiOptions', apiOptions);
 
     await dispatch('applyCollectionSpecificSettings');
   },

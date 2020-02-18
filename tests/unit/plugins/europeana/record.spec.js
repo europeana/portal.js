@@ -15,6 +15,83 @@ const apiKey = 'abcdef';
 
 const baseRequest = nock(apiUrl).get(apiEndpoint);
 
+const edmIsShownAt = 'https://example.org';
+const edmIsShownByWebResource = {
+  about: 'https://example.org/doc.pdf',
+  dcDescription: {
+    'en': [
+      'This is an example'
+    ]
+  },
+  webResourceEdmRights: {
+    'def': [
+      'https://example.org'
+    ]
+  },
+  ebucoreHasMimeType: 'application/pdf'
+};
+const edmHasViewWebResourceFirst = {
+  about: 'https://example.org/image1.jpeg',
+  ebucoreHasMimeType: 'image/jpeg',
+  isNextInSequence: edmIsShownByWebResource.about
+};
+const edmHasViewWebResourceSecond = {
+  about: 'https://example.org/image2.jpeg',
+  ebucoreHasMimeType: 'image/jpeg',
+  isNextInSequence: edmHasViewWebResourceFirst.about
+};
+const edmHasViewWebResourceThird = {
+  about: 'https://example.org/unknown.bin',
+  ebucoreHasMimeType: 'application.octet-stream',
+  isNextInSequence: edmHasViewWebResourceSecond.about
+};
+const someOtherWebResource = {
+  about: 'https://example.org/'
+};
+const type = 'TEXT';
+const apiResponse = {
+  success: true,
+  object: {
+    about: europeanaId,
+    aggregations: [{
+      edmIsShownAt,
+      edmIsShownBy: edmIsShownByWebResource.about,
+      hasView: [edmHasViewWebResourceSecond.about, edmHasViewWebResourceThird.about, edmHasViewWebResourceFirst.about],
+      webResources: [
+        edmIsShownByWebResource,
+        edmHasViewWebResourceSecond,
+        edmHasViewWebResourceThird,
+        edmHasViewWebResourceFirst,
+        someOtherWebResource
+      ]
+    }],
+    europeanaAggregation: {
+      edmRights: { def: [ 'https://example.org' ] },
+      edmPreview: 'https://example.org'
+    },
+    proxies: [{
+      europeanaProxy: false,
+      dcTitle: {
+        'en': [
+          'This is a title'
+        ]
+      },
+      dcDescription: {
+        'en': [
+          'This is a description'
+        ]
+      }
+    }],
+    agents: [
+      { about: 'http://data.europeana.eu/agent/base/123' }
+    ],
+    concepts: [
+      { about: 'http://data.europeana.eu/concept/base/456' }
+    ],
+    type
+  }
+};
+
 describe('plugins/europeana/record', () => {
   beforeEach(() => {
     config.record.key = apiKey;
@@ -25,6 +102,20 @@ describe('plugins/europeana/record', () => {
   });
 
   describe('getRecord()', () => {
+    context('with origin supplied', () => {
+      const customOrigin = 'https://api.example.org';
+      it('queries that API', async() => {
+        nock(customOrigin)
+          .get(apiEndpoint)
+          .query(true)
+          .reply(200, apiResponse);
+
+        await getRecord(europeanaId, { origin: customOrigin });
+
+        nock.isDone().should.be.true;
+      });
+    });
+
     describe('API response', () => {
       describe('with "Invalid record identifier: ..." error', () => {
         const errorMessage = `Invalid record identifier: ${europeanaId}`;
@@ -52,83 +143,6 @@ describe('plugins/europeana/record', () => {
       });
 
       describe('with object in response', () => {
-        const edmIsShownAt = 'https://example.org';
-        const edmIsShownByWebResource = {
-          about: 'https://example.org/doc.pdf',
-          dcDescription: {
-            'en': [
-              'This is an example'
-            ]
-          },
-          webResourceEdmRights: {
-            'def': [
-              'https://example.org'
-            ]
-          },
-          ebucoreHasMimeType: 'application/pdf'
-        };
-        const edmHasViewWebResourceFirst = {
-          about: 'https://example.org/image1.jpeg',
-          ebucoreHasMimeType: 'image/jpeg',
-          isNextInSequence: edmIsShownByWebResource.about
-        };
-        const edmHasViewWebResourceSecond = {
-          about: 'https://example.org/image2.jpeg',
-          ebucoreHasMimeType: 'image/jpeg',
-          isNextInSequence: edmHasViewWebResourceFirst.about
-        };
-        const edmHasViewWebResourceThird = {
-          about: 'https://example.org/unknown.bin',
-          ebucoreHasMimeType: 'application.octet-stream',
-          isNextInSequence: edmHasViewWebResourceSecond.about
-        };
-        const someOtherWebResource = {
-          about: 'https://example.org/'
-        };
-        const type = 'TEXT';
-        const apiResponse = {
-          success: true,
-          object: {
-            about: europeanaId,
-            aggregations: [{
-              edmIsShownAt,
-              edmIsShownBy: edmIsShownByWebResource.about,
-              hasView: [edmHasViewWebResourceSecond.about, edmHasViewWebResourceThird.about, edmHasViewWebResourceFirst.about],
-              webResources: [
-                edmIsShownByWebResource,
-                edmHasViewWebResourceSecond,
-                edmHasViewWebResourceThird,
-                edmHasViewWebResourceFirst,
-                someOtherWebResource
-              ]
-            }],
-            europeanaAggregation: {
-              edmRights: { def: [ 'https://example.org' ] },
-              edmPreview: 'https://example.org'
-            },
-            proxies: [{
-              europeanaProxy: false,
-              dcTitle: {
-                'en': [
-                  'This is a title'
-                ]
-              },
-              dcDescription: {
-                'en': [
-                  'This is a description'
-                ]
-              }
-            }],
-            agents: [
-              { about: 'http://data.europeana.eu/agent/base/123' }
-            ],
-            concepts: [
-              { about: 'http://data.europeana.eu/concept/base/456' }
-            ],
-            type
-          }
-        };
-
         beforeEach('stub API response', () => {
           nock(apiUrl)
             .get(apiEndpoint)

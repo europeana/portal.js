@@ -7,8 +7,10 @@
 import { URL } from '../url';
 import config from './api';
 
-export default function thumbnailUrl(uri, params = {}) {
-  const url = new URL(`${config.record.origin}/api/v2/thumbnail-by-url.json`);
+export default function thumbnailUrl(uri, params = {}, options = {}) {
+  const origin = options.origin || config.record.origin;
+
+  const url = new URL(`${origin}/api/v2/thumbnail-by-url.json`);
   for (const key of Object.keys(params)) {
     url.searchParams.set(key, params[key]);
   }

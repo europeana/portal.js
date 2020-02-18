@@ -153,6 +153,20 @@ describe('plugins/europeana/search', () => {
 
         nock.isDone().should.be.true;
       });
+
+      context('with origin supplied', () => {
+        const customOrigin = 'https://api.example.org';
+        it('queries that API', async() => {
+          nock(customOrigin)
+            .get(apiEndpoint)
+            .query(true)
+            .reply(200, defaultResponse);
+
+          await search({ query: 'anything' }, { origin: customOrigin });
+
+          nock.isDone().should.be.true;
+        });
+      });
     });
 
     describe('API response', () => {

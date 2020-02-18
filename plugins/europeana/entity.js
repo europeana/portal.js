@@ -1,6 +1,7 @@
+import axios from 'axios';
 import { apiError, langMapValueForLocale } from './utils';
 import config from './api';
-import axios from 'axios';
+import search from './search';
 
 export const constants = Object.freeze({
   API_ORIGIN: config.entity.origin,
@@ -36,8 +37,6 @@ export function getEntity(type, id) {
 function entityApiUrl(endpoint) {
   return `${constants.API_ORIGIN}${constants.API_PATH_PREFIX}${endpoint}`;
 }
-
-import search from './search';
 
 /**
  * Get entity suggestions from the API
@@ -198,7 +197,9 @@ export function getEntitySlug(entity, entityPage) {
  * TODO: add people as related entities again
  * TODO: use search() function?
  */
-export function relatedEntities(type, id) {
+export function relatedEntities(type, id, options = {}) {
+  const origin = options.origin || config.record.origin;
+
   const entityUri = getEntityUri(type, id);
   let apiParams = {
     wskey: config.record.key,
@@ -208,7 +209,7 @@ export function relatedEntities(type, id) {
     rows: 0
   };
 
-  return axios.get(`${config.record.origin}/api/v2/search.json`, {
+  return axios.get(`${origin}/api/v2/search.json`, {
     params: apiParams
   })
     .then((response) => {

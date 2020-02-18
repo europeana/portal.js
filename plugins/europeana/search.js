@@ -112,6 +112,7 @@ function search(params, options = {}) {
   const rows = Math.max(0, Math.min(maxResults + 1 - start, perPage));
 
   const origin = options.origin || config.record.origin;
+  console.log('origin', origin);
   const query = (typeof params.query === 'undefined' || params.query === '') ? '*:*' : params.query;
 
   return axios.get(`${origin}/api/v2/search.json`, {
