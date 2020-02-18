@@ -43,14 +43,15 @@
 }
 
 .attribution {
-  align-items: center;
+  align-items: flex-start;
   color: $black;
   display: flex;
   text-decoration: none;
-
+  
   > span {
     align-items: center;
     display: flex;
+    white-space: nowrap;
   }
 
   &:hover {

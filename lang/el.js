@@ -85,10 +85,9 @@ export default {
         "open": "Ναί"
       }
     },
-    "THEME": {
+    "collection": {
       "name": "Κατηγορία",
       "options": {
-        "all": "Όλα τα στοιχεία",
         "ww1": "1914-1918",
         "archaeology": "Αρχαιολογία",
         "art": "Τέχνη",

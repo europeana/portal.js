@@ -78,6 +78,7 @@ module.exports = {
   ** Plugins to load before mounting the App
   */
   plugins: [
+    '~/plugins/vue/index',
     '~/plugins/i18n.js',
     '~/plugins/vue-filters'
   ],
@@ -135,7 +136,7 @@ module.exports = {
   },
 
   router: {
-    middleware: ['legacy', 'l10n'],
+    middleware: ['legacy/index', 'l10n'],
     extendRoutes(routes) {
       routes.push({
         name: 'slug',

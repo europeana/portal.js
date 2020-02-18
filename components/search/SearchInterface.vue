@@ -13,42 +13,36 @@
     <template
       v-else
     >
-      <b-row
-        class="mb-3"
-      >
-        <b-col>
-          <SearchFilters
-            :filters="filters"
-          />
-        </b-col>
-      </b-row>
       <b-row class="mb-3">
         <b-col
           data-qa="search filters"
         >
-          <FacetDropdown
-            v-for="facet in coreFacets"
-            :key="facet.name"
-            :name="facet.name"
-            :fields="facet.fields"
-            :type="facetDropdownType(facet.name)"
-            :selected="filters[facet.name]"
-            @changed="changeFacet"
-          />
-          <MoreFiltersDropdown
-            v-if="enableMoreFacets"
-            :more-facets="moreFacets"
-            :selected="moreSelectedFacets"
-            @changed="changeMoreFacets"
-          />
-          <button
-            v-if="isFilteredByDropdowns()"
-            class="reset"
-            data-qa="reset filters button"
-            @click="resetFilters"
-          >
-            {{ $t('reset') }}
-          </button>
+          <SearchFilters />
+          <div class="position-relative">
+            <FacetDropdown
+              v-for="facet in coreFacets"
+              :key="facet.name"
+              :name="facet.name"
+              :fields="facet.fields"
+              :type="facetDropdownType(facet.name)"
+              :selected="filters[facet.name]"
+              @changed="changeFacet"
+            />
+            <MoreFiltersDropdown
+              v-if="enableMoreFacets"
+              :more-facets="moreFacets"
+              :selected="moreSelectedFacets"
+              @changed="changeMoreFacets"
+            />
+            <button
+              v-if="isFilteredByDropdowns()"
+              class="reset"
+              data-qa="reset filters button"
+              @click="resetFilters"
+            >
+              {{ $t('reset') }}
+            </button>
+          </div>
         </b-col>
       </b-row>
       <b-row
@@ -138,13 +132,12 @@
   import PaginationNav from '../../components/generic/PaginationNav';
   import ViewToggles from '../../components/search/ViewToggles';
   import TierToggler from '../../components/search/TierToggler';
-  import {
-    defaultFacetNames, unquotableFacets, thematicCollections
-  } from '../../plugins/europeana/search';
+  import { thematicCollections } from '../../plugins/europeana/search';
 
   import isEqual from 'lodash/isEqual';
   import pickBy from 'lodash/pickBy';
-  import { mapState } from 'vuex';
+  import { mapState, mapGetters } from 'vuex';
+  import { queryUpdatesForFilters } from '../../store/search';
 
   export default {
     components: {
@@ -180,9 +173,8 @@
     },
     data() {
       return {
-        coreFacetNames: ['THEME', 'TYPE', 'COUNTRY', 'REUSABILITY'],
-        PROXY_DCTERMS_ISSUED: 'proxy_dcterms_issued',
-        THEME: 'THEME'
+        coreFacetNames: ['collection', 'TYPE', 'COUNTRY', 'REUSABILITY'],
+        PROXY_DCTERMS_ISSUED: 'proxy_dcterms_issued'
       };
     },
     computed: {
@@ -192,8 +184,15 @@
         error: state => state.search.error,
         facets: state => state.search.facets,
         lastAvailablePage: state => state.search.lastAvailablePage,
+        resettableFilters: state => state.search.resettableFilters,
         results: state => state.search.results,
         totalResults: state => state.search.totalResults
+      }),
+      ...mapGetters({
+        facetNames: 'search/facetNames',
+        filters: 'search/filters',
+        queryUpdatesForFacetChanges: 'search/queryUpdatesForFacetChanges',
+        collection: 'search/collection'
       }),
       qf() {
         return this.userParams.qf;
@@ -204,39 +203,8 @@
       reusability() {
         return this.userParams.reusability;
       },
-      theme() {
-        return this.userParams.theme;
-      },
       api() {
         return this.userParams.api;
-      },
-      filters() {
-        const filters = {};
-        if (this.userParams.qf) {
-          for (const qf of [].concat(this.userParams.qf)) {
-            const qfParts = qf.split(':');
-            const facetName = qfParts[0];
-            const facetValue = qfParts.slice(1).join(':').replace(/^"(.*)"$/, '$1');
-            if (typeof filters[facetName] === 'undefined') {
-              filters[facetName] = [];
-            }
-            filters[facetName].push(facetValue);
-          }
-        }
-
-        if (this.userParams.reusability) {
-          filters['REUSABILITY'] = this.userParams.reusability.split(',');
-        }
-
-        if (this.userParams.theme) {
-          filters['THEME'] = this.userParams.theme;
-        }
-
-        if (this.$store.state.search.apiParams.api) {
-          filters['api'] = this.$store.state.search.apiParams.api;
-        }
-
-        return filters;
       },
       page() {
         // This causes double jumps on pagination when using the > arrow, for some reason
@@ -279,7 +247,7 @@
         let unordered = this.facets.slice();
         let ordered = [];
 
-        for (const facetName of defaultFacetNames) {
+        for (const facetName of this.facetNames) {
           const index = unordered.findIndex((f) => {
             return f.name === facetName;
           });
@@ -288,8 +256,8 @@
           }
         }
 
-        if (this.$store.state.search.themeFacetEnabled) {
-          ordered.unshift({ name: this.THEME, fields: thematicCollections });
+        if (this.$store.state.search.collectionFacetEnabled) {
+          ordered.unshift({ name: 'collection', fields: thematicCollections });
         }
         return ordered.concat(unordered);
       },
@@ -297,17 +265,16 @@
         return this.orderedFacets.filter(facet => this.coreFacetNames.includes(facet.name));
       },
       moreFacetNames() {
-        return defaultFacetNames.filter(facetName => !this.coreFacetNames.includes(facetName));
+        return this.facetNames.filter(facetName => !this.coreFacetNames.includes(facetName));
       },
       moreFacets() {
         return this.orderedFacets.filter(facet => this.moreFacetNames.includes(facet.name));
       },
       moreSelectedFacets() {
+        // TODO: use resettableFilters here?
+        // TODO: if not, move newspaper filter names into store/collections/newspapers?
         return pickBy(this.filters, (selected, name) =>
           this.moreFacetNames.includes(name) || ['api', this.PROXY_DCTERMS_ISSUED].includes(name));
-      },
-      dropdownFilterNames() {
-        return defaultFacetNames.concat(this.PROXY_DCTERMS_ISSUED, this.THEME, 'api');
       },
       enableMoreFacets() {
         return this.moreFacets.length > 0;
@@ -329,13 +296,14 @@
     },
     methods: {
       facetDropdownType(name) {
-        return name === 'THEME' ? 'radio' : 'checkbox';
+        return name === 'collection' ? 'radio' : 'checkbox';
       },
       changeFacet(name, selected) {
         if (typeof this.filters[name] === 'undefined') {
           if ((Array.isArray(selected) && selected.length === 0) || !selected) return;
         }
         if (isEqual(this.filters[name], selected)) return;
+
         return this.rerouteSearch(this.queryUpdatesForFacetChanges({ [name]: selected }));
       },
       changeMoreFacets(selected) {
@@ -347,54 +315,6 @@
       rerouteSearch(queryUpdates) {
         return this.$router.push(this.localePath({ ...this.route, ...{ query: this.updateCurrentSearchQuery(queryUpdates) } }));
       },
-      queryUpdatesForFacetChanges(selected) {
-        const filters = Object.assign({}, this.filters);
-
-        for (const name in selected) {
-          filters[name] = selected[name];
-
-          // Remove collection-specific filters when collection is changed
-          // TODO: this is rather crude and will not scale well; improve
-          if (name === 'THEME' && !selected['api']) {
-            filters['api'] = null;
-          }
-        }
-
-        return this.queryUpdatesForFilters(filters);
-      },
-      queryUpdatesForFilters(filters) {
-        let queryUpdates = {
-          qf: [],
-          page: 1
-        };
-
-        for (const facetName in filters) {
-          const selectedValues = filters[facetName];
-          // `reusability` has its own API parameter and can not be queried in `qf`
-          if (facetName === 'REUSABILITY') {
-            if (selectedValues.length > 0) {
-              queryUpdates.reusability = selectedValues.join(',');
-            } else {
-              queryUpdates.reusability = null;
-            }
-          // Likewise `theme`
-          } else if (facetName === 'THEME') {
-            queryUpdates.theme = selectedValues;
-          // `api` is an option to /plugins/europeana/search/search()
-          } else if (facetName === 'api') {
-            queryUpdates.api = selectedValues;
-          } else {
-            for (const facetValue of selectedValues) {
-              const quotedValue = this.enquoteFacet(facetName) ? `"${facetValue}"` : facetValue;
-              queryUpdates.qf.push(`${facetName}:${quotedValue}`);
-            }
-          }
-        }
-        return queryUpdates;
-      },
-      enquoteFacet(facetName) {
-        return defaultFacetNames.includes(facetName) && !unquotableFacets.includes(facetName);
-      },
       updateCurrentSearchQuery(updates = {}) {
         const current = {
           page: this.page,
@@ -402,7 +322,6 @@
           query: this.query,
           reusability: this.reusability,
           view: this.view,
-          theme: this.theme,
           api: this.api
         };
 
@@ -419,18 +338,14 @@
       resetFilters() {
         const filters = Object.assign({}, this.filters);
 
-        for (const filterName of this.dropdownFilterNames) {
+        for (const filterName of this.resettableFilters) {
           filters[filterName] = [];
         }
-        return this.rerouteSearch(this.queryUpdatesForFilters(filters));
+        this.$store.commit('search/clearResettableFilters');
+        return this.rerouteSearch(queryUpdatesForFilters(filters));
       },
       isFilteredByDropdowns() {
-        for (const filterName of this.dropdownFilterNames) {
-          if (Object.prototype.hasOwnProperty.call(this.filters, filterName)) {
-            return true;
-          }
-        }
-        return false;
+        return this.$store.getters['search/hasResettableFilters'];
       }
     }
   };

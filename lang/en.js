@@ -80,7 +80,7 @@ export default {
       "name": "Providing country"
     },
     "REUSABILITY": {
-      "name": "Can I reuse this?",
+      "name": "Can I use this?",
       "options": {
         "open": "Yes",
         "restricted": "Yes, with conditions",
@@ -88,8 +88,8 @@ export default {
         "uncategorized": "Uncategorized"
       }
     },
-    "THEME": {
-      "name": "Category",
+    "collection": {
+      "name": "Collection",
       "options": {
         "ww1": "1914-1918",
         "archaeology": "Archaeology",
@@ -149,10 +149,10 @@ export default {
     "IMAGE_SIZE": {
       "name": "Image size | Image sizes",
       "options": {
-        "small": "Small",
-        "medium": "Medium",
-        "large": "Large",
-        "extra_large": "Extra large"
+        "small": "Small <0.5MP (e.g. 650x600px)",
+        "medium": "Medium 0.5-1MP (e.g. 850x850px)",
+        "large": "Large 1-4MP (e.g. 1920x1080px)",
+        "extra_large": "Extra Large 4MP+ (e.g. 2688 x 1520px)"
       }
     },
     "MIME_TYPE": {
@@ -319,6 +319,18 @@ export default {
         "fulltext": "Records with full-text",
         "metadata": "Metadata-only records"
       }
+    },
+    "CREATOR": {
+      "name": "Creator | Creators"
+    },
+    "proxy_dc_format": {
+      "name": "Format | Formats"
+    },
+    "proxy_dcterms_medium": {
+      "name": "Medium | Media"
+    },
+    "proxy_dc_type": {
+      "name": "Type | Types"
     }
   },
   "entity": "Entity",
@@ -366,13 +378,18 @@ export default {
     "right": "Right"
   },
   "exhibitions": {
-    "exhibitions": "Exhibitions"
+    "exhibitions": "Exhibitions",
+    "chapters": "Chapters",
+    "currentChapter": "Current chapter",
+    "credits": "Credits"
   },
   "actions": {
     "download": "Download",
     "viewAt": "View at {link}",
     "providedBy": "Provided by {provider}",
-    "viewDocument": "View document"
+    "viewDocument": "View document",
+    "share": "Share",
+    "shareOn": "Share on {social}"
   },
   "clearAllFilters": "clear all filters",
   "reset": "Reset",
@@ -429,5 +446,26 @@ export default {
     "disclaimerLine2": "The European Commission does not guarantee the accuracy of the information and accepts no responsibility or liability whatsoever with regard to the information on this website. Neither the European Commission, nor any person acting on the European Commission’s behalf, is responsible or liable for the accuracy or use of the information on this website.",
     "imageDescription": "Co-financed by the Connecting Europe Facility of the European Union",
     "findUsElsewhere": "Find us elsewhere"
+  },
+  "collections": {
+    "fashion": {
+      "facets": {
+        "CREATOR": {
+          "name": "Designer | Designers"
+        },
+        "proxy_dc_format": {
+          "name": "Technique | Techniques"
+        },
+        "proxy_dcterms_medium": {
+          "name": "Material | Materials"
+        },
+        "proxy_dc_type": {
+          "name": "Item type | Item types"
+        }
+      }
+    }
+  },
+  "galleries": {
+    "galleries": "Galleries"
   }
 };

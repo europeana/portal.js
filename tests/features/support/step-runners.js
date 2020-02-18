@@ -47,17 +47,20 @@ module.exports = {
 
     await client.initAccessibility().assert.accessibility('html', axeOptions);
   },
+  escapeCssAttributeSelector(selector) {
+    return selector.replace(/"/g, '\\"');
+  },
   async checkTheCheckbox(inputName, inputValue) {
-    const checkboxSelector = `input[type="checkbox"][name="${inputName}"][value="${inputValue}"]`;
-    await client.getAttribute(checkboxSelector, 'id', (result) => {
+    const selector = `input[type="checkbox"][name="${inputName}"][value="${this.escapeCssAttributeSelector(inputValue)}"]`;
+    await client.getAttribute(selector, 'id', async(result) => {
       const checkboxId = result.value;
       const labelSelector = `label[for="${checkboxId}"]`;
       client.click(labelSelector);
     });
   },
   async checkTheRadio(inputName, inputValue) {
-    const checkboxSelector = `input[type="radio"][name="${inputName}"][value="${inputValue}"]`;
-    await client.getAttribute(checkboxSelector, 'id', (result) => {
+    const selector = `input[type="radio"][name="${inputName}"][value="${this.escapeCssAttributeSelector(inputValue)}"]`;
+    await client.getAttribute(selector, 'id', (result) => {
       const radioId = result.value;
       const labelSelector = `label[for="${radioId}"]`;
       client.click(labelSelector);

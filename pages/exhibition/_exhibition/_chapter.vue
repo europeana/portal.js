@@ -25,7 +25,6 @@
             {{ page.name }}
           </h1>
           <article>
-            <h2>{{ page.description }}</h2>
             {{ page.text }}
           </article>
         </b-col>
@@ -35,14 +34,23 @@
           <BrowseSections
             v-if="page"
             :sections="page.hasPart"
+            :rich-text-is-card="false"
           />
         </b-col>
       </b-row>
       <b-row v-if="chapters">
-        <b-col>
+        <b-col class="my-3">
+          <ExhibitionChaptersNavigation
+            :exhibition-identifier="exhibitionIdentifier"
+            :chapter-navigation="chapterNavigation"
+          />
+          <h2 class="is-size-1-5">
+            {{ $t('exhibitions.chapters') }}
+          </h2>
           <ExhibitionChapters
             :exhibition-identifier="exhibitionIdentifier"
             :chapters="chapters"
+            :credits="credits"
           />
         </b-col>
       </b-row>
@@ -54,15 +62,24 @@
   import createClient from '../../../plugins/contentful';
   import BrowseSections from '../../../components/browse/BrowseSections';
   import ExhibitionChapters from '../../../components/exhibition/ExhibitionChapters';
+  import ExhibitionChaptersNavigation from '../../../components/exhibition/ExhibitionChaptersNavigation';
   import HeroImage from '../../../components/generic/HeroImage';
 
   export default {
     components: {
       BrowseSections,
       ExhibitionChapters,
+      ExhibitionChaptersNavigation,
       HeroImage
     },
     computed: {
+      chapterNavigation() {
+        return this.chapters.map((chapter) => {
+          return {
+            identifier: chapter.fields.identifier, name: chapter.fields.name, url: this.chapterUrl(chapter.fields.identifier)
+          };
+        });
+      },
       hero() {
         return this.page.primaryImageOfPage ? this.page.primaryImageOfPage.fields : null;
       },
@@ -109,6 +126,7 @@
           ]);
           return {
             chapters: response.items[0].fields.hasPart,
+            credits: response.items[0].fields.credits,
             exhibitionIdentifier: params.exhibition,
             page: chapter.fields
           };
@@ -116,6 +134,16 @@
         .catch((e) => {
           error({ statusCode: 500, message: e.toString() });
         });
+    },
+    methods: {
+      chapterUrl(identifier) {
+        return this.localePath({
+          name: 'exhibition-exhibition-chapter',
+          params: {
+            exhibition: this.exhibitionIdentifier, chapter: identifier
+          }
+        });
+      }
     },
     beforeRouteLeave(to, from, next) {
       this.$store.commit('breadcrumb/clearBreadcrumb');
@@ -134,3 +162,30 @@
     }
   };
 </script>
+
+<style lang="scss" scoped>
+  /deep/ figure {
+    display: inline-block;
+    max-width: 100%;
+
+    img {
+      max-height: 85vh;
+      max-width: 100%;
+    }
+
+    &.compare-image-wrapper {
+      max-width: 60%;
+
+      img {
+        max-height: initial;
+      }
+    }
+  }
+
+  /deep/ iframe {
+    max-height: initial;
+    max-width: 100%;
+  }
+
+</style>
+

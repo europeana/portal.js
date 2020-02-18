@@ -7,6 +7,7 @@
         v-if="contentType(section, 'richText')"
         :key="section.sys.id"
         :text="section.fields.text"
+        :rich-text-is-card="richTextIsCard"
       />
       <ContentCardSection
         v-else-if="contentType(section, 'cardGroup')"
@@ -56,6 +57,10 @@
     },
 
     props: {
+      richTextIsCard: {
+        type: Boolean,
+        default: true
+      },
       sections: {
         type: Array,
         default: () => []
@@ -81,3 +86,12 @@
     }
   };
 </script>
+
+<style lang="scss" scoped>
+  /deep/ .attribution {
+    align-items: flex-start;
+    &:after {
+      padding-top: 0.2rem;
+    }
+  }
+</style>

@@ -54,7 +54,8 @@ describe('components/record/MediaActionBar', () => {
     const wrapper = factory({
       europeanaIdentifier,
       url,
-      rightsStatement
+      rightsStatement,
+      useProxy
     });
 
     const rightsStatementLink = wrapper.find('[data-qa="rights statement"]');
@@ -67,11 +68,27 @@ describe('components/record/MediaActionBar', () => {
     const wrapper = factory({
       europeanaIdentifier,
       url,
-      rightsStatement: 'CC BY-SA 4.0'
+      rightsStatement: 'CC BY-SA 4.0',
+      useProxy
     });
 
     const rightsStatementLink = wrapper.find('[data-qa="rights statement"]');
     rightsStatementLink.text().should.contain('CC BY-SA 4.0');
+  });
+
+  it('includes a share button that shows the social share buttons', () => {
+    const wrapper = factory({
+      europeanaIdentifier,
+      url,
+      useProxy
+    });
+
+    wrapper.find('[data-qa="share buttons bar"]').exists().should.be.false;
+
+    const share = wrapper.find('[data-qa="share button"]');
+    share.trigger('click');
+
+    wrapper.find('[data-qa="share buttons bar"]').exists().should.be.true;
   });
 
   describe('data provider attribution', () => {
@@ -81,7 +98,8 @@ describe('components/record/MediaActionBar', () => {
           europeanaIdentifier,
           isShownAt: 'http://www.example.org/page.html',
           dataProviderName: 'Data Provider',
-          dataProviderLang: null
+          dataProviderLang: null,
+          useProxy
         };
 
         it('is a non-language-tagged link', () => {
@@ -100,7 +118,8 @@ describe('components/record/MediaActionBar', () => {
           europeanaIdentifier,
           isShownAt: 'http://www.example.org/page.html',
           dataProviderName: 'Data Provider',
-          dataProviderLang: 'fr'
+          dataProviderLang: 'fr',
+          useProxy
         };
 
         it('is a language-tagged link', () => {
@@ -120,7 +139,8 @@ describe('components/record/MediaActionBar', () => {
         const props = {
           europeanaIdentifier,
           dataProviderName: 'Data Provider',
-          dataProviderLang: null
+          dataProviderLang: null,
+          useProxy
         };
 
         it('is displayed non-language-tagged', () => {
@@ -137,7 +157,8 @@ describe('components/record/MediaActionBar', () => {
         const props = {
           europeanaIdentifier,
           dataProviderName: 'Data Provider',
-          dataProviderLang: 'fr'
+          dataProviderLang: 'fr',
+          useProxy
         };
 
         it('is displayed language-tagged', () => {

@@ -103,11 +103,7 @@
 
     data() {
       return {
-        form: {
-          start: this.start,
-          end: this.end,
-          specific: this.specific
-        }
+        form: {}
       };
     },
 
@@ -119,17 +115,34 @@
 
     watch: {
       start() {
-        this.form.start = this.start;
+        this.init();
       },
       end() {
-        this.form.end = this.end;
+        this.init();
       },
       specific() {
-        this.form.specific = this.specific;
+        this.init();
       }
     },
 
+    mounted() {
+      this.init();
+    },
+
     methods: {
+      init() {
+        this.form = {
+          start: this.start,
+          end: this.end,
+          specific: this.specific
+        };
+
+        this.$store.dispatch('search/setResettableFilter', {
+          name: this.name,
+          selected: this.start || this.end
+        });
+      },
+
       emitDateForm() {
         this.$nextTick(() => {
           this.$emit('dateFilter', this.name, this.form);

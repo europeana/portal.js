@@ -80,6 +80,7 @@
         <div class="card p-3 mb-3 bg-grey">
           <MediaActionBar
             :url="selectedMedia.about"
+            :share-url="canonicalURL"
             :europeana-identifier="identifier"
             :use-proxy="useProxy"
             :rights-statement="rightsStatement"
@@ -182,6 +183,7 @@
       return {
         agents: null,
         altTitle: null,
+        canonicalURL: null,
         cardGridClass: null,
         concepts: null,
         description: null,
@@ -232,6 +234,13 @@
         }
         return langMapValueForLocale(this.description, this.$i18n.locale);
       },
+      metaTitle() {
+        return this.titlesInCurrentLanguage[0] ? this.titlesInCurrentLanguage[0].value : this.$t('record.record');
+      },
+      metaDescription() {
+        if (!this.descriptionInCurrentLanguage) return '';
+        return this.descriptionInCurrentLanguage.values[0] ? this.descriptionInCurrentLanguage.values[0] : '';
+      },
       isRichMedia() {
         return isRichMedia(this.selectedMedia, {
           iiif: Number(process.env.ENABLE_IIIF_MEDIA)
@@ -246,6 +255,7 @@
         }
       },
       selectedMediaImage() {
+        if (!this.selectedMedia.thumbnails) return {};
         return {
           src: this.selectedMedia.thumbnails.large,
           link: this.isShownAt
@@ -316,7 +326,7 @@
           this.selectedMedia.about = msg.data.id;
         }
       });
-
+      this.canonicalURL = window.location.href.split(/\?|#/)[0];
     },
 
     methods: {
@@ -364,7 +374,16 @@
 
     head() {
       return {
-        title: this.titlesInCurrentLanguage[0] ? this.titlesInCurrentLanguage[0].value : this.$t('record.record')
+        title: this.metaTitle,
+        meta: [
+          { hid: 'title', name: 'title', content: this.metaTitle },
+          { hid: 'description', name: 'description', content: this.metaDescription },
+          { hid: 'og:title', property: 'og:title', content: this.metaTitle },
+          { hid: 'og:description', property: 'og:description', content: this.metaDescription },
+          { hid: 'og:image', property: 'og:image', content: this.selectedMediaImage.src ? this.selectedMediaImage.src : '' },
+          { hid: 'og:type', property: 'og:type', content: 'article' },
+          { hid: 'og:url', property: 'og:url', content: this.canonicalURL }
+        ]
       };
     }
   };

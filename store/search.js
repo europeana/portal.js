@@ -1,6 +1,66 @@
 import merge from 'deepmerge';
-import search from '../plugins/europeana/search';
-import apiConfig from '../plugins/europeana/api';
+import search, { unquotableFacets } from '../plugins/europeana/search';
+
+// Default facets to always request and display.
+// Order is significant as it will be reflected on search results.
+export const defaultFacetNames = [
+  'TYPE',
+  'REUSABILITY',
+  'COUNTRY',
+  'LANGUAGE',
+  'PROVIDER',
+  'DATA_PROVIDER',
+  'COLOURPALETTE',
+  'IMAGE_ASPECTRATIO',
+  'IMAGE_SIZE',
+  'MIME_TYPE'
+];
+
+const filtersFromQf = (qfs) => {
+  const filters = {};
+
+  for (const qf of [].concat(qfs || [])) {
+    const qfParts = qf.split(':');
+    const name = qfParts[0];
+    const value = qfParts.slice(1).join(':');
+    if (typeof filters[name] === 'undefined') {
+      filters[name] = [];
+    }
+    filters[name].push(value);
+  }
+
+  return filters;
+};
+
+export const queryUpdatesForFilters = (filters) => {
+  const queryUpdates = {
+    qf: [],
+    page: 1
+  };
+
+  for (const name in filters) {
+    switch (name) {
+      case 'REUSABILITY':
+        // `reusability` has its own API parameter and can not be queried in `qf`
+        queryUpdates.reusability = filters[name].length > 0 ? filters[name].join(',') : null;
+        break;
+      case 'api':
+        // `api` is an option to /plugins/europeana/search/search()
+        queryUpdates.api = filters[name];
+        break;
+      default:
+        // Everything else goes in `qf`
+        queryUpdates.qf = queryUpdates.qf.concat(queryUpdatesForFilter(name, filters[name]));
+    }
+  }
+  return queryUpdates;
+};
+
+export const queryUpdatesForFilter = (name, values) => {
+  return [].concat(values)
+    .filter((value) => (value !== undefined) && (value !== null))
+    .map((value) => `${name}:${value}`);
+};
 
 export const state = () => ({
   active: false,
@@ -9,18 +69,28 @@ export const state = () => ({
   error: null,
   errorStatusCode: null,
   facets: [],
-  filters: {},
+  resettableFilters: [],
   lastAvailablePage: null,
   overrideParams: {},
   pill: null,
   results: [],
-  themeFacetEnabled: true,
+  collectionFacetEnabled: true,
   totalResults: null,
   userParams: {},
   view: null
 });
 
 export const mutations = {
+  clearResettableFilters(state) {
+    state.resettableFilters = [];
+  },
+  addResettableFilter(state, filterName) {
+    if (!state.resettableFilters.includes(filterName)) state.resettableFilters.push(filterName);
+  },
+  removeResettableFilter(state, filterName) {
+    const index = state.resettableFilters.indexOf(filterName);
+    if (index !== -1) state.resettableFilters.splice(index, 1);
+  },
   setUserParams(state, value) {
     state.userParams = value;
   },
@@ -33,11 +103,11 @@ export const mutations = {
   setApiParams(state, value) {
     state.apiParams = value;
   },
-  disableThemeFacet(state) {
-    state.themeFacetEnabled = false;
+  disableCollectionFacet(state) {
+    state.collectionFacetEnabled = false;
   },
-  enableThemeFacet(state) {
-    state.themeFacetEnabled = true;
+  enableCollectionFacet(state) {
+    state.collectionFacetEnabled = true;
   },
   setActive(state, value) {
     state.active = value;
@@ -49,6 +119,13 @@ export const mutations = {
     state.errorStatusCode = value;
   },
   setFacets(state, value) {
+    for (const facet of value) {
+      if (!unquotableFacets.includes(facet.name)) {
+        for (const field of facet.fields) {
+          field.label = `"${field.label}"`;
+        }
+      }
+    }
     state.facets = value;
   },
   setLastAvailablePage(state, value) {
@@ -69,6 +146,9 @@ export const mutations = {
   },
   setPill(state, value) {
     state.pill = value;
+  },
+  set(state, payload) {
+    state[payload[0]] = payload[1];
   }
 };
 
@@ -84,6 +164,67 @@ export const getters = {
       }
     }
     return 'grid';
+  },
+
+  formatFacetFieldLabel: (state, getters, rootState, rootGetters) => (facetName, facetFieldLabel) => {
+    const collection = getters.collection;
+    if (!getters.hasCollectionSpecificSettings(collection)) return;
+    if (!rootGetters[`collections/${collection}/formatFacetFieldLabel`]) return;
+
+    return rootGetters[`collections/${collection}/formatFacetFieldLabel`](facetName, facetFieldLabel);
+  },
+
+  facetNames(state) {
+    return (state.apiParams.facet || '').split(',');
+  },
+
+  hasCollectionSpecificSettings: (state, getters, rootState) => (collection) => {
+    return (!!collection) &&
+      (!!rootState.collections && !!rootState.collections[collection]) &&
+      ((rootState.collections[collection].enabled === undefined) || rootState.collections[collection].enabled);
+  },
+
+  hasResettableFilters(state) {
+    return state.resettableFilters.length > 0;
+  },
+
+  collection(state) {
+    const collectionFilter = filtersFromQf(state.apiParams.qf).collection;
+    return collectionFilter ? collectionFilter[0] : null;
+  },
+
+  queryUpdatesForFacetChanges: (state, getters) => (selected = {}) => {
+    const filters = Object.assign({}, getters.filters);
+
+    for (const name in selected) {
+      filters[name] = selected[name];
+    }
+
+    // Remove collection-specific filters when collection is changed
+    if (Object.prototype.hasOwnProperty.call(selected, 'collection') || !getters.collection) {
+      for (const name in filters) {
+        if (name !== 'collection' && !defaultFacetNames.includes(name) && state.resettableFilters.includes(name)) {
+          filters[name] = [];
+        }
+      }
+    }
+
+    return queryUpdatesForFilters(filters);
+  },
+
+  // TODO: do not assume filters are fielded, e.g. `qf=whale`
+  filters: (state) => {
+    const filters = filtersFromQf(state.userParams.qf);
+
+    if (state.userParams.reusability) {
+      filters['REUSABILITY'] = state.userParams.reusability.split(',');
+    }
+
+    if (state.apiParams.api) {
+      filters['api'] = state.apiParams.api;
+    }
+
+    return filters;
   }
 };
 
@@ -110,35 +251,33 @@ export const actions = {
     userParams.qf = [].concat(userParams.qf || []);
 
     const apiParams = merge(userParams, state.overrideParams || {});
+    if (!apiParams.facet) {
+      apiParams.facet = defaultFacetNames.join(',');
+    }
+    if (!apiParams.profile) {
+      if (apiParams.facet.length === 0) {
+        apiParams.profile = 'minimal';
+      } else {
+        apiParams.profile = 'minimal,facets';
+      }
+    }
+
     commit('setApiParams', apiParams);
     commit('setApiOptions', {});
 
-    if (apiParams.theme === 'newspaper') {
-      await dispatch('deriveApiSettingsForNewspaperTheme');
-    }
+    await dispatch('applyCollectionSpecificSettings');
   },
 
-  deriveApiSettingsForNewspaperTheme({ commit, state }) {
-    const apiParams = Object.assign({}, state.apiParams);
-    const apiOptions = Object.assign({}, state.apiOptions);
+  applyCollectionSpecificSettings({ commit, getters, rootGetters, rootState, state }) {
+    const collection = getters.collection;
+    if (!getters.hasCollectionSpecificSettings(collection)) return;
 
-    // Ensure newspapers collection gets fulltext API by default
-    if (!apiParams.api) {
-      apiParams.api = 'fulltext';
+    for (const property of ['apiParams', 'apiOptions']) {
+      if (rootState.collections[collection][property] !== undefined) {
+        commit(`collections/${collection}/set`, [property, state[property]], { root: true });
+        commit('set', [property, rootGetters[`collections/${collection}/${property}`]]);
+      }
     }
-
-    if (apiParams.api === 'fulltext') {
-      // TODO: fulltext search API should be aware of contentTier, but is not.
-      //       If & when it is, this can be removed.
-      apiParams.qf = ([].concat(apiParams.qf)).filter(qf => !/^contentTier:/.test(qf));
-      apiParams.qf.push('contentTier:*');
-
-      apiOptions.origin = apiConfig.newspaper.origin;
-      apiParams.wskey = apiConfig.newspaper.key;
-    }
-
-    commit('setApiParams', apiParams);
-    commit('setApiOptions', apiOptions);
   },
 
   /**
@@ -151,14 +290,22 @@ export const actions = {
       .then((response) => dispatch('updateForSuccess', response))
       .catch((error) => dispatch('updateForFailure', error));
   },
-  updateForSuccess({ commit }, response) {
+
+  updateForSuccess({ commit, getters, rootGetters, rootState, state }, response) {
     commit('setError', response.error);
     commit('setErrorStatusCode', null);
-    commit('setFacets', response.facets);
     commit('setLastAvailablePage', response.lastAvailablePage);
     commit('setResults', response.results);
     commit('setTotalResults', response.totalResults);
+
+    commit('setFacets', response.facets);
+    const collection = getters.collection;
+    if (getters.hasCollectionSpecificSettings(collection) && rootState.collections[collection]['facets'] !== undefined) {
+      commit(`collections/${collection}/set`, ['facets', state.facets], { root: true });
+      commit('set', ['facets', rootGetters[`collections/${collection}/facets`]]);
+    }
   },
+
   updateForFailure({ commit }, error) {
     commit('setError', error.message);
     commit('setErrorStatusCode', (typeof error.statusCode !== 'undefined') ? error.statusCode : 500);
@@ -166,5 +313,13 @@ export const actions = {
     commit('setLastAvailablePage', null);
     commit('setResults', []);
     commit('setTotalResults', null);
+  },
+
+  async setResettableFilter({ commit }, { name, selected }) {
+    if ((Array.isArray(selected) && selected.length === 0) || !selected) {
+      await commit('removeResettableFilter', name);
+    } else {
+      await commit('addResettableFilter', name);
+    }
   }
 };

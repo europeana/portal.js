@@ -1,27 +1,40 @@
 <template>
   <section data-qa="action bar">
-    <b-row>
+    <b-row v-if="!showShareButtons">
       <b-col
         cols="12"
-        lg="6"
-        class="d-flex align-items-center mb-3 mb-lg-0"
+        class="d-flex align-items-start align-items-lg-center flex-column flex-lg-row"
       >
-        <b-button
-          v-if="url"
-          :href="downloadUrl"
-          variant="outline-primary text-decoration-none"
-          data-qa="download button"
-          size="lg"
-          class="mr-3"
-          :target="!useProxy ? '_blank' : '_self'"
+        <div
+          role="group"
+          class="social-buttons mb-3 mb-lg-0 text-nowrap"
         >
-          {{ $t('actions.download') }}
-        </b-button>
+          <b-button
+            variant="outline-primary text-decoration-none"
+            data-qa="share button"
+            size="lg"
+            class="mr-lg-1"
+            @click="toggleShare"
+          >
+            {{ $t('actions.share') }}
+          </b-button>
+          <b-button
+            v-if="url"
+            :href="downloadUrl"
+            variant="outline-primary text-decoration-none"
+            data-qa="download button"
+            size="lg"
+            class="mr-lg-3"
+            :target="!useProxy ? '_blank' : '_self'"
+          >
+            {{ $t('actions.download') }}
+          </b-button>
+        </div>
 
         <SmartLink
           v-if="rightsStatementIsUrl"
           :destination="rightsStatement"
-          class="attribution"
+          class="attribution mb-3 mb-lg-0"
           data-qa="rights statement"
         >
           <RightsStatement
@@ -34,31 +47,26 @@
         >
           {{ rightsStatement }}
         </span>
-      </b-col>
-      <b-col
-        cols="12"
-        lg="6"
-        class="d-flex align-items-center justify-content-end is-size-4 view-at"
-      >
         <i18n
           v-if="isShownAt"
           path="actions.viewAt"
           tag="p"
           data-qa="provider name"
-          class="mb-0 text-lg-right"
+          class="mb-0 text-lg-right is-size-4 ml-lg-auto"
         >
           <template v-slot:link>
             <!-- eslint-disable vue/multiline-html-element-content-newline -->
             <SmartLink
               :destination="isShownAt"
               :lang="dataProviderLang"
+              link-class="view-at"
             >{{ dataProviderName }}</SmartLink>
             <!-- eslint-enable vue/multiline-html-element-content-newline -->
           </template>
         </i18n>
         <i18n
           v-else
-          class="mb-0 text-lg-right"
+          class="mb-0 text-lg-right is-size-4 ml-lg-auto"
           data-qa="provider name"
           path="actions.providedBy"
           tag="p"
@@ -71,23 +79,46 @@
         </i18n>
       </b-col>
     </b-row>
+    <b-row
+      v-else
+      data-qa="share buttons bar"
+    >
+      <b-col
+        class="d-flex align-items-center justify-content-between"
+      >
+        <SocialShare
+          :media-url="url"
+          :share-url="shareUrl"
+        />
+        <span
+          class="icon-close"
+          @click="toggleShare"
+        />
+      </b-col>
+    </b-row>
   </section>
 </template>
 
 <script>
   import RightsStatement from '../../components/generic/RightsStatement';
   import SmartLink from '../../components/generic/SmartLink';
+  import SocialShare from '../../components/generic/SocialShare';
 
   export default {
     name: 'MediaActionBar',
 
     components: {
       RightsStatement,
-      SmartLink
+      SmartLink,
+      SocialShare
     },
 
     props: {
       url: {
+        type: String,
+        default: null
+      },
+      shareUrl: {
         type: String,
         default: null
       },
@@ -117,6 +148,12 @@
       }
     },
 
+    data() {
+      return {
+        showShareButtons: false
+      };
+    },
+
     computed: {
       rightsStatementIsUrl() {
         return RegExp('^https?://*').test(this.rightsStatement);
@@ -125,21 +162,48 @@
       downloadUrl() {
         return this.useProxy ? this.$options.filters.proxyMedia(this.url, this.europeanaIdentifier) : this.url;
       }
+    },
+
+    methods: {
+      toggleShare() {
+        this.showShareButtons = !this.showShareButtons;
+      }
     }
   };
 </script>
 
 <style lang="scss" scoped>
+  @import '../../assets/scss/variables.scss';
   @import '../../assets/scss/icons.scss';
 
-  .view-at {
-    .is-external-link {
-      &:after {
-        content: '\e900';
-        @extend .icon-font;
-        margin-left: 0.25rem;
-        display: inline-block;
-      }
+  .social-buttons {
+    width: 100%;
+    .btn {
+      width: 49%;
+    }
+  }
+
+  @media (min-width: $bp-large) {
+    .social-buttons,
+    .social-buttons .btn {
+      width: auto;
+    }
+  }
+
+  .attribution {
+    margin-right: 0.5rem;
+  }
+
+  .icon-close {
+    cursor: pointer;
+  }
+
+  .view-at.is-external-link {
+    &:after {
+      content: '\e900';
+      @extend .icon-font;
+      margin-left: 0.25rem;
+      display: inline-block;
     }
   }
 </style>
