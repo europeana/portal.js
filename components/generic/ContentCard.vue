@@ -22,6 +22,7 @@
         <b-img-lazy
           v-if="!isEntity"
           :src="optimisedImageUrl"
+          blank-height="250"
           alt=""
         />
       </div>
