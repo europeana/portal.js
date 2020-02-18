@@ -1,20 +1,18 @@
 <template>
-  <span>
-    <b-img-lazy
-      v-if="lazy"
-      :src="optimisedSrc"
-      :width="optimisedWidth"
-      :height="optimisedHeight"
-      :alt="alt"
-    />
-    <b-img
-      v-else
-      :src="optimisedSrc"
-      :width="optimisedWidth"
-      :height="optimisedHeight"
-      :alt="alt"
-    />
-  </span>
+  <b-img-lazy
+    v-if="lazy"
+    :src="optimisedSrc"
+    :blank-width="optimisedWidth"
+    :blank-height="optimisedHeight"
+    :alt="alt"
+  />
+  <b-img
+    v-else
+    :src="optimisedSrc"
+    :width="optimisedWidth"
+    :height="optimisedHeight"
+    :alt="alt"
+  />
 </template>
 
 <script>

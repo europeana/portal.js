@@ -135,7 +135,6 @@
 
     data() {
       return {
-        maxWidth: 1100,
         dragging: false,
         imageWidth: 0,
         sliderWidth: 0,
@@ -178,7 +177,6 @@
 
     methods: {
       setImageWidth() {
-        console.log(this.$refs.rightImage);
         this.imageWidth = this.$refs.rightImage.$el.getBoundingClientRect().width;
       },
 
