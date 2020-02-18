@@ -22,9 +22,11 @@
         </b-col>
       </b-row>
     </b-container>
-    <nuxt
-      id="main"
-    />
+    <main role="main">
+      <nuxt
+        id="main"
+      />
+    </main>
     <PageFooter />
     <CookieDisclaimer />
   </div>
