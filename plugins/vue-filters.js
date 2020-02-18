@@ -21,6 +21,7 @@ Vue.filter('truncate', (val, char, ellipsis) => {
   return val.length > char ? val.substring(0, char) + ellipsis : val;
 });
 
+// TODO: deprecated; superceded by OptimisedImage.vue; remove when all dependent components updated
 Vue.filter('optimisedImageUrl', (imageUrl, contentType, options = {}) => {
   if (typeof contentType !== 'string') return imageUrl;
 
