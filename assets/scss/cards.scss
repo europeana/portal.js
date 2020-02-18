@@ -206,15 +206,17 @@
     columns: 4;
   }
 
-  a .content-card {
+  .content-card {
     break-inside: avoid;
     min-height: initial;
     transform: translateZ(0);
     width: 100%;
 
-    .card-img {
-      min-height: initial;
-      max-height: initial;
+    a {
+      .card-img {
+        min-height: initial;
+        max-height: initial;
+      }
     }
   }
 }

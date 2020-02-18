@@ -22,7 +22,7 @@
         <b-img-lazy
           v-if="!isEntity"
           :src="optimisedImageUrl"
-          blank-height="250"
+          :blank-height="imageBlankHeight"
           alt=""
         />
       </div>
@@ -101,6 +101,10 @@
       imageOptimisationOptions: {
         type: Object,
         default: () => {}
+      },
+      imageBlankHeight: {
+        type: Number,
+        default: 0
       },
       datetime: {
         type: String,
