@@ -87,7 +87,7 @@ module.exports = {
   ** Nuxt.js modules
   */
   modules: [
-    // Doc: // Doc: https://www.elastic.co/guide/en/apm/agent/rum-js/current/configuration.html
+    // Doc: https://www.elastic.co/guide/en/apm/agent/rum-js/current/configuration.html
     ['~/modules/elastic-apm-rum', {
       serviceName: 'portal-js',
       serviceVersion: pkg.version,
