@@ -13,40 +13,36 @@
     <template
       v-else
     >
-      <b-row
-        class="mb-3"
-      >
-        <b-col>
-          <SearchFilters />
-        </b-col>
-      </b-row>
       <b-row class="mb-3">
         <b-col
           data-qa="search filters"
         >
-          <FacetDropdown
-            v-for="facet in coreFacets"
-            :key="facet.name"
-            :name="facet.name"
-            :fields="facet.fields"
-            :type="facetDropdownType(facet.name)"
-            :selected="filters[facet.name]"
-            @changed="changeFacet"
-          />
-          <MoreFiltersDropdown
-            v-if="enableMoreFacets"
-            :more-facets="moreFacets"
-            :selected="moreSelectedFacets"
-            @changed="changeMoreFacets"
-          />
-          <button
-            v-if="isFilteredByDropdowns()"
-            class="reset"
-            data-qa="reset filters button"
-            @click="resetFilters"
-          >
-            {{ $t('reset') }}
-          </button>
+          <SearchFilters />
+          <div class="position-relative">
+            <FacetDropdown
+              v-for="facet in coreFacets"
+              :key="facet.name"
+              :name="facet.name"
+              :fields="facet.fields"
+              :type="facetDropdownType(facet.name)"
+              :selected="filters[facet.name]"
+              @changed="changeFacet"
+            />
+            <MoreFiltersDropdown
+              v-if="enableMoreFacets"
+              :more-facets="moreFacets"
+              :selected="moreSelectedFacets"
+              @changed="changeMoreFacets"
+            />
+            <button
+              v-if="isFilteredByDropdowns()"
+              class="reset"
+              data-qa="reset filters button"
+              @click="resetFilters"
+            >
+              {{ $t('reset') }}
+            </button>
+          </div>
         </b-col>
       </b-row>
       <b-row

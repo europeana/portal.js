@@ -68,7 +68,7 @@
         return this.total > this.perPage;
       }
     },
-    asyncData({ query, redirect, error, app, store }) {
+    asyncData({ query, redirect, error, app }) {
       const currentPage = pageFromQuery(query.page);
       if (currentPage === null) {
         // Redirect non-positive integer values for `page` to `page=1`
@@ -78,20 +78,13 @@
 
       const contentfulClient = createClient(query.mode);
       return contentfulClient.getEntries({
-        'locale': app.i18n.isoLocale(),
+        locale: app.i18n.isoLocale(),
         'content_type': 'exhibitionPage',
-        'skip': (currentPage - 1) * PER_PAGE,
-        // TODO refactor this to use firstPublishedAt, which is not searchable and may require a custom field + webhook
-        'order': '-sys.createdAt',
+        skip: (currentPage - 1) * PER_PAGE,
+        order: '-fields.datePublished',
         limit: PER_PAGE
       })
         .then((response) => {
-          store.commit('breadcrumb/setBreadcrumbs', [
-            {
-              text:  app.i18n.t('exhibitions.exhibitions'),
-              active: true
-            }
-          ]);
           return {
             exhibitions: response.items,
             total: response.total,
@@ -108,16 +101,12 @@
         return this.localePath({ name: 'exhibitions', query: { page: val } });
       },
       imageUrl(image) {
-        if (!image) return;
-        if (!image.fields.image) return;
-        if (!image.fields.image.fields.file) return;
-        return image.fields.image.fields.file.url;
+        if (image && image.fields && image.fields.image && image.fields.image.fields && image.fields.image.fields.file)
+          return image.fields.image.fields.file.url;
       },
       imageContentType(image) {
-        if (!image) return;
-        if (!image.fields.image) return;
-        if (!image.fields.image.fields.file) return;
-        return image.fields.image.fields.file.contentType;
+        if (image && image.fields && image.fields.image && image.fields.image.fields && image.fields.image.fields.file)
+          return image.fields.image.fields.file.contentType;
       }
     },
     watchQuery: ['page'],

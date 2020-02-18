@@ -47,7 +47,6 @@
         >
           {{ rightsStatement }}
         </span>
-
         <i18n
           v-if="isShownAt"
           path="actions.viewAt"
@@ -189,6 +188,10 @@
     .social-buttons .btn {
       width: auto;
     }
+  }
+
+  .attribution {
+    margin-right: 0.5rem;
   }
 
   .icon-close {
