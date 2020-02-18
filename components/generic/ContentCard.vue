@@ -31,7 +31,7 @@
           alt=""
         />
         <b-img
-          v-else
+          v-if="!isEntity && !lazy"
           :src="optimisedImageUrl"
           alt=""
         />
