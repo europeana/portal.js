@@ -67,8 +67,6 @@ export const actions = {
   async searchForRecords({ getters, dispatch, commit, state }, query) {
     if (!state.entity) return;
 
-    const englishPrefLabel = getters.englishPrefLabel;
-
     await dispatch('search/activate', null, { root: true });
 
     const userParams = Object.assign({}, query);
@@ -88,6 +86,7 @@ export const actions = {
       overrideParams.qf.push(entityQuery);
 
       if (!userParams.query) {
+        const englishPrefLabel = getters.englishPrefLabel;
         if (englishPrefLabel) overrideParams.query = `"${englishPrefLabel}"`;
       }
     }
