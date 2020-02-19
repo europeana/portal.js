@@ -5,10 +5,12 @@
     <b-container>
       <b-row>
         <b-col>
-          <h1>{{ $t('error') }}</h1>
-          <p class="lead">
-            {{ error.message }}
-          </p>
+          <main role="main">
+            <h1>{{ $t('error') }}</h1>
+            <p class="lead">
+              {{ error.message }}
+            </p>
+          </main>
         </b-col>
       </b-row>
     </b-container>

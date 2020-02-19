@@ -93,7 +93,7 @@ function extraFields(proxyData, edm, entities) {
     dcIdentifier: proxyData.dcIdentifier,
     europeanaCollectionName: edm.europeanaCollectionName,
     timestampCreated: edm.timestamp_created,
-    timestampUpdated: edm.timestamp_updated,
+    timestampUpdate: edm.timestamp_update,
     dctermsExtent: proxyData.dctermsExtent,
     dcDuration: proxyData.dcDuration,
     dcMedium: proxyData.dcMedium,

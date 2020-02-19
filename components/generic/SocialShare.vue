@@ -70,10 +70,10 @@
 
   a {
     align-items: center;
-    background: $black;
+    background: transparent;
     border: 1px solid $black;
     border-radius: 50%;
-    color: $white;
+    color: $black;
     display: inline-flex;
     height: calc(2.5rem - 1px);
     justify-content: center;
@@ -82,15 +82,15 @@
     width: calc(2.5rem - 1px);
 
     [class^="icon"] {
-      color: $white;
+      color: $black;
       font-size: $font-size-medium;
     }
 
     &:hover {
-      background: transparent;
+      background: $black;
 
       [class^="icon"] {
-        color: $black;
+        color: $white;
       }
     }
   }
