@@ -88,12 +88,14 @@ module.exports = {
   */
   modules: [
     // Doc: https://www.elastic.co/guide/en/apm/agent/rum-js/current/configuration.html
-    ['~/modules/elastic-apm-rum', {
+    ['~/modules/elastic-apm', {
       serviceName: 'portal-js',
       serviceVersion: pkg.version,
-      serverUrl: process.env.ELASTIC_APM_RUM_SERVER_URL,
-      environment: process.env.ELASTIC_APM_RUM_ENVIRONMENT || 'development',
-      logLevel: 'debug'
+      serverUrl: process.env.ELASTIC_APM_SERVER_URL,
+      environment: process.env.ELASTIC_APM_ENVIRONMENT || 'development',
+      logLevel: 'debug',
+      frameworkName: 'Nuxt.js',
+      frameworkVersion: require('nuxt/package.json').version
     }],
     // Doc: https://github.com/nuxt-community/axios-module#usage
     '@nuxtjs/axios',
