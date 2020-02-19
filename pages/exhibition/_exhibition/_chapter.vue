@@ -174,8 +174,6 @@
     }
 
     &.compare-image-wrapper {
-      max-width: 60%;
-
       img {
         max-height: 85vh;
       }
