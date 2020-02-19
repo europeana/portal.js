@@ -28,7 +28,7 @@
       </b-col>
       <b-col cols="12">
         <b-card-group
-          class="card-deck-4-cols"
+          class="masonry"
           deck
           data-qa="gallery images"
         >
@@ -37,6 +37,7 @@
             :key="image.fields.identifier"
             :title="image.fields.name"
             :image-url="image.fields.thumbnailUrl"
+            :lazy="false"
             :texts="[image.fields.description]"
             :url="{ name: 'record-all', params: { pathMatch: image.fields.identifier.slice(1) } }"
           />
