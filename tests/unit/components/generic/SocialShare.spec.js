@@ -1,16 +1,26 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
+import Vuex from 'vuex';
+
 import SocialShare from '../../../../components/generic/SocialShare.vue';
 
 const localVue = createLocalVue();
+localVue.use(Vuex);
+
+const store = new Vuex.Store({
+  getters: {
+    canonicalUrl: () => 'https://www.example.org/page'
+  }
+});
+
 const factory = () => shallowMount(SocialShare, {
   localVue,
+  store,
   stubs: ['b-link'],
   propsData: {
     mediaUrl: '/img/portrait.jpg'
   },
   mocks: {
-    $t: () => {},
-    $canonicalUrl: () => 'https://www.example.com/page'
+    $t: () => {}
   }
 });
 
@@ -21,7 +31,7 @@ describe('components/generic/SocialShare', () => {
       const facebook = wrapper.find('[data-qa="share facebook button"]');
 
       facebook.attributes().href.should.startWith('https://www.facebook.com/sharer/sharer.php');
-      facebook.attributes().href.should.contain('https://www.example.com/page');
+      facebook.attributes().href.should.contain('https://www.example.org/page');
     });
 
     it('one button has a twitter share url', () => {
@@ -29,7 +39,7 @@ describe('components/generic/SocialShare', () => {
       const twitter = wrapper.find('[data-qa="share twitter button"]');
 
       twitter.attributes().href.should.startWith('https://twitter.com/intent/tweet');
-      twitter.attributes().href.should.contain('https://www.example.com/page');
+      twitter.attributes().href.should.contain('https://www.example.org/page');
     });
 
     it('one button has a pinterest share url', () => {
@@ -37,7 +47,7 @@ describe('components/generic/SocialShare', () => {
       const pinterest = wrapper.find('[data-qa="share pinterest button"]');
 
       pinterest.attributes().href.should.startWith('https://pinterest.com/pin/create/link');
-      pinterest.attributes().href.should.contain('https://www.example.com/page');
+      pinterest.attributes().href.should.contain('https://www.example.org/page');
       pinterest.attributes().href.should.contain('/img/portrait.jpg');
     });
   });
