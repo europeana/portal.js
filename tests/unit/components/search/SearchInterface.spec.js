@@ -62,6 +62,9 @@ const factory = (options = {}) => {
         },
         mutations: {
           setView: () => null
+        },
+        actions: {
+          queryFacets: () => null
         }
       }
     }
