@@ -218,7 +218,7 @@
     overflow: hidden;
 
     img {
-      width: 100%;
+      width: auto;
 
       &:nth-child(1) {
         position: absolute;
