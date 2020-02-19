@@ -255,14 +255,7 @@ export const actions = {
       apiParams.facet = defaultFacetNames.join(',');
     }
 
-    if (!apiParams.profile) {
-      apiParams.profile = 'minimal';
-      // if (apiParams.facet.length === 0) {
-      //   apiParams.profile = 'minimal';
-      // } else {
-      //   apiParams.profile = 'minimal,facets';
-      // }
-    }
+    if (!apiParams.profile) apiParams.profile = 'minimal';
 
     commit('setApiParams', apiParams);
     commit('setApiOptions', {});
@@ -304,7 +297,7 @@ export const actions = {
     const paramsForFacets = {
       ...state.apiParams,
       rows: 0,
-      profile: [state.apiParams.profile, 'facets'].join(',')
+      profile: 'facets'
     };
 
     search(paramsForFacets, state.apiOptions || {})
