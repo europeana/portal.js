@@ -251,13 +251,10 @@
       await store.dispatch('entity/searchForRecords', query);
     },
 
-    async created() {
-      await this.$store.dispatch('entity/searchForRecords', this.$route.query);
-    },
-
     mounted() {
       this.$store.commit('search/setPill', this.title);
       this.$store.commit('search/disableCollectionFacet');
+      this.$store.dispatch('entity/searchForRecords', this.$route.query);
     },
 
     methods: {
