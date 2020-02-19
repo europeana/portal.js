@@ -1,8 +1,12 @@
 <template>
   <figure>
-    <b-img-lazy
-      :src="src | optimisedImageUrl(contentType)"
-      alt=""
+    <OptimisedImage
+      :src="src"
+      :width="width"
+      :height="height"
+      :content-type="contentType"
+      :max-width="1100"
+      data-qa="image"
     />
     <figcaption>
       <CiteAttribution
@@ -11,6 +15,7 @@
         :provider="attribution.provider"
         :rights-statement="attribution.rightsStatement"
         :url="attribution.url"
+        data-qa="attribution"
       />
     </figcaption>
   </figure>
@@ -18,16 +23,28 @@
 
 <script>
   import CiteAttribution from './CiteAttribution';
+  import OptimisedImage from './OptimisedImage';
 
   export default {
+    name: 'ImageWithAttribution',
+
     components: {
-      CiteAttribution
+      CiteAttribution,
+      OptimisedImage
     },
 
     props: {
       src: {
         type: String,
         required: true
+      },
+      width: {
+        type: Number,
+        default: null
+      },
+      height: {
+        type: Number,
+        default: null
       },
       contentType: {
         type: String,
