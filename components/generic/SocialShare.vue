@@ -31,6 +31,8 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex';
+
   export default {
     name: 'SocialShare',
 
@@ -48,9 +50,9 @@
     },
 
     computed: {
-      shareUrl() {
-        return this.$canonicalUrl;
-      },
+      ...mapGetters({
+        shareUrl: 'canonicalUrl'
+      }),
       facebookShareUrl() {
         return `https://www.facebook.com/sharer/sharer.php?display=page&u=${this.shareUrl}`;
       },
