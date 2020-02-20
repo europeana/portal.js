@@ -22,15 +22,19 @@
         </b-col>
       </b-row>
     </b-container>
-    <nuxt
-      id="main"
-    />
+    <main role="main">
+      <nuxt
+        id="main"
+      />
+    </main>
     <PageFooter />
     <CookieDisclaimer />
   </div>
 </template>
 
 <script>
+  import { mapGetters } from 'vuex';
+
   import PageHeader from '../components/PageHeader.vue';
   import PageFooter from '../components/PageFooter.vue';
   import CookieDisclaimer from '../components/generic/CookieDisclaimer';
@@ -45,7 +49,14 @@
       CookieDisclaimer
     },
 
+    middleware({ store, route }) {
+      store.commit('setCanonicalUrlPath', route.fullPath);
+    },
+
     computed: {
+      ...mapGetters({
+        canonicalUrl: 'canonicalUrl'
+      }),
       enableAutoSuggest() {
         // Auto suggest on search form will be disabled unless toggled on by env var,
         // and always disabled on entity pages.
@@ -62,10 +73,15 @@
       }
     },
 
-    head: {
-      link: [
-        { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Ubuntu:300,400,700%7COpen+Sans:400italic,700italic,400,600,700&subset=latin,greek,cyrillic&display=swap', body: true }
-      ]
+    head() {
+      return {
+        link: [
+          { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Ubuntu:300,400,700%7COpen+Sans:400italic,700italic,400,600,700&subset=latin,greek,cyrillic&display=swap', body: true }
+        ],
+        meta: [
+          { hid: 'og:url', property: 'og:url', content: this.canonicalUrl }
+        ]
+      };
     }
   };
 </script>

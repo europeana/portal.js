@@ -47,7 +47,6 @@
         >
           {{ rightsStatement }}
         </span>
-
         <i18n
           v-if="isShownAt"
           path="actions.viewAt"
@@ -89,7 +88,6 @@
       >
         <SocialShare
           :media-url="url"
-          :share-url="shareUrl"
         />
         <span
           class="icon-close"
@@ -116,10 +114,6 @@
 
     props: {
       url: {
-        type: String,
-        default: null
-      },
-      shareUrl: {
         type: String,
         default: null
       },
@@ -189,6 +183,10 @@
     .social-buttons .btn {
       width: auto;
     }
+  }
+
+  .attribution {
+    margin-right: 0.5rem;
   }
 
   .icon-close {

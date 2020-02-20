@@ -31,14 +31,12 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex';
+
   export default {
     name: 'SocialShare',
 
     props: {
-      shareUrl: {
-        type: String,
-        default: ''
-      },
       mediaUrl: {
         type: String,
         default: ''
@@ -52,6 +50,9 @@
     },
 
     computed: {
+      ...mapGetters({
+        shareUrl: 'canonicalUrl'
+      }),
       facebookShareUrl() {
         return `https://www.facebook.com/sharer/sharer.php?display=page&u=${this.shareUrl}`;
       },
@@ -70,10 +71,10 @@
 
   a {
     align-items: center;
-    background: $black;
+    background: transparent;
     border: 1px solid $black;
     border-radius: 50%;
-    color: $white;
+    color: $black;
     display: inline-flex;
     height: calc(2.5rem - 1px);
     justify-content: center;
@@ -82,15 +83,15 @@
     width: calc(2.5rem - 1px);
 
     [class^="icon"] {
-      color: $white;
+      color: $black;
       font-size: $font-size-medium;
     }
 
     &:hover {
-      background: transparent;
+      background: $black;
 
       [class^="icon"] {
-        color: $black;
+        color: $white;
       }
     }
   }
