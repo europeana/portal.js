@@ -17,13 +17,6 @@
           />
           <!-- eslint-enable vue/no-v-html -->
         </b-col>
-        <b-col
-          cols="12"
-          lg="3"
-          class="pt-0 pb-3 py-lg-3 text-left text-lg-right"
-        >
-          <SocialShare />
-        </b-col>
       </b-row>
       <b-row v-if="page.hasPart">
         <b-col class="my-3">
@@ -45,12 +38,10 @@
   import marked from 'marked';
   import createClient from '../../../plugins/contentful';
   import ExhibitionChapters from '../../../components/exhibition/ExhibitionChapters';
-  import SocialShare from '../../../components/generic/SocialShare';
 
   export default {
     components: {
-      ExhibitionChapters,
-      SocialShare
+      ExhibitionChapters
     },
     computed: {
       credits() {
