@@ -1,5 +1,8 @@
 <template>
-  <div class="mt-3">
+  <div
+    v-if="filterList.length > 0"
+    class="mb-3"
+  >
     <b-badge
       v-for="(filter, index) in filterList"
       :key="index"

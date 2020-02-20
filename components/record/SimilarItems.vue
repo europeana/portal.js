@@ -54,6 +54,11 @@
       }
     }
 
+    .card-title {
+      font-size: $font-size-small;
+      font-weight: normal;
+    }
+
     .card-link {
       display: initial;
 

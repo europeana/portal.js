@@ -29,7 +29,7 @@ Feature: Search faceting
     And I click the `collection apply button`
     And I wait 4 seconds
     And I go to page number 2
-    And I wait 2 seconds
+    And I wait 4 seconds
     Then I should be on `/en/search?page=2&qf=collection%3Aart&query=&view=grid`
 
   Scenario: No Collection filter on entity pages
