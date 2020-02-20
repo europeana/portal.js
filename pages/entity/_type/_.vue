@@ -252,10 +252,9 @@
 
       // TODO: consider moving the logic here into the store as mutations/actions
       const entityUri = store.state.entity.id;
-      const contentTierQuery = 'contentTier:(2 OR 3 OR 4)';
 
       const overrideParams = {
-        qf: [contentTierQuery],
+        qf: [],
         rows: PER_PAGE
       };
 

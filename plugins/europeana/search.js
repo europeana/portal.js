@@ -153,16 +153,22 @@ function search(params, options = {}) {
  */
 export function addContentTierFilter(qf) {
   let newQf = qf ? [].concat(qf) : [];
-  if (!newQf.some(v => /^contentTier:/.test(v))) {
+  if (!hasFilterForField(newQf, 'contentTier')) {
     // If no content tier qf is queried, tier 0 content is
     // excluded by default as it is considered not to meet
-    // Europeana's publishing criteria.
-    newQf.push('contentTier:(1 OR 2 OR 3 OR 4)');
+    // Europeana's publishing criteria. Also tier 1 content is exluded if this
+    // is a search filtered by collection.
+    const contentTierFilter = hasFilterForField(newQf, 'collection') ? '2 OR 3 OR 4' : '1 OR 2 OR 3 OR 4';
+    newQf.push(`contentTier:(${contentTierFilter})`);
   }
   // contentTier:* is irrelevant so is removed
   newQf = newQf.filter(v => v !== 'contentTier:*');
 
   return newQf;
 }
+
+const hasFilterForField = (filters, fieldName) => {
+  return filters.some(v => new RegExp(`^${fieldName}:`).test(v));
+};
 
 export default search;
