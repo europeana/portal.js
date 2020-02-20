@@ -104,11 +104,8 @@
         meta: [
           { hid: 'title', name: 'title', content: this.title },
           { hid: 'og:title', property: 'og:title', content: this.title },
-          { hid: 'og:image', property: 'og:image', content: null },
           { hid: 'og:type', property: 'og:type', content: 'article' }
-        ].concat(this.description ? [
-          { hid: 'og:description', property: 'og:description', content: null }
-        ] : [])
+        ]
       };
     }
   };
@@ -120,4 +117,3 @@
     margin: 1rem 0;
   }
 </style>
-

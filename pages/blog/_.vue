@@ -80,10 +80,11 @@
         title: this.page.name,
         meta: [
           { hid: 'title', name: 'title', content: this.page.name },
+          { hid: 'og:title', property: 'og:title', content: this.page.name }
+        ].concat(this.page.description ? [
           { hid: 'description', name: 'description', content: this.page.description },
-          { hid: 'og:title', property: 'og:title', content: this.page.name },
           { hid: 'og:description', property: 'og:description', content: this.page.description }
-        ]
+        ] : [])
       };
     },
 
