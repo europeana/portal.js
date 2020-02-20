@@ -15,8 +15,9 @@
     <b-container>
       <b-row>
         <b-col
-          cols="9"
-          class="pb-3"
+          cols="12"
+          lg="9"
+          class="pb-0 pb-lg-3"
         >
           <h1
             v-if="!hero"
@@ -27,6 +28,15 @@
           <article>
             {{ page.text }}
           </article>
+        </b-col>
+        <b-col
+          cols="12"
+          lg="3"
+          class="pb-3 text-left text-lg-right"
+        >
+          <SocialShare
+            :media-url="heroImage.url"
+          />
         </b-col>
       </b-row>
       <b-row>
@@ -64,13 +74,15 @@
   import ExhibitionChapters from '../../../components/exhibition/ExhibitionChapters';
   import ExhibitionChaptersNavigation from '../../../components/exhibition/ExhibitionChaptersNavigation';
   import HeroImage from '../../../components/generic/HeroImage';
+  import SocialShare from '../../../components/generic/SocialShare';
 
   export default {
     components: {
       BrowseSections,
       ExhibitionChapters,
       ExhibitionChaptersNavigation,
-      HeroImage
+      HeroImage,
+      SocialShare
     },
     computed: {
       chapterNavigation() {
@@ -156,8 +168,11 @@
           { hid: 'title', name: 'title', content: this.page.name },
           { hid: 'description', name: 'description', content: this.page.description },
           { hid: 'og:title', property: 'og:title', content: this.page.name },
+          { hid: 'og:image', property: 'og:image', content: this.heroImage.url },
+          { hid: 'og:type', property: 'og:type', content: 'article' }
+        ].concat(this.description ? [
           { hid: 'og:description', property: 'og:description', content: this.page.description }
-        ]
+        ] : [])
       };
     }
   };
