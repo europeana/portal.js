@@ -15,8 +15,8 @@ const entityFilterField = 'skos_concept';
 const apiKey = 'abcdef';
 const baseRequest = nock(apiUrl).get(apiEndpoint);
 
-const apiUrlSearch = 'https://api.europeana.eu';
-const apiEndpointSearch = '/api/v2/search.json';
+const recordApiUrl = config.record.origin;
+const recordApiEndpoint = `${config.record.path}/search.json`;
 
 const searchResponse = {
   facets: [
@@ -233,8 +233,8 @@ describe('plugins/europeana/entity', () => {
     });
 
     it('returns related entities', async() => {
-      nock(apiUrlSearch)
-        .get(apiEndpointSearch)
+      nock(recordApiUrl)
+        .get(recordApiEndpoint)
         .query(true)
         .reply(200, searchResponse);
 
@@ -243,8 +243,8 @@ describe('plugins/europeana/entity', () => {
     });
 
     it('filters on entity URI', async() => {
-      nock(apiUrlSearch)
-        .get(apiEndpointSearch)
+      nock(recordApiUrl)
+        .get(recordApiEndpoint)
         .query(query => {
           return query.query === `${entityFilterField}:"${entityUri}"`;
         })

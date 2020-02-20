@@ -10,7 +10,7 @@ axios.defaults.adapter = require('axios/lib/adapters/http');
 
 const europeanaId = '/123/abc';
 const apiUrl = config.record.origin;
-const apiEndpoint = `/api/v2/record${europeanaId}.json`;
+const apiEndpoint = `${config.record.path}${europeanaId}.json`;
 const apiKey = 'abcdef';
 
 const baseRequest = nock(apiUrl).get(apiEndpoint);
