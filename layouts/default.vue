@@ -79,6 +79,7 @@
           { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Ubuntu:300,400,700%7COpen+Sans:400italic,700italic,400,600,700&subset=latin,greek,cyrillic&display=swap', body: true }
         ],
         meta: [
+          { hid: 'description', property: 'description', content: 'Europeana' },
           { hid: 'og:url', property: 'og:url', content: this.canonicalUrl }
         ]
       };
