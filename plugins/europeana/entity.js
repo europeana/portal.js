@@ -5,10 +5,10 @@ import search from './search';
 
 export const constants = Object.freeze({
   API_ORIGIN: config.entity.origin,
-  API_PATH_PREFIX: '/entity',
+  API_PATH_PREFIX: config.entity.path,
   API_ENDPOINT_SEARCH: '/search',
   API_ENDPOINT_SUGGEST: '/suggest',
-  URI_ORIGIN: 'http://data.europeana.eu'
+  URI_ORIGIN: config.data.origin
 });
 
 /**
@@ -199,6 +199,7 @@ export function getEntitySlug(entity, entityPage) {
  */
 export function relatedEntities(type, id, options = {}) {
   const origin = options.origin || config.record.origin;
+  const path = options.path || config.record.path;
 
   const entityUri = getEntityUri(type, id);
   let apiParams = {
@@ -209,7 +210,7 @@ export function relatedEntities(type, id, options = {}) {
     rows: 0
   };
 
-  return axios.get(`${origin}/api/v2/search.json`, {
+  return axios.get(`${origin}${path}/search.json`, {
     params: apiParams
   })
     .then((response) => {

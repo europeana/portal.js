@@ -58,6 +58,7 @@
 <script>
   import AutoSuggest from './AutoSuggest';
   import SearchBarPill from './SearchBarPill';
+  import apiConfig from '../../plugins/europeana/api';
   import { getEntitySuggestions, getEntityTypeHumanReadable, getEntitySlug } from '../../plugins/europeana/entity';
   import { mapGetters } from 'vuex';
 
@@ -203,7 +204,7 @@
           id: entityUri,
           prefLabel: this.suggestions[entityUri]
         };
-        const uriMatch = entityUri.match('^http://data.europeana.eu/([^/]+)(/base)?/(.+)$');
+        const uriMatch = entityUri.match(`^${apiConfig.data.origin}/([^/]+)(/base)?/(.+)$`);
 
         return this.localePath({
           name: 'entity-type-all', params: {

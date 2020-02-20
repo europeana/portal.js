@@ -250,8 +250,9 @@ function setMatchingEntities(fields, key, entities) {
  */
 function getRecord(europeanaId, options = {}) {
   const origin = options.origin || config.record.origin;
+  const path = options.path || config.record.path;
 
-  return axios.get(`${origin}/api/v2/record${europeanaId}.json`, {
+  return axios.get(`${origin}${path}${europeanaId}.json`, {
     params: {
       wskey: config.record.key
     }

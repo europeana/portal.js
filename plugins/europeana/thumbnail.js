@@ -8,9 +8,10 @@ import { URL } from '../url';
 import config from './api';
 
 export default function thumbnailUrl(uri, params = {}, options = {}) {
-  const origin = options.origin || config.record.origin;
+  const origin = options.origin || config.thumbnail.origin;
+  const path = options.path || config.thumbnail.path;
 
-  const url = new URL(`${origin}/api/v2/thumbnail-by-url.json`);
+  const url = new URL(`${origin}${path}/thumbnail-by-url.json`);
   for (const key of Object.keys(params)) {
     url.searchParams.set(key, params[key]);
   }
@@ -42,6 +43,6 @@ export function thumbnailTypeForMimeType(mimeType) {
 }
 
 export function genericThumbnail(itemId, params = {}) {
-  const uri = `http://data.europeana.eu/item${itemId}`;
+  const uri = `${config.data.origin}/item${itemId}`;
   return thumbnailUrl(uri, params);
 }
