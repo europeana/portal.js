@@ -23,7 +23,6 @@
       >
         <SocialShare
           :media-url="shareMediaUrl"
-          :share-url="canonicalURL"
         />
       </b-col>
       <b-col cols="12">
@@ -74,6 +73,7 @@
     },
     asyncData({ params, query, error, app }) {
       const contentfulClient = createClient(query.mode);
+
       return contentfulClient.getEntries({
         'locale': app.i18n.isoLocale(),
         'content_type': 'imageGallery',
@@ -83,16 +83,12 @@
           return {
             rawDescription: response.items[0].fields.description,
             images: response.items[0].fields.hasPart,
-            title: response.items[0].fields.name,
-            canonicalURL: null
+            title: response.items[0].fields.name
           };
         })
         .catch((e) => {
           error({ statusCode: 500, message: e.toString() });
         });
-    },
-    mounted() {
-      this.canonicalURL = window.location.href.split(/\?|#/)[0];
     },
     head() {
       return {
@@ -102,8 +98,7 @@
           { hid: 'description', name: 'description', content: this.description },
           { hid: 'og:title', property: 'og:title', content: this.title },
           { hid: 'og:image', property: 'og:image', content: this.shareMediaUrl },
-          { hid: 'og:type', property: 'og:type', content: 'article' },
-          { hid: 'og:url', property: 'og:url', content: this.canonicalURL }
+          { hid: 'og:type', property: 'og:type', content: 'article' }
         ].concat(this.description ? [
           { hid: 'og:description', property: 'og:description', content: this.description }
         ] : [])
