@@ -16,7 +16,7 @@
       </b-card>
       <!-- eslint-disable vue/no-v-html -->
       <div
-        else
+        v-else-if="html && !richTextIsCard"
         v-html="html"
       />
       <!-- eslint-enable vue/no-v-html -->
@@ -34,6 +34,7 @@
         required: true
       },
       // TODO: find a better and cleaner solution
+      // or remove in the future?
       richTextIsCard: {
         type: Boolean,
         default: true
