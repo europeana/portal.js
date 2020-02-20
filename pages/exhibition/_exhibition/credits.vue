@@ -22,9 +22,7 @@
           lg="3"
           class="pt-0 pb-3 py-lg-3 text-left text-lg-right"
         >
-          <SocialShare
-            :share-url="canonicalURL"
-          />
+          <SocialShare />
         </b-col>
       </b-row>
       <b-row v-if="page.hasPart">
@@ -53,11 +51,6 @@
     components: {
       ExhibitionChapters,
       SocialShare
-    },
-    data() {
-      return {
-        canonicalURL: null
-      };
     },
     computed: {
       credits() {
@@ -121,8 +114,7 @@
           { hid: 'title', name: 'title', content: this.title },
           { hid: 'og:title', property: 'og:title', content: this.title },
           { hid: 'og:image', property: 'og:image', content: null },
-          { hid: 'og:type', property: 'og:type', content: 'article' },
-          { hid: 'og:url', property: 'og:url', content: this.canonicalURL }
+          { hid: 'og:type', property: 'og:type', content: 'article' }
         ].concat(this.description ? [
           { hid: 'og:description', property: 'og:description', content: null }
         ] : [])

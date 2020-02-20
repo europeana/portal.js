@@ -37,7 +37,6 @@
         >
           <SocialShare
             :media-url="heroImage.url"
-            :share-url="canonicalURL"
           />
         </b-col>
       </b-row>
@@ -69,11 +68,6 @@
       ExhibitionChapters,
       HeroImage,
       SocialShare
-    },
-    data() {
-      return {
-        canonicalURL: null
-      };
     },
     computed: {
       hero() {
@@ -124,9 +118,6 @@
       this.$store.commit('breadcrumb/clearBreadcrumb');
       next();
     },
-    mounted() {
-      this.canonicalURL = window.location.href.split(/\?|#/)[0];
-    },
     head() {
       return {
         title: this.page.name,
@@ -135,8 +126,7 @@
           { hid: 'description', name: 'description', content: this.page.description },
           { hid: 'og:title', property: 'og:title', content: this.page.name },
           { hid: 'og:image', property: 'og:image', content: this.heroImage.url },
-          { hid: 'og:type', property: 'og:type', content: 'article' },
-          { hid: 'og:url', property: 'og:url', content: this.canonicalURL }
+          { hid: 'og:type', property: 'og:type', content: 'article' }
         ].concat(this.description ? [
           { hid: 'og:description', property: 'og:description', content: this.page.description }
         ] : [])
