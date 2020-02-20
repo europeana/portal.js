@@ -10,6 +10,7 @@
     />
     <VideoPlayer
       v-else-if="isHTMLVideo"
+      :europeana-identifier="europeanaIdentifier"
       :src="media.about"
       :type="media.ebucoreHasMimeType"
       :width="media.ebucoreWidth"
@@ -17,6 +18,7 @@
     />
     <AudioPlayer
       v-else-if="isHTMLAudio"
+      :europeana-identifier="europeanaIdentifier"
       :src="media.about"
       :type="media.ebucoreHasMimeType"
     />
