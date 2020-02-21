@@ -24,7 +24,7 @@
         <SearchInterface
           class="px-0"
           :per-row="3"
-          :per-page="perPage"
+          :per-page="recordsPerPage"
           :route="route"
           :show-content-tier-toggle="false"
         />
@@ -61,12 +61,12 @@
   import EntityDetails from '../../../components/entity/EntityDetails';
   import SearchInterface from '../../../components/search/SearchInterface';
 
+  import { mapState } from 'vuex';
+
   import * as entities from '../../../plugins/europeana/entity';
   import { pageFromQuery } from '../../../plugins/utils';
   import createClient from '../../../plugins/contentful';
   import { langMapValueForLocale } from  '../../../plugins/europeana/utils';
-
-  const PER_PAGE = 9;
 
   export default {
     components: {
@@ -93,6 +93,7 @@
         });
       }
     },
+
     data() {
       return {
         entity: null,
@@ -103,6 +104,9 @@
     },
 
     computed: {
+      ...mapState({
+        recordsPerPage: state => state.entity.recordsPerPage
+      }),
       attribution() {
         if (this.editorialDepiction) return this.editorialAttribution;
         return (!this.entity || !this.entity.depiction) ? null : this.entity.depiction.source;
@@ -147,9 +151,6 @@
       editorialTitle() {
         if (!this.page || !this.page.name) return null;
         return this.page.name;
-      },
-      perPage() {
-        return PER_PAGE;
       },
       route() {
         return {
@@ -246,37 +247,14 @@
         });
     },
 
-    async fetch({ store, query, res }) {
-      await store.dispatch('search/activate');
-      store.commit('search/setUserParams', query);
-
-      // TODO: consider moving the logic here into the store as mutations/actions
-      const entityUri = store.state.entity.id;
-
-      const overrideParams = {
-        qf: [],
-        rows: PER_PAGE
-      };
-
-      if (store.state.entity.collections[entityUri]) {
-        overrideParams.qf.push(`collection:${store.state.entity.collections[entityUri]}`);
-      } else {
-        const entityQuery = entities.getEntityQuery(entityUri);
-        overrideParams.qf.push(entityQuery);
-      }
-
-      store.commit('search/setUserParams', query);
-      store.commit('search/setOverrideParams', overrideParams);
-
-      await store.dispatch('search/run');
-      if (store.state.search.error && typeof res !== 'undefined') {
-        res.statusCode = store.state.search.errorStatusCode;
-      }
+    async fetch({ store, query }) {
+      await store.dispatch('entity/searchForRecords', query);
     },
 
     mounted() {
       this.$store.commit('search/setPill', this.title);
       this.$store.commit('search/disableCollectionFacet');
+      this.$store.dispatch('entity/searchForRecords', this.$route.query);
     },
 
     methods: {
@@ -304,6 +282,7 @@
     async beforeRouteLeave(to, from, next) {
       await this.$store.dispatch('search/deactivate');
       this.$store.commit('entity/setId', null); // needed to re-enable auto-suggest in header
+      this.$store.commit('entity/setEntity', null); // needed for best bets handling
       next();
     },
 
