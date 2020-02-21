@@ -7,6 +7,7 @@ localVue.use(BootstrapVue);
 
 const factory = () => shallowMount(VideoPlayer, {
   propsData: {
+    europeanaIdentifier: '/123/abc',
     src: 'https://example.org',
     type: 'video/webm'
   },
@@ -14,11 +15,11 @@ const factory = () => shallowMount(VideoPlayer, {
 });
 
 describe('components/media/VideoPlayer', () => {
-  it('has a source', async() => {
+  it('has a proxied source', async() => {
     const wrapper = factory();
     const videoSource = wrapper.find('[data-qa="video source"]');
 
-    videoSource.attributes().src.should.eq('https://example.org');
+    videoSource.attributes().src.should.eq('https://proxy.europeana.eu/123/abc?view=https%3A%2F%2Fexample.org');
   });
 
   it('has a MIME type', async() => {

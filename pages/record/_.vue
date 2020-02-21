@@ -80,7 +80,6 @@
         <div class="card p-3 mb-3 bg-grey">
           <MediaActionBar
             :url="selectedMedia.about"
-            :share-url="canonicalURL"
             :europeana-identifier="identifier"
             :use-proxy="useProxy"
             :rights-statement="rightsStatement"
@@ -183,7 +182,6 @@
       return {
         agents: null,
         altTitle: null,
-        canonicalURL: null,
         cardGridClass: null,
         concepts: null,
         description: null,
@@ -326,7 +324,6 @@
           this.selectedMedia.about = msg.data.id;
         }
       });
-      this.canonicalURL = window.location.href.split(/\?|#/)[0];
     },
 
     methods: {
@@ -382,7 +379,7 @@
           { hid: 'og:description', property: 'og:description', content: this.metaDescription },
           { hid: 'og:image', property: 'og:image', content: this.selectedMediaImage.src ? this.selectedMediaImage.src : '' },
           { hid: 'og:type', property: 'og:type', content: 'article' },
-          { hid: 'og:url', property: 'og:url', content: this.canonicalURL }
+          { hid: 'og:url', property: 'og:url', content: this.canonicalUrl }
         ]
       };
     }

@@ -25,15 +25,21 @@
         :left-image-src="section.fields.hasPart[0].fields.image.fields.file.url"
         :left-image-content-type="section.fields.hasPart[0].fields.image.fields.file.contentType"
         :left-image-attribution="attributionFields(section.fields.hasPart[0].fields)"
+        :left-image-width="section.fields.hasPart[0].fields.image.fields.file.details.image.width"
+        :left-image-height="section.fields.hasPart[0].fields.image.fields.file.details.image.height"
         :right-image-src="section.fields.hasPart[1].fields.image.fields.file.url"
         :right-image-content-type="section.fields.hasPart[1].fields.image.fields.file.contentType"
         :right-image-attribution="attributionFields(section.fields.hasPart[1].fields)"
+        :right-image-width="section.fields.hasPart[1].fields.image.fields.file.details.image.width"
+        :right-image-height="section.fields.hasPart[1].fields.image.fields.file.details.image.height"
       />
       <ImageWithAttribution
         v-else-if="contentType(section, 'imageWithAttribution')"
         :key="section.sys.id"
         :src="section.fields.image.fields.file.url"
         :content-type="section.fields.image.fields.file.contentType"
+        :width="section.fields.image.fields.file.details.image.width"
+        :height="section.fields.image.fields.file.details.image.height"
         :attribution="attributionFields(section.fields)"
       />
     </template>

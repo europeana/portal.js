@@ -119,7 +119,7 @@
         return this.editorialDepiction ? this.$t('goToRecord') : this.$t('entityDepictionCredit');
       },
       description() {
-        return this.editorialDescription ? { values: [this.editorialDescription], code: null } : entities.getEntityDescription(this.entity, this.$i18n.locale);
+        return this.editorialDescription ? { values: [this.editorialDescription], code: null } : null;
       },
       descriptionText() {
         return (this.description && this.description.values.length >= 1) ? this.description.values[0] : null;

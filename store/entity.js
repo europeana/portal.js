@@ -72,10 +72,9 @@ export const actions = {
     const userParams = Object.assign({}, query);
 
     const entityUri = state.id;
-    const contentTierQuery = 'contentTier:(2 OR 3 OR 4)';
 
     const overrideParams = {
-      qf: [contentTierQuery],
+      qf: [],
       rows: state.recordsPerPage
     };
 

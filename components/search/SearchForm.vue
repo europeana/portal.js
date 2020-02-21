@@ -121,7 +121,8 @@
           query: {
             view: this.view,
             ...this.queryUpdatesForFacetChanges({ collection: null }),
-            query: this.query
+            // default to empty string to prevent immediate redirect by /pages/search/index.vue if absent
+            query: this.query || ''
           }
         };
       },

@@ -375,7 +375,7 @@ describe('store/search', () => {
         const userQuery = 'calais';
         const userQf = 'TYPE:"IMAGE"';
         const overrideQf = 'edm_agent:"http://data.europeana.eu/agent/base/200"';
-        const profile = 'minimal,facets';
+        const profile = 'minimal';
         const facet = store.defaultFacetNames.join(',');
 
         const commit = sinon.spy();

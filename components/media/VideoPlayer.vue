@@ -15,7 +15,7 @@
     data-qa="video"
   >
     <source
-      :src="src"
+      :src="src | proxyMedia(europeanaIdentifier)"
       :type="type"
       data-qa="video source"
     >
@@ -27,6 +27,10 @@
     name: 'VideoPlayer',
 
     props: {
+      europeanaIdentifier: {
+        type: String,
+        required: true
+      },
       src: {
         type: String,
         required: true
