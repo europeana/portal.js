@@ -134,6 +134,7 @@
   import TierToggler from '../../components/search/TierToggler';
   import { thematicCollections } from '../../plugins/europeana/search';
 
+  import { diff } from 'deep-object-diff';
   import isEqual from 'lodash/isEqual';
   import pickBy from 'lodash/pickBy';
   import { mapState, mapGetters } from 'vuex';
@@ -290,14 +291,14 @@
       }
     },
     watch: {
-      // Updates to query come via routing changes, e.g. from the search form
-      query() {
-        this.$store.dispatch('search/queryFacets');
-      },
-      async $route(to) {
+      async $route(to, from) {
         this.$store.commit('search/setUserParams', to.query);
         await this.$store.dispatch('search/run');
-        await this.$store.dispatch('search/queryFacets');
+
+        const queryParamsChanged = Object.keys(diff(from.query, to.query));
+        if (queryParamsChanged.length !== 1 || queryParamsChanged[0] !== 'page') {
+          await this.$store.dispatch('search/queryFacets');
+        }
       }
     },
     async mounted() {
