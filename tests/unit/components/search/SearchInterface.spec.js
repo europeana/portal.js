@@ -61,10 +61,12 @@ const factory = (options = {}) => {
           ...options.storeGetters
         },
         mutations: {
+          setUserParams: () => null,
           setView: () => null
         },
         actions: {
-          queryFacets: () => null
+          queryFacets: () => null,
+          run: () => null
         }
       }
     }
@@ -280,7 +282,7 @@ describe('components/search/SearchInterface', () => {
 
           it('triggers rerouting', async() => {
             const wrapper = factory({ storeGetters });
-            const searchRerouter = sinon.spy(wrapper.vm, 'rerouteSearch');
+            const searchRerouter = sinon.spy(wrapper.vm, 'updateSearch');
 
             await wrapper.vm.changeFacet(facetName, newSelectedValues);
             searchRerouter.should.have.been.called;
@@ -290,7 +292,7 @@ describe('components/search/SearchInterface', () => {
         context('and they were unchanged', () => {
           it('does not trigger rerouting', async() => {
             const wrapper = factory({ storeGetters });
-            const searchRerouter = sinon.spy(wrapper.vm, 'rerouteSearch');
+            const searchRerouter = sinon.spy(wrapper.vm, 'updateSearch');
 
             await wrapper.vm.changeFacet(facetName, initialSelectedValues);
             searchRerouter.should.not.have.been.called;
@@ -310,7 +312,7 @@ describe('components/search/SearchInterface', () => {
 
           it('triggers rerouting', async() => {
             const wrapper = await factory({ storeGetters });
-            const searchRerouter = sinon.spy(wrapper.vm, 'rerouteSearch');
+            const searchRerouter = sinon.spy(wrapper.vm, 'updateSearch');
 
             await wrapper.vm.changeFacet(facetName, newSelectedValues);
             searchRerouter.should.have.been.called;
@@ -322,7 +324,7 @@ describe('components/search/SearchInterface', () => {
 
           it('does not trigger rerouting', async() => {
             const wrapper = factory({ storeGetters });
-            const searchRerouter = sinon.spy(wrapper.vm, 'rerouteSearch');
+            const searchRerouter = sinon.spy(wrapper.vm, 'updateSearch');
 
             await wrapper.vm.changeFacet(facetName, newSelectedValues);
             searchRerouter.should.not.have.been.called;
