@@ -293,6 +293,11 @@
       // Updates to query come via routing changes, e.g. from the search form
       query() {
         this.$store.dispatch('search/queryFacets');
+      },
+      async $route(to) {
+        this.$store.commit('search/setUserParams', to.query);
+        await this.$store.dispatch('search/run');
+        await this.$store.dispatch('search/queryFacets');
       }
     },
     async mounted() {
@@ -313,21 +318,17 @@
         }
         if (isEqual(this.filters[name], selected)) return;
 
-        return this.updateSearch(this.queryUpdatesForFacetChanges({ [name]: selected }));
+        return this.rerouteSearch(this.queryUpdatesForFacetChanges({ [name]: selected }));
       },
       changeMoreFacets(selected) {
-        return this.updateSearch(this.queryUpdatesForFacetChanges(selected));
+        return this.rerouteSearch(this.queryUpdatesForFacetChanges(selected));
       },
       paginationLink(val) {
         return this.localePath({ ...this.route, ...{ query: this.updateCurrentSearchQuery({ page: val }) } });
       },
-      async updateSearch(queryUpdates) {
+      rerouteSearch(queryUpdates) {
         const query = this.updateCurrentSearchQuery(queryUpdates);
         this.$router.push(this.localePath({ ...this.route, ...{ query } }));
-
-        this.$store.commit('search/setUserParams', query);
-        await this.$store.dispatch('search/run');
-        await this.$store.dispatch('search/queryFacets');
       },
       updateCurrentSearchQuery(updates = {}) {
         const current = {
@@ -356,7 +357,7 @@
           filters[filterName] = [];
         }
         this.$store.commit('search/clearResettableFilters');
-        return this.updateSearch(queryUpdatesForFilters(filters));
+        return this.rerouteSearch(queryUpdatesForFilters(filters));
       },
       isFilteredByDropdowns() {
         return this.$store.getters['search/hasResettableFilters'];
