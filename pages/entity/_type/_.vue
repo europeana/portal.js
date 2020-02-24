@@ -76,7 +76,8 @@
       EntityDetails,
       SearchInterface
     },
-    async middleware({ store, query }) {
+    async middleware({ app, store, query, redirect, params, error }) {
+      store.commit('search/disableCollectionFacet');
       const contentfulClient = createClient(query.mode);
 
       // fetch all curated entity pages
@@ -88,6 +89,7 @@
           'limit': 1000 // 1000 is the maximum number of results returned by contentful
         }).then((response) => {
           const curatedEntities = response.items.reduce((memo, entityPage) => {
+            // TODO: store desired path, not name
             memo[entityPage.fields.identifier] = entityPage.fields.name;
             return memo;
           }, {});
@@ -95,6 +97,52 @@
         }).catch(() => {
           store.commit('entity/setCuratedEntities', []);
         });
+      }
+
+      const entityUri = entities.getEntityUri(params.type, params.pathMatch);
+
+      // Fetch entity early as it's needed for getting English prefLabels which
+      // are needed for both redirects to preferred path, and best bets
+      if (entityUri !== store.state.entity.id) {
+        store.commit('entity/setPage', null);
+        store.commit('entity/setRelatedEntities', null);
+        let entity;
+        try {
+          entity = await entities.getEntity(params.type, params.pathMatch);
+        } catch (err) {
+          const statusCode = (typeof err.statusCode !== 'undefined') ? err.statusCode : 500;
+          return error({
+            message: err.message,
+            statusCode
+          });
+        }
+        store.commit('entity/setEntity', entity.entity);
+        store.commit('entity/setId', entityUri);
+      }
+
+      const entity = store.state.entity.entity;
+
+      const curatedEntityName = store.state.entity.curatedEntities[entityUri];
+      const desiredPath = entities.getEntitySlug(entity.id, curatedEntityName || entity.prefLabel.en);
+
+      if (params.pathMatch !== desiredPath) {
+        const redirectPath = app.localePath({
+          name: 'entity-type-all',
+          params: { type: params.type, pathMatch: encodeURIComponent(desiredPath) }
+        });
+        return redirect(302, redirectPath);
+      }
+
+      // TODO: move to global middleware?
+      const currentPage = pageFromQuery(query.page);
+      if (currentPage === null) {
+        // Redirect non-positive integer values for `page` to `page=1`
+        // query.page = '1';
+        return redirect(app.localePath({
+          name: 'entity-type-all',
+          params: { type: params.type, pathMatch: params.pathMatch },
+          query: { page: 1 }
+        }));
       }
     },
 
@@ -172,38 +220,23 @@
       }
     },
 
-    asyncData({ query, params, res, redirect, app, store }) {
-      store.commit('search/disableCollectionFacet');
-      const currentPage = pageFromQuery(query.page);
-      const entityUri = entities.getEntityUri(params.type, params.pathMatch);
+    asyncData({ query, params, res, app, store }) {
+      const entityUri = store.state.entity.entity.id;
 
       // Prevent re-requesting entity content from APIs if already loaded,
       // e.g. when paginating through entity search results
-      if (entityUri === store.state.entity.id) {
+      if (store.state.entity.entity && store.state.entity.relatedEntities) {
         return {
           entity: store.state.entity.entity,
           page: store.state.entity.page,
           relatedEntities: store.state.entity.relatedEntities
         };
       }
-      store.commit('entity/setId', entityUri);
-
-      if (currentPage === null) {
-        // Redirect non-positive integer values for `page` to `page=1`
-        query.page = '1';
-        return redirect(app.localePath({
-          name: 'entity-type-all',
-          params: { type: params.type, pathMatch: params.pathMatch },
-          query: { page: 1 }
-        }));
-      }
 
       const contentfulClient = createClient(query.mode);
-
       const curatedEntityName = store.state.entity.curatedEntities[entityUri];
 
       return axios.all([
-        entities.getEntity(params.type, params.pathMatch),
         entities.relatedEntities(params.type, params.pathMatch, { origin: query.recordApi })
       ].concat(!curatedEntityName ? [] : contentfulClient.getEntries({
         'locale': app.i18n.isoLocale(),
@@ -212,26 +245,16 @@
         'include': 2,
         'limit': 1
       })))
-        .then(axios.spread((entity, related, entries) => {
+        .then(axios.spread(async(related, entries) => {
           const entityPage = entries && entries.total > 0 ? entries.items[0].fields : null;
-          const desiredPath = entities.getEntitySlug(entity.entity.id, curatedEntityName || entity.entity.prefLabel.en);
 
           // Store content for reuse should a redirect be needed, below, or when
           // navigating back to this page, e.g. from a search result.
-          store.commit('entity/setEntity', entity.entity);
           store.commit('entity/setPage', entityPage);
           store.commit('entity/setRelatedEntities', related);
 
-          if (params.pathMatch !== desiredPath) {
-            const redirectPath = app.localePath({
-              name: 'entity-type-all',
-              params: { type: params.type, pathMatch: encodeURIComponent(desiredPath) }
-            });
-            return redirect(302, redirectPath);
-          }
-
           return {
-            entity: entity.entity,
+            entity: store.state.entity.entity,
             page: entityPage,
             relatedEntities: related
           };
@@ -244,13 +267,12 @@
         });
     },
 
-    async fetch({ store, query }) {
+    async fetch({ query, store }) {
       await store.dispatch('entity/searchForRecords', query);
     },
 
     mounted() {
       this.$store.commit('search/setPill', this.title);
-      this.$store.dispatch('entity/searchForRecords', this.$route.query);
     },
 
     methods: {
@@ -276,7 +298,6 @@
     },
 
     async beforeRouteLeave(to, from, next) {
-      console.log('leaving entity page');
       await this.$store.dispatch('search/deactivate');
       this.$store.commit('entity/setId', null); // needed to re-enable auto-suggest in header
       this.$store.commit('entity/setEntity', null); // needed for best bets handling
