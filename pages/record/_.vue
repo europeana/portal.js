@@ -161,6 +161,7 @@
   import MediaThumbnailGrid from '../../components/record/MediaThumbnailGrid';
   import MetadataField from '../../components/record/MetadataField';
 
+  import apiConfig from '../../plugins/europeana/api';
   import getRecord, { similarItemsQuery } from '../../plugins/europeana/record';
   import search from '../../plugins/europeana/search';
   import { isIIIFPresentation, isRichMedia } from '../../plugins/media';
@@ -202,10 +203,10 @@
 
     computed: {
       europeanaAgents() {
-        return (this.agents || []).filter((agent) => agent.about.startsWith('http://data.europeana.eu/agent/'));
+        return (this.agents || []).filter((agent) => agent.about.startsWith(`${apiConfig.data.origin}/agent/`));
       },
       europeanaConcepts() {
-        return (this.concepts || []).filter((concept) => concept.about.startsWith('http://data.europeana.eu/concept/'));
+        return (this.concepts || []).filter((concept) => concept.about.startsWith(`${apiConfig.data.origin}/concept/`));
       },
       europeanaEntityUris() {
         const entities = this.europeanaConcepts.concat(this.europeanaAgents);
@@ -283,12 +284,12 @@
       }
     },
 
-    asyncData({ env, params, res, app, redirect }) {
+    asyncData({ env, params, res, app, redirect, query }) {
       if (env.RECORD_PAGE_REDIRECT_PATH) {
         return redirect(app.localePath({ path: env.RECORD_PAGE_REDIRECT_PATH }));
       }
 
-      return getRecord(`/${params.pathMatch}`)
+      return getRecord(`/${params.pathMatch}`, { origin: query.recordApi })
         .then((result) => {
           return result.record;
         })
@@ -353,6 +354,8 @@
           rows: 4,
           profile: 'minimal',
           facet: ''
+        }, {
+          origin: this.$route.query.recordApi
         })
           .catch(() => {
             return noSimilarItems;

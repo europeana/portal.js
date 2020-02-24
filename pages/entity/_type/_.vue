@@ -197,7 +197,7 @@
 
       return axios.all([
         entities.getEntity(params.type, params.pathMatch),
-        entities.relatedEntities(params.type, params.pathMatch)
+        entities.relatedEntities(params.type, params.pathMatch, { origin: query.recordApi })
       ].concat(!store.state.entity.curatedEntities.includes(entityUri) ? [] : contentfulClient.getEntries({
         'locale': app.i18n.isoLocale(),
         'content_type': 'entityPage',

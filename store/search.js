@@ -257,8 +257,14 @@ export const actions = {
 
     if (!apiParams.profile) apiParams.profile = 'minimal';
 
+    const apiOptions = {};
+    if (apiParams.recordApi) {
+      apiOptions.origin = apiParams.recordApi;
+      delete apiParams.recordApi;
+    }
+
     commit('setApiParams', apiParams);
-    commit('setApiOptions', {});
+    commit('setApiOptions', apiOptions);
 
     await dispatch('applyCollectionSpecificSettings');
   },
