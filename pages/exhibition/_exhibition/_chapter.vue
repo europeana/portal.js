@@ -189,6 +189,7 @@
     }
 
     &.compare-image-wrapper {
+      display: inline-block;
       img {
         max-height: 85vh;
       }
