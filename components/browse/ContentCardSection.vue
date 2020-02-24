@@ -4,7 +4,7 @@
     class="browse-section row mb-5"
     data-qa="browse section"
   >
-    <div class="col-12 col-lg-6">
+    <div class="col-12 col-lg-9">
       <h2
         data-qa="section headline"
       >
@@ -64,7 +64,7 @@
   }
 
   h2 {
-    font-size: 1.25rem;
+    font-size: 1.5rem;
     font-weight: 600;
     letter-spacing: 0.12125rem;
   }
