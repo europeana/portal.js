@@ -19,7 +19,7 @@
         v-if="!hero"
         class="row"
       >
-        <div class="col-12 col-lg-9 col">
+        <div class="col-12 col-lg-9 col mt-3 mb-5">
           <h1>{{ page.name }}</h1>
           <p
             v-if="page.headline"
@@ -93,3 +93,12 @@
     }
   };
 </script>
+
+<style lang="scss" scoped>
+  header .col {
+    *:last-child  {
+      margin-bottom: 0;
+    }
+  }
+</style>
+
