@@ -164,28 +164,24 @@ function normalizeEntityId(id) {
  * If `entityPage.name` is present, that will be used in the slug. Otherwise
  * `prefLabel.en` if present.
  *
- * @param {Object} entity an entity object as retrieved from the entity API
- * @param {string} title the title of the entity
- * @param {Object} entityPage Contentful entry for the entity page, with all locales
+ * @param {string} id entity ID, i.e. data.europeana.eu URI
+ * @param {string} name the English name of the entity
  * @return {string} path
- * @example Slug based on `entityPage.name`
- *    const slug = getEntitySlug({
- *      id: 'http://data.europeana.eu/concept/base/48',
- *      prefLabel: { en: 'Photograph' }
- *    }, {
- *      name: 'Photography'
- *    });
+ * @example
+ *    const slug = getEntitySlug(
+ *      'http://data.europeana.eu/concept/base/48',
+ *      'Photography'
+ *    );
  *    console.log(slug); // expected output: '48-photography'
- * @example Slug based on `entity.prefLabel.en`
- *    const slug = getEntitySlug({
- *      id: 'http://data.europeana.eu/agent/base/59832',
- *      prefLabel: { en: 'Vincent van Gogh' }
- *    });
+ * @example
+ *    const slug = getEntitySlug(
+ *      'http://data.europeana.eu/agent/base/59832',
+ *      'Vincent van Gogh'
+ *    );
  *    console.log(slug); // expected output: '59832-vincent-van-gogh'
  */
-export function getEntitySlug(entity, entityPage) {
-  const name = (entityPage && entityPage.name) ? entityPage.name : entity.prefLabel.en;
-  const entityId = entity.id.toString().split('/').pop();
+export function getEntitySlug(id, name) {
+  const entityId = id.toString().split('/').pop();
   const path = entityId + (name ? '-' + name.toLowerCase().replace(/ /g, '-') : '');
   return path;
 }

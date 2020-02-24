@@ -86,10 +86,14 @@
           'content_type': 'entityPage',
           'include': 0,
           'limit': 1000 // 1000 is the maximum number of results returned by contentful
-        }).then(async(response) => {
-          await store.commit('entity/setCuratedEntities', response.items.map(entityPage => entityPage.fields.identifier));
-        }).catch(async() => {
-          await store.commit('entity/setCuratedEntities', []);
+        }).then((response) => {
+          const curatedEntities = response.items.reduce((memo, entityPage) => {
+            memo[entityPage.fields.identifier] = entityPage.fields.name;
+            return memo;
+          }, {});
+          store.commit('entity/setCuratedEntities', curatedEntities);
+        }).catch(() => {
+          store.commit('entity/setCuratedEntities', []);
         });
       }
     },
@@ -194,34 +198,26 @@
 
       const contentfulClient = createClient(query.mode);
 
+      const curatedEntityName = store.state.entity.curatedEntities[entityUri];
+
       return axios.all([
         entities.getEntity(params.type, params.pathMatch),
         entities.relatedEntities(params.type, params.pathMatch)
-      ].concat(!store.state.entity.curatedEntities.includes(entityUri) ? [] : contentfulClient.getEntries({
+      ].concat(!curatedEntityName ? [] : contentfulClient.getEntries({
         'locale': app.i18n.isoLocale(),
         'content_type': 'entityPage',
         'fields.identifier': entityUri,
         'include': 2,
         'limit': 1
-      })
-      // URL slug is always derived from English, so if viewing in another locale,
-      // we also need to get the English, solely for the URL slug from `name`.
-      ).concat(app.i18n.locale === 'en' || !store.state.entity.curatedEntities.includes(entityUri) ? [] : contentfulClient.getEntries({
-        'locale': 'en-GB',
-        'content_type': 'entityPage',
-        'fields.identifier': entityUri,
-        'include': 2,
-        'limit': 1
       })))
-        .then(axios.spread((entity, related, localisedEntries, defaultLocaleEntries) => {
-          const localisedEntityPage = localisedEntries && localisedEntries.total > 0 ? localisedEntries.items[0].fields : null;
-          const defaultEntityPage = defaultLocaleEntries && defaultLocaleEntries.total > 0 ? defaultLocaleEntries.items[0].fields : null;
-          const desiredPath = entities.getEntitySlug(entity.entity, defaultEntityPage || localisedEntityPage);
+        .then(axios.spread((entity, related, entries) => {
+          const entityPage = entries && entries.total > 0 ? entries.items[0].fields : null;
+          const desiredPath = entities.getEntitySlug(entity.entity.id, curatedEntityName || entity.entity.prefLabel.en);
 
           // Store content for reuse should a redirect be needed, below, or when
           // navigating back to this page, e.g. from a search result.
           store.commit('entity/setEntity', entity.entity);
-          store.commit('entity/setPage', localisedEntityPage);
+          store.commit('entity/setPage', entityPage);
           store.commit('entity/setRelatedEntities', related);
 
           if (params.pathMatch !== desiredPath) {
@@ -234,7 +230,7 @@
 
           return {
             entity: entity.entity,
-            page: localisedEntityPage,
+            page: entityPage,
             relatedEntities: related
           };
         }))
@@ -247,6 +243,9 @@
     },
 
     async fetch({ store, query, res }) {
+      store.commit('search/disableCollectionFacet');
+      // TODO: return if URL is not what it should be
+      //       keep DRY by putting desiredPath (above) into a store getter
       await store.dispatch('search/activate');
       store.commit('search/setUserParams', query);
 
@@ -276,7 +275,6 @@
 
     mounted() {
       this.$store.commit('search/setPill', this.title);
-      this.$store.commit('search/disableCollectionFacet');
     },
 
     methods: {
@@ -302,11 +300,12 @@
     },
 
     async beforeRouteLeave(to, from, next) {
+      console.log('leaving entity page');
       await this.$store.dispatch('search/deactivate');
       this.$store.commit('entity/setId', null); // needed to re-enable auto-suggest in header
       next();
     },
 
-    watchQuery: ['api', 'page', 'qf', 'query', 'reusability']
+    watchQuery: ['query', 'page']
   };
 </script>

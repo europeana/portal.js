@@ -234,6 +234,7 @@ export const actions = {
   },
 
   async deactivate({ commit, dispatch }) {
+    console.log('deactivate search');
     commit('setActive', false);
     await dispatch('reset');
   },
@@ -243,8 +244,10 @@ export const actions = {
     commit('setUserParams', {});
     commit('setOverrideParams', {});
     commit('setPill', null);
+    // commit('setFacets', []);
   },
 
+  // TODO: replace with a getter?
   async deriveApiSettings({ commit, dispatch, state }) {
     // Coerce qf from user input into an array as it may be a single string
     const userParams = Object.assign({}, state.userParams || {});
@@ -280,6 +283,7 @@ export const actions = {
    */
   async run({ dispatch, state }) {
     await dispatch('deriveApiSettings');
+    console.log('run');
 
     const paramsForItems = {
       ...state.apiParams,
@@ -294,11 +298,19 @@ export const actions = {
   },
 
   async queryFacets({ commit, getters, rootState, rootGetters, dispatch, state }) {
+    await dispatch('deriveApiSettings');
+    if (!state.active) {
+      console.log('search is inactive');
+      return;
+    }
+    console.log('queryFacets');
     const paramsForFacets = {
       ...state.apiParams,
       rows: 0,
       profile: 'facets'
     };
+
+    console.log('paramsForFacets', JSON.stringify(paramsForFacets, null, 2));
 
     search(paramsForFacets, state.apiOptions || {})
       .then((response) => {

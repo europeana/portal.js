@@ -36,6 +36,7 @@
     },
 
     async fetch({ store, query, res }) {
+      // console.log('search page activating search');
       await store.dispatch('search/activate');
       store.commit('search/setUserParams', query);
 
@@ -45,7 +46,6 @@
       }
 
       await store.dispatch('search/run');
-
       if (store.state.search.error && typeof res !== 'undefined') {
         res.statusCode = store.state.search.errorStatusCode;
       }
@@ -67,6 +67,6 @@
       next();
     },
 
-    watchQuery: ['api', 'page', 'qf', 'query', 'reusability']
+    watchQuery: ['query', 'page']
   };
 </script>

@@ -55,7 +55,7 @@
           name: 'entity-type-all',
           params: {
             type: getEntityTypeHumanReadable(entity.type),
-            pathMatch: getEntitySlug(entity)
+            pathMatch: getEntitySlug(entity.id, entity.prefLabel.en)
           }
         };
       }

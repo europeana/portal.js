@@ -209,7 +209,8 @@
         return this.localePath({
           name: 'entity-type-all', params: {
             type: getEntityTypeHumanReadable(uriMatch[1]),
-            pathMatch: getEntitySlug(entity)
+            // TODO: use stored entity/curatedEntities for prefLabel, if set
+            pathMatch: getEntitySlug(entity.id, entity.prefLabel.en)
           }
         });
       }
