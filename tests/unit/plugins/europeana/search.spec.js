@@ -8,7 +8,7 @@ import axios from 'axios';
 axios.defaults.adapter = require('axios/lib/adapters/http');
 
 const apiOrigin = config.record.origin;
-const apiEndpoint = '/api/v2/search.json';
+const apiEndpoint = `${config.record.path}/search.json`;
 const apiKey = 'abcdef';
 
 const baseRequest = nock(apiOrigin).get(apiEndpoint);
@@ -152,6 +152,20 @@ describe('plugins/europeana/search', () => {
         await search({ query: 'anything' }, { origin: overrideapiOrigin });
 
         nock.isDone().should.be.true;
+      });
+
+      context('with origin supplied', () => {
+        const customOrigin = 'https://api.example.org';
+        it('queries that API', async() => {
+          nock(customOrigin)
+            .get(apiEndpoint)
+            .query(true)
+            .reply(200, defaultResponse);
+
+          await search({ query: 'anything' }, { origin: customOrigin });
+
+          nock.isDone().should.be.true;
+        });
       });
     });
 

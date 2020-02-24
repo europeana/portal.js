@@ -11,6 +11,7 @@
 
 <script>
   import ContentCard from '../generic/ContentCard';
+  import apiConfig from '../../plugins/europeana/api';
   import { getEntityTypeHumanReadable, getWikimediaThumbnailUrl } from '../../plugins/europeana/entity';
   import { isEuropeanaRecordId } from '../../plugins/europeana/record';
 
@@ -84,10 +85,10 @@
         return (typeof this.fields.identifier === 'string') && isEuropeanaRecordId(this.fields.identifier);
       },
       forEuropeanaEntity() {
-        return (typeof this.fields.identifier === 'string') && this.fields.identifier.includes('://data.europeana.eu/');
+        return (typeof this.fields.identifier === 'string') && this.fields.identifier.includes(apiConfig.data.origin);
       },
       entityRouterLink(uri, slug) {
-        const uriMatch = uri.match('^http://data.europeana.eu/([^/]+)(/base)?/(.+)$');
+        const uriMatch = uri.match(`^${apiConfig.data.origin}/([^/]+)(/base)?/(.+)$`);
         return {
           name: 'entity-type-all', params: { type: getEntityTypeHumanReadable(uriMatch[1]), pathMatch: slug ? slug : uriMatch[3] }
         };

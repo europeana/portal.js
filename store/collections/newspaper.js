@@ -11,6 +11,7 @@ export const getters = {
 
     if (getters.apiParams.api === 'fulltext') {
       options.origin = apiConfig.newspaper.origin;
+      options.path = apiConfig.newspaper.path;
     }
 
     return options;

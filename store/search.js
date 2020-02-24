@@ -234,7 +234,6 @@ export const actions = {
   },
 
   async deactivate({ commit, dispatch }) {
-    console.log('deactivate search');
     commit('setActive', false);
     await dispatch('reset');
   },
@@ -260,8 +259,14 @@ export const actions = {
 
     if (!apiParams.profile) apiParams.profile = 'minimal';
 
+    const apiOptions = {};
+    if (apiParams.recordApi) {
+      apiOptions.origin = apiParams.recordApi;
+      delete apiParams.recordApi;
+    }
+
     commit('setApiParams', apiParams);
-    commit('setApiOptions', {});
+    commit('setApiOptions', apiOptions);
 
     await dispatch('applyCollectionSpecificSettings');
   },
@@ -283,7 +288,6 @@ export const actions = {
    */
   async run({ dispatch, state }) {
     await dispatch('deriveApiSettings');
-    console.log('run');
 
     const paramsForItems = {
       ...state.apiParams,
@@ -300,17 +304,14 @@ export const actions = {
   async queryFacets({ commit, getters, rootState, rootGetters, dispatch, state }) {
     await dispatch('deriveApiSettings');
     if (!state.active) {
-      console.log('search is inactive');
       return;
     }
-    console.log('queryFacets');
+
     const paramsForFacets = {
       ...state.apiParams,
       rows: 0,
       profile: 'facets'
     };
-
-    console.log('paramsForFacets', JSON.stringify(paramsForFacets, null, 2));
 
     search(paramsForFacets, state.apiOptions || {})
       .then((response) => {
