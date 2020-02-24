@@ -19,7 +19,7 @@
         v-if="!hero"
         class="row"
       >
-        <div class="col-12 col-lg-9 col mt-3 mb-5">
+        <div class="col-12 col-lg-9 col mt-3">
           <h1>{{ page.name }}</h1>
           <p
             v-if="page.headline"
@@ -96,6 +96,8 @@
 
 <style lang="scss" scoped>
   header .col {
+    margin-bottom: 2.75rem;
+
     *:last-child  {
       margin-bottom: 0;
     }
