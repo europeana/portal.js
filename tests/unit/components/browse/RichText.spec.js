@@ -20,4 +20,20 @@ describe('components/browse/RichText', () => {
 
     markdown.html().should.contain('<strong>This is bold text</strong>');
   });
+
+  it('shows in a card', () => {
+    const wrapper = factory();
+    wrapper.setProps({ richTextIsCard: true });
+
+    const markdown = wrapper.find('[data-qa="markdown"]');
+    markdown.find('div.card').exists().should.be.true;
+  });
+
+  it('shows in as text', () => {
+    const wrapper = factory();
+    wrapper.setProps({ richTextIsCard: false });
+
+    const markdown = wrapper.find('[data-qa="markdown"]');
+    markdown.find('div.card').exists().should.be.false;
+  });
 });

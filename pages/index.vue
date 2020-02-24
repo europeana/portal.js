@@ -19,7 +19,7 @@
         v-if="!hero"
         class="row"
       >
-        <div class="col-12 col-lg-9 col">
+        <div class="col-12 col-lg-9 col mt-3">
           <h1>{{ page.name }}</h1>
           <p
             v-if="page.headline"
@@ -84,11 +84,23 @@
         title: this.page.name,
         meta: [
           { hid: 'title', name: 'title', content: this.page.name },
+          { hid: 'og:title', property: 'og:title', content: this.page.name }
+        ].concat(this.page.description ? [
           { hid: 'description', name: 'description', content: this.page.description },
-          { hid: 'og:title', property: 'og:title', content: this.page.name },
           { hid: 'og:description', property: 'og:description', content: this.page.description }
-        ]
+        ] : [])
       };
     }
   };
 </script>
+
+<style lang="scss" scoped>
+  header .col {
+    margin-bottom: 2.75rem;
+
+    *:last-child  {
+      margin-bottom: 0;
+    }
+  }
+</style>
+

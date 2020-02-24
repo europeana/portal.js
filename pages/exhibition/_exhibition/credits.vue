@@ -5,8 +5,9 @@
     <b-container class="pb-3">
       <b-row>
         <b-col
-          cols="9"
-          class="pb-3"
+          cols="12"
+          lg="9"
+          class="pb-0 pb-lg-3"
         >
           <h1>{{ $t('exhibitions.credits') }}</h1>
           <!-- eslint-disable vue/no-v-html -->
@@ -102,7 +103,8 @@
         title: this.title,
         meta: [
           { hid: 'title', name: 'title', content: this.title },
-          { hid: 'og:title', property: 'og:title', content: this.title }
+          { hid: 'og:title', property: 'og:title', content: this.title },
+          { hid: 'og:type', property: 'og:type', content: 'article' }
         ]
       };
     }
@@ -115,4 +117,3 @@
     margin: 1rem 0;
   }
 </style>
-

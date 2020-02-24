@@ -102,6 +102,7 @@ function resultsFromApiResponse(response) {
  * @param {string} params.wskey API key, to override `config.record.key`
  * @param {Object} options search options
  * @param {string} options.origin base URL for API, overriding default `config.record.origin`
+ * @param {string} options.path path prefix for API, overriding default `config.record.path`
  * @return {{results: Object[], totalResults: number, facets: FacetSet, error: string}} search results for display
  */
 function search(params, options = {}) {
@@ -112,9 +113,11 @@ function search(params, options = {}) {
   const rows = Math.max(0, Math.min(maxResults + 1 - start, perPage));
 
   const origin = options.origin || config.record.origin;
+  const path = options.path || config.record.path;
+
   const query = (typeof params.query === 'undefined' || params.query === '') ? '*:*' : params.query;
 
-  return axios.get(`${origin}/api/v2/search.json`, {
+  return axios.get(`${origin}${path}/search.json`, {
     paramsSerializer(params) {
       return qs.stringify(params, { arrayFormat: 'repeat' });
     },
@@ -153,16 +156,22 @@ function search(params, options = {}) {
  */
 export function addContentTierFilter(qf) {
   let newQf = qf ? [].concat(qf) : [];
-  if (!newQf.some(v => /^contentTier:/.test(v))) {
+  if (!hasFilterForField(newQf, 'contentTier')) {
     // If no content tier qf is queried, tier 0 content is
     // excluded by default as it is considered not to meet
-    // Europeana's publishing criteria.
-    newQf.push('contentTier:(1 OR 2 OR 3 OR 4)');
+    // Europeana's publishing criteria. Also tier 1 content is exluded if this
+    // is a search filtered by collection.
+    const contentTierFilter = hasFilterForField(newQf, 'collection') ? '2 OR 3 OR 4' : '1 OR 2 OR 3 OR 4';
+    newQf.push(`contentTier:(${contentTierFilter})`);
   }
   // contentTier:* is irrelevant so is removed
   newQf = newQf.filter(v => v !== 'contentTier:*');
 
   return newQf;
 }
+
+const hasFilterForField = (filters, fieldName) => {
+  return filters.some(v => new RegExp(`^${fieldName}:`).test(v));
+};
 
 export default search;

@@ -80,7 +80,6 @@
         <div class="card p-3 mb-3 bg-grey">
           <MediaActionBar
             :url="selectedMedia.about"
-            :share-url="canonicalURL"
             :europeana-identifier="identifier"
             :use-proxy="useProxy"
             :rights-statement="rightsStatement"
@@ -162,6 +161,7 @@
   import MediaThumbnailGrid from '../../components/record/MediaThumbnailGrid';
   import MetadataField from '../../components/record/MetadataField';
 
+  import apiConfig from '../../plugins/europeana/api';
   import getRecord, { similarItemsQuery } from '../../plugins/europeana/record';
   import search from '../../plugins/europeana/search';
   import { isIIIFPresentation, isRichMedia } from '../../plugins/media';
@@ -183,7 +183,6 @@
       return {
         agents: null,
         altTitle: null,
-        canonicalURL: null,
         cardGridClass: null,
         concepts: null,
         description: null,
@@ -204,10 +203,10 @@
 
     computed: {
       europeanaAgents() {
-        return (this.agents || []).filter((agent) => agent.about.startsWith('http://data.europeana.eu/agent/'));
+        return (this.agents || []).filter((agent) => agent.about.startsWith(`${apiConfig.data.origin}/agent/`));
       },
       europeanaConcepts() {
-        return (this.concepts || []).filter((concept) => concept.about.startsWith('http://data.europeana.eu/concept/'));
+        return (this.concepts || []).filter((concept) => concept.about.startsWith(`${apiConfig.data.origin}/concept/`));
       },
       europeanaEntityUris() {
         const entities = this.europeanaConcepts.concat(this.europeanaAgents);
@@ -285,12 +284,12 @@
       }
     },
 
-    asyncData({ env, params, res, app, redirect }) {
+    asyncData({ env, params, res, app, redirect, query }) {
       if (env.RECORD_PAGE_REDIRECT_PATH) {
         return redirect(app.localePath({ path: env.RECORD_PAGE_REDIRECT_PATH }));
       }
 
-      return getRecord(`/${params.pathMatch}`)
+      return getRecord(`/${params.pathMatch}`, { origin: query.recordApi })
         .then((result) => {
           return result.record;
         })
@@ -326,7 +325,6 @@
           this.selectedMedia.about = msg.data.id;
         }
       });
-      this.canonicalURL = window.location.href.split(/\?|#/)[0];
     },
 
     methods: {
@@ -356,6 +354,8 @@
           rows: 4,
           profile: 'minimal',
           facet: ''
+        }, {
+          origin: this.$route.query.recordApi
         })
           .catch(() => {
             return noSimilarItems;
@@ -382,7 +382,7 @@
           { hid: 'og:description', property: 'og:description', content: this.metaDescription },
           { hid: 'og:image', property: 'og:image', content: this.selectedMediaImage.src ? this.selectedMediaImage.src : '' },
           { hid: 'og:type', property: 'og:type', content: 'article' },
-          { hid: 'og:url', property: 'og:url', content: this.canonicalURL }
+          { hid: 'og:url', property: 'og:url', content: this.canonicalUrl }
         ]
       };
     }

@@ -289,7 +289,22 @@
         return this.$store.getters['search/activeView'];
       }
     },
+    watch: {
+      query() {
+        this.$store.dispatch('search/queryFacets');
+      },
+      qf() {
+        this.$store.dispatch('search/queryFacets');
+      },
+      api() {
+        this.$store.dispatch('search/queryFacets');
+      },
+      reusability() {
+        this.$store.dispatch('search/queryFacets');
+      }
+    },
     created() {
+      this.$store.dispatch('search/queryFacets');
       if (this.$route.query.view) {
         this.$store.commit('search/setView', this.$route.query.view);
       }
