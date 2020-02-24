@@ -14,7 +14,7 @@
         <b-img-lazy
           :src="depictionThumbnail"
           fluid
-          :alt="$t('depiction', { title: title })"
+          :alt="$t('depiction', { title: title.values[0] })"
           data-qa="entity depiction"
           @error.native="depictionNotFound"
         />
