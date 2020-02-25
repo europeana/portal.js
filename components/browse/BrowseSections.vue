@@ -95,7 +95,6 @@
 
 <style lang="scss" scoped>
   /deep/ .attribution {
-    align-items: flex-start;
     &:after {
       padding-top: 0.2rem;
     }

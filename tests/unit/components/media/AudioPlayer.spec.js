@@ -7,6 +7,7 @@ localVue.use(BootstrapVue);
 
 const factory = () => shallowMount(AudioPlayer, {
   propsData: {
+    europeanaIdentifier: '/123/abc',
     src: 'https://example.org',
     type: 'audio/mpeg'
   },
@@ -14,11 +15,11 @@ const factory = () => shallowMount(AudioPlayer, {
 });
 
 describe('components/media/AudioPlayer', () => {
-  it('has a source', async() => {
+  it('has a proxied source', async() => {
     const wrapper = factory();
     const audioSource = wrapper.find('[data-qa="audio source"]');
 
-    audioSource.attributes().src.should.eq('https://example.org');
+    audioSource.attributes().src.should.eq('https://proxy.europeana.eu/123/abc?view=https%3A%2F%2Fexample.org');
   });
 
   it('has a MIME type', async() => {

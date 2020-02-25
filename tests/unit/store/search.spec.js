@@ -6,8 +6,8 @@ import sinon from 'sinon';
 
 axios.defaults.adapter = require('axios/lib/adapters/http');
 
-const apiUrl = 'https://api.europeana.eu';
-const apiEndpoint = '/api/v2/search.json';
+const apiUrl = apiConfig.record.origin;
+const apiEndpoint = `${apiConfig.record.path}/search.json`;
 const apiKey = '1234';
 
 const baseRequest = nock(apiUrl).get(apiEndpoint);
@@ -375,7 +375,7 @@ describe('store/search', () => {
         const userQuery = 'calais';
         const userQf = 'TYPE:"IMAGE"';
         const overrideQf = 'edm_agent:"http://data.europeana.eu/agent/base/200"';
-        const profile = 'minimal,facets';
+        const profile = 'minimal';
         const facet = store.defaultFacetNames.join(',');
 
         const commit = sinon.spy();
