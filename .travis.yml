@@ -4,6 +4,11 @@ before_install:
   - sudo apt-get remove --purge -yq google-chrome-stable
   - sudo apt-get install -yq chromium-browser
 before_script:
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
   - env > .env
 script:
   - npm run test:ci
+after_script:
+  - ./cc-test-reporter after-build -t simplecov --exit-code $TRAVIS_TEST_RESULT
