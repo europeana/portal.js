@@ -145,7 +145,7 @@
 
     methods: {
       initQuery() {
-        this.query = this.onSearchablePage ? (this.$store.state.search.userParams || {}).query : '';
+        this.query = this.$route.query.query;
       },
 
       selectSuggestion(value) {

@@ -28,6 +28,10 @@ const factory = (options = {}) => shallowMount(SearchForm, {
     ...{
       $i18n: { locale: 'en' },
       $t: () => {},
+      // TODO: finish
+      $route: () => {
+        // return
+      },
       localePath: (opts) => {
         return router.resolve(opts).route.fullPath;
       }
