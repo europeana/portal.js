@@ -34,6 +34,12 @@
         md="3"
         class="pb-3"
       >
+        <h2
+          v-if="relatedEntities.length > 0"
+          class="is-size-4 text-uppercase font-weight-bold"
+        >
+          {{ $t('relatedCollections') }}
+        </h2>
         <EntityCards
           v-if="relatedEntities"
           :entities="relatedEntities"
