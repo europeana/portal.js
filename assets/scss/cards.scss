@@ -72,7 +72,9 @@
   }
 
   &.entity-card {
+    background: transparent;
     border: 0;
+    box-shadow: none;
     justify-content: flex-end;
     margin-bottom: 2.5rem;
     margin-left: 0.9rem;
@@ -99,9 +101,7 @@
       z-index: 1;
     }
 
-    @media (min-width: $bp-medium) {
-      background: transparent;
-      box-shadow: none;
+    @media (min-width: $bp-medium) {      
       min-height: auto;
     }
   }
