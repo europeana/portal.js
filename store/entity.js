@@ -86,7 +86,7 @@ export const actions = {
 
       if (!userParams.query) {
         const englishPrefLabel = getters.englishPrefLabel;
-        if (englishPrefLabel) overrideParams.query = `"${englishPrefLabel}"`;
+        if (englishPrefLabel) overrideParams.query = englishPrefLabel;
       }
     }
 
