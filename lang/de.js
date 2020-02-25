@@ -80,12 +80,14 @@ export default {
       "name": "Bereitstellendes Land"
     },
     "REUSABILITY": {
-      "name": "Kann ich es wiederverwenden?"
+      "name": "Kann ich es wiederverwenden?",
+      "options": {
+        "open": "Ja"
+      }
     },
-    "THEME": {
+    "collection": {
       "name": "Kategorie",
       "options": {
-        "all": "Alle Artikel",
         "ww1": "1914-1918",
         "archaeology": "Archäologie",
         "art": "Kunst",
@@ -187,7 +189,6 @@ export default {
   },
   "contentfulManual": {
     "headerNavigation": {
-      "teachers": "Lehrerinnen und Lehrer",
       "explore": "Erkunden"
     },
     "footerNavigation": {

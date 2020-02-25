@@ -38,7 +38,14 @@
     async fetch({ store, query, res }) {
       await store.dispatch('search/activate');
       store.commit('search/setUserParams', query);
+
+      // TODO: remove when enabled by default
+      if (Number(process.env.ENABLE_FASHION_COLLECTION_FACETS)) {
+        store.commit('collections/fashion/enable');
+      }
+
       await store.dispatch('search/run');
+
       if (store.state.search.error && typeof res !== 'undefined') {
         res.statusCode = store.state.search.errorStatusCode;
       }
@@ -46,7 +53,7 @@
 
     mounted() {
       this.$store.commit('search/setPill', this.title);
-      this.$store.commit('search/enableThemeFacet');
+      this.$store.commit('search/enableCollectionFacet');
     },
 
     head() {
@@ -60,6 +67,6 @@
       next();
     },
 
-    watchQuery: ['page', 'qf', 'query', 'reusability', 'theme']
+    watchQuery: ['api', 'page', 'qf', 'query', 'reusability']
   };
 </script>

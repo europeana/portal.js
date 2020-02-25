@@ -161,6 +161,7 @@
   import MediaThumbnailGrid from '../../components/record/MediaThumbnailGrid';
   import MetadataField from '../../components/record/MetadataField';
 
+  import apiConfig from '../../plugins/europeana/api';
   import getRecord, { similarItemsQuery } from '../../plugins/europeana/record';
   import search from '../../plugins/europeana/search';
   import { isIIIFPresentation, isRichMedia } from '../../plugins/media';
@@ -202,10 +203,10 @@
 
     computed: {
       europeanaAgents() {
-        return (this.agents || []).filter((agent) => agent.about.startsWith('http://data.europeana.eu/agent/'));
+        return (this.agents || []).filter((agent) => agent.about.startsWith(`${apiConfig.data.origin}/agent/`));
       },
       europeanaConcepts() {
-        return (this.concepts || []).filter((concept) => concept.about.startsWith('http://data.europeana.eu/concept/'));
+        return (this.concepts || []).filter((concept) => concept.about.startsWith(`${apiConfig.data.origin}/concept/`));
       },
       europeanaEntityUris() {
         const entities = this.europeanaConcepts.concat(this.europeanaAgents);
@@ -232,6 +233,13 @@
         }
         return langMapValueForLocale(this.description, this.$i18n.locale);
       },
+      metaTitle() {
+        return this.titlesInCurrentLanguage[0] ? this.titlesInCurrentLanguage[0].value : this.$t('record.record');
+      },
+      metaDescription() {
+        if (!this.descriptionInCurrentLanguage) return '';
+        return this.descriptionInCurrentLanguage.values[0] ? this.descriptionInCurrentLanguage.values[0] : '';
+      },
       isRichMedia() {
         return isRichMedia(this.selectedMedia, {
           iiif: Number(process.env.ENABLE_IIIF_MEDIA)
@@ -246,6 +254,7 @@
         }
       },
       selectedMediaImage() {
+        if (!this.selectedMedia.thumbnails) return {};
         return {
           src: this.selectedMedia.thumbnails.large,
           link: this.isShownAt
@@ -275,12 +284,12 @@
       }
     },
 
-    asyncData({ env, params, res, app, redirect }) {
+    asyncData({ env, params, res, app, redirect, query }) {
       if (env.RECORD_PAGE_REDIRECT_PATH) {
         return redirect(app.localePath({ path: env.RECORD_PAGE_REDIRECT_PATH }));
       }
 
-      return getRecord(`/${params.pathMatch}`)
+      return getRecord(`/${params.pathMatch}`, { origin: query.recordApi })
         .then((result) => {
           return result.record;
         })
@@ -316,7 +325,6 @@
           this.selectedMedia.about = msg.data.id;
         }
       });
-
     },
 
     methods: {
@@ -346,6 +354,8 @@
           rows: 4,
           profile: 'minimal',
           facet: ''
+        }, {
+          origin: this.$route.query.recordApi
         })
           .catch(() => {
             return noSimilarItems;
@@ -364,7 +374,16 @@
 
     head() {
       return {
-        title: this.titlesInCurrentLanguage[0] ? this.titlesInCurrentLanguage[0].value : this.$t('record.record')
+        title: this.metaTitle,
+        meta: [
+          { hid: 'title', name: 'title', content: this.metaTitle },
+          { hid: 'description', name: 'description', content: this.metaDescription },
+          { hid: 'og:title', property: 'og:title', content: this.metaTitle },
+          { hid: 'og:description', property: 'og:description', content: this.metaDescription },
+          { hid: 'og:image', property: 'og:image', content: this.selectedMediaImage.src ? this.selectedMediaImage.src : '' },
+          { hid: 'og:type', property: 'og:type', content: 'article' },
+          { hid: 'og:url', property: 'og:url', content: this.canonicalUrl }
+        ]
       };
     }
   };

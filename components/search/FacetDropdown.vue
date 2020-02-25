@@ -2,7 +2,7 @@
   <b-dropdown
     ref="dropdown"
     :variant="dropdownVariant"
-    class="mr-2 mb-2"
+    class="mr-2 my-2"
     :data-type="type"
     data-qa="search facet"
     @hidden="cancelHandler"
@@ -21,7 +21,7 @@
           v-model="preSelected"
           :value="option"
           :name="name"
-          :data-qa="`${option} ${RADIO}`"
+          :data-qa="`${option} ${name} ${RADIO}`"
         >
           <FacetFieldLabel
             :facet-name="name"
@@ -37,7 +37,7 @@
           v-model="preSelected"
           :value="option.label"
           :name="name"
-          :data-qa="`${option.label} ${CHECKBOX}`"
+          :data-qa="`${option.label} ${name} ${CHECKBOX}`"
         >
           <FacetFieldLabel
             :facet-name="name"
@@ -130,7 +130,7 @@
       },
 
       facetName() {
-        return this.$t(`facets.${this.name}.name`);
+        return this.$tFacetName(this.name);
       },
 
       isRadio() {
@@ -139,7 +139,7 @@
 
       disableApplyButton() {
         if (this.isRadio && Array.isArray(this.selected)) {
-          return this.preSelected === null;
+          return isEqual(this.preSelected, this.selected[0]);
         }
         return isEqual(this.preSelected, this.selected);
       },
@@ -169,10 +169,15 @@
     methods: {
       init() {
         if (this.isRadio && Array.isArray(this.selected)) {
-          this.preSelected = null;
+          this.preSelected = this.selected[0];
         } else {
           this.preSelected = this.selected;
         }
+
+        this.$store.dispatch('search/setResettableFilter', {
+          name: this.name,
+          selected: this.preSelected
+        });
       },
 
       cancelHandler() {
@@ -195,8 +200,8 @@
   @import "./assets/scss/variables.scss";
 
   .dropdown { // TODO: move this code to the dropdown.scss where possible, to avoid duplication
-    width: 100%;
     margin-bottom: 5px;
+    width: 100%;
 
     &:last-child {
       margin-bottom: 0;
@@ -217,6 +222,7 @@
 
   /deep/ .dropdown-menu {
     font-size: $font-size-small;
+    margin-top: 0.5rem;
     width: 100%;
 
     @media (min-width: $bp-large) {

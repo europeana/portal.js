@@ -1,5 +1,6 @@
 import thumbnailUrl, {
-  thumbnailTypeForMimeType
+  thumbnailTypeForMimeType,
+  genericThumbnail
 } from '../../../../plugins/europeana/thumbnail';
 
 describe('plugins/europeana/thumbnail', () => {
@@ -61,6 +62,14 @@ describe('plugins/europeana/thumbnail', () => {
       it('is null', () => {
         (thumbnailTypeForMimeType(undefined) === null).should.be.true;
       });
+    });
+  });
+
+  describe('genericThumbnail()', () => {
+    it('uses the data.europeana.eu item URI', () => {
+      const identifier = '/123/abc';
+      const encodedUri = 'http%3A%2F%2Fdata.europeana.eu%2Fitem%2F123%2Fabc';
+      genericThumbnail(identifier).should.include(`uri=${encodedUri}`);
     });
   });
 });

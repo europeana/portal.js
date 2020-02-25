@@ -24,10 +24,11 @@ const factory = () => shallowMount(SearchBarPill, {
 });
 
 describe('components/search/SearchBarPill', () => {
-  it('truncates text if characters are over `set character state` characters', () => {
+  it('truncates display text if characters are over `set character state` characters', () => {
     const wrapper = factory();
 
     wrapper.text().should.startWith('This is text that ne...');
+    wrapper.find('b-badge-stub').attributes('title').should.eq('This is text that needs to be truncated');
   });
 
   it('doesn`t truncate text if characters are `set character state` or less', () => {
@@ -38,5 +39,6 @@ describe('components/search/SearchBarPill', () => {
     });
 
     wrapper.text().should.startWith('Less than twenty');
+    wrapper.find('b-badge-stub').attributes('title').should.eq('Less than twenty');
   });
 });

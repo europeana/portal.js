@@ -80,12 +80,14 @@ export default {
       "name": "Nodrošinošā valsts"
     },
     "REUSABILITY": {
-      "name": "Vai es varu to atkārtoti izmantot?"
+      "name": "Vai es varu to atkārtoti izmantot?",
+      "options": {
+        "open": "Jā"
+      }
     },
-    "THEME": {
+    "collection": {
       "name": "Kategorija",
       "options": {
-        "all": "Visi vienumi",
         "ww1": "1914.–1918. gads",
         "archaeology": "Arheoloģija",
         "art": "Māksla",
@@ -187,7 +189,6 @@ export default {
   },
   "contentfulManual": {
     "headerNavigation": {
-      "teachers": "Skolotājiem",
       "explore": "Jaunumi"
     },
     "footerNavigation": {

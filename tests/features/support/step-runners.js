@@ -47,17 +47,20 @@ module.exports = {
 
     await client.initAccessibility().assert.accessibility('html', axeOptions);
   },
+  escapeCssAttributeSelector(selector) {
+    return selector.replace(/"/g, '\\"');
+  },
   async checkTheCheckbox(inputName, inputValue) {
-    const checkboxSelector = `input[type="checkbox"][name="${inputName}"][value="${inputValue}"]`;
-    await client.getAttribute(checkboxSelector, 'id', (result) => {
+    const selector = `input[type="checkbox"][name="${inputName}"][value="${this.escapeCssAttributeSelector(inputValue)}"]`;
+    await client.getAttribute(selector, 'id', async(result) => {
       const checkboxId = result.value;
       const labelSelector = `label[for="${checkboxId}"]`;
       client.click(labelSelector);
     });
   },
   async checkTheRadio(inputName, inputValue) {
-    const checkboxSelector = `input[type="radio"][name="${inputName}"][value="${inputValue}"]`;
-    await client.getAttribute(checkboxSelector, 'id', (result) => {
+    const selector = `input[type="radio"][name="${inputName}"][value="${this.escapeCssAttributeSelector(inputValue)}"]`;
+    await client.getAttribute(selector, 'id', (result) => {
       const radioId = result.value;
       const labelSelector = `label[for="${radioId}"]`;
       client.click(labelSelector);
@@ -108,6 +111,7 @@ module.exports = {
   },
   async enterTextInTarget(text, qaElementName) {
     const selector = qaSelector(qaElementName);
+    await client.clearValue(selector);
     await client.waitForElementVisible(selector);
     await client.setValue(selector, text);
   },
@@ -157,6 +161,11 @@ module.exports = {
 
     await startWebDriver(nightwatchApiOptions);
     await createSession(nightwatchApiOptions);
+  },
+  async seeACheckedRadio(inputName, inputValue) {
+    const radioSelector = `input[type="radio"][name="${inputName}"][value="${inputValue}"]:checked`;
+
+    await client.expect.element(radioSelector).to.be.present;
   },
   async seeALinkInTarget(linkHref, qaElementName) {
     await client.expect.element(qaSelector(qaElementName) + ` a[href="${linkHref}"]`).to.be.visible;

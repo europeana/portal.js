@@ -1,10 +1,12 @@
 <template>
   <b-form-group
-    :label="$tc(`facets.${name}.name`, 1)"
+    :label="$tFacetName(name)"
+    :data-qa="`${name} facet`"
   >
     <b-form-checkbox-group
       v-model="selectedOptions"
-      :name="$tc(`facets.${name}.name`, 1)"
+      :name="name"
+      data-qa="checkbox group"
       plain
       @change="selectedHandler"
     >
@@ -72,7 +74,7 @@
 
     data() {
       return {
-        selectedOptions: this.selected,
+        selectedOptions: null,
         isActive: false,
         limitTo: 9
       };
@@ -81,19 +83,34 @@
     computed: {
       showMoreOrLess() {
         const key = this.isActive ? 'facets.button.showLess' : 'facets.button.showAll';
-        return this.$t(key, { label: this.$tc(`facets.${this.name}.name`, 2).toLowerCase() });
+        return this.$t(key, { label: this.$tFacetName(this.name, 2).toLowerCase() });
       }
     },
 
     watch: {
-      selected(value) {
-        this.selectedOptions = value;
+      selected() {
+        this.init();
       }
     },
 
+    mounted() {
+      this.init();
+    },
+
     methods: {
-      selectedHandler(value) {
-        this.$emit('selectedOptions', this.name, value);
+      init() {
+        this.selectedOptions = this.selected;
+
+        this.$store.dispatch('search/setResettableFilter', {
+          name: this.name,
+          selected: this.selectedOptions
+        });
+      },
+
+      selectedHandler() {
+        this.$nextTick(() => {
+          this.$emit('selectedOptions', this.name, this.selectedOptions);
+        });
       }
     }
   };

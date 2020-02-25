@@ -80,12 +80,14 @@ export default {
       "name": "Poskytujúca krajina"
     },
     "REUSABILITY": {
-      "name": "Môžem to znova použiť?"
+      "name": "Môžem to znova použiť?",
+      "options": {
+        "open": "Áno"
+      }
     },
-    "THEME": {
+    "collection": {
       "name": "Kategória",
       "options": {
-        "all": "Všetky položky",
         "ww1": "1914 – 1918",
         "archaeology": "Archeológia",
         "art": "Umenie",
@@ -187,7 +189,6 @@ export default {
   },
   "contentfulManual": {
     "headerNavigation": {
-      "teachers": "Učitelia",
       "explore": "Objavujte"
     },
     "footerNavigation": {

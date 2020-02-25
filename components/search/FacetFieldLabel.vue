@@ -34,30 +34,23 @@
 
     computed: {
       label() {
-
-        let fieldLabel = this.genericLabel;
-
-        if (this.facetName === this.MIME_TYPE) {
-          fieldLabel = this.mediaTypeLabel;
-        }
+        const fieldLabel = (this.facetName === this.MIME_TYPE) ? this.mediaTypeLabel : this.genericLabel;
 
         if (!this.prefixed) return fieldLabel;
 
-        return this.$t('formatting.labelledValue', { label: this.$tc(`facets.${this.facetName}.name`, 1), value: fieldLabel });
+        return this.$t('formatting.labelledValue', { label: this.$tFacetName(this.facetName), value: fieldLabel });
       },
 
       genericLabel() {
-        const key = `facets.${this.facetName}.options.${this.fieldValue}`;
+        let fieldLabel;
 
-        let genericLabel;
-        if (this.$te(key)) {
-          genericLabel = this.$t(key);
-        } else if (this.$te(key, 'en')) {
-          genericLabel = this.$t(key, 'en');
-        } else {
-          genericLabel = this.fieldValue;
-        }
-        return genericLabel;
+        fieldLabel = this.$store.getters['search/formatFacetFieldLabel'](this.facetName, this.fieldValue);
+        if (!fieldLabel) fieldLabel = this.fieldValue;
+
+        const unquotedFieldValue = fieldLabel.replace(/^"(.*)"$/, '$1');
+        const key = `facets.${this.facetName}.options.${unquotedFieldValue}`;
+
+        return this.$tNull(key) || unquotedFieldValue;
       },
 
       mediaTypeLabel() {

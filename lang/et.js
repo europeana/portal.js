@@ -80,12 +80,14 @@ export default {
       "name": "Pakkuja riik"
     },
     "REUSABILITY": {
-      "name": "Kas ma saan seda uuesti kasutada?"
+      "name": "Kas ma saan seda uuesti kasutada?",
+      "options": {
+        "open": "Jah"
+      }
     },
-    "THEME": {
+    "collection": {
       "name": "Kategooria",
       "options": {
-        "all": "Kõik üksused",
         "ww1": "1914–1918",
         "archaeology": "Arheoloogia",
         "art": "Kunst",
@@ -187,7 +189,6 @@ export default {
   },
   "contentfulManual": {
     "headerNavigation": {
-      "teachers": "Õpetajad",
       "explore": "Tutvuge"
     },
     "footerNavigation": {

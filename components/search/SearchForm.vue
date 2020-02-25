@@ -1,6 +1,7 @@
 <template>
   <b-form
     ref="form"
+    data-qa="search form"
     inline
     @submit.prevent="submitForm"
   >
@@ -16,7 +17,7 @@
       >
         <SearchBarPill
           :text="pillLabel"
-          :remove-link-label="$t('removeFilter', { filterLabel: pillLabel })"
+          :remove-link-label="$t('removeFilter', { filterLabel: pillLabel.values[0] })"
           :remove-link-to="pillRemoveLinkTo"
         />
       </template>
@@ -57,7 +58,9 @@
 <script>
   import AutoSuggest from './AutoSuggest';
   import SearchBarPill from './SearchBarPill';
+  import apiConfig from '../../plugins/europeana/api';
   import { getEntitySuggestions, getEntityTypeHumanReadable, getEntitySlug } from '../../plugins/europeana/entity';
+  import { mapGetters } from 'vuex';
 
   export default {
     name: 'SearchForm',
@@ -88,6 +91,10 @@
     },
 
     computed: {
+      ...mapGetters({
+        queryUpdatesForFacetChanges: 'search/queryUpdatesForFacetChanges'
+      }),
+
       isAutoSuggestActive() {
         return this.enableAutoSuggest && (this.suggestions.length > 0);
       },
@@ -112,7 +119,12 @@
           path: this.localePath({
             name: 'search'
           }),
-          query: { ...this.$route.query, page: 1 }
+          query: {
+            view: this.view,
+            ...this.queryUpdatesForFacetChanges({ collection: null }),
+            // default to empty string to prevent immediate redirect by /pages/search/index.vue if absent
+            query: this.query || ''
+          }
         };
       },
 
@@ -193,7 +205,7 @@
           id: entityUri,
           prefLabel: this.suggestions[entityUri]
         };
-        const uriMatch = entityUri.match('^http://data.europeana.eu/([^/]+)(/base)?/(.+)$');
+        const uriMatch = entityUri.match(`^${apiConfig.data.origin}/([^/]+)(/base)?/(.+)$`);
 
         return this.localePath({
           name: 'entity-type-all', params: {

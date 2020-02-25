@@ -1,13 +1,14 @@
+import axios from 'axios';
 import { apiError, langMapValueForLocale } from './utils';
 import config from './api';
-import axios from 'axios';
+import search from './search';
 
 export const constants = Object.freeze({
-  API_ORIGIN: config.origin,
-  API_PATH_PREFIX: '/entity',
+  API_ORIGIN: config.entity.origin,
+  API_PATH_PREFIX: config.entity.path,
   API_ENDPOINT_SEARCH: '/search',
   API_ENDPOINT_SUGGEST: '/suggest',
-  URI_ORIGIN: 'http://data.europeana.eu'
+  URI_ORIGIN: config.data.origin
 });
 
 /**
@@ -19,7 +20,7 @@ export const constants = Object.freeze({
 export function getEntity(type, id) {
   return axios.get(getEntityUrl(type, id), {
     params: {
-      wskey: config.keys.entity
+      wskey: config.entity.key
     }
   })
     .then((response) => {
@@ -37,8 +38,6 @@ function entityApiUrl(endpoint) {
   return `${constants.API_ORIGIN}${constants.API_PATH_PREFIX}${endpoint}`;
 }
 
-import search from './search';
-
 /**
  * Get entity suggestions from the API
  * @param {string} text the query text to supply suggestions for
@@ -55,7 +54,7 @@ export function getEntitySuggestions(text, params = {}, options = {}) {
       type: 'agent,concept',
       language: params.language,
       scope: 'europeana',
-      wskey: config.keys.entity
+      wskey: config.entity.key
     }
   })
     .then((response) => {
@@ -198,17 +197,20 @@ export function getEntitySlug(entity, entityPage) {
  * TODO: add people as related entities again
  * TODO: use search() function?
  */
-export function relatedEntities(type, id) {
+export function relatedEntities(type, id, options = {}) {
+  const origin = options.origin || config.record.origin;
+  const path = options.path || config.record.path;
+
   const entityUri = getEntityUri(type, id);
   let apiParams = {
-    wskey: config.keys.record,
+    wskey: config.record.key,
     profile: 'facets',
     facet: 'skos_concept',
     query: getEntityQuery(entityUri),
     rows: 0
   };
 
-  return axios.get(`${config.origin}/api/v2/search.json`, {
+  return axios.get(`${origin}${path}/search.json`, {
     params: apiParams
   })
     .then((response) => {
@@ -253,7 +255,7 @@ export function searchEntities(entityUris) {
   return axios.get(entityApiUrl(constants.API_ENDPOINT_SEARCH), {
     params: {
       query: `entity_uri:("${q}")`,
-      wskey: config.keys.entity
+      wskey: config.entity.key
     }
   })
     .then((response) => {

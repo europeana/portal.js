@@ -13,7 +13,7 @@
     data-qa="audio player"
   >
     <source
-      :src="src"
+      :src="src | proxyMedia(europeanaIdentifier)"
       :type="type"
       data-qa="audio source"
     >
@@ -25,6 +25,10 @@
     name: 'AudioPlayer',
 
     props: {
+      europeanaIdentifier: {
+        type: String,
+        required: true
+      },
       src: {
         type: String,
         required: true

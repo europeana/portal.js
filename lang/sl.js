@@ -80,12 +80,14 @@ export default {
       "name": "Država izvora"
     },
     "REUSABILITY": {
-      "name": "Ali lahko to ponovno uporabim?"
+      "name": "Ali lahko to ponovno uporabim?",
+      "options": {
+        "open": "Da"
+      }
     },
-    "THEME": {
+    "collection": {
       "name": "Kategorija",
       "options": {
-        "all": "Vsi elementi",
         "ww1": "1914-1918",
         "archaeology": "Arheologija",
         "art": "Umetnost",
@@ -187,7 +189,6 @@ export default {
   },
   "contentfulManual": {
     "headerNavigation": {
-      "teachers": "Učitelji",
       "explore": "Razišči"
     },
     "footerNavigation": {

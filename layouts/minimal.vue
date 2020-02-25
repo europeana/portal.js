@@ -1,5 +1,7 @@
 <template>
-  <nuxt
-    id="main"
-  />
+  <main role="main">
+    <nuxt
+      id="main"
+    />
+  </main>
 </template>

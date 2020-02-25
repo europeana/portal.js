@@ -1,5 +1,4 @@
-import { createLocalVue, mount } from '@vue/test-utils';
-import BootstrapVue from 'bootstrap-vue';
+import { createLocalVue, shallowMount } from '@vue/test-utils';
 import TierToggler from '../../../../components/search/TierToggler.vue';
 
 const localVue = createLocalVue();
@@ -10,10 +9,9 @@ const $route = {
   }
 };
 
-localVue.use(BootstrapVue);
-
-const factory = () => mount(TierToggler, {
+const factory = () => shallowMount(TierToggler, {
   localVue,
+  stubs: ['b-link'],
   mocks: {
     $route,
     $t: () => {}
@@ -29,9 +27,9 @@ describe('components/search/TierToggler', () => {
     const tierToggle = wrapper.find('[data-qa="tier toggle"]');
 
     wrapper.vm.active.should.be.false;
-    tierToggle.trigger('click');
+    tierToggle.vm.$emit('click');
     wrapper.vm.active.should.be.true;
-    tierToggle.trigger('click');
+    tierToggle.vm.$emit('click');
     wrapper.vm.active.should.be.false;
     wrapper.emitted()['changed'].length.should.equal(2);
   });

@@ -1,30 +1,33 @@
-import { createLocalVue, mount } from '@vue/test-utils';
-import BootstrapVue from 'bootstrap-vue';
+import { createLocalVue, shallowMount } from '@vue/test-utils';
 import Vuex from 'vuex';
+import sinon from 'sinon';
 import MoreFacetsDropdown from '../../../../components/search/MoreFiltersDropdown.vue';
 
 const localVue = createLocalVue();
-localVue.use(BootstrapVue);
 localVue.use(Vuex);
 
 const store = new Vuex.Store({
-  state: {
-    entity: {
-      id: null
+  modules: {
+    search: {
+      namespaced: true,
+      state: {
+        apiParams: {}
+      },
+      getters: {
+        collection: () => null
+      }
     }
   }
 });
 
-
-const factory = () => mount(MoreFacetsDropdown, {
+const factory = () => shallowMount(MoreFacetsDropdown, {
   localVue,
   propsData: {
     selected: {}
   },
+  stubs: ['b-button', 'b-dropdown', 'b-dropdown-form'],
   mocks: {
-    $t: (key) => key,
-    $tc: (key) => key,
-    $te: (key) => key
+    $t: (key) => key
   },
   store
 });
@@ -133,6 +136,7 @@ describe('components/search/MoreFacetsDropdown', () => {
 
   it('clears preselected data when user clicks Cancel button', () => {
     const wrapper = factory();
+    wrapper.vm.$refs.dropdown.hide = sinon.spy();
     const cancelButton = wrapper.find('[data-qa="cancel button"]');
 
     wrapper.setProps({
@@ -147,9 +151,9 @@ describe('components/search/MoreFacetsDropdown', () => {
       }
     });
 
-    cancelButton.trigger('click');
+    cancelButton.vm.$emit('click');
 
-    wrapper.vm.preSelected.should.eql({ 'PROVIDER': ['OpenUp!'] });
+    wrapper.vm.preSelected.should.deep.eql({ 'PROVIDER': ['OpenUp!'] });
   });
 
   it('clears all preselected data when user clicks the Reset Filter button', () => {

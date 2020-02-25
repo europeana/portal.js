@@ -80,12 +80,14 @@ export default {
       "name": "Tillhandahållande land"
     },
     "REUSABILITY": {
-      "name": "Kan jag återanvända det här?"
+      "name": "Kan jag återanvända det här?",
+      "options": {
+        "open": "Ja"
+      }
     },
-    "THEME": {
+    "collection": {
       "name": "Kategori",
       "options": {
-        "all": "Alla objekt",
         "ww1": "1914–1918",
         "archaeology": "Arkeologi",
         "art": "Konst",
@@ -187,7 +189,6 @@ export default {
   },
   "contentfulManual": {
     "headerNavigation": {
-      "teachers": "Lärare",
       "explore": "Utforska"
     },
     "footerNavigation": {

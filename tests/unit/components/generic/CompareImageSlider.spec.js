@@ -13,10 +13,14 @@ const factory = (setImageWidthSpy) => shallowMount(CompareImageSlider, {
     leftImageAttribution: {
       rightsStatement: 'http://creativecommons.org/publicdomain/mark/1.0/'
     },
+    leftImageWidth: 400,
+    leftImageHeight: 596,
     rightImageSrc: '/img/portrait-monochrome.jpg',
     rightImageAttribution: {
       rightsStatement: 'http://creativecommons.org/publicdomain/mark/1.0/'
-    }
+    },
+    rightImageWidth: 400,
+    rightImageHeight: 596
   },
   methods: { setImageWidth: setImageWidthSpy || sinon.spy() },
   mocks: {

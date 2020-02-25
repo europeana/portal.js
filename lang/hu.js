@@ -80,12 +80,14 @@ export default {
       "name": "Szolgáltató ország"
     },
     "REUSABILITY": {
-      "name": "Használhatom ezt újból?"
+      "name": "Használhatom ezt újból?",
+      "options": {
+        "open": "igen"
+      }
     },
-    "THEME": {
+    "collection": {
       "name": "Kategória",
       "options": {
-        "all": "Minden elem",
         "ww1": "1914-1918",
         "archaeology": "Régészet",
         "art": "Művészet",
@@ -187,7 +189,6 @@ export default {
   },
   "contentfulManual": {
     "headerNavigation": {
-      "teachers": "Tanárok",
       "explore": "Ismerje meg"
     },
     "footerNavigation": {

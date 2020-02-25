@@ -82,10 +82,9 @@ export default {
     "REUSABILITY": {
       "name": "An féidir liom úsáid a bhaint as seo in athuair?"
     },
-    "THEME": {
+    "collection": {
       "name": "Catagóir",
       "options": {
-        "all": "Gach mír",
         "ww1": "1914-1918",
         "archaeology": "Seandálaíocht",
         "art": "Ealaín",
@@ -187,7 +186,6 @@ export default {
   },
   "contentfulManual": {
     "headerNavigation": {
-      "teachers": "Múinteoirí",
       "explore": "Taiscéal"
     },
     "footerNavigation": {

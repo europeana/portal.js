@@ -80,12 +80,14 @@ export default {
       "name": "Pajjiż fornitur"
     },
     "REUSABILITY": {
-      "name": "Nista' nerġa' nużah dan?"
+      "name": "Nista' nerġa' nużah dan?",
+      "options": {
+        "open": "Iva"
+      }
     },
-    "THEME": {
+    "collection": {
       "name": "Kategorija",
       "options": {
-        "all": "L-oġġetti kollha",
         "ww1": "1914-1918",
         "archaeology": "Arkeoloġija",
         "art": "Arti",
@@ -191,7 +193,6 @@ export default {
   },
   "contentfulManual": {
     "headerNavigation": {
-      "teachers": "Għalliema",
       "explore": "Esplora"
     },
     "footerNavigation": {

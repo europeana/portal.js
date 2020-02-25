@@ -80,12 +80,14 @@ export default {
       "name": "Leverende land"
     },
     "REUSABILITY": {
-      "name": "Må jeg videreformidle dette?"
+      "name": "Må jeg videreformidle dette?",
+      "options": {
+        "open": "Ja"
+      }
     },
-    "THEME": {
+    "collection": {
       "name": "Kategori",
       "options": {
-        "all": "Alle emner",
         "ww1": "1914-1918",
         "archaeology": "Arkæologi",
         "art": "Kunst",
@@ -187,7 +189,6 @@ export default {
   },
   "contentfulManual": {
     "headerNavigation": {
-      "teachers": "Lærere",
       "explore": "Udforsk"
     },
     "footerNavigation": {

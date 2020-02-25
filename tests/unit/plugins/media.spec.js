@@ -9,6 +9,14 @@ describe('plugins/media', () => {
     });
   });
 
+  describe('isImage()', () => {
+    it('returns `true` if ebucoreHasMimeType is for an image', () => {
+      const ebucoreHasMimeType = 'image/jpeg';
+
+      media.isImage({ ebucoreHasMimeType }).should.be.true;
+    });
+  });
+
   describe('isHTMLVideo()', () => {
     it('returns `true` if ebucoreHasMimeType is for HTML video', () => {
       const mediaTypes = ['video/ogg', 'video/webm', 'video/mp4'];
@@ -61,6 +69,18 @@ describe('plugins/media', () => {
       };
 
       media.isIIIFPresentation(item).should.be.true;
+    });
+
+    it('returns `false` if dctermsIsReferencedBy is Image info.json', () => {
+      const item = {
+        services: [{
+          about: 'http://www.example.org/image',
+          dctermsConformsTo: ['http://iiif.io/api/image']
+        }],
+        dctermsIsReferencedBy: ['http://www.example.org/image/info.json']
+      };
+
+      media.isIIIFPresentation(item).should.be.false;
     });
   });
 

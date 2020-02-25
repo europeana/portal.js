@@ -80,12 +80,14 @@ export default {
       "name": "Země původu"
     },
     "REUSABILITY": {
-      "name": "Mohu to znovu použít?"
+      "name": "Mohu to znovu použít?",
+      "options": {
+        "open": "Ano"
+      }
     },
-    "THEME": {
+    "collection": {
       "name": "Kategorie",
       "options": {
-        "all": "Všechny položky",
         "ww1": "1914–1918",
         "archaeology": "Archeologie",
         "art": "Umění",
@@ -187,7 +189,6 @@ export default {
   },
   "contentfulManual": {
     "headerNavigation": {
-      "teachers": "Učitelé",
       "explore": "Prozkoumat"
     },
     "footerNavigation": {

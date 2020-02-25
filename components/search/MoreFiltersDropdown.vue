@@ -3,7 +3,7 @@
     ref="dropdown"
     variant="light"
     no-caret
-    class="more-facets position-static mb-2"
+    class="more-facets position-static my-2"
     :class="{ 'is-active' : anyOptionsSelected }"
     data-qa="more filters dropdown button"
     @hidden="cancelHandler"
@@ -19,18 +19,24 @@
       </span>
     </template>
     <b-dropdown-form>
-      <li
-        class="more-facets-wrapper"
-        role="presentation"
-      >
-        <DateFilter
-          v-if="showDateFilter"
-          :name="PROXY_DCTERMS_ISSUED"
-          :start="dateFilter.start"
-          :end="dateFilter.end"
-          :specific="dateFilter.specific"
-          @dateFilter="dateFilterSelected"
-        />
+      <div class="more-facets-wrapper">
+        <template
+          v-if="collection === 'newspaper'"
+        >
+          <RadioGroupFilter
+            facet-name="api"
+            :options="['fulltext', 'metadata']"
+            :selected="preSelected['api'] || 'fulltext'"
+            @change="updateSelected"
+          />
+          <DateFilter
+            :name="PROXY_DCTERMS_ISSUED"
+            :start="dateFilter.start"
+            :end="dateFilter.end"
+            :specific="dateFilter.specific"
+            @dateFilter="dateFilterSelected"
+          />
+        </template>
         <template
           v-for="(facet, index) in moreFacets"
         >
@@ -43,8 +49,8 @@
             @selectedOptions="updateSelected"
           />
         </template>
-      </li>
-      <li
+      </div>
+      <div
         class="dropdown-buttons"
         role="presentation"
       >
@@ -73,7 +79,7 @@
         >
           {{ $t('facets.button.apply') }}
         </b-button>
-      </li>
+      </div>
     </b-dropdown-form>
   </b-dropdown>
 </template>
@@ -81,50 +87,47 @@
 <script>
   import Vue from 'vue';
   import isEqual from 'lodash/isEqual';
+  import { mapGetters } from 'vuex';
   import { rangeToQueryParam, rangeFromQueryParam } from '../../plugins/europeana/search';
   import MoreFiltersDropdownFacet from './MoreFiltersDropdownFacet';
   import DateFilter from './DateFilter';
-
+  import RadioGroupFilter from './RadioGroupFilter';
   export default {
     components: {
       MoreFiltersDropdownFacet,
-      DateFilter
+      DateFilter,
+      RadioGroupFilter
     },
-
     props: {
       moreFacets: {
         type: Array,
         default: () => []
       },
-
       selected: {
         type: Object,
         default: () => {}
       }
     },
-
     data() {
       return {
         preSelected: this.cloneSelected(),
         isCheckedSpecificDate: false,
-        PROXY_DCTERMS_ISSUED: 'proxy_dcterms_issued',
-        NEWSPAPERS_CONCEPT_URI: 'http://data.europeana.eu/concept/base/18'
+        PROXY_DCTERMS_ISSUED: 'proxy_dcterms_issued'
       };
     },
-
     computed: {
+      ...mapGetters({
+        collection: 'search/collection'
+      }),
       anyOptionsSelected() {
         return this.selectedOptionsCount > 0;
       },
-
       selectedOptionsCount() {
         return [].concat(...Object.values(this.selected)).length;
       },
-
       selectedOptionsUnchanged() {
         return this.filtersChanged.length === 0;
       },
-
       /**
        * Gets the names of the filters whose selections have changed
        * @return {string[]} Changed filter names
@@ -145,21 +148,14 @@
         }
         return filtersChanged;
       },
-
       moreFacetNames() {
         return this.moreFacets.map((facet) => facet.name);
       },
-
-      showDateFilter() {
-        return this.$store.state.entity.id === this.NEWSPAPERS_CONCEPT_URI;
-      },
-
       dateFilter() {
         const proxyDctermsIssued = this.preSelected[this.PROXY_DCTERMS_ISSUED];
         if (!proxyDctermsIssued || proxyDctermsIssued.length < 1) {
           return { start: null, end: null, specific: this.isCheckedSpecificDate };
         }
-
         const range = rangeFromQueryParam(proxyDctermsIssued[0]);
         if (!range) {
           return { start: proxyDctermsIssued[0], end: null, specific: true };
@@ -167,21 +163,17 @@
         return range;
       }
     },
-
     watch: {
       selected() {
         this.preSelected = this.cloneSelected();
       }
     },
-
     methods: {
       cloneSelected() {
         return Object.assign({}, this.selected);
       },
-
       dateFilterSelected(facetName, dateRange) {
         let dateQuery = [];
-
         if (dateRange.specific) {
           if (dateRange.start) {
             dateQuery = [dateRange.start];
@@ -189,30 +181,24 @@
         } else if (dateRange.start || dateRange.end) {
           dateQuery = [rangeToQueryParam(dateRange)];
         }
-
         this.isCheckedSpecificDate = dateRange.specific;
         this.updateSelected(facetName, dateQuery);
       },
-
       updateSelected(facetName, selectedFields) {
         Vue.set(this.preSelected, facetName, selectedFields);
       },
-
       applySelected() {
         this.$emit('changed', this.preSelected);
         this.$refs.dropdown.hide(true);
       },
-
       cancelHandler() {
         this.preSelected = this.cloneSelected();
         this.$refs.dropdown.hide(true);
       },
-
       resetFilters() {
         this.clearPreSelected();
         this.isCheckedSpecificDate = false;
       },
-
       clearPreSelected() {
         for (const facetName in this.preSelected) {
           this.preSelected[facetName] = [];

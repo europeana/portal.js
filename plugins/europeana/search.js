@@ -4,40 +4,29 @@
 
 import axios from 'axios';
 import qs from 'qs';
-import { apiError } from './utils';
 import config from './api';
-
-// Default facets to request and display if none are specified.
-// Order is significant as it will be reflected on search results.
-export const defaultFacetNames = [
-  'TYPE',
-  'REUSABILITY',
-  'COUNTRY',
-  'LANGUAGE',
-  'PROVIDER',
-  'DATA_PROVIDER',
-  'COLOURPALETTE',
-  'IMAGE_ASPECTRATIO',
-  'IMAGE_SIZE',
-  'MIME_TYPE'
-];
+import { apiError } from './utils';
+import { genericThumbnail } from './thumbnail';
 
 // Some facets do not support enquoting of their field values.
 export const unquotableFacets = [
+  'collection', // it _may_ be quoted, but our prewarmed filters are without
   'COLOURPALETTE',
   'IMAGE_COLOUR',
   'IMAGE_GREYSCALE', // WARNING: always returns zero results anyway
   'IMAGE_SIZE',
   'MEDIA',
   'MIME_TYPE',
+  'REUSABILITY',
   'SOUND_DURATION',
   'SOUND_HQ',
   'TEXT_FULLTEXT',
+  'THUMBNAIL',
   'VIDEO_HD'
 ];
 
-// Thematic collections available via the `theme` parameter.
-// Order is significant as it will be reflected on search results.
+// Thematic collections available via the `collection` qf
+// filter. Order is significant as it will be reflected on search results.
 export const thematicCollections = [
   'ww1',
   'archaeology',
@@ -53,10 +42,6 @@ export const thematicCollections = [
   'photography',
   'sport'
 ];
-
-function genericThumbnail(edmType) {
-  return `${config.origin}/api/v2/thumbnail-by-url.json?size=w200&uri=&type=${edmType}`;
-}
 
 /**
  * Construct a range query from two values, if keys are omitted they will default to '*'
@@ -94,7 +79,7 @@ function resultsFromApiResponse(response) {
   const results = items.map(item => {
     return {
       europeanaId: item.id,
-      edmPreview: item.edmPreview ? `${item.edmPreview[0]}&size=w200` : genericThumbnail(item.type),
+      edmPreview: item.edmPreview ? `${item.edmPreview[0]}&size=w200` : genericThumbnail(item.id, { type: item.type, size: 'w200' }),
       dcTitle: item.dcTitleLangAware,
       dcDescription: item.dcDescriptionLangAware,
       dcCreator: item.dcCreatorLangAware,
@@ -106,63 +91,18 @@ function resultsFromApiResponse(response) {
 }
 
 /**
- * A set of selected facets from the user's request.
- *
- * The object is keyed by the facet name, each property being an array of
- * selected values.
- *
- * For example:
- * ```
- * {
- *   "TYPE": ["IMAGE", "VIDEO"]
- * }
- * ```
- * @typedef {Object.<string, Array>} FilterSet
- */
-
-/**
- * Extract applied filters from URL `qf`, `reusability` and `theme`
- * @param {Object} query URL query parameters
- * @return {FilterSet} selected filters
- * TODO: move into /store/search.js?
- */
-export function filtersFromQuery(query) {
-  let filters = {};
-  if (query.qf) {
-    for (const qf of [].concat(query.qf)) {
-      const qfParts = qf.split(':');
-      const facetName = qfParts[0];
-      const facetValue = qfParts.slice(1).join(':').replace(/^"(.*)"$/, '$1');
-      if (typeof filters[facetName] === 'undefined') {
-        filters[facetName] = [];
-      }
-      filters[facetName].push(facetValue);
-    }
-  }
-
-  if (query.reusability) {
-    filters['REUSABILITY'] = query.reusability.split(',');
-  }
-
-  if (query.theme) {
-    filters['THEME'] = query.theme;
-  }
-
-  return filters;
-}
-
-/**
  * Search Europeana Record API
  * @param {Object} params parameters for search query
  * @param {number} params.page page of results to retrieve
  * @param {number} params.rows number of results to retrieve per page
  * @param {string} params.reusability reusability filter
- * @param {string} params.theme theme filter
  * @param {string} params.facet facet names, comma separated
  * @param {(string|string[])} params.qf query filter(s)
  * @param {string} params.query search query
+ * @param {string} params.wskey API key, to override `config.record.key`
  * @param {Object} options search options
- * @param {string} options.origin base URL for API, overriding default `config.origin`
+ * @param {string} options.origin base URL for API, overriding default `config.record.origin`
+ * @param {string} options.path path prefix for API, overriding default `config.record.path`
  * @return {{results: Object[], totalResults: number, facets: FacetSet, error: string}} search results for display
  */
 function search(params, options = {}) {
@@ -172,23 +112,24 @@ function search(params, options = {}) {
   const start = ((page - 1) * perPage) + 1;
   const rows = Math.max(0, Math.min(maxResults + 1 - start, perPage));
 
-  const origin = options.origin || config.origin;
+  const origin = options.origin || config.record.origin;
+  const path = options.path || config.record.path;
+
   const query = (typeof params.query === 'undefined' || params.query === '') ? '*:*' : params.query;
 
-  return axios.get(`${origin}/api/v2/search.json`, {
+  return axios.get(`${origin}${path}/search.json`, {
     paramsSerializer(params) {
       return qs.stringify(params, { arrayFormat: 'repeat' });
     },
     params: {
-      facet: params.facet ? params.facet : defaultFacetNames.join(','),
-      profile: params.profile ? params.profile : 'minimal,facets',
-      qf: qfHandler(params.qf),
+      facet: params.facet,
+      profile: params.profile,
+      qf: addContentTierFilter(params.qf),
       query,
       reusability: params.reusability,
       rows,
       start,
-      theme: params.theme,
-      wskey: config.keys.record
+      wskey: params.wskey || config.record.key
     }
   })
     .then((response) => {
@@ -213,17 +154,24 @@ function search(params, options = {}) {
  * @param {(string|string[])} params.qf query filter(s) as passed into the search plugin.
  * @return {string[]} qf adjusted with the desired content tier filter
  */
-export function qfHandler(qf) {
+export function addContentTierFilter(qf) {
   let newQf = qf ? [].concat(qf) : [];
-  if (!newQf.some(v => /^contentTier:/.test(v))) {
+  if (!hasFilterForField(newQf, 'contentTier')) {
     // If no content tier qf is queried, tier 0 content is
     // excluded by default as it is considered not to meet
-    // Europeana's publishing criteria.
-    newQf.push('contentTier:(1 OR 2 OR 3 OR 4)');
+    // Europeana's publishing criteria. Also tier 1 content is exluded if this
+    // is a search filtered by collection.
+    const contentTierFilter = hasFilterForField(newQf, 'collection') ? '2 OR 3 OR 4' : '1 OR 2 OR 3 OR 4';
+    newQf.push(`contentTier:(${contentTierFilter})`);
   }
   // contentTier:* is irrelevant so is removed
   newQf = newQf.filter(v => v !== 'contentTier:*');
+
   return newQf;
 }
+
+const hasFilterForField = (filters, fieldName) => {
+  return filters.some(v => new RegExp(`^${fieldName}:`).test(v));
+};
 
 export default search;

@@ -80,12 +80,14 @@ export default {
       "name": "Paese fornitore"
     },
     "REUSABILITY": {
-      "name": "Posso riutilizzarlo?"
+      "name": "Posso riutilizzarlo?",
+      "options": {
+        "open": "Sì"
+      }
     },
-    "THEME": {
+    "collection": {
       "name": "Categoria",
       "options": {
-        "all": "Tutti gli elementi",
         "ww1": "1914-1918",
         "archaeology": "Archeologia",
         "art": "Arte",
@@ -187,7 +189,6 @@ export default {
   },
   "contentfulManual": {
     "headerNavigation": {
-      "teachers": "Insegnanti",
       "explore": "Esplora"
     },
     "footerNavigation": {

@@ -13,7 +13,8 @@ h1, h2, h3, h4, h5 {
 }
 
 h1 {
-  font-size: 2.375rem;
+  font-size: 2.125rem;
+  font-weight: 600;
 }
 
 h2 {
@@ -55,12 +56,52 @@ pre {
   white-space: pre-wrap;
 }
 
-img {
-  max-width: 100%;
+blockquote {
+  border-right: 2px solid $blue;
+  color: $black;
+  font-size: 1.125rem;
+  font-style: italic;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  padding-right: 1rem;
+  text-align: right;
+
+  p:before {
+    color: $blue;
+    content: '\2018';
+    display: inline-block;
+    font-size: 1.75rem;
+    padding-right: 0.25rem;
+  }
+
+  p:after {
+    color: $black;
+    content: '\2019';
+    display: inline-block;
+  }
+
+  @media (min-width: $bp-medium) {
+    margin-left: 5rem;
+    margin-right: 5rem;
+  }
 }
 
-video {
-  width: 100%;
+cite {
+  border-right: 2px solid $blue;
+  color: $black;
+  display: block;
+  font-size: $font-size-small;
+  font-style: normal;
+  font-weight: bold;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  padding-right: 1rem;
+  text-align: right;
+
+  @media (min-width: $bp-medium) {
+    margin-left: 5rem;
+    margin-right: 5rem;
+  }
 }
 
 figure {
@@ -71,17 +112,43 @@ figure {
 figcaption {
   cite {
     background: $white;
+    border: none;
     border-top-left-radius: $border-radius-small;
     border-top-right-radius: $border-radius-small;
     bottom: 0;
+    color: inherit;
+    display: inline;
     font-size: 0.625rem;
     font-style: normal;
+    font-weight: normal;
     left: 1rem;
-    line-height: 2;
+    line-height: 1.5;
+    margin: 0;
     margin-right: 1rem;
     padding: 0.5rem 1rem;
     position: absolute;
+    text-align: left;
+
+    .attribution > span {
+      margin-left: 0.25rem;
+      .license {
+        font-size: $font-size-small;
+      }
+    }
   }  
+}
+
+blockquote + p cite {
+  padding-top: 1rem;
+  margin-top: -1rem;
+}
+
+img {
+  max-width: 100%;
+}
+
+video {
+  width: 100%;
 }
 
 a {
@@ -95,14 +162,14 @@ a {
 }
 
 .nuxt-progress {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 0.375rem;
-  width: 0;
-  opacity: 1;
-  transition: width 0.1s, opacity 0.4s;
   background-color: $blue;
+  height: 0.25rem;
+  left: 0;
+  opacity: 1;
+  position: fixed;
+  right: 0;
+  top: 0;
+  transition: width 0.1s, opacity 0.4s;
+  width: 0;
   z-index: 999999;
 }

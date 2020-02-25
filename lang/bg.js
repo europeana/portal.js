@@ -80,12 +80,14 @@ export default {
       "name": "Предоставяне на държава"
     },
     "REUSABILITY": {
-      "name": "Мога ли да го използвам повторно?"
+      "name": "Мога ли да го използвам повторно?",
+      "options": {
+        "open": "Да"
+      }
     },
-    "THEME": {
+    "collection": {
       "name": "Категория",
       "options": {
-        "all": "Всички елементи",
         "ww1": "1914-1918",
         "archaeology": "Археология",
         "art": "Изкуство",
@@ -191,7 +193,6 @@ export default {
   },
   "contentfulManual": {
     "headerNavigation": {
-      "teachers": "Учители",
       "explore": "Проучи"
     },
     "footerNavigation": {

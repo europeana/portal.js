@@ -3,14 +3,20 @@
     class="text-left content-card"
     data-qa="content card"
     no-body
-    :class="{ 'entity-card' : isEntity }"
+    :class="{ 'entity-card' : isEntity, 'mini-card' : isMini }"
   >
     <SmartLink
       :destination="url"
       link-class="card-link"
     >
       <b-img-lazy
-        v-if="isEntity && cardImageUrl"
+        v-if="isEntity && cardImageUrl && lazy"
+        :src="optimisedImageUrl"
+        alt=""
+        @error.native="imageNotFound"
+      />
+      <b-img
+        v-if="isEntity && cardImageUrl && !lazy"
         :src="optimisedImageUrl"
         alt=""
         @error.native="imageNotFound"
@@ -20,13 +26,20 @@
         class="card-img"
       >
         <b-img-lazy
-          v-if="!isEntity"
+          v-if="!isEntity && lazy"
+          :src="optimisedImageUrl"
+          alt=""
+        />
+        <b-img
+          v-if="!isEntity && !lazy"
           :src="optimisedImageUrl"
           alt=""
         />
       </div>
       <b-card-body>
         <b-card-title
+          v-if="displayTitle"
+          title-tag="div"
           :lang="displayTitle.code"
         >
           {{ displayTitle.values[0] | truncate(90, $t('formatting.ellipsis')) }}
@@ -46,8 +59,13 @@
             <b-card-text
               :key="index"
               :lang="text.code"
+              text-tag="div"
             >
-              {{ cardText(text.values) }}
+              <!-- eslint-disable vue/no-v-html -->
+              <p
+                v-html="cardText(text.values)"
+              />
+              <!-- eslint-enable vue/no-v-html -->
             </b-card-text>
           </template>
         </template>
@@ -90,6 +108,14 @@
         type: String,
         default: null
       },
+      imageOptimisationOptions: {
+        type: Object,
+        default: () => {}
+      },
+      lazy: {
+        type: Boolean,
+        default: true
+      },
       datetime: {
         type: String,
         default: ''
@@ -98,6 +124,12 @@
         type: Boolean,
         default: false
       },
+      isMini: {
+        type: Boolean,
+        default: false
+      },
+      // TODO: instead of using isMini and isEntity, possibly refactor to use something like "variant"
+      // as it cannot be isEntity and isMini at the same time for example
       omitUrisIfOtherValues: {
         type: Boolean,
         default: false
@@ -135,7 +167,7 @@
       },
 
       optimisedImageUrl() {
-        return this.$options.filters.optimisedImageUrl(this.imageUrl, this.imageContentType);
+        return this.$options.filters.optimisedImageUrl(this.imageUrl, this.imageContentType, this.imageOptimisationOptions);
       }
     },
 
@@ -144,7 +176,8 @@
         const limited = (this.limitValuesWithinEachText > -1) ? values.slice(0, this.limitValuesWithinEachText) : [].concat(values);
         if (values.length > limited.length) limited.push(this.$t('formatting.ellipsis'));
         const joined = limited.join(this.$t('formatting.listSeperator') + ' ');
-        return this.$options.filters.truncate(joined, 255, this.$t('formatting.ellipsis'));
+        const stripped = this.$options.filters.stripMarkdown(joined);
+        return this.$options.filters.truncate(stripped, 255, this.$t('formatting.ellipsis'));
       },
 
       imageNotFound() {

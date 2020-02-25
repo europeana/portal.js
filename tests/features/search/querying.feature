@@ -62,5 +62,7 @@ Feature: Search querying
     When I search for "frog"
     And I see the `search page`
     And I search for "spawn"
+    And I wait 1 second
     And I go back
+    And I wait 1 second
     Then I see "frog" in the `search box`

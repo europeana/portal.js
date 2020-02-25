@@ -44,6 +44,9 @@ defineStep('I can\'t/don\'t have (a/an/the)( ){target}', (qa) =>
 defineStep('there are no (a/an/the)( ){target}', (qa) =>
   i.doNotHaveATarget(qa));
 
+defineStep('the {string} {string} radio is checked', (inputValue, inputName) =>
+  i.seeACheckedRadio(inputName, inputValue));
+
 defineStep('I can\'t/don\'t have (a/an/the)( ){target} in/on the {target}', (qa, parentQa) =>
   i.doNotHaveATarget([qa, parentQa]));
 
@@ -98,7 +101,7 @@ defineStep('I find/identify/see/spot the text {string} in (a/an/the)( ){target} 
 defineStep('I should have/see/see/spot {int} {target}(s)', (count, qa) =>
   i.countTarget(count, qa));
 
-defineStep('I should see {int} {target} checkboxes/radio( )(buttons)', (count, inputName) =>
+defineStep('I should see {int} {word} checkboxes/radio( )(buttons)', (count, inputName) =>
   i.countTargetByNameAttribute(count, inputName));
 
 defineStep('I should have/see/see/spot a meta label {target} with the value {string}', (label, value) =>

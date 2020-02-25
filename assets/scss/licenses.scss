@@ -1,54 +1,54 @@
-.icon-license-pd {
-  background-image: url('~assets/img/cc-icons/pd.svg');
+.icon-license-pd:before {
+  content: '\e910';
 }
 
-.icon-license-zero {
-  background-image: url('~assets/img/cc-icons/zero.svg');
+.icon-license-zero:before {
+  content: '\e919';
 }
 
-.icon-license-cc {
-  background-image: url('~assets/img/cc-icons/cc.svg');
+.icon-license-cc:before {
+  content: '\e90b';
 }
 
-.icon-license-by {
-  background-image: url('~assets/img/cc-icons/by.svg');
+.icon-license-by:before {
+  content: '\e90a';
 }
 
-.icon-license-nc {
-  background-image: url('~assets/img/cc-icons/nc.svg');
+.icon-license-nc:before {
+  content: '\e90e';
 }
 
-.icon-license-nd {
-  background-image: url('~assets/img/cc-icons/nd.svg');
+.icon-license-nd:before {
+  content: '\e90f';
 }
 
-.icon-license-sa {
-  background-image: url('~assets/img/cc-icons/sa.svg');
+.icon-license-sa:before {
+  content: '\e915';
 }
 
-.icon-license-rs-yes {
-  background-image: url('~assets/img/cc-icons/rs-yes.svg');
+.icon-license-rs-yes:before {
+  content: '\e914';
 }
 
-.icon-license-rs-no {
-  background-image: url('~assets/img/cc-icons/rs-no.svg');
+.icon-license-rs-no:before {
+  content: '\e912';
 }
 
-.icon-license-rs-unknown {
-  background-image: url('~assets/img/cc-icons/rs-unknown.svg');
+.icon-license-rs-unknown:before {
+  content: '\e913';
 }
 
-.icon-license-rr {
-  background: none;
-
-  &::after {
-    content: '\00a9';
-  }
+.icon-license-rr:before {
+  content: '\e91a';
 }
 
 .attribution {
   color: $black;
   text-decoration: none;
+  
+  > span {
+    white-space: nowrap;
+  }
 
   &:hover {
     color: $blue;
@@ -57,18 +57,15 @@
 
   &.is-external-link:after {
     content: '\e900';
+    font-size: $font-size-small;
+    padding-left: 0.5rem;
     @extend .icon-font;
   }
 
   .license {
-    background-position: left center;
-    background-repeat: no-repeat;
-    background-size: 13px 13px;
-    padding-left: 1rem;
-    padding-top: 3px;
+    @extend .icon-font;
+    display: inline-block;
+    margin-right: 0.25rem;
+    margin-top: -0.1rem;
   }
-
-  .icon-license-rr {
-    padding-left: 0.5rem;
-  }  
 }

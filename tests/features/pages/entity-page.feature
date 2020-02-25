@@ -46,12 +46,12 @@ Feature: Entity page
     When I open an `entity page`
     And I see the `entity page`
     And I see a `search result`
-    Then I see a link to "/en/entity/topic/18-newspaper?page=2&view=grid" in the `pagination navigation`
+    Then I see a link to "/en/entity/topic/18-newspapers?page=2&view=grid" in the `pagination navigation`
 
   Scenario: Pagination links work when the page was accessed from the url
-    When I visit `/en/entity/topic/18-newspaper?page=2`
+    When I visit `/en/entity/topic/18-newspapers?page=2`
     And I go to page number 3
-    Then I should be on `/en/entity/topic/18-newspaper?page=3&view=grid`
+    Then I should be on `/en/entity/topic/18-newspapers?page=3&view=grid`
 
   Scenario: Searching from an entity page searches within that entity
     When I open an `entity page`
@@ -71,3 +71,10 @@ Feature: Entity page
     Then I see the `search page`
     And I don't have the `search bar pill`
     And I am on page number 1
+
+  Scenario: Newspapers collection API toggle is removed by removing search pill
+    Given I am on `/en/entity/topic/18-newspapers?api=fulltext&view=grid`
+    And I see the `search bar pill`
+    When I click the `search bar pill button`
+    Then I see the `search page`
+    And I should be on `/en/search?view=grid&page=1&query=`

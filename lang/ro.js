@@ -80,12 +80,14 @@ export default {
       "name": "Țara de proveniență"
     },
     "REUSABILITY": {
-      "name": "Pot reutiliza acest lucru?"
+      "name": "Pot reutiliza acest lucru?",
+      "options": {
+        "open": "Da"
+      }
     },
-    "THEME": {
+    "collection": {
       "name": "Categorie",
       "options": {
-        "all": "Toate articolele",
         "ww1": "1914-1918",
         "archaeology": "Arheologie",
         "art": "Artă",
@@ -187,7 +189,6 @@ export default {
   },
   "contentfulManual": {
     "headerNavigation": {
-      "teachers": "Profesori",
       "explore": "Explorează"
     },
     "footerNavigation": {

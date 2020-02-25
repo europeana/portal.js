@@ -15,8 +15,9 @@
     <b-container>
       <b-row>
         <b-col
-          cols="9"
-          class="pb-3"
+          cols="12"
+          lg="9"
+          class="pb-0 pb-lg-3"
         >
           <h1
             v-if="!hero"
@@ -25,9 +26,17 @@
             {{ page.name }}
           </h1>
           <article>
-            <h2>{{ page.description }}</h2>
             {{ page.text }}
           </article>
+        </b-col>
+        <b-col
+          cols="12"
+          lg="3"
+          class="pb-3 text-left text-lg-right"
+        >
+          <SocialShare
+            :media-url="heroImage.url"
+          />
         </b-col>
       </b-row>
       <b-row>
@@ -35,14 +44,24 @@
           <BrowseSections
             v-if="page"
             :sections="page.hasPart"
+            :rich-text-is-card="false"
+            class="exhibition-sections"
           />
         </b-col>
       </b-row>
       <b-row v-if="chapters">
-        <b-col>
+        <b-col class="my-3">
+          <ExhibitionChaptersNavigation
+            :exhibition-identifier="exhibitionIdentifier"
+            :chapter-navigation="chapterNavigation"
+          />
+          <h2 class="is-size-1-5">
+            {{ $t('exhibitions.chapters') }}
+          </h2>
           <ExhibitionChapters
             :exhibition-identifier="exhibitionIdentifier"
             :chapters="chapters"
+            :credits="credits"
           />
         </b-col>
       </b-row>
@@ -54,15 +73,26 @@
   import createClient from '../../../plugins/contentful';
   import BrowseSections from '../../../components/browse/BrowseSections';
   import ExhibitionChapters from '../../../components/exhibition/ExhibitionChapters';
+  import ExhibitionChaptersNavigation from '../../../components/exhibition/ExhibitionChaptersNavigation';
   import HeroImage from '../../../components/generic/HeroImage';
+  import SocialShare from '../../../components/generic/SocialShare';
 
   export default {
     components: {
       BrowseSections,
       ExhibitionChapters,
-      HeroImage
+      ExhibitionChaptersNavigation,
+      HeroImage,
+      SocialShare
     },
     computed: {
+      chapterNavigation() {
+        return this.chapters.map((chapter) => {
+          return {
+            identifier: chapter.fields.identifier, name: chapter.fields.name, url: this.chapterUrl(chapter.fields.identifier)
+          };
+        });
+      },
       hero() {
         return this.page.primaryImageOfPage ? this.page.primaryImageOfPage.fields : null;
       },
@@ -109,6 +139,7 @@
           ]);
           return {
             chapters: response.items[0].fields.hasPart,
+            credits: response.items[0].fields.credits,
             exhibitionIdentifier: params.exhibition,
             page: chapter.fields
           };
@@ -116,6 +147,16 @@
         .catch((e) => {
           error({ statusCode: 500, message: e.toString() });
         });
+    },
+    methods: {
+      chapterUrl(identifier) {
+        return this.localePath({
+          name: 'exhibition-exhibition-chapter',
+          params: {
+            exhibition: this.exhibitionIdentifier, chapter: identifier
+          }
+        });
+      }
     },
     beforeRouteLeave(to, from, next) {
       this.$store.commit('breadcrumb/clearBreadcrumb');
@@ -126,11 +167,50 @@
         title: this.page.name,
         meta: [
           { hid: 'title', name: 'title', content: this.page.name },
-          { hid: 'description', name: 'description', content: this.page.description },
           { hid: 'og:title', property: 'og:title', content: this.page.name },
+          { hid: 'og:image', property: 'og:image', content: this.heroImage.url },
+          { hid: 'og:type', property: 'og:type', content: 'article' }
+        ].concat(this.page.description ? [
+          { hid: 'description', name: 'description', content: this.page.description },
           { hid: 'og:description', property: 'og:description', content: this.page.description }
-        ]
+        ] : [])
       };
     }
   };
 </script>
+
+<style lang="scss" scoped>
+
+  .exhibition-sections {
+    text-align: center;
+  }
+
+  /deep/ .exhibition-sections .col {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+  }
+
+  /deep/ figure {
+    display: inline-block;
+    max-width: 100%;
+
+    img {
+      max-height: 85vh;
+      max-width: 100%;
+    }
+
+    &.compare-image-wrapper {
+      display: inline-block;
+      img {
+        max-height: 85vh;
+      }
+    }
+  }
+
+  /deep/ iframe {
+    max-height: initial;
+    max-width: 100%;
+  }
+
+</style>

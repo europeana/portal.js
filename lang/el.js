@@ -80,12 +80,14 @@ export default {
       "name": "Παροχή χώρας"
     },
     "REUSABILITY": {
-      "name": "Μπορώ να το επαναχρησιμοποιήσω αυτό;"
+      "name": "Μπορώ να το επαναχρησιμοποιήσω αυτό;",
+      "options": {
+        "open": "Ναί"
+      }
     },
-    "THEME": {
+    "collection": {
       "name": "Κατηγορία",
       "options": {
-        "all": "Όλα τα στοιχεία",
         "ww1": "1914-1918",
         "archaeology": "Αρχαιολογία",
         "art": "Τέχνη",
@@ -187,7 +189,6 @@ export default {
   },
   "contentfulManual": {
     "headerNavigation": {
-      "teachers": "Εκπαιδευτικοί",
       "explore": "Εξερεύνηση"
     },
     "footerNavigation": {

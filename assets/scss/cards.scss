@@ -3,7 +3,7 @@
   border-radius: $border-radius-small;
   box-shadow: $boxshadow-small;
   color: $black;
-  font-size: $font-size-extrasmall;
+  font-size: $font-size-small;
   height: auto;
   line-height: 1.1875rem;
   transition: box-shadow 0.25s;
@@ -14,10 +14,6 @@
 
   @media (min-width: $bp-medium) {
     min-height: 20rem;
-  }
-
-  &:hover {
-    box-shadow: $boxshadow-large;
   }
 
   a {
@@ -51,8 +47,8 @@
   }
 
   .card-title {
-    font-size: $font-size-small;
-    font-weight: normal;
+    font-size: 1rem;
+    font-weight: 600;
   }
 
   .card-title:last-child {
@@ -61,6 +57,10 @@
 
   .card-text {
     color: $mediumgrey;
+
+    p:last-of-type {
+      margin-bottom: 0;
+    }
   }
 
   .card-link {
@@ -73,15 +73,9 @@
 
   &.entity-card {
     border: 0;
-    font-size: $font-size-small;
     justify-content: flex-end;
     margin-bottom: 2.5rem;
     margin-left: 0.9rem;
-
-    .card-title {
-      font-size: $font-size-base;
-      font-weight: 600;
-    }
 
     img {
       border-radius: 4px;
@@ -105,17 +99,75 @@
       z-index: 1;
     }
 
-    &:hover {
-      .card-body {
-        box-shadow: $boxshadow-large;
-        background-color: $offwhite;
-      }
-    }
-
     @media (min-width: $bp-medium) {
       background: transparent;
       box-shadow: none;
       min-height: auto;
+    }
+  }
+
+  &.mini-card {
+    min-height: auto;
+    padding: 1rem;
+
+    a {
+      flex-direction: row;
+      justify-content: space-between;
+
+      .card-img {
+        border-radius: 4px;
+        display: block;
+        flex: 0 0 auto;
+        height: 80px;
+        min-height: initial;
+        order: 2;
+        overflow: hidden;
+        position: relative;
+        width: 80px;
+        
+        img {
+          height: 80px;
+          margin: 0;
+          position: absolute;
+        }
+
+        &:after {
+          content: '';
+          display: block;
+          padding-bottom: 100%;
+          width: 100%;
+        }
+      }
+
+      .card-title {
+        overflow-wrap: break-word;
+        word-break: break-word;
+      }
+
+      .card-body {
+        flex-grow: 1;
+        margin-right: 1rem;
+        order: 1;
+        padding: 0;
+        width: 55%;
+      }
+
+      .card-text {
+        color: $blue;
+      }      
+    }    
+  }
+
+  &:hover {
+    box-shadow: $boxshadow-large;
+  }
+
+  &.entity-card:hover {
+    box-shadow: none;
+
+    .card-body {
+      box-shadow: $boxshadow-large;
+      background-color: $offwhite;
     }
   }
 }
@@ -131,6 +183,12 @@
   }
 
   .card-deck-4-cols .card {
+    flex: 0 0 calc(100% / 2 - #{$grid-gutter*2});
+  }
+}
+
+@media (min-width: $bp-large) {
+  .card-deck-4-cols .card {
     flex: 0 0 calc(100% / 4 - #{$grid-gutter*2});
   }
 }
@@ -138,4 +196,34 @@
 .is-external-link.card-link .card-title:after {
   content: '\e900';
   @extend .icon-font;
+}
+
+.masonry {
+  display: inline-block;
+  columns: 1;
+  column-gap: 0;
+  width: 100%;
+
+  @media (min-width: $bp-small) {
+    columns: 2;
+    column-gap: 1rem;
+  }
+
+  @media (min-width: $bp-large) {
+    columns: 4;
+  }
+
+  .content-card {
+    break-inside: avoid;
+    min-height: initial;
+    transform: translateZ(0);
+    width: 100%;
+
+    a {
+      .card-img {
+        min-height: 12rem;
+        max-height: initial;
+      }
+    }
+  }
 }

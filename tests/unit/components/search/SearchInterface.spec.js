@@ -1,10 +1,11 @@
-import { createLocalVue, mount } from '@vue/test-utils';
+import { createLocalVue, shallowMount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 import VueRouter from 'vue-router';
 import Vuex from 'vuex';
 import sinon from 'sinon';
 
 import SearchInterface from '../../../../components/search/SearchInterface.vue';
+import { defaultFacetNames } from '../../../../store/search';
 
 const localVue = createLocalVue();
 localVue.filter('localise', (number) => number);
@@ -29,30 +30,46 @@ const factory = (options = {}) => {
   });
 
   const mocks = {
-    $i18n: {
-      locale: 'en'
-    },
     $t: (key) => key,
-    $tc: (key) => key,
-    $te: () => false,
     localePath: (opts) => opts,
     ...options.mocks
   };
   const store = new Vuex.Store({
-    state: {
+    modules: {
       search: {
-        facets: [],
-        userParams: {},
-        results: [],
-        themeFacetEnabled: true,
-        ...options.storeState
-      },
-      entity: {
-        id: null
+        namespaced: true,
+        state: {
+          facets: [],
+          userParams: {},
+          apiParams: {},
+          results: [],
+          collectionFacetEnabled: true,
+          resettableFilters: [],
+          ...options.storeState
+        },
+        getters: {
+          facetNames() {
+            return defaultFacetNames;
+          },
+          filters: () => {
+            return {};
+          },
+          collection: () => null,
+          queryUpdatesForFacetChanges: () => () => {
+            return {};
+          },
+          ...options.storeGetters
+        },
+        mutations: {
+          setView: () => null
+        },
+        actions: {
+          queryFacets: () => null
+        }
       }
     }
   });
-  return mount(SearchInterface, {
+  return shallowMount(SearchInterface, {
     localVue,
     mocks,
     router,
@@ -72,21 +89,21 @@ describe('components/search/SearchInterface', () => {
           }
         });
 
-        const errorNotice = wrapper.find('[data-qa="error notice"]');
+        const errorNotice = wrapper.find(`[error="${errorMessage}"]`);
 
-        errorNotice.text().should.include(errorMessage);
+        errorNotice.should.exist;
       });
     });
   });
 
   describe('computed properties', () => {
     describe('contentTierActiveState', () => {
-      context('when contentTier facet includes "*"', () => {
+      context('when contentTier filter includes "*"', () => {
         it('is `true`', async() => {
           const wrapper = await factory({
-            storeState: {
-              userParams: {
-                qf: 'contentTier:*'
+            storeGetters: {
+              filters: () => {
+                return { contentTier: '*' };
               }
             }
           });
@@ -95,12 +112,12 @@ describe('components/search/SearchInterface', () => {
         });
       });
 
-      context('when contentTier facet does not include "*"', () => {
+      context('when contentTier filter does not include "*"', () => {
         it('is `false`', async() => {
           const wrapper = await factory({
-            storeState: {
-              userParams: {
-                qf: 'contentTier:1 OR 2 OR 3 OR 4'
+            storeGetters: {
+              filters: () => {
+                return { contentTier: '1 OR 2 OR 3 OR 4' };
               }
             }
           });
@@ -184,8 +201,8 @@ describe('components/search/SearchInterface', () => {
         }
       });
 
-      it('injects THEME first', () => {
-        wrapper.vm.orderedFacets[0].name.should.eq('THEME');
+      it('injects collection first', () => {
+        wrapper.vm.orderedFacets[0].name.should.eq('collection');
       });
 
       it('follows with ordered default facets from search plugin', () => {
@@ -220,7 +237,7 @@ describe('components/search/SearchInterface', () => {
       });
 
       it('returns core facets only', () => {
-        wrapper.vm.coreFacets.map(coreFacet => coreFacet.name).should.eql(['THEME', 'TYPE', 'REUSABILITY', 'COUNTRY']);
+        wrapper.vm.coreFacets.map(coreFacet => coreFacet.name).should.eql(['collection', 'TYPE', 'REUSABILITY', 'COUNTRY']);
       });
     });
 
@@ -247,77 +264,32 @@ describe('components/search/SearchInterface', () => {
   });
 
   describe('methods', () => {
-    describe('queryUpdatesForFacetChanges', () => {
-      const wrapper = factory();
-
-      context('when facet is REUSABILITY', () => {
-        const selected = { 'REUSABILITY': ['open', 'permission' ] };
-
-        context('with values selected', () => {
-          it('sets `reusability` to values joined with ","', () => {
-            const updates = wrapper.vm.queryUpdatesForFacetChanges(selected);
-            updates.reusability.should.eq('open,permission');
-          });
-        });
-
-        context('with no values selected', () => {
-          it('sets `reusability` to `null`', () => {
-            const wrapper = factory();
-            const updates = wrapper.vm.queryUpdatesForFacetChanges();
-            updates.should.eql({ qf: [], page: 1 });
-          });
-        });
-      });
-
-      context('for default facets from search plugin supporting quotes', () => {
-        it('includes fielded and quoted queries for each value in `qf`', () => {
-          const selected = { 'TYPE': ['IMAGE', 'SOUND'] };
-          const updates = wrapper.vm.queryUpdatesForFacetChanges(selected);
-          updates.qf.should.include('TYPE:"IMAGE"');
-          updates.qf.should.include('TYPE:"SOUND"');
-        });
-      });
-
-      context('for default facets from search plugin not supporting quotes', () => {
-        it('includes fielded but unquoted queries for each value in `qf`', () => {
-          const selected = { 'MIME_TYPE': ['application/pdf'] };
-          const updates = wrapper.vm.queryUpdatesForFacetChanges(selected);
-          updates.qf.should.include('MIME_TYPE:application/pdf');
-        });
-      });
-
-      context('for any other facets', () => {
-        it('includes fielded but unquoted queries for each value in `qf`', () => {
-          const selected = { 'contentTier': ['4'] };
-          const updates = wrapper.vm.queryUpdatesForFacetChanges(selected);
-          updates.qf.should.include('contentTier:4');
-        });
-      });
-    });
-
     describe('changeFacet', () => {
       const facetName = 'TYPE';
 
       context('when facet had selected values', () => {
-        const initialSelectedValues = ['IMAGE'];
-        const initialSelectedQf = 'TYPE:"IMAGE"';
-        const storeState = { userParams: { qf: initialSelectedQf } };
+        const initialSelectedValues = ['"IMAGE"'];
+        const storeGetters = {
+          filters: () => {
+            return { 'TYPE': ['"IMAGE"'] };
+          }
+        };
 
         context('and they changed', () => {
-          const newSelectedValues = ['IMAGE', 'TEXT'];
+          const newSelectedValues = ['"IMAGE"', '"TEXT"'];
 
           it('triggers rerouting', async() => {
-            const wrapper = factory({ storeState });
+            const wrapper = factory({ storeGetters });
             const searchRerouter = sinon.spy(wrapper.vm, 'rerouteSearch');
 
             await wrapper.vm.changeFacet(facetName, newSelectedValues);
-            searchRerouter.should.have.been.calledWith({ page: 1, qf: ['TYPE:"IMAGE"', 'TYPE:"TEXT"'] });
+            searchRerouter.should.have.been.called;
           });
         });
 
         context('and they were unchanged', () => {
           it('does not trigger rerouting', async() => {
-            const wrapper = factory({ storeState });
+            const wrapper = factory({ storeGetters });
             const searchRerouter = sinon.spy(wrapper.vm, 'rerouteSearch');
 
             await wrapper.vm.changeFacet(facetName, initialSelectedValues);
@@ -327,17 +299,21 @@ describe('components/search/SearchInterface', () => {
       });
 
       context('when facet had no selected values', () => {
-        const storeState = { userParams: {} };
+        const storeGetters = {
+          filters: () => {
+            return {};
+          }
+        };
 
         context('and some were selected', () => {
-          const newSelectedValues = ['IMAGE', 'TEXT'];
+          const newSelectedValues = ['"IMAGE"', '"TEXT"'];
 
           it('triggers rerouting', async() => {
-            const wrapper = await factory({ storeState });
+            const wrapper = await factory({ storeGetters });
             const searchRerouter = sinon.spy(wrapper.vm, 'rerouteSearch');
 
             await wrapper.vm.changeFacet(facetName, newSelectedValues);
-            searchRerouter.should.have.been.calledWith({ page: 1, qf: ['TYPE:"IMAGE"', 'TYPE:"TEXT"'] });
+            searchRerouter.should.have.been.called;
           });
         });
 
@@ -345,7 +321,7 @@ describe('components/search/SearchInterface', () => {
           const newSelectedValues = [];
 
           it('does not trigger rerouting', async() => {
-            const wrapper = factory({ storeState });
+            const wrapper = factory({ storeGetters });
             const searchRerouter = sinon.spy(wrapper.vm, 'rerouteSearch');
 
             await wrapper.vm.changeFacet(facetName, newSelectedValues);

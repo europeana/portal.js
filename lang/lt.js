@@ -80,12 +80,14 @@ export default {
       "name": "Teikianti šalis"
     },
     "REUSABILITY": {
-      "name": "Ar galiu tai pakartotinai naudoti?"
+      "name": "Ar galiu tai pakartotinai naudoti?",
+      "options": {
+        "open": "Taip"
+      }
     },
-    "THEME": {
+    "collection": {
       "name": "Kategorija",
       "options": {
-        "all": "Visi elementai",
         "ww1": "1914-1918",
         "archaeology": "Archeologija",
         "art": "Menas",
@@ -187,7 +189,6 @@ export default {
   },
   "contentfulManual": {
     "headerNavigation": {
-      "teachers": "Mokytojai",
       "explore": "Tyrinėkite"
     },
     "footerNavigation": {

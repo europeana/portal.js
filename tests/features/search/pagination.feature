@@ -16,7 +16,7 @@ Feature: Search pagination
     And I wait for a `search result`
     And I see a `search facet`
     And I click the `TYPE dropdown button`
-    And I check the "IMAGE" "TYPE" checkbox
+    And I check the "\"IMAGE\"" "TYPE" checkbox
     And I click the `TYPE apply button`
     And I see a `pagination navigation`
     Then I see a link to "/en/search?page=2&qf=TYPE%3A%22IMAGE%22&query=paris&view=grid" in the `pagination navigation`

@@ -15,7 +15,9 @@
             :key="exhibition.identifier"
             :title="exhibition.fields.name"
             :url="{ name: 'exhibition-exhibition', params: { exhibition: exhibition.fields.identifier } }"
-            :image-url="exhibition.fields.primaryImageOfPage && exhibition.fields.primaryImageOfPage.fields.image.fields.file.url"
+            :image-url="imageUrl(exhibition.fields.primaryImageOfPage)"
+            :image-content-type="imageContentType(exhibition.fields.primaryImageOfPage)"
+            :image-optimisation-options="{ width: 510 }"
             :texts="[exhibition.fields.description]"
           />
         </b-card-group>
@@ -66,7 +68,7 @@
         return this.total > this.perPage;
       }
     },
-    asyncData({ query, redirect, error, app, store }) {
+    asyncData({ query, redirect, error, app }) {
       const currentPage = pageFromQuery(query.page);
       if (currentPage === null) {
         // Redirect non-positive integer values for `page` to `page=1`
@@ -76,20 +78,13 @@
 
       const contentfulClient = createClient(query.mode);
       return contentfulClient.getEntries({
-        'locale': app.i18n.isoLocale(),
+        locale: app.i18n.isoLocale(),
         'content_type': 'exhibitionPage',
-        'skip': (currentPage - 1) * PER_PAGE,
-        // TODO refactor this to use firstPublishedAt, which is not searchable and may require a custom field + webhook
-        'order': '-sys.createdAt',
+        skip: (currentPage - 1) * PER_PAGE,
+        order: '-fields.datePublished',
         limit: PER_PAGE
       })
         .then((response) => {
-          store.commit('breadcrumb/setBreadcrumbs', [
-            {
-              text:  app.i18n.t('exhibitions.exhibitions'),
-              active: true
-            }
-          ]);
           return {
             exhibitions: response.items,
             total: response.total,
@@ -104,6 +99,14 @@
     methods: {
       paginationLink(val) {
         return this.localePath({ name: 'exhibitions', query: { page: val } });
+      },
+      imageUrl(image) {
+        if (image && image.fields && image.fields.image && image.fields.image.fields && image.fields.image.fields.file)
+          return image.fields.image.fields.file.url;
+      },
+      imageContentType(image) {
+        if (image && image.fields && image.fields.image && image.fields.image.fields && image.fields.image.fields.file)
+          return image.fields.image.fields.file.contentType;
       }
     },
     watchQuery: ['page'],

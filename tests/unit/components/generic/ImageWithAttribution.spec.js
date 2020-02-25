@@ -1,12 +1,12 @@
-import { createLocalVue, mount } from '@vue/test-utils';
-import BootstrapVue from 'bootstrap-vue';
+import { createLocalVue, shallowMount } from '@vue/test-utils';
 import ImageWithAttribution from '../../../../components/generic/ImageWithAttribution.vue';
 
 const localVue = createLocalVue();
-localVue.use(BootstrapVue);
 
 const propsData = {
   src: 'https://www.example.org/image.jpeg',
+  width: 2500,
+  height: 1250,
   attribution: {
     name: 'Something',
     creator: 'Someone',
@@ -16,47 +16,23 @@ const propsData = {
   }
 };
 
-const factory = () => mount(ImageWithAttribution, {
+const factory = () => shallowMount(ImageWithAttribution, {
   localVue,
-  mocks: {
-    localePath: (opts) => opts,
-    $t: (key) => key
-  },
   propsData
 });
 
 describe('components/generic/ImageWithAttribution', () => {
-  it('shows the image', () => {
+  it('renders the image', () => {
     const wrapper = factory();
 
-    const img = wrapper.find('figure img');
-    img.attributes().src.should.eq(propsData.src);
+    const image = wrapper.find('figure [data-qa="image"]');
+    image.attributes().src.should.eq(propsData.src);
   });
 
-  it('shows the attribution', () => {
+  it('renders the attribution', () => {
     const wrapper = factory();
 
-    const attributionText = [
-      propsData.attribution.name,
-      propsData.attribution.creator,
-      propsData.attribution.provider
-    ].join(', ');
-
-    const cite = wrapper.find('figure figcaption cite');
-    cite.text().should.include(attributionText);
-  });
-
-  it('links to the URL', () => {
-    const wrapper = factory();
-
-    const link = wrapper.find('figure figcaption a');
-    link.attributes().href.should.eq(propsData.attribution.url);
-  });
-
-  it('shows the rights statement abbreviation', () => {
-    const wrapper = factory();
-
-    const link = wrapper.find('[data-qa="rights statement"]');
-    link.text().should.eq('CC BY-ND');
+    const attribution = wrapper.find('figure [data-qa="attribution"]');
+    attribution.attributes().url.should.eq(propsData.attribution.url);
   });
 });

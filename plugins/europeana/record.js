@@ -93,7 +93,7 @@ function extraFields(proxyData, edm, entities) {
     dcIdentifier: proxyData.dcIdentifier,
     europeanaCollectionName: edm.europeanaCollectionName,
     timestampCreated: edm.timestamp_created,
-    timestampUpdated: edm.timestamp_updated,
+    timestampUpdate: edm.timestamp_update,
     dctermsExtent: proxyData.dctermsExtent,
     dcDuration: proxyData.dcDuration,
     dcMedium: proxyData.dcMedium,
@@ -248,10 +248,13 @@ function setMatchingEntities(fields, key, entities) {
  * @param {string} europeanaId ID of Europeana record
  * @return {Object} parsed record data
  */
-function getRecord(europeanaId) {
-  return axios.get(`${config.origin}/api/v2/record${europeanaId}.json`, {
+function getRecord(europeanaId, options = {}) {
+  const origin = options.origin || config.record.origin;
+  const path = options.path || config.record.path;
+
+  return axios.get(`${origin}${path}${europeanaId}.json`, {
     params: {
-      wskey: config.keys.record
+      wskey: config.record.key
     }
   })
     .then((response) => {
