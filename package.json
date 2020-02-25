@@ -39,7 +39,7 @@
     "test:chrome:headless": "cross-env browser=chromeHeadless cucumber-js",
     "test:chrome": "cross-env browser=chrome cucumber-js",
     "test:ci": "npm run test:unit && npm run build:test && npx size-limit && npm run test:e2e:ci",
-    "test:e2e:ci": "concurrently 'npm run apicache:start' 'cross-env EUROPEANA_API_ORIGIN=http://localhost:4000 npm run start:test' 'npm run apicache:warmup && npm run test:chrome:headless -- -p all' --success first --kill-others-on-fail",
+    "test:e2e:ci": "concurrently 'npm run apicache:start' 'cross-env EUROPEANA_RECORD_API_ORIGIN=http://localhost:4000 EUROPEANA_ENTITY_API_ORIGIN=http://localhost:4000 npm run start:test' 'npm run apicache:warmup && npm run test:chrome:headless -- -p all' --success first --kill-others-on-fail",
     "test:e2e": "concurrently 'npm run build:test && npm run start:test' 'npm run test:chrome -- -p all' --success first --kill-others",
     "test:gecko": "cross-env browser=gecko cucumber-js --no-strict",
     "test:unit": "vue-cli-service test:unit --include tests/unit/setup",
