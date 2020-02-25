@@ -5,13 +5,22 @@
   >
     <b-media-body class="m-4">
       <div
-        v-if="localisedHeading"
-        :lang="localisedHeading.code"
-        :data-field-name="localisedHeadingFieldName"
+        v-if="localisedTitle.values.length > 0"
+        :lang="localisedTitle.code"
+        class="is-size-3 font-weight-bold"
+        data-field-name="dcTitle"
       >
         <!-- TODO: this is _list_ view... do we need to truncate? -->
-        {{ localisedHeading.values[0] | truncate(90, $t('formatting.ellipsis')) }}
+        {{ localisedTitle.values[0] | truncate(90, $t('formatting.ellipsis')) }}
       </div>
+      <p
+        v-if="localisedDescription.values.length > 0"
+        :class="{ 'is-size-3 font-weight-bold': localisedTitle.values.length === 0 }"
+        :lang="localisedDescription.code"
+        data-field-name="dcDescription"
+      >
+        {{ localisedDescription.values[0] | truncate(510, $t('formatting.ellipsis')) }}
+      </p>
       <div
         lang=""
         data-field-name="edmDataProvider"
@@ -83,17 +92,17 @@
 
     data() {
       return {
-        LIMIT_CREATORS: 3
+        LIMIT_CREATORS: 6
       };
     },
 
     computed: {
-      localisedHeadingFieldName() {
-        return this.dcTitle ? 'dcTitle' : (this.dcDescription ? 'dcDescription' : null);
+      localisedTitle() {
+        return langMapValueForLocale(this.dcTitle || {}, this.$i18n.locale, { omitUrisIfOtherValues: true });
       },
 
-      localisedHeading() {
-        return langMapValueForLocale(this.dcTitle || this.dcDescription || {}, this.$i18n.locale, { omitUrisIfOtherValues: true });
+      localisedDescription() {
+        return langMapValueForLocale(this.dcDescription || {}, this.$i18n.locale, { omitUrisIfOtherValues: true });
       }
     }
   };
