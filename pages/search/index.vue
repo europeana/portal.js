@@ -20,18 +20,12 @@
       SearchInterface
     },
 
-    asyncData({ query, redirect, app }) {
+    middleware({ query, redirect, app }) {
       const currentPage = pageFromQuery(query.page);
 
       if (currentPage === null) {
         // Redirect non-positive integer values for `page` to `page=1`
-        query.page = '1';
-        return redirect(app.localePath({ name: 'search', query }));
-      }
-
-      if (typeof query.query === 'undefined') {
-        query.query = '';
-        return redirect(app.localePath({ name: 'search', query }));
+        return redirect(app.localePath({ name: 'search', query: { ...query, ...{ page: '1' } } }));
       }
     },
 
@@ -51,7 +45,6 @@
     },
 
     mounted() {
-      this.$store.commit('search/setPill', this.title);
       this.$store.commit('search/enableCollectionFacet');
     },
 

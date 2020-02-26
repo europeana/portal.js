@@ -83,7 +83,7 @@
 
     data() {
       return {
-        query: '',
+        query: null,
         gettingSuggestions: false,
         suggestions: {},
         selectedSuggestion: null
@@ -122,8 +122,7 @@
           query: {
             view: this.view,
             ...this.queryUpdatesForFacetChanges({ collection: null }),
-            // default to empty string to prevent immediate redirect by /pages/search/index.vue if absent
-            query: this.query || ''
+            query: this.query
           }
         };
       },

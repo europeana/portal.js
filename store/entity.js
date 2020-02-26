@@ -93,6 +93,6 @@ export const actions = {
     commit('search/setUserParams', userParams, { root: true });
     commit('search/setOverrideParams', overrideParams, { root: true });
 
-    await dispatch('search/run', null, { root: true });
+    await dispatch('search/run', {}, { root: true });
   }
 };

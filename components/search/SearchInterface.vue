@@ -141,6 +141,8 @@
   import { queryUpdatesForFilters } from '../../store/search';
 
   export default {
+    name: 'SearchInterface',
+
     components: {
       AlertMessage,
       InfoMessage,
@@ -175,7 +177,9 @@
     data() {
       return {
         coreFacetNames: ['collection', 'TYPE', 'COUNTRY', 'REUSABILITY'],
-        PROXY_DCTERMS_ISSUED: 'proxy_dcterms_issued'
+        PROXY_DCTERMS_ISSUED: 'proxy_dcterms_issued',
+        FACET_UPDATE_QUERY_PARAMS: ['query', 'qf', 'api', 'reusability'],
+        ITEM_UPDATE_QUERY_PARAMS: ['query', 'qf', 'api', 'reusability', 'page']
       };
     },
     computed: {
@@ -199,7 +203,7 @@
         return this.userParams.qf;
       },
       query() {
-        return this.userParams.query || '';
+        return this.userParams.query;
       },
       reusability() {
         return this.userParams.reusability;
@@ -292,17 +296,18 @@
     },
     watch: {
       async $route(to, from) {
-        this.$store.commit('search/setUserParams', to.query);
-        await this.$store.dispatch('search/run');
-
         const queryParamsChanged = Object.keys(diff(from.query, to.query));
-        if (queryParamsChanged.length !== 1 || queryParamsChanged[0] !== 'page') {
-          await this.$store.dispatch('search/queryFacets');
+        if (!queryParamsChanged.some((param) => this.ITEM_UPDATE_QUERY_PARAMS.includes(param))) return;
+
+        const toQuery = ['items'];
+        if (queryParamsChanged.some((param) => this.FACET_UPDATE_QUERY_PARAMS.includes(param))) {
+          toQuery.push('facets');
         }
+
+        this.$store.commit('search/setUserParams', to.query);
+
+        await this.$store.dispatch('search/run', { toQuery });
       }
-    },
-    async mounted() {
-      await this.$store.dispatch('search/queryFacets');
     },
     created() {
       if (this.$route.query.view) {

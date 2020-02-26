@@ -24,8 +24,8 @@ Feature: Search pagination
 
   Scenario: Changing pagination with browser history
 
-    When I visit the `home page`
-    And I enter "paris" in the `search box`
+    Given I am on the `home page`
+    When I enter "paris" in the `search box`
     And I click the `search button`
     And I wait for a `search result`
     And I go to page number 2
@@ -41,9 +41,8 @@ Feature: Search pagination
     Then I see a link to "/en/search?page=2&qf=TYPE%3A%22IMAGE%22&query=paris&view=grid" in the `pagination navigation`
 
   Scenario: Pagination links work when the page was accessed from the url.
-
-    When I visit `/en/search?query=paris&page=1&qf=TYPE%3A%22IMAGE%22`
-    And I click the "/en/search?page=2&qf=TYPE%3A%22IMAGE%22&query=paris&view=grid" link
+    Given I am on `/en/search?query=paris&page=1&qf=TYPE%3A%22IMAGE%22`
+    When I go to page number 2
     And I wait 1 second
     Then I should be on `/en/search?page=2&qf=TYPE%3A%22IMAGE%22&query=paris&view=grid`
 

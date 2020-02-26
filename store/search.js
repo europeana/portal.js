@@ -1,3 +1,4 @@
+import axios from 'axios';
 import merge from 'deepmerge';
 import search, { unquotableFacets } from '../plugins/europeana/search';
 
@@ -243,7 +244,6 @@ export const actions = {
     commit('setUserParams', {});
     commit('setOverrideParams', {});
     commit('setPill', null);
-    // commit('setFacets', []);
   },
 
   // TODO: replace with a getter?
@@ -286,9 +286,17 @@ export const actions = {
   /**
    * Run a Record API search and store the results
    */
-  async run({ dispatch, state }) {
+  async run({ dispatch }, options = {}) {
+    const toQuery = options.toQuery || ['items', 'facets'];
     await dispatch('deriveApiSettings');
 
+    await axios.all([
+      toQuery.includes('items') ? dispatch('queryItems') : () => null,
+      toQuery.includes('facets') ? dispatch('queryFacets') : () => null
+    ]);
+  },
+
+  async queryItems({ dispatch, state }) {
     const paramsForItems = {
       ...state.apiParams,
       facet: null
@@ -302,10 +310,7 @@ export const actions = {
   },
 
   async queryFacets({ commit, getters, rootState, rootGetters, dispatch, state }) {
-    await dispatch('deriveApiSettings');
-    if (!state.active) {
-      return;
-    }
+    if (!state.active) return;
 
     const paramsForFacets = {
       ...state.apiParams,
@@ -313,7 +318,7 @@ export const actions = {
       profile: 'facets'
     };
 
-    search(paramsForFacets, state.apiOptions || {})
+    await search(paramsForFacets, state.apiOptions || {})
       .then((response) => {
         commit('setFacets', response.facets);
         const collection = getters.collection;

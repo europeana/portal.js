@@ -292,29 +292,42 @@ describe('store/search', () => {
 
   describe('actions', () => {
     describe('run', () => {
-      afterEach(() => {
-        nock.cleanAll();
-      });
-
       it('derives the API params', async() => {
-        const commit = sinon.spy();
         const dispatch = sinon.spy();
-        const state = {};
 
-        baseRequest
-          .query(true)
-          .reply(200, defaultResponse);
-
-        await store.actions.run({ commit, dispatch, state });
+        await store.actions.run({ dispatch });
 
         dispatch.should.have.been.calledWith('deriveApiSettings');
+      });
+
+      it('queries for items and facets by default', async() => {
+        const dispatch = sinon.spy();
+
+        await store.actions.run({ dispatch });
+
+        dispatch.should.have.been.calledWith('queryItems');
+        dispatch.should.have.been.calledWith('queryFacets');
+      });
+
+      it('supports querying only for items', async() => {
+        const dispatch = sinon.spy();
+
+        await store.actions.run({ dispatch }, { toQuery: ['items'] });
+
+        dispatch.should.have.been.calledWith('queryItems');
+        dispatch.should.not.have.been.calledWith('queryFacets');
+      });
+    });
+
+    describe('queryItems', () => {
+      afterEach(() => {
+        nock.cleanAll();
       });
 
       it('searches the Record API', async() => {
         const searchQuery = 'anything';
         const typeQf = 'TYPE:"IMAGE"';
         const collectionQf = 'collection:"migration"';
-        const commit = sinon.spy();
         const dispatch = sinon.spy();
         const state = { apiParams: { query: searchQuery, qf: [typeQf, collectionQf] } };
 
@@ -324,7 +337,7 @@ describe('store/search', () => {
           })
           .reply(200, defaultResponse);
 
-        await store.actions.run({ commit, dispatch, state });
+        await store.actions.queryItems({ dispatch, state });
 
         nock.isDone().should.be.true;
       });
@@ -339,7 +352,7 @@ describe('store/search', () => {
             .query(true)
             .reply(200, defaultResponse);
 
-          await store.actions.run({ commit, dispatch, state });
+          await store.actions.queryItems({ commit, dispatch, state });
 
           dispatch.should.have.been.calledWith('updateForSuccess');
         });
@@ -359,7 +372,7 @@ describe('store/search', () => {
               error: errorMessage
             });
 
-          await store.actions.run({ commit, dispatch, state });
+          await store.actions.queryItems({ commit, dispatch, state });
 
           dispatch.should.have.been.calledWith('updateForFailure');
         });

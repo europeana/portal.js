@@ -80,4 +80,4 @@ Feature: Entity page
     And I see the `search bar pill`
     When I click the `search bar pill button`
     Then I see the `search page`
-    And I should be on `/en/search?view=grid&page=1&query=`
+    And I should be on `/en/search?view=grid&page=1`
