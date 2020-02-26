@@ -3,20 +3,20 @@
     class="text-left content-card"
     data-qa="content card"
     no-body
-    :class="{ 'entity-card' : isEntity, 'mini-card' : isMini }"
+    :class="cardClass"
   >
     <SmartLink
       :destination="url"
       link-class="card-link"
     >
       <b-img-lazy
-        v-if="isEntity && cardImageUrl && lazy"
+        v-if="variant === 'entity' && cardImageUrl && lazy"
         :src="optimisedImageUrl"
         alt=""
         @error.native="imageNotFound"
       />
       <b-img
-        v-if="isEntity && cardImageUrl && !lazy"
+        v-if="variant === 'entity' && cardImageUrl && !lazy"
         :src="optimisedImageUrl"
         alt=""
         @error.native="imageNotFound"
@@ -26,12 +26,12 @@
         class="card-img"
       >
         <b-img-lazy
-          v-if="!isEntity && lazy"
+          v-if="variant !== 'entity' && lazy"
           :src="optimisedImageUrl"
           alt=""
         />
         <b-img
-          v-if="!isEntity && !lazy"
+          v-if="variant !== 'entity' && !lazy"
           :src="optimisedImageUrl"
           alt=""
         />
@@ -120,16 +120,10 @@
         type: String,
         default: ''
       },
-      isEntity: {
-        type: Boolean,
-        default: false
+      variant: {
+        type: String,
+        default: 'default' // other options: entity, mini, list
       },
-      isMini: {
-        type: Boolean,
-        default: false
-      },
-      // TODO: instead of using isMini and isEntity, possibly refactor to use something like "variant"
-      // as it cannot be isEntity and isMini at the same time for example
       omitUrisIfOtherValues: {
         type: Boolean,
         default: false
@@ -146,6 +140,10 @@
     },
 
     computed: {
+      cardClass() {
+        return `${this.variant}-card`;
+      },
+
       displayTitle() {
         if (typeof this.title === 'string') {
           return { values: [this.title], code: null };

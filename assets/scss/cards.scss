@@ -58,7 +58,7 @@
   .card-text {
     color: $mediumgrey;
 
-    p:last-of-type {
+    &:last-of-type p {
       margin-bottom: 0;
     }
   }
@@ -158,6 +158,34 @@
     }    
   }
 
+  &.list-card {
+    min-height: auto;
+
+    a {
+      flex-direction: row;
+      justify-content: space-between;
+    }
+
+    .card-img {
+      display: inline-block;
+      height: 13rem;
+      max-height: none;
+      min-height: none;
+      order: 2;
+      width: 25%;
+
+      img {
+        border-radius: 0 calc(0.25rem - 1px) calc(0.25rem - 1px) 0;
+        height: 100%;
+      }
+    }
+
+    .card-body {
+      flex: none;
+      width: 75%;
+    }
+  }
+
   &:hover {
     box-shadow: $boxshadow-large;
   }
@@ -172,6 +200,7 @@
   }
 }
 
+.card-group-list .card,
 .card-deck-3-cols .card,
 .card-deck-4-cols .card {
   flex: 0 0 100%;
