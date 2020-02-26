@@ -1,6 +1,5 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import SearchForm from '../../../../components/search/SearchForm.vue';
-// import VueRouter from 'vue-router';
 import Vuex from 'vuex';
 import sinon from 'sinon';
 import nock from 'nock';

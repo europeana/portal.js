@@ -137,7 +137,6 @@
       const currentPage = pageFromQuery(query.page);
       if (currentPage === null) {
         // Redirect non-positive integer values for `page` to `page=1`
-        // query.page = '1';
         return redirect(app.localePath({
           name: 'entity-type-all',
           params: { type: params.type, pathMatch: params.pathMatch },
