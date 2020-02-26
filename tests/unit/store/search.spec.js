@@ -288,6 +288,81 @@ describe('store/search', () => {
         });
       });
     });
+
+    describe('facetUpdateNeeded', () => {
+      const previousApiParams = {
+        query: '*:*',
+        qf: ['collection:newspaper'],
+        api: 'metadata',
+        reusability: 'open',
+        page: 1
+      };
+
+      context('when query param changes', () => {
+        it('is `true`', () => {
+          const apiParams = {
+            ...previousApiParams,
+            query: 'hamburg'
+          };
+
+          const facetUpdateNeeded = store.getters.facetUpdateNeeded({ previousApiParams, apiParams });
+
+          facetUpdateNeeded.should.be.true;
+        });
+      });
+
+      context('when qf param changes', () => {
+        it('is `true`', () => {
+          const apiParams = {
+            ...previousApiParams,
+            qf: ['collection:newspaper', 'LANGUAGE:"nl"']
+          };
+
+          const facetUpdateNeeded = store.getters.facetUpdateNeeded({ previousApiParams, apiParams });
+
+          facetUpdateNeeded.should.be.true;
+        });
+      });
+
+      context('when api param changes', () => {
+        it('is `true`', () => {
+          const apiParams = {
+            ...previousApiParams,
+            api: 'fulltext'
+          };
+
+          const facetUpdateNeeded = store.getters.facetUpdateNeeded({ previousApiParams, apiParams });
+
+          facetUpdateNeeded.should.be.true;
+        });
+      });
+
+      context('when reusability param changes', () => {
+        it('is `true`', () => {
+          const apiParams = {
+            ...previousApiParams,
+            reusability: 'permission'
+          };
+
+          const facetUpdateNeeded = store.getters.facetUpdateNeeded({ previousApiParams, apiParams });
+
+          facetUpdateNeeded.should.be.true;
+        });
+      });
+
+      context('when page param changes', () => {
+        it('is `true`', () => {
+          const apiParams = {
+            ...previousApiParams,
+            page: 2
+          };
+
+          const facetUpdateNeeded = store.getters.facetUpdateNeeded({ previousApiParams, apiParams });
+
+          facetUpdateNeeded.should.be.false;
+        });
+      });
+    });
   });
 
   describe('actions', () => {
@@ -295,7 +370,7 @@ describe('store/search', () => {
       it('derives the API params', async() => {
         const dispatch = sinon.spy();
 
-        await store.actions.run({ dispatch });
+        await store.actions.run({ dispatch, getters: { facetUpdateNeeded: true } });
 
         dispatch.should.have.been.calledWith('deriveApiSettings');
       });
@@ -303,16 +378,16 @@ describe('store/search', () => {
       it('queries for items and facets by default', async() => {
         const dispatch = sinon.spy();
 
-        await store.actions.run({ dispatch });
+        await store.actions.run({ dispatch, getters: { facetUpdateNeeded: true } });
 
         dispatch.should.have.been.calledWith('queryItems');
         dispatch.should.have.been.calledWith('queryFacets');
       });
 
-      it('supports querying only for items', async() => {
+      it('omits query for facets if not needed', async() => {
         const dispatch = sinon.spy();
 
-        await store.actions.run({ dispatch }, { toQuery: ['items'] });
+        await store.actions.run({ dispatch, getters: { facetUpdateNeeded: false } });
 
         dispatch.should.have.been.calledWith('queryItems');
         dispatch.should.not.have.been.calledWith('queryFacets');
