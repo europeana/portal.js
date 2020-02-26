@@ -159,29 +159,32 @@
   }
 
   &.list-card {
-    min-height: auto;
+    @media (min-width: $bp-medium) {
+      min-height: 0;
 
-    a {
-      flex-direction: row;
-      justify-content: space-between;
-    
-      .card-img {
-        display: inline-block;
-        height: 13rem;
-        max-height: none;
-        min-height: none;
-        order: 2;
-        width: 25%;
+      a {
+        flex-direction: row;
+        justify-content: space-between;
+      
+        .card-img {
+          display: inline-block;
+          height: 13rem;
+          max-height: none;
+          min-height: 0;
+          order: 2;
+          width: 200px;
 
-        img {
-          border-radius: 0 calc(0.25rem - 1px) calc(0.25rem - 1px) 0;
-          height: 100%;
+          img {
+            border-radius: 0 calc(0.25rem - 1px) calc(0.25rem - 1px) 0;
+            height: 100%;
+          }
         }
-      }
 
-      .card-body {
-        flex: none;
-        width: 75%;
+        .card-body {
+          flex: none;
+          padding-right: 2rem;
+          width: calc(100% - 200px);
+        }
       }
     }
   }
