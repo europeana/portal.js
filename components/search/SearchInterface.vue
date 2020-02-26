@@ -306,7 +306,9 @@
 
         this.$store.commit('search/setUserParams', to.query);
 
+        this.$nuxt.$loading.start();
         await this.$store.dispatch('search/run', { toQuery });
+        this.$nuxt.$loading.finish();
       }
     },
     created() {

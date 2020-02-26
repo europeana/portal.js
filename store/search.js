@@ -1,4 +1,3 @@
-import axios from 'axios';
 import merge from 'deepmerge';
 import search, { unquotableFacets } from '../plugins/europeana/search';
 
@@ -290,26 +289,28 @@ export const actions = {
     const toQuery = options.toQuery || ['items', 'facets'];
     await dispatch('deriveApiSettings');
 
-    await axios.all([
+    await Promise.all([
       toQuery.includes('items') ? dispatch('queryItems') : () => null,
       toQuery.includes('facets') ? dispatch('queryFacets') : () => null
     ]);
   },
 
-  async queryItems({ dispatch, state }) {
+  queryItems({ dispatch, state }) {
     const paramsForItems = {
       ...state.apiParams,
       facet: null
     };
 
-    await search(paramsForItems, state.apiOptions || {})
-      .then((response) => {
-        dispatch('updateForSuccess', response);
+    return search(paramsForItems, state.apiOptions || {})
+      .then(async(response) => {
+        await dispatch('updateForSuccess', response);
       })
-      .catch((error) => dispatch('updateForFailure', error));
+      .catch(async(error) => {
+        await dispatch('updateForFailure', error);
+      });
   },
 
-  async queryFacets({ commit, getters, rootState, rootGetters, dispatch, state }) {
+  queryFacets({ commit, getters, rootState, rootGetters, dispatch, state }) {
     if (!state.active) return;
 
     const paramsForFacets = {
@@ -318,7 +319,7 @@ export const actions = {
       profile: 'facets'
     };
 
-    await search(paramsForFacets, state.apiOptions || {})
+    return search(paramsForFacets, state.apiOptions || {})
       .then((response) => {
         commit('setFacets', response.facets);
         const collection = getters.collection;
@@ -327,7 +328,9 @@ export const actions = {
           commit('set', ['facets', rootGetters[`collections/${collection}/facets`]]);
         }
       })
-      .catch((error) => dispatch('updateForFailure', error));
+      .catch(async(error) => {
+        await dispatch('updateForFailure', error);
+      });
   },
 
   updateForSuccess({ commit }, response) {
