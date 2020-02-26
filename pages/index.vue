@@ -4,7 +4,7 @@
   >
     <NotificationBanner
       v-if="!path"
-      :notification-url="'https://europeana.eu?utm_source=old-website&utm_medium=button'"
+      :notification-url="'https://europeana.eu?utm_source=new-website&utm_medium=button'"
       :notification-text="$t('redirects.home.text')"
       :notification-link-text="$t('redirects.home.linkText')"
     />
