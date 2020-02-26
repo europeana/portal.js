@@ -2,6 +2,12 @@
   <div
     data-qa="browse page"
   >
+    <NotificationBanner
+      v-if="!path"
+      :notification-url="'https://europeana.eu?utm_source=old-website&utm_medium=button'"
+      :notification-text="$t('redirects.home.text')"
+      :notification-link-text="$t('redirects.home.linkText')"
+    />
     <HeroImage
       v-if="hero"
       :image-url="heroImage.url"
@@ -13,6 +19,7 @@
       :provider="hero.provider"
       :creator="hero.creator"
       :url="hero.url"
+      class="mt-0"
     />
     <b-container>
       <header
@@ -40,11 +47,13 @@
 <script>
   import BrowseSections from '../components/browse/BrowseSections';
   import HeroImage from '../components/generic/HeroImage';
+  import NotificationBanner from '../components/generic/NotificationBanner.vue';
   import createClient from '../plugins/contentful';
 
   export default {
     components: {
       BrowseSections,
+      NotificationBanner,
       HeroImage
     },
     computed: {
@@ -72,7 +81,8 @@
             return;
           }
           return {
-            page: response.items[0].fields
+            page: response.items[0].fields,
+            path: params.pathMatch
           };
         })
         .catch((e) => {
@@ -103,4 +113,3 @@
     }
   }
 </style>
-
