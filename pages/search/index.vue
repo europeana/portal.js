@@ -57,6 +57,8 @@
     async beforeRouteLeave(to, from, next) {
       await this.$store.dispatch('search/deactivate');
       next();
-    }
+    },
+
+    watchQuery: ['api', 'reusability', 'query', 'qf', 'page']
   };
 </script>

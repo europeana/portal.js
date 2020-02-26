@@ -134,7 +134,6 @@
   import TierToggler from '../../components/search/TierToggler';
   import { thematicCollections } from '../../plugins/europeana/search';
 
-  import { diff } from 'deep-object-diff';
   import isEqual from 'lodash/isEqual';
   import pickBy from 'lodash/pickBy';
   import { mapState, mapGetters } from 'vuex';
@@ -177,9 +176,7 @@
     data() {
       return {
         coreFacetNames: ['collection', 'TYPE', 'COUNTRY', 'REUSABILITY'],
-        PROXY_DCTERMS_ISSUED: 'proxy_dcterms_issued',
-        FACET_UPDATE_QUERY_PARAMS: ['query', 'qf', 'api', 'reusability'],
-        ITEM_UPDATE_QUERY_PARAMS: ['query', 'qf', 'api', 'reusability', 'page']
+        PROXY_DCTERMS_ISSUED: 'proxy_dcterms_issued'
       };
     },
     computed: {
@@ -292,23 +289,6 @@
       },
       view() {
         return this.$store.getters['search/activeView'];
-      }
-    },
-    watch: {
-      async $route(to, from) {
-        const queryParamsChanged = Object.keys(diff(from.query, to.query));
-        if (!queryParamsChanged.some((param) => this.ITEM_UPDATE_QUERY_PARAMS.includes(param))) return;
-
-        const toQuery = ['items'];
-        if (queryParamsChanged.some((param) => this.FACET_UPDATE_QUERY_PARAMS.includes(param))) {
-          toQuery.push('facets');
-        }
-
-        this.$store.commit('search/setUserParams', to.query);
-
-        this.$nuxt.$loading.start();
-        await this.$store.dispatch('search/run', { toQuery });
-        this.$nuxt.$loading.finish();
       }
     },
     created() {

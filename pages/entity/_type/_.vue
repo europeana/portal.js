@@ -301,6 +301,8 @@
       this.$store.commit('entity/setId', null); // needed to re-enable auto-suggest in header
       this.$store.commit('entity/setEntity', null); // needed for best bets handling
       next();
-    }
+    },
+
+    watchQuery: ['api', 'reusability', 'query', 'qf', 'page']
   };
 </script>

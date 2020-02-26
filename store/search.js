@@ -1,3 +1,4 @@
+import { diff } from 'deep-object-diff';
 import merge from 'deepmerge';
 import search, { unquotableFacets } from '../plugins/europeana/search';
 
@@ -66,6 +67,8 @@ export const state = () => ({
   active: false,
   apiOptions: {},
   apiParams: {},
+  previousApiOptions: {},
+  previousApiParams: {},
   error: null,
   errorStatusCode: null,
   facets: [],
@@ -225,6 +228,11 @@ export const getters = {
     }
 
     return filters;
+  },
+
+  facetUpdateNeeded: (state) => {
+    const apiParamsChanged = Object.keys(diff(state.previousApiParams, state.apiParams));
+    return apiParamsChanged.some((param) => ['query', 'qf', 'api', 'reusability'].includes(param));
   }
 };
 
@@ -264,6 +272,9 @@ export const actions = {
       delete apiParams.recordApi;
     }
 
+    commit('set', ['previousApiParams', Object.assign({}, state.apiParams)]);
+    commit('set', ['previousApiOptions', Object.assign({}, state.apiOptions)]);
+
     commit('setApiParams', apiParams);
     commit('setApiOptions', apiOptions);
 
@@ -285,13 +296,12 @@ export const actions = {
   /**
    * Run a Record API search and store the results
    */
-  async run({ dispatch }, options = {}) {
-    const toQuery = options.toQuery || ['items', 'facets'];
+  async run({ dispatch, getters }) {
     await dispatch('deriveApiSettings');
 
     await Promise.all([
-      toQuery.includes('items') ? dispatch('queryItems') : () => null,
-      toQuery.includes('facets') ? dispatch('queryFacets') : () => null
+      dispatch('queryItems'),
+      getters.facetUpdateNeeded ? dispatch('queryFacets') : () => null
     ]);
   },
 
