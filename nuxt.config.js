@@ -87,8 +87,6 @@ module.exports = {
   ** Nuxt.js modules
   */
   modules: [
-    // Doc: https://github.com/nuxt-community/axios-module#usage
-    '@nuxtjs/axios',
     '@nuxtjs/dotenv',
     ['@nuxtjs/google-tag-manager', {
       id: process.env.GOOGLE_TAG_MANAGER_ID,
@@ -120,12 +118,6 @@ module.exports = {
       }
     }]
   ],
-  /*
-  ** Axios module configuration
-  */
-  axios: {
-    // See https://github.com/nuxt-community/axios-module#options
-  },
 
   router: {
     middleware: ['legacy/index', 'l10n'],
