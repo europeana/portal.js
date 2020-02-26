@@ -11,7 +11,7 @@
             {{ notificationText }}
             <a
               :href="notificationUrl"
-              class="ml-2"
+              class="ml-1"
             >
               {{ notificationLinkText }}
             </a>
@@ -46,10 +46,7 @@
   @import '../../assets/scss/icons.scss';
 
   p {
-    align-items: center;
-    display: flex;
     line-height: 1.375rem;
-    text-decoration: none;
 
     &:before {
       content: '\e900';
