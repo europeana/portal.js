@@ -38,7 +38,7 @@ Feature: Search querying
   Scenario: No auto suggestion
     Given I am on the `search page`
     And I enter "World" in the `search box`
-    And I wait 1 second
+    And I wait 2 seconds
     Then there are no `search suggestions`
 
   # TODO: auto suggestion is disabled by default for now.
