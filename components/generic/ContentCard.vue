@@ -21,7 +21,6 @@
         v-if="isEntity && cardImageUrl && !lazyLoad"
         :src="optimisedImageUrl"
         alt=""
-        @error.native="imageNotFound"
       />
       <div
         v-if="cardImageUrl"
@@ -33,6 +32,7 @@
           :blank-width="blankImageWidth"
           :blank-height="blankImageHeight"
           alt=""
+          @error.native="imageNotFound"
         />
         <b-img
           v-if="!isEntity && !lazyLoad"
