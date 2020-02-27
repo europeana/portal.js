@@ -3,14 +3,14 @@
     class="text-left content-card"
     data-qa="content card"
     no-body
-    :class="{ 'entity-card' : isEntity, 'mini-card' : isMini }"
+    :class="cardClass"
   >
     <SmartLink
       :destination="url"
       link-class="card-link"
     >
       <b-img-lazy
-        v-if="isEntity && cardImageUrl && lazyLoad"
+        v-if="variant === 'entity' && cardImageUrl && lazyLoad"
         :src="optimisedImageUrl"
         :blank-width="blankImageWidth"
         :blank-height="blankImageHeight"
@@ -18,7 +18,7 @@
         @error.native="imageNotFound"
       />
       <b-img
-        v-if="isEntity && cardImageUrl && !lazyLoad"
+        v-if="variant === 'entity' && cardImageUrl && !lazyLoad"
         :src="optimisedImageUrl"
         alt=""
       />
@@ -27,7 +27,7 @@
         class="card-img"
       >
         <b-img-lazy
-          v-if="!isEntity && lazyLoad"
+          v-if="variant !== 'entity' && lazyLoad"
           :src="optimisedImageUrl"
           :blank-width="blankImageWidth"
           :blank-height="blankImageHeight"
@@ -35,7 +35,7 @@
           @error.native="imageNotFound"
         />
         <b-img
-          v-if="!isEntity && !lazyLoad"
+          v-if="variant !== 'entity' && !lazyLoad"
           :src="optimisedImageUrl"
           alt=""
         />
@@ -124,16 +124,10 @@
         type: String,
         default: ''
       },
-      isEntity: {
-        type: Boolean,
-        default: false
+      variant: {
+        type: String,
+        default: 'default' // other options: entity, mini, list
       },
-      isMini: {
-        type: Boolean,
-        default: false
-      },
-      // TODO: instead of using isMini and isEntity, possibly refactor to use something like "variant"
-      // as it cannot be isEntity and isMini at the same time for example
       omitUrisIfOtherValues: {
         type: Boolean,
         default: false
@@ -158,6 +152,10 @@
     },
 
     computed: {
+      cardClass() {
+        return `${this.variant}-card`;
+      },
+
       lazyLoad() {
         return this.lazy && !process.env.NODE_ENV === 'test';
       },
