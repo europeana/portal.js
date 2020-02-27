@@ -3,10 +3,10 @@
     data-qa="browse page"
   >
     <NotificationBanner
-      v-if="!path"
-      :notification-url="'https://classic.europeana.eu?utm_source=new-website&utm_medium=button'"
-      :notification-text="$t('redirects.home.text')"
-      :notification-link-text="$t('redirects.home.linkText')"
+      v-if="onHomePage"
+      :notification-url="notificationUrl"
+      :notification-text="$t('linksToClassic.home.text')"
+      :notification-link-text="$t('linksToClassic.home.linkText')"
     />
     <HeroImage
       v-if="hero"
@@ -62,6 +62,12 @@
       },
       heroImage() {
         return this.hero ? this.hero.image.fields.file : null;
+      },
+      onHomePage() {
+        return Boolean(Number(process.env.ENABLE_LINKS_TO_CLASSIC)) && !this.path;
+      },
+      notificationUrl() {
+        return `https://classic.europeana.eu/${this.$store.state.i18n.locale}?utm_source=new-website&utm_medium=button`;
       }
     },
     asyncData({ params, query, error, app }) {

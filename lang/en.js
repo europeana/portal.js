@@ -469,7 +469,7 @@ export default {
   "galleries": {
     "galleries": "Galleries"
   },
-  "redirects": {
+  "linksToClassic": {
     "home": {
       "text": "You're viewing the new Europeana experience.",
       "linkText": "Go to the original Europeana"
