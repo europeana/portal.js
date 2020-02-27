@@ -35,6 +35,7 @@
       data-qa="search result"
       :limit-values-within-each-text="3"
       :omit-uris-if-other-values="true"
+      :blank-image-height="280"
     />
   </b-card-group>
 </template>

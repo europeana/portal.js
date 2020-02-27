@@ -10,13 +10,15 @@
       link-class="card-link"
     >
       <b-img-lazy
-        v-if="isEntity && cardImageUrl && lazy"
+        v-if="isEntity && cardImageUrl && lazyLoad"
         :src="optimisedImageUrl"
+        :blank-width="blankImageWidth"
+        :blank-height="blankImageHeight"
         alt=""
         @error.native="imageNotFound"
       />
       <b-img
-        v-if="isEntity && cardImageUrl && !lazy"
+        v-if="isEntity && cardImageUrl && !lazyLoad"
         :src="optimisedImageUrl"
         alt=""
         @error.native="imageNotFound"
@@ -26,12 +28,14 @@
         class="card-img"
       >
         <b-img-lazy
-          v-if="!isEntity && lazy"
+          v-if="!isEntity && lazyLoad"
           :src="optimisedImageUrl"
+          :blank-width="blankImageWidth"
+          :blank-height="blankImageHeight"
           alt=""
         />
         <b-img
-          v-if="!isEntity && !lazy"
+          v-if="!isEntity && !lazyLoad"
           :src="optimisedImageUrl"
           alt=""
         />
@@ -137,6 +141,14 @@
       limitValuesWithinEachText: {
         type: Number,
         default: -1
+      },
+      blankImageHeight: {
+        type: Number,
+        default: null
+      },
+      blankImageWidth: {
+        type: Number,
+        default: null
       }
     },
     data() {
@@ -146,6 +158,10 @@
     },
 
     computed: {
+      lazyLoad() {
+        return this.lazy && !process.env.NODE_ENV === 'test';
+      },
+
       displayTitle() {
         if (typeof this.title === 'string') {
           return { values: [this.title], code: null };

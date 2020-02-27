@@ -8,7 +8,7 @@ const pages = {
   '"World War I" entity page': `${url}/en/entity/topic/83-1914-1918`,
   'blog page': `${url}/en/blog`,
   'English home page': `${url}/en`,
-  'entity page': `${url}/en/entity/topic/18-newspaper`,
+  'entity page': `${url}/en/entity/person/60305-william-shakespeare`,
   'exhibition chapter': `${url}/en/exhibition/faces-of-europe/introduction`,
   'exhibition credits': `${url}/en/exhibition/faces-of-europe/credits`,
   'exhibition page': `${url}/en/exhibition/faces-of-europe`,
