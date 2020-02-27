@@ -49,7 +49,7 @@ describe('components/entity/EntityCards', () => {
     const augarCard = wrapper.find('[data-qa="Philip Augar entity card"]');
 
     paintingCard.should.exist;
-    paintingCard.props().isEntity.should.be.true;
+    paintingCard.props().variant.should.eq('entity');
     paintingCard.props().title.should.eql({ 'en': 'Painting' });
     paintingCard.props().imageUrl.should.eq('https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Mona_Lisa,_by_Leonardo_da_Vinci,_from_C2RMF_retouched.jpg/255px-Mona_Lisa,_by_Leonardo_da_Vinci,_from_C2RMF_retouched.jpg');
     paintingCard.props().url.should.deep.eq({
@@ -58,7 +58,7 @@ describe('components/entity/EntityCards', () => {
     });
 
     augarCard.should.exist;
-    augarCard.props().isEntity.should.be.true;
+    augarCard.props().variant.should.eq('entity');
     augarCard.props().title.should.eql({ 'en': 'Philip Augar' });
     augarCard.props().url.should.deep.eq({
       name: 'collections-type-all',
