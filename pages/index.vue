@@ -67,7 +67,7 @@
         return Boolean(Number(process.env.ENABLE_LINKS_TO_CLASSIC)) && !this.path;
       },
       notificationUrl() {
-        return `https://classic.europeana.eu/${this.$store.state.i18n.locale}/portal/?utm_source=new-website&utm_medium=button`;
+        return `https://classic.europeana.eu/portal/${this.$store.state.i18n.locale}?utm_source=new-website&utm_medium=button`;
       }
     },
     asyncData({ params, query, error, app }) {

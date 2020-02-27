@@ -472,7 +472,7 @@ export default {
   "linksToClassic": {
     "home": {
       "text": "You're viewing the new Europeana experience.",
-      "linkText": "Go to the original Europeana"
+      "linkText": "Go to the original Europeana."
     }
   }
 };
