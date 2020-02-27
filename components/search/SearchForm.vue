@@ -208,7 +208,7 @@
         const uriMatch = entityUri.match(`^${apiConfig.data.origin}/([^/]+)(/base)?/(.+)$`);
 
         return this.localePath({
-          name: 'entity-type-all', params: {
+          name: 'collections-type-all', params: {
             type: getEntityTypeHumanReadable(uriMatch[1]),
             pathMatch: getEntitySlug(entity)
           }

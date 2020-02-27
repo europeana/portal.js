@@ -53,7 +53,7 @@ describe('components/entity/EntityCards', () => {
     paintingCard.props().title.should.eql({ 'en': 'Painting' });
     paintingCard.props().imageUrl.should.eq('https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Mona_Lisa,_by_Leonardo_da_Vinci,_from_C2RMF_retouched.jpg/255px-Mona_Lisa,_by_Leonardo_da_Vinci,_from_C2RMF_retouched.jpg');
     paintingCard.props().url.should.deep.eq({
-      name: 'entity-type-all',
+      name: 'collections-type-all',
       params: { type: 'topic', pathMatch: '47-painting' }
     });
 
@@ -61,7 +61,7 @@ describe('components/entity/EntityCards', () => {
     augarCard.props().isEntity.should.be.true;
     augarCard.props().title.should.eql({ 'en': 'Philip Augar' });
     augarCard.props().url.should.deep.eq({
-      name: 'entity-type-all',
+      name: 'collections-type-all',
       params: { type: 'person', pathMatch: '42-philip-augar' }
     });
   });

@@ -16,7 +16,7 @@ localVue.use(Vuex);
 const router = new VueRouter({
   routes: [
     { name: 'search', path: '/search' },
-    { name: 'entity-type-all', path: '/entity/:type?/*' }
+    { name: 'collections-type-all', path: '/collections/:type?/*' }
   ]
 });
 const routerPush = sinon.spy(router, 'push');
@@ -145,7 +145,7 @@ describe('components/search/SearchForm', () => {
         });
         wrapper.vm.submitForm();
 
-        routerPush.should.have.been.calledWith('/entity/topic/227-fresco');
+        routerPush.should.have.been.calledWith('/collections/topic/227-fresco');
       });
     });
 
@@ -203,11 +203,11 @@ describe('components/search/SearchForm', () => {
     wrapper.setData({ suggestions: parsedSuggestions });
 
     it('generates agent entity URLs', () => {
-      wrapper.vm.suggestionLinkGen('http://data.europeana.eu/agent/base/59981').should.eq('/entity/person/59981-frank-sinatra');
+      wrapper.vm.suggestionLinkGen('http://data.europeana.eu/agent/base/59981').should.eq('/collections/person/59981-frank-sinatra');
     });
 
     it('generates concept entity URLs', () => {
-      wrapper.vm.suggestionLinkGen('http://data.europeana.eu/concept/base/227').should.eq('/entity/topic/227-fresco');
+      wrapper.vm.suggestionLinkGen('http://data.europeana.eu/concept/base/227').should.eq('/collections/topic/227-fresco');
     });
   });
 

@@ -17,7 +17,7 @@ Feature: Entity page
     And I am on an accessible page
 
   Scenario: Attempting to view an entity page which doesn't exist
-    When I open `/en/entity/person/123x-unknown`
+    When I open `/en/collections/person/123x-unknown`
     Then I see an `error notice`
 
   Scenario: View related entities
@@ -47,13 +47,13 @@ Feature: Entity page
     When I open an `entity page`
     And I see the `entity page`
     And I see a `search result`
-    Then I see a link to "/en/entity/topic/18-newspapers?page=2&view=grid" in the `pagination navigation`
+    Then I see a link to "/en/collections/topic/18-newspapers?page=2&view=grid" in the `pagination navigation`
 
   Scenario: Pagination links work when the page was accessed from the url
-    When I visit `/en/entity/topic/18-newspapers?page=2`
+    When I visit `/en/collections/topic/18-newspapers?page=2`
     And I go to page number 3
     And I wait 2 seconds
-    Then I should be on `/en/entity/topic/18-newspapers?page=3&view=grid`
+    Then I should be on `/en/collections/topic/18-newspapers?page=3&view=grid`
 
   Scenario: Searching from an entity page searches within that entity
     When I open an `entity page`
@@ -76,7 +76,7 @@ Feature: Entity page
     And I am on page number 1
 
   Scenario: Newspapers collection API toggle is removed by removing search pill
-    Given I am on `/en/entity/topic/18-newspapers?api=fulltext&view=grid`
+    Given I am on `/en/collections/topic/18-newspapers?api=fulltext&view=grid`
     And I see the `search bar pill`
     When I click the `search bar pill button`
     Then I see the `search page`

@@ -2,7 +2,7 @@
   <span>
     <SmartLink
       v-if="isEuropeanaEntity"
-      :destination="{ name: 'entity-type-all', params: { type: destination.type, pathMatch: destination.id } }"
+      :destination="{ name: 'collections-type-all', params: { type: destination.type, pathMatch: destination.id } }"
     >
       {{ value }}
     </SmartLink>

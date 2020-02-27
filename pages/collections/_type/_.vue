@@ -160,7 +160,7 @@
       },
       route() {
         return {
-          name: 'entity-type-all',
+          name: 'collections-type-all',
           params: {
             type: this.$route.params.type,
             pathMatch: this.$route.params.pathMatch
@@ -193,7 +193,7 @@
         // Redirect non-positive integer values for `page` to `page=1`
         query.page = '1';
         return redirect(app.localePath({
-          name: 'entity-type-all',
+          name: 'collections-type-all',
           params: { type: params.type, pathMatch: params.pathMatch },
           query: { page: 1 }
         }));
@@ -233,7 +233,7 @@
 
           if (params.pathMatch !== desiredPath) {
             const redirectPath = app.localePath({
-              name: 'entity-type-all',
+              name: 'collections-type-all',
               params: { type: params.type, pathMatch: encodeURIComponent(desiredPath) }
             });
             return redirect(302, redirectPath);
