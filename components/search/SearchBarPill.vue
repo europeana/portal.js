@@ -4,7 +4,7 @@
     variant="primary"
     class="pl-3 py-2"
     data-qa="search bar pill"
-    :title="text"
+    :title="text.values[0]"
     :lang="text.code"
   >
     {{ text.values[0] | truncate(20, $t('formatting.ellipsis')) }}

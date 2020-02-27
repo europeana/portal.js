@@ -1,24 +1,26 @@
 <template>
-  <figure>
-    <OptimisedImage
-      :src="src"
-      :width="width"
-      :height="height"
-      :content-type="contentType"
-      :max-width="1100"
-      data-qa="image"
-    />
-    <figcaption>
-      <CiteAttribution
-        :name="attribution.name"
-        :creator="attribution.creator"
-        :provider="attribution.provider"
-        :rights-statement="attribution.rightsStatement"
-        :url="attribution.url"
-        data-qa="attribution"
+  <div>
+    <figure>
+      <OptimisedImage
+        :src="src"
+        :width="width"
+        :height="height"
+        :content-type="contentType"
+        :max-width="1100"
+        data-qa="image"
       />
-    </figcaption>
-  </figure>
+      <figcaption>
+        <CiteAttribution
+          :name="attribution.name"
+          :creator="attribution.creator"
+          :provider="attribution.provider"
+          :rights-statement="attribution.rightsStatement"
+          :url="attribution.url"
+          data-qa="attribution"
+        />
+      </figcaption>
+    </figure>
+  </div>
 </template>
 
 <script>

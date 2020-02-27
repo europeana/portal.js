@@ -43,14 +43,10 @@
 }
 
 .attribution {
-  align-items: flex-start;
   color: $black;
-  display: flex;
   text-decoration: none;
   
   > span {
-    align-items: center;
-    display: flex;
     white-space: nowrap;
   }
 
@@ -61,12 +57,15 @@
 
   &.is-external-link:after {
     content: '\e900';
+    font-size: $font-size-small;
     padding-left: 0.5rem;
     @extend .icon-font;
   }
 
   .license {
     @extend .icon-font;
+    display: inline-block;
     margin-right: 0.25rem;
+    margin-top: -0.1rem;
   }
 }

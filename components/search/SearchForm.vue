@@ -17,7 +17,7 @@
       >
         <SearchBarPill
           :text="pillLabel"
-          :remove-link-label="$t('removeFilter', { filterLabel: pillLabel })"
+          :remove-link-label="$t('removeFilter', { filterLabel: pillLabel.values[0] })"
           :remove-link-to="pillRemoveLinkTo"
         />
       </template>

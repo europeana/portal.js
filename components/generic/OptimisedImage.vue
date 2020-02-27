@@ -2,6 +2,7 @@
   <b-img-lazy
     v-if="lazy"
     :src="optimisedSrc"
+    blank-color="#fff"
     :blank-width="optimisedWidth"
     :blank-height="optimisedHeight"
     :alt="alt"

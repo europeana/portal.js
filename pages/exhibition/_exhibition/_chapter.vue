@@ -45,6 +45,7 @@
             v-if="page"
             :sections="page.hasPart"
             :rich-text-is-card="false"
+            class="exhibition-sections"
           />
         </b-col>
       </b-row>
@@ -179,8 +180,20 @@
 </script>
 
 <style lang="scss" scoped>
+
+  .exhibition-sections {
+    text-align: center;
+  }
+
+  /deep/ .exhibition-sections .col {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+  }
+
   /deep/ figure {
     display: inline-block;
+    margin: 0.5rem 0 1rem 0;
     max-width: 100%;
 
     img {
@@ -189,6 +202,7 @@
     }
 
     &.compare-image-wrapper {
+      display: inline-block;
       img {
         max-height: 85vh;
       }

@@ -72,7 +72,9 @@
   }
 
   &.entity-card {
+    background: transparent;
     border: 0;
+    box-shadow: none;
     justify-content: flex-end;
     margin-bottom: 2.5rem;
     margin-left: 0.9rem;
@@ -99,9 +101,7 @@
       z-index: 1;
     }
 
-    @media (min-width: $bp-medium) {
-      background: transparent;
-      box-shadow: none;
+    @media (min-width: $bp-medium) {      
       min-height: auto;
     }
   }
@@ -127,6 +127,7 @@
         
         img {
           height: 80px;
+          margin: 0;
           position: absolute;
         }
 
@@ -138,11 +139,17 @@
         }
       }
 
+      .card-title {
+        overflow-wrap: break-word;
+        word-break: break-word;
+      }
+
       .card-body {
         flex-grow: 1;
         margin-right: 1rem;
         order: 1;
         padding: 0;
+        width: 55%;
       }
 
       .card-text {
