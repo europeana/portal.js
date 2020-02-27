@@ -67,10 +67,10 @@ describe('components/search/SearchResults', () => {
     it('renders each result with a link', () => {
       wrapper.setProps({ value: results });
 
-      const renderedResults =  wrapper.findAll('a[data-qa="search result"]');
+      const renderedResults =  wrapper.findAll('div[data-qa="search result"]');
 
-      renderedResults.at(0).attributes().href.should.endWith(`/record${results[0].europeanaId}`);
-      renderedResults.at(1).attributes().href.should.endWith(`/record${results[1].europeanaId}`);
+      renderedResults.at(0).find('a').attributes().href.should.endWith(`/record${results[0].europeanaId}`);
+      renderedResults.at(1).find('a').attributes().href.should.endWith(`/record${results[1].europeanaId}`);
     });
   });
 });
