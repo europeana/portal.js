@@ -480,12 +480,12 @@ describe('store/search', () => {
 
         await store.actions.deriveApiSettings({ commit, dispatch, state });
 
-        commit.should.have.been.calledWith('setApiParams', {
+        commit.should.have.been.calledWith('set', ['apiParams', {
           query: userQuery,
           qf: [userQf, overrideQf],
           profile,
           facet
-        });
+        }]);
       });
     });
 

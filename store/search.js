@@ -67,8 +67,8 @@ export const state = () => ({
   active: false,
   apiOptions: {},
   apiParams: {},
-  previousApiOptions: {},
-  previousApiParams: {},
+  previousApiOptions: null,
+  previousApiParams: null,
   error: null,
   errorStatusCode: null,
   facets: [],
@@ -93,18 +93,6 @@ export const mutations = {
   removeResettableFilter(state, filterName) {
     const index = state.resettableFilters.indexOf(filterName);
     if (index !== -1) state.resettableFilters.splice(index, 1);
-  },
-  setUserParams(state, value) {
-    state.userParams = value;
-  },
-  setOverrideParams(state, value) {
-    state.overrideParams = value;
-  },
-  setApiOptions(state, value) {
-    state.apiOptions = value;
-  },
-  setApiParams(state, value) {
-    state.apiParams = value;
   },
   disableCollectionFacet(state) {
     state.collectionFacetEnabled = false;
@@ -231,6 +219,7 @@ export const getters = {
   },
 
   facetUpdateNeeded: (state) => {
+    if (!state.previousApiParams) return true; // i.e. if this is the first search
     const apiParamsChanged = Object.keys(diff(state.previousApiParams, state.apiParams));
     return apiParamsChanged.some((param) => ['query', 'qf', 'api', 'reusability'].includes(param));
   }
@@ -247,9 +236,12 @@ export const actions = {
   },
 
   reset({ commit }) {
-    commit('setApiOptions', {});
-    commit('setUserParams', {});
-    commit('setOverrideParams', {});
+    commit('set', ['userParams', {}]);
+    commit('set', ['overrideParams', {}]);
+    commit('set', ['apiParams', null]);
+    commit('set', ['apiOptions', null]);
+    commit('set', ['previousApiParams', null]);
+    commit('set', ['previousApiOptions', null]);
     commit('setPill', null);
   },
 
@@ -275,8 +267,8 @@ export const actions = {
     commit('set', ['previousApiParams', Object.assign({}, state.apiParams)]);
     commit('set', ['previousApiOptions', Object.assign({}, state.apiOptions)]);
 
-    commit('setApiParams', apiParams);
-    commit('setApiOptions', apiOptions);
+    commit('set', ['apiParams', apiParams]);
+    commit('set', ['apiOptions', apiOptions]);
 
     await dispatch('applyCollectionSpecificSettings');
   },

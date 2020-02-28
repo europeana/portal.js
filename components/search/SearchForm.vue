@@ -115,15 +115,15 @@
       },
 
       pillRemoveLinkTo() {
+        const query = this.queryUpdatesForFacetChanges({ collection: null });
+        query.view = this.view;
+        if (this.query) query.query = this.query;
+
         return {
           path: this.localePath({
             name: 'search'
           }),
-          query: {
-            view: this.view,
-            ...this.queryUpdatesForFacetChanges({ collection: null }),
-            query: this.query
-          }
+          query
         };
       },
 
@@ -157,7 +157,8 @@
         if (this.selectedSuggestion) {
           newRoute = this.suggestionLinkGen(this.selectedSuggestion);
         } else {
-          const newRouteQuery = { ...this.$route.query, ...{ query: this.query, page: 1, view: this.view } };
+          const newRouteQuery = { ...this.$route.query, ...{ page: 1, view: this.view } };
+          if (this.query) newRouteQuery.query = this.query;
           newRoute = { path: this.routePath, query: newRouteQuery };
         }
 

@@ -31,7 +31,7 @@
 
     async fetch({ store, query, res }) {
       await store.dispatch('search/activate');
-      store.commit('search/setUserParams', query);
+      store.commit('search/set', ['userParams', query]);
 
       // TODO: remove when enabled by default
       if (Number(process.env.ENABLE_FASHION_COLLECTION_FACETS)) {
