@@ -238,8 +238,8 @@ export const actions = {
   reset({ commit }) {
     commit('set', ['userParams', {}]);
     commit('set', ['overrideParams', {}]);
-    commit('set', ['apiParams', null]);
-    commit('set', ['apiOptions', null]);
+    commit('set', ['apiParams', {}]);
+    commit('set', ['apiOptions', {}]);
     commit('set', ['previousApiParams', null]);
     commit('set', ['previousApiOptions', null]);
     commit('setPill', null);

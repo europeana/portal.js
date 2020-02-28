@@ -115,9 +115,11 @@
       },
 
       pillRemoveLinkTo() {
-        const query = this.queryUpdatesForFacetChanges({ collection: null });
-        query.view = this.view;
-        if (this.query) query.query = this.query;
+        const query = {
+          ...this.queryUpdatesForFacetChanges({ collection: null }),
+          view: this.view,
+          query: this.query || ''
+        };
 
         return {
           path: this.localePath({
@@ -157,8 +159,7 @@
         if (this.selectedSuggestion) {
           newRoute = this.suggestionLinkGen(this.selectedSuggestion);
         } else {
-          const newRouteQuery = { ...this.$route.query, ...{ page: 1, view: this.view } };
-          if (this.query) newRouteQuery.query = this.query;
+          const newRouteQuery = { ...this.$route.query, ...{ page: 1, view: this.view, query: this.query || '' } };
           newRoute = { path: this.routePath, query: newRouteQuery };
         }
 

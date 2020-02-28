@@ -51,4 +51,4 @@ Feature: Newspapers collection
     And I see the `search bar pill`
     When I click the `search bar pill button`
     Then I see the `search page`
-    And I should be on `/en/search?page=1&view=grid`
+    And I should be on `/en/search?page=1&view=grid&query=`
