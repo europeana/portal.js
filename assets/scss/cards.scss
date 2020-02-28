@@ -58,7 +58,7 @@
   .card-text {
     color: $mediumgrey;
 
-    p:last-of-type {
+    &:last-of-type p {
       margin-bottom: 0;
     }
   }
@@ -72,7 +72,9 @@
   }
 
   &.entity-card {
+    background: transparent;
     border: 0;
+    box-shadow: none;
     justify-content: flex-end;
     margin-bottom: 2.5rem;
     margin-left: 0.9rem;
@@ -99,9 +101,7 @@
       z-index: 1;
     }
 
-    @media (min-width: $bp-medium) {
-      background: transparent;
-      box-shadow: none;
+    @media (min-width: $bp-medium) {      
       min-height: auto;
     }
   }
@@ -158,6 +158,37 @@
     }    
   }
 
+  &.list-card {
+    @media (min-width: $bp-medium) {
+      min-height: 0;
+
+      a {
+        flex-direction: row;
+        justify-content: space-between;
+      
+        .card-img {
+          display: inline-block;
+          height: 13rem;
+          max-height: none;
+          min-height: 0;
+          order: 2;
+          width: 200px;
+
+          img {
+            border-radius: 0 calc(0.25rem - 1px) calc(0.25rem - 1px) 0;
+            height: 100%;
+          }
+        }
+
+        .card-body {
+          flex: none;
+          padding-right: 2rem;
+          width: calc(100% - 200px);
+        }
+      }
+    }
+  }
+
   &:hover {
     box-shadow: $boxshadow-large;
   }
@@ -172,6 +203,7 @@
   }
 }
 
+.card-group-list .card,
 .card-deck-3-cols .card,
 .card-deck-4-cols .card {
   flex: 0 0 100%;

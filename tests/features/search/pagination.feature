@@ -18,6 +18,7 @@ Feature: Search pagination
     And I click the `TYPE dropdown button`
     And I check the "\"IMAGE\"" "TYPE" checkbox
     And I click the `TYPE apply button`
+    And I wait for the page to load
     And I see a `pagination navigation`
     Then I see a link to "/en/search?page=2&qf=TYPE%3A%22IMAGE%22&query=paris&view=grid" in the `pagination navigation`
 
@@ -26,10 +27,12 @@ Feature: Search pagination
     When I visit the `home page`
     And I enter "paris" in the `search box`
     And I click the `search button`
-    And I wait for a `search result`
+    And I wait for the page to load
     And I go to page number 2
+    And I wait for the page to load
     And I am on page number 2
     And I go back
+    And I wait for the page to load
     Then I am on page number 1
 
   Scenario: Pagination links preserve query and facet selection from the url.
@@ -38,10 +41,11 @@ Feature: Search pagination
     Then I see a link to "/en/search?page=2&qf=TYPE%3A%22IMAGE%22&query=paris&view=grid" in the `pagination navigation`
 
   Scenario: Pagination links work when the page was accessed from the url.
-
-    When I visit `/en/search?query=paris&page=1&qf=TYPE%3A%22IMAGE%22`
-    And I click the "/en/search?page=2&qf=TYPE%3A%22IMAGE%22&query=paris&view=grid" link
-    Then I should be on `/en/search?page=2&qf=TYPE%3A%22IMAGE%22&query=paris&view=grid`
+    Given I am on `/en/search?query=paris&page=1&qf=TYPE%3A%22IMAGE%22`
+    When I go to page number 2
+    And I wait for the page to load
+    Then I am on page number 2
+    And I should be on `/en/search?page=2&qf=TYPE%3A%22IMAGE%22&query=paris&view=grid`
 
   Scenario: Invalid `page` param redirects to page 1
 

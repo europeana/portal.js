@@ -1,24 +1,24 @@
 <template>
-  <b-list-group
+  <b-card-group
     v-if="view === 'list'"
     data-qa="search results list"
+    deck
+    class="card-group-list mx-0"
   >
-    <b-list-group-item
+    <ContentCard
       v-for="result in value"
       :key="result.europeanaId"
-      :to="localePath({ name: 'record-all', params: { pathMatch: result.europeanaId.slice(1) } })"
-      class="flex-column align-items-start mb-3"
+      :title="result.dcTitle || result.dcDescription"
+      :url="{ name: 'record-all', params: { pathMatch: result.europeanaId.slice(1) } }"
+      :image-url="result.edmPreview"
+      :texts="cardTexts(result, 'list')"
       data-qa="search result"
-    >
-      <SearchResult
-        :edm-preview="result.edmPreview"
-        :edm-data-provider="result.edmDataProvider"
-        :dc-title="result.dcTitle"
-        :dc-description="result.dcDescription"
-        :dc-creator="result.dcCreator"
-      />
-    </b-list-group-item>
-  </b-list-group>
+      :limit-values-within-each-text="3"
+      :omit-uris-if-other-values="true"
+      variant="list"
+      class="mx-0"
+    />
+  </b-card-group>
   <b-card-group
     v-else
     :class="`card-deck-search card-deck-${perRow}-cols`"
@@ -35,20 +35,19 @@
       data-qa="search result"
       :limit-values-within-each-text="3"
       :omit-uris-if-other-values="true"
+      :blank-image-height="280"
     />
   </b-card-group>
 </template>
 
 <script>
   import ContentCard from '../generic/ContentCard';
-  import SearchResult from './SearchResult';
 
   export default {
     name: 'SearchResults',
 
     components: {
-      ContentCard,
-      SearchResult
+      ContentCard
     },
 
     props: {
@@ -69,9 +68,14 @@
     },
 
     methods: {
-      cardTexts(result) {
+      cardTexts(result, variant) {
         const texts = [result.edmDataProvider];
         if (result.dcCreator) texts.unshift(result.dcCreator);
+
+        if (variant === 'list') {
+          if (result.dcDescription) texts.unshift(result.dcDescription);
+        }
+
         return texts;
       }
     }

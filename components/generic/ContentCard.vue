@@ -3,35 +3,39 @@
     class="text-left content-card"
     data-qa="content card"
     no-body
-    :class="{ 'entity-card' : isEntity, 'mini-card' : isMini }"
+    :class="cardClass"
   >
     <SmartLink
       :destination="url"
       link-class="card-link"
     >
       <b-img-lazy
-        v-if="isEntity && cardImageUrl && lazy"
+        v-if="variant === 'entity' && cardImageUrl && lazyLoad"
         :src="optimisedImageUrl"
+        :blank-width="blankImageWidth"
+        :blank-height="blankImageHeight"
         alt=""
         @error.native="imageNotFound"
       />
       <b-img
-        v-if="isEntity && cardImageUrl && !lazy"
+        v-if="variant === 'entity' && cardImageUrl && !lazyLoad"
         :src="optimisedImageUrl"
         alt=""
-        @error.native="imageNotFound"
       />
       <div
         v-if="cardImageUrl"
         class="card-img"
       >
         <b-img-lazy
-          v-if="!isEntity && lazy"
+          v-if="variant !== 'entity' && lazyLoad"
           :src="optimisedImageUrl"
+          :blank-width="blankImageWidth"
+          :blank-height="blankImageHeight"
           alt=""
+          @error.native="imageNotFound"
         />
         <b-img
-          v-if="!isEntity && !lazy"
+          v-if="variant !== 'entity' && !lazyLoad"
           :src="optimisedImageUrl"
           alt=""
         />
@@ -120,16 +124,10 @@
         type: String,
         default: ''
       },
-      isEntity: {
-        type: Boolean,
-        default: false
+      variant: {
+        type: String,
+        default: 'default' // other options: entity, mini, list
       },
-      isMini: {
-        type: Boolean,
-        default: false
-      },
-      // TODO: instead of using isMini and isEntity, possibly refactor to use something like "variant"
-      // as it cannot be isEntity and isMini at the same time for example
       omitUrisIfOtherValues: {
         type: Boolean,
         default: false
@@ -137,6 +135,14 @@
       limitValuesWithinEachText: {
         type: Number,
         default: -1
+      },
+      blankImageHeight: {
+        type: Number,
+        default: null
+      },
+      blankImageWidth: {
+        type: Number,
+        default: null
       }
     },
     data() {
@@ -146,6 +152,14 @@
     },
 
     computed: {
+      cardClass() {
+        return `${this.variant}-card`;
+      },
+
+      lazyLoad() {
+        return this.lazy && !process.env.NODE_ENV === 'test';
+      },
+
       displayTitle() {
         if (typeof this.title === 'string') {
           return { values: [this.title], code: null };

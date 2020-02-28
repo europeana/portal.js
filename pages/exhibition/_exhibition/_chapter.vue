@@ -193,6 +193,7 @@
 
   /deep/ figure {
     display: inline-block;
+    margin: 0.5rem 0 1rem 0;
     max-width: 100%;
 
     img {
