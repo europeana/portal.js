@@ -3,13 +3,14 @@ require('dotenv').config();
 const express = require('express');
 const apicache = require('apicache');
 const cors = require('cors');
-const morgan = require('morgan');
+// TODO: make logging configurable by env var?
+// const morgan = require('morgan');
 const proxy = require('http-proxy-middleware');
 
 const app = express();
 
 app.use(cors());
-app.use(morgan('combined'));
+// app.use(morgan('combined'));
 
 // TODO: consider using Redis, then having Travis cache the db.
 //       would need a way to have it clear the cache. by an env var set in Travis
