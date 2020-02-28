@@ -61,10 +61,12 @@ const factory = (options = {}) => {
           ...options.storeGetters
         },
         mutations: {
+          setUserParams: () => null,
           setView: () => null
         },
         actions: {
-          queryFacets: () => null
+          queryFacets: () => null,
+          run: () => null
         }
       }
     }
