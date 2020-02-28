@@ -2,7 +2,6 @@
  * @file Mapping for search URLs to classic.europeana.eu portal URLs
  */
 
-
 function mapCollections(collection) {
   const map = {
     'ww1': 'world-war-I',
@@ -18,38 +17,69 @@ function mapCollections(collection) {
 const collectionQfRegex = /^collection%3A/;
 const classicBaseUrl = 'https://classic.europeana.eu/portal/';
 
-
-
 /**
- * Craft a classic.europeana.eu URL from relevant URL params.
- * Always retruns a string starting with https://classic.europeana.eu/portal/search/...
- * @param {(string[])} params.qf qf params as present in the URL.
- * @param {(string)} params.reusability reusibility param as present in the URL.
- * @param {(string[])} params.query query param as present in the URL.
- * @return {string} qf adjusted with the desired content tier filter
+ * Check for the presence of a collection filter.
+ * @param {string[]} qfs qf values from the portal.js URL
+ * @return {string} either '/search' or the collection slug
  */
-export function legacyUrl(params) {
-  let path;
-  let qfs = params['qf'] ? [].concat(params['qf']) : [];
+function getBasePath(qfs) {
   let collectionQf = qfs.find(val => {
     return val.match(collectionQfRegex);
   });
   if (collectionQf) {
-    path = 'collections/' + mapCollections(collectionQf.replace(collectionQfRegex, ''));
-  } else {
-    path = 'search';
+    return '/collections/' + mapCollections(collectionQf.replace(collectionQfRegex, ''));
   }
+  return '/search';
+}
 
-  let classicParams = '?q=' + params['query'];
+/**
+ * Check for the presence of a collection filter.
+ * @param {string[]} qfs qf values from the portal.js URL
+ * @return {string} either '/search' or the collection slug
+ */
+function classicParamsFromQfs(qfs) {
+  let returnString  = '';
   qfs.filter(qf => {
     return !qf.match(collectionQfRegex);
   }).forEach(qf => {
-    let key = qf.match(/^(.*)%3A/)[1];
-    let value = qf.match(/^.*%3A(.*)$/)[1];
-    classicParams += `&f[${key}][]=${value}`;
+    let key = qf.match(/^(.*?)%3A/)[1];
+    let value = qf.match(/^.*?%3A(.*)$/)[1];
+    if (key === 'proxy_dcterms_issued') {
+      returnString += dateParamsFromRange(key, value);
+    } else {
+      returnString += `&f[${key}][]=${value}`;
+    }
   });
+  return returnString;
+}
+
+function dateParamsFromRange(key, range) {
+  let rangeParts = range.replace(/\[?\]?/g, '').split(' TO ');
+  return `&range[${key}][begin]=${rangeParts[0]}&range[${key}][end]=${rangeParts[1] ? rangeParts[1] : rangeParts[0]}`;
+}
+
+/**
+ * Craft a classic.europeana.eu URL from relevant URL params.
+ * Always retruns a string starting with https://classic.europeana.eu/portal/search/...
+ * @param {string[]} params.qf qf params as present in the URL.
+ * @param {string} params.reusability reusibility param as present in the URL.
+ * @param {string[]} params.query query param as present in the URL.
+ * @param {string[]} params.api api param as present in the URL.
+ * @param {string} locale query param as present in the URL.
+ * @return {string} qf adjusted with the desired content tier filter
+ */
+export function legacyUrl(params, locale) {
+  let qfs = params['qf'] ? [].concat(params['qf']) : [];
+  let path = classicBaseUrl + locale + getBasePath(qfs);
+
+  // classic params will always include the query
+  let classicParams = '?q=' + params['query'];
+
+  classicParams += classicParamsFromQfs(qfs);
   if (params.reusability) classicParams += `&f[REUSABILITY][]=${params.reusability}`;
-  return classicBaseUrl + path + classicParams;
+  if (params.api) classicParams += `&f[api][]=${params.api === 'fulltext' ? 'collection' : 'default'}`;
+
+  return path + classicParams;
 }
 
 export default legacyUrl;
