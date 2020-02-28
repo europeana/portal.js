@@ -1,3 +1,4 @@
+import { diff } from 'deep-object-diff';
 import merge from 'deepmerge';
 import search, { unquotableFacets } from '../plugins/europeana/search';
 
@@ -66,6 +67,8 @@ export const state = () => ({
   active: false,
   apiOptions: {},
   apiParams: {},
+  previousApiOptions: null,
+  previousApiParams: null,
   error: null,
   errorStatusCode: null,
   facets: [],
@@ -90,18 +93,6 @@ export const mutations = {
   removeResettableFilter(state, filterName) {
     const index = state.resettableFilters.indexOf(filterName);
     if (index !== -1) state.resettableFilters.splice(index, 1);
-  },
-  setUserParams(state, value) {
-    state.userParams = value;
-  },
-  setOverrideParams(state, value) {
-    state.overrideParams = value;
-  },
-  setApiOptions(state, value) {
-    state.apiOptions = value;
-  },
-  setApiParams(state, value) {
-    state.apiParams = value;
   },
   disableCollectionFacet(state) {
     state.collectionFacetEnabled = false;
@@ -225,6 +216,12 @@ export const getters = {
     }
 
     return filters;
+  },
+
+  facetUpdateNeeded: (state) => {
+    if (!state.previousApiParams) return true; // i.e. if this is the first search
+    const apiParamsChanged = Object.keys(diff(state.previousApiParams, state.apiParams));
+    return apiParamsChanged.some((param) => ['query', 'qf', 'api', 'reusability'].includes(param));
   }
 };
 
@@ -239,12 +236,16 @@ export const actions = {
   },
 
   reset({ commit }) {
-    commit('setApiOptions', {});
-    commit('setUserParams', {});
-    commit('setOverrideParams', {});
+    commit('set', ['userParams', {}]);
+    commit('set', ['overrideParams', {}]);
+    commit('set', ['apiParams', {}]);
+    commit('set', ['apiOptions', {}]);
+    commit('set', ['previousApiParams', null]);
+    commit('set', ['previousApiOptions', null]);
     commit('setPill', null);
   },
 
+  // TODO: replace with a getter?
   async deriveApiSettings({ commit, dispatch, state }) {
     // Coerce qf from user input into an array as it may be a single string
     const userParams = Object.assign({}, state.userParams || {});
@@ -263,8 +264,11 @@ export const actions = {
       delete apiParams.recordApi;
     }
 
-    commit('setApiParams', apiParams);
-    commit('setApiOptions', apiOptions);
+    commit('set', ['previousApiParams', Object.assign({}, state.apiParams)]);
+    commit('set', ['previousApiOptions', Object.assign({}, state.apiOptions)]);
+
+    commit('set', ['apiParams', apiParams]);
+    commit('set', ['apiOptions', apiOptions]);
 
     await dispatch('applyCollectionSpecificSettings');
   },
@@ -284,29 +288,40 @@ export const actions = {
   /**
    * Run a Record API search and store the results
    */
-  async run({ dispatch, state }) {
+  async run({ dispatch, getters }) {
     await dispatch('deriveApiSettings');
 
+    await Promise.all([
+      dispatch('queryItems'),
+      getters.facetUpdateNeeded ? dispatch('queryFacets') : () => null
+    ]);
+  },
+
+  queryItems({ dispatch, state }) {
     const paramsForItems = {
       ...state.apiParams,
       facet: null
     };
 
-    await search(paramsForItems, state.apiOptions || {})
-      .then((response) => {
-        dispatch('updateForSuccess', response);
+    return search(paramsForItems, state.apiOptions || {})
+      .then(async(response) => {
+        await dispatch('updateForSuccess', response);
       })
-      .catch((error) => dispatch('updateForFailure', error));
+      .catch(async(error) => {
+        await dispatch('updateForFailure', error);
+      });
   },
 
-  async queryFacets({ commit, getters, rootState, rootGetters, dispatch, state }) {
+  queryFacets({ commit, getters, rootState, rootGetters, dispatch, state }) {
+    if (!state.active) return;
+
     const paramsForFacets = {
       ...state.apiParams,
       rows: 0,
       profile: 'facets'
     };
 
-    search(paramsForFacets, state.apiOptions || {})
+    return search(paramsForFacets, state.apiOptions || {})
       .then((response) => {
         commit('setFacets', response.facets);
         const collection = getters.collection;
@@ -315,7 +330,9 @@ export const actions = {
           commit('set', ['facets', rootGetters[`collections/${collection}/facets`]]);
         }
       })
-      .catch((error) => dispatch('updateForFailure', error));
+      .catch(async(error) => {
+        await dispatch('updateForFailure', error);
+      });
   },
 
   updateForSuccess({ commit }, response) {

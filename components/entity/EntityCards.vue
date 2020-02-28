@@ -3,7 +3,7 @@
     <ContentCard
       v-for="entity in entities"
       :key="entity.id"
-      :is-entity="true"
+      variant="entity"
       :title="entityTitle(entity)"
       :image-url="depiction(entity)"
       :url="entityRoute(entity)"
@@ -55,7 +55,7 @@
           name: 'entity-type-all',
           params: {
             type: getEntityTypeHumanReadable(entity.type),
-            pathMatch: getEntitySlug(entity)
+            pathMatch: getEntitySlug(entity.id, entity.prefLabel.en)
           }
         };
       }

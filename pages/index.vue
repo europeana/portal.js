@@ -2,6 +2,12 @@
   <div
     data-qa="browse page"
   >
+    <NotificationBanner
+      v-if="onHomePage"
+      :notification-url="notificationUrl"
+      :notification-text="$t('linksToClassic.home.text')"
+      :notification-link-text="$t('linksToClassic.home.linkText')"
+    />
     <HeroImage
       v-if="hero"
       :image-url="heroImage.url"
@@ -13,6 +19,7 @@
       :provider="hero.provider"
       :creator="hero.creator"
       :url="hero.url"
+      class="mt-0"
     />
     <b-container>
       <header
@@ -40,11 +47,13 @@
 <script>
   import BrowseSections from '../components/browse/BrowseSections';
   import HeroImage from '../components/generic/HeroImage';
+  import NotificationBanner from '../components/generic/NotificationBanner.vue';
   import createClient from '../plugins/contentful';
 
   export default {
     components: {
       BrowseSections,
+      NotificationBanner,
       HeroImage
     },
     computed: {
@@ -53,6 +62,12 @@
       },
       heroImage() {
         return this.hero ? this.hero.image.fields.file : null;
+      },
+      onHomePage() {
+        return Boolean(Number(process.env.ENABLE_LINKS_TO_CLASSIC)) && !this.path;
+      },
+      notificationUrl() {
+        return `https://classic.europeana.eu/portal/${this.$store.state.i18n.locale}?utm_source=new-website&utm_medium=button`;
       }
     },
     asyncData({ params, query, error, app }) {
@@ -72,7 +87,8 @@
             return;
           }
           return {
-            page: response.items[0].fields
+            page: response.items[0].fields,
+            path: params.pathMatch
           };
         })
         .catch((e) => {
@@ -103,4 +119,3 @@
     }
   }
 </style>
-

@@ -20,24 +20,18 @@
       SearchInterface
     },
 
-    asyncData({ query, redirect, app }) {
+    middleware({ query, redirect, app }) {
       const currentPage = pageFromQuery(query.page);
 
       if (currentPage === null) {
         // Redirect non-positive integer values for `page` to `page=1`
-        query.page = '1';
-        return redirect(app.localePath({ name: 'search', query }));
-      }
-
-      if (typeof query.query === 'undefined') {
-        query.query = '';
-        return redirect(app.localePath({ name: 'search', query }));
+        return redirect(app.localePath({ name: 'search', query: { ...query, ...{ page: '1' } } }));
       }
     },
 
     async fetch({ store, query, res }) {
       await store.dispatch('search/activate');
-      store.commit('search/setUserParams', query);
+      store.commit('search/set', ['userParams', query]);
 
       // TODO: remove when enabled by default
       if (Number(process.env.ENABLE_FASHION_COLLECTION_FACETS)) {
@@ -45,14 +39,12 @@
       }
 
       await store.dispatch('search/run');
-
       if (store.state.search.error && typeof res !== 'undefined') {
         res.statusCode = store.state.search.errorStatusCode;
       }
     },
 
     mounted() {
-      this.$store.commit('search/setPill', this.title);
       this.$store.commit('search/enableCollectionFacet');
     },
 
@@ -67,6 +59,6 @@
       next();
     },
 
-    watchQuery: ['api', 'page', 'qf', 'query', 'reusability']
+    watchQuery: ['api', 'reusability', 'query', 'qf', 'page']
   };
 </script>

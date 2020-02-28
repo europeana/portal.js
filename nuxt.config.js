@@ -29,6 +29,9 @@ module.exports = {
   ** Customize the progress-bar color
   */
   loading: {
+    // Show progress bar immediately when testing, to aid detection that page
+    // has started loading, then finished.
+    throttle: process.env.NODE_ENV === 'test' ? 0 : 200,
     css: false,
     duration: 2500,
     continuous: true
@@ -97,8 +100,6 @@ module.exports = {
       frameworkName: 'Nuxt.js',
       frameworkVersion: require('nuxt/package.json').version
     }],
-    // Doc: https://github.com/nuxt-community/axios-module#usage
-    '@nuxtjs/axios',
     '@nuxtjs/dotenv',
     ['@nuxtjs/google-tag-manager', {
       id: process.env.GOOGLE_TAG_MANAGER_ID,
@@ -130,12 +131,6 @@ module.exports = {
       }
     }]
   ],
-  /*
-  ** Axios module configuration
-  */
-  axios: {
-    // See https://github.com/nuxt-community/axios-module#options
-  },
 
   router: {
     middleware: ['legacy/index', 'l10n'],
