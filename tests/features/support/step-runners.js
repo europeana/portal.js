@@ -31,7 +31,7 @@ module.exports = {
     });
     const navSelector = qaSelector('pagination navigation');
     const activeLinkSelector = navSelector + ` li.active a[aria-posinset="${page}"]`;
-    await client.expect.element(activeLinkSelector).to.be.visible;
+    await client.waitForElementVisible(activeLinkSelector);
   },
   async checkPageAccesibility() {
     let axeOptions = {
@@ -74,7 +74,7 @@ module.exports = {
   async clickOnLink(href) {
     const selector = `a[href="${href}"]`;
     await client.waitForElementVisible(selector);
-    await client.click(selector);
+    client.click(selector);
   },
   countTarget: async(count, qaElementNames) => {
     await client.elements('css selector', qaSelector(qaElementNames), async(result) => {
@@ -91,7 +91,7 @@ module.exports = {
     if (key.length > 1) {
       key = client.Keys[key];
     }
-    await client.keys(key);
+    client.keys(key);
   },
   matchMetaLabelAndValue: async(label, value) => {
     await client.elements('xpath', '//label[contains(text(),"' + label + '")]/parent::div//ul/li[contains(text(),"' + value + '")]', async(result) => {
@@ -103,17 +103,17 @@ module.exports = {
       await client.expect(result.value).to.have.lengthOf(1);
     });
   },
-  async doNotSeeATarget(qaElementNames) {
-    await client.expect.element(qaSelector(qaElementNames)).to.not.be.visible;
+  doNotSeeATarget(qaElementNames) {
+    client.expect.element(qaSelector(qaElementNames)).to.not.be.visible;
   },
-  async doNotHaveATarget(qaElementNames) {
-    await client.expect.element(qaSelector(qaElementNames)).to.not.be.present;
+  doNotHaveATarget(qaElementNames) {
+    client.expect.element(qaSelector(qaElementNames)).to.not.be.present;
   },
   async enterTextInTarget(text, qaElementName) {
     const selector = qaSelector(qaElementName);
     await client.clearValue(selector);
     await client.waitForElementVisible(selector);
-    await client.setValue(selector, text);
+    client.setValue(selector, text);
   },
   async observeTargetHasClass(qaElementName, klass) {
     await client.getAttribute(qaSelector(qaElementName), 'class', async(result) => {
@@ -145,7 +145,11 @@ module.exports = {
     /* eslint-enable prefer-arrow-callback */
   },
   async paginateToPage(page) {
-    const selector = qaSelector('pagination navigation') + ` a[aria-posinset="${page}"]`;
+    const containerSelector = qaSelector('pagination navigation');
+    await client.waitForElementVisible(containerSelector);
+    const selector = containerSelector + ` a[aria-posinset="${page}"]`;
+    await client.waitForElementVisible(selector);
+
     await client.click(selector);
   },
   async preferBrowserLanguage(locale) {
@@ -224,10 +228,15 @@ module.exports = {
   async waitForTargetToBeVisible(qaElementName) {
     await client.waitForElementVisible(qaSelector(qaElementName));
   },
+  async waitForThePageToLoad() {
+    await client.waitForElementPresent('.nuxt-progress');
+    await client.waitForElementNotPresent('.nuxt-progress');
+  },
   async goBack() {
     await client.back();
   },
   async searchFor(query) {
+    await this.waitForTargetToBeVisible('search box');
     await this.enterTextInTarget(query, 'search box');
     await this.clickOnTheTarget('search button');
   }
