@@ -10,28 +10,32 @@
       link-class="card-link"
     >
       <b-img-lazy
-        v-if="variant === 'entity' && cardImageUrl && lazy"
+        v-if="variant === 'entity' && cardImageUrl && lazyLoad"
         :src="optimisedImageUrl"
+        :blank-width="blankImageWidth"
+        :blank-height="blankImageHeight"
         alt=""
         @error.native="imageNotFound"
       />
       <b-img
-        v-if="variant === 'entity' && cardImageUrl && !lazy"
+        v-if="variant === 'entity' && cardImageUrl && !lazyLoad"
         :src="optimisedImageUrl"
         alt=""
-        @error.native="imageNotFound"
       />
       <div
         v-if="cardImageUrl"
         class="card-img"
       >
         <b-img-lazy
-          v-if="variant !== 'entity' && lazy"
+          v-if="variant !== 'entity' && lazyLoad"
           :src="optimisedImageUrl"
+          :blank-width="blankImageWidth"
+          :blank-height="blankImageHeight"
           alt=""
+          @error.native="imageNotFound"
         />
         <b-img
-          v-if="variant !== 'entity' && !lazy"
+          v-if="variant !== 'entity' && !lazyLoad"
           :src="optimisedImageUrl"
           alt=""
         />
@@ -131,6 +135,14 @@
       limitValuesWithinEachText: {
         type: Number,
         default: -1
+      },
+      blankImageHeight: {
+        type: Number,
+        default: null
+      },
+      blankImageWidth: {
+        type: Number,
+        default: null
       }
     },
     data() {
@@ -142,6 +154,10 @@
     computed: {
       cardClass() {
         return `${this.variant}-card`;
+      },
+
+      lazyLoad() {
+        return this.lazy && !process.env.NODE_ENV === 'test';
       },
 
       displayTitle() {

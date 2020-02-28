@@ -6,7 +6,7 @@ Feature: Entity page
     And I see an `entity title`
     And I see an `entity depiction`
     And I see an `entity attribution`
-    And I see an `entity description`
+    And I don't have an `entity description`
     And I see `total results`
     And I see a `search list view toggle`
     And I see a `search bar pill`
@@ -16,6 +16,10 @@ Feature: Entity page
     And I don't have a `tier toggle`
     And I am on an accessible page
 
+  Scenario: Curated entity
+    Given I am on `/en/entity/topic/190-art`
+    Then I see an `entity description`
+
   Scenario: Attempting to view an entity page which doesn't exist
     When I open `/en/entity/person/123x-unknown`
     Then I see an `error notice`
@@ -24,16 +28,16 @@ Feature: Entity page
     When I open an `entity page`
     And I see the `entity page`
     Then I see `related entities`
-    And I see the `Music entity card` in the `related entities`
+    And I see the `Book entity card` in the `related entities`
     And I see the `Theatre entity card` in the `related entities`
-    And I see the `Art entity card` in the `related entities`
-    And I see the `Black-and-white prints entity card` in the `related entities`
+    And I see the `Tragedy entity card` in the `related entities`
+    And I see the `Drama entity card` in the `related entities`
 
   Scenario: Click on a related entity
     When I open an `entity page`
     And I see the `entity page`
-    And I click an `Music entity card`
-    And I wait 5 seconds
+    And I click an `Book entity card`
+    And I wait for the page to load
     Then I should not be on the `entity page`
 
   Scenario: Navigating to a related record
@@ -47,13 +51,13 @@ Feature: Entity page
     When I open an `entity page`
     And I see the `entity page`
     And I see a `search result`
-    Then I see a link to "/en/entity/topic/18-newspapers?page=2&view=grid" in the `pagination navigation`
+    Then I see a link to "/en/entity/person/60305-william-shakespeare?page=2&view=grid" in the `pagination navigation`
 
   Scenario: Pagination links work when the page was accessed from the url
-    When I visit `/en/entity/topic/18-newspapers?page=2`
+    When I visit `/en/entity/person/60305-william-shakespeare?page=2`
     And I go to page number 3
-    And I wait 2 seconds
-    Then I should be on `/en/entity/topic/18-newspapers?page=3&view=grid`
+    And I wait for the page to load
+    Then I should be on `/en/entity/person/60305-william-shakespeare?page=3&view=grid`
 
   Scenario: Searching from an entity page searches within that entity
     When I open an `entity page`
@@ -67,17 +71,11 @@ Feature: Entity page
   Scenario: Removing search pill
     When I open an `entity page`
     And I go to page number 2
-    And I wait 2 seconds
+    And I wait for the page to load
     And I am on page number 2
     And I see the `search bar pill`
     And I click the `search bar pill button`
+    And I wait for the page to load
     Then I see the `search page`
     And I don't have the `search bar pill`
     And I am on page number 1
-
-  Scenario: Newspapers collection API toggle is removed by removing search pill
-    Given I am on `/en/entity/topic/18-newspapers?api=fulltext&view=grid`
-    And I see the `search bar pill`
-    When I click the `search bar pill button`
-    Then I see the `search page`
-    And I should be on `/en/search?view=grid&page=1&query=`

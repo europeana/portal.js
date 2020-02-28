@@ -29,6 +29,9 @@ module.exports = {
   ** Customize the progress-bar color
   */
   loading: {
+    // Show progress bar immediately when testing, to aid detection that page
+    // has started loading, then finished.
+    throttle: process.env.NODE_ENV === 'test' ? 0 : 200,
     css: false,
     duration: 2500,
     continuous: true
