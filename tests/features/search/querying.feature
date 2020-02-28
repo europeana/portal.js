@@ -77,4 +77,5 @@ Feature: Search querying
     And I search for "spawn"
     And I wait for the page to load
     And I go back
+    And I wait 1 second
     Then I see "frog" in the `search box`
