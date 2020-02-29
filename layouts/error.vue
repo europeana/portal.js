@@ -7,9 +7,11 @@
         <b-col>
           <main role="main">
             <h1>{{ $t('error') }}</h1>
-            <p class="lead">
-              {{ error.message }}
-            </p>
+            <div data-qa="error notice">
+              <p class="lead">
+                {{ error.message }}
+              </p>
+            </div>
           </main>
         </b-col>
       </b-row>

@@ -288,33 +288,121 @@ describe('store/search', () => {
         });
       });
     });
+
+    describe('facetUpdateNeeded', () => {
+      const previousApiParams = {
+        query: '*:*',
+        qf: ['collection:newspaper'],
+        api: 'metadata',
+        reusability: 'open',
+        page: 1
+      };
+
+      context('when query param changes', () => {
+        it('is `true`', () => {
+          const apiParams = {
+            ...previousApiParams,
+            query: 'hamburg'
+          };
+
+          const facetUpdateNeeded = store.getters.facetUpdateNeeded({ previousApiParams, apiParams });
+
+          facetUpdateNeeded.should.be.true;
+        });
+      });
+
+      context('when qf param changes', () => {
+        it('is `true`', () => {
+          const apiParams = {
+            ...previousApiParams,
+            qf: ['collection:newspaper', 'LANGUAGE:"nl"']
+          };
+
+          const facetUpdateNeeded = store.getters.facetUpdateNeeded({ previousApiParams, apiParams });
+
+          facetUpdateNeeded.should.be.true;
+        });
+      });
+
+      context('when api param changes', () => {
+        it('is `true`', () => {
+          const apiParams = {
+            ...previousApiParams,
+            api: 'fulltext'
+          };
+
+          const facetUpdateNeeded = store.getters.facetUpdateNeeded({ previousApiParams, apiParams });
+
+          facetUpdateNeeded.should.be.true;
+        });
+      });
+
+      context('when reusability param changes', () => {
+        it('is `true`', () => {
+          const apiParams = {
+            ...previousApiParams,
+            reusability: 'permission'
+          };
+
+          const facetUpdateNeeded = store.getters.facetUpdateNeeded({ previousApiParams, apiParams });
+
+          facetUpdateNeeded.should.be.true;
+        });
+      });
+
+      context('when page param changes', () => {
+        it('is `true`', () => {
+          const apiParams = {
+            ...previousApiParams,
+            page: 2
+          };
+
+          const facetUpdateNeeded = store.getters.facetUpdateNeeded({ previousApiParams, apiParams });
+
+          facetUpdateNeeded.should.be.false;
+        });
+      });
+    });
   });
 
   describe('actions', () => {
     describe('run', () => {
-      afterEach(() => {
-        nock.cleanAll();
-      });
-
       it('derives the API params', async() => {
-        const commit = sinon.spy();
         const dispatch = sinon.spy();
-        const state = {};
 
-        baseRequest
-          .query(true)
-          .reply(200, defaultResponse);
-
-        await store.actions.run({ commit, dispatch, state });
+        await store.actions.run({ dispatch, getters: { facetUpdateNeeded: true } });
 
         dispatch.should.have.been.calledWith('deriveApiSettings');
+      });
+
+      it('queries for items and facets by default', async() => {
+        const dispatch = sinon.spy();
+
+        await store.actions.run({ dispatch, getters: { facetUpdateNeeded: true } });
+
+        dispatch.should.have.been.calledWith('queryItems');
+        dispatch.should.have.been.calledWith('queryFacets');
+      });
+
+      it('omits query for facets if not needed', async() => {
+        const dispatch = sinon.spy();
+
+        await store.actions.run({ dispatch, getters: { facetUpdateNeeded: false } });
+
+        dispatch.should.have.been.calledWith('queryItems');
+        dispatch.should.not.have.been.calledWith('queryFacets');
+      });
+    });
+
+    describe('queryItems', () => {
+      afterEach(() => {
+        nock.cleanAll();
       });
 
       it('searches the Record API', async() => {
         const searchQuery = 'anything';
         const typeQf = 'TYPE:"IMAGE"';
         const collectionQf = 'collection:"migration"';
-        const commit = sinon.spy();
         const dispatch = sinon.spy();
         const state = { apiParams: { query: searchQuery, qf: [typeQf, collectionQf] } };
 
@@ -324,7 +412,7 @@ describe('store/search', () => {
           })
           .reply(200, defaultResponse);
 
-        await store.actions.run({ commit, dispatch, state });
+        await store.actions.queryItems({ dispatch, state });
 
         nock.isDone().should.be.true;
       });
@@ -339,7 +427,7 @@ describe('store/search', () => {
             .query(true)
             .reply(200, defaultResponse);
 
-          await store.actions.run({ commit, dispatch, state });
+          await store.actions.queryItems({ commit, dispatch, state });
 
           dispatch.should.have.been.calledWith('updateForSuccess');
         });
@@ -359,7 +447,7 @@ describe('store/search', () => {
               error: errorMessage
             });
 
-          await store.actions.run({ commit, dispatch, state });
+          await store.actions.queryItems({ commit, dispatch, state });
 
           dispatch.should.have.been.calledWith('updateForFailure');
         });
@@ -392,12 +480,12 @@ describe('store/search', () => {
 
         await store.actions.deriveApiSettings({ commit, dispatch, state });
 
-        commit.should.have.been.calledWith('setApiParams', {
+        commit.should.have.been.calledWith('set', ['apiParams', {
           query: userQuery,
           qf: [userQf, overrideQf],
           profile,
           facet
-        });
+        }]);
       });
     });
 

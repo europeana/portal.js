@@ -140,6 +140,8 @@
   import { queryUpdatesForFilters } from '../../store/search';
 
   export default {
+    name: 'SearchInterface',
+
     components: {
       AlertMessage,
       InfoMessage,
@@ -289,22 +291,7 @@
         return this.$store.getters['search/activeView'];
       }
     },
-    watch: {
-      query() {
-        this.$store.dispatch('search/queryFacets');
-      },
-      qf() {
-        this.$store.dispatch('search/queryFacets');
-      },
-      api() {
-        this.$store.dispatch('search/queryFacets');
-      },
-      reusability() {
-        this.$store.dispatch('search/queryFacets');
-      }
-    },
     created() {
-      this.$store.dispatch('search/queryFacets');
       if (this.$route.query.view) {
         this.$store.commit('search/setView', this.$route.query.view);
       }
@@ -328,7 +315,8 @@
         return this.localePath({ ...this.route, ...{ query: this.updateCurrentSearchQuery({ page: val }) } });
       },
       rerouteSearch(queryUpdates) {
-        return this.$router.push(this.localePath({ ...this.route, ...{ query: this.updateCurrentSearchQuery(queryUpdates) } }));
+        const query = this.updateCurrentSearchQuery(queryUpdates);
+        this.$router.push(this.localePath({ ...this.route, ...{ query } }));
       },
       updateCurrentSearchQuery(updates = {}) {
         const current = {

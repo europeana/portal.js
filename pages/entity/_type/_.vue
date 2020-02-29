@@ -82,7 +82,8 @@
       EntityDetails,
       SearchInterface
     },
-    async middleware({ store, query }) {
+    async middleware({ app, store, query, redirect, params, error }) {
+      store.commit('search/disableCollectionFacet');
       const contentfulClient = createClient(query.mode);
 
       // fetch all curated entity pages
@@ -92,11 +93,61 @@
           'content_type': 'entityPage',
           'include': 0,
           'limit': 1000 // 1000 is the maximum number of results returned by contentful
-        }).then(async(response) => {
-          await store.commit('entity/setCuratedEntities', response.items.map(entityPage => entityPage.fields.identifier));
-        }).catch(async() => {
-          await store.commit('entity/setCuratedEntities', []);
+        }).then((response) => {
+          const curatedEntities = response.items.reduce((memo, entityPage) => {
+            // TODO: store desired path, not name
+            memo[entityPage.fields.identifier] = entityPage.fields.name;
+            return memo;
+          }, {});
+          store.commit('entity/setCuratedEntities', curatedEntities);
+        }).catch(() => {
+          store.commit('entity/setCuratedEntities', []);
         });
+      }
+
+      const entityUri = entities.getEntityUri(params.type, params.pathMatch);
+
+      // Fetch entity early as it's needed for getting English prefLabels which
+      // are needed for both redirects to preferred path, and best bets
+      if (entityUri !== store.state.entity.id) {
+        store.commit('entity/setPage', null);
+        store.commit('entity/setRelatedEntities', null);
+        let entity;
+        try {
+          entity = await entities.getEntity(params.type, params.pathMatch);
+        } catch (err) {
+          const statusCode = (typeof err.statusCode !== 'undefined') ? err.statusCode : 500;
+          return error({
+            message: err.message,
+            statusCode
+          });
+        }
+        store.commit('entity/setEntity', entity.entity);
+        store.commit('entity/setId', entityUri);
+      }
+
+      const entity = store.state.entity.entity;
+
+      const curatedEntityName = store.state.entity.curatedEntities[entityUri];
+      const desiredPath = entities.getEntitySlug(entity.id, curatedEntityName || entity.prefLabel.en);
+
+      if (params.pathMatch !== desiredPath) {
+        const redirectPath = app.localePath({
+          name: 'entity-type-all',
+          params: { type: params.type, pathMatch: encodeURIComponent(desiredPath) }
+        });
+        return redirect(302, redirectPath);
+      }
+
+      // TODO: move to global middleware?
+      const currentPage = pageFromQuery(query.page);
+      if (currentPage === null) {
+        // Redirect non-positive integer values for `page` to `page=1`
+        return redirect(app.localePath({
+          name: 'entity-type-all',
+          params: { type: params.type, pathMatch: params.pathMatch },
+          query: { page: 1 }
+        }));
       }
     },
 
@@ -174,74 +225,42 @@
       }
     },
 
-    asyncData({ query, params, res, redirect, app, store }) {
-      const currentPage = pageFromQuery(query.page);
-      const entityUri = entities.getEntityUri(params.type, params.pathMatch);
+    asyncData({ query, params, res, app, store }) {
+      const entityUri = store.state.entity.entity.id;
 
       // Prevent re-requesting entity content from APIs if already loaded,
       // e.g. when paginating through entity search results
-      if (entityUri === store.state.entity.id) {
+      if (store.state.entity.entity && store.state.entity.relatedEntities) {
         return {
           entity: store.state.entity.entity,
           page: store.state.entity.page,
           relatedEntities: store.state.entity.relatedEntities
         };
       }
-      store.commit('entity/setId', entityUri);
-
-      if (currentPage === null) {
-        // Redirect non-positive integer values for `page` to `page=1`
-        query.page = '1';
-        return redirect(app.localePath({
-          name: 'entity-type-all',
-          params: { type: params.type, pathMatch: params.pathMatch },
-          query: { page: 1 }
-        }));
-      }
 
       const contentfulClient = createClient(query.mode);
+      const curatedEntityName = store.state.entity.curatedEntities[entityUri];
 
       return axios.all([
-        entities.getEntity(params.type, params.pathMatch),
         entities.relatedEntities(params.type, params.pathMatch, { origin: query.recordApi })
-      ].concat(!store.state.entity.curatedEntities.includes(entityUri) ? [] : contentfulClient.getEntries({
+      ].concat(!curatedEntityName ? [] : contentfulClient.getEntries({
         'locale': app.i18n.isoLocale(),
         'content_type': 'entityPage',
         'fields.identifier': entityUri,
         'include': 2,
         'limit': 1
-      })
-      // URL slug is always derived from English, so if viewing in another locale,
-      // we also need to get the English, solely for the URL slug from `name`.
-      ).concat(app.i18n.locale === 'en' || !store.state.entity.curatedEntities.includes(entityUri) ? [] : contentfulClient.getEntries({
-        'locale': 'en-GB',
-        'content_type': 'entityPage',
-        'fields.identifier': entityUri,
-        'include': 2,
-        'limit': 1
       })))
-        .then(axios.spread((entity, related, localisedEntries, defaultLocaleEntries) => {
-          const localisedEntityPage = localisedEntries && localisedEntries.total > 0 ? localisedEntries.items[0].fields : null;
-          const defaultEntityPage = defaultLocaleEntries && defaultLocaleEntries.total > 0 ? defaultLocaleEntries.items[0].fields : null;
-          const desiredPath = entities.getEntitySlug(entity.entity, defaultEntityPage || localisedEntityPage);
+        .then(axios.spread(async(related, entries) => {
+          const entityPage = entries && entries.total > 0 ? entries.items[0].fields : null;
 
           // Store content for reuse should a redirect be needed, below, or when
           // navigating back to this page, e.g. from a search result.
-          store.commit('entity/setEntity', entity.entity);
-          store.commit('entity/setPage', localisedEntityPage);
+          store.commit('entity/setPage', entityPage);
           store.commit('entity/setRelatedEntities', related);
 
-          if (params.pathMatch !== desiredPath) {
-            const redirectPath = app.localePath({
-              name: 'entity-type-all',
-              params: { type: params.type, pathMatch: encodeURIComponent(desiredPath) }
-            });
-            return redirect(302, redirectPath);
-          }
-
           return {
-            entity: entity.entity,
-            page: localisedEntityPage,
+            entity: store.state.entity.entity,
+            page: entityPage,
             relatedEntities: related
           };
         }))
@@ -253,14 +272,12 @@
         });
     },
 
-    async fetch({ store, query }) {
+    async fetch({ query, store }) {
       await store.dispatch('entity/searchForRecords', query);
     },
 
     mounted() {
       this.$store.commit('search/setPill', this.title);
-      this.$store.commit('search/disableCollectionFacet');
-      this.$store.dispatch('entity/searchForRecords', this.$route.query);
     },
 
     methods: {
@@ -292,6 +309,6 @@
       next();
     },
 
-    watchQuery: ['api', 'page', 'qf', 'query', 'reusability']
+    watchQuery: ['api', 'reusability', 'query', 'qf', 'page']
   };
 </script>
