@@ -17,5 +17,6 @@ const previewConfig = {
 
 export default function createClient(mode) {
   const config = (mode === 'preview' && process.env.CTF_CPA_ACCESS_TOKEN ? previewConfig : deliveryConfig);
+  config.insecure = Number(process.env.CTF_INSECURE);
   return contentful.createClient(config);
 }

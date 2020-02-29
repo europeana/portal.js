@@ -5,8 +5,9 @@
 import axios from 'axios';
 import qs from 'qs';
 import config from './api';
+import { URL } from '../url';
 import { apiError } from './utils';
-import { genericThumbnail } from './thumbnail';
+import thumbnailUrl, { genericThumbnail } from './thumbnail';
 
 // Some facets do not support enquoting of their field values.
 export const unquotableFacets = [
@@ -77,9 +78,20 @@ function resultsFromApiResponse(response) {
   const items = response.data.items;
 
   const results = items.map(item => {
+    let edmPreview;
+    if (item.edmPreview) {
+      const url = new URL(item.edmPreview);
+      edmPreview = thumbnailUrl(url.searchParams.get('uri'), {
+        type: item.type,
+        size: 'w200'
+      });
+    } else {
+      edmPreview = genericThumbnail(item.id, { type: item.type, size: 'w200' });
+    }
+
     return {
       europeanaId: item.id,
-      edmPreview: item.edmPreview ? `${item.edmPreview[0]}&size=w200` : genericThumbnail(item.id, { type: item.type, size: 'w200' }),
+      edmPreview,
       dcTitle: item.dcTitleLangAware,
       dcDescription: item.dcDescriptionLangAware,
       dcCreator: item.dcCreatorLangAware,

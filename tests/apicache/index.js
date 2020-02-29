@@ -3,34 +3,50 @@ require('dotenv').config();
 const config = {
   duration: process.env.APICACHE_DURATION || '1 day',
   log: Number(process.env.APICACHE_LOG),
-  port: process.env.APICACHE_PORT || 4000
+  port: process.env.APICACHE_PORT || 4000,
+  redisUrl: process.env.APICACHE_REDIS_URL,
+  contentfulSpaceId: process.env.CTF_SPACE_ID,
+  contentfulEnvironmentId: process.env.CTF_ENVIRONMENT_ID,
+  contentfulCdaAccessToken: process.env.CTF_CDA_ACCESS_TOKEN
 };
 
-const express = require('express');
 const apicache = require('apicache');
 const cors = require('cors');
+const express = require('express');
+// const fs = require('fs');
 const morgan = require('morgan');
+// const path = require('path');
 const proxy = require('http-proxy-middleware');
+const redis = require('redis');
+// const http2 = require('http2');
 
 const app = express();
 
 app.use(cors());
 if (config.log) app.use(morgan('combined'));
 
-// TODO: consider using Redis, then having Travis cache the db.
-//       would need a way to have it clear the cache. by an env var set in Travis
-//       causing a docker volume for the redis db to be recreated?
-const cache = apicache.options({
-  debug: config.log
-}).middleware;
+const apicacheOptions = {};
+
+// Use Redis cache if configured in env
+//
+// To create one in Docker with persistent storage:
+//   docker volume create portal.js-test-apicache-redis-data
+//   docker run -d -p=16379:6379 --name=portal.js-test-apicache-redis \
+//     --mount source=portal.js-test-apicache-redis-data,target=/data \
+//     redis redis-server --appendonly yes
+if (config.redisUrl) {
+  const redisOptions = {
+    url: config.redisUrl
+  };
+  apicacheOptions.redisClient = redis.createClient(redisOptions);
+}
+
+const cache = apicache.options(apicacheOptions).middleware;
 
 app.get('/', (req, res) => {
   res.type('text/plain');
   res.send('OK');
 });
-
-// TODO: handle Contentful too?
-//       would need SSL, e.g. w/ package "greenlock"
 
 // API gateway
 app.use(
@@ -52,6 +68,22 @@ app.use(
     pathRewrite: { '^/newspaper' : '' }
   })
 );
+
+// Contentful Delivery API
+app.use(
+  `/spaces/${config.contentfulSpaceId}/environments/${config.contentfulEnvironmentId}/`,
+  cache(config.duration),
+  proxy({
+    target: 'https://cdn.contentful.com/',
+    changeOrigin: true,
+    headers: { authorization: `Bearer ${config.contentfulCdaAccessToken}` }
+  })
+);
+
+// const sslOptions = {
+//   key: fs.readFileSync(path.resolve(__dirname, '../../tmp/ssl.key')),
+//   cert: fs.readFileSync(path.resolve(__dirname, '../../tmp/ssl.crt'))
+// };
 
 const server = app.listen(config.port, () => {
   console.log('Listening on port ' + server.address().port);
