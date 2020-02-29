@@ -1,7 +1,5 @@
 require('dotenv').config();
 
-console.log('process.env.APICACHE_LOG', process.env.APICACHE_LOG);
-
 const config = {
   duration: process.env.APICACHE_DURATION || '1 day',
   log: Number(process.env.APICACHE_LOG),
