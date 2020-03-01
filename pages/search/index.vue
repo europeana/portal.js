@@ -1,5 +1,10 @@
 <template>
   <b-container data-qa="search page">
+    <NotificationBanner
+      :notification-url="notificationUrl"
+      :notification-text="$t('linksToClassic.home.text')"
+      :notification-link-text="$t('linksToClassic.home.linkText')"
+    />
     <b-row>
       <b-col>
         <h1>{{ $t('search') }}</h1>
@@ -14,10 +19,13 @@
 <script>
   import SearchInterface from '../../components/search/SearchInterface';
   import { pageFromQuery } from '../../plugins/utils';
+  import legacyUrl from '../../plugins/europeana/legacy-search';
+  import NotificationBanner from '../../components/generic/NotificationBanner';
 
   export default {
     components: {
-      SearchInterface
+      SearchInterface,
+      NotificationBanner
     },
 
     middleware({ query, redirect, app }) {
@@ -28,7 +36,11 @@
         return redirect(app.localePath({ name: 'search', query: { ...query, ...{ page: '1' } } }));
       }
     },
-
+    computed: {
+      notificationUrl() {
+        return legacyUrl(this.$route.query, this.$store.state.i18n.locale);
+      }
+    },
     async fetch({ store, query, res }) {
       await store.dispatch('search/activate');
       store.commit('search/set', ['userParams', query]);

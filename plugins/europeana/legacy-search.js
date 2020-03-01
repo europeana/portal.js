@@ -14,7 +14,7 @@ function mapCollections(collection) {
   return map[collection] || collection;
 }
 
-const collectionQfRegex = /^collection%3A/;
+const collectionQfRegex = /^collection:/;
 const classicBaseUrl = 'https://classic.europeana.eu/portal/';
 
 /**
@@ -42,8 +42,8 @@ function classicParamsFromQfs(qfs) {
   qfs.filter(qf => {
     return !qf.match(collectionQfRegex);
   }).forEach(qf => {
-    let key = qf.match(/^(.*?)%3A/)[1];
-    let value = qf.match(/^.*?%3A(.*)$/)[1];
+    let key = qf.match(/^(.*?):/)[1];
+    let value = qf.match(/^.*?:(.*)$/)[1];
     if (key === 'proxy_dcterms_issued') {
       returnString += dateParamsFromRange(key, value);
     } else {
