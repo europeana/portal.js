@@ -90,9 +90,9 @@ export const actions = {
       }
     }
 
-    commit('search/setUserParams', userParams, { root: true });
-    commit('search/setOverrideParams', overrideParams, { root: true });
+    commit('search/set', ['userParams', userParams], { root: true });
+    commit('search/set', ['overrideParams', overrideParams], { root: true });
 
-    await dispatch('search/run', null, { root: true });
+    await dispatch('search/run', {}, { root: true });
   }
 };

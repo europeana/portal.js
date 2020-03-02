@@ -14,7 +14,7 @@
             v-for="gallery in galleries"
             :key="gallery.fields.identifier"
             :title="gallery.fields.name"
-            :url="{ name: 'gallery-all', params: { pathMatch: gallery.fields.identifier } }"
+            :url="{ name: 'galleries-all', params: { pathMatch: gallery.fields.identifier } }"
             :image-url="gallery.fields.hasPart[0] && gallery.fields.hasPart[0].fields.thumbnailUrl"
             :texts="[gallery.fields.description]"
           />
@@ -71,7 +71,7 @@
       if (currentPage === null) {
         // Redirect non-positive integer values for `page` to `page=1`
         query.page = '1';
-        return redirect(app.localePath({ name: 'gallery', query }));
+        return redirect(app.localePath({ name: 'galleries', query }));
       }
 
       const contentfulClient = createClient(query.mode);
@@ -96,7 +96,7 @@
     },
     methods: {
       paginationLink(val) {
-        return this.localePath({ name: 'gallery', query: { page: val } });
+        return this.localePath({ name: 'galleries', query: { page: val } });
       }
     },
     watchQuery: ['page']

@@ -1,6 +1,5 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import SearchForm from '../../../../components/search/SearchForm.vue';
-import VueRouter from 'vue-router';
 import Vuex from 'vuex';
 import sinon from 'sinon';
 import nock from 'nock';
@@ -10,34 +9,45 @@ const axios = require('axios');
 axios.defaults.adapter = require('axios/lib/adapters/http');
 
 const localVue = createLocalVue();
-localVue.use(VueRouter);
 localVue.use(Vuex);
 
-const router = new VueRouter({
-  routes: [
-    { name: 'search', path: '/search' },
-    { name: 'collections-type-all', path: '/collections/:type?/*' }
-  ]
-});
-const routerPush = sinon.spy(router, 'push');
+const router = {
+  push: sinon.spy()
+};
+
+const localePath = sinon.stub();
+localePath.withArgs({ name: 'search' }).returns('/search');
+localePath.withArgs({
+  name: 'collections-type-all', params: {
+    type: 'topic',
+    pathMatch: '227-fresco'
+  }
+}).returns('/collections/topic/227-fresco');
+localePath.withArgs({
+  name: 'collections-type-all', params: {
+    type: 'person',
+    pathMatch: '59981-frank-sinatra'
+  }
+}).returns('/collections/person/59981-frank-sinatra');
+
 const factory = (options = {}) => shallowMount(SearchForm, {
   localVue,
-  router,
   stubs: ['b-input-group', 'b-button', 'b-form', 'b-form-input'],
   mocks: {
     ...{
       $i18n: { locale: 'en' },
       $t: () => {},
-      localePath: (opts) => {
-        return router.resolve(opts).route.fullPath;
-      }
+      $route: { query: {} },
+      $router: router,
+      localePath
     }, ...(options.mocks || {})
   },
   store: options.store || store({ search: {} })
 });
 
 const getters = {
-  'search/activeView': (state) => state.search.view
+  'search/activeView': (state) => state.search.view,
+  'search/queryUpdatesForFacetChanges': () => () => {}
 };
 const store = (searchState = {}) => {
   return new Vuex.Store({
@@ -74,52 +84,45 @@ const parsedSuggestions = {
 
 describe('components/search/SearchForm', () => {
   describe('query', () => {
-    context('when on a search page', () => {
+    it('is read from the route', () => {
       const wrapper = factory({
-        store: store({
-          active: true,
-          userParams: {
-            query: 'cartography'
+        mocks: {
+          $route: {
+            query: {
+              query: 'cartography'
+            }
           }
-        })
+        }
       });
 
-      it('uses stored query', () => {
-        wrapper.vm.query.should.eq('cartography');
-      });
-    });
-
-    context('when not on a search page', () => {
-      const wrapper = factory({
-        store: store({
-          active: false,
-          userParams: {
-            query: 'cartography'
-          }
-        })
-      });
-
-      it('is empty', () => {
-        wrapper.vm.query.should.eq('');
-      });
+      wrapper.vm.query.should.eq('cartography');
     });
   });
 
   describe('routePath', () => {
     context('when on a search page', () => {
       const wrapper = factory({
+        mocks: {
+          $route: {
+            path: '/somewhere',
+            query: {}
+          }
+        },
         store: store({
           active: true
         })
       });
 
       it('uses current route path', () => {
-        wrapper.vm.routePath.should.eq(wrapper.vm.$route.path);
+        wrapper.vm.routePath.should.eq('/somewhere');
       });
     });
 
     context('when not on a search page', () => {
       const wrapper = factory({
+        mocks: {
+          localePath
+        },
         store: store({
           active: false
         })
@@ -145,7 +148,7 @@ describe('components/search/SearchForm', () => {
         });
         wrapper.vm.submitForm();
 
-        routerPush.should.have.been.calledWith('/collections/topic/227-fresco');
+        router.push.should.have.been.calledWith('/collections/topic/227-fresco');
       });
     });
 
@@ -169,7 +172,7 @@ describe('components/search/SearchForm', () => {
           path: wrapper.vm.$route.path,
           query: { query, page: 1, view: state.view }
         };
-        routerPush.should.have.been.calledWith(newRouteParams);
+        router.push.should.have.been.calledWith(newRouteParams);
       });
     });
 
@@ -193,7 +196,7 @@ describe('components/search/SearchForm', () => {
           path: '/search',
           query: { query, page: 1, view: state.view }
         };
-        routerPush.should.have.been.calledWith(newRouteParams);
+        router.push.should.have.been.calledWith(newRouteParams);
       });
     });
   });
@@ -203,6 +206,7 @@ describe('components/search/SearchForm', () => {
     wrapper.setData({ suggestions: parsedSuggestions });
 
     it('generates agent entity URLs', () => {
+      console.log(wrapper.vm.suggestionLinkGen('http://data.europeana.eu/agent/base/59981'));
       wrapper.vm.suggestionLinkGen('http://data.europeana.eu/agent/base/59981').should.eq('/collections/person/59981-frank-sinatra');
     });
 

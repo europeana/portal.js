@@ -24,8 +24,8 @@ Feature: Search pagination
 
   Scenario: Changing pagination with browser history
 
-    When I visit the `home page`
-    And I enter "paris" in the `search box`
+    Given I am on the `home page`
+    When I enter "paris" in the `search box`
     And I click the `search button`
     And I wait for the page to load
     And I go to page number 2
@@ -45,7 +45,7 @@ Feature: Search pagination
     When I go to page number 2
     And I wait for the page to load
     Then I am on page number 2
-    And I should be on `/en/search?page=2&qf=TYPE%3A%22IMAGE%22&query=paris&view=grid`
+    Then I should be on `/en/search?page=2&qf=TYPE%3A%22IMAGE%22&query=paris&view=grid`
 
   Scenario: Invalid `page` param redirects to page 1
 

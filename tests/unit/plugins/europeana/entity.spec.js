@@ -303,24 +303,9 @@ describe('plugins/europeana/entity', () => {
   describe('getEntitySlug', () => {
     const entity = entitiesResponse.items[0];
 
-    context('with an entity page', () => {
-      const entityPage = {
-        name: 'Architectural Engineering'
-      };
-
-      it('constructs URL slug from numeric ID and entityPage.name', () => {
-        const slug = entities.getEntitySlug(entity, entityPage);
-        return slug.should.eq('147831-architectural-engineering');
-      });
-    });
-
-    context('without an entity page', () => {
-      const entity = entitiesResponse.items[0];
-
-      it('constructs URL slug from numeric ID and prefLabel.en', () => {
-        const slug = entities.getEntitySlug(entity);
-        return slug.should.eq('147831-architecture');
-      });
+    it('constructs URL slug from numeric ID and prefLabel.en', () => {
+      const slug = entities.getEntitySlug(entity.id, entity.prefLabel.en);
+      return slug.should.eq('147831-architecture');
     });
   });
 

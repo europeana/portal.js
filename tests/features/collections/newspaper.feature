@@ -23,18 +23,18 @@ Feature: Newspapers collection
     Then I should be on `/en/collections/topic/18-newspapers?page=1&view=grid&api=metadata`
 
   Scenario: Newspapers collection API toggle is removed when switching collection
-    Given I am on `/en/search?page=1&query=&view=grid&qf=collection:newspaper&api=fulltext`
+    Given I am on `/en/search?page=1&view=grid&qf=collection%3Anewspaper&api=fulltext`
     When I click the `collection dropdown button`
     And I check the "music" "collection" radio
     And I click the `collection apply button`
     And I wait for the page to load
-    Then I should be on `/en/search?page=1&qf=collection%3Amusic&query=&view=grid`
+    Then I should be on `/en/search?page=1&qf=collection%3Amusic&view=grid`
 
   Scenario: Newspapers collection API toggle is removed by reset button
-    Given I am on `/en/search?page=1&query=&view=grid&qf=collection:newspaper&api=fulltext`
+    Given I am on `/en/search?page=1&view=grid&qf=collection%3Anewspaper&api=fulltext`
     When I click the `reset filters button`
     And I wait for the page to load
-    Then I should be on `/en/search?page=1&query=&view=grid`
+    Then I should be on `/en/search?page=1&view=grid`
 
   Scenario: Newspapers collection API toggle is not removed when switching pages
     Given I am on the `Newspapers collection page`
@@ -51,4 +51,4 @@ Feature: Newspapers collection
     And I see the `search bar pill`
     When I click the `search bar pill button`
     Then I see the `search page`
-    And I should be on `/en/search?view=grid&page=1&query=`
+    And I should be on `/en/search?page=1&view=grid&query=`

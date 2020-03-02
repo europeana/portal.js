@@ -83,7 +83,7 @@
 
     data() {
       return {
-        query: '',
+        query: null,
         gettingSuggestions: false,
         suggestions: {},
         selectedSuggestion: null
@@ -115,16 +115,17 @@
       },
 
       pillRemoveLinkTo() {
+        const query = {
+          ...this.queryUpdatesForFacetChanges({ collection: null }),
+          view: this.view,
+          query: this.query || ''
+        };
+
         return {
           path: this.localePath({
             name: 'search'
           }),
-          query: {
-            view: this.view,
-            ...this.queryUpdatesForFacetChanges({ collection: null }),
-            // default to empty string to prevent immediate redirect by /pages/search/index.vue if absent
-            query: this.query || ''
-          }
+          query
         };
       },
 
@@ -145,7 +146,7 @@
 
     methods: {
       initQuery() {
-        this.query = this.onSearchablePage ? (this.$store.state.search.userParams || {}).query : '';
+        this.query = this.$route.query.query;
       },
 
       selectSuggestion(value) {
@@ -158,7 +159,7 @@
         if (this.selectedSuggestion) {
           newRoute = this.suggestionLinkGen(this.selectedSuggestion);
         } else {
-          const newRouteQuery = { ...this.$route.query, ...{ query: this.query, page: 1, view: this.view } };
+          const newRouteQuery = { ...this.$route.query, ...{ page: 1, view: this.view, query: this.query || '' } };
           newRoute = { path: this.routePath, query: newRouteQuery };
         }
 
@@ -210,7 +211,8 @@
         return this.localePath({
           name: 'collections-type-all', params: {
             type: getEntityTypeHumanReadable(uriMatch[1]),
-            pathMatch: getEntitySlug(entity)
+            // TODO: use stored entity/curatedEntities for prefLabel, if set
+            pathMatch: getEntitySlug(entity.id, entity.prefLabel.en)
           }
         });
       }
