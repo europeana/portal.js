@@ -15,18 +15,18 @@ module.exports = function(migration) {
       }
     ]);
 
-    const imageGallery = migration.editContentType('imageGallery');
-    imageGallery.changeFieldControl('identifier', 'builtin', 'slugEditor', {
-      helpText: 'Will always be prefixed with "/galleries/"'
-    });
+  const imageGallery = migration.editContentType('imageGallery');
+  imageGallery.changeFieldControl('identifier', 'builtin', 'slugEditor', {
+    helpText: 'Will always be prefixed with "/galleries/"'
+  });
 
-    const exhibitionPage = migration.editContentType('exhibitionPage');
-    exhibitionPage.changeFieldControl('identifier', 'builtin', 'slugEditor', {
-      helpText: 'Will always be prefixed with "/exhibitions/"'
-    });
+  const exhibitionPage = migration.editContentType('exhibitionPage');
+  exhibitionPage.changeFieldControl('identifier', 'builtin', 'slugEditor', {
+    helpText: 'Will always be prefixed with "/exhibitions/"'
+  });
 
-    const exhibitionChapterPage = migration.editContentType('exhibitionChapterPage');
-    exhibitionChapterPage.changeFieldControl('identifier', 'builtin', 'slugEditor', {
-      helpText: 'Will automatically be prefixed with "/exhibitions/EXHIBITION_SLUG/"'
-    });
+  const exhibitionChapterPage = migration.editContentType('exhibitionChapterPage');
+  exhibitionChapterPage.changeFieldControl('identifier', 'builtin', 'slugEditor', {
+    helpText: 'Will automatically be prefixed with "/exhibitions/EXHIBITION_SLUG/"'
+  });
 };
