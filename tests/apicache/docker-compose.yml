@@ -1,15 +1,15 @@
 version: "3"
 services:
   server:
-    image: portaljs-apicache-server
-    build:
-      context: ./server
+    image: europeana/portaljs-apicache-server
+    # build:
+    #   context: ./server
     expose:
       - "80"
   gateway:
-    image: portaljs-apicache-gateway
-    build:
-      context: ./gateway
+    image: europeana/portaljs-apicache-gateway
+    # build:
+    #   context: ./gateway
     depends_on:
       - server
     ports:
