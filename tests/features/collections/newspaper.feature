@@ -7,7 +7,7 @@ Feature: Newspapers collection
     And I enter "18-05-2004" in the `date range end input`
     And I click the `apply button`
     And I wait for the page to load
-    Then I should be on `/en/entity/topic/18-newspapers?page=1&qf=proxy_dcterms_issued%3A%5B1982-05-18%20TO%202004-05-18%5D&view=grid&api=fulltext`
+    Then I should be on `/en/collections/topic/18-newspapers?page=1&qf=proxy_dcterms_issued%3A%5B1982-05-18%20TO%202004-05-18%5D&view=grid&api=fulltext`
 
   Scenario: Newspapers collection API toggle defaults to fulltext
     Given I am on the `Newspapers collection page`
@@ -20,7 +20,7 @@ Feature: Newspapers collection
     And I click the "metadata" "api" radio
     And I click the `apply button`
     And I wait for the page to load
-    Then I should be on `/en/entity/topic/18-newspapers?page=1&view=grid&api=metadata`
+    Then I should be on `/en/collections/topic/18-newspapers?page=1&view=grid&api=metadata`
 
   Scenario: Newspapers collection API toggle is removed when switching collection
     Given I am on `/en/search?page=1&view=grid&qf=collection%3Anewspaper&api=fulltext`
@@ -44,10 +44,10 @@ Feature: Newspapers collection
     And I wait for the page to load
     And I go to page number 2
     And I wait for the page to load
-    Then I should be on `/en/entity/topic/18-newspapers?page=2&view=grid&api=metadata`
+    Then I should be on `/en/collections/topic/18-newspapers?page=2&view=grid&api=metadata`
 
   Scenario: Newspapers collection API toggle is removed by removing search pill
-    Given I am on `/en/entity/topic/18-newspapers?api=fulltext&view=grid`
+    Given I am on `/en/collections/topic/18-newspapers?api=fulltext&view=grid`
     And I see the `search bar pill`
     When I click the `search bar pill button`
     Then I see the `search page`

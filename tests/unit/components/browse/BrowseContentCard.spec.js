@@ -102,7 +102,7 @@ describe('components/browse/BrowseContentCard', () => {
           const identifier = `http://data.europeana.eu/${entityType}/base/${entityId}`;
           const wrapper = factory({ fields: { identifier } });
 
-          wrapper.vm.destination.should.eql({ name: 'entity-type-all', params: { type: entityHumanType, pathMatch: entityId } });
+          wrapper.vm.destination.should.eql({ name: 'collections-type-all', params: { type: entityHumanType, pathMatch: entityId } });
         });
       });
 
