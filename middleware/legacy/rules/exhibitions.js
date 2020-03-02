@@ -7,7 +7,7 @@ export default (route) => {
   return match && (match[2] !== '/foyer') ? {
     path: [
       match[1],
-      '/exhibition',
+      '/exhibitions',
       match[2]
     ]
   } : null;
