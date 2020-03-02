@@ -1,19 +1,11 @@
 version: "3"
 services:
-  # store:
-  #   image: redis:latest
-  #   expose:
-  #     - "6379"
   server:
     image: portaljs-apicache-server
     build:
       context: ./server
-    # depends_on:
-    #   - store
     expose:
       - "80"
-    # environment:
-    #   REDIS_URL: "redis://store/0"
   gateway:
     image: portaljs-apicache-gateway
     build:
