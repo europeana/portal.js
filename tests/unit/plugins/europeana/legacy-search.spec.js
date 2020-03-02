@@ -23,7 +23,7 @@ describe('plugins/europeana/legacy-search', () => {
       const searchParams = { query: '', qf: ['COUNTRY:"Germany"', 'TYPE:"IMAGE"', 'TYPE:"TEXT"'] };
       it('redirects to the classic portal reformatting the params', () => {
         const redirectUrl = legacyUrl(searchParams, locale);
-        redirectUrl.should.eq('https://classic.europeana.eu/portal/en/search?q=&f[COUNTRY][]="Germany"&f[TYPE][]="IMAGE"&f[TYPE][]="TEXT"');
+        redirectUrl.should.eq('https://classic.europeana.eu/portal/en/search?q=&f[COUNTRY][]=Germany&f[TYPE][]=IMAGE&f[TYPE][]=TEXT');
       });
     });
 
@@ -105,10 +105,10 @@ describe('plugins/europeana/legacy-search', () => {
     context('for the fashion collection', () => {
       let fashionQfParam = 'collection:fashion';
       context('for a simple a fulltext search', () => {
-        const searchParams = { query: 'test', qf: [fashionQfParam, 'CREATOR:"Chanel (Designer)"', 'CREATOR:"Valens (Designer)"', 'proxy_dc_format.en:"Technique%3A weaving techniques"', 'proxy_dc_type.en:"Object Type%3A ensemble"', 'proxy_dcterms_medium.en:"Material%3A silk"'] };
+        const searchParams = { query: 'test', qf: [fashionQfParam, 'CREATOR:"Chanel (Designer)"', 'CREATOR:"Valens (Designer)"', 'proxy_dc_format.en:"Technique: weaving techniques"', 'proxy_dc_type.en:"Object Type: ensemble"', 'proxy_dcterms_medium.en:"Material: silk"'] };
         it('returns the classic portal URL for the collection search', () => {
           const redirectUrl = legacyUrl(searchParams, locale);
-          redirectUrl.should.eq('https://classic.europeana.eu/portal/en/collections/fashion?q=test&f[CREATOR][]="Chanel (Designer)"&f[CREATOR][]="Valens (Designer)"&f[proxy_dc_format.en][]="Technique%3A weaving techniques"&f[proxy_dc_type.en][]="Object Type%3A ensemble"&f[proxy_dcterms_medium.en][]="Material%3A silk"');
+          redirectUrl.should.eq('https://classic.europeana.eu/portal/en/collections/fashion?q=test&f[CREATOR][]=Chanel%20(Designer)&f[CREATOR][]=Valens%20(Designer)&f[proxy_dc_format.en][]=Technique%3A%20weaving%20techniques&f[proxy_dc_type.en][]=Object%20Type%3A%20ensemble&f[proxy_dcterms_medium.en][]=Material%3A%20silk');
         });
       });
     });

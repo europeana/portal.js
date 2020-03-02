@@ -2,8 +2,8 @@
   <b-container data-qa="search page">
     <NotificationBanner
       :notification-url="notificationUrl"
-      :notification-text="$t('linksToClassic.home.text')"
-      :notification-link-text="$t('linksToClassic.home.linkText')"
+      :notification-text="$t('linksToClassic.search.text')"
+      :notification-link-text="$t('linksToClassic.search.linkText')"
     />
     <b-row>
       <b-col>

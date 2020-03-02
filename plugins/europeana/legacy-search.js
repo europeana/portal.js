@@ -2,6 +2,8 @@
  * @file Mapping for search URLs to classic.europeana.eu portal URLs
  */
 
+import { unquotableFacets } from './search';
+
 function mapCollections(collection) {
   const map = {
     'ww1': 'world-war-I',
@@ -16,7 +18,9 @@ function mapCollections(collection) {
 
 const collectionQfRegex = /^collection:/;
 const classicBaseUrl = 'https://classic.europeana.eu/portal/';
-
+const qfKeyRegex = /^(.*?):/;
+const quoteableQfValueRegex = /^.*?:"(.*)"$/;
+const unquoteableQfValueRegex = /^.*?:(.*)$/;
 /**
  * Check for the presence of a collection filter.
  * @param {string[]} qfs qf values from the portal.js URL
@@ -33,21 +37,27 @@ function getBasePath(qfs) {
 }
 
 /**
- * Check for the presence of a collection filter.
+ * Map the qf values to legacy filters.
  * @param {string[]} qfs qf values from the portal.js URL
- * @return {string} either '/search' or the collection slug
+ * @return {string} Legacy URL params.
  */
 function classicParamsFromQfs(qfs) {
   let returnString  = '';
   qfs.filter(qf => {
     return !qf.match(collectionQfRegex);
   }).forEach(qf => {
-    let key = qf.match(/^(.*?):/)[1];
-    let value = qf.match(/^.*?:(.*)$/)[1];
+    let key = qf.match(qfKeyRegex)[1];
+    let value; // Value lookup depends on what the key is.
     if (key === 'proxy_dcterms_issued') {
+      value = qf.match(unquoteableQfValueRegex)[1];
       returnString += dateParamsFromRange(key, value);
     } else {
-      returnString += `&f[${key}][]=${value}`;
+      if (unquotableFacets.includes(key)) {
+        value = qf.match(unquoteableQfValueRegex)[1];
+      } else {
+        value = qf.match(quoteableQfValueRegex)[1];
+      }
+      returnString += `&f[${key}][]=${encodeURIComponent(value)}`;
     }
   });
   return returnString;
