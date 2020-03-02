@@ -1,157 +1,159 @@
 <template>
-  <b-container v-if="error">
-    <AlertMessage
-      :error="error"
-    />
-  </b-container>
-  <b-container
-    v-else
-    data-qa="record page"
-  >
+  <div>
     <NotificationBanner
       :notification-url="notificationUrl"
       :notification-text="$t('linksToClassic.record.text')"
       :notification-link-text="$t('linksToClassic.record.linkText')"
     />
-    <b-row class="my-5">
-      <b-col
-        cols="12"
-        lg="9"
-      >
-        <div class="card px-3 pt-3 mb-3">
-          <div
-            class="card-grid"
-            :class="cardGridClass"
-          >
-            <header
-              v-if="titlesInCurrentLanguage"
-              class="card-heading"
-            >
-              <template
-                v-for="(heading, index) in titlesInCurrentLanguage"
-              >
-                <h1
-                  v-if="index === 0"
-                  :key="index"
-                  :lang="heading.code"
-                >
-                  {{ heading.value }}
-                </h1>
-                <p
-                  v-else
-                  :key="index"
-                  :lang="heading.code"
-                  class="font-weight-bold"
-                >
-                  {{ heading.value }}
-                </p>
-              </template>
-            </header>
-            <div class="media-presentation">
-              <MediaPresentation
-                :europeana-identifier="identifier"
-                :media="selectedMedia"
-                :image-src="selectedMediaImage.src"
-              />
-              <MediaThumbnailGrid
-                v-if="displayMediaThumbnailGrid"
-                :media="media"
-                :selected="selectedMedia.about"
-                @select="selectMedia"
-              />
-            </div>
+    <b-container v-if="error">
+      <AlertMessage
+        :error="error"
+      />
+    </b-container>
+    <b-container
+      v-else
+      data-qa="record page"
+    >
+      <b-row class="my-5">
+        <b-col
+          cols="12"
+          lg="9"
+        >
+          <div class="card px-3 pt-3 mb-3">
             <div
-              v-if="descriptionInCurrentLanguage"
-              class="description"
+              class="card-grid"
+              :class="cardGridClass"
             >
-              <div
-                v-for="(value, index) in descriptionInCurrentLanguage.values"
-                :key="index"
+              <header
+                v-if="titlesInCurrentLanguage"
+                class="card-heading"
               >
-                <!-- eslint-disable vue/no-v-html -->
-                <p
-                  :lang="descriptionInCurrentLanguage.code"
-                  v-html="$options.filters.convertNewLine(value)"
-                />
-                <!-- eslint-disable vue/no-v-html -->
-                <hr
-                  v-if="(index + 1) < descriptionInCurrentLanguage.values.length"
+                <template
+                  v-for="(heading, index) in titlesInCurrentLanguage"
                 >
+                  <h1
+                    v-if="index === 0"
+                    :key="index"
+                    :lang="heading.code"
+                  >
+                    {{ heading.value }}
+                  </h1>
+                  <p
+                    v-else
+                    :key="index"
+                    :lang="heading.code"
+                    class="font-weight-bold"
+                  >
+                    {{ heading.value }}
+                  </p>
+                </template>
+              </header>
+              <div class="media-presentation">
+                <MediaPresentation
+                  :europeana-identifier="identifier"
+                  :media="selectedMedia"
+                  :image-src="selectedMediaImage.src"
+                />
+                <MediaThumbnailGrid
+                  v-if="displayMediaThumbnailGrid"
+                  :media="media"
+                  :selected="selectedMedia.about"
+                  @select="selectMedia"
+                />
+              </div>
+              <div
+                v-if="descriptionInCurrentLanguage"
+                class="description"
+              >
+                <div
+                  v-for="(value, index) in descriptionInCurrentLanguage.values"
+                  :key="index"
+                >
+                  <!-- eslint-disable vue/no-v-html -->
+                  <p
+                    :lang="descriptionInCurrentLanguage.code"
+                    v-html="$options.filters.convertNewLine(value)"
+                  />
+                  <!-- eslint-disable vue/no-v-html -->
+                  <hr
+                    v-if="(index + 1) < descriptionInCurrentLanguage.values.length"
+                  >
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="card p-3 mb-3 bg-grey">
-          <MediaActionBar
-            :url="selectedMedia.about"
-            :europeana-identifier="identifier"
-            :use-proxy="useProxy"
-            :rights-statement="rightsStatement"
-            :data-provider-name="dataProvider.values[0]"
-            :data-provider-lang="dataProvider.code"
-            :is-shown-at="isShownAt"
-          />
-        </div>
-        <div
-          class="card px-3 pt-3 mb-5 meta-data"
-          data-qa="main metadata section"
-        >
-          <MetadataField
-            v-for="(value, name) in coreFields"
-            :key="name"
-            :name="name"
-            :field-data="value"
-          />
-        </div>
-        <div class="mb-3">
-          <div class="d-flex justify-content-between align-items-center">
-            <h2
-              class="mb-3"
-            >
-              {{ $t('record.extendedInformation') }}
-            </h2>
-            <b-button
-              v-b-toggle.extended-metadata
-              class="mb-3 d-inline extended-toggle p-0"
-              variant="link"
-              @click="toggleExtendedMetadataPreference"
-            >
-              <span class="extended-opened">{{ $t('record.hideAll') }}</span>
-              <span class="extended-closed">{{ $t('record.showAll') }}</span>
-            </b-button>
+          <div class="card p-3 mb-3 bg-grey">
+            <MediaActionBar
+              :url="selectedMedia.about"
+              :europeana-identifier="identifier"
+              :use-proxy="useProxy"
+              :rights-statement="rightsStatement"
+              :data-provider-name="dataProvider.values[0]"
+              :data-provider-lang="dataProvider.code"
+              :is-shown-at="isShownAt"
+            />
           </div>
-          <b-collapse id="extended-metadata">
+          <div
+            class="card px-3 pt-3 mb-5 meta-data"
+            data-qa="main metadata section"
+          >
             <MetadataField
-              v-for="(value, name) in fields"
+              v-for="(value, name) in coreFields"
               :key="name"
               :name="name"
               :field-data="value"
+            />
+          </div>
+          <div class="mb-3">
+            <div class="d-flex justify-content-between align-items-center">
+              <h2
+                class="mb-3"
+              >
+                {{ $t('record.extendedInformation') }}
+              </h2>
+              <b-button
+                v-b-toggle.extended-metadata
+                class="mb-3 d-inline extended-toggle p-0"
+                variant="link"
+                @click="toggleExtendedMetadataPreference"
+              >
+                <span class="extended-opened">{{ $t('record.hideAll') }}</span>
+                <span class="extended-closed">{{ $t('record.showAll') }}</span>
+              </b-button>
+            </div>
+            <b-collapse id="extended-metadata">
+              <MetadataField
+                v-for="(value, name) in fields"
+                :key="name"
+                :name="name"
+                :field-data="value"
+                class="mb-3"
+              />
+            </b-collapse>
+          </div>
+          <section
+            v-if="similarItems.length > 0"
+          >
+            <h2>{{ $t('record.similarItems') }}</h2>
+            <SimilarItems
+              :items="similarItems"
               class="mb-3"
             />
-          </b-collapse>
-        </div>
-        <section
-          v-if="similarItems.length > 0"
+          </section>
+        </b-col>
+        <b-col
+          cols="12"
+          lg="3"
         >
-          <h2>{{ $t('record.similarItems') }}</h2>
-          <SimilarItems
-            :items="similarItems"
-            class="mb-3"
+          <EntityCards
+            v-if="relatedEntities"
+            :entities="relatedEntities"
+            data-qa="related entities"
           />
-        </section>
-      </b-col>
-      <b-col
-        cols="12"
-        lg="3"
-      >
-        <EntityCards
-          v-if="relatedEntities"
-          :entities="relatedEntities"
-          data-qa="related entities"
-        />
-      </b-col>
-    </b-row>
-  </b-container>
+        </b-col>
+      </b-row>
+    </b-container>
+  </div>
 </template>
 
 <script>
