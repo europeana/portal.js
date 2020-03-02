@@ -1,6 +1,7 @@
 <template>
   <div>
     <NotificationBanner
+      v-if="redirectNotificationsEnabled"
       :notification-url="notificationUrl"
       :notification-text="$t('linksToClassic.search.text')"
       :notification-link-text="$t('linksToClassic.search.linkText')"
@@ -42,6 +43,9 @@
     computed: {
       notificationUrl() {
         return legacyUrl(this.$route.query, this.$store.state.i18n.locale);
+      },
+      redirectNotificationsEnabled() {
+        return process.env.ENABLE_LINKS_TO_CLASSIC;
       }
     },
     async fetch({ store, query, res }) {
