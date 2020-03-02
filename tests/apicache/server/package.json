@@ -1,0 +1,27 @@
+{
+  "name": "@europeana/portal-apicache",
+  "version": "0.0.1",
+  "description": "Europeana Portal API cache",
+  "contributors": [
+    "Richard Doe <richard.doe@europeana.eu>"
+  ],
+  "private": true,
+  "license": "EUPL-1.2",
+  "engines": {
+    "node": "^12",
+    "npm": "^6"
+  },
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "apicache": "^1.5.3",
+    "contentful": "^7.14.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.16.4",
+    "http-proxy-middleware": "^1.0.1",
+    "morgan": "^1.9.1",
+    "redis": "^3.0.2"
+  }
+}
