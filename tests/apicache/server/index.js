@@ -17,7 +17,7 @@ const app = express();
 app.use(cors());
 if (config.log) app.use(morgan('combined'));
 
-const cache = apicache.options().middleware;
+const cache = apicache.middleware;
 
 app.get('/', (req, res) => {
   res.type('text/plain');
