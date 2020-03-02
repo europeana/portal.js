@@ -17,7 +17,7 @@ Feature: Entity page
     And I am on an accessible page
 
   Scenario: Curated entity
-    Given I am on `/en/entity/topic/190-art`
+    Given I am on `/en/collections/topic/190-art`
     Then I see an `entity description`
 
   Scenario: Attempting to view an entity page which doesn't exist
