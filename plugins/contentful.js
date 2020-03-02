@@ -6,7 +6,8 @@ const deliveryConfig = {
   space: process.env.CTF_SPACE_ID,
   environment: process.env.CTF_ENVIRONMENT_ID || 'master',
   accessToken: process.env.CTF_CDA_ACCESS_TOKEN,
-  host: process.env.CTF_CDA_HOST || 'cdn.contentful.com'
+  host: process.env.CTF_CDA_HOST || 'cdn.contentful.com',
+  basePath: process.env.CTF_CDA_BASE_PATH || ''
 };
 const previewConfig = {
   space: process.env.CTF_SPACE_ID,

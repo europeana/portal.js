@@ -5,8 +5,6 @@ const config = {
   log: Number(process.env.APICACHE_LOG),
   port: process.env.APICACHE_PORT || 4000,
   redisUrl: process.env.APICACHE_REDIS_URL,
-  contentfulSpaceId: process.env.CTF_SPACE_ID,
-  contentfulEnvironmentId: process.env.CTF_ENVIRONMENT_ID,
   contentfulCdaAccessToken: process.env.CTF_CDA_ACCESS_TOKEN
 };
 
@@ -71,12 +69,14 @@ app.use(
 
 // Contentful Delivery API
 app.use(
-  `/spaces/${config.contentfulSpaceId}/environments/${config.contentfulEnvironmentId}/`,
+  '/contentful',
   cache(config.duration),
   proxy({
     target: 'https://cdn.contentful.com/',
     changeOrigin: true,
-    headers: { authorization: `Bearer ${config.contentfulCdaAccessToken}` }
+    // FIXME: why must we add this when it's in the source request?
+    headers: { authorization: `Bearer ${config.contentfulCdaAccessToken}` },
+    pathRewrite: { '^/contentful' : '' }
   })
 );
 
