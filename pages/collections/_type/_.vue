@@ -133,7 +133,7 @@
 
       if (params.pathMatch !== desiredPath) {
         const redirectPath = app.localePath({
-          name: 'entity-type-all',
+          name: 'collections-type-all',
           params: { type: params.type, pathMatch: encodeURIComponent(desiredPath) }
         });
         return redirect(302, redirectPath);
@@ -144,7 +144,7 @@
       if (currentPage === null) {
         // Redirect non-positive integer values for `page` to `page=1`
         return redirect(app.localePath({
-          name: 'entity-type-all',
+          name: 'collections-type-all',
           params: { type: params.type, pathMatch: params.pathMatch },
           query: { page: 1 }
         }));
