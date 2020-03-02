@@ -1,19 +1,22 @@
 <template>
-  <b-container data-qa="search page">
+  <div>
     <NotificationBanner
       :notification-url="notificationUrl"
       :notification-text="$t('linksToClassic.search.text')"
       :notification-link-text="$t('linksToClassic.search.linkText')"
+      class="mb-3"
     />
-    <b-row>
-      <b-col>
-        <h1>{{ $t('search') }}</h1>
-      </b-col>
-      <SearchInterface
-        :per-row="4"
-      />
-    </b-row>
-  </b-container>
+    <b-container data-qa="search page">
+      <b-row>
+        <b-col>
+          <h1>{{ $t('search') }}</h1>
+        </b-col>
+        <SearchInterface
+          :per-row="4"
+        />
+      </b-row>
+    </b-container>
+  </div>
 </template>
 
 <script>
