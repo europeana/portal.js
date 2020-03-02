@@ -18,17 +18,17 @@ const router = {
 const localePath = sinon.stub();
 localePath.withArgs({ name: 'search' }).returns('/search');
 localePath.withArgs({
-  name: 'entity-type-all', params: {
+  name: 'collections-type-all', params: {
     type: 'topic',
     pathMatch: '227-fresco'
   }
-}).returns('/entity/topic/227-fresco');
+}).returns('/collections/topic/227-fresco');
 localePath.withArgs({
-  name: 'entity-type-all', params: {
+  name: 'collections-type-all', params: {
     type: 'person',
     pathMatch: '59981-frank-sinatra'
   }
-}).returns('/entity/person/59981-frank-sinatra');
+}).returns('/collections/person/59981-frank-sinatra');
 
 const factory = (options = {}) => shallowMount(SearchForm, {
   localVue,
@@ -148,7 +148,7 @@ describe('components/search/SearchForm', () => {
         });
         wrapper.vm.submitForm();
 
-        router.push.should.have.been.calledWith('/entity/topic/227-fresco');
+        router.push.should.have.been.calledWith('/collections/topic/227-fresco');
       });
     });
 
@@ -206,11 +206,12 @@ describe('components/search/SearchForm', () => {
     wrapper.setData({ suggestions: parsedSuggestions });
 
     it('generates agent entity URLs', () => {
-      wrapper.vm.suggestionLinkGen('http://data.europeana.eu/agent/base/59981').should.eq('/entity/person/59981-frank-sinatra');
+      console.log(wrapper.vm.suggestionLinkGen('http://data.europeana.eu/agent/base/59981'));
+      wrapper.vm.suggestionLinkGen('http://data.europeana.eu/agent/base/59981').should.eq('/collections/person/59981-frank-sinatra');
     });
 
     it('generates concept entity URLs', () => {
-      wrapper.vm.suggestionLinkGen('http://data.europeana.eu/concept/base/227').should.eq('/entity/topic/227-fresco');
+      wrapper.vm.suggestionLinkGen('http://data.europeana.eu/concept/base/227').should.eq('/collections/topic/227-fresco');
     });
   });
 

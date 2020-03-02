@@ -52,7 +52,7 @@
 
       entityRoute(entity) {
         return {
-          name: 'entity-type-all',
+          name: 'collections-type-all',
           params: {
             type: getEntityTypeHumanReadable(entity.type),
             pathMatch: getEntitySlug(entity.id, entity.prefLabel.en)

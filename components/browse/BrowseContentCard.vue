@@ -90,7 +90,7 @@
       entityRouterLink(uri, slug) {
         const uriMatch = uri.match(`^${apiConfig.data.origin}/([^/]+)(/base)?/(.+)$`);
         return {
-          name: 'entity-type-all', params: { type: getEntityTypeHumanReadable(uriMatch[1]), pathMatch: slug ? slug : uriMatch[3] }
+          name: 'collections-type-all', params: { type: getEntityTypeHumanReadable(uriMatch[1]), pathMatch: slug ? slug : uriMatch[3] }
         };
       },
       recordRouterLink(identifier) {
