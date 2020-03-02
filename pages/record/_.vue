@@ -7,9 +7,13 @@
   <b-container
     v-else
     data-qa="record page"
-    class="mt-5"
   >
-    <b-row class="mb-3">
+    <NotificationBanner
+      :notification-url="notificationUrl"
+      :notification-text="$t('linksToClassic.record.text')"
+      :notification-link-text="$t('linksToClassic.record.linkText')"
+    />
+    <b-row class="my-5">
       <b-col
         cols="12"
         lg="9"
@@ -167,6 +171,7 @@
   import { isIIIFPresentation, isRichMedia } from '../../plugins/media';
   import { langMapValueForLocale } from  '../../plugins/europeana/utils';
   import { searchEntities } from '../../plugins/europeana/entity';
+  import NotificationBanner from '../../components/generic/NotificationBanner';
 
   export default {
     components: {
@@ -176,7 +181,8 @@
       SimilarItems,
       MediaPresentation,
       MediaThumbnailGrid,
-      MetadataField
+      MetadataField,
+      NotificationBanner
     },
 
     data() {
@@ -281,6 +287,9 @@
         }
 
         return edmDataProvider;
+      },
+      notificationUrl() {
+        return `https://classic.europeana.eu/portal/${this.$i18n.locale}/record${this.identifier}.html?utm_source=new-website&utm_medium=button`;
       }
     },
 

@@ -73,3 +73,7 @@ Feature: Record page
     When I open a `record page with a IIIF Presentation`
     Then I see the `IIIF viewer`
     And I am on an accessible page
+
+  Scenario: Seeing a notification banner
+    When I open a `record page`
+    Then I see a `notification banner`
