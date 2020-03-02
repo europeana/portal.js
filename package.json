@@ -22,7 +22,9 @@
     "url": "https://github.com/europeana/incubator-portal-vue-nuxt.git"
   },
   "scripts": {
-    "apicache:start": "cservice --cli false tests/apicache/index.js",
+    "apicache": "npm run apicache:build && npm run apicache:start",
+    "apicache:build": "docker build -t portal.js-test-apicache tests/apicache",
+    "apicache:start": "docker run -p 4433:443 --name portal.js-test-apicache --rm portal.js-test-apicache",
     "build-storybook": "build-storybook -s ./.storybook/assets",
     "build:test": "cross-env NODE_ENV=test nuxt build",
     "build": "nuxt build",
@@ -32,18 +34,18 @@
     "precommit": "npm run lint",
     "size": "npm run build && size-limit",
     "start:test": "cross-env NODE_ENV=test PORT=1337 node server/index.js",
-    "start:test:apicache": "cross-env NODE_ENV=test CTF_INSECURE=1 CTF_CDA_HOST=localhost.localdomain:4000 EUROPEANA_RECORD_API_ORIGIN=http://localhost:4000 EUROPEANA_ENTITY_API_ORIGIN=http://localhost:4000 EUROPEANA_NEWSPAPER_API_ORIGIN=http://localhost:4000/newspaper EUROPEANA_THUMBNAIL_API_ORIGIN=http://localhost:4000 PORT=1337 node server/index.js",
+    "start:test:caching": "cross-env NODE_ENV=test CTF_CDA_HOST=localhost.localdomain:4433 CTF_CDA_BASE_PATH=/contentful EUROPEANA_RECORD_API_ORIGIN=https://localhost:4433 EUROPEANA_ENTITY_API_ORIGIN=https://localhost:4433 EUROPEANA_NEWSPAPER_API_ORIGIN=https://localhost:4433/newspaper EUROPEANA_THUMBNAIL_API_ORIGIN=https://localhost:4433 PORT=1337 node server/index.js",
     "start": "cross-env NODE_ENV=production node server/index.js",
     "storybook": "start-storybook -p 6006 -s ./.storybook/assets",
     "stylelint": "stylelint \"**/*.scss\" \"**/*.vue\" --config .stylelintrc.js",
     "test:chrome:headless": "cross-env browser=chromeHeadless cucumber-js",
     "test:chrome": "cross-env browser=chrome cucumber-js",
     "test:ci": "npm run test:unit && npm run build:test && npx size-limit && npm run test:e2e:ci",
-    "test:e2e:ci": "concurrently 'npm run apicache:start' 'npm run start:test:apicache' 'npm run test:chrome:headless -- -p all' --success first --kill-others-on-fail",
-    "test:e2e": "concurrently 'npm run apicache:start' 'npm run build:test && npm run start:test:apicache' 'npm run test:chrome -- -p all' --success first --kill-others",
+    "test:e2e:ci": "concurrently 'npm run apicache' 'npm run start:test:caching' 'npm run test:chrome:headless -- -p all' --success first --kill-others-on-fail",
+    "test:e2e": "concurrently 'npm run apicache' 'npm run start:test:caching' 'npm run test:chrome -- -p all' --success first --kill-others",
     "test:gecko": "cross-env browser=gecko cucumber-js --no-strict",
     "test:unit": "vue-cli-service test:unit --include tests/unit/setup",
-    "test": "npm run test:unit && npm run test:e2e"
+    "test": "npm run test:unit && npm run build:test && npx size-limit && npm run test:e2e"
   },
   "dependencies": {
     "@elastic/apm-rum": "^4.7.0",
@@ -87,7 +89,6 @@
     "@vue/cli-plugin-unit-mocha": "^3.5.1",
     "@vue/cli-service": "^3.5.1",
     "@vue/test-utils": "^1.0.0-beta.29",
-    "apicache": "^1.5.3",
     "babel-eslint": "^10.0.1",
     "babel-loader": "^8.0.5",
     "babel-preset-vue": "^2.0.2",

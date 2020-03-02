@@ -4,7 +4,7 @@ const chromedriver = require('chromedriver');
 const geckodriver = require('geckodriver');
 
 function chrome(locale = 'en-GB', args = []) {
-  args = ['disable-gpu', `--lang=${locale}`].concat(args);
+  args = ['disable-gpu', 'ignore-certificate-errors', `--lang=${locale}`].concat(args);
   return {
     webdriver: {
       server_path: chromedriver.path

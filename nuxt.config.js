@@ -90,6 +90,7 @@ module.exports = {
   ** Nuxt.js modules
   */
   modules: [
+    '~/modules/axios',
     // Doc: https://www.elastic.co/guide/en/apm/agent/rum-js/current/configuration.html
     ['~/modules/elastic-apm', {
       serviceName: 'portal-js',

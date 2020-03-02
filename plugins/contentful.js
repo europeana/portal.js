@@ -1,4 +1,5 @@
 const contentful = require('contentful');
+const axios = require('axios');
 
 // These values will be set via env vars.
 // If this file is imported these values may be available to the client.
@@ -6,7 +7,9 @@ const deliveryConfig = {
   space: process.env.CTF_SPACE_ID,
   environment: process.env.CTF_ENVIRONMENT_ID || 'master',
   accessToken: process.env.CTF_CDA_ACCESS_TOKEN,
-  host: process.env.CTF_CDA_HOST || 'cdn.contentful.com'
+  host: process.env.CTF_CDA_HOST || 'cdn.contentful.com',
+  basePath: process.env.CTF_CDA_BASE_PATH || '',
+  httpsAgent: axios.defaults.httpsAgent
 };
 const previewConfig = {
   space: process.env.CTF_SPACE_ID,
