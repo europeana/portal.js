@@ -43,7 +43,7 @@
     },
     computed: {
       currentChapter() {
-        return this.$route.name.startsWith('exhibition-exhibition-credits') ? 'credits' : this.$route.params.chapter;
+        return this.$route.name.startsWith('exhibitions-exhibition-credits') ? 'credits' : this.$route.params.chapter;
       },
       chaptersAndCredits() {
         return this.chapters.concat(this.creditsChapter || []);
@@ -61,10 +61,10 @@
     methods: {
       chapterUrl(chapter) {
         return chapter.fields.identifier === 'credits' ? {
-          name: 'exhibition-exhibition-credits',
+          name: 'exhibitions-exhibition-credits',
           params: { exhibition: this.exhibitionIdentifier }
         } : {
-          name: 'exhibition-exhibition-chapter',
+          name: 'exhibitions-exhibition-chapter',
           params: {
             exhibition: this.exhibitionIdentifier, chapter: chapter.fields.identifier
           }
