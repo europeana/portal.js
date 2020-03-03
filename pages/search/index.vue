@@ -45,7 +45,7 @@
         return legacyUrl(this.$route.query, this.$store.state.i18n.locale);
       },
       redirectNotificationsEnabled() {
-        return process.env.ENABLE_LINKS_TO_CLASSIC;
+        return Boolean(Number(process.env.ENABLE_LINKS_TO_CLASSIC));
       }
     },
     async fetch({ store, query, res }) {

@@ -7,6 +7,7 @@
       :notification-url="notificationUrl"
       :notification-text="$t('linksToClassic.home.text')"
       :notification-link-text="$t('linksToClassic.home.linkText')"
+      class="mb-3"
     />
     <HeroImage
       v-if="hero"
@@ -19,7 +20,6 @@
       :provider="hero.provider"
       :creator="hero.creator"
       :url="hero.url"
-      class="mt-0"
     />
     <b-container>
       <header

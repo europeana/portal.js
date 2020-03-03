@@ -474,6 +474,10 @@ export default {
       "text": "You're viewing the new Europeana experience.",
       "linkText": "Go to the original Europeana."
     },
+    "record": {
+      "text": "You're viewing this item in the new Europeana website.",
+      "linkText": "View this item in the original Europeana."
+    },
     "search": {
       "text": "You're searching in our new and faster website.",
       "linkText": "View these search results in the original Europeana."
