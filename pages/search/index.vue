@@ -1,23 +1,35 @@
 <template>
-  <b-container data-qa="search page">
-    <b-row>
-      <b-col>
-        <h1>{{ $t('search') }}</h1>
-      </b-col>
-      <SearchInterface
-        :per-row="4"
-      />
-    </b-row>
-  </b-container>
+  <div>
+    <NotificationBanner
+      v-if="redirectNotificationsEnabled"
+      :notification-url="notificationUrl"
+      :notification-text="$t('linksToClassic.search.text')"
+      :notification-link-text="$t('linksToClassic.search.linkText')"
+      class="mb-3"
+    />
+    <b-container data-qa="search page">
+      <b-row>
+        <b-col>
+          <h1>{{ $t('search') }}</h1>
+        </b-col>
+        <SearchInterface
+          :per-row="4"
+        />
+      </b-row>
+    </b-container>
+  </div>
 </template>
 
 <script>
   import SearchInterface from '../../components/search/SearchInterface';
   import { pageFromQuery } from '../../plugins/utils';
+  import legacyUrl from '../../plugins/europeana/legacy-search';
+  import NotificationBanner from '../../components/generic/NotificationBanner';
 
   export default {
     components: {
-      SearchInterface
+      SearchInterface,
+      NotificationBanner
     },
 
     middleware({ query, redirect, app }) {
@@ -28,7 +40,14 @@
         return redirect(app.localePath({ name: 'search', query: { ...query, ...{ page: '1' } } }));
       }
     },
-
+    computed: {
+      notificationUrl() {
+        return legacyUrl(this.$route.query, this.$store.state.i18n.locale);
+      },
+      redirectNotificationsEnabled() {
+        return Boolean(Number(process.env.ENABLE_LINKS_TO_CLASSIC));
+      }
+    },
     async fetch({ store, query, res }) {
       await store.dispatch('search/activate');
       store.commit('search/set', ['userParams', query]);
