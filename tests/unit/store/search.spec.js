@@ -289,6 +289,63 @@ describe('store/search', () => {
       });
     });
 
+    describe('apiParamsChanged', () => {
+      context('with params added', () => {
+        it('returns their names', () => {
+          const state = {
+            previousApiParams: {
+              query: '*:*'
+            },
+            apiParams: {
+              query: '*:*',
+              qf: ['TYPE:"IMAGE"']
+            }
+          };
+
+          const apiParamsChanged = store.getters.apiParamsChanged(state);
+
+          apiParamsChanged.should.eql(['qf']);
+        });
+      });
+
+      context('with params removed', () => {
+        it('returns their names', () => {
+          const state = {
+            previousApiParams: {
+              query: '*:*',
+              qf: ['TYPE:"IMAGE"']
+            },
+            apiParams: {
+              query: '*:*'
+            }
+          };
+
+          const apiParamsChanged = store.getters.apiParamsChanged(state);
+
+          apiParamsChanged.should.eql(['qf']);
+        });
+      });
+
+      context('without changed params', () => {
+        it('returns their names', () => {
+          const state = {
+            previousApiParams: {
+              query: '*:*',
+              qf: ['TYPE:"IMAGE"']
+            },
+            apiParams: {
+              query: '*:*',
+              qf: ['TYPE:"IMAGE"']
+            }
+          };
+
+          const apiParamsChanged = store.getters.apiParamsChanged(state);
+
+          apiParamsChanged.should.eql([]);
+        });
+      });
+    });
+
     describe('itemUpdateNeeded', () => {
       context('without previous API params', () => {
         const previousApiParams = null;
