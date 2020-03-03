@@ -3,17 +3,10 @@
  */
 
 import { unquotableFacets } from './search';
+import { collectionToThemeMap } from '../../middleware/legacy/rules/search';
 
 function mapCollections(collection) {
-  const map = {
-    'ww1': 'world-war-I',
-    'industrial': 'industrial-heritage',
-    'manuscript': 'manuscripts',
-    'map': 'maps',
-    'nature': 'natural-history',
-    'newspaper': 'newspapers'
-  };
-  return map[collection] || collection;
+  return Object.keys(collectionToThemeMap).find(key => collectionToThemeMap[key] === collection) || collection;
 }
 
 const collectionQfRegex = /^collection:/;
