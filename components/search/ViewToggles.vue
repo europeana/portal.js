@@ -41,6 +41,11 @@
         activeView: this.value
       };
     },
+    watch: {
+      value() {
+        this.activeView = this.value;
+      }
+    },
     methods: {
       linkGen(view) {
         return this.localePath({ ...this.linkGenRoute, ...{ query: { ...this.$route.query, ...{ view } } } });
