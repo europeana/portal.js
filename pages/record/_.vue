@@ -1,6 +1,7 @@
 <template>
   <div>
     <NotificationBanner
+      v-if="redirectNotificationsEnabled"
       :notification-url="notificationUrl"
       :notification-text="$t('linksToClassic.record.text')"
       :notification-link-text="$t('linksToClassic.record.linkText')"
@@ -292,6 +293,9 @@
       },
       notificationUrl() {
         return `https://classic.europeana.eu/portal/${this.$i18n.locale}/record${this.identifier}.html?utm_source=new-website&utm_medium=button`;
+      },
+      redirectNotificationsEnabled() {
+        return Boolean(Number(process.env.ENABLE_LINKS_TO_CLASSIC));
       }
     },
 
