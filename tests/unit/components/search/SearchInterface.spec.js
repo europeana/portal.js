@@ -15,6 +15,8 @@ localVue.use(BootstrapVue);
 localVue.use(VueRouter);
 localVue.use(Vuex);
 
+const searchSetViewMutation = sinon.spy();
+
 const factory = (options = {}) => {
   const router = new VueRouter({
     routes: [
@@ -62,7 +64,7 @@ const factory = (options = {}) => {
         },
         mutations: {
           setUserParams: () => null,
-          setView: () => null
+          setView: (state, view) => searchSetViewMutation(state, view)
         },
         actions: {
           queryFacets: () => null,
@@ -261,6 +263,19 @@ describe('components/search/SearchInterface', () => {
 
       it('returns non-core facets only', () => {
         wrapper.vm.moreFacets.map(moreFacet => moreFacet.name).should.eql(['LANGUAGE', 'PROVIDER', 'DATA_PROVIDER']);
+      });
+    });
+
+    describe('view', () => {
+      describe('setter', () => {
+        it('commits to the search store', () => {
+          const wrapper = factory();
+          const view = 'list';
+
+          wrapper.vm.view = view;
+
+          searchSetViewMutation.should.have.been.calledWith(sinon.match.any, view);
+        });
       });
     });
   });

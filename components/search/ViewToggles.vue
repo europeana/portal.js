@@ -22,6 +22,7 @@
 
 <script>
   export default {
+    name: 'ViewToggles',
     props: {
       value: {
         type: String,
@@ -47,7 +48,6 @@
       selectView(view) {
         if (view !== this.activeView) {
           this.activeView = view;
-          this.$emit('changed', view);
         }
       }
     }
