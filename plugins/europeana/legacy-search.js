@@ -72,17 +72,17 @@ function dateParamsFromRange(key, range) {
  * @return {string} qf adjusted with the desired content tier filter
  */
 export function legacyUrl(params, locale) {
-  let qfs = params['qf'] ? [].concat(params['qf']) : [];
+  let qfs = params.qf ? [].concat(params.qf) : [];
   let path = classicBaseUrl + locale + getBasePath(qfs);
 
   // classic params will always include the query
-  let classicParams = '?q=' + (params['query'] ? params['query'] : '');
+  let classicParams = '?q=' + (params.query ? params.query : '');
 
   classicParams += classicParamsFromQfs(qfs);
   if (params.reusability) classicParams += `&f[REUSABILITY][]=${params.reusability}`;
   if (params.api) classicParams += `&f[api][]=${params.api === 'fulltext' ? 'collection' : 'default'}`;
 
-  return path + classicParams + `&view=${params['view'] ? params['view'] : 'grid'}`;
+  return path + classicParams + `&view=${params.view ? params.view : 'grid'}`;
 }
 
 export default legacyUrl;
