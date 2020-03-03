@@ -17,10 +17,11 @@ const router = new VueRouter({
   ]
 });
 
-const factory = () => {
+const factory = (propsData = {}) => {
   return mount(ViewToggles, {
     localVue,
     router,
+    propsData,
     mocks: {
       $t: (key) => key,
       localePath: (opts) => opts
@@ -64,4 +65,12 @@ describe('components/search/ViewToggles', () => {
       });
     });
   }
+
+  it('updates active view when v-model changes', () => {
+    const wrapper = factory({ value: 'grid' });
+
+    wrapper.setProps({ value: 'list' });
+
+    wrapper.vm.activeView.should.eq('list');
+  });
 });
