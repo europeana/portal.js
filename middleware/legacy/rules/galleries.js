@@ -7,7 +7,7 @@ export default (route) => {
   return match ? {
     path: [
       match[1],
-      '/gallery',
+      '/galleries',
       match[2]
     ]
   } : null;
