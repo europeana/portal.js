@@ -14,7 +14,7 @@
             v-for="exhibition in exhibitions"
             :key="exhibition.identifier"
             :title="exhibition.fields.name"
-            :url="{ name: 'exhibition-exhibition', params: { exhibition: exhibition.fields.identifier } }"
+            :url="{ name: 'exhibitions-exhibition', params: { exhibition: exhibition.fields.identifier } }"
             :image-url="imageUrl(exhibition.fields.primaryImageOfPage)"
             :image-content-type="imageContentType(exhibition.fields.primaryImageOfPage)"
             :image-optimisation-options="{ width: 510 }"

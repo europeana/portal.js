@@ -126,7 +126,7 @@
             {
               text: response.items[0].fields.name,
               to: app.localePath({
-                name: 'exhibition-exhibition',
+                name: 'exhibitions-exhibition',
                 params: {
                   exhibition: response.items[0].fields.identifier
                 }
@@ -151,7 +151,7 @@
     methods: {
       chapterUrl(identifier) {
         return this.localePath({
-          name: 'exhibition-exhibition-chapter',
+          name: 'exhibitions-exhibition-chapter',
           params: {
             exhibition: this.exhibitionIdentifier, chapter: identifier
           }

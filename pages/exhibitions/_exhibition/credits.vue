@@ -70,7 +70,7 @@
             {
               text: response.items[0].fields.name,
               to: app.localePath({
-                name: 'exhibition-exhibition',
+                name: 'exhibitions-exhibition',
                 params: {
                   exhibition: response.items[0].fields.identifier
                 }
