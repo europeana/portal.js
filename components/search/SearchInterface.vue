@@ -66,6 +66,7 @@
         </b-col>
         <b-col>
           <ViewToggles
+            v-model="view"
             :link-gen-route="route"
           />
         </b-col>
@@ -287,14 +288,27 @@
       tierToggleEnabled() {
         return Boolean(Number(process.env['ENABLE_CONTENT_TIER_TOGGLE']));
       },
-      view() {
-        return this.$store.getters['search/activeView'];
+      routeQueryView() {
+        return this.$route.query.view;
+      },
+      view: {
+        get() {
+          return this.$store.getters['search/activeView'];
+        },
+        set(value) {
+          this.$store.commit('search/setView', value);
+        }
+      }
+    },
+    watch: {
+      routeQueryView() {
+        this.view = this.routeQueryView;
       }
     },
     created() {
-      if (this.$route.query.view) {
-        this.$store.commit('search/setView', this.$route.query.view);
-      }
+      // if (this.$route.query.view) {
+      //   this.$store.commit('search/setView', this.$route.query.view);
+      // }
     },
     methods: {
       facetDropdownType(name) {

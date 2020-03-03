@@ -23,6 +23,10 @@
 <script>
   export default {
     props: {
+      value: {
+        type: String,
+        default: 'grid'
+      },
       linkGenRoute: {
         type: Object,
         default: () => {
@@ -32,18 +36,9 @@
     },
     data() {
       return {
-        views: ['list', 'grid']
+        views: ['list', 'grid'],
+        activeView: this.value
       };
-    },
-    computed: {
-      activeView: {
-        get() {
-          return this.$store.getters['search/activeView'];
-        },
-        set(value) {
-          this.$store.commit('search/setView', value);
-        }
-      }
     },
     methods: {
       linkGen(view) {
@@ -52,6 +47,7 @@
       selectView(view) {
         if (view !== this.activeView) {
           this.activeView = view;
+          this.$emit('changed', view);
         }
       }
     }
