@@ -218,10 +218,20 @@ export const getters = {
     return filters;
   },
 
-  facetUpdateNeeded: (state) => {
+  apiParamsChanged: (state) => {
+    return Object.keys(diff(state.previousApiParams, state.apiParams));
+  },
+
+  itemUpdateNeeded: (state, getters) => {
     if (!state.previousApiParams) return true; // i.e. if this is the first search
-    const apiParamsChanged = Object.keys(diff(state.previousApiParams, state.apiParams));
-    return apiParamsChanged.some((param) => ['query', 'qf', 'api', 'reusability'].includes(param));
+    return getters.apiParamsChanged
+      .some((param) => ['page', 'query', 'qf', 'api', 'reusability'].includes(param));
+  },
+
+  facetUpdateNeeded: (state, getters) => {
+    if (!state.previousApiParams) return true; // i.e. if this is the first search
+    return getters.apiParamsChanged
+      .some((param) => ['query', 'qf', 'api', 'reusability'].includes(param));
   }
 };
 
@@ -292,7 +302,7 @@ export const actions = {
     await dispatch('deriveApiSettings');
 
     await Promise.all([
-      dispatch('queryItems'),
+      getters.itemUpdateNeeded ? dispatch('queryItems') : () => null,
       getters.facetUpdateNeeded ? dispatch('queryFacets') : () => null
     ]);
   },
