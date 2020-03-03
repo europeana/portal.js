@@ -305,11 +305,6 @@
         this.view = this.routeQueryView;
       }
     },
-    created() {
-      // if (this.$route.query.view) {
-      //   this.$store.commit('search/setView', this.$route.query.view);
-      // }
-    },
     methods: {
       facetDropdownType(name) {
         return name === 'collection' ? 'radio' : 'checkbox';
