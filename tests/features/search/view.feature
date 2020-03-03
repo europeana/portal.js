@@ -45,3 +45,10 @@ Feature: View styles (List and Grid)
     And I click the `search button`
     And I wait for the page to load
     Then I see a `search results grid`
+
+  Scenario: Back button restores previous view
+    Given I am on `/search?query=&view=grid`
+    When I click the `search list view toggle`
+    And I see a `search results list`
+    And I go back
+    Then I see a `search results grid`

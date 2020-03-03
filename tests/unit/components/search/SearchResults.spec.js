@@ -1,27 +1,13 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 import SearchResults from '../../../../components/search/SearchResults.vue';
-import Vuex from 'vuex';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
-localVue.use(Vuex);
 
-const factory = (options = {}) => {
-  const store = new Vuex.Store({
-    state: {
-      search: {
-        view: options.view
-      }
-    },
-    getters: {
-      'search/activeView': (state) => state.search.view
-    }
-  });
-
+const factory = () => {
   return mount(SearchResults, {
     localVue,
-    store,
     mocks: {
       localePath: (opts) => `/record/${opts.params.pathMatch}`,
       $i18n: {
@@ -49,10 +35,10 @@ const results = [
 
 describe('components/search/SearchResults', () => {
   context('when view is grid', () => {
-    const wrapper = factory({ view: 'grid' });
-
     it('renders each result with a link', () => {
-      wrapper.setProps({ value: results });
+      const wrapper = factory();
+
+      wrapper.setProps({ value: results, view: 'grid' });
 
       const renderedResults =  wrapper.findAll('[data-qa="search result"] a');
 
@@ -62,10 +48,10 @@ describe('components/search/SearchResults', () => {
   });
 
   context('when view is list', () => {
-    const wrapper = factory({ view: 'list' });
-
     it('renders each result with a link', () => {
-      wrapper.setProps({ value: results });
+      const wrapper = factory();
+
+      wrapper.setProps({ value: results, view: 'list' });
 
       const renderedResults =  wrapper.findAll('div[data-qa="search result"]');
 

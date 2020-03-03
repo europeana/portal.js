@@ -58,12 +58,22 @@
       perRow: {
         type: Number,
         default: 4
+      },
+      view: {
+        type: String,
+        default: 'grid'
       }
     },
 
-    computed: {
+    data() {
+      return {
+        activeView: this.view
+      };
+    },
+
+    watch: {
       view() {
-        return this.$store.getters['search/activeView'];
+        this.activeView = this.view;
       }
     },
 

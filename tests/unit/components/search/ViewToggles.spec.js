@@ -1,15 +1,12 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 import VueRouter from 'vue-router';
-import Vuex from 'vuex';
-import sinon from 'sinon';
 
 import ViewToggles from '../../../../components/search/ViewToggles.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 localVue.use(VueRouter);
-localVue.use(Vuex);
 
 const router = new VueRouter({
   routes: [
@@ -20,27 +17,11 @@ const router = new VueRouter({
   ]
 });
 
-const storeMutations = {
-  'search/setView': sinon.spy()
-};
-
-const factory = () => {
-  const store = new Vuex.Store({
-    state: {
-      search: {
-        view: null
-      }
-    },
-    getters: {
-      'search/activeView': (state) => state.search.view
-    },
-    mutations: storeMutations
-  });
-
+const factory = (propsData = {}) => {
   return mount(ViewToggles, {
     localVue,
     router,
-    store,
+    propsData,
     mocks: {
       $t: (key) => key,
       localePath: (opts) => opts
@@ -80,8 +61,16 @@ describe('components/search/ViewToggles', () => {
         const viewToggle = wrapper.find(`[data-qa="search ${view} view toggle"] a`);
         viewToggle.trigger('click');
 
-        storeMutations['search/setView'].should.have.been.calledWith({ search: { view: null } }, view);
+        wrapper.vm.activeView.should.eq(view);
       });
     });
   }
+
+  it('updates active view when v-model changes', () => {
+    const wrapper = factory({ value: 'grid' });
+
+    wrapper.setProps({ value: 'list' });
+
+    wrapper.vm.activeView.should.eq('list');
+  });
 });
