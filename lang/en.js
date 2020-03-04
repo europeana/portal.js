@@ -158,7 +158,7 @@ export default {
     "MIME_TYPE": {
       "name": "File format | File formats",
       "options": {
-        "text\/plain": "Plain text"
+        "text/plain": "Plain text"
       }
     },
     "COLOURPALETTE": {
