@@ -9,7 +9,6 @@ export default {
   "readMore": "Read more",
   "search": "Search",
   "results": "Results",
-  "relatedCollections": "Related collections",
   "homeLinkAlt": "Europeana home",
   "noMoreResults": "There are no more results for your search query.",
   "resultsLimitWarning": "Additional results are not shown as only the first 1000 most relevant results are shown. If you haven't found what you're looking for, please consider refining your search.",
@@ -159,7 +158,7 @@ export default {
     "MIME_TYPE": {
       "name": "File format | File formats",
       "options": {
-        "text/plain": "Plain text"
+        "text\/plain": "Plain text"
       }
     },
     "COLOURPALETTE": {
@@ -332,6 +331,24 @@ export default {
     },
     "proxy_dc_type": {
       "name": "Type | Types"
+    },
+    "THEME": {
+      "name": "Category",
+      "options": {
+        "ww1": "1914-1918",
+        "archaeology": "Archaeology",
+        "art": "Art",
+        "fashion": "Fashion",
+        "manuscript": "Manuscripts",
+        "map": "Maps and Geography",
+        "migration": "Migration",
+        "music": "Music",
+        "nature": "Natural History",
+        "newspaper": "Newspapers",
+        "photography": "Photography",
+        "sport": "Sport",
+        "industrial": "Industrial Heritage"
+      }
     }
   },
   "entity": "Entity",
@@ -348,7 +365,7 @@ export default {
   "layout": {
     "skipToMain": "Skip to page contents"
   },
-  "searchPlaceholder": "What are you looking for?",
+  "searchPlaceholder": "Search 58 million items",
   "searchTier": {
     "button": {
       "show": "Show these items",
@@ -380,9 +397,9 @@ export default {
   },
   "exhibitions": {
     "exhibitions": "Exhibitions",
+    "credits": "Credits",
     "chapters": "Chapters",
-    "currentChapter": "Current chapter",
-    "credits": "Credits"
+    "currentChapter": "Current chapter"
   },
   "actions": {
     "download": "Download",
@@ -469,18 +486,37 @@ export default {
   "galleries": {
     "galleries": "Galleries"
   },
+  "themes": {
+    "fashion": {
+      "facets": {
+        "CREATOR": {
+          "name": "Designer | Designers"
+        },
+        "proxy_dc_format": {
+          "name": "Technique | Techniques"
+        },
+        "proxy_dcterms_medium": {
+          "name": "Material | Materials"
+        },
+        "proxy_dc_type": {
+          "name": "Item type | Item types"
+        }
+      }
+    }
+  },
+  "relatedCollections": "Related collections",
   "linksToClassic": {
     "home": {
       "text": "You're viewing the new Europeana experience.",
       "linkText": "Go to the original Europeana."
     },
-    "record": {
-      "text": "You're viewing this item in the new Europeana website.",
-      "linkText": "View this item in the original Europeana."
-    },
     "search": {
       "text": "You're searching in our new and faster website.",
       "linkText": "View these search results in the original Europeana."
+    },
+    "record": {
+      "text": "You're viewing this item in the new Europeana website.",
+      "linkText": "View this item in the original Europeana."
     }
   }
 };
