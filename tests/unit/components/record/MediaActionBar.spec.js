@@ -1,13 +1,16 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 import VueI18n from 'vue-i18n';
+import Vuex from 'vuex';
 import SmartLink from '../../../../components/generic/SmartLink.vue';
 import MediaActionBar from '../../../../components/record/MediaActionBar.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 localVue.use(VueI18n);
+localVue.use(Vuex);
 localVue.component('SmartLink', SmartLink);
+
 const i18n = new VueI18n({
   locale: 'en',
   messages: {
@@ -20,10 +23,16 @@ const i18n = new VueI18n({
   }
 });
 
+const store = new Vuex.Store({
+  getters: {
+    canonicalUrl: () => 'https://www.example.org/page'
+  }
+});
 
 const factory = (propsData) => mount(MediaActionBar, {
   localVue,
   i18n,
+  store,
   propsData,
   mocks: {
     $t: (key) => key
@@ -35,6 +44,22 @@ describe('components/record/MediaActionBar', () => {
   const url = 'https://www.example.org/videos/zyxwvu.mp4';
   const rightsStatement = 'https://creativecommons.org/publicdomain/mark/1.0/';
   const useProxy = true;
+
+  context('when rights statement is In Copyright (InC)', () => {
+    it('disables the download buton', () => {
+      const rightsStatement = 'http://rightsstatements.org/vocab/InC/1.0/';
+
+      const wrapper = factory({
+        europeanaIdentifier,
+        url,
+        useProxy,
+        rightsStatement
+      });
+      const downloadLink = wrapper.find('[data-qa="download button"]');
+
+      downloadLink.attributes().disabled.should.eq('disabled');
+    });
+  });
 
   it('includes a proxied media download button', () => {
     const wrapper = factory({
@@ -48,6 +73,7 @@ describe('components/record/MediaActionBar', () => {
     const downloadLink = wrapper.find('[data-qa="download button"]');
 
     downloadLink.attributes().href.should.eq(expectedHref);
+    (downloadLink.attributes().disabled === undefined).should.be.true;
   });
 
   it('includes a rights statement as a link', () => {

@@ -13,7 +13,7 @@
   font-size: 0.875rem;
   text-transform: uppercase;
 
-  &:hover {
+  &:hover:not([disabled]) {
     background-color: $blue;
     border-color: $blue;
   }
