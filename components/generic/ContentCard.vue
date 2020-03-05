@@ -21,6 +21,7 @@
         v-if="variant === 'entity' && cardImageUrl && !lazyLoad"
         :src="optimisedImageUrl"
         alt=""
+        @error="imageNotFound"
       />
       <div
         v-if="cardImageUrl"
@@ -38,6 +39,7 @@
           v-if="variant !== 'entity' && !lazyLoad"
           :src="optimisedImageUrl"
           alt=""
+          @error="imageNotFound"
         />
       </div>
       <b-card-body>
