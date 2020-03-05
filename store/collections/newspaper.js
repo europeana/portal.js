@@ -1,4 +1,4 @@
-import apiConfig from '../../plugins/europeana/api';
+import { config as apiConfig } from '../../plugins/europeana/api';
 
 export const state = () => ({
   apiOptions: {},

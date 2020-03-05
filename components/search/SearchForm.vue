@@ -58,7 +58,7 @@
 <script>
   import AutoSuggest from './AutoSuggest';
   import SearchBarPill from './SearchBarPill';
-  import apiConfig from '../../plugins/europeana/api';
+  import { config as apiConfig } from '../../plugins/europeana/api';
   import { getEntitySuggestions, getEntityTypeHumanReadable, getEntitySlug } from '../../plugins/europeana/entity';
   import { mapGetters } from 'vuex';
 
@@ -141,6 +141,7 @@
     },
 
     mounted() {
+      console.log('SearchForm mounted apiConfig', apiConfig);
       this.initQuery();
     },
 

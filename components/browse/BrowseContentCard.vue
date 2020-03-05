@@ -11,7 +11,7 @@
 
 <script>
   import ContentCard from '../generic/ContentCard';
-  import apiConfig from '../../plugins/europeana/api';
+  import { config as apiConfig } from '../../plugins/europeana/api';
   import { getEntityTypeHumanReadable, getWikimediaThumbnailUrl } from '../../plugins/europeana/entity';
   import { isEuropeanaRecordId } from '../../plugins/europeana/record';
 

@@ -1,4 +1,5 @@
-export const baseConfig = {
+// TODO: restore reading of all values from env vars
+export default {
   entity: {
     origin: 'https://api.europeana.eu',
     path: '/entity'
@@ -19,5 +20,3 @@ export const baseConfig = {
     path: '/api/v2'
   }
 };
-
-export let config = Object.assign({}, baseConfig);

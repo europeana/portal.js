@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { apiError, langMapValueForLocale } from './utils';
-import config from './api';
+import { config } from './api';
 import search from './search';
 
 export const constants = Object.freeze({

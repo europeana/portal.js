@@ -5,7 +5,7 @@ import uniq from 'lodash/uniq';
 import merge from 'deepmerge';
 
 import { apiError } from './utils';
-import config from './api';
+import { config } from './api';
 import thumbnailUrl, { thumbnailTypeForMimeType } from  './thumbnail';
 import { combineMerge } from '../utils';
 

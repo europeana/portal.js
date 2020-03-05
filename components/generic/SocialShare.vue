@@ -51,7 +51,7 @@
 
     computed: {
       ...mapGetters({
-        shareUrl: 'canonicalUrl'
+        shareUrl: 'http/canonicalUrl'
       }),
       facebookShareUrl() {
         return `https://www.facebook.com/sharer/sharer.php?display=page&u=${this.shareUrl}`;

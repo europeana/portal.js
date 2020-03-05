@@ -2,7 +2,7 @@ import nock from 'nock';
 import search, {
   addContentTierFilter, rangeToQueryParam, rangeFromQueryParam
 } from '../../../../plugins/europeana/search';
-import config from '../../../../plugins/europeana/api';
+import { config } from '../../../../plugins/europeana/api';
 
 import axios from 'axios';
 axios.defaults.adapter = require('axios/lib/adapters/http');

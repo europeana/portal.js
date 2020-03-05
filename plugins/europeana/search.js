@@ -4,7 +4,7 @@
 
 import axios from 'axios';
 import qs from 'qs';
-import config from './api';
+import { config } from './api';
 import { apiError } from './utils';
 import { genericThumbnail } from './thumbnail';
 
@@ -106,6 +106,7 @@ function resultsFromApiResponse(response) {
  * @return {{results: Object[], totalResults: number, facets: FacetSet, error: string}} search results for display
  */
 function search(params, options = {}) {
+  console.log('search plugin');
   const maxResults = 1000;
   const perPage = params.rows === undefined ? 24 : Number(params.rows);
   const page = params.page || 1;

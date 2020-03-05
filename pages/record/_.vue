@@ -168,7 +168,7 @@
   import MediaThumbnailGrid from '../../components/record/MediaThumbnailGrid';
   import MetadataField from '../../components/record/MetadataField';
 
-  import apiConfig from '../../plugins/europeana/api';
+  import { config as apiConfig } from '../../plugins/europeana/api';
   import getRecord, { similarItemsQuery } from '../../plugins/europeana/record';
   import search from '../../plugins/europeana/search';
   import { isIIIFPresentation, isRichMedia } from '../../plugins/media';
@@ -396,8 +396,7 @@
           { hid: 'og:title', property: 'og:title', content: this.metaTitle },
           { hid: 'og:description', property: 'og:description', content: this.metaDescription },
           { hid: 'og:image', property: 'og:image', content: this.selectedMediaImage.src ? this.selectedMediaImage.src : '' },
-          { hid: 'og:type', property: 'og:type', content: 'article' },
-          { hid: 'og:url', property: 'og:url', content: this.canonicalUrl }
+          { hid: 'og:type', property: 'og:type', content: 'article' }
         ]
       };
     }
