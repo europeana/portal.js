@@ -24,7 +24,8 @@ export const getters = {
 export const actions = {
   async nuxtServerInit({ commit, dispatch }, { req, route }) {
     const scheme = isHTTPS(req, true) ? 'https://' : 'http://';
-    const origin = scheme + req.headers.host;
+    const host = req.headers['X-Forwarded-Host'] || req.headers.host;
+    const origin = scheme + host;
     commit('setCanonicalUrlOrigin', origin);
     commit('setCanonicalUrlPath', route.fullPath);
 
