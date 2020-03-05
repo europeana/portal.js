@@ -113,14 +113,14 @@ describe('components/record/MetadataField', () => {
           fieldValue.text().should.eq(props.fieldData.def[1]);
         });
 
-        it('includes them if there are no other values', () => {
+        it('do not include them if there are no other values', () => {
           const props = { name: 'dcCreator', fieldData: { def: ['http://data.europeana.eu/agent/base/123'] }, omitUrisIfOtherValues: true };
           const wrapper = factory();
 
           wrapper.setProps(props);
 
           const fieldValue = wrapper.find('[data-qa="metadata field"] ul [data-qa="literal value"]');
-          fieldValue.text().should.eq(props.fieldData.def[0]);
+          fieldValue.exists().should.be.false;
         });
       });
     });
