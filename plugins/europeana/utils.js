@@ -90,7 +90,8 @@ export function langMapValueForLocale(langMap, locale, options = {}) {
 
 function omitUrisIfOtherValues(localizedLangmap) {
   const withoutUris = localizedLangmap.values.filter((value) => !/^https?:\/\//.test(value));
-  if (withoutUris.length > 0) localizedLangmap.values = withoutUris;
+  localizedLangmap.values = withoutUris.length > 0 ? withoutUris : [];
+
   return localizedLangmap;
 }
 
