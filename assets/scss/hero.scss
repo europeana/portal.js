@@ -16,6 +16,18 @@
     width: 100%;
   }
 
+  &::after {
+    border-bottom: 145px solid $bodygrey;
+    border-left: 60px solid transparent;
+    bottom: 0;
+    content: '';
+    display: block;
+    height: 0;
+    position: absolute;
+    right: 0;
+    width: 0;
+  }
+
   .container {
     align-items: flex-start;
     display: flex;
@@ -41,6 +53,14 @@
     font-size: $font-size-small;
   }
 
+  figcaption cite {
+    margin-right: 5rem;
+  
+    @media (min-width: $bp-medium) {
+      margin-right: 1rem;
+    }
+  }
+
   @media (min-width: $bp-large) {
     .container {
       align-items: flex-end;
@@ -60,4 +80,7 @@
       font-size: 1rem;
     }
   }
+
+
+
 }
