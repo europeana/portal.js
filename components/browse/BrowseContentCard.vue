@@ -5,7 +5,7 @@
     :url="destination"
     :image-url="imageUrl"
     :image-content-type="imageContentType"
-    :is-entity="isEntity"
+    :variant="cardVariant"
   />
 </template>
 
@@ -76,8 +76,8 @@
         }
         return texts;
       },
-      isEntity() {
-        return this.cardType === 'automatedEntityCard';
+      cardVariant() {
+        return this.cardType === 'automatedEntityCard' ? 'entity' : 'default';
       }
     },
     methods: {
