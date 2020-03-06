@@ -17,6 +17,11 @@
     background-color: $blue;
     border-color: $blue;
   }
+
+  &:disabled {
+    color: $grey;
+    border-color: $grey;
+  }
 }
 
 a {
