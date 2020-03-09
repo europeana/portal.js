@@ -5,14 +5,13 @@ import path from 'path';
 import defaults from './defaults';
 
 export default async function() {
-  let rc;
+  let rc = {};
   if (process.env['EUROPEANA_APIS']) {
     rc = JSON.parse(process.env['EUROPEANA_APIS']);
   } else {
     const configSearch = await cosmiconfig('apis').searchSync();
     if (configSearch) rc = configSearch.config;
   }
-  if (!rc) throw new Error('Europeana API configuration not found in ENV or config file.');
 
   const options = { defaults: merge(defaults, rc.defaults || {}) };
 
