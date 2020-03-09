@@ -4,11 +4,9 @@
 
 import axios from 'axios';
 import qs from 'qs';
-import defaultConfig from '../../modules/apis/defaults';
+import { config } from './';
 import { apiError } from './utils';
 import { genericThumbnail } from './thumbnail';
-
-let config = Object.assign({}, defaultConfig);
 
 // Some facets do not support enquoting of their field values.
 export const unquotableFacets = [
@@ -174,8 +172,4 @@ export function addContentTierFilter(qf) {
 
 const hasFilterForField = (filters, fieldName) => {
   return filters.some(v => new RegExp(`^${fieldName}:`).test(v));
-};
-
-export default ({ store }) => {
-  if (store && store.getters['apis/config']) config = store.getters['apis/config'];
 };

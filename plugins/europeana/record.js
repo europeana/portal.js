@@ -5,11 +5,9 @@ import uniq from 'lodash/uniq';
 import merge from 'deepmerge';
 
 import { apiError } from './utils';
-import defaultConfig from '../../modules/apis/defaults';
+import { config } from './';
 import { thumbnailUrl, thumbnailTypeForMimeType } from  './thumbnail';
 import { combineMerge } from '../utils';
-
-let config = Object.assign({}, defaultConfig);
 
 /**
  * Parse the record data based on the data from the API response
@@ -337,7 +335,3 @@ function escapeLuceneSpecials(unescaped) {
     return memo;
   }, unescaped);
 }
-
-export default ({ store }) => {
-  if (store && store.getters['apis/config']) config = store.getters['apis/config'];
-};

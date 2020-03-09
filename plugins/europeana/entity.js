@@ -1,9 +1,7 @@
 import axios from 'axios';
 import { apiError, langMapValueForLocale } from './utils';
-import defaultConfig from '../../modules/apis/defaults';
-import search from './search';
-
-let config = Object.assign({}, defaultConfig);
+import { config } from './';
+import { search } from './search';
 
 /**
  * Get data for one entity from the API
@@ -345,7 +343,3 @@ export function getWikimediaThumbnailUrl(image) {
       hash.substring(0, 1) + '/' + hash.substring(0, 2) + '/' +
       underscoredFilename + '/255px-' + underscoredFilename + suffix;
 }
-
-export default ({ store }) => {
-  if (store && store.getters['apis/config']) config = store.getters['apis/config'];
-};
