@@ -61,3 +61,6 @@ typings/
 
 # CF manifest
 /manifest.yml
+
+# Git
+.git

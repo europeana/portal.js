@@ -1,0 +1,17 @@
+version: "3"
+services:
+  nginx:
+    image: europeana/portaljs-nginx
+    build:
+      context: ./nginx
+    ports:
+      - "443:443"
+      - "80:80"
+  portal.js:
+    image: europeana/portaljs-app
+    build:
+      context: ..
+    expose:
+      - "80"
+    env_file:
+     - ../.env
