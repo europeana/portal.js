@@ -3,7 +3,7 @@ import SearchForm from '../../../../components/search/SearchForm.vue';
 import Vuex from 'vuex';
 import sinon from 'sinon';
 import nock from 'nock';
-import * as entities from '../../../../plugins/europeana/entity';
+import apiConfig from '../../../../modules/apis/defaults';
 
 const axios = require('axios');
 axios.defaults.adapter = require('axios/lib/adapters/http');
@@ -46,6 +46,7 @@ const factory = (options = {}) => shallowMount(SearchForm, {
 });
 
 const getters = {
+  'apis/config': () => apiConfig,
   'search/activeView': (state) => state.search.view,
   'search/queryUpdatesForFacetChanges': () => () => {}
 };
@@ -217,7 +218,7 @@ describe('components/search/SearchForm', () => {
 
   describe('getSearchSuggestions', () => {
     beforeEach(() => {
-      nock(entities.constants.API_ORIGIN).get('/entity/suggest')
+      nock(apiConfig.entity.origin).get('/entity/suggest')
         .query(true)
         .reply(200, entityApiSuggestionsResponse);
     });
