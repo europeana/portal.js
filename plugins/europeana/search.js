@@ -4,9 +4,11 @@
 
 import axios from 'axios';
 import qs from 'qs';
-import { config } from './api';
+import defaultConfig from '../../modules/apis/defaults';
 import { apiError } from './utils';
 import { genericThumbnail } from './thumbnail';
+
+let config = Object.assign({}, defaultConfig);
 
 // Some facets do not support enquoting of their field values.
 export const unquotableFacets = [
@@ -105,8 +107,7 @@ function resultsFromApiResponse(response) {
  * @param {string} options.path path prefix for API, overriding default `config.record.path`
  * @return {{results: Object[], totalResults: number, facets: FacetSet, error: string}} search results for display
  */
-function search(params, options = {}) {
-  console.log('search plugin');
+export function search(params, options = {}) {
   const maxResults = 1000;
   const perPage = params.rows === undefined ? 24 : Number(params.rows);
   const page = params.page || 1;
@@ -165,7 +166,7 @@ export function addContentTierFilter(qf) {
     const contentTierFilter = hasFilterForField(newQf, 'collection') ? '2 OR 3 OR 4' : '1 OR 2 OR 3 OR 4';
     newQf.push(`contentTier:(${contentTierFilter})`);
   }
-  // contentTier:* is irrelevant so is removed
+  // contentTier:* is redundant so is removed
   newQf = newQf.filter(v => v !== 'contentTier:*');
 
   return newQf;
@@ -175,4 +176,6 @@ const hasFilterForField = (filters, fieldName) => {
   return filters.some(v => new RegExp(`^${fieldName}:`).test(v));
 };
 
-export default search;
+export default ({ store }) => {
+  if (store && store.getters['apis/config']) config = store.getters['apis/config'];
+};

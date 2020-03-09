@@ -9,7 +9,7 @@ module.exports = {
     newspaper: {
       key: 'default-newspaper-api-key'
     }
-  }
+  },
   // Add origin-specific configurations below
   // 'https://portaljs1.example.org': {
   //   record: {

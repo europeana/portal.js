@@ -5,9 +5,11 @@
 
 // TODO: remove this when the issue noted in the url plugin is resolved upstream
 import { URL } from '../url';
-import { config } from './api';
+import defaultConfig from '../../modules/apis/defaults';
 
-export default function thumbnailUrl(uri, params = {}, options = {}) {
+let config = Object.assign({}, defaultConfig);
+
+export function thumbnailUrl(uri, params = {}, options = {}) {
   const origin = options.origin || config.thumbnail.origin;
   const path = options.path || config.thumbnail.path;
 
@@ -46,3 +48,7 @@ export function genericThumbnail(itemId, params = {}) {
   const uri = `${config.data.origin}/item${itemId}`;
   return thumbnailUrl(uri, params);
 }
+
+export default ({ store }) => {
+  if (store && store.getters['apis/config']) config = store.getters['apis/config'];
+};

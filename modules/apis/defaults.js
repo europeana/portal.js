@@ -1,4 +1,4 @@
-// TODO: restore reading of all values from env vars
+// TODO: restore reading of all values from env vars. or at least keys.
 export default {
   entity: {
     origin: 'https://api.europeana.eu',

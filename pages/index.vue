@@ -71,7 +71,6 @@
       }
     },
     asyncData({ params, query, error, app }) {
-      console.log('context apis', app.$apis);
       const contentfulClient = createClient(query.mode);
 
       // fetch the browsePage data, include set to 2 in order to get nested card data

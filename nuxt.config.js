@@ -81,7 +81,10 @@ module.exports = {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    '~/plugins/europeana/api',
+    '~/plugins/europeana/entity',
+    '~/plugins/europeana/record',
+    '~/plugins/europeana/search',
+    '~/plugins/europeana/thumbnail',
     '~/plugins/vue/index',
     '~/plugins/i18n.js',
     '~/plugins/vue-filters'
