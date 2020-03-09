@@ -4,14 +4,21 @@ import path from 'path';
 
 import defaults from './defaults';
 
-export default async function() {
+const loadRuntimeConfiguration = async() => {
   let rc = {};
+
   if (process.env['EUROPEANA_APIS']) {
     rc = JSON.parse(process.env['EUROPEANA_APIS']);
   } else {
     const configSearch = await cosmiconfig('apis').searchSync();
     if (configSearch) rc = configSearch.config;
   }
+
+  return rc;
+};
+
+const generateMultiOriginConfiguration = async() => {
+  const rc = loadRuntimeConfiguration();
 
   const options = { defaults: merge(defaults, rc.defaults || {}) };
 
@@ -23,6 +30,10 @@ export default async function() {
       }
     }
   }
+};
+
+export default function() {
+  const options = generateMultiOriginConfiguration();
 
   this.addPlugin({
     src: path.resolve(__dirname, 'plugin.js'),
