@@ -18,7 +18,7 @@ const loadRuntimeConfiguration = async() => {
 };
 
 const generateMultiOriginConfiguration = async() => {
-  const rc = loadRuntimeConfiguration();
+  const rc = await loadRuntimeConfiguration();
 
   const options = { defaults: merge(defaults, rc.defaults || {}) };
 
@@ -30,10 +30,12 @@ const generateMultiOriginConfiguration = async() => {
       }
     }
   }
+
+  return options;
 };
 
-export default function() {
-  const options = generateMultiOriginConfiguration();
+export default async function() {
+  const options = await generateMultiOriginConfiguration();
 
   this.addPlugin({
     src: path.resolve(__dirname, 'plugin.js'),
