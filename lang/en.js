@@ -396,6 +396,7 @@ export default {
   "loadingResults": "Loading results",
   "edmIsShownAtLinkAlt": "View at the provider's website",
   "record": {
+    "downloadCopyrightInfo": "This item is in copyright and can not be downloaded.",
     "extendedInformation": "Extended information",
     "hideAll": "Hide all information",
     "record": "Record",
