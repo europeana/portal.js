@@ -90,13 +90,13 @@ export function langMapValueForLocale(langMap, locale, options = {}) {
   }
 
   let withEntities = addEntityValues(returnVal, entityValues(langMap['def'], locale));
-  // In case an entity resolves as only its URI as is the case in search responses on the  minimal profile
+  // In case an entity resolves as only its URI as is the case in search responses
   // as no linked entity data is returned so the prefLabel can't be retrieved.
   if (onlyUriValues(withEntities.values) && returnVal.code === '' && hasNonDefValues(langMap)) {
     withEntities = localizedLangMapFromFirstNonDefValue(langMap);
   }
-  if (!options.omitUrisIfOtherValues) return withEntities;
   if (options.omitAllUris) return omitAllUris(withEntities);
+  if (!options.omitUrisIfOtherValues) return withEntities;
   return omitUrisIfOtherValues(withEntities);
 }
 
