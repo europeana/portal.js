@@ -1,18 +1,26 @@
 // TODO: redirects should strip port from host and replace with customisable
 //       port for other scheme
 
-const config = {};
+const config = {
+  eitherSchemeWhitelist: new RegExp('^/[a-z]{2}/iiif(\\?|$)')
+};
 
 if (process.env.SSL_DATASET_BLACKLIST && process.env.SSL_DATASET_BLACKLIST !== '') {
   const datasetBlacklist = process.env.SSL_DATASET_BLACKLIST.split(',');
-  config.datasetBlacklist = new RegExp(`^/[a-z]{2}/record/${datasetBlacklist.join('|')}/`);
+  config.datasetBlacklist = new RegExp(`^/[a-z]{2}/record/(${datasetBlacklist.join('|')})/`);
 }
 
-const routeOnDatasetBlacklist = (route) => {
+const routeOnDatasetBlacklist = route => {
   return config.datasetBlacklist && config.datasetBlacklist.test(route.fullPath);
 };
 
+const routePermittedOnEitherScheme = route => {
+  return config.eitherSchemeWhitelist.test(route.fullPath);
+};
+
 export default ({ route, redirect, req }) => {
+  if (routePermittedOnEitherScheme(route)) return;
+
   let ssl;
   let host;
 
@@ -30,9 +38,9 @@ export default ({ route, redirect, req }) => {
 
   if (ssl && routeBlacklisted) {
     // redirect to non-ssl
-    redirect(`http://${host}${route.fullPath}`, route.query);
+    redirect(`http://${host}${route.fullPath}`);
   } else if (!ssl && !routeBlacklisted) {
     // redirect to ssl
-    redirect(`https://${host}${route.fullPath}`, route.query);
+    redirect(`https://${host}${route.fullPath}`);
   }
 };

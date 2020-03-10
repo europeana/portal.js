@@ -7,11 +7,12 @@ services:
     ports:
       - "443:443"
       - "80:80"
-  portal.js:
+  app:
     image: europeana/portaljs-app
     build:
       context: ..
+      dockerfile: ./docker/app/Dockerfile
     expose:
-      - "80"
+      - "8080"
     env_file:
      - ../.env
