@@ -1,6 +1,6 @@
 import { diff } from 'deep-object-diff';
 import merge from 'deepmerge';
-import search, { unquotableFacets } from '../plugins/europeana/search';
+import { search, unquotableFacets } from '../plugins/europeana/search';
 
 // Default facets to always request and display.
 // Order is significant as it will be reflected on search results.

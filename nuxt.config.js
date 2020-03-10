@@ -81,15 +81,14 @@ module.exports = {
   ** Plugins to load before mounting the App
   */
   plugins: [
+    '~/plugins/europeana',
     '~/plugins/vue/index',
     '~/plugins/i18n.js',
     '~/plugins/vue-filters'
   ],
 
-  /*
-  ** Nuxt.js modules
-  */
-  modules: [
+  buildModules: [
+    '~/modules/apis',
     // Doc: https://www.elastic.co/guide/en/apm/agent/rum-js/current/configuration.html
     ['~/modules/elastic-apm', {
       serviceName: 'portal-js',
@@ -99,7 +98,13 @@ module.exports = {
       logLevel: process.env['ELASTIC_APM_LOG_LEVEL'] || 'info',
       frameworkName: 'Nuxt.js',
       frameworkVersion: require('nuxt/package.json').version
-    }],
+    }]
+  ],
+
+  /*
+  ** Nuxt.js modules
+  */
+  modules: [
     '@nuxtjs/dotenv',
     ['@nuxtjs/google-tag-manager', {
       id: process.env.GOOGLE_TAG_MANAGER_ID,

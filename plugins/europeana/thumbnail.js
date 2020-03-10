@@ -5,9 +5,9 @@
 
 // TODO: remove this when the issue noted in the url plugin is resolved upstream
 import { URL } from '../url';
-import config from './api';
+import { config } from './';
 
-export default function thumbnailUrl(uri, params = {}, options = {}) {
+export function thumbnailUrl(uri, params = {}, options = {}) {
   const origin = options.origin || config.thumbnail.origin;
   const path = options.path || config.thumbnail.path;
 
