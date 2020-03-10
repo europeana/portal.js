@@ -14,7 +14,7 @@
       :texts="cardTexts(result, 'list')"
       data-qa="search result"
       :limit-values-within-each-text="3"
-      :omit-uris-if-other-values="true"
+      :omit-all-uris="true"
       variant="list"
       class="mx-0"
     />
@@ -34,7 +34,7 @@
       :texts="cardTexts(result)"
       data-qa="search result"
       :limit-values-within-each-text="3"
-      :omit-uris-if-other-values="true"
+      :omit-all-uris="true"
       :blank-image-height="280"
     />
   </b-card-group>

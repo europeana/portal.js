@@ -5,13 +5,14 @@
     :url="destination"
     :image-url="imageUrl"
     :image-content-type="imageContentType"
-    :is-entity="isEntity"
+    :variant="cardVariant"
   />
 </template>
 
 <script>
+  import { mapGetters } from 'vuex';
+
   import ContentCard from '../generic/ContentCard';
-  import apiConfig from '../../plugins/europeana/api';
   import { getEntityTypeHumanReadable, getWikimediaThumbnailUrl } from '../../plugins/europeana/entity';
   import { isEuropeanaRecordId } from '../../plugins/europeana/record';
 
@@ -30,6 +31,9 @@
       }
     },
     computed: {
+      ...mapGetters({
+        apiConfig: 'apis/config'
+      }),
       title() {
         return this.fields.name;
       },
@@ -76,8 +80,8 @@
         }
         return texts;
       },
-      isEntity() {
-        return this.cardType === 'automatedEntityCard';
+      cardVariant() {
+        return this.cardType === 'automatedEntityCard' ? 'entity' : 'default';
       }
     },
     methods: {
@@ -85,10 +89,10 @@
         return (typeof this.fields.identifier === 'string') && isEuropeanaRecordId(this.fields.identifier);
       },
       forEuropeanaEntity() {
-        return (typeof this.fields.identifier === 'string') && this.fields.identifier.includes(apiConfig.data.origin);
+        return (typeof this.fields.identifier === 'string') && this.fields.identifier.includes(this.apiConfig.data.origin);
       },
       entityRouterLink(uri, slug) {
-        const uriMatch = uri.match(`^${apiConfig.data.origin}/([^/]+)(/base)?/(.+)$`);
+        const uriMatch = uri.match(`^${this.apiConfig.data.origin}/([^/]+)(/base)?/(.+)$`);
         return {
           name: 'collections-type-all', params: { type: getEntityTypeHumanReadable(uriMatch[1]), pathMatch: slug ? slug : uriMatch[3] }
         };

@@ -159,6 +159,7 @@
 
 <script>
   import axios from 'axios';
+  import { mapGetters } from 'vuex';
 
   import AlertMessage from '../../components/generic/AlertMessage';
   import EntityCards from '../../components/entity/EntityCards';
@@ -168,9 +169,8 @@
   import MediaThumbnailGrid from '../../components/record/MediaThumbnailGrid';
   import MetadataField from '../../components/record/MetadataField';
 
-  import apiConfig from '../../plugins/europeana/api';
-  import getRecord, { similarItemsQuery } from '../../plugins/europeana/record';
-  import search from '../../plugins/europeana/search';
+  import { getRecord, similarItemsQuery } from '../../plugins/europeana/record';
+  import { search } from '../../plugins/europeana/search';
   import { isIIIFPresentation, isRichMedia } from '../../plugins/media';
   import { langMapValueForLocale } from  '../../plugins/europeana/utils';
   import { searchEntities } from '../../plugins/europeana/entity';
@@ -211,11 +211,14 @@
     },
 
     computed: {
+      ...mapGetters({
+        apiConfig: 'apis/config'
+      }),
       europeanaAgents() {
-        return (this.agents || []).filter((agent) => agent.about.startsWith(`${apiConfig.data.origin}/agent/`));
+        return (this.agents || []).filter((agent) => agent.about.startsWith(`${this.apiConfig.data.origin}/agent/`));
       },
       europeanaConcepts() {
-        return (this.concepts || []).filter((concept) => concept.about.startsWith(`${apiConfig.data.origin}/concept/`));
+        return (this.concepts || []).filter((concept) => concept.about.startsWith(`${this.apiConfig.data.origin}/concept/`));
       },
       europeanaEntityUris() {
         const entities = this.europeanaConcepts.concat(this.europeanaAgents);
@@ -396,8 +399,7 @@
           { hid: 'og:title', property: 'og:title', content: this.metaTitle },
           { hid: 'og:description', property: 'og:description', content: this.metaDescription },
           { hid: 'og:image', property: 'og:image', content: this.selectedMediaImage.src ? this.selectedMediaImage.src : '' },
-          { hid: 'og:type', property: 'og:type', content: 'article' },
-          { hid: 'og:url', property: 'og:url', content: this.canonicalUrl }
+          { hid: 'og:type', property: 'og:type', content: 'article' }
         ]
       };
     }

@@ -1,6 +1,6 @@
 import nock from 'nock';
 import * as entities from '../../../../plugins/europeana/entity';
-import config from '../../../../plugins/europeana/api';
+import config from '../../../../modules/apis/defaults';
 
 const axios = require('axios');
 axios.defaults.adapter = require('axios/lib/adapters/http');
@@ -8,7 +8,7 @@ axios.defaults.adapter = require('axios/lib/adapters/http');
 const entityId = '94-architecture';
 const entityType = 'topic';
 const entityIdMisspelled = '94-architectuz';
-const apiUrl = entities.constants.API_ORIGIN;
+const apiUrl = config.entity.origin;
 const apiEndpoint = '/entity/concept/base/94.json';
 const entityUri = 'http://data.europeana.eu/concept/base/94';
 const entityFilterField = 'skos_concept';

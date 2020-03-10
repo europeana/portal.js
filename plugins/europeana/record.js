@@ -5,8 +5,8 @@ import uniq from 'lodash/uniq';
 import merge from 'deepmerge';
 
 import { apiError } from './utils';
-import config from './api';
-import thumbnailUrl, { thumbnailTypeForMimeType } from  './thumbnail';
+import { config } from './';
+import { thumbnailUrl, thumbnailTypeForMimeType } from  './thumbnail';
 import { combineMerge } from '../utils';
 
 /**
@@ -248,7 +248,7 @@ function setMatchingEntities(fields, key, entities) {
  * @param {string} europeanaId ID of Europeana record
  * @return {Object} parsed record data
  */
-function getRecord(europeanaId, options = {}) {
+export function getRecord(europeanaId, options = {}) {
   const origin = options.origin || config.record.origin;
   const path = options.path || config.record.path;
 
@@ -335,5 +335,3 @@ function escapeLuceneSpecials(unescaped) {
     return memo;
   }, unescaped);
 }
-
-export default getRecord;
