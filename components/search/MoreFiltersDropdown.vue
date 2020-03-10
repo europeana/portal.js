@@ -38,12 +38,12 @@
           />
         </template>
         <template
-          v-for="(facet, index) in moreFacets"
+          v-for="(facet, index) in filterMoreFacets"
         >
           <MoreFiltersDropdownFacet
             v-if="facet.fields && facet.fields.length > 0"
             :key="index"
-            :fields="facet.fields"
+            :fields="filterFields(facet.name, facet.fields)"
             :name="facet.name"
             :selected="preSelected[facet.name]"
             @selectedOptions="updateSelected"
@@ -92,6 +92,7 @@
   import MoreFiltersDropdownFacet from './MoreFiltersDropdownFacet';
   import DateFilter from './DateFilter';
   import RadioGroupFilter from './RadioGroupFilter';
+
   export default {
     components: {
       MoreFiltersDropdownFacet,
@@ -106,6 +107,10 @@
       selected: {
         type: Object,
         default: () => {}
+      },
+      showContentTierToggle: {
+        type: Boolean,
+        default: true
       }
     },
     data() {
@@ -117,7 +122,8 @@
     },
     computed: {
       ...mapGetters({
-        collection: 'search/collection'
+        collection: 'search/collection',
+        filters: 'search/filters'
       }),
       anyOptionsSelected() {
         return this.selectedOptionsCount > 0;
@@ -148,6 +154,21 @@
         }
         return filtersChanged;
       },
+      filterMoreFacets() {
+        const filtered = [];
+        for (const facet of this.moreFacets) {
+          // decide whether or not to show the contenttier
+          // TODO: remove tierToggleEnabled check
+          if (facet.name === 'contentTier') {
+            if (this.tierToggleEnabled && this.showContentTierToggle) {
+              filtered.push(facet);
+            }
+          } else {
+            filtered.push(facet);
+          }
+        }
+        return filtered;
+      },
       moreFacetNames() {
         return this.moreFacets.map((facet) => facet.name);
       },
@@ -161,6 +182,10 @@
           return { start: proxyDctermsIssued[0], end: null, specific: true };
         }
         return range;
+      },
+      // TODO: remove tierToggleEnabled check
+      tierToggleEnabled() {
+        return Boolean(Number(process.env['ENABLE_CONTENT_TIER_TOGGLE']));
       }
     },
     watch: {
@@ -183,6 +208,13 @@
         }
         this.isCheckedSpecificDate = dateRange.specific;
         this.updateSelected(facetName, dateQuery);
+      },
+      filterFields(name, fields) {
+        // Only show option 0 for contentTier toggle
+        if (name === 'contentTier') {
+          return fields.filter(field => field.label === '"0"');
+        }
+        return fields;
       },
       updateSelected(facetName, selectedFields) {
         Vue.set(this.preSelected, facetName, selectedFields);

@@ -30,6 +30,7 @@
             />
             <MoreFiltersDropdown
               v-if="enableMoreFacets"
+              :show-content-tier-toggle="hasContentTierToggle"
               :more-facets="moreFacets"
               :selected="moreSelectedFacets"
               @changed="changeMoreFacets"
@@ -100,14 +101,6 @@
           </b-row>
           <b-row>
             <b-col>
-              <TierToggler
-                v-if="tierToggleEnabled && showContentTierToggle"
-                :active-state="contentTierActiveState"
-              />
-            </b-col>
-          </b-row>
-          <b-row>
-            <b-col>
               <PaginationNav
                 v-if="showPagination"
                 v-model="page"
@@ -132,7 +125,6 @@
   import SearchFilters from '../../components/search/SearchFilters';
   import PaginationNav from '../../components/generic/PaginationNav';
   import ViewToggles from '../../components/search/ViewToggles';
-  import TierToggler from '../../components/search/TierToggler';
   import { thematicCollections } from '../../plugins/europeana/search';
 
   import isEqual from 'lodash/isEqual';
@@ -151,8 +143,7 @@
       SearchResults,
       SearchFilters,
       PaginationNav,
-      ViewToggles,
-      TierToggler
+      ViewToggles
     },
     props: {
       perPage: {
@@ -177,7 +168,8 @@
     data() {
       return {
         coreFacetNames: ['collection', 'TYPE', 'COUNTRY', 'REUSABILITY'],
-        PROXY_DCTERMS_ISSUED: 'proxy_dcterms_issued'
+        PROXY_DCTERMS_ISSUED: 'proxy_dcterms_issued',
+        hasContentTierToggle: this.showContentTierToggle
       };
     },
     computed: {
@@ -215,9 +207,6 @@
 
         // This is a workaround
         return Number(this.$route.query.page || 1);
-      },
-      contentTierActiveState() {
-        return this.filters.contentTier && this.filters.contentTier.includes('*');
       },
       errorMessage() {
         if (!this.error) return null;
@@ -285,9 +274,6 @@
       showPagination() {
         return this.totalResults > this.perPage;
       },
-      tierToggleEnabled() {
-        return Boolean(Number(process.env['ENABLE_CONTENT_TIER_TOGGLE']));
-      },
       routeQueryView() {
         return this.$route.query.view;
       },
@@ -304,6 +290,9 @@
       routeQueryView() {
         this.view = this.routeQueryView;
       }
+    },
+    updated() {
+      this.hasContentTierToggle = this.filters['collection'] ? false : true;
     },
     methods: {
       facetDropdownType(name) {
@@ -339,12 +328,20 @@
 
         const updated = { ...current, ...updates };
 
-        // If any updated values are `null`, remove them from the query
         for (const key in updated) {
+          // If qf has a collection filter, remove the contenttier
+          if (key === 'qf' && typeof updated[key] === 'object') {
+            if (updated[key].find(filter => filter.startsWith('collection:'))) {
+              updated[key] = updated[key].filter(value => !value.startsWith('contentTier'));
+            }
+          }
+
+          // If any updated values are `null`, remove them from the query
           if (updated[key] === null) {
             delete updated[key];
           }
         }
+
         return updated;
       },
       resetFilters() {

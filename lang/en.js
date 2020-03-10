@@ -117,9 +117,15 @@ export default {
       }
     },
     "contentTier": {
-      "name": "Includes items not meeting our publishing criteria",
+      "name": "Content Quality",
       "options": {
-        "*": "Includes items not meeting our publishing criteria"
+        "0": "Includes items not meeting our publishing criteria"
+      }
+    },
+    "contentQuality": {
+      "name": "Content Quality",
+      "options": {
+        "not": "Items not matching our quality standards"
       }
     },
     "button": {

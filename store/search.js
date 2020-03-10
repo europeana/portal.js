@@ -14,7 +14,8 @@ export const defaultFacetNames = [
   'COLOURPALETTE',
   'IMAGE_ASPECTRATIO',
   'IMAGE_SIZE',
-  'MIME_TYPE'
+  'MIME_TYPE',
+  'contentTier'
 ];
 
 const filtersFromQf = (qfs) => {
