@@ -5,7 +5,7 @@ const i18nLocales = require('./plugins/i18n/locales.js');
 const i18nDateTime = require('./plugins/i18n/datetime.js');
 
 const routerMiddleware = ['legacy/index', 'l10n'];
-if (!Number(process.env['DISABLE_SSL_MIDDLEWARE'])) routerMiddleware.push('ssl');
+if (!Number(process.env['DISABLE_SSL_MIDDLEWARE'])) routerMiddleware.unshift('ssl');
 
 module.exports = {
   mode: 'universal',
