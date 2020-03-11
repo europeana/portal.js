@@ -4,7 +4,7 @@ const chromedriver = require('chromedriver');
 const geckodriver = require('geckodriver');
 
 function chrome(locale = 'en-GB', args = []) {
-  args = ['disable-gpu', `--lang=${locale}`].concat(args);
+  args = ['disable-gpu', `--lang=${locale}`, '--allow-insecure-localhost'].concat(args);
   return {
     webdriver: {
       server_path: chromedriver.path
@@ -31,7 +31,7 @@ module.exports = {
   test_settings: {
     default: {
       globals: {
-        url: 'http://localhost:1337'
+        url: 'https://localhost'
       },
       webdriver: {
         start_process: true,

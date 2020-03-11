@@ -9,7 +9,7 @@ const sleep = (milliseconds) => {
   return new Promise(resolve => setTimeout(resolve, milliseconds));
 };
 const host = process.env.HOST || '127.0.0.1';
-const port = process.env.PORT || 1337;
+const port = process.env.PORT || 443;
 const maxWaitTime = 90;
 
 const browserEnv = process.env.browser || 'gecko';

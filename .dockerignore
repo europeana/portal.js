@@ -1,3 +1,6 @@
+# dotenv
+.env
+
 # Docker config
 /docker
 

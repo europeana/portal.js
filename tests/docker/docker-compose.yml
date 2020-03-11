@@ -10,9 +10,11 @@ services:
   app:
     image: europeana/portaljs-app
     build:
-      context: ..
-      dockerfile: ./docker/app/Dockerfile
+      context: ../..
+      dockerfile: ./tests/docker/app/Dockerfile
+    volumes:
+      - "../..:/app"
     expose:
       - "8080"
     env_file:
-     - ../.env
+     - ../../.env
