@@ -124,7 +124,7 @@
             </div>
             <b-collapse id="extended-metadata">
               <MetadataField
-                v-for="(value, name) in fields"
+                v-for="(value, name) in fieldsAndKeywords"
                 :key="name"
                 :name="name"
                 :field-data="value"
@@ -174,6 +174,7 @@
   import { isIIIFPresentation, isRichMedia } from '../../plugins/media';
   import { langMapValueForLocale } from  '../../plugins/europeana/utils';
   import { searchEntities } from '../../plugins/europeana/entity';
+  import { search as searchAnnotations } from '../../plugins/europeana/annotation';
   import NotificationBanner from '../../components/generic/NotificationBanner';
 
   export default {
@@ -194,19 +195,20 @@
         altTitle: null,
         cardGridClass: null,
         concepts: null,
+        coreFields: null,
         description: null,
         error: null,
-        coreFields: null,
         fields: null,
         identifier: null,
         isShownAt: null,
         media: [],
         relatedEntities: [],
-        similarItems: [],
         selectedMediaItem: null,
-        useProxy: true,
+        similarItems: [],
+        taggingAnnotations: [],
         title: null,
-        type: null
+        type: null,
+        useProxy: true
       };
     },
 
@@ -214,6 +216,19 @@
       ...mapGetters({
         apiConfig: 'apis/config'
       }),
+      keywords() {
+        // Convert collection of annotations' prefLabels into a single langMap
+        return this.taggingAnnotations.reduce((memo, annotation) => {
+          for (const lang in annotation.body.prefLabel) {
+            if (!memo[lang]) memo[lang] = [];
+            memo[lang] = memo[lang].concat(annotation.body.prefLabel[lang]);
+          }
+          return memo;
+        }, {});
+      },
+      fieldsAndKeywords() {
+        return { ...this.fields, ...{ keywords: this.keywords } };
+      },
       europeanaAgents() {
         return (this.agents || []).filter((agent) => agent.about.startsWith(`${this.apiConfig.data.origin}/agent/`));
       },
@@ -328,12 +343,22 @@
         }
       }
 
+      const taggingAnnotationSearchParams = {
+        query: `target_record_id:"${this.identifier}"`,
+        profile: 'dereference',
+        qf:[
+          'motivation:tagging'
+        ]
+      };
+
       axios.all([
+        searchAnnotations(taggingAnnotationSearchParams),
         searchEntities(this.europeanaEntityUris),
         this.getSimilarItems()
       ])
-        .then(axios.spread((related, similar) => {
-          this.relatedEntities = related;
+        .then(axios.spread((taggingAnnotations, entities, similar) => {
+          this.taggingAnnotations = taggingAnnotations;
+          this.relatedEntities = entities;
           this.similarItems = similar.results;
         }));
 
