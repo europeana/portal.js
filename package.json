@@ -94,6 +94,7 @@
     "chromedriver": "^80.0.0",
     "concurrently": "^4.1.0",
     "contentful-cli": "^1.2.3",
+    "cosmiconfig": "^5.2.1",
     "cssesc": "^3.0.0",
     "cucumber": "^5.1.0",
     "cucumber-pretty": "^1.5.0",

@@ -37,7 +37,7 @@ const factory = (propsData) => mount(MediaActionBar, {
   store,
   propsData,
   mocks: {
-    $t: (key) => key
+    $t: (key) => `TRANSLATED: ${key}`
   }
 });
 
@@ -64,6 +64,10 @@ describe('components/record/MediaActionBar', () => {
 
     it('does not include the link to the media', () => {
       (downloadLink.attributes().href === undefined).should.be.true;
+    });
+
+    it('sets a title attribute', () => {
+      downloadLink.attributes().title.should.eq('TRANSLATED: record.downloadCopyrightInfo');
     });
   });
 

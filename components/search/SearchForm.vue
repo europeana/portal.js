@@ -58,7 +58,6 @@
 <script>
   import AutoSuggest from './AutoSuggest';
   import SearchBarPill from './SearchBarPill';
-  import apiConfig from '../../plugins/europeana/api';
   import { getEntitySuggestions, getEntityTypeHumanReadable, getEntitySlug } from '../../plugins/europeana/entity';
   import { mapGetters } from 'vuex';
 
@@ -92,6 +91,7 @@
 
     computed: {
       ...mapGetters({
+        apiConfig: 'apis/config',
         queryUpdatesForFacetChanges: 'search/queryUpdatesForFacetChanges'
       }),
 
@@ -206,7 +206,7 @@
           id: entityUri,
           prefLabel: this.suggestions[entityUri]
         };
-        const uriMatch = entityUri.match(`^${apiConfig.data.origin}/([^/]+)(/base)?/(.+)$`);
+        const uriMatch = entityUri.match(`^${this.apiConfig.data.origin}/([^/]+)(/base)?/(.+)$`);
 
         return this.localePath({
           name: 'collections-type-all', params: {

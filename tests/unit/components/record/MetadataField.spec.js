@@ -103,24 +103,69 @@ describe('components/record/MetadataField', () => {
       });
 
       describe('URIs', () => {
-        it('omits them if there are other values', () => {
-          const props = { name: 'dcCreator', fieldData: { def: ['http://data.europeana.eu/agent/base/123', 'Artist'] }, omitUrisIfOtherValues: true };
-          const wrapper = factory();
+        context('with omitUrisIfOtherValues set to true', () => {
+          it('ommits them if there are other values in any language', () => {
+            const props = { name: 'dcCreator', fieldData: { def: ['http://example.org/unresolvable'], pl: ['Polish Value'] }, omitUrisIfOtherValues: true  };
+            const wrapper = factory();
 
-          wrapper.setProps(props);
+            wrapper.setProps(props);
 
-          const fieldValue = wrapper.find('[data-qa="metadata field"] ul [data-qa="literal value"]');
-          fieldValue.text().should.eq(props.fieldData.def[1]);
-        });
+            const fieldValue = wrapper.find('[data-qa="metadata field"] ul [data-qa="literal value"]');
+            fieldValue.text().should.eq(props.fieldData.pl[0]);
+          });
 
-        it('includes them if there are no other values', () => {
-          const props = { name: 'dcCreator', fieldData: { def: ['http://data.europeana.eu/agent/base/123'] }, omitUrisIfOtherValues: true };
-          const wrapper = factory();
+          it('omits them if there are other values', () => {
+            const props = { name: 'dcCreator', fieldData: { def: ['http://data.europeana.eu/agent/base/123', 'Artist'] }, omitUrisIfOtherValues: true };
+            const wrapper = factory();
 
-          wrapper.setProps(props);
+            wrapper.setProps(props);
 
-          const fieldValue = wrapper.find('[data-qa="metadata field"] ul [data-qa="literal value"]');
-          fieldValue.text().should.eq(props.fieldData.def[0]);
+            const fieldValue = wrapper.find('[data-qa="metadata field"] ul [data-qa="literal value"]');
+            fieldValue.text().should.eq(props.fieldData.def[1]);
+          });
+
+          it('only include them if there are no other values in any other language', () => {
+            const props = { name: 'dcCreator', fieldData: { def: ['http://data.europeana.eu/agent/base/123'] }, omitUrisIfOtherValues: true };
+            const wrapper = factory();
+
+            wrapper.setProps(props);
+
+            const fieldValue = wrapper.find('[data-qa="metadata field"] ul [data-qa="literal value"]');
+            fieldValue.text().should.eq(props.fieldData.def[0]);
+          });
+          context('with the omitAllUris setting set to true', () => {
+            const options = { omitUrisIfOtherValues: true, omitAllUris: true };
+
+            it('ommits them if there are other values in any language', () => {
+              const props = { name: 'dcCreator', fieldData: { def: ['http://data.europeana.eu/agent/base/123'], pl: ['Polish Value'] }, ...options };
+              const wrapper = factory();
+
+              wrapper.setProps(props);
+
+              const fieldValue = wrapper.find('[data-qa="metadata field"] ul [data-qa="literal value"]');
+              fieldValue.text().should.eq(props.fieldData.pl[0]);
+            });
+
+            it('omits them if there are other values', () => {
+              const props = { name: 'dcCreator', fieldData: { def: ['http://data.europeana.eu/agent/base/123', 'Artist'] }, ...options };
+              const wrapper = factory();
+
+              wrapper.setProps(props);
+
+              const fieldValue = wrapper.find('[data-qa="metadata field"] ul [data-qa="literal value"]');
+              fieldValue.text().should.eq(props.fieldData.def[1]);
+            });
+
+            it('omits them if it is the only value', () => {
+              const props = { name: 'dcCreator', fieldData: { def: ['http://data.europeana.eu/agent/base/123'] }, ...options };
+              const wrapper = factory();
+
+              wrapper.setProps(props);
+
+              const fieldValue = wrapper.find('[data-qa="metadata field"] ul [data-qa="literal value"]');
+              fieldValue.exists().should.be.false;
+            });
+          });
         });
       });
     });

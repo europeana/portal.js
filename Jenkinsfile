@@ -17,7 +17,10 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        configFileProvider([configFile(fileId: "portaljs.${env.CF_SPACE}.env", targetLocation: '.env')]) {
+        configFileProvider([
+          configFile(fileId: "portaljs.${env.CF_SPACE}.env", targetLocation: '.env'),
+          configFile(fileId: "portaljs.${env.CF_SPACE}.apisrc.js", targetLocation: '.apisrc.js')
+        ]) {
           sh 'rm -rf node_modules'
           sh 'npm install'
           sh 'npm run build'
@@ -36,9 +39,6 @@ pipeline {
         HTTP_DIGEST_ACL=credentials("portaljs.${env.CF_SPACE}.http.digest.acl")
       }
       steps {
-        // TODO: restore when implementing APM connection
-        // sh 'echo "services:" >> manifest.yml'
-        // sh 'echo "  - elastic-apm" >> manifest.yml'
         sh 'sed -i "s|env:|env:\\n  CTF_CPA_ACCESS_TOKEN: ${CTF_CPA_ACCESS_TOKEN}|" manifest.yml'
         sh 'sed -i "s|env:|env:\\n  HTTP_DIGEST_ACL: ${HTTP_DIGEST_ACL}|" manifest.yml'
         sh 'cf blue-green-deploy ${CF_APP_NAME} -f manifest.yml --delete-old-apps'

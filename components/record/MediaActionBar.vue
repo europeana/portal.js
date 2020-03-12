@@ -20,6 +20,7 @@
           </b-button>
           <b-button
             v-if="url"
+            :title="downloadDisabled ? $t('record.downloadCopyrightInfo') : false"
             :href="downloadUrl"
             :disabled="downloadDisabled"
             variant="outline-primary text-decoration-none"

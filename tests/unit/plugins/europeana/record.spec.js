@@ -1,8 +1,8 @@
 import nock from 'nock';
-import thumbnailUrl from  '../../../../plugins/europeana/thumbnail';
-import config from '../../../../plugins/europeana/api';
-import getRecord, {
-  isEuropeanaRecordId, similarItemsQuery
+import { thumbnailUrl } from  '../../../../plugins/europeana/thumbnail';
+import config from '../../../../modules/apis/defaults';
+import {
+  getRecord, isEuropeanaRecordId, similarItemsQuery
 } from '../../../../plugins/europeana/record';
 
 const axios = require('axios');

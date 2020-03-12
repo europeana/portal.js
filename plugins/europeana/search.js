@@ -4,7 +4,7 @@
 
 import axios from 'axios';
 import qs from 'qs';
-import config from './api';
+import { config } from './';
 import { apiError } from './utils';
 import { genericThumbnail } from './thumbnail';
 
@@ -105,7 +105,7 @@ function resultsFromApiResponse(response) {
  * @param {string} options.path path prefix for API, overriding default `config.record.path`
  * @return {{results: Object[], totalResults: number, facets: FacetSet, error: string}} search results for display
  */
-function search(params, options = {}) {
+export function search(params, options = {}) {
   const maxResults = 1000;
   const perPage = params.rows === undefined ? 24 : Number(params.rows);
   const page = params.page || 1;
@@ -164,7 +164,7 @@ export function addContentTierFilter(qf) {
     const contentTierFilter = hasFilterForField(newQf, 'collection') ? '2 OR 3 OR 4' : '1 OR 2 OR 3 OR 4';
     newQf.push(`contentTier:(${contentTierFilter})`);
   }
-  // contentTier:* is irrelevant so is removed
+  // contentTier:* is redundant so is removed
   newQf = newQf.filter(v => v !== 'contentTier:*');
 
   return newQf;
@@ -173,5 +173,3 @@ export function addContentTierFilter(qf) {
 const hasFilterForField = (filters, fieldName) => {
   return filters.some(v => new RegExp(`^${fieldName}:`).test(v));
 };
-
-export default search;

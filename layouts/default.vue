@@ -50,12 +50,12 @@
     },
 
     middleware({ store, route }) {
-      store.commit('setCanonicalUrlPath', route.fullPath);
+      store.commit('http/setCanonicalUrlPath', route.fullPath);
     },
 
     computed: {
       ...mapGetters({
-        canonicalUrl: 'canonicalUrl'
+        canonicalUrl: 'http/canonicalUrl'
       }),
       enableAutoSuggest() {
         // Auto suggest on search form will be disabled unless toggled on by env var,

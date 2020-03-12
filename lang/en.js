@@ -65,7 +65,8 @@ export default {
       "edmIsSimilarTo": "Is similar to",
       "edmIsSuccessorOf": "Is successor of",
       "edmRealizes": "Realises",
-      "wasPresentAt": "Was present at"
+      "wasPresentAt": "Was present at",
+      "keywords": "Keywords (provided by the community)"
     },
     "webResource": {
       "dcDescription": "Description",
@@ -396,6 +397,7 @@ export default {
   "loadingResults": "Loading results",
   "edmIsShownAtLinkAlt": "View at the provider's website",
   "record": {
+    "downloadCopyrightInfo": "This item is in copyright and can not be downloaded.",
     "extendedInformation": "Extended information",
     "hideAll": "Hide all information",
     "record": "Record",
