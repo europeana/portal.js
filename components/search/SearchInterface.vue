@@ -30,7 +30,6 @@
             />
             <MoreFiltersDropdown
               v-if="enableMoreFacets"
-              :show-content-tier-toggle="hasContentTierToggle"
               :more-facets="moreFacets"
               :selected="moreSelectedFacets"
               @changed="changeMoreFacets"
@@ -159,17 +158,12 @@
         default: () => {
           return { name: 'search' };
         }
-      },
-      showContentTierToggle: {
-        type: Boolean,
-        default: true
       }
     },
     data() {
       return {
         coreFacetNames: ['collection', 'TYPE', 'COUNTRY', 'REUSABILITY'],
-        PROXY_DCTERMS_ISSUED: 'proxy_dcterms_issued',
-        hasContentTierToggle: this.showContentTierToggle
+        PROXY_DCTERMS_ISSUED: 'proxy_dcterms_issued'
       };
     },
     computed: {
@@ -291,9 +285,6 @@
         this.view = this.routeQueryView;
       }
     },
-    updated() {
-      this.hasContentTierToggle = this.filters['collection'] ? false : true;
-    },
     methods: {
       facetDropdownType(name) {
         return name === 'collection' ? 'radio' : 'checkbox';
@@ -329,13 +320,6 @@
         const updated = { ...current, ...updates };
 
         for (const key in updated) {
-          // If qf has a collection filter, remove the contenttier
-          if (key === 'qf' && typeof updated[key] === 'object') {
-            if (updated[key].find(filter => filter.startsWith('collection:'))) {
-              updated[key] = updated[key].filter(value => !value.startsWith('contentTier'));
-            }
-          }
-
           // If any updated values are `null`, remove them from the query
           if (updated[key] === null) {
             delete updated[key];

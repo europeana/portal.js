@@ -38,7 +38,7 @@
           />
         </template>
         <template
-          v-for="(facet, index) in filterMoreFacets"
+          v-for="(facet, index) in moreFacets"
         >
           <MoreFiltersDropdownFacet
             v-if="facet.fields && facet.fields.length > 0"
@@ -154,21 +154,6 @@
         }
         return filtersChanged;
       },
-      filterMoreFacets() {
-        const filtered = [];
-        for (const facet of this.moreFacets) {
-          // decide whether or not to show the contenttier
-          // TODO: remove tierToggleEnabled check
-          if (facet.name === 'contentTier') {
-            if (this.tierToggleEnabled && this.showContentTierToggle) {
-              filtered.push(facet);
-            }
-          } else {
-            filtered.push(facet);
-          }
-        }
-        return filtered;
-      },
       moreFacetNames() {
         return this.moreFacets.map((facet) => facet.name);
       },
@@ -182,10 +167,6 @@
           return { start: proxyDctermsIssued[0], end: null, specific: true };
         }
         return range;
-      },
-      // TODO: remove tierToggleEnabled check
-      tierToggleEnabled() {
-        return Boolean(Number(process.env['ENABLE_CONTENT_TIER_TOGGLE']));
       }
     },
     watch: {
