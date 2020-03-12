@@ -4,7 +4,7 @@ pipeline {
   }
   agent {
     dockerfile {
-      filename 'Dockerfile.Jenkins'
+      dir 'docker/deploy'
       args "-u node:node"
     }
   }

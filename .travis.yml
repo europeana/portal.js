@@ -1,5 +1,7 @@
 dist: xenial
 language: node_js
+services:
+  - docker
 before_install:
   - sudo apt-get remove --purge -yq google-chrome-stable
   - sudo apt-get install -yq chromium-browser

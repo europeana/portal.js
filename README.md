@@ -48,7 +48,7 @@ To run a single file: `npm run test:unit -g tests/unit/[REST_OF_FILE_PATH]`
 
 `npm run test:e2e` and `npm run test:e2e:ci` just run everything.
 
-If you've manually started the test server with: `npm run build:test && npm run start:test`, then you can for example:
+If you've manually started the test server with: `NODE_ENV=test npm run stack:up`, then you can for example:
 
 Run only the header.feature file using path.
 
