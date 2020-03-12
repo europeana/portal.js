@@ -43,8 +43,8 @@
     "test:chrome": "cross-env browser=chrome cucumber-js",
     "test:chrome:headless": "cross-env browser=chromeHeadless cucumber-js",
     "test:gecko": "cross-env browser=gecko cucumber-js --no-strict",
-    "test:e2e": "cross-env NODE_ENV=test npm run stack:up:detach && npm run test:chrome -- -p all; npm run stack:down",
-    "test:e2e:ci": "cross-env NODE_ENV=test npm run stack:up:detach && npm run test:chrome:headless -- -p all; npm run stack:down"
+    "test:e2e": "cross-env NODE_ENV=test npm run stack:up:detach && npm run test:chrome -- -p all; exit=$?; npm run stack:down; exit $exit",
+    "test:e2e:ci": "cross-env NODE_ENV=test npm run stack:up:detach && npm run test:chrome:headless -- -p all; exit=$?; npm run stack:down; exit $exit"
   },
   "dependencies": {
     "@elastic/apm-rum": "^4.7.0",
@@ -95,7 +95,6 @@
     "chai-as-promised": "^7.1.1",
     "chai-string": "^1.5.0",
     "chromedriver": "^80.0.0",
-    "concurrently": "^4.1.0",
     "contentful-cli": "^1.2.3",
     "cosmiconfig": "^5.2.1",
     "cssesc": "^3.0.0",
