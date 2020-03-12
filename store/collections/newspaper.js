@@ -1,23 +1,25 @@
-import apiConfig from '../../plugins/europeana/api';
-
 export const state = () => ({
   apiOptions: {},
   apiParams: {}
 });
 
 export const getters = {
+  apiConfig: (state, getters, rootState, rootGetters) => {
+    return rootGetters['apis/config'];
+  },
+
   apiOptions: (state, getters) => {
     const options = Object.assign({}, state.apiOptions);
 
     if (getters.apiParams.api === 'fulltext') {
-      options.origin = apiConfig.newspaper.origin;
-      options.path = apiConfig.newspaper.path;
+      options.origin = getters.apiConfig.newspaper.origin;
+      options.path = getters.apiConfig.newspaper.path;
     }
 
     return options;
   },
 
-  apiParams: (state) => {
+  apiParams: (state, getters) => {
     const params = Object.assign({}, state.apiParams);
 
     // Ensure newspapers collection gets fulltext API by default
@@ -31,7 +33,7 @@ export const getters = {
       params.qf = ([].concat(params.qf)).filter(qf => !/^contentTier:/.test(qf));
       params.qf.push('contentTier:*');
 
-      params.wskey = apiConfig.newspaper.key;
+      params.wskey = getters.apiConfig.newspaper.key;
     }
 
     return params;

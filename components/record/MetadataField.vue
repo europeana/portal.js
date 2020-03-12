@@ -74,6 +74,10 @@
         type: Number,
         default: -1
       },
+      omitAllUris: {
+        type: Boolean,
+        default: false
+      },
       omitUrisIfOtherValues: {
         type: Boolean,
         default: false
@@ -102,8 +106,7 @@
         } else if (Array.isArray(this.fieldData)) {
           return { values: this.fieldData, code: '' };
         }
-
-        return langMapValueForLocale(this.fieldData, this.$i18n.locale, { omitUrisIfOtherValues: this.omitUrisIfOtherValues });
+        return langMapValueForLocale(this.fieldData, this.$i18n.locale, { omitUrisIfOtherValues: this.omitUrisIfOtherValues, omitAllUris: this.omitAllUris });
       },
 
       hasValuesForLocale() {

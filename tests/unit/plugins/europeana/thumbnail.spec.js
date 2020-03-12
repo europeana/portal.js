@@ -1,6 +1,5 @@
-import thumbnailUrl, {
-  thumbnailTypeForMimeType,
-  genericThumbnail
+import {
+  thumbnailUrl, thumbnailTypeForMimeType, genericThumbnail
 } from '../../../../plugins/europeana/thumbnail';
 
 describe('plugins/europeana/thumbnail', () => {
