@@ -38,9 +38,9 @@ export default ({ route, redirect, req }) => {
 
   if (ssl && routeBlacklisted) {
     // redirect to non-ssl
-    redirect(`http://${host}${route.fullPath}`);
+    return redirect(`http://${host}${route.fullPath}`);
   } else if (!ssl && !routeBlacklisted) {
     // redirect to ssl
-    redirect(`https://${host}${route.fullPath}`);
+    return redirect(`https://${host}${route.fullPath}`);
   }
 };
