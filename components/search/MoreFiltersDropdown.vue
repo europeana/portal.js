@@ -107,10 +107,6 @@
       selected: {
         type: Object,
         default: () => {}
-      },
-      showContentTierToggle: {
-        type: Boolean,
-        default: true
       }
     },
     data() {
@@ -122,8 +118,7 @@
     },
     computed: {
       ...mapGetters({
-        collection: 'search/collection',
-        filters: 'search/filters'
+        collection: 'search/collection'
       }),
       anyOptionsSelected() {
         return this.selectedOptionsCount > 0;
