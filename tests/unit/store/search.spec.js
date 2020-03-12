@@ -554,6 +554,7 @@ describe('store/search', () => {
         const commit = sinon.spy();
         const dispatch = sinon.spy();
         const getters = sinon.spy();
+        const rootGetters = sinon.spy();
         const state = {
           userParams: {
             query: userQuery,
@@ -564,7 +565,7 @@ describe('store/search', () => {
           }
         };
 
-        await store.actions.deriveApiSettings({ commit, dispatch, state, getters });
+        await store.actions.deriveApiSettings({ commit, dispatch, state, getters, rootGetters });
 
         commit.should.have.been.calledWith('set', ['apiParams', {
           query: userQuery,

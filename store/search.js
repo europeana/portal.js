@@ -262,7 +262,7 @@ export const actions = {
   },
 
   // TODO: replace with a getter?
-  async deriveApiSettings({ commit, dispatch, state, getters }) {
+  async deriveApiSettings({ commit, dispatch, state, getters, rootGetters }) {
     // Coerce qf from user input into an array as it may be a single string
 
     const userParams = Object.assign({}, state.userParams || {});
@@ -287,7 +287,7 @@ export const actions = {
     commit('set', ['apiParams', apiParams]);
     commit('set', ['apiOptions', apiOptions]);
 
-    if (getters.collection) {
+    if (getters.collection || rootGetters['entity/id']) {
       await dispatch('applyAnyCollectionSettings');
       await dispatch('applyCollectionSpecificSettings');
     }
