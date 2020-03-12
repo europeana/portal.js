@@ -72,33 +72,19 @@
   }
 
   &.entity-card {
-    background: transparent;
-    border: 0;
-    box-shadow: none;
-    justify-content: flex-end;
-    margin-bottom: 2.5rem;
-    margin-left: 0.9rem;
-
-    img {
-      border-radius: 4px;
-      object-fit: cover;
-      position: absolute;
-      height: 100%;
-      width: 100%;
-    }
-
-    a {
-      justify-content: flex-end;
-    }
-
-    .card-body {
-      background: $white;
-      border-radius: $border-radius-small;
-      box-shadow: $boxshadow-small;
-      margin-bottom: -1rem;
-      margin-left: -1rem;
-      transition: box-shadow 0.25s;
-      z-index: 1;
+    .card-img {
+      position: relative;
+      &::after {
+        border-bottom: 88px solid $white;
+        border-left: 44px solid transparent;
+        bottom: 0;
+        content: '';
+        display: block;
+        height: 0;
+        position: absolute;
+        right: 0;
+        width: 0;
+      }
     }
 
     @media (min-width: $bp-medium) {      
@@ -191,15 +177,6 @@
 
   &:hover {
     box-shadow: $boxshadow-large;
-  }
-
-  &.entity-card:hover {
-    box-shadow: none;
-
-    .card-body {
-      box-shadow: $boxshadow-large;
-      background-color: $offwhite;
-    }
   }
 }
 
