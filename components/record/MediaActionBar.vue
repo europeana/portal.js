@@ -20,7 +20,9 @@
           </b-button>
           <b-button
             v-if="url"
+            :title="downloadDisabled ? $t('record.downloadCopyrightInfo') : false"
             :href="downloadUrl"
+            :disabled="downloadDisabled"
             variant="outline-primary text-decoration-none"
             data-qa="download button"
             size="lg"
@@ -155,7 +157,12 @@
       },
 
       downloadUrl() {
-        return this.useProxy ? this.$options.filters.proxyMedia(this.url, this.europeanaIdentifier) : this.url;
+        return this.downloadDisabled ? null :
+          (this.useProxy ? this.$options.filters.proxyMedia(this.url, this.europeanaIdentifier) : this.url);
+      },
+
+      downloadDisabled() {
+        return this.rightsStatement && this.rightsStatement.includes('/InC/');
       }
     },
 

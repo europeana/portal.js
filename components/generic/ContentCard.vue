@@ -116,6 +116,10 @@
         type: String,
         default: 'default' // other options: entity, mini, list
       },
+      omitAllUris: {
+        type: Boolean,
+        default: false
+      },
       omitUrisIfOtherValues: {
         type: Boolean,
         default: false
@@ -163,7 +167,7 @@
           } else if (Array.isArray(value)) {
             return { values: value, code: null };
           } else {
-            return langMapValueForLocale(value, this.$i18n.locale, { omitUrisIfOtherValues: this.omitUrisIfOtherValues });
+            return langMapValueForLocale(value, this.$i18n.locale, { omitUrisIfOtherValues: this.omitUrisIfOtherValues, omitAllUris: this.omitAllUris });
           }
         });
       },

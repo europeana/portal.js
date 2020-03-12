@@ -1,13 +1,18 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 import VueI18n from 'vue-i18n';
+import Vuex from 'vuex';
 import SmartLink from '../../../../components/generic/SmartLink.vue';
 import MediaActionBar from '../../../../components/record/MediaActionBar.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 localVue.use(VueI18n);
+localVue.use(Vuex);
 localVue.component('SmartLink', SmartLink);
+
+localVue.filter('proxyMedia', () => 'proxied');
+
 const i18n = new VueI18n({
   locale: 'en',
   messages: {
@@ -20,13 +25,19 @@ const i18n = new VueI18n({
   }
 });
 
+const store = new Vuex.Store({
+  getters: {
+    canonicalUrl: () => 'https://www.example.org/page'
+  }
+});
 
 const factory = (propsData) => mount(MediaActionBar, {
   localVue,
   i18n,
+  store,
   propsData,
   mocks: {
-    $t: (key) => key
+    $t: (key) => `TRANSLATED: ${key}`
   }
 });
 
@@ -36,18 +47,46 @@ describe('components/record/MediaActionBar', () => {
   const rightsStatement = 'https://creativecommons.org/publicdomain/mark/1.0/';
   const useProxy = true;
 
-  it('includes a proxied media download button', () => {
+  context('when rights statement is In Copyright (InC)', () => {
+    const rightsStatement = 'http://rightsstatements.org/vocab/InC/1.0/';
+
+    const wrapper = factory({
+      europeanaIdentifier,
+      url,
+      useProxy,
+      rightsStatement
+    });
+    const downloadLink = wrapper.find('[data-qa="download button"]');
+
+    it('disables the download buton', () => {
+      downloadLink.attributes().disabled.should.eq('disabled');
+    });
+
+    it('does not include the link to the media', () => {
+      (downloadLink.attributes().href === undefined).should.be.true;
+    });
+
+    it('sets a title attribute', () => {
+      downloadLink.attributes().title.should.eq('TRANSLATED: record.downloadCopyrightInfo');
+    });
+  });
+
+  context('when rights statement is not In Copyright (InC)', () => {
     const wrapper = factory({
       europeanaIdentifier,
       url,
       useProxy
     });
 
-    const expectedHref = `https://proxy.europeana.eu${europeanaIdentifier}?` +
-      new URLSearchParams({ view: url }).toString();
     const downloadLink = wrapper.find('[data-qa="download button"]');
 
-    downloadLink.attributes().href.should.eq(expectedHref);
+    it('includes a proxied media download button', () => {
+      downloadLink.attributes().href.should.eq('proxied');
+    });
+
+    it('does not disable the download button', () => {
+      (downloadLink.attributes().disabled === undefined).should.be.true;
+    });
   });
 
   it('includes a rights statement as a link', () => {

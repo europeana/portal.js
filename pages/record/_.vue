@@ -124,7 +124,7 @@
             </div>
             <b-collapse id="extended-metadata">
               <MetadataField
-                v-for="(value, name) in fields"
+                v-for="(value, name) in fieldsAndKeywords"
                 :key="name"
                 :name="name"
                 :field-data="value"
@@ -159,6 +159,7 @@
 
 <script>
   import axios from 'axios';
+  import { mapGetters } from 'vuex';
 
   import AlertMessage from '../../components/generic/AlertMessage';
   import EntityCards from '../../components/entity/EntityCards';
@@ -168,12 +169,12 @@
   import MediaThumbnailGrid from '../../components/record/MediaThumbnailGrid';
   import MetadataField from '../../components/record/MetadataField';
 
-  import apiConfig from '../../plugins/europeana/api';
-  import getRecord, { similarItemsQuery } from '../../plugins/europeana/record';
-  import search from '../../plugins/europeana/search';
+  import { getRecord, similarItemsQuery } from '../../plugins/europeana/record';
+  import { search } from '../../plugins/europeana/search';
   import { isIIIFPresentation, isRichMedia } from '../../plugins/media';
   import { langMapValueForLocale } from  '../../plugins/europeana/utils';
   import { searchEntities } from '../../plugins/europeana/entity';
+  import { search as searchAnnotations } from '../../plugins/europeana/annotation';
   import NotificationBanner from '../../components/generic/NotificationBanner';
 
   export default {
@@ -194,28 +195,45 @@
         altTitle: null,
         cardGridClass: null,
         concepts: null,
+        coreFields: null,
         description: null,
         error: null,
-        coreFields: null,
         fields: null,
         identifier: null,
         isShownAt: null,
         media: [],
         relatedEntities: [],
-        similarItems: [],
         selectedMediaItem: null,
-        useProxy: true,
+        similarItems: [],
+        taggingAnnotations: [],
         title: null,
-        type: null
+        type: null,
+        useProxy: true
       };
     },
 
     computed: {
+      ...mapGetters({
+        apiConfig: 'apis/config'
+      }),
+      keywords() {
+        // Convert collection of annotations' prefLabels into a single langMap
+        return this.taggingAnnotations.reduce((memo, annotation) => {
+          for (const lang in annotation.body.prefLabel) {
+            if (!memo[lang]) memo[lang] = [];
+            memo[lang] = memo[lang].concat(annotation.body.prefLabel[lang]);
+          }
+          return memo;
+        }, {});
+      },
+      fieldsAndKeywords() {
+        return { ...this.fields, ...{ keywords: this.keywords } };
+      },
       europeanaAgents() {
-        return (this.agents || []).filter((agent) => agent.about.startsWith(`${apiConfig.data.origin}/agent/`));
+        return (this.agents || []).filter((agent) => agent.about.startsWith(`${this.apiConfig.data.origin}/agent/`));
       },
       europeanaConcepts() {
-        return (this.concepts || []).filter((concept) => concept.about.startsWith(`${apiConfig.data.origin}/concept/`));
+        return (this.concepts || []).filter((concept) => concept.about.startsWith(`${this.apiConfig.data.origin}/concept/`));
       },
       europeanaEntityUris() {
         const entities = this.europeanaConcepts.concat(this.europeanaAgents);
@@ -325,12 +343,22 @@
         }
       }
 
+      const taggingAnnotationSearchParams = {
+        query: `target_record_id:"${this.identifier}"`,
+        profile: 'dereference',
+        qf:[
+          'motivation:tagging'
+        ]
+      };
+
       axios.all([
+        searchAnnotations(taggingAnnotationSearchParams),
         searchEntities(this.europeanaEntityUris),
         this.getSimilarItems()
       ])
-        .then(axios.spread((related, similar) => {
-          this.relatedEntities = related;
+        .then(axios.spread((taggingAnnotations, entities, similar) => {
+          this.taggingAnnotations = taggingAnnotations;
+          this.relatedEntities = entities;
           this.similarItems = similar.results;
         }));
 
@@ -396,8 +424,7 @@
           { hid: 'og:title', property: 'og:title', content: this.metaTitle },
           { hid: 'og:description', property: 'og:description', content: this.metaDescription },
           { hid: 'og:image', property: 'og:image', content: this.selectedMediaImage.src ? this.selectedMediaImage.src : '' },
-          { hid: 'og:type', property: 'og:type', content: 'article' },
-          { hid: 'og:url', property: 'og:url', content: this.canonicalUrl }
+          { hid: 'og:type', property: 'og:type', content: 'article' }
         ]
       };
     }
