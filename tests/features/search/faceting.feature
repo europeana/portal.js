@@ -210,6 +210,14 @@ Feature: Search faceting
     When I click the `more filters dropdown button`
     Then I see a `contentTier facet`
 
+  Scenario: No tier filter on search page when collection is applied
+    Given I am on the `search page`
+    And I click the `collection dropdown button`
+    And I check the "fashion" "collection" radio
+    And I click the `collection apply button`
+    And I wait for the page to load
+    Then I don't have a `contentTier facet`
+
   Scenario: Clear filters using using `clear all filter` button
     Given I am on the `search page`
     When I click the `COUNTRY dropdown button`
