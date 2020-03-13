@@ -38,7 +38,7 @@
 </template>
 
 <script>
-  import MediaImage from '../../components/record/MediaImage';
+  import MediaImage from './MediaImage';
   import VideoPlayer from '../../components/media/VideoPlayer';
   import AudioPlayer from '../../components/media/AudioPlayer';
   import HTMLEmbed from '../../components/generic/HTMLEmbed';

@@ -1,7 +1,7 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 
-import MediaThumbnailGrid from '../../../../components/record/MediaThumbnailGrid.vue';
+import MediaThumbnailGrid from '../../../../components/item/MediaThumbnailGrid.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
@@ -35,7 +35,7 @@ const selected = 'http://www.mimo-db.eu/media/GNM/IMAGE/MIR1097_1279787057222_2.
 const nonSelected = 'http://www.mimo-db.eu/media/GNM/IMAGE/MIR1097_1289919650555_2.jpg';
 const defaultThumbnailType = 'TEXT';
 
-describe('components/record/MediaThumbnailGrid', () => {
+describe('components/item/MediaThumbnailGrid', () => {
   it('shows a thumbnail for each media item, small by default', () => {
     const wrapper = factory({ media, selected, defaultThumbnailType });
 

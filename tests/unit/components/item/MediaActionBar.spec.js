@@ -3,7 +3,7 @@ import BootstrapVue from 'bootstrap-vue';
 import VueI18n from 'vue-i18n';
 import Vuex from 'vuex';
 import SmartLink from '../../../../components/generic/SmartLink.vue';
-import MediaActionBar from '../../../../components/record/MediaActionBar.vue';
+import MediaActionBar from '../../../../components/item/MediaActionBar.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
@@ -41,7 +41,7 @@ const factory = (propsData) => mount(MediaActionBar, {
   }
 });
 
-describe('components/record/MediaActionBar', () => {
+describe('components/item/MediaActionBar', () => {
   const europeanaIdentifier = '/09876/zyxwvu';
   const url = 'https://www.example.org/videos/zyxwvu.mp4';
   const rightsStatement = 'https://creativecommons.org/publicdomain/mark/1.0/';
