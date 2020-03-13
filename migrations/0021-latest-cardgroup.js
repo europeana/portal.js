@@ -14,7 +14,10 @@ module.exports = function(migration) {
     .validations([
       {
         in: ['Exhibitions', 'Galleries']
-      }
+      },
+      {
+        unique: true
+      }     
     ])
     .disabled(false)
     .omitted(false);
