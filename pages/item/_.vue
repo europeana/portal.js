@@ -13,7 +13,7 @@
     </b-container>
     <b-container
       v-else
-      data-qa="record page"
+      data-qa="item page"
     >
       <b-row class="my-5">
         <b-col
