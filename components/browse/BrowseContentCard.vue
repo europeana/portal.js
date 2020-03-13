@@ -99,7 +99,7 @@
       },
       recordRouterLink(identifier) {
         return {
-          name: 'record-all', params: { pathMatch: identifier.slice(1) }
+          name: 'item-all', params: { pathMatch: identifier.slice(1) }
         };
       }
     }
