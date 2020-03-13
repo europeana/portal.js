@@ -317,7 +317,7 @@
       }
     },
 
-    asyncData({ env, params, res, app, redirect, query }) {
+    asyncData({ params, res, query }) {
       return getRecord(`/${params.pathMatch}`, { origin: query.recordApi })
         .then((result) => {
           return result.record;
