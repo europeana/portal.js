@@ -40,12 +40,12 @@ Feature: Entity page
     And I wait for the page to load
     Then I should not be on the `entity page`
 
-  Scenario: Navigating to a related record
+  Scenario: Navigating to a related item
     Given I am on an `entity page`
     And I see the `entity page`
     And I see a `search result`
     When I click a `search result`
-    Then I see a `record page`
+    Then I see an `item page`
 
   Scenario: Pagination links
     When I open an `entity page`

@@ -5,15 +5,15 @@ Feature: Page layout on all pages.
   layout for all pages.
 
   Scenario: Accessing the skip-to-main functionality by tabbing to it
-    When I visit a `record page`
+    When I visit an `item page`
     And I press the TAB key
     Then I see the `main content accessibility link`
 
   Scenario: Moving to the main content using the skip-to-main functionality
-    When I visit a `record page`
+    When I visit an `item page`
     And I press the TAB key
     And I press the ENTER key
-    Then I should be on `/en/record/09102/_GNM_693983#main`
+    Then I should be on `/en/item/09102/_GNM_693983#main`
 
   Scenario: Main navigation is visible
     When I open the `home page`
