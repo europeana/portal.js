@@ -15,9 +15,8 @@ const entities = [
   {
     id: 'http://data.europeana.eu/concept/base/47',
     type: 'Concept',
-    depiction: {
-      id: 'http://en.wikipedia.org/wiki/Special:FilePath/Mona_Lisa,_by_Leonardo_da_Vinci,_from_C2RMF_retouched.jpg',
-      source: 'http://en.wikipedia.org/wiki/File:Mona_Lisa,_by_Leonardo_da_Vinci,_from_C2RMF_retouched.jpg'
+    isShownBy: {
+      thumbnail: 'https://www.example.org/image.jpg'
     },
     prefLabel: {
       en: 'Painting'
@@ -51,7 +50,7 @@ describe('components/entity/EntityCards', () => {
     paintingCard.should.exist;
     paintingCard.props().variant.should.eq('entity');
     paintingCard.props().title.should.eql({ 'en': 'Painting' });
-    paintingCard.props().imageUrl.should.eq('https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Mona_Lisa,_by_Leonardo_da_Vinci,_from_C2RMF_retouched.jpg/255px-Mona_Lisa,_by_Leonardo_da_Vinci,_from_C2RMF_retouched.jpg');
+    paintingCard.props().imageUrl.should.eq('https://www.example.org/image.jpg');
     paintingCard.props().url.should.deep.eq({
       name: 'collections-type-all',
       params: { type: 'topic', pathMatch: '47-painting' }

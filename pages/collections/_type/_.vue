@@ -19,7 +19,7 @@
           :description="description"
           :is-editorial-description="hasEditorialDescription"
           :title="title"
-          :depiction-link-title="depictionLinkTitle"
+          :depiction-link-title="$t('goToRecord')"
         />
         <SearchInterface
           class="px-0"
@@ -166,14 +166,11 @@
       }),
       attribution() {
         if (this.editorialDepiction) return this.editorialAttribution;
-        return (!this.entity || !this.entity.depiction) ? null : this.entity.depiction.source;
+        return (!this.entity || !this.entity.isShownBy) ? null : this.entity.isShownBy.source;
       },
       depiction() {
         if (this.editorialDepiction) return this.editorialDepiction;
-        return (!this.entity || !this.entity.depiction) ? null : entities.getWikimediaThumbnailUrl(this.entity.depiction.id);
-      },
-      depictionLinkTitle() {
-        return this.editorialDepiction ? this.$t('goToRecord') : this.$t('entityDepictionCredit');
+        return (!this.entity || !this.entity.isShownBy) ? null : this.entity.isShownBy.thumbnail;
       },
       description() {
         return this.editorialDescription ? { values: [this.editorialDescription], code: null } : null;

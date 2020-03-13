@@ -23,8 +23,8 @@ const factory = (propsData = {}) => mount(EntityDetails, {
 const entityDetails = {
   title: { values: ['Book'], code: 'en' },
   description: { values: ['Architecture is both the process and the product of planning, designing, and constructing buildings and other physical structures.'], code: 'en' },
-  attribution: 'http://commons.wikimedia.org/wiki/Special:FilePath/View_of_Santa_Maria_del_Fiore_in_Florence.jpg',
-  depiction: 'https://commons.wikimedia.org/wiki/File:View_of_Santa_Maria_del_Fiore_in_Florence.jpg'
+  attribution: 'http://www.europeana.eu/item/123/abc',
+  depiction: 'https://www.example.org/image.jpeg'
 };
 
 describe('components/entity/EntityDetails', () => {

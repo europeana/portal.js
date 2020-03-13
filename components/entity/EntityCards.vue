@@ -18,8 +18,7 @@
   import {
     getEntityDescription,
     getEntitySlug,
-    getEntityTypeHumanReadable,
-    getWikimediaThumbnailUrl
+    getEntityTypeHumanReadable
   } from '../../plugins/europeana/entity';
 
   export default {
@@ -40,10 +39,9 @@
       getEntityDescription,
       getEntitySlug,
       getEntityTypeHumanReadable,
-      getWikimediaThumbnailUrl,
 
       depiction(entity) {
-        return (!entity || !entity.depiction) ? null : getWikimediaThumbnailUrl(entity.depiction.id);
+        return (!entity || !entity.isShownBy) ? null : entity.isShownBy.thumbnail;
       },
 
       entityTitle(entity) {
