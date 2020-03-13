@@ -5,13 +5,20 @@
 
 FROM node:12-alpine
 
+ENV NODE_ENV=development
 ENV PORT=8080
 ENV HOST=0.0.0.0
-ENV NODE_ENV=development
+ENV CHROMEDRIVER_SKIP_DOWNLOAD=true
+ENV GECKODRIVER_SKIP_DOWNLOAD=true
+ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
 
 EXPOSE ${PORT}
 
 WORKDIR /app
+
+COPY package.json package-lock.json ./
+
+RUN npm install
 
 COPY . .
 

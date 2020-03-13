@@ -1,16 +1,8 @@
 #!/bin/sh
 
-# Local bindings may not be suitable for the container
-npm rebuild node-sass
-
-echo "NODE_ENV=${NODE_ENV}"
+echo "Running for NODE_ENV=${NODE_ENV}"
 
 env > .env
-
-case ${NODE_ENV} in
-  test) npm run build:test;;
-  production) npm run build;;
-esac
 
 case ${NODE_ENV} in
   development) npm run dev "$@";;
