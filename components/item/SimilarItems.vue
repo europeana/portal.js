@@ -12,7 +12,7 @@
         :key="index"
         :title="item.dcTitle"
         :image-url="item.edmPreview"
-        :url="{ name: 'record-all', params: { pathMatch: item.europeanaId.slice(1) } }"
+        :url="{ name: 'item-all', params: { pathMatch: item.europeanaId.slice(1) } }"
       />
     </b-card-group>
   </div>

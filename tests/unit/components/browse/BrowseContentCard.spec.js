@@ -87,7 +87,7 @@ describe('components/browse/BrowseContentCard', () => {
         const identifier = '/123456/abcdef_7890';
         const wrapper = factory({ fields: { identifier } });
 
-        wrapper.vm.destination.should.eql({ name: 'record-all', params: { pathMatch: identifier.slice(1) } });
+        wrapper.vm.destination.should.eql({ name: 'item-all', params: { pathMatch: identifier.slice(1) } });
       });
     });
 

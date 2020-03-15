@@ -54,7 +54,7 @@
 
         if (this.recordIdentifier) {
           return this.localePath({
-            name: 'record-all',
+            name: 'item-all',
             params: { pathMatch: this.recordIdentifier.slice(1) }
           });
         }

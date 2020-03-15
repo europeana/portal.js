@@ -1,5 +1,5 @@
 import { shallowMount } from '@vue/test-utils';
-import MediaPresentation from '../../../../components/record/MediaPresentation.vue';
+import MediaPresentation from '../../../../components/item/MediaPresentation.vue';
 
 const factory = (propsData) => shallowMount(MediaPresentation, {
   propsData,
@@ -8,7 +8,7 @@ const factory = (propsData) => shallowMount(MediaPresentation, {
   }
 });
 
-describe('components/record/MediaPresentation', () => {
+describe('components/item/MediaPresentation', () => {
   describe('isHTMLVideo', () => {
     context('when ebucoreHasMimeType is "video/ogg"', () => {
       it('is `true`', () => {

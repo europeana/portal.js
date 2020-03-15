@@ -1,6 +1,6 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
-import EntityField from '../../../../components/record/EntityField.vue';
+import EntityField from '../../../../components/item/EntityField.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
@@ -13,7 +13,7 @@ const factory = (propsData) => mount(EntityField, {
   }
 });
 
-describe('components/record/EntityField', () => {
+describe('components/item/EntityField', () => {
   describe('when it represents a Europeana Entity', () => {
     it('shows linked entity', () => {
       const wrapper = factory({ value: 'Painting', about: 'http://data.europeana.eu/concept/base/47' });

@@ -13,7 +13,7 @@
     </b-container>
     <b-container
       v-else
-      data-qa="record page"
+      data-qa="item page"
     >
       <b-row class="my-5">
         <b-col
@@ -163,11 +163,11 @@
 
   import AlertMessage from '../../components/generic/AlertMessage';
   import EntityCards from '../../components/entity/EntityCards';
-  import MediaActionBar from '../../components/record/MediaActionBar';
-  import SimilarItems from '../../components/record/SimilarItems';
-  import MediaPresentation from '../../components/record/MediaPresentation';
-  import MediaThumbnailGrid from '../../components/record/MediaThumbnailGrid';
-  import MetadataField from '../../components/record/MetadataField';
+  import MediaActionBar from '../../components/item/MediaActionBar';
+  import SimilarItems from '../../components/item/SimilarItems';
+  import MediaPresentation from '../../components/item/MediaPresentation';
+  import MediaThumbnailGrid from '../../components/item/MediaThumbnailGrid';
+  import MetadataField from '../../components/item/MetadataField';
 
   import { getRecord, similarItemsQuery } from '../../plugins/europeana/record';
   import { search } from '../../plugins/europeana/search';
@@ -317,11 +317,7 @@
       }
     },
 
-    asyncData({ env, params, res, app, redirect, query }) {
-      if (env.RECORD_PAGE_REDIRECT_PATH) {
-        return redirect(app.localePath({ path: env.RECORD_PAGE_REDIRECT_PATH }));
-      }
-
+    asyncData({ params, res, query }) {
       return getRecord(`/${params.pathMatch}`, { origin: query.recordApi })
         .then((result) => {
           return result.record;

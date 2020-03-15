@@ -21,9 +21,9 @@ Feature: Gallery page
     And I see a `share twitter button`
     And I see a `share pinterest button`
 
-  Scenario: Sharing a record
+  Scenario: Sharing an item
 
-    When  I open a `record page`
+    When  I open an `item page`
     And  I click the `share button`
     Then I see a `share facebook button`
     And I see a `share twitter button`
