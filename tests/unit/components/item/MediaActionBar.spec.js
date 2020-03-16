@@ -3,7 +3,7 @@ import BootstrapVue from 'bootstrap-vue';
 import VueI18n from 'vue-i18n';
 import Vuex from 'vuex';
 import SmartLink from '../../../../components/generic/SmartLink.vue';
-import MediaActionBar from '../../../../components/record/MediaActionBar.vue';
+import MediaActionBar from '../../../../components/item/MediaActionBar.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
@@ -37,11 +37,11 @@ const factory = (propsData) => mount(MediaActionBar, {
   store,
   propsData,
   mocks: {
-    $t: (key) => key
+    $t: (key) => `TRANSLATED: ${key}`
   }
 });
 
-describe('components/record/MediaActionBar', () => {
+describe('components/item/MediaActionBar', () => {
   const europeanaIdentifier = '/09876/zyxwvu';
   const url = 'https://www.example.org/videos/zyxwvu.mp4';
   const rightsStatement = 'https://creativecommons.org/publicdomain/mark/1.0/';
@@ -64,6 +64,10 @@ describe('components/record/MediaActionBar', () => {
 
     it('does not include the link to the media', () => {
       (downloadLink.attributes().href === undefined).should.be.true;
+    });
+
+    it('sets a title attribute', () => {
+      downloadLink.attributes().title.should.eq('TRANSLATED: record.downloadCopyrightInfo');
     });
   });
 

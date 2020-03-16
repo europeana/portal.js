@@ -1,11 +1,17 @@
 export default {
+  annotation: {
+    // TODO: replace with API gateway origin when it works
+    origin: 'https://annotations.europeana.eu',
+    path: '/annotation',
+    key: process.env['EUROPEANA_ANNOTATION_API_KEY']
+  },
+  data: {
+    origin: 'http://data.europeana.eu'
+  },
   entity: {
     origin: 'https://api.europeana.eu',
     path: '/entity',
     key: process.env['EUROPEANA_ENTITY_API_KEY']
-  },
-  data: {
-    origin: 'http://data.europeana.eu'
   },
   newspaper: {
     origin: 'https://newspapers.eanadev.org',

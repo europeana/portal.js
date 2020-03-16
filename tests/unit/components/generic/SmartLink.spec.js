@@ -130,7 +130,7 @@ describe('components/generic/SmartLink', () => {
         wrapper.setProps({ destination });
 
         wrapper.vm.path.should.deep.eql({
-          name: 'record-all',
+          name: 'item-all',
           params: { pathMatch: identifierSlug }
         });
       });

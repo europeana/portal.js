@@ -13,7 +13,7 @@
   import { mapGetters } from 'vuex';
 
   import ContentCard from '../generic/ContentCard';
-  import { getEntityTypeHumanReadable, getWikimediaThumbnailUrl } from '../../plugins/europeana/entity';
+  import { getEntityTypeHumanReadable } from '../../plugins/europeana/entity';
   import { isEuropeanaRecordId } from '../../plugins/europeana/record';
 
   export default {
@@ -44,9 +44,6 @@
         if (this.fields.thumbnailUrl) {
           return this.fields.thumbnailUrl;
         } else if (typeof this.fields.image === 'string') {
-          if (new RegExp('.wiki[mp]edia.org/wiki/Special:FilePath/').test(this.fields.image)) {
-            return getWikimediaThumbnailUrl(this.fields.image);
-          }
           return this.fields.image;
         } else if (this.imageIsContentfulAsset) {
           return this.fields.image.fields.file.url;
@@ -99,7 +96,7 @@
       },
       recordRouterLink(identifier) {
         return {
-          name: 'record-all', params: { pathMatch: identifier.slice(1) }
+          name: 'item-all', params: { pathMatch: identifier.slice(1) }
         };
       }
     }

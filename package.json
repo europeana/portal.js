@@ -1,6 +1,6 @@
 {
   "name": "@europeana/portal",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "description": "Europeana Portal",
   "contributors": [
     "Richard Doe <richard.doe@europeana.eu>",
@@ -108,7 +108,7 @@
     "nightwatch-accessibility": "^1.8.0",
     "nightwatch-api": "^2.1.2",
     "nock": "^10.0.6",
-    "node-sass": "^4.11.0",
+    "node-sass": "^4.13.1",
     "nodemon": "^1.18.10",
     "regenerator-runtime": "0.13.3",
     "sass-loader": "^8.0.0",

@@ -16,7 +16,7 @@ const i18n = {
 storiesOf('Record', module)
   .addDecorator(StoryRouter({}, {
     routes: [
-      { name: 'record-all', path: '/record/*' }
+      { name: 'item-all', path: '/item/*' }
     ]
   }))
   .add('Similar items', () => ({

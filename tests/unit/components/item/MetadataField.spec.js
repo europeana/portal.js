@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils';
-import MetadataField from '../../../../components/record/MetadataField.vue';
+import MetadataField from '../../../../components/item/MetadataField.vue';
 
 const $i18n = {
   locales: [
@@ -16,7 +16,7 @@ const factory = () => mount(MetadataField, {
   }
 });
 
-describe('components/record/MetadataField', () => {
+describe('components/item/MetadataField', () => {
   const wrapper = factory();
 
   context('when there is a langMapped value as data', () => {

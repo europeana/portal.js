@@ -38,7 +38,7 @@
             :image-url="image.fields.thumbnailUrl"
             :lazy="false"
             :texts="[image.fields.description]"
-            :url="{ name: 'record-all', params: { pathMatch: image.fields.identifier.slice(1) } }"
+            :url="{ name: 'item-all', params: { pathMatch: image.fields.identifier.slice(1) } }"
           />
         </b-card-group>
       </b-col>

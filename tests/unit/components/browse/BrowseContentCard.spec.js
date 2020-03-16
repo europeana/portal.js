@@ -46,24 +46,11 @@ describe('components/browse/BrowseContentCard', () => {
     });
 
     context('when `fields.image` is a string', () => {
-      context('and is a wikimedia URL', () => {
-        it('is converted to a scaled image URL', () => {
-          const fullUrl = 'http://commons.wikimedia.org/wiki/Special:FilePath/image.jpg';
-          const scaledUrl = 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/image.jpg/255px-image.jpg';
+      it('is used', () => {
+        const image = 'https://www.example.org/image.jpg';
+        const wrapper = factory({ fields: { image } });
 
-          const wrapper = factory({ fields: { image: fullUrl } });
-
-          wrapper.vm.imageUrl.should.equal(scaledUrl);
-        });
-      });
-
-      context('but is not a wikimedia URL', () => {
-        it('is used', () => {
-          const image = 'https://www.example.org/image.jpg';
-          const wrapper = factory({ fields: { image } });
-
-          wrapper.vm.imageUrl.should.equal(image);
-        });
+        wrapper.vm.imageUrl.should.equal(image);
       });
     });
 
@@ -100,7 +87,7 @@ describe('components/browse/BrowseContentCard', () => {
         const identifier = '/123456/abcdef_7890';
         const wrapper = factory({ fields: { identifier } });
 
-        wrapper.vm.destination.should.eql({ name: 'record-all', params: { pathMatch: identifier.slice(1) } });
+        wrapper.vm.destination.should.eql({ name: 'item-all', params: { pathMatch: identifier.slice(1) } });
       });
     });
 

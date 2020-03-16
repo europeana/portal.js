@@ -5,7 +5,7 @@ export default {
     "listSeperator": ";"
   },
   "error": "Error",
-  "goToRecord": "Go to record",
+  "goToRecord": "Go to item",
   "readMore": "Read more",
   "search": "Search",
   "results": "Results",
@@ -23,7 +23,7 @@ export default {
       "dctermsCreated": "Creation date",
       "edmCountry": "Providing country",
       "edmDataProvider": "Providing institution",
-      "edmRights": "License of the media in this record (unless otherwise specified)",
+      "edmRights": "License of the media in this item (unless otherwise specified)",
       "dcPublisher": "Publisher",
       "dcSubject": "Subject",
       "dctermsMedium": "Medium",
@@ -65,7 +65,8 @@ export default {
       "edmIsSimilarTo": "Is similar to",
       "edmIsSuccessorOf": "Is successor of",
       "edmRealizes": "Realises",
-      "wasPresentAt": "Was present at"
+      "wasPresentAt": "Was present at",
+      "keywords": "Keywords (provided by the community)"
     },
     "webResource": {
       "dcDescription": "Description",
@@ -316,8 +317,8 @@ export default {
     "api": {
       "name": "Search for",
       "options": {
-        "fulltext": "Records with full-text",
-        "metadata": "Metadata-only records"
+        "fulltext": "Items with full-text",
+        "metadata": "Metadata-only items"
       }
     },
     "CREATOR": {
@@ -363,7 +364,6 @@ export default {
   "showMore": "Show more",
   "delete": "Delete",
   "removeFilter": "Remove {filterLabel} filter",
-  "entityDepictionCredit": "Resource obtained from Wikimedia Commons",
   "newWindow": "opens in new window",
   "blog": {
     "blog": "Blog",
@@ -396,9 +396,10 @@ export default {
   "loadingResults": "Loading results",
   "edmIsShownAtLinkAlt": "View at the provider's website",
   "record": {
+    "downloadCopyrightInfo": "This item is in copyright and can not be downloaded.",
     "extendedInformation": "Extended information",
     "hideAll": "Hide all information",
-    "record": "Record",
+    "record": "Item",
     "showAll": "Show all information",
     "similarItems": "Similar items",
     "view": {

@@ -1,6 +1,19 @@
 footer {
   background: $midnight;
   color: $white;
+  position: relative;
+
+  &::after {
+    border-top: 145px solid $bodygrey;
+    border-left: 60px solid transparent;
+    content: '';
+    display: block;
+    height: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 0;
+  }
 
   figcaption {
     font-size: $font-size-small;

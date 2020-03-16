@@ -11,7 +11,7 @@ const rules = [
   { from: '/portal/en/explore/topics.html', to: '/en/collections', status: 302 },
   { from: '/portal/en/explore/sources.html', to: '/en/collections', status: 302 },
   { from: '/portal/en/explore/newcontent.html', to: '/en/collections', status: 302 },
-  { from: '/portal/de/record/90402/SK_A_2344.html', to: '/de/record/90402/SK_A_2344' },
+  { from: '/portal/de/record/90402/SK_A_2344.html', to: '/de/item/90402/SK_A_2344' },
   { from: '/portal/fr/explore/people/60404-johannes-vermeer.html', to: '/fr/collections/person/60404' },
   { from: '/portal/nl/explore/topics/47-painting.html', to: '/nl/collections/topic/47' },
   { from: '/portal/en/collections/world-war-I', to: '/en/collections/topic/83-1914-1918' },

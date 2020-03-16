@@ -9,26 +9,12 @@
       :destination="url"
       link-class="card-link"
     >
-      <b-img-lazy
-        v-if="variant === 'entity' && cardImageUrl && lazyLoad"
-        :src="optimisedImageUrl"
-        :blank-width="blankImageWidth"
-        :blank-height="blankImageHeight"
-        alt=""
-        @error.native="imageNotFound"
-      />
-      <b-img
-        v-if="variant === 'entity' && cardImageUrl && !lazyLoad"
-        :src="optimisedImageUrl"
-        alt=""
-        @error="imageNotFound"
-      />
       <div
         v-if="cardImageUrl"
         class="card-img"
       >
         <b-img-lazy
-          v-if="variant !== 'entity' && lazyLoad"
+          v-if="lazyLoad"
           :src="optimisedImageUrl"
           :blank-width="blankImageWidth"
           :blank-height="blankImageHeight"
@@ -36,7 +22,7 @@
           @error.native="imageNotFound"
         />
         <b-img
-          v-if="variant !== 'entity' && !lazyLoad"
+          v-if="!lazyLoad"
           :src="optimisedImageUrl"
           alt=""
           @error="imageNotFound"

@@ -1,5 +1,5 @@
 Feature: View styles (List and Grid)
-  In order to gain a better overview of different types of europeana records,
+  In order to gain a better overview of different types of europeana items,
   as a user I want to be able to switch between a list and grid view style when
   on search results pages.
 

@@ -25,8 +25,8 @@ const factory = (options = {}) => {
         name: 'search'
       },
       {
-        path: '/record/*',
-        name: 'record-all'
+        path: '/item/*',
+        name: 'item-all'
       }
     ]
   });
