@@ -14,6 +14,11 @@
         :key="section.sys.id"
         :section="section"
       />
+      <LatestSection
+        v-else-if="contentType(section, 'latestCardGroup')"
+        :key="section.sys.id"
+        :category="section.fields.genre"
+      />
       <HTMLEmbed
         v-else-if="contentType(section, 'embed')"
         :key="section.sys.id"
@@ -49,6 +54,7 @@
 <script>
   import CompareImageSlider from '../generic/CompareImageSlider';
   import ContentCardSection from './ContentCardSection';
+  import LatestSection from './LatestSection';
   import HTMLEmbed from '../generic/HTMLEmbed';
   import ImageWithAttribution from '../generic/ImageWithAttribution';
   import RichText from './RichText';
@@ -57,6 +63,7 @@
     components: {
       CompareImageSlider,
       ContentCardSection,
+      LatestSection,
       HTMLEmbed,
       ImageWithAttribution,
       RichText
