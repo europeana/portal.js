@@ -1,3 +1,4 @@
+import { URL, URLSearchParams } from './url';
 import {
   sslNegotiationEnabled, routePermittedOnEitherScheme, routeOnDatasetBlacklist
 } from '../plugins/ssl';
@@ -23,5 +24,18 @@ export default ({ app, store }, inject) => {
     return `${switchToProtocol}//${store.state.http.host}${localePath}`;
   };
 
+  const goto = (route) => {
+    if (typeof route === 'string' && route.includes('://')) {
+      window.location.href = route;
+    } else if (route.path.includes('://')) {
+      const url = new URL(route.path);
+      url.search = new URLSearchParams(route.query);
+      window.location.href = url.toString();
+    } else {
+      app.router.push(route);
+    }
+  };
+
   inject('path', path);
+  inject('goto', goto);
 };

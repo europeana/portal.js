@@ -165,7 +165,7 @@
 
         this.suggestions = {};
 
-        await this.$router.push(newRoute);
+        await this.$goto(newRoute);
       },
 
       async getSearchSuggestions(query) {

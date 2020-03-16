@@ -325,7 +325,7 @@
       },
       rerouteSearch(queryUpdates) {
         const query = this.updateCurrentSearchQuery(queryUpdates);
-        this.$router.push(this.$path({ ...this.route, ...{ query } }));
+        this.$goto(this.$path({ ...this.route, ...{ query } }));
       },
       updateCurrentSearchQuery(updates = {}) {
         const current = {
