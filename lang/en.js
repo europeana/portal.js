@@ -118,9 +118,9 @@ export default {
       }
     },
     "contentTier": {
-      "name": "Includes items not meeting our publishing criteria",
+      "name": "Content quality",
       "options": {
-        "*": "Includes items not meeting our publishing criteria"
+        "0": "Only items not meeting our publishing criteria"
       }
     },
     "button": {

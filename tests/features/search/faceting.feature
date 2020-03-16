@@ -179,6 +179,14 @@ Feature: Search faceting
     Then I should be on `/en/search?page=1&qf=LANGUAGE%3A%22en%22&qf=LANGUAGE%3A%22sv%22&query=&view=grid`
     And I see a `more filters selected options count` with the text "2"
 
+  Scenario: Applies the content tier query to the URL when clicking the toggle button
+    Given I am on the `search page`
+    When I click the `more filters dropdown button`
+    And I check the "\"0\"" "contentTier" checkbox
+    And I click the `apply button`
+    And I wait for the page to load
+    Then I should be on `/en/search?page=1&qf=contentTier%3A%220%22&query=&view=grid`
+
   Scenario: Clicking reset button in more facets
     Given I am on the `search page`
     When I click the `more filters dropdown button`
@@ -191,6 +199,24 @@ Feature: Search faceting
     And I click the `apply button`
     And I wait for the page to load
     Then I should be on `/en/search?page=1&query=&view=grid`
+
+  Scenario: No tier filter on entity pages
+    Given I am on an `entity page`
+    When I click the `more filters dropdown button`
+    Then I don't have a `contentTier facet`
+
+  Scenario: A tier filter on search page
+    Given I am on the `search page`
+    When I click the `more filters dropdown button`
+    Then I see a `contentTier facet`
+
+  Scenario: No tier filter on search page when collection is applied
+    Given I am on the `search page`
+    And I click the `collection dropdown button`
+    And I check the "fashion" "collection" radio
+    And I click the `collection apply button`
+    And I wait for the page to load
+    Then I don't have a `contentTier facet`
 
   Scenario: Clear filters using using `clear all filter` button
     Given I am on the `search page`

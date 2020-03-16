@@ -2,7 +2,6 @@
  * @file Mapping for search URLs to classic.europeana.eu portal URLs
  */
 
-import { unquotableFacets } from './search';
 import { collectionToThemeMap } from '../../middleware/legacy/rules/search';
 
 function mapCollections(collection) {
@@ -12,8 +11,7 @@ function mapCollections(collection) {
 const collectionQfRegex = /^collection:/;
 const classicBaseUrl = 'https://classic.europeana.eu/portal/';
 const qfKeyRegex = /^(.*?):/;
-const quoteableQfValueRegex = /^.*?:"(.*)"$/;
-const unquoteableQfValueRegex = /^.*?:(.*)$/;
+const qfValueRegex = /^.*?:"?([^"]*)"?$/;
 /**
  * Check for the presence of a collection filter.
  * @param {string[]} qfs qf values from the portal.js URL
@@ -42,14 +40,10 @@ function classicParamsFromQfs(qfs) {
     let key = qf.match(qfKeyRegex)[1];
     let value; // Value lookup depends on what the key is.
     if (key === 'proxy_dcterms_issued') {
-      value = qf.match(unquoteableQfValueRegex)[1];
+      value = qf.match(qfValueRegex)[1];
       returnString += dateParamsFromRange(key, value);
     } else {
-      if (unquotableFacets.includes(key)) {
-        value = qf.match(unquoteableQfValueRegex)[1];
-      } else {
-        value = qf.match(quoteableQfValueRegex)[1];
-      }
+      value = qf.match(qfValueRegex)[1];
       returnString += `&f[${key}][]=${encodeURIComponent(value)}`;
     }
   });

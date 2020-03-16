@@ -101,36 +101,6 @@ describe('components/search/SearchInterface', () => {
   });
 
   describe('computed properties', () => {
-    describe('contentTierActiveState', () => {
-      context('when contentTier filter includes "*"', () => {
-        it('is `true`', async() => {
-          const wrapper = await factory({
-            storeGetters: {
-              filters: () => {
-                return { contentTier: '*' };
-              }
-            }
-          });
-
-          wrapper.vm.contentTierActiveState.should.be.true;
-        });
-      });
-
-      context('when contentTier filter does not include "*"', () => {
-        it('is `false`', async() => {
-          const wrapper = await factory({
-            storeGetters: {
-              filters: () => {
-                return { contentTier: '1 OR 2 OR 3 OR 4' };
-              }
-            }
-          });
-
-          wrapper.vm.contentTierActiveState.should.be.false;
-        });
-      });
-    });
-
     describe('errorMessage', () => {
       context('when there was a pagination error', () => {
         it('returns a user-friendly error message', async() => {

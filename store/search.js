@@ -14,7 +14,8 @@ export const defaultFacetNames = [
   'COLOURPALETTE',
   'IMAGE_ASPECTRATIO',
   'IMAGE_SIZE',
-  'MIME_TYPE'
+  'MIME_TYPE',
+  'contentTier'
 ];
 
 const filtersFromQf = (qfs) => {
@@ -200,6 +201,11 @@ export const getters = {
       }
     }
 
+    // Remove filters incompatible with collection filter
+    if (Object.prototype.hasOwnProperty.call(selected, 'collection') && Object.prototype.hasOwnProperty.call(filters, 'contentTier')) {
+      filters['contentTier'] = [];
+    }
+
     return queryUpdatesForFilters(filters);
   },
 
@@ -256,8 +262,9 @@ export const actions = {
   },
 
   // TODO: replace with a getter?
-  async deriveApiSettings({ commit, dispatch, state }) {
+  async deriveApiSettings({ commit, dispatch, state, getters, rootGetters }) {
     // Coerce qf from user input into an array as it may be a single string
+
     const userParams = Object.assign({}, state.userParams || {});
     userParams.qf = [].concat(userParams.qf || []);
 
@@ -280,7 +287,16 @@ export const actions = {
     commit('set', ['apiParams', apiParams]);
     commit('set', ['apiOptions', apiOptions]);
 
-    await dispatch('applyCollectionSpecificSettings');
+    if (getters.collection || rootGetters['entity/id']) {
+      await dispatch('applyAnyCollectionSettings');
+      await dispatch('applyCollectionSpecificSettings');
+    }
+  },
+
+  applyAnyCollectionSettings({ commit, state }) {
+    const facet = state.apiParams.facet.split(',');
+    facet.splice(facet.indexOf('contentTier'), 1);
+    commit('set', ['apiParams', { ...state.apiParams, ...{ facet: facet.join(',') } }]);
   },
 
   applyCollectionSpecificSettings({ commit, getters, rootGetters, rootState, state }) {

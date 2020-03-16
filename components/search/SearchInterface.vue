@@ -100,14 +100,6 @@
           </b-row>
           <b-row>
             <b-col>
-              <TierToggler
-                v-if="tierToggleEnabled && showContentTierToggle"
-                :active-state="contentTierActiveState"
-              />
-            </b-col>
-          </b-row>
-          <b-row>
-            <b-col>
               <PaginationNav
                 v-if="showPagination"
                 v-model="page"
@@ -132,7 +124,6 @@
   import SearchFilters from '../../components/search/SearchFilters';
   import PaginationNav from '../../components/generic/PaginationNav';
   import ViewToggles from '../../components/search/ViewToggles';
-  import TierToggler from '../../components/search/TierToggler';
   import { thematicCollections } from '../../plugins/europeana/search';
 
   import isEqual from 'lodash/isEqual';
@@ -151,8 +142,7 @@
       SearchResults,
       SearchFilters,
       PaginationNav,
-      ViewToggles,
-      TierToggler
+      ViewToggles
     },
     props: {
       perPage: {
@@ -168,10 +158,6 @@
         default: () => {
           return { name: 'search' };
         }
-      },
-      showContentTierToggle: {
-        type: Boolean,
-        default: true
       }
     },
     data() {
@@ -215,9 +201,6 @@
 
         // This is a workaround
         return Number(this.$route.query.page || 1);
-      },
-      contentTierActiveState() {
-        return this.filters.contentTier && this.filters.contentTier.includes('*');
       },
       errorMessage() {
         if (!this.error) return null;
@@ -285,9 +268,6 @@
       showPagination() {
         return this.totalResults > this.perPage;
       },
-      tierToggleEnabled() {
-        return Boolean(Number(process.env['ENABLE_CONTENT_TIER_TOGGLE']));
-      },
       routeQueryView() {
         return this.$route.query.view;
       },
@@ -339,12 +319,13 @@
 
         const updated = { ...current, ...updates };
 
-        // If any updated values are `null`, remove them from the query
         for (const key in updated) {
+          // If any updated values are `null`, remove them from the query
           if (updated[key] === null) {
             delete updated[key];
           }
         }
+
         return updated;
       },
       resetFilters() {

@@ -43,7 +43,7 @@
           <MoreFiltersDropdownFacet
             v-if="facet.fields && facet.fields.length > 0"
             :key="index"
-            :fields="facet.fields"
+            :fields="filterFields(facet.name, facet.fields)"
             :name="facet.name"
             :selected="preSelected[facet.name]"
             @selectedOptions="updateSelected"
@@ -92,6 +92,7 @@
   import MoreFiltersDropdownFacet from './MoreFiltersDropdownFacet';
   import DateFilter from './DateFilter';
   import RadioGroupFilter from './RadioGroupFilter';
+
   export default {
     components: {
       MoreFiltersDropdownFacet,
@@ -183,6 +184,13 @@
         }
         this.isCheckedSpecificDate = dateRange.specific;
         this.updateSelected(facetName, dateQuery);
+      },
+      filterFields(name, fields) {
+        // Only show option 0 for contentTier toggle
+        if (name === 'contentTier') {
+          return fields.filter(field => field.label === '"0"');
+        }
+        return fields;
       },
       updateSelected(facetName, selectedFields) {
         Vue.set(this.preSelected, facetName, selectedFields);

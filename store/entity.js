@@ -40,6 +40,12 @@ export const getters = {
       return null;
     }
     return state.entity.prefLabel.en;
+  },
+  id(state) {
+    if (!state.id) {
+      return null;
+    }
+    return state.id;
   }
 };
 
