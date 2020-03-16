@@ -24,7 +24,7 @@ const factory = (propsData = {}) => {
     propsData,
     mocks: {
       $t: (key) => key,
-      localePath: (opts) => opts
+      $path: () => '/'
     }
   });
 };

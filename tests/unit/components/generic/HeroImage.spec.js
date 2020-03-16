@@ -8,7 +8,7 @@ localVue.use(BootstrapVue);
 const factory = () => mount(HeroImage, {
   localVue,
   mocks: {
-    localePath: (opts) => opts,
+    $path: () => '/',
     $t: (key) => key
   }
 });

@@ -40,7 +40,7 @@ const factory = () => mount(PageNavigation, {
   localVue,
   store,
   mocks: {
-    localePath: code => window.location.href + code
+    $path: code => window.location.href + code
   }
 });
 

@@ -15,15 +15,15 @@ const router = {
   push: sinon.spy()
 };
 
-const localePath = sinon.stub();
-localePath.withArgs({ name: 'search' }).returns('/search');
-localePath.withArgs({
+const $path = sinon.stub();
+$path.withArgs({ name: 'search' }).returns('/search');
+$path.withArgs({
   name: 'collections-type-all', params: {
     type: 'topic',
     pathMatch: '227-fresco'
   }
 }).returns('/collections/topic/227-fresco');
-localePath.withArgs({
+$path.withArgs({
   name: 'collections-type-all', params: {
     type: 'person',
     pathMatch: '59981-frank-sinatra'
@@ -39,7 +39,7 @@ const factory = (options = {}) => shallowMount(SearchForm, {
       $t: () => {},
       $route: { query: {} },
       $router: router,
-      localePath
+      $path
     }, ...(options.mocks || {})
   },
   store: options.store || store({ search: {} })
@@ -122,7 +122,7 @@ describe('components/search/SearchForm', () => {
     context('when not on a search page', () => {
       const wrapper = factory({
         mocks: {
-          localePath
+          $path
         },
         store: store({
           active: false

@@ -18,7 +18,7 @@ const factory = () => {
   return shallowMount(SmartLink, {
     localVue,
     mocks: {
-      localePath: path => path,
+      $path: () => '/',
       $store,
       $t: () => {}
     }

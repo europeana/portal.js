@@ -16,7 +16,7 @@ const factory = (propsData = {}) => mount(EntityDetails, {
   mocks: {
     $t: (val) => val,
     $i18n,
-    localePath: (val) => val
+    $path: () => '/'
   }
 });
 

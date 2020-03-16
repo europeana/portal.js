@@ -30,7 +30,7 @@ const factory = () => shallowMount(ExhibitionChaptersNavigation, {
   stubs: ['b-link'],
   mocks: {
     $route,
-    localePath: (opts) => opts
+    $path: (opts) => opts
   },
   propsData: {
     exhibitionIdentifier: 'flowers',

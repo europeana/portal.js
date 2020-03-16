@@ -9,7 +9,7 @@ const factory = () => {
   return mount(SearchResults, {
     localVue,
     mocks: {
-      localePath: (opts) => `/record/${opts.params.pathMatch}`,
+      $path: (opts) => `/item/${opts.params.pathMatch}`,
       $i18n: {
         locale: 'en'
       },
