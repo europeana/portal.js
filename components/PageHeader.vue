@@ -12,7 +12,7 @@
           link-class="col-xl-3 p-0 m-0 text-center text-xl-left"
         >
           <SmartLink
-            :destination="$path('index')"
+            :destination="{ name: 'index' }"
           >
             <img
               src="../assets/img/logo.svg"
