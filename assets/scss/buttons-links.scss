@@ -24,6 +24,21 @@
   }
 }
 
+.btn-light {
+  background: $white;
+  border: 0;
+  box-shadow: 2px 2px 2px 0 rgba(0, 0, 0, 0.1);
+  color: $mediumgrey;
+  font-size: $font-size-small;
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+
+  &:hover {
+    background: $white;
+    box-shadow: 2px 2px 6px 0 rgba(0, 0, 0, 0.15);
+  }
+}
+
 a {
   &.skip-main {
     left: -999px;
