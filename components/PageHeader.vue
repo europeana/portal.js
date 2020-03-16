@@ -9,7 +9,7 @@
         data-qa="header"
       >
         <b-navbar-brand
-          :to="localePath('index')"
+          :to="$path('index')"
           class="col-xl-3 p-0 m-0 text-center text-xl-left"
         >
           <img

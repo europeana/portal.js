@@ -20,6 +20,8 @@ COPY package.json package-lock.json ./
 
 RUN npm install
 
+COPY docker/stack/app/docker-entrypoint.sh ./
+
 COPY . .
 
-ENTRYPOINT ["/app/docker/stack/app/docker-entrypoint.sh"]
+ENTRYPOINT ["/app/docker-entrypoint.sh"]

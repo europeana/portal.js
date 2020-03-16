@@ -111,7 +111,7 @@
         if (this.onSearchablePage) {
           return this.$route.path;
         }
-        return this.localePath({ name: 'search' });
+        return this.$path({ name: 'search' });
       },
 
       pillRemoveLinkTo() {
@@ -122,7 +122,7 @@
         };
 
         return {
-          path: this.localePath({
+          path: this.$path({
             name: 'search'
           }),
           query
@@ -208,7 +208,7 @@
         };
         const uriMatch = entityUri.match(`^${this.apiConfig.data.origin}/([^/]+)(/base)?/(.+)$`);
 
-        return this.localePath({
+        return this.$path({
           name: 'collections-type-all', params: {
             type: getEntityTypeHumanReadable(uriMatch[1]),
             // TODO: use stored entity/curatedEntities for prefLabel, if set

@@ -132,7 +132,7 @@
       const desiredPath = entities.getEntitySlug(entity.id, curatedEntityName || entity.prefLabel.en);
 
       if (params.pathMatch !== desiredPath) {
-        const redirectPath = app.localePath({
+        const redirectPath = app.$path({
           name: 'collections-type-all',
           params: { type: params.type, pathMatch: encodeURIComponent(desiredPath) }
         });
@@ -143,7 +143,7 @@
       const currentPage = pageFromQuery(query.page);
       if (currentPage === null) {
         // Redirect non-positive integer values for `page` to `page=1`
-        return redirect(app.localePath({
+        return redirect(app.$path({
           name: 'collections-type-all',
           params: { type: params.type, pathMatch: params.pathMatch },
           query: { page: 1 }

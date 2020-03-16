@@ -321,11 +321,11 @@
         return this.rerouteSearch(this.queryUpdatesForFacetChanges(selected));
       },
       paginationLink(val) {
-        return this.localePath({ ...this.route, ...{ query: this.updateCurrentSearchQuery({ page: val }) } });
+        return this.$path({ ...this.route, ...{ query: this.updateCurrentSearchQuery({ page: val }) } });
       },
       rerouteSearch(queryUpdates) {
         const query = this.updateCurrentSearchQuery(queryUpdates);
-        this.$router.push(this.localePath({ ...this.route, ...{ query } }));
+        this.$router.push(this.$path({ ...this.route, ...{ query } }));
       },
       updateCurrentSearchQuery(updates = {}) {
         const current = {

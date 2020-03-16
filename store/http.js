@@ -1,31 +1,34 @@
-import isHTTPS from 'is-https';
+import { currentProtocol, currentHost } from '../plugins/http';
 
 export const state = () => ({
-  canonicalUrlOrigin: null,
-  canonicalUrlPath: null
+  protocol: null,
+  path: null,
+  host: null
 });
 
 export const mutations = {
-  setCanonicalUrlOrigin(state, value) {
-    state.canonicalUrlOrigin = value;
-  },
-  setCanonicalUrlPath(state, value) {
-    state.canonicalUrlPath = value;
+  set(state, payload) {
+    state[payload[0]] = payload[1];
   }
 };
 
 export const getters = {
-  canonicalUrl(state) {
-    return state.canonicalUrlOrigin + state.canonicalUrlPath;
+  canonicalUrl(state, getters) {
+    return getters.origin + state.canonicalUrlPath;
+  },
+  origin(state) {
+    return `${state.protocol}//${state.host}`;
   }
 };
 
 export const actions = {
   init({ commit }, { req, route }) {
-    const scheme = isHTTPS(req, true) ? 'https://' : 'http://';
-    const host = req.headers['X-Forwarded-Host'] || req.headers.host;
-    const origin = scheme + host;
-    commit('setCanonicalUrlOrigin', origin);
-    commit('setCanonicalUrlPath', route.fullPath);
+    const protocol = currentProtocol({ req });
+    const host = currentHost({ req });
+    const path = route.fullPath;
+
+    commit('set', ['protocol', protocol]);
+    commit('set', ['host', host]);
+    commit('set', ['path', path]);
   }
 };

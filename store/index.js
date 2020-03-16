@@ -1,5 +1,5 @@
 export const actions = {
-  async nuxtServerInit({ dispatch, commit, state }, context) {
+  async nuxtServerInit({ dispatch, commit, getters }, context) {
     await Promise.all([
       dispatch('entity/init'),
       dispatch('http/init', context),
@@ -7,6 +7,6 @@ export const actions = {
     ]);
 
     // TODO: does this warrant a store module, or should we just write to context.app here?
-    commit('apis/setOrigin', state.http.canonicalUrlOrigin);
+    commit('apis/setOrigin', getters['http/origin']);
   }
 };

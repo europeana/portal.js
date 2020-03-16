@@ -1,46 +1,31 @@
 // TODO: redirects should strip port from host and replace with customisable
 //       port for other scheme
 
-const config = {
-  eitherSchemeWhitelist: new RegExp('^/[a-z]{2}/iiif(\\?|$)')
-};
+import { isHttps, currentHost } from '../plugins/http';
+import {
+  sslNegotiationEnabled, routePermittedOnEitherScheme, routeOnDatasetBlacklist
+} from '../plugins/ssl';
 
-if (process.env.SSL_DATASET_BLACKLIST && process.env.SSL_DATASET_BLACKLIST !== '') {
-  const datasetBlacklist = process.env.SSL_DATASET_BLACKLIST.split(',');
-  config.datasetBlacklist = new RegExp(`^/[a-z]{2}/item/(${datasetBlacklist.join('|')})/`);
-}
+export default async({ route, req, redirect }) => {
+  if (!sslNegotiationEnabled || routePermittedOnEitherScheme(route)) return;
 
-const routeOnDatasetBlacklist = route => {
-  return config.datasetBlacklist && config.datasetBlacklist.test(route.fullPath);
-};
+  const ssl = isHttps({ req });
+  const routeBlacklisted = routeOnDatasetBlacklist(route);
 
-const routePermittedOnEitherScheme = route => {
-  return config.eitherSchemeWhitelist.test(route.fullPath);
-};
+  let redirectToScheme;
 
-export default ({ route, redirect, req }) => {
-  if (routePermittedOnEitherScheme(route)) return;
-
-  let ssl;
-  let host;
-
-  if (process.server) {
-    ssl = require('is-https')(req, true);
-    host = req.headers['X-Forwarded-Host'] || req.headers.host;
-  } else if (process.client) {
-    ssl = (window.location.protocol === 'https:');
-    host = window.location.host;
+  if (ssl && routeBlacklisted) {
+    // redirect to non-ssl
+    redirectToScheme = 'http';
+  } else if (!ssl && !routeBlacklisted) {
+    // redirect to ssl
+    redirectToScheme = 'https';
   } else {
     return;
   }
 
-  const routeBlacklisted = routeOnDatasetBlacklist(route);
+  const host = currentHost({ req });
+  const redirectToUrl = `${redirectToScheme}://${host}${route.fullPath}`;
 
-  if (ssl && routeBlacklisted) {
-    // redirect to non-ssl
-    return redirect(`http://${host}${route.fullPath}`);
-  } else if (!ssl && !routeBlacklisted) {
-    // redirect to ssl
-    return redirect(`https://${host}${route.fullPath}`);
-  }
+  return redirect(redirectToUrl);
 };

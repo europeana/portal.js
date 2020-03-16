@@ -73,7 +73,7 @@
       if (currentPage === null) {
         // Redirect non-positive integer values for `page` to `page=1`
         query.page = '1';
-        return redirect(app.localePath({ name: 'exhibitions', query }));
+        return redirect(app.$path({ name: 'exhibitions', query }));
       }
 
       const contentfulClient = createClient(query.mode);
@@ -98,7 +98,7 @@
     },
     methods: {
       paginationLink(val) {
-        return this.localePath({ name: 'exhibitions', query: { page: val } });
+        return this.$path({ name: 'exhibitions', query: { page: val } });
       },
       imageUrl(image) {
         if (image && image.fields && image.fields.image && image.fields.image.fields && image.fields.image.fields.file)

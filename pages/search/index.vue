@@ -37,7 +37,7 @@
 
       if (currentPage === null) {
         // Redirect non-positive integer values for `page` to `page=1`
-        return redirect(app.localePath({ name: 'search', query: { ...query, ...{ page: '1' } } }));
+        return redirect(app.$path({ name: 'search', query: { ...query, ...{ page: '1' } } }));
       }
     },
     computed: {
