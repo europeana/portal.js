@@ -7,7 +7,7 @@ const config = {
 
 if (process.env.SSL_DATASET_BLACKLIST && process.env.SSL_DATASET_BLACKLIST !== '') {
   const datasetBlacklist = process.env.SSL_DATASET_BLACKLIST.split(',');
-  config.datasetBlacklist = new RegExp(`^/[a-z]{2}/record/(${datasetBlacklist.join('|')})/`);
+  config.datasetBlacklist = new RegExp(`^/[a-z]{2}/item/(${datasetBlacklist.join('|')})/`);
 }
 
 const routeOnDatasetBlacklist = route => {
