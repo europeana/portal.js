@@ -14,7 +14,7 @@ export const mutations = {
 
 export const getters = {
   canonicalUrl(state, getters) {
-    return getters.origin + state.canonicalUrlPath;
+    return getters.origin + state.path;
   },
   origin(state) {
     return `${state.protocol}//${state.host}`;
