@@ -27,16 +27,26 @@
           :card-type="card.sys.contentType ? card.sys.contentType.sys.id : ''"
         />
       </b-card-group>
+      <SmartLink
+        v-if="section.fields.moreButton"
+        :destination="section.fields.moreButton.fields.url"
+        class="btn btn-light"
+        data-qa="section more button"
+      >
+        {{ section.fields.moreButton.fields.text }}
+      </SmartLink>
     </div>
   </section>
 </template>
 
 <script>
   import BrowseContentCard from './BrowseContentCard';
+  import SmartLink from '../generic/SmartLink';
 
   export default {
     components: {
-      BrowseContentCard
+      BrowseContentCard,
+      SmartLink
     },
     props: {
       section: {
