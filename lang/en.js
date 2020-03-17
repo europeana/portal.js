@@ -5,7 +5,7 @@ export default {
     "listSeperator": ";"
   },
   "error": "Error",
-  "goToRecord": "Go to item",
+  "goToRecord": "Go to record",
   "readMore": "Read more",
   "search": "Search",
   "results": "Results",
@@ -23,7 +23,7 @@ export default {
       "dctermsCreated": "Creation date",
       "edmCountry": "Providing country",
       "edmDataProvider": "Providing institution",
-      "edmRights": "License of the media in this item (unless otherwise specified)",
+      "edmRights": "License of the media in this record (unless otherwise specified)",
       "dcPublisher": "Publisher",
       "dcSubject": "Subject",
       "dctermsMedium": "Medium",
@@ -118,8 +118,9 @@ export default {
       }
     },
     "contentTier": {
-      "name": "Content quality",
+      "name": "Includes items not meeting our publishing criteria",
       "options": {
+        "*": "Includes items not meeting our publishing criteria",
         "0": "Only items not meeting our publishing criteria"
       }
     },
@@ -159,7 +160,7 @@ export default {
     "MIME_TYPE": {
       "name": "File format | File formats",
       "options": {
-        "text/plain": "Plain text"
+        "text\/plain": "Plain text"
       }
     },
     "COLOURPALETTE": {
@@ -317,8 +318,8 @@ export default {
     "api": {
       "name": "Search for",
       "options": {
-        "fulltext": "Items with full-text",
-        "metadata": "Metadata-only items"
+        "fulltext": "Records with full-text",
+        "metadata": "Metadata-only records"
       }
     },
     "CREATOR": {
@@ -348,7 +349,7 @@ export default {
   "layout": {
     "skipToMain": "Skip to page contents"
   },
-  "searchPlaceholder": "Search 58 million items",
+  "searchPlaceholder": "Search millions of items",
   "searchTier": {
     "button": {
       "show": "Show these items",
@@ -364,6 +365,7 @@ export default {
   "showMore": "Show more",
   "delete": "Delete",
   "removeFilter": "Remove {filterLabel} filter",
+  "entityDepictionCredit": "Resource obtained from Wikimedia Commons",
   "newWindow": "opens in new window",
   "blog": {
     "blog": "Blog",
@@ -396,17 +398,17 @@ export default {
   "loadingResults": "Loading results",
   "edmIsShownAtLinkAlt": "View at the provider's website",
   "record": {
-    "downloadCopyrightInfo": "This item is in copyright and can not be downloaded.",
     "extendedInformation": "Extended information",
     "hideAll": "Hide all information",
-    "record": "Item",
+    "record": "Record",
     "showAll": "Show all information",
     "similarItems": "Similar items",
     "view": {
       "pdf": "View PDF",
       "image": "View image",
       "media": "View media"
-    }
+    },
+    "downloadCopyrightInfo": "This item is in copyright and can not be downloaded."
   },
   "contentfulManual": {
     "headerNavigation": {
@@ -441,7 +443,7 @@ export default {
   "learnMore": "Learn about the source of this description",
   "footer": {
     "ourMission": "Our mission",
-    "ourMissionQuote": "We transform the world with culture! We want to build on Europe's rich heritage and make it easier for people to use, whether for work, for learning or just for fun.",
+    "ourMissionQuote": "Europeana empowers the cultural heritage sector in its digital transformation. We develop expertise, tools and policies to embrace digital change and encourage partnerships that foster innovation.",
     "customiseWebsiteLanguage": "Customise website language",
     "disclaimerLine1": "Europeana is an initiative of the European Union, financed by the European Union’s Connecting Europe Facility and European Union Member States. The Europeana services, including this website, are operated by a consortium led by the Europeana Foundation under a service contract with the European Commission.",
     "disclaimerLine2": "The European Commission does not guarantee the accuracy of the information and accepts no responsibility or liability whatsoever with regard to the information on this website. Neither the European Commission, nor any person acting on the European Commission’s behalf, is responsible or liable for the accuracy or use of the information on this website.",
