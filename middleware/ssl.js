@@ -1,33 +1,31 @@
-// TODO: redirects should strip port from host and replace with customisable
-//       port for other scheme
-
 import { isHttps, currentHost } from '../plugins/http';
 import {
   sslNegotiationEnabled, routePermittedOnEitherScheme, routeOnDatasetBlacklist
 } from '../plugins/ssl';
 
-export default async({ route, req, redirect }) => {
+export default async({ store, route, req, redirect }) => {
   if (!sslNegotiationEnabled || routePermittedOnEitherScheme(route)) return;
 
   const ssl = isHttps({ req });
   const routeBlacklisted = routeOnDatasetBlacklist(route);
 
   let redirectToScheme;
+  let redirectToPort = '';
 
   if (ssl && routeBlacklisted) {
     // redirect to non-ssl
     redirectToScheme = 'http';
+    redirectToPort = store.state.http.httpPort;
   } else if (!ssl && !routeBlacklisted) {
     // redirect to ssl
     redirectToScheme = 'https';
+    redirectToPort = store.state.http.httpsPort;
   } else {
     return;
   }
 
   const host = currentHost({ req });
-  const redirectToUrl = `${redirectToScheme}://${host}${route.fullPath}`;
+  const redirectToUrl = `${redirectToScheme}://${host}${redirectToPort}${route.fullPath}`;
 
-  if (process.server) {
-    return redirect(redirectToUrl);
-  }
+  return redirect(redirectToUrl);
 };

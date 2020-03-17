@@ -5,8 +5,8 @@ services:
     build:
       context: ./nginx
     ports:
-      - "443:443"
-      - "80:80"
+      - "3000:3000"
+      - "3001:3001"
   app:
     image: europeana/portaljs-app
     build:
@@ -17,5 +17,7 @@ services:
     environment:
       - NODE_ENV
       - DISABLE_SSL_NEGOTIATION=0
+      - HTTP_PORT=3000
+      - HTTPS_PORT=3001
     env_file:
      - ../../.env

@@ -3,7 +3,9 @@ import { currentProtocol, currentHost } from '../plugins/http';
 export const state = () => ({
   protocol: null,
   path: null,
-  host: null
+  host: null,
+  httpPort: null,
+  httpsPort: null
 });
 
 export const mutations = {
@@ -27,8 +29,13 @@ export const actions = {
     const host = currentHost({ req });
     const path = route.fullPath;
 
+    const httpPort = process.env['HTTP_PORT'] ? `:${process.env['HTTP_PORT']}` : null;
+    const httpsPort = process.env['HTTPS_PORT'] ? `:${process.env['HTTPS_PORT']}` : null;
+
     commit('set', ['protocol', protocol]);
     commit('set', ['host', host]);
     commit('set', ['path', path]);
+    commit('set', ['httpPort', httpPort]);
+    commit('set', ['httpsPort', httpsPort]);
   }
 };

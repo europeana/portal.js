@@ -13,15 +13,18 @@ export default ({ app, store }, inject) => {
 
     // TODO: observe ssl feature toggle
     let switchToProtocol;
+    let switchToPort;
     if (routeBlacklisted && store.state.http.protocol === 'https:') {
       switchToProtocol = 'http:';
+      switchToPort = store.state.http.httpPort;
     } else if (!routeBlacklisted && store.state.http.protocol === 'http:') {
       switchToProtocol = 'https:';
+      switchToPort = store.state.http.httpsPort;
     }
 
     if (!switchToProtocol) return localePath;
 
-    return `${switchToProtocol}//${store.state.http.host}${localePath}`;
+    return `${switchToProtocol}//${store.state.http.host}${switchToPort}${localePath}`;
   };
 
   const goto = (route) => {
