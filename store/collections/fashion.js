@@ -15,7 +15,6 @@ const facetFieldLabelPatterns = {
 
 export const state = () => ({
   apiParams: {},
-  enabled: false,
   facets: []
 });
 
@@ -43,9 +42,6 @@ export const getters = {
 };
 
 export const mutations = {
-  enable(state) {
-    state.enabled = true;
-  },
   set(state, payload) {
     state[payload[0]] = payload[1];
   }
