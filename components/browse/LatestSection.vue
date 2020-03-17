@@ -88,30 +88,38 @@
 
     methods: {
       cardData(card) {
-        const identifier = card.identifier;
-        let cardLink;
+        let data = {};
+
+        switch (this.category) {
+        case 'Exhibitions':
+          data = this.exhibitionCardData(card);
+          break;
+        case 'Galleries':
+          data = this.galleryCardData(card);
+          break;
+        }
+
+        return data;
+      },
+      exhibitionCardData(card) {
+        const image = card.primaryImageOfPage;
         let imageUrl;
         let imageContentType;
-
-        if (this.category === 'Exhibitions') {
-          const image = card.primaryImageOfPage;
-
-          if (image && image.fields && image.fields.image && image.fields.image.fields && image.fields.image.fields.file) {
-            imageUrl = image.fields.image.fields.file.url;
-            imageContentType = image.fields.image.fields.file.contentType;
-          }
-
-          cardLink = { name: 'exhibitions-exhibition', params: { exhibition: identifier } };
-
-        } else if (this.category === 'Galleries') {
-          imageUrl = card.hasPart[0].fields.thumbnailUrl;
-          cardLink = { name: 'galleries-all', params: { pathMatch: identifier } };
+        if (image && image.fields && image.fields.image && image.fields.image.fields && image.fields.image.fields.file) {
+          imageUrl = image.fields.image.fields.file.url;
+          imageContentType = image.fields.image.fields.file.contentType;
         }
 
         return {
-          cardLink,
+          cardLink: { name: 'exhibitions-exhibition', params: { exhibition: card.identifier } },
           imageUrl,
           imageContentType
+        };
+      },
+      galleryCardData(card) {
+        return {
+          cardLink: { name: 'galleries-all', params: { pathMatch: card.identifier } },
+          imageUrl: card.hasPart[0].fields.thumbnailUrl
         };
       }
     }
