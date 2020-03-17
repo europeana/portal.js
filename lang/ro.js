@@ -65,7 +65,8 @@ export default {
       "edmIsSimilarTo": "Este asemănător cu",
       "edmIsSuccessorOf": "Urmează după",
       "edmRealizes": "Își dă seama",
-      "wasPresentAt": "A fost prezent la"
+      "wasPresentAt": "A fost prezent la",
+      "keywords": "Cuvinte cheie (furnizate de comunitate)"
     },
     "webResource": {
       "dcDescription": "Descriere",
@@ -82,7 +83,10 @@ export default {
     "REUSABILITY": {
       "name": "Pot reutiliza acest lucru?",
       "options": {
-        "open": "Da"
+        "open": "Da",
+        "restricted": "Da, cu condiții",
+        "permission": "Poate, obțineți permisiunea",
+        "uncategorized": "Fără categorie"
       }
     },
     "collection": {
@@ -104,10 +108,20 @@ export default {
       }
     },
     "TYPE": {
-      "name": "Tip de media"
+      "name": "Tip de media",
+      "options": {
+        "IMAGE": "Imagine",
+        "TEXT": "Text",
+        "VIDEO": "Video",
+        "SOUND": "Sunet",
+        "3D": "3D"
+      }
     },
     "contentTier": {
-      "name": "Sunt incluse articole care nu îndeplinesc criteriile noastre de publicare"
+      "name": "Sunt incluse articole care nu îndeplinesc criteriile noastre de publicare",
+      "options": {
+        "*": "Sunt incluse articole care nu îndeplinesc criteriile noastre de publicare"
+      }
     },
     "button": {
       "reset": "Resetează",
@@ -125,6 +139,198 @@ export default {
     },
     "DATA_PROVIDER": {
       "name": "Instituție"
+    },
+    "IMAGE_ASPECTRATIO": {
+      "name": "Orientare imagine | Orientări imagine",
+      "options": {
+        "landscape": "Peisaj",
+        "portrait": "Portret"
+      }
+    },
+    "IMAGE_SIZE": {
+      "name": "Dimensiune imagine | Dimensiuni imagine",
+      "options": {
+        "small": "Mic <0,5MP (de ex. 650 x 600 px)",
+        "medium": "Mediu 0,5-1 MP (de ex. 850 x 850 px)",
+        "large": "Mare 1-4 MP (de ex. 1920 x 1080 px)",
+        "extra_large": "Foarte mare 4 MP + (de ex. 2688 x 1520 px)"
+      }
+    },
+    "MIME_TYPE": {
+      "name": "Format fișier| Formate fișier",
+      "options": {
+        "text\/plain": "Text simplu"
+      }
+    },
+    "COLOURPALETTE": {
+      "name": "Culoare | Culori",
+      "options": {
+        "#000000": "Negru",
+        "#000080": "Albastru marin",
+        "#00008B": "Albastru inchis",
+        "#0000CD": "Albastru mediu",
+        "#0000FF": "Albastru",
+        "#006400": "Verde inchis",
+        "#008000": "Web Green",
+        "#008080": "Turcoaz",
+        "#008B8B": "Dark Cyan",
+        "#00BFFF": "Deep Sky Blue",
+        "#00CED1": "Turcoaz întunecat",
+        "#00FA9A": "Verde de primăvară medie",
+        "#00FF00": "Verde",
+        "#00FF7F": "Green Spring",
+        "#00FFFF": "Cyan",
+        "#191970": "Midnight Blue",
+        "#1E90FF": "Albastru Dodger",
+        "#20B2AA": "Green Light Sea",
+        "#228B22": "Padure verde",
+        "#2E8B57": "Mare verde",
+        "#2F4F4F": "Grey Ardezie închisă",
+        "#32CD32": "Verde lime",
+        "#3CB371": "Marea Medie Verde",
+        "#40E0D0": "Turcoaz",
+        "#4169E1": "Albastru regal",
+        "#4682B4": "Albastru de oțel",
+        "#483D8B": "Ardezie închisă albastru",
+        "#48D1CC": "Turcoaz mediu",
+        "#4B0082": "Indigo",
+        "#556B2F": "Verde măsliniu închis",
+        "#5F9EA0": "Cadet albastru",
+        "#6495ED": "Albăstrea",
+        "#663399": "Rebecca Purple",
+        "#66CDAA": "Acvamarin mediu",
+        "#696969": "Dim Gray",
+        "#6A5ACD": "Ardezie albastră",
+        "#6B8E23": "Măsliniu murdar",
+        "#708090": "Ardezie gri",
+        "#778899": "Grey Ardezie gri",
+        "#7B68EE": "Ardezie mediu albastru",
+        "#7CFC00": "Verde de gazon",
+        "#7F0000": "Web Maroon",
+        "#7F007F": "Web Purple",
+        "#7FFF00": "Chartreuse",
+        "#7FFFD4": "Acvamarin",
+        "#800000": "Maro",
+        "#800080": "Violet",
+        "#808000": "oliv",
+        "#808080": "Web Grey",
+        "#87CEEB": "Cer albastru",
+        "#87CEFA": "Cer albastru deschis",
+        "#8A2BE2": "Albastru violet",
+        "#8B0000": "Roșu-închis",
+        "#8B008B": "Magenta întunecată",
+        "#8B4513": "Maro Saddle",
+        "#8FBC8F": "Green Sea Dark",
+        "#90EE90": "Verde deschis",
+        "#9370DB": "Violet mediu",
+        "#9400D3": "Violet închis",
+        "#98FB98": "Verde palid",
+        "#9932CC": "Orhidee întunecată",
+        "#9ACD32": "Galben verde",
+        "#A020F0": "Violet",
+        "#A0522D": "Sienna",
+        "#A52A2A": "Maro",
+        "#A9A9A9": "Gri inchis",
+        "#ADD8E6": "Albastru deschis",
+        "#ADFF2F": "Verde galben",
+        "#AFEEEE": "Turcoaz pal",
+        "#B03060": "Maro",
+        "#B0C4DE": "Albastru deschis de oțel",
+        "#B0E0E6": "Pudra albastra",
+        "#B22222": "Firebrick",
+        "#B8860B": "Goldenrod întunecat",
+        "#BA55D3": "Orhidee mediu",
+        "#BC8F8F": "Rosy Brown",
+        "#BDB76B": "Dark Kaki",
+        "#BEBEBE": "Gri",
+        "#C0C0C0": "Argint",
+        "#C71585": "Roșu violet mediu",
+        "#CD5C5C": "Roșu indian",
+        "#CD853F": "Peru",
+        "#D2691E": "Ciocolată",
+        "#D2B48C": "Bronza",
+        "#D3D3D3": "Gri deschis",
+        "#D8BFD8": "Ciulin",
+        "#DA70D6": "Orhidee",
+        "#DAA520": "Goldenrod",
+        "#DB7093": "Roșu violet pal",
+        "#DC143C": "Purpuriu",
+        "#DCDCDC": "Gainsboro",
+        "#DDA0DD": "Prună",
+        "#DEB887": "Burlywood",
+        "#E0FFFF": "Cian ușor",
+        "#E6E6FA": "Lavandă",
+        "#E9967A": "Somon întunecat",
+        "#EE82EE": "violet",
+        "#EEE8AA": "Golden Goldenrod",
+        "#F08080": "Coral deschis",
+        "#F0E68C": "Kaki",
+        "#F0F8FF": "Albastru Alice",
+        "#F0FFF0": "Mană",
+        "#F0FFFF": "Azur",
+        "#F4A460": "Sandy Brown",
+        "#F5DEB3": "Grâu",
+        "#F5F5DC": "Bej",
+        "#F5F5F5": "Fum alb",
+        "#F5FFFA": "Crema de mentă",
+        "#F8F8FF": "Ghost Alb",
+        "#FA8072": "Somon",
+        "#FAEBD7": "Albul antic",
+        "#FAF0E6": "Lenjerie",
+        "#FAFAD2": "Light Goldenrod",
+        "#FDF5E6": "Macrame",
+        "#FF0000": "roșu",
+        "#FF00FF": "Fucsie",
+        "#FF1493": "Roz închis",
+        "#FF4500": "Portocaliu rosu",
+        "#FF6347": "Roșie",
+        "#FF69B4": "Roz aprins",
+        "#FF7F50": "Coral",
+        "#FF8C00": "Portocaliu închis",
+        "#FFA07A": "Somon deschis",
+        "#FFA500": "portocale",
+        "#FFB6C1": "Roz deschis",
+        "#FFC0CB": "Roz",
+        "#FFD700": "Aur",
+        "#FFDAB9": "Piersică prăfuită",
+        "#FFDEAD": "Nava albă",
+        "#FFE4B5": "Mocasin",
+        "#FFE4C4": "Porțelan",
+        "#FFE4E1": "Misty Rose",
+        "#FFEBCD": "Migdale albe",
+        "#FFEFD5": "Papaya Whip",
+        "#FFF0F5": "Lavanda Blush",
+        "#FFF5EE": "Seashell",
+        "#FFF8DC": "Matase de porumb",
+        "#FFFACD": "Șifon de lămâie",
+        "#FFFAF0": "Alb floral",
+        "#FFFAFA": "Zăpadă",
+        "#FFFF00": "Galben",
+        "#FFFFE0": "Lumină galbenă",
+        "#FFFFFF": "alb"
+      }
+    },
+    "proxy_dcterms_issued": {
+      "name": "Data emiterii"
+    },
+    "api": {
+      "name": "Căutare după",
+      "options": {
+        "fulltext": "Înregistrări cu text integral",
+        "metadata": "Înregistrări doar pentru metadate"
+      }
+    },
+    "CREATOR": {
+      "name": "Creator | Creatori"
+    },
+    "proxy_dc_format": {
+      "name": "Format | Formate"
+    },
+    "proxy_dcterms_medium": {
+      "name": "Medii | Media"
+    },
+    "proxy_dc_type": {
+      "name": "Tip | Tipuri"
     }
   },
   "entity": "Entitate",
@@ -172,10 +378,18 @@ export default {
     "right": "Dreapta"
   },
   "exhibitions": {
-    "exhibitions": "Expoziții"
+    "exhibitions": "Expoziții",
+    "credits": "Credite",
+    "chapters": "Capitole",
+    "currentChapter": "Capitolul actual"
   },
   "actions": {
-    "download": "Descarcă"
+    "download": "Descarcă",
+    "viewAt": "Vizualizați pe {link}",
+    "providedBy": "Furnizat de {provider}",
+    "viewDocument": "Vizualizare document",
+    "share": "Distribuiți",
+    "shareOn": "Distribuiți pe {social}"
   },
   "clearAllFilters": "șterge toate filtrele",
   "reset": "Resetează",
@@ -185,10 +399,18 @@ export default {
     "extendedInformation": "Informații extinse",
     "hideAll": "Ascunde toate informațiile",
     "record": "Înregistrare",
-    "showAll": "Afișează toate informațiile"
+    "showAll": "Afișează toate informațiile",
+    "similarItems": "Articole similare",
+    "view": {
+      "pdf": "Vizualizare pdf",
+      "image": "Vizualizare imagine",
+      "media": "Vizualizare fișiere media"
+    },
+    "downloadCopyrightInfo": "Acest articol este protejat prin drepturi de autor și nu poate fi descărcat."
   },
   "contentfulManual": {
     "headerNavigation": {
+      "teachers": "Educatori",
       "explore": "Explorează"
     },
     "footerNavigation": {
@@ -198,6 +420,65 @@ export default {
       "provide": "Deveni un furnizor de date",
       "meetUs": "Faceți cunoștință cu echipa",
       "help": "Ajutor"
+    }
+  },
+  "imageSlider": {
+    "handle": "Cursor glisor"
+  },
+  "dateFilter": {
+    "startDate": "Data de început",
+    "endDate": "Data de încheiere",
+    "to": "la",
+    "specificDate": "Data exactă"
+  },
+  "cookieDisclaimer": {
+    "acceptCookieDisclaimer": "Acceptați declarația de module cookie",
+    "terms": "Această pagină de internet utilizează module cookie astfel încât să vă bucurați de cea mai bună experiență pe pagina noastră. Făcând clic sau navigând pe pagina noastră, sunteți de acord să colectăm informații prin intermediul modulelor.",
+    "link": "Mai multe informații"
+  },
+  "searchSuggestions": "Sugestii de căutare",
+  "learnMore": "Aflați mai multe despre sursa acestei descrieri",
+  "footer": {
+    "ourMission": "Misiunea noastră",
+    "ourMissionQuote": "Europeana sprijină sectorul patrimoniului cultural în transformarea sa digitală. Dezvoltăm expertiza, uneltele și politicile pentru a adopta schimbările digitale și încurajăm parteneriate care stau la baza inovației.",
+    "customiseWebsiteLanguage": "Personalizați limba de pe pagina de internet",
+    "imageDescription": "Cofinanțat de Connecting Europe Facility a Uniunii Europene",
+    "findUsElsewhere": "Ne puteți găsi și în altă parte"
+  },
+  "collections": {
+    "fashion": {
+      "facets": {
+        "CREATOR": {
+          "name": "Designer | Designeri"
+        },
+        "proxy_dc_format": {
+          "name": "Tehnică | Tehnici"
+        },
+        "proxy_dcterms_medium": {
+          "name": "Material | Materiale"
+        },
+        "proxy_dc_type": {
+          "name": "Tip articol | Tipuri articole"
+        }
+      }
+    }
+  },
+  "galleries": {
+    "galleries": "Galerii"
+  },
+  "relatedCollections": "Colecții similare",
+  "linksToClassic": {
+    "home": {
+      "text": "Vizualizați noua experiență Europeana.",
+      "linkText": "Mergeți către portalul original Europeana."
+    },
+    "search": {
+      "text": "Căutați acest articol în noua pagină de internet și mai rapidă.",
+      "linkText": "Vizualizați rezultatele acestor căutări în portalul original Europeana."
+    },
+    "record": {
+      "text": "Vizualizați acest articol în noua pagină de internet Europeana.",
+      "linkText": "Vizualizați acest articol în portalul original Europeana."
     }
   }
 };
