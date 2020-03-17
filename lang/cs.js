@@ -55,17 +55,17 @@ export default {
       "dctermsHasPart": "se skládá z",
       "dctermsHasVersion": "vlastní verzi",
       "dctermsIsFormatOf": "je formou",
-      "dctermsIsReferencedBy": "je zmiňován\/a",
+      "dctermsIsReferencedBy": "je zmiňován/a",
       "dctermsIsReplacedBy": "se nahradí",
       "dctermsIsRequiredBy": "je potřeba pro",
-      "edmHasMet": "se setkal\/a s",
+      "edmHasMet": "se setkal/a s",
       "edmIncorporates": "zahrnuje",
       "edmIsDerivativeOf": "je zpodobněním",
       "edmIsRepresentationOf": "představuje",
       "edmIsSimilarTo": "se podobá",
       "edmIsSuccessorOf": "je nástupcem",
       "edmRealizes": "ztvárňuje",
-      "wasPresentAt": "se účastnil\/a",
+      "wasPresentAt": "se účastnil/a",
       "keywords": "Klíčová slova (poskytnutá komunitou)"
     },
     "webResource": {
@@ -159,7 +159,7 @@ export default {
     "MIME_TYPE": {
       "name": "Formát souboru | Formáty souborů",
       "options": {
-        "text\/plain": "Prostý text"
+        "text/plain": "Prostý text"
       }
     },
     "COLOURPALETTE": {
