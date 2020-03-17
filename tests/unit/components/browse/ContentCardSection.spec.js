@@ -37,7 +37,13 @@ const dummySection = {
           fields: { file: { url: 'img/portrait.jpg' } } }
         }
       }
-    ]
+    ],
+    moreButton: {
+      fields: {
+        url: 'http://europeana.eu',
+        text: 'Show more art'
+      }
+    }
   },
   mocks: { $t: () => {} }
 };
@@ -64,6 +70,15 @@ describe('components/browse/ContentCardSection', () => {
       const cardGroup = wrapper.find('[data-qa="section group"]');
 
       cardGroup.findAll('[data-qa="content card"]').length.should.eq(2);
+    });
+
+    it('displays a button', () => {
+      const wrapper = factory();
+      wrapper.setProps({ section: dummySection });
+
+      const moreButton = wrapper.find('[data-qa="section more button"]');
+      moreButton.text().should.contain('Show more art');
+      moreButton.attributes('href').should.eq('http://europeana.eu');
     });
   });
 });
