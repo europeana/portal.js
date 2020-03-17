@@ -118,8 +118,9 @@ export default {
       }
     },
     "contentTier": {
-      "name": "Content quality",
+      "name": "Includes items not meeting our publishing criteria",
       "options": {
+        "*": "Includes items not meeting our publishing criteria",
         "0": "Only items not meeting our publishing criteria"
       }
     },
@@ -348,7 +349,7 @@ export default {
   "layout": {
     "skipToMain": "Skip to page contents"
   },
-  "searchPlaceholder": "Search 58 million items",
+  "searchPlaceholder": "Search millions of items",
   "searchTier": {
     "button": {
       "show": "Show these items",
@@ -396,7 +397,6 @@ export default {
   "loadingResults": "Loading results",
   "edmIsShownAtLinkAlt": "View at the provider's website",
   "record": {
-    "downloadCopyrightInfo": "This item is in copyright and can not be downloaded.",
     "extendedInformation": "Extended information",
     "hideAll": "Hide all information",
     "record": "Item",
@@ -406,7 +406,8 @@ export default {
       "pdf": "View PDF",
       "image": "View image",
       "media": "View media"
-    }
+    },
+    "downloadCopyrightInfo": "This item is in copyright and can not be downloaded."
   },
   "contentfulManual": {
     "headerNavigation": {
@@ -441,7 +442,7 @@ export default {
   "learnMore": "Learn about the source of this description",
   "footer": {
     "ourMission": "Our mission",
-    "ourMissionQuote": "We transform the world with culture! We want to build on Europe's rich heritage and make it easier for people to use, whether for work, for learning or just for fun.",
+    "ourMissionQuote": "Europeana empowers the cultural heritage sector in its digital transformation. We develop expertise, tools and policies to embrace digital change and encourage partnerships that foster innovation.",
     "customiseWebsiteLanguage": "Customise website language",
     "disclaimerLine1": "Europeana is an initiative of the European Union, financed by the European Union’s Connecting Europe Facility and European Union Member States. The Europeana services, including this website, are operated by a consortium led by the Europeana Foundation under a service contract with the European Commission.",
     "disclaimerLine2": "The European Commission does not guarantee the accuracy of the information and accepts no responsibility or liability whatsoever with regard to the information on this website. Neither the European Commission, nor any person acting on the European Commission’s behalf, is responsible or liable for the accuracy or use of the information on this website.",

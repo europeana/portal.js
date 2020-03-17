@@ -65,7 +65,8 @@ export default {
       "edmIsSimilarTo": "es parecido a",
       "edmIsSuccessorOf": "es el sucesor de",
       "edmRealizes": "Se da cuenta",
-      "wasPresentAt": "estuvo presente en"
+      "wasPresentAt": "estuvo presente en",
+      "keywords": "Palabras clave (proporcionadas por la comunidad)"
     },
     "webResource": {
       "dcDescription": "Descripción",
@@ -82,7 +83,10 @@ export default {
     "REUSABILITY": {
       "name": "¿Puede reutilizarse?",
       "options": {
-        "open": "Sí"
+        "open": "Sí",
+        "restricted": "Sí, con condiciones",
+        "permission": "Tal vez, solicite permiso",
+        "uncategorized": "Sin categoría"
       }
     },
     "collection": {
@@ -104,10 +108,20 @@ export default {
       }
     },
     "TYPE": {
-      "name": "Tipo de medio"
+      "name": "Tipo de medio",
+      "options": {
+        "IMAGE": "Imagen",
+        "TEXT": "Texto",
+        "VIDEO": "Vídeo",
+        "SOUND": "Sonido",
+        "3D": "3D"
+      }
     },
     "contentTier": {
-      "name": "Incluir los elementos que no cumplan nuestros criterios de publicación"
+      "name": "Incluir los elementos que no cumplan nuestros criterios de publicación",
+      "options": {
+        "*": "Incluir los objetos que no cumplan nuestros criterios de publicación"
+      }
     },
     "button": {
       "reset": "Reiniciar",
@@ -125,6 +139,198 @@ export default {
     },
     "DATA_PROVIDER": {
       "name": "Institución"
+    },
+    "IMAGE_ASPECTRATIO": {
+      "name": "Orientación de la imagen | Orientaciones de la imagen",
+      "options": {
+        "landscape": "Horizontal",
+        "portrait": "Vertical"
+      }
+    },
+    "IMAGE_SIZE": {
+      "name": "Tamaño de imagen | Tamaños de imagen",
+      "options": {
+        "small": "Pequeño, inferior a 0,5 MP (por ejemplo, 650 × 600 px)",
+        "medium": "Mediano, entre 0,5 y 1 MP (por ejemplo 850 × 850 px)",
+        "large": "Grande, entre 1 y 4 MP (por ejemplo, 1920 × 1080 px)",
+        "extra_large": "Extragrande, 4 MP o más (por ejemplo, 2688 × 1520 px) "
+      }
+    },
+    "MIME_TYPE": {
+      "name": "Formato de archivo | Formatos de archivo",
+      "options": {
+        "text/plain": "Texto sin formato"
+      }
+    },
+    "COLOURPALETTE": {
+      "name": "Color | Colores",
+      "options": {
+        "#000000": "Negro",
+        "#000080": "Azul marino",
+        "#00008B": "Azul oscuro",
+        "#0000CD": "Azul medio",
+        "#0000FF": "Azul",
+        "#006400": "Verde oscuro",
+        "#008000": "Web verde",
+        "#008080": "Verde azulado",
+        "#008B8B": "Cian oscuro",
+        "#00BFFF": "Deep Sky Blue",
+        "#00CED1": "Turquesa oscuro",
+        "#00FA9A": "Medium Spring Green",
+        "#00FF00": "Verde",
+        "#00FF7F": "Primavera verde",
+        "#00FFFF": "Cian",
+        "#191970": "Azul medianoche",
+        "#1E90FF": "Azul Dodger",
+        "#20B2AA": "Light Sea Green",
+        "#228B22": "Bosque verde",
+        "#2E8B57": "Mar verde",
+        "#2F4F4F": "Gris pizarra oscuro",
+        "#32CD32": "Verde lima",
+        "#3CB371": "Verde Mar Medio",
+        "#40E0D0": "Turquesa",
+        "#4169E1": "Azul real",
+        "#4682B4": "Azul acero",
+        "#483D8B": "Azul pizarra oscuro",
+        "#48D1CC": "Turquesa medio",
+        "#4B0082": "Índigo",
+        "#556B2F": "Verde oliva oscuro",
+        "#5F9EA0": "Azul cadete",
+        "#6495ED": "Florecimiento de maíz",
+        "#663399": "Rebecca Purple",
+        "#66CDAA": "Aguamarina mediana",
+        "#696969": "Gris tenue",
+        "#6A5ACD": "Azul pizarra",
+        "#6B8E23": "Gris aceituna",
+        "#708090": "Pizarra gris",
+        "#778899": "Gris pizarra claro",
+        "#7B68EE": "Azul pizarra medio",
+        "#7CFC00": "Verde césped",
+        "#7F0000": "Web Maroon",
+        "#7F007F": "Web morado",
+        "#7FFF00": "Monasterio",
+        "#7FFFD4": "Aguamarina",
+        "#800000": "Granate",
+        "#800080": "Púrpura",
+        "#808000": "Aceituna",
+        "#808080": "Web Grey",
+        "#87CEEB": "Cielo azul",
+        "#87CEFA": "Azul cielo claro",
+        "#8A2BE2": "Violeta Azul",
+        "#8B0000": "Rojo oscuro",
+        "#8B008B": "Magenta oscuro",
+        "#8B4513": "Marrón montura",
+        "#8FBC8F": "Mar Verde Oscuro",
+        "#90EE90": "Verde claro",
+        "#9370DB": "Púrpura medio",
+        "#9400D3": "Violeta oscuro",
+        "#98FB98": "Verde pálido",
+        "#9932CC": "Orquídea oscuro",
+        "#9ACD32": "Amarillo verde",
+        "#A020F0": "Púrpura",
+        "#A0522D": "Siena",
+        "#A52A2A": "marrón",
+        "#A9A9A9": "Gris oscuro",
+        "#ADD8E6": "Azul claro",
+        "#ADFF2F": "Verde amarillo",
+        "#AFEEEE": "Turquesa pálido",
+        "#B03060": "Granate intenso",
+        "#B0C4DE": "Azul acero claro",
+        "#B0E0E6": "Azul pálido",
+        "#B22222": "Ladrillo refractario",
+        "#B8860B": "Dorado alambre oscuro",
+        "#BA55D3": "Orquídea medio",
+        "#BC8F8F": "Rosy Brown",
+        "#BDB76B": "Caqui oscuro",
+        "#BEBEBE": "Gris",
+        "#C0C0C0": "Plata",
+        "#C71585": "Violeta rojo medio",
+        "#CD5C5C": "Rojo indio",
+        "#CD853F": "Perú",
+        "#D2691E": "Chocolate",
+        "#D2B48C": "Bronceado",
+        "#D3D3D3": "Gris claro",
+        "#D8BFD8": "Cardo",
+        "#DA70D6": "Orquídea",
+        "#DAA520": "Vara de oro",
+        "#DB7093": "Rojo Violeta Pálido",
+        "#DC143C": "carmesí",
+        "#DCDCDC": "Gainsboro",
+        "#DDA0DD": "ciruela",
+        "#DEB887": "Burlywood",
+        "#E0FFFF": "Cian claro",
+        "#E6E6FA": "Lavanda",
+        "#E9967A": "Salmón oscuro",
+        "#EE82EE": "Violeta",
+        "#EEE8AA": "Vara de oro pálida",
+        "#F08080": "Coral claro",
+        "#F0E68C": "Caqui",
+        "#F0F8FF": "Azul Alicia",
+        "#F0FFF0": "Gotas de miel",
+        "#F0FFFF": "Azur",
+        "#F4A460": "Sandy Brown",
+        "#F5DEB3": "Trigo",
+        "#F5F5DC": "Beige",
+        "#F5F5F5": "Humo blanco",
+        "#F5FFFA": "Crema de menta",
+        "#F8F8FF": "Fantasma blanco",
+        "#FA8072": "Salmón",
+        "#FAEBD7": "Blanco antiguo",
+        "#FAF0E6": "Lino",
+        "#FAFAD2": "Vara de oro claro",
+        "#FDF5E6": "Encaje antiguo",
+        "#FF0000": "rojo",
+        "#FF00FF": "Fucsia",
+        "#FF1493": "Rosa intenso",
+        "#FF4500": "Rojo naranja",
+        "#FF6347": "Tomate",
+        "#FF69B4": "Rosa caliente",
+        "#FF7F50": "Coral",
+        "#FF8C00": "Naranja oscuro",
+        "#FFA07A": "Salmón claro",
+        "#FFA500": "naranja",
+        "#FFB6C1": "Rosa claro",
+        "#FFC0CB": "Rosado",
+        "#FFD700": "Oro",
+        "#FFDAB9": "Soplido melocotón",
+        "#FFDEAD": "Navajo White",
+        "#FFE4B5": "Mocasín",
+        "#FFE4C4": "Sopa",
+        "#FFE4E1": "Misty Rose",
+        "#FFEBCD": "Almendra Blanqueada",
+        "#FFEFD5": "Látigo de papaya",
+        "#FFF0F5": "Rubor lavanda",
+        "#FFF5EE": "Concha",
+        "#FFF8DC": "Seda de maiz",
+        "#FFFACD": "Gasa de limón",
+        "#FFFAF0": "Blanco floral",
+        "#FFFAFA": "Nieve",
+        "#FFFF00": "Amarillo",
+        "#FFFFE0": "Amarillo claro",
+        "#FFFFFF": "Blanco"
+      }
+    },
+    "proxy_dcterms_issued": {
+      "name": "Fecha de publicación"
+    },
+    "api": {
+      "name": "Buscar",
+      "options": {
+        "fulltext": "Registros de texto completo",
+        "metadata": "Registros de solo metadatos"
+      }
+    },
+    "CREATOR": {
+      "name": "Creador | Creadores"
+    },
+    "proxy_dc_format": {
+      "name": "Formato | Formatos"
+    },
+    "proxy_dcterms_medium": {
+      "name": "Medio | Medios"
+    },
+    "proxy_dc_type": {
+      "name": "Tipo | Tipos"
     }
   },
   "entity": "Entidad",
@@ -157,7 +363,6 @@ export default {
   "showMore": "Mostrar más",
   "delete": "Borrar",
   "removeFilter": "Quitar el filtro {filterLabel}",
-  "entityDepictionCredit": "Recurso obtenido de Wikimedia Commons",
   "newWindow": "se abre en una nueva ventana",
   "blog": {
     "blog": "Blog",
@@ -172,10 +377,18 @@ export default {
     "right": "Derecha"
   },
   "exhibitions": {
-    "exhibitions": "Exposiciones"
+    "exhibitions": "Exposiciones",
+    "credits": "Créditos",
+    "chapters": "Capítulos",
+    "currentChapter": "Capítulo actual"
   },
   "actions": {
-    "download": "Descargar"
+    "download": "Descargar",
+    "viewAt": "Ver en {link}",
+    "providedBy": "Proporcionado por {provider}",
+    "viewDocument": "Ver documento",
+    "share": "Compartir",
+    "shareOn": "Compartir en {social}"
   },
   "clearAllFilters": "borrar todos los filtros",
   "reset": "Reiniciar",
@@ -185,10 +398,18 @@ export default {
     "extendedInformation": "Información ampliada",
     "hideAll": "Ocultar toda la información",
     "record": "Registro",
-    "showAll": "Mostrar toda la información"
+    "showAll": "Mostrar toda la información",
+    "similarItems": "Objetos similares",
+    "view": {
+      "pdf": "Ver PDF",
+      "image": "Ver imagen",
+      "media": "Ver medio"
+    },
+    "downloadCopyrightInfo": "Este objeto tiene derechos de autor y no se puede descargar."
   },
   "contentfulManual": {
     "headerNavigation": {
+      "teachers": "Educadores",
       "explore": "Explorar"
     },
     "footerNavigation": {
@@ -198,6 +419,65 @@ export default {
       "provide": "Conviértete en proveedor de datos",
       "meetUs": "Nuestro equipo",
       "help": "Ayuda"
+    }
+  },
+  "imageSlider": {
+    "handle": "Manipulador de control deslizante"
+  },
+  "dateFilter": {
+    "startDate": "Fecha de inicio",
+    "endDate": "Fecha de finalización",
+    "to": "a",
+    "specificDate": "Fecha concreta"
+  },
+  "cookieDisclaimer": {
+    "acceptCookieDisclaimer": "Aceptar el consentimiento informado del uso de cookies",
+    "terms": "Este sitio web utiliza cookies para garantizarle la mejor experiencia en nuestro sitio web. Al hacer clic o navegar por el sitio, nos da su consentimiento para recopilar información por medio de cookies.",
+    "link": "Más información"
+  },
+  "searchSuggestions": "Sugerencias de búsqueda",
+  "learnMore": "Más información de la fuente de esta descripción",
+  "footer": {
+    "ourMission": "Nuestra misión",
+    "ourMissionQuote": "Europeana fortalece el sector del patrimonio cultural en su proceso de transformación digital. Desarrollamos dominio, herramientas y políticas para adoptar el cambio digital y fomentar asociaciones que fomenten la innovación.",
+    "customiseWebsiteLanguage": "Personalizar el idioma del sitio web",
+    "imageDescription": "Cofinanciado por el fondo de inversión Connecting Europe Facility (Conectando Europa) de la Unión Europea.",
+    "findUsElsewhere": "Encuéntrenos en otro sitio"
+  },
+  "collections": {
+    "fashion": {
+      "facets": {
+        "CREATOR": {
+          "name": "Diseñador | Diseñadores"
+        },
+        "proxy_dc_format": {
+          "name": "Técnica | Técnicas"
+        },
+        "proxy_dcterms_medium": {
+          "name": "Material | Materiales"
+        },
+        "proxy_dc_type": {
+          "name": "Tipo de objeto | Tipos de objeto"
+        }
+      }
+    }
+  },
+  "galleries": {
+    "galleries": "Galerías"
+  },
+  "relatedCollections": "Colecciones relacionadas",
+  "linksToClassic": {
+    "home": {
+      "text": "Está viviendo la nueva experienia Europeana.",
+      "linkText": "Ir a la web original de Europeana."
+    },
+    "search": {
+      "text": "Está buscando en nuestra nueva web, ahora más rápida.",
+      "linkText": "Ver estos resultados de búsqueda en la web original de Europeana."
+    },
+    "record": {
+      "text": "Está viendo este objeto en la nueva web de Europeana.",
+      "linkText": "Ver este objeto en la web original de Europeana."
     }
   }
 };

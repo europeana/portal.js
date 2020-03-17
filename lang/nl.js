@@ -65,7 +65,8 @@ export default {
       "edmIsSimilarTo": "Is vergelijkbaar met",
       "edmIsSuccessorOf": "Is de opvolger van",
       "edmRealizes": "Realiseert",
-      "wasPresentAt": "Was aanwezig in"
+      "wasPresentAt": "Was aanwezig in",
+      "keywords": "Trefwoorden (verstrekt door de gemeenschap)"
     },
     "webResource": {
       "dcDescription": "Omschrijving",
@@ -83,6 +84,8 @@ export default {
       "name": "Kan ik dit hergebruiken?",
       "options": {
         "open": "Ja",
+        "restricted": "Ja, onder voorwaarden",
+        "permission": "Misschien, vraag toestemming",
         "uncategorized": "Ongecategoriseerd"
       }
     },
@@ -105,10 +108,20 @@ export default {
       }
     },
     "TYPE": {
-      "name": "Soort media"
+      "name": "Soort media",
+      "options": {
+        "IMAGE": "Afbeelding",
+        "TEXT": "Tekst",
+        "VIDEO": "Video",
+        "SOUND": "Geluid",
+        "3D": "3D"
+      }
     },
     "contentTier": {
-      "name": "Bevat items die niet voldoen aan onze publicatiecriteria"
+      "name": "Bevat items die niet voldoen aan onze publicatiecriteria",
+      "options": {
+        "*": "Bevat items die niet voldoen aan onze publicatiecriteria"
+      }
     },
     "button": {
       "reset": "Opnieuw instellen",
@@ -127,13 +140,48 @@ export default {
     "DATA_PROVIDER": {
       "name": "Instelling | Instellingen"
     },
-    "COLOURPALETTE": {
+    "IMAGE_ASPECTRATIO": {
+      "name": "Beeldoriëntatie | Beeldoriëntaties",
       "options": {
+        "landscape": "Landschap",
+        "portrait": "Portret"
+      }
+    },
+    "IMAGE_SIZE": {
+      "name": "Afbeeldingsgrootte | Afbeeldingsgroottes",
+      "options": {
+        "small": "Klein < 0,5 MP (bijv. 650x600px)",
+        "medium": "Gemiddeld 0,5-1MP (bijv. 850x850px)",
+        "large": "Groot 1-4 MP (bijv. 1920x1080px)",
+        "extra_large": "Extra groot 4MP+ (bijv. 2688 x 1520px)"
+      }
+    },
+    "MIME_TYPE": {
+      "name": "Bestandsformaat | Bestandsformaten",
+      "options": {
+        "text/plain": "Platte tekst"
+      }
+    },
+    "COLOURPALETTE": {
+      "name": "Kleur | Kleuren",
+      "options": {
+        "#000000": "Zwart",
+        "#000080": "Marineblauw",
+        "#00008B": "Donkerblauw",
+        "#0000CD": "Middenblauw",
+        "#0000FF": "Blauw",
+        "#006400": "Donkergroen",
+        "#008000": "Web groen",
+        "#008080": "Wintertaling",
+        "#008B8B": "Donker cyaan",
+        "#00BFFF": "Deep Sky Blue",
+        "#00CED1": "Donker turkoois",
         "#00FA9A": "Middel lente groen",
         "#00FF00": "Groen",
         "#00FF7F": "Lente groen",
         "#00FFFF": "Cyaan",
         "#191970": "Middernacht blauw",
+        "#1E90FF": "Dodgerblauw",
         "#20B2AA": "Licht zeegroen",
         "#228B22": "Bos groen",
         "#2E8B57": "Zeegroen",
@@ -149,17 +197,23 @@ export default {
         "#556B2F": "Donker olijfgroen",
         "#5F9EA0": "Cadet blauw",
         "#6495ED": "korenbloem",
+        "#663399": "Rebecca Purple",
         "#66CDAA": "Middel Aquamarijn",
+        "#696969": "Gedimd grijs",
         "#6A5ACD": "Leisteen blauw",
+        "#6B8E23": "Grauwe olijfkleur",
         "#708090": "Leisteen grijs",
         "#778899": "Licht leisteen grijs",
         "#7B68EE": "Middel leisteenblauw",
         "#7CFC00": "Gras groen",
+        "#7F0000": "Web Maroon",
+        "#7F007F": "Web paars",
         "#7FFF00": "Chartreuse",
         "#7FFFD4": "Aquamarijn",
         "#800000": "Kastanjebruin",
         "#800080": "Paars",
         "#808000": "Olijf",
+        "#808080": "Web grijs",
         "#87CEEB": "Hemelsblauw",
         "#87CEFA": "Licht hemelsblauw",
         "#8A2BE2": "Blauw violet",
@@ -244,6 +298,7 @@ export default {
         "#FFE4C4": "biscuit",
         "#FFE4E1": "Misty Rose",
         "#FFEBCD": "Geblancheerde amandel",
+        "#FFEFD5": "Papaya Whip",
         "#FFF0F5": "Lavendel Blush",
         "#FFF5EE": "Zeeschelp",
         "#FFF8DC": "Maïszijde",
@@ -260,10 +315,23 @@ export default {
       "name": "Datum van afgifte"
     },
     "api": {
+      "name": "Zoeken naar",
       "options": {
         "fulltext": "Records met full-text",
         "metadata": "Alleen records met Metadata"
       }
+    },
+    "CREATOR": {
+      "name": "Maker | Makers"
+    },
+    "proxy_dc_format": {
+      "name": "Formaat | Formaten"
+    },
+    "proxy_dcterms_medium": {
+      "name": "Medium | Media"
+    },
+    "proxy_dc_type": {
+      "name": "Type | Types"
     }
   },
   "entity": "Entiteit",
@@ -296,7 +364,6 @@ export default {
   "showMore": "Meer weergeven",
   "delete": "Verwijder",
   "removeFilter": "Verwijder het filter {filterLabel}",
-  "entityDepictionCredit": "Bron verkregen van Wikimedia Commons",
   "newWindow": "opent in nieuw venster",
   "blog": {
     "blog": "Blog",
@@ -311,10 +378,18 @@ export default {
     "right": "Rechts"
   },
   "exhibitions": {
-    "exhibitions": "Tentoonstellingen"
+    "exhibitions": "Tentoonstellingen",
+    "credits": "Credits",
+    "chapters": "Hoofdstukken",
+    "currentChapter": "Huidig hoofdstuk"
   },
   "actions": {
-    "download": "Download"
+    "download": "Download",
+    "viewAt": "Bekijken op {link}",
+    "providedBy": "Aangeboden door {provider}",
+    "viewDocument": "Document weergeven",
+    "share": "Delen",
+    "shareOn": "Delen op {social}"
   },
   "clearAllFilters": "alle filters wissen",
   "reset": "Opnieuw instellen",
@@ -324,10 +399,18 @@ export default {
     "extendedInformation": "Uitgebreide informatie",
     "hideAll": "Verberg alle informatie",
     "record": "Registratie",
-    "showAll": "Toon alle informatie"
+    "showAll": "Toon alle informatie",
+    "similarItems": "Vergelijkbare items",
+    "view": {
+      "pdf": "PDF weergeven",
+      "image": "Afbeelding weergeven",
+      "media": "Media weergeven"
+    },
+    "downloadCopyrightInfo": "Dit item is auteursrechtelijk beschermd en kan niet worden gedownload."
   },
   "contentfulManual": {
     "headerNavigation": {
+      "teachers": "Onderwijzers",
       "explore": "Verkennen"
     },
     "footerNavigation": {
@@ -339,11 +422,15 @@ export default {
       "help": "Help"
     }
   },
+  "imageSlider": {
+    "handle": "Schuifgreep"
+  },
   "colourSwatch": "Kleurstaal",
   "dateFilter": {
     "startDate": "Begin datum",
     "endDate": "Einddatum",
-    "to": "naar"
+    "to": "naar",
+    "specificDate": "Specifieke datum"
   },
   "cookieDisclaimer": {
     "acceptCookieDisclaimer": "Accepteer cookiedisclaimer",
@@ -354,11 +441,47 @@ export default {
   "learnMore": "Meer informatie over de bron van deze beschrijving",
   "footer": {
     "ourMission": "Onze missie",
-    "ourMissionQuote": "We transformeren de wereld met cultuur! We willen voortbouwen op het rijke erfgoed van Europa en het gemakkelijker maken voor mensen om te gebruiken, hetzij voor werk, voor leren of gewoon voor de lol.",
+    "ourMissionQuote": "Europeana ondersteunt de sector cultureel erfgoed bij haar digitale transformatie. We ontwikkelen expertise, tools en beleid om digitale verandering te omarmen en partnerschappen aan te moedigen die innovatie stimuleren.",
     "customiseWebsiteLanguage": "Pas de taal van de website aan",
     "disclaimerLine1": "Europeana is een initiatief van de Europese Unie, gefinancierd door de Connecting Europe Facility van de Europese Unie en de lidstaten van de Europese Unie. De Europeana-diensten, waaronder deze website, worden beheerd door een consortium onder leiding van de Europeana Foundation in het kader van een servicecontract met de Europese Commissie.",
     "disclaimerLine2": "De Europese Commissie staat niet in voor de juistheid van de informatie en aanvaardt geen enkele verantwoordelijkheid of aansprakelijkheid met betrekking tot de informatie op deze website. Noch de Europese Commissie, noch enige persoon die namens de Europese Commissie handelt, is verantwoordelijk of aansprakelijk voor de juistheid of het gebruik van de informatie op deze website.",
-    "imageDescription": "Medegefinancierd door de Connecting Europe Facility van de Europese Unie"
+    "imageDescription": "Medegefinancierd door de Connecting Europe Facility van de Europese Unie",
+    "findUsElsewhere": "Vind ons ergens anders"
   },
-  "relatedCollections": "Gerelateerde collecties"
+  "collections": {
+    "fashion": {
+      "facets": {
+        "CREATOR": {
+          "name": "Ontwerper | Ontwerpers"
+        },
+        "proxy_dc_format": {
+          "name": "Techniek | Technieken"
+        },
+        "proxy_dcterms_medium": {
+          "name": "Materiaal | Materialen"
+        },
+        "proxy_dc_type": {
+          "name": "Itemtype | Itemtypes"
+        }
+      }
+    }
+  },
+  "galleries": {
+    "galleries": "Galerijen"
+  },
+  "relatedCollections": "Gerelateerde collecties",
+  "linksToClassic": {
+    "home": {
+      "text": "U bekijkt de nieuwe Europeana-experience.",
+      "linkText": "Ga naar de originele Europeana."
+    },
+    "search": {
+      "text": "U zoekt op onze nieuwe en snellere website.",
+      "linkText": "Bekijk deze zoekresultaten in de originele Europeana."
+    },
+    "record": {
+      "text": "U bekijkt dit item op de nieuwe Europeana-website.",
+      "linkText": "Bekijk dit item in de originele Europeana."
+    }
+  }
 };
