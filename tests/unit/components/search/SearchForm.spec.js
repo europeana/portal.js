@@ -11,9 +11,7 @@ axios.defaults.adapter = require('axios/lib/adapters/http');
 const localVue = createLocalVue();
 localVue.use(Vuex);
 
-const router = {
-  push: sinon.spy()
-};
+const $goto = sinon.spy();
 
 const $path = sinon.stub();
 $path.withArgs({ name: 'search' }).returns('/search');
@@ -38,7 +36,7 @@ const factory = (options = {}) => shallowMount(SearchForm, {
       $i18n: { locale: 'en' },
       $t: () => {},
       $route: { query: {} },
-      $router: router,
+      $goto,
       $path
     }, ...(options.mocks || {})
   },
@@ -149,7 +147,7 @@ describe('components/search/SearchForm', () => {
         });
         wrapper.vm.submitForm();
 
-        router.push.should.have.been.calledWith('/collections/topic/227-fresco');
+        $goto.should.have.been.calledWith('/collections/topic/227-fresco');
       });
     });
 
@@ -173,7 +171,7 @@ describe('components/search/SearchForm', () => {
           path: wrapper.vm.$route.path,
           query: { query, page: 1, view: state.view }
         };
-        router.push.should.have.been.calledWith(newRouteParams);
+        $goto.should.have.been.calledWith(newRouteParams);
       });
     });
 
@@ -197,7 +195,7 @@ describe('components/search/SearchForm', () => {
           path: '/search',
           query: { query, page: 1, view: state.view }
         };
-        router.push.should.have.been.calledWith(newRouteParams);
+        $goto.should.have.been.calledWith(newRouteParams);
       });
     });
   });
@@ -207,7 +205,6 @@ describe('components/search/SearchForm', () => {
     wrapper.setData({ suggestions: parsedSuggestions });
 
     it('generates agent entity URLs', () => {
-      console.log(wrapper.vm.suggestionLinkGen('http://data.europeana.eu/agent/base/59981'));
       wrapper.vm.suggestionLinkGen('http://data.europeana.eu/agent/base/59981').should.eq('/collections/person/59981-frank-sinatra');
     });
 

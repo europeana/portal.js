@@ -24,7 +24,7 @@ const factory = (propsData = {}) => {
     propsData,
     mocks: {
       $t: (key) => key,
-      $path: () => '/'
+      $path: (args) => args
     }
   });
 };

@@ -34,6 +34,7 @@ const factory = (options = {}) => {
   const mocks = {
     $t: (key) => key,
     $path: () => '/',
+    $goto: () => null,
     ...options.mocks
   };
   const store = new Vuex.Store({
