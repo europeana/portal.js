@@ -53,11 +53,6 @@
       await store.dispatch('search/activate');
       store.commit('search/set', ['userParams', query]);
 
-      // TODO: remove when enabled by default
-      if (Number(process.env.ENABLE_FASHION_COLLECTION_FACETS)) {
-        store.commit('collections/fashion/enable');
-      }
-
       await store.dispatch('search/run');
       if (store.state.search.error && typeof res !== 'undefined') {
         res.statusCode = store.state.search.errorStatusCode;
