@@ -364,7 +364,6 @@ export default {
   "showMore": "Rodyti daugiau",
   "delete": "Ištrinti",
   "removeFilter": "Pašalinkite filtrą {filterLabel}",
-  "entityDepictionCredit": "Šaltinis, gautas iš „Wikimedia Commons“",
   "newWindow": "atsidaro naujame lange",
   "blog": {
     "blog": "Tinklaraštis",

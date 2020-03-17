@@ -363,7 +363,6 @@ export default {
   "showMore": "Vis mere",
   "delete": "Slet",
   "removeFilter": "Fjern {filterLabel} filter",
-  "entityDepictionCredit": "Ressource indhentet fra Wikimedia Commons",
   "newWindow": "åbner i nyt vindue",
   "blog": {
     "blog": "Blog",

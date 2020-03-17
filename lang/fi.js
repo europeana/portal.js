@@ -363,7 +363,6 @@ export default {
   "showMore": "Näytä lisää",
   "delete": "Poista",
   "removeFilter": "Poista {filterLabel} -suodatin",
-  "entityDepictionCredit": "Sisältö saatu Wikimedia Commonsista",
   "newWindow": "avautuu uuteen ikkunaan",
   "blog": {
     "blog": "Blogi",

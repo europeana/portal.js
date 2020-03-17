@@ -365,7 +365,6 @@ export default {
   "showMore": "Show more",
   "delete": "Delete",
   "removeFilter": "Remove {filterLabel} filter",
-  "entityDepictionCredit": "Resource obtained from Wikimedia Commons",
   "newWindow": "opens in new window",
   "blog": {
     "blog": "Blog",

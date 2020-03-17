@@ -363,7 +363,6 @@ export default {
   "showMore": "Εμφάνιση περισσότερων",
   "delete": "Διαγραφή",
   "removeFilter": "Κατάργηση φίλτρου {filterLabel}",
-  "entityDepictionCredit": "Πηγή που λήφθηκε από τα Wikimedia Commons",
   "newWindow": "ανοίγει σε νέο παράθυρο",
   "blog": {
     "blog": "Blog",

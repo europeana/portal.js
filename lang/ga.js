@@ -277,7 +277,6 @@ export default {
   "showMore": "Taispeáin níos mó",
   "delete": "Scrios",
   "removeFilter": "Bain {filterLabel} scagaire",
-  "entityDepictionCredit": "Fuarthas an acmhainn ó Wikimedia Commons",
   "newWindow": "osclaítear i bhfuinneog nua é",
   "blog": {
     "blog": "Blag",

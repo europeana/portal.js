@@ -363,7 +363,6 @@ export default {
   "showMore": "Показване на повече",
   "delete": "Изтриване",
   "removeFilter": "Премахване на филтъра {filterLabel}",
-  "entityDepictionCredit": "Източник от Wikimedia Commons",
   "newWindow": "отваря се в нов прозорец",
   "blog": {
     "blog": "Блог",

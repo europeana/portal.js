@@ -363,7 +363,6 @@ export default {
   "showMore": "Rādīt vairāk",
   "delete": "Dzēst",
   "removeFilter": "Noņemt filtru {filterLabel}",
-  "entityDepictionCredit": "Resurss, kas iegūts no Wikimedia Commons",
   "newWindow": "tiek atvērts jaunā logā",
   "blog": {
     "blog": "Emuārs",

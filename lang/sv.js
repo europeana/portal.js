@@ -363,7 +363,6 @@ export default {
   "showMore": "Visa mer",
   "delete": "Radera",
   "removeFilter": "Ta bort filter {filterLabel}",
-  "entityDepictionCredit": "Resurs erhållen från Wikimedia Commons",
   "newWindow": "öppnas i nytt fönster",
   "blog": {
     "blog": "Blogg",

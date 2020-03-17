@@ -363,7 +363,6 @@ export default {
   "showMore": "Afișează mai multe",
   "delete": "Șterge",
   "removeFilter": "Elimină filtrul {filterLabel}",
-  "entityDepictionCredit": "Material obținut de la Wikimedia Commons",
   "newWindow": "se deschide într-o fereastră nouă",
   "blog": {
     "blog": "Blog",

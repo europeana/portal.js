@@ -363,7 +363,6 @@ export default {
   "showMore": "Zobrazit více",
   "delete": "Smazat",
   "removeFilter": "Odstranit {filterLabel} filtr",
-  "entityDepictionCredit": "Zdroj získaný z Wikimedia Commons",
   "newWindow": "otevře se v novém okně",
   "blog": {
     "blog": "Blog",

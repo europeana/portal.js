@@ -363,7 +363,6 @@ export default {
   "showMore": "Näita rohkem",
   "delete": "Kustuta",
   "removeFilter": "Eemalda filter {filterLabel}",
-  "entityDepictionCredit": "Wikimedia Commonsist saadud ressurss",
   "newWindow": "avaneb uues aknas",
   "blog": {
     "blog": "Blogi",

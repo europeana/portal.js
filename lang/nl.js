@@ -364,7 +364,6 @@ export default {
   "showMore": "Meer weergeven",
   "delete": "Verwijder",
   "removeFilter": "Verwijder het filter {filterLabel}",
-  "entityDepictionCredit": "Bron verkregen van Wikimedia Commons",
   "newWindow": "opent in nieuw venster",
   "blog": {
     "blog": "Blog",

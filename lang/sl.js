@@ -363,7 +363,6 @@ export default {
   "showMore": "Prikaži več",
   "delete": "Izbrišite",
   "removeFilter": "Odstrani filter {filterLabel}",
-  "entityDepictionCredit": "Vir pridobljen iz Wikimedia Commons",
   "newWindow": "odpre se v novem oknu",
   "blog": {
     "blog": "Blog",

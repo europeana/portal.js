@@ -280,7 +280,6 @@ export default {
   "showMore": "Uri aktar",
   "delete": "Iddilitja",
   "removeFilter": "Neħħi l-filtru {filterLabel}",
-  "entityDepictionCredit": "Riżorsa miksuba minn Wikimedia Commons",
   "newWindow": "tiftaħ fit-tieqa l-ġdida",
   "blog": {
     "blog": "Blog",

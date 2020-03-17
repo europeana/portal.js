@@ -363,7 +363,6 @@ export default {
   "showMore": "Továbbiak megjelenítése",
   "delete": "Törlés",
   "removeFilter": "{filterLabel} szűrő eltávolítása",
-  "entityDepictionCredit": "A Wikimédia commonstól kapott forrás",
   "newWindow": "új ablakban nyílik meg",
   "blog": {
     "blog": "Blog",

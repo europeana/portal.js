@@ -363,7 +363,6 @@ export default {
   "showMore": "Afficher plus",
   "delete": "Supprimer",
   "removeFilter": "Supprimer le filtre {filterLabel}",
-  "entityDepictionCredit": "Ressources obtenues à partir de Wikimedia Commons",
   "newWindow": "s'ouvre dans une nouvelle fenêtre",
   "blog": {
     "blog": "Blog",
