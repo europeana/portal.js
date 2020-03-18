@@ -1,5 +1,5 @@
 <template>
-  <section class="browse-section row mb-5">
+  <section class="latest-section row mb-5">
     <div class="col-12">
       <h2>
         {{ contentType.name }}
@@ -126,3 +126,18 @@
   };
 
 </script>
+
+<style lang="scss" scoped>
+
+@import "./assets/scss/variables.scss";
+
+.latest-section {
+  h2 {
+    color: $mediumgrey;
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: 0.12125rem;
+    text-align: left;
+  }
+}
+</style>
