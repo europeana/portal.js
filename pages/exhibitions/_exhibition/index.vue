@@ -82,7 +82,7 @@
       }
     },
     asyncData({ params, query, error, app, store, redirect }) {
-      if (params.exhibition === undefined) redirect(app.localePath({ name: 'exhibitions' }));
+      if (params.exhibition === undefined) redirect(app.$path({ name: 'exhibitions' }));
       const contentfulClient = createClient(query.mode);
       return contentfulClient.getEntries({
         'locale': app.i18n.isoLocale(),
@@ -99,7 +99,7 @@
           store.commit('breadcrumb/setBreadcrumbs', [
             {
               text:  app.i18n.t('exhibitions.exhibitions'),
-              to: app.localePath({ name: 'exhibitions' })
+              to: app.$path({ name: 'exhibitions' })
             },
             {
               text: response.items[0].fields.name,

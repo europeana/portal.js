@@ -48,7 +48,7 @@
     },
     methods: {
       linkGen(view) {
-        return this.localePath({ ...this.linkGenRoute, ...{ query: { ...this.$route.query, ...{ view } } } });
+        return this.$path({ ...this.linkGenRoute, ...{ query: { ...this.$route.query, ...{ view } } } });
       },
       selectView(view) {
         if (view !== this.activeView) {

@@ -34,6 +34,9 @@ For detailed explanation on how things work, refer to [Nuxt.js docs](https://nux
 
 ## Testing
 
+To run end-to-end tests, you will need Docker Engine and Compose installed and
+the docker service running.
+
 Run tests with:
 
 ```bash
@@ -44,11 +47,11 @@ $ npm test
 
 To run a single file: `npm run test:unit -g tests/unit/[REST_OF_FILE_PATH]`
 
-### Running end to end tests only
+### Running end-to-end tests only
 
 `npm run test:e2e` and `npm run test:e2e:ci` just run everything.
 
-If you've manually started the test server with: `npm run build:test && npm run start:test`, then you can for example:
+If you've manually started the test server with: `NODE_ENV=test npm run stack:up`, then you can for example:
 
 Run only the header.feature file using path.
 

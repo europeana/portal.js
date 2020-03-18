@@ -49,10 +49,6 @@
       CookieDisclaimer
     },
 
-    middleware({ store, route }) {
-      store.commit('http/setCanonicalUrlPath', route.fullPath);
-    },
-
     computed: {
       ...mapGetters({
         canonicalUrl: 'http/canonicalUrl'

@@ -4,6 +4,7 @@ pipeline {
   }
   agent {
     dockerfile {
+      dir 'docker/deploy'
       args "-u node:node"
     }
   }

@@ -25,7 +25,7 @@ const factory = (options = {}) => {
     mocks: {
       ...{
         $t: () => {},
-        localePath: (opts) => {
+        $path: (opts) => {
           return router.resolve(opts).route.fullPath;
         }
       }, ...(options.mocks || {})

@@ -31,7 +31,7 @@
       v-else-if="isIIIFImage || isIIIFPresentation"
       data-qa="IIIF viewer"
       allowfullscreen="true"
-      :src="localePath({ name: 'iiif', query: { uri: iiifManifest } })"
+      :src="$path({ name: 'iiif', query: { uri: iiifManifest } })"
       :aria-label="$t('actions.viewDocument')"
     />
   </div>

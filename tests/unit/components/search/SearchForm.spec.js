@@ -11,19 +11,17 @@ axios.defaults.adapter = require('axios/lib/adapters/http');
 const localVue = createLocalVue();
 localVue.use(Vuex);
 
-const router = {
-  push: sinon.spy()
-};
+const $goto = sinon.spy();
 
-const localePath = sinon.stub();
-localePath.withArgs({ name: 'search' }).returns('/search');
-localePath.withArgs({
+const $path = sinon.stub();
+$path.withArgs({ name: 'search' }).returns('/search');
+$path.withArgs({
   name: 'collections-type-all', params: {
     type: 'topic',
     pathMatch: '227-fresco'
   }
 }).returns('/collections/topic/227-fresco');
-localePath.withArgs({
+$path.withArgs({
   name: 'collections-type-all', params: {
     type: 'person',
     pathMatch: '59981-frank-sinatra'
@@ -38,8 +36,8 @@ const factory = (options = {}) => shallowMount(SearchForm, {
       $i18n: { locale: 'en' },
       $t: () => {},
       $route: { query: {} },
-      $router: router,
-      localePath
+      $goto,
+      $path
     }, ...(options.mocks || {})
   },
   store: options.store || store({ search: {} })
@@ -122,7 +120,7 @@ describe('components/search/SearchForm', () => {
     context('when not on a search page', () => {
       const wrapper = factory({
         mocks: {
-          localePath
+          $path
         },
         store: store({
           active: false
@@ -149,7 +147,7 @@ describe('components/search/SearchForm', () => {
         });
         wrapper.vm.submitForm();
 
-        router.push.should.have.been.calledWith('/collections/topic/227-fresco');
+        $goto.should.have.been.calledWith('/collections/topic/227-fresco');
       });
     });
 
@@ -173,7 +171,7 @@ describe('components/search/SearchForm', () => {
           path: wrapper.vm.$route.path,
           query: { query, page: 1, view: state.view }
         };
-        router.push.should.have.been.calledWith(newRouteParams);
+        $goto.should.have.been.calledWith(newRouteParams);
       });
     });
 
@@ -197,7 +195,7 @@ describe('components/search/SearchForm', () => {
           path: '/search',
           query: { query, page: 1, view: state.view }
         };
-        router.push.should.have.been.calledWith(newRouteParams);
+        $goto.should.have.been.calledWith(newRouteParams);
       });
     });
   });
@@ -207,7 +205,6 @@ describe('components/search/SearchForm', () => {
     wrapper.setData({ suggestions: parsedSuggestions });
 
     it('generates agent entity URLs', () => {
-      console.log(wrapper.vm.suggestionLinkGen('http://data.europeana.eu/agent/base/59981'));
       wrapper.vm.suggestionLinkGen('http://data.europeana.eu/agent/base/59981').should.eq('/collections/person/59981-frank-sinatra');
     });
 

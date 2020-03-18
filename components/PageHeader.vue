@@ -9,15 +9,18 @@
         data-qa="header"
       >
         <b-navbar-brand
-          :to="localePath('index')"
           class="col-xl-3 p-0 m-0 text-center text-xl-left"
         >
-          <img
-            src="../assets/img/logo.svg"
-            :alt="$t('homeLinkAlt')"
-            class="mb-2 mb-sm-0 mw-100"
-            data-qa="logo"
+          <SmartLink
+            :destination="{ name: 'index' }"
           >
+            <img
+              src="../assets/img/logo.svg"
+              :alt="$t('homeLinkAlt')"
+              class="mb-2 mb-sm-0 mw-100"
+              data-qa="logo"
+            >
+          </SmartLink>
         </b-navbar-brand>
         <SearchForm
           data-qa="search form"
@@ -32,11 +35,13 @@
 </template>
 
 <script>
+  import SmartLink from './generic/SmartLink';
   import SearchForm from './search/SearchForm';
   import PageNavigation from './PageNavigation';
 
   export default {
     components: {
+      SmartLink,
       SearchForm,
       PageNavigation
     },

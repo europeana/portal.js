@@ -65,11 +65,11 @@
           store.commit('breadcrumb/setBreadcrumbs', [
             {
               text:  app.i18n.t('exhibitions.exhibitions'),
-              to: app.localePath({ name: 'exhibitions' })
+              to: app.$path({ name: 'exhibitions' })
             },
             {
               text: response.items[0].fields.name,
-              to: app.localePath({
+              to: app.$path({
                 name: 'exhibitions-exhibition',
                 params: {
                   exhibition: response.items[0].fields.identifier

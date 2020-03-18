@@ -21,7 +21,7 @@ const factory = (props = { fields: {} }) => shallowMount(BrowseContentCard, {
   store,
   propsData: props,
   mocks: {
-    localePath: (opts) => opts
+    $path: (opts) => opts
   }
 });
 

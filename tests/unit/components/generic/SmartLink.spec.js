@@ -1,4 +1,5 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
+import sinon from 'sinon';
 
 import BootstrapVue from 'bootstrap-vue';
 import SmartLink from '../../../../components/generic/SmartLink.vue';
@@ -14,13 +15,18 @@ const $store = {
   }
 };
 
+const $path = () => '/';
+const $pathSpy = sinon.spy($path);
+
 const factory = () => {
   return shallowMount(SmartLink, {
     localVue,
     mocks: {
-      localePath: path => path,
-      $store,
-      $t: () => {}
+      ...{
+        $path: $pathSpy,
+        $store,
+        $t: () => {}
+      }
     }
   });
 };
@@ -88,7 +94,7 @@ describe('components/generic/SmartLink', () => {
     });
   });
 
-  describe('.recordIdentifier', () => {
+  describe('.itemIdentifier', () => {
     context('when `destination` is present', () => {
       context('and is a data.europeana.eu item URI', () => {
         it('extracts identifier from it', () => {
@@ -97,7 +103,7 @@ describe('components/generic/SmartLink', () => {
           const wrapper = factory();
           wrapper.setProps({ destination });
 
-          wrapper.vm.recordIdentifier.should.eq(identifier);
+          wrapper.vm.itemIdentifier.should.eq(identifier);
         });
       });
 
@@ -107,7 +113,7 @@ describe('components/generic/SmartLink', () => {
           const wrapper = factory();
           wrapper.setProps({ destination });
 
-          (wrapper.vm.recordIdentifier === null).should.be.true;
+          (wrapper.vm.itemIdentifier === null).should.be.true;
         });
       });
     });
@@ -116,7 +122,7 @@ describe('components/generic/SmartLink', () => {
       it('is `null`', () => {
         const wrapper = factory();
 
-        (wrapper.vm.recordIdentifier === null).should.be.true;
+        (wrapper.vm.itemIdentifier === null).should.be.true;
       });
     });
   });
@@ -129,7 +135,8 @@ describe('components/generic/SmartLink', () => {
         const wrapper = factory();
         wrapper.setProps({ destination });
 
-        wrapper.vm.path.should.deep.eql({
+        wrapper.vm.path;
+        $pathSpy.should.have.been.calledWith({
           name: 'item-all',
           params: { pathMatch: identifierSlug }
         });
@@ -143,7 +150,8 @@ describe('components/generic/SmartLink', () => {
         const wrapper = factory();
         wrapper.setProps({ destination });
 
-        wrapper.vm.path.should.deep.eql({
+        wrapper.vm.path;
+        $pathSpy.should.have.been.calledWith({
           name: 'slug',
           params: { pathMatch: slug }
         });

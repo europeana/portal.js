@@ -9,7 +9,7 @@ const factory = () => {
   return mount(SearchResults, {
     localVue,
     mocks: {
-      localePath: (opts) => `/record/${opts.params.pathMatch}`,
+      $path: (opts) => `/item/${opts.params.pathMatch}`,
       $i18n: {
         locale: 'en'
       },
@@ -42,8 +42,8 @@ describe('components/search/SearchResults', () => {
 
       const renderedResults =  wrapper.findAll('[data-qa="search result"] a');
 
-      renderedResults.at(0).attributes().href.should.endWith(`/record${results[0].europeanaId}`);
-      renderedResults.at(1).attributes().href.should.endWith(`/record${results[1].europeanaId}`);
+      renderedResults.at(0).attributes().href.should.endWith(`/item${results[0].europeanaId}`);
+      renderedResults.at(1).attributes().href.should.endWith(`/item${results[1].europeanaId}`);
     });
   });
 
@@ -55,8 +55,8 @@ describe('components/search/SearchResults', () => {
 
       const renderedResults =  wrapper.findAll('div[data-qa="search result"]');
 
-      renderedResults.at(0).find('a').attributes().href.should.endWith(`/record${results[0].europeanaId}`);
-      renderedResults.at(1).find('a').attributes().href.should.endWith(`/record${results[1].europeanaId}`);
+      renderedResults.at(0).find('a').attributes().href.should.endWith(`/item${results[0].europeanaId}`);
+      renderedResults.at(1).find('a').attributes().href.should.endWith(`/item${results[1].europeanaId}`);
     });
   });
 });

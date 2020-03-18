@@ -12,7 +12,7 @@ const requiredProps = {
 const factory = () => mount(CiteAttribution, {
   localVue,
   mocks: {
-    localePath: (opts) => opts,
+    $path: () => '/',
     $t: (key) => key
   },
   propsData: requiredProps

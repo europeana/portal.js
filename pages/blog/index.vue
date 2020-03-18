@@ -77,7 +77,7 @@
       if (currentPage === null) {
         // Redirect non-positive integer values for `page` to `page=1`
         query.page = '1';
-        return redirect(app.localePath({ name: 'blog', query }));
+        return redirect(app.$path({ name: 'blog', query }));
       }
 
       const contentfulClient = createClient(query.mode);
@@ -109,7 +109,7 @@
 
     methods: {
       paginationLink(val) {
-        return this.localePath({ name: 'blog', query: { page: val } });
+        return this.$path({ name: 'blog', query: { page: val } });
       }
     },
 
