@@ -4,8 +4,8 @@ export const state = () => ({
   protocol: null,
   path: null,
   host: null,
-  httpPort: null,
-  httpsPort: null
+  httpPort: '',
+  httpsPort: ''
 });
 
 export const mutations = {
@@ -29,8 +29,8 @@ export const actions = {
     const host = currentHost({ req });
     const path = route.fullPath;
 
-    const httpPort = process.env['HTTP_PORT'] ? `:${process.env['HTTP_PORT']}` : null;
-    const httpsPort = process.env['HTTPS_PORT'] ? `:${process.env['HTTPS_PORT']}` : null;
+    const httpPort = process.env['HTTP_PORT'] ? `:${process.env['HTTP_PORT']}` : '';
+    const httpsPort = process.env['HTTPS_PORT'] ? `:${process.env['HTTPS_PORT']}` : '';
 
     commit('set', ['protocol', protocol]);
     commit('set', ['host', host]);
