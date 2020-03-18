@@ -17,7 +17,7 @@ module.exports = function(migration) {
       },
       {
         unique: true
-      }     
+      }
     ])
     .disabled(false)
     .omitted(false);
