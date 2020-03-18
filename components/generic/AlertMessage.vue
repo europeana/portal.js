@@ -3,6 +3,7 @@
     show
     variant="dark"
     data-qa="error notice"
+    class="mt-3"
   >
     <strong>{{ $t('error') }}:</strong> {{ error }}
   </b-alert>

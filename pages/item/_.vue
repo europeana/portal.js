@@ -122,7 +122,10 @@
                 <span class="extended-closed">{{ $t('record.showAll') }}</span>
               </b-button>
             </div>
-            <b-collapse id="extended-metadata">
+            <b-collapse
+              id="extended-metadata"
+              class="mb-5"
+            >
               <MetadataField
                 v-for="(value, name) in fieldsAndKeywords"
                 :key="name"
