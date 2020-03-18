@@ -1,5 +1,5 @@
 <template>
-  <section class="row mb-5">
+  <section class="browse-section row mb-5">
     <div class="col-12">
       <h2>
         {{ contentType.name }}
