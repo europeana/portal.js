@@ -126,7 +126,7 @@ export function search(params, options = {}) {
       profile: params.profile,
       qf: addContentTierFilter(params.qf),
       query,
-      reusability: params.reusability,
+      reusability: addReusabilityFilter(params.reusability),
       rows,
       start,
       wskey: params.wskey || config.record.key
@@ -169,6 +169,11 @@ export function addContentTierFilter(qf) {
 
   return newQf;
 }
+
+const addReusabilityFilter = (reusability) => {
+  if (reusability) return reusability;
+  return 'open,permission,restricted';
+};
 
 const hasFilterForField = (filters, fieldName) => {
   return filters.some(v => new RegExp(`^${fieldName}:`).test(v));

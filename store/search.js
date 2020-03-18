@@ -112,6 +112,10 @@ export const mutations = {
   },
   setFacets(state, value) {
     for (const facet of value) {
+      if (facet.name === 'REUSABILITY') {
+        facet.fields = facet.fields.filter((field) => field.label !== 'uncategorized');
+      }
+
       if (!unquotableFacets.includes(facet.name)) {
         for (const field of facet.fields) {
           field.label = `"${field.label}"`;

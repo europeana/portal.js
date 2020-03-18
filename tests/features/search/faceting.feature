@@ -38,6 +38,14 @@ Feature: Search faceting
     Given I am on an `entity page`
     Then I don't have a `collection dropdown button`
 
+  Scenario: Reusability options
+    Given I am on the `search page`
+    When I click the `REUSABILITY dropdown button`
+    Then I see an `open REUSABILITY field`
+    And I see a `permission REUSABILITY field`
+    And I see a `restricted REUSABILITY field`
+    And I don't have an `uncategorized REUSABILITY field`
+
   Scenario: Filtering results by reusability
     Given I am on the `search page`
     When I click the `REUSABILITY dropdown button`
