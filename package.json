@@ -103,7 +103,6 @@
     "eslint-loader": "^3.0.0",
     "eslint-plugin-vue": "^5.2.2",
     "geckodriver": "^1.19.1",
-    "is-reachable": "^3.0.0",
     "nightwatch": "^1.2.2",
     "nightwatch-accessibility": "^1.8.0",
     "nightwatch-api": "^2.1.2",

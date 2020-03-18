@@ -14,6 +14,8 @@ services:
       dockerfile: ./docker/stack/app/Dockerfile
     expose:
       - "8080"
+    ports:
+      - "3002:8080"
     environment:
       - NODE_ENV
       - DISABLE_SSL_NEGOTIATION=0

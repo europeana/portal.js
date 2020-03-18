@@ -2,14 +2,13 @@
 
 const { setDefaultTimeout, After, AfterAll, Before, BeforeAll } = require('cucumber');
 const { client, createSession, closeSession, startWebDriver, stopWebDriver } = require('nightwatch-api');
-const isReachable = require('is-reachable');
+const axios = require('axios');
 const runners = require('../support/step-runners');
 
 const sleep = (milliseconds) => {
   return new Promise(resolve => setTimeout(resolve, milliseconds));
 };
-const host = process.env.HOST || '127.0.0.1';
-const port = process.env.PORT || 443;
+const waitForAppUrl = 'http://localhost:3002/robots.txt';
 const maxWaitTime = 90;
 
 const browserEnv = process.env.browser || 'gecko';
@@ -41,22 +40,28 @@ async function warmupBrowser() {
   await client.waitForElementVisible('.cookie-disclaimer');
 }
 
+async function waitForApp() {
+  console.log(`Waiting for app URL ${waitForAppUrl}...`);
+  let i = 0;
+
+  while (i <= maxWaitTime) {
+    try {
+      const response = await axios.get(waitForAppUrl);
+      if (response.status !== 200) throw new Error;
+      return;
+    } catch (e) {
+      i++;
+      await sleep(1000);
+    }
+  }
+  throw `Unable to reach the test server within ${maxWaitTime} seconds!`;
+}
+
 // Before running cucumber make sure the test server and webdriver are running.
 // The test server is started by the test script in package.json.
 // The web driver is started in this before block.
 BeforeAll(async() => {
-  const testServer = `${host}:${port}`;
-
-  console.log(`Waiting for test server ${testServer}...`);
-  let i = 0;
-  while (!(await isReachable(testServer)) && (i <= maxWaitTime)) {
-    i++;
-    await sleep(1000);
-  }
-  if (!(await isReachable(testServer))) {
-    throw `Unable to reach the test server within ${maxWaitTime} seconds!`;
-  }
-
+  await waitForApp();
   await startBrowser();
   await warmupBrowser();
 });
