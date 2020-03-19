@@ -8,10 +8,9 @@ export const isHttps = ({ req }) => {
 
 export const currentHost = ({ req }) => {
   if (process.server) {
-    const host = req.headers['X-Forwarded-Host'] || req.headers['x-forwarded-host'] || req.headers.host;
-    return host.split(':')[0];
+    return req.headers['X-Forwarded-Host'] || req.headers['x-forwarded-host'] || req.headers.host;
   } else if (process.client) {
-    return window.location.host.split(':')[0];
+    return window.location.host;
   }
 };
 
