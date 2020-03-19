@@ -24,7 +24,9 @@ export default ({ app, store }, inject) => {
 
     if (!switchToProtocol) return localePath;
 
-    return `${switchToProtocol}//${store.state.http.host}${switchToPort}${localePath}`;
+    const portlessHost = store.state.http.host.split(':')[0];
+
+    return `${switchToProtocol}//${portlessHost}${switchToPort}${localePath}`;
   };
 
   const goto = (route) => {
