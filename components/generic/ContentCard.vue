@@ -149,7 +149,7 @@
       },
 
       lazyLoad() {
-        return this.lazy && !process.env.NODE_ENV === 'test';
+        return this.lazy && (process.env.NODE_ENV !== 'test');
       },
 
       displayTitle() {
