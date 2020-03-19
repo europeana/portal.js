@@ -1,7 +1,7 @@
 module.exports = function(migration) {
   const cardGroup = migration.editContentType('entityPage');
   cardGroup.createField('relatedLinks')
-    .name('Related collections')
+    .name('Related Collection cards')
     .type('Array')
     .localized(false)
     .validations([ {
@@ -12,15 +12,12 @@ module.exports = function(migration) {
     .disabled(false)
     .omitted(false)
     .items({
-      type: 'Symbol',
+      type: 'Link',
       validations: [
         {
-          regexp: {
-            pattern:
-              '^http://data\\.europeana\\.eu/(agent|concept|organization|place)(/base)?/[0-9]+$',
-            flags: null
-          }
+          linkContentType: ['automatedEntityCard']
         }
-      ]
+      ],
+      linkType: 'Entry'
     });
 };
