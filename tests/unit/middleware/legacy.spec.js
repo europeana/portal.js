@@ -17,7 +17,7 @@ const rules = [
   { from: '/portal/en/collections/world-war-I', to: '/en/collections/topic/83-1914-1918' },
   { from: '/portal/en/collections/archaeology', to: '/en/collections/topic/80-archaeology' },
   { from: '/portal/en/collections/art', to: '/en/collections/topic/190-art' },
-  { from: '/portal/en/collections/fashion', to: '/en/search?query=&qf=collection%3Afashion' },
+  { from: '/portal/en/collections/fashion', to: '/en/collections/topic/55-fashion' },
   { from: '/portal/en/collections/industrial-heritage', to: '/en/collections/topic/129-industrial-heritage' },
   { from: '/portal/en/collections/manuscripts', to: '/en/collections/topic/17-manuscripts' },
   { from: '/portal/en/collections/maps', to: '/en/collections/topic/151-maps-and-geography' },
