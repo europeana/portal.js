@@ -250,7 +250,8 @@ function setMatchingEntities(fields, key, entities) {
  */
 export function getRecord(europeanaId, options = {}) {
   const origin = options.origin || config.record.origin;
-  const path = options.path || config.record.path;
+  let path = options.path || config.record.path;
+  if (!path.endsWith('/record')) path += '/record';
 
   return axios.get(`${origin}${path}${europeanaId}.json`, {
     params: {
