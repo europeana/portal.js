@@ -40,8 +40,19 @@
         >
           {{ $t('relatedCollections') }}
         </h2>
+        <section
+          v-if="relatedCollectionCards"
+        >
+          <BrowseContentCard
+            v-for="card in relatedCollectionCards"
+            :key="card.sys.id"
+            :fields="card.fields"
+            :card-type="card.sys.contentType ? card.sys.contentType.sys.id : ''"
+            :data-qa="card.fields.name + ' entity card'"
+          />
+        </section>
         <EntityCards
-          v-if="relatedEntities"
+          v-else-if="relatedEntities"
           :entities="relatedEntities"
           data-qa="related entities"
         />
@@ -63,6 +74,7 @@
 
   import AlertMessage from '../../../components/generic/AlertMessage';
   import EntityCards from '../../../components/entity/EntityCards';
+  import BrowseContentCard from '../../../components/browse/BrowseContentCard';
   import BrowseSections from '../../../components/browse/BrowseSections';
   import EntityDetails from '../../../components/entity/EntityDetails';
   import SearchInterface from '../../../components/search/SearchInterface';
@@ -77,6 +89,7 @@
   export default {
     components: {
       AlertMessage,
+      BrowseContentCard,
       BrowseSections,
       EntityCards,
       EntityDetails,
@@ -205,6 +218,10 @@
       editorialTitle() {
         if (!this.page || !this.page.name) return null;
         return this.page.name;
+      },
+      relatedCollectionCards() {
+        if (!this.page || !this.page.relatedLinks) return null;
+        return this.page.relatedLinks;
       },
       route() {
         return {
