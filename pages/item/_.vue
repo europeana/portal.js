@@ -351,7 +351,7 @@
       };
 
       axios.all([
-        searchAnnotations(taggingAnnotationSearchParams),
+        Number(process.env['ENABLE_ITEM_TAGGING_ANNOTATIONS']) ? searchAnnotations(taggingAnnotationSearchParams) : [],
         searchEntities(this.europeanaEntityUris),
         this.getSimilarItems()
       ])
