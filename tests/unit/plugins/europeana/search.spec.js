@@ -97,18 +97,6 @@ describe('plugins/europeana/search', () => {
         nock.isDone().should.be.true;
       });
 
-      it('includes reusability filter', async() => {
-        baseRequest
-          .query(query => {
-            return query.reusability === 'open,permission,restricted';
-          })
-          .reply(200, defaultResponse);
-
-        await search({ query: 'anything' });
-
-        nock.isDone().should.be.true;
-      });
-
       it('uses the supplied `facet` param', async() => {
         baseRequest
           .query(query => {
