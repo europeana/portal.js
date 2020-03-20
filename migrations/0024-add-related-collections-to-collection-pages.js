@@ -1,7 +1,7 @@
 module.exports = function(migration) {
   const cardGroup = migration.editContentType('entityPage');
   cardGroup.createField('relatedLinks')
-    .name('Related Collection cards')
+    .name('Related collection cards')
     .type('Array')
     .localized(false)
     .validations([ {
