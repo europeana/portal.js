@@ -6,7 +6,7 @@ const redirects = {
   '/about': '/about-us',
   '/collections/archaeology': '/collections/topic/80-archaeology',
   '/collections/art': '/collections/topic/190-art',
-  '/collections/fashion': { path: '/search', query: { query: '', qf: 'collection:fashion' } },
+  '/collections/fashion': '/collections/topic/55-fashion',
   '/collections/industrial-heritage': '/collections/topic/129-industrial-heritage',
   '/collections/manuscripts': '/collections/topic/17-manuscripts',
   '/collections/maps': '/collections/topic/151-maps-and-geography',
