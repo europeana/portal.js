@@ -2,7 +2,7 @@
 ---
 buildpack: nodejs_buildpack
 command: npm run start
-memory: 512M
+memory: 256M
 health-check-type: port
 stack: cflinuxfs3
 env:

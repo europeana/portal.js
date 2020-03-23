@@ -42,7 +42,7 @@ pipeline {
       steps {
         sh 'sed -i "s|env:|env:\\n  CTF_CPA_ACCESS_TOKEN: ${CTF_CPA_ACCESS_TOKEN}|" manifest.yml'
         sh 'sed -i "s|env:|env:\\n  HTTP_DIGEST_ACL: ${HTTP_DIGEST_ACL}|" manifest.yml'
-        sh 'cf blue-green-deploy ${CF_APP_NAME} -f manifest.yml --delete-old-apps'
+        sh 'cf blue-green-deploy ${CF_APP_NAME} -f manifest.${CF_SPACE}.yml --delete-old-apps'
       }
     }
     stage('Deploy Storybook') {
