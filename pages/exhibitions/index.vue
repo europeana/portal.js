@@ -1,9 +1,14 @@
 <template>
   <b-container data-qa="exhibitions">
-    <b-row class="flex-md-row pb-5">
-      <b-col cols="12">
+    <header class="row">
+      <div class="col-12 col-lg-9 col mt-3">
         <h1>{{ $t('exhibitions.exhibitions') }}</h1>
-      </b-col>
+        <p class="lead">
+          {{ $t('exhibitions.description') }}
+        </p>
+      </div>
+    </header>
+    <b-row class="flex-md-row pb-5">
       <b-col cols="12">
         <b-card-group
           class="card-deck-4-cols"
