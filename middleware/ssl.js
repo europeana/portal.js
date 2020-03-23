@@ -24,7 +24,7 @@ export default async({ store, route, req, redirect }) => {
     return;
   }
 
-  const host = currentHost({ req });
+  const host = currentHost({ req }).split(':')[0];
   const redirectToUrl = `${redirectToScheme}://${host}${redirectToPort}${route.fullPath}`;
 
   return redirect(redirectToUrl);
