@@ -51,7 +51,16 @@
     font-weight: 600;
   }
 
-  .card-title:last-child {
+  .card-subtitle {
+    color: $mediumgrey;
+    font-size: $font-size-extrasmall;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+  }
+
+  .card-title:last-child,
+  .card-subtitle:last-child {
     margin-bottom: 0;
   }
 

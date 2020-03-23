@@ -36,6 +36,13 @@
         >
           {{ displayTitle.values[0] | truncate(90, $t('formatting.ellipsis')) }}
         </b-card-title>
+        <b-card-sub-title
+          v-if="displayLabel && variant !== 'mini'"
+          sub-title-tag="div"
+          sub-title-text-variant="default"
+        >
+          {{ displayLabel }}
+        </b-card-sub-title>
         <time
           v-if="datetime"
           class="font-weight-bold pb-3"
@@ -158,6 +165,15 @@
         } else {
           return langMapValueForLocale(this.title, this.$i18n.locale);
         }
+      },
+
+      displayLabel() {
+        const regex = /(exhibitions|galleries|blog)/g;
+        const url = typeof this.url === 'object' ? this.url.name : this.url;
+        const match = url.match(regex);
+
+        if (!match) return false;
+        return this.$t(`${match[0]}.label`);
       },
 
       displayTexts() {

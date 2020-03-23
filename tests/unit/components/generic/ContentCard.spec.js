@@ -21,7 +21,7 @@ const factory = () => mount(ContentCard, {
     $i18n: {
       locale: 'en'
     },
-    $t: () => {},
+    $t: (key) => key,
     $store
   }
 });
@@ -33,6 +33,14 @@ describe('components/generic/ContentCard', () => {
 
     const description =  wrapper.find('[data-qa="content card"] .card-body');
     description.text().should.eq('The Milkmaid by Vermeer');
+  });
+
+  it('has a label', () => {
+    const wrapper = factory();
+    wrapper.setProps({ url: 'https://europeana.eu/en/exhibitions/pioneers' });
+
+    const label =  wrapper.find('[data-qa="content card"] .card-subtitle');
+    label.text().should.eq('exhibitions.label');
   });
 
   it('has a creator and institution', () => {

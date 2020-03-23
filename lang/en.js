@@ -368,6 +368,7 @@ export default {
   "newWindow": "opens in new window",
   "blog": {
     "blog": "Blog",
+    "label": "Blog",
     "author": "Author",
     "authors": "Authors",
     "category": "Category",
@@ -380,6 +381,7 @@ export default {
   },
   "exhibitions": {
     "exhibitions": "Exhibitions",
+    "label": "Exhibition",
     "credits": "Credits",
     "chapters": "Chapters",
     "currentChapter": "Current chapter"
@@ -468,7 +470,8 @@ export default {
     }
   },
   "galleries": {
-    "galleries": "Galleries"
+    "galleries": "Galleries",
+    "label": "Gallery"
   },
   "relatedCollections": "Related collections",
   "linksToClassic": {
