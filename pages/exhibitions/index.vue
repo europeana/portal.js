@@ -2,7 +2,7 @@
   <b-container data-qa="exhibitions">
     <header class="row">
       <div class="col-12 col-lg-9 col mt-3">
-       <h1>{{ $t('exhibitions.exhibitions') }}</h1>
+        <h1>{{ $t('exhibitions.exhibitions') }}</h1>
         <p class="lead">
           {{ $t('exhibitions.description') }}
         </p>

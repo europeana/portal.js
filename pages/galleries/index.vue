@@ -2,7 +2,7 @@
   <b-container>
     <header class="row">
       <div class="col-12 col-lg-9 col mt-3">
-       <h1>{{ $t('galleries.galleries') }}</h1>
+        <h1>{{ $t('galleries.galleries') }}</h1>
         <p class="lead">
           {{ $t('galleries.description') }}
         </p>
