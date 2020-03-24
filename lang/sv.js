@@ -159,7 +159,7 @@ export default {
     "MIME_TYPE": {
       "name": "Filformat | Filformat",
       "options": {
-        "text/plain": "Oformaterad text"
+        "text\/plain": "Oformaterad text"
       }
     },
     "COLOURPALETTE": {
@@ -388,7 +388,7 @@ export default {
     "providedBy": "Tillhandahålls av {provider}",
     "viewDocument": "Visa dokument",
     "share": "Dela",
-    "shareOn": "Dela på"
+    "shareOn": "Dela på {social}"
   },
   "clearAllFilters": "rensa alla filter",
   "reset": "Återställ",
