@@ -59,15 +59,15 @@
     computed: {
       contentType() {
         if (this.category === 'Exhibitions') {
-          return { type: 'exhibitionPage', name: this.$t('exhibitions.exhibitions') };
+          return { type: 'exhibitionPage', name: this.$tc('exhibitions.exhibitions', this.total) };
         } else if (this.category === 'Galleries') {
-          return { type: 'imageGallery', name: this.$t('galleries.galleries') };
+          return { type: 'imageGallery', name: this.$tc('galleries.galleries', this.total) };
         } else {
           return false;
         }
       },
       showMoreLink() {
-        return `${this.$t('showMore')} ${this.contentType.name.toLowerCase()} (${this.total})`;
+        return `${this.$tc('showMore')} ${this.contentType.name.toLowerCase()} (${this.total})`;
       }
     },
 

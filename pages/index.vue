@@ -109,13 +109,3 @@
     }
   };
 </script>
-
-<style lang="scss" scoped>
-  header .col {
-    margin-bottom: 2.75rem;
-
-    *:last-child  {
-      margin-bottom: 0;
-    }
-  }
-</style>

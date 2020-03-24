@@ -29,6 +29,14 @@
         />
       </div>
       <b-card-body>
+        <b-card-sub-title
+          v-if="displayLabel && variant !== 'mini'"
+          sub-title-tag="div"
+          sub-title-text-variant="default"
+          class="mt-0"
+        >
+          {{ displayLabel }}
+        </b-card-sub-title>
         <b-card-title
           v-if="displayTitle"
           title-tag="div"
@@ -36,13 +44,6 @@
         >
           {{ displayTitle.values[0] | truncate(90, $t('formatting.ellipsis')) }}
         </b-card-title>
-        <b-card-sub-title
-          v-if="displayLabel && variant !== 'mini'"
-          sub-title-tag="div"
-          sub-title-text-variant="default"
-        >
-          {{ displayLabel }}
-        </b-card-sub-title>
         <time
           v-if="datetime"
           class="font-weight-bold pb-3"
@@ -168,12 +169,17 @@
       },
 
       displayLabel() {
-        const regex = /(exhibitions|galleries|blog)/g;
-        const url = typeof this.url === 'object' ? this.url.name : this.url;
-        const match = url.match(regex);
+        let match;
+
+        if (typeof this.url === 'object') {
+          match = this.url.name.match(/(exhibitions|galleries|blog)/g);
+        } else {
+          match = this.url.match(/\/(exhibitions|galleries|blog)\//g);
+        }
 
         if (!match) return false;
-        return this.$t(`${match[0]}.label`);
+        const matchKey = match[0].replace(/\//g, '');
+        return this.$tc(`${matchKey}.${matchKey}`, 1);
       },
 
       displayTexts() {
