@@ -347,7 +347,7 @@ export default {
   "layout": {
     "skipToMain": "Saltar al contenido de la página"
   },
-  "searchPlaceholder": "¿Qué estás buscando?",
+  "searchPlaceholder": "Busca millones de artículos",
   "searchTier": {
     "button": {
       "show": "Mostrar estos elementos",

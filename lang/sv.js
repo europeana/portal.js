@@ -388,7 +388,7 @@ export default {
     "providedBy": "Tillhandahålls av {provider}",
     "viewDocument": "Visa dokument",
     "share": "Dela",
-    "shareOn": "Dela på"
+    "shareOn": "Dela på {social}"
   },
   "clearAllFilters": "rensa alla filter",
   "reset": "Återställ",
