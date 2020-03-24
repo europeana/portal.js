@@ -22,6 +22,7 @@ const factory = () => mount(ContentCard, {
       locale: 'en'
     },
     $t: (key) => key,
+    $tc: (key) => key,
     $store
   }
 });
@@ -40,7 +41,7 @@ describe('components/generic/ContentCard', () => {
     wrapper.setProps({ url: 'https://europeana.eu/en/exhibitions/pioneers' });
 
     const label =  wrapper.find('[data-qa="content card"] .card-subtitle');
-    label.text().should.eq('exhibitions.label');
+    label.text().should.eq('exhibitions.exhibitions');
   });
 
   it('has a creator and institution', () => {
