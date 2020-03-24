@@ -64,8 +64,9 @@ export default {
       "edmIsRepresentationOf": "Is léiriú é de",
       "edmIsSimilarTo": "Is cosúil leis",
       "edmIsSuccessorOf": "Is comharba é ar",
-      "edmRealizes": "Tuigeann sé/sí",
-      "wasPresentAt": "Bhí i láthair ag"
+      "edmRealizes": "Tuigeann sé\/sí",
+      "wasPresentAt": "Bhí i láthair ag",
+      "keywords": "Eochairfhocail (a fuarthas iad ó dhaoine den phobal)"
     },
     "webResource": {
       "dcDescription": "Tuairisc",
@@ -80,7 +81,13 @@ export default {
       "name": "Tír sholáthair"
     },
     "REUSABILITY": {
-      "name": "An féidir liom úsáid a bhaint as seo in athuair?"
+      "name": "An féidir liom úsáid a bhaint as seo in athuair?",
+      "options": {
+        "open": "Is féidir",
+        "restricted": "Is féidir, ach amháin faoi réir coinníollacha áirithe",
+        "permission": "B’fhéidir, iarraidh ar chead a fháil",
+        "uncategorized": "Gan catagóir"
+      }
     },
     "collection": {
       "name": "Catagóir",
@@ -101,10 +108,20 @@ export default {
       }
     },
     "TYPE": {
-      "name": "Cineál meán"
+      "name": "Cineál meán",
+      "options": {
+        "IMAGE": "Íomha",
+        "TEXT": "Téacs",
+        "VIDEO": "Físeán",
+        "SOUND": "Fuaim",
+        "3D": "3T"
+      }
     },
     "contentTier": {
-      "name": "Áirítear leis míreanna nach sásaíonn ár gcritéir foilsitheoireachta"
+      "name": "Áirítear leis míreanna nach sásaíonn ár gcritéir foilsitheoireachta",
+      "options": {
+        "*": "Áirítear leis míreanna nach gcomhlíonann ár riachtanais foilsitheoireachta"
+      }
     },
     "button": {
       "reset": "Athshocraigh",
@@ -123,8 +140,32 @@ export default {
     "DATA_PROVIDER": {
       "name": "Institiúid"
     },
-    "COLOURPALETTE": {
+    "IMAGE_ASPECTRATIO": {
+      "name": "Treoshuíomh na híomhá | Treoshuímh na n-íomhánna",
       "options": {
+        "landscape": "Tírdhreach",
+        "portrait": "Portráid"
+      }
+    },
+    "IMAGE_SIZE": {
+      "name": "Méid íomhá | Méideanna íomhá",
+      "options": {
+        "small": "Beag <0.5MP (m.sh. 650x600px)",
+        "medium": "Meán 0.5-1MP (m.sh. 850x850px)",
+        "large": "Mór 1-4MP (m.sh. 1920x1080px)",
+        "extra_large": "Rímhór 4MP+ (m.sh. 2688 x 1520px)"
+      }
+    },
+    "MIME_TYPE": {
+      "name": "Formáid chomhaid | Formáidí comhaid",
+      "options": {
+        "text\/plain": "Téacs simplí"
+      }
+    },
+    "COLOURPALETTE": {
+      "name": "Dath | Dathanna",
+      "options": {
+        "#000000": "Dubh",
         "#000080": "Dúghorm",
         "#00008B": "Dúghorm",
         "#0000CD": "Gorm Meánach",
@@ -140,6 +181,7 @@ export default {
         "#00FF7F": "Faiche an Earraigh",
         "#00FFFF": "Cian",
         "#191970": "Gorm Meán Oíche",
+        "#1E90FF": "Gorm Seachantóra",
         "#20B2AA": "Faiche na Mara Éadrom",
         "#228B22": "Faiche na Foraoise",
         "#2E8B57": "Faiche na Mara",
@@ -159,6 +201,7 @@ export default {
         "#66CDAA": "Aquamarine Meánach",
         "#696969": "Dim Grey",
         "#6A5ACD": "Slate Gorm",
+        "#6B8E23": "Ológ Leamh",
         "#708090": "Slate Grey",
         "#778899": "Slate Solas Liath",
         "#7B68EE": "Gorm Slate Meán",
@@ -167,6 +210,7 @@ export default {
         "#7F007F": "Corcra Gréasáin",
         "#7FFF00": "Chartreuse",
         "#7FFFD4": "Aquamarine",
+        "#800000": "Marúin",
         "#800080": "Corcra",
         "#808000": "Olive",
         "#808080": "Grey Gréasáin",
@@ -175,23 +219,33 @@ export default {
         "#8A2BE2": "Violet Gorm",
         "#8B0000": "Dearg dorcha",
         "#8B008B": "Magenta Dorcha",
+        "#8B4513": "Donn Diallait",
         "#8FBC8F": "Faiche na Mara Dorcha",
         "#90EE90": "Solas glas",
         "#9370DB": "Corcra Meánach",
+        "#9400D3": "Corcairghorm Dorcha",
         "#98FB98": "Faiche Pale",
+        "#9932CC": "Magairlín Dorcha",
         "#9ACD32": "Glas Buí",
         "#A020F0": "Corcra",
+        "#A0522D": "Siaineach",
         "#A52A2A": "Donn",
         "#A9A9A9": "Liath Dorcha",
         "#ADD8E6": "Gorm Éadrom",
         "#ADFF2F": "Buí Glas",
         "#AFEEEE": "Turquoise Pale",
+        "#B03060": "Marúin",
+        "#B0C4DE": "Glasghorm Éadrom",
         "#B0E0E6": "Púdar Gorm",
         "#B22222": "Bríce Dóiteáin",
+        "#B8860B": "Slat Óir Dorcha",
+        "#BA55D3": "Meán-Mhagairlín",
         "#BC8F8F": "Rosy Brown",
         "#BDB76B": "Khaki dorcha",
         "#BEBEBE": "Liath",
         "#C0C0C0": "Airgid",
+        "#C71585": "Meán-Chorcairghorm Dearg",
+        "#CD5C5C": "Dearg Indiach",
         "#CD853F": "Peiriú",
         "#D2691E": "Seacláid",
         "#D2B48C": "Tan",
@@ -201,6 +255,7 @@ export default {
         "#DAA520": "Goldenrod",
         "#DB7093": "Pale Violet Dearg",
         "#DC143C": "corcairdhearg",
+        "#DCDCDC": "Gainsboro",
         "#DDA0DD": "Pluma",
         "#DEB887": "Burlywood",
         "#E0FFFF": "Cian Éadrom",
@@ -208,7 +263,9 @@ export default {
         "#E9967A": "Bradán Dorcha",
         "#EE82EE": "Violet",
         "#EEE8AA": "Pale Goldenrod",
+        "#F08080": "Coiréil Éadrom",
         "#F0E68C": "Khaki",
+        "#F0F8FF": "Gorm Eilíse",
         "#F0FFF0": "Honeydew",
         "#F0FFFF": "Azure",
         "#F4A460": "Sandy Brown",
@@ -221,17 +278,24 @@ export default {
         "#FAEBD7": "Antique White",
         "#FAF0E6": "Línéadaigh",
         "#FAFAD2": "Goldenrod Éadrom",
+        "#FDF5E6": "Sean-Lása",
         "#FF0000": "Dearg",
         "#FF00FF": "Fuchsia",
+        "#FF1493": "Bándearg Domhain",
         "#FF4500": "Oráiste Dearg",
         "#FF6347": "Trátaí",
+        "#FF69B4": "Bándearg Te",
         "#FF7F50": "Coiréil",
         "#FF8C00": "Oráiste Dorcha",
+        "#FFA07A": "Dath Éadrom an Bhradáin",
         "#FFA500": "Oráiste",
         "#FFB6C1": "Bándearg Éadrom",
         "#FFC0CB": "Bándearg",
         "#FFD700": "Óir",
+        "#FFDAB9": "Cúimhín Péitseoige",
         "#FFDEAD": "Bán Navachóis",
+        "#FFE4B5": "Mocaisín",
+        "#FFE4C4": "Bísc",
         "#FFE4E1": "Rós Ceo",
         "#FFEBCD": "Almond Blanched",
         "#FFEFD5": "Aoire Papaya",
@@ -245,6 +309,28 @@ export default {
         "#FFFFE0": "Buí Éadrom",
         "#FFFFFF": "Bán"
       }
+    },
+    "proxy_dcterms_issued": {
+      "name": "Dáta eisithe"
+    },
+    "api": {
+      "name": "Cuardaigh",
+      "options": {
+        "fulltext": "Taifid ina bhfuil an téacs iomlán le fáil",
+        "metadata": "Taifid nach bhfuil ann ach na meiteashonraí amháin"
+      }
+    },
+    "CREATOR": {
+      "name": "Cruthaitheoir | Cruthaitheoirí"
+    },
+    "proxy_dc_format": {
+      "name": "Formáid | Formáidí"
+    },
+    "proxy_dcterms_medium": {
+      "name": "Meán | Meáin"
+    },
+    "proxy_dc_type": {
+      "name": "Cineál | Cineálacha"
     }
   },
   "entity": "Eintiteas",
@@ -291,10 +377,18 @@ export default {
     "right": "Ar dheis"
   },
   "exhibitions": {
-    "exhibitions": "Taispeántais"
+    "exhibitions": "Taispeántais",
+    "credits": "Creidiúintí",
+    "chapters": "Caibidlí",
+    "currentChapter": "Caibidil reatha"
   },
   "actions": {
-    "download": "Íoslódáil"
+    "download": "Íoslódáil",
+    "viewAt": "Féach ar ag {link}",
+    "providedBy": "Arna sholáthar ag {provider}",
+    "viewDocument": "Breathnaigh ar dhoiciméad",
+    "share": "Roinn",
+    "shareOn": "Roinn ar {social}"
   },
   "clearAllFilters": "glan gach scagaire",
   "reset": "Athshocraigh",
@@ -304,10 +398,18 @@ export default {
     "extendedInformation": "Faisnéise bhreisithe",
     "hideAll": "Folaigh an fhaisnéis go léir",
     "record": "Taifead",
-    "showAll": "Taispeáin an fhaisnéis go léir"
+    "showAll": "Taispeáin an fhaisnéis go léir",
+    "similarItems": "Míreanna eile den chineál céanna",
+    "view": {
+      "pdf": "Féach ar an PDF",
+      "image": "Breathnaigh ar íomhá",
+      "media": "Breathnaigh ar na meáin"
+    },
+    "downloadCopyrightInfo": "Tá cóipcheart i bhfeidhm ar an mír seo agus ní féidir í a íoslódáil dá bharr."
   },
   "contentfulManual": {
     "headerNavigation": {
+      "teachers": "Teagascóirí",
       "explore": "Taiscéal"
     },
     "footerNavigation": {
@@ -317,6 +419,65 @@ export default {
       "provide": "Bí I do sholátharí sonraí",
       "meetUs": "Cuir aithne ar an bhfoireann",
       "help": "Cabhair"
+    }
+  },
+  "imageSlider": {
+    "handle": "Hanla Sleamhnáin"
+  },
+  "dateFilter": {
+    "startDate": "Dáta tosaigh",
+    "endDate": "Dáta deiridh",
+    "to": "go dtí",
+    "specificDate": "Dáta sonrach"
+  },
+  "cookieDisclaimer": {
+    "acceptCookieDisclaimer": "Glac leis an gclásal séanta maidir le fianáin",
+    "terms": "Úsáideann an láithreán gréasáin seo fianáin chun a chinntiú go mbeidh an taithí is fearr is féidir agat air. Trí chliceáil nó nascleanúint a dhéanamh ar an láithreán, aontaíonn tú go ligfear dúinn faisnéis a bhailiú le fianáin.",
+    "link": "Tuilleadh eolais"
+  },
+  "searchSuggestions": "Cuardaigh moltaí",
+  "learnMore": "Faigh amach faoi fhoinse an tuairisc seo",
+  "footer": {
+    "ourMission": "Ár misean",
+    "ourMissionQuote": "Tugann Europeana cumhacht don earnáil oidhreachta cultúrtha tabhairt faoin gclaochlú digiteach. Forbraímid saineolas, uirlisí agus beartais chun glacadh leis an athrú digiteach agus spreagaimid comhpháirtíochtaí a chothaíonn an nuálaíocht.",
+    "customiseWebsiteLanguage": "Saincheap teanga an láithreáin ghréasáin",
+    "imageDescription": "Arna Comh-mhaoiniú ag an tSaoráid um Chónascadh na hEorpa de chuid an Aontais Eorpaigh",
+    "findUsElsewhere": "Aimsigh muid áit eile"
+  },
+  "collections": {
+    "fashion": {
+      "facets": {
+        "CREATOR": {
+          "name": "Dearthóir | Dearthóirí"
+        },
+        "proxy_dc_format": {
+          "name": "Teicníc | Teicnící"
+        },
+        "proxy_dcterms_medium": {
+          "name": "Ábhar | Ábhair"
+        },
+        "proxy_dc_type": {
+          "name": "Cineál míre | Cineálacha míreanna"
+        }
+      }
+    }
+  },
+  "galleries": {
+    "galleries": "Gailearaithe"
+  },
+  "relatedCollections": "Bailiúcháin ghaolmhara",
+  "linksToClassic": {
+    "home": {
+      "text": "Seo an t-eispéireas Europeana nua a bhfuil tú ag breathnú air.",
+      "linkText": "Téigh go dtí an láithreán Europeana bunaidh."
+    },
+    "search": {
+      "text": "Tá an cuardach seo déanta agat ar an láithreán gréasáin nua againn atá níos tapúla.",
+      "linkText": "Féach ar na torthaí cuardaigh seo san fhoinse bunaidh, Europeana."
+    },
+    "record": {
+      "text": "Is ar an láithreán gréasáin nua atá ag Europeana atá tú anois, agus tú ag féachaint ar an mír seo.",
+      "linkText": "Féach ar an mír seo ar láithreán bunaidh Europeana."
     }
   }
 };
