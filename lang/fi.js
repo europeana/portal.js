@@ -159,7 +159,7 @@ export default {
     "MIME_TYPE": {
       "name": "Tiedostomuoto | Tiedostomuodot",
       "options": {
-        "text/plain": "Pelkkä teksti"
+        "text\/plain": "Pelkkä teksti"
       }
     },
     "COLOURPALETTE": {
@@ -388,7 +388,7 @@ export default {
     "providedBy": "Tarjoaa {provider}",
     "viewDocument": "Näytä asiakirja",
     "share": "Jaa",
-    "shareOn": "Jaa mediassa {sosiaalinen}"
+    "shareOn": "Jaa mediassa {social}"
   },
   "clearAllFilters": "tyhjennä kaikki suodattimet",
   "reset": "Nollaa",
