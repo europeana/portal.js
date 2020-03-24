@@ -5,7 +5,7 @@ export default {
     "listSeperator": ";"
   },
   "error": "Error",
-  "goToRecord": "Go to item",
+  "goToRecord": "Go to record",
   "readMore": "Read more",
   "search": "Search",
   "results": "Results",
@@ -23,7 +23,7 @@ export default {
       "dctermsCreated": "Creation date",
       "edmCountry": "Providing country",
       "edmDataProvider": "Providing institution",
-      "edmRights": "License of the media in this item (unless otherwise specified)",
+      "edmRights": "License of the media in this record (unless otherwise specified)",
       "dcPublisher": "Publisher",
       "dcSubject": "Subject",
       "dctermsMedium": "Medium",
@@ -160,7 +160,7 @@ export default {
     "MIME_TYPE": {
       "name": "File format | File formats",
       "options": {
-        "text/plain": "Plain text"
+        "text\/plain": "Plain text"
       }
     },
     "COLOURPALETTE": {
@@ -318,8 +318,8 @@ export default {
     "api": {
       "name": "Search for",
       "options": {
-        "fulltext": "Items with full-text",
-        "metadata": "Metadata-only items"
+        "fulltext": "Records with full-text",
+        "metadata": "Metadata-only records"
       }
     },
     "CREATOR": {
@@ -380,10 +380,10 @@ export default {
   },
   "exhibitions": {
     "exhibitions": "Exhibitions",
-    "description": "Explore the exhibitions",
     "credits": "Credits",
     "chapters": "Chapters",
-    "currentChapter": "Current chapter"
+    "currentChapter": "Current chapter",
+    "description": "Explore the exhibitions"
   },
   "actions": {
     "download": "Download",
@@ -400,7 +400,7 @@ export default {
   "record": {
     "extendedInformation": "Extended information",
     "hideAll": "Hide all information",
-    "record": "Item",
+    "record": "Record",
     "showAll": "Show all information",
     "similarItems": "Similar items",
     "view": {
