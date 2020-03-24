@@ -159,7 +159,7 @@ export default {
     "MIME_TYPE": {
       "name": "Формат на файла | Формат на файловете",
       "options": {
-        "text/plain": "Само текст"
+        "text\/plain": "Само текст"
       }
     },
     "COLOURPALETTE": {
@@ -388,7 +388,7 @@ export default {
     "providedBy": "Предоставено от {provider}",
     "viewDocument": "Преглед на документа",
     "share": "Споделяне",
-    "shareOn": "Споделяне в/във {social}"
+    "shareOn": "Споделяне в\/във {social}"
   },
   "clearAllFilters": "изчистване на всички филтри",
   "reset": "Нулиране",
