@@ -159,7 +159,7 @@ export default {
     "MIME_TYPE": {
       "name": "Bestandsformaat | Bestandsformaten",
       "options": {
-        "text/plain": "Platte tekst"
+        "text\/plain": "Platte tekst"
       }
     },
     "COLOURPALETTE": {
@@ -348,7 +348,7 @@ export default {
   "layout": {
     "skipToMain": "Ga naar pagina-inhoud"
   },
-  "searchPlaceholder": "Waar bent u naar op zoek?",
+  "searchPlaceholder": "Doorzoek miljoenen Items",
   "searchTier": {
     "button": {
       "show": "Deze items weergeven",
@@ -381,7 +381,8 @@ export default {
     "exhibitions": "Tentoonstellingen",
     "credits": "Credits",
     "chapters": "Hoofdstukken",
-    "currentChapter": "Huidig hoofdstuk"
+    "currentChapter": "Huidig hoofdstuk",
+    "description": "Ontdek de tentoonstellingen"
   },
   "actions": {
     "download": "Download",
@@ -467,7 +468,8 @@ export default {
     }
   },
   "galleries": {
-    "galleries": "Galerijen"
+    "galleries": "Galerijen",
+    "description": "Ontdek onze galeries"
   },
   "relatedCollections": "Gerelateerde collecties",
   "linksToClassic": {
