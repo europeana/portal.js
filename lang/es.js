@@ -159,7 +159,7 @@ export default {
     "MIME_TYPE": {
       "name": "Formato de archivo | Formatos de archivo",
       "options": {
-        "text/plain": "Texto sin formato"
+        "text\/plain": "Texto sin formato"
       }
     },
     "COLOURPALETTE": {
@@ -347,7 +347,7 @@ export default {
   "layout": {
     "skipToMain": "Saltar al contenido de la página"
   },
-  "searchPlaceholder": "¿Qué estás buscando?",
+  "searchPlaceholder": "Busca millones de artículos",
   "searchTier": {
     "button": {
       "show": "Mostrar estos elementos",
