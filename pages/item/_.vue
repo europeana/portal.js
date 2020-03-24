@@ -298,19 +298,14 @@
         return this.media.length > 1 && !isIIIFPresentation(this.selectedMedia);
       },
       dcRights() {
-        return this.selectedMedia.webResourceDcRights ? this.selectedMedia.webResourceDcRights : this.fields.dcRights;
+        const dcRights = this.selectedMedia.webResourceDcRights ? this.selectedMedia.webResourceDcRights : this.fields.dcRights;
+        return langMapValueForLocale(dcRights, this.$i18n.locale).values[0];
       },
       edmRights() {
         return this.selectedMedia.webResourceEdmRights ? this.selectedMedia.webResourceEdmRights : this.fields.edmRights;
       },
       rightsStatement() {
-        if (this.edmRights) {
-          const rights = langMapValueForLocale(this.edmRights, this.$i18n.locale).values[0];
-          if (rights.includes('/NoC-OKLR/')) {
-            return langMapValueForLocale(this.dcRights, this.$i18n.locale).values[0];
-          }
-          return rights;
-        }
+        if (this.edmRights) return langMapValueForLocale(this.edmRights, this.$i18n.locale).values[0];
         return false;
       },
       dataProvider() {

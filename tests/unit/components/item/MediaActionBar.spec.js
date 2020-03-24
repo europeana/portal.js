@@ -45,6 +45,7 @@ describe('components/item/MediaActionBar', () => {
   const europeanaIdentifier = '/09876/zyxwvu';
   const url = 'https://www.example.org/videos/zyxwvu.mp4';
   const rightsStatement = 'https://creativecommons.org/publicdomain/mark/1.0/';
+  const dcRights = 'http://rightsstatements.org/page/NoC-OKLR/1.0/?relatedURL=http://gallica.bnf.fr/html/conditions-dutilisation-des-contenus-de-gallica';
   const useProxy = true;
 
   context('when rights statement is In Copyright (InC)', () => {
@@ -113,6 +114,21 @@ describe('components/item/MediaActionBar', () => {
 
     const rightsStatementLink = wrapper.find('[data-qa="rights statement"]');
     rightsStatementLink.text().should.contain('CC BY-SA 4.0');
+  });
+
+  context('when rights statement is of Other Known Legal Restrictions (NoC-OKLR)', () => {
+    const wrapper = factory({
+      europeanaIdentifier,
+      url,
+      rightsStatement: 'http://rightsstatements.org/vocab/NoC-OKLR/1.0/',
+      dcRights,
+      useProxy
+    });
+
+    const rightsStatementLink = wrapper.find('[data-qa="rights statement"]');
+    it('uses the dcRights', () => {
+      rightsStatementLink.attributes().href.should.eq(dcRights);
+    });
   });
 
   it('includes a share button that shows the social share buttons', () => {

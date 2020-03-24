@@ -35,19 +35,19 @@
 
         <SmartLink
           v-if="rightsStatementIsUrl"
-          :destination="rightsStatement"
+          :destination="rightsStatementUrl"
           class="attribution mb-3 mb-lg-0"
           data-qa="rights statement"
         >
           <RightsStatement
-            :rights-statement-url="rightsStatement"
+            :rights-statement-url="rightsStatementUrl"
           />
         </SmartLink>
         <span
           v-else
           data-qa="rights statement"
         >
-          {{ rightsStatement }}
+          {{ rightsStatementUrl }}
         </span>
         <i18n
           v-if="isShownAt"
@@ -131,6 +131,10 @@
         type: String,
         default: null
       },
+      dcRights: {
+        type: String,
+        default: null
+      },
       dataProviderName: {
         type: String,
         default: null
@@ -154,6 +158,13 @@
     computed: {
       rightsStatementIsUrl() {
         return RegExp('^https?://*').test(this.rightsStatement);
+      },
+
+      rightsStatementUrl() {
+        if (this.rightsStatement && this.rightsStatement.includes('/NoC-OKLR/') && this.dcRights) {
+          return this.dcRights;
+        }
+        return this.rightsStatement;
       },
 
       downloadUrl() {
