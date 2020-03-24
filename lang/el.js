@@ -65,7 +65,7 @@ export default {
       "edmIsSimilarTo": "Είναι παρόμοιο με",
       "edmIsSuccessorOf": "Είναι διάδοχος του",
       "edmRealizes": "Πραγματοποιεί",
-      "wasPresentAt": "Ήταν παρών/ούσα στο",
+      "wasPresentAt": "Ήταν παρών\/ούσα στο",
       "keywords": "Λέξεις-κλειδιά (παρέχονται από την κοινότητα)"
     },
     "webResource": {
@@ -159,7 +159,7 @@ export default {
     "MIME_TYPE": {
       "name": "Μορφή αρχείου | Μορφές αρχείων",
       "options": {
-        "text/plain": "Απλό κείμενο"
+        "text\/plain": "Απλό κείμενο"
       }
     },
     "COLOURPALETTE": {
