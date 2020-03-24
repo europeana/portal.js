@@ -89,6 +89,7 @@
               :europeana-identifier="identifier"
               :use-proxy="useProxy"
               :rights-statement="rightsStatement"
+              :dc-rights="dcRights"
               :data-provider-name="dataProvider.values[0]"
               :data-provider-lang="dataProvider.code"
               :is-shown-at="isShownAt"
@@ -296,11 +297,20 @@
         //       others being, say, audio or video.
         return this.media.length > 1 && !isIIIFPresentation(this.selectedMedia);
       },
+      dcRights() {
+        return this.selectedMedia.webResourceDcRights ? this.selectedMedia.webResourceDcRights : this.fields.dcRights;
+      },
       edmRights() {
         return this.selectedMedia.webResourceEdmRights ? this.selectedMedia.webResourceEdmRights : this.fields.edmRights;
       },
       rightsStatement() {
-        if (this.edmRights) return langMapValueForLocale(this.edmRights, this.$i18n.locale).values[0];
+        if (this.edmRights) {
+          const rights = langMapValueForLocale(this.edmRights, this.$i18n.locale).values[0];
+          if (rights.includes('/NoC-OKLR/')) {
+            return langMapValueForLocale(this.dcRights, this.$i18n.locale).values[0];
+          }
+          return rights;
+        }
         return false;
       },
       dataProvider() {
