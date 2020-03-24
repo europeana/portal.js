@@ -3,7 +3,11 @@ export const isHttps = ({ req }) => {
     return (window.location.protocol === 'https:');
   }
 
-  if (req.headers['x-forwarded-proto']) return req.headers['x-forwarded-proto'] === 'https';
+  // Custom, non-standard header set by our gateway because gorouter on IBM
+  // Cloud overwrites x-forwarded-proto
+  if (req.headers['x-forwarded-protocol']) return req.headers['x-forwarded-protocol'] === 'https';
+
+  if (req.headers['x-forwarded-proto']) return !req.headers['x-forwarded-proto'].split(',').includes('http');
 
   if (req.connection.encrypted === true) return true;
 
