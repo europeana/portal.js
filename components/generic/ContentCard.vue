@@ -147,7 +147,8 @@
     },
     data() {
       return {
-        cardImageUrl: this.imageUrl
+        cardImageUrl: this.imageUrl,
+        displayLabelTypes: 'exhibitions|galleries|blog'
       };
     },
 
@@ -169,17 +170,24 @@
       },
 
       displayLabel() {
-        let match;
+        if (!this.displayLabelType) return false;
+        return this.$tc(`${this.displayLabelType}.${this.displayLabelType}`, 1);
+      },
 
-        if (typeof this.url === 'object') {
-          match = this.url.name.match(/(exhibitions|galleries|blog)/g);
-        } else {
-          match = this.url.match(/\/(exhibitions|galleries|blog)\//g);
-        }
+      displayLabelType() {
+        return this.displayLabelMatch ? this.displayLabelMatch[1] : false;
+      },
 
-        if (!match) return false;
-        const matchKey = match[0].replace(/\//g, '');
-        return this.$tc(`${matchKey}.${matchKey}`, 1);
+      displayLabelMatch() {
+        return typeof this.url === 'object' ? this.displayLabelMatchObject : this.displayLabelMatchString;
+      },
+
+      displayLabelMatchObject() {
+        return this.url.name.match(new RegExp(`(${this.displayLabelTypes})`));
+      },
+
+      displayLabelMatchString() {
+        return this.url.match(new RegExp(`/(${this.displayLabelTypes})[/.]`));
       },
 
       displayTexts() {
