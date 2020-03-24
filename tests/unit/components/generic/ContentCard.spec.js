@@ -21,6 +21,7 @@ const factory = () => mount(ContentCard, {
     $i18n: {
       locale: 'en'
     },
+    $path: () => '',
     $t: (key) => key,
     $tc: (key) => key,
     $store
@@ -36,12 +37,45 @@ describe('components/generic/ContentCard', () => {
     description.text().should.eq('The Milkmaid by Vermeer');
   });
 
-  it('has a label', () => {
-    const wrapper = factory();
-    wrapper.setProps({ url: 'https://europeana.eu/en/exhibitions/pioneers' });
+  describe('display labels', () => {
+    const tests = [
+      {
+        type: 'blog',
+        urls: [
+          'https://blog.europeana.eu/2019/11/vespa-and-piaggio-icons-of-italian-industrial-design/',
+          'https://www.europeana.eu/en/blog/introducing-the-new-europeana-demo',
+          { name: 'blog___en', params: { pathMatch: 'introducing-the-new-europeana-demo' } }
+        ]
+      },
+      {
+        type: 'exhibitions',
+        urls: [
+          'https://www.europeana.eu/en/exhibitions/pioneers',
+          { name: 'exhibitions___en', params: { exhibition: 'pioneeers' } }
+        ]
+      },
+      {
+        type: 'galleries',
+        urls: [
+          'https://www.europeana.eu/en/galleries/board-games',
+          { name: 'galleries___en', params: { pathMatch: 'board-games' } }
+        ]
+      }
+    ];
 
-    const label =  wrapper.find('[data-qa="content card"] .card-subtitle');
-    label.text().should.eq('exhibitions.exhibitions');
+    for (const test of tests) {
+      describe(`for ${test.type}`, () => {
+        for (const url of test.urls) {
+          it(`is shown for ${JSON.stringify(url)}`, () => {
+            const wrapper = factory();
+            wrapper.setProps({ url });
+
+            const label =  wrapper.find('[data-qa="content card"] .card-subtitle');
+            label.text().should.eq(`${test.type}.${test.type}`);
+          });
+        }
+      });
+    }
   });
 
   it('has a creator and institution', () => {
