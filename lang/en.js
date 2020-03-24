@@ -380,10 +380,10 @@ export default {
   },
   "exhibitions": {
     "exhibitions": "Exhibitions",
-    "description": "Explore the exhibitions",
     "credits": "Credits",
     "chapters": "Chapters",
-    "currentChapter": "Current chapter"
+    "currentChapter": "Current chapter",
+    "description": "Explore the exhibitions"
   },
   "actions": {
     "download": "Download",

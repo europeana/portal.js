@@ -384,7 +384,7 @@ export default {
   },
   "actions": {
     "download": "Stiahnuť",
-    "viewAt": "Zobraziť na adrese {Link}",
+    "viewAt": "Zobraziť na adrese {link}",
     "providedBy": "Poskytovateľ:  {provider}",
     "viewDocument": "Zobraziť dokument",
     "share": "Zdieľať",

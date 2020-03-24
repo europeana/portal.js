@@ -65,7 +65,8 @@ export default {
       "edmIsSimilarTo": "Hija simili għal",
       "edmIsSuccessorOf": "Huwa s-suċċessur ta'",
       "edmRealizes": "Iwettaq",
-      "wasPresentAt": "Kien preżenti fi"
+      "wasPresentAt": "Kien preżenti fi",
+      "keywords": "Keywords (ipprovduti mill-komunità)"
     },
     "webResource": {
       "dcDescription": "Deskrizzjoni",
@@ -80,13 +81,16 @@ export default {
       "name": "Pajjiż fornitur"
     },
     "REUSABILITY": {
-      "name": "Nista' nerġa' nużah dan?",
+      "name": "Nista' nuża dan?",
       "options": {
-        "open": "Iva"
+        "open": "Iva",
+        "restricted": "Iva, bil-kundizzjonijiet",
+        "permission": "Forsi, ġib permess",
+        "uncategorized": "Mhux kategorizzati"
       }
     },
     "collection": {
-      "name": "Kategorija",
+      "name": "Kollezzjoni",
       "options": {
         "ww1": "1914-1918",
         "archaeology": "Arkeoloġija",
@@ -104,10 +108,21 @@ export default {
       }
     },
     "TYPE": {
-      "name": "Tip ta' midja"
+      "name": "Tip ta' midja",
+      "options": {
+        "IMAGE": "Stampa",
+        "TEXT": "Test",
+        "VIDEO": "Vidjo",
+        "SOUND": "Awdjo",
+        "3D": "3D"
+      }
     },
     "contentTier": {
-      "name": "Jinkludi oġġetti li ma jissodisfawx il-kriterji tal-pubblikazzjoni tagħna"
+      "name": "Jinkludi oġġetti li ma jissodisfawx il-kriterji tal-pubblikazzjoni tagħna",
+      "options": {
+        "*": "Jinkludi oġġetti li ma jissodisfawx il-kriterji tal-pubblikazzjoni tagħna",
+        "0": "Oġġetti li ma jissodisfawx il-kriterji tal-pubblikazzjoni tagħna biss"
+      }
     },
     "button": {
       "reset": "Irrisettja",
@@ -118,16 +133,40 @@ export default {
       "showLess": "Uri inqas {label}"
     },
     "LANGUAGE": {
-      "name": "Lingwa"
+      "name": "Lingwa | Lingwi"
     },
     "PROVIDER": {
-      "name": "Aggregatur"
+      "name": "Aggregatur | Aggregaturi"
     },
     "DATA_PROVIDER": {
-      "name": "Istituzzjoni"
+      "name": "Istituzzjoni | Istituzzjonijiet"
+    },
+    "IMAGE_ASPECTRATIO": {
+      "name": "Orjentazzjoni tal-istampa | Orjentazzjonijiet tal-istampa",
+      "options": {
+        "landscape": "Pajsaġġ",
+        "portrait": "Ritratt"
+      }
+    },
+    "IMAGE_SIZE": {
+      "name": "Daqs tal-istampa | Daqsijiet tal-istampa",
+      "options": {
+        "small": "Żgħar <0.5MP (eż. 650x600px)",
+        "medium": "Medji ",
+        "large": "Kbar 1-4MP (eż. 1920x1080px)",
+        "extra_large": "Kbar Ħafna 4MP+ (eż. 2688 x 1520px)"
+      }
+    },
+    "MIME_TYPE": {
+      "name": "Format tal-fajl | Formati tal-fajl",
+      "options": {
+        "text/plain": "Test bla format"
+      }
     },
     "COLOURPALETTE": {
+      "name": "Kulur | Kuluri",
       "options": {
+        "#000000": "Iswed",
         "#000080": "Blu Blu",
         "#00008B": "Blu skur",
         "#0000CD": "Medju Blu",
@@ -143,6 +182,7 @@ export default {
         "#00FF7F": "Ħodor tar-Rebbiegħa",
         "#00FFFF": "Cyan",
         "#191970": "Midnight Blue",
+        "#1E90FF": "Dodger Blue",
         "#20B2AA": "Green Light Sea",
         "#228B22": "Green Forest",
         "#2E8B57": "Baħar l-Aħdar",
@@ -162,6 +202,7 @@ export default {
         "#66CDAA": "Aquamarine Medju",
         "#696969": "Griż Dim",
         "#6A5ACD": "Lavanja Blu",
+        "#6B8E23": "Olive Drab",
         "#708090": "Lavanja Griż",
         "#778899": "Grey Slate Grey",
         "#7B68EE": "Lavanja Medja Blu",
@@ -170,6 +211,7 @@ export default {
         "#7F007F": "Web vjola",
         "#7FFF00": "Chartreuse",
         "#7FFFD4": "Aquamarine",
+        "#800000": "Marun",
         "#800080": "Vjola",
         "#808000": "Żebbuġa",
         "#808080": "Web griż",
@@ -178,23 +220,33 @@ export default {
         "#8A2BE2": "Vjola Blu",
         "#8B0000": "Aħmar skur",
         "#8B008B": "Magenta mudlama",
+        "#8B4513": "Saddle Brown",
         "#8FBC8F": "Baħar aħdar skur",
         "#90EE90": "Aħdar ċar",
         "#9370DB": "Vjola Medju",
+        "#9400D3": "Vjola Skur",
         "#98FB98": "Aħdar ċar",
+        "#9932CC": "Lewn l-Orkidej Skur",
         "#9ACD32": "Isfar Aħdar",
         "#A020F0": "Vjola",
+        "#A0522D": "Sienna",
         "#A52A2A": "Kannella",
         "#A9A9A9": "Griż skur",
         "#ADD8E6": "Blu-ċar",
         "#ADFF2F": "Isfar aħdar",
         "#AFEEEE": "Lewn ċar",
+        "#B03060": "Marun",
+        "#B0C4DE": "Steel Blue Ċar",
         "#B0E0E6": "Trab Blu",
         "#B22222": "Firebrick",
+        "#B8860B": "Goldenrod Skur",
+        "#BA55D3": "Lewn l-Orkidej Medju",
         "#BC8F8F": "Rosy Brown",
         "#BDB76B": "Kaki skur",
         "#BEBEBE": "Griż",
         "#C0C0C0": "Fidda",
+        "#C71585": "Aħmar Jagħti fil-Vjola Medju",
+        "#CD5C5C": "Aħmar tal-Indja",
         "#CD853F": "Il-Perù",
         "#D2691E": "Ċikkulata",
         "#D2B48C": "Tan",
@@ -204,6 +256,7 @@ export default {
         "#DAA520": "Goldenrod",
         "#DB7093": "Aħmar Vjola Pale",
         "#DC143C": "Kriminal",
+        "#DCDCDC": "Gainsboro",
         "#DDA0DD": "Għanbaqar",
         "#DEB887": "Burlywood",
         "#E0FFFF": "Cyan ħafif",
@@ -211,7 +264,9 @@ export default {
         "#E9967A": "Salamun mudlam",
         "#EE82EE": "Vjola",
         "#EEE8AA": "Goldenrod ċar",
+        "#F08080": "Korall Ċar",
         "#F0E68C": "Kaki",
+        "#F0F8FF": "Alice Blue",
         "#F0FFF0": "Honeydew",
         "#F0FFFF": "Id-Dwejra",
         "#F4A460": "Sandy Brown",
@@ -224,17 +279,24 @@ export default {
         "#FAEBD7": "Abjad antik",
         "#FAF0E6": "Għażel",
         "#FAFAD2": "Goldenrod Light",
+        "#FDF5E6": "Old Lace",
         "#FF0000": "aħmar",
         "#FF00FF": "Fuchsia",
+        "#FF1493": "Roża Skur",
         "#FF4500": "Oranġjo Aħmar",
         "#FF6347": "Tadama",
+        "#FF69B4": "Roża Jgħajjat",
         "#FF7F50": "Qroll",
         "#FF8C00": "Oranġjo skur",
+        "#FFA07A": "Lewn is-Salamun Ċar",
         "#FFA500": "Oranġjo",
         "#FFB6C1": "Roża ċar",
         "#FFC0CB": "Roża",
         "#FFD700": "Deheb",
+        "#FFDAB9": "Peach Puff",
         "#FFDEAD": "Navaż Abjad",
+        "#FFE4B5": "Moccasin",
+        "#FFE4C4": "Bisque",
         "#FFE4E1": "Misty Rose",
         "#FFEBCD": "Lewż mqaxxar",
         "#FFEFD5": "Whip tal-Papaya",
@@ -248,6 +310,28 @@ export default {
         "#FFFFE0": "Isfar ċar",
         "#FFFFFF": "Abjad"
       }
+    },
+    "proxy_dcterms_issued": {
+      "name": "Data ta' ħruġ"
+    },
+    "api": {
+      "name": "Fittex",
+      "options": {
+        "fulltext": "Rekords bit-test sħiħ",
+        "metadata": "Rekords tal-metadejta biss"
+      }
+    },
+    "CREATOR": {
+      "name": "Kreatur | Kreaturi"
+    },
+    "proxy_dc_format": {
+      "name": "Format | Formati"
+    },
+    "proxy_dcterms_medium": {
+      "name": "Mezz | Midja"
+    },
+    "proxy_dc_type": {
+      "name": "Tip | Tipi"
     }
   },
   "entity": "Entità",
@@ -264,7 +348,7 @@ export default {
   "layout": {
     "skipToMain": "Aqbeż għall-kontenut paġna"
   },
-  "searchPlaceholder": "X'qed tfittex?",
+  "searchPlaceholder": "Fittex miljun oġġett",
   "searchTier": {
     "button": {
       "show": "Uri dawn l-oġġetti",
@@ -294,10 +378,18 @@ export default {
     "right": "Lemin"
   },
   "exhibitions": {
-    "exhibitions": "Wirjiet"
+    "exhibitions": "Wirjiet",
+    "credits": "Krediti",
+    "chapters": "Kapitoli",
+    "currentChapter": "Kapitolu attwali"
   },
   "actions": {
-    "download": "Niżżel"
+    "download": "Niżżel",
+    "viewAt": "Ara fuq {link}",
+    "providedBy": "Ipprovdut minn {provider}",
+    "viewDocument": "Ara d-dokument",
+    "share": "Ixxerja",
+    "shareOn": "Ixxerja fuq {social}"
   },
   "clearAllFilters": "ħassar il-filtri kollha",
   "reset": "Irrisettja",
@@ -310,11 +402,15 @@ export default {
     "showAll": "Uri l-informazzjoni kollha",
     "similarItems": "Oġġetti simili",
     "view": {
-      "pdf": "Ara l-PDF"
-    }
+      "pdf": "Ara l-PDF",
+      "image": "Ara l-istampa",
+      "media": "Ara l-midja"
+    },
+    "downloadCopyrightInfo": "Dan l-oġġett huwa marbut bid-drittijiet tal-awtur u ma jistax jitniżżel."
   },
   "contentfulManual": {
     "headerNavigation": {
+      "teachers": "Edukaturi",
       "explore": "Esplora"
     },
     "footerNavigation": {
@@ -328,5 +424,61 @@ export default {
   },
   "imageSlider": {
     "handle": "Manku tas-Slajder"
+  },
+  "dateFilter": {
+    "startDate": "Data tal-bidu",
+    "endDate": "Data tat-tmiem",
+    "to": "biex",
+    "specificDate": "Data speċifika"
+  },
+  "cookieDisclaimer": {
+    "acceptCookieDisclaimer": "Aċċetta d-dikjarazzjoni ta' ċaħda tal-cookies",
+    "terms": "Dan is-sit web juża l-cookies biex niżguraw li jkollok l-aħjar esperjenza fuq is-sit web tagħna. Jekk tikklikkja jew tinnaviga s-sit, tkun qed taqbel li tippermetti l-ġbir tal-informazzjoni min-naħa tagħna permezz tal-cookies.",
+    "link": "Aktar informazzjoni"
+  },
+  "searchSuggestions": "Fittex is-suġġerimenti",
+  "learnMore": "Tgħallem aktar dawr is-sors ta' din id-deskrizzjoni",
+  "footer": {
+    "ourMission": "Il-missjoni tagħna",
+    "ourMissionQuote": "Europeana tagħti s-setgħa lis-settur tal-wirt kulturali fit-trasformazzjoni diġitali tiegħu. Aħna niżviluppaw għarfien espert, għodod u politiki biex inħaddnu l-bidla diġitali u ninkoraġġixxu lis-sħubiji li jrawmu l-innovazzjoni.",
+    "customiseWebsiteLanguage": "Ippersonalizza l-lingwa tas-sit web",
+    "imageDescription": "Kofinanzjat mill-Faċilità Nikkollegaw l-Ewropa tal-Unjoni Ewropea",
+    "findUsElsewhere": "Sibna x'imkien ieħor"
+  },
+  "collections": {
+    "fashion": {
+      "facets": {
+        "CREATOR": {
+          "name": "Disinjatur | Disinjaturi"
+        },
+        "proxy_dc_format": {
+          "name": "Teknika | Tekniki"
+        },
+        "proxy_dcterms_medium": {
+          "name": "Materjal | Materjali"
+        },
+        "proxy_dc_type": {
+          "name": "Tip ta' oġġett | Tipi ta' oġġett"
+        }
+      }
+    }
+  },
+  "galleries": {
+    "galleries": "Galleriji"
+  },
+  "relatedCollections": "Kollezzjonijiet relatati",
+  "linksToClassic": {
+    "home": {
+      "text": "Qed tara l-esperjenza ta' Europeana ġdida.",
+      "linkText": "Mur fl-Europeana oriġinali."
+    },
+    "search": {
+      "text": "Qed tfittex fis-sit web ġdid u aktar veloċi tagħna.",
+      "linkText": "Ara dawn ir-riżultati tat-tiftix fl-Europeana oriġinali."
+    },
+    "record": {
+      "text": "Qed tara dan l-oġġett fis-sit web il-ġdid ta' Europeana.",
+      "linkText": "Ara dan l-oġġett fl-Europeana oriġinali."
+    }
   }
 };
