@@ -299,7 +299,10 @@
       },
       dcRights() {
         const dcRights = this.selectedMedia.webResourceDcRights ? this.selectedMedia.webResourceDcRights : this.fields.dcRights;
-        return langMapValueForLocale(dcRights, this.$i18n.locale).values[0];
+        if (dcRights) {
+          return langMapValueForLocale(dcRights, this.$i18n.locale).values[0];
+        }
+        return '';
       },
       edmRights() {
         return this.selectedMedia.webResourceEdmRights ? this.selectedMedia.webResourceEdmRights : this.fields.edmRights;
