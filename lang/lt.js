@@ -160,7 +160,7 @@ export default {
     "MIME_TYPE": {
       "name": "Failo formatas | Failų formatai",
       "options": {
-        "text\/plain": "Paprastas tekstas"
+        "text/plain": "Paprastas tekstas"
       }
     },
     "COLOURPALETTE": {

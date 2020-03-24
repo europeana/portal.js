@@ -159,7 +159,7 @@ export default {
     "MIME_TYPE": {
       "name": "Tiedostomuoto | Tiedostomuodot",
       "options": {
-        "text\/plain": "Pelkkä teksti"
+        "text/plain": "Pelkkä teksti"
       }
     },
     "COLOURPALETTE": {

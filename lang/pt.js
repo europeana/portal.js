@@ -159,7 +159,7 @@ export default {
     "MIME_TYPE": {
       "name": "Formato de ficheiro | Formatos de ficheiros",
       "options": {
-        "text\/plain": "Texto simples"
+        "text/plain": "Texto simples"
       }
     },
     "COLOURPALETTE": {
