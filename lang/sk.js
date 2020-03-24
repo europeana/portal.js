@@ -159,7 +159,7 @@ export default {
     "MIME_TYPE": {
       "name": "Formát súboru | Formáty súborov",
       "options": {
-        "text/plain": "Obyčajný text"
+        "text\/plain": "Obyčajný text"
       }
     },
     "COLOURPALETTE": {
@@ -384,7 +384,7 @@ export default {
   },
   "actions": {
     "download": "Stiahnuť",
-    "viewAt": "Zobraziť na adrese {Link}",
+    "viewAt": "Zobraziť na adrese {link}",
     "providedBy": "Poskytovateľ:  {provider}",
     "viewDocument": "Zobraziť dokument",
     "share": "Zdieľať",
