@@ -379,7 +379,7 @@ export default {
     "right": "Right"
   },
   "exhibitions": {
-    "exhibitions": "Exhibitions",
+    "exhibitions": "Exhibition | Exhibitions",
     "credits": "Credits",
     "chapters": "Chapters",
     "currentChapter": "Current chapter",
@@ -469,7 +469,7 @@ export default {
     }
   },
   "galleries": {
-    "galleries": "Galleries",
+    "galleries": "Gallery | Galleries",
     "description": "Explore our galleries"
   },
   "relatedCollections": "Related collections",

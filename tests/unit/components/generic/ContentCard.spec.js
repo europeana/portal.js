@@ -21,7 +21,9 @@ const factory = () => mount(ContentCard, {
     $i18n: {
       locale: 'en'
     },
-    $t: () => {},
+    $path: () => '',
+    $t: (key) => key,
+    $tc: (key) => key,
     $store
   }
 });
@@ -33,6 +35,47 @@ describe('components/generic/ContentCard', () => {
 
     const description =  wrapper.find('[data-qa="content card"] .card-body');
     description.text().should.eq('The Milkmaid by Vermeer');
+  });
+
+  describe('display labels', () => {
+    const tests = [
+      {
+        type: 'blog',
+        urls: [
+          'https://blog.europeana.eu/2019/11/vespa-and-piaggio-icons-of-italian-industrial-design/',
+          'https://www.europeana.eu/en/blog/introducing-the-new-europeana-demo',
+          { name: 'blog___en', params: { pathMatch: 'introducing-the-new-europeana-demo' } }
+        ]
+      },
+      {
+        type: 'exhibitions',
+        urls: [
+          'https://www.europeana.eu/en/exhibitions/pioneers',
+          { name: 'exhibitions___en', params: { exhibition: 'pioneeers' } }
+        ]
+      },
+      {
+        type: 'galleries',
+        urls: [
+          'https://www.europeana.eu/en/galleries/board-games',
+          { name: 'galleries___en', params: { pathMatch: 'board-games' } }
+        ]
+      }
+    ];
+
+    for (const test of tests) {
+      describe(`for ${test.type}`, () => {
+        for (const url of test.urls) {
+          it(`is shown for ${JSON.stringify(url)}`, () => {
+            const wrapper = factory();
+            wrapper.setProps({ url });
+
+            const label =  wrapper.find('[data-qa="content card"] .card-subtitle');
+            label.text().should.eq(`${test.type}.${test.type}`);
+          });
+        }
+      });
+    }
   });
 
   it('has a creator and institution', () => {

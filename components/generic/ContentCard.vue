@@ -29,6 +29,14 @@
         />
       </div>
       <b-card-body>
+        <b-card-sub-title
+          v-if="displayLabel && variant !== 'mini'"
+          sub-title-tag="div"
+          sub-title-text-variant="default"
+          class="mt-0"
+        >
+          {{ displayLabel }}
+        </b-card-sub-title>
         <b-card-title
           v-if="displayTitle"
           title-tag="div"
@@ -139,7 +147,8 @@
     },
     data() {
       return {
-        cardImageUrl: this.imageUrl
+        cardImageUrl: this.imageUrl,
+        displayLabelTypes: 'exhibitions|galleries|blog'
       };
     },
 
@@ -158,6 +167,27 @@
         } else {
           return langMapValueForLocale(this.title, this.$i18n.locale);
         }
+      },
+
+      displayLabel() {
+        if (!this.displayLabelType) return false;
+        return this.$tc(`${this.displayLabelType}.${this.displayLabelType}`, 1);
+      },
+
+      displayLabelType() {
+        return this.displayLabelMatch ? this.displayLabelMatch[1] : false;
+      },
+
+      displayLabelMatch() {
+        return typeof this.url === 'object' ? this.displayLabelMatchObject : this.displayLabelMatchString;
+      },
+
+      displayLabelMatchObject() {
+        return this.url.name.match(new RegExp(`(${this.displayLabelTypes})`));
+      },
+
+      displayLabelMatchString() {
+        return this.url.match(new RegExp(`/(${this.displayLabelTypes})[/.]`));
       },
 
       displayTexts() {
