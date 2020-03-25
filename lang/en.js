@@ -380,7 +380,6 @@ export default {
   },
   "exhibitions": {
     "exhibitions": "Exhibition | Exhibitions",
-    "description": "Explore the exhibitions",
     "credits": "Credits",
     "chapters": "Chapters",
     "currentChapter": "Current chapter",
