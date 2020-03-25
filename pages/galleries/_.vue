@@ -1,12 +1,14 @@
 <template>
   <b-container>
-    <b-row class="flex-md-row pb-5">
+    <header class="row">
       <b-col
         cols="12"
         lg="9"
-        class="pb-0 pb-lg-3"
+        class="col lead mt-3"
       >
-        <h1 data-qa="gallery title">
+        <h1
+          data-qa="gallery title"
+        >
           {{ title }}
         </h1>
         <!-- eslint-disable vue/no-v-html -->
@@ -25,6 +27,8 @@
           :media-url="shareMediaUrl"
         />
       </b-col>
+    </header>
+    <b-row class="flex-md-row pb-5">
       <b-col cols="12">
         <b-card-group
           class="masonry"
