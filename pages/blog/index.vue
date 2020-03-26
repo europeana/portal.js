@@ -6,7 +6,6 @@
       </b-col>
       <b-col cols="12">
         <b-card-group
-          id="posts"
           class="card-deck-4-cols"
           deck
           data-qa="blog posts section"
@@ -28,7 +27,6 @@
         <PaginationNav
           v-if="showPagination"
           v-model="page"
-          scroll-to-id="posts"
           :limit="perPage"
           :total-results="total"
           :per-page="perPage"

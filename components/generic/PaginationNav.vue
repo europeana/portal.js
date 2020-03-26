@@ -9,7 +9,7 @@
     size="sm"
     align="center"
     data-qa="pagination navigation"
-    @input="inputPaginationNav"
+    @change="changePaginationNav"
   />
 </template>
 
@@ -46,7 +46,7 @@
       },
       scrollToId: {
         type: String,
-        required: true
+        default: '__nuxt'
       }
     },
     data() {
@@ -57,9 +57,6 @@
     computed: {
       totalPages() {
         return Math.ceil(Math.min(Math.max(this.totalResults, 1), maxResults) / this.perPage);
-      },
-      scrollTo() {
-        return this.scrollToId ? `#${this.scrollToId}` : null;
       }
     },
     watch: {
@@ -72,8 +69,8 @@
       }
     },
     methods: {
-      inputPaginationNav() {
-        if (this.scrollTo) this.$scrollTo(this.scrollTo);
+      changePaginationNav() {
+        this.$scrollTo(`#${this.scrollToId}`);
       }
     }
   };

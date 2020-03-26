@@ -57,7 +57,6 @@
       </b-row>
       <b-row
         v-if="hasAnyResults"
-        id="results"
         class="mb-3"
       >
         <b-col>
@@ -104,7 +103,6 @@
               <PaginationNav
                 v-if="showPagination"
                 v-model="page"
-                scroll-to-id="results"
                 :total-results="totalResults"
                 :per-page="perPage"
                 :link-gen="paginationLink"
