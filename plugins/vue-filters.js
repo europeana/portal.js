@@ -76,6 +76,8 @@ Vue.filter('convertNewLine', (val) => {
   return val.replace(/\n/g, '<br/>');
 });
 
+Vue.filter('urlWithProtocol', (url) => url.startsWith('//') ? `https:${url}` : url);
+
 Vue.filter('proxyMedia', (mediaUrl, europeanaId, params = {}) => {
   const proxyUrl = new URL('https://proxy.europeana.eu');
   proxyUrl.pathname = europeanaId;

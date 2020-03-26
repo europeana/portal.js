@@ -99,6 +99,7 @@
       return {
         title: this.page.name,
         meta: [
+          { hid: 'og:type', property: 'og:type', content: 'article' },
           { hid: 'title', name: 'title', content: this.page.name },
           { hid: 'og:title', property: 'og:title', content: this.page.name }
         ].concat(this.page.description ? [
