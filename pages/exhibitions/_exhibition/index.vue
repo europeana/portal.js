@@ -76,12 +76,6 @@
       heroImage() {
         return this.hero ? this.hero.image.fields.file : null;
       },
-      ogImageUrl() {
-        if (!/^(http|https)/.test(this.heroImage.url)) {
-          return `https:${this.heroImage.url}`;
-        }
-        return this.heroImage.url;
-      },
       mainContent() {
         if (this.page.text === undefined) return;
         return marked(this.page.text);
@@ -130,7 +124,7 @@
         meta: [
           { hid: 'title', name: 'title', content: this.page.name },
           { hid: 'og:title', property: 'og:title', content: this.page.name },
-          { hid: 'og:image', property: 'og:image', content: this.ogImageUrl },
+          { hid: 'og:image', property: 'og:image', content: this.$options.filters.urlWithProtocol(this.heroImage.url) },
           { hid: 'og:type', property: 'og:type', content: 'article' }
         ].concat(this.page.description ? [
           { hid: 'description', name: 'description', content: this.page.description },
