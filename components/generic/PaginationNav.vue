@@ -9,6 +9,7 @@
     size="sm"
     align="center"
     data-qa="pagination navigation"
+    @input="inputPaginationNav"
   />
 </template>
 
@@ -42,6 +43,10 @@
         default: (val) => {
           return val.toString();
         }
+      },
+      scrollToId: {
+        type: String,
+        required: true
       }
     },
     data() {
@@ -52,6 +57,9 @@
     computed: {
       totalPages() {
         return Math.ceil(Math.min(Math.max(this.totalResults, 1), maxResults) / this.perPage);
+      },
+      scrollTo() {
+        return this.scrollToId ? `#${this.scrollToId}` : null;
       }
     },
     watch: {
@@ -61,6 +69,11 @@
           // Without this, using the browser back button will not update the highlighted pagination
           this.currentPage = val;
         }
+      }
+    },
+    methods: {
+      inputPaginationNav() {
+        if (this.scrollTo) this.$scrollTo(this.scrollTo);
       }
     }
   };

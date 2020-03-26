@@ -11,6 +11,7 @@
     <b-row class="flex-md-row pb-5">
       <b-col cols="12">
         <b-card-group
+          id="exhibitions"
           class="card-deck-4-cols"
           deck
           data-qa="exhibitions section"
@@ -33,6 +34,7 @@
         <PaginationNav
           v-if="showPagination"
           v-model="page"
+          scroll-to-id="exhibitions"
           :limit="perPage"
           :total-results="total"
           :per-page="perPage"

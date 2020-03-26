@@ -70,7 +70,8 @@
     "nuxt": "^2.11.0",
     "nuxt-i18n": "^6.3.0",
     "qs": "^6.6.0",
-    "vue": "^2.6.11"
+    "vue": "^2.6.11",
+    "vue-scrollto": "^2.17.1"
   },
   "devDependencies": {
     "@babel/core": "^7.6.0",
