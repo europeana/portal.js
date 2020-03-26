@@ -9,6 +9,7 @@
     size="sm"
     align="center"
     data-qa="pagination navigation"
+    @change="changePaginationNav"
   />
 </template>
 
@@ -42,6 +43,10 @@
         default: (val) => {
           return val.toString();
         }
+      },
+      scrollToId: {
+        type: String,
+        default: '__nuxt'
       }
     },
     data() {
@@ -61,6 +66,11 @@
           // Without this, using the browser back button will not update the highlighted pagination
           this.currentPage = val;
         }
+      }
+    },
+    methods: {
+      changePaginationNav() {
+        this.$scrollTo(`#${this.scrollToId}`);
       }
     }
   };
