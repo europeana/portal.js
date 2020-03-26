@@ -307,6 +307,7 @@
       return {
         title: this.title.values[0],
         meta: [
+          { hid: 'og:type', property: 'og:type', content: 'article' },
           { hid: 'title', name: 'title', content: this.title.values[0] },
           { hid: 'og:title', property: 'og:title', content: this.title.values[0] }
         ].concat(this.descriptionText ? [
