@@ -1,4 +1,4 @@
-const config = require('./config');
+const config = <%= JSON.stringify(options, null, 2) %>;
 
 export default ({ app, store }, inject) => {
   app.$apis = config;
