@@ -309,11 +309,12 @@
         meta: [
           { hid: 'og:type', property: 'og:type', content: 'article' },
           { hid: 'title', name: 'title', content: this.title.values[0] },
-          { hid: 'og:title', property: 'og:title', content: this.title.values[0] },
-          { hid: 'og:image', property: 'og:image', content: this.$options.filters.urlWithProtocol(this.depiction) }
+          { hid: 'og:title', property: 'og:title', content: this.title.values[0] }
         ].concat(this.descriptionText ? [
           { hid: 'description', name: 'description', content: this.descriptionText },
           { hid: 'og:description', property: 'og:description', content: this.descriptionText }
+        ] : []).concat(this.depiction ? [
+          { hid: 'og:image', property: 'og:image', content: this.$options.filters.urlWithProtocol(this.depiction) }
         ] : [])
       };
     },
