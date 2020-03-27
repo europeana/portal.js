@@ -313,6 +313,8 @@
         ].concat(this.descriptionText ? [
           { hid: 'description', name: 'description', content: this.descriptionText },
           { hid: 'og:description', property: 'og:description', content: this.descriptionText }
+        ] : []).concat(this.depiction ? [
+          { hid: 'og:image', property: 'og:image', content: this.$options.filters.urlWithProtocol(this.depiction) }
         ] : [])
       };
     },
