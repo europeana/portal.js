@@ -1,14 +1,14 @@
-export default ({ app, store }, inject) => {
-  const options = <%= JSON.stringify(options, null, 2) %>;
+const config = require('./config');
 
-  app.$apis = options;
-  inject('apis', options);
+export default ({ app, store }, inject) => {
+  app.$apis = config;
+  inject('apis', config);
 
   if (store) {
     store.registerModule('apis', {
       namespaced: true,
       state: {
-        configs: options,
+        configs: config,
         origin: null
       },
       mutations: {
