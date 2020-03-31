@@ -8,6 +8,7 @@ const config = require('./config');
 
 const app = express();
 
+// TODO: enforce SSL unless disabled by env var, with env-configurable port awareness
 app.get('/:locale/item/:dataset/:item.json', (req, res) => {
   const europeanaId = `/${req.params.dataset}/${req.params.item}`;
   const reqOrigin = requestOrigin(req);
