@@ -31,35 +31,5 @@ module.exports = function(migration) {
       helpText:
         'This field will be automatically set when an item has been harvested.'
     }
-  );
-
-  const automatedEntityCard = migration.editContentType('automatedEntityCard');
-
-  automatedEntityCard
-    .editField('name')
-    .localized(false);
-
-  automatedEntityCard
-    .editField('description')
-    .disabled(true);
-
-  automatedEntityCard
-    .createField('encoding')
-    .name('Encoding')
-    .type('Object')
-    .localized(false)
-    .required(true)
-    .validations([])
-    .disabled(true)
-    .omitted(false);
-
-  automatedEntityCard.changeFieldControl(
-    'name',
-    'extension',
-    'disabledSingleLineText',
-    {
-      helpText:
-        'This field will be automatically set when an item has been harvested.'
-    }
-  );
+  );  
 };
