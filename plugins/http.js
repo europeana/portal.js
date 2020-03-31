@@ -17,13 +17,16 @@ export const isHttps = ({ req }) => {
 };
 
 export const currentHost = ({ req }) => {
-  if (process.server) {
-    return req.headers['x-forwarded-host'] || req.headers.host;
-  } else if (process.client) {
+  if (process.client) {
     return window.location.host;
   }
+  return req.headers['x-forwarded-host'] || req.headers.host;
 };
 
 export const currentProtocol = ({ req }) => {
   return isHttps({ req }) ? 'https:' : 'http:';
+};
+
+export const requestOrigin = (req) => {
+  return currentProtocol({ req }) + '//' + currentHost({ req });
 };
