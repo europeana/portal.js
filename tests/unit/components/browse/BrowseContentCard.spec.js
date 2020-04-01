@@ -33,6 +33,22 @@ describe('components/browse/BrowseContentCard', () => {
 
       wrapper.vm.title.should.eq(name);
     });
+
+    it('uses `dcTitleLangAware`', () => {
+      const name = 'Content item';
+      const dcTitleLangAware = 'Content item in a language';
+      const wrapper = factory({
+        cardType: 'automatedRecordCard',
+        fields: {
+          name,
+          encoding: {
+            dcTitleLangAware
+          }
+        }
+      });
+
+      wrapper.vm.title.should.eq(dcTitleLangAware);
+    });
   });
 
   describe('imageUrl()', () => {
@@ -51,6 +67,22 @@ describe('components/browse/BrowseContentCard', () => {
         const wrapper = factory({ fields: { image } });
 
         wrapper.vm.imageUrl.should.equal(image);
+      });
+    });
+
+    context('when the card is an automatedRecordCard and `edmPreview` is present', () => {
+      it('is used', () => {
+        const edmPreview = 'https://www.example.org/image.jpg';
+        const wrapper = factory({
+          cardType: 'automatedRecordCard',
+          fields: {
+            encoding: {
+              edmPreview: [edmPreview]
+            }
+          }
+        });
+
+        wrapper.vm.imageUrl.should.equal(`${edmPreview}&size=w200`);
       });
     });
 
@@ -133,6 +165,27 @@ describe('components/browse/BrowseContentCard', () => {
       wrapper.vm.texts.should.include(description);
       wrapper.vm.texts.should.include(creator);
       wrapper.vm.texts.should.include(provider);
+    });
+
+    it('is includes dcDescriptionLangAware, dcCreatorLangAware and dataProvider fields', () => {
+      const dcDescriptionLangAware = 'Some interesting content';
+      const dcCreatorLangAware = 'A European artist';
+      const dataProvider = 'An aggregator';
+      const wrapper = factory({
+        cardType: 'automatedRecordCard',
+        fields: {
+          name,
+          encoding: {
+            dcDescriptionLangAware,
+            dcCreatorLangAware,
+            dataProvider
+          }
+        }
+      });
+
+      wrapper.vm.texts.should.include(dcDescriptionLangAware);
+      wrapper.vm.texts.should.include(dcCreatorLangAware);
+      wrapper.vm.texts.should.include(dataProvider);
     });
   });
 });
