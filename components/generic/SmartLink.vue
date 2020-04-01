@@ -44,7 +44,7 @@
 
     computed: {
       useRouterLink() {
-        return this.path.startsWith('/');
+        return this.path && this.path.startsWith('/');
       },
 
       path() {
