@@ -36,10 +36,10 @@
         apiConfig: 'apis/config'
       }),
       cardFields() {
-        return this.cardType === 'automatedRecordCard' ? this.fields.encoding : this.fields;
+        return this.cardType === 'automatedRecordCard' && this.fields.encoding ? this.fields.encoding : this.fields;
       },
       title() {
-        if (this.cardType === 'automatedRecordCard') {
+        if (this.cardType === 'automatedRecordCard' && this.fields.encoding) {
           return this.cardFields.dcTitleLangAware;
         }
         return this.cardFields.name;
@@ -82,7 +82,7 @@
         let texts = [];
         let textFields;
 
-        if (this.cardType === 'automatedRecordCard') {
+        if (this.cardType === 'automatedRecordCard' && this.fields.encoding) {
           textFields = ['dcDescriptionLangAware', 'dcCreatorLangAware', 'dataProvider'];
         } else {
           textFields = ['description', 'creator', 'provider'];
