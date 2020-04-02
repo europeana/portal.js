@@ -116,9 +116,11 @@
       id="tier-toast"
       toast-class="brand-toast"
       toaster="b-toaster-bottom-left"
-      auto-hide-delay="15000"
+      auto-hide-delay="10000"
+      is-status
       no-close-button
       solid
+      data-qa="tier toast"
     >
       {{ $t('facets.contentTier.notification') }}
     </b-toast>
@@ -361,7 +363,9 @@
         if (process.browser) {
           if (contentTier.length > 0 && !sessionStorage.hideTierNotification) {
             this.$bvToast.show('tier-toast');
-            sessionStorage.hideTierNotification = true;
+            this.$root.$on('bv::toast:shown', () => {
+              sessionStorage.hideTierNotification = true;
+            });
           }
         }
       }

@@ -118,10 +118,10 @@ export default {
       }
     },
     "contentTier": {
-      "name": "Includes items not meeting our publishing criteria",
+      "name": "Item quality",
       "options": {
         "*": "Includes items not meeting our publishing criteria",
-        "0": "Only items not meeting our publishing criteria"
+        "0": "Show only items not meeting our publishing criteria"
       },
       "notification": "Some items not matching our publishing criteria are available. You can access those items by activating the 'Item Quality' filter under 'More filters'."
     },
