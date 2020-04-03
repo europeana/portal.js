@@ -6,6 +6,7 @@
     :image-url="imageUrl"
     :image-content-type="imageContentType"
     :variant="cardVariant"
+    :omit-all-uris="true"
   />
 </template>
 
@@ -34,24 +35,33 @@
       ...mapGetters({
         apiConfig: 'apis/config'
       }),
+      cardFields() {
+        return this.cardType === 'automatedRecordCard' && this.fields.encoding ? this.fields.encoding : this.fields;
+      },
       title() {
-        return this.fields.name;
+        if (this.cardType === 'automatedRecordCard' && this.fields.encoding) {
+          return this.cardFields.dcTitleLangAware;
+        }
+        return this.cardFields.name;
       },
       imageIsContentfulAsset() {
-        return this.fields.image && this.fields.image.fields && this.fields.image.fields.file;
+        return this.cardFields.image && this.cardFields.image.fields && this.cardFields.image.fields.file;
       },
       imageUrl() {
-        if (this.fields.thumbnailUrl) {
-          return this.fields.thumbnailUrl;
-        } else if (typeof this.fields.image === 'string') {
-          return this.fields.image;
+        if (this.cardFields.thumbnailUrl) {
+          return this.cardFields.thumbnailUrl;
+        } else if (typeof this.cardFields.image === 'string') {
+          return this.cardFields.image;
+        } else if (this.cardFields.edmPreview) {
+          return `${this.cardFields.edmPreview[0]}&size=w200`;
         } else if (this.imageIsContentfulAsset) {
-          return this.fields.image.fields.file.url;
+          return this.cardFields.image.fields.file.url;
         }
+
         return '';
       },
       imageContentType() {
-        return this.imageIsContentfulAsset ? this.fields.image.fields.file.contentType : null;
+        return this.imageIsContentfulAsset ? this.cardFields.image.fields.file.contentType : null;
       },
       destination() {
         if (this.fields.url) {
@@ -70,9 +80,17 @@
       texts() {
         // TODO: Refactor content model to set this directly, so this method can be skipped.
         let texts = [];
-        for (const field of ['description', 'creator', 'provider']) {
-          if (this.fields[field]) {
-            texts.push(this.fields[field]);
+        let textFields;
+
+        if (this.cardType === 'automatedRecordCard' && this.fields.encoding) {
+          textFields = ['dcDescriptionLangAware', 'dcCreatorLangAware', 'dataProvider'];
+        } else {
+          textFields = ['description', 'creator', 'provider'];
+        }
+
+        for (const field of textFields) {
+          if (this.cardFields[field]) {
+            texts.push(this.cardFields[field]);
           }
         }
         return texts;

@@ -34,10 +34,9 @@
           <ContentCard
             v-for="image in images"
             :key="image.fields.identifier"
-            :title="image.fields.name"
-            :image-url="image.fields.thumbnailUrl"
+            :title="imageTitle(image)"
+            :image-url="imageUrl(image)"
             :lazy="false"
-            :texts="[image.fields.description]"
             :url="{ name: 'item-all', params: { pathMatch: image.fields.identifier.slice(1) } }"
           />
         </b-card-group>
@@ -89,6 +88,20 @@
         .catch((e) => {
           error({ statusCode: 500, message: e.toString() });
         });
+    },
+    methods: {
+      imageTitle(data) {
+        if (data.sys.contentType.sys.id === 'automatedRecordCard' && data.fields.encoding) {
+          return data.fields.encoding.dcTitleLangAware;
+        }
+        return data.fields.name;
+      },
+      imageUrl(data) {
+        if (data.sys.contentType.sys.id === 'automatedRecordCard' && data.fields.encoding) {
+          return `${data.fields.encoding.edmPreview[0]}&size=w200`;
+        }
+        return data.fields.thumbnailUrl;
+      }
     },
     head() {
       return {
