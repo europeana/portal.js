@@ -20,7 +20,7 @@
             :key="gallery.fields.identifier"
             :title="gallery.fields.name"
             :url="{ name: 'galleries-all', params: { pathMatch: gallery.fields.identifier } }"
-            :image-url="gallery.fields.hasPart[0] && gallery.fields.hasPart[0].fields.thumbnailUrl"
+            :image-url="gallery.fields.hasPart[0] && imageUrl(gallery.fields.hasPart[0])"
             :texts="[gallery.fields.description]"
           />
         </b-card-group>
@@ -102,6 +102,12 @@
     methods: {
       paginationLink(val) {
         return this.$path({ name: 'galleries', query: { page: val } });
+      },
+      imageUrl(data) {
+        if (data.sys.contentType.sys.id === 'automatedRecordCard' && data.fields.encoding) {
+          return `${data.fields.encoding.edmPreview[0]}&size=w200`;
+        }
+        return data.fields.thumbnailUrl;
       }
     },
     watchQuery: ['page']
