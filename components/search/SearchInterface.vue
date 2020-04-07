@@ -359,7 +359,12 @@
         return this.$store.getters['search/hasResettableFilters'];
       },
       showToast() {
-        const contentTier = this.moreFacets.filter(facet => facet.name === 'contentTier');
+        const contentTier = this.moreFacets.filter(facet => {
+          const contentTier0 = facet.fields.filter(option => option.label === '"0"');
+          if (facet.name === 'contentTier' && contentTier0.length > 0) {
+            return facet;
+          }
+        });
         if (process.browser) {
           if (contentTier.length > 0 && !sessionStorage.hideTierNotification) {
             this.$bvToast.show('tier-toast');
