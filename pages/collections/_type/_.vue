@@ -36,9 +36,9 @@
       >
         <h2
           v-if="relatedEntities.length > 0"
-          class="is-size-4 text-uppercase font-weight-bold"
+          class="related-heading text-uppercase"
         >
-          {{ $t('relatedCollections') }}
+          {{ $t('contentYouMightLike') }}
         </h2>
         <section
           v-if="relatedCollectionCards"

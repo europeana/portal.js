@@ -473,6 +473,7 @@ export default {
     "description": "Explore our galleries"
   },
   "relatedCollections": "Related collections",
+  "contentYouMightLike": "Content you might like",
   "linksToClassic": {
     "home": {
       "text": "You're viewing the new Europeana experience.",
