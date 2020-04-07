@@ -239,5 +239,8 @@ module.exports = {
     await this.waitForTargetToBeVisible('search box');
     await this.enterTextInTarget(query, 'search box');
     await this.clickOnTheTarget('search button');
+  },
+  async makeSnapShot(pageName) {
+    await client.percySnapshot(pageName);
   }
 };

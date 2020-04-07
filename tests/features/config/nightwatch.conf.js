@@ -2,6 +2,7 @@
 
 const chromedriver = require('chromedriver');
 const geckodriver = require('geckodriver');
+const percy = require('@percy/nightwatch');
 
 function chrome(locale = 'en-GB', args = []) {
   args = ['disable-gpu', `--lang=${locale}`, '--allow-insecure-localhost'].concat(args);
@@ -26,7 +27,7 @@ function headlessChrome(locale = 'en-GB') {
 }
 
 module.exports = {
-  custom_commands_path: ['./node_modules/nightwatch-accessibility/commands'],
+  custom_commands_path: [percy.path, './node_modules/nightwatch-accessibility/commands'],
   custom_assertions_path: ['./tests/features/config/assertions'],
   test_settings: {
     default: {
@@ -40,7 +41,8 @@ module.exports = {
       },
       desiredCapabilities: {
         javascriptEnabled: true,
-        acceptSslCerts: true
+        acceptSslCerts: true,
+        acceptInsecureCerts: true
       }
     },
     chrome: chrome(),
