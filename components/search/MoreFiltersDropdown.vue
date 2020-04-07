@@ -41,7 +41,7 @@
           v-for="(facet, index) in moreFacets"
         >
           <MoreFiltersDropdownFacet
-            v-if="facet.fields && facet.fields.length > 0"
+            v-if="filterFields(facet.name, facet.fields).length > 0"
             :key="index"
             :fields="filterFields(facet.name, facet.fields)"
             :name="facet.name"
