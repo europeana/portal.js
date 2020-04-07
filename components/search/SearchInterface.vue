@@ -360,9 +360,11 @@
       },
       showToast() {
         const contentTier = this.moreFacets.filter(facet => {
-          const contentTier0 = facet.fields.filter(option => option.label === '"0"');
-          if (facet.name === 'contentTier' && contentTier0.length > 0) {
-            return facet;
+          if (facet.fields) {
+            const contentTier0 = facet.fields.filter(option => option.label === '"0"');
+            if (facet.name === 'contentTier' && contentTier0.length > 0) {
+              return facet;
+            }
           }
         });
         if (process.browser) {
