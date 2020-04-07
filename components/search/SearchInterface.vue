@@ -112,6 +112,18 @@
         </b-col>
       </b-row>
     </template>
+    <b-toast
+      id="tier-toast"
+      toast-class="brand-toast"
+      toaster="b-toaster-bottom-left"
+      auto-hide-delay="10000"
+      is-status
+      no-close-button
+      solid
+      data-qa="tier toast"
+    >
+      {{ $t('facets.contentTier.notification') }}
+    </b-toast>
   </b-container>
 </template>
 
@@ -285,6 +297,12 @@
         this.view = this.routeQueryView;
       }
     },
+    mounted() {
+      this.showToast();
+    },
+    updated() {
+      this.showToast();
+    },
     methods: {
       facetDropdownType(name) {
         return name === 'collection' ? 'radio' : 'checkbox';
@@ -339,6 +357,24 @@
       },
       isFilteredByDropdowns() {
         return this.$store.getters['search/hasResettableFilters'];
+      },
+      showToast() {
+        const contentTier = this.moreFacets.filter(facet => {
+          if (facet.fields) {
+            const contentTier0 = facet.fields.filter(option => option.label === '"0"');
+            if (facet.name === 'contentTier' && contentTier0.length > 0) {
+              return facet;
+            }
+          }
+        });
+        if (process.browser) {
+          if (contentTier.length > 0 && !sessionStorage.hideTierNotification) {
+            this.$bvToast.show('tier-toast');
+            this.$root.$on('bv::toast:shown', () => {
+              sessionStorage.hideTierNotification = true;
+            });
+          }
+        }
       }
     }
   };

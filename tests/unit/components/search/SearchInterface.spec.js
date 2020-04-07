@@ -318,5 +318,17 @@ describe('components/search/SearchInterface', () => {
         });
       });
     });
+
+    describe('showToast', () => {
+      context('when user searches first time in a session', () => {
+        it('does show a toast notification', async() => {
+          const wrapper = factory();
+          await wrapper.vm.showToast();
+
+          const toast = wrapper.find('[data-qa="tier toast"]');
+          toast.isVisible().should.be.true;
+        });
+      });
+    });
   });
 });
