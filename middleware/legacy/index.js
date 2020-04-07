@@ -29,6 +29,7 @@ function stringifyPathChunks(chunks) {
 }
 
 export default ({ redirect, route, query }) => {
+  if (/^\/[a-z]{2}\/portal(\/$|$)/.test(route.path)) return redirect(302, route.path.match(/^(\/[a-z]{2})/)[1]);
   if (!/^\/portal(\/|$)/.test(route.path)) return;
 
   for (const rule of rules) {

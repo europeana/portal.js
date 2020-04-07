@@ -143,4 +143,28 @@ describe('Vue filters', () => {
       });
     });
   });
+
+  describe('urlWithProtocol', () => {
+    const urlWithProtocol = Vue.filter('urlWithProtocol');
+
+    context('when the URL begins with //', () => {
+      it('prepends https:', () => {
+        const url = '//example.org/';
+
+        const withProtocol = urlWithProtocol(url);
+
+        withProtocol.should.eq('https://example.org/');
+      });
+    });
+
+    context('when the URL begins with http:', () => {
+      it('is returned as-is', () => {
+        const url = 'http://example.org/';
+
+        const withProtocol = urlWithProtocol(url);
+
+        withProtocol.should.eq('http://example.org/');
+      });
+    });
+  });
 });

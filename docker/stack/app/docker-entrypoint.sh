@@ -11,6 +11,6 @@ esac
 
 case ${NODE_ENV} in
   development) npm run dev "$@";;
-  test|production) node server/index.js "$@";;
+  test|production) npm run start:cluster "$@";;
   *) echo "Unsupported NODE_ENV \"${NODE_ENV}\"" && exit 1;;
 esac

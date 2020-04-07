@@ -92,7 +92,6 @@ module.exports = {
   ],
 
   buildModules: [
-    '~/modules/apis',
     // Doc: https://www.elastic.co/guide/en/apm/agent/rum-js/current/configuration.html
     ['~/modules/elastic-apm', {
       serviceName: 'portal-js',
@@ -110,6 +109,7 @@ module.exports = {
   */
   modules: [
     '@nuxtjs/dotenv',
+    '~/modules/apis',
     ['@nuxtjs/google-tag-manager', {
       id: process.env.GOOGLE_TAG_MANAGER_ID,
       pageTracking: true

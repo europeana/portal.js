@@ -1,45 +1,20 @@
-import cosmiconfig from 'cosmiconfig';
-import merge from 'deepmerge';
-import path from 'path';
+const path = require('path');
 
-import defaults from './defaults';
+const { MODULE_NAME } = require('./constants');
 
-const loadRuntimeConfiguration = async() => {
-  let rc = {};
+const config = require('./config');
 
-  if (process.env['EUROPEANA_APIS']) {
-    rc = JSON.parse(process.env['EUROPEANA_APIS']);
-  } else {
-    const configSearch = await cosmiconfig('apis').searchSync();
-    if (configSearch) rc = configSearch.config;
-  }
-
-  return rc;
-};
-
-const generateMultiOriginConfiguration = async() => {
-  const rc = await loadRuntimeConfiguration();
-
-  const options = { defaults: merge(defaults, rc.defaults || {}) };
-
-  for (const origin in rc) {
-    if (origin !== 'defaults') {
-      options[origin] = {};
-      for (const api in options.defaults) {
-        options[origin][api] = merge(options.defaults[api], rc[origin][api] || {});
-      }
-    }
-  }
-
-  return options;
-};
-
-export default async function() {
-  const options = await generateMultiOriginConfiguration();
+module.exports = async function() {
+  this.addTemplate({
+    src: path.resolve(__dirname, 'config.js'),
+    fileName: path.join(MODULE_NAME, 'config.js')
+  });
 
   this.addPlugin({
     src: path.resolve(__dirname, 'plugin.js'),
-    fileName: 'apis.js',
-    options
+    fileName: path.join(MODULE_NAME, 'plugin.js'),
+    options: config
   });
-}
+
+  this.addServerMiddleware(path.resolve(__dirname, 'server-middleware.js'));
+};
