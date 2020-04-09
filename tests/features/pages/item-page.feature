@@ -78,7 +78,7 @@ Feature: item page
     When I open an `item page`
     Then I see a `notification banner`
 
-  Scenario: Create a snapshot of an item page
+  Scenario: Take a snapshot of an item page
 
     When I open a `item page`
     Then I see the `item page`

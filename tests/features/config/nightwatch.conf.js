@@ -56,7 +56,8 @@ module.exports = {
         server_path: geckodriver.path
       },
       desiredCapabilities: {
-        browserName: 'firefox'
+        browserName: 'firefox',
+        acceptInsecureCerts: true
       }
     }
   }
