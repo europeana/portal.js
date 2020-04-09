@@ -1,6 +1,6 @@
 <template>
   <section data-qa="action bar">
-    <b-row v-if="!showShareButtons">
+    <b-row v-show="!showShareButtons">
       <b-col
         cols="12"
         class="d-flex align-items-start align-items-lg-center flex-column flex-lg-row"
@@ -82,7 +82,7 @@
       </b-col>
     </b-row>
     <b-row
-      v-else
+      v-show="showShareButtons"
       data-qa="share buttons bar"
     >
       <b-col
@@ -91,7 +91,7 @@
         <SocialShare
           :media-url="url"
         />
-        <span
+        <button
           class="icon-close"
           @click="toggleShare"
         />
@@ -197,7 +197,8 @@
   }
 
   .icon-close {
-    cursor: pointer;
+    background-color: transparent;
+    border: 0;
   }
 
   .view-at.is-external-link {
