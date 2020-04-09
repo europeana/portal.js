@@ -57,7 +57,15 @@ module.exports = {
       },
       desiredCapabilities: {
         browserName: 'firefox',
-        acceptInsecureCerts: true
+        alwaysMatch: {
+          acceptInsecureCerts: true,
+          'moz:firefoxOptions': {
+            args: [
+              '-headless',
+              '-verbose'
+            ],
+          }
+        }
       }
     }
   }
