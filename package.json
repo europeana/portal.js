@@ -43,10 +43,10 @@
     "test:chrome": "cross-env browser=chrome cucumber-js",
     "test:ci": "npm run test:unit && npm run size && npm run test:e2e:ci",
     "test:e2e:ci": "cross-env NODE_ENV=test npm run stack:up:detach && npm run test:chrome:headless -- -p all; exit=$?; npm run stack:down; exit $exit",
-    "test:e2e": "cross-env NODE_ENV=test npm run stack:up:detach && npm run test:chrome -- -p all; exit=$?; npm run stack:down; exit $exit",
+    "test:e2e": "cross-env NODE_ENV=test npm run stack:up:detach && npm run test:chrome -- -p all; exit=$?; npm run test:percy; npm run stack:down; exit $exit",
     "test:gecko": "cross-env browser=gecko cucumber-js --no-strict",
     "test:unit": "vue-cli-service test:unit --include tests/unit/setup",
-    "test:percy": "cross-env percy exec -- cucumber-js"
+    "test:percy": "cross-env percy exec -- cucumber-js -p percy;"
   },
   "dependencies": {
     "@elastic/apm-rum": "^4.7.0",
