@@ -4,11 +4,11 @@
     class="d-flex flex-wrap mb-3"
   >
     <!-- TODO: populate alt, but with what? -->
-    <button
+    <a
       v-for="(thumbnail, index) of thumbnails"
       :key="index"
       :class="thumbnailImgClass(thumbnail, index)"
-      class="thumbnail-btn mb-2 mr-2 rounded-"
+      class="thumbnail-link mb-2 mr-2 rounded-"
       @click="clickThumbnail(thumbnail.about)"
     >
       <b-img-lazy
@@ -18,7 +18,7 @@
         thumbnail
         alt=""
       />
-    </button>
+    </a>
     <button
       v-if="thumbnails.length > 11"
       class="pb-0"
@@ -127,11 +127,10 @@
 <style lang="scss" scoped>
   @import "./assets/scss/variables.scss";
 
-  .thumbnail-btn {
+  .thumbnail-link {
     height: 5.5rem;
     width: 5.5rem;
-    border-color: $paper;
-    padding: 0;
+    border: 1px solid $paper;
     overflow: hidden;
 
     &.selected {
@@ -144,6 +143,9 @@
     padding: 0;
     border: 0;
     border-radius: 0;
+    width: 5.5rem;
+    height: 5.5rem;
+    object-fit: cover;
   }
 
   button {
