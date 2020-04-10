@@ -120,6 +120,10 @@
       cursor: pointer;
       color: $white;
 
+      &:focus {
+        outline-color: $white;
+      }
+
       &:hover {
         opacity: .8;
       }
@@ -129,7 +133,6 @@
       color: $white;
     }
 
-    .accept-btn,
     .more-info {
       &:focus {
         outline-color: $white;
