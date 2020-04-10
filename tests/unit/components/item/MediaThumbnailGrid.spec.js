@@ -6,7 +6,13 @@ import MediaThumbnailGrid from '../../../../components/item/MediaThumbnailGrid.v
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
-const factory = (propsData) => mount(MediaThumbnailGrid, { localVue, propsData });
+const factory = (propsData) => mount(MediaThumbnailGrid, {
+  localVue,
+  propsData,
+  mocks: {
+    $t: (key) => key
+  }
+});
 
 const media = [
   {
