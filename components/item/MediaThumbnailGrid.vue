@@ -8,13 +8,13 @@
       v-for="(thumbnail, index) of thumbnails"
       :key="index"
       :class="thumbnailImgClass(thumbnail, index)"
+      :data-about="thumbnail.about"
       href="#"
       class="thumbnail-link mb-2 mr-2 rounded-"
       @click="clickThumbnail(thumbnail.about)"
     >
       <b-img-lazy
         :src="thumbnail.src"
-        :data-about="thumbnail.about"
         :data-qa="`media thumbnail #${index + 1}`"
         thumbnail
         alt=""

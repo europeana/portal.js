@@ -122,12 +122,12 @@ describe('components/item/MediaActionBar', () => {
       useProxy
     });
 
-    wrapper.find('[data-qa="share buttons bar"]').exists().should.be.false;
+    wrapper.find('[data-qa="share buttons bar"]').isVisible().should.equal(false);
 
     const share = wrapper.find('[data-qa="share button"]');
     share.trigger('click');
 
-    wrapper.find('[data-qa="share buttons bar"]').exists().should.be.true;
+    wrapper.find('[data-qa="share buttons bar"]').isVisible().should.equal(true);
   });
 
   describe('data provider attribution', () => {

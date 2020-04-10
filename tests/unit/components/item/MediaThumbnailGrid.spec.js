@@ -41,7 +41,7 @@ describe('components/item/MediaThumbnailGrid', () => {
 
     for (const item of media) {
       const src = item.thumbnails.small;
-      wrapper.find(`img[data-about="${item.about}"][src="${src}"]`).isVisible().should.be.true;
+      wrapper.find(`a[data-about="${item.about}"] img[src="${src}"]`).isVisible().should.be.true;
     }
   });
 
@@ -56,8 +56,7 @@ describe('components/item/MediaThumbnailGrid', () => {
 
   it('marks the selected media item', () => {
     const wrapper = factory({ media, selected });
-
-    const selectedImg = wrapper.find(`img[data-about="${selected}"]`);
+    const selectedImg = wrapper.find(`a[data-about="${selected}"]`);
 
     selectedImg.classes().should.include('selected');
   });
@@ -66,7 +65,7 @@ describe('components/item/MediaThumbnailGrid', () => {
     it('makes it the selected one', () => {
       const wrapper = factory({ media, selected });
 
-      const nonSelectedImg = wrapper.find(`img[data-about="${nonSelected}"]`);
+      const nonSelectedImg = wrapper.find(`a[data-about="${nonSelected}"]`);
 
       nonSelectedImg.classes().should.not.include('selected');
       nonSelectedImg.trigger('click');
@@ -76,7 +75,7 @@ describe('components/item/MediaThumbnailGrid', () => {
     it('emits a `select` event with the item URI', () => {
       const wrapper = factory({ media, selected });
 
-      const nonSelectedImg = wrapper.find(`img[data-about="${nonSelected}"]`);
+      const nonSelectedImg = wrapper.find(`a[data-about="${nonSelected}"]`);
       nonSelectedImg.trigger('click');
 
       wrapper.emitted('select').should.deep.eq([[nonSelected]]);
