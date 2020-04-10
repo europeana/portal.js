@@ -8,6 +8,7 @@
       v-for="(thumbnail, index) of thumbnails"
       :key="index"
       :class="thumbnailImgClass(thumbnail, index)"
+      href="#"
       class="thumbnail-link mb-2 mr-2 rounded-"
       @click="clickThumbnail(thumbnail.about)"
     >
