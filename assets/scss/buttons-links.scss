@@ -1,3 +1,9 @@
+.btn {
+  &:focus {
+    outline: auto;
+  }
+}
+
 .btn-primary {
   background: $blue;
   border-color: $blue;

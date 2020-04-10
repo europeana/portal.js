@@ -488,5 +488,8 @@ export default {
       "text": "You're viewing this item in the new Europeana website.",
       "linkText": "View this item in the original Europeana."
     }
+  },
+  "mediaPreview": {
+    "selectMedia": "Select media {src}"
   }
 };

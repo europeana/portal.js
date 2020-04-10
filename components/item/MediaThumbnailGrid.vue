@@ -9,6 +9,7 @@
       :key="index"
       :class="thumbnailImgClass(thumbnail, index)"
       :data-about="thumbnail.about"
+      :data-qa="`link thumbnail #${index + 1}`"
       href="#"
       class="thumbnail-link mb-2 mr-2 rounded-"
       @click="clickThumbnail(thumbnail.about)"
@@ -17,7 +18,7 @@
         :src="thumbnail.src"
         :data-qa="`media thumbnail #${index + 1}`"
         thumbnail
-        alt=""
+        :alt="$t('mediaPreview.selectMedia', { src: thumbnail.src })"
       />
     </a>
     <button
