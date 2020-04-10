@@ -39,6 +39,11 @@
   }
 }
 
+.btn-transparent {
+  background-color: transparent;
+  border: 0;
+}
+
 a {
   &.skip-main {
     left: -999px;

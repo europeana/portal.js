@@ -20,7 +20,7 @@
               </SmartLink>
             </p>
             <button
-              class="accept-btn icon-close"
+              class="accept-btn icon-close btn-transparent"
               :aria-label="$t('cookieDisclaimer.acceptCookieDisclaimer')"
               data-qa="cookie disclaimer button"
               @click="accept"
@@ -118,9 +118,7 @@
       justify-content: center;
       display: flex;
       cursor: pointer;
-      background-color: transparent;
       color: $white;
-      border: none;
 
       &:hover {
         opacity: .8;
