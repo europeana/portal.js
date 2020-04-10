@@ -131,9 +131,6 @@
 
     .more-info {
       color: $white;
-    }
-
-    .more-info {
       &:focus {
         outline-color: $white;
       }
