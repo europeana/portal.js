@@ -92,7 +92,7 @@
           :media-url="url"
         />
         <button
-          class="icon-close"
+          class="icon-close btn-transparent"
           @click="toggleShare"
         />
       </b-col>
@@ -194,11 +194,6 @@
 
   .attribution {
     margin-right: 0.5rem;
-  }
-
-  .icon-close {
-    background-color: transparent;
-    border: 0;
   }
 
   .view-at.is-external-link {
