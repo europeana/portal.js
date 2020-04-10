@@ -150,7 +150,7 @@
           lg="3"
         >
           <h2
-            v-if="relatedEntities.length > 0"
+            v-if="relatedEntities && relatedEntities.length > 0"
             class="related-heading text-uppercase"
           >
             {{ $t('contentYouMightLike') }}
