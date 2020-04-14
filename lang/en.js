@@ -490,6 +490,6 @@ export default {
     }
   },
   "mediaPreview": {
-    "selectMedia": "Select media {src}"
+    "selectItem": "Select item {src}"
   }
 };

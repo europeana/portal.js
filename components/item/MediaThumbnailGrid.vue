@@ -18,7 +18,7 @@
         :src="thumbnail.src"
         :data-qa="`media thumbnail #${index + 1}`"
         thumbnail
-        :alt="$t('mediaPreview.selectMedia', { src: thumbnail.src })"
+        :alt="$t('mediaPreview.selectItem', { src: index + 1 })"
       />
     </a>
     <button
