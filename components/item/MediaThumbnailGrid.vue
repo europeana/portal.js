@@ -11,7 +11,7 @@
       :data-about="thumbnail.about"
       :data-qa="`link thumbnail #${index + 1}`"
       href="#"
-      class="thumbnail-link mb-2 mr-2 rounded-"
+      class="thumbnail-link mb-2 mr-2"
       @click="clickThumbnail(thumbnail.about)"
     >
       <b-img-lazy
