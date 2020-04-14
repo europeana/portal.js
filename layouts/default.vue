@@ -1,5 +1,6 @@
 <template>
   <div>
+    <CookieDisclaimer />
     <a
       class="skip-main"
       href="#main"
@@ -28,7 +29,6 @@
       />
     </main>
     <PageFooter />
-    <CookieDisclaimer />
   </div>
 </template>
 
