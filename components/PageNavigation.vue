@@ -68,7 +68,7 @@
         &:after {
           content: '';
           position: absolute;
-          border-bottom: solid 3px $darkblue;
+          border-bottom: solid 3px $blue;
           display: block;
           width: 100%;
           z-index: 1;
