@@ -58,10 +58,6 @@
     &:not(:last-child) {
       margin-right: 1rem;
     }
-    
-    &:last-child .nav-link.nuxt-link-active:after {
-      left: 0.25rem;
-    }
 
     .nav-link {
       color: $mediumgrey;
@@ -96,7 +92,9 @@
     &:last-child {
       .nav-link {
         padding-right: 0;
-
+        &.nuxt-link-active:after {
+          left: 0.25rem;
+        }
         &:before {
           right: -0.5rem;
         }
