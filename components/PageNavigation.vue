@@ -65,11 +65,10 @@
       text-transform: uppercase;
 
       &.nuxt-link-active {
-        font-weight: bold;
         &:after {
           content: '';
           position: absolute;
-          border-bottom: solid 3px #0771ce;
+          border-bottom: solid 3px $darkblue;
           display: block;
           width: 100%;
           z-index: 1;
