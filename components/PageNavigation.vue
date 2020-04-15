@@ -65,7 +65,17 @@
       text-transform: uppercase;
 
       &.nuxt-link-active {
-        font-weight: bold;
+        &:after {
+          content: '';
+          position: absolute;
+          border-bottom: solid 3px $blue;
+          display: block;
+          width: 100%;
+          z-index: 1;
+          left: 0;
+          right: 0;
+          bottom: -1rem;
+        }
       }
 
       &.is-external-link:after {
@@ -81,7 +91,9 @@
     &:last-child {
       .nav-link {
         padding-right: 0;
-
+        &.nuxt-link-active:after {
+          left: 0.25rem;
+        }
         &:before {
           right: -0.5rem;
         }
