@@ -3,34 +3,32 @@
     fluid
     class="border-bottom p-0 mb-3"
   >
-    <b-container class="p-0">
-      <b-navbar
-        class="pb-3 pt-3 flex-column flex-xl-row"
-        data-qa="header"
+    <b-navbar
+      class="pb-3 pt-3 py-lg-0 px-lg-3 flex-column flex-lg-row"
+      data-qa="header"
+    >
+      <b-navbar-brand
+        class="col-lg-2 p-0 m-0 text-center text-lg-left"
       >
-        <b-navbar-brand
-          class="col-xl-3 p-0 m-0 text-center text-xl-left"
+        <SmartLink
+          :destination="{ name: 'index' }"
         >
-          <SmartLink
-            :destination="{ name: 'index' }"
+          <img
+            src="../assets/img/logo.svg"
+            :alt="$t('homeLinkAlt')"
+            class="mb-2 mb-sm-0 mw-100"
+            data-qa="logo"
           >
-            <img
-              src="../assets/img/logo.svg"
-              :alt="$t('homeLinkAlt')"
-              class="mb-2 mb-sm-0 mw-100"
-              data-qa="logo"
-            >
-          </SmartLink>
-        </b-navbar-brand>
-        <SearchForm
-          data-qa="search form"
-          class="col-xl-5 w-100 py-3 py-xl-0"
-          :enable-auto-suggest="enableAutoSuggest"
-          :enable-suggestion-validation="enableSuggestionValidation"
-        />
-        <PageNavigation />
-      </b-navbar>
-    </b-container>
+        </SmartLink>
+      </b-navbar-brand>
+      <SearchForm
+        data-qa="search form"
+        class="col-lg-4 w-100 py-3 mr-auto"
+        :enable-auto-suggest="enableAutoSuggest"
+        :enable-suggestion-validation="enableSuggestionValidation"
+      />
+      <PageNavigation />
+    </b-navbar>
   </b-container>
 </template>
 

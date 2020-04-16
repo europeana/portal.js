@@ -249,7 +249,7 @@
       @extend .icon-font;
       content: '\e92b';
       display: inline-block;
-      transform: scaleX(-1);
+      transform: scale(0.9) translate(0, -0.2rem);
     }
   }
 </style>
