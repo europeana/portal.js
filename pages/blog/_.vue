@@ -29,7 +29,7 @@
           <vue-disqus
             shortname="www-europeana-eu"
             :identifier="identifier"
-            :url="pageUrl"
+            :url="shareUrl"
           />
         </div>
       </b-col>
@@ -52,6 +52,7 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex';
   import createClient from '../../plugins/contentful';
   import BlogPost from '../../components/blog/BlogPost';
   import BlogTags from '../../components/blog/BlogTags';
@@ -82,11 +83,9 @@
         return this.hero ? this.hero.image.fields.file : null;
       },
 
-      pageUrl() {
-        const host = 'https://www.europeana.eu';
-        const path = this.$store.state.http.path;
-        return host + path;
-      },
+      ...mapGetters({
+        shareUrl: 'http/canonicalUrl'
+      }),
 
       identifier() {
         return this.$route.params.pathMatch;
