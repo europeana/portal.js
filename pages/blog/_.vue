@@ -25,7 +25,7 @@
           :tags="page.keywords"
         />
 
-        <div class="comments mt-4">
+        <div class="card card-body mt-4">
           <vue-disqus
             shortname="www-europeana-eu"
             :identifier="identifier"
