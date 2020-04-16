@@ -23,8 +23,3 @@ Feature: pages
     When I open the `exhibition chapter`
     Then I see an `exhibition chapter`
     And I make a snapshot of the `exhibition chapter`
-
- Scenario: Take a snapshot of a search results page
-    When I open a `search page`
-    Then I see the `notification banner`
-    And I make a snapshot of the `search page`
