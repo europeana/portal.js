@@ -6,16 +6,25 @@ Feature: pages
     Then I see the `item page`
     And I make a snapshot of the `item page`
 
-  Scenario: Take a snapshot of a search results page
-
-    When I open a `search page`
-    Then I see the `notification banner`
-    And I make a snapshot of the `search page`
-
-
   Scenario: Take a snapshot of a gallery page
 
     When I open a `gallery page`
     Then I see a `gallery title`
     And I make a snapshot of the `gallery page`
 
+  Scenario: Take a snapshot of an exhibition landing page
+
+    When I open the `exhibition page`
+    Then I see `exhibition text`
+    And I make a snapshot of the `exhibition page`
+
+  Scenario: Take a snapshot of an exhibition chapter page
+
+    When I open the `exhibition chapter`
+    Then I see an `exhibition chapter`
+    And I make a snapshot of the `exhibition chapter`
+
+ Scenario: Take a snapshot of a search results page
+    When I open a `search page`
+    Then I see the `notification banner`
+    And I make a snapshot of the `search page`
