@@ -24,6 +24,14 @@
           v-if="page.keywords"
           :tags="page.keywords"
         />
+
+        <div class="comments mt-4">
+          <vue-disqus
+            shortname="www-europeana-eu"
+            :identifier="identifier"
+            :url="pageUrl"
+          />
+        </div>
       </b-col>
       <b-col
         cols="12"
@@ -72,6 +80,16 @@
       },
       heroImage() {
         return this.hero ? this.hero.image.fields.file : null;
+      },
+
+      pageUrl() {
+        const host = 'https://www.europeana.eu';
+        const path = this.$store.state.http.path;
+        return host + path;
+      },
+
+      identifier() {
+        return this.$route.params.pathMatch;
       }
     },
 
