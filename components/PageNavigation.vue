@@ -74,7 +74,7 @@
           z-index: 1;
           left: 0;
           right: 0;
-          bottom: -16px;
+          bottom: -1rem;
         }
       }
 
