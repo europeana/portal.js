@@ -63,7 +63,7 @@
       color: $mediumgrey;
       text-decoration: none;
       text-transform: uppercase;
-      font-size: $font-size-small;
+      font-size: $font-size-extrasmall;
 
       &.nuxt-link-active {
         &:after {

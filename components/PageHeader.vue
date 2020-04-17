@@ -4,7 +4,7 @@
     class="border-bottom p-0 mb-3"
   >
     <b-navbar
-      class="pb-3 pt-3 py-lg-0 px-lg-3 flex-column flex-lg-row"
+      class="pb-3 pt-3 py-lg-1 px-lg-3 flex-column flex-lg-row"
       data-qa="header"
     >
       <b-navbar-brand
@@ -23,7 +23,7 @@
       </b-navbar-brand>
       <SearchForm
         data-qa="search form"
-        class="col-lg-4 w-100 py-3 mr-auto"
+        class="col-lg w-100 py-2 px-3 mr-auto mx-xl-auto"
         :enable-auto-suggest="enableAutoSuggest"
         :enable-suggestion-validation="enableSuggestionValidation"
       />
@@ -64,7 +64,16 @@
     background: $white;
   }
 
+  .navbar-brand{
+    min-width: 11.0625rem;
+  }
+
   .form-inline {
     width: 40%;
+  }
+  @media (min-width: $bp-large) {
+    .form-inline{
+      max-width: 37.5rem;
+    }
   }
 </style>
