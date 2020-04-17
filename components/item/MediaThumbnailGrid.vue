@@ -7,6 +7,7 @@
     <a
       v-for="(thumbnail, index) of thumbnails"
       :key="index"
+      ref="thumbnail"
       :class="thumbnailImgClass(thumbnail, index)"
       :data-about="thumbnail.about"
       :data-qa="`link thumbnail #${index + 1}`"
@@ -22,7 +23,7 @@
       />
     </a>
     <button
-      v-if="thumbnails.length > 11"
+      v-if="thumbnails.length > showMoreIndex"
       class="pb-0"
       @click="toggleThumbnails"
     >
@@ -66,7 +67,8 @@
         // URI of the currently selected thumbnail.
         currentSelection: this.selected,
         // show all thumbnails, default is a selection
-        showAll: false
+        showAll: false,
+        showMoreIndex: 11
       };
     },
 
@@ -114,6 +116,10 @@
        */
       toggleThumbnails() {
         this.showAll = !this.showAll;
+
+        this.$nextTick(() => {
+          this.$refs.thumbnail[this.showMoreIndex].focus();
+        });
       },
 
       thumbnailImgClass(thumbnail, index) {
