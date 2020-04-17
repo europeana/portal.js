@@ -75,15 +75,22 @@ export function rangeFromQueryParam(paramValue) {
  */
 function resultsFromApiResponse(response) {
   const items = response.data.items;
+  const hits = response.data.hits;
 
   const results = items.map(item => {
+    let h;
+    if (hits) {
+      h = hits.find((hit) => item.id === hit.scope);
+    }
+
     return {
       europeanaId: item.id,
       edmPreview: item.edmPreview ? `${item.edmPreview[0]}&size=w200` : genericThumbnail(item.id, { type: item.type, size: 'w200' }),
       dcTitle: item.dcTitleLangAware,
       dcDescription: item.dcDescriptionLangAware,
       dcCreator: item.dcCreatorLangAware,
-      edmDataProvider: item.dataProvider
+      edmDataProvider: item.dataProvider,
+      selector: h && h.selectors ? h.selectors : []
     };
   });
 
@@ -133,6 +140,7 @@ export function search(params, options = {}) {
     }
   })
     .then((response) => {
+      console.log('response', response);
       return {
         error: null,
         results: resultsFromApiResponse(response),

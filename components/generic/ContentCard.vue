@@ -52,6 +52,16 @@
         >
           {{ $d(new Date(datetime), 'short') }}
         </time>
+        <template v-if="hitsText.length > 0">
+          <template v-for="(hit, index) in hitsText">
+            <b-card-text
+              :key="`hit-${index}`"
+              text-tag="div"
+            >
+              <p>{{ hit.prefix }} <span class="font-weight-bold has-text-highlight">{{ hit.exact }}</span> {{ hit.suffix }}</p>
+            </b-card-text>
+          </template>
+        </template>
         <template v-if="displayTexts.length > 0">
           <template
             v-for="(text, index) in displayTexts"
@@ -93,6 +103,10 @@
       },
       // each element may be a string, an array of strings, or a lang map
       texts: {
+        type: Array,
+        default: () => []
+      },
+      hitsText: {
         type: Array,
         default: () => []
       },

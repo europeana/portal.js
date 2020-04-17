@@ -5,3 +5,10 @@
 .text-coloured {
   color: $textcolor-coloured;
 }
+
+.has-text-highlight {
+  background: $yellowhighlight;
+  padding-left: .2rem;
+  padding-right: .2rem;
+}
+
