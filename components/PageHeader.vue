@@ -23,7 +23,7 @@
       </b-navbar-brand>
       <SearchForm
         data-qa="search form"
-        class="col-lg w-100 py-2 px-3 mr-auto mx-xl-auto"
+        class="col-lg w-100 px-3 mr-auto mx-xl-auto"
         :enable-auto-suggest="enableAutoSuggest"
         :enable-suggestion-validation="enableSuggestionValidation"
       />
