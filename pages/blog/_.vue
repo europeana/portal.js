@@ -31,7 +31,7 @@
           data-qa="disqus widget"
         >
           <vue-disqus
-            shortname="www-europeana-eu"
+            :shortname="disqusShortname"
             :identifier="identifier"
             :url="shareUrl"
           />
@@ -96,8 +96,12 @@
         return `${this.origin}/blog/${this.$route.params.pathMatch}`;
       },
 
+      disqusShortname() {
+        return process.env.DISQUS_SHORTNAME;
+      },
+
       enableBlogComments() {
-        return Boolean(Number(process.env.ENABLE_BLOG_COMMENTS));
+        return !!this.disqusShortname;
       }
     },
 
