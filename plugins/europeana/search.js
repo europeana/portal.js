@@ -78,9 +78,9 @@ function resultsFromApiResponse(response) {
   const hits = response.data.hits;
 
   const results = items.map(item => {
-    let h;
+    let selector;
     if (hits) {
-      h = hits.find((hit) => item.id === hit.scope);
+      selector = hits.find((hit) => item.id === hit.scope);
     }
 
     return {
@@ -90,7 +90,7 @@ function resultsFromApiResponse(response) {
       dcDescription: item.dcDescriptionLangAware,
       dcCreator: item.dcCreatorLangAware,
       edmDataProvider: item.dataProvider,
-      selector: h && h.selectors ? h.selectors : []
+      selector: (selector && selector.selectors) ? selector.selectors : []
     };
   });
 
