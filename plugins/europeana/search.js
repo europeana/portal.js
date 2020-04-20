@@ -90,7 +90,7 @@ function resultsFromApiResponse(response) {
       dcDescription: item.dcDescriptionLangAware,
       dcCreator: item.dcCreatorLangAware,
       edmDataProvider: item.dataProvider,
-      selector: (selector && selector.selectors) ? selector.selectors : []
+      selector: (selector && selector.selectors) ? selector.selectors[0] : null
     };
   });
 

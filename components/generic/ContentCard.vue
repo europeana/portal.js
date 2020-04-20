@@ -52,16 +52,13 @@
         >
           {{ $d(new Date(datetime), 'short') }}
         </time>
-        <template v-if="hitsText.length > 0">
-          <template v-for="(hit, index) in hitsText">
-            <b-card-text
-              :key="`hit-${index}`"
-              text-tag="div"
-              data-qa="highlighted search term"
-            >
-              <p>{{ hit.prefix }} <span class="font-weight-bold has-text-highlight">{{ hit.exact }}</span> {{ hit.suffix }}</p>
-            </b-card-text>
-          </template>
+        <template v-if="hitsText">
+          <b-card-text
+            text-tag="div"
+            data-qa="highlighted search term"
+          >
+            <p>{{ hitsText.prefix }} <span class="font-weight-bold has-text-highlight">{{ hitsText.exact }}</span> {{ hitsText.suffix }}</p>
+          </b-card-text>
         </template>
         <template v-if="displayTexts.length > 0">
           <template
@@ -108,8 +105,8 @@
         default: () => []
       },
       hitsText: {
-        type: Array,
-        default: () => []
+        type: Object,
+        default: null
       },
       url: {
         type: [String, Object],

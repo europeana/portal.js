@@ -84,7 +84,7 @@
         if (result.dcCreator) texts.unshift(result.dcCreator);
 
         if (variant === 'list') {
-          if (result.selector.length === 0 && result.dcDescription) texts.unshift(result.dcDescription);
+          if (!result.selector && result.dcDescription) texts.unshift(result.dcDescription);
         }
 
         return texts;
