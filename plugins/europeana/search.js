@@ -140,7 +140,6 @@ export function search(params, options = {}) {
     }
   })
     .then((response) => {
-      console.log('response', response);
       return {
         error: null,
         results: resultsFromApiResponse(response),

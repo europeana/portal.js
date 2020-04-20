@@ -119,4 +119,16 @@ describe('components/generic/ContentCard', () => {
 
     wrapper.vm.optimisedImageUrl.should.contain('fm=jpg&fl=progressive&q=50&w=510');
   });
+
+  it('highlights the search term if found', () => {
+    const wrapper = factory();
+    wrapper.setProps({ hitsText: [{
+      prefix: 'The quick brown ',
+      exact: 'fox',
+      suffix: ' jumps over the lazy dog'
+    }] });
+
+    const description =  wrapper.find('[data-qa="highlighted search term"] p');
+    description.html().should.contain('<p>The quick brown  <span class="font-weight-bold has-text-highlight">fox</span>  jumps over the lazy dog</p>');
+  });
 });

@@ -57,6 +57,7 @@
             <b-card-text
               :key="`hit-${index}`"
               text-tag="div"
+              data-qa="highlighted search term"
             >
               <p>{{ hit.prefix }} <span class="font-weight-bold has-text-highlight">{{ hit.exact }}</span> {{ hit.suffix }}</p>
             </b-card-text>
