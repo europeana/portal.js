@@ -253,4 +253,10 @@
       transform: scale(0.9) translate(0, -0.2rem);
     }
   }
+
+  @media (max-width: $bp-large){
+    .input-group {
+      margin: 0.75rem 0;
+    }
+  }
 </style>

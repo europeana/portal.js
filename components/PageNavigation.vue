@@ -3,6 +3,14 @@
     class="ml-xl-auto"
     data-qa="main navigation"
   >
+    <li class="nav-item d-md-block d-lg-none">
+      <SmartLink
+        :destination="{ name: 'index' }"
+        link-class="nav-link"
+      >
+        <span class="icon-split icon d-block d-lg-none" />
+      </SmartLink>
+    </li>
     <li
       v-for="(nav, index) in navigation"
       :key="index"
@@ -12,7 +20,8 @@
         :destination="nav.url"
         link-class="nav-link"
       >
-        <span>{{ nav.text }}</span>
+        <span class="d-none d-lg-block">{{ nav.text }}</span>
+        <span :class="getIcon(nav.text) + ' icon d-block d-lg-none'" />
       </SmartLink>
     </li>
   </b-navbar-nav>
@@ -45,6 +54,18 @@
     methods: {
       async getNavigationData() {
         return this.$store.dispatch('link-group/init');
+      },
+      getIcon(item) {
+        switch (item) {
+        case 'Collections':
+          return 'icon-collections';
+        case 'Teachers':
+          return 'icon-school';
+        case 'About us':
+          return 'icon-info';
+        default:
+          return 'icon-info'; // what should default icon be?
+        }
       }
     }
   };
@@ -77,15 +98,36 @@
           right: 0;
           bottom: -1rem;
         }
+        span.icon:before{
+          color: $blue;
+        }
       }
 
       &.is-external-link:after {
         @extend .icon-font;
-        content: '\e900';
+        /* content: '\e900'; */
       }
 
       span {
         position: relative;
+        &.icon{
+          &:before{
+            font-size: $font-size-large;
+          }
+          @extend .icon-font;
+          &.icon-split:before {
+            content: "\e920";
+          }
+          &.icon-collections:before {
+            content: "\e91d";
+          }
+          &.icon-school:before {
+            content: "\e91e";
+          }
+          &.icon-info:before {
+            content: "\e91f";
+          }
+        }
       }
     }
 
@@ -97,6 +139,13 @@
         }
         &:before {
           right: -0.5rem;
+        }
+      }
+    }
+    @media (max-width: $bp-large){
+      .nav-link {
+        &.nuxt-link-active:after {
+          display: none;
         }
       }
     }
