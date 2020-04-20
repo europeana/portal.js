@@ -26,6 +26,7 @@
         />
 
         <div
+          v-if="enableBlogComments"
           class="card card-body mt-4"
           data-qa="disqus widget"
         >
@@ -87,11 +88,16 @@
       },
 
       ...mapGetters({
-        shareUrl: 'http/canonicalUrl'
+        shareUrl: 'http/canonicalUrl',
+        origin: 'http/origin'
       }),
 
       identifier() {
-        return this.$route.params.pathMatch;
+        return `${this.origin}/blog/${this.$route.params.pathMatch}`;
+      },
+
+      enableBlogComments() {
+        return Boolean(Number(process.env.ENABLE_BLOG_COMMENTS));
       }
     },
 
