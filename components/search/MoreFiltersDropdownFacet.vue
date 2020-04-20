@@ -16,6 +16,7 @@
         <MoreFiltersDropdownFacetOption
           v-for="(filter, index) in fields.slice(0, limitTo)"
           :key="index"
+          ref="moreFilter"
           :facet-name="name"
           :option="filter.label"
           :index="index"
@@ -28,6 +29,7 @@
         <MoreFiltersDropdownFacetOption
           v-for="(filter, index) in fields.slice(limitTo)"
           :key="index"
+          ref="moreFilter"
           :facet-name="name"
           :option="filter.label"
           :index="index + limitTo"
@@ -39,7 +41,7 @@
         class="btn btn-link btn-toggle"
         :class="{ 'is-active': isActive }"
         :data-qa="`${showMoreOrLess} button`"
-        @click.prevent="isActive = !isActive"
+        @click.prevent="toggleShowMore"
       >
         {{ showMoreOrLess }}
       </button>
@@ -110,6 +112,17 @@
       selectedHandler() {
         this.$nextTick(() => {
           this.$emit('selectedOptions', this.name, this.selectedOptions);
+        });
+      },
+
+      toggleShowMore() {
+        this.isActive = !this.isActive;
+
+        this.$nextTick(() => {
+          let index;
+          this.isActive ? index = this.limitTo : index = this.limitTo - 1;
+          const el = this.$refs.moreFilter[index].$el;
+          el.querySelector('input').focus();
         });
       }
     }
