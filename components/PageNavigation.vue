@@ -1,12 +1,13 @@
 <template>
   <b-navbar-nav
-    class="ml-xl-auto"
+    class="d-flex justify-content-around align-items-center ml-xl-auto"
     data-qa="main navigation"
   >
     <li class="nav-item d-md-block d-lg-none">
       <SmartLink
         :destination="{ name: 'index' }"
         link-class="nav-link"
+        aria-label="Europeana home"
       >
         <span class="icon-split icon d-block d-lg-none" />
       </SmartLink>
@@ -21,7 +22,10 @@
         link-class="nav-link"
       >
         <span class="d-none d-lg-block">{{ nav.text }}</span>
-        <span :class="getIcon(nav.text) + ' icon d-block d-lg-none'" />
+        <span
+          :class="getIcon(nav.text) + ' icon d-block d-lg-none'"
+          :aria-labelledby="nav.text"
+        />
       </SmartLink>
     </li>
   </b-navbar-nav>
@@ -112,7 +116,9 @@
         position: relative;
         &.icon{
           &:before{
+            transition: $standard-transition;
             font-size: $font-size-large;
+            color: $slategrey;
           }
           @extend .icon-font;
           &.icon-split:before {
@@ -143,6 +149,9 @@
       }
     }
     @media (max-width: $bp-large){
+      &:not(:last-child) {
+        margin-right: 0;
+      }
       .nav-link {
         &.nuxt-link-active:after {
           display: none;

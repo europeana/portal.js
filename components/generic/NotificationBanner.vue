@@ -6,7 +6,7 @@
   >
     <b-container>
       <b-row>
-        <b-col class="col-12 pb-3">
+        <b-col class="col-12 py-3 pb-lg-3 pt-lg-0">
           <p class="mb-0">
             {{ notificationText }}
             <a

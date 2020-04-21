@@ -3,6 +3,7 @@
     v-if="useRouterLink"
     :to="path"
     :class="linkClass"
+    exact
   >
     <slot />
   </b-link>

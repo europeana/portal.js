@@ -1,11 +1,12 @@
 <template>
   <b-container
+    ref="nav-container"
     v-scroll="handleDebouncedScroll"
     fluid
     class="border-bottom p-0 mb-lg-3"
   >
     <b-navbar
-      class="pb-3 pt-0 py-lg-1 px-lg-3 flex-column flex-lg-row"
+      class="pb-0 pt-0 py-lg-1 px-lg-3 flex-column flex-lg-row"
       data-qa="header"
     >
       <b-navbar-brand
@@ -81,8 +82,12 @@
     mounted() {
       this.scrollPosition = window.scrollY;
       this.getWindowWidth();
+      this.handleOrientationChange(window.orientation);
       this.$nextTick(() => {
         window.addEventListener('resize', this.handleDebouncedGetWindowWidth);
+        window.addEventListener('orientationchange', () => {
+          this.handleOrientationChange(window.orientation);
+        }, false);
       });
     },
 
@@ -98,23 +103,33 @@
     methods: {
       handleScroll(evt, el) {
         if (this.windowWidth <= 991) {
-          if (this.scrollPosition < window.scrollY) {
-            this.scrollPosition = window.scrollY;
+          let newPosition = window.scrollY - 200;
+          let newPositionAdd = window.scrollY + 200;
+          if (this.scrollPosition < newPosition) {
+            this.scrollPosition = newPosition;
             el.setAttribute(
               'style',
-              'opacity: 1; transform: translate3d(0, 150px, 0)'
+              'transform: translate3d(0, -150px, 0)'
             );
-          } else if (this.scrollPosition > window.scrollY) {
-            this.scrollPosition = window.scrollY;
+          } else if (this.scrollPosition > newPositionAdd) {
+            this.scrollPosition = newPositionAdd;
             el.setAttribute(
               'style',
-              'opacity: 1; transform: translate3d(0, 0, 0)'
+              'transform: translate3d(0, 0, 0)'
             );
           }
         }
       },
       getWindowWidth() {
         this.windowWidth = document.documentElement.clientWidth;
+      },
+      handleOrientationChange(orientation) {
+        if (orientation === 90 && this.windowWidth >= 992 || orientation === -90 && this.windowWidth >= 992) {
+          this.$refs['nav-container'].setAttribute(
+            'style',
+            'transform: translate3d(0, 0, 0)'
+          );
+        }
       }
     }
   };
@@ -143,11 +158,15 @@
     .container-fluid{
       position: fixed;
       right: 0;
-      bottom: 0;
+      top: 0;
       left: 0;
       z-index: 1030;
       border-bottom: none !important;
-      transition: 0.3s ease-in-out;
+      transition: $standard-transition;
+      .navbar-nav{
+        width: 100%;
+        height: 3.5rem;
+      }
     }
   }
 </style>
