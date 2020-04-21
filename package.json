@@ -42,10 +42,13 @@
     "test:chrome:headless": "cross-env browser=chromeHeadless cucumber-js",
     "test:chrome": "cross-env browser=chrome cucumber-js",
     "test:ci": "npm run test:unit && npm run size && npm run test:e2e:ci",
+    "test:ci:percy": "npm run test:unit && npm run size && npm run test:e2e:ci:percy",
     "test:e2e:ci": "cross-env NODE_ENV=test npm run stack:up:detach && npm run test:chrome:headless -- -p all; exit=$?; npm run stack:down; exit $exit",
+    "test:e2e:ci:percy": "cross-env NODE_ENV=test npm run stack:up:detach && npm run test:chrome:headless -- -p all; exit=$?; npm run test:percy; npm run stack:down; exit $exit",
     "test:e2e": "cross-env NODE_ENV=test npm run stack:up:detach && npm run test:chrome -- -p all; exit=$?; npm run stack:down; exit $exit",
     "test:gecko": "cross-env browser=gecko cucumber-js --no-strict",
-    "test:unit": "vue-cli-service test:unit --include tests/unit/setup"
+    "test:unit": "vue-cli-service test:unit --include tests/unit/setup",
+    "test:percy": "cross-env percy exec -- cucumber-js -p percy;"
   },
   "dependencies": {
     "@elastic/apm-rum": "^4.7.0",
@@ -82,6 +85,8 @@
     "@babel/preset-env": "^7.6.0",
     "@babel/runtime": "^7.6.0",
     "@babel/types": "^7.6.1",
+    "@percy/agent": "^0.26.2",
+    "@percy/nightwatch": "^1.1.0",
     "@size-limit/preset-app": "^2.1.6",
     "@storybook/addon-actions": "^5.0.6",
     "@storybook/addon-links": "^5.0.1",
