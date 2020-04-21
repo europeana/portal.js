@@ -68,6 +68,18 @@ export function rangeFromQueryParam(paramValue) {
 
   return { start, end };
 }
+
+/**
+ * Filters Hit response with scope string
+ * @param  {Object} hits API response
+ * @param  {string} id Item item
+ * @return {Object} returns selector object
+ */
+function hitForItem(hits, id) {
+  const selector = hits.find((hit) => id === hit.scope);
+  return selector ? { selector: selector.selectors[0] } : {};
+}
+
 /**
  * Extract search results from API response
  * @param  {Object} response API response
@@ -75,22 +87,18 @@ export function rangeFromQueryParam(paramValue) {
  */
 function resultsFromApiResponse(response) {
   const items = response.data.items;
-  const hits = response.data.hits;
 
   const results = items.map(item => {
-    let selector;
-    if (hits) {
-      selector = hits.find((hit) => item.id === hit.scope);
-    }
-
     return {
-      europeanaId: item.id,
-      edmPreview: item.edmPreview ? `${item.edmPreview[0]}&size=w200` : genericThumbnail(item.id, { type: item.type, size: 'w200' }),
-      dcTitle: item.dcTitleLangAware,
-      dcDescription: item.dcDescriptionLangAware,
-      dcCreator: item.dcCreatorLangAware,
-      edmDataProvider: item.dataProvider,
-      selector: (selector && selector.selectors) ? selector.selectors[0] : null
+      ...{
+        europeanaId: item.id,
+        edmPreview: item.edmPreview ? `${item.edmPreview[0]}&size=w200` : genericThumbnail(item.id, { type: item.type, size: 'w200' }),
+        dcTitle: item.dcTitleLangAware,
+        dcDescription: item.dcDescriptionLangAware,
+        dcCreator: item.dcCreatorLangAware,
+        edmDataProvider: item.dataProvider
+      },
+      ...(response.data.hits !== undefined ? hitForItem(response.data.hits, item.id) : {})
     };
   });
 
