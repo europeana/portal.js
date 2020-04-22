@@ -22,7 +22,7 @@
       :url="hero.url"
     />
     <b-container>
-      <header
+      <div
         v-if="!hero"
         class="row"
       >
@@ -35,7 +35,7 @@
             {{ page.headline }}
           </p>
         </div>
-      </header>
+      </div>
       <BrowseSections
         v-if="page"
         :sections="page.hasPart"
