@@ -55,5 +55,18 @@ pipeline {
         sh 'cd storybook-static && cf blue-green-deploy portaljs-storybook -f manifest.yml --delete-old-apps'
       }
     }
+    stage('Upload Screenshots to Percy') {
+      when {
+        environment name: 'CF_SPACE', value: 'test'
+      }
+      environment {
+        PERCY_TOKEN=credentials("portaljs.${env.CF_SPACE}.percy_token")
+      }
+      steps {
+        sh 'NODE_ENV=test npm run stack:up:detach'
+        sh 'npm run test:percy'
+        sh 'npm run stack:down;'
+      }
+    }
   }
 }
