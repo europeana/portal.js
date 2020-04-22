@@ -55,7 +55,7 @@ pipeline {
         sh 'cd storybook-static && cf blue-green-deploy portaljs-storybook -f manifest.yml --delete-old-apps'
       }
     }
-    stage('Deploy Storybook') {
+    stage('Upload Screenshots to Percy') {
       when {
         environment name: 'CF_SPACE', value: 'test'
       }
