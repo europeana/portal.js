@@ -226,6 +226,7 @@
 
   .input-group {
     width: 100%;
+    margin: 0.6875rem 0;
 
     .input-group-prepend {
       align-items: center;
@@ -249,7 +250,7 @@
       @extend .icon-font;
       content: '\e92b';
       display: inline-block;
-      transform: scaleX(-1);
+      transform: scale(0.9) translate(0, -0.2rem);
     }
   }
 </style>

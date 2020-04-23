@@ -89,7 +89,8 @@ module.exports = {
     '~/plugins/europeana',
     '~/plugins/vue/index',
     '~/plugins/i18n.js',
-    '~/plugins/vue-filters'
+    '~/plugins/vue-filters',
+    '~/plugins/vue-disqus'
   ],
 
   buildModules: [

@@ -24,6 +24,18 @@
           v-if="page.keywords"
           :tags="page.keywords"
         />
+
+        <div
+          v-if="enableBlogComments"
+          class="card card-body mt-4"
+          data-qa="disqus widget"
+        >
+          <vue-disqus
+            :shortname="disqusShortname"
+            :identifier="identifier"
+            :url="shareUrl"
+          />
+        </div>
       </b-col>
       <b-col
         cols="12"
@@ -44,6 +56,7 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex';
   import createClient from '../../plugins/contentful';
   import BlogPost from '../../components/blog/BlogPost';
   import BlogTags from '../../components/blog/BlogTags';
@@ -72,6 +85,23 @@
       },
       heroImage() {
         return this.hero ? this.hero.image.fields.file : null;
+      },
+
+      ...mapGetters({
+        shareUrl: 'http/canonicalUrl',
+        origin: 'http/origin'
+      }),
+
+      identifier() {
+        return `${this.origin}/blog/${this.$route.params.pathMatch}`;
+      },
+
+      disqusShortname() {
+        return process.env.DISQUS_SHORTNAME;
+      },
+
+      enableBlogComments() {
+        return !!this.disqusShortname;
       }
     },
 
