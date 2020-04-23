@@ -120,7 +120,7 @@ module.exports = {
     'cookie-universal-nuxt',
     ['nuxt-i18n', {
       locales: i18nLocales,
-      baseUrl: 'https://www.europeana.eu',
+      baseUrl: process.env.I18N_BASE_URL,
       defaultLocale: 'en',
       lazy: true,
       seo: true,
