@@ -1,6 +1,5 @@
 <template>
   <div>
-    <CookieDisclaimer />
     <a
       class="skip-main"
       href="#main"
@@ -13,17 +12,18 @@
       :enable-language-selector="enableLanguageSelector"
       :enable-suggestion-validation="enableSuggestionValidation"
     />
-    <b-container v-if="breadcrumbs">
-      <b-row>
-        <b-col class="col-12">
-          <b-breadcrumb
-            :items="breadcrumbs"
-            class="px-0"
-          />
-        </b-col>
-      </b-row>
-    </b-container>
     <main role="main">
+      <CookieDisclaimer />
+      <b-container v-if="breadcrumbs">
+        <b-row>
+          <b-col class="col-12">
+            <b-breadcrumb
+              :items="breadcrumbs"
+              class="px-0"
+            />
+          </b-col>
+        </b-row>
+      </b-container>
       <nuxt
         id="main"
       />
