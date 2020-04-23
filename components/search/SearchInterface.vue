@@ -312,12 +312,6 @@
           if ((Array.isArray(selected) && selected.length === 0) || !selected) return;
         }
         if (isEqual(this.filters[name], selected)) return;
-
-        // Probably in the wrong place
-        if (selected === 'newspaper') {
-          this.view = 'list';
-        }
-
         return this.rerouteSearch(this.queryUpdatesForFacetChanges({ [name]: selected }));
       },
       changeMoreFacets(selected) {

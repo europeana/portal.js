@@ -1,6 +1,7 @@
 export const state = () => ({
   apiOptions: {},
-  apiParams: {}
+  apiParams: {},
+  view: null
 });
 
 export const getters = {
@@ -35,9 +36,21 @@ export const getters = {
 
       params.wskey = getters.apiConfig.newspaper.key;
       params.profile = 'minimal,hits';
+
+      params.view = 'list';
+    } else {
+      params.view = 'grid';
     }
 
     return params;
+  },
+
+  view: (state) => {
+    const params = Object.assign({}, state.apiParams);
+    if (params.api && params.api === 'fullscreen') {
+      return 'list';
+    }
+    return 'grid';
   }
 };
 

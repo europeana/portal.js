@@ -150,15 +150,25 @@ export const mutations = {
 
 export const getters = {
   activeView(state) {
+    /*const collection = getters.collection;
+
+    if (getters.hasCollectionSpecificSettings(collection) && rootState.collections[collection]['view'] !== undefined) {
+      console.log('collection specific', state, rootState);
+      return rootGetters[`collections/${collection}/view`];
+    } else*/
+
     if (state.view) {
+      console.log('in state');
       return state.view;
     } else if (process.browser) {
+      console.log('in storage');
       if (sessionStorage.searchResultsView) {
         return sessionStorage.searchResultsView;
       } else if (localStorage.searchResultsView) {
         return localStorage.searchResultsView;
       }
     }
+    console.log('default');
     return 'grid';
   },
 
@@ -355,6 +365,12 @@ export const actions = {
       .then((response) => {
         commit('setFacets', response.facets);
         const collection = getters.collection;
+
+        if (getters.hasCollectionSpecificSettings(collection) && rootState.collections[collection]['view'] !== undefined) {
+          console.log('collection specific view', rootGetters[`collections/${collection}/view`]);
+          commit('set', ['view', rootGetters[`collections/${collection}/view`]]);
+        }
+
         if (getters.hasCollectionSpecificSettings(collection) && rootState.collections[collection]['facets'] !== undefined) {
           commit(`collections/${collection}/set`, ['facets', state.facets], { root: true });
           commit('set', ['facets', rootGetters[`collections/${collection}/facets`]]);
