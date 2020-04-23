@@ -150,25 +150,16 @@ export const mutations = {
 
 export const getters = {
   activeView(state) {
-    /*const collection = getters.collection;
-
-    if (getters.hasCollectionSpecificSettings(collection) && rootState.collections[collection]['view'] !== undefined) {
-      console.log('collection specific', state, rootState);
-      return rootGetters[`collections/${collection}/view`];
-    } else*/
-
     if (state.view) {
-      console.log('in state');
+      console.log('in state', state.view);
       return state.view;
     } else if (process.browser) {
-      console.log('in storage');
       if (sessionStorage.searchResultsView) {
         return sessionStorage.searchResultsView;
       } else if (localStorage.searchResultsView) {
         return localStorage.searchResultsView;
       }
     }
-    console.log('default');
     return 'grid';
   },
 
@@ -367,7 +358,7 @@ export const actions = {
         const collection = getters.collection;
 
         if (getters.hasCollectionSpecificSettings(collection) && rootState.collections[collection]['view'] !== undefined) {
-          console.log('collection specific view', rootGetters[`collections/${collection}/view`]);
+          console.log('search specific collection', rootGetters[`collections/${collection}/view`]);
           commit('set', ['view', rootGetters[`collections/${collection}/view`]]);
         }
 

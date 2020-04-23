@@ -45,9 +45,8 @@ export const getters = {
     return params;
   },
 
-  view: (state) => {
-    const params = Object.assign({}, state.apiParams);
-    if (params.api && params.api === 'fullscreen') {
+  view: (state, getters) => {
+    if (getters.apiParams.api && getters.apiParams.api === 'fulltext') {
       return 'list';
     }
     return 'grid';
