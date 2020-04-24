@@ -35,6 +35,8 @@
 <script>
   import { mapGetters } from 'vuex';
 
+  import locales from '../plugins/i18n/locales';
+
   import PageHeader from '../components/PageHeader.vue';
   import PageFooter from '../components/PageFooter.vue';
   import CookieDisclaimer from '../components/generic/CookieDisclaimer';
@@ -70,9 +72,10 @@
 
       hreflang() {
         const nuxtI18nSeo = this.$nuxtI18nSeo();
-        const lang = nuxtI18nSeo.htmlAttrs.lang;
+        const defaultLocale = this.$i18n.defaultLocale;
+        const defaultIso =  locales.find(locale => locale.code === defaultLocale)['iso'];
         const filteredLinks = nuxtI18nSeo.link.map((lk) => {
-          if (lk.hreflang === lang) {
+          if (lk.hreflang === defaultIso) {
             return {
               ...lk,
               hreflang: 'x-default'
