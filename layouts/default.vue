@@ -35,8 +35,6 @@
 <script>
   import { mapGetters } from 'vuex';
 
-  import locales from '../plugins/i18n/locales';
-
   import PageHeader from '../components/PageHeader.vue';
   import PageFooter from '../components/PageFooter.vue';
   import CookieDisclaimer from '../components/generic/CookieDisclaimer';
@@ -68,43 +66,35 @@
       },
       breadcrumbs() {
         return this.$store.state.breadcrumb.data;
-      },
-
-      hreflang() {
-        const nuxtI18nSeo = this.$nuxtI18nSeo();
-        const defaultLocale = this.$i18n.defaultLocale;
-        const defaultIso =  locales.find(locale => locale.code === defaultLocale)['iso'];
-        const filteredLinks = nuxtI18nSeo.link.map((lk) => {
-          if (lk.hreflang === defaultIso) {
-            return { ...lk, hreflang: 'x-default' };
-          }
-          return lk;
-        });
-
-        return {
-          link: filteredLinks,
-          meta: nuxtI18nSeo.meta,
-          htmlAttrs: nuxtI18nSeo.htmlAttrs
-        };
       }
     },
 
     head() {
+      const i18nSeo = this.$nuxtI18nSeo();
       return {
         link: [
           { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Ubuntu:300,400,700%7COpen+Sans:400italic,700italic,400,600,700&subset=latin,greek,cyrillic&display=swap', body: true },
-          ...this.hreflang.link
+          ...this.i18nLinksWithDefault(i18nSeo)
         ],
         htmlAttrs: {
           myAttribute: 'My Value',
-          ...this.hreflang.htmlAttrs
+          ...i18nSeo.htmlAttrs
         },
         meta: [
           { hid: 'description', property: 'description', content: 'Europeana' },
           { hid: 'og:url', property: 'og:url', content: this.canonicalUrl },
-          ...this.hreflang.meta
+          ...i18nSeo.meta
         ]
       };
+    },
+
+    methods: {
+      i18nLinksWithDefault(i18nSeo) {
+        const defaultISO =  this.$i18n.isoLocale(this.$i18n.defaultLocale);
+        const links = i18nSeo.link;
+        const defaultLink = { hreflang: 'x-default', rel: 'alternate', href: links.find(link => link.hreflang === defaultISO).href };
+        return [defaultLink, ...links];
+      }
     }
   };
 </script>
