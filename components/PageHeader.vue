@@ -5,8 +5,9 @@
     data-qa="header"
   >
     <header
-      class="col-lg-2 p-0 m-0 text-center text-lg-left navbar-brand d-flex align-items-center justify-content-center justify-content-lg-start"
+      class="col-lg p-0 m-0 text-center text-lg-left navbar-brand d-flex align-items-center justify-content-center justify-content-lg-start flex-column flex-lg-row"
       role="banner"
+      aria-label="Europeana home"
     >
       <SmartLink
         :destination="{ name: 'index' }"
@@ -18,16 +19,19 @@
           data-qa="logo"
         >
       </SmartLink>
+      <SearchForm
+        data-qa="search form"
+        role="search"
+        class="w-100 px-3 mr-auto mx-xl-auto"
+        aria-label="search form"
+        :enable-auto-suggest="enableAutoSuggest"
+        :enable-suggestion-validation="enableSuggestionValidation"
+      />
     </header>
-    <SearchForm
-      data-qa="search form"
-      role="search"
-      class="col-lg w-100 px-3 mr-auto mx-xl-auto"
-      :enable-auto-suggest="enableAutoSuggest"
-      :enable-suggestion-validation="enableSuggestionValidation"
-    />
     <b-navbar
       class="p-0 justify-content-center justify-content-lg-end"
+      role="navigation"
+      aria-label="nav[aria-hidden='false']"
     >
       <PageNavigation />
     </b-navbar>

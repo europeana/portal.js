@@ -25,7 +25,7 @@
               class="card-grid"
               :class="cardGridClass"
             >
-              <div
+              <header
                 v-if="titlesInCurrentLanguage"
                 class="card-heading"
               >
@@ -48,7 +48,7 @@
                     {{ heading.value }}
                   </p>
                 </template>
-              </div>
+              </header>
               <div class="media-presentation">
                 <MediaPresentation
                   :europeana-identifier="identifier"
