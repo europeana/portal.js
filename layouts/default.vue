@@ -66,25 +66,43 @@
       },
       breadcrumbs() {
         return this.$store.state.breadcrumb.data;
+      },
+
+      hreflang() {
+        const nuxtI18nSeo = this.$nuxtI18nSeo();
+        const lang = nuxtI18nSeo.htmlAttrs.lang;
+        const filteredLinks = nuxtI18nSeo.link.map((lk) => {
+          if (lk.hreflang === lang) {
+            return {
+              ...lk,
+              hreflang: 'x-default'
+            };
+          }
+          return lk;
+        });
+
+        return {
+          link: filteredLinks,
+          meta: nuxtI18nSeo.meta,
+          htmlAttrs: nuxtI18nSeo.htmlAttrs
+        };
       }
     },
 
     head() {
-      const i18nSeo = this.$nuxtI18nSeo();
       return {
         link: [
           { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Ubuntu:300,400,700%7COpen+Sans:400italic,700italic,400,600,700&subset=latin,greek,cyrillic&display=swap', body: true },
-          { hreflang: 'x-default', rel: 'alternate', href: this.canonicalUrl },
-          ...i18nSeo.link
+          ...this.hreflang.link
         ],
         htmlAttrs: {
           myAttribute: 'My Value',
-          ...i18nSeo.htmlAttrs
+          ...this.hreflang.htmlAttrs
         },
         meta: [
           { hid: 'description', property: 'description', content: 'Europeana' },
           { hid: 'og:url', property: 'og:url', content: this.canonicalUrl },
-          ...i18nSeo.meta
+          ...this.hreflang.meta
         ]
       };
     }
