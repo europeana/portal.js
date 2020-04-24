@@ -76,10 +76,7 @@
         const defaultIso =  locales.find(locale => locale.code === defaultLocale)['iso'];
         const filteredLinks = nuxtI18nSeo.link.map((lk) => {
           if (lk.hreflang === defaultIso) {
-            return {
-              ...lk,
-              hreflang: 'x-default'
-            };
+            return { ...lk, hreflang: 'x-default' };
           }
           return lk;
         });
