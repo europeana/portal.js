@@ -1,5 +1,6 @@
 <template>
   <div>
+    <CookieDisclaimer />
     <a
       class="skip-main"
       href="#main"
@@ -13,7 +14,6 @@
       :enable-suggestion-validation="enableSuggestionValidation"
     />
     <main role="main">
-      <CookieDisclaimer />
       <b-container v-if="breadcrumbs">
         <b-row>
           <b-col class="col-12">
