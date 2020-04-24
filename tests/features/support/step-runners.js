@@ -242,5 +242,8 @@ module.exports = {
   },
   async makeSnapShot(pageName) {
     await client.percySnapshot(pageName);
+  },
+  async hrefLangTags() {
+    await client.expect.element('link[rel=alternate]').to.be.present;
   }
 };
