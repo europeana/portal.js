@@ -123,7 +123,6 @@ module.exports = {
       baseUrl: process.env.I18N_BASE_URL,
       defaultLocale: 'en',
       lazy: true,
-      seo: true,
       langDir: 'lang/',
       strategy: 'prefix',
       vueI18n: {

@@ -70,13 +70,21 @@
     },
 
     head() {
+      const i18nSeo = this.$nuxtI18nSeo();
       return {
         link: [
-          { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Ubuntu:300,400,700%7COpen+Sans:400italic,700italic,400,600,700&subset=latin,greek,cyrillic&display=swap', body: true }
+          { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Ubuntu:300,400,700%7COpen+Sans:400italic,700italic,400,600,700&subset=latin,greek,cyrillic&display=swap', body: true },
+          { hreflang: 'x-default', rel: 'alternate', href: this.canonicalUrl },
+          ...i18nSeo.link
         ],
+        htmlAttrs: {
+          myAttribute: 'My Value',
+          ...i18nSeo.htmlAttrs
+        },
         meta: [
           { hid: 'description', property: 'description', content: 'Europeana' },
-          { hid: 'og:url', property: 'og:url', content: this.canonicalUrl }
+          { hid: 'og:url', property: 'og:url', content: this.canonicalUrl },
+          ...i18nSeo.meta
         ]
       };
     }
