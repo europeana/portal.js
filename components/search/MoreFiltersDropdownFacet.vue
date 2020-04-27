@@ -119,8 +119,7 @@
         this.isActive = !this.isActive;
 
         this.$nextTick(() => {
-          let index;
-          this.isActive ? index = this.limitTo : index = this.limitTo - 1;
+          const index = this.limitTo - (this.isActive ? 0 : 1);
           const el = this.$refs.moreFilter[index].$el;
           el.querySelector('input').focus();
         });
