@@ -89,12 +89,9 @@
 
       ...mapGetters({
         shareUrl: 'http/canonicalUrl',
+        identifier: 'http/canonicalUrlWithoutLocale',
         origin: 'http/origin'
       }),
-
-      identifier() {
-        return `${this.origin}/blog/${this.$route.params.pathMatch}`;
-      },
 
       disqusShortname() {
         return process.env.DISQUS_SHORTNAME;
