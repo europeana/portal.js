@@ -89,8 +89,7 @@
 
       ...mapGetters({
         shareUrl: 'http/canonicalUrl',
-        identifier: 'http/canonicalUrlWithoutLocale',
-        origin: 'http/origin'
+        identifier: 'http/canonicalUrlWithoutLocale'
       }),
 
       disqusShortname() {
