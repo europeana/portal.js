@@ -43,7 +43,7 @@ module.exports = {
   /*
   ** Global CSS
   */
-  css: [],
+  css: ['./assets/scss/style'],
 
   // BootstrapVue
   // Doc: https://bootstrap-vue.js.org/docs/
