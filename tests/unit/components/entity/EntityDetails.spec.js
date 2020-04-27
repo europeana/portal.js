@@ -57,15 +57,15 @@ describe('components/entity/EntityDetails', () => {
     wrapper.find('[data-qa="entity title"]').attributes('lang').should.eq('en');
   });
 
-  it('does not show a show more link', () => {
+  it('does not show a show more button', () => {
     const wrapper = factory(entityDetails);
-    wrapper.findAll('a[data-qa="entity show link"]').length.should.eq(0);
+    wrapper.findAll('button[data-qa="entity show link"]').length.should.eq(0);
   });
 
-  it('shows a show more link', () => {
+  it('shows a show more button', () => {
     const longDescription = entityDetails.description.values[0] + entityDetails.description.values[0] + entityDetails.description.values[0];
     const wrapper = factory({ description: { values: [longDescription], code: 'en' }, title: entityDetails.title });
 
-    wrapper.findAll('a[data-qa="entity show link"]').length.should.eq(1);
+    wrapper.findAll('button[data-qa="entity show link"]').length.should.eq(1);
   });
 });

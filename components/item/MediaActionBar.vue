@@ -93,6 +93,7 @@
         />
         <button
           class="icon-close btn-transparent"
+          aria-label="hide share buttons"
           @click="toggleShare"
         />
       </b-col>

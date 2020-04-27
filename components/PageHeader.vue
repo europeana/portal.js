@@ -31,7 +31,6 @@
     <b-navbar
       class="p-0 justify-content-center justify-content-lg-end"
       role="navigation"
-      aria-label="nav[aria-hidden='false']"
     >
       <PageNavigation />
     </b-navbar>
