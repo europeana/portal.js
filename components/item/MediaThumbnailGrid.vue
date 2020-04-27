@@ -10,16 +10,16 @@
       ref="thumbnail"
       :class="thumbnailImgClass(thumbnail, index)"
       :data-about="thumbnail.about"
-      :data-qa="`link thumbnail #${index + 1}`"
-      href="#"
+      :data-qa="`media thumbnail anchor #${index + 1}`"
+      :aria-label="$t('mediaPreview.selectItem', { src: index + 1 })"
       class="thumbnail-link mb-2 mr-2"
       @click="clickThumbnail(thumbnail.about)"
     >
       <b-img-lazy
         :src="thumbnail.src"
         :data-qa="`media thumbnail #${index + 1}`"
+        alt=""
         thumbnail
-        :alt="$t('mediaPreview.selectItem', { src: index + 1 })"
       />
     </a>
     <button
