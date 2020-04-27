@@ -7,7 +7,6 @@
     <ColourSwatch
       v-if="forColourPalette"
       :hex-code="option"
-      :aria-labelledby="fieldLabelId"
     />
     <FacetFieldLabel
       :id="fieldLabelId"
