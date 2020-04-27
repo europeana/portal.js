@@ -22,7 +22,7 @@
             :url="{ name: 'exhibitions-exhibition', params: { exhibition: exhibition.fields.identifier } }"
             :image-url="imageUrl(exhibition.fields.primaryImageOfPage)"
             :image-content-type="imageContentType(exhibition.fields.primaryImageOfPage)"
-            :image-optimisation-options="{ width: 510 }"
+            :image-optimisation-options="{ width: 400 }"
             :texts="[exhibition.fields.description]"
           />
         </b-card-group>

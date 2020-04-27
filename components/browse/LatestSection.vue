@@ -17,7 +17,7 @@
           :url="cardData(card.fields).cardLink"
           :image-url="cardData(card.fields).imageUrl"
           :image-content-type="cardData(card.fields).imageContentType"
-          :image-optimisation-options="{ width: 510 }"
+          :image-optimisation-options="{ width: 400 }"
         />
       </b-card-group>
       <b-button

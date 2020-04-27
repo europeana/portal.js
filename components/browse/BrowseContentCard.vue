@@ -7,6 +7,7 @@
     :image-content-type="imageContentType"
     :variant="cardVariant"
     :omit-all-uris="true"
+    :image-optimisation-options="{ width: 400 }"
   />
 </template>
 
