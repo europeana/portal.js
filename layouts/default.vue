@@ -51,7 +51,8 @@
 
     computed: {
       ...mapGetters({
-        canonicalUrl: 'http/canonicalUrl'
+        canonicalUrl: 'http/canonicalUrl',
+        canonicalUrlWithoutLocale: 'http/canonicalUrlWithoutLocale'
       }),
       enableAutoSuggest() {
         // Auto suggest on search form will be disabled unless toggled on by env var,
@@ -70,30 +71,16 @@
     },
 
     head() {
-      const i18nSeo = this.$nuxtI18nSeo();
       return {
         link: [
           { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Ubuntu:300,400,700%7COpen+Sans:400italic,700italic,400,600,700&subset=latin,greek,cyrillic&display=swap', body: true },
-          ...this.i18nLinksWithDefault(i18nSeo)
+          { hreflang: 'x-default', rel: 'alternate', href: this.canonicalUrlWithoutLocale }
         ],
-        htmlAttrs: {
-          ...i18nSeo.htmlAttrs
-        },
         meta: [
           { hid: 'description', property: 'description', content: 'Europeana' },
-          { hid: 'og:url', property: 'og:url', content: this.canonicalUrl },
-          ...i18nSeo.meta
+          { hid: 'og:url', property: 'og:url', content: this.canonicalUrl }
         ]
       };
-    },
-
-    methods: {
-      i18nLinksWithDefault(i18nSeo) {
-        const defaultISO =  this.$i18n.isoLocale(this.$i18n.defaultLocale);
-        const links = i18nSeo.link;
-        const defaultLink = { hreflang: 'x-default', rel: 'alternate', href: links.find(link => link.hreflang === defaultISO).href };
-        return [defaultLink, ...links];
-      }
     }
   };
 </script>

@@ -120,7 +120,8 @@ module.exports = {
     'cookie-universal-nuxt',
     ['nuxt-i18n', {
       locales: i18nLocales,
-      baseUrl: ({ store }) => store.getters['http/origin'],
+      baseUrl: ({ store }) => store.getters['http/canonicalUrlWithoutLocale'],
+      seo: true,
       defaultLocale: 'en',
       lazy: true,
       langDir: 'lang/',
