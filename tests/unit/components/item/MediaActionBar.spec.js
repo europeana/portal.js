@@ -228,4 +228,21 @@ describe('components/item/MediaActionBar', () => {
       });
     });
   });
+
+  describe('computed', () => {
+    describe('proxyMediaParams()', () => {
+      describe('.api_url', () => {
+        it('joins Record API origin from store and "/api"', () => {
+          const props = {
+            europeanaIdentifier,
+            useProxy
+          };
+
+          const wrapper = factory(props);
+
+          wrapper.vm.proxyMediaParams.api_url.should.eq('https://api.example.org/api');
+        });
+      });
+    });
+  });
 });
