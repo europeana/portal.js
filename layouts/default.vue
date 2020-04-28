@@ -77,7 +77,6 @@
           ...this.i18nLinksWithDefault(i18nSeo)
         ],
         htmlAttrs: {
-          myAttribute: 'My Value',
           ...i18nSeo.htmlAttrs
         },
         meta: [
