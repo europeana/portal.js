@@ -11,8 +11,6 @@ localVue.use(VueI18n);
 localVue.use(Vuex);
 localVue.component('SmartLink', SmartLink);
 
-localVue.filter('proxyMedia', () => 'proxied');
-
 const i18n = new VueI18n({
   locale: 'en',
   messages: {
@@ -27,18 +25,6 @@ const i18n = new VueI18n({
 
 const store = new Vuex.Store({
   modules: {
-    apis: {
-      namespaced: true,
-      getters: {
-        config() {
-          return {
-            record: {
-              origin: 'https://api.example.org'
-            }
-          };
-        }
-      }
-    },
     http: {
       namespaced: true,
       getters: {
@@ -54,7 +40,8 @@ const factory = (propsData) => mount(MediaActionBar, {
   store,
   propsData,
   mocks: {
-    $t: (key) => `TRANSLATED: ${key}`
+    $t: (key) => `TRANSLATED: ${key}`,
+    $proxyMedia: () => 'proxied'
   }
 });
 
@@ -224,23 +211,6 @@ describe('components/item/MediaActionBar', () => {
           const span = attribution.find('span');
           span.attributes('lang').should.eq(props.dataProviderLang);
           span.text().should.eq(props.dataProviderName);
-        });
-      });
-    });
-  });
-
-  describe('computed', () => {
-    describe('proxyMediaParams()', () => {
-      describe('.api_url', () => {
-        it('joins Record API origin from store and "/api"', () => {
-          const props = {
-            europeanaIdentifier,
-            useProxy
-          };
-
-          const wrapper = factory(props);
-
-          wrapper.vm.proxyMediaParams.api_url.should.eq('https://api.example.org/api');
         });
       });
     });

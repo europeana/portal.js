@@ -102,8 +102,6 @@
 </template>
 
 <script>
-  import { mapGetters } from 'vuex';
-
   import RightsStatement from '../../components/generic/RightsStatement';
   import SmartLink from '../../components/generic/SmartLink';
   import SocialShare from '../../components/generic/SocialShare';
@@ -155,25 +153,13 @@
     },
 
     computed: {
-      ...mapGetters({
-        apisConfig: 'apis/config'
-      }),
-
       rightsStatementIsUrl() {
         return RegExp('^https?://*').test(this.rightsStatement);
       },
 
-      proxyMediaParams() {
-        return {
-          // TODO: it is not ideal to hard-code "/api" here, but the media proxy
-          //       expects Record API URLs to end thus, i.e. not /record or /api/v2
-          'api_url': this.apisConfig.record.origin + '/api'
-        };
-      },
-
       downloadUrl() {
         return this.downloadDisabled ? null :
-          (this.useProxy ? this.$options.filters.proxyMedia(this.url, this.europeanaIdentifier, this.proxyMediaParams) : this.url);
+          (this.useProxy ? this.$proxyMedia(this.url, this.europeanaIdentifier) : this.url);
       },
 
       downloadDisabled() {

@@ -11,6 +11,9 @@ const factory = () => shallowMount(AudioPlayer, {
     src: 'https://example.org',
     type: 'audio/mpeg'
   },
+  mocks: {
+    $proxyMedia: () => 'proxied'
+  },
   localVue
 });
 
@@ -19,7 +22,7 @@ describe('components/media/AudioPlayer', () => {
     const wrapper = factory();
     const audioSource = wrapper.find('[data-qa="audio source"]');
 
-    audioSource.attributes().src.should.eq('https://proxy.europeana.eu/123/abc?view=https%3A%2F%2Fexample.org');
+    audioSource.attributes().src.should.eq('proxied');
   });
 
   it('has a MIME type', async() => {

@@ -11,6 +11,9 @@ const factory = () => shallowMount(VideoPlayer, {
     src: 'https://example.org',
     type: 'video/webm'
   },
+  mocks: {
+    $proxyMedia: () => 'proxied'
+  },
   localVue
 });
 
@@ -19,7 +22,7 @@ describe('components/media/VideoPlayer', () => {
     const wrapper = factory();
     const videoSource = wrapper.find('[data-qa="video source"]');
 
-    videoSource.attributes().src.should.eq('https://proxy.europeana.eu/123/abc?view=https%3A%2F%2Fexample.org');
+    videoSource.attributes().src.should.eq('proxied');
   });
 
   it('has a MIME type', async() => {
