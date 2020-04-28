@@ -12,7 +12,7 @@
         :url="chapterUrl(chapter)"
         :image-url="chapterImageUrl(chapter)"
         :image-content-type="chapterImageContentType(chapter)"
-        :image-optimisation-options="{ width: 400 }"
+        :image-optimisation-options="{ width: 510 }"
         :texts="[chapterText(chapter)]"
         :data-qa="`exhibitions ${chapter.fields.identifier} card`"
         variant="mini"
