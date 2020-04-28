@@ -6,6 +6,7 @@
     <b-navbar
       class="pb-3 pt-3 py-lg-1 px-lg-3 flex-column flex-lg-row"
       data-qa="header"
+      aria-label="nav[aria-hidden='false']"
     >
       <b-navbar-brand
         class="col-lg-2 p-0 m-0 text-center text-lg-left"
