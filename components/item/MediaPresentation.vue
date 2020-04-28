@@ -43,7 +43,7 @@
   import AudioPlayer from '../../components/media/AudioPlayer';
   import HTMLEmbed from '../../components/generic/HTMLEmbed';
 
-  import oEmbed from '../../plugins/oembed.js';
+  import oEmbed from '../../plugins/oembed';
   import {
     isHTMLVideo, isHTMLAudio, isIIIFImage, isIIIFPresentation,
     isOEmbed, isRichMedia, iiifManifest
