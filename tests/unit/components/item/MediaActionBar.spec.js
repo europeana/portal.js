@@ -26,8 +26,25 @@ const i18n = new VueI18n({
 });
 
 const store = new Vuex.Store({
-  getters: {
-    canonicalUrl: () => 'https://www.example.org/page'
+  modules: {
+    apis: {
+      namespaced: true,
+      getters: {
+        config() {
+          return {
+            record: {
+              origin: 'https://api.example.org'
+            }
+          };
+        }
+      }
+    },
+    http: {
+      namespaced: true,
+      getters: {
+        canonicalUrl: () => 'https://www.example.org/page'
+      }
+    }
   }
 });
 
