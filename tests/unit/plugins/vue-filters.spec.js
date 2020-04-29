@@ -59,30 +59,6 @@ describe('Vue filters', () => {
     });
   });
 
-  describe('proxyMedia', () => {
-    const proxyMedia = Vue.filter('proxyMedia');
-    const europeanaId = '/123/abc';
-    const mediaUrl = 'https://www.example.org/audio.ogg';
-
-    it('returns media proxy URL for item web resource', () => {
-      const expected = `https://proxy.europeana.eu${europeanaId}?` +
-        new URLSearchParams({ view: mediaUrl }).toString();
-
-      const proxyUrl = proxyMedia(mediaUrl, europeanaId);
-
-      proxyUrl.should.eq(expected);
-    });
-
-    it('returns media proxy URL with additional param for item web resource', () => {
-      const expected = `https://proxy.europeana.eu${europeanaId}?` +
-        new URLSearchParams({ view: mediaUrl, disposition: 'inline' }).toString();
-
-      const proxyUrl = proxyMedia(mediaUrl, europeanaId, { disposition: 'inline' });
-
-      proxyUrl.should.eq(expected);
-    });
-  });
-
   describe('stripMarkdown', () => {
     const stripMarkdown = Vue.filter('stripMarkdown');
 

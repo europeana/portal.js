@@ -18,6 +18,9 @@ export const getters = {
   canonicalUrl(state, getters) {
     return getters.origin + state.path;
   },
+  canonicalUrlWithoutLocale(state, getters) {
+    return getters.canonicalUrl.replace(/(:\/\/[^/]+)\/[a-z]{2}(\/|$)/, '$1$2');
+  },
   origin(state) {
     return `${state.protocol}//${state.host}`;
   }

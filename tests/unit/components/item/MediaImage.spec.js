@@ -13,7 +13,8 @@ const propsData = { media: { ebucoreHasMimeType: 'image/jpeg', about: 'http://ww
 const factory = () => mount(MediaImage, {
   localVue,
   mocks: {
-    $t: (key) => key
+    $t: (key) => key,
+    $proxyMedia: () => 'proxied'
   },
   propsData
 });
@@ -23,7 +24,7 @@ describe('components/item/MediaImage', () => {
     it('shows linked image', () => {
       const wrapper = factory();
 
-      wrapper.attributes().href.should.contain('proxy.europeana.eu');
+      wrapper.attributes().href.should.eq('proxied');
       wrapper.findAll('img').length.should.eq(1);
     });
 
