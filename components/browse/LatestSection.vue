@@ -23,7 +23,7 @@
       <b-button
         v-if="total > 4"
         variant="light"
-        :to="localePath({ name: category === 'Blog posts' ? 'blog' : category.toLowerCase() })"
+        :to="localePath(buttonPath)"
       >
         {{ showMoreLink }}
       </b-button>
@@ -70,6 +70,9 @@
       },
       showMoreLink() {
         return `${this.$tc('showMore')} ${this.contentType.name.toLowerCase()} (${this.total})`;
+      },
+      buttonPath() {
+        return { name: (this.category === 'Blog posts') ? 'blog' : this.category.toLowerCase() };
       }
     },
 
