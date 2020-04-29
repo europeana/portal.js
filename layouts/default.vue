@@ -51,7 +51,8 @@
 
     computed: {
       ...mapGetters({
-        canonicalUrl: 'http/canonicalUrl'
+        canonicalUrl: 'http/canonicalUrl',
+        canonicalUrlWithoutLocale: 'http/canonicalUrlWithoutLocale'
       }),
       enableAutoSuggest() {
         // Auto suggest on search form will be disabled unless toggled on by env var,
@@ -72,7 +73,8 @@
     head() {
       return {
         link: [
-          { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Ubuntu:300,400,700%7COpen+Sans:400italic,700italic,400,600,700&subset=latin,greek,cyrillic&display=swap', body: true }
+          { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Ubuntu:300,400,700%7COpen+Sans:400italic,700italic,400,600,700&subset=latin,greek,cyrillic&display=swap', body: true },
+          { hreflang: 'x-default', rel: 'alternate', href: this.canonicalUrlWithoutLocale }
         ],
         meta: [
           { hid: 'description', property: 'description', content: 'Europeana' },
@@ -82,7 +84,3 @@
     }
   };
 </script>
-
-<style lang="scss">
-  @import '~assets/scss/style';
-</style>
