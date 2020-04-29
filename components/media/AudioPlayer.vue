@@ -13,7 +13,7 @@
     data-qa="audio player"
   >
     <source
-      :src="src | proxyMedia(europeanaIdentifier)"
+      :src="$proxyMedia(src, europeanaIdentifier)"
       :type="type"
       data-qa="audio source"
     >
