@@ -131,6 +131,6 @@ describe('components/generic/ContentCard', () => {
     });
 
     const description =  wrapper.find('[data-qa="highlighted search term"] p');
-    description.html().should.contain('<p>The quick brown  <span class="font-weight-bold has-text-highlight">fox</span>  jumps over the lazy dog</p>');
+    description.html().should.contain('<p>The quick brown <strong class="has-text-highlight">fox</strong> jumps over the lazy dog</p>');
   });
 });
