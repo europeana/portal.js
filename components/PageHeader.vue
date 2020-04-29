@@ -1,32 +1,37 @@
 <template>
   <b-container
     fluid
-    class="border-bottom p-0 mb-3"
+    class="border-bottom mb-3 d-flex py-3 py-lg-1 px-lg-3 flex-column flex-lg-row"
+    data-qa="header"
   >
-    <b-navbar
-      class="pb-3 pt-3 py-lg-1 px-lg-3 flex-column flex-lg-row"
-      data-qa="header"
+    <header
+      class="col-lg p-0 m-0 text-center text-lg-left navbar-brand d-flex align-items-center justify-content-center justify-content-lg-start flex-column flex-lg-row"
+      role="banner"
+      aria-label="Europeana home"
     >
-      <b-navbar-brand
-        class="col-lg-2 p-0 m-0 text-center text-lg-left"
+      <SmartLink
+        :destination="{ name: 'index' }"
       >
-        <SmartLink
-          :destination="{ name: 'index' }"
+        <img
+          src="../assets/img/logo.svg"
+          :alt="$t('homeLinkAlt')"
+          class="mb-2 mb-sm-0 mw-100"
+          data-qa="logo"
         >
-          <img
-            src="../assets/img/logo.svg"
-            :alt="$t('homeLinkAlt')"
-            class="mb-2 mb-sm-0 mw-100"
-            data-qa="logo"
-          >
-        </SmartLink>
-      </b-navbar-brand>
+      </SmartLink>
       <SearchForm
         data-qa="search form"
-        class="col-lg w-100 px-3 mr-auto mx-xl-auto"
+        role="search"
+        class="w-100 px-3 mr-auto mx-xl-auto"
+        aria-label="search form"
         :enable-auto-suggest="enableAutoSuggest"
         :enable-suggestion-validation="enableSuggestionValidation"
       />
+    </header>
+    <b-navbar
+      class="p-0 justify-content-center justify-content-lg-end"
+      role="navigation"
+    >
       <PageNavigation />
     </b-navbar>
   </b-container>
