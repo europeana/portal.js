@@ -151,7 +151,6 @@ export const mutations = {
 export const getters = {
   activeView(state) {
     if (state.view) {
-      console.log('in state', state.view);
       return state.view;
     } else if (process.browser) {
       if (sessionStorage.searchResultsView) {
@@ -356,11 +355,6 @@ export const actions = {
       .then((response) => {
         commit('setFacets', response.facets);
         const collection = getters.collection;
-
-        if (getters.hasCollectionSpecificSettings(collection) && rootState.collections[collection]['view'] !== undefined) {
-          console.log('search specific collection', rootGetters[`collections/${collection}/view`]);
-          commit('set', ['view', rootGetters[`collections/${collection}/view`]]);
-        }
 
         if (getters.hasCollectionSpecificSettings(collection) && rootState.collections[collection]['facets'] !== undefined) {
           commit(`collections/${collection}/set`, ['facets', state.facets], { root: true });
