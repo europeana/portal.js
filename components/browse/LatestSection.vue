@@ -58,15 +58,16 @@
 
     computed: {
       contentType() {
-        if (this.category === 'Exhibitions') {
+        switch (this.category) {
+        case 'Exhibitions':
           return { type: 'exhibitionPage', name: this.$tc('exhibitions.exhibitions', this.total) };
-        } else if (this.category === 'Galleries') {
+        case 'Galleries':
           return { type: 'imageGallery', name: this.$tc('galleries.galleries', this.total) };
-        } else if (this.category === 'Blog posts') {
+        case 'Blog posts':
           return { type: 'blogPosting', name: this.$tc('blog.blogs', this.total) };
-        } else {
-          return false;
         }
+
+        return false;
       },
       showMoreLink() {
         return `${this.$tc('showMore')} ${this.contentType.name.toLowerCase()} (${this.total})`;
