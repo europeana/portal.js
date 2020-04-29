@@ -57,7 +57,7 @@
             text-tag="div"
             data-qa="highlighted search term"
           >
-            <p>{{ hitsText.prefix }} <span class="font-weight-bold has-text-highlight">{{ hitsText.exact }}</span> {{ hitsText.suffix }}</p>
+            <p>{{ hitsText.prefix }} <strong class="has-text-highlight">{{ hitsText.exact }}</strong> {{ hitsText.suffix }}</p>
           </b-card-text>
         </template>
         <template v-if="displayTexts.length > 0">
