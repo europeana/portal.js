@@ -15,7 +15,6 @@
     />
     <span
       class="reset icon-close"
-      :aria-label="$t('facets.button.reset')"
     />
   </b-form-checkbox>
 </template>
