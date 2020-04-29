@@ -5,7 +5,7 @@ module.exports = function(migration) {
     .editField('genre')
     .validations([
       {
-        in: ['Exhibitions', 'Galleries', 'Blog']
+        in: ['Exhibitions', 'Galleries', 'Blog posts']
       },
       {
         unique: true
