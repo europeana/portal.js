@@ -312,7 +312,7 @@
           if ((Array.isArray(selected) && selected.length === 0) || !selected) return;
         }
         if (isEqual(this.filters[name], selected)) return;
-        
+
         return this.rerouteSearch(this.queryUpdatesForFacetChanges({ [name]: selected }));
       },
       changeMoreFacets(selected) {
