@@ -4,24 +4,24 @@
     class="d-flex flex-wrap mb-3"
   >
     <!-- TODO: populate alt, but with what? -->
-    <a
+    <button
       v-for="(thumbnail, index) of thumbnails"
       :key="index"
       ref="thumbnail"
       :class="thumbnailImgClass(thumbnail, index)"
       :data-about="thumbnail.about"
-      :data-qa="`link thumbnail #${index + 1}`"
-      href="#"
-      class="thumbnail-link mb-2 mr-2"
+      :data-qa="`media thumbnail anchor #${index + 1}`"
+      :aria-label="$t('mediaPreview.selectItem', { src: index + 1 })"
+      class="thumbnail-button mb-2 mr-2"
       @click="clickThumbnail(thumbnail.about)"
     >
       <b-img-lazy
         :src="thumbnail.src"
         :data-qa="`media thumbnail #${index + 1}`"
+        alt=""
         thumbnail
-        :alt="$t('mediaPreview.selectItem', { src: index + 1 })"
       />
-    </a>
+    </button>
     <button
       v-if="thumbnails.length > showMoreIndex"
       class="pb-0"
@@ -135,15 +135,27 @@
 <style lang="scss" scoped>
   @import "./assets/scss/variables.scss";
 
-  .thumbnail-link {
+  .thumbnail-button {
     height: 5.5rem;
     width: 5.5rem;
     border: 1px solid $paper;
     overflow: hidden;
+    padding: 0;
+    position: relative;
 
     &.selected {
-      border-color: $blue;
-      border-width: 2px;
+      border: 1px solid $blue;
+
+      &:after {
+        box-shadow: inset 0px 0px 0px 1px $blue;
+        content: '';
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+      }
     }
   }
 

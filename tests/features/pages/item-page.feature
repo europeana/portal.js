@@ -47,9 +47,9 @@ Feature: item page
   Scenario: Media thumbnail grid for multiple web resources
     When I open the `"Hammerflügel" item page`
     And I see the `media thumbnail grid`
-    And the `link thumbnail #1` is marked as "selected"
-    And I click the `link thumbnail #2`
-    Then the `link thumbnail #2` is marked as "selected"
+    And the `media thumbnail anchor #1` is marked as "selected"
+    And I click the `media thumbnail anchor #2`
+    Then the `media thumbnail anchor #2` is marked as "selected"
 
   Scenario: No media thumbnail grid for single web resources
     When I open `"The Milkmaid" item page`
