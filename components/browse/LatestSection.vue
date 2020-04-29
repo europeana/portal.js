@@ -23,7 +23,7 @@
       <b-button
         v-if="total > 4"
         variant="light"
-        :to="localePath({ name: category.toLowerCase() })"
+        :to="localePath({ name: category === 'Blog posts' ? 'blog' : category.toLowerCase() })"
       >
         {{ showMoreLink }}
       </b-button>
@@ -62,6 +62,8 @@
           return { type: 'exhibitionPage', name: this.$tc('exhibitions.exhibitions', this.total) };
         } else if (this.category === 'Galleries') {
           return { type: 'imageGallery', name: this.$tc('galleries.galleries', this.total) };
+        } else if (this.category === 'Blog posts') {
+          return { type: 'blogPosting', name: this.$tc('blog.blogs', this.total) };
         } else {
           return false;
         }
@@ -92,16 +94,20 @@
 
         switch (this.category) {
         case 'Exhibitions':
-          data = this.exhibitionCardData(card);
+          data = this.defaultCardData(card, 'exhibitions-exhibition');
           break;
         case 'Galleries':
           data = this.galleryCardData(card);
+          break;
+        case 'Blog posts':
+          data = this.defaultCardData(card, 'blog-all');
           break;
         }
 
         return data;
       },
-      exhibitionCardData(card) {
+      defaultCardData(card, name) {
+        const key = name === 'exhibitions-exhibition' ? 'exhibition' : 'pathMatch';
         const image = card.primaryImageOfPage;
         let imageUrl;
         let imageContentType;
@@ -111,7 +117,7 @@
         }
 
         return {
-          cardLink: { name: 'exhibitions-exhibition', params: { exhibition: card.identifier } },
+          cardLink: { name, params: { [key]: card.identifier } },
           imageUrl,
           imageContentType
         };
