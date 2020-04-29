@@ -1,6 +1,6 @@
 import axios from 'axios';
 import escapeRegExp from 'lodash/escapeRegExp';
-import providers from './oembed/providers';
+import providers from './providers';
 
 for (const provider of providers) {
   provider.schemeRegExps = provider.schemes.map((scheme) => {
@@ -34,6 +34,6 @@ export default function oEmbed(url) {
   if (!provider) return null;
 
   return axios.get(provider.endpoint, {
-    params: { url }
+    params: { url, format: 'json' }
   });
 }
