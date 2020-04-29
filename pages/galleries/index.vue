@@ -3,9 +3,9 @@
     <header class="row">
       <div class="col-12 col-lg-9 col mt-3">
         <h1>{{ $tc('galleries.galleries', 2) }}</h1>
-        <p class="lead">
+        <h3 class="lead">
           {{ $t('galleries.description') }}
-        </p>
+        </h3>
       </div>
     </header>
     <b-row class="flex-md-row pb-5">

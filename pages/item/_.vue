@@ -149,12 +149,12 @@
           cols="12"
           lg="3"
         >
-          <h2
+          <h3
             v-if="relatedEntities && relatedEntities.length > 0"
             class="related-heading text-uppercase"
           >
             {{ $t('contentYouMightLike') }}
-          </h2>
+          </h3>
           <EntityCards
             v-if="relatedEntities"
             :entities="relatedEntities"
@@ -440,7 +440,7 @@
   @import "./assets/scss/variables.scss";
   @import "./assets/scss/icons.scss";
 
-  h2:not(.related-heading) {
+  h2 {
     font-size: $font-size-medium;
     font-weight: bold;
   }

@@ -39,7 +39,7 @@
         </b-card-sub-title>
         <b-card-title
           v-if="displayTitle"
-          title-tag="div"
+          title-tag="h5"
           :lang="displayTitle.code"
         >
           {{ displayTitle.values[0] | truncate(90, $t('formatting.ellipsis')) }}

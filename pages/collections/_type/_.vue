@@ -34,12 +34,12 @@
         md="3"
         class="pb-3"
       >
-        <h2
+        <h3
           v-if="relatedEntities.length > 0"
           class="related-heading text-uppercase"
         >
           {{ $t('contentYouMightLike') }}
-        </h2>
+        </h3>
         <section
           v-if="relatedCollectionCards"
         >
