@@ -28,12 +28,12 @@
       >
         <div class="col-12 col-lg-9 col mt-3">
           <h1>{{ page.name }}</h1>
-          <h3
+          <p
             v-if="page.headline"
             class="lead"
           >
             {{ page.headline }}
-          </h3>
+          </p>
         </div>
       </header>
       <BrowseSections

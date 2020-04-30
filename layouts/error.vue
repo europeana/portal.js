@@ -8,9 +8,9 @@
           <main role="main">
             <h1>{{ $t('error') }}</h1>
             <div data-qa="error notice">
-              <h3 class="lead">
+              <p class="lead">
                 {{ error.message }}
-              </h3>
+              </p>
             </div>
           </main>
         </b-col>
