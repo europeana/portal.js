@@ -24,6 +24,7 @@
 
   .card-img {
     display: flex;
+    overflow: hidden;
     flex: 1 1 auto;
     max-height: 10rem;
     min-height: 10rem;
@@ -97,7 +98,7 @@
       }
     }
 
-    @media (min-width: $bp-medium) {      
+    @media (min-width: $bp-medium) {
       min-height: auto;
     }
   }
@@ -120,7 +121,7 @@
         overflow: hidden;
         position: relative;
         width: 80px;
-        
+
         img {
           height: 80px;
           margin: 0;
@@ -150,8 +151,8 @@
 
       .card-text {
         color: $blue;
-      }      
-    }    
+      }
+    }
   }
 
   &.list-card {
@@ -161,7 +162,7 @@
       a {
         flex-direction: row;
         justify-content: space-between;
-      
+
         .card-img {
           display: inline-block;
           height: 13rem;
@@ -240,9 +241,33 @@
 
     a {
       .card-img {
-        min-height: 12rem;
-        max-height: initial;
+        max-height: 10rem;
       }
+    }
+  }
+}
+
+.aligned-cards{
+  .content-card {
+    .card-img{
+      max-height: 10rem;
+    }
+    .card-title {
+      max-height: 2.375rem;
+      min-height: 2.375rem;
+      margin-bottom: 0.5rem;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+    .card-text:last-of-type p {
+      margin-bottom: 0;
+      max-height: 4.75rem;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 4;
+      -webkit-box-orient: vertical;
     }
   }
 }
