@@ -20,6 +20,12 @@ export function isHTMLAudio(media) {
   return ['audio/flac', 'audio/ogg', 'audio/mpeg'].includes(media.ebucoreHasMimeType);
 }
 
+export function isPlayableMedia(media) {
+  return (media.ebucoreHasMimeType.startsWith('video/') ||
+    media.ebucoreHasMimeType.startsWith('audio/') ||
+    (media.ebucoreHasMimeType === 'application/dash+xml'));
+}
+
 export function isOEmbed(media) {
   return oEmbeddable(media.about);
 }

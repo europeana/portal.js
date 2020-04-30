@@ -8,6 +8,14 @@
       :image-src="imageSrc"
       :media="media"
     />
+    <MediaPlayer
+      v-else-if="isPlayableMedia"
+      :europeana-identifier="europeanaIdentifier"
+      :src="media.about"
+      :type="media.ebucoreHasMimeType"
+      :width="media.ebucoreWidth"
+      :height="media.ebucoreHeight"
+    />
     <VideoPlayer
       v-else-if="isHTMLVideo"
       :europeana-identifier="europeanaIdentifier"
@@ -40,12 +48,13 @@
 <script>
   import MediaImage from './MediaImage';
   import VideoPlayer from '../../components/media/VideoPlayer';
+  import MediaPlayer from '../../components/media/MediaPlayer';
   import AudioPlayer from '../../components/media/AudioPlayer';
   import HTMLEmbed from '../../components/generic/HTMLEmbed';
 
   import oEmbed from '../../plugins/oembed.js';
   import {
-    isHTMLVideo, isHTMLAudio, isIIIFImage, isIIIFPresentation,
+    isPlayableMedia, isHTMLVideo, isHTMLAudio, isIIIFImage, isIIIFPresentation,
     isOEmbed, isRichMedia, iiifManifest
   } from '../../plugins/media';
 
@@ -55,6 +64,7 @@
     components: {
       MediaImage,
       VideoPlayer,
+      MediaPlayer,
       AudioPlayer,
       HTMLEmbed
     },
@@ -85,6 +95,10 @@
         return (this.imageSrc !== '') && !isRichMedia(this.media, {
           iiif: Number(process.env.ENABLE_IIIF_MEDIA)
         });
+      },
+      isPlayableMedia() {
+        console.log('isPlayableMedia', this.media);
+        return isPlayableMedia(this.media);
       },
       isHTMLVideo() {
         return isHTMLVideo(this.media);
