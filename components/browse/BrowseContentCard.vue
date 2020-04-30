@@ -85,6 +85,8 @@
 
         if (this.cardType === 'automatedRecordCard' && this.fields.encoding) {
           textFields = ['dcDescriptionLangAware', 'dcCreatorLangAware', 'dataProvider'];
+        } else if (this.cardType === 'mini') {
+          textFields = [];
         } else {
           textFields = ['description', 'creator', 'provider'];
         }
@@ -97,7 +99,13 @@
         return texts;
       },
       cardVariant() {
-        return this.cardType === 'automatedEntityCard' ? 'entity' : 'default';
+        if (this.cardType === 'automatedEntityCard') {
+          return 'entity';
+        } else if (this.cardType === 'mini') {
+          return this.cardType;
+        } else {
+          return 'default';
+        }
       }
     },
     methods: {

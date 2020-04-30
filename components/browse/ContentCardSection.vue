@@ -24,7 +24,7 @@
           v-for="card in cards"
           :key="card.sys.id"
           :fields="card.fields"
-          :card-type="card.sys.contentType ? card.sys.contentType.sys.id : ''"
+          :card-type="cardType(card)"
         />
       </b-card-group>
       <SmartLink
@@ -56,7 +56,27 @@
     },
     computed: {
       cards() {
-        return this.section.fields.hasPart.filter(card => card.fields);
+        const cards = this.section.fields.hasPart.filter(card => card.fields);
+        return cards.map(card => {
+          const identifier = card.fields.identifier;
+          const id = card.sys.contentType.sys.id;
+          if (id === 'automatedEntityCard' && identifier.match(/base/) && cards.length === 4) {
+            return { ...card, mini: true };
+          }
+          return { ...card };
+        });
+      }
+    },
+
+    methods: {
+      cardType(card) {
+        if (card.mini) {
+          return 'mini';
+        } else if (card.sys.contentType) {
+          return card.sys.contentType.sys.id;
+        } else {
+          return '';
+        }
       }
     }
   };
