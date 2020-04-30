@@ -26,13 +26,9 @@
     display: flex;
     overflow: hidden;
     flex: 1 1 auto;
-    max-height: 10rem;
-    min-height: 10rem;
+    max-height: 13rem;
+    min-height: 13rem;
     width: 100%;
-
-    @media (min-width: $bp-medium) {
-      max-height: 13rem;
-    }
 
     img {
       border-radius: 4px 4px 0 0;
@@ -50,6 +46,12 @@
   .card-title {
     font-size: 1rem;
     font-weight: 600;
+    max-height: 1.1875rem;
+    margin-bottom: 0.75rem;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
   }
 
   .card-subtitle {
@@ -71,6 +73,11 @@
 
     &:last-of-type p {
       margin-bottom: 0;
+      max-height: 4.75rem;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 4;
+      -webkit-box-orient: vertical;
     }
   }
 
@@ -243,33 +250,6 @@
       .card-img {
         max-height: 10rem;
       }
-    }
-  }
-}
-// .card-deck:not(.card-deck-search)
-// .browse-section
-.aligned-cards {
-  .content-card {
-    .card-img{
-      max-height: 13rem;
-      min-height: 13rem;
-    }
-    .card-title {
-      max-height: 2.375rem;
-      min-height: 2.375rem;
-      margin-bottom: 0.5rem;
-      overflow: hidden;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-    }
-    .card-text:last-of-type p {
-      margin-bottom: 0;
-      max-height: 4.75rem;
-      overflow: hidden;
-      display: -webkit-box;
-      -webkit-line-clamp: 4;
-      -webkit-box-orient: vertical;
     }
   }
 }

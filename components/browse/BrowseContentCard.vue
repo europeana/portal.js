@@ -96,7 +96,6 @@
         return texts;
       },
       cardVariant() {
-        console.log(this.cardType);
         return this.cardType === 'automatedEntityCard' ? 'entity' : 'default';
       }
     },
