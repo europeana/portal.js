@@ -25,7 +25,6 @@
           :key="card.sys.id"
           :fields="card.fields"
           :card-type="card.sys.contentType ? card.sys.contentType.sys.id : ''"
-          :variant="variant"
         />
       </b-card-group>
       <SmartLink
