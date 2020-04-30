@@ -63,6 +63,7 @@
         <BrowseSections
           v-if="page"
           :sections="page.hasPart"
+          variant="portrait"
         />
       </b-col>
     </b-row>

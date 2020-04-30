@@ -36,7 +36,7 @@
       :limit-values-within-each-text="3"
       :omit-all-uris="true"
       :blank-image-height="280"
-      variant="search"
+      variant="portrait"
     />
   </b-card-group>
 </template>

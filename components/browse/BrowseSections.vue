@@ -13,6 +13,7 @@
         v-else-if="contentType(section, 'cardGroup')"
         :key="section.sys.id"
         :section="section"
+        :variant="variant"
       />
       <LatestSection
         v-else-if="contentType(section, 'latestCardGroup')"
