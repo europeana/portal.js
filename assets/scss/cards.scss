@@ -246,11 +246,13 @@
     }
   }
 }
-
-.aligned-cards{
+// .card-deck:not(.card-deck-search)
+// .browse-section
+.aligned-cards {
   .content-card {
     .card-img{
-      max-height: 10rem;
+      max-height: 13rem;
+      min-height: 13rem;
     }
     .card-title {
       max-height: 2.375rem;
