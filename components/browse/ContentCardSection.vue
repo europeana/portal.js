@@ -20,12 +20,25 @@
         deck
         data-qa="section group"
       >
-        <BrowseContentCard
-          v-for="card in cards"
-          :key="card.sys.id"
-          :fields="card.fields"
-          :card-type="cardType(card)"
-        />
+        <template v-if="!peopleSection">
+          <BrowseContentCard
+            v-for="card in cards"
+            :key="card.sys.id"
+            :fields="card.fields"
+            :card-type="card.sys.contentType ? card.sys.contentType.sys.id : ''"
+          />
+        </template>
+        <template v-else>
+          <ContentCard
+            v-for="card in cards"
+            :key="card.sys.id"
+            :title="card.fields.name"
+            :url="card.fields.identifier"
+            :image-url="card.fields.image"
+            :image-optimisation-options="{ width: 510 }"
+            variant="mini"
+          />
+        </template>
       </b-card-group>
       <SmartLink
         v-if="section.fields.moreButton"
@@ -40,12 +53,15 @@
 </template>
 
 <script>
+  import { entityParamsFromUri } from '../../plugins/europeana/entity';
+  import ContentCard from '../generic/ContentCard';
   import BrowseContentCard from './BrowseContentCard';
   import SmartLink from '../generic/SmartLink';
 
   export default {
     components: {
       BrowseContentCard,
+      ContentCard,
       SmartLink
     },
     props: {
@@ -56,27 +72,17 @@
     },
     computed: {
       cards() {
-        const cards = this.section.fields.hasPart.filter(card => card.fields);
-        return cards.map(card => {
-          const identifier = card.fields.identifier;
-          const id = card.sys.contentType.sys.id;
-          if (id === 'automatedEntityCard' && identifier.match(/base/) && cards.length === 4) {
-            return { ...card, mini: true };
-          }
-          return { ...card };
-        });
-      }
-    },
-
-    methods: {
-      cardType(card) {
-        if (card.mini) {
-          return 'mini';
-        } else if (card.sys.contentType) {
-          return card.sys.contentType.sys.id;
-        } else {
-          return '';
+        return this.section.fields.hasPart.filter(card => card.fields);
+      },
+      peopleSection() {
+        if (this.cards.length === 4) {
+          return this.cards.every((card) => {
+            const identifier = card.fields.identifier;
+            return identifier ? entityParamsFromUri(identifier).type === 'person' : false;
+          });
         }
+
+        return false;
       }
     }
   };
