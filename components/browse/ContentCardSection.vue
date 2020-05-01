@@ -20,7 +20,7 @@
         deck
         data-qa="section group"
       >
-        <template v-if="!peopleSection">
+        <template v-if="!isPeopleSection">
           <BrowseContentCard
             v-for="card in cards"
             :key="card.sys.id"
@@ -74,7 +74,7 @@
       cards() {
         return this.section.fields.hasPart.filter(card => card.fields);
       },
-      peopleSection() {
+      isPeopleSection() {
         if (this.cards.length === 4) {
           return this.cards.every((card) => {
             const identifier = card.fields.identifier;
