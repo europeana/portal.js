@@ -49,7 +49,6 @@
 
   export default {
     name: 'BlogFoyer',
-    layout: 'blog',
     components: {
       ContentCard,
       PaginationNav
