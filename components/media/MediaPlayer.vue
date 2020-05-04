@@ -10,6 +10,8 @@
     :width="width"
     :height="height"
     allow="fullscreen"
+    :style="{ width: width, height: height }"
+    class="media-player"
   />
 </template>
 
@@ -42,11 +44,18 @@
 
     computed: {
       manifest() {
-        return `https://iiif.europeana.eu/presentation/${this.europeanaIdentifier}/manifest?format=3&wskey=api2demo`;
+        return `https://iiif.europeana.eu/presentation/${this.europeanaIdentifier}/manifest?format=3&wskey=${process.env['EUROPEANA_RECORD_API_KEY']}`;
       },
       mediaSrc() {
-        return `http://europeana-media-video-embed.eanadev.org/?manifest=${this.manifest}`;
+        return `http://europeana-media-video-embed.eanadev.org/?manifest=${this.manifest}&width=${this.width}&height=${this.height}`;
       }
     }
   };
 </script>
+
+<style lang="scss" scoped>
+  iframe {
+    border: 0;
+  }
+</style>
+

@@ -151,7 +151,7 @@
       width: 100%;
     }
 
-    iframe {
+    iframe:not(.media-player) {
       height: 80vh;
       border: 1px solid $lightgrey;
       border-radius: $border-radius-small;
