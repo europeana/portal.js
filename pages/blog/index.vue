@@ -74,7 +74,7 @@
       }
     },
 
-    asyncData({ query, redirect, error, app, store }) {
+    asyncData({ query, redirect, error, app }) {
       const currentPage = pageFromQuery(query.page);
       if (currentPage === null) {
         // Redirect non-positive integer values for `page` to `page=1`
@@ -91,13 +91,6 @@
         limit: PER_PAGE
       })
         .then((response) => {
-          store.commit('breadcrumb/setBreadcrumbs', [
-            {
-              text:  app.i18n.t('blog.blog'),
-              active: true
-            }
-          ]);
-
           return {
             posts: response.items,
             total: response.total,
@@ -115,11 +108,6 @@
       }
     },
 
-    watchQuery: ['page'],
-
-    beforeRouteLeave(to, from, next) {
-      this.$store.commit('breadcrumb/clearBreadcrumb');
-      next();
-    }
+    watchQuery: ['page']
   };
 </script>
