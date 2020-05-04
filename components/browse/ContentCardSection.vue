@@ -76,14 +76,11 @@
       },
 
       isPeopleSection() {
-        if (this.cards.length === 4) {
-          return this.cards.every((card) => {
-            const identifier = card.fields.identifier;
-            return identifier ? entityParamsFromUri(identifier).type === 'person' : false;
-          });
-        }
-
-        return false;
+        if (this.cards.length !== 4) return false;
+        return this.cards.every((card) => {
+          const identifier = card.fields.identifier;
+          return identifier ? entityParamsFromUri(identifier).type === 'person' : false;
+        });
       }
     }
   };

@@ -114,5 +114,39 @@ describe('components/browse/ContentCardSection', () => {
 
       wrapper.vm.isPeopleSection.should.equal(true);
     });
+
+    it('does not display mini cards if a section is not exclusively people', () => {
+      const wrapper = factory();
+      wrapper.setProps({
+        section: {
+          fields: {
+            hasPart: [
+              {
+                fields: {
+                  identifier: 'http://data.europeana.eu/concept/base/123'
+                }
+              },
+              {
+                fields: {
+                  identifier: 'http://data.europeana.eu/agent/base/1234'
+                }
+              },
+              {
+                fields: {
+                  identifier: 'http://data.europeana.eu/agent/base/12345'
+                }
+              },
+              {
+                fields: {
+                  identifier: 'http://data.europeana.eu/agent/base/12346'
+                }
+              }
+            ]
+          }
+        }
+      });
+
+      wrapper.vm.isPeopleSection.should.equal(false);
+    });
   });
 });
