@@ -60,11 +60,11 @@
       contentType() {
         switch (this.category) {
         case 'Exhibitions':
-          return { type: 'exhibitionPage', name: this.$tc('exhibitions.exhibitions', this.total) };
+          return { type: 'exhibitionPage', name: this.$tc('exhibitions.exhibitions', this.total), path: 'exhibitions' };
         case 'Galleries':
-          return { type: 'imageGallery', name: this.$tc('galleries.galleries', this.total) };
+          return { type: 'imageGallery', name: this.$tc('galleries.galleries', this.total), path: 'galleries' };
         case 'Blog posts':
-          return { type: 'blogPosting', name: this.$tc('blog.blogs', this.total) };
+          return { type: 'blogPosting', name: this.$tc('blog.blogs', this.total), path: 'blog' };
         }
 
         return false;
