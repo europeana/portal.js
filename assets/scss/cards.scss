@@ -23,6 +23,7 @@
   }
 
   .card-img {
+    border-radius: 4px 4px 0 0;
     display: flex;
     overflow: hidden;
     flex: 1 1 auto;
@@ -31,7 +32,6 @@
     width: 100%;
 
     img {
-      border-radius: 4px 4px 0 0;
       object-fit: cover;
       width: 100%;
     }
@@ -146,6 +146,10 @@
       .card-title {
         overflow-wrap: break-word;
         word-break: break-word;
+        max-height: 3.5625rem;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
       }
 
       .card-body {
@@ -246,9 +250,26 @@
     transform: translateZ(0);
     width: 100%;
 
+    .card-title {
+      display: block;
+      -webkit-line-clamp: initial;
+      -webkit-box-orient: initial;
+      overflow: auto;
+      max-height: none;
+    }
+
+    .card-text:last-of-type p {
+      max-height: none;
+      overflow: auto;
+      display: block;
+      -webkit-line-clamp: initial;
+      -webkit-box-orient: initial;
+    }
+
     a {
       .card-img {
-        max-height: 10rem;
+        min-height: 12rem;
+        max-height: none;
       }
     }
   }
