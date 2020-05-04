@@ -1,9 +1,11 @@
 <template>
   <b-container data-qa="blog">
-    <b-row class="flex-md-row pb-5">
-      <b-col cols="12">
+    <header class="row">
+      <div class="col-12 col-lg-9 col mt-3">
         <h1>{{ $t('blog.blog') }}</h1>
-      </b-col>
+      </div>
+    </header>
+    <b-row class="flex-md-row pb-5">
       <b-col cols="12">
         <b-card-group
           class="card-deck-4-cols"
@@ -47,7 +49,7 @@
 
   export default {
     name: 'BlogFoyer',
-
+    layout: 'blog',
     components: {
       ContentCard,
       PaginationNav
