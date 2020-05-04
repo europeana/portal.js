@@ -80,5 +80,39 @@ describe('components/browse/ContentCardSection', () => {
       moreButton.text().should.contain('Show more art');
       moreButton.attributes('href').should.eq('http://europeana.eu');
     });
+
+    it('displays mini cards if a section is exclusively people', () => {
+      const wrapper = factory();
+      wrapper.setProps({
+        section: {
+          fields: {
+            hasPart: [
+              {
+                fields: {
+                  identifier: 'http://data.europeana.eu/agent/base/123'
+                }
+              },
+              {
+                fields: {
+                  identifier: 'http://data.europeana.eu/agent/base/1234'
+                }
+              },
+              {
+                fields: {
+                  identifier: 'http://data.europeana.eu/agent/base/12345'
+                }
+              },
+              {
+                fields: {
+                  identifier: 'http://data.europeana.eu/agent/base/12346'
+                }
+              }
+            ]
+          }
+        }
+      });
+
+      wrapper.vm.isPeopleSection.should.equal(true);
+    });
   });
 });

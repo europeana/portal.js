@@ -74,6 +74,7 @@
       cards() {
         return this.section.fields.hasPart.filter(card => card.fields);
       },
+
       isPeopleSection() {
         if (this.cards.length === 4) {
           return this.cards.every((card) => {
