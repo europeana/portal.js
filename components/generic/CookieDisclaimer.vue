@@ -19,8 +19,8 @@
                 {{ $t('cookieDisclaimer.link') }}
               </SmartLink>
             </p>
-            <span
-              class="accept-btn icon-close"
+            <button
+              class="accept-btn icon-close btn-transparent"
               :aria-label="$t('cookieDisclaimer.acceptCookieDisclaimer')"
               data-qa="cookie disclaimer button"
               @click="accept"
@@ -118,6 +118,11 @@
       justify-content: center;
       display: flex;
       cursor: pointer;
+      color: $white;
+
+      &:focus {
+        outline-color: $white;
+      }
 
       &:hover {
         opacity: .8;
@@ -126,6 +131,9 @@
 
     .more-info {
       color: $white;
+      &:focus {
+        outline-color: $white;
+      }
     }
   }
 </style>

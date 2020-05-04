@@ -117,9 +117,16 @@
         };
       },
       galleryCardData(card) {
+        let imageUrl;
+        if (card.hasPart[0].fields.encoding) {
+          imageUrl = `${card.hasPart[0].fields.encoding.edmPreview[0]}&size=w200`;
+        } else {
+          imageUrl = card.hasPart[0].fields.thumbnailUrl;
+        }
+
         return {
           cardLink: { name: 'galleries-all', params: { pathMatch: card.identifier } },
-          imageUrl: card.hasPart[0].fields.thumbnailUrl
+          imageUrl
         };
       }
     }

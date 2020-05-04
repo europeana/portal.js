@@ -7,7 +7,6 @@
     <ColourSwatch
       v-if="forColourPalette"
       :hex-code="option"
-      :aria-labelledby="fieldLabelId"
     />
     <FacetFieldLabel
       :id="fieldLabelId"
@@ -16,7 +15,6 @@
     />
     <span
       class="reset icon-close"
-      :aria-label="$t('facets.button.reset')"
     />
   </b-form-checkbox>
 </template>

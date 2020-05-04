@@ -59,7 +59,7 @@
         if (!this.media.about) {
           return false;
         }
-        return isImage(this.media) ? this.$options.filters.proxyMedia(this.media.about, this.europeanaIdentifier, { disposition: 'inline' }) : this.media.about;
+        return isImage(this.media) ? this.$proxyMedia(this.media.about, this.europeanaIdentifier, { disposition: 'inline' }) : this.media.about;
       }
     }
   };

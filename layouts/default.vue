@@ -1,5 +1,6 @@
 <template>
   <div>
+    <CookieDisclaimer />
     <a
       class="skip-main"
       href="#main"
@@ -12,23 +13,22 @@
       :enable-language-selector="enableLanguageSelector"
       :enable-suggestion-validation="enableSuggestionValidation"
     />
-    <b-container v-if="breadcrumbs">
-      <b-row>
-        <b-col class="col-12">
-          <b-breadcrumb
-            :items="breadcrumbs"
-            class="px-0"
-          />
-        </b-col>
-      </b-row>
-    </b-container>
     <main role="main">
+      <b-container v-if="breadcrumbs">
+        <b-row>
+          <b-col class="col-12">
+            <b-breadcrumb
+              :items="breadcrumbs"
+              class="px-0"
+            />
+          </b-col>
+        </b-row>
+      </b-container>
       <nuxt
         id="main"
       />
     </main>
     <PageFooter />
-    <CookieDisclaimer />
   </div>
 </template>
 
@@ -51,7 +51,8 @@
 
     computed: {
       ...mapGetters({
-        canonicalUrl: 'http/canonicalUrl'
+        canonicalUrl: 'http/canonicalUrl',
+        canonicalUrlWithoutLocale: 'http/canonicalUrlWithoutLocale'
       }),
       enableAutoSuggest() {
         // Auto suggest on search form will be disabled unless toggled on by env var,
@@ -70,19 +71,22 @@
     },
 
     head() {
+      const i18nSeo = this.$nuxtI18nSeo();
       return {
+        htmlAttrs: {
+          ...i18nSeo.htmlAttrs
+        },
         link: [
-          { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Ubuntu:300,400,700%7COpen+Sans:400italic,700italic,400,600,700&subset=latin,greek,cyrillic&display=swap', body: true }
+          { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Ubuntu:300,400,700%7COpen+Sans:400italic,700italic,400,600,700&subset=latin,greek,cyrillic&display=swap', body: true },
+          { hreflang: 'x-default', rel: 'alternate', href: this.canonicalUrlWithoutLocale },
+          ...i18nSeo.link
         ],
         meta: [
           { hid: 'description', property: 'description', content: 'Europeana' },
-          { hid: 'og:url', property: 'og:url', content: this.canonicalUrl }
+          { hid: 'og:url', property: 'og:url', content: this.canonicalUrl },
+          ...i18nSeo.meta
         ]
       };
     }
   };
 </script>
-
-<style lang="scss">
-  @import '~assets/scss/style';
-</style>

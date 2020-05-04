@@ -26,12 +26,16 @@
               :fields="facet.fields"
               :type="facetDropdownType(facet.name)"
               :selected="filters[facet.name]"
+              role="search"
+              :aria-label="`${facet.name} dropdown button`"
               @changed="changeFacet"
             />
             <MoreFiltersDropdown
               v-if="enableMoreFacets"
               :more-facets="moreFacets"
               :selected="moreSelectedFacets"
+              role="search"
+              aria-label="more filters dropdown button"
               @changed="changeMoreFacets"
             />
             <button
@@ -298,10 +302,10 @@
       }
     },
     mounted() {
-      this.showToast();
+      this.showContentTierToast();
     },
     updated() {
-      this.showToast();
+      this.showContentTierToast();
     },
     methods: {
       facetDropdownType(name) {
@@ -358,22 +362,16 @@
       isFilteredByDropdowns() {
         return this.$store.getters['search/hasResettableFilters'];
       },
-      showToast() {
-        const contentTier = this.moreFacets.filter(facet => {
-          if (facet.fields) {
-            const contentTier0 = facet.fields.filter(option => option.label === '"0"');
-            if (facet.name === 'contentTier' && contentTier0.length > 0) {
-              return facet;
-            }
-          }
+      showContentTierToast() {
+        if (!process.browser) return;
+
+        const contentTierFacet = this.moreFacets.find(facet => {
+          return facet.name === 'contentTier' && facet.fields && facet.fields.some(option => option.label === '"0"');
         });
-        if (process.browser) {
-          if (contentTier.length > 0 && !sessionStorage.hideTierNotification) {
-            this.$bvToast.show('tier-toast');
-            this.$root.$on('bv::toast:shown', () => {
-              sessionStorage.hideTierNotification = true;
-            });
-          }
+
+        if (contentTierFacet && !sessionStorage.contentTierToastShown) {
+          this.$bvToast.show('tier-toast');
+          this.$root.$on('bv::toast:shown', () => sessionStorage.contentTierToastShown = true);
         }
       }
     }

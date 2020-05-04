@@ -319,14 +319,97 @@ describe('components/search/SearchInterface', () => {
       });
     });
 
-    describe('showToast', () => {
-      context('when user searches first time in a session', () => {
-        it('does show a toast notification', async() => {
-          const wrapper = factory();
-          await wrapper.vm.showToast();
+    describe('showContentTierToast', () => {
+      const elementId = 'tier-toast';
+      let facets = [];
 
-          const toast = wrapper.find('[data-qa="tier toast"]');
-          toast.isVisible().should.be.true;
+      context('in browser', () => {
+        beforeEach(() => {
+          process.browser = true;
+          global.sessionStorage = {};
+        });
+
+        context('with contentTier "0" facet field', () => {
+          beforeEach(() => {
+            facets = [
+              { name: 'contentTier', fields: [{ label: '"0"' }] }
+            ];
+          });
+
+          context('when toast has not yet been shown this session', () => {
+            it('shows the toast', async() => {
+              const wrapper = factory({
+                storeState: { facets }
+              });
+              wrapper.vm.$bvToast.show = sinon.spy();
+
+              await wrapper.vm.showContentTierToast();
+
+              wrapper.vm.$bvToast.show.should.have.been.calledWith(elementId);
+            });
+
+            it('updates session storage after toast is shown', async() => {
+              const wrapper = factory({
+                storeState: { facets }
+              });
+
+              await wrapper.vm.showContentTierToast();
+              await wrapper.vm.$root.$emit('bv::toast:shown');
+
+              global.sessionStorage.contentTierToastShown.should.be.true;
+            });
+          });
+
+          context('when toast has previously been shown this session', () => {
+            beforeEach(() => {
+              global.sessionStorage.contentTierToastShown = true;
+            });
+
+            it('does not show the toast', async() => {
+              const wrapper = factory({
+                storeState: { facets }
+              });
+              wrapper.vm.$bvToast.show = sinon.spy();
+
+              await wrapper.vm.showContentTierToast();
+
+              wrapper.vm.$bvToast.show.should.not.have.been.called;
+            });
+          });
+        });
+
+        context('without contentTier 0 facet field', () => {
+          beforeEach(() => {
+            facets = [
+              { name: 'contentTier', fields: [{ label: '"1"' }] }
+            ];
+          });
+
+          it('does not show the toast', async() => {
+            const wrapper = factory({
+              storeState: { facets }
+            });
+            wrapper.vm.$bvToast.show = sinon.spy();
+
+            await wrapper.vm.showContentTierToast();
+
+            wrapper.vm.$bvToast.show.should.not.have.been.called;
+          });
+        });
+      });
+
+      context('when not in browser', () => {
+        beforeEach(() => {
+          process.browser = false;
+        });
+
+        it('does not show the toast', async() => {
+          const wrapper = factory();
+          wrapper.vm.$bvToast.show = sinon.spy();
+
+          await wrapper.vm.showContentTierToast();
+
+          wrapper.vm.$bvToast.show.should.not.have.been.called;
         });
       });
     });

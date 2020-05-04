@@ -4,20 +4,26 @@
     class="d-flex flex-wrap mb-3"
   >
     <!-- TODO: populate alt, but with what? -->
-    <b-img-lazy
+    <button
       v-for="(thumbnail, index) of thumbnails"
       :key="index"
-      :src="thumbnail.src"
+      ref="thumbnail"
       :class="thumbnailImgClass(thumbnail, index)"
       :data-about="thumbnail.about"
-      :data-qa="`media thumbnail #${index + 1}`"
-      thumbnail
-      alt=""
-      class="mb-2 mr-2 rounded-0"
-      @click.native="clickThumbnail(thumbnail.about)"
-    />
+      :data-qa="`media thumbnail anchor #${index + 1}`"
+      :aria-label="$t('mediaPreview.selectItem', { src: index + 1 })"
+      class="thumbnail-button mb-2 mr-2"
+      @click="clickThumbnail(thumbnail.about)"
+    >
+      <b-img-lazy
+        :src="thumbnail.src"
+        :data-qa="`media thumbnail #${index + 1}`"
+        alt=""
+        thumbnail
+      />
+    </button>
     <button
-      v-if="thumbnails.length > 11"
+      v-if="thumbnails.length > showMoreIndex"
       class="pb-0"
       @click="toggleThumbnails"
     >
@@ -61,7 +67,8 @@
         // URI of the currently selected thumbnail.
         currentSelection: this.selected,
         // show all thumbnails, default is a selection
-        showAll: false
+        showAll: false,
+        showMoreIndex: 11
       };
     },
 
@@ -109,6 +116,10 @@
        */
       toggleThumbnails() {
         this.showAll = !this.showAll;
+
+        this.$nextTick(() => {
+          this.$refs.thumbnail[this.showMoreIndex].focus();
+        });
       },
 
       thumbnailImgClass(thumbnail, index) {
@@ -124,18 +135,37 @@
 <style lang="scss" scoped>
   @import "./assets/scss/variables.scss";
 
-  .img-thumbnail {
-    border-color: $paper;
-    cursor: pointer;
+  .thumbnail-button {
     height: 5.5rem;
-    object-fit: cover;
-    padding: 0;
     width: 5.5rem;
+    border: 1px solid $paper;
+    overflow: hidden;
+    padding: 0;
+    position: relative;
 
     &.selected {
-      border-color: $blue;
-      border-width: 2px;
+      border: 1px solid $blue;
+
+      &:after {
+        box-shadow: inset 0px 0px 0px 1px $blue;
+        content: '';
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+      }
     }
+  }
+
+  .img-thumbnail {
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    width: 5.5rem;
+    height: 5.5rem;
+    object-fit: cover;
   }
 
   button {

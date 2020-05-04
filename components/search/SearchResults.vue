@@ -12,6 +12,7 @@
       :url="{ name: 'item-all', params: { pathMatch: result.europeanaId.slice(1) } }"
       :image-url="result.edmPreview"
       :texts="cardTexts(result, 'list')"
+      :hits-text="result.selector"
       data-qa="search result"
       :limit-values-within-each-text="3"
       :omit-all-uris="true"
@@ -83,7 +84,7 @@
         if (result.dcCreator) texts.unshift(result.dcCreator);
 
         if (variant === 'list') {
-          if (result.dcDescription) texts.unshift(result.dcDescription);
+          if (!result.selector && result.dcDescription) texts.unshift(result.dcDescription);
         }
 
         return texts;

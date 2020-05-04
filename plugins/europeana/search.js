@@ -68,6 +68,18 @@ export function rangeFromQueryParam(paramValue) {
 
   return { start, end };
 }
+
+/**
+ * Filters Hit response with scope string
+ * @param  {Object} hits API response
+ * @param  {string} id Item item
+ * @return {Object} returns selector object
+ */
+function hitForItem(hits, id) {
+  const selector = hits.find((hit) => id === hit.scope);
+  return selector ? { selector: selector.selectors[0] } : {};
+}
+
 /**
  * Extract search results from API response
  * @param  {Object} response API response
@@ -78,12 +90,15 @@ function resultsFromApiResponse(response) {
 
   const results = items.map(item => {
     return {
-      europeanaId: item.id,
-      edmPreview: item.edmPreview ? `${item.edmPreview[0]}&size=w200` : genericThumbnail(item.id, { type: item.type, size: 'w200' }),
-      dcTitle: item.dcTitleLangAware,
-      dcDescription: item.dcDescriptionLangAware,
-      dcCreator: item.dcCreatorLangAware,
-      edmDataProvider: item.dataProvider
+      ...{
+        europeanaId: item.id,
+        edmPreview: item.edmPreview ? `${item.edmPreview[0]}&size=w200` : genericThumbnail(item.id, { type: item.type, size: 'w200' }),
+        dcTitle: item.dcTitleLangAware,
+        dcDescription: item.dcDescriptionLangAware,
+        dcCreator: item.dcCreatorLangAware,
+        edmDataProvider: item.dataProvider
+      },
+      ...(response.data.hits !== undefined ? hitForItem(response.data.hits, item.id) : {})
     };
   });
 

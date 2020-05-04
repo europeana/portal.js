@@ -7,6 +7,7 @@ const pages = {
   '"The pride of Glencoe, song" item page': `${url}/en/item/2059213/data_sounds_455`,
   '"World War I" collection page': `${url}/en/collections/topic/83-1914-1918`,
   'blog page': `${url}/en/blog`,
+  '"Easter with art" blog page': `${url}/blog/easter-with-art-and-culture-5-activities-for-the-whole-family`,
   'English home page': `${url}/en`,
   'entity page': `${url}/en/collections/person/60305-william-shakespeare`,
   'exhibition chapter': `${url}/en/exhibitions/faces-of-europe/introduction`,

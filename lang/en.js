@@ -474,6 +474,7 @@ export default {
     "description": "Explore our galleries"
   },
   "relatedCollections": "Related collections",
+  "contentYouMightLike": "Content you might like",
   "linksToClassic": {
     "home": {
       "text": "You're viewing the new Europeana experience.",
@@ -487,5 +488,8 @@ export default {
       "text": "You're viewing this item in the new Europeana website.",
       "linkText": "View this item in the original Europeana."
     }
+  },
+  "mediaPreview": {
+    "selectItem": "Select item {src}"
   }
 };

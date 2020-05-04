@@ -3,7 +3,6 @@
     class="colour-palette"
     :style="`backgroundColor: ${hexCode}`"
     :data-qa="`colour swatch ${hexCode}`"
-    :aria-labelledby="ariaLabelledby"
   />
 </template>
 
