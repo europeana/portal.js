@@ -56,12 +56,12 @@
       // https://vuejs.org/v2/cookbook/creating-custom-scroll-directives.html
       scroll: {
         inserted: (el, binding) => {
-          let f = (evt) => {
+          let handleStickyNav = (evt) => {
             if (binding.value(evt, el)) {
-              window.removeEventListener('scroll', f);
+              window.removeEventListener('scroll', handleStickyNav);
             }
           };
-          window.addEventListener('scroll', f);
+          window.addEventListener('scroll', handleStickyNav);
         }
       }
     },
@@ -80,7 +80,8 @@
     data() {
       return {
         scrollPosition: 0,
-        windowWidth: 992
+        windowWidth: 992,
+        desktopWidth: 992
       };
     },
 
@@ -103,11 +104,12 @@
 
     beforeDestroy() {
       window.removeEventListener('resize', this.handleDebouncedGetWindowWidth);
+      window.removeEventListener('orientationchange', this.handleOrientationChange);
     },
 
     methods: {
       handleScroll(evt, el) {
-        if (this.windowWidth >= 992) {
+        if (this.windowWidth >= this.desktopWidth) {
           let newPosition = window.scrollY;
           if (this.scrollPosition < (newPosition - 200)) {
             this.scrollPosition = newPosition;
@@ -155,12 +157,12 @@
     width: 40%;
   }
   @media (max-width: $bp-large) {
-    .navbar-brand{
+    .navbar-brand {
       justify-content: center;
     }
   }
   @media (min-width: $bp-large) {
-    .container-fluid{
+    .container-fluid {
       position: fixed;
       right: 0;
       top: 0;
@@ -169,7 +171,7 @@
       border-bottom: none !important;
       transition: $standard-transition;
     }
-    .form-inline{
+    .form-inline {
       max-width: 37.5rem;
     }
   }
