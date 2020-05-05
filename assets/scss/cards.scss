@@ -250,26 +250,24 @@
     transform: translateZ(0);
     width: 100%;
 
-    .card-title {
-      display: block;
-      -webkit-line-clamp: initial;
-      -webkit-box-orient: initial;
-      overflow: auto;
-      max-height: none;
-    }
-
-    .card-text:last-of-type p {
-      max-height: none;
-      overflow: auto;
-      display: block;
-      -webkit-line-clamp: initial;
-      -webkit-box-orient: initial;
-    }
-
     a {
       .card-img {
         min-height: 12rem;
         max-height: none;
+      }
+
+      .card-title {
+        display: block;
+        -webkit-line-clamp: initial;
+        -webkit-box-orient: initial;
+        max-height: none;
+      }
+
+      .card-text:last-of-type p {
+        max-height: none;
+        display: block;
+        -webkit-line-clamp: initial;
+        -webkit-box-orient: initial;
       }
     }
   }
