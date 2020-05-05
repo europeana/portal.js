@@ -97,7 +97,7 @@
       }
     }
 
-    @media (min-width: $bp-medium) {      
+    @media (min-width: $bp-medium) {
       min-height: auto;
     }
   }
@@ -120,7 +120,7 @@
         overflow: hidden;
         position: relative;
         width: 80px;
-        
+
         img {
           height: 80px;
           margin: 0;
@@ -150,8 +150,8 @@
 
       .card-text {
         color: $blue;
-      }      
-    }    
+      }
+    }
   }
 
   &.list-card {
@@ -161,7 +161,7 @@
       a {
         flex-direction: row;
         justify-content: space-between;
-      
+
         .card-img {
           display: inline-block;
           height: 13rem;
@@ -218,7 +218,7 @@
 }
 
 .masonry {
-  display: inline-block;
+  display: block;
   columns: 1;
   column-gap: 0;
   width: 100%;
@@ -235,7 +235,6 @@
   .content-card {
     break-inside: avoid;
     min-height: initial;
-    transform: translateZ(0);
     width: 100%;
 
     a {
