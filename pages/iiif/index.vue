@@ -11,7 +11,7 @@
     data() {
       return {
         manifest: null,
-        MIRADOR_BUILD_PATH: 'https://unpkg.com/mirador@3.0.0-beta.3/dist',
+        MIRADOR_BUILD_PATH: 'https://ec-4387-mirador.eu-de.mybluemix.net',
         page: null,
         uri: null
       };
@@ -36,14 +36,14 @@
             allowFullscreen: true,
             allowMaximize: false,
             allowTopMenuButton: false,
-            allowWindowSideBar: false,
+            allowWindowSideBar: true,
             panels: {
               info: false,
               attribution: false,
               canvas: true,
               // Disabled due to performance issues with many annotations, pending
               // https://github.com/ProjectMirador/mirador/issues/2915
-              annotations: false,
+              annotations: true,
               search: false
             }
           },
@@ -72,6 +72,8 @@
 
     methods: {
       fetchImageData(url, pageId) {
+        if (!this.manifest) return;
+
         const page = this.manifest.sequences[0].canvases.filter((item) => {
           return item['@id'] === pageId;
         });
@@ -101,4 +103,3 @@
     outline: 2px solid $blue !important;
   }
 </style>
-

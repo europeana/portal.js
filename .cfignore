@@ -81,5 +81,9 @@ Dockerfile
 # Storybook
 storybook-static
 
+# Temporary files
+tmp
+*.tmp
+
 # Tests
 /tests
