@@ -23,7 +23,7 @@
       <b-button
         v-if="total > 4"
         variant="light"
-        :to="localePath(buttonPath)"
+        :to="localePath({ name: contentType.path })"
       >
         {{ showMoreLink }}
       </b-button>
@@ -64,16 +64,13 @@
         case 'Galleries':
           return { type: 'imageGallery', name: this.$tc('galleries.galleries', this.total), path: 'galleries' };
         case 'Blog posts':
-          return { type: 'blogPosting', name: this.$tc('blog.blogs', this.total), path: 'blog' };
+          return { type: 'blogPosting', name: this.$tc('blog.posts'), path: 'blog' };
         }
 
         return false;
       },
       showMoreLink() {
         return `${this.$tc('showMore')} ${this.contentType.name.toLowerCase()} (${this.total})`;
-      },
-      buttonPath() {
-        return { name: (this.category === 'Blog posts') ? 'blog' : this.category.toLowerCase() };
       }
     },
 
