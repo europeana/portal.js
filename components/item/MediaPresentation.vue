@@ -27,12 +27,11 @@
       :html="oEmbedData.html"
       :error="oEmbedData.error"
     />
-    <!-- TODO: `encoding` in `src` is only here temporarily, to demonstrate encoding issues with our fulltext -->
     <iframe
       v-else-if="isIIIFImage || isIIIFPresentation"
       data-qa="IIIF viewer"
       allowfullscreen="true"
-      :src="$path({ name: 'iiif', query: { uri: iiifManifest, encoding: $route.query.encoding } })"
+      :src="$path({ name: 'iiif', query: { uri: iiifManifest } })"
       :aria-label="$t('actions.viewDocument')"
     />
   </div>
