@@ -64,6 +64,7 @@
       text-decoration: none;
       text-transform: uppercase;
       font-size: $font-size-small;
+      font-weight: 600;
 
       &.nuxt-link-active {
         &:after {
