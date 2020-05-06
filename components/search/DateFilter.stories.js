@@ -3,7 +3,11 @@ import { action } from '@storybook/addon-actions';
 import Vuex from 'vuex';
 import DateFilter from './DateFilter.vue';
 
-const store = new Vuex.Store();
+const store = new Vuex.Store({
+  actions: {
+    'search/setResettableFilter': () => {}
+  }
+});
 
 const i18n = {
   locale: 'en',
