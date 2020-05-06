@@ -7,10 +7,8 @@
   <iframe
     :key="src"
     :src="mediaSrc"
-    :width="width"
-    :height="height"
     allow="fullscreen"
-    :style="{ width: width, height: height }"
+    :style="styles"
     class="media-player"
   />
 </template>
@@ -34,12 +32,21 @@
       },
       width: {
         type: Number,
-        default: null
+        default: 640
       },
       height: {
         type: Number,
-        default: null
+        default: 360
       }
+    },
+
+    data() {
+      return {
+        styles: {
+          width: `${this.width}px`,
+          height: `${this.height}px`
+        }
+      };
     },
 
     computed: {
@@ -56,6 +63,8 @@
 <style lang="scss" scoped>
   iframe {
     border: 0;
+    height: 100%;
+    max-width: 100%;
   }
 </style>
 

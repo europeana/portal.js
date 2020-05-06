@@ -97,7 +97,6 @@
         });
       },
       isPlayableMedia() {
-        console.log('isPlayableMedia', this.media);
         return isPlayableMedia(this.media);
       },
       isHTMLVideo() {
