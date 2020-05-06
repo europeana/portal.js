@@ -1,13 +1,7 @@
 import { storiesOf } from '@storybook/vue';
 import VueRouter from 'vue-router';
+import VueI18n from 'vue-i18n';
 import ImageWithAttribution from './ImageWithAttribution.vue';
-
-const i18n = {
-  locale: 'en',
-  messages: {
-    en: {}
-  }
-};
 
 const router = new VueRouter({
   routes: [
@@ -21,7 +15,7 @@ const router = new VueRouter({
 storiesOf('Generic/Image with attribution', module)
   .add('Internal link', () => ({
     components: { ImageWithAttribution },
-    i18n,
+    i18n: new VueI18n(),
     router,
     data() {
       return {
@@ -46,7 +40,7 @@ storiesOf('Generic/Image with attribution', module)
   }))
   .add('External link', () => ({
     components: { ImageWithAttribution },
-    i18n,
+    i18n: new VueI18n(),
     router,
     data() {
       return {
