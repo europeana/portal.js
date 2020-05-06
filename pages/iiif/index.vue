@@ -37,15 +37,15 @@
             allowMaximize: false,
             allowTopMenuButton: false,
             allowWindowSideBar: true,
+            sideBarOpenByDefault: true,
             panels: {
               info: false,
               attribution: false,
               canvas: true,
-              // Disabled due to performance issues with many annotations, pending
-              // https://github.com/ProjectMirador/mirador/issues/2915
               annotations: true,
               search: false
-            }
+            },
+            defaultSideBarPanel: 'annotations'
           },
           workspace: {
             showZoomControls: true,
