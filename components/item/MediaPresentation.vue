@@ -97,6 +97,7 @@
         });
       },
       isPlayableMedia() {
+        if (!(process.env.EUROPEANA_MEDIA_ENDPOINT)) return false;
         return isPlayableMedia(this.media);
       },
       isHTMLVideo() {

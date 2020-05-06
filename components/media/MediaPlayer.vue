@@ -4,13 +4,19 @@
     when `src` updates as `source` elements may not have their `src` attribute
     updated after render.
   -->
-  <iframe
-    :key="src"
-    :src="mediaSrc"
-    allow="fullscreen"
-    :style="styles"
-    class="media-player"
-  />
+  <div
+    ref="player"
+    class="media-player-wrapper"
+    :style="{ paddingBottom: ratio +'%' }"
+  >
+    <iframe
+      :key="src"
+      :src="mediaSrc"
+      :style="{ maxWidth: iframeWidth + 'px', maxHeight: iframeHeigth + 'px' }"
+      allow="fullscreen"
+      class="media-player"
+    />
+  </div>
 </template>
 
 <script>
@@ -42,10 +48,8 @@
 
     data() {
       return {
-        styles: {
-          width: `${this.width}px`,
-          height: `${this.height}px`
-        }
+        iframeWidth: this.width,
+        iframeHeigth: this.height
       };
     },
 
@@ -54,17 +58,34 @@
         return `https://iiif.europeana.eu/presentation/${this.europeanaIdentifier}/manifest?format=3&wskey=${process.env['EUROPEANA_RECORD_API_KEY']}`;
       },
       mediaSrc() {
-        return `http://europeana-media-video-embed.eanadev.org/?manifest=${this.manifest}&width=${this.width}&height=${this.height}`;
+        return `${process.env['EUROPEANA_MEDIA_ENDPOINT']}/?manifest=${this.manifest}&width=${this.iframeWidth}&height=${this.iframeHeigth}&identifier=${this.europeanaIdentifier}`;
+      },
+      ratio() {
+        return (this.height * 100) / this.width;
       }
+    },
+
+    mounted() {
+      this.iframeWidth = this.$refs.player.clientWidth;
+      this.iframeHeigth = this.iframeWidth * this.ratio / 100;
     }
   };
 </script>
 
 <style lang="scss" scoped>
-  iframe {
-    border: 0;
-    height: 100%;
-    max-width: 100%;
+  .media-player-wrapper {
+    position: relative;
+    height: 0;
+    overflow: hidden;
+    width: 100%;
+
+    iframe {
+      border: 0;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
   }
 </style>
-

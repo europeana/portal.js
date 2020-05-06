@@ -339,8 +339,12 @@
         });
     },
 
-    mounted() {
+    created() {
       this.cardGridClass = this.isRichMedia && 'card-grid-richmedia';
+    },
+
+    mounted() {
+      //this.cardGridClass = this.isRichMedia && 'card-grid-richmedia';
 
       if (process.browser) {
         if (localStorage.itemShowExtendedMetadata && JSON.parse(localStorage.itemShowExtendedMetadata)) {
