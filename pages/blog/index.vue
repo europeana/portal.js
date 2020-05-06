@@ -1,9 +1,11 @@
 <template>
   <b-container data-qa="blog">
-    <b-row class="flex-md-row pb-5">
-      <b-col cols="12">
+    <header class="row">
+      <div class="col-12 col-lg-9 col mt-3">
         <h1>{{ $t('blog.blog') }}</h1>
-      </b-col>
+      </div>
+    </header>
+    <b-row class="flex-md-row pb-5">
       <b-col cols="12">
         <b-card-group
           class="card-deck-4-cols"
@@ -47,7 +49,6 @@
 
   export default {
     name: 'BlogFoyer',
-
     components: {
       ContentCard,
       PaginationNav
@@ -72,7 +73,7 @@
       }
     },
 
-    asyncData({ query, redirect, error, app, store }) {
+    asyncData({ query, redirect, error, app }) {
       const currentPage = pageFromQuery(query.page);
       if (currentPage === null) {
         // Redirect non-positive integer values for `page` to `page=1`
@@ -89,13 +90,6 @@
         limit: PER_PAGE
       })
         .then((response) => {
-          store.commit('breadcrumb/setBreadcrumbs', [
-            {
-              text:  app.i18n.t('blog.blog'),
-              active: true
-            }
-          ]);
-
           return {
             posts: response.items,
             total: response.total,
@@ -113,11 +107,6 @@
       }
     },
 
-    watchQuery: ['page'],
-
-    beforeRouteLeave(to, from, next) {
-      this.$store.commit('breadcrumb/clearBreadcrumb');
-      next();
-    }
+    watchQuery: ['page']
   };
 </script>
