@@ -34,6 +34,7 @@ export const getters = {
       params.qf.push('contentTier:*');
 
       params.wskey = getters.apiConfig.newspaper.key;
+      params.profile = 'minimal,hits';
     }
 
     return params;

@@ -1,4 +1,4 @@
-import { oEmbeddable } from './oembed.js';
+import { oEmbeddable } from './oembed';
 
 export function isPDF(media) {
   return media.ebucoreHasMimeType === 'application/pdf';

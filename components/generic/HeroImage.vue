@@ -68,7 +68,7 @@
     },
     computed: {
       optimisedImageUrl() {
-        return this.$options.filters.optimisedImageUrl(this.imageUrl, this.imageContentType);
+        return this.$options.filters.optimisedImageUrl(this.imageUrl, this.imageContentType, { width: 1920 });
       },
       jumbotronStyle() {
         return {

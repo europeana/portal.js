@@ -20,12 +20,25 @@
         deck
         data-qa="section group"
       >
-        <BrowseContentCard
-          v-for="card in cards"
-          :key="card.sys.id"
-          :fields="card.fields"
-          :card-type="card.sys.contentType ? card.sys.contentType.sys.id : ''"
-        />
+        <template v-if="!isPeopleSection">
+          <BrowseContentCard
+            v-for="card in cards"
+            :key="card.sys.id"
+            :fields="card.fields"
+            :card-type="card.sys.contentType ? card.sys.contentType.sys.id : ''"
+          />
+        </template>
+        <template v-else>
+          <ContentCard
+            v-for="card in cards"
+            :key="card.sys.id"
+            :title="card.fields.name"
+            :url="entityRouterLink(card.fields.identifier, card.fields.slug)"
+            :image-url="card.fields.image"
+            :image-optimisation-options="{ width: 510 }"
+            variant="mini"
+          />
+        </template>
       </b-card-group>
       <SmartLink
         v-if="section.fields.moreButton"
@@ -40,12 +53,16 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex';
+  import { entityParamsFromUri, getEntityTypeHumanReadable } from '../../plugins/europeana/entity';
+  import ContentCard from '../generic/ContentCard';
   import BrowseContentCard from './BrowseContentCard';
   import SmartLink from '../generic/SmartLink';
 
   export default {
     components: {
       BrowseContentCard,
+      ContentCard,
       SmartLink
     },
     props: {
@@ -55,8 +72,28 @@
       }
     },
     computed: {
+      ...mapGetters({
+        apiConfig: 'apis/config'
+      }),
+
       cards() {
         return this.section.fields.hasPart.filter(card => card.fields);
+      },
+
+      isPeopleSection() {
+        if (this.cards.length !== 4) return false;
+        return this.cards.every((card) => {
+          const identifier = card.fields.identifier;
+          return identifier ? entityParamsFromUri(identifier).type === 'person' : false;
+        });
+      }
+    },
+    methods: {
+      entityRouterLink(uri, slug) {
+        const uriMatch = uri.match(`^${this.apiConfig.data.origin}/([^/]+)(/base)?/(.+)$`);
+        return {
+          name: 'collections-type-all', params: { type: getEntityTypeHumanReadable(uriMatch[1]), pathMatch: slug ? slug : uriMatch[3] }
+        };
       }
     }
   };

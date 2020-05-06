@@ -43,7 +43,7 @@ module.exports = {
   /*
   ** Global CSS
   */
-  css: [],
+  css: ['./assets/scss/style'],
 
   // BootstrapVue
   // Doc: https://bootstrap-vue.js.org/docs/
@@ -120,10 +120,9 @@ module.exports = {
     'cookie-universal-nuxt',
     ['nuxt-i18n', {
       locales: i18nLocales,
-      baseUrl: process.env.I18N_BASE_URL,
+      baseUrl: ({ store }) => store.getters['http/origin'],
       defaultLocale: 'en',
       lazy: true,
-      seo: true,
       langDir: 'lang/',
       strategy: 'prefix',
       vueI18n: {

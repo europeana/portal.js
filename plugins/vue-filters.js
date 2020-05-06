@@ -4,8 +4,6 @@
  */
 
 import Vue from 'vue';
-// TODO: remove this when the issue noted in the url plugin is resolved upstream
-import { URL } from './url';
 import marked from 'marked';
 
 
@@ -77,15 +75,3 @@ Vue.filter('convertNewLine', (val) => {
 });
 
 Vue.filter('urlWithProtocol', (url) => url.startsWith('//') ? `https:${url}` : url);
-
-Vue.filter('proxyMedia', (mediaUrl, europeanaId, params = {}) => {
-  const proxyUrl = new URL('https://proxy.europeana.eu');
-  proxyUrl.pathname = europeanaId;
-  proxyUrl.searchParams.append('view', mediaUrl);
-
-  for (const name in params) {
-    proxyUrl.searchParams.append(name, params[name]);
-  }
-
-  return proxyUrl.toString();
-});
