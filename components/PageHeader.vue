@@ -15,7 +15,7 @@
         <img
           src="../assets/img/logo.svg"
           :alt="$t('homeLinkAlt')"
-          class="mb-2 mb-sm-0 mw-100"
+          class="logo mb-2 mb-sm-0 mw-100"
           data-qa="logo"
         >
       </SmartLink>
@@ -71,6 +71,9 @@
 
   .navbar-brand{
     min-width: 11.0625rem;
+    .logo{
+      width: 9.5625rem;
+    }
   }
 
   .form-inline {

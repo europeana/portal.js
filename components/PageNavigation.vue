@@ -76,7 +76,7 @@
           z-index: 1;
           left: 0;
           right: 0;
-          bottom: -1rem;
+          bottom: -0.8rem;
         }
       }
 
@@ -92,7 +92,6 @@
 
     &:last-child {
       .nav-link {
-        padding-right: 0;
         &.nuxt-link-active:after {
           left: 0.25rem;
         }
