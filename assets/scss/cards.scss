@@ -97,7 +97,7 @@
       }
     }
 
-    @media (min-width: $bp-medium) {      
+    @media (min-width: $bp-medium) {
       min-height: auto;
     }
   }
@@ -120,7 +120,7 @@
         overflow: hidden;
         position: relative;
         width: 80px;
-        
+
         img {
           height: 80px;
           margin: 0;
@@ -150,8 +150,8 @@
 
       .card-text {
         color: $blue;
-      }      
-    }    
+      }
+    }
   }
 
   &.list-card {
@@ -161,7 +161,7 @@
       a {
         flex-direction: row;
         justify-content: space-between;
-      
+
         .card-img {
           display: inline-block;
           height: 13rem;
@@ -230,6 +230,9 @@
 
   @media (min-width: $bp-large) {
     columns: 4;
+    &.card-deck-3-cols{
+      columns: 3;
+    }
   }
 
   .content-card {
