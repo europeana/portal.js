@@ -23,6 +23,7 @@ export function isHTMLAudio(media) {
 export function isPlayableMedia(media) {
   return (media.ebucoreHasMimeType.startsWith('video/') ||
     media.ebucoreHasMimeType.startsWith('audio/') ||
+    new RegExp('http://www.euscreen.eu/item.html*').test(media.about) ||
     (media.ebucoreHasMimeType === 'application/dash+xml'));
 }
 

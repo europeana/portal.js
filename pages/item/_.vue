@@ -344,8 +344,6 @@
     },
 
     mounted() {
-      //this.cardGridClass = this.isRichMedia && 'card-grid-richmedia';
-
       if (process.browser) {
         if (localStorage.itemShowExtendedMetadata && JSON.parse(localStorage.itemShowExtendedMetadata)) {
           this.$root.$emit('bv::toggle::collapse', 'extended-metadata');
