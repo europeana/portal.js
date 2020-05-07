@@ -1,7 +1,7 @@
 <template>
   <div>
     <div
-      ref="viewer"
+      ref="player"
       style="height:360px"
     />
   </div>
@@ -31,7 +31,7 @@
 
     mounted() {
       this.$nextTick(() => {
-        new EuropeanaMediaPlayer(this.$refs.viewer, { // eslint-disable-line no-undef
+        new EuropeanaMediaPlayer(this.$refs.player, { // eslint-disable-line no-undef
           manifest: this.manifest
         });
       });
