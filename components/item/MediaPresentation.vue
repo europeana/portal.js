@@ -8,12 +8,19 @@
       :image-src="imageSrc"
       :media="media"
     />
-    <iframe
+    <div
       v-else-if="isPlayableMedia"
-      data-qa="Media player"
-      allowfullscreen="true"
-      :src="$path({ name: 'media', query: { id: europeanaIdentifier } })"
-    />
+      ref="player"
+      class="media-player-wrapper"
+      :style="{ paddingTop: ratio +'%' }"
+    >
+      <iframe
+        data-qa="Media player"
+        allowfullscreen="true"
+        :src="$path({ name: 'media', query: { id: europeanaIdentifier, height: iframeHeight } })"
+        class="media-player"
+      />
+    </div>
     <VideoPlayer
       v-else-if="isHTMLVideo"
       :europeana-identifier="europeanaIdentifier"
@@ -82,7 +89,10 @@
 
     data() {
       return {
-        oEmbedData: {}
+        oEmbedData: {},
+        iframeWidth: 640,
+        iframeHeight: 360,
+        ratio: 0
       };
     },
 
@@ -130,6 +140,16 @@
           this.oEmbedData = { error: err };
         });
       }
+    },
+
+    mounted() {
+      if (this.isPlayableMedia) {
+        const width = this.media.ebucoreWidth ? this.media.ebucoreWidth : 640;
+        const height = this.media.ebucoreHeight ? this.media.ebucoreHeight : 360;
+        this.ratio = (height * 100) / width;
+        this.iframeWidth = this.$refs.player.clientWidth;
+        this.iframeHeight = this.iframeWidth * this.ratio / 100;
+      }
     }
   };
 </script>
@@ -154,6 +174,24 @@
       box-shadow: $boxshadow-small;
       max-height: 800px;
       width: 100%;
+    }
+
+    .media-player-wrapper {
+      position: relative;
+      height: 0;
+      overflow: hidden;
+      width: 100%;
+
+      iframe {
+        border: 0;
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+      }
     }
   }
 </style>

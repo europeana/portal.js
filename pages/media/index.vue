@@ -2,7 +2,7 @@
   <div>
     <div
       ref="player"
-      style="height:360px"
+      :style="{ height: height + 'px' }"
     />
   </div>
 </template>
@@ -25,7 +25,8 @@
 
     asyncData({ query }) {
       return {
-        id: query.id
+        id: query.id,
+        height: query.height
       };
     },
 
