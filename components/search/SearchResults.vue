@@ -22,7 +22,7 @@
   </b-card-group>
   <b-card-group
     v-else
-    :class="`card-deck-search card-deck-${perRow}-cols masonry`"
+    :class="`card-deck-search card-deck-${perRow}-cols`"
     deck
     data-qa="search results grid"
   >
