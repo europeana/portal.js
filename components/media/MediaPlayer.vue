@@ -13,7 +13,7 @@
       :key="src"
       :src="mediaSrc"
       :style="{ maxWidth: iframeWidth + 'px', maxHeight: iframeHeigth + 'px' }"
-      allow="fullscreen"
+      allowfullscreen
       class="media-player"
     />
   </div>
