@@ -11,11 +11,12 @@
     >
       <SmartLink
         :destination="{ name: 'index' }"
+        class="logo"
       >
         <img
           src="../assets/img/logo.svg"
           :alt="$t('homeLinkAlt')"
-          class="logo mb-2 mb-sm-0 mw-100"
+          class="mb-2 mb-sm-0 mw-100"
           data-qa="logo"
         >
       </SmartLink>
@@ -72,7 +73,11 @@
   .navbar-brand {
     min-width: 11.0625rem;
     .logo {
-      width: 9.5625rem;
+      min-width: 9.5625rem;
+      transition: .3s ease-in-out;
+      img {
+        width: 9.5625rem;
+      }
     }
   }
 
@@ -82,6 +87,13 @@
   @media (min-width: $bp-large) {
     .form-inline {
       max-width: 37.5rem;
+    }
+  }
+  @media (min-width: $bp-extralarge) {
+    .navbar-brand {
+      .logo {
+        min-width: 18.75rem;
+      }
     }
   }
 </style>

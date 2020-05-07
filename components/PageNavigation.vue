@@ -100,5 +100,12 @@
         }
       }
     }
+    @media (max-width: $bp-large) {
+      .nav-link.nuxt-link-active {
+        &:after {
+          bottom: -1rem;
+        }
+      }
+    }
   }
 </style>
