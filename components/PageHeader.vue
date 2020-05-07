@@ -52,20 +52,6 @@
       PageNavigation
     },
 
-    directives: {
-      // https://vuejs.org/v2/cookbook/creating-custom-scroll-directives.html
-      scroll: {
-        inserted: (el, binding) => {
-          let handleStickyNav = (evt) => {
-            if (binding.value(evt, el)) {
-              window.removeEventListener('scroll', handleStickyNav);
-            }
-          };
-          window.addEventListener('scroll', handleStickyNav);
-        }
-      }
-    },
-
     props: {
       enableAutoSuggest: {
         type: Boolean,
@@ -80,7 +66,7 @@
     data() {
       return {
         scrollPosition: 0,
-        windowWidth: 992,
+        windowWidth: 0,
         desktopWidth: 992
       };
     },
