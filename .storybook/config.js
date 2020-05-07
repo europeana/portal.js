@@ -26,10 +26,10 @@ Vue.component('NuxtLink', {
   },
   template: '<a href="" @click.prevent="log()"><slot>NuxtLink</slot></a>',
 });
-Vue.prototype.$path = () => {}; // Mocking the Path plugin
-Vue.prototype.$tFacetName = (name) => { return name }; // Mocking the Path plugin
-Vue.prototype.$tNull = (key) => { return key }; // Mocking the Path plugin
-Vue.prototype.$proxyMedia = (url, id) => { return id ? id + url : url }; // Mocking the Path plugin
+Vue.prototype.$path = () => {}; // Mocking the path plugin
+Vue.prototype.$tFacetName = (name) => { return name }; // Mocking the tFacetName plugin
+Vue.prototype.$tNull = (key) => { return key }; // Mocking the tNull plugin
+Vue.prototype.$proxyMedia = (url, id) => { return id ? id + url : url }; // Mocking the proxyMedia plugin
 // add bootstrap CSS to head
 const bootstrapPkg = require('bootstrap/package');
 const bootstrapVuePkg = require('bootstrap-vue/package');
