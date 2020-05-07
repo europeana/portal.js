@@ -18,6 +18,14 @@ const store = (searchState = {}) => new Vuex.Store({
     i18n: {
       locale: 'en'
     }
+  },
+  getters: {
+    'apis/config': () => ({
+      data: {
+        origin: 'https://data.europeana.eu'
+      }
+    }),
+    'search/queryUpdatesForFacetChanges': () => {}
   }
 });
 
@@ -52,7 +60,9 @@ storiesOf('Search / Form', module)
     components: { SearchForm },
     store: store({
       active: true,
-      pill: 'Byzantine art'
+      pill: {
+        values: ['Byzantine art']
+      }
     }),
     i18n,
     router,
@@ -62,7 +72,9 @@ storiesOf('Search / Form', module)
     components: { SearchForm },
     store: store({
       active: true,
-      pill: 'Byzantine art',
+      pill: {
+        values: ['Byzantine art']
+      },
       query: 'wunderlich'
     }),
     i18n,
