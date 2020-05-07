@@ -8,13 +8,11 @@
       :image-src="imageSrc"
       :media="media"
     />
-    <MediaPlayer
+    <iframe
       v-else-if="isPlayableMedia"
-      :europeana-identifier="europeanaIdentifier"
-      :src="media.about"
-      :type="media.ebucoreHasMimeType"
-      :width="media.ebucoreWidth"
-      :height="media.ebucoreHeight"
+      data-qa="Media player"
+      allowfullscreen="true"
+      :src="$path({ name: 'media', query: { id: europeanaIdentifier } })"
     />
     <VideoPlayer
       v-else-if="isHTMLVideo"
@@ -48,7 +46,6 @@
 <script>
   import MediaImage from './MediaImage';
   import VideoPlayer from '../../components/media/VideoPlayer';
-  import MediaPlayer from '../../components/media/MediaPlayer';
   import AudioPlayer from '../../components/media/AudioPlayer';
   import HTMLEmbed from '../../components/generic/HTMLEmbed';
 
@@ -64,7 +61,6 @@
     components: {
       MediaImage,
       VideoPlayer,
-      MediaPlayer,
       AudioPlayer,
       HTMLEmbed
     },
