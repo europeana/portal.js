@@ -10,8 +10,10 @@
 }
 
 .badge-pill {
-  background-color: $darkblue;
-  
+  background-color: $blue;
+  font-size: $font-size-small;
+  font-weight: 400;
+
   .pill-close {
     color: $white;
     text-decoration: none;
