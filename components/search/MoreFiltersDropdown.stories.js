@@ -32,11 +32,9 @@ const i18n = {
 const store = () => new Vuex.Store({
   getters: {
     'search/collection': () => ({}),
-    'search/formatFacetFieldLabel': () => ({})
+    'search/formatFacetFieldLabel': () => () => {}
   }
 });
-
-console.log('store', store);
 
 storiesOf('Search/MoreFiltersDropdown', module)
   .add('More Filters', () => ({

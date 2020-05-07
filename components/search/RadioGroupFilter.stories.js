@@ -11,8 +11,8 @@ const i18n = {
         api: {
           name: 'Search for',
           options: {
-            fulltext: 'Full text',
-            metadata: 'Metadata'
+            fulltext: 'Items with full-text',
+            metadata: 'Metadata-only items'
           }
         }
       }
@@ -26,7 +26,7 @@ const store = () => new Vuex.Store({
     'search/setResettableFilter': () => ({})
   },
   getters: {
-    'search/formatFacetFieldLabel': () => ({})
+    'search/formatFacetFieldLabel': () => () => {}
   }
 });
 

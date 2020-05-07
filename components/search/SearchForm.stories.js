@@ -25,7 +25,7 @@ const store = (searchState = {}) => new Vuex.Store({
         origin: 'https://data.europeana.eu'
       }
     }),
-    'search/queryUpdatesForFacetChanges': () => {}
+    'search/queryUpdatesForFacetChanges': () => () => {}
   }
 });
 

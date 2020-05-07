@@ -28,6 +28,7 @@ Vue.component('NuxtLink', {
 });
 Vue.prototype.$path = () => {}; // Mocking the Path plugin
 Vue.prototype.$tFacetName = (name) => { return name }; // Mocking the Path plugin
+Vue.prototype.$tNull = (key) => { return key }; // Mocking the Path plugin
 Vue.prototype.$proxyMedia = (url, id) => { return id ? id + url : url }; // Mocking the Path plugin
 // add bootstrap CSS to head
 const bootstrapPkg = require('bootstrap/package');
