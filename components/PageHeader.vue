@@ -69,7 +69,7 @@
     background: $white;
   }
 
-  .navbar-brand{
+  .navbar-brand {
     min-width: 11.0625rem;
   }
 
@@ -77,7 +77,7 @@
     width: 40%;
   }
   @media (min-width: $bp-large) {
-    .form-inline{
+    .form-inline {
       max-width: 37.5rem;
     }
   }

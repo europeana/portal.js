@@ -4,6 +4,7 @@ module.exports = {
     'declaration-colon-space-after': 'always',
     'no-missing-end-of-source-newline': true,
     'indentation': 2,
-    'at-rule-no-unknown': null
+    'at-rule-no-unknown': null,
+    'block-opening-brace-space-before': 'always'
   }
 }
