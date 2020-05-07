@@ -73,6 +73,7 @@
       overflow: hidden;
       position: relative;
       max-height: 100%;
+      min-height: 0;
 
       img {
         border-radius: 0;
