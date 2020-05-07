@@ -11,6 +11,7 @@
     >
       <SmartLink
         :destination="{ name: 'index' }"
+        class="logo"
       >
         <img
           src="../assets/img/logo.svg"
@@ -69,16 +70,30 @@
     background: $white;
   }
 
-  .navbar-brand{
+  .navbar-brand {
     min-width: 11.0625rem;
+    .logo {
+      min-width: 9.5625rem;
+      transition: .3s ease-in-out;
+      img {
+        width: 9.5625rem;
+      }
+    }
   }
 
   .form-inline {
     width: 40%;
   }
   @media (min-width: $bp-large) {
-    .form-inline{
+    .form-inline {
       max-width: 37.5rem;
+    }
+  }
+  @media (min-width: $bp-extralarge) {
+    .navbar-brand {
+      .logo {
+        min-width: 18.75rem;
+      }
     }
   }
 </style>
