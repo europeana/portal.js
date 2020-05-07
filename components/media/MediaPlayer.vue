@@ -12,8 +12,8 @@
     <iframe
       :key="src"
       :src="mediaSrc"
-      :style="{ maxWidth: iframeWidth + 'px', maxHeight: iframeHeigth + 'px' }"
-      allow="fullscreen"
+      :style="{ maxWidth: iframeWidth + 'px', maxHeight: iframeHeight + 'px' }"
+      allowfullscreen
       class="media-player"
     />
   </div>
@@ -48,26 +48,26 @@
 
     data() {
       return {
-        iframeWidth: this.width,
-        iframeHeigth: this.height
+        iframeWidth: this.height,
+        iframeHeight: this.width,
+        ratio: 0,
+        mediaSrc: null
       };
     },
 
     computed: {
       manifest() {
-        return `https://iiif.europeana.eu/presentation/${this.europeanaIdentifier}/manifest?format=3&wskey=${process.env['EUROPEANA_RECORD_API_KEY']}`;
-      },
-      mediaSrc() {
-        return `${process.env['EUROPEANA_MEDIA_ENDPOINT']}/?manifest=${this.manifest}&width=${this.iframeWidth}&height=${this.iframeHeigth}&identifier=${this.europeanaIdentifier}`;
-      },
-      ratio() {
-        return (this.height * 100) / this.width;
+        return `https://iiif.europeana.eu/presentation${this.europeanaIdentifier}/manifest?format=3&wskey=${process.env['EUROPEANA_RECORD_API_KEY']}`;
       }
     },
 
     mounted() {
+      this.ratio = (this.height * 100) / this.width;
+
       this.iframeWidth = this.$refs.player.clientWidth;
-      this.iframeHeigth = this.iframeWidth * this.ratio / 100;
+      this.iframeHeight = this.iframeWidth * this.ratio / 100;
+
+      this.mediaSrc = `${process.env['EUROPEANA_MEDIA_ENDPOINT']}/?manifest=${this.manifest}&id=${this.europeanaIdentifier}&width=${this.iframeWidth}&height=${this.iframeHeight}`;
     }
   };
 </script>
