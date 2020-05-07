@@ -31,5 +31,5 @@ module.exports = function(migration) {
       helpText:
         'This field will be automatically set when an item has been harvested.'
     }
-  );  
+  );
 };
