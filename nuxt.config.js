@@ -122,7 +122,6 @@ module.exports = {
     ['nuxt-i18n', {
       locales: i18nLocales,
       baseUrl: ({ store }) => store.getters['http/origin'],
-      seo: true,
       defaultLocale: 'en',
       lazy: true,
       langDir: 'lang/',

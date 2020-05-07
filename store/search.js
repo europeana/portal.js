@@ -355,6 +355,7 @@ export const actions = {
       .then((response) => {
         commit('setFacets', response.facets);
         const collection = getters.collection;
+
         if (getters.hasCollectionSpecificSettings(collection) && rootState.collections[collection]['facets'] !== undefined) {
           commit(`collections/${collection}/set`, ['facets', state.facets], { root: true });
           commit('set', ['facets', rootGetters[`collections/${collection}/facets`]]);
