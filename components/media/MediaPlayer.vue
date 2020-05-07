@@ -58,7 +58,7 @@
         return `https://iiif.europeana.eu/presentation/${this.europeanaIdentifier}/manifest?format=3&wskey=${process.env['EUROPEANA_RECORD_API_KEY']}`;
       },
       mediaSrc() {
-        return `${process.env['EUROPEANA_MEDIA_ENDPOINT']}/?manifest=${this.manifest}&width=${this.iframeWidth}&height=${this.iframeHeigth}&identifier=${this.europeanaIdentifier}`;
+        return `${process.env['EUROPEANA_MEDIA_ENDPOINT']}/?manifest=${this.manifest}&width=${this.iframeWidth}&height=${this.iframeHeigth}&id=${this.europeanaIdentifier}`;
       },
       ratio() {
         return (this.height * 100) / this.width;
