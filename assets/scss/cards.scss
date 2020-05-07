@@ -242,6 +242,9 @@
 
   @media (min-width: $bp-large) {
     columns: 4;
+    &.card-deck-3-cols{
+      columns: 3;
+    }
   }
 
   .content-card {
