@@ -1,5 +1,6 @@
 import { storiesOf } from '@storybook/vue';
 import { action } from '@storybook/addon-actions';
+import Vuex from 'vuex';
 import RadioGroupFilter from './RadioGroupFilter.vue';
 
 const i18n = {
@@ -19,9 +20,20 @@ const i18n = {
   }
 };
 
+
+const store = () => new Vuex.Store({
+  actions: {
+    'search/setResettableFilter': () => ({})
+  },
+  getters: {
+    'search/formatFacetFieldLabel': () => ({})
+  }
+});
+
 storiesOf('Search', module)
   .add('Record API toggle', () => ({
     i18n,
+    store,
     components: { RadioGroupFilter },
     methods: {
       log(value) {
