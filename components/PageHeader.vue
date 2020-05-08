@@ -62,41 +62,6 @@
         type: Boolean,
         default: false
       }
-    },
-
-    data() {
-      return {
-        scrollPos: 0,
-        scrolledVis: true
-      };
-    },
-
-    computed: {
-      scrollPosition: {
-        set(newPosition) {
-          this.scollPos = newPosition;
-        },
-        get() {
-          return this.scrollPos;
-        }
-      },
-      scrolledVisible: {
-        set(visible) {
-          this.scolledVis = visible;
-        },
-        get() {
-          return this.scrolledVis;
-        }
-      },
-      useScrollVisibility: {
-        get() {
-          return true;
-          //return this.windowWidth >= this.desktopWidth;
-        }
-      }
-    },
-    mounted() {
-      this.scrollPosition = window.scrollY;
     }
   };
 </script>

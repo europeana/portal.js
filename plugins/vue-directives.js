@@ -2,6 +2,7 @@ import Vue from 'vue';
 
 Vue.directive('visible-on-scroll', {
   inserted: (el) => {
+    el.scrolledVisible = true;
     window.addEventListener('scroll', () => handleScroll(el));
     window.addEventListener('orientationchange', () => handleOrientationChange(el));
   }
