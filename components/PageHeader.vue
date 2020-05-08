@@ -44,7 +44,6 @@
   import SmartLink from './generic/SmartLink';
   import SearchForm from './search/SearchForm';
   import PageNavigation from './PageNavigation';
-  //import debounce from 'lodash/debounce';
 
   export default {
     components: {
