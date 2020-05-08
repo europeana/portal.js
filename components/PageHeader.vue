@@ -1,7 +1,7 @@
 <template>
   <b-container
     ref="nav-container"
-    v-scroll="handleDebouncedScroll"
+    v-visible-on-scroll
     fluid
     class="border-bottom mb-3 d-flex py-3 py-lg-1 px-lg-3 flex-column flex-lg-row"
     data-qa="header"
@@ -44,7 +44,7 @@
   import SmartLink from './generic/SmartLink';
   import SearchForm from './search/SearchForm';
   import PageNavigation from './PageNavigation';
-  import debounce from 'lodash/debounce';
+  //import debounce from 'lodash/debounce';
 
   export default {
     components: {
@@ -66,65 +66,37 @@
 
     data() {
       return {
-        scrollPosition: 0,
-        windowWidth: 0,
-        desktopWidth: 992
+        scrollPos: 0,
+        scrolledVis: true
       };
     },
 
-    mounted() {
-      this.scrollPosition = window.scrollY;
-      this.getWindowWidth();
-      this.handleOrientationChange(window.orientation);
-      this.$nextTick(() => {
-        window.addEventListener('resize', this.handleDebouncedGetWindowWidth);
-        window.addEventListener('orientationchange', () => {
-          this.handleOrientationChange(window.orientation);
-        }, false);
-      });
-    },
-
-    created() {
-      this.handleDebouncedScroll = debounce(this.handleScroll, 100);
-      this.handleDebouncedGetWindowWidth = debounce(this.getWindowWidth, 100);
-    },
-
-    beforeDestroy() {
-      window.removeEventListener('resize', this.handleDebouncedGetWindowWidth);
-      window.removeEventListener('orientationchange', this.handleOrientationChange);
-    },
-
-    methods: {
-      handleScroll(evt, el) {
-        if (this.windowWidth >= this.desktopWidth) {
-          let newPosition = window.scrollY;
-          if (this.scrollPosition < (newPosition - 200)) {
-            this.scrollPosition = newPosition;
-            el.setAttribute(
-              'style',
-              'transform: translate3d(0, -150px, 0)'
-            );
-          }
-          if (this.scrollPosition > (newPosition + 10)) {
-            this.scrollPosition = newPosition;
-            el.setAttribute(
-              'style',
-              'transform: translate3d(0, 0, 0)'
-            );
-          }
+    computed: {
+      scrollPosition: {
+        set(newPosition) {
+          this.scollPos = newPosition;
+        },
+        get() {
+          return this.scrollPos;
         }
       },
-      getWindowWidth() {
-        this.windowWidth = document.documentElement.clientWidth;
+      scrolledVisible: {
+        set(visible) {
+          this.scolledVis = visible;
+        },
+        get() {
+          return this.scrolledVis;
+        }
       },
-      handleOrientationChange(orientation) {
-        if (orientation === 0 || orientation === 180) {
-          this.$refs['nav-container'].setAttribute(
-            'style',
-            'transform: translate3d(0, 0, 0)'
-          );
+      useScrollVisibility: {
+        get() {
+          return true;
+          //return this.windowWidth >= this.desktopWidth;
         }
       }
+    },
+    mounted() {
+      this.scrollPosition = window.scrollY;
     }
   };
 </script>
