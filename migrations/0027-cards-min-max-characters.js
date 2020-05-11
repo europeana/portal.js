@@ -54,10 +54,10 @@ module.exports = function(migration) {
     ]);
 
   curatedCard.changeFieldControl('name', 'builtin', 'singleLine', {
-    helpText: 'The title can be between up to 35 characters long'
+    helpText: 'The title can be up to 35 characters long'
   });
 
   curatedCard.changeFieldControl('description', 'builtin', 'singleLine', {
-    helpText: 'The description can be up to and 120 characters long'
+    helpText: 'The description can be up to 120 characters long'
   });
 };
