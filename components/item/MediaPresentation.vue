@@ -17,7 +17,7 @@
       <iframe
         data-qa="Media player"
         allowfullscreen="true"
-        :src="$path({ name: 'media', query: { id: europeanaIdentifier, height: iframeHeight } })"
+        :src="$path({ name: 'media', query: { id: europeanaIdentifier, ratio: ratio } })"
         class="media-player"
       />
     </div>
@@ -90,9 +90,7 @@
     data() {
       return {
         oEmbedData: {},
-        iframeWidth: 640,
-        iframeHeight: 360,
-        ratio: 0
+        ratio: 56.25
       };
     },
 
@@ -147,8 +145,6 @@
         const width = this.media.ebucoreWidth ? this.media.ebucoreWidth : 640;
         const height = this.media.ebucoreHeight ? this.media.ebucoreHeight : 360;
         this.ratio = (height * 100) / width;
-        this.iframeWidth = this.$refs.player.clientWidth;
-        this.iframeHeight = this.iframeWidth * this.ratio / 100;
       }
     }
   };

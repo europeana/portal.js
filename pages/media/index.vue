@@ -1,9 +1,13 @@
 <template>
   <div>
     <div
-      ref="player"
-      :style="{ height: height + 'px' }"
-    />
+      class="media-wrapper"
+      :style="{ paddingTop: ratio + '%' }"
+    >
+      <div
+        ref="player"
+      />
+    </div>
   </div>
 </template>
 
@@ -26,7 +30,7 @@
     asyncData({ query }) {
       return {
         id: query.id,
-        height: query.height
+        ratio: query.ratio
       };
     },
 
@@ -49,3 +53,19 @@
     }
   };
 </script>
+
+<style lang="scss" scoped>
+  .media-wrapper {
+    overflow: hidden;
+    position: relative;
+
+    > div {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+    }
+  }
+</style>
+
