@@ -17,7 +17,7 @@
       <iframe
         data-qa="Media player"
         allowfullscreen="true"
-        :src="$path({ name: 'media', query: { id: europeanaIdentifier, ratio: ratio } })"
+        :src="$path({ name: 'media', query: { id: europeanaIdentifier } })"
         class="media-player"
       />
     </div>
