@@ -3,8 +3,10 @@ import Vue from 'vue';
 Vue.directive('visible-on-scroll', {
   inserted: (el) => {
     el.scrolledVisible = true;
-    window.addEventListener('scroll', () => handleScroll(el));
-    window.addEventListener('orientationchange', () => handleOrientationChange(el));
+    if (process.browser) {
+      window.addEventListener('scroll', () => handleScroll(el));
+      window.addEventListener('orientationchange', () => handleOrientationChange(el));
+    }
   }
 });
 
@@ -21,7 +23,6 @@ const handleScroll = (el) => {
 };
 
 const handleOrientationChange = (el) => {
-  console.log('orientation');
   const orientation = window.orientation;
   if (orientation === 0 || orientation === 180) {
     el.setAttribute('style', 'transform: translate3d(0, 0, 0)');
