@@ -232,7 +232,10 @@
 .masonry {
   display: block;
   columns: 1;
-  column-gap: 0;
+  // column-gap: 0;
+  grid-column-gap: 1rem;
+  -moz-column-gap: 1rem;
+  column-gap: 1rem;
   width: 100%;
 
   @media (min-width: $bp-small) {
@@ -251,8 +254,18 @@
     break-inside: avoid;
     min-height: initial;
     width: 100%;
+    margin: 0;
+    background: none;
+    border: none;
+    box-shadow: none;
 
     a {
+      background: $white;
+      border-radius: $border-radius-small;
+      border: 1px solid rgba(0, 0, 0, 0.125);
+      box-shadow: $boxshadow-small;
+      margin-bottom: 1rem;
+      overflow: hidden;
       .card-img {
         min-height: 12rem;
         max-height: none;
