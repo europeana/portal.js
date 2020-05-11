@@ -12,6 +12,7 @@
 
     data() {
       return {
+        // TODO: version and use unpkg with @europeana/media-player pkg, when available
         MEDIA_PLAYER_BUILD_PATH: 'https://ec-3505-media-player.eu-de.mybluemix.net'
       };
     },
