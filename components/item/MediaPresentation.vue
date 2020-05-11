@@ -101,7 +101,7 @@
         });
       },
       isPlayableMedia() {
-        if (!(process.env.EUROPEANA_MEDIA_ENDPOINT)) return false;
+        if (!Number(process.env.ENABLE_EUROPEANA_MEDIA_PLAYER)) return false;
         return isPlayableMedia(this.media);
       },
       isHTMLVideo() {
