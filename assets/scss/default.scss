@@ -137,7 +137,7 @@ figcaption {
         margin-top: -0.1rem;
       }
     }
-  }  
+  }
 }
 
 blockquote + p cite {
@@ -160,7 +160,7 @@ a {
   &:hover {
     color: inherit;
     text-decoration: none;
-  }  
+  }
 }
 
 .nuxt-progress {
@@ -182,5 +182,11 @@ input[type="checkbox"]:focus + label {
 
   @media (-webkit-min-device-pixel-ratio:0) {
     outline: -webkit-focus-ring-color auto 5px;
+  }
+}
+
+@media (min-width: $bp-large) {
+  main {
+    margin-top: 85px;
   }
 }
