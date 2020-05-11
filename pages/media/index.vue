@@ -47,7 +47,7 @@
         title: 'Media player',
 
         script: [
-          { src: `${this.MEDIA_PLAYER_BUILD_PATH}/EuropeanaMediaPlayer.js` }
+          { src: `${this.MEDIA_PLAYER_BUILD_PATH}/europeana-media-player.min.js` }
         ]
       };
     }
@@ -68,4 +68,3 @@
     }
   }
 </style>
-
