@@ -226,7 +226,7 @@
 
   .input-group {
     width: 100%;
-    margin: 0.6875rem 0;
+    margin: 0.46875rem 0;
 
     .input-group-prepend {
       align-items: center;

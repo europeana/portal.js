@@ -1,14 +1,16 @@
 import { storiesOf } from '@storybook/vue';
+import VueI18n from 'vue-i18n';
 
 import ContentCard from './ContentCard.vue';
 import ContentCardSection from '../browse/ContentCardSection.vue';
 
 storiesOf('Generic', module)
   .add('Content card', () => ({
+    i18n: new VueI18n(),
     components: { ContentCard },
     template: `<b-col cols="3" class="mt-3">
     	<ContentCard 
-        cardTitle="This is a Storybook Card"
+        title="This is a Storybook Card"
         contentSource="card"
         imageUrl="img/landscape.jpg" 
       />
@@ -16,6 +18,7 @@ storiesOf('Generic', module)
   }))
   .add('Section with content cards', () => ({
     components: { ContentCardSection },
+    i18n: new VueI18n(),
     data() {
       return {
         section: {
