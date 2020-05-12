@@ -156,36 +156,39 @@ describe('components/browse/BrowseContentCard', () => {
   });
 
   describe('texts()', () => {
-    it('is includes description, creator and provider fields', () => {
-      const description = 'Some interesting content';
-      const creator = 'A European artist';
-      const provider = 'An aggregator';
-      const wrapper = factory({ fields: { description, creator, provider } });
-
-      wrapper.vm.texts.should.include(description);
-      wrapper.vm.texts.should.include(creator);
-      wrapper.vm.texts.should.include(provider);
-    });
-
-    it('is includes dcDescriptionLangAware, dcCreatorLangAware and dataProvider fields', () => {
-      const dcDescriptionLangAware = 'Some interesting content';
-      const dcCreatorLangAware = 'A European artist';
-      const dataProvider = 'An aggregator';
-      const wrapper = factory({
-        cardType: 'automatedRecordCard',
-        fields: {
-          name,
-          encoding: {
-            dcDescriptionLangAware,
-            dcCreatorLangAware,
-            dataProvider
-          }
-        }
+    context('for a curated card', () => {
+      it('is includes description', () => {
+        const description = 'Some interesting content';
+        const wrapper = factory({ fields: { description } });
+        wrapper.vm.texts.should.include(description);
       });
-
-      wrapper.vm.texts.should.include(dcDescriptionLangAware);
-      wrapper.vm.texts.should.include(dcCreatorLangAware);
-      wrapper.vm.texts.should.include(dataProvider);
+    });
+    context('for an automated record card', () => {
+      it('is includes creator and provider fields, but no description', () => {
+        const description = 'Some interesting content';
+        const creator = 'A European artist';
+        const provider = 'An aggregator';
+        const wrapper = factory({ cardType: 'automatedRecordCard', fields: { description, creator, provider } });
+        wrapper.vm.texts.should.not.include(description);
+        wrapper.vm.texts.should.include(creator);
+        wrapper.vm.texts.should.include(provider);
+      });
+      it('is includes dcCreatorLangAware and dataProvider fields', () => {
+        const dcCreatorLangAware = 'A European artist';
+        const dataProvider = 'An aggregator';
+        const wrapper = factory({
+          cardType: 'automatedRecordCard',
+          fields: {
+            name,
+            encoding: {
+              dcCreatorLangAware,
+              dataProvider
+            }
+          }
+        });
+        wrapper.vm.texts.should.include(dcCreatorLangAware);
+        wrapper.vm.texts.should.include(dataProvider);
+      });
     });
   });
 });
