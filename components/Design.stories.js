@@ -83,9 +83,8 @@ storiesOf('Design', module)
         </b-button>
 
         <b-button
-          class="btn-link"
+          class="btn-link mr-3"
           variant="link"
-          class="mr-3"
         >
           Button Link
         </b-button>
@@ -96,7 +95,7 @@ storiesOf('Design', module)
         >
           Outlined Primary Button
         </b-button>
-      </b-container
+      </b-container>
     `
   }))
   .add('Icons', () => ({
