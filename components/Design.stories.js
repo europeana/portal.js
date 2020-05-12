@@ -66,7 +66,7 @@ storiesOf('Design', module)
   }))
   .add('Buttons', () => ({
     template: `
-      <b-col class="mt-3">
+      <b-container class="mt-3">
         <b-button
           variant="primary"
           class="mr-3"
@@ -96,6 +96,39 @@ storiesOf('Design', module)
         >
           Outlined Primary Button
         </b-button>
-      </b-col>
+      </b-container
+    `
+  }))
+  .add('Icons', () => ({
+    data() {
+      return {
+        icons: [
+          'icon-facebook',
+          'icon-twitter',
+          'icon-pinterest',
+          'icon-instagram',
+          'icon-license-pd',
+          'icon-license-zero',
+          'icon-license-cc',
+          'icon-license-by',
+          'icon-license-nc',
+          'icon-license-sa',
+          'icon-license-nd',
+          'icon-license-rs-no',
+          'icon-license-rs-yes',
+          'icon-license-rr',
+          'icon-license-rs-unknown',
+          'icon-close'
+        ]
+      };
+    },
+    template: `
+      <b-container class="mt-3">
+        <div style="display:flex;flex-wrap: wrap;">
+          <div style="background-color:white;width:80px;height:80px;display:flex;justify-content:center;align-items:center" v-for="icon in icons">
+            <i :class="icon" :title="icon" />
+          </div>
+        </div>
+      </b-container>
     `
   }));
