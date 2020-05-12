@@ -3,8 +3,8 @@ import VueI18n from 'vue-i18n';
 
 import AlertMessage from './AlertMessage.vue';
 
-storiesOf('Generic', module)
-  .add('Alert message', () => ({
+storiesOf('Generic/Messages', module)
+  .add('Alert', () => ({
     i18n: new VueI18n(),
     components: { AlertMessage },
     template: ` <b-container
