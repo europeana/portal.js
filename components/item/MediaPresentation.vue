@@ -12,10 +12,10 @@
       v-else-if="isPlayableMedia"
       ref="player"
       class="media-player-wrapper"
-      :style="{ paddingTop: ratio +'%' }"
+      :style="{ paddingTop: `${ratio}%` }"
     >
       <iframe
-        data-qa="Media player"
+        data-qa="media player"
         allowfullscreen="true"
         :src="$path({ name: 'media', query: { id: europeanaIdentifier } })"
         class="media-player"
@@ -84,6 +84,10 @@
       imageSrc: {
         type: String,
         default: ''
+      },
+      enableEuropeanaMediaPlayer: {
+        type: Boolean,
+        default: false
       }
     },
 
@@ -101,8 +105,7 @@
         });
       },
       isPlayableMedia() {
-        if (!Number(process.env.ENABLE_EUROPEANA_MEDIA_PLAYER)) return false;
-        return isPlayableMedia(this.media);
+        return this.enableEuropeanaMediaPlayer && isPlayableMedia(this.media);
       },
       isHTMLVideo() {
         return isHTMLVideo(this.media);
