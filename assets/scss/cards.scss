@@ -236,10 +236,13 @@
   -moz-column-gap: 1rem;
   column-gap: 1rem;
   width: 100%;
+  margin: 0;
 
   @media (min-width: $bp-small) {
     columns: 2;
-    column-gap: 1rem;
+    grid-column-gap: 1.875rem;
+    -moz-column-gap: 1.875rem;
+    column-gap: 1.875rem;
   }
 
   @media (min-width: $bp-large) {
@@ -263,7 +266,7 @@
       border-radius: $border-radius-small;
       border: 1px solid rgba(0, 0, 0, 0.125);
       box-shadow: $boxshadow-small;
-      margin-bottom: 1rem;
+      margin-bottom: 1.5rem;
       overflow: hidden;
       .card-img {
         min-height: 12rem;
