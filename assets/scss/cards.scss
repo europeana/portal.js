@@ -6,7 +6,7 @@
   font-size: $font-size-small;
   height: auto;
   line-height: 1.1875rem;
-  transition: box-shadow 0.25s;
+  transition: box-shadow 0.25s ease-in-out;
 
   &.card {
     margin-bottom: 1.5rem;
@@ -268,6 +268,10 @@
       box-shadow: $boxshadow-small;
       margin-bottom: 1.5rem;
       overflow: hidden;
+      transition: box-shadow 0.25s ease-in-out;
+      &:hover {
+        box-shadow: $boxshadow-large;
+      }
       .card-img {
         min-height: 12rem;
         max-height: none;
