@@ -276,7 +276,7 @@
 }
 
 .browse-section {
-  .content-card a .card-body {
+  .content-card:not(.mini-card) a .card-body {
     min-height: 10rem;
   }
 }
