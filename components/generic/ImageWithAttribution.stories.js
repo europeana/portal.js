@@ -1,13 +1,8 @@
 import { storiesOf } from '@storybook/vue';
 import VueRouter from 'vue-router';
+import VueI18n from 'vue-i18n';
 import ImageWithAttribution from './ImageWithAttribution.vue';
-
-const i18n = {
-  locale: 'en',
-  messages: {
-    en: {}
-  }
-};
+const i18n = new VueI18n();
 
 const router = new VueRouter({
   routes: [

@@ -1,5 +1,7 @@
 <template>
   <b-container
+    ref="nav-container"
+    v-visible-on-scroll
     fluid
     class="border-bottom mb-3 d-flex py-3 py-lg-1 px-lg-3 flex-column flex-lg-row"
     data-qa="header"
@@ -85,6 +87,20 @@
     width: 40%;
   }
   @media (min-width: $bp-large) {
+    @media (max-width: $bp-large) {
+      .navbar-brand {
+        justify-content: center;
+      }
+    }
+    .container-fluid {
+      position: fixed;
+      right: 0;
+      top: 0;
+      left: 0;
+      z-index: 1030;
+      border-bottom: none !important;
+      transition: $standard-transition;
+    }
     .form-inline {
       max-width: 37.5rem;
     }

@@ -38,9 +38,13 @@ storiesOf('Generic', module)
       <b-container class="mt-3">
         <CompareImageSlider
           :left-image-src="leftImageSrc"
+          :left-image-width="400"
+          :left-image-height="285"
           :right-image-src="rightImageSrc"
           :left-image-attribution="leftImageAttribution"
           :right-image-attribution="rightImageAttribution"
+          :right-image-width="400"
+          :right-image-height="285"
         />
       </b-container>`
   }));
