@@ -13,7 +13,7 @@
     data() {
       return {
         // TODO: version and use unpkg with @europeana/media-player pkg, when available
-        MEDIA_PLAYER_BUILD_PATH: 'https://ec-3505-media-player.eu-de.mybluemix.net'
+        MEDIA_PLAYER_SRC: 'https://ec-3505-media-player.eu-de.mybluemix.net/europeana-media-player.min.js'
       };
     },
 
@@ -42,7 +42,9 @@
         title: 'Media player',
 
         script: [
-          { src: `${this.MEDIA_PLAYER_BUILD_PATH}/europeana-media-player.min.js` }
+          { src: 'https://code.jquery.com/jquery-3.4.1.min.js' },
+          { src: 'https://code.jquery.com/ui/1.12.1/jquery-ui.min.js' },
+          { src: this.MEDIA_PLAYER_SRC }
         ]
       };
     }
