@@ -1,8 +1,8 @@
 import { storiesOf } from '@storybook/vue';
 import VueI18n from 'vue-i18n';
 
-storiesOf('Basics', module)
-  .add('typography', () => ({
+storiesOf('Design', module)
+  .add('Typography', () => ({
     i18n: new VueI18n(),
     template:  `<b-container class="mt-3">
         <h1>This is a h1 heading</h1>
@@ -63,4 +63,39 @@ storiesOf('Basics', module)
         </p>
 
       </b-container>`
+  }))
+  .add('Buttons', () => ({
+    template: `
+      <b-col class="mt-3">
+        <b-button
+          variant="primary"
+          class="mr-3"
+        >
+          Primary Button
+        </b-button>
+
+        <b-button
+          variant="light"
+          :to="localePath({ name: '' })"
+          class="mr-3"
+        >
+          Light Button
+        </b-button>
+
+        <b-button
+          class="btn-link"
+          variant="link"
+          class="mr-3"
+        >
+          Button Link
+        </b-button>
+
+        <b-button
+          to=""
+          variant="outline-primary text-decoration-none"
+        >
+          Outlined Primary Button
+        </b-button>
+      </b-col>
+    `
   }));

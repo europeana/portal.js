@@ -4,7 +4,7 @@ import VueI18n from 'vue-i18n';
 import ContentCard from './ContentCard.vue';
 import ContentCardSection from '../browse/ContentCardSection.vue';
 
-storiesOf('Generic/Content cards', module)
+storiesOf('Design/Content cards', module)
   .add('Default card', () => ({
     i18n: new VueI18n(),
     components: { ContentCard },
