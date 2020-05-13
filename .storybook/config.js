@@ -18,7 +18,7 @@ Vue.mixin({
     $path: () => {}, // Mocking the path plugin
     $tFacetName: (name) => name, // Mocking the tFacetName plugin
     $tNull: (key) => key, // Mocking the tNull plugin
-    $proxyMedia: (url, id) => id ? id + url : url // Mocking the proxyMedia plugin
+    $proxyMedia: (url, id) => id ? id + url : url, // Mocking the proxyMedia plugin
   }
 });
 Vue.component('NuxtLink', {
