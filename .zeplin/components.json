@@ -1,0 +1,47 @@
+{
+    "plugins": [
+        {
+            "name": "zeplin-cli-connect-plugin-vue"
+        },
+        {
+            "name": "@zeplin/cli-connect-storybook-plugin",
+            "config": {
+                "url": "http://localhost:6006",
+                "startScript": "storybook",
+                "format": "new"
+            }
+        }
+    ],
+    "projects": [
+        "5e3c1167d638ca9a6327895b"
+    ],
+    "styleguides": [
+        "5e5fb067460d9b1317c23099"
+    ],
+    "components": [
+        {
+            "path": "components/PageHeader.vue",
+            "zeplinNames": [
+                "Top bar"
+            ]
+        },
+        {
+            "path": "components/PageFooter.vue",
+            "zeplinNames": [
+                "Footer"
+            ]
+        },
+        {
+            "path": "components/generic/PaginationNav.vue",
+            "zeplinNames": [
+                "Bar / Pagination / Neutral"
+            ],
+            "storybook": {
+                "kind": "Generic",
+                "stories": [
+                    "pagination"
+                ]
+            }
+        }
+    ]
+}
