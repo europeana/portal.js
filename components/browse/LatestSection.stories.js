@@ -7,7 +7,6 @@ const i18n = new VueI18n({
 });
 
 storiesOf('Generic', module)
-  .addDecorator()
   .add('Latest Section', () => ({
     components: { LatestSection },
     i18n,
