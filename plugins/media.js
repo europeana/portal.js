@@ -70,5 +70,6 @@ export function iiifManifest(media, europeanaIdentifier) {
 
 export function isRichMedia(media, options = {}) {
   return isOEmbed(media) || isHTMLVideo(media) || isHTMLAudio(media) ||
-    (options.iiif && isIIIFMedia(media));
+    (options.iiif && isIIIFMedia(media)) ||
+    (Number(process.env.ENABLE_EUROPEANA_MEDIA_PLAYER) && isPlayableMedia(media));
 }
