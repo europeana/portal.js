@@ -233,7 +233,7 @@
 }
 
 .masonry {
-  display: block;
+  display: inline-block;
   columns: 1;
   column-gap: 0;
   width: 100%;
@@ -248,10 +248,12 @@
   }
 
   .content-card {
-    break-inside: avoid;
-    min-height: initial;
+    /*break-inside: avoid;
+    transform: translateZ(0);*/
+    display: inline-block;
+    vertical-align: top;
     width: 100%;
-
+    
     a {
       .card-img {
         min-height: 12rem;
