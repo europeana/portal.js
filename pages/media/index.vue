@@ -13,7 +13,9 @@
     data() {
       return {
         // TODO: version and use unpkg with @europeana/media-player pkg, when available
-        MEDIA_PLAYER_SRC: 'https://ec-3505-media-player.eu-de.mybluemix.net/europeana-media-player.min.js'
+        MEDIA_PLAYER_SRC: 'https://ec-3505-media-player.eu-de.mybluemix.net/europeana-media-player.min.js',
+        JQUERY_VERSION: '3.4.1',
+        JQUERY_UI_VERSION: '1.12.1'
       };
     },
 
@@ -41,9 +43,13 @@
       return {
         title: 'Media player',
 
+        link: [
+          { rel: 'stylesheet', href: `https://code.jquery.com/ui/${this.JQUERY_UI_VERSION}/themes/base/jquery-ui.css` }
+        ],
+
         script: [
-          { src: 'https://code.jquery.com/jquery-3.4.1.min.js' },
-          { src: 'https://code.jquery.com/ui/1.12.1/jquery-ui.min.js' },
+          { src: `https://code.jquery.com/jquery-${this.JQUERY_VERSION}.min.js` },
+          { src: `https://code.jquery.com/ui/${this.JQUERY_UI_VERSION}/jquery-ui.min.js` },
           { src: this.MEDIA_PLAYER_SRC }
         ]
       };
