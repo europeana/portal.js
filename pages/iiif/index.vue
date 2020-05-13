@@ -17,15 +17,10 @@
       };
     },
 
-    asyncData({ query }) {
-      return {
-        uri: query.uri
-      };
-    },
-    mounted() {
-      this.$nextTick(() => {
+    computed: {
+      miradorViewerOptions() {
         // Doc: https://github.com/ProjectMirador/mirador/blob/master/src/config/settings.js
-        const mirador = Mirador.viewer({ // eslint-disable-line no-undef
+        const options = {
           id: 'viewer',
           windows: [{
             manifestId: this.uri,
@@ -36,16 +31,15 @@
             allowFullscreen: true,
             allowMaximize: false,
             allowTopMenuButton: false,
-            allowWindowSideBar: true,
-            sideBarOpenByDefault: true,
+            allowWindowSideBar: false,
+            sideBarOpenByDefault: false,
             panels: {
               info: false,
               attribution: false,
-              canvas: true,
-              annotations: true,
+              canvas: false,
+              annotations: false,
               search: false
-            },
-            defaultSideBarPanel: 'annotations'
+            }
           },
           workspace: {
             showZoomControls: true,
@@ -54,7 +48,27 @@
           workspaceControlPanel: {
             enabled: false
           }
-        });
+        };
+
+        if (Number(process.env.ENABLE_IIIF_ANNOTATIONS)) {
+          options.window.allowWindowSideBar = true;
+          options.window.panels.annotations = true;
+          options.window.defaultSideBarPanel = 'annotations';
+        }
+
+        return options;
+      }
+    },
+
+    asyncData({ query }) {
+      return {
+        uri: query.uri
+      };
+    },
+
+    mounted() {
+      this.$nextTick(() => {
+        const mirador = Mirador.viewer(this.miradorViewerOptions); // eslint-disable-line no-undef
 
         mirador.store.subscribe(() => {
           const miradorWindow = Object.values(mirador.store.getState().windows)[0]; // only takes one window into account at the moment
