@@ -3,6 +3,8 @@ import Vuex from 'vuex';
 import VueI18n from 'vue-i18n';
 import SocialShare from './SocialShare.vue';
 
+const i18n = new VueI18n();
+
 const store = new Vuex.Store({
   getters: {
     'http/canonicalUrl': () => {}
@@ -12,7 +14,7 @@ const store = new Vuex.Store({
 storiesOf('Generic', module)
   .add('Social share', () => ({
     components: { SocialShare },
-    i18n: new VueI18n(),
+    i18n,
     store,
     data() {
       return {

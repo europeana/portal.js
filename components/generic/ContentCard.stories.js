@@ -1,11 +1,12 @@
 import { storiesOf } from '@storybook/vue';
 import VueI18n from 'vue-i18n';
-
 import ContentCard from './ContentCard.vue';
+
+const i18n = new VueI18n();
 
 storiesOf('Design/Content cards', module)
   .add('Default card', () => ({
-    i18n: new VueI18n(),
+    i18n,
     components: { ContentCard },
     template: `<b-col cols="3" class="mt-3">
     	<ContentCard 
@@ -16,7 +17,7 @@ storiesOf('Design/Content cards', module)
     </b-col>`
   }))
   .add('Mini card', () => ({
-    i18n: new VueI18n(),
+    i18n,
     components: { ContentCard },
     template: `<b-col cols="3" class="mt-3">
     	<ContentCard 

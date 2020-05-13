@@ -2,10 +2,12 @@ import { storiesOf } from '@storybook/vue';
 import VueI18n from 'vue-i18n';
 import ContentCardSection from './browse/ContentCardSection.vue';
 
+const i18n = new VueI18n();
+
 storiesOf('Generic', module)
   .add('Section with content cards', () => ({
     components: { ContentCardSection },
-    i18n: new VueI18n(),
+    i18n,
     data() {
       return {
         section: {
@@ -89,7 +91,7 @@ storiesOf('Generic', module)
 
 storiesOf('Generic/Messages', module)
   .add('Toast', () => ({
-    i18n: new VueI18n(),
+    i18n,
     data() {
       return {
         toggle: false

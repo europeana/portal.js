@@ -2,10 +2,12 @@ import { storiesOf } from '@storybook/vue';
 import VueI18n from 'vue-i18n';
 import MediaThumbnailGrid from './MediaThumbnailGrid.vue';
 
+const i18n = new VueI18n();
+
 storiesOf('Record / Media thumbnail grid', module)
   .add('Default size (w200)', () => ({
     components: { MediaThumbnailGrid },
-    i18n: new VueI18n(),
+    i18n,
     data() {
       return {
         media: [

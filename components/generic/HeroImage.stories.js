@@ -1,11 +1,12 @@
 import { storiesOf } from '@storybook/vue';
 import VueI18n from 'vue-i18n';
-
 import HeroImage from './HeroImage.vue';
+
+const i18n = new VueI18n();
 
 storiesOf('Design', module)
   .add('Hero Image', () => ({
-    i18n: new VueI18n(),
+    i18n,
     components: { HeroImage },
     data() {
       return {

@@ -4,6 +4,8 @@ import StoryRouter from 'storybook-vue-router';
 import VueI18n from 'vue-i18n';
 import PageHeader from './PageHeader.vue';
 
+const i18n = new VueI18n();
+
 const store = new Vuex.Store({
   state: {
     'link-group': {
@@ -29,7 +31,7 @@ storiesOf('Design', module)
     ]
   }))
   .add('Page Header', () => ({
-    i18n: new VueI18n(),
+    i18n,
     store,
     components: { PageHeader },
     template: `
