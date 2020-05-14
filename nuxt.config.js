@@ -104,8 +104,13 @@ module.exports = {
       logLevel: process.env['ELASTIC_APM_LOG_LEVEL'] || 'info',
       frameworkName: 'Nuxt.js',
       frameworkVersion: require('nuxt/package.json').version
-    }]
+    }],
+    '@nuxtjs/gtm'
   ],
+  gtm: {
+    id: process.env.GOOGLE_TAG_MANAGER_ID,
+    pageTracking: true
+  },
 
   /*
   ** Nuxt.js modules
@@ -113,10 +118,6 @@ module.exports = {
   modules: [
     '@nuxtjs/dotenv',
     '~/modules/apis',
-    ['@nuxtjs/google-tag-manager', {
-      id: process.env.GOOGLE_TAG_MANAGER_ID,
-      pageTracking: true
-    }],
     'bootstrap-vue/nuxt',
     'cookie-universal-nuxt',
     ['nuxt-i18n', {

@@ -346,6 +346,12 @@
         if (localStorage.itemShowExtendedMetadata && JSON.parse(localStorage.itemShowExtendedMetadata)) {
           this.$root.$emit('bv::toggle::collapse', 'extended-metadata');
         }
+        this.$gtm.push({
+          itemCountry: this.fields.edmCountry.def[0],
+          itemDataProvider: this.coreFields.edmDataProvider.def[0],
+          itemProvider: this.fields.edmProvider.def[0],
+          itemRights: this.fields.edmRights.def[0]
+        });
       }
 
       const taggingAnnotationSearchParams = {
