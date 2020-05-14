@@ -119,7 +119,10 @@ storiesOf('Design', module)
           'icon-license-rs-yes',
           'icon-license-rr',
           'icon-license-rs-unknown',
-          'icon-close'
+          'icon-close',
+          'icon-caret-down',
+          'icon-external-link',
+          'icon-view-toggle grid'
         ]
       };
     },
