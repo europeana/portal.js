@@ -233,7 +233,7 @@
 }
 
 .masonry {
-  display: inline-block;
+  display: block;
   columns: 1;
   column-gap: 0;
   width: 100%;
@@ -254,7 +254,13 @@
   .content-card {
     box-shadow: none;
     display: inline-block;
+    vertical-align: top;
     width: 100%;
+    transform: translateZ(0);
+
+    @media not all and (min-resolution:.001dpcm) {
+      transform: none;
+    }
 
     &:before {
       box-shadow: $boxshadow-small;
