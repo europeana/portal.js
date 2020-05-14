@@ -258,6 +258,7 @@
     width: 100%;
     transform: translateZ(0);
 
+    // targets safari 10+ to avoid missing card bug
     @media not all and (min-resolution:.001dpcm) {
       transform: none;
     }
