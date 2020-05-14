@@ -26,4 +26,34 @@ storiesOf('Design/Content cards', module)
         variant="mini"
       />
     </b-col>`
+  }))
+  .add('Entity card', () => ({
+    i18n,
+    components: { ContentCard },
+    template: `<b-col cols="3" class="mt-3">
+    	<ContentCard 
+        title="This is a Storybook Card"
+        imageUrl="img/landscape.jpg" 
+        variant="entity"
+      />
+    </b-col>`
+  }))
+  .add('List card', () => ({
+    i18n,
+    components: { ContentCard },
+    data() {
+      return {
+        texts: [
+          ['This is description']
+        ]
+      };
+    },
+    template: `<b-col cols="3" class="mt-3">
+    	<ContentCard 
+        title="This is a Storybook Card"
+        imageUrl="img/landscape.jpg" 
+        :texts="texts"
+        variant="list"
+      />
+    </b-col>`
   }));
