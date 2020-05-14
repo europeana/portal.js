@@ -118,11 +118,12 @@ export default {
       }
     },
     "contentTier": {
-      "name": "Includes items not meeting our publishing criteria",
+      "name": "Item quality",
       "options": {
         "*": "Includes items not meeting our publishing criteria",
-        "0": "Only items not meeting our publishing criteria"
-      }
+        "0": "Show only items not meeting our publishing criteria"
+      },
+      "notification": "Some items not matching our publishing criteria are available. You can access those items by activating the 'Item Quality' filter under 'More filters'."
     },
     "button": {
       "reset": "Reset",
@@ -368,6 +369,7 @@ export default {
   "newWindow": "opens in new window",
   "blog": {
     "blog": "Blog",
+    "posts": "Blog posts",
     "author": "Author",
     "authors": "Authors",
     "category": "Category",
@@ -473,6 +475,7 @@ export default {
     "description": "Explore our galleries"
   },
   "relatedCollections": "Related collections",
+  "contentYouMightLike": "Content you might like",
   "linksToClassic": {
     "home": {
       "text": "You're viewing the new Europeana experience.",
@@ -486,5 +489,8 @@ export default {
       "text": "You're viewing this item in the new Europeana website.",
       "linkText": "View this item in the original Europeana."
     }
+  },
+  "mediaPreview": {
+    "selectItem": "Select item {src}"
   }
 };

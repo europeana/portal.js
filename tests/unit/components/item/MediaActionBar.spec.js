@@ -11,8 +11,6 @@ localVue.use(VueI18n);
 localVue.use(Vuex);
 localVue.component('SmartLink', SmartLink);
 
-localVue.filter('proxyMedia', () => 'proxied');
-
 const i18n = new VueI18n({
   locale: 'en',
   messages: {
@@ -26,8 +24,13 @@ const i18n = new VueI18n({
 });
 
 const store = new Vuex.Store({
-  getters: {
-    canonicalUrl: () => 'https://www.example.org/page'
+  modules: {
+    http: {
+      namespaced: true,
+      getters: {
+        canonicalUrl: () => 'https://www.example.org/page'
+      }
+    }
   }
 });
 
@@ -37,7 +40,8 @@ const factory = (propsData) => mount(MediaActionBar, {
   store,
   propsData,
   mocks: {
-    $t: (key) => `TRANSLATED: ${key}`
+    $t: (key) => `TRANSLATED: ${key}`,
+    $proxyMedia: () => 'proxied'
   }
 });
 
@@ -122,12 +126,12 @@ describe('components/item/MediaActionBar', () => {
       useProxy
     });
 
-    wrapper.find('[data-qa="share buttons bar"]').exists().should.be.false;
+    wrapper.find('[data-qa="share buttons bar"]').isVisible().should.equal(false);
 
     const share = wrapper.find('[data-qa="share button"]');
     share.trigger('click');
 
-    wrapper.find('[data-qa="share buttons bar"]').exists().should.be.true;
+    wrapper.find('[data-qa="share buttons bar"]').isVisible().should.equal(true);
   });
 
   describe('data provider attribution', () => {

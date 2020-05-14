@@ -7,6 +7,7 @@
     :image-content-type="imageContentType"
     :variant="cardVariant"
     :omit-all-uris="true"
+    :image-optimisation-options="{ width: 510 }"
   />
 </template>
 
@@ -82,10 +83,14 @@
         let texts = [];
         let textFields;
 
-        if (this.cardType === 'automatedRecordCard' && this.fields.encoding) {
-          textFields = ['dcDescriptionLangAware', 'dcCreatorLangAware', 'dataProvider'];
+        if (this.cardType === 'automatedRecordCard') {
+          if (this.fields.encoding) {
+            textFields = ['dcCreatorLangAware', 'dataProvider'];
+          } else {
+            textFields = ['creator', 'provider'];
+          }
         } else {
-          textFields = ['description', 'creator', 'provider'];
+          textFields = ['description'];
         }
 
         for (const field of textFields) {

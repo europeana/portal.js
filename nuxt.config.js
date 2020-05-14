@@ -43,7 +43,7 @@ module.exports = {
   /*
   ** Global CSS
   */
-  css: [],
+  css: ['./assets/scss/style'],
 
   // BootstrapVue
   // Doc: https://bootstrap-vue.js.org/docs/
@@ -51,8 +51,8 @@ module.exports = {
     // Set these two settings to `false` to prevent auto-importing of Bootstrap(Vue)
     // CSS. It will then need to be manually imported, e.g. with
     // assets/scss/bootstrap.scss
-    bootstrapCSS: true,
-    bootstrapVueCSS: true,
+    bootstrapCSS: false,
+    bootstrapVueCSS: false,
 
     // Tree shake plugins
     componentPlugins: [
@@ -76,7 +76,8 @@ module.exports = {
       'MediaPlugin',
       'NavbarPlugin',
       'NavPlugin',
-      'PaginationNavPlugin'
+      'PaginationNavPlugin',
+      'ToastPlugin'
     ]
   },
 
@@ -88,7 +89,9 @@ module.exports = {
     '~/plugins/europeana',
     '~/plugins/vue/index',
     '~/plugins/i18n.js',
-    '~/plugins/vue-filters'
+    '~/plugins/vue-filters',
+    '~/plugins/vue-disqus',
+    '~/plugins/vue-directives'
   ],
 
   buildModules: [
@@ -118,6 +121,7 @@ module.exports = {
     'cookie-universal-nuxt',
     ['nuxt-i18n', {
       locales: i18nLocales,
+      baseUrl: ({ store }) => store.getters['http/origin'],
       defaultLocale: 'en',
       lazy: true,
       langDir: 'lang/',

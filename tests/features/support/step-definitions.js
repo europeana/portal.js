@@ -133,3 +133,11 @@ defineStep('my browser accepts the language {string}', (locale) =>
 
 defineStep('I search for {string}', (query) =>
   i.searchFor(query));
+
+defineStep('I make a snapshot of (a/an/the)( ){target}', (pageName) =>
+  i.makeSnapShot(pageName));
+
+defineStep('I should see alternate-hreflang tags', () =>
+  i.hrefLangTags());
+
+

@@ -26,12 +26,16 @@
               :fields="facet.fields"
               :type="facetDropdownType(facet.name)"
               :selected="filters[facet.name]"
+              role="search"
+              :aria-label="`${facet.name} dropdown button`"
               @changed="changeFacet"
             />
             <MoreFiltersDropdown
               v-if="enableMoreFacets"
               :more-facets="moreFacets"
               :selected="moreSelectedFacets"
+              role="search"
+              aria-label="more filters dropdown button"
               @changed="changeMoreFacets"
             />
             <button
@@ -112,6 +116,18 @@
         </b-col>
       </b-row>
     </template>
+    <b-toast
+      id="tier-toast"
+      toast-class="brand-toast"
+      toaster="b-toaster-bottom-left"
+      auto-hide-delay="10000"
+      is-status
+      no-close-button
+      solid
+      data-qa="tier toast"
+    >
+      {{ $t('facets.contentTier.notification') }}
+    </b-toast>
   </b-container>
 </template>
 
@@ -285,6 +301,12 @@
         this.view = this.routeQueryView;
       }
     },
+    mounted() {
+      this.showContentTierToast();
+    },
+    updated() {
+      this.showContentTierToast();
+    },
     methods: {
       facetDropdownType(name) {
         return name === 'collection' ? 'radio' : 'checkbox';
@@ -339,6 +361,18 @@
       },
       isFilteredByDropdowns() {
         return this.$store.getters['search/hasResettableFilters'];
+      },
+      showContentTierToast() {
+        if (!process.browser) return;
+
+        const contentTierFacet = this.moreFacets.find(facet => {
+          return facet.name === 'contentTier' && facet.fields && facet.fields.some(option => option.label === '"0"');
+        });
+
+        if (contentTierFacet && !sessionStorage.contentTierToastShown) {
+          this.$bvToast.show('tier-toast');
+          this.$root.$on('bv::toast:shown', () => sessionStorage.contentTierToastShown = true);
+        }
       }
     }
   };

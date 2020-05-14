@@ -23,18 +23,15 @@
   }
 
   .card-img {
+    border-radius: 4px 4px 0 0;
     display: flex;
+    overflow: hidden;
     flex: 1 1 auto;
-    max-height: 10rem;
-    min-height: 10rem;
+    max-height: 13rem;
+    min-height: 13rem;
     width: 100%;
 
-    @media (min-width: $bp-medium) {
-      max-height: 13rem;
-    }
-
     img {
-      border-radius: 4px 4px 0 0;
       object-fit: cover;
       width: 100%;
     }
@@ -49,6 +46,12 @@
   .card-title {
     font-size: 1rem;
     font-weight: 600;
+    max-height: 1.1875rem;
+    margin-bottom: 0.75rem;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
   }
 
   .card-subtitle {
@@ -67,6 +70,14 @@
 
   .card-text {
     color: $mediumgrey;
+
+    p {
+      max-height: 4.75rem;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 4;
+      -webkit-box-orient: vertical;
+    }
 
     &:last-of-type p {
       margin-bottom: 0;
@@ -97,7 +108,7 @@
       }
     }
 
-    @media (min-width: $bp-medium) {      
+    @media (min-width: $bp-medium) {
       min-height: auto;
     }
   }
@@ -120,7 +131,7 @@
         overflow: hidden;
         position: relative;
         width: 80px;
-        
+
         img {
           height: 80px;
           margin: 0;
@@ -138,6 +149,10 @@
       .card-title {
         overflow-wrap: break-word;
         word-break: break-word;
+        max-height: 3.5625rem;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
       }
 
       .card-body {
@@ -150,8 +165,8 @@
 
       .card-text {
         color: $blue;
-      }      
-    }    
+      }
+    }
   }
 
   &.list-card {
@@ -161,7 +176,7 @@
       a {
         flex-direction: row;
         justify-content: space-between;
-      
+
         .card-img {
           display: inline-block;
           height: 13rem;
@@ -218,7 +233,7 @@
 }
 
 .masonry {
-  display: inline-block;
+  display: block;
   columns: 1;
   column-gap: 0;
   width: 100%;
@@ -235,14 +250,33 @@
   .content-card {
     break-inside: avoid;
     min-height: initial;
-    transform: translateZ(0);
     width: 100%;
 
     a {
       .card-img {
         min-height: 12rem;
-        max-height: initial;
+        max-height: none;
+      }
+
+      .card-title {
+        display: block;
+        -webkit-line-clamp: initial;
+        -webkit-box-orient: initial;
+        max-height: none;
+      }
+
+      .card-text:last-of-type p {
+        max-height: none;
+        display: block;
+        -webkit-line-clamp: initial;
+        -webkit-box-orient: initial;
       }
     }
+  }
+}
+
+.browse-section {
+  .content-card:not(.mini-card) a .card-body {
+    min-height: 10rem;
   }
 }

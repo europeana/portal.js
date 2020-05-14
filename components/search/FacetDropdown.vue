@@ -235,7 +235,7 @@
       }
     }
 
-    .custom-control  {
+    .custom-control {
       margin-bottom: 4px;
       min-height: auto;
 

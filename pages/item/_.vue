@@ -54,6 +54,7 @@
                   :europeana-identifier="identifier"
                   :media="selectedMedia"
                   :image-src="selectedMediaImage.src"
+                  :enable-europeana-media-player="enableEuropeanaMediaPlayer"
                 />
                 <MediaThumbnailGrid
                   v-if="displayMediaThumbnailGrid"
@@ -149,6 +150,12 @@
           cols="12"
           lg="3"
         >
+          <h2
+            v-if="relatedEntities && relatedEntities.length > 0"
+            class="related-heading text-uppercase"
+          >
+            {{ $t('contentYouMightLike') }}
+          </h2>
           <EntityCards
             v-if="relatedEntities"
             :entities="relatedEntities"
@@ -317,6 +324,9 @@
       },
       redirectNotificationsEnabled() {
         return Boolean(Number(process.env.ENABLE_LINKS_TO_CLASSIC));
+      },
+      enableEuropeanaMediaPlayer() {
+        return Boolean(Number(process.env.ENABLE_EUROPEANA_MEDIA_PLAYER));
       }
     },
 
@@ -333,9 +343,11 @@
         });
     },
 
-    mounted() {
+    created() {
       this.cardGridClass = this.isRichMedia && 'card-grid-richmedia';
+    },
 
+    mounted() {
       if (process.browser) {
         if (localStorage.itemShowExtendedMetadata && JSON.parse(localStorage.itemShowExtendedMetadata)) {
           this.$root.$emit('bv::toggle::collapse', 'extended-metadata');
@@ -434,7 +446,7 @@
   @import "./assets/scss/variables.scss";
   @import "./assets/scss/icons.scss";
 
-  h2 {
+  h2:not(.related-heading) {
     font-size: $font-size-medium;
     font-weight: bold;
   }

@@ -1,14 +1,21 @@
 import { storiesOf } from '@storybook/vue';
 import { action } from '@storybook/addon-actions';
+import Vuex from 'vuex';
 import DateFilter from './DateFilter.vue';
+
+const store = new Vuex.Store({
+  actions: {
+    'search/setResettableFilter': () => {}
+  }
+});
 
 const i18n = {
   locale: 'en',
   messages: {
     en: {
       dateFilter: {
-        startDate: 'Start date',
-        endDate: 'End date'
+        specificDate: 'Specific date',
+        to: 'To'
       },
       facets: {
         'proxy_dcterms_issued': {
@@ -22,6 +29,7 @@ const i18n = {
 storiesOf('Search', module)
   .add('Date Filter', () => ({
     i18n,
+    store,
     components: { DateFilter },
     methods: {
       log(a, b) {

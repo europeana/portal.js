@@ -23,7 +23,7 @@
       <b-button
         v-if="total > 4"
         variant="light"
-        :to="localePath({ name: category.toLowerCase() })"
+        :to="localePath({ name: contentType.path })"
       >
         {{ showMoreLink }}
       </b-button>
@@ -58,13 +58,16 @@
 
     computed: {
       contentType() {
-        if (this.category === 'Exhibitions') {
-          return { type: 'exhibitionPage', name: this.$tc('exhibitions.exhibitions', this.total) };
-        } else if (this.category === 'Galleries') {
-          return { type: 'imageGallery', name: this.$tc('galleries.galleries', this.total) };
-        } else {
-          return false;
+        switch (this.category) {
+        case 'Exhibitions':
+          return { type: 'exhibitionPage', name: this.$tc('exhibitions.exhibitions', this.total), path: 'exhibitions' };
+        case 'Galleries':
+          return { type: 'imageGallery', name: this.$tc('galleries.galleries', this.total), path: 'galleries' };
+        case 'Blog posts':
+          return { type: 'blogPosting', name: this.$tc('blog.posts'), path: 'blog' };
         }
+
+        return false;
       },
       showMoreLink() {
         return `${this.$tc('showMore')} ${this.contentType.name.toLowerCase()} (${this.total})`;
@@ -92,16 +95,20 @@
 
         switch (this.category) {
         case 'Exhibitions':
-          data = this.exhibitionCardData(card);
+          data = this.defaultCardData(card, 'exhibitions-exhibition');
           break;
         case 'Galleries':
           data = this.galleryCardData(card);
+          break;
+        case 'Blog posts':
+          data = this.defaultCardData(card, 'blog-all');
           break;
         }
 
         return data;
       },
-      exhibitionCardData(card) {
+      defaultCardData(card, name) {
+        const key = name === 'exhibitions-exhibition' ? 'exhibition' : 'pathMatch';
         const image = card.primaryImageOfPage;
         let imageUrl;
         let imageContentType;
@@ -111,15 +118,22 @@
         }
 
         return {
-          cardLink: { name: 'exhibitions-exhibition', params: { exhibition: card.identifier } },
+          cardLink: { name, params: { [key]: card.identifier } },
           imageUrl,
           imageContentType
         };
       },
       galleryCardData(card) {
+        let imageUrl;
+        if (card.hasPart[0].fields.encoding) {
+          imageUrl = `${card.hasPart[0].fields.encoding.edmPreview[0]}&size=w200`;
+        } else {
+          imageUrl = card.hasPart[0].fields.thumbnailUrl;
+        }
+
         return {
           cardLink: { name: 'galleries-all', params: { pathMatch: card.identifier } },
-          imageUrl: card.hasPart[0].fields.thumbnailUrl
+          imageUrl
         };
       }
     }

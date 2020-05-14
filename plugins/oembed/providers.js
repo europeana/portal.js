@@ -1,7 +1,7 @@
 export default [
   {
     name: 'Europeana',
-    endpoint: 'http://oembed.europeana.eu/',
+    endpoint: 'https://oembed.europeana.eu/',
     schemes: [
       'http://archives.crem-cnrs.fr/archives/items/*/',
       'http://www.ccma.cat/tv3/alacarta/programa/titol/video/*/',

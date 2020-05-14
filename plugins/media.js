@@ -1,4 +1,4 @@
-import { oEmbeddable } from './oembed.js';
+import { oEmbeddable } from './oembed';
 
 export function isPDF(media) {
   return media.ebucoreHasMimeType === 'application/pdf';
@@ -18,6 +18,15 @@ export function isHTMLVideo(media) {
 
 export function isHTMLAudio(media) {
   return ['audio/flac', 'audio/ogg', 'audio/mpeg'].includes(media.ebucoreHasMimeType);
+}
+
+export function isPlayableMedia(media) {
+  return (typeof media.ebucoreHasMimeType === 'string' && (
+    media.ebucoreHasMimeType.startsWith('video/') ||
+    media.ebucoreHasMimeType.startsWith('audio/') ||
+    (media.ebucoreHasMimeType === 'application/dash+xml')
+  )) ||
+    new RegExp('^http://www.euscreen.eu/item.html').test(media.about);
 }
 
 export function isOEmbed(media) {
@@ -61,5 +70,6 @@ export function iiifManifest(media, europeanaIdentifier) {
 
 export function isRichMedia(media, options = {}) {
   return isOEmbed(media) || isHTMLVideo(media) || isHTMLAudio(media) ||
-    (options.iiif && isIIIFMedia(media));
+    (options.iiif && isIIIFMedia(media)) ||
+    (Number(process.env.ENABLE_EUROPEANA_MEDIA_PLAYER) && isPlayableMedia(media));
 }

@@ -1,5 +1,5 @@
 import nock from 'nock';
-import oEmbed, { oEmbeddable } from '../../../plugins/oembed.js';
+import oEmbed, { oEmbeddable } from '../../../plugins/oembed';
 import supportedProviders from '../../../plugins/oembed/providers';
 
 const axios = require('axios');
@@ -21,7 +21,7 @@ describe('oEmbed()', () => {
           nock(endpointUrl.origin)
             .get(endpointUrl.pathname)
             .query(query => {
-              return query.url === embeddableUrl;
+              return query.url === embeddableUrl && query.format === 'json';
             })
             .reply(200);
         };
