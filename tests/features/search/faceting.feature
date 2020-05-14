@@ -125,6 +125,7 @@ Feature: Search faceting
     And I wait for the page to load
     And I see a `search result`
     And I click a `search result`
+    And I wait for the page to load
     Then I see an `item page`
     And I should see a meta label `Providing country` with the value "Belgium"
 
