@@ -1,7 +1,9 @@
 import { storiesOf } from '@storybook/vue';
+import VueI18n from 'vue-i18n';
 
 storiesOf('Basics', module)
   .add('typography', () => ({
+    i18n: new VueI18n(),
     template:  `<b-container class="mt-3">
         <h1>This is a h1 heading</h1>
         <h2>This is a h2 heading</h2>

@@ -1,5 +1,7 @@
 <template>
   <b-container
+    ref="nav-container"
+    v-visible-on-scroll
     fluid
     class="border-bottom mb-3 d-flex py-3 py-lg-1 px-lg-3 flex-column flex-lg-row"
     data-qa="header"
@@ -11,6 +13,7 @@
     >
       <SmartLink
         :destination="{ name: 'index' }"
+        class="logo"
       >
         <img
           src="../assets/img/logo.svg"
@@ -69,16 +72,44 @@
     background: $white;
   }
 
-  .navbar-brand{
+  .navbar-brand {
     min-width: 11.0625rem;
+    .logo {
+      min-width: 9.5625rem;
+      transition: .3s ease-in-out;
+      img {
+        width: 9.5625rem;
+      }
+    }
   }
 
   .form-inline {
     width: 40%;
   }
   @media (min-width: $bp-large) {
-    .form-inline{
+    @media (max-width: $bp-large) {
+      .navbar-brand {
+        justify-content: center;
+      }
+    }
+    .container-fluid {
+      position: fixed;
+      right: 0;
+      top: 0;
+      left: 0;
+      z-index: 1030;
+      border-bottom: none !important;
+      transition: $standard-transition;
+    }
+    .form-inline {
       max-width: 37.5rem;
+    }
+  }
+  @media (min-width: $bp-extralarge) {
+    .navbar-brand {
+      .logo {
+        min-width: 18.75rem;
+      }
     }
   }
 </style>
