@@ -71,13 +71,16 @@
   .card-text {
     color: $mediumgrey;
 
-    &:last-of-type p {
-      margin-bottom: 0;
+    p {
       max-height: 4.75rem;
       overflow: hidden;
       display: -webkit-box;
       -webkit-line-clamp: 4;
       -webkit-box-orient: vertical;
+    }
+
+    &:last-of-type p {
+      margin-bottom: 0;
     }
   }
 
@@ -269,5 +272,11 @@
         -webkit-box-orient: initial;
       }
     }
+  }
+}
+
+.browse-section {
+  .content-card:not(.mini-card) a .card-body {
+    min-height: 10rem;
   }
 }

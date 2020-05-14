@@ -8,6 +8,19 @@
       :image-src="imageSrc"
       :media="media"
     />
+    <div
+      v-else-if="isPlayableMedia"
+      ref="player"
+      class="media-player-wrapper"
+      :style="{ paddingTop: `${ratio}%` }"
+    >
+      <iframe
+        data-qa="media player"
+        allowfullscreen="true"
+        :src="$path({ name: 'media', query: { id: europeanaIdentifier } })"
+        class="media-player"
+      />
+    </div>
     <VideoPlayer
       v-else-if="isHTMLVideo"
       :europeana-identifier="europeanaIdentifier"
@@ -45,7 +58,7 @@
 
   import oEmbed from '../../plugins/oembed';
   import {
-    isHTMLVideo, isHTMLAudio, isIIIFImage, isIIIFPresentation,
+    isPlayableMedia, isHTMLVideo, isHTMLAudio, isIIIFImage, isIIIFPresentation,
     isOEmbed, isRichMedia, iiifManifest
   } from '../../plugins/media';
 
@@ -71,12 +84,17 @@
       imageSrc: {
         type: String,
         default: ''
+      },
+      enableEuropeanaMediaPlayer: {
+        type: Boolean,
+        default: false
       }
     },
 
     data() {
       return {
-        oEmbedData: {}
+        oEmbedData: {},
+        ratio: 56.25
       };
     },
 
@@ -85,6 +103,9 @@
         return (this.imageSrc !== '') && !isRichMedia(this.media, {
           iiif: Number(process.env.ENABLE_IIIF_MEDIA)
         });
+      },
+      isPlayableMedia() {
+        return this.enableEuropeanaMediaPlayer && isPlayableMedia(this.media);
       },
       isHTMLVideo() {
         return isHTMLVideo(this.media);
@@ -120,6 +141,14 @@
           this.oEmbedData = { error: err };
         });
       }
+    },
+
+    mounted() {
+      if (this.isPlayableMedia) {
+        const width = this.media.ebucoreWidth ? this.media.ebucoreWidth : 640;
+        const height = this.media.ebucoreHeight ? this.media.ebucoreHeight : 360;
+        this.ratio = (height * 100) / width;
+      }
     }
   };
 </script>
@@ -137,13 +166,31 @@
       width: 100%;
     }
 
-    iframe {
+    iframe:not(.media-player) {
       height: 80vh;
       border: 1px solid $lightgrey;
       border-radius: $border-radius-small;
       box-shadow: $boxshadow-small;
       max-height: 800px;
       width: 100%;
+    }
+
+    .media-player-wrapper {
+      position: relative;
+      height: 0;
+      overflow: hidden;
+      width: 100%;
+
+      iframe {
+        border: 0;
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+      }
     }
   }
 </style>
