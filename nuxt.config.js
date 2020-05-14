@@ -51,8 +51,8 @@ module.exports = {
     // Set these two settings to `false` to prevent auto-importing of Bootstrap(Vue)
     // CSS. It will then need to be manually imported, e.g. with
     // assets/scss/bootstrap.scss
-    bootstrapCSS: true,
-    bootstrapVueCSS: true,
+    bootstrapCSS: false,
+    bootstrapVueCSS: false,
 
     // Tree shake plugins
     componentPlugins: [
