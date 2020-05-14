@@ -83,3 +83,4 @@ storybook-static
 
 # Tests
 /tests
+tmp

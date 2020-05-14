@@ -101,4 +101,3 @@
     outline: 2px solid $blue !important;
   }
 </style>
-
