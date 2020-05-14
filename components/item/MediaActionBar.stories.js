@@ -15,7 +15,8 @@ const i18n = new VueI18n({
     en: {
       actions: {
         share: 'Share',
-        providedBy: 'View at'
+        viewAt: 'View at {link}',
+        download: 'Download'
       }
     }
   }
@@ -56,6 +57,11 @@ storiesOf('Item page', module)
         <div class="card p-3 mb-3 mt-3 bg-grey">
           <MediaActionBar
             europeana-identifier="identifier"
+            rights-statement="http://rightsstatements.org/vocab/InC/1.0/"
+            url="http://delibra.bg.polsl.pl/Content/9191/Diody_DOG31_DOG_61-63_AB.pdf"
+            is-shown-at="http://fbc.pionier.net.pl/id/oai:delibra.bg.polsl.pl:9191"
+            data-provider-name="Biblioteka Cyfrowa Politechniki"
+            data-provider-lang=""
             :use-proxy="true"
           />
         </div>
