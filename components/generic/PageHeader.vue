@@ -2,7 +2,7 @@
   <header class="row">
     <b-col
       cols="12"
-      :lg="mediaUrl ? 9 : 12"
+      lg="9"
       class="col lead mt-3"
     >
       <h1
