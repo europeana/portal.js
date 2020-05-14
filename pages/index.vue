@@ -22,20 +22,11 @@
       :url="hero.url"
     />
     <b-container>
-      <header
+      <PageHeader
         v-if="!hero"
-        class="row"
-      >
-        <div class="col-12 col-lg-9 col mt-3">
-          <h1>{{ page.name }}</h1>
-          <p
-            v-if="page.headline"
-            class="lead"
-          >
-            {{ page.headline }}
-          </p>
-        </div>
-      </header>
+        :title="page.name"
+        :raw-description="page.headline"
+      />
       <BrowseSections
         v-if="page"
         :sections="page.hasPart"
@@ -45,6 +36,7 @@
 </template>
 
 <script>
+  import PageHeader from '../components/generic/PageHeader';
   import BrowseSections from '../components/browse/BrowseSections';
   import HeroImage from '../components/generic/HeroImage';
   import NotificationBanner from '../components/generic/NotificationBanner.vue';
@@ -52,6 +44,7 @@
 
   export default {
     components: {
+      PageHeader,
       BrowseSections,
       NotificationBanner,
       HeroImage

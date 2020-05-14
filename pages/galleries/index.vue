@@ -1,13 +1,9 @@
 <template>
   <b-container>
-    <header class="row">
-      <div class="col-12 col-lg-9 col mt-3">
-        <h1>{{ $tc('galleries.galleries', 2) }}</h1>
-        <p class="lead">
-          {{ $t('galleries.description') }}
-        </p>
-      </div>
-    </header>
+    <PageHeader
+      :title="$tc('galleries.galleries', 2)"
+      :html-description="$t('galleries.description')"
+    />
     <b-row class="flex-md-row pb-5">
       <b-col cols="12">
         <b-card-group
@@ -42,6 +38,7 @@
 </template>
 
 <script>
+  import PageHeader from '../../components/generic/PageHeader';
   import createClient from '../../plugins/contentful';
   import ContentCard from '../../components/generic/ContentCard';
   import PaginationNav from '../../components/generic/PaginationNav';
@@ -52,6 +49,7 @@
   export default {
     name: 'GalleryFoyer',
     components: {
+      PageHeader,
       ContentCard,
       PaginationNav
     },

@@ -1,33 +1,10 @@
 <template>
   <b-container>
-    <header class="row">
-      <b-col
-        cols="12"
-        lg="9"
-        class="col lead mt-3"
-      >
-        <h1
-          data-qa="gallery title"
-        >
-          {{ title }}
-        </h1>
-        <!-- eslint-disable vue/no-v-html -->
-        <div
-          v-if="htmlDescription"
-          v-html="htmlDescription"
-        />
-        <!-- eslint-enable vue/no-v-html -->
-      </b-col>
-      <b-col
-        cols="12"
-        lg="3"
-        class="pt-0 pb-3 py-lg-3 text-left text-lg-right"
-      >
-        <SocialShare
-          :media-url="shareMediaUrl"
-        />
-      </b-col>
-    </header>
+    <PageHeader
+      :title="title"
+      :html-description="htmlDescription"
+      :media-url="shareMediaUrl"
+    />
     <b-row class="flex-md-row pb-5">
       <b-col cols="12">
         <b-card-group
@@ -51,15 +28,16 @@
 
 <script>
   import createClient from '../../plugins/contentful';
+  import PageHeader from '../../components/generic/PageHeader';
   import ContentCard from '../../components/generic/ContentCard';
-  import SocialShare from '../../components/generic/SocialShare';
+
   import marked from 'marked';
 
   export default {
     name: 'ImageGallery',
     components: {
-      ContentCard,
-      SocialShare
+      PageHeader,
+      ContentCard
     },
     computed: {
       shareMediaUrl() {
