@@ -11,7 +11,20 @@ const store = new Vuex.Store({
     'link-group': {
       data: {
         mainNavigation: {
-          link: ''
+          links: [
+            {
+              text: 'Collections',
+              url: '/'
+            },
+            {
+              text: 'Teachers',
+              url: '/'
+            },
+            {
+              text: 'About us',
+              url: '/'
+            }
+          ]
         }
       }
     },
