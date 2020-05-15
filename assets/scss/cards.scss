@@ -240,19 +240,44 @@
 
   @media (min-width: $bp-small) {
     columns: 2;
-    column-gap: 1rem;
+    column-gap: 1.875rem;
   }
 
   @media (min-width: $bp-large) {
     columns: 4;
+
+    &.card-deck-3-cols {
+      columns: 3;
+    }
   }
 
   .content-card {
-    break-inside: avoid;
-    min-height: initial;
+    box-shadow: none;
+    display: inline-block;
+    vertical-align: top;
     width: 100%;
+    transform: translateZ(0);
+
+    // targets safari 10+ to avoid missing card bug
+    @media not all and (min-resolution:.001dpcm) {
+      transform: none;
+    }
 
     a {
+      &:before {
+        box-shadow: $boxshadow-small;
+        content: '';
+        height: 100%;
+        position: absolute;
+        transition: box-shadow 0.25s;
+        width: 100%;
+      }
+
+      &:hover {
+        &:before {
+          box-shadow: $boxshadow-large;
+        }
+      }
       .card-img {
         min-height: 12rem;
         max-height: none;

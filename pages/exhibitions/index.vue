@@ -1,13 +1,9 @@
 <template>
   <b-container data-qa="exhibitions">
-    <header class="row">
-      <div class="col-12 col-lg-9 col mt-3">
-        <h1>{{ $tc('exhibitions.exhibitions', 2) }}</h1>
-        <p class="lead">
-          {{ $t('exhibitions.description') }}
-        </p>
-      </div>
-    </header>
+    <ContentHeader
+      :title="$tc('exhibitions.exhibitions', 2)"
+      :description="$t('exhibitions.description')"
+    />
     <b-row class="flex-md-row pb-5">
       <b-col cols="12">
         <b-card-group
@@ -44,6 +40,7 @@
 </template>
 
 <script>
+  import ContentHeader from '../../components/generic/ContentHeader';
   import createClient from '../../plugins/contentful';
   import ContentCard from '../../components/generic/ContentCard';
   import PaginationNav from '../../components/generic/PaginationNav';
@@ -54,6 +51,7 @@
   export default {
     name: 'ExhibitionFoyer',
     components: {
+      ContentHeader,
       ContentCard,
       PaginationNav
     },

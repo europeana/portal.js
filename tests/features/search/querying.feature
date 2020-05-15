@@ -28,6 +28,7 @@ Feature: Search querying
     And I enter "paris" in the `search box`
     And I click the `search button`
     And I click a `search result`
+    And I wait for the page to load
     Then I see an `item page`
     And I don't see "paris" in the `search box`
 
