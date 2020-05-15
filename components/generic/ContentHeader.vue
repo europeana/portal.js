@@ -12,13 +12,10 @@
       </h1>
       <!-- eslint-disable vue/no-v-html -->
       <div
-        v-if="htmlDescription"
-        v-html="htmlDescription"
+        v-if="description"
+        v-html="description"
       />
       <!-- eslint-enable vue/no-v-html -->
-      <p v-if="rawDescription">
-        {{ rawDescription }}
-      </p>
     </b-col>
     <b-col
       v-if="mediaUrl"
@@ -46,12 +43,7 @@
         required: true
       },
 
-      rawDescription: {
-        type: String,
-        default: null
-      },
-
-      htmlDescription: {
+      description: {
         type: String,
         default: null
       },

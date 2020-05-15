@@ -2,7 +2,7 @@
   <b-container>
     <ContentHeader
       :title="$tc('galleries.galleries', 2)"
-      :html-description="$t('galleries.description')"
+      :description="$t('galleries.description')"
     />
     <b-row class="flex-md-row pb-5">
       <b-col cols="12">

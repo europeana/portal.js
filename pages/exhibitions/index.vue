@@ -2,7 +2,7 @@
   <b-container data-qa="exhibitions">
     <ContentHeader
       :title="$tc('exhibitions.exhibitions', 2)"
-      :raw-description="$t('exhibitions.description')"
+      :description="$t('exhibitions.description')"
     />
     <b-row class="flex-md-row pb-5">
       <b-col cols="12">

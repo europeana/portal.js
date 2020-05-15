@@ -2,7 +2,7 @@
   <b-container>
     <ContentHeader
       :title="title"
-      :html-description="htmlDescription"
+      :description="htmlDescription"
       :media-url="shareMediaUrl"
     />
     <b-row class="flex-md-row pb-5">
