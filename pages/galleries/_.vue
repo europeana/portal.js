@@ -1,6 +1,6 @@
 <template>
   <b-container>
-    <PageHeader
+    <ContentHeader
       :title="title"
       :html-description="htmlDescription"
       :media-url="shareMediaUrl"
@@ -28,7 +28,7 @@
 
 <script>
   import createClient from '../../plugins/contentful';
-  import PageHeader from '../../components/generic/PageHeader';
+  import ContentHeader from '../../components/generic/ContentHeader';
   import ContentCard from '../../components/generic/ContentCard';
 
   import marked from 'marked';
@@ -36,7 +36,7 @@
   export default {
     name: 'ImageGallery',
     components: {
-      PageHeader,
+      ContentHeader,
       ContentCard
     },
     computed: {

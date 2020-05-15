@@ -22,7 +22,7 @@
       :url="hero.url"
     />
     <b-container>
-      <PageHeader
+      <ContentHeader
         v-if="!hero"
         :title="page.name"
         :raw-description="page.headline"
@@ -36,7 +36,7 @@
 </template>
 
 <script>
-  import PageHeader from '../components/generic/PageHeader';
+  import ContentHeader from '../components/generic/ContentHeader';
   import BrowseSections from '../components/browse/BrowseSections';
   import HeroImage from '../components/generic/HeroImage';
   import NotificationBanner from '../components/generic/NotificationBanner.vue';
@@ -44,7 +44,7 @@
 
   export default {
     components: {
-      PageHeader,
+      ContentHeader,
       BrowseSections,
       NotificationBanner,
       HeroImage

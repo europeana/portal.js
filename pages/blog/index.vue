@@ -1,6 +1,6 @@
 <template>
   <b-container data-qa="blog">
-    <PageHeader
+    <ContentHeader
       :title="$t('blog.blog')"
     />
     <b-row class="flex-md-row pb-5">
@@ -38,7 +38,7 @@
 </template>
 
 <script>
-  import PageHeader from '../../components/generic/PageHeader';
+  import ContentHeader from '../../components/generic/ContentHeader';
   import createClient from '../../plugins/contentful';
   import ContentCard from '../../components/generic/ContentCard';
   import PaginationNav from '../../components/generic/PaginationNav';
@@ -49,7 +49,7 @@
   export default {
     name: 'BlogFoyer',
     components: {
-      PageHeader,
+      ContentHeader,
       ContentCard,
       PaginationNav
     },
