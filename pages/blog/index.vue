@@ -1,10 +1,8 @@
 <template>
   <b-container data-qa="blog">
-    <header class="row">
-      <div class="col-12 col-lg-9 col mt-3">
-        <h1>{{ $t('blog.blog') }}</h1>
-      </div>
-    </header>
+    <ContentHeader
+      :title="$t('blog.blog')"
+    />
     <b-row class="flex-md-row pb-5">
       <b-col cols="12">
         <b-card-group
@@ -40,6 +38,7 @@
 </template>
 
 <script>
+  import ContentHeader from '../../components/generic/ContentHeader';
   import createClient from '../../plugins/contentful';
   import ContentCard from '../../components/generic/ContentCard';
   import PaginationNav from '../../components/generic/PaginationNav';
@@ -50,6 +49,7 @@
   export default {
     name: 'BlogFoyer',
     components: {
+      ContentHeader,
       ContentCard,
       PaginationNav
     },
