@@ -6,7 +6,7 @@
   font-size: $font-size-small;
   height: auto;
   line-height: 1.1875rem;
-  transition: box-shadow 0.25s ease-in-out;
+  transition: box-shadow 0.25s;
 
   &.card {
     margin-bottom: 1.5rem;
@@ -235,45 +235,48 @@
 .masonry {
   display: block;
   columns: 1;
-  grid-column-gap: 1rem;
-  -moz-column-gap: 1rem;
-  column-gap: 1rem;
+  column-gap: 0;
   width: 100%;
-  margin: 0;
 
   @media (min-width: $bp-small) {
     columns: 2;
-    grid-column-gap: 1.875rem;
-    -moz-column-gap: 1.875rem;
     column-gap: 1.875rem;
   }
 
   @media (min-width: $bp-large) {
     columns: 4;
+
     &.card-deck-3-cols {
       columns: 3;
     }
   }
 
   .content-card {
-    break-inside: avoid;
-    min-height: initial;
-    width: 100%;
-    margin: 0;
-    background: none;
-    border: none;
     box-shadow: none;
+    display: inline-block;
+    vertical-align: top;
+    width: 100%;
+    transform: translateZ(0);
+
+    // targets safari 10+ to avoid missing card bug
+    @media not all and (min-resolution:.001dpcm) {
+      transform: none;
+    }
 
     a {
-      background: $white;
-      border-radius: $border-radius-small;
-      border: 1px solid rgba(0, 0, 0, 0.125);
-      box-shadow: $boxshadow-small;
-      margin-bottom: 1.5rem;
-      overflow: hidden;
-      transition: box-shadow 0.25s ease-in-out;
+      &:before {
+        box-shadow: $boxshadow-small;
+        content: '';
+        height: 100%;
+        position: absolute;
+        transition: box-shadow 0.25s;
+        width: 100%;
+      }
+
       &:hover {
-        box-shadow: $boxshadow-large;
+        &:before {
+          box-shadow: $boxshadow-large;
+        }
       }
       .card-img {
         min-height: 12rem;
