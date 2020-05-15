@@ -25,7 +25,7 @@
       <ContentHeader
         v-if="!hero"
         :title="page.name"
-        :raw-description="page.headline"
+        :description="page.headline"
       />
       <BrowseSections
         v-if="page"
