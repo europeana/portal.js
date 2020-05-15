@@ -263,22 +263,21 @@
       transform: none;
     }
 
-    &:before {
-      box-shadow: $boxshadow-small;
-      content: '';
-      height: 100%;
-      position: absolute;
-      transition: box-shadow 0.25s;
-      width: 100%;
-    }
-
-    &:hover {
-      &:before {
-        box-shadow: $boxshadow-large;
-      }
-    }
-
     a {
+      &:before {
+        box-shadow: $boxshadow-small;
+        content: '';
+        height: 100%;
+        position: absolute;
+        transition: box-shadow 0.25s;
+        width: 100%;
+      }
+
+      &:hover {
+        &:before {
+          box-shadow: $boxshadow-large;
+        }
+      }
       .card-img {
         min-height: 12rem;
         max-height: none;
