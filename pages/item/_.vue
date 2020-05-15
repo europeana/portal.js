@@ -278,9 +278,7 @@
         return this.descriptionInCurrentLanguage.values[0] ? this.descriptionInCurrentLanguage.values[0] : '';
       },
       isRichMedia() {
-        return isRichMedia(this.selectedMedia, {
-          iiif: Number(process.env.ENABLE_IIIF_MEDIA)
-        });
+        return isRichMedia(this.selectedMedia);
       },
       selectedMedia: {
         get() {

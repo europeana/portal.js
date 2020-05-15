@@ -100,9 +100,7 @@
 
     computed: {
       displayImage() {
-        return (this.imageSrc !== '') && !isRichMedia(this.media, {
-          iiif: Number(process.env.ENABLE_IIIF_MEDIA)
-        });
+        return (this.imageSrc !== '') && !isRichMedia(this.media);
       },
       isPlayableMedia() {
         return this.enableEuropeanaMediaPlayer && isPlayableMedia(this.media);
@@ -114,11 +112,9 @@
         return isHTMLAudio(this.media);
       },
       isIIIFImage() {
-        if (!Number(process.env.ENABLE_IIIF_MEDIA)) return false;
         return isIIIFImage(this.media);
       },
       isIIIFPresentation() {
-        if (!Number(process.env.ENABLE_IIIF_MEDIA)) return false;
         return isIIIFPresentation(this.media);
       },
       iiifManifest() {
