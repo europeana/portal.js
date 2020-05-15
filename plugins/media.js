@@ -68,8 +68,7 @@ export function iiifManifest(media, europeanaIdentifier) {
   return `https://iiif.europeana.eu/presentation${europeanaIdentifier}/manifest`;
 }
 
-export function isRichMedia(media, options = {}) {
+export function isRichMedia(media) {
   return isOEmbed(media) || isHTMLVideo(media) || isHTMLAudio(media) ||
-    (options.iiif && isIIIFMedia(media)) ||
     (Number(process.env.ENABLE_EUROPEANA_MEDIA_PLAYER) && isPlayableMedia(media));
 }
