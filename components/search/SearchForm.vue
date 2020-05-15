@@ -241,11 +241,11 @@
     background-color: $offwhite;
     border-radius: $border-radius 0 0 $border-radius;
     margin-right: 0;
+    display: none;
   }
 
   .btn {
-    border-radius: 0 $border-radius $border-radius 0;
-
+    border-radius: 0;
     &:before {
       @extend .icon-font;
       content: '\e92b';
@@ -253,4 +253,21 @@
       transform: scale(0.9) translate(0, -0.2rem);
     }
   }
+
+  @media (max-width: $bp-large) {
+    .btn{
+      background: none;
+      color: $black;
+      border: none;
+    }
+  }
+
+  @media (min-width: $bp-large) {
+      .btn {
+        border-radius: 0 $border-radius $border-radius 0;
+      }
+      .form-control {
+        display: block;
+      }
+    }
 </style>

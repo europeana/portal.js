@@ -101,6 +101,7 @@
       }
     }
     @media (max-width: $bp-large) {
+      text-transform: capitalize;
       .nav-link.nuxt-link-active {
         &:after {
           bottom: -1rem;
