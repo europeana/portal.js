@@ -347,10 +347,10 @@
           this.$root.$emit('bv::toggle::collapse', 'extended-metadata');
         }
         this.$gtm.push({
-          itemCountry: this.fields.edmCountry.def[0],
-          itemDataProvider: this.coreFields.edmDataProvider.def[0],
-          itemProvider: this.fields.edmProvider.def[0],
-          itemRights: this.fields.edmRights.def[0]
+          itemCountry: langMapValueForLocale(this.fields.edmCountry, 'en').values[0],
+          itemDataProvider: langMapValueForLocale(this.coreFields.edmDataProvider, 'en').values[0],
+          itemProvider: langMapValueForLocale(this.fields.edmProvider, 'en').values[0],
+          itemRights: langMapValueForLocale(this.fields.edmRights, 'en').values[0]
         });
       }
 
@@ -438,6 +438,16 @@
           { hid: 'og:type', property: 'og:type', content: 'article' }
         ]
       };
+    },
+
+    async beforeRouteLeave(to, from, next) {
+      this.$gtm.push({
+        itemCountry: undefined,
+        itemDataProvider: undefined,
+        itemProvider: undefined,
+        itemRights: undefined
+      });
+      next();
     }
   };
 </script>
