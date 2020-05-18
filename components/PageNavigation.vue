@@ -12,7 +12,10 @@
         :destination="nav.url"
         link-class="nav-link"
       >
-        <span>{{ nav.text }}</span>
+        <span>
+          <i v-bind:class="renderIcon(nav.text)" />
+          {{ nav.text }}
+        </span>
       </SmartLink>
     </li>
   </b-navbar-nav>
@@ -28,6 +31,7 @@
 
     computed: {
       navigation() {
+        console.log(this.$store.state['link-group'].data);
         return this.$store.state['link-group'].data.mainNavigation.links;
       },
 
@@ -45,6 +49,20 @@
     methods: {
       async getNavigationData() {
         return this.$store.dispatch('link-group/init');
+      },
+      renderIcon(name) {
+        let className = '';
+        switch (name) {
+        case ('Collections'):
+          className = 'icon-collections';
+          break;
+        case ('Teachers'):
+          className = 'icon-school';
+          break;
+        case ('About us'):
+          className = 'icon-info';
+        }
+        return className;
       }
     }
   };
@@ -87,6 +105,12 @@
 
       span {
         position: relative;
+        i:before {
+          @extend .icon-font;
+          content: '';
+          color: $black;
+          font-size: 1.5rem;
+        }
       }
     }
 
@@ -101,10 +125,46 @@
       }
     }
     @media (max-width: $bp-large) {
-      text-transform: capitalize;
-      .nav-link.nuxt-link-active {
-        &:after {
-          bottom: -1rem;
+      width: 100%;
+      margin: 0 0 0.25rem 0;
+      position: relative;
+      &:not(:last-child) {
+        margin-right: 0rem;
+      }
+      .nav-link {
+        text-transform: capitalize;
+        font-weight: 400;
+        border-radius: $border-radius-small;
+        transition: $standard-transition;
+        font-size: $font-size-base;
+        span {
+          display: flex;
+          align-items: center;
+          i {
+            font-size: 1rem;
+            z-index: 1;
+            margin-right: 0.75rem;
+            transition: $standard-transition;
+            &.icon-collections:before {
+              content: '\e91d';
+            }
+            &.icon-school:before {
+              content: '\e91e';
+            }
+            &.icon-info:before {
+              content: '\e91f';
+            }
+          }
+        }
+        &.nuxt-link-active, &:hover {
+          color: $white;
+          background: $blue;
+          &:before, &:after {
+            display: none;
+          }
+          i:before {
+            color: $white;
+          }
         }
       }
     }
