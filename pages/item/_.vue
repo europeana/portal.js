@@ -440,7 +440,7 @@
       };
     },
 
-    async beforeRouteLeave(to, from, next) {
+    beforeRouteLeave(to, from, next) {
       this.$gtm.push({
         itemCountry: undefined,
         itemDataProvider: undefined,
