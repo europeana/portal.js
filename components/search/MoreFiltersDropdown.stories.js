@@ -36,8 +36,8 @@ const store = () => new Vuex.Store({
   }
 });
 
-storiesOf('Search/MoreFiltersDropdown', module)
-  .add('More Filters', () => ({
+storiesOf('Search', module)
+  .add('More Filters Dropdown', () => ({
     components: { MoreFiltersDropdown },
     i18n,
     store,
