@@ -1,101 +1,102 @@
 export default {
-  "formatting": {
-    "labelledValue": "{label} : {value}",
-    "ellipsis": "…",
-    "listSeperator": ";"
+  "actions": {
+    "download": "Preuzmi",
+    "providedBy": "Omogućio {provider}",
+    "share": "Podijeli",
+    "shareOn": "Podijelite na {social}",
+    "viewAt": "Pogledajte na {link}",
+    "viewDocument": "Pogledajte dokument"
   },
-  "error": "Greška",
-  "goToRecord": "Idi na zapis",
-  "readMore": "Pročitaj više",
-  "search": "Traži",
-  "results": "Rezultati",
-  "homeLinkAlt": "Glavna stranica Europeana",
-  "noMoreResults": "Nema više rezultata za vaš upit za pretraživanje.",
-  "resultsLimitWarning": "Dodatni rezultati nisu prikazani jer je prikazano samo prvih 1000 najrelevantnijih rezultata. Ako niste pronašli ono što tražite, razmislite o preciziranju pretraživanja.",
-  "noResults": "Nema rezultata",
-  "fieldLabels": {
-    "default": {
-      "dcContributor": "Suradnici",
-      "dcCreator": "Stvorio/la",
-      "dcDescription": "Opis",
-      "dcTitle": "Naslov",
-      "dcType": "Vrsta objekta",
-      "dctermsCreated": "Datum stvaranja",
-      "edmCountry": "Država iz koje dolazi",
-      "edmDataProvider": "Institucija iz koje dolazi",
-      "edmRights": "Licenca medija u ovom zapisu (osim ako nije drugačije navedeno)",
-      "dcPublisher": "Izdavač",
-      "dcSubject": "Tema",
-      "dctermsMedium": "Medij",
-      "dcRights": "Prava",
-      "dcDate": "Datum",
-      "dctermsPublished": "Datum objave",
-      "dctermsIssued": "Datum izdavanja",
-      "dctermsTemporal": "Vremenski",
-      "dcCoverage": "Mjesto-vrijeme",
-      "dctermsSpatial": "Mjesta",
-      "edmCurrentLocation": "Trenutna lokacija",
-      "edmUgc": "Korisnički generirani sadržaj",
-      "dctermsProvenance": "Podrijetlo",
-      "dcSource": "Izvor",
-      "dcIdentifier": "Identifikator",
-      "edmIntermediateProvider": "Posredni dobavljač",
-      "edmProvider": "Dobavljač",
-      "timestampCreated": "Vremenska oznaka stvorena",
-      "timestampUpdate": "Vremenska oznaka ažurirana",
-      "dctermsExtent": "Opseg",
-      "dcDuration": "Trajanje",
-      "dcMedium": "Medij",
-      "dcFormat": "Format",
-      "dcLanguage": "Jezik",
-      "dctermsIsPartOf": "Dio je",
-      "europeanaCollectionName": "Naziv zbirke",
-      "dcRelation": "Odnosi",
-      "dctermsReferences": "Reference",
-      "dctermsHasPart": "Sastoji se od",
-      "dctermsHasVersion": "Ima verziju",
-      "dctermsIsFormatOf": "Je format",
-      "dctermsIsReferencedBy": "Na kojeg se poziva",
-      "dctermsIsReplacedBy": "Zamjenjuje",
-      "dctermsIsRequiredBy": "je potreban",
-      "edmHasMet": "je upoznao",
-      "edmIncorporates": "Uključuje",
-      "edmIsDerivativeOf": "Izveden je od",
-      "edmIsRepresentationOf": "Predstavlja",
-      "edmIsSimilarTo": "je slično",
-      "edmIsSuccessorOf": "Nasljednik je",
-      "edmRealizes": "Shvaća",
-      "wasPresentAt": "Bio je prisutan u",
-      "keywords": "Ključne riječi (koje pruža zajednica)"
-    },
-    "webResource": {
-      "dcDescription": "Opis",
-      "rdfAbout": "RDF O",
-      "edmRights": "Licenca za ovaj medijski resurs",
-      "ebucoreHasMimeType": "Ebucore MIME tip",
-      "about": "O RDF"
+  "blog": {
+    "author": "Autor",
+    "authors": "Autori",
+    "blog": "Blog",
+    "categories": "Kategorije",
+    "category": "Kategorija",
+    "relatedPosts": "Vezane objave"
+  },
+  "clearAllFilters": "očistiti sve filtre",
+  "collections": {
+    "fashion": {
+      "facets": {
+        "CREATOR": {
+          "name": "Dizajner | dizajneri"
+        },
+        "proxy_dc_format": {
+          "name": "Tehnika | Tehnike"
+        },
+        "proxy_dc_type": {
+          "name": "Vrsta stavke | Vrste stavki"
+        },
+        "proxy_dcterms_medium": {
+          "name": "Materijal | materijali"
+        }
+      }
     }
   },
-  "facets": {
-    "COUNTRY": {
-      "name": "Država iz koje dolazi"
+  "contentfulManual": {
+    "footerNavigation": {
+      "about": "O zbirkama Europeana",
+      "forDevelopers": "Za programere",
+      "help": "Pomoć",
+      "meetUs": "Upoznajte tim",
+      "provide": "Postanite davatelj podataka",
+      "terms": "Uvjeti korištenja i pravila o privatnosti"
     },
-    "REUSABILITY": {
-      "name": "Mogu li ovo ponovno upotrijebiti?",
+    "headerNavigation": {
+      "explore": "Istraži",
+      "teachers": "Nastavnici"
+    }
+  },
+  "cookieDisclaimer": {
+    "acceptCookieDisclaimer": "Prihvaćanje izjavu o odricanju od odgovornosti za kolačiće",
+    "link": "Više informacija",
+    "terms": "Ova internetska stranica koristi kolačiće kako bi osigurala najbolje iskustvo na našoj internetskoj stranici. Klikom ili kretanjem po internetskoj stranici, prihvaćate da dopuštate naše prikupljanje podataka putem kolačića."
+  },
+  "dateFilter": {
+    "endDate": "Datum završetka",
+    "specificDate": "Određeni datum",
+    "startDate": "Datum početka",
+    "to": "do"
+  },
+  "delete": "Izbriši",
+  "depiction": "Prikaz {title}",
+  "directions": {
+    "left": "Lijevo",
+    "right": "Desno"
+  },
+  "edmIsShownAtLinkAlt": "Prikaz na internetskoj stranici pružatelja",
+  "entity": "Cjelina",
+  "error": "Greška",
+  "exhibitions": {
+    "chapters": "Poglavlja",
+    "credits": "Krediti",
+    "currentChapter": "Trenutno poglavlje",
+    "exhibitions": "izložbe"
+  },
+  "facets": {
+    "api": {
+      "name": "Traži",
       "options": {
-        "open": "Da",
-        "restricted": "Da, s uvjetima",
-        "permission": "Možda, tražite dopuštenje",
-        "uncategorized": "Nekategorizirano"
+        "fulltext": "Zapisi s punim tekstom",
+        "metadata": "Metapodaci-samo zapisi"
       }
+    },
+    "button": {
+      "apply": "Primijeni",
+      "cancel": "Otkazati",
+      "morefilters": "Više filtera",
+      "reset": "Resetiraj",
+      "showAll": "Prikaži sve {label}",
+      "showLess": "Prikaži manje {label}"
     },
     "collection": {
       "name": "Kategorija",
       "options": {
-        "ww1": "1914.-1918.",
         "archaeology": "Arheologija",
         "art": "Umjetnost",
         "fashion": "Moda",
+        "industrial": "Industrijska baština",
         "manuscript": "Rukopisi",
         "map": "Karte i geografija",
         "migration": "Migracije",
@@ -104,62 +105,7 @@ export default {
         "newspaper": "Novine",
         "photography": "Fotografija",
         "sport": "Sport",
-        "industrial": "Industrijska baština"
-      }
-    },
-    "TYPE": {
-      "name": "Vrsta medija",
-      "options": {
-        "IMAGE": "Slika",
-        "TEXT": "Tekst",
-        "VIDEO": "Video",
-        "SOUND": "Zvuk",
-        "3D": "3D"
-      }
-    },
-    "contentTier": {
-      "name": "Uključuje stavke koje ne ispunjavaju naše kriterije objavljivanja",
-      "options": {
-        "*": "Uključuje stavke koje ne ispunjavaju naše kriterije objavljivanja"
-      }
-    },
-    "button": {
-      "reset": "Resetiraj",
-      "apply": "Primijeni",
-      "cancel": "Otkazati",
-      "morefilters": "Više filtera",
-      "showAll": "Prikaži sve {label}",
-      "showLess": "Prikaži manje {label}"
-    },
-    "LANGUAGE": {
-      "name": "Jezik"
-    },
-    "PROVIDER": {
-      "name": "Sakupljač"
-    },
-    "DATA_PROVIDER": {
-      "name": "Institucija"
-    },
-    "IMAGE_ASPECTRATIO": {
-      "name": "Orijentacija slike | Orijentacije slika",
-      "options": {
-        "landscape": "Vodoravno",
-        "portrait": "Uspravno"
-      }
-    },
-    "IMAGE_SIZE": {
-      "name": "Veličina slike | Veličine slika",
-      "options": {
-        "small": "Mala < 0,5MP (npr. 650x600px)",
-        "medium": "Srednja 0,5-1 MP (npr. 850x850px)",
-        "large": "Velika 1-4MP (npr. 1920x1080px)",
-        "extra_large": "Iznimno velika 4MP+ (npr. 2688 x 1520px)"
-      }
-    },
-    "MIME_TYPE": {
-      "name": "Format datoteke | Formati datoteka",
-      "options": {
-        "text/plain": "Jednostavni tekst"
+        "ww1": "1914.-1918."
       }
     },
     "COLOURPALETTE": {
@@ -310,174 +256,228 @@ export default {
         "#FFFFFF": "bijela"
       }
     },
-    "proxy_dcterms_issued": {
-      "name": "Datum izdavanja"
-    },
-    "api": {
-      "name": "Traži",
+    "contentTier": {
+      "name": "Uključuje stavke koje ne ispunjavaju naše kriterije objavljivanja",
       "options": {
-        "fulltext": "Zapisi s punim tekstom",
-        "metadata": "Metapodaci-samo zapisi"
+        "*": "Uključuje stavke koje ne ispunjavaju naše kriterije objavljivanja"
       }
+    },
+    "COUNTRY": {
+      "name": "Država iz koje dolazi"
     },
     "CREATOR": {
       "name": "Tvorac | tvorci"
     },
+    "DATA_PROVIDER": {
+      "name": "Institucija"
+    },
+    "IMAGE_ASPECTRATIO": {
+      "name": "Orijentacija slike | Orijentacije slika",
+      "options": {
+        "landscape": "Vodoravno",
+        "portrait": "Uspravno"
+      }
+    },
+    "IMAGE_SIZE": {
+      "name": "Veličina slike | Veličine slika",
+      "options": {
+        "extra_large": "Iznimno velika 4MP+ (npr. 2688 x 1520px)",
+        "large": "Velika 1-4MP (npr. 1920x1080px)",
+        "medium": "Srednja 0,5-1 MP (npr. 850x850px)",
+        "small": "Mala < 0,5MP (npr. 650x600px)"
+      }
+    },
+    "LANGUAGE": {
+      "name": "Jezik"
+    },
+    "MIME_TYPE": {
+      "name": "Format datoteke | Formati datoteka",
+      "options": {
+        "text\/plain": "Jednostavni tekst"
+      }
+    },
+    "PROVIDER": {
+      "name": "Sakupljač"
+    },
     "proxy_dc_format": {
       "name": "Format | formati"
+    },
+    "proxy_dc_type": {
+      "name": "Vrsta | vrste"
+    },
+    "proxy_dcterms_issued": {
+      "name": "Datum izdavanja"
     },
     "proxy_dcterms_medium": {
       "name": "Medij | mediji"
     },
-    "proxy_dc_type": {
-      "name": "Vrsta | vrste"
+    "REUSABILITY": {
+      "name": "Mogu li ovo ponovno upotrijebiti?",
+      "options": {
+        "open": "Da",
+        "permission": "Možda, tražite dopuštenje",
+        "restricted": "Da, s uvjetima",
+        "uncategorized": "Nekategorizirano"
+      }
+    },
+    "TYPE": {
+      "name": "Vrsta medija",
+      "options": {
+        "3D": "3D",
+        "IMAGE": "Slika",
+        "SOUND": "Zvuk",
+        "TEXT": "Tekst",
+        "VIDEO": "Video"
+      }
     }
   },
-  "entity": "Cjelina",
-  "resourceWikimedia": "Resurs s Wikimedia Commonsa",
-  "messages": {
-    "notFound": "Nije pronađeno",
-    "externalContentError": "Nije se mogao učitati vanjski sadržaj",
-    "paginationLimitExceeded": "Možete pregledati samo prvih {limit} rezultata pretraživanja."
+  "fieldLabels": {
+    "default": {
+      "dcContributor": "Suradnici",
+      "dcCoverage": "Mjesto-vrijeme",
+      "dcCreator": "Stvorio\/la",
+      "dcDate": "Datum",
+      "dcDescription": "Opis",
+      "dcDuration": "Trajanje",
+      "dcFormat": "Format",
+      "dcIdentifier": "Identifikator",
+      "dcLanguage": "Jezik",
+      "dcMedium": "Medij",
+      "dcPublisher": "Izdavač",
+      "dcRelation": "Odnosi",
+      "dcRights": "Prava",
+      "dcSource": "Izvor",
+      "dcSubject": "Tema",
+      "dctermsCreated": "Datum stvaranja",
+      "dctermsExtent": "Opseg",
+      "dctermsHasPart": "Sastoji se od",
+      "dctermsHasVersion": "Ima verziju",
+      "dctermsIsFormatOf": "Je format",
+      "dctermsIsPartOf": "Dio je",
+      "dctermsIsReferencedBy": "Na kojeg se poziva",
+      "dctermsIsReplacedBy": "Zamjenjuje",
+      "dctermsIsRequiredBy": "je potreban",
+      "dctermsIssued": "Datum izdavanja",
+      "dctermsMedium": "Medij",
+      "dctermsProvenance": "Podrijetlo",
+      "dctermsPublished": "Datum objave",
+      "dctermsReferences": "Reference",
+      "dctermsSpatial": "Mjesta",
+      "dctermsTemporal": "Vremenski",
+      "dcTitle": "Naslov",
+      "dcType": "Vrsta objekta",
+      "edmCountry": "Država iz koje dolazi",
+      "edmCurrentLocation": "Trenutna lokacija",
+      "edmDataProvider": "Institucija iz koje dolazi",
+      "edmHasMet": "je upoznao",
+      "edmIncorporates": "Uključuje",
+      "edmIntermediateProvider": "Posredni dobavljač",
+      "edmIsDerivativeOf": "Izveden je od",
+      "edmIsRepresentationOf": "Predstavlja",
+      "edmIsSimilarTo": "je slično",
+      "edmIsSuccessorOf": "Nasljednik je",
+      "edmProvider": "Dobavljač",
+      "edmRealizes": "Shvaća",
+      "edmRights": "Licenca medija u ovom zapisu (osim ako nije drugačije navedeno)",
+      "edmUgc": "Korisnički generirani sadržaj",
+      "europeanaCollectionName": "Naziv zbirke",
+      "keywords": "Ključne riječi (koje pruža zajednica)",
+      "timestampCreated": "Vremenska oznaka stvorena",
+      "timestampUpdate": "Vremenska oznaka ažurirana",
+      "wasPresentAt": "Bio je prisutan u"
+    },
+    "webResource": {
+      "about": "O RDF",
+      "dcDescription": "Opis",
+      "ebucoreHasMimeType": "Ebucore MIME tip",
+      "edmRights": "Licenca za ovaj medijski resurs",
+      "rdfAbout": "RDF O"
+    }
   },
-  "searchViews": {
-    "grid": "Prikaz rešetke",
-    "list": "Prikaz popisa"
+  "footer": {
+    "customiseWebsiteLanguage": "Prilagodite jezik internetske stranice",
+    "findUsElsewhere": "Pronađite nas negdje drugdje",
+    "imageDescription": "Sufinancirano iz Instrumenta za povezivanje Europe u Europskoj uniji",
+    "ourMission": "Naša misija",
+    "ourMissionQuote": "Europeana osnažuje sektor kulturne baštine u svojoj digitalnoj transformaciji. Razvijamo stručnost, alate i politike kako bismo prihvatili digitalne promjene i potaknuli partnerstva koja potiču inovacije."
+  },
+  "formatting": {
+    "ellipsis": "…",
+    "labelledValue": "{label} : {value}",
+    "listSeperator": ";"
+  },
+  "galleries": {
+    "galleries": "Galerije"
+  },
+  "goToRecord": "Idi na zapis",
+  "homeLinkAlt": "Glavna stranica Europeana",
+  "imageSlider": {
+    "handle": "Ručka klizača"
   },
   "layout": {
     "skipToMain": "Prijeđite na sadržaj stranice"
   },
-  "searchPlaceholder": "Što tražite?",
-  "searchTier": {
-    "button": {
-      "show": "Pokaži ove stavke",
-      "hide": "Sakrij ove stavke"
+  "learnMore": "Saznajte više o izvoru ovog opisa",
+  "linksToClassic": {
+    "home": {
+      "linkText": "Idi na izvornu Europeanu.",
+      "text": "Gledate novo iskustvo Europeane."
     },
-    "text": {
-      "show": "Više stavki odgovara vašoj pretraživanju, ali ne zadovoljava naše kriterije za objavljivanje.",
-      "hide": "Prikazuju se stavke koje ne ispunjavaju naše kriterije objavljivanja."
+    "record": {
+      "linkText": "Pogledajte ovu stavku u izvornoj Europeani.",
+      "text": "Ovaj predmet pregledavate na novoj internetskoj stranici Europeana."
+    },
+    "search": {
+      "linkText": "Pogledajte ove rezultate pretraživanja u izvornoj Europeani.",
+      "text": "Pretražujete našu novu i bržu internetsku stranicu."
     }
   },
-  "depiction": "Prikaz {title}",
-  "showLess": "Prikaži manje",
-  "showMore": "Prikaži više",
-  "delete": "Izbriši",
-  "removeFilter": "Uklonite filtar {filterLabel} ",
-  "newWindow": "otvara se u novom prozoru",
-  "blog": {
-    "blog": "Blog",
-    "author": "Autor",
-    "authors": "Autori",
-    "category": "Kategorija",
-    "categories": "Kategorije",
-    "relatedPosts": "Vezane objave"
-  },
-  "directions": {
-    "left": "Lijevo",
-    "right": "Desno"
-  },
-  "exhibitions": {
-    "exhibitions": "izložbe",
-    "credits": "Krediti",
-    "chapters": "Poglavlja",
-    "currentChapter": "Trenutno poglavlje"
-  },
-  "actions": {
-    "download": "Preuzmi",
-    "viewAt": "Pogledajte na {link}",
-    "providedBy": "Omogućio {provider}",
-    "viewDocument": "Pogledajte dokument",
-    "share": "Podijeli",
-    "shareOn": "Podijelite na {social}"
-  },
-  "clearAllFilters": "očistiti sve filtre",
-  "reset": "Resetiraj",
   "loadingResults": "Učitavanje rezultata",
-  "edmIsShownAtLinkAlt": "Prikaz na internetskoj stranici pružatelja",
+  "messages": {
+    "externalContentError": "Nije se mogao učitati vanjski sadržaj",
+    "notFound": "Nije pronađeno",
+    "paginationLimitExceeded": "Možete pregledati samo prvih {limit} rezultata pretraživanja."
+  },
+  "newWindow": "otvara se u novom prozoru",
+  "noMoreResults": "Nema više rezultata za vaš upit za pretraživanje.",
+  "noResults": "Nema rezultata",
+  "readMore": "Pročitaj više",
   "record": {
+    "downloadCopyrightInfo": "Ova je stavka zaštićena autorskim pravima i nije ju moguće preuzeti.",
     "extendedInformation": "Proširene informacije",
     "hideAll": "Sakrij sve informacije",
     "record": "Zapis",
     "showAll": "Prikaži sve informacije",
     "similarItems": "Slične stavke",
     "view": {
-      "pdf": "Pogledaj PDF",
       "image": "Pogledajte sliku",
-      "media": "Pogledajte medije"
-    },
-    "downloadCopyrightInfo": "Ova je stavka zaštićena autorskim pravima i nije ju moguće preuzeti."
-  },
-  "contentfulManual": {
-    "headerNavigation": {
-      "teachers": "Nastavnici",
-      "explore": "Istraži"
-    },
-    "footerNavigation": {
-      "about": "O zbirkama Europeana",
-      "forDevelopers": "Za programere",
-      "terms": "Uvjeti korištenja i pravila o privatnosti",
-      "provide": "Postanite davatelj podataka",
-      "meetUs": "Upoznajte tim",
-      "help": "Pomoć"
+      "media": "Pogledajte medije",
+      "pdf": "Pogledaj PDF"
     }
-  },
-  "imageSlider": {
-    "handle": "Ručka klizača"
-  },
-  "dateFilter": {
-    "startDate": "Datum početka",
-    "endDate": "Datum završetka",
-    "to": "do",
-    "specificDate": "Određeni datum"
-  },
-  "cookieDisclaimer": {
-    "acceptCookieDisclaimer": "Prihvaćanje izjavu o odricanju od odgovornosti za kolačiće",
-    "terms": "Ova internetska stranica koristi kolačiće kako bi osigurala najbolje iskustvo na našoj internetskoj stranici. Klikom ili kretanjem po internetskoj stranici, prihvaćate da dopuštate naše prikupljanje podataka putem kolačića.",
-    "link": "Više informacija"
-  },
-  "searchSuggestions": "Traži prijedloge",
-  "learnMore": "Saznajte više o izvoru ovog opisa",
-  "footer": {
-    "ourMission": "Naša misija",
-    "ourMissionQuote": "Europeana osnažuje sektor kulturne baštine u svojoj digitalnoj transformaciji. Razvijamo stručnost, alate i politike kako bismo prihvatili digitalne promjene i potaknuli partnerstva koja potiču inovacije.",
-    "customiseWebsiteLanguage": "Prilagodite jezik internetske stranice",
-    "imageDescription": "Sufinancirano iz Instrumenta za povezivanje Europe u Europskoj uniji",
-    "findUsElsewhere": "Pronađite nas negdje drugdje"
-  },
-  "collections": {
-    "fashion": {
-      "facets": {
-        "CREATOR": {
-          "name": "Dizajner | dizajneri"
-        },
-        "proxy_dc_format": {
-          "name": "Tehnika | Tehnike"
-        },
-        "proxy_dcterms_medium": {
-          "name": "Materijal | materijali"
-        },
-        "proxy_dc_type": {
-          "name": "Vrsta stavke | Vrste stavki"
-        }
-      }
-    }
-  },
-  "galleries": {
-    "galleries": "Galerije"
   },
   "relatedCollections": "Povezane zbirke",
-  "linksToClassic": {
-    "home": {
-      "text": "Gledate novo iskustvo Europeane.",
-      "linkText": "Idi na izvornu Europeanu."
+  "removeFilter": "Uklonite filtar {filterLabel} ",
+  "reset": "Resetiraj",
+  "resourceWikimedia": "Resurs s Wikimedia Commonsa",
+  "results": "Rezultati",
+  "resultsLimitWarning": "Dodatni rezultati nisu prikazani jer je prikazano samo prvih 1000 najrelevantnijih rezultata. Ako niste pronašli ono što tražite, razmislite o preciziranju pretraživanja.",
+  "search": "Traži",
+  "searchPlaceholder": "Što tražite?",
+  "searchSuggestions": "Traži prijedloge",
+  "searchTier": {
+    "button": {
+      "hide": "Sakrij ove stavke",
+      "show": "Pokaži ove stavke"
     },
-    "search": {
-      "text": "Pretražujete našu novu i bržu internetsku stranicu.",
-      "linkText": "Pogledajte ove rezultate pretraživanja u izvornoj Europeani."
-    },
-    "record": {
-      "text": "Ovaj predmet pregledavate na novoj internetskoj stranici Europeana.",
-      "linkText": "Pogledajte ovu stavku u izvornoj Europeani."
+    "text": {
+      "hide": "Prikazuju se stavke koje ne ispunjavaju naše kriterije objavljivanja.",
+      "show": "Više stavki odgovara vašoj pretraživanju, ali ne zadovoljava naše kriterije za objavljivanje."
     }
-  }
+  },
+  "searchViews": {
+    "grid": "Prikaz rešetke",
+    "list": "Prikaz popisa"
+  },
+  "showLess": "Prikaži manje",
+  "showMore": "Prikaži više"
 };
