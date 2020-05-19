@@ -1,101 +1,102 @@
 export default {
-  "formatting": {
-    "labelledValue": "{label}: {value}",
-    "ellipsis": "…",
-    "listSeperator": ";"
+  "actions": {
+    "download": "Herunterladen",
+    "providedBy": "Bereitgestellt von {provider}",
+    "share": "Teilen",
+    "shareOn": "Teilen auf {social}",
+    "viewAt": "Ansicht unter {link}",
+    "viewDocument": "Dokument anzeigen"
   },
-  "error": "Fehler",
-  "goToRecord": "Zur Aufnahme gehen",
-  "readMore": "Mehr anzeigen",
-  "search": "Suchen",
-  "results": "Ergebnisse",
-  "homeLinkAlt": "Startseite Europeana",
-  "noMoreResults": "Es gibt keine weiteren Ergebnisse für Ihre Suchanfrage.",
-  "resultsLimitWarning": "Zusätzliche Ergebnisse werden nicht angezeigt, da nur die ersten 1000 relevantesten Ergebnisse angezeigt werden. Wenn Sie nicht gefunden haben, wonach Sie suchen, können Sie Ihre Suche verfeinern.",
-  "noResults": "Keine Ergebnisse",
-  "fieldLabels": {
-    "default": {
-      "dcContributor": "Mitwirkende",
-      "dcCreator": "Urheber",
-      "dcDescription": "Beschreibung",
-      "dcTitle": "Titel",
-      "dcType": "Art des Objekts",
-      "dctermsCreated": "Erstellungsdatum",
-      "edmCountry": "Bereitstellendes Land",
-      "edmDataProvider": "Bereitstellende Institution",
-      "edmRights": "Lizenz der Medien in diesem Datensatz (sofern nicht anders angegeben)",
-      "dcPublisher": "Herausgeber",
-      "dcSubject": "Betreff",
-      "dctermsMedium": "Medium",
-      "dcRights": "Rechte",
-      "dcDate": "Datum",
-      "dctermsPublished": "Veröffentlichungsdatum",
-      "dctermsIssued": "Ausgabedatum",
-      "dctermsTemporal": "Zeitlich",
-      "dcCoverage": "Ort-Zeit",
-      "dctermsSpatial": "Orte",
-      "edmCurrentLocation": "Aktueller Standort",
-      "edmUgc": "Benutzergenerierte Inhalte",
-      "dctermsProvenance": "Herkunft",
-      "dcSource": "Quelle",
-      "dcIdentifier": "Kennung",
-      "edmIntermediateProvider": "Zwischenanbieter",
-      "edmProvider": "Anbieter",
-      "timestampCreated": "Zeitstempel erstellt",
-      "timestampUpdate": "Zeitstempel aktualisiert",
-      "dctermsExtent": "Umfang",
-      "dcDuration": "Dauer",
-      "dcMedium": "Medium",
-      "dcFormat": "Format",
-      "dcLanguage": "Sprache",
-      "dctermsIsPartOf": "Ist ein Teil von",
-      "europeanaCollectionName": "Name der Sammlung",
-      "dcRelation": "Beziehungen",
-      "dctermsReferences": "Verweisen auf",
-      "dctermsHasPart": "Besteht aus",
-      "dctermsHasVersion": "Hat Version",
-      "dctermsIsFormatOf": "Ist das Format von",
-      "dctermsIsReferencedBy": "Wird referenziert von",
-      "dctermsIsReplacedBy": "Wird ersetzt durch",
-      "dctermsIsRequiredBy": "Wird benötigt von",
-      "edmHasMet": "Hat getroffen",
-      "edmIncorporates": "Einbeziehen",
-      "edmIsDerivativeOf": "Ist eine Weiterentwicklung von",
-      "edmIsRepresentationOf": "Ist die Darstellung von",
-      "edmIsSimilarTo": "Ist ähnlich wie",
-      "edmIsSuccessorOf": "Ist Nachfolger von",
-      "edmRealizes": "Realisiert",
-      "wasPresentAt": "War anwesend bei",
-      "keywords": "Schlüsselwörter (von der Gemeinschaft zur Verfügung gestellt)"
-    },
-    "webResource": {
-      "dcDescription": "Beschreibung",
-      "rdfAbout": "RDF Über",
-      "edmRights": "Lizenz für diese Medienressource",
-      "ebucoreHasMimeType": "Ebucore MIME-Typ",
-      "about": "RDF Über"
+  "blog": {
+    "author": "Autor",
+    "authors": "Autoren",
+    "blog": "Blog",
+    "categories": "Kategorien",
+    "category": "Kategorie",
+    "relatedPosts": "Ähnliche Beiträge"
+  },
+  "clearAllFilters": "Alle Filter löschen",
+  "collections": {
+    "fashion": {
+      "facets": {
+        "CREATOR": {
+          "name": "Designer | Designer"
+        },
+        "proxy_dc_format": {
+          "name": "Technik | Techniken"
+        },
+        "proxy_dc_type": {
+          "name": "Artikeltyp | Artikeltypen"
+        },
+        "proxy_dcterms_medium": {
+          "name": "Material | Materialien"
+        }
+      }
     }
   },
-  "facets": {
-    "COUNTRY": {
-      "name": "Bereitstellendes Land"
+  "contentfulManual": {
+    "footerNavigation": {
+      "about": "Über Europeana Collections",
+      "forDevelopers": "Für Entwickler",
+      "help": "Hilfe",
+      "meetUs": "Lernen Sie das Team kennen",
+      "provide": "Werden Sie Datenanbieter",
+      "terms": "Nutzungsbedingungen und Datenschutzerklärung"
     },
-    "REUSABILITY": {
-      "name": "Kann ich es wiederverwenden?",
+    "headerNavigation": {
+      "explore": "Erkunden",
+      "teachers": "Pädagogen"
+    }
+  },
+  "cookieDisclaimer": {
+    "acceptCookieDisclaimer": "Akzeptieren Sie den Cookie-Haftungsausschluss",
+    "link": "Mehr Information",
+    "terms": "Diese Website verwendet Cookies, um sicherzustellen, dass Sie die bestmögliche Erfahrung auf unserer Website machen können. Durch Klicken oder Navigieren auf der Website erklären Sie sich damit einverstanden, unsere Sammlung von Informationen über Cookies zuzulassen."
+  },
+  "dateFilter": {
+    "endDate": "Enddatum",
+    "specificDate": "Bestimmtes Datum",
+    "startDate": "Anfangsdatum",
+    "to": "an"
+  },
+  "delete": "Löschen",
+  "depiction": "Eine Darstellung von {title}",
+  "directions": {
+    "left": "Links",
+    "right": "Rechts"
+  },
+  "edmIsShownAtLinkAlt": "Auf der Website des Anbieters ansehen",
+  "entity": "Einheit",
+  "error": "Fehler",
+  "exhibitions": {
+    "chapters": "Kapitel",
+    "credits": "Credits",
+    "currentChapter": "Aktuelles Kapitel",
+    "exhibitions": "Ausstellungen"
+  },
+  "facets": {
+    "api": {
+      "name": "Suche nach",
       "options": {
-        "open": "Ja",
-        "restricted": "Ja, mit Bedingungen",
-        "permission": "Vielleicht, bitten Sie um Erlaubnis",
-        "uncategorized": "Nicht kategorisiert"
+        "fulltext": "Aufzeichnungen mit Volltext",
+        "metadata": "Nur-Metadaten Aufzeichnungen"
       }
+    },
+    "button": {
+      "apply": "Anwenden",
+      "cancel": "Abbrechen",
+      "morefilters": "Weitere Filter",
+      "reset": "Zurücksetzen",
+      "showAll": "Alle {label} anzeigen",
+      "showLess": "Weniger anzeigen {label}"
     },
     "collection": {
       "name": "Kategorie",
       "options": {
-        "ww1": "1914-1918",
         "archaeology": "Archäologie",
         "art": "Kunst",
         "fashion": "Mode",
+        "industrial": "Industrielles Erbe",
         "manuscript": "Manuskripte",
         "map": "Karten und Geographie",
         "migration": "Migration",
@@ -104,62 +105,7 @@ export default {
         "newspaper": "Zeitungen",
         "photography": "Fotografie",
         "sport": "Sport",
-        "industrial": "Industrielles Erbe"
-      }
-    },
-    "TYPE": {
-      "name": "Art des Mediums",
-      "options": {
-        "IMAGE": "Bild",
-        "TEXT": "Text",
-        "VIDEO": "Video",
-        "SOUND": "Ton",
-        "3D": "3D"
-      }
-    },
-    "contentTier": {
-      "name": "Enthält Artikel, die nicht unseren Veröffentlichungskriterien entsprechen",
-      "options": {
-        "*": "Enthält Artikel, die nicht unseren Veröffentlichungskriterien entsprechen"
-      }
-    },
-    "button": {
-      "reset": "Zurücksetzen",
-      "apply": "Anwenden",
-      "cancel": "Abbrechen",
-      "morefilters": "Weitere Filter",
-      "showAll": "Alle {label} anzeigen",
-      "showLess": "Weniger anzeigen {label}"
-    },
-    "LANGUAGE": {
-      "name": "Sprache | Sprachen"
-    },
-    "PROVIDER": {
-      "name": "Aggregator | Aggregatoren"
-    },
-    "DATA_PROVIDER": {
-      "name": "Institution | Institutionen"
-    },
-    "IMAGE_ASPECTRATIO": {
-      "name": "Bildausrichtung | Bildausrichtungen",
-      "options": {
-        "landscape": "Querformat",
-        "portrait": "Hochformat"
-      }
-    },
-    "IMAGE_SIZE": {
-      "name": "Bildgröße | Bildgrößen",
-      "options": {
-        "small": "Klein < 0,5 MP (z. B. 650 x 600 Pixel)",
-        "medium": "Mittel 0,5-1 MP (z. B. 850 x 850 Pixel)",
-        "large": "Große 1-4MP (z. B. 1920x1080px)",
-        "extra_large": "Extra große 4MP+ (z.B. 2688 x 1520px)"
-      }
-    },
-    "MIME_TYPE": {
-      "name": "Dateiformat | Dateiformate",
-      "options": {
-        "text/plain": "Klartext"
+        "ww1": "1914-1918"
       }
     },
     "COLOURPALETTE": {
@@ -310,174 +256,228 @@ export default {
         "#FFFFFF": "Weiß"
       }
     },
-    "proxy_dcterms_issued": {
-      "name": "Ausstellungsdatum"
-    },
-    "api": {
-      "name": "Suche nach",
+    "contentTier": {
+      "name": "Enthält Artikel, die nicht unseren Veröffentlichungskriterien entsprechen",
       "options": {
-        "fulltext": "Aufzeichnungen mit Volltext",
-        "metadata": "Nur-Metadaten Aufzeichnungen"
+        "*": "Enthält Artikel, die nicht unseren Veröffentlichungskriterien entsprechen"
       }
+    },
+    "COUNTRY": {
+      "name": "Bereitstellendes Land"
     },
     "CREATOR": {
       "name": "Ersteller | Ersteller"
     },
+    "DATA_PROVIDER": {
+      "name": "Institution | Institutionen"
+    },
+    "IMAGE_ASPECTRATIO": {
+      "name": "Bildausrichtung | Bildausrichtungen",
+      "options": {
+        "landscape": "Querformat",
+        "portrait": "Hochformat"
+      }
+    },
+    "IMAGE_SIZE": {
+      "name": "Bildgröße | Bildgrößen",
+      "options": {
+        "extra_large": "Extra große 4MP+ (z.B. 2688 x 1520px)",
+        "large": "Große 1-4MP (z. B. 1920x1080px)",
+        "medium": "Mittel 0,5-1 MP (z. B. 850 x 850 Pixel)",
+        "small": "Klein < 0,5 MP (z. B. 650 x 600 Pixel)"
+      }
+    },
+    "LANGUAGE": {
+      "name": "Sprache | Sprachen"
+    },
+    "MIME_TYPE": {
+      "name": "Dateiformat | Dateiformate",
+      "options": {
+        "text\/plain": "Klartext"
+      }
+    },
+    "PROVIDER": {
+      "name": "Aggregator | Aggregatoren"
+    },
     "proxy_dc_format": {
       "name": "Format | Formate"
+    },
+    "proxy_dc_type": {
+      "name": "Typ | Typen"
+    },
+    "proxy_dcterms_issued": {
+      "name": "Ausstellungsdatum"
     },
     "proxy_dcterms_medium": {
       "name": "Medium | Medien"
     },
-    "proxy_dc_type": {
-      "name": "Typ | Typen"
+    "REUSABILITY": {
+      "name": "Kann ich es wiederverwenden?",
+      "options": {
+        "open": "Ja",
+        "permission": "Vielleicht, bitten Sie um Erlaubnis",
+        "restricted": "Ja, mit Bedingungen",
+        "uncategorized": "Nicht kategorisiert"
+      }
+    },
+    "TYPE": {
+      "name": "Art des Mediums",
+      "options": {
+        "3D": "3D",
+        "IMAGE": "Bild",
+        "SOUND": "Ton",
+        "TEXT": "Text",
+        "VIDEO": "Video"
+      }
     }
   },
-  "entity": "Einheit",
-  "resourceWikimedia": "Ressource aus Wikimedia Commons",
-  "messages": {
-    "notFound": "Nicht gefunden",
-    "externalContentError": "Der externe Inhalt konnte nicht geladen werden",
-    "paginationLimitExceeded": "Es können nur die ersten {limit} Suchergebnisse angezeigt werden."
+  "fieldLabels": {
+    "default": {
+      "dcContributor": "Mitwirkende",
+      "dcCoverage": "Ort-Zeit",
+      "dcCreator": "Urheber",
+      "dcDate": "Datum",
+      "dcDescription": "Beschreibung",
+      "dcDuration": "Dauer",
+      "dcFormat": "Format",
+      "dcIdentifier": "Kennung",
+      "dcLanguage": "Sprache",
+      "dcMedium": "Medium",
+      "dcPublisher": "Herausgeber",
+      "dcRelation": "Beziehungen",
+      "dcRights": "Rechte",
+      "dcSource": "Quelle",
+      "dcSubject": "Betreff",
+      "dctermsCreated": "Erstellungsdatum",
+      "dctermsExtent": "Umfang",
+      "dctermsHasPart": "Besteht aus",
+      "dctermsHasVersion": "Hat Version",
+      "dctermsIsFormatOf": "Ist das Format von",
+      "dctermsIsPartOf": "Ist ein Teil von",
+      "dctermsIsReferencedBy": "Wird referenziert von",
+      "dctermsIsReplacedBy": "Wird ersetzt durch",
+      "dctermsIsRequiredBy": "Wird benötigt von",
+      "dctermsIssued": "Ausgabedatum",
+      "dctermsMedium": "Medium",
+      "dctermsProvenance": "Herkunft",
+      "dctermsPublished": "Veröffentlichungsdatum",
+      "dctermsReferences": "Verweisen auf",
+      "dctermsSpatial": "Orte",
+      "dctermsTemporal": "Zeitlich",
+      "dcTitle": "Titel",
+      "dcType": "Art des Objekts",
+      "edmCountry": "Bereitstellendes Land",
+      "edmCurrentLocation": "Aktueller Standort",
+      "edmDataProvider": "Bereitstellende Institution",
+      "edmHasMet": "Hat getroffen",
+      "edmIncorporates": "Einbeziehen",
+      "edmIntermediateProvider": "Zwischenanbieter",
+      "edmIsDerivativeOf": "Ist eine Weiterentwicklung von",
+      "edmIsRepresentationOf": "Ist die Darstellung von",
+      "edmIsSimilarTo": "Ist ähnlich wie",
+      "edmIsSuccessorOf": "Ist Nachfolger von",
+      "edmProvider": "Anbieter",
+      "edmRealizes": "Realisiert",
+      "edmRights": "Lizenz der Medien in diesem Datensatz (sofern nicht anders angegeben)",
+      "edmUgc": "Benutzergenerierte Inhalte",
+      "europeanaCollectionName": "Name der Sammlung",
+      "keywords": "Schlüsselwörter (von der Gemeinschaft zur Verfügung gestellt)",
+      "timestampCreated": "Zeitstempel erstellt",
+      "timestampUpdate": "Zeitstempel aktualisiert",
+      "wasPresentAt": "War anwesend bei"
+    },
+    "webResource": {
+      "about": "RDF Über",
+      "dcDescription": "Beschreibung",
+      "ebucoreHasMimeType": "Ebucore MIME-Typ",
+      "edmRights": "Lizenz für diese Medienressource",
+      "rdfAbout": "RDF Über"
+    }
   },
-  "searchViews": {
-    "grid": "Gitteransicht",
-    "list": "Listenansicht"
+  "footer": {
+    "customiseWebsiteLanguage": "Sprache der Website anpassen",
+    "findUsElsewhere": "Finden Sie uns anderswo",
+    "imageDescription": "Kofinanziert von der Einrichtung „Connecting Europe“ der Europäischen Union",
+    "ourMission": "Unser Auftrag",
+    "ourMissionQuote": "Europeana befähigt den Sektor des kulturellen Erbes bei seiner digitalen Transformation. Wir entwickeln Fachwissen, Tools und Richtlinien, um den digitalen Wandel zu nutzen und Partnerschaften zu fördern, die Innovationen fördern."
+  },
+  "formatting": {
+    "ellipsis": "…",
+    "labelledValue": "{label}: {value}",
+    "listSeperator": ";"
+  },
+  "galleries": {
+    "galleries": "Galerien"
+  },
+  "goToRecord": "Zur Aufnahme gehen",
+  "homeLinkAlt": "Startseite Europeana",
+  "imageSlider": {
+    "handle": "Schieberegler"
   },
   "layout": {
     "skipToMain": "Direkt zum Seiteninhalt"
   },
-  "searchPlaceholder": "Durchsuche Millionen von Objekten",
-  "searchTier": {
-    "button": {
-      "show": "Diese Artikel anzeigen",
-      "hide": "Diese Artikel ausblenden"
+  "learnMore": "Erfahren Sie mehr über die Quelle dieser Beschreibung",
+  "linksToClassic": {
+    "home": {
+      "linkText": "Gehen Sie zur ursprünglichen Europeana-Website.",
+      "text": "Sie sehen sich die neue Europeana Website an."
     },
-    "text": {
-      "show": "Weitere Artikel entsprechen Ihrer Suche, erfüllen jedoch nicht unsere Veröffentlichungskriterien.",
-      "hide": "Artikel, die unsere Veröffentlichungskriterien nicht erfüllen, werden angezeigt."
+    "record": {
+      "linkText": "Sehen Sie sich diesen Artikel in der ursprünglichen Europeana an.",
+      "text": "Sie sehen diesen Artikel auf der neuen Europeana-Website."
+    },
+    "search": {
+      "linkText": "Zeigen Sie diese Suchergebnisse auf der ursprünglichen Europeana-Website an.",
+      "text": "Sie suchen auf unserer neuen und schnelleren Website."
     }
   },
-  "depiction": "Eine Darstellung von {title}",
-  "showLess": "Weniger anzeigen",
-  "showMore": "Mehr anzeigen",
-  "delete": "Löschen",
-  "removeFilter": "{filterLabel}-Filter entfernen",
-  "newWindow": "öffnet sich in einem neuen Fenster",
-  "blog": {
-    "blog": "Blog",
-    "author": "Autor",
-    "authors": "Autoren",
-    "category": "Kategorie",
-    "categories": "Kategorien",
-    "relatedPosts": "Ähnliche Beiträge"
-  },
-  "directions": {
-    "left": "Links",
-    "right": "Rechts"
-  },
-  "exhibitions": {
-    "exhibitions": "Ausstellungen",
-    "credits": "Credits",
-    "chapters": "Kapitel",
-    "currentChapter": "Aktuelles Kapitel"
-  },
-  "actions": {
-    "download": "Herunterladen",
-    "viewAt": "Ansicht unter {link}",
-    "providedBy": "Bereitgestellt von {provider}",
-    "viewDocument": "Dokument anzeigen",
-    "share": "Teilen",
-    "shareOn": "Teilen auf {social}"
-  },
-  "clearAllFilters": "Alle Filter löschen",
-  "reset": "Zurücksetzen",
   "loadingResults": "Ergebnisse werden geladen",
-  "edmIsShownAtLinkAlt": "Auf der Website des Anbieters ansehen",
+  "messages": {
+    "externalContentError": "Der externe Inhalt konnte nicht geladen werden",
+    "notFound": "Nicht gefunden",
+    "paginationLimitExceeded": "Es können nur die ersten {limit} Suchergebnisse angezeigt werden."
+  },
+  "newWindow": "öffnet sich in einem neuen Fenster",
+  "noMoreResults": "Es gibt keine weiteren Ergebnisse für Ihre Suchanfrage.",
+  "noResults": "Keine Ergebnisse",
+  "readMore": "Mehr anzeigen",
   "record": {
+    "downloadCopyrightInfo": "Dieser Artikel ist urheberrechtlich geschützt und kann nicht heruntergeladen werden.",
     "extendedInformation": "Erweiterte Informationen",
     "hideAll": "Alle Informationen ausblenden",
     "record": "Aufzeichnung",
     "showAll": "Alle Informationen anzeigen",
     "similarItems": "Ähnliche Artikel",
     "view": {
-      "pdf": "PDF anzeigen",
       "image": "Bild anzeigen",
-      "media": "Medien anzeigen"
-    },
-    "downloadCopyrightInfo": "Dieser Artikel ist urheberrechtlich geschützt und kann nicht heruntergeladen werden."
-  },
-  "contentfulManual": {
-    "headerNavigation": {
-      "teachers": "Pädagogen",
-      "explore": "Erkunden"
-    },
-    "footerNavigation": {
-      "about": "Über Europeana Collections",
-      "forDevelopers": "Für Entwickler",
-      "terms": "Nutzungsbedingungen und Datenschutzerklärung",
-      "provide": "Werden Sie Datenanbieter",
-      "meetUs": "Lernen Sie das Team kennen",
-      "help": "Hilfe"
+      "media": "Medien anzeigen",
+      "pdf": "PDF anzeigen"
     }
-  },
-  "imageSlider": {
-    "handle": "Schieberegler"
-  },
-  "dateFilter": {
-    "startDate": "Anfangsdatum",
-    "endDate": "Enddatum",
-    "to": "an",
-    "specificDate": "Bestimmtes Datum"
-  },
-  "cookieDisclaimer": {
-    "acceptCookieDisclaimer": "Akzeptieren Sie den Cookie-Haftungsausschluss",
-    "terms": "Diese Website verwendet Cookies, um sicherzustellen, dass Sie die bestmögliche Erfahrung auf unserer Website machen können. Durch Klicken oder Navigieren auf der Website erklären Sie sich damit einverstanden, unsere Sammlung von Informationen über Cookies zuzulassen.",
-    "link": "Mehr Information"
-  },
-  "searchSuggestions": "Suchvorschläge",
-  "learnMore": "Erfahren Sie mehr über die Quelle dieser Beschreibung",
-  "footer": {
-    "ourMission": "Unser Auftrag",
-    "ourMissionQuote": "Europeana befähigt den Sektor des kulturellen Erbes bei seiner digitalen Transformation. Wir entwickeln Fachwissen, Tools und Richtlinien, um den digitalen Wandel zu nutzen und Partnerschaften zu fördern, die Innovationen fördern.",
-    "customiseWebsiteLanguage": "Sprache der Website anpassen",
-    "imageDescription": "Kofinanziert von der Einrichtung „Connecting Europe“ der Europäischen Union",
-    "findUsElsewhere": "Finden Sie uns anderswo"
-  },
-  "collections": {
-    "fashion": {
-      "facets": {
-        "CREATOR": {
-          "name": "Designer | Designer"
-        },
-        "proxy_dc_format": {
-          "name": "Technik | Techniken"
-        },
-        "proxy_dcterms_medium": {
-          "name": "Material | Materialien"
-        },
-        "proxy_dc_type": {
-          "name": "Artikeltyp | Artikeltypen"
-        }
-      }
-    }
-  },
-  "galleries": {
-    "galleries": "Galerien"
   },
   "relatedCollections": "Zugehörige Sammlungen",
-  "linksToClassic": {
-    "home": {
-      "text": "Sie sehen sich die neue Europeana-Erfahrung an.",
-      "linkText": "Gehen Sie zur ursprünglichen Europeana-Website."
+  "removeFilter": "{filterLabel}-Filter entfernen",
+  "reset": "Zurücksetzen",
+  "resourceWikimedia": "Ressource aus Wikimedia Commons",
+  "results": "Ergebnisse",
+  "resultsLimitWarning": "Zusätzliche Ergebnisse werden nicht angezeigt, da nur die ersten 1000 relevantesten Ergebnisse angezeigt werden. Wenn Sie nicht gefunden haben, wonach Sie suchen, können Sie Ihre Suche verfeinern.",
+  "search": "Suchen",
+  "searchPlaceholder": "Durchsuche Millionen von Objekten",
+  "searchSuggestions": "Suchvorschläge",
+  "searchTier": {
+    "button": {
+      "hide": "Diese Artikel ausblenden",
+      "show": "Diese Artikel anzeigen"
     },
-    "search": {
-      "text": "Sie suchen auf unserer neuen und schnelleren Website.",
-      "linkText": "Zeigen Sie diese Suchergebnisse auf der ursprünglichen Europeana-Website an."
-    },
-    "record": {
-      "text": "Sie sehen diesen Artikel auf der neuen Europeana-Website.",
-      "linkText": "Sehen Sie sich diesen Artikel in der ursprünglichen Europeana an."
+    "text": {
+      "hide": "Artikel, die unsere Veröffentlichungskriterien nicht erfüllen, werden angezeigt.",
+      "show": "Weitere Artikel entsprechen Ihrer Suche, erfüllen jedoch nicht unsere Veröffentlichungskriterien."
     }
-  }
+  },
+  "searchViews": {
+    "grid": "Gitteransicht",
+    "list": "Listenansicht"
+  },
+  "showLess": "Weniger anzeigen",
+  "showMore": "Mehr anzeigen"
 };
