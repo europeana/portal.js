@@ -6,6 +6,7 @@ const recordOrigin = 'https://api.europeana.eu/record';
 const apiKey = process.env['EUROPEANA_RECORD_API_KEY'];
 
 const getRecord = async(identifier) => {
+  console.log(`fetching record ${identifier}`);
   const url = recordOrigin + '/search.json?profile=minimal&query=europeana_id%3A%22' + identifier + '%22&rows=1';
   return axios.get(url, {
     params: {
@@ -20,7 +21,7 @@ const getRecord = async(identifier) => {
     });
 };
 
-module.exports = async function(migration, { makeRequest }) {
+module.exports = async function(migration) {
   migration.transformEntries({
     contentType: 'automatedRecordCard',
     from: ['identifier', 'encoding'],
@@ -31,12 +32,11 @@ module.exports = async function(migration, { makeRequest }) {
       if (fromFields.encoding) return;
 
       const record = await getRecord(fromFields.identifier[currentLocale]);
-      if (record.itemsCount === 1 && record.items) {    
+      if (record.itemsCount === 1 && record.items) {
         const encoding = record.items[0];
         return { encoding };
       }
-      
-      return false;
+      return;
     },
     shouldPublish: 'preserve'
   });
