@@ -1,101 +1,102 @@
 export default {
-  "formatting": {
-    "labelledValue": "{label}: {value}",
-    "ellipsis": "…",
-    "listSeperator": ";"
+  "actions": {
+    "download": "Ladda ner",
+    "providedBy": "Tillhandahålls av {provider}",
+    "share": "Dela",
+    "shareOn": "Dela på {social}",
+    "viewAt": "Visa på {link}",
+    "viewDocument": "Visa dokument"
   },
-  "error": "Fel",
-  "goToRecord": "Gå till dokument",
-  "readMore": "Läs mer",
-  "search": "Sök",
-  "results": "Resultat",
-  "homeLinkAlt": "Europeana hem",
-  "noMoreResults": "Det finns inga fler resultat för din sökning.",
-  "resultsLimitWarning": "Ytterligare resultat visas inte eftersom endast de 1000 första mest relevanta resultaten visas. Om du inte har hittat det du letar efter kan du prova att förfina din sökning.",
-  "noResults": "Inga träffar",
-  "fieldLabels": {
-    "default": {
-      "dcContributor": "Medverkande",
-      "dcCreator": "Upphovsman",
-      "dcDescription": "Beskrivning",
-      "dcTitle": "Titel",
-      "dcType": "Typ av objekt",
-      "dctermsCreated": "Skapelsedatum",
-      "edmCountry": "Tillhandahållande land",
-      "edmDataProvider": "Tillhandahållande institution",
-      "edmRights": "Licens för media i detta dokument (om inte annat anges)",
-      "dcPublisher": "Utgivare",
-      "dcSubject": "Ämne",
-      "dctermsMedium": "Medium",
-      "dcRights": "Rättigheter",
-      "dcDate": "Datum",
-      "dctermsPublished": "Publiceringsdatum",
-      "dctermsIssued": "Utgivningsdatum",
-      "dctermsTemporal": "Temporal",
-      "dcCoverage": "Plats–Tid",
-      "dctermsSpatial": "Platser",
-      "edmCurrentLocation": "Nuvarande plats",
-      "edmUgc": "Användargenererat innehåll",
-      "dctermsProvenance": "Proveniens",
-      "dcSource": "Källa",
-      "dcIdentifier": "Identifierare",
-      "edmIntermediateProvider": "Mellanliggande leverantör",
-      "edmProvider": "Leverantör",
-      "timestampCreated": "Tidsstämpel skapad",
-      "timestampUpdate": "Tidsstämpel uppdaterad",
-      "dctermsExtent": "Utsträckning",
-      "dcDuration": "Varaktighet",
-      "dcMedium": "Medium",
-      "dcFormat": "Format",
-      "dcLanguage": "Språk",
-      "dctermsIsPartOf": "Är del av",
-      "europeanaCollectionName": "Samlingens namn",
-      "dcRelation": "Förbindelser",
-      "dctermsReferences": "Hänvisar till",
-      "dctermsHasPart": "Består av",
-      "dctermsHasVersion": "Har version",
-      "dctermsIsFormatOf": "Är ett format för",
-      "dctermsIsReferencedBy": "Hänvisas till av",
-      "dctermsIsReplacedBy": "Byts ut av",
-      "dctermsIsRequiredBy": "Krävs av",
-      "edmHasMet": "Har mött",
-      "edmIncorporates": "Inkorporerar",
-      "edmIsDerivativeOf": "Är härledd från",
-      "edmIsRepresentationOf": "Är en representation av",
-      "edmIsSimilarTo": "Liknar",
-      "edmIsSuccessorOf": "Är efterföljare till",
-      "edmRealizes": "Realiserar",
-      "wasPresentAt": "Var närvarande vid",
-      "keywords": "Nyckelord (tillhandahålls av communityn)"
-    },
-    "webResource": {
-      "dcDescription": "Beskrivning",
-      "rdfAbout": "RDF Om",
-      "edmRights": "Licens för denna medieresurs",
-      "ebucoreHasMimeType": "Ebucore MIME-typ",
-      "about": "RDF Om"
+  "blog": {
+    "author": "Författare",
+    "authors": "Författare",
+    "blog": "Blogg",
+    "categories": "Kategorier",
+    "category": "Kategori",
+    "relatedPosts": "Relaterade inlägg"
+  },
+  "clearAllFilters": "rensa alla filter",
+  "collections": {
+    "fashion": {
+      "facets": {
+        "CREATOR": {
+          "name": "Designer | Designers"
+        },
+        "proxy_dc_format": {
+          "name": "Teknik | Tekniker"
+        },
+        "proxy_dc_type": {
+          "name": "Objektstyp | Objektstyper"
+        },
+        "proxy_dcterms_medium": {
+          "name": "Material | Material"
+        }
+      }
     }
   },
-  "facets": {
-    "COUNTRY": {
-      "name": "Tillhandahållande land"
+  "contentfulManual": {
+    "footerNavigation": {
+      "about": "Om Europeana Collections",
+      "forDevelopers": "För utvecklare",
+      "help": "Hjälp",
+      "meetUs": "Möt teamet",
+      "provide": "Bli en dataleverantör",
+      "terms": "Användarvillkor och integritetspolicy"
     },
-    "REUSABILITY": {
-      "name": "Kan jag återanvända det här?",
+    "headerNavigation": {
+      "explore": "Utforska",
+      "teachers": "Lärare"
+    }
+  },
+  "cookieDisclaimer": {
+    "acceptCookieDisclaimer": "Acceptera cookiemeddelande",
+    "link": "Mera info",
+    "terms": "Denna webbplats använder cookies för att säkerställa att du får den bästa upplevelsen på vår webbplats. Genom att klicka eller navigera på webbplatsen samtycker du till att vi samlar in information via cookies."
+  },
+  "dateFilter": {
+    "endDate": "Slutdatum",
+    "specificDate": "Specifikt datum",
+    "startDate": "Startdatum",
+    "to": "till"
+  },
+  "delete": "Radera",
+  "depiction": "En skildring av {title}",
+  "directions": {
+    "left": "Vänster",
+    "right": "Höger"
+  },
+  "edmIsShownAtLinkAlt": "Visa på leverantörens webbplats",
+  "entity": "Entitet",
+  "error": "Fel",
+  "exhibitions": {
+    "chapters": "Kapitel",
+    "credits": "Upphovsmän",
+    "currentChapter": "Aktuellt kapitel",
+    "exhibitions": "Utställningar"
+  },
+  "facets": {
+    "api": {
+      "name": "Sök efter",
       "options": {
-        "open": "Ja",
-        "restricted": "Ja, med villkor",
-        "permission": "Kanske, sök tillstånd",
-        "uncategorized": "Okategoriserad"
+        "fulltext": "Register med fulltext",
+        "metadata": "Metadata-endast register"
       }
+    },
+    "button": {
+      "apply": "Tillämpa",
+      "cancel": "Avbryt",
+      "morefilters": "Fler filter",
+      "reset": "Återställ",
+      "showAll": "Visa alla {label}",
+      "showLess": "Visa mindre {label}"
     },
     "collection": {
       "name": "Kategori",
       "options": {
-        "ww1": "1914–1918",
         "archaeology": "Arkeologi",
         "art": "Konst",
         "fashion": "Mode",
+        "industrial": "Industriminne",
         "manuscript": "Manuskript",
         "map": "Kartor och geografi",
         "migration": "Migration",
@@ -104,62 +105,7 @@ export default {
         "newspaper": "Tidningar",
         "photography": "Fotografi",
         "sport": "Sport",
-        "industrial": "Industriminne"
-      }
-    },
-    "TYPE": {
-      "name": "Typ av media",
-      "options": {
-        "IMAGE": "Bild",
-        "TEXT": "Text",
-        "VIDEO": "Video",
-        "SOUND": "Ljud",
-        "3D": "3D"
-      }
-    },
-    "contentTier": {
-      "name": "Innefattar objekt som inte uppfyller våra publiceringsvillkor",
-      "options": {
-        "*": "Innefattar objekt som inte uppfyller våra publiceringsvillkor"
-      }
-    },
-    "button": {
-      "reset": "Återställ",
-      "apply": "Tillämpa",
-      "cancel": "Avbryt",
-      "morefilters": "Fler filter",
-      "showAll": "Visa alla {label}",
-      "showLess": "Visa mindre {label}"
-    },
-    "LANGUAGE": {
-      "name": "Språk"
-    },
-    "PROVIDER": {
-      "name": "Sammanställare"
-    },
-    "DATA_PROVIDER": {
-      "name": "Institution"
-    },
-    "IMAGE_ASPECTRATIO": {
-      "name": "Bildorientering | Bildorienteringar",
-      "options": {
-        "landscape": "Landskap",
-        "portrait": "Porträtt"
-      }
-    },
-    "IMAGE_SIZE": {
-      "name": "Bildstorlek | Bildstorlekar",
-      "options": {
-        "small": "Liten < 0,5MP (t.ex. 650x600 px)",
-        "medium": "Medium 0,5-1MP (t.ex. 850x850px)",
-        "large": "Stor 1-4MP (t.ex. 1920x1080px)",
-        "extra_large": "Extra stor 4MP + (t.ex. 2688 x 1520 px)"
-      }
-    },
-    "MIME_TYPE": {
-      "name": "Filformat | Filformat",
-      "options": {
-        "text/plain": "Oformaterad text"
+        "ww1": "1914–1918"
       }
     },
     "COLOURPALETTE": {
@@ -310,174 +256,228 @@ export default {
         "#FFFFFF": "Vit"
       }
     },
-    "proxy_dcterms_issued": {
-      "name": "Datum för utfärdande"
-    },
-    "api": {
-      "name": "Sök efter",
+    "contentTier": {
+      "name": "Innefattar objekt som inte uppfyller våra publiceringsvillkor",
       "options": {
-        "fulltext": "Register med fulltext",
-        "metadata": "Metadata-endast register"
+        "*": "Innefattar objekt som inte uppfyller våra publiceringsvillkor"
       }
+    },
+    "COUNTRY": {
+      "name": "Tillhandahållande land"
     },
     "CREATOR": {
       "name": "Skapare | Skapare"
     },
+    "DATA_PROVIDER": {
+      "name": "Institution"
+    },
+    "IMAGE_ASPECTRATIO": {
+      "name": "Bildorientering | Bildorienteringar",
+      "options": {
+        "landscape": "Landskap",
+        "portrait": "Porträtt"
+      }
+    },
+    "IMAGE_SIZE": {
+      "name": "Bildstorlek | Bildstorlekar",
+      "options": {
+        "extra_large": "Extra stor 4MP + (t.ex. 2688 x 1520 px)",
+        "large": "Stor 1-4MP (t.ex. 1920x1080px)",
+        "medium": "Medium 0,5-1MP (t.ex. 850x850px)",
+        "small": "Liten < 0,5MP (t.ex. 650x600 px)"
+      }
+    },
+    "LANGUAGE": {
+      "name": "Språk"
+    },
+    "MIME_TYPE": {
+      "name": "Filformat | Filformat",
+      "options": {
+        "text\/plain": "Oformaterad text"
+      }
+    },
+    "PROVIDER": {
+      "name": "Sammanställare"
+    },
     "proxy_dc_format": {
       "name": "Format | Format"
+    },
+    "proxy_dc_type": {
+      "name": "Typ | Typer"
+    },
+    "proxy_dcterms_issued": {
+      "name": "Datum för utfärdande"
     },
     "proxy_dcterms_medium": {
       "name": "Medium | Media"
     },
-    "proxy_dc_type": {
-      "name": "Typ | Typer"
+    "REUSABILITY": {
+      "name": "Kan jag återanvända det här?",
+      "options": {
+        "open": "Ja",
+        "permission": "Kanske, sök tillstånd",
+        "restricted": "Ja, med villkor",
+        "uncategorized": "Okategoriserad"
+      }
+    },
+    "TYPE": {
+      "name": "Typ av media",
+      "options": {
+        "3D": "3D",
+        "IMAGE": "Bild",
+        "SOUND": "Ljud",
+        "TEXT": "Text",
+        "VIDEO": "Video"
+      }
     }
   },
-  "entity": "Entitet",
-  "resourceWikimedia": "Resurs från Wikimedia Commons",
-  "messages": {
-    "notFound": "Hittades inte",
-    "externalContentError": "Det externa innehållet kunde inte hämtas",
-    "paginationLimitExceeded": "Det är bara möjligt att visa de {limit} första sökresultaten."
+  "fieldLabels": {
+    "default": {
+      "dcContributor": "Medverkande",
+      "dcCoverage": "Plats–Tid",
+      "dcCreator": "Upphovsman",
+      "dcDate": "Datum",
+      "dcDescription": "Beskrivning",
+      "dcDuration": "Varaktighet",
+      "dcFormat": "Format",
+      "dcIdentifier": "Identifierare",
+      "dcLanguage": "Språk",
+      "dcMedium": "Medium",
+      "dcPublisher": "Utgivare",
+      "dcRelation": "Förbindelser",
+      "dcRights": "Rättigheter",
+      "dcSource": "Källa",
+      "dcSubject": "Ämne",
+      "dctermsCreated": "Skapelsedatum",
+      "dctermsExtent": "Utsträckning",
+      "dctermsHasPart": "Består av",
+      "dctermsHasVersion": "Har version",
+      "dctermsIsFormatOf": "Är ett format för",
+      "dctermsIsPartOf": "Är del av",
+      "dctermsIsReferencedBy": "Hänvisas till av",
+      "dctermsIsReplacedBy": "Byts ut av",
+      "dctermsIsRequiredBy": "Krävs av",
+      "dctermsIssued": "Utgivningsdatum",
+      "dctermsMedium": "Medium",
+      "dctermsProvenance": "Proveniens",
+      "dctermsPublished": "Publiceringsdatum",
+      "dctermsReferences": "Hänvisar till",
+      "dctermsSpatial": "Platser",
+      "dctermsTemporal": "Temporal",
+      "dcTitle": "Titel",
+      "dcType": "Typ av objekt",
+      "edmCountry": "Tillhandahållande land",
+      "edmCurrentLocation": "Nuvarande plats",
+      "edmDataProvider": "Tillhandahållande institution",
+      "edmHasMet": "Har mött",
+      "edmIncorporates": "Inkorporerar",
+      "edmIntermediateProvider": "Mellanliggande leverantör",
+      "edmIsDerivativeOf": "Är härledd från",
+      "edmIsRepresentationOf": "Är en representation av",
+      "edmIsSimilarTo": "Liknar",
+      "edmIsSuccessorOf": "Är efterföljare till",
+      "edmProvider": "Leverantör",
+      "edmRealizes": "Realiserar",
+      "edmRights": "Licens för media i detta dokument (om inte annat anges)",
+      "edmUgc": "Användargenererat innehåll",
+      "europeanaCollectionName": "Samlingens namn",
+      "keywords": "Nyckelord (tillhandahålls av communityn)",
+      "timestampCreated": "Tidsstämpel skapad",
+      "timestampUpdate": "Tidsstämpel uppdaterad",
+      "wasPresentAt": "Var närvarande vid"
+    },
+    "webResource": {
+      "about": "RDF Om",
+      "dcDescription": "Beskrivning",
+      "ebucoreHasMimeType": "Ebucore MIME-typ",
+      "edmRights": "Licens för denna medieresurs",
+      "rdfAbout": "RDF Om"
+    }
   },
-  "searchViews": {
-    "grid": "Rutnätsvy",
-    "list": "Listvy"
+  "footer": {
+    "customiseWebsiteLanguage": "Anpassa webbplatsens språk",
+    "findUsElsewhere": "Hitta oss någon annanstans",
+    "imageDescription": "Medfinansieras av EU:s Connecting Europe Facility",
+    "ourMission": "Vårt uppdrag",
+    "ourMissionQuote": "Europeana stöttar kulturarvsektorns digitala omvandling. Vi utvecklar expertis, verktyg och policyer för att främja digital förändring och uppmuntra partnerskap som främjar innovation."
+  },
+  "formatting": {
+    "ellipsis": "…",
+    "labelledValue": "{label}: {value}",
+    "listSeperator": ";"
+  },
+  "galleries": {
+    "galleries": "Gallerier"
+  },
+  "goToRecord": "Gå till dokument",
+  "homeLinkAlt": "Europeana hem",
+  "imageSlider": {
+    "handle": "Skjutreglage"
   },
   "layout": {
     "skipToMain": "Hoppa till sidans innehåll"
   },
-  "searchPlaceholder": "Vad letar du efter?",
-  "searchTier": {
-    "button": {
-      "show": "Visa dessa objekt",
-      "hide": "Dölj dessa objekt"
+  "learnMore": "Lär dig mer om källan till denna beskrivning",
+  "linksToClassic": {
+    "home": {
+      "linkText": "Gå till ursprunglig Europeana.",
+      "text": "Du visar den nya Europeana-upplevelsen."
     },
-    "text": {
-      "show": "Fler objekt matchar din sökning men uppfyller inte våra publiceringsvillkor.",
-      "hide": "Objekt som inte uppfyller våra publiceringsvillkor visas."
+    "record": {
+      "linkText": "Visa detta objekt i ursprunglig Europeana.",
+      "text": "Du visar detta objekt på den nya Europeana-webbplatsen."
+    },
+    "search": {
+      "linkText": "Visa dessa sökresultat i ursprunglig Europeana.",
+      "text": "Du söker på vår nya och snabbare webbplats."
     }
   },
-  "depiction": "En skildring av {title}",
-  "showLess": "Visa mindre",
-  "showMore": "Visa mer",
-  "delete": "Radera",
-  "removeFilter": "Ta bort filter {filterLabel}",
-  "newWindow": "öppnas i nytt fönster",
-  "blog": {
-    "blog": "Blogg",
-    "author": "Författare",
-    "authors": "Författare",
-    "category": "Kategori",
-    "categories": "Kategorier",
-    "relatedPosts": "Relaterade inlägg"
-  },
-  "directions": {
-    "left": "Vänster",
-    "right": "Höger"
-  },
-  "exhibitions": {
-    "exhibitions": "Utställningar",
-    "credits": "Upphovsmän",
-    "chapters": "Kapitel",
-    "currentChapter": "Aktuellt kapitel"
-  },
-  "actions": {
-    "download": "Ladda ner",
-    "viewAt": "Visa på {link}",
-    "providedBy": "Tillhandahålls av {provider}",
-    "viewDocument": "Visa dokument",
-    "share": "Dela",
-    "shareOn": "Dela på {social}"
-  },
-  "clearAllFilters": "rensa alla filter",
-  "reset": "Återställ",
   "loadingResults": "Hämtar resultat",
-  "edmIsShownAtLinkAlt": "Visa på leverantörens webbplats",
+  "messages": {
+    "externalContentError": "Det externa innehållet kunde inte hämtas",
+    "notFound": "Hittades inte",
+    "paginationLimitExceeded": "Det är bara möjligt att visa de {limit} första sökresultaten."
+  },
+  "newWindow": "öppnas i nytt fönster",
+  "noMoreResults": "Det finns inga fler resultat för din sökning.",
+  "noResults": "Inga träffar",
+  "readMore": "Läs mer",
   "record": {
+    "downloadCopyrightInfo": "Detta objekt är skyddat av upphovsrätt och kan inte laddas ner.",
     "extendedInformation": "Utökad information",
     "hideAll": "Dölj all information",
     "record": "Dokument",
     "showAll": "Visa all information",
     "similarItems": "Liknande objekt",
     "view": {
-      "pdf": "Visa PDF",
       "image": "Visa bild",
-      "media": "Visa media"
-    },
-    "downloadCopyrightInfo": "Detta objekt är skyddat av upphovsrätt och kan inte laddas ner."
-  },
-  "contentfulManual": {
-    "headerNavigation": {
-      "teachers": "Lärare",
-      "explore": "Utforska"
-    },
-    "footerNavigation": {
-      "about": "Om Europeana Collections",
-      "forDevelopers": "För utvecklare",
-      "terms": "Användarvillkor och integritetspolicy",
-      "provide": "Bli en dataleverantör",
-      "meetUs": "Möt teamet",
-      "help": "Hjälp"
+      "media": "Visa media",
+      "pdf": "Visa PDF"
     }
-  },
-  "imageSlider": {
-    "handle": "Skjutreglage"
-  },
-  "dateFilter": {
-    "startDate": "Startdatum",
-    "endDate": "Slutdatum",
-    "to": "till",
-    "specificDate": "Specifikt datum"
-  },
-  "cookieDisclaimer": {
-    "acceptCookieDisclaimer": "Acceptera cookiemeddelande",
-    "terms": "Denna webbplats använder cookies för att säkerställa att du får den bästa upplevelsen på vår webbplats. Genom att klicka eller navigera på webbplatsen samtycker du till att vi samlar in information via cookies.",
-    "link": "Mera info"
-  },
-  "searchSuggestions": "Sök förslag",
-  "learnMore": "Lär dig mer om källan till denna beskrivning",
-  "footer": {
-    "ourMission": "Vårt uppdrag",
-    "ourMissionQuote": "Europeana stöttar kulturarvsektorns digitala omvandling. Vi utvecklar expertis, verktyg och policyer för att främja digital förändring och uppmuntra partnerskap som främjar innovation.",
-    "customiseWebsiteLanguage": "Anpassa webbplatsens språk",
-    "imageDescription": "Medfinansieras av EU:s Connecting Europe Facility",
-    "findUsElsewhere": "Hitta oss någon annanstans"
-  },
-  "collections": {
-    "fashion": {
-      "facets": {
-        "CREATOR": {
-          "name": "Designer | Designers"
-        },
-        "proxy_dc_format": {
-          "name": "Teknik | Tekniker"
-        },
-        "proxy_dcterms_medium": {
-          "name": "Material | Material"
-        },
-        "proxy_dc_type": {
-          "name": "Objektstyp | Objektstyper"
-        }
-      }
-    }
-  },
-  "galleries": {
-    "galleries": "Gallerier"
   },
   "relatedCollections": "Tillhörande kollektioner",
-  "linksToClassic": {
-    "home": {
-      "text": "Du visar den nya Europeana-upplevelsen.",
-      "linkText": "Gå till ursprunglig Europeana."
+  "removeFilter": "Ta bort filter {filterLabel}",
+  "reset": "Återställ",
+  "resourceWikimedia": "Resurs från Wikimedia Commons",
+  "results": "Resultat",
+  "resultsLimitWarning": "Ytterligare resultat visas inte eftersom endast de 1000 första mest relevanta resultaten visas. Om du inte har hittat det du letar efter kan du prova att förfina din sökning.",
+  "search": "Sök",
+  "searchPlaceholder": "Vad letar du efter?",
+  "searchSuggestions": "Sök förslag",
+  "searchTier": {
+    "button": {
+      "hide": "Dölj dessa objekt",
+      "show": "Visa dessa objekt"
     },
-    "search": {
-      "text": "Du söker på vår nya och snabbare webbplats.",
-      "linkText": "Visa dessa sökresultat i ursprunglig Europeana."
-    },
-    "record": {
-      "text": "Du visar detta objekt på den nya Europeana-webbplatsen.",
-      "linkText": "Visa detta objekt i ursprunglig Europeana."
+    "text": {
+      "hide": "Objekt som inte uppfyller våra publiceringsvillkor visas.",
+      "show": "Fler objekt matchar din sökning men uppfyller inte våra publiceringsvillkor."
     }
-  }
+  },
+  "searchViews": {
+    "grid": "Rutnätsvy",
+    "list": "Listvy"
+  },
+  "showLess": "Visa mindre",
+  "showMore": "Visa mer"
 };
