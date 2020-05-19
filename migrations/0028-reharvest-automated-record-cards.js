@@ -6,7 +6,6 @@ const recordOrigin = 'https://api.europeana.eu/record';
 const apiKey = process.env['EUROPEANA_RECORD_API_KEY'];
 
 const getRecord = async(identifier) => {
-  console.log(`fetching record ${identifier}`);
   const url = recordOrigin + '/search.json?profile=minimal&query=europeana_id%3A%22' + identifier + '%22&rows=1';
   return axios.get(url, {
     params: {
