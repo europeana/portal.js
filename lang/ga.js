@@ -1,101 +1,102 @@
 export default {
-  "formatting": {
-    "labelledValue": "{label}: {value}",
-    "ellipsis": "…",
-    "listSeperator": ";"
+  "actions": {
+    "download": "Íoslódáil",
+    "providedBy": "Arna sholáthar ag {provider}",
+    "share": "Roinn",
+    "shareOn": "Roinn ar {social}",
+    "viewAt": "Féach ar ag {link}",
+    "viewDocument": "Breathnaigh ar dhoiciméad"
   },
-  "error": "Earráid",
-  "goToRecord": "Téigh chuig taifead",
-  "readMore": "Léigh níos mó",
-  "search": "Cuardaigh",
-  "results": "Torthaí",
-  "homeLinkAlt": "Baile Europeana",
-  "noMoreResults": "Níl aon toradh eile ann ar d'iarratas cuardaigh.",
-  "resultsLimitWarning": "Ní thaispeántar torthaí breise óir nach dtaispeántar ach amháin an chéad 1000 toradh is ábhartha. Murar aimsigh tú a raibh uait, déan machnamh do chuardach a leasú.",
-  "noResults": "Níor aimsíodh aon Torthaí",
-  "fieldLabels": {
-    "default": {
-      "dcContributor": "Rannchuiditheoirí",
-      "dcCreator": "Cruthaitheoir",
-      "dcDescription": "Tuairisc",
-      "dcTitle": "Teideal",
-      "dcType": "Cineál oibiachta",
-      "dctermsCreated": "Dáta cruthaithe",
-      "edmCountry": "Tír sholáthair",
-      "edmDataProvider": "Institiúid sholáthair",
-      "edmRights": "Ceadúnas faoi na meáin sa taifead seo (mura sonraítear a mhalairt)",
-      "dcPublisher": "Foilsitheoir",
-      "dcSubject": "Ábhar",
-      "dctermsMedium": "Meánach",
-      "dcRights": "Cearta",
-      "dcDate": "Dáta",
-      "dctermsPublished": "Dáta foilsithe",
-      "dctermsIssued": "Dáta eisiúna",
-      "dctermsTemporal": "Ama",
-      "dcCoverage": "Láthair-Am",
-      "dctermsSpatial": "Áiteanna",
-      "edmCurrentLocation": "Suíomh reatha",
-      "edmUgc": "Inneachar ginte le húsáideoirí",
-      "dctermsProvenance": "Bunadh",
-      "dcSource": "Foinse",
-      "dcIdentifier": "Aitheantóir",
-      "edmIntermediateProvider": "Soláthraí idirmheánach",
-      "edmProvider": "Soláthraí",
-      "timestampCreated": "Stampa ama cruthaithe",
-      "timestampUpdate": "Stampa ama nuashonraithe",
-      "dctermsExtent": "Meid",
-      "dcDuration": "Fad",
-      "dcMedium": "Meánach",
-      "dcFormat": "Formáid",
-      "dcLanguage": "Teanga",
-      "dctermsIsPartOf": "Is cuid de",
-      "europeanaCollectionName": "Ainm bailiúcháin",
-      "dcRelation": "Caidrimh",
-      "dctermsReferences": "Tagairtí",
-      "dctermsHasPart": "Lena gcuimsítear",
-      "dctermsHasVersion": "Tá leagan aige",
-      "dctermsIsFormatOf": "Is formáid de",
-      "dctermsIsReferencedBy": "Tagraítear dó",
-      "dctermsIsReplacedBy": "Tagann in ionad",
-      "dctermsIsRequiredBy": "Ní foláir dó nó di",
-      "edmHasMet": "Shásaigh",
-      "edmIncorporates": "Ionchorpraítear leis",
-      "edmIsDerivativeOf": "Is díorthach é de",
-      "edmIsRepresentationOf": "Is léiriú é de",
-      "edmIsSimilarTo": "Is cosúil leis",
-      "edmIsSuccessorOf": "Is comharba é ar",
-      "edmRealizes": "Tuigeann sé/sí",
-      "wasPresentAt": "Bhí i láthair ag",
-      "keywords": "Eochairfhocail (a fuarthas iad ó dhaoine den phobal)"
-    },
-    "webResource": {
-      "dcDescription": "Tuairisc",
-      "rdfAbout": "Maidir le RDF",
-      "edmRights": "Ceadúnas don acmhainn meán seo",
-      "ebucoreHasMimeType": "Cineál MIME Ebucore",
-      "about": "Maidir le RDF"
+  "blog": {
+    "author": "Údar",
+    "authors": "Údair",
+    "blog": "Blag",
+    "categories": "Catagóirí",
+    "category": "Catagóir",
+    "relatedPosts": "Postálacha gaolmhara"
+  },
+  "clearAllFilters": "glan gach scagaire",
+  "collections": {
+    "fashion": {
+      "facets": {
+        "CREATOR": {
+          "name": "Dearthóir | Dearthóirí"
+        },
+        "proxy_dc_format": {
+          "name": "Teicníc | Teicnící"
+        },
+        "proxy_dc_type": {
+          "name": "Cineál míre | Cineálacha míreanna"
+        },
+        "proxy_dcterms_medium": {
+          "name": "Ábhar | Ábhair"
+        }
+      }
     }
   },
-  "facets": {
-    "COUNTRY": {
-      "name": "Tír sholáthair"
+  "contentfulManual": {
+    "footerNavigation": {
+      "about": "Maidir le Bailiúcháin Europeana",
+      "forDevelopers": "Faoi chomhair forbróirí",
+      "help": "Cabhair",
+      "meetUs": "Cuir aithne ar an bhfoireann",
+      "provide": "Bí I do sholátharí sonraí",
+      "terms": "Téarmaí úsáide agus Beartas príobháideachta"
     },
-    "REUSABILITY": {
-      "name": "An féidir liom úsáid a bhaint as seo in athuair?",
+    "headerNavigation": {
+      "explore": "Taiscéal",
+      "teachers": "Teagascóirí"
+    }
+  },
+  "cookieDisclaimer": {
+    "acceptCookieDisclaimer": "Glac leis an gclásal séanta maidir le fianáin",
+    "link": "Tuilleadh eolais",
+    "terms": "Úsáideann an láithreán gréasáin seo fianáin chun a chinntiú go mbeidh an taithí is fearr is féidir agat air. Trí chliceáil nó nascleanúint a dhéanamh ar an láithreán, aontaíonn tú go ligfear dúinn faisnéis a bhailiú le fianáin."
+  },
+  "dateFilter": {
+    "endDate": "Dáta deiridh",
+    "specificDate": "Dáta sonrach",
+    "startDate": "Dáta tosaigh",
+    "to": "go dtí"
+  },
+  "delete": "Scrios",
+  "depiction": "Léiriú ar {title}",
+  "directions": {
+    "left": "Ar chlé",
+    "right": "Ar dheis"
+  },
+  "edmIsShownAtLinkAlt": "Amharc air ag láithreán gréasáin an tsoláthraí",
+  "entity": "Eintiteas",
+  "error": "Earráid",
+  "exhibitions": {
+    "chapters": "Caibidlí",
+    "credits": "Creidiúintí",
+    "currentChapter": "Caibidil reatha",
+    "exhibitions": "Taispeántais"
+  },
+  "facets": {
+    "api": {
+      "name": "Cuardaigh",
       "options": {
-        "open": "Is féidir",
-        "restricted": "Is féidir, ach amháin faoi réir coinníollacha áirithe",
-        "permission": "B’fhéidir, iarraidh ar chead a fháil",
-        "uncategorized": "Gan catagóir"
+        "fulltext": "Taifid ina bhfuil an téacs iomlán le fáil",
+        "metadata": "Taifid nach bhfuil ann ach na meiteashonraí amháin"
       }
+    },
+    "button": {
+      "apply": "Cuir i bhfeidhm",
+      "cancel": "Cealaigh",
+      "morefilters": "Níos mó scagairí",
+      "reset": "Athshocraigh",
+      "showAll": "Taispeáin gach ceann {label}",
+      "showLess": "Taispeáin níos lú {label}"
     },
     "collection": {
       "name": "Catagóir",
       "options": {
-        "ww1": "1914-1918",
         "archaeology": "Seandálaíocht",
         "art": "Ealaín",
         "fashion": "Faisean",
+        "industrial": "Oidhreacht thionsclaíoch",
         "manuscript": "Lámhscríbhinní",
         "map": "Léarscáileanna agus Tíreolaíocht",
         "migration": "Imirce",
@@ -104,62 +105,7 @@ export default {
         "newspaper": "Nuachtáin",
         "photography": "Grianghrafadóireacht",
         "sport": "Spórt",
-        "industrial": "Oidhreacht thionsclaíoch"
-      }
-    },
-    "TYPE": {
-      "name": "Cineál meán",
-      "options": {
-        "IMAGE": "Íomha",
-        "TEXT": "Téacs",
-        "VIDEO": "Físeán",
-        "SOUND": "Fuaim",
-        "3D": "3T"
-      }
-    },
-    "contentTier": {
-      "name": "Áirítear leis míreanna nach sásaíonn ár gcritéir foilsitheoireachta",
-      "options": {
-        "*": "Áirítear leis míreanna nach gcomhlíonann ár riachtanais foilsitheoireachta"
-      }
-    },
-    "button": {
-      "reset": "Athshocraigh",
-      "apply": "Cuir i bhfeidhm",
-      "cancel": "Cealaigh",
-      "morefilters": "Níos mó scagairí",
-      "showAll": "Taispeáin gach ceann {label}",
-      "showLess": "Taispeáin níos lú {label}"
-    },
-    "LANGUAGE": {
-      "name": "Teanga"
-    },
-    "PROVIDER": {
-      "name": "Comhbhailitheoir"
-    },
-    "DATA_PROVIDER": {
-      "name": "Institiúid"
-    },
-    "IMAGE_ASPECTRATIO": {
-      "name": "Treoshuíomh na híomhá | Treoshuímh na n-íomhánna",
-      "options": {
-        "landscape": "Tírdhreach",
-        "portrait": "Portráid"
-      }
-    },
-    "IMAGE_SIZE": {
-      "name": "Méid íomhá | Méideanna íomhá",
-      "options": {
-        "small": "Beag <0.5MP (m.sh. 650x600px)",
-        "medium": "Meán 0.5-1MP (m.sh. 850x850px)",
-        "large": "Mór 1-4MP (m.sh. 1920x1080px)",
-        "extra_large": "Rímhór 4MP+ (m.sh. 2688 x 1520px)"
-      }
-    },
-    "MIME_TYPE": {
-      "name": "Formáid chomhaid | Formáidí comhaid",
-      "options": {
-        "text/plain": "Téacs simplí"
+        "ww1": "1914-1918"
       }
     },
     "COLOURPALETTE": {
@@ -310,174 +256,228 @@ export default {
         "#FFFFFF": "Bán"
       }
     },
-    "proxy_dcterms_issued": {
-      "name": "Dáta eisithe"
-    },
-    "api": {
-      "name": "Cuardaigh",
+    "contentTier": {
+      "name": "Áirítear leis míreanna nach sásaíonn ár gcritéir foilsitheoireachta",
       "options": {
-        "fulltext": "Taifid ina bhfuil an téacs iomlán le fáil",
-        "metadata": "Taifid nach bhfuil ann ach na meiteashonraí amháin"
+        "*": "Áirítear leis míreanna nach gcomhlíonann ár riachtanais foilsitheoireachta"
       }
+    },
+    "COUNTRY": {
+      "name": "Tír sholáthair"
     },
     "CREATOR": {
       "name": "Cruthaitheoir | Cruthaitheoirí"
     },
+    "DATA_PROVIDER": {
+      "name": "Institiúid"
+    },
+    "IMAGE_ASPECTRATIO": {
+      "name": "Treoshuíomh na híomhá | Treoshuímh na n-íomhánna",
+      "options": {
+        "landscape": "Tírdhreach",
+        "portrait": "Portráid"
+      }
+    },
+    "IMAGE_SIZE": {
+      "name": "Méid íomhá | Méideanna íomhá",
+      "options": {
+        "extra_large": "Rímhór 4MP+ (m.sh. 2688 x 1520px)",
+        "large": "Mór 1-4MP (m.sh. 1920x1080px)",
+        "medium": "Meán 0.5-1MP (m.sh. 850x850px)",
+        "small": "Beag <0.5MP (m.sh. 650x600px)"
+      }
+    },
+    "LANGUAGE": {
+      "name": "Teanga"
+    },
+    "MIME_TYPE": {
+      "name": "Formáid chomhaid | Formáidí comhaid",
+      "options": {
+        "text\/plain": "Téacs simplí"
+      }
+    },
+    "PROVIDER": {
+      "name": "Comhbhailitheoir"
+    },
     "proxy_dc_format": {
       "name": "Formáid | Formáidí"
+    },
+    "proxy_dc_type": {
+      "name": "Cineál | Cineálacha"
+    },
+    "proxy_dcterms_issued": {
+      "name": "Dáta eisithe"
     },
     "proxy_dcterms_medium": {
       "name": "Meán | Meáin"
     },
-    "proxy_dc_type": {
-      "name": "Cineál | Cineálacha"
+    "REUSABILITY": {
+      "name": "An féidir liom úsáid a bhaint as seo in athuair?",
+      "options": {
+        "open": "Is féidir",
+        "permission": "B’fhéidir, iarraidh ar chead a fháil",
+        "restricted": "Is féidir, ach amháin faoi réir coinníollacha áirithe",
+        "uncategorized": "Gan catagóir"
+      }
+    },
+    "TYPE": {
+      "name": "Cineál meán",
+      "options": {
+        "3D": "3T",
+        "IMAGE": "Íomha",
+        "SOUND": "Fuaim",
+        "TEXT": "Téacs",
+        "VIDEO": "Físeán"
+      }
     }
   },
-  "entity": "Eintiteas",
-  "resourceWikimedia": "Acmhainn ó Wikimedia Commons",
-  "messages": {
-    "notFound": "Níor aimsíodh é",
-    "externalContentError": "Theip ar lódáil an inneachair sheachtraigh",
-    "paginationLimitExceeded": "Ní féidir ach amháin na chéad {limit} torthaí cuardaigh a fheiceáil."
+  "fieldLabels": {
+    "default": {
+      "dcContributor": "Rannchuiditheoirí",
+      "dcCoverage": "Láthair-Am",
+      "dcCreator": "Cruthaitheoir",
+      "dcDate": "Dáta",
+      "dcDescription": "Tuairisc",
+      "dcDuration": "Fad",
+      "dcFormat": "Formáid",
+      "dcIdentifier": "Aitheantóir",
+      "dcLanguage": "Teanga",
+      "dcMedium": "Meánach",
+      "dcPublisher": "Foilsitheoir",
+      "dcRelation": "Caidrimh",
+      "dcRights": "Cearta",
+      "dcSource": "Foinse",
+      "dcSubject": "Ábhar",
+      "dctermsCreated": "Dáta cruthaithe",
+      "dctermsExtent": "Meid",
+      "dctermsHasPart": "Lena gcuimsítear",
+      "dctermsHasVersion": "Tá leagan aige",
+      "dctermsIsFormatOf": "Is formáid de",
+      "dctermsIsPartOf": "Is cuid de",
+      "dctermsIsReferencedBy": "Tagraítear dó",
+      "dctermsIsReplacedBy": "Tagann in ionad",
+      "dctermsIsRequiredBy": "Ní foláir dó nó di",
+      "dctermsIssued": "Dáta eisiúna",
+      "dctermsMedium": "Meánach",
+      "dctermsProvenance": "Bunadh",
+      "dctermsPublished": "Dáta foilsithe",
+      "dctermsReferences": "Tagairtí",
+      "dctermsSpatial": "Áiteanna",
+      "dctermsTemporal": "Ama",
+      "dcTitle": "Teideal",
+      "dcType": "Cineál oibiachta",
+      "edmCountry": "Tír sholáthair",
+      "edmCurrentLocation": "Suíomh reatha",
+      "edmDataProvider": "Institiúid sholáthair",
+      "edmHasMet": "Shásaigh",
+      "edmIncorporates": "Ionchorpraítear leis",
+      "edmIntermediateProvider": "Soláthraí idirmheánach",
+      "edmIsDerivativeOf": "Is díorthach é de",
+      "edmIsRepresentationOf": "Is léiriú é de",
+      "edmIsSimilarTo": "Is cosúil leis",
+      "edmIsSuccessorOf": "Is comharba é ar",
+      "edmProvider": "Soláthraí",
+      "edmRealizes": "Tuigeann sé\/sí",
+      "edmRights": "Ceadúnas faoi na meáin sa taifead seo (mura sonraítear a mhalairt)",
+      "edmUgc": "Inneachar ginte le húsáideoirí",
+      "europeanaCollectionName": "Ainm bailiúcháin",
+      "keywords": "Eochairfhocail (a fuarthas iad ó dhaoine den phobal)",
+      "timestampCreated": "Stampa ama cruthaithe",
+      "timestampUpdate": "Stampa ama nuashonraithe",
+      "wasPresentAt": "Bhí i láthair ag"
+    },
+    "webResource": {
+      "about": "Maidir le RDF",
+      "dcDescription": "Tuairisc",
+      "ebucoreHasMimeType": "Cineál MIME Ebucore",
+      "edmRights": "Ceadúnas don acmhainn meán seo",
+      "rdfAbout": "Maidir le RDF"
+    }
   },
-  "searchViews": {
-    "grid": "Amharc greille",
-    "list": "Amharc liosta"
+  "footer": {
+    "customiseWebsiteLanguage": "Saincheap teanga an láithreáin ghréasáin",
+    "findUsElsewhere": "Aimsigh muid áit eile",
+    "imageDescription": "Arna Comh-mhaoiniú ag an tSaoráid um Chónascadh na hEorpa de chuid an Aontais Eorpaigh",
+    "ourMission": "Ár misean",
+    "ourMissionQuote": "Tugann Europeana cumhacht don earnáil oidhreachta cultúrtha tabhairt faoin gclaochlú digiteach. Forbraímid saineolas, uirlisí agus beartais chun glacadh leis an athrú digiteach agus spreagaimid comhpháirtíochtaí a chothaíonn an nuálaíocht."
+  },
+  "formatting": {
+    "ellipsis": "…",
+    "labelledValue": "{label}: {value}",
+    "listSeperator": ";"
+  },
+  "galleries": {
+    "galleries": "Gailearaithe"
+  },
+  "goToRecord": "Téigh chuig taifead",
+  "homeLinkAlt": "Baile Europeana",
+  "imageSlider": {
+    "handle": "Hanla Sleamhnáin"
   },
   "layout": {
     "skipToMain": "Scipeáil chuig inneachar leathanaigh"
   },
-  "searchPlaceholder": "Céard atá tú ag cuardach?",
-  "searchTier": {
-    "button": {
-      "show": "Taispeáin na míreanna seo",
-      "hide": "Folaigh na míreanna seo"
+  "learnMore": "Faigh amach faoi fhoinse an tuairisc seo",
+  "linksToClassic": {
+    "home": {
+      "linkText": "Téigh go dtí an láithreán Europeana bunaidh.",
+      "text": "Seo an t-eispéireas Europeana nua a bhfuil tú ag breathnú air."
     },
-    "text": {
-      "show": "Meaisteálann níos mó míreanna do chuardach ach ní shásaíonn ár gcritéir foilsitheoireachta",
-      "hide": "Táthar ag taispeáint míreanna nach sásaíonn ár gcritéir foilsitheoireachta."
+    "record": {
+      "linkText": "Féach ar an mír seo ar láithreán bunaidh Europeana.",
+      "text": "Is ar an láithreán gréasáin nua atá ag Europeana atá tú anois, agus tú ag féachaint ar an mír seo."
+    },
+    "search": {
+      "linkText": "Féach ar na torthaí cuardaigh seo san fhoinse bunaidh, Europeana.",
+      "text": "Tá an cuardach seo déanta agat ar an láithreán gréasáin nua againn atá níos tapúla."
     }
   },
-  "depiction": "Léiriú ar {title}",
-  "showLess": "Taispeáin níos lú",
-  "showMore": "Taispeáin níos mó",
-  "delete": "Scrios",
-  "removeFilter": "Bain {filterLabel} scagaire",
-  "newWindow": "osclaítear i bhfuinneog nua é",
-  "blog": {
-    "blog": "Blag",
-    "author": "Údar",
-    "authors": "Údair",
-    "category": "Catagóir",
-    "categories": "Catagóirí",
-    "relatedPosts": "Postálacha gaolmhara"
-  },
-  "directions": {
-    "left": "Ar chlé",
-    "right": "Ar dheis"
-  },
-  "exhibitions": {
-    "exhibitions": "Taispeántais",
-    "credits": "Creidiúintí",
-    "chapters": "Caibidlí",
-    "currentChapter": "Caibidil reatha"
-  },
-  "actions": {
-    "download": "Íoslódáil",
-    "viewAt": "Féach ar ag {link}",
-    "providedBy": "Arna sholáthar ag {provider}",
-    "viewDocument": "Breathnaigh ar dhoiciméad",
-    "share": "Roinn",
-    "shareOn": "Roinn ar {social}"
-  },
-  "clearAllFilters": "glan gach scagaire",
-  "reset": "Athshocraigh",
   "loadingResults": "Torthaí á lódáil",
-  "edmIsShownAtLinkAlt": "Amharc air ag láithreán gréasáin an tsoláthraí",
+  "messages": {
+    "externalContentError": "Theip ar lódáil an inneachair sheachtraigh",
+    "notFound": "Níor aimsíodh é",
+    "paginationLimitExceeded": "Ní féidir ach amháin na chéad {limit} torthaí cuardaigh a fheiceáil."
+  },
+  "newWindow": "osclaítear i bhfuinneog nua é",
+  "noMoreResults": "Níl aon toradh eile ann ar d'iarratas cuardaigh.",
+  "noResults": "Níor aimsíodh aon Torthaí",
+  "readMore": "Léigh níos mó",
   "record": {
+    "downloadCopyrightInfo": "Tá cóipcheart i bhfeidhm ar an mír seo agus ní féidir í a íoslódáil dá bharr.",
     "extendedInformation": "Faisnéise bhreisithe",
     "hideAll": "Folaigh an fhaisnéis go léir",
     "record": "Taifead",
     "showAll": "Taispeáin an fhaisnéis go léir",
     "similarItems": "Míreanna eile den chineál céanna",
     "view": {
-      "pdf": "Féach ar an PDF",
       "image": "Breathnaigh ar íomhá",
-      "media": "Breathnaigh ar na meáin"
-    },
-    "downloadCopyrightInfo": "Tá cóipcheart i bhfeidhm ar an mír seo agus ní féidir í a íoslódáil dá bharr."
-  },
-  "contentfulManual": {
-    "headerNavigation": {
-      "teachers": "Teagascóirí",
-      "explore": "Taiscéal"
-    },
-    "footerNavigation": {
-      "about": "Maidir le Bailiúcháin Europeana",
-      "forDevelopers": "Faoi chomhair forbróirí",
-      "terms": "Téarmaí úsáide agus Beartas príobháideachta",
-      "provide": "Bí I do sholátharí sonraí",
-      "meetUs": "Cuir aithne ar an bhfoireann",
-      "help": "Cabhair"
+      "media": "Breathnaigh ar na meáin",
+      "pdf": "Féach ar an PDF"
     }
-  },
-  "imageSlider": {
-    "handle": "Hanla Sleamhnáin"
-  },
-  "dateFilter": {
-    "startDate": "Dáta tosaigh",
-    "endDate": "Dáta deiridh",
-    "to": "go dtí",
-    "specificDate": "Dáta sonrach"
-  },
-  "cookieDisclaimer": {
-    "acceptCookieDisclaimer": "Glac leis an gclásal séanta maidir le fianáin",
-    "terms": "Úsáideann an láithreán gréasáin seo fianáin chun a chinntiú go mbeidh an taithí is fearr is féidir agat air. Trí chliceáil nó nascleanúint a dhéanamh ar an láithreán, aontaíonn tú go ligfear dúinn faisnéis a bhailiú le fianáin.",
-    "link": "Tuilleadh eolais"
-  },
-  "searchSuggestions": "Cuardaigh moltaí",
-  "learnMore": "Faigh amach faoi fhoinse an tuairisc seo",
-  "footer": {
-    "ourMission": "Ár misean",
-    "ourMissionQuote": "Tugann Europeana cumhacht don earnáil oidhreachta cultúrtha tabhairt faoin gclaochlú digiteach. Forbraímid saineolas, uirlisí agus beartais chun glacadh leis an athrú digiteach agus spreagaimid comhpháirtíochtaí a chothaíonn an nuálaíocht.",
-    "customiseWebsiteLanguage": "Saincheap teanga an láithreáin ghréasáin",
-    "imageDescription": "Arna Comh-mhaoiniú ag an tSaoráid um Chónascadh na hEorpa de chuid an Aontais Eorpaigh",
-    "findUsElsewhere": "Aimsigh muid áit eile"
-  },
-  "collections": {
-    "fashion": {
-      "facets": {
-        "CREATOR": {
-          "name": "Dearthóir | Dearthóirí"
-        },
-        "proxy_dc_format": {
-          "name": "Teicníc | Teicnící"
-        },
-        "proxy_dcterms_medium": {
-          "name": "Ábhar | Ábhair"
-        },
-        "proxy_dc_type": {
-          "name": "Cineál míre | Cineálacha míreanna"
-        }
-      }
-    }
-  },
-  "galleries": {
-    "galleries": "Gailearaithe"
   },
   "relatedCollections": "Bailiúcháin ghaolmhara",
-  "linksToClassic": {
-    "home": {
-      "text": "Seo an t-eispéireas Europeana nua a bhfuil tú ag breathnú air.",
-      "linkText": "Téigh go dtí an láithreán Europeana bunaidh."
+  "removeFilter": "Bain {filterLabel} scagaire",
+  "reset": "Athshocraigh",
+  "resourceWikimedia": "Acmhainn ó Wikimedia Commons",
+  "results": "Torthaí",
+  "resultsLimitWarning": "Ní thaispeántar torthaí breise óir nach dtaispeántar ach amháin an chéad 1000 toradh is ábhartha. Murar aimsigh tú a raibh uait, déan machnamh do chuardach a leasú.",
+  "search": "Cuardaigh",
+  "searchPlaceholder": "Céard atá tú ag cuardach?",
+  "searchSuggestions": "Cuardaigh moltaí",
+  "searchTier": {
+    "button": {
+      "hide": "Folaigh na míreanna seo",
+      "show": "Taispeáin na míreanna seo"
     },
-    "search": {
-      "text": "Tá an cuardach seo déanta agat ar an láithreán gréasáin nua againn atá níos tapúla.",
-      "linkText": "Féach ar na torthaí cuardaigh seo san fhoinse bunaidh, Europeana."
-    },
-    "record": {
-      "text": "Is ar an láithreán gréasáin nua atá ag Europeana atá tú anois, agus tú ag féachaint ar an mír seo.",
-      "linkText": "Féach ar an mír seo ar láithreán bunaidh Europeana."
+    "text": {
+      "hide": "Táthar ag taispeáint míreanna nach sásaíonn ár gcritéir foilsitheoireachta.",
+      "show": "Meaisteálann níos mó míreanna do chuardach ach ní shásaíonn ár gcritéir foilsitheoireachta"
     }
-  }
+  },
+  "searchViews": {
+    "grid": "Amharc greille",
+    "list": "Amharc liosta"
+  },
+  "showLess": "Taispeáin níos lú",
+  "showMore": "Taispeáin níos mó"
 };
