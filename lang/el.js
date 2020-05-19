@@ -1,101 +1,102 @@
 export default {
-  "formatting": {
-    "labelledValue": "{label}: {value}",
-    "ellipsis": "…",
-    "listSeperator": ","
+  "actions": {
+    "download": "Μεταφόρτωση",
+    "providedBy": "Παρέχεται από {provider}",
+    "share": "Κοινοποίηση",
+    "shareOn": "Κοινοποίηση στο {social}",
+    "viewAt": "Προβολή στο {link}",
+    "viewDocument": "Προβολή εγγράφου"
   },
-  "error": "Σφάλμα",
-  "goToRecord": "Μετάβαση στο αρχείο",
-  "readMore": "Διαβάστε περισσότερα",
-  "search": "Αναζήτηση",
-  "results": "Αποτελέσματα",
-  "homeLinkAlt": "Αρχική σελίδα της Europeana",
-  "noMoreResults": "Δεν υπάρχουν άλλα αποτελέσματα για το ερώτημα της αναζήτησης σας.",
-  "resultsLimitWarning": "Δεν εμφανίζονται επιπλέον αποτελέσματα, καθώς εμφανίζονται μόνο τα πρώτα 1.000 πιο σχετικά αποτελέσματα. Εάν δεν βρείτε αυτό που ψάχνετε, προσπαθήστε να αλλάξετε τα φίλτρα αναζήτησής σας.",
-  "noResults": "Δεν βρέθηκαν αποτελέσματα",
-  "fieldLabels": {
-    "default": {
-      "dcContributor": "Αρθρογράφοι",
-      "dcCreator": "Δημιουργός",
-      "dcDescription": "Περιγραφή",
-      "dcTitle": "Τίτλος",
-      "dcType": "Τύπος αντικειμένου",
-      "dctermsCreated": "Ημερομηνία δημιουργίας",
-      "edmCountry": "Παροχή χώρας",
-      "edmDataProvider": "Παροχή ιδρύματος",
-      "edmRights": "Άδεια των μέσων σε αυτό το αρχείο (εκτός αν ορίζεται διαφορετικά)",
-      "dcPublisher": "Εκδότης",
-      "dcSubject": "Θέμα",
-      "dctermsMedium": "Μέσο",
-      "dcRights": "Δικαιώματα",
-      "dcDate": "Ημερομηνία",
-      "dctermsPublished": "Ημερομηνία δημοσίευσης",
-      "dctermsIssued": "Ημερομηνία έκδοσης",
-      "dctermsTemporal": "Χρονική περίοδος",
-      "dcCoverage": "Μέρος-Ώρα",
-      "dctermsSpatial": "Μέρη",
-      "edmCurrentLocation": "Τρέχουσα τοποθεσία",
-      "edmUgc": "Περιεχόμενο δημιουργημένο από το χρήστη",
-      "dctermsProvenance": "Προέλευση",
-      "dcSource": "Πηγή",
-      "dcIdentifier": "Αναγνωριστικό",
-      "edmIntermediateProvider": "Ενδιάμεσος πάροχος",
-      "edmProvider": "Πάροχος",
-      "timestampCreated": "Δημιουργήθηκε χρονική σήμανση",
-      "timestampUpdate": "Η χρονική σήμανση ενημερώθηκε",
-      "dctermsExtent": "Έκταση",
-      "dcDuration": "Διάρκεια",
-      "dcMedium": "Μέσο",
-      "dcFormat": "Μορφή",
-      "dcLanguage": "Γλώσσα",
-      "dctermsIsPartOf": "Είναι μέρος του",
-      "europeanaCollectionName": "Όνομα συλλογής",
-      "dcRelation": "Σχέσεις",
-      "dctermsReferences": "Αναφέρει",
-      "dctermsHasPart": "Αποτελείται από",
-      "dctermsHasVersion": "Έχει έκδοση",
-      "dctermsIsFormatOf": "Είναι μορφή του",
-      "dctermsIsReferencedBy": "Αναφέρεται από",
-      "dctermsIsReplacedBy": "Αντικαθίσταται από",
-      "dctermsIsRequiredBy": "Απαιτείται από",
-      "edmHasMet": "Έχει συναντήσει",
-      "edmIncorporates": "Ενσωματώνει",
-      "edmIsDerivativeOf": "Είναι παράγωγο του",
-      "edmIsRepresentationOf": "Είναι αναπαράσταση του",
-      "edmIsSimilarTo": "Είναι παρόμοιο με",
-      "edmIsSuccessorOf": "Είναι διάδοχος του",
-      "edmRealizes": "Πραγματοποιεί",
-      "wasPresentAt": "Ήταν παρών/ούσα στο",
-      "keywords": "Λέξεις-κλειδιά (παρέχονται από την κοινότητα)"
-    },
-    "webResource": {
-      "dcDescription": "Περιγραφή",
-      "rdfAbout": "RDF Σχετικά με",
-      "edmRights": "Άδεια χρήσης για αυτόν τον πόρο πολυμέσων",
-      "ebucoreHasMimeType": "Τύπος Ebucore MIME",
-      "about": "RDF σχετικά με"
+  "blog": {
+    "author": "Συγγραφέας",
+    "authors": "Συγγραφείς",
+    "blog": "Blog",
+    "categories": "Κατηγορίες",
+    "category": "Κατηγορία",
+    "relatedPosts": "Σχετικές αναρτήσεις"
+  },
+  "clearAllFilters": "απαλοιφή όλων των φίλτρων",
+  "collections": {
+    "fashion": {
+      "facets": {
+        "CREATOR": {
+          "name": "Σχεδιαστής | Σχεδιαστές"
+        },
+        "proxy_dc_format": {
+          "name": "Τεχνική | Τεχνικές"
+        },
+        "proxy_dc_type": {
+          "name": "Τύπος στοιχείου | Τύποι στοιχείων"
+        },
+        "proxy_dcterms_medium": {
+          "name": "Υλικό | Υλικά"
+        }
+      }
     }
   },
-  "facets": {
-    "COUNTRY": {
-      "name": "Παροχή χώρας"
+  "contentfulManual": {
+    "footerNavigation": {
+      "about": "Σχετικά με τις συλλογές της Europeana",
+      "forDevelopers": "Για προγραμματιστές",
+      "help": "Βοήθεια",
+      "meetUs": "Γνωρίστε την ομάδα",
+      "provide": "Γίνετε πάροχος δεδομένων",
+      "terms": "Όροι χρήσης και πολιτική απορρήτου"
     },
-    "REUSABILITY": {
-      "name": "Μπορώ να το επαναχρησιμοποιήσω αυτό;",
+    "headerNavigation": {
+      "explore": "Εξερεύνηση",
+      "teachers": "Εκπαιδευτές"
+    }
+  },
+  "cookieDisclaimer": {
+    "acceptCookieDisclaimer": "Αποδοχή δήλωσης αποποίησης ευθυνών για τα cookies",
+    "link": "Περισσότερες πληροφορίες",
+    "terms": "Αυτός ο ιστότοπος χρησιμοποιεί cookies για να διασφαλίσει ότι θα έχετε την καλύτερη δυνατή εμπειρία στον ιστότοπό μας. Κάνοντας κλικ ή πραγματοποιώντας πλοήγηση στον ιστότοπο, συμφωνείτε ότι επιτρέπετε τη συλλογή πληροφοριών μέσω cookies."
+  },
+  "dateFilter": {
+    "endDate": "Ημερομηνία λήξης",
+    "specificDate": "Συγκεκριμένη ημερομηνία",
+    "startDate": "Ημερομηνία έναρξης",
+    "to": "έως"
+  },
+  "delete": "Διαγραφή",
+  "depiction": "Μια απεικόνιση του {title}",
+  "directions": {
+    "left": "Αριστερά",
+    "right": "Δεξιά"
+  },
+  "edmIsShownAtLinkAlt": "Προβολή στον ιστότοπο του παρόχου",
+  "entity": "Οντότητα",
+  "error": "Σφάλμα",
+  "exhibitions": {
+    "chapters": "Κεφάλαια",
+    "credits": "Συντελεστές",
+    "currentChapter": "Τρέχον κεφάλαιο",
+    "exhibitions": "Εκθέσεις"
+  },
+  "facets": {
+    "api": {
+      "name": "Αναζήτηση για",
       "options": {
-        "open": "Ναί",
-        "restricted": "Ναι, υπό όρους",
-        "permission": "Ίσως, ζητήστε άδεια",
-        "uncategorized": "Χωρίς κατηγορία"
+        "fulltext": "Αρχεία με πλήρες κείμενο",
+        "metadata": "Αρχεία μόνο για μεταδεδομένα"
       }
+    },
+    "button": {
+      "apply": "Εφαρμογή",
+      "cancel": "Ακύρωση",
+      "morefilters": "Περισσότερα φίλτρα",
+      "reset": "Επαναφορά",
+      "showAll": "Εμφάνιση όλων {label}",
+      "showLess": "Εμφάνιση λιγότερων {label}"
     },
     "collection": {
       "name": "Κατηγορία",
       "options": {
-        "ww1": "1914-1918",
         "archaeology": "Αρχαιολογία",
         "art": "Τέχνη",
         "fashion": "Μόδα",
+        "industrial": "Βιομηχανική κληρονομιά",
         "manuscript": "Χειρόγραφα",
         "map": "Χάρτες και γεωγραφία",
         "migration": "Μετανάστευση",
@@ -104,62 +105,7 @@ export default {
         "newspaper": "Εφημερίδες",
         "photography": "Φωτογραφία",
         "sport": "Άθλημα",
-        "industrial": "Βιομηχανική κληρονομιά"
-      }
-    },
-    "TYPE": {
-      "name": "Τύπος μέσων",
-      "options": {
-        "IMAGE": "Εικόνα",
-        "TEXT": "Κείμενο",
-        "VIDEO": "Βίντεο",
-        "SOUND": "Ήχος",
-        "3D": "3D"
-      }
-    },
-    "contentTier": {
-      "name": "Περιλαμβάνει στοιχεία που δεν πληρούν τα κριτήρια δημοσίευσης",
-      "options": {
-        "*": "Περιλαμβάνει στοιχεία που δεν πληρούν τα κριτήρια δημοσίευσής μας"
-      }
-    },
-    "button": {
-      "reset": "Επαναφορά",
-      "apply": "Εφαρμογή",
-      "cancel": "Ακύρωση",
-      "morefilters": "Περισσότερα φίλτρα",
-      "showAll": "Εμφάνιση όλων {label}",
-      "showLess": "Εμφάνιση λιγότερων {label}"
-    },
-    "LANGUAGE": {
-      "name": "Γλώσσα"
-    },
-    "PROVIDER": {
-      "name": "Ιστοσελίδα συγκέντρωσης δεδομένων"
-    },
-    "DATA_PROVIDER": {
-      "name": "Ίδρυμα"
-    },
-    "IMAGE_ASPECTRATIO": {
-      "name": "Προσανατολισμός εικόνας | Προσανατολισμοί εικόνας",
-      "options": {
-        "landscape": "Οριζόντιος",
-        "portrait": "Κάθετος"
-      }
-    },
-    "IMAGE_SIZE": {
-      "name": "Μέγεθος εικόνας | Μεγέθη εικόνων",
-      "options": {
-        "small": "Μικρό < 0,5 MP (π.χ. 650 x 600 px)",
-        "medium": "Μεσαίο 0,5-1 MP (π.χ. 850 x 850 px)",
-        "large": "Μεγάλο 1-4 MP (π.χ. 1920 x 1080 px)",
-        "extra_large": "Πολύ μεγάλο 4 MP+ (π.χ. 2688 x 1520 px)"
-      }
-    },
-    "MIME_TYPE": {
-      "name": "Μορφή αρχείου | Μορφές αρχείων",
-      "options": {
-        "text/plain": "Απλό κείμενο"
+        "ww1": "1914-1918"
       }
     },
     "COLOURPALETTE": {
@@ -310,174 +256,228 @@ export default {
         "#FFFFFF": "λευκό"
       }
     },
-    "proxy_dcterms_issued": {
-      "name": "Ημερομηνία έκδοσης"
-    },
-    "api": {
-      "name": "Αναζήτηση για",
+    "contentTier": {
+      "name": "Περιλαμβάνει στοιχεία που δεν πληρούν τα κριτήρια δημοσίευσης",
       "options": {
-        "fulltext": "Αρχεία με πλήρες κείμενο",
-        "metadata": "Αρχεία μόνο για μεταδεδομένα"
+        "*": "Περιλαμβάνει στοιχεία που δεν πληρούν τα κριτήρια δημοσίευσής μας"
       }
+    },
+    "COUNTRY": {
+      "name": "Παροχή χώρας"
     },
     "CREATOR": {
       "name": "Δημιουργός | Δημιουργοί"
     },
+    "DATA_PROVIDER": {
+      "name": "Ίδρυμα"
+    },
+    "IMAGE_ASPECTRATIO": {
+      "name": "Προσανατολισμός εικόνας | Προσανατολισμοί εικόνας",
+      "options": {
+        "landscape": "Οριζόντιος",
+        "portrait": "Κάθετος"
+      }
+    },
+    "IMAGE_SIZE": {
+      "name": "Μέγεθος εικόνας | Μεγέθη εικόνων",
+      "options": {
+        "extra_large": "Πολύ μεγάλο 4 MP+ (π.χ. 2688 x 1520 px)",
+        "large": "Μεγάλο 1-4 MP (π.χ. 1920 x 1080 px)",
+        "medium": "Μεσαίο 0,5-1 MP (π.χ. 850 x 850 px)",
+        "small": "Μικρό < 0,5 MP (π.χ. 650 x 600 px)"
+      }
+    },
+    "LANGUAGE": {
+      "name": "Γλώσσα"
+    },
+    "MIME_TYPE": {
+      "name": "Μορφή αρχείου | Μορφές αρχείων",
+      "options": {
+        "text\/plain": "Απλό κείμενο"
+      }
+    },
+    "PROVIDER": {
+      "name": "Ιστοσελίδα συγκέντρωσης δεδομένων"
+    },
     "proxy_dc_format": {
       "name": "Μορφή | Μορφές"
+    },
+    "proxy_dc_type": {
+      "name": "Τύπος | Τύποι"
+    },
+    "proxy_dcterms_issued": {
+      "name": "Ημερομηνία έκδοσης"
     },
     "proxy_dcterms_medium": {
       "name": "Μέσο | Μέσα"
     },
-    "proxy_dc_type": {
-      "name": "Τύπος | Τύποι"
+    "REUSABILITY": {
+      "name": "Μπορώ να το επαναχρησιμοποιήσω αυτό;",
+      "options": {
+        "open": "Ναί",
+        "permission": "Ίσως, ζητήστε άδεια",
+        "restricted": "Ναι, υπό όρους",
+        "uncategorized": "Χωρίς κατηγορία"
+      }
+    },
+    "TYPE": {
+      "name": "Τύπος μέσων",
+      "options": {
+        "3D": "3D",
+        "IMAGE": "Εικόνα",
+        "SOUND": "Ήχος",
+        "TEXT": "Κείμενο",
+        "VIDEO": "Βίντεο"
+      }
     }
   },
-  "entity": "Οντότητα",
-  "resourceWikimedia": "Πηγή από τα Wikimedia Commons",
-  "messages": {
-    "notFound": "Δεν βρέθηκε",
-    "externalContentError": "Η φόρτωση του εξωτερικού περιεχομένου απέτυχε",
-    "paginationLimitExceeded": "Μπορείτε να δείτε μόνο τα πρώτα {limit} αποτελέσματα αναζήτησης."
+  "fieldLabels": {
+    "default": {
+      "dcContributor": "Αρθρογράφοι",
+      "dcCoverage": "Μέρος-Ώρα",
+      "dcCreator": "Δημιουργός",
+      "dcDate": "Ημερομηνία",
+      "dcDescription": "Περιγραφή",
+      "dcDuration": "Διάρκεια",
+      "dcFormat": "Μορφή",
+      "dcIdentifier": "Αναγνωριστικό",
+      "dcLanguage": "Γλώσσα",
+      "dcMedium": "Μέσο",
+      "dcPublisher": "Εκδότης",
+      "dcRelation": "Σχέσεις",
+      "dcRights": "Δικαιώματα",
+      "dcSource": "Πηγή",
+      "dcSubject": "Θέμα",
+      "dctermsCreated": "Ημερομηνία δημιουργίας",
+      "dctermsExtent": "Έκταση",
+      "dctermsHasPart": "Αποτελείται από",
+      "dctermsHasVersion": "Έχει έκδοση",
+      "dctermsIsFormatOf": "Είναι μορφή του",
+      "dctermsIsPartOf": "Είναι μέρος του",
+      "dctermsIsReferencedBy": "Αναφέρεται από",
+      "dctermsIsReplacedBy": "Αντικαθίσταται από",
+      "dctermsIsRequiredBy": "Απαιτείται από",
+      "dctermsIssued": "Ημερομηνία έκδοσης",
+      "dctermsMedium": "Μέσο",
+      "dctermsProvenance": "Προέλευση",
+      "dctermsPublished": "Ημερομηνία δημοσίευσης",
+      "dctermsReferences": "Αναφέρει",
+      "dctermsSpatial": "Μέρη",
+      "dctermsTemporal": "Χρονική περίοδος",
+      "dcTitle": "Τίτλος",
+      "dcType": "Τύπος αντικειμένου",
+      "edmCountry": "Παροχή χώρας",
+      "edmCurrentLocation": "Τρέχουσα τοποθεσία",
+      "edmDataProvider": "Παροχή ιδρύματος",
+      "edmHasMet": "Έχει συναντήσει",
+      "edmIncorporates": "Ενσωματώνει",
+      "edmIntermediateProvider": "Ενδιάμεσος πάροχος",
+      "edmIsDerivativeOf": "Είναι παράγωγο του",
+      "edmIsRepresentationOf": "Είναι αναπαράσταση του",
+      "edmIsSimilarTo": "Είναι παρόμοιο με",
+      "edmIsSuccessorOf": "Είναι διάδοχος του",
+      "edmProvider": "Πάροχος",
+      "edmRealizes": "Πραγματοποιεί",
+      "edmRights": "Άδεια των μέσων σε αυτό το αρχείο (εκτός αν ορίζεται διαφορετικά)",
+      "edmUgc": "Περιεχόμενο δημιουργημένο από το χρήστη",
+      "europeanaCollectionName": "Όνομα συλλογής",
+      "keywords": "Λέξεις-κλειδιά (παρέχονται από την κοινότητα)",
+      "timestampCreated": "Δημιουργήθηκε χρονική σήμανση",
+      "timestampUpdate": "Η χρονική σήμανση ενημερώθηκε",
+      "wasPresentAt": "Ήταν παρών\/ούσα στο"
+    },
+    "webResource": {
+      "about": "RDF σχετικά με",
+      "dcDescription": "Περιγραφή",
+      "ebucoreHasMimeType": "Τύπος Ebucore MIME",
+      "edmRights": "Άδεια χρήσης για αυτόν τον πόρο πολυμέσων",
+      "rdfAbout": "RDF Σχετικά με"
+    }
   },
-  "searchViews": {
-    "grid": "Προβολή πλέγματος",
-    "list": "Προβολή λίστας"
+  "footer": {
+    "customiseWebsiteLanguage": "Προσαρμογή γλώσσας ιστότοπου",
+    "findUsElsewhere": "Βρείτε μας αλλού",
+    "imageDescription": "Συγχρηματοδοτείται από τη διευκόλυνση «Συνδέοντας την Ευρώπη» της Ευρωπαϊκής Ένωσης",
+    "ourMission": "Η αποστολή μας",
+    "ourMissionQuote": "Η Europeana συνδράμει στην ψηφιοποίηση του τομέα της πολιτιστικής κληρονομιάς. Αναπτύσσουμε τεχνογνωσία, εργαλεία και πολιτικές για τον ενστερνισμό της ψηφιακής αλλαγής και την ενθάρρυνση συνεργασιών που προωθούν την καινοτομία."
+  },
+  "formatting": {
+    "ellipsis": "…",
+    "labelledValue": "{label}: {value}",
+    "listSeperator": ","
+  },
+  "galleries": {
+    "galleries": "Γκαλερί"
+  },
+  "goToRecord": "Μετάβαση στο αρχείο",
+  "homeLinkAlt": "Αρχική σελίδα της Europeana",
+  "imageSlider": {
+    "handle": "Λαβή ρυθμιστικού"
   },
   "layout": {
     "skipToMain": "Μετάβαση στο περιεχόμενο της σελίδας"
   },
-  "searchPlaceholder": "Τι αναζητάτε;",
-  "searchTier": {
-    "button": {
-      "show": "Εμφάνιση λιγότερων στοιχείων",
-      "hide": "Απόκρυψη αυτών των στοιχείων"
+  "learnMore": "Μάθετε για την πηγή αυτής της περιγραφής",
+  "linksToClassic": {
+    "home": {
+      "linkText": "Μεταβείτε στην αυθεντική Europeana.",
+      "text": "Βλέπετε τη νέα εμπειρία της Europeana."
     },
-    "text": {
-      "show": "Περισσότερα στοιχεία αντιστοιχούν στην αναζήτησή σας, αλλά δεν πληρούν τα κριτήρια δημοσίευσης.",
-      "hide": "Εμφανίζονται στοιχεία που δεν πληρούν τα κριτήρια δημοσίευσης."
+    "record": {
+      "linkText": "Δείτε αυτό το στοιχείο στην αυθεντική Europeana.",
+      "text": "Βλέπετε αυτό το στοιχείο στο νέο ιστότοπο της Europeana."
+    },
+    "search": {
+      "linkText": "Δείτε αυτά τα αποτελέσματα αναζήτησης στην αυθεντική Europeana.",
+      "text": "Πραγματοποιείτε αναζήτηση στον νέο και γρηγορότερο ιστότοπό μας."
     }
   },
-  "depiction": "Μια απεικόνιση του {title}",
-  "showLess": "Εμφάνιση λιγότερων",
-  "showMore": "Εμφάνιση περισσότερων",
-  "delete": "Διαγραφή",
-  "removeFilter": "Κατάργηση φίλτρου {filterLabel}",
-  "newWindow": "ανοίγει σε νέο παράθυρο",
-  "blog": {
-    "blog": "Blog",
-    "author": "Συγγραφέας",
-    "authors": "Συγγραφείς",
-    "category": "Κατηγορία",
-    "categories": "Κατηγορίες",
-    "relatedPosts": "Σχετικές αναρτήσεις"
-  },
-  "directions": {
-    "left": "Αριστερά",
-    "right": "Δεξιά"
-  },
-  "exhibitions": {
-    "exhibitions": "Εκθέσεις",
-    "credits": "Συντελεστές",
-    "chapters": "Κεφάλαια",
-    "currentChapter": "Τρέχον κεφάλαιο"
-  },
-  "actions": {
-    "download": "Μεταφόρτωση",
-    "viewAt": "Προβολή στο {link}",
-    "providedBy": "Παρέχεται από {provider}",
-    "viewDocument": "Προβολή εγγράφου",
-    "share": "Κοινοποίηση",
-    "shareOn": "Κοινοποίηση στο {social}"
-  },
-  "clearAllFilters": "απαλοιφή όλων των φίλτρων",
-  "reset": "Επαναφορά",
   "loadingResults": "Φόρτωση αποτελέσματα",
-  "edmIsShownAtLinkAlt": "Προβολή στον ιστότοπο του παρόχου",
+  "messages": {
+    "externalContentError": "Η φόρτωση του εξωτερικού περιεχομένου απέτυχε",
+    "notFound": "Δεν βρέθηκε",
+    "paginationLimitExceeded": "Μπορείτε να δείτε μόνο τα πρώτα {limit} αποτελέσματα αναζήτησης."
+  },
+  "newWindow": "ανοίγει σε νέο παράθυρο",
+  "noMoreResults": "Δεν υπάρχουν άλλα αποτελέσματα για το ερώτημα της αναζήτησης σας.",
+  "noResults": "Δεν βρέθηκαν αποτελέσματα",
+  "readMore": "Διαβάστε περισσότερα",
   "record": {
+    "downloadCopyrightInfo": "Αυτό το στοιχείο προστατεύεται από δικαίωμα πνευματικής ιδιοκτησίας και δεν μπορείτε να το κατεβάσετε.",
     "extendedInformation": "Εκτεταμένες πληροφορίες",
     "hideAll": "Απόκρυψη όλων των πληροφοριών",
     "record": "Εγγραφή",
     "showAll": "Εμφάνιση όλων των πληροφοριών",
     "similarItems": "Παρόμοια στοιχεία",
     "view": {
-      "pdf": "Προβολή PDF",
       "image": "Προβολή εικόνας",
-      "media": "Προβολή μέσων"
-    },
-    "downloadCopyrightInfo": "Αυτό το στοιχείο προστατεύεται από δικαίωμα πνευματικής ιδιοκτησίας και δεν μπορείτε να το κατεβάσετε."
-  },
-  "contentfulManual": {
-    "headerNavigation": {
-      "teachers": "Εκπαιδευτές",
-      "explore": "Εξερεύνηση"
-    },
-    "footerNavigation": {
-      "about": "Σχετικά με τις συλλογές της Europeana",
-      "forDevelopers": "Για προγραμματιστές",
-      "terms": "Όροι χρήσης και πολιτική απορρήτου",
-      "provide": "Γίνετε πάροχος δεδομένων",
-      "meetUs": "Γνωρίστε την ομάδα",
-      "help": "Βοήθεια"
+      "media": "Προβολή μέσων",
+      "pdf": "Προβολή PDF"
     }
-  },
-  "imageSlider": {
-    "handle": "Λαβή ρυθμιστικού"
-  },
-  "dateFilter": {
-    "startDate": "Ημερομηνία έναρξης",
-    "endDate": "Ημερομηνία λήξης",
-    "to": "έως",
-    "specificDate": "Συγκεκριμένη ημερομηνία"
-  },
-  "cookieDisclaimer": {
-    "acceptCookieDisclaimer": "Αποδοχή δήλωσης αποποίησης ευθυνών για τα cookies",
-    "terms": "Αυτός ο ιστότοπος χρησιμοποιεί cookies για να διασφαλίσει ότι θα έχετε την καλύτερη δυνατή εμπειρία στον ιστότοπό μας. Κάνοντας κλικ ή πραγματοποιώντας πλοήγηση στον ιστότοπο, συμφωνείτε ότι επιτρέπετε τη συλλογή πληροφοριών μέσω cookies.",
-    "link": "Περισσότερες πληροφορίες"
-  },
-  "searchSuggestions": "Αναζήτηση προτάσεων",
-  "learnMore": "Μάθετε για την πηγή αυτής της περιγραφής",
-  "footer": {
-    "ourMission": "Η αποστολή μας",
-    "ourMissionQuote": "Η Europeana συνδράμει στην ψηφιοποίηση του τομέα της πολιτιστικής κληρονομιάς. Αναπτύσσουμε τεχνογνωσία, εργαλεία και πολιτικές για τον ενστερνισμό της ψηφιακής αλλαγής και την ενθάρρυνση συνεργασιών που προωθούν την καινοτομία.",
-    "customiseWebsiteLanguage": "Προσαρμογή γλώσσας ιστότοπου",
-    "imageDescription": "Συγχρηματοδοτείται από τη διευκόλυνση «Συνδέοντας την Ευρώπη» της Ευρωπαϊκής Ένωσης",
-    "findUsElsewhere": "Βρείτε μας αλλού"
-  },
-  "collections": {
-    "fashion": {
-      "facets": {
-        "CREATOR": {
-          "name": "Σχεδιαστής | Σχεδιαστές"
-        },
-        "proxy_dc_format": {
-          "name": "Τεχνική | Τεχνικές"
-        },
-        "proxy_dcterms_medium": {
-          "name": "Υλικό | Υλικά"
-        },
-        "proxy_dc_type": {
-          "name": "Τύπος στοιχείου | Τύποι στοιχείων"
-        }
-      }
-    }
-  },
-  "galleries": {
-    "galleries": "Γκαλερί"
   },
   "relatedCollections": "Σχετικές συλλογές",
-  "linksToClassic": {
-    "home": {
-      "text": "Βλέπετε τη νέα εμπειρία της Europeana.",
-      "linkText": "Μεταβείτε στην αυθεντική Europeana."
+  "removeFilter": "Κατάργηση φίλτρου {filterLabel}",
+  "reset": "Επαναφορά",
+  "resourceWikimedia": "Πηγή από τα Wikimedia Commons",
+  "results": "Αποτελέσματα",
+  "resultsLimitWarning": "Δεν εμφανίζονται επιπλέον αποτελέσματα, καθώς εμφανίζονται μόνο τα πρώτα 1.000 πιο σχετικά αποτελέσματα. Εάν δεν βρείτε αυτό που ψάχνετε, προσπαθήστε να αλλάξετε τα φίλτρα αναζήτησής σας.",
+  "search": "Αναζήτηση",
+  "searchPlaceholder": "Τι αναζητάτε;",
+  "searchSuggestions": "Αναζήτηση προτάσεων",
+  "searchTier": {
+    "button": {
+      "hide": "Απόκρυψη αυτών των στοιχείων",
+      "show": "Εμφάνιση λιγότερων στοιχείων"
     },
-    "search": {
-      "text": "Πραγματοποιείτε αναζήτηση στον νέο και γρηγορότερο ιστότοπό μας.",
-      "linkText": "Δείτε αυτά τα αποτελέσματα αναζήτησης στην αυθεντική Europeana."
-    },
-    "record": {
-      "text": "Βλέπετε αυτό το στοιχείο στο νέο ιστότοπο της Europeana.",
-      "linkText": "Δείτε αυτό το στοιχείο στην αυθεντική Europeana."
+    "text": {
+      "hide": "Εμφανίζονται στοιχεία που δεν πληρούν τα κριτήρια δημοσίευσης.",
+      "show": "Περισσότερα στοιχεία αντιστοιχούν στην αναζήτησή σας, αλλά δεν πληρούν τα κριτήρια δημοσίευσης."
     }
-  }
+  },
+  "searchViews": {
+    "grid": "Προβολή πλέγματος",
+    "list": "Προβολή λίστας"
+  },
+  "showLess": "Εμφάνιση λιγότερων",
+  "showMore": "Εμφάνιση περισσότερων"
 };
