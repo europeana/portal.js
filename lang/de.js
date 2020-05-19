@@ -159,7 +159,7 @@ export default {
     "MIME_TYPE": {
       "name": "Dateiformat | Dateiformate",
       "options": {
-        "text/plain": "Klartext"
+        "text\/plain": "Klartext"
       }
     },
     "COLOURPALETTE": {
@@ -468,7 +468,7 @@ export default {
   "relatedCollections": "Zugehörige Sammlungen",
   "linksToClassic": {
     "home": {
-      "text": "Sie sehen sich die neue Europeana-Erfahrung an.",
+      "text": "Sie sehen sich die neue Europeana Website an.",
       "linkText": "Gehen Sie zur ursprünglichen Europeana-Website."
     },
     "search": {
