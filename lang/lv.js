@@ -159,7 +159,7 @@ export default {
     "MIME_TYPE": {
       "name": "Datnes formāts | Datņu formāti",
       "options": {
-        "text/plain": "Vienkāršs teksts"
+        "text\/plain": "Vienkāršs teksts"
       }
     },
     "COLOURPALETTE": {
@@ -327,7 +327,7 @@ export default {
       "name": "Formāts | Formāti"
     },
     "proxy_dcterms_medium": {
-      "name": "Līdzeklis/ Līdzekļi"
+      "name": "Līdzeklis\/ Līdzekļi"
     },
     "proxy_dc_type": {
       "name": "Veids | Veidi"
