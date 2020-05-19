@@ -1,101 +1,102 @@
 export default {
-  "formatting": {
-    "labelledValue": "{label}: {value}",
-    "ellipsis": "…",
-    "listSeperator": ";"
+  "actions": {
+    "download": "Изтегляне",
+    "providedBy": "Предоставено от {provider}",
+    "share": "Споделяне",
+    "shareOn": "Споделяне в/във {social}",
+    "viewAt": "Преглед на {link}",
+    "viewDocument": "Преглед на документа"
   },
-  "error": "Грешка",
-  "goToRecord": "Към запис",
-  "readMore": "Прочетете повече",
-  "search": "Търсене",
-  "results": "Резултати",
-  "homeLinkAlt": "Начална страница на Europeana",
-  "noMoreResults": "Няма повече резултати за вашата заявка за търсене.",
-  "resultsLimitWarning": "Допълнителните резултати не са показани, тъй като са показани само първите 1000 най-подходящи резултата. Ако не сте намерили това, което търсите, моля, помислете за прецизиране на търсенето.",
-  "noResults": "Няма получени резултати",
-  "fieldLabels": {
-    "default": {
-      "dcContributor": "Сътрудници",
-      "dcCreator": "Създател",
-      "dcDescription": "Описание",
-      "dcTitle": "Заглавие",
-      "dcType": "Вид на обекта",
-      "dctermsCreated": "Дата на създаване",
-      "edmCountry": "Предоставяне на държава",
-      "edmDataProvider": "Предоставяне на институция",
-      "edmRights": "Лиценз на медиите в този запис (освен ако не е посочено друго)",
-      "dcPublisher": "Издател",
-      "dcSubject": "Тема",
-      "dctermsMedium": "Среден(а)",
-      "dcRights": "Права",
-      "dcDate": "Дата",
-      "dctermsPublished": "Дата на публикуване",
-      "dctermsIssued": "Дата на издаване",
-      "dctermsTemporal": "Времеви",
-      "dcCoverage": "Място-време",
-      "dctermsSpatial": "Места",
-      "edmCurrentLocation": "Настоящо местоположение",
-      "edmUgc": "Генерирано от потребителите съдържание",
-      "dctermsProvenance": "Произход",
-      "dcSource": "Източник",
-      "dcIdentifier": "Идентификатор",
-      "edmIntermediateProvider": "Междинен доставчик",
-      "edmProvider": "Доставчик",
-      "timestampCreated": "Времевият печат е създаден",
-      "timestampUpdate": "Времевият печат е актуализиран",
-      "dctermsExtent": "Степен",
-      "dcDuration": "Продължителност",
-      "dcMedium": "Среден(а)",
-      "dcFormat": "Формат",
-      "dcLanguage": "Език",
-      "dctermsIsPartOf": "е част от",
-      "europeanaCollectionName": "Име на колекцията",
-      "dcRelation": "Отношения",
-      "dctermsReferences": "Препратки",
-      "dctermsHasPart": "съдържа",
-      "dctermsHasVersion": "притежава версия",
-      "dctermsIsFormatOf": "е формат на",
-      "dctermsIsReferencedBy": "е посочено от",
-      "dctermsIsReplacedBy": "се заменя от",
-      "dctermsIsRequiredBy": "изисква се от",
-      "edmHasMet": "отговаря на",
-      "edmIncorporates": "включва",
-      "edmIsDerivativeOf": "е производно на",
-      "edmIsRepresentationOf": "представлява",
-      "edmIsSimilarTo": "наподобява",
-      "edmIsSuccessorOf": "е продължение на",
-      "edmRealizes": "Осъзнава",
-      "wasPresentAt": "присъства на",
-      "keywords": "Ключови думи (предоставени от общността)"
-    },
-    "webResource": {
-      "dcDescription": "Описание",
-      "rdfAbout": "Относно RDF",
-      "edmRights": "Лиценз за този медиен ресурс",
-      "ebucoreHasMimeType": "Тип Ebucore MIME",
-      "about": "Относно RDF"
+  "blog": {
+    "author": "Автор",
+    "authors": "Автори",
+    "blog": "Блог",
+    "categories": "Категории",
+    "category": "Категория",
+    "relatedPosts": "Подобни публикации"
+  },
+  "clearAllFilters": "изчистване на всички филтри",
+  "collections": {
+    "fashion": {
+      "facets": {
+        "CREATOR": {
+          "name": "Дизайнер | Дизайнери"
+        },
+        "proxy_dc_format": {
+          "name": "Техника | Техники"
+        },
+        "proxy_dc_type": {
+          "name": "Вид елемент | Видове елементи"
+        },
+        "proxy_dcterms_medium": {
+          "name": "Материал | Материали"
+        }
+      }
     }
   },
-  "facets": {
-    "COUNTRY": {
-      "name": "Предоставяне на държава"
+  "contentfulManual": {
+    "footerNavigation": {
+      "about": "Относно колекциите на Europeana",
+      "forDevelopers": "За разработчици",
+      "help": "Помощ",
+      "meetUs": "Запознайте се с екипа",
+      "provide": "Станете доставчик на данни",
+      "terms": "Условия за ползване и Политика за поверителност"
     },
-    "REUSABILITY": {
-      "name": "Мога ли да го използвам повторно?",
+    "headerNavigation": {
+      "explore": "Проучи",
+      "teachers": "Обучители"
+    }
+  },
+  "cookieDisclaimer": {
+    "acceptCookieDisclaimer": "Съобщение за приемане на „бисквитки“",
+    "link": "Повече информация",
+    "terms": "Този уебсайт използва бисквитки, за да гарантираме, че получавате най-доброто от нашия уебсайт. С кликване или разглеждане на този уебсайт, вие се съгласявате да разрешите събирането на информация чрез бисквитки."
+  },
+  "dateFilter": {
+    "endDate": "Крайна дата",
+    "specificDate": "Конкретна дата",
+    "startDate": "Начална дата",
+    "to": "до"
+  },
+  "delete": "Изтриване",
+  "depiction": "Изображение на {title}",
+  "directions": {
+    "left": "Ляво",
+    "right": "Дясно"
+  },
+  "edmIsShownAtLinkAlt": "Преглед на уебсайта на доставчика",
+  "entity": "Обект",
+  "error": "Грешка",
+  "exhibitions": {
+    "chapters": "Глави",
+    "credits": "Автори",
+    "currentChapter": "Настояща глава",
+    "exhibitions": "Изложения"
+  },
+  "facets": {
+    "api": {
+      "name": "Търсене на",
       "options": {
-        "open": "Да",
-        "restricted": "Да, при тези условия",
-        "permission": "Може би, помолете за разрешение",
-        "uncategorized": "Без категория"
+        "fulltext": "Записи с пълен текст",
+        "metadata": "Записи само с метаданни"
       }
+    },
+    "button": {
+      "apply": "Прилагане",
+      "cancel": "Отказ",
+      "morefilters": "Още филтри",
+      "reset": "Нулиране",
+      "showAll": "Показване на всичко {label}",
+      "showLess": "Показване на по-малко {label}"
     },
     "collection": {
       "name": "Категория",
       "options": {
-        "ww1": "1914-1918",
         "archaeology": "Археология",
         "art": "Изкуство",
         "fashion": "Мода",
+        "industrial": "Индустриално наследство",
         "manuscript": "Ръкописи",
         "map": "Карти и география",
         "migration": "Миграция",
@@ -104,62 +105,7 @@ export default {
         "newspaper": "Вестници",
         "photography": "Фотография",
         "sport": "Спорт",
-        "industrial": "Индустриално наследство"
-      }
-    },
-    "TYPE": {
-      "name": "Вид медия",
-      "options": {
-        "IMAGE": "Изображение",
-        "TEXT": "Текст",
-        "VIDEO": "Видео",
-        "SOUND": "Звук",
-        "3D": "3D"
-      }
-    },
-    "contentTier": {
-      "name": "Включва елементи, които не отговарят на нашите критерии за публикуване",
-      "options": {
-        "*": "Включва елементи, които не отговарят на нашите критерии за публикуване"
-      }
-    },
-    "button": {
-      "reset": "Нулиране",
-      "apply": "Прилагане",
-      "cancel": "Отказ",
-      "morefilters": "Още филтри",
-      "showAll": "Показване на всичко {label}",
-      "showLess": "Показване на по-малко {label}"
-    },
-    "LANGUAGE": {
-      "name": "Език"
-    },
-    "PROVIDER": {
-      "name": "Агрегатор"
-    },
-    "DATA_PROVIDER": {
-      "name": "Институция"
-    },
-    "IMAGE_ASPECTRATIO": {
-      "name": "Ориентация на изображението | Ориентации на изображенията",
-      "options": {
-        "landscape": "Хоризонтална",
-        "portrait": "Портрет"
-      }
-    },
-    "IMAGE_SIZE": {
-      "name": "Размер на изображението | Размери на изображенията",
-      "options": {
-        "small": "Малък <0,5 MP (например 650x600px)",
-        "medium": "Среден 0,5-1 MP (например 850x850px)",
-        "large": "Голям 1-4 MP (напр. 1920x1080px)",
-        "extra_large": "По-голям 4 MP+ (например 2688 x 1520px)"
-      }
-    },
-    "MIME_TYPE": {
-      "name": "Формат на файла | Формат на файловете",
-      "options": {
-        "text/plain": "Само текст"
+        "ww1": "1914-1918"
       }
     },
     "COLOURPALETTE": {
@@ -310,174 +256,228 @@ export default {
         "#FFFFFF": "бял"
       }
     },
-    "proxy_dcterms_issued": {
-      "name": "Дата на издаване"
-    },
-    "api": {
-      "name": "Търсене на",
+    "contentTier": {
+      "name": "Включва елементи, които не отговарят на нашите критерии за публикуване",
       "options": {
-        "fulltext": "Записи с пълен текст",
-        "metadata": "Записи само с метаданни"
+        "*": "Включва елементи, които не отговарят на нашите критерии за публикуване"
       }
+    },
+    "COUNTRY": {
+      "name": "Предоставяне на държава"
     },
     "CREATOR": {
       "name": "Създател | Създатели"
     },
+    "DATA_PROVIDER": {
+      "name": "Институция"
+    },
+    "IMAGE_ASPECTRATIO": {
+      "name": "Ориентация на изображението | Ориентации на изображенията",
+      "options": {
+        "landscape": "Хоризонтална",
+        "portrait": "Портрет"
+      }
+    },
+    "IMAGE_SIZE": {
+      "name": "Размер на изображението | Размери на изображенията",
+      "options": {
+        "extra_large": "По-голям 4 MP+ (например 2688 x 1520px)",
+        "large": "Голям 1-4 MP (напр. 1920x1080px)",
+        "medium": "Среден 0,5-1 MP (например 850x850px)",
+        "small": "Малък <0,5 MP (например 650x600px)"
+      }
+    },
+    "LANGUAGE": {
+      "name": "Език"
+    },
+    "MIME_TYPE": {
+      "name": "Формат на файла | Формат на файловете",
+      "options": {
+        "text/plain": "Само текст"
+      }
+    },
+    "PROVIDER": {
+      "name": "Агрегатор"
+    },
     "proxy_dc_format": {
       "name": "Формат | Формати"
+    },
+    "proxy_dc_type": {
+      "name": "Вид | Видове"
+    },
+    "proxy_dcterms_issued": {
+      "name": "Дата на издаване"
     },
     "proxy_dcterms_medium": {
       "name": "Медия | Медии"
     },
-    "proxy_dc_type": {
-      "name": "Вид | Видове"
+    "REUSABILITY": {
+      "name": "Мога ли да го използвам повторно?",
+      "options": {
+        "open": "Да",
+        "permission": "Може би, помолете за разрешение",
+        "restricted": "Да, при тези условия",
+        "uncategorized": "Без категория"
+      }
+    },
+    "TYPE": {
+      "name": "Вид медия",
+      "options": {
+        "3D": "3D",
+        "IMAGE": "Изображение",
+        "SOUND": "Звук",
+        "TEXT": "Текст",
+        "VIDEO": "Видео"
+      }
     }
   },
-  "entity": "Обект",
-  "resourceWikimedia": "Източник от Wikimedia Commons",
-  "messages": {
-    "notFound": "Не е намерено",
-    "externalContentError": "Външното съдържание не можа да се зареди",
-    "paginationLimitExceeded": "Възможно е само да видите първите {limit} резултата от търсенето."
+  "fieldLabels": {
+    "default": {
+      "dcContributor": "Сътрудници",
+      "dcCoverage": "Място-време",
+      "dcCreator": "Създател",
+      "dcDate": "Дата",
+      "dcDescription": "Описание",
+      "dcDuration": "Продължителност",
+      "dcFormat": "Формат",
+      "dcIdentifier": "Идентификатор",
+      "dcLanguage": "Език",
+      "dcMedium": "Среден(а)",
+      "dcPublisher": "Издател",
+      "dcRelation": "Отношения",
+      "dcRights": "Права",
+      "dcSource": "Източник",
+      "dcSubject": "Тема",
+      "dctermsCreated": "Дата на създаване",
+      "dctermsExtent": "Степен",
+      "dctermsHasPart": "съдържа",
+      "dctermsHasVersion": "притежава версия",
+      "dctermsIsFormatOf": "е формат на",
+      "dctermsIsPartOf": "е част от",
+      "dctermsIsReferencedBy": "е посочено от",
+      "dctermsIsReplacedBy": "се заменя от",
+      "dctermsIsRequiredBy": "изисква се от",
+      "dctermsIssued": "Дата на издаване",
+      "dctermsMedium": "Среден(а)",
+      "dctermsProvenance": "Произход",
+      "dctermsPublished": "Дата на публикуване",
+      "dctermsReferences": "Препратки",
+      "dctermsSpatial": "Места",
+      "dctermsTemporal": "Времеви",
+      "dcTitle": "Заглавие",
+      "dcType": "Вид на обекта",
+      "edmCountry": "Предоставяне на държава",
+      "edmCurrentLocation": "Настоящо местоположение",
+      "edmDataProvider": "Предоставяне на институция",
+      "edmHasMet": "отговаря на",
+      "edmIncorporates": "включва",
+      "edmIntermediateProvider": "Междинен доставчик",
+      "edmIsDerivativeOf": "е производно на",
+      "edmIsRepresentationOf": "представлява",
+      "edmIsSimilarTo": "наподобява",
+      "edmIsSuccessorOf": "е продължение на",
+      "edmProvider": "Доставчик",
+      "edmRealizes": "Осъзнава",
+      "edmRights": "Лиценз на медиите в този запис (освен ако не е посочено друго)",
+      "edmUgc": "Генерирано от потребителите съдържание",
+      "europeanaCollectionName": "Име на колекцията",
+      "keywords": "Ключови думи (предоставени от общността)",
+      "timestampCreated": "Времевият печат е създаден",
+      "timestampUpdate": "Времевият печат е актуализиран",
+      "wasPresentAt": "присъства на"
+    },
+    "webResource": {
+      "about": "Относно RDF",
+      "dcDescription": "Описание",
+      "ebucoreHasMimeType": "Тип Ebucore MIME",
+      "edmRights": "Лиценз за този медиен ресурс",
+      "rdfAbout": "Относно RDF"
+    }
   },
-  "searchViews": {
-    "grid": "Изглед на мрежа",
-    "list": "Изглед на списък"
+  "footer": {
+    "customiseWebsiteLanguage": "Персонализиране на езика на уебсайта",
+    "findUsElsewhere": "Намерете ни другаде",
+    "imageDescription": "Съфинансирано от Механизма за свързване на Европа на Европейския съюз",
+    "ourMission": "Нашата мисия",
+    "ourMissionQuote": "Europeana подкрепя сектора на културното наследство в неговата дигитална трансформация. Ние създаваме експертни познания, инструменти и политики, така че да спомогнем за дигиталната промяна и да насърчим партньорства, които развиват иновациите."
+  },
+  "formatting": {
+    "ellipsis": "…",
+    "labelledValue": "{label}: {value}",
+    "listSeperator": ";"
+  },
+  "galleries": {
+    "galleries": "Галерии"
+  },
+  "goToRecord": "Към запис",
+  "homeLinkAlt": "Начална страница на Europeana",
+  "imageSlider": {
+    "handle": "Манипулатор на плъзгач"
   },
   "layout": {
     "skipToMain": "Напред към съдържанието на страницата"
   },
-  "searchPlaceholder": "Какво търсите?",
-  "searchTier": {
-    "button": {
-      "show": "Показване на тези елементи",
-      "hide": "Скриване на тези елементи"
+  "learnMore": "Научете за източника на това описание",
+  "linksToClassic": {
+    "home": {
+      "linkText": "Отидете към оригиналната Europeana.",
+      "text": "Вие разглеждате новия облик на Europeana."
     },
-    "text": {
-      "show": "Повече елементи отговарят на вашето търсене, но не отговарят на нашите критерии за публикуване.",
-      "hide": "Показват се елементи, които не отговарят на нашите критерии за публикуване."
+    "record": {
+      "linkText": "Вижте този елемент в оригиналната Europeana.",
+      "text": "Вие разглеждате този елемент в новия уебсайт на Europeana."
+    },
+    "search": {
+      "linkText": "Вижте резултатите от търсенето в оригиналната Europeana.",
+      "text": "Вие търсите в нашия нов и по-бърз уебсайт."
     }
   },
-  "depiction": "Изображение на {title}",
-  "showLess": "Показване на по-малко",
-  "showMore": "Показване на повече",
-  "delete": "Изтриване",
-  "removeFilter": "Премахване на филтъра {filterLabel}",
-  "newWindow": "отваря се в нов прозорец",
-  "blog": {
-    "blog": "Блог",
-    "author": "Автор",
-    "authors": "Автори",
-    "category": "Категория",
-    "categories": "Категории",
-    "relatedPosts": "Подобни публикации"
-  },
-  "directions": {
-    "left": "Ляво",
-    "right": "Дясно"
-  },
-  "exhibitions": {
-    "exhibitions": "Изложения",
-    "credits": "Автори",
-    "chapters": "Глави",
-    "currentChapter": "Настояща глава"
-  },
-  "actions": {
-    "download": "Изтегляне",
-    "viewAt": "Преглед на {link}",
-    "providedBy": "Предоставено от {provider}",
-    "viewDocument": "Преглед на документа",
-    "share": "Споделяне",
-    "shareOn": "Споделяне в/във {social}"
-  },
-  "clearAllFilters": "изчистване на всички филтри",
-  "reset": "Нулиране",
   "loadingResults": "Зареждане на резултати",
-  "edmIsShownAtLinkAlt": "Преглед на уебсайта на доставчика",
+  "messages": {
+    "externalContentError": "Външното съдържание не можа да се зареди",
+    "notFound": "Не е намерено",
+    "paginationLimitExceeded": "Възможно е само да видите първите {limit} резултата от търсенето."
+  },
+  "newWindow": "отваря се в нов прозорец",
+  "noMoreResults": "Няма повече резултати за вашата заявка за търсене.",
+  "noResults": "Няма получени резултати",
+  "readMore": "Прочетете повече",
   "record": {
+    "downloadCopyrightInfo": "Върху този елемент има авторски права и не може да бъде изтеглен.",
     "extendedInformation": "Разширена информация",
     "hideAll": "Скриване на цялата информация",
     "record": "Запис",
     "showAll": "Показване на цялата информация",
     "similarItems": "Подобни елементи",
     "view": {
-      "pdf": "Преглед на PDF",
       "image": "Преглед на изображението",
-      "media": "Преглед на медията"
-    },
-    "downloadCopyrightInfo": "Върху този елемент има авторски права и не може да бъде изтеглен."
-  },
-  "contentfulManual": {
-    "headerNavigation": {
-      "teachers": "Обучители",
-      "explore": "Проучи"
-    },
-    "footerNavigation": {
-      "about": "Относно колекциите на Europeana",
-      "forDevelopers": "За разработчици",
-      "terms": "Условия за ползване и Политика за поверителност",
-      "provide": "Станете доставчик на данни",
-      "meetUs": "Запознайте се с екипа",
-      "help": "Помощ"
+      "media": "Преглед на медията",
+      "pdf": "Преглед на PDF"
     }
-  },
-  "imageSlider": {
-    "handle": "Манипулатор на плъзгач"
-  },
-  "dateFilter": {
-    "startDate": "Начална дата",
-    "endDate": "Крайна дата",
-    "to": "до",
-    "specificDate": "Конкретна дата"
-  },
-  "cookieDisclaimer": {
-    "acceptCookieDisclaimer": "Съобщение за приемане на „бисквитки“",
-    "terms": "Този уебсайт използва бисквитки, за да гарантираме, че получавате най-доброто от нашия уебсайт. С кликване или разглеждане на този уебсайт, вие се съгласявате да разрешите събирането на информация чрез бисквитки.",
-    "link": "Повече информация"
-  },
-  "searchSuggestions": "Предложения за търсене",
-  "learnMore": "Научете за източника на това описание",
-  "footer": {
-    "ourMission": "Нашата мисия",
-    "ourMissionQuote": "Europeana подкрепя сектора на културното наследство в неговата дигитална трансформация. Ние създаваме експертни познания, инструменти и политики, така че да спомогнем за дигиталната промяна и да насърчим партньорства, които развиват иновациите.",
-    "customiseWebsiteLanguage": "Персонализиране на езика на уебсайта",
-    "imageDescription": "Съфинансирано от Механизма за свързване на Европа на Европейския съюз",
-    "findUsElsewhere": "Намерете ни другаде"
-  },
-  "collections": {
-    "fashion": {
-      "facets": {
-        "CREATOR": {
-          "name": "Дизайнер | Дизайнери"
-        },
-        "proxy_dc_format": {
-          "name": "Техника | Техники"
-        },
-        "proxy_dcterms_medium": {
-          "name": "Материал | Материали"
-        },
-        "proxy_dc_type": {
-          "name": "Вид елемент | Видове елементи"
-        }
-      }
-    }
-  },
-  "galleries": {
-    "galleries": "Галерии"
   },
   "relatedCollections": "Подобни колекции",
-  "linksToClassic": {
-    "home": {
-      "text": "Вие разглеждате новия облик на Europeana.",
-      "linkText": "Отидете към оригиналната Europeana."
+  "removeFilter": "Премахване на филтъра {filterLabel}",
+  "reset": "Нулиране",
+  "resourceWikimedia": "Източник от Wikimedia Commons",
+  "results": "Резултати",
+  "resultsLimitWarning": "Допълнителните резултати не са показани, тъй като са показани само първите 1000 най-подходящи резултата. Ако не сте намерили това, което търсите, моля, помислете за прецизиране на търсенето.",
+  "search": "Търсене",
+  "searchPlaceholder": "Какво търсите?",
+  "searchSuggestions": "Предложения за търсене",
+  "searchTier": {
+    "button": {
+      "hide": "Скриване на тези елементи",
+      "show": "Показване на тези елементи"
     },
-    "search": {
-      "text": "Вие търсите в нашия нов и по-бърз уебсайт.",
-      "linkText": "Вижте резултатите от търсенето в оригиналната Europeana."
-    },
-    "record": {
-      "text": "Вие разглеждате този елемент в новия уебсайт на Europeana.",
-      "linkText": "Вижте този елемент в оригиналната Europeana."
+    "text": {
+      "hide": "Показват се елементи, които не отговарят на нашите критерии за публикуване.",
+      "show": "Повече елементи отговарят на вашето търсене, но не отговарят на нашите критерии за публикуване."
     }
-  }
+  },
+  "searchViews": {
+    "grid": "Изглед на мрежа",
+    "list": "Изглед на списък"
+  },
+  "showLess": "Показване на по-малко",
+  "showMore": "Показване на повече"
 };

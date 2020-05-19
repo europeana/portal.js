@@ -1,101 +1,102 @@
 export default {
-  "formatting": {
-    "labelledValue": "{label}: {value}",
-    "ellipsis": "...",
-    "listSeperator": ";"
+  "actions": {
+    "download": "Lataa",
+    "providedBy": "Tarjoaa {provider}",
+    "share": "Jaa",
+    "shareOn": "Jaa mediassa {social}",
+    "viewAt": "Näytä osoitteessa {link}",
+    "viewDocument": "Näytä asiakirja"
   },
-  "error": "Virhe",
-  "goToRecord": "Siirry tietueeseen",
-  "readMore": "Lue lisää",
-  "search": "Hae",
-  "results": "Tulokset",
-  "homeLinkAlt": "Europeanan kotisivu",
-  "noMoreResults": "Hakusi ei tuottanut enempää tuloksia.",
-  "resultsLimitWarning": "Enempää tuloksia ei näytetä, koska vain ensimmäiset 1000 merkityksellisintä tulosta näytetään. Jos et löytänyt etsimääsi, voit tarkentaa hakuasi.",
-  "noResults": "Ei tuloksia",
-  "fieldLabels": {
-    "default": {
-      "dcContributor": "Myötävaikuttajat",
-      "dcCreator": "Luoja",
-      "dcDescription": "Kuvaus",
-      "dcTitle": "Nimi",
-      "dcType": "Kohteen tyyppi",
-      "dctermsCreated": "Luomispäivä",
-      "edmCountry": "Alkuperämaa",
-      "edmDataProvider": "Tarjoajainstituutio",
-      "edmRights": "Tämän tietueen median lisenssi (ellei toisin mainita)",
-      "dcPublisher": "Julkaisija",
-      "dcSubject": "Aihe",
-      "dctermsMedium": "Media",
-      "dcRights": "Oikeudet",
-      "dcDate": "Päivämäärä",
-      "dctermsPublished": "Julkaisupäivä",
-      "dctermsIssued": "Julkaisupäivämäärä",
-      "dctermsTemporal": "Ajoitus",
-      "dcCoverage": "Paikka-aika",
-      "dctermsSpatial": "Paikat",
-      "edmCurrentLocation": "Nykyinen sijainti",
-      "edmUgc": "Käyttäjien tuottama sisältö",
-      "dctermsProvenance": "Alkuperä",
-      "dcSource": "Lähde",
-      "dcIdentifier": "Tunniste",
-      "edmIntermediateProvider": "Välillinen tarjoaja",
-      "edmProvider": "Tarjoaja",
-      "timestampCreated": "Aikaleima luotu",
-      "timestampUpdate": "Aikaleima päivitetty",
-      "dctermsExtent": "Laajuus",
-      "dcDuration": "Kesto",
-      "dcMedium": "Media",
-      "dcFormat": "Muoto",
-      "dcLanguage": "Kieli",
-      "dctermsIsPartOf": "On osa kohdetta",
-      "europeanaCollectionName": "Kokoelman nimi",
-      "dcRelation": "Suhteet",
-      "dctermsReferences": "Viittaa kohteeseen",
-      "dctermsHasPart": "Koostuu seuraavista:",
-      "dctermsHasVersion": "-kohteessa on versio",
-      "dctermsIsFormatOf": "on formaatti kohteelle",
-      "dctermsIsReferencedBy": "-kohteeseen viittaa",
-      "dctermsIsReplacedBy": "-kohteen vaihtaa",
-      "dctermsIsRequiredBy": "Edellyttää kohteen",
-      "edmHasMet": "On tavannut henkilön",
-      "edmIncorporates": "Sisältää",
-      "edmIsDerivativeOf": "On johdannainen kohteesta",
-      "edmIsRepresentationOf": "Kuvaa kohdetta",
-      "edmIsSimilarTo": "On samanlainen kuin",
-      "edmIsSuccessorOf": "On seuraaja kohteelle",
-      "edmRealizes": "Sisältää",
-      "wasPresentAt": "Oli läsnä paikassa",
-      "keywords": "Avainsanat (yhteisön tarjoamat)"
-    },
-    "webResource": {
-      "dcDescription": "Kuvaus",
-      "rdfAbout": "RDF-tiedot",
-      "edmRights": "Tämän mediaresurssin lisenssi",
-      "ebucoreHasMimeType": "Ebucore MIME -tyyppi",
-      "about": "RDF-tiedot"
+  "blog": {
+    "author": "Kirjoittaja",
+    "authors": "Kirjoittajat",
+    "blog": "Blogi",
+    "categories": "Luokat",
+    "category": "Kategoria",
+    "relatedPosts": "Aiheeseen liittyvät julkaisut"
+  },
+  "clearAllFilters": "tyhjennä kaikki suodattimet",
+  "collections": {
+    "fashion": {
+      "facets": {
+        "CREATOR": {
+          "name": "Suunnittelija | Suunnittelijat"
+        },
+        "proxy_dc_format": {
+          "name": "Tekniikka | Tekniikat"
+        },
+        "proxy_dc_type": {
+          "name": "Kohteen tyyppi | Kohdetyypit"
+        },
+        "proxy_dcterms_medium": {
+          "name": "Materiaali | Materiaalit"
+        }
+      }
     }
   },
-  "facets": {
-    "COUNTRY": {
-      "name": "Alkuperämaa"
+  "contentfulManual": {
+    "footerNavigation": {
+      "about": "Tietoja Europeana Collections",
+      "forDevelopers": "Kehittäjille",
+      "help": "Apua",
+      "meetUs": "Tutustu tiimiin",
+      "provide": "Ryhdy tietojentarjoajaksi",
+      "terms": "Käyttöehdot ja tietosuojakäytäntö"
     },
-    "REUSABILITY": {
-      "name": "Voinko käyttää tätä?",
+    "headerNavigation": {
+      "explore": "Tutki",
+      "teachers": "Opettajat"
+    }
+  },
+  "cookieDisclaimer": {
+    "acceptCookieDisclaimer": "Evästeiden hyväksymisen vastuuvapauslauseke",
+    "link": "Lisätietoja",
+    "terms": "Käytämme tällä sivustolla evästeitä, jotka mahdollistavat sivuston parhaan käyttökokemuksen. Napsauttamalla sivustolla tai selaamalla sivustoa annat suostumuksesi tietojen keräämiseen evästeiden avulla."
+  },
+  "dateFilter": {
+    "endDate": "Päättymispäivämäärä",
+    "specificDate": "Tietty päivämäärä",
+    "startDate": "Aloituspäivämäärä",
+    "to": "asti"
+  },
+  "delete": "Poista",
+  "depiction": "Kuvaus kohteesta {title}",
+  "directions": {
+    "left": "Vasen",
+    "right": "Oikea"
+  },
+  "edmIsShownAtLinkAlt": "Näytä palveluntarjoajan verkkosivustolla",
+  "entity": "Yksikkö",
+  "error": "Virhe",
+  "exhibitions": {
+    "chapters": "Luvut",
+    "credits": "Tekijät",
+    "currentChapter": "Nykyinen luku",
+    "exhibitions": "Näyttelyt"
+  },
+  "facets": {
+    "api": {
+      "name": "Hae",
       "options": {
-        "open": "Kyllä",
-        "restricted": "Kyllä, tietyin ehdoin",
-        "permission": "Ehkä, pyydä lupaa",
-        "uncategorized": "Ei luokiteltu"
+        "fulltext": "Tallentaa koko tekstin kanssa",
+        "metadata": "Vain metatiedot"
       }
+    },
+    "button": {
+      "apply": "Käytä",
+      "cancel": "Peruuttaa",
+      "morefilters": "Lisää suodattimia",
+      "reset": "Nollaa",
+      "showAll": "Näytä kaikki {label}",
+      "showLess": "Näytä vähemmän {label}"
     },
     "collection": {
       "name": "Kategoria",
       "options": {
-        "ww1": "1914–1918",
         "archaeology": "Arkeologia",
         "art": "Taide",
         "fashion": "Muoti",
+        "industrial": "Teollisuusperintö",
         "manuscript": "Käsikirjoitukset",
         "map": "Kartat ja maantiede",
         "migration": "Muuttoliike",
@@ -104,62 +105,7 @@ export default {
         "newspaper": "Sanomalehdet",
         "photography": "Valokuvaus",
         "sport": "Urheilu",
-        "industrial": "Teollisuusperintö"
-      }
-    },
-    "TYPE": {
-      "name": "Mediatyyppi",
-      "options": {
-        "IMAGE": "Kuva",
-        "TEXT": "Teksti",
-        "VIDEO": "Video",
-        "SOUND": "Ääni",
-        "3D": "3D"
-      }
-    },
-    "contentTier": {
-      "name": "Sisältää kohteita, jotka eivät täytä julkaisuehtojamme",
-      "options": {
-        "*": "Sisältää kohteita, jotka eivät täytä julkaisuehtojamme"
-      }
-    },
-    "button": {
-      "reset": "Nollaa",
-      "apply": "Käytä",
-      "cancel": "Peruuttaa",
-      "morefilters": "Lisää suodattimia",
-      "showAll": "Näytä kaikki {label}",
-      "showLess": "Näytä vähemmän {label}"
-    },
-    "LANGUAGE": {
-      "name": "Kieli"
-    },
-    "PROVIDER": {
-      "name": "Kokoaja"
-    },
-    "DATA_PROVIDER": {
-      "name": "Instituutio"
-    },
-    "IMAGE_ASPECTRATIO": {
-      "name": "Kuvan suunta | Kuvan suunnat",
-      "options": {
-        "landscape": "Maisema",
-        "portrait": "Muotokuva"
-      }
-    },
-    "IMAGE_SIZE": {
-      "name": "Kuvakoko | Kuvien koot",
-      "options": {
-        "small": "Pieni, < 0,5 megapikseliä (esim. 650 x 600 pikseliä)",
-        "medium": "Keskikokoinen, 0,5–1 megapikseliä (esim. 850 x 850 pikseliä)",
-        "large": "Suuri, 1-4 megapikseliä (esim. 1920 x 1080 pikseliä)",
-        "extra_large": "Erittäin suuri, 4 megapikseliä + (esim. 2688 x 1520 pikseliä)"
-      }
-    },
-    "MIME_TYPE": {
-      "name": "Tiedostomuoto | Tiedostomuodot",
-      "options": {
-        "text/plain": "Pelkkä teksti"
+        "ww1": "1914–1918"
       }
     },
     "COLOURPALETTE": {
@@ -310,174 +256,228 @@ export default {
         "#FFFFFF": "Valkoinen"
       }
     },
-    "proxy_dcterms_issued": {
-      "name": "Päivämäärä"
-    },
-    "api": {
-      "name": "Hae",
+    "contentTier": {
+      "name": "Sisältää kohteita, jotka eivät täytä julkaisuehtojamme",
       "options": {
-        "fulltext": "Tallentaa koko tekstin kanssa",
-        "metadata": "Vain metatiedot"
+        "*": "Sisältää kohteita, jotka eivät täytä julkaisuehtojamme"
       }
+    },
+    "COUNTRY": {
+      "name": "Alkuperämaa"
     },
     "CREATOR": {
       "name": "Tekijä  |  Tekijät"
     },
+    "DATA_PROVIDER": {
+      "name": "Instituutio"
+    },
+    "IMAGE_ASPECTRATIO": {
+      "name": "Kuvan suunta | Kuvan suunnat",
+      "options": {
+        "landscape": "Maisema",
+        "portrait": "Muotokuva"
+      }
+    },
+    "IMAGE_SIZE": {
+      "name": "Kuvakoko | Kuvien koot",
+      "options": {
+        "extra_large": "Erittäin suuri, 4 megapikseliä + (esim. 2688 x 1520 pikseliä)",
+        "large": "Suuri, 1-4 megapikseliä (esim. 1920 x 1080 pikseliä)",
+        "medium": "Keskikokoinen, 0,5–1 megapikseliä (esim. 850 x 850 pikseliä)",
+        "small": "Pieni, < 0,5 megapikseliä (esim. 650 x 600 pikseliä)"
+      }
+    },
+    "LANGUAGE": {
+      "name": "Kieli"
+    },
+    "MIME_TYPE": {
+      "name": "Tiedostomuoto | Tiedostomuodot",
+      "options": {
+        "text/plain": "Pelkkä teksti"
+      }
+    },
+    "PROVIDER": {
+      "name": "Kokoaja"
+    },
     "proxy_dc_format": {
       "name": "Muoto | Muodot"
+    },
+    "proxy_dc_type": {
+      "name": "Tyyppi | Tyypit"
+    },
+    "proxy_dcterms_issued": {
+      "name": "Päivämäärä"
     },
     "proxy_dcterms_medium": {
       "name": "Media | Mediat"
     },
-    "proxy_dc_type": {
-      "name": "Tyyppi | Tyypit"
+    "REUSABILITY": {
+      "name": "Voinko käyttää tätä?",
+      "options": {
+        "open": "Kyllä",
+        "permission": "Ehkä, pyydä lupaa",
+        "restricted": "Kyllä, tietyin ehdoin",
+        "uncategorized": "Ei luokiteltu"
+      }
+    },
+    "TYPE": {
+      "name": "Mediatyyppi",
+      "options": {
+        "3D": "3D",
+        "IMAGE": "Kuva",
+        "SOUND": "Ääni",
+        "TEXT": "Teksti",
+        "VIDEO": "Video"
+      }
     }
   },
-  "entity": "Yksikkö",
-  "resourceWikimedia": "Sisältö Wikimedia Commonsista",
-  "messages": {
-    "notFound": "Ei löydy",
-    "externalContentError": "Ulkoisen sisällön lataaminen epäonnistui",
-    "paginationLimitExceeded": "Vain ensimmäiset {limit} hakutulosta voidaan näyttää."
+  "fieldLabels": {
+    "default": {
+      "dcContributor": "Myötävaikuttajat",
+      "dcCoverage": "Paikka-aika",
+      "dcCreator": "Luoja",
+      "dcDate": "Päivämäärä",
+      "dcDescription": "Kuvaus",
+      "dcDuration": "Kesto",
+      "dcFormat": "Muoto",
+      "dcIdentifier": "Tunniste",
+      "dcLanguage": "Kieli",
+      "dcMedium": "Media",
+      "dcPublisher": "Julkaisija",
+      "dcRelation": "Suhteet",
+      "dcRights": "Oikeudet",
+      "dcSource": "Lähde",
+      "dcSubject": "Aihe",
+      "dctermsCreated": "Luomispäivä",
+      "dctermsExtent": "Laajuus",
+      "dctermsHasPart": "Koostuu seuraavista:",
+      "dctermsHasVersion": "-kohteessa on versio",
+      "dctermsIsFormatOf": "on formaatti kohteelle",
+      "dctermsIsPartOf": "On osa kohdetta",
+      "dctermsIsReferencedBy": "-kohteeseen viittaa",
+      "dctermsIsReplacedBy": "-kohteen vaihtaa",
+      "dctermsIsRequiredBy": "Edellyttää kohteen",
+      "dctermsIssued": "Julkaisupäivämäärä",
+      "dctermsMedium": "Media",
+      "dctermsProvenance": "Alkuperä",
+      "dctermsPublished": "Julkaisupäivä",
+      "dctermsReferences": "Viittaa kohteeseen",
+      "dctermsSpatial": "Paikat",
+      "dctermsTemporal": "Ajoitus",
+      "dcTitle": "Nimi",
+      "dcType": "Kohteen tyyppi",
+      "edmCountry": "Alkuperämaa",
+      "edmCurrentLocation": "Nykyinen sijainti",
+      "edmDataProvider": "Tarjoajainstituutio",
+      "edmHasMet": "On tavannut henkilön",
+      "edmIncorporates": "Sisältää",
+      "edmIntermediateProvider": "Välillinen tarjoaja",
+      "edmIsDerivativeOf": "On johdannainen kohteesta",
+      "edmIsRepresentationOf": "Kuvaa kohdetta",
+      "edmIsSimilarTo": "On samanlainen kuin",
+      "edmIsSuccessorOf": "On seuraaja kohteelle",
+      "edmProvider": "Tarjoaja",
+      "edmRealizes": "Sisältää",
+      "edmRights": "Tämän tietueen median lisenssi (ellei toisin mainita)",
+      "edmUgc": "Käyttäjien tuottama sisältö",
+      "europeanaCollectionName": "Kokoelman nimi",
+      "keywords": "Avainsanat (yhteisön tarjoamat)",
+      "timestampCreated": "Aikaleima luotu",
+      "timestampUpdate": "Aikaleima päivitetty",
+      "wasPresentAt": "Oli läsnä paikassa"
+    },
+    "webResource": {
+      "about": "RDF-tiedot",
+      "dcDescription": "Kuvaus",
+      "ebucoreHasMimeType": "Ebucore MIME -tyyppi",
+      "edmRights": "Tämän mediaresurssin lisenssi",
+      "rdfAbout": "RDF-tiedot"
+    }
   },
-  "searchViews": {
-    "grid": "Ruudukkonäkymä",
-    "list": "Luettelonäkymä"
+  "footer": {
+    "customiseWebsiteLanguage": "Muokkaa verkkosivuston kieltä",
+    "findUsElsewhere": "Löydä meidät muualta",
+    "imageDescription": "Euroopan unionin Verkkojen Eurooppa -väline on osallistunut rahoitukseen",
+    "ourMission": "Tehtävämme",
+    "ourMissionQuote": "Europeana edesauttaa kulttuuriperinnön digitaalista muodonmuutosta. Kehitämme asiantuntemusta, välineitä ja menettelytapoja digitaalisen muutoksen omaksumiseksi ja kannustamme innovaatioita edistäviä kumppanuuksia."
+  },
+  "formatting": {
+    "ellipsis": "...",
+    "labelledValue": "{label}: {value}",
+    "listSeperator": ";"
+  },
+  "galleries": {
+    "galleries": "Galleriat"
+  },
+  "goToRecord": "Siirry tietueeseen",
+  "homeLinkAlt": "Europeanan kotisivu",
+  "imageSlider": {
+    "handle": "Liukusäätimen kahva"
   },
   "layout": {
     "skipToMain": "Siirry sivun sisältöön"
   },
-  "searchPlaceholder": "Mitä etsit?",
-  "searchTier": {
-    "button": {
-      "show": "Näytä kohteet",
-      "hide": "Piilota kohteet"
+  "learnMore": "Lisätietoja kuvauksen lähteestä",
+  "linksToClassic": {
+    "home": {
+      "linkText": "Siirry alkuperäiseen Europeanaan.",
+      "text": "Katselet uutta Europeanaa."
     },
-    "text": {
-      "show": "Muutkin kohteet vastaavat hakuasi, mutta ne eivät täytä julkaisuehtojamme.",
-      "hide": "Näytetään kohteita, jotka eivät täytä julkaisuehtojamme."
+    "record": {
+      "linkText": "Näytä tämä kohde alkuperäisessä Europeanassa.",
+      "text": "Tarkastelet tätä kohdetta uudella Europeana-verkkosivustolla."
+    },
+    "search": {
+      "linkText": "Tarkastele näitä hakutuloksia alkuperäisessä Europeanassa.",
+      "text": "Etsit uudessa ja nopeammassa verkkosivustossamme."
     }
   },
-  "depiction": "Kuvaus kohteesta {title}",
-  "showLess": "Näytä vähemmän",
-  "showMore": "Näytä lisää",
-  "delete": "Poista",
-  "removeFilter": "Poista {filterLabel} -suodatin",
-  "newWindow": "avautuu uuteen ikkunaan",
-  "blog": {
-    "blog": "Blogi",
-    "author": "Kirjoittaja",
-    "authors": "Kirjoittajat",
-    "category": "Kategoria",
-    "categories": "Luokat",
-    "relatedPosts": "Aiheeseen liittyvät julkaisut"
-  },
-  "directions": {
-    "left": "Vasen",
-    "right": "Oikea"
-  },
-  "exhibitions": {
-    "exhibitions": "Näyttelyt",
-    "credits": "Tekijät",
-    "chapters": "Luvut",
-    "currentChapter": "Nykyinen luku"
-  },
-  "actions": {
-    "download": "Lataa",
-    "viewAt": "Näytä osoitteessa {link}",
-    "providedBy": "Tarjoaa {provider}",
-    "viewDocument": "Näytä asiakirja",
-    "share": "Jaa",
-    "shareOn": "Jaa mediassa {social}"
-  },
-  "clearAllFilters": "tyhjennä kaikki suodattimet",
-  "reset": "Nollaa",
   "loadingResults": "Ladataan tuloksia",
-  "edmIsShownAtLinkAlt": "Näytä palveluntarjoajan verkkosivustolla",
+  "messages": {
+    "externalContentError": "Ulkoisen sisällön lataaminen epäonnistui",
+    "notFound": "Ei löydy",
+    "paginationLimitExceeded": "Vain ensimmäiset {limit} hakutulosta voidaan näyttää."
+  },
+  "newWindow": "avautuu uuteen ikkunaan",
+  "noMoreResults": "Hakusi ei tuottanut enempää tuloksia.",
+  "noResults": "Ei tuloksia",
+  "readMore": "Lue lisää",
   "record": {
+    "downloadCopyrightInfo": "Tämä tuote on suojattu tekijänoikeudella eikä sitä voi ladata.",
     "extendedInformation": "Tarkemmat tiedot",
     "hideAll": "Piilota kaikki tiedot",
     "record": "Tietue",
     "showAll": "Näytä kaikki tiedot",
     "similarItems": "Samanlaisia kohteita",
     "view": {
-      "pdf": "Näytä PDF",
       "image": "Näytä kuva",
-      "media": "Näytä media"
-    },
-    "downloadCopyrightInfo": "Tämä tuote on suojattu tekijänoikeudella eikä sitä voi ladata."
-  },
-  "contentfulManual": {
-    "headerNavigation": {
-      "teachers": "Opettajat",
-      "explore": "Tutki"
-    },
-    "footerNavigation": {
-      "about": "Tietoja Europeana Collections",
-      "forDevelopers": "Kehittäjille",
-      "terms": "Käyttöehdot ja tietosuojakäytäntö",
-      "provide": "Ryhdy tietojentarjoajaksi",
-      "meetUs": "Tutustu tiimiin",
-      "help": "Apua"
+      "media": "Näytä media",
+      "pdf": "Näytä PDF"
     }
-  },
-  "imageSlider": {
-    "handle": "Liukusäätimen kahva"
-  },
-  "dateFilter": {
-    "startDate": "Aloituspäivämäärä",
-    "endDate": "Päättymispäivämäärä",
-    "to": "asti",
-    "specificDate": "Tietty päivämäärä"
-  },
-  "cookieDisclaimer": {
-    "acceptCookieDisclaimer": "Evästeiden hyväksymisen vastuuvapauslauseke",
-    "terms": "Käytämme tällä sivustolla evästeitä, jotka mahdollistavat sivuston parhaan käyttökokemuksen. Napsauttamalla sivustolla tai selaamalla sivustoa annat suostumuksesi tietojen keräämiseen evästeiden avulla.",
-    "link": "Lisätietoja"
-  },
-  "searchSuggestions": "Hakuehdotuksia",
-  "learnMore": "Lisätietoja kuvauksen lähteestä",
-  "footer": {
-    "ourMission": "Tehtävämme",
-    "ourMissionQuote": "Europeana edesauttaa kulttuuriperinnön digitaalista muodonmuutosta. Kehitämme asiantuntemusta, välineitä ja menettelytapoja digitaalisen muutoksen omaksumiseksi ja kannustamme innovaatioita edistäviä kumppanuuksia.",
-    "customiseWebsiteLanguage": "Muokkaa verkkosivuston kieltä",
-    "imageDescription": "Euroopan unionin Verkkojen Eurooppa -väline on osallistunut rahoitukseen",
-    "findUsElsewhere": "Löydä meidät muualta"
-  },
-  "collections": {
-    "fashion": {
-      "facets": {
-        "CREATOR": {
-          "name": "Suunnittelija | Suunnittelijat"
-        },
-        "proxy_dc_format": {
-          "name": "Tekniikka | Tekniikat"
-        },
-        "proxy_dcterms_medium": {
-          "name": "Materiaali | Materiaalit"
-        },
-        "proxy_dc_type": {
-          "name": "Kohteen tyyppi | Kohdetyypit"
-        }
-      }
-    }
-  },
-  "galleries": {
-    "galleries": "Galleriat"
   },
   "relatedCollections": "Aiheeseen liittyvät kokoelmat",
-  "linksToClassic": {
-    "home": {
-      "text": "Katselet uutta Europeanaa.",
-      "linkText": "Siirry alkuperäiseen Europeanaan."
+  "removeFilter": "Poista {filterLabel} -suodatin",
+  "reset": "Nollaa",
+  "resourceWikimedia": "Sisältö Wikimedia Commonsista",
+  "results": "Tulokset",
+  "resultsLimitWarning": "Enempää tuloksia ei näytetä, koska vain ensimmäiset 1000 merkityksellisintä tulosta näytetään. Jos et löytänyt etsimääsi, voit tarkentaa hakuasi.",
+  "search": "Hae",
+  "searchPlaceholder": "Mitä etsit?",
+  "searchSuggestions": "Hakuehdotuksia",
+  "searchTier": {
+    "button": {
+      "hide": "Piilota kohteet",
+      "show": "Näytä kohteet"
     },
-    "search": {
-      "text": "Etsit uudessa ja nopeammassa verkkosivustossamme.",
-      "linkText": "Tarkastele näitä hakutuloksia alkuperäisessä Europeanassa."
-    },
-    "record": {
-      "text": "Tarkastelet tätä kohdetta uudella Europeana-verkkosivustolla.",
-      "linkText": "Näytä tämä kohde alkuperäisessä Europeanassa."
+    "text": {
+      "hide": "Näytetään kohteita, jotka eivät täytä julkaisuehtojamme.",
+      "show": "Muutkin kohteet vastaavat hakuasi, mutta ne eivät täytä julkaisuehtojamme."
     }
-  }
+  },
+  "searchViews": {
+    "grid": "Ruudukkonäkymä",
+    "list": "Luettelonäkymä"
+  },
+  "showLess": "Näytä vähemmän",
+  "showMore": "Näytä lisää"
 };

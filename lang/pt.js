@@ -1,101 +1,102 @@
 export default {
-  "formatting": {
-    "labelledValue": "{label} : {value}",
-    "ellipsis": "…",
-    "listSeperator": ";"
+  "actions": {
+    "download": "Descarregar",
+    "providedBy": "Fornecido por {provider}",
+    "share": "Partilhar",
+    "shareOn": "Partilhe em {social}",
+    "viewAt": "Ver em {link}",
+    "viewDocument": "Ver documento"
   },
-  "error": "Erro",
-  "goToRecord": "Ir para o registo",
-  "readMore": "Ler mais",
-  "search": "Procurar",
-  "results": "Resultados",
-  "homeLinkAlt": "Página Inicial Europeana",
-  "noMoreResults": "Não há mais resultados para a sua pesquisa.",
-  "resultsLimitWarning": "Resultados adicionais não são mostrados, apenas os primeiros 1000 resultados mais relevantes são mostrados. Se não encontrou o que procurava, considere refinar a sua pesquisa.",
-  "noResults": "Sem Resultados",
-  "fieldLabels": {
-    "default": {
-      "dcContributor": "Colaboradores",
-      "dcCreator": "Criador",
-      "dcDescription": "Descrição",
-      "dcTitle": "Título",
-      "dcType": "Tipo de objeto",
-      "dctermsCreated": "Data de criação",
-      "edmCountry": "País fornecedor",
-      "edmDataProvider": "Instituição fornecedora",
-      "edmRights": "Licença dos média neste registo (a menos que especificado de outra forma)",
-      "dcPublisher": "Editor",
-      "dcSubject": "Assunto",
-      "dctermsMedium": "Médio",
-      "dcRights": "Direitos",
-      "dcDate": "Data",
-      "dctermsPublished": "Data de publicação",
-      "dctermsIssued": "Data de emissão",
-      "dctermsTemporal": "Temporal",
-      "dcCoverage": "Local - Hora",
-      "dctermsSpatial": "Locais",
-      "edmCurrentLocation": "Localização atual",
-      "edmUgc": "Conteúdo gerado por utilizadores",
-      "dctermsProvenance": "Proveniência",
-      "dcSource": "Fonte",
-      "dcIdentifier": "Identificador",
-      "edmIntermediateProvider": "Fornecedor intermediário",
-      "edmProvider": "Fornecedor",
-      "timestampCreated": "Registo de data e hora criado",
-      "timestampUpdate": "Registo de data e hora atualizado",
-      "dctermsExtent": "Extensão",
-      "dcDuration": "Duração",
-      "dcMedium": "Médio",
-      "dcFormat": "Formato",
-      "dcLanguage": "Língua",
-      "dctermsIsPartOf": "É parte de",
-      "europeanaCollectionName": "Nome da coleção",
-      "dcRelation": "Relações",
-      "dctermsReferences": "Referências",
-      "dctermsHasPart": "Consiste em",
-      "dctermsHasVersion": "Tem variante",
-      "dctermsIsFormatOf": "É o formato de",
-      "dctermsIsReferencedBy": "É referenciado por",
-      "dctermsIsReplacedBy": "É substituído por",
-      "dctermsIsRequiredBy": "É exigido por",
-      "edmHasMet": "Cumpriu",
-      "edmIncorporates": "Incorpora",
-      "edmIsDerivativeOf": "Deriva de",
-      "edmIsRepresentationOf": "É representação de",
-      "edmIsSimilarTo": "É similar a",
-      "edmIsSuccessorOf": "É sucessor de",
-      "edmRealizes": "Alcança",
-      "wasPresentAt": "Estava presente em",
-      "keywords": "Palavras-chave (fornecidas pela comunidade)"
-    },
-    "webResource": {
-      "dcDescription": "Descrição",
-      "rdfAbout": "RDF Sobre",
-      "edmRights": "Licença para este recurso de média",
-      "ebucoreHasMimeType": "Ebucore Tipo MIME",
-      "about": "RDF Sobre"
+  "blog": {
+    "author": "Autor",
+    "authors": "Autores",
+    "blog": "Blog",
+    "categories": "Categorias",
+    "category": "Categoria",
+    "relatedPosts": "Publicações relacionadas"
+  },
+  "clearAllFilters": "limpar todos os filtros",
+  "collections": {
+    "fashion": {
+      "facets": {
+        "CREATOR": {
+          "name": "Designer | Designers"
+        },
+        "proxy_dc_format": {
+          "name": "Técnica | Técnicas"
+        },
+        "proxy_dc_type": {
+          "name": "Tipo de item | Tipos de itens"
+        },
+        "proxy_dcterms_medium": {
+          "name": "Material | Materiais"
+        }
+      }
     }
   },
-  "facets": {
-    "COUNTRY": {
-      "name": "País fornecedor"
+  "contentfulManual": {
+    "footerNavigation": {
+      "about": "Sobre Europeana Collections",
+      "forDevelopers": "Para desenvolvedores",
+      "help": "Ajuda",
+      "meetUs": "Conheça a equipa",
+      "provide": "Torne-se um fornecedor de dados",
+      "terms": "Termos de uso e política de privacidade"
     },
-    "REUSABILITY": {
-      "name": "Posso reutilizar isso?",
+    "headerNavigation": {
+      "explore": "Explorar",
+      "teachers": "Educadores"
+    }
+  },
+  "cookieDisclaimer": {
+    "acceptCookieDisclaimer": "Aceitar aviso de isenção de cookies",
+    "link": "Mais informações",
+    "terms": "Este site usa cookies para garantir que obtenha a melhor experiência em nosso site. Ao clicar ou navegar no site, concorda em permitir nossa coleta de informações através de cookies."
+  },
+  "dateFilter": {
+    "endDate": "Data de conclusão",
+    "specificDate": "Data específica",
+    "startDate": "Data de início",
+    "to": "para"
+  },
+  "delete": "Apagar",
+  "depiction": "Uma representação de {title}",
+  "directions": {
+    "left": "Esquerda",
+    "right": "Direita"
+  },
+  "edmIsShownAtLinkAlt": "Ver no site do fornecedor",
+  "entity": "Entidade",
+  "error": "Erro",
+  "exhibitions": {
+    "chapters": "Capítulos",
+    "credits": "Créditos",
+    "currentChapter": "Capítulo atual",
+    "exhibitions": "Exposições"
+  },
+  "facets": {
+    "api": {
+      "name": "Procurar por",
       "options": {
-        "open": "Sim",
-        "restricted": "Sim, com condições",
-        "permission": "Talvez, peça permissão",
-        "uncategorized": "Sem categoria"
+        "fulltext": "Registos com texto completo",
+        "metadata": "Registos somente de metadados"
       }
+    },
+    "button": {
+      "apply": "Aplicar",
+      "cancel": "Cancelar",
+      "morefilters": "Mais filtros",
+      "reset": "Repor",
+      "showAll": "Mostrar todos {label}",
+      "showLess": "Mostrar menos {label}"
     },
     "collection": {
       "name": "Categoria",
       "options": {
-        "ww1": "1914-1918",
         "archaeology": "Arqueologia",
         "art": "Arte",
         "fashion": "Moda",
+        "industrial": "Património Industrial",
         "manuscript": "Manuscritos",
         "map": "Mapas e Geografia",
         "migration": "Migração",
@@ -104,62 +105,7 @@ export default {
         "newspaper": "Jornais",
         "photography": "Fotografia",
         "sport": "Desporto",
-        "industrial": "Património Industrial"
-      }
-    },
-    "TYPE": {
-      "name": "Tipo de média",
-      "options": {
-        "IMAGE": "Imagem",
-        "TEXT": "Texto",
-        "VIDEO": "Vídeo",
-        "SOUND": "Som",
-        "3D": "3D"
-      }
-    },
-    "contentTier": {
-      "name": "Inclui itens que não satisfazem os nossos critérios de publicação",
-      "options": {
-        "*": "Inclui itens que não atendem aos nossos critérios de publicação"
-      }
-    },
-    "button": {
-      "reset": "Repor",
-      "apply": "Aplicar",
-      "cancel": "Cancelar",
-      "morefilters": "Mais filtros",
-      "showAll": "Mostrar todos {label}",
-      "showLess": "Mostrar menos {label}"
-    },
-    "LANGUAGE": {
-      "name": "Língua"
-    },
-    "PROVIDER": {
-      "name": "Agregador"
-    },
-    "DATA_PROVIDER": {
-      "name": "Instituição"
-    },
-    "IMAGE_ASPECTRATIO": {
-      "name": "Orientação da imagem | Orientações da imagem",
-      "options": {
-        "landscape": "Panorama",
-        "portrait": "Retrato"
-      }
-    },
-    "IMAGE_SIZE": {
-      "name": "Tamanho da imagem | Tamanhos de imagem",
-      "options": {
-        "small": "Pequeno < 0.5MP (por exemplo, 650x600px)",
-        "medium": "Médio 0,5-1MP (por exemplo, 850x850px)",
-        "large": "1-4MP grande (por exemplo, 1920x1080px)",
-        "extra_large": "Extra grande 4MP + (por exemplo, 2688 x 1520px)"
-      }
-    },
-    "MIME_TYPE": {
-      "name": "Formato de ficheiro | Formatos de ficheiros",
-      "options": {
-        "text/plain": "Texto simples"
+        "ww1": "1914-1918"
       }
     },
     "COLOURPALETTE": {
@@ -310,174 +256,228 @@ export default {
         "#FFFFFF": "Branco"
       }
     },
-    "proxy_dcterms_issued": {
-      "name": "Data de emissão"
-    },
-    "api": {
-      "name": "Procurar por",
+    "contentTier": {
+      "name": "Inclui itens que não satisfazem os nossos critérios de publicação",
       "options": {
-        "fulltext": "Registos com texto completo",
-        "metadata": "Registos somente de metadados"
+        "*": "Inclui itens que não atendem aos nossos critérios de publicação"
       }
+    },
+    "COUNTRY": {
+      "name": "País fornecedor"
     },
     "CREATOR": {
       "name": "Criador | Criadores"
     },
+    "DATA_PROVIDER": {
+      "name": "Instituição"
+    },
+    "IMAGE_ASPECTRATIO": {
+      "name": "Orientação da imagem | Orientações da imagem",
+      "options": {
+        "landscape": "Panorama",
+        "portrait": "Retrato"
+      }
+    },
+    "IMAGE_SIZE": {
+      "name": "Tamanho da imagem | Tamanhos de imagem",
+      "options": {
+        "extra_large": "Extra grande 4MP + (por exemplo, 2688 x 1520px)",
+        "large": "1-4MP grande (por exemplo, 1920x1080px)",
+        "medium": "Médio 0,5-1MP (por exemplo, 850x850px)",
+        "small": "Pequeno < 0.5MP (por exemplo, 650x600px)"
+      }
+    },
+    "LANGUAGE": {
+      "name": "Língua"
+    },
+    "MIME_TYPE": {
+      "name": "Formato de ficheiro | Formatos de ficheiros",
+      "options": {
+        "text/plain": "Texto simples"
+      }
+    },
+    "PROVIDER": {
+      "name": "Agregador"
+    },
     "proxy_dc_format": {
       "name": "Formato | Formatos"
+    },
+    "proxy_dc_type": {
+      "name": "Tipo | Tipos"
+    },
+    "proxy_dcterms_issued": {
+      "name": "Data de emissão"
     },
     "proxy_dcterms_medium": {
       "name": "Médio | Meios de comunicação"
     },
-    "proxy_dc_type": {
-      "name": "Tipo | Tipos"
+    "REUSABILITY": {
+      "name": "Posso reutilizar isso?",
+      "options": {
+        "open": "Sim",
+        "permission": "Talvez, peça permissão",
+        "restricted": "Sim, com condições",
+        "uncategorized": "Sem categoria"
+      }
+    },
+    "TYPE": {
+      "name": "Tipo de média",
+      "options": {
+        "3D": "3D",
+        "IMAGE": "Imagem",
+        "SOUND": "Som",
+        "TEXT": "Texto",
+        "VIDEO": "Vídeo"
+      }
     }
   },
-  "entity": "Entidade",
-  "resourceWikimedia": "Recurso do Wikimedia Commons",
-  "messages": {
-    "notFound": "Não encontrado",
-    "externalContentError": "Falha ao carregar o conteúdo externo",
-    "paginationLimitExceeded": "Só é possível visualizar os primeiros {limit} resultados da pesquisa."
+  "fieldLabels": {
+    "default": {
+      "dcContributor": "Colaboradores",
+      "dcCoverage": "Local - Hora",
+      "dcCreator": "Criador",
+      "dcDate": "Data",
+      "dcDescription": "Descrição",
+      "dcDuration": "Duração",
+      "dcFormat": "Formato",
+      "dcIdentifier": "Identificador",
+      "dcLanguage": "Língua",
+      "dcMedium": "Médio",
+      "dcPublisher": "Editor",
+      "dcRelation": "Relações",
+      "dcRights": "Direitos",
+      "dcSource": "Fonte",
+      "dcSubject": "Assunto",
+      "dctermsCreated": "Data de criação",
+      "dctermsExtent": "Extensão",
+      "dctermsHasPart": "Consiste em",
+      "dctermsHasVersion": "Tem variante",
+      "dctermsIsFormatOf": "É o formato de",
+      "dctermsIsPartOf": "É parte de",
+      "dctermsIsReferencedBy": "É referenciado por",
+      "dctermsIsReplacedBy": "É substituído por",
+      "dctermsIsRequiredBy": "É exigido por",
+      "dctermsIssued": "Data de emissão",
+      "dctermsMedium": "Médio",
+      "dctermsProvenance": "Proveniência",
+      "dctermsPublished": "Data de publicação",
+      "dctermsReferences": "Referências",
+      "dctermsSpatial": "Locais",
+      "dctermsTemporal": "Temporal",
+      "dcTitle": "Título",
+      "dcType": "Tipo de objeto",
+      "edmCountry": "País fornecedor",
+      "edmCurrentLocation": "Localização atual",
+      "edmDataProvider": "Instituição fornecedora",
+      "edmHasMet": "Cumpriu",
+      "edmIncorporates": "Incorpora",
+      "edmIntermediateProvider": "Fornecedor intermediário",
+      "edmIsDerivativeOf": "Deriva de",
+      "edmIsRepresentationOf": "É representação de",
+      "edmIsSimilarTo": "É similar a",
+      "edmIsSuccessorOf": "É sucessor de",
+      "edmProvider": "Fornecedor",
+      "edmRealizes": "Alcança",
+      "edmRights": "Licença dos média neste registo (a menos que especificado de outra forma)",
+      "edmUgc": "Conteúdo gerado por utilizadores",
+      "europeanaCollectionName": "Nome da coleção",
+      "keywords": "Palavras-chave (fornecidas pela comunidade)",
+      "timestampCreated": "Registo de data e hora criado",
+      "timestampUpdate": "Registo de data e hora atualizado",
+      "wasPresentAt": "Estava presente em"
+    },
+    "webResource": {
+      "about": "RDF Sobre",
+      "dcDescription": "Descrição",
+      "ebucoreHasMimeType": "Ebucore Tipo MIME",
+      "edmRights": "Licença para este recurso de média",
+      "rdfAbout": "RDF Sobre"
+    }
   },
-  "searchViews": {
-    "grid": "Visualização em grelha",
-    "list": "Visualização em lista"
+  "footer": {
+    "customiseWebsiteLanguage": "Personalizar o idioma do site",
+    "findUsElsewhere": "Encontre-nos em outro lugar",
+    "imageDescription": "Co-financiado pelo Mecanismo Interligar a Europa da União Europeia",
+    "ourMission": "A Nossa missão",
+    "ourMissionQuote": "A Europeana fortalece o setor do património cultural na sua transformação digital. Desenvolvemos conhecimento, ferramentas e políticas para abraçar a mudança digital e incentivar parcerias que promovam a inovação."
+  },
+  "formatting": {
+    "ellipsis": "…",
+    "labelledValue": "{label} : {value}",
+    "listSeperator": ";"
+  },
+  "galleries": {
+    "galleries": "Galerias"
+  },
+  "goToRecord": "Ir para o registo",
+  "homeLinkAlt": "Página Inicial Europeana",
+  "imageSlider": {
+    "handle": "Barra deslizante"
   },
   "layout": {
     "skipToMain": "Ir para o conteúdo da página"
   },
-  "searchPlaceholder": "O que procura?",
-  "searchTier": {
-    "button": {
-      "show": "Mostrar estes itens",
-      "hide": "Ocultar estes itens"
+  "learnMore": "Saiba mais sobre a fonte desta descrição",
+  "linksToClassic": {
+    "home": {
+      "linkText": "Vá para o Europeana original.",
+      "text": "Está a ver a nova experiência da Europeana."
     },
-    "text": {
-      "show": "Mais itens correspondem à sua pesquisa, mas não satisfazem os nossos critérios de publicação.",
-      "hide": "Estão a ser mostrados itens que não satisfazem os nossos critérios de publicação."
+    "record": {
+      "linkText": "Veja este item no Europeana original.",
+      "text": "Está a visualizar este item no novo site da Europeana."
+    },
+    "search": {
+      "linkText": "Veja estes resultados da pesquisa no Europeana original.",
+      "text": "Está a pesquisar no nosso site novo e mais rápido."
     }
   },
-  "depiction": "Uma representação de {title}",
-  "showLess": "Mostrar menos",
-  "showMore": "Mostrar mais",
-  "delete": "Apagar",
-  "removeFilter": "Remover o filtro {filterLabel}",
-  "newWindow": "abre numa nova janela",
-  "blog": {
-    "blog": "Blog",
-    "author": "Autor",
-    "authors": "Autores",
-    "category": "Categoria",
-    "categories": "Categorias",
-    "relatedPosts": "Publicações relacionadas"
-  },
-  "directions": {
-    "left": "Esquerda",
-    "right": "Direita"
-  },
-  "exhibitions": {
-    "exhibitions": "Exposições",
-    "credits": "Créditos",
-    "chapters": "Capítulos",
-    "currentChapter": "Capítulo atual"
-  },
-  "actions": {
-    "download": "Descarregar",
-    "viewAt": "Ver em {link}",
-    "providedBy": "Fornecido por {provider}",
-    "viewDocument": "Ver documento",
-    "share": "Partilhar",
-    "shareOn": "Partilhe em {social}"
-  },
-  "clearAllFilters": "limpar todos os filtros",
-  "reset": "Repor",
   "loadingResults": "A carregar resultados",
-  "edmIsShownAtLinkAlt": "Ver no site do fornecedor",
+  "messages": {
+    "externalContentError": "Falha ao carregar o conteúdo externo",
+    "notFound": "Não encontrado",
+    "paginationLimitExceeded": "Só é possível visualizar os primeiros {limit} resultados da pesquisa."
+  },
+  "newWindow": "abre numa nova janela",
+  "noMoreResults": "Não há mais resultados para a sua pesquisa.",
+  "noResults": "Sem Resultados",
+  "readMore": "Ler mais",
   "record": {
+    "downloadCopyrightInfo": "Este item está protegido por direitos de autor e não pode ser transferido.",
     "extendedInformation": "Informação detalhada",
     "hideAll": "Ocultar todas as informações",
     "record": "Registo",
     "showAll": "Mostrar todas as informações",
     "similarItems": "Itens relacionados",
     "view": {
-      "pdf": "Ver PDF",
       "image": "Ver imagem",
-      "media": "Ver meios de comunicação"
-    },
-    "downloadCopyrightInfo": "Este item está protegido por direitos de autor e não pode ser transferido."
-  },
-  "contentfulManual": {
-    "headerNavigation": {
-      "teachers": "Educadores",
-      "explore": "Explorar"
-    },
-    "footerNavigation": {
-      "about": "Sobre Europeana Collections",
-      "forDevelopers": "Para desenvolvedores",
-      "terms": "Termos de uso e política de privacidade",
-      "provide": "Torne-se um fornecedor de dados",
-      "meetUs": "Conheça a equipa",
-      "help": "Ajuda"
+      "media": "Ver meios de comunicação",
+      "pdf": "Ver PDF"
     }
-  },
-  "imageSlider": {
-    "handle": "Barra deslizante"
-  },
-  "dateFilter": {
-    "startDate": "Data de início",
-    "endDate": "Data de conclusão",
-    "to": "para",
-    "specificDate": "Data específica"
-  },
-  "cookieDisclaimer": {
-    "acceptCookieDisclaimer": "Aceitar aviso de isenção de cookies",
-    "terms": "Este site usa cookies para garantir que obtenha a melhor experiência em nosso site. Ao clicar ou navegar no site, concorda em permitir nossa coleta de informações através de cookies.",
-    "link": "Mais informações"
-  },
-  "searchSuggestions": "Sugestões de pesquisa",
-  "learnMore": "Saiba mais sobre a fonte desta descrição",
-  "footer": {
-    "ourMission": "A Nossa missão",
-    "ourMissionQuote": "A Europeana fortalece o setor do património cultural na sua transformação digital. Desenvolvemos conhecimento, ferramentas e políticas para abraçar a mudança digital e incentivar parcerias que promovam a inovação.",
-    "customiseWebsiteLanguage": "Personalizar o idioma do site",
-    "imageDescription": "Co-financiado pelo Mecanismo Interligar a Europa da União Europeia",
-    "findUsElsewhere": "Encontre-nos em outro lugar"
-  },
-  "collections": {
-    "fashion": {
-      "facets": {
-        "CREATOR": {
-          "name": "Designer | Designers"
-        },
-        "proxy_dc_format": {
-          "name": "Técnica | Técnicas"
-        },
-        "proxy_dcterms_medium": {
-          "name": "Material | Materiais"
-        },
-        "proxy_dc_type": {
-          "name": "Tipo de item | Tipos de itens"
-        }
-      }
-    }
-  },
-  "galleries": {
-    "galleries": "Galerias"
   },
   "relatedCollections": "Coleções relacionadas",
-  "linksToClassic": {
-    "home": {
-      "text": "Está a ver a nova experiência da Europeana.",
-      "linkText": "Vá para o Europeana original."
+  "removeFilter": "Remover o filtro {filterLabel}",
+  "reset": "Repor",
+  "resourceWikimedia": "Recurso do Wikimedia Commons",
+  "results": "Resultados",
+  "resultsLimitWarning": "Resultados adicionais não são mostrados, apenas os primeiros 1000 resultados mais relevantes são mostrados. Se não encontrou o que procurava, considere refinar a sua pesquisa.",
+  "search": "Procurar",
+  "searchPlaceholder": "O que procura?",
+  "searchSuggestions": "Sugestões de pesquisa",
+  "searchTier": {
+    "button": {
+      "hide": "Ocultar estes itens",
+      "show": "Mostrar estes itens"
     },
-    "search": {
-      "text": "Está a pesquisar no nosso site novo e mais rápido.",
-      "linkText": "Veja estes resultados da pesquisa no Europeana original."
-    },
-    "record": {
-      "text": "Está a visualizar este item no novo site da Europeana.",
-      "linkText": "Veja este item no Europeana original."
+    "text": {
+      "hide": "Estão a ser mostrados itens que não satisfazem os nossos critérios de publicação.",
+      "show": "Mais itens correspondem à sua pesquisa, mas não satisfazem os nossos critérios de publicação."
     }
-  }
+  },
+  "searchViews": {
+    "grid": "Visualização em grelha",
+    "list": "Visualização em lista"
+  },
+  "showLess": "Mostrar menos",
+  "showMore": "Mostrar mais"
 };
