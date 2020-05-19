@@ -1,101 +1,106 @@
 export default {
-  "formatting": {
-    "labelledValue": "{label}: {value}",
-    "ellipsis": "…",
-    "listSeperator": ";"
+  "actions": {
+    "download": "Download",
+    "providedBy": "Provided by {provider}",
+    "share": "Share",
+    "shareOn": "Share on {social}",
+    "viewAt": "View at {link}",
+    "viewDocument": "View document"
   },
-  "error": "Error",
-  "goToRecord": "Go to item",
-  "readMore": "Read more",
-  "search": "Search",
-  "results": "Results",
-  "homeLinkAlt": "Europeana home",
-  "noMoreResults": "There are no more results for your search query.",
-  "resultsLimitWarning": "Additional results are not shown as only the first 1000 most relevant results are shown. If you haven't found what you're looking for, please consider refining your search.",
-  "noResults": "No results",
-  "fieldLabels": {
-    "default": {
-      "dcContributor": "Contributors",
-      "dcCreator": "Creator",
-      "dcDescription": "Description",
-      "dcTitle": "Title",
-      "dcType": "Type of object",
-      "dctermsCreated": "Creation date",
-      "edmCountry": "Providing country",
-      "edmDataProvider": "Providing institution",
-      "edmRights": "License of the media in this item (unless otherwise specified)",
-      "dcPublisher": "Publisher",
-      "dcSubject": "Subject",
-      "dctermsMedium": "Medium",
-      "dcRights": "Rights",
-      "dcDate": "Date",
-      "dctermsPublished": "Publication date",
-      "dctermsIssued": "Issue date",
-      "dctermsTemporal": "Temporal",
-      "dcCoverage": "Place-Time",
-      "dctermsSpatial": "Places",
-      "edmCurrentLocation": "Current location",
-      "edmUgc": "User generated content",
-      "dctermsProvenance": "Provenance",
-      "dcSource": "Source",
-      "dcIdentifier": "Identifier",
-      "edmIntermediateProvider": "Intermediate provider",
-      "edmProvider": "Provider",
-      "timestampCreated": "Timestamp created",
-      "timestampUpdate": "Timestamp updated",
-      "dctermsExtent": "Extent",
-      "dcDuration": "Duration",
-      "dcMedium": "Medium",
-      "dcFormat": "Format",
-      "dcLanguage": "Language",
-      "dctermsIsPartOf": "Is part of",
-      "europeanaCollectionName": "Collection name",
-      "dcRelation": "Relations",
-      "dctermsReferences": "References",
-      "dctermsHasPart": "Consists of",
-      "dctermsHasVersion": "Has version",
-      "dctermsIsFormatOf": "Is format of",
-      "dctermsIsReferencedBy": "Is referenced by",
-      "dctermsIsReplacedBy": "Is replaced by",
-      "dctermsIsRequiredBy": "Is required by",
-      "edmHasMet": "Has Met",
-      "edmIncorporates": "Incorporates",
-      "edmIsDerivativeOf": "Is derivative of",
-      "edmIsRepresentationOf": "Is representation of",
-      "edmIsSimilarTo": "Is similar to",
-      "edmIsSuccessorOf": "Is successor of",
-      "edmRealizes": "Realises",
-      "wasPresentAt": "Was present at",
-      "keywords": "Keywords (provided by the community)"
-    },
-    "webResource": {
-      "dcDescription": "Description",
-      "rdfAbout": "RDF About",
-      "edmRights": "License for this media resource",
-      "ebucoreHasMimeType": "Ebucore MIME Type",
-      "about": "RDF About"
+  "blog": {
+    "author": "Author",
+    "authors": "Authors",
+    "blog": "Blog",
+    "categories": "Categories",
+    "category": "Category",
+    "posts": "Blog posts",
+    "relatedPosts": "Related posts"
+  },
+  "clearAllFilters": "clear all filters",
+  "collections": {
+    "fashion": {
+      "facets": {
+        "CREATOR": {
+          "name": "Designer | Designers"
+        },
+        "proxy_dc_format": {
+          "name": "Technique | Techniques"
+        },
+        "proxy_dc_type": {
+          "name": "Item type | Item types"
+        },
+        "proxy_dcterms_medium": {
+          "name": "Material | Materials"
+        }
+      }
     }
   },
-  "facets": {
-    "COUNTRY": {
-      "name": "Providing country"
+  "colourSwatch": "Colour swatch",
+  "contentfulManual": {
+    "footerNavigation": {
+      "about": "About Europeana Collections",
+      "forDevelopers": "For developers",
+      "help": "Help",
+      "meetUs": "Meet the team",
+      "provide": "Become a data provider",
+      "terms": "Terms of Use and Privacy Policy"
     },
-    "REUSABILITY": {
-      "name": "Can I use this?",
+    "headerNavigation": {
+      "explore": "Explore",
+      "teachers": "Educators"
+    }
+  },
+  "contentYouMightLike": "Content you might like",
+  "cookieDisclaimer": {
+    "acceptCookieDisclaimer": "Accept cookie disclaimer",
+    "link": "More info",
+    "terms": "This website uses cookies to ensure you get the best experience on our website. By clicking or navigating the site, you agree to allow our collection of information through cookies."
+  },
+  "dateFilter": {
+    "endDate": "End date",
+    "specificDate": "Specific date",
+    "startDate": "Start date",
+    "to": "to"
+  },
+  "delete": "Delete",
+  "depiction": "A depiction of {title}",
+  "directions": {
+    "left": "Left",
+    "right": "Right"
+  },
+  "edmIsShownAtLinkAlt": "View at the provider's website",
+  "entity": "Entity",
+  "error": "Error",
+  "exhibitions": {
+    "chapters": "Chapters",
+    "credits": "Credits",
+    "currentChapter": "Current chapter",
+    "description": "Explore the exhibitions",
+    "exhibitions": "Exhibition | Exhibitions"
+  },
+  "facets": {
+    "api": {
+      "name": "Search for",
       "options": {
-        "open": "Yes",
-        "restricted": "Yes, with conditions",
-        "permission": "Maybe, seek permission",
-        "uncategorized": "Uncategorized"
+        "fulltext": "Items with full-text",
+        "metadata": "Metadata-only items"
       }
+    },
+    "button": {
+      "apply": "Apply",
+      "cancel": "Cancel",
+      "morefilters": "More filters",
+      "reset": "Reset",
+      "showAll": "Show all {label}",
+      "showLess": "Show less {label}"
     },
     "collection": {
       "name": "Collection",
       "options": {
-        "ww1": "1914-1918",
         "archaeology": "Archaeology",
         "art": "Art",
         "fashion": "Fashion",
+        "industrial": "Industrial Heritage",
         "manuscript": "Manuscripts",
         "map": "Maps and Geography",
         "migration": "Migration",
@@ -104,64 +109,7 @@ export default {
         "newspaper": "Newspapers",
         "photography": "Photography",
         "sport": "Sport",
-        "industrial": "Industrial Heritage"
-      }
-    },
-    "TYPE": {
-      "name": "Type of media",
-      "options": {
-        "IMAGE": "Image",
-        "TEXT": "Text",
-        "VIDEO": "Video",
-        "SOUND": "Sound",
-        "3D": "3D"
-      }
-    },
-    "contentTier": {
-      "name": "Item quality",
-      "options": {
-        "*": "Includes items not meeting our publishing criteria",
-        "0": "Show only items not meeting our publishing criteria"
-      },
-      "notification": "Some items not matching our publishing criteria are available. You can access those items by activating the 'Item Quality' filter under 'More filters'."
-    },
-    "button": {
-      "reset": "Reset",
-      "apply": "Apply",
-      "cancel": "Cancel",
-      "morefilters": "More filters",
-      "showAll": "Show all {label}",
-      "showLess": "Show less {label}"
-    },
-    "LANGUAGE": {
-      "name": "Language | Languages"
-    },
-    "PROVIDER": {
-      "name": "Aggregator | Aggregators"
-    },
-    "DATA_PROVIDER": {
-      "name": "Institution | Institutions"
-    },
-    "IMAGE_ASPECTRATIO": {
-      "name": "Image orientation | Image orientations",
-      "options": {
-        "landscape": "Landscape",
-        "portrait": "Portrait"
-      }
-    },
-    "IMAGE_SIZE": {
-      "name": "Image size | Image sizes",
-      "options": {
-        "small": "Small <0.5MP (e.g. 650x600px)",
-        "medium": "Medium 0.5-1MP (e.g. 850x850px)",
-        "large": "Large 1-4MP (e.g. 1920x1080px)",
-        "extra_large": "Extra Large 4MP+ (e.g. 2688 x 1520px)"
-      }
-    },
-    "MIME_TYPE": {
-      "name": "File format | File formats",
-      "options": {
-        "text/plain": "Plain text"
+        "ww1": "1914-1918"
       }
     },
     "COLOURPALETTE": {
@@ -313,184 +261,236 @@ export default {
         "#FFFFFF": "White"
       }
     },
-    "proxy_dcterms_issued": {
-      "name": "Date issued"
-    },
-    "api": {
-      "name": "Search for",
+    "contentTier": {
+      "name": "Item quality",
+      "notification": "Some items not matching our publishing criteria are available. You can access those items by activating the 'Item Quality' filter under 'More filters'.",
       "options": {
-        "fulltext": "Items with full-text",
-        "metadata": "Metadata-only items"
+        "*": "Includes items not meeting our publishing criteria",
+        "0": "Show only items not meeting our publishing criteria"
       }
+    },
+    "COUNTRY": {
+      "name": "Providing country"
     },
     "CREATOR": {
       "name": "Creator | Creators"
     },
+    "DATA_PROVIDER": {
+      "name": "Institution | Institutions"
+    },
+    "IMAGE_ASPECTRATIO": {
+      "name": "Image orientation | Image orientations",
+      "options": {
+        "landscape": "Landscape",
+        "portrait": "Portrait"
+      }
+    },
+    "IMAGE_SIZE": {
+      "name": "Image size | Image sizes",
+      "options": {
+        "extra_large": "Extra Large 4MP+ (e.g. 2688 x 1520px)",
+        "large": "Large 1-4MP (e.g. 1920x1080px)",
+        "medium": "Medium 0.5-1MP (e.g. 850x850px)",
+        "small": "Small <0.5MP (e.g. 650x600px)"
+      }
+    },
+    "LANGUAGE": {
+      "name": "Language | Languages"
+    },
+    "MIME_TYPE": {
+      "name": "File format | File formats",
+      "options": {
+        "text\/plain": "Plain text"
+      }
+    },
+    "PROVIDER": {
+      "name": "Aggregator | Aggregators"
+    },
     "proxy_dc_format": {
       "name": "Format | Formats"
+    },
+    "proxy_dc_type": {
+      "name": "Type | Types"
+    },
+    "proxy_dcterms_issued": {
+      "name": "Date issued"
     },
     "proxy_dcterms_medium": {
       "name": "Medium | Media"
     },
-    "proxy_dc_type": {
-      "name": "Type | Types"
+    "REUSABILITY": {
+      "name": "Can I use this?",
+      "options": {
+        "open": "Yes",
+        "permission": "Maybe, seek permission",
+        "restricted": "Yes, with conditions",
+        "uncategorized": "Uncategorized"
+      }
+    },
+    "TYPE": {
+      "name": "Type of media",
+      "options": {
+        "3D": "3D",
+        "IMAGE": "Image",
+        "SOUND": "Sound",
+        "TEXT": "Text",
+        "VIDEO": "Video"
+      }
     }
   },
-  "entity": "Entity",
-  "resourceWikimedia": "Resource from Wikimedia Commons",
-  "messages": {
-    "notFound": "Not Found",
-    "externalContentError": "The external content failed to load",
-    "paginationLimitExceeded": "It is only possible to view the first {limit} search results."
+  "fieldLabels": {
+    "default": {
+      "dcContributor": "Contributors",
+      "dcCoverage": "Place-Time",
+      "dcCreator": "Creator",
+      "dcDate": "Date",
+      "dcDescription": "Description",
+      "dcDuration": "Duration",
+      "dcFormat": "Format",
+      "dcIdentifier": "Identifier",
+      "dcLanguage": "Language",
+      "dcMedium": "Medium",
+      "dcPublisher": "Publisher",
+      "dcRelation": "Relations",
+      "dcRights": "Rights",
+      "dcSource": "Source",
+      "dcSubject": "Subject",
+      "dctermsCreated": "Creation date",
+      "dctermsExtent": "Extent",
+      "dctermsHasPart": "Consists of",
+      "dctermsHasVersion": "Has version",
+      "dctermsIsFormatOf": "Is format of",
+      "dctermsIsPartOf": "Is part of",
+      "dctermsIsReferencedBy": "Is referenced by",
+      "dctermsIsReplacedBy": "Is replaced by",
+      "dctermsIsRequiredBy": "Is required by",
+      "dctermsIssued": "Issue date",
+      "dctermsMedium": "Medium",
+      "dctermsProvenance": "Provenance",
+      "dctermsPublished": "Publication date",
+      "dctermsReferences": "References",
+      "dctermsSpatial": "Places",
+      "dctermsTemporal": "Temporal",
+      "dcTitle": "Title",
+      "dcType": "Type of object",
+      "edmCountry": "Providing country",
+      "edmCurrentLocation": "Current location",
+      "edmDataProvider": "Providing institution",
+      "edmHasMet": "Has Met",
+      "edmIncorporates": "Incorporates",
+      "edmIntermediateProvider": "Intermediate provider",
+      "edmIsDerivativeOf": "Is derivative of",
+      "edmIsRepresentationOf": "Is representation of",
+      "edmIsSimilarTo": "Is similar to",
+      "edmIsSuccessorOf": "Is successor of",
+      "edmProvider": "Provider",
+      "edmRealizes": "Realises",
+      "edmRights": "License of the media in this item (unless otherwise specified)",
+      "edmUgc": "User generated content",
+      "europeanaCollectionName": "Collection name",
+      "keywords": "Keywords (provided by the community)",
+      "timestampCreated": "Timestamp created",
+      "timestampUpdate": "Timestamp updated",
+      "wasPresentAt": "Was present at"
+    },
+    "webResource": {
+      "about": "RDF About",
+      "dcDescription": "Description",
+      "ebucoreHasMimeType": "Ebucore MIME Type",
+      "edmRights": "License for this media resource",
+      "rdfAbout": "RDF About"
+    }
   },
-  "searchViews": {
-    "grid": "Grid view",
-    "list": "List view"
+  "footer": {
+    "customiseWebsiteLanguage": "Customise website language",
+    "disclaimerLine1": "Europeana is an initiative of the European Union, financed by the European Union’s Connecting Europe Facility and European Union Member States. The Europeana services, including this website, are operated by a consortium led by the Europeana Foundation under a service contract with the European Commission.",
+    "disclaimerLine2": "The European Commission does not guarantee the accuracy of the information and accepts no responsibility or liability whatsoever with regard to the information on this website. Neither the European Commission, nor any person acting on the European Commission’s behalf, is responsible or liable for the accuracy or use of the information on this website.",
+    "findUsElsewhere": "Find us elsewhere",
+    "imageDescription": "Co-financed by the Connecting Europe Facility of the European Union",
+    "ourMission": "Our mission",
+    "ourMissionQuote": "Europeana empowers the cultural heritage sector in its digital transformation. We develop expertise, tools and policies to embrace digital change and encourage partnerships that foster innovation."
+  },
+  "formatting": {
+    "ellipsis": "…",
+    "labelledValue": "{label}: {value}",
+    "listSeperator": ";"
+  },
+  "galleries": {
+    "description": "Explore our galleries",
+    "galleries": "Gallery | Galleries"
+  },
+  "goToRecord": "Go to item",
+  "homeLinkAlt": "Europeana home",
+  "imageSlider": {
+    "handle": "Slider Handle"
   },
   "layout": {
     "skipToMain": "Skip to page contents"
   },
-  "searchPlaceholder": "Search millions of items",
-  "searchTier": {
-    "button": {
-      "show": "Show these items",
-      "hide": "Hide these items"
+  "learnMore": "Learn about the source of this description",
+  "linksToClassic": {
+    "home": {
+      "linkText": "Go to the original Europeana.",
+      "text": "You're viewing the new Europeana experience."
     },
-    "text": {
-      "show": "More items match your search but don't meet our publishing criteria.",
-      "hide": "Items that don't meet our publishing criteria are being shown."
+    "record": {
+      "linkText": "View this item in the original Europeana.",
+      "text": "You're viewing this item in the new Europeana website."
+    },
+    "search": {
+      "linkText": "View these search results in the original Europeana.",
+      "text": "You're searching in our new and faster website."
     }
   },
-  "depiction": "A depiction of {title}",
-  "showLess": "Show less",
-  "showMore": "Show more",
-  "delete": "Delete",
-  "removeFilter": "Remove {filterLabel} filter",
-  "newWindow": "opens in new window",
-  "blog": {
-    "blog": "Blog",
-    "posts": "Blog posts",
-    "author": "Author",
-    "authors": "Authors",
-    "category": "Category",
-    "categories": "Categories",
-    "relatedPosts": "Related posts"
-  },
-  "directions": {
-    "left": "Left",
-    "right": "Right"
-  },
-  "exhibitions": {
-    "exhibitions": "Exhibition | Exhibitions",
-    "credits": "Credits",
-    "chapters": "Chapters",
-    "currentChapter": "Current chapter",
-    "description": "Explore the exhibitions"
-  },
-  "actions": {
-    "download": "Download",
-    "viewAt": "View at {link}",
-    "providedBy": "Provided by {provider}",
-    "viewDocument": "View document",
-    "share": "Share",
-    "shareOn": "Share on {social}"
-  },
-  "clearAllFilters": "clear all filters",
-  "reset": "Reset",
   "loadingResults": "Loading results",
-  "edmIsShownAtLinkAlt": "View at the provider's website",
+  "mediaPreview": {
+    "selectItem": "Select item {src}"
+  },
+  "messages": {
+    "externalContentError": "The external content failed to load",
+    "notFound": "Not Found",
+    "paginationLimitExceeded": "It is only possible to view the first {limit} search results."
+  },
+  "newWindow": "opens in new window",
+  "noMoreResults": "There are no more results for your search query.",
+  "noResults": "No results",
+  "readMore": "Read more",
   "record": {
+    "downloadCopyrightInfo": "This item is in copyright and can not be downloaded.",
     "extendedInformation": "Extended information",
     "hideAll": "Hide all information",
     "record": "Item",
     "showAll": "Show all information",
     "similarItems": "Similar items",
     "view": {
-      "pdf": "View PDF",
       "image": "View image",
-      "media": "View media"
-    },
-    "downloadCopyrightInfo": "This item is in copyright and can not be downloaded."
-  },
-  "contentfulManual": {
-    "headerNavigation": {
-      "teachers": "Educators",
-      "explore": "Explore"
-    },
-    "footerNavigation": {
-      "about": "About Europeana Collections",
-      "forDevelopers": "For developers",
-      "terms": "Terms of Use and Privacy Policy",
-      "provide": "Become a data provider",
-      "meetUs": "Meet the team",
-      "help": "Help"
+      "media": "View media",
+      "pdf": "View PDF"
     }
-  },
-  "imageSlider": {
-    "handle": "Slider Handle"
-  },
-  "colourSwatch": "Colour swatch",
-  "dateFilter": {
-    "startDate": "Start date",
-    "endDate": "End date",
-    "to": "to",
-    "specificDate": "Specific date"
-  },
-  "cookieDisclaimer": {
-    "acceptCookieDisclaimer": "Accept cookie disclaimer",
-    "terms": "This website uses cookies to ensure you get the best experience on our website. By clicking or navigating the site, you agree to allow our collection of information through cookies.",
-    "link": "More info"
-  },
-  "searchSuggestions": "Search suggestions",
-  "learnMore": "Learn about the source of this description",
-  "footer": {
-    "ourMission": "Our mission",
-    "ourMissionQuote": "Europeana empowers the cultural heritage sector in its digital transformation. We develop expertise, tools and policies to embrace digital change and encourage partnerships that foster innovation.",
-    "customiseWebsiteLanguage": "Customise website language",
-    "disclaimerLine1": "Europeana is an initiative of the European Union, financed by the European Union’s Connecting Europe Facility and European Union Member States. The Europeana services, including this website, are operated by a consortium led by the Europeana Foundation under a service contract with the European Commission.",
-    "disclaimerLine2": "The European Commission does not guarantee the accuracy of the information and accepts no responsibility or liability whatsoever with regard to the information on this website. Neither the European Commission, nor any person acting on the European Commission’s behalf, is responsible or liable for the accuracy or use of the information on this website.",
-    "imageDescription": "Co-financed by the Connecting Europe Facility of the European Union",
-    "findUsElsewhere": "Find us elsewhere"
-  },
-  "collections": {
-    "fashion": {
-      "facets": {
-        "CREATOR": {
-          "name": "Designer | Designers"
-        },
-        "proxy_dc_format": {
-          "name": "Technique | Techniques"
-        },
-        "proxy_dcterms_medium": {
-          "name": "Material | Materials"
-        },
-        "proxy_dc_type": {
-          "name": "Item type | Item types"
-        }
-      }
-    }
-  },
-  "galleries": {
-    "galleries": "Gallery | Galleries",
-    "description": "Explore our galleries"
   },
   "relatedCollections": "Related collections",
-  "contentYouMightLike": "Content you might like",
-  "linksToClassic": {
-    "home": {
-      "text": "You're viewing the new Europeana experience.",
-      "linkText": "Go to the original Europeana."
+  "removeFilter": "Remove {filterLabel} filter",
+  "reset": "Reset",
+  "resourceWikimedia": "Resource from Wikimedia Commons",
+  "results": "Results",
+  "resultsLimitWarning": "Additional results are not shown as only the first 1000 most relevant results are shown. If you haven't found what you're looking for, please consider refining your search.",
+  "search": "Search",
+  "searchPlaceholder": "Search millions of items",
+  "searchSuggestions": "Search suggestions",
+  "searchTier": {
+    "button": {
+      "hide": "Hide these items",
+      "show": "Show these items"
     },
-    "search": {
-      "text": "You're searching in our new and faster website.",
-      "linkText": "View these search results in the original Europeana."
-    },
-    "record": {
-      "text": "You're viewing this item in the new Europeana website.",
-      "linkText": "View this item in the original Europeana."
+    "text": {
+      "hide": "Items that don't meet our publishing criteria are being shown.",
+      "show": "More items match your search but don't meet our publishing criteria."
     }
   },
-  "mediaPreview": {
-    "selectItem": "Select item {src}"
-  }
+  "searchViews": {
+    "grid": "Grid view",
+    "list": "List view"
+  },
+  "showLess": "Show less",
+  "showMore": "Show more"
 };
