@@ -1,101 +1,102 @@
 export default {
-  "formatting": {
-    "labelledValue": "{label} : {value}",
-    "ellipsis": "…",
-    "listSeperator": ";"
+  "actions": {
+    "download": "Stiahnuť",
+    "providedBy": "Poskytovateľ:  {provider}",
+    "share": "Zdieľať",
+    "shareOn": "Zdieľať na sociálnej sieti {social}",
+    "viewAt": "Zobraziť na adrese {link}",
+    "viewDocument": "Zobraziť dokument"
   },
-  "error": "Chyba",
-  "goToRecord": "Prejsť na záznam",
-  "readMore": "Viac",
-  "search": "Hľadať",
-  "results": "Výsledky",
-  "homeLinkAlt": "Domovská stránka Europeana",
-  "noMoreResults": "Pre vaše vyhľadávanie neexistujú žiadne ďalšie výsledky.",
-  "resultsLimitWarning": "Ďalšie výsledky sa nezobrazujú, pretože sa zobrazuje iba prvých 1000 najrelevantnejších výsledkov. Ak ste nenašli, čo hľadáte, upresnite vyhľadávanie.",
-  "noResults": "Žiadne výsledky",
-  "fieldLabels": {
-    "default": {
-      "dcContributor": "Prispievatelia",
-      "dcCreator": "Tvorca",
-      "dcDescription": "Popis",
-      "dcTitle": "Názov",
-      "dcType": "Typ objektu",
-      "dctermsCreated": "Dátum vytvorenia",
-      "edmCountry": "Poskytujúca krajina",
-      "edmDataProvider": "Poskytujúca inštitúcia",
-      "edmRights": "Licencia na médiá v tomto zázname (pokiaľ nie je uvedené inak)",
-      "dcPublisher": "Vydavateľ",
-      "dcSubject": "Predmet",
-      "dctermsMedium": "Médium",
-      "dcRights": "Práva",
-      "dcDate": "Dátum",
-      "dctermsPublished": "Dátum publikácie",
-      "dctermsIssued": "Dátum vydania",
-      "dctermsTemporal": "Časové obdobie",
-      "dcCoverage": "Miesto-Čas",
-      "dctermsSpatial": "Miesta",
-      "edmCurrentLocation": "Aktuálna poloha",
-      "edmUgc": "Obsah generovaný používateľmi",
-      "dctermsProvenance": "Proveniencia",
-      "dcSource": "Zdroj",
-      "dcIdentifier": "Identifikátor",
-      "edmIntermediateProvider": "Sprostredkovateľ",
-      "edmProvider": "Poskytovateľ",
-      "timestampCreated": "Vytvorenie časovej pečiatky",
-      "timestampUpdate": "Aktualizácia časovej pečiatky",
-      "dctermsExtent": "Rozsah",
-      "dcDuration": "Trvanie",
-      "dcMedium": "Médium",
-      "dcFormat": "Formát",
-      "dcLanguage": "Jazyk",
-      "dctermsIsPartOf": "Je súčasťou",
-      "europeanaCollectionName": "Názov zbierky",
-      "dcRelation": "Vzťahy",
-      "dctermsReferences": "Odkazuje na",
-      "dctermsHasPart": "Pozostáva z",
-      "dctermsHasVersion": "Má verziu",
-      "dctermsIsFormatOf": "Je formát",
-      "dctermsIsReferencedBy": "Odkazuje sa naň v",
-      "dctermsIsReplacedBy": "Nahrádza ho",
-      "dctermsIsRequiredBy": "Vyžaduje sa od",
-      "edmHasMet": "Spĺňa",
-      "edmIncorporates": "Zahŕňa",
-      "edmIsDerivativeOf": "Je odvodený z",
-      "edmIsRepresentationOf": "Znázorňuje",
-      "edmIsSimilarTo": "Podobá sa",
-      "edmIsSuccessorOf": "nasleduje po",
-      "edmRealizes": "Zachytáva",
-      "wasPresentAt": "bol prítomný na mieste",
-      "keywords": "Kľúčové slová (poskytnuté komunitou)"
-    },
-    "webResource": {
-      "dcDescription": "Popis",
-      "rdfAbout": "RDF o",
-      "edmRights": "Licencia na tento mediálny zdroj",
-      "ebucoreHasMimeType": "Typ Ebucore MIME",
-      "about": "RDF o"
+  "blog": {
+    "author": "Autor",
+    "authors": "Autori",
+    "blog": "Blog",
+    "categories": "Kategórie",
+    "category": "Kategória",
+    "relatedPosts": "Súvisiace príspevky"
+  },
+  "clearAllFilters": "Vymazať všetky filtre",
+  "collections": {
+    "fashion": {
+      "facets": {
+        "CREATOR": {
+          "name": "Dizajnér | Dizajnéri"
+        },
+        "proxy_dc_format": {
+          "name": "Technika | Techniky"
+        },
+        "proxy_dc_type": {
+          "name": "Typ položky | Typy položiek"
+        },
+        "proxy_dcterms_medium": {
+          "name": "Materiál | Materiály"
+        }
+      }
     }
   },
-  "facets": {
-    "COUNTRY": {
-      "name": "Poskytujúca krajina"
+  "contentfulManual": {
+    "footerNavigation": {
+      "about": "Informácie o zbierkach Europeana",
+      "forDevelopers": "Pre vývojárov",
+      "help": "Pomoc",
+      "meetUs": "Spoznajte členov tímu",
+      "provide": "Staňte sa poskytovateľom údajov",
+      "terms": "Podmienky používania služby a zásady ochrany osobných údajov"
     },
-    "REUSABILITY": {
-      "name": "Môžem to znova použiť?",
+    "headerNavigation": {
+      "explore": "Objavujte",
+      "teachers": "Pedagógovia"
+    }
+  },
+  "cookieDisclaimer": {
+    "acceptCookieDisclaimer": "Vyjadrite súhlas s vyhlásením o používaní súborov cookie",
+    "link": "Ďalšie informácie",
+    "terms": "Táto webová stránka používa cookies, aby zabezpečila čo najlepší zážitok z našej webovej stránky. Kliknutím alebo navigáciou na stránke súhlasíte s povolením nášho zhromažďovania informácií prostredníctvom súborov cookie."
+  },
+  "dateFilter": {
+    "endDate": "Dátum ukončenia",
+    "specificDate": "Konkrétny dátum",
+    "startDate": "Dátum začiatku",
+    "to": "do"
+  },
+  "delete": "Vymazať",
+  "depiction": "Zobrazenie {title}",
+  "directions": {
+    "left": "Vľavo",
+    "right": "Vpravo"
+  },
+  "edmIsShownAtLinkAlt": "Zobrazenie na webovej stránke poskytovateľa",
+  "entity": "Subjekt",
+  "error": "Chyba",
+  "exhibitions": {
+    "chapters": "Kapitoly",
+    "credits": "Autori",
+    "currentChapter": "Aktuálna kapitola",
+    "exhibitions": "Výstavy"
+  },
+  "facets": {
+    "api": {
+      "name": "Vyhľadávať",
       "options": {
-        "open": "Áno",
-        "restricted": "Áno; s výhradami",
-        "permission": "Možno; získajte povolenie",
-        "uncategorized": "Nekategorizované"
+        "fulltext": "Záznamy s plným textom",
+        "metadata": "Výhradne záznamy s metaúdajmi"
       }
+    },
+    "button": {
+      "apply": "Použiť",
+      "cancel": "Zrušiť",
+      "morefilters": "Viac filtrov",
+      "reset": "Obnoviť",
+      "showAll": "Zobraziť všetko {label}",
+      "showLess": "Zobraziť menej {label}"
     },
     "collection": {
       "name": "Kategória",
       "options": {
-        "ww1": "1914 – 1918",
         "archaeology": "Archeológia",
         "art": "Umenie",
         "fashion": "Móda",
+        "industrial": "Priemyselné dedičstvo",
         "manuscript": "Rukopisy",
         "map": "Mapy a geografia",
         "migration": "Migrácia",
@@ -104,62 +105,7 @@ export default {
         "newspaper": "Noviny",
         "photography": "Fotografie",
         "sport": "Šport",
-        "industrial": "Priemyselné dedičstvo"
-      }
-    },
-    "TYPE": {
-      "name": "Typ média",
-      "options": {
-        "IMAGE": "Obraz",
-        "TEXT": "Text",
-        "VIDEO": "Video",
-        "SOUND": "Zvuk",
-        "3D": "3D"
-      }
-    },
-    "contentTier": {
-      "name": "Obsahuje položky, ktoré nespĺňajú naše publikačné kritériá",
-      "options": {
-        "*": "Obsahuje položky, ktoré nespĺňajú naše publikačné kritériá"
-      }
-    },
-    "button": {
-      "reset": "Obnoviť",
-      "apply": "Použiť",
-      "cancel": "Zrušiť",
-      "morefilters": "Viac filtrov",
-      "showAll": "Zobraziť všetko {label}",
-      "showLess": "Zobraziť menej {label}"
-    },
-    "LANGUAGE": {
-      "name": "Jazyk"
-    },
-    "PROVIDER": {
-      "name": "Agregátor"
-    },
-    "DATA_PROVIDER": {
-      "name": "Inštitúcia"
-    },
-    "IMAGE_ASPECTRATIO": {
-      "name": "Orientácia obrázka | Orientácie obrázkov",
-      "options": {
-        "landscape": "Na šírku",
-        "portrait": "Na výšku"
-      }
-    },
-    "IMAGE_SIZE": {
-      "name": "Veľkosť obrázka | Veľkosti obrázkov",
-      "options": {
-        "small": "Malý, menej ako 0,5 MP (napr. 650 x 600 pixelov)",
-        "medium": "Stredný 0,5 – 1 MP (napr. 850 x 850 pixelov)",
-        "large": "Veľký,  1 – 4 MP (napr. 1920 x 1080 pixelov)",
-        "extra_large": "Extra veľký, 4 MP + (napr. 2688 x 1520 pixelov)"
-      }
-    },
-    "MIME_TYPE": {
-      "name": "Formát súboru | Formáty súborov",
-      "options": {
-        "text/plain": "Obyčajný text"
+        "ww1": "1914 – 1918"
       }
     },
     "COLOURPALETTE": {
@@ -310,174 +256,228 @@ export default {
         "#FFFFFF": "biely"
       }
     },
-    "proxy_dcterms_issued": {
-      "name": "Dátum vydania"
-    },
-    "api": {
-      "name": "Vyhľadávať",
+    "contentTier": {
+      "name": "Obsahuje položky, ktoré nespĺňajú naše publikačné kritériá",
       "options": {
-        "fulltext": "Záznamy s plným textom",
-        "metadata": "Výhradne záznamy s metaúdajmi"
+        "*": "Obsahuje položky, ktoré nespĺňajú naše publikačné kritériá"
       }
+    },
+    "COUNTRY": {
+      "name": "Poskytujúca krajina"
     },
     "CREATOR": {
       "name": "Tvorca | Tvorcovia"
     },
+    "DATA_PROVIDER": {
+      "name": "Inštitúcia"
+    },
+    "IMAGE_ASPECTRATIO": {
+      "name": "Orientácia obrázka | Orientácie obrázkov",
+      "options": {
+        "landscape": "Na šírku",
+        "portrait": "Na výšku"
+      }
+    },
+    "IMAGE_SIZE": {
+      "name": "Veľkosť obrázka | Veľkosti obrázkov",
+      "options": {
+        "extra_large": "Extra veľký, 4 MP + (napr. 2688 x 1520 pixelov)",
+        "large": "Veľký,  1 – 4 MP (napr. 1920 x 1080 pixelov)",
+        "medium": "Stredný 0,5 – 1 MP (napr. 850 x 850 pixelov)",
+        "small": "Malý, menej ako 0,5 MP (napr. 650 x 600 pixelov)"
+      }
+    },
+    "LANGUAGE": {
+      "name": "Jazyk"
+    },
+    "MIME_TYPE": {
+      "name": "Formát súboru | Formáty súborov",
+      "options": {
+        "text\/plain": "Obyčajný text"
+      }
+    },
+    "PROVIDER": {
+      "name": "Agregátor"
+    },
     "proxy_dc_format": {
       "name": "Formát | Formáty"
+    },
+    "proxy_dc_type": {
+      "name": "Typ | Typy"
+    },
+    "proxy_dcterms_issued": {
+      "name": "Dátum vydania"
     },
     "proxy_dcterms_medium": {
       "name": "Médium | Mediá"
     },
-    "proxy_dc_type": {
-      "name": "Typ | Typy"
+    "REUSABILITY": {
+      "name": "Môžem to znova použiť?",
+      "options": {
+        "open": "Áno",
+        "permission": "Možno; získajte povolenie",
+        "restricted": "Áno; s výhradami",
+        "uncategorized": "Nekategorizované"
+      }
+    },
+    "TYPE": {
+      "name": "Typ média",
+      "options": {
+        "3D": "3D",
+        "IMAGE": "Obraz",
+        "SOUND": "Zvuk",
+        "TEXT": "Text",
+        "VIDEO": "Video"
+      }
     }
   },
-  "entity": "Subjekt",
-  "resourceWikimedia": "Zdroj z Wikimedia Commons",
-  "messages": {
-    "notFound": "Nenašlo sa",
-    "externalContentError": "Nepodarilo sa načítať externý obsah",
-    "paginationLimitExceeded": "Je možné zobraziť len prvých {limit} výsledkov vyhľadávania."
+  "fieldLabels": {
+    "default": {
+      "dcContributor": "Prispievatelia",
+      "dcCoverage": "Miesto-Čas",
+      "dcCreator": "Tvorca",
+      "dcDate": "Dátum",
+      "dcDescription": "Popis",
+      "dcDuration": "Trvanie",
+      "dcFormat": "Formát",
+      "dcIdentifier": "Identifikátor",
+      "dcLanguage": "Jazyk",
+      "dcMedium": "Médium",
+      "dcPublisher": "Vydavateľ",
+      "dcRelation": "Vzťahy",
+      "dcRights": "Práva",
+      "dcSource": "Zdroj",
+      "dcSubject": "Predmet",
+      "dctermsCreated": "Dátum vytvorenia",
+      "dctermsExtent": "Rozsah",
+      "dctermsHasPart": "Pozostáva z",
+      "dctermsHasVersion": "Má verziu",
+      "dctermsIsFormatOf": "Je formát",
+      "dctermsIsPartOf": "Je súčasťou",
+      "dctermsIsReferencedBy": "Odkazuje sa naň v",
+      "dctermsIsReplacedBy": "Nahrádza ho",
+      "dctermsIsRequiredBy": "Vyžaduje sa od",
+      "dctermsIssued": "Dátum vydania",
+      "dctermsMedium": "Médium",
+      "dctermsProvenance": "Proveniencia",
+      "dctermsPublished": "Dátum publikácie",
+      "dctermsReferences": "Odkazuje na",
+      "dctermsSpatial": "Miesta",
+      "dctermsTemporal": "Časové obdobie",
+      "dcTitle": "Názov",
+      "dcType": "Typ objektu",
+      "edmCountry": "Poskytujúca krajina",
+      "edmCurrentLocation": "Aktuálna poloha",
+      "edmDataProvider": "Poskytujúca inštitúcia",
+      "edmHasMet": "Spĺňa",
+      "edmIncorporates": "Zahŕňa",
+      "edmIntermediateProvider": "Sprostredkovateľ",
+      "edmIsDerivativeOf": "Je odvodený z",
+      "edmIsRepresentationOf": "Znázorňuje",
+      "edmIsSimilarTo": "Podobá sa",
+      "edmIsSuccessorOf": "nasleduje po",
+      "edmProvider": "Poskytovateľ",
+      "edmRealizes": "Zachytáva",
+      "edmRights": "Licencia na médiá v tomto zázname (pokiaľ nie je uvedené inak)",
+      "edmUgc": "Obsah generovaný používateľmi",
+      "europeanaCollectionName": "Názov zbierky",
+      "keywords": "Kľúčové slová (poskytnuté komunitou)",
+      "timestampCreated": "Vytvorenie časovej pečiatky",
+      "timestampUpdate": "Aktualizácia časovej pečiatky",
+      "wasPresentAt": "bol prítomný na mieste"
+    },
+    "webResource": {
+      "about": "RDF o",
+      "dcDescription": "Popis",
+      "ebucoreHasMimeType": "Typ Ebucore MIME",
+      "edmRights": "Licencia na tento mediálny zdroj",
+      "rdfAbout": "RDF o"
+    }
   },
-  "searchViews": {
-    "grid": "Zobrazenie mriežky",
-    "list": "Zobrazenie zoznamu"
+  "footer": {
+    "customiseWebsiteLanguage": "Prispôsobenie jazyka webovej lokality",
+    "findUsElsewhere": "Nájdite nás aj inde",
+    "imageDescription": "Spolufinancované z nástroja Európskej únie s názvom Spájame Európu",
+    "ourMission": "Náš cieľ",
+    "ourMissionQuote": "Europeana posilňuje digitálnu transformáciu odvetvia kultúrneho dedičstva. Rozvíjame odborné znalosti, nástroje a zásady na prijímanie digitálnych zmien a nadväzujeme partnerstvá, ktoré sú založené na inovácii."
+  },
+  "formatting": {
+    "ellipsis": "…",
+    "labelledValue": "{label} : {value}",
+    "listSeperator": ";"
+  },
+  "galleries": {
+    "galleries": "Galérie"
+  },
+  "goToRecord": "Prejsť na záznam",
+  "homeLinkAlt": "Domovská stránka Europeana",
+  "imageSlider": {
+    "handle": "Rukoväť posuvníka"
   },
   "layout": {
     "skipToMain": "Preskočiť na stránku s obsahom"
   },
-  "searchPlaceholder": "Čo hľadáte?",
-  "searchTier": {
-    "button": {
-      "show": "Zobraziť tieto položky",
-      "hide": "Skryť tieto položky"
+  "learnMore": "Zistite viac o zdroji tohto popisu",
+  "linksToClassic": {
+    "home": {
+      "linkText": "Prejdite na pôvodnú webovú lokalitu Europeana.",
+      "text": "Prezeráte si novú verziu webovej lokality Europeana."
     },
-    "text": {
-      "show": "Vášmu vyhľadávaniu vyhovuje viac položiek, nespĺňajú však naše publikačné kritériá.",
-      "hide": "Zobrazia sa položky, ktoré nespĺňajú naše publikačné kritériá."
+    "record": {
+      "linkText": "Túto položku si môžete prezrieť na pôvodnej webovej lokalite Europeana.",
+      "text": "Túto položku si prezeráte na novej webovej lokalite Europeana."
+    },
+    "search": {
+      "linkText": "Tieto výsledky vyhľadávania si môžete prezrieť na pôvodnej webovej lokalite Europeana.",
+      "text": "Vyhľadávate na našej novej a rýchlejšej webovej lokalite."
     }
   },
-  "depiction": "Zobrazenie {title}",
-  "showLess": "Zobraziť menej",
-  "showMore": "Zobraziť viac",
-  "delete": "Vymazať",
-  "removeFilter": "Odstrániť filter {filterLabel}",
-  "newWindow": "otvorí sa v novom okne",
-  "blog": {
-    "blog": "Blog",
-    "author": "Autor",
-    "authors": "Autori",
-    "category": "Kategória",
-    "categories": "Kategórie",
-    "relatedPosts": "Súvisiace príspevky"
-  },
-  "directions": {
-    "left": "Vľavo",
-    "right": "Vpravo"
-  },
-  "exhibitions": {
-    "exhibitions": "Výstavy",
-    "credits": "Autori",
-    "chapters": "Kapitoly",
-    "currentChapter": "Aktuálna kapitola"
-  },
-  "actions": {
-    "download": "Stiahnuť",
-    "viewAt": "Zobraziť na adrese {link}",
-    "providedBy": "Poskytovateľ:  {provider}",
-    "viewDocument": "Zobraziť dokument",
-    "share": "Zdieľať",
-    "shareOn": "Zdieľať na sociálnej sieti {social}"
-  },
-  "clearAllFilters": "Vymazať všetky filtre",
-  "reset": "Obnoviť",
   "loadingResults": "Načítavajú sa výsledky",
-  "edmIsShownAtLinkAlt": "Zobrazenie na webovej stránke poskytovateľa",
+  "messages": {
+    "externalContentError": "Nepodarilo sa načítať externý obsah",
+    "notFound": "Nenašlo sa",
+    "paginationLimitExceeded": "Je možné zobraziť len prvých {limit} výsledkov vyhľadávania."
+  },
+  "newWindow": "otvorí sa v novom okne",
+  "noMoreResults": "Pre vaše vyhľadávanie neexistujú žiadne ďalšie výsledky.",
+  "noResults": "Žiadne výsledky",
+  "readMore": "Viac",
   "record": {
+    "downloadCopyrightInfo": "Táto položka je chránená autorským zákonom a nie je možné ju stiahnuť.",
     "extendedInformation": "Ďalšie informácie",
     "hideAll": "Skryť všetky informácie",
     "record": "Záznam",
     "showAll": "Zobraziť všetky informácie",
     "similarItems": "Podobné položky",
     "view": {
-      "pdf": "Zobraziť PDF",
       "image": "Zobraziť obrázok",
-      "media": "Zobraziť médiá"
-    },
-    "downloadCopyrightInfo": "Táto položka je chránená autorským zákonom a nie je možné ju stiahnuť."
-  },
-  "contentfulManual": {
-    "headerNavigation": {
-      "teachers": "Pedagógovia",
-      "explore": "Objavujte"
-    },
-    "footerNavigation": {
-      "about": "Informácie o zbierkach Europeana",
-      "forDevelopers": "Pre vývojárov",
-      "terms": "Podmienky používania služby a zásady ochrany osobných údajov",
-      "provide": "Staňte sa poskytovateľom údajov",
-      "meetUs": "Spoznajte členov tímu",
-      "help": "Pomoc"
+      "media": "Zobraziť médiá",
+      "pdf": "Zobraziť PDF"
     }
-  },
-  "imageSlider": {
-    "handle": "Rukoväť posuvníka"
-  },
-  "dateFilter": {
-    "startDate": "Dátum začiatku",
-    "endDate": "Dátum ukončenia",
-    "to": "do",
-    "specificDate": "Konkrétny dátum"
-  },
-  "cookieDisclaimer": {
-    "acceptCookieDisclaimer": "Vyjadrite súhlas s vyhlásením o používaní súborov cookie",
-    "terms": "Táto webová stránka používa cookies, aby zabezpečila čo najlepší zážitok z našej webovej stránky. Kliknutím alebo navigáciou na stránke súhlasíte s povolením nášho zhromažďovania informácií prostredníctvom súborov cookie.",
-    "link": "Ďalšie informácie"
-  },
-  "searchSuggestions": "Návrhy na vyhľadávanie",
-  "learnMore": "Zistite viac o zdroji tohto popisu",
-  "footer": {
-    "ourMission": "Náš cieľ",
-    "ourMissionQuote": "Europeana posilňuje digitálnu transformáciu odvetvia kultúrneho dedičstva. Rozvíjame odborné znalosti, nástroje a zásady na prijímanie digitálnych zmien a nadväzujeme partnerstvá, ktoré sú založené na inovácii.",
-    "customiseWebsiteLanguage": "Prispôsobenie jazyka webovej lokality",
-    "imageDescription": "Spolufinancované z nástroja Európskej únie s názvom Spájame Európu",
-    "findUsElsewhere": "Nájdite nás aj inde"
-  },
-  "collections": {
-    "fashion": {
-      "facets": {
-        "CREATOR": {
-          "name": "Dizajnér | Dizajnéri"
-        },
-        "proxy_dc_format": {
-          "name": "Technika | Techniky"
-        },
-        "proxy_dcterms_medium": {
-          "name": "Materiál | Materiály"
-        },
-        "proxy_dc_type": {
-          "name": "Typ položky | Typy položiek"
-        }
-      }
-    }
-  },
-  "galleries": {
-    "galleries": "Galérie"
   },
   "relatedCollections": "Súvisiace zbierky",
-  "linksToClassic": {
-    "home": {
-      "text": "Prezeráte si novú verziu webovej lokality Europeana.",
-      "linkText": "Prejdite na pôvodnú webovú lokalitu Europeana."
+  "removeFilter": "Odstrániť filter {filterLabel}",
+  "reset": "Obnoviť",
+  "resourceWikimedia": "Zdroj z Wikimedia Commons",
+  "results": "Výsledky",
+  "resultsLimitWarning": "Ďalšie výsledky sa nezobrazujú, pretože sa zobrazuje iba prvých 1000 najrelevantnejších výsledkov. Ak ste nenašli, čo hľadáte, upresnite vyhľadávanie.",
+  "search": "Hľadať",
+  "searchPlaceholder": "Čo hľadáte?",
+  "searchSuggestions": "Návrhy na vyhľadávanie",
+  "searchTier": {
+    "button": {
+      "hide": "Skryť tieto položky",
+      "show": "Zobraziť tieto položky"
     },
-    "search": {
-      "text": "Vyhľadávate na našej novej a rýchlejšej webovej lokalite.",
-      "linkText": "Tieto výsledky vyhľadávania si môžete prezrieť na pôvodnej webovej lokalite Europeana."
-    },
-    "record": {
-      "text": "Túto položku si prezeráte na novej webovej lokalite Europeana.",
-      "linkText": "Túto položku si môžete prezrieť na pôvodnej webovej lokalite Europeana."
+    "text": {
+      "hide": "Zobrazia sa položky, ktoré nespĺňajú naše publikačné kritériá.",
+      "show": "Vášmu vyhľadávaniu vyhovuje viac položiek, nespĺňajú však naše publikačné kritériá."
     }
-  }
+  },
+  "searchViews": {
+    "grid": "Zobrazenie mriežky",
+    "list": "Zobrazenie zoznamu"
+  },
+  "showLess": "Zobraziť menej",
+  "showMore": "Zobraziť viac"
 };
