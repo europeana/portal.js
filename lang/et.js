@@ -1,101 +1,102 @@
 export default {
-  "formatting": {
-    "labelledValue": "{label}: {value}",
-    "ellipsis": "…",
-    "listSeperator": ";"
+  "actions": {
+    "download": "Lae alla",
+    "providedBy": "Pakub {provider}",
+    "share": "Jagage",
+    "shareOn": "Jagage saidil {social}",
+    "viewAt": "Kuva saidil {link}",
+    "viewDocument": "Vaadake dokumenti"
   },
-  "error": "Viga",
-  "goToRecord": "Mine kirje juurde",
-  "readMore": "Loe lähemalt",
-  "search": "Otsing",
-  "results": "Tulemused",
-  "homeLinkAlt": "Europeana avaleht",
-  "noMoreResults": "Teie otsingupäringule pole rohkem tulemusi.",
-  "resultsLimitWarning": "Täiendavaid tulemusi ei kuvata, kuna kuvatakse ainult esimesed 1000 kõige asjakohasemat tulemust. Kui te pole leidnud seda, mida otsite, kaaluge oma otsingu täpsustamist.",
-  "noResults": "Ühtki tulemust",
-  "fieldLabels": {
-    "default": {
-      "dcContributor": "Kaasautorid",
-      "dcCreator": "Looja",
-      "dcDescription": "Kirjeldus",
-      "dcTitle": "Pealkiri",
-      "dcType": "Objekti tüüp",
-      "dctermsCreated": "Loomise kuupäev",
-      "edmCountry": "Pakkuja riik",
-      "edmDataProvider": "Pakkuja institutsioon",
-      "edmRights": "Selle kirje meediumite litsents (kui pole teisiti täpsustatud)",
-      "dcPublisher": "Kirjastus",
-      "dcSubject": "Teema",
-      "dctermsMedium": "Meedium",
-      "dcRights": "Õigused",
-      "dcDate": "Kuupäev",
-      "dctermsPublished": "Avaldamise kuupäev",
-      "dctermsIssued": "Väljaandmise kuupäev",
-      "dctermsTemporal": "Ajaline",
-      "dcCoverage": "Koht-aeg",
-      "dctermsSpatial": "Kohad",
-      "edmCurrentLocation": "Praegune asukoht",
-      "edmUgc": "Kasutaja loodud sisu",
-      "dctermsProvenance": "Päritolu",
-      "dcSource": "Allikas",
-      "dcIdentifier": "Identifikaator",
-      "edmIntermediateProvider": "Vahendusteenuse osutaja",
-      "edmProvider": "Pakkuja",
-      "timestampCreated": "Ajatempel loodud",
-      "timestampUpdate": "Ajatempel värskendatud",
-      "dctermsExtent": "Ulatus ",
-      "dcDuration": "Kestus",
-      "dcMedium": "Meedium",
-      "dcFormat": "Formaat",
-      "dcLanguage": "Keel",
-      "dctermsIsPartOf": "On osa",
-      "europeanaCollectionName": "Kollektsiooni nimi",
-      "dcRelation": "Seosed",
-      "dctermsReferences": "Viitab",
-      "dctermsHasPart": "Koosneb",
-      "dctermsHasVersion": "Omab versiooni",
-      "dctermsIsFormatOf": "On formaat",
-      "dctermsIsReferencedBy": "Viidatakse",
-      "dctermsIsReplacedBy": "Asendatakse",
-      "dctermsIsRequiredBy": "On vajalik",
-      "edmHasMet": "On kohtunud",
-      "edmIncorporates": "Sisaldab",
-      "edmIsDerivativeOf": "Tuleneb",
-      "edmIsRepresentationOf": "Esindab",
-      "edmIsSimilarTo": "on sarnane",
-      "edmIsSuccessorOf": "on järeltulija",
-      "edmRealizes": "Mõistab",
-      "wasPresentAt": "Oli kohal",
-      "keywords": "Märksõnad (kogukonna poolt antud)"
-    },
-    "webResource": {
-      "dcDescription": "Kirjeldus",
-      "rdfAbout": "RDF kohta",
-      "edmRights": "Selle meediumiressursi litsents",
-      "ebucoreHasMimeType": "Ebucore MIME tüüp",
-      "about": "RDF kohta"
+  "blog": {
+    "author": "Autor",
+    "authors": "Autorid",
+    "blog": "Blogi",
+    "categories": "Kategooriad",
+    "category": "Kategooria",
+    "relatedPosts": "Seonduvad postitused"
+  },
+  "clearAllFilters": "tühjenda kõik filtrid",
+  "collections": {
+    "fashion": {
+      "facets": {
+        "CREATOR": {
+          "name": "Disainer | Disainerid"
+        },
+        "proxy_dc_format": {
+          "name": "Tehnika | Tehnikad"
+        },
+        "proxy_dc_type": {
+          "name": "Kauba tüüp | Kauba tüübid"
+        },
+        "proxy_dcterms_medium": {
+          "name": "Materjal | Materjalid"
+        }
+      }
     }
   },
-  "facets": {
-    "COUNTRY": {
-      "name": "Pakkuja riik"
+  "contentfulManual": {
+    "footerNavigation": {
+      "about": "Infot Europeana Collections kohta",
+      "forDevelopers": "Arendajatele",
+      "help": "Abimaterjal",
+      "meetUs": "Tutvu meeskonnaga",
+      "provide": "Hakka andmepakkujaks",
+      "terms": "Kasutustingimused ja privaatsuspoliitika"
     },
-    "REUSABILITY": {
-      "name": "Kas ma saan seda uuesti kasutada?",
+    "headerNavigation": {
+      "explore": "Tutvuge",
+      "teachers": "Õpetajad"
+    }
+  },
+  "cookieDisclaimer": {
+    "acceptCookieDisclaimer": "Nõustuge küpsistest loobumisega",
+    "link": "Rohkem infot",
+    "terms": "See veebisait kasutab küpsiseid, et tagada meie veebisaidil parim kogemus. Sellel saidil klõpsates või liikudes nõustute lubama teabe kogumist küpsiste kaudu."
+  },
+  "dateFilter": {
+    "endDate": "Lõppkuupäev",
+    "specificDate": "Konkreetne kuupäev",
+    "startDate": "Alguskuupäev",
+    "to": "kuni"
+  },
+  "delete": "Kustuta",
+  "depiction": "{title} kujutis",
+  "directions": {
+    "left": "Vasak",
+    "right": "Parem"
+  },
+  "edmIsShownAtLinkAlt": "Vaadake teenusepakkuja veebisaidil",
+  "entity": "Üksus",
+  "error": "Viga",
+  "exhibitions": {
+    "chapters": "Peatükid",
+    "credits": "Autorid",
+    "currentChapter": "Praegune peatükk",
+    "exhibitions": "Näitused"
+  },
+  "facets": {
+    "api": {
+      "name": "Otsing",
       "options": {
-        "open": "Jah",
-        "restricted": "Jah, tingimustega",
-        "permission": "Võib-olla, küsige luba",
-        "uncategorized": "Kategoriseerimata"
+        "fulltext": "Täistekstiga kirjed",
+        "metadata": "Ainult metaandmete kirjed"
       }
+    },
+    "button": {
+      "apply": "Kohalda",
+      "cancel": "Tühista",
+      "morefilters": "Rohkem filtreid",
+      "reset": "Lähtesta",
+      "showAll": "Kuva kõik {label}",
+      "showLess": "Näita vähem {label}"
     },
     "collection": {
       "name": "Kategooria",
       "options": {
-        "ww1": "1914–1918",
         "archaeology": "Arheoloogia",
         "art": "Kunst",
         "fashion": "Mood",
+        "industrial": "Tööstuspärand",
         "manuscript": "Käsikirjad",
         "map": "Kaardid ja geograafia",
         "migration": "Ränne",
@@ -104,62 +105,7 @@ export default {
         "newspaper": "Ajalehed",
         "photography": "Fotograafia",
         "sport": "Sport",
-        "industrial": "Tööstuspärand"
-      }
-    },
-    "TYPE": {
-      "name": "Meediumitüüp",
-      "options": {
-        "IMAGE": "Pilt ",
-        "TEXT": "Tekst",
-        "VIDEO": "Video",
-        "SOUND": "Heli",
-        "3D": "3D"
-      }
-    },
-    "contentTier": {
-      "name": "Sisaldab üksusi, mis ei vasta meie avaldamiskriteeriumidele",
-      "options": {
-        "*": "Sisaldab üksusi, mis ei vasta meie avaldamiskriteeriumidele"
-      }
-    },
-    "button": {
-      "reset": "Lähtesta",
-      "apply": "Kohalda",
-      "cancel": "Tühista",
-      "morefilters": "Rohkem filtreid",
-      "showAll": "Kuva kõik {label}",
-      "showLess": "Näita vähem {label}"
-    },
-    "LANGUAGE": {
-      "name": "Keel"
-    },
-    "PROVIDER": {
-      "name": "Koondaja"
-    },
-    "DATA_PROVIDER": {
-      "name": "Institutsioon"
-    },
-    "IMAGE_ASPECTRATIO": {
-      "name": "Kujutise orientatsioon | Kujutise orientatsioonid",
-      "options": {
-        "landscape": "Maastik",
-        "portrait": "Portree"
-      }
-    },
-    "IMAGE_SIZE": {
-      "name": "Pildi suurus | Pildi suurused",
-      "options": {
-        "small": "Väike < 0,5 MP (nt 650x600 pikslit)",
-        "medium": "Keskmine 0,5–1 MP (nt 850x850 pikslit)",
-        "large": "Suur 1–4 MP (nt 1920x1080 pikslit)",
-        "extra_large": "Eriti suur 4MP + (nt 2688 x 1520 pikslit)"
-      }
-    },
-    "MIME_TYPE": {
-      "name": "Failivorming | Failivormingud",
-      "options": {
-        "text/plain": "Lihttekst"
+        "ww1": "1914–1918"
       }
     },
     "COLOURPALETTE": {
@@ -310,174 +256,228 @@ export default {
         "#FFFFFF": "Valge"
       }
     },
-    "proxy_dcterms_issued": {
-      "name": "Väljaandmise kuupäev"
-    },
-    "api": {
-      "name": "Otsing",
+    "contentTier": {
+      "name": "Sisaldab üksusi, mis ei vasta meie avaldamiskriteeriumidele",
       "options": {
-        "fulltext": "Täistekstiga kirjed",
-        "metadata": "Ainult metaandmete kirjed"
+        "*": "Sisaldab üksusi, mis ei vasta meie avaldamiskriteeriumidele"
       }
+    },
+    "COUNTRY": {
+      "name": "Pakkuja riik"
     },
     "CREATOR": {
       "name": "Looja | Loojad"
     },
+    "DATA_PROVIDER": {
+      "name": "Institutsioon"
+    },
+    "IMAGE_ASPECTRATIO": {
+      "name": "Kujutise orientatsioon | Kujutise orientatsioonid",
+      "options": {
+        "landscape": "Maastik",
+        "portrait": "Portree"
+      }
+    },
+    "IMAGE_SIZE": {
+      "name": "Pildi suurus | Pildi suurused",
+      "options": {
+        "extra_large": "Eriti suur 4MP + (nt 2688 x 1520 pikslit)",
+        "large": "Suur 1–4 MP (nt 1920x1080 pikslit)",
+        "medium": "Keskmine 0,5–1 MP (nt 850x850 pikslit)",
+        "small": "Väike < 0,5 MP (nt 650x600 pikslit)"
+      }
+    },
+    "LANGUAGE": {
+      "name": "Keel"
+    },
+    "MIME_TYPE": {
+      "name": "Failivorming | Failivormingud",
+      "options": {
+        "text\/plain": "Lihttekst"
+      }
+    },
+    "PROVIDER": {
+      "name": "Koondaja"
+    },
     "proxy_dc_format": {
       "name": "Vorming | Vormingud"
+    },
+    "proxy_dc_type": {
+      "name": "Tüüp | Tüübid"
+    },
+    "proxy_dcterms_issued": {
+      "name": "Väljaandmise kuupäev"
     },
     "proxy_dcterms_medium": {
       "name": "Meedium | Meediumid"
     },
-    "proxy_dc_type": {
-      "name": "Tüüp | Tüübid"
+    "REUSABILITY": {
+      "name": "Kas ma saan seda uuesti kasutada?",
+      "options": {
+        "open": "Jah",
+        "permission": "Võib-olla, küsige luba",
+        "restricted": "Jah, tingimustega",
+        "uncategorized": "Kategoriseerimata"
+      }
+    },
+    "TYPE": {
+      "name": "Meediumitüüp",
+      "options": {
+        "3D": "3D",
+        "IMAGE": "Pilt ",
+        "SOUND": "Heli",
+        "TEXT": "Tekst",
+        "VIDEO": "Video"
+      }
     }
   },
-  "entity": "Üksus",
-  "resourceWikimedia": "Wikimedia Commonsist saadud ressurss",
-  "messages": {
-    "notFound": "Ei leitud",
-    "externalContentError": "Välist sisu ei õnnestunud laadida",
-    "paginationLimitExceeded": "Võimalik on vaadata ainult esimesi {limit} otsingutulemusi."
+  "fieldLabels": {
+    "default": {
+      "dcContributor": "Kaasautorid",
+      "dcCoverage": "Koht-aeg",
+      "dcCreator": "Looja",
+      "dcDate": "Kuupäev",
+      "dcDescription": "Kirjeldus",
+      "dcDuration": "Kestus",
+      "dcFormat": "Formaat",
+      "dcIdentifier": "Identifikaator",
+      "dcLanguage": "Keel",
+      "dcMedium": "Meedium",
+      "dcPublisher": "Kirjastus",
+      "dcRelation": "Seosed",
+      "dcRights": "Õigused",
+      "dcSource": "Allikas",
+      "dcSubject": "Teema",
+      "dctermsCreated": "Loomise kuupäev",
+      "dctermsExtent": "Ulatus ",
+      "dctermsHasPart": "Koosneb",
+      "dctermsHasVersion": "Omab versiooni",
+      "dctermsIsFormatOf": "On formaat",
+      "dctermsIsPartOf": "On osa",
+      "dctermsIsReferencedBy": "Viidatakse",
+      "dctermsIsReplacedBy": "Asendatakse",
+      "dctermsIsRequiredBy": "On vajalik",
+      "dctermsIssued": "Väljaandmise kuupäev",
+      "dctermsMedium": "Meedium",
+      "dctermsProvenance": "Päritolu",
+      "dctermsPublished": "Avaldamise kuupäev",
+      "dctermsReferences": "Viitab",
+      "dctermsSpatial": "Kohad",
+      "dctermsTemporal": "Ajaline",
+      "dcTitle": "Pealkiri",
+      "dcType": "Objekti tüüp",
+      "edmCountry": "Pakkuja riik",
+      "edmCurrentLocation": "Praegune asukoht",
+      "edmDataProvider": "Pakkuja institutsioon",
+      "edmHasMet": "On kohtunud",
+      "edmIncorporates": "Sisaldab",
+      "edmIntermediateProvider": "Vahendusteenuse osutaja",
+      "edmIsDerivativeOf": "Tuleneb",
+      "edmIsRepresentationOf": "Esindab",
+      "edmIsSimilarTo": "on sarnane",
+      "edmIsSuccessorOf": "on järeltulija",
+      "edmProvider": "Pakkuja",
+      "edmRealizes": "Mõistab",
+      "edmRights": "Selle kirje meediumite litsents (kui pole teisiti täpsustatud)",
+      "edmUgc": "Kasutaja loodud sisu",
+      "europeanaCollectionName": "Kollektsiooni nimi",
+      "keywords": "Märksõnad (kogukonna poolt antud)",
+      "timestampCreated": "Ajatempel loodud",
+      "timestampUpdate": "Ajatempel värskendatud",
+      "wasPresentAt": "Oli kohal"
+    },
+    "webResource": {
+      "about": "RDF kohta",
+      "dcDescription": "Kirjeldus",
+      "ebucoreHasMimeType": "Ebucore MIME tüüp",
+      "edmRights": "Selle meediumiressursi litsents",
+      "rdfAbout": "RDF kohta"
+    }
   },
-  "searchViews": {
-    "grid": "Võrguvaade",
-    "list": "Loendivaade"
+  "footer": {
+    "customiseWebsiteLanguage": "Kohandage veebisaidi keelt",
+    "findUsElsewhere": "Leidke meid mujalt",
+    "imageDescription": "Kaasfinantseerib Euroopa Liidu Euroopa ühendamise rahastu",
+    "ourMission": "Meie missioon",
+    "ourMissionQuote": "Europeana annab kultuuripärandisektorile digitaalse ümberkujundamise võimaluse. Arendame teadmisi, tööriistu ja poliitikaid, et omaks võtta digitaalsed muutused ja julgustada partnerlussuhteid, mis edendavad innovatsiooni."
+  },
+  "formatting": {
+    "ellipsis": "…",
+    "labelledValue": "{label}: {value}",
+    "listSeperator": ";"
+  },
+  "galleries": {
+    "galleries": "Galeriid"
+  },
+  "goToRecord": "Mine kirje juurde",
+  "homeLinkAlt": "Europeana avaleht",
+  "imageSlider": {
+    "handle": "Liugkäepide"
   },
   "layout": {
     "skipToMain": "Otse lehekülje sisule"
   },
-  "searchPlaceholder": "Mida te otsite?",
-  "searchTier": {
-    "button": {
-      "show": "Näita neid üksusi",
-      "hide": "Peida need üksused"
+  "learnMore": "Lisateave selle kirjelduse allika kohta",
+  "linksToClassic": {
+    "home": {
+      "linkText": "Minge algsesse Europeanasse.",
+      "text": "Vaatate uut Europeana kogemust."
     },
-    "text": {
-      "show": "Rohkem üksusi vastab teie otsingule, kuid ei vasta meie avaldamiskriteeriumidele.",
-      "hide": "Kuvatakse üksusi, mis ei vasta meie avaldamiskriteeriumidele."
+    "record": {
+      "linkText": "Vaadake seda toodet algses Europeanas.",
+      "text": "Vaatate seda toodet uuel Europeana veebisaidil."
+    },
+    "search": {
+      "linkText": "Vaadake neid tulemusi algses Europeanas.",
+      "text": "Otsite meie uuel ja kiiremal veebisaidil."
     }
   },
-  "depiction": "{title} kujutis",
-  "showLess": "Näita vähem",
-  "showMore": "Näita rohkem",
-  "delete": "Kustuta",
-  "removeFilter": "Eemalda filter {filterLabel}",
-  "newWindow": "avaneb uues aknas",
-  "blog": {
-    "blog": "Blogi",
-    "author": "Autor",
-    "authors": "Autorid",
-    "category": "Kategooria",
-    "categories": "Kategooriad",
-    "relatedPosts": "Seonduvad postitused"
-  },
-  "directions": {
-    "left": "Vasak",
-    "right": "Parem"
-  },
-  "exhibitions": {
-    "exhibitions": "Näitused",
-    "credits": "Autorid",
-    "chapters": "Peatükid",
-    "currentChapter": "Praegune peatükk"
-  },
-  "actions": {
-    "download": "Lae alla",
-    "viewAt": "Kuva saidil {link}",
-    "providedBy": "Pakub {provider}",
-    "viewDocument": "Vaadake dokumenti",
-    "share": "Jagage",
-    "shareOn": "Jagage saidil {social}"
-  },
-  "clearAllFilters": "tühjenda kõik filtrid",
-  "reset": "Lähtesta",
   "loadingResults": "Tulemuste laadimine",
-  "edmIsShownAtLinkAlt": "Vaadake teenusepakkuja veebisaidil",
+  "messages": {
+    "externalContentError": "Välist sisu ei õnnestunud laadida",
+    "notFound": "Ei leitud",
+    "paginationLimitExceeded": "Võimalik on vaadata ainult esimesi {limit} otsingutulemusi."
+  },
+  "newWindow": "avaneb uues aknas",
+  "noMoreResults": "Teie otsingupäringule pole rohkem tulemusi.",
+  "noResults": "Ühtki tulemust",
+  "readMore": "Loe lähemalt",
   "record": {
+    "downloadCopyrightInfo": "See toode on autoriõigusega kaitstud ja seda ei saa alla laadida.",
     "extendedInformation": "Täiendav teave",
     "hideAll": "Peida kogu teave ",
     "record": "Kirje",
     "showAll": "Näita kogu teavet",
     "similarItems": "Sarnased tooted",
     "view": {
-      "pdf": "Vaadake PDF-i",
       "image": "Vaadake pilti",
-      "media": "Vaadake meediat"
-    },
-    "downloadCopyrightInfo": "See toode on autoriõigusega kaitstud ja seda ei saa alla laadida."
-  },
-  "contentfulManual": {
-    "headerNavigation": {
-      "teachers": "Õpetajad",
-      "explore": "Tutvuge"
-    },
-    "footerNavigation": {
-      "about": "Infot Europeana Collections kohta",
-      "forDevelopers": "Arendajatele",
-      "terms": "Kasutustingimused ja privaatsuspoliitika",
-      "provide": "Hakka andmepakkujaks",
-      "meetUs": "Tutvu meeskonnaga",
-      "help": "Abimaterjal"
+      "media": "Vaadake meediat",
+      "pdf": "Vaadake PDF-i"
     }
-  },
-  "imageSlider": {
-    "handle": "Liugkäepide"
-  },
-  "dateFilter": {
-    "startDate": "Alguskuupäev",
-    "endDate": "Lõppkuupäev",
-    "to": "kuni",
-    "specificDate": "Konkreetne kuupäev"
-  },
-  "cookieDisclaimer": {
-    "acceptCookieDisclaimer": "Nõustuge küpsistest loobumisega",
-    "terms": "See veebisait kasutab küpsiseid, et tagada meie veebisaidil parim kogemus. Sellel saidil klõpsates või liikudes nõustute lubama teabe kogumist küpsiste kaudu.",
-    "link": "Rohkem infot"
-  },
-  "searchSuggestions": "Otsige soovitusi",
-  "learnMore": "Lisateave selle kirjelduse allika kohta",
-  "footer": {
-    "ourMission": "Meie missioon",
-    "ourMissionQuote": "Europeana annab kultuuripärandisektorile digitaalse ümberkujundamise võimaluse. Arendame teadmisi, tööriistu ja poliitikaid, et omaks võtta digitaalsed muutused ja julgustada partnerlussuhteid, mis edendavad innovatsiooni.",
-    "customiseWebsiteLanguage": "Kohandage veebisaidi keelt",
-    "imageDescription": "Kaasfinantseerib Euroopa Liidu Euroopa ühendamise rahastu",
-    "findUsElsewhere": "Leidke meid mujalt"
-  },
-  "collections": {
-    "fashion": {
-      "facets": {
-        "CREATOR": {
-          "name": "Disainer | Disainerid"
-        },
-        "proxy_dc_format": {
-          "name": "Tehnika | Tehnikad"
-        },
-        "proxy_dcterms_medium": {
-          "name": "Materjal | Materjalid"
-        },
-        "proxy_dc_type": {
-          "name": "Kauba tüüp | Kauba tüübid"
-        }
-      }
-    }
-  },
-  "galleries": {
-    "galleries": "Galeriid"
   },
   "relatedCollections": "Seotud kollektsioonid",
-  "linksToClassic": {
-    "home": {
-      "text": "Vaatate uut Europeana kogemust.",
-      "linkText": "Minge algsesse Europeanasse."
+  "removeFilter": "Eemalda filter {filterLabel}",
+  "reset": "Lähtesta",
+  "resourceWikimedia": "Wikimedia Commonsist saadud ressurss",
+  "results": "Tulemused",
+  "resultsLimitWarning": "Täiendavaid tulemusi ei kuvata, kuna kuvatakse ainult esimesed 1000 kõige asjakohasemat tulemust. Kui te pole leidnud seda, mida otsite, kaaluge oma otsingu täpsustamist.",
+  "search": "Otsing",
+  "searchPlaceholder": "Mida te otsite?",
+  "searchSuggestions": "Otsige soovitusi",
+  "searchTier": {
+    "button": {
+      "hide": "Peida need üksused",
+      "show": "Näita neid üksusi"
     },
-    "search": {
-      "text": "Otsite meie uuel ja kiiremal veebisaidil.",
-      "linkText": "Vaadake neid tulemusi algses Europeanas."
-    },
-    "record": {
-      "text": "Vaatate seda toodet uuel Europeana veebisaidil.",
-      "linkText": "Vaadake seda toodet algses Europeanas."
+    "text": {
+      "hide": "Kuvatakse üksusi, mis ei vasta meie avaldamiskriteeriumidele.",
+      "show": "Rohkem üksusi vastab teie otsingule, kuid ei vasta meie avaldamiskriteeriumidele."
     }
-  }
+  },
+  "searchViews": {
+    "grid": "Võrguvaade",
+    "list": "Loendivaade"
+  },
+  "showLess": "Näita vähem",
+  "showMore": "Näita rohkem"
 };
