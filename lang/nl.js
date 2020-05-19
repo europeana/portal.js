@@ -1,101 +1,104 @@
 export default {
-  "formatting": {
-    "labelledValue": "{label}: {value}",
-    "ellipsis": "...",
-    "listSeperator": ";"
+  "actions": {
+    "download": "Download",
+    "providedBy": "Aangeboden door {provider}",
+    "share": "Delen",
+    "shareOn": "Delen op {social}",
+    "viewAt": "Bekijken op {link}",
+    "viewDocument": "Document weergeven"
   },
-  "error": "Fout",
-  "goToRecord": "Ga naar record",
-  "readMore": "Lees verder",
-  "search": "Zoeken",
-  "results": "Resultaten",
-  "homeLinkAlt": "Europeana Home",
-  "noMoreResults": "Er zijn geen resultaten meer voor uw zoekopdracht.",
-  "resultsLimitWarning": "Aanvullende resultaten worden niet getoond, aangezien alleen de 1000 meest relevante resultaten worden getoond. Indien u niet hebt gevonden wat u zoekt, overweeg dan om uw zoekopdracht te verfijnen.",
-  "noResults": "Geen resultaten",
-  "fieldLabels": {
-    "default": {
-      "dcContributor": "Medewerkers",
-      "dcCreator": "Makers",
-      "dcDescription": "Omschrijving",
-      "dcTitle": "Titel",
-      "dcType": "Type object",
-      "dctermsCreated": "Aanmaakdatum",
-      "edmCountry": "Land",
-      "edmDataProvider": "Instituut",
-      "edmRights": "Licentie van de media in dit record (tenzij anders vermeld)",
-      "dcPublisher": "Uitgever",
-      "dcSubject": "Onderwerp",
-      "dctermsMedium": "Medium",
-      "dcRights": "Rechten",
-      "dcDate": "Datum",
-      "dctermsPublished": "Publicatiedatum",
-      "dctermsIssued": "Datum van uitgifte",
-      "dctermsTemporal": "Tijdsperiode",
-      "dcCoverage": "Plaats-Tijd",
-      "dctermsSpatial": "Plaatsen",
-      "edmCurrentLocation": "Huidige locatie",
-      "edmUgc": "Door gebruikers gegenereerde inhoud",
-      "dctermsProvenance": "Herkomst",
-      "dcSource": "Bron",
-      "dcIdentifier": "Identificatie",
-      "edmIntermediateProvider": "Tussenleverancier",
-      "edmProvider": "Leverancier",
-      "timestampCreated": "Tijdstempel gemaakt",
-      "timestampUpdate": "Tijdstempel bijgewerkt",
-      "dctermsExtent": "Mate",
-      "dcDuration": "Duur",
-      "dcMedium": "Medium",
-      "dcFormat": "Vorm",
-      "dcLanguage": "Taal",
-      "dctermsIsPartOf": "Is onderdeel van",
-      "europeanaCollectionName": "Naam van de collectie",
-      "dcRelation": "Relaties",
-      "dctermsReferences": "Verwijst naar",
-      "dctermsHasPart": "Bestaat uit",
-      "dctermsHasVersion": "Heeft versie",
-      "dctermsIsFormatOf": "Is een vorm van",
-      "dctermsIsReferencedBy": "Wordt aan gerefereerd door",
-      "dctermsIsReplacedBy": "Wordt vervangen door",
-      "dctermsIsRequiredBy": "Wordt vereist door",
-      "edmHasMet": "Heeft ontmoet",
-      "edmIncorporates": "Bevat",
-      "edmIsDerivativeOf": "Is afgeleid van",
-      "edmIsRepresentationOf": "Is een vertegenwoordiging van",
-      "edmIsSimilarTo": "Is vergelijkbaar met",
-      "edmIsSuccessorOf": "Is de opvolger van",
-      "edmRealizes": "Realiseert",
-      "wasPresentAt": "Was aanwezig in",
-      "keywords": "Trefwoorden (verstrekt door de gemeenschap)"
-    },
-    "webResource": {
-      "dcDescription": "Omschrijving",
-      "rdfAbout": "RDF Over",
-      "edmRights": "Licentie voor deze mediabron",
-      "ebucoreHasMimeType": "Ebucore MIME-type",
-      "about": "RDF Over"
+  "blog": {
+    "author": "Auteur",
+    "authors": "Auteurs",
+    "blog": "Blog",
+    "categories": "Categorieën",
+    "category": "Categorie",
+    "relatedPosts": "Gerelateerde berichten"
+  },
+  "clearAllFilters": "alle filters wissen",
+  "collections": {
+    "fashion": {
+      "facets": {
+        "CREATOR": {
+          "name": "Ontwerper | Ontwerpers"
+        },
+        "proxy_dc_format": {
+          "name": "Techniek | Technieken"
+        },
+        "proxy_dc_type": {
+          "name": "Itemtype | Itemtypes"
+        },
+        "proxy_dcterms_medium": {
+          "name": "Materiaal | Materialen"
+        }
+      }
     }
   },
-  "facets": {
-    "COUNTRY": {
-      "name": "Land van levering"
+  "colourSwatch": "Kleurstaal",
+  "contentfulManual": {
+    "footerNavigation": {
+      "about": "Over Europeana Collections",
+      "forDevelopers": "Voor ontwikkelaars",
+      "help": "Help",
+      "meetUs": "Ontmoet het team",
+      "provide": "Word een gegevensprovider",
+      "terms": "Gebruiksvoorwaarden en privacybeleid"
     },
-    "REUSABILITY": {
-      "name": "Kan ik dit hergebruiken?",
+    "headerNavigation": {
+      "explore": "Verkennen",
+      "teachers": "Onderwijzers"
+    }
+  },
+  "cookieDisclaimer": {
+    "acceptCookieDisclaimer": "Accepteer cookiedisclaimer",
+    "link": "Meer informatie",
+    "terms": "Deze website maakt gebruik van cookies om ervoor te zorgen dat u de beste ervaring op onze website krijgt. Door op de site te klikken of ernaartoe te navigeren, gaat u akkoord met de verzameling van informatie via cookies."
+  },
+  "dateFilter": {
+    "endDate": "Einddatum",
+    "specificDate": "Specifieke datum",
+    "startDate": "Begin datum",
+    "to": "naar"
+  },
+  "delete": "Verwijder",
+  "depiction": "Een afbeelding van {title}",
+  "directions": {
+    "left": "Links",
+    "right": "Rechts"
+  },
+  "edmIsShownAtLinkAlt": "Bekijken op de website van de provider",
+  "entity": "Entiteit",
+  "error": "Fout",
+  "exhibitions": {
+    "chapters": "Hoofdstukken",
+    "credits": "Credits",
+    "currentChapter": "Huidig hoofdstuk",
+    "description": "Ontdek de tentoonstellingen",
+    "exhibitions": "Tentoonstellingen"
+  },
+  "facets": {
+    "api": {
+      "name": "Zoeken naar",
       "options": {
-        "open": "Ja",
-        "restricted": "Ja, onder voorwaarden",
-        "permission": "Misschien, vraag toestemming",
-        "uncategorized": "Ongecategoriseerd"
+        "fulltext": "Records met full-text",
+        "metadata": "Alleen records met Metadata"
       }
+    },
+    "button": {
+      "apply": "Toepassen",
+      "cancel": "Annuleren",
+      "morefilters": "Meer filters",
+      "reset": "Opnieuw instellen",
+      "showAll": "Alle {label} weergeven",
+      "showLess": "Minder weergeven {label}"
     },
     "collection": {
       "name": "Categorie",
       "options": {
-        "ww1": "1914-1918",
         "archaeology": "Archeologie",
         "art": "Kunst",
         "fashion": "Mode",
+        "industrial": "Industrieel erfgoed",
         "manuscript": "manuscripten",
         "map": "Kaarten en geografie",
         "migration": "Migratie",
@@ -104,62 +107,7 @@ export default {
         "newspaper": "Kranten",
         "photography": "Fotografie",
         "sport": "Sport",
-        "industrial": "Industrieel erfgoed"
-      }
-    },
-    "TYPE": {
-      "name": "Soort media",
-      "options": {
-        "IMAGE": "Afbeelding",
-        "TEXT": "Tekst",
-        "VIDEO": "Video",
-        "SOUND": "Geluid",
-        "3D": "3D"
-      }
-    },
-    "contentTier": {
-      "name": "Bevat items die niet voldoen aan onze publicatiecriteria",
-      "options": {
-        "*": "Bevat items die niet voldoen aan onze publicatiecriteria"
-      }
-    },
-    "button": {
-      "reset": "Opnieuw instellen",
-      "apply": "Toepassen",
-      "cancel": "Annuleren",
-      "morefilters": "Meer filters",
-      "showAll": "Alle {label} weergeven",
-      "showLess": "Minder weergeven {label}"
-    },
-    "LANGUAGE": {
-      "name": "Taal | Talen"
-    },
-    "PROVIDER": {
-      "name": "Aggregator | Aggregatoren"
-    },
-    "DATA_PROVIDER": {
-      "name": "Instelling | Instellingen"
-    },
-    "IMAGE_ASPECTRATIO": {
-      "name": "Beeldoriëntatie | Beeldoriëntaties",
-      "options": {
-        "landscape": "Landschap",
-        "portrait": "Portret"
-      }
-    },
-    "IMAGE_SIZE": {
-      "name": "Afbeeldingsgrootte | Afbeeldingsgroottes",
-      "options": {
-        "small": "Klein < 0,5 MP (bijv. 650x600px)",
-        "medium": "Gemiddeld 0,5-1MP (bijv. 850x850px)",
-        "large": "Groot 1-4 MP (bijv. 1920x1080px)",
-        "extra_large": "Extra groot 4MP+ (bijv. 2688 x 1520px)"
-      }
-    },
-    "MIME_TYPE": {
-      "name": "Bestandsformaat | Bestandsformaten",
-      "options": {
-        "text/plain": "Platte tekst"
+        "ww1": "1914-1918"
       }
     },
     "COLOURPALETTE": {
@@ -311,179 +259,231 @@ export default {
         "#FFFFFF": "Wit"
       }
     },
-    "proxy_dcterms_issued": {
-      "name": "Datum van afgifte"
-    },
-    "api": {
-      "name": "Zoeken naar",
+    "contentTier": {
+      "name": "Bevat items die niet voldoen aan onze publicatiecriteria",
       "options": {
-        "fulltext": "Records met full-text",
-        "metadata": "Alleen records met Metadata"
+        "*": "Bevat items die niet voldoen aan onze publicatiecriteria"
       }
+    },
+    "COUNTRY": {
+      "name": "Land van levering"
     },
     "CREATOR": {
       "name": "Maker | Makers"
     },
+    "DATA_PROVIDER": {
+      "name": "Instelling | Instellingen"
+    },
+    "IMAGE_ASPECTRATIO": {
+      "name": "Beeldoriëntatie | Beeldoriëntaties",
+      "options": {
+        "landscape": "Landschap",
+        "portrait": "Portret"
+      }
+    },
+    "IMAGE_SIZE": {
+      "name": "Afbeeldingsgrootte | Afbeeldingsgroottes",
+      "options": {
+        "extra_large": "Extra groot 4MP+ (bijv. 2688 x 1520px)",
+        "large": "Groot 1-4 MP (bijv. 1920x1080px)",
+        "medium": "Gemiddeld 0,5-1MP (bijv. 850x850px)",
+        "small": "Klein < 0,5 MP (bijv. 650x600px)"
+      }
+    },
+    "LANGUAGE": {
+      "name": "Taal | Talen"
+    },
+    "MIME_TYPE": {
+      "name": "Bestandsformaat | Bestandsformaten",
+      "options": {
+        "text\/plain": "Platte tekst"
+      }
+    },
+    "PROVIDER": {
+      "name": "Aggregator | Aggregatoren"
+    },
     "proxy_dc_format": {
       "name": "Formaat | Formaten"
+    },
+    "proxy_dc_type": {
+      "name": "Type | Types"
+    },
+    "proxy_dcterms_issued": {
+      "name": "Datum van afgifte"
     },
     "proxy_dcterms_medium": {
       "name": "Medium | Media"
     },
-    "proxy_dc_type": {
-      "name": "Type | Types"
+    "REUSABILITY": {
+      "name": "Kan ik dit hergebruiken?",
+      "options": {
+        "open": "Ja",
+        "permission": "Misschien, vraag toestemming",
+        "restricted": "Ja, onder voorwaarden",
+        "uncategorized": "Ongecategoriseerd"
+      }
+    },
+    "TYPE": {
+      "name": "Soort media",
+      "options": {
+        "3D": "3D",
+        "IMAGE": "Afbeelding",
+        "SOUND": "Geluid",
+        "TEXT": "Tekst",
+        "VIDEO": "Video"
+      }
     }
   },
-  "entity": "Entiteit",
-  "resourceWikimedia": "Bron van Wikimedia Commons",
-  "messages": {
-    "notFound": "Niet gevonden",
-    "externalContentError": "De externe inhoud kan niet worden geladen",
-    "paginationLimitExceeded": "Het is alleen mogelijk om de eerste {limit} zoekresultaten te bekijken."
+  "fieldLabels": {
+    "default": {
+      "dcContributor": "Medewerkers",
+      "dcCoverage": "Plaats-Tijd",
+      "dcCreator": "Makers",
+      "dcDate": "Datum",
+      "dcDescription": "Omschrijving",
+      "dcDuration": "Duur",
+      "dcFormat": "Vorm",
+      "dcIdentifier": "Identificatie",
+      "dcLanguage": "Taal",
+      "dcMedium": "Medium",
+      "dcPublisher": "Uitgever",
+      "dcRelation": "Relaties",
+      "dcRights": "Rechten",
+      "dcSource": "Bron",
+      "dcSubject": "Onderwerp",
+      "dctermsCreated": "Aanmaakdatum",
+      "dctermsExtent": "Mate",
+      "dctermsHasPart": "Bestaat uit",
+      "dctermsHasVersion": "Heeft versie",
+      "dctermsIsFormatOf": "Is een vorm van",
+      "dctermsIsPartOf": "Is onderdeel van",
+      "dctermsIsReferencedBy": "Wordt aan gerefereerd door",
+      "dctermsIsReplacedBy": "Wordt vervangen door",
+      "dctermsIsRequiredBy": "Wordt vereist door",
+      "dctermsIssued": "Datum van uitgifte",
+      "dctermsMedium": "Medium",
+      "dctermsProvenance": "Herkomst",
+      "dctermsPublished": "Publicatiedatum",
+      "dctermsReferences": "Verwijst naar",
+      "dctermsSpatial": "Plaatsen",
+      "dctermsTemporal": "Tijdsperiode",
+      "dcTitle": "Titel",
+      "dcType": "Type object",
+      "edmCountry": "Land",
+      "edmCurrentLocation": "Huidige locatie",
+      "edmDataProvider": "Instituut",
+      "edmHasMet": "Heeft ontmoet",
+      "edmIncorporates": "Bevat",
+      "edmIntermediateProvider": "Tussenleverancier",
+      "edmIsDerivativeOf": "Is afgeleid van",
+      "edmIsRepresentationOf": "Is een vertegenwoordiging van",
+      "edmIsSimilarTo": "Is vergelijkbaar met",
+      "edmIsSuccessorOf": "Is de opvolger van",
+      "edmProvider": "Leverancier",
+      "edmRealizes": "Realiseert",
+      "edmRights": "Licentie van de media in dit record (tenzij anders vermeld)",
+      "edmUgc": "Door gebruikers gegenereerde inhoud",
+      "europeanaCollectionName": "Naam van de collectie",
+      "keywords": "Trefwoorden (verstrekt door de gemeenschap)",
+      "timestampCreated": "Tijdstempel gemaakt",
+      "timestampUpdate": "Tijdstempel bijgewerkt",
+      "wasPresentAt": "Was aanwezig in"
+    },
+    "webResource": {
+      "about": "RDF Over",
+      "dcDescription": "Omschrijving",
+      "ebucoreHasMimeType": "Ebucore MIME-type",
+      "edmRights": "Licentie voor deze mediabron",
+      "rdfAbout": "RDF Over"
+    }
   },
-  "searchViews": {
-    "grid": "Grid-weergave",
-    "list": "Lijstweergave"
+  "footer": {
+    "customiseWebsiteLanguage": "Pas de taal van de website aan",
+    "disclaimerLine1": "Europeana is een initiatief van de Europese Unie, gefinancierd door de Connecting Europe Facility van de Europese Unie en de lidstaten van de Europese Unie. De Europeana-diensten, waaronder deze website, worden beheerd door een consortium onder leiding van de Europeana Foundation in het kader van een servicecontract met de Europese Commissie.",
+    "disclaimerLine2": "De Europese Commissie staat niet in voor de juistheid van de informatie en aanvaardt geen enkele verantwoordelijkheid of aansprakelijkheid met betrekking tot de informatie op deze website. Noch de Europese Commissie, noch enige persoon die namens de Europese Commissie handelt, is verantwoordelijk of aansprakelijk voor de juistheid of het gebruik van de informatie op deze website.",
+    "findUsElsewhere": "Vind ons ergens anders",
+    "imageDescription": "Medegefinancierd door de Connecting Europe Facility van de Europese Unie",
+    "ourMission": "Onze missie",
+    "ourMissionQuote": "Europeana ondersteunt de sector cultureel erfgoed bij haar digitale transformatie. We ontwikkelen expertise, tools en beleid om digitale verandering te omarmen en partnerschappen aan te moedigen die innovatie stimuleren."
+  },
+  "formatting": {
+    "ellipsis": "...",
+    "labelledValue": "{label}: {value}",
+    "listSeperator": ";"
+  },
+  "galleries": {
+    "description": "Ontdek onze galeries",
+    "galleries": "Galerijen"
+  },
+  "goToRecord": "Ga naar record",
+  "homeLinkAlt": "Europeana Home",
+  "imageSlider": {
+    "handle": "Schuifgreep"
   },
   "layout": {
     "skipToMain": "Ga naar pagina-inhoud"
   },
-  "searchPlaceholder": "Doorzoek miljoenen Items",
-  "searchTier": {
-    "button": {
-      "show": "Deze items weergeven",
-      "hide": "Deze items verbergen"
+  "learnMore": "Meer informatie over de bron van deze beschrijving",
+  "linksToClassic": {
+    "home": {
+      "linkText": "Ga naar de originele Europeana.",
+      "text": "U bekijkt de nieuwe Europeana-experience."
     },
-    "text": {
-      "show": "Meer items voldoen aan je zoekopdracht, maar niet aan onze publicatiecriteria.",
-      "hide": "Items die niet voldoen aan onze publicatiecriteria worden weergegeven."
+    "record": {
+      "linkText": "Bekijk dit item in de originele Europeana.",
+      "text": "U bekijkt dit item op de nieuwe Europeana-website."
+    },
+    "search": {
+      "linkText": "Bekijk deze zoekresultaten in de originele Europeana.",
+      "text": "U zoekt op onze nieuwe en snellere website."
     }
   },
-  "depiction": "Een afbeelding van {title}",
-  "showLess": "Minder weergeven",
-  "showMore": "Meer weergeven",
-  "delete": "Verwijder",
-  "removeFilter": "Verwijder het filter {filterLabel}",
-  "newWindow": "opent in nieuw venster",
-  "blog": {
-    "blog": "Blog",
-    "author": "Auteur",
-    "authors": "Auteurs",
-    "category": "Categorie",
-    "categories": "Categorieën",
-    "relatedPosts": "Gerelateerde berichten"
-  },
-  "directions": {
-    "left": "Links",
-    "right": "Rechts"
-  },
-  "exhibitions": {
-    "exhibitions": "Tentoonstellingen",
-    "credits": "Credits",
-    "chapters": "Hoofdstukken",
-    "currentChapter": "Huidig hoofdstuk",
-    "description": "Ontdek de tentoonstellingen"
-  },
-  "actions": {
-    "download": "Download",
-    "viewAt": "Bekijken op {link}",
-    "providedBy": "Aangeboden door {provider}",
-    "viewDocument": "Document weergeven",
-    "share": "Delen",
-    "shareOn": "Delen op {social}"
-  },
-  "clearAllFilters": "alle filters wissen",
-  "reset": "Opnieuw instellen",
   "loadingResults": "Resultaten worden geladen",
-  "edmIsShownAtLinkAlt": "Bekijken op de website van de provider",
+  "messages": {
+    "externalContentError": "De externe inhoud kan niet worden geladen",
+    "notFound": "Niet gevonden",
+    "paginationLimitExceeded": "Het is alleen mogelijk om de eerste {limit} zoekresultaten te bekijken."
+  },
+  "newWindow": "opent in nieuw venster",
+  "noMoreResults": "Er zijn geen resultaten meer voor uw zoekopdracht.",
+  "noResults": "Geen resultaten",
+  "readMore": "Lees verder",
   "record": {
+    "downloadCopyrightInfo": "Dit item is auteursrechtelijk beschermd en kan niet worden gedownload.",
     "extendedInformation": "Uitgebreide informatie",
     "hideAll": "Verberg alle informatie",
     "record": "Registratie",
     "showAll": "Toon alle informatie",
     "similarItems": "Vergelijkbare items",
     "view": {
-      "pdf": "PDF weergeven",
       "image": "Afbeelding weergeven",
-      "media": "Media weergeven"
-    },
-    "downloadCopyrightInfo": "Dit item is auteursrechtelijk beschermd en kan niet worden gedownload."
-  },
-  "contentfulManual": {
-    "headerNavigation": {
-      "teachers": "Onderwijzers",
-      "explore": "Verkennen"
-    },
-    "footerNavigation": {
-      "about": "Over Europeana Collections",
-      "forDevelopers": "Voor ontwikkelaars",
-      "terms": "Gebruiksvoorwaarden en privacybeleid",
-      "provide": "Word een gegevensprovider",
-      "meetUs": "Ontmoet het team",
-      "help": "Help"
+      "media": "Media weergeven",
+      "pdf": "PDF weergeven"
     }
-  },
-  "imageSlider": {
-    "handle": "Schuifgreep"
-  },
-  "colourSwatch": "Kleurstaal",
-  "dateFilter": {
-    "startDate": "Begin datum",
-    "endDate": "Einddatum",
-    "to": "naar",
-    "specificDate": "Specifieke datum"
-  },
-  "cookieDisclaimer": {
-    "acceptCookieDisclaimer": "Accepteer cookiedisclaimer",
-    "terms": "Deze website maakt gebruik van cookies om ervoor te zorgen dat u de beste ervaring op onze website krijgt. Door op de site te klikken of ernaartoe te navigeren, gaat u akkoord met de verzameling van informatie via cookies.",
-    "link": "Meer informatie"
-  },
-  "searchSuggestions": "Zoeksuggesties",
-  "learnMore": "Meer informatie over de bron van deze beschrijving",
-  "footer": {
-    "ourMission": "Onze missie",
-    "ourMissionQuote": "Europeana ondersteunt de sector cultureel erfgoed bij haar digitale transformatie. We ontwikkelen expertise, tools en beleid om digitale verandering te omarmen en partnerschappen aan te moedigen die innovatie stimuleren.",
-    "customiseWebsiteLanguage": "Pas de taal van de website aan",
-    "disclaimerLine1": "Europeana is een initiatief van de Europese Unie, gefinancierd door de Connecting Europe Facility van de Europese Unie en de lidstaten van de Europese Unie. De Europeana-diensten, waaronder deze website, worden beheerd door een consortium onder leiding van de Europeana Foundation in het kader van een servicecontract met de Europese Commissie.",
-    "disclaimerLine2": "De Europese Commissie staat niet in voor de juistheid van de informatie en aanvaardt geen enkele verantwoordelijkheid of aansprakelijkheid met betrekking tot de informatie op deze website. Noch de Europese Commissie, noch enige persoon die namens de Europese Commissie handelt, is verantwoordelijk of aansprakelijk voor de juistheid of het gebruik van de informatie op deze website.",
-    "imageDescription": "Medegefinancierd door de Connecting Europe Facility van de Europese Unie",
-    "findUsElsewhere": "Vind ons ergens anders"
-  },
-  "collections": {
-    "fashion": {
-      "facets": {
-        "CREATOR": {
-          "name": "Ontwerper | Ontwerpers"
-        },
-        "proxy_dc_format": {
-          "name": "Techniek | Technieken"
-        },
-        "proxy_dcterms_medium": {
-          "name": "Materiaal | Materialen"
-        },
-        "proxy_dc_type": {
-          "name": "Itemtype | Itemtypes"
-        }
-      }
-    }
-  },
-  "galleries": {
-    "galleries": "Galerijen",
-    "description": "Ontdek onze galeries"
   },
   "relatedCollections": "Gerelateerde collecties",
-  "linksToClassic": {
-    "home": {
-      "text": "U bekijkt de nieuwe Europeana-experience.",
-      "linkText": "Ga naar de originele Europeana."
+  "removeFilter": "Verwijder het filter {filterLabel}",
+  "reset": "Opnieuw instellen",
+  "resourceWikimedia": "Bron van Wikimedia Commons",
+  "results": "Resultaten",
+  "resultsLimitWarning": "Aanvullende resultaten worden niet getoond, aangezien alleen de 1000 meest relevante resultaten worden getoond. Indien u niet hebt gevonden wat u zoekt, overweeg dan om uw zoekopdracht te verfijnen.",
+  "search": "Zoeken",
+  "searchPlaceholder": "Doorzoek miljoenen Items",
+  "searchSuggestions": "Zoeksuggesties",
+  "searchTier": {
+    "button": {
+      "hide": "Deze items verbergen",
+      "show": "Deze items weergeven"
     },
-    "search": {
-      "text": "U zoekt op onze nieuwe en snellere website.",
-      "linkText": "Bekijk deze zoekresultaten in de originele Europeana."
-    },
-    "record": {
-      "text": "U bekijkt dit item op de nieuwe Europeana-website.",
-      "linkText": "Bekijk dit item in de originele Europeana."
+    "text": {
+      "hide": "Items die niet voldoen aan onze publicatiecriteria worden weergegeven.",
+      "show": "Meer items voldoen aan je zoekopdracht, maar niet aan onze publicatiecriteria."
     }
-  }
+  },
+  "searchViews": {
+    "grid": "Grid-weergave",
+    "list": "Lijstweergave"
+  },
+  "showLess": "Minder weergeven",
+  "showMore": "Meer weergeven"
 };
