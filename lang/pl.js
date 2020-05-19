@@ -1,101 +1,102 @@
 export default {
-  "formatting": {
-    "labelledValue": "{label}: {value}",
-    "ellipsis": "…",
-    "listSeperator": ";"
+  "actions": {
+    "download": "Ściągnij",
+    "providedBy": "Dostarczone przez {provider}",
+    "share": "Udostępnij",
+    "shareOn": "Udostępnij na {social}",
+    "viewAt": "Zobacz w {link}",
+    "viewDocument": "Zobacz dokument"
   },
-  "error": "Błąd",
-  "goToRecord": "Przejdź do rekordu",
-  "readMore": "Czytaj więcej",
-  "search": "Szukaj",
-  "results": "Wyniki",
-  "homeLinkAlt": "Strona główna Europeana",
-  "noMoreResults": "Nie ma więcej wyników dla zapytania wyszukiwania.",
-  "resultsLimitWarning": "Dodatkowe wyniki nie są wyświetlane, ponieważ wyświetlanych jest tylko pierwsze 1000 najbardziej odpowiednich wyników. Jeśli nie znalazłeś tego, czego szukasz, rozważ zawężenie wyszukiwania.",
-  "noResults": "Brak Wyników",
-  "fieldLabels": {
-    "default": {
-      "dcContributor": "Współtwórcy",
-      "dcCreator": "Twórca",
-      "dcDescription": "Opis",
-      "dcTitle": "Tytuł",
-      "dcType": "Rodzaj przedmiotu",
-      "dctermsCreated": "Data utworzenia",
-      "edmCountry": "Kraj dostarczający",
-      "edmDataProvider": "Instytucja dostarczająca",
-      "edmRights": "Licencja na media w tym rekordzie (chyba że określono inaczej)",
-      "dcPublisher": "Wydawca",
-      "dcSubject": "Temat",
-      "dctermsMedium": "Medium",
-      "dcRights": "Prawa",
-      "dcDate": "Data",
-      "dctermsPublished": "Data publikacji",
-      "dctermsIssued": "Data wydania",
-      "dctermsTemporal": "Okres",
-      "dcCoverage": "Miejsce i czas",
-      "dctermsSpatial": "Miejsca",
-      "edmCurrentLocation": "Aktualna lokalizacja",
-      "edmUgc": "Treści użytkownika",
-      "dctermsProvenance": "Pochodzenie",
-      "dcSource": "Źródło",
-      "dcIdentifier": "Identyfikator",
-      "edmIntermediateProvider": "Dostawca pośredni",
-      "edmProvider": "Dostawca",
-      "timestampCreated": "Utworzono znacznik czasu",
-      "timestampUpdate": "Zaktualizowano znacznik czasu",
-      "dctermsExtent": "Zakres",
-      "dcDuration": "Długość",
-      "dcMedium": "Medium",
-      "dcFormat": "Format",
-      "dcLanguage": "Język",
-      "dctermsIsPartOf": "jest częścią",
-      "europeanaCollectionName": "Nazwa kolejki",
-      "dcRelation": "Relacje",
-      "dctermsReferences": "przywołuje",
-      "dctermsHasPart": "składa się z",
-      "dctermsHasVersion": "ma wersję",
-      "dctermsIsFormatOf": "jest rodzajem",
-      "dctermsIsReferencedBy": "jest przywoływany przez",
-      "dctermsIsReplacedBy": "wymienia",
-      "dctermsIsRequiredBy": "wymaga",
-      "edmHasMet": "spotkał",
-      "edmIncorporates": "zawiera",
-      "edmIsDerivativeOf": "jest pochodną",
-      "edmIsRepresentationOf": "reprezentuje",
-      "edmIsSimilarTo": "jest podobna do",
-      "edmIsSuccessorOf": "jest następcą",
-      "edmRealizes": "Realizuje",
-      "wasPresentAt": "Był obecny w",
-      "keywords": "Słowa kluczowe (dostarczone przez społeczność)"
-    },
-    "webResource": {
-      "dcDescription": "Opis",
-      "rdfAbout": "RDF Informacje",
-      "edmRights": "Licencja na ten zasób medialny",
-      "ebucoreHasMimeType": "Typ MIME Ebucore",
-      "about": "RDF Informacje"
+  "blog": {
+    "author": "Autor",
+    "authors": "Autorzy",
+    "blog": "Blog",
+    "categories": "Kategorie",
+    "category": "Kategoria",
+    "relatedPosts": "Powiązane posty"
+  },
+  "clearAllFilters": "wyczyść wszystkie filtry",
+  "collections": {
+    "fashion": {
+      "facets": {
+        "CREATOR": {
+          "name": "Projektant | Projektanci"
+        },
+        "proxy_dc_format": {
+          "name": "Technika | Techniki"
+        },
+        "proxy_dc_type": {
+          "name": "Typ elementu | Typy elementu"
+        },
+        "proxy_dcterms_medium": {
+          "name": "Materiał | Materiały"
+        }
+      }
     }
   },
-  "facets": {
-    "COUNTRY": {
-      "name": "Kraj dostarczający"
+  "contentfulManual": {
+    "footerNavigation": {
+      "about": "O kolekcjach Europeana",
+      "forDevelopers": "Dla deweloperów",
+      "help": "Pomoc",
+      "meetUs": "Poznaj zespół",
+      "provide": "Zostań dostawcą danych",
+      "terms": "Regulamin i Polityka prywatności"
     },
-    "REUSABILITY": {
-      "name": "Czy mogę to wykorzystać?",
+    "headerNavigation": {
+      "explore": "Odkryj",
+      "teachers": "Edukatorzy"
+    }
+  },
+  "cookieDisclaimer": {
+    "acceptCookieDisclaimer": "Zaakceptuj zastrzeżenie dotyczące plików cookie",
+    "link": "Więcej informacji",
+    "terms": "Ta strona korzysta z plików cookie, aby zapewnić najlepszą jakość korzystania z naszej witryny. Klikając stronę lub poruszając się po niej, wyrażasz zgodę na gromadzenie informacji za pomocą plików cookie."
+  },
+  "dateFilter": {
+    "endDate": "Data końcowa",
+    "specificDate": "Konkretna data",
+    "startDate": "Data rozpoczęcia",
+    "to": "do"
+  },
+  "delete": "Usuń",
+  "depiction": "Obraz {title}",
+  "directions": {
+    "left": "W lewo",
+    "right": "W prawo"
+  },
+  "edmIsShownAtLinkAlt": "Zobacz na stronie internetowej dostawcy",
+  "entity": "Jednostka",
+  "error": "Błąd",
+  "exhibitions": {
+    "chapters": "Rozdziały",
+    "credits": "Twórcy",
+    "currentChapter": "Aktualny rozdział",
+    "exhibitions": "Wystawy"
+  },
+  "facets": {
+    "api": {
+      "name": "Szukaj",
       "options": {
-        "open": "Tak",
-        "restricted": "Tak, z warunkami",
-        "permission": "Może, poproś o pozwolenie",
-        "uncategorized": "Bez kategorii"
+        "fulltext": "Zapisy z pełnym tekstem",
+        "metadata": "Zapisy tylko z metadanymi"
       }
+    },
+    "button": {
+      "apply": "Zastosuj",
+      "cancel": "Anuluj",
+      "morefilters": "Więcej filtrów",
+      "reset": "Resetuj",
+      "showAll": "Pokaż wszystko {label}",
+      "showLess": "Pokaż mniej {label}"
     },
     "collection": {
       "name": "Kategoria",
       "options": {
-        "ww1": "1914–1918",
         "archaeology": "Archeologia",
         "art": "Sztuka",
         "fashion": "Moda",
+        "industrial": "Dziedzictwo przemysłowe",
         "manuscript": "Rękopisy",
         "map": "Mapy i geografia",
         "migration": "Migracja",
@@ -104,62 +105,7 @@ export default {
         "newspaper": "Gazety",
         "photography": "Fotografia",
         "sport": "Sport",
-        "industrial": "Dziedzictwo przemysłowe"
-      }
-    },
-    "TYPE": {
-      "name": "Rodzaj mediów",
-      "options": {
-        "IMAGE": "Obraz",
-        "TEXT": "Tekst",
-        "VIDEO": "Wideo",
-        "SOUND": "Dźwięk",
-        "3D": "3D"
-      }
-    },
-    "contentTier": {
-      "name": "Obejmuje elementy niespełniające naszych kryteriów publikowania",
-      "options": {
-        "*": "Obejmuje elementy niespełniające naszych kryteriów publikowania"
-      }
-    },
-    "button": {
-      "reset": "Resetuj",
-      "apply": "Zastosuj",
-      "cancel": "Anuluj",
-      "morefilters": "Więcej filtrów",
-      "showAll": "Pokaż wszystko {label}",
-      "showLess": "Pokaż mniej {label}"
-    },
-    "LANGUAGE": {
-      "name": "Język"
-    },
-    "PROVIDER": {
-      "name": "Agregator"
-    },
-    "DATA_PROVIDER": {
-      "name": "Instytucja"
-    },
-    "IMAGE_ASPECTRATIO": {
-      "name": "Orientacja wizualna | Orientacje wizualne",
-      "options": {
-        "landscape": "Krajobraz",
-        "portrait": "Portret"
-      }
-    },
-    "IMAGE_SIZE": {
-      "name": "Rozmiar obrazu | Rozmiary obrazu",
-      "options": {
-        "small": "Mały < 0,5 MP (np. 650 x 600 px)",
-        "medium": "Średni 0,5-1 MP (np. 850 x 850 px)",
-        "large": "Duży 1-4 MP (np. 1920 x 1080 px)",
-        "extra_large": "Bardzo duży 4MP+ (np. 2688 x 1520 px)"
-      }
-    },
-    "MIME_TYPE": {
-      "name": "Format plików | Formaty plików",
-      "options": {
-        "text/plain": "Zwykły tekst"
+        "ww1": "1914–1918"
       }
     },
     "COLOURPALETTE": {
@@ -310,174 +256,228 @@ export default {
         "#FFFFFF": "Biały"
       }
     },
-    "proxy_dcterms_issued": {
-      "name": "Data wydania"
-    },
-    "api": {
-      "name": "Szukaj",
+    "contentTier": {
+      "name": "Obejmuje elementy niespełniające naszych kryteriów publikowania",
       "options": {
-        "fulltext": "Zapisy z pełnym tekstem",
-        "metadata": "Zapisy tylko z metadanymi"
+        "*": "Obejmuje elementy niespełniające naszych kryteriów publikowania"
       }
+    },
+    "COUNTRY": {
+      "name": "Kraj dostarczający"
     },
     "CREATOR": {
       "name": "Twórca | Twórcy"
     },
+    "DATA_PROVIDER": {
+      "name": "Instytucja"
+    },
+    "IMAGE_ASPECTRATIO": {
+      "name": "Orientacja wizualna | Orientacje wizualne",
+      "options": {
+        "landscape": "Krajobraz",
+        "portrait": "Portret"
+      }
+    },
+    "IMAGE_SIZE": {
+      "name": "Rozmiar obrazu | Rozmiary obrazu",
+      "options": {
+        "extra_large": "Bardzo duży 4MP+ (np. 2688 x 1520 px)",
+        "large": "Duży 1-4 MP (np. 1920 x 1080 px)",
+        "medium": "Średni 0,5-1 MP (np. 850 x 850 px)",
+        "small": "Mały < 0,5 MP (np. 650 x 600 px)"
+      }
+    },
+    "LANGUAGE": {
+      "name": "Język"
+    },
+    "MIME_TYPE": {
+      "name": "Format plików | Formaty plików",
+      "options": {
+        "text\/plain": "Zwykły tekst"
+      }
+    },
+    "PROVIDER": {
+      "name": "Agregator"
+    },
     "proxy_dc_format": {
       "name": "Format | Formaty"
+    },
+    "proxy_dc_type": {
+      "name": "Typ | Typy"
+    },
+    "proxy_dcterms_issued": {
+      "name": "Data wydania"
     },
     "proxy_dcterms_medium": {
       "name": "Medium | Media"
     },
-    "proxy_dc_type": {
-      "name": "Typ | Typy"
+    "REUSABILITY": {
+      "name": "Czy mogę to wykorzystać?",
+      "options": {
+        "open": "Tak",
+        "permission": "Może, poproś o pozwolenie",
+        "restricted": "Tak, z warunkami",
+        "uncategorized": "Bez kategorii"
+      }
+    },
+    "TYPE": {
+      "name": "Rodzaj mediów",
+      "options": {
+        "3D": "3D",
+        "IMAGE": "Obraz",
+        "SOUND": "Dźwięk",
+        "TEXT": "Tekst",
+        "VIDEO": "Wideo"
+      }
     }
   },
-  "entity": "Jednostka",
-  "resourceWikimedia": "Źródło z Wikimedia Commons",
-  "messages": {
-    "notFound": "Nie znaleziono",
-    "externalContentError": "Nie można załadować treści zewnętrznej",
-    "paginationLimitExceeded": "Możliwe jest wyświetlenie tylko pierwszych {limit} wyników wyświetlania."
+  "fieldLabels": {
+    "default": {
+      "dcContributor": "Współtwórcy",
+      "dcCoverage": "Miejsce i czas",
+      "dcCreator": "Twórca",
+      "dcDate": "Data",
+      "dcDescription": "Opis",
+      "dcDuration": "Długość",
+      "dcFormat": "Format",
+      "dcIdentifier": "Identyfikator",
+      "dcLanguage": "Język",
+      "dcMedium": "Medium",
+      "dcPublisher": "Wydawca",
+      "dcRelation": "Relacje",
+      "dcRights": "Prawa",
+      "dcSource": "Źródło",
+      "dcSubject": "Temat",
+      "dctermsCreated": "Data utworzenia",
+      "dctermsExtent": "Zakres",
+      "dctermsHasPart": "składa się z",
+      "dctermsHasVersion": "ma wersję",
+      "dctermsIsFormatOf": "jest rodzajem",
+      "dctermsIsPartOf": "jest częścią",
+      "dctermsIsReferencedBy": "jest przywoływany przez",
+      "dctermsIsReplacedBy": "wymienia",
+      "dctermsIsRequiredBy": "wymaga",
+      "dctermsIssued": "Data wydania",
+      "dctermsMedium": "Medium",
+      "dctermsProvenance": "Pochodzenie",
+      "dctermsPublished": "Data publikacji",
+      "dctermsReferences": "przywołuje",
+      "dctermsSpatial": "Miejsca",
+      "dctermsTemporal": "Okres",
+      "dcTitle": "Tytuł",
+      "dcType": "Rodzaj przedmiotu",
+      "edmCountry": "Kraj dostarczający",
+      "edmCurrentLocation": "Aktualna lokalizacja",
+      "edmDataProvider": "Instytucja dostarczająca",
+      "edmHasMet": "spotkał",
+      "edmIncorporates": "zawiera",
+      "edmIntermediateProvider": "Dostawca pośredni",
+      "edmIsDerivativeOf": "jest pochodną",
+      "edmIsRepresentationOf": "reprezentuje",
+      "edmIsSimilarTo": "jest podobna do",
+      "edmIsSuccessorOf": "jest następcą",
+      "edmProvider": "Dostawca",
+      "edmRealizes": "Realizuje",
+      "edmRights": "Licencja na media w tym rekordzie (chyba że określono inaczej)",
+      "edmUgc": "Treści użytkownika",
+      "europeanaCollectionName": "Nazwa kolejki",
+      "keywords": "Słowa kluczowe (dostarczone przez społeczność)",
+      "timestampCreated": "Utworzono znacznik czasu",
+      "timestampUpdate": "Zaktualizowano znacznik czasu",
+      "wasPresentAt": "Był obecny w"
+    },
+    "webResource": {
+      "about": "RDF Informacje",
+      "dcDescription": "Opis",
+      "ebucoreHasMimeType": "Typ MIME Ebucore",
+      "edmRights": "Licencja na ten zasób medialny",
+      "rdfAbout": "RDF Informacje"
+    }
   },
-  "searchViews": {
-    "grid": "Widok siatki",
-    "list": "Widok listy"
+  "footer": {
+    "customiseWebsiteLanguage": "Dostosuj język witryny",
+    "findUsElsewhere": "Znajdź nas w innych miejscach",
+    "imageDescription": "Współfinansowany z instrumentu „Łącząc Europę” Unii Europejskiej",
+    "ourMission": "Nasza misja",
+    "ourMissionQuote": "Europeana wspiera sektor dziedzictwa kulturowego w jego transformacji cyfrowej. Rozwijamy wiedzę specjalistyczną, narzędzia i polityki, aby uwzględnić zmiany cyfrowe i zachęcać do partnerstwa wspierającego innowacje."
+  },
+  "formatting": {
+    "ellipsis": "…",
+    "labelledValue": "{label}: {value}",
+    "listSeperator": ";"
+  },
+  "galleries": {
+    "galleries": "Galerie"
+  },
+  "goToRecord": "Przejdź do rekordu",
+  "homeLinkAlt": "Strona główna Europeana",
+  "imageSlider": {
+    "handle": "Uchwyt suwakowy"
   },
   "layout": {
     "skipToMain": "Przejdź do zawartości strony"
   },
-  "searchPlaceholder": "Odkryj miliony obiektów",
-  "searchTier": {
-    "button": {
-      "show": "Pokaż te elementy",
-      "hide": "Ukryj te elementy"
+  "learnMore": "Dowiedz się o źródle tego opisu",
+  "linksToClassic": {
+    "home": {
+      "linkText": "Przejdź do oryginalnej Europeany.",
+      "text": "Oglądasz nowe doświadczenie Europeana."
     },
-    "text": {
-      "show": "Więcej elementów pasuje do wyszukiwania, ale nie spełnia naszych kryteriów publikowania.",
-      "hide": "Wyświetlane są elementy, które nie spełniają naszych kryteriów publikowania."
+    "record": {
+      "linkText": "Zobacz ten element w oryginalnej Europeanie.",
+      "text": "Oglądasz ten element w nowej witrynie Europeana."
+    },
+    "search": {
+      "linkText": "Zobacz te wyniki wyszukiwania w oryginalnej Europeanie.",
+      "text": "Przeszukujesz naszą nową i szybszą stronę internetową."
     }
   },
-  "depiction": "Obraz {title}",
-  "showLess": "Pokaż mniej",
-  "showMore": "Pokaż więcej",
-  "delete": "Usuń",
-  "removeFilter": "Usuń filtr {filterLabel}",
-  "newWindow": "otwiera się w nowym oknie",
-  "blog": {
-    "blog": "Blog",
-    "author": "Autor",
-    "authors": "Autorzy",
-    "category": "Kategoria",
-    "categories": "Kategorie",
-    "relatedPosts": "Powiązane posty"
-  },
-  "directions": {
-    "left": "W lewo",
-    "right": "W prawo"
-  },
-  "exhibitions": {
-    "exhibitions": "Wystawy",
-    "credits": "Twórcy",
-    "chapters": "Rozdziały",
-    "currentChapter": "Aktualny rozdział"
-  },
-  "actions": {
-    "download": "Ściągnij",
-    "viewAt": "Zobacz w {link}",
-    "providedBy": "Dostarczone przez {provider}",
-    "viewDocument": "Zobacz dokument",
-    "share": "Udostępnij",
-    "shareOn": "Udostępnij na {social}"
-  },
-  "clearAllFilters": "wyczyść wszystkie filtry",
-  "reset": "Resetuj",
   "loadingResults": "Ładowanie wyników",
-  "edmIsShownAtLinkAlt": "Zobacz na stronie internetowej dostawcy",
+  "messages": {
+    "externalContentError": "Nie można załadować treści zewnętrznej",
+    "notFound": "Nie znaleziono",
+    "paginationLimitExceeded": "Możliwe jest wyświetlenie tylko pierwszych {limit} wyników wyświetlania."
+  },
+  "newWindow": "otwiera się w nowym oknie",
+  "noMoreResults": "Nie ma więcej wyników dla zapytania wyszukiwania.",
+  "noResults": "Brak Wyników",
+  "readMore": "Czytaj więcej",
   "record": {
+    "downloadCopyrightInfo": "Ten element jest chroniony prawami autorskimi i nie można go pobrać.",
     "extendedInformation": "Informacje rozszerzone",
     "hideAll": "Ukryj wszystkie informacje",
     "record": "Rekord",
     "showAll": "Pokaż wszystkie informacje",
     "similarItems": "Podobne elementy",
     "view": {
-      "pdf": "Zobacz PDF",
       "image": "Zobacz obraz",
-      "media": "Zobacz media"
-    },
-    "downloadCopyrightInfo": "Ten element jest chroniony prawami autorskimi i nie można go pobrać."
-  },
-  "contentfulManual": {
-    "headerNavigation": {
-      "teachers": "Edukatorzy",
-      "explore": "Odkryj"
-    },
-    "footerNavigation": {
-      "about": "O kolekcjach Europeana",
-      "forDevelopers": "Dla deweloperów",
-      "terms": "Regulamin i Polityka prywatności",
-      "provide": "Zostań dostawcą danych",
-      "meetUs": "Poznaj zespół",
-      "help": "Pomoc"
+      "media": "Zobacz media",
+      "pdf": "Zobacz PDF"
     }
-  },
-  "imageSlider": {
-    "handle": "Uchwyt suwakowy"
-  },
-  "dateFilter": {
-    "startDate": "Data rozpoczęcia",
-    "endDate": "Data końcowa",
-    "to": "do",
-    "specificDate": "Konkretna data"
-  },
-  "cookieDisclaimer": {
-    "acceptCookieDisclaimer": "Zaakceptuj zastrzeżenie dotyczące plików cookie",
-    "terms": "Ta strona korzysta z plików cookie, aby zapewnić najlepszą jakość korzystania z naszej witryny. Klikając stronę lub poruszając się po niej, wyrażasz zgodę na gromadzenie informacji za pomocą plików cookie.",
-    "link": "Więcej informacji"
-  },
-  "searchSuggestions": "Sugestie wyszukiwania",
-  "learnMore": "Dowiedz się o źródle tego opisu",
-  "footer": {
-    "ourMission": "Nasza misja",
-    "ourMissionQuote": "Europeana wspiera sektor dziedzictwa kulturowego w jego transformacji cyfrowej. Rozwijamy wiedzę specjalistyczną, narzędzia i polityki, aby uwzględnić zmiany cyfrowe i zachęcać do partnerstwa wspierającego innowacje.",
-    "customiseWebsiteLanguage": "Dostosuj język witryny",
-    "imageDescription": "Współfinansowany z instrumentu „Łącząc Europę” Unii Europejskiej",
-    "findUsElsewhere": "Znajdź nas w innych miejscach"
-  },
-  "collections": {
-    "fashion": {
-      "facets": {
-        "CREATOR": {
-          "name": "Projektant | Projektanci"
-        },
-        "proxy_dc_format": {
-          "name": "Technika | Techniki"
-        },
-        "proxy_dcterms_medium": {
-          "name": "Materiał | Materiały"
-        },
-        "proxy_dc_type": {
-          "name": "Typ elementu | Typy elementu"
-        }
-      }
-    }
-  },
-  "galleries": {
-    "galleries": "Galerie"
   },
   "relatedCollections": "Powiązane kolekcje",
-  "linksToClassic": {
-    "home": {
-      "text": "Oglądasz nowe doświadczenie Europeana.",
-      "linkText": "Przejdź do oryginalnej Europeany."
+  "removeFilter": "Usuń filtr {filterLabel}",
+  "reset": "Resetuj",
+  "resourceWikimedia": "Źródło z Wikimedia Commons",
+  "results": "Wyniki",
+  "resultsLimitWarning": "Dodatkowe wyniki nie są wyświetlane, ponieważ wyświetlanych jest tylko pierwsze 1000 najbardziej odpowiednich wyników. Jeśli nie znalazłeś tego, czego szukasz, rozważ zawężenie wyszukiwania.",
+  "search": "Szukaj",
+  "searchPlaceholder": "Odkryj miliony obiektów",
+  "searchSuggestions": "Sugestie wyszukiwania",
+  "searchTier": {
+    "button": {
+      "hide": "Ukryj te elementy",
+      "show": "Pokaż te elementy"
     },
-    "search": {
-      "text": "Przeszukujesz naszą nową i szybszą stronę internetową.",
-      "linkText": "Zobacz te wyniki wyszukiwania w oryginalnej Europeanie."
-    },
-    "record": {
-      "text": "Oglądasz ten element w nowej witrynie Europeana.",
-      "linkText": "Zobacz ten element w oryginalnej Europeanie."
+    "text": {
+      "hide": "Wyświetlane są elementy, które nie spełniają naszych kryteriów publikowania.",
+      "show": "Więcej elementów pasuje do wyszukiwania, ale nie spełnia naszych kryteriów publikowania."
     }
-  }
+  },
+  "searchViews": {
+    "grid": "Widok siatki",
+    "list": "Widok listy"
+  },
+  "showLess": "Pokaż mniej",
+  "showMore": "Pokaż więcej"
 };
