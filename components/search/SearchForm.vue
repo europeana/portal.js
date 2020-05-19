@@ -1,6 +1,7 @@
 <template>
   <b-form
     ref="form"
+    :class="showSearch ? 'open' : 'closed'"
     data-qa="search form"
     inline
     @submit.prevent="submitForm"
@@ -21,7 +22,19 @@
           :remove-link-to="pillRemoveLinkTo"
         />
       </template>
+      <b-button
+        v-show="showSearch"
+        data-qa="back button"
+        class="back d-lg-none"
+        variant="light"
+        @click="toggleSearchBar"
+      >
+        <span class="sr-only">
+          Back to menu
+        </span>
+      </b-button>
       <b-form-input
+        v-show="showSearch"
         ref="searchbox"
         v-model="query"
         :autocomplete="enableAutoSuggest ? 'off' : 'on'"
@@ -37,7 +50,19 @@
       <b-button
         type="submit"
         data-qa="search button"
+        class="search d-none d-lg-block"
         variant="primary"
+      >
+        <span class="sr-only">
+          {{ $t('search') }}
+        </span>
+      </b-button>
+      <b-button
+        v-show="!showSearch"
+        data-qa="search button"
+        class="search d-lg-none mr-3"
+        variant="light"
+        @click="toggleSearchBar"
       >
         <span class="sr-only">
           {{ $t('search') }}
@@ -59,7 +84,7 @@
   import AutoSuggest from './AutoSuggest';
   import SearchBarPill from './SearchBarPill';
   import { getEntitySuggestions, getEntityTypeHumanReadable, getEntitySlug } from '../../plugins/europeana/entity';
-  import { mapGetters } from 'vuex';
+  import { mapGetters, mapState } from 'vuex';
 
   export default {
     name: 'SearchForm',
@@ -90,6 +115,10 @@
     },
 
     computed: {
+      ...mapState({
+        showSearch: state => state.ui.showSearch
+      }),
+
       ...mapGetters({
         apiConfig: 'apis/config',
         queryUpdatesForFacetChanges: 'search/queryUpdatesForFacetChanges'
@@ -215,6 +244,15 @@
             pathMatch: getEntitySlug(entity.id, entity.prefLabel.en)
           }
         });
+      },
+
+      toggleSearchBar() {
+        this.$store.commit('ui/toggleSearchBar');
+        if (this.showSearch) {
+          this.$nextTick(() => {
+            this.$refs.searchbox.focus();
+          });
+        }
       }
     }
   };
@@ -224,9 +262,24 @@
   @import './assets/scss/variables.scss';
   @import './assets/scss/icons.scss';
 
+  .form-inline {
+    width: auto;
+    &.open {
+      width: 100%;
+      .form-control {
+        width: 100%;
+        padding-left: 4rem;
+        height: 56px;
+        &:-webkit-autofill {
+            background-color: red !important;
+            width: 100% !important;
+        }
+      }
+    }
+  }
+
   .input-group {
     width: 100%;
-    margin: 0.46875rem 0;
 
     .input-group-prepend {
       align-items: center;
@@ -238,19 +291,27 @@
   }
 
   .form-control {
-    background-color: $offwhite;
-    border-radius: $border-radius 0 0 $border-radius;
-    margin-right: 0;
-    display: none;
+    background-color: $white;
   }
 
   .btn {
     border-radius: 0;
+    box-shadow: none;
     &:before {
       @extend .icon-font;
-      content: '\e92b';
       display: inline-block;
-      transform: scale(0.9) translate(0, -0.2rem);
+    }
+    &.search:before {
+      content: '\e92b';
+    }
+    &.back {
+      position: absolute;
+      left: 23px;
+      top: 16px;
+      z-index: 99;
+      &:before {
+        content: '\ea40';
+      }
     }
   }
 
@@ -259,15 +320,22 @@
       background: none;
       color: $black;
       border: none;
+      padding: 0;
     }
   }
 
   @media (min-width: $bp-large) {
+      .input-group {
+        margin: 0.46875rem 0;
+      }
       .btn {
         border-radius: 0 $border-radius $border-radius 0;
       }
       .form-control {
         display: block;
+        background-color: $offwhite;
+        border-radius: $border-radius 0 0 $border-radius;
+        margin-right: 0;
       }
     }
 </style>

@@ -9,11 +9,12 @@
       class="nav-item"
     >
       <SmartLink
+        v-b-toggle.menu
         :destination="nav.url"
         link-class="nav-link"
       >
         <span>
-          <i v-bind:class="renderIcon(nav.text)" />
+          <i :class="renderIcon(nav.text)" />
           {{ nav.text }}
         </span>
       </SmartLink>
@@ -105,11 +106,14 @@
 
       span {
         position: relative;
-        i:before {
-          @extend .icon-font;
-          content: '';
-          color: $black;
-          font-size: 1.5rem;
+        i{
+          display: none;
+          :before {
+            @extend .icon-font;
+            content: '';
+            color: $black;
+            font-size: 1.5rem;
+          }
         }
       }
     }
@@ -141,6 +145,7 @@
           display: flex;
           align-items: center;
           i {
+            display: inline-block;
             font-size: 1rem;
             z-index: 1;
             margin-right: 0.75rem;

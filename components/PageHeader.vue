@@ -3,7 +3,7 @@
     ref="nav-container"
     v-visible-on-scroll
     fluid
-    class="border-bottom mb-3 d-flex py-1 py-lg-1 px-lg-3 flex-column flex-lg-row align-items-center"
+    class="border-bottom d-flex py-0 py-lg-1 px-lg-3 flex-column flex-lg-row align-items-center"
     data-qa="header"
   >
     <header
@@ -12,15 +12,17 @@
       aria-label="Europeana home"
     >
       <b-button
+        v-show="!showSearch"
         v-b-toggle.menu
         variant="light"
-        class="navbar-toggle collapsed p-0 flex-column align-items-center justify-content-center"
+        class="navbar-toggle collapsed ml-3 p-0 flex-column align-items-center justify-content-center"
       >
         <span />
         <span />
         <span />
       </b-button>
       <SmartLink
+        v-show="!showSearch"
         :destination="{ name: 'index' }"
         class="logo"
       >
@@ -40,9 +42,16 @@
         :enable-suggestion-validation="enableSuggestionValidation"
       />
     </header>
+    <b-navbar
+      class="p-lg-0 align-items-start justify-content-lg-end flex-column flex-lg-row desktop-navigation d-none d-lg-block"
+      role="navigation"
+    >
+      <PageNavigation />
+    </b-navbar>
     <b-collapse
+      v-show="!showSearch"
       id="menu"
-      class="d-block"
+      class="d-block mobile-navigation d-lg-none"
     >
       <b-navbar
         class="p-lg-0 align-items-start justify-content-lg-end flex-column flex-lg-row"
@@ -74,6 +83,7 @@
   import SmartLink from './generic/SmartLink';
   import SearchForm from './search/SearchForm';
   import PageNavigation from './PageNavigation';
+  import { mapState } from 'vuex';
 
   export default {
     components: {
@@ -91,6 +101,12 @@
         type: Boolean,
         default: false
       }
+    },
+
+    computed: {
+      ...mapState({
+        showSearch: state => state.ui.showSearch
+      })
     }
   };
 </script>
@@ -100,8 +116,13 @@
 
   .container-fluid {
     background: $white;
-    z-index: 1;
-    position: relative;
+    position: fixed;
+    right: 0;
+    top: 0;
+    left: 0;
+    z-index: 1030;
+    min-height: 56px;
+    padding: 0;
   }
 
   .navbar-brand {
@@ -126,7 +147,7 @@
       width: 16rem;
       padding: 1rem 0.5rem;
       transform: translate3d(-100%, 0, 0);
-      transition: $standard-transition;
+      transition: .3s cubic-bezier(0.24,1,0.32,1);
       .navbar-nav {
         padding-top: 1rem;
         flex-direction: column;
@@ -141,7 +162,7 @@
       left: 0;
       opacity: 0;
       pointer-events: none;
-      transition: $standard-transition;
+      transition: .3s cubic-bezier(0.24,1,0.32,1);
       &:after {
         content: '';
         background-color: rgba(0, 0, 0, 0.7);
@@ -153,11 +174,12 @@
         right: 0;
         pointer-events: none;
         opacity: 0;
-        transition: $standard-transition;
+        transition: .3s cubic-bezier(0.24,1,0.32,1);
       }
       &.show {
         pointer-events: all;
         opacity: 1;
+        transition: .2s cubic-bezier(0.4,0.0,1,1);
         .navbar {
           transform: translate3d(0, 0, 0);
         }
@@ -211,11 +233,6 @@
       }
     }
     .container-fluid {
-      position: fixed;
-      right: 0;
-      top: 0;
-      left: 0;
-      z-index: 1030;
       border-bottom: none !important;
       transition: $standard-transition;
     }
