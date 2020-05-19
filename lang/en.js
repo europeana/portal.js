@@ -161,7 +161,7 @@ export default {
     "MIME_TYPE": {
       "name": "File format | File formats",
       "options": {
-        "text/plain": "Plain text"
+        "text\/plain": "Plain text"
       }
     },
     "COLOURPALETTE": {
@@ -369,12 +369,12 @@ export default {
   "newWindow": "opens in new window",
   "blog": {
     "blog": "Blog",
-    "posts": "Blog posts",
     "author": "Author",
     "authors": "Authors",
     "category": "Category",
     "categories": "Categories",
-    "relatedPosts": "Related posts"
+    "relatedPosts": "Related posts",
+    "posts": "Blog posts"
   },
   "directions": {
     "left": "Left",
@@ -475,7 +475,6 @@ export default {
     "description": "Explore our galleries"
   },
   "relatedCollections": "Related collections",
-  "contentYouMightLike": "Content you might like",
   "linksToClassic": {
     "home": {
       "text": "You're viewing the new Europeana experience.",
@@ -490,6 +489,7 @@ export default {
       "linkText": "View this item in the original Europeana."
     }
   },
+  "contentYouMightLike": "Content you might like",
   "mediaPreview": {
     "selectItem": "Select item {src}"
   }
