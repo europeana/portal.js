@@ -278,9 +278,7 @@
         return this.descriptionInCurrentLanguage.values[0] ? this.descriptionInCurrentLanguage.values[0] : '';
       },
       isRichMedia() {
-        return isRichMedia(this.selectedMedia, {
-          iiif: Number(process.env.ENABLE_IIIF_MEDIA)
-        });
+        return isRichMedia(this.selectedMedia);
       },
       selectedMedia: {
         get() {
@@ -352,6 +350,12 @@
         if (localStorage.itemShowExtendedMetadata && JSON.parse(localStorage.itemShowExtendedMetadata)) {
           this.$root.$emit('bv::toggle::collapse', 'extended-metadata');
         }
+        this.$gtm.push({
+          itemCountry: langMapValueForLocale(this.fields.edmCountry, 'en').values[0],
+          itemDataProvider: langMapValueForLocale(this.coreFields.edmDataProvider, 'en').values[0],
+          itemProvider: langMapValueForLocale(this.fields.edmProvider, 'en').values[0],
+          itemRights: langMapValueForLocale(this.fields.edmRights, 'en').values[0]
+        });
       }
 
       const taggingAnnotationSearchParams = {
@@ -438,6 +442,16 @@
           { hid: 'og:type', property: 'og:type', content: 'article' }
         ]
       };
+    },
+
+    beforeRouteLeave(to, from, next) {
+      this.$gtm.push({
+        itemCountry: undefined,
+        itemDataProvider: undefined,
+        itemProvider: undefined,
+        itemRights: undefined
+      });
+      next();
     }
   };
 </script>

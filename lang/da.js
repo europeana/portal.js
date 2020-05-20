@@ -1,101 +1,102 @@
 export default {
-  "formatting": {
-    "labelledValue": "{label}: {value}",
-    "ellipsis": "…",
-    "listSeperator": ";"
+  "actions": {
+    "download": "Hent",
+    "providedBy": "Leveret af {provider}",
+    "share": "Del",
+    "shareOn": "Del på {social}",
+    "viewAt": "Se på {link}",
+    "viewDocument": "Se dokument"
   },
-  "error": "Fejl",
-  "goToRecord": "Gå til optagelse",
-  "readMore": "Læs mere",
-  "search": "Søg",
-  "results": "Resultater",
-  "homeLinkAlt": "Europeana startside",
-  "noMoreResults": "Der er ikke flere resultater for din søgning.",
-  "resultsLimitWarning": "Yderligere resultater vises ikke, da kun de første 1000 mest relevante resultater vises. Hvis du ikke har fundet det, du leder efter, kan du overveje at præcisere søgningen.",
-  "noResults": "Ingen resultater",
-  "fieldLabels": {
-    "default": {
-      "dcContributor": "Bidragydere",
-      "dcCreator": "Skaberen",
-      "dcDescription": "Beskrivelse",
-      "dcTitle": "Titel",
-      "dcType": "Objekttype",
-      "dctermsCreated": "Oprettelsesdato",
-      "edmCountry": "Leverende land",
-      "edmDataProvider": "Leverende institution",
-      "edmRights": "Licens for medierne i denne optagelse (medmindre andet er angivet)",
-      "dcPublisher": "Udgiver",
-      "dcSubject": "Emne",
-      "dctermsMedium": "Medium",
-      "dcRights": "Rettigheder",
-      "dcDate": "Dato",
-      "dctermsPublished": "Udgivelsesdato",
-      "dctermsIssued": "Udstedelsesdato",
-      "dctermsTemporal": "Tidsmæssig",
-      "dcCoverage": "Sted-tid",
-      "dctermsSpatial": "Steder",
-      "edmCurrentLocation": "Nuværende placering",
-      "edmUgc": "Brugergenereret indhold",
-      "dctermsProvenance": "Oprindelse",
-      "dcSource": "Kilde",
-      "dcIdentifier": "Identifikator",
-      "edmIntermediateProvider": "Mellemliggende udbyder",
-      "edmProvider": "Udbyder",
-      "timestampCreated": "Tidsstempel oprettet",
-      "timestampUpdate": "Tidstempel opdateret",
-      "dctermsExtent": "Omfang",
-      "dcDuration": "Varighed",
-      "dcMedium": "Medium",
-      "dcFormat": "Format",
-      "dcLanguage": "Sprog",
-      "dctermsIsPartOf": "Er en del af",
-      "europeanaCollectionName": "Navn på samling",
-      "dcRelation": "Forbindelser",
-      "dctermsReferences": "Referencer",
-      "dctermsHasPart": "Består af",
-      "dctermsHasVersion": "Har version",
-      "dctermsIsFormatOf": "Er format af",
-      "dctermsIsReferencedBy": "Er refereret til",
-      "dctermsIsReplacedBy": "Er erstattet af",
-      "dctermsIsRequiredBy": "Er krævet af",
-      "edmHasMet": "Har mødt",
-      "edmIncorporates": "Indeholder",
-      "edmIsDerivativeOf": "Er afledt af",
-      "edmIsRepresentationOf": "Er repræsentation af",
-      "edmIsSimilarTo": "Svarer til",
-      "edmIsSuccessorOf": "Er efterfølger til",
-      "edmRealizes": "Indser",
-      "wasPresentAt": "Var til stede på",
-      "keywords": "Nøgleord (leveret af fællesskabet)"
-    },
-    "webResource": {
-      "dcDescription": "Beskrivelse",
-      "rdfAbout": "RDF Om",
-      "edmRights": "Licens til denne medieressource",
-      "ebucoreHasMimeType": "Ebucore MIME-type",
-      "about": "RDF Om"
+  "blog": {
+    "author": "Forfatter",
+    "authors": "Forfattere",
+    "blog": "Blog",
+    "categories": "Kategorier",
+    "category": "Kategori",
+    "relatedPosts": "Relaterede indlæg"
+  },
+  "clearAllFilters": "ryd alle filtre",
+  "collections": {
+    "fashion": {
+      "facets": {
+        "CREATOR": {
+          "name": "Designer | Designere"
+        },
+        "proxy_dc_format": {
+          "name": "Teknik | Teknikker"
+        },
+        "proxy_dc_type": {
+          "name": "Artikeltype | Artikeltyper"
+        },
+        "proxy_dcterms_medium": {
+          "name": "Materiale | Materialer"
+        }
+      }
     }
   },
-  "facets": {
-    "COUNTRY": {
-      "name": "Leverende land"
+  "contentfulManual": {
+    "footerNavigation": {
+      "about": "Om Europeana-samlinger",
+      "forDevelopers": "For udviklere",
+      "help": "Hjælp",
+      "meetUs": "Mød holdet",
+      "provide": "Bliv dataleverandør",
+      "terms": "Vilkår for brug og Fortrolighedspolitik"
     },
-    "REUSABILITY": {
-      "name": "Må jeg videreformidle dette?",
+    "headerNavigation": {
+      "explore": "Udforsk",
+      "teachers": "Undervisere"
+    }
+  },
+  "cookieDisclaimer": {
+    "acceptCookieDisclaimer": "Accepter ansvarsfraskrivelse for cookies",
+    "link": "Mere information",
+    "terms": "Denne hjemmeside bruger cookies for at sikre, at du får den bedste oplevelse på vores hjemmeside. Ved at klikke eller navigere på siden accepterer du at tillade vores indsamling af information via cookies."
+  },
+  "dateFilter": {
+    "endDate": "Slutdato",
+    "specificDate": "Specifik dato",
+    "startDate": "Startdato",
+    "to": "til"
+  },
+  "delete": "Slet",
+  "depiction": "En skildring af {title}",
+  "directions": {
+    "left": "Venstre",
+    "right": "Højre"
+  },
+  "edmIsShownAtLinkAlt": "Vis på udbyderens websted",
+  "entity": "Entitet",
+  "error": "Fejl",
+  "exhibitions": {
+    "chapters": "Kapitler",
+    "credits": "Credits",
+    "currentChapter": "Aktuelt kapitel",
+    "exhibitions": "Udstillinger"
+  },
+  "facets": {
+    "api": {
+      "name": "Søg efter",
       "options": {
-        "open": "Ja",
-        "restricted": "Ja, med betingelser",
-        "permission": "Måske, søg tilladelse",
-        "uncategorized": "Ikke kategoriseret"
+        "fulltext": "Poster med fuldtekst",
+        "metadata": "Kun metadata-poster"
       }
+    },
+    "button": {
+      "apply": "Anvend",
+      "cancel": "Annuller",
+      "morefilters": "Flere filtre",
+      "reset": "Nulstil",
+      "showAll": "Vis alle {label}",
+      "showLess": "Vis mindre {label}"
     },
     "collection": {
       "name": "Kategori",
       "options": {
-        "ww1": "1914-1918",
         "archaeology": "Arkæologi",
         "art": "Kunst",
         "fashion": "Mode",
+        "industrial": "Industriel kulturarv",
         "manuscript": "Manuskripter",
         "map": "Kort og geografi",
         "migration": "Migration",
@@ -104,62 +105,7 @@ export default {
         "newspaper": "Aviser",
         "photography": "Fotografi",
         "sport": "Sport",
-        "industrial": "Industriel kulturarv"
-      }
-    },
-    "TYPE": {
-      "name": "Medietype",
-      "options": {
-        "IMAGE": "Billede",
-        "TEXT": "Tekst",
-        "VIDEO": "Video",
-        "SOUND": "Lyd",
-        "3D": "3D"
-      }
-    },
-    "contentTier": {
-      "name": "Indeholder emner, der ikke opfylder vores udgivelseskriterier",
-      "options": {
-        "*": "Indeholder artikler, der ikke opfylder vores udgivelseskriterier"
-      }
-    },
-    "button": {
-      "reset": "Nulstil",
-      "apply": "Anvend",
-      "cancel": "Annuller",
-      "morefilters": "Flere filtre",
-      "showAll": "Vis alle {label}",
-      "showLess": "Vis mindre {label}"
-    },
-    "LANGUAGE": {
-      "name": "Sprog"
-    },
-    "PROVIDER": {
-      "name": "Aggregator"
-    },
-    "DATA_PROVIDER": {
-      "name": "Institution"
-    },
-    "IMAGE_ASPECTRATIO": {
-      "name": "Billedretning | Billedretninger",
-      "options": {
-        "landscape": "Landskab",
-        "portrait": "Portræt"
-      }
-    },
-    "IMAGE_SIZE": {
-      "name": "Billedstørrelse | Billedstørrelser",
-      "options": {
-        "small": "Lille < 0,5MP (f.eks. 650x600px)",
-        "medium": "Medium 0,5-1MP (f.eks. 850x850px)",
-        "large": "Stor 1-4MP (f.eks 1920x1080px)",
-        "extra_large": "Ekstra stor 4MP + (f.eks. 2688 x 1520px)"
-      }
-    },
-    "MIME_TYPE": {
-      "name": "Filformat | Filformater",
-      "options": {
-        "text/plain": "Almindelig tekst"
+        "ww1": "1914-1918"
       }
     },
     "COLOURPALETTE": {
@@ -310,174 +256,228 @@ export default {
         "#FFFFFF": "hvid"
       }
     },
-    "proxy_dcterms_issued": {
-      "name": "Udstedelsesdato"
-    },
-    "api": {
-      "name": "Søg efter",
+    "contentTier": {
+      "name": "Indeholder emner, der ikke opfylder vores udgivelseskriterier",
       "options": {
-        "fulltext": "Poster med fuldtekst",
-        "metadata": "Kun metadata-poster"
+        "*": "Indeholder artikler, der ikke opfylder vores udgivelseskriterier"
       }
+    },
+    "COUNTRY": {
+      "name": "Leverende land"
     },
     "CREATOR": {
       "name": "Skaber | Skaberne"
     },
+    "DATA_PROVIDER": {
+      "name": "Institution"
+    },
+    "IMAGE_ASPECTRATIO": {
+      "name": "Billedretning | Billedretninger",
+      "options": {
+        "landscape": "Landskab",
+        "portrait": "Portræt"
+      }
+    },
+    "IMAGE_SIZE": {
+      "name": "Billedstørrelse | Billedstørrelser",
+      "options": {
+        "extra_large": "Ekstra stor 4MP + (f.eks. 2688 x 1520px)",
+        "large": "Stor 1-4MP (f.eks 1920x1080px)",
+        "medium": "Medium 0,5-1MP (f.eks. 850x850px)",
+        "small": "Lille < 0,5MP (f.eks. 650x600px)"
+      }
+    },
+    "LANGUAGE": {
+      "name": "Sprog"
+    },
+    "MIME_TYPE": {
+      "name": "Filformat | Filformater",
+      "options": {
+        "text/plain": "Almindelig tekst"
+      }
+    },
+    "PROVIDER": {
+      "name": "Aggregator"
+    },
     "proxy_dc_format": {
       "name": "Format | Formater"
+    },
+    "proxy_dc_type": {
+      "name": "Type | typer"
+    },
+    "proxy_dcterms_issued": {
+      "name": "Udstedelsesdato"
     },
     "proxy_dcterms_medium": {
       "name": "Medie | Medier"
     },
-    "proxy_dc_type": {
-      "name": "Type | typer"
+    "REUSABILITY": {
+      "name": "Må jeg videreformidle dette?",
+      "options": {
+        "open": "Ja",
+        "permission": "Måske, søg tilladelse",
+        "restricted": "Ja, med betingelser",
+        "uncategorized": "Ikke kategoriseret"
+      }
+    },
+    "TYPE": {
+      "name": "Medietype",
+      "options": {
+        "3D": "3D",
+        "IMAGE": "Billede",
+        "SOUND": "Lyd",
+        "TEXT": "Tekst",
+        "VIDEO": "Video"
+      }
     }
   },
-  "entity": "Entitet",
-  "resourceWikimedia": "Ressource fra Wikimedia Commons",
-  "messages": {
-    "notFound": "Ikke fundet",
-    "externalContentError": "Det eksterne indhold kunne ikke indlæses",
-    "paginationLimitExceeded": "Det er kun muligt at få vist de første {limit} søgeresultater."
+  "fieldLabels": {
+    "default": {
+      "dcContributor": "Bidragydere",
+      "dcCoverage": "Sted-tid",
+      "dcCreator": "Skaberen",
+      "dcDate": "Dato",
+      "dcDescription": "Beskrivelse",
+      "dcDuration": "Varighed",
+      "dcFormat": "Format",
+      "dcIdentifier": "Identifikator",
+      "dcLanguage": "Sprog",
+      "dcMedium": "Medium",
+      "dcPublisher": "Udgiver",
+      "dcRelation": "Forbindelser",
+      "dcRights": "Rettigheder",
+      "dcSource": "Kilde",
+      "dcSubject": "Emne",
+      "dctermsCreated": "Oprettelsesdato",
+      "dctermsExtent": "Omfang",
+      "dctermsHasPart": "Består af",
+      "dctermsHasVersion": "Har version",
+      "dctermsIsFormatOf": "Er format af",
+      "dctermsIsPartOf": "Er en del af",
+      "dctermsIsReferencedBy": "Er refereret til",
+      "dctermsIsReplacedBy": "Er erstattet af",
+      "dctermsIsRequiredBy": "Er krævet af",
+      "dctermsIssued": "Udstedelsesdato",
+      "dctermsMedium": "Medium",
+      "dctermsProvenance": "Oprindelse",
+      "dctermsPublished": "Udgivelsesdato",
+      "dctermsReferences": "Referencer",
+      "dctermsSpatial": "Steder",
+      "dctermsTemporal": "Tidsmæssig",
+      "dcTitle": "Titel",
+      "dcType": "Objekttype",
+      "edmCountry": "Leverende land",
+      "edmCurrentLocation": "Nuværende placering",
+      "edmDataProvider": "Leverende institution",
+      "edmHasMet": "Har mødt",
+      "edmIncorporates": "Indeholder",
+      "edmIntermediateProvider": "Mellemliggende udbyder",
+      "edmIsDerivativeOf": "Er afledt af",
+      "edmIsRepresentationOf": "Er repræsentation af",
+      "edmIsSimilarTo": "Svarer til",
+      "edmIsSuccessorOf": "Er efterfølger til",
+      "edmProvider": "Udbyder",
+      "edmRealizes": "Indser",
+      "edmRights": "Licens for medierne i denne optagelse (medmindre andet er angivet)",
+      "edmUgc": "Brugergenereret indhold",
+      "europeanaCollectionName": "Navn på samling",
+      "keywords": "Nøgleord (leveret af fællesskabet)",
+      "timestampCreated": "Tidsstempel oprettet",
+      "timestampUpdate": "Tidstempel opdateret",
+      "wasPresentAt": "Var til stede på"
+    },
+    "webResource": {
+      "about": "RDF Om",
+      "dcDescription": "Beskrivelse",
+      "ebucoreHasMimeType": "Ebucore MIME-type",
+      "edmRights": "Licens til denne medieressource",
+      "rdfAbout": "RDF Om"
+    }
   },
-  "searchViews": {
-    "grid": "Gittervisning",
-    "list": "Listevisning"
+  "footer": {
+    "customiseWebsiteLanguage": "Tilpas hjemmesidens sprog",
+    "findUsElsewhere": "Find os et andet sted",
+    "imageDescription": "Medfinansieret af Den Europæiske Unions Connecting Europe-facilitet",
+    "ourMission": "Vores mission",
+    "ourMissionQuote": "Europeana styrker kulturarvsektoren i sin digitale transformation. Vi udvikler ekspertise, værktøjer og politikker til at omfatte digitale forandringer og tilskynde til partnerskaber, der fremmer innovation."
+  },
+  "formatting": {
+    "ellipsis": "…",
+    "labelledValue": "{label}: {value}",
+    "listSeperator": ";"
+  },
+  "galleries": {
+    "galleries": "Gallerier"
+  },
+  "goToRecord": "Gå til optagelse",
+  "homeLinkAlt": "Europeana startside",
+  "imageSlider": {
+    "handle": "Skydehåndtag"
   },
   "layout": {
     "skipToMain": "Spring til sideindhold"
   },
-  "searchPlaceholder": "Hvad leder du efter?",
-  "searchTier": {
-    "button": {
-      "show": "Vis disse emner",
-      "hide": "Skjul disse emner"
+  "learnMore": "Få mere at vide om kilden til denne beskrivelse",
+  "linksToClassic": {
+    "home": {
+      "linkText": "Gå til den oprindelige Europeana.",
+      "text": "Du ser den nye Europeana oplevelse."
     },
-    "text": {
-      "show": "Flere emner matcher din søgning, men opfylder ikke vores udgivelseskriterier.",
-      "hide": "Emner, der ikke opfylder vores udgivelseskriterier, vises."
+    "record": {
+      "linkText": "Se denne artikel i den originale Europeana.",
+      "text": "Du ser denne artikel på den nye Europeana-hjemmeside."
+    },
+    "search": {
+      "linkText": "Se disse søgeresultater i den oprindelige Europeana.",
+      "text": "Du søger på vores nye og hurtigere hjemmeside."
     }
   },
-  "depiction": "En skildring af {title}",
-  "showLess": "Vis mindre",
-  "showMore": "Vis mere",
-  "delete": "Slet",
-  "removeFilter": "Fjern {filterLabel} filter",
-  "newWindow": "åbner i nyt vindue",
-  "blog": {
-    "blog": "Blog",
-    "author": "Forfatter",
-    "authors": "Forfattere",
-    "category": "Kategori",
-    "categories": "Kategorier",
-    "relatedPosts": "Relaterede indlæg"
-  },
-  "directions": {
-    "left": "Venstre",
-    "right": "Højre"
-  },
-  "exhibitions": {
-    "exhibitions": "Udstillinger",
-    "credits": "Credits",
-    "chapters": "Kapitler",
-    "currentChapter": "Aktuelt kapitel"
-  },
-  "actions": {
-    "download": "Hent",
-    "viewAt": "Se på {link}",
-    "providedBy": "Leveret af {provider}",
-    "viewDocument": "Se dokument",
-    "share": "Del",
-    "shareOn": "Del på {social}"
-  },
-  "clearAllFilters": "ryd alle filtre",
-  "reset": "Nulstil",
   "loadingResults": "Indlæser resultater",
-  "edmIsShownAtLinkAlt": "Vis på udbyderens websted",
+  "messages": {
+    "externalContentError": "Det eksterne indhold kunne ikke indlæses",
+    "notFound": "Ikke fundet",
+    "paginationLimitExceeded": "Det er kun muligt at få vist de første {limit} søgeresultater."
+  },
+  "newWindow": "åbner i nyt vindue",
+  "noMoreResults": "Der er ikke flere resultater for din søgning.",
+  "noResults": "Ingen resultater",
+  "readMore": "Læs mere",
   "record": {
+    "downloadCopyrightInfo": "Denne artikel er ophavsretligt beskyttet og kan ikke downloades.",
     "extendedInformation": "Udvidede oplysninger",
     "hideAll": "Skjul alle oplysninger",
     "record": "Registrering",
     "showAll": "Vis alle oplysninger",
     "similarItems": "Lignende artikler",
     "view": {
-      "pdf": "Se PDF",
       "image": "Se billede",
-      "media": "Se medier"
-    },
-    "downloadCopyrightInfo": "Denne artikel er ophavsretligt beskyttet og kan ikke downloades."
-  },
-  "contentfulManual": {
-    "headerNavigation": {
-      "teachers": "Undervisere",
-      "explore": "Udforsk"
-    },
-    "footerNavigation": {
-      "about": "Om Europeana-samlinger",
-      "forDevelopers": "For udviklere",
-      "terms": "Vilkår for brug og Fortrolighedspolitik",
-      "provide": "Bliv dataleverandør",
-      "meetUs": "Mød holdet",
-      "help": "Hjælp"
+      "media": "Se medier",
+      "pdf": "Se PDF"
     }
-  },
-  "imageSlider": {
-    "handle": "Skydehåndtag"
-  },
-  "dateFilter": {
-    "startDate": "Startdato",
-    "endDate": "Slutdato",
-    "to": "til",
-    "specificDate": "Specifik dato"
-  },
-  "cookieDisclaimer": {
-    "acceptCookieDisclaimer": "Accepter ansvarsfraskrivelse for cookies",
-    "terms": "Denne hjemmeside bruger cookies for at sikre, at du får den bedste oplevelse på vores hjemmeside. Ved at klikke eller navigere på siden accepterer du at tillade vores indsamling af information via cookies.",
-    "link": "Mere information"
-  },
-  "searchSuggestions": "Søgeforslag",
-  "learnMore": "Få mere at vide om kilden til denne beskrivelse",
-  "footer": {
-    "ourMission": "Vores mission",
-    "ourMissionQuote": "Europeana styrker kulturarvsektoren i sin digitale transformation. Vi udvikler ekspertise, værktøjer og politikker til at omfatte digitale forandringer og tilskynde til partnerskaber, der fremmer innovation.",
-    "customiseWebsiteLanguage": "Tilpas hjemmesidens sprog",
-    "imageDescription": "Medfinansieret af Den Europæiske Unions Connecting Europe-facilitet",
-    "findUsElsewhere": "Find os et andet sted"
-  },
-  "collections": {
-    "fashion": {
-      "facets": {
-        "CREATOR": {
-          "name": "Designer | Designere"
-        },
-        "proxy_dc_format": {
-          "name": "Teknik | Teknikker"
-        },
-        "proxy_dcterms_medium": {
-          "name": "Materiale | Materialer"
-        },
-        "proxy_dc_type": {
-          "name": "Artikeltype | Artikeltyper"
-        }
-      }
-    }
-  },
-  "galleries": {
-    "galleries": "Gallerier"
   },
   "relatedCollections": "Relaterede samlinger",
-  "linksToClassic": {
-    "home": {
-      "text": "Du ser den nye Europeana oplevelse.",
-      "linkText": "Gå til den oprindelige Europeana."
+  "removeFilter": "Fjern {filterLabel} filter",
+  "reset": "Nulstil",
+  "resourceWikimedia": "Ressource fra Wikimedia Commons",
+  "results": "Resultater",
+  "resultsLimitWarning": "Yderligere resultater vises ikke, da kun de første 1000 mest relevante resultater vises. Hvis du ikke har fundet det, du leder efter, kan du overveje at præcisere søgningen.",
+  "search": "Søg",
+  "searchPlaceholder": "Hvad leder du efter?",
+  "searchSuggestions": "Søgeforslag",
+  "searchTier": {
+    "button": {
+      "hide": "Skjul disse emner",
+      "show": "Vis disse emner"
     },
-    "search": {
-      "text": "Du søger på vores nye og hurtigere hjemmeside.",
-      "linkText": "Se disse søgeresultater i den oprindelige Europeana."
-    },
-    "record": {
-      "text": "Du ser denne artikel på den nye Europeana-hjemmeside.",
-      "linkText": "Se denne artikel i den originale Europeana."
+    "text": {
+      "hide": "Emner, der ikke opfylder vores udgivelseskriterier, vises.",
+      "show": "Flere emner matcher din søgning, men opfylder ikke vores udgivelseskriterier."
     }
-  }
+  },
+  "searchViews": {
+    "grid": "Gittervisning",
+    "list": "Listevisning"
+  },
+  "showLess": "Vis mindre",
+  "showMore": "Vis mere"
 };
