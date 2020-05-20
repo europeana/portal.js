@@ -11,21 +11,16 @@
     data() {
       return {
         manifest: null,
-        MIRADOR_BUILD_PATH: 'https://unpkg.com/mirador@3.0.0-beta.3/dist',
+        MIRADOR_BUILD_PATH: 'https://unpkg.com/@europeana/mirador@3.0.0-beta.9.2/dist',
         page: null,
         uri: null
       };
     },
 
-    asyncData({ query }) {
-      return {
-        uri: query.uri
-      };
-    },
-    mounted() {
-      this.$nextTick(() => {
+    computed: {
+      miradorViewerOptions() {
         // Doc: https://github.com/ProjectMirador/mirador/blob/master/src/config/settings.js
-        const mirador = Mirador.viewer({ // eslint-disable-line no-undef
+        const options = {
           id: 'viewer',
           windows: [{
             manifestId: this.uri,
@@ -37,12 +32,11 @@
             allowMaximize: false,
             allowTopMenuButton: false,
             allowWindowSideBar: false,
+            sideBarOpenByDefault: false,
             panels: {
               info: false,
               attribution: false,
-              canvas: true,
-              // Disabled due to performance issues with many annotations, pending
-              // https://github.com/ProjectMirador/mirador/issues/2915
+              canvas: false,
               annotations: false,
               search: false
             }
@@ -54,7 +48,27 @@
           workspaceControlPanel: {
             enabled: false
           }
-        });
+        };
+
+        if (Number(process.env.ENABLE_IIIF_ANNOTATIONS)) {
+          options.window.allowWindowSideBar = true;
+          options.window.panels.annotations = true;
+          options.window.defaultSideBarPanel = 'annotations';
+        }
+
+        return options;
+      }
+    },
+
+    asyncData({ query }) {
+      return {
+        uri: query.uri
+      };
+    },
+
+    mounted() {
+      this.$nextTick(() => {
+        const mirador = Mirador.viewer(this.miradorViewerOptions); // eslint-disable-line no-undef
 
         mirador.store.subscribe(() => {
           const miradorWindow = Object.values(mirador.store.getState().windows)[0]; // only takes one window into account at the moment
@@ -72,6 +86,8 @@
 
     methods: {
       fetchImageData(url, pageId) {
+        if (!this.manifest) return;
+
         const page = this.manifest.sequences[0].canvases.filter((item) => {
           return item['@id'] === pageId;
         });
