@@ -4,9 +4,25 @@
     data-qa="main navigation"
   >
     <li
-      v-for="(nav, index) in navigation"
-      :key="index"
-      class="nav-item"
+      v-for="(nav, generateKey) in navigation"
+      :key="generateKey"
+      class="nav-item d-none d-lg-block"
+    >
+      <SmartLink
+        v-b-toggle.menu
+        :destination="nav.url"
+        link-class="nav-link"
+      >
+        <span>
+          <i :class="renderIcon(nav.text)" />
+          {{ nav.text }}
+        </span>
+      </SmartLink>
+    </li>
+    <li
+      v-for="(nav, generateKey) in mobileNavigation"
+      :key="generateKey"
+      class="nav-item d-block d-lg-none"
     >
       <SmartLink
         v-b-toggle.menu
@@ -32,8 +48,11 @@
 
     computed: {
       navigation() {
-        console.log(this.$store.state['link-group'].data);
         return this.$store.state['link-group'].data.mainNavigation.links;
+      },
+
+      mobileNavigation() {
+        return this.$store.state['link-group'].data.mobileNavigation.links;
       },
 
       i18n() {
@@ -51,9 +70,13 @@
       async getNavigationData() {
         return this.$store.dispatch('link-group/init');
       },
+
       renderIcon(name) {
         let className = '';
         switch (name) {
+        case ('Home'):
+          className = 'icon-home';
+          break;
         case ('Collections'):
           className = 'icon-collections';
           break;
@@ -62,8 +85,16 @@
           break;
         case ('About us'):
           className = 'icon-info';
+          break;
+        case ('Help'):
+          className = 'icon-help';
+          break;
         }
         return className;
+      },
+
+      generateKey() {
+        return Math.random().toString(36).substring(7);
       }
     }
   };
@@ -85,7 +116,7 @@
       font-size: $font-size-small;
       font-weight: 600;
 
-      &.nuxt-link-active {
+      &.exact-active-link {
         &:after {
           content: '';
           position: absolute;
@@ -108,11 +139,8 @@
         position: relative;
         i{
           display: none;
-          :before {
+          &:before {
             @extend .icon-font;
-            content: '';
-            color: $black;
-            font-size: 1.5rem;
           }
         }
       }
@@ -120,7 +148,7 @@
 
     &:last-child {
       .nav-link {
-        &.nuxt-link-active:after {
+        &.exact-active-link:after {
           left: 0.25rem;
         }
         &:before {
@@ -149,7 +177,15 @@
             font-size: 1rem;
             z-index: 1;
             margin-right: 0.75rem;
-            transition: $standard-transition;
+            &:before {
+              content: '';
+              color: $black;
+              transition: $standard-transition;
+              font-size: 1.5rem;
+            }
+            &.icon-home:before {
+              content: '\e922';
+            }
             &.icon-collections:before {
               content: '\e91d';
             }
@@ -159,9 +195,12 @@
             &.icon-info:before {
               content: '\e91f';
             }
+            &.icon-help:before {
+              content: '\e921';
+            }
           }
         }
-        &.nuxt-link-active, &:hover {
+        &.exact-active-link, &:hover {
           color: $white;
           background: $blue;
           &:before, &:after {

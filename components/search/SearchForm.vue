@@ -4,6 +4,7 @@
     :class="showSearch ? 'open' : 'closed'"
     data-qa="search form"
     inline
+    autocomplete="off"
     @submit.prevent="submitForm"
   >
     <b-input-group
@@ -27,7 +28,7 @@
         data-qa="back button"
         class="back d-lg-none"
         variant="light"
-        @click="toggleSearchBar"
+        @click="backToMenu"
       >
         <span class="sr-only">
           Back to menu
@@ -37,7 +38,6 @@
         v-show="showSearch"
         ref="searchbox"
         v-model="query"
-        :autocomplete="enableAutoSuggest ? 'off' : 'on'"
         :placeholder="$t('searchPlaceholder')"
         name="query"
         data-qa="search box"
@@ -47,6 +47,34 @@
         :aria-label="$t('search')"
         @input="getSearchSuggestions"
       />
+      <b-button
+        v-show="showSearch && showSearchQuery"
+        data-qa="clear button"
+        class="clear d-lg-none"
+        variant="light"
+        @click="clearQuery"
+      >
+        <span class="sr-only">
+          Clear Search Query
+        </span>
+      </b-button>
+      <div
+        v-show="showSearchQuery"
+        class="search-query"
+      >
+        <b-button
+          type="submit"
+          data-qa="search button"
+          class="search"
+          variant="primary"
+          @click="toggleSearchBar"
+        >
+          <span class="sr-only">
+            {{ $t('search') }}
+          </span>
+        </b-button>
+        <span>Search for "{{ query }}"</span>
+      </div>
       <b-button
         type="submit"
         data-qa="search button"
@@ -108,6 +136,7 @@
     data() {
       return {
         query: null,
+        showSearchQuery: false,
         gettingSuggestions: false,
         suggestions: {},
         selectedSuggestion: null
@@ -193,20 +222,22 @@
         }
 
         this.suggestions = {};
-
+        this.clearQuery();
         await this.$goto(newRoute);
       },
 
       async getSearchSuggestions(query) {
+        if (query === '') {
+          this.suggestions = {};
+          this.showSearchQuery = false;
+          return;
+        } else {
+          this.showSearchQuery = true;
+        }
         if (!this.enableAutoSuggest) return;
 
         // Don't go getting more suggestions if we are already waiting for some
         if (this.gettingSuggestions) return;
-
-        if (query === '') {
-          this.suggestions = {};
-          return;
-        }
 
         this.gettingSuggestions = true;
 
@@ -253,6 +284,18 @@
             this.$refs.searchbox.focus();
           });
         }
+      },
+
+      backToMenu() {
+        /* cannot use toggleSearchBar method since this is also used when user clicks on
+           search query button, this means the query string will be cleared before redirect */
+        this.$store.commit('ui/toggleSearchBar');
+        this.clearQuery();
+      },
+
+      clearQuery() {
+        this.query = '';
+        this.showSearchQuery = false;
       }
     }
   };
@@ -268,11 +311,37 @@
       width: 100%;
       .form-control {
         width: 100%;
-        padding-left: 4rem;
-        height: 56px;
-        &:-webkit-autofill {
-            background-color: red !important;
-            width: 100% !important;
+        padding: 0.375rem 1rem 0.375rem 3.5rem;
+        height: 3.5rem;
+        color: $mediumgrey;
+        box-shadow: $boxshadow-light;
+      }
+      .search-query {
+        width: 100%;
+        padding: 0.375rem 1rem 0.375rem 3.5rem;
+        height: 3.5rem;
+        font-size: 1rem;
+        color: $mediumgrey;
+        display: flex;
+        align-items: center;
+        position: relative;
+        background: $white;
+        .search {
+          position: absolute;
+          width: 100%;
+          left: 0;
+          top: 0;
+          z-index: 99;
+          &:before {
+            left: 1rem;
+            top: 1rem;
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
         }
       }
     }
@@ -300,17 +369,27 @@
     &:before {
       @extend .icon-font;
       display: inline-block;
+      font-size: 1.1rem;
     }
     &.search:before {
       content: '\e92b';
     }
     &.back {
       position: absolute;
-      left: 23px;
-      top: 16px;
+      left: 1rem;
+      top: 1rem;
       z-index: 99;
       &:before {
         content: '\ea40';
+      }
+    }
+    &.clear {
+      position: absolute;
+      right: 1rem;
+      top: 1rem;
+      z-index: 99;
+      &:before {
+        content: '\e904';
       }
     }
   }
@@ -321,6 +400,11 @@
       color: $black;
       border: none;
       padding: 0;
+      height: 1.5rem;
+      width: 1.5rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
   }
 

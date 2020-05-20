@@ -121,14 +121,16 @@
     top: 0;
     left: 0;
     z-index: 1030;
-    min-height: 56px;
     padding: 0;
+    min-height: fit-content;
+    box-shadow: $boxshadow-light;
   }
 
   .navbar-brand {
     min-width: 11.0625rem;
     .logo {
       min-width: 9.5625rem;
+      padding: 0.735rem 0 !important;
       transition: .3s ease-in-out;
       img {
         width: 9.5625rem;
