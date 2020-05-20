@@ -1,15 +1,17 @@
 require('dotenv').config();
-
 const axios = require('axios');
-
-const recordOrigin = 'https://api.europeana.eu/record';
+const recordOrigin = 'https://api.europeana.eu';
 const apiKey = process.env['EUROPEANA_RECORD_API_KEY'];
 
+
 const getRecord = async(identifier) => {
-  const url = recordOrigin + '/search.json?profile=minimal&query=europeana_id%3A%22' + identifier + '%22&rows=1';
+  const url = recordOrigin + '/record/search.json';
   return axios.get(url, {
     params: {
-      wskey: apiKey
+      wskey: apiKey,
+      profile: 'minimal',
+      query: 'europeana_id%3A%22' + identifier + '%22',
+      rows: 1
     }
   })
     .then((response) => {
@@ -20,25 +22,14 @@ const getRecord = async(identifier) => {
     });
 };
 
-module.exports = async function(migration) {
-  migration.transformEntries({
-    contentType: 'automatedRecordCard',
-    from: ['thumbnailUrl'],
-    to: ['thumbnailUrl'],
-    transformEntryForLocale: async(fromFields, currentLocale) => {
-      if (currentLocale !== 'en-GB' || !fromFields.thumbnailUrl) return;
-      if (fromFields.thumbnailUrl['en-GB'].length >= 256) return { thumbnailUrl: 'REMOVED' };
-      return;
-    },
-    shouldPublish: 'preserve'
-  });
+module.exports = (migration) => {
+  if (!apiKey) throw new Error('No "EUROPEANA_RECORD_API_KEY" detected.');
 
   migration.transformEntries({
     contentType: 'automatedRecordCard',
     from: ['identifier', 'encoding'],
     to: ['encoding'],
     transformEntryForLocale: async(fromFields, currentLocale) => {
-
       if (currentLocale !== 'en-GB' || !fromFields.identifier) return;
       if (fromFields.encoding) return;
 
@@ -47,7 +38,6 @@ module.exports = async function(migration) {
         const encoding = record.items[0];
         return { encoding };
       }
-      return;
     },
     shouldPublish: 'preserve'
   });
