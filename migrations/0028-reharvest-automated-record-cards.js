@@ -23,6 +23,18 @@ const getRecord = async(identifier) => {
 module.exports = async function(migration) {
   migration.transformEntries({
     contentType: 'automatedRecordCard',
+    from: ['thumbnailUrl'],
+    to: ['thumbnailUrl'],
+    transformEntryForLocale: async(fromFields, currentLocale) => {
+      if (currentLocale !== 'en-GB' || !fromFields.thumbnailUrl) return;
+      if (fromFields.thumbnailUrl['en-GB'].length >= 256) return { thumbnailUrl: 'REMOVED' };
+      return;
+    },
+    shouldPublish: 'preserve'
+  });
+
+  migration.transformEntries({
+    contentType: 'automatedRecordCard',
     from: ['identifier', 'encoding'],
     to: ['encoding'],
     transformEntryForLocale: async(fromFields, currentLocale) => {
