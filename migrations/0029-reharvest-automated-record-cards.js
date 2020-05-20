@@ -10,7 +10,7 @@ const getRecord = async(identifier) => {
     params: {
       wskey: apiKey,
       profile: 'minimal',
-      query: 'europeana_id%3A%22' + identifier + '%22',
+      query: `europeana_id:"${identifier}"`,
       rows: 1
     }
   })

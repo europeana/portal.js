@@ -3,7 +3,7 @@ module.exports = (migration) => {
     contentType: 'automatedRecordCard',
     from: ['thumbnailUrl'],
     to: ['thumbnailUrl'],
-    transformEntryForLocale: async(fromFields, currentLocale) => {
+    transformEntryForLocale: (fromFields, currentLocale) => {
       if (currentLocale !== 'en-GB' || !fromFields.thumbnailUrl) return;
       if (fromFields.thumbnailUrl['en-GB'].length >= 256) return { thumbnailUrl: 'REMOVED' };
     },
