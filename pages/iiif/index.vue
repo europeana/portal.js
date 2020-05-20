@@ -11,7 +11,7 @@
     data() {
       return {
         manifest: null,
-        MIRADOR_BUILD_PATH: 'https://unpkg.com/@europeana/mirador@3.0.0-beta.9/dist',
+        MIRADOR_BUILD_PATH: 'https://unpkg.com/@europeana/mirador@3.0.0-beta.9.2/dist',
         page: null,
         uri: null
       };
