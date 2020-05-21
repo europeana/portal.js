@@ -38,6 +38,7 @@
         v-show="showSearch"
         ref="searchbox"
         v-model="query"
+        class="d-lg-block"
         :placeholder="$t('searchPlaceholder')"
         name="query"
         data-qa="search box"
@@ -60,7 +61,7 @@
       </b-button>
       <div
         v-show="showSearchQuery"
-        class="search-query"
+        class="search-query d-lg-none"
       >
         <b-button
           type="submit"
@@ -307,44 +308,6 @@
 
   .form-inline {
     width: auto;
-    &.open {
-      width: 100%;
-      .form-control {
-        width: 100%;
-        padding: 0.375rem 1rem 0.375rem 3.5rem;
-        height: 3.5rem;
-        color: $mediumgrey;
-        box-shadow: $boxshadow-light;
-      }
-      .search-query {
-        width: 100%;
-        padding: 0.375rem 1rem 0.375rem 3.5rem;
-        height: 3.5rem;
-        font-size: 1rem;
-        color: $mediumgrey;
-        display: flex;
-        align-items: center;
-        position: relative;
-        background: $white;
-        .search {
-          position: absolute;
-          width: 100%;
-          left: 0;
-          top: 0;
-          z-index: 99;
-          &:before {
-            left: 1rem;
-            top: 1rem;
-            position: absolute;
-            width: 24px;
-            height: 24px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-          }
-        }
-      }
-    }
   }
 
   .input-group {
@@ -406,6 +369,46 @@
       justify-content: center;
       align-items: center;
     }
+    .form-inline {
+      &.open {
+        width: 100%;
+        .form-control {
+          width: 100%;
+          padding: 0.375rem 1rem 0.375rem 3.5rem;
+          height: 3.5rem;
+          color: $mediumgrey;
+          box-shadow: $boxshadow-light;
+        }
+        .search-query {
+          width: 100%;
+          padding: 0.375rem 1rem 0.375rem 3.5rem;
+          height: 3.5rem;
+          font-size: 1rem;
+          color: $mediumgrey;
+          display: flex;
+          align-items: center;
+          position: relative;
+          background: $white;
+          .search {
+            position: absolute;
+            width: 100%;
+            left: 0;
+            top: 0;
+            z-index: 99;
+            &:before {
+              left: 1rem;
+              top: 1rem;
+              position: absolute;
+              width: 24px;
+              height: 24px;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+            }
+          }
+        }
+      }
+    }
   }
 
   @media (min-width: $bp-large) {
@@ -414,8 +417,11 @@
       }
       .btn {
         border-radius: 0 $border-radius $border-radius 0;
+        &:before {
+          transform: translateY(-0.1rem);
+        }
       }
-      .form-control {
+      .form-control:not(:first-child)  {
         display: block;
         background-color: $offwhite;
         border-radius: $border-radius 0 0 $border-radius;

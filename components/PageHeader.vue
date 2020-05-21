@@ -3,7 +3,7 @@
     ref="nav-container"
     v-visible-on-scroll
     fluid
-    class="border-bottom d-flex py-0 py-lg-1 px-lg-3 flex-column flex-lg-row align-items-center"
+    class="border-bottom d-flex py-0 px-lg-3 flex-column flex-lg-row align-items-center"
     data-qa="header"
   >
     <header
@@ -13,7 +13,7 @@
     >
       <b-button
         v-show="!showSearch"
-        v-b-toggle.menu
+        @click="showSidebar = !showSidebar"
         variant="light"
         class="navbar-toggle collapsed ml-3 p-0 flex-column align-items-center justify-content-center"
       >
@@ -24,7 +24,7 @@
       <SmartLink
         v-show="!showSearch"
         :destination="{ name: 'index' }"
-        class="logo"
+        class="logo d-lg-block"
       >
         <img
           src="../assets/img/logo.svg"
@@ -48,12 +48,9 @@
     >
       <PageNavigation />
     </b-navbar>
-    <b-collapse
-      v-show="!showSearch"
-      id="menu"
-      class="d-block mobile-navigation d-lg-none"
-    >
+    <transition name="slide">
       <b-navbar
+        v-if="showSidebar"
         class="p-lg-0 align-items-start justify-content-lg-end flex-column flex-lg-row"
         role="navigation"
       >
@@ -69,13 +66,12 @@
           >
         </SmartLink>
         <PageNavigation />
+        <span
+          @click="showSidebar = !showSidebar"
+          class="navbar-toggle close-menu"
+        />
       </b-navbar>
-      <b-button
-        v-b-toggle.menu
-        variant="light"
-        class="navbar-toggle collapsed p-0 close-menu"
-      />
-    </b-collapse>
+    </transition>
   </b-container>
 </template>
 
@@ -103,10 +99,43 @@
       }
     },
 
+    data() {
+      return {
+        showSidebar: false,
+        windowWidth: 0
+      };
+    },
+
     computed: {
       ...mapState({
-        showSearch: state => state.ui.showSearch
+        showSearch: state => state.ui.showSearch,
+        onDesktop: state => state.ui.onDesktop,
+        onMobile: state => state.ui.onMobile
       })
+    },
+
+    mounted() {
+      this.$nextTick(() => {
+        window.addEventListener('resize', this.getWindowWidth);
+        this.getWindowWidth();
+      });
+    },
+
+    beforeDestroy() {
+      window.removeEventListener('resize', this.getWindowWidth);
+    },
+
+    methods: {
+      getWindowWidth() {
+        this.windowWidth = document.documentElement.clientWidth;
+        if (this.windowWidth >= 992 && this.onMobile) {
+          this.$store.commit('ui/onDesktop', true);
+          this.$store.commit('ui/onMobile', false);
+        } else if (this.windowWidth <= 991 && this.onDesktop) {
+          this.$store.commit('ui/onDesktop', false);
+          this.$store.commit('ui/onMobile', true);
+        }
+      }
     }
   };
 </script>
@@ -122,8 +151,20 @@
     left: 0;
     z-index: 1030;
     padding: 0;
-    min-height: fit-content;
     box-shadow: $boxshadow-light;
+  }
+
+  .slide-enter-active {
+    transition: .3s cubic-bezier(0.24,1,0.32,1);
+  }
+
+  .slide-leave-active {
+    transition: .2s cubic-bezier(0.4,0.0,1,1);
+  }
+
+  .slide-enter, .slide-leave-to {
+    transform: translate3d(-100%, 0, 0);
+    opacity: 0;
   }
 
   .navbar-brand {
@@ -139,55 +180,31 @@
   }
 
   @media (max-width: $bp-large) {
-    .navbar {
-      position: absolute;
-      height: 100vh;
-      background: $white;
-      z-index: 99;
-      left: 0;
-      top: 0;
-      width: 16rem;
-      padding: 1rem 0.5rem;
-      transform: translate3d(-100%, 0, 0);
-      transition: .3s cubic-bezier(0.24,1,0.32,1);
-      .navbar-nav {
-        padding-top: 1rem;
-        flex-direction: column;
-        width: 100%;
-      }
+    .navbar-brand {
+      flex: 0 0 auto;
     }
-    #menu {
-      width: 100%;
+    .navbar {
       height: 100vh;
       position: fixed;
       top: 0;
       left: 0;
-      opacity: 0;
-      pointer-events: none;
-      transition: .3s cubic-bezier(0.24,1,0.32,1);
+      background: $white;
+      z-index: 99;
+      width: 16rem;
+      padding: 1rem 0.5rem;
+      /* transform: translate3d(-100%, 0, 0); */
+      /* transition: .3s cubic-bezier(0.24,1,0.32,1); */
       &:after {
         content: '';
         background-color: rgba(0, 0, 0, 0.7);
         height: 100vh;
-        width: 100%;
+        width: calc(100% - 16rem);
         position: fixed;
         z-index: 2;
         top: 0;
         right: 0;
         pointer-events: none;
-        opacity: 0;
-        transition: .3s cubic-bezier(0.24,1,0.32,1);
-      }
-      &.show {
-        pointer-events: all;
-        opacity: 1;
-        transition: .2s cubic-bezier(0.4,0.0,1,1);
-        .navbar {
-          transform: translate3d(0, 0, 0);
-        }
-        &:after {
-          opacity: 1;
-        }
+        /* transition: .3s cubic-bezier(0.24,1,0.32,1); */
       }
       .close-menu {
         position: fixed;
@@ -196,9 +213,41 @@
         height: 100vh;
         width: calc(100% - 16rem);
         border-radius: 0;
+        background-color: transparent;
+        outline: none;
+        transition: .2s;
+        cursor: pointer;
+        /* opacity: 0; */
+      }
+      .navbar-nav {
+        padding-top: 1rem;
+        flex-direction: column;
+        width: 100%;
+      }
+    }
+    #menu {
+      /* width: 100%; */
+      /* height: 100vh;
+      position: fixed;
+      top: 0;
+      left: 0; */
+      /* pointer-events: none; */
+      /* transition: .3s cubic-bezier(0.24,1,0.32,1); */
+      /* &.show {
+        pointer-events: all;
+        opacity: 1;
+        transition: .2s cubic-bezier(0.4,0.0,1,1);
+      } */
+      /* .close-menu {
+        position: fixed;
+        right: 0;
+        top: 0;
+        height: 100vh;
+        width: calc(100% - 16rem);
+        border-radius: 0;
         background: transparent;
         outline: none;
-      }
+      } */
     }
     .navbar-toggle {
       display: flex;

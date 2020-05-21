@@ -4,25 +4,9 @@
     data-qa="main navigation"
   >
     <li
-      v-for="(nav, generateKey) in navigation"
-      :key="generateKey"
-      class="nav-item d-none d-lg-block"
-    >
-      <SmartLink
-        v-b-toggle.menu
-        :destination="nav.url"
-        link-class="nav-link"
-      >
-        <span>
-          <i :class="renderIcon(nav.text)" />
-          {{ nav.text }}
-        </span>
-      </SmartLink>
-    </li>
-    <li
-      v-for="(nav, generateKey) in mobileNavigation"
-      :key="generateKey"
-      class="nav-item d-block d-lg-none"
+      v-for="(nav, index) in navigation"
+      :key="index"
+      class="nav-item"
     >
       <SmartLink
         v-b-toggle.menu
@@ -40,6 +24,7 @@
 
 <script>
   import SmartLink from './generic/SmartLink';
+  import { mapState } from 'vuex';
 
   export default {
     components: {
@@ -47,12 +32,16 @@
     },
 
     computed: {
-      navigation() {
-        return this.$store.state['link-group'].data.mainNavigation.links;
-      },
+      ...mapState({
+        onDesktop: state => state.ui.onDesktop
+      }),
 
-      mobileNavigation() {
-        return this.$store.state['link-group'].data.mobileNavigation.links;
+      navigation() {
+        if (this.onDesktop) {
+          return this.$store.state['link-group'].data.mainNavigation.links;
+        } else {
+          return this.$store.state['link-group'].data.mobileNavigation.links;
+        }
       },
 
       i18n() {
@@ -91,10 +80,6 @@
           break;
         }
         return className;
-      },
-
-      generateKey() {
-        return Math.random().toString(36).substring(7);
       }
     }
   };
