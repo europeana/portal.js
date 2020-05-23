@@ -24,7 +24,6 @@
 
 <script>
   import SmartLink from './generic/SmartLink';
-  import { mapState } from 'vuex';
 
   export default {
     components: {
@@ -32,16 +31,8 @@
     },
 
     computed: {
-      ...mapState({
-        onDesktop: state => state.ui.onDesktop
-      }),
-
       navigation() {
-        if (this.onDesktop) {
-          return this.$store.state['link-group'].data.mainNavigation.links;
-        } else {
-          return this.$store.state['link-group'].data.mobileNavigation.links;
-        }
+        return this.$store.state['link-group'].data.mobileNavigation.links;
       },
 
       i18n() {
@@ -90,10 +81,14 @@
   @import '../assets/scss/icons.scss';
 
   .nav-item {
-    &:not(:last-child) {
-      margin-right: 1rem;
+    margin-right: 1rem;
+    &:nth-last-child(2) {
+      margin-right: 0;
     }
 
+    &:first-of-type, &:last-of-type {
+      display: none;
+    }
     .nav-link {
       color: $mediumgrey;
       text-decoration: none;
@@ -122,7 +117,7 @@
 
       span {
         position: relative;
-        i{
+        i {
           display: none;
           &:before {
             @extend .icon-font;
@@ -145,8 +140,12 @@
       width: 100%;
       margin: 0 0 0.25rem 0;
       position: relative;
-      &:not(:last-child) {
-        margin-right: 0rem;
+      margin-right: 0;
+      &:nth-last-child(2) {
+        margin-right: 0;
+      }
+      &:first-of-type, &:last-of-type {
+        display: block;
       }
       .nav-link {
         text-transform: capitalize;

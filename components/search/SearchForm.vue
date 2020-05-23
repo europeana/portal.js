@@ -60,7 +60,7 @@
         </span>
       </b-button>
       <div
-        v-show="showSearchQuery"
+        v-show="showSearch && showSearchQuery"
         class="search-query d-lg-none"
       >
         <b-button
@@ -289,7 +289,7 @@
 
       backToMenu() {
         /* cannot use toggleSearchBar method since this is also used when user clicks on
-           search query button, this means the query string will be cleared before redirect */
+           search query button, this clears the query string before redirect */
         this.$store.commit('ui/toggleSearchBar');
         this.clearQuery();
       },
@@ -358,7 +358,7 @@
   }
 
   @media (max-width: $bp-large) {
-    .btn{
+    .btn {
       background: none;
       color: $black;
       border: none;
@@ -395,6 +395,7 @@
             left: 0;
             top: 0;
             z-index: 99;
+            height: 3.5rem;
             &:before {
               left: 1rem;
               top: 1rem;
@@ -412,20 +413,20 @@
   }
 
   @media (min-width: $bp-large) {
-      .input-group {
-        margin: 0.46875rem 0;
-      }
-      .btn {
-        border-radius: 0 $border-radius $border-radius 0;
-        &:before {
-          transform: translateY(-0.1rem);
-        }
-      }
-      .form-control:not(:first-child)  {
-        display: block;
-        background-color: $offwhite;
-        border-radius: $border-radius 0 0 $border-radius;
-        margin-right: 0;
+    .input-group {
+      margin: 0.46875rem 0;
+    }
+    .btn {
+      border-radius: 0 $border-radius $border-radius 0;
+      &:before {
+        transform: translateY(-0.1rem);
       }
     }
+    .form-control:not(:first-child) {
+      display: block;
+      background-color: $offwhite;
+      border-radius: $border-radius 0 0 $border-radius;
+      margin-right: 0;
+    }
+  }
 </style>

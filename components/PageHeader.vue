@@ -13,9 +13,10 @@
     >
       <b-button
         v-show="!showSearch"
-        @click="showSidebar = !showSidebar"
         variant="light"
         class="navbar-toggle collapsed ml-3 p-0 flex-column align-items-center justify-content-center"
+        aria-label="Show Sidebar"
+        @click="showSidebar = !showSidebar"
       >
         <span />
         <span />
@@ -43,7 +44,7 @@
       />
     </header>
     <b-navbar
-      class="p-lg-0 align-items-start justify-content-lg-end flex-column flex-lg-row desktop-navigation d-none d-lg-block"
+      class="p-lg-0 align-items-start justify-content-lg-end flex-column flex-lg-row d-none d-lg-block"
       role="navigation"
     >
       <PageNavigation />
@@ -51,7 +52,7 @@
     <transition name="slide">
       <b-navbar
         v-if="showSidebar"
-        class="p-lg-0 align-items-start justify-content-lg-end flex-column flex-lg-row"
+        class="p-lg-0 align-items-start justify-content-lg-end flex-column flex-lg-row d-lg-none"
         role="navigation"
       >
         <SmartLink
@@ -66,11 +67,14 @@
           >
         </SmartLink>
         <PageNavigation />
-        <span
-          @click="showSidebar = !showSidebar"
-          class="navbar-toggle close-menu"
-        />
       </b-navbar>
+    </transition>
+    <transition name="fade">
+      <span
+        v-if="showSidebar"
+        class="close-menu"
+        @click="showSidebar = !showSidebar"
+      />
     </transition>
   </b-container>
 </template>
@@ -101,39 +105,20 @@
 
     data() {
       return {
-        showSidebar: false,
-        windowWidth: 0
+        showSidebar: null
       };
     },
 
     computed: {
       ...mapState({
-        showSearch: state => state.ui.showSearch,
-        onDesktop: state => state.ui.onDesktop,
-        onMobile: state => state.ui.onMobile
+        showSearch: state => state.ui.showSearch
       })
     },
 
-    mounted() {
-      this.$nextTick(() => {
-        window.addEventListener('resize', this.getWindowWidth);
-        this.getWindowWidth();
-      });
-    },
-
-    beforeDestroy() {
-      window.removeEventListener('resize', this.getWindowWidth);
-    },
-
-    methods: {
-      getWindowWidth() {
-        this.windowWidth = document.documentElement.clientWidth;
-        if (this.windowWidth >= 992 && this.onMobile) {
-          this.$store.commit('ui/onDesktop', true);
-          this.$store.commit('ui/onMobile', false);
-        } else if (this.windowWidth <= 991 && this.onDesktop) {
-          this.$store.commit('ui/onDesktop', false);
-          this.$store.commit('ui/onMobile', true);
+    watch: {
+      '$route'() {
+        if (this.showSidebar) {
+          this.showSidebar = false;
         }
       }
     }
@@ -154,16 +139,19 @@
     box-shadow: $boxshadow-light;
   }
 
-  .slide-enter-active {
+  .slide-enter-active, .fade-enter-active {
     transition: .3s cubic-bezier(0.24,1,0.32,1);
   }
 
-  .slide-leave-active {
+  .slide-leave-active, .fade-leave-active {
     transition: .2s cubic-bezier(0.4,0.0,1,1);
   }
 
   .slide-enter, .slide-leave-to {
     transform: translate3d(-100%, 0, 0);
+  }
+
+  .fade-enter, .fade-leave-to {
     opacity: 0;
   }
 
@@ -192,20 +180,6 @@
       z-index: 99;
       width: 16rem;
       padding: 1rem 0.5rem;
-      /* transform: translate3d(-100%, 0, 0); */
-      /* transition: .3s cubic-bezier(0.24,1,0.32,1); */
-      &:after {
-        content: '';
-        background-color: rgba(0, 0, 0, 0.7);
-        height: 100vh;
-        width: calc(100% - 16rem);
-        position: fixed;
-        z-index: 2;
-        top: 0;
-        right: 0;
-        pointer-events: none;
-        /* transition: .3s cubic-bezier(0.24,1,0.32,1); */
-      }
       .close-menu {
         position: fixed;
         right: 0;
@@ -213,11 +187,10 @@
         height: 100vh;
         width: calc(100% - 16rem);
         border-radius: 0;
-        background-color: transparent;
         outline: none;
-        transition: .2s;
+        transition: .8s;
+        background-color: rgba(0, 0, 0, 0.7);
         cursor: pointer;
-        /* opacity: 0; */
       }
       .navbar-nav {
         padding-top: 1rem;
@@ -225,29 +198,17 @@
         width: 100%;
       }
     }
-    #menu {
-      /* width: 100%; */
-      /* height: 100vh;
+    .close-menu {
       position: fixed;
+      right: 0;
       top: 0;
-      left: 0; */
-      /* pointer-events: none; */
-      /* transition: .3s cubic-bezier(0.24,1,0.32,1); */
-      /* &.show {
-        pointer-events: all;
-        opacity: 1;
-        transition: .2s cubic-bezier(0.4,0.0,1,1);
-      } */
-      /* .close-menu {
-        position: fixed;
-        right: 0;
-        top: 0;
-        height: 100vh;
-        width: calc(100% - 16rem);
-        border-radius: 0;
-        background: transparent;
-        outline: none;
-      } */
+      height: 100vh;
+      width: 100%;
+      border-radius: 0;
+      outline: none;
+      transition: .5s;
+      background-color: rgba(0, 0, 0, 0.7);
+      cursor: pointer;
     }
     .navbar-toggle {
       display: flex;
@@ -260,7 +221,7 @@
         background: $black;
         height: 2px;
         margin-bottom: 3px;
-        &:last-of-type{margin-bottom: 0;}
+        &:last-of-type {margin-bottom: 0;}
       }
     }
   }
@@ -277,6 +238,7 @@
     }
     .form-inline {
       width: 100%;
+      max-width: 37.5rem;
     }
     @media (max-width: $bp-large) {
       .navbar-brand {
@@ -286,9 +248,6 @@
     .container-fluid {
       border-bottom: none !important;
       transition: $standard-transition;
-    }
-    .form-inline {
-      max-width: 37.5rem;
     }
   }
   @media (min-width: $bp-extralarge) {
