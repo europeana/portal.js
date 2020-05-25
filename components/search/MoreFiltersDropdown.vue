@@ -38,6 +38,16 @@
           />
         </template>
         <template
+          v-if="collection === 'ww1'"
+        >
+          <RadioGroupFilter
+            facet-name="api"
+            :options="['fulltext', 'metadata']"
+            :selected="preSelected['api'] || 'metadata'"
+            @change="updateSelected"
+          />
+        </template>
+        <template
           v-for="(facet, index) in moreFacets"
         >
           <MoreFiltersDropdownFacet
