@@ -1,7 +1,11 @@
 <template>
-  <div data-qa="exhibition chapter">
+  <div
+    data-qa="exhibition chapter"
+    class="exhibition-page mx-auto"
+  >
     <HeroImage
       v-if="hero"
+      exhibition
       :image-url="heroImage.url"
       :image-content-type="heroImage.contentType"
       :header="page.name"
@@ -16,7 +20,6 @@
       <b-row>
         <b-col
           cols="12"
-          lg="9"
           class="pb-0 pb-lg-3"
         >
           <h1
@@ -28,15 +31,6 @@
           <article>
             {{ page.text }}
           </article>
-        </b-col>
-        <b-col
-          cols="12"
-          lg="3"
-          class="pb-3 text-left text-lg-right"
-        >
-          <SocialShare
-            :media-url="heroImage.url"
-          />
         </b-col>
       </b-row>
       <b-row>
@@ -75,15 +69,13 @@
   import ExhibitionChapters from '../../../components/exhibition/ExhibitionChapters';
   import ExhibitionChaptersNavigation from '../../../components/exhibition/ExhibitionChaptersNavigation';
   import HeroImage from '../../../components/generic/HeroImage';
-  import SocialShare from '../../../components/generic/SocialShare';
 
   export default {
     components: {
       BrowseSections,
       ExhibitionChapters,
       ExhibitionChaptersNavigation,
-      HeroImage,
-      SocialShare
+      HeroImage
     },
     computed: {
       chapterNavigation() {

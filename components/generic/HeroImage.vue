@@ -1,5 +1,32 @@
 <template>
+  <b-container
+    v-if="exhibition"
+    fluid
+  >
+    <h1>{{ header }}</h1>
+    <p class="lead">{{ lead }}</p>
+    <SocialShare
+      :media-url="imageUrl"
+    />
+    <b-jumbotron
+      :style="jumbotronStyle"
+      fluid
+      text-variant="white"
+      data-qa="hero banner"
+    >
+      <figcaption>
+        <CiteAttribution
+          :name="name"
+          :creator="creator"
+          :provider="provider"
+          :rights-statement="rightsStatement"
+          :url="url"
+        />
+      </figcaption>
+    </b-jumbotron>
+  </b-container>
   <b-jumbotron
+    v-else
     :header="header"
     :lead="lead"
     :style="jumbotronStyle"
@@ -23,10 +50,12 @@
 
 <script>
   import CiteAttribution from '../../components/generic/CiteAttribution';
+  import SocialShare from '../../components/generic/SocialShare';
 
   export default {
     components: {
-      CiteAttribution
+      CiteAttribution,
+      SocialShare
     },
     props: {
       header: {
@@ -64,6 +93,10 @@
       url: {
         type: String,
         default: ''
+      },
+      exhibition: {
+        type: Boolean,
+        default: false
       }
     },
     computed: {
