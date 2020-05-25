@@ -180,18 +180,6 @@
       z-index: 99;
       width: 16rem;
       padding: 1rem 0.5rem;
-      .close-menu {
-        position: fixed;
-        right: 0;
-        top: 0;
-        height: 100vh;
-        width: calc(100% - 16rem);
-        border-radius: 0;
-        outline: none;
-        transition: .8s;
-        background-color: rgba(0, 0, 0, 0.7);
-        cursor: pointer;
-      }
       .navbar-nav {
         padding-top: 1rem;
         flex-direction: column;
