@@ -15,7 +15,7 @@
         v-show="!showSearch"
         variant="light"
         class="navbar-toggle collapsed ml-3 p-0 flex-column align-items-center justify-content-center"
-        aria-label="Show Sidebar"
+        :aria-label="$t('header.showSidebar')"
         @click="showSidebar = !showSidebar"
       >
         <span />
@@ -83,7 +83,6 @@
   import SmartLink from './generic/SmartLink';
   import SearchForm from './search/SearchForm';
   import PageNavigation from './PageNavigation';
-  import { mapState } from 'vuex';
 
   export default {
     components: {
@@ -110,9 +109,11 @@
     },
 
     computed: {
-      ...mapState({
-        showSearch: state => state.ui.showSearch
-      })
+      showSearch: {
+        get() {
+          return this.$store.getters['ui/searchView'];
+        }
+      }
     },
 
     watch: {
@@ -209,7 +210,7 @@
         background: $black;
         height: 2px;
         margin-bottom: 3px;
-        &:last-of-type {margin-bottom: 0;}
+        &:last-of-type { margin-bottom: 0; }
       }
     }
   }

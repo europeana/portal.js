@@ -443,6 +443,12 @@ export default {
   },
   "searchSuggestions": "Search suggestions",
   "learnMore": "Learn about the source of this description",
+  "header": {
+    "showSidebar": "Show Sidebar",
+    "backToMenu": "Back to menu",
+    "searchFor": "Search for",
+    "clearQuery": "Clear Search Query"
+  },
   "footer": {
     "ourMission": "Our mission",
     "ourMissionQuote": "Europeana empowers the cultural heritage sector in its digital transformation. We develop expertise, tools and policies to embrace digital change and encourage partnerships that foster innovation.",

@@ -14,7 +14,7 @@
         link-class="nav-link"
       >
         <span>
-          <i :class="renderIcon(nav.text)" />
+          <i :class="renderIcon(nav.url)" />
           {{ nav.text }}
         </span>
       </SmartLink>
@@ -54,19 +54,19 @@
       renderIcon(name) {
         let className = '';
         switch (name) {
-        case ('Home'):
+        case ('/'):
           className = 'icon-home';
           break;
-        case ('Collections'):
+        case ('/collections'):
           className = 'icon-collections';
           break;
-        case ('Teachers'):
+        case ('/europeana-classroom'):
           className = 'icon-school';
           break;
-        case ('About us'):
+        case ('/about-us'):
           className = 'icon-info';
           break;
-        case ('Help'):
+        case ('/help'):
           className = 'icon-help';
           break;
         }

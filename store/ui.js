@@ -7,3 +7,9 @@ export const mutations = {
     state.showSearch = !state.showSearch;
   }
 };
+
+export const getters = {
+  searchView(state) {
+    return state.showSearch;
+  }
+};

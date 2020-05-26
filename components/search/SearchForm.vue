@@ -31,7 +31,7 @@
         @click="backToMenu"
       >
         <span class="sr-only">
-          Back to menu
+          {{ $t('header.backToMenu') }}
         </span>
       </b-button>
       <b-form-input
@@ -56,7 +56,7 @@
         @click="clearQuery"
       >
         <span class="sr-only">
-          Clear Search Query
+          {{ $t('header.clearQuery') }}
         </span>
       </b-button>
       <div
@@ -74,7 +74,7 @@
             {{ $t('search') }}
           </span>
         </b-button>
-        <span>Search for "{{ query }}"</span>
+        <span>{{ $t('header.searchFor') }} "{{ query }}"</span>
       </div>
       <b-button
         type="submit"
@@ -113,7 +113,7 @@
   import AutoSuggest from './AutoSuggest';
   import SearchBarPill from './SearchBarPill';
   import { getEntitySuggestions, getEntityTypeHumanReadable, getEntitySlug } from '../../plugins/europeana/entity';
-  import { mapGetters, mapState } from 'vuex';
+  import { mapGetters } from 'vuex';
 
   export default {
     name: 'SearchForm',
@@ -145,9 +145,11 @@
     },
 
     computed: {
-      ...mapState({
-        showSearch: state => state.ui.showSearch
-      }),
+      showSearch: {
+        get() {
+          return this.$store.getters['ui/searchView'];
+        }
+      },
 
       ...mapGetters({
         apiConfig: 'apis/config',
@@ -232,9 +234,9 @@
           this.suggestions = {};
           this.showSearchQuery = false;
           return;
-        } else {
-          this.showSearchQuery = true;
         }
+        this.showSearchQuery = true;
+
         if (!this.enableAutoSuggest) return;
 
         // Don't go getting more suggestions if we are already waiting for some
