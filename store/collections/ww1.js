@@ -3,7 +3,8 @@
 
 export const state = () => ({
   apiOptions: {},
-  apiParams: {}
+  apiParams: {},
+  enabled: Number(process.env['ENABLE_WW1_FULLTEXT_SEARCH'])
 });
 
 export const getters = {

@@ -91,7 +91,7 @@
 <script>
   import Vue from 'vue';
   import isEqual from 'lodash/isEqual';
-  import { mapGetters } from 'vuex';
+  import { mapGetters, mapState } from 'vuex';
   import { rangeToQueryParam, rangeFromQueryParam } from '../../plugins/europeana/search';
   import MoreFiltersDropdownFacet from './MoreFiltersDropdownFacet';
   import DateFilter from './DateFilter';
@@ -121,6 +121,9 @@
       };
     },
     computed: {
+      ...mapState({
+        ww1CollectionEnabled: state => state.collections.ww1.enabled
+      }),
       ...mapGetters({
         collection: 'search/collection'
       }),
@@ -168,7 +171,9 @@
         return range;
       },
       enableApiFilter() {
-        return ['newspaper', 'ww1'].includes(this.collection);
+        if (this.collection === 'newspaper') return true;
+        if (this.collection === 'ww1' && this.ww1CollectionEnabled) return true;
+        return false;
       },
       apiFilterDefault() {
         return this.collection === 'newspaper' ? 'fulltext' : 'metadata';
