@@ -1,3 +1,6 @@
+// TODO: this essentially duplicates newspapers.js, with just the default
+//       for the api param different. Refactor to DRY it up.
+
 export const state = () => ({
   apiOptions: {},
   apiParams: {}
@@ -21,6 +24,11 @@ export const getters = {
 
   apiParams: (state, getters) => {
     const params = Object.assign({}, state.apiParams);
+
+    // Ensure ww1 collection gets metadata API by default
+    if (!params.api) {
+      params.api = 'metadata';
+    }
 
     if (params.api === 'fulltext') {
       // TODO: fulltext search API should be aware of contentTier, but is not.

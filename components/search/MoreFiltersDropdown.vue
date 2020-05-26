@@ -21,30 +21,24 @@
     <b-dropdown-form>
       <div class="more-facets-wrapper">
         <template
-          v-if="collection === 'newspaper'"
+          v-if="enableApiFilter"
         >
           <RadioGroupFilter
             facet-name="api"
             :options="['fulltext', 'metadata']"
-            :selected="preSelected['api'] || 'fulltext'"
+            :selected="preSelected['api'] || apiFilterDefault"
             @change="updateSelected"
           />
+        </template>
+        <template
+          v-if="collection === 'newspaper'"
+        >
           <DateFilter
             :name="PROXY_DCTERMS_ISSUED"
             :start="dateFilter.start"
             :end="dateFilter.end"
             :specific="dateFilter.specific"
             @dateFilter="dateFilterSelected"
-          />
-        </template>
-        <template
-          v-if="collection === 'ww1'"
-        >
-          <RadioGroupFilter
-            facet-name="api"
-            :options="['fulltext', 'metadata']"
-            :selected="preSelected['api'] || 'metadata'"
-            @change="updateSelected"
           />
         </template>
         <template
@@ -172,6 +166,12 @@
           return { start: proxyDctermsIssued[0], end: null, specific: true };
         }
         return range;
+      },
+      enableApiFilter() {
+        return ['newspaper', 'ww1'].includes(this.collection);
+      },
+      apiFilterDefault() {
+        return this.collection === 'newspaper' ? 'fulltext' : 'metadata';
       }
     },
     watch: {
