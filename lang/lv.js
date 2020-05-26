@@ -1,101 +1,102 @@
 export default {
-  "formatting": {
-    "labelledValue": "{label} : {value}",
-    "ellipsis": "…",
-    "listSeperator": ";"
+  "actions": {
+    "download": "Lejupielādēt",
+    "providedBy": "Nodrošina {provider}",
+    "share": "Dalies",
+    "shareOn": "Dalīties {social}",
+    "viewAt": "Skatīt vietnē {link}",
+    "viewDocument": "Skatīt dokumentu"
   },
-  "error": "Kļūda",
-  "goToRecord": "Iet uz ierakstu",
-  "readMore": "Lasīt vairāk",
-  "search": "Meklēt",
-  "results": "Rezultāti",
-  "homeLinkAlt": "Europeana vietne",
-  "noMoreResults": "Jūsu meklēšanas vaicājumam vairs nav rezultātu.",
-  "resultsLimitWarning": "Papildu rezultāti netiek parādīti, jo tiek parādīti tikai pirmie 1000 atbilstošākie rezultāti. Ja neesat atradis to, ko meklējat, lūdzu, apsveriet iespēju precizēt meklēšanu.",
-  "noResults": "Nav rezultātu",
-  "fieldLabels": {
-    "default": {
-      "dcContributor": "Atbalstītāji",
-      "dcCreator": "Autors",
-      "dcDescription": "Apraksts",
-      "dcTitle": "Nosaukums",
-      "dcType": "Objekta veids",
-      "dctermsCreated": "Izveidošanas datums",
-      "edmCountry": "Nodrošinošā valsts",
-      "edmDataProvider": "Nodrošinošā iestāde",
-      "edmRights": "Mediju licence šajā ierakstā (ja nav norādīts citādi)",
-      "dcPublisher": "Izdevējs",
-      "dcSubject": "Temats",
-      "dctermsMedium": "Veids",
-      "dcRights": "Tiesības",
-      "dcDate": "Datums",
-      "dctermsPublished": "Publicēšanas datums",
-      "dctermsIssued": "Izdošanas datums",
-      "dctermsTemporal": "Periods",
-      "dcCoverage": "Vieta un laiks",
-      "dctermsSpatial": "Vietas",
-      "edmCurrentLocation": "Pašreizējā atrašanās vieta",
-      "edmUgc": "Lietotāja radīts saturs",
-      "dctermsProvenance": "Izcelsme",
-      "dcSource": "Avots",
-      "dcIdentifier": "Identifikators",
-      "edmIntermediateProvider": "Starpnieks",
-      "edmProvider": "Oriģinālais nodrošinātājs",
-      "timestampCreated": "Laikspiedogs izveidots",
-      "timestampUpdate": "Laikspiedogs atjaunināts",
-      "dctermsExtent": "Apjoms",
-      "dcDuration": "Ilgums",
-      "dcMedium": "Veids",
-      "dcFormat": "Formāts",
-      "dcLanguage": "Valoda",
-      "dctermsIsPartOf": "Ir daļa no",
-      "europeanaCollectionName": "Kolekcijas nosaukums",
-      "dcRelation": "Saistības",
-      "dctermsReferences": "Atsaucas uz",
-      "dctermsHasPart": "Sastāv no",
-      "dctermsHasVersion": "Ir versija",
-      "dctermsIsFormatOf": "Ir formāts",
-      "dctermsIsReferencedBy": "Atsaucas",
-      "dctermsIsReplacedBy": "Aizstāj",
-      "dctermsIsRequiredBy": "Ir nepieciešams(-a)",
-      "edmHasMet": "Ir ticies(-kusies) ar",
-      "edmIncorporates": "Ietver",
-      "edmIsDerivativeOf": "Ir atvasināts(-a) no",
-      "edmIsRepresentationOf": "Pārstāv",
-      "edmIsSimilarTo": "Ir līdzīgs(-a)",
-      "edmIsSuccessorOf": "Ir pēctecis(-e)",
-      "edmRealizes": "Sasniegumi",
-      "wasPresentAt": "Bija",
-      "keywords": "Atslēgas vārdi (nodrošina kopiena)"
-    },
-    "webResource": {
-      "dcDescription": "Apraksts",
-      "rdfAbout": "Par radiopeilētāju (RDF)",
-      "edmRights": "Šī multivides resursa licence",
-      "ebucoreHasMimeType": "Ebucore MIME veids",
-      "about": "RDF Par"
+  "blog": {
+    "author": "Autors",
+    "authors": "Autori",
+    "blog": "Emuārs",
+    "categories": "Kategorijas",
+    "category": "Kategorija",
+    "relatedPosts": "Saistītās ziņas"
+  },
+  "clearAllFilters": "notīrīt visus filtrus",
+  "collections": {
+    "fashion": {
+      "facets": {
+        "CREATOR": {
+          "name": "Dizainers | Dizaineri"
+        },
+        "proxy_dc_format": {
+          "name": "Metode | Metodes"
+        },
+        "proxy_dc_type": {
+          "name": "Vienuma veids | Vienuma veidi"
+        },
+        "proxy_dcterms_medium": {
+          "name": "Materiāls | Materiāli"
+        }
+      }
     }
   },
-  "facets": {
-    "COUNTRY": {
-      "name": "Nodrošinošā valsts"
+  "contentfulManual": {
+    "footerNavigation": {
+      "about": "Par Europeana Collections",
+      "forDevelopers": "Izstrādātājiem",
+      "help": "Palīdzība",
+      "meetUs": "Mūsu komanda",
+      "provide": "Kļūsti par datu nodrošinātāju",
+      "terms": "Lietošanas noteikumi un Privātuma politika"
     },
-    "REUSABILITY": {
-      "name": "Vai es varu to atkārtoti izmantot?",
+    "headerNavigation": {
+      "explore": "Jaunumi",
+      "teachers": "Pedagogi"
+    }
+  },
+  "cookieDisclaimer": {
+    "acceptCookieDisclaimer": "Pieņemt atrunu par sīkdatnēm",
+    "link": "Vairāk informācijas",
+    "terms": "Šī vietne izmanto sīkdatnes, lai nodrošinātu vislabāko pieredzi mūsu vietnē. Noklikšķinot uz vietni vai pārvietojoties tajā, jūs piekrītat atļaut mums vākt informāciju, izmantojot sīkdatnes."
+  },
+  "dateFilter": {
+    "endDate": "Beigu datums",
+    "specificDate": "Konkrēts datums",
+    "startDate": "Sākuma datums",
+    "to": "uz"
+  },
+  "delete": "Dzēst",
+  "depiction": "{title} attēlojums",
+  "directions": {
+    "left": "Kreisais",
+    "right": "Labais"
+  },
+  "edmIsShownAtLinkAlt": "Skatīt pakalpojumu sniedzēja vietnē",
+  "entity": "Struktūrvienība",
+  "error": "Kļūda",
+  "exhibitions": {
+    "chapters": "Nodaļas",
+    "credits": "Kredīti",
+    "currentChapter": "Pašreizējā nodaļa",
+    "exhibitions": "Izstādes"
+  },
+  "facets": {
+    "api": {
+      "name": "Meklēt",
       "options": {
-        "open": "Jā",
-        "restricted": "Jā, ar nosacījumiem",
-        "permission": "Varbūt, meklējiet atļauju",
-        "uncategorized": "Bez kategorijas"
+        "fulltext": "Ieraksti ar pilnu tekstu",
+        "metadata": "Tikai metadatu ieraksti"
       }
+    },
+    "button": {
+      "apply": "Lietot",
+      "cancel": "Atcelt",
+      "morefilters": "Vairāk filtru",
+      "reset": "Atiestatīt",
+      "showAll": "Rādīt visus {label}",
+      "showLess": "Rādīt mazāk {label}"
     },
     "collection": {
       "name": "Kategorija",
       "options": {
-        "ww1": "1914.–1918. gads",
         "archaeology": "Arheoloģija",
         "art": "Māksla",
         "fashion": "Mode",
+        "industrial": "Rūpnieciskais mantojums",
         "manuscript": "Manuskripti",
         "map": "Kartes un ģeogrāfija",
         "migration": "Migrācija",
@@ -104,62 +105,7 @@ export default {
         "newspaper": "Laikraksti",
         "photography": "Fotogrāfija",
         "sport": "Sports",
-        "industrial": "Rūpnieciskais mantojums"
-      }
-    },
-    "TYPE": {
-      "name": "Līdzekļu veids",
-      "options": {
-        "IMAGE": "Attēls",
-        "TEXT": "Teksts",
-        "VIDEO": "Video",
-        "SOUND": "Skaņa",
-        "3D": "3D"
-      }
-    },
-    "contentTier": {
-      "name": "Ietver vienumus, kas neatbilst mūsu publicēšanas kritērijiem",
-      "options": {
-        "*": "Ietver vienumus, kas neatbilst mūsu publicēšanas kritērijiem"
-      }
-    },
-    "button": {
-      "reset": "Atiestatīt",
-      "apply": "Lietot",
-      "cancel": "Atcelt",
-      "morefilters": "Vairāk filtru",
-      "showAll": "Rādīt visus {label}",
-      "showLess": "Rādīt mazāk {label}"
-    },
-    "LANGUAGE": {
-      "name": "Valoda"
-    },
-    "PROVIDER": {
-      "name": "Agregators"
-    },
-    "DATA_PROVIDER": {
-      "name": "Iestāde"
-    },
-    "IMAGE_ASPECTRATIO": {
-      "name": "Attēla orientācija | Attēla orientācijas",
-      "options": {
-        "landscape": "Ainava",
-        "portrait": "Portrets"
-      }
-    },
-    "IMAGE_SIZE": {
-      "name": "Attēla izmērs | Attēlu izmēri",
-      "options": {
-        "small": "Mazs < 0,5 MP (piemēram, 650x600 pikseļi)",
-        "medium": "Vidējs 0,5–1 MP (piemēram, 850x850 pikseļi)",
-        "large": "Liels 1-4 MP (piemēram, 1920x1080px)",
-        "extra_large": "Īpaši liels 4MP + (piemēram, 2688 x 1520 pikseļi)"
-      }
-    },
-    "MIME_TYPE": {
-      "name": "Datnes formāts | Datņu formāti",
-      "options": {
-        "text/plain": "Vienkāršs teksts"
+        "ww1": "1914.–1918. gads"
       }
     },
     "COLOURPALETTE": {
@@ -310,174 +256,228 @@ export default {
         "#FFFFFF": "Balts"
       }
     },
-    "proxy_dcterms_issued": {
-      "name": "Izdošanas datums"
-    },
-    "api": {
-      "name": "Meklēt",
+    "contentTier": {
+      "name": "Ietver vienumus, kas neatbilst mūsu publicēšanas kritērijiem",
       "options": {
-        "fulltext": "Ieraksti ar pilnu tekstu",
-        "metadata": "Tikai metadatu ieraksti"
+        "*": "Ietver vienumus, kas neatbilst mūsu publicēšanas kritērijiem"
       }
+    },
+    "COUNTRY": {
+      "name": "Nodrošinošā valsts"
     },
     "CREATOR": {
       "name": "Radītājs | Radītāji"
     },
+    "DATA_PROVIDER": {
+      "name": "Iestāde"
+    },
+    "IMAGE_ASPECTRATIO": {
+      "name": "Attēla orientācija | Attēla orientācijas",
+      "options": {
+        "landscape": "Ainava",
+        "portrait": "Portrets"
+      }
+    },
+    "IMAGE_SIZE": {
+      "name": "Attēla izmērs | Attēlu izmēri",
+      "options": {
+        "extra_large": "Īpaši liels 4MP + (piemēram, 2688 x 1520 pikseļi)",
+        "large": "Liels 1-4 MP (piemēram, 1920x1080px)",
+        "medium": "Vidējs 0,5–1 MP (piemēram, 850x850 pikseļi)",
+        "small": "Mazs < 0,5 MP (piemēram, 650x600 pikseļi)"
+      }
+    },
+    "LANGUAGE": {
+      "name": "Valoda"
+    },
+    "MIME_TYPE": {
+      "name": "Datnes formāts | Datņu formāti",
+      "options": {
+        "text/plain": "Vienkāršs teksts"
+      }
+    },
+    "PROVIDER": {
+      "name": "Agregators"
+    },
     "proxy_dc_format": {
       "name": "Formāts | Formāti"
+    },
+    "proxy_dc_type": {
+      "name": "Veids | Veidi"
+    },
+    "proxy_dcterms_issued": {
+      "name": "Izdošanas datums"
     },
     "proxy_dcterms_medium": {
       "name": "Līdzeklis/ Līdzekļi"
     },
-    "proxy_dc_type": {
-      "name": "Veids | Veidi"
+    "REUSABILITY": {
+      "name": "Vai es varu to atkārtoti izmantot?",
+      "options": {
+        "open": "Jā",
+        "permission": "Varbūt, meklējiet atļauju",
+        "restricted": "Jā, ar nosacījumiem",
+        "uncategorized": "Bez kategorijas"
+      }
+    },
+    "TYPE": {
+      "name": "Līdzekļu veids",
+      "options": {
+        "3D": "3D",
+        "IMAGE": "Attēls",
+        "SOUND": "Skaņa",
+        "TEXT": "Teksts",
+        "VIDEO": "Video"
+      }
     }
   },
-  "entity": "Struktūrvienība",
-  "resourceWikimedia": "Resurss no Wikimedia Commons",
-  "messages": {
-    "notFound": "Nav atrasts",
-    "externalContentError": "Neizdevās ielādēt ārējo saturu",
-    "paginationLimitExceeded": "Ir iespējams apskatīt tikai pirmos {limit} meklēšanas rezultātus."
+  "fieldLabels": {
+    "default": {
+      "dcContributor": "Atbalstītāji",
+      "dcCoverage": "Vieta un laiks",
+      "dcCreator": "Autors",
+      "dcDate": "Datums",
+      "dcDescription": "Apraksts",
+      "dcDuration": "Ilgums",
+      "dcFormat": "Formāts",
+      "dcIdentifier": "Identifikators",
+      "dcLanguage": "Valoda",
+      "dcMedium": "Veids",
+      "dcPublisher": "Izdevējs",
+      "dcRelation": "Saistības",
+      "dcRights": "Tiesības",
+      "dcSource": "Avots",
+      "dcSubject": "Temats",
+      "dctermsCreated": "Izveidošanas datums",
+      "dctermsExtent": "Apjoms",
+      "dctermsHasPart": "Sastāv no",
+      "dctermsHasVersion": "Ir versija",
+      "dctermsIsFormatOf": "Ir formāts",
+      "dctermsIsPartOf": "Ir daļa no",
+      "dctermsIsReferencedBy": "Atsaucas",
+      "dctermsIsReplacedBy": "Aizstāj",
+      "dctermsIsRequiredBy": "Ir nepieciešams(-a)",
+      "dctermsIssued": "Izdošanas datums",
+      "dctermsMedium": "Veids",
+      "dctermsProvenance": "Izcelsme",
+      "dctermsPublished": "Publicēšanas datums",
+      "dctermsReferences": "Atsaucas uz",
+      "dctermsSpatial": "Vietas",
+      "dctermsTemporal": "Periods",
+      "dcTitle": "Nosaukums",
+      "dcType": "Objekta veids",
+      "edmCountry": "Nodrošinošā valsts",
+      "edmCurrentLocation": "Pašreizējā atrašanās vieta",
+      "edmDataProvider": "Nodrošinošā iestāde",
+      "edmHasMet": "Ir ticies(-kusies) ar",
+      "edmIncorporates": "Ietver",
+      "edmIntermediateProvider": "Starpnieks",
+      "edmIsDerivativeOf": "Ir atvasināts(-a) no",
+      "edmIsRepresentationOf": "Pārstāv",
+      "edmIsSimilarTo": "Ir līdzīgs(-a)",
+      "edmIsSuccessorOf": "Ir pēctecis(-e)",
+      "edmProvider": "Oriģinālais nodrošinātājs",
+      "edmRealizes": "Sasniegumi",
+      "edmRights": "Mediju licence šajā ierakstā (ja nav norādīts citādi)",
+      "edmUgc": "Lietotāja radīts saturs",
+      "europeanaCollectionName": "Kolekcijas nosaukums",
+      "keywords": "Atslēgas vārdi (nodrošina kopiena)",
+      "timestampCreated": "Laikspiedogs izveidots",
+      "timestampUpdate": "Laikspiedogs atjaunināts",
+      "wasPresentAt": "Bija"
+    },
+    "webResource": {
+      "about": "RDF Par",
+      "dcDescription": "Apraksts",
+      "ebucoreHasMimeType": "Ebucore MIME veids",
+      "edmRights": "Šī multivides resursa licence",
+      "rdfAbout": "Par radiopeilētāju (RDF)"
+    }
   },
-  "searchViews": {
-    "grid": "Režģa skats",
-    "list": "Saraksta skats"
+  "footer": {
+    "customiseWebsiteLanguage": "Pielāgojiet vietnes valodu",
+    "findUsElsewhere": "Atrodiet mūs citur",
+    "imageDescription": "Līdzfinansē Eiropas Savienības infrastruktūras savienošanas instruments",
+    "ourMission": "Mūsu misija",
+    "ourMissionQuote": "Europeana nodrošina iespējas kultūras mantojuma nozarei tās digitālajā pārveidē. Mēs izstrādājam zināšanas, instrumentus un politikas virzienus, lai atbalstītu digitālās izmaiņas un veicinātu partnerības, kas veicina jauninājumus."
+  },
+  "formatting": {
+    "ellipsis": "…",
+    "labelledValue": "{label} : {value}",
+    "listSeperator": ";"
+  },
+  "galleries": {
+    "galleries": "Galerijas"
+  },
+  "goToRecord": "Iet uz ierakstu",
+  "homeLinkAlt": "Europeana vietne",
+  "imageSlider": {
+    "handle": "Slīdņa rokturis"
   },
   "layout": {
     "skipToMain": "Pāriet uz lapas saturu"
   },
-  "searchPlaceholder": "Ko jūs meklējat?",
-  "searchTier": {
-    "button": {
-      "show": "Rādīt šos vienumus",
-      "hide": "Paslēpt šos vienumus"
+  "learnMore": "Uzziniet par šī apraksta avotu",
+  "linksToClassic": {
+    "home": {
+      "linkText": "Dodieties uz oriģinālo Europeana.",
+      "text": "Jūs izbaudāt jauno Europeana pieredzi."
     },
-    "text": {
-      "show": "Vairāk vienumu atbilst jūsu meklējumam, bet neatbilst mūsu publicēšanas kritērijiem.",
-      "hide": "Tiek parādīti vienumi, kas neatbilst mūsu publicēšanas kritērijiem."
+    "record": {
+      "linkText": "Skatiet šo vienumu oriģinālajā Europeana.",
+      "text": "Jūs skatāties šo vienumu jaunajā Europeana vietnē."
+    },
+    "search": {
+      "linkText": "Skatiet šos meklēšanas rezultātus oriģinālajā Europeana.",
+      "text": "Jūs meklējat mūsu jaunajā un ātrākajā vietnē."
     }
   },
-  "depiction": "{title} attēlojums",
-  "showLess": "Rādīt mazāk",
-  "showMore": "Rādīt vairāk",
-  "delete": "Dzēst",
-  "removeFilter": "Noņemt filtru {filterLabel}",
-  "newWindow": "tiek atvērts jaunā logā",
-  "blog": {
-    "blog": "Emuārs",
-    "author": "Autors",
-    "authors": "Autori",
-    "category": "Kategorija",
-    "categories": "Kategorijas",
-    "relatedPosts": "Saistītās ziņas"
-  },
-  "directions": {
-    "left": "Kreisais",
-    "right": "Labais"
-  },
-  "exhibitions": {
-    "exhibitions": "Izstādes",
-    "credits": "Kredīti",
-    "chapters": "Nodaļas",
-    "currentChapter": "Pašreizējā nodaļa"
-  },
-  "actions": {
-    "download": "Lejupielādēt",
-    "viewAt": "Skatīt vietnē {link}",
-    "providedBy": "Nodrošina {provider}",
-    "viewDocument": "Skatīt dokumentu",
-    "share": "Dalies",
-    "shareOn": "Dalīties {social}"
-  },
-  "clearAllFilters": "notīrīt visus filtrus",
-  "reset": "Atiestatīt",
   "loadingResults": "Notiek rezultātu ielāde",
-  "edmIsShownAtLinkAlt": "Skatīt pakalpojumu sniedzēja vietnē",
+  "messages": {
+    "externalContentError": "Neizdevās ielādēt ārējo saturu",
+    "notFound": "Nav atrasts",
+    "paginationLimitExceeded": "Ir iespējams apskatīt tikai pirmos {limit} meklēšanas rezultātus."
+  },
+  "newWindow": "tiek atvērts jaunā logā",
+  "noMoreResults": "Jūsu meklēšanas vaicājumam vairs nav rezultātu.",
+  "noResults": "Nav rezultātu",
+  "readMore": "Lasīt vairāk",
   "record": {
+    "downloadCopyrightInfo": "Šis vienums ir aizsargāts ar autortiesībām, un to nevar lejupielādēt.",
     "extendedInformation": "Paplašināta informācija",
     "hideAll": "Paslēpt visu informāciju",
     "record": "Ieraksts",
     "showAll": "Rādīt visu informāciju",
     "similarItems": "Līdzīgi vienumi",
     "view": {
-      "pdf": "Skatīt PDF",
       "image": "Skatīt attēlu",
-      "media": "Skatīt multividi"
-    },
-    "downloadCopyrightInfo": "Šis vienums ir aizsargāts ar autortiesībām, un to nevar lejupielādēt."
-  },
-  "contentfulManual": {
-    "headerNavigation": {
-      "teachers": "Pedagogi",
-      "explore": "Jaunumi"
-    },
-    "footerNavigation": {
-      "about": "Par Europeana Collections",
-      "forDevelopers": "Izstrādātājiem",
-      "terms": "Lietošanas noteikumi un Privātuma politika",
-      "provide": "Kļūsti par datu nodrošinātāju",
-      "meetUs": "Mūsu komanda",
-      "help": "Palīdzība"
+      "media": "Skatīt multividi",
+      "pdf": "Skatīt PDF"
     }
-  },
-  "imageSlider": {
-    "handle": "Slīdņa rokturis"
-  },
-  "dateFilter": {
-    "startDate": "Sākuma datums",
-    "endDate": "Beigu datums",
-    "to": "uz",
-    "specificDate": "Konkrēts datums"
-  },
-  "cookieDisclaimer": {
-    "acceptCookieDisclaimer": "Pieņemt atrunu par sīkdatnēm",
-    "terms": "Šī vietne izmanto sīkdatnes, lai nodrošinātu vislabāko pieredzi mūsu vietnē. Noklikšķinot uz vietni vai pārvietojoties tajā, jūs piekrītat atļaut mums vākt informāciju, izmantojot sīkdatnes.",
-    "link": "Vairāk informācijas"
-  },
-  "searchSuggestions": "Meklēšanas ieteikumi",
-  "learnMore": "Uzziniet par šī apraksta avotu",
-  "footer": {
-    "ourMission": "Mūsu misija",
-    "ourMissionQuote": "Europeana nodrošina iespējas kultūras mantojuma nozarei tās digitālajā pārveidē. Mēs izstrādājam zināšanas, instrumentus un politikas virzienus, lai atbalstītu digitālās izmaiņas un veicinātu partnerības, kas veicina jauninājumus.",
-    "customiseWebsiteLanguage": "Pielāgojiet vietnes valodu",
-    "imageDescription": "Līdzfinansē Eiropas Savienības infrastruktūras savienošanas instruments",
-    "findUsElsewhere": "Atrodiet mūs citur"
-  },
-  "collections": {
-    "fashion": {
-      "facets": {
-        "CREATOR": {
-          "name": "Dizainers | Dizaineri"
-        },
-        "proxy_dc_format": {
-          "name": "Metode | Metodes"
-        },
-        "proxy_dcterms_medium": {
-          "name": "Materiāls | Materiāli"
-        },
-        "proxy_dc_type": {
-          "name": "Vienuma veids | Vienuma veidi"
-        }
-      }
-    }
-  },
-  "galleries": {
-    "galleries": "Galerijas"
   },
   "relatedCollections": "Saistītās kolekcijas",
-  "linksToClassic": {
-    "home": {
-      "text": "Jūs izbaudāt jauno Europeana pieredzi.",
-      "linkText": "Dodieties uz oriģinālo Europeana."
+  "removeFilter": "Noņemt filtru {filterLabel}",
+  "reset": "Atiestatīt",
+  "resourceWikimedia": "Resurss no Wikimedia Commons",
+  "results": "Rezultāti",
+  "resultsLimitWarning": "Papildu rezultāti netiek parādīti, jo tiek parādīti tikai pirmie 1000 atbilstošākie rezultāti. Ja neesat atradis to, ko meklējat, lūdzu, apsveriet iespēju precizēt meklēšanu.",
+  "search": "Meklēt",
+  "searchPlaceholder": "Ko jūs meklējat?",
+  "searchSuggestions": "Meklēšanas ieteikumi",
+  "searchTier": {
+    "button": {
+      "hide": "Paslēpt šos vienumus",
+      "show": "Rādīt šos vienumus"
     },
-    "search": {
-      "text": "Jūs meklējat mūsu jaunajā un ātrākajā vietnē.",
-      "linkText": "Skatiet šos meklēšanas rezultātus oriģinālajā Europeana."
-    },
-    "record": {
-      "text": "Jūs skatāties šo vienumu jaunajā Europeana vietnē.",
-      "linkText": "Skatiet šo vienumu oriģinālajā Europeana."
+    "text": {
+      "hide": "Tiek parādīti vienumi, kas neatbilst mūsu publicēšanas kritērijiem.",
+      "show": "Vairāk vienumu atbilst jūsu meklējumam, bet neatbilst mūsu publicēšanas kritērijiem."
     }
-  }
+  },
+  "searchViews": {
+    "grid": "Režģa skats",
+    "list": "Saraksta skats"
+  },
+  "showLess": "Rādīt mazāk",
+  "showMore": "Rādīt vairāk"
 };
