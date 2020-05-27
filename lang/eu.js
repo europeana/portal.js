@@ -1,7 +1,4 @@
 export default {
-  "formatting": {
-    "ellipsis": "..."
-  },
   "facets": {
     "COLOURPALETTE": {
       "options": {
@@ -126,5 +123,8 @@ export default {
         "#FFFFFF": "White"
       }
     }
+  },
+  "formatting": {
+    "ellipsis": "..."
   }
 };

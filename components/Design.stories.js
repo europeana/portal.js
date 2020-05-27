@@ -1,9 +1,11 @@
 import { storiesOf } from '@storybook/vue';
 import VueI18n from 'vue-i18n';
 
-storiesOf('Basics', module)
-  .add('typography', () => ({
-    i18n: new VueI18n(),
+const i18n = new VueI18n();
+
+storiesOf('Design', module)
+  .add('Typography', () => ({
+    i18n,
     template:  `<b-container class="mt-3">
         <h1>This is a h1 heading</h1>
         <h2>This is a h2 heading</h2>
@@ -63,4 +65,73 @@ storiesOf('Basics', module)
         </p>
 
       </b-container>`
+  }))
+  .add('Buttons', () => ({
+    template: `
+      <b-container class="mt-3">
+        <b-button
+          variant="primary"
+          class="mr-3"
+        >
+          Primary Button
+        </b-button>
+
+        <b-button
+          variant="light"
+          :to="localePath({ name: '' })"
+          class="mr-3"
+        >
+          Light Button
+        </b-button>
+
+        <b-button
+          class="btn-link mr-3"
+          variant="link"
+        >
+          Button Link
+        </b-button>
+
+        <b-button
+          to=""
+          variant="outline-primary text-decoration-none"
+        >
+          Outlined Primary Button
+        </b-button>
+      </b-container>
+    `
+  }))
+  .add('Icons', () => ({
+    data() {
+      return {
+        icons: [
+          'icon-facebook',
+          'icon-twitter',
+          'icon-pinterest',
+          'icon-instagram',
+          'icon-license-pd',
+          'icon-license-zero',
+          'icon-license-cc',
+          'icon-license-by',
+          'icon-license-nc',
+          'icon-license-sa',
+          'icon-license-nd',
+          'icon-license-rs-no',
+          'icon-license-rs-yes',
+          'icon-license-rr',
+          'icon-license-rs-unknown',
+          'icon-close',
+          'icon-caret-down',
+          'icon-external-link'
+        ]
+      };
+    },
+    template: `
+      <b-container class="mt-3">
+        <div style="display:flex;flex-wrap: wrap;">
+          <div style="background-color:white;width:80px;height:80px;display:flex;justify-content:center;align-items:center" v-for="icon in icons">
+            <i :class="icon" :title="icon" />
+          </div>
+        </div>
+      </b-container>
+    `
   }));
