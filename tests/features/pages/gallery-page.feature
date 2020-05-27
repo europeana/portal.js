@@ -5,6 +5,9 @@ Feature: Gallery page
     When I open the `gallery page`
     Then I see a `gallery title`
     And I see a `content card` in the `gallery images`
+    And I see a `share facebook button`
+    And I see a `share twitter button`
+    And I see a `share pinterest button`
     And I am on an accessible page
 
   Scenario: Go to a item
