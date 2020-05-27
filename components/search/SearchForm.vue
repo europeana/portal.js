@@ -59,65 +59,23 @@
           {{ $t('header.clearQuery') }}
         </span>
       </b-button>
-      <template
-        v-if="pillLabel"
+      <div
+        v-show="showSearch && showSearchQuery"
+        class="search-query d-lg-none"
       >
-        <div
-          v-show="showSearch && showSearchQuery"
-          class="search-query d-lg-none"
+        <b-button
+          type="submit"
+          data-qa="search button"
+          class="search"
+          variant="primary"
+          @click="toggleSearchBar"
         >
-          <b-button
-            type="submit"
-            data-qa="search button"
-            class="search"
-            variant="primary"
-            @click="toggleSearchBar"
-          >
-            <span class="sr-only">
-              {{ $t('search') }}
-            </span>
-          </b-button>
-          <span>{{ $t('header.searchFor') }} "{{ query }}" in {{ pillLabel.values[0] }}</span>
-        </div>
-        <div
-          v-show="showSearch && showSearchQuery"
-          class="search-query d-lg-none"
-        >
-          <b-button
-            type="submit"
-            data-qa="search button"
-            class="search"
-            variant="primary"
-            @click="toggleSearchAndRemovePill"
-          >
-            <span class="sr-only">
-              {{ $t('search') }}
-            </span>
-          </b-button>
-          <span>{{ $t('header.searchFor') }} "{{ query }}" in our entire collection</span>
-        </div>
-      </template>
-      <template
-        v-else
-      >
-        <div
-          v-show="showSearch && showSearchQuery"
-          class="search-query d-lg-none"
-        >
-          <b-button
-            type="submit"
-            data-qa="search button"
-            class="search"
-            variant="primary"
-            @click="toggleSearchBar"
-          >
-            <span class="sr-only">
-              {{ $t('search') }}
-            </span>
-          </b-button>
-          <span>{{ $t('header.searchFor') }} "{{ query }}"</span>
-        </div>
-      </template>
+          <span class="sr-only">
+            {{ $t('search') }}
+          </span>
+        </b-button>
+        <span>{{ $t('header.searchFor') }} "{{ query }}"</span>
+      </div>
       <b-button
         type="submit"
         data-qa="search button"
@@ -341,11 +299,6 @@
       clearQuery() {
         this.query = '';
         this.showSearchQuery = false;
-      },
-
-      toggleSearchAndRemovePill() {
-        // this.pillRemoveLinkTo();
-        this.toggleSearchBar();
       }
     }
   };
