@@ -42,8 +42,9 @@
     computed: {
       shareMediaUrl() {
         if (this.images.length <= 0) return null;
-        if (!this.images[0].fields.thumbnailUrl) return null;
-        return this.images[0].fields.thumbnailUrl;
+        const image = this.imageUrl(this.images[0]);
+        if (!image) return null;
+        return image;
       },
       description() {
         return this.$options.filters.stripMarkdown(this.rawDescription);
