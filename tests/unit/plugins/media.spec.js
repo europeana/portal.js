@@ -39,6 +39,40 @@ describe('plugins/media', () => {
     });
   });
 
+  describe('isPlayableMedia()', () => {
+    it('returns `true` if ebucoreHasMimeType is for video/*', () => {
+      const mediaTypes = ['video/mp4', 'video/ogg', 'video/webm', 'video/whatever'];
+
+      for (const ebucoreHasMimeType of mediaTypes) {
+        media.isPlayableMedia({ ebucoreHasMimeType }).should.be.true;
+      }
+    });
+
+    it('returns `true` if ebucoreHasMimeType is for audio/*', () => {
+      const mediaTypes = ['audio/flac', 'audio/ogg', 'audio/mpeg', 'audio/whatever'];
+
+      for (const ebucoreHasMimeType of mediaTypes) {
+        media.isPlayableMedia({ ebucoreHasMimeType }).should.be.true;
+      }
+    });
+
+    it('returns `true` if ebucoreHasMimeType is for application/dash+xml', () => {
+      media.isPlayableMedia({ ebucoreHasMimeType: 'application/dash+xml' }).should.be.true;
+    });
+
+    it('returns `true` if media.about is for EUscreen item', () => {
+      media.isPlayableMedia({ about: 'http://www.euscreen.eu/item.html?id=EUS_123' }).should.be.true;
+    });
+
+    it('returns `false` for other media types', () => {
+      const mediaTypes = ['text/plain', 'image/jpeg', 'application/json'];
+
+      for (const ebucoreHasMimeType of mediaTypes) {
+        media.isPlayableMedia({ ebucoreHasMimeType }).should.be.false;
+      }
+    });
+  });
+
   describe('isOEmbed()', () => {
     it('returns `true` if URL is oEmbeddable', () => {
       const about = 'https://soundcloud.com/oembed';

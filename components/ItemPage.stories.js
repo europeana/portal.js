@@ -1,11 +1,20 @@
 import { storiesOf } from '@storybook/vue';
 import VueI18n from 'vue-i18n';
-import MediaThumbnailGrid from './MediaThumbnailGrid.vue';
+import MediaPresentation from './item/MediaPresentation';
+import MediaThumbnailGrid from './item/MediaThumbnailGrid';
 
-storiesOf('Record / Media thumbnail grid', module)
-  .add('Default size (w200)', () => ({
-    components: { MediaThumbnailGrid },
-    i18n: new VueI18n(),
+const i18n = new VueI18n({
+  locale: 'en',
+  messages: {
+    en: {
+      'record.view.media': 'View image'
+    }
+  }
+});
+
+storiesOf('Item page', module)
+  .add('Image with thumbnails', () => ({
+    i18n,
     data() {
       return {
         media: [
@@ -28,15 +37,31 @@ storiesOf('Record / Media thumbnail grid', module)
             }
           }
         ],
-        selected: 'http://www.mimo-db.eu/media/GNM/IMAGE/MIR1097_1279787057222_2.jpg'
+        selected: {
+          about: 'http://www.mimo-db.eu/media/GNM/IMAGE/MIR1097_1279787057222_2.jpg'
+        }
       };
     },
-    template: ` <b-container
-      class="mt-3"
-      >
-        <MediaThumbnailGrid
-          :media="media"
-          :selected="selected"
-        />
-      </b-container>`
+    methods: {
+      selectMedia(about) {
+        this.selected = { about };
+      }
+    },
+    components: { MediaPresentation, MediaThumbnailGrid },
+    template:  `
+      <b-container class="mt-3">
+        <div class="media-presentation" style="display: inline-block;">
+          <MediaPresentation
+            europeana-identifier="/"
+            :media="selected"
+            :image-src="selected.about"
+          />
+          <MediaThumbnailGrid
+            :media="media"
+            :selected="selected.about"
+            @select="selectMedia"
+          />
+        </div>
+      </b-container>
+    `
   }));

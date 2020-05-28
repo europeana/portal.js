@@ -237,7 +237,7 @@
   $slider-dimensions: 48px;
 
   figure {
-    display: block;
+    display: inline-block;
   }
 
   .compare-image {

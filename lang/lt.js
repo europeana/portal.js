@@ -1,101 +1,102 @@
 export default {
-  "formatting": {
-    "labelledValue": "{label} : {value}",
-    "ellipsis": "…",
-    "listSeperator": ";"
+  "actions": {
+    "download": "Parsisiųsti",
+    "providedBy": "Tiekėjas {provider}",
+    "share": "Dalintis",
+    "shareOn": "Dalintis {social}",
+    "viewAt": "Peržiūrėkite {link}",
+    "viewDocument": "Peržiūrėti dokumentą"
   },
-  "error": "Klaida",
-  "goToRecord": "Eiti į įrašą",
-  "readMore": "Skaityti daugiau",
-  "search": "Paieška",
-  "results": "Rezultatai",
-  "homeLinkAlt": "„Europeana“ pagrindinis puslapis",
-  "noMoreResults": "Daugiau nėra rezultatų pagal jūsų paieškos užklausą.",
-  "resultsLimitWarning": "Papildomi rezultatai nerodomi, nes parodomi tik pirmieji 1000 tinkamiausių rezultatų. Jei neradote to, ko ieškote, apsvarstykite galimybę patikslinti paiešką.",
-  "noResults": "Rezultatų nėra",
-  "fieldLabels": {
-    "default": {
-      "dcContributor": "Įnešėjai",
-      "dcCreator": "Autorius",
-      "dcDescription": "Aprašymas",
-      "dcTitle": "Pavadinimas",
-      "dcType": "Objekto tipas",
-      "dctermsCreated": "Sukūrimo data",
-      "edmCountry": "Teikianti šalis",
-      "edmDataProvider": "Teikianti institucija",
-      "edmRights": "Šiame įraše esančios medijos licencija (jei nenurodyta kitaip)",
-      "dcPublisher": "Leidėjas",
-      "dcSubject": "Tema",
-      "dctermsMedium": "Medija",
-      "dcRights": "Teisės",
-      "dcDate": "Data",
-      "dctermsPublished": "Paskelbimo data",
-      "dctermsIssued": "Išleidimo data",
-      "dctermsTemporal": "Laiko",
-      "dcCoverage": "Vieta-laikas",
-      "dctermsSpatial": "Vietos",
-      "edmCurrentLocation": "Dabartinė vieta",
-      "edmUgc": "Vartotojo sugeneruotas turinys",
-      "dctermsProvenance": "Kilmė",
-      "dcSource": "Šaltinis",
-      "dcIdentifier": "Identifikatorius",
-      "edmIntermediateProvider": "Tarpinis teikėjas",
-      "edmProvider": "Teikėjas",
-      "timestampCreated": "Sukurtas laiko žyma",
-      "timestampUpdate": "Laiko žyma atnaujinta",
-      "dctermsExtent": "Apimtis",
-      "dcDuration": "Trukmė",
-      "dcMedium": "Medija",
-      "dcFormat": "Formatas",
-      "dcLanguage": "Kalba",
-      "dctermsIsPartOf": "Yra dalis",
-      "europeanaCollectionName": "Kolekcijos pavadinimas",
-      "dcRelation": "Santykiai",
-      "dctermsReferences": "Nurodo",
-      "dctermsHasPart": "Susideda iš",
-      "dctermsHasVersion": "Turi versiją",
-      "dctermsIsFormatOf": "Yra formatas",
-      "dctermsIsReferencedBy": "Nurodomas",
-      "dctermsIsReplacedBy": "Pakeičiamas",
-      "dctermsIsRequiredBy": "Reikalingas",
-      "edmHasMet": "Susitiko",
-      "edmIncorporates": "Įtraukia",
-      "edmIsDerivativeOf": "Yra išvestinė iš",
-      "edmIsRepresentationOf": "Ar atstovavimas",
-      "edmIsSimilarTo": "Yra panašus į",
-      "edmIsSuccessorOf": "Yra įpėdinis",
-      "edmRealizes": "Suvokia",
-      "wasPresentAt": "Dalyvavo",
-      "keywords": "Raktiniai žodžiai (pateikia bendruomenė)"
-    },
-    "webResource": {
-      "dcDescription": "Aprašymas",
-      "rdfAbout": "RDF Apie",
-      "edmRights": "Šio medijos šaltinio licencija",
-      "ebucoreHasMimeType": "„Ebucore“ MIME tipas",
-      "about": "RDF Apie"
+  "blog": {
+    "author": "Autorius",
+    "authors": "Autoriai",
+    "blog": "Tinklaraštis",
+    "categories": "Kategorijos",
+    "category": "Kategorija",
+    "relatedPosts": "Susiję įrašai"
+  },
+  "clearAllFilters": "išvalyti visus filtrus",
+  "collections": {
+    "fashion": {
+      "facets": {
+        "CREATOR": {
+          "name": "Projektuotojas | Projektuotojai"
+        },
+        "proxy_dc_format": {
+          "name": "Technika | Technikos"
+        },
+        "proxy_dc_type": {
+          "name": "Elemento tipas | Elementų tipai"
+        },
+        "proxy_dcterms_medium": {
+          "name": "Medžiaga | Medžiagos"
+        }
+      }
     }
   },
-  "facets": {
-    "COUNTRY": {
-      "name": "Teikianti šalis"
+  "contentfulManual": {
+    "footerNavigation": {
+      "about": "Apie „Europeana“ kolekcijas",
+      "forDevelopers": "Programuotojams",
+      "help": "Pagalba",
+      "meetUs": "Susipažinkite su komanda",
+      "provide": "Tapkite duomenų teikėju",
+      "terms": "Naudojimo sąlygos ir privatumo politika"
     },
-    "REUSABILITY": {
-      "name": "Ar galiu tai pakartotinai naudoti?",
+    "headerNavigation": {
+      "explore": "Tyrinėkite",
+      "teachers": "Pedagogai"
+    }
+  },
+  "cookieDisclaimer": {
+    "acceptCookieDisclaimer": "Sutikti su atsakomybės apribojimu dėl slapukų",
+    "link": "Daugiau informacijos",
+    "terms": "Siekiant užtikrinti geriausią naršymo patirtį, šiame tinklalapyje naudojami slapukai. Paspausdami ar naršydami šį tinklalapį sutinkate leisti mums rinkti informaciją slapukų pagalba."
+  },
+  "dateFilter": {
+    "endDate": "Pabaigos data",
+    "specificDate": "Konkreti data",
+    "startDate": "Pradžios data",
+    "to": "į"
+  },
+  "delete": "Ištrinti",
+  "depiction": "{title} vaizdavimas",
+  "directions": {
+    "left": "Kairė",
+    "right": "Dešinė"
+  },
+  "edmIsShownAtLinkAlt": "Peržiūrėti teikėjo svetainę",
+  "entity": "Subjektas",
+  "error": "Klaida",
+  "exhibitions": {
+    "chapters": "Skyriai",
+    "credits": "Kreditai",
+    "currentChapter": "Dabartinis skyrius",
+    "exhibitions": "Parodos"
+  },
+  "facets": {
+    "api": {
+      "name": "Ieškoti",
       "options": {
-        "open": "Taip",
-        "restricted": "Taip, su sąlygomis",
-        "permission": "Galbūt, kreipkitės leidimo",
-        "uncategorized": "Neklasifikuota"
+        "fulltext": "Įrašai su visu tekstu",
+        "metadata": "Tik metaduomenų įrašai"
       }
+    },
+    "button": {
+      "apply": "Taikyti",
+      "cancel": "Atšaukti",
+      "morefilters": "Daugiau filtrų",
+      "reset": "Atstatyti",
+      "showAll": "Rodyti visus {label}",
+      "showLess": "Rodyti mažiau {label}"
     },
     "collection": {
       "name": "Kategorija",
       "options": {
-        "ww1": "1914-1918",
         "archaeology": "Archeologija",
         "art": "Menas",
         "fashion": "Mada",
+        "industrial": "Pramoninis paveldas",
         "manuscript": "Rankraščiai",
         "map": "Žemėlapiai ir geografija",
         "migration": "Migracija",
@@ -104,63 +105,7 @@ export default {
         "newspaper": "Laikraščiai",
         "photography": "Fotografija",
         "sport": "Sportas",
-        "industrial": "Pramoninis paveldas"
-      }
-    },
-    "TYPE": {
-      "name": "Medijos tipas",
-      "options": {
-        "IMAGE": "Vaizdas",
-        "TEXT": "Tekstas",
-        "VIDEO": "Vaizdo įrašas",
-        "SOUND": "Garsas",
-        "3D": "3D"
-      }
-    },
-    "contentTier": {
-      "name": "Rodomi elementai, neatitinkantys mūsų paskelbimo kriterijų.",
-      "options": {
-        "*": "Rodomi elementai, neatitinkantys mūsų paskelbimo kriterijų.",
-        "0": "Tik elementai, neatitinkantys mūsų paskelbimo kriterijų"
-      }
-    },
-    "button": {
-      "reset": "Atstatyti",
-      "apply": "Taikyti",
-      "cancel": "Atšaukti",
-      "morefilters": "Daugiau filtrų",
-      "showAll": "Rodyti visus {label}",
-      "showLess": "Rodyti mažiau {label}"
-    },
-    "LANGUAGE": {
-      "name": "Kalba"
-    },
-    "PROVIDER": {
-      "name": "Kaupykla"
-    },
-    "DATA_PROVIDER": {
-      "name": "Institucija"
-    },
-    "IMAGE_ASPECTRATIO": {
-      "name": "Vaizdo orientacija | Vaizdo orientacijos",
-      "options": {
-        "landscape": "Gulsčias",
-        "portrait": "Statmenas"
-      }
-    },
-    "IMAGE_SIZE": {
-      "name": "Vaizdo dydis | Vaizdo dydžiai",
-      "options": {
-        "small": "Mažas < 0,5 MP (pvz., 650 x 600 pikselių)",
-        "medium": "Vidutinis 0,5–1 MP (pvz., 850 x 850 pikselių)",
-        "large": "Didelis 1–4 MP (pvz., 1920 x 1080 pikselių)",
-        "extra_large": "Ypač didelis 4MP + (pvz., 2688 x 1520 pikselių)"
-      }
-    },
-    "MIME_TYPE": {
-      "name": "Failo formatas | Failų formatai",
-      "options": {
-        "text/plain": "Paprastas tekstas"
+        "ww1": "1914-1918"
       }
     },
     "COLOURPALETTE": {
@@ -311,174 +256,229 @@ export default {
         "#FFFFFF": "Balta"
       }
     },
-    "proxy_dcterms_issued": {
-      "name": "Išleidimo data"
-    },
-    "api": {
-      "name": "Ieškoti",
+    "contentTier": {
+      "name": "Rodomi elementai, neatitinkantys mūsų paskelbimo kriterijų.",
       "options": {
-        "fulltext": "Įrašai su visu tekstu",
-        "metadata": "Tik metaduomenų įrašai"
+        "*": "Rodomi elementai, neatitinkantys mūsų paskelbimo kriterijų.",
+        "0": "Tik elementai, neatitinkantys mūsų paskelbimo kriterijų"
       }
+    },
+    "COUNTRY": {
+      "name": "Teikianti šalis"
     },
     "CREATOR": {
       "name": "Autorius | Autoriai"
     },
+    "DATA_PROVIDER": {
+      "name": "Institucija"
+    },
+    "IMAGE_ASPECTRATIO": {
+      "name": "Vaizdo orientacija | Vaizdo orientacijos",
+      "options": {
+        "landscape": "Gulsčias",
+        "portrait": "Statmenas"
+      }
+    },
+    "IMAGE_SIZE": {
+      "name": "Vaizdo dydis | Vaizdo dydžiai",
+      "options": {
+        "extra_large": "Ypač didelis 4MP + (pvz., 2688 x 1520 pikselių)",
+        "large": "Didelis 1–4 MP (pvz., 1920 x 1080 pikselių)",
+        "medium": "Vidutinis 0,5–1 MP (pvz., 850 x 850 pikselių)",
+        "small": "Mažas < 0,5 MP (pvz., 650 x 600 pikselių)"
+      }
+    },
+    "LANGUAGE": {
+      "name": "Kalba"
+    },
+    "MIME_TYPE": {
+      "name": "Failo formatas | Failų formatai",
+      "options": {
+        "text/plain": "Paprastas tekstas"
+      }
+    },
+    "PROVIDER": {
+      "name": "Kaupykla"
+    },
     "proxy_dc_format": {
       "name": "Formatas | Formatai"
+    },
+    "proxy_dc_type": {
+      "name": "Tipas | Tipai"
+    },
+    "proxy_dcterms_issued": {
+      "name": "Išleidimo data"
     },
     "proxy_dcterms_medium": {
       "name": "Laikmenos | Laikmena"
     },
-    "proxy_dc_type": {
-      "name": "Tipas | Tipai"
+    "REUSABILITY": {
+      "name": "Ar galiu tai pakartotinai naudoti?",
+      "options": {
+        "open": "Taip",
+        "permission": "Galbūt, kreipkitės leidimo",
+        "restricted": "Taip, su sąlygomis",
+        "uncategorized": "Neklasifikuota"
+      }
+    },
+    "TYPE": {
+      "name": "Medijos tipas",
+      "options": {
+        "3D": "3D",
+        "IMAGE": "Vaizdas",
+        "SOUND": "Garsas",
+        "TEXT": "Tekstas",
+        "VIDEO": "Vaizdo įrašas"
+      }
     }
   },
-  "entity": "Subjektas",
-  "resourceWikimedia": "Šaltinis iš „Wikimedia Commons“",
-  "messages": {
-    "notFound": "Nerasta",
-    "externalContentError": "Nepavyko įkelti išorinio turinio",
-    "paginationLimitExceeded": "Galima peržiūrėti tik pirmuosius {limit} paieškos rezultatus."
+  "fieldLabels": {
+    "default": {
+      "dcContributor": "Įnešėjai",
+      "dcCoverage": "Vieta-laikas",
+      "dcCreator": "Autorius",
+      "dcDate": "Data",
+      "dcDescription": "Aprašymas",
+      "dcDuration": "Trukmė",
+      "dcFormat": "Formatas",
+      "dcIdentifier": "Identifikatorius",
+      "dcLanguage": "Kalba",
+      "dcMedium": "Medija",
+      "dcPublisher": "Leidėjas",
+      "dcRelation": "Santykiai",
+      "dcRights": "Teisės",
+      "dcSource": "Šaltinis",
+      "dcSubject": "Tema",
+      "dctermsCreated": "Sukūrimo data",
+      "dctermsExtent": "Apimtis",
+      "dctermsHasPart": "Susideda iš",
+      "dctermsHasVersion": "Turi versiją",
+      "dctermsIsFormatOf": "Yra formatas",
+      "dctermsIsPartOf": "Yra dalis",
+      "dctermsIsReferencedBy": "Nurodomas",
+      "dctermsIsReplacedBy": "Pakeičiamas",
+      "dctermsIsRequiredBy": "Reikalingas",
+      "dctermsIssued": "Išleidimo data",
+      "dctermsMedium": "Medija",
+      "dctermsProvenance": "Kilmė",
+      "dctermsPublished": "Paskelbimo data",
+      "dctermsReferences": "Nurodo",
+      "dctermsSpatial": "Vietos",
+      "dctermsTemporal": "Laiko",
+      "dcTitle": "Pavadinimas",
+      "dcType": "Objekto tipas",
+      "edmCountry": "Teikianti šalis",
+      "edmCurrentLocation": "Dabartinė vieta",
+      "edmDataProvider": "Teikianti institucija",
+      "edmHasMet": "Susitiko",
+      "edmIncorporates": "Įtraukia",
+      "edmIntermediateProvider": "Tarpinis teikėjas",
+      "edmIsDerivativeOf": "Yra išvestinė iš",
+      "edmIsRepresentationOf": "Ar atstovavimas",
+      "edmIsSimilarTo": "Yra panašus į",
+      "edmIsSuccessorOf": "Yra įpėdinis",
+      "edmProvider": "Teikėjas",
+      "edmRealizes": "Suvokia",
+      "edmRights": "Šiame įraše esančios medijos licencija (jei nenurodyta kitaip)",
+      "edmUgc": "Vartotojo sugeneruotas turinys",
+      "europeanaCollectionName": "Kolekcijos pavadinimas",
+      "keywords": "Raktiniai žodžiai (pateikia bendruomenė)",
+      "timestampCreated": "Sukurtas laiko žyma",
+      "timestampUpdate": "Laiko žyma atnaujinta",
+      "wasPresentAt": "Dalyvavo"
+    },
+    "webResource": {
+      "about": "RDF Apie",
+      "dcDescription": "Aprašymas",
+      "ebucoreHasMimeType": "„Ebucore“ MIME tipas",
+      "edmRights": "Šio medijos šaltinio licencija",
+      "rdfAbout": "RDF Apie"
+    }
   },
-  "searchViews": {
-    "grid": "Tinklelio rodinys",
-    "list": "Sąrašo rodinys"
+  "footer": {
+    "customiseWebsiteLanguage": "Pasirinkti tinklalapio kalbą",
+    "findUsElsewhere": "Raskite mus kitur",
+    "imageDescription": "Bendrai finansuojama pagal Europos Sąjungos Europos infrastruktūros tinklų priemonę",
+    "ourMission": "Mūsų misija",
+    "ourMissionQuote": "„Europeana“ suteikia kultūros paveldo sektoriui skaitmeninimo galimybes. Rengiame žinias, įrankius ir politikas, skatinančias skaitmeninius pokyčius bei partnerystes, kurios spartina inovacijas."
+  },
+  "formatting": {
+    "ellipsis": "…",
+    "labelledValue": "{label} : {value}",
+    "listSeperator": ";"
+  },
+  "galleries": {
+    "galleries": "Galerijos"
+  },
+  "goToRecord": "Eiti į įrašą",
+  "homeLinkAlt": "„Europeana“ pagrindinis puslapis",
+  "imageSlider": {
+    "handle": "Slinkiklio rankena"
   },
   "layout": {
     "skipToMain": "Pereiti į puslapio turinį"
   },
-  "searchPlaceholder": "Ko jūs ieškote?",
-  "searchTier": {
-    "button": {
-      "show": "Rodyti šiuos elementus",
-      "hide": "Paslėpti šiuos elementus"
+  "learnMore": "Sužinokite apie šio aprašymo šaltinį",
+  "linksToClassic": {
+    "home": {
+      "linkText": "Eiti į originalų „Europeana“.",
+      "text": "Jūs žiūrite naująjį „Europeana“."
     },
-    "text": {
-      "show": "Daugiau elementų atitinka jūsų paiešką, bet neatitinka mūsų paskelbimo kriterijų.",
-      "hide": "Rodomi elementai, neatitinkantys mūsų paskelbimo kriterijų."
+    "record": {
+      "linkText": "Peržiūrėti šį elementą originaliame „Europeana“.",
+      "text": "Jūs žiūrite šį elementą originaliame „Europeana“ tinklalapyje."
+    },
+    "search": {
+      "linkText": "Peržiūrėkite šiuos paieškos rezultatus originaliame „Europeana“ tinklalapyje.",
+      "text": "Jūs ieškote mūsų naujajame ir greitesniajame tinklalapyje."
     }
   },
-  "depiction": "{title} vaizdavimas",
-  "showLess": "Rodyti mažiau",
-  "showMore": "Rodyti daugiau",
-  "delete": "Ištrinti",
-  "removeFilter": "Pašalinkite filtrą {filterLabel}",
-  "newWindow": "atsidaro naujame lange",
-  "blog": {
-    "blog": "Tinklaraštis",
-    "author": "Autorius",
-    "authors": "Autoriai",
-    "category": "Kategorija",
-    "categories": "Kategorijos",
-    "relatedPosts": "Susiję įrašai"
-  },
-  "directions": {
-    "left": "Kairė",
-    "right": "Dešinė"
-  },
-  "exhibitions": {
-    "exhibitions": "Parodos",
-    "credits": "Kreditai",
-    "chapters": "Skyriai",
-    "currentChapter": "Dabartinis skyrius"
-  },
-  "actions": {
-    "download": "Parsisiųsti",
-    "viewAt": "Peržiūrėkite {link}",
-    "providedBy": "Tiekėjas {provider}",
-    "viewDocument": "Peržiūrėti dokumentą",
-    "share": "Dalintis",
-    "shareOn": "Dalintis {social}"
-  },
-  "clearAllFilters": "išvalyti visus filtrus",
-  "reset": "Atstatyti",
   "loadingResults": "Įkeliami rezultatai",
-  "edmIsShownAtLinkAlt": "Peržiūrėti teikėjo svetainę",
+  "messages": {
+    "externalContentError": "Nepavyko įkelti išorinio turinio",
+    "notFound": "Nerasta",
+    "paginationLimitExceeded": "Galima peržiūrėti tik pirmuosius {limit} paieškos rezultatus."
+  },
+  "newWindow": "atsidaro naujame lange",
+  "noMoreResults": "Daugiau nėra rezultatų pagal jūsų paieškos užklausą.",
+  "noResults": "Rezultatų nėra",
+  "readMore": "Skaityti daugiau",
   "record": {
+    "downloadCopyrightInfo": "Šis elementas apsaugos autorių teisėmis, jo negalima atsisiųsti.",
     "extendedInformation": "Išplėstinė informacija",
     "hideAll": "Slėpti visą informaciją",
     "record": "Įrašas",
     "showAll": "Rodyti visą informaciją",
     "similarItems": "Panašūs elementai",
     "view": {
-      "pdf": "Peržiūrėti PDF",
       "image": "Peržiūrėti vaizdą",
-      "media": "Peržiūrėti laikmeną"
-    },
-    "downloadCopyrightInfo": "Šis elementas apsaugos autorių teisėmis, jo negalima atsisiųsti."
-  },
-  "contentfulManual": {
-    "headerNavigation": {
-      "teachers": "Pedagogai",
-      "explore": "Tyrinėkite"
-    },
-    "footerNavigation": {
-      "about": "Apie „Europeana“ kolekcijas",
-      "forDevelopers": "Programuotojams",
-      "terms": "Naudojimo sąlygos ir privatumo politika",
-      "provide": "Tapkite duomenų teikėju",
-      "meetUs": "Susipažinkite su komanda",
-      "help": "Pagalba"
+      "media": "Peržiūrėti laikmeną",
+      "pdf": "Peržiūrėti PDF"
     }
-  },
-  "imageSlider": {
-    "handle": "Slinkiklio rankena"
-  },
-  "dateFilter": {
-    "startDate": "Pradžios data",
-    "endDate": "Pabaigos data",
-    "to": "į",
-    "specificDate": "Konkreti data"
-  },
-  "cookieDisclaimer": {
-    "acceptCookieDisclaimer": "Sutikti su atsakomybės apribojimu dėl slapukų",
-    "terms": "Siekiant užtikrinti geriausią naršymo patirtį, šiame tinklalapyje naudojami slapukai. Paspausdami ar naršydami šį tinklalapį sutinkate leisti mums rinkti informaciją slapukų pagalba.",
-    "link": "Daugiau informacijos"
-  },
-  "searchSuggestions": "Paieškos pasiūlymai",
-  "learnMore": "Sužinokite apie šio aprašymo šaltinį",
-  "footer": {
-    "ourMission": "Mūsų misija",
-    "ourMissionQuote": "„Europeana“ suteikia kultūros paveldo sektoriui skaitmeninimo galimybes. Rengiame žinias, įrankius ir politikas, skatinančias skaitmeninius pokyčius bei partnerystes, kurios spartina inovacijas.",
-    "customiseWebsiteLanguage": "Pasirinkti tinklalapio kalbą",
-    "imageDescription": "Bendrai finansuojama pagal Europos Sąjungos Europos infrastruktūros tinklų priemonę",
-    "findUsElsewhere": "Raskite mus kitur"
-  },
-  "collections": {
-    "fashion": {
-      "facets": {
-        "CREATOR": {
-          "name": "Projektuotojas | Projektuotojai"
-        },
-        "proxy_dc_format": {
-          "name": "Technika | Technikos"
-        },
-        "proxy_dcterms_medium": {
-          "name": "Medžiaga | Medžiagos"
-        },
-        "proxy_dc_type": {
-          "name": "Elemento tipas | Elementų tipai"
-        }
-      }
-    }
-  },
-  "galleries": {
-    "galleries": "Galerijos"
   },
   "relatedCollections": "Susiję rinkiniai",
-  "linksToClassic": {
-    "home": {
-      "text": "Jūs žiūrite naująjį „Europeana“.",
-      "linkText": "Eiti į originalų „Europeana“."
+  "removeFilter": "Pašalinkite filtrą {filterLabel}",
+  "reset": "Atstatyti",
+  "resourceWikimedia": "Šaltinis iš „Wikimedia Commons“",
+  "results": "Rezultatai",
+  "resultsLimitWarning": "Papildomi rezultatai nerodomi, nes parodomi tik pirmieji 1000 tinkamiausių rezultatų. Jei neradote to, ko ieškote, apsvarstykite galimybę patikslinti paiešką.",
+  "search": "Paieška",
+  "searchPlaceholder": "Ko jūs ieškote?",
+  "searchSuggestions": "Paieškos pasiūlymai",
+  "searchTier": {
+    "button": {
+      "hide": "Paslėpti šiuos elementus",
+      "show": "Rodyti šiuos elementus"
     },
-    "search": {
-      "text": "Jūs ieškote mūsų naujajame ir greitesniajame tinklalapyje.",
-      "linkText": "Peržiūrėkite šiuos paieškos rezultatus originaliame „Europeana“ tinklalapyje."
-    },
-    "record": {
-      "text": "Jūs žiūrite šį elementą originaliame „Europeana“ tinklalapyje.",
-      "linkText": "Peržiūrėti šį elementą originaliame „Europeana“."
+    "text": {
+      "hide": "Rodomi elementai, neatitinkantys mūsų paskelbimo kriterijų.",
+      "show": "Daugiau elementų atitinka jūsų paiešką, bet neatitinka mūsų paskelbimo kriterijų."
     }
-  }
+  },
+  "searchViews": {
+    "grid": "Tinklelio rodinys",
+    "list": "Sąrašo rodinys"
+  },
+  "showLess": "Rodyti mažiau",
+  "showMore": "Rodyti daugiau"
 };

@@ -21,14 +21,18 @@
     <b-dropdown-form>
       <div class="more-facets-wrapper">
         <template
-          v-if="collection === 'newspaper'"
+          v-if="enableApiFilter"
         >
           <RadioGroupFilter
             facet-name="api"
             :options="['fulltext', 'metadata']"
-            :selected="preSelected['api'] || 'fulltext'"
+            :selected="preSelected['api'] || apiFilterDefault"
             @change="updateSelected"
           />
+        </template>
+        <template
+          v-if="collection === 'newspaper'"
+        >
           <DateFilter
             :name="PROXY_DCTERMS_ISSUED"
             :start="dateFilter.start"
@@ -87,7 +91,7 @@
 <script>
   import Vue from 'vue';
   import isEqual from 'lodash/isEqual';
-  import { mapGetters } from 'vuex';
+  import { mapGetters, mapState } from 'vuex';
   import { rangeToQueryParam, rangeFromQueryParam } from '../../plugins/europeana/search';
   import MoreFiltersDropdownFacet from './MoreFiltersDropdownFacet';
   import DateFilter from './DateFilter';
@@ -117,6 +121,9 @@
       };
     },
     computed: {
+      ...mapState({
+        ww1CollectionEnabled: state => state.collections.ww1.enabled
+      }),
       ...mapGetters({
         collection: 'search/collection'
       }),
@@ -162,6 +169,14 @@
           return { start: proxyDctermsIssued[0], end: null, specific: true };
         }
         return range;
+      },
+      enableApiFilter() {
+        if (this.collection === 'newspaper') return true;
+        if (this.collection === 'ww1' && this.ww1CollectionEnabled) return true;
+        return false;
+      },
+      apiFilterDefault() {
+        return this.collection === 'newspaper' ? 'fulltext' : 'metadata';
       }
     },
     watch: {

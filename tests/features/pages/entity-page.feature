@@ -45,6 +45,7 @@ Feature: Entity page
     And I see the `entity page`
     And I see a `search result`
     When I click a `search result`
+    And I wait for the page to load
     Then I see an `item page`
 
   Scenario: Pagination links
