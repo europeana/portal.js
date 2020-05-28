@@ -17,7 +17,7 @@
         >
           <ContentCard
             v-for="exhibition in exhibitions"
-            :key="exhibition.identifier"
+            :key="exhibition.fields.identifier"
             :title="exhibition.fields.name"
             :url="{ name: 'exhibitions-exhibition', params: { exhibition: exhibition.fields.identifier } }"
             :image-url="imageUrl(exhibition.fields.primaryImageOfPage)"
@@ -87,7 +87,8 @@
         'content_type': 'exhibitionPage',
         skip: (currentPage - 1) * PER_PAGE,
         order: '-fields.datePublished',
-        limit: PER_PAGE
+        limit: PER_PAGE,
+        select: 'fields.identifier,fields.primaryImageOfPage,fields.name,fields.description'
       })
         .then((response) => {
           return {
