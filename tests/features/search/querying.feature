@@ -1,9 +1,11 @@
 Feature: Search querying
 
+  # TODO: Add back - And I click the `search button` instead of press ENTER
+
   Scenario: Search existing Europeana content
     When I visit a `search page`
     And I enter "paris" in the `search box`
-    And I click the `search button`
+    And I press the ENTER key
     Then I see "paris" in the `search box`
     And I should see 24 `search result`s
     And I see the `total results`
@@ -12,21 +14,24 @@ Feature: Search querying
   Scenario: Search non existing Europeana content
     When I visit a `search page`
     And I enter "no results for GIBBERISHABCDEFGHIJKLMONP" in the `search box`
-    And I click the `search button`
+    And I press the ENTER key
+     And I wait for the page to load
     Then I don't have a `search result`
     And I see an `error notice` with the text "Error: No results"
 
   Scenario: Search with invalid query syntax
     When I visit a `search page`
     And I enter "*:*:*" in the `search box`
-    And I click the `search button`
+    And I press the ENTER key
+     And I wait for the page to load
     Then I don't have a `search result`
     And I see an `error notice` with the text "Error"
 
   Scenario: Search and navigate to item
     When I visit a `search page`
     And I enter "paris" in the `search box`
-    And I click the `search button`
+    And I press the ENTER key
+     And I wait for the page to load
     And I click a `search result`
     And I wait for the page to load
     Then I see an `item page`
@@ -69,9 +74,11 @@ Feature: Search querying
 
   Scenario: Back button restores previous query
     Given I am on the `home page`
-    When I search for "frog"
+    And I enter "frog" in the `search box`
+    And I press the ENTER key
     And I wait for the page to load
-    And I search for "spawn"
+    And I enter "spawn" in the `search box`
+    And I press the ENTER key
     And I wait for the page to load
     And I go back
     And I wait 1 second
