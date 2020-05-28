@@ -28,12 +28,9 @@
         data-qa="back button"
         class="back d-lg-none"
         variant="light"
+        :aria-label="$t('header.backToMenu')"
         @click="backToMenu"
-      >
-        <span class="sr-only">
-          {{ $t('header.backToMenu') }}
-        </span>
-      </b-button>
+      />
       <b-form-input
         v-show="showSearch"
         ref="searchbox"
@@ -53,12 +50,9 @@
         data-qa="clear button"
         class="clear d-lg-none"
         variant="light"
+        :aria-label="$t('header.clearQuery')"
         @click="clearQuery"
-      >
-        <span class="sr-only">
-          {{ $t('header.clearQuery') }}
-        </span>
-      </b-button>
+      />
       <div
         v-show="showSearch && showSearchQuery"
         class="search-query d-lg-none"
@@ -68,12 +62,9 @@
           data-qa="search button"
           class="search"
           variant="primary"
+          :aria-label="$t('search')"
           @click="toggleSearchBar"
-        >
-          <span class="sr-only">
-            {{ $t('search') }}
-          </span>
-        </b-button>
+        />
         <span>{{ $t('header.searchFor') }} "{{ query }}"</span>
       </div>
       <b-button
@@ -81,21 +72,16 @@
         data-qa="search button"
         class="search d-none d-lg-block"
         variant="primary"
-      >
-        <span class="sr-only">
-          {{ $t('search') }}
-        </span>
-      </b-button>
+        :aria-label="$t('search')"
+      />
       <b-button
         v-show="!showSearch"
         data-qa="search button"
         class="search d-lg-none mr-3"
         variant="light"
+        :aria-label="$t('search')"
         @click="toggleSearchBar"
       >
-        <span class="sr-only">
-          {{ $t('search') }}
-        </span>
       </b-button>
       <AutoSuggest
         v-if="enableAutoSuggest"

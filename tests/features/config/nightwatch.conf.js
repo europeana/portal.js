@@ -5,7 +5,7 @@ const geckodriver = require('geckodriver');
 const percy = require('@percy/nightwatch');
 
 function chrome(locale = 'en-GB', args = []) {
-  args = ['disable-gpu', `--lang=${locale}`, '--allow-insecure-localhost', "window-size=1400,1000"].concat(args);
+  args = ['disable-gpu', `--lang=${locale}`, '--allow-insecure-localhost', 'window-size=1400,1000'].concat(args);
   return {
     webdriver: {
       server_path: chromedriver.path

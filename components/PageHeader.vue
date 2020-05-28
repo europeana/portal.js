@@ -30,7 +30,7 @@
         <img
           src="../assets/img/logo.svg"
           :alt="$t('homeLinkAlt')"
-          class="mb-lg-2 mw-100"
+          class="mw-100"
           data-qa="logo"
         >
       </SmartLink>
