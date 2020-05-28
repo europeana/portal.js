@@ -126,14 +126,19 @@
   };
 </script>
 <style lang="scss">
+  @import '../../../assets/scss/variables.scss';
   .exhibition-page {
     max-width: 51.25rem;
     h1 {
       font-size: 2.375rem;
+      margin-top: 2.5rem;
     }
     p.lead {
       font-size: 1.5rem;
       color: $slategrey;
+    }
+    .jumbotron:after {
+      display: none;
     }
   }
 </style>

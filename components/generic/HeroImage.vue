@@ -4,7 +4,9 @@
     fluid
   >
     <h1>{{ header }}</h1>
-    <p class="lead">{{ lead }}</p>
+    <p class="lead">
+      {{ lead }}
+    </p>
     <SocialShare
       :media-url="imageUrl"
     />
@@ -13,6 +15,7 @@
       fluid
       text-variant="white"
       data-qa="hero banner"
+      class="mt-4"
     >
       <figcaption>
         <CiteAttribution
