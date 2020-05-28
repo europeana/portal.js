@@ -41,9 +41,7 @@
     },
     computed: {
       shareMediaUrl() {
-        if (this.images.length <= 0) return null;
-        if (!this.images[0].fields.thumbnailUrl) return null;
-        return this.images[0].fields.thumbnailUrl;
+        return this.images.length === 0 ? null : this.imageUrl(this.images[0]);
       },
       description() {
         return this.$options.filters.stripMarkdown(this.rawDescription);
