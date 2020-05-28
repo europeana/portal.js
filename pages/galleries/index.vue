@@ -42,7 +42,7 @@
 </template>
 
 <script>
-  import createClient from '../../plugins/contentful';
+  import createClient, { getLinkedItems } from '../../plugins/contentful';
   import ContentCard from '../../components/generic/ContentCard';
   import PaginationNav from '../../components/generic/PaginationNav';
   import { pageFromQuery } from '../../plugins/utils';
@@ -85,11 +85,17 @@
         'content_type': 'imageGallery',
         'skip': (currentPage - 1) * PER_PAGE,
         'order': '-fields.datePublished',
-        limit: PER_PAGE
+        limit: PER_PAGE,
+        include: 0,
+        select: 'fields.identifier,fields.name,fields.description,fields.hasPart'
       })
-        .then((response) => {
+        .then(async(response) => {
+          const items = response.items;
+
+          await getLinkedItems(items, 'hasPart', { mode: query.mode });
+
           return {
-            galleries: response.items,
+            galleries: items,
             total: response.total,
             page: currentPage,
             perPage: PER_PAGE

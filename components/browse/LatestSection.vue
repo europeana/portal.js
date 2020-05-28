@@ -34,8 +34,7 @@
 <script>
   import ContentCard from '../../components/generic/ContentCard';
 
-  import createClient from '../../plugins/contentful';
-  const contentfulClient = createClient();
+  import createClient, { getLinkedItems } from '../../plugins/contentful';
 
   export default {
     components: {
@@ -97,6 +96,8 @@
     },
 
     async mounted() {
+      const contentfulClient = createClient(this.$route.query.mode);
+
       await contentfulClient.getEntries({
         locale: this.$i18n.isoLocale(),
         'content_type': this.contentType.type,
@@ -106,24 +107,11 @@
         select: this.selectFields
       })
         .then(async(response) => {
-          const cards = response.items;
+          const items = response.items;
 
-          if (this.forGalleries) {
-            const previewImageIds = cards.map(card => card.fields.hasPart[0].sys.id);
-            await contentfulClient.getEntries({
-              'sys.id[in]': previewImageIds.join(','),
-              include: 0
-            })
-              .then(async(imageResponse) => {
-                for (const card of cards) {
-                  card.fields.hasPart = [imageResponse.items.find((imageItem) => {
-                    return imageItem.sys.id === card.fields.hasPart[0].sys.id;
-                  })];
-                }
-              });
-          }
+          if (this.forGalleries) await getLinkedItems(items, 'hasPart', { mode: this.$route.query.mode });
 
-          this.cards = cards;
+          this.cards = items;
           this.total = response.total;
         }).catch(error => {
           throw error;
