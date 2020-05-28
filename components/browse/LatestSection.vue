@@ -34,8 +34,7 @@
 <script>
   import ContentCard from '../../components/generic/ContentCard';
 
-  import createClient from '../../plugins/contentful';
-  const contentfulClient = createClient();
+  import createClient, { getLinkedItems } from '../../plugins/contentful';
 
   export default {
     components: {
@@ -58,31 +57,61 @@
 
     computed: {
       contentType() {
-        switch (this.category) {
-        case 'Exhibitions':
+        if (this.forExhibitions) {
           return { type: 'exhibitionPage', name: this.$tc('exhibitions.exhibitions', this.total), path: 'exhibitions' };
-        case 'Galleries':
+        } else if (this.forGalleries) {
           return { type: 'imageGallery', name: this.$tc('galleries.galleries', this.total), path: 'galleries' };
-        case 'Blog posts':
+        } else if (this.forBlogPosts) {
           return { type: 'blogPosting', name: this.$tc('blog.posts'), path: 'blog' };
         }
 
         return false;
       },
+
+      forGalleries() {
+        return this.category === 'Galleries';
+      },
+
+      forExhibitions() {
+        return this.category === 'Exhibitions';
+      },
+
+      forBlogPosts() {
+        return this.category === 'Blog posts';
+      },
+
       showMoreLink() {
         return `${this.$tc('showMore')} ${this.contentType.name.toLowerCase()} (${this.total})`;
+      },
+
+      includeReferenceDepth() {
+        return this.forGalleries ? 0 : 1;
+      },
+
+      selectFields() {
+        return this.forGalleries
+          ? 'sys.id,fields.hasPart,fields.identifier,fields.name,fields.description'
+          : 'fields.identifier,fields.name,fields.description,fields.primaryImageOfPage';
       }
     },
 
     async mounted() {
+      const contentfulClient = createClient(this.$route.query.mode);
+
       await contentfulClient.getEntries({
         locale: this.$i18n.isoLocale(),
         'content_type': this.contentType.type,
         order: '-fields.datePublished',
-        limit: 4
+        limit: 4,
+        include: this.includeReferenceDepth,
+        select: this.selectFields
       })
-        .then((response) => {
-          this.cards = response.items;
+        .then(async(response) => {
+          const items = response.items;
+
+          if (this.forGalleries) await getLinkedItems(items, 'hasPart', { mode: this.$route.query.mode });
+
+          this.cards = items;
           this.total = response.total;
         }).catch(error => {
           throw error;
@@ -91,21 +120,15 @@
 
     methods: {
       cardData(card) {
-        let data = {};
-
-        switch (this.category) {
-        case 'Exhibitions':
-          data = this.defaultCardData(card, 'exhibitions-exhibition');
-          break;
-        case 'Galleries':
-          data = this.galleryCardData(card);
-          break;
-        case 'Blog posts':
-          data = this.defaultCardData(card, 'blog-all');
-          break;
+        if (this.forExhibitions) {
+          return this.defaultCardData(card, 'exhibitions-exhibition');
+        } else if (this.forGalleries) {
+          return this.galleryCardData(card);
+        } else if (this.forBlogPosts) {
+          return  this.defaultCardData(card, 'blog-all');
         }
 
-        return data;
+        return null;
       },
       defaultCardData(card, name) {
         const key = name === 'exhibitions-exhibition' ? 'exhibition' : 'pathMatch';
@@ -125,6 +148,7 @@
       },
       galleryCardData(card) {
         let imageUrl;
+
         if (card.hasPart[0].fields.encoding) {
           imageUrl = `${card.hasPart[0].fields.encoding.edmPreview[0]}&size=w200`;
         } else {
