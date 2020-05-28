@@ -1,67 +1,37 @@
 <template>
-  <b-navbar-nav
-    class="ml-xl-auto"
-    data-qa="main navigation"
+  <b-nav
+    align="center"
+    data-qa="account navigation"
   >
-    <li
-      v-for="(nav, index) in navigation"
-      :key="index"
-      class="nav-item"
-    >
-      <SmartLink
-        :destination="nav.url"
-        link-class="nav-link"
-      >
-        <span>{{ nav.text }}</span>
-      </SmartLink>
-    </li>
-    <!-- sso links -->
     <li class="nav-item">
       <SmartLink
         :destination="'/account/login'"
         link-class="nav-link"
       >
-        <span>{{ $t('account.linkText') }}</span>
+        <span>{{ $t('account.login.button') }}</span>
       </SmartLink>
     </li>
-  </b-navbar-nav>
+    <li class="nav-item">
+      <SmartLink
+        :destination="'/account/create'"
+        link-class="nav-link"
+      >
+        <span>{{ $t('account.create') }}</span>
+      </SmartLink>
+    </li>
+  </b-nav>
 </template>
-
 <script>
-  import SmartLink from './generic/SmartLink';
+  import SmartLink from '../../components/generic/SmartLink';
 
   export default {
     components: {
       SmartLink
-    },
-
-    computed: {
-      navigation() {
-        return this.$store.state['link-group'].data.mainNavigation.links;
-      },
-
-      i18n() {
-        return this.$store.state.i18n.locale;
-      }
-    },
-
-    watch: {
-      i18n() {
-        this.getNavigationData();
-      }
-    },
-
-    methods: {
-      async getNavigationData() {
-        return this.$store.dispatch('link-group/init');
-      }
-    }
-  };
-</script>
-
+    } };
+	</script>
 <style lang="scss" scoped>
-  @import '../assets/scss/variables.scss';
-  @import '../assets/scss/icons.scss';
+  @import '../../assets/scss/variables.scss';
+  @import '../../assets/scss/icons.scss';
 
   .nav-item {
     &:not(:last-child) {
@@ -71,11 +41,11 @@
     .nav-link {
       color: $mediumgrey;
       text-decoration: none;
-      text-transform: uppercase;
       font-size: $font-size-small;
-      font-weight: 600;
+
 
       &.nuxt-link-active {
+		color: $blue;
         &:after {
           content: '';
           position: absolute;
@@ -85,7 +55,7 @@
           z-index: 1;
           left: 0;
           right: 0;
-          bottom: -0.8rem;
+          bottom: -1rem;
         }
       }
 
