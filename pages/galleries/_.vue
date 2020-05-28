@@ -41,10 +41,7 @@
     },
     computed: {
       shareMediaUrl() {
-        if (this.images.length <= 0) return null;
-        const image = this.imageUrl(this.images[0]);
-        if (!image) return null;
-        return image;
+        return this.images.length === 0 ? null : this.imageUrl(this.images[0]);
       },
       description() {
         return this.$options.filters.stripMarkdown(this.rawDescription);
