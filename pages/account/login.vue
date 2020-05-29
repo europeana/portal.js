@@ -28,9 +28,9 @@
   };
 </script>
 <style lang="scss" scoped>
-	div.account {
-			position: relative;
-			top: -1.2em;
-		}
+  div.account {
+    position: relative;
+    top: -1.2em;
+  }
 </style>
 

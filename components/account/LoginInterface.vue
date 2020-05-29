@@ -120,46 +120,46 @@
   };
 </script>
 <style lang="scss" scoped>
-@import '../../assets/scss/variables.scss';
+  @import '../../assets/scss/variables.scss';
 
 
-.btn-outline-primary {
+  .btn-outline-primary {
     text-transform: none;
-}
-
-div.form-group {
-  font-size: $font-size-small;
-
-  div.wrapper {
-	display: flex;
-	flex-direction: column-reverse;
-	margin-bottom: 15px;
   }
 
-  label {
-    transition: all 0.3s ease;
-    display: inline-block;
-    margin-bottom: 5px;
-  }
+  div.form-group {
+    font-size: $font-size-small;
 
-  input{
-    transition: all 0.3s ease;
-    border: 1px solid #767676;
-    display: block;
-    padding: 8px 14px;
-	width: 100%;
-	box-shadow: none;
-	background-color: white;
+    div.wrapper {
+      display: flex;
+      flex-direction: column-reverse;
+      margin-bottom: 15px;
+    }
 
-    &:focus {
-      outline: none;
-      border-color: #2d8cf0;
+    label {
+      transition: all 0.3s ease;
+      display: inline-block;
+      margin-bottom: 5px;
+    }
 
-      +label {
-        color: #2d8cf0;
+    input {
+      transition: all 0.3s ease;
+      border: 1px solid #767676;
+      display: block;
+      padding: 8px 14px;
+      width: 100%;
+      box-shadow: none;
+      background-color: white;
+
+      &:focus {
+        outline: none;
+        border-color: #2d8cf0;
+
+        +label {
+          color: #2d8cf0;
+        }
       }
     }
   }
-}
 
 </style>

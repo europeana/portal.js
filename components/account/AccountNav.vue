@@ -45,7 +45,7 @@
 
 
       &.nuxt-link-active {
-		color: $blue;
+        color: $blue;
         &:after {
           content: '';
           position: absolute;
