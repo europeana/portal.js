@@ -27,7 +27,9 @@ export function getEntity(type, id) {
 }
 
 function entityApiUrl(endpoint) {
-  return `${config.entity.origin}${config.entity.path}${endpoint}`;
+  // return `${config.entity.origin}${config.entity.path}${endpoint}`;
+  // test endpoint not for production
+  return `http://entity-api-acceptance.eanadev.org${config.entity.path}${endpoint}`;
 }
 
 /**
@@ -46,7 +48,8 @@ export function getEntitySuggestions(text, params = {}, options = {}) {
       type: 'agent,concept',
       language: params.language,
       scope: 'europeana',
-      wskey: config.entity.key
+      wskey: config.entity.key,
+      algorithm: 'monolingual'
     }
   })
     .then((response) => {
@@ -72,7 +75,7 @@ function filterSuggestionsByRecordValidation(suggestions) {
     .then(axios.spread(function() {
       const searchResponses = arguments;
       return suggestions.filter((entity, index) => {
-        return searchResponses[index].totalResults > 0;
+        return searchResponses[index].totalResults.prefLabel.en > 0;
       });
     }));
 }

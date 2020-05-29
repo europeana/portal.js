@@ -1,6 +1,7 @@
 <template>
   <b-list-group
     v-show="isActive"
+    v-visible-on-scroll
     :id="elementId"
     class="auto-suggest-dropdown"
     data-qa="search suggestions"
@@ -280,26 +281,24 @@
       top: 50px;
       width: 100%;
       z-index: 20;
-      border-radius: 10px;
+      border-radius: 4px;
+      box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.25);
       background-color: $white;
+      overflow: hidden;
+      padding: 0.5rem 0;
+      transition: $standard-transition;
 
       a.list-group-item {
         border: 0;
         border-radius: 0;
         box-shadow: none;
-        padding: .75rem 1.25rem;
+        padding: .5rem 1.25rem;
         color: $black;
+        font-size: 1rem;
+        text-decoration: none;
 
         &.hover {
-          background-color: $offwhite;
-        }
-
-        &:last-child {
-          border-radius: 0 0 6px 6px;
-        }
-
-        /deep/.highlight {
-          color: $darkblue;
+          background-color: $bodygrey;
         }
       }
 

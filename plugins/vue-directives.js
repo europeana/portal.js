@@ -13,7 +13,7 @@ Vue.directive('visible-on-scroll', {
 const handleScroll = (el) => {
   const newPosition = window.scrollY;
   if (onDesktop && el.scrollPosition < newPosition && el.scrollPosition > 150 && el.scrolledVisible) {
-    el.setAttribute('style', 'transform: translate3d(0, -150px, 0)');
+    el.setAttribute('style', 'transform: translate3d(0, -100%, 0)');
     el.scrolledVisible = false;
   } else if (onDesktop && ((el.scrollPosition - 5) > newPosition || el.scrollPosition <= 150) && !el.scrolledVisible) {
     el.setAttribute('style', 'transform: translate3d(0, 0, 0)');
