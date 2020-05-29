@@ -1,8 +1,8 @@
 <template>
   <b-list-group
     v-show="isActive"
-    v-visible-on-scroll
     :id="elementId"
+    v-visible-on-scroll
     class="auto-suggest-dropdown"
     data-qa="search suggestions"
     role="listbox"
