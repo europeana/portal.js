@@ -65,7 +65,7 @@
 
   .nav-item {
     &:not(:last-child) {
-      margin-right: 1rem;
+      margin-right: 0.6rem;
     }
 
     .nav-link {
@@ -102,7 +102,7 @@
     &:last-child {
       .nav-link {
         &.nuxt-link-active:after {
-          left: 0.25rem;
+          left: 0.1rem;
         }
         &:before {
           right: -0.5rem;

@@ -5,7 +5,8 @@
     >
       <b-col
         class="p-4 m-4 bg-white"
-        cols="6"
+        cols="10"
+        md="6"
       >
         <div class="mb-4 text-center">
           <p>
@@ -17,7 +18,6 @@
           @submit.prevent="login"
         >
           <b-form-group
-            id="email-group"
             label-for="email"
           >
             <div class="wrapper">
@@ -27,18 +27,17 @@
                 type="email"
                 required
                 class="wrapper"
+                autofocus
               />
               <template>
-                <label>
+                <label for="email">
                   {{ $t('account.email.text') }}
                 </label>
               </template>
             </div>
           </b-form-group>
           <b-form-group
-            id="password-group"
             label-for="password"
-            class="sm"
           >
             <div class="wrapper">
               <b-form-input
@@ -49,7 +48,7 @@
                 required
               />
               <template>
-                <label>
+                <label for="password">
                   {{ $t('account.password.text') }}
                 </label>
               </template>
@@ -153,10 +152,10 @@
 
       &:focus {
         outline: none;
-        border-color: #2d8cf0;
+        border-color: #0A5A9F;
 
         +label {
-          color: #2d8cf0;
+          color: #0A5A9F;
         }
       }
     }

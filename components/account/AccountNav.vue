@@ -5,7 +5,7 @@
   >
     <li class="nav-item">
       <SmartLink
-        :destination="'/account/login'"
+        :destination="'/'"
         link-class="nav-link"
       >
         <span>{{ $t('account.login.button') }}</span>

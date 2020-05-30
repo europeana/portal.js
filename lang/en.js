@@ -493,7 +493,7 @@ export default {
   },
   "showLess": "Show less",
   "showMore": "Show more",
-  "account":{ "text":"My account", "linkText":"Log in", "create":"Sign up", "profile":"My profile", "logout":"Logout",
+  "account":{ "text":"My account", "linkText":"Account", "create":"Sign up", "profile":"My profile", "logout":"Logout",
     "login":{ "text":"Login to save your favourite items and create collections", "button":"Log in" },
     "email":{ "text":"Email address", "placeholder": "Enter email" },
     "password":{ "text":"Password", "forgot":"Forgot password" } }

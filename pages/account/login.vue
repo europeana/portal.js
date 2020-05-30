@@ -1,6 +1,9 @@
 <template>
   <div class="account">
-    <b-container fluid>
+    <b-container
+      fluid
+      data-qa="login page"
+    >
       <b-row class="bg-white">
         <b-col class="mt-4 mb-3 pt-4">
           <h1 class="text-center mb-5">
@@ -30,7 +33,7 @@
 <style lang="scss" scoped>
   div.account {
     position: relative;
-    top: -1.2em;
+    margin-top: -1.5%;
   }
 </style>
 
