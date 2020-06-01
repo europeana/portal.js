@@ -127,28 +127,6 @@
         .catch((e) => {
           error({ statusCode: 500, message: e.toString() });
         });
-
-      // fetch the browsePage data, include set to 2 in order to get nested card data
-      // return contentfulClient.getEntries({
-      //   'locale': app.i18n.isoLocale(),
-      //   'content_type': 'browsePage',
-      //   'fields.identifier': params.pathMatch ? params.pathMatch : 'home',
-      //   'include': 2,
-      //   'limit': 1
-      // })
-      //   .then((response) => {
-      //     if (response.total === 0) {
-      //       error({ statusCode: 404, message: app.i18n.t('messages.notFound') });
-      //       return;
-      //     }
-      //     return {
-      //       page: response.items[0].fields,
-      //       path: params.pathMatch
-      //     };
-      //   })
-      //   .catch((e) => {
-      //     error({ statusCode: 500, message: e.toString() });
-      //   });
     },
 
     head() {
