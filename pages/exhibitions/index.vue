@@ -12,14 +12,14 @@
           data-qa="exhibitions section"
         >
           <ContentCard
-            v-for="exhibition in exhibitions"
-            :key="exhibition.fields.identifier"
-            :title="exhibition.fields.name"
-            :url="{ name: 'exhibitions-exhibition', params: { exhibition: exhibition.fields.identifier } }"
-            :image-url="imageUrl(exhibition.fields.primaryImageOfPage)"
-            :image-content-type="imageContentType(exhibition.fields.primaryImageOfPage)"
+            v-for="exhibition in items"
+            :key="exhibition.identifier"
+            :title="exhibition.name"
+            :url="{ name: 'exhibitions-exhibition', params: { exhibition: exhibition.identifier } }"
+            :image-url="imageUrl(exhibition.primaryImageOfPage)"
+            :image-content-type="imageContentType(exhibition.primaryImageOfPage)"
             :image-optimisation-options="{ width: 510 }"
-            :texts="[exhibition.fields.description]"
+            :texts="[exhibition.description]"
           />
         </b-card-group>
       </b-col>
@@ -41,7 +41,7 @@
 
 <script>
   import ContentHeader from '../../components/generic/ContentHeader';
-  import createClient from '../../plugins/contentful';
+  // import createClient from '../../plugins/contentful';
   import ContentCard from '../../components/generic/ContentCard';
   import PaginationNav from '../../components/generic/PaginationNav';
   import { pageFromQuery } from '../../plugins/utils';
@@ -71,7 +71,7 @@
         return this.total > this.perPage;
       }
     },
-    asyncData({ query, redirect, error, app }) {
+    asyncData({ query, redirect, error, app, store }) {
       const currentPage = pageFromQuery(query.page);
       if (currentPage === null) {
         // Redirect non-positive integer values for `page` to `page=1`
@@ -79,38 +79,56 @@
         return redirect(app.$path({ name: 'exhibitions', query }));
       }
 
-      const contentfulClient = createClient(query.mode);
-      return contentfulClient.getEntries({
+      const fetchLinkGroups = !(store.state['link-group'].data.mainNavigation);
+      // TODO: pagination
+      const variables = {
         locale: app.i18n.isoLocale(),
-        'content_type': 'exhibitionPage',
-        skip: (currentPage - 1) * PER_PAGE,
-        order: '-fields.datePublished',
-        limit: PER_PAGE,
-        select: 'fields.identifier,fields.primaryImageOfPage,fields.name,fields.description'
-      })
-        .then((response) => {
-          return {
-            exhibitions: response.items,
-            total: response.total,
-            page: currentPage,
-            perPage: PER_PAGE
-          };
+        preview: query.mode === 'preview',
+        linkGroups: fetchLinkGroups,
+        limit: 20
+      };
+
+      return app.$contentful.query('exhibitionFoyerPage', variables)
+        .then(response => response.data.data)
+        .then(data => {
+          if (fetchLinkGroups) store.commit('link-group/setLinks', data);
+
+          return data.exhibitionPageCollection;
         })
         .catch((e) => {
           error({ statusCode: 500, message: e.toString() });
         });
+
+      // const contentfulClient = createClient(query.mode);
+      // return contentfulClient.getEntries({
+      //   locale: app.i18n.isoLocale(),
+      //   'content_type': 'exhibitionPage',
+      //   skip: (currentPage - 1) * PER_PAGE,
+      //   order: '-fields.datePublished',
+      //   limit: PER_PAGE,
+      //   select: 'fields.identifier,fields.primaryImageOfPage,fields.name,fields.description'
+      // })
+      //   .then((response) => {
+      //     return {
+      //       exhibitions: response.items,
+      //       total: response.total,
+      //       page: currentPage,
+      //       perPage: PER_PAGE
+      //     };
+      //   })
+      //   .catch((e) => {
+      //     error({ statusCode: 500, message: e.toString() });
+      //   });
     },
     methods: {
       paginationLink(val) {
         return this.$path({ name: 'exhibitions', query: { page: val } });
       },
       imageUrl(image) {
-        if (image && image.fields && image.fields.image && image.fields.image.fields && image.fields.image.fields.file)
-          return image.fields.image.fields.file.url;
+        if (image && image.image) return image.image.url;
       },
       imageContentType(image) {
-        if (image && image.fields && image.fields.image && image.fields.image.fields && image.fields.image.fields.file)
-          return image.fields.image.fields.file.contentType;
+        if (image && image.image) return image.image.contentType;
       }
     },
     watchQuery: ['page'],

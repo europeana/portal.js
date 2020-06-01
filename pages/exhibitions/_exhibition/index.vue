@@ -95,7 +95,6 @@
       return app.$contentful.query('exhibitionLandingPage', variables)
         .then(response => response.data.data)
         .then(data => {
-          console.log('data', data);
           if (fetchLinkGroups) store.commit('link-group/setLinks', data);
 
           if (data.exhibitionPageCollection.items.length === 0) {
