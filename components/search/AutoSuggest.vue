@@ -285,7 +285,6 @@
       box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.25);
       background-color: $white;
       overflow: hidden;
-      padding: 0.5rem 0;
       transition: $standard-transition;
 
       a.list-group-item {
@@ -296,6 +295,16 @@
         color: $black;
         font-size: 1rem;
         text-decoration: none;
+
+        &:first-child {
+          padding-top: 1rem;
+          border-radius: 6px 6px 0 0;
+        }
+
+        &:last-child {
+          padding-bottom: 1rem;
+          border-radius: 0 0 6px 6px;
+        }
 
         &.hover {
           background-color: $bodygrey;

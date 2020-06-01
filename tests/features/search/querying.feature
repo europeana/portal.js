@@ -34,7 +34,7 @@ Feature: Search querying
 
   Scenario: No auto suggestion
     Given I am on the `search page`
-    And I enter "World" in the `search box`
+    And I enter "Hundred" in the `search box`
     And I wait 2 seconds
     Then there are no `search suggestions`
 

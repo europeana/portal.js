@@ -27,7 +27,9 @@ export function getEntity(type, id) {
 }
 
 function entityApiUrl(endpoint) {
-  return `${config.entity.origin}${config.entity.path}${endpoint}`;;
+  return `${config.entity.origin}${config.entity.path}${endpoint}`;
+  // test endpoint not for production
+  // return `http://entity-api-acceptance.eanadev.org${config.entity.path}${endpoint}`;
 }
 
 /**
@@ -59,10 +61,12 @@ export function getEntitySuggestions(text, params = {}, options = {}) {
     });
 }
 
-function filterSuggestionsByRecordValidation(suggestions) {
+function filterSuggestionsByRecordValidation(suggestions, params) {
+  let language = params.language.split(',')[0];
   const searches = suggestions.map((entity) => {
     return search({
-      query: getEntityQuery(entity.id),
+      query: entity.prefLabel[language],
+      lang: language,
       rows: 0,
       profile: 'minimal',
       qf: ['contentTier:(2 OR 3 OR 4)']
@@ -73,7 +77,7 @@ function filterSuggestionsByRecordValidation(suggestions) {
     .then(axios.spread(function() {
       const searchResponses = arguments;
       return suggestions.filter((entity, index) => {
-        return searchResponses[index].totalResults.prefLabel.en > 0;
+        return searchResponses[index].totalResults > 0;
       });
     }));
 }
