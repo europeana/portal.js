@@ -63,16 +63,21 @@
       }
     },
 
-    asyncData({ params, query, error, app }) {
-      // const contentfulClient = createClient(query.mode);
-
-      return app.$contentful.query('browsePage', {
+    asyncData({ params, query, error, app, store }) {
+      // TODO: make retrieval of link groups conditional on not already being present?
+      const fetchLinkGroups = !(store.state['link-group'].data.mainNavigation);
+      const variables = {
         identifier: params.pathMatch ? params.pathMatch : 'home',
         locale: app.i18n.isoLocale(),
-        preview: query.mode === 'preview' // TODO: implement in queries
-      })
+        preview: query.mode === 'preview',
+        linkGroups: fetchLinkGroups
+      };
+
+      return app.$contentful.query('browsePage', variables)
         .then(response => response.data.data)
         .then(data => {
+          if (fetchLinkGroups) store.commit('link-group/setLinks', data);
+
           if (data.browsePageCollection.items.length === 0) {
             error({ statusCode: 404, message: app.i18n.t('messages.notFound') });
             return;
@@ -81,13 +86,14 @@
           const page = data.browsePageCollection.items[0];
 
           const genres = page.hasPartCollection.items
-            .filter(item => item['__typename'] === 'LatestCardGroup')
+            .filter(item => item && (item['__typename'] === 'LatestCardGroup'))
             .map(item => item.genre);
 
           if (genres.length === 0) return page;
 
           const variables = {
             locale: app.i18n.isoLocale(),
+            preview: query.mode === 'preview',
             exhibitions: genres.includes('Exhibitions'),
             blogPosts: genres.includes('Blog posts'),
             galleries: genres.includes('Galleries'),
@@ -98,7 +104,7 @@
             .then(response => response.data.data)
             .then(data => {
               for (let i = 0; i < page.hasPartCollection.items.length; i++) {
-                if (page.hasPartCollection.items[i]['__typename'] === 'LatestCardGroup') {
+                if (page.hasPartCollection.items[i] && page.hasPartCollection.items[i]['__typename'] === 'LatestCardGroup') {
                   let latest = {};
                   switch (page.hasPartCollection.items[i].genre) {
                   case 'Exhibitions':
@@ -112,11 +118,9 @@
                     break;
                   }
                   page.hasPartCollection.items[i] = { ...page.hasPartCollection.items[i], ...latest };
-                  console.log('page.hasPartCollection.items[i]', page.hasPartCollection.items[i]);
                 }
-                // console.log('latestCardGroups[i]', latestCardGroups[i]);
               }
-              // console.log('latest card group data', data);
+
               return page;
             });
         })

@@ -84,8 +84,7 @@
 
     methods: {
       contentType(section, typeName) {
-        // console.log('section', section);
-        return section['__typename'] === typeName;
+        return section && (section['__typename'] === typeName);
       },
       attributionFields(fields) {
         return {

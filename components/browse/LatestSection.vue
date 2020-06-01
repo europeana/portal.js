@@ -2,7 +2,6 @@
   <section
     class="latest-section row mb-5"
   >
-    <code><pre>{{ total }}</pre></code>
     <div class="col-12">
       <h2>
         {{ contentType.name }}
@@ -36,8 +35,6 @@
 
 <script>
   import ContentCard from '../../components/generic/ContentCard';
-
-  // import createClient, { getLinkedItems } from '../../plugins/contentful';
 
   export default {
     components: {
@@ -88,45 +85,11 @@
 
       showMoreLink() {
         return `${this.$tc('showMore')} ${this.contentType.name.toLowerCase()} (${this.total})`;
-      }//,
-
-      // includeReferenceDepth() {
-      //   return this.forGalleries ? 0 : 1;
-      // },
-      //
-      // selectFields() {
-      //   return this.forGalleries
-      //     ? 'sys.id,fields.hasPart,fields.identifier,fields.name,fields.description'
-      //     : 'fields.identifier,fields.name,fields.description,fields.primaryImageOfPage';
-      // }
+      }
     },
-
-    // async mounted() {
-    //   const contentfulClient = createClient(this.$route.query.mode);
-    //
-    //   await contentfulClient.getEntries({
-    //     locale: this.$i18n.isoLocale(),
-    //     'content_type': this.contentType.type,
-    //     order: '-fields.datePublished',
-    //     limit: 4,
-    //     include: this.includeReferenceDepth,
-    //     select: this.selectFields
-    //   })
-    //     .then(async(response) => {
-    //       const items = response.items;
-    //
-    //       if (this.forGalleries) await getLinkedItems(items, 'hasPart', { mode: this.$route.query.mode });
-    //
-    //       this.cards = items;
-    //       this.total = response.total;
-    //     }).catch(error => {
-    //       throw error;
-    //     });
-    // },
 
     methods: {
       cardData(card) {
-        console.log('card', card);
         if (this.forExhibitions) {
           return this.defaultCardData(card, 'exhibitions-exhibition');
         } else if (this.forGalleries) {

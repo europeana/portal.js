@@ -1,5 +1,19 @@
-query BrowsePage($identifier: String!, $locale: String!) {
-  browsePageCollection(locale: $locale, where: { identifier: $identifier }, limit: 1) {
+query BrowsePage(
+  $identifier: String!,
+  $locale: String!,
+  $linkGroups: Boolean = true,
+  $preview: Boolean = false
+) {
+  mainNavigation: linkGroupCollection(preview: $preview, locale: $locale, limit: 1, where: { identifier: "mainNavigation" }) @include(if: $linkGroups) {
+    ...linkGroupFields
+  }
+  footerMoreInfo: linkGroupCollection(preview: $preview, locale: $locale, limit: 1, where: { identifier: "footerMoreInfo" }) @include(if: $linkGroups) {
+    ...linkGroupFields
+  }
+  footerHelp: linkGroupCollection(preview: $preview, locale: $locale, limit: 1, where: { identifier: "footerHelp" }) @include(if: $linkGroups) {
+    ...linkGroupFields
+  }
+  browsePageCollection(preview: $preview, locale: $locale, where: { identifier: $identifier }, limit: 1) {
     items {
       identifier
       name
@@ -65,6 +79,19 @@ query BrowsePage($identifier: String!, $locale: String!) {
             text
           }
         }
+      }
+    }
+  }
+}
+
+fragment linkGroupFields on LinkGroupCollection {
+  items {
+    identifier
+    name
+    links: linksCollection(limit: 10) {
+      items {
+        text
+        url
       }
     }
   }

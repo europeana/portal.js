@@ -25,7 +25,7 @@
             v-for="(card, index) in cards"
             :key="index"
             :fields="card"
-            :card-type="card['__typename']"
+            :card-type="card && card['__typename']"
           />
         </template>
         <template v-else>
