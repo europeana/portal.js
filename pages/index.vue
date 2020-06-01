@@ -13,8 +13,8 @@
       v-if="hero"
       :image-url="heroImage.url"
       :image-content-type="heroImage.contentType"
-      :header="page.name"
-      :lead="page.headline"
+      :header="name"
+      :lead="headline"
       :rights-statement="hero.license"
       :name="hero.name"
       :provider="hero.provider"
@@ -24,12 +24,11 @@
     <b-container>
       <ContentHeader
         v-if="!hero"
-        :title="page.name"
-        :description="page.headline"
+        :title="name"
+        :description="headline"
       />
       <BrowseSections
-        v-if="page"
-        :sections="page.hasPart"
+        :sections="hasPartCollection.items"
       />
     </b-container>
   </div>
@@ -40,7 +39,7 @@
   import BrowseSections from '../components/browse/BrowseSections';
   import HeroImage from '../components/generic/HeroImage';
   import NotificationBanner from '../components/generic/NotificationBanner.vue';
-  import createClient from '../plugins/contentful';
+  // import createClient from '../plugins/contentful';
 
   export default {
     components: {
@@ -51,53 +50,113 @@
     },
     computed: {
       hero() {
-        return this.page.primaryImageOfPage ? this.page.primaryImageOfPage.fields : null;
+        return this.primaryImageOfPage ? this.primaryImageOfPage : null;
       },
       heroImage() {
-        return this.hero ? this.hero.image.fields.file : null;
+        return this.hero ? this.hero.image : null;
       },
       onHomePage() {
-        return Boolean(Number(process.env.ENABLE_LINKS_TO_CLASSIC)) && !this.path;
+        return Boolean(Number(process.env.ENABLE_LINKS_TO_CLASSIC)) && (this.identifier === 'home');
       },
       notificationUrl() {
         return `https://classic.europeana.eu/portal/${this.$store.state.i18n.locale}?utm_source=new-website&utm_medium=button`;
       }
     },
-    asyncData({ params, query, error, app }) {
-      const contentfulClient = createClient(query.mode);
 
-      // fetch the browsePage data, include set to 2 in order to get nested card data
-      return contentfulClient.getEntries({
-        'locale': app.i18n.isoLocale(),
-        'content_type': 'browsePage',
-        'fields.identifier': params.pathMatch ? params.pathMatch : 'home',
-        'include': 2,
-        'limit': 1
+    asyncData({ params, query, error, app }) {
+      // const contentfulClient = createClient(query.mode);
+
+      return app.$contentful.query('browsePage', {
+        identifier: params.pathMatch ? params.pathMatch : 'home',
+        locale: app.i18n.isoLocale(),
+        preview: query.mode === 'preview' // TODO: implement in queries
       })
-        .then((response) => {
-          if (response.total === 0) {
+        .then(response => response.data.data)
+        .then(data => {
+          if (data.browsePageCollection.items.length === 0) {
             error({ statusCode: 404, message: app.i18n.t('messages.notFound') });
             return;
           }
-          return {
-            page: response.items[0].fields,
-            path: params.pathMatch
+
+          const page = data.browsePageCollection.items[0];
+
+          const genres = page.hasPartCollection.items
+            .filter(item => item['__typename'] === 'LatestCardGroup')
+            .map(item => item.genre);
+
+          if (genres.length === 0) return page;
+
+          const variables = {
+            locale: app.i18n.isoLocale(),
+            exhibitions: genres.includes('Exhibitions'),
+            blogPosts: genres.includes('Blog posts'),
+            galleries: genres.includes('Galleries'),
+            limit: 4
           };
+
+          return app.$contentful.query('latestCardGroups', variables)
+            .then(response => response.data.data)
+            .then(data => {
+              for (let i = 0; i < page.hasPartCollection.items.length; i++) {
+                if (page.hasPartCollection.items[i]['__typename'] === 'LatestCardGroup') {
+                  let latest = {};
+                  switch (page.hasPartCollection.items[i].genre) {
+                  case 'Exhibitions':
+                    latest = data.exhibitionPageCollection;
+                    break;
+                  case 'Blog posts':
+                    latest = data.blogPostingCollection;
+                    break;
+                  case 'Galleries':
+                    latest = data.imageGalleryCollection;
+                    break;
+                  }
+                  page.hasPartCollection.items[i] = { ...page.hasPartCollection.items[i], ...latest };
+                  console.log('page.hasPartCollection.items[i]', page.hasPartCollection.items[i]);
+                }
+                // console.log('latestCardGroups[i]', latestCardGroups[i]);
+              }
+              // console.log('latest card group data', data);
+              return page;
+            });
         })
         .catch((e) => {
           error({ statusCode: 500, message: e.toString() });
         });
+
+      // fetch the browsePage data, include set to 2 in order to get nested card data
+      // return contentfulClient.getEntries({
+      //   'locale': app.i18n.isoLocale(),
+      //   'content_type': 'browsePage',
+      //   'fields.identifier': params.pathMatch ? params.pathMatch : 'home',
+      //   'include': 2,
+      //   'limit': 1
+      // })
+      //   .then((response) => {
+      //     if (response.total === 0) {
+      //       error({ statusCode: 404, message: app.i18n.t('messages.notFound') });
+      //       return;
+      //     }
+      //     return {
+      //       page: response.items[0].fields,
+      //       path: params.pathMatch
+      //     };
+      //   })
+      //   .catch((e) => {
+      //     error({ statusCode: 500, message: e.toString() });
+      //   });
     },
+
     head() {
       return {
-        title: this.page.name,
+        title: this.name,
         meta: [
           { hid: 'og:type', property: 'og:type', content: 'article' },
-          { hid: 'title', name: 'title', content: this.page.name },
-          { hid: 'og:title', property: 'og:title', content: this.page.name }
-        ].concat(this.page.description ? [
-          { hid: 'description', name: 'description', content: this.page.description },
-          { hid: 'og:description', property: 'og:description', content: this.page.description }
+          { hid: 'title', name: 'title', content: this.name },
+          { hid: 'og:title', property: 'og:title', content: this.name }
+        ].concat(this.description ? [
+          { hid: 'description', name: 'description', content: this.description },
+          { hid: 'og:description', property: 'og:description', content: this.description }
         ] : []).concat(this.heroImage ? [
           { hid: 'og:image', property: 'og:image', content: this.$options.filters.urlWithProtocol(this.heroImage.url) }
         ] : [])

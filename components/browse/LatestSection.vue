@@ -1,5 +1,8 @@
 <template>
-  <section class="latest-section row mb-5">
+  <section
+    class="latest-section row mb-5"
+  >
+    <code><pre>{{ total }}</pre></code>
     <div class="col-12">
       <h2>
         {{ contentType.name }}
@@ -11,12 +14,12 @@
       >
         <ContentCard
           v-for="card in cards"
-          :key="card.fields.identifier"
-          :title="card.fields.name"
-          :texts="[card.fields.description]"
-          :url="cardData(card.fields).cardLink"
-          :image-url="cardData(card.fields).imageUrl"
-          :image-content-type="cardData(card.fields).imageContentType"
+          :key="card.identifier"
+          :title="card.name"
+          :texts="[card.description]"
+          :url="cardData(card).cardLink"
+          :image-url="cardData(card).imageUrl"
+          :image-content-type="cardData(card).imageContentType"
           :image-optimisation-options="{ width: 510 }"
         />
       </b-card-group>
@@ -34,7 +37,7 @@
 <script>
   import ContentCard from '../../components/generic/ContentCard';
 
-  import createClient, { getLinkedItems } from '../../plugins/contentful';
+  // import createClient, { getLinkedItems } from '../../plugins/contentful';
 
   export default {
     components: {
@@ -45,14 +48,17 @@
       category: {
         type: String,
         required: true
-      }
-    },
+      },
 
-    data() {
-      return {
-        cards: [],
-        total: 0
-      };
+      cards: {
+        type: Array,
+        default: () => []
+      },
+
+      total: {
+        type: Number,
+        default: 0
+      }
     },
 
     computed: {
@@ -82,44 +88,45 @@
 
       showMoreLink() {
         return `${this.$tc('showMore')} ${this.contentType.name.toLowerCase()} (${this.total})`;
-      },
+      }//,
 
-      includeReferenceDepth() {
-        return this.forGalleries ? 0 : 1;
-      },
-
-      selectFields() {
-        return this.forGalleries
-          ? 'sys.id,fields.hasPart,fields.identifier,fields.name,fields.description'
-          : 'fields.identifier,fields.name,fields.description,fields.primaryImageOfPage';
-      }
+      // includeReferenceDepth() {
+      //   return this.forGalleries ? 0 : 1;
+      // },
+      //
+      // selectFields() {
+      //   return this.forGalleries
+      //     ? 'sys.id,fields.hasPart,fields.identifier,fields.name,fields.description'
+      //     : 'fields.identifier,fields.name,fields.description,fields.primaryImageOfPage';
+      // }
     },
 
-    async mounted() {
-      const contentfulClient = createClient(this.$route.query.mode);
-
-      await contentfulClient.getEntries({
-        locale: this.$i18n.isoLocale(),
-        'content_type': this.contentType.type,
-        order: '-fields.datePublished',
-        limit: 4,
-        include: this.includeReferenceDepth,
-        select: this.selectFields
-      })
-        .then(async(response) => {
-          const items = response.items;
-
-          if (this.forGalleries) await getLinkedItems(items, 'hasPart', { mode: this.$route.query.mode });
-
-          this.cards = items;
-          this.total = response.total;
-        }).catch(error => {
-          throw error;
-        });
-    },
+    // async mounted() {
+    //   const contentfulClient = createClient(this.$route.query.mode);
+    //
+    //   await contentfulClient.getEntries({
+    //     locale: this.$i18n.isoLocale(),
+    //     'content_type': this.contentType.type,
+    //     order: '-fields.datePublished',
+    //     limit: 4,
+    //     include: this.includeReferenceDepth,
+    //     select: this.selectFields
+    //   })
+    //     .then(async(response) => {
+    //       const items = response.items;
+    //
+    //       if (this.forGalleries) await getLinkedItems(items, 'hasPart', { mode: this.$route.query.mode });
+    //
+    //       this.cards = items;
+    //       this.total = response.total;
+    //     }).catch(error => {
+    //       throw error;
+    //     });
+    // },
 
     methods: {
       cardData(card) {
+        console.log('card', card);
         if (this.forExhibitions) {
           return this.defaultCardData(card, 'exhibitions-exhibition');
         } else if (this.forGalleries) {
@@ -132,12 +139,12 @@
       },
       defaultCardData(card, name) {
         const key = name === 'exhibitions-exhibition' ? 'exhibition' : 'pathMatch';
-        const image = card.primaryImageOfPage;
+        const primaryImageOfPage = card.primaryImageOfPage;
         let imageUrl;
         let imageContentType;
-        if (image && image.fields && image.fields.image && image.fields.image.fields && image.fields.image.fields.file) {
-          imageUrl = image.fields.image.fields.file.url;
-          imageContentType = image.fields.image.fields.file.contentType;
+        if (primaryImageOfPage && primaryImageOfPage.image) {
+          imageUrl = primaryImageOfPage.image.url;
+          imageContentType = primaryImageOfPage.image.contentType;
         }
 
         return {
@@ -149,10 +156,10 @@
       galleryCardData(card) {
         let imageUrl;
 
-        if (card.hasPart[0].fields.encoding) {
-          imageUrl = `${card.hasPart[0].fields.encoding.edmPreview[0]}&size=w200`;
+        if (card.hasPartCollection.items[0].encoding) {
+          imageUrl = `${card.hasPartCollection.items[0].encoding.edmPreview[0]}&size=w200`;
         } else {
-          imageUrl = card.hasPart[0].fields.thumbnailUrl;
+          imageUrl = card.hasPartCollection.items[0].thumbnailUrl;
         }
 
         return {

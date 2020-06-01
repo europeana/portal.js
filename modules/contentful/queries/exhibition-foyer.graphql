@@ -1,0 +1,15 @@
+query ExhibitionFoyer($locale: String!, $limit: Int = 20){
+  exhibitionPageCollection(locale: $locale, order: datePublished_DESC, limit: $limit) {
+    items {
+      identifier
+      name
+      description
+      primaryImageOfPage {
+        image {
+          url
+          contentType
+        }
+      }
+    }
+  }
+}

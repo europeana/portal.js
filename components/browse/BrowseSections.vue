@@ -1,51 +1,53 @@
 <template>
   <div>
     <template
-      v-for="section in sections"
+      v-for="(section, index) in sections"
     >
       <RichText
-        v-if="contentType(section, 'richText')"
-        :key="section.sys.id"
-        :text="section.fields.text"
+        v-if="contentType(section, 'ContentTypeRichText')"
+        :key="index"
+        :text="section.text"
         :rich-text-is-card="richTextIsCard"
       />
       <ContentCardSection
-        v-else-if="contentType(section, 'cardGroup')"
-        :key="section.sys.id"
+        v-else-if="contentType(section, 'CardGroup')"
+        :key="index"
         :section="section"
       />
       <LatestSection
-        v-else-if="contentType(section, 'latestCardGroup')"
-        :key="section.sys.id"
-        :category="section.fields.genre"
+        v-else-if="contentType(section, 'LatestCardGroup')"
+        :key="index"
+        :category="section.genre"
+        :total="section.total"
+        :cards="section.items"
       />
       <HTMLEmbed
         v-else-if="contentType(section, 'embed')"
-        :key="section.sys.id"
-        :html="section.fields.embed"
+        :key="index"
+        :html="section.embed"
       />
       <CompareImageSlider
         v-else-if="contentType(section, 'imageComparison')"
-        :key="section.sys.id"
-        :left-image-src="section.fields.hasPart[0].fields.image.fields.file.url"
-        :left-image-content-type="section.fields.hasPart[0].fields.image.fields.file.contentType"
-        :left-image-attribution="attributionFields(section.fields.hasPart[0].fields)"
-        :left-image-width="section.fields.hasPart[0].fields.image.fields.file.details.image.width"
-        :left-image-height="section.fields.hasPart[0].fields.image.fields.file.details.image.height"
-        :right-image-src="section.fields.hasPart[1].fields.image.fields.file.url"
-        :right-image-content-type="section.fields.hasPart[1].fields.image.fields.file.contentType"
-        :right-image-attribution="attributionFields(section.fields.hasPart[1].fields)"
-        :right-image-width="section.fields.hasPart[1].fields.image.fields.file.details.image.width"
-        :right-image-height="section.fields.hasPart[1].fields.image.fields.file.details.image.height"
+        :key="index"
+        :left-image-src="section.hasPart[0].fields.image.fields.file.url"
+        :left-image-content-type="section.hasPart[0].fields.image.fields.file.contentType"
+        :left-image-attribution="attributionFields(section.hasPart[0].fields)"
+        :left-image-width="section.hasPart[0].fields.image.fields.file.details.image.width"
+        :left-image-height="section.hasPart[0].fields.image.fields.file.details.image.height"
+        :right-image-src="section.hasPart[1].fields.image.fields.file.url"
+        :right-image-content-type="section.hasPart[1].fields.image.fields.file.contentType"
+        :right-image-attribution="attributionFields(section.hasPart[1].fields)"
+        :right-image-width="section.hasPart[1].fields.image.fields.file.details.image.width"
+        :right-image-height="section.hasPart[1].fields.image.fields.file.details.image.height"
       />
       <ImageWithAttribution
         v-else-if="contentType(section, 'imageWithAttribution')"
-        :key="section.sys.id"
-        :src="section.fields.image.fields.file.url"
-        :content-type="section.fields.image.fields.file.contentType"
-        :width="section.fields.image.fields.file.details.image.width"
-        :height="section.fields.image.fields.file.details.image.height"
-        :attribution="attributionFields(section.fields)"
+        :key="index"
+        :src="section.image.fields.file.url"
+        :content-type="section.image.fields.file.contentType"
+        :width="section.image.fields.file.details.image.width"
+        :height="section.image.fields.file.details.image.height"
+        :attribution="attributionFields(section)"
       />
     </template>
   </div>
@@ -81,11 +83,9 @@
     },
 
     methods: {
-      contentType(section, id) {
-        if (!section.sys.contentType) {
-          return;
-        }
-        return section.sys.contentType.sys.id === id;
+      contentType(section, typeName) {
+        // console.log('section', section);
+        return section['__typename'] === typeName;
       },
       attributionFields(fields) {
         return {
