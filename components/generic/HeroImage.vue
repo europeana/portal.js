@@ -2,6 +2,7 @@
   <b-container
     v-if="exhibition"
     fluid
+    class="hero-wrapper"
   >
     <h1>{{ header }}</h1>
     <p class="lead">
@@ -18,7 +19,13 @@
       class="mt-4"
     >
       <figcaption>
+        <span
+          v-if="citeCollapsed"
+          @click="citeCollapsed = false"
+          class="icon-info"
+        />
         <CiteAttribution
+          v-else
           :name="name"
           :creator="creator"
           :provider="provider"
@@ -101,6 +108,11 @@
         type: Boolean,
         default: false
       }
+    },
+    data() {
+      return {
+        citeCollapsed: true
+      };
     },
     computed: {
       optimisedImageUrl() {
