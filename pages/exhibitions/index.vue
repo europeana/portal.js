@@ -80,7 +80,7 @@
       }
 
       const fetchLinkGroups = !(store.state['link-group'].data.mainNavigation);
-      // TODO: pagination
+      // FIXME: pagination
       const variables = {
         locale: app.i18n.isoLocale(),
         preview: query.mode === 'preview',
