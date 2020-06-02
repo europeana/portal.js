@@ -17,12 +17,16 @@
       text-variant="white"
       data-qa="hero banner"
       class="mt-4"
+      @click="citeCollapsed = true"
     >
-      <figcaption>
+      <figcaption
+        @mouseleave="citeCollapsed = true"
+      >
         <span
           v-if="citeCollapsed"
-          @click="citeCollapsed = false"
           class="icon-info"
+          @click="citeCollapsed = false"
+          @mouseover="citeCollapsed = false"
         />
         <CiteAttribution
           v-else
@@ -31,6 +35,7 @@
           :provider="provider"
           :rights-statement="rightsStatement"
           :url="url"
+          extended
         />
       </figcaption>
     </b-jumbotron>
@@ -116,7 +121,7 @@
     },
     computed: {
       optimisedImageUrl() {
-        return this.$options.filters.optimisedImageUrl(this.imageUrl, this.imageContentType, { width: 1920 });
+        return this.$options.filters.optimisedImageUrl(this.imageUrl, this.imageContentType, { width: this.exhibition ? 820 : 1920 });
       },
       jumbotronStyle() {
         return {

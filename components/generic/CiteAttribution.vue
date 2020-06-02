@@ -1,27 +1,27 @@
 <template>
-  <cite>
-    <p>Title:
+  <cite v-if="extended">
+    <p>{{ $t('exhibitions.attribution.title') }}
       <SmartLink
         :destination="url"
       >
         {{ name }}
       </SmartLink>
     </p>
-    <p>Creator:
+    <p>{{ $t('exhibitions.attribution.creator') }}
       <SmartLink
         :destination="url"
       >
         {{ creator }}
       </SmartLink>
     </p>
-    <!-- <p>Date:
+    <!-- <p>{{ $t('exhibitions.attribution.date') }}
       TODO: data currently not provided by api
       <span>{{ date }}</span>
     </p> -->
-    <p>Institution:
+    <p>{{ $t('exhibitions.attribution.institution') }}
       <span>{{ provider }}</span>
     </p>
-    <!-- <p>Country:
+    <!-- <p>{{ $t('exhibitions.attribution.country') }}
       TODO: data currently not provided by api
       <span>{{ country }}</span>
     </p> -->
@@ -29,6 +29,18 @@
       :destination="rightsStatement"
       link-class="attribution"
     >
+      <RightsStatement
+        v-if="rightsStatement"
+        :rights-statement-url="rightsStatement"
+      />
+    </SmartLink>
+  </cite>
+  <cite v-else>
+    <SmartLink
+      :destination="url"
+      link-class="attribution"
+    >
+      {{ linkText }}
       <RightsStatement
         v-if="rightsStatement"
         :rights-statement-url="rightsStatement"
@@ -67,6 +79,10 @@
       url: {
         type: String,
         default: null
+      },
+      extended: {
+        type: Boolean,
+        default: false
       }
     },
 

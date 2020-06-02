@@ -125,26 +125,3 @@
     }
   };
 </script>
-<style lang="scss">
-  @import '../../../assets/scss/variables.scss';
-  .exhibition-page {
-    h1 {
-      font-size: 2.375rem;
-      margin-top: 2.5rem;
-    }
-    p.lead {
-      font-size: 1.5rem;
-      color: $slategrey;
-    }
-    .hero-wrapper {
-       max-width: 51.25rem;
-    }
-    .jumbotron:after {
-      display: none;
-    }
-    article, section p {
-      max-width: 45rem;
-      margin: 0 auto;
-    }
-  }
-</style>
