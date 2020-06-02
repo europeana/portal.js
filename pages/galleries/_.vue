@@ -72,7 +72,13 @@
     methods: {
       imageTitle(data) {
         if (data.sys.contentType.sys.id === 'automatedRecordCard' && data.fields.encoding) {
-          return data.fields.encoding.dcTitleLangAware;
+          if (data.fields.encoding.dcTitleLangAware) {
+            return data.fields.encoding.dcTitleLangAware;
+          } else if (data.fields.encoding.dcDescriptionLangAware) {
+            return data.fields.encoding.dcDescriptionLangAware;
+          } else {
+            return this.$t('record.record');
+          }
         }
         return data.fields.name;
       },
