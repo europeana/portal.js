@@ -39,7 +39,6 @@
   import BrowseSections from '../components/browse/BrowseSections';
   import HeroImage from '../components/generic/HeroImage';
   import NotificationBanner from '../components/generic/NotificationBanner.vue';
-  // import createClient from '../plugins/contentful';
 
   export default {
     components: {
@@ -64,7 +63,6 @@
     },
 
     asyncData({ params, query, error, app, store }) {
-      // TODO: make retrieval of link groups conditional on not already being present?
       const fetchLinkGroups = !(store.state['link-group'].data.mainNavigation);
       const variables = {
         identifier: params.pathMatch ? params.pathMatch : 'home',
@@ -91,6 +89,7 @@
 
           if (genres.length === 0) return page;
 
+          // TODO: move the below code for latest card groups elsewhere?
           const variables = {
             locale: app.i18n.isoLocale(),
             preview: query.mode === 'preview',
