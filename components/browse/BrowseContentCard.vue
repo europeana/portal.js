@@ -41,7 +41,13 @@
       },
       title() {
         if (this.cardType === 'automatedRecordCard' && this.fields.encoding) {
-          return this.cardFields.dcTitleLangAware;
+          if (this.cardFields.dcTitleLangAware) {
+            return this.cardFields.dcTitleLangAware;
+          } else if (this.cardFields.dcDescriptionLangAware) {
+            return this.cardFields.dcDescriptionLangAware;
+          } else {
+            return this.$t('record.record');
+          }
         }
         return this.cardFields.name;
       },

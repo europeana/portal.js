@@ -28,7 +28,7 @@
           @error="imageNotFound"
         />
       </div>
-      <b-card-body>
+      <b-card-body data-qa="card body">
         <b-card-sub-title
           v-if="displayLabel && variant !== 'mini'"
           sub-title-tag="div"
@@ -40,6 +40,7 @@
         <b-card-title
           v-if="displayTitle"
           title-tag="div"
+          data-qa="card title"
           :lang="displayTitle.code"
         >
           {{ displayTitle.values[0] | truncate(90, $t('formatting.ellipsis')) }}
