@@ -12,7 +12,7 @@
           data-qa="exhibitions section"
         >
           <ContentCard
-            v-for="exhibition in items"
+            v-for="exhibition in exhibitions"
             :key="exhibition.identifier"
             :title="exhibition.name"
             :url="{ name: 'exhibitions-exhibition', params: { exhibition: exhibition.identifier } }"
@@ -41,7 +41,6 @@
 
 <script>
   import ContentHeader from '../../components/generic/ContentHeader';
-  // import createClient from '../../plugins/contentful';
   import ContentCard from '../../components/generic/ContentCard';
   import PaginationNav from '../../components/generic/PaginationNav';
   import { pageFromQuery } from '../../plugins/utils';
@@ -80,12 +79,13 @@
       }
 
       const fetchLinkGroups = !(store.state['link-group'].data.mainNavigation);
-      // FIXME: pagination
+
       const variables = {
         locale: app.i18n.isoLocale(),
         preview: query.mode === 'preview',
         linkGroups: fetchLinkGroups,
-        limit: 20
+        limit: PER_PAGE,
+        skip: (currentPage - 1) * PER_PAGE
       };
 
       return app.$contentful.query('exhibitionFoyerPage', variables)
@@ -93,32 +93,16 @@
         .then(data => {
           if (fetchLinkGroups) store.commit('link-group/setLinks', data);
 
-          return data.exhibitionPageCollection;
+          return {
+            exhibitions: data.exhibitionPageCollection.items,
+            total: data.exhibitionPageCollection.total,
+            page: currentPage,
+            perPage: PER_PAGE
+          };
         })
         .catch((e) => {
           error({ statusCode: 500, message: e.toString() });
         });
-
-      // const contentfulClient = createClient(query.mode);
-      // return contentfulClient.getEntries({
-      //   locale: app.i18n.isoLocale(),
-      //   'content_type': 'exhibitionPage',
-      //   skip: (currentPage - 1) * PER_PAGE,
-      //   order: '-fields.datePublished',
-      //   limit: PER_PAGE,
-      //   select: 'fields.identifier,fields.primaryImageOfPage,fields.name,fields.description'
-      // })
-      //   .then((response) => {
-      //     return {
-      //       exhibitions: response.items,
-      //       total: response.total,
-      //       page: currentPage,
-      //       perPage: PER_PAGE
-      //     };
-      //   })
-      //   .catch((e) => {
-      //     error({ statusCode: 500, message: e.toString() });
-      //   });
     },
     methods: {
       paginationLink(val) {

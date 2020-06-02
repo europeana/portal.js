@@ -2,7 +2,8 @@ query ExhibitionFoyerPage(
   $locale: String!,
   $linkGroups: Boolean = true,
   $preview: Boolean = false,
-  $limit: Int = 20
+  $limit: Int = 20,
+  $skip: Int = 0
 ) {
   mainNavigation: linkGroupCollection(preview: $preview, locale: $locale, limit: 1, where: { identifier: "mainNavigation" }) @include(if: $linkGroups) {
     ...linkGroupFields
@@ -13,7 +14,7 @@ query ExhibitionFoyerPage(
   footerHelp: linkGroupCollection(preview: $preview, locale: $locale, limit: 1, where: { identifier: "footerHelp" }) @include(if: $linkGroups) {
     ...linkGroupFields
   }
-  exhibitionPageCollection(preview: $preview, locale: $locale, order: datePublished_DESC, limit: $limit) {
+  exhibitionPageCollection(preview: $preview, locale: $locale, order: datePublished_DESC, limit: $limit, skip: $skip) {
     total
     items {
       identifier
