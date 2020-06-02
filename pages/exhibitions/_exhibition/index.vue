@@ -58,7 +58,7 @@
 
 <script>
   import marked from 'marked';
-  // import createClient from '../../../plugins/contentful';
+
   import ExhibitionChapters from '../../../components/exhibition/ExhibitionChapters';
   import HeroImage from '../../../components/generic/HeroImage';
   import SocialShare from '../../../components/generic/SocialShare';
@@ -102,42 +102,22 @@
             return;
           }
 
+          store.commit('breadcrumb/setBreadcrumbs', [
+            {
+              text:  app.i18n.tc('exhibitions.exhibitions', 2),
+              to: app.$path({ name: 'exhibitions' })
+            },
+            {
+              text: data.exhibitionPageCollection.items[0].name,
+              active: true
+            }
+          ]);
+
           return data.exhibitionPageCollection.items[0];
         })
         .catch((e) => {
           error({ statusCode: 500, message: e.toString() });
         });
-
-      // const contentfulClient = createClient(query.mode);
-      // return contentfulClient.getEntries({
-      //   'locale': app.i18n.isoLocale(),
-      //   'content_type': 'exhibitionPage',
-      //   'fields.identifier': params.exhibition,
-      //   'include': 2,
-      //   'limit': 1
-      // })
-      //   .then((response) => {
-      //     if (response.total === 0) {
-      //       error({ statusCode: 404, message: app.i18n.t('messages.notFound') });
-      //       return;
-      //     }
-      //     store.commit('breadcrumb/setBreadcrumbs', [
-      //       {
-      //         text:  app.i18n.tc('exhibitions.exhibitions', 2),
-      //         to: app.$path({ name: 'exhibitions' })
-      //       },
-      //       {
-      //         text: response.items[0].fields.name,
-      //         active: true
-      //       }
-      //     ]);
-      //     return {
-      //       page: response.items[0].fields
-      //     };
-      //   })
-      //   .catch((e) => {
-      //     error({ statusCode: 500, message: e.toString() });
-      //   });
     },
     beforeRouteLeave(to, from, next) {
       this.$store.commit('breadcrumb/clearBreadcrumb');
