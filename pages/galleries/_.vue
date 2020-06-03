@@ -14,11 +14,11 @@
         >
           <ContentCard
             v-for="image in images"
-            :key="image.fields.identifier"
+            :key="image.identifier"
             :title="imageTitle(image)"
             :image-url="imageUrl(image)"
             :lazy="false"
-            :url="{ name: 'item-all', params: { pathMatch: image.fields.identifier.slice(1) } }"
+            :url="{ name: 'item-all', params: { pathMatch: image.identifier.slice(1) } }"
           />
         </b-card-group>
       </b-col>
@@ -27,7 +27,6 @@
 </template>
 
 <script>
-  import createClient from '../../plugins/contentful';
   import ContentHeader from '../../components/generic/ContentHeader';
   import ContentCard from '../../components/generic/ContentCard';
 
@@ -50,19 +49,31 @@
         return marked(this.rawDescription);
       }
     },
-    asyncData({ params, query, error, app }) {
-      const contentfulClient = createClient(query.mode);
+    asyncData({ params, query, error, app, store }) {
+      const fetchLinkGroups = !(store.state['link-group'].data.mainNavigation);
+      const variables = {
+        identifier: params.pathMatch,
+        locale: app.i18n.isoLocale(),
+        preview: query.mode === 'preview',
+        linkGroups: fetchLinkGroups
+      };
 
-      return contentfulClient.getEntries({
-        'locale': app.i18n.isoLocale(),
-        'content_type': 'imageGallery',
-        'fields.identifier': params.pathMatch
-      })
-        .then((response) => {
+      return app.$contentful.query('galleryPage', variables)
+        .then(response => response.data.data)
+        .then(data => {
+          if (fetchLinkGroups) store.commit('link-group/setLinks', data);
+
+          if (data.imageGalleryCollection.items.length === 0) {
+            error({ statusCode: 404, message: app.i18n.t('messages.notFound') });
+            return;
+          }
+
+          const gallery = data.imageGalleryCollection.items[0];
+
           return {
-            rawDescription: response.items[0].fields.description,
-            images: response.items[0].fields.hasPart,
-            title: response.items[0].fields.name
+            rawDescription: gallery.description,
+            images: gallery.hasPartCollection.items,
+            title: gallery.name
           };
         })
         .catch((e) => {
@@ -71,16 +82,10 @@
     },
     methods: {
       imageTitle(data) {
-        if (data.sys.contentType.sys.id === 'automatedRecordCard' && data.fields.encoding) {
-          return data.fields.encoding.dcTitleLangAware;
-        }
-        return data.fields.name;
+        return data.encoding ? data.encoding.dcTitleLangAware : data.name;
       },
       imageUrl(data) {
-        if (data.sys.contentType.sys.id === 'automatedRecordCard' && data.fields.encoding) {
-          return `${data.fields.encoding.edmPreview[0]}&size=w200`;
-        }
-        return data.fields.thumbnailUrl;
+        return (data.encoding ? data.encoding.edmPreview : data.thumbnailUrl) + '&size=w200';
       }
     },
     head() {
