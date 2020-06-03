@@ -82,7 +82,7 @@
     transition: background 0.25s;
     width: calc(2.5rem - 1px);
 
-    [class^="icon"] {
+    [class^='icon'] {
       color: $black;
       font-size: $font-size-medium;
     }
@@ -90,7 +90,7 @@
     &:hover {
       background: $black;
 
-      [class^="icon"] {
+      [class^='icon'] {
         color: $white;
       }
     }

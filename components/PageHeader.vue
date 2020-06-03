@@ -76,7 +76,7 @@
     min-width: 11.0625rem;
     .logo {
       min-width: 9.5625rem;
-      transition: .3s ease-in-out;
+      transition: 0.3s ease-in-out;
       img {
         width: 9.5625rem;
       }
