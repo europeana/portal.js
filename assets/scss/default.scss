@@ -1,9 +1,5 @@
-html {
-  background-color: $white;
-}
-
 body {
-  background-color: $white;
+  background-color: $bodygrey;
   color: $textcolor;
   font-family: $font-family-sans-serif;
   font-size: 16px;
@@ -191,6 +187,6 @@ input[type="checkbox"]:focus + label {
 
 @media (min-width: $bp-large) {
   main {
-    margin-top: 85px;
+    margin-top: 79px;
   }
 }

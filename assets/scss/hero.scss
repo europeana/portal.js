@@ -54,6 +54,55 @@
     line-height: 1.5;
   }
 
+  figcaption cite {
+    margin-right: 5rem;
+
+    @media (min-width: $bp-medium) {
+      margin-right: 1rem;
+    }
+  }
+
+  @media (min-width: $bp-large) {
+    .container {
+      align-items: flex-end;
+      padding-bottom: 4rem;
+    }
+
+    h1,
+    .lead {
+      width: 460px;
+    }
+
+    h1 {
+      font-size: 2.375rem;
+    }
+
+    .lead {
+      font-size: 1rem;
+    }
+  }
+}
+
+.exhibition-page {
+  background: white;
+  padding-top: 2.5rem;
+  margin-top: -1rem;
+  h1 {
+    font-size: 2.375rem;
+    margin-top: 2.5rem;
+  }
+  p.lead {
+    font-size: 1.5rem;
+    color: $mediumgrey;
+  }
+  .hero-wrapper {
+    max-width: 51.25rem;
+  }
+  article, section p {
+    max-width: 45rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
   figcaption {
     .icon-info {
       position: absolute;
@@ -98,6 +147,9 @@
       }
     }
   }
+  .jumbotron:after {
+    display: none;
+  }
   @media (max-width: $bp-large) {
     figcaption cite {
       max-width: 17rem;
@@ -108,45 +160,5 @@
         }
       }
     }
-  }
-  @media (min-width: $bp-large) {
-    .container {
-      align-items: flex-end;
-      padding-bottom: 4rem;
-    }
-
-    h1,
-    .lead {
-      width: 460px;
-    }
-
-    h1 {
-      font-size: 2.375rem;
-    }
-
-    .lead {
-      font-size: 1rem;
-    }
-  }
-}
-
-.exhibition-page {
-  h1 {
-    font-size: 2.375rem;
-    margin-top: 2.5rem;
-  }
-  p.lead {
-    font-size: 1.5rem;
-    color: $slategrey;
-  }
-  .hero-wrapper {
-    max-width: 51.25rem;
-  }
-  .jumbotron:after {
-    display: none;
-  }
-  article, section p {
-    max-width: 45rem;
-    margin: 0 auto;
   }
 }
