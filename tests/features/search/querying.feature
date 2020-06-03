@@ -6,6 +6,7 @@ Feature: Search querying
     When I visit a `search page`
     And I enter "paris" in the `search box`
     And I press the ENTER key
+    And I wait for the page to load
     Then I see "paris" in the `search box`
     And I should see 24 `search result`s
     And I see the `total results`
