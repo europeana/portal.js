@@ -41,9 +41,7 @@
     },
     computed: {
       shareMediaUrl() {
-        if (this.images.length <= 0) return null;
-        if (!this.images[0].fields.thumbnailUrl) return null;
-        return this.images[0].fields.thumbnailUrl;
+        return this.images.length === 0 ? null : this.imageUrl(this.images[0]);
       },
       description() {
         return this.$options.filters.stripMarkdown(this.rawDescription);
@@ -74,7 +72,13 @@
     methods: {
       imageTitle(data) {
         if (data.sys.contentType.sys.id === 'automatedRecordCard' && data.fields.encoding) {
-          return data.fields.encoding.dcTitleLangAware;
+          if (data.fields.encoding.dcTitleLangAware) {
+            return data.fields.encoding.dcTitleLangAware;
+          } else if (data.fields.encoding.dcDescriptionLangAware) {
+            return data.fields.encoding.dcDescriptionLangAware;
+          } else {
+            return this.$t('record.record');
+          }
         }
         return data.fields.name;
       },
