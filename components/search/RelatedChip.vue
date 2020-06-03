@@ -1,35 +1,38 @@
 <template>
-  <li>
-    <b-badge
-      v-if="title"
-      :to="linkTo"
-      :lang="localisedTitle.code"
-      pill
-      variant="nocolor"
-      class="mb-3 mr-3 font-weight-normal bg-transparent"
-      data-qa="browse chip"
-    >
-      {{ localisedTitle.values[0] }}
-    </b-badge>
-  </li>
+  <b-badge
+    v-if="title"
+    :to="linkTo"
+    pill
+    variant="light"
+    class="mt-1 mr-2 font-weight-normal bg-white"
+    data-qa="browse chip"
+  >
+    <b-img
+      :src="img"
+      alt=""
+      rounded="circle"
+      class="mr-2"
+    />
+    {{ title }}
+  </b-badge>
 </template>
 
 <script>
-  import { langMapValueForLocale } from  '../../plugins/europeana/utils';
   export default {
+    name: 'RelatedChip',
+
     props: {
       linkTo: {
         type: [String, Object],
         required: true
       },
       title: {
-        type: Object,
+        type: String,
         default: () => {}
-      }
-    },
-    computed: {
-      localisedTitle() {
-        return langMapValueForLocale(this.title, this.$i18n.locale);
+      },
+      img: {
+        type: String,
+        default: () => {}
       }
     }
   };
@@ -37,12 +40,17 @@
 
 <style lang="scss" scoped>
   @import "./assets/scss/variables.scss";
-  .badge-nocolor {
-    border: 1px solid $mediumgrey;
+  .badge-light {
     color: $black;
     font-size: $font-size-small;
-    height: 4rem;
-    line-height: 3.5rem;
-    min-width: 6rem;
+    border-radius: 1.125rem;
+    box-shadow: $boxshadow-light;
+    padding: 0.25rem 0.75rem 0.25rem 0.25rem;
+    margin-bottom: 2.5rem;
+
+    img {
+      width: 28px;
+      height: 28px;
+    }
   }
 </style>

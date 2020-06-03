@@ -11,13 +11,33 @@
       <b-row>
         <b-col>
           <h1>{{ $t('search') }}</h1>
-          <RelatedChip
-            link-to="/"
-            title="Venice"
-          />
         </b-col>
         <b-container>
-          <h4>Related Collections</h4>
+          <h2 class="related-heading text-uppercase mt-4 mb-2">
+            {{ $t('relatedCollections') }}
+          </h2>
+          <RelatedChip
+            link-to="/"
+            title="Ship"
+            img="https://api.europeana.eu/api/v2/thumbnail-by-url.json?size=w400&type=IMAGE&uri=http%3A%2F%2Fcollections.rmg.co.uk%2FmediaLib%2F342%2Fmedia-342570%2Flarge.jpg"
+          />
+          <RelatedChip
+            link-to="/"
+            title="Container Ship"
+            img="https://api.europeana.eu/api/v2/thumbnail-by-url.json?size=w400&type=IMAGE&uri=http%3A%2F%2Fcollections.rmg.co.uk%2FmediaLib%2F342%2Fmedia-342570%2Flarge.jpg"
+          />
+          <!-- <RelatedChip
+            v-for="relatedEntity in relatedEntities"
+            :key="relatedEntity.path"
+            :link-to="localePath({
+              name: 'entity-type-all',
+              params: {
+                type: relatedEntity.type,
+                pathMatch: relatedEntity.path
+              }
+            })"
+            :title="relatedEntity.title"
+          /> -->
         </b-container>
         <SearchInterface
           :per-row="4"
@@ -38,7 +58,8 @@
   export default {
     components: {
       SearchInterface,
-      NotificationBanner
+      NotificationBanner,
+      RelatedChip
     },
 
     middleware({ query, redirect, app }) {
@@ -63,38 +84,6 @@
         return Boolean(Number(process.env.ENABLE_LINKS_TO_CLASSIC));
       }
     },
-
-    // asyncData({ env, query, params, res, store }) {
-    //   const entityUri = entities.getEntityUri(params.type, params.pathMatch);
-    //   // Prevent re-requesting entity content from APIs if already loaded,
-    //   // e.g. when paginating through entity search results
-    //   if (entityUri === store.state.entity.id) {
-    //     return {
-    //       relatedEntities: store.state.entity.relatedEntities
-    //     };
-    //   }
-    //   return axios.all([
-    //     entities.relatedEntities(params.type, params.pathMatch, {
-    //       wskey: env.EUROPEANA_API_KEY,
-    //       entityKey: env.EUROPEANA_ENTITY_API_KEY
-    //     })
-    //   ]
-    //     .then(axios.spread((entity, related) => {
-    //       // Store content for reuse should a redirect be needed, below, or when
-    //       // navigating back to this page, e.g. from a search result.
-    //       store.commit('entity/setRelatedEntities', related);
-    //       return {
-    //         relatedEntities: related
-    //       };
-    //     }))
-    //     .catch((error) => {
-    //       if (typeof res !== 'undefined') {
-    //         res.statusCode = (typeof error.statusCode !== 'undefined') ? error.statusCode : 500;
-    //       }
-    //       return { error: error.message };
-    //     })
-    //   );
-    // },
 
     async fetch({ store, query, res }) {
       await store.dispatch('search/activate');
