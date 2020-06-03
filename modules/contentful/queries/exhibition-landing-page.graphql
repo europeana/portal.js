@@ -13,7 +13,7 @@ query ExhibitionLandingPage(
   footerHelp: linkGroupCollection(preview: $preview, locale: $locale, limit: 1, where: { identifier: "footerHelp" }) @include(if: $linkGroups) {
     ...linkGroupFields
   }
-  exhibitionPageCollection(locale: $locale, where: { identifier: $identifier }, limit: 1) {
+  exhibitionPageCollection(preview: $preview, locale: $locale, where: { identifier: $identifier }, limit: 1) {
     items {
       identifier
       name
