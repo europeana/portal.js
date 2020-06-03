@@ -81,8 +81,7 @@
         variant="light"
         :aria-label="$t('search')"
         @click="toggleSearchBar"
-      >
-      </b-button>
+      />
       <AutoSuggest
         v-if="enableAutoSuggest"
         v-model="suggestions"
