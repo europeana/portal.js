@@ -13,11 +13,11 @@
         >
           <ContentCard
             v-for="gallery in galleries"
-            :key="gallery.fields.identifier"
-            :title="gallery.fields.name"
-            :url="{ name: 'galleries-all', params: { pathMatch: gallery.fields.identifier } }"
-            :image-url="gallery.fields.hasPart[0] && imageUrl(gallery.fields.hasPart[0])"
-            :texts="[gallery.fields.description]"
+            :key="gallery.identifier"
+            :title="gallery.name"
+            :url="{ name: 'galleries-all', params: { pathMatch: gallery.identifier } }"
+            :image-url="gallery.hasPartCollection.items[0] && imageUrl(gallery.hasPartCollection.items[0])"
+            :texts="[gallery.description]"
           />
         </b-card-group>
       </b-col>
@@ -41,7 +41,6 @@
   import ContentHeader from '../../components/generic/ContentHeader';
   import ContentCard from '../../components/generic/ContentCard';
   import PaginationNav from '../../components/generic/PaginationNav';
-  import createClient, { getLinkedItems } from '../../plugins/contentful';
   import { pageFromQuery } from '../../plugins/utils';
 
   const PER_PAGE = 20;
@@ -69,7 +68,7 @@
         return this.total > this.perPage;
       }
     },
-    asyncData({ query, redirect, error, app }) {
+    asyncData({ query, redirect, error, app, store }) {
       const currentPage = pageFromQuery(query.page);
       if (currentPage === null) {
         // Redirect non-positive integer values for `page` to `page=1`
@@ -77,24 +76,24 @@
         return redirect(app.$path({ name: 'galleries', query }));
       }
 
-      const contentfulClient = createClient(query.mode);
-      return contentfulClient.getEntries({
-        'locale': app.i18n.isoLocale(),
-        'content_type': 'imageGallery',
-        'skip': (currentPage - 1) * PER_PAGE,
-        'order': '-fields.datePublished',
-        limit: PER_PAGE,
-        include: 0,
-        select: 'fields.identifier,fields.name,fields.description,fields.hasPart'
-      })
-        .then(async(response) => {
-          const items = response.items;
+      const fetchLinkGroups = !(store.state['link-group'].data.mainNavigation);
 
-          await getLinkedItems(items, 'hasPart', { mode: query.mode });
+      const variables = {
+        locale: app.i18n.isoLocale(),
+        preview: query.mode === 'preview',
+        linkGroups: fetchLinkGroups,
+        limit: PER_PAGE,
+        skip: (currentPage - 1) * PER_PAGE
+      };
+
+      return app.$contentful.query('galleryFoyerPage', variables)
+        .then(response => response.data.data)
+        .then(data => {
+          if (fetchLinkGroups) store.commit('link-group/setLinks', data);
 
           return {
-            galleries: items,
-            total: response.total,
+            galleries: data.imageGalleryCollection.items,
+            total: data.imageGalleryCollection.total,
             page: currentPage,
             perPage: PER_PAGE
           };
@@ -108,10 +107,7 @@
         return this.$path({ name: 'galleries', query: { page: val } });
       },
       imageUrl(data) {
-        if (data.sys.contentType.sys.id === 'automatedRecordCard' && data.fields.encoding) {
-          return `${data.fields.encoding.edmPreview[0]}&size=w200`;
-        }
-        return data.fields.thumbnailUrl;
+        return (data.encoding ? data.encoding.edmPreview : data.thumbnailUrl) + '&size=w200';
       }
     },
     watchQuery: ['page']
