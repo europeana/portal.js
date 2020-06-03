@@ -13,11 +13,11 @@
           <ContentCard
             v-for="(post, index) in posts"
             :key="index"
-            :title="post.fields.name"
-            :url="{ name: 'blog-all', params: { pathMatch: post.fields.identifier } }"
-            :image-url="post.fields.primaryImageOfPage && post.fields.primaryImageOfPage.fields.image.fields.file.url"
-            :texts="[post.fields.description]"
-            :datetime="post.fields.datePublished"
+            :title="post.name"
+            :url="{ name: 'blog-all', params: { pathMatch: post.identifier } }"
+            :image-url="post.primaryImageOfPage && post.primaryImageOfPage.image.url"
+            :texts="[post.description]"
+            :datetime="post.datePublished"
           />
         </b-card-group>
       </b-col>
@@ -39,7 +39,6 @@
 
 <script>
   import ContentHeader from '../../components/generic/ContentHeader';
-  import createClient from '../../plugins/contentful';
   import ContentCard from '../../components/generic/ContentCard';
   import PaginationNav from '../../components/generic/PaginationNav';
   import { pageFromQuery } from '../../plugins/utils';
@@ -73,7 +72,7 @@
       }
     },
 
-    asyncData({ query, redirect, error, app }) {
+    asyncData({ query, redirect, error, app, store }) {
       const currentPage = pageFromQuery(query.page);
       if (currentPage === null) {
         // Redirect non-positive integer values for `page` to `page=1`
@@ -81,18 +80,25 @@
         return redirect(app.$path({ name: 'blog', query }));
       }
 
-      const contentfulClient = createClient(query.mode);
-      return contentfulClient.getEntries({
-        'locale': app.i18n.isoLocale(),
-        'content_type': 'blogPosting',
-        'skip': (currentPage - 1) * PER_PAGE,
-        'order': '-fields.datePublished',
-        limit: PER_PAGE
-      })
-        .then((response) => {
+      const fetchLinkGroups = !(store.state['link-group'].data.mainNavigation);
+
+      const variables = {
+        locale: app.i18n.isoLocale(),
+        preview: query.mode === 'preview',
+        linkGroups: fetchLinkGroups,
+        limit: PER_PAGE,
+        skip: (currentPage - 1) * PER_PAGE
+      };
+
+      return app.$contentful.query('blogFoyerPage', variables)
+        .then(response => response.data.data)
+        .then(data => {
+          if (fetchLinkGroups) store.commit('link-group/setLinks', data);
+
           return {
-            posts: response.items,
-            total: response.total,
+            posts: data.blogPostingCollection.items,
+            total: data.blogPostingCollection.total,
+            page: currentPage,
             perPage: PER_PAGE
           };
         })
