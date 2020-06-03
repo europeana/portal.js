@@ -13,20 +13,20 @@
           <!-- eslint-disable vue/no-v-html -->
           <div
             data-qa="credits text"
-            v-html="credits"
+            v-html="htmlCredits"
           />
           <!-- eslint-enable vue/no-v-html -->
         </b-col>
       </b-row>
-      <b-row v-if="page.hasPart">
+      <b-row v-if="hasPartCollection.items.length > 0">
         <b-col class="my-3">
           <h2 class="is-size-1-5">
             {{ $t('exhibitions.chapters') }}
           </h2>
           <ExhibitionChapters
-            :exhibition-identifier="page.identifier"
-            :chapters="page.hasPart"
-            :credits="page.credits"
+            :exhibition-identifier="identifier"
+            :chapters="hasPartCollection.items"
+            :credits="credits"
           />
         </b-col>
       </b-row>
@@ -36,7 +36,6 @@
 
 <script>
   import marked from 'marked';
-  import createClient from '../../../plugins/contentful';
   import ExhibitionChapters from '../../../components/exhibition/ExhibitionChapters';
 
   export default {
@@ -44,35 +43,47 @@
       ExhibitionChapters
     },
     computed: {
-      credits() {
-        if (this.page.credits === undefined) return false;
-        return marked(this.page.credits);
+      htmlCredits() {
+        if (this.credits === undefined) return false;
+        return marked(this.credits);
       },
       title() {
-        return `${this.page.name} - ${this.$t('exhibitions.credits')}`;
+        return `${this.name} - ${this.$t('exhibitions.credits')}`;
       }
     },
+
     asyncData({ params, query, error, app, store }) {
-      const contentfulClient = createClient(query.mode);
-      return contentfulClient.getEntries({
-        'locale': app.i18n.isoLocale(),
-        'content_type': 'exhibitionPage',
-        'fields.identifier': params.exhibition,
-        'include': 2,
-        'limit': 1
-      })
-        .then((response) => {
+      const fetchLinkGroups = !(store.state['link-group'].data.mainNavigation);
+      const variables = {
+        identifier: params.exhibition,
+        locale: app.i18n.isoLocale(),
+        preview: query.mode === 'preview',
+        linkGroups: fetchLinkGroups
+      };
+
+      return app.$contentful.query('exhibitionCreditsPage', variables)
+        .then(response => response.data.data)
+        .then(data => {
+          if (fetchLinkGroups) store.commit('link-group/setLinks', data);
+
+          if (data.exhibitionPageCollection.items.length === 0) {
+            error({ statusCode: 404, message: app.i18n.t('messages.notFound') });
+            return;
+          }
+
+          const exhibition = data.exhibitionPageCollection.items[0];
+
           store.commit('breadcrumb/setBreadcrumbs', [
             {
               text:  app.i18n.tc('exhibitions.exhibitions', 2),
               to: app.$path({ name: 'exhibitions' })
             },
             {
-              text: response.items[0].fields.name,
+              text: exhibition.name,
               to: app.$path({
                 name: 'exhibitions-exhibition',
                 params: {
-                  exhibition: response.items[0].fields.identifier
+                  exhibition: exhibition.identifier
                 }
               })
             },
@@ -82,13 +93,7 @@
             }
           ]);
 
-          if (response.total === 0) {
-            error({ statusCode: 404, message: app.i18n.t('messages.notFound') });
-            return;
-          }
-          return {
-            page: response.items[0].fields
-          };
+          return exhibition;
         })
         .catch((e) => {
           error({ statusCode: 500, message: e.toString() });
