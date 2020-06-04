@@ -33,6 +33,6 @@
 
 <style lang="scss" scoped>
   .badge:not(:last-child) {
-    margin-right: .3rem;
+    margin-right: 0.3rem;
   }
 </style>
