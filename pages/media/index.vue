@@ -12,7 +12,7 @@
 
     data() {
       return {
-        MEDIA_PLAYER_VERSION: '0.6.1',
+        MEDIA_PLAYER_VERSION: '0.7.1',
         JQUERY_VERSION: '3.4.1',
         JQUERY_UI_VERSION: '1.12.1'
       };
