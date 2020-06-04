@@ -170,37 +170,7 @@
         border-radius: $border-radius-small;
         transition: $standard-transition;
         font-size: $font-size-base;
-        span {
-          display: flex;
-          align-items: center;
-          i {
-            display: inline-block;
-            font-size: 1rem;
-            z-index: 1;
-            margin-right: 0.75rem;
-            &:before {
-              content: '';
-              color: $black;
-              transition: $standard-transition;
-              font-size: 1.5rem;
-            }
-            &.icon-home:before {
-              content: '\e922';
-            }
-            &.icon-collections:before {
-              content: '\e91d';
-            }
-            &.icon-school:before {
-              content: '\e91e';
-            }
-            &.icon-info:before {
-              content: '\e91f';
-            }
-            &.icon-help:before {
-              content: '\e921';
-            }
-          }
-        }
+
         &.exact-active-link, &:hover {
           color: $white;
           background: $blue;
