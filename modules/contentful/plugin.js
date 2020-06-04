@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 const queries = <%= JSON.stringify(options, null, 2) %>;
+// TODO: make configurable, e.g. to support proxy/cache
 const origin = 'https://graphql.contentful.com';
 const path = `/content/v1/spaces/${process.env['CTF_SPACE_ID'] || 'master'}/environments/${process.env['CTF_ENVIRONMENT_ID']}`;
 
