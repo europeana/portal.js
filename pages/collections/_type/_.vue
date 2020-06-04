@@ -186,11 +186,10 @@
 
       store.commit('entity/setId', entityUri);
 
-      const fetchLinkGroups = !store.state['link-group'].data.mainNavigation;
       const fetchCuratedEntities = !store.state.entity.curatedEntities;
       const fetchEntityPage = !store.state.entity.curatedEntities ||
         store.state.entity.curatedEntities.some(entity => entity.identifier === entityUri);
-      const fetchFromContentful = fetchLinkGroups || fetchCuratedEntities || fetchEntityPage;
+      const fetchFromContentful = fetchCuratedEntities || fetchEntityPage;
 
       // Prevent re-requesting entity content from APIs if already loaded,
       // e.g. when paginating through entity search results
@@ -200,7 +199,6 @@
         identifier: entityUri,
         locale: app.i18n.isoLocale(),
         preview: query.mode === 'preview',
-        linkGroups: fetchLinkGroups,
         curatedEntities: fetchCuratedEntities,
         entityPage: fetchEntityPage
       };
@@ -215,7 +213,6 @@
 
           if (fetchFromContentful) {
             const pageResponseData = pageResponse.data.data;
-            if (fetchLinkGroups) store.commit('link-group/setLinks', pageResponseData);
             if (fetchCuratedEntities) store.commit('entity/setCuratedEntities', pageResponseData.curatedEntities.items);
             if (fetchEntityPage) store.commit('entity/setPage', pageResponseData.entityPage.items[0]);
           }

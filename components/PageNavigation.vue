@@ -4,15 +4,15 @@
     data-qa="main navigation"
   >
     <li
-      v-for="(nav, index) in navigation"
+      v-for="(link, index) in links"
       :key="index"
       class="nav-item"
     >
       <SmartLink
-        :destination="nav.url"
+        :destination="link.url"
         link-class="nav-link"
       >
-        <span>{{ nav.text }}</span>
+        <span>{{ link.text }}</span>
       </SmartLink>
     </li>
   </b-navbar-nav>
@@ -26,26 +26,30 @@
       SmartLink
     },
 
-    computed: {
-      navigation() {
-        return this.$store.state['link-group'].data.mainNavigation.links;
-      },
+    props: {
+      links: {
+        type: Array,
+        default: () => []
+      }
+    },
 
+    computed: {
       i18n() {
         return this.$store.state.i18n.locale;
       }
     },
 
     watch: {
+      // FIXME: broken with removal of link-group store module; refactor
       i18n() {
-        this.getNavigationData();
+        // this.getNavigationData();
       }
     },
 
     methods: {
-      async getNavigationData() {
-        return this.$store.dispatch('link-group/init');
-      }
+      // async getNavigationData() {
+      //   return this.$store.dispatch('link-group/init');
+      // }
     }
   };
 </script>

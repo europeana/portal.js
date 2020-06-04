@@ -50,19 +50,15 @@
       }
     },
     asyncData({ params, query, error, app, store }) {
-      const fetchLinkGroups = !(store.state['link-group'].data.mainNavigation);
       const variables = {
         identifier: params.pathMatch,
         locale: app.i18n.isoLocale(),
-        preview: query.mode === 'preview',
-        linkGroups: fetchLinkGroups
+        preview: query.mode === 'preview'
       };
 
       return app.$contentful.query('galleryPage', variables)
         .then(response => response.data.data)
         .then(data => {
-          if (fetchLinkGroups) store.commit('link-group/setLinks', data);
-
           if (data.imageGalleryCollection.items.length === 0) {
             error({ statusCode: 404, message: app.i18n.t('messages.notFound') });
             return;

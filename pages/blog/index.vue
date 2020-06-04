@@ -80,12 +80,9 @@
         return redirect(app.$path({ name: 'blog', query }));
       }
 
-      const fetchLinkGroups = !(store.state['link-group'].data.mainNavigation);
-
       const variables = {
         locale: app.i18n.isoLocale(),
         preview: query.mode === 'preview',
-        linkGroups: fetchLinkGroups,
         limit: PER_PAGE,
         skip: (currentPage - 1) * PER_PAGE
       };
@@ -93,8 +90,6 @@
       return app.$contentful.query('blogFoyerPage', variables)
         .then(response => response.data.data)
         .then(data => {
-          if (fetchLinkGroups) store.commit('link-group/setLinks', data);
-
           return {
             posts: data.blogPostingCollection.items,
             total: data.blogPostingCollection.total,

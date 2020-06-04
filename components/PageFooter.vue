@@ -36,8 +36,8 @@
               <LinkGroup
                 list-class="footer-link-list"
                 link-class="footer-link"
-                :caption="footerMoreInfo.name"
-                :links="footerMoreInfo.links"
+                :caption="moreInfoNavigation.name"
+                :links="moreInfoNavigation.links"
               />
             </b-col>
             <b-col
@@ -47,8 +47,8 @@
               <LinkGroup
                 list-class="footer-link-list"
                 link-class="footer-link"
-                :caption="footerHelp.name"
-                :links="footerHelp.links"
+                :caption="helpNavigation.name"
+                :links="helpNavigation.links"
               />
             </b-col>
           </b-row>
@@ -92,6 +92,17 @@
       LinkGroup
     },
 
+    props: {
+      moreInfoNavigation: {
+        type: Object,
+        default: () => {}
+      },
+      helpNavigation: {
+        type: Object,
+        default: () => {}
+      }
+    },
+
     data() {
       return {
         social: [
@@ -117,15 +128,6 @@
           }
         ]
       };
-    },
-
-    computed: {
-      footerMoreInfo() {
-        return this.$store.state['link-group'].data.footerMoreInfo;
-      },
-      footerHelp() {
-        return this.$store.state['link-group'].data.footerHelp;
-      }
     }
   };
 </script>

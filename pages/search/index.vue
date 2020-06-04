@@ -21,8 +21,6 @@
 </template>
 
 <script>
-  import axios from 'axios';
-
   import SearchInterface from '../../components/search/SearchInterface';
   import { pageFromQuery } from '../../plugins/utils';
   import legacyUrl from '../../plugins/europeana/legacy-search';
@@ -51,31 +49,14 @@
         return Boolean(Number(process.env.ENABLE_LINKS_TO_CLASSIC));
       }
     },
-    async fetch({ app, error, store, query, res }) {
-      const fetchLinkGroups = !store.state['link-group'].data.mainNavigation;
-      const contentfulVariables = {
-        locale: app.i18n.isoLocale(),
-        preview: query.mode === 'preview',
-        linkGroups: fetchLinkGroups
-      };
-
+    async fetch({ store, query, res }) {
       await store.dispatch('search/activate');
       store.commit('search/set', ['userParams', query]);
 
-      return axios.all(
-        [store.dispatch('search/run')]
-          .concat(fetchLinkGroups ? app.$contentful.query('linkGroups', contentfulVariables) : () => {})
-      )
-        .then(axios.spread((searchResponse, contentfulResponse) => {
-          if (fetchLinkGroups) store.commit('link-group/setLinks', contentfulResponse.data.data);
-          if (store.state.search.error && res !== undefined) {
-            res.statusCode = store.state.search.errorStatusCode;
-          }
-        }))
-        .catch((e) => {
-          const statusCode = (e.statusCode !== undefined) ? e.statusCode : 500;
-          error({ statusCode, message: e.toString() });
-        });
+      await store.dispatch('search/run');
+      if (store.state.search.error && typeof res !== 'undefined') {
+        res.statusCode = store.state.search.errorStatusCode;
+      }
     },
 
     mounted() {

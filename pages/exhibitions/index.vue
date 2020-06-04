@@ -78,12 +78,9 @@
         return redirect(app.$path({ name: 'exhibitions', query }));
       }
 
-      const fetchLinkGroups = !(store.state['link-group'].data.mainNavigation);
-
       const variables = {
         locale: app.i18n.isoLocale(),
-        preview: query.mode === 'preview',
-        linkGroups: fetchLinkGroups,
+        preview: query.mode === 'preview'
         limit: PER_PAGE,
         skip: (currentPage - 1) * PER_PAGE
       };
@@ -91,8 +88,6 @@
       return app.$contentful.query('exhibitionFoyerPage', variables)
         .then(response => response.data.data)
         .then(data => {
-          if (fetchLinkGroups) store.commit('link-group/setLinks', data);
-
           return {
             exhibitions: data.exhibitionPageCollection.items,
             total: data.exhibitionPageCollection.total,

@@ -12,6 +12,8 @@
       :enable-auto-suggest="enableAutoSuggest"
       :enable-language-selector="enableLanguageSelector"
       :enable-suggestion-validation="enableSuggestionValidation"
+      :navigation="linkGroups.mainNavigation"
+      keep-alive
     />
     <main role="main">
       <b-container v-if="breadcrumbs">
@@ -28,7 +30,10 @@
         id="main"
       />
     </main>
-    <PageFooter />
+    <PageFooter
+      :help-navigation="linkGroups.footerHelp"
+      :more-info-navigation="linkGroups.footerMoreInfo"
+    />
   </div>
 </template>
 
@@ -44,6 +49,12 @@
       PageHeader,
       PageFooter,
       CookieDisclaimer
+    },
+
+    data() {
+      return {
+        linkGroups: {}
+      };
     },
 
     computed: {
@@ -71,6 +82,28 @@
       bootstrapVueVersion() {
         return require('bootstrap-vue/package.json').version;
       }
+    },
+
+    async fetch() {
+      const contentfulVariables = {
+        locale: this.$i18n.isoLocale(),
+        preview: this.$route.query.mode === 'preview'
+      };
+
+      const { data } = await this.$contentful.query('linkGroups', contentfulVariables);
+      const linkGroups = {};
+      for (const identifier of ['mainNavigation', 'footerMoreInfo', 'footerHelp']) {
+        const linkGroup = data.data[identifier].items[0];
+        linkGroups[identifier] = {
+          name: linkGroup.name ? linkGroup.name : null,
+          links: linkGroup.links.items
+        };
+      }
+      this.linkGroups = linkGroups;
+      // TODO: handle error properly for new-style fetch
+      // .catch((e) => {
+      //   error({ statusCode: 500, message: e.toString() });
+      // });
     },
 
     head() {

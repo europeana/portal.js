@@ -328,24 +328,16 @@
       }
     },
 
-    asyncData({ params, query, error, app, store }) {
-      const fetchLinkGroups = !store.state['link-group'].data.mainNavigation;
-      const contentfulVariables = {
-        locale: app.i18n.isoLocale(),
-        preview: query.mode === 'preview',
-        linkGroups: fetchLinkGroups
-      };
-
-      return axios.all(
-        [getRecord(`/${params.pathMatch}`, { origin: query.recordApi })]
-          .concat(fetchLinkGroups ? app.$contentful.query('linkGroups', contentfulVariables) : () => {}))
-        .then(axios.spread((itemResponse, contentfulResponse) => {
-          if (fetchLinkGroups) store.commit('link-group/setLinks', contentfulResponse.data.data);
-          return itemResponse.record;
-        }))
-        .catch((e) => {
-          const statusCode = (e.statusCode !== undefined) ? e.statusCode : 500;
-          error({ statusCode, message: e.toString() });
+    asyncData({ params, res, query }) {
+      return getRecord(`/${params.pathMatch}`, { origin: query.recordApi })
+        .then((result) => {
+          return result.record;
+        })
+        .catch((error) => {
+          if (typeof res !== 'undefined') {
+            res.statusCode = (typeof error.statusCode !== 'undefined') ? error.statusCode : 500;
+          }
+          return { error: error.message };
         });
     },
 

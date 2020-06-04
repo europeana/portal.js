@@ -35,7 +35,9 @@
       class="p-0 justify-content-center justify-content-lg-end"
       role="navigation"
     >
-      <PageNavigation />
+      <PageNavigation
+        :links="navigation.links"
+      />
     </b-navbar>
   </b-container>
 </template>
@@ -60,6 +62,10 @@
       enableSuggestionValidation: {
         type: Boolean,
         default: false
+      },
+      navigation: {
+        type: Object,
+        default: () => {}
       }
     }
   };

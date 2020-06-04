@@ -101,19 +101,15 @@
       }
     },
     asyncData({ params, query, error, app, store }) {
-      const fetchLinkGroups = !(store.state['link-group'].data.mainNavigation);
       const variables = {
         identifier: params.chapter,
         locale: app.i18n.isoLocale(),
-        preview: query.mode === 'preview',
-        linkGroups: fetchLinkGroups
+        preview: query.mode === 'preview'
       };
 
       return app.$contentful.query('exhibitionChapterPage', variables)
         .then(response => response.data.data)
         .then(data => {
-          if (fetchLinkGroups) store.commit('link-group/setLinks', data);
-
           let chapter;
           let exhibition;
 
