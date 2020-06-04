@@ -272,7 +272,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @import "./assets/scss/variables.scss";
+  @import './assets/scss/variables.scss';
 
   .auto-suggest {
     &-dropdown {
@@ -287,7 +287,7 @@
         border: 0;
         border-radius: 0;
         box-shadow: none;
-        padding: .75rem 1.25rem;
+        padding: 0.75rem 1.25rem;
         color: $black;
 
         &.hover {

@@ -141,11 +141,11 @@
   }
 
   .slide-enter-active, .fade-enter-active {
-    transition: .3s cubic-bezier(0.24,1,0.32,1);
+    transition: 0.3s cubic-bezier(0.24,1,0.32,1);
   }
 
   .slide-leave-active, .fade-leave-active {
-    transition: .2s cubic-bezier(0.4,0.0,1,1);
+    transition: 0.2s cubic-bezier(0.4,0.0,1,1);
   }
 
   .slide-enter, .slide-leave-to {
@@ -162,7 +162,7 @@
     .logo {
       min-width: 9.5625rem;
       padding: 0.735rem 0 !important;
-      transition: .3s ease-in-out;
+      transition: 0.3s ease-in-out;
       img {
         width: 9.5625rem;
       }

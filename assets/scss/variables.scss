@@ -1,4 +1,4 @@
-$font-family-sans-serif: "Open Sans", "Arial", sans-serif;
+$font-family-sans-serif: 'Open Sans', 'Arial', sans-serif;
 
 $white: #fff;
 
@@ -25,12 +25,11 @@ $textcolor: $black;
 $textcolor-light: $grey;
 $textcolor-coloured: $darkblue;
 
-$boxshadow: 0 2px 4px 0 rgba(0,0,0,0.5);
-$boxshadow-small: 0 1px 3px 0 rgba(0,0,0,0.25);
-$boxshadow-large: 0 4px 12px 0 rgba(0,0,0,0.4);
-$boxshadow-light: 2px 2px 4px 0 rgba(0, 0, 0, 0.08);
+$boxshadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+$boxshadow-small: 0 1px 3px 0 rgba(0, 0, 0, 0.25);
+$boxshadow-large: 0 4px 12px 0 rgba(0, 0, 0, 0.4);
 
-$textshadow: 2px 2px 0 rgba(0,0,0,0.2);
+$textshadow: 2px 2px 0 rgba(0, 0, 0, 0.2);
 
 $border-radius: 0.375rem;
 $border-radius-small: 0.25rem;
@@ -48,4 +47,4 @@ $bp-medium: 768px;
 $bp-large: 992px;
 $bp-extralarge: 1200px;
 
-$standard-transition: .3s ease-in-out;
+$standard-transition: 0.3s ease-in-out;
