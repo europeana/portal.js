@@ -61,12 +61,10 @@ export function getEntitySuggestions(text, params = {}, options = {}) {
     });
 }
 
-function filterSuggestionsByRecordValidation(suggestions, params) {
-  let language = params.language.split(',')[0];
+function filterSuggestionsByRecordValidation(suggestions) {
   const searches = suggestions.map((entity) => {
     return search({
-      query: entity.prefLabel[language],
-      lang: language,
+      query: getEntityQuery(entity.id),
       rows: 0,
       profile: 'minimal',
       qf: ['contentTier:(2 OR 3 OR 4)']

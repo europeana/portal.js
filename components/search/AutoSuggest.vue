@@ -149,6 +149,7 @@
     watch: {
       '$route.query'() {
         this.closeDropdown();
+        this.isActive = false;
       },
 
       value() {

@@ -97,7 +97,7 @@
 <script>
   import AutoSuggest from './AutoSuggest';
   import SearchBarPill from './SearchBarPill';
-  import { getEntitySuggestions, getEntityTypeHumanReadable, getEntitySlug } from '../../plugins/europeana/entity';
+  import { getEntitySuggestions } from '../../plugins/europeana/entity';
   import { mapGetters } from 'vuex';
 
   export default {
@@ -250,20 +250,33 @@
         if (query !== this.query) this.getSearchSuggestions(this.query);
       },
 
-      suggestionLinkGen(entityUri) {
-        const entity = {
-          id: entityUri,
-          prefLabel: this.suggestions[entityUri]
-        };
-        const uriMatch = entityUri.match(`^${this.apiConfig.data.origin}/([^/]+)(/base)?/(.+)$`);
+      suggestionLinkGen(suggestion) {
+        // const entity = {
+        //   id: entityUri,
+        //   prefLabel: this.suggestions[entityUri]
+        // };
 
-        return this.$path({
-          name: 'collections-type-all', params: {
-            type: getEntityTypeHumanReadable(uriMatch[1]),
-            // TODO: use stored entity/curatedEntities for prefLabel, if set
-            pathMatch: getEntitySlug(entity.id, entity.prefLabel.en)
-          }
-        });
+        // const uriMatch = suggestion.match(`^${this.apiConfig.data.origin}/([^/]+)(/base)?/(.+)$`);
+        // let searchQuery = getEntityTypeHumanReadable(uriMatch[1]);
+
+        // return this.$path({
+        //   name: 'collections-type-all', params: {
+        //     type: getEntityTypeHumanReadable(uriMatch[1]),
+        //     // TODO: use stored entity/curatedEntities for prefLabel, if set
+        //     pathMatch: getEntitySlug(entity.id, entity.prefLabel.en)
+        //   }
+        // });
+        const query = {
+          ...this.queryUpdatesForFacetChanges({ collection: null }),
+          view: this.view,
+          query: suggestion
+        };
+        return {
+          path: this.$path({
+            name: 'search'
+          }),
+          query
+        };
       },
 
       toggleSearchBar() {
