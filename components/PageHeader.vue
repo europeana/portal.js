@@ -141,11 +141,11 @@
   }
 
   .slide-enter-active, .fade-enter-active {
-    transition: 0.3s cubic-bezier(0.24,1,0.32,1);
+    transition: 0.3s cubic-bezier(0.24, 1, 0.32, 1);
   }
 
   .slide-leave-active, .fade-leave-active {
-    transition: 0.2s cubic-bezier(0.4,0.0,1,1);
+    transition: 0.2s cubic-bezier(0.4, 0.0, 1, 1);
   }
 
   .slide-enter, .slide-leave-to {
@@ -194,7 +194,7 @@
       width: 100%;
       border-radius: 0;
       outline: none;
-      transition: .5s;
+      transition: 0.5s;
       background-color: rgba(0, 0, 0, 0.7);
       cursor: pointer;
     }

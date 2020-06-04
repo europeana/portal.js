@@ -410,7 +410,7 @@
       background: $blue;
       border-color: $blue;
       color: $white;
-      padding: .375rem .75rem;
+      padding: 0.375rem 0.75rem;
       height: auto;
       width: auto;
 
