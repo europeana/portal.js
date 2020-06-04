@@ -1,21 +1,21 @@
 import axios from 'axios';
 
 const queries = <%= JSON.stringify(options, null, 2) %>;
+const origin = 'https://graphql.contentful.com';
+const path = `/content/v1/spaces/${process.env['CTF_SPACE_ID'] || 'master'}/environments/${process.env['CTF_ENVIRONMENT_ID']}`;
 
-// TODO: move into own template
+// TODO: move into own template?
 const query = (alias, variables) => {
-  return axios.post(
-    `https://graphql.contentful.com/content/v1/spaces/${process.env['CTF_SPACE_ID']}/environments/${process.env['CTF_ENVIRONMENT_ID']}`,
-    {
-      query: queries[alias],
-      variables
-    },
-    {
-      headers: {
-        'Authorization': `Bearer ${process.env['CTF_CDA_ACCESS_TOKEN']}`
-      }
-    }
-  );
+  const url = `${origin}${path}`;
+  const body = {
+    query: queries[alias],
+    variables
+  };
+  const headers = {
+    'Authorization': `Bearer ${process.env['CTF_CDA_ACCESS_TOKEN']}`
+  };
+
+  return axios.post(url, body, { headers });
 };
 
 const plugin = {
