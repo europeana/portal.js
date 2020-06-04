@@ -154,7 +154,8 @@ module.exports = {
         path: '/*',
         component: 'pages/index.vue'
       });
-    }
+    },
+    linkExactActiveClass: 'exact-active-link'
   },
 
   /*

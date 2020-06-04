@@ -1,10 +1,12 @@
 Feature: Search pagination
 
+  # TODO: Add back - And I click the `search button` instead of press ENTER
+
   Scenario: Pagination of search results
 
     When I visit the `search page`
     And I enter "" in the `search box`
-    And I click the `search button`
+    And I press the ENTER key
     Then I see a `pagination navigation`
     And I am on an accessible page
 
@@ -12,7 +14,8 @@ Feature: Search pagination
 
     When I visit the `home page`
     And I enter "paris" in the `search box`
-    And I click the `search button`
+    And I press the ENTER key
+    And I wait for the page to load
     And I wait for a `search result`
     And I see a `search facet`
     And I click the `TYPE dropdown button`
@@ -26,7 +29,7 @@ Feature: Search pagination
 
     Given I am on the `home page`
     When I enter "paris" in the `search box`
-    And I click the `search button`
+    And I press the ENTER key
     And I wait for the page to load
     And I go to page number 2
     And I wait for the page to load

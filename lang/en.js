@@ -420,6 +420,12 @@ export default {
     "galleries": "Gallery | Galleries"
   },
   "goToRecord": "Go to item",
+  "header": {
+    "showSidebar": "Show Sidebar",
+    "backToMenu": "Back to menu",
+    "searchFor": "Search for",
+    "clearQuery": "Clear Search Query"
+  },
   "homeLinkAlt": "Europeana home",
   "imageSlider": {
     "handle": "Slider Handle"

@@ -20,7 +20,7 @@ const store = new Vuex.Store({
     'link-group': {
       state: {
         data: {
-          mainNavigation: {
+          mobileNavigation: {
             links: [
               {
                 text: 'Our partners',
