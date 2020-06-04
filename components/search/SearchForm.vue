@@ -183,6 +183,7 @@
     watch: {
       '$route'() {
         this.initQuery();
+        if (this.showSearch) this.$store.commit('ui/toggleSearchBar');
       }
     },
 
@@ -275,8 +276,6 @@
       },
 
       backToMenu() {
-        /* cannot use toggleSearchBar method since this is also used when user clicks on
-           search query button, this clears the query string before redirect */
         this.$store.commit('ui/toggleSearchBar');
         this.clearQuery();
       },
@@ -408,6 +407,13 @@
     }
     .btn {
       border-radius: 0 $border-radius $border-radius 0;
+      background: $blue;
+      border-color: $blue;
+      color: $white;
+      padding: .375rem .75rem;
+      height: auto;
+      width: auto;
+
       &:before {
         transform: translateY(-0.1rem);
       }

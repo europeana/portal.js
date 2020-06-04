@@ -158,6 +158,7 @@
 
   .navbar-brand {
     min-width: 11.0625rem;
+    flex: 0 0 auto;
     .logo {
       min-width: 9.5625rem;
       padding: 0.735rem 0 !important;
@@ -168,25 +169,23 @@
     }
   }
 
+  .navbar {
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: $white;
+    z-index: 99;
+    width: 16rem;
+    padding: 1rem 0.5rem;
+    .navbar-nav {
+      padding-top: 1rem;
+      flex-direction: column;
+      width: 100%;
+    }
+  }
+
   @media (max-width: $bp-large) {
-    .navbar-brand {
-      flex: 0 0 auto;
-    }
-    .navbar {
-      height: 100vh;
-      position: fixed;
-      top: 0;
-      left: 0;
-      background: $white;
-      z-index: 99;
-      width: 16rem;
-      padding: 1rem 0.5rem;
-      .navbar-nav {
-        padding-top: 1rem;
-        flex-direction: column;
-        width: 100%;
-      }
-    }
     .close-menu {
       position: fixed;
       right: 0;
@@ -221,6 +220,17 @@
       display: flex;
       height: auto;
       left: initial;
+      top: initial;
+      width: auto;
+      padding: 0;
+      .navbar-nav {
+        padding-top: 0;
+        flex-direction: row;
+        width: 100%;
+      }
+    }
+    .navbar-brand {
+      flex: 3;
     }
     .navbar-toggle {
       display: none;
