@@ -3,8 +3,6 @@ import europeanaPlugin from '../plugins/europeana';
 export const actions = {
   async nuxtServerInit(store, context) {
     await Promise.all([
-      // TODO: restore, replacing with GraphQL query in relevant contexts
-      // store.dispatch('entity/init'),
       store.dispatch('http/init', context)
     ]);
 
