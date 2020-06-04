@@ -1,7 +1,7 @@
 <template>
   <div>
     <template
-      v-for="(section, index) in sections"
+      v-for="(section, index) in content"
     >
       <RichText
         v-if="contentType(section, 'ContentTypeRichText')"
@@ -76,13 +76,62 @@
         type: Boolean,
         default: true
       },
+
       sections: {
         type: Array,
         default: () => []
       }
     },
 
+    data() {
+      return {
+        content: this.sections
+      };
+    },
+
+    async fetch() {
+      this.content = await this.sectionsWithLatestCardGroups(this.sections);
+    },
+
     methods: {
+      async sectionsWithLatestCardGroups(sections) {
+        const content = [].concat(sections);
+        const genres = content
+          .filter(item => item && (item['__typename'] === 'LatestCardGroup'))
+          .map(item => item.genre);
+
+        if (genres.length === 1) return content;
+
+        const variables = {
+          locale: this.$i18n.isoLocale(),
+          preview: this.$route.query.mode === 'preview',
+          exhibitions: genres.includes('Exhibitions'),
+          blogPosts: genres.includes('Blog posts'),
+          galleries: genres.includes('Galleries'),
+          limit: 4
+        };
+
+        const { data } = await this.$contentful.query('latestCardGroups', variables);
+        for (let i = 0; i < content.length; i++) {
+          if (content[i] && content[i]['__typename'] === 'LatestCardGroup') {
+            let latest = {};
+            switch (content[i].genre) {
+            case 'Exhibitions':
+              latest = data.data.exhibitionPageCollection;
+              break;
+            case 'Blog posts':
+              latest = data.data.blogPostingCollection;
+              break;
+            case 'Galleries':
+              latest = data.data.imageGalleryCollection;
+              break;
+            }
+            content[i] = { ...content[i], ...latest };
+          }
+        }
+
+        return content;
+      },
       contentType(section, typeName) {
         return section && (section['__typename'] === typeName);
       },

@@ -77,47 +77,7 @@
             return;
           }
 
-          const page = data.browsePageCollection.items[0];
-
-          const genres = page.hasPartCollection.items
-            .filter(item => item && (item['__typename'] === 'LatestCardGroup'))
-            .map(item => item.genre);
-
-          if (genres.length === 0) return page;
-
-          // TODO: move the below code for latest card groups elsewhere?
-          const variables = {
-            locale: app.i18n.isoLocale(),
-            preview: query.mode === 'preview',
-            exhibitions: genres.includes('Exhibitions'),
-            blogPosts: genres.includes('Blog posts'),
-            galleries: genres.includes('Galleries'),
-            limit: 4
-          };
-
-          return app.$contentful.query('latestCardGroups', variables)
-            .then(response => response.data.data)
-            .then(data => {
-              for (let i = 0; i < page.hasPartCollection.items.length; i++) {
-                if (page.hasPartCollection.items[i] && page.hasPartCollection.items[i]['__typename'] === 'LatestCardGroup') {
-                  let latest = {};
-                  switch (page.hasPartCollection.items[i].genre) {
-                  case 'Exhibitions':
-                    latest = data.exhibitionPageCollection;
-                    break;
-                  case 'Blog posts':
-                    latest = data.blogPostingCollection;
-                    break;
-                  case 'Galleries':
-                    latest = data.imageGalleryCollection;
-                    break;
-                  }
-                  page.hasPartCollection.items[i] = { ...page.hasPartCollection.items[i], ...latest };
-                }
-              }
-
-              return page;
-            });
+          return data.browsePageCollection.items[0];
         })
         .catch((e) => {
           error({ statusCode: 500, message: e.toString() });
