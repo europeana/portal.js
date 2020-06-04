@@ -70,7 +70,7 @@
         return this.total > this.perPage;
       }
     },
-    asyncData({ query, redirect, error, app, store }) {
+    asyncData({ query, redirect, error, app }) {
       const currentPage = pageFromQuery(query.page);
       if (currentPage === null) {
         // Redirect non-positive integer values for `page` to `page=1`
@@ -80,7 +80,7 @@
 
       const variables = {
         locale: app.i18n.isoLocale(),
-        preview: query.mode === 'preview'
+        preview: query.mode === 'preview',
         limit: PER_PAGE,
         skip: (currentPage - 1) * PER_PAGE
       };

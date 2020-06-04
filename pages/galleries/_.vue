@@ -49,7 +49,7 @@
         return marked(this.rawDescription);
       }
     },
-    asyncData({ params, query, error, app, store }) {
+    asyncData({ params, query, error, app }) {
       const variables = {
         identifier: params.pathMatch,
         locale: app.i18n.isoLocale(),
