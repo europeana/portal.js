@@ -23,7 +23,7 @@
       role="option"
       data-qa="search suggestion"
       :aria-selected="index === focus"
-      :to="linkGen(name)"
+      :to="linkGen(val[locale])"
       :class="{ 'hover': index === focus }"
       :data-index="index"
       @mouseover="focus = index"
@@ -273,7 +273,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @import "./assets/scss/variables.scss";
+  @import './assets/scss/variables.scss';
 
   .auto-suggest {
     &-dropdown {
@@ -291,7 +291,7 @@
         border: 0;
         border-radius: 0;
         box-shadow: none;
-        padding: .5rem 1.25rem;
+        padding: 0.5rem 1.25rem;
         color: $black;
         font-size: 1rem;
         text-decoration: none;
