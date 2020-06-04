@@ -17,7 +17,7 @@ export const actions = {
     await contentfulClient.getEntries({
       'locale': this.app.i18n.isoLocale(),
       'content_type': 'linkGroup',
-      'fields.identifier[in]': 'mainNavigation,footerMoreInfo,footerHelp'
+      'fields.identifier[in]': 'mainNavigation,mobileNavigation,footerMoreInfo,footerHelp'
     })
       .then((response) => {
         response.items.forEach(item => {
