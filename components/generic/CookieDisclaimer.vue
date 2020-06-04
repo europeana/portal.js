@@ -92,7 +92,7 @@
   @import '../../assets/scss/variables.scss';
 
   .cookie-disclaimer {
-    transition: all .4s ease;
+    transition: all 0.4s ease;
     position: fixed;
     background-color: $innovationblue;
     width: 100%;
@@ -111,7 +111,7 @@
     display: flex;
 
     .accept-btn {
-      transition: all .4s ease;
+      transition: all 0.4s ease;
       font-size: 1.5rem;
       padding: 0 1rem;
       align-items: center;
@@ -125,7 +125,7 @@
       }
 
       &:hover {
-        opacity: .8;
+        opacity: 0.8;
       }
     }
 
