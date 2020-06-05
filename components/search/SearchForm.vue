@@ -125,7 +125,8 @@
         showSearchQuery: false,
         gettingSuggestions: false,
         suggestions: {},
-        selectedSuggestion: null
+        selectedSuggestion: null,
+        inputFocussed: false
       };
     },
 
@@ -184,6 +185,7 @@
       '$route'() {
         this.initQuery();
         if (this.showSearch) this.$store.commit('ui/toggleSearchBar');
+        this.inputFocussed = false;
       }
     },
 

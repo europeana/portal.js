@@ -2,7 +2,6 @@
   <b-list-group
     v-show="isActive"
     :id="elementId"
-    v-visible-on-scroll
     class="auto-suggest-dropdown"
     data-qa="search suggestions"
     role="listbox"
@@ -116,6 +115,10 @@
         return Object.keys(this.value);
       },
 
+      suggestionLabels() {
+        return Object.values(this.value);
+      },
+
       numberOfSuggestions() {
         return this.suggestionValues.length;
       },
@@ -141,8 +144,8 @@
         return this.focus === (this.numberOfSuggestions - 1);
       },
 
-      selectedSuggestionValue() {
-        return this.suggestionValues[this.focus] || null;
+      selectedSuggestionLabel() {
+        return this.suggestionLabels[this.focus] || null;
       }
     },
 
@@ -267,7 +270,9 @@
       },
 
       selectSuggestion() {
-        this.$emit('select', this.selectedSuggestionValue);
+        if (this.selectedSuggestionLabel) {
+          this.$emit('select', this.selectedSuggestionLabel[this.locale]);
+        }
       }
     }
   };
@@ -278,6 +283,7 @@
 
   .auto-suggest {
     &-dropdown {
+      /* display: none; */
       position: absolute;
       top: 50px;
       width: 100%;
@@ -316,6 +322,10 @@
         font-size: 0.75rem;
       }
     }
+  }
+
+  .show form:focus-within .auto-suggest-dropdown {
+    display: block;
   }
 
   .input-group {

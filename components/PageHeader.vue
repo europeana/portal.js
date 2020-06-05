@@ -3,7 +3,7 @@
     ref="nav-container"
     v-visible-on-scroll
     fluid
-    class="border-bottom d-flex py-0 px-lg-3 flex-column flex-lg-row align-items-center"
+    class="border-bottom d-flex py-0 px-lg-3 flex-column flex-lg-row align-items-center show"
     data-qa="header"
   >
     <header
