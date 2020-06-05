@@ -253,13 +253,6 @@
           view: this.view,
           query: suggestion
         };
-        let link = {
-          path: this.$path({
-            name: 'search'
-          }),
-          query
-        };
-        console.log(link);
         return {
           path: this.$path({
             name: 'search'
