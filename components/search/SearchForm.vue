@@ -230,11 +230,8 @@
 
         this.gettingSuggestions = true;
 
-        // Query in the user's language, and English, removing duplicates
-        const languageParam = Array.from(new Set([this.$i18n.locale, 'en'])).join(',');
-
         const suggestions = await getEntitySuggestions(query, {
-          language: languageParam
+          language: this.$i18n.locale
         }, {
           recordValidation: this.enableSuggestionValidation
         });
@@ -251,26 +248,18 @@
       },
 
       suggestionLinkGen(suggestion) {
-        // const entity = {
-        //   id: entityUri,
-        //   prefLabel: this.suggestions[entityUri]
-        // };
-
-        // const uriMatch = suggestion.match(`^${this.apiConfig.data.origin}/([^/]+)(/base)?/(.+)$`);
-        // let searchQuery = getEntityTypeHumanReadable(uriMatch[1]);
-
-        // return this.$path({
-        //   name: 'collections-type-all', params: {
-        //     type: getEntityTypeHumanReadable(uriMatch[1]),
-        //     // TODO: use stored entity/curatedEntities for prefLabel, if set
-        //     pathMatch: getEntitySlug(entity.id, entity.prefLabel.en)
-        //   }
-        // });
         const query = {
           ...this.queryUpdatesForFacetChanges({ collection: null }),
           view: this.view,
           query: suggestion
         };
+        let link = {
+          path: this.$path({
+            name: 'search'
+          }),
+          query
+        };
+        console.log(link);
         return {
           path: this.$path({
             name: 'search'

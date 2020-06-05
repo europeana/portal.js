@@ -77,8 +77,13 @@ const entityApiSuggestionsResponse = {
   ]
 };
 const parsedSuggestions = {
-  'http://data.europeana.eu/concept/base/227': { en: 'Fresco' },
-  'http://data.europeana.eu/agent/base/59981': { en: 'Frank Sinatra' }
+  'Fresco': {
+    path: '/search',
+    query: {
+      query: 'Fresco',
+      view: 'grid'
+    }
+  }
 };
 
 describe('components/search/SearchForm', () => {
@@ -138,16 +143,31 @@ describe('components/search/SearchForm', () => {
 
     context('with a selected entity suggestion', () => {
       it('routes to the entity page', async() => {
-        const wrapper = factory();
+        const state = {
+          active: true,
+          userParams: {
+            query: ''
+          },
+          view: 'grid'
+        };
+        const wrapper = factory({ store: store(state) });
 
         wrapper.setData({
           suggestions: parsedSuggestions,
-          selectedSuggestion: 'http://data.europeana.eu/concept/base/227',
+          selectedSuggestion: 'Fresco',
           query
         });
         wrapper.vm.submitForm();
 
-        $goto.should.have.been.calledWith('/collections/topic/227-fresco');
+        let searchRoute = {
+          path: '/search',
+          query: {
+            query: 'Fresco',
+            view: state.view
+          }
+        };
+
+        $goto.should.have.been.calledWith(searchRoute);
       });
     });
 
@@ -201,15 +221,20 @@ describe('components/search/SearchForm', () => {
   });
 
   describe('suggestionLinkGen', () => {
-    const wrapper = factory();
+    const state = {
+      active: true,
+      userParams: {
+        query: ''
+      },
+      view: 'grid'
+    };
+    const wrapper = factory({ store: store(state) });
     wrapper.setData({ suggestions: parsedSuggestions });
 
-    it('generates agent entity URLs', () => {
-      wrapper.vm.suggestionLinkGen('http://data.europeana.eu/agent/base/59981').should.eq('/collections/person/59981-frank-sinatra');
-    });
-
-    it('generates concept entity URLs', () => {
-      wrapper.vm.suggestionLinkGen('http://data.europeana.eu/concept/base/227').should.eq('/collections/topic/227-fresco');
+    it('generates search suggestion URLs', () => {
+      const link = wrapper.vm.suggestionLinkGen('Fresco');
+      link.path.should.eq('/search');
+      link.query.query.should.eq('Fresco');
     });
   });
 

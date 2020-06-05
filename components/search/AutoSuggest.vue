@@ -337,4 +337,27 @@
       display: flex;
     }
   }
+
+  @media (max-width: $bp-large) {
+    .auto-suggest {
+      &-dropdown {
+        top: 112px;
+        border-radius: 0;
+        box-shadow: 0 3px 3px 2px rgba(0, 0, 0, 0.05);
+        a.list-group-item {
+          text-align: left;
+          padding-left: 3.4rem;
+          padding-top: 0.75rem;
+          padding-bottom: 0.75rem;
+          &:first-child, &:last-child {
+            border-radius: 0;
+            padding-top: 0.75rem;
+          }
+          &:last-child {
+            padding-bottom: 0.75rem;
+          }
+        }
+      }
+    }
+  }
 </style>

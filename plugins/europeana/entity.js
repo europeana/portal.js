@@ -27,9 +27,7 @@ export function getEntity(type, id) {
 }
 
 function entityApiUrl(endpoint) {
-  // return `${config.entity.origin}${config.entity.path}${endpoint}`;
-  // test endpoint not for production
-  return `http://entity-api-acceptance.eanadev.org${config.entity.path}${endpoint}`;
+  return `${config.entity.origin}${config.entity.path}${endpoint}`;
 }
 
 /**
@@ -48,8 +46,7 @@ export function getEntitySuggestions(text, params = {}, options = {}) {
       type: 'agent,concept',
       language: params.language,
       scope: 'europeana',
-      wskey: config.entity.key,
-      algorithm: 'monolingual'
+      wskey: config.entity.key
     }
   })
     .then((response) => {
