@@ -53,20 +53,64 @@
         :aria-label="$t('header.clearQuery')"
         @click="clearQuery"
       />
-      <div
-        v-show="showSearch && showSearchQuery"
-        class="search-query d-lg-none"
+      <template
+        v-if="pillLabel"
       >
-        <b-button
-          type="submit"
-          data-qa="search button"
-          class="search"
-          variant="primary"
-          :aria-label="$t('search')"
-          @click="toggleSearchBar"
-        />
-        <span>{{ $t('header.searchFor') }} "{{ query }}"</span>
-      </div>
+        <div
+          v-show="showSearch && showSearchQuery"
+          class="search-query d-lg-none"
+        >
+          <b-button
+            type="submit"
+            data-qa="search button"
+            class="search"
+            variant="primary"
+            @click="toggleSearchBar"
+          >
+            <span class="sr-only">
+              {{ $t('search') }}
+            </span>
+          </b-button>
+          <span>{{ $t('header.searchFor') }} "{{ query }}" in {{ pillLabel.values[0] }}</span>
+        </div>
+        <div
+          v-show="showSearch && showSearchQuery"
+          class="search-query d-lg-none"
+        >
+          <b-button
+            data-qa="search button"
+            class="search"
+            variant="primary"
+            @click="toggleSearchAndRemovePill"
+          >
+            <span class="sr-only">
+              {{ $t('search') }}
+            </span>
+          </b-button>
+          <span>{{ $t('header.searchFor') }} "{{ query }}" in our entire collection</span>
+        </div>
+      </template>
+      <template
+        v-else
+      >
+        <div
+          v-show="showSearch && showSearchQuery"
+          class="search-query d-lg-none"
+        >
+          <b-button
+            type="submit"
+            data-qa="search button"
+            class="search"
+            variant="primary"
+            @click="toggleSearchBar"
+          >
+            <span class="sr-only">
+              {{ $t('search') }}
+            </span>
+          </b-button>
+          <span>{{ $t('header.searchFor') }} "{{ query }}"</span>
+        </div>
+      </template>
       <b-button
         type="submit"
         data-qa="search button"
@@ -283,6 +327,24 @@
       clearQuery() {
         this.query = '';
         this.showSearchQuery = false;
+      },
+
+      toggleSearchAndRemovePill(e) {
+        e.preventDefault();
+        this.toggleSearchBar();
+        const query = {
+          ...this.queryUpdatesForFacetChanges({ collection: null }),
+          view: this.view,
+          query: this.query || ''
+        };
+        this.$nextTick(() => {
+          this.$router.push ({
+            path: this.$path({
+              name: 'search'
+            }),
+            query
+          });
+        });
       }
     }
   };
