@@ -17,7 +17,7 @@
       <iframe
         data-qa="media player"
         allowfullscreen="true"
-        :src="$path({ name: 'media', query: { id: europeanaIdentifier } })"
+        :src="$path({ name: 'media', query: { id: europeanaIdentifier, canvasPage: mediaIndex + 1 } })"
         class="media-player"
       />
     </div>
@@ -88,6 +88,10 @@
       enableEuropeanaMediaPlayer: {
         type: Boolean,
         default: false
+      },
+      mediaIndex: {
+        type: Number,
+        default: 0
       }
     },
 

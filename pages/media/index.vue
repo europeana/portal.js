@@ -20,20 +20,25 @@
 
     computed: {
       manifest() {
-        return `https://iiif.europeana.eu/presentation/${this.id}/manifest?format=3`;
+        return `https://iiif.europeana.eu/presentation${this.id}/manifest?format=3`;
+      },
+      canvas() {
+        return `https://iiif.europeana.eu/presentation${this.id}/canvas/p${this.canvasPage}`;
       }
     },
 
     asyncData({ query }) {
       return {
-        id: query.id
+        id: query.id,
+        canvasPage: query.canvasPage || 1
       };
     },
 
     mounted() {
       this.$nextTick(() => {
         new EuropeanaMediaPlayer(this.$refs.player, { // eslint-disable-line no-undef
-          manifest: this.manifest
+          manifest: this.manifest,
+          canvasId: this.canvas
         });
       });
     },
