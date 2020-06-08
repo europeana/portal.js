@@ -1,5 +1,8 @@
 <template>
-  <div data-qa="exhibition chapter">
+  <div
+    data-qa="exhibition chapter"
+    class="exhibition-page"
+  >
     <HeroImage
       v-if="hero"
       :image-url="heroImage.url"
