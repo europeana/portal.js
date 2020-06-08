@@ -74,6 +74,7 @@ module.exports = {
       'LinkPlugin',
       'ListGroupPlugin',
       'MediaPlugin',
+      'ModalPlugin',
       'NavbarPlugin',
       'NavPlugin',
       'PaginationNavPlugin',

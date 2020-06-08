@@ -245,6 +245,7 @@
 
   .btn {
     border-radius: 0 $border-radius $border-radius 0;
+    font-size: 1rem;
 
     &:before {
       @extend .icon-font;
