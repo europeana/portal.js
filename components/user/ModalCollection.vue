@@ -111,11 +111,8 @@
 
       submitForm() {
         // TODO: submit form + show toast
-        // close afterwards
-        this.$nextTick(() => {
-          this.$bvModal.hide('modal-collection');
-          this.showForm = false;
-        })
+        // go back afterwards
+        this.goBack();
       }
     }
   };
