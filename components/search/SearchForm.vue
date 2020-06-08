@@ -60,18 +60,27 @@
           v-show="showSearch && showSearchQuery"
           class="search-query d-lg-none"
         >
-          <b-button
+
+        <b-list-group>
+          <b-list-group-item
+            data-qa="search button"
+            class="search"
+            @click="toggleSearchBar"
+          >
+          <span>{{ $t('header.inCollection', { query: query, collection: pillLabel.values[0] }) }}</span>
+          </b-list-group-item>
+        </b-list-group>
+
+          <!-- <b-button
             type="submit"
             data-qa="search button"
             class="search"
             variant="primary"
             @click="toggleSearchBar"
+            :aria-label="$t('search')"
           >
-            <span class="sr-only">
-              {{ $t('search') }}
-            </span>
           </b-button>
-          <span>{{ $t('header.searchFor') }} "{{ query }}" in {{ pillLabel.values[0] }}</span>
+          <span>{{ $t('header.inCollection', { query: query, collection: pillLabel.values[0] }) }}</span> -->
         </div>
         <div
           v-show="showSearch && showSearchQuery"
@@ -87,7 +96,7 @@
               {{ $t('search') }}
             </span>
           </b-button>
-          <span>{{ $t('header.searchFor') }} "{{ query }}" in our entire collection</span>
+          <span>{{ $t('header.entireCollection', { query: query }) }}</span>
         </div>
       </template>
       <template
@@ -108,7 +117,7 @@
               {{ $t('search') }}
             </span>
           </b-button>
-          <span>{{ $t('header.searchFor') }} "{{ query }}"</span>
+          <span>{{ $t('header.searchFor', { query: query }) }}</span>
         </div>
       </template>
       <b-button
