@@ -125,8 +125,7 @@
         showSearchQuery: false,
         gettingSuggestions: false,
         suggestions: {},
-        selectedSuggestion: null,
-        inputFocussed: false
+        selectedSuggestion: null
       };
     },
 

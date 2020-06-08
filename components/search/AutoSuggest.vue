@@ -283,7 +283,7 @@
 
   .auto-suggest {
     &-dropdown {
-      /* display: none; */
+      display: none;
       position: absolute;
       top: 50px;
       width: 100%;

@@ -76,15 +76,6 @@ const entityApiSuggestionsResponse = {
     }
   ]
 };
-const parsedSuggestions = {
-  'Fresco': {
-    path: '/search',
-    query: {
-      query: 'Fresco',
-      view: 'grid'
-    }
-  }
-};
 
 describe('components/search/SearchForm', () => {
   describe('query', () => {
@@ -153,7 +144,6 @@ describe('components/search/SearchForm', () => {
         const wrapper = factory({ store: store(state) });
 
         wrapper.setData({
-          suggestions: parsedSuggestions,
           selectedSuggestion: 'Fresco',
           query
         });
@@ -222,19 +212,19 @@ describe('components/search/SearchForm', () => {
 
   describe('suggestionLinkGen', () => {
     const state = {
-      active: true,
+      active: false,
       userParams: {
         query: ''
       },
       view: 'grid'
     };
     const wrapper = factory({ store: store(state) });
-    wrapper.setData({ suggestions: parsedSuggestions });
 
     it('generates search suggestion URLs', () => {
       const link = wrapper.vm.suggestionLinkGen('Fresco');
       link.path.should.eq('/search');
       link.query.query.should.eq('Fresco');
+      link.query.view.should.eq('grid');
     });
   });
 
