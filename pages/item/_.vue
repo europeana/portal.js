@@ -53,6 +53,7 @@
                 <MediaPresentation
                   :europeana-identifier="identifier"
                   :media="selectedMedia"
+                  :media-index="media.indexOf(selectedMedia)"
                   :image-src="selectedMediaImage.src"
                   :enable-europeana-media-player="enableEuropeanaMediaPlayer"
                 />
