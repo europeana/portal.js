@@ -303,6 +303,9 @@
     },
     mounted() {
       this.showContentTierToast();
+      this.$root.$on('emitFilterReset', () => {
+        this.resetFilters();
+      });
     },
     updated() {
       this.showContentTierToast();

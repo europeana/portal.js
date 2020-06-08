@@ -184,7 +184,6 @@
       '$route'() {
         this.initQuery();
         if (this.showSearch) this.$store.commit('ui/toggleSearchBar');
-        this.inputFocussed = false;
       }
     },
 
@@ -249,8 +248,8 @@
       },
 
       suggestionLinkGen(suggestion) {
+        // const query = this.updateCurrentSearchQuery(suggestion);
         const query = {
-          ...this.queryUpdatesForFacetChanges({ collection: null }),
           view: this.view,
           query: suggestion
         };
