@@ -113,7 +113,7 @@ module.exports = {
     const selector = qaSelector(qaElementName);
     await client.clearValue(selector);
     await client.waitForElementVisible(selector);
-    client.setValue(selector, text);
+    await client.setValue(selector, text);
   },
   async observeTargetHasClass(qaElementName, klass) {
     await client.getAttribute(qaSelector(qaElementName), 'class', async(result) => {

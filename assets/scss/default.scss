@@ -177,7 +177,7 @@ a {
 }
 
 .btn:focus,
-input[type="checkbox"]:focus + label {
+input[type='checkbox']:focus + label {
   outline: auto;
 
   @media (-webkit-min-device-pixel-ratio:0) {
@@ -185,8 +185,11 @@ input[type="checkbox"]:focus + label {
   }
 }
 
+main {
+  margin-top: 68px;
+}
 @media (min-width: $bp-large) {
   main {
-    margin-top: 85px;
+    margin-top: 78px;
   }
 }

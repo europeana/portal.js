@@ -141,6 +141,7 @@ Feature: Search faceting
     Then I see an `item page`
     And I should see a meta label `Providing country` with the value "Belgium" or the value "Germany"
 
+  # TODO: Add back - And I click the `search button` instead of press ENTER
   Scenario: Preserve filtering when performing a new search
     Given I am on the `search page`
     When I click the `COUNTRY dropdown button`
@@ -148,7 +149,7 @@ Feature: Search faceting
     And I click the `COUNTRY apply button`
     And I wait for the page to load
     And I enter "paris" in the `search box`
-    And I click the `search button`
+    And I press the ENTER key
     And I wait for the page to load
     Then I should be on `/en/search?page=1&qf=COUNTRY%3A%22France%22&query=paris&view=grid`
     And I am on page number 1

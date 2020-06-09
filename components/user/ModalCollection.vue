@@ -82,14 +82,14 @@
   export default {
     name: 'ModalCollection',
 
-     data() {
+    data() {
       return {
         showForm: false
       };
     },
 
     mounted() {
-      this.$root.$on('bv::modal::hidden', (bvEvent, modalId) => {
+      this.$root.$on('bv::modal::hidden', () => {
         this.showForm = false;
       });
     },
@@ -106,7 +106,7 @@
       cancelModal() {
         this.$nextTick(() => {
           this.$bvModal.hide('modal-collection');
-        })
+        });
       },
 
       submitForm() {
@@ -129,10 +129,9 @@
   .collections {
     max-height: calc(100vh - 320px);
     overflow: auto;
-  
+
     .btn-collection:last-child {
       margin-bottom: 0;
     }
   }
 </style>
-

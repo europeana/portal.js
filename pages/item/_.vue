@@ -53,6 +53,7 @@
                 <MediaPresentation
                   :europeana-identifier="identifier"
                   :media="selectedMedia"
+                  :media-index="media.indexOf(selectedMedia)"
                   :image-src="selectedMediaImage.src"
                   :enable-europeana-media-player="enableEuropeanaMediaPlayer"
                 />
@@ -457,8 +458,8 @@
 </script>
 
 <style lang="scss" scoped>
-  @import "./assets/scss/variables.scss";
-  @import "./assets/scss/icons.scss";
+  @import './assets/scss/variables.scss';
+  @import './assets/scss/icons.scss';
 
   h2:not(.related-heading) {
     font-size: $font-size-medium;
