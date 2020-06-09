@@ -27,7 +27,6 @@
       :data-index="index"
       @mouseover="focus = index"
       @focus="index === focus"
-      @click="$root.$emit('emitFilterReset')"
     >
       <template
         v-for="(part, partIndex) in highlightResult(val)"

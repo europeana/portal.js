@@ -248,7 +248,6 @@
       },
 
       suggestionLinkGen(suggestion) {
-        // const query = this.updateCurrentSearchQuery(suggestion);
         const query = {
           view: this.view,
           query: suggestion
