@@ -34,36 +34,40 @@
         md="3"
         class="pb-3"
       >
-        <h2
-          v-if="relatedEntities.length > 0"
-          class="related-heading text-uppercase"
-        >
-          {{ $t('contentYouMightLike') }}
-        </h2>
-        <section
-          v-if="relatedCollectionCards"
-        >
-          <BrowseContentCard
-            v-for="card in relatedCollectionCards"
-            :key="card.sys.id"
-            :fields="card.fields"
-            :card-type="card.sys.contentType ? card.sys.contentType.sys.id : ''"
-            :data-qa="card.fields.name + ' entity card'"
+        <client-only>
+          <h2
+            v-if="relatedEntities.length > 0"
+            class="related-heading text-uppercase"
+          >
+            {{ $t('contentYouMightLike') }}
+          </h2>
+          <section
+            v-if="relatedCollectionCards"
+          >
+            <BrowseContentCard
+              v-for="card in relatedCollectionCards"
+              :key="card.sys.id"
+              :fields="card.fields"
+              :card-type="card.sys.contentType ? card.sys.contentType.sys.id : ''"
+              :data-qa="card.fields.name + ' entity card'"
+            />
+          </section>
+          <EntityCards
+            v-else-if="relatedEntities"
+            :entities="relatedEntities"
+            data-qa="related entities"
           />
-        </section>
-        <EntityCards
-          v-else-if="relatedEntities"
-          :entities="relatedEntities"
-          data-qa="related entities"
-        />
+        </client-only>
       </b-col>
     </b-row>
     <b-row>
       <b-col>
-        <BrowseSections
-          v-if="page"
-          :sections="page.hasPart"
-        />
+        <client-only>
+          <BrowseSections
+            v-if="page"
+            :sections="page.hasPart"
+          />
+        </client-only>
       </b-col>
     </b-row>
   </b-container>

@@ -40,18 +40,20 @@
           />
         </b-col>
       </b-row>
-      <b-row v-if="page.hasPart">
-        <b-col class="my-3">
-          <h2 class="is-size-1-5">
-            {{ $t('exhibitions.chapters') }}
-          </h2>
-          <ExhibitionChapters
-            :exhibition-identifier="page.identifier"
-            :chapters="page.hasPart"
-            :credits="page.credits"
-          />
-        </b-col>
-      </b-row>
+      <client-only>
+        <b-row v-if="page.hasPart">
+          <b-col class="my-3">
+            <h2 class="is-size-1-5">
+              {{ $t('exhibitions.chapters') }}
+            </h2>
+            <ExhibitionChapters
+              :exhibition-identifier="page.identifier"
+              :chapters="page.hasPart"
+              :credits="page.credits"
+            />
+          </b-col>
+        </b-row>
+      </client-only>
     </b-container>
   </div>
 </template>

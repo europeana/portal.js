@@ -49,21 +49,23 @@
                   </p>
                 </template>
               </header>
-              <div class="media-presentation">
-                <MediaPresentation
-                  :europeana-identifier="identifier"
-                  :media="selectedMedia"
-                  :media-index="media.indexOf(selectedMedia)"
-                  :image-src="selectedMediaImage.src"
-                  :enable-europeana-media-player="enableEuropeanaMediaPlayer"
-                />
-                <MediaThumbnailGrid
-                  v-if="displayMediaThumbnailGrid"
-                  :media="media"
-                  :selected="selectedMedia.about"
-                  @select="selectMedia"
-                />
-              </div>
+              <client-only>
+                <div class="media-presentation">
+                  <MediaPresentation
+                    :europeana-identifier="identifier"
+                    :media="selectedMedia"
+                    :media-index="media.indexOf(selectedMedia)"
+                    :image-src="selectedMediaImage.src"
+                    :enable-europeana-media-player="enableEuropeanaMediaPlayer"
+                  />
+                  <MediaThumbnailGrid
+                    v-if="displayMediaThumbnailGrid"
+                    :media="media"
+                    :selected="selectedMedia.about"
+                    @select="selectMedia"
+                  />
+                </div>
+              </client-only>
               <div
                 v-if="descriptionInCurrentLanguage"
                 class="description"
@@ -173,9 +175,7 @@
   import { mapGetters } from 'vuex';
 
   import AlertMessage from '../../components/generic/AlertMessage';
-  import EntityCards from '../../components/entity/EntityCards';
   import MediaActionBar from '../../components/item/MediaActionBar';
-  import SimilarItems from '../../components/item/SimilarItems';
   import MediaPresentation from '../../components/item/MediaPresentation';
   import MediaThumbnailGrid from '../../components/item/MediaThumbnailGrid';
   import MetadataField from '../../components/item/MetadataField';
@@ -191,9 +191,9 @@
   export default {
     components: {
       AlertMessage,
-      EntityCards,
+      EntityCards: () => import('../../components/entity/EntityCards'),
       MediaActionBar,
-      SimilarItems,
+      SimilarItems: () => import('../../components/item/SimilarItems'),
       MediaPresentation,
       MediaThumbnailGrid,
       MetadataField,
@@ -359,6 +359,17 @@
         });
       }
 
+      window.addEventListener('message', (msg) => {
+        if (msg.data.event === 'updateDownloadLink') {
+          this.useProxy = (this.media.some((item) => item.about === msg.data.id));
+          this.selectedMedia.about = msg.data.id;
+        }
+      });
+    },
+
+    fetchOnServer: false,
+
+    fetch() {
       const taggingAnnotationSearchParams = {
         query: `target_record_id:"${this.identifier}"`,
         profile: 'dereference',
@@ -377,13 +388,6 @@
           this.relatedEntities = entities;
           this.similarItems = similar.results;
         }));
-
-      window.addEventListener('message', (msg) => {
-        if (msg.data.event === 'updateDownloadLink') {
-          this.useProxy = (this.media.some((item) => item.about === msg.data.id));
-          this.selectedMedia.about = msg.data.id;
-        }
-      });
     },
 
     methods: {
