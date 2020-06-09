@@ -230,7 +230,7 @@
 
         this.gettingSuggestions = true;
 
-        const suggestions = await getEntitySuggestions(query, {
+        const suggestions = await getEntitySuggestions(encodeURIComponent(query), {
           language: this.$i18n.locale
         }, {
           recordValidation: this.enableSuggestionValidation
@@ -250,7 +250,7 @@
       suggestionLinkGen(suggestion) {
         const query = {
           view: this.view,
-          query: suggestion
+          query: '"' + suggestion + '"'
         };
         return {
           path: this.$path({
