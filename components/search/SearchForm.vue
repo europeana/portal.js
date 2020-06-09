@@ -250,7 +250,7 @@
       suggestionLinkGen(suggestion) {
         const query = {
           view: this.view,
-          query: '"' + suggestion + '"'
+          query: `"${suggestion}"`
         };
         return {
           path: this.$path({

@@ -303,7 +303,6 @@
     },
     mounted() {
       this.showContentTierToast();
-      this.resetFilters();
     },
     updated() {
       this.showContentTierToast();
