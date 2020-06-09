@@ -12,32 +12,23 @@
         <b-col>
           <h1>{{ $t('search') }}</h1>
         </b-col>
-        <b-container>
+        <b-container v-if="relatedCollections">
           <h2 class="related-heading text-uppercase mt-4 mb-2">
             {{ $t('relatedCollections') }}
           </h2>
           <RelatedChip
-            link-to="/"
-            title="Ship"
-            img="https://api.europeana.eu/api/v2/thumbnail-by-url.json?size=w400&type=IMAGE&uri=http%3A%2F%2Fcollections.rmg.co.uk%2FmediaLib%2F342%2Fmedia-342570%2Flarge.jpg"
-          />
-          <RelatedChip
-            link-to="/"
-            title="Container Ship"
-            img="https://api.europeana.eu/api/v2/thumbnail-by-url.json?size=w400&type=IMAGE&uri=http%3A%2F%2Fcollections.rmg.co.uk%2FmediaLib%2F342%2Fmedia-342570%2Flarge.jpg"
-          />
-          <!-- <RelatedChip
-            v-for="relatedEntity in relatedEntities"
-            :key="relatedEntity.path"
+            v-for="relatedCollection in relatedCollections"
+            :key="relatedCollection.id"
             :link-to="localePath({
               name: 'entity-type-all',
               params: {
-                type: relatedEntity.type,
-                pathMatch: relatedEntity.path
+                type: relatedCollection.type,
+                pathMatch: relatedCollection.id
               }
             })"
-            :title="relatedEntity.title"
-          /> -->
+            :title="relatedCollection.prefLabel.en"
+            img="https://api.europeana.eu/api/v2/thumbnail-by-url.json?size=w400&type=IMAGE&uri=http%3A%2F%2Fcollections.rmg.co.uk%2FmediaLib%2F342%2Fmedia-342570%2Flarge.jpg"
+          />
         </b-container>
         <SearchInterface
           :per-row="4"
@@ -53,7 +44,7 @@
   import legacyUrl from '../../plugins/europeana/legacy-search';
   import NotificationBanner from '../../components/generic/NotificationBanner';
   import RelatedChip from '../../components/search/RelatedChip';
-  import { getEntitySuggestions } from '../../plugins/europeana/entity';
+  import { mapState } from 'vuex';
 
   export default {
     components: {
@@ -70,12 +61,10 @@
         return redirect(app.$path({ name: 'search', query: { ...query, ...{ page: '1' } } }));
       }
     },
-    data() {
-      return {
-        relatedEntities: null
-      };
-    },
     computed: {
+      ...mapState({
+        relatedCollections: state => state.search.relatedCollections
+      }),
       notificationUrl() {
         return legacyUrl(this.$route.query, this.$store.state.i18n.locale) +
           '&utm_source=new-website&utm_medium=button';
@@ -97,42 +86,6 @@
 
     mounted() {
       this.$store.commit('search/enableCollectionFacet');
-      this.getSearchSuggestions();
-    },
-
-    methods: {
-      async getSearchSuggestions(query) {
-        if (!this.enableAutoSuggest) return;
-
-        // Don't go getting more suggestions if we are already waiting for some
-        if (this.gettingSuggestions) return;
-
-        if (query === '') {
-          this.suggestions = {};
-          return;
-        }
-
-        this.gettingSuggestions = true;
-
-        // Query in the user's language, and English, removing duplicates
-        const languageParam = Array.from(new Set([this.$i18n.locale, 'en'])).join(',');
-
-        const suggestions = await getEntitySuggestions(query, {
-          language: languageParam
-        }, {
-          recordValidation: this.enableSuggestionValidation
-        });
-
-        this.suggestions = suggestions.reduce((memo, suggestion) => {
-          memo[suggestion.id] = suggestion.prefLabel;
-          return memo;
-        }, {});
-
-        this.gettingSuggestions = false;
-
-        // If the query has changed in the meantime, go get new suggestions now
-        if (query !== this.query) this.getSearchSuggestions(this.query);
-      }
     },
 
     head() {
