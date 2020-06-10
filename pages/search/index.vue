@@ -118,7 +118,6 @@
         return this.$path({
           name: 'collections-type-all', params: {
             type: getEntityTypeHumanReadable(uriMatch[1]),
-            // TODO: use stored entity/curatedEntities for prefLabel, if set
             pathMatch: getEntitySlug(entity.id, entity.prefLabel)
           }
         });

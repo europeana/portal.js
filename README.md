@@ -6,8 +6,11 @@
 1. Node.js version 12, and npm
 2. [Contentful](https://www.contentful.com/) CMS account
 
+##Configuration
+Configuration options can be set in a .env file(see [.env.example](/.env.example)) or vie ENV variables on your machine.
+For Europeana API connections you may additionally use a .apisrc.js file in the root of your project, see the [relevant
+README](modules/apis/README.md) for more explanation.
 ## Build Setup
-
 ```bash
 # install package dependencies
 $ npm install
@@ -34,7 +37,7 @@ For detailed explanation on how things work, refer to [Nuxt.js docs](https://nux
 
 ## Testing
 
-To run end-to-end tests, you will need Docker Engine and Compose installed and
+To run end-to-end tests, you will need Docker Engine and [Compose](https://docs.docker.com/compose/) installed and
 the docker service running.
 
 Run tests with:
