@@ -174,10 +174,8 @@
   import axios from 'axios';
   import { mapGetters } from 'vuex';
 
-  import AlertMessage from '../../components/generic/AlertMessage';
   import MediaActionBar from '../../components/item/MediaActionBar';
   import MediaPresentation from '../../components/item/MediaPresentation';
-  import MediaThumbnailGrid from '../../components/item/MediaThumbnailGrid';
   import MetadataField from '../../components/item/MetadataField';
 
   import { getRecord, similarItemsQuery } from '../../plugins/europeana/record';
@@ -186,18 +184,17 @@
   import { langMapValueForLocale } from  '../../plugins/europeana/utils';
   import { searchEntities } from '../../plugins/europeana/entity';
   import { search as searchAnnotations } from '../../plugins/europeana/annotation';
-  import NotificationBanner from '../../components/generic/NotificationBanner';
 
   export default {
     components: {
-      AlertMessage,
+      AlertMessage: () => import('../../components/generic/AlertMessage'),
       EntityCards: () => import('../../components/entity/EntityCards'),
       MediaActionBar,
       SimilarItems: () => import('../../components/item/SimilarItems'),
       MediaPresentation,
-      MediaThumbnailGrid,
+      MediaThumbnailGrid: () => import('../../components/item/MediaThumbnailGrid'),
       MetadataField,
-      NotificationBanner
+      NotificationBanner: () => import('../../components/generic/NotificationBanner')
     },
 
     data() {

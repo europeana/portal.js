@@ -94,7 +94,6 @@
         meta: [
           { hid: 'description', property: 'description', content: 'Europeana' },
           { hid: 'og:url', property: 'og:url', content: this.canonicalUrl },
-          { hid: 'og:locale', property: 'og:locale', content: this.$i18n.isoLocale() },
           ...i18nSeo.meta
         ]
       };
