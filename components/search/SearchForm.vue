@@ -85,7 +85,6 @@
         query: null,
         gettingSuggestions: false,
         suggestions: {},
-        orderedSuggestions: {},
         selectedSuggestion: null
       };
     },
@@ -164,10 +163,7 @@
           newRoute = { path: this.routePath, query: newRouteQuery };
         }
 
-        this.$store.commit('search/setRelatedCollections', this.orderedSuggestions);
-
         this.suggestions = {};
-        this.orderedSuggestions = {};
 
         await this.$goto(newRoute);
       },
@@ -198,8 +194,6 @@
           memo[suggestion.id] = suggestion.prefLabel;
           return memo;
         }, {});
-
-        this.orderedSuggestions = suggestions;
 
         this.gettingSuggestions = false;
 

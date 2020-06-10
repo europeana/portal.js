@@ -81,8 +81,7 @@ export const state = () => ({
   collectionFacetEnabled: true,
   totalResults: null,
   userParams: {},
-  view: null,
-  relatedCollections: []
+  view: null
 });
 
 export const mutations = {
@@ -146,14 +145,6 @@ export const mutations = {
   },
   set(state, payload) {
     state[payload[0]] = payload[1];
-  },
-  setRelatedCollections(state, value) {
-    state.relatedCollections = [];
-    let i = 0;
-    while (i < 4) {
-      state.relatedCollections.push(value[i]);
-      i++;
-    }
   }
 };
 

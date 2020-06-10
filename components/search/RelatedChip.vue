@@ -1,13 +1,14 @@
 <template>
   <b-badge
     v-if="title"
-    :to="linkTo"
+    :to="linkGen(id)"
     pill
     variant="light"
-    class="mt-1 mr-2 font-weight-normal bg-white"
+    :class="img ? 'img-chip mt-1 mr-2 font-weight-normal bg-white' : 'mt-1 mr-2 font-weight-normal bg-white'"
     data-qa="browse chip"
   >
     <b-img
+      v-if="img"
       :src="img"
       alt=""
       rounded="circle"
@@ -22,11 +23,15 @@
     name: 'RelatedChip',
 
     props: {
-      linkTo: {
-        type: [String, Object],
-        required: true
+      linkGen: {
+        type: Function,
+        default: (val) => val
       },
       title: {
+        type: String,
+        default: () => {}
+      },
+      id: {
         type: String,
         default: () => {}
       },
@@ -45,8 +50,16 @@
     font-size: $font-size-small;
     border-radius: 1.125rem;
     box-shadow: $boxshadow-light;
-    padding: 0.25rem 0.75rem 0.25rem 0.25rem;
-    margin-bottom: 2.5rem;
+    padding: 0.25rem 0.75rem;
+    margin-bottom: 2rem;
+    height: 2.25rem;
+    min-width: 4rem;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    &.img-chip {
+      padding: 0.25rem 0.75rem 0.25rem 0.25rem;
+    }
 
     img {
       width: 28px;
