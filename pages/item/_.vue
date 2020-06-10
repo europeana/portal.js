@@ -339,6 +339,29 @@
         });
     },
 
+    fetchOnServer: false,
+
+    fetch() {
+      const taggingAnnotationSearchParams = {
+        query: `target_record_id:"${this.identifier}"`,
+        profile: 'dereference',
+        qf:[
+          'motivation:tagging'
+        ]
+      };
+
+      axios.all([
+        Number(process.env['ENABLE_ITEM_TAGGING_ANNOTATIONS']) ? searchAnnotations(taggingAnnotationSearchParams) : [],
+        searchEntities(this.europeanaEntityUris),
+        this.getSimilarItems()
+      ])
+        .then(axios.spread((taggingAnnotations, entities, similar) => {
+          this.taggingAnnotations = taggingAnnotations;
+          this.relatedEntities = entities;
+          this.similarItems = similar.results;
+        }));
+    },
+
     created() {
       this.cardGridClass = this.isRichMedia && 'card-grid-richmedia';
     },
@@ -362,29 +385,6 @@
           this.selectedMedia.about = msg.data.id;
         }
       });
-    },
-
-    fetchOnServer: false,
-
-    fetch() {
-      const taggingAnnotationSearchParams = {
-        query: `target_record_id:"${this.identifier}"`,
-        profile: 'dereference',
-        qf:[
-          'motivation:tagging'
-        ]
-      };
-
-      axios.all([
-        Number(process.env['ENABLE_ITEM_TAGGING_ANNOTATIONS']) ? searchAnnotations(taggingAnnotationSearchParams) : [],
-        searchEntities(this.europeanaEntityUris),
-        this.getSimilarItems()
-      ])
-        .then(axios.spread((taggingAnnotations, entities, similar) => {
-          this.taggingAnnotations = taggingAnnotations;
-          this.relatedEntities = entities;
-          this.similarItems = similar.results;
-        }));
     },
 
     methods: {

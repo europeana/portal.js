@@ -38,40 +38,28 @@
         :right-image-width="section.fields.hasPart[1].fields.image.fields.file.details.image.width"
         :right-image-height="section.fields.hasPart[1].fields.image.fields.file.details.image.height"
       />
-      <template
+      <ImageWithAttribution
         v-else-if="contentType(section, 'imageWithAttribution')"
-      >
-        <client-only>
-          <ImageWithAttribution
-            :key="section.sys.id"
-            :src="section.fields.image.fields.file.url"
-            :content-type="section.fields.image.fields.file.contentType"
-            :width="section.fields.image.fields.file.details.image.width"
-            :height="section.fields.image.fields.file.details.image.height"
-            :attribution="attributionFields(section.fields)"
-          />
-        </client-only>
-      </template>
+        :key="section.sys.id"
+        :src="section.fields.image.fields.file.url"
+        :content-type="section.fields.image.fields.file.contentType"
+        :width="section.fields.image.fields.file.details.image.width"
+        :height="section.fields.image.fields.file.details.image.height"
+        :attribution="attributionFields(section.fields)"
+      />
     </template>
   </div>
 </template>
 
 <script>
-  import CompareImageSlider from '../generic/CompareImageSlider';
-  import ContentCardSection from './ContentCardSection';
-  import LatestSection from './LatestSection';
-  import HTMLEmbed from '../generic/HTMLEmbed';
-  import ImageWithAttribution from '../generic/ImageWithAttribution';
-  import RichText from './RichText';
-
   export default {
     components: {
-      CompareImageSlider,
-      ContentCardSection,
-      LatestSection,
-      HTMLEmbed,
-      ImageWithAttribution,
-      RichText
+      CompareImageSlider: () => import('../generic/CompareImageSlider'),
+      ContentCardSection: () => import('./ContentCardSection'),
+      LatestSection: () => import('./LatestSection'),
+      HTMLEmbed: () => import('../generic/HTMLEmbed'),
+      ImageWithAttribution: () => import('../generic/ImageWithAttribution'),
+      RichText: () => import('./RichText')
     },
 
     props: {
