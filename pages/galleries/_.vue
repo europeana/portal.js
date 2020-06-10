@@ -12,14 +12,16 @@
           deck
           data-qa="gallery images"
         >
-          <ContentCard
-            v-for="image in images"
-            :key="image.fields.identifier"
-            :title="imageTitle(image)"
-            :image-url="imageUrl(image)"
-            :lazy="false"
-            :url="{ name: 'item-all', params: { pathMatch: image.fields.identifier.slice(1) } }"
-          />
+          <client-only>
+            <ContentCard
+              v-for="image in images"
+              :key="image.fields.identifier"
+              :title="imageTitle(image)"
+              :image-url="imageUrl(image)"
+              :lazy="false"
+              :url="{ name: 'item-all', params: { pathMatch: image.fields.identifier.slice(1) } }"
+            />
+          </client-only>
         </b-card-group>
       </b-col>
     </b-row>
@@ -29,7 +31,6 @@
 <script>
   import createClient from '../../plugins/contentful';
   import ContentHeader from '../../components/generic/ContentHeader';
-  import ContentCard from '../../components/generic/ContentCard';
 
   import marked from 'marked';
 
@@ -37,7 +38,7 @@
     name: 'ImageGallery',
     components: {
       ContentHeader,
-      ContentCard
+      ContentCard: () => import('../../components/generic/ContentCard')
     },
     computed: {
       shareMediaUrl() {

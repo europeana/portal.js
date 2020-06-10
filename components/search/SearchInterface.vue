@@ -106,13 +106,15 @@
           </b-row>
           <b-row>
             <b-col>
-              <PaginationNav
-                v-if="showPagination"
-                v-model="page"
-                :total-results="totalResults"
-                :per-page="perPage"
-                :link-gen="paginationLink"
-              />
+              <client-only>
+                <PaginationNav
+                  v-if="showPagination"
+                  v-model="page"
+                  :total-results="totalResults"
+                  :per-page="perPage"
+                  :link-gen="paginationLink"
+                />
+              </client-only>
             </b-col>
           </b-row>
         </b-col>
@@ -134,32 +136,27 @@
 </template>
 
 <script>
-  import AlertMessage from '../../components/generic/AlertMessage';
   import SearchResults from '../../components/search/SearchResults'; // Sorted before InfoMessage to prevent Conflicting CSS sorting warning
   import InfoMessage from '../../components/generic/InfoMessage';
-  import FacetDropdown from '../../components/search/FacetDropdown';
-  import MoreFiltersDropdown from '../../components/search/MoreFiltersDropdown';
-  import SearchFilters from '../../components/search/SearchFilters';
-  import PaginationNav from '../../components/generic/PaginationNav';
   import ViewToggles from '../../components/search/ViewToggles';
-  import { thematicCollections } from '../../plugins/europeana/search';
 
   import isEqual from 'lodash/isEqual';
   import pickBy from 'lodash/pickBy';
   import { mapState, mapGetters } from 'vuex';
+  import { thematicCollections } from '../../plugins/europeana/search';
   import { queryUpdatesForFilters } from '../../store/search';
 
   export default {
     name: 'SearchInterface',
 
     components: {
-      AlertMessage,
+      AlertMessage: () => import('../../components/generic/AlertMessage'),
       InfoMessage,
-      FacetDropdown,
-      MoreFiltersDropdown,
+      FacetDropdown: () => import('../../components/search/FacetDropdown'),
+      MoreFiltersDropdown: () => import('../../components/search/MoreFiltersDropdown'),
       SearchResults,
-      SearchFilters,
-      PaginationNav,
+      SearchFilters: () => import('../../components/search/SearchFilters'),
+      PaginationNav: () => import('../../components/generic/PaginationNav'),
       ViewToggles
     },
     props: {

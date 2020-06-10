@@ -39,9 +39,7 @@
 <script>
   import { mapGetters, mapState } from 'vuex';
 
-  import PageFooter from '../components/PageFooter';
   import PageHeader from '../components/PageHeader';
-  import CookieDisclaimer from '../components/generic/CookieDisclaimer';
 
   const config = {
     enableLanguageSelector: Boolean(Number(process.env['ENABLE_LANGUAGE_SELECTOR'])),
@@ -52,9 +50,9 @@
 
   export default {
     components: {
-      CookieDisclaimer,
+      CookieDisclaimer: () => import('../components/generic/CookieDisclaimer'),
       PageHeader,
-      PageFooter
+      PageFooter: () => import('../components/PageFooter')
     },
 
     data() {

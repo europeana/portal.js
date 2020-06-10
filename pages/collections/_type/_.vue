@@ -76,10 +76,6 @@
 <script>
   import axios from 'axios';
 
-  import AlertMessage from '../../../components/generic/AlertMessage';
-  import EntityCards from '../../../components/entity/EntityCards';
-  import BrowseContentCard from '../../../components/browse/BrowseContentCard';
-  import BrowseSections from '../../../components/browse/BrowseSections';
   import EntityDetails from '../../../components/entity/EntityDetails';
   import SearchInterface from '../../../components/search/SearchInterface';
 
@@ -92,10 +88,10 @@
 
   export default {
     components: {
-      AlertMessage,
-      BrowseContentCard,
-      BrowseSections,
-      EntityCards,
+      AlertMessage: () => import('../../../components/generic/AlertMessage'),
+      BrowseContentCard: () => import('../../../components/browse/BrowseContentCard'),
+      BrowseSections: () => import('../../../components/browse/BrowseSections'),
+      EntityCards: () => import('../../../components/entity/EntityCards'),
       EntityDetails,
       SearchInterface
     },
