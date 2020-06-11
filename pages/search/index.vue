@@ -75,6 +75,14 @@
       }
     },
 
+    watch: {
+      '$route'() {
+        if (this.$route.query.query.length > 0) {
+          this.getSearchSuggestions(this.$route.query.query);
+        }
+      }
+    },
+
     async fetch({ store, query, res }) {
       await store.dispatch('search/activate');
       store.commit('search/set', ['userParams', query]);
@@ -87,7 +95,9 @@
 
     mounted() {
       this.$store.commit('search/enableCollectionFacet');
-      this.getSearchSuggestions(this.$route.query.query);
+      if (this.$route.query.query.length > 0) {
+        this.getSearchSuggestions(this.$route.query.query);
+      }
     },
 
     methods: {
