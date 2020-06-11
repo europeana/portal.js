@@ -230,18 +230,23 @@
 
         this.gettingSuggestions = true;
 
-        const suggestions = await getEntitySuggestions(query, {
+        let suggestions = await getEntitySuggestions(query, {
           language: this.$i18n.locale
         }, {
           recordValidation: this.enableSuggestionValidation
-        });
+        })
+          .catch(() => {
+            suggestions = [];
+          });
+
+        if (typeof suggestions !== 'undefined') {
+          this.suggestions = suggestions.reduce((memo, suggestion) => {
+            memo[suggestion.id] = suggestion.prefLabel;
+            return memo;
+          }, {});
+        }
 
         this.isAutoSuggestActive;
-
-        this.suggestions = suggestions.reduce((memo, suggestion) => {
-          memo[suggestion.id] = suggestion.prefLabel;
-          return memo;
-        }, {});
 
         this.gettingSuggestions = false;
 
