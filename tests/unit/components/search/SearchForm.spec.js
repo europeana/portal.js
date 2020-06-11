@@ -251,4 +251,30 @@ describe('components/search/SearchForm', () => {
       // });
     });
   });
+
+  describe('On mobile search in collections or entire collection ', () => {
+    context('when on a collection page', () => {
+      // const wrapper = factory({
+      //   mocks: {
+      //     $route: {
+      //       path: '/somewhere',
+      //       query: {}
+      //     }
+      //   },
+      //   store: store({
+      //     active: true
+      //   })
+      // });
+
+      it('app width should be 480px', () => {
+        // wrapper.vm.$refs.ref.clientWidth.should.eq('480px');
+        document.body.clientWidth = '480px';
+        document.body.clientWidth.should.eq('480px');
+      });
+
+      // it('uses current route path', () => {
+      //   wrapper.vm.routePath.should.eq('/somewhere');
+      // });
+    });
+  });
 });
