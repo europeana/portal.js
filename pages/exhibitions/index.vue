@@ -1,7 +1,6 @@
 <template>
   <b-container
     data-qa="exhibitions"
-    class="exhibition-page"
   >
     <ContentHeader
       :title="$tc('exhibitions.exhibitions', 2)"
