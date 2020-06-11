@@ -4,7 +4,8 @@
     :to="linkGen(id)"
     pill
     variant="light"
-    :class="img ? 'img-chip mt-1 mr-2 font-weight-normal bg-white' : 'mt-1 mr-2 font-weight-normal bg-white'"
+    class="mt-1 mr-2 font-weight-normal bg-white"
+    :class="{ 'img-chip': img }"
     data-qa="browse chip"
   >
     <b-img
@@ -57,6 +58,10 @@
     display: inline-flex;
     justify-content: center;
     align-items: center;
+    transition: $standard-transition;
+    &:hover {
+      background: $smoke !important;
+    }
     &.img-chip {
       padding: 0.25rem 0.75rem 0.25rem 0.25rem;
     }
@@ -64,6 +69,9 @@
     img {
       width: 28px;
       height: 28px;
+    }
+    @media (max-width: $bp-large) {
+      margin-bottom: 0.25rem;
     }
   }
 </style>

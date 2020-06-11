@@ -37,7 +37,7 @@
   import { pageFromQuery } from '../../plugins/utils';
   import legacyUrl from '../../plugins/europeana/legacy-search';
   import NotificationBanner from '../../components/generic/NotificationBanner';
-  import RelatedChip from '../../components/search/RelatedChip';
+  import RelatedChip from '../../components/generic/RelatedChip';
   import { getEntitySuggestions, getEntityTypeHumanReadable, getEntitySlug } from '../../plugins/europeana/entity';
   import { mapGetters } from 'vuex';
 
@@ -102,11 +102,7 @@
           recordValidation: this.enableSuggestionValidation
         });
 
-        let i = 0;
-        while (i < 4) {
-          this.relatedCollections.push(suggestions[i]);
-          i++;
-        }
+        this.relatedCollections = suggestions.slice(0, 4);
       },
 
       suggestionLinkGen(entityUri) {
