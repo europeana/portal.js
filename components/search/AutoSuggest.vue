@@ -22,7 +22,7 @@
       role="option"
       data-qa="search suggestion"
       :aria-selected="index === focus"
-      :to="linkGen(name)"
+      :to="linkGen(val[locale])"
       :class="{ 'hover': index === focus }"
       :data-index="index"
       @mouseover="focus = index"
@@ -115,6 +115,10 @@
         return Object.keys(this.value);
       },
 
+      suggestionLabels() {
+        return Object.values(this.value);
+      },
+
       numberOfSuggestions() {
         return this.suggestionValues.length;
       },
@@ -140,14 +144,15 @@
         return this.focus === (this.numberOfSuggestions - 1);
       },
 
-      selectedSuggestionValue() {
-        return this.suggestionValues[this.focus] || null;
+      selectedSuggestionLabel() {
+        return this.suggestionLabels[this.focus] || null;
       }
     },
 
     watch: {
       '$route.query'() {
         this.closeDropdown();
+        this.isActive = false;
       },
 
       value() {
@@ -265,7 +270,9 @@
       },
 
       selectSuggestion() {
-        this.$emit('select', this.selectedSuggestionValue);
+        if (this.selectedSuggestionLabel) {
+          this.$emit('select', this.selectedSuggestionLabel[this.locale]);
+        }
       }
     }
   };
@@ -276,30 +283,38 @@
 
   .auto-suggest {
     &-dropdown {
+      display: none;
       position: absolute;
       top: 50px;
       width: 100%;
       z-index: 20;
-      border-radius: 10px;
+      border-radius: 4px;
+      box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.25);
       background-color: $white;
+      overflow: hidden;
+      transition: $standard-transition;
 
       a.list-group-item {
         border: 0;
         border-radius: 0;
         box-shadow: none;
-        padding: 0.75rem 1.25rem;
+        padding: 0.5rem 1.25rem;
         color: $black;
+        font-size: 1rem;
+        text-decoration: none;
 
-        &.hover {
-          background-color: $offwhite;
+        &:first-child {
+          padding-top: 1rem;
+          border-radius: 6px 6px 0 0;
         }
 
         &:last-child {
+          padding-bottom: 1rem;
           border-radius: 0 0 6px 6px;
         }
 
-        /deep/.highlight {
-          color: $darkblue;
+        &.hover {
+          background-color: $bodygrey;
         }
       }
 
@@ -307,6 +322,10 @@
         font-size: 0.75rem;
       }
     }
+  }
+
+  .show form:focus-within .auto-suggest-dropdown {
+    display: block;
   }
 
   .input-group {
@@ -326,6 +345,29 @@
 
     img {
       display: flex;
+    }
+  }
+
+  @media (max-width: $bp-large) {
+    .auto-suggest {
+      &-dropdown {
+        top: 112px;
+        border-radius: 0;
+        box-shadow: 0 3px 3px 2px rgba(0, 0, 0, 0.05);
+        a.list-group-item {
+          text-align: left;
+          padding-left: 3.4rem;
+          padding-top: 0.75rem;
+          padding-bottom: 0.75rem;
+          &:first-child, &:last-child {
+            border-radius: 0;
+            padding-top: 0.75rem;
+          }
+          &:last-child {
+            padding-bottom: 0.75rem;
+          }
+        }
+      }
     }
   }
 </style>
