@@ -99,7 +99,6 @@
   import SearchBarPill from './SearchBarPill';
   import { getEntitySuggestions } from '../../plugins/europeana/entity';
   import { mapGetters } from 'vuex';
-  import { apiError } from '../../plugins/europeana/utils';
 
   export default {
     name: 'SearchForm',
@@ -235,10 +234,9 @@
           language: this.$i18n.locale
         }, {
           recordValidation: this.enableSuggestionValidation
-        })
-          .catch((error) => {
-            throw apiError(error);
-          });
+        });
+
+        this.isAutoSuggestActive;
 
         this.suggestions = suggestions.reduce((memo, suggestion) => {
           memo[suggestion.id] = suggestion.prefLabel;
