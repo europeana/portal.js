@@ -215,7 +215,7 @@
         await this.$goto(newRoute);
       },
 
-      async getSearchSuggestions(query) {
+      getSearchSuggestions(query) {
         if (query === '') {
           this.suggestions = {};
           this.showSearchQuery = false;
@@ -230,28 +230,26 @@
 
         this.gettingSuggestions = true;
 
-        let suggestions = await getEntitySuggestions(query, {
+        getEntitySuggestions(query, {
           language: this.$i18n.locale
         }, {
           recordValidation: this.enableSuggestionValidation
         })
+          .then(suggestions => {
+            this.suggestions = suggestions.reduce((memo, suggestion) => {
+              memo[suggestion.id] = suggestion.prefLabel;
+              return memo;
+            }, {});
+          })
           .catch(() => {
-            suggestions = [];
+            this.suggestions = [];
+          })
+          .then(() => {
+            this.gettingSuggestions = false;
+
+            // If the query has changed in the meantime, go get new suggestions now
+            if (query !== this.query) this.getSearchSuggestions(this.query);
           });
-
-        if (typeof suggestions !== 'undefined') {
-          this.suggestions = suggestions.reduce((memo, suggestion) => {
-            memo[suggestion.id] = suggestion.prefLabel;
-            return memo;
-          }, {});
-        }
-
-        this.isAutoSuggestActive;
-
-        this.gettingSuggestions = false;
-
-        // If the query has changed in the meantime, go get new suggestions now
-        if (query !== this.query) this.getSearchSuggestions(this.query);
       },
 
       suggestionLinkGen(suggestion) {
