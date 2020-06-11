@@ -12,7 +12,7 @@
 
     data() {
       return {
-        MEDIA_PLAYER_VERSION: '0.7.1',
+        MEDIA_PLAYER_VERSION: '0.7.4',
         JQUERY_VERSION: '3.4.1',
         JQUERY_UI_VERSION: '1.12.1'
       };
@@ -21,16 +21,13 @@
     computed: {
       manifest() {
         return `https://iiif.europeana.eu/presentation${this.id}/manifest?format=3`;
-      },
-      canvas() {
-        return `https://iiif.europeana.eu/presentation${this.id}/canvas/p${this.canvasPage}`;
       }
     },
 
     asyncData({ query }) {
       return {
         id: query.id,
-        canvasPage: query.canvasPage || 1
+        mediaUrl: query.mediaUrl
       };
     },
 
@@ -38,7 +35,7 @@
       this.$nextTick(() => {
         new EuropeanaMediaPlayer(this.$refs.player, { // eslint-disable-line no-undef
           manifest: this.manifest,
-          canvasId: this.canvas
+          mediaItem: this.mediaUrl
         });
       });
     },
