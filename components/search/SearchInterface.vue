@@ -136,9 +136,10 @@
 </template>
 
 <script>
-  import SearchResults from '../../components/search/SearchResults'; // Sorted before InfoMessage to prevent Conflicting CSS sorting warning
-  import InfoMessage from '../../components/generic/InfoMessage';
-  import ViewToggles from '../../components/search/ViewToggles';
+  import ClientOnly from 'vue-client-only';
+  import SearchResults from './SearchResults'; // Sorted before InfoMessage to prevent Conflicting CSS sorting warning
+  import InfoMessage from '../generic/InfoMessage';
+  import ViewToggles from './ViewToggles';
 
   import isEqual from 'lodash/isEqual';
   import pickBy from 'lodash/pickBy';
@@ -151,6 +152,7 @@
 
     components: {
       AlertMessage: () => import('../../components/generic/AlertMessage'),
+      ClientOnly,
       InfoMessage,
       FacetDropdown: () => import('../../components/search/FacetDropdown'),
       MoreFiltersDropdown: () => import('../../components/search/MoreFiltersDropdown'),

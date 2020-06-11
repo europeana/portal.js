@@ -73,6 +73,7 @@
 
 <script>
   import createClient from '../../../plugins/contentful';
+  import ClientOnly from 'vue-client-only';
   import BrowseSections from '../../../components/browse/BrowseSections';
   import ExhibitionChapters from '../../../components/exhibition/ExhibitionChapters';
   import ExhibitionChaptersNavigation from '../../../components/exhibition/ExhibitionChaptersNavigation';
@@ -82,6 +83,7 @@
   export default {
     components: {
       BrowseSections,
+      ClientOnly,
       ExhibitionChapters,
       ExhibitionChaptersNavigation,
       HeroImage,

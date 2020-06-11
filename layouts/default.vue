@@ -39,6 +39,7 @@
 <script>
   import { mapGetters, mapState } from 'vuex';
 
+  import ClientOnly from 'vue-client-only';
   import PageHeader from '../components/PageHeader';
 
   const config = {
@@ -50,6 +51,7 @@
 
   export default {
     components: {
+      ClientOnly,
       CookieDisclaimer: () => import('../components/generic/CookieDisclaimer'),
       PageHeader,
       PageFooter: () => import('../components/PageFooter')

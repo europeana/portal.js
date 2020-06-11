@@ -173,6 +173,7 @@
   import axios from 'axios';
   import { mapGetters } from 'vuex';
 
+  import ClientOnly from 'vue-client-only';
   import MediaActionBar from '../../components/item/MediaActionBar';
   import MediaPresentation from '../../components/item/MediaPresentation';
   import MetadataField from '../../components/item/MetadataField';
@@ -187,6 +188,7 @@
   export default {
     components: {
       AlertMessage: () => import('../../components/generic/AlertMessage'),
+      ClientOnly,
       EntityCards: () => import('../../components/entity/EntityCards'),
       MediaActionBar,
       SimilarItems: () => import('../../components/item/SimilarItems'),

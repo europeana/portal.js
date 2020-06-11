@@ -76,6 +76,7 @@
 <script>
   import axios from 'axios';
 
+  import ClientOnly from 'vue-client-only';
   import EntityDetails from '../../../components/entity/EntityDetails';
   import SearchInterface from '../../../components/search/SearchInterface';
 
@@ -91,6 +92,7 @@
       AlertMessage: () => import('../../../components/generic/AlertMessage'),
       BrowseContentCard: () => import('../../../components/browse/BrowseContentCard'),
       BrowseSections: () => import('../../../components/browse/BrowseSections'),
+      ClientOnly,
       EntityCards: () => import('../../../components/entity/EntityCards'),
       EntityDetails,
       SearchInterface

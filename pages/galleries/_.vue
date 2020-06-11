@@ -29,6 +29,7 @@
 </template>
 
 <script>
+  import ClientOnly from 'vue-client-only';
   import createClient from '../../plugins/contentful';
   import ContentHeader from '../../components/generic/ContentHeader';
 
@@ -37,6 +38,7 @@
   export default {
     name: 'ImageGallery',
     components: {
+      ClientOnly,
       ContentHeader,
       ContentCard: () => import('../../components/generic/ContentCard')
     },
