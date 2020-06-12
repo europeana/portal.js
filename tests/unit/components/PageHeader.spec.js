@@ -12,8 +12,7 @@ const factory = (options = {}) => shallowMount(PageHeader, {
   localVue,
   mocks: {
     $t: () => {},
-    $path: (code) => window.location.href + code,
-    showSidebar: options.showAddonPanel
+    $path: (code) => window.location.href + code
   },
   stubs: {
     transition: true
@@ -81,11 +80,12 @@ describe('components/PageHeader', () => {
     const wrapper = factory({
       store: store({
         showSearch: false
-      }),
+      })
+    });
+    wrapper.setData({
       showSidebar: true
     });
     const nav = wrapper.find('[data-qa="mobile navigation"]');
-    console.log(wrapper.html());
     nav.attributes().class.should.contain('d-lg-none');
     nav.isVisible().should.equal(true);
   });

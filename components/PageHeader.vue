@@ -106,7 +106,7 @@
 
     data() {
       return {
-        showSidebar: true
+        showSidebar: null
       };
     },
 
