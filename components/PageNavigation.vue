@@ -12,6 +12,7 @@
         v-b-toggle.menu
         :destination="nav.url"
         link-class="nav-link"
+        exact
       >
         <span>
           <i :class="renderIcon(nav.url)" />
@@ -69,6 +70,9 @@
         case ('/help'):
           className = 'icon-help';
           break;
+        default:
+          className = 'icon-info blank';
+          break;
         }
         return className;
       }
@@ -100,7 +104,7 @@
           z-index: 1;
           left: 0;
           right: 0;
-          bottom: -0.8rem;
+          bottom: -0.6rem;
         }
       }
 
@@ -138,6 +142,9 @@
           }
           &.icon-help:before {
             content: '\e921';
+          }
+          &.blank:before {
+            color: transparent;
           }
         }
       }

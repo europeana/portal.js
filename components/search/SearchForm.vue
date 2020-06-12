@@ -381,6 +381,14 @@
             top: 0;
             z-index: 99;
             height: 3.5rem;
+            &:focus {
+              background: $white;
+              outline: none;
+              color: $black;
+              ~ span {
+                z-index: 99;
+              }
+            }
             &:before {
               left: 1rem;
               top: 1rem;
@@ -412,6 +420,7 @@
       padding: 0.375rem 0.75rem;
       height: auto;
       width: auto;
+      outline: none;
 
       &:before {
         transform: translateY(-0.1rem);
