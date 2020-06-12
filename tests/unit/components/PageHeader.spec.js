@@ -1,15 +1,22 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import PageHeader from '../../../components/PageHeader.vue';
+
+import BootstrapVue from 'bootstrap-vue';
 import Vuex from 'vuex';
 
 const localVue = createLocalVue();
 localVue.use(Vuex);
+localVue.use(BootstrapVue);
 
 const factory = (options = {}) => shallowMount(PageHeader, {
   localVue,
   mocks: {
     $t: () => {},
-    $path: (code) => window.location.href + code
+    $path: (code) => window.location.href + code,
+    showSidebar: options.showAddonPanel
+  },
+  stubs: {
+    transition: true
   },
   store: options.store || store({ ui: {} })
 });
@@ -46,5 +53,40 @@ describe('components/PageHeader', () => {
 
     const logo = wrapper.find('[data-qa="logo"]');
     logo.attributes().src.should.match(/\/logo\..+\.svg$/);
+  });
+
+  it('contains the desktop nav', () => {
+    const wrapper = factory({
+      store: store({
+        showSearch: false
+      })
+    });
+
+    const nav = wrapper.find('b-navbar-stub[data-qa="desktop navigation"]');
+    nav.isVisible().should.equal(true);
+    nav.attributes().class.should.contain('d-lg-block');
+  });
+
+  it('contains the mobile navigation toggle button', () => {
+    const wrapper = factory({
+      store: store({
+        showSearch: false
+      })
+    });
+    const sidebarButton = wrapper.find('b-button-stub.navbar-toggle');
+    sidebarButton.isVisible().should.equal(true);
+  });
+
+  it('shows the mobile nav when the sidebar is visible', () => {
+    const wrapper = factory({
+      store: store({
+        showSearch: false
+      }),
+      showSidebar: true
+    });
+    const nav = wrapper.find('[data-qa="mobile navigation"]');
+    console.log(wrapper.html());
+    nav.attributes().class.should.contain('d-lg-none');
+    nav.isVisible().should.equal(true);
   });
 });
