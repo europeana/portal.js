@@ -1,6 +1,7 @@
 <template>
   <div
     data-qa="exhibition credits page"
+    class="exhibition-page mx-auto"
   >
     <b-container class="pb-3">
       <b-row>

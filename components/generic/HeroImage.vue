@@ -1,5 +1,47 @@
 <template>
+  <b-container
+    v-if="exhibition"
+    fluid
+    class="hero-wrapper"
+  >
+    <h1>{{ header }}</h1>
+    <p class="lead">
+      {{ lead }}
+    </p>
+    <SocialShare
+      :media-url="imageUrl"
+    />
+    <b-jumbotron
+      :style="jumbotronStyle"
+      fluid
+      text-variant="white"
+      data-qa="hero banner"
+      class="mt-4"
+      @click="citeCollapsed = true"
+    >
+      <figcaption
+        @mouseleave="citeCollapsed = true"
+      >
+        <span
+          v-if="citeCollapsed"
+          class="icon-info"
+          @click="citeCollapsed = false"
+          @mouseover="citeCollapsed = false"
+        />
+        <CiteAttribution
+          v-else
+          :name="name"
+          :creator="creator"
+          :provider="provider"
+          :rights-statement="rightsStatement"
+          :url="url"
+          extended
+        />
+      </figcaption>
+    </b-jumbotron>
+  </b-container>
   <b-jumbotron
+    v-else
     :header="header"
     :lead="lead"
     :style="jumbotronStyle"
@@ -23,10 +65,12 @@
 
 <script>
   import CiteAttribution from '../../components/generic/CiteAttribution';
+  import SocialShare from '../../components/generic/SocialShare';
 
   export default {
     components: {
-      CiteAttribution
+      CiteAttribution,
+      SocialShare
     },
     props: {
       header: {
@@ -64,11 +108,20 @@
       url: {
         type: String,
         default: ''
+      },
+      exhibition: {
+        type: Boolean,
+        default: false
       }
+    },
+    data() {
+      return {
+        citeCollapsed: true
+      };
     },
     computed: {
       optimisedImageUrl() {
-        return this.$options.filters.optimisedImageUrl(this.imageUrl, this.imageContentType, { width: 1920 });
+        return this.$options.filters.optimisedImageUrl(this.imageUrl, this.imageContentType, { width: this.exhibition ? 820 : 1920 });
       },
       jumbotronStyle() {
         return {

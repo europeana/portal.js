@@ -76,7 +76,14 @@ export default {
     "credits": "Credits",
     "currentChapter": "Current chapter",
     "description": "Explore the exhibitions",
-    "exhibitions": "Exhibition | Exhibitions"
+    "exhibitions": "Exhibition | Exhibitions",
+    attribution: {
+      title: "Title:",
+      creator: "Creator:",
+      date: "Date:",
+      institution: "Institution:",
+      country: "Country:"
+    }
   },
   "facets": {
     "api": {

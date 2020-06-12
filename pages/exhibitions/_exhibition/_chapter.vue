@@ -1,7 +1,11 @@
 <template>
-  <div data-qa="exhibition chapter">
+  <div
+    data-qa="exhibition chapter"
+    class="exhibition-page mx-auto"
+  >
     <HeroImage
       v-if="hero"
+      exhibition
       :image-url="heroImage.url"
       :image-content-type="heroImage.contentType"
       :header="page.name"
