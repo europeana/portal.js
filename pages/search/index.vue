@@ -21,7 +21,7 @@
             :id="relatedCollection.id"
             :key="relatedCollection.id"
             :link-gen="suggestionLinkGen"
-            :title="relatedCollection.prefLabel.en"
+            :title="relatedCollection.prefLabel[$i18n.locale]"
           />
         </b-container>
         <SearchInterface
@@ -115,16 +115,12 @@
         this.relatedCollections = suggestions.slice(0, 4);
       },
 
-      suggestionLinkGen(entityUri) {
-        const entity = {
-          id: entityUri,
-          prefLabel: this.relatedCollections[entityUri]
-        };
-        const uriMatch = entityUri.match(`^${this.apiConfig.data.origin}/([^/]+)(/base)?/(.+)$`);
+      suggestionLinkGen(id, prefLabel) {
+        const uriMatch = id.match(`^${this.apiConfig.data.origin}/([^/]+)(/base)?/(.+)$`);
         return this.$path({
           name: 'collections-type-all', params: {
             type: getEntityTypeHumanReadable(uriMatch[1]),
-            pathMatch: getEntitySlug(entity.id, entity.prefLabel)
+            pathMatch: getEntitySlug(id, prefLabel)
           }
         });
       }

@@ -1,7 +1,7 @@
 <template>
   <b-badge
     v-if="title"
-    :to="linkGen(id)"
+    :to="linkGen(id, title)"
     pill
     variant="light"
     class="mt-1 mr-2 font-weight-normal bg-white"
