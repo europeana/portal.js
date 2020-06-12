@@ -1,8 +1,15 @@
 .breadcrumb {
-  background-color: transparent;
+  background-color: $white;
   margin-top: -1rem;
-}
-
-.breadcrumb-item.active {
-  color: $mediumgrey;
+  border-top: 1px solid $paper;
+  border-bottom: 1px solid $paper;
+  .breadcrumb-item {
+    font-size: $font-size-small;
+  }
+  .breadcrumb-item.active, a {
+    color: $mediumgrey;
+    &:hover {
+      color: $mediumgrey;
+    }
+  }
 }
