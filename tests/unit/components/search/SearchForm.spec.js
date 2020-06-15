@@ -276,10 +276,7 @@ describe('components/search/SearchForm', () => {
         pill: {
           values: ['Theatre']
         },
-        view: 'grid',
-        apiParams: {
-          qf: ['skos_concept:"http://data.europeana.eu/concept/base/227"']
-        }
+        view: 'grid'
       };
       const uiState = {
         showSearch: true
