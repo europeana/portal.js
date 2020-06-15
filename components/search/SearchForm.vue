@@ -138,7 +138,7 @@
 <script>
   import AutoSuggest from './AutoSuggest';
   import SearchBarPill from './SearchBarPill';
-  import { getEntitySuggestions, getEntityTypeHumanReadable, getEntitySlug } from '../../plugins/europeana/entity';
+  import { getEntitySuggestions } from '../../plugins/europeana/entity';
   import { mapGetters } from 'vuex';
 
   export default {
@@ -256,7 +256,7 @@
         await this.$goto(newRoute);
       },
 
-      async getSearchSuggestions(query) {
+      getSearchSuggestions(query) {
         if (query === '') {
           this.suggestions = {};
           this.showSearchQuery = false;
@@ -271,40 +271,39 @@
 
         this.gettingSuggestions = true;
 
-        // Query in the user's language, and English, removing duplicates
-        const languageParam = Array.from(new Set([this.$i18n.locale, 'en'])).join(',');
-
-        const suggestions = await getEntitySuggestions(query, {
-          language: languageParam
+        getEntitySuggestions(query, {
+          language: this.$i18n.locale
         }, {
           recordValidation: this.enableSuggestionValidation
-        });
+        })
+          .then(suggestions => {
+            this.suggestions = suggestions.reduce((memo, suggestion) => {
+              memo[suggestion.id] = suggestion.prefLabel;
+              return memo;
+            }, {});
+          })
+          .catch(() => {
+            this.suggestions = [];
+          })
+          .then(() => {
+            this.gettingSuggestions = false;
 
-        this.suggestions = suggestions.reduce((memo, suggestion) => {
-          memo[suggestion.id] = suggestion.prefLabel;
-          return memo;
-        }, {});
-
-        this.gettingSuggestions = false;
-
-        // If the query has changed in the meantime, go get new suggestions now
-        if (query !== this.query) this.getSearchSuggestions(this.query);
+            // If the query has changed in the meantime, go get new suggestions now
+            if (query !== this.query) this.getSearchSuggestions(this.query);
+          });
       },
 
-      suggestionLinkGen(entityUri) {
-        const entity = {
-          id: entityUri,
-          prefLabel: this.suggestions[entityUri]
+      suggestionLinkGen(suggestion) {
+        const query = {
+          view: this.view,
+          query: `"${suggestion}"`
         };
-        const uriMatch = entityUri.match(`^${this.apiConfig.data.origin}/([^/]+)(/base)?/(.+)$`);
-
-        return this.$path({
-          name: 'collections-type-all', params: {
-            type: getEntityTypeHumanReadable(uriMatch[1]),
-            // TODO: use stored entity/curatedEntities for prefLabel, if set
-            pathMatch: getEntitySlug(entity.id, entity.prefLabel.en)
-          }
-        });
+        return {
+          path: this.$path({
+            name: 'search'
+          }),
+          query
+        };
       },
 
       toggleSearchBar() {
