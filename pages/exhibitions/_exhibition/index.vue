@@ -1,7 +1,7 @@
 <template>
   <div
     data-qa="exhibition page"
-    class="exhibition-page mx-auto"
+    class="exhibition-page"
   >
     <HeroImage
       v-if="hero"
@@ -19,6 +19,7 @@
       <b-row>
         <b-col
           cols="12"
+          lg="9"
           class="pb-0 pb-lg-3"
         >
           <article>
@@ -29,6 +30,15 @@
             />
             <!-- eslint-enable vue/no-v-html -->
           </article>
+        </b-col>
+        <b-col
+          cols="12"
+          lg="3"
+          class="pb-3 text-left text-lg-right"
+        >
+          <SocialShare
+            :media-url="heroImage.url"
+          />
         </b-col>
       </b-row>
       <b-row v-if="page.hasPart">
@@ -52,11 +62,13 @@
   import createClient from '../../../plugins/contentful';
   import ExhibitionChapters from '../../../components/exhibition/ExhibitionChapters';
   import HeroImage from '../../../components/generic/HeroImage';
+  import SocialShare from '../../../components/generic/SocialShare';
 
   export default {
     components: {
       ExhibitionChapters,
-      HeroImage
+      HeroImage,
+      SocialShare
     },
     computed: {
       hero() {
