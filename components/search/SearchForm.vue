@@ -58,11 +58,11 @@
       >
         <div
           v-show="showSearch && showSearchQuery"
-          class="search-query d-lg-none"
+          class="collection search-query d-lg-none"
         >
           <b-button
             type="submit"
-            data-qa="search button"
+            data-qa="search in collection button"
             class="search"
             variant="primary"
             @click="toggleSearchBar"
@@ -78,7 +78,7 @@
           class="search-query d-lg-none"
         >
           <b-button
-            data-qa="search button"
+            data-qa="search entire collection button"
             class="search"
             variant="primary"
             :aria-label="$t('search')"
