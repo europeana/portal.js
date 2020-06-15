@@ -46,14 +46,16 @@ const factory = (options = {}) => shallowMount(SearchForm, {
 const getters = {
   'apis/config': () => apiConfig,
   'search/activeView': (state) => state.search.view,
-  'search/queryUpdatesForFacetChanges': () => () => {}
+  'search/queryUpdatesForFacetChanges': () => () => {},
+  'ui/searchView': (state) => state.ui.showSearch
 };
-const store = (searchState = {}) => {
+const store = (searchState = {}, uiState = {}) => {
   return new Vuex.Store({
     getters,
     state: {
       i18n: { locale: 'en' },
-      search: searchState
+      search: searchState,
+      ui: uiState
     }
   });
 };
@@ -268,22 +270,22 @@ describe('components/search/SearchForm', () => {
   });
 
   describe('mobileSearchOptions', () => {
-    context('on collection pages', () => {
+    context('on collection pages(with a "pill")', () => {
       it('contains the search in collection button', () => {
-        const wrapper = factory({
-          store: store({
-            showSearch: true,
-            showSearchQuery: true,
-            state: {
-              search: {
-                pill: [
-                  'Archaeology'
-                ]
-              }
-            }
-          })
+        const searchState = {
+          active: true,
+          pill: {
+            values: ['Theatre']
+          },
+          view: 'grid'
+        };
+        const uiState = {
+          showSearch: true
+        };
+        const wrapper = factory({ store: store(searchState, uiState) });
+        wrapper.setData({
+          showSearchQuery: true
         });
-        console.log(wrapper.html());
         const collectionSearchButton = wrapper.find('[data-qa="search in collection button"]');
         collectionSearchButton.attributes().class.should.contain('search');
         collectionSearchButton.isVisible().should.equal(true);
