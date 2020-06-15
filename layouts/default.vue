@@ -11,7 +11,6 @@
     <PageHeader
       :enable-auto-suggest="enableAutoSuggest"
       :enable-language-selector="enableLanguageSelector"
-      :enable-suggestion-validation="enableSuggestionValidation"
     />
     <main role="main">
       <b-container v-if="breadcrumbs">
@@ -58,9 +57,6 @@
       },
       enableLanguageSelector() {
         return Boolean(Number(process.env['ENABLE_LANGUAGE_SELECTOR']));
-      },
-      enableSuggestionValidation() {
-        return Boolean(Number(process.env['ENABLE_ENTITY_SUGGESTION_RECORD_VALIDATION']));
       },
       breadcrumbs() {
         return this.$store.state.breadcrumb.data;
