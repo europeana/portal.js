@@ -271,24 +271,55 @@ describe('components/search/SearchForm', () => {
 
   describe('mobileSearchOptions', () => {
     context('on collection pages(with a "pill")', () => {
+      const searchState = {
+        active: true,
+        pill: {
+          values: ['Theatre']
+        },
+        view: 'grid',
+        apiParams: {
+          qf: ['skos_concept:"http://data.europeana.eu/concept/base/227"']
+        }
+      };
+      const uiState = {
+        showSearch: true
+      };
+      const wrapper = factory({ store: store(searchState, uiState) });
+      wrapper.setData({
+        showSearchQuery: true
+      });
+      const collectionSearchButton = wrapper.find('[data-qa="search in collection button"]');
+      const entireSearchButton = wrapper.find('[data-qa="search entire collection button"]');
+
       it('contains the search in collection button', () => {
-        const searchState = {
-          active: true,
-          pill: {
-            values: ['Theatre']
-          },
-          view: 'grid'
-        };
-        const uiState = {
-          showSearch: true
-        };
-        const wrapper = factory({ store: store(searchState, uiState) });
-        wrapper.setData({
-          showSearchQuery: true
-        });
-        const collectionSearchButton = wrapper.find('[data-qa="search in collection button"]');
         collectionSearchButton.attributes().class.should.contain('search');
         collectionSearchButton.isVisible().should.equal(true);
+        collectionSearchButton.trigger('click');
+      });
+      it('contains the search entire collection button', () => {
+        entireSearchButton.attributes().class.should.contain('search');
+        entireSearchButton.isVisible().should.equal(true);
+      });
+      // TODO test searching within collection
+      // it('it searches within the current collection', () => {
+      //   const newRouteParams = {
+      //     path: '/collections',
+      //     query: { query: 'shakespeare' },
+      //     name: 'collections-type-all', params: {
+      //       type: 'topic',
+      //       pathMatch: '227-fresco'
+      //     }
+      //   };
+      //   collectionSearchButton.trigger('click');
+      //   $goto.should.have.been.calledWith(newRouteParams);
+      // });
+      it('it searches the entire collection', () => {
+        const newRouteParams = {
+          path: '/search',
+          query: { query: 'trees', page: 1, view: 'list' }
+        };
+        entireSearchButton.trigger('click');
+        $goto.should.have.been.calledWith(newRouteParams);
       });
     });
   });
