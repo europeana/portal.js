@@ -22,7 +22,7 @@
         :cards="section.items"
       />
       <HTMLEmbed
-        v-else-if="contentType(section, 'embed')"
+        v-else-if="contentType(section, 'Embed')"
         :key="index"
         :html="section.embed"
       />
