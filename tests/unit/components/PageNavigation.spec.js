@@ -9,17 +9,34 @@ const localVue = createLocalVue();
 localVue.use(Vuex);
 localVue.use(BootstrapVue);
 
+const getters = {
+  'ui/desktopCheck': (state) => state.ui.onDesktop
+};
 
 const store = new Vuex.Store({
+  getters,
   modules: {
     i18n: {
       state: {
         locale: 'en'
       }
     },
+    ui: {
+      state: {
+        onDesktop: true
+      }
+    },
     'link-group': {
       state: {
         data: {
+          mainNavigation: {
+            links: [
+              {
+                text: 'Collections',
+                url: '/collections'
+              }
+            ]
+          },
           mobileNavigation: {
             links: [
               {
@@ -47,7 +64,7 @@ const factory = () => mount(PageNavigation, {
 describe('components/search/PageNavigation', () => {
   it('retrieves the correct navigation data', () => {
     const wrapper = factory();
-    const links =  wrapper.find('[data-qa="main navigation"]');
+    const links = wrapper.find('[data-qa="main navigation"]');
 
     links.contains('Our partners');
   });

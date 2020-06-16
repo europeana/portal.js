@@ -25,6 +25,7 @@
 
 <script>
   import SmartLink from './generic/SmartLink';
+  import { mapState } from 'vuex';
 
   export default {
     components: {
@@ -32,8 +33,16 @@
     },
 
     computed: {
+      ...mapState({
+        onDesktop: state => state.ui.onDesktop
+      }),
+
       navigation() {
-        return this.$store.state['link-group'].data.mobileNavigation.links;
+        if (this.onDesktop) {
+          return this.$store.state['link-group'].data.mainNavigation.links;
+        } else {
+          return this.$store.state['link-group'].data.mobileNavigation.links;
+        }
       },
 
       i18n() {
@@ -194,10 +203,6 @@
     @media (min-width: $bp-large) {
       width: auto;
       margin: auto;
-
-      &:first-of-type, &:last-of-type {
-        display: none;
-      }
 
       .nav-link {
         text-transform: uppercase;
