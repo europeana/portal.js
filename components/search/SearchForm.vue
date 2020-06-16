@@ -96,7 +96,7 @@
         >
           <b-button
             type="submit"
-            data-qa="search button"
+            data-qa="mobile search button"
             class="search"
             variant="primary"
             @click="toggleSearchBar"
@@ -110,14 +110,14 @@
       </template>
       <b-button
         type="submit"
-        data-qa="search button"
+        data-qa="desktop search button"
         class="search d-none d-lg-block"
         variant="primary"
         :aria-label="$t('search')"
       />
       <b-button
         v-show="!showSearch"
-        data-qa="search button"
+        data-qa="show search button"
         class="search d-lg-none mr-3"
         variant="light"
         :aria-label="$t('search')"
@@ -328,19 +328,7 @@
       toggleSearchAndRemovePill(e) {
         e.preventDefault();
         this.toggleSearchBar();
-        const query = {
-          ...this.queryUpdatesForFacetChanges({ collection: null }),
-          view: this.view,
-          query: this.query || ''
-        };
-        this.$nextTick(() => {
-          this.$router.push ({
-            path: this.$path({
-              name: 'search'
-            }),
-            query
-          });
-        });
+        this.$nextTick(() => this.$router.push(this.pillRemoveLinkTo));
       }
     }
   };
