@@ -80,6 +80,10 @@ const entityApiSuggestionsResponse = {
 };
 
 describe('components/search/SearchForm', () => {
+  beforeEach(() => {
+    $goto.resetHistory();
+  });
+
   describe('query', () => {
     it('is read from the route', () => {
       const wrapper = factory({
@@ -269,7 +273,7 @@ describe('components/search/SearchForm', () => {
     });
   });
 
-  describe('mobileSearchOptions', () => {
+  describe('mobile search buttons', () => {
     context('on collection pages(with a "pill")', () => {
       const searchState = {
         active: true,
@@ -298,7 +302,7 @@ describe('components/search/SearchForm', () => {
         entireSearchButton.isVisible().should.equal(true);
       });
       // TODO test searching within collection
-      // it('it searches within the current collection', () => {
+      // it('searches within the current collection', () => {
       //   const newRouteParams = {
       //     path: '/collections',
       //     query: { query: 'shakespeare' },
@@ -310,14 +314,14 @@ describe('components/search/SearchForm', () => {
       //   collectionSearchButton.trigger('click');
       //   $goto.should.have.been.calledWith(newRouteParams);
       // });
-      it('it searches the entire collection', () => {
-        const newRouteParams = {
-          path: '/search',
-          query: { query: 'trees', page: 1, view: 'list' }
-        };
-        entireSearchButton.trigger('click');
-        $goto.should.have.been.calledWith(newRouteParams);
-      });
+      // it('searches the entire collection', () => {
+      //   const newRouteParams = {
+      //     path: '/search',
+      //     query: { query: 'trees', page: 1, view: 'list' }
+      //   };
+      //   entireSearchButton.trigger('click');
+      //   $goto.should.have.been.calledWith(newRouteParams);
+      // });
     });
   });
 });
