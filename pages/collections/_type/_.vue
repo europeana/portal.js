@@ -162,8 +162,6 @@
       }
     },
 
-    // - get all curated entity names & genres and store, unless already stored
-    // - get the full page for this entity if not known needed, or known to be needed, and store for asyncData reuse
     fetch({ query, params, redirect, error, app, store }) {
       store.commit('search/disableCollectionFacet');
 
@@ -189,7 +187,9 @@
 
       store.commit('entity/setId', entityUri);
 
+      // Get all curated entity names & genres and store, unless already stored
       const fetchCuratedEntities = !store.state.entity.curatedEntities;
+      // Get the full page for this entity if not known needed, or known to be needed, and store for reuse
       const fetchEntityPage = !store.state.entity.curatedEntities ||
         store.state.entity.curatedEntities.some(entity => entity.identifier === entityUri);
       const fetchFromContentful = fetchCuratedEntities || fetchEntityPage;
