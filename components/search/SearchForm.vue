@@ -99,6 +99,7 @@
   import SearchBarPill from './SearchBarPill';
   import { getEntitySuggestions } from '../../plugins/europeana/entity';
   import { mapGetters } from 'vuex';
+  import match from 'autosuggest-highlight/match';
 
   export default {
     name: 'SearchForm',
@@ -110,10 +111,6 @@
 
     props: {
       enableAutoSuggest: {
-        type: Boolean,
-        default: false
-      },
-      enableSuggestionValidation: {
         type: Boolean,
         default: false
       }
@@ -228,21 +225,22 @@
         // Don't go getting more suggestions if we are already waiting for some
         if (this.gettingSuggestions) return;
 
+        const locale = this.$i18n.locale;
         this.gettingSuggestions = true;
 
         getEntitySuggestions(query, {
-          language: this.$i18n.locale
-        }, {
-          recordValidation: this.enableSuggestionValidation
+          language: locale
         })
           .then(suggestions => {
             this.suggestions = suggestions.reduce((memo, suggestion) => {
-              memo[suggestion.id] = suggestion.prefLabel;
+              const candidates = [(suggestion.prefLabel || {})[locale]]
+                .concat((suggestion.altLabel || {})[locale]);
+              memo[suggestion.id] = candidates.find(candidate => match(candidate, query).length > 0);
               return memo;
             }, {});
           })
           .catch(() => {
-            this.suggestions = [];
+            this.suggestions = {};
           })
           .then(() => {
             this.gettingSuggestions = false;
