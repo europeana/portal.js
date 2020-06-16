@@ -9,6 +9,8 @@
 
 const COOKIE_NAME = 'i18n_locale_code';
 
+const authEnabled = process.env.ENABLE_AUTH;
+
 // Codes of all languages supported by the app
 const registeredLocales = require('../plugins/i18n/locales.js').map(locale => locale.code);
 
@@ -17,6 +19,14 @@ function appSupportsLocale(locale) {
 }
 
 export default ({ app, route, redirect, req }) => {
+
+  if (authEnabled) {
+  //If auth callback return
+    let isCallback = route.path === app.$auth.options.redirect.callback ? true: false;
+    if (isCallback) {
+      return;
+    }
+  }
   // Is there a locale in the URL path already?
   const routePathLocaleMatch = route.path.match(/^\/([a-z]{2})(\/.*)?$/);
 

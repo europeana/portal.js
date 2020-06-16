@@ -19,6 +19,31 @@
         </span>
       </SmartLink>
     </li>
+    <!-- sso links -->
+    <template v-if="enableAuthLinks">
+      <li
+        v-if="!isAuthenticated"
+        class="nav-item"
+      >
+        <b-link
+          class="nav-link"
+          @click="login()"
+        >
+          <span>{{ $t('account.linkLogin') }}</span>
+        </b-link>
+      </li>
+      <li
+        v-else
+        class="nav-item"
+      >
+        <b-link
+          href="/account/profile"
+          class="nav-link"
+        >
+          <span>{{ $t('account.linkAccount') }}</span>
+        </b-link>
+      </li>
+    </template>
   </b-navbar-nav>
 </template>
 
@@ -37,6 +62,15 @@
 
       i18n() {
         return this.$store.state.i18n.locale;
+      },
+      enableAuthLinks() {
+        return Boolean(Number(process.env.ENABLE_AUTH));
+      },
+      loggedInUser() {
+        return this.$store.state.auth.user;
+      },
+      isAuthenticated() {
+        return this.$store.state.auth.loggedIn;
       }
     },
 
@@ -47,6 +81,9 @@
     },
 
     methods: {
+      async login() {
+        await this.$auth.loginWith('keycloak');
+      },
       async getNavigationData() {
         return this.$store.dispatch('link-group/init');
       },
@@ -188,7 +225,7 @@
       width: auto;
       margin: auto;
 
-      &:first-of-type, &:last-of-type {
+      &:first-of-type, &:nth-last-child(2) {
         display: none;
       }
 

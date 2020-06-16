@@ -1,4 +1,5 @@
 // Load dotenv for server/index.js to access env vars from .env file
+/* eslint-disable camelcase */
 require('dotenv').config();
 const pkg = require('./package');
 const i18nLocales = require('./plugins/i18n/locales.js');
@@ -116,6 +117,8 @@ module.exports = {
   ** Nuxt.js modules
   */
   modules: [
+    '@nuxtjs/axios',
+    '@nuxtjs/auth',
     '@nuxtjs/dotenv',
     '~/modules/apis',
     'bootstrap-vue/nuxt',
@@ -131,6 +134,11 @@ module.exports = {
         fallbackLocale: 'en',
         silentFallbackWarn: true,
         dateTimeFormats: i18nDateTime
+      },
+      //disable redirects to callback page or authentication fails
+      parsePages: false,
+      pages: {
+        callback: false
       },
       // Enable browser language detection to automatically redirect user
       // to their preferred language as they visit your app for the first time
@@ -187,12 +195,39 @@ module.exports = {
           enforce: 'pre',
           test: /\.(js|vue)$/,
           loader: 'eslint-loader',
-          exclude: /(node_modules)/
+          exclude: /(node_modules)/,
+          options: {
+            fix: true
+          }
         });
       }
     }
   },
-
+  auth: {
+    //redirect routes: callback option for keycloak redirects, login option for unauthorised redirection
+    redirect: {
+      login: '/?login=1',
+      logout: '/',
+      callback:'/callback',
+      home:'/'
+    },
+    fullPathRedirect:true,
+    rewriteRedirects:true,
+    strategies: {
+      local: false,
+      keycloak: {
+        _scheme: 'oauth2',
+        client_id: 'collections_portal',
+        scope: ['openid', 'profile', 'email', 'usersets'],
+        realm: 'europeana',
+        authorization_endpoint: process.env.OAUTH_URL+'/auth',
+        access_token_endpoint: process.env.OAUTH_URL+'/token',
+        userinfo_endpoint: process.env.OAUTH_URL+'/userinfo',
+        response_type: 'code id_token token',
+        token_type: 'Bearer'
+      }
+    }
+  },
   /*
   ** Render configuration
    */
