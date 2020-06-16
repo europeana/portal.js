@@ -37,24 +37,7 @@
       }
     },
 
-    computed: {
-      i18n() {
-        return this.$store.state.i18n.locale;
-      }
-    },
-
-    watch: {
-      // FIXME: broken with removal of link-group store module; refactor
-      i18n() {
-        // this.getNavigationData();
-      }
-    },
-
     methods: {
-      // async getNavigationData() {
-      //   return this.$store.dispatch('link-group/init');
-      // },
-
       renderIcon(name) {
         let className = '';
         switch (name) {

@@ -84,6 +84,10 @@
       }
     },
 
+    watch: {
+      '$i18n.locale': '$fetch'
+    },
+
     async fetch() {
       const contentfulVariables = {
         locale: this.$i18n.isoLocale(),
