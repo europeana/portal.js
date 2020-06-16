@@ -93,7 +93,7 @@
           .filter(item => item && (item['__typename'] === 'LatestCardGroup'))
           .map(item => item.genre);
 
-        if (genres.length === 1) return content;
+        if (genres.length === 0) return content;
 
         const variables = {
           locale: this.$i18n.isoLocale(),
