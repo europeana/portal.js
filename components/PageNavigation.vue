@@ -9,10 +9,14 @@
       class="nav-item"
     >
       <SmartLink
+        v-b-toggle.menu
         :destination="link.url"
         link-class="nav-link"
       >
-        <span>{{ link.text }}</span>
+        <span>
+          <i :class="renderIcon(link.url)" />
+          {{ link.text }}
+        </span>
       </SmartLink>
     </li>
   </b-navbar-nav>
@@ -49,7 +53,29 @@
     methods: {
       // async getNavigationData() {
       //   return this.$store.dispatch('link-group/init');
-      // }
+      // },
+
+      renderIcon(name) {
+        let className = '';
+        switch (name) {
+        case ('/'):
+          className = 'icon-home';
+          break;
+        case ('/collections'):
+          className = 'icon-collections';
+          break;
+        case ('/europeana-classroom'):
+          className = 'icon-school';
+          break;
+        case ('/about-us'):
+          className = 'icon-info';
+          break;
+        case ('/help'):
+          className = 'icon-help';
+          break;
+        }
+        return className;
+      }
     }
   };
 </script>
@@ -59,18 +85,16 @@
   @import '../assets/scss/icons.scss';
 
   .nav-item {
-    &:not(:last-child) {
-      margin-right: 1rem;
+    margin-right: 1rem;
+    &:nth-last-child(2) {
+      margin-right: 0;
     }
 
     .nav-link {
       color: $mediumgrey;
       text-decoration: none;
-      text-transform: uppercase;
-      font-size: $font-size-small;
-      font-weight: 600;
 
-      &.nuxt-link-active {
+      &.exact-active-link {
         &:after {
           content: '';
           position: absolute;
@@ -90,13 +114,42 @@
       }
 
       span {
-        position: relative;
+        display: flex;
+        align-items: center;
+        i {
+          display: inline-block;
+          font-size: 1rem;
+          z-index: 1;
+          margin-right: 0.75rem;
+          &:before {
+            @extend .icon-font;
+            content: '';
+            color: $black;
+            transition: $standard-transition;
+            font-size: 1.5rem;
+          }
+          &.icon-home:before {
+            content: '\e922';
+          }
+          &.icon-collections:before {
+            content: '\e91d';
+          }
+          &.icon-school:before {
+            content: '\e91e';
+          }
+          &.icon-info:before {
+            content: '\e91f';
+          }
+          &.icon-help:before {
+            content: '\e921';
+          }
+        }
       }
     }
 
     &:last-child {
       .nav-link {
-        &.nuxt-link-active:after {
+        &.exact-active-link:after {
           left: 0.25rem;
         }
         &:before {
@@ -105,9 +158,53 @@
       }
     }
     @media (max-width: $bp-large) {
-      .nav-link.nuxt-link-active {
-        &:after {
-          bottom: -1rem;
+      width: 100%;
+      margin: 0 0 0.25rem 0;
+      position: relative;
+      margin-right: 0;
+      &:nth-last-child(2) {
+        margin-right: 0;
+      }
+      &:first-of-type, &:last-of-type {
+        display: block;
+      }
+      .nav-link {
+        text-transform: capitalize;
+        font-weight: 400;
+        border-radius: $border-radius-small;
+        transition: $standard-transition;
+        font-size: $font-size-base;
+
+        &.exact-active-link, &:hover {
+          color: $white;
+          background: $blue;
+          &:before, &:after {
+            display: none;
+          }
+          i:before {
+            color: $white;
+          }
+        }
+      }
+    }
+
+    @media (min-width: $bp-large) {
+      width: auto;
+      margin: auto;
+
+      &:first-of-type, &:last-of-type {
+        display: none;
+      }
+
+      .nav-link {
+        text-transform: uppercase;
+        font-size: $font-size-small;
+        font-weight: 600;
+        span {
+          position: relative;
+          i {
+            display: none;
+          }
         }
       }
     }

@@ -12,14 +12,16 @@
           deck
           data-qa="gallery images"
         >
-          <ContentCard
-            v-for="image in images"
-            :key="image.identifier"
-            :title="imageTitle(image)"
-            :image-url="imageUrl(image)"
-            :lazy="false"
-            :url="{ name: 'item-all', params: { pathMatch: image.identifier.slice(1) } }"
-          />
+          <client-only>
+            <ContentCard
+              v-for="image in images"
+              :key="image.identifier"
+              :title="imageTitle(image)"
+              :image-url="imageUrl(image)"
+              :lazy="false"
+              :url="{ name: 'item-all', params: { pathMatch: image.identifier.slice(1) } }"
+            />
+          </client-only>
         </b-card-group>
       </b-col>
     </b-row>
@@ -27,16 +29,17 @@
 </template>
 
 <script>
+  import ClientOnly from 'vue-client-only';
   import ContentHeader from '../../components/generic/ContentHeader';
-  import ContentCard from '../../components/generic/ContentCard';
 
   import marked from 'marked';
 
   export default {
     name: 'ImageGallery',
     components: {
+      ClientOnly,
       ContentHeader,
-      ContentCard
+      ContentCard: () => import('../../components/generic/ContentCard')
     },
     computed: {
       shareMediaUrl() {
@@ -78,7 +81,16 @@
     },
     methods: {
       imageTitle(data) {
-        return data.encoding ? data.encoding.dcTitleLangAware : data.name;
+        if (data.encoding) {
+          if (data.encoding.dcTitleLangAware) {
+            return data.encoding.dcTitleLangAware;
+          } else if (data.encoding.dcDescriptionLangAware) {
+            return data.encoding.dcDescriptionLangAware;
+          } else {
+            return this.$t('record.record');
+          }
+        }
+        return data.name;
       },
       imageUrl(data) {
         return (data.encoding ? data.encoding.edmPreview : data.thumbnailUrl) + '&size=w200';

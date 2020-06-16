@@ -40,7 +40,6 @@
 <script>
   import ContentHeader from '../../components/generic/ContentHeader';
   import ContentCard from '../../components/generic/ContentCard';
-  import PaginationNav from '../../components/generic/PaginationNav';
   import { pageFromQuery } from '../../plugins/utils';
 
   const PER_PAGE = 20;
@@ -50,7 +49,7 @@
     components: {
       ContentHeader,
       ContentCard,
-      PaginationNav
+      PaginationNav: () => import('../../components/generic/PaginationNav')
     },
 
     head() {

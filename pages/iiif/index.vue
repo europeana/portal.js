@@ -111,7 +111,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @import "./assets/scss/variables.scss";
+  @import './assets/scss/variables.scss';
 
   /deep/ .mirador-thumbnail-nav-canvas:focus {
     outline: 2px solid $blue !important;

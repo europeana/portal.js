@@ -1,8 +1,10 @@
 <template>
   <b-form
     ref="form"
+    :class="showSearch ? 'open' : 'closed'"
     data-qa="search form"
     inline
+    autocomplete="off"
     @submit.prevent="submitForm"
   >
     <b-input-group
@@ -21,10 +23,19 @@
           :remove-link-to="pillRemoveLinkTo"
         />
       </template>
+      <b-button
+        v-show="showSearch"
+        data-qa="back button"
+        class="back d-lg-none"
+        variant="light"
+        :aria-label="$t('header.backToMenu')"
+        @click="backToMenu"
+      />
       <b-form-input
+        v-show="showSearch"
         ref="searchbox"
         v-model="query"
-        :autocomplete="enableAutoSuggest ? 'off' : 'on'"
+        class="d-lg-block"
         :placeholder="$t('searchPlaceholder')"
         name="query"
         data-qa="search box"
@@ -35,14 +46,42 @@
         @input="getSearchSuggestions"
       />
       <b-button
+        v-show="showSearch && showSearchQuery"
+        data-qa="clear button"
+        class="clear d-lg-none"
+        variant="light"
+        :aria-label="$t('header.clearQuery')"
+        @click="clearQuery"
+      />
+      <div
+        v-show="showSearch && showSearchQuery"
+        class="search-query d-lg-none"
+      >
+        <b-button
+          type="submit"
+          data-qa="search button"
+          class="search"
+          variant="primary"
+          :aria-label="$t('search')"
+          @click="toggleSearchBar"
+        />
+        <span>{{ $t('header.searchFor') }} "{{ query }}"</span>
+      </div>
+      <b-button
         type="submit"
         data-qa="search button"
+        class="search d-none d-lg-block"
         variant="primary"
-      >
-        <span class="sr-only">
-          {{ $t('search') }}
-        </span>
-      </b-button>
+        :aria-label="$t('search')"
+      />
+      <b-button
+        v-show="!showSearch"
+        data-qa="search button"
+        class="search d-lg-none mr-3"
+        variant="light"
+        :aria-label="$t('search')"
+        @click="toggleSearchBar"
+      />
       <AutoSuggest
         v-if="enableAutoSuggest"
         v-model="suggestions"
@@ -58,7 +97,7 @@
 <script>
   import AutoSuggest from './AutoSuggest';
   import SearchBarPill from './SearchBarPill';
-  import { getEntitySuggestions, getEntityTypeHumanReadable, getEntitySlug } from '../../plugins/europeana/entity';
+  import { getEntitySuggestions } from '../../plugins/europeana/entity';
   import { mapGetters } from 'vuex';
 
   export default {
@@ -83,6 +122,7 @@
     data() {
       return {
         query: null,
+        showSearchQuery: false,
         gettingSuggestions: false,
         suggestions: {},
         selectedSuggestion: null
@@ -90,6 +130,12 @@
     },
 
     computed: {
+      showSearch: {
+        get() {
+          return this.$store.getters['ui/searchView'];
+        }
+      },
+
       ...mapGetters({
         apiConfig: 'apis/config',
         queryUpdatesForFacetChanges: 'search/queryUpdatesForFacetChanges'
@@ -137,6 +183,7 @@
     watch: {
       '$route'() {
         this.initQuery();
+        if (this.showSearch) this.$store.commit('ui/toggleSearchBar');
       }
     },
 
@@ -164,57 +211,77 @@
         }
 
         this.suggestions = {};
-
+        this.clearQuery();
         await this.$goto(newRoute);
       },
 
-      async getSearchSuggestions(query) {
+      getSearchSuggestions(query) {
+        if (query === '') {
+          this.suggestions = {};
+          this.showSearchQuery = false;
+          return;
+        }
+        this.showSearchQuery = true;
+
         if (!this.enableAutoSuggest) return;
 
         // Don't go getting more suggestions if we are already waiting for some
         if (this.gettingSuggestions) return;
 
-        if (query === '') {
-          this.suggestions = {};
-          return;
-        }
-
         this.gettingSuggestions = true;
 
-        // Query in the user's language, and English, removing duplicates
-        const languageParam = Array.from(new Set([this.$i18n.locale, 'en'])).join(',');
-
-        const suggestions = await getEntitySuggestions(query, {
-          language: languageParam
+        getEntitySuggestions(query, {
+          language: this.$i18n.locale
         }, {
           recordValidation: this.enableSuggestionValidation
-        });
+        })
+          .then(suggestions => {
+            this.suggestions = suggestions.reduce((memo, suggestion) => {
+              memo[suggestion.id] = suggestion.prefLabel;
+              return memo;
+            }, {});
+          })
+          .catch(() => {
+            this.suggestions = [];
+          })
+          .then(() => {
+            this.gettingSuggestions = false;
 
-        this.suggestions = suggestions.reduce((memo, suggestion) => {
-          memo[suggestion.id] = suggestion.prefLabel;
-          return memo;
-        }, {});
-
-        this.gettingSuggestions = false;
-
-        // If the query has changed in the meantime, go get new suggestions now
-        if (query !== this.query) this.getSearchSuggestions(this.query);
+            // If the query has changed in the meantime, go get new suggestions now
+            if (query !== this.query) this.getSearchSuggestions(this.query);
+          });
       },
 
-      suggestionLinkGen(entityUri) {
-        const entity = {
-          id: entityUri,
-          prefLabel: this.suggestions[entityUri]
+      suggestionLinkGen(suggestion) {
+        const query = {
+          view: this.view,
+          query: `"${suggestion}"`
         };
-        const uriMatch = entityUri.match(`^${this.apiConfig.data.origin}/([^/]+)(/base)?/(.+)$`);
+        return {
+          path: this.$path({
+            name: 'search'
+          }),
+          query
+        };
+      },
 
-        return this.$path({
-          name: 'collections-type-all', params: {
-            type: getEntityTypeHumanReadable(uriMatch[1]),
-            // TODO: use stored entity/curatedEntities for prefLabel, if set
-            pathMatch: getEntitySlug(entity.id, entity.prefLabel.en)
-          }
-        });
+      toggleSearchBar() {
+        this.$store.commit('ui/toggleSearchBar');
+        if (this.showSearch) {
+          this.$nextTick(() => {
+            this.$refs.searchbox.focus();
+          });
+        }
+      },
+
+      backToMenu() {
+        this.$store.commit('ui/toggleSearchBar');
+        this.clearQuery();
+      },
+
+      clearQuery() {
+        this.query = '';
+        this.showSearchQuery = false;
       }
     }
   };
@@ -224,9 +291,12 @@
   @import './assets/scss/variables.scss';
   @import './assets/scss/icons.scss';
 
+  .form-inline {
+    width: auto;
+  }
+
   .input-group {
     width: 100%;
-    margin: 0.46875rem 0;
 
     .input-group-prepend {
       align-items: center;
@@ -238,19 +308,120 @@
   }
 
   .form-control {
-    background-color: $offwhite;
-    border-radius: $border-radius 0 0 $border-radius;
-    margin-right: 0;
+    background-color: $white;
   }
 
   .btn {
-    border-radius: 0 $border-radius $border-radius 0;
-
+    border-radius: 0;
+    box-shadow: none;
     &:before {
       @extend .icon-font;
-      content: '\e92b';
       display: inline-block;
-      transform: scale(0.9) translate(0, -0.2rem);
+      font-size: 1.1rem;
+    }
+    &.search:before {
+      content: '\e92b';
+    }
+    &.back {
+      position: absolute;
+      left: 1rem;
+      top: 1rem;
+      z-index: 99;
+      &:before {
+        content: '\ea40';
+      }
+    }
+    &.clear {
+      position: absolute;
+      right: 1rem;
+      top: 1rem;
+      z-index: 99;
+      &:before {
+        content: '\e904';
+      }
+    }
+  }
+
+  @media (max-width: $bp-large) {
+    .btn {
+      background: none;
+      color: $black;
+      border: none;
+      padding: 0;
+      height: 1.5rem;
+      width: 1.5rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .form-inline {
+      &.open {
+        width: 100%;
+        .form-control {
+          width: 100%;
+          padding: 0.375rem 1rem 0.375rem 3.5rem;
+          height: 3.5rem;
+          color: $mediumgrey;
+          box-shadow: $boxshadow-light;
+        }
+        .search-query {
+          width: 100%;
+          padding: 0.375rem 1rem 0.375rem 3.5rem;
+          height: 3.5rem;
+          font-size: 1rem;
+          color: $mediumgrey;
+          display: flex;
+          align-items: center;
+          position: relative;
+          background: $white;
+          .search {
+            position: absolute;
+            width: 100%;
+            left: 0;
+            top: 0;
+            z-index: 99;
+            height: 3.5rem;
+            &:before {
+              left: 1rem;
+              top: 1rem;
+              position: absolute;
+              width: 24px;
+              height: 24px;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+            }
+          }
+        }
+      }
+    }
+    .input-group .input-group-prepend {
+      display: none;
+    }
+  }
+
+  @media (min-width: $bp-large) {
+    .input-group {
+      margin: 0.46875rem 0;
+    }
+    .btn {
+      border-radius: 0 $border-radius $border-radius 0;
+      background: $blue;
+      border-color: $blue;
+      color: $white;
+      padding: 0.375rem 0.75rem;
+      height: auto;
+      width: auto;
+
+      &:before {
+        transform: translateY(-0.1rem);
+      }
+    }
+    .form-control:not(:first-child) {
+      display: block;
+      background-color: $offwhite;
+      border-radius: $border-radius 0 0 $border-radius;
+      margin-right: 0;
     }
   }
 </style>

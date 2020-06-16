@@ -28,36 +28,40 @@
         md="3"
         class="pb-3"
       >
-        <h2
-          v-if="relatedEntities && relatedEntities.length > 0"
-          class="related-heading text-uppercase"
-        >
-          {{ $t('contentYouMightLike') }}
-        </h2>
-        <section
-          v-if="relatedCollectionCards"
-        >
-          <BrowseContentCard
-            v-for="(card, index) in relatedCollectionCards"
-            :key="index"
-            :fields="card"
-            :data-qa="card.name + ' entity card'"
-            card-type="AutomatedEntityCard"
+        <client-only>
+          <h2
+            v-if="relatedEntities && relatedEntities.length > 0"
+            class="related-heading text-uppercase"
+          >
+            {{ $t('contentYouMightLike') }}
+          </h2>
+          <section
+            v-if="relatedCollectionCards"
+          >
+            <BrowseContentCard
+              v-for="(card, index) in relatedCollectionCards"
+              :key="index"
+              :fields="card"
+              :data-qa="card.name + ' entity card'"
+              card-type="AutomatedEntityCard"
+            />
+          </section>
+          <EntityCards
+            v-else-if="relatedEntities"
+            :entities="relatedEntities"
+            data-qa="related entities"
           />
-        </section>
-        <EntityCards
-          v-else-if="relatedEntities"
-          :entities="relatedEntities"
-          data-qa="related entities"
-        />
+        </client-only>
       </b-col>
     </b-row>
     <b-row>
       <b-col>
-        <BrowseSections
-          v-if="page"
-          :sections="page.hasPartCollection.items"
-        />
+        <client-only>
+          <BrowseSections
+            v-if="page"
+            :sections="page.hasPartCollection.items"
+          />
+        </client-only>
       </b-col>
     </b-row>
   </b-container>
@@ -66,9 +70,7 @@
 <script>
   import axios from 'axios';
 
-  import EntityCards from '../../../components/entity/EntityCards';
-  import BrowseContentCard from '../../../components/browse/BrowseContentCard';
-  import BrowseSections from '../../../components/browse/BrowseSections';
+  import ClientOnly from 'vue-client-only';
   import EntityDetails from '../../../components/entity/EntityDetails';
   import SearchInterface from '../../../components/search/SearchInterface';
 
@@ -80,9 +82,10 @@
 
   export default {
     components: {
-      BrowseContentCard,
-      BrowseSections,
-      EntityCards,
+      BrowseContentCard: () => import('../../../components/browse/BrowseContentCard'),
+      BrowseSections: () => import('../../../components/browse/BrowseSections'),
+      ClientOnly,
+      EntityCards: () => import('../../../components/entity/EntityCards'),
       EntityDetails,
       SearchInterface
     },
