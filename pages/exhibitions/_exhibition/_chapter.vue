@@ -28,10 +28,6 @@
           >
             {{ page.name }}
           </h1>
-          <article>
-            <!-- TODO: does page ever have a `text` property? -->
-            {{ page.text }}
-          </article>
         </b-col>
         <b-col
           cols="12"
@@ -109,7 +105,7 @@
     },
     asyncData({ params, query, error, app, store }) {
       const variables = {
-        identifier: params.chapter,
+        identifier: params.exhibition,
         locale: app.i18n.isoLocale(),
         preview: query.mode === 'preview'
       };
@@ -120,15 +116,9 @@
           let chapter;
           let exhibition;
 
-          if (data.exhibitionChapterPageCollection.items.length === 1) {
-            chapter = data.exhibitionChapterPageCollection.items[0];
-            if (chapter.linkedFrom.exhibitionPageCollection.items.length === 1) {
-              // TODO: there is no validation that the exhibition returned here
-              //       is the one indicated in `params.exhibition`. the concern
-              //       with that is that in theory multiple exhibitions may
-              //       link to the same chapter. but probably shouldn't, right?
-              exhibition = chapter.linkedFrom.exhibitionPageCollection.items[0];
-            }
+          if (data.exhibitionPageCollection.total === 1) {
+            exhibition = data.exhibitionPageCollection.items[0];
+            chapter = exhibition.hasPartCollection.items.find(item => item.identifier === params.chapter);
           }
 
           if (!chapter || !exhibition) {
