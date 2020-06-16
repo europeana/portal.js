@@ -82,7 +82,7 @@
             class="search"
             variant="primary"
             :aria-label="$t('search')"
-            @click="toggleSearchAndRemovePill"
+            @click.prevent="toggleSearchAndRemovePill"
           />
           <span>{{ $t('header.entireCollection', { query: query }) }}</span>
         </div>
@@ -171,15 +171,11 @@
     },
 
     computed: {
-      showSearch: {
-        get() {
-          return this.$store.getters['ui/searchView'];
-        }
-      },
-
       ...mapGetters({
         apiConfig: 'apis/config',
-        queryUpdatesForFacetChanges: 'search/queryUpdatesForFacetChanges'
+        queryUpdatesForFacetChanges: 'search/queryUpdatesForFacetChanges',
+        showSearch: 'ui/searchView',
+        view: 'search/activeView'
       }),
 
       isAutoSuggestActive() {
@@ -214,10 +210,6 @@
           }),
           query
         };
-      },
-
-      view() {
-        return this.$store.getters['search/activeView'];
       }
     },
 
@@ -325,10 +317,9 @@
         this.showSearchQuery = false;
       },
 
-      toggleSearchAndRemovePill(e) {
-        e.preventDefault();
+      async toggleSearchAndRemovePill() {
         this.toggleSearchBar();
-        this.$nextTick(() => this.$router.push(this.pillRemoveLinkTo));
+        await this.$goto(this.pillRemoveLinkTo);
       }
     }
   };

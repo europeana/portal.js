@@ -274,7 +274,7 @@ describe('components/search/SearchForm', () => {
   });
 
   describe('mobile search buttons', () => {
-    context('on collection pages(with a "pill")', () => {
+    context('on collection pages (with a "pill")', () => {
       const searchState = {
         active: true,
         pill: {
@@ -294,34 +294,13 @@ describe('components/search/SearchForm', () => {
 
       it('contains the search in collection button', () => {
         collectionSearchButton.attributes().class.should.contain('search');
-        collectionSearchButton.isVisible().should.equal(true);
-        collectionSearchButton.trigger('click');
+        collectionSearchButton.isVisible().should.be.true;
       });
+
       it('contains the search entire collection button', () => {
         entireSearchButton.attributes().class.should.contain('search');
-        entireSearchButton.isVisible().should.equal(true);
+        entireSearchButton.isVisible().should.be.true;
       });
-      // TODO test searching within collection
-      // it('searches within the current collection', () => {
-      //   const newRouteParams = {
-      //     path: '/collections',
-      //     query: { query: 'shakespeare' },
-      //     name: 'collections-type-all', params: {
-      //       type: 'topic',
-      //       pathMatch: '227-fresco'
-      //     }
-      //   };
-      //   collectionSearchButton.trigger('click');
-      //   $goto.should.have.been.calledWith(newRouteParams);
-      // });
-      // it('searches the entire collection', () => {
-      //   const newRouteParams = {
-      //     path: '/search',
-      //     query: { query: 'trees', page: 1, view: 'list' }
-      //   };
-      //   entireSearchButton.trigger('click');
-      //   $goto.should.have.been.calledWith(newRouteParams);
-      // });
     });
   });
 });
