@@ -13,7 +13,6 @@
     <PageHeader
       :enable-auto-suggest="enableAutoSuggest"
       :enable-language-selector="enableLanguageSelector"
-      :enable-suggestion-validation="enableSuggestionValidation"
       :navigation="linkGroups.mobileNavigation"
       keep-alive
     />
@@ -49,7 +48,6 @@
 
   const config = {
     enableLanguageSelector: Boolean(Number(process.env['ENABLE_LANGUAGE_SELECTOR'])),
-    enableSuggestionValidation: Boolean(Number(process.env['ENABLE_ENTITY_SUGGESTION_RECORD_VALIDATION'])),
     bootstrapVersion: require('bootstrap/package.json').version,
     bootstrapVueVersion: require('bootstrap-vue/package.json').version
   };
