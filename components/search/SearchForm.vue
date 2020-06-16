@@ -53,30 +53,71 @@
         :aria-label="$t('header.clearQuery')"
         @click="clearQuery"
       />
-      <div
-        v-show="showSearch && showSearchQuery"
-        class="search-query d-lg-none"
+      <template
+        v-if="pillLabel"
       >
-        <b-button
-          type="submit"
-          data-qa="search button"
-          class="search"
-          variant="primary"
-          :aria-label="$t('search')"
-          @click="toggleSearchBar"
-        />
-        <span>{{ $t('header.searchFor') }} "{{ query }}"</span>
-      </div>
+        <div
+          v-show="showSearch && showSearchQuery"
+          class="collection search-query d-lg-none"
+        >
+          <b-button
+            type="submit"
+            data-qa="search in collection button"
+            class="search"
+            variant="primary"
+            @click="toggleSearchBar"
+          >
+            <span class="sr-only">
+              {{ $t('search') }}
+            </span>
+          </b-button>
+          <span>{{ $t('header.inCollection', { query: query, collection: pillLabel.values[0] }) }}</span>
+        </div>
+        <div
+          v-show="showSearch && showSearchQuery"
+          class="search-query d-lg-none"
+        >
+          <b-button
+            data-qa="search entire collection button"
+            class="search"
+            variant="primary"
+            :aria-label="$t('search')"
+            @click.prevent="toggleSearchAndRemovePill"
+          />
+          <span>{{ $t('header.entireCollection', { query: query }) }}</span>
+        </div>
+      </template>
+      <template
+        v-else
+      >
+        <div
+          v-show="showSearch && showSearchQuery"
+          class="search-query d-lg-none"
+        >
+          <b-button
+            type="submit"
+            data-qa="mobile search button"
+            class="search"
+            variant="primary"
+            @click="toggleSearchBar"
+          >
+            <span class="sr-only">
+              {{ $t('search') }}
+            </span>
+          </b-button>
+          <span>{{ $t('header.searchFor', { query: query }) }}</span>
+        </div>
+      </template>
       <b-button
         type="submit"
-        data-qa="search button"
+        data-qa="desktop search button"
         class="search d-none d-lg-block"
         variant="primary"
         :aria-label="$t('search')"
       />
       <b-button
         v-show="!showSearch"
-        data-qa="search button"
+        data-qa="show search button"
         class="search d-lg-none mr-3"
         variant="light"
         :aria-label="$t('search')"
@@ -127,15 +168,11 @@
     },
 
     computed: {
-      showSearch: {
-        get() {
-          return this.$store.getters['ui/searchView'];
-        }
-      },
-
       ...mapGetters({
         apiConfig: 'apis/config',
-        queryUpdatesForFacetChanges: 'search/queryUpdatesForFacetChanges'
+        queryUpdatesForFacetChanges: 'search/queryUpdatesForFacetChanges',
+        showSearch: 'ui/searchView',
+        view: 'search/activeView'
       }),
 
       isAutoSuggestActive() {
@@ -170,10 +207,6 @@
           }),
           query
         };
-      },
-
-      view() {
-        return this.$store.getters['search/activeView'];
       }
     },
 
@@ -280,6 +313,11 @@
       clearQuery() {
         this.query = '';
         this.showSearchQuery = false;
+      },
+
+      async toggleSearchAndRemovePill() {
+        this.toggleSearchBar();
+        await this.$goto(this.pillRemoveLinkTo);
       }
     }
   };
