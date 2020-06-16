@@ -1,6 +1,5 @@
 <template>
   <b-badge
-    v-if="title"
     :to="linkGen(id, title)"
     pill
     variant="light"
@@ -30,15 +29,16 @@
       },
       title: {
         type: String,
-        default: () => {}
+        default: '',
+        required: true
       },
       id: {
         type: String,
-        default: () => {}
+        default: ''
       },
       img: {
         type: String,
-        default: () => {}
+        default: ''
       }
     }
   };

@@ -102,16 +102,9 @@
 
     methods: {
       async getSearchSuggestions(query) {
-
-        // Query in the user's language, removing duplicates
-        const languageParam = Array.from(new Set([this.$i18n.locale])).join(',');
-
         const suggestions = await getEntitySuggestions(query, {
-          language: languageParam
-        }, {
-          recordValidation: this.enableSuggestionValidation
+          language: this.$i18n.locale
         });
-
         this.relatedCollections = suggestions.slice(0, 4);
       },
 
