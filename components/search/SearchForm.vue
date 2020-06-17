@@ -117,7 +117,7 @@
       />
       <b-button
         v-show="!showSearch"
-        data-qa="show search button"
+        data-qa="show mobile search button"
         class="search d-lg-none mr-3"
         variant="light"
         :aria-label="$t('search')"

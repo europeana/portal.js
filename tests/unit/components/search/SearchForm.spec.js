@@ -83,6 +83,14 @@ describe('components/search/SearchForm', () => {
   beforeEach(() => {
     $goto.resetHistory();
   });
+  it('contains the show mobile search button', () => {
+    const wrapper = factory({
+      store: store({})
+    });
+    const showSearchButton = wrapper.find('[data-qa="show mobile search button"]');
+    showSearchButton.attributes().class.should.contain('d-lg-none');
+    showSearchButton.isVisible().should.equal(true);
+  });
 
   describe('query', () => {
     it('is read from the route', () => {
