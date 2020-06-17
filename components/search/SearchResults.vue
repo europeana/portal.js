@@ -76,7 +76,7 @@
     computed: {
       showUserButtons() {
         // TODO: can be removed at some point
-        return Boolean(Number(process.env.ENABLE_USER_AUTH));
+        return Boolean(Number(process.env.ENABLE_AUTH));
       }
     },
 
