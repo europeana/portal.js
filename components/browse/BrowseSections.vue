@@ -15,7 +15,7 @@
         :section="section"
       />
       <LatestSection
-        v-else-if="contentType(section, 'LatestCardGroup')"
+        v-else-if="contentType(section, 'LatestCardGroup') && section.total"
         :key="index"
         :category="section.genre"
         :total="section.total"
@@ -105,6 +105,7 @@
         };
 
         const { data } = await this.$contentful.query('latestCardGroups', variables);
+        // merge the latest card group data into the main content
         for (let i = 0; i < content.length; i++) {
           if (content[i] && content[i]['__typename'] === 'LatestCardGroup') {
             let latest = {};
