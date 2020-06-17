@@ -34,6 +34,7 @@
               lg="12"
             >
               <LinkGroup
+                v-if="moreInfoNavigation"
                 list-class="footer-link-list"
                 link-class="footer-link"
                 :caption="moreInfoNavigation.name"
@@ -45,6 +46,7 @@
               lg="12"
             >
               <LinkGroup
+                v-if="helpNavigation"
                 list-class="footer-link-list"
                 link-class="footer-link"
                 :caption="helpNavigation.name"
@@ -95,11 +97,11 @@
     props: {
       moreInfoNavigation: {
         type: Object,
-        default: () => {}
+        default: null
       },
       helpNavigation: {
         type: Object,
-        default: () => {}
+        default: null
       }
     },
 
