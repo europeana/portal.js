@@ -13,6 +13,9 @@ const factory = (options = {}) => shallowMount(PageHeader, {
     $t: () => {},
     $path: (code) => window.location.href + code
   },
+  stubs: {
+    transition: true
+  },
   store: options.store || store({ ui: {} })
 });
 
@@ -48,5 +51,41 @@ describe('components/PageHeader', () => {
 
     const logo = wrapper.find('[data-qa="logo"]');
     logo.attributes().src.should.match(/\/logo\..+\.svg$/);
+  });
+
+  it('contains the desktop nav', () => {
+    const wrapper = factory({
+      store: store({
+        showSearch: false
+      })
+    });
+
+    const nav = wrapper.find('b-navbar-stub[data-qa="desktop navigation"]');
+    nav.isVisible().should.equal(true);
+    nav.attributes().class.should.contain('d-lg-block');
+  });
+
+  it('contains the mobile navigation toggle button', () => {
+    const wrapper = factory({
+      store: store({
+        showSearch: false
+      })
+    });
+    const sidebarButton = wrapper.find('b-button-stub.navbar-toggle');
+    sidebarButton.isVisible().should.equal(true);
+  });
+
+  it('shows the mobile nav when the sidebar is visible', () => {
+    const wrapper = factory({
+      store: store({
+        showSearch: false
+      })
+    });
+    wrapper.setData({
+      showSidebar: true
+    });
+    const nav = wrapper.find('[data-qa="mobile navigation"]');
+    nav.attributes().class.should.contain('d-lg-none');
+    nav.isVisible().should.equal(true);
   });
 });
