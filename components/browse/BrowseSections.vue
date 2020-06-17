@@ -104,7 +104,14 @@
           limit: 4
         };
 
-        const { data } = await this.$contentful.query('latestCardGroups', variables);
+        let data;
+        try {
+          const response = await this.$contentful.query('latestCardGroups', variables);
+          data = response.data;
+        } catch (e) {
+          return content;
+        }
+
         // merge the latest card group data into the main content
         for (let i = 0; i < content.length; i++) {
           if (content[i] && content[i]['__typename'] === 'LatestCardGroup') {

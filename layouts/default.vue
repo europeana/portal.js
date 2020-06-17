@@ -92,7 +92,14 @@
         preview: this.$route.query.mode === 'preview'
       };
 
-      const { data } = await this.$contentful.query('linkGroups', contentfulVariables);
+      let data;
+      try {
+        const response = await this.$contentful.query('linkGroups', contentfulVariables);
+        data = response.data;
+      } catch (e) {
+        return;
+      }
+
       const linkGroups = {};
       for (const identifier of ['mobileNavigation', 'footerMoreInfo', 'footerHelp']) {
         const linkGroup = data.data[identifier].items[0];
@@ -102,10 +109,6 @@
         };
       }
       this.linkGroups = linkGroups;
-      // TODO: handle error properly for new-style fetch
-      // .catch((e) => {
-      //   error({ statusCode: 500, message: e.toString() });
-      // });
     },
 
     head() {

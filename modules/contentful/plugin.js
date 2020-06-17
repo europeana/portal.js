@@ -15,11 +15,7 @@ const query = (alias, variables = {}) => {
     'Authorization': `Bearer ${process.env['CTF_CDA_ACCESS_TOKEN']}`
   };
 
-  return axios.post(url, body, { headers })
-    .then(data => {
-      if (data.errors) throw new Error(data.errors[0].message);
-      return data;
-    });
+  return axios.post(url, body, { headers });
 };
 
 const plugin = {

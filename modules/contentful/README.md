@@ -5,4 +5,5 @@ This directory contains queries and functions for the
 
 ## TODO
 
+* Support organising query files by sub-directories
 * Investigate replacement with Apollo, using Vue Apollo and Nuxt Apollo.
