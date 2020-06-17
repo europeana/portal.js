@@ -5,12 +5,12 @@
     variant="light"
     class="mt-1 mr-2 font-weight-normal bg-white"
     :class="{ 'img-chip': img }"
-    data-qa="browse chip"
+    data-qa="related chip"
   >
     <b-img
       v-if="img"
       :src="img"
-      alt=""
+      :alt="title"
       rounded="circle"
       class="mr-2"
     />
@@ -23,6 +23,10 @@
     name: 'RelatedChip',
 
     props: {
+      to: {
+        type: String,
+        default: ''
+      },
       linkGen: {
         type: Function,
         default: (val) => val

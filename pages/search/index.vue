@@ -12,18 +12,10 @@
         <b-col>
           <h1>{{ $t('search') }}</h1>
         </b-col>
-        <b-container v-if="relatedCollections.length > 0">
-          <h2 class="related-heading text-uppercase mt-4 mb-2">
-            {{ $t('relatedCollections') }}
-          </h2>
-          <RelatedChip
-            v-for="relatedCollection in relatedCollections"
-            :id="relatedCollection.id"
-            :key="relatedCollection.id"
-            :link-gen="suggestionLinkGen"
-            :title="relatedCollection.prefLabel[$i18n.locale]"
-          />
-        </b-container>
+        <RelatedCollections
+          v-if="relatedCollectionsEnabled"
+          :query="this.$route.query.query"
+        />
         <SearchInterface
           :per-row="4"
         />
@@ -37,21 +29,12 @@
   import { pageFromQuery } from '../../plugins/utils';
   import legacyUrl from '../../plugins/europeana/legacy-search';
   import NotificationBanner from '../../components/generic/NotificationBanner';
-  import RelatedChip from '../../components/generic/RelatedChip';
-  import { getEntitySuggestions, getEntityTypeHumanReadable, getEntitySlug } from '../../plugins/europeana/entity';
-  import { mapGetters } from 'vuex';
 
   export default {
     components: {
       SearchInterface,
       NotificationBanner,
-      RelatedChip
-    },
-
-    data() {
-      return {
-        relatedCollections: []
-      };
+      RelatedCollections: () => import('../../components/generic/RelatedCollections')
     },
 
     middleware({ query, redirect, app }) {
@@ -63,23 +46,15 @@
       }
     },
     computed: {
-      ...mapGetters({
-        apiConfig: 'apis/config'
-      }),
       notificationUrl() {
         return legacyUrl(this.$route.query, this.$store.state.i18n.locale) +
           '&utm_source=new-website&utm_medium=button';
       },
       redirectNotificationsEnabled() {
         return Boolean(Number(process.env.ENABLE_LINKS_TO_CLASSIC));
-      }
-    },
-
-    watch: {
-      '$route'() {
-        if (this.$route.query.query.length > 0) {
-          this.getSearchSuggestions(this.$route.query.query);
-        }
+      },
+      relatedCollectionsEnabled() {
+        return Boolean(Number(process.env.ENABLE_SEARCH_RELATED_COLLECTIONS));
       }
     },
 
@@ -95,28 +70,6 @@
 
     mounted() {
       this.$store.commit('search/enableCollectionFacet');
-      if (this.$route.query.query.length > 0) {
-        this.getSearchSuggestions(this.$route.query.query);
-      }
-    },
-
-    methods: {
-      async getSearchSuggestions(query) {
-        const suggestions = await getEntitySuggestions(query, {
-          language: this.$i18n.locale
-        });
-        this.relatedCollections = suggestions.slice(0, 4);
-      },
-
-      suggestionLinkGen(id, prefLabel) {
-        const uriMatch = id.match(`^${this.apiConfig.data.origin}/([^/]+)(/base)?/(.+)$`);
-        return this.$path({
-          name: 'collections-type-all', params: {
-            type: getEntityTypeHumanReadable(uriMatch[1]),
-            pathMatch: getEntitySlug(id, prefLabel)
-          }
-        });
-      }
     },
 
     head() {
