@@ -30,8 +30,8 @@
         </template>
         <template v-else>
           <ContentCard
-            v-for="card in cards"
-            :key="card.sys.id"
+            v-for="(card, index) in cards"
+            :key="index"
             :title="card.name"
             :url="entityRouterLink(card.identifier, card.slug)"
             :image-url="card.image"

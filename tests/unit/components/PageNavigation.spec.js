@@ -1,6 +1,5 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import Vuex from 'vuex';
-import sinon from 'sinon';
 
 import BootstrapVue from 'bootstrap-vue';
 import PageNavigation from '../../../components/PageNavigation.vue';
@@ -8,7 +7,6 @@ import PageNavigation from '../../../components/PageNavigation.vue';
 const localVue = createLocalVue();
 localVue.use(Vuex);
 localVue.use(BootstrapVue);
-
 
 const store = new Vuex.Store({
   modules: {
@@ -34,8 +32,6 @@ const store = new Vuex.Store({
   }
 });
 
-store.dispatch = sinon.stub();
-
 const factory = () => mount(PageNavigation, {
   localVue,
   store,
@@ -50,13 +46,5 @@ describe('components/search/PageNavigation', () => {
     const links =  wrapper.find('[data-qa="main navigation"]');
 
     links.contains('Our partners');
-  });
-
-  it('calls dispatch when locale changes', async() => {
-    const wrapper = factory();
-
-    wrapper.vm.$store.state.i18n.locale = 'nl';
-
-    sinon.assert.calledWith(store.dispatch);
   });
 });

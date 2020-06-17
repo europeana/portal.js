@@ -47,6 +47,7 @@
       role="navigation"
     >
       <PageNavigation
+        v-if="navigation"
         :links="navigation.links"
       />
     </b-navbar>
@@ -68,6 +69,7 @@
           >
         </SmartLink>
         <PageNavigation
+          v-if="navigation"
           :links="navigation.links"
         />
       </b-navbar>
@@ -101,7 +103,7 @@
       },
       navigation: {
         type: Object,
-        default: () => {}
+        default: null
       }
     },
 
