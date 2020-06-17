@@ -3,7 +3,7 @@
     ref="nav-container"
     v-visible-on-scroll
     fluid
-    class="border-bottom d-flex py-0 px-lg-3 flex-column flex-lg-row align-items-center"
+    class="border-bottom d-flex py-0 px-lg-3 flex-column flex-lg-row align-items-center show"
     data-qa="header"
   >
     <header
@@ -40,7 +40,6 @@
         class="px-lg-3 mr-lg-auto mx-xl-auto"
         aria-label="search form"
         :enable-auto-suggest="enableAutoSuggest"
-        :enable-suggestion-validation="enableSuggestionValidation"
       />
     </header>
     <b-navbar
@@ -93,10 +92,6 @@
 
     props: {
       enableAutoSuggest: {
-        type: Boolean,
-        default: false
-      },
-      enableSuggestionValidation: {
         type: Boolean,
         default: false
       }

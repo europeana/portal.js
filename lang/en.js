@@ -423,7 +423,9 @@ export default {
   "header": {
     "showSidebar": "Show Sidebar",
     "backToMenu": "Back to menu",
-    "searchFor": "Search for",
+    "searchFor": "Search for '{query}'",
+    "inCollection": "Search for '{query}' in {collection}",
+    "entireCollection": "Search for '{query}' in our entire collection",
     "clearQuery": "Clear Search Query"
   },
   "homeLinkAlt": "Europeana home",
