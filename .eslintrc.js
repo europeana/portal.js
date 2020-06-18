@@ -20,7 +20,7 @@ module.exports = {
   rules: {
     'array-bracket-newline': ['error', { 'multiline': true }],
     'array-bracket-spacing': ['error', 'never'],
-    'array-element-newline': ['error', { 'multiline': true }],
+    'array-element-newline': ['error', 'consistent'],
     'arrow-spacing': 'error',
     'block-spacing': ['error', 'always'],
     'brace-style': ['error', '1tbs', { 'allowSingleLine': false }],

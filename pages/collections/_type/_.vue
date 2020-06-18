@@ -131,7 +131,7 @@
         try {
           entity = await entities.getEntity(params.type, params.pathMatch);
         } catch (err) {
-          const statusCode = (typeof err.statusCode !== 'undefined') ? err.statusCode : 500;
+          const statusCode = (typeof err.statusCode === 'undefined') ? 500 : err.statusCode;
           return error({
             message: err.message,
             statusCode
@@ -257,13 +257,15 @@
       const contentfulClient = createClient(query.mode);
       const curatedEntityName = store.state.entity.curatedEntities[entityUri];
 
-      return axios.all([entities.relatedEntities(params.type, params.pathMatch, { origin: query.recordApi })].concat(!curatedEntityName ? [] : contentfulClient.getEntries({
-        'locale': app.i18n.isoLocale(),
-        'content_type': 'entityPage',
-        'fields.identifier': entityUri,
-        'include': 2,
-        'limit': 1
-      })))
+      return axios.all(
+        [entities.relatedEntities(params.type, params.pathMatch, { origin: query.recordApi })]
+          .concat(curatedEntityName ? contentfulClient.getEntries({
+            'locale': app.i18n.isoLocale(),
+            'content_type': 'entityPage',
+            'fields.identifier': entityUri,
+            'include': 2,
+            'limit': 1
+          }) : []))
         .then(axios.spread(async(related, entries) => {
           const entityPage = entries && entries.total > 0 ? entries.items[0].fields : null;
 
@@ -280,7 +282,7 @@
         }))
         .catch((error) => {
           if (typeof res !== 'undefined') {
-            res.statusCode = (typeof error.statusCode !== 'undefined') ? error.statusCode : 500;
+            res.statusCode = (typeof error.statusCode === 'undefined') ? 500 : error.statusCode;
           }
           return { error: error.message };
         });

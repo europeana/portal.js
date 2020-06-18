@@ -12,7 +12,7 @@ storiesOf('Generic', module)
     i18n,
     template: `
       <b-container class="mt-3">
-        <LatestSection 
+        <LatestSection
           category="Exhibitions"
         />
       </b-container>
@@ -29,12 +29,12 @@ storiesOf('Generic/Messages', module)
     },
     methods: {
       toggleToast() {
-        if (!this.toggle) {
-          this.toggle = true;
-          this.$bvToast.show('tier-toast');
-        } else {
+        if (this.toggle) {
           this.toggle = false;
           this.$bvToast.hide('tier-toast');
+        } else {
+          this.toggle = true;
+          this.$bvToast.show('tier-toast');
         }
       }
     },

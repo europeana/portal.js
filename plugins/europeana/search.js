@@ -11,8 +11,18 @@ import { genericThumbnail } from './thumbnail';
 // Some facets do not support enquoting of their field values.
 export const unquotableFacets = [
   'collection', // it _may_ be quoted, but our prewarmed filters are without
-  'COLOURPALETTE', 'IMAGE_COLOUR', 'IMAGE_GREYSCALE', // WARNING: always returns zero results anyway
-  'IMAGE_SIZE', 'MEDIA', 'MIME_TYPE', 'REUSABILITY', 'SOUND_DURATION', 'SOUND_HQ', 'TEXT_FULLTEXT', 'THUMBNAIL', 'VIDEO_HD'
+  'COLOURPALETTE',
+  'IMAGE_COLOUR',
+  'IMAGE_GREYSCALE', // WARNING: always returns zero results anyway
+  'IMAGE_SIZE',
+  'MEDIA',
+  'MIME_TYPE',
+  'REUSABILITY',
+  'SOUND_DURATION',
+  'SOUND_HQ',
+  'TEXT_FULLTEXT',
+  'THUMBNAIL',
+  'VIDEO_HD'
 ];
 
 // Thematic collections available via the `collection` qf
@@ -39,8 +49,8 @@ export function rangeToQueryParam(values) {
 export function rangeFromQueryParam(paramValue) {
   const matches = paramValue.match(/^\[([^ ].*) TO ([^ ].*)\]$/);
   if (matches === null) return null;
-  const start = matches[1] !== '*' ? matches[1] : null;
-  const end = matches[2] !== '*' ? matches[2] : null;
+  const start = matches[1] === '*' ? null : matches[1];
+  const end = matches[2] === '*' ? null : matches[2];
 
   return { start, end };
 }
@@ -74,7 +84,7 @@ function resultsFromApiResponse(response) {
         dcCreator: item.dcCreatorLangAware,
         edmDataProvider: item.dataProvider
       },
-      ...(response.data.hits !== undefined ? hitForItem(response.data.hits, item.id) : {})
+      ...(response.data.hits === undefined ? {} : hitForItem(response.data.hits, item.id))
     };
   });
 

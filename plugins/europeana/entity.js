@@ -265,11 +265,11 @@ export function getEntityDescription(entity, locale) {
     // TODO: it _should_ always be an array. this is an Entity API bug. remove
     //       the condition when fixed upstream.
     //       see: https://europeana.atlassian.net/browse/EA-1685
-    if (entity.biographicalInformation.length !== undefined) {
-      description = langMapValueForLocale(entity.biographicalInformation, locale);
-    } else {
+    if (entity.biographicalInformation.length === undefined) {
       const text = entity.biographicalInformation['@language'] === 'en' ? entity.biographicalInformation['@value'] : '';
       description = { values: [text], code: 'en' };
+    } else {
+      description = langMapValueForLocale(entity.biographicalInformation, locale);
     }
   }
   return description;

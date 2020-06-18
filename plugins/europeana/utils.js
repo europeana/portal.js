@@ -177,7 +177,7 @@ function setLangCode(map, key, locale) {
     map['code'] = '';
   } else {
     const langCode = normalizedLangCode(key);
-    map['code'] = locale !== langCode ? langCode : null; // output if different from UI language
+    map['code'] = locale === langCode ? null : langCode; // output if different from UI language
   }
 }
 

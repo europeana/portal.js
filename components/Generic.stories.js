@@ -85,7 +85,7 @@ storiesOf('Generic', module)
       };
     },
     template: `<b-container class="mt-3">
-      <ContentCardSection 
+      <ContentCardSection
         :section="section"
       />
     </b-container>`
@@ -101,12 +101,12 @@ storiesOf('Generic/Messages', module)
     },
     methods: {
       toggleToast() {
-        if (!this.toggle) {
-          this.toggle = true;
-          this.$bvToast.show('tier-toast');
-        } else {
+        if (this.toggle) {
           this.toggle = false;
           this.$bvToast.hide('tier-toast');
+        } else {
+          this.toggle = true;
+          this.$bvToast.show('tier-toast');
         }
       }
     },

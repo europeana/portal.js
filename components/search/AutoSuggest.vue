@@ -184,7 +184,7 @@
         if (this.noSuggestionHasFocus || this.firstSuggestionHasFocus) {
           this.focus = this.numberOfSuggestions - 1;
         } else {
-          this.focus--;
+          this.focus = this.focus - 1;
         }
 
         this.selectSuggestion();
@@ -194,7 +194,7 @@
         if (this.noSuggestionHasFocus || this.lastSuggestionHasFocus) {
           this.focus = 0;
         } else {
-          this.focus++;
+          this.focus = this.focus + 1;
         }
 
         this.selectSuggestion();

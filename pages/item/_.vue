@@ -334,7 +334,7 @@
         })
         .catch((error) => {
           if (typeof res !== 'undefined') {
-            res.statusCode = (typeof error.statusCode !== 'undefined') ? error.statusCode : 500;
+            res.statusCode = (typeof error.statusCode === 'undefined') ? 500 : error.statusCode;
           }
           return { error: error.message };
         });
