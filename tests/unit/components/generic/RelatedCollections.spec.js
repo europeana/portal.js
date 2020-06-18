@@ -1,4 +1,4 @@
-import { createLocalVue, shallowMount } from '@vue/test-utils';
+import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 import Vuex from 'vuex';
 
@@ -9,26 +9,36 @@ const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 localVue.use(Vuex);
 
-const store = new Vuex.Store({
-  getters: {
-    'apis/config': () => apiConfig
-  }
-});
-
-const factory = () => shallowMount(RelatedCollections, {
-  localVue,
-  store,
-  propsData: {
-    query: 'Art'
-  },
-  stubs: ['b-container'],
-  mocks: {
-    $i18n: { locale: 'en' },
-    $t: () => {},
-    $route: { query: {} },
-    $fetch: () => {}
-  }
-});
+const factory = (options = {}) => {
+  return mount(RelatedCollections, {
+    localVue,
+    propsData: {
+      query: 'Art'
+    },
+    stubs: ['b-container'],
+    mocks: {
+      ...{
+        $i18n: { locale: 'en' },
+        $t: () => {},
+        $fetch: () => {}
+      }, ...(options.mocks || {})
+    },
+    store: options.store || store()
+  });
+};
+const getters = {
+  'apis/config': () => apiConfig
+};
+const store = (options = {}) => {
+  return new Vuex.Store({
+    getters,
+    state: options.state || {
+      i18n: {
+        locale: 'en'
+      }
+    }
+  });
+};
 
 // const relatedChips = [
 //   {
@@ -61,12 +71,8 @@ describe('components/generic/RelatedCollections', () => {
   it('shows a section with related collections chips', async() => {
     const wrapper = factory();
     wrapper.setProps({ query: 'Art' });
-    console.log(wrapper.html());
-    // wrapper.vm.getSearchSuggestions('Art');
     await wrapper.vm.$nextTick();
-    // console.log(wrapper.html());
     const relatedCollections = wrapper.find('[data-qa="related collections"]');
-    // console.log(relatedCollections.attributes());
     relatedCollections.isVisible().should.be.true;
   });
 });
