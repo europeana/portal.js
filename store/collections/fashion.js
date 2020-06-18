@@ -1,6 +1,11 @@
 import { defaultFacetNames } from '../search';
 
-const fashionFacetNames = ['CREATOR', 'proxy_dc_format.en', 'proxy_dcterms_medium.en', 'proxy_dc_type.en'].concat(defaultFacetNames);
+const fashionFacetNames = [
+  'CREATOR',
+  'proxy_dc_format.en',
+  'proxy_dcterms_medium.en',
+  'proxy_dc_type.en'
+].concat(defaultFacetNames);
 fashionFacetNames.splice(fashionFacetNames.indexOf('contentTier'), 1);
 const fashionFacetParam = fashionFacetNames.join(',');
 

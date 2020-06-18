@@ -104,7 +104,9 @@
       return {
         title: 'IIIF',
 
-        script: [{ src: `${this.MIRADOR_BUILD_PATH}/mirador.min.js` }]
+        script: [
+          { src: `${this.MIRADOR_BUILD_PATH}/mirador.min.js` }
+        ]
       };
     }
   };

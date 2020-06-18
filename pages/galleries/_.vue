@@ -95,7 +95,16 @@
     head() {
       return {
         title: this.title,
-        meta: [{ hid: 'title', name: 'title', content: this.title }, { hid: 'og:title', property: 'og:title', content: this.title }, { hid: 'og:image', property: 'og:image', content: this.shareMediaUrl }, { hid: 'og:type', property: 'og:type', content: 'article' }].concat(this.description ? [{ hid: 'description', name: 'description', content: this.description }, { hid: 'og:description', property: 'og:description', content: this.description }] : [])
+        meta: [
+          { hid: 'title', name: 'title', content: this.title },
+          { hid: 'og:title', property: 'og:title', content: this.title },
+          { hid: 'og:image', property: 'og:image', content: this.shareMediaUrl },
+          { hid: 'og:type', property: 'og:type', content: 'article' }
+        ]
+          .concat(this.description ? [
+            { hid: 'description', name: 'description', content: this.description },
+            { hid: 'og:description', property: 'og:description', content: this.description }
+          ] : [])
       };
     }
   };

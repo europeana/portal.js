@@ -430,7 +430,14 @@
     head() {
       return {
         title: this.metaTitle,
-        meta: [{ hid: 'title', name: 'title', content: this.metaTitle }, { hid: 'description', name: 'description', content: this.metaDescription }, { hid: 'og:title', property: 'og:title', content: this.metaTitle }, { hid: 'og:description', property: 'og:description', content: this.metaDescription }, { hid: 'og:image', property: 'og:image', content: this.selectedMediaImage.src ? this.selectedMediaImage.src : '' }, { hid: 'og:type', property: 'og:type', content: 'article' }]
+        meta: [
+          { hid: 'title', name: 'title', content: this.metaTitle },
+          { hid: 'description', name: 'description', content: this.metaDescription },
+          { hid: 'og:title', property: 'og:title', content: this.metaTitle },
+          { hid: 'og:description', property: 'og:description', content: this.metaDescription },
+          { hid: 'og:image', property: 'og:image', content: this.selectedMediaImage.src ? this.selectedMediaImage.src : '' },
+          { hid: 'og:type', property: 'og:type', content: 'article' }
+        ]
       };
     },
 

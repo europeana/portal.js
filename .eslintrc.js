@@ -18,7 +18,7 @@ module.exports = {
   ],
   // add your custom rules here
   rules: {
-    'array-bracket-newline': ['error', { 'multiline': true }],
+    'array-bracket-newline': ['error', 'consistent'],
     'array-bracket-spacing': ['error', 'never'],
     'array-element-newline': ['error', 'consistent'],
     'arrow-spacing': 'error',
