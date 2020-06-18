@@ -47,7 +47,7 @@
       class="p-lg-0 align-items-start justify-content-lg-end flex-column flex-lg-row d-none d-lg-block"
       role="navigation"
     >
-      <PageNavigation :links="$store.state['link-group'].data.mainNavigation.links" />
+      <PageNavigation :links="mainNavigation.links" />
     </b-navbar>
     <transition name="slide">
       <b-navbar
@@ -66,7 +66,7 @@
             data-qa="logo"
           >
         </SmartLink>
-        <PageNavigation :links="$store.state['link-group'].data.mobileNavigation.links" />
+        <PageNavigation :links="mobileNavigation.links" />
       </b-navbar>
     </transition>
     <transition name="fade">
@@ -114,6 +114,12 @@
         get() {
           return this.$store.getters['ui/searchView'];
         }
+      },
+      mainNavigation() {
+        return this.$store.state['link-group'].data.mainNavigation;
+      },
+      mobileNavigation() {
+        return this.$store.state['link-group'].data.mobileNavigation;
       }
     },
 
