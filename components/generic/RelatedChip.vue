@@ -33,7 +33,6 @@
       },
       title: {
         type: String,
-        default: '',
         required: true
       },
       id: {

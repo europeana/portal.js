@@ -48,25 +48,19 @@
     },
 
     watch: {
-      query() {
-        this.$fetch();
-      }
+      query: '$fetch'
     },
 
     fetch() {
       this.getSearchSuggestions(this.query);
     },
 
-    mounted() {
-      this.$fetch();
-    },
-
     methods: {
       async getSearchSuggestions(query) {
-        const suggestions = await getEntitySuggestions(query, {
-          language: this.$i18n.locale
+        this.relatedCollections = query === '' ? [] : await getEntitySuggestions(query, {
+          language: this.$i18n.locale,
+          rows: 4
         });
-        this.relatedCollections = suggestions.slice(0, 4);
       },
 
       suggestionLinkGen(id, prefLabel) {
