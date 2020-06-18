@@ -5,7 +5,6 @@
   >
     <HeroImage
       v-if="hero"
-      exhibition
       :image-url="heroImage.url"
       :image-content-type="heroImage.contentType"
       :header="page.name"

@@ -80,6 +80,15 @@
         </template>
       </b-card-body>
     </SmartLink>
+    <div
+      v-if="showUserButtons"
+      class="user-buttons"
+      data-qa="user buttons"
+    >
+      <b-button>
+        <i class="icon-ic-add" />
+      </b-button>
+    </div>
   </b-card>
 </template>
 
@@ -156,6 +165,10 @@
       blankImageWidth: {
         type: Number,
         default: null
+      },
+      showUserButtons: {
+        type: Boolean,
+        default: false
       }
     },
     data() {
