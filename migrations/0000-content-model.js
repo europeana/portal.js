@@ -656,7 +656,21 @@ module.exports = function(migration) {
     .required(false)
     .validations([
       {
-        in: ['archaeology', 'art', 'fashion', 'industrial', 'manuscript', 'map', 'migration', 'music', 'nature', 'newspaper', 'photography', 'sport', 'ww1']
+        in: [
+          'archaeology',
+          'art',
+          'fashion',
+          'industrial',
+          'manuscript',
+          'map',
+          'migration',
+          'music',
+          'nature',
+          'newspaper',
+          'photography',
+          'sport',
+          'ww1'
+        ]
       }
     ])
     .disabled(false)
@@ -800,7 +814,11 @@ module.exports = function(migration) {
 
       validations: [
         {
-          linkContentType: ['automatedEntityCard', 'automatedRecordCard', 'curatedCard']
+          linkContentType: [
+            'automatedEntityCard',
+            'automatedRecordCard',
+            'curatedCard'
+          ]
         }
       ],
 

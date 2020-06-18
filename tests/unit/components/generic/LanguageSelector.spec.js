@@ -10,7 +10,10 @@ const factory = (locale) => mount(LangSelector, {
   mocks: {
     $t: () => {},
     $i18n: {
-      locales: [{ code: 'en', name: 'English', iso: 'en-GB' }, { code: 'de', name: 'Deutsch', iso: 'de-DE' }],
+      locales: [
+        { code: 'en', name: 'English', iso: 'en-GB' },
+        { code: 'de', name: 'Deutsch', iso: 'de-DE' }
+      ],
       locale
     },
     $route: () => {},

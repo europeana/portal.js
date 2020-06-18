@@ -165,7 +165,16 @@ describe('components/search/SearchInterface', () => {
     describe('orderedFacets', () => {
       const wrapper = factory({
         storeState: {
-          facets: [{ name: 'COUNTRY' }, { name: 'RIGHTS' }, { name: 'CONTRIBUTOR' }, { name: 'DATA_PROVIDER' }, { name: 'PROVIDER' }, { name: 'LANGUAGE' }, { name: 'REUSABILITY' }, { name: 'TYPE' }]
+          facets: [
+            { name: 'COUNTRY' },
+            { name: 'RIGHTS' },
+            { name: 'CONTRIBUTOR' },
+            { name: 'DATA_PROVIDER' },
+            { name: 'PROVIDER' },
+            { name: 'LANGUAGE' },
+            { name: 'REUSABILITY' },
+            { name: 'TYPE' }
+          ]
         }
       });
 
@@ -191,7 +200,16 @@ describe('components/search/SearchInterface', () => {
     describe('coreFacets', () => {
       const wrapper = factory({
         storeState: {
-          facets: [{ name: 'COUNTRY' }, { name: 'RIGHTS' }, { name: 'CONTRIBUTOR' }, { name: 'DATA_PROVIDER' }, { name: 'PROVIDER' }, { name: 'LANGUAGE' }, { name: 'REUSABILITY' }, { name: 'TYPE' }]
+          facets: [
+            { name: 'COUNTRY' },
+            { name: 'RIGHTS' },
+            { name: 'CONTRIBUTOR' },
+            { name: 'DATA_PROVIDER' },
+            { name: 'PROVIDER' },
+            { name: 'LANGUAGE' },
+            { name: 'REUSABILITY' },
+            { name: 'TYPE' }
+          ]
         }
       });
 
@@ -203,7 +221,16 @@ describe('components/search/SearchInterface', () => {
     describe('moreFacets', () => {
       const wrapper = factory({
         storeState: {
-          facets: [{ name: 'COUNTRY' }, { name: 'RIGHTS' }, { name: 'CONTRIBUTOR' }, { name: 'DATA_PROVIDER' }, { name: 'PROVIDER' }, { name: 'LANGUAGE' }, { name: 'REUSABILITY' }, { name: 'TYPE' }]
+          facets: [
+            { name: 'COUNTRY' },
+            { name: 'RIGHTS' },
+            { name: 'CONTRIBUTOR' },
+            { name: 'DATA_PROVIDER' },
+            { name: 'PROVIDER' },
+            { name: 'LANGUAGE' },
+            { name: 'REUSABILITY' },
+            { name: 'TYPE' }
+          ]
         }
       });
 
@@ -306,7 +333,9 @@ describe('components/search/SearchInterface', () => {
 
         context('with contentTier "0" facet field', () => {
           beforeEach(() => {
-            facets = [{ name: 'contentTier', fields: [{ label: '"0"' }] }];
+            facets = [
+              { name: 'contentTier', fields: [{ label: '"0"' }] }
+            ];
           });
 
           context('when toast has not yet been shown this session', () => {
@@ -353,7 +382,9 @@ describe('components/search/SearchInterface', () => {
 
         context('without contentTier 0 facet field', () => {
           beforeEach(() => {
-            facets = [{ name: 'contentTier', fields: [{ label: '"1"' }] }];
+            facets = [
+              { name: 'contentTier', fields: [{ label: '"1"' }] }
+            ];
           });
 
           it('does not show the toast', async() => {

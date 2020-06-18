@@ -53,8 +53,18 @@ const apiResponse = {
       {
         edmIsShownAt,
         edmIsShownBy: edmIsShownByWebResource.about,
-        hasView: [edmHasViewWebResourceSecond.about, edmHasViewWebResourceThird.about, edmHasViewWebResourceFirst.about],
-        webResources: [edmIsShownByWebResource, edmHasViewWebResourceSecond, edmHasViewWebResourceThird, edmHasViewWebResourceFirst, someOtherWebResource]
+        hasView: [
+          edmHasViewWebResourceSecond.about,
+          edmHasViewWebResourceThird.about,
+          edmHasViewWebResourceFirst.about
+        ],
+        webResources: [
+          edmIsShownByWebResource,
+          edmHasViewWebResourceSecond,
+          edmHasViewWebResourceThird,
+          edmHasViewWebResourceFirst,
+          someOtherWebResource
+        ]
       }
     ],
     europeanaAggregation: {
@@ -72,8 +82,12 @@ const apiResponse = {
         }
       }
     ],
-    agents: [{ about: 'http://data.europeana.eu/agent/base/123' }],
-    concepts: [{ about: 'http://data.europeana.eu/concept/base/456' }],
+    agents: [
+      { about: 'http://data.europeana.eu/agent/base/123' }
+    ],
+    concepts: [
+      { about: 'http://data.europeana.eu/concept/base/456' }
+    ],
     type
   }
 };

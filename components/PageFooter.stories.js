@@ -53,7 +53,9 @@ const i18n = new VueI18n({
 
 storiesOf('Design', module)
   .addDecorator(StoryRouter({}, {
-    routes: [{ query: '', path: '' }]
+    routes: [
+      { query: '', path: '' }
+    ]
   }))
   .add('Page Footer', () => ({
     store,

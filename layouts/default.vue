@@ -82,8 +82,18 @@
         htmlAttrs: {
           ...i18nSeo.htmlAttrs
         },
-        link: [{ rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Ubuntu:300,400,700%7COpen+Sans:400italic,700italic,400,600,700&subset=latin,greek,cyrillic&display=swap', body: true }, { rel: 'stylesheet', href: `https://unpkg.com/bootstrap@${this.bootstrapVersion}/dist/css/bootstrap.min.css` }, { rel: 'stylesheet', href: `https://unpkg.com/bootstrap-vue@${this.bootstrapVueVersion}/dist/bootstrap-vue.min.css` }, { hreflang: 'x-default', rel: 'alternate', href: this.canonicalUrlWithoutLocale }, ...i18nSeo.link],
-        meta: [{ hid: 'description', property: 'description', content: 'Europeana' }, { hid: 'og:url', property: 'og:url', content: this.canonicalUrl }, ...i18nSeo.meta]
+        link: [
+          { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Ubuntu:300,400,700%7COpen+Sans:400italic,700italic,400,600,700&subset=latin,greek,cyrillic&display=swap', body: true },
+          { rel: 'stylesheet', href: `https://unpkg.com/bootstrap@${this.bootstrapVersion}/dist/css/bootstrap.min.css` },
+          { rel: 'stylesheet', href: `https://unpkg.com/bootstrap-vue@${this.bootstrapVueVersion}/dist/bootstrap-vue.min.css` },
+          { hreflang: 'x-default', rel: 'alternate', href: this.canonicalUrlWithoutLocale },
+          ...i18nSeo.link
+        ],
+        meta: [
+          { hid: 'description', property: 'description', content: 'Europeana' },
+          { hid: 'og:url', property: 'og:url', content: this.canonicalUrl },
+          ...i18nSeo.meta
+        ]
       };
     }
   };

@@ -19,7 +19,12 @@ const recordApiUrl = config.record.origin;
 const recordApiEndpoint = `${config.record.path}/search.json`;
 
 const searchResponse = {
-  facets: [{ name: 'edm_agent', fields: [{ label: 'http://data.europeana.eu/agent/base/147831' }, { label: 'http://data.europeana.eu/agent/base/49928' }] }]
+  facets: [
+    { name: 'edm_agent', fields: [
+      { label: 'http://data.europeana.eu/agent/base/147831' },
+      { label: 'http://data.europeana.eu/agent/base/49928' }
+    ] }
+  ]
 };
 
 const entitiesResponse = {

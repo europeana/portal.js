@@ -18,8 +18,14 @@ module.exports = {
     htmlAttrs: {
       lang: 'en'
     },
-    meta: [{ charset: 'utf-8' }, { name: 'viewport', content: 'width=device-width, initial-scale=1' }, { hid: 'description', name: 'description', content: pkg.description }],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
+    meta: [
+      { charset: 'utf-8' },
+      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+      { hid: 'description', name: 'description', content: pkg.description }
+    ],
+    link: [
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+    ]
   },
 
   /*
@@ -49,28 +55,56 @@ module.exports = {
     bootstrapVueCSS: false,
 
     // Tree shake plugins
-    componentPlugins: ['AlertPlugin', 'BadgePlugin', 'BreadcrumbPlugin', 'ButtonPlugin', 'CardPlugin', 'DropdownPlugin', 'FormCheckboxPlugin', 'FormGroupPlugin', 'FormInputPlugin', 'FormPlugin', 'FormRadioPlugin', 'ImagePlugin', 'InputGroupPlugin', 'JumbotronPlugin', 'LayoutPlugin', 'LinkPlugin', 'ListGroupPlugin', 'MediaPlugin', 'NavbarPlugin', 'NavPlugin', 'PaginationNavPlugin', 'ToastPlugin']
+    componentPlugins: [
+      'AlertPlugin',
+      'BadgePlugin',
+      'BreadcrumbPlugin',
+      'ButtonPlugin',
+      'CardPlugin',
+      'DropdownPlugin',
+      'FormCheckboxPlugin',
+      'FormGroupPlugin',
+      'FormInputPlugin',
+      'FormPlugin',
+      'FormRadioPlugin',
+      'ImagePlugin',
+      'InputGroupPlugin',
+      'JumbotronPlugin',
+      'LayoutPlugin',
+      'LinkPlugin',
+      'ListGroupPlugin',
+      'MediaPlugin',
+      'NavbarPlugin',
+      'NavPlugin',
+      'PaginationNavPlugin',
+      'ToastPlugin'
+    ]
   },
 
   /*
   ** Plugins to load before mounting the App
   */
-  plugins: ['~/plugins/path', '~/plugins/europeana', '~/plugins/vue/index', '~/plugins/i18n.js', '~/plugins/vue-filters', '~/plugins/vue-disqus', '~/plugins/vue-directives'],
+  plugins: [
+    '~/plugins/path',
+    '~/plugins/europeana',
+    '~/plugins/vue/index',
+    '~/plugins/i18n.js',
+    '~/plugins/vue-filters',
+    '~/plugins/vue-disqus',
+    '~/plugins/vue-directives'
+  ],
 
   buildModules: [
     // Doc: https://www.elastic.co/guide/en/apm/agent/rum-js/current/configuration.html
-    [
-      '~/modules/elastic-apm',
-      {
-        serviceName: 'portal-js',
-        serviceVersion: pkg.version,
-        serverUrl: process.env['ELASTIC_APM_SERVER_URL'],
-        environment: process.env['ELASTIC_APM_ENVIRONMENT'] || 'development',
-        logLevel: process.env['ELASTIC_APM_LOG_LEVEL'] || 'info',
-        frameworkName: 'Nuxt.js',
-        frameworkVersion: require('nuxt/package.json').version
-      }
-    ],
+    ['~/modules/elastic-apm', {
+      serviceName: 'portal-js',
+      serviceVersion: pkg.version,
+      serverUrl: process.env['ELASTIC_APM_SERVER_URL'],
+      environment: process.env['ELASTIC_APM_ENVIRONMENT'] || 'development',
+      logLevel: process.env['ELASTIC_APM_LOG_LEVEL'] || 'info',
+      frameworkName: 'Nuxt.js',
+      frameworkVersion: require('nuxt/package.json').version
+    }],
     '@nuxtjs/gtm'
   ],
   gtm: {
@@ -86,33 +120,30 @@ module.exports = {
     '~/modules/apis',
     'bootstrap-vue/nuxt',
     'cookie-universal-nuxt',
-    [
-      'nuxt-i18n',
-      {
-        locales: i18nLocales,
-        baseUrl: ({ store }) => store.getters['http/origin'],
-        defaultLocale: 'en',
-        lazy: true,
-        langDir: 'lang/',
-        strategy: 'prefix',
-        vueI18n: {
-          fallbackLocale: 'en',
-          silentFallbackWarn: true,
-          dateTimeFormats: i18nDateTime
-        },
-        // Enable browser language detection to automatically redirect user
-        // to their preferred language as they visit your app for the first time
-        // Set to false to disable
-        // NB: do not enable this in portal.js; our own l10n middleware handles it.
-        detectBrowserLanguage: false,
-        vuex: {
+    ['nuxt-i18n', {
+      locales: i18nLocales,
+      baseUrl: ({ store }) => store.getters['http/origin'],
+      defaultLocale: 'en',
+      lazy: true,
+      langDir: 'lang/',
+      strategy: 'prefix',
+      vueI18n: {
+        fallbackLocale: 'en',
+        silentFallbackWarn: true,
+        dateTimeFormats: i18nDateTime
+      },
+      // Enable browser language detection to automatically redirect user
+      // to their preferred language as they visit your app for the first time
+      // Set to false to disable
+      // NB: do not enable this in portal.js; our own l10n middleware handles it.
+      detectBrowserLanguage: false,
+      vuex: {
         // Module namespace
-          moduleName: 'i18n',
-          syncLocale: true,
-          syncRouteParams: true
-        }
+        moduleName: 'i18n',
+        syncLocale: true,
+        syncRouteParams: true
       }
-    ]
+    }]
   ],
 
   router: {
@@ -138,7 +169,11 @@ module.exports = {
       colors: true,
       warnings: true,
       errors: true,
-      excludeAssets: [/.map$/, /index\..+\.html$/, /vue-ssr-client-manifest.json/]
+      excludeAssets: [
+        /.map$/,
+        /index\..+\.html$/,
+        /vue-ssr-client-manifest.json/
+      ]
     },
     extractCSS: true,
     /*

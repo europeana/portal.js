@@ -349,7 +349,11 @@
         qf: ['motivation:tagging']
       };
 
-      axios.all([Number(process.env['ENABLE_ITEM_TAGGING_ANNOTATIONS']) ? searchAnnotations(taggingAnnotationSearchParams) : [], searchEntities(this.europeanaEntityUris), this.getSimilarItems()])
+      axios.all([
+        Number(process.env['ENABLE_ITEM_TAGGING_ANNOTATIONS']) ? searchAnnotations(taggingAnnotationSearchParams) : [],
+        searchEntities(this.europeanaEntityUris),
+        this.getSimilarItems()
+      ])
         .then(axios.spread((taggingAnnotations, entities, similar) => {
           this.taggingAnnotations = taggingAnnotations;
           this.relatedEntities = entities;

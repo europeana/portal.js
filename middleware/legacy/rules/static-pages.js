@@ -44,7 +44,10 @@ export default (route) => {
     const match = route.path.match(pattern);
 
     if (match) return {
-      path: [match[1], redirectTo.path],
+      path: [
+        match[1],
+        redirectTo.path
+      ],
       query: redirectTo.query
     };
   }

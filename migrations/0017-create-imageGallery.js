@@ -97,7 +97,26 @@ module.exports = function(migration) {
       type: 'Symbol',
       validations: [
         {
-          in: ['Archaeology', 'Architecture', 'Art', 'Food and Drink', 'Fashion', 'Industrial Heritage', 'Literature', 'Maps and Geography', 'Migration', 'Music', 'Natural History', 'Manuscripts', 'Newspapers', 'Performing Arts', 'Photography', 'Sport', 'Travel', 'World War I']
+          in: [
+            'Archaeology',
+            'Architecture',
+            'Art',
+            'Food and Drink',
+            'Fashion',
+            'Industrial Heritage',
+            'Literature',
+            'Maps and Geography',
+            'Migration',
+            'Music',
+            'Natural History',
+            'Manuscripts',
+            'Newspapers',
+            'Performing Arts',
+            'Photography',
+            'Sport',
+            'Travel',
+            'World War I'
+          ]
         }
       ]
     });
