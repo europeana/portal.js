@@ -40,12 +40,12 @@
         class="px-lg-3 mr-lg-auto mx-xl-auto"
         aria-label="search form"
         :enable-auto-suggest="enableAutoSuggest"
-        :enable-suggestion-validation="enableSuggestionValidation"
       />
     </header>
     <b-navbar
       class="p-lg-0 align-items-start justify-content-lg-end flex-column flex-lg-row d-none d-lg-block"
       role="navigation"
+      data-qa="desktop navigation"
     >
       <PageNavigation />
     </b-navbar>
@@ -54,6 +54,7 @@
         v-if="showSidebar"
         class="p-lg-0 align-items-start justify-content-lg-end flex-column flex-lg-row d-lg-none"
         role="navigation"
+        data-qa="mobile navigation"
       >
         <SmartLink
           :destination="{ name: 'index' }"
@@ -93,10 +94,6 @@
 
     props: {
       enableAutoSuggest: {
-        type: Boolean,
-        default: false
-      },
-      enableSuggestionValidation: {
         type: Boolean,
         default: false
       }
