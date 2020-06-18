@@ -498,5 +498,27 @@ export default {
     "list": "List view"
   },
   "showLess": "Show less",
-  "showMore": "Show more"
+  "showMore": "Show more",
+  "account": {
+    "text": "My account",
+    "linkText": "Account",
+    "create": "Sign up",
+    "profile": "My profile",
+    "likes": "Likes",
+    "publicCollections": "Public Collections",
+    "privateCollections": "Private Collections",
+    "logout": "Logout",
+    "login": {
+      "text": "Login to save your favourite items and create collections",
+      "button": "Log in"
+    },
+    "email": {
+      "text": "Email address",
+      "placeholder": "Enter email"
+    },
+    "password": {
+      "text": "Password",
+      "forgot": "Forgot password"
+    }
+  }
 };
