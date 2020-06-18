@@ -37,12 +37,26 @@ pipeline {
       environment {
         CF_APP_NAME="portaljs${env.CF_SPACE == 'production' ? '' : '-' + env.CF_SPACE}"
         CTF_CPA_ACCESS_TOKEN=credentials("portaljs.${env.CF_SPACE}.contentful.cpa")
+        LOGSTASH_CONNECTION=credentials("elk_connection_string")
         HTTP_DIGEST_ACL=credentials("portaljs.${env.CF_SPACE}.http.digest.acl")
       }
       steps {
+        sh 'if [[ "${LOGSTASH_CONNECTION}" != "" ]]; then sed -i "s|services:|services:\\n  - log-drainer|" manifest.yml; fi'
         sh 'sed -i "s|env:|env:\\n  CTF_CPA_ACCESS_TOKEN: ${CTF_CPA_ACCESS_TOKEN}|" manifest.yml'
         sh 'sed -i "s|env:|env:\\n  HTTP_DIGEST_ACL: ${HTTP_DIGEST_ACL}|" manifest.yml'
         sh 'cf blue-green-deploy ${CF_APP_NAME} -f manifest.yml --delete-old-apps'
+      }
+    }
+    stage('Register with ELK') {
+      environment {
+        CF_APP_NAME="portaljs${env.CF_SPACE == 'production' ? '' : '-' + env.CF_SPACE}"
+        LOGSTASH_CONNECTION=credentials("elk_connection_string")
+      }
+      steps {
+      sh 'if [[ "${LOGSTASH_CONNECTION}" != "" ]]; then echo "No ELK configuration detected"; exit 0; fi'
+        sh 'APP_GUID="$(cf app ${CF_APP_NAME} --guid | head -1)"'
+        sh 'RESULT=(ssh ${LOGSTASH_CONNECTION} /etc/logstash/register_appname_guid.sh ${APP_NAME} ${APP_GUID})'
+        sh 'if [ $? -eq 0 ]; then echo "Log drainer registration OK"; else echo "ELK registration failed!"; exit 1; fi'
       }
     }
     stage('Deploy Storybook') {
