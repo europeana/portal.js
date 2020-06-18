@@ -47,7 +47,7 @@
       role="navigation"
       data-qa="desktop navigation"
     >
-      <PageNavigation />
+      <PageNavigation :links="mainNavigation.links" />
     </b-navbar>
     <transition name="slide">
       <b-navbar
@@ -67,7 +67,7 @@
             data-qa="logo"
           >
         </SmartLink>
-        <PageNavigation />
+        <PageNavigation :links="mobileNavigation.links" />
       </b-navbar>
     </transition>
     <transition name="fade">
@@ -101,7 +101,8 @@
 
     data() {
       return {
-        showSidebar: null
+        showSidebar: null,
+        windowWidth: 0
       };
     },
 
@@ -110,6 +111,12 @@
         get() {
           return this.$store.getters['ui/searchView'];
         }
+      },
+      mainNavigation() {
+        return this.$store.state['link-group'].data.mainNavigation;
+      },
+      mobileNavigation() {
+        return this.$store.state['link-group'].data.mobileNavigation;
       }
     },
 
