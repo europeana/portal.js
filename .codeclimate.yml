@@ -4,6 +4,7 @@ exclude_patterns:
   - "tests/"
   - "lang/"
   - "**/*.stories.js"
+  - "schemes/*.js"
 plugins:
   eslint:
     enabled: true
