@@ -38,9 +38,9 @@ function entityApiUrl(endpoint) {
 export function getEntitySuggestions(text, params = {}) {
   return axios.get(entityApiUrl('/suggest'), {
     params: {
+      ...params,
       text,
       type: 'agent,concept',
-      language: params.language,
       scope: 'europeana',
       wskey: config.entity.key
     }
