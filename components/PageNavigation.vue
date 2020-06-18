@@ -20,7 +20,7 @@
       </SmartLink>
     </li>
     <!-- sso links -->
-    <template v-if="enableAuthLinks">
+    <template>
       <li
         v-if="!isAuthenticated"
         class="nav-item"
@@ -65,9 +65,6 @@
       },
       enableAuthLinks() {
         return Boolean(Number(process.env.ENABLE_XX_USER_AUTH));
-      },
-      loggedInUser() {
-        return this.$store.state.auth.user;
       },
       isAuthenticated() {
         return this.$store.state.auth.loggedIn;
