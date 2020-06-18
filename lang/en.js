@@ -77,12 +77,12 @@ export default {
     "currentChapter": "Current chapter",
     "description": "Explore the exhibitions",
     "exhibitions": "Exhibition | Exhibitions",
-    attribution: {
-      title: "Title:",
-      creator: "Creator:",
-      date: "Date:",
-      institution: "Institution:",
-      country: "Country:"
+    "attribution": {
+      "title": "Title:",
+      "creator": "Creator:",
+      "date": "Date:",
+      "institution": "Institution:",
+      "country": "Country:"
     }
   },
   "facets": {

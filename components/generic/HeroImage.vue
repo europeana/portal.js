@@ -1,6 +1,6 @@
 <template>
   <b-container
-    v-if="exhibition"
+    v-if="compact"
     fluid
     class="hero-wrapper"
   >
@@ -27,6 +27,7 @@
           class="icon-info"
           @click="citeCollapsed = false"
           @mouseover="citeCollapsed = false"
+          @touchstart="citeCollapsed = false"
         />
         <CiteAttribution
           v-else
@@ -109,7 +110,7 @@
         type: String,
         default: ''
       },
-      exhibition: {
+      compact: {
         type: Boolean,
         default: false
       }

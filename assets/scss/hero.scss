@@ -86,8 +86,8 @@
 .exhibition-page {
   background: white;
   margin-top: -1rem;
+  padding-top: 0.25rem;
   h1 {
-    font-size: 2.375rem;
     margin-top: 2.5rem;
   }
   p.lead {
@@ -96,56 +96,62 @@
   }
   .hero-wrapper {
     max-width: 51.25rem;
-  }
-  figcaption {
-    .icon-info {
-      position: absolute;
-      bottom: 1rem;
-      right: 1rem;
-      width: 1.5rem;
-      height: 1.5rem;
-      transition: $standard-transition;
-      &:hover {
-        opacity: 0.8;
-        cursor: pointer;
-      }
-      &:before {
-        content: '\e91f';
-        font-size: 1.5rem;
-      }
-    }
-    cite {
-      left: initial;
-      right: 0.5rem;
-      bottom: 0.5rem;
-      border-radius: 0.25rem;
-      margin: 0;
-      padding: 0.75rem;
-      p {
-        color: $mediumgrey;
-        display: -webkit-box;
-        -webkit-line-clamp: 1;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-        margin-bottom: 0.25rem;
-        a {
-          text-decoration: none;
+    figcaption {
+      .icon-info {
+        position: absolute;
+        bottom: 1rem;
+        right: 1rem;
+        width: 1.5rem;
+        height: 1.5rem;
+        transition: $standard-transition;
+        &:hover {
+          opacity: 0.8;
+          cursor: pointer;
+        }
+        &:before {
+          content: '\e91f';
+          font-size: 1.5rem;
         }
       }
-      .attribution {
-        margin-top: 0.5rem;
-        display: block;
-        > span {
-          margin-left: 0;
+      cite {
+        left: initial;
+        right: 0.5rem;
+        bottom: 0.5rem;
+        border-radius: 0.25rem;
+        margin: 0;
+        padding: 0.75rem;
+        font-size: 0.75rem;
+        p {
+          color: $mediumgrey;
+          display: -webkit-box;
+          -webkit-line-clamp: 1;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+          margin-bottom: 0.25rem;
+          a {
+            text-decoration: none;
+          }
+        }
+        .attribution {
+          margin-top: 0.5rem;
+          display: block;
+          > span {
+            margin-left: 0;
+          }
         }
       }
     }
   }
-  .jumbotron:after {
-    display: none;
+  .jumbotron {
+    &:after {
+      display: none;
+    }
+    .container {
+      max-width: none;
+    }
   }
   @media (max-width: $bp-large) {
-    figcaption cite {
+    .hero-wrapper figcaption cite {
       max-width: 17rem;
       .attribution.is-external-link {
         max-width: 12rem;
