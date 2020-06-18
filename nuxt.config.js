@@ -4,6 +4,8 @@ require('dotenv').config();
 const pkg = require('./package');
 const i18nLocales = require('./plugins/i18n/locales.js');
 const i18nDateTime = require('./plugins/i18n/datetime.js');
+const path = require('path');
+const fs = require('fs');
 
 const routerMiddleware = ['http', 'legacy/index', 'l10n'];
 if (!Number(process.env['DISABLE_SSL_NEGOTIATION'])) routerMiddleware.unshift('ssl');
@@ -27,6 +29,13 @@ module.exports = {
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
+  },
+
+  server: {
+    https: {
+      key: fs.readFileSync(path.resolve(__dirname, 'server.key')),
+      cert: fs.readFileSync(path.resolve(__dirname, 'server.crt'))
+    }
   },
 
   /*
@@ -136,10 +145,10 @@ module.exports = {
         dateTimeFormats: i18nDateTime
       },
       //disable redirects to callback page or authentication fails
-      parsePages: false,
+      /*  parsePages: false,
       pages: {
         callback: false
-      },
+      },*/
       // Enable browser language detection to automatically redirect user
       // to their preferred language as they visit your app for the first time
       // Set to false to disable
@@ -216,7 +225,8 @@ module.exports = {
     strategies: {
       local: false,
       keycloak: {
-        _scheme: 'oauth2',
+        // _scheme: 'oauth2',
+        _scheme: './schemes/customOauth2.js',
         client_id: 'collections_portal',
         scope: ['openid', 'profile', 'email', 'usersets'],
         realm: 'europeana',
@@ -224,7 +234,8 @@ module.exports = {
         access_token_endpoint: process.env.OAUTH_URL+'/token',
         userinfo_endpoint: process.env.OAUTH_URL+'/userinfo',
         response_type: 'code id_token token',
-        token_type: 'Bearer'
+        token_type: 'Bearer',
+        language: 'en'
       }
     }
   },

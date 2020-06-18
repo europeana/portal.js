@@ -64,7 +64,7 @@
         return this.$store.state.i18n.locale;
       },
       enableAuthLinks() {
-        return Boolean(Number(process.env.ENABLE_AUTH));
+        return Boolean(Number(process.env.ENABLE_XX_USER_AUTH));
       },
       loggedInUser() {
         return this.$store.state.auth.user;
@@ -73,15 +73,14 @@
         return this.$store.state.auth.loggedIn;
       }
     },
-
     watch: {
       i18n() {
         this.getNavigationData();
       }
     },
-
     methods: {
       async login() {
+
         await this.$auth.loginWith('keycloak');
       },
       async getNavigationData() {

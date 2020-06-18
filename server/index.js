@@ -1,4 +1,5 @@
 const consola = require('consola');
+const https = require('https');
 
 const express = require('express');
 const morgan = require('morgan');
@@ -74,12 +75,20 @@ async function start() {
 
   // Give nuxt middleware to express
   app.use(nuxt.render);
-
+  //if XX user authentication is enabled use https for dev
+  if (process.env.NODE_ENV === 'development' && process.env.ENABLE_XX_USER_AUTH==='1') {
+    https.createServer(nuxt.options.server.https, app).listen(port, host);
+    consola.ready({
+      message: `Server listening on https://${host}:${port}`,
+      badge: true
+    });
+  } else {
   // Listen the server
-  app.listen(port, host);
-  consola.ready({
-    message: `Server listening on http://${host}:${port}`,
-    badge: true
-  });
+    app.listen(port, host);
+    consola.ready({
+      message: `Server listening on http://${host}:${port}`,
+      badge: true
+    });
+  }
 }
 start();
