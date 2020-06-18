@@ -3,7 +3,7 @@ const fs = require('fs');
 const glob = require('glob');
 const path = require('path');
 
-const MODULE_NAME = 'contentful-graphql-queries';
+const MODULE_NAME = 'contentful-graphql';
 
 const graphqlPaths = glob.sync(path.resolve(__dirname, './queries/*.graphql'));
 
