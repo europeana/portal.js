@@ -13,26 +13,17 @@
     </b-row>
   </b-col>
 </template>
-
 <script>
 // TODO: Replace page content with loading overlay
   export default {
     auth: false,
-    beforeCreate() {
-    },
-    beforeMount() {
-    },
     async mounted() {
       await this.$nextTick(() => {
         this.$nuxt.$loading.start();
       });
-    },
-    methods: {
     }
   };
 </script>
-
-
 <style scoped>
 .container {
   min-height: 70vh;

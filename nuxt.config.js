@@ -217,7 +217,7 @@ module.exports = {
     redirect: {
       login: '/?login=1',
       logout: '/',
-      callback:'/callback',
+      callback:'/account/callback',
       home:'/'
     },
     fullPathRedirect:true,
