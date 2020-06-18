@@ -127,7 +127,7 @@
           store.commit('breadcrumb/setBreadcrumbs', [
             {
               // TODO: Add named language aware route for blog index
-              text:  app.i18n.t('blog.blog'),
+              text: app.i18n.t('blog.blog'),
               to: '/blog'
             },
             {
