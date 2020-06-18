@@ -196,8 +196,7 @@ export function relatedEntities(type, id, options = {}) {
 async function getEntityFacets(facets, currentId) {
   let entities = [];
   for (let facet of facets) {
-    entities = entities.concat(facet['fields'].filter(value =>
-      value['label'].includes(config.data.origin) && value['label'].split('/').pop() !== currentId
+    entities = entities.concat(facet['fields'].filter(value => value['label'].includes(config.data.origin) && value['label'].split('/').pop() !== currentId
     ));
   }
 

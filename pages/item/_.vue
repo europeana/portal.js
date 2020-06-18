@@ -346,16 +346,10 @@
       const taggingAnnotationSearchParams = {
         query: `target_record_id:"${this.identifier}"`,
         profile: 'dereference',
-        qf: [
-          'motivation:tagging'
-        ]
+        qf: ['motivation:tagging']
       };
 
-      axios.all([
-        Number(process.env['ENABLE_ITEM_TAGGING_ANNOTATIONS']) ? searchAnnotations(taggingAnnotationSearchParams) : [],
-        searchEntities(this.europeanaEntityUris),
-        this.getSimilarItems()
-      ])
+      axios.all([Number(process.env['ENABLE_ITEM_TAGGING_ANNOTATIONS']) ? searchAnnotations(taggingAnnotationSearchParams) : [], searchEntities(this.europeanaEntityUris), this.getSimilarItems()])
         .then(axios.spread((taggingAnnotations, entities, similar) => {
           this.taggingAnnotations = taggingAnnotations;
           this.relatedEntities = entities;
@@ -436,14 +430,7 @@
     head() {
       return {
         title: this.metaTitle,
-        meta: [
-          { hid: 'title', name: 'title', content: this.metaTitle },
-          { hid: 'description', name: 'description', content: this.metaDescription },
-          { hid: 'og:title', property: 'og:title', content: this.metaTitle },
-          { hid: 'og:description', property: 'og:description', content: this.metaDescription },
-          { hid: 'og:image', property: 'og:image', content: this.selectedMediaImage.src ? this.selectedMediaImage.src : '' },
-          { hid: 'og:type', property: 'og:type', content: 'article' }
-        ]
+        meta: [{ hid: 'title', name: 'title', content: this.metaTitle }, { hid: 'description', name: 'description', content: this.metaDescription }, { hid: 'og:title', property: 'og:title', content: this.metaTitle }, { hid: 'og:description', property: 'og:description', content: this.metaDescription }, { hid: 'og:image', property: 'og:image', content: this.selectedMediaImage.src ? this.selectedMediaImage.src : '' }, { hid: 'og:type', property: 'og:type', content: 'article' }]
       };
     },
 

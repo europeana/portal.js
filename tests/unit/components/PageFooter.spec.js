@@ -13,17 +13,11 @@ const dummyStore = {
       data: {
         footerMoreInfo: {
           name: 'More info',
-          links: [
-            { url: 'https://www.example.org', text: 'Example link' },
-            { url: 'https://www.europeana.eu', text: 'Europeana link' }
-          ]
+          links: [{ url: 'https://www.example.org', text: 'Example link' }, { url: 'https://www.europeana.eu', text: 'Europeana link' }]
         },
         footerHelp: {
           name: 'Help',
-          links: [
-            { url: 'https://www.example.org', text: 'Example link' },
-            { url: 'https://www.europeana.eu', text: 'Europeana link' }
-          ]
+          links: [{ url: 'https://www.example.org', text: 'Example link' }, { url: 'https://www.europeana.eu', text: 'Europeana link' }]
         }
       }
     }

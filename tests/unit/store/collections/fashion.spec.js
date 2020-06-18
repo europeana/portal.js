@@ -30,32 +30,19 @@ describe('store/collections/fashion', () => {
         facets: [
           {
             name: 'CREATOR',
-            fields: [
-              { label: '"Missoni (Designer)"' },
-              { label: '"Emilio Pucci (Designer)"' },
-              { label: '"Holmén, Erik (Photographer)"' }
-            ]
+            fields: [{ label: '"Missoni (Designer)"' }, { label: '"Emilio Pucci (Designer)"' }, { label: '"Holmén, Erik (Photographer)"' }]
           },
           {
             name: 'proxy_dc_type.en',
-            fields: [
-              { label: '"Object Type: fabric"' },
-              { label: '"Manuscript"' }
-            ]
+            fields: [{ label: '"Object Type: fabric"' }, { label: '"Manuscript"' }]
           },
           {
             name: 'proxy_dc_format.en',
-            fields: [
-              { label: '"Technique: weave"' },
-              { label: '"Color: red"' }
-            ]
+            fields: [{ label: '"Technique: weave"' }, { label: '"Color: red"' }]
           },
           {
             name: 'proxy_dcterms_medium.en',
-            fields: [
-              { label: '"Material: cotton"' },
-              { label: '"Paper"' }
-            ]
+            fields: [{ label: '"Material: cotton"' }, { label: '"Paper"' }]
           }
         ]
       };

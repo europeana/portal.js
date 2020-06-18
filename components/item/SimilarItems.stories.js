@@ -15,9 +15,7 @@ const i18n = {
 
 storiesOf('Item page', module)
   .addDecorator(StoryRouter({}, {
-    routes: [
-      { name: 'item-all', path: '/item/*' }
-    ]
+    routes: [{ name: 'item-all', path: '/item/*' }]
   }))
   .add('Similar items', () => ({
     i18n,

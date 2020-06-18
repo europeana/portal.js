@@ -103,26 +103,7 @@ storiesOf('Design', module)
   .add('Icons', () => ({
     data() {
       return {
-        icons: [
-          'icon-facebook',
-          'icon-twitter',
-          'icon-pinterest',
-          'icon-instagram',
-          'icon-license-pd',
-          'icon-license-zero',
-          'icon-license-cc',
-          'icon-license-by',
-          'icon-license-nc',
-          'icon-license-sa',
-          'icon-license-nd',
-          'icon-license-rs-no',
-          'icon-license-rs-yes',
-          'icon-license-rr',
-          'icon-license-rs-unknown',
-          'icon-close',
-          'icon-caret-down',
-          'icon-external-link'
-        ]
+        icons: ['icon-facebook', 'icon-twitter', 'icon-pinterest', 'icon-instagram', 'icon-license-pd', 'icon-license-zero', 'icon-license-cc', 'icon-license-by', 'icon-license-nc', 'icon-license-sa', 'icon-license-nd', 'icon-license-rs-no', 'icon-license-rs-yes', 'icon-license-rr', 'icon-license-rs-unknown', 'icon-close', 'icon-caret-down', 'icon-external-link']
       };
     },
     template: `

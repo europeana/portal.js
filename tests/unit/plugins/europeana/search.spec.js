@@ -303,13 +303,7 @@ describe('plugins/europeana/search', () => {
           describe('when present', () => {
             const typeFacet = {
               name: 'TYPE',
-              fields: [
-                { label: 'IMAGE', count: 33371202 },
-                { label: 'TEXT', count: 22845674 },
-                { label: 'VIDEO', count: 1137194 },
-                { label: 'SOUND', count: 699155 },
-                { label: '3D', count: 28460  }
-              ]
+              fields: [{ label: 'IMAGE', count: 33371202 }, { label: 'TEXT', count: 22845674 }, { label: 'VIDEO', count: 1137194 }, { label: 'SOUND', count: 699155 }, { label: '3D', count: 28460  }]
             };
             const apiResponse = {
               success: true,
@@ -385,7 +379,6 @@ describe('plugins/europeana/search', () => {
       });
     });
   });
-
 
   describe('rangeToQueryParam', () => {
     context('with no start or end', () => {

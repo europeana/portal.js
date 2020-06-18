@@ -39,9 +39,7 @@ const store = new Vuex.Store({
 
 storiesOf('Design', module)
   .addDecorator(StoryRouter({}, {
-    routes: [
-      { query: '', path: '' }
-    ]
+    routes: [{ query: '', path: '' }]
   }))
   .add('Page Header', () => ({
     i18n,

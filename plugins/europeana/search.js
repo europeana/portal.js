@@ -11,37 +11,13 @@ import { genericThumbnail } from './thumbnail';
 // Some facets do not support enquoting of their field values.
 export const unquotableFacets = [
   'collection', // it _may_ be quoted, but our prewarmed filters are without
-  'COLOURPALETTE',
-  'IMAGE_COLOUR',
-  'IMAGE_GREYSCALE', // WARNING: always returns zero results anyway
-  'IMAGE_SIZE',
-  'MEDIA',
-  'MIME_TYPE',
-  'REUSABILITY',
-  'SOUND_DURATION',
-  'SOUND_HQ',
-  'TEXT_FULLTEXT',
-  'THUMBNAIL',
-  'VIDEO_HD'
+  'COLOURPALETTE', 'IMAGE_COLOUR', 'IMAGE_GREYSCALE', // WARNING: always returns zero results anyway
+  'IMAGE_SIZE', 'MEDIA', 'MIME_TYPE', 'REUSABILITY', 'SOUND_DURATION', 'SOUND_HQ', 'TEXT_FULLTEXT', 'THUMBNAIL', 'VIDEO_HD'
 ];
 
 // Thematic collections available via the `collection` qf
 // filter. Order is significant as it will be reflected on search results.
-export const thematicCollections = [
-  'ww1',
-  'archaeology',
-  'art',
-  'fashion',
-  'industrial',
-  'manuscript',
-  'map',
-  'migration',
-  'music',
-  'nature',
-  'newspaper',
-  'photography',
-  'sport'
-];
+export const thematicCollections = ['ww1', 'archaeology', 'art', 'fashion', 'industrial', 'manuscript', 'map', 'migration', 'music', 'nature', 'newspaper', 'photography', 'sport'];
 
 /**
  * Construct a range query from two values, if keys are omitted they will default to '*'

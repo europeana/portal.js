@@ -107,12 +107,10 @@
         return this.$path({ name: 'exhibitions', query: { page: val } });
       },
       imageUrl(image) {
-        if (image && image.fields && image.fields.image && image.fields.image.fields && image.fields.image.fields.file)
-          return image.fields.image.fields.file.url;
+        if (image && image.fields && image.fields.image && image.fields.image.fields && image.fields.image.fields.file) return image.fields.image.fields.file.url;
       },
       imageContentType(image) {
-        if (image && image.fields && image.fields.image && image.fields.image.fields && image.fields.image.fields.file)
-          return image.fields.image.fields.file.contentType;
+        if (image && image.fields && image.fields.image && image.fields.image.fields && image.fields.image.fields.file) return image.fields.image.fields.file.contentType;
       }
     },
     watchQuery: ['page'],

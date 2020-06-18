@@ -5,10 +5,7 @@ export default (route) => {
   const match = route.path.match(pattern);
 
   return match ? {
-    path: [
-      match[1],
-      '/collections'
-    ],
+    path: [match[1], '/collections'],
     status: 302
   } : null;
 };

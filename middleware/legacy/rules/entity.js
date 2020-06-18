@@ -5,10 +5,6 @@ export default (route) => {
   const match = route.path.match(pattern);
 
   return match ? {
-    path: [
-      match[1],
-      match[2].replace('/explore', '/collections').replace('/people', '/person').replace('/topics', '/topic'),
-      match[4]
-    ]
+    path: [match[1], match[2].replace('/explore', '/collections').replace('/people', '/person').replace('/topics', '/topic'), match[4]]
   } : null;
 };

@@ -19,12 +19,7 @@ const recordApiUrl = config.record.origin;
 const recordApiEndpoint = `${config.record.path}/search.json`;
 
 const searchResponse = {
-  facets: [
-    { name: 'edm_agent', fields: [
-      { label: 'http://data.europeana.eu/agent/base/147831' },
-      { label: 'http://data.europeana.eu/agent/base/49928' }
-    ] }
-  ]
+  facets: [{ name: 'edm_agent', fields: [{ label: 'http://data.europeana.eu/agent/base/147831' }, { label: 'http://data.europeana.eu/agent/base/49928' }] }]
 };
 
 const entitiesResponse = {
@@ -34,12 +29,10 @@ const entitiesResponse = {
       prefLabel: { en: 'Architecture' },
       note: {
         en: ['Architecture is both the process and the product of planning, designing, and constructing buildings and other physical structures.']
-      }
-    },
+      } },
     { type: 'Concept',
       id: 'http://data.europeana.eu/concept/base/49928',
-      prefLabel: { en: 'Painting' }
-    },
+      prefLabel: { en: 'Painting' } },
     { type: 'Agent',
       id: 'http://data.europeana.eu/agent/base/59832',
       prefLabel: { en: 'Vincent van Gogh' },
@@ -54,8 +47,7 @@ const entitiesResponse = {
         type: 'WebResource',
         source: 'http://data.europeana.eu/item/90402/SK_A_3262',
         thumbnail: 'https://api.europeana.eu/api/v2/thumbnail-by-url.json?uri=https://www.rijksmuseum.nl/assetimage2.jsp?id=SK-A-3262&type=IMAGE'
-      }
-    }
+      } }
   ]
 };
 
@@ -63,14 +55,16 @@ const entitySuggestionsResponse = {
   '@context': ['https://www.w3.org/ns/ldp.jsonld', 'http://www.europeana.eu/schemas/context/entity.jsonld'],
   type: 'ResultPage',
   total: 1,
-  items: [{
-    id: 'http://data.europeana.eu/concept/base/83',
-    type: 'Concept',
-    prefLabel: {
-      en: 'World War I',
-      sq: 'Lufta e Parë Botërore'
+  items: [
+    {
+      id: 'http://data.europeana.eu/concept/base/83',
+      type: 'Concept',
+      prefLabel: {
+        en: 'World War I',
+        sq: 'Lufta e Parë Botërore'
+      }
     }
-  }]
+  ]
 };
 
 describe('plugins/europeana/entity', () => {
@@ -136,10 +130,7 @@ describe('plugins/europeana/entity', () => {
   });
 
   describe('searchEntities()', () => {
-    const uris = [
-      'http://data.europeana.eu/agent/base/123',
-      'http://data.europeana.eu/concept/base/456'
-    ];
+    const uris = ['http://data.europeana.eu/agent/base/123', 'http://data.europeana.eu/concept/base/456'];
     const uriQuery = 'entity_uri:("http://data.europeana.eu/agent/base/123" OR "http://data.europeana.eu/concept/base/456")';
     const entitySearchResponse = {
       items: []

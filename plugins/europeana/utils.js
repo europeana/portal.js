@@ -44,7 +44,7 @@ function isEntity(value) {
 }
 
 function entityValues(values, locale) {
-  const iterableValues = ((typeof(values) === 'string') ? [values] : values || []);
+  const iterableValues = ((typeof (values) === 'string') ? [values] : values || []);
   const iterableEntities = iterableValues.filter((value) => isEntity(value));
   return iterableEntities.map((value) => entityValue(value, locale));
 }

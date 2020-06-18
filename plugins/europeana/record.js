@@ -279,11 +279,7 @@ export function isEuropeanaRecordId(value) {
 }
 
 // Configuration for constructing similar items queries
-const SIMILAR_ITEMS_FIELDS = new Map([
-  ['what', { data: ['dcSubject', 'dcType'], boost: 0.8 }],
-  ['who', { data: ['dcCreator'], boost: 0.5 } ],
-  ['DATA_PROVIDER', { data: ['edmDataProvider'], boost: 0.2 } ]
-]);
+const SIMILAR_ITEMS_FIELDS = new Map([['what', { data: ['dcSubject', 'dcType'], boost: 0.8 }], ['who', { data: ['dcCreator'], boost: 0.5 }], ['DATA_PROVIDER', { data: ['edmDataProvider'], boost: 0.2 }]]);
 
 /**
  * Construct Record API similar items query

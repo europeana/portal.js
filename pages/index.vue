@@ -91,16 +91,7 @@
     head() {
       return {
         title: this.page.name,
-        meta: [
-          { hid: 'og:type', property: 'og:type', content: 'article' },
-          { hid: 'title', name: 'title', content: this.page.name },
-          { hid: 'og:title', property: 'og:title', content: this.page.name }
-        ].concat(this.page.description ? [
-          { hid: 'description', name: 'description', content: this.page.description },
-          { hid: 'og:description', property: 'og:description', content: this.page.description }
-        ] : []).concat(this.heroImage ? [
-          { hid: 'og:image', property: 'og:image', content: this.$options.filters.urlWithProtocol(this.heroImage.url) }
-        ] : [])
+        meta: [{ hid: 'og:type', property: 'og:type', content: 'article' }, { hid: 'title', name: 'title', content: this.page.name }, { hid: 'og:title', property: 'og:title', content: this.page.name }].concat(this.page.description ? [{ hid: 'description', name: 'description', content: this.page.description }, { hid: 'og:description', property: 'og:description', content: this.page.description }] : []).concat(this.heroImage ? [{ hid: 'og:image', property: 'og:image', content: this.$options.filters.urlWithProtocol(this.heroImage.url) }] : [])
       };
     }
   };

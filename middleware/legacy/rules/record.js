@@ -5,10 +5,6 @@ export default (route) => {
   const match = route.path.match(pattern);
 
   return match ? {
-    path: [
-      match[1],
-      '/item',
-      match[2]
-    ]
+    path: [match[1], '/item', match[2]]
   } : null;
 };

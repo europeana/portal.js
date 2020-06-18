@@ -257,9 +257,7 @@
       const contentfulClient = createClient(query.mode);
       const curatedEntityName = store.state.entity.curatedEntities[entityUri];
 
-      return axios.all([
-        entities.relatedEntities(params.type, params.pathMatch, { origin: query.recordApi })
-      ].concat(!curatedEntityName ? [] : contentfulClient.getEntries({
+      return axios.all([entities.relatedEntities(params.type, params.pathMatch, { origin: query.recordApi })].concat(!curatedEntityName ? [] : contentfulClient.getEntries({
         'locale': app.i18n.isoLocale(),
         'content_type': 'entityPage',
         'fields.identifier': entityUri,
@@ -308,16 +306,7 @@
     head() {
       return {
         title: this.title.values[0],
-        meta: [
-          { hid: 'og:type', property: 'og:type', content: 'article' },
-          { hid: 'title', name: 'title', content: this.title.values[0] },
-          { hid: 'og:title', property: 'og:title', content: this.title.values[0] }
-        ].concat(this.descriptionText ? [
-          { hid: 'description', name: 'description', content: this.descriptionText },
-          { hid: 'og:description', property: 'og:description', content: this.descriptionText }
-        ] : []).concat(this.depiction ? [
-          { hid: 'og:image', property: 'og:image', content: this.$options.filters.urlWithProtocol(this.depiction) }
-        ] : [])
+        meta: [{ hid: 'og:type', property: 'og:type', content: 'article' }, { hid: 'title', name: 'title', content: this.title.values[0] }, { hid: 'og:title', property: 'og:title', content: this.title.values[0] }].concat(this.descriptionText ? [{ hid: 'description', name: 'description', content: this.descriptionText }, { hid: 'og:description', property: 'og:description', content: this.descriptionText }] : []).concat(this.depiction ? [{ hid: 'og:image', property: 'og:image', content: this.$options.filters.urlWithProtocol(this.depiction) }] : [])
       };
     },
 

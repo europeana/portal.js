@@ -101,7 +101,7 @@
       langMappedValues() {
         if (this.fieldData === null) {
           return null;
-        } else if (typeof(this.fieldData) === 'string') {
+        } else if (typeof (this.fieldData) === 'string') {
           return { values: [this.fieldData], code: '' };
         } else if (Array.isArray(this.fieldData)) {
           return { values: this.fieldData, code: '' };

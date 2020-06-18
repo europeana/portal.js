@@ -32,15 +32,11 @@ const dummySection = {
     hasPart: [
       {
         sys: { id: '123' },
-        fields: { name: 'Card one title', description: 'the first card', url: 'http://europeana.eu', image: {
-          fields: { file: { url: 'img/landscape.jpg' } } }
-        }
+        fields: { name: 'Card one title', description: 'the first card', url: 'http://europeana.eu', image: { fields: { file: { url: 'img/landscape.jpg' } } } }
       },
       {
         sys: { id: '456' },
-        fields: { name: 'Card two title', description: 'the second card', url: 'http://europeana.eu', image: {
-          fields: { file: { url: 'img/portrait.jpg' } } }
-        }
+        fields: { name: 'Card two title', description: 'the second card', url: 'http://europeana.eu', image: { fields: { file: { url: 'img/portrait.jpg' } } } }
       }
     ],
     moreButton: {

@@ -102,11 +102,7 @@
     head() {
       return {
         title: this.title,
-        meta: [
-          { hid: 'title', name: 'title', content: this.title },
-          { hid: 'og:title', property: 'og:title', content: this.title },
-          { hid: 'og:type', property: 'og:type', content: 'article' }
-        ]
+        meta: [{ hid: 'title', name: 'title', content: this.title }, { hid: 'og:title', property: 'og:title', content: this.title }, { hid: 'og:type', property: 'og:type', content: 'article' }]
       };
     }
   };

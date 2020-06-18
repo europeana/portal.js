@@ -41,25 +41,15 @@ describe('components/generic/ContentCard', () => {
     const tests = [
       {
         type: 'blog',
-        urls: [
-          'https://blog.europeana.eu/2019/11/vespa-and-piaggio-icons-of-italian-industrial-design/',
-          'https://www.europeana.eu/en/blog/introducing-the-new-europeana-demo',
-          { name: 'blog___en', params: { pathMatch: 'introducing-the-new-europeana-demo' } }
-        ]
+        urls: ['https://blog.europeana.eu/2019/11/vespa-and-piaggio-icons-of-italian-industrial-design/', 'https://www.europeana.eu/en/blog/introducing-the-new-europeana-demo', { name: 'blog___en', params: { pathMatch: 'introducing-the-new-europeana-demo' } }]
       },
       {
         type: 'exhibitions',
-        urls: [
-          'https://www.europeana.eu/en/exhibitions/pioneers',
-          { name: 'exhibitions___en', params: { exhibition: 'pioneeers' } }
-        ]
+        urls: ['https://www.europeana.eu/en/exhibitions/pioneers', { name: 'exhibitions___en', params: { exhibition: 'pioneeers' } }]
       },
       {
         type: 'galleries',
-        urls: [
-          'https://www.europeana.eu/en/galleries/board-games',
-          { name: 'galleries___en', params: { pathMatch: 'board-games' } }
-        ]
+        urls: ['https://www.europeana.eu/en/galleries/board-games', { name: 'galleries___en', params: { pathMatch: 'board-games' } }]
       }
     ];
 
@@ -114,8 +104,7 @@ describe('components/generic/ContentCard', () => {
     const wrapper = factory();
     wrapper.setProps({ imageUrl: '//images.ctfassets.net/example/example.jpg',
       imageContentType: 'image/jpeg',
-      imageOptimisationOptions: { width: 510 }
-    });
+      imageOptimisationOptions: { width: 510 } });
 
     wrapper.vm.optimisedImageUrl.should.contain('fm=jpg&fl=progressive&q=50&w=510');
   });

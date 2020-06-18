@@ -22,10 +22,12 @@
         // Doc: https://github.com/ProjectMirador/mirador/blob/master/src/config/settings.js
         const options = {
           id: 'viewer',
-          windows: [{
-            manifestId: this.uri,
-            thumbnailNavigationPosition: 'far-bottom'
-          }],
+          windows: [
+            {
+              manifestId: this.uri,
+              thumbnailNavigationPosition: 'far-bottom'
+            }
+          ],
           window: {
             allowClose: false,
             allowFullscreen: true,
@@ -102,9 +104,7 @@
       return {
         title: 'IIIF',
 
-        script: [
-          { src: `${this.MIRADOR_BUILD_PATH}/mirador.min.js` }
-        ]
+        script: [{ src: `${this.MIRADOR_BUILD_PATH}/mirador.min.js` }]
       };
     }
   };

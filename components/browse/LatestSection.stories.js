@@ -36,7 +36,6 @@ storiesOf('Generic/Messages', module)
           this.toggle = false;
           this.$bvToast.hide('tier-toast');
         }
-
       }
     },
     template: `<b-container class="mt-3">

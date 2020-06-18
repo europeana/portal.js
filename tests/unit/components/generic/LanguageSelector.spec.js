@@ -10,10 +10,7 @@ const factory = (locale) => mount(LangSelector, {
   mocks: {
     $t: () => {},
     $i18n: {
-      locales: [
-        { code: 'en', name: 'English', iso: 'en-GB' },
-        { code: 'de', name: 'Deutsch', iso: 'de-DE' }
-      ],
+      locales: [{ code: 'en', name: 'English', iso: 'en-GB' }, { code: 'de', name: 'Deutsch', iso: 'de-DE' }],
       locale
     },
     $route: () => {},
@@ -23,7 +20,6 @@ const factory = (locale) => mount(LangSelector, {
 
 describe('components/generic/LanguageSelector Dropdown Items', () => {
   context('when the language is `en`', () => {
-
     it('only shows the German object as English is currently selected', () => {
       const wrapper = factory('en');
 
@@ -42,7 +38,6 @@ describe('components/generic/LanguageSelector Dropdown Items', () => {
 
 describe('components/generic/LanguageSelector Dropdown Button', () => {
   context('when the language is `en`', () => {
-
     it('shows `English` as the selected state', () => {
       const wrapper = factory('en');
 

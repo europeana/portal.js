@@ -12,17 +12,7 @@ import search from './rules/search';
 import staticPages from './rules/static-pages';
 
 // Order matters. Do not re-order arbitrarily.
-const rules = [
-  record,
-  explore,
-  exhibitions,
-  galleries,
-  search,
-  entity,
-  staticPages,
-  html,
-  portal
-];
+const rules = [record, explore, exhibitions, galleries, search, entity, staticPages, html, portal];
 
 function stringifyPathChunks(chunks) {
   return chunks.filter((chunk) => typeof chunk !== undefined).join('');

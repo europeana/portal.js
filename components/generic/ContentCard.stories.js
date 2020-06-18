@@ -43,9 +43,7 @@ storiesOf('Design/Content cards', module)
     components: { ContentCard },
     data() {
       return {
-        texts: [
-          ['This is description']
-        ]
+        texts: [['This is description']]
       };
     },
     template: `<b-col cols="3" class="mt-3">

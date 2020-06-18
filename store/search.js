@@ -4,19 +4,7 @@ import { search, unquotableFacets } from '../plugins/europeana/search';
 
 // Default facets to always request and display.
 // Order is significant as it will be reflected on search results.
-export const defaultFacetNames = [
-  'TYPE',
-  'REUSABILITY',
-  'COUNTRY',
-  'LANGUAGE',
-  'PROVIDER',
-  'DATA_PROVIDER',
-  'COLOURPALETTE',
-  'IMAGE_ASPECTRATIO',
-  'IMAGE_SIZE',
-  'MIME_TYPE',
-  'contentTier'
-];
+export const defaultFacetNames = ['TYPE', 'REUSABILITY', 'COUNTRY', 'LANGUAGE', 'PROVIDER', 'DATA_PROVIDER', 'COLOURPALETTE', 'IMAGE_ASPECTRATIO', 'IMAGE_SIZE', 'MIME_TYPE', 'contentTier'];
 
 const filtersFromQf = (qfs) => {
   const filters = {};
@@ -321,10 +309,7 @@ export const actions = {
   async run({ dispatch, getters }) {
     await dispatch('deriveApiSettings');
 
-    await Promise.all([
-      getters.itemUpdateNeeded ? dispatch('queryItems') : () => null,
-      getters.facetUpdateNeeded ? dispatch('queryFacets') : () => null
-    ]);
+    await Promise.all([getters.itemUpdateNeeded ? dispatch('queryItems') : () => null, getters.facetUpdateNeeded ? dispatch('queryFacets') : () => null]);
   },
 
   queryItems({ dispatch, state }) {

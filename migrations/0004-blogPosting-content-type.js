@@ -74,28 +74,7 @@ module.exports = function(migration) {
 
       validations: [
         {
-          in: [
-            'Archaeology',
-            'Art',
-            'Behind the scenes',
-            'Competitions',
-            'European Year Of Cultural Heritage',
-            'Europeana',
-            'Europeana 1914-1918',
-            'Europeana 1989',
-            'Fashion',
-            'Industrial Heritage',
-            'Inspired by Europeana',
-            'Manuscripts',
-            'Maps and Geography',
-            'Migration',
-            'Music',
-            'Natural History',
-            'News',
-            'Newspapers',
-            'Photography',
-            'Sport'
-          ]
+          in: ['Archaeology', 'Art', 'Behind the scenes', 'Competitions', 'European Year Of Cultural Heritage', 'Europeana', 'Europeana 1914-1918', 'Europeana 1989', 'Fashion', 'Industrial Heritage', 'Inspired by Europeana', 'Manuscripts', 'Maps and Geography', 'Migration', 'Music', 'Natural History', 'News', 'Newspapers', 'Photography', 'Sport']
         }
       ]
     });
