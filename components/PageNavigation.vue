@@ -4,19 +4,19 @@
     data-qa="main navigation"
   >
     <li
-      v-for="(nav, index) in navigation"
+      v-for="(link, index) in links"
       :key="index"
       class="nav-item"
     >
       <SmartLink
         v-b-toggle.menu
-        :destination="nav.url"
+        :destination="link.url"
         link-class="nav-link"
         exact
       >
         <span>
-          <i :class="renderIcon(nav.url)" />
-          {{ nav.text }}
+          <i :class="renderIcon(link.url)" />
+          {{ link.text }}
         </span>
       </SmartLink>
     </li>
@@ -25,26 +25,20 @@
 
 <script>
   import SmartLink from './generic/SmartLink';
-  import { mapState } from 'vuex';
 
   export default {
     components: {
       SmartLink
     },
 
+    props: {
+      links: {
+        type: Array,
+        default: () => []
+      }
+    },
+
     computed: {
-      ...mapState({
-        onDesktop: state => state.ui.onDesktop
-      }),
-
-      navigation() {
-        if (this.onDesktop) {
-          return this.$store.state['link-group'].data.mainNavigation.links;
-        } else {
-          return this.$store.state['link-group'].data.mobileNavigation.links;
-        }
-      },
-
       i18n() {
         return this.$store.state.i18n.locale;
       }

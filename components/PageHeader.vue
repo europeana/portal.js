@@ -47,7 +47,7 @@
       class="p-lg-0 align-items-start justify-content-lg-end flex-column flex-lg-row d-none d-lg-block"
       role="navigation"
     >
-      <PageNavigation />
+      <PageNavigation :links="$store.state['link-group'].data.mainNavigation.links" />
     </b-navbar>
     <transition name="slide">
       <b-navbar
@@ -66,7 +66,7 @@
             data-qa="logo"
           >
         </SmartLink>
-        <PageNavigation />
+        <PageNavigation :links="$store.state['link-group'].data.mobileNavigation.links" />
       </b-navbar>
     </transition>
     <transition name="fade">
@@ -114,11 +114,6 @@
         get() {
           return this.$store.getters['ui/searchView'];
         }
-      },
-      onDesktop: {
-        get() {
-          return this.$store.getters['ui/desktopCheck'];
-        }
       }
     },
 
@@ -126,28 +121,6 @@
       '$route'() {
         if (this.showSidebar) {
           this.showSidebar = false;
-        }
-      }
-    },
-
-    mounted() {
-      this.$nextTick(() => {
-        window.addEventListener('resize', this.getWindowWidth);
-        this.getWindowWidth();
-      });
-    },
-
-    beforeDestroy() {
-      window.removeEventListener('resize', this.getWindowWidth);
-    },
-
-    methods: {
-      getWindowWidth() {
-        this.windowWidth = document.documentElement.clientWidth;
-        if (this.windowWidth >= 992) {
-          this.$store.commit('ui/onDesktop', true);
-        } else if (this.windowWidth <= 991) {
-          this.$store.commit('ui/onDesktop', false);
         }
       }
     }

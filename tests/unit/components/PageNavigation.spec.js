@@ -9,43 +9,11 @@ const localVue = createLocalVue();
 localVue.use(Vuex);
 localVue.use(BootstrapVue);
 
-const getters = {
-  'ui/desktopCheck': (state) => state.ui.onDesktop
-};
-
 const store = new Vuex.Store({
-  getters,
   modules: {
     i18n: {
       state: {
         locale: 'en'
-      }
-    },
-    ui: {
-      state: {
-        onDesktop: true
-      }
-    },
-    'link-group': {
-      state: {
-        data: {
-          mainNavigation: {
-            links: [
-              {
-                text: 'Collections',
-                url: '/collections'
-              }
-            ]
-          },
-          mobileNavigation: {
-            links: [
-              {
-                text: 'Our partners',
-                url: '/about/our-partners'
-              }
-            ]
-          }
-        }
       }
     }
   }
