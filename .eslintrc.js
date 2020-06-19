@@ -29,6 +29,7 @@ module.exports = {
     'eqeqeq': ['error', 'always'],
     'indent': ['error', 2, { 'SwitchCase': 1 }],
     'keyword-spacing': ['error', { 'before': true, 'after': true }],
+    'key-spacing': ['error', { 'afterColon': true }],
     'linebreak-style': ['error', 'unix'],
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
@@ -44,6 +45,7 @@ module.exports = {
     'space-before-blocks': ['error', 'always'],
     'space-before-function-paren': ['error', 'never'],
     'space-in-parens': ['error', 'never'],
+    'space-infix-ops': ['error', { 'int32Hint': false }],
     'vue/script-indent': ['error', 2, { 'baseIndent': 1 }]
   },
   'overrides': [

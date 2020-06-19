@@ -109,7 +109,7 @@ storiesOf('Generic/Messages', module)
 
       }
     },
-    template:  `<b-container class="mt-3">
+    template: `<b-container class="mt-3">
       <b-button
         variant="primary"
         class="mr-3"
