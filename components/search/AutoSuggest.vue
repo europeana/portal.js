@@ -27,6 +27,7 @@
       :data-index="index"
       @mouseover="focus = index"
       @focus="index === focus"
+      @mousedown.prevent
     >
       <template
         v-for="(part, partIndex) in highlightResult(val)"
