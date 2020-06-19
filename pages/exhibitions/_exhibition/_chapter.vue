@@ -4,8 +4,8 @@
     class="exhibition-page mx-auto"
   >
     <HeroImage
-      compact
       v-if="hero"
+      compact
       :image-url="heroImage.url"
       :image-content-type="heroImage.contentType"
       :header="page.name"
