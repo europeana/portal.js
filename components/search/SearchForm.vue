@@ -226,8 +226,7 @@
         this.query = this.$route.query.query;
       },
 
-      selectSuggestion(e, value) {
-        e.preventDefault();
+      selectSuggestion(value) {
         this.selectedSuggestion = value;
       },
 
