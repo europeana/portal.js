@@ -282,6 +282,11 @@
       enableMoreFacets() {
         return this.moreFacets.length > 0;
       },
+      contentTierFacet() {
+        return this.moreFacets.find(facet => {
+          return facet.name === 'contentTier' && facet.fields && facet.fields.some(option => option.label === '"0"');
+        });
+      },
       showPagination() {
         return this.totalResults > this.perPage;
       },
@@ -300,13 +305,8 @@
     watch: {
       routeQueryView() {
         this.view = this.routeQueryView;
-      }
-    },
-    mounted() {
-      this.showContentTierToast();
-    },
-    updated() {
-      this.showContentTierToast();
+      },
+      contentTierFacet: 'showContentTierToast'
     },
     methods: {
       facetDropdownType(name) {
@@ -366,13 +366,9 @@
       showContentTierToast() {
         if (!process.browser) return;
 
-        const contentTierFacet = this.moreFacets.find(facet => {
-          return facet.name === 'contentTier' && facet.fields && facet.fields.some(option => option.label === '"0"');
-        });
-
-        if (contentTierFacet && !sessionStorage.contentTierToastShown) {
+        if (this.contentTierFacet && !sessionStorage.contentTierToastShown) {
           this.$bvToast.show('tier-toast');
-          this.$root.$on('bv::toast:shown', () => sessionStorage.contentTierToastShown = true);
+          sessionStorage.contentTierToastShown = 'true';
         }
       }
     }

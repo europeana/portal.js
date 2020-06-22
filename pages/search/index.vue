@@ -12,6 +12,10 @@
         <b-col>
           <h1>{{ $t('search') }}</h1>
         </b-col>
+        <RelatedCollections
+          v-if="relatedCollectionsEnabled"
+          :query="this.$route.query.query"
+        />
         <SearchInterface
           :per-row="4"
         />
@@ -29,7 +33,8 @@
   export default {
     components: {
       SearchInterface,
-      NotificationBanner
+      NotificationBanner,
+      RelatedCollections: () => import('../../components/generic/RelatedCollections')
     },
 
     middleware({ query, redirect, app }) {
@@ -47,8 +52,12 @@
       },
       redirectNotificationsEnabled() {
         return Boolean(Number(process.env.ENABLE_LINKS_TO_CLASSIC));
+      },
+      relatedCollectionsEnabled() {
+        return Boolean(Number(process.env.ENABLE_SEARCH_RELATED_COLLECTIONS));
       }
     },
+
     async fetch({ store, query, res }) {
       await store.dispatch('search/activate');
       store.commit('search/set', ['userParams', query]);

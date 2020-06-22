@@ -9,26 +9,11 @@ const localVue = createLocalVue();
 localVue.use(Vuex);
 localVue.use(BootstrapVue);
 
-
 const store = new Vuex.Store({
   modules: {
     i18n: {
       state: {
         locale: 'en'
-      }
-    },
-    'link-group': {
-      state: {
-        data: {
-          mobileNavigation: {
-            links: [
-              {
-                text: 'Our partners',
-                url: '/about/our-partners'
-              }
-            ]
-          }
-        }
       }
     }
   }
@@ -47,7 +32,7 @@ const factory = () => mount(PageNavigation, {
 describe('components/search/PageNavigation', () => {
   it('retrieves the correct navigation data', () => {
     const wrapper = factory();
-    const links =  wrapper.find('[data-qa="main navigation"]');
+    const links = wrapper.find('[data-qa="main navigation"]');
 
     links.contains('Our partners');
   });
