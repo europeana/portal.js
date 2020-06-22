@@ -33,12 +33,14 @@ module.exports = {
     'eqeqeq': ['error', 'always'],
     'func-call-spacing': ['error', 'never'],
     'func-style': ['error', 'declaration', { 'allowArrowFunctions': true }],
-    'function-call-argument-newline': ['error', 'consistent'],
+    // Disabled pending CodeClimate support of eslint ^6.2.0
+    // 'function-call-argument-newline': ['error', 'consistent'],
     'indent': ['error', 2, { 'SwitchCase': 1 }],
     'jsx-quotes': ['error', 'prefer-double'],
     'key-spacing': ['error', { 'afterColon': true }],
     'keyword-spacing': ['error', { 'before': true, 'after': true }],
     'linebreak-style': ['error', 'unix'],
+    // Disabled pending manual resolution of violations
     // 'max-len': ['error', { 'code': 120 }],
     'no-array-constructor': 'error',
     'no-bitwise': 'error',
@@ -68,6 +70,7 @@ module.exports = {
     'semi-spacing': ['error'],
     'semi-style': ['error', 'last'],
     'semi': ['error', 'always'],
+    // Disabled pending manual resolution of violations
     // 'sort-keys': 'error',
     'space-before-blocks': ['error', 'always'],
     'space-before-function-paren': ['error', 'never'],
