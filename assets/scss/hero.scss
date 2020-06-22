@@ -86,9 +86,14 @@
 .exhibition-page {
   background: white;
   margin-top: -1rem;
-  article, section p, section h4 {
+  article, section p, section h1, section h2, section h3 section h4, section h5, section h6 {
     max-width: 45rem;
     margin-left: auto;
     margin-right: auto;
+  }
+  @media (min-width: $bp-extralarge) {
+    blockquote + p cite {
+      width: 38.3rem;
+    }
   }
 }
