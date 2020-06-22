@@ -20,7 +20,7 @@
       </SmartLink>
     </li>
     <!-- sso links -->
-    <template>
+    <template v-if="enableAuthLinks">
       <li
         v-if="!isAuthenticated"
         class="nav-item"
