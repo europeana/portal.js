@@ -69,6 +69,41 @@
       HeroImage: () => import('../../components/generic/HeroImage')
     },
 
+    asyncData({ params, query, error, app, store }) {
+      const contentfulClient = createClient(query.mode);
+
+      return contentfulClient.getEntries({
+        'locale': app.i18n.isoLocale(),
+        'content_type': 'blogPosting',
+        'fields.identifier': params.pathMatch,
+        'limit': 1
+      })
+        .then((response) => {
+          if (response.total === 0) {
+            error({ statusCode: 404, message: app.i18n.t('messages.notFound') });
+            return;
+          }
+          store.commit('breadcrumb/setBreadcrumbs', [
+            {
+              // TODO: Add named language aware route for blog index
+              text: app.i18n.t('blog.blog'),
+              to: '/blog'
+            },
+            {
+              text: response.items[0].fields.name,
+              active: true
+            }
+          ]);
+
+          return {
+            page: response.items[0].fields
+          };
+        })
+        .catch((e) => {
+          error({ statusCode: 500, message: e.toString() });
+        });
+    },
+
     data() {
       return {
         error: null
@@ -109,41 +144,6 @@
             { hid: 'og:description', property: 'og:description', content: this.page.description }
           ] : [])
       };
-    },
-
-    asyncData({ params, query, error, app, store }) {
-      const contentfulClient = createClient(query.mode);
-
-      return contentfulClient.getEntries({
-        'locale': app.i18n.isoLocale(),
-        'content_type': 'blogPosting',
-        'fields.identifier': params.pathMatch,
-        'limit': 1
-      })
-        .then((response) => {
-          if (response.total === 0) {
-            error({ statusCode: 404, message: app.i18n.t('messages.notFound') });
-            return;
-          }
-          store.commit('breadcrumb/setBreadcrumbs', [
-            {
-              // TODO: Add named language aware route for blog index
-              text: app.i18n.t('blog.blog'),
-              to: '/blog'
-            },
-            {
-              text: response.items[0].fields.name,
-              active: true
-            }
-          ]);
-
-          return {
-            page: response.items[0].fields
-          };
-        })
-        .catch((e) => {
-          error({ statusCode: 500, message: e.toString() });
-        });
     },
 
     beforeRouteLeave(to, from, next) {

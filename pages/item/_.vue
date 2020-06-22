@@ -198,6 +198,38 @@
       NotificationBanner: () => import('../../components/generic/NotificationBanner')
     },
 
+    fetch() {
+      const taggingAnnotationSearchParams = {
+        query: `target_record_id:"${this.identifier}"`,
+        profile: 'dereference',
+        qf: ['motivation:tagging']
+      };
+
+      axios.all([
+        Number(process.env['ENABLE_ITEM_TAGGING_ANNOTATIONS']) ? searchAnnotations(taggingAnnotationSearchParams) : [],
+        searchEntities(this.europeanaEntityUris),
+        this.getSimilarItems()
+      ])
+        .then(axios.spread((taggingAnnotations, entities, similar) => {
+          this.taggingAnnotations = taggingAnnotations;
+          this.relatedEntities = entities;
+          this.similarItems = similar.results;
+        }));
+    },
+
+    asyncData({ params, res, query }) {
+      return getRecord(`/${params.pathMatch}`, { origin: query.recordApi })
+        .then((result) => {
+          return result.record;
+        })
+        .catch((error) => {
+          if (typeof res !== 'undefined') {
+            res.statusCode = (typeof error.statusCode === 'undefined') ? 500 : error.statusCode;
+          }
+          return { error: error.message };
+        });
+    },
+
     data() {
       return {
         agents: null,
@@ -325,38 +357,6 @@
       enableEuropeanaMediaPlayer() {
         return Boolean(Number(process.env.ENABLE_EUROPEANA_MEDIA_PLAYER));
       }
-    },
-
-    fetch() {
-      const taggingAnnotationSearchParams = {
-        query: `target_record_id:"${this.identifier}"`,
-        profile: 'dereference',
-        qf: ['motivation:tagging']
-      };
-
-      axios.all([
-        Number(process.env['ENABLE_ITEM_TAGGING_ANNOTATIONS']) ? searchAnnotations(taggingAnnotationSearchParams) : [],
-        searchEntities(this.europeanaEntityUris),
-        this.getSimilarItems()
-      ])
-        .then(axios.spread((taggingAnnotations, entities, similar) => {
-          this.taggingAnnotations = taggingAnnotations;
-          this.relatedEntities = entities;
-          this.similarItems = similar.results;
-        }));
-    },
-
-    asyncData({ params, res, query }) {
-      return getRecord(`/${params.pathMatch}`, { origin: query.recordApi })
-        .then((result) => {
-          return result.record;
-        })
-        .catch((error) => {
-          if (typeof res !== 'undefined') {
-            res.statusCode = (typeof error.statusCode === 'undefined') ? 500 : error.statusCode;
-          }
-          return { error: error.message };
-        });
     },
 
     fetchOnServer: false,

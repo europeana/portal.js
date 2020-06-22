@@ -35,6 +35,10 @@
       }
     },
 
+    fetch() {
+      this.getSearchSuggestions(this.query);
+    },
+
     data() {
       return {
         relatedCollections: []
@@ -49,10 +53,6 @@
 
     watch: {
       query: '$fetch'
-    },
-
-    fetch() {
-      this.getSearchSuggestions(this.query);
     },
 
     methods: {
