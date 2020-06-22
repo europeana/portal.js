@@ -92,21 +92,6 @@
       HeroImage,
       SocialShare
     },
-    computed: {
-      chapterNavigation() {
-        return this.chapters.map((chapter) => {
-          return {
-            identifier: chapter.fields.identifier, name: chapter.fields.name, url: this.chapterUrl(chapter.fields.identifier)
-          };
-        });
-      },
-      hero() {
-        return this.page.primaryImageOfPage ? this.page.primaryImageOfPage.fields : null;
-      },
-      heroImage() {
-        return this.hero ? this.hero.image.fields.file : null;
-      }
-    },
     asyncData({ params, query, error, app, store }) {
       const contentfulClient = createClient(query.mode);
       return contentfulClient.getEntries({
@@ -154,6 +139,21 @@
         .catch((e) => {
           error({ statusCode: 500, message: e.toString() });
         });
+    },
+    computed: {
+      chapterNavigation() {
+        return this.chapters.map((chapter) => {
+          return {
+            identifier: chapter.fields.identifier, name: chapter.fields.name, url: this.chapterUrl(chapter.fields.identifier)
+          };
+        });
+      },
+      hero() {
+        return this.page.primaryImageOfPage ? this.page.primaryImageOfPage.fields : null;
+      },
+      heroImage() {
+        return this.hero ? this.hero.image.fields.file : null;
+      }
     },
     methods: {
       chapterUrl(identifier) {

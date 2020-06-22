@@ -44,15 +44,6 @@
     components: {
       ExhibitionChapters
     },
-    computed: {
-      credits() {
-        if (this.page.credits === undefined) return false;
-        return marked(this.page.credits);
-      },
-      title() {
-        return `${this.page.name} - ${this.$t('exhibitions.credits')}`;
-      }
-    },
     asyncData({ params, query, error, app, store }) {
       const contentfulClient = createClient(query.mode);
       return contentfulClient.getEntries({
@@ -94,6 +85,15 @@
         .catch((e) => {
           error({ statusCode: 500, message: e.toString() });
         });
+    },
+    computed: {
+      credits() {
+        if (this.page.credits === undefined) return false;
+        return marked(this.page.credits);
+      },
+      title() {
+        return `${this.page.name} - ${this.$t('exhibitions.credits')}`;
+      }
     },
     beforeRouteLeave(to, from, next) {
       this.$store.commit('breadcrumb/clearBreadcrumb');

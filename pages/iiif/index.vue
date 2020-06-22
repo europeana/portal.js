@@ -8,6 +8,12 @@
   export default {
     layout: 'minimal',
 
+    asyncData({ query }) {
+      return {
+        uri: query.uri
+      };
+    },
+
     data() {
       return {
         manifest: null,
@@ -60,12 +66,6 @@
 
         return options;
       }
-    },
-
-    asyncData({ query }) {
-      return {
-        uri: query.uri
-      };
     },
 
     mounted() {

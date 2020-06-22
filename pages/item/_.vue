@@ -327,21 +327,6 @@
       }
     },
 
-    asyncData({ params, res, query }) {
-      return getRecord(`/${params.pathMatch}`, { origin: query.recordApi })
-        .then((result) => {
-          return result.record;
-        })
-        .catch((error) => {
-          if (typeof res !== 'undefined') {
-            res.statusCode = (typeof error.statusCode === 'undefined') ? 500 : error.statusCode;
-          }
-          return { error: error.message };
-        });
-    },
-
-    fetchOnServer: false,
-
     fetch() {
       const taggingAnnotationSearchParams = {
         query: `target_record_id:"${this.identifier}"`,
@@ -360,6 +345,21 @@
           this.similarItems = similar.results;
         }));
     },
+
+    asyncData({ params, res, query }) {
+      return getRecord(`/${params.pathMatch}`, { origin: query.recordApi })
+        .then((result) => {
+          return result.record;
+        })
+        .catch((error) => {
+          if (typeof res !== 'undefined') {
+            res.statusCode = (typeof error.statusCode === 'undefined') ? 500 : error.statusCode;
+          }
+          return { error: error.message };
+        });
+    },
+
+    fetchOnServer: false,
 
     created() {
       this.cardGridClass = this.isRichMedia && 'card-grid-richmedia';

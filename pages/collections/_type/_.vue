@@ -241,6 +241,10 @@
       }
     },
 
+    async fetch({ query, store }) {
+      await store.dispatch('entity/searchForRecords', query);
+    },
+
     asyncData({ query, params, res, app, store }) {
       const entityUri = store.state.entity.entity.id;
 
@@ -286,10 +290,6 @@
           }
           return { error: error.message };
         });
-    },
-
-    async fetch({ query, store }) {
-      await store.dispatch('entity/searchForRecords', query);
     },
 
     mounted() {

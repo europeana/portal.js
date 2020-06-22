@@ -53,25 +53,6 @@
       PaginationNav: () => import('../../components/generic/PaginationNav')
     },
 
-    head() {
-      return {
-        title: this.$t('blog.blog')
-      };
-    },
-
-    data() {
-      return {
-        perPage: PER_PAGE,
-        page: null
-      };
-    },
-
-    computed: {
-      showPagination() {
-        return this.total > this.perPage;
-      }
-    },
-
     asyncData({ query, redirect, error, app }) {
       const currentPage = pageFromQuery(query.page);
       if (currentPage === null) {
@@ -100,10 +81,29 @@
         });
     },
 
+    data() {
+      return {
+        perPage: PER_PAGE,
+        page: null
+      };
+    },
+
+    computed: {
+      showPagination() {
+        return this.total > this.perPage;
+      }
+    },
+
     methods: {
       paginationLink(val) {
         return this.$path({ name: 'blog', query: { page: val } });
       }
+    },
+
+    head() {
+      return {
+        title: this.$t('blog.blog')
+      };
     },
 
     watchQuery: ['page']

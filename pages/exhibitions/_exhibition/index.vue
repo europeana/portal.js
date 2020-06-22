@@ -70,18 +70,6 @@
       HeroImage,
       SocialShare
     },
-    computed: {
-      hero() {
-        return this.page.primaryImageOfPage ? this.page.primaryImageOfPage.fields : null;
-      },
-      heroImage() {
-        return this.hero ? this.hero.image.fields.file : null;
-      },
-      mainContent() {
-        if (this.page.text === undefined) return;
-        return marked(this.page.text);
-      }
-    },
     asyncData({ params, query, error, app, store, redirect }) {
       if (params.exhibition === undefined) redirect(app.$path({ name: 'exhibitions' }));
       const contentfulClient = createClient(query.mode);
@@ -114,6 +102,18 @@
         .catch((e) => {
           error({ statusCode: 500, message: e.toString() });
         });
+    },
+    computed: {
+      hero() {
+        return this.page.primaryImageOfPage ? this.page.primaryImageOfPage.fields : null;
+      },
+      heroImage() {
+        return this.hero ? this.hero.image.fields.file : null;
+      },
+      mainContent() {
+        if (this.page.text === undefined) return;
+        return marked(this.page.text);
+      }
     },
     beforeRouteLeave(to, from, next) {
       this.$store.commit('breadcrumb/clearBreadcrumb');
