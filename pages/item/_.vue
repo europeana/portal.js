@@ -49,20 +49,22 @@
                   </p>
                 </template>
               </header>
-              <div class="media-presentation">
-                <MediaPresentation
-                  :europeana-identifier="identifier"
-                  :media="selectedMedia"
-                  :image-src="selectedMediaImage.src"
-                  :enable-europeana-media-player="enableEuropeanaMediaPlayer"
-                />
-                <MediaThumbnailGrid
-                  v-if="displayMediaThumbnailGrid"
-                  :media="media"
-                  :selected="selectedMedia.about"
-                  @select="selectMedia"
-                />
-              </div>
+              <client-only>
+                <div class="media-presentation">
+                  <MediaPresentation
+                    :europeana-identifier="identifier"
+                    :media="selectedMedia"
+                    :image-src="selectedMediaImage.src"
+                    :enable-europeana-media-player="enableEuropeanaMediaPlayer"
+                  />
+                  <MediaThumbnailGrid
+                    v-if="displayMediaThumbnailGrid"
+                    :media="media"
+                    :selected="selectedMedia.about"
+                    @select="selectMedia"
+                  />
+                </div>
+              </client-only>
               <div
                 v-if="descriptionInCurrentLanguage"
                 class="description"
@@ -171,12 +173,9 @@
   import axios from 'axios';
   import { mapGetters } from 'vuex';
 
-  import AlertMessage from '../../components/generic/AlertMessage';
-  import EntityCards from '../../components/entity/EntityCards';
+  import ClientOnly from 'vue-client-only';
   import MediaActionBar from '../../components/item/MediaActionBar';
-  import SimilarItems from '../../components/item/SimilarItems';
   import MediaPresentation from '../../components/item/MediaPresentation';
-  import MediaThumbnailGrid from '../../components/item/MediaThumbnailGrid';
   import MetadataField from '../../components/item/MetadataField';
 
   import { getRecord, similarItemsQuery } from '../../plugins/europeana/record';
@@ -185,18 +184,18 @@
   import { langMapValueForLocale } from  '../../plugins/europeana/utils';
   import { searchEntities } from '../../plugins/europeana/entity';
   import { search as searchAnnotations } from '../../plugins/europeana/annotation';
-  import NotificationBanner from '../../components/generic/NotificationBanner';
 
   export default {
     components: {
-      AlertMessage,
-      EntityCards,
+      AlertMessage: () => import('../../components/generic/AlertMessage'),
+      ClientOnly,
+      EntityCards: () => import('../../components/entity/EntityCards'),
       MediaActionBar,
-      SimilarItems,
+      SimilarItems: () => import('../../components/item/SimilarItems'),
       MediaPresentation,
-      MediaThumbnailGrid,
+      MediaThumbnailGrid: () => import('../../components/item/MediaThumbnailGrid'),
       MetadataField,
-      NotificationBanner
+      NotificationBanner: () => import('../../components/generic/NotificationBanner')
     },
 
     data() {
@@ -341,6 +340,29 @@
         });
     },
 
+    fetchOnServer: false,
+
+    fetch() {
+      const taggingAnnotationSearchParams = {
+        query: `target_record_id:"${this.identifier}"`,
+        profile: 'dereference',
+        qf: [
+          'motivation:tagging'
+        ]
+      };
+
+      axios.all([
+        Number(process.env['ENABLE_ITEM_TAGGING_ANNOTATIONS']) ? searchAnnotations(taggingAnnotationSearchParams) : [],
+        searchEntities(this.europeanaEntityUris),
+        this.getSimilarItems()
+      ])
+        .then(axios.spread((taggingAnnotations, entities, similar) => {
+          this.taggingAnnotations = taggingAnnotations;
+          this.relatedEntities = entities;
+          this.similarItems = similar.results;
+        }));
+    },
+
     created() {
       this.cardGridClass = this.isRichMedia && 'card-grid-richmedia';
     },
@@ -357,25 +379,6 @@
           itemRights: langMapValueForLocale(this.fields.edmRights, 'en').values[0]
         });
       }
-
-      const taggingAnnotationSearchParams = {
-        query: `target_record_id:"${this.identifier}"`,
-        profile: 'dereference',
-        qf:[
-          'motivation:tagging'
-        ]
-      };
-
-      axios.all([
-        Number(process.env['ENABLE_ITEM_TAGGING_ANNOTATIONS']) ? searchAnnotations(taggingAnnotationSearchParams) : [],
-        searchEntities(this.europeanaEntityUris),
-        this.getSimilarItems()
-      ])
-        .then(axios.spread((taggingAnnotations, entities, similar) => {
-          this.taggingAnnotations = taggingAnnotations;
-          this.relatedEntities = entities;
-          this.similarItems = similar.results;
-        }));
 
       window.addEventListener('message', (msg) => {
         if (msg.data.event === 'updateDownloadLink') {

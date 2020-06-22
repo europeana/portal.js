@@ -6,7 +6,7 @@ const i18n = new VueI18n();
 storiesOf('Design', module)
   .add('Typography', () => ({
     i18n,
-    template:  `<b-container class="mt-3">
+    template: `<b-container class="mt-3">
         <h1>This is a h1 heading</h1>
         <h2>This is a h2 heading</h2>
         <h3>This is a h3 heading</h3>
