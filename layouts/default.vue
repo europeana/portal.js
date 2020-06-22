@@ -14,7 +14,10 @@
       :enable-auto-suggest="enableAutoSuggest"
       :enable-language-selector="enableLanguageSelector"
     />
-    <main role="main" id="default">
+    <main
+      id="default"
+      role="main"
+    >
       <b-container v-if="breadcrumbs">
         <b-row>
           <b-col class="col-12">
