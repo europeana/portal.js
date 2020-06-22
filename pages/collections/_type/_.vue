@@ -166,57 +166,6 @@
       }
     },
 
-    async fetch({ query, store }) {
-      await store.dispatch('entity/searchForRecords', query);
-    },
-
-    asyncData({ query, params, res, app, store }) {
-      const entityUri = store.state.entity.entity.id;
-
-      // Prevent re-requesting entity content from APIs if already loaded,
-      // e.g. when paginating through entity search results
-      if (store.state.entity.entity && store.state.entity.relatedEntities) {
-        return {
-          entity: store.state.entity.entity,
-          page: store.state.entity.page,
-          relatedEntities: store.state.entity.relatedEntities
-        };
-      }
-
-      const contentfulClient = createClient(query.mode);
-      const curatedEntityName = store.state.entity.curatedEntities[entityUri];
-
-      return axios.all(
-        [entities.relatedEntities(params.type, params.pathMatch, { origin: query.recordApi })]
-          .concat(curatedEntityName ? contentfulClient.getEntries({
-            'locale': app.i18n.isoLocale(),
-            'content_type': 'entityPage',
-            'fields.identifier': entityUri,
-            'include': 2,
-            'limit': 1
-          }) : []))
-        .then(axios.spread(async(related, entries) => {
-          const entityPage = entries && entries.total > 0 ? entries.items[0].fields : null;
-
-          // Store content for reuse should a redirect be needed, below, or when
-          // navigating back to this page, e.g. from a search result.
-          store.commit('entity/setPage', entityPage);
-          store.commit('entity/setRelatedEntities', related);
-
-          return {
-            entity: store.state.entity.entity,
-            page: entityPage,
-            relatedEntities: related
-          };
-        }))
-        .catch((error) => {
-          if (typeof res !== 'undefined') {
-            res.statusCode = (typeof error.statusCode === 'undefined') ? 500 : error.statusCode;
-          }
-          return { error: error.message };
-        });
-    },
-
     data() {
       return {
         entity: null,
@@ -290,6 +239,57 @@
         if (this.editorialTitle) return this.titleFallback(this.editorialTitle);
         return langMapValueForLocale(this.entity.prefLabel, this.$store.state.i18n.locale);
       }
+    },
+
+    asyncData({ query, params, res, app, store }) {
+      const entityUri = store.state.entity.entity.id;
+
+      // Prevent re-requesting entity content from APIs if already loaded,
+      // e.g. when paginating through entity search results
+      if (store.state.entity.entity && store.state.entity.relatedEntities) {
+        return {
+          entity: store.state.entity.entity,
+          page: store.state.entity.page,
+          relatedEntities: store.state.entity.relatedEntities
+        };
+      }
+
+      const contentfulClient = createClient(query.mode);
+      const curatedEntityName = store.state.entity.curatedEntities[entityUri];
+
+      return axios.all(
+        [entities.relatedEntities(params.type, params.pathMatch, { origin: query.recordApi })]
+          .concat(curatedEntityName ? contentfulClient.getEntries({
+            'locale': app.i18n.isoLocale(),
+            'content_type': 'entityPage',
+            'fields.identifier': entityUri,
+            'include': 2,
+            'limit': 1
+          }) : []))
+        .then(axios.spread(async(related, entries) => {
+          const entityPage = entries && entries.total > 0 ? entries.items[0].fields : null;
+
+          // Store content for reuse should a redirect be needed, below, or when
+          // navigating back to this page, e.g. from a search result.
+          store.commit('entity/setPage', entityPage);
+          store.commit('entity/setRelatedEntities', related);
+
+          return {
+            entity: store.state.entity.entity,
+            page: entityPage,
+            relatedEntities: related
+          };
+        }))
+        .catch((error) => {
+          if (typeof res !== 'undefined') {
+            res.statusCode = (typeof error.statusCode === 'undefined') ? 500 : error.statusCode;
+          }
+          return { error: error.message };
+        });
+    },
+
+    async fetch({ query, store }) {
+      await store.dispatch('entity/searchForRecords', query);
     },
 
     mounted() {

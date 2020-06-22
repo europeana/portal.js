@@ -10,13 +10,6 @@
   export default {
     layout: 'minimal',
 
-    asyncData({ query }) {
-      return {
-        id: query.id,
-        mediaUrl: query.mediaUrl
-      };
-    },
-
     data() {
       return {
         MEDIA_PLAYER_VERSION: '0.7.4',
@@ -29,6 +22,13 @@
       manifest() {
         return `https://iiif.europeana.eu/presentation${this.id}/manifest?format=3`;
       }
+    },
+
+    asyncData({ query }) {
+      return {
+        id: query.id,
+        mediaUrl: query.mediaUrl
+      };
     },
 
     mounted() {

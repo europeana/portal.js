@@ -49,6 +49,20 @@
       NotificationBanner,
       HeroImage
     },
+    computed: {
+      hero() {
+        return this.page.primaryImageOfPage ? this.page.primaryImageOfPage.fields : null;
+      },
+      heroImage() {
+        return this.hero ? this.hero.image.fields.file : null;
+      },
+      onHomePage() {
+        return Boolean(Number(process.env.ENABLE_LINKS_TO_CLASSIC)) && !this.path;
+      },
+      notificationUrl() {
+        return `https://classic.europeana.eu/portal/${this.$store.state.i18n.locale}?utm_source=new-website&utm_medium=button`;
+      }
+    },
     asyncData({ params, query, error, app }) {
       const contentfulClient = createClient(query.mode);
 
@@ -73,20 +87,6 @@
         .catch((e) => {
           error({ statusCode: 500, message: e.toString() });
         });
-    },
-    computed: {
-      hero() {
-        return this.page.primaryImageOfPage ? this.page.primaryImageOfPage.fields : null;
-      },
-      heroImage() {
-        return this.hero ? this.hero.image.fields.file : null;
-      },
-      onHomePage() {
-        return Boolean(Number(process.env.ENABLE_LINKS_TO_CLASSIC)) && !this.path;
-      },
-      notificationUrl() {
-        return `https://classic.europeana.eu/portal/${this.$store.state.i18n.locale}?utm_source=new-website&utm_medium=button`;
-      }
     },
     head() {
       return {

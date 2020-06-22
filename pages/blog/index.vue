@@ -53,6 +53,19 @@
       PaginationNav: () => import('../../components/generic/PaginationNav')
     },
 
+    data() {
+      return {
+        perPage: PER_PAGE,
+        page: null
+      };
+    },
+
+    computed: {
+      showPagination() {
+        return this.total > this.perPage;
+      }
+    },
+
     asyncData({ query, redirect, error, app }) {
       const currentPage = pageFromQuery(query.page);
       if (currentPage === null) {
@@ -79,19 +92,6 @@
         .catch((e) => {
           error({ statusCode: 500, message: e.toString() });
         });
-    },
-
-    data() {
-      return {
-        perPage: PER_PAGE,
-        page: null
-      };
-    },
-
-    computed: {
-      showPagination() {
-        return this.total > this.perPage;
-      }
     },
 
     methods: {

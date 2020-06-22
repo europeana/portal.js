@@ -42,6 +42,17 @@
       ContentHeader,
       ContentCard: () => import('../../components/generic/ContentCard')
     },
+    computed: {
+      shareMediaUrl() {
+        return this.images.length === 0 ? null : this.imageUrl(this.images[0]);
+      },
+      description() {
+        return this.$options.filters.stripMarkdown(this.rawDescription);
+      },
+      htmlDescription() {
+        return marked(this.rawDescription);
+      }
+    },
     asyncData({ params, query, error, app }) {
       const contentfulClient = createClient(query.mode);
 
@@ -60,17 +71,6 @@
         .catch((e) => {
           error({ statusCode: 500, message: e.toString() });
         });
-    },
-    computed: {
-      shareMediaUrl() {
-        return this.images.length === 0 ? null : this.imageUrl(this.images[0]);
-      },
-      description() {
-        return this.$options.filters.stripMarkdown(this.rawDescription);
-      },
-      htmlDescription() {
-        return marked(this.rawDescription);
-      }
     },
     methods: {
       imageTitle(data) {
