@@ -48,7 +48,7 @@
       data-qa="desktop navigation"
     >
       <PageNavigation
-        v-if="mainNavigation.navigation"
+        v-if="mainNavigation"
         :links="mainNavigation.links"
       />
     </b-navbar>
@@ -71,7 +71,7 @@
           >
         </SmartLink>
         <PageNavigation
-          v-if="mobileNavigation.navigation"
+          v-if="mobileNavigation"
           :links="mobileNavigation.links"
         />
       </b-navbar>
@@ -103,7 +103,11 @@
         type: Boolean,
         default: false
       },
-      navigation: {
+      mainNavigation: {
+        type: Object,
+        default: null
+      },
+      mobileNavigation: {
         type: Object,
         default: null
       }
@@ -121,12 +125,6 @@
         get() {
           return this.$store.getters['ui/searchView'];
         }
-      },
-      mainNavigation() {
-        return this.$store.state['link-group'].data.mainNavigation;
-      },
-      mobileNavigation() {
-        return this.$store.state['link-group'].data.mobileNavigation;
       }
     },
 

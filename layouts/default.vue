@@ -13,7 +13,8 @@
     <PageHeader
       :enable-auto-suggest="enableAutoSuggest"
       :enable-language-selector="enableLanguageSelector"
-      :navigation="linkGroups.mobileNavigation"
+      :main-navigation="linkGroups.mainNavigation"
+      :mobile-navigation="linkGroups.mobileNavigation"
       keep-alive
     />
     <main role="main">
@@ -101,7 +102,7 @@
       }
 
       const linkGroups = {};
-      for (const identifier of ['mobileNavigation', 'footerMoreInfo', 'footerHelp']) {
+      for (const identifier in data.data) {
         const linkGroup = data.data[identifier].items[0];
         linkGroups[identifier] = {
           name: linkGroup.name ? linkGroup.name : null,
