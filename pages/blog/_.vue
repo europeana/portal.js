@@ -1,8 +1,5 @@
 <template>
-  <b-container
-    data-qa="blog post"
-    class="mt-5"
-  >
+  <b-container data-qa="blog post">
     <b-row class="flex-md-row pb-5">
       <b-col
         cols="12"

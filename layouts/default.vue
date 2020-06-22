@@ -18,6 +18,7 @@
       <b-breadcrumb
         v-if="breadcrumbs"
         :items="breadcrumbs"
+        class="mb-5"
       />
       <nuxt
         id="main"
