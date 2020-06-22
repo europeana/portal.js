@@ -26,7 +26,27 @@ const store = (uiState = {}) => {
   return new Vuex.Store({
     getters,
     state: {
-      ui: uiState
+      ui: uiState,
+      'link-group': {
+        data: {
+          mainNavigation: {
+            links: [
+              {
+                text: 'Collections',
+                url: '/collections'
+              }
+            ]
+          },
+          mobileNavigation: {
+            links: [
+              {
+                text: 'Our partners',
+                url: '/about/our-partners'
+              }
+            ]
+          }
+        }
+      }
     }
   });
 };

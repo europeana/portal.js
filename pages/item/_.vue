@@ -346,7 +346,7 @@
       const taggingAnnotationSearchParams = {
         query: `target_record_id:"${this.identifier}"`,
         profile: 'dereference',
-        qf:[
+        qf: [
           'motivation:tagging'
         ]
       };

@@ -48,8 +48,8 @@
       data-qa="desktop navigation"
     >
       <PageNavigation
-        v-if="navigation"
-        :links="navigation.links"
+        v-if="mainNavigation.navigation"
+        :links="mainNavigation.links"
       />
     </b-navbar>
     <transition name="slide">
@@ -71,8 +71,8 @@
           >
         </SmartLink>
         <PageNavigation
-          v-if="navigation"
-          :links="navigation.links"
+          v-if="mobileNavigation.navigation"
+          :links="mobileNavigation.links"
         />
       </b-navbar>
     </transition>
@@ -111,7 +111,8 @@
 
     data() {
       return {
-        showSidebar: null
+        showSidebar: null,
+        windowWidth: 0
       };
     },
 
@@ -120,6 +121,12 @@
         get() {
           return this.$store.getters['ui/searchView'];
         }
+      },
+      mainNavigation() {
+        return this.$store.state['link-group'].data.mainNavigation;
+      },
+      mobileNavigation() {
+        return this.$store.state['link-group'].data.mobileNavigation;
       }
     },
 
