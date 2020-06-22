@@ -97,47 +97,49 @@
               :is-shown-at="isShownAt"
             />
           </div>
-          <div
-            class="card px-3 pt-3 mb-5 meta-data"
-            data-qa="main metadata section"
-          >
-            <MetadataField
-              v-for="(value, name) in coreFields"
-              :key="name"
-              :name="name"
-              :field-data="value"
-            />
-          </div>
-          <div class="mb-3">
-            <div class="d-flex justify-content-between align-items-center">
-              <h2
-                class="mb-3"
-              >
-                {{ $t('record.extendedInformation') }}
-              </h2>
-              <b-button
-                v-b-toggle.extended-metadata
-                class="mb-3 d-inline extended-toggle p-0"
-                variant="link"
-                @click="toggleExtendedMetadataPreference"
-              >
-                <span class="extended-opened">{{ $t('record.hideAll') }}</span>
-                <span class="extended-closed">{{ $t('record.showAll') }}</span>
-              </b-button>
-            </div>
-            <b-collapse
-              id="extended-metadata"
-              class="mb-5"
+
+          <div>
+            <b-card
+              no-body
+              class="mb-3 rounded-0"
             >
-              <MetadataField
-                v-for="(value, name) in fieldsAndKeywords"
-                :key="name"
-                :name="name"
-                :field-data="value"
-                class="mb-3"
-              />
-            </b-collapse>
+              <b-tabs card>
+                <b-tab
+                  :title="$t('record.goodToKnow')"
+                  active
+                >
+                  <b-card-text data-qa="main metadata section">
+                    <MetadataField
+                      v-for="(value, name) in coreFields"
+                      :key="name"
+                      :name="name"
+                      :field-data="value"
+                    />
+                  </b-card-text>
+                </b-tab>
+                <b-tab
+                  :title="$t('record.allMetaData')"
+                >
+                  <b-card-text>
+                    <MetadataField
+                      v-for="(value, name) in allMetaData"
+                      :key="name"
+                      :name="name"
+                      :field-data="value"
+                    />
+                  </b-card-text>
+                </b-tab>
+                <b-tab
+                  :title="$t('record.transcription')"
+                >
+                  <b-card-text>
+                    <span class="disclaimer pb-3 d-flex">{{ $t('record.transcriptionDisclaimer') }}</span>
+                  </b-card-text>
+                </b-tab>
+              </b-tabs>
+            </b-card>
           </div>
+
           <section
             v-if="similarItems.length > 0"
           >
@@ -237,6 +239,9 @@
       },
       fieldsAndKeywords() {
         return { ...this.fields, ...{ keywords: this.keywords } };
+      },
+      allMetaData() {
+        return { ...this.coreFields, ...this.fieldsAndKeywords };
       },
       europeanaAgents() {
         return (this.agents || []).filter((agent) => agent.about.startsWith(`${this.apiConfig.data.origin}/agent/`));
@@ -393,12 +398,6 @@
         this.selectedMedia = about;
       },
 
-      toggleExtendedMetadataPreference() {
-        if (process.browser) {
-          localStorage.itemShowExtendedMetadata = localStorage.itemShowExtendedMetadata ? !JSON.parse(localStorage.itemShowExtendedMetadata) : true;
-        }
-      },
-
       getSimilarItems() {
         const noSimilarItems = { results: [] };
         if (this.error) return noSimilarItems;
@@ -527,52 +526,16 @@
     }
   }
 
-  .collapsed > .extended-opened,
-  :not(.collapsed) > .extended-closed {
-    display: none;
-  }
-
-  .extended-toggle {
-    background: transparent;
-    border: 0;
-    color: $black;
-    font-size: 0.875rem;
-    text-decoration: none;
-    text-transform: uppercase;
-
-    span {
-      align-items: center;
-      display: flex;
-      position: relative;
-
-      &:after {
-        content: '\e906';
-        border: 1px solid $black;
-        display: inline-block;
-        font-size: 0.5rem;
-        height: 1rem;
-        line-height: 1rem;
-        margin-left: 1rem;
-        text-align: center;
-        width: 1rem;
-        @extend .icon-font;
-      }
-
-      &.extended-closed:after {
-        content: '\e907';
-      }
-    }
-
-    &:hover {
-      color: inherit;
-    }
+  .disclaimer {
+    border-bottom: 1px solid $offwhite;
 
     &:before {
-      background: $white;
-      bottom: -0.5rem;
-      left: -0.5rem;
-      right: -0.5rem;
-      top: -0.5rem;
+      @extend .icon-font;
+      content: '\e91f';
+      color: $blue;
+      font-size: 1.5rem;
+      line-height: initial;
+      margin-right: 0.5rem;
     }
   }
 </style>

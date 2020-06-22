@@ -77,6 +77,7 @@ module.exports = {
       'NavbarPlugin',
       'NavPlugin',
       'PaginationNavPlugin',
+      'TabsPlugin',
       'ToastPlugin'
     ]
   },
