@@ -356,7 +356,7 @@ describe('components/search/SearchInterface', () => {
               await wrapper.vm.showContentTierToast();
               await wrapper.vm.$root.$emit('bv::toast:shown');
 
-              global.sessionStorage.contentTierToastShown.should.be.true;
+              global.sessionStorage.contentTierToastShown.should.eql('true');
             });
           });
 
