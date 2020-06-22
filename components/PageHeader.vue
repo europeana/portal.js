@@ -40,20 +40,21 @@
         class="px-lg-3 mr-lg-auto mx-xl-auto"
         aria-label="search form"
         :enable-auto-suggest="enableAutoSuggest"
-        :enable-suggestion-validation="enableSuggestionValidation"
       />
     </header>
     <b-navbar
       class="p-lg-0 align-items-start justify-content-lg-end flex-column flex-lg-row d-none d-lg-block"
       role="navigation"
+      data-qa="desktop navigation"
     >
-      <PageNavigation />
+      <PageNavigation :links="mainNavigation.links" />
     </b-navbar>
     <transition name="slide">
       <b-navbar
         v-if="showSidebar"
         class="p-lg-0 align-items-start justify-content-lg-end flex-column flex-lg-row d-lg-none"
         role="navigation"
+        data-qa="mobile navigation"
       >
         <SmartLink
           :destination="{ name: 'index' }"
@@ -66,7 +67,7 @@
             data-qa="logo"
           >
         </SmartLink>
-        <PageNavigation />
+        <PageNavigation :links="mobileNavigation.links" />
       </b-navbar>
     </transition>
     <transition name="fade">
@@ -95,16 +96,13 @@
       enableAutoSuggest: {
         type: Boolean,
         default: false
-      },
-      enableSuggestionValidation: {
-        type: Boolean,
-        default: false
       }
     },
 
     data() {
       return {
-        showSidebar: null
+        showSidebar: null,
+        windowWidth: 0
       };
     },
 
@@ -113,6 +111,12 @@
         get() {
           return this.$store.getters['ui/searchView'];
         }
+      },
+      mainNavigation() {
+        return this.$store.state['link-group'].data.mainNavigation;
+      },
+      mobileNavigation() {
+        return this.$store.state['link-group'].data.mobileNavigation;
       }
     },
 
