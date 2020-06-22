@@ -104,10 +104,10 @@
           limit: 4
         };
 
-        let data;
+        let responseData;
         try {
           const response = await this.$contentful.query('latestCardGroups', variables);
-          data = response.data;
+          responseData = response.data;
         } catch (e) {
           return content;
         }
@@ -118,13 +118,13 @@
             let latest = {};
             switch (content[i].genre) {
             case 'Exhibitions':
-              latest = data.data.exhibitionPageCollection;
+              latest = responseData.data.exhibitionPageCollection;
               break;
             case 'Blog posts':
-              latest = data.data.blogPostingCollection;
+              latest = responseData.data.blogPostingCollection;
               break;
             case 'Galleries':
-              latest = data.data.imageGalleryCollection;
+              latest = responseData.data.imageGalleryCollection;
               break;
             }
             content[i] = { ...content[i], ...latest };
