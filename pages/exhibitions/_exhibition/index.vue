@@ -80,6 +80,14 @@
       mainContent() {
         if (this.page.text === undefined) return;
         return marked(this.page.text);
+      },
+      optimisedImageUrl() {
+        return this.$options.filters.optimisedImageUrl(
+          // use social media image if set in ctf, otherwise use hero image
+          this.page.image ? this.page.image.fields.file.url : this.heroImage.url,
+          'image/jpeg',
+          { width: 800, height: 800 }
+        );
       }
     },
     asyncData({ params, query, error, app, store, redirect }) {
@@ -130,7 +138,7 @@
           { hid: 'description', name: 'description', content: this.page.description },
           { hid: 'og:description', property: 'og:description', content: this.page.description }
         ] : []).concat(this.heroImage ? [
-          { hid: 'og:image', property: 'og:image', content: this.$options.filters.urlWithProtocol(this.heroImage.url) }
+          { hid: 'og:image', property: 'og:image', content: this.optimisedImageUrl }
         ] : [])
       };
     }

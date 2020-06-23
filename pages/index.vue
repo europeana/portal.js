@@ -61,11 +61,18 @@
       },
       notificationUrl() {
         return `https://classic.europeana.eu/portal/${this.$store.state.i18n.locale}?utm_source=new-website&utm_medium=button`;
+      },
+      optimisedImageUrl() {
+        return this.$options.filters.optimisedImageUrl(
+          // use social media image if set in ctf, otherwise use hero image
+          this.page.image ? this.page.image.fields.file.url : this.heroImage.url,
+          'image/jpeg',
+          { width: 800, height: 800 }
+        );
       }
     },
     asyncData({ params, query, error, app }) {
       const contentfulClient = createClient(query.mode);
-
       // fetch the browsePage data, include set to 2 in order to get nested card data
       return contentfulClient.getEntries({
         'locale': app.i18n.isoLocale(),
@@ -99,7 +106,7 @@
           { hid: 'description', name: 'description', content: this.page.description },
           { hid: 'og:description', property: 'og:description', content: this.page.description }
         ] : []).concat(this.heroImage ? [
-          { hid: 'og:image', property: 'og:image', content: this.$options.filters.urlWithProtocol(this.heroImage.url) }
+          { hid: 'og:image', property: 'og:image', content: this.optimisedImageUrl }
         ] : [])
       };
     }
