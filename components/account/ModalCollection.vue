@@ -15,6 +15,7 @@
           <b-form-input
             id="collection"
             type="text"
+            maxlength="35"
             required
           />
         </b-form-group>
@@ -24,6 +25,7 @@
         >
           <b-form-textarea
             id="collection"
+            maxlength="240"
           />
         </b-form-group>
         <div class="modal-footer">
