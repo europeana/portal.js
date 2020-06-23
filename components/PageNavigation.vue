@@ -81,13 +81,11 @@
     },
     methods: {
       async login() {
-
         await this.$auth.loginWith('keycloak');
       },
       async getNavigationData() {
         return this.$store.dispatch('link-group/init');
       },
-
       renderIcon(name) {
         let className = '';
         switch (name) {
