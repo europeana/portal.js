@@ -282,8 +282,8 @@
       enableMoreFacets() {
         return this.moreFacets.length > 0;
       },
-      contentTierFacet() {
-        return this.moreFacets.find(facet => {
+      contentTierFacetPresent() {
+        return this.moreFacets.some(facet => {
           return facet.name === 'contentTier' && facet.fields && facet.fields.some(option => option.label === '"0"');
         });
       },
@@ -306,7 +306,12 @@
       routeQueryView() {
         this.view = this.routeQueryView;
       },
-      contentTierFacet: 'showContentTierToast'
+      contentTierFacetPresent: 'showContentTierToast'
+      }
+    },
+    mounted() {
+      // FIXME: causes flicker on SSRs
+      this.showContentTierToast();
     },
     methods: {
       facetDropdownType(name) {
@@ -366,7 +371,7 @@
       showContentTierToast() {
         if (!process.browser) return;
 
-        if (this.contentTierFacet && !sessionStorage.contentTierToastShown) {
+        if (this.contentTierFacetPresent && !sessionStorage.contentTierToastShown) {
           this.$bvToast.show('tier-toast');
           sessionStorage.contentTierToastShown = 'true';
         }
