@@ -232,9 +232,9 @@ if (Number(process.env['ENABLE_XX_USER_AUTH'])) {
         client_id: process.env.OAUTH_CLIENT,
         scope: process.env.OAUTH_SCOPE,
         realm: process.env.OAUTH_REALM,
-        authorization_endpoint: process.env.OAUTH_URL + process.env.OAUTH_REALM + /protocol/ + process.env.OAUTH_PROTOCOL + '/auth',
-        access_token_endpoint: process.env.OAUTH_URL + process.env.OAUTH_REALM + /protocol/ + process.env.OAUTH_PROTOCOL + '/token',
-        userinfo_endpoint: process.env.OAUTH_URL + process.env.OAUTH_REALM + /protocol/ + process.env.OAUTH_PROTOCOL + '/userinfo',
+        authorization_endpoint: process.env.OAUTH_URL + '/auth',
+        access_token_endpoint: process.env.OAUTH_URL + '/token',
+        userinfo_endpoint: process.env.OAUTH_URL + '/userinfo',
         response_type: 'code id_token token',
         token_type: 'Bearer'
       }
