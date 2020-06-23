@@ -8,7 +8,7 @@ const i18nDateTime = require('./plugins/i18n/datetime.js');
 const routerMiddleware = ['http', 'legacy/index', 'l10n'];
 if (!Number(process.env['DISABLE_SSL_NEGOTIATION'])) routerMiddleware.unshift('ssl');
 
-let config = {
+const config = {
   mode: 'universal',
 
   /*
@@ -230,7 +230,7 @@ if (Number(process.env['ENABLE_XX_USER_AUTH'])) {
       keycloak: {
         _scheme: process.env.OAUTH_SCHEME,
         client_id: process.env.OAUTH_CLIENT,
-        scope: process.env.OAUTH_SCOPE,
+        scope: process.env.OAUTH_SCOPE.split(','),
         realm: process.env.OAUTH_REALM,
         authorization_endpoint: process.env.OAUTH_URL + '/auth',
         access_token_endpoint: process.env.OAUTH_URL + '/token',

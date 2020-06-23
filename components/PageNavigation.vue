@@ -28,7 +28,7 @@
       >
         <b-link
           class="nav-link"
-          @click="login()"
+          :to="localePath({ name: 'account-login' })"
         >
           <span>{{ $t('account.linkLogin') }}</span>
         </b-link>
@@ -38,7 +38,7 @@
         class="nav-item"
       >
         <b-link
-          href="/account/profile"
+          :to="localePath({ name: 'account-profile' })"
           class="nav-link"
         >
           <span>{{ $t('account.linkAccount') }}</span>
@@ -80,9 +80,6 @@
       }
     },
     methods: {
-      async login() {
-        await this.$auth.loginWith('keycloak');
-      },
       async getNavigationData() {
         return this.$store.dispatch('link-group/init');
       },
