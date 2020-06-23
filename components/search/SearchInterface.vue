@@ -307,7 +307,6 @@
         this.view = this.routeQueryView;
       },
       contentTierFacetPresent: 'showContentTierToast'
-      }
     },
     mounted() {
       // FIXME: causes flicker on SSRs
