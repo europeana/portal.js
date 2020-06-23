@@ -3,6 +3,7 @@
     v-if="hasValuesForLocale"
     :data-field-name="name"
     data-qa="metadata field"
+    class="metadata-row"
   >
     <label
       v-if="labelled"
@@ -120,17 +121,41 @@
 </script>
 
 <style lang="scss" scoped>
-  label {
-    font-weight: bold;
-  }
-  ul {
-    list-style: none;
-    padding: 0;
-    li {
-      display: inline;
-      &:not(:last-child):after {
-        content: ';';
-        padding: 0 0.2rem;
+  @import './assets/scss/variables.scss';
+
+  .metadata-row {
+    border-bottom: 1px solid $offwhite;
+    font-size: $font-size-small;
+    display: flex;
+    padding: 1rem 0;
+
+    &:first-child {
+      padding-top: 0;
+    }
+
+    &:last-child {
+      border: 0;
+      padding-bottom: 0;
+    }
+
+    label,
+    ul {
+      flex: 1;
+      margin: 0;
+    }
+
+    ul {
+      font-weight: 600;
+      list-style: none;
+      padding: 0;
+      text-align: right;
+
+      li {
+        display: inline;
+        &:not(:last-child):after {
+          content: ';';
+          padding: 0 0.2rem;
+        }
       }
     }
   }

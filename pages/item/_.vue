@@ -108,7 +108,10 @@
                   :title="$t('record.goodToKnow')"
                   active
                 >
-                  <b-card-text data-qa="main metadata section">
+                  <b-card-text
+                    text-tag="div"
+                    data-qa="main metadata section"
+                  >
                     <MetadataField
                       v-for="(value, name) in coreFields"
                       :key="name"
@@ -120,7 +123,9 @@
                 <b-tab
                   :title="$t('record.allMetaData')"
                 >
-                  <b-card-text>
+                  <b-card-text
+                    text-tag="div"
+                  >
                     <MetadataField
                       v-for="(value, name) in allMetaData"
                       :key="name"
@@ -130,10 +135,17 @@
                   </b-card-text>
                 </b-tab>
                 <b-tab
+                  v-if="showTranscription"
                   :title="$t('record.transcription')"
                 >
-                  <b-card-text>
-                    <span class="disclaimer pb-3 d-flex">{{ $t('record.transcriptionDisclaimer') }}</span>
+                  <b-card-text
+                    text-tag="div"
+                  >
+                    <p
+                      class="disclaimer pb-3 d-flex"
+                    >
+                      {{ $t('record.transcriptionDisclaimer') }}
+                    </p>
                   </b-card-text>
                 </b-tab>
               </b-tabs>
@@ -215,6 +227,7 @@
         media: [],
         relatedEntities: [],
         selectedMediaItem: null,
+        showTranscription: false, // TODO: update to true when transcriptions are available
         similarItems: [],
         taggingAnnotations: [],
         title: null,
