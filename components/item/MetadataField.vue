@@ -3,15 +3,18 @@
     v-if="hasValuesForLocale"
     :data-field-name="name"
     data-qa="metadata field"
-    class="metadata-row"
+    class="metadata-row d-lg-flex"
   >
     <label
       v-if="labelled"
       data-qa="label"
+      class="m-0"
     >
       {{ $t(`fieldLabels.${context}.${name}`) }}
     </label>
-    <ul>
+    <ul
+      class="m-0 p-0 text-left text-lg-right list-unstyled"
+    >
       <template
         v-for="(value, index) of displayValues.values"
       >
@@ -124,9 +127,8 @@
   @import './assets/scss/variables.scss';
 
   .metadata-row {
-    border-bottom: 1px solid $offwhite;
+    border-bottom: 1px solid #e7e7e9;
     font-size: $font-size-small;
-    display: flex;
     padding: 1rem 0;
 
     &:first-child {
@@ -138,17 +140,8 @@
       padding-bottom: 0;
     }
 
-    label,
-    ul {
-      flex: 1;
-      margin: 0;
-    }
-
     ul {
       font-weight: 600;
-      list-style: none;
-      padding: 0;
-      text-align: right;
 
       li {
         display: inline;
@@ -156,6 +149,13 @@
           content: ';';
           padding: 0 0.2rem;
         }
+      }
+    }
+
+    @media (min-width: $bp-large) {
+      label,
+      ul {
+        flex: 1;
       }
     }
   }
