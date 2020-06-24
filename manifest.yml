@@ -6,7 +6,6 @@ memory: 1024M
 health-check-type: process
 # health-check-http-endpoint: /robots.txt
 stack: cflinuxfs3
-services:
 env:
   CONSOLA_LEVEL: info
   HOST: 0.0.0.0
