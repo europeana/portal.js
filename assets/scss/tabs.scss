@@ -1,0 +1,43 @@
+@import '../../assets/scss/variables.scss';
+
+.tab-container {
+  padding: 0px;
+}
+
+.tab-list {
+  border-bottom: solid 2px $paper;
+  li a {
+    padding-bottom: 0.7rem;
+    text-decoration: none;
+    font-weight: 600;
+    color: $mediumgrey;
+    font-size: $font-size-small;
+    &:not(:last-child) {
+      margin-right: 0.2rem;
+    }
+  }
+  li a:hover {
+    color: $mediumgrey !important;
+  }
+}
+
+.tab-active {
+  background-color: $white !important;
+  color: $blue !important;
+  &:after {
+    content: '';
+    position: absolute;
+    border-bottom: solid 2px $blue;
+    display: block;
+    width: 100%;
+    z-index: 1;
+    left: 0;
+    right: 0;
+    bottom: -0.1rem;
+  }
+}
+
+.tab-content {
+  padding-top: 2.5rem;
+  background-color: $bodygrey;
+}

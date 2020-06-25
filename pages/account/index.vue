@@ -20,7 +20,7 @@
 </template>
 
 <script>
-  import TabbedLayout from '../../components/generic/TabbedLayout';
+  import TabbedLayout from '../../components/account/TabbedLayout';
 
   export default {
     components: {

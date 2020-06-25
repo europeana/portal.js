@@ -4,7 +4,7 @@ import TabbedLayout from './TabbedLayout.vue';
 
 const i18n = new VueI18n();
 
-storiesOf('Generic', module)
+storiesOf('Account', module)
   .add('Tabbed Layout', () => ({
     i18n,
     components: { TabbedLayout },
