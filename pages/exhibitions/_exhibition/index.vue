@@ -1,6 +1,7 @@
 <template>
   <div
     data-qa="exhibition page"
+    class="exhibition-page"
   >
     <HeroImage
       v-if="hero"
@@ -98,7 +99,7 @@
           }
           store.commit('breadcrumb/setBreadcrumbs', [
             {
-              text:  app.i18n.tc('exhibitions.exhibitions', 2),
+              text: app.i18n.tc('exhibitions.exhibitions', 2),
               to: app.$path({ name: 'exhibitions' })
             },
             {
