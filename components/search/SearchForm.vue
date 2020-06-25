@@ -65,13 +65,11 @@
             data-qa="search in collection button"
             class="search"
             variant="primary"
+            :aria-label="$t('search')"
             @click="toggleSearchBar"
           >
-            <span class="sr-only">
-              {{ $t('search') }}
-            </span>
+            <span>{{ $t('header.inCollection', { query: query, collection: pillLabel.values[0] }) }}</span>
           </b-button>
-          <span>{{ $t('header.inCollection', { query: query, collection: pillLabel.values[0] }) }}</span>
         </div>
         <div
           v-show="showSearch && showSearchQuery"
@@ -83,8 +81,9 @@
             variant="primary"
             :aria-label="$t('search')"
             @click.prevent="toggleSearchAndRemovePill"
-          />
-          <span>{{ $t('header.entireCollection', { query: query }) }}</span>
+          >
+            <span>{{ $t('header.entireCollection', { query: query }) }}</span>
+          </b-button>
         </div>
       </template>
       <template
@@ -99,13 +98,11 @@
             data-qa="mobile search button"
             class="search"
             variant="primary"
+            :aria-label="$t('search')"
             @click="toggleSearchBar"
           >
-            <span class="sr-only">
-              {{ $t('search') }}
-            </span>
+            <span>{{ $t('header.searchFor', { query: query }) }}</span>
           </b-button>
-          <span>{{ $t('header.searchFor', { query: query }) }}</span>
         </div>
       </template>
       <b-button
@@ -403,7 +400,6 @@
         }
         .search-query {
           width: 100%;
-          padding: 0.375rem 1rem 0.375rem 3.5rem;
           height: 3.5rem;
           font-size: 1rem;
           color: $mediumgrey;
@@ -418,6 +414,8 @@
             top: 0;
             z-index: 99;
             height: 3.5rem;
+            padding: 0.375rem 1rem 0.375rem 3.5rem;
+            justify-content: flex-start;
             &:focus {
               background: $white;
               outline: none;
