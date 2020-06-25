@@ -108,6 +108,24 @@
               :field-data="value"
             />
           </div>
+
+          <!-- TODO: move for loop to tab -->
+          <div
+            v-if="mediaTranscription.length > 0"
+            class="card px-3 pt-3 mb-3"
+          >
+            <div
+              v-for="(transcription, index) in mediaTranscription"
+              :key="index"
+              :lang="transcription.body.language"
+            >
+              <p>{{ transcription.body.value }}</p>
+              <hr
+                v-if="index !== (mediaTranscription.length - 1)"
+              >
+            </div>
+          </div>
+
           <div class="mb-3">
             <div class="d-flex justify-content-between align-items-center">
               <h2
@@ -215,6 +233,7 @@
         selectedMediaItem: null,
         similarItems: [],
         taggingAnnotations: [],
+        mediaTranscription: [],
         title: null,
         type: null,
         useProxy: true
@@ -351,13 +370,22 @@
         ]
       };
 
+      const transcriptionAnnotationSearchParams = {
+        query: `target_record_id:"${this.identifier}"`,
+        qf: [
+          'motivation:transcribing'
+        ]
+      };
+
       axios.all([
         Number(process.env['ENABLE_ITEM_TAGGING_ANNOTATIONS']) ? searchAnnotations(taggingAnnotationSearchParams) : [],
+        searchAnnotations(transcriptionAnnotationSearchParams),
         searchEntities(this.europeanaEntityUris),
         this.getSimilarItems()
       ])
-        .then(axios.spread((taggingAnnotations, entities, similar) => {
+        .then(axios.spread((taggingAnnotations, mediaTranscription, entities, similar) => {
           this.taggingAnnotations = taggingAnnotations;
+          this.mediaTranscription = mediaTranscription;
           this.relatedEntities = entities;
           this.similarItems = similar.results;
         }));
