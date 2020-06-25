@@ -121,13 +121,27 @@
         margin: 0;
         padding: 0.75rem;
         font-size: 0.75rem;
-        p {
+        width: 20rem;
+        dl {
+          margin-bottom: 0;
+          display: flex;
+          flex: 1;
+          flex-direction: row;
+          flex-wrap: wrap;
+        }
+        dt {
+          max-width: 70px;
+        }
+        dt, dd {
           color: $mediumgrey;
-          display: -webkit-box;
           -webkit-line-clamp: 1;
           -webkit-box-orient: vertical;
           overflow: hidden;
           margin-bottom: 0.25rem;
+          display: flex;
+          flex: 1;
+          flex-direction: column;
+          flex-basis: 50%;
           a {
             text-decoration: none;
           }

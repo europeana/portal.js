@@ -23,7 +23,7 @@
         @mouseleave="citeCollapsed = true"
       >
         <span
-          v-if="citeCollapsed"
+          v-if="!citeCollapsed"
           class="icon-info"
           @click="citeCollapsed = false"
           @mouseover="citeCollapsed = false"
