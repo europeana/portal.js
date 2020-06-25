@@ -243,6 +243,7 @@
         this.suggestions = {};
         this.clearQuery();
         await this.$goto(newRoute);
+        this.selectedSuggestion = null;
       },
 
       getSearchSuggestions(query) {
