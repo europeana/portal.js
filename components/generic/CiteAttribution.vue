@@ -1,52 +1,47 @@
 <template>
   <cite v-if="extended">
-    <dl class="europeana-attribution">
-      <dt>{{ $t('exhibitions.attribution.title') }}</dt>
-      <dd>
-        <SmartLink
-          :destination="url"
-        >
-          {{ name }}
-        </SmartLink>
-      </dd>
-      <dt>{{ $t('exhibitions.attribution.creator') }}</dt>
-      <dd>
-        <SmartLink
-          :destination="url"
-        >
-          {{ creator }}
-        </SmartLink>
-      </dd>
-      <!-- <dt>{{ $t('exhibitions.attribution.date') }}</dt>
-      <dd>
-        TODO: data currently not provided by api
-        <span>{{ date }}</span>
-      </dd> -->
-      <dt>{{ $t('exhibitions.attribution.institution') }}</dt>
-      <dd>
-        <SmartLink
-          :destination="url"
-        >
-          {{ provider }}
-        </SmartLink>
-      </dd>
-      <!-- <dt>{{ $t('exhibitions.attribution.country') }}</dt>
-      <dd>
-        TODO: data currently not provided by api
-        <span>{{ country }}</span>
-      </dd> -->
-      <dd>
-        <SmartLink
-          :destination="rightsStatement"
-          link-class="attribution"
-        >
-          <RightsStatement
-            v-if="rightsStatement"
-            :rights-statement-url="rightsStatement"
-          />
-        </SmartLink>
-      </dd>
-    </dl>
+    <p v-if="name !== null">{{ $t('exhibitions.attribution.title') }}
+      <SmartLink
+        :destination="url"
+      >
+        {{ name }}
+      </SmartLink>
+    </p>
+    <p v-if="creator !== null">{{ $t('exhibitions.attribution.creator') }}
+      <SmartLink
+        :destination="url"
+      >
+        {{ creator }}
+      </SmartLink>
+    </p>
+    <!-- <dt>{{ $t('exhibitions.attribution.date') }}</dt>
+    <p>
+      TODO: data currently not provided by api
+      <span>{{ date }}</span>
+    </p> -->
+    <p v-if="provider !== null">{{ $t('exhibitions.attribution.institution') }}
+      <SmartLink
+        :destination="url"
+      >
+        {{ provider }}
+      </SmartLink>
+    </p>
+    <!-- <dt>{{ $t('exhibitions.attribution.country') }}</dt>
+    <p>
+      TODO: data currently not provided by api
+      <span>{{ country }}</span>
+    </p> -->
+    <p>
+      <SmartLink
+        :destination="rightsStatement"
+        link-class="attribution"
+      >
+        <RightsStatement
+          v-if="rightsStatement"
+          :rights-statement-url="rightsStatement"
+        />
+      </SmartLink>
+    </p>
   </cite>
   <cite v-else>
     <SmartLink
