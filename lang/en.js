@@ -500,5 +500,8 @@ export default {
     "list": "List view"
   },
   "showLess": "Show less",
-  "showMore": "Show more"
+  "showMore": "Show more",
+  "subjects": {
+    "title": "Subjects"
+  }
 };
