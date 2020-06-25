@@ -15,13 +15,13 @@
         >
           <ContentCard
             v-for="exhibition in exhibitions"
-            :key="exhibition.fields.identifier"
-            :title="exhibition.fields.name"
-            :url="{ name: 'exhibitions-exhibition', params: { exhibition: exhibition.fields.identifier } }"
-            :image-url="imageUrl(exhibition.fields.primaryImageOfPage)"
-            :image-content-type="imageContentType(exhibition.fields.primaryImageOfPage)"
+            :key="exhibition.identifier"
+            :title="exhibition.name"
+            :url="{ name: 'exhibitions-exhibition', params: { exhibition: exhibition.identifier } }"
+            :image-url="imageUrl(exhibition.primaryImageOfPage)"
+            :image-content-type="imageContentType(exhibition.primaryImageOfPage)"
             :image-optimisation-options="{ width: 510 }"
-            :texts="[exhibition.fields.description]"
+            :texts="[exhibition.description]"
           />
         </b-card-group>
       </b-col>
@@ -43,7 +43,6 @@
 
 <script>
   import ContentHeader from '../../components/generic/ContentHeader';
-  import createClient from '../../plugins/contentful';
   import ContentCard from '../../components/generic/ContentCard';
   import PaginationNav from '../../components/generic/PaginationNav';
   import { pageFromQuery } from '../../plugins/utils';
@@ -81,19 +80,19 @@
         return redirect(app.$path({ name: 'exhibitions', query }));
       }
 
-      const contentfulClient = createClient(query.mode);
-      return contentfulClient.getEntries({
+      const variables = {
         locale: app.i18n.isoLocale(),
-        'content_type': 'exhibitionPage',
-        skip: (currentPage - 1) * PER_PAGE,
-        order: '-fields.datePublished',
+        preview: query.mode === 'preview',
         limit: PER_PAGE,
-        select: 'fields.identifier,fields.primaryImageOfPage,fields.name,fields.description'
-      })
-        .then((response) => {
+        skip: (currentPage - 1) * PER_PAGE
+      };
+
+      return app.$contentful.query('exhibitionFoyerPage', variables)
+        .then(response => response.data.data)
+        .then(data => {
           return {
-            exhibitions: response.items,
-            total: response.total,
+            exhibitions: data.exhibitionPageCollection.items,
+            total: data.exhibitionPageCollection.total,
             page: currentPage,
             perPage: PER_PAGE
           };
@@ -107,12 +106,10 @@
         return this.$path({ name: 'exhibitions', query: { page: val } });
       },
       imageUrl(image) {
-        if (image && image.fields && image.fields.image && image.fields.image.fields && image.fields.image.fields.file)
-          return image.fields.image.fields.file.url;
+        if (image && image.image) return image.image.url;
       },
       imageContentType(image) {
-        if (image && image.fields && image.fields.image && image.fields.image.fields && image.fields.image.fields.file)
-          return image.fields.image.fields.file.contentType;
+        if (image && image.image) return image.image.contentType;
       }
     },
     watchQuery: ['page'],

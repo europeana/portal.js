@@ -38,23 +38,7 @@
       }
     },
 
-    computed: {
-      i18n() {
-        return this.$store.state.i18n.locale;
-      }
-    },
-
-    watch: {
-      i18n() {
-        this.getNavigationData();
-      }
-    },
-
     methods: {
-      async getNavigationData() {
-        return this.$store.dispatch('link-group/init');
-      },
-
       renderIcon(name) {
         let className = '';
         switch (name) {
