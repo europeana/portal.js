@@ -309,7 +309,6 @@
       contentTierFacetPresent: 'showContentTierToast'
     },
     mounted() {
-      // FIXME: causes flicker on SSRs
       this.showContentTierToast();
     },
     methods: {
