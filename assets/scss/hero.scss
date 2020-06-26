@@ -121,6 +121,7 @@
         margin: 0;
         padding: 0.75rem;
         font-size: 0.75rem;
+        max-width: 75%;
         p {
           color: $mediumgrey;
           display: -webkit-box;
@@ -134,7 +135,6 @@
         }
         .attribution {
           margin-top: 0.5rem;
-          display: block;
           > span {
             margin-left: 0;
           }

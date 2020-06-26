@@ -2,17 +2,25 @@
   <cite v-if="extended">
     <p v-if="name !== null">{{ $t('exhibitions.attribution.title') }}
       <SmartLink
+        v-if="url !== null"
         :destination="url"
       >
         {{ name }}
       </SmartLink>
+      <span v-else>
+        {{ name }}
+      </span>
     </p>
     <p v-if="creator !== null">{{ $t('exhibitions.attribution.creator') }}
       <SmartLink
+        v-if="url !== null"
         :destination="url"
       >
         {{ creator }}
       </SmartLink>
+      <span v-else>
+        {{ creator }}
+      </span>
     </p>
     <!-- <dt>{{ $t('exhibitions.attribution.date') }}</dt>
     <p>
@@ -21,10 +29,14 @@
     </p> -->
     <p v-if="provider !== null">{{ $t('exhibitions.attribution.institution') }}
       <SmartLink
+        v-if="url !== null"
         :destination="url"
       >
         {{ provider }}
       </SmartLink>
+      <span v-else>
+        {{ provider }}
+      </span>
     </p>
     <!-- <dt>{{ $t('exhibitions.attribution.country') }}</dt>
     <p>
