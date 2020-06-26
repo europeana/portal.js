@@ -13,6 +13,9 @@
     <PageHeader
       :enable-auto-suggest="enableAutoSuggest"
       :enable-language-selector="enableLanguageSelector"
+      :main-navigation="linkGroups.mainNavigation"
+      :mobile-navigation="linkGroups.mobileNavigation"
+      keep-alive
     />
     <main
       id="default"
@@ -33,7 +36,10 @@
       />
     </main>
     <client-only>
-      <PageFooter />
+      <PageFooter
+        :help-navigation="linkGroups.footerHelp"
+        :more-info-navigation="linkGroups.footerMoreInfo"
+      />
     </client-only>
   </div>
 </template>
@@ -60,7 +66,8 @@
 
     data() {
       return {
-        ...config
+        ...config,
+        linkGroups: {}
       };
     },
 
@@ -77,6 +84,35 @@
         // and always disabled on entity pages.
         return Boolean(Number(process.env['ENABLE_AUTOSUGGEST'])) && !(this.$store.state.entity && this.$store.state.entity.id);
       }
+    },
+
+    watch: {
+      '$i18n.locale': '$fetch'
+    },
+
+    async fetch() {
+      const contentfulVariables = {
+        locale: this.$i18n.isoLocale(),
+        preview: this.$route.query.mode === 'preview'
+      };
+
+      let data;
+      try {
+        const response = await this.$contentful.query('linkGroups', contentfulVariables);
+        data = response.data;
+      } catch (e) {
+        return;
+      }
+
+      const linkGroups = {};
+      for (const identifier in data.data) {
+        const linkGroup = data.data[identifier].items[0];
+        linkGroups[identifier] = {
+          name: linkGroup.name ? linkGroup.name : null,
+          links: linkGroup.links.items
+        };
+      }
+      this.linkGroups = linkGroups;
     },
 
     head() {
