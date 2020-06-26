@@ -44,7 +44,7 @@
   const PER_PAGE = 20;
 
   export default {
-    name: 'GalleryFoyer',
+    name: 'CollectionTopicsPage',
     components: {
       ContentHeader,
       ContentCard,
@@ -81,7 +81,7 @@
         skip: (currentPage - 1) * PER_PAGE
       };
 
-      return app.$contentful.query('TopicsPage', variables)
+      return app.$contentful.query('CollectionTopicsPage', variables)
         .then(response => response.data.data)
         .then(data => {
           return {
