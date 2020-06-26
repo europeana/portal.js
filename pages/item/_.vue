@@ -135,7 +135,7 @@
                   </b-card-text>
                 </b-tab>
                 <b-tab
-                  v-if="showTranscription"
+                  v-if="mediaTranscription.length >= 1"
                   :title="$t('record.transcription')"
                 >
                   <b-card-text
@@ -237,7 +237,6 @@
         media: [],
         relatedEntities: [],
         selectedMediaItem: null,
-        showTranscription: false, // TODO: update to true when transcriptions are available
         similarItems: [],
         taggingAnnotations: [],
         mediaTranscription: [],
@@ -396,7 +395,6 @@
         .then(axios.spread((taggingAnnotations, mediaTranscription, entities, similar) => {
           this.taggingAnnotations = taggingAnnotations;
           this.mediaTranscription = mediaTranscription;
-          this.showTranscription = mediaTranscription.length >= 1;
           this.relatedEntities = entities;
           this.similarItems = similar.results;
         }));
