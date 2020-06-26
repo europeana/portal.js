@@ -78,6 +78,7 @@ const config = {
       'NavbarPlugin',
       'NavPlugin',
       'PaginationNavPlugin',
+      'TabsPlugin',
       'ToastPlugin'
     ]
   },
@@ -106,6 +107,7 @@ const config = {
       frameworkName: 'Nuxt.js',
       frameworkVersion: require('nuxt/package.json').version
     }],
+    '~/modules/contentful-graphql',
     '@nuxtjs/gtm'
   ],
   gtm: {
