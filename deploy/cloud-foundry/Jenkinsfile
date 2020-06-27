@@ -50,7 +50,11 @@ pipeline {
         environment name: 'CF_SPACE', value: 'production'
       }
       steps {
-        sh 'cf attach-autoscaling-policy ${CF_APP_NAME} ./deploy/cloud-foundry/autoscaling-policy.json'
+        configFileProvider([
+          configFile(fileId: "portaljs.${env.CF_SPACE}.autoscaling-policy.json", targetLocation: './deploy/cloud-foundry/autoscaling-policy.json'),
+        ]) {
+          sh 'cf attach-autoscaling-policy ${CF_APP_NAME} ./deploy/cloud-foundry/autoscaling-policy.json'
+        }
       }
     }
     stage('Deploy Storybook') {
