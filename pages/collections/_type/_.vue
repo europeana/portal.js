@@ -177,13 +177,7 @@
 
       const entityUri = entities.getEntityUri(params.type, params.pathMatch);
 
-      if (entityUri !== store.state.entity.id) {
-        // TODO: group as a reset action on the store?
-        store.commit('entity/setId', null);
-        store.commit('entity/setEntity', null);
-        store.commit('entity/setPage', null);
-        store.commit('entity/setRelatedEntities', null);
-      }
+      if (entityUri !== store.state.entity.id) store.commit('entity/setId', null);
 
       store.commit('entity/setId', entityUri);
 
@@ -196,7 +190,7 @@
 
       // Prevent re-requesting entity content from APIs if already loaded,
       // e.g. when paginating through entity search results
-      const fetchEntity = !store.state.entity.entity;
+      const fetchEntity = !store.state.entity.entity || (store.state.entity.entity.id !== entityUri);
 
       const contentfulVariables = {
         identifier: entityUri,
