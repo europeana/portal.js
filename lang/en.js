@@ -7,6 +7,13 @@ export default {
     "viewAt": "View at {link}",
     "viewDocument": "View document"
   },
+  "attribution": {
+    "title": "Title:",
+    "creator": "Creator:",
+    "date": "Date:",
+    "institution": "Institution:",
+    "country": "Country:"
+  },
   "blog": {
     "author": "Author",
     "authors": "Authors",
@@ -76,14 +83,7 @@ export default {
     "credits": "Credits",
     "currentChapter": "Current chapter",
     "description": "Explore the exhibitions",
-    "exhibitions": "Exhibition | Exhibitions",
-    "attribution": {
-      "title": "Title:",
-      "creator": "Creator:",
-      "date": "Date:",
-      "institution": "Institution:",
-      "country": "Country:"
-    }
+    "exhibitions": "Exhibition | Exhibitions"
   },
   "facets": {
     "api": {

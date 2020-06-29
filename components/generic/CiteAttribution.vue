@@ -1,6 +1,6 @@
 <template>
   <cite v-if="extended">
-    <p v-if="name !== null">{{ $t('exhibitions.attribution.title') }}
+    <p v-if="name !== null">{{ $t('attribution.title') }}
       <SmartLink
         v-if="url !== null"
         :destination="url"
@@ -11,7 +11,7 @@
         {{ name }}
       </span>
     </p>
-    <p v-if="creator !== null">{{ $t('exhibitions.attribution.creator') }}
+    <p v-if="creator !== null">{{ $t('attribution.creator') }}
       <SmartLink
         v-if="url !== null"
         :destination="url"
@@ -22,12 +22,12 @@
         {{ creator }}
       </span>
     </p>
-    <!-- <dt>{{ $t('exhibitions.attribution.date') }}</dt>
+    <!-- <dt>{{ $t('attribution.date') }}</dt>
     <p>
       TODO: data currently not provided by api
       <span>{{ date }}</span>
     </p> -->
-    <p v-if="provider !== null">{{ $t('exhibitions.attribution.institution') }}
+    <p v-if="provider !== null">{{ $t('attribution.institution') }}
       <SmartLink
         v-if="url !== null"
         :destination="url"
@@ -38,7 +38,7 @@
         {{ provider }}
       </span>
     </p>
-    <!-- <dt>{{ $t('exhibitions.attribution.country') }}</dt>
+    <!-- <dt>{{ $t('attribution.country') }}</dt>
     <p>
       TODO: data currently not provided by api
       <span>{{ country }}</span>

@@ -17,17 +17,17 @@
       text-variant="white"
       data-qa="hero banner"
       class="mt-4"
-      @click="citeCollapsed = true"
+      @click="toggleCite"
     >
       <figcaption
-        @mouseleave="citeCollapsed = true"
+        @mouseleave="toggleCite"
       >
         <span
           v-if="citeCollapsed"
           class="icon-info"
-          @click="citeCollapsed = false"
-          @mouseover="citeCollapsed = false"
-          @touchstart="citeCollapsed = false"
+          @click="toggleCite"
+          @mouseover="toggleCite"
+          @touchstart="toggleCite"
         />
         <CiteAttribution
           v-else
@@ -122,12 +122,17 @@
     },
     computed: {
       optimisedImageUrl() {
-        return this.$options.filters.optimisedImageUrl(this.imageUrl, this.imageContentType, { width: this.exhibition ? 820 : 1920 });
+        return this.$options.filters.optimisedImageUrl(this.imageUrl, this.imageContentType, { width: this.compact ? 820 : 1920 });
       },
       jumbotronStyle() {
         return {
           backgroundImage: `url("${this.optimisedImageUrl}")`
         };
+      }
+    },
+    methods: {
+      toggleCite() {
+        this.citeCollapsed = !this.citeCollapsed;
       }
     }
   };
