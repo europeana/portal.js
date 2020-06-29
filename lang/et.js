@@ -293,7 +293,7 @@ export default {
         "MIME_TYPE": {
             "name": "Failivorming | Failivormingud",
             "options": {
-                "text\/plain": "Lihttekst"
+                "text/plain": "Lihttekst"
             }
         },
         "PROVIDER": {

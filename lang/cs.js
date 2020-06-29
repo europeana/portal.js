@@ -293,7 +293,7 @@ export default {
         "MIME_TYPE": {
             "name": "Formát souboru | Formáty souborů",
             "options": {
-                "text\/plain": "Prostý text"
+                "text/plain": "Prostý text"
             }
         },
         "PROVIDER": {
@@ -354,7 +354,7 @@ export default {
             "dctermsHasVersion": "vlastní verzi",
             "dctermsIsFormatOf": "je formou",
             "dctermsIsPartOf": "je součástí",
-            "dctermsIsReferencedBy": "je zmiňován\/a",
+            "dctermsIsReferencedBy": "je zmiňován/a",
             "dctermsIsReplacedBy": "se nahradí",
             "dctermsIsRequiredBy": "je potřeba pro",
             "dctermsIssued": "Datum vydání",
@@ -369,7 +369,7 @@ export default {
             "edmCountry": "Země původu",
             "edmCurrentLocation": "Aktuální umístění",
             "edmDataProvider": "Poskytovatelská instituce",
-            "edmHasMet": "se setkal\/a s",
+            "edmHasMet": "se setkal/a s",
             "edmIncorporates": "zahrnuje",
             "edmIntermediateProvider": "Zprostředkovatel třetí strany",
             "edmIsDerivativeOf": "je zpodobněním",
@@ -384,7 +384,7 @@ export default {
             "keywords": "Klíčová slova (poskytnutá komunitou)",
             "timestampCreated": "Časové razítko vytvořeno",
             "timestampUpdate": "Časové razítko bylo aktualizováno",
-            "wasPresentAt": "se účastnil\/a"
+            "wasPresentAt": "se účastnil/a"
         },
         "webResource": {
             "about": "RDF About",
