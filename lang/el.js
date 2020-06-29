@@ -293,7 +293,7 @@ export default {
     "MIME_TYPE": {
       "name": "Μορφή αρχείου | Μορφές αρχείων",
       "options": {
-        "text/plain": "Απλό κείμενο"
+        "text\/plain": "Απλό κείμενο"
       }
     },
     "PROVIDER": {
@@ -384,7 +384,7 @@ export default {
       "keywords": "Λέξεις-κλειδιά (παρέχονται από την κοινότητα)",
       "timestampCreated": "Δημιουργήθηκε χρονική σήμανση",
       "timestampUpdate": "Η χρονική σήμανση ενημερώθηκε",
-      "wasPresentAt": "Ήταν παρών/ούσα στο"
+      "wasPresentAt": "Ήταν παρών\/ούσα στο"
     },
     "webResource": {
       "about": "RDF σχετικά με",
