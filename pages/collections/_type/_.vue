@@ -156,7 +156,7 @@
         };
       },
       title() {
-        if (!this.entity) return this.titleFallback(this.$t('entity'));
+        if (!this.entity) return this.titleFallback();
         if (this.editorialTitle) return this.titleFallback(this.editorialTitle);
         return langMapValueForLocale(this.entity.prefLabel, this.$store.state.i18n.locale);
       }
