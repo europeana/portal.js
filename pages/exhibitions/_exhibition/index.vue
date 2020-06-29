@@ -80,6 +80,13 @@
       mainContent() {
         if (this.text === undefined) return;
         return marked(this.text);
+      },
+      optimisedImageUrl() {
+        return this.$options.filters.optimisedImageUrl(
+          this.heroImage.url,
+          'image/jpeg',
+          { width: 800, height: 800 }
+        );
       }
     },
     asyncData({ params, query, error, app, store, redirect }) {
@@ -109,7 +116,6 @@
               active: true
             }
           ]);
-
           return data.exhibitionPageCollection.items[0];
         })
         .catch((e) => {

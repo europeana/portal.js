@@ -59,6 +59,14 @@
       },
       notificationUrl() {
         return `https://classic.europeana.eu/portal/${this.$store.state.i18n.locale}?utm_source=new-website&utm_medium=button`;
+      },
+      optimisedImageUrl() {
+        return this.$options.filters.optimisedImageUrl(
+          // use social media image if set in Contentful, otherwise use hero image
+          this.page.image ? this.page.image.url : this.heroImage.url,
+          this.page.image.contentType,
+          { width: 800, height: 800 }
+        );
       }
     },
 
@@ -72,6 +80,7 @@
       return app.$contentful.query('browsePage', variables)
         .then(response => response.data.data)
         .then(data => {
+          console.log(data.browsePageCollection.items[0]);
           if (data.browsePageCollection.items.length === 0) {
             error({ statusCode: 404, message: app.i18n.t('messages.notFound') });
             return;
