@@ -135,26 +135,26 @@
                   </b-card-text>
                 </b-tab>
                 <b-tab
-                  v-if="mediaTranscription.length >= 1"
+                  v-if="Boolean(transcribingAnnotations.length)"
                   :title="$t('record.transcription')"
                 >
                   <b-card-text
                     text-tag="div"
                   >
                     <p
-                      class="disclaimer pb-3 d-flex"
+                      class="disclaimer px-2 pb-3 d-flex"
                     >
                       {{ $t('record.transcriptionDisclaimer') }}
                     </p>
                   </b-card-text>
                   <div
-                    v-for="(transcription, index) in mediaTranscription"
+                    v-for="(transcription, index) in transcribingAnnotations"
                     :key="index"
                     :lang="transcription.body.language"
                   >
                     <p>{{ transcription.body.value }}</p>
                     <hr
-                      v-if="index !== (mediaTranscription.length - 1)"
+                      v-if="index !== (transcribingAnnotations.length - 1)"
                     >
                   </div>
                 </b-tab>
@@ -238,8 +238,9 @@
         relatedEntities: [],
         selectedMediaItem: null,
         similarItems: [],
+        annotations: [],
         taggingAnnotations: [],
-        mediaTranscription: [],
+        transcribingAnnotations: [],
         title: null,
         type: null,
         useProxy: true
@@ -371,30 +372,20 @@
     fetchOnServer: false,
 
     fetch() {
-      const taggingAnnotationSearchParams = {
+      const annotationSearchParams = {
         query: `target_record_id:"${this.identifier}"`,
-        profile: 'dereference',
-        qf: [
-          'motivation:tagging'
-        ]
-      };
-
-      const transcriptionAnnotationSearchParams = {
-        query: `target_record_id:"${this.identifier}"`,
-        qf: [
-          'motivation:transcribing'
-        ]
+        profile: 'dereference'
       };
 
       axios.all([
-        Number(process.env['ENABLE_ITEM_TAGGING_ANNOTATIONS']) ? searchAnnotations(taggingAnnotationSearchParams) : [],
-        searchAnnotations(transcriptionAnnotationSearchParams),
+        searchAnnotations(annotationSearchParams),
         searchEntities(this.europeanaEntityUris),
         this.getSimilarItems()
       ])
-        .then(axios.spread((taggingAnnotations, mediaTranscription, entities, similar) => {
-          this.taggingAnnotations = taggingAnnotations;
-          this.mediaTranscription = mediaTranscription;
+        .then(axios.spread((annotations, entities, similar) => {
+          this.annotations = annotations;
+          this.transcribingAnnotations = this.annotationsByMotivation('transcribing');
+          this.taggingAnnotations = this.annotationsByMotivation('tagging');
           this.relatedEntities = entities;
           this.similarItems = similar.results;
         }));
@@ -426,6 +417,10 @@
     },
 
     methods: {
+      annotationsByMotivation(motivation) {
+        return this.annotations.filter(annotation => annotation.motivation === motivation);
+      },
+
       selectMedia(about) {
         this.selectedMedia = about;
       },
@@ -559,7 +554,8 @@
   }
 
   .disclaimer {
-    border-bottom: 1px solid $offwhite;
+    align-items: center;
+    border-bottom: 1px solid #e7e7e9;
 
     &:before {
       @extend .icon-font;
