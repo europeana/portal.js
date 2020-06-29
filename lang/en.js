@@ -474,7 +474,11 @@ export default {
       "image": "View image",
       "media": "View media",
       "pdf": "View PDF"
-    }
+    },
+    "goodToKnow": "Good to know",
+    "allMetaData": "All metadata",
+    "transcription": "Transcription",
+    "transcriptionDisclaimer": "This content was provided by users and might not be entirely accurate."
   },
   "relatedCollections": "Related collections",
   "removeFilter": "Remove {filterLabel} filter",

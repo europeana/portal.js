@@ -13,8 +13,8 @@
       v-if="hero"
       :image-url="heroImage.url"
       :image-content-type="heroImage.contentType"
-      :header="page.name"
-      :lead="page.headline"
+      :header="name"
+      :lead="headline"
       :rights-statement="hero.license"
       :name="hero.name"
       :provider="hero.provider"
@@ -24,12 +24,11 @@
     <b-container>
       <ContentHeader
         v-if="!hero"
-        :title="page.name"
-        :description="page.headline"
+        :title="name"
+        :description="headline"
       />
       <BrowseSections
-        v-if="page"
-        :sections="page.hasPart"
+        :sections="hasPartCollection.items"
       />
     </b-container>
   </div>
@@ -40,7 +39,6 @@
   import BrowseSections from '../components/browse/BrowseSections';
   import HeroImage from '../components/generic/HeroImage';
   import NotificationBanner from '../components/generic/NotificationBanner.vue';
-  import createClient from '../plugins/contentful';
 
   export default {
     components: {
@@ -51,62 +49,53 @@
     },
     computed: {
       hero() {
-        return this.page.primaryImageOfPage ? this.page.primaryImageOfPage.fields : null;
+        return this.primaryImageOfPage ? this.primaryImageOfPage : null;
       },
       heroImage() {
-        return this.hero ? this.hero.image.fields.file : null;
+        return this.hero ? this.hero.image : null;
       },
       onHomePage() {
-        return Boolean(Number(process.env.ENABLE_LINKS_TO_CLASSIC)) && !this.path;
+        return Boolean(Number(process.env.ENABLE_LINKS_TO_CLASSIC)) && (this.identifier === 'home');
       },
       notificationUrl() {
         return `https://classic.europeana.eu/portal/${this.$store.state.i18n.locale}?utm_source=new-website&utm_medium=button`;
-      },
-      optimisedImageUrl() {
-        return this.$options.filters.optimisedImageUrl(
-          // use social media image if set in ctf, otherwise use hero image
-          this.page.image ? this.page.image.fields.file.url : this.heroImage.url,
-          'image/jpeg',
-          { width: 800, height: 800 }
-        );
       }
     },
+
     asyncData({ params, query, error, app }) {
-      const contentfulClient = createClient(query.mode);
-      // fetch the browsePage data, include set to 2 in order to get nested card data
-      return contentfulClient.getEntries({
-        'locale': app.i18n.isoLocale(),
-        'content_type': 'browsePage',
-        'fields.identifier': params.pathMatch ? params.pathMatch : 'home',
-        'include': 2,
-        'limit': 1
-      })
-        .then((response) => {
-          if (response.total === 0) {
+      const variables = {
+        identifier: params.pathMatch ? params.pathMatch : 'home',
+        locale: app.i18n.isoLocale(),
+        preview: query.mode === 'preview'
+      };
+
+      return app.$contentful.query('browsePage', variables)
+        .then(response => response.data.data)
+        .then(data => {
+          if (data.browsePageCollection.items.length === 0) {
             error({ statusCode: 404, message: app.i18n.t('messages.notFound') });
             return;
           }
-          return {
-            page: response.items[0].fields,
-            path: params.pathMatch
-          };
+
+          return data.browsePageCollection.items[0];
         })
         .catch((e) => {
           error({ statusCode: 500, message: e.toString() });
         });
     },
+
     head() {
       return {
-        title: this.page.name,
+        title: this.name,
         meta: [
           { hid: 'og:type', property: 'og:type', content: 'article' },
-          { hid: 'title', name: 'title', content: this.page.name },
-          { hid: 'og:title', property: 'og:title', content: this.page.name }
-        ].concat(this.page.description ? [
-          { hid: 'description', name: 'description', content: this.page.description },
-          { hid: 'og:description', property: 'og:description', content: this.page.description }
+          { hid: 'title', name: 'title', content: this.name },
+          { hid: 'og:title', property: 'og:title', content: this.name }
+        ].concat(this.description ? [
+          { hid: 'description', name: 'description', content: this.description },
+          { hid: 'og:description', property: 'og:description', content: this.description }
         ] : []).concat(this.heroImage ? [
-          { hid: 'og:image', property: 'og:image', content: this.optimisedImageUrl }
+          { hid: 'og:image', property: 'og:image', content: this.$options.filters.urlWithProtocol(this.heroImage.url) }
         ] : [])
       };
     }
