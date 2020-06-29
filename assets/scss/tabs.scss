@@ -4,6 +4,10 @@
   padding: 0px;
 }
 
+.tab-title {
+  position: relative;
+}
+
 .tab-list {
   border-bottom: solid 2px $paper;
   li a {
@@ -15,9 +19,6 @@
     &:not(:last-child) {
       margin-right: 0.2rem;
     }
-  }
-  li a:hover {
-    color: $mediumgrey !important;
   }
 }
 

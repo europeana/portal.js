@@ -14,13 +14,17 @@
             :id="'tab-' + tab.id"
             :key="tab.id"
             lazy
-            :title="tab.title"
             align="center"
             @click="switchTab(tab.id)"
           >
+            <!-- Tab Title -->
+            <template v-slot:title>
+              <span class="tab-title">{{ tab.title }}</span>
+            </template>
             <b-col
               cols="9"
             >
+              <!-- Tab Content -->
               <!-- TODO: Update this section to preview the results retrieved with Sets API -->
               <b-card-group
                 v-if="activeView === 'grid'"
