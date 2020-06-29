@@ -146,17 +146,17 @@
                     >
                       {{ $t('record.transcriptionDisclaimer') }}
                     </p>
-                  </b-card-text>
-                  <div
-                    v-for="(transcription, index) in transcribingAnnotations"
-                    :key="index"
-                    :lang="transcription.body.language"
-                  >
-                    <p>{{ transcription.body.value }}</p>
-                    <hr
-                      v-if="index !== (transcribingAnnotations.length - 1)"
+                    <div
+                      v-for="(transcription, index) in transcribingAnnotations"
+                      :key="index"
+                      :lang="transcription.body.language"
                     >
-                  </div>
+                      <p>{{ transcription.body.value }}</p>
+                      <hr
+                        v-if="index !== (transcribingAnnotations.length - 1)"
+                      >
+                    </div>
+                  </b-card-text>
                 </b-tab>
               </b-tabs>
             </b-card>
