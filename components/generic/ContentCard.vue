@@ -188,7 +188,9 @@
       },
 
       displayTitle() {
-        if (typeof this.title === 'string') {
+        if (!this.title) {
+          return null;
+        } else if (typeof this.title === 'string') {
           return { values: [this.title], code: null };
         } else {
           return langMapValueForLocale(this.title, this.$i18n.locale);

@@ -1,44 +1,53 @@
-@import '../../assets/scss/variables.scss';
+.tabs {
+  .card-header {
+    background: $white;
+    border-bottom: 2px solid $offwhite;
+    padding: 0;
 
-.tab-container {
-  padding: 0px;
-}
-
-.tab-title {
-  position: relative;
-}
-
-.tab-list {
-  border-bottom: solid 2px $paper;
-  li a {
-    padding-bottom: 0.7rem;
-    text-decoration: none;
-    font-weight: 600;
-    color: $mediumgrey;
-    font-size: $font-size-small;
-    &:not(:last-child) {
-      margin-right: 0.2rem;
+    .card-header-tabs {
+      margin: 0;
     }
   }
-}
 
-.tab-active {
-  background-color: $white !important;
-  color: $blue !important;
-  &:after {
-    content: '';
-    position: absolute;
-    border-bottom: solid 2px $blue;
-    display: block;
-    width: 100%;
-    z-index: 1;
-    left: 0;
-    right: 0;
-    bottom: -0.1rem;
+  .nav-tabs {
+    .nav-item {
+      margin-bottom: -2px;
+    }
+
+    .nav-link {
+      border: 0;
+      border-radius: 0;
+      color: mediumgrey;
+      font-size: $font-size-small;
+      font-weight: 600;
+      line-height: 1;
+      padding: 1rem;
+      text-decoration: none;
+
+      &:before {
+        display: none;
+      }
+
+      &:hover {
+        border: 0;
+        border-radius: 0;
+        color: $blue;
+
+        &:before {
+          display: none;
+        }
+      }
+
+      &.active {
+        border-bottom: 2px solid $blue;
+        color: $blue;
+      }
+    }
   }
-}
 
-.tab-content {
-  padding-top: 2.5rem;
-  background-color: $bodygrey;
+  .tab-pane {
+    &.card-body {
+      padding: 1rem;
+    }
+  }
 }
