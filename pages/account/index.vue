@@ -1,57 +1,68 @@
 <template>
-  <div class="account">
+  <div class="mt-n3">
     <b-container
       fluid
     >
       <b-row class="bg-white">
-        <b-col class="mt-4 pt-4">
+        <b-col class="pt-5 pb-4">
           <h1 class="text-center mb-1">
             <!-- TODO: When the connection with Keycloak is done, here show the user's username -->
-            {{ $t('account.text') }}
+            @username
           </h1>
         </b-col>
       </b-row>
-      <TabbedLayout
-        :selected-tab="selectedTab"
-        :tabs="tabs"
-      />
+      <b-row>
+        <b-col class="p-0">
+          <b-tabs
+            card
+            align="center"
+          >
+            <b-tab
+              :title="$t('account.likes')"
+              active
+            >
+              <b-card-text
+                text-tag="div"
+              >
+                <!-- TODO: Update this section to preview the results retrieved with Sets API -->
+                <div class="card-grid text-center">
+                  Placeholder for {{ $t('account.likes') }} tab.
+                </div>
+              </b-card-text>
+            </b-tab>
+            <b-tab
+              :title="$t('account.publicCollections')"
+            >
+              <b-card-text
+                text-tag="div"
+              >
+                <!-- TODO: Update this section to preview the results retrieved with Sets API -->
+                <div class="text-center">
+                  Placeholder for {{ $t('account.publicCollections') }} tab.
+                </div>
+              </b-card-text>
+            </b-tab>
+            <b-tab
+              :title="$t('account.privateCollections')"
+            >
+              <b-card-text
+                text-tag="div"
+              >
+                <!-- TODO: Update this section to preview the results retrieved with Sets API -->
+                <div class="text-center">
+                  Placeholder for {{ $t('account.privateCollections') }} tab.
+                </div>
+              </b-card-text>
+            </b-tab>
+          </b-tabs>
+        </b-col>
+      </b-row>
     </b-container>
   </div>
 </template>
 
 <script>
-  import TabbedLayout from '../../components/account/TabbedLayout';
-
   export default {
-    components: {
-      TabbedLayout
-    },
-    data() {
-      return {
-        selectedTab: 0,
-        // TODO: Fill the card properties appropriately, based on the Sets API
-        tabs: [
-          {
-            'id': 0,
-            'title': this.$t('account.likes'),
-            'view': 'grid',
-            'card': 'https://api.europeana.eu/record/search.json?facet=&profile=minimal&query=red%20shoes&rows=24&start=1&wskey=nLbaXYaiH'
-          },
-          {
-            'id': 1,
-            'title': this.$t('account.publicCollections'),
-            'view': 'grid',
-            'card': 'https://api.europeana.eu/record/search.json?facet=&profile=minimal&query=blue%20shoes&rows=24&start=1&wskey=nLbaXYaiH'
-          },
-          {
-            'id': 2,
-            'title': this.$t('account.privateCollections'),
-            'view': 'grid',
-            'card': 'https://api.europeana.eu/record/search.json?facet=&profile=minimal&query=green%20shoes&rows=24&start=1&wskey=nLbaXYaiH'
-          }
-        ]
-      };
-    },
     head() {
       return {
         title: this.$t('account.text')
@@ -60,10 +71,3 @@
   };
 
 </script>
-
-<style lang="scss" scoped>
-  div.account {
-    position: relative;
-    margin-top: -1.5%;
-  }
-</style>

@@ -506,25 +506,13 @@ export default {
   "showLess": "Show less",
   "showMore": "Show more",
   "account": {
-    "text": "My account",
-    "linkText": "Account",
-    "create": "Sign up",
-    "profile": "My profile",
+    "text": "My Account",
+    "login": "Log in",
+    "logout": "Log out",
+    "profile": "My Likes & Collections",
+    "settings": "Settings",
     "likes": "Likes",
     "publicCollections": "Public Collections",
-    "privateCollections": "Private Collections",
-    "logout": "Logout",
-    "login": {
-      "text": "Login to save your favourite items and create collections",
-      "button": "Log in"
-    },
-    "email": {
-      "text": "Email address",
-      "placeholder": "Enter email"
-    },
-    "password": {
-      "text": "Password",
-      "forgot": "Forgot password"
-    }
+    "privateCollections": "Private Collections"
   }
 };
