@@ -84,7 +84,7 @@
       optimisedImageUrl() {
         return this.$options.filters.optimisedImageUrl(
           this.heroImage.url,
-          'image/jpeg',
+          this.heroImage.contentType,
           { width: 800, height: 800 }
         );
       }
@@ -137,7 +137,7 @@
           { hid: 'description', name: 'description', content: this.description },
           { hid: 'og:description', property: 'og:description', content: this.description }
         ] : []).concat(this.heroImage ? [
-          { hid: 'og:image', property: 'og:image', content: this.$options.filters.urlWithProtocol(this.heroImage.url) }
+          { hid: 'og:image', property: 'og:image', content: this.optimisedImageUrl }
         ] : [])
       };
     }
