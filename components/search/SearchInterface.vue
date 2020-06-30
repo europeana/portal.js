@@ -308,16 +308,20 @@
       }
     },
     watch: {
-      routeQueryView() {
-        this.view = this.routeQueryView;
-      },
+      routeQueryView: 'viewFromRouteQuery',
       contentTierZeroPresent: 'showContentTierToast',
       contentTierZeroActive: 'showContentTierToast'
+    },
+    fetch() {
+      this.viewFromRouteQuery();
     },
     mounted() {
       this.showContentTierToast();
     },
     methods: {
+      viewFromRouteQuery() {
+        if (this.routeQueryView) this.view = this.routeQueryView;
+      },
       facetDropdownType(name) {
         return name === 'collection' ? 'radio' : 'checkbox';
       },
