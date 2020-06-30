@@ -308,21 +308,20 @@
       }
     },
     watch: {
-      routeQueryView() {
-        this.view = this.routeQueryView;
-      },
+      routeQueryView: 'viewFromRouteQuery',
       contentTierZeroPresent: 'showContentTierToast',
       contentTierZeroActive: 'showContentTierToast'
     },
     fetch() {
-      // FIXME: this is a quick fix to ensure it's set on initial SSR, but duplicates
-      //        the `routeQueryView` watch.
-      this.view = this.routeQueryView;
+      this.viewFromRouteQuery();
     },
     mounted() {
       this.showContentTierToast();
     },
     methods: {
+      viewFromRouteQuery() {
+        if (this.routeQueryView) this.view = this.routeQueryView;
+      },
       facetDropdownType(name) {
         return name === 'collection' ? 'radio' : 'checkbox';
       },
