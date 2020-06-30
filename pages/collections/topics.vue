@@ -15,7 +15,7 @@
             :key="topic.id"
             :title="topic.prefLabel[$i18n.locale]"
             :url="topic.id"
-            :image-url="topic.isShownBy.thumbnail"
+            :image-url="typeof topic.isShownBy !== 'undefined' ? topic.isShownBy.thumbnail : '/'"
             variant="mini"
           />
         </b-card-group>
@@ -38,9 +38,9 @@
 
 <script>
   import axios from 'axios';
-  import ContentHeader from '../../../components/generic/ContentHeader';
-  import ContentCard from '../../../components/generic/ContentCard';
-  import { pageFromQuery } from '../../../plugins/utils';
+  import ContentHeader from '../../components/generic/ContentHeader';
+  import ContentCard from '../../components/generic/ContentCard';
+  import { pageFromQuery } from '../../plugins/utils';
   // import { getEntitySuggestions } from '../../plugins/europeana/entity';
 
   const PER_PAGE = 24;
@@ -50,7 +50,7 @@
     components: {
       ContentHeader,
       ContentCard,
-      PaginationNav: () => import('../../../components/generic/PaginationNav')
+      PaginationNav: () => import('../../components/generic/PaginationNav')
     },
     head() {
       return {
@@ -73,7 +73,7 @@
       if (currentPage === null) {
         // Redirect non-positive integer values for `page` to `page=1`
         query.page = '1';
-        return redirect(app.$path({ name: 'collections/topics', query }));
+        return redirect(app.$path({ name: 'collections-topics', query }));
       }
 
       return axios.get(('https://api.europeana.eu/entity/search'), {
@@ -81,7 +81,7 @@
           query: '*:*',
           wskey: 'apidemo',
           type: 'Concept',
-          page: currentPage,
+          page: currentPage - 1,
           pageSize: PER_PAGE,
           scope: 'europeana'
         }
@@ -91,7 +91,7 @@
         .then(data => {
           return {
             topics: data.data.items,
-            total: data.data.items.length,
+            total: data.data.partOf.total,
             page: currentPage,
             perPage: PER_PAGE
           };
@@ -103,9 +103,9 @@
 
     methods: {
       paginationLink(val) {
-        return this.$path({ name: 'collections/topics', query: { page: val } });
+        return this.$path({ name: 'collections-topics', query: { page: val } });
       }
     },
-    watchQuery: ['page']
+    watchQuery: ['query', 'page']
   };
 </script>
