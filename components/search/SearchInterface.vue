@@ -183,6 +183,11 @@
         PROXY_DCTERMS_ISSUED: 'proxy_dcterms_issued'
       };
     },
+    fetch() {
+      // FIXME: this is a quick fix to ensure it's set on initial SSR, but duplicates
+      //        the `routeQueryView` watch.
+      this.view = this.routeQueryView;
+    },
     computed: {
       ...mapState({
         userParams: state => state.search.userParams,
