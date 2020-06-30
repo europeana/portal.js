@@ -282,9 +282,14 @@
       enableMoreFacets() {
         return this.moreFacets.length > 0;
       },
-      contentTierFacet() {
-        return this.moreFacets.find(facet => {
+      contentTierZeroPresent() {
+        return this.moreFacets.some(facet => {
           return facet.name === 'contentTier' && facet.fields && facet.fields.some(option => option.label === '"0"');
+        });
+      },
+      contentTierZeroActive() {
+        return this.filters.contentTier && this.filters.contentTier.some(filter => {
+          return filter === '"0"' || filter === '*'; // UI applies "0", this won't handle user provided values.
         });
       },
       showPagination() {
@@ -306,7 +311,11 @@
       routeQueryView() {
         this.view = this.routeQueryView;
       },
-      contentTierFacet: 'showContentTierToast'
+      contentTierZeroPresent: 'showContentTierToast',
+      contentTierZeroActive: 'showContentTierToast'
+    },
+    mounted() {
+      this.showContentTierToast();
     },
     methods: {
       facetDropdownType(name) {
@@ -366,10 +375,11 @@
       showContentTierToast() {
         if (!process.browser) return;
 
-        if (this.contentTierFacet && !sessionStorage.contentTierToastShown) {
-          this.$bvToast.show('tier-toast');
-          sessionStorage.contentTierToastShown = 'true';
+        if (sessionStorage.contentTierToastShown || this.contentTierZeroActive || !this.contentTierZeroPresent) {
+          return;
         }
+        this.$bvToast.show('tier-toast');
+        sessionStorage.contentTierToastShown = 'true';
       }
     }
   };
