@@ -94,6 +94,11 @@
     font-size: 1.5rem;
     color: $mediumgrey;
   }
+  article, section p, h1, h2, h3, h4, h5, h6 {
+    max-width: 45rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
   .hero-wrapper {
     max-width: 51.25rem;
     figcaption {
@@ -148,6 +153,11 @@
     }
     .container {
       max-width: none;
+    }
+  }
+  @media (min-width: $bp-extralarge) {
+    blockquote + p cite {
+      width: 38.3rem;
     }
   }
   @media (max-width: $bp-large) {
