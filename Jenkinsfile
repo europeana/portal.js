@@ -50,7 +50,7 @@ pipeline {
     }
     stage('Register with ELK') {
       when {
-        expression { return env.LOGSTASH_CONNECTION }
+        expression { return env.ELK_REGISTRATION_COMMAND }
       }
       steps {
         sh 'APP_GUID="$(cf app ${CF_APP_NAME} --guid | head -1)"'
