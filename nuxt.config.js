@@ -78,6 +78,7 @@ module.exports = {
       'NavbarPlugin',
       'NavPlugin',
       'PaginationNavPlugin',
+      'TabsPlugin',
       'ToastPlugin'
     ]
   },
@@ -106,6 +107,7 @@ module.exports = {
       frameworkName: 'Nuxt.js',
       frameworkVersion: require('nuxt/package.json').version
     }],
+    '~/modules/contentful-graphql',
     '@nuxtjs/gtm'
   ],
   gtm: {
