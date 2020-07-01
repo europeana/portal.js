@@ -55,7 +55,6 @@
     components: {
       SmartLink
     },
-
     props: {
       links: {
         type: Array,
@@ -63,9 +62,6 @@
       }
     },
     computed: {
-      i18n() {
-        return this.$store.state.i18n.locale;
-      },
       enableAuthLinks() {
         return Boolean(Number(process.env.ENABLE_XX_USER_AUTH));
       },
@@ -73,15 +69,7 @@
         return this.$store.state.auth.loggedIn;
       }
     },
-    watch: {
-      i18n() {
-        this.getNavigationData();
-      }
-    },
     methods: {
-      async getNavigationData() {
-        return this.$store.dispatch('link-group/init');
-      },
       renderIcon(name) {
         let className = '';
         switch (name) {

@@ -505,9 +505,9 @@ export default {
   },
   "showLess": "Show less",
   "showMore": "Show more",
-  "account":{
-    "title":"My account",
-    "linkAccount":"My Account",
-    "linkLogin":"Login"
+  "account": {
+    "title": "My account",
+    "linkAccount": "My Account",
+    "linkLogin": "Login"
   }
 };

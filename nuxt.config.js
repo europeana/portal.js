@@ -137,7 +137,7 @@ const config = {
         silentFallbackWarn: true,
         dateTimeFormats: i18nDateTime
       },
-      //disable redirects to callback page or authentication fails
+      // Disable redirects to callback page or authentication fails
       parsePages: false,
       pages: {
         'account/callback': false
@@ -197,10 +197,7 @@ const config = {
           enforce: 'pre',
           test: /\.(js|vue)$/,
           loader: 'eslint-loader',
-          exclude: /(node_modules)/,
-          options: {
-            fix: true
-          }
+          exclude: /(node_modules)/
         });
       }
     }
@@ -217,9 +214,9 @@ const config = {
 
 if (Number(process.env['ENABLE_XX_USER_AUTH'])) {
   config.auth = {
-    //redirect routes: 'callback' option for keycloak redirects,
-    //'login' option for unauthorised redirection
-    //'home' option for redirection after login
+    // Redirect routes: 'callback' option for keycloak redirects,
+    // 'login' option for unauthorised redirection
+    // 'home' option for redirection after login
     redirect: {
       login: '/?login=1',
       logout: '/',
