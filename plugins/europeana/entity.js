@@ -302,22 +302,6 @@ export function entityParamsFromUri(uri) {
 }
 
 /**
- *
- */
-// export function (query, wskey, type, page, pageSize, scope) {
-//   return axios.get(('https://api.europeana.eu/entity/search'), {
-//     params: {
-//       query,
-//       wskey,
-//       type,
-//       page,
-//       pageSize,
-//       scope
-//     }
-//   });
-// }
-
-/**
  * Return all entity subjects of type concept / agent
  * @param {Object} params additional parameters sent to the API
  */
@@ -329,7 +313,10 @@ export function getEntitySubjects(params = {}) {
     }
   })
     .then((response) => {
-      return response.data.items ? response.data.items : [];
+      return {
+        topics: response.data.items ? response.data.items : [],
+        total: response.data.partOf.total
+      };
     })
     .catch((error) => {
       throw apiError(error);

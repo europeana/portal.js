@@ -37,7 +37,6 @@
 </template>
 
 <script>
-  // import axios from 'axios';
   import ContentHeader from '../../components/generic/ContentHeader';
   import ContentCard from '../../components/generic/ContentCard';
   import { pageFromQuery } from '../../plugins/utils';
@@ -76,16 +75,6 @@
         return redirect(app.$path({ name: 'collections-topics', query }));
       }
 
-      // return axios.get(('https://api.europeana.eu/entity/search'), {
-      //   params: {
-      //     query: '*:*',
-      //     wskey: 'apidemo',
-      //     type: 'Concept',
-      //     page: currentPage - 1,
-      //     pageSize: PER_PAGE,
-      //     scope: 'europeana'
-      //   }
-      // })
       const params = {
         query: '*:*',
         type: 'concept',
@@ -98,8 +87,8 @@
         .then(response => response)
         .then(data => {
           return {
-            topics: data.data.items,
-            total: data.data.partOf.total,
+            topics: data.topics,
+            total: data.total,
             page: currentPage,
             perPage: PER_PAGE
           };
