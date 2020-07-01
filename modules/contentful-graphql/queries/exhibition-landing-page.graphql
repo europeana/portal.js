@@ -5,6 +5,9 @@ query ExhibitionLandingPage(
 ) {
   exhibitionPageCollection(preview: $preview, locale: $locale, where: { identifier: $identifier }, limit: 1) {
     items {
+      sys {
+        id
+      }
       identifier
       name
       headline
@@ -15,6 +18,9 @@ query ExhibitionLandingPage(
       }
       hasPartCollection(limit: 20) {
         items {
+          sys {
+            id
+          }
           name
           identifier
           primaryImageOfPage {
@@ -28,12 +34,18 @@ query ExhibitionLandingPage(
 }
 
 fragment imageWithAttributionFields on ImageWithAttribution {
+  sys {
+    id
+  }
   name
   creator
   provider
   license
   url
   image {
+    sys {
+      id
+    }
     url
     contentType
   }

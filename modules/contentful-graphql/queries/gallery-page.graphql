@@ -6,12 +6,18 @@ query GalleryPage(
   imageGalleryCollection(preview: $preview, locale: $locale, where: { identifier: $identifier }, limit: 1) {
     total
     items {
+      sys {
+        id
+      }
       identifier
       name
       description
       hasPartCollection(limit: 100) {
         total
         items {
+          sys {
+            id
+          }
           identifier
           encoding
           thumbnailUrl

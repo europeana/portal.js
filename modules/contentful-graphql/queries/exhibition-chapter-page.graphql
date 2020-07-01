@@ -12,11 +12,17 @@ query ExhibitionChapterPage(
   exhibitionPageCollection(preview: $preview, locale: $locale, where: { identifier: $identifier }, limit: 1) {
     total
     items {
+      sys {
+        id
+      }
       name
       identifier
       credits
       hasPartCollection(limit: 20) {
         items {
+          sys {
+            id
+          }
           name
           identifier
           headline
@@ -29,15 +35,24 @@ query ExhibitionChapterPage(
             items {
               __typename
               ... on ContentTypeRichText {
+                sys {
+                  id
+                }
                 text
               }
               ... on Embed {
+                sys {
+                  id
+                }
                 embed
               }
               ... on ImageWithAttribution {
                 ... imageWithAttributionFields
               }
               ... on ImageComparison {
+                sys {
+                  id
+                }
                 name
                 hasPartCollection(limit: 2) {
                   items {
@@ -55,12 +70,18 @@ query ExhibitionChapterPage(
 }
 
 fragment imageWithAttributionFields on ImageWithAttribution {
+  sys {
+    id
+  }
   name
   creator
   provider
   license
   url
   image {
+    sys {
+      id
+    }
     url
     contentType
     width

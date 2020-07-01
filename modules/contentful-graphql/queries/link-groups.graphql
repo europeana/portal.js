@@ -19,10 +19,16 @@ query LinkGroups(
 
 fragment linkGroupFields on LinkGroupCollection {
   items {
+    sys {
+      id
+    }
     identifier
     name
     links: linksCollection(limit: 10) {
       items {
+        sys {
+          id
+        }
         text
         url
       }

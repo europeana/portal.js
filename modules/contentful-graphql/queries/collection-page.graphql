@@ -5,19 +5,31 @@ query CollectionPage(
 ) {
   entityPage: entityPageCollection(limit: 1, where: { identifier: $identifier }) {
     items {
+      sys {
+        id
+      }
       name
       description
       identifier
       genre
       primaryImageOfPage {
+        sys {
+          id
+        }
         url
         image {
+          sys {
+            id
+          }
           url
           contentType
         }
       }
       relatedLinksCollection(limit: 4) {
         items {
+          sys {
+            id
+          }
         	identifier
           name
           slug
@@ -29,9 +41,15 @@ query CollectionPage(
         items {
           __typename
           ... on ContentTypeRichText {
+            sys {
+              id
+            }
             text
           }
           ... on CardGroup {
+            sys {
+              id
+            }
             headline
           	text
             # TODO: reduce this limit in CTF content model?
@@ -39,6 +57,9 @@ query CollectionPage(
               items {
                 __typename
                 ... on AutomatedEntityCard {
+                  sys {
+                    id
+                  }
                   name
                   identifier
                   description
@@ -46,14 +67,23 @@ query CollectionPage(
                   entityImage: image
                 }
                 ... on AutomatedRecordCard {
+                  sys {
+                    id
+                  }
                   identifier
                   encoding
                 }
                 ... on CuratedCard {
+                  sys {
+                    id
+                  }
                   name
                   description
                   url
                   image {
+                    sys {
+                      id
+                    }
                     url
                     contentType
                   }
@@ -61,6 +91,9 @@ query CollectionPage(
               }
             }
             moreButton {
+              sys {
+                id
+              }
               url
               text
             }
@@ -71,6 +104,9 @@ query CollectionPage(
   }
   curatedEntities: entityPageCollection(preview: $preview, locale: $locale, limit: 1000) {
     items {
+      sys {
+        id
+      }
       name
       identifier
       genre

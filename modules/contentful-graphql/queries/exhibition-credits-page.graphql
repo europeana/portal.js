@@ -5,15 +5,27 @@ query ExhibitionCreditsPage(
 ) {
   exhibitionPageCollection(preview: $preview, locale: $locale, where: { identifier: $identifier }, limit: 1) {
     items {
+      sys {
+        id
+      }
       name
       identifier
       credits
       hasPartCollection(limit: 20) {
         items {
+          sys {
+            id
+          }
           identifier
           name
           primaryImageOfPage {
+            sys {
+              id
+            }
             image {
+              sys {
+                id
+              }
               url
               contentType
             }

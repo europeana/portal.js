@@ -5,17 +5,26 @@ query BrowsePage(
 ) {
   browsePageCollection(preview: $preview, locale: $locale, where: { identifier: $identifier }, limit: 1) {
     items {
+      sys {
+        id
+      }
       identifier
       name
       headline
       description
       primaryImageOfPage {
+        sys {
+          id
+        }
         name
         creator
         provider
         license
         url
         image {
+          sys {
+            id
+          }
           url
           contentType
         }
@@ -29,6 +38,9 @@ query BrowsePage(
         items {
           __typename
           ... on CardGroup {
+            sys {
+              id
+            }
             headline
           	text
             # TODO: reduce this limit in CTF content model?
@@ -36,6 +48,9 @@ query BrowsePage(
               items {
                 __typename
                 ... on AutomatedEntityCard {
+                  sys {
+                    id
+                  }
                   name
                   identifier
                   description
@@ -43,14 +58,23 @@ query BrowsePage(
                   entityImage: image
                 }
                 ... on AutomatedRecordCard {
+                  sys {
+                    id
+                  }
                   identifier
                   encoding
                 }
                 ... on CuratedCard {
+                  sys {
+                    id
+                  }
                   name
                   description
                   url
                   image {
+                    sys {
+                      id
+                    }
                     url
                     contentType
                   }
@@ -58,14 +82,23 @@ query BrowsePage(
               }
             }
             moreButton {
+              sys {
+                id
+              }
               url
               text
             }
         	}
           ... on LatestCardGroup {
+            sys {
+              id
+            }
             genre
           }
           ... on ContentTypeRichText {
+            sys {
+              id
+            }
             text
           }
         }

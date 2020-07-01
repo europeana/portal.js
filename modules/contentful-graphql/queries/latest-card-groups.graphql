@@ -2,6 +2,9 @@ query LatestCardGroups($preview: Boolean = false, $locale: String!, $limit: Int 
   exhibitionPageCollection(preview: $preview, locale: $locale, order: datePublished_DESC, limit: $limit) @include(if: $exhibitions) {
     total
 		items {
+      sys {
+        id
+      }
       identifier
       name
       description
@@ -13,11 +16,17 @@ query LatestCardGroups($preview: Boolean = false, $locale: String!, $limit: Int 
   imageGalleryCollection(preview: $preview, locale: $locale, order: datePublished_DESC, limit: $limit) @include(if: $galleries) {
     total
 		items {
+      sys {
+        id
+      }
       identifier
       name
       description
       hasPartCollection(limit: 1) {
         items {
+          sys {
+            id
+          }
           encoding
         }
       }
@@ -26,6 +35,9 @@ query LatestCardGroups($preview: Boolean = false, $locale: String!, $limit: Int 
   blogPostingCollection(preview: $preview, locale: $locale, order: datePublished_DESC, limit: $limit) @include(if: $blogPosts) {
     total
   	items {
+      sys {
+        id
+      }
       identifier
       name
       description
@@ -37,7 +49,13 @@ query LatestCardGroups($preview: Boolean = false, $locale: String!, $limit: Int 
 }
 
 fragment imageComparisonFields on ImageWithAttribution {
+  sys {
+    id
+  }
   image {
+    sys {
+      id
+    }
     url
     contentType
   }

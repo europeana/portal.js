@@ -5,6 +5,9 @@ query BlogPostPage(
 ) {
   blogPostingCollection(preview: $preview, locale: $locale, where: { identifier: $identifier }, limit: 1) {
     items {
+      sys {
+        id
+      }
       identifier
       name
       description
@@ -14,18 +17,27 @@ query BlogPostPage(
       keywords
       authorCollection {
         items {
+          sys {
+            id
+          }
           name
           affiliation
           url
         }
       }
       primaryImageOfPage {
+        sys {
+          id
+        }
         name
         creator
         provider
         license
         url
         image {
+          sys {
+            id
+          }
           url
           contentType
           width

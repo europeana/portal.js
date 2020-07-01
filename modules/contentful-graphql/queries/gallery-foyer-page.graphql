@@ -7,12 +7,18 @@ query GalleryFoyerPage(
   imageGalleryCollection(preview: $preview, locale: $locale, order: datePublished_DESC, limit: $limit, skip: $skip) {
     total
     items {
+      sys {
+        id
+      }
       identifier
       name
       description
       hasPartCollection(limit: 1) {
         total
         items {
+          sys {
+            id
+          }
           identifier
           encoding
           thumbnailUrl
