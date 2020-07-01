@@ -12,10 +12,11 @@ pipeline {
     CF_HOME='/home/node' // Revert override from Jenkins global env
     CF_API="${env.CF_API}"
     CF_LOGIN=credentials('portaljs.cloudfoundry.login')
-    CF_LOG_DRAINER_SERVICE="${CF_LOG_DRAINER_SERVICE_NAME}"
+    CF_LOG_DRAINER_SERVICE="${env.CF_LOG_DRAINER_SERVICE_NAME}"
     CF_ORG="${env.CF_ORG}"
     CF_SPACE="${env.BRANCH_NAME ==~ /\Av\d+\.\d+\.\d+\z/ ? 'production' : 'test'}"
-    LOGSTASH_CONNECTION="${env.ELK_LOGSTASH_DESTINATION}"
+    CF_APP_NAME="portaljs${env.CF_SPACE == 'production' ? '' : '-' + env.CF_SPACE}"
+    ELK_REGISTRATION_COMMAND="${env.ELK_SERVICE_REGISTRATION_COMMAND}"
   }
   stages {
     stage('Build') {
@@ -37,7 +38,6 @@ pipeline {
     }
     stage('Deploy to CF') {
       environment {
-        CF_APP_NAME="portaljs${env.CF_SPACE == 'production' ? '' : '-' + env.CF_SPACE}"
         CTF_CPA_ACCESS_TOKEN=credentials("portaljs.${env.CF_SPACE}.contentful.cpa")
         HTTP_DIGEST_ACL=credentials("portaljs.${env.CF_SPACE}.http.digest.acl")
       }
@@ -52,12 +52,9 @@ pipeline {
       when {
         expression { return env.LOGSTASH_CONNECTION }
       }
-      environment {
-        CF_APP_NAME="portaljs${env.CF_SPACE == 'production' ? '' : '-' + env.CF_SPACE}"
-      }
       steps {
         sh 'APP_GUID="$(cf app ${CF_APP_NAME} --guid | head -1)"'
-        sh 'RESULT=(ssh ${LOGSTASH_CONNECTION} /etc/logstash/register_appname_guid.sh ${APP_NAME} ${APP_GUID})'
+        sh '${ELK_REGISTRATION_COMMAND} ${APP_NAME} ${APP_GUID}'
         sh 'if [ $? -eq 0 ]; then echo "Log drainer registration OK"; else echo "ELK registration failed!"; exit 1; fi'
       }
     }
