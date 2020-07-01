@@ -101,6 +101,13 @@
       },
       heroImage() {
         return this.hero ? this.hero.image : null;
+      },
+      optimisedImageUrl() {
+        return this.$options.filters.optimisedImageUrl(
+          this.heroImage.url,
+          this.heroImage.contentType,
+          { width: 800, height: 800 }
+        );
       }
     },
     asyncData({ params, query, error, app, store }) {
@@ -176,7 +183,7 @@
         meta: [
           { hid: 'title', name: 'title', content: this.page.name },
           { hid: 'og:title', property: 'og:title', content: this.page.name },
-          { hid: 'og:image', property: 'og:image', content: this.$options.filters.urlWithProtocol(this.heroImage.url) },
+          { hid: 'og:image', property: 'og:image', content: this.optimisedImageUrl },
           { hid: 'og:type', property: 'og:type', content: 'article' }
         ].concat(this.page.description ? [
           { hid: 'description', name: 'description', content: this.page.description },

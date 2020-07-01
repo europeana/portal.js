@@ -80,6 +80,13 @@
       mainContent() {
         if (this.text === undefined) return;
         return marked(this.text);
+      },
+      optimisedImageUrl() {
+        return this.$options.filters.optimisedImageUrl(
+          this.heroImage.url,
+          this.heroImage.contentType,
+          { width: 800, height: 800 }
+        );
       }
     },
     asyncData({ params, query, error, app, store, redirect }) {
@@ -109,7 +116,6 @@
               active: true
             }
           ]);
-
           return data.exhibitionPageCollection.items[0];
         })
         .catch((e) => {
@@ -131,7 +137,7 @@
           { hid: 'description', name: 'description', content: this.description },
           { hid: 'og:description', property: 'og:description', content: this.description }
         ] : []).concat(this.heroImage ? [
-          { hid: 'og:image', property: 'og:image', content: this.$options.filters.urlWithProtocol(this.heroImage.url) }
+          { hid: 'og:image', property: 'og:image', content: this.optimisedImageUrl }
         ] : [])
       };
     }
