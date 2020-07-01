@@ -300,3 +300,38 @@ export function entityParamsFromUri(uri) {
   const type = getEntityTypeHumanReadable(matched[1]);
   return { id, type };
 }
+
+/**
+ *
+ */
+// export function (query, wskey, type, page, pageSize, scope) {
+//   return axios.get(('https://api.europeana.eu/entity/search'), {
+//     params: {
+//       query,
+//       wskey,
+//       type,
+//       page,
+//       pageSize,
+//       scope
+//     }
+//   });
+// }
+
+/**
+ * Return all entity subjects of type concept / agent
+ * @param {Object} params additional parameters sent to the API
+ */
+export function getEntitySubjects(params = {}) {
+  return axios.get(entityApiUrl('/search'), {
+    params: {
+      ...params,
+      wskey: config.entity.key
+    }
+  })
+    .then((response) => {
+      return response.data.items ? response.data.items : [];
+    })
+    .catch((error) => {
+      throw apiError(error);
+    });
+}

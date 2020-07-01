@@ -37,11 +37,11 @@
 </template>
 
 <script>
-  import axios from 'axios';
+  // import axios from 'axios';
   import ContentHeader from '../../components/generic/ContentHeader';
   import ContentCard from '../../components/generic/ContentCard';
   import { pageFromQuery } from '../../plugins/utils';
-  // import { getEntitySuggestions } from '../../plugins/europeana/entity';
+  import { getEntitySubjects } from '../../plugins/europeana/entity';
 
   const PER_PAGE = 24;
 
@@ -76,17 +76,25 @@
         return redirect(app.$path({ name: 'collections-topics', query }));
       }
 
-      return axios.get(('https://api.europeana.eu/entity/search'), {
-        params: {
-          query: '*:*',
-          wskey: 'apidemo',
-          type: 'Concept',
-          page: currentPage - 1,
-          pageSize: PER_PAGE,
-          scope: 'europeana'
-        }
-      })
-        // return getRecord(`/${params.pathMatch}`, { origin: query.recordApi })
+      // return axios.get(('https://api.europeana.eu/entity/search'), {
+      //   params: {
+      //     query: '*:*',
+      //     wskey: 'apidemo',
+      //     type: 'Concept',
+      //     page: currentPage - 1,
+      //     pageSize: PER_PAGE,
+      //     scope: 'europeana'
+      //   }
+      // })
+      const params = {
+        query: '*:*',
+        type: 'concept',
+        page: currentPage - 1,
+        pageSize: PER_PAGE,
+        scope: 'europeana'
+      };
+
+      return getEntitySubjects(params)
         .then(response => response)
         .then(data => {
           return {
