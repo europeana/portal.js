@@ -1,10 +1,11 @@
 <template>
   <div
     data-qa="exhibition chapter"
-    class="exhibition-page"
+    class="exhibition-page mx-auto"
   >
     <HeroImage
       v-if="hero"
+      compact
       :image-url="heroImage.url"
       :image-content-type="heroImage.contentType"
       :header="page.name"
