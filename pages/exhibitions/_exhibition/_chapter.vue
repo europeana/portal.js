@@ -1,10 +1,11 @@
 <template>
   <div
     data-qa="exhibition chapter"
-    class="exhibition-page"
+    class="exhibition-page mx-auto"
   >
     <HeroImage
       v-if="hero"
+      compact
       :image-url="heroImage.url"
       :image-content-type="heroImage.contentType"
       :header="page.name"
@@ -19,7 +20,6 @@
       <b-row>
         <b-col
           cols="12"
-          lg="9"
           class="pb-0 pb-lg-3"
         >
           <h1
@@ -28,15 +28,6 @@
           >
             {{ page.name }}
           </h1>
-        </b-col>
-        <b-col
-          cols="12"
-          lg="3"
-          class="pb-3 text-left text-lg-right"
-        >
-          <SocialShare
-            :media-url="heroImage.url"
-          />
         </b-col>
       </b-row>
       <b-row>
@@ -77,7 +68,6 @@
   import ExhibitionChapters from '../../../components/exhibition/ExhibitionChapters';
   import ExhibitionChaptersNavigation from '../../../components/exhibition/ExhibitionChaptersNavigation';
   import HeroImage from '../../../components/generic/HeroImage';
-  import SocialShare from '../../../components/generic/SocialShare';
 
   export default {
     components: {
@@ -85,8 +75,7 @@
       ClientOnly,
       ExhibitionChapters,
       ExhibitionChaptersNavigation,
-      HeroImage,
-      SocialShare
+      HeroImage
     },
     computed: {
       chapterNavigation() {
@@ -101,6 +90,13 @@
       },
       heroImage() {
         return this.hero ? this.hero.image : null;
+      },
+      optimisedImageUrl() {
+        return this.$options.filters.optimisedImageUrl(
+          this.heroImage.url,
+          this.heroImage.contentType,
+          { width: 800, height: 800 }
+        );
       }
     },
     asyncData({ params, query, error, app, store }) {
@@ -176,7 +172,7 @@
         meta: [
           { hid: 'title', name: 'title', content: this.page.name },
           { hid: 'og:title', property: 'og:title', content: this.page.name },
-          { hid: 'og:image', property: 'og:image', content: this.$options.filters.urlWithProtocol(this.heroImage.url) },
+          { hid: 'og:image', property: 'og:image', content: this.optimisedImageUrl },
           { hid: 'og:type', property: 'og:type', content: 'article' }
         ].concat(this.page.description ? [
           { hid: 'description', name: 'description', content: this.page.description },

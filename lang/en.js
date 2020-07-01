@@ -7,6 +7,13 @@ export default {
     "viewAt": "View at {link}",
     "viewDocument": "View document"
   },
+  "attribution": {
+    "title": "Title:",
+    "creator": "Creator:",
+    "date": "Date:",
+    "institution": "Institution:",
+    "country": "Country:"
+  },
   "blog": {
     "author": "Author",
     "authors": "Authors",

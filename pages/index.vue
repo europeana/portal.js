@@ -59,6 +59,15 @@
       },
       notificationUrl() {
         return `https://classic.europeana.eu/portal/${this.$store.state.i18n.locale}?utm_source=new-website&utm_medium=button`;
+      },
+      optimisedImageUrl() {
+        // use social media image if set in Contentful, otherwise use hero image
+        let img = this.image !== null ? this.image : this.heroImage;
+        return this.$options.filters.optimisedImageUrl(
+          img.url,
+          img.contentType,
+          { width: 800, height: 800 }
+        );
       }
     },
 
@@ -95,7 +104,7 @@
           { hid: 'description', name: 'description', content: this.description },
           { hid: 'og:description', property: 'og:description', content: this.description }
         ] : []).concat(this.heroImage ? [
-          { hid: 'og:image', property: 'og:image', content: this.$options.filters.urlWithProtocol(this.heroImage.url) }
+          { hid: 'og:image', property: 'og:image', content: this.optimisedImageUrl }
         ] : [])
       };
     }

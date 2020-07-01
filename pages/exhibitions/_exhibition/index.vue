@@ -1,10 +1,11 @@
 <template>
   <div
     data-qa="exhibition page"
-    class="exhibition-page"
+    class="exhibition-page mx-auto"
   >
     <HeroImage
       v-if="hero"
+      compact
       :image-url="heroImage.url"
       :image-content-type="heroImage.contentType"
       :header="name"
@@ -19,7 +20,6 @@
       <b-row>
         <b-col
           cols="12"
-          lg="9"
           class="pb-0 pb-lg-3"
         >
           <article>
@@ -30,15 +30,6 @@
             />
             <!-- eslint-enable vue/no-v-html -->
           </article>
-        </b-col>
-        <b-col
-          cols="12"
-          lg="3"
-          class="pb-3 text-left text-lg-right"
-        >
-          <SocialShare
-            :media-url="heroImage.url"
-          />
         </b-col>
       </b-row>
       <b-row v-if="hasPartCollection">
@@ -62,13 +53,11 @@
 
   import ExhibitionChapters from '../../../components/exhibition/ExhibitionChapters';
   import HeroImage from '../../../components/generic/HeroImage';
-  import SocialShare from '../../../components/generic/SocialShare';
 
   export default {
     components: {
       ExhibitionChapters,
-      HeroImage,
-      SocialShare
+      HeroImage
     },
     computed: {
       hero() {
@@ -80,6 +69,13 @@
       mainContent() {
         if (this.text === undefined) return;
         return marked(this.text);
+      },
+      optimisedImageUrl() {
+        return this.$options.filters.optimisedImageUrl(
+          this.heroImage.url,
+          this.heroImage.contentType,
+          { width: 800, height: 800 }
+        );
       }
     },
     asyncData({ params, query, error, app, store, redirect }) {
@@ -109,7 +105,6 @@
               active: true
             }
           ]);
-
           return data.exhibitionPageCollection.items[0];
         })
         .catch((e) => {
@@ -131,7 +126,7 @@
           { hid: 'description', name: 'description', content: this.description },
           { hid: 'og:description', property: 'og:description', content: this.description }
         ] : []).concat(this.heroImage ? [
-          { hid: 'og:image', property: 'og:image', content: this.$options.filters.urlWithProtocol(this.heroImage.url) }
+          { hid: 'og:image', property: 'og:image', content: this.optimisedImageUrl }
         ] : [])
       };
     }
