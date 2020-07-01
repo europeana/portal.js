@@ -282,9 +282,14 @@
       enableMoreFacets() {
         return this.moreFacets.length > 0;
       },
-      contentTierFacet() {
-        return this.moreFacets.find(facet => {
+      contentTierZeroPresent() {
+        return this.moreFacets.some(facet => {
           return facet.name === 'contentTier' && facet.fields && facet.fields.some(option => option.label === '"0"');
+        });
+      },
+      contentTierZeroActive() {
+        return this.filters.contentTier && this.filters.contentTier.some(filter => {
+          return filter === '"0"' || filter === '*'; // UI applies "0", this won't handle user provided values.
         });
       },
       showPagination() {
@@ -303,12 +308,20 @@
       }
     },
     watch: {
-      routeQueryView() {
-        this.view = this.routeQueryView;
-      },
-      contentTierFacet: 'showContentTierToast'
+      routeQueryView: 'viewFromRouteQuery',
+      contentTierZeroPresent: 'showContentTierToast',
+      contentTierZeroActive: 'showContentTierToast'
+    },
+    fetch() {
+      this.viewFromRouteQuery();
+    },
+    mounted() {
+      this.showContentTierToast();
     },
     methods: {
+      viewFromRouteQuery() {
+        if (this.routeQueryView) this.view = this.routeQueryView;
+      },
       facetDropdownType(name) {
         return name === 'collection' ? 'radio' : 'checkbox';
       },
@@ -366,10 +379,11 @@
       showContentTierToast() {
         if (!process.browser) return;
 
-        if (this.contentTierFacet && !sessionStorage.contentTierToastShown) {
-          this.$bvToast.show('tier-toast');
-          sessionStorage.contentTierToastShown = 'true';
+        if (sessionStorage.contentTierToastShown || this.contentTierZeroActive || !this.contentTierZeroPresent) {
+          return;
         }
+        this.$bvToast.show('tier-toast');
+        sessionStorage.contentTierToastShown = 'true';
       }
     }
   };
