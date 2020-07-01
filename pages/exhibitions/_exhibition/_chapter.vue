@@ -1,10 +1,11 @@
 <template>
   <div
     data-qa="exhibition chapter"
-    class="exhibition-page"
+    class="exhibition-page mx-auto"
   >
     <HeroImage
       v-if="hero"
+      compact
       :image-url="heroImage.url"
       :image-content-type="heroImage.contentType"
       :header="page.name"
@@ -27,16 +28,13 @@
           >
             {{ page.name }}
           </h1>
-          <article>
-            {{ page.text }}
-          </article>
         </b-col>
       </b-row>
       <b-row>
         <b-col>
           <BrowseSections
             v-if="page"
-            :sections="page.hasPart"
+            :sections="page.hasPartCollection.items"
             :rich-text-is-card="false"
             class="exhibition-sections"
           />
@@ -65,7 +63,6 @@
 </template>
 
 <script>
-  import createClient from '../../../plugins/contentful';
   import ClientOnly from 'vue-client-only';
   import BrowseSections from '../../../components/browse/BrowseSections';
   import ExhibitionChapters from '../../../components/exhibition/ExhibitionChapters';
@@ -84,59 +81,71 @@
       chapterNavigation() {
         return this.chapters.map((chapter) => {
           return {
-            identifier: chapter.fields.identifier, name: chapter.fields.name, url: this.chapterUrl(chapter.fields.identifier)
+            identifier: chapter.identifier, name: chapter.name, url: this.chapterUrl(chapter.identifier)
           };
         });
       },
       hero() {
-        return this.page.primaryImageOfPage ? this.page.primaryImageOfPage.fields : null;
+        return this.page.primaryImageOfPage ? this.page.primaryImageOfPage : null;
       },
       heroImage() {
-        return this.hero ? this.hero.image.fields.file : null;
+        return this.hero ? this.hero.image : null;
+      },
+      optimisedImageUrl() {
+        return this.$options.filters.optimisedImageUrl(
+          this.heroImage.url,
+          this.heroImage.contentType,
+          { width: 800, height: 800 }
+        );
       }
     },
     asyncData({ params, query, error, app, store }) {
-      const contentfulClient = createClient(query.mode);
-      return contentfulClient.getEntries({
-        'locale': app.i18n.isoLocale(),
-        'content_type': 'exhibitionPage',
-        'fields.identifier': params.exhibition,
-        'include': 3,
-        'limit': 1
-      })
-        .then((response) => {
+      const variables = {
+        identifier: params.exhibition,
+        locale: app.i18n.isoLocale(),
+        preview: query.mode === 'preview'
+      };
+
+      return app.$contentful.query('exhibitionChapterPage', variables)
+        .then(response => response.data.data)
+        .then(data => {
           let chapter;
-          if (response.total !== 0 && response.items.total !== 0 && response.items[0].fields['hasPart'].total !== 0) {
-            chapter = response.items[0].fields['hasPart'].find(c => c && c.fields.identifier === params.chapter);
+          let exhibition;
+
+          if (data.exhibitionPageCollection.total === 1) {
+            exhibition = data.exhibitionPageCollection.items[0];
+            chapter = exhibition.hasPartCollection.items.find(item => item.identifier === params.chapter);
           }
-          if (chapter === undefined) {
+
+          if (!chapter || !exhibition) {
             error({ statusCode: 404, message: app.i18n.t('messages.notFound') });
             return;
           }
+
           store.commit('breadcrumb/setBreadcrumbs', [
             {
               text: app.i18n.tc('exhibitions.exhibitions', 2),
               to: app.$path({ name: 'exhibitions' })
             },
             {
-              text: response.items[0].fields.name,
+              text: exhibition.name,
               to: app.$path({
                 name: 'exhibitions-exhibition',
                 params: {
-                  exhibition: response.items[0].fields.identifier
+                  exhibition: exhibition.identifier
                 }
               })
             },
             {
-              text: chapter.fields.name,
+              text: chapter.name,
               active: true
             }
           ]);
           return {
-            chapters: response.items[0].fields.hasPart,
-            credits: response.items[0].fields.credits,
+            chapters: exhibition.hasPartCollection.items,
+            credits: exhibition.credits,
             exhibitionIdentifier: params.exhibition,
-            page: chapter.fields
+            page: chapter
           };
         })
         .catch((e) => {
@@ -163,7 +172,7 @@
         meta: [
           { hid: 'title', name: 'title', content: this.page.name },
           { hid: 'og:title', property: 'og:title', content: this.page.name },
-          { hid: 'og:image', property: 'og:image', content: this.$options.filters.urlWithProtocol(this.heroImage.url) },
+          { hid: 'og:image', property: 'og:image', content: this.optimisedImageUrl },
           { hid: 'og:type', property: 'og:type', content: 'article' }
         ].concat(this.page.description ? [
           { hid: 'description', name: 'description', content: this.page.description },

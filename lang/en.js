@@ -7,6 +7,13 @@ export default {
     "viewAt": "View at {link}",
     "viewDocument": "View document"
   },
+  "attribution": {
+    "title": "Title:",
+    "creator": "Creator:",
+    "date": "Date:",
+    "institution": "Institution:",
+    "country": "Country:"
+  },
   "blog": {
     "author": "Author",
     "authors": "Authors",
@@ -385,7 +392,7 @@ export default {
       "edmIsSuccessorOf": "Is successor of",
       "edmProvider": "Provider",
       "edmRealizes": "Realises",
-      "edmRights": "License of the media in this item (unless otherwise specified)",
+      "edmRights": "Rights statement for the media in this item (unless otherwise specified)",
       "edmUgc": "User generated content",
       "europeanaCollectionName": "Collection name",
       "keywords": "Keywords (provided by the community)",
@@ -397,7 +404,7 @@ export default {
       "about": "RDF About",
       "dcDescription": "Description",
       "ebucoreHasMimeType": "Ebucore MIME Type",
-      "edmRights": "License for this media resource",
+      "edmRights": "Rights statement for this media resource",
       "rdfAbout": "RDF About"
     }
   },
@@ -421,12 +428,12 @@ export default {
   },
   "goToRecord": "Go to item",
   "header": {
-    "showSidebar": "Show Sidebar",
     "backToMenu": "Back to menu",
-    "searchFor": "Search for '{query}'",
-    "inCollection": "Search for '{query}' in {collection}",
+    "clearQuery": "Clear Search Query",
     "entireCollection": "Search for '{query}' in our entire collection",
-    "clearQuery": "Clear Search Query"
+    "inCollection": "Search for '{query}' in {collection}",
+    "searchFor": "Search for",
+    "showSidebar": "Show Sidebar"
   },
   "homeLinkAlt": "Europeana home",
   "imageSlider": {
@@ -464,12 +471,16 @@ export default {
   "noResults": "No results",
   "readMore": "Read more",
   "record": {
+    "allMetaData": "All metadata",
     "downloadCopyrightInfo": "This item is in copyright and can not be downloaded.",
     "extendedInformation": "Extended information",
+    "goodToKnow": "Good to know",
     "hideAll": "Hide all information",
     "record": "Item",
     "showAll": "Show all information",
     "similarItems": "Similar items",
+    "transcription": "Transcription",
+    "transcriptionDisclaimer": "This content is contributed by the public, not by the institution that provided this item.",
     "view": {
       "image": "View image",
       "media": "View media",
