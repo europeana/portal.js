@@ -24,7 +24,7 @@
           label-for="description"
         >
           <b-form-textarea
-            id="collection"
+            id="description"
             maxlength="240"
           />
         </b-form-group>
@@ -56,16 +56,12 @@
       <div class="collections">
         <!-- TODO: these buttons need to get a background image, according to design -->
         <b-button
+          v-for="(collection, index) in collections"
+          :key="index"
           variant="overlay"
           class="btn-collection w-100 text-left"
         >
-          My first collection (private) - 12 items
-        </b-button>
-        <b-button
-          variant="overlay"
-          class="btn-collection w-100 text-left"
-        >
-          Beautiful flowers (private) - 16 items
+          {{ collection.name }} {{ collection.count }} items
         </b-button>
       </div>
       <div class="modal-footer">
@@ -83,6 +79,13 @@
 <script>
   export default {
     name: 'ModalCollection',
+
+    props: {
+      collections: {
+        type: Array,
+        default: () => []
+      }
+    },
 
     data() {
       return {
