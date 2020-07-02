@@ -3,7 +3,7 @@ export default {
     "download": "Изтегляне",
     "providedBy": "Предоставено от {provider}",
     "share": "Споделяне",
-    "shareOn": "Споделяне в/във {social}",
+    "shareOn": "Споделяне в\/във {social}",
     "viewAt": "Преглед на {link}",
     "viewDocument": "Преглед на документа"
   },
@@ -66,7 +66,6 @@ export default {
     "right": "Дясно"
   },
   "edmIsShownAtLinkAlt": "Преглед на уебсайта на доставчика",
-  "entity": "Обект",
   "error": "Грешка",
   "exhibitions": {
     "chapters": "Глави",
@@ -293,7 +292,7 @@ export default {
     "MIME_TYPE": {
       "name": "Формат на файла | Формат на файловете",
       "options": {
-        "text/plain": "Само текст"
+        "text\/plain": "Само текст"
       }
     },
     "PROVIDER": {
@@ -444,10 +443,7 @@ export default {
   "readMore": "Прочетете повече",
   "record": {
     "downloadCopyrightInfo": "Върху този елемент има авторски права и не може да бъде изтеглен.",
-    "extendedInformation": "Разширена информация",
-    "hideAll": "Скриване на цялата информация",
     "record": "Запис",
-    "showAll": "Показване на цялата информация",
     "similarItems": "Подобни елементи",
     "view": {
       "image": "Преглед на изображението",
