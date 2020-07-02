@@ -1,5 +1,5 @@
 <template>
-  <!-- Test page, show logged in user -->
+  <!-- TODO: delete this test page when linking to Keycloak -->
   <div>
     <b-row class="bg-white">
       <b-col class="m-4 p-4">
