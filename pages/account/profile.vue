@@ -29,10 +29,17 @@
 <script>
   export default {
     middleware: 'auth',
+
     computed: {
       loggedInUser() {
         return this.$store.state.auth.user;
       }
+    },
+
+    head() {
+      return {
+        title: this.$t('account.title')
+      };
     }
   };
 </script>
