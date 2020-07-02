@@ -66,7 +66,6 @@ export default {
     "right": "Δεξιά"
   },
   "edmIsShownAtLinkAlt": "Προβολή στον ιστότοπο του παρόχου",
-  "entity": "Οντότητα",
   "error": "Σφάλμα",
   "exhibitions": {
     "chapters": "Κεφάλαια",
@@ -293,7 +292,7 @@ export default {
     "MIME_TYPE": {
       "name": "Μορφή αρχείου | Μορφές αρχείων",
       "options": {
-        "text/plain": "Απλό κείμενο"
+        "text\/plain": "Απλό κείμενο"
       }
     },
     "PROVIDER": {
@@ -384,7 +383,7 @@ export default {
       "keywords": "Λέξεις-κλειδιά (παρέχονται από την κοινότητα)",
       "timestampCreated": "Δημιουργήθηκε χρονική σήμανση",
       "timestampUpdate": "Η χρονική σήμανση ενημερώθηκε",
-      "wasPresentAt": "Ήταν παρών/ούσα στο"
+      "wasPresentAt": "Ήταν παρών\/ούσα στο"
     },
     "webResource": {
       "about": "RDF σχετικά με",
@@ -444,10 +443,7 @@ export default {
   "readMore": "Διαβάστε περισσότερα",
   "record": {
     "downloadCopyrightInfo": "Αυτό το στοιχείο προστατεύεται από δικαίωμα πνευματικής ιδιοκτησίας και δεν μπορείτε να το κατεβάσετε.",
-    "extendedInformation": "Εκτεταμένες πληροφορίες",
-    "hideAll": "Απόκρυψη όλων των πληροφοριών",
     "record": "Εγγραφή",
-    "showAll": "Εμφάνιση όλων των πληροφοριών",
     "similarItems": "Παρόμοια στοιχεία",
     "view": {
       "image": "Προβολή εικόνας",
