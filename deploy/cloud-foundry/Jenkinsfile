@@ -46,9 +46,6 @@ pipeline {
       }
     }
     stage('Attach autoscaling policy on CF') {
-      when {
-        environment name: 'CF_SPACE', value: 'production'
-      }
       steps {
         configFileProvider([
           configFile(fileId: "portaljs.${env.CF_SPACE}.autoscaling-policy.json", targetLocation: './deploy/cloud-foundry/autoscaling-policy.json'),
