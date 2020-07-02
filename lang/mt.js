@@ -66,7 +66,6 @@ export default {
     "right": "Lemin"
   },
   "edmIsShownAtLinkAlt": "Ara fuq il-websajt tal-fornitur",
-  "entity": "Entità",
   "error": "Żball",
   "exhibitions": {
     "chapters": "Kapitoli",
@@ -294,7 +293,7 @@ export default {
     "MIME_TYPE": {
       "name": "Format tal-fajl | Formati tal-fajl",
       "options": {
-        "text/plain": "Test bla format"
+        "text\/plain": "Test bla format"
       }
     },
     "PROVIDER": {
@@ -445,10 +444,7 @@ export default {
   "readMore": "Aqra iktar",
   "record": {
     "downloadCopyrightInfo": "Dan l-oġġett huwa marbut bid-drittijiet tal-awtur u ma jistax jitniżżel.",
-    "extendedInformation": "Informazzjoni estiża",
-    "hideAll": "Aħbi l-informazzjoni kollha",
     "record": "Rekord",
-    "showAll": "Uri l-informazzjoni kollha",
     "similarItems": "Oġġetti simili",
     "view": {
       "image": "Ara l-istampa",
