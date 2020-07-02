@@ -14,6 +14,7 @@ pipeline {
     CF_LOGIN=credentials('portaljs.cloudfoundry.login')
     CF_ORG="${env.CF_ORG}"
     CF_SPACE="${env.BRANCH_NAME ==~ /\Av\d+\.\d+\.\d+\z/ ? 'production' : 'test'}"
+    CF_APP_NAME="portaljs${env.CF_SPACE == 'production' ? '' : '-' + env.CF_SPACE}"
   }
   stages {
     stage('Build') {
@@ -35,7 +36,6 @@ pipeline {
     }
     stage('Deploy to CF') {
       environment {
-        CF_APP_NAME="portaljs${env.CF_SPACE == 'production' ? '' : '-' + env.CF_SPACE}"
         CTF_CPA_ACCESS_TOKEN=credentials("portaljs.${env.CF_SPACE}.contentful.cpa")
         HTTP_DIGEST_ACL=credentials("portaljs.${env.CF_SPACE}.http.digest.acl")
       }
