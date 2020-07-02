@@ -22,7 +22,12 @@
 
 <script>
   export default {
+    name: 'ViewToggles',
     props: {
+      value: {
+        type: String,
+        default: 'grid'
+      },
       linkGenRoute: {
         type: Object,
         default: () => {
@@ -32,22 +37,18 @@
     },
     data() {
       return {
-        views: ['list', 'grid']
+        views: ['list', 'grid'],
+        activeView: this.value
       };
     },
-    computed: {
-      activeView: {
-        get() {
-          return this.$store.getters['search/activeView'];
-        },
-        set(value) {
-          this.$store.commit('search/setView', value);
-        }
+    watch: {
+      value() {
+        this.activeView = this.value;
       }
     },
     methods: {
       linkGen(view) {
-        return this.localePath({ ...this.linkGenRoute, ...{ query: { ...this.$route.query, ...{ view } } } });
+        return this.$path({ ...this.linkGenRoute, ...{ query: { ...this.$route.query, ...{ view } } } });
       },
       selectView(view) {
         if (view !== this.activeView) {

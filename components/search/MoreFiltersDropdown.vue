@@ -21,14 +21,18 @@
     <b-dropdown-form>
       <div class="more-facets-wrapper">
         <template
-          v-if="collection === 'newspaper'"
+          v-if="enableApiFilter"
         >
           <RadioGroupFilter
             facet-name="api"
             :options="['fulltext', 'metadata']"
-            :selected="preSelected['api'] || 'fulltext'"
+            :selected="preSelected['api'] || apiFilterDefault"
             @change="updateSelected"
           />
+        </template>
+        <template
+          v-if="collection === 'newspaper'"
+        >
           <DateFilter
             :name="PROXY_DCTERMS_ISSUED"
             :start="dateFilter.start"
@@ -41,9 +45,9 @@
           v-for="(facet, index) in moreFacets"
         >
           <MoreFiltersDropdownFacet
-            v-if="facet.fields && facet.fields.length > 0"
+            v-if="filterFields(facet.name, facet.fields).length > 0"
             :key="index"
-            :fields="facet.fields"
+            :fields="filterFields(facet.name, facet.fields)"
             :name="facet.name"
             :selected="preSelected[facet.name]"
             @selectedOptions="updateSelected"
@@ -87,11 +91,12 @@
 <script>
   import Vue from 'vue';
   import isEqual from 'lodash/isEqual';
-  import { mapGetters } from 'vuex';
+  import { mapGetters, mapState } from 'vuex';
   import { rangeToQueryParam, rangeFromQueryParam } from '../../plugins/europeana/search';
   import MoreFiltersDropdownFacet from './MoreFiltersDropdownFacet';
   import DateFilter from './DateFilter';
   import RadioGroupFilter from './RadioGroupFilter';
+
   export default {
     components: {
       MoreFiltersDropdownFacet,
@@ -116,6 +121,9 @@
       };
     },
     computed: {
+      ...mapState({
+        ww1CollectionEnabled: state => state.collections.ww1.enabled
+      }),
       ...mapGetters({
         collection: 'search/collection'
       }),
@@ -161,6 +169,14 @@
           return { start: proxyDctermsIssued[0], end: null, specific: true };
         }
         return range;
+      },
+      enableApiFilter() {
+        if (this.collection === 'newspaper') return true;
+        if (this.collection === 'ww1' && this.ww1CollectionEnabled) return true;
+        return false;
+      },
+      apiFilterDefault() {
+        return this.collection === 'newspaper' ? 'fulltext' : 'metadata';
       }
     },
     watch: {
@@ -183,6 +199,13 @@
         }
         this.isCheckedSpecificDate = dateRange.specific;
         this.updateSelected(facetName, dateQuery);
+      },
+      filterFields(name, fields) {
+        // Only show option 0 for contentTier toggle
+        if (name === 'contentTier') {
+          return fields.filter(field => field.label === '"0"');
+        }
+        return fields;
       },
       updateSelected(facetName, selectedFields) {
         Vue.set(this.preSelected, facetName, selectedFields);

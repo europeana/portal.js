@@ -1,45 +1,27 @@
 <template>
   <b-container>
+    <ContentHeader
+      :title="title"
+      :description="htmlDescription"
+      :media-url="shareMediaUrl"
+    />
     <b-row class="flex-md-row pb-5">
-      <b-col
-        cols="12"
-        lg="9"
-        class="pb-0 pb-lg-3"
-      >
-        <h1 data-qa="gallery title">
-          {{ title }}
-        </h1>
-        <!-- eslint-disable vue/no-v-html -->
-        <div
-          v-if="htmlDescription"
-          v-html="htmlDescription"
-        />
-        <!-- eslint-enable vue/no-v-html -->
-      </b-col>
-      <b-col
-        cols="12"
-        lg="3"
-        class="pt-0 pb-3 py-lg-3 text-left text-lg-right"
-      >
-        <SocialShare
-          :media-url="shareMediaUrl"
-        />
-      </b-col>
       <b-col cols="12">
         <b-card-group
           class="masonry"
           deck
           data-qa="gallery images"
         >
-          <ContentCard
-            v-for="image in images"
-            :key="image.fields.identifier"
-            :title="image.fields.name"
-            :image-url="image.fields.thumbnailUrl"
-            :lazy="false"
-            :texts="[image.fields.description]"
-            :url="{ name: 'record-all', params: { pathMatch: image.fields.identifier.slice(1) } }"
-          />
+          <client-only>
+            <ContentCard
+              v-for="image in images"
+              :key="image.identifier"
+              :title="imageTitle(image)"
+              :image-url="imageUrl(image)"
+              :lazy="false"
+              :url="{ name: 'item-all', params: { pathMatch: image.identifier.slice(1) } }"
+            />
+          </client-only>
         </b-card-group>
       </b-col>
     </b-row>
@@ -47,22 +29,21 @@
 </template>
 
 <script>
-  import createClient from '../../plugins/contentful';
-  import ContentCard from '../../components/generic/ContentCard';
-  import SocialShare from '../../components/generic/SocialShare';
+  import ClientOnly from 'vue-client-only';
+  import ContentHeader from '../../components/generic/ContentHeader';
+
   import marked from 'marked';
 
   export default {
     name: 'ImageGallery',
     components: {
-      ContentCard,
-      SocialShare
+      ClientOnly,
+      ContentHeader,
+      ContentCard: () => import('../../components/generic/ContentCard')
     },
     computed: {
       shareMediaUrl() {
-        if (this.images.length <= 0) return null;
-        if (!this.images[0].fields.thumbnailUrl) return null;
-        return this.images[0].fields.thumbnailUrl;
+        return this.images.length === 0 ? null : this.imageUrl(this.images[0]);
       },
       description() {
         return this.$options.filters.stripMarkdown(this.rawDescription);
@@ -72,23 +53,48 @@
       }
     },
     asyncData({ params, query, error, app }) {
-      const contentfulClient = createClient(query.mode);
+      const variables = {
+        identifier: params.pathMatch,
+        locale: app.i18n.isoLocale(),
+        preview: query.mode === 'preview'
+      };
 
-      return contentfulClient.getEntries({
-        'locale': app.i18n.isoLocale(),
-        'content_type': 'imageGallery',
-        'fields.identifier': params.pathMatch
-      })
-        .then((response) => {
+      return app.$contentful.query('galleryPage', variables)
+        .then(response => response.data.data)
+        .then(data => {
+          if (data.imageGalleryCollection.items.length === 0) {
+            error({ statusCode: 404, message: app.i18n.t('messages.notFound') });
+            return;
+          }
+
+          const gallery = data.imageGalleryCollection.items[0];
+
           return {
-            rawDescription: response.items[0].fields.description,
-            images: response.items[0].fields.hasPart,
-            title: response.items[0].fields.name
+            rawDescription: gallery.description,
+            images: gallery.hasPartCollection.items,
+            title: gallery.name
           };
         })
         .catch((e) => {
           error({ statusCode: 500, message: e.toString() });
         });
+    },
+    methods: {
+      imageTitle(data) {
+        if (data.encoding) {
+          if (data.encoding.dcTitleLangAware) {
+            return data.encoding.dcTitleLangAware;
+          } else if (data.encoding.dcDescriptionLangAware) {
+            return data.encoding.dcDescriptionLangAware;
+          } else {
+            return this.$t('record.record');
+          }
+        }
+        return data.name;
+      },
+      imageUrl(data) {
+        return (data.encoding ? data.encoding.edmPreview : data.thumbnailUrl) + '&size=w200';
+      }
     },
     head() {
       return {

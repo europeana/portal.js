@@ -1,9 +1,12 @@
 <template>
-  <b-container data-qa="exhibitions">
+  <b-container
+    data-qa="exhibitions"
+  >
+    <ContentHeader
+      :title="$tc('exhibitions.exhibitions', 2)"
+      :description="$t('exhibitions.description')"
+    />
     <b-row class="flex-md-row pb-5">
-      <b-col cols="12">
-        <h1>{{ $t('exhibitions.exhibitions') }}</h1>
-      </b-col>
       <b-col cols="12">
         <b-card-group
           class="card-deck-4-cols"
@@ -13,12 +16,12 @@
           <ContentCard
             v-for="exhibition in exhibitions"
             :key="exhibition.identifier"
-            :title="exhibition.fields.name"
-            :url="{ name: 'exhibition-exhibition', params: { exhibition: exhibition.fields.identifier } }"
-            :image-url="imageUrl(exhibition.fields.primaryImageOfPage)"
-            :image-content-type="imageContentType(exhibition.fields.primaryImageOfPage)"
+            :title="exhibition.name"
+            :url="{ name: 'exhibitions-exhibition', params: { exhibition: exhibition.identifier } }"
+            :image-url="imageUrl(exhibition.primaryImageOfPage)"
+            :image-content-type="imageContentType(exhibition.primaryImageOfPage)"
             :image-optimisation-options="{ width: 510 }"
-            :texts="[exhibition.fields.description]"
+            :texts="[exhibition.description]"
           />
         </b-card-group>
       </b-col>
@@ -39,7 +42,7 @@
 </template>
 
 <script>
-  import createClient from '../../plugins/contentful';
+  import ContentHeader from '../../components/generic/ContentHeader';
   import ContentCard from '../../components/generic/ContentCard';
   import PaginationNav from '../../components/generic/PaginationNav';
   import { pageFromQuery } from '../../plugins/utils';
@@ -49,12 +52,13 @@
   export default {
     name: 'ExhibitionFoyer',
     components: {
+      ContentHeader,
       ContentCard,
       PaginationNav
     },
     head() {
       return {
-        title: this.$t('exhibitions.exhibitions')
+        title: this.$tc('exhibitions.exhibitions', 2)
       };
     },
     data() {
@@ -73,21 +77,22 @@
       if (currentPage === null) {
         // Redirect non-positive integer values for `page` to `page=1`
         query.page = '1';
-        return redirect(app.localePath({ name: 'exhibitions', query }));
+        return redirect(app.$path({ name: 'exhibitions', query }));
       }
 
-      const contentfulClient = createClient(query.mode);
-      return contentfulClient.getEntries({
+      const variables = {
         locale: app.i18n.isoLocale(),
-        'content_type': 'exhibitionPage',
-        skip: (currentPage - 1) * PER_PAGE,
-        order: '-fields.datePublished',
-        limit: PER_PAGE
-      })
-        .then((response) => {
+        preview: query.mode === 'preview',
+        limit: PER_PAGE,
+        skip: (currentPage - 1) * PER_PAGE
+      };
+
+      return app.$contentful.query('exhibitionFoyerPage', variables)
+        .then(response => response.data.data)
+        .then(data => {
           return {
-            exhibitions: response.items,
-            total: response.total,
+            exhibitions: data.exhibitionPageCollection.items,
+            total: data.exhibitionPageCollection.total,
             page: currentPage,
             perPage: PER_PAGE
           };
@@ -98,15 +103,13 @@
     },
     methods: {
       paginationLink(val) {
-        return this.localePath({ name: 'exhibitions', query: { page: val } });
+        return this.$path({ name: 'exhibitions', query: { page: val } });
       },
       imageUrl(image) {
-        if (image && image.fields && image.fields.image && image.fields.image.fields && image.fields.image.fields.file)
-          return image.fields.image.fields.file.url;
+        if (image && image.image) return image.image.url;
       },
       imageContentType(image) {
-        if (image && image.fields && image.fields.image && image.fields.image.fields && image.fields.image.fields.file)
-          return image.fields.image.fields.file.contentType;
+        if (image && image.image) return image.image.contentType;
       }
     },
     watchQuery: ['page'],

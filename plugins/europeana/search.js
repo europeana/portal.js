@@ -4,8 +4,7 @@
 
 import axios from 'axios';
 import qs from 'qs';
-import config from './api';
-import { URL } from '../url';
+import { config } from './';
 import { apiError } from './utils';
 import thumbnailUrl, { genericThumbnail } from './thumbnail';
 
@@ -69,6 +68,18 @@ export function rangeFromQueryParam(paramValue) {
 
   return { start, end };
 }
+
+/**
+ * Filters Hit response with scope string
+ * @param  {Object} hits API response
+ * @param  {string} id Item item
+ * @return {Object} returns selector object
+ */
+function hitForItem(hits, id) {
+  const selector = hits.find((hit) => id === hit.scope);
+  return selector ? { selector: selector.selectors[0] } : {};
+}
+
 /**
  * Extract search results from API response
  * @param  {Object} response API response
@@ -90,12 +101,15 @@ function resultsFromApiResponse(response) {
     }
 
     return {
-      europeanaId: item.id,
-      edmPreview,
-      dcTitle: item.dcTitleLangAware,
-      dcDescription: item.dcDescriptionLangAware,
-      dcCreator: item.dcCreatorLangAware,
-      edmDataProvider: item.dataProvider
+      ...{
+        europeanaId: item.id,
+        edmPreview,
+        dcTitle: item.dcTitleLangAware,
+        dcDescription: item.dcDescriptionLangAware,
+        dcCreator: item.dcCreatorLangAware,
+        edmDataProvider: item.dataProvider
+      },
+      ...(response.data.hits !== undefined ? hitForItem(response.data.hits, item.id) : {})
     };
   });
 
@@ -117,7 +131,7 @@ function resultsFromApiResponse(response) {
  * @param {string} options.path path prefix for API, overriding default `config.record.path`
  * @return {{results: Object[], totalResults: number, facets: FacetSet, error: string}} search results for display
  */
-function search(params, options = {}) {
+export function search(params, options = {}) {
   const maxResults = 1000;
   const perPage = params.rows === undefined ? 24 : Number(params.rows);
   const page = params.page || 1;
@@ -176,7 +190,7 @@ export function addContentTierFilter(qf) {
     const contentTierFilter = hasFilterForField(newQf, 'collection') ? '2 OR 3 OR 4' : '1 OR 2 OR 3 OR 4';
     newQf.push(`contentTier:(${contentTierFilter})`);
   }
-  // contentTier:* is irrelevant so is removed
+  // contentTier:* is redundant so is removed
   newQf = newQf.filter(v => v !== 'contentTier:*');
 
   return newQf;
@@ -185,5 +199,3 @@ export function addContentTierFilter(qf) {
 const hasFilterForField = (filters, fieldName) => {
   return filters.some(v => new RegExp(`^${fieldName}:`).test(v));
 };
-
-export default search;

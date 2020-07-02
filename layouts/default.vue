@@ -1,5 +1,8 @@
 <template>
   <div>
+    <client-only>
+      <CookieDisclaimer />
+    </client-only>
     <a
       class="skip-main"
       href="#main"
@@ -10,83 +13,122 @@
     <PageHeader
       :enable-auto-suggest="enableAutoSuggest"
       :enable-language-selector="enableLanguageSelector"
-      :enable-suggestion-validation="enableSuggestionValidation"
+      :main-navigation="linkGroups.mainNavigation"
+      :mobile-navigation="linkGroups.mobileNavigation"
+      keep-alive
     />
-    <b-container v-if="breadcrumbs">
-      <b-row>
-        <b-col class="col-12">
-          <b-breadcrumb
-            :items="breadcrumbs"
-            class="px-0"
-          />
-        </b-col>
-      </b-row>
-    </b-container>
-    <main role="main">
+    <main
+      id="default"
+      role="main"
+    >
+      <b-breadcrumb
+        v-if="breadcrumbs"
+        :items="breadcrumbs"
+        class="mb-5"
+      />
       <nuxt
         id="main"
       />
     </main>
-    <PageFooter />
-    <CookieDisclaimer />
+    <client-only>
+      <PageFooter
+        :help-navigation="linkGroups.footerHelp"
+        :more-info-navigation="linkGroups.footerMoreInfo"
+      />
+    </client-only>
   </div>
 </template>
 
 <script>
-  import { mapGetters } from 'vuex';
+  import { mapGetters, mapState } from 'vuex';
 
-  import PageHeader from '../components/PageHeader.vue';
-  import PageFooter from '../components/PageFooter.vue';
-  import CookieDisclaimer from '../components/generic/CookieDisclaimer';
+  import ClientOnly from 'vue-client-only';
+  import PageHeader from '../components/PageHeader';
 
-  import 'bootstrap/dist/css/bootstrap.css';
-  import 'bootstrap-vue/dist/bootstrap-vue.css';
+  const config = {
+    enableLanguageSelector: Boolean(Number(process.env['ENABLE_LANGUAGE_SELECTOR'])),
+    bootstrapVersion: require('bootstrap/package.json').version,
+    bootstrapVueVersion: require('bootstrap-vue/package.json').version
+  };
 
   export default {
     components: {
+      ClientOnly,
+      CookieDisclaimer: () => import('../components/generic/CookieDisclaimer'),
       PageHeader,
-      PageFooter,
-      CookieDisclaimer
+      PageFooter: () => import('../components/PageFooter')
     },
 
-    middleware({ store, route }) {
-      store.commit('setCanonicalUrlPath', route.fullPath);
+    data() {
+      return {
+        ...config,
+        linkGroups: {}
+      };
     },
 
     computed: {
+      ...mapState({
+        breadcrumbs: state => state.breadcrumb.data
+      }),
       ...mapGetters({
-        canonicalUrl: 'canonicalUrl'
+        canonicalUrl: 'http/canonicalUrl',
+        canonicalUrlWithoutLocale: 'http/canonicalUrlWithoutLocale'
       }),
       enableAutoSuggest() {
         // Auto suggest on search form will be disabled unless toggled on by env var,
         // and always disabled on entity pages.
         return Boolean(Number(process.env['ENABLE_AUTOSUGGEST'])) && !(this.$store.state.entity && this.$store.state.entity.id);
-      },
-      enableLanguageSelector() {
-        return Boolean(Number(process.env['ENABLE_LANGUAGE_SELECTOR']));
-      },
-      enableSuggestionValidation() {
-        return Boolean(Number(process.env['ENABLE_ENTITY_SUGGESTION_RECORD_VALIDATION']));
-      },
-      breadcrumbs() {
-        return this.$store.state.breadcrumb.data;
       }
     },
 
+    watch: {
+      '$i18n.locale': '$fetch'
+    },
+
+    async fetch() {
+      const contentfulVariables = {
+        locale: this.$i18n.isoLocale(),
+        preview: this.$route.query.mode === 'preview'
+      };
+
+      let data;
+      try {
+        const response = await this.$contentful.query('linkGroups', contentfulVariables);
+        data = response.data;
+      } catch (e) {
+        return;
+      }
+
+      const linkGroups = {};
+      for (const identifier in data.data) {
+        const linkGroup = data.data[identifier].items[0];
+        linkGroups[identifier] = {
+          name: linkGroup.name ? linkGroup.name : null,
+          links: linkGroup.links.items
+        };
+      }
+      this.linkGroups = linkGroups;
+    },
+
     head() {
+      const i18nSeo = this.$nuxtI18nSeo();
       return {
+        htmlAttrs: {
+          ...i18nSeo.htmlAttrs
+        },
         link: [
-          { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Ubuntu:300,400,700%7COpen+Sans:400italic,700italic,400,600,700&subset=latin,greek,cyrillic&display=swap', body: true }
+          { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Ubuntu:300,400,700%7COpen+Sans:400italic,700italic,400,600,700&subset=latin,greek,cyrillic&display=swap', body: true },
+          { rel: 'stylesheet', href: `https://unpkg.com/bootstrap@${this.bootstrapVersion}/dist/css/bootstrap.min.css` },
+          { rel: 'stylesheet', href: `https://unpkg.com/bootstrap-vue@${this.bootstrapVueVersion}/dist/bootstrap-vue.min.css` },
+          { hreflang: 'x-default', rel: 'alternate', href: this.canonicalUrlWithoutLocale },
+          ...i18nSeo.link
         ],
         meta: [
           { hid: 'description', property: 'description', content: 'Europeana' },
-          { hid: 'og:url', property: 'og:url', content: this.canonicalUrl }
+          { hid: 'og:url', property: 'og:url', content: this.canonicalUrl },
+          ...i18nSeo.meta
         ]
       };
     }
   };
 </script>
-
-<style lang="scss">
-  @import '~assets/scss/style';
-</style>

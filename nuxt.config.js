@@ -1,10 +1,14 @@
 // Load dotenv for server/index.js to access env vars from .env file
+/* eslint-disable camelcase */
 require('dotenv').config();
 const pkg = require('./package');
 const i18nLocales = require('./plugins/i18n/locales.js');
 const i18nDateTime = require('./plugins/i18n/datetime.js');
 
-module.exports = {
+const routerMiddleware = ['http', 'legacy/index', 'l10n'];
+if (!Number(process.env['DISABLE_SSL_NEGOTIATION'])) routerMiddleware.unshift('ssl');
+
+const config = {
   mode: 'universal',
 
   /*
@@ -40,7 +44,7 @@ module.exports = {
   /*
   ** Global CSS
   */
-  css: [],
+  css: ['./assets/scss/style'],
 
   // BootstrapVue
   // Doc: https://bootstrap-vue.js.org/docs/
@@ -48,8 +52,8 @@ module.exports = {
     // Set these two settings to `false` to prevent auto-importing of Bootstrap(Vue)
     // CSS. It will then need to be manually imported, e.g. with
     // assets/scss/bootstrap.scss
-    bootstrapCSS: true,
-    bootstrapVueCSS: true,
+    bootstrapCSS: false,
+    bootstrapVueCSS: false,
 
     // Tree shake plugins
     componentPlugins: [
@@ -73,7 +77,9 @@ module.exports = {
       'MediaPlugin',
       'NavbarPlugin',
       'NavPlugin',
-      'PaginationNavPlugin'
+      'PaginationNavPlugin',
+      'TabsPlugin',
+      'ToastPlugin'
     ]
   },
 
@@ -81,16 +87,16 @@ module.exports = {
   ** Plugins to load before mounting the App
   */
   plugins: [
+    '~/plugins/path',
+    '~/plugins/europeana',
     '~/plugins/vue/index',
     '~/plugins/i18n.js',
-    '~/plugins/vue-filters'
+    '~/plugins/vue-filters',
+    '~/plugins/vue-disqus',
+    '~/plugins/vue-directives'
   ],
 
-  /*
-  ** Nuxt.js modules
-  */
-  modules: [
-    '~/modules/axios',
+  buildModules: [
     // Doc: https://www.elastic.co/guide/en/apm/agent/rum-js/current/configuration.html
     ['~/modules/elastic-apm', {
       serviceName: 'portal-js',
@@ -101,15 +107,28 @@ module.exports = {
       frameworkName: 'Nuxt.js',
       frameworkVersion: require('nuxt/package.json').version
     }],
+    '~/modules/axios',
+    '~/modules/contentful-graphql',
+    '@nuxtjs/gtm'
+  ],
+  gtm: {
+    id: process.env.GOOGLE_TAG_MANAGER_ID,
+    pageTracking: true
+  },
+
+  /*
+  ** Nuxt.js modules
+  */
+  modules: [
+    '@nuxtjs/axios',
+    '@nuxtjs/auth',
     '@nuxtjs/dotenv',
-    ['@nuxtjs/google-tag-manager', {
-      id: process.env.GOOGLE_TAG_MANAGER_ID,
-      pageTracking: true
-    }],
+    '~/modules/apis',
     'bootstrap-vue/nuxt',
     'cookie-universal-nuxt',
     ['nuxt-i18n', {
       locales: i18nLocales,
+      baseUrl: ({ store }) => store.getters['http/origin'],
       defaultLocale: 'en',
       lazy: true,
       langDir: 'lang/',
@@ -118,6 +137,12 @@ module.exports = {
         fallbackLocale: 'en',
         silentFallbackWarn: true,
         dateTimeFormats: i18nDateTime
+      },
+      // Disable redirects to account callback & login pages
+      parsePages: false,
+      pages: {
+        'account/callback': false,
+        'account/login': false
       },
       // Enable browser language detection to automatically redirect user
       // to their preferred language as they visit your app for the first time
@@ -134,14 +159,15 @@ module.exports = {
   ],
 
   router: {
-    middleware: ['legacy/index', 'l10n'],
+    middleware: routerMiddleware,
     extendRoutes(routes) {
       routes.push({
         name: 'slug',
         path: '/*',
         component: 'pages/index.vue'
       });
-    }
+    },
+    linkExactActiveClass: 'exact-active-link'
   },
 
   /*
@@ -178,7 +204,6 @@ module.exports = {
       }
     }
   },
-
   /*
   ** Render configuration
    */
@@ -188,3 +213,34 @@ module.exports = {
     }
   }
 };
+
+if (Number(process.env['ENABLE_XX_USER_AUTH'])) {
+  config.auth = {
+    // Redirect routes: 'callback' option for keycloak redirects,
+    // 'login' option for unauthorised redirection
+    // 'home' option for redirection after login
+    redirect: {
+      login: '/account/login',
+      logout: '/',
+      callback: '/account/callback',
+      home: '/account/profile'
+    },
+    fullPathRedirect: true,
+    strategies: {
+      local: false,
+      keycloak: {
+        _scheme: process.env.OAUTH_SCHEME,
+        client_id: process.env.OAUTH_CLIENT,
+        scope: process.env.OAUTH_SCOPE.split(','),
+        realm: process.env.OAUTH_REALM,
+        authorization_endpoint: process.env.OAUTH_URL + '/auth',
+        access_token_endpoint: process.env.OAUTH_URL + '/token',
+        userinfo_endpoint: process.env.OAUTH_URL + '/userinfo',
+        response_type: 'code id_token token',
+        token_type: 'Bearer'
+      }
+    }
+  };
+}
+
+module.exports = config;

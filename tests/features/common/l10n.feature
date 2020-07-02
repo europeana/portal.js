@@ -29,3 +29,7 @@ Feature: Localisation
   Scenario: Unsupported language is removed
     When I open `/ru/about-us`
     Then I should be on `/en/about-us`
+  
+  Scenario: Correct HREFLANG tags are shown
+    When I open `/en`
+    Then I should see alternate-hreflang tags

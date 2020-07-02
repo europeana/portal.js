@@ -7,115 +7,106 @@
       :notification-url="notificationUrl"
       :notification-text="$t('linksToClassic.home.text')"
       :notification-link-text="$t('linksToClassic.home.linkText')"
+      class="mb-3"
     />
     <HeroImage
       v-if="hero"
       :image-url="heroImage.url"
       :image-content-type="heroImage.contentType"
-      :header="page.name"
-      :lead="page.headline"
+      :header="name"
+      :lead="headline"
       :rights-statement="hero.license"
       :name="hero.name"
       :provider="hero.provider"
       :creator="hero.creator"
       :url="hero.url"
-      class="mt-0"
     />
     <b-container>
-      <header
+      <ContentHeader
         v-if="!hero"
-        class="row"
-      >
-        <div class="col-12 col-lg-9 col mt-3">
-          <h1>{{ page.name }}</h1>
-          <p
-            v-if="page.headline"
-            class="lead"
-          >
-            {{ page.headline }}
-          </p>
-        </div>
-      </header>
+        :title="name"
+        :description="headline"
+      />
       <BrowseSections
-        v-if="page"
-        :sections="page.hasPart"
+        :sections="hasPartCollection.items"
       />
     </b-container>
   </div>
 </template>
 
 <script>
+  import ContentHeader from '../components/generic/ContentHeader';
   import BrowseSections from '../components/browse/BrowseSections';
   import HeroImage from '../components/generic/HeroImage';
   import NotificationBanner from '../components/generic/NotificationBanner.vue';
-  import createClient from '../plugins/contentful';
 
   export default {
     components: {
+      ContentHeader,
       BrowseSections,
       NotificationBanner,
       HeroImage
     },
     computed: {
       hero() {
-        return this.page.primaryImageOfPage ? this.page.primaryImageOfPage.fields : null;
+        return this.primaryImageOfPage ? this.primaryImageOfPage : null;
       },
       heroImage() {
-        return this.hero ? this.hero.image.fields.file : null;
+        return this.hero ? this.hero.image : null;
       },
       onHomePage() {
-        return Boolean(Number(process.env.ENABLE_LINKS_TO_CLASSIC)) && !this.path;
+        return Boolean(Number(process.env.ENABLE_LINKS_TO_CLASSIC)) && (this.identifier === 'home');
       },
       notificationUrl() {
         return `https://classic.europeana.eu/portal/${this.$store.state.i18n.locale}?utm_source=new-website&utm_medium=button`;
+      },
+      optimisedImageUrl() {
+        // use social media image if set in Contentful, otherwise use hero image
+        let img = this.image !== null ? this.image : this.heroImage;
+        return this.$options.filters.optimisedImageUrl(
+          img.url,
+          img.contentType,
+          { width: 800, height: 800 }
+        );
       }
     },
-    asyncData({ params, query, error, app }) {
-      const contentfulClient = createClient(query.mode);
 
-      // fetch the browsePage data, include set to 2 in order to get nested card data
-      return contentfulClient.getEntries({
-        'locale': app.i18n.isoLocale(),
-        'content_type': 'browsePage',
-        'fields.identifier': params.pathMatch ? params.pathMatch : 'home',
-        'include': 2,
-        'limit': 1
-      })
-        .then((response) => {
-          if (response.total === 0) {
+    asyncData({ params, query, error, app }) {
+      const variables = {
+        identifier: params.pathMatch ? params.pathMatch : 'home',
+        locale: app.i18n.isoLocale(),
+        preview: query.mode === 'preview'
+      };
+
+      return app.$contentful.query('browsePage', variables)
+        .then(response => response.data.data)
+        .then(data => {
+          if (data.browsePageCollection.items.length === 0) {
             error({ statusCode: 404, message: app.i18n.t('messages.notFound') });
             return;
           }
-          return {
-            page: response.items[0].fields,
-            path: params.pathMatch
-          };
+
+          return data.browsePageCollection.items[0];
         })
         .catch((e) => {
           error({ statusCode: 500, message: e.toString() });
         });
     },
+
     head() {
       return {
-        title: this.page.name,
+        title: this.name,
         meta: [
-          { hid: 'title', name: 'title', content: this.page.name },
-          { hid: 'og:title', property: 'og:title', content: this.page.name }
-        ].concat(this.page.description ? [
-          { hid: 'description', name: 'description', content: this.page.description },
-          { hid: 'og:description', property: 'og:description', content: this.page.description }
+          { hid: 'og:type', property: 'og:type', content: 'article' },
+          { hid: 'title', name: 'title', content: this.name },
+          { hid: 'og:title', property: 'og:title', content: this.name }
+        ].concat(this.description ? [
+          { hid: 'description', name: 'description', content: this.description },
+          { hid: 'og:description', property: 'og:description', content: this.description }
+        ] : []).concat(this.heroImage ? [
+          { hid: 'og:image', property: 'og:image', content: this.optimisedImageUrl }
         ] : [])
       };
     }
   };
 </script>
-
-<style lang="scss" scoped>
-  header .col {
-    margin-bottom: 2.75rem;
-
-    *:last-child  {
-      margin-bottom: 0;
-    }
-  }
-</style>

@@ -19,8 +19,8 @@
                 {{ $t('cookieDisclaimer.link') }}
               </SmartLink>
             </p>
-            <span
-              class="accept-btn icon-close"
+            <button
+              class="accept-btn icon-close btn-transparent"
               :aria-label="$t('cookieDisclaimer.acceptCookieDisclaimer')"
               data-qa="cookie disclaimer button"
               @click="accept"
@@ -92,7 +92,7 @@
   @import '../../assets/scss/variables.scss';
 
   .cookie-disclaimer {
-    transition: all .4s ease;
+    transition: all 0.4s ease;
     position: fixed;
     background-color: $innovationblue;
     width: 100%;
@@ -111,21 +111,29 @@
     display: flex;
 
     .accept-btn {
-      transition: all .4s ease;
+      transition: all 0.4s ease;
       font-size: 1.5rem;
       padding: 0 1rem;
       align-items: center;
       justify-content: center;
       display: flex;
       cursor: pointer;
+      color: $white;
+
+      &:focus {
+        outline-color: $white;
+      }
 
       &:hover {
-        opacity: .8;
+        opacity: 0.8;
       }
     }
 
     .more-info {
       color: $white;
+      &:focus {
+        outline-color: $white;
+      }
     }
   }
 </style>

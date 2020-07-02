@@ -44,23 +44,23 @@
 
     computed: {
       useRouterLink() {
-        return this.recordIdentifier || (typeof this.destination !== 'string') || this.destination.startsWith('/');
+        return this.path && this.path.startsWith('/');
       },
 
       path() {
         if (typeof this.destination === 'object') {
-          return this.localePath(this.destination);
+          return this.$path(this.destination);
         }
 
-        if (this.recordIdentifier) {
-          return this.localePath({
-            name: 'record-all',
-            params: { pathMatch: this.recordIdentifier.slice(1) }
+        if (this.itemIdentifier) {
+          return this.$path({
+            name: 'item-all',
+            params: { pathMatch: this.itemIdentifier.slice(1) }
           });
         }
 
         if (typeof this.destination === 'string' && this.destination.startsWith('/')) {
-          return this.localePath({
+          return this.$path({
             name: 'slug',
             params: {
               pathMatch: this.destination.slice(1)
@@ -71,7 +71,7 @@
         return this.destination;
       },
 
-      recordIdentifier() {
+      itemIdentifier() {
         const itemUriPattern = /^http:\/\/data\.europeana\.eu\/item(\/.*)$/;
         if (itemUriPattern.test(this.destination)) {
           return this.destination.match(itemUriPattern)[1];
@@ -83,7 +83,7 @@
         const path = this.destination;
         const hostnamePattern = /\/\/([^/:]+)/;
 
-        if (this.recordIdentifier) return false;
+        if (this.itemIdentifier) return false;
         if (typeof path !== 'string' || !hostnamePattern.test(path)) return false;
 
         const hostname = path.match(hostnamePattern)[1];

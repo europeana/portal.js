@@ -1,36 +1,16 @@
-import axios from 'axios';
-import isHTTPS from 'is-https';
-
-export const state = () => ({
-  canonicalUrlOrigin: null,
-  canonicalUrlPath: null
-});
-
-export const mutations = {
-  setCanonicalUrlOrigin(state, value) {
-    state.canonicalUrlOrigin = value;
-  },
-  setCanonicalUrlPath(state, value) {
-    state.canonicalUrlPath = value;
-  }
-};
-
-export const getters = {
-  canonicalUrl(state) {
-    return state.canonicalUrlOrigin + state.canonicalUrlPath;
-  }
-};
+import europeanaPlugin from '../plugins/europeana';
 
 export const actions = {
-  async nuxtServerInit({ commit, dispatch }, { req, route }) {
-    const scheme = isHTTPS(req, true) ? 'https://' : 'http://';
-    const origin = scheme + req.headers.host;
-    commit('setCanonicalUrlOrigin', origin);
-    commit('setCanonicalUrlPath', route.fullPath);
+  // WARNING: Do not make API calls here without **very** good reason, such as
+  //          there being no feasible alternative... which is unlikely. Those
+  //          requests will be made on **every** SSR, even those interrupted
+  //          by middleware, such as those resulting in redirects and never using
+  //          the response of the API calls.
+  async nuxtServerInit(store, context) {
+    store.dispatch('http/init', context);
 
-    await axios.all([
-      dispatch('link-group/init'),
-      dispatch('entity/init')
-    ]);
+    // TODO: does this warrant a store module, or should we just write to context.app here?
+    store.commit('apis/setOrigin', store.getters['http/origin']);
+    europeanaPlugin({ store });
   }
 };

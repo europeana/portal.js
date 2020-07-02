@@ -9,19 +9,20 @@
       v-for="result in value"
       :key="result.europeanaId"
       :title="result.dcTitle || result.dcDescription"
-      :url="{ name: 'record-all', params: { pathMatch: result.europeanaId.slice(1) } }"
+      :url="{ name: 'item-all', params: { pathMatch: result.europeanaId.slice(1) } }"
       :image-url="result.edmPreview"
       :texts="cardTexts(result, 'list')"
+      :hits-text="result.selector"
       data-qa="search result"
       :limit-values-within-each-text="3"
-      :omit-uris-if-other-values="true"
+      :omit-all-uris="true"
       variant="list"
       class="mx-0"
     />
   </b-card-group>
   <b-card-group
     v-else
-    :class="`card-deck-search card-deck-${perRow}-cols`"
+    :class="`card-deck-search masonry card-deck-${perRow}-cols`"
     deck
     data-qa="search results grid"
   >
@@ -29,12 +30,13 @@
       v-for="result in value"
       :key="result.europeanaId"
       :title="result.dcTitle || result.dcDescription"
-      :url="{ name: 'record-all', params: { pathMatch: result.europeanaId.slice(1) } }"
+      :url="{ name: 'item-all', params: { pathMatch: result.europeanaId.slice(1) } }"
       :image-url="result.edmPreview"
+      :show-user-buttons="showUserButtons"
       :texts="cardTexts(result)"
       data-qa="search result"
       :limit-values-within-each-text="3"
-      :omit-uris-if-other-values="true"
+      :omit-all-uris="true"
       :blank-image-height="280"
     />
   </b-card-group>
@@ -58,12 +60,29 @@
       perRow: {
         type: Number,
         default: 4
+      },
+      view: {
+        type: String,
+        default: 'grid'
       }
     },
 
+    data() {
+      return {
+        activeView: this.view
+      };
+    },
+
     computed: {
+      showUserButtons() {
+        // TODO: can be removed at some point
+        return Boolean(Number(process.env.ENABLE_XX_USER_AUTH));
+      }
+    },
+
+    watch: {
       view() {
-        return this.$store.getters['search/activeView'];
+        this.activeView = this.view;
       }
     },
 
@@ -73,7 +92,7 @@
         if (result.dcCreator) texts.unshift(result.dcCreator);
 
         if (variant === 'list') {
-          if (result.dcDescription) texts.unshift(result.dcDescription);
+          if (!result.selector && result.dcDescription) texts.unshift(result.dcDescription);
         }
 
         return texts;

@@ -1,23 +1,40 @@
 <template>
-  <b-container data-qa="search page">
-    <b-row>
-      <b-col>
-        <h1>{{ $t('search') }}</h1>
-      </b-col>
-      <SearchInterface
-        :per-row="4"
-      />
-    </b-row>
-  </b-container>
+  <div>
+    <NotificationBanner
+      v-if="redirectNotificationsEnabled"
+      :notification-url="notificationUrl"
+      :notification-text="$t('linksToClassic.search.text')"
+      :notification-link-text="$t('linksToClassic.search.linkText')"
+      class="mb-3"
+    />
+    <b-container data-qa="search page">
+      <b-row>
+        <b-col>
+          <h1>{{ $t('search') }}</h1>
+        </b-col>
+        <RelatedCollections
+          v-if="relatedCollectionsEnabled"
+          :query="this.$route.query.query"
+        />
+        <SearchInterface
+          :per-row="4"
+        />
+      </b-row>
+    </b-container>
+  </div>
 </template>
 
 <script>
   import SearchInterface from '../../components/search/SearchInterface';
   import { pageFromQuery } from '../../plugins/utils';
+  import legacyUrl from '../../plugins/europeana/legacy-search';
+  import NotificationBanner from '../../components/generic/NotificationBanner';
 
   export default {
     components: {
-      SearchInterface
+      SearchInterface,
+      NotificationBanner,
+      RelatedCollections: () => import('../../components/generic/RelatedCollections')
     },
 
     middleware({ query, redirect, app }) {
@@ -25,18 +42,25 @@
 
       if (currentPage === null) {
         // Redirect non-positive integer values for `page` to `page=1`
-        return redirect(app.localePath({ name: 'search', query: { ...query, ...{ page: '1' } } }));
+        return redirect(app.$path({ name: 'search', query: { ...query, ...{ page: '1' } } }));
+      }
+    },
+    computed: {
+      notificationUrl() {
+        return legacyUrl(this.$route.query, this.$store.state.i18n.locale) +
+          '&utm_source=new-website&utm_medium=button';
+      },
+      redirectNotificationsEnabled() {
+        return Boolean(Number(process.env.ENABLE_LINKS_TO_CLASSIC));
+      },
+      relatedCollectionsEnabled() {
+        return Boolean(Number(process.env.ENABLE_SEARCH_RELATED_COLLECTIONS));
       }
     },
 
     async fetch({ store, query, res }) {
       await store.dispatch('search/activate');
       store.commit('search/set', ['userParams', query]);
-
-      // TODO: remove when enabled by default
-      if (Number(process.env.ENABLE_FASHION_COLLECTION_FACETS)) {
-        store.commit('collections/fashion/enable');
-      }
 
       await store.dispatch('search/run');
       if (store.state.search.error && typeof res !== 'undefined') {

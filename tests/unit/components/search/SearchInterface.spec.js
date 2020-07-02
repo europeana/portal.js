@@ -15,6 +15,8 @@ localVue.use(BootstrapVue);
 localVue.use(VueRouter);
 localVue.use(Vuex);
 
+const searchSetViewMutation = sinon.spy();
+
 const factory = (options = {}) => {
   const router = new VueRouter({
     routes: [
@@ -23,15 +25,16 @@ const factory = (options = {}) => {
         name: 'search'
       },
       {
-        path: '/record/*',
-        name: 'record-all'
+        path: '/item/*',
+        name: 'item-all'
       }
     ]
   });
 
   const mocks = {
     $t: (key) => key,
-    localePath: (opts) => opts,
+    $path: () => '/',
+    $goto: () => null,
     ...options.mocks
   };
   const store = new Vuex.Store({
@@ -62,7 +65,7 @@ const factory = (options = {}) => {
         },
         mutations: {
           setUserParams: () => null,
-          setView: () => null
+          setView: (state, view) => searchSetViewMutation(state, view)
         },
         actions: {
           queryFacets: () => null,
@@ -99,36 +102,6 @@ describe('components/search/SearchInterface', () => {
   });
 
   describe('computed properties', () => {
-    describe('contentTierActiveState', () => {
-      context('when contentTier filter includes "*"', () => {
-        it('is `true`', async() => {
-          const wrapper = await factory({
-            storeGetters: {
-              filters: () => {
-                return { contentTier: '*' };
-              }
-            }
-          });
-
-          wrapper.vm.contentTierActiveState.should.be.true;
-        });
-      });
-
-      context('when contentTier filter does not include "*"', () => {
-        it('is `false`', async() => {
-          const wrapper = await factory({
-            storeGetters: {
-              filters: () => {
-                return { contentTier: '1 OR 2 OR 3 OR 4' };
-              }
-            }
-          });
-
-          wrapper.vm.contentTierActiveState.should.be.false;
-        });
-      });
-    });
-
     describe('errorMessage', () => {
       context('when there was a pagination error', () => {
         it('returns a user-friendly error message', async() => {
@@ -263,6 +236,19 @@ describe('components/search/SearchInterface', () => {
         wrapper.vm.moreFacets.map(moreFacet => moreFacet.name).should.eql(['LANGUAGE', 'PROVIDER', 'DATA_PROVIDER']);
       });
     });
+
+    describe('view', () => {
+      describe('setter', () => {
+        it('commits to the search store', () => {
+          const wrapper = factory();
+          const view = 'list';
+
+          wrapper.vm.view = view;
+
+          searchSetViewMutation.should.have.been.calledWith(sinon.match.any, view);
+        });
+      });
+    });
   });
 
   describe('methods', () => {
@@ -329,6 +315,100 @@ describe('components/search/SearchInterface', () => {
             await wrapper.vm.changeFacet(facetName, newSelectedValues);
             searchRerouter.should.not.have.been.called;
           });
+        });
+      });
+    });
+
+    describe('showContentTierToast', () => {
+      const elementId = 'tier-toast';
+      let facets = [];
+
+      context('in browser', () => {
+        beforeEach(() => {
+          process.browser = true;
+          global.sessionStorage = {};
+        });
+
+        context('with contentTier "0" facet field', () => {
+          beforeEach(() => {
+            facets = [
+              { name: 'contentTier', fields: [{ label: '"0"' }] }
+            ];
+          });
+
+          context('when toast has not yet been shown this session', () => {
+            it('shows the toast', async() => {
+              const wrapper = factory({
+                storeState: { facets }
+              });
+              wrapper.vm.$bvToast.show = sinon.spy();
+              global.sessionStorage.contentTierToastShown = false;
+              await wrapper.vm.showContentTierToast();
+              wrapper.vm.$bvToast.show.should.have.been.calledWith(elementId);
+            });
+
+            it('updates session storage after toast is shown', async() => {
+              const wrapper = factory({
+                storeState: { facets }
+              });
+              global.sessionStorage.contentTierToastShown = false;
+              await wrapper.vm.showContentTierToast();
+              await wrapper.vm.$root.$emit('bv::toast:shown');
+
+              global.sessionStorage.contentTierToastShown.should.eql('true');
+            });
+          });
+
+          context('when toast has previously been shown this session', () => {
+            beforeEach(() => {
+              global.sessionStorage.contentTierToastShown = true;
+            });
+
+            it('does not show the toast', async() => {
+              const wrapper = factory({
+                storeState: { facets }
+              });
+              wrapper.vm.$bvToast.show = sinon.spy();
+
+              await wrapper.vm.showContentTierToast();
+
+              wrapper.vm.$bvToast.show.should.not.have.been.called;
+            });
+          });
+        });
+
+        context('without contentTier 0 facet field', () => {
+          beforeEach(() => {
+            facets = [
+              { name: 'contentTier', fields: [{ label: '"1"' }] }
+            ];
+          });
+
+          it('does not show the toast', async() => {
+            const wrapper = factory({
+              storeState: { facets }
+            });
+            wrapper.vm.$bvToast.show = sinon.spy();
+
+            await wrapper.vm.showContentTierToast();
+
+            wrapper.vm.$bvToast.show.should.not.have.been.called;
+          });
+        });
+      });
+
+      context('when not in browser', () => {
+        beforeEach(() => {
+          process.browser = false;
+        });
+
+        it('does not show the toast', async() => {
+          const wrapper = factory();
+          wrapper.vm.$bvToast.show = sinon.spy();
+
+          await wrapper.vm.showContentTierToast();
+
+          wrapper.vm.$bvToast.show.should.not.have.been.called;
         });
       });
     });

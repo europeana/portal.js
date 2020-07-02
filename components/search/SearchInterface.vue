@@ -17,32 +17,38 @@
         <b-col
           data-qa="search filters"
         >
-          <SearchFilters />
-          <div class="position-relative">
-            <FacetDropdown
-              v-for="facet in coreFacets"
-              :key="facet.name"
-              :name="facet.name"
-              :fields="facet.fields"
-              :type="facetDropdownType(facet.name)"
-              :selected="filters[facet.name]"
-              @changed="changeFacet"
-            />
-            <MoreFiltersDropdown
-              v-if="enableMoreFacets"
-              :more-facets="moreFacets"
-              :selected="moreSelectedFacets"
-              @changed="changeMoreFacets"
-            />
-            <button
-              v-if="isFilteredByDropdowns()"
-              class="reset"
-              data-qa="reset filters button"
-              @click="resetFilters"
-            >
-              {{ $t('reset') }}
-            </button>
-          </div>
+          <client-only>
+            <SearchFilters />
+            <div class="position-relative">
+              <FacetDropdown
+                v-for="facet in coreFacets"
+                :key="facet.name"
+                :name="facet.name"
+                :fields="facet.fields"
+                :type="facetDropdownType(facet.name)"
+                :selected="filters[facet.name]"
+                role="search"
+                :aria-label="`${facet.name} dropdown button`"
+                @changed="changeFacet"
+              />
+              <MoreFiltersDropdown
+                v-if="enableMoreFacets"
+                :more-facets="moreFacets"
+                :selected="moreSelectedFacets"
+                role="search"
+                aria-label="more filters dropdown button"
+                @changed="changeMoreFacets"
+              />
+              <button
+                v-if="isFilteredByDropdowns()"
+                class="reset"
+                data-qa="reset filters button"
+                @click="resetFilters"
+              >
+                {{ $t('reset') }}
+              </button>
+            </div>
+          </client-only>
         </b-col>
       </b-row>
       <b-row
@@ -66,6 +72,7 @@
         </b-col>
         <b-col>
           <ViewToggles
+            v-model="view"
             :link-gen-route="route"
           />
         </b-col>
@@ -99,59 +106,60 @@
           </b-row>
           <b-row>
             <b-col>
-              <TierToggler
-                v-if="tierToggleEnabled && showContentTierToggle"
-                :active-state="contentTierActiveState"
-              />
-            </b-col>
-          </b-row>
-          <b-row>
-            <b-col>
-              <PaginationNav
-                v-if="showPagination"
-                v-model="page"
-                :total-results="totalResults"
-                :per-page="perPage"
-                :link-gen="paginationLink"
-              />
+              <client-only>
+                <PaginationNav
+                  v-if="showPagination"
+                  v-model="page"
+                  :total-results="totalResults"
+                  :per-page="perPage"
+                  :link-gen="paginationLink"
+                />
+              </client-only>
             </b-col>
           </b-row>
         </b-col>
       </b-row>
     </template>
+    <b-toast
+      id="tier-toast"
+      toast-class="brand-toast"
+      toaster="b-toaster-bottom-left"
+      auto-hide-delay="10000"
+      is-status
+      no-close-button
+      solid
+      data-qa="tier toast"
+    >
+      {{ $t('facets.contentTier.notification') }}
+    </b-toast>
   </b-container>
 </template>
 
 <script>
-  import AlertMessage from '../../components/generic/AlertMessage';
-  import SearchResults from '../../components/search/SearchResults'; // Sorted before InfoMessage to prevent Conflicting CSS sorting warning
-  import InfoMessage from '../../components/generic/InfoMessage';
-  import FacetDropdown from '../../components/search/FacetDropdown';
-  import MoreFiltersDropdown from '../../components/search/MoreFiltersDropdown';
-  import SearchFilters from '../../components/search/SearchFilters';
-  import PaginationNav from '../../components/generic/PaginationNav';
-  import ViewToggles from '../../components/search/ViewToggles';
-  import TierToggler from '../../components/search/TierToggler';
-  import { thematicCollections } from '../../plugins/europeana/search';
+  import ClientOnly from 'vue-client-only';
+  import SearchResults from './SearchResults'; // Sorted before InfoMessage to prevent Conflicting CSS sorting warning
+  import InfoMessage from '../generic/InfoMessage';
+  import ViewToggles from './ViewToggles';
 
   import isEqual from 'lodash/isEqual';
   import pickBy from 'lodash/pickBy';
   import { mapState, mapGetters } from 'vuex';
+  import { thematicCollections } from '../../plugins/europeana/search';
   import { queryUpdatesForFilters } from '../../store/search';
 
   export default {
     name: 'SearchInterface',
 
     components: {
-      AlertMessage,
+      AlertMessage: () => import('../../components/generic/AlertMessage'),
+      ClientOnly,
       InfoMessage,
-      FacetDropdown,
-      MoreFiltersDropdown,
+      FacetDropdown: () => import('../../components/search/FacetDropdown'),
+      MoreFiltersDropdown: () => import('../../components/search/MoreFiltersDropdown'),
       SearchResults,
-      SearchFilters,
-      PaginationNav,
-      ViewToggles,
-      TierToggler
+      SearchFilters: () => import('../../components/search/SearchFilters'),
+      PaginationNav: () => import('../../components/generic/PaginationNav'),
+      ViewToggles
     },
     props: {
       perPage: {
@@ -167,10 +175,6 @@
         default: () => {
           return { name: 'search' };
         }
-      },
-      showContentTierToggle: {
-        type: Boolean,
-        default: true
       }
     },
     data() {
@@ -214,9 +218,6 @@
 
         // This is a workaround
         return Number(this.$route.query.page || 1);
-      },
-      contentTierActiveState() {
-        return this.filters.contentTier && this.filters.contentTier.includes('*');
       },
       errorMessage() {
         if (!this.error) return null;
@@ -281,22 +282,46 @@
       enableMoreFacets() {
         return this.moreFacets.length > 0;
       },
+      contentTierZeroPresent() {
+        return this.moreFacets.some(facet => {
+          return facet.name === 'contentTier' && facet.fields && facet.fields.some(option => option.label === '"0"');
+        });
+      },
+      contentTierZeroActive() {
+        return this.filters.contentTier && this.filters.contentTier.some(filter => {
+          return filter === '"0"' || filter === '*'; // UI applies "0", this won't handle user provided values.
+        });
+      },
       showPagination() {
         return this.totalResults > this.perPage;
       },
-      tierToggleEnabled() {
-        return Boolean(Number(process.env['ENABLE_CONTENT_TIER_TOGGLE']));
+      routeQueryView() {
+        return this.$route.query.view;
       },
-      view() {
-        return this.$store.getters['search/activeView'];
+      view: {
+        get() {
+          return this.$store.getters['search/activeView'];
+        },
+        set(value) {
+          this.$store.commit('search/setView', value);
+        }
       }
     },
-    created() {
-      if (this.$route.query.view) {
-        this.$store.commit('search/setView', this.$route.query.view);
-      }
+    watch: {
+      routeQueryView: 'viewFromRouteQuery',
+      contentTierZeroPresent: 'showContentTierToast',
+      contentTierZeroActive: 'showContentTierToast'
+    },
+    fetch() {
+      this.viewFromRouteQuery();
+    },
+    mounted() {
+      this.showContentTierToast();
     },
     methods: {
+      viewFromRouteQuery() {
+        if (this.routeQueryView) this.view = this.routeQueryView;
+      },
       facetDropdownType(name) {
         return name === 'collection' ? 'radio' : 'checkbox';
       },
@@ -312,11 +337,11 @@
         return this.rerouteSearch(this.queryUpdatesForFacetChanges(selected));
       },
       paginationLink(val) {
-        return this.localePath({ ...this.route, ...{ query: this.updateCurrentSearchQuery({ page: val }) } });
+        return this.$path({ ...this.route, ...{ query: this.updateCurrentSearchQuery({ page: val }) } });
       },
       rerouteSearch(queryUpdates) {
         const query = this.updateCurrentSearchQuery(queryUpdates);
-        this.$router.push(this.localePath({ ...this.route, ...{ query } }));
+        this.$goto(this.$path({ ...this.route, ...{ query } }));
       },
       updateCurrentSearchQuery(updates = {}) {
         const current = {
@@ -330,12 +355,13 @@
 
         const updated = { ...current, ...updates };
 
-        // If any updated values are `null`, remove them from the query
         for (const key in updated) {
+          // If any updated values are `null`, remove them from the query
           if (updated[key] === null) {
             delete updated[key];
           }
         }
+
         return updated;
       },
       resetFilters() {
@@ -349,13 +375,22 @@
       },
       isFilteredByDropdowns() {
         return this.$store.getters['search/hasResettableFilters'];
+      },
+      showContentTierToast() {
+        if (!process.browser) return;
+
+        if (sessionStorage.contentTierToastShown || this.contentTierZeroActive || !this.contentTierZeroPresent) {
+          return;
+        }
+        this.$bvToast.show('tier-toast');
+        sessionStorage.contentTierToastShown = 'true';
       }
     }
   };
 </script>
 
 <style lang="scss" scoped>
-  @import "./assets/scss/variables.scss";
+  @import './assets/scss/variables.scss';
 
   .reset {
     background: none;

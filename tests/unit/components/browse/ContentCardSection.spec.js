@@ -1,5 +1,6 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
+import apiConfig from '../../../../modules/apis/defaults';
 import ContentCardSection from '../../../../components/browse/ContentCardSection.vue';
 
 const localVue = createLocalVue();
@@ -10,6 +11,9 @@ const $store = {
     request: {
       domain: null
     }
+  },
+  getters: {
+    'apis/config': { ...apiConfig }
   }
 };
 
@@ -17,29 +21,23 @@ const factory = () => mount(ContentCardSection, {
   localVue,
   mocks: {
     $t: () => {},
+    $path: () => '/',
     $store
   }
 });
 
 const dummySection = {
-  fields: {
-    headline: 'Test Headline',
-    hasPart: [
-      {
-        sys: { id: '123' },
-        fields: { name: 'Card one title', description: 'the first card', url: 'http://europeana.eu', image: {
-          fields: { file: { url: 'img/landscape.jpg' } } }
-        }
-      },
-      {
-        sys: { id: '456' },
-        fields: { name: 'Card two title', description: 'the second card', url: 'http://europeana.eu', image: {
-          fields: { file: { url: 'img/portrait.jpg' } } }
-        }
-      }
+  headline: 'Test Headline',
+  hasPartCollection: {
+    items: [
+      { name: 'Card one title', description: 'the first card', url: 'http://europeana.eu', image: { url: 'img/landscape.jpg' } },
+      { name: 'Card two title', description: 'the second card', url: 'http://europeana.eu', image: { url: 'img/portrait.jpg' } }
     ]
   },
-  mocks: { $t: () => {} }
+  moreButton: {
+    url: 'http://europeana.eu',
+    text: 'Show more art'
+  }
 };
 
 describe('components/browse/ContentCardSection', () => {
@@ -64,6 +62,51 @@ describe('components/browse/ContentCardSection', () => {
       const cardGroup = wrapper.find('[data-qa="section group"]');
 
       cardGroup.findAll('[data-qa="content card"]').length.should.eq(2);
+    });
+
+    it('displays a button', () => {
+      const wrapper = factory();
+      wrapper.setProps({ section: dummySection });
+
+      const moreButton = wrapper.find('[data-qa="section more button"]');
+      moreButton.text().should.contain('Show more art');
+      moreButton.attributes('href').should.eq('http://europeana.eu');
+    });
+
+    it('displays mini cards if a section is exclusively people', () => {
+      const wrapper = factory();
+      wrapper.setProps({
+        section: {
+          hasPartCollection: {
+            items: [
+              { name: 'Card one title', slug: '123', identifier: 'http://data.europeana.eu/agent/base/123', image: 'img/landscape.jpg' },
+              { name: 'Card one title', slug: '1234', identifier: 'http://data.europeana.eu/agent/base/1234', image: 'img/landscape.jpg' },
+              { name: 'Card one title', slug: '12345', identifier: 'http://data.europeana.eu/agent/base/12345', image: 'img/landscape.jpg' },
+              { name: 'Card one title', slug: '123456', identifier: 'http://data.europeana.eu/agent/base/12346', image: 'img/landscape.jpg' }
+            ]
+          }
+        }
+      });
+
+      wrapper.vm.isPeopleSection.should.equal(true);
+    });
+
+    it('does not display mini cards if a section is not exclusively people', () => {
+      const wrapper = factory();
+      wrapper.setProps({
+        section: {
+          hasPartCollection: {
+            items: [
+              { name: 'Card one title', slug: '123', identifier: 'http://data.europeana.eu/concept/base/123', image: 'img/landscape.jpg' },
+              { name: 'Card one title', slug: '1234', identifier: 'http://data.europeana.eu/agent/base/1234', image: 'img/landscape.jpg' },
+              { name: 'Card one title', slug: '12345', identifier: 'http://data.europeana.eu/agent/base/12345', image: 'img/landscape.jpg' },
+              { name: 'Card one title', slug: '123456', identifier: 'http://data.europeana.eu/agent/base/12346', image: 'img/landscape.jpg' }
+            ]
+          }
+        }
+      });
+
+      wrapper.vm.isPeopleSection.should.equal(false);
     });
   });
 });

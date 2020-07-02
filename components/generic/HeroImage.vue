@@ -1,5 +1,48 @@
 <template>
+  <b-container
+    v-if="compact"
+    fluid
+    class="hero-wrapper"
+  >
+    <h1>{{ header }}</h1>
+    <p class="lead">
+      {{ lead }}
+    </p>
+    <SocialShare
+      :media-url="imageUrl"
+    />
+    <b-jumbotron
+      :style="jumbotronStyle"
+      fluid
+      text-variant="white"
+      data-qa="hero banner"
+      class="mt-4"
+      @click="toggleCite"
+    >
+      <figcaption
+        @mouseleave="toggleCite"
+      >
+        <span
+          v-if="citeCollapsed"
+          class="icon-info"
+          @click="toggleCite"
+          @mouseover="toggleCite"
+          @touchstart="toggleCite"
+        />
+        <CiteAttribution
+          v-else
+          :name="name"
+          :creator="creator"
+          :provider="provider"
+          :rights-statement="rightsStatement"
+          :url="url"
+          extended
+        />
+      </figcaption>
+    </b-jumbotron>
+  </b-container>
   <b-jumbotron
+    v-else
     :header="header"
     :lead="lead"
     :style="jumbotronStyle"
@@ -23,10 +66,12 @@
 
 <script>
   import CiteAttribution from '../../components/generic/CiteAttribution';
+  import SocialShare from '../../components/generic/SocialShare';
 
   export default {
     components: {
-      CiteAttribution
+      CiteAttribution,
+      SocialShare
     },
     props: {
       header: {
@@ -64,16 +109,30 @@
       url: {
         type: String,
         default: ''
+      },
+      compact: {
+        type: Boolean,
+        default: false
       }
+    },
+    data() {
+      return {
+        citeCollapsed: true
+      };
     },
     computed: {
       optimisedImageUrl() {
-        return this.$options.filters.optimisedImageUrl(this.imageUrl, this.imageContentType);
+        return this.$options.filters.optimisedImageUrl(this.imageUrl, this.imageContentType, { width: this.compact ? 820 : 1920 });
       },
       jumbotronStyle() {
         return {
           backgroundImage: `url("${this.optimisedImageUrl}")`
         };
+      }
+    },
+    methods: {
+      toggleCite() {
+        this.citeCollapsed = !this.citeCollapsed;
       }
     }
   };

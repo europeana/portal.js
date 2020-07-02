@@ -1,9 +1,9 @@
 <template>
   <b-container data-qa="blog">
+    <ContentHeader
+      :title="$t('blog.blog')"
+    />
     <b-row class="flex-md-row pb-5">
-      <b-col cols="12">
-        <h1>{{ $t('blog.blog') }}</h1>
-      </b-col>
       <b-col cols="12">
         <b-card-group
           class="card-deck-4-cols"
@@ -13,11 +13,11 @@
           <ContentCard
             v-for="(post, index) in posts"
             :key="index"
-            :title="post.fields.name"
-            :url="{ name: 'blog-all', params: { pathMatch: post.fields.identifier } }"
-            :image-url="post.fields.primaryImageOfPage && post.fields.primaryImageOfPage.fields.image.fields.file.url"
-            :texts="[post.fields.description]"
-            :datetime="post.fields.datePublished"
+            :title="post.name"
+            :url="{ name: 'blog-all', params: { pathMatch: post.identifier } }"
+            :image-url="post.primaryImageOfPage && post.primaryImageOfPage.image.url"
+            :texts="[post.description]"
+            :datetime="post.datePublished"
           />
         </b-card-group>
       </b-col>
@@ -38,19 +38,18 @@
 </template>
 
 <script>
-  import createClient from '../../plugins/contentful';
+  import ContentHeader from '../../components/generic/ContentHeader';
   import ContentCard from '../../components/generic/ContentCard';
-  import PaginationNav from '../../components/generic/PaginationNav';
   import { pageFromQuery } from '../../plugins/utils';
 
   const PER_PAGE = 20;
 
   export default {
     name: 'BlogFoyer',
-
     components: {
+      ContentHeader,
       ContentCard,
-      PaginationNav
+      PaginationNav: () => import('../../components/generic/PaginationNav')
     },
 
     head() {
@@ -72,33 +71,28 @@
       }
     },
 
-    asyncData({ query, redirect, error, app, store }) {
+    asyncData({ query, redirect, error, app }) {
       const currentPage = pageFromQuery(query.page);
       if (currentPage === null) {
         // Redirect non-positive integer values for `page` to `page=1`
         query.page = '1';
-        return redirect(app.localePath({ name: 'blog', query }));
+        return redirect(app.$path({ name: 'blog', query }));
       }
 
-      const contentfulClient = createClient(query.mode);
-      return contentfulClient.getEntries({
-        'locale': app.i18n.isoLocale(),
-        'content_type': 'blogPosting',
-        'skip': (currentPage - 1) * PER_PAGE,
-        'order': '-fields.datePublished',
-        limit: PER_PAGE
-      })
-        .then((response) => {
-          store.commit('breadcrumb/setBreadcrumbs', [
-            {
-              text:  app.i18n.t('blog.blog'),
-              active: true
-            }
-          ]);
+      const variables = {
+        locale: app.i18n.isoLocale(),
+        preview: query.mode === 'preview',
+        limit: PER_PAGE,
+        skip: (currentPage - 1) * PER_PAGE
+      };
 
+      return app.$contentful.query('blogFoyerPage', variables)
+        .then(response => response.data.data)
+        .then(data => {
           return {
-            posts: response.items,
-            total: response.total,
+            posts: data.blogPostingCollection.items,
+            total: data.blogPostingCollection.total,
+            page: currentPage,
             perPage: PER_PAGE
           };
         })
@@ -109,15 +103,10 @@
 
     methods: {
       paginationLink(val) {
-        return this.localePath({ name: 'blog', query: { page: val } });
+        return this.$path({ name: 'blog', query: { page: val } });
       }
     },
 
-    watchQuery: ['page'],
-
-    beforeRouteLeave(to, from, next) {
-      this.$store.commit('breadcrumb/clearBreadcrumb');
-      next();
-    }
+    watchQuery: ['page']
   };
 </script>

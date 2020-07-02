@@ -1,16 +1,29 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 // TODO: is this needed?
 import BootstrapVue from 'bootstrap-vue';
+import Vuex from 'vuex';
+
 import BrowseContentCard from '../../../../components/browse/BrowseContentCard.vue';
+import apiConfig from '../../../../modules/apis/defaults';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
+localVue.use(Vuex);
+
+const store = new Vuex.Store({
+  getters: {
+    'apis/config': () => apiConfig
+  }
+});
 
 const factory = (props = { fields: {} }) => shallowMount(BrowseContentCard, {
   localVue,
+  store,
   propsData: props,
   mocks: {
-    localePath: (opts) => opts
+    $path: (opts) => opts,
+    $i18n: { locale: 'en' },
+    $t: () => {}
   }
 });
 
@@ -21,6 +34,22 @@ describe('components/browse/BrowseContentCard', () => {
       const wrapper = factory({ fields: { name } });
 
       wrapper.vm.title.should.eq(name);
+    });
+
+    it('uses `dcTitleLangAware`', () => {
+      const name = 'Content item';
+      const dcTitleLangAware = 'Content item in a language';
+      const wrapper = factory({
+        cardType: 'AutomatedRecordCard',
+        fields: {
+          name,
+          encoding: {
+            dcTitleLangAware
+          }
+        }
+      });
+
+      wrapper.vm.title.should.eq(dcTitleLangAware);
     });
   });
 
@@ -35,31 +64,34 @@ describe('components/browse/BrowseContentCard', () => {
     });
 
     context('when `fields.image` is a string', () => {
-      context('and is a wikimedia URL', () => {
-        it('is converted to a scaled image URL', () => {
-          const fullUrl = 'http://commons.wikimedia.org/wiki/Special:FilePath/image.jpg';
-          const scaledUrl = 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/image.jpg/255px-image.jpg';
+      it('is used', () => {
+        const image = 'https://www.example.org/image.jpg';
+        const wrapper = factory({ fields: { image } });
 
-          const wrapper = factory({ fields: { image: fullUrl } });
-
-          wrapper.vm.imageUrl.should.equal(scaledUrl);
-        });
-      });
-
-      context('but is not a wikimedia URL', () => {
-        it('is used', () => {
-          const image = 'https://www.example.org/image.jpg';
-          const wrapper = factory({ fields: { image } });
-
-          wrapper.vm.imageUrl.should.equal(image);
-        });
+        wrapper.vm.imageUrl.should.equal(image);
       });
     });
 
-    context('when `fields.image` is an object with its own fields', () => {
-      it('uses `fields.image.fields.file.url`', () => {
-        const imageUrl = 'https://www.example.org/image.jpg';
-        const wrapper = factory({ fields: { image: { fields: { file: { url: imageUrl } } } } });
+    context('when the card is an AutomatedRecordCard and `edmPreview` is present', () => {
+      it('is used', () => {
+        const edmPreview = 'https://www.example.org/image.jpg';
+        const wrapper = factory({
+          cardType: 'AutomatedRecordCard',
+          fields: {
+            encoding: {
+              edmPreview: [edmPreview]
+            }
+          }
+        });
+
+        wrapper.vm.imageUrl.should.equal(`${edmPreview}&size=w200`);
+      });
+    });
+
+    context('when image is a Contentful asset', () => {
+      it('uses `fields.image.url`', () => {
+        const imageUrl = 'https://images.ctfassets.net/image.jpg';
+        const wrapper = factory({ fields: { image: { url: imageUrl } } });
 
         wrapper.vm.imageUrl.should.equal(imageUrl);
       });
@@ -89,7 +121,7 @@ describe('components/browse/BrowseContentCard', () => {
         const identifier = '/123456/abcdef_7890';
         const wrapper = factory({ fields: { identifier } });
 
-        wrapper.vm.destination.should.eql({ name: 'record-all', params: { pathMatch: identifier.slice(1) } });
+        wrapper.vm.destination.should.eql({ name: 'item-all', params: { pathMatch: identifier.slice(1) } });
       });
     });
 
@@ -102,7 +134,7 @@ describe('components/browse/BrowseContentCard', () => {
           const identifier = `http://data.europeana.eu/${entityType}/base/${entityId}`;
           const wrapper = factory({ fields: { identifier } });
 
-          wrapper.vm.destination.should.eql({ name: 'entity-type-all', params: { type: entityHumanType, pathMatch: entityId } });
+          wrapper.vm.destination.should.eql({ name: 'collections-type-all', params: { type: entityHumanType, pathMatch: entityId } });
         });
       });
 
@@ -126,15 +158,39 @@ describe('components/browse/BrowseContentCard', () => {
   });
 
   describe('texts()', () => {
-    it('is includes description, creator and provider fields', () => {
-      const description = 'Some interesting content';
-      const creator = 'A European artist';
-      const provider = 'An aggregator';
-      const wrapper = factory({ fields: { description, creator, provider } });
-
-      wrapper.vm.texts.should.include(description);
-      wrapper.vm.texts.should.include(creator);
-      wrapper.vm.texts.should.include(provider);
+    context('for a curated card', () => {
+      it('is includes description', () => {
+        const description = 'Some interesting content';
+        const wrapper = factory({ fields: { description } });
+        wrapper.vm.texts.should.include(description);
+      });
+    });
+    context('for an automated record card', () => {
+      it('is includes creator and provider fields, but no description', () => {
+        const description = 'Some interesting content';
+        const creator = 'A European artist';
+        const provider = 'An aggregator';
+        const wrapper = factory({ cardType: 'AutomatedRecordCard', fields: { description, creator, provider } });
+        wrapper.vm.texts.should.not.include(description);
+        wrapper.vm.texts.should.include(creator);
+        wrapper.vm.texts.should.include(provider);
+      });
+      it('is includes dcCreatorLangAware and dataProvider fields', () => {
+        const dcCreatorLangAware = 'A European artist';
+        const dataProvider = 'An aggregator';
+        const wrapper = factory({
+          cardType: 'AutomatedRecordCard',
+          fields: {
+            name,
+            encoding: {
+              dcCreatorLangAware,
+              dataProvider
+            }
+          }
+        });
+        wrapper.vm.texts.should.include(dcCreatorLangAware);
+        wrapper.vm.texts.should.include(dataProvider);
+      });
     });
   });
 });

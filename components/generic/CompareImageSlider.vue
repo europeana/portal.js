@@ -232,12 +232,12 @@
 </script>
 
 <style lang="scss" scoped>
-  @import "./assets/scss/variables.scss";
+  @import './assets/scss/variables.scss';
 
   $slider-dimensions: 48px;
 
   figure {
-    display: block;
+    display: inline-block;
   }
 
   .compare-image {

@@ -1,6 +1,6 @@
 import nock from 'nock';
 import * as entities from '../../../../plugins/europeana/entity';
-import config from '../../../../plugins/europeana/api';
+import config from '../../../../modules/apis/defaults';
 
 const axios = require('axios');
 axios.defaults.adapter = require('axios/lib/adapters/http');
@@ -8,7 +8,7 @@ axios.defaults.adapter = require('axios/lib/adapters/http');
 const entityId = '94-architecture';
 const entityType = 'topic';
 const entityIdMisspelled = '94-architectuz';
-const apiUrl = entities.constants.API_ORIGIN;
+const apiUrl = config.entity.origin;
 const apiEndpoint = '/entity/concept/base/94.json';
 const entityUri = 'http://data.europeana.eu/concept/base/94';
 const entityFilterField = 'skos_concept';
@@ -34,10 +34,6 @@ const entitiesResponse = {
       prefLabel: { en: 'Architecture' },
       note: {
         en: ['Architecture is both the process and the product of planning, designing, and constructing buildings and other physical structures.']
-      },
-      depiction: {
-        id: 'http://commons.wikimedia.org/wiki/Special:FilePath/View_of_Santa_Maria_del_Fiore_in_Florence.jpg',
-        source: 'http://commons.wikimedia.org/wiki/File:View_of_Santa_Maria_del_Fiore_in_Florence.jpg'
       }
     },
     { type: 'Concept',
@@ -45,14 +41,20 @@ const entitiesResponse = {
       prefLabel: { en: 'Painting' }
     },
     { type: 'Agent',
-      id: 'http://data.europeana.eu/agent/base/147831',
-      prefLabel: { en: 'Albert Edelfelt' },
+      id: 'http://data.europeana.eu/agent/base/59832',
+      prefLabel: { en: 'Vincent van Gogh' },
       biographicalInformation: [
         {
           '@language': 'en',
-          '@value': 'Albert Gustaf Aristides Edelfelt (21 July 1854 – 18 August 1905) was a Finnish painter.'
+          '@value': 'Vincent Willem van Gogh was a post-Impressionist painter of Dutch origin whose work, notable for its rough beauty, emotional honesty and bold color, had a far-reaching influence on 20th-century art. After years of painful anxiety and frequent bouts of mental illness, he died aged 37 from a gunshot wound, generally accepted to be self-inflicted (although no gun was ever found).'
         }
-      ]
+      ],
+      isShownBy: {
+        id: 'https://lh3.googleusercontent.com/Ckjq-HkB2XhEsbuMsei0MR5fLTODfkcXY8qQTG-XLHVxE0jLO9DnSYaVE8n1kCrcm9AMKzoWB2w03LrY0v7eoj5hYw=s0',
+        type: 'WebResource',
+        source: 'http://data.europeana.eu/item/90402/SK_A_3262',
+        thumbnail: 'https://api.europeana.eu/api/v2/thumbnail-by-url.json?uri=https://www.rijksmuseum.nl/assetimage2.jsp?id=SK-A-3262&type=IMAGE'
+      }
     }
   ]
 };
@@ -64,7 +66,6 @@ const entitySuggestionsResponse = {
   items: [{
     id: 'http://data.europeana.eu/concept/base/83',
     type: 'Concept',
-    depiction: 'http://commons.wikimedia.org/wiki/Special:FilePath/Map_Europe_alliances_1914-en.svg',
     prefLabel: {
       en: 'World War I',
       sq: 'Lufta e Parë Botërore'
@@ -124,16 +125,6 @@ describe('plugins/europeana/entity', () => {
         it('returns entity description', async() => {
           const response = await entities.getEntity(entityType, entityId);
           response.entity.note.en[0].should.contain('Architecture is both the process and the product of planning');
-        });
-
-        it('returns entity depiction', async() => {
-          const response = await entities.getEntity(entityType, entityId);
-          response.entity.depiction.id.should.contain('Special:FilePath/View_of_Santa_Maria_del_Fiore_in_Florence.jpg');
-        });
-
-        it('returns entity attribution', async() => {
-          const response = await entities.getEntity(entityType, entityId);
-          response.entity.depiction.source.should.contain('File:View_of_Santa_Maria_del_Fiore_in_Florence.jpg');
         });
 
         it('has a misspelled id and returns entity title', async() => {
@@ -327,18 +318,8 @@ describe('plugins/europeana/entity', () => {
 
       it('returns the description with values and language code', () => {
         const description = entities.getEntityDescription(entity, locale);
-        description.values[0].should.contain('Albert Gustaf Aristides Edelfelt');
+        description.values[0].should.contain('Vincent Willem van Gogh was');
         description.code.should.contain('en');
-      });
-    });
-  });
-
-  describe('getWikimediaThumbnailUrl', () => {
-    context('with an entity', () => {
-      let entity = entitiesResponse.items[0];
-      it('returns an wikimedia thumbnail url starting with https://upload.wikimedia.org', () => {
-        const thumbnail = entities.getWikimediaThumbnailUrl(entity.depiction.id);
-        return thumbnail.should.contain('https://upload.wikimedia.org');
       });
     });
   });

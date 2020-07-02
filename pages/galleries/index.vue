@@ -1,9 +1,10 @@
 <template>
   <b-container>
+    <ContentHeader
+      :title="$tc('galleries.galleries', 2)"
+      :description="$t('galleries.description')"
+    />
     <b-row class="flex-md-row pb-5">
-      <b-col cols="12">
-        <h1>{{ $t('galleries.galleries') }}</h1>
-      </b-col>
       <b-col cols="12">
         <b-card-group
           class="card-deck-4-cols"
@@ -12,11 +13,11 @@
         >
           <ContentCard
             v-for="gallery in galleries"
-            :key="gallery.fields.identifier"
-            :title="gallery.fields.name"
-            :url="{ name: 'galleries-all', params: { pathMatch: gallery.fields.identifier } }"
-            :image-url="gallery.fields.hasPart[0] && gallery.fields.hasPart[0].fields.thumbnailUrl"
-            :texts="[gallery.fields.description]"
+            :key="gallery.identifier"
+            :title="gallery.name"
+            :url="{ name: 'galleries-all', params: { pathMatch: gallery.identifier } }"
+            :image-url="gallery.hasPartCollection.items[0] && imageUrl(gallery.hasPartCollection.items[0])"
+            :texts="[gallery.description]"
           />
         </b-card-group>
       </b-col>
@@ -37,9 +38,8 @@
 </template>
 
 <script>
-  import createClient from '../../plugins/contentful';
+  import ContentHeader from '../../components/generic/ContentHeader';
   import ContentCard from '../../components/generic/ContentCard';
-  import PaginationNav from '../../components/generic/PaginationNav';
   import { pageFromQuery } from '../../plugins/utils';
 
   const PER_PAGE = 20;
@@ -47,12 +47,13 @@
   export default {
     name: 'GalleryFoyer',
     components: {
+      ContentHeader,
       ContentCard,
-      PaginationNav
+      PaginationNav: () => import('../../components/generic/PaginationNav')
     },
     head() {
       return {
-        title: this.$t('galleries.galleries')
+        title: this.$tc('galleries.galleries', 2)
       };
     },
     data() {
@@ -71,21 +72,22 @@
       if (currentPage === null) {
         // Redirect non-positive integer values for `page` to `page=1`
         query.page = '1';
-        return redirect(app.localePath({ name: 'galleries', query }));
+        return redirect(app.$path({ name: 'galleries', query }));
       }
 
-      const contentfulClient = createClient(query.mode);
-      return contentfulClient.getEntries({
-        'locale': app.i18n.isoLocale(),
-        'content_type': 'imageGallery',
-        'skip': (currentPage - 1) * PER_PAGE,
-        'order': '-fields.datePublished',
-        limit: PER_PAGE
-      })
-        .then((response) => {
+      const variables = {
+        locale: app.i18n.isoLocale(),
+        preview: query.mode === 'preview',
+        limit: PER_PAGE,
+        skip: (currentPage - 1) * PER_PAGE
+      };
+
+      return app.$contentful.query('galleryFoyerPage', variables)
+        .then(response => response.data.data)
+        .then(data => {
           return {
-            galleries: response.items,
-            total: response.total,
+            galleries: data.imageGalleryCollection.items,
+            total: data.imageGalleryCollection.total,
             page: currentPage,
             perPage: PER_PAGE
           };
@@ -96,7 +98,10 @@
     },
     methods: {
       paginationLink(val) {
-        return this.localePath({ name: 'galleries', query: { page: val } });
+        return this.$path({ name: 'galleries', query: { page: val } });
+      },
+      imageUrl(data) {
+        return (data.encoding ? data.encoding.edmPreview : data.thumbnailUrl) + '&size=w200';
       }
     },
     watchQuery: ['page']

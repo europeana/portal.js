@@ -13,15 +13,15 @@ Feature: Entity page
     And I see a `search facet`
     And I should see 9 `search result`s
     And I see a `pagination navigation`
-    And I don't have a `tier toggle`
+    And I don't have a `contentTier facet`
     And I am on an accessible page
 
   Scenario: Curated entity
-    Given I am on `/en/entity/topic/190-art`
+    Given I am on `/en/collections/topic/190-art`
     Then I see an `entity description`
 
   Scenario: Attempting to view an entity page which doesn't exist
-    When I open `/en/entity/person/123x-unknown`
+    When I open `/en/collections/person/123x-unknown`
     Then I see an `error notice`
 
   Scenario: View related entities
@@ -40,33 +40,34 @@ Feature: Entity page
     And I wait for the page to load
     Then I should not be on the `entity page`
 
-  Scenario: Navigating to a related record
+  Scenario: Navigating to a related item
     Given I am on an `entity page`
     And I see the `entity page`
     And I see a `search result`
     When I click a `search result`
-    Then I see a `record page`
+    And I wait for the page to load
+    Then I see an `item page`
 
   Scenario: Pagination links
     When I open an `entity page`
     And I see the `entity page`
     And I see a `search result`
-    Then I see a link to "/en/entity/person/60305-william-shakespeare?page=2&view=grid" in the `pagination navigation`
+    Then I see a link to "/en/collections/person/60305-william-shakespeare?page=2&view=grid" in the `pagination navigation`
 
   Scenario: Pagination links work when the page was accessed from the url
-    When I visit `/en/entity/person/60305-william-shakespeare?page=2`
+    When I visit `/en/collections/person/60305-william-shakespeare?page=2`
     And I go to page number 3
     And I wait for the page to load
-    Then I should be on `/en/entity/person/60305-william-shakespeare?page=3&view=grid`
+    Then I should be on `/en/collections/person/60305-william-shakespeare?page=3&view=grid`
 
+  # TODO: Add back - And I click the `search button` instead of press ENTER
   Scenario: Searching from an entity page searches within that entity
     When I open an `entity page`
     And I see the `entity page`
     And I see a `search result`
     And I enter "newspaper" in the `search box`
-    And I click the `search button`
+    And I press the ENTER key
     Then I see the `entity page`
-    And I see "newspaper" in the `search box`
 
   Scenario: Removing search pill
     When I open an `entity page`

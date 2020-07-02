@@ -38,6 +38,14 @@ Feature: Search faceting
     Given I am on an `entity page`
     Then I don't have a `collection dropdown button`
 
+  Scenario: Reusability options
+    Given I am on the `search page`
+    When I click the `REUSABILITY dropdown button`
+    Then I see an `open REUSABILITY field`
+    And I see a `permission REUSABILITY field`
+    And I see a `restricted REUSABILITY field`
+    And I don't have an `uncategorized REUSABILITY field`
+
   Scenario: Filtering results by reusability
     Given I am on the `search page`
     When I click the `REUSABILITY dropdown button`
@@ -109,7 +117,7 @@ Feature: Search faceting
     And I am on page number 1
     And I can't have a `/en/search?query=`
 
-  Scenario: Filtering results by country and have a corresponding record page
+  Scenario: Filtering results by country and have a corresponding item page
     Given I am on the `search page`
     When I click the `COUNTRY dropdown button`
     And I check the "\"Belgium\"" "COUNTRY" checkbox
@@ -117,10 +125,11 @@ Feature: Search faceting
     And I wait for the page to load
     And I see a `search result`
     And I click a `search result`
-    Then I see a `record page`
+    And I wait for the page to load
+    Then I see an `item page`
     And I should see a meta label `Providing country` with the value "Belgium"
 
-  Scenario: Filtering results by two countries and have a corresponding record page
+  Scenario: Filtering results by two countries and have a corresponding item page
     Given I am on the `search page`
     When I click the `COUNTRY dropdown button`
     And I check the "\"Belgium\"" "COUNTRY" checkbox
@@ -129,9 +138,10 @@ Feature: Search faceting
     And I wait for the page to load
     And I click a `search result`
     And I wait for the page to load
-    Then I see a `record page`
+    Then I see an `item page`
     And I should see a meta label `Providing country` with the value "Belgium" or the value "Germany"
 
+  # TODO: Add back - And I click the `search button` instead of press ENTER
   Scenario: Preserve filtering when performing a new search
     Given I am on the `search page`
     When I click the `COUNTRY dropdown button`
@@ -139,7 +149,7 @@ Feature: Search faceting
     And I click the `COUNTRY apply button`
     And I wait for the page to load
     And I enter "paris" in the `search box`
-    And I click the `search button`
+    And I press the ENTER key
     And I wait for the page to load
     Then I should be on `/en/search?page=1&qf=COUNTRY%3A%22France%22&query=paris&view=grid`
     And I am on page number 1
@@ -179,6 +189,14 @@ Feature: Search faceting
     Then I should be on `/en/search?page=1&qf=LANGUAGE%3A%22en%22&qf=LANGUAGE%3A%22sv%22&query=&view=grid`
     And I see a `more filters selected options count` with the text "2"
 
+  Scenario: Applies the content tier query to the URL when clicking the toggle button
+    Given I am on the `search page`
+    When I click the `more filters dropdown button`
+    And I check the "\"0\"" "contentTier" checkbox
+    And I click the `apply button`
+    And I wait for the page to load
+    Then I should be on `/en/search?page=1&qf=contentTier%3A%220%22&query=&view=grid`
+
   Scenario: Clicking reset button in more facets
     Given I am on the `search page`
     When I click the `more filters dropdown button`
@@ -191,6 +209,24 @@ Feature: Search faceting
     And I click the `apply button`
     And I wait for the page to load
     Then I should be on `/en/search?page=1&query=&view=grid`
+
+  Scenario: No tier filter on entity pages
+    Given I am on an `entity page`
+    When I click the `more filters dropdown button`
+    Then I don't have a `contentTier facet`
+
+  Scenario: A tier filter on search page
+    Given I am on the `search page`
+    When I click the `more filters dropdown button`
+    Then I see a `contentTier facet`
+
+  Scenario: No tier filter on search page when collection is applied
+    Given I am on the `search page`
+    And I click the `collection dropdown button`
+    And I check the "fashion" "collection" radio
+    And I click the `collection apply button`
+    And I wait for the page to load
+    Then I don't have a `contentTier facet`
 
   Scenario: Clear filters using using `clear all filter` button
     Given I am on the `search page`

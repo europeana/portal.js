@@ -1,15 +1,6 @@
 import axios from 'axios';
 import { apiError, langMapValueForLocale } from './utils';
-import config from './api';
-import search from './search';
-
-export const constants = Object.freeze({
-  API_ORIGIN: config.entity.origin,
-  API_PATH_PREFIX: config.entity.path,
-  API_ENDPOINT_SEARCH: '/search',
-  API_ENDPOINT_SUGGEST: '/suggest',
-  URI_ORIGIN: config.data.origin
-});
+import { config } from './';
 
 /**
  * Get data for one entity from the API
@@ -35,7 +26,7 @@ export function getEntity(type, id) {
 }
 
 function entityApiUrl(endpoint) {
-  return `${constants.API_ORIGIN}${constants.API_PATH_PREFIX}${endpoint}`;
+  return `${config.entity.origin}${config.entity.path}${endpoint}`;
 }
 
 /**
@@ -43,46 +34,23 @@ function entityApiUrl(endpoint) {
  * @param {string} text the query text to supply suggestions for
  * @param {Object} params additional parameters sent to the API
  * @param {string} params.language language(s), comma-separated, to request
- * @param {Object} options optional settings
- * @param {boolean} options.recordValidation if `true`, filter suggestions to those with record matches
- * @return {Object[]} entity suggestions from the API
  */
-export function getEntitySuggestions(text, params = {}, options = {}) {
-  return axios.get(entityApiUrl(constants.API_ENDPOINT_SUGGEST), {
+export function getEntitySuggestions(text, params = {}) {
+  return axios.get(entityApiUrl('/suggest'), {
     params: {
+      ...params,
       text,
       type: 'agent,concept',
-      language: params.language,
       scope: 'europeana',
       wskey: config.entity.key
     }
   })
     .then((response) => {
-      if (!response.data.items) return [];
-      return options.recordValidation ? filterSuggestionsByRecordValidation(response.data.items) : response.data.items;
+      return response.data.items ? response.data.items : [];
     })
     .catch((error) => {
       throw apiError(error);
     });
-}
-
-function filterSuggestionsByRecordValidation(suggestions) {
-  const searches = suggestions.map((entity) => {
-    return search({
-      query: getEntityQuery(entity.id),
-      rows: 0,
-      profile: 'minimal',
-      qf: ['contentTier:(2 OR 3 OR 4)']
-    });
-  });
-
-  return axios.all(searches)
-    .then(axios.spread(function() {
-      const searchResponses = arguments;
-      return suggestions.filter((entity, index) => {
-        return searchResponses[index].totalResults > 0;
-      });
-    }));
 }
 
 /**
@@ -120,7 +88,7 @@ export function getEntityTypeHumanReadable(type) {
  * @return {string} retrieved human readable name of type
  */
 export function getEntityUri(type, id) {
-  return `${constants.URI_ORIGIN}/${getEntityTypeApi(type)}/base/${normalizeEntityId(id)}`;
+  return `${config.data.origin}/${getEntityTypeApi(type)}/base/${normalizeEntityId(id)}`;
 }
 
 /**
@@ -229,7 +197,7 @@ async function getEntityFacets(facets, currentId) {
   let entities = [];
   for (let facet of facets) {
     entities = entities.concat(facet['fields'].filter(value =>
-      value['label'].includes(constants.URI_ORIGIN) && value['label'].split('/').pop() !== currentId
+      value['label'].includes(config.data.origin) && value['label'].split('/').pop() !== currentId
     ));
   }
 
@@ -248,7 +216,7 @@ export function searchEntities(entityUris) {
   if (entityUris.length === 0) return;
 
   const q = entityUris.join('" OR "');
-  return axios.get(entityApiUrl(constants.API_ENDPOINT_SEARCH), {
+  return axios.get(entityApiUrl('/search'), {
     params: {
       query: `entity_uri:("${q}")`,
       wskey: config.entity.key
@@ -331,23 +299,4 @@ export function entityParamsFromUri(uri) {
   const id = matched[2];
   const type = getEntityTypeHumanReadable(matched[1]);
   return { id, type };
-}
-
-/**
- * The logic for going from: http://commons.wikimedia.org/wiki/Special:FilePath/[image] to
- * https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/[image]/200px-[image]:
- * @image {String} image URL of wikimedia image
- * @return {String} formatted thumbnail url
- */
-export function getWikimediaThumbnailUrl(image) {
-  const md5 = require('md5');
-
-  const filename = image.split('/').pop();
-  const suffix = filename.endsWith('.svg') ? '.png' : '';
-  const underscoredFilename = decodeURIComponent(filename).replace(/ /g, '_');
-  const hash = md5(underscoredFilename);
-
-  return 'https://upload.wikimedia.org/wikipedia/commons/thumb/' +
-      hash.substring(0, 1) + '/' + hash.substring(0, 2) + '/' +
-      underscoredFilename + '/255px-' + underscoredFilename + suffix;
 }

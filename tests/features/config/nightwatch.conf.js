@@ -2,9 +2,10 @@
 
 const chromedriver = require('chromedriver');
 const geckodriver = require('geckodriver');
+const percy = require('@percy/nightwatch');
 
 function chrome(locale = 'en-GB', args = []) {
-  args = ['disable-gpu', 'ignore-certificate-errors', `--lang=${locale}`].concat(args);
+  args = ['disable-gpu', 'ignore-certificate-errors', `--lang=${locale}`, '--allow-insecure-localhost', 'window-size=1400,1000'].concat(args);
   return {
     webdriver: {
       server_path: chromedriver.path
@@ -26,12 +27,12 @@ function headlessChrome(locale = 'en-GB') {
 }
 
 module.exports = {
-  custom_commands_path: ['./node_modules/nightwatch-accessibility/commands'],
+  custom_commands_path: [percy.path, './node_modules/nightwatch-accessibility/commands'],
   custom_assertions_path: ['./tests/features/config/assertions'],
   test_settings: {
     default: {
       globals: {
-        url: 'http://localhost:1337'
+        url: 'https://localhost:3001'
       },
       webdriver: {
         start_process: true,
@@ -40,7 +41,8 @@ module.exports = {
       },
       desiredCapabilities: {
         javascriptEnabled: true,
-        acceptSslCerts: true
+        acceptSslCerts: true,
+        acceptInsecureCerts: true
       }
     },
     chrome: chrome(),
@@ -54,7 +56,16 @@ module.exports = {
         server_path: geckodriver.path
       },
       desiredCapabilities: {
-        browserName: 'firefox'
+        browserName: 'firefox',
+        alwaysMatch: {
+          acceptInsecureCerts: true,
+          'moz:firefoxOptions': {
+            args: [
+              '-headless',
+              '-verbose'
+            ]
+          }
+        }
       }
     }
   }

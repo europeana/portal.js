@@ -4,16 +4,17 @@ import qs from 'qs';
 
 import { unquotableFacets } from '../../../plugins/europeana/search';
 
+export const collectionToThemeMap = {
+  'world-war-I': 'ww1',
+  'industrial-heritage': 'industrial',
+  'manuscripts': 'manuscript',
+  'maps': 'map',
+  'natural-history': 'nature',
+  'newspapers': 'newspaper'
+};
+
 function mapCollectionToTheme(collection) {
-  const map = {
-    'world-war-I': 'ww1',
-    'industrial-heritage': 'industrial',
-    'manuscripts': 'manuscript',
-    'maps': 'map',
-    'natural-history': 'nature',
-    'newspapers': 'newspaper'
-  };
-  return map[collection] || collection;
+  return collectionToThemeMap[collection] || collection;
 }
 
 const queryFacetParameterMappings = {

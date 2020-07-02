@@ -3,6 +3,7 @@ import { defaultFacetNames } from '../search';
 const fashionFacetNames = [
   'CREATOR', 'proxy_dc_format.en', 'proxy_dcterms_medium.en', 'proxy_dc_type.en'
 ].concat(defaultFacetNames);
+fashionFacetNames.splice(fashionFacetNames.indexOf('contentTier'), 1);
 const fashionFacetParam = fashionFacetNames.join(',');
 
 const facetFieldLabelPatterns = {
@@ -14,7 +15,6 @@ const facetFieldLabelPatterns = {
 
 export const state = () => ({
   apiParams: {},
-  enabled: false,
   facets: []
 });
 
@@ -42,9 +42,6 @@ export const getters = {
 };
 
 export const mutations = {
-  enable(state) {
-    state.enabled = true;
-  },
   set(state, payload) {
     state[payload[0]] = payload[1];
   }

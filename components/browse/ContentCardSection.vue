@@ -1,6 +1,6 @@
 <template>
   <section
-    v-if="section && section.fields"
+    v-if="section"
     class="browse-section row mb-5"
     data-qa="browse section"
   >
@@ -8,10 +8,10 @@
       <h2
         data-qa="section headline"
       >
-        {{ section.fields.headline }}
+        {{ section.headline }}
       </h2>
       <p>
-        {{ section.fields.text }}
+        {{ section.text }}
       </p>
     </div>
     <div class="col-12">
@@ -20,23 +20,50 @@
         deck
         data-qa="section group"
       >
-        <BrowseContentCard
-          v-for="card in cards"
-          :key="card.sys.id"
-          :fields="card.fields"
-          :card-type="card.sys.contentType ? card.sys.contentType.sys.id : ''"
-        />
+        <template v-if="!isPeopleSection">
+          <BrowseContentCard
+            v-for="(card, index) in cards"
+            :key="index"
+            :fields="card"
+            :card-type="card && card['__typename']"
+          />
+        </template>
+        <template v-else>
+          <ContentCard
+            v-for="(card, index) in cards"
+            :key="index"
+            :title="card.name"
+            :url="entityRouterLink(card.identifier, card.slug)"
+            :image-url="card.image"
+            :image-optimisation-options="{ width: 510 }"
+            variant="mini"
+          />
+        </template>
       </b-card-group>
+      <SmartLink
+        v-if="section.moreButton"
+        :destination="section.moreButton.url"
+        class="btn btn-light"
+        data-qa="section more button"
+      >
+        {{ section.moreButton.text }}
+      </SmartLink>
     </div>
   </section>
 </template>
 
 <script>
+  import { mapGetters } from 'vuex';
+  import { entityParamsFromUri, getEntityTypeHumanReadable } from '../../plugins/europeana/entity';
+  import ContentCard from '../generic/ContentCard';
   import BrowseContentCard from './BrowseContentCard';
+  import SmartLink from '../generic/SmartLink';
 
   export default {
     components: {
-      BrowseContentCard
+      BrowseContentCard,
+      ContentCard,
+      SmartLink
     },
     props: {
       section: {
@@ -45,8 +72,28 @@
       }
     },
     computed: {
+      ...mapGetters({
+        apiConfig: 'apis/config'
+      }),
+
       cards() {
-        return this.section.fields.hasPart.filter(card => card.fields);
+        return this.section.hasPartCollection.items;
+      },
+
+      isPeopleSection() {
+        if (this.cards.length !== 4) return false;
+        return this.cards.every((card) => {
+          const identifier = card.identifier;
+          return identifier ? entityParamsFromUri(identifier).type === 'person' : false;
+        });
+      }
+    },
+    methods: {
+      entityRouterLink(uri, slug) {
+        const uriMatch = uri.match(`^${this.apiConfig.data.origin}/([^/]+)(/base)?/(.+)$`);
+        return {
+          name: 'collections-type-all', params: { type: getEntityTypeHumanReadable(uriMatch[1]), pathMatch: slug ? slug : uriMatch[3] }
+        };
       }
     }
   };
@@ -54,7 +101,7 @@
 
 <style lang="scss" scoped>
 
-@import "./assets/scss/variables.scss";
+@import './assets/scss/variables.scss';
 
 .browse-section {
   h2,

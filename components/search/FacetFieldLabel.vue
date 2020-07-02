@@ -5,6 +5,8 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex';
+
   export default {
     name: 'FacetFieldLabel',
 
@@ -33,6 +35,10 @@
     },
 
     computed: {
+      ...mapGetters({
+        formatFacetFieldLabel: 'search/formatFacetFieldLabel'
+      }),
+
       label() {
         const fieldLabel = (this.facetName === this.MIME_TYPE) ? this.mediaTypeLabel : this.genericLabel;
 
@@ -44,7 +50,7 @@
       genericLabel() {
         let fieldLabel;
 
-        fieldLabel = this.$store.getters['search/formatFacetFieldLabel'](this.facetName, this.fieldValue);
+        fieldLabel = this.formatFacetFieldLabel(this.facetName, this.fieldValue);
         if (!fieldLabel) fieldLabel = this.fieldValue;
 
         const unquotedFieldValue = fieldLabel.replace(/^"(.*)"$/, '$1');

@@ -1,3 +1,6 @@
+# dotenv
+.env
+
 # Created by .ignore support plugin (hsz.mobi)
 ### Node template
 # Logs
@@ -59,5 +62,21 @@ typings/
 # IDE
 .idea
 
+# Storybook
+storybook-static
+
+# Temporary files
+tmp
+*.tmp
+
+# Locale folder
+locale
+
 # CF manifest
 /manifest.yml
+
+# Git
+.git
+
+# Tests
+/tests

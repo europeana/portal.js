@@ -14,38 +14,40 @@
     </template>
 
     <b-dropdown-form class="options-container">
-      <template v-if="isRadio">
-        <b-form-radio
-          v-for="(option, index) in sortedOptions"
-          :key="index"
-          v-model="preSelected"
-          :value="option"
-          :name="name"
-          :data-qa="`${option} ${name} ${RADIO}`"
-        >
-          <FacetFieldLabel
-            :facet-name="name"
-            :field-value="option"
-          />
-        </b-form-radio>
-      </template>
+      <div
+        v-for="(option, index) in sortedOptions"
+        :key="index"
+        :data-qa="`${isRadio ? option : option.label} ${name} field`"
+      >
+        <template v-if="isRadio">
+          <b-form-radio
+            v-model="preSelected"
+            :value="option"
+            :name="name"
+            :data-qa="`${option} ${name} ${RADIO}`"
+          >
+            <FacetFieldLabel
+              :facet-name="name"
+              :field-value="option"
+            />
+          </b-form-radio>
+        </template>
 
-      <template v-else>
-        <b-form-checkbox
-          v-for="(option, index) in sortedOptions"
-          :key="index"
-          v-model="preSelected"
-          :value="option.label"
-          :name="name"
-          :data-qa="`${option.label} ${name} ${CHECKBOX}`"
-        >
-          <FacetFieldLabel
-            :facet-name="name"
-            :field-value="option.label"
-          />
-          <span>({{ option.count | localise }})</span>
-        </b-form-checkbox>
-      </template>
+        <template v-else>
+          <b-form-checkbox
+            v-model="preSelected"
+            :value="option.label"
+            :name="name"
+            :data-qa="`${option.label} ${name} ${CHECKBOX}`"
+          >
+            <FacetFieldLabel
+              :facet-name="name"
+              :field-value="option.label"
+            />
+            <span>({{ option.count | localise }})</span>
+          </b-form-checkbox>
+        </template>
+      </div>
     </b-dropdown-form>
 
     <li
@@ -197,7 +199,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @import "./assets/scss/variables.scss";
+  @import './assets/scss/variables.scss';
 
   .dropdown { // TODO: move this code to the dropdown.scss where possible, to avoid duplication
     margin-bottom: 5px;
@@ -233,7 +235,7 @@
       }
     }
 
-    .custom-control  {
+    .custom-control {
       margin-bottom: 4px;
       min-height: auto;
 

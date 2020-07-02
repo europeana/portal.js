@@ -37,14 +37,15 @@
         >
           {{ showAll ? fullDescription : truncatedDescription }}
         </p>
-        <b-link
+        <b-button
           v-if="fullDescription.length > limitCharacters"
           data-qa="entity show link"
-          class="btn-link is-size-4"
+          class="btn-link is-size-4 p-0"
+          variant="link"
           @click="toggleMoreDescription"
         >
           {{ showAll ? $t('showLess') : $t('showMore') }}
-        </b-link>
+        </b-button>
       </div>
       <SmartLink
         v-if="hasDescription && !isEditorialDescription"
@@ -126,7 +127,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @import "./assets/scss/variables.scss";
+  @import './assets/scss/variables.scss';
 
   .depiction {
     box-shadow: $boxshadow-small;

@@ -113,7 +113,7 @@ module.exports = {
     const selector = qaSelector(qaElementName);
     await client.clearValue(selector);
     await client.waitForElementVisible(selector);
-    client.setValue(selector, text);
+    await client.setValue(selector, text);
   },
   async observeTargetHasClass(qaElementName, klass) {
     await client.getAttribute(qaSelector(qaElementName), 'class', async(result) => {
@@ -233,5 +233,11 @@ module.exports = {
     await this.waitForTargetToBeVisible('search box');
     await this.enterTextInTarget(query, 'search box');
     await this.clickOnTheTarget('search button');
+  },
+  async makeSnapShot(pageName) {
+    await client.percySnapshot(pageName);
+  },
+  async hrefLangTags() {
+    await client.expect.element('link[rel=alternate]').to.be.present;
   }
 };

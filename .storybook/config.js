@@ -14,7 +14,11 @@ Vue.use(VueI18n);
 Vue.use(BootstrapVue);
 Vue.mixin({
   methods: {
-    localePath: (args) => args
+    localePath: (args) => args,
+    $path: () => {}, // Mocking the path plugin
+    $tFacetName: (name) => name, // Mocking the tFacetName plugin
+    $tNull: (key) => key, // Mocking the tNull plugin
+    $proxyMedia: (url, id) => id ? id + url : url // Mocking the proxyMedia plugin
   }
 });
 Vue.component('NuxtLink', {
@@ -26,6 +30,7 @@ Vue.component('NuxtLink', {
   },
   template: '<a href="" @click.prevent="log()"><slot>NuxtLink</slot></a>',
 });
+
 // add bootstrap CSS to head
 const bootstrapPkg = require('bootstrap/package');
 const bootstrapVuePkg = require('bootstrap-vue/package');

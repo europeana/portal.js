@@ -12,11 +12,9 @@ Feature: Home page
     And I am on an accessible page
 
   Scenario: Seeing a notification banner
-    The homepage is a browse page from Contentful
 
     When I open `/en`
-    Then I see a `browse page`
-    And I see a `notification banner`
+    Then I see a `notification banner`
 
   @cookie-notice-not-dismissed
   Scenario: Seeing the cookie disclaimer on first visit
