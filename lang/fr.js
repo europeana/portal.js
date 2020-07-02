@@ -66,7 +66,6 @@ export default {
     "right": "Droite"
   },
   "edmIsShownAtLinkAlt": "Vue sur le site internet du prestataire",
-  "entity": "Entité",
   "error": "Erreur",
   "exhibitions": {
     "chapters": "Chapitres",
@@ -293,7 +292,7 @@ export default {
     "MIME_TYPE": {
       "name": "Format de fichier | Formats de fichiers",
       "options": {
-        "text/plain": "Texte brut"
+        "text\/plain": "Texte brut"
       }
     },
     "PROVIDER": {
@@ -444,10 +443,7 @@ export default {
   "readMore": "Lire la suite",
   "record": {
     "downloadCopyrightInfo": "Cet élément est protégé par des droits d'auteur et ne peut pas être téléchargé.",
-    "extendedInformation": "Informations complémentaires",
-    "hideAll": "Masquer toutes les informations",
     "record": "Enregistrement",
-    "showAll": "Afficher toutes les informations",
     "similarItems": "Éléments similaires",
     "view": {
       "image": "Afficher l'image",
