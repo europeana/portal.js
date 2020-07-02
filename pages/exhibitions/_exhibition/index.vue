@@ -1,20 +1,15 @@
 <template>
   <div
     data-qa="exhibition page"
-    class="exhibition-page mx-auto"
+    class="exhibition-page mx-auto default-hero"
   >
-    <HeroImage
-      v-if="hero"
-      compact
+    <ImageWithAttribution
+      :header="hero.name"
+      :lead="headline"
       :image-url="heroImage.url"
       :image-content-type="heroImage.contentType"
-      :header="name"
-      :lead="headline"
       :rights-statement="hero.license"
-      :name="hero.name"
-      :provider="hero.provider"
-      :creator="hero.creator"
-      :url="hero.url"
+      :attribution="hero"
     />
     <b-container class="pb-3">
       <b-row>
@@ -52,12 +47,11 @@
   import marked from 'marked';
 
   import ExhibitionChapters from '../../../components/exhibition/ExhibitionChapters';
-  import HeroImage from '../../../components/generic/HeroImage';
 
   export default {
     components: {
       ExhibitionChapters,
-      HeroImage
+      ImageWithAttribution: () => import('../../../components/generic/ImageWithAttribution')
     },
     computed: {
       hero() {

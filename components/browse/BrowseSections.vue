@@ -43,11 +43,12 @@
       <ImageWithAttribution
         v-else-if="contentType(section, 'ImageWithAttribution')"
         :key="index"
-        :src="section.image.url"
+        :image-url="section.image.url"
         :content-type="section.image.contentType"
         :width="section.image.width"
         :height="section.image.height"
         :attribution="attributionFields(section)"
+        :rights-statement="section.license"
       />
     </template>
   </div>

@@ -1,20 +1,15 @@
 <template>
   <div
     data-qa="exhibition chapter"
-    class="exhibition-page mx-auto"
+    class="exhibition-page mx-auto default-hero"
   >
-    <HeroImage
-      v-if="hero"
-      compact
-      :image-url="heroImage.url"
-      :image-content-type="heroImage.contentType"
+    <ImageWithAttribution
       :header="page.name"
       :lead="page.headline"
+      :image-url="heroImage.url"
+      :image-content-type="heroImage.contentType"
       :rights-statement="hero.license"
-      :name="hero.name"
-      :provider="hero.provider"
-      :creator="hero.creator"
-      :url="hero.url"
+      :attribution="hero"
     />
     <b-container>
       <b-row>
@@ -67,7 +62,6 @@
   import BrowseSections from '../../../components/browse/BrowseSections';
   import ExhibitionChapters from '../../../components/exhibition/ExhibitionChapters';
   import ExhibitionChaptersNavigation from '../../../components/exhibition/ExhibitionChaptersNavigation';
-  import HeroImage from '../../../components/generic/HeroImage';
 
   export default {
     components: {
@@ -75,7 +69,7 @@
       ClientOnly,
       ExhibitionChapters,
       ExhibitionChaptersNavigation,
-      HeroImage
+      ImageWithAttribution: () => import('../../../components/generic/ImageWithAttribution')
     },
     computed: {
       chapterNavigation() {

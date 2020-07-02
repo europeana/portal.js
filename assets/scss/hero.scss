@@ -16,7 +16,7 @@
     width: 100%;
   }
 
-  &::after {
+  &.browse-jumbotron::after {
     border-bottom: 145px solid $bodygrey;
     border-left: 60px solid transparent;
     bottom: 0;
@@ -99,6 +99,14 @@
     margin-left: auto;
     margin-right: auto;
   }
+  @media (min-width: $bp-extralarge) {
+    blockquote + p cite {
+      width: 38.3rem;
+    }
+  }
+}
+
+.default-hero {
   .hero-wrapper {
     max-width: 51.25rem;
     figcaption {
@@ -148,16 +156,8 @@
     }
   }
   .jumbotron {
-    &:after {
-      display: none;
-    }
     .container {
       max-width: none;
-    }
-  }
-  @media (min-width: $bp-extralarge) {
-    blockquote + p cite {
-      width: 38.3rem;
     }
   }
   @media (max-width: $bp-large) {
@@ -172,3 +172,4 @@
     }
   }
 }
+
