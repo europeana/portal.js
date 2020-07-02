@@ -4,18 +4,19 @@
     data-qa="main navigation"
   >
     <li
-      v-for="(nav, index) in navigation"
+      v-for="(link, index) in links"
       :key="index"
       class="nav-item"
     >
       <SmartLink
         v-b-toggle.menu
-        :destination="nav.url"
+        :destination="link.url"
         link-class="nav-link"
+        exact
       >
         <span>
-          <i :class="renderIcon(nav.url)" />
-          {{ nav.text }}
+          <i :class="renderIcon(link.url)" />
+          {{ link.text }}
         </span>
       </SmartLink>
     </li>
@@ -30,27 +31,14 @@
       SmartLink
     },
 
-    computed: {
-      navigation() {
-        return this.$store.state['link-group'].data.mobileNavigation.links;
-      },
-
-      i18n() {
-        return this.$store.state.i18n.locale;
-      }
-    },
-
-    watch: {
-      i18n() {
-        this.getNavigationData();
+    props: {
+      links: {
+        type: Array,
+        default: () => []
       }
     },
 
     methods: {
-      async getNavigationData() {
-        return this.$store.dispatch('link-group/init');
-      },
-
       renderIcon(name) {
         let className = '';
         switch (name) {
@@ -68,6 +56,9 @@
           break;
         case ('/help'):
           className = 'icon-help';
+          break;
+        default:
+          className = 'icon-info blank';
           break;
         }
         return className;
@@ -100,7 +91,7 @@
           z-index: 1;
           left: 0;
           right: 0;
-          bottom: -0.8rem;
+          bottom: -0.6rem;
         }
       }
 
@@ -138,6 +129,9 @@
           }
           &.icon-help:before {
             content: '\e921';
+          }
+          &.blank:before {
+            color: transparent;
           }
         }
       }
@@ -187,10 +181,6 @@
     @media (min-width: $bp-large) {
       width: auto;
       margin: auto;
-
-      &:first-of-type, &:last-of-type {
-        display: none;
-      }
 
       .nav-link {
         text-transform: uppercase;

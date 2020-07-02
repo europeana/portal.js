@@ -47,7 +47,10 @@
       role="navigation"
       data-qa="desktop navigation"
     >
-      <PageNavigation />
+      <PageNavigation
+        v-if="mainNavigation"
+        :links="mainNavigation.links"
+      />
     </b-navbar>
     <transition name="slide">
       <b-navbar
@@ -67,7 +70,10 @@
             data-qa="logo"
           >
         </SmartLink>
-        <PageNavigation />
+        <PageNavigation
+          v-if="mobileNavigation"
+          :links="mobileNavigation.links"
+        />
       </b-navbar>
     </transition>
     <transition name="fade">
@@ -96,12 +102,21 @@
       enableAutoSuggest: {
         type: Boolean,
         default: false
+      },
+      mainNavigation: {
+        type: Object,
+        default: null
+      },
+      mobileNavigation: {
+        type: Object,
+        default: null
       }
     },
 
     data() {
       return {
-        showSidebar: null
+        showSidebar: null,
+        windowWidth: 0
       };
     },
 
@@ -134,7 +149,7 @@
     left: 0;
     z-index: 1030;
     padding: 0;
-    box-shadow: $boxshadow-light;
+    border-bottom: 1px solid $whitegrey;
   }
 
   .slide-enter-active, .fade-enter-active {
@@ -242,7 +257,6 @@
       }
     }
     .container-fluid {
-      border-bottom: none !important;
       transition: $standard-transition;
     }
   }
