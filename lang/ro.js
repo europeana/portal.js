@@ -292,7 +292,7 @@ export default {
     "MIME_TYPE": {
       "name": "Format fișier| Formate fișier",
       "options": {
-        "text\/plain": "Text simplu"
+        "text/plain": "Text simplu"
       }
     },
     "PROVIDER": {
