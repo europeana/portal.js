@@ -4,7 +4,7 @@ pipeline {
   }
   agent {
     dockerfile {
-      dir 'docker/deploy'
+      dir 'deploy/cloud-foundry'
       args "-u node:node"
     }
   }
@@ -14,6 +14,7 @@ pipeline {
     CF_LOGIN=credentials('portaljs.cloudfoundry.login')
     CF_ORG="${env.CF_ORG}"
     CF_SPACE="${env.BRANCH_NAME ==~ /\Av\d+\.\d+\.\d+\z/ ? 'production' : 'test'}"
+    CF_APP_NAME="portaljs${env.CF_SPACE == 'production' ? '' : '-' + env.CF_SPACE}"
   }
   stages {
     stage('Build') {
@@ -35,14 +36,22 @@ pipeline {
     }
     stage('Deploy to CF') {
       environment {
-        CF_APP_NAME="portaljs${env.CF_SPACE == 'production' ? '' : '-' + env.CF_SPACE}"
         CTF_CPA_ACCESS_TOKEN=credentials("portaljs.${env.CF_SPACE}.contentful.cpa")
         HTTP_DIGEST_ACL=credentials("portaljs.${env.CF_SPACE}.http.digest.acl")
       }
       steps {
-        sh 'sed -i "s|env:|env:\\n  CTF_CPA_ACCESS_TOKEN: ${CTF_CPA_ACCESS_TOKEN}|" manifest.yml'
-        sh 'sed -i "s|env:|env:\\n  HTTP_DIGEST_ACL: ${HTTP_DIGEST_ACL}|" manifest.yml'
-        sh 'cf blue-green-deploy ${CF_APP_NAME} -f manifest.yml --delete-old-apps'
+        sh 'sed -i "s|env:|env:\\n  CTF_CPA_ACCESS_TOKEN: ${CTF_CPA_ACCESS_TOKEN}|" ./deploy/cloud-foundry/manifest.yml'
+        sh 'sed -i "s|env:|env:\\n  HTTP_DIGEST_ACL: ${HTTP_DIGEST_ACL}|" ./deploy/cloud-foundry/manifest.yml'
+        sh 'cf blue-green-deploy ${CF_APP_NAME} -f ./deploy/cloud-foundry/manifest.yml --delete-old-apps'
+      }
+    }
+    stage('Attach autoscaling policy on CF') {
+      steps {
+        configFileProvider([
+          configFile(fileId: "portaljs.${env.CF_SPACE}.autoscaling-policy.json", targetLocation: './deploy/cloud-foundry/autoscaling-policy.json'),
+        ]) {
+          sh 'cf attach-autoscaling-policy ${CF_APP_NAME} ./deploy/cloud-foundry/autoscaling-policy.json'
+        }
       }
     }
     stage('Deploy Storybook') {

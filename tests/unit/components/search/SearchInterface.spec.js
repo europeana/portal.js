@@ -344,9 +344,8 @@ describe('components/search/SearchInterface', () => {
                 storeState: { facets }
               });
               wrapper.vm.$bvToast.show = sinon.spy();
-
+              global.sessionStorage.contentTierToastShown = false;
               await wrapper.vm.showContentTierToast();
-
               wrapper.vm.$bvToast.show.should.have.been.calledWith(elementId);
             });
 
@@ -354,11 +353,11 @@ describe('components/search/SearchInterface', () => {
               const wrapper = factory({
                 storeState: { facets }
               });
-
+              global.sessionStorage.contentTierToastShown = false;
               await wrapper.vm.showContentTierToast();
               await wrapper.vm.$root.$emit('bv::toast:shown');
 
-              global.sessionStorage.contentTierToastShown.should.be.true;
+              global.sessionStorage.contentTierToastShown.should.eql('true');
             });
           });
 

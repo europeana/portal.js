@@ -1,7 +1,9 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import ExhibitionChaptersNavigation from '../../../../components/exhibition/ExhibitionChaptersNavigation.vue';
+import BootstrapVue from 'bootstrap-vue';
 
 const localVue = createLocalVue();
+localVue.use(BootstrapVue);
 
 const $route = {
   params: {
