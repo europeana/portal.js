@@ -5,29 +5,12 @@
     <b-row class="flex-md-row pt-3">
       <b-col
         cols="12"
-        md="9"
       >
         <EntityDetails
-          :attribution="attribution"
-          :depiction="depiction"
           :description="description"
           :is-editorial-description="hasEditorialDescription"
           :title="title"
-          :depiction-link-title="$t('goToRecord')"
         />
-        <SearchInterface
-          class="px-0"
-          :per-row="3"
-          :per-page="recordsPerPage"
-          :route="route"
-          :show-content-tier-toggle="false"
-        />
-      </b-col>
-      <b-col
-        cols="12"
-        md="3"
-        class="pb-3"
-      >
         <client-only>
           <h2
             v-if="relatedEntities && relatedEntities.length > 0"
@@ -52,6 +35,19 @@
             data-qa="related entities"
           />
         </client-only>
+      </b-col>
+    </b-row>
+    <b-row>
+      <b-col
+        cols="12"
+        class="pb-3"
+      >
+        <SearchInterface
+          class="px-0"
+          :per-page="recordsPerPage"
+          :route="route"
+          :show-content-tier-toggle="false"
+        />
       </b-col>
     </b-row>
     <b-row>
@@ -97,14 +93,6 @@
         relatedEntities: state => state.entity.relatedEntities,
         recordsPerPage: state => state.entity.recordsPerPage
       }),
-      attribution() {
-        if (this.editorialDepiction) return this.editorialAttribution;
-        return (!this.entity || !this.entity.isShownBy) ? null : this.entity.isShownBy.source;
-      },
-      depiction() {
-        if (this.editorialDepiction) return this.editorialDepiction;
-        return (!this.entity || !this.entity.isShownBy) ? null : this.entity.isShownBy.thumbnail;
-      },
       description() {
         return this.editorialDescription ? { values: [this.editorialDescription], code: null } : null;
       },

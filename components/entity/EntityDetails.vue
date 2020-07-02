@@ -1,25 +1,5 @@
 <template>
   <b-row class="mb-3">
-    <b-col
-      v-if="depictionThumbnail && depictionAttribution"
-      cols="12"
-      sm="3"
-    >
-      <SmartLink
-        :destination="depictionAttribution"
-        :title="depictionLinkTitle"
-        link-class="depiction mb-3 d-block overflow-hidden rounded-circle position-relative"
-        data-qa="entity attribution"
-      >
-        <b-img-lazy
-          :src="depictionThumbnail"
-          fluid
-          :alt="$t('depiction', { title: title.values[0] })"
-          data-qa="entity depiction"
-          @error.native="depictionNotFound"
-        />
-      </SmartLink>
-    </b-col>
     <b-col>
       <h1
         :lang="title.code"
@@ -71,14 +51,6 @@
         type: Object,
         required: true
       },
-      depiction: {
-        type: String,
-        default: ''
-      },
-      attribution: {
-        type: String,
-        default: ''
-      },
       // Description as object with 'values' (array of strings) and 'code' two letter language code
       description: {
         type: Object,
@@ -87,16 +59,10 @@
       isEditorialDescription: {
         type: Boolean,
         default: false
-      },
-      depictionLinkTitle: {
-        type: String,
-        default: null
       }
     },
     data() {
       return {
-        depictionAttribution: this.attribution,
-        depictionThumbnail: this.depiction,
         limitCharacters: 255,
         showAll: false
       };
@@ -113,12 +79,6 @@
       }
     },
     methods: {
-      depictionNotFound() {
-        // clear depictionThumbnail and attribution to prevent showing a broken image and
-        // contextless link
-        this.depictionThumbnail = '';
-        this.depictionAttribution = '';
-      },
       toggleMoreDescription() {
         this.showAll = !this.showAll;
       }
