@@ -137,10 +137,11 @@ const config = {
         silentFallbackWarn: true,
         dateTimeFormats: i18nDateTime
       },
-      // Disable redirects to callback page or authentication fails
+      // Disable redirects to account callback & login pages
       parsePages: false,
       pages: {
-        'account/callback': false
+        'account/callback': false,
+        'account/login': false
       },
       // Enable browser language detection to automatically redirect user
       // to their preferred language as they visit your app for the first time
@@ -218,7 +219,7 @@ if (Number(process.env['ENABLE_XX_USER_AUTH'])) {
     // 'login' option for unauthorised redirection
     // 'home' option for redirection after login
     redirect: {
-      login: '/?login=1',
+      login: '/account/login',
       logout: '/',
       callback: '/account/callback',
       home: '/account/profile'

@@ -23,14 +23,14 @@
     <!-- sso links -->
     <template v-if="enableAuthLinks">
       <li
-        v-if="!isAuthenticated"
+        v-if="isAuthenticated"
         class="nav-item"
       >
         <b-link
+          :to="localePath({ name:'account-profile' })"
           class="nav-link"
-          :to="localePath({ name: 'account-login' })"
         >
-          <span>{{ $t('account.linkLogin') }}</span>
+          <span>{{ $t('account.linkAccount') }}</span>
         </b-link>
       </li>
       <li
@@ -38,10 +38,10 @@
         class="nav-item"
       >
         <b-link
-          :to="localePath({ name: 'account-profile' })"
           class="nav-link"
+          :to="({ name:'account-login' })"
         >
-          <span>{{ $t('account.linkAccount') }}</span>
+          <span>{{ $t('account.linkLogin') }}</span>
         </b-link>
       </li>
     </template>
