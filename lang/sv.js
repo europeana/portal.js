@@ -66,7 +66,6 @@ export default {
     "right": "Höger"
   },
   "edmIsShownAtLinkAlt": "Visa på leverantörens webbplats",
-  "entity": "Entitet",
   "error": "Fel",
   "exhibitions": {
     "chapters": "Kapitel",
@@ -293,7 +292,7 @@ export default {
     "MIME_TYPE": {
       "name": "Filformat | Filformat",
       "options": {
-        "text/plain": "Oformaterad text"
+        "text\/plain": "Oformaterad text"
       }
     },
     "PROVIDER": {
@@ -444,10 +443,7 @@ export default {
   "readMore": "Läs mer",
   "record": {
     "downloadCopyrightInfo": "Detta objekt är skyddat av upphovsrätt och kan inte laddas ner.",
-    "extendedInformation": "Utökad information",
-    "hideAll": "Dölj all information",
     "record": "Dokument",
-    "showAll": "Visa all information",
     "similarItems": "Liknande objekt",
     "view": {
       "image": "Visa bild",
