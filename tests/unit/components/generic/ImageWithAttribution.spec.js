@@ -28,11 +28,11 @@ describe('components/generic/ImageWithAttribution', () => {
   //   image.attributes().src.should.eq(propsData.src);
   // });
 
-  // it('renders the attribution', () => {
-  //   const wrapper = factory();
-  //   // wrapper.vm.toggleCite();
+  it('renders the attribution', () => {
+    const wrapper = factory();
+    wrapper.vm.toggleCite();
 
-  //   const attribution = wrapper.find('[data-qa="attribution"]');
-  //   attribution.attributes().url.should.eq(propsData.attribution.url);
-  // });
+    // const attribution = wrapper.find('[data-qa="attribution"]');
+    // attribution.attributes().url.should.eq(propsData.attribution.url);
+  });
 });
