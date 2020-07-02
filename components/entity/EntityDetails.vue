@@ -26,6 +26,10 @@
         >
           {{ showAll ? $t('showLess') : $t('showMore') }}
         </b-button>
+        <p class="curated d-flex align-items-center">
+          <span class="ic-verified" />
+          {{ $t('curatedAutomatically') }}
+        </p>
       </div>
       <SmartLink
         v-if="hasDescription && !isEditorialDescription"
@@ -88,6 +92,7 @@
 
 <style lang="scss" scoped>
   @import './assets/scss/variables.scss';
+  @import './assets/scss/icons.scss';
 
   .depiction {
     box-shadow: $boxshadow-small;
@@ -114,6 +119,22 @@
 
     &:hover {
       text-decoration: none;
+    }
+  }
+
+  p {
+    color: $mediumgrey;
+    &.curated {
+      font-size: $font-size-small;
+      color: $black;
+      &:before {
+        @extend .icon-font;
+        display: inline-block;
+        font-size: 1.5rem;
+        color: $blue;
+        content: '\e923';
+        margin-right: 0.325rem;
+      }
     }
   }
 </style>

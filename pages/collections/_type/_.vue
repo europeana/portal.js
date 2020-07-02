@@ -1,40 +1,41 @@
 <template>
   <b-container
     data-qa="entity page"
+    fluid
+    class="entity-page"
   >
-    <b-row class="flex-md-row pt-3">
+    <b-row class="flex-md-row pt-5 bg-white">
       <b-col
         cols="12"
       >
-        <EntityDetails
-          :description="description"
-          :is-editorial-description="hasEditorialDescription"
-          :title="title"
-        />
-        <client-only>
-          <h2
-            v-if="relatedEntities && relatedEntities.length > 0"
-            class="related-heading text-uppercase"
-          >
-            {{ $t('contentYouMightLike') }}
-          </h2>
-          <section
-            v-if="relatedCollectionCards"
-          >
-            <BrowseContentCard
-              v-for="(card, index) in relatedCollectionCards"
-              :key="index"
-              :fields="card"
-              :data-qa="card.name + ' entity card'"
-              card-type="AutomatedEntityCard"
-            />
-          </section>
-          <EntityCards
-            v-else-if="relatedEntities"
-            :entities="relatedEntities"
-            data-qa="related entities"
+        <b-container>
+          <EntityDetails
+            :description="description"
+            :is-editorial-description="hasEditorialDescription"
+            :title="title"
           />
-        </client-only>
+          <client-only>
+            <h2
+              v-if="relatedEntities && relatedEntities.length > 0"
+              class="related-heading text-uppercase"
+            >
+              {{ $t('relatedCollections') }}
+            </h2>
+            <section
+              v-if="relatedEntities"
+            >
+              <RelatedChip
+                v-for="relatedEntity in relatedEntities"
+                :id="relatedEntity.id"
+                :key="relatedEntity.id"
+                :link-gen="suggestionLinkGen"
+                :title="relatedEntity.prefLabel[$i18n.locale]"
+                :img="relatedEntity.isShownBy.thumbnail"
+                data-qa="related entities"
+              />
+            </section>
+          </client-only>
+        </b-container>
       </b-col>
     </b-row>
     <b-row>
@@ -75,18 +76,28 @@
   import * as entities from '../../../plugins/europeana/entity';
   import { pageFromQuery } from '../../../plugins/utils';
   import { langMapValueForLocale } from  '../../../plugins/europeana/utils';
+  import { getEntityTypeHumanReadable, getEntitySlug } from '../../../plugins/europeana/entity';
+  import { mapGetters } from 'vuex';
 
   export default {
     components: {
-      BrowseContentCard: () => import('../../../components/browse/BrowseContentCard'),
       BrowseSections: () => import('../../../components/browse/BrowseSections'),
       ClientOnly,
-      EntityCards: () => import('../../../components/entity/EntityCards'),
       EntityDetails,
-      SearchInterface
+      SearchInterface,
+      RelatedChip: () => import('../../../components/generic/RelatedChip')
+    },
+
+    data() {
+      return {
+        relatedCollections: []
+      };
     },
 
     computed: {
+      ...mapGetters({
+        apiConfig: 'apis/config'
+      }),
       ...mapState({
         entity: state => state.entity.entity,
         page: state => state.entity.page,
@@ -249,6 +260,16 @@
           values: [title],
           code: null
         };
+      },
+
+      suggestionLinkGen(id, prefLabel) {
+        const uriMatch = id.match(`^${this.apiConfig.data.origin}/([^/]+)(/base)?/(.+)$`);
+        return this.$path({
+          name: 'collections-type-all', params: {
+            type: getEntityTypeHumanReadable(uriMatch[1]),
+            pathMatch: getEntitySlug(id, prefLabel)
+          }
+        });
       }
     },
 
