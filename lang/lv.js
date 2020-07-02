@@ -66,7 +66,6 @@ export default {
     "right": "Labais"
   },
   "edmIsShownAtLinkAlt": "Skatīt pakalpojumu sniedzēja vietnē",
-  "entity": "Struktūrvienība",
   "error": "Kļūda",
   "exhibitions": {
     "chapters": "Nodaļas",
@@ -293,7 +292,7 @@ export default {
     "MIME_TYPE": {
       "name": "Datnes formāts | Datņu formāti",
       "options": {
-        "text/plain": "Vienkāršs teksts"
+        "text\/plain": "Vienkāršs teksts"
       }
     },
     "PROVIDER": {
@@ -309,7 +308,7 @@ export default {
       "name": "Izdošanas datums"
     },
     "proxy_dcterms_medium": {
-      "name": "Līdzeklis/ Līdzekļi"
+      "name": "Līdzeklis\/ Līdzekļi"
     },
     "REUSABILITY": {
       "name": "Vai es varu to atkārtoti izmantot?",
@@ -444,10 +443,7 @@ export default {
   "readMore": "Lasīt vairāk",
   "record": {
     "downloadCopyrightInfo": "Šis vienums ir aizsargāts ar autortiesībām, un to nevar lejupielādēt.",
-    "extendedInformation": "Paplašināta informācija",
-    "hideAll": "Paslēpt visu informāciju",
     "record": "Ieraksts",
-    "showAll": "Rādīt visu informāciju",
     "similarItems": "Līdzīgi vienumi",
     "view": {
       "image": "Skatīt attēlu",
