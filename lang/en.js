@@ -510,5 +510,10 @@ export default {
     "list": "List view"
   },
   "showLess": "Show less",
-  "showMore": "Show more"
+  "showMore": "Show more",
+  "account": {
+    "title": "My account",
+    "linkAccount": "My Account",
+    "linkLogin": "Login"
+  }
 };

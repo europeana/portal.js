@@ -20,6 +20,31 @@
         </span>
       </SmartLink>
     </li>
+    <!-- sso links -->
+    <template v-if="enableAuthLinks">
+      <li
+        v-if="isAuthenticated"
+        class="nav-item"
+      >
+        <b-link
+          :to="localePath({ name: 'account-profile' })"
+          class="nav-link"
+        >
+          <span>{{ $t('account.linkAccount') }}</span>
+        </b-link>
+      </li>
+      <li
+        v-else
+        class="nav-item"
+      >
+        <b-link
+          class="nav-link"
+          :to="{ name: 'account-login' }"
+        >
+          <span>{{ $t('account.linkLogin') }}</span>
+        </b-link>
+      </li>
+    </template>
   </b-navbar-nav>
 </template>
 
@@ -30,14 +55,20 @@
     components: {
       SmartLink
     },
-
     props: {
       links: {
         type: Array,
         default: () => []
       }
     },
-
+    computed: {
+      enableAuthLinks() {
+        return Boolean(Number(process.env.ENABLE_XX_USER_AUTH));
+      },
+      isAuthenticated() {
+        return this.$store.state.auth.loggedIn;
+      }
+    },
     methods: {
       renderIcon(name) {
         let className = '';
