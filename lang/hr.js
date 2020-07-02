@@ -66,7 +66,6 @@ export default {
     "right": "Desno"
   },
   "edmIsShownAtLinkAlt": "Prikaz na internetskoj stranici pružatelja",
-  "entity": "Cjelina",
   "error": "Greška",
   "exhibitions": {
     "chapters": "Poglavlja",
@@ -293,7 +292,7 @@ export default {
     "MIME_TYPE": {
       "name": "Format datoteke | Formati datoteka",
       "options": {
-        "text/plain": "Jednostavni tekst"
+        "text\/plain": "Jednostavni tekst"
       }
     },
     "PROVIDER": {
@@ -335,7 +334,7 @@ export default {
     "default": {
       "dcContributor": "Suradnici",
       "dcCoverage": "Mjesto-vrijeme",
-      "dcCreator": "Stvorio/la",
+      "dcCreator": "Stvorio\/la",
       "dcDate": "Datum",
       "dcDescription": "Opis",
       "dcDuration": "Trajanje",
@@ -444,10 +443,7 @@ export default {
   "readMore": "Pročitaj više",
   "record": {
     "downloadCopyrightInfo": "Ova je stavka zaštićena autorskim pravima i nije ju moguće preuzeti.",
-    "extendedInformation": "Proširene informacije",
-    "hideAll": "Sakrij sve informacije",
     "record": "Zapis",
-    "showAll": "Prikaži sve informacije",
     "similarItems": "Slične stavke",
     "view": {
       "image": "Pogledajte sliku",
