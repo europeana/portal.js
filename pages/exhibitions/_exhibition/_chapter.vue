@@ -77,28 +77,6 @@
       ExhibitionChaptersNavigation,
       HeroImage
     },
-    computed: {
-      chapterNavigation() {
-        return this.chapters.map((chapter) => {
-          return {
-            identifier: chapter.identifier, name: chapter.name, url: this.chapterUrl(chapter.identifier)
-          };
-        });
-      },
-      hero() {
-        return this.page.primaryImageOfPage ? this.page.primaryImageOfPage : null;
-      },
-      heroImage() {
-        return this.hero ? this.hero.image : null;
-      },
-      optimisedImageUrl() {
-        return this.$options.filters.optimisedImageUrl(
-          this.heroImage.url,
-          this.heroImage.contentType,
-          { width: 800, height: 800 }
-        );
-      }
-    },
     asyncData({ params, query, error, app, store }) {
       const variables = {
         identifier: params.exhibition,
@@ -151,6 +129,28 @@
         .catch((e) => {
           error({ statusCode: 500, message: e.toString() });
         });
+    },
+    computed: {
+      chapterNavigation() {
+        return this.chapters.map((chapter) => {
+          return {
+            identifier: chapter.identifier, name: chapter.name, url: this.chapterUrl(chapter.identifier)
+          };
+        });
+      },
+      hero() {
+        return this.page.primaryImageOfPage ? this.page.primaryImageOfPage : null;
+      },
+      heroImage() {
+        return this.hero ? this.hero.image : null;
+      },
+      optimisedImageUrl() {
+        return this.$options.filters.optimisedImageUrl(
+          this.heroImage.url,
+          this.heroImage.contentType,
+          { width: 800, height: 800 }
+        );
+      }
     },
     methods: {
       chapterUrl(identifier) {

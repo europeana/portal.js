@@ -177,6 +177,9 @@
         }
       }
     },
+    fetch() {
+      this.viewFromRouteQuery();
+    },
     data() {
       return {
         coreFacetNames: ['collection', 'TYPE', 'COUNTRY', 'REUSABILITY'],
@@ -310,9 +313,6 @@
       routeQueryView: 'viewFromRouteQuery',
       contentTierZeroPresent: 'showContentTierToast',
       contentTierZeroActive: 'showContentTierToast'
-    },
-    fetch() {
-      this.viewFromRouteQuery();
     },
     mounted() {
       this.showContentTierToast();

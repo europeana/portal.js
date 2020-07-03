@@ -47,6 +47,28 @@
       NotificationBanner,
       HeroImage
     },
+
+    asyncData({ params, query, error, app }) {
+      const variables = {
+        identifier: params.pathMatch ? params.pathMatch : 'home',
+        locale: app.i18n.isoLocale(),
+        preview: query.mode === 'preview'
+      };
+
+      return app.$contentful.query('browsePage', variables)
+        .then(response => response.data.data)
+        .then(data => {
+          if (data.browsePageCollection.items.length === 0) {
+            error({ statusCode: 404, message: app.i18n.t('messages.notFound') });
+            return;
+          }
+
+          return data.browsePageCollection.items[0];
+        })
+        .catch((e) => {
+          error({ statusCode: 500, message: e.toString() });
+        });
+    },
     computed: {
       hero() {
         return this.primaryImageOfPage ? this.primaryImageOfPage : null;
@@ -69,28 +91,6 @@
           { width: 800, height: 800 }
         );
       }
-    },
-
-    asyncData({ params, query, error, app }) {
-      const variables = {
-        identifier: params.pathMatch ? params.pathMatch : 'home',
-        locale: app.i18n.isoLocale(),
-        preview: query.mode === 'preview'
-      };
-
-      return app.$contentful.query('browsePage', variables)
-        .then(response => response.data.data)
-        .then(data => {
-          if (data.browsePageCollection.items.length === 0) {
-            error({ statusCode: 404, message: app.i18n.t('messages.notFound') });
-            return;
-          }
-
-          return data.browsePageCollection.items[0];
-        })
-        .catch((e) => {
-          error({ statusCode: 500, message: e.toString() });
-        });
     },
 
     head() {

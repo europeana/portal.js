@@ -59,25 +59,6 @@
       ExhibitionChapters,
       HeroImage
     },
-    computed: {
-      hero() {
-        return this.primaryImageOfPage ? this.primaryImageOfPage : null;
-      },
-      heroImage() {
-        return this.hero ? this.hero.image : null;
-      },
-      mainContent() {
-        if (this.text === undefined) return;
-        return marked(this.text);
-      },
-      optimisedImageUrl() {
-        return this.$options.filters.optimisedImageUrl(
-          this.heroImage.url,
-          this.heroImage.contentType,
-          { width: 800, height: 800 }
-        );
-      }
-    },
     asyncData({ params, query, error, app, store, redirect }) {
       if (params.exhibition === undefined) redirect(app.$path({ name: 'exhibitions' }));
 
@@ -110,6 +91,25 @@
         .catch((e) => {
           error({ statusCode: 500, message: e.toString() });
         });
+    },
+    computed: {
+      hero() {
+        return this.primaryImageOfPage ? this.primaryImageOfPage : null;
+      },
+      heroImage() {
+        return this.hero ? this.hero.image : null;
+      },
+      mainContent() {
+        if (this.text === undefined) return;
+        return marked(this.text);
+      },
+      optimisedImageUrl() {
+        return this.$options.filters.optimisedImageUrl(
+          this.heroImage.url,
+          this.heroImage.contentType,
+          { width: 800, height: 800 }
+        );
+      }
     },
     beforeRouteLeave(to, from, next) {
       this.$store.commit('breadcrumb/clearBreadcrumb');

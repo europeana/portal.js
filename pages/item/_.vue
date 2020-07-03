@@ -222,6 +222,41 @@
       NotificationBanner: () => import('../../components/generic/NotificationBanner')
     },
 
+    fetch() {
+      const annotationSearchParams = {
+        query: `target_record_id:"${this.identifier}"`,
+        profile: 'dereference'
+      };
+
+      axios.all([
+        searchAnnotations(annotationSearchParams),
+        searchEntities(this.europeanaEntityUris),
+        this.getSimilarItems()
+      ])
+        .then(axios.spread((annotations, entities, similar) => {
+          this.annotations = annotations;
+          this.transcribingAnnotations = this.annotationsByMotivation('transcribing');
+          this.taggingAnnotations = this.annotationsByMotivation('tagging');
+          this.relatedEntities = entities;
+          this.similarItems = similar.results;
+        }));
+    },
+
+    fetchOnServer: false,
+
+    asyncData({ params, res, query }) {
+      return getRecord(`/${params.pathMatch}`, { origin: query.recordApi })
+        .then((result) => {
+          return result.record;
+        })
+        .catch((error) => {
+          if (typeof res !== 'undefined') {
+            res.statusCode = (typeof error.statusCode === 'undefined') ? 500 : error.statusCode;
+          }
+          return { error: error.message };
+        });
+    },
+
     data() {
       return {
         agents: null,
@@ -355,41 +390,6 @@
         return Boolean(Number(process.env.ENABLE_EUROPEANA_MEDIA_PLAYER));
       }
     },
-
-    asyncData({ params, res, query }) {
-      return getRecord(`/${params.pathMatch}`, { origin: query.recordApi })
-        .then((result) => {
-          return result.record;
-        })
-        .catch((error) => {
-          if (typeof res !== 'undefined') {
-            res.statusCode = (typeof error.statusCode === 'undefined') ? 500 : error.statusCode;
-          }
-          return { error: error.message };
-        });
-    },
-
-    fetch() {
-      const annotationSearchParams = {
-        query: `target_record_id:"${this.identifier}"`,
-        profile: 'dereference'
-      };
-
-      axios.all([
-        searchAnnotations(annotationSearchParams),
-        searchEntities(this.europeanaEntityUris),
-        this.getSimilarItems()
-      ])
-        .then(axios.spread((annotations, entities, similar) => {
-          this.annotations = annotations;
-          this.transcribingAnnotations = this.annotationsByMotivation('transcribing');
-          this.taggingAnnotations = this.annotationsByMotivation('tagging');
-          this.relatedEntities = entities;
-          this.similarItems = similar.results;
-        }));
-    },
-
-    fetchOnServer: false,
 
     created() {
       this.cardGridClass = this.isRichMedia && 'card-grid-richmedia';
