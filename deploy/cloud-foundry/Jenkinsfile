@@ -60,7 +60,9 @@ pipeline {
     stage('Register with ELK') {
       agent any // Don't run in docker container.
       when {
-        expression { return env.ELK_REGISTRATION_COMMAND }
+        not {
+          environment name: 'ELK_REGISTRATION_COMMAND', value: ''
+        }
       }
       steps {
         sh 'APP_GUID="$(cf app ${CF_APP_NAME} --guid | head -1)"'
