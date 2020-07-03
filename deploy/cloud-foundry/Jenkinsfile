@@ -64,8 +64,8 @@ pipeline {
         }
       }
       steps {
-        sh 'APP_GUID="$(cf app ${CF_APP_NAME} --guid | head -1)"'
-        sh '${ELK_REGISTRATION_COMMAND} ${APP_NAME} ${APP_GUID}'
+        sh 'export CF_APP_GUID="$(cf app ${CF_APP_NAME} --guid | head -1)"'
+        sh '${ELK_REGISTRATION_COMMAND} ${CF_APP_NAME} ${CF_APP_GUID}'
         sh 'if [ $? -eq 0 ]; then echo "Log drainer registration OK"; else echo "ELK registration failed!"; exit 1; fi'
       }
     }
