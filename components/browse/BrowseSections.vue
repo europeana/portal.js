@@ -1,5 +1,5 @@
 <template>
-  <div class="default-attribution">
+  <div class="figure-attribution">
     <template
       v-for="(section, index) in content"
     >

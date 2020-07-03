@@ -1,6 +1,6 @@
 <template>
   <b-container data-qa="blog post">
-    <b-row class="flex-md-row pb-5 default-attribution">
+    <b-row class="flex-md-row pb-5 figure-attribution">
       <b-col
         cols="12"
         md="9"

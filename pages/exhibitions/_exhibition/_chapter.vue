@@ -1,7 +1,7 @@
 <template>
   <div
     data-qa="exhibition chapter"
-    class="exhibition-page mx-auto default-attribution"
+    class="exhibition-page mx-auto figure-attribution"
   >
     <b-container
       fluid
