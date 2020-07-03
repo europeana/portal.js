@@ -1,21 +1,21 @@
 <template>
   <b-container>
     <ContentHeader
-      :title="$tc('subjects.title', 2)"
+      :title="$tc('entity.index.subjects', 2)"
     />
     <b-row class="flex-md-row pb-5">
       <b-col cols="12">
         <b-card-group
           class="card-deck-4-cols"
           deck
-          data-qa="subjects page"
+          :data-qa="`${ this.$route.params.type} listing page`"
         >
           <ContentCard
-            v-for="topic in topics"
-            :key="topic.id"
-            :title="topic.prefLabel[$i18n.locale]"
-            :url="topic.id"
-            :image-url="typeof topic.isShownBy !== 'undefined' ? topic.isShownBy.thumbnail : '/'"
+            v-for="entity in entities"
+            :key="entity.id"
+            :title="entity.prefLabel[$i18n.locale]"
+            :url="entity.id"
+            :image-url="typeof entity.isShownBy !== 'undefined' ? entity.isShownBy.thumbnail : '/'"
             variant="mini"
           />
         </b-card-group>
@@ -35,21 +35,18 @@
     </b-row>
   </b-container>
 </template>
-
 <script>
-  import ContentHeader from '../../components/generic/ContentHeader';
-  import ContentCard from '../../components/generic/ContentCard';
-  import { pageFromQuery } from '../../plugins/utils';
-  import { getEntitySubjects } from '../../plugins/europeana/entity';
-
+  import ContentHeader from '../../../components/generic/ContentHeader';
+  import ContentCard from '../../../components/generic/ContentCard';
+  import { pageFromQuery } from '../../../plugins/utils';
+  import { getEntityIndex } from '../../../plugins/europeana/entity';
   const PER_PAGE = 24;
-
   export default {
-    name: 'CollectionTopicsPage',
+    name: 'CollectionTypeIndexPage',
     components: {
       ContentHeader,
       ContentCard,
-      PaginationNav: () => import('../../components/generic/PaginationNav')
+      PaginationNav: () => import('../../../components/generic/PaginationNav')
     },
     head() {
       return {
@@ -65,29 +62,35 @@
     computed: {
       showPagination() {
         return this.total > this.perPage;
+      },
+      route() {
+        return {
+          name: 'collections-index',
+          params: {
+            pathMatch: this.$route.params.type
+          }
+        };
       }
     },
-    asyncData({ query, redirect, error, app }) {
+    asyncData({ query, params, redirect, error, app }) {
       const currentPage = pageFromQuery(query.page);
       if (currentPage === null) {
         // Redirect non-positive integer values for `page` to `page=1`
         query.page = '1';
-        return redirect(app.$path({ name: 'collections-topics', query }));
+        return redirect(app.$path({ name: 'collections-type', params: { type: this.$route.params.type }, query }));
       }
-
-      const params = {
+      const eParams = {
         query: '*:*',
-        type: 'concept',
         page: currentPage - 1,
+        type: params.type.slice(0, -1),
         pageSize: PER_PAGE,
         scope: 'europeana'
       };
-
-      return getEntitySubjects(params)
+      return getEntityIndex(eParams, 'topic')
         .then(response => response)
         .then(data => {
           return {
-            topics: data.topics,
+            entities: data.entities,
             total: data.total,
             page: currentPage,
             perPage: PER_PAGE
@@ -97,10 +100,9 @@
           error({ statusCode: 500, message: e.toString() });
         });
     },
-
     methods: {
       paginationLink(val) {
-        return this.$path({ name: 'collections-topics', query: { page: val } });
+        return this.$path({ name: 'collections-type', params: { type: this.$route.params.type }, query: { page: val } });
       }
     },
     watchQuery: ['query', 'page']

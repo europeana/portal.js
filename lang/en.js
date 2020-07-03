@@ -76,7 +76,11 @@ export default {
     "right": "Right"
   },
   "edmIsShownAtLinkAlt": "View at the provider's website",
-  "entity": "Entity",
+  "entity": {
+    "index": {
+      "subjects": "Subjects"
+    }
+  },
   "error": "Error",
   "exhibitions": {
     "chapters": "Chapters",
@@ -511,8 +515,5 @@ export default {
     "list": "List view"
   },
   "showLess": "Show less",
-  "showMore": "Show more",
-  "subjects": {
-    "title": "Subjects"
-  }
+  "showMore": "Show more"
 };

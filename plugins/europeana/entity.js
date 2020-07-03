@@ -305,16 +305,17 @@ export function entityParamsFromUri(uri) {
  * Return all entity subjects of type concept / agent
  * @param {Object} params additional parameters sent to the API
  */
-export function getEntitySubjects(params = {}) {
+export function getEntityIndex(params = {}, type) {
   return axios.get(entityApiUrl('/search'), {
     params: {
       ...params,
+      type: getEntityTypeApi(type),
       wskey: config.entity.key
     }
   })
     .then((response) => {
       return {
-        topics: response.data.items ? response.data.items : [],
+        entities: response.data.items ? response.data.items : [],
         total: response.data.partOf.total
       };
     })
