@@ -6,7 +6,7 @@ const i18nLocales = require('./plugins/i18n/locales.js');
 const i18nDateTime = require('./plugins/i18n/datetime.js');
 
 const routerMiddleware = ['http', 'legacy/index', 'l10n'];
-if (!Number(process.env['DISABLE_SSL_NEGOTIATION'])) routerMiddleware.unshift('ssl');
+if (Number(process.env['ENABLE_SSL_NEGOTIATION'])) routerMiddleware.unshift('ssl');
 
 const config = {
   mode: 'universal',
@@ -108,6 +108,16 @@ const config = {
       frameworkVersion: require('nuxt/package.json').version
     }],
     '~/modules/contentful-graphql',
+    ['~/modules/http', {
+      ports: {
+        http: process.env.HTTP_PORT,
+        https: process.env.HTTPS_PORT
+      },
+      sslNegotiation: {
+        enabled: Boolean(Number(process.env.ENABLE_SSL_NEGOTIATION)),
+        datasetBlacklist: process.env.SSL_DATASET_BLACKLIST.split(',')
+      }
+    }],
     '@nuxtjs/gtm'
   ],
   gtm: {

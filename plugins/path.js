@@ -1,15 +1,13 @@
 import { URL, URLSearchParams } from './url';
-import {
-  sslNegotiationEnabled, routePermittedOnEitherScheme, routeOnDatasetBlacklist
-} from '../plugins/ssl';
 
+// TODO: move to http module?
 export default ({ app, store }, inject) => {
   const path = (route) => {
     const localePath = app.localePath(route);
 
-    if (!sslNegotiationEnabled || routePermittedOnEitherScheme(route)) return localePath;
+    if (!app.$http.config.sslNegotiation.enabled || app.$http.routePermittedOnEitherScheme(route)) return localePath;
 
-    const routeBlacklisted = routeOnDatasetBlacklist(route);
+    const routeBlacklisted = app.$http.routeOnDatasetBlacklist(route);
 
     // TODO: observe ssl feature toggle
     let switchToProtocol;
