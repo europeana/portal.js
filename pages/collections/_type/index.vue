@@ -50,7 +50,7 @@
     },
     head() {
       return {
-        title: this.$tc('subjects.title', 2)
+        title: this.$tc('entity.index.subjects', 2)
       };
     },
     data() {
