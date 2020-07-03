@@ -58,6 +58,7 @@ pipeline {
       }
     }
     stage('Register with ELK') {
+      agent any // Don't run in docker container.
       when {
         expression { return env.ELK_REGISTRATION_COMMAND }
       }
