@@ -14,6 +14,7 @@
     height: 100%;
     position: absolute;
     width: 100%;
+    z-index: 1;
   }
 
   &.browse-jumbotron::after {
@@ -34,8 +35,9 @@
     flex-direction: column;
     height: 100%;
     justify-content: flex-end;
-    padding-bottom: 3rem;
+    padding: 0;
     position: relative;
+    z-index: 2;
   }
 
   h1,
@@ -65,7 +67,6 @@
   @media (min-width: $bp-large) {
     .container {
       align-items: flex-end;
-      padding-bottom: 4rem;
     }
 
     h1,
@@ -106,10 +107,23 @@
   }
 }
 
-.default-hero {
-  .hero-wrapper {
+.default-attribution {
+  .image-wrapper {
     max-width: 51.25rem;
+    figure {
+      overflow: hidden;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      img {
+        width: 100%;
+        object-fit: cover;
+      }
+    }
     figcaption {
+      z-index: 2;
       .icon-info {
         position: absolute;
         bottom: 1rem;
@@ -158,6 +172,8 @@
   .jumbotron {
     .container {
       max-width: none;
+      justify-content: center;
+      align-items: center;
     }
   }
   @media (max-width: $bp-large) {

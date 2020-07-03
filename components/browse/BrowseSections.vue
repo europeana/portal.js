@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="default-attribution">
     <template
       v-for="(section, index) in content"
     >
@@ -43,7 +43,7 @@
       <ImageWithAttribution
         v-else-if="contentType(section, 'ImageWithAttribution')"
         :key="index"
-        :image-url="section.image.url"
+        :src="section.image.url"
         :content-type="section.image.contentType"
         :width="section.image.width"
         :height="section.image.height"

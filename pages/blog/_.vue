@@ -1,14 +1,13 @@
 <template>
   <b-container data-qa="blog post">
-    <b-row class="flex-md-row pb-5 default-hero">
+    <b-row class="flex-md-row pb-5 default-attribution">
       <b-col
         cols="12"
         md="9"
       >
         <ImageWithAttribution
           v-if="hero"
-          :header="hero.name"
-          :image-url="heroImage.url"
+          :src="heroImage.url"
           :image-content-type="heroImage.contentType"
           :rights-statement="hero.license"
           :attribution="hero"

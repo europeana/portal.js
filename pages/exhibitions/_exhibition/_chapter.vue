@@ -1,12 +1,22 @@
 <template>
   <div
     data-qa="exhibition chapter"
-    class="exhibition-page mx-auto default-hero"
+    class="exhibition-page mx-auto default-attribution"
   >
+    <b-container
+      fluid
+      class="hero-wrapper mb-5"
+    >
+      <h1>{{ page.name }}</h1>
+      <p class="lead">
+        {{ page.headline }}
+      </p>
+      <SocialShare
+        :media-url="heroImage.url"
+      />
+    </b-container>
     <ImageWithAttribution
-      :header="page.name"
-      :lead="page.headline"
-      :image-url="heroImage.url"
+      :src="heroImage.url"
       :image-content-type="heroImage.contentType"
       :rights-statement="hero.license"
       :attribution="hero"
@@ -69,7 +79,8 @@
       ClientOnly,
       ExhibitionChapters,
       ExhibitionChaptersNavigation,
-      ImageWithAttribution: () => import('../../../components/generic/ImageWithAttribution')
+      ImageWithAttribution: () => import('../../../components/generic/ImageWithAttribution'),
+      SocialShare: () => import('../../../components/generic/SocialShare')
     },
     computed: {
       chapterNavigation() {
@@ -191,7 +202,7 @@
 
   /deep/ figure {
     display: inline-block;
-    margin: 0.5rem 0 1rem 0;
+    margin: 0;
     max-width: 100%;
 
     img {

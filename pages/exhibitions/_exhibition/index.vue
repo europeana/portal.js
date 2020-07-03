@@ -1,12 +1,22 @@
 <template>
   <div
     data-qa="exhibition page"
-    class="exhibition-page mx-auto default-hero"
+    class="exhibition-page mx-auto default-attribution"
   >
+    <b-container
+      fluid
+      class="hero-wrapper mb-5"
+    >
+      <h1>{{ hero.name }}</h1>
+      <p class="lead">
+        {{ headline }}
+      </p>
+      <SocialShare
+        :media-url="heroImage.url"
+      />
+    </b-container>
     <ImageWithAttribution
-      :header="hero.name"
-      :lead="headline"
-      :image-url="heroImage.url"
+      :src="heroImage.url"
       :image-content-type="heroImage.contentType"
       :rights-statement="hero.license"
       :attribution="hero"
@@ -51,7 +61,8 @@
   export default {
     components: {
       ExhibitionChapters,
-      ImageWithAttribution: () => import('../../../components/generic/ImageWithAttribution')
+      ImageWithAttribution: () => import('../../../components/generic/ImageWithAttribution'),
+      SocialShare: () => import('../../../components/generic/SocialShare')
     },
     computed: {
       hero() {
