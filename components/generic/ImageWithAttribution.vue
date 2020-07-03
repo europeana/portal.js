@@ -67,6 +67,7 @@
       },
       src: {
         type: String,
+        required: true,
         default: ''
       },
       width: {
