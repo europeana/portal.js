@@ -63,8 +63,10 @@ pipeline {
           environment name: 'ELK_REGISTRATION_COMMAND', value: ''
         }
       }
+      environment {
+          CF_APP_GUID="${sh(script:'cf app ${CF_APP_NAME} --guid | head -1', returnStdout: true).trim()}"
+      }
       steps {
-        sh 'export CF_APP_GUID="$(cf app ${CF_APP_NAME} --guid | head -1)"'
         sh '${ELK_REGISTRATION_COMMAND} ${CF_APP_NAME} ${CF_APP_GUID}'
         sh 'if [ $? -eq 0 ]; then echo "Log drainer registration OK"; else echo "ELK registration failed!"; exit 1; fi'
       }
