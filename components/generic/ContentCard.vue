@@ -88,6 +88,13 @@
       <b-button>
         <i class="icon-ic-add" />
       </b-button>
+      <b-button
+        :pressed.sync="liked"
+      >
+        <span class="small">
+          <i class="icon-heart" />
+        </span>
+      </b-button>
     </div>
   </b-card>
 </template>
@@ -174,7 +181,8 @@
     data() {
       return {
         cardImageUrl: this.imageUrl,
-        displayLabelTypes: 'exhibitions|galleries|blog'
+        displayLabelTypes: 'exhibitions|galleries|blog',
+        liked: false
       };
     },
 
