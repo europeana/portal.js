@@ -57,19 +57,19 @@ pipeline {
         }
       }
     }
-    stage('Register with ELK') {
-      agent any // Don't run in docker container.
-      when {
-        not {
-          environment name: 'ELK_REGISTRATION_COMMAND', value: ''
-        }
-      }
-      steps {
-        sh 'APP_GUID="$(cf app ${CF_APP_NAME} --guid | head -1)"'
-        sh '${ELK_REGISTRATION_COMMAND} ${APP_NAME} ${APP_GUID}'
-        sh 'if [ $? -eq 0 ]; then echo "Log drainer registration OK"; else echo "ELK registration failed!"; exit 1; fi'
-      }
-    }
+    // stage('Register with ELK') {
+    //   agent any // Don't run in docker container.
+    //   when {
+    //     not {
+    //       environment name: 'ELK_REGISTRATION_COMMAND', value: ''
+    //     }
+    //   }
+    //   steps {
+    //     sh 'APP_GUID="$(cf app ${CF_APP_NAME} --guid | head -1)"'
+    //     sh '${ELK_REGISTRATION_COMMAND} ${APP_NAME} ${APP_GUID}'
+    //     sh 'if [ $? -eq 0 ]; then echo "Log drainer registration OK"; else echo "ELK registration failed!"; exit 1; fi'
+    //   }
+    // }
     stage('Deploy Storybook') {
       when {
         environment name: 'CF_SPACE', value: 'test'
