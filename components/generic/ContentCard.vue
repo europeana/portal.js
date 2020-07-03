@@ -85,16 +85,17 @@
       class="user-buttons"
       data-qa="user buttons"
     >
-      <b-button>
-        <i class="icon-ic-add" />
-      </b-button>
+      <b-button
+        class="icon-ic-add"
+        data-qa="add to gallery button"
+        :aria-label="$t('addToGallery')"
+      />
       <b-button
         :pressed.sync="liked"
-      >
-        <span class="small">
-          <i class="icon-heart" />
-        </span>
-      </b-button>
+        class="icon-heart"
+        data-qa="like button"
+        :aria-label="$t('like')"
+      />
     </div>
   </b-card>
 </template>
@@ -258,3 +259,12 @@
     }
   };
 </script>
+<style lang="scss" scoped>
+  @import '../../assets/scss/variables.scss';
+
+  .btn {
+    &.icon-heart {
+      font-size: $font-size-small;
+    }
+  }
+</style>

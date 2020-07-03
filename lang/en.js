@@ -515,5 +515,7 @@ export default {
     "title": "My account",
     "linkAccount": "My Account",
     "linkLogin": "Login"
-  }
+  },
+  "like": "Like",
+  "addToGallery": "Add to gallery"
 };
