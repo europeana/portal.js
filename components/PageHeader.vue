@@ -149,7 +149,7 @@
     left: 0;
     z-index: 1030;
     padding: 0;
-    box-shadow: $boxshadow-light;
+    border-bottom: 1px solid $whitegrey;
   }
 
   .slide-enter-active, .fade-enter-active {
@@ -257,7 +257,6 @@
       }
     }
     .container-fluid {
-      border-bottom: none !important;
       transition: $standard-transition;
     }
   }
