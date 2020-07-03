@@ -23,6 +23,10 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-node-
     - run: npm install
+      env:
+        CHROMEDRIVER_SKIP_DOWNLOAD: true
+        GECKODRIVER_SKIP_DOWNLOAD: true
+        PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: true
     - run: npm run lint
     - run: npm run stylelint
     - run: npm run test:unit
