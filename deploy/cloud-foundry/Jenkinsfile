@@ -5,7 +5,7 @@ pipeline {
   agent {
     dockerfile {
       dir 'deploy/cloud-foundry'
-      args "-u node:node -v ~/.ssh:/home/node/.ssh"
+      args '-u node:node -v ${HOME}/.ssh:/home/node/.ssh' // Single quotes to skip jenkins escaping.
     }
   }
   environment {
