@@ -14,7 +14,7 @@
     height: 100%;
     position: absolute;
     width: 100%;
-    z-index: 1;
+    z-index: 3;
   }
 
   &.browse-jumbotron::after {
@@ -123,7 +123,7 @@
       }
     }
     figcaption {
-      z-index: 2;
+      z-index: 4;
       .icon-info {
         position: absolute;
         bottom: 1rem;

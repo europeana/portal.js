@@ -11,6 +11,7 @@
           :image-content-type="heroImage.contentType"
           :rights-statement="hero.license"
           :attribution="hero"
+          hero
         />
         <BlogPost
           :date-published="post.datePublished"

@@ -20,6 +20,7 @@
       :image-content-type="heroImage.contentType"
       :rights-statement="hero.license"
       :attribution="hero"
+      hero
     />
     <b-container class="pb-3">
       <b-row>

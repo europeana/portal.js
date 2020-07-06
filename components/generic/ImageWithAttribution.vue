@@ -7,6 +7,7 @@
       fluid
       text-variant="white"
       class="mt-2"
+      :class="hero ? 'hero' : ''"
       @click="toggleCite"
     >
       <figure>
@@ -93,6 +94,10 @@
       rightsStatement: {
         type: String,
         default: ''
+      },
+      hero: {
+        type: Boolean,
+        default: false
       }
     },
 
