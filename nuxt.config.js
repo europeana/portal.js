@@ -5,9 +5,6 @@ const pkg = require('./package');
 const i18nLocales = require('./plugins/i18n/locales.js');
 const i18nDateTime = require('./plugins/i18n/datetime.js');
 
-const routerMiddleware = ['http', 'legacy/index', 'l10n'];
-if (Number(process.env['ENABLE_SSL_NEGOTIATION'])) routerMiddleware.unshift('ssl');
-
 const config = {
   mode: 'universal',
 
@@ -168,7 +165,7 @@ const config = {
   ],
 
   router: {
-    middleware: routerMiddleware,
+    middleware: ['legacy/index', 'l10n'],
     extendRoutes(routes) {
       routes.push({
         name: 'slug',

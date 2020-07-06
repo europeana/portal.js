@@ -26,6 +26,11 @@ export default function(moduleOptions) {
   });
 
   this.addTemplate({
+    src: path.resolve(__dirname, path.join('templates', 'helpers.js')),
+    fileName: path.join(MODULE_NAME, 'helpers.js')
+  });
+
+  this.addPlugin({
     src: path.resolve(__dirname, path.join('templates', 'middleware.js')),
     fileName: path.join(MODULE_NAME, 'middleware.js')
   });

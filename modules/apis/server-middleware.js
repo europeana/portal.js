@@ -2,7 +2,8 @@ const axios = require('axios');
 const express = require('express');
 const path = require('path');
 
-const { requestOrigin } = require(path.resolve(__dirname, '../../plugins/http'));
+// FIXME: modules should not require from other local modules like this
+const { requestOrigin } = require(path.resolve(__dirname, '../http/templates/helpers'));
 
 const rc = require('./rc');
 
