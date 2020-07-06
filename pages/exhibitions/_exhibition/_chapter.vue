@@ -1,20 +1,26 @@
 <template>
   <div
     data-qa="exhibition chapter"
-    class="exhibition-page mx-auto"
+    class="exhibition-page mx-auto figure-attribution"
   >
-    <HeroImage
-      v-if="hero"
-      compact
-      :image-url="heroImage.url"
+    <b-container
+      fluid
+      class="image-wrapper mb-5"
+    >
+      <h1>{{ page.name }}</h1>
+      <p class="lead">
+        {{ page.headline }}
+      </p>
+      <SocialShare
+        :media-url="heroImage.url"
+      />
+    </b-container>
+    <ImageWithAttribution
+      :src="heroImage.url"
       :image-content-type="heroImage.contentType"
-      :header="page.name"
-      :lead="page.headline"
       :rights-statement="hero.license"
-      :name="hero.name"
-      :provider="hero.provider"
-      :creator="hero.creator"
-      :url="hero.url"
+      :attribution="hero"
+      hero
     />
     <b-container>
       <b-row>
@@ -67,7 +73,6 @@
   import BrowseSections from '../../../components/browse/BrowseSections';
   import ExhibitionChapters from '../../../components/exhibition/ExhibitionChapters';
   import ExhibitionChaptersNavigation from '../../../components/exhibition/ExhibitionChaptersNavigation';
-  import HeroImage from '../../../components/generic/HeroImage';
 
   export default {
     components: {
@@ -75,7 +80,8 @@
       ClientOnly,
       ExhibitionChapters,
       ExhibitionChaptersNavigation,
-      HeroImage
+      ImageWithAttribution: () => import('../../../components/generic/ImageWithAttribution'),
+      SocialShare: () => import('../../../components/generic/SocialShare')
     },
     computed: {
       chapterNavigation() {
@@ -197,7 +203,7 @@
 
   /deep/ figure {
     display: inline-block;
-    margin: 0.5rem 0 1rem 0;
+    margin: 0;
     max-width: 100%;
 
     img {
