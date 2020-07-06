@@ -60,7 +60,7 @@ pipeline {
     stage('Register with ELK') {
       when {
         not {
-          environment name: 'ELK_REGISTRATION_COMMAND', value: ''
+          environment name: 'ELK_REGISTRATION_COMMAND', value: 'null'
         }
       }
       environment {
