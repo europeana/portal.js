@@ -26,13 +26,13 @@ export default {
     }
   },
   actions: {
-    init({ commit }, { req, route, $http }) {
+    init({ commit }, { req, route, app }) {
       const protocol = currentProtocol({ req });
       const host = currentHost({ req });
       const path = route.fullPath;
 
-      const httpPort = $http.config.ports.http ? `:${$http.config.ports.http}` : '';
-      const httpsPort = $http.config.ports.https ? `:${$http.config.ports.https}` : '';
+      const httpPort = app.$http.config.ports.http ? `:${app.$http.config.ports.http}` : '';
+      const httpsPort = app.$http.config.ports.https ? `:${app.$http.config.ports.https}` : '';
 
       commit('set', ['protocol', protocol]);
       commit('set', ['host', host]);
