@@ -29,6 +29,7 @@
         &:before {
           content: '\e91f';
           font-size: 1.5rem;
+          text-shadow: $textshadow-light;
         }
       }
       cite {
