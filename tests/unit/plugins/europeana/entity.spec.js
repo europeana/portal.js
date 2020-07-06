@@ -73,6 +73,22 @@ const entitySuggestionsResponse = {
   }]
 };
 
+const conceptEntitiesResponse = {
+  partOf: { total: 120 },
+  items: [
+    { type: 'Concept',
+      id: 'http://data.europeana.eu/concept/base/123',
+      prefLabel: { en: 'Folklore' },
+      isShownBy: { thumbnail: 'https://api.europeana.eu/api/v2/thumbnail-by-url.json?uri=https%3A%2F%2Fi.vimeocdn.com%2Fvideo%2F627971486_640.jpg&type=VIDEO' }
+    },
+    { type: 'Concept',
+      id: 'http://data.europeana.eu/concept/base/135',
+      prefLabel: { en: 'Alchemy' },
+      isShownBy: { thumbnail: 'https://api.europeana.eu/api/v2/thumbnail-by-url.json?uri=http%3A%2F%2Fiiif.archivelab.org%2Fiiif%2Fmiraculummundisi00glau%241%2Ffull%2Ffull%2F0%2Fdefault.jpg&type=TEXT' }
+    }
+  ]
+};
+
 describe('plugins/europeana/entity', () => {
   beforeEach(() => {
     config.entity.key = apiKey;
@@ -321,6 +337,44 @@ describe('plugins/europeana/entity', () => {
         description.values[0].should.contain('Vincent Willem van Gogh was');
         description.code.should.contain('en');
       });
+    });
+  });
+
+  describe('getEntityIndex()', () => {
+    beforeEach('stub API response', () => {
+      nock(apiUrl)
+        .get('/entity/search')
+        .query(true)
+        .reply(200, conceptEntitiesResponse);
+    });
+
+    context('with a Concept entity', () => {
+      const eParams = {
+        query: '*:*',
+        page: 1,
+        type: 'concept',
+        pageSize: 2,
+        scope: 'europeana'
+      };
+
+      it('returns a list of concept entities', async() => {
+        const response = await entities.getEntityIndex(eParams, 'topic');
+        response.data.items.length.should.eq(conceptEntitiesResponse.items.length);
+      });
+
+      // it('filters on entity URI', async() => {
+      //   nock(recordApiUrl)
+      //     .get(recordApiEndpoint)
+      //     .query(query => {
+      //       return query.query === `${entityFilterField}:"${entityUri}"`;
+      //     })
+      //     .reply(200, searchResponse);
+
+      //   await entities.relatedEntities(entityType, entityId);
+
+      //   nock.isDone().should.be.true;
+      // });
+
     });
   });
 });
