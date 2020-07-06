@@ -3,7 +3,7 @@ const express = require('express');
 const path = require('path');
 
 // FIXME: modules should not require from other local modules like this
-const { requestOrigin } = require(path.resolve(__dirname, '../http/templates/helpers'));
+const { requestOrigin } = require(path.resolve(__dirname, '../http/templates/utils'));
 
 const rc = require('./rc');
 

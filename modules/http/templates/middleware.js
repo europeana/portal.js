@@ -1,7 +1,7 @@
 // When Nuxt is built, ../middleware points to .nuxt/middleware.js
 import middleware from '../middleware';
 
-import { currentHost, isHttps } from './helpers';
+import { currentHost, isHttps } from './utils';
 
 middleware.http = async(context) => {
   await context.store.dispatch('http/init', context);
