@@ -14,19 +14,7 @@
     height: 100%;
     position: absolute;
     width: 100%;
-    z-index: 3;
-  }
-
-  &.browse-jumbotron::after {
-    border-bottom: 145px solid $bodygrey;
-    border-left: 60px solid transparent;
-    bottom: 0;
-    content: '';
-    display: block;
-    height: 0;
-    position: absolute;
-    right: 0;
-    width: 0;
+    z-index: 1;
   }
 
   .container {
@@ -38,6 +26,24 @@
     padding: 0;
     position: relative;
     z-index: 2;
+  }
+
+  &.browse-jumbotron {
+    .container {
+      padding-bottom: 3rem;
+    }
+    &:after {
+      border-bottom: 145px solid $bodygrey;
+      border-left: 60px solid transparent;
+      bottom: 0;
+      content: '';
+      display: block;
+      height: 0;
+      position: absolute;
+      right: 0;
+      width: 0;
+      z-index: 3;
+    }
   }
 
   h1,
@@ -123,7 +129,7 @@
       }
     }
     figcaption {
-      z-index: 4;
+      z-index: 2;
       .icon-info {
         position: absolute;
         bottom: 1rem;
