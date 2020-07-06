@@ -14,45 +14,32 @@
       <b-row>
         <b-col class="p-0">
           <b-tabs
-            card
             align="center"
           >
             <b-tab
               :title="$t('account.likes')"
               active
             >
-              <b-card-text
-                text-tag="div"
-              >
-                <!-- TODO: Update this section to preview the results retrieved with Sets API -->
-                <div class="card-grid text-center">
-                  Placeholder for {{ $t('account.likes') }} tab.
-                </div>
-              </b-card-text>
+              <!-- TODO: Update this section to preview the results retrieved with Sets API -->
+              <div class="text-center p-3">
+                Placeholder for {{ $t('account.likes') }} tab.
+              </div>
             </b-tab>
             <b-tab
               :title="$t('account.publicCollections')"
             >
-              <b-card-text
-                text-tag="div"
-              >
-                <!-- TODO: Update this section to preview the results retrieved with Sets API -->
-                <div class="text-center">
-                  Placeholder for {{ $t('account.publicCollections') }} tab.
-                </div>
-              </b-card-text>
+              <!-- TODO: Update this section to preview the results retrieved with Sets API -->
+              <div class="text-center p-3">
+                Placeholder for {{ $t('account.publicCollections') }} tab.
+              </div>
             </b-tab>
             <b-tab
               :title="$t('account.privateCollections')"
             >
-              <b-card-text
-                text-tag="div"
-              >
-                <!-- TODO: Update this section to preview the results retrieved with Sets API -->
-                <div class="text-center">
-                  Placeholder for {{ $t('account.privateCollections') }} tab.
-                </div>
-              </b-card-text>
+              <!-- TODO: Update this section to preview the results retrieved with Sets API -->
+              <div class="text-center p-3">
+                Placeholder for {{ $t('account.privateCollections') }} tab.
+              </div>
             </b-tab>
           </b-tabs>
         </b-col>
