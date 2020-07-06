@@ -15,7 +15,7 @@ query ExhibitionChapterPage(
       name
       identifier
       credits
-      hasPartCollection(limit: 20) {
+      hasPartCollection(limit: 40) {
         items {
           name
           identifier
@@ -24,7 +24,7 @@ query ExhibitionChapterPage(
           primaryImageOfPage {
             ... imageWithAttributionFields
           }
-          hasPartCollection(limit: 20) {
+          hasPartCollection(limit: 40) {
             total
             items {
               __typename

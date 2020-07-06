@@ -85,5 +85,90 @@
 
 .exhibition-page {
   background: white;
-  margin-top: -1rem;
+  margin-top: -3rem;
+  padding-top: 0.25rem;
+  h1 {
+    margin-top: 2.5rem;
+  }
+  p.lead {
+    font-size: 1.5rem;
+    color: $mediumgrey;
+  }
+  article, section p, section h1, h2, h3, h4, h5, h6 {
+    max-width: 45rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .hero-wrapper {
+    max-width: 51.25rem;
+    figcaption {
+      .icon-info {
+        position: absolute;
+        bottom: 1rem;
+        right: 1rem;
+        width: 1.5rem;
+        height: 1.5rem;
+        transition: $standard-transition;
+        &:hover {
+          opacity: 0.8;
+          cursor: pointer;
+        }
+        &:before {
+          content: '\e91f';
+          font-size: 1.5rem;
+        }
+      }
+      cite {
+        left: initial;
+        right: 0.5rem;
+        bottom: 0.5rem;
+        border-radius: 0.25rem;
+        margin: 0;
+        padding: 0.75rem;
+        font-size: 0.75rem;
+        max-width: 75%;
+        p {
+          color: $mediumgrey;
+          display: -webkit-box;
+          -webkit-line-clamp: 1;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+          margin-bottom: 0.25rem;
+          a {
+            text-decoration: none;
+          }
+        }
+        .attribution {
+          margin-top: 0.5rem;
+          > span {
+            margin-left: 0;
+          }
+        }
+      }
+    }
+  }
+  .jumbotron {
+    &:after {
+      display: none;
+    }
+    .container {
+      max-width: none;
+    }
+  }
+  @media (min-width: $bp-extralarge) {
+    blockquote + p cite {
+      width: 38.3rem;
+    }
+  }
+  @media (max-width: $bp-large) {
+    .hero-wrapper figcaption cite {
+      max-width: 17rem;
+      .attribution.is-external-link {
+        max-width: 12rem;
+        > span {
+          white-space: normal;
+        }
+      }
+    }
+  }
 }

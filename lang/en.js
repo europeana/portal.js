@@ -7,6 +7,13 @@ export default {
     "viewAt": "View at {link}",
     "viewDocument": "View document"
   },
+  "attribution": {
+    "country": "Country:",
+    "creator": "Creator:",
+    "date": "Date:",
+    "institution": "Institution:",
+    "title": "Title:"
+  },
   "blog": {
     "author": "Author",
     "authors": "Authors",
@@ -69,7 +76,6 @@ export default {
     "right": "Right"
   },
   "edmIsShownAtLinkAlt": "View at the provider's website",
-  "entity": "Entity",
   "error": "Error",
   "exhibitions": {
     "chapters": "Chapters",
@@ -506,7 +512,9 @@ export default {
   "showLess": "Show less",
   "showMore": "Show more",
   "account": {
-    "text": "My Account",
+    "title": "My account",
+    "linkAccount": "My Account",
+    "linkLogin": "Login",
     "login": "Log in",
     "logout": "Log out",
     "profile": "My Likes & Collections",
