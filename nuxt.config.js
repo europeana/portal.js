@@ -222,7 +222,7 @@ if (Number(process.env['ENABLE_XX_USER_AUTH'])) {
       login: '/account/login',
       logout: '/',
       callback: '/account/callback',
-      home: '/account/profile'
+      home: '/account'
     },
     fullPathRedirect: true,
     strategies: {

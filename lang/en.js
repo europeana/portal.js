@@ -513,10 +513,9 @@ export default {
   "showMore": "Show more",
   "account": {
     "title": "My account",
-    "linkAccount": "My Account",
-    "linkLogin": "Login",
-    "login": "Log in",
-    "logout": "Log out",
+    "linkAccount": "Account",
+    "linkLogin": "Log in",
+    "linkLogout": "Log out",
     "profile": "My Likes & Collections",
     "settings": "Settings",
     "likes": "Likes",

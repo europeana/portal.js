@@ -6,8 +6,7 @@
       <b-row class="bg-white">
         <b-col class="pt-5 pb-4">
           <h1 class="text-center mb-1">
-            <!-- TODO: When the connection with Keycloak is done, here show the user's username -->
-            @username
+            @{{ loggedInUser.preferred_username }}
           </h1>
         </b-col>
       </b-row>
@@ -50,9 +49,17 @@
 
 <script>
   export default {
+    middleware: 'auth',
+
+    computed: {
+      loggedInUser() {
+        return this.$store.state.auth.user;
+      }
+    },
+
     head() {
       return {
-        title: this.$t('account.text')
+        title: this.$t('account.title')
       };
     }
   };
