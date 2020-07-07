@@ -359,22 +359,18 @@ describe('plugins/europeana/entity', () => {
 
       it('returns a list of concept entities', async() => {
         const response = await entities.getEntityIndex(eParams, 'topic');
-        response.data.items.length.should.eq(conceptEntitiesResponse.items.length);
+        response.entities.length.should.eq(conceptEntitiesResponse.items.length);
       });
 
-      // it('filters on entity URI', async() => {
-      //   nock(recordApiUrl)
-      //     .get(recordApiEndpoint)
-      //     .query(query => {
-      //       return query.query === `${entityFilterField}:"${entityUri}"`;
-      //     })
-      //     .reply(200, searchResponse);
+      it('returns the total number of entities', async() => {
+        const response = await entities.getEntityIndex(eParams, 'topic');
+        response.total.should.eq(conceptEntitiesResponse.partOf.total);
+      });
 
-      //   await entities.relatedEntities(entityType, entityId);
-
-      //   nock.isDone().should.be.true;
-      // });
-
+      it('returns a thumbnail for each entity', async() => {
+        const response = await entities.getEntityIndex(eParams, 'topic');
+        response.entities[0].isShownBy.thumbnail.should.eq(conceptEntitiesResponse.items[0].isShownBy.thumbnail);
+      });
     });
   });
 });
