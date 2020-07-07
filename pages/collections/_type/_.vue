@@ -1,57 +1,68 @@
 <template>
   <b-container
     data-qa="entity page"
+    fluid
+    class="entity-page"
   >
-    <b-row class="flex-md-row pt-3">
+    <b-row class="flex-md-row pt-5 bg-white mb-4">
       <b-col
         cols="12"
-        md="9"
       >
-        <EntityDetails
-          :attribution="attribution"
-          :depiction="depiction"
-          :description="description"
-          :is-editorial-description="hasEditorialDescription"
-          :title="title"
-          :depiction-link-title="$t('goToRecord')"
-        />
+        <b-container>
+          <EntityDetails
+            :description="description"
+            :is-editorial-description="hasEditorialDescription"
+            :title="title"
+          />
+          <client-only>
+            <h2
+              v-if="relatedEntities || relatedCollectionCards"
+              class="related-heading text-uppercase mb-2"
+            >
+              {{ $t('relatedCollections') }}
+            </h2>
+            <section
+              v-if="relatedEntities"
+              class="mb-2"
+            >
+              <RelatedChip
+                v-for="relatedEntity in relatedEntities"
+                :id="relatedEntity.id"
+                :key="relatedEntity.id"
+                :link-gen="suggestionLinkGen"
+                :title="relatedEntity.prefLabel[$i18n.locale]"
+                :img="relatedEntity.isShownBy.thumbnail"
+                data-qa="related entities"
+              />
+            </section>
+            <section
+              v-else-if="relatedCollectionCards"
+              class="mb-2"
+            >
+              <RelatedChip
+                v-for="(card, index) in relatedCollectionCards"
+                :key="index"
+                :link-gen="card.indentifier"
+                :title="card.name"
+                :img="card.image"
+                data-qa="related entities"
+              />
+            </section>
+          </client-only>
+        </b-container>
+      </b-col>
+    </b-row>
+    <b-row>
+      <b-col
+        cols="12"
+        class="pb-3"
+      >
         <SearchInterface
           class="px-0"
-          :per-row="3"
           :per-page="recordsPerPage"
           :route="route"
           :show-content-tier-toggle="false"
         />
-      </b-col>
-      <b-col
-        cols="12"
-        md="3"
-        class="pb-3"
-      >
-        <client-only>
-          <h2
-            v-if="relatedEntities && relatedEntities.length > 0"
-            class="related-heading text-uppercase"
-          >
-            {{ $t('contentYouMightLike') }}
-          </h2>
-          <section
-            v-if="relatedCollectionCards"
-          >
-            <BrowseContentCard
-              v-for="(card, index) in relatedCollectionCards"
-              :key="index"
-              :fields="card"
-              :data-qa="card.name + ' entity card'"
-              card-type="AutomatedEntityCard"
-            />
-          </section>
-          <EntityCards
-            v-else-if="relatedEntities"
-            :entities="relatedEntities"
-            data-qa="related entities"
-          />
-        </client-only>
       </b-col>
     </b-row>
     <b-row>
@@ -79,15 +90,89 @@
   import * as entities from '../../../plugins/europeana/entity';
   import { pageFromQuery } from '../../../plugins/utils';
   import { langMapValueForLocale } from  '../../../plugins/europeana/utils';
+  import { getEntityTypeHumanReadable, getEntitySlug } from '../../../plugins/europeana/entity';
+  import { mapGetters } from 'vuex';
 
   export default {
     components: {
-      BrowseContentCard: () => import('../../../components/browse/BrowseContentCard'),
       BrowseSections: () => import('../../../components/browse/BrowseSections'),
       ClientOnly,
-      EntityCards: () => import('../../../components/entity/EntityCards'),
       EntityDetails,
-      SearchInterface
+      SearchInterface,
+      RelatedChip: () => import('../../../components/generic/RelatedChip')
+    },
+
+    data() {
+      return {
+        relatedCollections: []
+      };
+    },
+
+    computed: {
+      ...mapGetters({
+        apiConfig: 'apis/config'
+      }),
+      ...mapState({
+        entity: state => state.entity.entity,
+        page: state => state.entity.page,
+        relatedEntities: state => state.entity.relatedEntities,
+        recordsPerPage: state => state.entity.recordsPerPage
+      }),
+      description() {
+        return this.editorialDescription ? { values: [this.editorialDescription], code: null } : null;
+      },
+      descriptionText() {
+        return (this.description && this.description.values.length >= 1) ? this.description.values[0] : null;
+      },
+      editorialAttribution() {
+        return this.page.primaryImageOfPage.url;
+      },
+      // Depiction from the Contentful entry
+      editorialDepiction() {
+        try {
+          const image = this.page.primaryImageOfPage.image;
+          return this.$options.filters.optimisedImageUrl(image.url, image.contentType, { width: 510 });
+        } catch (error) {
+          if (error instanceof TypeError) {
+            return null;
+          }
+          throw error;
+        }
+      },
+      // Description from the Contentful entry
+      editorialDescription() {
+        if (!this.hasEditorialDescription) return null;
+        return this.page.description;
+      },
+      hasEditorialDescription() {
+        return this.page && this.page.description && this.page.description.length >= 1;
+      },
+      // Title from the Contentful entry
+      editorialTitle() {
+        if (!this.page || !this.page.name) return null;
+        return this.page.name;
+      },
+      relatedCollectionCards() {
+        return (this.page
+          && this.page.relatedLinksCollection
+          && this.page.relatedLinksCollection.items
+          && this.page.relatedLinksCollection.items.length > 0)
+          ? this.page.relatedLinksCollection.items : null;
+      },
+      route() {
+        return {
+          name: 'collections-type-all',
+          params: {
+            type: this.$route.params.type,
+            pathMatch: this.$route.params.pathMatch
+          }
+        };
+      },
+      title() {
+        if (!this.entity) return this.titleFallback();
+        if (this.editorialTitle) return this.titleFallback(this.editorialTitle);
+        return langMapValueForLocale(this.entity.prefLabel, this.$store.state.i18n.locale);
+      }
     },
 
     fetch({ query, params, redirect, error, app, store }) {
@@ -169,78 +254,6 @@
         });
     },
 
-    computed: {
-      ...mapState({
-        entity: state => state.entity.entity,
-        page: state => state.entity.page,
-        relatedEntities: state => state.entity.relatedEntities,
-        recordsPerPage: state => state.entity.recordsPerPage
-      }),
-      attribution() {
-        if (this.editorialDepiction) return this.editorialAttribution;
-        return (!this.entity || !this.entity.isShownBy) ? null : this.entity.isShownBy.source;
-      },
-      depiction() {
-        if (this.editorialDepiction) return this.editorialDepiction;
-        return (!this.entity || !this.entity.isShownBy) ? null : this.entity.isShownBy.thumbnail;
-      },
-      description() {
-        return this.editorialDescription ? { values: [this.editorialDescription], code: null } : null;
-      },
-      descriptionText() {
-        return (this.description && this.description.values.length >= 1) ? this.description.values[0] : null;
-      },
-      editorialAttribution() {
-        return this.page.primaryImageOfPage.url;
-      },
-      // Depiction from the Contentful entry
-      editorialDepiction() {
-        try {
-          const image = this.page.primaryImageOfPage.image;
-          return this.$options.filters.optimisedImageUrl(image.url, image.contentType, { width: 510 });
-        } catch (error) {
-          if (error instanceof TypeError) {
-            return null;
-          }
-          throw error;
-        }
-      },
-      // Description from the Contentful entry
-      editorialDescription() {
-        if (!this.hasEditorialDescription) return null;
-        return this.page.description;
-      },
-      hasEditorialDescription() {
-        return this.page && this.page.description && this.page.description.length >= 1;
-      },
-      // Title from the Contentful entry
-      editorialTitle() {
-        if (!this.page || !this.page.name) return null;
-        return this.page.name;
-      },
-      relatedCollectionCards() {
-        return (this.page
-          && this.page.relatedLinksCollection
-          && this.page.relatedLinksCollection.items
-          && this.page.relatedLinksCollection.items.length > 0)
-          ? this.page.relatedLinksCollection.items : null;
-      },
-      route() {
-        return {
-          name: 'collections-type-all',
-          params: {
-            type: this.$route.params.type,
-            pathMatch: this.$route.params.pathMatch
-          }
-        };
-      },
-      title() {
-        if (!this.entity) return this.titleFallback();
-        if (this.editorialTitle) return this.titleFallback(this.editorialTitle);
-        return langMapValueForLocale(this.entity.prefLabel, this.$store.state.i18n.locale);
-      }
-    },
-
     mounted() {
       this.$store.commit('search/setPill', this.title);
 
@@ -261,6 +274,15 @@
           values: [title],
           code: null
         };
+      },
+      suggestionLinkGen(id, prefLabel) {
+        const uriMatch = id.match(`^${this.apiConfig.data.origin}/([^/]+)(/base)?/(.+)$`);
+        return this.$path({
+          name: 'collections-type-all', params: {
+            type: getEntityTypeHumanReadable(uriMatch[1]),
+            pathMatch: getEntitySlug(id, prefLabel)
+          }
+        });
       }
     },
 
