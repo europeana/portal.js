@@ -32,7 +32,7 @@ module.exports = {
   test_settings: {
     default: {
       globals: {
-        url: 'https://localhost:3001'
+        url: 'http://localhost:3001'
       },
       webdriver: {
         start_process: true,

@@ -5,15 +5,19 @@ const { client, createSession, closeSession, startWebDriver, stopWebDriver } = r
 const axios = require('axios');
 const runners = require('../support/step-runners');
 
+const path = require('path');
+
+require(path.resolve(__dirname, '../support/step-definitions'));
+
 const sleep = (milliseconds) => {
   return new Promise(resolve => setTimeout(resolve, milliseconds));
 };
-const waitForAppUrl = 'http://localhost:3002/robots.txt';
+const waitForAppUrl = require('./nightwatch.conf').test_settings.default.globals.url + '/robots.txt';
 const maxWaitTime = 90;
 
 const browserEnv = process.env.browser || 'gecko';
 const nightwatchApiOptions = {
-  configFile: 'tests/features/config/nightwatch.conf.js',
+  configFile: path.resolve(__dirname, './nightwatch.conf.js'),
   env: browserEnv,
   silent: true
 };
