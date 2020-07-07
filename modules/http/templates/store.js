@@ -1,5 +1,7 @@
 import { currentProtocol, currentHost } from './utils';
 
+// TODO: with ssl/http stuff gathered into a module, do we need to store ports here?
+
 export default {
   namespaced: true,
   state: () => ({

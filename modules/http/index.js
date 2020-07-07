@@ -1,5 +1,6 @@
 import path from 'path';
 
+// TODO: come up with a better name for this module
 const MODULE_NAME = 'http';
 
 const defaults = {
@@ -13,37 +14,30 @@ const defaults = {
   }
 };
 
+const templates = ['config.ejs', 'store.js', 'utils.js'];
+const plugins = ['middleware.js', 'plugin.goto.js', 'plugin.http.js', 'plugin.path.js'];
+
 export default function(moduleOptions) {
   const config = {
     ...defaults,
     ...moduleOptions
   };
 
-  this.addTemplate({
-    src: path.resolve(__dirname, path.join('templates', 'config.ejs')),
-    fileName: path.join(MODULE_NAME, 'config.js'),
-    options: config
-  });
+  for (const template of templates) {
+    this.addTemplate({
+      src: path.resolve(__dirname, path.join('templates', template)),
+      fileName: path.join(MODULE_NAME, template.replace('.ejs', '.js')),
+      options: config
+    });
+  }
 
-  this.addTemplate({
-    src: path.resolve(__dirname, path.join('templates', 'utils.js')),
-    fileName: path.join(MODULE_NAME, 'utils.js')
-  });
+  for (const plugin of plugins) {
+    this.addPlugin({
+      src: path.resolve(__dirname, path.join('templates', plugin)),
+      fileName: path.join(MODULE_NAME, plugin),
+      options: config
+    });
+  }
 
-  this.addTemplate({
-    src: path.resolve(__dirname, path.join('templates', 'store.js')),
-    fileName: path.join(MODULE_NAME, 'store.js')
-  });
-
-  this.addPlugin({
-    src: path.resolve(__dirname, path.join('templates', 'middleware.js')),
-    fileName: path.join(MODULE_NAME, 'middleware.js')
-  });
-
-  this.addPlugin({
-    src: path.resolve(__dirname, path.join('templates', 'plugin.js')),
-    fileName: path.join(MODULE_NAME, 'plugin.js')
-  });
-
-  this.options.router.middleware.push('http');
+  this.options.router.middleware.push('sslNegotiation');
 }

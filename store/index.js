@@ -7,6 +7,7 @@ export const actions = {
   //          by middleware, such as those resulting in redirects and never using
   //          the response of the API calls.
   async nuxtServerInit(store, context) {
+    // TODO: is this needed here, or is it handled by the module middleware?
     store.dispatch('http/init', context);
 
     // TODO: does this warrant a store module, or should we just write to context.app here?
