@@ -51,22 +51,6 @@
       ContentCard,
       PaginationNav: () => import('../../components/generic/PaginationNav')
     },
-    head() {
-      return {
-        title: this.$tc('galleries.galleries', 2)
-      };
-    },
-    data() {
-      return {
-        perPage: PER_PAGE,
-        page: null
-      };
-    },
-    computed: {
-      showPagination() {
-        return this.total > this.perPage;
-      }
-    },
     asyncData({ query, redirect, error, app }) {
       const currentPage = pageFromQuery(query.page);
       if (currentPage === null) {
@@ -96,6 +80,17 @@
           error({ statusCode: 500, message: e.toString() });
         });
     },
+    data() {
+      return {
+        perPage: PER_PAGE,
+        page: null
+      };
+    },
+    computed: {
+      showPagination() {
+        return this.total > this.perPage;
+      }
+    },
     methods: {
       paginationLink(val) {
         return this.$path({ name: 'galleries', query: { page: val } });
@@ -103,6 +98,11 @@
       imageUrl(data) {
         return (data.encoding ? data.encoding.edmPreview : data.thumbnailUrl) + '&size=w200';
       }
+    },
+    head() {
+      return {
+        title: this.$tc('galleries.galleries', 2)
+      };
     },
     watchQuery: ['page']
   };

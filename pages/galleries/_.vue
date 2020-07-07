@@ -41,17 +41,6 @@
       ContentHeader,
       ContentCard: () => import('../../components/generic/ContentCard')
     },
-    computed: {
-      shareMediaUrl() {
-        return this.images.length === 0 ? null : this.imageUrl(this.images[0]);
-      },
-      description() {
-        return this.$options.filters.stripMarkdown(this.rawDescription);
-      },
-      htmlDescription() {
-        return marked(this.rawDescription);
-      }
-    },
     asyncData({ params, query, error, app }) {
       const variables = {
         identifier: params.pathMatch,
@@ -79,6 +68,17 @@
           error({ statusCode: 500, message: e.toString() });
         });
     },
+    computed: {
+      shareMediaUrl() {
+        return this.images.length === 0 ? null : this.imageUrl(this.images[0]);
+      },
+      description() {
+        return this.$options.filters.stripMarkdown(this.rawDescription);
+      },
+      htmlDescription() {
+        return marked(this.rawDescription);
+      }
+    },
     methods: {
       imageTitle(data) {
         if (data.encoding) {
@@ -104,10 +104,11 @@
           { hid: 'og:title', property: 'og:title', content: this.title },
           { hid: 'og:image', property: 'og:image', content: this.shareMediaUrl },
           { hid: 'og:type', property: 'og:type', content: 'article' }
-        ].concat(this.description ? [
-          { hid: 'description', name: 'description', content: this.description },
-          { hid: 'og:description', property: 'og:description', content: this.description }
-        ] : [])
+        ]
+          .concat(this.description ? [
+            { hid: 'description', name: 'description', content: this.description },
+            { hid: 'og:description', property: 'og:description', content: this.description }
+          ] : [])
       };
     }
   };

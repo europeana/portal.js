@@ -1,19 +1,17 @@
 <template>
   <b-container data-qa="blog post">
-    <b-row class="flex-md-row pb-5">
+    <b-row class="flex-md-row pb-5 figure-attribution">
       <b-col
         cols="12"
         md="9"
       >
-        <HeroImage
+        <ImageWithAttribution
           v-if="hero"
-          :image-url="heroImage.url"
+          :src="heroImage.url"
           :image-content-type="heroImage.contentType"
           :rights-statement="hero.license"
-          :name="hero.name"
-          :provider="hero.provider"
-          :creator="hero.creator"
-          :url="hero.url"
+          :attribution="hero"
+          hero
         />
         <BlogPost
           :date-published="post.datePublished"
@@ -65,7 +63,45 @@
       BlogTags: () => import('../../components/blog/BlogTags'),
       BlogAuthors: () => import('../../components/blog/BlogAuthors'),
       BlogCategories: () => import('../../components/blog/BlogCategories'),
-      HeroImage: () => import('../../components/generic/HeroImage')
+      ImageWithAttribution: () => import('../../components/generic/ImageWithAttribution')
+    },
+
+    asyncData({ params, query, error, app, store }) {
+      const variables = {
+        identifier: params.pathMatch,
+        locale: app.i18n.isoLocale(),
+        preview: query.mode === 'preview'
+      };
+
+      return app.$contentful.query('blogPostPage', variables)
+        .then(response => response.data.data)
+        .then(data => {
+          if (data.blogPostingCollection.items.length === 0) {
+            error({ statusCode: 404, message: app.i18n.t('messages.notFound') });
+            return;
+          }
+
+          const post = data.blogPostingCollection.items[0];
+
+          store.commit('breadcrumb/setBreadcrumbs', [
+            {
+              // TODO: Add named language aware route for blog index
+              text: app.i18n.t('blog.blog'),
+              to: '/blog'
+            },
+            {
+              text: post.name,
+              active: true
+            }
+          ]);
+
+          return {
+            post
+          };
+        })
+        .catch((e) => {
+          error({ statusCode: 500, message: e.toString() });
+        });
     },
 
     data() {
@@ -107,44 +143,6 @@
           { hid: 'og:description', property: 'og:description', content: this.post.description }
         ] : [])
       };
-    },
-
-    asyncData({ params, query, error, app, store }) {
-      const variables = {
-        identifier: params.pathMatch,
-        locale: app.i18n.isoLocale(),
-        preview: query.mode === 'preview'
-      };
-
-      return app.$contentful.query('blogPostPage', variables)
-        .then(response => response.data.data)
-        .then(data => {
-          if (data.blogPostingCollection.items.length === 0) {
-            error({ statusCode: 404, message: app.i18n.t('messages.notFound') });
-            return;
-          }
-
-          const post = data.blogPostingCollection.items[0];
-
-          store.commit('breadcrumb/setBreadcrumbs', [
-            {
-              // TODO: Add named language aware route for blog index
-              text: app.i18n.t('blog.blog'),
-              to: '/blog'
-            },
-            {
-              text: post.name,
-              active: true
-            }
-          ]);
-
-          return {
-            post
-          };
-        })
-        .catch((e) => {
-          error({ statusCode: 500, message: e.toString() });
-        });
     },
 
     beforeRouteLeave(to, from, next) {
