@@ -7,7 +7,7 @@
 // package but with additional redirection handling for requests to URL paths
 // without the language in them.
 
-const COOKIE_NAME = 'i18n_locale_code';
+const COOKIE_NAME = 'i18n_locale_code'
 
 // Codes of all languages supported by the app
 const registeredLocales = require('../plugins/i18n/locales.js').map(locale => locale.code);
