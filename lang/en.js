@@ -516,6 +516,6 @@ export default {
     "linkAccount": "My Account",
     "linkLogin": "Login"
   },
-  "like": "Like",
-  "addToGallery": "Add to gallery"
+  "actions.like": "Like",
+  "actions.addToGallery": "Add to gallery"
 };

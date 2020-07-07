@@ -88,13 +88,14 @@
       <b-button
         class="icon-ic-add"
         data-qa="add to gallery button"
-        :aria-label="$t('addToGallery')"
+        :aria-label="$t('actions.addToGallery')"
       />
       <b-button
         :pressed.sync="liked"
         class="icon-heart"
         data-qa="like button"
-        :aria-label="$t('like')"
+        :aria-label="$t('actions.like')"
+        size="sm"
       />
     </div>
   </b-card>
@@ -259,12 +260,3 @@
     }
   };
 </script>
-<style lang="scss" scoped>
-  @import '../../assets/scss/variables.scss';
-
-  .btn {
-    &.icon-heart {
-      font-size: $font-size-small;
-    }
-  }
-</style>
