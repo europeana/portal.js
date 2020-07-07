@@ -1,5 +1,5 @@
 #!/bin/bash
-set -v
+set -ev
 
 npm run lint
 npm run stylelint
