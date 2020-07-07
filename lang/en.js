@@ -8,11 +8,11 @@ export default {
     "viewDocument": "View document"
   },
   "attribution": {
-    "title": "Title:",
+    "country": "Country:",
     "creator": "Creator:",
     "date": "Date:",
     "institution": "Institution:",
-    "country": "Country:"
+    "title": "Title:"
   },
   "blog": {
     "author": "Author",
@@ -77,7 +77,6 @@ export default {
     "right": "Right"
   },
   "edmIsShownAtLinkAlt": "View at the provider's website",
-  "entity": "Entity",
   "error": "Error",
   "exhibitions": {
     "chapters": "Chapters",
@@ -512,5 +511,10 @@ export default {
     "list": "List view"
   },
   "showLess": "Show less",
-  "showMore": "Show more"
+  "showMore": "Show more",
+  "account": {
+    "title": "My account",
+    "linkAccount": "My Account",
+    "linkLogin": "Login"
+  }
 };
