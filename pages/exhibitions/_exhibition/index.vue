@@ -1,20 +1,26 @@
 <template>
   <div
     data-qa="exhibition page"
-    class="exhibition-page mx-auto"
+    class="exhibition-page mx-auto figure-attribution"
   >
-    <HeroImage
-      v-if="hero"
-      compact
-      :image-url="heroImage.url"
+    <b-container
+      fluid
+      class="image-wrapper mb-5"
+    >
+      <h1>{{ hero.name }}</h1>
+      <p class="lead">
+        {{ headline }}
+      </p>
+      <SocialShare
+        :media-url="heroImage.url"
+      />
+    </b-container>
+    <ImageWithAttribution
+      :src="heroImage.url"
       :image-content-type="heroImage.contentType"
-      :header="name"
-      :lead="headline"
       :rights-statement="hero.license"
-      :name="hero.name"
-      :provider="hero.provider"
-      :creator="hero.creator"
-      :url="hero.url"
+      :attribution="hero"
+      hero
     />
     <b-container class="pb-3">
       <b-row>
@@ -52,12 +58,12 @@
   import marked from 'marked';
 
   import ExhibitionChapters from '../../../components/exhibition/ExhibitionChapters';
-  import HeroImage from '../../../components/generic/HeroImage';
 
   export default {
     components: {
       ExhibitionChapters,
-      HeroImage
+      ImageWithAttribution: () => import('../../../components/generic/ImageWithAttribution'),
+      SocialShare: () => import('../../../components/generic/SocialShare')
     },
     computed: {
       hero() {

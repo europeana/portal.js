@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="figure-attribution">
     <template
       v-for="(section, index) in content"
     >
@@ -48,6 +48,7 @@
         :width="section.image.width"
         :height="section.image.height"
         :attribution="attributionFields(section)"
+        :rights-statement="section.license"
       />
     </template>
   </div>
