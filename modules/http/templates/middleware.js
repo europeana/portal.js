@@ -1,6 +1,8 @@
 // When Nuxt is built, ../middleware points to .nuxt/middleware.js
 import middleware from '../middleware';
 
+import config from './config';
+
 import {
   currentHost, isHttps, routePermittedOnEitherScheme, routeOnDatasetBlacklist
 } from './utils';
@@ -8,10 +10,10 @@ import {
 middleware.sslNegotiation = async(context) => {
   await context.store.dispatch('http/init', context);
 
-  if (!context.app.$http.config.sslNegotiation.enabled || routePermittedOnEitherScheme(context.route)) return;
+  if (!config.sslNegotiation.enabled || routePermittedOnEitherScheme(context.route)) return;
 
   const ssl = isHttps(context);
-  const routeBlacklisted = routeOnDatasetBlacklist(context.route);
+  const routeBlacklisted = routeOnDatasetBlacklist(context.route, config.sslNegotiation.datasetBlacklist);
 
   let redirectToScheme;
   let redirectToPort = '';

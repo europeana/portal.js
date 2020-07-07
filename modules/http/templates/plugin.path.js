@@ -1,3 +1,5 @@
+import config from './config';
+
 import {
   routePermittedOnEitherScheme, routeOnDatasetBlacklist
 } from './utils';
@@ -6,11 +8,10 @@ export default ({ app, store }, inject) => {
   const path = (route) => {
     const localePath = app.localePath(route);
 
-    if (!app.$http.config.sslNegotiation.enabled || routePermittedOnEitherScheme(route)) return localePath;
+    if (!config.sslNegotiation.enabled || routePermittedOnEitherScheme(route)) return localePath;
 
-    const routeBlacklisted = routeOnDatasetBlacklist(route);
+    const routeBlacklisted = routeOnDatasetBlacklist(route, config.sslNegotiation.datasetBlacklist);
 
-    // TODO: observe ssl feature toggle
     let switchToProtocol;
     let switchToPort;
     if (routeBlacklisted && store.state.http.protocol === 'https:') {
