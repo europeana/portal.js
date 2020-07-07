@@ -20,5 +20,6 @@ process.env['PORT'] = '3001';
 process.env['NODE_ENV'] = 'test';
 process.env['EUROPEANA_APIS'] = JSON.stringify(rc);
 process.env['CTF_GRAPHQL_ORIGIN'] = apicacheOrigin;
+process.env['DISABLE_SSL_NEGOTIATION'] = '1';
 
 require(path.resolve(__dirname, '../../../../server/index.js'));
