@@ -177,6 +177,9 @@
         }
       }
     },
+    fetch() {
+      this.viewFromRouteQuery();
+    },
     data() {
       return {
         coreFacetNames: ['collection', 'TYPE', 'COUNTRY', 'REUSABILITY'],
@@ -276,8 +279,7 @@
       moreSelectedFacets() {
         // TODO: use resettableFilters here?
         // TODO: if not, move newspaper filter names into store/collections/newspapers?
-        return pickBy(this.filters, (selected, name) =>
-          this.moreFacetNames.includes(name) || ['api', this.PROXY_DCTERMS_ISSUED].includes(name));
+        return pickBy(this.filters, (selected, name) => this.moreFacetNames.includes(name) || ['api', this.PROXY_DCTERMS_ISSUED].includes(name));
       },
       enableMoreFacets() {
         return this.moreFacets.length > 0;
@@ -311,9 +313,6 @@
       routeQueryView: 'viewFromRouteQuery',
       contentTierZeroPresent: 'showContentTierToast',
       contentTierZeroActive: 'showContentTierToast'
-    },
-    fetch() {
-      this.viewFromRouteQuery();
     },
     mounted() {
       this.showContentTierToast();
