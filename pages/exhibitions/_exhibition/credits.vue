@@ -43,15 +43,6 @@
     components: {
       ExhibitionChapters
     },
-    computed: {
-      htmlCredits() {
-        if (this.credits === undefined) return false;
-        return marked(this.credits);
-      },
-      title() {
-        return `${this.name} - ${this.$t('exhibitions.credits')}`;
-      }
-    },
 
     asyncData({ params, query, error, app, store }) {
       const variables = {
@@ -95,6 +86,15 @@
         .catch((e) => {
           error({ statusCode: 500, message: e.toString() });
         });
+    },
+    computed: {
+      htmlCredits() {
+        if (this.credits === undefined) return false;
+        return marked(this.credits);
+      },
+      title() {
+        return `${this.name} - ${this.$t('exhibitions.credits')}`;
+      }
     },
     beforeRouteLeave(to, from, next) {
       this.$store.commit('breadcrumb/clearBreadcrumb');

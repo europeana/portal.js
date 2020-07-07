@@ -72,6 +72,7 @@ const config = {
       'LinkPlugin',
       'ListGroupPlugin',
       'MediaPlugin',
+      'ModalPlugin',
       'NavbarPlugin',
       'NavPlugin',
       'PaginationNavPlugin',

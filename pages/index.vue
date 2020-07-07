@@ -47,29 +47,6 @@
       NotificationBanner,
       HeroImage
     },
-    computed: {
-      hero() {
-        return this.primaryImageOfPage ? this.primaryImageOfPage : null;
-      },
-      heroImage() {
-        return this.hero ? this.hero.image : null;
-      },
-      onHomePage() {
-        return Boolean(Number(process.env.ENABLE_LINKS_TO_CLASSIC)) && (this.identifier === 'home');
-      },
-      notificationUrl() {
-        return `https://classic.europeana.eu/portal/${this.$store.state.i18n.locale}?utm_source=new-website&utm_medium=button`;
-      },
-      optimisedImageUrl() {
-        // use social media image if set in Contentful, otherwise use hero image
-        let img = this.image !== null ? this.image : this.heroImage;
-        return this.$options.filters.optimisedImageUrl(
-          img.url,
-          img.contentType,
-          { width: 800, height: 800 }
-        );
-      }
-    },
 
     asyncData({ params, query, error, app }) {
       const variables = {
@@ -91,6 +68,29 @@
         .catch((e) => {
           error({ statusCode: 500, message: e.toString() });
         });
+    },
+    computed: {
+      hero() {
+        return this.primaryImageOfPage ? this.primaryImageOfPage : null;
+      },
+      heroImage() {
+        return this.hero ? this.hero.image : null;
+      },
+      onHomePage() {
+        return Boolean(Number(process.env.ENABLE_LINKS_TO_CLASSIC)) && (this.identifier === 'home');
+      },
+      notificationUrl() {
+        return `https://classic.europeana.eu/portal/${this.$store.state.i18n.locale}?utm_source=new-website&utm_medium=button`;
+      },
+      optimisedImageUrl() {
+        // use social media image if set in Contentful, otherwise use hero image
+        let img = this.image === null ? this.heroImage : this.image;
+        return this.$options.filters.optimisedImageUrl(
+          img.url,
+          img.contentType,
+          { width: 800, height: 800 }
+        );
+      }
     },
 
     head() {

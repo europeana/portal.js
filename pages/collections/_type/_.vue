@@ -90,78 +90,6 @@
       SearchInterface
     },
 
-    computed: {
-      ...mapState({
-        entity: state => state.entity.entity,
-        page: state => state.entity.page,
-        relatedEntities: state => state.entity.relatedEntities,
-        recordsPerPage: state => state.entity.recordsPerPage
-      }),
-      attribution() {
-        if (this.editorialDepiction) return this.editorialAttribution;
-        return (!this.entity || !this.entity.isShownBy) ? null : this.entity.isShownBy.source;
-      },
-      depiction() {
-        if (this.editorialDepiction) return this.editorialDepiction;
-        return (!this.entity || !this.entity.isShownBy) ? null : this.entity.isShownBy.thumbnail;
-      },
-      description() {
-        return this.editorialDescription ? { values: [this.editorialDescription], code: null } : null;
-      },
-      descriptionText() {
-        return (this.description && this.description.values.length >= 1) ? this.description.values[0] : null;
-      },
-      editorialAttribution() {
-        return this.page.primaryImageOfPage.url;
-      },
-      // Depiction from the Contentful entry
-      editorialDepiction() {
-        try {
-          const image = this.page.primaryImageOfPage.image;
-          return this.$options.filters.optimisedImageUrl(image.url, image.contentType, { width: 510 });
-        } catch (error) {
-          if (error instanceof TypeError) {
-            return null;
-          }
-          throw error;
-        }
-      },
-      // Description from the Contentful entry
-      editorialDescription() {
-        if (!this.hasEditorialDescription) return null;
-        return this.page.description;
-      },
-      hasEditorialDescription() {
-        return this.page && this.page.description && this.page.description.length >= 1;
-      },
-      // Title from the Contentful entry
-      editorialTitle() {
-        if (!this.page || !this.page.name) return null;
-        return this.page.name;
-      },
-      relatedCollectionCards() {
-        return (this.page
-          && this.page.relatedLinksCollection
-          && this.page.relatedLinksCollection.items
-          && this.page.relatedLinksCollection.items.length > 0)
-          ? this.page.relatedLinksCollection.items : null;
-      },
-      route() {
-        return {
-          name: 'collections-type-all',
-          params: {
-            type: this.$route.params.type,
-            pathMatch: this.$route.params.pathMatch
-          }
-        };
-      },
-      title() {
-        if (!this.entity) return this.titleFallback();
-        if (this.editorialTitle) return this.titleFallback(this.editorialTitle);
-        return langMapValueForLocale(this.entity.prefLabel, this.$store.state.i18n.locale);
-      }
-    },
-
     fetch({ query, params, redirect, error, app, store }) {
       store.commit('search/disableCollectionFacet');
 
@@ -235,10 +163,82 @@
           }
         }))
         .catch((e) => {
-          const statusCode = (e.statusCode !== undefined) ? e.statusCode : 500;
+          const statusCode = (e.statusCode === undefined) ? 500 : e.statusCode;
           store.commit('entity/setId', null);
           error({ statusCode, message: e.toString() });
         });
+    },
+
+    computed: {
+      ...mapState({
+        entity: state => state.entity.entity,
+        page: state => state.entity.page,
+        relatedEntities: state => state.entity.relatedEntities,
+        recordsPerPage: state => state.entity.recordsPerPage
+      }),
+      attribution() {
+        if (this.editorialDepiction) return this.editorialAttribution;
+        return (!this.entity || !this.entity.isShownBy) ? null : this.entity.isShownBy.source;
+      },
+      depiction() {
+        if (this.editorialDepiction) return this.editorialDepiction;
+        return (!this.entity || !this.entity.isShownBy) ? null : this.entity.isShownBy.thumbnail;
+      },
+      description() {
+        return this.editorialDescription ? { values: [this.editorialDescription], code: null } : null;
+      },
+      descriptionText() {
+        return (this.description && this.description.values.length >= 1) ? this.description.values[0] : null;
+      },
+      editorialAttribution() {
+        return this.page.primaryImageOfPage.url;
+      },
+      // Depiction from the Contentful entry
+      editorialDepiction() {
+        try {
+          const image = this.page.primaryImageOfPage.image;
+          return this.$options.filters.optimisedImageUrl(image.url, image.contentType, { width: 510 });
+        } catch (error) {
+          if (error instanceof TypeError) {
+            return null;
+          }
+          throw error;
+        }
+      },
+      // Description from the Contentful entry
+      editorialDescription() {
+        if (!this.hasEditorialDescription) return null;
+        return this.page.description;
+      },
+      hasEditorialDescription() {
+        return this.page && this.page.description && this.page.description.length >= 1;
+      },
+      // Title from the Contentful entry
+      editorialTitle() {
+        if (!this.page || !this.page.name) return null;
+        return this.page.name;
+      },
+      relatedCollectionCards() {
+        return (this.page
+          && this.page.relatedLinksCollection
+          && this.page.relatedLinksCollection.items
+          && this.page.relatedLinksCollection.items.length > 0)
+          ? this.page.relatedLinksCollection.items : null;
+      },
+      route() {
+        return {
+          name: 'collections-type-all',
+          params: {
+            type: this.$route.params.type,
+            pathMatch: this.$route.params.pathMatch
+          }
+        };
+      },
+      title() {
+        if (!this.entity) return this.titleFallback();
+        if (this.editorialTitle) return this.titleFallback(this.editorialTitle);
+        return langMapValueForLocale(this.entity.prefLabel, this.$store.state.i18n.locale);
+      }
     },
 
     mounted() {
@@ -271,12 +271,14 @@
           { hid: 'og:type', property: 'og:type', content: 'article' },
           { hid: 'title', name: 'title', content: this.title.values[0] },
           { hid: 'og:title', property: 'og:title', content: this.title.values[0] }
-        ].concat(this.descriptionText ? [
-          { hid: 'description', name: 'description', content: this.descriptionText },
-          { hid: 'og:description', property: 'og:description', content: this.descriptionText }
-        ] : []).concat(this.depiction ? [
-          { hid: 'og:image', property: 'og:image', content: this.$options.filters.urlWithProtocol(this.depiction) }
-        ] : [])
+        ]
+          .concat(this.descriptionText ? [
+            { hid: 'description', name: 'description', content: this.descriptionText },
+            { hid: 'og:description', property: 'og:description', content: this.descriptionText }
+          ] : [])
+          .concat(this.depiction ? [
+            { hid: 'og:image', property: 'og:image', content: this.$options.filters.urlWithProtocol(this.depiction) }
+          ] : [])
       };
     },
 

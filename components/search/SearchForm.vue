@@ -347,7 +347,9 @@
 
   .btn {
     border-radius: 0;
+    font-size: 1rem;
     box-shadow: none;
+
     &:before {
       @extend .icon-font;
       display: inline-block;

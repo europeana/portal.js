@@ -5,7 +5,7 @@ pipeline {
   agent {
     dockerfile {
       dir 'deploy/cloud-foundry'
-      args "-u node:node"
+      args '-u node:node -v ${HOME}/.ssh:/home/node/.ssh' // Single quotes to skip jenkins escaping.
     }
   }
   environment {
@@ -42,7 +42,7 @@ pipeline {
         HTTP_DIGEST_ACL=credentials("portaljs.${env.CF_SPACE}.http.digest.acl")
       }
       steps {
-        sh 'if [[ "${CF_LOG_DRAINER_SERVICE}" != "" ]]; then echo "services:\\n  - {CF_LOG_DRAINER_SERVICE}" >> ./deploy/cloud-foundry/manifest.yml; fi'
+        sh 'if [ "${CF_LOG_DRAINER_SERVICE}" != "null" ]; then echo "services:\\n  - ${CF_LOG_DRAINER_SERVICE}" >> ./deploy/cloud-foundry/manifest.yml; fi'
         sh 'sed -i "s|env:|env:\\n  CTF_CPA_ACCESS_TOKEN: ${CTF_CPA_ACCESS_TOKEN}|" ./deploy/cloud-foundry/manifest.yml'
         sh 'sed -i "s|env:|env:\\n  HTTP_DIGEST_ACL: ${HTTP_DIGEST_ACL}|" ./deploy/cloud-foundry/manifest.yml'
         sh 'cf blue-green-deploy ${CF_APP_NAME} -f ./deploy/cloud-foundry/manifest.yml --delete-old-apps'
@@ -57,19 +57,20 @@ pipeline {
         }
       }
     }
-    // stage('Register with ELK') {
-    //   agent any // Don't run in docker container.
-    //   when {
-    //     not {
-    //       environment name: 'ELK_REGISTRATION_COMMAND', value: ''
-    //     }
-    //   }
-    //   steps {
-    //     sh 'APP_GUID="$(cf app ${CF_APP_NAME} --guid | head -1)"'
-    //     sh '${ELK_REGISTRATION_COMMAND} ${APP_NAME} ${APP_GUID}'
-    //     sh 'if [ $? -eq 0 ]; then echo "Log drainer registration OK"; else echo "ELK registration failed!"; exit 1; fi'
-    //   }
-    // }
+    stage('Register with ELK') {
+      when {
+        not {
+          environment name: 'ELK_REGISTRATION_COMMAND', value: 'null'
+        }
+      }
+      environment {
+          CF_APP_GUID="${sh(script:'cf app ${CF_APP_NAME} --guid | head -1', returnStdout: true).trim()}"
+      }
+      steps {
+        sh '${ELK_REGISTRATION_COMMAND} ${CF_APP_NAME} ${CF_APP_GUID}'
+        sh 'if [ $? -eq 0 ]; then echo "Log drainer registration OK"; else echo "ELK registration failed!"; exit 1; fi'
+      }
+    }
     stage('Deploy Storybook') {
       when {
         environment name: 'CF_SPACE', value: 'test'
