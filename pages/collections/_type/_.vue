@@ -4,7 +4,7 @@
     fluid
     class="entity-page"
   >
-    <b-row class="flex-md-row pt-5 bg-white">
+    <b-row class="flex-md-row pt-5 bg-white mb-4">
       <b-col
         cols="12"
       >
@@ -16,13 +16,14 @@
           />
           <client-only>
             <h2
-              v-if="relatedEntities && relatedEntities.length > 0"
-              class="related-heading text-uppercase"
+              v-if="relatedEntities || relatedCollectionCards"
+              class="related-heading text-uppercase mb-2"
             >
               {{ $t('relatedCollections') }}
             </h2>
             <section
               v-if="relatedEntities"
+              class="mb-2"
             >
               <RelatedChip
                 v-for="relatedEntity in relatedEntities"
@@ -31,6 +32,19 @@
                 :link-gen="suggestionLinkGen"
                 :title="relatedEntity.prefLabel[$i18n.locale]"
                 :img="relatedEntity.isShownBy.thumbnail"
+                data-qa="related entities"
+              />
+            </section>
+            <section
+              v-else-if="relatedCollectionCards"
+              class="mb-2"
+            >
+              <RelatedChip
+                v-for="(card, index) in relatedCollectionCards"
+                :key="index"
+                :link-gen="card.indentifier"
+                :title="card.name"
+                :img="card.image"
                 data-qa="related entities"
               />
             </section>
@@ -244,7 +258,7 @@
       this.$store.commit('search/setPill', this.title);
 
       this.$store.dispatch('entity/searchForRecords', this.$route.query);
-
+      console.log(this.relatedCollectionCards);
       // TODO: move into a new entity store action?
       if (!this.relatedCollectionCards) {
         entities.relatedEntities(this.$route.params.type, this.$route.params.pathMatch, { origin: this.$route.query.recordApi })

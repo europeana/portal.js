@@ -9,7 +9,7 @@
   >
     <b-img
       v-if="img"
-      :src="img"
+      :src="`${img}&size=w200`"
       :alt="title"
       rounded="circle"
       class="mr-2"
