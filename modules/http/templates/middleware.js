@@ -7,11 +7,7 @@ import {
   currentHost, isHttps, routePermittedOnEitherScheme, routeOnDatasetBlacklist
 } from './utils';
 
-middleware.sslNegotiation = async(context) => {
-  await context.store.dispatch('http/init', context);
-
-  if (!config.sslNegotiation.enabled || routePermittedOnEitherScheme(context.route)) return;
-
+const negotiate = (context) => {
   const ssl = isHttps(context);
   const routeBlacklisted = routeOnDatasetBlacklist(context.route, config.sslNegotiation.datasetBlacklist);
 
@@ -34,4 +30,12 @@ middleware.sslNegotiation = async(context) => {
   const redirectToUrl = `${redirectToScheme}://${host}${redirectToPort}${context.route.fullPath}`;
 
   return context.redirect(redirectToUrl);
+};
+
+middleware.sslNegotiation = async(context) => {
+  await context.store.dispatch('http/init', context);
+
+  if (!config.sslNegotiation.enabled || routePermittedOnEitherScheme(context.route)) return;
+
+  return negotiate(context);
 };
