@@ -15,7 +15,8 @@ function chrome(locale = 'en-GB', args = []) {
       chromeOptions: {
         args,
         prefs: {
-          'intl.accept_languages': locale
+          'intl.accept_languages': locale,
+          'profile.block_third_party_cookies': false
         }
       }
     }
