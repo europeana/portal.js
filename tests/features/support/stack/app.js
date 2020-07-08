@@ -3,14 +3,17 @@ const path = require('path');
 const apicacheOrigin = 'http://localhost:3002';
 
 const rc = {
-  'http://localhost:3001': {
-    record: {
+  defaults: {
+    annotation: {
       origin: apicacheOrigin
     },
     entity: {
       origin: apicacheOrigin
     },
-    annotation: {
+    record: {
+      origin: apicacheOrigin
+    },
+    thumbnail: {
       origin: apicacheOrigin
     }
   }

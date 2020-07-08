@@ -12,6 +12,7 @@ env:
   CTF_CDA_ACCESS_TOKEN: ${{ secrets.CTF_CDA_ACCESS_TOKEN }}
   CTF_ENVIRONMENT_ID: ${{ secrets.CTF_ENVIRONMENT_ID }}
   CTF_SPACE_ID: ${{ secrets.CTF_SPACE_ID }}
+  DISQUS_SHORTNAME:  ${{ secrets.DISQUS_SHORTNAME }}
   EUROPEANA_ANNOTATION_API_KEY: ${{ secrets.EUROPEANA_ANNOTATION_API_KEY }}
   EUROPEANA_ENTITY_API_KEY: ${{ secrets.EUROPEANA_ENTITY_API_KEY }}
   EUROPEANA_RECORD_API_KEY: ${{ secrets.EUROPEANA_RECORD_API_KEY }}
@@ -37,5 +38,6 @@ jobs:
     - run: npm run lint
     - run: npm run stylelint
     - run: npm run test:unit
-    - run: npm run size
+    - run: npm run build
+    - run: npx size-limit
     - run: npm run test:e2e:ci
