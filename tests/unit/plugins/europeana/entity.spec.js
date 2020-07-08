@@ -348,7 +348,7 @@ describe('plugins/europeana/entity', () => {
       const eParams = {
         query: '*:*',
         page: 1,
-        type: 'concept',
+        type: 'topic',
         pageSize: 2,
         scope: 'europeana'
       };

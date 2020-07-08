@@ -79,7 +79,7 @@ export default {
   "error": "Error",
   "entity": {
     "index": {
-      "subjects": "Subjects"
+      "topics": "Subjects"
     }
   },
   "exhibitions": {

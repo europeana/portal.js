@@ -1,7 +1,7 @@
 <template>
   <b-container>
     <ContentHeader
-      :title="$tc('entity.index.subjects', 2)"
+      :title="$tc('entity.index.' + this.$route.params.type, 2)"
     />
     <b-row class="flex-md-row pb-5">
       <b-col cols="12">
@@ -14,7 +14,7 @@
             v-for="entity in entities"
             :key="entity.id"
             :title="entity.prefLabel[$i18n.locale]"
-            :url="entity.id"
+            :url="entityRoute(entity)"
             :image-url="typeof entity.isShownBy !== 'undefined' ? entity.isShownBy.thumbnail : '/'"
             variant="mini"
           />
@@ -39,7 +39,12 @@
   import ContentHeader from '../../../components/generic/ContentHeader';
   import ContentCard from '../../../components/generic/ContentCard';
   import { pageFromQuery } from '../../../plugins/utils';
-  import { getEntityIndex } from '../../../plugins/europeana/entity';
+  import {
+    getEntityIndex,
+    getEntitySlug,
+    getEntityTypeHumanReadable
+  } from '../../../plugins/europeana/entity';
+
   const PER_PAGE = 24;
   export default {
     name: 'CollectionTypeIndexPage',
@@ -50,7 +55,7 @@
     },
     head() {
       return {
-        title: this.$tc('entity.index.subjects', 2)
+        title: this.$tc('entity.index.'  + this.$route.params.type, 2)
       };
     },
     data() {
@@ -74,19 +79,22 @@
     },
     asyncData({ query, params, redirect, error, app }) {
       const currentPage = pageFromQuery(query.page);
+      if (!['persons', 'topics'].includes(params.type)) {
+        return  error({ statusCode: 404, message: 'unknown collection type' });
+      }
       if (currentPage === null) {
         // Redirect non-positive integer values for `page` to `page=1`
         query.page = '1';
-        return redirect(app.$path({ name: 'collections-type', params: { type: this.$route.params.type }, query }));
+        return redirect(app.$path({ name: 'collections-type', params: { type: params.type }, query }));
       }
-      const eParams = {
+      const entityIndexParams = {
         query: '*:*',
         page: currentPage - 1,
         type: params.type.slice(0, -1),
         pageSize: PER_PAGE,
         scope: 'europeana'
       };
-      return getEntityIndex(eParams, 'topic')
+      return getEntityIndex(entityIndexParams)
         .then(response => response)
         .then(data => {
           return {
@@ -103,6 +111,16 @@
     methods: {
       paginationLink(val) {
         return this.$path({ name: 'collections-type', params: { type: this.$route.params.type }, query: { page: val } });
+      },
+      entityRoute(entity) {
+        console.log(entity);
+        return {
+          name: 'collections-type-all',
+          params: {
+            type: getEntityTypeHumanReadable(entity.type),
+            pathMatch: getEntitySlug(entity.id, entity.prefLabel.en)
+          }
+        };
       }
     },
     watchQuery: ['query', 'page']
