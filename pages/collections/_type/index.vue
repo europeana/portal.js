@@ -53,30 +53,6 @@
       ContentCard,
       PaginationNav: () => import('../../../components/generic/PaginationNav')
     },
-    head() {
-      return {
-        title: this.$tc('entity.index.'  + this.$route.params.type, 2)
-      };
-    },
-    data() {
-      return {
-        perPage: PER_PAGE,
-        page: null
-      };
-    },
-    computed: {
-      showPagination() {
-        return this.total > this.perPage;
-      },
-      route() {
-        return {
-          name: 'collections-index',
-          params: {
-            pathMatch: this.$route.params.type
-          }
-        };
-      }
-    },
     asyncData({ query, params, redirect, error, app }) {
       const currentPage = pageFromQuery(query.page);
       if (!['persons', 'topics'].includes(params.type)) {
@@ -108,6 +84,25 @@
           error({ statusCode: 500, message: e.toString() });
         });
     },
+    data() {
+      return {
+        perPage: PER_PAGE,
+        page: null
+      };
+    },
+    computed: {
+      showPagination() {
+        return this.total > this.perPage;
+      },
+      route() {
+        return {
+          name: 'collections-index',
+          params: {
+            pathMatch: this.$route.params.type
+          }
+        };
+      }
+    },
     methods: {
       paginationLink(val) {
         return this.$path({ name: 'collections-type', params: { type: this.$route.params.type }, query: { page: val } });
@@ -122,6 +117,11 @@
           }
         };
       }
+    },
+    head() {
+      return {
+        title: this.$tc('entity.index.'  + this.$route.params.type, 2)
+      };
     },
     watchQuery: ['query', 'page']
   };
