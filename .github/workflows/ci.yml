@@ -31,3 +31,4 @@ jobs:
     - run: npm run stylelint
     - run: npm run test:unit
     - run: npm run size
+    - run: npm run test:e2e:ci
