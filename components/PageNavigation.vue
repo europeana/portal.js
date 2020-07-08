@@ -38,6 +38,7 @@
         class="nav-item"
       >
         <b-link
+          data-qa="login button"
           class="nav-link"
           :to="{ name: 'account-login' }"
         >

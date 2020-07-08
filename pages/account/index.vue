@@ -1,5 +1,8 @@
 <template>
-  <div class="mt-n3">
+  <div
+    data-qa="account page"
+    class="mt-n3"
+  >
     <b-container
       fluid
     >
@@ -16,6 +19,7 @@
             align="center"
           >
             <b-tab
+              data-qa="likes collection"
               :title="$t('account.likes')"
               active
             >
@@ -25,6 +29,7 @@
               </div>
             </b-tab>
             <b-tab
+              data-qa="public collections"
               :title="$t('account.publicCollections')"
             >
               <!-- TODO: Update this section to preview the results retrieved with Sets API -->
@@ -33,6 +38,7 @@
               </div>
             </b-tab>
             <b-tab
+              data-qa="private collections"
               :title="$t('account.privateCollections')"
             >
               <!-- TODO: Update this section to preview the results retrieved with Sets API -->

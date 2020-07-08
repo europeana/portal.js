@@ -76,6 +76,10 @@ module.exports = {
     await client.waitForElementVisible(selector);
     client.click(selector);
   },
+  async clickOnElement(id) {
+    await client.waitForElementVisible(id);
+    client.click(id);
+  },
   countTarget: async(count, qaElementNames) => {
     await client.elements('css selector', qaSelector(qaElementNames), async(result) => {
       await client.expect(result.value).to.have.lengthOf(count);
@@ -114,6 +118,11 @@ module.exports = {
     await client.clearValue(selector);
     await client.waitForElementVisible(selector);
     await client.setValue(selector, text);
+  },
+  async enterTextInElement(text, id) {
+    await client.clearValue(id);
+    await client.waitForElementVisible(id);
+    await client.setValue(id, text);
   },
   async observeTargetHasClass(qaElementName, klass) {
     await client.getAttribute(qaSelector(qaElementName), 'class', async(result) => {
@@ -227,6 +236,9 @@ module.exports = {
   },
   async waitForTargetToBeVisible(qaElementName) {
     await client.waitForElementVisible(qaSelector(qaElementName));
+  },
+  async waitForElementToBeVisible(id) {
+    await client.waitForElementVisible(id);
   },
   async waitForThePageToLoad() {
     await client.waitForElementPresent('.nuxt-progress');
