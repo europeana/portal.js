@@ -112,7 +112,7 @@ const config = {
       },
       sslNegotiation: {
         enabled: Boolean(Number(process.env.ENABLE_SSL_NEGOTIATION)),
-        datasetBlacklist: process.env.SSL_DATASET_BLACKLIST.split(',')
+        datasetBlacklist: (process.env.SSL_DATASET_BLACKLIST || '').split(',')
       }
     }],
     '@nuxtjs/gtm'
