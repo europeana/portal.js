@@ -4,8 +4,7 @@
     figure {
       overflow: hidden;
       margin: 0;
-      display: flex;
-      justify-content: center;
+      display: block;
       width: auto;
       height: 100%;
       background: $white;
@@ -71,6 +70,8 @@
       height: 50vh;
       figure {
         width: 100%;
+        display: flex;
+        justify-content: center;
         &:before {
           background: rgba(41, 55, 69, 0.35);
           content: '';

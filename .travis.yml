@@ -1,4 +1,4 @@
-dist: xenial
+dist: bionic
 language: node_js
 before_install:
   - sudo apt-get remove --purge -yq google-chrome-stable
