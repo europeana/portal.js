@@ -108,7 +108,6 @@
         return this.$path({ name: 'collections-type', params: { type: this.$route.params.type }, query: { page: val } });
       },
       entityRoute(entity) {
-        console.log(entity);
         return {
           name: 'collections-type-all',
           params: {
