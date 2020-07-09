@@ -69,8 +69,8 @@
         page: currentPage - 1,
         type: params.type.slice(0, -1),
         pageSize: PER_PAGE,
-        scope: 'europeana'
-        // fl: 'skos_prefLabel.*,isShownBy'
+        scope: 'europeana',
+        fl: 'skos_prefLabel.*,isShownBy,isShownBy.thumbnail'
       };
       return getEntityIndex(entityIndexParams)
         .then(response => response)
