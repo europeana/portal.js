@@ -1,21 +1,21 @@
 <template>
   <b-container>
     <ContentHeader
-      :title="$tc('entity.index.' + this.$route.params.type, 2)"
+      :title="$tc(`entity.index.${this.$route.params.type}.title`, 2)"
     />
     <b-row class="flex-md-row pb-5">
       <b-col cols="12">
         <b-card-group
           class="card-deck-4-cols"
           deck
-          :data-qa="`${ this.$route.params.type} listing page`"
+          :data-qa="`${this.$route.params.type} listing page`"
         >
           <ContentCard
             v-for="entity in entities"
             :key="entity.id"
-            :title="entity.prefLabel[$i18n.locale]"
+            :title="entity.prefLabel"
             :url="entityRoute(entity)"
-            :image-url="typeof entity.isShownBy !== 'undefined' ? entity.isShownBy.thumbnail : '/'"
+            :image-url="thumbnail(entity)"
             variant="mini"
           />
         </b-card-group>
@@ -35,6 +35,7 @@
     </b-row>
   </b-container>
 </template>
+
 <script>
   import ContentHeader from '../../../components/generic/ContentHeader';
   import ContentCard from '../../../components/generic/ContentCard';
@@ -69,6 +70,7 @@
         type: params.type.slice(0, -1),
         pageSize: PER_PAGE,
         scope: 'europeana'
+        // fl: 'skos_prefLabel.*,isShownBy'
       };
       return getEntityIndex(entityIndexParams)
         .then(response => response)
@@ -115,11 +117,14 @@
             pathMatch: getEntitySlug(entity.id, entity.prefLabel.en)
           }
         };
+      },
+      thumbnail(entity) {
+        if (typeof entity.isShownBy !== 'undefined') return entity.isShownBy.thumbnail;
       }
     },
     head() {
       return {
-        title: this.$tc('entity.index.'  + this.$route.params.type, 2)
+        title: this.$tc(`entity.index.${this.$route.params.type}.title`, 2)
       };
     },
     watchQuery: ['query', 'page']
