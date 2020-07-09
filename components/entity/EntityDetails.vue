@@ -9,7 +9,7 @@
       </h1>
       <div
         v-if="hasDescription"
-        class="mb-3"
+        class="mb-3 w-75"
       >
         <p
           data-qa="entity description"
