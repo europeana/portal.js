@@ -59,6 +59,31 @@
       PageFooter: () => import('../components/PageFooter')
     },
 
+    async fetch() {
+      const contentfulVariables = {
+        locale: this.$i18n.isoLocale(),
+        preview: this.$route.query.mode === 'preview'
+      };
+
+      let data;
+      try {
+        const response = await this.$contentful.query('linkGroups', contentfulVariables);
+        data = response.data;
+      } catch (e) {
+        return;
+      }
+
+      const linkGroups = {};
+      for (const identifier in data.data) {
+        const linkGroup = data.data[identifier].items[0];
+        linkGroups[identifier] = {
+          name: linkGroup.name ? linkGroup.name : null,
+          links: linkGroup.links.items
+        };
+      }
+      this.linkGroups = linkGroups;
+    },
+
     data() {
       return {
         ...config,
@@ -83,31 +108,6 @@
 
     watch: {
       '$i18n.locale': '$fetch'
-    },
-
-    async fetch() {
-      const contentfulVariables = {
-        locale: this.$i18n.isoLocale(),
-        preview: this.$route.query.mode === 'preview'
-      };
-
-      let data;
-      try {
-        const response = await this.$contentful.query('linkGroups', contentfulVariables);
-        data = response.data;
-      } catch (e) {
-        return;
-      }
-
-      const linkGroups = {};
-      for (const identifier in data.data) {
-        const linkGroup = data.data[identifier].items[0];
-        linkGroups[identifier] = {
-          name: linkGroup.name ? linkGroup.name : null,
-          links: linkGroup.links.items
-        };
-      }
-      this.linkGroups = linkGroups;
     },
 
     head() {

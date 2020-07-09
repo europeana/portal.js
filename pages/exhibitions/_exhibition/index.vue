@@ -1,20 +1,26 @@
 <template>
   <div
     data-qa="exhibition page"
-    class="exhibition-page mx-auto"
+    class="exhibition-page mx-auto figure-attribution"
   >
-    <HeroImage
-      v-if="hero"
-      compact
-      :image-url="heroImage.url"
+    <b-container
+      fluid
+      class="image-wrapper mb-5"
+    >
+      <h1>{{ hero.name }}</h1>
+      <p class="lead">
+        {{ headline }}
+      </p>
+      <SocialShare
+        :media-url="heroImage.url"
+      />
+    </b-container>
+    <ImageWithAttribution
+      :src="heroImage.url"
       :image-content-type="heroImage.contentType"
-      :header="name"
-      :lead="headline"
       :rights-statement="hero.license"
-      :name="hero.name"
-      :provider="hero.provider"
-      :creator="hero.creator"
-      :url="hero.url"
+      :attribution="hero"
+      hero
     />
     <b-container class="pb-3">
       <b-row>
@@ -52,31 +58,12 @@
   import marked from 'marked';
 
   import ExhibitionChapters from '../../../components/exhibition/ExhibitionChapters';
-  import HeroImage from '../../../components/generic/HeroImage';
 
   export default {
     components: {
       ExhibitionChapters,
-      HeroImage
-    },
-    computed: {
-      hero() {
-        return this.primaryImageOfPage ? this.primaryImageOfPage : null;
-      },
-      heroImage() {
-        return this.hero ? this.hero.image : null;
-      },
-      mainContent() {
-        if (this.text === undefined) return;
-        return marked(this.text);
-      },
-      optimisedImageUrl() {
-        return this.$options.filters.optimisedImageUrl(
-          this.heroImage.url,
-          this.heroImage.contentType,
-          { width: 800, height: 800 }
-        );
-      }
+      ImageWithAttribution: () => import('../../../components/generic/ImageWithAttribution'),
+      SocialShare: () => import('../../../components/generic/SocialShare')
     },
     asyncData({ params, query, error, app, store, redirect }) {
       if (params.exhibition === undefined) redirect(app.$path({ name: 'exhibitions' }));
@@ -110,6 +97,25 @@
         .catch((e) => {
           error({ statusCode: 500, message: e.toString() });
         });
+    },
+    computed: {
+      hero() {
+        return this.primaryImageOfPage ? this.primaryImageOfPage : null;
+      },
+      heroImage() {
+        return this.hero ? this.hero.image : null;
+      },
+      mainContent() {
+        if (this.text === undefined) return;
+        return marked(this.text);
+      },
+      optimisedImageUrl() {
+        return this.$options.filters.optimisedImageUrl(
+          this.heroImage.url,
+          this.heroImage.contentType,
+          { width: 800, height: 800 }
+        );
+      }
     },
     beforeRouteLeave(to, from, next) {
       this.$store.commit('breadcrumb/clearBreadcrumb');

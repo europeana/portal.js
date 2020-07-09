@@ -1,20 +1,26 @@
 <template>
   <div
     data-qa="exhibition chapter"
-    class="exhibition-page mx-auto"
+    class="exhibition-page mx-auto figure-attribution"
   >
-    <HeroImage
-      v-if="hero"
-      compact
-      :image-url="heroImage.url"
+    <b-container
+      fluid
+      class="image-wrapper mb-5"
+    >
+      <h1>{{ page.name }}</h1>
+      <p class="lead">
+        {{ page.headline }}
+      </p>
+      <SocialShare
+        :media-url="heroImage.url"
+      />
+    </b-container>
+    <ImageWithAttribution
+      :src="heroImage.url"
       :image-content-type="heroImage.contentType"
-      :header="page.name"
-      :lead="page.headline"
       :rights-statement="hero.license"
-      :name="hero.name"
-      :provider="hero.provider"
-      :creator="hero.creator"
-      :url="hero.url"
+      :attribution="hero"
+      hero
     />
     <b-container>
       <b-row>
@@ -67,7 +73,6 @@
   import BrowseSections from '../../../components/browse/BrowseSections';
   import ExhibitionChapters from '../../../components/exhibition/ExhibitionChapters';
   import ExhibitionChaptersNavigation from '../../../components/exhibition/ExhibitionChaptersNavigation';
-  import HeroImage from '../../../components/generic/HeroImage';
 
   export default {
     components: {
@@ -75,29 +80,8 @@
       ClientOnly,
       ExhibitionChapters,
       ExhibitionChaptersNavigation,
-      HeroImage
-    },
-    computed: {
-      chapterNavigation() {
-        return this.chapters.map((chapter) => {
-          return {
-            identifier: chapter.identifier, name: chapter.name, url: this.chapterUrl(chapter.identifier)
-          };
-        });
-      },
-      hero() {
-        return this.page.primaryImageOfPage ? this.page.primaryImageOfPage : null;
-      },
-      heroImage() {
-        return this.hero ? this.hero.image : null;
-      },
-      optimisedImageUrl() {
-        return this.$options.filters.optimisedImageUrl(
-          this.heroImage.url,
-          this.heroImage.contentType,
-          { width: 800, height: 800 }
-        );
-      }
+      ImageWithAttribution: () => import('../../../components/generic/ImageWithAttribution'),
+      SocialShare: () => import('../../../components/generic/SocialShare')
     },
     asyncData({ params, query, error, app, store }) {
       const variables = {
@@ -152,6 +136,28 @@
           error({ statusCode: 500, message: e.toString() });
         });
     },
+    computed: {
+      chapterNavigation() {
+        return this.chapters.map((chapter) => {
+          return {
+            identifier: chapter.identifier, name: chapter.name, url: this.chapterUrl(chapter.identifier)
+          };
+        });
+      },
+      hero() {
+        return this.page.primaryImageOfPage ? this.page.primaryImageOfPage : null;
+      },
+      heroImage() {
+        return this.hero ? this.hero.image : null;
+      },
+      optimisedImageUrl() {
+        return this.$options.filters.optimisedImageUrl(
+          this.heroImage.url,
+          this.heroImage.contentType,
+          { width: 800, height: 800 }
+        );
+      }
+    },
     methods: {
       chapterUrl(identifier) {
         return this.$path({
@@ -174,10 +180,11 @@
           { hid: 'og:title', property: 'og:title', content: this.page.name },
           { hid: 'og:image', property: 'og:image', content: this.optimisedImageUrl },
           { hid: 'og:type', property: 'og:type', content: 'article' }
-        ].concat(this.page.description ? [
-          { hid: 'description', name: 'description', content: this.page.description },
-          { hid: 'og:description', property: 'og:description', content: this.page.description }
-        ] : [])
+        ]
+          .concat(this.page.description ? [
+            { hid: 'description', name: 'description', content: this.page.description },
+            { hid: 'og:description', property: 'og:description', content: this.page.description }
+          ] : [])
       };
     }
   };
@@ -197,7 +204,7 @@
 
   /deep/ figure {
     display: inline-block;
-    margin: 0.5rem 0 1rem 0;
+    margin: 0;
     max-width: 100%;
 
     img {

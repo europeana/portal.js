@@ -5,9 +5,6 @@ const pkg = require('./package');
 const i18nLocales = require('./plugins/i18n/locales.js');
 const i18nDateTime = require('./plugins/i18n/datetime.js');
 
-const routerMiddleware = ['http', 'legacy/index', 'l10n'];
-if (!Number(process.env['DISABLE_SSL_NEGOTIATION'])) routerMiddleware.unshift('ssl');
-
 const config = {
   mode: 'universal',
 
@@ -75,6 +72,7 @@ const config = {
       'LinkPlugin',
       'ListGroupPlugin',
       'MediaPlugin',
+      'ModalPlugin',
       'NavbarPlugin',
       'NavPlugin',
       'PaginationNavPlugin',
@@ -87,7 +85,6 @@ const config = {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    '~/plugins/path',
     '~/plugins/europeana',
     '~/plugins/vue/index',
     '~/plugins/i18n.js',
@@ -108,6 +105,16 @@ const config = {
       frameworkVersion: require('nuxt/package.json').version
     }],
     '~/modules/contentful-graphql',
+    ['~/modules/http', {
+      ports: {
+        http: process.env.HTTP_PORT,
+        https: process.env.HTTPS_PORT
+      },
+      sslNegotiation: {
+        enabled: Boolean(Number(process.env.ENABLE_SSL_NEGOTIATION)),
+        datasetBlacklist: (process.env.SSL_DATASET_BLACKLIST || '').split(',')
+      }
+    }],
     '@nuxtjs/gtm'
   ],
   gtm: {
@@ -158,7 +165,7 @@ const config = {
   ],
 
   router: {
-    middleware: routerMiddleware,
+    middleware: ['legacy/index', 'l10n'],
     extendRoutes(routes) {
       routes.push({
         name: 'slug',

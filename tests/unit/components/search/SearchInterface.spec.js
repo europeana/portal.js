@@ -132,12 +132,14 @@ describe('components/search/SearchInterface', () => {
           const wrapper = factory({
             storeState: {
               totalResults: 100,
-              results: [{
-                europeanaId: '/123/abc',
-                dcTitle: { def: ['Record 123/abc'] },
-                edmPreview: 'https://www.example.org/abc.jpg',
-                edmDataProvider: ['Provider 123']
-              }]
+              results: [
+                {
+                  europeanaId: '/123/abc',
+                  dcTitle: { def: ['Record 123/abc'] },
+                  edmPreview: 'https://www.example.org/abc.jpg',
+                  edmDataProvider: ['Provider 123']
+                }
+              ]
             }
           });
 

@@ -56,22 +56,6 @@
       ContentCard,
       PaginationNav
     },
-    head() {
-      return {
-        title: this.$tc('exhibitions.exhibitions', 2)
-      };
-    },
-    data() {
-      return {
-        perPage: PER_PAGE,
-        page: null
-      };
-    },
-    computed: {
-      showPagination() {
-        return this.total > this.perPage;
-      }
-    },
     asyncData({ query, redirect, error, app }) {
       const currentPage = pageFromQuery(query.page);
       if (currentPage === null) {
@@ -101,6 +85,17 @@
           error({ statusCode: 500, message: e.toString() });
         });
     },
+    data() {
+      return {
+        perPage: PER_PAGE,
+        page: null
+      };
+    },
+    computed: {
+      showPagination() {
+        return this.total > this.perPage;
+      }
+    },
     methods: {
       paginationLink(val) {
         return this.$path({ name: 'exhibitions', query: { page: val } });
@@ -111,6 +106,11 @@
       imageContentType(image) {
         if (image && image.image) return image.image.contentType;
       }
+    },
+    head() {
+      return {
+        title: this.$tc('exhibitions.exhibitions', 2)
+      };
     },
     watchQuery: ['page'],
     beforeRouteLeave(to, from, next) {

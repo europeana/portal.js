@@ -45,6 +45,16 @@
         return redirect(app.$path({ name: 'search', query: { ...query, ...{ page: '1' } } }));
       }
     },
+
+    async fetch({ store, query, res }) {
+      await store.dispatch('search/activate');
+      store.commit('search/set', ['userParams', query]);
+
+      await store.dispatch('search/run');
+      if (store.state.search.error && typeof res !== 'undefined') {
+        res.statusCode = store.state.search.errorStatusCode;
+      }
+    },
     computed: {
       notificationUrl() {
         return legacyUrl(this.$route.query, this.$store.state.i18n.locale) +
@@ -55,16 +65,6 @@
       },
       relatedCollectionsEnabled() {
         return Boolean(Number(process.env.ENABLE_SEARCH_RELATED_COLLECTIONS));
-      }
-    },
-
-    async fetch({ store, query, res }) {
-      await store.dispatch('search/activate');
-      store.commit('search/set', ['userParams', query]);
-
-      await store.dispatch('search/run');
-      if (store.state.search.error && typeof res !== 'undefined') {
-        res.statusCode = store.state.search.errorStatusCode;
       }
     },
 
