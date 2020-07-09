@@ -8,7 +8,6 @@ const rc = {
 process.env['PORT'] = '3002';
 process.env['PROXY_RC'] = JSON.stringify(rc);
 process.env['CACHE_DURATION'] = '1 hour';
-process.env['ENABLE_COMPRESSION'] = '1';
 process.env['DISABLE_LOGGING'] = '1';
 
 require('@europeana/api-proxy-cache/index.js');
