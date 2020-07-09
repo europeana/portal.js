@@ -26,10 +26,10 @@
         >
           {{ showAll ? $t('showLess') : $t('showMore') }}
         </b-button>
-        <p class="curated d-flex align-items-center">
+        <!-- <p class="curated d-flex align-items-center">
           <span class="ic-verified" />
           {{ $t('curatedAutomatically') }}
-        </p>
+        </p> -->
       </div>
       <SmartLink
         v-if="hasDescription && !isEditorialDescription"

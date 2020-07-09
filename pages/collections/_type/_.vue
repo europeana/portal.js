@@ -67,12 +67,14 @@
     </b-row>
     <b-row>
       <b-col>
-        <client-only>
-          <BrowseSections
-            v-if="page"
-            :sections="page.hasPartCollection.items"
-          />
-        </client-only>
+        <b-container class="p-0">
+          <client-only>
+            <BrowseSections
+              v-if="page"
+              :sections="page.hasPartCollection.items"
+            />
+          </client-only>
+        </b-container>
       </b-col>
     </b-row>
   </b-container>
