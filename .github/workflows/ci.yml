@@ -108,6 +108,7 @@ jobs:
     - run: cp -r ./tmp/build/. .
     - run: npm run test:e2e:ci
 
+  # TODO: limit to internal PRs, i.e. those from within the repo
   deploy:
     needs: test
     if: github.event_name	== 'pull_request'

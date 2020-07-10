@@ -1,5 +1,8 @@
 name: Recycling
 
+# TODO: ideally closing a PR would stop any runs of the ci workflow on the same
+#       PR first.
+
 on:
   pull_request:
     types: closed
