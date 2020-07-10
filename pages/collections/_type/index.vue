@@ -1,7 +1,7 @@
 <template>
   <b-container>
     <ContentHeader
-      :title="$tc(`pages.collections.${this.$route.params.type}.title`, 2)"
+      :title="title"
     />
     <b-row class="flex-md-row pb-5">
       <b-col cols="12">
@@ -41,7 +41,7 @@
   import ContentCard from '../../../components/generic/ContentCard';
   import { pageFromQuery } from '../../../plugins/utils';
   import {
-    getEntityIndex,
+    searchEntities,
     getEntitySlug,
     getEntityTypeHumanReadable
   } from '../../../plugins/europeana/entity';
@@ -72,14 +72,15 @@
         scope: 'europeana',
         fl: 'skos_prefLabel.*,isShownBy,isShownBy.thumbnail'
       };
-      return getEntityIndex(entityIndexParams)
+      return searchEntities(entityIndexParams)
         .then(response => response)
         .then(data => {
           return {
             entities: data.entities,
             total: data.total,
             page: currentPage,
-            perPage: PER_PAGE
+            perPage: PER_PAGE,
+            title: app.i18n.t(`pages.collections.${params.type}.title`)
           };
         })
         .catch((e) => {
@@ -124,9 +125,9 @@
     },
     head() {
       return {
-        title: this.$tc(`pages.collections.${this.$route.params.type}.title`, 2)
+        title: this.title
       };
     },
-    watchQuery: ['query', 'page']
+    watchQuery: ['page']
   };
 </script>

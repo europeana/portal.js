@@ -148,7 +148,7 @@ describe('plugins/europeana/entity', () => {
     });
   });
 
-  describe('searchEntities()', () => {
+  describe('findEntities()', () => {
     const uris = ['http://data.europeana.eu/agent/base/123', 'http://data.europeana.eu/concept/base/456'];
     const uriQuery = 'entity_uri:("http://data.europeana.eu/agent/base/123" OR "http://data.europeana.eu/concept/base/456")';
     const entitySearchResponse = {
@@ -164,7 +164,7 @@ describe('plugins/europeana/entity', () => {
         })
         .reply(200, entitySearchResponse);
 
-      await entities.searchEntities(uris);
+      await entities.findEntities(uris);
 
       nock.isDone().should.be.true;
     });

@@ -203,7 +203,7 @@ async function getEntityFacets(facets, currentId) {
   const entityUris = entities.slice(0, 4).map(entity => {
     return entity['label'];
   });
-  return getRelatedEntityData(await searchEntities(entityUris));
+  return getRelatedEntityData(await findEntities(entityUris));
 }
 
 /**
@@ -211,23 +211,18 @@ async function getEntityFacets(facets, currentId) {
  * @param {Array} entityUris the URIs of the entities to retrieve
  * @return {Object} entity data
  */
-export function searchEntities(entityUris) {
+export function findEntities(entityUris) {
   if (entityUris.length === 0) return;
-
   const q = entityUris.join('" OR "');
-  return axios.get(entityApiUrl('/search'), {
-    params: {
-      query: `entity_uri:("${q}")`,
-      wskey: config.entity.key
-    }
-  })
+  const params = {
+    query: `entity_uri:("${q}")`,
+    type: 'topic' /* needs to be dynamic */,
+    scope: 'europeana',
+    fl: 'skos_prefLabel.*,isShownBy,isShownBy.thumbnail'
+  };
+  return searchEntities(params)
     .then((response) => {
-      let items = response.data.items ? response.data.items : [];
-      return items;
-    })
-    .catch((error) => {
-      const message = error.response ? error.response.data.error : error.message;
-      throw new Error(message);
+      return response.entities;
     });
 }
 
@@ -304,7 +299,7 @@ export function entityParamsFromUri(uri) {
  * Return all entity subjects of type concept / agent
  * @param {Object} params additional parameters sent to the API
  */
-export function getEntityIndex(params = {}) {
+export function searchEntities(params = {}) {
   return axios.get(entityApiUrl('/search'), {
     params: {
       ...params,
