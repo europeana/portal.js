@@ -14,7 +14,7 @@ env:
   CF_PASSWORD: ${{ secrets.CF_PASSWORD }}
   CF_SPACE: dev
   CF_USERNAME: apikey
-  CHROMEDRIVER_SKIP_DOWNLOAD: true
+  CHROMEDRIVER_SKIP_DOWNLOAD: false
   CTF_CDA_ACCESS_TOKEN: ${{ secrets.CTF_CDA_ACCESS_TOKEN }}
   CTF_ENVIRONMENT_ID: test
   CTF_SPACE_ID: ${{ secrets.CTF_SPACE_ID }}
@@ -40,7 +40,7 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-node-
     - run: npm install
-    - run: npm build
+    - run: npm run build
     - uses: actions/upload-artifact@v2
       with:
         name: node_modules
