@@ -11,6 +11,7 @@ on:
 
 env:
   CF_API: https://api.eu-de.bluemix.net
+  CF_DOMAIN: eu-de.mybluemix.net
   CF_ORG: europeana-dev
   CF_PASSWORD: ${{ secrets.CF_PASSWORD }}
   CF_SPACE: dev
@@ -25,6 +26,7 @@ env:
   EUROPEANA_RECORD_API_KEY: ${{ secrets.EUROPEANA_RECORD_API_KEY }}
   GECKODRIVER_SKIP_DOWNLOAD: true
   PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: true
+  SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
 
 jobs:
   info:
@@ -131,3 +133,7 @@ jobs:
         cf install-plugin app-autoscaler-plugin -f -r CF-Community
     - run: cf login -a ${CF_API} -u ${CF_USERNAME} -p "${CF_PASSWORD}" -o ${CF_ORG} -s ${CF_SPACE}
     - run: cf blue-green-deploy ${CF_APP_NAME} -f deploy/cloud-foundry/manifest.yml --delete-old-apps
+    - name: Notify Slack
+      run: |
+        MESSAGE="Github Actions just deployed <https://github.com/europeana/portal.js/pull/${PULL_REQUEST_NUMBER}|portal.js PR ${PULL_REQUEST_NUMBER}> to <https://${CF_APP_NAME}.${CF_DOMAIN}/>"
+        curl -d '{"username":"portal.js Github Actions robot", "icon_emoji":":robot_face:", "text":"'${MESSAGE}'" -X POST ${SLACK_WEBHOOK_URL}
