@@ -14,7 +14,7 @@ env:
   CF_PASSWORD: ${{ secrets.CF_PASSWORD }}
   CF_SPACE: dev
   CF_USERNAME: apikey
-  CHROMEDRIVER_SKIP_DOWNLOAD: false
+  CHROMEDRIVER_SKIP_DOWNLOAD: true
   CTF_CDA_ACCESS_TOKEN: ${{ secrets.CTF_CDA_ACCESS_TOKEN }}
   CTF_ENVIRONMENT_ID: test
   CTF_SPACE_ID: ${{ secrets.CTF_SPACE_ID }}
@@ -43,10 +43,6 @@ jobs:
     - run: npm run build
     - uses: actions/upload-artifact@v2
       with:
-        name: node_modules
-        path: node_modules/
-    - uses: actions/upload-artifact@v2
-      with:
         name: .nuxt
         path: .nuxt/
 
@@ -58,25 +54,41 @@ jobs:
     - uses: actions/setup-node@v1
       with:
         node-version: 12.x
+    - uses: actions/cache@v2
+      with:
+        path: ~/.npm
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
+    - run: npm install
     - uses: actions/download-artifact@v2
-    - run: ls -al .nuxt node_modules
+    - run: ls -al .nuxt
     - run: npm run lint
     - run: npm run stylelint
     - run: npm run test:unit
     - run: npx size-limit
 
-  # e2e:
-  #   needs: test
-  #   if: github.event_name	== 'pull_request'
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #   - uses: actions/checkout@v2
-  #   - uses: actions/setup-node@v1
-  #     with:
-  #       node-version: 12.x
-  #   - uses: actions/download-artifact@v2
-  #   - run: npm run test:e2e:ci
-  #
+  e2e:
+    needs: test
+    if: github.event_name	== 'pull_request'
+    runs-on: ubuntu-latest
+    env:
+      CHROMEDRIVER_SKIP_DOWNLOAD: false
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v1
+      with:
+        node-version: 12.x
+    - uses: actions/cache@v2
+      with:
+        path: ~/.npm
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
+    - run: npm install
+    - uses: actions/download-artifact@v2
+    - run: npm run test:e2e:ci
+
   # deploy:
   #   needs: test
   #   if: github.event_name	== 'pull_request'
@@ -84,8 +96,6 @@ jobs:
   #   steps:
   #   - uses: actions/checkout@v2
   #   - uses: actions/download-artifact@v2
-  #     with:
-  #       path: .nuxt
   #   - run: wget -q -O - https://packages.cloudfoundry.org/debian/cli.cloudfoundry.org.key | apt-key add -
   #   - run: echo "deb https://packages.cloudfoundry.org/debian stable main" | tee /etc/apt/sources.list.d/cloudfoundry-cli.list
   #   - run: apt-get -q update && apt-get -yq install cf-cli
