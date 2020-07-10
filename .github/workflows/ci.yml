@@ -36,6 +36,7 @@ jobs:
     - run: echo ${GITHUB_HEAD_REF}
     - run: echo ${GITHUB_BASE_REF}
     - run: echo ${GITHUB_SHA}
+    - run: cat ${GITHUB_EVENT_PATH}
 
   build:
     runs-on: ubuntu-latest
