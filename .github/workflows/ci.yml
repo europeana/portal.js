@@ -54,6 +54,7 @@ jobs:
     - if: steps.cache-node.outputs.cache-hit != 'true'
       run: npm install
     - run: envsubst < deploy/cloud-foundry/.env.example > .env
+    - run: cat .env
     - run: npm run build
     - uses: actions/upload-artifact@v2
       with:
@@ -77,6 +78,7 @@ jobs:
           **/node_modules
         key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
     - uses: actions/download-artifact@v2
+    - run: ls -al .env .nuxt/
     - run: npm run lint
     - run: npm run stylelint
     - run: npm run test:unit
