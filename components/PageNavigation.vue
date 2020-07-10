@@ -26,18 +26,40 @@
         v-if="isAuthenticated"
         class="nav-item"
       >
-        <b-link
-          :to="localePath({ name: 'account-profile' })"
+        <b-dropdown
+          right
+          no-caret
+          variant="white"
+          menu-class="mt-2 py-3"
           class="nav-link"
         >
-          <span>{{ $t('account.linkAccount') }}</span>
-        </b-link>
+          <template
+            slot="button-content"
+          >
+            <span class="label">{{ $t('account.linkAccount') }}</span>
+          </template>
+          <b-dropdown-item
+            :to="localePath({ name: 'account' })"
+          >
+            <span class="label">{{ $t('account.profile') }}</span>
+          </b-dropdown-item>
+          <b-dropdown-item
+            :to="localePath({ name: 'account-profile' })"
+          >
+            <span class="label">{{ $t('account.settings') }}</span>
+          </b-dropdown-item>
+          <b-dropdown-divider />
+          <b-dropdown-item @click="logout()">
+            <span class="label">{{ $t('account.linkLogout') }}</span>
+          </b-dropdown-item>
+        </b-dropdown>
       </li>
       <li
         v-else
         class="nav-item"
       >
         <b-link
+          data-qa="login button"
           class="nav-link"
           :to="{ name: 'account-login' }"
         >
@@ -93,6 +115,9 @@
           break;
         }
         return className;
+      },
+      async logout() {
+        await this.$auth.logout();
       }
     }
   };
@@ -225,5 +250,28 @@
         }
       }
     }
+  }
+
+  .dropdown.nav-link {
+    padding: 1px 0 1px 0;
+  }
+
+  .dropdown button .label {
+    color: $mediumgrey;
+    font-size: $font-size-small;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+
+  .dropdown-menu li {
+    &:first-child {
+      padding-bottom: 0.7rem;
+    }
+  }
+
+  .dropdown-item .label {
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: $font-size-small;
   }
 </style>
