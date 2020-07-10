@@ -26,6 +26,18 @@ env:
   PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: true
 
 jobs:
+  info:
+    runs-on: ubuntu-latest
+    steps:
+    - run: echo ${GITHUB_RUN_ID}
+    - run: echo ${GITHUB_ACTOR}
+    - run: echo ${GITHUB_REPOSITORY}
+    - run: echo ${GITHUB_REF}
+    - run: echo ${GITHUB_HEAD_REF}
+    - run: echo ${GITHUB_BASE_REF}
+    - run: echo ${GITHUB_SHA}
+    - run: cat ${GITHUB_EVENT_PATH}
+
   build:
     runs-on: ubuntu-latest
     steps:
@@ -100,5 +112,3 @@ jobs:
     - run: cf plugins
     - run: cf login -a ${CF_API} -u ${CF_USERNAME} -p "${CF_PASSWORD}" -o ${CF_ORG} -s ${CF_SPACE}
     - run: cf target
-    - run: echo "::set-env name=PR_NUMBER::$(echo $GITHUB_REF | awk 'BEGIN { FS = / } ; { print $3 }')"
-    - run: echo "PR number: ${PR_NUMBER}"
