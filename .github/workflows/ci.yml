@@ -142,5 +142,5 @@ jobs:
       # TODO: include Github username in message? PR title?
       # TODO: limit to newly opened PRs? to prevent flooding the channel
       run: |
-        MESSAGE="Github Actions just deployed <https://github.com/europeana/portal.js/pull/${PULL_REQUEST_NUMBER}|portal.js PR ${PULL_REQUEST_NUMBER}> to <https://${CF_APP_NAME}.${CF_DOMAIN}/>"
-        curl -d '{"username":"portal.js Github Actions robot", "icon_emoji":":robot_face:", "text":"'${MESSAGE}'" -X POST ${SLACK_WEBHOOK_URL}'
+        envsubst < .github/workflows/support/ci.deploy.slack-notification.json > tmp/ci.deploy.slack-notification.json
+        curl -d "@tmp/ci.deploy.slack-notification.json" -X POST ${SLACK_WEBHOOK_URL}
