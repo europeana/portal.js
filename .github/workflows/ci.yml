@@ -36,7 +36,6 @@ jobs:
     - run: echo ${GITHUB_HEAD_REF}
     - run: echo ${GITHUB_BASE_REF}
     - run: echo ${GITHUB_SHA}
-    - run: cat ${GITHUB_EVENT_PATH}
 
   build:
     runs-on: ubuntu-latest
@@ -98,17 +97,19 @@ jobs:
     - run: npm run test:e2e:ci
 
   deploy:
-    needs: test
+    # switch needs to "test" later on
+    needs: build
     if: github.event_name	== 'pull_request'
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
     - uses: actions/download-artifact@v2
-    - run: wget -q -O - https://packages.cloudfoundry.org/debian/cli.cloudfoundry.org.key | apt-key add -
-    - run: echo "deb https://packages.cloudfoundry.org/debian stable main" | tee /etc/apt/sources.list.d/cloudfoundry-cli.list
-    - run: apt-get -q update && apt-get -yq install cf-cli
+    - run: wget -q -O - https://packages.cloudfoundry.org/debian/cli.cloudfoundry.org.key | sudo apt-key add -
+    - run: echo "deb https://packages.cloudfoundry.org/debian stable main" | sudo tee /etc/apt/sources.list.d/cloudfoundry-cli.list
+    - run: sudo apt-get -q update && sudo apt-get -yq install cf-cli
     - run: cf install-plugin blue-green-deploy -f -r CF-Community
     - run: cf install-plugin app-autoscaler-plugin -f -r CF-Community
     - run: cf plugins
     - run: cf login -a ${CF_API} -u ${CF_USERNAME} -p "${CF_PASSWORD}" -o ${CF_ORG} -s ${CF_SPACE}
     - run: cf target
+    - run: jq .pull_request.number ${GITHUB_EVENT_PATH}
