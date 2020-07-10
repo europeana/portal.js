@@ -54,16 +54,13 @@ jobs:
     - if: steps.cache-node.outputs.cache-hit != 'true'
       run: npm install
     - run: envsubst < .env.ci > .env
-    - run: cat .env
     - run: npm run build
     - uses: actions/upload-artifact@v2
       with:
-        name: .nuxt
-        path: .nuxt/
-    - uses: actions/upload-artifact@v2
-      with:
-        name: .env
-        path: .env
+        name: build
+        path: |
+          .nuxt/
+          .env
 
   test:
     needs: build
@@ -80,6 +77,7 @@ jobs:
           **/node_modules
         key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
     - uses: actions/download-artifact@v2
+    - run: mv build/. .
     - run: ls -al .env .nuxt/
     - run: npm run lint
     - run: npm run stylelint
@@ -102,6 +100,7 @@ jobs:
           **/node_modules
         key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
     - uses: actions/download-artifact@v2
+    - run: mv build/. .
     - run: npm run test:e2e:ci
 
   deploy:
@@ -111,6 +110,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - uses: actions/download-artifact@v2
+    - run: mv build/. .
     - run: echo "::set-env name=PULL_REQUEST_NUMBER::$(jq .pull_request.number ${GITHUB_EVENT_PATH})"
     - run: echo "::set-env name=CF_APP_NAME::portaljs-PR-${PULL_REQUEST_NUMBER}"
     - run: wget -q -O - https://packages.cloudfoundry.org/debian/cli.cloudfoundry.org.key | sudo apt-key add -
