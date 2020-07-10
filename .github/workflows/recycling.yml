@@ -13,7 +13,7 @@ env:
   CF_PASSWORD: ${{ secrets.CF_PASSWORD }}
   CF_SPACE: dev
   CF_USERNAME: apikey
-  CF_DOMAIN: eu-de.bluemix.net
+  CF_DOMAIN: eu-de.mybluemix.net
 
 jobs:
   info:
