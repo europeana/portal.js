@@ -31,7 +31,7 @@
                 :key="relatedEntity.id"
                 :link-gen="suggestionLinkGen"
                 :title="relatedEntity.prefLabel[$i18n.locale]"
-                :img="relatedEntity.isShownBy.thumbnail"
+                :img="`${relatedEntity.isShownBy.thumbnail}&size=w200`"
                 data-qa="related entities"
               />
             </section>
@@ -44,7 +44,7 @@
                 :key="index"
                 :link-gen="card.indentifier"
                 :title="card.name"
-                :img="card.image"
+                :img="`${card.image}&size=w200`"
                 data-qa="related entities"
               />
             </section>
@@ -316,3 +316,12 @@
     watchQuery: ['api', 'reusability', 'query', 'qf', 'page']
   };
 </script>
+
+<style lang="scss" scoped>
+  .entity-page {
+    margin-top: -1rem;
+    .col-12 > .container {
+      padding: 0;
+    }
+  }
+</style>
