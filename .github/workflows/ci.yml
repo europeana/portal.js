@@ -53,15 +53,17 @@ jobs:
         key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
     - if: steps.cache-node.outputs.cache-hit != 'true'
       run: npm install
-    - run: envsubst < deploy/cloud-foundry/.env.example > .env
+    - run: envsubst < .env.ci > .env
     - run: cat .env
     - run: npm run build
     - uses: actions/upload-artifact@v2
       with:
         name: .nuxt
-        path: |
-          .nuxt/
-          .env
+        path: .nuxt/
+    - uses: actions/upload-artifact@v2
+      with:
+        name: .env
+        path: .env
 
   test:
     needs: build
