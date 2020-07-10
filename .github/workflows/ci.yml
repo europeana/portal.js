@@ -98,13 +98,14 @@ jobs:
     - run: npm run test:e2e:ci
 
   deploy:
-    # switch needs to "test" later on
-    needs: build
+    needs: test
     if: github.event_name	== 'pull_request'
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
     - uses: actions/download-artifact@v2
+    - run: echo "::set-env name=PULL_REQUEST_NUMBER::$(jq .pull_request.number ${GITHUB_EVENT_PATH})"
+    - run: echo "::set-env name=CF_APP_NAME::portaljs-PR-${PULL_REQUEST_NUMBER}"
     - run: wget -q -O - https://packages.cloudfoundry.org/debian/cli.cloudfoundry.org.key | sudo apt-key add -
     - run: echo "deb https://packages.cloudfoundry.org/debian stable main" | sudo tee /etc/apt/sources.list.d/cloudfoundry-cli.list
     - run: sudo apt-get -q update && sudo apt-get -yq install cf-cli
@@ -112,5 +113,4 @@ jobs:
     - run: cf install-plugin app-autoscaler-plugin -f -r CF-Community
     - run: cf plugins
     - run: cf login -a ${CF_API} -u ${CF_USERNAME} -p "${CF_PASSWORD}" -o ${CF_ORG} -s ${CF_SPACE}
-    - run: cf target
-    - run: jq .pull_request.number ${GITHUB_EVENT_PATH}
+    - run: cf blue-green-deploy ${CF_APP_NAME} -f deploy/cloud-foundry/manifest.yml --delete-old-apps
