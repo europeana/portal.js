@@ -1,4 +1,4 @@
-name: CI
+name: CI clone
 
 on:
   pull_request:
