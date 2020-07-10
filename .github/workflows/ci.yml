@@ -14,7 +14,7 @@ env:
   CF_PASSWORD: ${{ secrets.CF_PASSWORD }}
   CF_SPACE: dev
   CF_USERNAME: apikey
-  CHROMEDRIVER_SKIP_DOWNLOAD: true
+  CHROMEDRIVER_SKIP_DOWNLOAD: false
   CTF_CDA_ACCESS_TOKEN: ${{ secrets.CTF_CDA_ACCESS_TOKEN }}
   CTF_ENVIRONMENT_ID: test
   CTF_SPACE_ID: ${{ secrets.CTF_SPACE_ID }}
@@ -35,11 +35,12 @@ jobs:
         node-version: 12.x
     - uses: actions/cache@v2
       with:
-        path: ~/.npm
+        path: |
+          ~/.npm
+          **/node_modules
         key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-        restore-keys: |
-          ${{ runner.os }}-node-
-    - run: npm install
+    - if: steps.cache.outputs.cache-hit != 'true'
+      run: npm install
     - run: npm run build
     - uses: actions/upload-artifact@v2
       with:
@@ -56,24 +57,20 @@ jobs:
         node-version: 12.x
     - uses: actions/cache@v2
       with:
-        path: ~/.npm
+        path: |
+          ~/.npm
+          **/node_modules
         key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-        restore-keys: |
-          ${{ runner.os }}-node-
-    - run: npm install
     - uses: actions/download-artifact@v2
-    - run: ls -al .nuxt
     - run: npm run lint
     - run: npm run stylelint
     - run: npm run test:unit
     - run: npx size-limit
 
   e2e:
-    needs: test
+    needs: build
     if: github.event_name	== 'pull_request'
     runs-on: ubuntu-latest
-    env:
-      CHROMEDRIVER_SKIP_DOWNLOAD: false
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-node@v1
@@ -81,11 +78,10 @@ jobs:
         node-version: 12.x
     - uses: actions/cache@v2
       with:
-        path: ~/.npm
+        path: |
+          ~/.npm
+          **/node_modules
         key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-        restore-keys: |
-          ${{ runner.os }}-node-
-    - run: npm install
     - uses: actions/download-artifact@v2
     - run: npm run test:e2e:ci
 
