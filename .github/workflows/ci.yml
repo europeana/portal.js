@@ -100,5 +100,5 @@ jobs:
     - run: cf plugins
     - run: cf login -a ${CF_API} -u ${CF_USERNAME} -p "${CF_PASSWORD}" -o ${CF_ORG} -s ${CF_SPACE}
     - run: cf target
-    - run: echo "::set-env name=PR_NUMBER::$(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }')"
+    - run: echo "::set-env name=PR_NUMBER::$(echo $GITHUB_REF | awk 'BEGIN { FS = / } ; { print $3 }')"
     - run: echo "PR number: ${PR_NUMBER}"
