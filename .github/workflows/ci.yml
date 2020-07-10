@@ -79,10 +79,7 @@ jobs:
     - uses: actions/download-artifact@v2
       with:
         path: ./tmp
-    - run: ls -al ./tmp
-    - run: ls -al ./tmp/build
     - run: cp -r ./tmp/build/. .
-    - run: ls -al .env .nuxt/
     - run: npm run lint
     - run: npm run stylelint
     - run: npm run test:unit
@@ -126,6 +123,5 @@ jobs:
     - run: sudo apt-get -q update && sudo apt-get -yq install cf-cli
     - run: cf install-plugin blue-green-deploy -f -r CF-Community
     - run: cf install-plugin app-autoscaler-plugin -f -r CF-Community
-    - run: cf plugins
     - run: cf login -a ${CF_API} -u ${CF_USERNAME} -p "${CF_PASSWORD}" -o ${CF_ORG} -s ${CF_SPACE}
     - run: cf blue-green-deploy ${CF_APP_NAME} -f deploy/cloud-foundry/manifest.yml --delete-old-apps
