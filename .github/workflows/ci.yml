@@ -85,18 +85,20 @@ jobs:
     - uses: actions/download-artifact@v2
     - run: npm run test:e2e:ci
 
-  # deploy:
-  #   needs: test
-  #   if: github.event_name	== 'pull_request'
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #   - uses: actions/checkout@v2
-  #   - uses: actions/download-artifact@v2
-  #   - run: wget -q -O - https://packages.cloudfoundry.org/debian/cli.cloudfoundry.org.key | apt-key add -
-  #   - run: echo "deb https://packages.cloudfoundry.org/debian stable main" | tee /etc/apt/sources.list.d/cloudfoundry-cli.list
-  #   - run: apt-get -q update && apt-get -yq install cf-cli
-  #   - run: cf install-plugin blue-green-deploy -f -r CF-Community
-  #   - run: cf install-plugin app-autoscaler-plugin -f -r CF-Community
-  #   - run: cf plugins
-  #   - run: cf login -a ${CF_API} -u ${CF_USERNAME} -p "${CF_PASSWORD}" -o ${CF_ORG} -s ${CF_SPACE}
-  #   - run: cf target
+  deploy:
+    needs: test
+    if: github.event_name	== 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/download-artifact@v2
+    - run: wget -q -O - https://packages.cloudfoundry.org/debian/cli.cloudfoundry.org.key | apt-key add -
+    - run: echo "deb https://packages.cloudfoundry.org/debian stable main" | tee /etc/apt/sources.list.d/cloudfoundry-cli.list
+    - run: apt-get -q update && apt-get -yq install cf-cli
+    - run: cf install-plugin blue-green-deploy -f -r CF-Community
+    - run: cf install-plugin app-autoscaler-plugin -f -r CF-Community
+    - run: cf plugins
+    - run: cf login -a ${CF_API} -u ${CF_USERNAME} -p "${CF_PASSWORD}" -o ${CF_ORG} -s ${CF_SPACE}
+    - run: cf target
+    - run: echo "::set-env name=PR_NUMBER::$(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }')"
+    - run: echo "PR number: ${PR_NUMBER}"
