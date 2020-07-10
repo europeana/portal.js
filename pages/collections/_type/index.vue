@@ -1,7 +1,7 @@
 <template>
   <b-container>
     <ContentHeader
-      :title="$tc(`entity.index.${this.$route.params.type}.title`, 2)"
+      :title="$tc(`pages.collections.${this.$route.params.type}.title`, 2)"
     />
     <b-row class="flex-md-row pb-5">
       <b-col cols="12">
@@ -124,7 +124,7 @@
     },
     head() {
       return {
-        title: this.$tc(`entity.index.${this.$route.params.type}.title`, 2)
+        title: this.$tc(`pages.collections.${this.$route.params.type}.title`, 2)
       };
     },
     watchQuery: ['query', 'page']

@@ -77,13 +77,6 @@ export default {
   },
   "edmIsShownAtLinkAlt": "View at the provider's website",
   "error": "Error",
-  "entity": {
-    "index": {
-      "topics": {
-        "title": "Subjects"
-      }
-    }
-  },
   "exhibitions": {
     "chapters": "Chapters",
     "credits": "Credits",
@@ -314,6 +307,13 @@ export default {
       "name": "File format | File formats",
       "options": {
         "text/plain": "Plain text"
+      }
+    },
+    "pages": {
+      "collections": {
+        "topics": {
+          "title": "Subjects"
+        }
       }
     },
     "PROVIDER": {
