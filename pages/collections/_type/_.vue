@@ -24,28 +24,29 @@
             <section
               v-if="relatedEntities"
               class="mb-2"
+              data-qa="related entities"
             >
               <RelatedChip
                 v-for="relatedEntity in relatedEntities"
                 :id="relatedEntity.id"
                 :key="relatedEntity.id"
-                :link-gen="suggestionLinkGen"
+                :link-gen="relatedLinkGen(relatedEntity)"
                 :title="relatedEntity.prefLabel[$i18n.locale]"
                 :img="`${relatedEntity.isShownBy.thumbnail}&size=w200`"
-                data-qa="related entities"
               />
             </section>
             <section
               v-else-if="relatedCollectionCards"
               class="mb-2"
+              data-qa="related entities"
             >
               <RelatedChip
                 v-for="(card, index) in relatedCollectionCards"
+                :id="card.indentifier"
                 :key="index"
-                :link-gen="card.indentifier"
+                :link-gen="relatedLinkGen(card)"
                 :title="card.name"
                 :img="`${card.image}&size=w200`"
-                data-qa="related entities"
               />
             </section>
           </client-only>
@@ -277,12 +278,18 @@
           code: null
         };
       },
-      suggestionLinkGen(id, prefLabel) {
+      relatedLinkGen(item) {
+        let id = '';
+        if (typeof item.id === 'undefined') {
+          id = item.identifier;
+        } else {
+          id = item.id;
+        }
         const uriMatch = id.match(`^${this.apiConfig.data.origin}/([^/]+)(/base)?/(.+)$`);
         return this.$path({
           name: 'collections-type-all', params: {
             type: getEntityTypeHumanReadable(uriMatch[1]),
-            pathMatch: getEntitySlug(id, prefLabel)
+            pathMatch: getEntitySlug(id, item.name)
           }
         });
       }
