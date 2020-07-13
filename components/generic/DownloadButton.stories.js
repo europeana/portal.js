@@ -1,8 +1,18 @@
 import { storiesOf } from '@storybook/vue';
 import VueI18n from 'vue-i18n';
 import DownloadButton from './DownloadButton.vue';
+import '../../assets/scss/icons.scss';
 
-const i18n = new VueI18n();
+const i18n = new VueI18n({
+  locale: 'en',
+  messages: {
+    en: {
+      actions: {
+        download: 'Download'
+      }
+    }
+  }
+});
 
 storiesOf('Generic', module)
   .add('Download Button', () => ({
@@ -45,7 +55,6 @@ storiesOf('Generic', module)
           :download-disabled="downloadDisabled"
           :use-proxy="useProxy"
         />
-        <p v-else><span>i<span>Because of its license, this item is not available for download.</p>
-      </b-container>
-    `
+        <p v-else class="d-flex p-3 w-100"><span class="icon-info d-inline-flex pr-1 blue" style="font-size:24px;color:#0a72cc"></span>Because of its license, this item is not available for download.</p>
+      </b-container>`
   }));
