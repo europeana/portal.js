@@ -58,7 +58,7 @@ export function getEntitySuggestions(text, params = {}) {
  * @param {string} type the type of the entity
  * @return {string} retrieved API name of type
  */
-function getEntityTypeApi(type) {
+export function getEntityTypeApi(type) {
   const names = {
     person: 'agent',
     topic: 'concept'
@@ -215,14 +215,11 @@ export function findEntities(entityUris) {
   if (entityUris.length === 0) return;
   const q = entityUris.join('" OR "');
   const params = {
-    query: `entity_uri:("${q}")`,
-    type: 'topic' /* needs to be dynamic */,
-    scope: 'europeana',
-    fl: 'skos_prefLabel.*,isShownBy,isShownBy.thumbnail'
+    query: `entity_uri:("${q}")`
   };
   return searchEntities(params)
     .then((response) => {
-      return response.entities;
+      return response.entities || [];
     });
 }
 
@@ -303,7 +300,6 @@ export function searchEntities(params = {}) {
   return axios.get(entityApiUrl('/search'), {
     params: {
       ...params,
-      type: getEntityTypeApi(params.type),
       wskey: config.entity.key
     }
   })

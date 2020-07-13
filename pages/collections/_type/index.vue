@@ -43,6 +43,7 @@
   import {
     searchEntities,
     getEntitySlug,
+    getEntityTypeApi,
     getEntityTypeHumanReadable
   } from '../../../plugins/europeana/entity';
 
@@ -67,7 +68,7 @@
       const entityIndexParams = {
         query: '*:*',
         page: currentPage - 1,
-        type: params.type.slice(0, -1),
+        type: getEntityTypeApi(params.type.slice(0, -1)),
         pageSize: PER_PAGE,
         scope: 'europeana',
         fl: 'skos_prefLabel.*,isShownBy,isShownBy.thumbnail'
