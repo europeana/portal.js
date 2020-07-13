@@ -1,9 +1,9 @@
 <template>
   <SmartLink
-    v-if="rightsStatementIsUrl"
     :destination="rightsStatement"
     class="rights-statement-button attribution mb-3 mb-lg-0"
     data-qa="rights statement"
+    hideExternalIcon
   >
     <RightsStatement
       :rights-statement-url="rightsStatement"
@@ -21,10 +21,6 @@
       SmartLink
     },
     props: {
-      rightsStatementIsUrl: {
-        type: Boolean,
-        default: true
-      },
       rightsStatement: {
         type: String,
         default: ''

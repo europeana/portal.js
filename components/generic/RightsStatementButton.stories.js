@@ -11,15 +11,17 @@ storiesOf('Generic', module)
     data() {
       return {
         rightsStatementIsUrl: true,
-        rightsStatement: 'https://creativecommons.org/licenses/by-sa/4.0/',
+        rightsStatement: 'https://creativecommons.org/licenses/by-sa/4.0/'
       };
     },
     template: `
-      <b-container class="mt-3 bg-white p-5">
+      <b-container
+        v-if="rightsStatementIsUrl"
+        class="mt-3 bg-white p-5"
+      >
         <RightsStatementButton
           v-if="rightsStatementIsUrl"
           :rights-statement="rightsStatement"
         />
-      </b-container>
-    `
+      </b-container>`
   }));
