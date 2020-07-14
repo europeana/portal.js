@@ -25,7 +25,6 @@ env:
   EUROPEANA_ENTITY_API_KEY: ${{ secrets.EUROPEANA_ENTITY_API_KEY }}
   EUROPEANA_RECORD_API_KEY: ${{ secrets.EUROPEANA_RECORD_API_KEY }}
   GECKODRIVER_SKIP_DOWNLOAD: true
-  PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
   PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: true
   SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
 
@@ -117,6 +116,10 @@ jobs:
     needs: build
     if: github.event_name	== 'pull_request'
     runs-on: ubuntu-latest
+    env:
+      CHROMEDRIVER_SKIP_DOWNLOAD: true
+      PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
+      PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: false
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-node@v1
@@ -128,6 +131,7 @@ jobs:
           ~/.npm
           **/node_modules
         key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+    - run: npm install
     - uses: actions/download-artifact@v2
       with:
         path: ./tmp
