@@ -131,6 +131,7 @@ jobs:
           ~/.npm
           **/node_modules
         key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+    - run: env
     - run: npm install
     - uses: actions/download-artifact@v2
       with:
