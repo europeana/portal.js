@@ -37,11 +37,9 @@ async function stopBrowser() {
   process.removeAllListeners();
 }
 
-// Request a page and wait for the cookie notice
+// Request a file
 async function warmupBrowser() {
-  // TODO: replace with a low cost static page not hitting any APIs
-  await runners.openAPage('/en');
-  await client.waitForElementVisible('.cookie-disclaimer');
+  await runners.openAPage('/robots.txt');
 }
 
 async function waitForApp() {
