@@ -37,7 +37,7 @@ module.exports = {
       webdriver: {
         start_process: true,
         port: 4444,
-        cli_args: ['--port=4444', '--log', 'debug']
+        cli_args: ['--log', 'debug']
       },
       desiredCapabilities: {
         javascriptEnabled: true,
