@@ -5,7 +5,9 @@ export default {
     "share": "Share",
     "shareOn": "Share on {social}",
     "viewAt": "View at {link}",
-    "viewDocument": "View document"
+    "viewDocument": "View document",
+    "like": "Like",
+    "addToGallery": "Add to gallery"
   },
   "attribution": {
     "country": "Country:",
