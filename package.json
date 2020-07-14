@@ -90,7 +90,7 @@
     "@babel/runtime": "^7.6.0",
     "@babel/types": "^7.6.1",
     "@europeana/api-proxy-cache": "^0.5.2",
-    "@percy/agent": "^0.26.2",
+    "@percy/agent": "^0.27.0",
     "@percy/nightwatch": "^1.1.0",
     "@size-limit/preset-app": "^2.1.6",
     "@storybook/addon-actions": "^5.3.18",
