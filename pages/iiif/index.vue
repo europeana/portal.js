@@ -48,7 +48,7 @@
               annotations: true,
               search: false
             },
-            defaultSideBarPanel, 'annotations'
+            defaultSideBarPanel: 'annotations'
           },
           workspace: {
             showZoomControls: true,
