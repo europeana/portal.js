@@ -3,7 +3,7 @@
     :destination="rightsStatement"
     class="rights-statement-button attribution mb-3 mb-lg-0"
     data-qa="rights statement"
-    hideExternalIcon
+    hide-external-icon
   >
     <RightsStatement
       :rights-statement-url="rightsStatement"
