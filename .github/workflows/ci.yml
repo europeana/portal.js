@@ -16,7 +16,6 @@ env:
   CF_PASSWORD: ${{ secrets.CF_PASSWORD }}
   CF_SPACE: dev
   CF_USERNAME: apikey
-  CHROMEDRIVER_SKIP_DOWNLOAD: false
   CTF_CDA_ACCESS_TOKEN: ${{ secrets.CTF_CDA_ACCESS_TOKEN }}
   CTF_ENVIRONMENT_ID: test
   CTF_SPACE_ID: ${{ secrets.CTF_SPACE_ID }}
@@ -25,7 +24,7 @@ env:
   EUROPEANA_ENTITY_API_KEY: ${{ secrets.EUROPEANA_ENTITY_API_KEY }}
   EUROPEANA_RECORD_API_KEY: ${{ secrets.EUROPEANA_RECORD_API_KEY }}
   GECKODRIVER_SKIP_DOWNLOAD: true
-  PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: true
+  PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
   SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
 
 jobs:
@@ -114,12 +113,8 @@ jobs:
 
   percy:
     needs: build
-    if: github.event_name	== 'pull_request'
+    if: github.event_name == 'pull_request' || (github.event_name == 'push' && github.ref == 'refs/heads/master')
     runs-on: ubuntu-latest
-    env:
-      CHROMEDRIVER_SKIP_DOWNLOAD: true
-      PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
-      PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: false
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-node@v1
