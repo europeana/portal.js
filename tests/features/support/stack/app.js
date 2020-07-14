@@ -2,7 +2,6 @@ const path = require('path');
 
 process.env['PORT'] = '3000';
 process.env['NODE_ENV'] = 'test';
-process.env['DISABLE_SSL_NEGOTIATION'] = '1';
 
 if (Number(process.env.E2E_TEST_APICACHE)) {
   const apicacheOrigin = 'http://localhost:3002';
