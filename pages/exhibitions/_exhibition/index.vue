@@ -7,7 +7,7 @@
       fluid
       class="image-wrapper mb-5"
     >
-      <h1>{{ hero.name }}</h1>
+      <h1>{{ name }}</h1>
       <p class="lead">
         {{ headline }}
       </p>
