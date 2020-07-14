@@ -124,6 +124,14 @@ module.exports = {
     await client.waitForElementVisible(id);
     await client.setValue(id, text);
   },
+  async supplyUserCredentials() {
+    await client.clearValue(`#username`);
+    await client.waitForElementVisible(`#username`);
+    await client.setValue(`#username`, process.env['OAUTH_E2E_TEST_USERNAME']);
+    await client.clearValue(`#password`);
+    await client.waitForElementVisible(`#password`);
+    await client.setValue(`#password`, process.env['OAUTH_E2E_TEST_PASSWORD']);
+  },
   async observeTargetHasClass(qaElementName, klass) {
     await client.getAttribute(qaSelector(qaElementName), 'class', async(result) => {
       await client.expect(result.value.split(' ')).to.include(klass);

@@ -29,6 +29,9 @@ defineStep('I see the element {target}', (id) =>
 defineStep('I enter {string} into element {target}', (text, id) =>
   i.enterTextInElement(text, id));
 
+defineStep('I supply the user credentials', () =>
+  i.supplyUserCredentials());
+
 defineStep('I find/identify/see/spot (a/an/the)( ){target}', (qa) =>
   i.seeATarget(qa));
 
