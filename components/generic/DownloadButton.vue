@@ -1,7 +1,7 @@
 <template>
   <b-button
-    :href="downloadUrl"
-    :disabled="downloadDisabled"
+    :href="url"
+    :disabled="disabled"
     variant="light text-decoration-none"
     data-qa="download button"
     size="lg"
@@ -16,17 +16,17 @@
 <script>
   export default {
     props: {
-      downloadUrl: {
+      url: {
         type: String,
         default: ''
       },
-      downloadDisabled: {
+      disabled: {
         type: Boolean,
         default: false
       },
-      useProxy: {
-        type: Boolean,
-        default: false
+      target: {
+        type: String,
+        default: '_blank'
       }
     }
   };
