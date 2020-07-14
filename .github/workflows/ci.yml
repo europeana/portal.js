@@ -81,7 +81,7 @@ jobs:
     - uses: actions/download-artifact@v2
       with:
         path: ./tmp
-    - name: Restoring build artifacts
+    - name: Restore build artifacts
       run: cp -r ./tmp/build/. .
     - run: npm run lint
     - run: npm run stylelint
@@ -106,7 +106,7 @@ jobs:
     - uses: actions/download-artifact@v2
       with:
         path: ./tmp
-    - name: Restoring build artifacts
+    - name: Restore build artifacts
       run: cp -r ./tmp/build/. .
     - run: npm run test:ci:e2e
 
@@ -128,7 +128,7 @@ jobs:
     - uses: actions/download-artifact@v2
       with:
         path: ./tmp
-    - name: Restoring build artifacts
+    - name: Restore build artifacts
       run: cp -r ./tmp/build/. .
     - run: npm run test:ci:percy
 
@@ -142,7 +142,7 @@ jobs:
     - uses: actions/download-artifact@v2
       with:
         path: ./tmp
-    - name: Restoring build artifacts
+    - name: Restore build artifacts
       run: cp -r ./tmp/build/. .
     - run: echo "::set-env name=PULL_REQUEST_NUMBER::$(jq .pull_request.number ${GITHUB_EVENT_PATH})"
     - run: echo "::set-env name=CF_APP_NAME::portaljs-${PULL_REQUEST_NUMBER}"
@@ -158,9 +158,21 @@ jobs:
       run: cf login -a ${CF_API} -u ${CF_USERNAME} -p "${CF_PASSWORD}" -o ${CF_ORG} -s ${CF_SPACE}
     - name: Blue-green deployment to CF
       run: cf blue-green-deploy ${CF_APP_NAME} -f deploy/cloud-foundry/manifest.yml --delete-old-apps
-    - name: Notify Slack
-      # TODO: include Github username in message? PR title?
-      # TODO: limit to newly opened PRs? to prevent flooding the channel
-      run: |
-        envsubst < .github/workflows/support/ci.deploy.slack-notification.json > tmp/ci.deploy.slack-notification.json
-        curl -d "@tmp/ci.deploy.slack-notification.json" -X POST ${SLACK_WEBHOOK_URL}
+
+
+  notify:
+    needs: deploy
+    if: github.event_name	== 'pull_request' && github.event.action == 'opened'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/download-artifact@v2
+        with:
+          path: ./tmp
+      - name: Restore build artifacts
+        run: cp -r ./tmp/build/. .
+      - name: Notify Slack
+        # TODO: include Github username in message? PR title?
+        run: |
+          envsubst < .github/workflows/support/ci.deploy.slack-notification.json > tmp/ci.deploy.slack-notification.json
+          curl -d "@tmp/ci.deploy.slack-notification.json" -X POST ${SLACK_WEBHOOK_URL}
