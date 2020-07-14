@@ -168,8 +168,8 @@ const config = {
       });
       routes.push({
         name: 'collections',
-        path: '/collections',
-        component: 'pages/collections/_type/_.vue'
+        path: '/(collections)',
+        component: 'pages/index.vue'
       });
     },
     linkExactActiveClass: 'exact-active-link'
