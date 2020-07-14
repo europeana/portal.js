@@ -8,7 +8,7 @@
     class="download-button mr-lg-3 d-inline-flex align-items-center"
     :target="!useProxy ? '_blank' : '_self'"
   >
-    <span class="ic-download d-inline-flex pr-1"></span>
+    <span class="ic-download d-inline-flex pr-1" />
     {{ $t('actions.download') }}
   </b-button>
 </template>
