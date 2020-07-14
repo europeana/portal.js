@@ -12,7 +12,6 @@
     </a>
     <PageHeader
       :enable-auto-suggest="enableAutoSuggest"
-      :enable-language-selector="enableLanguageSelector"
       :main-navigation="linkGroups.mainNavigation"
       :mobile-navigation="linkGroups.mobileNavigation"
       keep-alive
@@ -46,7 +45,6 @@
   import PageHeader from '../components/PageHeader';
 
   const config = {
-    enableLanguageSelector: Boolean(Number(process.env['ENABLE_LANGUAGE_SELECTOR'])),
     bootstrapVersion: require('bootstrap/package.json').version,
     bootstrapVueVersion: require('bootstrap-vue/package.json').version
   };
