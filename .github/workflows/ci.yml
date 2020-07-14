@@ -25,6 +25,7 @@ env:
   EUROPEANA_ENTITY_API_KEY: ${{ secrets.EUROPEANA_ENTITY_API_KEY }}
   EUROPEANA_RECORD_API_KEY: ${{ secrets.EUROPEANA_RECORD_API_KEY }}
   GECKODRIVER_SKIP_DOWNLOAD: true
+  PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
   PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: true
   SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
 
@@ -110,7 +111,29 @@ jobs:
         path: ./tmp
     - name: Restoring build artifacts
       run: cp -r ./tmp/build/. .
-    - run: npm run test:e2e:ci
+    - run: npm run test:ci:e2e
+
+  percy:
+    needs: build
+    if: github.event_name	== 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v1
+      with:
+        node-version: 12.x
+    - uses: actions/cache@v2
+      with:
+        path: |
+          ~/.npm
+          **/node_modules
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+    - uses: actions/download-artifact@v2
+      with:
+        path: ./tmp
+    - name: Restoring build artifacts
+      run: cp -r ./tmp/build/. .
+    - run: npm run test:ci:percy
 
   # TODO: limit to internal PRs, i.e. those from within the repo
   deploy:
