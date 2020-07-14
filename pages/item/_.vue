@@ -55,7 +55,6 @@
                     :europeana-identifier="identifier"
                     :media="selectedMedia"
                     :image-src="selectedMediaImage.src"
-                    :enable-europeana-media-player="enableEuropeanaMediaPlayer"
                   />
                   <MediaThumbnailGrid
                     v-if="displayMediaThumbnailGrid"
@@ -385,9 +384,6 @@
       },
       redirectNotificationsEnabled() {
         return Boolean(Number(process.env.ENABLE_LINKS_TO_CLASSIC));
-      },
-      enableEuropeanaMediaPlayer() {
-        return Boolean(Number(process.env.ENABLE_EUROPEANA_MEDIA_PLAYER));
       }
     },
 
