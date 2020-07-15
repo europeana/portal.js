@@ -1,6 +1,6 @@
 const path = require('path');
 
-process.env['PORT'] = '3000';
+process.env['PORT'] = '3001';
 process.env['NODE_ENV'] = 'test';
 
 if (Number(process.env.E2E_TEST_APICACHE)) {
