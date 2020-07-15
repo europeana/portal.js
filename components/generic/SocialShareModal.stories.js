@@ -15,10 +15,15 @@ storiesOf('Generic', module)
   .add('Social share modal', () => ({
     components: { SocialShareModal },
     i18n,
+    data() {
+      return {
+        url: 'https://www.europeana.eu/en/item/2021633/AtlantisPubliek_detail_aspx_xmldescid_176794805'
+      };
+    },
     store,
     template: `
       <b-container class="mt-3">
         <b-button v-b-modal.shareModal variant="light">Share</b-button>
-        <SocialShareModal id="shareModal" media-url="/" />
+        <SocialShareModal id="shareModal" url="url" />
       </b-container>`
   }));
