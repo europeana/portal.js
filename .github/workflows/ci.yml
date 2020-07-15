@@ -95,6 +95,7 @@ jobs:
     - run: npx size-limit
 
   # TODO: limit to internal PRs, i.e. those from within the repo
+  # TODO: deploy master push to test space
   deploy:
     needs: build
     if: github.event_name	== 'pull_request'
@@ -179,6 +180,7 @@ jobs:
     if: github.event_name == 'pull_request' || (github.event_name == 'push' && github.ref == 'refs/heads/master')
     runs-on: ubuntu-latest
     env:
+      # TODO: this won't be right on master
       NIGHTWATCH_E2E_TEST_ORIGIN: https://${{ needs.deploy.outputs.cf-app-fqdn }}
     steps:
     - uses: actions/checkout@v2
