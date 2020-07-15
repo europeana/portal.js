@@ -172,7 +172,7 @@ jobs:
         path: ./tmp
     - name: Restore build artifacts
       run: cp -r ./tmp/build/. .
-    - run: npm run test:ci:e2e
+    - run: npm run test:chrome:headless -- -p all
 
   percy:
     needs: deploy
@@ -196,4 +196,4 @@ jobs:
         path: ./tmp
     - name: Restore build artifacts
       run: cp -r ./tmp/build/. .
-    - run: npm run test:ci:percy
+    - run: npm run test:percy

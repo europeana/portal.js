@@ -40,15 +40,13 @@
     "test": "npm run test:unit && npm run test:e2e",
     "test:chrome:headless": "cross-env browser=chromeHeadless cucumber-js",
     "test:chrome": "cross-env browser=chrome cucumber-js",
-    "test:ci:e2e": "concurrently --kill-others --success=last 'npm run test:e2e:start:app' 'npm run test:chrome:headless -- -p all'",
-    "test:ci:percy": "concurrently --kill-others --success=last 'npm run test:e2e:start:app' 'npm run test:percy'",
     "test:e2e:start:apicache": "node tests/features/support/stack/apicache.js",
     "test:e2e:start:app": "node tests/features/support/stack/app.js",
     "test:e2e:start": "concurrently --kill-others 'npm run test:e2e:start:apicache' 'npm run test:e2e:start:app'",
     "test:e2e": "concurrently --kill-others --success=last 'npm run test:e2e:start:apicache' 'npm run test:e2e:start:app' 'npm run test:chrome -- -p all'",
     "test:gecko": "cross-env browser=gecko cucumber-js --no-strict",
     "test:unit": "vue-cli-service test:unit --include tests/unit/setup",
-    "test:percy": "cross-env browser=gecko percy exec -- cucumber-js -p percy;"
+    "test:percy": "cross-env browser=chromeHeadless percy exec -- cucumber-js -p percy;"
   },
   "dependencies": {
     "@elastic/apm-rum": "^4.7.0",
