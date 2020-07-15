@@ -334,7 +334,7 @@ describe('plugins/europeana/entity', () => {
     });
   });
 
-  describe('getEntityIndex()', () => {
+  describe('searchEntities()', () => {
     beforeEach('stub API response', () => {
       nock(apiUrl)
         .get('/entity/search')
@@ -352,17 +352,17 @@ describe('plugins/europeana/entity', () => {
       };
 
       it('returns a list of concept entities', async() => {
-        const response = await entities.getEntityIndex(eParams, 'topic');
+        const response = await entities.searchEntities(eParams, 'topic');
         response.entities.length.should.eq(conceptEntitiesResponse.items.length);
       });
 
       it('returns the total number of entities', async() => {
-        const response = await entities.getEntityIndex(eParams, 'topic');
+        const response = await entities.searchEntities(eParams, 'topic');
         response.total.should.eq(conceptEntitiesResponse.partOf.total);
       });
 
       it('returns a thumbnail for each entity', async() => {
-        const response = await entities.getEntityIndex(eParams, 'topic');
+        const response = await entities.searchEntities(eParams, 'topic');
         response.entities[0].isShownBy.thumbnail.should.eq(conceptEntitiesResponse.items[0].isShownBy.thumbnail);
       });
     });

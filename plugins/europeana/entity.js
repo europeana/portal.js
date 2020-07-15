@@ -306,7 +306,7 @@ export function searchEntities(params = {}) {
     .then((response) => {
       return {
         entities: response.data.items ? response.data.items : [],
-        total: response.data.partOf.total
+        total: response.data.partOf ? response.data.partOf.total : null
       };
     })
     .catch((error) => {
