@@ -6,7 +6,7 @@
     data-qa="download button"
     size="lg"
     class="download-button mr-lg-3 d-inline-flex align-items-center"
-    :target="!useProxy ? '_blank' : '_self'"
+    :target="target"
   >
     <span class="ic-download d-inline-flex pr-1" />
     {{ $t('actions.download') }}
