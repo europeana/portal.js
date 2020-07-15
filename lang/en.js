@@ -5,7 +5,9 @@ export default {
     "share": "Share",
     "shareOn": "Share on {social}",
     "viewAt": "View at {link}",
-    "viewDocument": "View document"
+    "viewDocument": "View document",
+    "like": "Like",
+    "addToGallery": "Add to gallery"
   },
   "attribution": {
     "country": "Country:",
@@ -468,6 +470,13 @@ export default {
   "newWindow": "opens in new window",
   "noMoreResults": "There are no more results for your search query.",
   "noResults": "No results",
+  "pages": {
+    "collections": {
+      "topics": {
+        "title": "Subjects"
+      }
+    }
+  },
   "readMore": "Read more",
   "record": {
     "allMetaData": "All metadata",
