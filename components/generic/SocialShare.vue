@@ -4,7 +4,7 @@
       target="_blank"
       :title="$t('actions.shareOn', { social: 'Facebook' })"
       :href="facebookShareUrl"
-      class="social-share"
+      class="social-share facebook"
       data-qa="share facebook button"
     >
       <span class="icon-facebook" />
@@ -13,7 +13,7 @@
       target="_blank"
       :title="$t('actions.shareOn', { social: 'Twitter' })"
       :href="twitterShareUrl"
-      class="social-share"
+      class="social-share twitter"
       data-qa="share twitter button"
     >
       <span class="icon-twitter" />
@@ -22,7 +22,7 @@
       target="_blank"
       :title="$t('actions.shareOn', { social: 'Pinterest' })"
       :href="pinterestShareUrl"
-      class="social-share"
+      class="social-share pinterest"
       data-qa="share pinterest button"
     >
       <span class="icon-pinterest" />
