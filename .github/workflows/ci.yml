@@ -105,9 +105,8 @@ jobs:
       cf-app-fqdn: ${{ steps.done.outputs.cf-app-fqdn }}
     steps:
     - uses: actions/checkout@v2
-    - run: |
-        echo "::set-env name=CF_APP_NAME::portaljs-${PULL_REQUEST_NUMBER}"
-        echo "::set-env name=CF_APP_FQDN::${CF_APP_NAME}.${CF_DOMAIN}"
+    - run: echo "::set-env name=CF_APP_NAME::portaljs-${PULL_REQUEST_NUMBER}"
+    - run: echo "::set-env name=CF_APP_FQDN::${CF_APP_NAME}.${CF_DOMAIN}"
     - uses: actions/download-artifact@v2
       with:
         path: ./tmp
