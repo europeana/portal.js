@@ -32,7 +32,7 @@ module.exports = {
   test_settings: {
     default: {
       globals: {
-        url: 'http://localhost:3001'
+        url: process.env.NIGHTWATCH_E2E_TEST_ORIGIN || 'http://localhost:3001'
       },
       webdriver: {
         start_process: true,

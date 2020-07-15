@@ -41,8 +41,14 @@ jobs:
 
   build:
     runs-on: ubuntu-latest
+    outputs:
+      pull-request-number: ${{ steps.env.outputs.pull-request-number }}
     steps:
     - uses: actions/checkout@v2
+    - id: env
+      run: |
+        echo "::set-env name=PULL_REQUEST_NUMBER::$(jq .pull_request.number ${GITHUB_EVENT_PATH})"
+        echo "::set-output name=pull-request-number::${PULL_REQUEST_NUMBER}"
     - uses: actions/setup-node@v1
       with:
         node-version: 12.x
@@ -88,10 +94,68 @@ jobs:
     - run: npm run test:unit
     - run: npx size-limit
 
-  e2e:
+  # TODO: limit to internal PRs, i.e. those from within the repo
+  deploy:
     needs: build
     if: github.event_name	== 'pull_request'
     runs-on: ubuntu-latest
+    env:
+      PULL_REQUEST_NUMBER: ${{ needs.build.outputs.pull-request-number }}
+    outputs:
+      cf-app-name: ${{ steps.env.outputs.cf-app-name }}
+      cf-app-fqdn: ${{ steps.env.outputs.cf-app-fqdn }}
+    steps:
+    - uses: actions/checkout@v2
+    - id: env
+      run: |
+        echo "::set-env name=CF_APP_NAME::portaljs-${PULL_REQUEST_NUMBER}"
+        echo "::set-output name=cf-app-name::${CF_APP_NAME}"
+        echo "::set-env name=CF_APP_FQDN::${CF_APP_NAME}.${CF_DOMAIN}"
+        echo "::set-output name=cf-app-fqdn::${CF_APP_FQDN}"
+    - uses: actions/download-artifact@v2
+      with:
+        path: ./tmp
+    - name: Restore build artifacts
+      run: cp -r ./tmp/build/. .
+    # TODO: build and push a Docker image for this to speed it up?
+    - name: Install CF CLI & plugins
+      run: |
+        wget -q -O - https://packages.cloudfoundry.org/debian/cli.cloudfoundry.org.key | sudo apt-key add -
+        echo "deb https://packages.cloudfoundry.org/debian stable main" | sudo tee /etc/apt/sources.list.d/cloudfoundry-cli.list
+        sudo apt-get -q update && sudo apt-get -yq install cf-cli
+        cf install-plugin blue-green-deploy -f -r CF-Community
+        cf install-plugin app-autoscaler-plugin -f -r CF-Community
+    - name: Login to CF
+      run: cf login -a ${CF_API} -u ${CF_USERNAME} -p "${CF_PASSWORD}" -o ${CF_ORG} -s ${CF_SPACE}
+    - name: Blue-green deployment to CF
+      run: cf blue-green-deploy ${CF_APP_NAME} -f deploy/cloud-foundry/manifest.yml --delete-old-apps
+
+  notify:
+    needs: [build, deploy]
+    if: github.event_name	== 'pull_request' && github.event.action == 'opened'
+    runs-on: ubuntu-latest
+    env:
+      PULL_REQUEST_NUMBER: ${{ needs.build.outputs.pull-request-number }}
+      CF_APP_FQDN: ${{ needs.deploy.outputs.cf-app-fqdn }}
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/download-artifact@v2
+        with:
+          path: ./tmp
+      - name: Restore build artifacts
+        run: cp -r ./tmp/build/. .
+      - name: Notify Slack
+        # TODO: include Github username in message? PR title?
+        run: |
+          envsubst < .github/workflows/support/ci.deploy.slack-notification.json > tmp/ci.deploy.slack-notification.json
+          curl -d "@tmp/ci.deploy.slack-notification.json" -X POST ${SLACK_WEBHOOK_URL}
+
+  e2e:
+    needs: deploy
+    if: github.event_name	== 'pull_request'
+    runs-on: ubuntu-latest
+    env:
+      NIGHTWATCH_E2E_TEST_ORIGIN: https://${{ needs.deploy.outputs.cf-app-fqdn }}
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-node@v1
@@ -111,9 +175,11 @@ jobs:
     - run: npm run test:ci:e2e
 
   percy:
-    needs: build
+    needs: deploy
     if: github.event_name == 'pull_request' || (github.event_name == 'push' && github.ref == 'refs/heads/master')
     runs-on: ubuntu-latest
+    env:
+      NIGHTWATCH_E2E_TEST_ORIGIN: https://${{ needs.deploy.outputs.cf-app-fqdn }}
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-node@v1
@@ -131,48 +197,3 @@ jobs:
     - name: Restore build artifacts
       run: cp -r ./tmp/build/. .
     - run: npm run test:ci:percy
-
-  # TODO: limit to internal PRs, i.e. those from within the repo
-  deploy:
-    needs: test
-    if: github.event_name	== 'pull_request'
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - uses: actions/download-artifact@v2
-      with:
-        path: ./tmp
-    - name: Restore build artifacts
-      run: cp -r ./tmp/build/. .
-    - run: echo "::set-env name=PULL_REQUEST_NUMBER::$(jq .pull_request.number ${GITHUB_EVENT_PATH})"
-    - run: echo "::set-env name=CF_APP_NAME::portaljs-${PULL_REQUEST_NUMBER}"
-    # TODO: build and push a Docker image for this to speed it up?
-    - name: Install CF CLI & plugins
-      run: |
-        wget -q -O - https://packages.cloudfoundry.org/debian/cli.cloudfoundry.org.key | sudo apt-key add -
-        echo "deb https://packages.cloudfoundry.org/debian stable main" | sudo tee /etc/apt/sources.list.d/cloudfoundry-cli.list
-        sudo apt-get -q update && sudo apt-get -yq install cf-cli
-        cf install-plugin blue-green-deploy -f -r CF-Community
-        cf install-plugin app-autoscaler-plugin -f -r CF-Community
-    - name: Login to CF
-      run: cf login -a ${CF_API} -u ${CF_USERNAME} -p "${CF_PASSWORD}" -o ${CF_ORG} -s ${CF_SPACE}
-    - name: Blue-green deployment to CF
-      run: cf blue-green-deploy ${CF_APP_NAME} -f deploy/cloud-foundry/manifest.yml --delete-old-apps
-
-
-  notify:
-    needs: deploy
-    if: github.event_name	== 'pull_request' && github.event.action == 'opened'
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/download-artifact@v2
-        with:
-          path: ./tmp
-      - name: Restore build artifacts
-        run: cp -r ./tmp/build/. .
-      - name: Notify Slack
-        # TODO: include Github username in message? PR title?
-        run: |
-          envsubst < .github/workflows/support/ci.deploy.slack-notification.json > tmp/ci.deploy.slack-notification.json
-          curl -d "@tmp/ci.deploy.slack-notification.json" -X POST ${SLACK_WEBHOOK_URL}
