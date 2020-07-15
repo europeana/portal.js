@@ -91,11 +91,12 @@
         :aria-label="$t('actions.addToGallery')"
       />
       <b-button
-        :pressed.sync="liked"
+        :pressed="liked"
         class="icon-heart"
         data-qa="like button"
         :aria-label="$t('actions.like')"
         size="sm"
+        @click="doLike()"
       />
     </div>
   </b-card>
@@ -256,6 +257,33 @@
 
       imageNotFound() {
         this.cardImageUrl = '';
+      },
+
+      setLikesId(id) {
+        if (process.browser) {
+          localStorage.setItem('likesId', id);
+        }
+      },
+
+      getLikesId() {
+        return localStorage.getItem('likesId');
+      },
+
+      doLike() {
+        this.liked ? this.unlike() : this.like();
+      },
+
+      async like() {
+        if (!this.getLikesId()) {
+          const response = await this.$galleries.createLikes();
+          this.setLikesId(response.data.id.split('/').pop());
+        }
+        await this.$galleries.addToSet(this.getLikesId(), this.url.params[0]);
+        return this.liked = true;
+      },
+      async unlike() {
+        await this.$galleries.deleteFromSet(this.getLikesId(), this.url.params[0]);
+        return this.liked = false;
       }
     }
   };
