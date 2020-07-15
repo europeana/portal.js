@@ -26,4 +26,18 @@
     justify-content: space-between;
     padding: 1rem 0;
   }
+
+  &#shareModal {
+    .modal-content {
+      .modal-header {
+        border-bottom: none;
+      }
+      .modal-body {
+        padding-bottom: 1rem;
+      }
+      .modal-title {
+        font-size: 2.125rem;
+      }
+    }
+  }
 }
