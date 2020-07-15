@@ -42,13 +42,13 @@ jobs:
   build:
     runs-on: ubuntu-latest
     outputs:
-      pull-request-number: ${{ steps.env.outputs.pull-request-number }}
+      pull_request_number: ${{ steps.env.outputs.pull_request_number }}
     steps:
     - uses: actions/checkout@v2
     - id: env
       run: |
         echo "::set-env name=PULL_REQUEST_NUMBER::$(jq .pull_request.number ${GITHUB_EVENT_PATH})"
-        echo "::set-output name=pull-request-number::${PULL_REQUEST_NUMBER}"
+        echo "::set-output name=pull_request_number::${PULL_REQUEST_NUMBER}"
     - uses: actions/setup-node@v1
       with:
         node-version: 12.x
@@ -100,18 +100,18 @@ jobs:
     if: github.event_name	== 'pull_request'
     runs-on: ubuntu-latest
     env:
-      PULL_REQUEST_NUMBER: ${{ needs.build.outputs.pull-request-number }}
+      PULL_REQUEST_NUMBER: ${{ needs.build.outputs.pull_request_number }}
     outputs:
-      cf-app-name: ${{ steps.env.outputs.cf-app-name }}
-      cf-app-fqdn: ${{ steps.env.outputs.cf-app-fqdn }}
+      cf_app_name: ${{ steps.env.outputs.cf_app_name }}
+      cf_app_fqdn: ${{ steps.env.outputs.cf_app_fqdn }}
     steps:
     - uses: actions/checkout@v2
     - id: env
       run: |
         echo "::set-env name=CF_APP_NAME::portaljs-${PULL_REQUEST_NUMBER}"
-        echo "::set-output name=cf-app-name::${CF_APP_NAME}"
+        echo "::set-output name=cf_app_name::${CF_APP_NAME}"
         echo "::set-env name=CF_APP_FQDN::${CF_APP_NAME}.${CF_DOMAIN}"
-        echo "::set-output name=cf-app-fqdn::${CF_APP_FQDN}"
+        echo "::set-output name=cf_app_fqdn::${CF_APP_FQDN}"
     - uses: actions/download-artifact@v2
       with:
         path: ./tmp
@@ -135,8 +135,8 @@ jobs:
     if: github.event_name	== 'pull_request' && github.event.action == 'opened'
     runs-on: ubuntu-latest
     env:
-      PULL_REQUEST_NUMBER: ${{ needs.build.outputs.pull-request-number }}
-      CF_APP_FQDN: ${{ needs.deploy.outputs.cf-app-fqdn }}
+      PULL_REQUEST_NUMBER: ${{ needs.build.outputs.pull_request_number }}
+      CF_APP_FQDN: ${{ needs.deploy.outputs.cf_app_fqdn }}
     steps:
       - uses: actions/checkout@v2
       - uses: actions/download-artifact@v2
@@ -155,7 +155,7 @@ jobs:
     if: github.event_name	== 'pull_request'
     runs-on: ubuntu-latest
     env:
-      NIGHTWATCH_E2E_TEST_ORIGIN: https://${{ needs.deploy.outputs.cf-app-fqdn }}
+      NIGHTWATCH_E2E_TEST_ORIGIN: https://${{ needs.deploy.outputs.cf_app_fqdn }}
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-node@v1
@@ -179,7 +179,7 @@ jobs:
     if: github.event_name == 'pull_request' || (github.event_name == 'push' && github.ref == 'refs/heads/master')
     runs-on: ubuntu-latest
     env:
-      NIGHTWATCH_E2E_TEST_ORIGIN: https://${{ needs.deploy.outputs.cf-app-fqdn }}
+      NIGHTWATCH_E2E_TEST_ORIGIN: https://${{ needs.deploy.outputs.cf_app_fqdn }}
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-node@v1
