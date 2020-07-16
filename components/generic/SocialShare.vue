@@ -8,7 +8,11 @@
       data-qa="share facebook button"
     >
       <span class="icon-facebook" />
-      <span v-if="withText" class="text">Facebook</span>
+      <span
+        v-if="withText"
+        class="text"
+      >Facebook
+      </span>
     </b-link>
     <b-link
       target="_blank"
@@ -18,7 +22,11 @@
       data-qa="share twitter button"
     >
       <span class="icon-twitter" />
-      <span v-if="withText" class="text">Twitter</span>
+      <span
+        v-if="withText"
+        class="text"
+      >Twitter
+      </span>
     </b-link>
     <b-link
       target="_blank"
@@ -28,7 +36,11 @@
       data-qa="share pinterest button"
     >
       <span class="icon-pinterest" />
-      <span v-if="withText" class="text">Pinterest</span>
+      <span
+        v-if="withText"
+        class="text"
+      >Pinterest
+      </span>
     </b-link>
   </div>
 </template>

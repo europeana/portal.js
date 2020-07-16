@@ -1,12 +1,16 @@
 import { storiesOf } from '@storybook/vue';
 import Vuex from 'vuex';
 import SocialShareModal from './SocialShareModal.vue';
+import ShareButton from './ShareButton.vue';
 
 const i18n = {
   locale: 'en',
   messages: {
     en: {
-      close: 'close'
+      actions: {
+        close: 'close',
+        share: 'share'
+      }
     }
   }
 };
@@ -19,7 +23,10 @@ const store = new Vuex.Store({
 
 storiesOf('Generic', module)
   .add('Social share modal', () => ({
-    components: { SocialShareModal },
+    components: {
+      SocialShareModal,
+      ShareButton
+    },
     i18n,
     data() {
       return {
@@ -28,8 +35,8 @@ storiesOf('Generic', module)
     },
     store,
     template: `
-      <b-container class="mt-3">
-        <b-button v-b-modal.shareModal variant="light">Share</b-button>
-        <SocialShareModal id="shareModal" url="url" />
+      <b-container class="mt-3 p-3 bg-white">
+        <ShareButton />
+        <SocialShareModal url="url" />
       </b-container>`
   }));
