@@ -67,7 +67,7 @@
     "express": "^4.16.4",
     "express-ipfilter": "^1.0.1",
     "http-auth": "^3.2.3",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "marked": "^0.7.0",
     "md5": "^2.2.1",
     "morgan": "^1.9.1",
