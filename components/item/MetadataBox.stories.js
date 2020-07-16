@@ -69,6 +69,60 @@ const i18n = new VueI18n({
   }
 });
 
+const formattedMetadata = {
+  coreFields: {
+    edmDataProvider: {
+      def: ['Provider']
+    },
+    dcContributor: {
+      en: ['Contributor']
+    },
+    dcSubject: {
+      de: ['Subjekt'],
+      def: [{
+        about: 'https://term.museum-digital.de/md-de/tag/132',
+        prefLabel: { de: ['Fotografie'], en: ['Photography'] }
+      }]
+    },
+    dcType: { en: ['Format'] }
+  },
+  allMetaData: {
+    edmDataProvider: {
+      def: ['Provider']
+    },
+    dcContributor: {
+      en: ['Contributor']
+    },
+    dcSubject: {
+      de: ['Subjekt'],
+      def: [{
+        about: 'https://term.museum-digital.de/md-de/tag/132',
+        prefLabel: { de: ['Fotografie'], en: ['Photography'] }
+      }]
+    },
+    dcType: { en: ['Format'] },
+    edmProvider: { def: ['Provider'] },
+    edmIntermediateProvider: { def: ['museum-digital'] },
+    edmCountry: { def: ['Germany'] },
+    edmRights: { def: ['https://creativecommons.org/publicdomain/mark/1.0/'] },
+    dcRights: { de: ['AlliiertenMuseum'] },
+    dctermsCreated: { de: ['1994'] },
+    dctermsSpatial: { de: ['Straße des 17. Juni (Berlin)'] },
+    edmUgc: 'false',
+    dctermsProvenance: { de: ['AlliiertenMuseum, Berlin'] },
+    dcIdentifier: { def: ['B 2018/05.06542 (inventory number)', 'http://mint-projects.image.ntua.gr/Museu/ProvidedCHO/museum-digital/48697 (technical number)'] },
+    europeanaCollectionName: ['247_AlliedMuseum'],
+    timestampCreated: '2020-07-15T22:01:31.356Z',
+    timestampUpdate: '2020-07-15T22:01:31.356Z',
+    dctermsExtent: { de: ['24 x 36 mm'] },
+    dcFormat: {
+      en: ['Photography']
+    },
+    keywords: {}
+  },
+  transcribingAnnotations: []
+};
+
 storiesOf('Item page', module)
   .addDecorator(StoryRouter({}, {
     routes: [
@@ -79,59 +133,7 @@ storiesOf('Item page', module)
     i18n,
     components: { MetadataBox },
     data() {
-      return {
-        coreFields: {
-          edmDataProvider: {
-            def: ['Provider']
-          },
-          dcContributor: {
-            en: ['Contributor']
-          },
-          dcSubject: {
-            de: ['Subjekt'],
-            def: [{
-              about: 'https://term.museum-digital.de/md-de/tag/132',
-              prefLabel: { de: ['Fotografie'], en: ['Photography'] }
-            }]
-          },
-          dcType: { en: ['Format'] }
-        },
-        allMetaData: {
-          edmDataProvider: {
-            def: ['Provider']
-          },
-          dcContributor: {
-            en: ['Contributor']
-          },
-          dcSubject: {
-            de: ['Subjekt'],
-            def: [{
-              about: 'https://term.museum-digital.de/md-de/tag/132',
-              prefLabel: { de: ['Fotografie'], en: ['Photography'] }
-            }]
-          },
-          dcType: { en: ['Format'] },
-          edmProvider: { def: ['Provider'] },
-          edmIntermediateProvider: { def: ['museum-digital'] },
-          edmCountry: { def: ['Germany'] },
-          edmRights: { def: ['https://creativecommons.org/publicdomain/mark/1.0/'] },
-          dcRights: { de: ['AlliiertenMuseum'] },
-          dctermsCreated: { de: ['1994'] },
-          dctermsSpatial: { de: ['Straße des 17. Juni (Berlin)'] },
-          edmUgc: 'false',
-          dctermsProvenance: { de: ['AlliiertenMuseum, Berlin'] },
-          dcIdentifier: { def: ['B 2018/05.06542 (inventory number)', 'http://mint-projects.image.ntua.gr/Museu/ProvidedCHO/museum-digital/48697 (technical number)'] },
-          europeanaCollectionName: ['247_AlliedMuseum'],
-          timestampCreated: '2020-07-15T22:01:31.356Z',
-          timestampUpdate: '2020-07-15T22:01:31.356Z',
-          dctermsExtent: { de: ['24 x 36 mm'] },
-          dcFormat: {
-            en: ['Photography']
-          },
-          keywords: {}
-        },
-        transcribingAnnotations: []
-      };
+      return formattedMetadata;
     },
     template: `<b-container>
       <b-row class="my-5">
@@ -151,59 +153,7 @@ storiesOf('Item page', module)
     i18n,
     components: { MetadataBox },
     data() {
-      return {
-        coreFields: {
-          edmDataProvider: {
-            def: ['Provider']
-          },
-          dcContributor: {
-            en: ['Contributor']
-          },
-          dcSubject: {
-            de: ['Subjekt'],
-            def: [{
-              about: 'https://term.museum-digital.de/md-de/tag/132',
-              prefLabel: { de: ['Fotografie'], en: ['Photography'] }
-            }]
-          },
-          dcType: { en: ['Format'] }
-        },
-        allMetaData: {
-          edmDataProvider: {
-            def: ['Provider']
-          },
-          dcContributor: {
-            en: ['Contributor']
-          },
-          dcSubject: {
-            de: ['Subjekt'],
-            def: [{
-              about: 'https://term.museum-digital.de/md-de/tag/132',
-              prefLabel: { de: ['Fotografie'], en: ['Photography'] }
-            }]
-          },
-          dcType: { en: ['Format'] },
-          edmProvider: { def: ['Provider'] },
-          edmIntermediateProvider: { def: ['museum-digital'] },
-          edmCountry: { def: ['Germany'] },
-          edmRights: { def: ['https://creativecommons.org/publicdomain/mark/1.0/'] },
-          dcRights: { de: ['AlliiertenMuseum'] },
-          dctermsCreated: { de: ['1994'] },
-          dctermsSpatial: { de: ['Straße des 17. Juni (Berlin)'] },
-          edmUgc: 'false',
-          dctermsProvenance: { de: ['AlliiertenMuseum, Berlin'] },
-          dcIdentifier: { def: ['B 2018/05.06542 (inventory number)', 'http://mint-projects.image.ntua.gr/Museu/ProvidedCHO/museum-digital/48697 (technical number)'] },
-          europeanaCollectionName: ['247_AlliedMuseum'],
-          timestampCreated: '2020-07-15T22:01:31.356Z',
-          timestampUpdate: '2020-07-15T22:01:31.356Z',
-          dctermsExtent: { de: ['24 x 36 mm'] },
-          dcFormat: {
-            en: ['Photography']
-          },
-          keywords: {}
-        },
-        transcribingAnnotations: []
-      };
+      return formattedMetadata;
     },
     template: `<b-container>
       <b-row class="my-5">
