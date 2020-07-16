@@ -62,9 +62,9 @@
             </figcaption>
             <LangSelector data-qa="language selector" />
           </figure>
-          <ApiRequests
-            v-if="showApiRequestsModal"
-            :requests="axiosLoggerRequests"
+
+          <DebugMenu
+            v-if="showDebugMenu"
           />
         </b-col>
       </b-row>
@@ -89,14 +89,12 @@
 </template>
 
 <script>
-  import { mapState } from 'vuex';
-
   import LangSelector from './generic/LanguageSelector';
   import LinkGroup from './generic/LinkGroup';
 
   export default {
     components: {
-      ApiRequests: () => import('./debug/ApiRequests'),
+      DebugMenu: () => import('./debug/DebugMenu'),
       LangSelector,
       LinkGroup
     },
@@ -140,11 +138,7 @@
     },
 
     computed: {
-      ...mapState({
-        axiosLoggerRequests: state => state.axiosLogger.requests
-      }),
-
-      showApiRequestsModal() {
+      showDebugMenu() {
         return this.$store.getters['debug/settings'].apiRequests;
       }
     }
