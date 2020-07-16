@@ -27,7 +27,7 @@ storiesOf('Generic/Download Button', module)
       };
     },
     template: `
-      <b-container class="mt-3 p-5 bg-white">
+      <b-container class="mt-3 p-3 bg-white">
         <DownloadButton
           :url="url"
           :disabled="disabled"
@@ -49,7 +49,7 @@ storiesOf('Generic/Download Button', module)
       };
     },
     template: `
-      <b-container class="mt-3 p-5 bg-white">
+      <b-container class="mt-3">
         <DownloadButton
           v-if="!disabled"
           :url="url"
