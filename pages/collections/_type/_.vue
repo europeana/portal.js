@@ -30,7 +30,7 @@
                 v-for="relatedEntity in relatedEntities"
                 :id="relatedEntity.id"
                 :key="relatedEntity.id"
-                :link-gen="relatedLinkGen(relatedEntity)"
+                :link-to="relatedLinkGen(relatedEntity)"
                 :title="relatedEntity.prefLabel[$i18n.locale]"
                 :img="`${relatedEntity.isShownBy.thumbnail}&size=w200`"
               />
@@ -44,7 +44,7 @@
                 v-for="(card, index) in relatedCollectionCards"
                 :id="card.indentifier"
                 :key="index"
-                :link-gen="relatedLinkGen(card)"
+                :link-to="relatedLinkGen(card)"
                 :title="card.name"
                 :img="`${card.image}&size=w200`"
               />
@@ -279,14 +279,14 @@
         };
       },
       relatedLinkGen(item) {
-        let id = '',
-            name = '';
+        let id = '';
+        let name = '';
         if (typeof item.id === 'undefined') {
           id = item.identifier;
           name = item.name;
         } else {
           id = item.id;
-          name = item.prefLabel[this.$i18n.locale];
+          name = item.prefLabel.en;
         }
         const uriMatch = id.match(`^${this.apiConfig.data.origin}/([^/]+)(/base)?/(.+)$`);
         return this.$path({

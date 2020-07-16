@@ -1,6 +1,6 @@
 <template>
   <b-badge
-    :to="linkGen"
+    :to="linkTo"
     pill
     variant="light"
     class="mt-1 mr-2 font-weight-normal bg-white"
@@ -27,7 +27,7 @@
         type: String,
         default: ''
       },
-      linkGen: {
+      linkTo: {
         type: String,
         default: ''
       },

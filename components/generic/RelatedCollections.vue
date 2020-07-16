@@ -10,7 +10,7 @@
       v-for="relatedCollection in relatedCollections"
       :id="relatedCollection.id"
       :key="relatedCollection.id"
-      :link-gen="suggestionLinkGen(relatedCollection)"
+      :link-to="suggestionLinkGen(relatedCollection)"
       :title="relatedCollection.prefLabel[$i18n.locale]"
     />
   </b-container>
