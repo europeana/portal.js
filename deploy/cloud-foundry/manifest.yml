@@ -1,7 +1,7 @@
 # Cloud Foundry manifest
 ---
 buildpack: nodejs_buildpack
-command: npm run start:cluster
+command: cservice --restartOnMemUsage 268435456 --cli false server/index.js
 memory: 1024M
 health-check-type: process
 # health-check-http-endpoint: /robots.txt

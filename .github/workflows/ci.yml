@@ -125,7 +125,7 @@ jobs:
     - name: Login to CF
       run: cf login -a ${CF_API} -u ${CF_USERNAME} -p "${CF_PASSWORD}" -o ${CF_ORG} -s ${CF_SPACE}
     - name: Blue-green deployment to CF
-      run: cf blue-green-deploy ${CF_APP_NAME} -f deploy/cloud-foundry/manifest.yml --delete-old-apps
+      run: cf blue-green-deploy ${CF_APP_NAME} -f .github/workflows/support/ci.cf.dev.manifest.yml --delete-old-apps
     - id: done
       run: |
         echo "::set-output name=cf-app-name::${CF_APP_NAME}"
