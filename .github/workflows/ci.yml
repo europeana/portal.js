@@ -184,77 +184,77 @@ jobs:
       run: cp -r ./tmp/build/. .
     - run: npm run test:chrome:headless -- -p collections
 
-e2e-common:
-  needs: [env, deploy]
-  if: github.event_name	== 'pull_request'
-  runs-on: ubuntu-latest
-  env:
-    NIGHTWATCH_E2E_TEST_ORIGIN: https://${{ needs.env.outputs.cf-app-fqdn }}
-  steps:
-  - uses: actions/checkout@v2
-  - uses: actions/setup-node@v1
-    with:
-      node-version: 12.x
-  - uses: actions/cache@v2
-    with:
-      path: |
-        ~/.npm
-        **/node_modules
-      key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-  - uses: actions/download-artifact@v2
-    with:
-      path: ./tmp
-  - name: Restore build artifacts
-    run: cp -r ./tmp/build/. .
-  - run: npm run test:chrome:headless -- -p common
+  e2e-common:
+    needs: [env, deploy]
+    if: github.event_name	== 'pull_request'
+    runs-on: ubuntu-latest
+    env:
+      NIGHTWATCH_E2E_TEST_ORIGIN: https://${{ needs.env.outputs.cf-app-fqdn }}
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v1
+      with:
+        node-version: 12.x
+    - uses: actions/cache@v2
+      with:
+        path: |
+          ~/.npm
+          **/node_modules
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+    - uses: actions/download-artifact@v2
+      with:
+        path: ./tmp
+    - name: Restore build artifacts
+      run: cp -r ./tmp/build/. .
+    - run: npm run test:chrome:headless -- -p common
 
-e2e-pages:
-  needs: [env, deploy]
-  if: github.event_name	== 'pull_request'
-  runs-on: ubuntu-latest
-  env:
-    NIGHTWATCH_E2E_TEST_ORIGIN: https://${{ needs.env.outputs.cf-app-fqdn }}
-  steps:
-  - uses: actions/checkout@v2
-  - uses: actions/setup-node@v1
-    with:
-      node-version: 12.x
-  - uses: actions/cache@v2
-    with:
-      path: |
-        ~/.npm
-        **/node_modules
-      key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-  - uses: actions/download-artifact@v2
-    with:
-      path: ./tmp
-  - name: Restore build artifacts
-    run: cp -r ./tmp/build/. .
-  - run: npm run test:chrome:headless -- -p pages
+  e2e-pages:
+    needs: [env, deploy]
+    if: github.event_name	== 'pull_request'
+    runs-on: ubuntu-latest
+    env:
+      NIGHTWATCH_E2E_TEST_ORIGIN: https://${{ needs.env.outputs.cf-app-fqdn }}
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v1
+      with:
+        node-version: 12.x
+    - uses: actions/cache@v2
+      with:
+        path: |
+          ~/.npm
+          **/node_modules
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+    - uses: actions/download-artifact@v2
+      with:
+        path: ./tmp
+    - name: Restore build artifacts
+      run: cp -r ./tmp/build/. .
+    - run: npm run test:chrome:headless -- -p pages
 
-e2e-search:
-  needs: [env, deploy]
-  if: github.event_name	== 'pull_request'
-  runs-on: ubuntu-latest
-  env:
-    NIGHTWATCH_E2E_TEST_ORIGIN: https://${{ needs.env.outputs.cf-app-fqdn }}
-  steps:
-  - uses: actions/checkout@v2
-  - uses: actions/setup-node@v1
-    with:
-      node-version: 12.x
-  - uses: actions/cache@v2
-    with:
-      path: |
-        ~/.npm
-        **/node_modules
-      key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-  - uses: actions/download-artifact@v2
-    with:
-      path: ./tmp
-  - name: Restore build artifacts
-    run: cp -r ./tmp/build/. .
-  - run: npm run test:chrome:headless -- -p search
+  e2e-search:
+    needs: [env, deploy]
+    if: github.event_name	== 'pull_request'
+    runs-on: ubuntu-latest
+    env:
+      NIGHTWATCH_E2E_TEST_ORIGIN: https://${{ needs.env.outputs.cf-app-fqdn }}
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v1
+      with:
+        node-version: 12.x
+    - uses: actions/cache@v2
+      with:
+        path: |
+          ~/.npm
+          **/node_modules
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+    - uses: actions/download-artifact@v2
+      with:
+        path: ./tmp
+    - name: Restore build artifacts
+      run: cp -r ./tmp/build/. .
+    - run: npm run test:chrome:headless -- -p search
 
   percy:
     needs: [env, deploy]
