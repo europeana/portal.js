@@ -85,6 +85,7 @@ const config = {
   ** Plugins to load before mounting the App
   */
   plugins: [
+    '~/plugins/axiosLogger',
     '~/plugins/europeana',
     '~/plugins/vue/index',
     '~/plugins/i18n.js',

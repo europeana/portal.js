@@ -62,6 +62,10 @@
             </figcaption>
             <LangSelector data-qa="language selector" />
           </figure>
+          <ApiRequests
+            v-if="showApiRequestsModal"
+            :requests="axiosLoggerRequests"
+          />
         </b-col>
       </b-row>
       <hr class="my-5">
@@ -85,11 +89,14 @@
 </template>
 
 <script>
+  import { mapState } from 'vuex';
+
   import LangSelector from './generic/LanguageSelector';
   import LinkGroup from './generic/LinkGroup';
 
   export default {
     components: {
+      ApiRequests: () => import('./debug/ApiRequests'),
       LangSelector,
       LinkGroup
     },
@@ -130,6 +137,17 @@
           }
         ]
       };
+    },
+
+    computed: {
+      ...mapState({
+        axiosLoggerRequests: state => state.axiosLogger.requests
+      }),
+
+      // TODO: change to be based on a localStorage property set by a UI toggle at /debug
+      showApiRequestsModal() {
+        return Object.prototype.hasOwnProperty.call(this.$route.query, 'debug');
+      }
     }
   };
 </script>
