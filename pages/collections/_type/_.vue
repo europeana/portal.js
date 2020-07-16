@@ -16,7 +16,7 @@
           />
           <client-only>
             <h2
-              v-if="relatedEntities || relatedCollectionCards"
+              v-if="relatedEntities > 0 || relatedCollectionCards > 0"
               class="related-heading text-uppercase mb-2"
             >
               {{ $t('relatedCollections') }}
