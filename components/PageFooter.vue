@@ -144,9 +144,8 @@
         axiosLoggerRequests: state => state.axiosLogger.requests
       }),
 
-      // TODO: change to be based on a localStorage property set by a UI toggle at /debug
       showApiRequestsModal() {
-        return Object.prototype.hasOwnProperty.call(this.$route.query, 'debug');
+        return this.$store.getters['debug/settings'].apiRequests;
       }
     }
   };
