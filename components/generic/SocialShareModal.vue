@@ -1,9 +1,9 @@
 <template>
   <b-modal id="shareModal" title="Share" hide-header-close hide-footer>
     <div class="icon-wrapper">
-      <SocialShare :media-url="url" />
+      <SocialShare :media-url="url" with-text />
     </div>
-    <b-button variant="outline-primary" class="mt-5" @click="$bvModal.hide('shareModal')">Close</b-button>
+    <b-button variant="outline-primary" class="mt-5" @click="$bvModal.hide('shareModal')">{{ $t('close') }}</b-button>
   </b-modal>
 </template>
 

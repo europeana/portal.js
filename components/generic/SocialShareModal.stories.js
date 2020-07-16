@@ -1,9 +1,15 @@
 import { storiesOf } from '@storybook/vue';
 import Vuex from 'vuex';
-import VueI18n from 'vue-i18n';
 import SocialShareModal from './SocialShareModal.vue';
 
-const i18n = new VueI18n();
+const i18n = {
+  locale: 'en',
+  messages: {
+    en: {
+      close: 'close'
+    }
+  }
+};
 
 const store = new Vuex.Store({
   getters: {

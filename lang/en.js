@@ -26,6 +26,7 @@ export default {
     "relatedPosts": "Related posts"
   },
   "clearAllFilters": "clear all filters",
+  "close": "close",
   "collections": {
     "fashion": {
       "facets": {

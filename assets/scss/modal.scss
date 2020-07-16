@@ -73,8 +73,20 @@
           &:hover {
             background: $white;
           }
+          span.text {
+            font-family: $font-family-sans-serif;
+            font-weight: 600;
+            padding-left: 0.75rem;
+          }
+        }
+        button {
+          font-weight: 600;
         }
       }
     }
   }
+}
+
+#shareModal + .modal-backdrop {
+  opacity: 0.7;
 }
