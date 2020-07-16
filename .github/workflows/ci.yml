@@ -11,10 +11,10 @@ on:
 
 env:
   CF_API: https://api.eu-de.bluemix.net
+  CF_APP_NAME_PREFIX: portaljs
   CF_DOMAIN: eu-de.mybluemix.net
   CF_ORG: europeana-dev
   CF_PASSWORD: ${{ secrets.CF_PASSWORD }}
-  CF_SPACE: dev
   CF_USERNAME: apikey
   CTF_CDA_ACCESS_TOKEN: ${{ secrets.CTF_CDA_ACCESS_TOKEN }}
   CTF_ENVIRONMENT_ID: test
@@ -40,13 +40,32 @@ jobs:
     - run: echo ${GITHUB_SHA}
     - run: cat ${GITHUB_EVENT_PATH}
 
-  build:
+  env:
     runs-on: ubuntu-latest
+    steps:
+    - run: echo "::set-env name=PULL_REQUEST_NUMBER::$(jq .pull_request.number ${GITHUB_EVENT_PATH})"
+    - run: |
+        if [ "${{ github.event_name }}" == "pull_request" ]; then CF_SPACE=dev; CF_APP_NAME_SUFFIX="-${PULL_REQUEST_NUMBER}"; fi
+        if [ "${{ github.event_name }}" == "push" ] && [ "${{ github.ref }}" == "refs/heads/master" ]; then CF_SPACE=test; CF_APP_NAME_SUFFIX="-test"; fi
+        echo "::set-env name=CF_SPACE::${CF_SPACE}"
+        echo "::set-env name=CF_APP_NAME::${CF_APP_NAME_PREFIX}${CF_APP_NAME_SUFFIX}"
+    - run: echo "::set-env name=CF_APP_FQDN::${CF_APP_NAME}.${CF_DOMAIN}"
+    - id: done
+      run: |
+        echo "::set-output name=pull-request-number::${PULL_REQUEST_NUMBER}"
+        echo "::set-output name=cf-space::${CF_SPACE}"
+        echo "::set-output name=cf-app-name::${CF_APP_NAME}"
+        echo "::set-output name=cf-app-fqdn::${CF_APP_FQDN}"
     outputs:
       pull-request-number: ${{ steps.done.outputs.pull-request-number }}
+      cf-app-name: ${{ steps.done.outputs.cf-app-name }}
+      cf-app-fqdn: ${{ steps.done.outputs.cf-app-fqdn }}
+      cf-space:  ${{ steps.done.outputs.cf-space }}
+
+  build:
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - run: echo "::set-env name=PULL_REQUEST_NUMBER::$(jq .pull_request.number ${GITHUB_EVENT_PATH})"
     - uses: actions/setup-node@v1
       with:
         node-version: 12.x
@@ -67,8 +86,6 @@ jobs:
         path: |
           .nuxt/
           .env
-    - id: done
-      run: echo "::set-output name=pull-request-number::${PULL_REQUEST_NUMBER}"
 
   test:
     needs: build
@@ -95,20 +112,16 @@ jobs:
     - run: npx size-limit
 
   # TODO: limit to internal PRs, i.e. those from within the repo
-  # TODO: deploy master push to test space
   deploy:
-    needs: build
-    if: github.event_name	== 'pull_request'
+    needs: [env, build]
+    if: github.event_name == 'pull_request' || (github.event_name == 'push' && github.ref == 'refs/heads/master')
     runs-on: ubuntu-latest
     env:
-      PULL_REQUEST_NUMBER: ${{ needs.build.outputs.pull-request-number }}
-    outputs:
-      cf-app-name: ${{ steps.done.outputs.cf-app-name }}
-      cf-app-fqdn: ${{ steps.done.outputs.cf-app-fqdn }}
+      PULL_REQUEST_NUMBER: ${{ needs.env.outputs.pull-request-number }}
+      CF_APP_NAME: ${{ needs.env.outputs.cf-app-name }}
+      CF_SPACE: ${{ needs.env.outputs.cf-space }}
     steps:
     - uses: actions/checkout@v2
-    - run: echo "::set-env name=CF_APP_NAME::portaljs-${PULL_REQUEST_NUMBER}"
-    - run: echo "::set-env name=CF_APP_FQDN::${CF_APP_NAME}.${CF_DOMAIN}"
     - uses: actions/download-artifact@v2
       with:
         path: ./tmp
@@ -126,18 +139,14 @@ jobs:
       run: cf login -a ${CF_API} -u ${CF_USERNAME} -p "${CF_PASSWORD}" -o ${CF_ORG} -s ${CF_SPACE}
     - name: Blue-green deployment to CF
       run: cf blue-green-deploy ${CF_APP_NAME} -f .github/workflows/support/ci.cf.dev.manifest.yml --delete-old-apps
-    - id: done
-      run: |
-        echo "::set-output name=cf-app-name::${CF_APP_NAME}"
-        echo "::set-output name=cf-app-fqdn::${CF_APP_FQDN}"
 
   notify:
-    needs: [build, deploy]
+    needs: [deploy, env]
     if: github.event_name	== 'pull_request' && github.event.action == 'opened'
     runs-on: ubuntu-latest
     env:
-      PULL_REQUEST_NUMBER: ${{ needs.build.outputs.pull-request-number }}
-      CF_APP_FQDN: ${{ needs.deploy.outputs.cf-app-fqdn }}
+      PULL_REQUEST_NUMBER: ${{ needs.env.outputs.pull-request-number }}
+      CF_APP_FQDN: ${{ needs.env.outputs.cf-app-fqdn }}
     steps:
       - uses: actions/checkout@v2
       - uses: actions/download-artifact@v2
@@ -152,11 +161,11 @@ jobs:
           curl -d "@tmp/ci.deploy.slack-notification.json" -X POST ${SLACK_WEBHOOK_URL}
 
   e2e:
-    needs: deploy
+    needs: [env, deploy]
     if: github.event_name	== 'pull_request'
     runs-on: ubuntu-latest
     env:
-      NIGHTWATCH_E2E_TEST_ORIGIN: https://${{ needs.deploy.outputs.cf-app-fqdn }}
+      NIGHTWATCH_E2E_TEST_ORIGIN: https://${{ needs.env.outputs.cf-app-fqdn }}
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-node@v1
@@ -176,12 +185,11 @@ jobs:
     - run: npm run test:chrome:headless -- -p all
 
   percy:
-    needs: deploy
+    needs: [env, deploy]
     if: github.event_name == 'pull_request' || (github.event_name == 'push' && github.ref == 'refs/heads/master')
     runs-on: ubuntu-latest
     env:
-      # TODO: this won't be right on master
-      NIGHTWATCH_E2E_TEST_ORIGIN: https://${{ needs.deploy.outputs.cf-app-fqdn }}
+      NIGHTWATCH_E2E_TEST_ORIGIN: https://${{ needs.env.outputs.cf-app-fqdn }}
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-node@v1
