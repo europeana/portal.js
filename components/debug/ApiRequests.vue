@@ -4,14 +4,15 @@
   >
     <b-button
       v-b-modal.api-requests
+      variant="light"
     >
       API requests
     </b-button>
     <b-modal
       id="api-requests"
-      centered
       size="xl"
       title="API requests"
+      hide-footer
     >
       <ol>
         <li
