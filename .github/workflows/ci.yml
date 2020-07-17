@@ -85,10 +85,12 @@ jobs:
     - run: npm run build
     - uses: actions/upload-artifact@v2
       with:
-        name: build
-        path: |
-          .nuxt/
-          .env
+        name: .nuxt
+        path: .nuxt/
+    - uses: actions/upload-artifact@v2
+      with:
+        name: .env
+        path: .env
 
   test:
     needs: build
@@ -106,6 +108,7 @@ jobs:
         key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
     - uses: actions/download-artifact@v2
     - run: ls -al
+    - run: ls -al .nuxt .env
     - run: npm run lint
     - run: npm run stylelint
     - run: npm run test:unit
