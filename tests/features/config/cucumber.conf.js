@@ -5,19 +5,15 @@ const { client, createSession, closeSession, startWebDriver, stopWebDriver } = r
 const axios = require('axios');
 const runners = require('../support/step-runners');
 
-const path = require('path');
-
-require(path.resolve(__dirname, '../support/step-definitions'));
-
 const sleep = (milliseconds) => {
   return new Promise(resolve => setTimeout(resolve, milliseconds));
 };
-const waitForAppUrl = require('./nightwatch.conf').test_settings.default.globals.url + '/robots.txt';
+const waitForAppUrl = 'http://localhost:3002/robots.txt';
 const maxWaitTime = 90;
 
 const browserEnv = process.env.browser || 'gecko';
 const nightwatchApiOptions = {
-  configFile: path.resolve(__dirname, './nightwatch.conf.js'),
+  configFile: 'tests/features/config/nightwatch.conf.js',
   env: browserEnv,
   silent: true
 };
@@ -37,9 +33,11 @@ async function stopBrowser() {
   process.removeAllListeners();
 }
 
-// Request a file
+// Request a page and wait for the cookie notice
 async function warmupBrowser() {
-  await runners.openAPage('/robots.txt');
+  // TODO: replace with a low cost static page not hitting any APIs
+  await runners.openAPage('/en');
+  await client.waitForElementVisible('.cookie-disclaimer');
 }
 
 async function waitForApp() {
