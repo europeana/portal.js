@@ -98,8 +98,8 @@
           </div>
 
           <MetadataBox
-            :all-meta-data="allMetaData"
-            :core-fields="coreFields"
+            :all-metadata="allMetaData"
+            :core-metadata="coreFields"
             :transcribing-annotations="transcribingAnnotations"
           />
 

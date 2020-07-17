@@ -14,7 +14,7 @@
             data-qa="main metadata section"
           >
             <MetadataField
-              v-for="(value, name) in coreFields"
+              v-for="(value, name) in coreMetadata"
               :key="name"
               :name="name"
               :field-data="value"
@@ -28,7 +28,7 @@
             text-tag="div"
           >
             <MetadataField
-              v-for="(value, name) in allMetaData"
+              v-for="(value, name) in allMetadata"
               :key="name"
               :name="name"
               :field-data="value"
@@ -72,11 +72,11 @@
       MetadataField
     },
     props: {
-      coreFields: {
+      coreMetadata: {
         type: Object,
         default: null
       },
-      allMetaData: {
+      allMetadata: {
         type: Object,
         default: null
       },

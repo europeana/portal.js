@@ -1,6 +1,5 @@
 import { storiesOf } from '@storybook/vue';
 import VueI18n from 'vue-i18n';
-import StoryRouter from 'storybook-vue-router';
 import MetadataBox from './MetadataBox';
 
 const i18n = new VueI18n({
@@ -70,7 +69,7 @@ const i18n = new VueI18n({
 });
 
 const formattedMetadata = {
-  coreFields: {
+  coreMetadata: {
     edmDataProvider: {
       def: ['Provider']
     },
@@ -86,7 +85,7 @@ const formattedMetadata = {
     },
     dcType: { en: ['Format'] }
   },
-  allMetaData: {
+  allMetadata: {
     edmDataProvider: {
       def: ['Provider']
     },
@@ -123,12 +122,7 @@ const formattedMetadata = {
   transcribingAnnotations: []
 };
 
-storiesOf('Item page', module)
-  .addDecorator(StoryRouter({}, {
-    routes: [
-      { name: 'item-all', path: '/item/*' }
-    ]
-  }))
+storiesOf('Item page/MetadataBox', module)
   .add('Metadata Box 12 columns', () => ({
     i18n,
     components: { MetadataBox },
@@ -142,8 +136,8 @@ storiesOf('Item page', module)
           lg="12"
         >
           <metadata-box
-            :all-meta-data="allMetaData"
-            :core-fields="coreFields"
+            :all-metadata="allMetadata"
+            :core-metadata="coreMetadata"
             :transcribing-annotations="transcribingAnnotations"
           />
         </b-col>
@@ -162,8 +156,8 @@ storiesOf('Item page', module)
           lg="9"
         >
           <metadata-box
-            :all-meta-data="allMetaData"
-            :core-fields="coreFields"
+            :all-metadata="allMetadata"
+            :core-metadata="coreMetadata"
             :transcribing-annotations="transcribingAnnotations"
           />
         </b-col>
