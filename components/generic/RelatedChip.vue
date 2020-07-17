@@ -62,7 +62,7 @@
     justify-content: center;
     align-items: center;
     transition: $standard-transition;
-    &:hover {
+    &:hover, &:focus {
       background: $lightmagenta !important;
     }
     &.img-chip {
