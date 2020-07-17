@@ -105,9 +105,7 @@ jobs:
           **/node_modules
         key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
     - uses: actions/download-artifact@v2
-      with:
-        path: ./
-    - run: ls -al .env .nuxt/
+    - run: ls -al
     - run: npm run lint
     - run: npm run stylelint
     - run: npm run test:unit
