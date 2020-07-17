@@ -8,7 +8,8 @@ function chrome(locale = 'en-GB', args = []) {
   args = ['disable-gpu', `--lang=${locale}`, '--allow-insecure-localhost', 'window-size=1400,1000'].concat(args);
   return {
     webdriver: {
-      server_path: chromedriver.path
+      server_path: chromedriver.path,
+      cli_args: ['--port=4444']
     },
     desiredCapabilities: {
       browserName: 'chrome',
@@ -37,7 +38,7 @@ module.exports = {
       webdriver: {
         start_process: true,
         port: 4444,
-        cli_args: ['--port=4444', '--log', 'debug']
+        cli_args: ['--log', 'debug']
       },
       desiredCapabilities: {
         javascriptEnabled: true,
