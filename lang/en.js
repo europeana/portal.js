@@ -44,6 +44,7 @@ export default {
       }
     }
   },
+  "collectionsYouMightLike": "Collections you might like",
   "colourSwatch": "Colour swatch",
   "contentfulManual": {
     "footerNavigation": {

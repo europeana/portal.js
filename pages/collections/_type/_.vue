@@ -219,6 +219,7 @@
         return this.page.name;
       },
       relatedCollectionCards() {
+        console.log(this.page.relatedLinksCollection.items);
         return (this.page
           && this.page.relatedLinksCollection
           && this.page.relatedLinksCollection.items
