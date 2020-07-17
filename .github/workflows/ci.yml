@@ -46,6 +46,7 @@ jobs:
   env:
     runs-on: ubuntu-latest
     steps:
+    - uses: actions/checkout@v2
     - run: echo "::set-env name=PULL_REQUEST_NUMBER::$(jq .pull_request.number ${GITHUB_EVENT_PATH})"
     - run: |
         if [ "${{ github.event_name }}" == "pull_request" ]; then CF_SPACE=dev; CF_APP_NAME_SUFFIX="-${PULL_REQUEST_NUMBER}"; fi
