@@ -1,5 +1,8 @@
 name: CI
 
+# TODO: what do e2e tests actually need to run? anything other than cucumber
+#       and nightwatch? if so, reduce the size of the cache they use
+
 on:
   pull_request:
     types: [opened, synchronize, reopened]
@@ -103,9 +106,8 @@ jobs:
         key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
     - uses: actions/download-artifact@v2
       with:
-        path: ./tmp
-    - name: Restore build artifacts
-      run: cp -r ./tmp/build/. .
+        path: ./
+    - run: ls -al .env .nuxt/
     - run: npm run lint
     - run: npm run stylelint
     - run: npm run test:unit
@@ -256,7 +258,7 @@ jobs:
       run: cp -r ./tmp/build/. .
     - run: npm run test:chrome:headless -- -p search
 
-  percy:
+  e2e-visual:
     needs: [env, deploy]
     if: github.event_name == 'pull_request' || (github.event_name == 'push' && github.ref == 'refs/heads/master')
     runs-on: ubuntu-latest
