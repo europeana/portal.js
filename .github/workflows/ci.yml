@@ -1,8 +1,5 @@
 name: CI
 
-# TODO: what do e2e tests actually need to run? anything other than cucumber
-#       and nightwatch? if so, reduce the size of the cache they use
-
 on:
   pull_request:
     types: [opened, synchronize, reopened]
