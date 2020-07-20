@@ -468,6 +468,7 @@
     @media (min-width: $bp-large) {
       grid-column: col2-start/col2-end;
     }
+    overflow-wrap: break-word;
   }
 
   .card-grid-richmedia .card-heading {
