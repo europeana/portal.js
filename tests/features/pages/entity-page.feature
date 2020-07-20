@@ -4,8 +4,6 @@ Feature: Entity page
     When I open an `entity page`
     Then I see the `entity page`
     And I see an `entity title`
-    And I see an `entity depiction`
-    And I see an `entity attribution`
     And I don't have an `entity description`
     And I see `total results`
     And I see a `search list view toggle`

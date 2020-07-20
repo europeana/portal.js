@@ -1,67 +1,81 @@
 <template>
   <b-container
     data-qa="entity page"
+    fluid
+    class="entity-page"
   >
-    <b-row class="flex-md-row pt-3">
+    <b-row class="flex-md-row pt-5 bg-white mb-4">
       <b-col
         cols="12"
-        md="9"
       >
-        <EntityDetails
-          :attribution="attribution"
-          :depiction="depiction"
-          :description="description"
-          :is-editorial-description="hasEditorialDescription"
-          :title="title"
-          :depiction-link-title="$t('goToRecord')"
-        />
+        <b-container>
+          <EntityDetails
+            :description="description"
+            :is-editorial-description="hasEditorialDescription"
+            :title="title"
+          />
+          <client-only>
+            <h2
+              v-if="relatedEntities > 0 || relatedCollectionCards > 0"
+              class="related-heading text-uppercase mb-2"
+            >
+              {{ $t('relatedCollections') }}
+            </h2>
+            <section
+              v-if="relatedEntities"
+              class="mb-2"
+              data-qa="related entities"
+            >
+              <RelatedChip
+                v-for="relatedEntity in relatedEntities"
+                :id="relatedEntity.id"
+                :key="relatedEntity.id"
+                :link-to="relatedLinkGen(relatedEntity)"
+                :title="relatedEntity.prefLabel[$i18n.locale]"
+                :img="`${relatedEntity.isShownBy.thumbnail}&size=w200`"
+              />
+            </section>
+            <section
+              v-else-if="relatedCollectionCards"
+              class="mb-2"
+              data-qa="related entities"
+            >
+              <RelatedChip
+                v-for="(card, index) in relatedCollectionCards"
+                :id="card.indentifier"
+                :key="index"
+                :link-to="relatedLinkGen(card)"
+                :title="card.name"
+                :img="`${card.image}&size=w200`"
+              />
+            </section>
+          </client-only>
+        </b-container>
+      </b-col>
+    </b-row>
+    <b-row>
+      <b-col
+        cols="12"
+        class="pb-3"
+      >
         <SearchInterface
           class="px-0"
-          :per-row="3"
           :per-page="recordsPerPage"
           :route="route"
           :show-content-tier-toggle="false"
         />
       </b-col>
-      <b-col
-        cols="12"
-        md="3"
-        class="pb-3"
-      >
-        <client-only>
-          <h2
-            v-if="relatedEntities && relatedEntities.length > 0"
-            class="related-heading text-uppercase"
-          >
-            {{ $t('contentYouMightLike') }}
-          </h2>
-          <section
-            v-if="relatedCollectionCards"
-          >
-            <BrowseContentCard
-              v-for="(card, index) in relatedCollectionCards"
-              :key="index"
-              :fields="card"
-              :data-qa="card.name + ' entity card'"
-              card-type="AutomatedEntityCard"
-            />
-          </section>
-          <EntityCards
-            v-else-if="relatedEntities"
-            :entities="relatedEntities"
-            data-qa="related entities"
-          />
-        </client-only>
-      </b-col>
     </b-row>
     <b-row>
       <b-col>
-        <client-only>
-          <BrowseSections
-            v-if="page"
-            :sections="page.hasPartCollection.items"
-          />
-        </client-only>
+        <b-container class="p-0">
+          <client-only>
+            <BrowseSections
+              v-if="page"
+              :sections="page.hasPartCollection.items"
+            />
+          </client-only>
+        </b-container>
       </b-col>
     </b-row>
   </b-container>
@@ -79,15 +93,16 @@
   import * as entities from '../../../plugins/europeana/entity';
   import { pageFromQuery } from '../../../plugins/utils';
   import { langMapValueForLocale } from  '../../../plugins/europeana/utils';
+  import { getEntityTypeHumanReadable, getEntitySlug } from '../../../plugins/europeana/entity';
+  import { mapGetters } from 'vuex';
 
   export default {
     components: {
-      BrowseContentCard: () => import('../../../components/browse/BrowseContentCard'),
       BrowseSections: () => import('../../../components/browse/BrowseSections'),
       ClientOnly,
-      EntityCards: () => import('../../../components/entity/EntityCards'),
       EntityDetails,
-      SearchInterface
+      SearchInterface,
+      RelatedChip: () => import('../../../components/generic/RelatedChip')
     },
 
     fetch({ query, params, redirect, error, app, store }) {
@@ -169,21 +184,22 @@
         });
     },
 
+    data() {
+      return {
+        relatedCollections: []
+      };
+    },
+
     computed: {
+      ...mapGetters({
+        apiConfig: 'apis/config'
+      }),
       ...mapState({
         entity: state => state.entity.entity,
         page: state => state.entity.page,
         relatedEntities: state => state.entity.relatedEntities,
         recordsPerPage: state => state.entity.recordsPerPage
       }),
-      attribution() {
-        if (this.editorialDepiction) return this.editorialAttribution;
-        return (!this.entity || !this.entity.isShownBy) ? null : this.entity.isShownBy.source;
-      },
-      depiction() {
-        if (this.editorialDepiction) return this.editorialDepiction;
-        return (!this.entity || !this.entity.isShownBy) ? null : this.entity.isShownBy.thumbnail;
-      },
       description() {
         return this.editorialDescription ? { values: [this.editorialDescription], code: null } : null;
       },
@@ -261,6 +277,24 @@
           values: [title],
           code: null
         };
+      },
+      relatedLinkGen(item) {
+        let id = '';
+        let name = '';
+        if (typeof item.id === 'undefined') {
+          id = item.identifier;
+          name = item.name;
+        } else {
+          id = item.id;
+          name = item.prefLabel.en;
+        }
+        const uriMatch = id.match(`^${this.apiConfig.data.origin}/([^/]+)(/base)?/(.+)$`);
+        return this.$path({
+          name: 'collections-type-all', params: {
+            type: getEntityTypeHumanReadable(uriMatch[1]),
+            pathMatch: getEntitySlug(id, name)
+          }
+        });
       }
     },
 
@@ -292,3 +326,12 @@
     watchQuery: ['api', 'reusability', 'query', 'qf', 'page']
   };
 </script>
+
+<style lang="scss" scoped>
+  .entity-page {
+    margin-top: -1rem;
+    .col-12 > .container {
+      padding: 0;
+    }
+  }
+</style>

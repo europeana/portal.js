@@ -1,6 +1,6 @@
 <template>
   <b-badge
-    :to="linkGen(id, title)"
+    :to="linkTo"
     pill
     variant="light"
     class="mt-1 mr-2 font-weight-normal bg-white"
@@ -10,7 +10,7 @@
     <b-img
       v-if="img"
       :src="img"
-      :alt="title"
+      alt=""
       rounded="circle"
       class="mr-2"
     />
@@ -27,9 +27,9 @@
         type: String,
         default: ''
       },
-      linkGen: {
-        type: Function,
-        default: (val) => val
+      linkTo: {
+        type: String,
+        default: ''
       },
       title: {
         type: String,
@@ -53,7 +53,7 @@
     color: $black;
     font-size: $font-size-small;
     border-radius: 1.125rem;
-    box-shadow: $boxshadow-light;
+    border: solid 1px $lightbluemagenta;
     padding: 0.25rem 0.75rem;
     margin-bottom: 2rem;
     height: 2.25rem;
@@ -62,8 +62,8 @@
     justify-content: center;
     align-items: center;
     transition: $standard-transition;
-    &:hover {
-      background: $smoke !important;
+    &:hover, &:focus {
+      background: $lightbluemagenta !important;
     }
     &.img-chip {
       padding: 0.25rem 0.75rem 0.25rem 0.25rem;
