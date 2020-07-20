@@ -23,15 +23,6 @@ defineStep('I browse/open/visit (a/an/the)( ){target}', (pageName) =>
 defineStep('I am on (a/an/the)( ){target}', (pageName) =>
   i.openAPage(pageName));
 
-defineStep('I see the element {target}', (id) =>
-  i.waitForElementToBeVisible(id));
-
-defineStep('I enter {string} into element {target}', (text, id) =>
-  i.enterTextInElement(text, id));
-
-defineStep('I supply the user credentials', () =>
-  i.supplyUserCredentials());
-
 defineStep('I find/identify/see/spot (a/an/the)( ){target}', (qa) =>
   i.seeATarget(qa));
 
@@ -79,9 +70,6 @@ defineStep('I activate/click (the/a/an)( ){target}', (qa) =>
 
 defineStep('I activate/click (on )(the/a/an)( ){target} in/on a/an/the {target}', (qa, parentQa) =>
   i.clickOnTheTarget([qa, parentQa]));
-
-defineStep('I click the element {target}', (id) =>
-  i.clickOnElement(id));
 
 defineStep('I check/click the {string} {string} checkbox', (inputValue, inputName) =>
   i.checkTheCheckbox(inputName, inputValue));
