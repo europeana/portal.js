@@ -1,9 +1,8 @@
 import { storiesOf } from '@storybook/vue';
-import DownloadButton from './DownloadButton.vue';
-import InfoMessage from './InfoMessage.vue';
+import InfoMessage from '../generic/InfoMessage.vue';
 import '../../assets/scss/icons.scss';
 
-storiesOf('Generic/Low Quality Warning', module)
+storiesOf('Item page/Low Quality Warning', module)
   .add('Disabled', () => ({
     components: {
       InfoMessage
