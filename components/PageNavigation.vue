@@ -27,7 +27,7 @@
         class="nav-item"
       >
         <b-link
-          :to="localePath({ name: 'account-profile' })"
+          :to="localePath({ name: 'account' })"
           class="nav-link"
         >
           <span>{{ $t('account.linkAccount') }}</span>
@@ -38,6 +38,7 @@
         class="nav-item"
       >
         <b-link
+          data-qa="login button"
           class="nav-link"
           :to="{ name: 'account-login' }"
         >
