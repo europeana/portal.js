@@ -46,7 +46,10 @@
     },
 
     methods: {
-      suggestionLinkGen(id, prefLabel) {
+      suggestionLinkGen(item) {
+        let id = item.id;
+        let name = item.prefLabel[this.$i18n.locale];
+
         const uriMatch = id.match(`^${this.apiConfig.data.origin}/([^/]+)(/base)?/(.+)$`);
         return this.$path({
           name: 'collections-type-all', params: {
