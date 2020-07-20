@@ -22,7 +22,7 @@ describe('components/generic/RelatedChip', () => {
   it('has a collection title, lang and link', () => {
     const wrapper = factory();
     wrapper.setProps({
-      id: '/collections/topic/190-art',
+      linkTo: '/collections/topic/190-art',
       title: 'Art'
     });
 

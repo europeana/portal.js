@@ -28,13 +28,11 @@ const entityDetails = {
 };
 
 describe('components/entity/EntityDetails', () => {
-  it('shows a title, description, attribution and depiction', () => {
+  it('shows a title and description', () => {
     const wrapper = factory(entityDetails);
 
-    wrapper.find('img').attributes('src').should.eq(entityDetails.depiction);
     wrapper.find('[data-qa="entity title"]').text().should.eq('Book');
     wrapper.find('[data-qa="entity title"]').attributes('lang').should.eq('en');
-    wrapper.find('a[data-qa="entity attribution"]').attributes('href').should.eq(entityDetails.attribution);
     wrapper.text().should.contain(entityDetails.description.values[0]);
   });
 
@@ -42,16 +40,14 @@ describe('components/entity/EntityDetails', () => {
     const wrapper = factory({ 'description': entityDetails.description, title: entityDetails.title });
 
     wrapper.findAll('img').length.should.eq(0);
-    wrapper.findAll('a[data-qa="entity attribution"]').length.should.eq(0);
     wrapper.text().should.contain(entityDetails.description.values[0]);
     wrapper.find('[data-qa="entity title"]').text().should.eq('Book');
     wrapper.find('[data-qa="entity title"]').attributes('lang').should.eq('en');
   });
 
-  it('shows a depiction and title only', () => {
-    const wrapper = factory({ 'depiction': entityDetails.depiction, 'attribution': entityDetails.attribution, title: entityDetails.title });
+  it('shows a title only', () => {
+    const wrapper = factory({ title: entityDetails.title });
 
-    wrapper.findAll('img').length.should.eq(1);
     wrapper.text().should.not.contain(entityDetails.description.values[0]);
     wrapper.find('[data-qa="entity title"]').text().should.eq('Book');
     wrapper.find('[data-qa="entity title"]').attributes('lang').should.eq('en');

@@ -5,7 +5,7 @@ export const state = () => ({
   entity: null,
   id: null,
   page: null,
-  recordsPerPage: 9,
+  recordsPerPage: 24,
   relatedEntities: null
 });
 
