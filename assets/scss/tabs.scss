@@ -1,7 +1,6 @@
 .tabs {
   .card-header {
-    background: $white;
-    border-bottom: 2px solid $offwhite;
+    border: 0;
     padding: 0;
 
     .card-header-tabs {
@@ -10,6 +9,10 @@
   }
 
   .nav-tabs {
+    background: $white;
+    border-bottom: 2px solid #e7e7e9;
+    padding: 0;
+
     .nav-item {
       margin-bottom: -2px;
     }
