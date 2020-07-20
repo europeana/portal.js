@@ -1,7 +1,7 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import Vuex from 'vuex';
 
-import SocialShare from '../../../../components/generic/SocialShare.vue';
+import SocialShare from '../../../../components/sharing/SocialShare.vue';
 
 const localVue = createLocalVue();
 localVue.use(Vuex);
@@ -24,7 +24,7 @@ const factory = () => shallowMount(SocialShare, {
   }
 });
 
-describe('components/generic/SocialShare', () => {
+describe('components/sharing/SocialShare', () => {
   context('when there are social share buttons', () => {
     it('one button has a facebook share url', () => {
       const wrapper = factory();

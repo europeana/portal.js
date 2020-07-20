@@ -9,7 +9,8 @@ const i18n = {
     en: {
       actions: {
         close: 'close',
-        share: 'share'
+        share: 'share',
+        "shareOn": "Share on {social}"
       }
     }
   }
@@ -21,7 +22,7 @@ const store = new Vuex.Store({
   }
 });
 
-storiesOf('Generic', module)
+storiesOf('Sharing', module)
   .add('Social share modal', () => ({
     components: {
       SocialShareModal,
@@ -30,13 +31,13 @@ storiesOf('Generic', module)
     i18n,
     data() {
       return {
-        url: 'https://www.europeana.eu/en/item/2021633/AtlantisPubliek_detail_aspx_xmldescid_176794805'
+        mediaUrl: 'https://www.example.org/'
       };
     },
     store,
     template: `
       <b-container class="mt-3 p-3 bg-white">
         <ShareButton />
-        <SocialShareModal url="url" />
+        <SocialShareModal media-url="mediaUrl" />
       </b-container>`
   }));

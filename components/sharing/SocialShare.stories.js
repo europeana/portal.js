@@ -11,7 +11,7 @@ const store = new Vuex.Store({
   }
 });
 
-storiesOf('Generic', module)
+storiesOf('Sharing', module)
   .add('Social share', () => ({
     components: { SocialShare },
     i18n,
