@@ -4,7 +4,7 @@
     data-qa="related collections"
   >
     <h2 class="related-heading text-uppercase mt-4 mb-2">
-      {{ $t('relatedCollections') }}
+      {{ title }}
     </h2>
     <RelatedChip
       v-for="relatedCollection in relatedCollections"
@@ -18,7 +18,7 @@
 
 <script>
   import RelatedChip from './RelatedChip';
-  import { getEntitySuggestions, getEntityTypeHumanReadable, getEntitySlug } from '../../plugins/europeana/entity';
+  import { getEntityTypeHumanReadable, getEntitySlug } from '../../plugins/europeana/entity';
   import { mapGetters } from 'vuex';
 
   export default {
@@ -29,20 +29,14 @@
     },
 
     props: {
-      query: {
+      title: {
         type: String,
         default: ''
+      },
+      relatedCollections: {
+        type: Array,
+        default: () => []
       }
-    },
-
-    fetch() {
-      this.getSearchSuggestions(this.query);
-    },
-
-    data() {
-      return {
-        relatedCollections: []
-      };
     },
 
     computed: {
@@ -51,18 +45,7 @@
       })
     },
 
-    watch: {
-      query: '$fetch'
-    },
-
     methods: {
-      async getSearchSuggestions(query) {
-        this.relatedCollections = query === '' ? [] : await getEntitySuggestions(query, {
-          language: this.$i18n.locale,
-          rows: 4
-        });
-      },
-
       suggestionLinkGen(id, prefLabel) {
         const uriMatch = id.match(`^${this.apiConfig.data.origin}/([^/]+)(/base)?/(.+)$`);
         return this.$path({
