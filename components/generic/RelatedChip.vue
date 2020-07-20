@@ -53,7 +53,7 @@
     color: $black;
     font-size: $font-size-small;
     border-radius: 1.125rem;
-    border: solid 1px $lightmagenta;
+    border: solid 1px $lightbluemagenta;
     padding: 0.25rem 0.75rem;
     margin-bottom: 2rem;
     height: 2.25rem;
@@ -63,7 +63,7 @@
     align-items: center;
     transition: $standard-transition;
     &:hover, &:focus {
-      background: $lightmagenta !important;
+      background: $lightbluemagenta !important;
     }
     &.img-chip {
       padding: 0.25rem 0.75rem 0.25rem 0.25rem;
