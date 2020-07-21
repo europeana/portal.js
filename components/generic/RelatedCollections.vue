@@ -10,8 +10,9 @@
       v-for="relatedCollection in relatedCollections"
       :id="relatedCollection.id"
       :key="relatedCollection.id"
-      :link-gen="suggestionLinkGen"
-      :title="relatedCollection.prefLabel[$i18n.locale]"
+      :link-to="linkGen(relatedCollection)"
+      :title="titleGen(relatedCollection)"
+      :img="`${imageUrl(relatedCollection)}&size=w200`"
     />
   </b-container>
 </template>
@@ -46,7 +47,8 @@
     },
 
     methods: {
-      suggestionLinkGen(item) {
+      linkGen(item) {
+        console.log(item);
         let id = item.id;
         let name = item.prefLabel[this.$i18n.locale];
 
@@ -54,9 +56,26 @@
         return this.$path({
           name: 'collections-type-all', params: {
             type: getEntityTypeHumanReadable(uriMatch[1]),
-            pathMatch: getEntitySlug(id, prefLabel)
+            pathMatch: getEntitySlug(id, name)
           }
         });
+      },
+      titleGen(item) {
+        console.log(item);
+        return;
+        // if (item.prefLabel.length > 0) {
+        //   return item.prefLabel[this.$i18n.locale];
+        // } else {
+        //   return item.name;
+        // }
+      },
+      imageUrl(item) {
+        if (typeof item.image !== 'undefined') {
+          return item.image;
+        } else if (typeof item.isShownBy.thumbnail !== 'undefined') {
+          return item.isShownBy.thumbnail;
+        }
+        return;
       }
     }
   };
