@@ -8,7 +8,8 @@ on:
     types: closed
 
 env:
-  CF_API: https://api.eu-de.bluemix.net
+  CF_API: https://api.eu-de.cf.cloud.ibm.com
+  CF_APP_NAME_PREFIX: portaljs
   CF_DOMAIN: eu-de.mybluemix.net
   CF_ORG: europeana-dev
   CF_PASSWORD: ${{ secrets.CF_PASSWORD }}
@@ -32,7 +33,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - run: echo "::set-env name=PULL_REQUEST_NUMBER::$(jq .pull_request.number ${GITHUB_EVENT_PATH})"
-    - run: echo "::set-env name=CF_APP_NAME::portaljs-${PULL_REQUEST_NUMBER}"
+    - run: echo "::set-env name=CF_APP_NAME::${CF_APP_NAME_PREFIX}-${PULL_REQUEST_NUMBER}"
     - name: Install CF CLI & plugins
       run: |
         wget -q -O - https://packages.cloudfoundry.org/debian/cli.cloudfoundry.org.key | sudo apt-key add -
