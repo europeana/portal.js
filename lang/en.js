@@ -479,6 +479,7 @@ export default {
     }
   },
   "readMore": "Read more",
+  "readLess": "Read less",
   "record": {
     "allMetaData": "All metadata",
     "downloadCopyrightInfo": "This item is in copyright and can not be downloaded.",
