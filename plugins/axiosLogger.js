@@ -27,6 +27,7 @@ const storeModule = {
 export default ({ store, app }) => {
   store.registerModule('axiosLogger', storeModule);
 
+  // TODO: only if enabled. store enabled state, and active with debug UI.
   axios.interceptors.request.use(config => {
     const uri = axios.getUri(config);
     const method = config.method.toUpperCase();

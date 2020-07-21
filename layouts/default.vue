@@ -85,8 +85,7 @@
     data() {
       return {
         ...config,
-        linkGroups: {},
-        axiosRequests: []
+        linkGroups: {}
       };
     },
 
