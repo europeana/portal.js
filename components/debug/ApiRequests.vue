@@ -23,7 +23,7 @@
             {{ request.method }}
             <a
               v-if="request.method === 'GET'"
-              target="blank"
+              target="_blank"
               :href="request.uri"
             >
               {{ request.uri }}
