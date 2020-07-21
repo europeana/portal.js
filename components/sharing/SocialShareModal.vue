@@ -44,22 +44,8 @@
   @import '../../assets/scss/variables.scss';
 
   #shareModal {
-    .modal-dialog {
-      max-width: 560px;
-      margin-top: 10rem;
-    }
     .modal-content {
-      border: none;
-      .modal-header {
-        border-bottom: none;
-        padding: 1.5rem 1.5rem 0 1.5rem;
-      }
-      .modal-title {
-        font-size: 2.125rem;
-        font-weight: 600;
-      }
       .modal-body {
-        padding: 1rem 1.5rem 1.5rem 1.5rem;
         .icon-wrapper > div {
           display: flex;
           justify-content: space-between;
@@ -69,6 +55,8 @@
           width: calc(100% / 3 - 10px);
           height: 3rem;
           margin-right: 0 !important;
+          justify-content: flex-start;
+          padding-left: 1rem;
           &.facebook {
             border: solid 1px #4064ac;
             span {
@@ -101,10 +89,6 @@
         }
       }
     }
-  }
-
-  #shareModal + .modal-backdrop {
-    opacity: 0.7;
   }
 
 </style>
