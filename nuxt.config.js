@@ -134,7 +134,12 @@ const config = {
     'cookie-universal-nuxt',
     ['nuxt-i18n', {
       locales: i18nLocales,
-      baseUrl: ({ store }) => store.getters['http/origin'],
+      baseUrl: ({ store }) => {
+        if (process.client) {
+          return window.location.protocol + '//' + window.location.host;
+        }
+        return store.getters['http/origin'];
+      },
       defaultLocale: 'en',
       lazy: true,
       langDir: 'lang/',
