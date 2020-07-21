@@ -87,6 +87,15 @@
         button {
           font-weight: 600;
         }
+        @media (max-width: $bp-small) {
+          .icon-wrapper > div {
+            flex-direction: column;
+            a {
+              width: 100%;
+              margin-bottom: 10px;
+            }
+          }
+        }
       }
     }
   }
