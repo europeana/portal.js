@@ -14,21 +14,14 @@ export default $axios => ({
 
     )
       .then((response) => {
-        return response;
-      });
-  },
-
-  addToSet(likesId, itemId) {
-    const params = likesId + '/' + itemId;
-    return $axios.put(setsApiUrl + params)
-      .then((response) => {
         return response.data;
       });
   },
 
-  deleteFromSet(likesId, itemId) {
+  modifyItems(modify, likesId, itemId) {
     const params = likesId + '/' + itemId;
-    return $axios.delete(setsApiUrl + params)
+    const apicall = modify === 'add' ? $axios.put : $axios.delete;
+    return apicall(setsApiUrl + params)
       .then((response) => {
         return response.data;
       });

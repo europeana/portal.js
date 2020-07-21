@@ -270,20 +270,20 @@
       },
 
       doLike() {
-        this.liked ? this.unlike() : this.like();
+        this.liked ? this.like(false) : this.like(true);
+        return this.liked = !this.liked;
       },
 
-      async like() {
-        if (!this.getLikesId()) {
-          const response = await this.$galleries.createLikes();
-          this.setLikesId(response.data.id.split('/').pop());
+      async like(val) {
+        if (val) {
+          if (!this.getLikesId()) {
+            const response = await this.$galleries.createLikes();
+            this.setLikesId(response.id.split('/').pop());
+          }
+          await this.$galleries.modifyItems('add', this.getLikesId(), this.url.params[0]);
+        } else {
+          await this.$galleries.modifyItems('delete', this.getLikesId(), this.url.params[0]);
         }
-        await this.$galleries.addToSet(this.getLikesId(), this.url.params[0]);
-        return this.liked = true;
-      },
-      async unlike() {
-        await this.$galleries.deleteFromSet(this.getLikesId(), this.url.params[0]);
-        return this.liked = false;
       }
     }
   };
