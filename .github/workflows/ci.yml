@@ -172,6 +172,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       PULL_REQUEST_NUMBER: ${{ needs.env.outputs.pull-request-number }}
+      PULL_REQUEST_TITLE: ${{ github.event.pull_request.title }}
       CF_APP_FQDN: ${{ needs.env.outputs.cf-app-fqdn }}
     steps:
       - uses: actions/checkout@v2
