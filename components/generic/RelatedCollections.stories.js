@@ -1,5 +1,6 @@
 import { storiesOf } from '@storybook/vue';
-import RelatedChip from './RelatedChip.vue';
+import Vuex from 'vuex';
+import RelatedCollections from './RelatedCollections.vue';
 
 const i18n = {
   locale: 'en',
@@ -10,13 +11,23 @@ const i18n = {
   }
 };
 
+const store = () => new Vuex.Store({
+  getters: {
+    'apis/config': () => ({
+      data: {
+        origin: 'http://data.europeana.eu'
+      }
+    })
+  }
+});
+
 storiesOf('Generic', module)
   .add('Related Collections', () => ({
-    components: { RelatedChip },
+    components: { RelatedCollections },
     i18n,
+    store,
     data() {
       return {
-        query: 'Fashion',
         relatedCollections: [
           {
             name: "Emilio Pucci",
@@ -45,17 +56,9 @@ storiesOf('Generic', module)
       <b-container
         class="mt-3"
       >
-        <h2
-          class="related-heading text-uppercase mb-2"
-        >
-          {{ $t('collectionsYouMightLike') }}
-        </h2>
-        <RelatedChip
-          v-for="(card, index) in relatedCollections"
-          :id="card.indentifier"
-          :key="index"
-          :title="card.name"
-          :img="card.image"
+        <RelatedCollections
+          :title="$t('collectionsYouMightLike')"
+          :related-collections="relatedCollections"
         />
       </b-container>`
   }));

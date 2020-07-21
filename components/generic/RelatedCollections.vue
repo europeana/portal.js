@@ -11,8 +11,8 @@
       :id="relatedCollection.id"
       :key="relatedCollection.id"
       :link-to="linkGen(relatedCollection)"
-      :title="titleGen(relatedCollection)"
-      :img="`${imageUrl(relatedCollection)}&size=w200`"
+      :title="collectionTitle(relatedCollection)"
+      :img="imageUrl(relatedCollection)"
     />
   </b-container>
 </template>
@@ -48,9 +48,16 @@
 
     methods: {
       linkGen(item) {
-        console.log(item);
-        let id = item.id;
-        let name = item.prefLabel[this.$i18n.locale];
+        let id = '';
+        let name = '';
+
+        if (item.id) {
+          id = item.id;
+          name = item.prefLabel[this.$i18n.locale];
+        } else {
+          id = item.identifier;
+          name = item.name;
+        }
 
         const uriMatch = id.match(`^${this.apiConfig.data.origin}/([^/]+)(/base)?/(.+)$`);
         return this.$path({
@@ -60,22 +67,22 @@
           }
         });
       },
-      titleGen(item) {
-        console.log(item);
-        return;
-        // if (item.prefLabel.length > 0) {
-        //   return item.prefLabel[this.$i18n.locale];
-        // } else {
-        //   return item.name;
-        // }
+      collectionTitle(item) {
+        if (item.prefLabel) {
+          return item.prefLabel[this.$i18n.locale];
+        } else {
+          return item.name;
+        }
       },
       imageUrl(item) {
-        if (typeof item.image !== 'undefined') {
-          return item.image;
-        } else if (typeof item.isShownBy.thumbnail !== 'undefined') {
-          return item.isShownBy.thumbnail;
+        if (typeof item.image === 'undefined' && typeof item.isShownBy === 'undefined') {
+          return '';
         }
-        return;
+        if (item.image) {
+          return item.image + '&size=w200';
+        } else if (item.isShownBy.thumbnail) {
+          return item.isShownBy.thumbnail + '&size=w200';
+        }
       }
     }
   };

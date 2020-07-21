@@ -22,7 +22,7 @@
             >
               <RelatedCollections
                 :title="$t('relatedCollections')"
-                :related-collections="relatedEntities > 0 ? relatedEntities : relatedCollectionCards"
+                :related-collections="relatedEntities ? relatedEntities : relatedCollectionCards"
               />
             </section>
           </client-only>
@@ -237,6 +237,7 @@
       this.$store.commit('search/setPill', this.title);
 
       this.$store.dispatch('entity/searchForRecords', this.$route.query);
+
       // TODO: move into a new entity store action?
       if (!this.relatedCollectionCards) {
         entities.relatedEntities(this.$route.params.type, this.$route.params.pathMatch, { origin: this.$route.query.recordApi })
