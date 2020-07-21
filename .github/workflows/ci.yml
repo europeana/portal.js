@@ -177,7 +177,6 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/download-artifact@v2
         with:
-          name: .env
           path: tmp
       - name: Restore build artifacts
         run: mv tmp/.env/.env .
