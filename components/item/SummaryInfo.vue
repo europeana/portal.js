@@ -25,27 +25,27 @@
       </template>
     </header>
     <div
-      v-if="descriptions"
+      v-if="description"
       class="description px-4"
     >
       <div
-        v-for="(value, index) in descriptions.values"
+        v-for="(value, index) in description.values"
         :key="index"
       >
         <!-- eslint-disable vue/no-v-html -->
         <p
-          :lang="descriptions.code"
           v-if="index === 0"
+          :lang="description.code"
           v-html="$options.filters.convertNewLine(showAll ? value : truncatedDescription)"
         />
         <p
-          :lang="descriptions.code"
           v-else-if="showAll"
+          :lang="description.code"
           v-html="$options.filters.convertNewLine(value)"
         />
         <!-- eslint-disable vue/no-v-html -->
         <hr
-          v-if="(index + 1) < descriptions.values.length && showAll"
+          v-if="(index + 1) < description.values.length && showAll"
         >
       </div>
       <b-button
@@ -69,7 +69,7 @@
     },
 
     props: {
-      descriptions: {
+      description: {
         type: Object,
         default: null
       },
@@ -86,10 +86,13 @@
     },
     computed: {
       expandableDescription() {
-        return this.descriptions && this.descriptions.values.join().length >= this.limitCharacters
+        if (this.description && this.description.values) {
+          return this.description.values.length > 1 || this.description.values[0].length >= this.limitCharacters;
+        }
+        return false;
       },
       truncatedDescription() {
-        return this.$options.filters.truncate(this.descriptions.values[0], this.limitCharacters, this.$t('formatting.ellipsis'));
+        return this.$options.filters.truncate(this.description.values[0], this.limitCharacters, this.$t('formatting.ellipsis'));
       }
     },
     methods: {
