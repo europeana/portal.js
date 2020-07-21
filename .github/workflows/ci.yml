@@ -54,7 +54,7 @@ jobs:
     - run: envsubst < .github/workflows/support/.env.ci > .env
     - uses: actions/upload-artifact@v2
       with:
-        name: env
+        name: .env
         path: .env
     - id: done
       run: |
@@ -80,9 +80,7 @@ jobs:
       with:
         path: tmp
     - name: Restore build artifacts
-      run: mv tmp/env/.env .
-    - run: ls -al
-    - run: ls -al .env
+      run: mv tmp/.env/.env .
     - uses: actions/cache@v2
       id: cache-node
       with:
@@ -95,7 +93,7 @@ jobs:
     - run: npm run build
     - uses: actions/upload-artifact@v2
       with:
-        name: build
+        name: .nuxt
         path: .nuxt/
 
   test:
@@ -107,20 +105,21 @@ jobs:
       with:
         node-version: 12.x
     - uses: actions/cache@v2
+      id: cache-node
       with:
         path: |
           ~/.npm
           **/node_modules
         key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+    - if: steps.cache-node.outputs.cache-hit != 'true'
+      run: npm install
     - uses: actions/download-artifact@v2
       with:
         path: tmp
     - name: Restore build artifacts
       run: |
-        mv tmp/env/.env .
-        mv tmp/build/.nuxt .
-    - run: ls -al
-    - run: ls -al .nuxt .env
+        mv tmp/.env/.env .
+        mv tmp/.nuxt .
     - run: npm run lint
     - run: npm run stylelint
     - run: npm run test:unit
@@ -142,8 +141,8 @@ jobs:
         path: tmp
     - name: Restore build artifacts
       run: |
-        mv tmp/env/.env .
-        mv tmp/build/.nuxt .
+        mv tmp/.env/.env .
+        mv tmp/.nuxt .
     # TODO: build and push a Docker image for this to speed it up?
     - name: Install CF CLI & plugins
       run: |
@@ -171,7 +170,7 @@ jobs:
           name: env
           path: tmp
       - name: Restore build artifacts
-        run: mv tmp/env/.env .
+        run: mv tmp/.env/.env .
       - name: Notify Slack
         # TODO: include Github username in message? PR title?
         run: |
@@ -188,18 +187,21 @@ jobs:
       with:
         node-version: 12.x
     - uses: actions/cache@v2
+      id: cache-node
       with:
         path: |
           ~/.npm
           **/node_modules
         key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+    - if: steps.cache-node.outputs.cache-hit != 'true'
+      run: npm install
     - uses: actions/download-artifact@v2
       with:
         path: tmp
     - name: Restore build artifacts
       run: |
-        mv tmp/env/.env .
-        mv tmp/build/.nuxt .
+        mv tmp/.env/.env .
+        mv tmp/.nuxt .
     - run: npm run test:e2e:ci
 
   percy:
@@ -212,16 +214,19 @@ jobs:
       with:
         node-version: 12.x
     - uses: actions/cache@v2
+      id: cache-node
       with:
         path: |
           ~/.npm
           **/node_modules
         key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+    - if: steps.cache-node.outputs.cache-hit != 'true'
+      run: npm install
     - uses: actions/download-artifact@v2
       with:
         path: tmp
     - name: Restore build artifacts
       run: |
-        mv tmp/env/.env .
-        mv tmp/build/.nuxt .
+        mv tmp/.env/.env .
+        mv tmp/.nuxt .
     - run: npm run test:e2e:ci:percy
