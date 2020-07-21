@@ -2,7 +2,7 @@
   "metadata": {
     "name": "Europeana new",
     "lastOpened": 0,
-    "created": 1594713466411
+    "created": 1595318005436
   },
   "iconSets": [
     {
@@ -1118,7 +1118,7 @@
           "prevSize": 28,
           "code": 59676,
           "name": "chevron-right",
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "order": 1,
@@ -1126,7 +1126,7 @@
           "name": "chevron-left",
           "prevSize": 28,
           "code": 59675,
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "order": 1,
@@ -1134,7 +1134,7 @@
           "prevSize": 28,
           "code": 59674,
           "name": "copyright",
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "order": 1,
@@ -1142,7 +1142,7 @@
           "prevSize": 28,
           "code": 59653,
           "name": "language",
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "order": 1,
@@ -1150,7 +1150,7 @@
           "prevSize": 28,
           "code": 59651,
           "name": "caret-down",
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "order": 1,
@@ -1158,7 +1158,7 @@
           "prevSize": 28,
           "code": 59648,
           "name": "external-link",
-          "tempChar": ""
+          "tempChar": ""
         }
       ],
       "id": 2,
@@ -2898,8 +2898,11 @@
         {
           "ligatures": "cancel-circle, close",
           "name": "cancel-circle",
-          "order": 0,
-          "id": 270
+          "order": 48,
+          "id": 270,
+          "prevSize": 32,
+          "code": 59917,
+          "tempChar": ""
         },
         {
           "ligatures": "blocked, forbidden",
@@ -3208,7 +3211,7 @@
           "id": 321,
           "prevSize": 32,
           "code": 59968,
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "ligatures": "circle-up, up3",
