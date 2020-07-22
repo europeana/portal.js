@@ -16,14 +16,14 @@
           />
           <client-only>
             <h2
-              v-if="relatedEntities > 0 || relatedCollectionCards > 0"
+              v-if="relatedEntities || relatedCollectionCards"
               class="related-heading text-uppercase mb-2"
             >
-              {{ $t('relatedCollections') }}
+              {{ $t('collectionsYouMightLike') }}
             </h2>
             <section
               v-if="relatedEntities"
-              class="mb-2"
+              class="mb-5 mb-md-2"
               data-qa="related entities"
             >
               <RelatedChip
