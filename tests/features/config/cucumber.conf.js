@@ -9,7 +9,7 @@ const runners = require('../support/step-runners');
 const sleep = (milliseconds) => {
   return new Promise(resolve => setTimeout(resolve, milliseconds));
 };
-const waitForAppUrl = 'https://localhost:3001/robots.txt';
+const waitForAppUrl = require('./nightwatch.conf').test_settings.default.globals.url + '/robots.txt';
 const maxWaitTime = 90;
 
 const browserEnv = process.env.browser || 'gecko';
