@@ -23,7 +23,7 @@
             </h2>
             <section
               v-if="relatedEntities"
-              class="mb-5 mb-md-2"
+              class="mb-4 mb-lg-2"
               data-qa="related entities"
             >
               <RelatedChip
