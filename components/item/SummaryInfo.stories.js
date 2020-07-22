@@ -93,6 +93,35 @@ storiesOf('Item page/Summary Info', module)
         };
       </script>`
   }))
+  .add('Only short description', () => ({
+    i18n,
+    components: { SummaryInfo },
+    data() {
+      return {
+        description: {
+          code: 'en',
+          values: ['Lorem ipsum dolor sit amet, consectetur adipiscing elit!!!']
+        }
+      };
+    },
+    template: `
+      <b-container>
+        <b-row class="my-5">
+          <b-col cols="12">
+            <SummaryInfo
+              :description="description"
+            />
+          </b-col>
+        </b-row>
+
+      </b-container>
+      <script>
+        import SummaryInfo from './SummaryInfo';
+        export default {
+          components: {SummaryInfo}
+        };
+      </script>`
+  }))
   .add('Only title', () => ({
     i18n,
     components: { SummaryInfo },

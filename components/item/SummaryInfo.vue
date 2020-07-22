@@ -1,8 +1,7 @@
 <template>
-  <div class="card mb-3  px-4">
+  <div class="card p-4">
     <header
       v-if="titles"
-      class="pt-4"
     >
       <template
         v-for="(heading, index) in titles"
@@ -11,6 +10,7 @@
           v-if="index === 0"
           :key="index"
           :lang="heading.code"
+          class="mb-0"
         >
           {{ heading.value }}
         </h1>
@@ -18,7 +18,7 @@
           v-else
           :key="index"
           :lang="heading.code"
-          class="font-weight-bold"
+          class="font-weight-bold my-3"
         >
           {{ heading.value }}
         </p>
@@ -51,7 +51,7 @@
       <b-button
         v-if="expandableDescription"
         data-qa="description show link"
-        class="btn-link is-size-4 p-0 mb-4"
+        class="btn-link is-size-4 p-0 mt-2"
         variant="link"
         @click="toggleMoreDescription"
       >
@@ -112,8 +112,15 @@
     font-weight: normal;
   }
 
+  .description p {
+    color: $mediumgrey;
+    &:last-child {
+      margin-bottom: 0 !important;
+    }
+  }
+
   .btn-link {
-    color: $innovationblue;
+    color: $blue;
     text-decoration: none;
     font-size: 1rem;
     font-weight: 600;
