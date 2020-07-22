@@ -85,13 +85,5 @@
       color: $black;
       font-size: $font-size-medium;
     }
-
-    &:hover {
-      background: $black;
-
-      [class^='icon'] {
-        color: $white;
-      }
-    }
   }
 </style>
