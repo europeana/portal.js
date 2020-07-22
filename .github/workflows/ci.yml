@@ -57,6 +57,7 @@ jobs:
         name: .env
         path: .env
     - id: done
+      name: Output generated env vars
       run: |
         echo "::set-output name=pull-request-number::${PULL_REQUEST_NUMBER}"
         echo "::set-output name=cf-space::${CF_SPACE}"
