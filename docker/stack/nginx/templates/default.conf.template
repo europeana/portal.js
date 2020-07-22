@@ -8,8 +8,6 @@ server {
   resolver 127.0.0.11 ipv6=off;
 
   location / {
-    proxy_pass http://app:8080;
-    # proxy_redirect http://app:8080 http://localhost:3000;
-    # proxy_redirect https://app:8080 https://localhost:3001;
+    proxy_pass ${NGINX_PROXY_URL};
   }
 }

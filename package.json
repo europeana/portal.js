@@ -41,12 +41,18 @@
     "test": "npm run test:unit && npm run test:e2e",
     "test:chrome:headless": "cross-env browser=chromeHeadless cucumber-js",
     "test:chrome": "cross-env browser=chrome cucumber-js",
+    "test:e2e:ci:stack:app:start": "cross-env PORT=3002 NODE_ENV=production cserviced --accessKey e2e --workerCount 1 server/index.js",
+    "test:e2e:ci:stack:app:stop": "cservice 'shutdown all timeout:5000' --accessKey e2e",
+    "test:e2e:ci:stack:nginx:start": "docker-compose -f ./docker/stack/docker-compose.yml run -d -e NGINX_PROXY_URL=http://localhost:3002 nginx",
+    "test:e2e:ci:stack:nginx:stop": "docker-compose -f ./docker/stack/docker-compose.yml down",
+    "test:e2e:ci:stack:start": "npm run test:e2e:ci:stack:app:start && npm run test:e2e:ci:stack:nginx:start",
+    "test:e2e:ci:stack:stop": "npm run test:e2e:ci:stack:app:stop && npm run test:e2e:ci:stack:nginx:stop",
     "test:e2e:ci": "cross-env NODE_ENV=test npm run stack:up:detach && npm run test:chrome:headless -- -p all; exit=$?; npm run stack:down; exit $exit",
     "test:e2e:ci:percy": "cross-env NODE_ENV=test npm run stack:up:detach && npm run test:percy; exit=$?; npm run stack:down; exit $exit",
     "test:e2e": "cross-env NODE_ENV=test npm run stack:up:detach && npm run test:chrome -- -p all; exit=$?; npm run stack:down; exit $exit",
     "test:gecko": "cross-env browser=gecko cucumber-js --no-strict",
     "test:unit": "vue-cli-service test:unit --include tests/unit/setup",
-    "test:percy": "cross-env browser=chromeHeadless percy exec -- cucumber-js -p percy;"
+    "test:percy": "cross-env browser=chromeHeadless percy exec -- cucumber-js -p percy"
   },
   "dependencies": {
     "@elastic/apm-rum": "^4.7.0",

@@ -215,7 +215,9 @@ jobs:
       run: |
         mv tmp/.env/.env .
         mv tmp/.nuxt .
-    - run: npm run test:e2e:ci
+    - run: npm run test:e2e:ci:stack:app:start
+    - run: npm run test:chrome:headless -- -p all
+    - run: npm run test:e2e:ci:stack:app:stop
 
   percy:
     needs: [env, build]
@@ -242,4 +244,6 @@ jobs:
       run: |
         mv tmp/.env/.env .
         mv tmp/.nuxt .
-    - run: npm run test:e2e:ci:percy
+    - run: npm run test:e2e:ci:stack:app:start
+    - run: npm run test:percy
+    - run: npm run test:e2e:ci:stack:app:stop

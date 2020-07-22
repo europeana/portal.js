@@ -4,22 +4,9 @@ services:
     image: europeana/portaljs-nginx
     build:
       context: ./nginx
+    network_mode: host
     ports:
       - "3000:3000"
       - "3001:3001"
-  app:
-    image: europeana/portaljs-app
-    build:
-      context: ../..
-      dockerfile: ./docker/stack/app/Dockerfile
-    expose:
-      - "8080"
-    ports:
-      - "3002:8080"
     environment:
-      - NODE_ENV=production
-      - ENABLE_SSL_NEGOTIATION=1
-      - HTTP_PORT=3000
-      - HTTPS_PORT=3001
-    env_file:
-     - ../../.env
+      - NGINX_PROXY_URL

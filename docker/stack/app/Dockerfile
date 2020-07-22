@@ -5,7 +5,7 @@
 
 FROM node:12-alpine
 
-ARG NODE_ENV=production
+ENV NODE_ENV=development
 ENV PORT=8080
 ENV HOST=0.0.0.0
 ENV CHROMEDRIVER_SKIP_DOWNLOAD=true

@@ -1,7 +1,16 @@
 #!/bin/sh
 
-# TODO: remove when client-side bundle no longer relies on dotenv
+echo "Running for NODE_ENV=${NODE_ENV}"
+
 env > .env
 
-npm run build
-npm run start:cluster "$@"
+case ${NODE_ENV} in
+  test) npm run build:test;;
+  production) npm run build;;
+esac
+
+case ${NODE_ENV} in
+  development) npm run dev "$@";;
+  test|production) npm run start:cluster "$@";;
+  *) echo "Unsupported NODE_ENV \"${NODE_ENV}\"" && exit 1;;
+esac
