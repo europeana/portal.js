@@ -16,7 +16,7 @@
           />
           <client-only>
             <h2
-              v-if="relatedEntities || relatedCollectionCards"
+              v-if="relatedCollectionsFound"
               class="related-heading text-uppercase mb-2"
             >
               {{ $t('collectionsYouMightLike') }}
@@ -240,6 +240,14 @@
           && this.page.relatedLinksCollection.items
           && this.page.relatedLinksCollection.items.length > 0)
           ? this.page.relatedLinksCollection.items : null;
+      },
+      relatedCollectionsFound() {
+        if (this.relatedEntities !== null && this.relatedEntities.length > 0) {
+          return true;
+        } else if (this.relatedCollectionCards !== null && this.relatedCollectionCards.length > 0) {
+          return true;
+        }
+        return false;
       },
       route() {
         return {
