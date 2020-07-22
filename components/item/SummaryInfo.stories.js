@@ -9,8 +9,8 @@ const i18n = new VueI18n({
       formatting: {
         ellipsis: '…'
       },
-      readLess: 'Read Less',
-      readMore: 'Read more'
+      readMore: 'Read more',
+      showLess: 'Show less'
     }
   }
 });

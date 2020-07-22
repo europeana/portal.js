@@ -1,8 +1,8 @@
 <template>
-  <div class="card mb-3 ">
+  <div class="card mb-3  px-4">
     <header
       v-if="titles"
-      class="card-heading px-4 pt-4"
+      class="pt-4"
     >
       <template
         v-for="(heading, index) in titles"
@@ -26,7 +26,7 @@
     </header>
     <div
       v-if="description"
-      class="description px-4"
+      class="description"
     >
       <div
         v-for="(value, index) in description.values"
@@ -55,7 +55,7 @@
         variant="link"
         @click="toggleMoreDescription"
       >
-        {{ showAll ? $t('readLess') : $t('readMore') }}
+        {{ showAll ? $t('showLess') : $t('readMore') }}
       </b-button>
     </div>
   </div>
@@ -107,11 +107,15 @@
 <style lang="scss">
   @import './assets/scss/variables.scss';
 
+  h1 {
+    font-size: 1.75rem;
+    font-weight: normal;
+  }
+
   .btn-link {
     color: $innovationblue;
-    text-decoration: underline;
-    text-transform: uppercase;
-    font-size: 16px;
+    text-decoration: none;
+    font-size: 1rem;
     font-weight: 600;
 
     &:hover {
