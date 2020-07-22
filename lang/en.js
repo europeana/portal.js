@@ -472,6 +472,13 @@ export default {
   "newWindow": "opens in new window",
   "noMoreResults": "There are no more results for your search query.",
   "noResults": "No results",
+  "pages": {
+    "collections": {
+      "topics": {
+        "title": "Subjects"
+      }
+    }
+  },
   "readMore": "Read more",
   "record": {
     "allMetaData": "All metadata",
@@ -517,7 +524,13 @@ export default {
   "showMore": "Show more",
   "account": {
     "title": "My account",
-    "linkAccount": "My Account",
-    "linkLogin": "Login"
+    "linkAccount": "Account",
+    "linkLogin": "Log in",
+    "linkLogout": "Log out",
+    "profile": "My Likes & Collections",
+    "settings": "Settings",
+    "likes": "Likes",
+    "publicCollections": "Public Collections",
+    "privateCollections": "Private Collections"
   }
 };

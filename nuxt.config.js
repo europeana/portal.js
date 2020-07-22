@@ -134,7 +134,7 @@ const config = {
     'cookie-universal-nuxt',
     ['nuxt-i18n', {
       locales: i18nLocales,
-      baseUrl: ({ store }) => store.getters['http/origin'],
+      baseUrl: process.env.PORTAL_BASE_URL,
       defaultLocale: 'en',
       lazy: true,
       langDir: 'lang/',
@@ -170,6 +170,11 @@ const config = {
       routes.push({
         name: 'slug',
         path: '/*',
+        component: 'pages/index.vue'
+      });
+      routes.push({
+        name: 'collections',
+        path: '/(collections)',
         component: 'pages/index.vue'
       });
     },
@@ -229,7 +234,7 @@ if (Number(process.env['ENABLE_XX_USER_AUTH'])) {
       login: '/account/login',
       logout: '/',
       callback: '/account/callback',
-      home: '/account/profile'
+      home: '/account'
     },
     fullPathRedirect: true,
     strategies: {

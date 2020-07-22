@@ -12,7 +12,6 @@
     </a>
     <PageHeader
       :enable-auto-suggest="enableAutoSuggest"
-      :enable-language-selector="enableLanguageSelector"
       :main-navigation="linkGroups.mainNavigation"
       :mobile-navigation="linkGroups.mobileNavigation"
       keep-alive
@@ -46,7 +45,6 @@
   import PageHeader from '../components/PageHeader';
 
   const config = {
-    enableLanguageSelector: Boolean(Number(process.env['ENABLE_LANGUAGE_SELECTOR'])),
     bootstrapVersion: require('bootstrap/package.json').version,
     bootstrapVueVersion: require('bootstrap-vue/package.json').version
   };
@@ -100,9 +98,8 @@
         canonicalUrlWithoutLocale: 'http/canonicalUrlWithoutLocale'
       }),
       enableAutoSuggest() {
-        // Auto suggest on search form will be disabled unless toggled on by env var,
-        // and always disabled on entity pages.
-        return Boolean(Number(process.env['ENABLE_AUTOSUGGEST'])) && !(this.$store.state.entity && this.$store.state.entity.id);
+        // Auto suggest on search form will be disabled on entity pages.
+        return !(this.$store.state.entity && this.$store.state.entity.id);
       }
     },
 
