@@ -3,12 +3,13 @@
 const { setDefaultTimeout, After, AfterAll, Before, BeforeAll } = require('cucumber');
 const { client, createSession, closeSession, startWebDriver, stopWebDriver } = require('nightwatch-api');
 const axios = require('axios');
+const https = require('https');
 const runners = require('../support/step-runners');
 
 const sleep = (milliseconds) => {
   return new Promise(resolve => setTimeout(resolve, milliseconds));
 };
-const waitForAppUrl = 'http://localhost:3002/robots.txt';
+const waitForAppUrl = 'https://localhost:3001/robots.txt';
 const maxWaitTime = 90;
 
 const browserEnv = process.env.browser || 'gecko';
@@ -44,9 +45,13 @@ async function waitForApp() {
   console.log(`Waiting for app URL ${waitForAppUrl}...`);
   let i = 0;
 
+  const agent = new https.Agent({
+    rejectUnauthorized: false
+  });
+
   while (i <= maxWaitTime) {
     try {
-      const response = await axios.get(waitForAppUrl);
+      const response = await axios.get(waitForAppUrl, { httpsAgent: agent });
       if (response.status !== 200) throw new Error;
       return;
     } catch (e) {
