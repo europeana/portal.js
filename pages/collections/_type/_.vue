@@ -21,7 +21,7 @@
               data-qa="related entities"
             >
               <RelatedCollections
-                :title="$t('relatedCollections')"
+                :title="$t('collectionsYouMightLike')"
                 :related-collections="relatedEntities ? relatedEntities : relatedCollectionCards"
               />
             </section>

@@ -1,6 +1,6 @@
 <template>
   <RelatedCollections
-    :title="$t('relatedCollections')"
+    :title="$t('collectionsYouMightLike')"
     :related-collections="relatedCollections"
   />
 </template>
