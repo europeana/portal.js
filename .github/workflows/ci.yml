@@ -160,6 +160,7 @@ jobs:
         cf app ${CF_APP_NAME}
         if [ $? -eq 1 ]; then CF_APP_FIRST_DEPLOY="true"; else CF_APP_FIRST_DEPLOY="false"; fi
         set -e
+        echo ${CF_APP_FIRST_DEPLOY}
         echo "::set-output name=cf-app-first-deploy::${CF_APP_FIRST_DEPLOY}"
     - name: Blue-green deployment to CF
       run: cf blue-green-deploy ${CF_APP_NAME} -f .github/workflows/support/ci.cf.dev.manifest.yml --delete-old-apps
