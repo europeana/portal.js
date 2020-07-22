@@ -42,7 +42,7 @@
     "test:chrome:headless": "cross-env browser=chromeHeadless cucumber-js",
     "test:chrome": "cross-env browser=chrome cucumber-js",
     "test:e2e:ci": "cross-env NODE_ENV=test npm run stack:up:detach && npm run test:chrome:headless -- -p all; exit=$?; npm run stack:down; exit $exit",
-    "test:e2e:ci:percy": "cross-env NODE_ENV=test npm run stack:up:detach && npm run test:chrome:headless -- -p percy; exit=$?; npm run test:percy; npm run stack:down; exit $exit",
+    "test:e2e:ci:percy": "cross-env NODE_ENV=test npm run stack:up:detach && npm run test:percy; exit=$?; npm run stack:down; exit $exit",
     "test:e2e": "cross-env NODE_ENV=test npm run stack:up:detach && npm run test:chrome -- -p all; exit=$?; npm run stack:down; exit $exit",
     "test:gecko": "cross-env browser=gecko cucumber-js --no-strict",
     "test:unit": "vue-cli-service test:unit --include tests/unit/setup",
