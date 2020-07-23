@@ -2,6 +2,7 @@
   <b-container
     v-if="relatedCollections.length > 0"
     data-qa="related collections"
+    class="p-0"
   >
     <h2 class="related-heading text-uppercase mt-4 mb-2">
       {{ title }}
@@ -11,7 +12,7 @@
       :id="relatedCollection.id"
       :key="relatedCollection.id"
       :link-to="linkGen(relatedCollection)"
-      :title="collectionTitle(relatedCollection)"
+      :title="relatedCollection.prefLabel ? relatedCollection.prefLabel[$i18n.locale] : relatedCollection.name"
       :img="imageUrl(relatedCollection)"
     />
   </b-container>
@@ -66,13 +67,6 @@
             pathMatch: getEntitySlug(id, name)
           }
         });
-      },
-      collectionTitle(item) {
-        if (item.prefLabel) {
-          return item.prefLabel[this.$i18n.locale];
-        } else {
-          return item.name;
-        }
       },
       imageUrl(item) {
         if (typeof item.image === 'undefined' && typeof item.isShownBy === 'undefined') {

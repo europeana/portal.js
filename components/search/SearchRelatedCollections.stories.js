@@ -6,7 +6,7 @@ const i18n = {
   locale: 'en',
   messages: {
     en: {
-      collectionsYouMightLike: "Collections you might like"
+      collectionsYouMightLike: 'Collections you might like'
     }
   }
 };
@@ -30,31 +30,31 @@ storiesOf('Search', module)
       return {
         relatedCollections: [
           {
-            name: "Emilio Pucci",
-            identifier: "http://data.europeana.eu/agent/base/69103"
+            name: 'Emilio Pucci',
+            identifier: 'http://data.europeana.eu/agent/base/69103'
           },
           {
-            name: "Christian Lacroix",
-            identifier: "http://data.europeana.eu/agent/base/66273"
+            name: 'Christian Lacroix',
+            identifier: 'http://data.europeana.eu/agent/base/66273'
           },
           {
-            name: "Jewellery",
-            identifier: "http://data.europeana.eu/concept/base/41"
+            name: 'Jewellery',
+            identifier: 'http://data.europeana.eu/concept/base/41'
           },
           {
-            name: "Costume",
-            identifier: "http://data.europeana.eu/concept/base/33"
+            name: 'Costume',
+            identifier: 'http://data.europeana.eu/concept/base/33'
           }
         ]
       };
     },
     template: `
       <b-container
-        class="mt-3"
+        class='mt-3'
       >
         <RelatedCollections
-          :title="$t('collectionsYouMightLike')"
-          :related-collections="relatedCollections"
+          :title='$t("collectionsYouMightLike")'
+          :related-collections='relatedCollections'
         />
       </b-container>`
   }));

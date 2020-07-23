@@ -63,7 +63,7 @@
     align-items: center;
     transition: $standard-transition;
     &:hover, &:focus {
-      background: $lightbluemagenta !important;
+      background: $smoke !important;
     }
     &.img-chip {
       padding: 0.25rem 0.75rem 0.25rem 0.25rem;
