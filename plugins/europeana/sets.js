@@ -5,7 +5,7 @@ const setsApiUrl = `${config.set.origin}${config.set.path}`;
 export default $axios => ({
 
   createLikes() {
-    return $axios.post(setsApiUrl,
+    return $axios.post(setsApiUrl + '/',
       {
         title: {
           en: 'LIKES'
@@ -19,9 +19,9 @@ export default $axios => ({
   },
 
   modifyItems(modify, likesId, itemId) {
-    const params = likesId + '/' + itemId;
+    const params =  likesId + '/' + itemId;
     const apicall = modify === 'add' ? $axios.put : $axios.delete;
-    return apicall(setsApiUrl + params)
+    return apicall(setsApiUrl + '/' + params)
       .then((response) => {
         return response.data;
       });

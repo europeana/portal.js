@@ -80,37 +80,25 @@
         </template>
       </b-card-body>
     </SmartLink>
-    <div
-      v-if="showUserButtons"
-      class="user-buttons"
-      data-qa="user buttons"
-    >
-      <b-button
-        class="icon-ic-add"
-        data-qa="add to gallery button"
-        :aria-label="$t('actions.addToGallery')"
+    <template v-if="showUserButtons">
+      <UserButtons
+        :item-url="url"
       />
-      <b-button
-        :pressed="liked"
-        class="icon-heart"
-        data-qa="like button"
-        :aria-label="$t('actions.like')"
-        size="sm"
-        @click="doLike()"
-      />
-    </div>
+    </template>
   </b-card>
 </template>
 
 <script>
   import SmartLink from './SmartLink';
   import { langMapValueForLocale } from  '../../plugins/europeana/utils';
+  import UserButtons from '../account/UserButtons';
 
   export default {
     name: 'ContentCard',
 
     components: {
-      SmartLink
+      SmartLink,
+      UserButtons
     },
 
     props: {
@@ -184,8 +172,7 @@
     data() {
       return {
         cardImageUrl: this.imageUrl,
-        displayLabelTypes: 'exhibitions|galleries|blog',
-        liked: false
+        displayLabelTypes: 'exhibitions|galleries|blog'
       };
     },
 
@@ -257,33 +244,6 @@
 
       imageNotFound() {
         this.cardImageUrl = '';
-      },
-
-      setLikesId(id) {
-        if (process.browser) {
-          localStorage.setItem('likesId', id);
-        }
-      },
-
-      getLikesId() {
-        return localStorage.getItem('likesId');
-      },
-
-      doLike() {
-        this.liked ? this.like(false) : this.like(true);
-        return this.liked = !this.liked;
-      },
-
-      async like(val) {
-        if (val) {
-          if (!this.getLikesId()) {
-            const response = await this.$galleries.createLikes();
-            this.setLikesId(response.id.split('/').pop());
-          }
-          await this.$galleries.modifyItems('add', this.getLikesId(), this.url.params[0]);
-        } else {
-          await this.$galleries.modifyItems('delete', this.getLikesId(), this.url.params[0]);
-        }
       }
     }
   };
