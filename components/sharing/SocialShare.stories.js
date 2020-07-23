@@ -7,7 +7,9 @@ const i18n = new VueI18n();
 
 const store = new Vuex.Store({
   getters: {
-    'http/canonicalUrl': () => {}
+    'http/canonicalUrl': () => {
+      return 'https://www.example.org/';
+    }
   }
 });
 

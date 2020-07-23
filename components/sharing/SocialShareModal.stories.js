@@ -10,7 +10,7 @@ const i18n = {
       actions: {
         close: 'close',
         share: 'share',
-        "shareOn": "Share on {social}"
+        shareOn: 'Share on {social}'
       }
     }
   }
@@ -18,7 +18,9 @@ const i18n = {
 
 const store = new Vuex.Store({
   getters: {
-    'http/canonicalUrl': () => {}
+    'http/canonicalUrl': () => {
+      return 'https://www.example.org/';
+    }
   }
 });
 
@@ -31,13 +33,13 @@ storiesOf('Sharing', module)
     i18n,
     data() {
       return {
-        mediaUrl: 'https://www.example.org/'
+        mediaUrl: 'https://www.example.org/media'
       };
     },
     store,
     template: `
       <b-container class="mt-3 p-3 bg-white">
         <ShareButton />
-        <SocialShareModal media-url="mediaUrl" />
+        <SocialShareModal :media-url="mediaUrl" />
       </b-container>`
   }));
