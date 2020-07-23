@@ -531,5 +531,11 @@ export default {
     "likes": "Likes",
     "publicCollections": "Public Collections",
     "privateCollections": "Private Collections"
+  },
+  "userset": {
+    "curatedBy": "Curated by",
+    "privateCollection": "Private collection",
+    "edit": "Edit",
+    "recommendedItems": "Recommended items"
   }
 };
