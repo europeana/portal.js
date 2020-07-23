@@ -39,23 +39,25 @@
       ...mapGetters({
         shareUrl: 'http/canonicalUrl'
       }),
-      networks: [
-        {
-          identifier: 'facebook',
-          name: 'Facebook',
-          url: `https://www.facebook.com/sharer/sharer.php?display=page&u=${this.shareUrl}`
-        },
-        {
-          identifier: 'twitter',
-          name: 'Twitter',
-          url: `https://twitter.com/intent/tweet?text=${this.shareUrl}`
-        },
-        {
-          identifier: 'pinterest',
-          name: 'Pinterest',
-          url: `https://pinterest.com/pin/create/link/?url=${this.shareUrl}&media=${this.mediaUrl}`
-        }
-      ]
+      networks() {
+        return [
+          {
+            identifier: 'facebook',
+            name: 'Facebook',
+            url: `https://www.facebook.com/sharer/sharer.php?display=page&u=${this.shareUrl}`
+          },
+          {
+            identifier: 'twitter',
+            name: 'Twitter',
+            url: `https://twitter.com/intent/tweet?text=${this.shareUrl}`
+          },
+          {
+            identifier: 'pinterest',
+            name: 'Pinterest',
+            url: `https://pinterest.com/pin/create/link/?url=${this.shareUrl}&media=${this.mediaUrl}`
+          }
+        ];
+      }
     }
   };
 </script>
