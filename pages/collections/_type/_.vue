@@ -16,14 +16,14 @@
           />
           <client-only>
             <h2
-              v-if="relatedEntities > 0 || relatedCollectionCards > 0"
+              v-if="relatedCollectionsFound"
               class="related-heading text-uppercase mb-2"
             >
-              {{ $t('relatedCollections') }}
+              {{ $t('collectionsYouMightLike') }}
             </h2>
             <section
               v-if="relatedEntities"
-              class="mb-2"
+              class="mb-4 mb-lg-2"
               data-qa="related entities"
             >
               <RelatedChip
@@ -240,6 +240,14 @@
           && this.page.relatedLinksCollection.items
           && this.page.relatedLinksCollection.items.length > 0)
           ? this.page.relatedLinksCollection.items : null;
+      },
+      relatedCollectionsFound() {
+        if (this.relatedEntities && this.relatedEntities.length > 0) {
+          return true;
+        } else if (this.relatedCollectionCards && this.relatedCollectionCards.length > 0) {
+          return true;
+        }
+        return false;
       },
       route() {
         return {
