@@ -46,7 +46,6 @@ export default {
   },
   "collectionsYouMightLike": "Collections you might like",
   "colourSwatch": "Colour swatch",
-  "collectionsYouMightLike": "Collections you might like",
   "contentfulManual": {
     "footerNavigation": {
       "about": "About Europeana Collections",

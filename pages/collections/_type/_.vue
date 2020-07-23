@@ -15,38 +15,14 @@
             :title="title"
           />
           <client-only>
-            <h2
+            <section
               v-if="relatedCollectionsFound"
-              class="related-heading text-uppercase mb-2"
-            >
-              {{ $t('collectionsYouMightLike') }}
-            </h2>
-            <section
-              v-if="relatedEntities"
-              class="mb-4 mb-lg-2"
-              data-qa="related entities"
-            >
-              <RelatedChip
-                v-for="relatedEntity in relatedEntities"
-                :id="relatedEntity.id"
-                :key="relatedEntity.id"
-                :link-to="relatedLinkGen(relatedEntity)"
-                :title="relatedEntity.prefLabel[$i18n.locale]"
-                :img="`${relatedEntity.isShownBy.thumbnail}&size=w200`"
-              />
-            </section>
-            <section
-              v-else-if="relatedCollectionCards"
               class="mb-2"
               data-qa="related entities"
             >
-              <RelatedChip
-                v-for="(card, index) in relatedCollectionCards"
-                :id="card.indentifier"
-                :key="index"
-                :link-to="relatedLinkGen(card)"
-                :title="card.name"
-                :img="`${card.image}&size=w200`"
+              <RelatedCollections
+                :title="$t('collectionsYouMightLike')"
+                :related-collections="relatedEntities ? relatedEntities : relatedCollectionCards"
               />
             </section>
           </client-only>
@@ -102,7 +78,7 @@
       ClientOnly,
       EntityDetails,
       SearchInterface,
-      RelatedChip: () => import('../../../components/generic/RelatedChip')
+      RelatedCollections: () => import('../../../components/generic/RelatedCollections')
     },
 
     fetch({ query, params, redirect, error, app, store }) {

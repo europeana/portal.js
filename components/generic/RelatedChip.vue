@@ -72,6 +72,7 @@
     img {
       width: 28px;
       height: 28px;
+      object-fit: cover
     }
     @media (max-width: $bp-large) {
       margin-bottom: 0.25rem;
