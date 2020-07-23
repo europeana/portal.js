@@ -10,7 +10,7 @@
       v-for="relatedCollection in relatedCollections"
       :id="relatedCollection.id"
       :key="relatedCollection.id"
-      :link-gen="suggestionLinkGen"
+      :link-to="suggestionLinkGen(relatedCollection)"
       :title="relatedCollection.prefLabel[$i18n.locale]"
     />
   </b-container>
@@ -63,12 +63,14 @@
         });
       },
 
-      suggestionLinkGen(id, prefLabel) {
+      suggestionLinkGen(item) {
+        let id = item.id;
+        let name = item.prefLabel[this.$i18n.locale];
         const uriMatch = id.match(`^${this.apiConfig.data.origin}/([^/]+)(/base)?/(.+)$`);
         return this.$path({
           name: 'collections-type-all', params: {
             type: getEntityTypeHumanReadable(uriMatch[1]),
-            pathMatch: getEntitySlug(id, prefLabel)
+            pathMatch: getEntitySlug(id, name)
           }
         });
       }
