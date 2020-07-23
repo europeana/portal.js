@@ -242,9 +242,9 @@
           ? this.page.relatedLinksCollection.items : null;
       },
       relatedCollectionsFound() {
-        if (this.relatedEntities !== null && this.relatedEntities.length > 0) {
+        if (this.relatedEntities?.length > 0) {
           return true;
-        } else if (this.relatedCollectionCards !== null && this.relatedCollectionCards.length > 0) {
+        } else if (this.relatedCollectionCards?.length > 0) {
           return true;
         }
         return false;
