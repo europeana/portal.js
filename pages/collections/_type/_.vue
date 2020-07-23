@@ -317,5 +317,8 @@
     .col-12 > .container {
       padding: 0;
     }
+    .related-collections {
+      padding: 0;
+    }
   }
 </style>
