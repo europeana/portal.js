@@ -1,5 +1,6 @@
 export default {
   "actions": {
+    "close": "close",
     "download": "Download",
     "providedBy": "Provided by {provider}",
     "share": "Share",
