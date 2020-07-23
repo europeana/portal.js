@@ -12,9 +12,7 @@
         <b-col>
           <h1>{{ $t('search') }}</h1>
         </b-col>
-        <RelatedCollections
-          :query="this.$route.query.query"
-        />
+        <RelatedSection :query="$route.query.query" />
         <SearchInterface
           :per-row="4"
         />
@@ -33,7 +31,7 @@
     components: {
       SearchInterface,
       NotificationBanner,
-      RelatedCollections: () => import('../../components/generic/RelatedCollections')
+      RelatedSection: () => import('../../components/search/RelatedSection')
     },
 
     middleware({ query, redirect, app }) {

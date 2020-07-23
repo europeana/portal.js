@@ -44,8 +44,8 @@ export default {
       }
     }
   },
-  "colourSwatch": "Colour swatch",
   "collectionsYouMightLike": "Collections you might like",
+  "colourSwatch": "Colour swatch",
   "contentfulManual": {
     "footerNavigation": {
       "about": "About Europeana Collections",
