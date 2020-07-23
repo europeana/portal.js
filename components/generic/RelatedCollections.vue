@@ -2,7 +2,7 @@
   <b-container
     v-if="relatedCollections.length > 0"
     data-qa="related collections"
-    class="p-0"
+    class="related-collections"
   >
     <h2 class="related-heading text-uppercase mt-4 mb-2">
       {{ title }}
