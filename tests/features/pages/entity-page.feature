@@ -54,6 +54,8 @@ Feature: Entity page
 
   Scenario: Pagination links work when the page was accessed from the url
     When I visit `/en/collections/person/60305-william-shakespeare?page=2`
+    And I wait 1 second
+    And I see the `pagination navigation`
     And I go to page number 3
     And I wait for the page to load
     Then I should be on `/en/collections/person/60305-william-shakespeare?page=3&view=grid`
