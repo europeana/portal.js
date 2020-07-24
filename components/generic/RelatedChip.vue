@@ -5,7 +5,7 @@
     variant="light"
     class="mt-1 mr-2 font-weight-normal bg-white"
     :class="{ 'img-chip': img }"
-    data-qa="related chip"
+    :data-qa="title + ' related chip'"
   >
     <b-img
       v-if="img"
