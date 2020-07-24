@@ -9,7 +9,7 @@ Feature: Entity page
     And I see a `search list view toggle`
     And I see a `search bar pill`
     And I see a `search facet`
-    And I should see 9 `search result`s
+    And I should see 24 `search result`s
     And I see a `pagination navigation`
     And I don't have a `contentTier facet`
     And I am on an accessible page

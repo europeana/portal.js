@@ -31,7 +31,7 @@
 </template>
 
 <script>
-  import SocialShare from '../../components/generic/SocialShare';
+  import SocialShare from '../../components/sharing/SocialShare';
 
   export default {
     components: {

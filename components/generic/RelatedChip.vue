@@ -55,7 +55,6 @@
     border-radius: 1.125rem;
     border: solid 1px $lightbluemagenta;
     padding: 0.25rem 0.75rem;
-    margin-bottom: 2rem;
     height: 2.25rem;
     min-width: 4rem;
     display: inline-flex;
@@ -63,7 +62,7 @@
     align-items: center;
     transition: $standard-transition;
     &:hover, &:focus {
-      background: $lightbluemagenta !important;
+      background: $smoke !important;
     }
     &.img-chip {
       padding: 0.25rem 0.75rem 0.25rem 0.25rem;
@@ -72,6 +71,7 @@
     img {
       width: 28px;
       height: 28px;
+      object-fit: cover
     }
     @media (max-width: $bp-large) {
       margin-bottom: 0.25rem;
