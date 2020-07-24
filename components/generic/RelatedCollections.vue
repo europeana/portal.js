@@ -2,23 +2,25 @@
   <b-container
     v-if="relatedCollections.length > 0"
     data-qa="related collections"
+    class="related-collections"
   >
     <h2 class="related-heading text-uppercase mt-4 mb-2">
-      {{ $t('relatedCollections') }}
+      {{ title }}
     </h2>
     <RelatedChip
       v-for="relatedCollection in relatedCollections"
       :id="relatedCollection.id"
       :key="relatedCollection.id"
-      :link-gen="suggestionLinkGen"
-      :title="relatedCollection.prefLabel[$i18n.locale]"
+      :link-to="linkGen(relatedCollection)"
+      :title="relatedCollection.prefLabel ? relatedCollection.prefLabel[$i18n.locale] : relatedCollection.name"
+      :img="imageUrl(relatedCollection)"
     />
   </b-container>
 </template>
 
 <script>
   import RelatedChip from './RelatedChip';
-  import { getEntitySuggestions, getEntityTypeHumanReadable, getEntitySlug } from '../../plugins/europeana/entity';
+  import { getEntityTypeHumanReadable, getEntitySlug } from '../../plugins/europeana/entity';
   import { mapGetters } from 'vuex';
 
   export default {
@@ -29,20 +31,14 @@
     },
 
     props: {
-      query: {
+      title: {
         type: String,
         default: ''
+      },
+      relatedCollections: {
+        type: Array,
+        default: () => []
       }
-    },
-
-    fetch() {
-      this.getSearchSuggestions(this.query);
-    },
-
-    data() {
-      return {
-        relatedCollections: []
-      };
     },
 
     computed: {
@@ -51,26 +47,36 @@
       })
     },
 
-    watch: {
-      query: '$fetch'
-    },
-
     methods: {
-      async getSearchSuggestions(query) {
-        this.relatedCollections = query === '' ? [] : await getEntitySuggestions(query, {
-          language: this.$i18n.locale,
-          rows: 4
-        });
-      },
+      linkGen(item) {
+        let id = '';
+        let name = '';
 
-      suggestionLinkGen(id, prefLabel) {
+        if (item.id) {
+          id = item.id;
+          name = item.prefLabel[this.$i18n.locale];
+        } else {
+          id = item.identifier;
+          name = item.name;
+        }
+
         const uriMatch = id.match(`^${this.apiConfig.data.origin}/([^/]+)(/base)?/(.+)$`);
         return this.$path({
           name: 'collections-type-all', params: {
             type: getEntityTypeHumanReadable(uriMatch[1]),
-            pathMatch: getEntitySlug(id, prefLabel)
+            pathMatch: getEntitySlug(id, name)
           }
         });
+      },
+      imageUrl(item) {
+        if (typeof item.image === 'undefined' && typeof item.isShownBy === 'undefined') {
+          return '';
+        }
+        if (item.image) {
+          return item.image + '&size=w200';
+        } else if (item.isShownBy.thumbnail) {
+          return item.isShownBy.thumbnail + '&size=w200';
+        }
       }
     }
   };

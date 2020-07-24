@@ -1,11 +1,14 @@
 export default {
   "actions": {
+    "close": "close",
     "download": "Download",
     "providedBy": "Provided by {provider}",
     "share": "Share",
     "shareOn": "Share on {social}",
     "viewAt": "View at {link}",
-    "viewDocument": "View document"
+    "viewDocument": "View document",
+    "like": "Like",
+    "addToGallery": "Add to gallery"
   },
   "attribution": {
     "country": "Country:",
@@ -42,6 +45,7 @@ export default {
       }
     }
   },
+  "collectionsYouMightLike": "Collections you might like",
   "colourSwatch": "Colour swatch",
   "contentfulManual": {
     "footerNavigation": {
@@ -63,6 +67,7 @@ export default {
     "link": "More info",
     "terms": "This website uses cookies to ensure you get the best experience on our website. By clicking or navigating the site, you agree to allow our collection of information through cookies."
   },
+  "curatedAutomatically": "Curated automatically by Europeana",
   "dateFilter": {
     "endDate": "End date",
     "specificDate": "Specific date",
@@ -468,6 +473,13 @@ export default {
   "newWindow": "opens in new window",
   "noMoreResults": "There are no more results for your search query.",
   "noResults": "No results",
+  "pages": {
+    "collections": {
+      "topics": {
+        "title": "Subjects"
+      }
+    }
+  },
   "readMore": "Read more",
   "record": {
     "allMetaData": "All metadata",

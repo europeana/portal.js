@@ -12,10 +12,7 @@
         <b-col>
           <h1>{{ $t('search') }}</h1>
         </b-col>
-        <RelatedCollections
-          v-if="relatedCollectionsEnabled"
-          :query="this.$route.query.query"
-        />
+        <RelatedSection :query="$route.query.query" />
         <SearchInterface
           :per-row="4"
         />
@@ -34,7 +31,7 @@
     components: {
       SearchInterface,
       NotificationBanner,
-      RelatedCollections: () => import('../../components/generic/RelatedCollections')
+      RelatedSection: () => import('../../components/search/RelatedSection')
     },
 
     middleware({ query, redirect, app }) {
@@ -62,9 +59,6 @@
       },
       redirectNotificationsEnabled() {
         return Boolean(Number(process.env.ENABLE_LINKS_TO_CLASSIC));
-      },
-      relatedCollectionsEnabled() {
-        return Boolean(Number(process.env.ENABLE_SEARCH_RELATED_COLLECTIONS));
       }
     },
 

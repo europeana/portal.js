@@ -85,9 +85,18 @@
       class="user-buttons"
       data-qa="user buttons"
     >
-      <b-button>
-        <i class="icon-ic-add" />
-      </b-button>
+      <b-button
+        class="icon-ic-add"
+        data-qa="add to gallery button"
+        :aria-label="$t('actions.addToGallery')"
+      />
+      <b-button
+        :pressed.sync="liked"
+        class="icon-heart"
+        data-qa="like button"
+        :aria-label="$t('actions.like')"
+        size="sm"
+      />
     </div>
   </b-card>
 </template>
@@ -174,7 +183,8 @@
     data() {
       return {
         cardImageUrl: this.imageUrl,
-        displayLabelTypes: 'exhibitions|galleries|blog'
+        displayLabelTypes: 'exhibitions|galleries|blog',
+        liked: false
       };
     },
 

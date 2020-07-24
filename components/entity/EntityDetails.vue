@@ -1,25 +1,5 @@
 <template>
   <b-row class="mb-3">
-    <b-col
-      v-if="depictionThumbnail && depictionAttribution"
-      cols="12"
-      sm="3"
-    >
-      <SmartLink
-        :destination="depictionAttribution"
-        :title="depictionLinkTitle"
-        link-class="depiction mb-3 d-block overflow-hidden rounded-circle position-relative"
-        data-qa="entity attribution"
-      >
-        <b-img-lazy
-          :src="depictionThumbnail"
-          fluid
-          :alt="$t('depiction', { title: title.values[0] })"
-          data-qa="entity depiction"
-          @error.native="depictionNotFound"
-        />
-      </SmartLink>
-    </b-col>
     <b-col>
       <h1
         :lang="title.code"
@@ -29,7 +9,7 @@
       </h1>
       <div
         v-if="hasDescription"
-        class="mb-3"
+        class="mb-3 w-75 description"
       >
         <p
           data-qa="entity description"
@@ -46,6 +26,10 @@
         >
           {{ showAll ? $t('showLess') : $t('showMore') }}
         </b-button>
+        <!-- <p class="curated d-flex align-items-center">
+          <span class="ic-verified" />
+          {{ $t('curatedAutomatically') }}
+        </p> -->
       </div>
       <SmartLink
         v-if="hasDescription && !isEditorialDescription"
@@ -71,14 +55,6 @@
         type: Object,
         required: true
       },
-      depiction: {
-        type: String,
-        default: ''
-      },
-      attribution: {
-        type: String,
-        default: ''
-      },
       // Description as object with 'values' (array of strings) and 'code' two letter language code
       description: {
         type: Object,
@@ -87,16 +63,10 @@
       isEditorialDescription: {
         type: Boolean,
         default: false
-      },
-      depictionLinkTitle: {
-        type: String,
-        default: null
       }
     },
     data() {
       return {
-        depictionAttribution: this.attribution,
-        depictionThumbnail: this.depiction,
         limitCharacters: 255,
         showAll: false
       };
@@ -113,12 +83,6 @@
       }
     },
     methods: {
-      depictionNotFound() {
-        // clear depictionThumbnail and attribution to prevent showing a broken image and
-        // contextless link
-        this.depictionThumbnail = '';
-        this.depictionAttribution = '';
-      },
       toggleMoreDescription() {
         this.showAll = !this.showAll;
       }
@@ -128,6 +92,7 @@
 
 <style lang="scss" scoped>
   @import './assets/scss/variables.scss';
+  @import './assets/scss/icons.scss';
 
   .depiction {
     box-shadow: $boxshadow-small;
@@ -154,6 +119,28 @@
 
     &:hover {
       text-decoration: none;
+    }
+  }
+
+  p {
+    color: $mediumgrey;
+    &.curated {
+      font-size: $font-size-small;
+      color: $black;
+      &:before {
+        @extend .icon-font;
+        display: inline-block;
+        font-size: 1.5rem;
+        color: $blue;
+        content: '\e923';
+        margin-right: 0.325rem;
+      }
+    }
+  }
+
+  @media (max-width: $bp-large) {
+    .description {
+      width: 100% !important;
     }
   }
 </style>

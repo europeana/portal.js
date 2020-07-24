@@ -212,7 +212,7 @@
       background-color: $white;
       border: 1px solid $paper;
       color: $mediumgrey;
-      display: flex;
+      display: inline-flex;
       font-size: 1.5rem;
       height: 2.25rem;
       width: 2.25rem;
@@ -221,6 +221,16 @@
 
       &:hover {
         box-shadow: $boxshadow-small;
+      }
+
+      &.active {
+        color: $white;
+        background-color: $red;
+        border-color: $red;
+      }
+
+      &-sm {
+        font-size: $font-size-small;
       }
     }
   }
