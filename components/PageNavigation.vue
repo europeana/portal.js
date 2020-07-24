@@ -30,8 +30,8 @@
           right
           no-caret
           variant="white"
-          menu-class="mt-2 py-3"
           class="nav-link"
+          :class="isAccountPage && 'exact-active-link'"
         >
           <template
             slot="button-content"
@@ -89,6 +89,13 @@
       },
       isAuthenticated() {
         return this.$store.state.auth.loggedIn;
+      },
+      isAccountPage() {
+        if (this.$route.name.startsWith('account')) {
+          return true;
+        } else {
+          return false;
+        }
       }
     },
     methods: {
@@ -252,26 +259,35 @@
     }
   }
 
-  .dropdown.nav-link {
-    padding: 1px 0 1px 0;
-  }
-
-  .dropdown button .label {
-    color: $mediumgrey;
-    font-size: $font-size-small;
-    font-weight: 600;
-    text-transform: uppercase;
-  }
-
-  .dropdown-menu li {
-    &:first-child {
-      padding-bottom: 0.7rem;
+  ::v-deep .dropdown {
+    &.nav-link {
+      padding: 1px 0 1px 0;
     }
-  }
-
-  .dropdown-item .label {
-    text-decoration: none;
-    text-transform: uppercase;
-    font-size: $font-size-small;
+    .label {
+      color: $mediumgrey;
+      font-size: $font-size-small;
+      font-weight: 600;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+    &-divider {
+      margin: 0;
+    }
+    &-menu {
+      margin-top: 0.65rem;
+      // padding: 0.4rem 0 0.4rem 0;
+      border-radius: 4px;
+      box-shadow: 2px 2px 4px 0 rgba(0, 0, 0, 0.2);
+      border: solid 1px #dcdcde;
+      li a {
+        padding: 0.4rem 1.2rem 0.4rem 1.2rem;
+        &:hover {
+          background-color: #dcdcde;
+        }
+        .label {
+          height: 2.4rem;
+        }
+      }
+    }
   }
 </style>
