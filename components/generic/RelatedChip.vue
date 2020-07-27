@@ -5,7 +5,7 @@
     variant="light"
     class="mt-1 mr-2 font-weight-normal bg-white"
     :class="{ 'img-chip': img }"
-    data-qa="related chip"
+    :data-qa="title + ' related chip'"
   >
     <b-img
       v-if="img"
@@ -55,7 +55,6 @@
     border-radius: 1.125rem;
     border: solid 1px $lightbluemagenta;
     padding: 0.25rem 0.75rem;
-    margin-bottom: 2rem;
     height: 2.25rem;
     min-width: 4rem;
     display: inline-flex;
