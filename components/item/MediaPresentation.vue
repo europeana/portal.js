@@ -19,6 +19,7 @@
         allowfullscreen="true"
         :src="$path({ name: 'media', query: { id: europeanaIdentifier, mediaUrl: media.about } })"
         class="media-player"
+        :dash="requiresDashJS"
       />
     </div>
     <VideoPlayer
@@ -59,7 +60,7 @@
   import oEmbed from '../../plugins/oembed';
   import {
     isPlayableMedia, isHTMLVideo, isHTMLAudio, isIIIFImage, isIIIFPresentation,
-    isOEmbed, isRichMedia, iiifManifest
+    isOEmbed, isRichMedia, iiifManifest, requiresDashJS
   } from '../../plugins/media';
 
   export default {
@@ -118,6 +119,9 @@
       },
       isOEmbed() {
         return isOEmbed(this.media);
+      },
+      requiresDashJS() {
+        return requiresDashJS(this.media);
       }
     },
 

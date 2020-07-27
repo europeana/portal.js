@@ -10,6 +10,13 @@
   export default {
     layout: 'minimal',
 
+    props: {
+      dash: {
+        type: Boolean,
+        default: false
+      }
+    },
+
     asyncData({ query }) {
       return {
         id: query.id,
@@ -19,9 +26,10 @@
 
     data() {
       return {
-        MEDIA_PLAYER_VERSION: '0.7.4',
+        MEDIA_PLAYER_VERSION: '0.7.6',
         JQUERY_VERSION: '3.4.1',
-        JQUERY_UI_VERSION: '1.12.1'
+        JQUERY_UI_VERSION: '1.12.1',
+        DASHJS_VERSION: '2.9.0'
       };
     },
 
@@ -37,6 +45,7 @@
           manifest: this.manifest,
           mediaItem: this.mediaUrl
         });
+        console.log(this.dash);
       });
     },
 
@@ -51,6 +60,7 @@
         script: [
           { src: `https://code.jquery.com/jquery-${this.JQUERY_VERSION}.min.js` },
           { src: `https://code.jquery.com/ui/${this.JQUERY_UI_VERSION}/jquery-ui.min.js` },
+          { src: `https://unpkg.com/dashjs@${this.DASHJS_VERSION}/dist/dash.all.min.js` },
           { src: `https://unpkg.com/@europeana/media-player@${this.MEDIA_PLAYER_VERSION}/dist/europeana-media-player.min.js` }
         ]
       };
