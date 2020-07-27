@@ -101,6 +101,11 @@
     font-size: 1.5rem;
     color: $mediumgrey;
   }
+  h2 {
+    text-align: center;
+    margin-bottom: 0;
+    font-weight: 600;
+  }
   article, section p, section h1, h2:not(.is-size-1-5), h3, h4, h5, h6 {
     max-width: 45rem;
     margin-left: auto;
@@ -194,4 +199,3 @@
     }
   }
 }
-
