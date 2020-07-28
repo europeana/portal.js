@@ -13,7 +13,7 @@
         :id="relatedCollection.id"
         :key="relatedCollection.id"
         :link-to="linkGen(relatedCollection)"
-        :title="relatedCollection.prefLabel ? relatedCollection.prefLabel[$i18n.locale] : relatedCollection.name"
+        :title="relatedCollection.prefLabel ? relatedCollection.prefLabel : relatedCollection.name"
         :img="imageUrl(relatedCollection)"
       />
     </div>
