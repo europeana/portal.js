@@ -58,26 +58,23 @@ pre {
 }
 
 blockquote {
-  border-right: 2px solid $blue;
   color: $black;
-  font-size: 1.125rem;
+  font-size: 1.5rem;
   font-style: italic;
+  font-weight: 600;
   margin-left: 1rem;
   margin-right: 1rem;
-  padding-right: 1rem;
-  text-align: right;
+  text-align: center;
 
   p:before {
-    color: $blue;
-    content: '\2018';
+    content: '\201C';
     display: inline-block;
     font-size: 1.75rem;
     padding-right: 0.25rem;
   }
 
   p:after {
-    color: $black;
-    content: '\2019';
+    content: '\201D';
     display: inline-block;
   }
 
@@ -88,16 +85,13 @@ blockquote {
 }
 
 cite {
-  border-right: 2px solid $blue;
   color: $black;
   display: block;
   font-size: $font-size-small;
   font-style: normal;
-  font-weight: bold;
   margin-left: 1rem;
   margin-right: 1rem;
-  padding-right: 1rem;
-  text-align: right;
+  text-align: center;
 
   @media (min-width: $bp-medium) {
     margin-left: 5rem;
@@ -141,7 +135,7 @@ figcaption {
 }
 
 blockquote + p cite {
-  padding-top: 1rem;
+  padding-top: 0.75rem;
   margin-top: -1rem;
 }
 

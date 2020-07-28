@@ -63,7 +63,7 @@
     components: {
       ExhibitionChapters,
       ImageWithAttribution: () => import('../../../components/generic/ImageWithAttribution'),
-      SocialShare: () => import('../../../components/generic/SocialShare')
+      SocialShare: () => import('../../../components/sharing/SocialShare')
     },
     asyncData({ params, query, error, app, store, redirect }) {
       if (params.exhibition === undefined) redirect(app.$path({ name: 'exhibitions' }));

@@ -40,7 +40,7 @@
     text-transform: capitalize;
     background: $offwhite;
     color: $mediumgrey;
-    font-size: $font-size-base;
+    font-size: $font-size-small;
     border-color: transparent;
     box-shadow: none;
     border-radius: 0.25rem;

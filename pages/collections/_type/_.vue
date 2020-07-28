@@ -8,45 +8,20 @@
       <b-col
         cols="12"
       >
-        <b-container>
+        <b-container class="mb-5">
           <EntityDetails
             :description="description"
             :is-editorial-description="hasEditorialDescription"
             :title="title"
           />
           <client-only>
-            <h2
-              v-if="relatedEntities > 0 || relatedCollectionCards > 0"
-              class="related-heading text-uppercase mb-2"
-            >
-              {{ $t('relatedCollections') }}
-            </h2>
             <section
-              v-if="relatedEntities"
-              class="mb-2"
+              v-if="relatedCollectionsFound"
               data-qa="related entities"
             >
-              <RelatedChip
-                v-for="relatedEntity in relatedEntities"
-                :id="relatedEntity.id"
-                :key="relatedEntity.id"
-                :link-to="relatedLinkGen(relatedEntity)"
-                :title="relatedEntity.prefLabel[$i18n.locale]"
-                :img="`${relatedEntity.isShownBy.thumbnail}&size=w200`"
-              />
-            </section>
-            <section
-              v-else-if="relatedCollectionCards"
-              class="mb-2"
-              data-qa="related entities"
-            >
-              <RelatedChip
-                v-for="(card, index) in relatedCollectionCards"
-                :id="card.indentifier"
-                :key="index"
-                :link-to="relatedLinkGen(card)"
-                :title="card.name"
-                :img="`${card.image}&size=w200`"
+              <RelatedCollections
+                :title="$t('collectionsYouMightLike')"
+                :related-collections="relatedEntities ? relatedEntities : relatedCollectionCards"
               />
             </section>
           </client-only>
@@ -102,7 +77,7 @@
       ClientOnly,
       EntityDetails,
       SearchInterface,
-      RelatedChip: () => import('../../../components/generic/RelatedChip')
+      RelatedCollections: () => import('../../../components/generic/RelatedCollections')
     },
 
     fetch({ query, params, redirect, error, app, store }) {
@@ -241,6 +216,14 @@
           && this.page.relatedLinksCollection.items.length > 0)
           ? this.page.relatedLinksCollection.items : null;
       },
+      relatedCollectionsFound() {
+        if (this.relatedEntities && this.relatedEntities.length > 0) {
+          return true;
+        } else if (this.relatedCollectionCards && this.relatedCollectionCards.length > 0) {
+          return true;
+        }
+        return false;
+      },
       route() {
         return {
           name: 'collections-type-all',
@@ -331,6 +314,9 @@
   .entity-page {
     margin-top: -1rem;
     .col-12 > .container {
+      padding: 0;
+    }
+    .related-collections {
       padding: 0;
     }
   }

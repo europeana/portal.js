@@ -81,7 +81,7 @@ describe('components/generic/RelatedCollections', () => {
     });
 
     it('contains four related chips', () => {
-      const chips = wrapper.findAll('[data-qa="related chip"]');
+      const chips = wrapper.findAll('span.badge');
       chips.length.should.eq(4);
     });
   });
