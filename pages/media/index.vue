@@ -10,17 +10,11 @@
   export default {
     layout: 'minimal',
 
-    props: {
-      dash: {
-        type: Boolean,
-        default: false
-      }
-    },
-
     asyncData({ query }) {
       return {
         id: query.id,
-        mediaUrl: query.mediaUrl
+        mediaUrl: query.mediaUrl,
+        dashRequired: query.dashRequired
       };
     },
 
@@ -45,7 +39,6 @@
           manifest: this.manifest,
           mediaItem: this.mediaUrl
         });
-        console.log(this.dash);
       });
     },
 
@@ -60,7 +53,7 @@
         script: [
           { src: `https://code.jquery.com/jquery-${this.JQUERY_VERSION}.min.js` },
           { src: `https://code.jquery.com/ui/${this.JQUERY_UI_VERSION}/jquery-ui.min.js` },
-          { src: `https://unpkg.com/dashjs@${this.DASHJS_VERSION}/dist/dash.all.min.js` },
+          { src: this.dashRequired ? `https://unpkg.com/dashjs@${this.DASHJS_VERSION}/dist/dash.all.min.js` : '' },
           { src: `https://unpkg.com/@europeana/media-player@${this.MEDIA_PLAYER_VERSION}/dist/europeana-media-player.min.js` }
         ]
       };

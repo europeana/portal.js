@@ -17,9 +17,8 @@
       <iframe
         data-qa="media player"
         allowfullscreen="true"
-        :src="$path({ name: 'media', query: { id: europeanaIdentifier, mediaUrl: media.about } })"
+        :src="$path({ name: 'media', query: { id: europeanaIdentifier, mediaUrl: media.about, dashRequired: requiresDashJS } })"
         class="media-player"
-        :dash="requiresDashJS"
       />
     </div>
     <VideoPlayer
