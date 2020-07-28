@@ -44,12 +44,14 @@
             <span class="label">{{ $t('account.profile') }}</span>
           </b-dropdown-item>
           <b-dropdown-item
-            :to="localePath({ name: 'account-profile' })"
+            :href="accountSettingsPage"
           >
             <span class="label">{{ $t('account.settings') }}</span>
           </b-dropdown-item>
           <b-dropdown-divider />
-          <b-dropdown-item @click="logout()">
+          <b-dropdown-item
+            :to="localePath({ name: 'account-logout' })"
+          >
             <span class="label">{{ $t('account.linkLogout') }}</span>
           </b-dropdown-item>
         </b-dropdown>
@@ -96,6 +98,9 @@
         } else {
           return false;
         }
+      },
+      accountSettingsPage() {
+        return process.env.OAUTH_ACCOUNT_PAGE;
       }
     },
     methods: {
@@ -200,16 +205,6 @@
       }
     }
 
-    &:last-child {
-      .nav-link {
-        &.exact-active-link:after {
-          left: 0.25rem;
-        }
-        &:before {
-          right: -0.5rem;
-        }
-      }
-    }
     @media (max-width: $bp-large) {
       width: 100%;
       margin: 0 0 0.25rem 0;
