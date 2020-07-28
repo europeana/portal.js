@@ -1,5 +1,4 @@
 import sets from './europeana/sets';
-import { apiError } from './europeana/utils';
 
 export default function({ $axios, $auth, redirect }, inject) {
   const token = $auth.getToken('keycloak');
@@ -23,7 +22,6 @@ export default function({ $axios, $auth, redirect }, inject) {
     if (error.response && (error.response.status === 401 || error.response.status === 403)) {
       return redirect(redirectUrl);
     }
-    throw apiError(error);
   });
 
   const setsWithAxios = sets(axiosInstance);

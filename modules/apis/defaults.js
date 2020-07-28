@@ -34,7 +34,7 @@ module.exports = {
     key: process.env['EUROPEANA_WW1_API_KEY'] || process.env['EUROPEANA_RECORD_API_KEY']
   },
   set: {
-    origin: 'https://api-acc.eanadev.org',
+    origin: 'https://api.europeana.eu',
     path: '/set'
   }
 };

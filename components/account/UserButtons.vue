@@ -54,7 +54,6 @@
 
       doLike() {
         this.liked ? this.like(false) : this.like(true);
-        return this.liked = !this.liked;
       },
 
       async like(val) {
@@ -67,6 +66,7 @@
         } else {
           await this.$galleries.modifyItems('delete', this.getLikesId(), this.itemId);
         }
+        this.liked = !this.liked;
       }
     }
   };
