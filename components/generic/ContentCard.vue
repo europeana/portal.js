@@ -89,6 +89,7 @@
         class="icon-ic-add"
         data-qa="add to gallery button"
         :aria-label="$t('actions.addToGallery')"
+        @click="$bvModal.show('modal-collection')"
       />
       <b-button
         :pressed.sync="liked"

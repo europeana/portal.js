@@ -26,6 +26,7 @@
           <b-form-textarea
             id="description"
             maxlength="240"
+            rows="4"
           />
         </b-form-group>
         <div class="modal-footer">
