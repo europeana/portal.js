@@ -4,6 +4,7 @@
       <h1
         :lang="title.code"
         data-qa="entity title"
+        class="pt-3"
       >
         {{ title.values[0] }}
       </h1>

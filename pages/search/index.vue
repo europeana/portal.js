@@ -12,7 +12,10 @@
         <b-col>
           <h1>{{ $t('search') }}</h1>
         </b-col>
-        <RelatedSection :query="$route.query.query" />
+        <RelatedSection
+          :query="$route.query.query"
+          class="mb-4"
+        />
         <SearchInterface
           :per-row="4"
         />

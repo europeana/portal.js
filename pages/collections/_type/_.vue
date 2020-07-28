@@ -8,7 +8,7 @@
       <b-col
         cols="12"
       >
-        <b-container>
+        <b-container class="mb-5">
           <EntityDetails
             :description="description"
             :is-editorial-description="hasEditorialDescription"
@@ -17,7 +17,6 @@
           <client-only>
             <section
               v-if="relatedCollectionsFound"
-              class="mb-2"
               data-qa="related entities"
             >
               <RelatedCollections
