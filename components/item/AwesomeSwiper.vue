@@ -1,5 +1,12 @@
 <template>
     <swiper ref="awesome" :options="swiperOptions">
+        <!-- <swiper-slide>
+            <MediaCard
+              :europeana-identifier="europeanaIdentifier"
+              :image-src="imageSrc"
+              :media="media"
+            />
+        </swiper-slide> -->
         <swiper-slide>
             <img src="https://api.europeana.eu/api/v2/thumbnail-by-url.json?type=IMAGE&amp;uri=http%3A%2F%2Frepos.europeanafashion.eu%2Fpaulvanriel%2F54332959.jpg" alt="">
         </swiper-slide>
@@ -17,17 +24,37 @@
 <script>
   import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
   import 'swiper/swiper-bundle.css'
+  // import MediaCard from './MediaCard';
 
   export default {
     name: 'AwesomeSwiper',
     components: {
         Swiper,
         SwiperSlide
+        // MediaCard
+    },
+    props: {
+      europeanaIdentifier: {
+        type: String,
+        required: true
+      },
+      media: {
+        type: Object,
+        required: true
+      },
+      imageSrc: {
+        type: String,
+        default: ''
+      },
+      slidesPerView: {
+        type: Number,
+        default: 2
+      }
     },
     data() {
       return {
         swiperOptions: {
-          slidesPerView: 2,
+          slidesPerView: this.slidesPerView,
           spaceBetween: 20,
           centeredSlides: true,
           navigation: {

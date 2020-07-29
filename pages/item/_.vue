@@ -351,6 +351,9 @@
           this.selectedMedia.about = msg.data.id;
         }
       });
+      // console.log(this.media);
+      console.log(this.identifier);
+      // console.log(this.selectedMediaImage);
     },
 
     methods: {
