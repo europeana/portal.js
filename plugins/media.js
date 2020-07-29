@@ -73,3 +73,7 @@ export function isRichMedia(media) {
     isIIIFMedia(media) ||
     isPlayableMedia(media);
 }
+
+export function requiresDashJS(media) {
+  return media === 'application/dash+xml';
+}
