@@ -165,4 +165,12 @@ describe('plugins/media', () => {
       media.isRichMedia({ ebucoreHasMimeType: 'audio/mpeg' }).should.be.true;
     });
   });
+
+  describe('requiresDashJS()', () => {
+    it('returns `true` if ebucoreHasMimeType is for Dash XML', () => {
+      const ebucoreHasMimeType = 'application/dash+xml';
+
+      media.requiresDashJS({ ebucoreHasMimeType }).should.be.true;
+    });
+  });
 });
