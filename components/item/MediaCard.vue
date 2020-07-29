@@ -26,17 +26,13 @@
 </template>
 
 <script>
-  import { isPDF, isImage } from '../../plugins/media';
+  import { isImage } from '../../plugins/media';
 
   export default {
     props: {
       europeanaIdentifier: {
         type: String,
         default: ''
-      },
-      media: {
-        type: Object,
-        default: () => {}
       },
       imageSrc: {
         type: String,
@@ -46,10 +42,7 @@
 
     computed: {
       imageLink() {
-        if (!this.media.about) {
-          return false;
-        }
-        return isImage(this.media) ? this.$proxyMedia(this.media.about, this.europeanaIdentifier, { disposition: 'inline' }) : this.media.about;
+        return this.$proxyMedia(this.imageSrc, this.europeanaIdentifier, { disposition: 'inline' });
       }
     }
   };

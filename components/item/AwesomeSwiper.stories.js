@@ -8,9 +8,24 @@ storiesOf('Item page/Awesome Swiper', module)
   .add('Centered with multiple slides visible', () => ({
     i18n,
     components: { AwesomeSwiper },
+    data() {
+      return {
+        media: [
+          { about: 'https://api.europeana.eu/api/v2/thumbnail-by-url.json?size=w400&type=IMAGE&uri=https%3A%2F%2Feuropeana1914-1918.s3.amazonaws.com%2Fattachments%2F119112%2F10265.119112.original.jpg'},
+          { about: 'https://api.europeana.eu/api/v2/thumbnail-by-url.json?size=w400&type=IMAGE&uri=https%3A%2F%2Feuropeana1914-1918.s3.amazonaws.com%2Fattachments%2F119200%2F10265.119200.original.jpg'},
+          { about: 'https://api.europeana.eu/api/v2/thumbnail-by-url.json?size=w400&type=IMAGE&uri=https%3A%2F%2Feuropeana1914-1918.s3.amazonaws.com%2Fattachments%2F119203%2F10265.119203.original.jpg'},
+          { about: 'https://api.europeana.eu/api/v2/thumbnail-by-url.json?size=w400&type=IMAGE&uri=https%3A%2F%2Feuropeana1914-1918.s3.amazonaws.com%2Fattachments%2F119639%2F10265.119639.original.jpg'},
+          { about: "https://api.europeana.eu/api/v2/thumbnail-by-url.json?size=w400&type=IMAGE&uri=https%3A%2F%2Feuropeana1914-1918.s3.amazonaws.com%2Fattachments%2F119640%2F10265.119640.original.jpg"}
+        ],
+        id: '/2020601/https___1914_1918_europeana_eu_contributions_10265'
+      };
+    },
     template: `
       <b-container class="mt-3">
-        <AwesomeSwiper slides-per-view="2" />
+        <AwesomeSwiper
+          :europeana-identifier="id"
+          :media="media"
+        />
       </b-container>
     `
   }))
@@ -19,7 +34,10 @@ storiesOf('Item page/Awesome Swiper', module)
     components: { AwesomeSwiper },
     template: `
       <b-container class="mt-3">
-        <AwesomeSwiper slides-per-view="1" />
+        <AwesomeSwiper
+          :europeana-identifier="id"
+          :media="media"
+        />
       </b-container>
     `
   }));

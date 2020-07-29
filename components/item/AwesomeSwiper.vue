@@ -1,20 +1,10 @@
 <template>
     <swiper ref="awesome" :options="swiperOptions">
-        <!-- <swiper-slide>
+        <swiper-slide v-for="(item, index) in media" :key="index">
             <MediaCard
-              :europeana-identifier="europeanaIdentifier"
-              :image-src="imageSrc"
-              :media="media"
+              :europeana-identifier="item.europeanaIdentifier"
+              :image-src="item.about"
             />
-        </swiper-slide> -->
-        <swiper-slide>
-            <img src="https://api.europeana.eu/api/v2/thumbnail-by-url.json?type=IMAGE&amp;uri=http%3A%2F%2Frepos.europeanafashion.eu%2Fpaulvanriel%2F54332959.jpg" alt="">
-        </swiper-slide>
-        <swiper-slide>
-            <img src="https://api.europeana.eu/api/v2/thumbnail-by-url.json?type=IMAGE&amp;uri=http%3A%2F%2Fdata.jck.nl%2Fthumbnail%2Fjck%2Fjoods-historisch%2Fd616%2F616NM009292%2F500" alt="">
-        </swiper-slide>
-        <swiper-slide>
-          <img data-v-370eeff7="" src="https://api.europeana.eu/api/v2/thumbnail-by-url.json?size=w400&type=IMAGE&uri=https%3A%2F%2Fwww.filmportal.de%2Fsites%2Fdefault%2Ffiles%2F4103B2B7BD864968B6F915EFF9F2410B_1-003838.jpg" alt="">
         </swiper-slide>
         <div class="swiper-button-prev" slot="button-prev"></div>
         <div class="swiper-button-next" slot="button-next"></div>
@@ -24,14 +14,14 @@
 <script>
   import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
   import 'swiper/swiper-bundle.css'
-  // import MediaCard from './MediaCard';
+  import MediaCard from './MediaCard';
 
   export default {
     name: 'AwesomeSwiper',
     components: {
         Swiper,
-        SwiperSlide
-        // MediaCard
+        SwiperSlide,
+        MediaCard
     },
     props: {
       europeanaIdentifier: {
@@ -39,22 +29,14 @@
         required: true
       },
       media: {
-        type: Object,
+        type: Array,
         required: true
-      },
-      imageSrc: {
-        type: String,
-        default: ''
-      },
-      slidesPerView: {
-        type: Number,
-        default: 2
       }
     },
     data() {
       return {
         swiperOptions: {
-          slidesPerView: this.slidesPerView,
+          slidesPerView: 3,
           spaceBetween: 20,
           centeredSlides: true,
           navigation: {
