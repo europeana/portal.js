@@ -100,7 +100,7 @@
         }
       },
       accountSettingsPage() {
-        return process.env.OAUTH_ACCOUNT_PAGE;
+        return `${process.env.OAUTH_ORIGIN}/auth/realms/${process.env.OAUTH_REALM}/account`;
       }
     },
     methods: {

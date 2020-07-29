@@ -244,9 +244,9 @@ if (Number(process.env['ENABLE_XX_USER_AUTH'])) {
         client_id: process.env.OAUTH_CLIENT,
         scope: process.env.OAUTH_SCOPE.split(','),
         realm: process.env.OAUTH_REALM,
-        authorization_endpoint: process.env.OAUTH_URL + '/auth',
-        access_token_endpoint: process.env.OAUTH_URL + '/token',
-        userinfo_endpoint: process.env.OAUTH_URL + '/userinfo',
+        authorization_endpoint: `${process.env.OAUTH_ORIGIN}/auth/realms/${process.env.OAUTH_REALM}/protocol/openid-connect/auth`,
+        access_token_endpoint: `${process.env.OAUTH_ORIGIN}/auth/realms/${process.env.OAUTH_REALM}/protocol/openid-connect/token`,
+        userinfo_endpoint: `${process.env.OAUTH_ORIGIN}/auth/realms/${process.env.OAUTH_REALM}/protocol/openid-connect/userinfo`,
         response_type: 'code id_token token',
         token_type: 'Bearer'
       }
