@@ -92,7 +92,7 @@
     width: 20%;
   }
   .swiper-container {
-    max-width: 700px;
+    /* max-width: 1024px; */
     height: 568px;
   }
   .swiper-button-prev, .swiper-button-next {
