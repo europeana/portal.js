@@ -17,7 +17,7 @@
       <iframe
         data-qa="media player"
         allowfullscreen="true"
-        :src="$path({ name: 'media', query: { id: europeanaIdentifier, mediaUrl: media.about, dashRequired: requiresDashJS } })"
+        :src="$path({ name: 'media', query: { id: europeanaIdentifier, mediaUrl: media.about, mediaType: media.ebucoreHasMimeType } })"
         class="media-player"
       />
     </div>
@@ -59,7 +59,7 @@
   import oEmbed from '../../plugins/oembed';
   import {
     isPlayableMedia, isHTMLVideo, isHTMLAudio, isIIIFImage, isIIIFPresentation,
-    isOEmbed, isRichMedia, iiifManifest, requiresDashJS
+    isOEmbed, isRichMedia, iiifManifest
   } from '../../plugins/media';
 
   export default {
@@ -118,9 +118,6 @@
       },
       isOEmbed() {
         return isOEmbed(this.media);
-      },
-      requiresDashJS() {
-        return requiresDashJS(this.media);
       }
     },
 

@@ -7,6 +7,8 @@
 </template>
 
 <script>
+  import { requiresDashJS } from '../../plugins/media';
+
   export default {
     layout: 'minimal',
 
@@ -14,7 +16,7 @@
       return {
         id: query.id,
         mediaUrl: query.mediaUrl,
-        dashRequired: query.dashRequired
+        mediaType: query.mediaType
       };
     },
 
@@ -30,6 +32,9 @@
     computed: {
       manifest() {
         return `https://iiif.europeana.eu/presentation${this.id}/manifest?format=3`;
+      },
+      dashRequired() {
+        return requiresDashJS(this.mediaType);
       }
     },
 

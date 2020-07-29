@@ -75,5 +75,5 @@ export function isRichMedia(media) {
 }
 
 export function requiresDashJS(media) {
-  return media.ebucoreHasMimeType === 'application/dash+xml';
+  return media === 'application/dash+xml';
 }
