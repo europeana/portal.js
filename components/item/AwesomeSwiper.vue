@@ -15,7 +15,7 @@
 </template>
 
 <script>
-  import { Swiper, SwiperSlide, directive } from 'vue-awesome-swiper'
+  import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
   import 'swiper/swiper-bundle.css'
 
   export default {
@@ -23,9 +23,6 @@
     components: {
         Swiper,
         SwiperSlide
-    },
-    directives: {
-        swiper: directive
     },
     data() {
       return {
@@ -53,12 +50,20 @@
 </script>
 
 <style lang="scss" scoped>
-  /* .swiper-slide {
+  .swiper-slide {
     width: 60%;
+    /* img {
+      height: 100%;
+      width: 100%;
+      object-fit: contain;
+    } */
   }
   .swiper-slide:nth-child(2n) {
     width: 40%;
-  } */
+  }
+  .swiper-slide:nth-child(3n) {
+    width: 20%;
+  }
   .swiper-container {
     max-width: 700px;
     height: 568px;
