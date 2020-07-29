@@ -170,7 +170,7 @@ describe('plugins/media', () => {
     it('returns `true` if ebucoreHasMimeType is for Dash XML', () => {
       const ebucoreHasMimeType = 'application/dash+xml';
 
-      media.requiresDashJS( ebucoreHasMimeType ).should.be.true;
+      media.requiresDashJS(ebucoreHasMimeType).should.be.true;
     });
   });
 });
