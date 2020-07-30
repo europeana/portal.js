@@ -65,6 +65,7 @@
 
           <DebugMenu
             v-if="showDebugMenu"
+            data-qa="debug menu"
           />
         </b-col>
       </b-row>
@@ -145,7 +146,7 @@
       }),
 
       showDebugMenu() {
-        return this.debugSettings.apiRequests;
+        return !!this.debugSettings.apiRequests;
       }
     }
   };
