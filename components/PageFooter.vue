@@ -89,6 +89,8 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex';
+
   import LangSelector from './generic/LanguageSelector';
   import LinkGroup from './generic/LinkGroup';
 
@@ -138,8 +140,12 @@
     },
 
     computed: {
+      ...mapGetters({
+        debugSettings: 'debug/settings'
+      }),
+
       showDebugMenu() {
-        return this.$store.getters['debug/settings'].apiRequests;
+        return this.debugSettings.apiRequests;
       }
     }
   };
