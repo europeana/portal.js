@@ -56,7 +56,7 @@
     data() {
       return {
         swiperOptions: {
-          slidesPerView: 2,
+          slidesPerView: 'auto',
           spaceBetween: 10,
           centeredSlides: true,
           navigation: {
@@ -87,6 +87,16 @@
     max-height: 568px;
     height: 55vh;
   }
+
+  .swiper-slide {
+    width: auto;
+    a {
+      display: inline-flex;
+      height: 100%;
+      align-items: center;
+    }
+  }
+
   .swiper-button-prev, .swiper-button-next {
     color: #999;
     background: #fff;
