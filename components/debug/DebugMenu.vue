@@ -1,7 +1,7 @@
 <template>
   <figure data-qa="debug menu">
     <figcaption class="text-uppercase font-weight-bold">
-      Debug
+      {{ $t('debug.debug') }}
     </figcaption>
     <ul
       class="m-0 p-0 footer-link-list"

@@ -11,7 +11,7 @@
             switch
             data-qa="API requests switch"
           >
-            API requests
+            {{ $t('debug.apiRequests') }}
           </b-form-checkbox>
         </b-form>
       </b-col>
@@ -30,7 +30,7 @@
     data() {
       return {
         settings: { ...this.$store.getters['debug/settings'] },
-        title: 'Debug'
+        title: this.$t('debug.debug')
       };
     },
 

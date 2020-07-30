@@ -6,12 +6,12 @@
       v-b-modal.api-requests
       variant="light"
     >
-      API requests
+      {{ title }}
     </b-button>
     <b-modal
       id="api-requests"
       size="xl"
-      title="API requests"
+      :title="title"
       hide-footer
     >
       <ol>
@@ -47,6 +47,12 @@
         type: Array,
         default: () => []
       }
+    },
+
+    data() {
+      return {
+        title: this.$t('debug.apiRequests')
+      };
     }
   };
 </script>
