@@ -6,6 +6,7 @@
               :image-src="item.about"
             />
         </swiper-slide>
+        <div class="swiper-pagination" slot="pagination"></div>
         <div class="swiper-button-prev" slot="button-prev"></div>
         <div class="swiper-button-next" slot="button-next"></div>
     </swiper>
@@ -37,11 +38,15 @@
       return {
         swiperOptions: {
           slidesPerView: 3,
-          spaceBetween: 20,
+          spaceBetween: 40,
           centeredSlides: true,
           navigation: {
             nextEl: '.swiper-button-next',
             prevEl: '.swiper-button-prev'
+          },
+          pagination: {
+            el: '.swiper-pagination',
+            clickable: true
           }
         }
       }
@@ -60,24 +65,31 @@
 
 <style lang="scss" scoped>
   .swiper-slide {
-    width: 60%;
-    /* img {
-      height: 100%;
-      width: 100%;
-      object-fit: contain;
-    } */
+    /* width: 60%; */
+    img {
+      max-height: 100%;
+      /* width: 100%;
+      object-fit: contain; */
+    }
   }
-  .swiper-slide:nth-child(2n) {
+  /* .swiper-slide:nth-child(2n) {
     width: 40%;
   }
   .swiper-slide:nth-child(3n) {
     width: 20%;
-  }
+  } */
   .swiper-container {
     /* max-width: 1024px; */
     height: 568px;
   }
   .swiper-button-prev, .swiper-button-next {
     color: #999;
+    background: #fff;
+    border-radius: 50%;
+    width: 45px;
+    opacity: 0.7;
+  }
+  .swiper-button-prev:after, .swiper-button-next:after {
+    font-size: 22px;
   }
 </style>

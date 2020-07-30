@@ -21,23 +21,23 @@ storiesOf('Item page/Awesome Swiper', module)
       };
     },
     template: `
-      <b-container class="mt-3">
+      <div class="mt-3">
         <AwesomeSwiper
           :europeana-identifier="id"
           :media="media"
         />
-      </b-container>
+      </div>
     `
   }))
   .add('Full height images', () => ({
     i18n,
     components: { AwesomeSwiper },
     template: `
-      <b-container class="mt-3">
+      <div class="mt-3">
         <AwesomeSwiper
           :europeana-identifier="id"
           :media="media"
         />
-      </b-container>
+      </div>
     `
   }));
