@@ -23,19 +23,9 @@
           :remove-link-to="pillRemoveLinkTo"
         />
       </template>
-      <b-button
-        v-show="showSearch"
-        data-qa="back button"
-        class="back d-lg-none"
-        variant="light"
-        :aria-label="$t('header.backToMenu')"
-        @click="backToMenu"
-      />
       <b-form-input
-        v-show="showSearch"
         ref="searchbox"
         v-model="query"
-        class="d-lg-block"
         :placeholder="$t('searchPlaceholder')"
         name="query"
         data-qa="search box"
@@ -45,20 +35,12 @@
         :aria-label="$t('search')"
         @input="getSearchSuggestions"
       />
-      <b-button
-        v-show="showSearch && showSearchQuery"
-        data-qa="clear button"
-        class="clear d-lg-none"
-        variant="light"
-        :aria-label="$t('header.clearQuery')"
-        @click="clearQuery"
-      />
       <template
         v-if="pillLabel"
       >
         <div
-          v-show="showSearch && showSearchQuery"
-          class="collection search-query d-lg-none"
+          v-show="showSearchQuery"
+          class="collection search-query"
         >
           <b-button
             type="submit"
@@ -72,8 +54,8 @@
           </b-button>
         </div>
         <div
-          v-show="showSearch && showSearchQuery"
-          class="search-query d-lg-none"
+          v-show="showSearchQuery"
+          class="search-query"
         >
           <b-button
             data-qa="search entire collection button"
@@ -90,8 +72,8 @@
         v-else
       >
         <div
-          v-show="showSearch && showSearchQuery"
-          class="search-query d-lg-none"
+          v-show="showSearchQuery"
+          class="search-query"
         >
           <b-button
             type="submit"
@@ -105,21 +87,13 @@
           </b-button>
         </div>
       </template>
-      <b-button
+      <!--<b-button
         type="submit"
         data-qa="desktop search button"
         class="search d-none d-lg-block"
         variant="primary"
         :aria-label="$t('search')"
-      />
-      <b-button
-        v-show="!showSearch"
-        data-qa="show mobile search button"
-        class="search d-lg-none mr-3"
-        variant="light"
-        :aria-label="$t('search')"
-        @click="toggleSearchBar"
-      />
+      />-->
       <AutoSuggest
         v-if="enableAutoSuggest"
         v-model="suggestions"
@@ -168,7 +142,6 @@
       ...mapGetters({
         apiConfig: 'apis/config',
         queryUpdatesForFacetChanges: 'search/queryUpdatesForFacetChanges',
-        showSearch: 'ui/searchView',
         view: 'search/activeView'
       }),
 
@@ -327,17 +300,66 @@
 
   .form-inline {
     width: auto;
+
+    &.open {
+      width: 100%;
+
+      .form-control {
+        width: 100%;
+        padding: 0.375rem 1rem 0.375rem 3.5rem;
+        height: 3.5rem;
+        color: $mediumgrey;
+        box-shadow: $boxshadow-light;
+      }
+
+      .search-query {
+        width: 100%;
+        height: 3.5rem;
+        font-size: 1rem;
+        color: $mediumgrey;
+        display: flex;
+        align-items: center;
+        position: relative;
+        background: $white;
+
+        .search {
+          position: absolute;
+          width: 100%;
+          left: 0;
+          top: 0;
+          z-index: 99;
+          height: 3.5rem;
+          padding: 0.375rem 1rem 0.375rem 3.5rem;
+          justify-content: flex-start;
+
+          &:focus {
+            background: $white;
+            outline: none;
+            color: $black;
+            ~ span {
+              z-index: 99;
+            }
+          }
+
+          &:before {
+            left: 1rem;
+            top: 1rem;
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
+        }
+      }
+    }
   }
 
   .input-group {
     width: 100%;
-
     .input-group-prepend {
-      align-items: center;
-      background-color: $offwhite;
-      padding-left: 0.75rem;
-      padding-right: 0.1rem;
-      border-radius: $border-radius 0 0 $border-radius;
+      display: none;
     }
   }
 
@@ -346,9 +368,18 @@
   }
 
   .btn {
+    align-items: center;
+    background: none;
     border-radius: 0;
-    font-size: 1rem;
+    border: 0;
     box-shadow: none;
+    color: $black;
+    display: flex;
+    font-size: 1rem;
+    height: 1.5rem;
+    justify-content: center;
+    padding: 0;
+    width: 1.5rem;
 
     &:before {
       @extend .icon-font;
@@ -375,99 +406,6 @@
       &:before {
         content: '\e904';
       }
-    }
-  }
-
-  @media (max-width: $bp-large) {
-    .btn {
-      background: none;
-      color: $black;
-      border: none;
-      padding: 0;
-      height: 1.5rem;
-      width: 1.5rem;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    .form-inline {
-      &.open {
-        width: 100%;
-        .form-control {
-          width: 100%;
-          padding: 0.375rem 1rem 0.375rem 3.5rem;
-          height: 3.5rem;
-          color: $mediumgrey;
-          box-shadow: $boxshadow-light;
-        }
-        .search-query {
-          width: 100%;
-          height: 3.5rem;
-          font-size: 1rem;
-          color: $mediumgrey;
-          display: flex;
-          align-items: center;
-          position: relative;
-          background: $white;
-          .search {
-            position: absolute;
-            width: 100%;
-            left: 0;
-            top: 0;
-            z-index: 99;
-            height: 3.5rem;
-            padding: 0.375rem 1rem 0.375rem 3.5rem;
-            justify-content: flex-start;
-            &:focus {
-              background: $white;
-              outline: none;
-              color: $black;
-              ~ span {
-                z-index: 99;
-              }
-            }
-            &:before {
-              left: 1rem;
-              top: 1rem;
-              position: absolute;
-              width: 24px;
-              height: 24px;
-              display: flex;
-              justify-content: center;
-              align-items: center;
-            }
-          }
-        }
-      }
-    }
-    .input-group .input-group-prepend {
-      display: none;
-    }
-  }
-
-  @media (min-width: $bp-large) {
-    .input-group {
-      margin: 0.46875rem 0;
-    }
-    .btn {
-      border-radius: 0 $border-radius $border-radius 0;
-      background: $blue;
-      border-color: $blue;
-      color: $white;
-      padding: 0.375rem 0.75rem;
-      height: auto;
-      width: auto;
-      outline: none;
-
-      &:before {
-        transform: translateY(-0.1rem);
-      }
-    }
-    .form-control:not(:first-child) {
-      display: block;
-      background-color: $offwhite;
-      border-radius: $border-radius 0 0 $border-radius;
-      margin-right: 0;
     }
   }
 </style>
