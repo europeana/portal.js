@@ -5,20 +5,35 @@ function setApiUrl(endpoint) {
   return `${config.set.origin}${config.set.path}${endpoint}`;
 }
 
-export default $axios => ({
+export default ($axios) => ({
+/**
+ * Get the user's set with type BookmarkFolder
+ * @param {string} creator the creator's id
+ * @return {String} the id of the set
+ */
+  getLikes(creator) {
+    return $axios.get(setApiUrl('/search?query=creator:' + creator + '+type:BookmarkFolder'))
+      .then((response) => {
+        return response.data.items ? response.data.items[0].split('/').pop() : '';
+      })
+      .catch((error) => {
+        throw apiError(error);
+      });
+  },
 
   /**
- * Create a set with a fixed title "LIKES"
+ * Create a set of type BookmarkFolder with a fixed title
  * @return {Object} API response data
  */
   createLikes() {
     return $axios.post(setApiUrl('/'),
       {
+        type: 'BookmarkFolder',
         title: {
           en: 'LIKES'
-        }
+        },
+        visibility: 'private'
       }
-
     )
       .then((response) => {
         return response.data;

@@ -14,7 +14,7 @@
       data-qa="like button"
       :aria-label="$t('actions.like')"
       size="sm"
-      @click="doLike()"
+      @click="toggleLiked()"
     />
   </div>
 </template>
@@ -25,11 +25,10 @@
 
     props: {
       itemUrl: {
-        type: [String, Object],
-        default: ''
+        type: Object,
+        default: () => {}
       }
     },
-
     data() {
       return {
         liked: false
@@ -38,35 +37,38 @@
     computed: {
       itemId() {
         return this.itemUrl.params[0];
+      },
+      likesId: {
+        get() {
+          return this.$store.getters['galleries/likesId'];
+        },
+        set(value) {
+          this.$store.commit('galleries/setLikesId', value);
+        }
       }
     },
-
     methods: {
-      setLikesId(id) {
-        if (process.browser) {
-          localStorage.setItem('likesId', id);
+      async setLikesId() {
+        const creator = this.$auth.user ? this.$auth.user.sub : '';
+        let likes = await this.$galleries.getLikes(creator);
+        if (likes === '') {
+          const response = await this.$galleries.createLikes();
+          likes = response.id.split('/').pop();
         }
+        this.likesId = likes;
       },
-
-      getLikesId() {
-        return localStorage.getItem('likesId');
-      },
-
-      doLike() {
-        this.liked ? this.like(false) : this.like(true);
-      },
-
-      async like(val) {
-        if (val) {
-          if (!this.getLikesId()) {
-            const response = await this.$galleries.createLikes();
-            this.setLikesId(response.id.split('/').pop());
-          }
-          await this.$galleries.modifyItems('add', this.getLikesId(), this.itemId);
-        } else {
-          await this.$galleries.modifyItems('delete', this.getLikesId(), this.itemId);
-        }
+      async toggleLiked() {
+        await (this.liked ? this.unlike() : this.like());
         this.liked = !this.liked;
+      },
+      async like() {
+        if (this.likesId === '') {
+          await this.setLikesId();
+        }
+        await this.$galleries.modifyItems('add', this.likesId, this.itemId);
+      },
+      async unlike() {
+        await this.$galleries.modifyItems('delete', this.likesId, this.itemId);
       }
     }
   };

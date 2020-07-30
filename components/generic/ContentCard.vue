@@ -80,11 +80,10 @@
         </template>
       </b-card-body>
     </SmartLink>
-    <template v-if="showUserButtons">
-      <UserButtons
-        :item-url="url"
-      />
-    </template>
+    <UserButtons
+      v-if="showUserButtons"
+      :item-url="url"
+    />
   </b-card>
 </template>
 

@@ -6,28 +6,13 @@ import sinon from 'sinon';
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
-global.localStorage = {
-  data: {  },
-  getItem(key) {
-    return this.data[key];
-  },
-  setItem(key, value) {
-    this.data[key] = value;
-  },
-  removeItem(key) {
-    delete this.data[key];
-  }
-};
-
 const mockProps =  {
   itemUrl: {
     params: ['item-id-01']
   }
 };
+
 const $galleries = {
-  createLikes() {
-    return { id: 'user/likes-id' };
-  },
   modifyItems: sinon.spy()
 };
 
@@ -35,6 +20,11 @@ const factory = () => mount(UserButtons, {
   localVue,
   mocks: {
     $galleries,
+    $store: {
+      getters: {
+        'galleries/likesId': 'gallery-likes-id'
+      }
+    },
     $t: () => {}
   }
 });
