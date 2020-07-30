@@ -7,14 +7,16 @@
     <h2 class="related-heading text-uppercase mt-4 mb-2">
       {{ title }}
     </h2>
-    <RelatedChip
-      v-for="relatedCollection in relatedCollections"
-      :id="relatedCollection.id"
-      :key="relatedCollection.id"
-      :link-to="linkGen(relatedCollection)"
-      :title="relatedCollection.prefLabel ? relatedCollection.prefLabel[$i18n.locale] : relatedCollection.name"
-      :img="imageUrl(relatedCollection)"
-    />
+    <div class="d-flex flex-wrap">
+      <RelatedChip
+        v-for="relatedCollection in relatedCollections"
+        :id="relatedCollection.id"
+        :key="relatedCollection.id"
+        :link-to="linkGen(relatedCollection)"
+        :title="relatedCollection.prefLabel ? relatedCollection.prefLabel : relatedCollection.name"
+        :img="imageUrl(relatedCollection)"
+      />
+    </div>
   </b-container>
 </template>
 
