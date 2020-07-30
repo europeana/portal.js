@@ -38,22 +38,20 @@
           >
             <span class="label">{{ $t('account.linkAccount') }}</span>
           </template>
-          <b-dropdown-item
-            :to="localePath({ name: 'account' })"
-          >
-            <span class="label">{{ $t('account.profile') }}</span>
-          </b-dropdown-item>
-          <b-dropdown-item
-            :href="accountSettingsPage"
-          >
-            <span class="label">{{ $t('account.settings') }}</span>
-          </b-dropdown-item>
-          <b-dropdown-divider />
-          <b-dropdown-item
-            :to="localePath({ name: 'account-logout' })"
-          >
-            <span class="label">{{ $t('account.linkLogout') }}</span>
-          </b-dropdown-item>
+          <template v-for="(item, index) in authLinks">
+            <b-dropdown-divider
+              v-if="item.divider"
+              :key="index"
+            />
+            <b-dropdown-item
+              v-else
+              :key="index"
+              :to="item.to"
+              :href="item.href"
+            >
+              <span class="label">{{ item.text }}</span>
+            </b-dropdown-item>
+          </template>
         </b-dropdown>
       </li>
       <li
@@ -85,6 +83,16 @@
         default: () => []
       }
     },
+    data() {
+      return {
+        authLinks: [
+          { to: this.localePath({ name: 'account' }), text: this.$t('account.profile') },
+          { href: `${process.env.OAUTH_ORIGIN}/auth/realms/${process.env.OAUTH_REALM}/account`, text: this.$t('account.settings') },
+          { divider: true },
+          { to: { name: 'account-logout' }, text: this.$t('account.linkLogout') }
+        ]
+      };
+    },
     computed: {
       enableAuthLinks() {
         return Boolean(Number(process.env.ENABLE_XX_USER_AUTH));
@@ -93,14 +101,7 @@
         return this.$store.state.auth.loggedIn;
       },
       isAccountPage() {
-        if (this.$route.name.startsWith('account')) {
-          return true;
-        } else {
-          return false;
-        }
-      },
-      accountSettingsPage() {
-        return `${process.env.OAUTH_ORIGIN}/auth/realms/${process.env.OAUTH_REALM}/account`;
+        return this.$route.name.startsWith('account');
       }
     },
     methods: {
@@ -127,9 +128,6 @@
           break;
         }
         return className;
-      },
-      async logout() {
-        await this.$auth.logout();
       }
     }
   };

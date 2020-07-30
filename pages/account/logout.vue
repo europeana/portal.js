@@ -5,10 +5,12 @@
 <script>
   export default {
     auth: true,
-    layout: 'default',
-    middleware: 'auth',
-    mounted() {
-      this.$auth.logout();
-    }
+    layout: 'minimal',
+    middleware: [
+      'auth',
+      ({ $auth }) => {
+        $auth.logout();
+      }
+    ]
   };
 </script>

@@ -4,6 +4,7 @@
     class="mt-n3"
   >
     <b-container
+      v-if="loggedInUser"
       fluid
     >
       <b-row class="bg-white">
@@ -50,11 +51,23 @@
         </b-col>
       </b-row>
     </b-container>
+    <div
+      v-else
+      class="text-center p-5"
+    >
+      <LoadingSpinner />
+    </div>
   </div>
 </template>
 
 <script>
+  import LoadingSpinner from '../../components/generic/LoadingSpinner';
+
   export default {
+    components: {
+      LoadingSpinner
+    },
+
     middleware: 'auth',
 
     computed: {
