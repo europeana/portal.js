@@ -9,6 +9,7 @@
           <b-form-checkbox
             v-model="settings.apiRequests"
             switch
+            data-qa="API requests switch"
           >
             API requests
           </b-form-checkbox>

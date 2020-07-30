@@ -50,13 +50,36 @@ module.exports = {
   escapeCssAttributeSelector(selector) {
     return selector.replace(/"/g, '\\"');
   },
-  async checkTheCheckbox(inputName, inputValue) {
+  async checkTheCheckboxWithNameAndValue(inputName, inputValue) {
     const selector = `input[type="checkbox"][name="${inputName}"][value="${this.escapeCssAttributeSelector(inputValue)}"]`;
+    await this.checkTheCheckbox(selector);
+  },
+  async checkTheCheckbox(selector) {
     await client.getAttribute(selector, 'id', async(result) => {
       const checkboxId = result.value;
       const labelSelector = `label[for="${checkboxId}"]`;
       client.click(labelSelector);
     });
+  },
+  async switchTheTargetOnOrOff(qaElementName, onOrOff) {
+    const selector = qaSelector(qaElementName);
+
+    const wantedState = onOrOff === 'on' ? 'true' : null;
+    let currentState;
+
+    await client.getAttribute(selector, 'checked', async(result) => {
+      currentState = result.value;
+    });
+
+    if (currentState !== wantedState) await this.checkTheCheckbox(selector);
+  },
+  async observeTheTargetIsSwitchedOnOrOff(qaElementName, onOrOff) {
+    const selector = qaSelector(qaElementName);
+
+    const wantedStateAttributeSelector = onOrOff === 'on' ?
+      '[checked]' : ':not([checked])';
+
+    await client.waitForElementVisible(`${selector}${wantedStateAttributeSelector}`);
   },
   async checkTheRadio(inputName, inputValue) {
     const selector = `input[type="radio"][name="${inputName}"][value="${this.escapeCssAttributeSelector(inputValue)}"]`;

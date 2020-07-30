@@ -1,5 +1,5 @@
 <template>
-  <figure>
+  <figure data-qa="debug menu">
     <figcaption class="text-uppercase font-weight-bold">
       Debug
     </figcaption>
