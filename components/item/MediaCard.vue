@@ -6,7 +6,7 @@
   >
     <b-img-lazy
       :src="imageSrc"
-      class="mw-100"
+      class="w-100"
       alt=""
       data-qa="media preview image"
     />
@@ -50,7 +50,7 @@
 
 <style lang="scss" scoped>
   img {
-    display: block;
-    margin: 0 auto;
+    max-height: 100%;
+    object-fit: contain;
   }
 </style>

@@ -64,14 +64,9 @@
 </script>
 
 <style lang="scss" scoped>
-  .swiper-slide {
-    /* width: 60%; */
-    img {
-      max-height: 100%;
-      /* width: 100%;
-      object-fit: contain; */
-    }
-  }
+  /* .swiper-slide {
+    width: 60%;
+  } */
   /* .swiper-slide:nth-child(2n) {
     width: 40%;
   }
@@ -80,7 +75,8 @@
   } */
   .swiper-container {
     /* max-width: 1024px; */
-    height: 568px;
+    max-height: 568px;
+    height: 55vh;
   }
   .swiper-button-prev, .swiper-button-next {
     color: #999;
