@@ -14,10 +14,13 @@
       :title="title"
       hide-footer
     >
-      <ol>
+      <ol
+        v-if="requests.length > 0"
+      >
         <li
           v-for="(request, index) of requests"
           :key="index"
+          data-qa="api request"
         >
           <code>
             {{ request.method }}
