@@ -26,7 +26,7 @@
 </template>
 
 <script>
-  import { isImage } from '../../plugins/media';
+  // import { isImage } from '../../plugins/media';
 
   export default {
     props: {

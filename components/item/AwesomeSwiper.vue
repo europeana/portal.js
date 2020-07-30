@@ -1,28 +1,47 @@
 <template>
-    <swiper ref="awesome" :options="swiperOptions">
-        <swiper-slide v-for="(item, index) in media" :key="index">
-            <MediaCard
-              :europeana-identifier="item.europeanaIdentifier"
-              :image-src="item.about"
-            />
-        </swiper-slide>
-        <div class="swiper-pagination" slot="pagination"></div>
-        <div class="swiper-button-prev" slot="button-prev"></div>
-        <div class="swiper-button-next" slot="button-next"></div>
-    </swiper>
+  <swiper
+    ref="awesome"
+    class="swiper"
+    :options="swiperOptions"
+  >
+    <swiper-slide
+      v-for="(item, index) in media"
+      :key="index"
+    >
+      <MediaCard
+        :europeana-identifier="item.europeanaIdentifier"
+        :image-src="item.about"
+      />
+    </swiper-slide>
+    <div
+      slot="pagination"
+      class="swiper-pagination"
+    />
+    <div
+      slot="button-prev"
+      class="swiper-button-prev"
+    />
+    <div
+      slot="button-next"
+      class="swiper-button-next"
+    />
+  </swiper>
 </template>
 
 <script>
-  import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
-  import 'swiper/swiper-bundle.css'
+  import { Swiper, SwiperSlide, directive } from 'vue-awesome-swiper';
+  import 'swiper/swiper-bundle.css';
   import MediaCard from './MediaCard';
 
   export default {
     name: 'AwesomeSwiper',
     components: {
-        Swiper,
-        SwiperSlide,
-        MediaCard
+      Swiper,
+      SwiperSlide,
+      MediaCard
+    },
+    directives: {
+      swiper: directive
     },
     props: {
       europeanaIdentifier: {
@@ -37,8 +56,7 @@
     data() {
       return {
         swiperOptions: {
-          slidesPerView: 3,
-          spaceBetween: 40,
+          slidesPerView: 2,
           centeredSlides: true,
           navigation: {
             nextEl: '.swiper-button-next',
@@ -49,11 +67,11 @@
             clickable: true
           }
         }
-      }
+      };
     },
     computed: {
       swiper() {
-        return this.$refs.awesome.$swiper
+        return this.$refs.awesome.$swiper;
       }
     },
     mounted() {
