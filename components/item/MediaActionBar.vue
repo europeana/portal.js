@@ -104,7 +104,7 @@
 <script>
   import RightsStatement from '../../components/generic/RightsStatement';
   import SmartLink from '../../components/generic/SmartLink';
-  import SocialShare from '../../components/generic/SocialShare';
+  import SocialShare from '../../components/sharing/SocialShare';
 
   export default {
     name: 'MediaActionBar',

@@ -4,14 +4,12 @@ Feature: Entity page
     When I open an `entity page`
     Then I see the `entity page`
     And I see an `entity title`
-    And I see an `entity depiction`
-    And I see an `entity attribution`
     And I don't have an `entity description`
     And I see `total results`
     And I see a `search list view toggle`
     And I see a `search bar pill`
     And I see a `search facet`
-    And I should see 9 `search result`s
+    And I should see 24 `search result`s
     And I see a `pagination navigation`
     And I don't have a `contentTier facet`
     And I am on an accessible page
@@ -28,15 +26,15 @@ Feature: Entity page
     When I open an `entity page`
     And I see the `entity page`
     Then I see `related entities`
-    And I see the `Book entity card` in the `related entities`
-    And I see the `Theatre entity card` in the `related entities`
-    And I see the `Tragedy entity card` in the `related entities`
-    And I see the `Drama entity card` in the `related entities`
+    And I see the `Book related chip` in the `related entities`
+    And I see the `Theatre related chip` in the `related entities`
+    And I see the `Tragedy related chip` in the `related entities`
+    And I see the `Drama related chip` in the `related entities`
 
   Scenario: Click on a related entity
     When I open an `entity page`
     And I see the `entity page`
-    And I click an `Book entity card`
+    And I click the `Book related chip`
     And I wait for the page to load
     Then I should not be on the `entity page`
 
@@ -56,6 +54,8 @@ Feature: Entity page
 
   Scenario: Pagination links work when the page was accessed from the url
     When I visit `/en/collections/person/60305-william-shakespeare?page=2`
+    And I wait 1 second
+    And I see the `pagination navigation`
     And I go to page number 3
     And I wait for the page to load
     Then I should be on `/en/collections/person/60305-william-shakespeare?page=3&view=grid`

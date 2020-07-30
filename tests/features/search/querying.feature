@@ -16,7 +16,7 @@ Feature: Search querying
     When I visit a `search page`
     And I enter "no results for GIBBERISHABCDEFGHIJKLMONP" in the `search box`
     And I press the ENTER key
-     And I wait for the page to load
+    And I wait for the page to load
     Then I don't have a `search result`
     And I see an `error notice` with the text "Error: No results"
 
@@ -24,7 +24,7 @@ Feature: Search querying
     When I visit a `search page`
     And I enter "*:*:*" in the `search box`
     And I press the ENTER key
-     And I wait for the page to load
+    And I wait for the page to load
     Then I don't have a `search result`
     And I see an `error notice` with the text "Error"
 

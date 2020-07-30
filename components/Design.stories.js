@@ -121,7 +121,8 @@ storiesOf('Design', module)
           'icon-license-rs-unknown',
           'icon-close',
           'icon-caret-down',
-          'icon-external-link'
+          'icon-external-link',
+          'icon-cancel-circle'
         ]
       };
     },

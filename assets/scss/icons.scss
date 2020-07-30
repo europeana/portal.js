@@ -2,7 +2,7 @@
 [class*=' icon-'],
 .icon-font {
   /* use !important to prevent issues with browser extensions that change fonts */
-  /* stylelint-disable-next-line */ 
+  /* stylelint-disable-next-line */
   font-family: 'icomoon';
   speak: none;
   font-style: normal;
@@ -51,4 +51,16 @@
 
 .icon-heart:before {
   content: '\e9da';
+}
+
+.icon-info:before {
+  content: '\e91f';
+}
+
+.icon-cancel-circle:before {
+  content: '\ea0d';
+}
+
+.icon-share:before {
+  content: '\e925';
 }

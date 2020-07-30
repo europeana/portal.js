@@ -97,69 +97,11 @@
             />
           </div>
 
-          <div>
-            <b-card
-              no-body
-              class="mb-3 rounded-0"
-            >
-              <b-tabs card>
-                <b-tab
-                  :title="$t('record.goodToKnow')"
-                  active
-                >
-                  <b-card-text
-                    text-tag="div"
-                    data-qa="main metadata section"
-                  >
-                    <MetadataField
-                      v-for="(value, name) in coreFields"
-                      :key="name"
-                      :name="name"
-                      :field-data="value"
-                    />
-                  </b-card-text>
-                </b-tab>
-                <b-tab
-                  :title="$t('record.allMetaData')"
-                >
-                  <b-card-text
-                    text-tag="div"
-                  >
-                    <MetadataField
-                      v-for="(value, name) in allMetaData"
-                      :key="name"
-                      :name="name"
-                      :field-data="value"
-                    />
-                  </b-card-text>
-                </b-tab>
-                <b-tab
-                  v-if="Boolean(transcribingAnnotations.length)"
-                  :title="$t('record.transcription')"
-                >
-                  <b-card-text
-                    text-tag="div"
-                  >
-                    <p
-                      class="disclaimer px-2 pb-3 d-flex"
-                    >
-                      {{ $t('record.transcriptionDisclaimer') }}
-                    </p>
-                    <div
-                      v-for="(transcription, index) in transcribingAnnotations"
-                      :key="index"
-                      :lang="transcription.body.language"
-                    >
-                      <p>{{ transcription.body.value }}</p>
-                      <hr
-                        v-if="index !== (transcribingAnnotations.length - 1)"
-                      >
-                    </div>
-                  </b-card-text>
-                </b-tab>
-              </b-tabs>
-            </b-card>
-          </div>
+          <MetadataBox
+            :all-metadata="allMetaData"
+            :core-metadata="coreFields"
+            :transcribing-annotations="transcribingAnnotations"
+          />
 
           <section
             v-if="similarItems.length > 0"
@@ -199,7 +141,7 @@
   import ClientOnly from 'vue-client-only';
   import MediaActionBar from '../../components/item/MediaActionBar';
   import MediaPresentation from '../../components/item/MediaPresentation';
-  import MetadataField from '../../components/item/MetadataField';
+  import MetadataBox from '../../components/item/MetadataBox';
 
   import { getRecord, similarItemsQuery } from '../../plugins/europeana/record';
   import { search } from '../../plugins/europeana/search';
@@ -217,7 +159,7 @@
       SimilarItems: () => import('../../components/item/SimilarItems'),
       MediaPresentation,
       MediaThumbnailGrid: () => import('../../components/item/MediaThumbnailGrid'),
-      MetadataField,
+      MetadataBox,
       NotificationBanner: () => import('../../components/generic/NotificationBanner')
     },
 
@@ -526,6 +468,7 @@
     @media (min-width: $bp-large) {
       grid-column: col2-start/col2-end;
     }
+    overflow-wrap: break-word;
   }
 
   .card-grid-richmedia .card-heading {
