@@ -30,7 +30,7 @@
 
 <script>
   import { Swiper, SwiperSlide, directive } from 'vue-awesome-swiper';
-  import 'swiper/swiper-bundle.css';
+  import 'swiper/css/swiper.css';
   import MediaCard from './MediaCard';
 
   export default {
@@ -57,6 +57,7 @@
       return {
         swiperOptions: {
           slidesPerView: 2,
+          spaceBetween: 10,
           centeredSlides: true,
           navigation: {
             nextEl: '.swiper-button-next',
