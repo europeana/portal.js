@@ -1,14 +1,23 @@
 import axios from 'axios';
 
+const STORE_MODULE_NAME = 'axiosLogger';
+
 const storeModule = {
   namespaced: true,
 
   state: () => ({
+    enabled: false,
     requests: [],
     recording: false
   }),
 
   mutations: {
+    enable(state) {
+      state.enabled = true;
+    },
+    disable(state) {
+      state.enabled = false;
+    },
     start(state) {
       state.recording = true;
     },
@@ -25,27 +34,34 @@ const storeModule = {
 };
 
 export default ({ store, app }) => {
-  store.registerModule('axiosLogger', storeModule);
+  store.registerModule(STORE_MODULE_NAME, storeModule);
 
-  // TODO: only if enabled. store enabled state, and active with debug UI.
   axios.interceptors.request.use(config => {
-    const uri = axios.getUri(config);
-    const method = config.method.toUpperCase();
-    store.commit('axiosLogger/push', { method, uri });
+    if (store.state[STORE_MODULE_NAME].enabled) {
+      const uri = axios.getUri(config);
+      const method = config.method.toUpperCase();
+      store.commit(`${STORE_MODULE_NAME}/push`, { method, uri });
+    }
+
     return config;
   });
 
   app.router.beforeEach((to, from, next) => {
-    if (!store.state.axiosLogger.recording) {
-      store.commit('axiosLogger/reset');
-      store.commit('axiosLogger/start');
+    if (store.state[STORE_MODULE_NAME].enabled) {
+      if (!store.state[STORE_MODULE_NAME].recording) {
+        store.commit(`${STORE_MODULE_NAME}/reset`);
+        store.commit(`${STORE_MODULE_NAME}/start`);
+      }
     }
+
     next();
   });
 
   app.router.afterEach(() => {
-    // Only stop recording client side to prevent SSR then CSR `afterEach` calls
-    // for the same routing resetting the logger before the CSR.
-    if (process.client) store.commit('axiosLogger/stop');
+    if (store.state[STORE_MODULE_NAME].enabled) {
+      // Only stop recording client side to prevent SSR then CSR `afterEach` calls
+      // for the same routing resetting the logger before the CSR.
+      if (process.client) store.commit(`${STORE_MODULE_NAME}/stop`);
+    }
   });
 };
