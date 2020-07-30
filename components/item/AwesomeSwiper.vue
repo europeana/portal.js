@@ -83,17 +83,7 @@
 </script>
 
 <style lang="scss" scoped>
-  /* .swiper-slide {
-    width: 60%;
-  } */
-  /* .swiper-slide:nth-child(2n) {
-    width: 40%;
-  }
-  .swiper-slide:nth-child(3n) {
-    width: 20%;
-  } */
   .swiper-container {
-    /* max-width: 1024px; */
     max-height: 568px;
     height: 55vh;
   }

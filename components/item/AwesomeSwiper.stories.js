@@ -30,22 +30,4 @@ storiesOf('Item page/Awesome Swiper', module)
         />
       </div>
     `
-  }))
-  .add('Full height images', () => ({
-    i18n,
-    components: { AwesomeSwiper },
-    data() {
-      return {
-        media,
-        id: '/2020601/https___1914_1918_europeana_eu_contributions_10265'
-      };
-    },
-    template: `
-      <div class="mt-3">
-        <AwesomeSwiper
-          :europeana-identifier="id"
-          :media="media"
-        />
-      </div>
-    `
   }));
