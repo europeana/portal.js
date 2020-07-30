@@ -77,9 +77,9 @@ module.exports = {
     const selector = qaSelector(qaElementName);
 
     const wantedStateAttributeSelector = onOrOff === 'on' ?
-      '[checked]' : ':not([checked])';
+      ':checked' : ':not(:checked)';
 
-    await client.waitForElementVisible(`${selector}${wantedStateAttributeSelector}`);
+    await client.waitForElementPresent(`${selector}${wantedStateAttributeSelector}`);
   },
   async checkTheRadio(inputName, inputValue) {
     const selector = `input[type="radio"][name="${inputName}"][value="${this.escapeCssAttributeSelector(inputValue)}"]`;

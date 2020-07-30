@@ -16,6 +16,12 @@ Feature: Debug page
     When I switch the `API requests switch` off
     Then I don't have a `debug menu` in the `footer`
 
+  Scenario: Debug menu shows on all pages
+    Given I am on the `debug page`
+    And I switch the `API requests switch` on
+    When I visit the `about page`
+    Then I see a `debug menu` in the `footer`
+
   Scenario: Debug settings are persisted
     Given I am on the `debug page`
     And I switch the `API requests switch` on
