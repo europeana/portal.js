@@ -10,7 +10,6 @@
             v-model="settings.apiRequests"
             switch
             data-qa="API requests switch"
-            @change="toggleApiRequests"
           >
             {{ $t('debug.apiRequests') }}
           </b-form-checkbox>
@@ -40,16 +39,6 @@
         deep: true,
         handler(value) {
           this.$store.commit('debug/updateSettings', value);
-        }
-      }
-    },
-
-    methods: {
-      toggleApiRequests(value) {
-        if (value) {
-          this.$store.commit('axiosLogger/enable');
-        } else {
-          this.$store.commit('axiosLogger/disable');
         }
       }
     },

@@ -5,6 +5,7 @@
     <b-button
       v-b-modal.api-requests
       variant="light"
+      data-qa="API requests modal button"
     >
       {{ title }}
     </b-button>
@@ -13,6 +14,7 @@
       size="xl"
       :title="title"
       hide-footer
+      data-qa="API requests modal"
     >
       <ol
         v-if="requests.length > 0"
@@ -20,7 +22,7 @@
         <li
           v-for="(request, index) of requests"
           :key="index"
-          data-qa="api request"
+          data-qa="logged API request"
         >
           <code>
             {{ request.method }}

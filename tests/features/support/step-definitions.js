@@ -84,7 +84,7 @@ defineStep('the {target} is switched {word}', (qa, onOrOff) =>
 defineStep('I check/click the {string} {string} radio', (inputValue, inputName) =>
   i.checkTheRadio(inputName, inputValue));
 
-defineStep('I activate/click (the/a/an)( ){string} link', (href) =>
+defineStep('I activate/click/follow (the/a/an)( ){string} link', (href) =>
   i.clickOnLink(href));
 
 defineStep('the {target} is/are marked (as ){string}', (qa, klass) =>
