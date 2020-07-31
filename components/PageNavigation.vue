@@ -26,12 +26,33 @@
         v-if="isAuthenticated"
         class="nav-item"
       >
-        <b-link
-          :to="localePath({ name: 'account' })"
+        <b-dropdown
+          right
+          no-caret
+          variant="white"
           class="nav-link"
+          :class="isAccountPage && 'exact-active-link'"
         >
-          <span>{{ $t('account.linkAccount') }}</span>
-        </b-link>
+          <template
+            slot="button-content"
+          >
+            <span class="label">{{ $t('account.linkAccount') }}</span>
+          </template>
+          <template v-for="(item, index) in authLinks">
+            <b-dropdown-divider
+              v-if="item.divider"
+              :key="index"
+            />
+            <b-dropdown-item
+              v-else
+              :key="index"
+              :to="item.to"
+              :href="item.href"
+            >
+              <span class="label">{{ item.text }}</span>
+            </b-dropdown-item>
+          </template>
+        </b-dropdown>
       </li>
       <li
         v-else
@@ -62,12 +83,25 @@
         default: () => []
       }
     },
+    data() {
+      return {
+        authLinks: [
+          { to: this.localePath({ name: 'account' }), text: this.$t('account.profile') },
+          { href: `${process.env.OAUTH_ORIGIN}/auth/realms/${process.env.OAUTH_REALM}/account`, text: this.$t('account.settings') },
+          { divider: true },
+          { to: { name: 'account-logout' }, text: this.$t('account.linkLogout') }
+        ]
+      };
+    },
     computed: {
       enableAuthLinks() {
         return Boolean(Number(process.env.ENABLE_XX_USER_AUTH));
       },
       isAuthenticated() {
         return this.$store.state.auth.loggedIn;
+      },
+      isAccountPage() {
+        return this.$route.name.startsWith('account');
       }
     },
     methods: {
@@ -169,16 +203,6 @@
       }
     }
 
-    &:last-child {
-      .nav-link {
-        &.exact-active-link:after {
-          left: 0.25rem;
-        }
-        &:before {
-          right: -0.5rem;
-        }
-      }
-    }
     @media (max-width: $bp-large) {
       width: 100%;
       margin: 0 0 0.25rem 0;
@@ -223,6 +247,38 @@
           i {
             display: none;
           }
+        }
+      }
+    }
+  }
+
+  ::v-deep .dropdown {
+    &.nav-link {
+      padding: 1px 0 1px 0;
+    }
+    .label {
+      color: $mediumgrey;
+      font-size: $font-size-small;
+      font-weight: 600;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+    &-divider {
+      margin: 0;
+    }
+    &-menu {
+      margin-top: 0.65rem;
+      // padding: 0.4rem 0 0.4rem 0;
+      border-radius: 4px;
+      box-shadow: 2px 2px 4px 0 rgba(0, 0, 0, 0.2);
+      border: solid 1px #dcdcde;
+      li a {
+        padding: 0.4rem 1.2rem 0.4rem 1.2rem;
+        &:hover {
+          background-color: #dcdcde;
+        }
+        .label {
+          height: 2.4rem;
         }
       }
     }
