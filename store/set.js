@@ -7,10 +7,3 @@ export const mutations = {
     state.likesId = value;
   }
 };
-
-export const getters = {
-  likesId(state) {
-    return state.likesId ? state.likesId : '';
-  }
-};
-

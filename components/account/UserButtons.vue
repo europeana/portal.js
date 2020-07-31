@@ -40,10 +40,10 @@
       },
       likesId: {
         get() {
-          return this.$store.getters['galleries/likesId'];
+          return this.$store.state.set.likesId;
         },
         set(value) {
-          this.$store.commit('galleries/setLikesId', value);
+          this.$store.commit('set/setLikesId', value);
         }
       }
     },
@@ -62,7 +62,7 @@
         this.liked = !this.liked;
       },
       async like() {
-        if (this.likesId === '') {
+        if (this.likesId === null) {
           await this.setLikesId();
         }
         await this.$galleries.modifyItems('add', this.likesId, this.itemId);

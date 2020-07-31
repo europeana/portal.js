@@ -21,8 +21,10 @@ const factory = () => mount(UserButtons, {
   mocks: {
     $galleries,
     $store: {
-      getters: {
-        'galleries/likesId': 'gallery-likes-id'
+      state: {
+        set: {
+          likesId: 'gallery-likes-id'
+        }
       }
     },
     $t: () => {}
@@ -41,7 +43,6 @@ describe('components/account/UserButtons', () => {
     wrapper.setData({
       liked: false
     });
-
     wrapper.setProps(mockProps);
     await likeButton.trigger('click');
     $galleries.modifyItems.args[0][0].should.eq('add');

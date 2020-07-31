@@ -1,4 +1,4 @@
-import sets from './europeana/sets';
+import set from './europeana/set';
 
 export default function({ $axios, $auth, redirect }, inject) {
   const token = $auth.getToken('keycloak');
@@ -24,8 +24,8 @@ export default function({ $axios, $auth, redirect }, inject) {
     }
   });
 
-  const setsWithAxios = sets(axiosInstance);
+  const setWithAxios = set(axiosInstance);
 
-  inject('galleries', setsWithAxios);
+  inject('galleries', setWithAxios);
 }
 

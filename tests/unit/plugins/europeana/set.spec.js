@@ -1,6 +1,6 @@
 import nock from 'nock';
 
-import sets from '../../../../plugins/europeana/sets';
+import set from '../../../../plugins/europeana/set';
 import config from '../../../../modules/apis/defaults';
 const apiUrl = `${config.set.origin}${config.set.path}`;
 
@@ -27,7 +27,7 @@ const searchResponse =
     ]
   };
 
-describe('describe /plugins/europeana/sets', () => {
+describe('describe /plugins/europeana/set', () => {
   afterEach(() => {
     nock.cleanAll();
   });
@@ -37,7 +37,7 @@ describe('describe /plugins/europeana/sets', () => {
         .get('/search?query=creator:auth-user-sub+type:BookmarkFolder')
         .reply(200,  searchResponse);
 
-      const response =  await sets(axios).getLikes('auth-user-sub');
+      const response =  await set(axios).getLikes('auth-user-sub');
       response.should.eq('163');
     }
     );
@@ -48,7 +48,7 @@ describe('describe /plugins/europeana/sets', () => {
         .post('/')
         .reply(200,  likesResponse);
 
-      const response =  await sets(axios).createLikes();
+      const response =  await set(axios).createLikes();
       response.id.should.eq('http://data.europeana.eu/set/1234');
     }
     );
@@ -59,7 +59,7 @@ describe('describe /plugins/europeana/sets', () => {
         .put('/' + setId + '/' + itemId)
         .reply(200,  likesResponse);
 
-      const response =  await sets(axios).modifyItems('add', setId, itemId);
+      const response =  await set(axios).modifyItems('add', setId, itemId);
       response.id.should.eq('http://data.europeana.eu/set/1234');
     }
     );
