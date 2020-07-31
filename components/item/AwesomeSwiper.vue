@@ -57,7 +57,7 @@
       return {
         swiperOptions: {
           slidesPerView: 'auto',
-          spaceBetween: 10,
+          spaceBetween: 40,
           centeredSlides: true,
           navigation: {
             nextEl: '.swiper-button-next',
@@ -82,12 +82,11 @@
   };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
   .swiper-container {
     max-height: 568px;
     height: 55vh;
   }
-
   .swiper-slide {
     width: auto;
     a {
@@ -96,7 +95,6 @@
       align-items: center;
     }
   }
-
   .swiper-button-prev, .swiper-button-next {
     color: #999;
     background: #fff;
@@ -106,5 +104,8 @@
   }
   .swiper-button-prev:after, .swiper-button-next:after {
     font-size: 22px;
+  }
+  .swiper-pagination-bullet-active {
+    background: #fafafa;
   }
 </style>
