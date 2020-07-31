@@ -50,9 +50,9 @@
     methods: {
       async setLikesId() {
         const creator = this.$auth.user ? this.$auth.user.sub : '';
-        let likes = await this.$galleries.getLikes(creator);
+        let likes = await this.$sets.getLikes(creator);
         if (likes === '') {
-          const response = await this.$galleries.createLikes();
+          const response = await this.$sets.createLikes();
           likes = response.id.split('/').pop();
         }
         this.likesId = likes;
@@ -65,10 +65,10 @@
         if (this.likesId === null) {
           await this.setLikesId();
         }
-        await this.$galleries.modifyItems('add', this.likesId, this.itemId);
+        await this.$sets.modifyItems('add', this.likesId, this.itemId);
       },
       async unlike() {
-        await this.$galleries.modifyItems('delete', this.likesId, this.itemId);
+        await this.$sets.modifyItems('delete', this.likesId, this.itemId);
       }
     }
   };

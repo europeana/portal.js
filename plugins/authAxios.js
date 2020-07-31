@@ -26,6 +26,6 @@ export default function({ $axios, $auth, redirect }, inject) {
 
   const setWithAxios = set(axiosInstance);
 
-  inject('galleries', setWithAxios);
+  inject('sets', setWithAxios);
 }
 

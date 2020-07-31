@@ -63,7 +63,7 @@ describe('authAxios plugin', () => {
         .reply(200, {
           id: 1234
         });
-      await mockContext.$galleries.createLikes();
+      await mockContext.$sets.createLikes();
       nock.isDone().should.be.true;
     });
   }),
@@ -81,7 +81,7 @@ describe('authAxios plugin', () => {
           id: 1234
         });
 
-      await mockContext.$galleries.createLikes();
+      await mockContext.$sets.createLikes();
       mockContext.redirected.should.equal('http://redirect.url.for.login');
     });
   });
