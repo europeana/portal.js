@@ -4,12 +4,13 @@
       <h1
         :lang="title.code"
         data-qa="entity title"
+        class="pt-3"
       >
         {{ title.values[0] }}
       </h1>
       <div
         v-if="hasDescription"
-        class="mb-3 w-75"
+        class="mb-3 w-75 description"
       >
         <p
           data-qa="entity description"
@@ -135,6 +136,12 @@
         content: '\e923';
         margin-right: 0.325rem;
       }
+    }
+  }
+
+  @media (max-width: $bp-large) {
+    .description {
+      width: 100% !important;
     }
   }
 </style>
