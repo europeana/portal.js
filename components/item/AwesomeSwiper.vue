@@ -10,7 +10,8 @@
     >
       <MediaCard
         :europeana-identifier="item.europeanaIdentifier"
-        :image-src="item.about"
+        :about="item.about"
+        :image-src="item.thumbnails['large']"
       />
     </swiper-slide>
     <div
