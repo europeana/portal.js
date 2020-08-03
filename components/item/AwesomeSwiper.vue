@@ -99,7 +99,6 @@
       top: 0;
       height: 100%;
       position: absolute;
-      background: rgba(255, 255, 255, 0.3);
     }
     a {
       display: inline-flex;
