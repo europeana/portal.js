@@ -75,9 +75,6 @@
       swiper() {
         return this.$refs.awesome.$swiper;
       }
-    },
-    mounted() {
-      this.swiper.slideTo(0, 1, false)
     }
   };
 </script>
@@ -108,6 +105,9 @@
       display: inline-flex;
       height: 100%;
       align-items: center;
+    }
+    &:last-of-type {
+      margin-right: 50vw !important;
     }
   }
   .swiper-button-prev, .swiper-button-next {
