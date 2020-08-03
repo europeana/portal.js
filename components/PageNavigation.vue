@@ -86,7 +86,7 @@
     data() {
       return {
         authLinks: [
-          { to: this.localePath({ name: 'account' }), text: this.$t('account.profile') },
+          { to: this.$path({ name: 'account' }), text: this.$t('account.profile') },
           { href: `${process.env.OAUTH_ORIGIN}/auth/realms/${process.env.OAUTH_REALM}/account`, text: this.$t('account.settings') },
           { divider: true },
           { to: { name: 'account-logout' }, text: this.$t('account.linkLogout') }
