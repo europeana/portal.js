@@ -251,7 +251,8 @@ if (Number(process.env['ENABLE_XX_USER_AUTH'])) {
         response_type: 'code id_token token',
         token_type: 'Bearer'
       }
-    }
+    },
+    plugins: [{ src: '~/plugins/authAxios' }]
   };
 }
 
