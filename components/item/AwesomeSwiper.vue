@@ -75,6 +75,9 @@
       swiper() {
         return this.$refs.awesome.$swiper;
       }
+    },
+    mounted() {
+      this.swiper.slideTo(0, 1, false)
     }
   };
 </script>
