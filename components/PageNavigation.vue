@@ -23,7 +23,7 @@
     <!-- sso links -->
     <template v-if="enableAuthLinks">
       <li
-        v-if="isAuthenticated"
+        v-if="isAuthenticated && !isMobile"
         class="nav-item"
       >
         <b-dropdown
@@ -55,17 +55,41 @@
         </b-dropdown>
       </li>
       <li
-        v-else
+        v-if="!isAuthenticated"
         class="nav-item"
       >
         <b-link
+          v-b-toggle.menu
           data-qa="login button"
           class="nav-link"
           :to="{ name: 'account-login' }"
         >
-          <span>{{ $t('account.linkLogin') }}</span>
+          <span>
+            <i :class="renderIcon('/account/login')" />
+            {{ $t('account.linkLogin') }}
+          </span>
         </b-link>
       </li>
+      <template v-if="isAuthenticated && isMobile">
+        <li
+          v-for="item in authLinks"
+          :key="item.name"
+          class="nav-item"
+        >
+          <b-link
+            v-if="!item.divider"
+            v-b-toggle.menu
+            :to="item.to"
+            :href="item.href"
+            class="nav-link"
+          >
+            <span>
+              <i :class="renderIcon(item.name)" />
+              {{ item.text }}
+            </span>
+          </b-link>
+        </li>
+      </template>
     </template>
   </b-navbar-nav>
 </template>
@@ -86,11 +110,12 @@
     data() {
       return {
         authLinks: [
-          { to: this.$path({ name: 'account' }), text: this.$t('account.profile') },
-          { href: `${process.env.OAUTH_ORIGIN}/auth/realms/${process.env.OAUTH_REALM}/account`, text: this.$t('account.settings') },
-          { divider: true },
-          { to: { name: 'account-logout' }, text: this.$t('account.linkLogout') }
-        ]
+          { to: this.$path({ name: 'account' }), text: this.$t('account.profile'), name: '/account' },
+          { href: `${process.env.OAUTH_ORIGIN}/auth/realms/${process.env.OAUTH_REALM}/account`, text: this.$t('account.settings'), name: '/account/settings' },
+          { divider: true, name: 'divider' },
+          { to: { name: 'account-logout' }, text: this.$t('account.linkLogout'), name: '/account/logout' }
+        ],
+        isMobile: !!((process.browser && window.innerWidth < 992))
       };
     },
     computed: {
@@ -103,6 +128,15 @@
       isAccountPage() {
         return this.$route.name.startsWith('account');
       }
+    },
+    mounted() {
+      this.$nextTick(() => {
+        window.addEventListener('resize', this.getWindowWidth);
+        this.getWindowWidth();
+      });
+    },
+    beforeDestroy() {
+      window.removeEventListener('resize', this.getWindowWidth);
     },
     methods: {
       renderIcon(name) {
@@ -123,11 +157,26 @@
         case ('/help'):
           className = 'icon-help';
           break;
+        case ('/account'):
+          className = 'icon-favorite';
+          break;
+        case ('/account/login'):
+          className = 'icon-login';
+          break;
+        case ('/account/logout'):
+          className = 'icon-logout';
+          break;
+        case ('/account/settings'):
+          className = 'icon-settings';
+          break;
         default:
           className = 'icon-info blank';
           break;
         }
         return className;
+      },
+      getWindowWidth() {
+        this.isMobile = !!((process.browser && window.innerWidth < 992));
       }
     }
   };
@@ -195,6 +244,18 @@
           }
           &.icon-help:before {
             content: '\e921';
+          }
+          &.icon-login:before {
+            content: '\e926';
+          }
+          &.icon-logout:before {
+            content: '\e927';
+          }
+          &.icon-settings:before {
+            content: '\e928';
+          }
+          &.icon-favorite:before {
+            content: '\e92c';
           }
           &.blank:before {
             color: transparent;
