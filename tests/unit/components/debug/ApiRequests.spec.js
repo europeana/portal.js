@@ -22,7 +22,7 @@ describe('components/debug/ApiRequests', () => {
 
     const wrapper = factory({ requests });
 
-    const apiRequests = wrapper.findAll('[data-qa="api request"]');
+    const apiRequests = wrapper.findAll('[data-qa="logged API request"]');
 
     apiRequests.length.should.eq(2);
   });
@@ -34,7 +34,7 @@ describe('components/debug/ApiRequests', () => {
     ];
     const wrapper = factory({ requests });
 
-    const apiRequests = wrapper.findAll('[data-qa="api request"]');
+    const apiRequests = wrapper.findAll('[data-qa="logged API request"]');
 
     apiRequests.at(0).text().should.include('GET');
     apiRequests.at(1).text().should.include('POST');
@@ -48,7 +48,7 @@ describe('components/debug/ApiRequests', () => {
 
       const wrapper = factory({ requests });
 
-      const apiRequestLink = wrapper.find('[data-qa="api request"] a');
+      const apiRequestLink = wrapper.find('[data-qa="logged API request"] a');
 
       apiRequestLink.text().should.eq('https://api.example.org/request/1');
       apiRequestLink.attributes('href').should.eq('https://api.example.org/request/1');
@@ -63,7 +63,7 @@ describe('components/debug/ApiRequests', () => {
 
       const wrapper = factory({ requests });
 
-      const apiRequest = wrapper.find('[data-qa="api request"]');
+      const apiRequest = wrapper.find('[data-qa="logged API request"]');
 
       apiRequest.text().should.include('https://api.example.org/request/1');
       apiRequest.find('a').exists().should.be.false;
