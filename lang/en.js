@@ -74,6 +74,10 @@ export default {
     "startDate": "Start date",
     "to": "to"
   },
+  "debug": {
+    "apiRequests": "API requests",
+    "debug": "Debug"
+  },
   "delete": "Delete",
   "depiction": "A depiction of {title}",
   "directions": {

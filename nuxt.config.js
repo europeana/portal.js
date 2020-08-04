@@ -85,6 +85,7 @@ const config = {
   ** Plugins to load before mounting the App
   */
   plugins: [
+    '~/plugins/axiosLogger',
     '~/plugins/europeana',
     '~/plugins/vue/index',
     '~/plugins/i18n.js',
@@ -250,7 +251,8 @@ if (Number(process.env['ENABLE_XX_USER_AUTH'])) {
         response_type: 'code id_token token',
         token_type: 'Bearer'
       }
-    }
+    },
+    plugins: [{ src: '~/plugins/authAxios' }]
   };
 }
 

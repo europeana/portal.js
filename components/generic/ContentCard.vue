@@ -80,36 +80,24 @@
         </template>
       </b-card-body>
     </SmartLink>
-    <div
+    <UserButtons
       v-if="showUserButtons"
-      class="user-buttons"
-      data-qa="user buttons"
-    >
-      <b-button
-        class="icon-ic-add"
-        data-qa="add to gallery button"
-        :aria-label="$t('actions.addToGallery')"
-      />
-      <b-button
-        :pressed.sync="liked"
-        class="icon-heart"
-        data-qa="like button"
-        :aria-label="$t('actions.like')"
-        size="sm"
-      />
-    </div>
+      :item-url="url"
+    />
   </b-card>
 </template>
 
 <script>
   import SmartLink from './SmartLink';
   import { langMapValueForLocale } from  '../../plugins/europeana/utils';
+  import UserButtons from '../account/UserButtons';
 
   export default {
     name: 'ContentCard',
 
     components: {
-      SmartLink
+      SmartLink,
+      UserButtons
     },
 
     props: {
@@ -183,8 +171,7 @@
     data() {
       return {
         cardImageUrl: this.imageUrl,
-        displayLabelTypes: 'exhibitions|galleries|blog',
-        liked: false
+        displayLabelTypes: 'exhibitions|galleries|blog'
       };
     },
 

@@ -62,6 +62,11 @@
             </figcaption>
             <LangSelector data-qa="language selector" />
           </figure>
+
+          <DebugMenu
+            v-if="showDebugMenu"
+            data-qa="debug menu"
+          />
         </b-col>
       </b-row>
       <hr class="my-5">
@@ -85,11 +90,14 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex';
+
   import LangSelector from './generic/LanguageSelector';
   import LinkGroup from './generic/LinkGroup';
 
   export default {
     components: {
+      DebugMenu: () => import('./debug/DebugMenu'),
       LangSelector,
       LinkGroup
     },
@@ -130,6 +138,16 @@
           }
         ]
       };
+    },
+
+    computed: {
+      ...mapGetters({
+        debugSettings: 'debug/settings'
+      }),
+
+      showDebugMenu() {
+        return !!this.debugSettings.apiRequests;
+      }
     }
   };
 </script>
