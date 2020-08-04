@@ -1,14 +1,14 @@
 <template>
   <header
     v-visible-on-scroll
-    class="px-3 m-0 navbar-brand container-fluid d-flex justify-content-between"
+    class="m-0 navbar-brand container-fluid d-flex justify-content-between"
     role="banner"
     aria-label="Europeana home"
   >
     <template v-if="!showSearch">
       <b-button
         variant="light"
-        class="navbar-toggle collapsed flex-column align-items-center justify-content-center align-self-center"
+        class="navbar-toggle collapsed flex-column align-items-center justify-content-center align-self-center pl-3"
         :aria-label="$t('header.showSidebar')"
         @click="showSidebar = !showSidebar"
       >
@@ -18,7 +18,7 @@
       </b-button>
       <SmartLink
         :destination="{ name: 'index' }"
-        class="logo"
+        class="logo pl-lg-3"
       >
         <img
           src="../assets/img/logo.svg"
@@ -28,7 +28,7 @@
         >
       </SmartLink>
       <b-navbar
-        class="align-items-center flex-row d-flex p-0"
+        class="align-items-center flex-row d-flex p-0 pr-3"
         role="navigation"
         data-qa="desktop navigation"
       >
@@ -91,7 +91,9 @@
       <SearchForm
         role="search"
         aria-label="search form"
+        data-qa="search form"
         :enable-auto-suggest="enableAutoSuggest"
+        @toggle-search-bar="toggleSearchBar"
       />
     </div>
   </header>
@@ -127,16 +129,9 @@
     data() {
       return {
         showSidebar: null,
+        showSearch: false,
         windowWidth: 0
       };
-    },
-
-    computed: {
-      showSearch: {
-        get() {
-          return this.$store.getters['ui/searchView'];
-        }
-      }
     },
 
     watch: {
@@ -144,22 +139,17 @@
         if (this.showSidebar) {
           this.showSidebar = false;
         }
-        if (this.showSearch) this.$store.commit('ui/toggleSearchBar');
+        this.showSearch = false;
       }
     },
 
     methods: {
       toggleSearchBar() {
-        this.$store.commit('ui/toggleSearchBar');
-        if (this.showSearch) {
-          this.$nextTick(() => {
-            // this.$refs.searchbox.focus();
-          });
-        }
+        this.showSearch = !this.showSearch;
       },
 
       backToMenu() {
-        this.$store.commit('ui/toggleSearchBar');
+        this.showSearch = false;
         this.clearQuery();
       },
 
@@ -207,7 +197,8 @@
     flex: 0 0 auto;
     .logo {
       min-width: 9.5625rem;
-      padding: 0.735rem 0 !important;
+      padding-bottom: 0.735rem;
+      padding-top: 0.735rem;
       transition: 0.3s ease-in-out;
       img {
         width: 9.5625rem;
@@ -250,11 +241,17 @@
       display: inline-block;
       font-size: 1.1rem;
     }
+
     &.search:before {
       content: '\e92b';
     }
+
     &.back {
-      align-self: center;
+      position: absolute;
+      left: 1rem;
+      top: 1rem;
+      z-index: 99;
+
       &:before {
         content: '\ea40';
       }

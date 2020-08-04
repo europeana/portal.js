@@ -2,7 +2,7 @@
   <b-list-group
     v-show="isActive"
     :id="elementId"
-    class="auto-suggest-dropdown d-block"
+    class="auto-suggest-dropdown"
     data-qa="search suggestions"
     role="listbox"
     :aria-label="$t('searchSuggestions')"

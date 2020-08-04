@@ -55,7 +55,6 @@
             class="search"
             variant="primary"
             :aria-label="$t('search')"
-            @click="toggleSearchBar"
           >
             <span>{{ $t('header.inCollection', { query: query, collection: pillLabel.values[0] }) }}</span>
           </b-button>
@@ -88,7 +87,6 @@
             class="search"
             variant="primary"
             :aria-label="$t('search')"
-            @click="toggleSearchBar"
           >
             <span>{{ $t('header.searchFor', { query: query }) }}</span>
           </b-button>
@@ -205,6 +203,7 @@
 
         this.suggestions = {};
         this.clearQuery();
+        this.hideSearch();
         await this.$goto(newRoute);
         this.selectedSuggestion = null;
       },
@@ -260,11 +259,8 @@
         };
       },
 
-      toggleSearchBar() {
-        this.$store.commit('ui/toggleSearchBar');
-        this.$nextTick(() => {
-          this.$refs.searchbox.focus();
-        });
+      hideSearch() {
+        this.$emit('toggle-search-bar');
       },
 
       clearQuery() {
@@ -273,8 +269,8 @@
       },
 
       async toggleSearchAndRemovePill() {
-        this.toggleSearchBar();
         await this.$goto(this.pillRemoveLinkTo);
+        this.hideSearch();
       }
     }
   };
@@ -291,7 +287,7 @@
       width: 100%;
 
       .form-control {
-        padding: 0.375rem 3.5rem 0.375rem 1rem;
+        padding: 0.375rem 3.5rem 0.375rem 3.5rem;
         height: 3.4rem;
         box-shadow: none;
         border-radius: 0;
@@ -380,9 +376,10 @@
 
     &.clear {
       position: absolute;
-      right: 0;
+      right: 1rem;
       top: 1rem;
       z-index: 99;
+
       &:before {
         content: '\e904';
       }
