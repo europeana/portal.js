@@ -26,7 +26,9 @@
 </template>
 
 <script>
+
   export default {
+    name: 'MediaCardImage',
     props: {
       media: {
         type: Object,

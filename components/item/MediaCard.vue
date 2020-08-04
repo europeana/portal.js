@@ -34,8 +34,6 @@
 </template>
 
 <script>
-  // import { isImage } from '../../plugins/media';
-
   import {
     iiifManifest,
     isHTMLAudio,
@@ -45,8 +43,18 @@
     isPlayableMedia,
     isRichMedia
   } from '../../plugins/media';
+  import VideoPlayer from '../media/VideoPlayer';
+  import AudioPlayer from '../media/AudioPlayer';
+  import HTMLEmbed from '../generic/HTMLEmbed';
 
   export default {
+    name: 'MediaCard',
+    components: {
+      MediaCardImage: () => import('../MediaCardImage'),
+      VideoPlayer,
+      AudioPlayer,
+      HTMLEmbed
+    },
     props: {
       media: {
         type: Object,

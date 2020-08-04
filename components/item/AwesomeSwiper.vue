@@ -29,7 +29,7 @@
 </template>
 
 <script>
-  import { Swiper, SwiperSlide, directive } from 'vue-awesome-swiper';
+  import { Swiper, SwiperSlide } from 'vue-awesome-swiper';
   import 'swiper/css/swiper.css';
   import MediaCard from './MediaCard';
 
@@ -39,9 +39,6 @@
       Swiper,
       SwiperSlide,
       MediaCard
-    },
-    directives: {
-      swiper: directive
     },
     props: {
       europeanaIdentifier: {
