@@ -5,7 +5,7 @@
     :options="swiperOptions"
   >
     <swiper-slide
-      v-for="(item, index) in media"
+      v-for="(item, index) in displayableMedia"
       :key="index"
     >
       <MediaCard
@@ -31,6 +31,7 @@
 <script>
   import { Swiper, SwiperSlide } from 'vue-awesome-swiper';
   import 'swiper/css/swiper.css';
+  import { isIIIFPresentation } from '../../plugins/media';
   import MediaCard from './MediaCard';
 
   export default {
@@ -71,6 +72,10 @@
     computed: {
       swiper() {
         return this.$refs.awesome.$swiper;
+      },
+      displayableMedia() {
+        // Quick check for IIIF content, which is to prevent newspapers from showing many IIIF viewers.
+        return isIIIFPresentation(this.media[0]) ? [this.media[0]] : this.media;
       }
     }
   };
@@ -81,7 +86,7 @@
 
   .swiper-container {
     max-height: 568px;
-    height: 55vh;
+    height: 80vh;
   }
   .swiper-slide {
     width: auto;

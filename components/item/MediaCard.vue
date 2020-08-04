@@ -1,36 +1,34 @@
 <template>
-  <div>
-    <MediaCardImage
-      v-if="displayImage"
-      :europeana-identifier="europeanaIdentifier"
-      :media="media"
-    />
-    <div
-      v-else-if="isPlayableMedia"
-      ref="player"
-      class="media-player-wrapper"
-      :style="{ paddingTop: `${ratio}%` }"
-    >
-      <iframe
-        data-qa="media player"
-        allowfullscreen="true"
-        :src="$path({ name: 'media', query: { id: europeanaIdentifier, mediaUrl: media.about, mediaType: media.ebucoreHasMimeType } })"
-        class="media-player"
-      />
-    </div>
-    <HTMLEmbed
-      v-else-if="isOEmbed"
-      :html="oEmbedData.html"
-      :error="oEmbedData.error"
-    />
+  <MediaCardImage
+    v-if="displayImage"
+    :europeana-identifier="europeanaIdentifier"
+    :media="media"
+  />
+  <div
+    v-else-if="isPlayableMedia"
+    ref="player"
+    class="media-player-wrapper"
+    :style="{ paddingTop: `${ratio}%` }"
+  >
     <iframe
-      v-else-if="isIIIFImage || isIIIFPresentation"
-      data-qa="IIIF viewer"
+      data-qa="media player"
       allowfullscreen="true"
-      :src="$path({ name: 'iiif', query: { uri: iiifManifest } })"
-      :aria-label="$t('actions.viewDocument')"
+      :src="$path({ name: 'media', query: { id: europeanaIdentifier, mediaUrl: media.about, mediaType: media.ebucoreHasMimeType } })"
+      class="media-player"
     />
   </div>
+  <HTMLEmbed
+    v-else-if="isOEmbed"
+    :html="oEmbedData.html"
+    :error="oEmbedData.error"
+  />
+  <iframe
+    v-else-if="isIIIFImage || isIIIFPresentation"
+    data-qa="IIIF viewer"
+    allowfullscreen="true"
+    :src="$path({ name: 'iiif', query: { uri: iiifManifest } })"
+    :aria-label="$t('actions.viewDocument')"
+  />
 </template>
 
 <script>
@@ -104,9 +102,3 @@
     }
   };
 </script>
-
-<style lang="scss" scoped>
-  img {
-    height: 100%;
-  }
-</style>

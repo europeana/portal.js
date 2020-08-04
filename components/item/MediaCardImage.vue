@@ -45,3 +45,9 @@
     }
   };
 </script>
+
+<style lang="scss" scoped>
+img {
+  height: 100%;
+}
+</style>

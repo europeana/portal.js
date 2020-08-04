@@ -6,12 +6,6 @@
       :notification-text="$t('linksToClassic.record.text')"
       :notification-link-text="$t('linksToClassic.record.linkText')"
     />
-    <b-col cols="12">
-      <AwesomeSwiper
-        :europeana-identifier="identifier"
-        :media="media"
-      />
-    </b-col>
     <b-container v-if="error">
       <AlertMessage
         :error="error"
@@ -159,7 +153,6 @@
   export default {
     components: {
       AlertMessage: () => import('../../components/generic/AlertMessage'),
-      AwesomeSwiper: () => import('../../components/item/AwesomeSwiper'),
       ClientOnly,
       EntityCards: () => import('../../components/entity/EntityCards'),
       MediaActionBar,
