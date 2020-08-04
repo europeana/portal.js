@@ -106,9 +106,6 @@
       height: 100%;
       align-items: center;
     }
-    &:last-of-type {
-      margin-right: 50vw !important;
-    }
   }
   .swiper-button-prev, .swiper-button-next {
     color: $lightgrey;
