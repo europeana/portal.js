@@ -1,14 +1,14 @@
 <template>
   <header
     v-visible-on-scroll
-    class="px-3 m-0 d-flex align-items-center justify-content-between navbar-brand container-fluid"
+    class="px-3 m-0 navbar-brand container-fluid d-flex justify-content-between"
     role="banner"
     aria-label="Europeana home"
   >
     <template v-if="!showSearch">
       <b-button
         variant="light"
-        class="navbar-toggle collapsed flex-column align-items-center justify-content-center"
+        class="navbar-toggle collapsed flex-column align-items-center justify-content-center align-self-center"
         :aria-label="$t('header.showSidebar')"
         @click="showSidebar = !showSidebar"
       >
@@ -79,7 +79,7 @@
     </template>
     <div
       v-else
-      class="d-flex"
+      class="d-flex justify-content-center w-100"
     >
       <b-button
         data-qa="back button"
@@ -92,13 +92,6 @@
         role="search"
         aria-label="search form"
         :enable-auto-suggest="enableAutoSuggest"
-      />
-      <b-button
-        data-qa="clear button"
-        class="clear"
-        variant="light"
-        :aria-label="$t('header.clearQuery')"
-        @click="clearQuery"
       />
     </div>
   </header>
@@ -151,6 +144,7 @@
         if (this.showSidebar) {
           this.showSidebar = false;
         }
+        if (this.showSearch) this.$store.commit('ui/toggleSearchBar');
       }
     },
 
@@ -159,7 +153,7 @@
         this.$store.commit('ui/toggleSearchBar');
         if (this.showSearch) {
           this.$nextTick(() => {
-            this.$refs.searchbox.focus();
+            // this.$refs.searchbox.focus();
           });
         }
       },
@@ -260,21 +254,9 @@
       content: '\e92b';
     }
     &.back {
-      position: absolute;
-      left: 1rem;
-      top: 1rem;
-      z-index: 99;
+      align-self: center;
       &:before {
         content: '\ea40';
-      }
-    }
-    &.clear {
-      position: absolute;
-      right: 1rem;
-      top: 1rem;
-      z-index: 99;
-      &:before {
-        content: '\e904';
       }
     }
   }

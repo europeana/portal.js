@@ -1,7 +1,7 @@
 <template>
   <b-form
     ref="form"
-    :class="showSearch ? 'open' : 'closed'"
+    class="open"
     data-qa="search form"
     inline
     autocomplete="off"
@@ -34,6 +34,13 @@
         :aria-controls="enableAutoSuggest ? 'search-form-auto-suggest' : null"
         :aria-label="$t('search')"
         @input="getSearchSuggestions"
+      />
+      <b-button
+        data-qa="clear button"
+        class="clear"
+        variant="light"
+        :aria-label="$t('header.clearQuery')"
+        @click="clearQuery"
       />
       <template
         v-if="pillLabel"
@@ -87,13 +94,6 @@
           </b-button>
         </div>
       </template>
-      <!--<b-button
-        type="submit"
-        data-qa="desktop search button"
-        class="search d-none d-lg-block"
-        variant="primary"
-        :aria-label="$t('search')"
-      />-->
       <AutoSuggest
         v-if="enableAutoSuggest"
         v-model="suggestions"
@@ -180,13 +180,6 @@
       }
     },
 
-    watch: {
-      '$route'() {
-        this.initQuery();
-        if (this.showSearch) this.$store.commit('ui/toggleSearchBar');
-      }
-    },
-
     mounted() {
       this.initQuery();
     },
@@ -222,6 +215,7 @@
           this.showSearchQuery = false;
           return;
         }
+
         this.showSearchQuery = true;
 
         if (!this.enableAutoSuggest) return;
@@ -248,7 +242,6 @@
           })
           .then(() => {
             this.gettingSuggestions = false;
-
             // If the query has changed in the meantime, go get new suggestions now
             if (query !== this.query) this.getSearchSuggestions(this.query);
           });
@@ -269,16 +262,9 @@
 
       toggleSearchBar() {
         this.$store.commit('ui/toggleSearchBar');
-        if (this.showSearch) {
-          this.$nextTick(() => {
-            this.$refs.searchbox.focus();
-          });
-        }
-      },
-
-      backToMenu() {
-        this.$store.commit('ui/toggleSearchBar');
-        this.clearQuery();
+        this.$nextTick(() => {
+          this.$refs.searchbox.focus();
+        });
       },
 
       clearQuery() {
@@ -305,11 +291,12 @@
       width: 100%;
 
       .form-control {
-        width: 100%;
-        padding: 0.375rem 1rem 0.375rem 3.5rem;
-        height: 3.5rem;
+        padding: 0.375rem 3.5rem 0.375rem 1rem;
+        height: 3.4rem;
+        box-shadow: none;
+        border-radius: 0;
         color: $mediumgrey;
-        box-shadow: $boxshadow-light;
+        width: 100%;
       }
 
       .search-query {
@@ -386,21 +373,14 @@
       display: inline-block;
       font-size: 1.1rem;
     }
+
     &.search:before {
       content: '\e92b';
     }
-    &.back {
-      position: absolute;
-      left: 1rem;
-      top: 1rem;
-      z-index: 99;
-      &:before {
-        content: '\ea40';
-      }
-    }
+
     &.clear {
       position: absolute;
-      right: 1rem;
+      right: 0;
       top: 1rem;
       z-index: 99;
       &:before {

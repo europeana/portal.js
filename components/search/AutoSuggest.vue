@@ -2,7 +2,7 @@
   <b-list-group
     v-show="isActive"
     :id="elementId"
-    class="auto-suggest-dropdown"
+    class="auto-suggest-dropdown d-block"
     data-qa="search suggestions"
     role="listbox"
     :aria-label="$t('searchSuggestions')"
@@ -241,11 +241,11 @@
     &-dropdown {
       display: none;
       position: absolute;
-      top: 50px;
+      top: 6.9rem;
       width: 100%;
       z-index: 20;
-      border-radius: 4px;
-      box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.25);
+      border-radius: 0;
+      box-shadow: 0 3px 3px 2px rgba(0, 0, 0, 0.05);
       background-color: $white;
       overflow: hidden;
       transition: $standard-transition;
@@ -254,19 +254,19 @@
         border: 0;
         border-radius: 0;
         box-shadow: none;
-        padding: 0.5rem 1.25rem;
+        padding: 0.75rem 1.25rem 0.75rem 3.4rem;
         color: $black;
         font-size: 1rem;
         text-decoration: none;
+        text-align: left;
 
-        &:first-child {
-          padding-top: 1rem;
-          border-radius: 6px 6px 0 0;
+        &:first-child, &:last-child {
+          border-radius: 0;
+          padding-top: 0.75rem;
         }
 
         &:last-child {
-          padding-bottom: 1rem;
-          border-radius: 0 0 6px 6px;
+          padding-bottom: 0.75rem;
         }
 
         &.hover {
@@ -301,29 +301,6 @@
 
     img {
       display: flex;
-    }
-  }
-
-  @media (max-width: $bp-large) {
-    .auto-suggest {
-      &-dropdown {
-        top: 112px;
-        border-radius: 0;
-        box-shadow: 0 3px 3px 2px rgba(0, 0, 0, 0.05);
-        a.list-group-item {
-          text-align: left;
-          padding-left: 3.4rem;
-          padding-top: 0.75rem;
-          padding-bottom: 0.75rem;
-          &:first-child, &:last-child {
-            border-radius: 0;
-            padding-top: 0.75rem;
-          }
-          &:last-child {
-            padding-bottom: 0.75rem;
-          }
-        }
-      }
     }
   }
 </style>
