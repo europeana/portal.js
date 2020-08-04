@@ -43,16 +43,12 @@
     isPlayableMedia,
     isRichMedia
   } from '../../plugins/media';
-  import VideoPlayer from '../media/VideoPlayer';
-  import AudioPlayer from '../media/AudioPlayer';
   import HTMLEmbed from '../generic/HTMLEmbed';
 
   export default {
     name: 'MediaCard',
     components: {
-      MediaCardImage: () => import('../MediaCardImage'),
-      VideoPlayer,
-      AudioPlayer,
+      MediaCardImage: () => import('../../components/item/MediaCardImage'),
       HTMLEmbed
     },
     props: {
