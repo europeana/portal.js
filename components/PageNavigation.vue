@@ -23,8 +23,8 @@
     <!-- sso links -->
     <template v-if="enableAuthLinks">
       <li
-        v-if="isAuthenticated && !isMobile"
-        class="nav-item"
+        v-if="isAuthenticated"
+        class="nav-item d-none d-lg-inline-block"
       >
         <b-dropdown
           right
@@ -70,11 +70,11 @@
           </span>
         </b-link>
       </li>
-      <template v-if="isAuthenticated && isMobile">
+      <template v-if="isAuthenticated">
         <li
           v-for="item in authLinks"
           :key="item.name"
-          class="nav-item"
+          class="nav-item d-block d-lg-none"
         >
           <b-link
             v-if="!item.divider"
@@ -114,8 +114,7 @@
           { href: `${process.env.OAUTH_ORIGIN}/auth/realms/${process.env.OAUTH_REALM}/account`, text: this.$t('account.settings'), name: '/account/settings' },
           { divider: true, name: 'divider' },
           { to: { name: 'account-logout' }, text: this.$t('account.linkLogout'), name: '/account/logout' }
-        ],
-        isMobile: !!((process.browser && window.innerWidth < 992))
+        ]
       };
     },
     computed: {
@@ -128,15 +127,6 @@
       isAccountPage() {
         return this.$route.name.startsWith('account');
       }
-    },
-    mounted() {
-      this.$nextTick(() => {
-        window.addEventListener('resize', this.getWindowWidth);
-        this.getWindowWidth();
-      });
-    },
-    beforeDestroy() {
-      window.removeEventListener('resize', this.getWindowWidth);
     },
     methods: {
       renderIcon(name) {
@@ -174,9 +164,6 @@
           break;
         }
         return className;
-      },
-      getWindowWidth() {
-        this.isMobile = !!((process.browser && window.innerWidth < 992));
       }
     }
   };
