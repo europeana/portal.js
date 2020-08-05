@@ -30,12 +30,12 @@
       </div>
       <b-card-body data-qa="card body">
         <b-card-sub-title
-          v-if="displayLabel && variant !== 'mini' || totalItems"
+          v-if="displaySubTitle && variant !== 'mini'"
           sub-title-tag="div"
           sub-title-text-variant="default"
           class="mt-0"
         >
-          {{ displayLabel || totalItems + ' '+ $tc('account.items', totalItems) }}
+          {{ displaySubTitle }}
         </b-card-sub-title>
         <b-card-title
           v-if="displayTitle"
@@ -106,6 +106,10 @@
         type: [String, Object],
         default: ''
       },
+      subTitle: {
+        type: String,
+        default: null
+      },
       // each element may be a string, an array of strings, or a lang map
       texts: {
         type: Array,
@@ -166,10 +170,6 @@
       showUserButtons: {
         type: Boolean,
         default: false
-      },
-      totalItems: {
-        type: Number,
-        default: null
       }
     },
     data() {
@@ -196,6 +196,10 @@
         } else {
           return langMapValueForLocale(this.title, this.$i18n.locale);
         }
+      },
+
+      displaySubTitle() {
+        return this.subTitle || this.displayLabel;
       },
 
       displayLabel() {

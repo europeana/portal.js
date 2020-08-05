@@ -9,7 +9,7 @@
           <ContentCard
             v-for="set in usersets"
             :key="set.id"
-            :total-items="set.total"
+            :sub-title="setSubTitle(set)"
             :title="set.title"
             :image-url="set.thumbnail"
             :texts="[set.description]"
@@ -45,6 +45,12 @@
           default: () => []
         }
       };
+    },
+    methods: {
+      setSubTitle(set) {
+        const setTotal = set.total || 0;
+        return this.$tc('items.itemCount', setTotal, { count: setTotal });
+      }
     }
   };
 </script>

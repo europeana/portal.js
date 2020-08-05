@@ -447,6 +447,9 @@ export default {
   "imageSlider": {
     "handle": "Slider Handle"
   },
+  "items": {
+    "itemCount": "1 item |{count} items"
+  },
   "layout": {
     "skipToMain": "Skip to page contents"
   },
@@ -536,7 +539,6 @@ export default {
     "settings": "Settings",
     "likes": "Likes",
     "publicCollections": "Public Collections",
-    "privateCollections": "Private Collections",
-    "items": "item | items"
+    "privateCollections": "Private Collections"
   }
 };
