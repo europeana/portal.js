@@ -24,27 +24,72 @@
     <template v-if="enableAuthLinks">
       <li
         v-if="isAuthenticated"
-        class="nav-item"
+        class="nav-item d-none d-lg-inline-block"
       >
-        <b-link
-          :to="localePath({ name: 'account' })"
+        <b-dropdown
+          right
+          no-caret
+          variant="white"
           class="nav-link"
+          :class="isAccountPage && 'exact-active-link'"
         >
-          <span>{{ $t('account.linkAccount') }}</span>
-        </b-link>
+          <template
+            slot="button-content"
+          >
+            <span class="label">{{ $t('account.linkAccount') }}</span>
+          </template>
+          <template v-for="(item, index) in authLinks">
+            <b-dropdown-divider
+              v-if="item.divider"
+              :key="index"
+            />
+            <b-dropdown-item
+              v-else
+              :key="index"
+              :to="item.to"
+              :href="item.href"
+            >
+              <span class="label">{{ item.text }}</span>
+            </b-dropdown-item>
+          </template>
+        </b-dropdown>
       </li>
       <li
-        v-else
+        v-if="!isAuthenticated"
         class="nav-item"
       >
         <b-link
+          v-b-toggle.menu
           data-qa="login button"
           class="nav-link"
           :to="{ name: 'account-login' }"
         >
-          <span>{{ $t('account.linkLogin') }}</span>
+          <span>
+            <i :class="renderIcon('/account/login')" />
+            {{ $t('account.linkLogin') }}
+          </span>
         </b-link>
       </li>
+      <template v-if="isAuthenticated">
+        <li
+          v-for="item in authLinks"
+          :key="item.name"
+          class="nav-item d-block d-lg-none"
+        >
+          <b-link
+            v-if="!item.divider"
+            v-b-toggle.menu
+            :to="item.to"
+            :href="item.href"
+            class="nav-link"
+          >
+            <span>
+              <i :class="renderIcon(item.name)" />
+              {{ item.text }}
+            </span>
+          </b-link>
+        </li>
+      </template>
     </template>
   </b-navbar-nav>
 </template>
@@ -62,12 +107,25 @@
         default: () => []
       }
     },
+    data() {
+      return {
+        authLinks: [
+          { to: this.$path({ name: 'account' }), text: this.$t('account.profile'), name: '/account' },
+          { href: `${process.env.OAUTH_ORIGIN}/auth/realms/${process.env.OAUTH_REALM}/account`, text: this.$t('account.settings'), name: '/account/settings' },
+          { divider: true, name: 'divider' },
+          { to: { name: 'account-logout' }, text: this.$t('account.linkLogout'), name: '/account/logout' }
+        ]
+      };
+    },
     computed: {
       enableAuthLinks() {
         return Boolean(Number(process.env.ENABLE_XX_USER_AUTH));
       },
       isAuthenticated() {
         return this.$store.state.auth.loggedIn;
+      },
+      isAccountPage() {
+        return this.$route.name.startsWith('account');
       }
     },
     methods: {
@@ -88,6 +146,18 @@
           break;
         case ('/help'):
           className = 'icon-help';
+          break;
+        case ('/account'):
+          className = 'icon-favorite';
+          break;
+        case ('/account/login'):
+          className = 'icon-login';
+          break;
+        case ('/account/logout'):
+          className = 'icon-logout';
+          break;
+        case ('/account/settings'):
+          className = 'icon-settings';
           break;
         default:
           className = 'icon-info blank';
@@ -162,6 +232,18 @@
           &.icon-help:before {
             content: '\e921';
           }
+          &.icon-login:before {
+            content: '\e926';
+          }
+          &.icon-logout:before {
+            content: '\e927';
+          }
+          &.icon-settings:before {
+            content: '\e928';
+          }
+          &.icon-favorite:before {
+            content: '\e92c';
+          }
           &.blank:before {
             color: transparent;
           }
@@ -169,16 +251,6 @@
       }
     }
 
-    &:last-child {
-      .nav-link {
-        &.exact-active-link:after {
-          left: 0.25rem;
-        }
-        &:before {
-          right: -0.5rem;
-        }
-      }
-    }
     @media (max-width: $bp-large) {
       width: 100%;
       margin: 0 0 0.25rem 0;
@@ -223,6 +295,35 @@
           i {
             display: none;
           }
+        }
+      }
+    }
+  }
+
+  ::v-deep .dropdown {
+    &.nav-link {
+      padding: 1px 0;
+    }
+    .label {
+      color: $mediumgrey;
+      font-size: $font-size-small;
+      font-weight: 600;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+    &-divider {
+      margin: 0;
+    }
+    &-menu {
+      margin-top: 0.65rem;
+      border-radius: 0.25rem;
+      box-shadow: $boxshadow-light;
+      border: solid 1px $paper;
+      li a {
+        padding: 0.85rem 1rem;
+        transition: $standard-transition;
+        &:hover {
+          background-color: $offwhite;
         }
       }
     }

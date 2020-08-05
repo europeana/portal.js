@@ -30,6 +30,10 @@
 
   export default {
     props: {
+      about: {
+        type: String,
+        default: ''
+      },
       europeanaIdentifier: {
         type: String,
         default: ''
@@ -42,7 +46,7 @@
 
     computed: {
       imageLink() {
-        return this.$proxyMedia(this.imageSrc, this.europeanaIdentifier, { disposition: 'inline' });
+        return this.$proxyMedia(this.about, this.europeanaIdentifier, { disposition: 'inline' });
       }
     }
   };

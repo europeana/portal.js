@@ -10,7 +10,8 @@
     >
       <MediaCard
         :europeana-identifier="item.europeanaIdentifier"
-        :image-src="item.about"
+        :about="item.about"
+        :image-src="item.thumbnails['large']"
       />
     </swiper-slide>
     <div
@@ -59,6 +60,7 @@
           slidesPerView: 'auto',
           spaceBetween: 40,
           centeredSlides: true,
+          slideToClickedSlide: true,
           navigation: {
             nextEl: '.swiper-button-next',
             prevEl: '.swiper-button-prev'
@@ -74,21 +76,31 @@
       swiper() {
         return this.$refs.awesome.$swiper;
       }
-    },
-    mounted() {
-      // console.log('Current Swiper instance object', this.swiper)
-      // this.swiper.slideTo(3, 1000, false)
     }
   };
 </script>
 
 <style lang="scss">
+  @import './assets/scss/variables.scss';
+
   .swiper-container {
     max-height: 568px;
     height: 55vh;
   }
   .swiper-slide {
     width: auto;
+    :before {
+      content: '';
+      transition: $standard-transition;
+    }
+    &:not(.swiper-slide-active):before {
+      content: '';
+      width: 100%;
+      left: 0;
+      top: 0;
+      height: 100%;
+      position: absolute;
+    }
     a {
       display: inline-flex;
       height: 100%;
@@ -96,8 +108,8 @@
     }
   }
   .swiper-button-prev, .swiper-button-next {
-    color: #999;
-    background: #fff;
+    color: $lightgrey;
+    background: $white;
     border-radius: 50%;
     width: 45px;
     opacity: 0.7;
@@ -106,6 +118,6 @@
     font-size: 22px;
   }
   .swiper-pagination-bullet-active {
-    background: #fafafa;
+    background: $smoke;
   }
 </style>
