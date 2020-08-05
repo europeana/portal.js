@@ -284,6 +284,10 @@
   .form-inline {
     width: auto;
 
+    .form-control {
+      background-color: $white;
+    }
+
     &.open {
       width: 100%;
 
@@ -345,10 +349,6 @@
     .input-group-prepend {
       display: none;
     }
-  }
-
-  .form-control {
-    background-color: $white;
   }
 
   .btn {
