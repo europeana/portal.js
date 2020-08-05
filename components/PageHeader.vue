@@ -4,6 +4,7 @@
     class="m-0 navbar-brand container-fluid d-flex justify-content-between"
     role="banner"
     aria-label="Europeana home"
+    data-qa="header"
   >
     <template v-if="!showSearch">
       <b-button
@@ -38,7 +39,7 @@
           :links="mainNavigation.links"
         />
         <b-button
-          data-qa="show mobile search button"
+          data-qa="search button"
           class="search ml-lg-3"
           variant="light"
           :aria-label="$t('search')"

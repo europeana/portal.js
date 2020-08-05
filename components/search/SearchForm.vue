@@ -36,6 +36,7 @@
         @input="getSearchSuggestions"
       />
       <b-button
+        v-show="showSearchQuery"
         data-qa="clear button"
         class="clear"
         variant="light"
@@ -83,7 +84,7 @@
         >
           <b-button
             type="submit"
-            data-qa="mobile search button"
+            data-qa="search button"
             class="search"
             variant="primary"
             :aria-label="$t('search')"
