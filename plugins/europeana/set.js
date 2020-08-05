@@ -1,6 +1,6 @@
 import { config } from './';
 import { apiError } from './utils';
-import { genericThumbnail } from './thumbnail';
+import { search } from './search';
 import axios from 'axios';
 
 function setApiUrl(endpoint) {
@@ -53,13 +53,12 @@ export default ($axios) => ({
       .then(responseArray => {
         return responseArray.map(set => {
           return {
-            ...{
-              id: set.data.id.split('/').pop(),
-              title: set.data.title ? set.data.title['en'] : '',
-              description: set.data.description ? set.data.description['en'] : 'No description',
-              firstItem: set.data.items ? '/' + set.data.items[0].split('/item/')[1] : null,
-              total: set.data.total
-            }
+            id: set.data.id.split('/').pop(),
+            title: set.data.title,
+            description: set.data.description,
+            firstItem: set.data.items ? '/' + set.data.items[0].split('/item/')[1] : null,
+            total: set.data.total
+
           };
         });
       }).catch((error) => {
@@ -77,31 +76,18 @@ export default ($axios) => ({
     if (!q) {
       return sets;
     }
-    const origin = config.record.origin;
-    const path = config.record.path;
-    return axios.get(`${origin}${path}/search.json`, {
-      params: {
-        query: `europeana_id:("${q}")`,
-        wskey: config.record.key
-      }
-    })
-      .then((response) => {
-        const results = response.data.items.map(item => {
-          return {
-            ...{
-              europeanaId: item.id,
-              edmPreview: item.edmPreview ? `${item.edmPreview[0]}&size=w200` : genericThumbnail(item.id, { type: item.type, size: 'w200' })
-            }
-          };
-        });
-        sets.forEach((set, index) => {
-          let result = results.find(res => res.europeanaId === set.firstItem);
-          if (result) {
-            sets[index] = { ...sets[index], thumbnail: result.edmPreview };
-          }
-        });
-        return sets;
+    const results =  await search(
+      {
+        query: `europeana_id:("${q}")`
       });
+
+    sets.forEach((set, index) => {
+      let result = results.results.find(res => res.europeanaId === set.firstItem);
+      if (result) {
+        sets[index] = { ...sets[index], thumbnail: result.edmPreview };
+      }
+    });
+    return sets;
   },
 
   /**

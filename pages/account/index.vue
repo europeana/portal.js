@@ -76,14 +76,8 @@
     },
     data() {
       return {
-        publicSets: {
-          type: Array,
-          default: () => []
-        },
-        privateSets: {
-          type: Array,
-          default: () => []
-        }
+        publicSets: [],
+        privateSets: []
       };
     },
     fetchOnServer: false,
