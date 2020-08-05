@@ -9,12 +9,16 @@
         >
           <client-only>
             <ContentCard
-              v-for="item in items"
-              :key="item.identifier"
-              :title="item.title[0] || item.dcDescription[0]"
-              :image-url="item.edmPreview[0]"
-              :texts="cardTexts(item)"
-              :lazy="false"
+              v-for="result in items"
+              :key="result.europeanaId"
+              :title="result.dcTitle || result.dcDescription"
+              :url="{ name: 'item-all', params: { pathMatch: result.europeanaId.slice(1) } }"
+              :image-url="result.edmPreview"
+              :texts="cardTexts(result)"
+              data-qa="search result"
+              :limit-values-within-each-text="3"
+              :omit-all-uris="true"
+              :blank-image-height="280"
             />
           </client-only>
         </b-card-group>
@@ -22,14 +26,16 @@
     </b-row>
     <b-row>
       <b-col>
-        <PaginationNav
-          v-if="showPagination"
-          v-model="page"
-          :limit="pageSize"
-          :total-results="total"
-          :per-page="pageSize"
-          :link-gen="paginationLink"
-        />
+        <client-only>
+          <PaginationNav
+            v-if="showPagination"
+            v-model="page"
+            :limit="pageSize"
+            :total-results="total"
+            :per-page="pageSize"
+            :link-gen="paginationLink"
+          />
+        </client-only>
       </b-col>
     </b-row>
   </div>
@@ -46,6 +52,10 @@
       PaginationNav: () => import('../generic/PaginationNav')
     },
     props: {
+      setId: {
+        type: String,
+        default: () => ''
+      },
       items: {
         type: Array,
         default: () => []
@@ -60,7 +70,7 @@
       },
       pageSize: {
         type: Number,
-        default: () => 12
+        default: () => 24
       }
     },
     computed: {

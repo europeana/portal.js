@@ -16,9 +16,9 @@
         </h5>
         <div class="usergallery-metadata mb-4">
           <!-- TODO: Fill after the '@' with the set's owner  -->
-          <span class="curator mr-4">
+          <!-- <span class="curator mr-4">
             {{ $t('userset.curatedBy') }} @placeholderUsername
-          </span>
+          </span> -->
           <span
             v-if="userSet.visibility === 'private'"
             class="visibility"
@@ -53,6 +53,7 @@
         {{ itemsCount(total) }}
       </span>
       <BrowseSet
+        :set-id="setId"
         :items="userSet.items"
         :total="total"
         :page="page"
@@ -96,7 +97,7 @@
   import pluralize from 'pluralize';
   import { pageFromQuery } from '../../plugins/utils';
 
-  const PER_PAGE = 12;
+  const PER_PAGE = 24;
 
   export default {
     name: 'UserSet',
@@ -112,7 +113,10 @@
         return redirect(app.context.route.path + '?page=1');
       }
 
+      // Retrieve the set with a given id
       let uSet = await app.$sets.getSet(params.pathMatch, currentPage, PER_PAGE);
+
+      // TODO: Retrieve the recommendations of this set
 
       return {
         setId: params.pathMatch,
@@ -170,6 +174,7 @@
   .usergallery-description {
     color: $mediumgrey;
   }
+  // TODO: Assign the correct icons when the final version of icomoon config is merged with the master
   .usergallery-metadata {
     font-size: 0.9rem;
     font-weight: 600;
@@ -178,7 +183,7 @@
     .curator {
       &:before {
         @extend .icon-font;
-        content: '\e925';
+        content: '\e920';
         font-size: 1.4rem;
         padding-right: 0.2rem;
       }
@@ -186,7 +191,7 @@
     .visibility {
       &:before {
         @extend .icon-font;
-        content: '\e926';
+        content: '\e920';
         font-size: 1.4rem;
         padding-right: 0.2rem;
       }

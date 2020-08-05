@@ -1,12 +1,24 @@
 import axios from 'axios';
 import { config } from './';
 import { apiError } from './utils';
+import { genericThumbnail } from './thumbnail';
 
 function setApiUrl(endpoint) {
   return `${config.set.origin}${config.set.path}${endpoint}`;
 }
 
 export default ($axios) => ({
+  /**
+   * Filters Hit response with scope string
+   * @param  {Object} hits API response
+   * @param  {string} id Item item
+   * @return {Object} returns selector object
+   */
+  hitForItem(hits, id) {
+    const selector = hits.find((hit) => id === hit.scope);
+    return selector ? { selector: selector.selectors[0] } : {};
+  },
+
   /**
    * Get the user's set with type BookmarkFolder
    * @param {string} creator the creator's id
@@ -23,30 +35,58 @@ export default ($axios) => ({
   },
 
   /**
-   * Get the user's set with type BookmarkFolder
+   * Get a set with given id
    * @param {string} id the set's id
    * @param {string} page the set's current page
-   * @param {string} pageSize the requested page's size
+   * @param {string} pageSize the set-page's size
    * @return {Object} the set's object, containing the requested window of the set's items
    */
   async getSet(id, page, pageSize) {
-    let uSet = await $axios
+    return await $axios
       .get(setApiUrl(`/${id}?profile=standard&page=${page}&pageSize=${pageSize}`))
-      .then(response => {
+      .then(async response => {
+        if (response.data.items) {
+          await this.getSetItems(response.data.items, page, pageSize)
+            .then(items => {
+              const results = items.map(item => {
+                return {
+                  ...{
+                    europeanaId: item.id,
+                    edmPreview: item.edmPreview ? `${item.edmPreview[0]}&size=w200` : genericThumbnail(item.id, { type: item.type, size: 'w200' }),
+                    dcTitle: item.dcTitleLangAware,
+                    dcDescription: item.dcDescriptionLangAware,
+                    dcCreator: item.dcCreatorLangAware,
+                    edmDataProvider: item.dataProvider
+                  },
+                  ...(response.data.hits === undefined ? {} : this.hitForItem(response.data.hits, item.id))
+                };
+              });
+              response.data.items = results;
+            });
+        }
         return response.data;
       })
       .catch((error) => {
         throw apiError(error);
       });
-    // TODO: Use this Search API call temporarily, until item-descriptions profile is ready
-    let q = '(' + uSet.items.map(s => s.split('item')[1]).map(u => `"${u}"`).join(' OR ') + ')';
-    uSet.items = await axios
-      .get(`https://api.europeana.eu/record/search.json?wskey=${process.env.EUROPEANA_RECORD_API_KEY}&profile=minimal&rows=${pageSize}&start=${((page - 1) * pageSize) + 1}&query=europeana_id:${q}`)
+  },
+
+  /**
+   * Get the items of a set with given id
+   * @param {Array} itemIds the list of the set's items' ids
+   * @param {string} page the set's current page
+   * @param {string} pageSize the set-page's size
+   * @return {Array} the list of the set's items' objects
+   */
+  // TODO: Use this Search API call temporarily, until item-descriptions profile is ready
+  getSetItems(itemIds, page, pageSize) {
+    let query = '(' + itemIds.map(s => s.split('item')[1]).map(u => `"${u}"`).join(' OR ') + ')';
+    return axios
+      .get(`https://api.europeana.eu/record/search.json?wskey=${process.env.EUROPEANA_RECORD_API_KEY}&profile=minimal&rows=${pageSize}&start=${((page - 1) * pageSize) + 1}&query=europeana_id:${query}`)
       .then(response => {
         return response.data.items;
       })
       .catch(error => (console.error(error)));
-    return uSet;
   },
 
   /**
