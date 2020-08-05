@@ -6,9 +6,8 @@
   export default {
     auth: false,
     layout: 'minimal',
-    mounted() {
+    created() {
       this.$auth.loginWith('keycloak');
     }
   };
 </script>
-
