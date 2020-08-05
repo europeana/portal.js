@@ -174,7 +174,7 @@
   .usergallery-description {
     color: $mediumgrey;
   }
-  // TODO: Assign the correct icons when the final version of icomoon config is merged with the master
+
   .usergallery-metadata {
     font-size: 0.9rem;
     font-weight: 600;
@@ -183,7 +183,7 @@
     .curator {
       &:before {
         @extend .icon-font;
-        content: '\e920';
+        content: '\e92e';
         font-size: 1.4rem;
         padding-right: 0.2rem;
       }
@@ -191,7 +191,7 @@
     .visibility {
       &:before {
         @extend .icon-font;
-        content: '\e920';
+        content: '\e92d';
         font-size: 1.4rem;
         padding-right: 0.2rem;
       }
