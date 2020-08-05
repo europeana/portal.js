@@ -74,10 +74,6 @@ export default {
     "startDate": "Start date",
     "to": "to"
   },
-  "debug": {
-    "apiRequests": "API requests",
-    "debug": "Debug"
-  },
   "delete": "Delete",
   "depiction": "A depiction of {title}",
   "directions": {
@@ -536,6 +532,7 @@ export default {
     "settings": "Settings",
     "likes": "Likes",
     "publicCollections": "Public Collections",
-    "privateCollections": "Private Collections"
+    "privateCollections": "Private Collections",
+    "items": "item | items"
   }
 };

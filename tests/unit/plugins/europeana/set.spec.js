@@ -27,6 +27,42 @@ const searchResponse =
     ]
   };
 
+const responseMinimal =
+ {
+   items: [
+     'http://data.europeana.eu/set/1',
+     'http://data.europeana.eu/set/2'
+   ]
+ };
+
+const setsResponse =
+  [
+    {
+      id: 'http://data.europeana.eu/set/1',
+      type: 'Collection',
+      title: {
+        en: 'set 1'
+      },
+      visibility: 'private'
+    },
+    {
+      id: 'http://data.europeana.eu/set/2',
+      type: 'Collection',
+      title: {
+        en: 'set 2'
+      },
+      visibility: 'public'
+    },
+    {
+      id: 'http://data.europeana.eu/set/3',
+      type: 'Collection',
+      title: {
+        en: 'set 3'
+      },
+      visibility: 'public'
+    }
+  ];
+
 describe('describe /plugins/europeana/set', () => {
   afterEach(() => {
     nock.cleanAll();
@@ -58,9 +94,32 @@ describe('describe /plugins/europeana/set', () => {
       nock(apiUrl)
         .put('/' + setId + '/' + itemId)
         .reply(200,  likesResponse);
-
       const response =  await set(axios).modifyItems('add', setId, itemId);
       response.id.should.eq('http://data.europeana.eu/set/1234');
+    }
+    );
+  });
+  describe('getAllSets()', () => {
+    it('returns set metadata for an array of sets', async() => {
+      const setArray = [1, 2];
+      nock(apiUrl)
+        .get('/' + setArray[0] + '?profile=standard')
+        .reply(200,  setsResponse[0]);
+      nock(apiUrl)
+        .get('/' + setArray[1] + '?profile=standard')
+        .reply(200,  setsResponse[1]);
+      const response =  await set(axios).getAllSets(setArray);
+      response.length.should.eq(setArray.length);
+    }
+    );
+  });
+  describe('getSetsByCreator()', () => {
+    it('returns all ids for user sets with given visibility', async() => {
+      nock(apiUrl)
+        .get('/search?query=creator:' + 'auth-user-sub' + '+visibility:' + 'public' + '&profile=minimal')
+        .reply(200, responseMinimal);
+      const response =  await set(axios).getSetsByCreator('auth-user-sub', 'public');
+      response.should.deep.equal(['1', '2']);
     }
     );
   });

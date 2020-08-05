@@ -32,18 +32,28 @@
               data-qa="public collections"
               :title="$t('account.publicCollections')"
             >
-              <!-- TODO: Update this section to preview the results retrieved with Sets API -->
-              <div class="text-center p-3">
-                Placeholder for {{ $t('account.publicCollections') }} tab.
+              <div v-if="!$fetchState.pending">
+                <client-only>
+                  <UserSets
+                    v-if="publicSets"
+                    :set-ids="publicSets"
+                    data-qa="public sets"
+                  />
+                </client-only>
               </div>
             </b-tab>
             <b-tab
               data-qa="private collections"
               :title="$t('account.privateCollections')"
             >
-              <!-- TODO: Update this section to preview the results retrieved with Sets API -->
-              <div class="text-center p-3">
-                Placeholder for {{ $t('account.privateCollections') }} tab.
+              <div v-if="!$fetchState.pending">
+                <client-only>
+                  <UserSets
+                    v-if="privateSets"
+                    :set-ids="privateSets"
+                    data-qa="private sets"
+                  />
+                </client-only>
               </div>
             </b-tab>
           </b-tabs>
@@ -54,15 +64,39 @@
 </template>
 
 <script>
+  import UserSets from '../../components/account/UserSets';
   export default {
     middleware: 'auth',
-
+    components: {
+      UserSets
+    },
+    async fetch() {
+      this.publicSets = await this.$sets.getSetsByCreator(this.$auth.user.sub, 'public');
+      this.privateSets = await this.$sets.getSetsByCreator(this.$auth.user.sub, 'private');
+    },
+    data() {
+      return {
+        publicSets: {
+          type: Array,
+          default: () => []
+        },
+        privateSets: {
+          type: Array,
+          default: () => []
+        }
+      };
+    },
+    fetchOnServer: false,
     computed: {
       loggedInUser() {
         return this.$store.state.auth.user;
       }
     },
-
+    methods: {
+      refresh() {
+        this.$fetch();
+      }
+    },
     head() {
       return {
         title: this.$t('account.title')

@@ -30,12 +30,12 @@
       </div>
       <b-card-body data-qa="card body">
         <b-card-sub-title
-          v-if="displayLabel && variant !== 'mini'"
+          v-if="displayLabel && variant !== 'mini' || totalItems"
           sub-title-tag="div"
           sub-title-text-variant="default"
           class="mt-0"
         >
-          {{ displayLabel }}
+          {{ displayLabel || totalItems + ' '+ $tc('account.items', totalItems) }}
         </b-card-sub-title>
         <b-card-title
           v-if="displayTitle"
@@ -166,6 +166,10 @@
       showUserButtons: {
         type: Boolean,
         default: false
+      },
+      totalItems: {
+        type: Number,
+        default: null
       }
     },
     data() {
