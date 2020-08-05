@@ -71,8 +71,8 @@
       UserSets
     },
     async fetch() {
-      this.publicSets = await this.$sets.getSetsByCreator(this.$auth.user.sub, 'public');
-      this.privateSets = await this.$sets.getSetsByCreator(this.$auth.user.sub, 'private');
+      this.publicSets = await this.$sets.getSetsByCreator(this.$auth.user.sub, 'public', 'minimal');
+      this.privateSets = await this.$sets.getSetsByCreator(this.$auth.user.sub, 'private', 'minimal');
     },
     data() {
       return {

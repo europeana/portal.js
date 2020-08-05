@@ -114,11 +114,11 @@ describe('describe /plugins/europeana/set', () => {
     );
   });
   describe('getSetsByCreator()', () => {
-    it('returns all ids for user sets with given visibility', async() => {
+    it('returns all ids for user sets with given visibility and profile', async() => {
       nock(apiUrl)
-        .get('/search?query=creator:' + 'auth-user-sub' + '+visibility:' + 'public' + '&profile=minimal')
+        .get('/search?query=creator:' + 'auth-user-sub' + '+visibility:' + 'public' + '&profile=' + 'minimal')
         .reply(200, responseMinimal);
-      const response =  await set(axios).getSetsByCreator('auth-user-sub', 'public');
+      const response =  await set(axios).getSetsByCreator('auth-user-sub', 'public', 'minimal');
       response.should.deep.equal(['1', '2']);
     }
     );

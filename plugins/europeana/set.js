@@ -24,13 +24,17 @@ export default ($axios) => ({
   },
 
   /**
- * Get all sets of a user with the specified visibility
+ * Get sets for user
  * @param {string} creator the creator's id
  * @param {string} visibility the set's visibility, can be either 'public' or 'private'
+ * @param {string} profile the set profile, can be either 'minimal' or 'standard'
  * @return {Array} the ids of the sets
  */
-  async getSetsByCreator(creator, visibility) {
-    return $axios.get(setApiUrl('/search?query=creator:' + creator + '+visibility:' + visibility + '&profile=minimal'))
+  async getSetsByCreator(creator, visibility, profile) {
+    const vs = visibility ? '+visibility:' + visibility : '';
+    const prof = profile ? '&profile=' + profile : '';
+
+    return $axios.get(setApiUrl('/search?query=creator:' + creator + vs + prof))
       .then((response) => {
         const responseSets = response.data.items ? response.data.items : [];
         return responseSets.map(set => set.split('/').pop());
