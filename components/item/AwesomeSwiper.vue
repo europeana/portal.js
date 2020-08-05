@@ -80,7 +80,7 @@
     },
     methods: {
       onSlideChange() {
-        this.$emit('slideChanged', this.swiper.activeIndex);
+        this.$emit('select', this.media[this.swiper.activeIndex].about);
       }
     }
   };
