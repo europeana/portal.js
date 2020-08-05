@@ -57,7 +57,7 @@ describe('components/PageHeader', () => {
   });
 
   it('contains the logo', () => {
-     const wrapper = factory();
+    const wrapper = factory();
     wrapper.setData({ showSearch: false });
 
     const logo = wrapper.find('[data-qa="logo"]');
