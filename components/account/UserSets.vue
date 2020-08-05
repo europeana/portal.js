@@ -20,7 +20,6 @@
     </b-row>
   </b-container>
 </template>
-
 <script>
   import ContentCard from '../../components/generic/ContentCard';
 
@@ -46,8 +45,6 @@
           default: () => []
         }
       };
-    },
-    methods: {
     }
   };
 </script>
