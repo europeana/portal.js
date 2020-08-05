@@ -238,7 +238,8 @@
   @import './assets/scss/variables.scss';
 
   .auto-suggest-dropdown {
-    display: none;
+    display: block;
+    box-shadow: $boxshadow-light;
     position: absolute;
     top: 6.9rem;
     width: 100%;
@@ -268,7 +269,8 @@
       }
 
       &.hover {
-        background-color: $bodygrey;
+        background-color: $blue;
+        color: $white;
       }
     }
 
