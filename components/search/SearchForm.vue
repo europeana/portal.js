@@ -370,6 +370,10 @@
       font-size: 1.1rem;
     }
 
+    &.btn-primary {
+      text-transform: none;
+    }
+
     &.search:before {
       content: '\e92b';
     }
