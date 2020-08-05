@@ -7,10 +7,6 @@ function setApiUrl(endpoint) {
   return `${config.set.origin}${config.set.path}${endpoint}`;
 }
 
-function searchApiUrl(endpoint) {
-  return `${config.record.origin}${config.record.path}${endpoint}`;
-}
-
 export default ($axios) => ({
 /**
  * Get the user's set with type BookmarkFolder
@@ -77,7 +73,9 @@ export default ($axios) => ({
     if (!q) {
       return sets;
     }
-    return axios.get(searchApiUrl('/search.json'), {
+    const origin = config.record.origin;
+    const path = config.record.path;
+    return axios.get(`${origin}${path}/search.json`, {
       params: {
         query: `europeana_id:("${q}")`,
         wskey: config.record.key
@@ -92,7 +90,6 @@ export default ($axios) => ({
             }
           };
         });
-
         sets.forEach((set, index) => {
           let result = results.find(res => res.europeanaId === set.firstItem);
           if (result) {
