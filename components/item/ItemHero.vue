@@ -29,18 +29,18 @@
   import ShareButton from '../sharing/ShareButton.vue';
 
   export default {
-    props: {
-      media: {
-        type: Array,
-        default: []
-      }
-    },
     components: {
       AwesomeSwiper,
       DownloadButton,
       RightsStatementButton,
       SocialShareModal,
       ShareButton
+    },
+    props: {
+      media: {
+        type: Array,
+        default: () => []
+      }
     },
     data() {
       return {
