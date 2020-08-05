@@ -1,7 +1,21 @@
 .swiper {
-  iframe {
-    width: 50vw;
+  .iiif-frame-wrapper {
     height: 100%;
+    width: 1140px;
+    padding-right: 15px;
+    padding-left: 15px;
+
+    @media (min-width: $bp-large) {
+      max-width: 1140px;
+    }
+
+    @media (min-width: $bp-medium) {
+      max-width: 960px;
+    }
+  }
+  iframe {
+    height: 100%;
+    width: 100%;
     border: 1px solid #a6a6a6;
     border-radius: 0.25rem;
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.25);
