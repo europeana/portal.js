@@ -78,6 +78,7 @@ Feature: Search querying
     And I enter "frog" in the `search box`
     And I press the ENTER key
     And I wait for the page to load
+    And I click the `show search button`
     And I enter "spawn" in the `search box`
     And I press the ENTER key
     And I wait for the page to load
