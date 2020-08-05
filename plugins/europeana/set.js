@@ -58,7 +58,6 @@ export default ($axios) => ({
             description: set.data.description,
             firstItem: set.data.items ? '/' + set.data.items[0].split('/item/')[1] : null,
             total: set.data.total
-
           };
         });
       }).catch((error) => {
