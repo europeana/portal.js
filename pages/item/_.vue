@@ -1,11 +1,5 @@
 <template>
   <div>
-    <b-col cols="12">
-      <AwesomeSwiper
-        :europeana-identifier="identifier"
-        :media="media"
-      />
-    </b-col>
     <NotificationBanner
       v-if="redirectNotificationsEnabled"
       :notification-url="notificationUrl"
@@ -158,7 +152,6 @@
 
   export default {
     components: {
-      AwesomeSwiper: () => import('../../components/item/AwesomeSwiper'),
       AlertMessage: () => import('../../components/generic/AlertMessage'),
       ClientOnly,
       EntityCards: () => import('../../components/entity/EntityCards'),
