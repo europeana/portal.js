@@ -67,8 +67,12 @@ describe('components/PageHeader', () => {
   it('contains the desktop nav', () => {
     const wrapper = factory();
     wrapper.setData({ showSearch: false });
+    wrapper.setProps({ mainNavigation: { links: [{
+      text: 'Collections',
+      url: '/collections'
+    }] } });
 
-    const nav = wrapper.find('b-navbar-stub[data-qa="desktop navigation"]');
+    const nav = wrapper.find('[data-qa="desktop navigation"]');
     nav.isVisible().should.equal(true);
   });
 

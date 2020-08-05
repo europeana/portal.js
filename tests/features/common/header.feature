@@ -4,19 +4,19 @@ Feature: Page Header
     
     When I open the `home page`
     Then I see the `logo` in the `header`
-    And I see the `search button` in the `header`
+    And I see the `show search button` in the `header`
 
     When I open the `search page`
     Then I see the `logo` in the `header`
-    And I see the `search button` in the `header`
+    And I see the `show search button` in the `header`
 
     When I open an `item page`
     Then I see the `logo` in the `header`
-    And I see the `search button` in the `header`
+    And I see the `show search button` in the `header`
 
     When I open an `entity page`
     Then I see the `logo` in the `header`
-    And I see the `search button` in the `header`
+    And I see the `show search button` in the `header`
 
   Scenario: Using the logo to get back to the homepage
 

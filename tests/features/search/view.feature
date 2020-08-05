@@ -37,6 +37,7 @@ Feature: View styles (List and Grid)
   Scenario: The view parameter is preserved and present in the URL for the list view
     Given I have chosen the `list` search results view
     When I visit the `home page`
+    And I click the `show search button`
     And I enter "paris" in the `search box`
     And I press the ENTER key
     And I wait for the page to load
@@ -45,6 +46,7 @@ Feature: View styles (List and Grid)
   Scenario: The view parameter is preserved and present in the URL for the grid view
     Given I have chosen the `grid` search results view
     When I visit the `home page`
+    And I click the `show search button`
     And I enter "paris" in the `search box`
     And I press the ENTER key
     And I wait for the page to load

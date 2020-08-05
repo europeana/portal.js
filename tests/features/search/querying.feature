@@ -4,9 +4,11 @@ Feature: Search querying
 
   Scenario: Search existing Europeana content
     When I visit a `search page`
+    And I click the `show search button`
     And I enter "paris" in the `search box`
     And I press the ENTER key
     And I wait for the page to load
+    And I click the `show search button`
     Then I see "paris" in the `search box`
     And I should see 24 `search result`s
     And I see the `total results`
@@ -14,6 +16,7 @@ Feature: Search querying
 
   Scenario: Search non existing Europeana content
     When I visit a `search page`
+    And I click the `show search button`
     And I enter "no results for GIBBERISHABCDEFGHIJKLMONP" in the `search box`
     And I press the ENTER key
     And I wait for the page to load
@@ -22,6 +25,7 @@ Feature: Search querying
 
   Scenario: Search with invalid query syntax
     When I visit a `search page`
+    And I click the `show search button`
     And I enter "*:*:*" in the `search box`
     And I press the ENTER key
     And I wait for the page to load
@@ -30,16 +34,19 @@ Feature: Search querying
 
   Scenario: Search and navigate to item
     When I visit a `search page`
+    And I click the `show search button`
     And I enter "paris" in the `search box`
     And I press the ENTER key
     And I wait for the page to load
     And I click a `search result`
     And I wait for the page to load
     Then I see an `item page`
+    And I click the `show search button`
     And I don't see "paris" in the `search box`
 
   Scenario: Using auto suggestion with keyboard populates search field
     Given I am on the `home page`
+    And I click the `show search button`
     And I enter "World" in the `search box`
     And I see `search suggestions` with the text "World War I"
     And I press the DOWN_ARROW key
@@ -47,10 +54,12 @@ Feature: Search querying
     And I wait for the page to load
     Then I see the `search page`
     And I don't see `search suggestions`
+    And I click the `show search button`
     And I see "\"World War I\"" in the `search box`
 
   Scenario: Pressing ESC will close the auto suggestion dropdown
     When I visit a `search page`
+    And I click the `show search button`
     And I enter "World" in the `search box`
     And I see `search suggestions` with the text "World War I"
     And I press the ESCAPE key
@@ -58,12 +67,14 @@ Feature: Search querying
 
   Scenario: No auto suggestion on entity pages
     Given I am on an `entity page`
+    And I click the `show search button`
     And I enter "World" in the `search box`
     And I wait 1 second
     Then there are no `search suggestions`
 
   Scenario: Back button restores previous query
     Given I am on the `home page`
+    And I click the `show search button`
     And I enter "frog" in the `search box`
     And I press the ENTER key
     And I wait for the page to load
@@ -72,4 +83,5 @@ Feature: Search querying
     And I wait for the page to load
     And I go back
     And I wait 1 second
+    And I click the `show search button`
     Then I see "frog" in the `search box`

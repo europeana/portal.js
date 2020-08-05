@@ -31,15 +31,15 @@
       <b-navbar
         class="align-items-center flex-row d-flex p-0 pr-3"
         role="navigation"
-        data-qa="desktop navigation"
       >
         <PageNavigation
           v-if="mainNavigation"
           class="d-none d-lg-flex"
           :links="mainNavigation.links"
+          data-qa="desktop navigation"
         />
         <b-button
-          data-qa="search button"
+          data-qa="show search button"
           class="search ml-lg-3"
           variant="light"
           :aria-label="$t('search')"
