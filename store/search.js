@@ -333,7 +333,12 @@ export const actions = {
       facet: null
     };
 
-    return search(paramsForItems, state.apiOptions || {}, !(state.userParams.query))
+    let escape = false;
+    if (state.userParams && !(state.userParams.query)) {
+      escape = true;
+    }
+
+    return search(paramsForItems, state.apiOptions || {}, escape)
       .then(async(response) => {
         await dispatch('updateForSuccess', response);
       })
