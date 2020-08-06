@@ -1,24 +1,13 @@
 import axios from 'axios';
 import { config } from './';
 import { apiError } from './utils';
-import { genericThumbnail } from './thumbnail';
+import { resultsFromApiResponse } from './search';
 
 function setApiUrl(endpoint) {
   return `${config.set.origin}${config.set.path}${endpoint}`;
 }
 
 export default ($axios) => ({
-  /**
-   * Filters Hit response with scope string
-   * @param  {Object} hits API response
-   * @param  {string} id Item item
-   * @return {Object} returns selector object
-   */
-  hitForItem(hits, id) {
-    const selector = hits.find((hit) => id === hit.scope);
-    return selector ? { selector: selector.selectors[0] } : {};
-  },
-
   /**
    * Get the user's set with type BookmarkFolder
    * @param {string} creator the creator's id
@@ -47,21 +36,8 @@ export default ($axios) => ({
       .then(async response => {
         if (response.data.items) {
           await this.getSetItems(response.data.items, page, pageSize)
-            .then(items => {
-              const results = items.map(item => {
-                return {
-                  ...{
-                    europeanaId: item.id,
-                    edmPreview: item.edmPreview ? `${item.edmPreview[0]}&size=w200` : genericThumbnail(item.id, { type: item.type, size: 'w200' }),
-                    dcTitle: item.dcTitleLangAware,
-                    dcDescription: item.dcDescriptionLangAware,
-                    dcCreator: item.dcCreatorLangAware,
-                    edmDataProvider: item.dataProvider
-                  },
-                  ...(response.data.hits === undefined ? {} : this.hitForItem(response.data.hits, item.id))
-                };
-              });
-              response.data.items = results;
+            .then(results => {
+              response.data.items = resultsFromApiResponse(results);
             });
         }
         return response.data;
@@ -84,7 +60,7 @@ export default ($axios) => ({
     return axios
       .get(`https://api.europeana.eu/record/search.json?wskey=${process.env.EUROPEANA_RECORD_API_KEY}&profile=minimal&rows=${pageSize}&start=${((page - 1) * pageSize) + 1}&query=europeana_id:${query}`)
       .then(response => {
-        return response.data.items;
+        return response;
       })
       .catch(error => (console.error(error)));
   },
