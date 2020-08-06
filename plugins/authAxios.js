@@ -1,3 +1,4 @@
+import recommendation from './europeana/recommendation';
 import set from './europeana/set';
 
 export default function({ $axios, $auth, redirect }, inject) {
@@ -24,8 +25,6 @@ export default function({ $axios, $auth, redirect }, inject) {
     }
   });
 
-  const setWithAxios = set(axiosInstance);
-
-  inject('sets', setWithAxios);
+  inject('sets', set(axiosInstance));
+  inject('recommendations', recommendation(axiosInstance));
 }
-

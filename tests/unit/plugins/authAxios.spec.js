@@ -55,7 +55,7 @@ describe('authAxios plugin', () => {
   });
 
   context('there is a user logged in', () => {
-    it('puts the keycloak token in requests ',  async() => {
+    it('puts the keycloak token in requests ', async() => {
       authAxios(mockContext, mockInject);
       nock(apiUrl)
         .matchHeader('Authorization', 'keycloak-mocked-token')
@@ -69,7 +69,7 @@ describe('authAxios plugin', () => {
   }),
 
   context('there is no user logged in', () => {
-    it('it redirects to login ',  async() => {
+    it('it redirects to login ', async() => {
       mockContext.redirect = function(param) {
         mockContext.redirected = param;
       };
@@ -86,4 +86,3 @@ describe('authAxios plugin', () => {
     });
   });
 });
-
