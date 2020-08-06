@@ -3,6 +3,7 @@
     ref="awesome"
     class="swiper"
     :options="swiperOptions"
+    @slide-change="onSlideChange"
   >
     <swiper-slide
       v-for="(item, index) in media"
@@ -75,6 +76,11 @@
     computed: {
       swiper() {
         return this.$refs.awesome.$swiper;
+      }
+    },
+    methods: {
+      onSlideChange() {
+        window.dispatchEvent(new Event('resize'));
       }
     }
   };
