@@ -12,8 +12,6 @@
       />
       <DownloadButton
         :url="downloadUrl"
-        :disabled="disabled"
-        :target="target"
       />
       <ShareButton />
       <SocialShareModal :media-url="mediaUrl" />
@@ -40,19 +38,36 @@
       media: {
         type: Array,
         default: () => []
-      }
+      },
+      id: {
+        type: String,
+        default: ''
+      },
+      url: {
+        type: String,
+        default: null
+      },
+      useProxy: {
+        type: Boolean,
+        required: true
+      },
     },
     data() {
       return {
-        mediaUrl: 'https://www.example.org/media',
-        id: '/2020601/https___1914_1918_europeana_eu_contributions_10265',
-        rightsStatementIsUrl: true,
-        disabled: false,
-        selectedMediaItem: null,
-        target: '_blank'
+        mediaUrl: '',
+        selectedMediaItem: null
       };
     },
     computed: {
+      downloadUrl() {
+        return this.useProxy ? this.$proxyMedia(this.selectedMedia.about, this.id) : this.url;
+      },
+      rightsStatement() {
+        return this.selectedMedia.rightsStatement;
+      },
+      rightsStatementIsUrl() {
+        return RegExp('^https?://*').test(this.rightsStatement);
+      },
       selectedMedia: {
         get() {
           return this.selectedMediaItem || this.media[0] || {};
@@ -60,12 +75,6 @@
         set(about) {
           this.selectedMediaItem = this.media.find((item) => item.about === about) || {};
         }
-      },
-      rightsStatement() {
-        return this.selectedMedia.rightsStatement;
-      },
-      downloadUrl() {
-        return this.selectedMedia.downloadUrl;
       }
     },
     methods: {
