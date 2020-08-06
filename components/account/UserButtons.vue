@@ -49,7 +49,7 @@
     },
     methods: {
       async setLikesId() {
-        const creator = this.$auth.user ? this.$auth.user.sub : '';
+        const creator = this.$auth.user ? this.$auth.user.sub : null;
         let likes = await this.$sets.getLikes(creator);
         if (likes === '') {
           const response = await this.$sets.createLikes();

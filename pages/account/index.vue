@@ -15,6 +15,7 @@
         <b-col class="p-0">
           <b-tabs
             align="center"
+            class="mb-3"
           >
             <b-tab
               data-qa="likes collection"
@@ -22,7 +23,7 @@
               active
             >
               <!-- TODO: Update this section to preview the results retrieved with Sets API -->
-              <div class="text-center p-3">
+              <div class="text-center">
                 Placeholder for {{ $t('account.likes') }} tab.
               </div>
             </b-tab>
@@ -30,18 +31,32 @@
               data-qa="public collections"
               :title="$t('account.publicCollections')"
             >
-              <!-- TODO: Update this section to preview the results retrieved with Sets API -->
-              <div class="text-center p-3">
-                Placeholder for {{ $t('account.publicCollections') }} tab.
+              <div
+                v-if="!$fetchState.pending"
+              >
+                <client-only>
+                  <UserSets
+                    v-if="publicSets"
+                    :set-ids="publicSets"
+                    data-qa="public sets"
+                  />
+                </client-only>
               </div>
             </b-tab>
             <b-tab
               data-qa="private collections"
               :title="$t('account.privateCollections')"
             >
-              <!-- TODO: Update this section to preview the results retrieved with Sets API -->
-              <div class="text-center p-3">
-                Placeholder for {{ $t('account.privateCollections') }} tab.
+              <div
+                v-if="!$fetchState.pending"
+              >
+                <client-only>
+                  <UserSets
+                    v-if="privateSets"
+                    :set-ids="privateSets"
+                    data-qa="private sets"
+                  />
+                </client-only>
               </div>
             </b-tab>
           </b-tabs>
@@ -52,15 +67,24 @@
 </template>
 
 <script>
+  import UserSets from '../../components/account/UserSets';
   export default {
     middleware: 'auth',
-
+    components: {
+      UserSets
+    },
+    async fetch() {
+      this.publicSets = await this.$sets.getSetsByCreator(this.$auth.user.sub, 'public', 'minimal');
+      this.privateSets = await this.$sets.getSetsByCreator(this.$auth.user.sub, 'private', 'minimal');
+    },
     data() {
       return {
-        loggedInUser: this.$store.state.auth.user
+        loggedInUser: this.$store.state.auth.user,
+        publicSets: [],
+        privateSets: []
       };
     },
-
+    fetchOnServer: false,
     head() {
       return {
         title: this.$t('account.title')
@@ -69,3 +93,10 @@
   };
 
 </script>
+
+<style>
+  .nav-tabs {
+    margin-bottom: 40px;
+  }
+</style>
+
