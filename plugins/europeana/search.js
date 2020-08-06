@@ -118,9 +118,10 @@ function resultsFromApiResponse(response) {
  * @param {Object} options search options
  * @param {string} options.origin base URL for API, overriding default `config.record.origin`
  * @param {string} options.path path prefix for API, overriding default `config.record.path`
+ * @param {Boolean} escape, whether or not to escape the search query
  * @return {{results: Object[], totalResults: number, facets: FacetSet, error: string}} search results for display
  */
-export function search(params, options = {}) {
+export function search(params, options = {}, escape = false) {
   const maxResults = 1000;
   const perPage = params.rows === undefined ? 24 : Number(params.rows);
   const page = params.page || 1;
@@ -131,6 +132,8 @@ export function search(params, options = {}) {
   const path = options.path || config.record.path;
 
   const query = (typeof params.query === 'undefined' || params.query === '') ? '*:*' : params.query;
+  // eslint-disable-next-line
+  const escapePattern = /([\!\*\+\-\=\<\>\&\|\(\)\[\]\{\}\^\~\?\:\\/"])/g;
 
   return axios.get(`${origin}${path}/search.json`, {
     paramsSerializer(params) {
@@ -140,7 +143,7 @@ export function search(params, options = {}) {
       facet: params.facet,
       profile: params.profile,
       qf: addContentTierFilter(params.qf),
-      query,
+      query: escape ? query.replace(escapePattern, '\\$1') : query,
       reusability: params.reusability,
       rows,
       start,
