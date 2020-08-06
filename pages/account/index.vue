@@ -30,7 +30,10 @@
               data-qa="public collections"
               :title="$t('account.publicCollections')"
             >
-              <div v-if="!$fetchState.pending">
+              <div
+                v-if="!$fetchState.pending"
+                class="pt-4"
+              >
                 <client-only>
                   <UserSets
                     v-if="publicSets"
@@ -44,7 +47,10 @@
               data-qa="private collections"
               :title="$t('account.privateCollections')"
             >
-              <div v-if="!$fetchState.pending">
+              <div
+                v-if="!$fetchState.pending"
+                class="pt-4"
+              >
                 <client-only>
                   <UserSets
                     v-if="privateSets"
