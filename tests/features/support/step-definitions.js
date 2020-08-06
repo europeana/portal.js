@@ -72,12 +72,19 @@ defineStep('I activate/click (on )(the/a/an)( ){target} in/on a/an/the {target}'
   i.clickOnTheTarget([qa, parentQa]));
 
 defineStep('I check/click the {string} {string} checkbox', (inputValue, inputName) =>
-  i.checkTheCheckbox(inputName, inputValue));
+  i.checkTheCheckboxWithNameAndValue(inputName, inputValue));
+
+// TODO: new parameter type for on or off?
+defineStep('I switch the {target} {word}', (qa, onOrOff) =>
+  i.switchTheTargetOnOrOff(qa, onOrOff));
+
+defineStep('the {target} is switched {word}', (qa, onOrOff) =>
+  i.observeTheTargetIsSwitchedOnOrOff(qa, onOrOff));
 
 defineStep('I check/click the {string} {string} radio', (inputValue, inputName) =>
   i.checkTheRadio(inputName, inputValue));
 
-defineStep('I activate/click (the/a/an)( ){string} link', (href) =>
+defineStep('I activate/click/follow (the/a/an)( ){string} link', (href) =>
   i.clickOnLink(href));
 
 defineStep('the {target} is/are marked (as ){string}', (qa, klass) =>
