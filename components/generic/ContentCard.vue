@@ -30,12 +30,12 @@
       </div>
       <b-card-body data-qa="card body">
         <b-card-sub-title
-          v-if="displayLabel && variant !== 'mini'"
+          v-if="displaySubTitle && variant !== 'mini'"
           sub-title-tag="div"
           sub-title-text-variant="default"
           class="mt-0"
         >
-          {{ displayLabel }}
+          {{ displaySubTitle }}
         </b-card-sub-title>
         <b-card-title
           v-if="displayTitle"
@@ -105,6 +105,10 @@
         // may be a string or a lang map
         type: [String, Object],
         default: ''
+      },
+      subTitle: {
+        type: String,
+        default: null
       },
       // each element may be a string, an array of strings, or a lang map
       texts: {
@@ -192,6 +196,10 @@
         } else {
           return langMapValueForLocale(this.title, this.$i18n.locale);
         }
+      },
+
+      displaySubTitle() {
+        return this.subTitle || this.displayLabel;
       },
 
       displayLabel() {
