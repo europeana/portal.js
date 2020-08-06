@@ -333,10 +333,7 @@ export const actions = {
       facet: null
     };
 
-    let escape = false;
-    if (state.userParams && !(state.userParams.query)) {
-      escape = true;
-    }
+    const escape = (state.userParams && !(state.userParams.query));
 
     return search(paramsForItems, state.apiOptions || {}, escape)
       .then(async(response) => {
@@ -356,7 +353,9 @@ export const actions = {
       profile: 'facets'
     };
 
-    return search(paramsForFacets, state.apiOptions || {})
+    const escape = (state.userParams && !(state.userParams.query));
+
+    return search(paramsForFacets, state.apiOptions || {}, escape)
       .then((response) => {
         commit('setFacets', response.facets);
         const collection = getters.collection;
