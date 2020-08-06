@@ -15,6 +15,7 @@
         <b-col class="p-0">
           <b-tabs
             align="center"
+            class="mb-3"
           >
             <b-tab
               data-qa="likes collection"
@@ -22,7 +23,7 @@
               active
             >
               <!-- TODO: Update this section to preview the results retrieved with Sets API -->
-              <div class="text-center p-3">
+              <div class="text-center">
                 Placeholder for {{ $t('account.likes') }} tab.
               </div>
             </b-tab>
@@ -32,7 +33,6 @@
             >
               <div
                 v-if="!$fetchState.pending"
-                class="pt-4"
               >
                 <client-only>
                   <UserSets
@@ -49,7 +49,6 @@
             >
               <div
                 v-if="!$fetchState.pending"
-                class="pt-4"
               >
                 <client-only>
                   <UserSets
@@ -94,3 +93,10 @@
   };
 
 </script>
+
+<style>
+  .nav-tabs {
+    margin-bottom: 40px;
+  }
+</style>
+
