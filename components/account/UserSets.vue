@@ -13,6 +13,7 @@
             :title="set.title"
             :image-url="set.thumbnail"
             :texts="[set.description]"
+            :url="{ name: 'set-all', params: { pathMatch: set.id } }"
             data-qa="user set"
           />
         </b-card-group>

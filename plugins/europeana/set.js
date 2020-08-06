@@ -1,10 +1,8 @@
-import axios from 'axios';
 import { config } from './';
 import { apiError } from './utils';
 import { search as searchItems } from './search';
 
 const setApiUrl = (endpoint) => `${config.set.origin}${config.set.path}${endpoint}`;
-
 const setIdFromUri = (uri) => uri.split('/').pop();
 
 export default ($axios) => ({
@@ -76,14 +74,19 @@ export default ($axios) => ({
    * @param {string} pageSize the set-page's size
    * @return {Object} the set's object, containing the requested window of the set's items
    */
-  async getSet(id, page, pageSize) {
-    return await $axios
-      .get(setApiUrl(`/${id}?profile=standard&page=${page}&pageSize=${pageSize}`))
-      .then(async response => {
+  getSet(id, page, pageSize, profile) {
+    const params = {};
+    params.page = page || 1;
+    params.pageSize = pageSize || 24;
+    params.profile = profile || 'standard';
+
+    return $axios.get(setApiUrl(`/${id}`), { params })
+      .then(response => {
         if (response.data.items) {
-          await this.getSetItems(response.data.items, page, pageSize)
+          return this.getSetItems(response.data.items, pageSize, page)
             .then(results => {
-              response.data.items = resultsFromApiResponse(results);
+              response.data.items = results;
+              return response.data;
             });
         }
         return response.data;
@@ -93,7 +96,29 @@ export default ($axios) => ({
       });
   },
 
-/**
+  /**
+  * Get the items of a set
+  * @param {Array} itemIds the list of the set's items' ids
+  * @param {string} page the set's current page
+  * @param {string} pageSize the set-page's size
+  * @return {Array} the list of the set's items' objects
+   */
+  getSetItems(itemsIds, rows, page) {
+    const q = 'europeana_id:(' + itemsIds.map(s => s.split('item')[1]).map(u => `"${u}"`).join(' OR ') + ')';
+    return searchItems({
+      query: q,
+      rows,
+      page
+    })
+      .then(searchResponse => {
+        return searchResponse.results;
+      })
+      .catch(error => {
+        throw apiError(error);
+      });
+  },
+
+  /**
    * Get a set image for every set containg at least one item from the given set array
    * @param {Object[]} sets the sets for which to retrieve images
    * @return {Object[]} the initial sets with a thumbnail property added for each set that contains at least one item
@@ -115,24 +140,6 @@ export default ($axios) => ({
       .catch(error => {
         throw apiError(error);
       });
-  },
-
-  /**
-   * Get the items of a set with given id
-   * @param {Array} itemIds the list of the set's items' ids
-   * @param {string} page the set's current page
-   * @param {string} pageSize the set-page's size
-   * @return {Array} the list of the set's items' objects
-   */
-  // TODO: Use this Search API call temporarily, until item-descriptions profile is ready
-  getSetItems(itemIds, page, pageSize) {
-    let query = '(' + itemIds.map(s => s.split('item')[1]).map(u => `"${u}"`).join(' OR ') + ')';
-    return axios
-      .get(`https://api.europeana.eu/record/search.json?wskey=${process.env.EUROPEANA_RECORD_API_KEY}&profile=minimal&rows=${pageSize}&start=${((page - 1) * pageSize) + 1}&query=europeana_id:${query}`)
-      .then(response => {
-        return response;
-      })
-      .catch(error => (console.error(error)));
   },
 
   /**

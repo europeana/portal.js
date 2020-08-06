@@ -50,7 +50,7 @@
     </div>
     <b-container class="pt-5 pb-4">
       <span class="total-items">
-        {{ itemsCount(total) }}
+        {{ $tc('items.itemCount', total, { count: total }) }}
       </span>
       <BrowseSet
         :set-id="setId"
@@ -73,17 +73,7 @@
               deck
               data-qa="gallery images"
             >
-              <client-only>
-                <!-- TODO: Fill with items from the Recommendation Engine API -->
-                <ContentCard
-                  v-for="image in recommendations"
-                  :key="image.identifier"
-                  :title="image.title[0] || image.dcDescription[0]"
-                  :image-url="image.edmPreview[0]"
-                  :texts="cardTexts(image)"
-                  :lazy="false"
-                />
-              </client-only>
+            <!-- TODO: Fill with items from the Recommendation Engine API -->
             </b-card-group>
           </b-col>
         </b-row>
@@ -93,8 +83,6 @@
 </template>
 
 <script>
-  import ClientOnly from 'vue-client-only';
-  import pluralize from 'pluralize';
   import { pageFromQuery } from '../../plugins/utils';
 
   const PER_PAGE = 24;
@@ -102,8 +90,6 @@
   export default {
     name: 'UserSet',
     components: {
-      ClientOnly,
-      ContentCard: () => import('../../components/generic/ContentCard'),
       BrowseSet: () => import('../../components/account/BrowseSet')
     },
     async asyncData({ params, query, redirect, app }) {
@@ -148,13 +134,6 @@
           return this.userSet[field][this.$i18n.locale];
         } else {
           return this.userSet[field]['en'];
-        }
-      },
-      itemsCount(num) {
-        if (num === 1) {
-          return num + ' ' + this.$t('record.record');
-        } else {
-          return num + ' ' + pluralize.plural(this.$t('record.record'));
         }
       }
     },
