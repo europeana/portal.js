@@ -1,7 +1,6 @@
 import { config } from './';
 import { apiError } from './utils';
 import { search } from './search';
-import axios from 'axios';
 
 function setApiUrl(endpoint) {
   return `${config.set.origin}${config.set.path}${endpoint}`;
@@ -49,7 +48,7 @@ export default ($axios) => ({
  * @return {Object[]} an array of sets
  */
   async getAllSets(ids) {
-    return axios.all(ids.map(id => $axios.get(setApiUrl('/') + id + '?profile=standard')))
+    return Promise.all(ids.map(id => $axios.get(setApiUrl('/') + id + '?profile=standard')))
       .then(responseArray => {
         return responseArray.map(set => {
           return {
@@ -81,10 +80,8 @@ export default ($axios) => ({
       });
 
     sets.forEach((set, index) => {
-      let result = results.results.find(res => res.europeanaId === set.firstItem);
-      if (result) {
-        sets[index] = { ...sets[index], thumbnail: result.edmPreview };
-      }
+      const result = results.results.find(res => res.europeanaId === set.firstItem);
+      if (result) sets[index].thumbnail = result.edmPreview;
     });
     return sets;
   },
