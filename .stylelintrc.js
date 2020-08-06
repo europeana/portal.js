@@ -1,17 +1,23 @@
 module.exports = {
   extends: 'stylelint-config-recommended',
   rules: {
-    'declaration-colon-space-after': 'always',
-    'no-missing-end-of-source-newline': true,
-    'indentation': 2,
     'at-rule-no-unknown': null,
+    'block-closing-brace-newline-after': 'always',
     'block-opening-brace-space-before': 'always',
-    'number-leading-zero': 'always',
+    'declaration-block-semicolon-newline-after': 'always',
+    'declaration-colon-space-after': 'always',
+    'declaration-colon-space-after': 'always',
     'function-comma-space-after': 'always',
     'function-url-quotes': 'always',
+    'indentation': 2,
+    'no-missing-end-of-source-newline': true,
+    'number-leading-zero': 'always',
+    'selector-pseudo-element-no-unknown': [
+      true,
+      {
+        ignorePseudoElements: ['v-deep']
+      }
+    ],
     'string-quotes': 'single',
-    'declaration-block-semicolon-newline-after': 'always',
-    'block-closing-brace-newline-after': 'always',
-    'declaration-colon-space-after': 'always'
   }
 }

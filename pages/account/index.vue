@@ -3,9 +3,7 @@
     data-qa="account page"
     class="mt-n3"
   >
-    <b-container
-      fluid
-    >
+    <b-container fluid>
       <b-row class="bg-white">
         <b-col class="pt-5 pb-4">
           <h1 class="text-center mb-1">
@@ -76,21 +74,12 @@
     },
     data() {
       return {
+        loggedInUser: this.$store.state.auth.user,
         publicSets: [],
         privateSets: []
       };
     },
     fetchOnServer: false,
-    computed: {
-      loggedInUser() {
-        return this.$store.state.auth.user;
-      }
-    },
-    methods: {
-      refresh() {
-        this.$fetch();
-      }
-    },
     head() {
       return {
         title: this.$t('account.title')
