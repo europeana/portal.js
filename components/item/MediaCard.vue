@@ -24,7 +24,7 @@
   />
   <div
     v-else-if="isIIIFImage || isIIIFPresentation"
-    class="iiif-frame-wrapper"
+    class="container h-100"
   >
     <iframe
       data-qa="IIIF viewer"
