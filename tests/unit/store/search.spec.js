@@ -487,6 +487,7 @@ describe('store/search', () => {
         const collectionQf = 'collection:"migration"';
         const dispatch = sinon.spy();
         const state = { apiParams: { query: searchQuery, qf: [typeQf, collectionQf] } };
+        const getters = {};
 
         baseRequest
           .query(query => {
@@ -494,22 +495,22 @@ describe('store/search', () => {
           })
           .reply(200, defaultResponse);
 
-        await store.actions.queryItems({ dispatch, state });
+        await store.actions.queryItems({ dispatch, state, getters });
 
         nock.isDone().should.be.true;
       });
 
       context('on success', () => {
         it('dispatches updateForSuccess', async() => {
-          const commit = sinon.spy();
           const dispatch = sinon.spy();
           const state = {};
+          const getters = {};
 
           baseRequest
             .query(true)
             .reply(200, defaultResponse);
 
-          await store.actions.queryItems({ commit, dispatch, state });
+          await store.actions.queryItems({ dispatch, state, getters });
 
           dispatch.should.have.been.calledWith('updateForSuccess');
         });
@@ -517,9 +518,9 @@ describe('store/search', () => {
 
       context('on failure', () => {
         it('dispatches updateForFailure', async() => {
-          const commit = sinon.spy();
           const dispatch = sinon.spy();
           const state = {};
+          const getters = {};
           const errorMessage = 'Invalid query parameter.';
 
           baseRequest
@@ -529,7 +530,7 @@ describe('store/search', () => {
               error: errorMessage
             });
 
-          await store.actions.queryItems({ commit, dispatch, state });
+          await store.actions.queryItems({ dispatch, state, getters });
 
           dispatch.should.have.been.calledWith('updateForFailure');
         });

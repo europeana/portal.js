@@ -118,10 +118,10 @@ function resultsFromApiResponse(response) {
  * @param {Object} options search options
  * @param {string} options.origin base URL for API, overriding default `config.record.origin`
  * @param {string} options.path path prefix for API, overriding default `config.record.path`
- * @param {Boolean} escape, whether or not to escape the search query
+ * @param {Boolean} options.escape whether or not to escape Lucene reserved characters in the search query
  * @return {{results: Object[], totalResults: number, facets: FacetSet, error: string}} search results for display
  */
-export function search(params, options = {}, escape = false) {
+export function search(params, options = {}) {
   const maxResults = 1000;
   const perPage = params.rows === undefined ? 24 : Number(params.rows);
   const page = params.page || 1;
@@ -130,10 +130,10 @@ export function search(params, options = {}, escape = false) {
 
   const origin = options.origin || config.record.origin;
   const path = options.path || config.record.path;
+  const escape = options.escape || false;
 
   const query = (typeof params.query === 'undefined' || params.query === '') ? '*:*' : params.query;
-  // eslint-disable-next-line
-  const escapePattern = /([\!\*\+\-\=\<\>\&\|\(\)\[\]\{\}\^\~\?\:\\/"])/g;
+  const escapePattern = /([!*+-=<>&|()[\]{}^~?:\\/"])/g; // Lucene reserved characters
 
   return axios.get(`${origin}${path}/search.json`, {
     paramsSerializer(params) {
