@@ -38,24 +38,16 @@
       itemId() {
         return this.itemUrl.params[0];
       },
-      likesId: {
-        get() {
-          return this.$store.state.set.likesId;
-        },
-        set(value) {
-          this.$store.commit('set/setLikesId', value);
-        }
+      likesId() {
+        return this.$store.state.set.likesId;
       }
     },
+    created() {
+      this.setLiked();
+    },
     methods: {
-      async setLikesId() {
-        const creator = this.$auth.user ? this.$auth.user.sub : null;
-        let likes = await this.$sets.getLikes(creator);
-        if (likes === '') {
-          const response = await this.$sets.createLikes();
-          likes = response.id.split('/').pop();
-        }
-        this.likesId = likes;
+      setLiked() {
+        this.liked = this.$store.state.set.liked.includes(this.itemId);
       },
       async toggleLiked() {
         await (this.liked ? this.unlike() : this.like());
@@ -63,12 +55,12 @@
       },
       async like() {
         if (this.likesId === null) {
-          await this.setLikesId();
+          await this.$store.dispatch('set/createLikes');
         }
-        await this.$sets.modifyItems('add', this.likesId, this.itemId);
+        await this.$store.dispatch('set/like', this.itemId);
       },
       async unlike() {
-        await this.$sets.modifyItems('delete', this.likesId, this.itemId);
+        await this.$store.dispatch('set/unlike', this.itemId);
       }
     }
   };
