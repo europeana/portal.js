@@ -30,12 +30,12 @@
       </div>
       <b-card-body data-qa="card body">
         <b-card-sub-title
-          v-if="displayLabel && variant !== 'mini'"
+          v-if="displaySubTitle && variant !== 'mini'"
           sub-title-tag="div"
           sub-title-text-variant="default"
           class="mt-0"
         >
-          {{ displayLabel }}
+          {{ displaySubTitle }}
         </b-card-sub-title>
         <b-card-title
           v-if="displayTitle"
@@ -80,37 +80,24 @@
         </template>
       </b-card-body>
     </SmartLink>
-    <div
+    <UserButtons
       v-if="showUserButtons"
-      class="user-buttons"
-      data-qa="user buttons"
-    >
-      <b-button
-        class="icon-ic-add"
-        data-qa="add to gallery button"
-        :aria-label="$t('actions.addToGallery')"
-        @click="$bvModal.show('modal-collection')"
-      />
-      <b-button
-        :pressed.sync="liked"
-        class="icon-heart"
-        data-qa="like button"
-        :aria-label="$t('actions.like')"
-        size="sm"
-      />
-    </div>
+      :item-url="url"
+    />
   </b-card>
 </template>
 
 <script>
   import SmartLink from './SmartLink';
   import { langMapValueForLocale } from  '../../plugins/europeana/utils';
+  import UserButtons from '../account/UserButtons';
 
   export default {
     name: 'ContentCard',
 
     components: {
-      SmartLink
+      SmartLink,
+      UserButtons
     },
 
     props: {
@@ -118,6 +105,10 @@
         // may be a string or a lang map
         type: [String, Object],
         default: ''
+      },
+      subTitle: {
+        type: String,
+        default: null
       },
       // each element may be a string, an array of strings, or a lang map
       texts: {
@@ -184,8 +175,7 @@
     data() {
       return {
         cardImageUrl: this.imageUrl,
-        displayLabelTypes: 'exhibitions|galleries|blog',
-        liked: false
+        displayLabelTypes: 'exhibitions|galleries|blog'
       };
     },
 
@@ -206,6 +196,10 @@
         } else {
           return langMapValueForLocale(this.title, this.$i18n.locale);
         }
+      },
+
+      displaySubTitle() {
+        return this.subTitle || this.displayLabel;
       },
 
       displayLabel() {

@@ -27,7 +27,8 @@ const pages = {
   'search page': `${url}/en/search?query=`,
   'Swedish home page': `${url}/sv`,
   'topics listing page': `${url}/en/collections/topics`,
-  'account page': `${url}/account`
+  'account page': `${url}/account`,
+  'debug page': `${url}/debug`
 };
 
 module.exports = {

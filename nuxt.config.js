@@ -86,6 +86,7 @@ const config = {
   ** Plugins to load before mounting the App
   */
   plugins: [
+    '~/plugins/axiosLogger',
     '~/plugins/europeana',
     '~/plugins/vue/index',
     '~/plugins/i18n.js',
@@ -145,11 +146,12 @@ const config = {
         silentFallbackWarn: true,
         dateTimeFormats: i18nDateTime
       },
-      // Disable redirects to account callback & login pages
+      // Disable redirects to account pages
       parsePages: false,
       pages: {
         'account/callback': false,
-        'account/login': false
+        'account/login': false,
+        'account/logout': false
       },
       // Enable browser language detection to automatically redirect user
       // to their preferred language as they visit your app for the first time
@@ -245,13 +247,14 @@ if (Number(process.env['ENABLE_XX_USER_AUTH'])) {
         client_id: process.env.OAUTH_CLIENT,
         scope: process.env.OAUTH_SCOPE.split(','),
         realm: process.env.OAUTH_REALM,
-        authorization_endpoint: process.env.OAUTH_URL + '/auth',
-        access_token_endpoint: process.env.OAUTH_URL + '/token',
-        userinfo_endpoint: process.env.OAUTH_URL + '/userinfo',
+        authorization_endpoint: `${process.env.OAUTH_ORIGIN}/auth/realms/${process.env.OAUTH_REALM}/protocol/openid-connect/auth`,
+        access_token_endpoint: `${process.env.OAUTH_ORIGIN}/auth/realms/${process.env.OAUTH_REALM}/protocol/openid-connect/token`,
+        userinfo_endpoint: `${process.env.OAUTH_ORIGIN}/auth/realms/${process.env.OAUTH_REALM}/protocol/openid-connect/userinfo`,
         response_type: 'code id_token token',
         token_type: 'Bearer'
       }
-    }
+    },
+    plugins: [{ src: '~/plugins/authAxios' }]
   };
 }
 

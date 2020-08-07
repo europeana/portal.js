@@ -167,6 +167,32 @@ describe('plugins/europeana/search', () => {
           nock.isDone().should.be.true;
         });
       });
+
+      describe('escaping Lucene reserved characters', () => {
+        it('does not escape them by default', async() => {
+          baseRequest
+            .query(query => {
+              return query.query === 'dress (red OR blue)';
+            })
+            .reply(200, defaultResponse);
+
+          await search({ query: 'dress (red OR blue)' });
+
+          nock.isDone().should.be.true;
+        });
+
+        it('does escape them when options.escape is `true`', async() => {
+          baseRequest
+            .query(query => {
+              return query.query === 'dress \\(red OR blue\\)';
+            })
+            .reply(200, defaultResponse);
+
+          await search({ query: 'dress (red OR blue)' }, { escape: true });
+
+          nock.isDone().should.be.true;
+        });
+      });
     });
 
     describe('API response', () => {

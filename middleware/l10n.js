@@ -18,7 +18,11 @@ function appSupportsLocale(locale) {
 
 export default ({ app, route, redirect, req }) => {
   // Exit early if this is an auth callback
-  if (app.$auth && (route.path === app.$auth.options.redirect.callback || route.path === app.$auth.options.redirect.login)) return;
+  if (app.$auth && [
+    app.$auth.options.redirect.callback,
+    app.$auth.options.redirect.login,
+    '/account/logout'
+  ].includes(route.path)) return;
 
   // Is there a locale in the URL path already?
   const routePathLocaleMatch = route.path.match(/^\/([a-z]{2})(\/.*)?$/);

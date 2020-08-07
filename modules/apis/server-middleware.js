@@ -24,7 +24,11 @@ app.get('/:locale/item/:dataset/:item.json', (req, res) => {
     }
   })
     .then((response) => {
-      res.json(response.data);
+      const deprecationNotice = '**** THIS .json METHOD IS DEPRECATED AND WILL BE REMOVED IN A FUTURE RELEASE. PLEASE VISIT /debug INSTEAD. ****';
+      res.json({
+        warning: deprecationNotice,
+        ...response.data
+      });
     })
     .catch((error) => {
       res.status(error.response.status || 500);

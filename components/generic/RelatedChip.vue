@@ -5,7 +5,8 @@
     variant="light"
     class="mt-1 mr-2 font-weight-normal bg-white"
     :class="{ 'img-chip': img }"
-    :data-qa="title + ' related chip'"
+    :data-qa="localisedTitle.values[0] + ' related chip'"
+    :lang="localisedTitle.code"
   >
     <b-img
       v-if="img"
@@ -14,11 +15,13 @@
       rounded="circle"
       class="mr-2"
     />
-    {{ title }}
+    {{ localisedTitle.values[0] }}
   </b-badge>
 </template>
 
 <script>
+  import { langMapValueForLocale } from  '../../plugins/europeana/utils';
+
   export default {
     name: 'RelatedChip',
 
@@ -32,7 +35,7 @@
         default: ''
       },
       title: {
-        type: String,
+        type: [String, Object],
         required: true
       },
       id: {
@@ -42,6 +45,16 @@
       img: {
         type: String,
         default: ''
+      }
+    },
+
+    computed: {
+      localisedTitle() {
+        if (typeof this.title === 'string') return {
+          values: [this.title],
+          code: null
+        };
+        return langMapValueForLocale(this.title, this.$i18n.locale);
       }
     }
   };

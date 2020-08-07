@@ -74,6 +74,10 @@ export default {
     "startDate": "Start date",
     "to": "to"
   },
+  "debug": {
+    "apiRequests": "API requests",
+    "debug": "Debug"
+  },
   "delete": "Delete",
   "depiction": "A depiction of {title}",
   "directions": {
@@ -442,6 +446,9 @@ export default {
   "homeLinkAlt": "Europeana home",
   "imageSlider": {
     "handle": "Slider Handle"
+  },
+  "items": {
+    "itemCount": "1 item |{count} items"
   },
   "layout": {
     "skipToMain": "Skip to page contents"
