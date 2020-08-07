@@ -1,29 +1,4 @@
 .swiper {
-  .iiif-frame-wrapper {
-    height: 100%;
-    width: 1140px;
-    max-width: 100vw;
-    padding-right: 20px;
-    padding-left: 20px;
-
-    @media (min-width: $bp-small) {
-      max-width: 540px;
-      padding-right: 15px;
-      padding-left: 15px;
-    }
-
-    @media (min-width: $bp-medium) {
-      max-width: 720px;
-    }
-
-    @media (min-width: $bp-large) {
-      max-width: 960px;
-    }
-
-    @media (min-width: $bp-extralarge) {
-      max-width: 1140px;
-    }
-  }
   iframe {
     height: 100%;
     width: 100%;

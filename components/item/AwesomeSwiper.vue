@@ -102,6 +102,9 @@
       height: 100%;
       position: absolute;
     }
+    &:only-child {
+      width: 100%;
+    }
     a {
       display: inline-flex;
       height: 100%;
