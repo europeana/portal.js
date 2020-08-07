@@ -9,7 +9,8 @@ const factory = () => mount(UserSets, {
   localVue,
   mocks: {
     $t: (key) => key,
-    $tc: (key) => key
+    $tc: (key) => key,
+    $path: () => 'localizedPath'
   }
 });
 
