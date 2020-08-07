@@ -1,13 +1,17 @@
+import axios from 'axios';
 import { config } from './';
 import { apiError } from './utils';
 import { search as searchItems } from './search';
 
 const setApiUrl = (endpoint) => `${config.set.origin}${config.set.path}${endpoint}`;
 const setIdFromUri = (uri) => uri.split('/').pop();
+const paramsWithApiKey = (params = {}) => {
+  return { ...params, wskey: config.set.key };
+};
 
 export default ($axios) => ({
   search(params) {
-    return $axios.get(setApiUrl('/search'), { params });
+    return $axios.get(setApiUrl('/search'), { params: paramsWithApiKey(params) });
   },
 
   /**
@@ -49,7 +53,7 @@ export default ($axios) => ({
    */
   getAllSets(ids) {
     return Promise.all(ids.map(id => $axios.get(setApiUrl(`/${id}`), {
-      params: { profile: 'standard' }
+      params: paramsWithApiKey({ profile: 'standard' })
     })))
       .then(responseArray => {
         return responseArray.map(set => {
@@ -72,6 +76,7 @@ export default ($axios) => ({
    * @param {string} id the set's id
    * @param {string} page the set's current page
    * @param {string} pageSize the set-page's size
+   * @param {string} profile the set's metadata profile
    * @return {Object} the set's object, containing the requested window of the set's items
    */
   getSet(id, page, pageSize, profile) {
@@ -80,7 +85,9 @@ export default ($axios) => ({
     params.pageSize = pageSize || 24;
     params.profile = profile || 'standard';
 
-    return $axios.get(setApiUrl(`/${id}`), { params })
+    const apiCall = $axios.defaults.headers.Authorization ? $axios.get : axios.get;
+
+    return apiCall(setApiUrl(`/${id}`), { params: paramsWithApiKey(params) })
       .then(response => {
         if (response.data.items) {
           return this.getSetItems(response.data.items, pageSize, page)
@@ -92,19 +99,22 @@ export default ($axios) => ({
         return response.data;
       })
       .catch((error) => {
+        if (error.response.status === 403) {
+          // TODO: Handle the Unauthorized error here
+        }
         throw apiError(error);
       });
   },
 
   /**
   * Get the items of a set
-  * @param {Array} itemIds the list of the set's items' ids
+  * @param {Array} itemsIds the list of the set's items' ids
+  * @param {string} rows the set-page's size
   * @param {string} page the set's current page
-  * @param {string} pageSize the set-page's size
   * @return {Array} the list of the set's items' objects
    */
   getSetItems(itemsIds, rows, page) {
-    const q = 'europeana_id:(' + itemsIds.map(s => s.split('item')[1]).map(u => `"${u}"`).join(' OR ') + ')';
+    const q = 'europeana_id:(' + itemsIds.map(s => s.split('/item/')[1]).map(u => `"/${u}"`).join(' OR ') + ')';
     return searchItems({
       query: q,
       rows,
@@ -154,7 +164,8 @@ export default ($axios) => ({
           en: 'LIKES'
         },
         visibility: 'private'
-      }
+      },
+      { params: paramsWithApiKey() }
     )
       .then(response => response.data)
       .catch(error => {
@@ -172,7 +183,7 @@ export default ($axios) => ({
   modifyItems(action, setId, itemId) {
     const apiCall = action === 'add' ? $axios.put : $axios.delete;
 
-    return apiCall(setApiUrl(`/${setId}/${itemId}`))
+    return apiCall(setApiUrl(`/${setId}/${itemId}`), { params: paramsWithApiKey() })
       .then(response => response.data)
       .catch(error => {
         throw apiError(error);
