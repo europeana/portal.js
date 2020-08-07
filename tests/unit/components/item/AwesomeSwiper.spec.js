@@ -50,12 +50,12 @@ describe('components/item/AwesomeSwiper', () => {
     it('is enabled when there are multiple media', () => {
       const wrapper = factory({ media, europeanaIdentifier });
 
-      wrapper.vm.swipingEnabled().should.eq(true);
+      wrapper.vm.swipingEnabled.should.eq(true);
     });
     it('is NOT enabled when there is one media resource', () => {
       const wrapper = factory({ media: [media[0]], europeanaIdentifier });
 
-      wrapper.vm.swipingEnabled().should.eq(false);
+      wrapper.vm.swipingEnabled.should.eq(false);
     });
   });
 });

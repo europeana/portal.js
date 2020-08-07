@@ -15,6 +15,7 @@
       />
     </swiper-slide>
     <div
+      v-if="swipingEnabled"
       slot="pagination"
       class="swiper-pagination"
     />
@@ -55,9 +56,10 @@
       }
     },
     data() {
+      const swipingEnabled = this.media.length > 1;
       return {
         swiperOptions: {
-          threshold: this.swipingEnabled() ? null : 5000000,
+          threshold: swipingEnabled ? null : 5000000,
           slidesPerView: 'auto',
           spaceBetween: 40,
           centeredSlides: true,
@@ -70,17 +72,13 @@
             el: '.swiper-pagination',
             clickable: true
           }
-        }
+        },
+        swipingEnabled
       };
     },
     computed: {
       swiper() {
         return this.$refs.awesome.$swiper;
-      }
-    },
-    methods: {
-      swipingEnabled() {
-        return this.media.length > 1;
       }
     }
   };
