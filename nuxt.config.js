@@ -1,12 +1,117 @@
 // Load dotenv for server/index.js to access env vars from .env file
 /* eslint-disable camelcase */
 require('dotenv').config();
+const { cosmiconfigSync } = require('cosmiconfig');
 const pkg = require('./package');
 const i18nLocales = require('./plugins/i18n/locales.js');
 const i18nDateTime = require('./plugins/i18n/datetime.js');
 
+const featureIsEnabled = (value) => Boolean(Number(value));
+
+const loadApisRuntimeConfig = () => {
+  let rc = {};
+
+  if (process.env['EUROPEANA_APIS']) {
+    rc = JSON.parse(process.env['EUROPEANA_APIS']);
+  } else {
+    const configSearch = cosmiconfigSync('apis').search();
+    if (configSearch) rc = configSearch.config;
+  }
+
+  return rc;
+};
+
 const config = {
   mode: 'universal',
+
+  /*
+  ** Runtime config
+  */
+  publicRuntimeConfig: {
+    app: {
+      // TODO: rename env vars to prefix w/ APP_, except feature toggles
+      baseUrl: process.env.PORTAL_BASE_URL,
+      internalLinkDomain: process.env.INTERNAL_LINK_DOMAIN,
+      sslDatasetBlacklist: process.env.SSL_DATASET_BLACKLIST,
+      features: {
+        linksToClassic: featureIsEnabled(process.env.ENABLE_LINKS_TO_CLASSIC),
+        sslNegotiation: featureIsEnabled(process.env.ENABLE_SSL_NEGOTIATION),
+        userAuth: featureIsEnabled(process.env.ENABLE_XX_USER_AUTH)
+      }
+    },
+    contentful: {
+      spaceId: process.env.CTF_SPACE_ID,
+      environmentId: process.env.CTF_ENVIRONMENT_ID,
+      accessToken: {
+        delivery: process.env.CTF_CDA_ACCESS_TOKEN,
+        preview: process.env.CTF_CPA_ACCESS_TOKEN
+      },
+      graphQlOrigin: process.env.CTF_GRAPHQL_ORIGIN
+    },
+    disqus: {
+      shortname: process.env.DISQUS_SHORTNAME
+    },
+    elastic: {
+      apm: {
+        serverUrl: process.env.ELASTIC_APM_SERVER_URL,
+        environment: process.env.ELASTIC_APM_ENVIRONMENT,
+        logLevel: process.env.ELASTIC_APM_LOG_LEVEL
+      }
+    },
+    europeana: {
+      apis: {
+        annotation: {
+          // TODO: replace with API gateway origin when it works
+          origin: 'https://annotations.europeana.eu',
+          path: '/annotation',
+          key: process.env.EUROPEANA_ANNOTATION_API_KEY
+        },
+        data: {
+          origin: 'http://data.europeana.eu'
+        },
+        entity: {
+          origin: 'https://api.europeana.eu',
+          path: '/entity',
+          key: process.env.EUROPEANA_ENTITY_API_KEY
+        },
+        newspaper: {
+          origin: 'https://newspapers.eanadev.org',
+          path: '/api/v2',
+          key: process.env.EUROPEANA_NEWSPAPER_API_KEY || process.env.EUROPEANA_RECORD_API_KEY
+        },
+        record: {
+          origin: 'https://api.europeana.eu',
+          path: '/record',
+          key: process.env.EUROPEANA_RECORD_API_KEY
+        },
+        thumbnail: {
+          origin: 'https://api.europeana.eu',
+          path: '/api/v2'
+        },
+        // TODO: remove this when the data is merged with that in the newspaper API
+        ww1: {
+          origin: 'https://transcription-search-test.eanadev.org',
+          path: '/api/v2',
+          key: process.env.EUROPEANA_WW1_API_KEY || process.env.EUROPEANA_RECORD_API_KEY
+        },
+        set: {
+          origin: 'https://api.europeana.eu',
+          path: '/set'
+        }
+      },
+      originOverrides: loadApisRuntimeConfig()
+    },
+    google: {
+      tagManagerId: process.env.GOOGLE_TAG_MANAGER_ID
+    },
+    oauth: {
+      origin: process.env.OAUTH_ORIGIN,
+      scheme: process.env.OAUTH_SCHEME,
+      realm: process.env.OAUTH_REALM,
+      client: process.env.OAUTH_CLIENT,
+      scope: process.env.OAUTH_SCOPE
+    }
+  },
 
   /*
   ** Headers of the page
@@ -129,7 +234,6 @@ const config = {
   modules: [
     '@nuxtjs/axios',
     '@nuxtjs/auth',
-    '@nuxtjs/dotenv',
     '~/modules/apis',
     'bootstrap-vue/nuxt',
     'cookie-universal-nuxt',
@@ -224,7 +328,10 @@ const config = {
     static: {
       maxAge: '1d'
     }
-  }
+  },
+
+  // Opt-out of telemetry
+  telemetry: false
 };
 
 if (Number(process.env['ENABLE_XX_USER_AUTH'])) {

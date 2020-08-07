@@ -1,7 +1,7 @@
-import config from './config';
+import rc from './rc';
 
-export default ({ app, store }, inject) => {
-  app.$apis = config;
+export default ({ store, $config }, inject) => {
+  const config = rc($config.europeana.apis, $config.europeana.originOverrides);
   inject('apis', config);
 
   if (store) {
