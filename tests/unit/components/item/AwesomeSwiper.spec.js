@@ -43,20 +43,18 @@ const media = [
   }
 ];
 const europeanaIdentifier = '/2020601/https___1914_1918_europeana_eu_contributions_10265';
-const secondSlideID = 'https://europeana1914-1918.s3.amazonaws.com/attachments/119200/10265.119200.original.jpg';
 
 describe('components/item/AwesomeSwiper', () => {
   context('when the swiper loads', () => {
-    it('shows five images', () => {
+    it('shows five slides', () => {
       const wrapper = factory({ media, europeanaIdentifier });
-      wrapper.findAll('img').length.should.eq(5);
+      wrapper.findAll('div.swiper-slide').length.should.eq(5);
     });
 
-    it('emits a `select` event with the item identifier', async() => {
+    it('emits a `select` event with the item identifier', () => {
       const wrapper = factory({ media, europeanaIdentifier });
-      const secondSlide = wrapper.find('.swiper-slide'[1]);
-      await secondSlide.trigger('click');
-      wrapper.emitted('select').should.deep.eq([[secondSlideID]]);
+      wrapper.vm.swiper.slideTo(1, 1000, false);
+      wrapper.emitted('select').should.deep.eq([[media[1].about]]);
     });
   });
 });

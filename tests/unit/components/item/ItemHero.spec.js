@@ -1,28 +1,18 @@
-import { storiesOf } from '@storybook/vue';
-import Vuex from 'vuex';
-import AwesomeSwiper from './AwesomeSwiper';
-import ItemHero from './ItemHero';
+import { createLocalVue, mount } from '@vue/test-utils';
+import BootstrapVue from 'bootstrap-vue';
 
-const i18n = {
-  locale: 'en',
-  messages: {
-    en: {
-      actions: {
-        close: 'close',
-        download: 'download',
-        share: 'share',
-        shareOn: 'Share on {social}'
-      }
-    }
-  }
-};
+import ItemHero from '../../../../components/item/ItemHero.vue';
 
-const store = new Vuex.Store({
-  getters: {
-    'http/canonicalUrl': () => {
-      return 'https://www.example.org/';
-    }
-  }
+const localVue = createLocalVue();
+localVue.use(BootstrapVue);
+
+const factory = (propsData) => mount(ItemHero, {
+  localVue,
+  mocks: {
+    $t: (key) => key,
+    $proxyMedia: () => 'proxied'
+  },
+  propsData
 });
 
 const media = [
@@ -52,46 +42,20 @@ const media = [
     rightsStatement: 'http://creativecommons.org/licenses/by-sa/3.0/'
   }
 ];
+const europeanaIdentifier = '/2020601/https___1914_1918_europeana_eu_contributions_10265';
+const useProxy = true;
 
-storiesOf('Item page/Awesome Swiper', module)
-  .add('Centered with multiple slides visible', () => ({
-    i18n,
-    components: { AwesomeSwiper },
-    data() {
-      return {
-        media,
-        id: '/2020601/https___1914_1918_europeana_eu_contributions_10265'
-      };
-    },
-    template: `
-      <div class="mt-3">
-        <AwesomeSwiper
-          :europeana-identifier="id"
-          :media="media"
-        />
-      </div>
-    `
-  }))
-  .add('Swiper with info components', () => ({
-    i18n,
-    store,
-    components: {
-      ItemHero
-    },
-    data() {
-      return {
-        media,
-        id: '/2020601/https___1914_1918_europeana_eu_contributions_10265',
-        useProxy: true
-      };
-    },
-    template: `
-      <div class="mt-3">
-        <ItemHero
-          :media="media"
-          :id="id"
-          :use-proxy="useProxy"
-        />
-      </div>
-    `
-  }));
+describe('components/item/ItemHero', () => {
+  context('when a new item is selected', () => {
+    it('updates the identifier', () => {
+      const wrapper = factory({ media, europeanaIdentifier, useProxy });
+      wrapper.vm.selectMedia(media[1].about);
+      wrapper.vm.selectedMedia.about.should.eq(media[1].about);
+    });
+    it('updates the rights statement', () => {
+      const wrapper = factory({ media, europeanaIdentifier, useProxy });
+      wrapper.vm.selectMedia(media[1].about);
+      wrapper.vm.selectedMedia.rightsStatement.should.eq(media[1].rightsStatement);
+    });
+  });
+});
