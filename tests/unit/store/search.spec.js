@@ -439,11 +439,10 @@ describe('store/search', () => {
 
     describe('searchOptions', () => {
       describe('.escape', () => {
-        it('is `true` when state has userParams with no query', () => {
+        it('is `true` when override params has query and user params does not', () => {
           const state = {
-            userParams: {
-              qf: ['TYPE:"IMAGE"']
-            }
+            overrideParams: { query: 'crumpet' },
+            userParams: {}
           };
 
           const escape = store.getters.searchOptions(state).escape;
@@ -451,32 +450,22 @@ describe('store/search', () => {
           escape.should.be.true;
         });
 
-        it('is `false` when state has userParams with non-blank query', () => {
+        it('is `true` when override params has query and user params query is blank', () => {
           const state = {
-            userParams: {
-              query: 'crumpet'
-            }
+            overrideParams: { query: 'crumpet' },
+            userParams: { query: '' }
           };
 
           const escape = store.getters.searchOptions(state).escape;
 
-          escape.should.be.false;
+          escape.should.be.true;
         });
 
-        it('is `false` when state has userParams with blank query', () => {
+        it('is `false` when override params has no query', () => {
           const state = {
-            userParams: {
-              query: ''
-            }
+            overrideParams: {},
+            userParams: {}
           };
-
-          const escape = store.getters.searchOptions(state).escape;
-
-          escape.should.be.false;
-        });
-
-        it('is `false` when state has no userParams', () => {
-          const state = {};
 
           const escape = store.getters.searchOptions(state).escape;
 
