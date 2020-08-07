@@ -245,7 +245,7 @@ export const getters = {
   },
 
   searchOptions: (state) => {
-    const escape = (state.userParams && !Object.prototype.hasOwnProperty.call(state.userParams, 'query'));
+    const escape = (!!state.userParams && !Object.prototype.hasOwnProperty.call(state.userParams, 'query'));
 
     return { ...state.apiOptions, escape };
   }

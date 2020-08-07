@@ -436,6 +436,54 @@ describe('store/search', () => {
         }
       });
     });
+
+    describe('searchOptions', () => {
+      describe('.escape', () => {
+        it('is `true` when state has userParams with no query', () => {
+          const state = {
+            userParams: {
+              qf: ['TYPE:"IMAGE"']
+            }
+          };
+
+          const escape = store.getters.searchOptions(state).escape;
+
+          escape.should.be.true;
+        });
+
+        it('is `false` when state has userParams with non-blank query', () => {
+          const state = {
+            userParams: {
+              query: 'crumpet'
+            }
+          };
+
+          const escape = store.getters.searchOptions(state).escape;
+
+          escape.should.be.false;
+        });
+
+        it('is `false` when state has userParams with blank query', () => {
+          const state = {
+            userParams: {
+              query: ''
+            }
+          };
+
+          const escape = store.getters.searchOptions(state).escape;
+
+          escape.should.be.false;
+        });
+
+        it('is `false` when state has no userParams', () => {
+          const state = {};
+
+          const escape = store.getters.searchOptions(state).escape;
+
+          escape.should.be.false;
+        });
+      });
+    });
   });
 
   describe('actions', () => {
