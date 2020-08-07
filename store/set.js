@@ -21,9 +21,13 @@ export const mutations = {
 };
 
 export const actions = {
-  async like({ commit, state }, { action, itemId }) {
-    await this.$sets.modifyItems(action, state.likesId, itemId);
-    action === 'add' ? commit('like', itemId) : commit('unlike', itemId);
+  async like({ commit, state }, itemId) {
+    await this.$sets.modifyItems('add', state.likesId, itemId);
+    commit('like', itemId);
+  },
+  async unlike({ commit, state }, itemId) {
+    await this.$sets.modifyItems('delete', state.likesId, itemId);
+    commit('unlike', itemId);
   },
   async setLikes({ commit }) {
     const creator = this.$auth.user ? this.$auth.user.sub : null;

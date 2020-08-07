@@ -14,7 +14,6 @@ const mockProps =  {
 
 const factory = () => mount(UserButtons, {
   localVue,
-  methods: { setLiked: sinon.spy() },
   mocks: {
     $store: {
       state: {

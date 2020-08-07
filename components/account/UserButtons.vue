@@ -29,6 +29,9 @@
         default: () => {}
       }
     },
+    fetch() {
+      this.liked = this.$store.state.set.liked.includes(this.itemId);
+    },
     data() {
       return {
         liked: false
@@ -42,13 +45,7 @@
         return this.$store.state.set.likesId;
       }
     },
-    created() {
-      this.setLiked();
-    },
     methods: {
-      setLiked() {
-        this.liked = this.$store.state.set.liked.includes(this.itemId);
-      },
       async toggleLiked() {
         await (this.liked ? this.unlike() : this.like());
         this.liked = !this.liked;
@@ -57,10 +54,10 @@
         if (this.likesId === null) {
           await this.$store.dispatch('set/createLikes');
         }
-        await this.$store.dispatch('set/like', { action: 'add', itemId: this.itemId });
+        await this.$store.dispatch('set/like', this.itemId);
       },
       async unlike() {
-        await this.$store.dispatch('set/like', { action: 'delete', itemId: this.itemId });
+        await this.$store.dispatch('set/unlike', this.itemId);
       }
     }
   };
