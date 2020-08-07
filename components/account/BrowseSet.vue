@@ -5,7 +5,6 @@
         <b-card-group
           class="masonry"
           deck
-          data-qa="gallery items"
         >
           <client-only>
             <ContentCard
@@ -15,10 +14,10 @@
               :url="{ name: 'item-all', params: { pathMatch: result.europeanaId.slice(1) } }"
               :image-url="result.edmPreview"
               :texts="cardTexts(result)"
-              data-qa="search result"
               :limit-values-within-each-text="3"
               :omit-all-uris="true"
               :blank-image-height="280"
+              data-qa="set item"
             />
           </client-only>
         </b-card-group>
