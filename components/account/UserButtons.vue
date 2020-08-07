@@ -57,10 +57,10 @@
         if (this.likesId === null) {
           await this.$store.dispatch('set/createLikes');
         }
-        await this.$store.dispatch('set/like', this.itemId);
+        await this.$store.dispatch('set/like', { action: 'add', itemId: this.itemId });
       },
       async unlike() {
-        await this.$store.dispatch('set/unlike', this.itemId);
+        await this.$store.dispatch('set/like', { action: 'delete', itemId: this.itemId });
       }
     }
   };
