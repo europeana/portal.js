@@ -58,6 +58,7 @@ export default ($axios) => ({
             id: set.data.id.split('/').pop(),
             title: set.data.title,
             description: set.data.description,
+            visibility: set.data.visibility,
             firstItem: set.data.items ? '/' + set.data.items[0].split('/item/')[1] : null,
             total: set.data.total
           };

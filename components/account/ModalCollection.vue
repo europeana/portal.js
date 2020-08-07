@@ -14,6 +14,7 @@
         >
           <b-form-input
             id="collection"
+            v-model="newCollectionName"
             type="text"
             maxlength="35"
             required
@@ -25,6 +26,7 @@
         >
           <b-form-textarea
             id="description"
+            v-model="newCollectionDescription"
             maxlength="240"
             rows="4"
           />
@@ -61,8 +63,9 @@
           :key="index"
           variant="overlay"
           class="btn-collection w-100 text-left"
+          @click="addItem(collection.id)"
         >
-          {{ collection.name }} {{ collection.count }} items
+          {{ displayField(collection, 'title') }} ({{ collection.visibility }}) - {{ collection.total }} items
         </b-button>
       </div>
       <div class="modal-footer">
@@ -90,8 +93,16 @@
 
     data() {
       return {
-        showForm: false
+        showForm: false,
+        newCollectionName: '',
+        newCollectionDescription: ''
       };
+    },
+
+    computed: {
+      itemId() {
+        return this.$store.state.modals.modalData;
+      }
     },
 
     mounted() {
@@ -116,9 +127,34 @@
       },
 
       submitForm() {
-        // TODO: submit form + show toast
-        // go back afterwards
+        // TODO: Create set-plugin call for creating a new set
+        // this.newCollectionName + this.newCollectionDescription
+
+        // TODO: Add this item (it's in the store) to the new set
+
+        this.$bvToast.show('new-collection-toast');
         this.goBack();
+      },
+
+      async addItem(setId) {
+        // TODO: Before addind an item to a set, we should check if the set already contains that item
+        await this.$sets.modifyItems('add', setId, this.$store.state.modal.modalData);
+        this.rerenderModal();
+        this.cancelModal();
+      },
+
+      displayField(set, field) {
+        if (!set[field]) {
+          return '';
+        } else if (set[field][this.$i18n.locale]) {
+          return set[field][this.$i18n.locale];
+        } else {
+          return set[field]['en'];
+        }
+      },
+
+      rerenderModal() {
+        // TODO: rerender modal so that the next time you hit the '+' button, the component's view is updated
       }
     }
   };

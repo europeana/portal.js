@@ -540,5 +540,8 @@ export default {
     "likes": "Likes",
     "publicCollections": "Public Collections",
     "privateCollections": "Private Collections"
+  },
+  "collectionModal": {
+    "newNotification": "The item is now added to your new collection. Click here to see your new collection."
   }
 };

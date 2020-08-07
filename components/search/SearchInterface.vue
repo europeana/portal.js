@@ -132,9 +132,6 @@
     >
       {{ $t('facets.contentTier.notification') }}
     </b-toast>
-    <ModalCollection
-      :collections="userSets"
-    />
   </b-container>
 </template>
 
@@ -143,7 +140,6 @@
   import SearchResults from './SearchResults'; // Sorted before InfoMessage to prevent Conflicting CSS sorting warning
   import InfoMessage from '../generic/InfoMessage';
   import ViewToggles from './ViewToggles';
-  import ModalCollection from '../account/ModalCollection.vue';
 
   import isEqual from 'lodash/isEqual';
   import pickBy from 'lodash/pickBy';
@@ -163,8 +159,7 @@
       SearchResults,
       SearchFilters: () => import('../../components/search/SearchFilters'),
       PaginationNav: () => import('../../components/generic/PaginationNav'),
-      ViewToggles,
-      ModalCollection
+      ViewToggles
     },
     props: {
       perPage: {
@@ -188,12 +183,7 @@
     data() {
       return {
         coreFacetNames: ['collection', 'TYPE', 'COUNTRY', 'REUSABILITY'],
-        PROXY_DCTERMS_ISSUED: 'proxy_dcterms_issued',
-        // TODO: Placeholder: The collections array will be retrieved from Sets API.
-        userSets: [
-          { name: 'My first collection (private)', count: 12 },
-          { name: 'Beautiful flowers (private)', count: 16 }
-        ]
+        PROXY_DCTERMS_ISSUED: 'proxy_dcterms_issued'
       };
     },
     computed: {

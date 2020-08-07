@@ -7,6 +7,7 @@
       class="icon-ic-add"
       data-qa="add to gallery button"
       :aria-label="$t('actions.addToGallery')"
+      @click="showModal()"
     />
     <b-button
       :pressed="liked"
@@ -69,6 +70,10 @@
       },
       async unlike() {
         await this.$sets.modifyItems('delete', this.likesId, this.itemId);
+      },
+      showModal() {
+        this.$store.commit('modal/setModalData', this.itemId);
+        this.$bvModal.show('modal-collection');
       }
     }
   };
