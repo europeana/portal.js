@@ -42,51 +42,21 @@ const media = [
     rightsStatement: 'http://creativecommons.org/licenses/by-sa/3.0/'
   }
 ];
-const selected = 'https://api.europeana.eu/api/v2/thumbnail-by-url.json?size=w400&type=IMAGE&uri=https%3A%2F%2Feuropeana1914-1918.s3.amazonaws.com%2Fattachments%2F119112%2F10265.119112.original.jpg';
-// const nonSelected = 'https://api.europeana.eu/api/v2/thumbnail-by-url.json?size=w400&type=IMAGE&uri=https%3A%2F%2Feuropeana1914-1918.s3.amazonaws.com%2Fattachments%2F119200%2F10265.119200.original.jpg';
-const id = '/2020601/https___1914_1918_europeana_eu_contributions_10265';
 const europeanaIdentifier = '/2020601/https___1914_1918_europeana_eu_contributions_10265';
+const secondSlideID = 'https://europeana1914-1918.s3.amazonaws.com/attachments/119200/10265.119200.original.jpg';
 
 describe('components/item/AwesomeSwiper', () => {
   context('when the swiper loads', () => {
-    it('shows a five images', () => {
-      const wrapper = factory({ media, id, europeanaIdentifier });
-      // console.log(wrapper.attributes());
+    it('shows five images', () => {
+      const wrapper = factory({ media, europeanaIdentifier });
       wrapper.findAll('img').length.should.eq(5);
     });
-    it('has an identifier', () => {
-      const wrapper = factory({ media, id, europeanaIdentifier });
-      wrapper.attributes().id.should.eq('/2020601/https___1914_1918_europeana_eu_contributions_10265');
+
+    it('emits a `select` event with the item identifier', async() => {
+      const wrapper = factory({ media, europeanaIdentifier });
+      const secondSlide = wrapper.find('.swiper-slide'[1]);
+      await secondSlide.trigger('click');
+      wrapper.emitted('select').should.deep.eq([[secondSlideID]]);
     });
-
-    it('marks the selected media item', () => {
-      const wrapper = factory({ media, id, europeanaIdentifier, selected });
-      console.log(wrapper.attributes());
-      // console.log(wrapper.find('.swiper-slide-active'));
-      // const selectedImg = wrapper.find(`.swiper-slide-active img[src="${selected}"]`);
-
-      // selectedImg.find().parent('.swiper-slide').classes().should.include('swiper-slide-active');
-    });
-
-    // describe('clicking on a non-selected thumbnail', () => {
-    //   it('makes it the selected one', () => {
-    //     const wrapper = factory({ media, selected, europeanaIdentifier });
-
-    //     const nonSelectedImg = wrapper.find(`button[data-about="${nonSelected}"]`);
-
-    //     nonSelectedImg.classes().should.not.include('selected');
-    //     nonSelectedImg.trigger('click');
-    //     nonSelectedImg.classes().should.include('selected');
-    //   });
-
-    //   it('emits a `select` event with the item URI', () => {
-    //     const wrapper = factory({ media, selected });
-
-    //     const nonSelectedImg = wrapper.find(`button[data-about="${nonSelected}"]`);
-    //     nonSelectedImg.trigger('click');
-
-    //     wrapper.emitted('select').should.deep.eq([[nonSelected]]);
-    //   });
-    // });
   });
 });
