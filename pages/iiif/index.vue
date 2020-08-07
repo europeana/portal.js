@@ -113,4 +113,7 @@
   /deep/ .mirador-thumbnail-nav-canvas:focus {
     outline: 2px solid $blue !important;
   }
+  /deep/ .mirador-thumb-navigation {
+    height: 100px !important;
+  }
 </style>

@@ -447,6 +447,9 @@ export default {
   "imageSlider": {
     "handle": "Slider Handle"
   },
+  "items": {
+    "itemCount": "1 item |{count} items"
+  },
   "layout": {
     "skipToMain": "Skip to page contents"
   },
