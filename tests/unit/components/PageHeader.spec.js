@@ -19,12 +19,8 @@ const factory = (options = {}) => shallowMount(PageHeader, {
   store: options.store || store({ ui: {} })
 });
 
-const getters = {
-  'ui/searchView': (state) => state.ui.showSearch
-};
 const store = (uiState = {}) => {
   return new Vuex.Store({
-    getters,
     state: {
       ui: uiState,
       'link-group': {
@@ -53,55 +49,45 @@ const store = (uiState = {}) => {
 
 describe('components/PageHeader', () => {
   it('contains a search form', () => {
-    const wrapper = factory({
-      store: store({
-        showSearch: true
-      })
-    });
+    const wrapper = factory();
+    wrapper.setData({ showSearch: true });
+
     const form = wrapper.find('[data-qa="search form"]');
     form.isVisible().should.equal(true);
   });
 
   it('contains the logo', () => {
-    const wrapper = factory({
-      store: store({
-        showSearch: false
-      })
-    });
+    const wrapper = factory();
+    wrapper.setData({ showSearch: false });
 
     const logo = wrapper.find('[data-qa="logo"]');
     logo.attributes().src.should.match(/\/logo\..+\.svg$/);
   });
 
   it('contains the desktop nav', () => {
-    const wrapper = factory({
-      store: store({
-        showSearch: false
-      })
-    });
+    const wrapper = factory();
+    wrapper.setData({ showSearch: false });
+    wrapper.setProps({ mainNavigation: { links: [{
+      text: 'Collections',
+      url: '/collections'
+    }] } });
 
-    const nav = wrapper.find('b-navbar-stub[data-qa="desktop navigation"]');
+    const nav = wrapper.find('[data-qa="desktop navigation"]');
     nav.isVisible().should.equal(true);
-    nav.attributes().class.should.contain('d-lg-block');
   });
 
   it('contains the mobile navigation toggle button', () => {
-    const wrapper = factory({
-      store: store({
-        showSearch: false
-      })
-    });
+    const wrapper = factory();
+    wrapper.setData({ showSearch: false });
+
     const sidebarButton = wrapper.find('b-button-stub.navbar-toggle');
     sidebarButton.isVisible().should.equal(true);
   });
 
   it('shows the mobile nav when the sidebar is visible', () => {
-    const wrapper = factory({
-      store: store({
-        showSearch: false
-      })
-    });
+    const wrapper = factory();
     wrapper.setData({
+      showSearch: false,
       showSidebar: true
     });
     const nav = wrapper.find('[data-qa="mobile navigation"]');

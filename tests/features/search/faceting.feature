@@ -148,6 +148,7 @@ Feature: Search faceting
     And I check the "\"France\"" "COUNTRY" checkbox
     And I click the `COUNTRY apply button`
     And I wait for the page to load
+    And I click the `show search button`
     And I enter "paris" in the `search box`
     And I press the ENTER key
     And I wait for the page to load

@@ -440,7 +440,7 @@ export default {
     "clearQuery": "Clear Search Query",
     "entireCollection": "Search for '{query}' in our entire collection",
     "inCollection": "Search for '{query}' in {collection}",
-    "searchFor": "Search for",
+    "searchFor": "Search for {query}",
     "showSidebar": "Show Sidebar"
   },
   "homeLinkAlt": "Europeana home",

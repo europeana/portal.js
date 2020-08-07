@@ -237,50 +237,49 @@
 <style lang="scss" scoped>
   @import './assets/scss/variables.scss';
 
-  .auto-suggest {
-    &-dropdown {
-      display: none;
-      position: absolute;
-      top: 50px;
-      width: 100%;
-      z-index: 20;
-      border-radius: 4px;
-      box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.25);
-      background-color: $white;
-      overflow: hidden;
-      transition: $standard-transition;
+  .auto-suggest-dropdown {
+    display: block;
+    box-shadow: $boxshadow-light;
+    position: absolute;
+    top: 6.9rem;
+    width: 100%;
+    z-index: 20;
+    border-radius: 0;
+    background-color: $white;
+    overflow: hidden;
+    transition: $standard-transition;
 
-      a.list-group-item {
-        border: 0;
+    a.list-group-item {
+      border: 0;
+      border-radius: 0;
+      box-shadow: none;
+      padding: 0.75rem 1.25rem 0.75rem 3.4rem;
+      color: $black;
+      font-size: 1rem;
+      text-decoration: none;
+      text-align: left;
+
+      &:first-child, &:last-child {
         border-radius: 0;
-        box-shadow: none;
-        padding: 0.5rem 1.25rem;
-        color: $black;
-        font-size: 1rem;
-        text-decoration: none;
-
-        &:first-child {
-          padding-top: 1rem;
-          border-radius: 6px 6px 0 0;
-        }
-
-        &:last-child {
-          padding-bottom: 1rem;
-          border-radius: 0 0 6px 6px;
-        }
-
-        &.hover {
-          background-color: $bodygrey;
-        }
+        padding-top: 0.75rem;
       }
 
-      .loading {
-        font-size: 0.75rem;
+      &:last-child {
+        padding-bottom: 0.75rem;
       }
+
+      &.hover {
+        background-color: $blue;
+        color: $white;
+      }
+    }
+
+    .loading {
+      font-size: 0.75rem;
     }
   }
 
-  .show form:focus-within .auto-suggest-dropdown {
+  form:focus-within .auto-suggest-dropdown {
     display: block;
   }
 
@@ -301,29 +300,6 @@
 
     img {
       display: flex;
-    }
-  }
-
-  @media (max-width: $bp-large) {
-    .auto-suggest {
-      &-dropdown {
-        top: 112px;
-        border-radius: 0;
-        box-shadow: 0 3px 3px 2px rgba(0, 0, 0, 0.05);
-        a.list-group-item {
-          text-align: left;
-          padding-left: 3.4rem;
-          padding-top: 0.75rem;
-          padding-bottom: 0.75rem;
-          &:first-child, &:last-child {
-            border-radius: 0;
-            padding-top: 0.75rem;
-          }
-          &:last-child {
-            padding-bottom: 0.75rem;
-          }
-        }
-      }
     }
   }
 </style>

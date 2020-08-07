@@ -46,8 +46,7 @@ const factory = (options = {}) => shallowMount(SearchForm, {
 const getters = {
   'apis/config': () => apiConfig,
   'search/activeView': (state) => state.search.view,
-  'search/queryUpdatesForFacetChanges': () => () => {},
-  'ui/searchView': (state) => state.ui.showSearch
+  'search/queryUpdatesForFacetChanges': () => () => {}
 };
 const store = (searchState = {}, uiState = {}) => {
   return new Vuex.Store({
@@ -82,14 +81,6 @@ const entityApiSuggestionsResponse = {
 describe('components/search/SearchForm', () => {
   beforeEach(() => {
     $goto.resetHistory();
-  });
-  it('contains the show mobile search button', () => {
-    const wrapper = factory({
-      store: store({})
-    });
-    const showSearchButton = wrapper.find('[data-qa="show mobile search button"]');
-    showSearchButton.attributes().class.should.contain('d-lg-none');
-    showSearchButton.isVisible().should.equal(true);
   });
 
   describe('query', () => {
@@ -281,7 +272,7 @@ describe('components/search/SearchForm', () => {
     });
   });
 
-  describe('mobile search buttons', () => {
+  describe('search buttons', () => {
     context('on collection pages (with a "pill")', () => {
       const searchState = {
         active: true,
@@ -290,10 +281,8 @@ describe('components/search/SearchForm', () => {
         },
         view: 'grid'
       };
-      const uiState = {
-        showSearch: true
-      };
-      const wrapper = factory({ store: store(searchState, uiState) });
+
+      const wrapper = factory({ store: store(searchState) });
       wrapper.setData({
         showSearchQuery: true
       });
