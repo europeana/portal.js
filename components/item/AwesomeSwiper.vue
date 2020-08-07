@@ -57,6 +57,7 @@
     data() {
       return {
         swiperOptions: {
+          threshold: this.swipingEnabled() ? null : 5000000,
           slidesPerView: 'auto',
           spaceBetween: 40,
           centeredSlides: true,
@@ -75,6 +76,11 @@
     computed: {
       swiper() {
         return this.$refs.awesome.$swiper;
+      }
+    },
+    methods: {
+      swipingEnabled() {
+        return this.media.length > 1;
       }
     }
   };
@@ -113,6 +119,9 @@
     border-radius: 50%;
     width: 45px;
     opacity: 0.7;
+  }
+  .swiper-button-disabled {
+    display: none;
   }
   .swiper-button-prev:after, .swiper-button-next:after {
     font-size: 22px;
