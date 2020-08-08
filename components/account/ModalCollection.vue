@@ -1,15 +1,16 @@
 <template>
-  <!-- TODO: move texts to translations -->
   <b-modal
     id="modal-collection"
     hide-header
     hide-footer
   >
     <div v-if="showForm">
-      <h2>Create new collection</h2>
+      <h1 class="pt-2">
+        {{ $t('collectionModal.createNewCollection') }}
+      </h1>
       <b-form @submit.stop.prevent="submitForm">
         <b-form-group
-          label="Collection name"
+          :label="$t('collectionModal.collectionName')"
           label-for="collection"
         >
           <b-form-input
@@ -21,7 +22,7 @@
           />
         </b-form-group>
         <b-form-group
-          label="Collection description"
+          :label="$t('collectionModal.collectionDescription')"
           label-for="description"
         >
           <b-form-textarea
@@ -31,36 +32,46 @@
             rows="4"
           />
         </b-form-group>
+        <b-form-group>
+          <b-form-checkbox
+            id="visibility"
+            v-model="newCollectionPrivate"
+          >
+            {{ $t('collectionModal.collectionPrivate') }}
+          </b-form-checkbox>
+        </b-form-group>
         <div class="modal-footer">
           <b-button
             variant="outline-primary"
             @click="goBack()"
           >
-            Go back
+            {{ $t('collectionModal.goBack') }}
           </b-button>
           <b-button
             variant="primary"
             type="submit"
           >
-            Create collection
+            {{ $t('collectionModal.createCollection') }}
           </b-button>
         </div>
       </b-form>
     </div>
     <div v-else>
-      <h2>Add to collection</h2>
+      <h1 class="pt-2">
+        {{ $t('collectionModal.addToCollection') }}
+      </h1>
       <b-button
         variant="primary"
         class="btn-collection w-100 mb-3 text-left"
         @click="createCollection"
       >
-        Create new collection
+        {{ $t('collectionModal.createNewCollection') }}
       </b-button>
       <div class="collections">
-        <!-- TODO: these buttons need to get a background image, according to design -->
         <b-button
           v-for="(collection, index) in collections"
           :key="index"
+          :style="buttonBackground(collection.thumbnail)"
           variant="overlay"
           class="btn-collection w-100 text-left"
           @click="addItem(collection.id)"
@@ -73,7 +84,7 @@
           variant="outline-primary"
           @click="cancelModal()"
         >
-          Close
+          {{ $t('actions.close') }}
         </b-button>
       </div>
     </div>
@@ -95,13 +106,14 @@
       return {
         showForm: false,
         newCollectionName: '',
-        newCollectionDescription: ''
+        newCollectionDescription: '',
+        newCollectionPrivate: false
       };
     },
 
     computed: {
       itemId() {
-        return this.$store.state.modals.modalData;
+        return this.$store.state.modal.itemId;
       }
     },
 
@@ -115,11 +127,12 @@
       createCollection() {
         this.showForm = true;
       },
-
       goBack() {
         this.showForm = false;
+        this.newCollectionName = '';
+        this.newCollectionDescription = '';
+        this.newCollectionPrivate = false;
       },
-
       cancelModal() {
         this.$nextTick(() => {
           this.$bvModal.hide('modal-collection');
@@ -128,17 +141,18 @@
 
       submitForm() {
         // TODO: Create set-plugin call for creating a new set
-        // this.newCollectionName + this.newCollectionDescription
-
-        // TODO: Add this item (it's in the store) to the new set
+        // TODO: Add this item (its id can be found in the store) to the new set
 
         this.$bvToast.show('new-collection-toast');
+        this.newCollectionName = '';
+        this.newCollectionDescription = '';
+        this.newCollectionPrivate = false;
         this.goBack();
       },
 
       async addItem(setId) {
         // TODO: Before addind an item to a set, we should check if the set already contains that item
-        await this.$sets.modifyItems('add', setId, this.$store.state.modal.modalData);
+        await this.$sets.modifyItems('add', setId, this.$store.state.modal.itemId);
         this.rerenderModal();
         this.cancelModal();
       },
@@ -153,6 +167,12 @@
         }
       },
 
+      buttonBackground(img) {
+        return {
+          'background-image': `url(${img})`
+        };
+      },
+
       rerenderModal() {
         // TODO: rerender modal so that the next time you hit the '+' button, the component's view is updated
       }
@@ -163,13 +183,14 @@
 <style lang="scss" scoped>
   .btn-collection {
     font-size: 1rem;
+    font-weight: 500;
     margin-bottom: 0.5rem;
     padding: 1rem;
     text-transform: none;
   }
 
   .collections {
-    max-height: calc(100vh - 320px);
+    max-height: calc(100vh - 474px);
     overflow: auto;
 
     .btn-collection:last-child {

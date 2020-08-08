@@ -1,9 +1,9 @@
 export const state = () => ({
-  modalData: null
+  itemId: null
 });
 
 export const mutations = {
   setModalData(state, data) {
-    state.modalData = data;
+    state.itemId = data;
   }
 };
