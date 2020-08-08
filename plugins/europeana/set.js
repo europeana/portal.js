@@ -25,6 +25,22 @@ export default ($axios) => ({
   },
 
   /**
+   * Get set by id
+   * @param {string} id the set id
+   * @param {string} profile the set profile, can be either 'minimal' or 'standard'
+   * @return {Object} API response data
+   */
+  getSet(id, profile) {
+    return $axios.get(setApiUrl(`/${id}`), { params: { profile } })
+      .then(response => {
+        return response.data;
+      })
+      .catch(error => {
+        throw apiError(error);
+      });
+  },
+
+  /**
    * Get sets for user
    * @param {string} creator the creator's id
    * @param {string} visibility the set's visibility, can be either 'public' or 'private'
@@ -122,7 +138,6 @@ export default ($axios) => ({
    */
   modifyItems(action, setId, itemId) {
     const apiCall = action === 'add' ? $axios.put : $axios.delete;
-
     return apiCall(setApiUrl(`/${setId}/${itemId}`))
       .then(response => response.data)
       .catch(error => {
