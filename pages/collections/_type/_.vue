@@ -83,16 +83,6 @@
     fetch({ query, params, redirect, error, app, store }) {
       store.commit('search/disableCollectionFacet');
 
-      const currentPage = pageFromQuery(query.page);
-      if (currentPage === null) {
-        // Redirect non-positive integer values for `page` to `page=1`
-        return redirect(app.$path({
-          name: 'collections-type-all',
-          params: { type: params.type, pathMatch: params.pathMatch },
-          query: { page: 1 }
-        }));
-      }
-
       const entityUri = entities.getEntityUri(params.type, params.pathMatch);
 
       if (entityUri !== store.state.entity.id) {

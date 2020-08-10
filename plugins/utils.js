@@ -9,17 +9,18 @@ import merge, { emptyTarget } from 'deepmerge';
  * @param {string} queryPage `page` query parameter from URL
  * @return {?number}
  */
-export function pageFromQuery(queryPage) {
-  if (queryPage) {
-    if (/^[1-9]\d*$/.test(queryPage)) {
-      return Number(queryPage);
-    } else {
-      return null;
-    }
+export const pageFromQuery = (queryPage) => {
+  let page = null;
+
+  if (queryPage === undefined || queryPage === null) {
+    page = 1;
   } else {
-    return 1;
+    const pageAsNumber = Number(queryPage);
+    if (Number.isInteger(pageAsNumber) && pageAsNumber > 0) page = pageAsNumber;
   }
-}
+
+  return page;
+};
 
 /**
  * See: https://github.com/TehShrike/deepmerge#arraymerge-example-combine-arrays

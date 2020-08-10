@@ -52,13 +52,10 @@
       PaginationNav: () => import('../../components/generic/PaginationNav')
     },
 
+    middleware: 'sanitisePageQuery',
+
     asyncData({ query, redirect, error, app }) {
       const currentPage = pageFromQuery(query.page);
-      if (currentPage === null) {
-        // Redirect non-positive integer values for `page` to `page=1`
-        query.page = '1';
-        return redirect(app.$path({ name: 'blog', query }));
-      }
 
       const variables = {
         locale: app.i18n.isoLocale(),

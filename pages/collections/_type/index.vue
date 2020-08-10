@@ -60,11 +60,6 @@
       if (!['persons', 'topics'].includes(params.type)) {
         return  error({ statusCode: 404, message: 'unknown collection type' });
       }
-      if (currentPage === null) {
-        // Redirect non-positive integer values for `page` to `page=1`
-        query.page = '1';
-        return redirect(app.$path({ name: 'collections-type', params: { type: params.type }, query }));
-      }
       const entityIndexParams = {
         query: '*:*',
         page: currentPage - 1,
