@@ -26,6 +26,7 @@
       :class="{ 'hover': index === focus }"
       :data-index="index"
       @mouseover="focus = index"
+      @mouseout="focus = null"
       @focus="index === focus"
       @mousedown.prevent
     >
@@ -225,6 +226,7 @@
         this.isActive = false;
         this.focus = null;
         this.selectSuggestion();
+        this.$emit('hide-search');
       },
 
       selectSuggestion() {
@@ -253,20 +255,11 @@
       border: 0;
       border-radius: 0;
       box-shadow: none;
-      padding: 0.75rem 1.25rem 0.75rem 3.4rem;
+      padding: 1rem 1.25rem 1rem 3.4rem;
       color: $black;
       font-size: 1rem;
       text-decoration: none;
       text-align: left;
-
-      &:first-child, &:last-child {
-        border-radius: 0;
-        padding-top: 0.75rem;
-      }
-
-      &:last-child {
-        padding-bottom: 0.75rem;
-      }
 
       &.hover {
         background-color: $blue;
@@ -281,18 +274,6 @@
 
   form:focus-within .auto-suggest-dropdown {
     display: block;
-  }
-
-  .input-group {
-    width: 100%;
-
-    .input-group-prepend {
-      align-items: center;
-      background-color: $offwhite;
-      padding-left: 0.75rem;
-      padding-right: 0.1rem;
-      border-radius: 0.375rem 0 0 0.375rem;
-    }
   }
 
   .btn {

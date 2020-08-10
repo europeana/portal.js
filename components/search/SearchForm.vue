@@ -100,6 +100,7 @@
         :link-gen="suggestionLinkGen"
         :query="query"
         @select="selectSuggestion"
+        @hide-search="hideSearch"
       />
     </b-input-group>
   </b-form>
@@ -180,6 +181,7 @@
     },
 
     mounted() {
+      if (this.$refs.searchbox) this.$refs.searchbox.focus();
       this.initQuery();
     },
 
@@ -282,6 +284,7 @@
   @import './assets/scss/icons.scss';
 
   .form-inline {
+    align-items: flex-start;
     width: auto;
 
     .form-control {
@@ -294,13 +297,14 @@
       .form-control {
         padding: 0.375rem 3.5rem 0.375rem 3.5rem;
         height: 3.4rem;
-        box-shadow: none;
+        box-shadow: 2px 2px 4px 0 rgba(0,0,0,.08);
         border-radius: 0;
         color: $mediumgrey;
         width: 100%;
       }
 
       .search-query {
+        box-shadow: $boxshadow-light;
         width: 100%;
         height: 3.5rem;
         font-size: 1rem;
@@ -373,10 +377,11 @@
 
     &.btn-primary {
       text-transform: none;
-    }
 
-    &.search:before {
-      content: '\e92b';
+      &:hover {
+        background: $blue;
+        color: $white;
+      }
     }
 
     &.clear {
