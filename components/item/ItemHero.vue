@@ -10,7 +10,14 @@
         v-if="rightsStatementIsUrl"
         :rights-statement="rightsStatement"
       />
+      <span
+        v-else
+        data-qa="rights statement"
+      >
+        {{ rightsStatement }}
+      </span>
       <DownloadButton
+        v-if="downloadEnabled"
         :url="downloadUrl"
       />
       <ShareButton />
@@ -66,6 +73,9 @@
         set(about) {
           this.selectedMediaItem = this.media.find((item) => item.about === about) || {};
         }
+      },
+      downloadEnabled() {
+        return this.selectedMedia.rightsStatement && !this.selectedMedia.rightsStatement.includes('/InC/');
       }
     },
     methods: {
