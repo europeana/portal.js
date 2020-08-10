@@ -3,7 +3,7 @@
     ref="awesome"
     class="swiper"
     :options="swiperOptions"
-    @slide-change="onSlideChange"
+    @slide-change-transition-end="updateSwiper"
   >
     <swiper-slide
       v-for="(item, index) in media"
@@ -79,8 +79,8 @@
       }
     },
     methods: {
-      onSlideChange() {
-        window.dispatchEvent(new Event('resize'));
+      updateSwiper() {
+        this.swiper.update();
       }
     }
   };
@@ -92,6 +92,9 @@
   .swiper-container {
     max-height: 568px;
     height: 55vh;
+  }
+  .slide-placeholder {
+    min-width: 33%;
   }
   .swiper-slide {
     width: auto;
