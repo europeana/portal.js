@@ -181,8 +181,10 @@
     },
 
     mounted() {
-      if (this.$refs.searchbox) this.$refs.searchbox.focus();
       this.initQuery();
+      this.$nextTick(() => {
+        this.$refs.searchbox.$el.focus();
+      });
     },
 
     methods: {
