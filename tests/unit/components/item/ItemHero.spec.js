@@ -42,18 +42,17 @@ const media = [
     rightsStatement: 'http://creativecommons.org/licenses/by-sa/3.0/'
   }
 ];
-const europeanaIdentifier = '/2020601/https___1914_1918_europeana_eu_contributions_10265';
-const useProxy = true;
+const identifier = '/2020601/https___1914_1918_europeana_eu_contributions_10265';
 
 describe('components/item/ItemHero', () => {
   context('when a new item is selected', () => {
     it('updates the identifier', () => {
-      const wrapper = factory({ media, europeanaIdentifier, useProxy });
+      const wrapper = factory({ media, identifier });
       wrapper.vm.selectMedia(media[1].about);
       wrapper.vm.selectedMedia.about.should.eq(media[1].about);
     });
     it('updates the rights statement', () => {
-      const wrapper = factory({ media, europeanaIdentifier, useProxy });
+      const wrapper = factory({ media, identifier });
       wrapper.vm.selectMedia(media[1].about);
       wrapper.vm.selectedMedia.rightsStatement.should.eq(media[1].rightsStatement);
     });

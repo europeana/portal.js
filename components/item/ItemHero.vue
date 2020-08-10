@@ -1,7 +1,7 @@
 <template>
   <div>
     <AwesomeSwiper
-      :europeana-identifier="id"
+      :europeana-identifier="identifier"
       :media="media"
       @select="selectMedia"
     />
@@ -14,7 +14,7 @@
         :url="downloadUrl"
       />
       <ShareButton />
-      <SocialShareModal :media-url="mediaUrl" />
+      <SocialShareModal :media-url="selectedMedia.about" />
     </b-container>
   </div>
 </template>
@@ -35,32 +35,23 @@
       ShareButton
     },
     props: {
+      identifier: {
+        type: String,
+        required: true
+      },
       media: {
         type: Array,
         default: () => []
-      },
-      id: {
-        type: String,
-        default: ''
-      },
-      url: {
-        type: String,
-        default: null
-      },
-      useProxy: {
-        type: Boolean,
-        required: true
-      },
+      }
     },
     data() {
       return {
-        mediaUrl: '',
         selectedMediaItem: null
       };
     },
     computed: {
       downloadUrl() {
-        return this.useProxy ? this.$proxyMedia(this.selectedMedia.about, this.id) : this.url;
+        return this.$proxyMedia(this.selectedMedia.about, this.identifier);
       },
       rightsStatement() {
         return this.selectedMedia.rightsStatement;
