@@ -299,7 +299,7 @@
       .form-control {
         padding: 0.375rem 3.5rem 0.375rem 3.5rem;
         height: 3.4rem;
-        box-shadow: 2px 2px 4px 0 rgba(0,0,0,.08);
+        box-shadow: 2px 2px 4px 0 rgba(0, 0, 0, 0.08);
         border-radius: 0;
         color: $mediumgrey;
         width: 100%;
