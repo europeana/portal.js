@@ -39,7 +39,7 @@
 <script>
   import ContentHeader from '../../../components/generic/ContentHeader';
   import ContentCard from '../../../components/generic/ContentCard';
-  import { pageFromQuery } from '../../../plugins/utils';
+
   import {
     searchEntities,
     getEntitySlug,
@@ -56,13 +56,12 @@
       PaginationNav: () => import('../../../components/generic/PaginationNav')
     },
     asyncData({ query, params, redirect, error, app }) {
-      const currentPage = pageFromQuery(query.page);
       if (!['persons', 'topics'].includes(params.type)) {
         return  error({ statusCode: 404, message: 'unknown collection type' });
       }
       const entityIndexParams = {
         query: '*:*',
-        page: currentPage - 1,
+        page: app.$page - 1,
         type: getEntityTypeApi(params.type.slice(0, -1)),
         pageSize: PER_PAGE,
         scope: 'europeana',
@@ -74,7 +73,7 @@
           return {
             entities: data.entities,
             total: data.total,
-            page: currentPage,
+            page: app.$page,
             perPage: PER_PAGE,
             title: app.i18n.t(`pages.collections.${params.type}.title`)
           };

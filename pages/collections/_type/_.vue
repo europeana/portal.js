@@ -66,7 +66,6 @@
   import { mapState } from 'vuex';
 
   import * as entities from '../../../plugins/europeana/entity';
-  import { pageFromQuery } from '../../../plugins/utils';
   import { langMapValueForLocale } from  '../../../plugins/europeana/utils';
   import { getEntityTypeHumanReadable, getEntitySlug } from '../../../plugins/europeana/entity';
   import { mapGetters } from 'vuex';
