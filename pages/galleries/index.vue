@@ -25,12 +25,10 @@
     <b-row>
       <b-col>
         <PaginationNav
-          v-if="showPagination"
           v-model="page"
           :limit="perPage"
           :total-results="total"
           :per-page="perPage"
-          :link-gen="paginationLink"
         />
       </b-col>
     </b-row>
@@ -86,15 +84,7 @@
         page: null
       };
     },
-    computed: {
-      showPagination() {
-        return this.total > this.perPage;
-      }
-    },
     methods: {
-      paginationLink(val) {
-        return this.$path({ name: 'galleries', query: { page: val } });
-      },
       imageUrl(data) {
         return (data.encoding ? data.encoding.edmPreview : data.thumbnailUrl) + '&size=w200';
       }

@@ -24,12 +24,10 @@
     <b-row>
       <b-col>
         <PaginationNav
-          v-if="showPagination"
           v-model="page"
           :limit="perPage"
           :total-results="total"
           :per-page="perPage"
-          :link-gen="paginationLink"
         />
       </b-col>
     </b-row>
@@ -95,9 +93,6 @@
       };
     },
     computed: {
-      showPagination() {
-        return this.total > this.perPage;
-      },
       route() {
         return {
           name: 'collections-index',
@@ -108,9 +103,6 @@
       }
     },
     methods: {
-      paginationLink(val) {
-        return this.$path({ name: 'collections-type', params: { type: this.$route.params.type }, query: { page: val } });
-      },
       entityRoute(entity) {
         return {
           name: 'collections-type-all',

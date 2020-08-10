@@ -25,12 +25,10 @@
     <b-row>
       <b-col>
         <PaginationNav
-          v-if="showPagination"
           v-model="page"
           :limit="perPage"
           :total-results="total"
           :per-page="perPage"
-          :link-gen="paginationLink"
         />
       </b-col>
     </b-row>
@@ -87,18 +85,6 @@
         perPage: PER_PAGE,
         page: null
       };
-    },
-
-    computed: {
-      showPagination() {
-        return this.total > this.perPage;
-      }
-    },
-
-    methods: {
-      paginationLink(val) {
-        return this.$path({ name: 'blog', query: { page: val } });
-      }
     },
 
     head() {
