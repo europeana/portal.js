@@ -51,7 +51,7 @@
       PaginationNav: () => import('../../components/generic/PaginationNav')
     },
     middleware: 'sanitisePageQuery',
-    asyncData({ redirect, error, app }) {
+    asyncData({ query, error, app }) {
       const variables = {
         locale: app.i18n.isoLocale(),
         preview: query.mode === 'preview',

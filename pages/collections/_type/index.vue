@@ -55,7 +55,8 @@
       ContentCard,
       PaginationNav: () => import('../../../components/generic/PaginationNav')
     },
-    asyncData({ query, params, redirect, error, app }) {
+    middleware: 'sanitisePageQuery',
+    asyncData({ params, error, app }) {
       if (!['persons', 'topics'].includes(params.type)) {
         return  error({ statusCode: 404, message: 'unknown collection type' });
       }

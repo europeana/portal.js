@@ -36,6 +36,8 @@
       RelatedSection: () => import('../../components/search/RelatedSection')
     },
 
+    middleware: 'sanitisePageQuery',
+
     async fetch({ store, query, res }) {
       await store.dispatch('search/activate');
       store.commit('search/set', ['userParams', query]);

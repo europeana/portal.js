@@ -79,6 +79,8 @@
       RelatedCollections: () => import('../../../components/generic/RelatedCollections')
     },
 
+    middleware: 'sanitisePageQuery',
+
     fetch({ query, params, redirect, error, app, store }) {
       store.commit('search/disableCollectionFacet');
 
