@@ -52,7 +52,7 @@
       <span class="total-items">
         {{ $tc('items.itemCount', total, { count: total }) }}
       </span>
-      <BrowseSet
+      <SetItems
         :set-id="setId"
         :items="userSet.items"
         :total="total"
@@ -90,7 +90,7 @@
   export default {
     name: 'UserSet',
     components: {
-      BrowseSet: () => import('../../components/account/BrowseSet')
+      SetItems: () => import('../../components/account/SetItems')
     },
     async asyncData({ params, query, redirect, app }) {
       const currentPage = pageFromQuery(query.page);

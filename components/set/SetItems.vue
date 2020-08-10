@@ -44,7 +44,7 @@
   import ClientOnly from 'vue-client-only';
 
   export default {
-    name: 'BrowseSet',
+    name: 'SetItems',
     components: {
       ClientOnly,
       ContentCard: () => import('../generic/ContentCard'),

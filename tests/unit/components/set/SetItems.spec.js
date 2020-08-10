@@ -1,11 +1,11 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
-import BrowseSet from '../../../../components/account/BrowseSet.vue';
+import SetItems from '../../../../components/account/SetItems.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
-const factory = () => mount(BrowseSet, {
+const factory = () => mount(SetItems, {
   localVue,
   mocks: {
     $path: (opts) => `/item/${opts.params.pathMatch}`,
@@ -31,7 +31,7 @@ const setItems = [
   }
 ];
 
-describe('components/account/BrowseSet', () => {
+describe('components/account/SetItems', () => {
   it('it renders a card for each item of the user set', () => {
     const wrapper = factory();
     wrapper.setProps({
