@@ -9,7 +9,7 @@
       :key="index"
     >
       <MediaCard
-        :europeana-identifier="item.europeanaIdentifier"
+        :europeana-identifier="europeanaIdentifier"
         :media="item"
       />
     </swiper-slide>
