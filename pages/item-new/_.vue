@@ -19,15 +19,34 @@
         fluid
         class="bg-white mb-3"
       >
-        Swiper goes here
+        <!-- TODO: add swiper here
+          Swiper also includes download, share, right statement
+          Potential useful data:
+
+          :url="selectedMedia.about"
+          :europeana-identifier="identifier"
+          :use-proxy="useProxy"
+          :rights-statement="rightsStatement"
+          :data-provider-name="dataProvider.values[0]"
+          :data-provider-lang="dataProvider.code"
+          :is-shown-at="isShownAt"
+
+          Keep/reuse client-only?
+      -->
+        <client-only />
       </b-container>
       <b-container>
-        <b-row>
+        <b-row class="mb-3">
           <b-col>
-            Item + description box goes here
+            <!-- TODO: add new title + description box
+              Useful data:
+
+              titlesInCurrentLanguage
+              descriptionInCurrentLanguage
+            -->
           </b-col>
         </b-row>
-        <b-row>
+        <b-row class="mb-3">
           <b-col>
             <h2
               v-if="relatedEntities && relatedEntities.length > 0"
@@ -35,9 +54,15 @@
             >
               {{ $t('contentYouMightLike') }}
             </h2>
+            <!-- TODO: related content
+              Useful data:
+
+              :entities="relatedEntities"
+              data-qa="related entities"
+            -->
           </b-col>
         </b-row>
-        <b-row>
+        <b-row class="mb-3">
           <b-col>
             <MetadataBox
               :all-metadata="allMetaData"
@@ -48,7 +73,9 @@
         </b-row>
         <b-row>
           <b-col>
-            <!-- TODO: update similar items, they are currently cards within a card, that shouldn't be like that -->
+            <!-- TODO: update similar items,
+              they are currently cards within a card, that shouldn't be like that
+            -->
             <section
               v-if="similarItems.length > 0"
             >
@@ -64,100 +91,6 @@
             </section>
           </b-col>
         </b-row>
-
-        <b-row class="my-5">
-          <b-col
-            cols="12"
-            lg="9"
-          >
-            <div class="card px-3 pt-3 mb-3">
-              <div
-                class="card-grid"
-                :class="cardGridClass"
-              >
-                <header
-                  v-if="titlesInCurrentLanguage"
-                  class="card-heading"
-                >
-                  <template
-                    v-for="(heading, index) in titlesInCurrentLanguage"
-                  >
-                    <h1
-                      v-if="index === 0"
-                      :key="index"
-                      :lang="heading.code"
-                    >
-                      {{ heading.value }}
-                    </h1>
-                    <p
-                      v-else
-                      :key="index"
-                      :lang="heading.code"
-                      class="font-weight-bold"
-                    >
-                      {{ heading.value }}
-                    </p>
-                  </template>
-                </header>
-                <client-only>
-                  <div class="media-presentation">
-                    <MediaPresentation
-                      :europeana-identifier="identifier"
-                      :media="selectedMedia"
-                      :image-src="selectedMediaImage.src"
-                    />
-                  </div>
-                </client-only>
-                <div
-                  v-if="descriptionInCurrentLanguage"
-                  class="description"
-                >
-                  <div
-                    v-for="(value, index) in descriptionInCurrentLanguage.values"
-                    :key="index"
-                  >
-                    <!-- eslint-disable vue/no-v-html -->
-                    <p
-                      :lang="descriptionInCurrentLanguage.code"
-                      v-html="$options.filters.convertNewLine(value)"
-                    />
-                    <!-- eslint-disable vue/no-v-html -->
-                    <hr
-                      v-if="(index + 1) < descriptionInCurrentLanguage.values.length"
-                    >
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="card p-3 mb-3 bg-grey">
-              <MediaActionBar
-                :url="selectedMedia.about"
-                :europeana-identifier="identifier"
-                :use-proxy="useProxy"
-                :rights-statement="rightsStatement"
-                :data-provider-name="dataProvider.values[0]"
-                :data-provider-lang="dataProvider.code"
-                :is-shown-at="isShownAt"
-              />
-            </div>
-          </b-col>
-          <b-col
-            cols="12"
-            lg="3"
-          >
-            <h2
-              v-if="relatedEntities && relatedEntities.length > 0"
-              class="related-heading text-uppercase"
-            >
-              {{ $t('contentYouMightLike') }}
-            </h2>
-            <EntityCards
-              v-if="relatedEntities"
-              :entities="relatedEntities"
-              data-qa="related entities"
-            />
-          </b-col>
-        </b-row>
       </b-container>
     </template>
   </div>
@@ -168,12 +101,12 @@
   import { mapGetters } from 'vuex';
 
   import ClientOnly from 'vue-client-only';
-  import MediaActionBar from '../../components/item/MediaActionBar';
-  import MediaPresentation from '../../components/item/MediaPresentation';
   import MetadataBox from '../../components/item/MetadataBox';
 
   import { getRecord, similarItemsQuery } from '../../plugins/europeana/record';
   import { search } from '../../plugins/europeana/search';
+
+  // TODO: add isIIIFPresentation if necessary for swiper
   import { isRichMedia } from '../../plugins/media';
   import { langMapValueForLocale } from  '../../plugins/europeana/utils';
   import { findEntities } from '../../plugins/europeana/entity';
@@ -183,10 +116,7 @@
     components: {
       AlertMessage: () => import('../../components/generic/AlertMessage'),
       ClientOnly,
-      EntityCards: () => import('../../components/entity/EntityCards'),
-      MediaActionBar,
       SimilarItems: () => import('../../components/item/SimilarItems'),
-      MediaPresentation,
       MetadataBox,
       NotificationBanner: () => import('../../components/generic/NotificationBanner')
     },
@@ -360,6 +290,7 @@
         });
       }
 
+      // TODO: remove or is this useful for the new swiper/action?
       window.addEventListener('message', (msg) => {
         if (msg.data.event === 'updateDownloadLink') {
           this.useProxy = (this.media.some((item) => item.about === msg.data.id));
