@@ -25,7 +25,6 @@
       <b-col>
         <client-only>
           <PaginationNav
-            v-if="showPagination"
             v-model="page"
             :limit="pageSize"
             :total-results="total"
@@ -65,11 +64,6 @@
       pageSize: {
         type: Number,
         default: 24
-      }
-    },
-    computed: {
-      showPagination() {
-        return this.total > this.pageSize;
       }
     },
     methods: {

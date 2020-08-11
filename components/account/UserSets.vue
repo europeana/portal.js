@@ -22,6 +22,7 @@
   </b-container>
 </template>
 <script>
+  // TODO: use ItemPreviewCard instead
   import ContentCard from '../../components/generic/ContentCard';
 
   export default {
