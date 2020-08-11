@@ -3,13 +3,15 @@
     ref="awesome"
     class="swiper"
     :options="swiperOptions"
+    @slide-change="onSlideChange"
+    @slide-change-transition-end="updateSwiper"
   >
     <swiper-slide
       v-for="(item, index) in displayableMedia"
       :key="index"
     >
       <MediaCard
-        :europeana-identifier="europeanaIdentifier"
+        :europeana-identifier="item.europeanaIdentifier"
         :media="item"
       />
     </swiper-slide>
@@ -76,6 +78,14 @@
       displayableMedia() {
         // Quick check for IIIF content, which is to prevent newspapers from showing many IIIF viewers.
         return isIIIFPresentation(this.media[0]) ? [this.media[0]] : this.media;
+      }
+    },
+    methods: {
+      onSlideChange() {
+        this.$emit('select', this.media[this.swiper.activeIndex].about);
+      },
+      updateSwiper() {
+        this.swiper.update();
       }
     }
   };

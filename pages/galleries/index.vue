@@ -40,7 +40,6 @@
 <script>
   import ContentHeader from '../../components/generic/ContentHeader';
   import ContentCard from '../../components/generic/ContentCard';
-  import { pageFromQuery } from '../../plugins/utils';
 
   const PER_PAGE = 20;
 
@@ -51,19 +50,13 @@
       ContentCard,
       PaginationNav: () => import('../../components/generic/PaginationNav')
     },
-    asyncData({ query, redirect, error, app }) {
-      const currentPage = pageFromQuery(query.page);
-      if (currentPage === null) {
-        // Redirect non-positive integer values for `page` to `page=1`
-        query.page = '1';
-        return redirect(app.$path({ name: 'galleries', query }));
-      }
-
+    middleware: 'sanitisePageQuery',
+    asyncData({ query, error, app }) {
       const variables = {
         locale: app.i18n.isoLocale(),
         preview: query.mode === 'preview',
         limit: PER_PAGE,
-        skip: (currentPage - 1) * PER_PAGE
+        skip: (app.$page - 1) * PER_PAGE
       };
 
       return app.$contentful.query('galleryFoyerPage', variables)
@@ -72,7 +65,7 @@
           return {
             galleries: data.imageGalleryCollection.items,
             total: data.imageGalleryCollection.total,
-            page: currentPage,
+            page: app.$page,
             perPage: PER_PAGE
           };
         })
