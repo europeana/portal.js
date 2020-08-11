@@ -72,7 +72,7 @@
     props: {
       media: {
         type: Object,
-        default: null
+        required: true
       },
       europeanaIdentifier: {
         type: String,
