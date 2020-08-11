@@ -6,6 +6,10 @@
       :notification-text="$t('linksToClassic.record.text')"
       :notification-link-text="$t('linksToClassic.record.linkText')"
     />
+    <AwesomeSwiper
+      :europeana-identifier="identifier"
+      :media="media"
+    />
     <b-container v-if="error">
       <AlertMessage
         :error="error"
@@ -149,9 +153,11 @@
   import { langMapValueForLocale } from  '../../plugins/europeana/utils';
   import { findEntities } from '../../plugins/europeana/entity';
   import { search as searchAnnotations } from '../../plugins/europeana/annotation';
+  import AwesomeSwiper from '../../components/item/AwesomeSwiper';
 
   export default {
     components: {
+      AwesomeSwiper,
       AlertMessage: () => import('../../components/generic/AlertMessage'),
       ClientOnly,
       EntityCards: () => import('../../components/entity/EntityCards'),
@@ -483,6 +489,10 @@
   .card-grid-richmedia .description {
     grid-column: col1-start/col2-end;
     grid-row: row3-start;
+  }
+  .swiper-slide {
+    width: auto;
+    min-width: 800px;
   }
 
   .meta-data {

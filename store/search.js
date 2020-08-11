@@ -242,6 +242,12 @@ export const getters = {
     if (!state.previousApiParams) return true; // i.e. if this is the first search
     return getters.apiParamsChanged
       .some((param) => ['query', 'qf', 'api', 'reusability'].includes(param));
+  },
+
+  searchOptions: (state) => {
+    const escape = (!state.userParams.query && !!state.overrideParams.query);
+
+    return { ...state.apiOptions, escape };
   }
 };
 
@@ -327,13 +333,13 @@ export const actions = {
     ]);
   },
 
-  queryItems({ dispatch, state }) {
+  queryItems({ dispatch, state, getters }) {
     const paramsForItems = {
       ...state.apiParams,
       facet: null
     };
 
-    return search(paramsForItems, state.apiOptions || {})
+    return search(paramsForItems, getters.searchOptions)
       .then(async(response) => {
         await dispatch('updateForSuccess', response);
       })
@@ -351,7 +357,7 @@ export const actions = {
       profile: 'facets'
     };
 
-    return search(paramsForFacets, state.apiOptions || {})
+    return search(paramsForFacets, getters.searchOptions)
       .then((response) => {
         commit('setFacets', response.facets);
         const collection = getters.collection;

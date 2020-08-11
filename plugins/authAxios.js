@@ -1,6 +1,6 @@
 import set from './europeana/set';
 
-export default function({ $axios, $auth, redirect }, inject) {
+export default function({ $axios, $auth, store, redirect }, inject) {
   const token = $auth.getToken('keycloak');
   const redirectUrl = $auth.options.redirect.login;
 
@@ -27,5 +27,9 @@ export default function({ $axios, $auth, redirect }, inject) {
   const setWithAxios = set(axiosInstance);
 
   inject('sets', setWithAxios);
+
+  if ($auth.loggedIn) {
+    store.dispatch('set/setLikes');
+  }
 }
 

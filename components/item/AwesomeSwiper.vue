@@ -4,6 +4,7 @@
     class="swiper"
     :options="swiperOptions"
     @slide-change="onSlideChange"
+    @slide-change-transition-end="updateSwiper"
   >
     <swiper-slide
       v-for="(item, index) in displayableMedia"
@@ -82,6 +83,9 @@
     methods: {
       onSlideChange() {
         this.$emit('select', this.media[this.swiper.activeIndex].about);
+      },
+      updateSwiper() {
+        this.swiper.update();
       }
     }
   };
