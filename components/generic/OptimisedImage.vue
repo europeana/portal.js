@@ -57,10 +57,6 @@
     },
 
     computed: {
-      lazyLoad() {
-        return this.lazy && !process.env.NODE_ENV === 'test';
-      },
-
       aspectRatio() {
         return this.width / this.height;
       },
