@@ -3,6 +3,7 @@
     ref="awesome"
     class="swiper"
     :options="swiperOptions"
+    @slide-change="onSlideChange"
     @slide-change-transition-end="updateSwiper"
   >
     <swiper-slide
@@ -80,6 +81,9 @@
       }
     },
     methods: {
+      onSlideChange() {
+        this.$emit('select', this.media[this.swiper.activeIndex].about);
+      },
       updateSwiper() {
         this.swiper.update();
       }
@@ -93,9 +97,6 @@
   .swiper-container {
     max-height: 568px;
     height: 80vh;
-  }
-  .slide-placeholder {
-    min-width: 33%;
   }
   .swiper-slide {
     width: auto;
