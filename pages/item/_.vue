@@ -484,10 +484,6 @@
     grid-column: col1-start/col2-end;
     grid-row: row3-start;
   }
-  .swiper-slide {
-    width: auto;
-    min-width: 800px;
-  }
 
   .meta-data {
     > div:not(:last-child) {
