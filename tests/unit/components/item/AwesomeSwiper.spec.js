@@ -58,16 +58,16 @@ describe('components/item/AwesomeSwiper', () => {
       wrapper.emitted('select').should.deep.eq([[media[1].about]]);
     });
   });
-  describe('swipingEnabled', () => {
-    it('is enabled when there are multiple media', () => {
+  describe('singleMediaResource', () => {
+    it('is false when there are multiple media', () => {
       const wrapper = factory({ media, europeanaIdentifier });
 
-      wrapper.vm.swipingEnabled.should.eq(true);
+      wrapper.vm.singleMediaResource.should.eq(false);
     });
     it('is NOT enabled when there is one media resource', () => {
       const wrapper = factory({ media: [media[0]], europeanaIdentifier });
 
-      wrapper.vm.swipingEnabled.should.eq(false);
+      wrapper.vm.singleMediaResource.should.eq(true);
     });
   });
 });

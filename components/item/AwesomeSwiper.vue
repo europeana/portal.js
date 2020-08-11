@@ -10,7 +10,17 @@
       v-for="(item, index) in displayableMedia"
       :key="index"
     >
+      <div
+        v-if="singleMediaResource"
+        class="container h-100"
+      >
+        <MediaCard
+          :europeana-identifier="item.europeanaIdentifier"
+          :media="item"
+        />
+      </div>
       <MediaCard
+        v-else
         :europeana-identifier="item.europeanaIdentifier"
         :media="item"
       />
@@ -55,12 +65,15 @@
       }
     },
     data() {
-      const swipingEnabled = this.media.length > 1;
+      // Crude check for IIIF content, which is to prevent newspapers from showing many IIIF viewers.
+      const displayableMedia = isIIIFPresentation(this.media[0]) ? [this.media[0]] : this.media;
+      const singleMediaResource = displayableMedia.length === 1;
       return {
+        displayableMedia,
         swiperOptions: {
-          threshold: swipingEnabled ? null : 5000000,
+          threshold: singleMediaResource ? 5000000 :  null,
           slidesPerView: 'auto',
-          spaceBetween: 40,
+          spaceBetween: singleMediaResource ? null : 40,
           centeredSlides: true,
           slideToClickedSlide: true,
           navigation: {
@@ -72,16 +85,12 @@
             clickable: true
           }
         },
-        swipingEnabled
+        singleMediaResource
       };
     },
     computed: {
       swiper() {
         return this.$refs.awesome.$swiper;
-      },
-      displayableMedia() {
-        // Quick check for IIIF content, which is to prevent newspapers from showing many IIIF viewers.
-        return isIIIFPresentation(this.media[0]) ? [this.media[0]] : this.media;
       }
     },
     methods: {
@@ -118,6 +127,8 @@
     }
     &:only-child {
       width: 100%;
+      margin-left: auto;
+      margin-right: auto;
     }
     a {
       display: inline-flex;
