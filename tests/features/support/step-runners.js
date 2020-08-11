@@ -169,6 +169,13 @@ module.exports = {
   },
   async paginateToPage(page) {
     const containerSelector = qaSelector('pagination navigation');
+
+    // Move down to the nav container and wait one second to allow lazy-loading
+    // of images which may interfere with clicking on pagination.
+    // FIXME: this is not 100% reliable
+    await client.moveToElement(containerSelector, 0, 0);
+    await this.waitSomeSeconds(1);
+
     await client.waitForElementVisible(containerSelector);
     const selector = containerSelector + ` a[aria-posinset="${page}"]`;
     await client.waitForElementVisible(selector);

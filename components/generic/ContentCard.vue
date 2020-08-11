@@ -14,7 +14,7 @@
         class="card-img"
       >
         <b-img-lazy
-          v-if="lazyLoad"
+          v-if="lazy"
           :src="optimisedImageUrl"
           :blank-width="blankImageWidth"
           :blank-height="blankImageHeight"
@@ -22,7 +22,7 @@
           @error.native="imageNotFound"
         />
         <b-img
-          v-if="!lazyLoad"
+          v-else
           :src="optimisedImageUrl"
           alt=""
           @error="imageNotFound"
@@ -182,10 +182,6 @@
     computed: {
       cardClass() {
         return `${this.variant}-card`;
-      },
-
-      lazyLoad() {
-        return this.lazy && (process.env.NODE_ENV !== 'test');
       },
 
       displayTitle() {
