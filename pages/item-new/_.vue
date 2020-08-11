@@ -319,8 +319,7 @@
           { hid: 'description', name: 'description', content: this.metaDescription },
           { hid: 'og:title', property: 'og:title', content: this.metaTitle },
           { hid: 'og:description', property: 'og:description', content: this.metaDescription },
-          // TODO: update the og:image
-          { hid: 'og:image', property: 'og:image', content: '' },
+          { hid: 'og:image', property: 'og:image', content: this.media[0].src ? this.media[0].src : '' },
           { hid: 'og:type', property: 'og:type', content: 'article' }
         ]
       };
