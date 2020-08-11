@@ -64,7 +64,6 @@
         </b-row>
         <b-row class="mb-3">
           <b-col>
-            <!-- TODO: remove rounded-0 class in MetadataBox component -->
             <MetadataBox
               :all-metadata="allMetaData"
               :core-metadata="coreFields"
@@ -76,6 +75,7 @@
           <b-col>
             <!-- TODO: update similar items,
               they are currently cards within a card, that shouldn't be like that
+              fix styling/structure in component itself
             -->
             <section
               v-if="similarItems.length > 0"
@@ -337,3 +337,19 @@
     }
   };
 </script>
+
+<style scoped>
+  /* TODO: fix styling in/for MetadataBox component itself */
+  /deep/ .card.rounded-0 {
+    border-radius: 0.25rem !important;
+  }
+
+  /deep/ .card-header-tabs {
+    border-radius: 0.25rem 0.25rem 0 0;
+  }
+
+  /deep/ .card-header-tabs .nav-link,
+  /deep/ .card-header-tabs .nav-link:hover {
+    border-radius: 0.25rem 0 0 0;
+  }
+</style>
