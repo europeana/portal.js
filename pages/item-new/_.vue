@@ -64,6 +64,7 @@
         </b-row>
         <b-row class="mb-3">
           <b-col>
+            <!-- TODO: remove rounded-0 class in MetadataBox component -->
             <MetadataBox
               :all-metadata="allMetaData"
               :core-metadata="coreFields"
@@ -106,8 +107,6 @@
   import { getRecord, similarItemsQuery } from '../../plugins/europeana/record';
   import { search } from '../../plugins/europeana/search';
 
-  // TODO: add isIIIFPresentation if necessary for swiper
-  import { isRichMedia } from '../../plugins/media';
   import { langMapValueForLocale } from  '../../plugins/europeana/utils';
   import { findEntities } from '../../plugins/europeana/entity';
   import { search as searchAnnotations } from '../../plugins/europeana/annotation';
@@ -169,7 +168,6 @@
         isShownAt: null,
         media: [],
         relatedEntities: [],
-        selectedMediaItem: null,
         similarItems: [],
         annotations: [],
         taggingAnnotations: [],
@@ -238,31 +236,6 @@
         if (!this.descriptionInCurrentLanguage) return '';
         return this.descriptionInCurrentLanguage.values[0] ? this.descriptionInCurrentLanguage.values[0] : '';
       },
-      isRichMedia() {
-        return isRichMedia(this.selectedMedia);
-      },
-      selectedMedia: {
-        get() {
-          return this.selectedMediaItem || this.media[0] || {};
-        },
-        set(about) {
-          this.selectedMediaItem = this.media.find((item) => item.about === about) || {};
-        }
-      },
-      selectedMediaImage() {
-        if (!this.selectedMedia.thumbnails) return {};
-        return {
-          src: this.selectedMedia.thumbnails.large,
-          link: this.isShownAt
-        };
-      },
-      edmRights() {
-        return this.selectedMedia.webResourceEdmRights ? this.selectedMedia.webResourceEdmRights : this.fields.edmRights;
-      },
-      rightsStatement() {
-        if (this.edmRights) return langMapValueForLocale(this.edmRights, this.$i18n.locale).values[0];
-        return false;
-      },
       dataProvider() {
         const edmDataProvider = langMapValueForLocale(this.coreFields.edmDataProvider, this.$i18n.locale);
 
@@ -302,10 +275,6 @@
     methods: {
       annotationsByMotivation(motivation) {
         return this.annotations.filter(annotation => annotation.motivation === motivation);
-      },
-
-      selectMedia(about) {
-        this.selectedMedia = about;
       },
 
       getSimilarItems() {
@@ -350,7 +319,8 @@
           { hid: 'description', name: 'description', content: this.metaDescription },
           { hid: 'og:title', property: 'og:title', content: this.metaTitle },
           { hid: 'og:description', property: 'og:description', content: this.metaDescription },
-          { hid: 'og:image', property: 'og:image', content: this.selectedMediaImage.src ? this.selectedMediaImage.src : '' },
+          // TODO: update the og:image
+          { hid: 'og:image', property: 'og:image', content: '' },
           { hid: 'og:type', property: 'og:type', content: 'article' }
         ]
       };
