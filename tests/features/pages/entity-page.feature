@@ -50,7 +50,7 @@ Feature: Entity page
     When I open an `entity page`
     And I see the `entity page`
     And I see a `search result`
-    Then I see a link to "/en/collections/person/60305-william-shakespeare?page=2&view=grid" in the `pagination navigation`
+    Then I see a link to "/en/collections/person/60305-william-shakespeare?page=2" in the `pagination navigation`
 
   Scenario: Pagination links work when the page was accessed from the url
     When I visit `/en/collections/person/60305-william-shakespeare?page=2`
@@ -58,7 +58,7 @@ Feature: Entity page
     And I see the `pagination navigation`
     And I go to page number 3
     And I wait for the page to load
-    Then I should be on `/en/collections/person/60305-william-shakespeare?page=3&view=grid`
+    Then I should be on `/en/collections/person/60305-william-shakespeare?page=3`
 
   # TODO: Add back - And I click the `search button` instead of press ENTER
   Scenario: Searching from an entity page searches within that entity
