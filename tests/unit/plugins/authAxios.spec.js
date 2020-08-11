@@ -4,6 +4,7 @@ import nock from 'nock';
 import authAxios from '../../../plugins/authAxios';
 import config from '../../../modules/apis/defaults';
 const apiUrl = `${config.set.origin}${config.set.path}`;
+import sinon from 'sinon';
 
 const axios = require('axios');
 axios.defaults.adapter = require('axios/lib/adapters/http');
@@ -41,6 +42,9 @@ let mockContext = {
         login: 'http://redirect.url.for.login'
       }
     }
+  },
+  store: {
+    dispatch: sinon.spy()
   },
   $axios: createAxiosInstance({})
 };

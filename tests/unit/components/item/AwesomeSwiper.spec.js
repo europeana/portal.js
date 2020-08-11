@@ -1,19 +1,19 @@
-import { storiesOf } from '@storybook/vue';
-import AwesomeSwiper from './AwesomeSwiper';
+import { createLocalVue, mount } from '@vue/test-utils';
+import BootstrapVue from 'bootstrap-vue';
 
-const i18n = {
-  locale: 'en',
-  messages: {
-    en: {
-      actions: {
-        close: 'close',
-        download: 'download',
-        share: 'share',
-        shareOn: 'Share on {social}'
-      }
-    }
-  }
-};
+import AwesomeSwiper from '../../../../components/item/AwesomeSwiper.vue';
+
+const localVue = createLocalVue();
+localVue.use(BootstrapVue);
+
+const factory = (propsData) => mount(AwesomeSwiper, {
+  localVue,
+  mocks: {
+    $t: (key) => key,
+    $proxyMedia: () => 'proxied'
+  },
+  propsData
+});
 
 const media = [
   {
@@ -42,23 +42,19 @@ const media = [
     rightsStatement: 'http://creativecommons.org/licenses/by-sa/3.0/'
   }
 ];
+const europeanaIdentifier = '/2020601/https___1914_1918_europeana_eu_contributions_10265';
 
-storiesOf('Item page/Awesome Swiper', module)
-  .add('Centered with multiple slides visible', () => ({
-    i18n,
-    components: { AwesomeSwiper },
-    data() {
-      return {
-        media,
-        id: '/2020601/https___1914_1918_europeana_eu_contributions_10265'
-      };
-    },
-    template: `
-      <div class="mt-3">
-        <AwesomeSwiper
-          :europeana-identifier="id"
-          :media="media"
-        />
-      </div>
-    `
-  }));
+describe('components/item/AwesomeSwiper', () => {
+  context('when the swiper loads', () => {
+    it('shows five slides', () => {
+      const wrapper = factory({ media, europeanaIdentifier });
+      wrapper.findAll('div.swiper-slide').length.should.eq(5);
+    });
+
+    it('emits a `select` event with the item identifier', () => {
+      const wrapper = factory({ media, europeanaIdentifier });
+      wrapper.vm.swiper.slideTo(1, 1000, false);
+      wrapper.emitted('select').should.deep.eq([[media[1].about]]);
+    });
+  });
+});
