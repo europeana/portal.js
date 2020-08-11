@@ -19,7 +19,6 @@ export const pageFromQuery = (queryPage) => {
     if (Number.isInteger(pageAsNumber) && pageAsNumber > 0) page = pageAsNumber;
   }
 
-  console.log('********\n\npage\n\n********', page);
   return page;
 };
 
