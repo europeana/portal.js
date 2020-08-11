@@ -83,12 +83,14 @@
       SetItems: () => import('../../components/set/SetItems')
     },
 
-    // middleware: 'sanitisePageQuery',
+    middleware: 'sanitisePageQuery',
 
     async fetch() {
       // TODO: error handling
-      // TODO: use `app.$page` from `sanitisePageQuery` when available
-      const set = await this.$sets.getSet(this.$route.params.pathMatch, this.$route.query.page, this.perPage);
+      const set = await this.$sets.getSet(this.$route.params.pathMatch, {
+        page: this.$route.query.page,
+        pageSize: this.perPage
+      });
 
       this.page = Number(this.$route.query.page);
       this.total = set.total;

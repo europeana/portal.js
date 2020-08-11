@@ -4,7 +4,9 @@ import { apiError } from './utils';
 import { search as searchItems } from './search';
 
 const setApiUrl = (endpoint) => `${config.set.origin}${config.set.path}${endpoint}`;
+
 const setIdFromUri = (uri) => uri.split('/').pop();
+
 const paramsWithApiKey = (params = {}) => {
   return { ...params, wskey: config.set.key };
 };
@@ -22,22 +24,6 @@ export default ($axios) => ({
   getLikes(creator) {
     return this.search({ query: `creator:${creator} type:BookmarkFolder` })
       .then(response => response.data.items ? setIdFromUri(response.data.items[0]) : null)
-      .catch(error => {
-        throw apiError(error);
-      });
-  },
-
-  /**
-   * Get set by id
-   * @param {string} id the set id
-   * @param {string} profile the set profile, can be either 'minimal' or 'standard'
-   * @return {Object} API response data
-   */
-  getSet(id, profile) {
-    return $axios.get(setApiUrl(`/${id}`), { params: { profile } })
-      .then(response => {
-        return response.data;
-      })
       .catch(error => {
         throw apiError(error);
       });
@@ -90,23 +76,26 @@ export default ($axios) => ({
   /**
    * Get a set with given id
    * @param {string} id the set's id
-   * @param {string} page the set's current page
-   * @param {string} pageSize the set-page's size
-   * @param {string} profile the set's metadata profile
+   * @param {Object} options retrieval options
+   * @param {string} options.page the set's current page
+   * @param {string} options.pageSize the set-page's size
+   * @param {string} options.profile the set's metadata profile
    * @return {Object} the set's object, containing the requested window of the set's items
    */
-  getSet(id, page, pageSize, profile) {
-    const params = {};
-    params.page = page || 1;
-    params.pageSize = pageSize || 24;
-    params.profile = profile || 'standard';
+  getSet(id, options = {}) {
+    const defaults = {
+      page: 1,
+      pageSize: 24,
+      profile: 'standard'
+    };
+    options = { ...defaults, ...options };
 
     const apiCall = $axios.defaults.headers.Authorization ? $axios.get : axios.get;
 
-    return apiCall(setApiUrl(`/${id}`), { params: paramsWithApiKey(params) })
+    return apiCall(setApiUrl(`/${id}`), { params: paramsWithApiKey(options) })
       .then(response => {
         if (response.data.items) {
-          return this.getSetItems(response.data.items, pageSize, page)
+          return this.getSetItems(response.data.items, options.pageSize, options.page)
             .then(results => {
               response.data.items = results;
               return response.data;
@@ -115,7 +104,7 @@ export default ($axios) => ({
         return response.data;
       })
       .catch((error) => {
-        if (error.response.status === 403) {
+        if (error.response && (error.response.status === 403)) {
           // TODO: Handle the Unauthorized error here
         }
         throw apiError(error);
