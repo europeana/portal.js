@@ -1,7 +1,5 @@
 import { storiesOf } from '@storybook/vue';
-import Vuex from 'vuex';
 import AwesomeSwiper from './AwesomeSwiper';
-import ItemHero from './ItemHero';
 
 const i18n = {
   locale: 'en',
@@ -16,14 +14,6 @@ const i18n = {
     }
   }
 };
-
-const store = new Vuex.Store({
-  getters: {
-    'http/canonicalUrl': () => {
-      return 'https://www.example.org/';
-    }
-  }
-});
 
 const media = [
   {
