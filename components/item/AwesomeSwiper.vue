@@ -3,6 +3,7 @@
     ref="awesome"
     class="swiper"
     :options="swiperOptions"
+    @slide-change-transition-end="updateSwiper"
   >
     <swiper-slide
       v-for="(item, index) in displayableMedia"
@@ -77,6 +78,11 @@
         // Quick check for IIIF content, which is to prevent newspapers from showing many IIIF viewers.
         return isIIIFPresentation(this.media[0]) ? [this.media[0]] : this.media;
       }
+    },
+    methods: {
+      updateSwiper() {
+        this.swiper.update();
+      }
     }
   };
 </script>
@@ -87,6 +93,9 @@
   .swiper-container {
     max-height: 568px;
     height: 80vh;
+  }
+  .slide-placeholder {
+    min-width: 33%;
   }
   .swiper-slide {
     width: auto;
