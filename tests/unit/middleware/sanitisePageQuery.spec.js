@@ -1,6 +1,6 @@
-import { pageFromQuery } from '../../../plugins/utils';
+import { pageFromQuery } from '../../../middleware/sanitisePageQuery';
 
-describe('plugins/utils', () => {
+describe('middleware/sanitisePageQuery', () => {
   describe('pageFromQuery()', () => {
     context('with no value', () => {
       it('returns `1`', () => {
