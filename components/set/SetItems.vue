@@ -1,25 +1,23 @@
 <template>
-  <div>
+  <b-container>
     <b-row class="flex-md-row mt-3 pb-5">
       <b-col cols="12">
         <b-card-group
           class="masonry"
           deck
         >
-          <client-only>
-            <ContentCard
-              v-for="result in items"
-              :key="result.europeanaId"
-              :title="result.dcTitle || result.dcDescription"
-              :url="{ name: 'item-all', params: { pathMatch: result.europeanaId.slice(1) } }"
-              :image-url="result.edmPreview"
-              :texts="cardTexts(result)"
-              :limit-values-within-each-text="3"
-              :omit-all-uris="true"
-              :blank-image-height="280"
-              data-qa="set item"
-            />
-          </client-only>
+          <ContentCard
+            v-for="result in items"
+            :key="result.europeanaId"
+            :title="result.dcTitle || result.dcDescription"
+            :url="{ name: 'item-all', params: { pathMatch: result.europeanaId.slice(1) } }"
+            :image-url="result.edmPreview"
+            :texts="cardTexts(result)"
+            :limit-values-within-each-text="3"
+            :omit-all-uris="true"
+            :blank-image-height="280"
+            data-qa="set item"
+          />
         </b-card-group>
       </b-col>
     </b-row>
@@ -32,44 +30,41 @@
             :limit="pageSize"
             :total-results="total"
             :per-page="pageSize"
-            :link-gen="paginationLink"
           />
         </client-only>
       </b-col>
     </b-row>
-  </div>
+  </b-container>
 </template>
 
 <script>
   import ClientOnly from 'vue-client-only';
 
+  import ContentCard from '../generic/ContentCard';
+
   export default {
     name: 'SetItems',
     components: {
       ClientOnly,
-      ContentCard: () => import('../generic/ContentCard'),
+      ContentCard,
       PaginationNav: () => import('../generic/PaginationNav')
     },
     props: {
-      setId: {
-        type: String,
-        default: () => ''
-      },
       items: {
         type: Array,
         default: () => []
       },
       total: {
         type: Number,
-        default: () => 0
+        default: 0
       },
       page: {
         type: Number,
-        default: () => 1
+        default: 1
       },
       pageSize: {
         type: Number,
-        default: () => 24
+        default: 24
       }
     },
     computed: {
@@ -78,15 +73,11 @@
       }
     },
     methods: {
-      paginationLink(val) {
-        return this.$route.path + '?page=' + val;
-      },
-      cardTexts(result, variant) {
+      cardTexts(result) {
         const texts = [result.edmDataProvider];
+
         if (result.dcCreator) texts.unshift(result.dcCreator);
-        if (variant === 'list') {
-          if (!result.selector && result.dcDescription) texts.unshift(result.dcDescription);
-        }
+
         return texts;
       }
     }

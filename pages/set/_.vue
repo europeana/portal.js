@@ -8,26 +8,32 @@
       fluid
     >
       <b-container>
-        <h1 class="mb-2">
-          {{ displayField('title') }}
+        <h1
+          class="mb-2"
+          :lang="displayTitle.code"
+        >
+          {{ displayTitle.values[0] }}
         </h1>
-        <h5 class="usergallery-description mb-4">
-          {{ displayField('description') }}
-        </h5>
+        <p
+          class="usergallery-description mb-4"
+          :lang="displayDescription.code"
+        >
+          {{ displayDescription.values[0] }}
+        </p>
         <div class="usergallery-metadata mb-4">
           <!-- TODO: Fill after the '@' with the set's owner  -->
           <!-- <span class="curator mr-4">
             {{ $t('userset.curatedBy') }} @placeholderUsername
           </span> -->
           <span
-            v-if="userSet.visibility === 'private'"
+            v-if="visibility === 'private'"
             class="visibility"
           >
             {{ $t('userset.privateCollection') }}
           </span>
         </div>
+        <!--
         <div class="collection-buttons">
-          <!-- TODO: Add support for editing functionality. Only visible if the viewer is the owner  -->
           <b-button
             v-if="userIsOwner"
             variant="outline-primary text-decoration-none"
@@ -36,16 +42,15 @@
               {{ $t('userset.edit') }}
             </span>
           </b-button>
-          <!-- TODO: Add support for sharing functionality. Only visible for public usersets  -->
           <b-button
-            v-if="userSet.visibility === 'private'"
+            v-if="visibility === 'public'"
             variant="outline-primary text-decoration-none"
           >
             <span class="text">
               {{ $t('actions.share') }}
             </span>
           </b-button>
-        </div>
+        </div> -->
       </b-container>
     </div>
     <b-container class="pt-5 pb-4">
@@ -53,8 +58,7 @@
         {{ $tc('items.itemCount', total, { count: total }) }}
       </span>
       <SetItems
-        :set-id="setId"
-        :items="userSet.items"
+        :items="items"
         :total="total"
         :page="page"
         :page-size="perPage"
@@ -66,82 +70,68 @@
         <span class="recommended-items">
           {{ $t('userset.recommendedItems') }}
         </span>
-        <b-row class="flex-md-row mt-3 pb-5">
-          <b-col cols="12">
-            <b-card-group
-              class="masonry"
-              deck
-              data-qa="gallery images"
-            >
-            <!-- TODO: Fill with items from the Recommendation Engine API -->
-            </b-card-group>
-          </b-col>
-        </b-row>
       </div>
     </b-container>
   </div>
 </template>
 
 <script>
-  import { pageFromQuery } from '../../plugins/utils';
-
-  const PER_PAGE = 24;
+  import { langMapValueForLocale } from  '../../plugins/europeana/utils';
 
   export default {
-    name: 'UserSet',
     components: {
-      SetItems: () => import('../../components/account/SetItems')
+      SetItems: () => import('../../components/set/SetItems')
     },
-    async asyncData({ params, query, redirect, app }) {
-      const currentPage = pageFromQuery(query.page);
-      if ((currentPage === null) || (currentPage <= 0)) {
-        // Redirect non-positive integer values for `page` to `page=1`
-        return redirect(app.context.route.path + '?page=1');
-      }
 
-      // Retrieve the set with a given id
-      let uSet = await app.$sets.getSet(params.pathMatch, currentPage, PER_PAGE);
+    // middleware: 'sanitisePageQuery',
 
-      // TODO: Retrieve the recommendations of this set
+    async fetch() {
+      // TODO: error handling
+      // TODO: use `app.$page` from `sanitisePageQuery` when available
+      const set = await this.$sets.getSet(this.$route.params.pathMatch, this.$route.query.page, this.perPage);
 
-      return {
-        setId: params.pathMatch,
-        page: currentPage,
-        userSet: uSet,
-        total: uSet.total,
-        recommendations: []
-      };
+      this.page = Number(this.$route.query.page);
+      this.total = set.total;
+      this.title = set.title;
+      this.items = set.items;
+      this.visibility = set.visibility;
+      this.description = set.description;
     },
+
     data() {
       return {
-        perPage: PER_PAGE,
-        page: null
+        description: null,
+        items: [],
+        page: null,
+        perPage: 24,
+        recommendations: [],
+        title: null,
+        total: 0,
+        visibility: null
       };
     },
+
     computed: {
       userIsOwner() {
-        if (this.$store.state.auth.user && this.userSet.creator) {
-          return (this.$store.state.auth.user.sub === this.userSet.creator.split('user/')[1]);
+        if (this.$store.state.auth.user && this.creator) {
+          return (this.$store.state.auth.user.sub === this.creator.split('user/')[1]);
         }
         return false;
+      },
+      displayTitle() {
+        return langMapValueForLocale(this.title, this.$i18n.locale);
+      },
+      displayDescription() {
+        return langMapValueForLocale(this.description, this.$i18n.locale);
       }
     },
-    methods: {
-      displayField(field) {
-        if (!this.userSet[field]) {
-          return '';
-        } else if (this.userSet[field][this.$i18n.locale]) {
-          return this.userSet[field][this.$i18n.locale];
-        } else {
-          return this.userSet[field]['en'];
-        }
-      }
-    },
+
     head() {
       return {
-        title: this.displayField('title')
+        title: this.displayTitle.values[0]
       };
     },
+
     watchQuery: ['page']
   };
 </script>

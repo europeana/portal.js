@@ -1,12 +1,13 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
-import SetItems from '../../../../components/account/SetItems.vue';
+import SetItems from '../../../../components/set/SetItems.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
-const factory = () => mount(SetItems, {
+const factory = (propsData) => mount(SetItems, {
   localVue,
+  propsData,
   mocks: {
     $path: (opts) => `/item/${opts.params.pathMatch}`,
     $i18n: {
@@ -31,13 +32,13 @@ const setItems = [
   }
 ];
 
-describe('components/account/SetItems', () => {
+describe('components/set/SetItems', () => {
   it('it renders a card for each item of the user set', () => {
-    const wrapper = factory();
-    wrapper.setProps({
+    const wrapper = factory({
       items: setItems
     });
-    const renderedItems =  wrapper.findAll('[data-qa="set item"]');
+
+    const renderedItems =  wrapper.findAll('[data-qa="set item"] a');
 
     renderedItems.at(0).attributes().href.should.endWith(`/item${setItems[0].europeanaId}`);
     renderedItems.at(1).attributes().href.should.endWith(`/item${setItems[1].europeanaId}`);
