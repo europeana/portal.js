@@ -1,3 +1,7 @@
+const isPositiveInteger = (number) => {
+  return Number.isInteger(number) && number > 0;
+};
+
 /**
  * Page to request, from an API endpoint (Europeana/Contentful/?)
  * If parameter is not present, returns default of page 1.
@@ -14,7 +18,7 @@ export const page = (unsanitised) => {
     sanitised = 1;
   } else {
     const pageAsNumber = Number(unsanitised);
-    if (Number.isInteger(pageAsNumber) && pageAsNumber > 0) sanitised = pageAsNumber;
+    if (isPositiveInteger(pageAsNumber)) sanitised = pageAsNumber;
   }
 
   return sanitised;
