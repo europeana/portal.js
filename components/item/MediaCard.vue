@@ -17,20 +17,6 @@
       class="media-player"
     />
   </div>
-  <VideoPlayer
-    v-else-if="isHTMLVideo"
-    :europeana-identifier="europeanaIdentifier"
-    :src="media.about"
-    :type="media.ebucoreHasMimeType"
-    :width="media.ebucoreWidth"
-    :height="media.ebucoreHeight"
-  />
-  <AudioPlayer
-    v-else-if="isHTMLAudio"
-    :europeana-identifier="europeanaIdentifier"
-    :src="media.about"
-    :type="media.ebucoreHasMimeType"
-  />
   <HTMLEmbed
     v-else-if="isOEmbed"
     :html="oEmbedData.html"
@@ -65,8 +51,6 @@
     name: 'MediaCard',
     components: {
       MediaCardImage: () => import('../../components/item/MediaCardImage'),
-      VideoPlayer: () => import('../../components/media/VideoPlayer'),
-      AudioPlayer: () => import('../../components/media/AudioPlayer'),
       HTMLEmbed
     },
     props: {
