@@ -4,64 +4,76 @@
     fluid
     class="entity-page"
   >
-    <b-row class="flex-md-row pt-5 bg-white mb-4">
-      <b-col
-        cols="12"
-      >
-        <b-container class="mb-5">
-          <EntityDetails
-            :description="description"
-            :is-editorial-description="hasEditorialDescription"
-            :title="title"
-          />
-          <client-only>
-            <section
-              v-if="relatedCollectionsFound"
-              data-qa="related entities"
-            >
-              <RelatedCollections
-                :title="$t('collectionsYouMightLike')"
-                :related-collections="relatedEntities ? relatedEntities : relatedCollectionCards"
-              />
-            </section>
-          </client-only>
-        </b-container>
-      </b-col>
-    </b-row>
-    <b-row>
+    <!-- TODO: move to an error message component -->
+    <b-row
+      v-if="$fetchState.error"
+    >
       <b-col
         cols="12"
         class="pb-3"
       >
-        <SearchInterface
-          class="px-0"
-          :per-page="recordsPerPage"
-          :route="route"
-          :show-content-tier-toggle="false"
-        />
+        {{ $fetchState.error.message }}
       </b-col>
     </b-row>
-    <b-row>
-      <b-col>
-        <b-container class="p-0">
+    <template v-else-if="!$fetchState.pending">
+      <b-row class="flex-md-row pt-5 bg-white mb-4">
+        <b-col
+          cols="12"
+        >
+          <b-container class="mb-5">
+            <EntityDetails
+              :description="description"
+              :is-editorial-description="hasEditorialDescription"
+              :title="title"
+            />
+            <client-only>
+              <section
+                v-if="relatedCollectionsFound"
+                data-qa="related entities"
+              >
+                <RelatedCollections
+                  :title="$t('collectionsYouMightLike')"
+                  :related-collections="relatedEntities ? relatedEntities : relatedCollectionCards"
+                />
+              </section>
+            </client-only>
+          </b-container>
+        </b-col>
+      </b-row>
+      <b-row>
+        <b-col
+          cols="12"
+          class="pb-3"
+        >
           <client-only>
-            <BrowseSections
-              v-if="page"
-              :sections="page.hasPartCollection.items"
+            <EntityItemSearch
+              class="px-0"
+              :identifier="entity.id"
+              :pref-label="entity.prefLabel"
             />
           </client-only>
-        </b-container>
-      </b-col>
-    </b-row>
+        </b-col>
+      </b-row>
+      <b-row>
+        <b-col>
+          <b-container class="p-0">
+            <client-only>
+              <BrowseSections
+                v-if="page"
+                :sections="page.hasPartCollection.items"
+              />
+            </client-only>
+          </b-container>
+        </b-col>
+      </b-row>
+    </template>
   </b-container>
 </template>
 
 <script>
-  import axios from 'axios';
-
   import ClientOnly from 'vue-client-only';
   import EntityDetails from '../../../components/entity/EntityDetails';
-  import SearchInterface from '../../../components/search/SearchInterface';
+  import EntityItemSearch from '../../../components/entity/EntityItemSearch';
 
   import { mapState } from 'vuex';
 
@@ -75,84 +87,33 @@
       BrowseSections: () => import('../../../components/browse/BrowseSections'),
       ClientOnly,
       EntityDetails,
-      SearchInterface,
+      EntityItemSearch,
       RelatedCollections: () => import('../../../components/generic/RelatedCollections')
     },
 
     middleware: 'sanitisePageQuery',
 
-    fetch({ query, params, redirect, error, app, store }) {
-      store.commit('search/disableCollectionFacet');
+    async fetch() {
+      this.$store.commit('search/disableCollectionFacet');
 
-      const entityUri = entities.getEntityUri(params.type, params.pathMatch);
-
-      if (entityUri !== store.state.entity.id) {
-        // TODO: group as a reset action on the store?
-        store.commit('entity/setId', null);
-        store.commit('entity/setEntity', null);
-        store.commit('entity/setPage', null);
-        store.commit('entity/setRelatedEntities', null);
+      try {
+        await this.fetchFromContentful();
+        const entityResponse = await entities.getEntity(this.$route.params.type, this.$route.params.pathMatch);
+        this.entity = entityResponse.entity;
+        this.$store.commit('search/setPill', this.title);
+        this.enforcePreferredRoute();
+      } catch (e) {
+        if (process.server) this.$nuxt.context.res.statusCode = (e.statusCode === undefined) ? 500 : e.statusCode;
+        throw e;
       }
-
-      store.commit('entity/setId', entityUri);
-
-      // Get all curated entity names & genres and store, unless already stored
-      const fetchCuratedEntities = !store.state.entity.curatedEntities;
-      // Get the full page for this entity if not known needed, or known to be needed, and store for reuse
-      const fetchEntityPage = !store.state.entity.curatedEntities ||
-        store.state.entity.curatedEntities.some(entity => entity.identifier === entityUri);
-      const fetchFromContentful = fetchCuratedEntities || fetchEntityPage;
-
-      // Prevent re-requesting entity content from APIs if already loaded,
-      // e.g. when paginating through entity search results
-      const fetchEntity = !store.state.entity.entity;
-
-      const contentfulVariables = {
-        identifier: entityUri,
-        locale: app.i18n.isoLocale(),
-        preview: query.mode === 'preview',
-        curatedEntities: fetchCuratedEntities,
-        entityPage: fetchEntityPage
-      };
-
-      return axios.all(
-        [store.dispatch('entity/searchForRecords', query)]
-          .concat(fetchEntity ? entities.getEntity(params.type, params.pathMatch) : () => {})
-          .concat(fetchFromContentful ? app.$contentful.query('collectionPage', contentfulVariables) : () => {})
-      )
-        .then(axios.spread((recordSearchResponse, entityResponse, pageResponse) => {
-          if (fetchEntity) store.commit('entity/setEntity', entityResponse.entity);
-
-          if (fetchFromContentful) {
-            const pageResponseData = pageResponse.data.data;
-            if (fetchCuratedEntities) store.commit('entity/setCuratedEntities', pageResponseData.curatedEntities.items);
-            if (fetchEntityPage) store.commit('entity/setPage', pageResponseData.entityPage.items[0]);
-          }
-
-          const entity = store.state.entity.entity;
-          const page = store.state.entity.page;
-
-          const entityName = page ? page.name : entity.prefLabel.en;
-          const desiredPath = entities.getEntitySlug(entity.id, entityName);
-
-          if (params.pathMatch !== desiredPath) {
-            const redirectPath = app.$path({
-              name: 'collections-type-all',
-              params: { type: params.type, pathMatch: encodeURIComponent(desiredPath) }
-            });
-            return redirect(302, redirectPath);
-          }
-        }))
-        .catch((e) => {
-          const statusCode = (e.statusCode === undefined) ? 500 : e.statusCode;
-          store.commit('entity/setId', null);
-          error({ statusCode, message: e.toString() });
-        });
     },
 
     data() {
       return {
-        relatedCollections: []
+        entity: null,
+        page: null,
+        relatedCollections: [],
+        relatedEntities: []
       };
     },
 
@@ -161,10 +122,7 @@
         apiConfig: 'apis/config'
       }),
       ...mapState({
-        entity: state => state.entity.entity,
-        page: state => state.entity.page,
-        relatedEntities: state => state.entity.relatedEntities,
-        recordsPerPage: state => state.entity.recordsPerPage
+        curatedEntities: state => state.entity.curatedEntities
       }),
       description() {
         return this.editorialDescription ? { values: [this.editorialDescription], code: null } : null;
@@ -215,16 +173,8 @@
         }
         return false;
       },
-      route() {
-        return {
-          name: 'collections-type-all',
-          params: {
-            type: this.$route.params.type,
-            pathMatch: this.$route.params.pathMatch
-          }
-        };
-      },
       title() {
+        if (this.$fetchState.error) return { values: [this.$t('error')] };
         if (!this.entity) return this.titleFallback();
         if (this.editorialTitle) return this.titleFallback(this.editorialTitle);
         return langMapValueForLocale(this.entity.prefLabel, this.$store.state.i18n.locale);
@@ -232,20 +182,52 @@
     },
 
     mounted() {
-      this.$store.commit('search/setPill', this.title);
-
-      this.$store.dispatch('entity/searchForRecords', this.$route.query);
-
-      // TODO: move into a new entity store action?
-      if (!this.relatedCollectionCards) {
+      // TODO: move into a new component's fetch() ?
+      if (!this.$fetchState.error && !this.relatedCollectionCards) {
         entities.relatedEntities(this.$route.params.type, this.$route.params.pathMatch, { origin: this.$route.query.recordApi })
           .then((related) => {
-            this.$store.commit('entity/setRelatedEntities', related);
+            this.relatedEntities = related;
           });
       }
     },
 
     methods: {
+      async fetchFromContentful() {
+        const identifier = entities.getEntityUri(this.$route.params.type, this.$route.params.pathMatch);
+
+        // Get all curated entity names & genres and store, unless already stored
+        const fetchCuratedEntities = !this.$store.state.entity.curatedEntities;
+        // Get the full page for this entity if not known needed, or known to be needed, and store for reuse
+        const fetchEntityPage = !this.curatedEntities ||
+          this.$store.state.entity.curatedEntities.some(entity => entity.identifier === identifier);
+
+        if (fetchCuratedEntities || fetchEntityPage) {
+          const contentfulVariables = {
+            identifier,
+            locale: this.$i18n.isoLocale(),
+            preview: this.$route.query.mode === 'preview',
+            curatedEntities: fetchCuratedEntities,
+            entityPage: fetchEntityPage
+          };
+
+          const collectionPageResponse = await this.$contentful.query('collectionPage', contentfulVariables);
+
+          if (fetchCuratedEntities) this.$store.commit('entity/setCuratedEntities', collectionPageResponse.data.data.curatedEntities.items);
+          if (fetchEntityPage) this.page = collectionPageResponse.data.data.entityPage.items[0];
+        }
+      },
+      enforcePreferredRoute() {
+        const entityName = this.page ? this.page.name : this.entity.prefLabel.en;
+        const desiredPath = entities.getEntitySlug(this.entity.id, entityName);
+
+        if (this.$route.params.pathMatch !== desiredPath) {
+          const redirectPath = this.$path({
+            name: 'collections-type-all',
+            params: { type: this.$route.params.type, pathMatch: encodeURIComponent(desiredPath) }
+          });
+          return this.$nuxt.context.redirect(302, redirectPath);
+        }
+      },
       titleFallback(title) {
         return {
           values: [title],
@@ -292,12 +274,11 @@
 
     async beforeRouteLeave(to, from, next) {
       await this.$store.dispatch('search/deactivate');
-      this.$store.commit('entity/setId', null); // needed to re-enable auto-suggest in header
-      this.$store.commit('entity/setEntity', null); // needed for best bets handling
+      // FIXME
+      // this.$store.commit('entity/setId', null); // needed to re-enable auto-suggest in header
+      // this.$store.commit('entity/setEntity', null); // needed for best bets handling
       next();
-    },
-
-    watchQuery: ['api', 'reusability', 'query', 'qf', 'page']
+    }
   };
 </script>
 
