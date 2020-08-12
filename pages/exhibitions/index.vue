@@ -29,12 +29,10 @@
     <b-row>
       <b-col>
         <PaginationNav
-          v-if="showPagination"
           v-model="page"
           :limit="perPage"
           :total-results="total"
           :per-page="perPage"
-          :link-gen="paginationLink"
         />
       </b-col>
     </b-row>
@@ -45,7 +43,6 @@
   import ContentHeader from '../../components/generic/ContentHeader';
   import ContentCard from '../../components/generic/ContentCard';
   import PaginationNav from '../../components/generic/PaginationNav';
-  import { pageFromQuery } from '../../plugins/utils';
 
   const PER_PAGE = 20;
 
@@ -56,19 +53,15 @@
       ContentCard,
       PaginationNav
     },
-    asyncData({ query, redirect, error, app }) {
-      const currentPage = pageFromQuery(query.page);
-      if (currentPage === null) {
-        // Redirect non-positive integer values for `page` to `page=1`
-        query.page = '1';
-        return redirect(app.$path({ name: 'exhibitions', query }));
-      }
 
+    middleware: 'sanitisePageQuery',
+
+    asyncData({ query, error, app }) {
       const variables = {
         locale: app.i18n.isoLocale(),
         preview: query.mode === 'preview',
         limit: PER_PAGE,
-        skip: (currentPage - 1) * PER_PAGE
+        skip: (app.$page - 1) * PER_PAGE
       };
 
       return app.$contentful.query('exhibitionFoyerPage', variables)
@@ -77,7 +70,7 @@
           return {
             exhibitions: data.exhibitionPageCollection.items,
             total: data.exhibitionPageCollection.total,
-            page: currentPage,
+            page: app.$page,
             perPage: PER_PAGE
           };
         })
@@ -91,15 +84,7 @@
         page: null
       };
     },
-    computed: {
-      showPagination() {
-        return this.total > this.perPage;
-      }
-    },
     methods: {
-      paginationLink(val) {
-        return this.$path({ name: 'exhibitions', query: { page: val } });
-      },
       imageUrl(image) {
         if (image && image.image) return image.image.url;
       },

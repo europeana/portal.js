@@ -12,20 +12,15 @@ const mockProps =  {
   }
 };
 
-const $sets = {
-  modifyItems: sinon.spy()
-};
-
 const factory = () => mount(UserButtons, {
   localVue,
   mocks: {
-    $sets,
     $store: {
       state: {
         set: {
-          likesId: 'set-likes-id'
         }
-      }
+      },
+      dispatch: sinon.spy()
     },
     $t: () => {}
   }
@@ -45,7 +40,6 @@ describe('components/account/UserButtons', () => {
     });
     wrapper.setProps(mockProps);
     await likeButton.trigger('click');
-    $sets.modifyItems.args[0][0].should.eq('add');
     await wrapper.vm.$nextTick();
     likeButton.attributes('aria-pressed').should.eq('true');
   });
@@ -55,10 +49,8 @@ describe('components/account/UserButtons', () => {
       liked: true
     });
     wrapper.setProps(mockProps);
-    $sets.modifyItems = sinon.spy();
     const likeButton = wrapper.find('[data-qa="like button"]');
     await likeButton.trigger('click');
-    $sets.modifyItems.args[0][0].should.eq('delete');
     await wrapper.vm.$nextTick();
     likeButton.attributes('aria-pressed').should.eq('false');
   });

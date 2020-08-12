@@ -1,55 +1,33 @@
 <template>
   <b-card-group
-    v-if="view === 'list'"
-    data-qa="search results list"
+    :data-qa="`search results ${view}`"
+    :class="cardGroupClass"
     deck
-    class="card-group-list mx-0"
   >
-    <ContentCard
+    <ItemPreviewCard
       v-for="result in value"
       :key="result.europeanaId"
-      :title="result.dcTitle || result.dcDescription"
-      :url="{ name: 'item-all', params: { pathMatch: result.europeanaId.slice(1) } }"
-      :image-url="result.edmPreview"
-      :texts="cardTexts(result, 'list')"
-      :hits-text="result.selector"
+      :variant="cardVariant"
+      :dc-creator="result.dcCreator"
+      :dc-description="result.dcDescription"
+      :dc-title="result.dcTitle"
+      :edm-data-provider="result.edmDataProvider"
+      :edm-preview="result.edmPreview"
+      :europeana-id="result.europeanaId"
+      :selector="result.selector"
       data-qa="search result"
-      :limit-values-within-each-text="3"
-      :omit-all-uris="true"
-      variant="list"
-      class="mx-0"
-    />
-  </b-card-group>
-  <b-card-group
-    v-else
-    :class="`card-deck-search masonry card-deck-${perRow}-cols`"
-    deck
-    data-qa="search results grid"
-  >
-    <ContentCard
-      v-for="result in value"
-      :key="result.europeanaId"
-      :title="result.dcTitle || result.dcDescription"
-      :url="{ name: 'item-all', params: { pathMatch: result.europeanaId.slice(1) } }"
-      :image-url="result.edmPreview"
-      :show-user-buttons="showUserButtons"
-      :texts="cardTexts(result)"
-      data-qa="search result"
-      :limit-values-within-each-text="3"
-      :omit-all-uris="true"
-      :blank-image-height="280"
     />
   </b-card-group>
 </template>
 
 <script>
-  import ContentCard from '../generic/ContentCard';
+  import ItemPreviewCard from '../item/ItemPreviewCard';
 
   export default {
     name: 'SearchResults',
 
     components: {
-      ContentCard
+      ItemPreviewCard
     },
 
     props: {
@@ -67,35 +45,13 @@
       }
     },
 
-    data() {
-      return {
-        activeView: this.view
-      };
-    },
-
     computed: {
-      showUserButtons() {
-        // TODO: can be removed at some point
-        return Boolean(Number(process.env.ENABLE_XX_USER_AUTH));
-      }
-    },
+      cardGroupClass() {
+        return this.view === 'list' ? 'card-group-list mx-0' : `card-deck-search masonry card-deck-${this.perRow}-cols`;
+      },
 
-    watch: {
-      view() {
-        this.activeView = this.view;
-      }
-    },
-
-    methods: {
-      cardTexts(result, variant) {
-        const texts = [result.edmDataProvider];
-        if (result.dcCreator) texts.unshift(result.dcCreator);
-
-        if (variant === 'list') {
-          if (!result.selector && result.dcDescription) texts.unshift(result.dcDescription);
-        }
-
-        return texts;
+      cardVariant() {
+        return this.view === 'list' ? 'list' : 'default';
       }
     }
   };
