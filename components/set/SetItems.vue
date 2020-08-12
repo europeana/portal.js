@@ -1,4 +1,5 @@
 <template>
+  <!-- TODO: this is very similar to ../search/SearchResults; refactor to DRY -->
   <b-container>
     <b-row class="flex-md-row mt-3 pb-5">
       <b-col cols="12">
@@ -6,16 +7,16 @@
           class="masonry"
           deck
         >
-          <ContentCard
-            v-for="result in items"
-            :key="result.europeanaId"
-            :title="result.dcTitle || result.dcDescription"
-            :url="{ name: 'item-all', params: { pathMatch: result.europeanaId.slice(1) } }"
-            :image-url="result.edmPreview"
-            :texts="cardTexts(result)"
-            :limit-values-within-each-text="3"
-            :omit-all-uris="true"
-            :blank-image-height="280"
+          <ItemPreviewCard
+            v-for="item in items"
+            :key="item.europeanaId"
+            :dc-creator="item.dcCreator"
+            :dc-description="item.dcDescription"
+            :dc-title="item.dcTitle"
+            :edm-data-provider="item.edmDataProvider"
+            :edm-preview="item.edmPreview"
+            :europeana-id="item.europeanaId"
+            :selector="item.selector"
             data-qa="set item"
           />
         </b-card-group>
@@ -27,7 +28,7 @@
           <PaginationNav
             v-model="page"
             :limit="pageSize"
-            :total-results="total"
+            :total-items="total"
             :per-page="pageSize"
           />
         </client-only>
@@ -39,13 +40,13 @@
 <script>
   import ClientOnly from 'vue-client-only';
 
-  import ContentCard from '../generic/ContentCard';
+  import ItemPreviewCard from '../item/ItemPreviewCard';
 
   export default {
     name: 'SetItems',
     components: {
       ClientOnly,
-      ContentCard,
+      ItemPreviewCard,
       PaginationNav: () => import('../generic/PaginationNav')
     },
     props: {
@@ -64,15 +65,6 @@
       pageSize: {
         type: Number,
         default: 24
-      }
-    },
-    methods: {
-      cardTexts(result) {
-        const texts = [result.edmDataProvider];
-
-        if (result.dcCreator) texts.unshift(result.dcCreator);
-
-        return texts;
       }
     }
   };

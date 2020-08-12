@@ -7,7 +7,7 @@
           deck
         >
           <ContentCard
-            v-for="set in usersets"
+            v-for="set in sets"
             :key="set.id"
             :sub-title="setSubTitle(set)"
             :title="set.title"
@@ -22,11 +22,10 @@
   </b-container>
 </template>
 <script>
-  // TODO: use ItemPreviewCard instead
   import ContentCard from '../../components/generic/ContentCard';
 
   export default {
-    name: 'UserSets',
+    name: 'sets',
     components: {
       ContentCard
     },
@@ -38,11 +37,11 @@
     },
     async fetch() {
       const setsNoImage = await this.$sets.getAllSets(this.setIds);
-      this.usersets =  await this.$sets.getSetImages(setsNoImage);
+      this.sets =  await this.$sets.getSetImages(setsNoImage);
     },
     data() {
       return {
-        usersets: []
+        sets: []
       };
     },
     methods: {
