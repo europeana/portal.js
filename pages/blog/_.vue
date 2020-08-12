@@ -106,7 +106,8 @@
 
     data() {
       return {
-        error: null
+        error: null,
+        disqusShortname: this.$config.disqus.shortname
       };
     },
 
@@ -122,10 +123,6 @@
         shareUrl: 'http/canonicalUrl',
         identifier: 'http/canonicalUrlWithoutLocale'
       }),
-
-      disqusShortname() {
-        return process.env.DISQUS_SHORTNAME;
-      },
 
       enableBlogComments() {
         return !!this.disqusShortname;

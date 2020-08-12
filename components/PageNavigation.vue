@@ -111,7 +111,7 @@
       return {
         authLinks: [
           { to: this.$path({ name: 'account' }), text: this.$t('account.profile'), name: '/account' },
-          { href: `${process.env.OAUTH_ORIGIN}/auth/realms/${process.env.OAUTH_REALM}/account`, text: this.$t('account.settings'), name: '/account/settings' },
+          { href: `${this.$config.oauth.origin}/auth/realms/${this.$config.oauth.realm}/account`, text: this.$t('account.settings'), name: '/account/settings' },
           { divider: true, name: 'divider' },
           { to: { name: 'account-logout' }, text: this.$t('account.linkLogout'), name: '/account/logout' }
         ]
@@ -119,7 +119,7 @@
     },
     computed: {
       enableAuthLinks() {
-        return Boolean(Number(process.env.ENABLE_XX_USER_AUTH));
+        return this.$config.app.features.userAuth;
       },
       isAuthenticated() {
         return this.$store.state.auth.loggedIn;

@@ -107,10 +107,6 @@
       '$i18n.locale': '$fetch'
     },
 
-    mounted() {
-      console.log('runtime config', this.$config);
-    },
-
     head() {
       const i18nSeo = this.$nuxtI18nSeo();
       return {

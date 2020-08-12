@@ -53,7 +53,7 @@
           '&utm_source=new-website&utm_medium=button';
       },
       redirectNotificationsEnabled() {
-        return Boolean(Number(process.env.ENABLE_LINKS_TO_CLASSIC));
+        return this.$config.app.features.linksToClassic;
       }
     },
 

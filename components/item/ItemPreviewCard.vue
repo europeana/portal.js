@@ -89,7 +89,7 @@
       },
 
       showUserButtons() {
-        return Boolean(Number(process.env.ENABLE_XX_USER_AUTH)) && (this.variant === 'default');
+        return this.$config.app.features.userAuth && (this.variant === 'default');
       },
 
       url() {
