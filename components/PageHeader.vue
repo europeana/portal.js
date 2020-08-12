@@ -1,7 +1,7 @@
 <template>
   <header
     v-visible-on-scroll
-    class="m-0 navbar-brand container-fluid d-flex justify-content-between"
+    class="m-0 navbar-brand container-fluid d-flex justify-content-between show"
     role="banner"
     aria-label="Europeana home"
     data-qa="header"
@@ -144,6 +144,14 @@
       }
     },
 
+    /* mounted() {
+      window.addEventListener('scroll', this.closeOnScrolling);
+    },
+
+    beforeDestroy() {
+      window.removeEventListener('scroll', this.closeOnScrolling);
+    }, */
+
     methods: {
       toggleSearchBar() {
         this.showSearch = !this.showSearch;
@@ -157,6 +165,10 @@
       clearQuery() {
         this.query = '';
       }
+
+      /* closeOnScrolling() {
+        this.showSearch = false;
+      } */
     }
   };
 </script>
@@ -175,6 +187,11 @@
     z-index: 1030;
     padding: 0;
     border-bottom: 1px solid $whitegrey;
+
+    &:not(.show) /deep/ .search-query,
+    &:not(.show) /deep/ .auto-suggest-dropdown {
+      display: none;
+    }
   }
 
   .slide-enter-active, .fade-enter-active {
