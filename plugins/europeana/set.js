@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { config } from './';
 import { apiError } from './utils';
 import { search as searchItems } from './search';
@@ -90,9 +89,7 @@ export default ($axios) => ({
     };
     options = { ...defaults, ...options };
 
-    const apiCall = $axios.defaults.headers.Authorization ? $axios.get : axios.get;
-
-    return apiCall(setApiUrl(`/${id}`), { params: paramsWithApiKey(options) })
+    return $axios(setApiUrl(`/${id}`), { params: paramsWithApiKey(options) })
       .then(response => {
         if (response.data.items) {
           return this.getSetItems(response.data.items, options.pageSize, options.page)
@@ -104,9 +101,6 @@ export default ($axios) => ({
         return response.data;
       })
       .catch((error) => {
-        if (error.response && (error.response.status === 403)) {
-          // TODO: Handle the Unauthorized error here
-        }
         throw apiError(error);
       });
   },
