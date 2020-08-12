@@ -35,31 +35,23 @@
       -->
         <client-only />
       </b-container>
-      <b-container>
+      <b-container class="mw-1024">
         <b-row class="mb-3">
           <b-col>
-            <!-- TODO: add new title + description box
-              Useful data:
-
-              titlesInCurrentLanguage
-              descriptionInCurrentLanguage
-            -->
+            <SummaryInfo
+              :description="descriptionInCurrentLanguage"
+              :titles="titlesInCurrentLanguage"
+            />
           </b-col>
         </b-row>
-        <b-row class="mb-3">
+        <b-row
+          v-if="relatedEntities && relatedEntities.length > 0"
+        >
           <b-col>
-            <h2
-              v-if="relatedEntities && relatedEntities.length > 0"
-              class="related-heading text-uppercase"
-            >
-              {{ $t('contentYouMightLike') }}
-            </h2>
-            <!-- TODO: related content
-              Useful data:
-
-              :entities="relatedEntities"
-              data-qa="related entities"
-            -->
+            <RelatedCollections
+              :title="$t('collectionsYouMightLike')"
+              :related-collections="relatedEntities"
+            />
           </b-col>
         </b-row>
         <b-row class="mb-3">
@@ -116,6 +108,8 @@
       AlertMessage: () => import('../../components/generic/AlertMessage'),
       ClientOnly,
       SimilarItems: () => import('../../components/item/SimilarItems'),
+      RelatedCollections: () => import('../../components/generic/RelatedCollections'),
+      SummaryInfo: () => import('../../components/item/SummaryInfo'),
       MetadataBox,
       NotificationBanner: () => import('../../components/generic/NotificationBanner')
     },
@@ -338,6 +332,12 @@
 </script>
 
 <style scoped>
+  .container.mw-1024 {
+    max-width: 1024px;
+  }
+  .related-collections {
+    margin-bottom: 2rem;
+  }
   /* TODO: fix styling in/for MetadataBox component itself */
   /deep/ .card.rounded-0 {
     border-radius: 0.25rem !important;
