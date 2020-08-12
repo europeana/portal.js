@@ -13,16 +13,6 @@
       :aria-expanded="isAutoSuggestActive"
       class="auto-suggest"
     >
-      <template
-        v-if="pillLabel"
-        v-slot:prepend
-      >
-        <SearchBarPill
-          :text="pillLabel"
-          :remove-link-label="$t('removeFilter', { filterLabel: pillLabel.values[0] })"
-          :remove-link-to="pillRemoveLinkTo"
-        />
-      </template>
       <b-form-input
         ref="searchbox"
         v-model="query"
@@ -108,7 +98,6 @@
 
 <script>
   import AutoSuggest from './AutoSuggest';
-  import SearchBarPill from './SearchBarPill';
   import { getEntitySuggestions } from '../../plugins/europeana/entity';
   import { mapGetters } from 'vuex';
   import match from 'autosuggest-highlight/match';
@@ -117,8 +106,7 @@
     name: 'SearchForm',
 
     components: {
-      AutoSuggest,
-      SearchBarPill
+      AutoSuggest
     },
 
     props: {
@@ -162,21 +150,6 @@
           return this.$route.path;
         }
         return this.$path({ name: 'search' });
-      },
-
-      pillRemoveLinkTo() {
-        const query = {
-          ...this.queryUpdatesForFacetChanges({ collection: null }),
-          view: this.view,
-          query: this.query || ''
-        };
-
-        return {
-          path: this.$path({
-            name: 'search'
-          }),
-          query
-        };
       }
     },
 
@@ -269,12 +242,12 @@
       },
 
       clearQuery() {
+        console.log('clearQuery');
         this.query = '';
         this.showSearchQuery = false;
       },
 
       async toggleSearchAndRemovePill() {
-        await this.$goto(this.pillRemoveLinkTo);
         this.hideSearch();
       }
     }
