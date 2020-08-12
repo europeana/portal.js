@@ -23,13 +23,13 @@
         <div class="usergallery-metadata mb-4">
           <!-- TODO: Fill after the '@' with the set's owner  -->
           <!-- <span class="curator mr-4">
-            {{ $t('userset.curatedBy') }} @placeholderUsername
+            {{ $t('set.curatedBy') }} @placeholderUsername
           </span> -->
           <span
             v-if="visibility === 'private'"
             class="visibility"
           >
-            {{ $t('userset.privateCollection') }}
+            {{ $t('set.privateCollection') }}
           </span>
         </div>
         <!--
@@ -39,7 +39,7 @@
             variant="outline-primary text-decoration-none"
           >
             <span class="text">
-              {{ $t('userset.edit') }}
+              {{ $t('set.edit') }}
             </span>
           </b-button>
           <b-button
@@ -68,7 +68,7 @@
         class="recommendations"
       >
         <span class="recommended-items">
-          {{ $t('userset.recommendedItems') }}
+          {{ $t('set.recommendedItems') }}
         </span>
       </div>
     </b-container>

@@ -541,7 +541,7 @@ export default {
     "publicCollections": "Public Collections",
     "privateCollections": "Private Collections"
   },
-  "userset": {
+  "set": {
     "curatedBy": "Curated by",
     "privateCollection": "Private collection",
     "edit": "Edit",
