@@ -246,7 +246,7 @@
         this.showSearchQuery = false;
 
         this.$nextTick(() => {
-          this.$refs.searchbox.$el.focus();
+          if (this.$refs.searchbox) this.$refs.searchbox.$el.focus();
         });
       },
 
