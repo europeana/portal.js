@@ -26,7 +26,7 @@
       />
     </swiper-slide>
     <div
-      v-if="swipingEnabled"
+      v-if="!singleMediaResource"
       slot="pagination"
       class="swiper-pagination"
     />
@@ -108,8 +108,11 @@
   @import './assets/scss/variables.scss';
 
   .swiper-container {
-    max-height: 568px;
+    max-height: 35.5rem;
     height: 80vh;
+    @media (max-width: $bp-medium) {
+      max-height: 25rem;
+    }
   }
   .swiper-slide {
     width: auto;

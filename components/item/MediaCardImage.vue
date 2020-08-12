@@ -47,7 +47,13 @@
 </script>
 
 <style lang="scss" scoped>
+@import './assets/scss/variables.scss';
+
 img {
   height: 100%;
+  @media (max-width: $bp-medium) {
+    max-height: 100%;
+    height: auto;
+  }
 }
 </style>
