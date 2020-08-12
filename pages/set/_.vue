@@ -3,74 +3,98 @@
     data-qa="user gallery page"
     class="mt-n3"
   >
-    <div
-      class="bg-white py-5"
+    <b-container
       fluid
     >
-      <b-container>
-        <h1
-          class="mb-2"
-          :lang="displayTitle.code"
+      <b-row class="flex-md-row pt-5 bg-white mb-4">
+        <b-col
+          cols="12"
         >
-          {{ displayTitle.values[0] }}
-        </h1>
-        <p
-          class="usergallery-description mb-4"
-          :lang="displayDescription.code"
-        >
-          {{ displayDescription.values[0] }}
-        </p>
-        <div class="usergallery-metadata mb-4">
-          <!-- TODO: Fill after the '@' with the set's owner  -->
-          <!-- <span class="curator mr-4">
-            {{ $t('set.curatedBy') }} @placeholderUsername
-          </span> -->
-          <span
-            v-if="visibility === 'private'"
-            class="visibility"
-          >
-            {{ $t('set.privateCollection') }}
-          </span>
-        </div>
-        <!--
-        <div class="collection-buttons">
-          <b-button
-            v-if="userIsOwner"
-            variant="outline-primary text-decoration-none"
-          >
-            <span class="text">
-              {{ $t('set.edit') }}
-            </span>
-          </b-button>
-          <b-button
-            v-if="visibility === 'public'"
-            variant="outline-primary text-decoration-none"
-          >
-            <span class="text">
-              {{ $t('actions.share') }}
-            </span>
-          </b-button>
-        </div> -->
-      </b-container>
-    </div>
-    <b-container class="pt-5 pb-4">
-      <span class="total-items">
-        {{ $tc('items.itemCount', total, { count: total }) }}
-      </span>
-      <SetItems
-        :items="items"
-        :total="total"
-        :page="page"
-        :page-size="perPage"
-      />
-      <div
+          <b-container class="mb-5">
+            <b-row class="mb-3">
+              <b-col>
+                <h1
+                  class="pt-3"
+                  :lang="displayTitle.code"
+                >
+                  {{ displayTitle.values[0] }}
+                </h1>
+                <p
+                  class="usergallery-description mb-3 w-75"
+                  :lang="displayDescription.code"
+                >
+                  {{ displayDescription.values[0] }}
+                </p>
+                <!-- TODO: to avoid showing an empty div + whitespace, the v-if is on the div
+                    This can be changed when this functionality is further developed
+                -->
+                <div
+                  v-if="visibility === 'private'"
+                  class="usergallery-metadata"
+                >
+                  <!-- TODO: Fill after the '@' with the set's owner  -->
+                  <!-- <span class="curator mr-4">
+                    {{ $t('set.curatedBy') }} @placeholderUsername
+                  </span> -->
+                  <span
+                    class="visibility"
+                  >
+                    {{ $t('set.privateCollection') }}
+                  </span>
+                </div>
+              </b-col>
+            </b-row>
+            <!--
+            <div class="collection-buttons">
+              <b-button
+                v-if="userIsOwner"
+                variant="outline-primary text-decoration-none"
+              >
+                <span class="text">
+                  {{ $t('set.edit') }}
+                </span>
+              </b-button>
+              <b-button
+                v-if="visibility === 'public'"
+                variant="outline-primary text-decoration-none"
+              >
+                <span class="text">
+                  {{ $t('actions.share') }}
+                </span>
+              </b-button>
+            </div> -->
+          </b-container>
+        </b-col>
+      </b-row>
+    </b-container>
+    <b-container class="mb-3">
+      <b-row>
+        <b-col>
+          <h2 class="related-heading text-uppercase">
+            {{ $tc('items.itemCount', total, { count: total }) }}
+          </h2>
+        </b-col>
+      </b-row>
+      <b-row>
+        <b-col>
+          <SetItems
+            :items="items"
+            :total="total"
+            :page="page"
+            :page-size="perPage"
+          />
+        </b-col>
+      </b-row>
+      <b-row
         v-if="recommendations.length > 0"
         class="recommendations"
       >
-        <span class="recommended-items">
-          {{ $t('set.recommendedItems') }}
-        </span>
-      </div>
+        <b-col>
+          <span class="recommended-items">
+            {{ $t('set.recommendedItems') }}
+          </span>
+        </b-col>
+      </b-row>
     </b-container>
   </div>
 </template>
@@ -178,12 +202,7 @@
       font-weight: 600;
     }
   }
-  .total-items {
-    color: $mediumgrey;
-    font-size: 0.9rem;
-    font-weight: 600;
-    text-transform: uppercase;
-  }
+
   .recommended-items {
     color: $mediumgrey;
     font-size: 1.3rem;

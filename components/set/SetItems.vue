@@ -1,7 +1,7 @@
 <template>
   <!-- TODO: this is very similar to ../search/SearchResults; refactor to DRY -->
-  <b-container>
-    <b-row class="flex-md-row mt-3 pb-5">
+  <b-container class="px-0">
+    <b-row class="mb-3">
       <b-col cols="12">
         <b-card-group
           class="masonry"
