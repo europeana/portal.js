@@ -7,7 +7,7 @@
           deck
         >
           <ContentCard
-            v-for="set in sets"
+            v-for="set in userSets"
             :key="set.id"
             :sub-title="setSubTitle(set)"
             :title="set.title"
@@ -25,7 +25,7 @@
   import ContentCard from '../../components/generic/ContentCard';
 
   export default {
-    name: 'sets',
+    name: 'UserSets',
     components: {
       ContentCard
     },
@@ -37,11 +37,11 @@
     },
     async fetch() {
       const setsNoImage = await this.$sets.getAllSets(this.setIds);
-      this.sets =  await this.$sets.getSetImages(setsNoImage);
+      this.userSets =  await this.$sets.getSetImages(setsNoImage);
     },
     data() {
       return {
-        sets: []
+        userSets: []
       };
     },
     methods: {
