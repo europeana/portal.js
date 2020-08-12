@@ -34,8 +34,9 @@ describe('components/account/UserSets', () => {
   it('it renders a card for every user set', () => {
     const wrapper = factory();
     wrapper.setData({
-      usersets: sets
+      userSets: sets
     });
+
     const renderedSets =  wrapper.findAll('[data-qa="user set"]');
     renderedSets.at(0).find('img').attributes().src.should.equal('http://www.example.org/image.jpg');
     renderedSets.at(1).find('[data-qa="card title"]').text().should.equal('A second collection');
