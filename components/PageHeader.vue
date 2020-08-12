@@ -144,14 +144,6 @@
       }
     },
 
-    /* mounted() {
-      window.addEventListener('scroll', this.closeOnScrolling);
-    },
-
-    beforeDestroy() {
-      window.removeEventListener('scroll', this.closeOnScrolling);
-    }, */
-
     methods: {
       toggleSearchBar() {
         this.showSearch = !this.showSearch;
@@ -165,10 +157,6 @@
       clearQuery() {
         this.query = '';
       }
-
-      /* closeOnScrolling() {
-        this.showSearch = false;
-      } */
     }
   };
 </script>

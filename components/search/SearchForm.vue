@@ -242,9 +242,12 @@
       },
 
       clearQuery() {
-        console.log('clearQuery');
         this.query = '';
         this.showSearchQuery = false;
+
+        this.$nextTick(() => {
+          this.$refs.searchbox.$el.focus();
+        });
       },
 
       async toggleSearchAndRemovePill() {
