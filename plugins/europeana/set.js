@@ -92,7 +92,7 @@ export default ($axios) => ({
     return $axios(setApiUrl(`/${id}`), { params: paramsWithApiKey(options) })
       .then(response => {
         if (response.data.items) {
-          return this.getSetItems(response.data.items, options.pageSize, options.page)
+          return this.getSetItems(response.data.items)
             .then(results => {
               response.data.items = results;
               return response.data;
@@ -112,12 +112,12 @@ export default ($axios) => ({
   * @param {string} page the set's current page
   * @return {Array} the list of the set's items' objects
    */
-  getSetItems(itemsIds, rows, page) {
+  getSetItems(itemsIds) {
     const q = 'europeana_id:(' + itemsIds.map(s => s.split('/item/')[1]).map(u => `"/${u}"`).join(' OR ') + ')';
     return searchItems({
       query: q,
-      rows,
-      page
+      // TODO: handle sets bigger than 100 items
+      rows: 100
     })
       .then(searchResponse => {
         return searchResponse.results;

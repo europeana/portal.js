@@ -112,7 +112,7 @@
     // TODO: error handling for Nuxt 2.12 fetch()
     //       https://nuxtjs.org/blog/understanding-how-fetch-works-in-nuxt-2-12/#error-handling
     async fetch() {
-      this.page = this.$store.state.sanitised.page;
+      this.page = this.$store.state.sanitised.page - 1; // Set API paging starts at 0 ¯\_(ツ)_/¯
 
       const set = await this.$sets.getSet(this.$route.params.pathMatch, {
         page: this.page,
@@ -160,7 +160,9 @@
       };
     },
 
-    watchQuery: ['page']
+    watch: {
+      '$route.query.page': '$fetch'
+    }
   };
 </script>
 

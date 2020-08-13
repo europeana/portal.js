@@ -27,8 +27,7 @@
         <client-only>
           <PaginationNav
             v-model="page"
-            :limit="pageSize"
-            :total-items="total"
+            :total-results="total"
             :per-page="pageSize"
           />
         </client-only>
