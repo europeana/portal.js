@@ -24,12 +24,10 @@
     <b-row>
       <b-col>
         <PaginationNav
-          v-if="showPagination"
           v-model="page"
           :limit="perPage"
           :total-results="total"
           :per-page="perPage"
-          :link-gen="paginationLink"
         />
       </b-col>
     </b-row>
@@ -56,13 +54,13 @@
       PaginationNav: () => import('../../../components/generic/PaginationNav')
     },
     middleware: 'sanitisePageQuery',
-    asyncData({ params, error, app }) {
+    asyncData({ params, error, app, store }) {
       if (!['persons', 'topics'].includes(params.type)) {
         return  error({ statusCode: 404, message: 'unknown collection type' });
       }
       const entityIndexParams = {
         query: '*:*',
-        page: app.$page - 1,
+        page: store.state.sanitised.page - 1,
         type: getEntityTypeApi(params.type.slice(0, -1)),
         pageSize: PER_PAGE,
         scope: 'europeana',
@@ -74,7 +72,7 @@
           return {
             entities: data.entities,
             total: data.total,
-            page: app.$page,
+            page: store.state.sanitised.page,
             perPage: PER_PAGE,
             title: app.i18n.t(`pages.collections.${params.type}.title`)
           };
@@ -90,9 +88,6 @@
       };
     },
     computed: {
-      showPagination() {
-        return this.total > this.perPage;
-      },
       route() {
         return {
           name: 'collections-index',
@@ -103,9 +98,6 @@
       }
     },
     methods: {
-      paginationLink(val) {
-        return this.$path({ name: 'collections-type', params: { type: this.$route.params.type }, query: { page: val } });
-      },
       entityRoute(entity) {
         return {
           name: 'collections-type-all',
