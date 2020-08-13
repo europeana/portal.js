@@ -109,8 +109,9 @@
 
     middleware: 'sanitisePageQuery',
 
+    // TODO: error handling for Nuxt 2.12 fetch()
+    //       https://nuxtjs.org/blog/understanding-how-fetch-works-in-nuxt-2-12/#error-handling
     async fetch() {
-      // TODO: error handling
       const set = await this.$sets.getSet(this.$route.params.pathMatch, {
         page: this.$route.query.page,
         pageSize: this.perPage
