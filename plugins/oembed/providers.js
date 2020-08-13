@@ -31,7 +31,13 @@ export default [
       'https://vimeo.com/channels/*/*',
       'https://vimeo.com/groups/*/videos/*',
       'https://vimeo.com/ondemand/*/*',
-      'https://player.vimeo.com/video/*'
+      'https://player.vimeo.com/video/*',
+      'http://vimeo.com/*',
+      'http://vimeo.com/album/*/video/*',
+      'http://vimeo.com/channels/*/*',
+      'http://vimeo.com/groups/*/videos/*',
+      'http://vimeo.com/ondemand/*/*',
+      'http://player.vimeo.com/video/*'
     ]
   }
 ];
