@@ -15,13 +15,13 @@
         class="container h-100"
       >
         <MediaCard
-          :europeana-identifier="item.europeanaIdentifier"
+          :europeana-identifier="europeanaIdentifier"
           :media="item"
         />
       </div>
       <MediaCard
         v-else
-        :europeana-identifier="item.europeanaIdentifier"
+        :europeana-identifier="europeanaIdentifier"
         :media="item"
       />
     </swiper-slide>

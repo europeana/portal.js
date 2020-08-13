@@ -97,8 +97,10 @@
       if (this.isPlayableMedia) {
         const width = this.media.ebucoreWidth ? this.media.ebucoreWidth : 640;
         const height = this.media.ebucoreHeight ? this.media.ebucoreHeight : 360;
-        this.ratio = (height * 100) / width;
+        // height * 100 created incorrect ratio, * 70 is better but maybe not right in every case?
+        this.ratio = (height * 70) / width;
       }
     }
   };
 </script>
+
