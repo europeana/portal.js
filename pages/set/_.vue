@@ -77,11 +77,16 @@
       </b-row>
       <b-row>
         <b-col>
+          <!--
+            FIXME: Set API item pagination is not yet implemented when retrieving single
+                   sets if those are "closed" sets, as these will always be.
+                  page-size should then be "perPage"
+          -->
           <SetItems
             :items="items"
             :total="total"
             :page="page"
-            :page-size="perPage"
+            :page-size="total"
           />
         </b-col>
       </b-row>
