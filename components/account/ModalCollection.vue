@@ -1,8 +1,9 @@
 <template>
   <b-modal
-    id="modal-collection"
+    :id="modalId"
     hide-header
     hide-footer
+    @show="fetchCollections"
   >
     <div v-if="showForm">
       <h1 class="pt-2">
@@ -96,9 +97,14 @@
     name: 'ModalCollection',
 
     props: {
-      collections: {
-        type: Array,
-        default: () => []
+      itemId: {
+        type: String,
+        required: true
+      },
+
+      modalId: {
+        type: String,
+        default: 'modal-collection'
       }
     },
 
@@ -107,14 +113,9 @@
         showForm: false,
         newCollectionName: '',
         newCollectionDescription: '',
-        newCollectionPrivate: false
+        newCollectionPrivate: false,
+        collections: []
       };
-    },
-
-    computed: {
-      itemId() {
-        return this.$store.state.modal.itemId;
-      }
     },
 
     mounted() {
@@ -124,6 +125,11 @@
     },
 
     methods: {
+      async fetchCollections() {
+        const setIds = await this.$sets.getSetsByCreator(this.$auth.user.sub, '', 'minimal');
+        const setsNoImage = await this.$sets.getAllSets(setIds);
+        this.collections = await this.$sets.getSetImages(setsNoImage);
+      },
       createCollection() {
         this.showForm = true;
       },
@@ -135,7 +141,7 @@
       },
       cancelModal() {
         this.$nextTick(() => {
-          this.$bvModal.hide('modal-collection');
+          this.$bvModal.hide(this.modalId);
         });
       },
 
@@ -143,6 +149,7 @@
         // TODO: Create set-plugin call for creating a new set
         // TODO: Add this item (its id can be found in the store) to the new set
 
+        // TODO: this should emit an event and allow the parent component to toast
         this.$bvToast.show('new-collection-toast');
         this.newCollectionName = '';
         this.newCollectionDescription = '';
@@ -152,7 +159,7 @@
 
       async addItem(setId) {
         // TODO: Before addind an item to a set, we should check if the set already contains that item
-        await this.$sets.modifyItems('add', setId, this.$store.state.modal.itemId);
+        await this.$sets.modifyItems('add', setId, this.itemId);
         this.rerenderModal();
         this.cancelModal();
       },

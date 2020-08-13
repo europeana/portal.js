@@ -17,6 +17,23 @@
       size="sm"
       @click="toggleLiked()"
     />
+    <ModalCollection
+      :item-id="itemId"
+      :modal-id="collectionModalId"
+      :lazy="true"
+    />
+    <b-toast
+      id="new-collection-toast"
+      toast-class="brand-toast"
+      toaster="b-toaster-bottom-left"
+      auto-hide-delay="5000"
+      is-status
+      no-close-button
+      solid
+      data-qa="tier toast"
+    >
+      {{ $t('collectionModal.newNotification') }}
+    </b-toast>
   </div>
 </template>
 
@@ -24,15 +41,20 @@
   export default {
     name: 'UserButtons',
 
+    components: {
+      ModalCollection: () => import('../account/ModalCollection.vue')
+    },
+
     props: {
       itemUrl: {
         type: Object,
         default: () => {}
       }
     },
-    fetch() {
+    async fetch() {
       this.liked = this.$store.state.set.liked.includes(this.itemId);
     },
+
     data() {
       return {
         liked: false
@@ -44,6 +66,9 @@
       },
       likesId() {
         return this.$store.state.set.likesId;
+      },
+      collectionModalId() {
+        return `modal-collection-${this.itemId}`;
       }
     },
     methods: {
@@ -61,8 +86,10 @@
         await this.$store.dispatch('set/unlike', this.itemId);
       },
       showModal() {
-        this.$store.commit('modal/setModalData', this.itemId);
-        this.$bvModal.show('modal-collection');
+        this.$nextTick(() => {
+          // this.$store.commit('modal/setModalData', this.itemId);
+          this.$bvModal.show(this.collectionModalId);
+        });
       }
     }
   };
