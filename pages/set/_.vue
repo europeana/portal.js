@@ -118,7 +118,7 @@
         page: this.page,
         pageSize: this.perPage
       });
-      
+
       this.total = set.total;
       this.title = set.title;
       this.items = set.items;
