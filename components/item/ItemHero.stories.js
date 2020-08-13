@@ -73,4 +73,25 @@ storiesOf('Item page/Item Hero', module)
         />
       </div>
     `
+  }))
+  .add('For one Image', () => ({
+    i18n,
+    store,
+    components: {
+      ItemHero
+    },
+    data() {
+      return {
+        media: [media[0]],
+        identifier: '/2020601/https___1914_1918_europeana_eu_contributions_10265'
+      };
+    },
+    template: `
+      <div class="mt-3">
+        <ItemHero
+          :media="media"
+          :identifier="identifier"
+        />
+      </div>
+    `
   }));

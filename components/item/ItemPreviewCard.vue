@@ -43,7 +43,7 @@
       },
 
       edmDataProvider: {
-        type: [String, Object],
+        type: [String, Array],
         default: null
       },
 
@@ -70,7 +70,7 @@
 
     computed: {
       texts() {
-        const texts = [this.edmDataProvider];
+        const texts = [].concat(this.edmDataProvider);
         if (this.dcCreator) texts.unshift(this.dcCreator);
 
         if (this.variant === 'list') {
