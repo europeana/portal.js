@@ -31,33 +31,23 @@
               data-qa="public collections"
               :title="$t('account.publicCollections')"
             >
-              <div
-                v-if="!$fetchState.pending"
-              >
-                <client-only>
-                  <UserSets
-                    v-if="publicSets"
-                    :set-ids="publicSets"
-                    data-qa="public sets"
-                  />
-                </client-only>
-              </div>
+              <client-only>
+                <UserSets
+                  visibility="public"
+                  data-qa="public sets"
+                />
+              </client-only>
             </b-tab>
             <b-tab
               data-qa="private collections"
               :title="$t('account.privateCollections')"
             >
-              <div
-                v-if="!$fetchState.pending"
-              >
-                <client-only>
-                  <UserSets
-                    v-if="privateSets"
-                    :set-ids="privateSets"
-                    data-qa="private sets"
-                  />
-                </client-only>
-              </div>
+              <client-only>
+                <UserSets
+                  visibility="private"
+                  data-qa="private sets"
+                />
+              </client-only>
             </b-tab>
           </b-tabs>
         </b-col>
@@ -73,15 +63,9 @@
     components: {
       UserSets
     },
-    async fetch() {
-      this.publicSets = await this.$sets.getSetsByCreator(this.$auth.user.sub, 'public', 'minimal');
-      this.privateSets = await this.$sets.getSetsByCreator(this.$auth.user.sub, 'private', 'minimal');
-    },
     data() {
       return {
-        loggedInUser: this.$store.state.auth.user,
-        publicSets: [],
-        privateSets: []
+        loggedInUser: this.$store.state.auth.user
       };
     },
     fetchOnServer: false,
@@ -99,4 +83,3 @@
     margin-bottom: 40px;
   }
 </style>
-
