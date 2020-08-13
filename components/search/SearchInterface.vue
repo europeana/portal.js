@@ -108,11 +108,9 @@
             <b-col>
               <client-only>
                 <PaginationNav
-                  v-if="showPagination"
                   v-model="page"
                   :total-results="totalResults"
                   :per-page="perPage"
-                  :link-gen="paginationLink"
                 />
               </client-only>
             </b-col>
@@ -294,9 +292,6 @@
           return filter === '"0"' || filter === '*'; // UI applies "0", this won't handle user provided values.
         });
       },
-      showPagination() {
-        return this.totalResults > this.perPage;
-      },
       routeQueryView() {
         return this.$route.query.view;
       },
@@ -334,9 +329,6 @@
       },
       changeMoreFacets(selected) {
         return this.rerouteSearch(this.queryUpdatesForFacetChanges(selected));
-      },
-      paginationLink(val) {
-        return this.$path({ ...this.route, ...{ query: this.updateCurrentSearchQuery({ page: val }) } });
       },
       rerouteSearch(queryUpdates) {
         const query = this.updateCurrentSearchQuery(queryUpdates);

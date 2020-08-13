@@ -51,19 +51,18 @@
         default: () => {}
       }
     },
-    async fetch() {
+    fetch() {
+      this.itemId = this.itemUrl.params.pathMatch;
       this.liked = this.$store.state.set.liked.includes(this.itemId);
     },
 
     data() {
       return {
+        itemId: null,
         liked: false
       };
     },
     computed: {
-      itemId() {
-        return this.itemUrl.params[0];
-      },
       likesId() {
         return this.$store.state.set.likesId;
       },

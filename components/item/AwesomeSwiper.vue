@@ -3,17 +3,30 @@
     ref="awesome"
     class="swiper"
     :options="swiperOptions"
+    @slide-change="onSlideChange"
+    @slide-change-transition-end="updateSwiper"
   >
     <swiper-slide
       v-for="(item, index) in displayableMedia"
       :key="index"
     >
+      <div
+        v-if="singleMediaResource"
+        class="container h-100"
+      >
+        <MediaCard
+          :europeana-identifier="item.europeanaIdentifier"
+          :media="item"
+        />
+      </div>
       <MediaCard
+        v-else
         :europeana-identifier="item.europeanaIdentifier"
         :media="item"
       />
     </swiper-slide>
     <div
+      v-if="!singleMediaResource"
       slot="pagination"
       class="swiper-pagination"
     />
@@ -52,10 +65,15 @@
       }
     },
     data() {
+      // Crude check for IIIF content, which is to prevent newspapers from showing many IIIF viewers.
+      const displayableMedia = isIIIFPresentation(this.media[0]) ? [this.media[0]] : this.media;
+      const singleMediaResource = displayableMedia.length === 1;
       return {
+        displayableMedia,
         swiperOptions: {
+          threshold: singleMediaResource ? 5000000 :  null,
           slidesPerView: 'auto',
-          spaceBetween: 40,
+          spaceBetween: singleMediaResource ? null : 40,
           centeredSlides: true,
           slideToClickedSlide: true,
           navigation: {
@@ -66,16 +84,21 @@
             el: '.swiper-pagination',
             clickable: true
           }
-        }
+        },
+        singleMediaResource
       };
     },
     computed: {
       swiper() {
         return this.$refs.awesome.$swiper;
+      }
+    },
+    methods: {
+      onSlideChange() {
+        this.$emit('select', this.media[this.swiper.activeIndex].about);
       },
-      displayableMedia() {
-        // Quick check for IIIF content, which is to prevent newspapers from showing many IIIF viewers.
-        return isIIIFPresentation(this.media[0]) ? [this.media[0]] : this.media;
+      updateSwiper() {
+        this.swiper.update();
       }
     }
   };
@@ -85,8 +108,11 @@
   @import './assets/scss/variables.scss';
 
   .swiper-container {
-    max-height: 568px;
+    max-height: 35.5rem;
     height: 80vh;
+    @media (max-width: $bp-medium) {
+      max-height: 25rem;
+    }
   }
   .swiper-slide {
     width: auto;
@@ -104,6 +130,8 @@
     }
     &:only-child {
       width: 100%;
+      margin-left: auto;
+      margin-right: auto;
     }
     a {
       display: inline-flex;
@@ -117,6 +145,9 @@
     border-radius: 50%;
     width: 45px;
     opacity: 0.7;
+  }
+  .swiper-button-disabled {
+    display: none;
   }
   .swiper-button-prev:after, .swiper-button-next:after {
     font-size: 22px;

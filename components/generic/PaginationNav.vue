@@ -1,5 +1,6 @@
 <template>
   <b-pagination-nav
+    v-if="totalResults > perPage"
     v-model="currentPage"
     :limit="limit"
     :hide-ellipsis="hideEllipsis"
@@ -40,8 +41,12 @@
       },
       linkGen: {
         type: Function,
-        default: (val) => {
-          return val.toString();
+
+        default(page) {
+          return this.$path({
+            ...this.$route,
+            query: { ...this.$route.query, page }
+          });
         }
       },
       scrollToId: {

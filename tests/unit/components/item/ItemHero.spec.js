@@ -1,19 +1,19 @@
-import { storiesOf } from '@storybook/vue';
-import AwesomeSwiper from './AwesomeSwiper';
+import { createLocalVue, mount } from '@vue/test-utils';
+import BootstrapVue from 'bootstrap-vue';
 
-const i18n = {
-  locale: 'en',
-  messages: {
-    en: {
-      actions: {
-        close: 'close',
-        download: 'download',
-        share: 'share',
-        shareOn: 'Share on {social}'
-      }
-    }
-  }
-};
+import ItemHero from '../../../../components/item/ItemHero.vue';
+
+const localVue = createLocalVue();
+localVue.use(BootstrapVue);
+
+const factory = (propsData) => mount(ItemHero, {
+  localVue,
+  mocks: {
+    $t: (key) => key,
+    $proxyMedia: () => 'proxied'
+  },
+  propsData
+});
 
 const media = [
   {
@@ -24,12 +24,12 @@ const media = [
   {
     about: 'https://europeana1914-1918.s3.amazonaws.com/attachments/119200/10265.119200.original.jpg',
     thumbnails: { large: 'https://api.europeana.eu/api/v2/thumbnail-by-url.json?size=w400&type=IMAGE&uri=https%3A%2F%2Feuropeana1914-1918.s3.amazonaws.com%2Fattachments%2F119200%2F10265.119200.original.jpg' },
-    rightsStatement: 'https://creativecommons.org/licenses/by-nd/4.0/'
+    rightsStatement: 'http://rightsstatements.org/vocab/InC/1.0/'
   },
   {
     about: 'https://europeana1914-1918.s3.amazonaws.com/attachments/119203/10265.119203.original.jpg',
     thumbnails: { large: 'https://api.europeana.eu/api/v2/thumbnail-by-url.json?size=w400&type=IMAGE&uri=https%3A%2F%2Feuropeana1914-1918.s3.amazonaws.com%2Fattachments%2F119203%2F10265.119203.original.jpg' },
-    rightsStatement: 'http://creativecommons.org/licenses/by-sa/3.0/'
+    rightsStatement: 'Atribution-NonCommercial-NoDerivatives 4.0 Internacional'
   },
   {
     about: 'https://europeana1914-1918.s3.amazonaws.com/attachments/119639/10265.119639.original.jpg',
@@ -42,23 +42,36 @@ const media = [
     rightsStatement: 'http://creativecommons.org/licenses/by-sa/3.0/'
   }
 ];
+const identifier = '/2020601/https___1914_1918_europeana_eu_contributions_10265';
 
-storiesOf('Item page/Awesome Swiper', module)
-  .add('Centered with multiple slides visible', () => ({
-    i18n,
-    components: { AwesomeSwiper },
-    data() {
-      return {
-        media,
-        id: '/2020601/https___1914_1918_europeana_eu_contributions_10265'
-      };
-    },
-    template: `
-      <div class="mt-3">
-        <AwesomeSwiper
-          :europeana-identifier="id"
-          :media="media"
-        />
-      </div>
-    `
-  }));
+describe('components/item/ItemHero', () => {
+  describe('selectMedia', () => {
+    context('when a new item is selected', () => {
+      it('updates the identifier', () => {
+        const wrapper = factory({ media, identifier });
+        wrapper.vm.selectMedia(media[1].about);
+        wrapper.vm.selectedMedia.about.should.eq(media[1].about);
+      });
+      it('updates the rights statement', () => {
+        const wrapper = factory({ media, identifier });
+        wrapper.vm.selectMedia(media[1].about);
+        wrapper.vm.selectedMedia.rightsStatement.should.eq(media[1].rightsStatement);
+      });
+    });
+  });
+
+  describe('downloadEnabled', () => {
+    context('when the rightsstatement is for in copyright', () => {
+      it('is false', () => {
+        const wrapper = factory({ media: [media[1]], identifier });
+        wrapper.vm.downloadEnabled.should.eq(false);
+      });
+    });
+    context('when the rightsstatement is not in copyright', () => {
+      it('is true', () => {
+        const wrapper = factory({ media: [media[0]], identifier });
+        wrapper.vm.downloadEnabled.should.eq(true);
+      });
+    });
+  });
+});
