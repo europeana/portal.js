@@ -83,7 +83,7 @@
       <div class="modal-footer">
         <b-button
           variant="outline-primary"
-          @click="cancelModal()"
+          @click="hideModal()"
         >
           {{ $t('actions.close') }}
         </b-button>
@@ -139,7 +139,7 @@
         this.newCollectionDescription = '';
         this.newCollectionPrivate = false;
       },
-      cancelModal() {
+      hideModal() {
         this.$nextTick(() => {
           this.$bvModal.hide(this.modalId);
         });
@@ -160,8 +160,7 @@
       async addItem(setId) {
         // TODO: Before addind an item to a set, we should check if the set already contains that item
         await this.$sets.modifyItems('add', setId, this.itemId);
-        this.rerenderModal();
-        this.cancelModal();
+        this.hideModal();
       },
 
       displayField(set, field) {
@@ -176,12 +175,8 @@
 
       buttonBackground(img) {
         return {
-          'background-image': `url(${img})`
+          'background-image': `url("${img}")`
         };
-      },
-
-      rerenderModal() {
-        // TODO: rerender modal so that the next time you hit the '+' button, the component's view is updated
       }
     }
   };
