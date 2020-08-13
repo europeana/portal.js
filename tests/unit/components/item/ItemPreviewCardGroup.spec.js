@@ -1,12 +1,12 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
-import SearchResults from '../../../../components/search/SearchResults.vue';
+import ItemPreviewCardGroup from '../../../../components/item/ItemPreviewCardGroup.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
 const factory = () => {
-  return mount(SearchResults, {
+  return mount(ItemPreviewCardGroup, {
     localVue,
     mocks: {
       $path: (opts) => `/item/${opts.params.pathMatch}`,
@@ -33,7 +33,7 @@ const results = [
   }
 ];
 
-describe('components/search/SearchResults', () => {
+describe('components/item/ItemPreviewCardGroup', () => {
   context('when view is grid', () => {
     it('renders each result with a link', () => {
       const wrapper = factory();

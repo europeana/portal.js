@@ -51,12 +51,12 @@
 
     middleware: 'sanitisePageQuery',
 
-    asyncData({ query, error, app }) {
+    asyncData({ query, error, app, store }) {
       const variables = {
         locale: app.i18n.isoLocale(),
         preview: query.mode === 'preview',
         limit: PER_PAGE,
-        skip: (app.$page - 1) * PER_PAGE
+        skip: (store.state.sanitised.page - 1) * PER_PAGE
       };
 
       return app.$contentful.query('blogFoyerPage', variables)
@@ -65,7 +65,7 @@
           return {
             posts: data.blogPostingCollection.items,
             total: data.blogPostingCollection.total,
-            page: app.$page,
+            page: store.state.sanitised.page,
             perPage: PER_PAGE
           };
         })

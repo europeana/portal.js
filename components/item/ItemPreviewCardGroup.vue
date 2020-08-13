@@ -24,7 +24,7 @@
   import ItemPreviewCard from '../item/ItemPreviewCard';
 
   export default {
-    name: 'SearchResults',
+    name: 'ItemPreviewCardGroup',
 
     components: {
       ItemPreviewCard
