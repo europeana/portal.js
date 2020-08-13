@@ -35,9 +35,9 @@
       -->
         <client-only />
       </b-container>
-      <b-container class="mw-1024">
-        <b-row class="mb-3">
-          <b-col>
+      <b-container>
+        <b-row class="mb-3 justify-content-center">
+          <b-col cols="10">
             <SummaryInfo
               :description="descriptionInCurrentLanguage"
               :titles="titlesInCurrentLanguage"
@@ -46,16 +46,21 @@
         </b-row>
         <b-row
           v-if="relatedEntities && relatedEntities.length > 0"
+          class="justify-content-center"
         >
-          <b-col>
+          <b-col cols="10">
             <RelatedCollections
               :title="$t('collectionsYouMightLike')"
               :related-collections="relatedEntities"
             />
           </b-col>
         </b-row>
-        <b-row class="mb-3">
-          <b-col>
+        <b-row
+          v-else
+          class="mb-3"
+        />
+        <b-row class="mb-3 justify-content-center">
+          <b-col cols="10">
             <MetadataBox
               :all-metadata="allMetaData"
               :core-metadata="coreFields"
@@ -64,7 +69,7 @@
           </b-col>
         </b-row>
         <b-row>
-          <b-col>
+          <b-col cols="10">
             <!-- TODO: update similar items,
               they are currently cards within a card, that shouldn't be like that
               fix styling/structure in component itself
@@ -332,10 +337,8 @@
 </script>
 
 <style scoped>
-  .container.mw-1024 {
-    max-width: 1024px;
-  }
   .related-collections {
+    margin-top: -0.5rem;
     margin-bottom: 2rem;
   }
   /* TODO: fix styling in/for MetadataBox component itself */

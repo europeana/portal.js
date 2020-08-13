@@ -4,7 +4,7 @@
     data-qa="related collections"
     class="related-collections"
   >
-    <h2 class="related-heading text-uppercase mb-2">
+    <h2 class="related-heading text-uppercase mt-4 mb-2">
       {{ title }}
     </h2>
     <div class="d-flex flex-wrap">
