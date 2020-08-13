@@ -80,24 +80,19 @@
         </template>
       </b-card-body>
     </SmartLink>
-    <UserButtons
-      v-if="showUserButtons"
-      :item-url="url"
-    />
+    <slot name="footer" />
   </b-card>
 </template>
 
 <script>
   import SmartLink from './SmartLink';
   import { langMapValueForLocale } from  '../../plugins/europeana/utils';
-  import UserButtons from '../account/UserButtons';
 
   export default {
     name: 'ContentCard',
 
     components: {
-      SmartLink,
-      UserButtons
+      SmartLink
     },
 
     props: {
@@ -166,10 +161,6 @@
       blankImageWidth: {
         type: Number,
         default: null
-      },
-      showUserButtons: {
-        type: Boolean,
-        default: false
       }
     },
     data() {
