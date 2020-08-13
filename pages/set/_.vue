@@ -112,12 +112,13 @@
     // TODO: error handling for Nuxt 2.12 fetch()
     //       https://nuxtjs.org/blog/understanding-how-fetch-works-in-nuxt-2-12/#error-handling
     async fetch() {
+      this.page = this.$store.state.sanitised.page;
+
       const set = await this.$sets.getSet(this.$route.params.pathMatch, {
-        page: this.$route.query.page,
+        page: this.page,
         pageSize: this.perPage
       });
-
-      this.page = Number(this.$route.query.page);
+      
       this.total = set.total;
       this.title = set.title;
       this.items = set.items;
