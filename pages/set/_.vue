@@ -148,6 +148,10 @@
       this.items = set.items;
       this.visibility = set.visibility;
       this.description = set.description;
+
+      // TODO: don't delay page load for this. use a promise.
+      //       move to own component? client-only?
+      const recommendations = await this.$recommendations.recommend('set', `/${this.$route.params.pathMatch}`);
     },
 
     data() {
