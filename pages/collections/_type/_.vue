@@ -4,18 +4,22 @@
     fluid
     class="entity-page"
   >
-    <!-- TODO: move to an error message component -->
     <b-row
-      v-if="$fetchState.error"
+      v-if="$fetchState.pending || $fetchState.error"
     >
-      <b-col
-        cols="12"
-        class="pb-3"
-      >
-        {{ $fetchState.error.message }}
+      <b-col>
+        <b-container class="p-0">
+          <LoadingSpinner
+            v-if="$fetchState.pending"
+          />
+          <AlertMessage
+            v-else
+            :error="$fetchState.error.message"
+          />
+        </b-container>
       </b-col>
     </b-row>
-    <template v-else-if="!$fetchState.pending">
+    <template v-else>
       <b-row class="flex-md-row pt-5 bg-white mb-4">
         <b-col
           cols="12"
@@ -72,8 +76,10 @@
 
 <script>
   import ClientOnly from 'vue-client-only';
+  import AlertMessage from '../../../components/generic/AlertMessage';
   import EntityDetails from '../../../components/entity/EntityDetails';
   import EntityItemSearch from '../../../components/entity/EntityItemSearch';
+  import LoadingSpinner from '../../../components/generic/LoadingSpinner';
 
   import { mapState } from 'vuex';
 
@@ -84,10 +90,12 @@
 
   export default {
     components: {
+      AlertMessage,
       BrowseSections: () => import('../../../components/browse/BrowseSections'),
       ClientOnly,
       EntityDetails,
       EntityItemSearch,
+      LoadingSpinner,
       RelatedCollections: () => import('../../../components/generic/RelatedCollections')
     },
 
