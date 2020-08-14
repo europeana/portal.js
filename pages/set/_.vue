@@ -143,7 +143,7 @@
         pageSize: this.perPage
       }, true);
 
-      this.total = set.total;
+      this.total = set.total || 0;
       this.title = set.title;
       this.items = set.items;
       this.visibility = set.visibility;
