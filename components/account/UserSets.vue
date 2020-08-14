@@ -47,15 +47,16 @@
         default: 'public'
       }
     },
-    async fetch() {
-      console.log('fetch');
+    fetch() {
       const searchParams = {
         query: `creator:${this.$auth.user.sub} visibility:${this.visibility}`,
         profile: 'itemDescriptions'
       };
 
-      const searchResponse = await this.$sets.search(searchParams);
-      this.usersets = searchResponse.data.items || [];
+      this.$sets.search(searchParams)
+        .then(searchResponse => {
+          this.usersets = searchResponse.data.items || [];
+        });
     },
     data() {
       return {
