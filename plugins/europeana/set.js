@@ -84,7 +84,7 @@ export default ($axios) => ({
    */
   getSet(id, options = {}, withItems = false) {
     const defaults = {
-      page: 1,
+      page: 0,
       pageSize: 24,
       profile: 'standard'
     };
