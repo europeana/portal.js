@@ -207,9 +207,10 @@
 
         const isParent = (event.target === this.inputElement);
         const isChild = this.$el.contains(event.target);
+        const isClear = event.target.classList.contains('clear');
 
         if (!(isParent || isChild)) {
-          this.closeDropdown();
+          this.closeDropdown(isClear);
         }
       },
 
@@ -222,11 +223,14 @@
         return parse(value, matches);
       },
 
-      closeDropdown() {
+      closeDropdown(showSearch) {
         this.isActive = false;
         this.focus = null;
         this.selectSuggestion();
-        this.$emit('hide-search');
+
+        if (!showSearch) {
+          this.$emit('hide-search');
+        }
       },
 
       selectSuggestion() {
