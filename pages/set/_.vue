@@ -110,7 +110,7 @@
       >
         <b-col>
           <span class="recommended-items">
-            {{ $t('set.recommendedItems') }}
+            {{ $t('items.youMightLike') }}
           </span>
         </b-col>
       </b-row>
