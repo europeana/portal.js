@@ -1,6 +1,6 @@
 <template>
   <b-card-group
-    :data-qa="`search results ${view}`"
+    :data-qa="`item previews ${view}`"
     :class="cardGroupClass"
     deck
   >
