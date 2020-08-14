@@ -16,6 +16,8 @@
       :europeana-id="item.europeanaId"
       :selector="item.selector"
       data-qa="item preview"
+      @like="$emit('like', item.europeanaId)"
+      @unlike="$emit('unlike', item.europeanaId)"
     />
   </b-card-group>
 </template>

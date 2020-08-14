@@ -15,6 +15,8 @@
       <UserButtons
         v-if="showUserButtons"
         :item-url="url"
+        @like="$emit('like', europeanaId)"
+        @unlike="$emit('unlike', europeanaId)"
       />
     </template>
   </ContentCard>
