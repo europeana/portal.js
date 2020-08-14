@@ -44,7 +44,6 @@
                 </div>
               </b-col>
             </b-row>
-            <!--
             <div class="collection-buttons">
               <b-button
                 v-if="userIsOwner"
@@ -54,15 +53,15 @@
                   {{ $t('set.edit') }}
                 </span>
               </b-button>
-              <b-button
+              <!-- <b-button
                 v-if="visibility === 'public'"
                 variant="outline-primary text-decoration-none"
               >
                 <span class="text">
                   {{ $t('actions.share') }}
                 </span>
-              </b-button>
-            </div> -->
+              </b-button> -->
+            </div>
           </b-container>
         </b-col>
       </b-row>
@@ -143,6 +142,7 @@
         pageSize: this.perPage
       }, true);
 
+      this.creator = set.creator;
       this.total = set.total || 0;
       this.title = set.title;
       this.items = set.items;
@@ -152,6 +152,7 @@
 
     data() {
       return {
+        creator: null,
         description: null,
         items: [],
         page: null,
@@ -165,10 +166,9 @@
 
     computed: {
       userIsOwner() {
-        if (this.$store.state.auth.user && this.creator) {
-          return (this.$store.state.auth.user.sub === this.creator.split('user/')[1]);
-        }
-        return false;
+        return this.$store.state.auth.user &&
+          this.creator &&
+          this.creator.endsWith(`/${this.$store.state.auth.user.sub}`);
       },
       displayTitle() {
         return langMapValueForLocale(this.title, this.$i18n.locale);
