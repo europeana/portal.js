@@ -448,7 +448,8 @@ export default {
     "handle": "Slider Handle"
   },
   "items": {
-    "itemCount": "1 item |{count} items"
+    "itemCount": "1 item |{count} items",
+    "youMightLike": "Items you might like"
   },
   "layout": {
     "skipToMain": "Skip to page contents"
@@ -540,5 +541,10 @@ export default {
     "likes": "Likes",
     "publicCollections": "Public Collections",
     "privateCollections": "Private Collections"
+  },
+  "set": {
+    "curatedBy": "Curated by",
+    "privateCollection": "Private collection",
+    "edit": "Edit"
   }
 };

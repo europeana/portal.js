@@ -14,7 +14,7 @@
         class="card-img"
       >
         <b-img-lazy
-          v-if="lazyLoad"
+          v-if="lazy"
           :src="optimisedImageUrl"
           :blank-width="blankImageWidth"
           :blank-height="blankImageHeight"
@@ -22,7 +22,7 @@
           @error.native="imageNotFound"
         />
         <b-img
-          v-if="!lazyLoad"
+          v-else
           :src="optimisedImageUrl"
           alt=""
           @error="imageNotFound"
@@ -80,24 +80,19 @@
         </template>
       </b-card-body>
     </SmartLink>
-    <UserButtons
-      v-if="showUserButtons"
-      :item-url="url"
-    />
+    <slot name="footer" />
   </b-card>
 </template>
 
 <script>
   import SmartLink from './SmartLink';
   import { langMapValueForLocale } from  '../../plugins/europeana/utils';
-  import UserButtons from '../account/UserButtons';
 
   export default {
     name: 'ContentCard',
 
     components: {
-      SmartLink,
-      UserButtons
+      SmartLink
     },
 
     props: {
@@ -166,10 +161,6 @@
       blankImageWidth: {
         type: Number,
         default: null
-      },
-      showUserButtons: {
-        type: Boolean,
-        default: false
       }
     },
     data() {
@@ -182,10 +173,6 @@
     computed: {
       cardClass() {
         return `${this.variant}-card`;
-      },
-
-      lazyLoad() {
-        return this.lazy && (process.env.NODE_ENV !== 'test');
       },
 
       displayTitle() {

@@ -123,8 +123,8 @@ Feature: Search faceting
     And I check the "\"Belgium\"" "COUNTRY" checkbox
     And I click the `COUNTRY apply button`
     And I wait for the page to load
-    And I see a `search result`
-    And I click a `search result`
+    And I see a `item preview`
+    And I click a `item preview`
     And I wait for the page to load
     Then I see an `item page`
     And I should see a meta label `Providing country` with the value "Belgium"
@@ -136,7 +136,7 @@ Feature: Search faceting
     And I check the "\"Germany\"" "COUNTRY" checkbox
     And I click the `COUNTRY apply button`
     And I wait for the page to load
-    And I click a `search result`
+    And I click a `item preview`
     And I wait for the page to load
     Then I see an `item page`
     And I should see a meta label `Providing country` with the value "Belgium" or the value "Germany"

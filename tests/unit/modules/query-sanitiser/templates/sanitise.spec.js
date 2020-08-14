@@ -1,11 +1,11 @@
-import { pageFromQuery } from '../../../plugins/utils';
+import { page } from '../../../../../modules/query-sanitiser/templates/sanitise';
 
-describe('plugins/utils', () => {
-  describe('pageFromQuery()', () => {
+describe('sanitise', () => {
+  describe('page()', () => {
     context('with no value', () => {
       it('returns `1`', () => {
         for (const queryPage of [null, undefined]) {
-          pageFromQuery(queryPage).should.eq(1);
+          page(queryPage).should.eq(1);
         }
       });
     });
@@ -13,7 +13,7 @@ describe('plugins/utils', () => {
     context('with invalid value', () => {
       it('returns `null`', () => {
         for (const queryPage of ['0', '-1', '3.5', 'one', 'last']) {
-          (pageFromQuery(queryPage) === null).should.be.true;
+          (page(queryPage) === null).should.be.true;
         }
       });
     });
@@ -21,7 +21,7 @@ describe('plugins/utils', () => {
     context('with valid value', () => {
       it('returns it typecast as `Number`', () => {
         for (const queryPage of ['1', '2', '20']) {
-          pageFromQuery(queryPage).should.eq(Number(queryPage));
+          page(queryPage).should.eq(Number(queryPage));
         }
       });
     });
