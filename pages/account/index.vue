@@ -73,6 +73,8 @@
 </template>
 
 <script>
+  import { mapState } from 'vuex';
+
   import ItemPreviewCardGroup from '../../components/item/ItemPreviewCardGroup';
   import UserSets from '../../components/account/UserSets';
 
@@ -101,10 +103,23 @@
       };
     },
 
+    computed: {
+      ...mapState({
+        likesId: state => state.set.likesId
+      })
+    },
+
+    watch: {
+      'likesId'() {
+        this.fetchLikes();
+      }
+    },
+
     methods: {
       // TODO: pagination
       async fetchLikes() {
-        const likes = await this.$sets.getSet(this.$store.state.set.likesId, {
+        if (!this.$store.state.set.likesId) return;
+        const likes = await this.$sets.getSet(this.likesId, {
           pageSize: 100
         }, true);
         this.likes = likes.items;
