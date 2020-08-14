@@ -8,7 +8,7 @@ Feature: Search querying
     And I press the ENTER key
     And I wait for the page to load
     Then I see "paris" in the `search box`
-    And I should see 24 `search result`s
+    And I should see 24 `item preview`s
     And I see the `total results`
     And I am on an accessible page
 
@@ -17,7 +17,7 @@ Feature: Search querying
     And I enter "no results for GIBBERISHABCDEFGHIJKLMONP" in the `search box`
     And I press the ENTER key
     And I wait for the page to load
-    Then I don't have a `search result`
+    Then I don't have a `item preview`
     And I see an `error notice` with the text "Error: No results"
 
   Scenario: Search with invalid query syntax
@@ -25,7 +25,7 @@ Feature: Search querying
     And I enter "*:*:*" in the `search box`
     And I press the ENTER key
     And I wait for the page to load
-    Then I don't have a `search result`
+    Then I don't have a `item preview`
     And I see an `error notice` with the text "Error"
 
   Scenario: Search and navigate to item
@@ -33,7 +33,7 @@ Feature: Search querying
     And I enter "paris" in the `search box`
     And I press the ENTER key
     And I wait for the page to load
-    And I click a `search result`
+    And I click a `item preview`
     And I wait for the page to load
     Then I see an `item page`
     And I don't see "paris" in the `search box`

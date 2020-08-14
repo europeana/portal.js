@@ -93,7 +93,7 @@
               >
                 {{ $t('noMoreResults') }}
               </p>
-              <SearchResults
+              <ItemPreviewCardGroup
                 v-model="results"
                 :view="view"
                 :per-row="perRow"
@@ -135,7 +135,7 @@
 
 <script>
   import ClientOnly from 'vue-client-only';
-  import SearchResults from './SearchResults'; // Sorted before InfoMessage to prevent Conflicting CSS sorting warning
+  import ItemPreviewCardGroup from '../item/ItemPreviewCardGroup'; // Sorted before InfoMessage to prevent Conflicting CSS sorting warning
   import InfoMessage from '../generic/InfoMessage';
   import ViewToggles from './ViewToggles';
 
@@ -154,7 +154,7 @@
       InfoMessage,
       FacetDropdown: () => import('../../components/search/FacetDropdown'),
       MoreFiltersDropdown: () => import('../../components/search/MoreFiltersDropdown'),
-      SearchResults,
+      ItemPreviewCardGroup,
       SearchFilters: () => import('../../components/search/SearchFilters'),
       PaginationNav: () => import('../../components/generic/PaginationNav'),
       ViewToggles

@@ -5,9 +5,13 @@ const setApiUrl = (endpoint) => `${config.set.origin}${config.set.path}${endpoin
 
 const setIdFromUri = (uri) => uri.split('/').pop();
 
+const paramsWithApiKey = (params = {}) => {
+  return { ...params, wskey: config.set.key };
+};
+
 export default ($axios) => ({
   search(params) {
-    return $axios.get(setApiUrl('/search'), { params })
+    return $axios.get(setApiUrl('/search'), { params: paramsWithApiKey(params) })
       .then(response => response)
       .catch(error => {
         throw apiError(error);
@@ -28,13 +32,24 @@ export default ($axios) => ({
   },
 
   /**
-   * Get set by id
-   * @param {string} id the set id
-   * @param {string} profile the set profile, can be either 'minimal' or 'standard'
-   * @return {Object} API response data
+   * Get a set with given id
+   * @param {string} id the set's id
+   * @param {Object} options retrieval options
+   * @param {string} options.page the set's current page
+   * @param {string} options.pageSize the set-page's size
+   * @param {string} options.profile the set's metadata profile
+   * @param {boolean} withItems fetch and inject items
+   * @return {Object} the set's object, containing the requested window of the set's items
    */
-  getSet(id, profile) {
-    return $axios.get(setApiUrl(`/${id}`), { params: { profile } })
+  getSet(id, options = {}) {
+    const defaults = {
+      page: 1,
+      pageSize: 24,
+      profile: 'standard'
+    };
+    const params = paramsWithApiKey({ ...defaults, ...options });
+
+    return $axios.get(setApiUrl(`/${id}`), { params })
       .then(response => {
         return response.data;
       })
@@ -55,7 +70,8 @@ export default ($axios) => ({
           en: 'LIKES'
         },
         visibility: 'private'
-      }
+      },
+      { params: paramsWithApiKey() }
     )
       .then(response => response.data)
       .catch(error => {
@@ -72,7 +88,7 @@ export default ($axios) => ({
    */
   modifyItems(action, setId, itemId) {
     const apiCall = action === 'add' ? $axios.put : $axios.delete;
-    return apiCall(setApiUrl(`/${setId}/${itemId}`))
+    return apiCall(setApiUrl(`/${setId}/${itemId}`), { params: paramsWithApiKey() })
       .then(response => response.data)
       .catch(error => {
         throw apiError(error);

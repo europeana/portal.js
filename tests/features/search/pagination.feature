@@ -16,7 +16,7 @@ Feature: Search pagination
     And I enter "paris" in the `search box`
     And I press the ENTER key
     And I wait for the page to load
-    And I wait for a `search result`
+    And I wait for a `item preview`
     And I see a `search facet`
     And I click the `TYPE dropdown button`
     And I check the "\"IMAGE\"" "TYPE" checkbox
@@ -70,7 +70,7 @@ Feature: Search pagination
   Scenario: Paginating to the API result limit
 
     When I open `/en/search?query=&page=42`
-    Then I see a `search result`
+    Then I see a `item preview`
     Then I see an `info notice` with the text "Additional results are not shown as only the first 1000 most relevant results are shown. If you haven't found what you're looking for, please consider refining your search."
     And I am on an accessible page
 

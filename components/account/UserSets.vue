@@ -15,12 +15,13 @@
           deck
         >
           <ContentCard
-            v-for="set in usersets"
+            v-for="set in userSets"
             :key="set.id"
             :sub-title="setSubTitle(set)"
             :title="set.title"
             :image-url="setThumbnail(set)"
             :texts="[set.description]"
+            :url="{ name: 'set-all', params: { pathMatch: set.id } }"
             data-qa="user set"
           />
         </b-card-group>
@@ -47,20 +48,18 @@
         default: 'public'
       }
     },
-    fetch() {
+    async fetch() {
       const searchParams = {
         query: `creator:${this.$auth.user.sub} visibility:${this.visibility}`,
         profile: 'itemDescriptions'
       };
 
-      this.$sets.search(searchParams)
-        .then(searchResponse => {
-          this.usersets = searchResponse.data.items || [];
-        });
+      const searchResponse = await this.$sets.search(searchParams);
+      this.userSets = searchResponse.data.items || [];
     },
     data() {
       return {
-        usersets: []
+        userSets: []
       };
     },
     methods: {
