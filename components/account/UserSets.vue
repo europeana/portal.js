@@ -7,12 +7,13 @@
           deck
         >
           <ContentCard
-            v-for="set in usersets"
+            v-for="set in userSets"
             :key="set.id"
             :sub-title="setSubTitle(set)"
             :title="set.title"
             :image-url="set.thumbnail"
             :texts="[set.description]"
+            :url="{ name: 'set-all', params: { pathMatch: set.id } }"
             data-qa="user set"
           />
         </b-card-group>
@@ -36,11 +37,11 @@
     },
     async fetch() {
       const setsNoImage = await this.$sets.getAllSets(this.setIds);
-      this.usersets =  await this.$sets.getSetImages(setsNoImage);
+      this.userSets =  await this.$sets.getSetImages(setsNoImage);
     },
     data() {
       return {
-        usersets: []
+        userSets: []
       };
     },
     methods: {

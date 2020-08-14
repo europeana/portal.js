@@ -29,7 +29,8 @@ module.exports = {
   },
   set: {
     origin: 'https://api.europeana.eu',
-    path: '/set'
+    path: '/set',
+    key: process.env['EUROPEANA_SET_API_KEY']
   },
   thumbnail: {
     origin: 'https://api.europeana.eu',

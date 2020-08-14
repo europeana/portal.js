@@ -26,7 +26,6 @@
 
 <script>
   import SearchInterface from '../../components/search/SearchInterface';
-  import { pageFromQuery } from '../../plugins/utils';
   import legacyUrl from '../../plugins/europeana/legacy-search';
   import NotificationBanner from '../../components/generic/NotificationBanner';
 
@@ -37,14 +36,7 @@
       RelatedSection: () => import('../../components/search/RelatedSection')
     },
 
-    middleware({ query, redirect, app }) {
-      const currentPage = pageFromQuery(query.page);
-
-      if (currentPage === null) {
-        // Redirect non-positive integer values for `page` to `page=1`
-        return redirect(app.$path({ name: 'search', query: { ...query, ...{ page: '1' } } }));
-      }
-    },
+    middleware: 'sanitisePageQuery',
 
     async fetch({ store, query, res }) {
       await store.dispatch('search/activate');

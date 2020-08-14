@@ -16,7 +16,7 @@ Feature: Search pagination
     And I enter "paris" in the `search box`
     And I press the ENTER key
     And I wait for the page to load
-    And I wait for a `search result`
+    And I wait for a `item preview`
     And I see a `search facet`
     And I click the `TYPE dropdown button`
     And I check the "\"IMAGE\"" "TYPE" checkbox
@@ -41,14 +41,14 @@ Feature: Search pagination
   Scenario: Pagination links preserve query and facet selection from the url.
 
     When I visit `/en/search?query=paris&page=1&qf=TYPE%3A%22IMAGE%22`
-    Then I see a link to "/en/search?page=2&qf=TYPE%3A%22IMAGE%22&query=paris&view=grid" in the `pagination navigation`
+    Then I see a link to "/en/search?query=paris&page=2&qf=TYPE%3A%22IMAGE%22" in the `pagination navigation`
 
   Scenario: Pagination links work when the page was accessed from the url.
     Given I am on `/en/search?query=paris&page=1&qf=TYPE%3A%22IMAGE%22`
     When I go to page number 2
     And I wait for the page to load
     Then I am on page number 2
-    Then I should be on `/en/search?page=2&qf=TYPE%3A%22IMAGE%22&query=paris&view=grid`
+    Then I should be on `/en/search?query=paris&page=2&qf=TYPE%3A%22IMAGE%22`
 
   Scenario: Invalid `page` param redirects to page 1
 
@@ -70,7 +70,7 @@ Feature: Search pagination
   Scenario: Paginating to the API result limit
 
     When I open `/en/search?query=&page=42`
-    Then I see a `search result`
+    Then I see a `item preview`
     Then I see an `info notice` with the text "Additional results are not shown as only the first 1000 most relevant results are shown. If you haven't found what you're looking for, please consider refining your search."
     And I am on an accessible page
 

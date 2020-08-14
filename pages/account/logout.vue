@@ -8,9 +8,10 @@
     layout: 'minimal',
     middleware: [
       'auth',
-      ({ $auth }) => {
+      ({ $auth, store }) => {
+        store.dispatch('set/reset');
         $auth.logout();
       }
     ]
   };
-</script>
+  </script>

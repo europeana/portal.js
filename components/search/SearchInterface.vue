@@ -93,7 +93,7 @@
               >
                 {{ $t('noMoreResults') }}
               </p>
-              <SearchResults
+              <ItemPreviewCardGroup
                 v-model="results"
                 :view="view"
                 :per-row="perRow"
@@ -108,11 +108,9 @@
             <b-col>
               <client-only>
                 <PaginationNav
-                  v-if="showPagination"
                   v-model="page"
                   :total-results="totalResults"
                   :per-page="perPage"
-                  :link-gen="paginationLink"
                 />
               </client-only>
             </b-col>
@@ -137,7 +135,7 @@
 
 <script>
   import ClientOnly from 'vue-client-only';
-  import SearchResults from './SearchResults'; // Sorted before InfoMessage to prevent Conflicting CSS sorting warning
+  import ItemPreviewCardGroup from '../item/ItemPreviewCardGroup'; // Sorted before InfoMessage to prevent Conflicting CSS sorting warning
   import InfoMessage from '../generic/InfoMessage';
   import ViewToggles from './ViewToggles';
 
@@ -156,7 +154,7 @@
       InfoMessage,
       FacetDropdown: () => import('../../components/search/FacetDropdown'),
       MoreFiltersDropdown: () => import('../../components/search/MoreFiltersDropdown'),
-      SearchResults,
+      ItemPreviewCardGroup,
       SearchFilters: () => import('../../components/search/SearchFilters'),
       PaginationNav: () => import('../../components/generic/PaginationNav'),
       ViewToggles
@@ -294,9 +292,6 @@
           return filter === '"0"' || filter === '*'; // UI applies "0", this won't handle user provided values.
         });
       },
-      showPagination() {
-        return this.totalResults > this.perPage;
-      },
       routeQueryView() {
         return this.$route.query.view;
       },
@@ -334,9 +329,6 @@
       },
       changeMoreFacets(selected) {
         return this.rerouteSearch(this.queryUpdatesForFacetChanges(selected));
-      },
-      paginationLink(val) {
-        return this.$path({ ...this.route, ...{ query: this.updateCurrentSearchQuery({ page: val }) } });
       },
       rerouteSearch(queryUpdates) {
         const query = this.updateCurrentSearchQuery(queryUpdates);
