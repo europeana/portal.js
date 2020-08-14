@@ -141,7 +141,7 @@
       const set = await this.$sets.getSet(this.$route.params.pathMatch, {
         page: this.page,
         pageSize: this.perPage
-      });
+      }, true);
 
       this.total = set.total;
       this.title = set.title;

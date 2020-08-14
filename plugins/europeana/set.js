@@ -79,19 +79,20 @@ export default ($axios) => ({
    * @param {string} options.page the set's current page
    * @param {string} options.pageSize the set-page's size
    * @param {string} options.profile the set's metadata profile
+   * @param {boolean} withItems fetch and inject items
    * @return {Object} the set's object, containing the requested window of the set's items
    */
-  getSet(id, options = {}) {
+  getSet(id, options = {}, withItems = false) {
     const defaults = {
       page: 1,
       pageSize: 24,
       profile: 'standard'
     };
-    options = { ...defaults, ...options };
+    const params = paramsWithApiKey({ ...defaults, ...options });
 
-    return $axios(setApiUrl(`/${id}`), { params: paramsWithApiKey(options) })
+    return $axios(setApiUrl(`/${id}`), { params })
       .then(response => {
-        if (response.data.items) {
+        if (withItems && response.data.items) {
           return this.getSetItems(response.data.items)
             .then(results => {
               response.data.items = results;

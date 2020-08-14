@@ -32,10 +32,12 @@ export const actions = {
   async setLikes({ commit }) {
     const creator = this.$auth.user ? this.$auth.user.sub : null;
     const likesId = await this.$sets.getLikes(creator);
+
     if (likesId) {
       commit('setLikesId', likesId);
-      const itemArray = await this.$sets.getSet(likesId, 'standard').then(response => response.items || []);
-      commit('setLikedItems', itemArray.map(item => setIdFromUri(item)));
+      const likedItems = await this.$sets.getSet(likesId, { profile: 'standard' })
+        .then(response => response.items || []);
+      commit('setLikedItems', likedItems.map(item => setIdFromUri(item)));
     }
   },
   async createLikes({ commit }) {

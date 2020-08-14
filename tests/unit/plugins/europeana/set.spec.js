@@ -71,19 +71,18 @@ describe('describe /plugins/europeana/set', () => {
   afterEach(() => {
     nock.cleanAll();
   });
-  // FIXME
-  // describe('getSet()', () => {
-  //   it('get the set data', async() => {
-  //     const setId = 1;
-  //     const profile = 'standard';
-  //     nock(apiUrl)
-  //       .get('/' + setId + '?page=1&pageSize=24&profile=standard')
-  //       .reply(200,  setsResponse[0]);
-  //
-  //     const response =  await set(axios).getSet(setId, { profile });
-  //     response.items.should.deep.equal(['item-1', 'item-2']);
-  //   });
-  // }),
+  describe('getSet()', () => {
+    it('get the set data', async() => {
+      const setId = 1;
+      const profile = 'standard';
+      nock(apiUrl)
+        .get('/' + setId + '?page=1&pageSize=24&profile=standard')
+        .reply(200,  setsResponse[0]);
+
+      const response =  await set(axios).getSet(setId, { profile });
+      response.items.should.deep.equal(['item-1', 'item-2']);
+    });
+  }),
   describe('getLikes()', () => {
     it('get the likes set', async() => {
       nock(apiUrl)
