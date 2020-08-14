@@ -40,7 +40,7 @@ describe('components/item/ItemPreviewCardGroup', () => {
 
       wrapper.setProps({ value: results, view: 'grid' });
 
-      const renderedResults =  wrapper.findAll('[data-qa="search result"] a');
+      const renderedResults =  wrapper.findAll('[data-qa="item preview"] a');
 
       renderedResults.at(0).attributes().href.should.endWith(`/item${results[0].europeanaId}`);
       renderedResults.at(1).attributes().href.should.endWith(`/item${results[1].europeanaId}`);
@@ -53,7 +53,7 @@ describe('components/item/ItemPreviewCardGroup', () => {
 
       wrapper.setProps({ value: results, view: 'list' });
 
-      const renderedResults =  wrapper.findAll('div[data-qa="search result"]');
+      const renderedResults =  wrapper.findAll('div[data-qa="item preview"]');
 
       renderedResults.at(0).find('a').attributes().href.should.endWith(`/item${results[0].europeanaId}`);
       renderedResults.at(1).find('a').attributes().href.should.endWith(`/item${results[1].europeanaId}`);
