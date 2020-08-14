@@ -1,7 +1,8 @@
 <template>
   <div class="card rounded-0 border-0 p-4">
     <header
-      v-if="titles"
+      v-if="titles.length > 0"
+      class="mb-3"
     >
       <template
         v-for="(heading, index) in titles"
@@ -18,7 +19,7 @@
           v-else
           :key="index"
           :lang="heading.code"
-          class="font-weight-bold my-3"
+          class="font-weight-bold mt-3 mb-0"
         >
           {{ heading.value }}
         </p>

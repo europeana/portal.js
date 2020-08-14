@@ -68,7 +68,7 @@
             />
           </b-col>
         </b-row>
-        <b-row>
+        <b-row class="justify-content-center">
           <b-col cols="10">
             <!-- TODO: update similar items,
               they are currently cards within a card, that shouldn't be like that
@@ -340,6 +340,7 @@
   .related-collections {
     margin-top: -0.5rem;
     margin-bottom: 2rem;
+    padding: 0;
   }
   /* TODO: fix styling in/for MetadataBox component itself */
   /deep/ .card.rounded-0 {

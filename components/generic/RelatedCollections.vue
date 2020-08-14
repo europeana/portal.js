@@ -1,5 +1,5 @@
 <template>
-  <div
+  <b-container
     v-if="relatedCollections.length > 0"
     data-qa="related collections"
     class="related-collections"
@@ -17,7 +17,7 @@
         :img="imageUrl(relatedCollection)"
       />
     </div>
-  </div>
+  </b-container>
 </template>
 
 <script>
