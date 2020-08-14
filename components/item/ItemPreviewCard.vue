@@ -5,13 +5,19 @@
     :image-url="edmPreview"
     :texts="texts"
     :hits-text="hitsText"
-    :show-user-buttons="showUserButtons"
     :class="cardClass"
     :limit-values-within-each-text="3"
     :omit-all-uris="true"
     :blank-image-height="280"
     :variant="variant"
-  />
+  >
+    <template v-slot:footer>
+      <UserButtons
+        v-if="showUserButtons"
+        :item-url="url"
+      />
+    </template>
+  </ContentCard>
 </template>
 
 <script>
@@ -21,7 +27,8 @@
     name: 'ItemPreviewCard',
 
     components: {
-      ContentCard
+      ContentCard,
+      UserButtons: () => import('../account/UserButtons')
     },
 
     props: {
