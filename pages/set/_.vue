@@ -77,17 +77,31 @@
       </b-row>
       <b-row>
         <b-col>
-          <!--
-            FIXME: Set API item pagination is not yet implemented when retrieving single
-                   sets if those are "closed" sets, as these will always be.
-                  page-size should then be "perPage"
-          -->
-          <SetItems
-            :items="items"
-            :total="total"
-            :page="page"
-            :page-size="total"
-          />
+          <b-container class="px-0">
+            <b-row class="mb-3">
+              <b-col cols="12">
+                <ItemPreviewCardGroup
+                  v-model="items"
+                />
+              </b-col>
+            </b-row>
+            <b-row>
+              <b-col>
+                <client-only>
+                  <!--
+                    FIXME: Set API item pagination is not yet implemented when retrieving single
+                           sets if those are "closed" sets, as these will always be.
+                           When implemented, `:per-page` should then be ``"perPage"``
+                  -->
+                  <PaginationNav
+                    v-model="page"
+                    :total-results="total"
+                    :per-page="total"
+                  />
+                </client-only>
+              </b-col>
+            </b-row>
+          </b-container>
         </b-col>
       </b-row>
       <b-row
@@ -107,9 +121,14 @@
 <script>
   import { langMapValueForLocale } from  '../../plugins/europeana/utils';
 
+  import ClientOnly from 'vue-client-only';
+  import ItemPreviewCardGroup from '../../components/item/ItemPreviewCardGroup';
+
   export default {
     components: {
-      SetItems: () => import('../../components/set/SetItems')
+      ClientOnly,
+      ItemPreviewCardGroup,
+      PaginationNav: () => import('../../components/generic/PaginationNav')
     },
 
     middleware: 'sanitisePageQuery',
@@ -159,14 +178,14 @@
       }
     },
 
+    watch: {
+      '$route.query.page': '$fetch'
+    },
+
     head() {
       return {
         title: this.displayTitle.values[0]
       };
-    },
-
-    watch: {
-      '$route.query.page': '$fetch'
     }
   };
 </script>
