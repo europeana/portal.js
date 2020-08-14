@@ -47,6 +47,7 @@
             <div class="collection-buttons">
               <b-button
                 v-if="userIsOwner"
+                v-b-modal.set-form-modal
                 variant="outline-primary text-decoration-none"
               >
                 <span class="text">
@@ -114,6 +115,13 @@
         </b-col>
       </b-row>
     </b-container>
+    <b-modal
+      id="set-form-modal"
+      hide-header
+      hide-footer
+    >
+      <SetForm />
+    </b-modal>
   </div>
 </template>
 
@@ -121,12 +129,14 @@
   import { langMapValueForLocale } from  '../../plugins/europeana/utils';
 
   import ClientOnly from 'vue-client-only';
+  import SetForm from '../../components/set/SetForm';
   import ItemPreviewCardGroup from '../../components/item/ItemPreviewCardGroup';
 
   export default {
     components: {
       ClientOnly,
       ItemPreviewCardGroup,
+      SetForm,
       PaginationNav: () => import('../../components/generic/PaginationNav')
     },
 
