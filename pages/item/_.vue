@@ -54,6 +54,7 @@
                   <MediaPresentation
                     :europeana-identifier="identifier"
                     :media="selectedMedia"
+                    :is-playable-media="isPlayableMedia(selectedMedia)"
                     :image-src="selectedMediaImage.src"
                   />
                   <MediaThumbnailGrid
@@ -145,7 +146,7 @@
 
   import { getRecord, similarItemsQuery } from '../../plugins/europeana/record';
   import { search } from '../../plugins/europeana/search';
-  import { isIIIFPresentation, isRichMedia } from '../../plugins/media';
+  import { isIIIFPresentation, isRichMedia, isPlayableMedia } from '../../plugins/media';
   import { langMapValueForLocale } from  '../../plugins/europeana/utils';
   import { findEntities } from '../../plugins/europeana/entity';
   import { search as searchAnnotations } from '../../plugins/europeana/annotation';
@@ -325,6 +326,9 @@
       },
       redirectNotificationsEnabled() {
         return Boolean(Number(process.env.ENABLE_LINKS_TO_CLASSIC));
+      },
+      playableMedia() {
+        return this.media.filter(resource => isPlayableMedia(resource));
       }
     },
 
@@ -354,6 +358,10 @@
     },
 
     methods: {
+      isPlayableMedia(selectedMedia) {
+        return (this.playableMedia.length === 1) && (this.playableMedia[0].about === selectedMedia.about);
+      },
+
       annotationsByMotivation(motivation) {
         return this.annotations.filter(annotation => annotation.motivation === motivation);
       },
