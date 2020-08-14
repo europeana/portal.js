@@ -6,9 +6,13 @@ const setApiUrl = (endpoint) => `${config.set.origin}${config.set.path}${endpoin
 
 const setIdFromUri = (uri) => uri.split('/').pop();
 
+const paramsWithApiKey = (params = {}) => {
+  return { ...params, wskey: config.set.key };
+};
+
 export default ($axios) => ({
   search(params) {
-    return $axios.get(setApiUrl('/search'), { params });
+    return $axios.get(setApiUrl('/search'), { params: paramsWithApiKey(params) });
   },
 
   /**
@@ -19,22 +23,6 @@ export default ($axios) => ({
   getLikes(creator) {
     return this.search({ query: `creator:${creator} type:BookmarkFolder` })
       .then(response => response.data.items ? setIdFromUri(response.data.items[0]) : null)
-      .catch(error => {
-        throw apiError(error);
-      });
-  },
-
-  /**
-   * Get set by id
-   * @param {string} id the set id
-   * @param {string} profile the set profile, can be either 'minimal' or 'standard'
-   * @return {Object} API response data
-   */
-  getSet(id, profile) {
-    return $axios.get(setApiUrl(`/${id}`), { params: { profile } })
-      .then(response => {
-        return response.data;
-      })
       .catch(error => {
         throw apiError(error);
       });
@@ -66,7 +54,7 @@ export default ($axios) => ({
    */
   getAllSets(ids) {
     return Promise.all(ids.map(id => $axios.get(setApiUrl(`/${id}`), {
-      params: { profile: 'standard' }
+      params: paramsWithApiKey({ profile: 'standard' })
     })))
       .then(responseArray => {
         return responseArray.map(set => {
@@ -78,6 +66,62 @@ export default ($axios) => ({
             total: set.data.total
           };
         });
+      })
+      .catch(error => {
+        throw apiError(error);
+      });
+  },
+
+  /**
+   * Get a set with given id
+   * @param {string} id the set's id
+   * @param {Object} options retrieval options
+   * @param {string} options.page the set's current page
+   * @param {string} options.pageSize the set-page's size
+   * @param {string} options.profile the set's metadata profile
+   * @param {boolean} withItems fetch and inject items
+   * @return {Object} the set's object, containing the requested window of the set's items
+   */
+  getSet(id, options = {}, withItems = false) {
+    const defaults = {
+      page: 1,
+      pageSize: 24,
+      profile: 'standard'
+    };
+    const params = paramsWithApiKey({ ...defaults, ...options });
+
+    return $axios(setApiUrl(`/${id}`), { params })
+      .then(response => {
+        if (withItems && response.data.items) {
+          return this.getSetItems(response.data.items)
+            .then(results => {
+              response.data.items = results;
+              return response.data;
+            });
+        }
+        return response.data;
+      })
+      .catch((error) => {
+        throw apiError(error);
+      });
+  },
+
+  /**
+  * Get the items of a set
+  * @param {Array} itemsIds the list of the set's items' ids
+  * @param {string} rows the set-page's size
+  * @param {string} page the set's current page
+  * @return {Array} the list of the set's items' objects
+   */
+  getSetItems(itemsIds) {
+    const q = 'europeana_id:(' + itemsIds.map(s => s.split('/item/')[1]).map(u => `"/${u}"`).join(' OR ') + ')';
+    return searchItems({
+      query: q,
+      // TODO: handle sets bigger than 100 items
+      rows: 100
+    })
+      .then(searchResponse => {
+        return searchResponse.results;
       })
       .catch(error => {
         throw apiError(error);
@@ -120,7 +164,8 @@ export default ($axios) => ({
           en: 'LIKES'
         },
         visibility: 'private'
-      }
+      },
+      { params: paramsWithApiKey() }
     )
       .then(response => response.data)
       .catch(error => {
@@ -137,7 +182,7 @@ export default ($axios) => ({
    */
   modifyItems(action, setId, itemId) {
     const apiCall = action === 'add' ? $axios.put : $axios.delete;
-    return apiCall(setApiUrl(`/${setId}/${itemId}`))
+    return apiCall(setApiUrl(`/${setId}/${itemId}`), { params: paramsWithApiKey() })
       .then(response => response.data)
       .catch(error => {
         throw apiError(error);
