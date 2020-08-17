@@ -178,12 +178,12 @@ export default ($axios) => ({
    * Modify the set items by adding or deleting an item
    * @param {string} action the type of modification, can be either 'add' or 'delete'
    * @param {string} setId the id of the set that will be modified
-   * @param {string} itemId the id of the item to be added or deleted
+   * @param {string} itemId the id of the item to be added or deleted, with leading slash
    * @return {Object} API response data
    */
   modifyItems(action, setId, itemId) {
     const apiCall = action === 'add' ? $axios.put : $axios.delete;
-    return apiCall(setApiUrl(`/${setId}/${itemId}`), { params: paramsWithApiKey() })
+    return apiCall(setApiUrl(`/${setId}${itemId}`), { params: paramsWithApiKey() })
       .then(response => response.data)
       .catch(error => {
         throw apiError(error);

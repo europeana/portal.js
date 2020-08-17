@@ -19,7 +19,7 @@
     />
     <ModalCollection
       :modal-id="collectionModalId"
-      :item-id="itemId"
+      :item-id="value"
     />
   </div>
 </template>
@@ -35,28 +35,19 @@
     },
 
     props: {
-      itemUrl: {
-        type: Object,
-        default: () => {}
+      // Identifier of the item
+      value: {
+        type: String,
+        required: true
       }
-    },
-
-    fetch() {
-      this.itemId = this.itemUrl.params.pathMatch;
-    },
-
-    data() {
-      return {
-        itemId: null
-      };
     },
 
     computed: {
       collectionModalId() {
-        return `collection-modal-${this.itemId}`;
+        return `collection-modal-${this.value}`;
       },
       liked() {
-        return this.$store.state.set.liked.includes(this.itemId);
+        return this.$store.state.set.liked.includes(this.value);
       },
       likesId() {
         return this.$store.state.set.likesId;
@@ -71,17 +62,17 @@
         if (this.likesId === null) {
           await this.$store.dispatch('set/createLikes');
         }
-        await this.$store.dispatch('set/like', this.itemId);
-        this.$emit('like', this.itemId);
+        await this.$store.dispatch('set/like', this.value);
+        this.$emit('like', this.value);
       },
       async unlike() {
-        await this.$store.dispatch('set/unlike', this.itemId);
-        this.$emit('unlike', this.itemId);
+        await this.$store.dispatch('set/unlike', this.value);
+        this.$emit('unlike', this.value);
       },
       showModal() {
         this.$nextTick(() => {
           this.$bvModal.show(this.collectionModalId);
-          this.$emit('add', this.itemId);
+          this.$emit('add', this.value);
         });
       }
     }
