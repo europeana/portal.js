@@ -151,7 +151,7 @@
 
       // TODO: don't delay page load for this. use a promise.
       //       move to own component? client-only?
-      const recommendations = await this.$recommendations.recommend('set', `/${this.$route.params.pathMatch}`);
+      this.recommendations = await this.$recommendations.recommend('set', `/${this.$route.params.pathMatch}`);
     },
 
     data() {
