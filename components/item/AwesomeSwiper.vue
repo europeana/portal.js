@@ -15,14 +15,16 @@
         class="container h-100"
       >
         <MediaCard
-          :europeana-identifier="item.europeanaIdentifier"
+          :europeana-identifier="europeanaIdentifier"
           :media="item"
+          :is-single-playable-media="isSinglePlayableMedia(item)"
         />
       </div>
       <MediaCard
         v-else
-        :europeana-identifier="item.europeanaIdentifier"
+        :europeana-identifier="europeanaIdentifier"
         :media="item"
+        :is-single-playable-media="isSinglePlayableMedia(item)"
       />
     </swiper-slide>
     <div
@@ -44,7 +46,7 @@
 <script>
   import { Swiper, SwiperSlide } from 'vue-awesome-swiper';
   import 'swiper/css/swiper.css';
-  import { isIIIFPresentation } from '../../plugins/media';
+  import { isIIIFPresentation, isPlayableMedia } from '../../plugins/media';
   import MediaCard from './MediaCard';
 
   export default {
@@ -91,6 +93,9 @@
     computed: {
       swiper() {
         return this.$refs.awesome.$swiper;
+      },
+      playableMedia() {
+        return this.media.filter(resource => isPlayableMedia(resource));
       }
     },
     methods: {
@@ -99,6 +104,9 @@
       },
       updateSwiper() {
         this.swiper.update();
+      },
+      isSinglePlayableMedia() {
+        return (this.playableMedia.length === 1) && (this.playableMedia[0].about === this.media[0].about);
       }
     }
   };

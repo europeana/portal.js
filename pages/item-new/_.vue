@@ -19,6 +19,10 @@
         fluid
         class="bg-white mb-3"
       >
+        <AwesomeSwiper
+          :europeana-identifier="identifier"
+          :media="media"
+        />
         <!-- TODO: add swiper here
           Swiper also includes download, share, right statement
           Potential useful data:
@@ -116,6 +120,7 @@
       AlertMessage: () => import('../../components/generic/AlertMessage'),
       ClientOnly,
       SimilarItems: () => import('../../components/item/SimilarItems'),
+      AwesomeSwiper: () => import('../../components/item/AwesomeSwiper'),
       MetadataBox,
       NotificationBanner: () => import('../../components/generic/NotificationBanner')
     },

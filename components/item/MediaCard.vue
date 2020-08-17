@@ -5,7 +5,7 @@
     :media="media"
   />
   <div
-    v-else-if="isPlayableMedia"
+    v-else-if="isPlayableMedia && isSinglePlayableMedia"
     ref="player"
     class="media-player-wrapper"
     :style="{ paddingTop: `${ratio}%` }"
@@ -15,6 +15,30 @@
       allowfullscreen="true"
       :src="$path({ name: 'media', query: { id: europeanaIdentifier, mediaUrl: media.about, mediaType: media.ebucoreHasMimeType } })"
       class="media-player"
+    />
+  </div>
+  <div
+    v-else-if="isPlayableMedia && !isSinglePlayableMedia"
+    :class="{ 'audio-slide': isHTMLAudio }"
+  >
+    <VideoPlayer
+      v-if="isHTMLVideo"
+      :europeana-identifier="europeanaIdentifier"
+      :src="media.about"
+      :type="media.ebucoreHasMimeType"
+      :width="media.ebucoreWidth"
+      :height="media.ebucoreHeight"
+    />
+    <AudioPlayer
+      v-else-if="isHTMLAudio"
+      :europeana-identifier="europeanaIdentifier"
+      :src="media.about"
+      :type="media.ebucoreHasMimeType"
+    />
+    <MediaCardImage
+      v-else
+      :europeana-identifier="europeanaIdentifier"
+      :media="media"
     />
   </div>
   <HTMLEmbed
@@ -42,12 +66,16 @@
     isRichMedia
   } from '../../plugins/media';
   import HTMLEmbed from '../generic/HTMLEmbed';
+  import VideoPlayer from '../../components/media/VideoPlayer';
+  import AudioPlayer from '../../components/media/AudioPlayer';
 
   export default {
     name: 'MediaCard',
     components: {
       MediaCardImage: () => import('../../components/item/MediaCardImage'),
-      HTMLEmbed
+      HTMLEmbed,
+      VideoPlayer,
+      AudioPlayer
     },
     props: {
       media: {
@@ -57,6 +85,10 @@
       europeanaIdentifier: {
         type: String,
         default: ''
+      },
+      isSinglePlayableMedia: {
+        type: Boolean,
+        default: false
       }
     },
 
