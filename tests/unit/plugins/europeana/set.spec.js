@@ -8,7 +8,7 @@ const axios = require('axios');
 axios.defaults.adapter = require('axios/lib/adapters/http');
 
 const setId = '1234';
-const itemId = '123/abc';
+const itemId = '/123/abc';
 
 const likesResponse =
   {
@@ -106,7 +106,7 @@ describe('describe /plugins/europeana/set', () => {
   describe('modifyItems()', () => {
     it('adds item to set', async() => {
       nock(apiUrl)
-        .put('/' + setId + '/' + itemId)
+        .put(`/${setId}${itemId}`)
         .reply(200,  likesResponse);
       const response =  await set(axios).modifyItems('add', setId, itemId);
       response.id.should.eq('http://data.europeana.eu/set/1234');
