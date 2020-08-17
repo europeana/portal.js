@@ -19,11 +19,23 @@
       @like="$emit('like', item.europeanaId)"
       @unlike="$emit('unlike', item.europeanaId)"
     />
+    <b-toast
+      id="new-collection-toast"
+      toast-class="brand-toast"
+      toaster="b-toaster-bottom-left"
+      auto-hide-delay="5000"
+      is-status
+      no-close-button
+      solid
+      data-qa="tier toast"
+    >
+      {{ $t('collectionModal.newNotification') }}
+    </b-toast>
   </b-card-group>
 </template>
 
 <script>
-  import ItemPreviewCard from '../item/ItemPreviewCard';
+  import ItemPreviewCard from './ItemPreviewCard';
 
   export default {
     name: 'ItemPreviewCardGroup',
@@ -54,6 +66,29 @@
 
       cardVariant() {
         return this.view === 'list' ? 'list' : 'default';
+      }
+    },
+
+    methods: {
+      async toggleLiked() {
+        await (this.liked ? this.unlike() : this.like());
+        this.liked = !this.liked;
+      },
+      async like() {
+        if (this.likesId === null) {
+          await this.$store.dispatch('set/createLikes');
+        }
+        await this.$store.dispatch('set/like', this.itemId);
+        this.$emit('like', this.itemId);
+      },
+      async unlike() {
+        await this.$store.dispatch('set/unlike', this.itemId);
+        this.$emit('unlike', this.itemId);
+      },
+      showModal() {
+        this.$nextTick(() => {
+          this.$bvModal.show(this.collectionModalId);
+        });
       }
     }
   };

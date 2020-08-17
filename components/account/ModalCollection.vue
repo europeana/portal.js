@@ -104,7 +104,7 @@
 
       modalId: {
         type: String,
-        default: 'modal-collection'
+        default: 'collection-modal'
       }
     },
 
@@ -149,7 +149,7 @@
         // TODO: Create set-plugin call for creating a new set
         // TODO: Add this item (its id can be found in the store) to the new set
 
-        // TODO: this should emit an event and allow the parent component to toast
+        // TODO: should this emit an event and allow the parent component to toast?
         this.$bvToast.show('new-collection-toast');
         this.newCollectionName = '';
         this.newCollectionDescription = '';
@@ -158,11 +158,11 @@
       },
 
       async addItem(setId) {
-        // TODO: Before addind an item to a set, we should check if the set already contains that item
         await this.$sets.modifyItems('add', setId, this.itemId);
         this.hideModal();
       },
 
+      // TODO: use lang map l10n function
       displayField(set, field) {
         if (!set[field]) {
           return '';

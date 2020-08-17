@@ -7,7 +7,7 @@
       class="icon-ic-add"
       data-qa="add to gallery button"
       :aria-label="$t('actions.addToGallery')"
-      @click="showModal()"
+      @click="showModal"
     />
     <b-button
       :pressed="liked"
@@ -15,34 +15,23 @@
       data-qa="like button"
       :aria-label="$t('actions.like')"
       size="sm"
-      @click="toggleLiked()"
+      @click="toggleLiked"
     />
     <ModalCollection
-      :item-id="itemId"
       :modal-id="collectionModalId"
-      :lazy="true"
+      :item-id="itemId"
     />
-    <b-toast
-      id="new-collection-toast"
-      toast-class="brand-toast"
-      toaster="b-toaster-bottom-left"
-      auto-hide-delay="5000"
-      is-status
-      no-close-button
-      solid
-      data-qa="tier toast"
-    >
-      {{ $t('collectionModal.newNotification') }}
-    </b-toast>
   </div>
 </template>
 
 <script>
+  import ModalCollection from '../account/ModalCollection';
+
   export default {
     name: 'UserButtons',
 
     components: {
-      ModalCollection: () => import('../account/ModalCollection.vue')
+      ModalCollection
     },
 
     props: {
@@ -51,29 +40,32 @@
         default: () => {}
       }
     },
+
     fetch() {
       this.itemId = this.itemUrl.params.pathMatch;
-      this.liked = this.$store.state.set.liked.includes(this.itemId);
     },
 
     data() {
       return {
-        itemId: null,
-        liked: false
+        itemId: null
       };
     },
+
     computed: {
+      collectionModalId() {
+        return `collection-modal-${this.itemId}`;
+      },
+      liked() {
+        return this.$store.state.set.liked.includes(this.itemId);
+      },
       likesId() {
         return this.$store.state.set.likesId;
-      },
-      collectionModalId() {
-        return `modal-collection-${this.itemId}`;
       }
     },
+
     methods: {
       async toggleLiked() {
         await (this.liked ? this.unlike() : this.like());
-        this.liked = !this.liked;
       },
       async like() {
         if (this.likesId === null) {
@@ -88,8 +80,8 @@
       },
       showModal() {
         this.$nextTick(() => {
-          // this.$store.commit('modal/setModalData', this.itemId);
           this.$bvModal.show(this.collectionModalId);
+          this.$emit('add', this.itemId);
         });
       }
     }
