@@ -54,6 +54,8 @@
 
     computed: {
       texts() {
+        if (this.variant === 'similar') return [];
+
         const texts = [].concat(this.value.dataProvider);
         if (this.value.dcCreatorLangAware) texts.unshift(this.value.dcCreatorLangAware);
 

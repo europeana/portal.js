@@ -40,6 +40,7 @@
         type: Number,
         default: 4
       },
+      // grid/list/similar
       view: {
         type: String,
         default: 'grid'
@@ -48,11 +49,25 @@
 
     computed: {
       cardGroupClass() {
-        return this.view === 'list' ? 'card-group-list mx-0' : `card-deck-search masonry card-deck-${this.perRow}-cols`;
+        let cardGroupClass;
+
+        switch (this.view) {
+        case 'list':
+          cardGroupClass = 'card-group-list mx-0';
+          break;
+        case 'grid':
+          cardGroupClass = `card-deck-search masonry card-deck-${this.perRow}-cols`;
+          break;
+        case 'similar':
+          cardGroupClass = 'p-3 card card-deck-4-cols similar-items';
+          break;
+        }
+
+        return cardGroupClass;
       },
 
       cardVariant() {
-        return this.view === 'list' ? 'list' : 'default';
+        return this.view === 'grid' ? 'default' : this.view;
       }
     },
 
