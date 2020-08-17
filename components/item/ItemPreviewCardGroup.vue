@@ -1,21 +1,23 @@
 <template>
   <b-card-group
-    :data-qa="`search results ${view}`"
+    :data-qa="`item previews ${view}`"
     :class="cardGroupClass"
     deck
   >
     <ItemPreviewCard
-      v-for="result in value"
-      :key="result.europeanaId"
+      v-for="item in value"
+      :key="item.europeanaId"
       :variant="cardVariant"
-      :dc-creator="result.dcCreator"
-      :dc-description="result.dcDescription"
-      :dc-title="result.dcTitle"
-      :edm-data-provider="result.edmDataProvider"
-      :edm-preview="result.edmPreview"
-      :europeana-id="result.europeanaId"
-      :selector="result.selector"
-      data-qa="search result"
+      :dc-creator="item.dcCreator"
+      :dc-description="item.dcDescription"
+      :dc-title="item.dcTitle"
+      :edm-data-provider="item.edmDataProvider"
+      :edm-preview="item.edmPreview"
+      :europeana-id="item.europeanaId"
+      :selector="item.selector"
+      data-qa="item preview"
+      @like="$emit('like', item.europeanaId)"
+      @unlike="$emit('unlike', item.europeanaId)"
     />
   </b-card-group>
 </template>

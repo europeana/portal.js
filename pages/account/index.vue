@@ -22,10 +22,16 @@
               :title="$t('account.likes')"
               active
             >
-              <!-- TODO: Update this section to preview the results retrieved with Sets API -->
-              <div class="text-center">
-                Placeholder for {{ $t('account.likes') }} tab.
-              </div>
+              <b-container>
+                <b-row class="flex-md-row pb-5">
+                  <b-col cols="12">
+                    <ItemPreviewCardGroup
+                      v-model="likes"
+                      @unlike="fetchLikes()"
+                    />
+                  </b-col>
+                </b-row>
+              </b-container>
             </b-tab>
             <b-tab
               data-qa="public collections"
@@ -67,24 +73,59 @@
 </template>
 
 <script>
+  import { mapState } from 'vuex';
+
+  import ItemPreviewCardGroup from '../../components/item/ItemPreviewCardGroup';
   import UserSets from '../../components/account/UserSets';
+
   export default {
     middleware: 'auth',
+
     components: {
+      ItemPreviewCardGroup,
       UserSets
     },
+
     async fetch() {
+      await this.fetchLikes();
       this.publicSets = await this.$sets.getSetsByCreator(this.$auth.user.sub, 'public', 'minimal');
       this.privateSets = await this.$sets.getSetsByCreator(this.$auth.user.sub, 'private', 'minimal');
     },
+
+    fetchOnServer: false,
+
     data() {
       return {
         loggedInUser: this.$store.state.auth.user,
+        likes: [],
         publicSets: [],
         privateSets: []
       };
     },
-    fetchOnServer: false,
+
+    computed: {
+      ...mapState({
+        likesId: state => state.set.likesId
+      })
+    },
+
+    watch: {
+      'likesId'() {
+        this.fetchLikes();
+      }
+    },
+
+    methods: {
+      // TODO: pagination
+      async fetchLikes() {
+        if (!this.$store.state.set.likesId) return;
+        const likes = await this.$sets.getSet(this.likesId, {
+          pageSize: 100
+        }, true);
+        this.likes = likes.items;
+      }
+    },
+
     head() {
       return {
         title: this.$t('account.title')
@@ -99,4 +140,3 @@
     margin-bottom: 40px;
   }
 </style>
-
