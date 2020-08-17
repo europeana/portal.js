@@ -17,3 +17,19 @@ header .col {
   font-weight: 600;
   line-height: 1;
 }
+
+.info-panel {
+  h1 {
+    font-size: 1.75rem;
+    font-weight: normal;
+  }
+  header + .description {
+    margin-top: 1rem;
+  }
+  .description p {
+    color: $mediumgrey;
+    &:last-child {
+      margin-bottom: 0 !important;
+    }
+  }
+}

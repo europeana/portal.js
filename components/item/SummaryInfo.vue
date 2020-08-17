@@ -1,8 +1,7 @@
 <template>
-  <div class="card rounded-0 border-0 p-4">
+  <div class="card rounded-0 border-0 p-4 info-panel">
     <header
       v-if="titles.length > 0"
-      class="mb-3"
     >
       <template
         v-for="(heading, index) in titles"
@@ -104,31 +103,3 @@
 
   };
 </script>
-
-<style lang="scss">
-  @import './assets/scss/variables.scss';
-
-  h1 {
-    font-size: 1.75rem;
-    font-weight: normal;
-  }
-
-  .description p {
-    color: $mediumgrey;
-    &:last-child {
-      margin-bottom: 0 !important;
-    }
-  }
-
-  .btn-link {
-    color: $blue;
-    text-decoration: none;
-    font-size: 1rem;
-    font-weight: 600;
-
-    &:hover {
-      text-decoration: none;
-    }
-  }
-
-</style>

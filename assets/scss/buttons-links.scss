@@ -13,7 +13,7 @@
   &:hover {
     background: $blue;
     box-shadow: 2px 2px 6px 0 rgba(0, 0, 0, 0.15);
-  }  
+  }
 }
 
 .btn-link {
@@ -65,7 +65,7 @@
     background-color: rgba(0, 0, 0, 0.7);
     box-shadow: 2px 2px 6px 0 rgba(0, 0, 0, 0.15);
     color: $white;
-  }  
+  }
 }
 
 a {
@@ -141,4 +141,17 @@ a {
 .page-item.active .page-link {
   background-color: $darkblue;
   border-color: $darkblue;
+}
+
+.info-panel {
+  .btn-link {
+    color: $blue;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 600;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
 }
