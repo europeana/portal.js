@@ -52,7 +52,7 @@ describe('components/account/UserSets', () => {
     const wrapper = factory();
 
     wrapper.setData({
-      usersets: sets
+      userSets: sets
     });
 
     const renderedSets =  wrapper.findAll('[data-qa="user set"]');
