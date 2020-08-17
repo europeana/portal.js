@@ -448,7 +448,8 @@ export default {
     "handle": "Slider Handle"
   },
   "items": {
-    "itemCount": "1 item |{count} items"
+    "itemCount": "1 item |{count} items",
+    "youMightLike": "Items you might like"
   },
   "layout": {
     "skipToMain": "Skip to page contents"
@@ -550,5 +551,10 @@ export default {
     "goBack": "Go back",
     "createCollection": "Create collection",
     "newNotification": "The item is now added to your new collection. Click here to see your new collection."
+  },
+  "set": {
+    "curatedBy": "Curated by",
+    "privateCollection": "Private collection",
+    "edit": "Edit"
   }
 };

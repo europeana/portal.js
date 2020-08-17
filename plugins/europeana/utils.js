@@ -79,6 +79,8 @@ function languageKeys(locale) {
  */
 export function langMapValueForLocale(langMap, locale, options = {}) {
   let returnVal = { values: [] };
+  if (!langMap) return returnVal;
+
   for (let key of languageKeys(locale)) { // loop through all language key to find a match
     setLangMapValuesAndCode(returnVal, langMap, key, locale);
     if (returnVal.values.length >= 1) break;

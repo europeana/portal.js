@@ -85,7 +85,7 @@ function hitForItem(hits, id) {
  * @param  {Object} response API response
  * @return {Object[]} search results
  */
-function resultsFromApiResponse(response) {
+export function resultsFromApiResponse(response) {
   const items = response.data.items;
 
   const results = items.map(item => {

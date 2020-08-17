@@ -80,9 +80,11 @@
           await this.$store.dispatch('set/createLikes');
         }
         await this.$store.dispatch('set/like', this.itemId);
+        this.$emit('like', this.itemId);
       },
       async unlike() {
         await this.$store.dispatch('set/unlike', this.itemId);
+        this.$emit('unlike', this.itemId);
       },
       showModal() {
         this.$nextTick(() => {
