@@ -6,7 +6,7 @@
           v-if="$fetchState.pending"
         />
         <AlertMessage
-          v-if="$fetchState.error"
+          v-else-if="$fetchState.error"
           :error="$fetchState.error.message"
         />
         <b-card-group
