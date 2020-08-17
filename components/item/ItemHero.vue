@@ -1,11 +1,11 @@
 <template>
-  <div>
+  <div class="item-hero">
     <AwesomeSwiper
       :europeana-identifier="identifier"
       :media="media"
       @select="selectMedia"
     />
-    <b-container class="d-flex justify-content-around mt-5">
+    <b-container class="d-flex justify-content-around media-bar">
       <RightsStatementButton
         v-if="rightsStatementIsUrl"
         :rights-statement="rightsStatement"
@@ -61,7 +61,8 @@
         return this.$proxyMedia(this.selectedMedia.about, this.identifier);
       },
       rightsStatement() {
-        return this.selectedMedia.rightsStatement;
+        console.log(this.selectedMedia);
+        return this.selectedMedia.webResourceEdmRights.def[0];
       },
       rightsStatementIsUrl() {
         return RegExp('^https?://*').test(this.rightsStatement);
@@ -75,7 +76,7 @@
         }
       },
       downloadEnabled() {
-        return this.selectedMedia.rightsStatement && !this.selectedMedia.rightsStatement.includes('/InC/');
+        return this.selectedMedia.webResourceEdmRights.def[0] && !this.selectedMedia.webResourceEdmRights.def[0].includes('/InC/');
       }
     },
     methods: {
@@ -85,3 +86,4 @@
     }
   };
 </script>
+

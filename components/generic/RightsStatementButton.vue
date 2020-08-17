@@ -36,6 +36,6 @@
     color: $mediumgrey;
     background: $offwhite;
     border-radius: 0.25rem;
-    padding: 0.625rem;
+    padding: 0.38rem 0.625rem;
   }
 </style>

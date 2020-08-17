@@ -17,7 +17,7 @@
     >
       <b-container
         fluid
-        class="bg-white mb-3"
+        class="bg-white mb-3 px-0"
       >
         <!-- TODO: add swiper here
           Swiper also includes download, share, right statement
@@ -33,7 +33,17 @@
 
           Keep/reuse client-only?
       -->
-        <client-only />
+        <client-only>
+          <ItemHero
+            :identifier="identifier"
+            :media="media"
+            :use-proxy="useProxy"
+            :rights-statement="rightsStatement"
+            :data-provider-name="dataProvider.values[0]"
+            :data-provider-lang="dataProvider.code"
+            :is-shown-at="isShownAt"
+          />
+        </client-only>
       </b-container>
       <b-container>
         <b-row class="mb-3 justify-content-center">
@@ -110,6 +120,7 @@
 
   export default {
     components: {
+      ItemHero: () => import('../../components/item/ItemHero'),
       AlertMessage: () => import('../../components/generic/AlertMessage'),
       ClientOnly,
       SimilarItems: () => import('../../components/item/SimilarItems'),
