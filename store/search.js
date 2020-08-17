@@ -68,17 +68,18 @@ export const state = () => ({
   active: false,
   apiOptions: {},
   apiParams: {},
-  previousApiOptions: null,
-  previousApiParams: null,
+  collectionFacetEnabled: true,
   error: null,
   errorStatusCode: null,
   facets: [],
-  resettableFilters: [],
+  hits: null,
   lastAvailablePage: null,
   overrideParams: {},
   pill: null,
+  previousApiOptions: null,
+  previousApiParams: null,
+  resettableFilters: [],
   results: [],
-  collectionFacetEnabled: true,
   totalResults: null,
   userParams: {},
   view: null
@@ -123,6 +124,9 @@ export const mutations = {
       }
     }
     state.facets = value;
+  },
+  setHits(state, value) {
+    state.hits = value;
   },
   setLastAvailablePage(state, value) {
     state.lastAvailablePage = value;
@@ -375,8 +379,9 @@ export const actions = {
   updateForSuccess({ commit }, response) {
     commit('setError', response.error);
     commit('setErrorStatusCode', null);
+    commit('setHits', response.hits);
     commit('setLastAvailablePage', response.lastAvailablePage);
-    commit('setResults', response.results);
+    commit('setResults', response.items);
     commit('setTotalResults', response.totalResults);
   },
 
@@ -384,6 +389,7 @@ export const actions = {
     commit('setError', error.message);
     commit('setErrorStatusCode', (typeof error.statusCode === 'undefined') ? 500 : error.statusCode);
     commit('setFacets', []);
+    commit('setHits', null);
     commit('setLastAvailablePage', null);
     commit('setResults', []);
     commit('setTotalResults', null);

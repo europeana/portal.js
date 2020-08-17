@@ -106,8 +106,9 @@
       async fetchLikes() {
         if (!this.$store.state.set.likesId) return;
         const likes = await this.$sets.getSet(this.likesId, {
-          pageSize: 100
-        }, true);
+          pageSize: 100,
+          profile: 'itemDescriptions'
+        });
         this.likes = likes.items;
       }
     },

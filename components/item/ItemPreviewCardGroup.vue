@@ -5,19 +5,14 @@
     deck
   >
     <ItemPreviewCard
-      v-for="item in value"
-      :key="item.europeanaId"
+      v-for="(item, index) in value"
+      :key="item.id"
+      v-model="value[index]"
+      :hit-selector="itemHitSelector(item)"
       :variant="cardVariant"
-      :dc-creator="item.dcCreator"
-      :dc-description="item.dcDescription"
-      :dc-title="item.dcTitle"
-      :edm-data-provider="item.edmDataProvider"
-      :edm-preview="item.edmPreview"
-      :europeana-id="item.europeanaId"
-      :selector="item.selector"
       data-qa="item preview"
-      @like="$emit('like', item.europeanaId)"
-      @unlike="$emit('unlike', item.europeanaId)"
+      @like="$emit('like', item.id)"
+      @unlike="$emit('unlike', item.id)"
     />
   </b-card-group>
 </template>
@@ -37,6 +32,10 @@
         type: Array,
         default: () => []
       },
+      hits: {
+        type: Array,
+        default: null
+      },
       perRow: {
         type: Number,
         default: 4
@@ -54,6 +53,15 @@
 
       cardVariant() {
         return this.view === 'list' ? 'list' : 'default';
+      }
+    },
+
+    methods: {
+      itemHitSelector(item) {
+        if (!this.hits) return null;
+
+        const hit = this.hits.find(hit => item.id === hit.scope);
+        return hit ? hit.selectors[0] : null;
       }
     }
   };
