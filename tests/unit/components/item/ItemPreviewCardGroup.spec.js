@@ -1,12 +1,12 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
-import SearchResults from '../../../../components/search/SearchResults.vue';
+import ItemPreviewCardGroup from '../../../../components/item/ItemPreviewCardGroup.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
 const factory = () => {
-  return mount(SearchResults, {
+  return mount(ItemPreviewCardGroup, {
     localVue,
     mocks: {
       $path: (opts) => `/item/${opts.params.pathMatch}`,
@@ -33,14 +33,14 @@ const results = [
   }
 ];
 
-describe('components/search/SearchResults', () => {
+describe('components/item/ItemPreviewCardGroup', () => {
   context('when view is grid', () => {
     it('renders each result with a link', () => {
       const wrapper = factory();
 
       wrapper.setProps({ value: results, view: 'grid' });
 
-      const renderedResults =  wrapper.findAll('[data-qa="search result"] a');
+      const renderedResults =  wrapper.findAll('[data-qa="item preview"] a');
 
       renderedResults.at(0).attributes().href.should.endWith(`/item${results[0].europeanaId}`);
       renderedResults.at(1).attributes().href.should.endWith(`/item${results[1].europeanaId}`);
@@ -53,7 +53,7 @@ describe('components/search/SearchResults', () => {
 
       wrapper.setProps({ value: results, view: 'list' });
 
-      const renderedResults =  wrapper.findAll('div[data-qa="search result"]');
+      const renderedResults =  wrapper.findAll('div[data-qa="item preview"]');
 
       renderedResults.at(0).find('a').attributes().href.should.endWith(`/item${results[0].europeanaId}`);
       renderedResults.at(1).find('a').attributes().href.should.endWith(`/item${results[1].europeanaId}`);

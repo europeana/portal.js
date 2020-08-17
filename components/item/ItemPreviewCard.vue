@@ -5,13 +5,21 @@
     :image-url="edmPreview"
     :texts="texts"
     :hits-text="hitsText"
-    :show-user-buttons="showUserButtons"
     :class="cardClass"
     :limit-values-within-each-text="3"
     :omit-all-uris="true"
     :blank-image-height="280"
     :variant="variant"
-  />
+  >
+    <template v-slot:footer>
+      <UserButtons
+        v-if="showUserButtons"
+        :item-url="url"
+        @like="$emit('like', europeanaId)"
+        @unlike="$emit('unlike', europeanaId)"
+      />
+    </template>
+  </ContentCard>
 </template>
 
 <script>
@@ -21,7 +29,8 @@
     name: 'ItemPreviewCard',
 
     components: {
-      ContentCard
+      ContentCard,
+      UserButtons: () => import('../account/UserButtons')
     },
 
     props: {
@@ -43,7 +52,7 @@
       },
 
       edmDataProvider: {
-        type: [String, Object],
+        type: [String, Array],
         default: null
       },
 
@@ -70,7 +79,7 @@
 
     computed: {
       texts() {
-        const texts = [this.edmDataProvider];
+        const texts = [].concat(this.edmDataProvider);
         if (this.dcCreator) texts.unshift(this.dcCreator);
 
         if (this.variant === 'list') {

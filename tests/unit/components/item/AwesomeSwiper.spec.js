@@ -42,6 +42,7 @@ const media = [
     rightsStatement: 'http://creativecommons.org/licenses/by-sa/3.0/'
   }
 ];
+
 const europeanaIdentifier = '/2020601/https___1914_1918_europeana_eu_contributions_10265';
 
 describe('components/item/AwesomeSwiper', () => {
@@ -55,6 +56,18 @@ describe('components/item/AwesomeSwiper', () => {
       const wrapper = factory({ media, europeanaIdentifier });
       wrapper.vm.swiper.slideTo(1, 1000, false);
       wrapper.emitted('select').should.deep.eq([[media[1].about]]);
+    });
+  });
+  describe('singleMediaResource', () => {
+    it('is false when there are multiple media', () => {
+      const wrapper = factory({ media, europeanaIdentifier });
+
+      wrapper.vm.singleMediaResource.should.eq(false);
+    });
+    it('is NOT enabled when there is one media resource', () => {
+      const wrapper = factory({ media: [media[0]], europeanaIdentifier });
+
+      wrapper.vm.singleMediaResource.should.eq(true);
     });
   });
 });

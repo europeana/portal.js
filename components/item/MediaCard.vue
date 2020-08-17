@@ -22,17 +22,13 @@
     :html="oEmbedData.html"
     :error="oEmbedData.error"
   />
-  <div
+  <iframe
     v-else-if="isIIIFImage || isIIIFPresentation"
-    class="container h-100"
-  >
-    <iframe
-      data-qa="IIIF viewer"
-      allowfullscreen="true"
-      :src="$path({ name: 'iiif', query: { uri: iiifManifest } })"
-      :aria-label="$t('actions.viewDocument')"
-    />
-  </div>
+    data-qa="IIIF viewer"
+    allowfullscreen="true"
+    :src="$path({ name: 'iiif', query: { uri: iiifManifest } })"
+    :aria-label="$t('actions.viewDocument')"
+  />
 </template>
 
 <script>

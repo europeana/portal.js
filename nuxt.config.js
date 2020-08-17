@@ -116,6 +116,7 @@ const config = {
         datasetBlacklist: (process.env.SSL_DATASET_BLACKLIST || '').split(',')
       }
     }],
+    '~/modules/query-sanitiser',
     '@nuxtjs/gtm'
   ],
   gtm: {
