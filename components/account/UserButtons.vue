@@ -17,7 +17,7 @@
       size="sm"
       @click="toggleLiked"
     />
-    <ModalCollection
+    <CollectionModal
       :modal-id="collectionModalId"
       :item-id="value"
     />
@@ -25,13 +25,13 @@
 </template>
 
 <script>
-  import ModalCollection from '../account/ModalCollection';
+  import CollectionModal from '../account/CollectionModal';
 
   export default {
     name: 'UserButtons',
 
     components: {
-      ModalCollection
+      CollectionModal
     },
 
     props: {

@@ -94,7 +94,7 @@
 
 <script>
   export default {
-    name: 'ModalCollection',
+    name: 'CollectionModal',
 
     props: {
       itemId: {
