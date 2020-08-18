@@ -251,109 +251,32 @@ describe('plugins/europeana/search', () => {
             .reply(200, apiResponse);
         });
 
-        it('returns results', async() => {
+        it('includes all API response data', async() => {
           const response = await searchResponse();
 
-          response.results.length.should.eq(apiResponse.items.length);
-        });
-
-        it('returns totalResults', async() => {
-          const response = await searchResponse();
-
-          response.totalResults.should.eq(apiResponse.totalResults);
-        });
-
-        it('returns lastAvailablePage as false', async() => {
-          const response = await searchResponse();
-
-          response.lastAvailablePage.should.eq(false);
-        });
-
-        describe('when page is at the API limit', () => {
-          function searchResponse() {
-            return search({ query: 'painting', page: 42 });
+          for (const key in apiResponse) {
+            response[key].should.deep.eql(apiResponse[key]);
           }
-
-          it('returns lastAvailablePage as true', async() => {
-            const response = await searchResponse();
-
-            response.lastAvailablePage.should.eq(true);
-          });
         });
 
-        describe('each member of .results', () => {
-          it('includes Europeana ID in .europeanaId', async() => {
-            const response = await searchResponse();
+        describe('.lastAvailablePage', () => {
+          context('when page is not at the API limit', () => {
+            it('is `false`', async() => {
+              const response = await searchResponse();
 
-            response.results[0].europeanaId.should.eq(apiResponse.items[0].id);
-          });
-
-          it('includes dcTitleLangAware in .dcTitle', async() => {
-            const response = await searchResponse();
-
-            response.results[0].dcTitle.should.deep.eq(apiResponse.items[0].dcTitleLangAware);
-          });
-
-          it('includes dcDescriptionLangAware in .dcTitle', async() => {
-            const response = await searchResponse();
-
-            response.results[0].dcDescription.should.deep.eq(apiResponse.items[0].dcDescriptionLangAware);
-          });
-
-          it('includes dcCreatorLangAware in .dcCreator', async() => {
-            const response = await searchResponse();
-
-            response.results[0].dcCreator.should.deep.eq(apiResponse.items[0].dcCreatorLangAware);
-          });
-
-          it('includes dataProvider in .edmDataProvider', async() => {
-            const response = await searchResponse();
-
-            response.results[0].edmDataProvider.should.deep.eq(apiResponse.items[0].dataProvider);
-          });
-        });
-
-        describe('facets', () => {
-          describe('when absent', () => {
-            it('returns `[]`', async() => {
-              baseRequest
-                .query(true)
-                .reply(200, defaultResponse);
-
-              const response = await search({ query: 'anything' });
-
-              response.facets.should.eql([]);
+              response.lastAvailablePage.should.be.false;
             });
           });
 
-          describe('when present', () => {
-            const typeFacet = {
-              name: 'TYPE',
-              fields: [
-                { label: 'IMAGE', count: 33371202 },
-                { label: 'TEXT', count: 22845674 },
-                { label: 'VIDEO', count: 1137194 },
-                { label: 'SOUND', count: 699155 },
-                { label: '3D', count: 28460  }
-              ]
-            };
-            const apiResponse = {
-              success: true,
-              items: [],
-              totalResults: 58081685,
-              facets: [typeFacet]
-            };
+          context('when page is at the API limit', () => {
+            function searchResponse() {
+              return search({ query: 'painting', page: 42 });
+            }
 
-            beforeEach('stub API response', () => {
-              baseRequest
-                .query(true)
-                .reply(200, apiResponse);
-            });
+            it('is `true`', async() => {
+              const response = await searchResponse();
 
-            it('are each returned as-is', async() => {
-              const response = await search({ query: 'anything' });
-
-              response.facets.should.deep.eql(apiResponse.facets);
+              response.lastAvailablePage.should.be.true;
             });
           });
         });

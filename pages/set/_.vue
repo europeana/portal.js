@@ -149,8 +149,9 @@
 
       const set = await this.$sets.getSet(this.$route.params.pathMatch, {
         page: this.page,
-        pageSize: this.perPage
-      }, true);
+        pageSize: this.perPage,
+        profile: 'itemDescriptions'
+      });
 
       this.creator = set.creator;
       this.total = set.total || 0;
