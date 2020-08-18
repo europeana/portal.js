@@ -112,18 +112,18 @@
       };
     },
 
-    mounted() {
-      this.$root.$on('bv::modal::hidden', () => {
-        this.showForm = false;
-      });
-    },
-
     computed: {
       title() {
         return this.showForm ?
           this.$t('collectionModal.createNewCollection') :
           this.$t('collectionModal.addToCollection');
       }
+    },
+
+    mounted() {
+      this.$root.$on('bv::modal::hidden', () => {
+        this.showForm = false;
+      });
     },
 
     methods: {
@@ -153,9 +153,6 @@
 
         // TODO: should this emit an event and allow the parent component to toast?
         this.$bvToast.show('new-collection-toast');
-        this.newCollectionName = '';
-        this.newCollectionDescription = '';
-        this.newCollectionPrivate = false;
         this.goBack();
       },
 
