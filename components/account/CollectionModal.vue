@@ -71,7 +71,7 @@
           class="btn-collection w-100 text-left"
           @click="addItem(collection.id)"
         >
-          {{ displayField(collection, 'title') }} ({{ collection.visibility }}) - {{ collection.total }} items
+          <span>{{ displayField(collection, 'title') }} ({{ collection.visibility }}) - {{ $tc('items.itemCount', collection.total) }}</span>
         </b-button>
       </div>
       <div class="modal-footer">
@@ -190,7 +190,25 @@
     font-weight: 500;
     margin-bottom: 0.5rem;
     padding: 1rem;
+    position: relative;
     text-transform: none;
+
+    &.btn-overlay {
+      span {
+        position: relative;
+        z-index: 10;
+      }
+
+      &:after {
+        content: '';
+        background: rgba(0, 0, 0, 0.7);
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+      }
+    }
   }
 
   .collections {
