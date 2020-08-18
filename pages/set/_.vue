@@ -150,11 +150,6 @@
       this.items = set.items;
       this.visibility = set.visibility;
       this.description = set.description;
-
-      // TODO: don't delay page load for this. use a promise.
-      //       move to own component? client-only?
-      const recommendResponse = await this.$recommendations.recommend('set', `/${this.$route.params.pathMatch}`);
-      this.recommendations = recommendResponse.items;
     },
 
     data() {
@@ -183,6 +178,13 @@
       displayDescription() {
         return langMapValueForLocale(this.description, this.$i18n.locale);
       }
+    },
+
+    mounted() {
+      this.$recommendations.recommend('set', `/${this.$route.params.pathMatch}`)
+        .then(recommendResponse => {
+          this.recommendations = recommendResponse.items;
+        });
     },
 
     watch: {
