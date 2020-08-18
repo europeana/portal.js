@@ -1,8 +1,8 @@
 <template>
   <ContentCard
-    :title="dcTitle || dcDescription"
+    :title="value.dcTitleLangAware || value.dcDescriptionLangAware"
     :url="url"
-    :image-url="edmPreview"
+    :image-url="imageUrl"
     :texts="texts"
     :hits-text="hitsText"
     :class="cardClass"
@@ -14,15 +14,16 @@
     <template v-slot:footer>
       <UserButtons
         v-if="showUserButtons"
-        v-model="europeanaId"
-        @like="$emit('like', europeanaId)"
-        @unlike="$emit('unlike', europeanaId)"
+        v-model="identifier"
+        @like="$emit('like', identifier)"
+        @unlike="$emit('unlike', identifier)"
       />
     </template>
   </ContentCard>
 </template>
 
 <script>
+  import { genericThumbnail } from '../../plugins/europeana/thumbnail';
   import ContentCard from '../generic/ContentCard';
 
   export default {
@@ -34,39 +35,13 @@
     },
 
     props: {
-      europeanaId: {
-        type: String,
+      // v-model expects an object containing minimal-profile item metadata
+      value: {
+        type: Object,
         required: true
       },
 
-      dcTitle: {
-        // may be a string or a lang map
-        type: [String, Object],
-        default: null
-      },
-
-      dcDescription: {
-        // may be a string or a lang map
-        type: [String, Object],
-        default: null
-      },
-
-      edmDataProvider: {
-        type: [String, Array],
-        default: null
-      },
-
-      dcCreator: {
-        type: [String, Object],
-        default: null
-      },
-
-      edmPreview: {
-        type: String,
-        default: null
-      },
-
-      selector: {
+      hitSelector: {
         type: Object,
         default: null
       },
@@ -79,18 +54,20 @@
 
     computed: {
       texts() {
-        const texts = [].concat(this.edmDataProvider);
-        if (this.dcCreator) texts.unshift(this.dcCreator);
+        if (this.variant === 'similar') return [];
+
+        const texts = [].concat(this.value.dataProvider);
+        if (this.value.dcCreatorLangAware) texts.unshift(this.value.dcCreatorLangAware);
 
         if (this.variant === 'list') {
-          if (!this.selector && this.dcDescription) texts.unshift(this.dcDescription);
+          if (!this.hitSelector && this.value.dcDescriptionLangAware) texts.unshift(this.value.dcDescriptionLangAware);
         }
 
         return texts;
       },
 
       hitsText() {
-        return this.variant === 'list' ? this.selector : null;
+        return this.variant === 'list' ? this.hitSelector : null;
       },
 
       cardClass() {
@@ -101,8 +78,20 @@
         return Boolean(Number(process.env.ENABLE_XX_USER_AUTH)) && (this.variant === 'default');
       },
 
+      identifier() {
+        return this.value.id.replace('http://data.europeana.eu/item/', '');
+      },
+
       url() {
-        return { name: 'item-all', params: { pathMatch: this.europeanaId.slice(1) } };
+        return { name: 'item-all', params: { pathMatch: this.identifier.slice(1) } };
+      },
+
+      imageUrl() {
+        const size = 'w200';
+
+        return this.value.edmPreview ?
+          `${this.value.edmPreview[0]}&size=${size}` :
+          genericThumbnail(this.value.id, { type: this.value.type, size });
       }
     }
   };

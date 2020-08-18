@@ -66,7 +66,7 @@
         <b-button
           v-for="(collection, index) in collections"
           :key="index"
-          :style="buttonBackground(collection.thumbnail)"
+          :style="buttonBackground($sets.getSetThumbnail(collection))"
           variant="overlay"
           class="btn-collection w-100 text-left"
           @click="addItem(collection.id)"
@@ -128,9 +128,13 @@
 
     methods: {
       async fetchCollections() {
-        const setIds = await this.$sets.getSetsByCreator(this.$auth.user.sub, '', 'minimal');
-        const setsNoImage = await this.$sets.getAllSets(setIds);
-        this.collections = await this.$sets.getSetImages(setsNoImage);
+        const searchParams = {
+          query: `creator:${this.$auth.user.sub}`,
+          profile: 'itemDescriptions'
+        };
+
+        const searchResponse = await this.$sets.search(searchParams);
+        this.collections = searchResponse.data.items || [];
       },
       createCollection() {
         this.showForm = true;

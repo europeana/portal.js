@@ -74,7 +74,6 @@
         <b-row>
           <b-col>
             <!-- TODO: update similar items,
-              they are currently cards within a card, that shouldn't be like that
               fix styling/structure in component itself
             -->
             <section
@@ -85,8 +84,9 @@
               >
                 {{ $t('record.similarItems') }}
               </h2> <!-- TODO: introduce new heading "Explore more" -->
-              <SimilarItems
-                :items="similarItems"
+              <ItemPreviewCardGroup
+                v-model="similarItems"
+                view="plain"
                 class="mb-3"
               />
             </section>
@@ -115,7 +115,7 @@
     components: {
       AlertMessage: () => import('../../components/generic/AlertMessage'),
       ClientOnly,
-      SimilarItems: () => import('../../components/item/SimilarItems'),
+      ItemPreviewCardGroup: () => import('../../components/item/ItemPreviewCardGroup'),
       MetadataBox,
       NotificationBanner: () => import('../../components/generic/NotificationBanner')
     },
@@ -135,7 +135,7 @@
           this.transcribingAnnotations = this.annotationsByMotivation('transcribing');
           this.taggingAnnotations = this.annotationsByMotivation('tagging');
           this.relatedEntities = entities;
-          this.similarItems = similar.results;
+          this.similarItems = similar.items;
         }));
     },
 
@@ -296,6 +296,7 @@
         }, {
           origin: this.$route.query.recordApi
         })
+          .then(response => response)
           .catch(() => {
             return noSimilarItems;
           });
