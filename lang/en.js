@@ -550,7 +550,7 @@ export default {
     "collectionPrivate": "Keep this collection private",
     "goBack": "Go back",
     "createCollection": "Create collection",
-    "newNotification": "The item is now added to your new collection. Click here to see your new collection."
+    "newNotification": "The item is now added to your new collection."
   },
   "set": {
     "curatedBy": "Curated by",
