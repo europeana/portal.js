@@ -117,10 +117,17 @@
     </b-container>
     <b-modal
       id="set-form-modal"
-      hide-header
+      :title="$t('collectionModal.editCollection')"
       hide-footer
     >
-      <SetForm />
+      <SetForm
+        :id="id"
+        :title="title"
+        :description="description"
+        :visibility="visibility"
+        @close="$bvModal.hide('set-form-modal')"
+        @update="updateSet"
+      />
     </b-modal>
   </div>
 </template>
@@ -153,16 +160,18 @@
         profile: 'itemDescriptions'
       });
 
+      this.id = set.id;
+      this.title = set.title;
+      this.description = set.description;
+      this.visibility = set.visibility;
       this.creator = set.creator;
       this.total = set.total || 0;
-      this.title = set.title;
       this.items = set.items;
-      this.visibility = set.visibility;
-      this.description = set.description;
     },
 
     data() {
       return {
+        id: null,
         creator: null,
         description: null,
         items: [],
@@ -191,6 +200,17 @@
 
     watch: {
       '$route.query.page': '$fetch'
+    },
+
+    methods: {
+      updateSet(set) {
+        // console.log('updated set', set);
+        this.id = set.id;
+        this.title = set.title;
+        this.description = set.description;
+        this.visibility = set.visibility;
+        this.$bvModal.hide('set-form-modal');
+      }
     },
 
     head() {

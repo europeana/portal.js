@@ -1,7 +1,8 @@
 export default {
   "actions": {
-    "close": "close",
+    "close": "Close",
     "download": "Download",
+    "goBack": "Go back",
     "providedBy": "Provided by {provider}",
     "share": "Share",
     "shareOn": "Share on {social}",
@@ -548,8 +549,9 @@ export default {
     "collectionName": "Collection name",
     "collectionDescription": "Collection description",
     "collectionPrivate": "Keep this collection private",
-    "goBack": "Go back",
     "createCollection": "Create collection",
+    "editCollection": "Edit collection",
+    "updateCollection": "Update collection",
     "newNotification": "The item is now added to your new collection."
   },
   "set": {

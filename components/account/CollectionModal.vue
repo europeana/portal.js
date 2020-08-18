@@ -7,7 +7,9 @@
   >
     <SetForm
       v-if="showForm"
-      @create="setCreated"
+      @create="setCreatedOrUpdated"
+      @update="setCreatedOrUpdated"
+      @close="closeSetForm"
     />
     <div v-else>
       <b-button
@@ -95,7 +97,7 @@
       createCollection() {
         this.showForm = true;
       },
-      goBack() {
+      closeSetForm() {
         this.showForm = false;
       },
       hideModal() {
@@ -104,9 +106,9 @@
         });
       },
 
-      setCreated() {
+      setCreatedOrUpdated() {
         this.fetchCollections();
-        this.goBack();
+        this.closeSetForm();
       },
 
       async addItem(setId) {

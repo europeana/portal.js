@@ -7,7 +7,7 @@
     >
       <b-form-input
         id="set-title"
-        v-model="title"
+        v-model="titleValue"
         type="text"
         maxlength="35"
         required
@@ -19,7 +19,7 @@
     >
       <b-form-textarea
         id="set-description"
-        v-model="description"
+        v-model="descriptionValue"
         maxlength="240"
         rows="4"
       />
@@ -35,15 +35,15 @@
     <div class="modal-footer">
       <b-button
         variant="outline-primary"
-        @click="goBack()"
+        @click="$emit('close')"
       >
-        {{ $t('collectionModal.goBack') }}
+        {{ isNew ? $t('actions.goBack') : $t('actions.close') }}
       </b-button>
       <b-button
         variant="primary"
         type="submit"
       >
-        {{ $t('collectionModal.createCollection') }}
+        {{ isNew ? $t('collectionModal.createCollection') : $t('collectionModal.updateCollection') }}
       </b-button>
     </div>
   </b-form>
@@ -53,32 +53,75 @@
   export default {
     name: 'SetForm',
 
+    props: {
+      id: {
+        type: String,
+        default: null
+      },
+
+      title: {
+        type: Object,
+        default: () => {}
+      },
+
+      description: {
+        type: Object,
+        default: () => {}
+      },
+
+      visibility: {
+        type: String,
+        default: 'public'
+      },
+
+      type: {
+        type: String,
+        default: 'Collection'
+      }
+    },
+
     data() {
       return {
-        showForm: false,
-        title: '',
-        description: '',
-        isPrivate: false,
-        collections: []
+        // TODO: how to handle existing set having title/description in other languages?
+        titleValue: (this.title || {})[this.$i18n.locale],
+        descriptionValue: (this.description || {})[this.$i18n.locale],
+        isPrivate: this.visibility === 'private'
       };
     },
 
-    methods: {
-      async submitForm() {
+    computed: {
+      setBody() {
         const setBody = {
-          type: 'Collection',
-          visibility: this.isPrivate ? 'private' : 'public',
-          title: {},
-          description: {}
+          type: this.type,
+          title: this.title || {},
+          description: this.description || {},
+          visibility: this.isPrivate ? 'private' : 'public'
         };
-        setBody.title[this.$i18n.locale] = this.title;
-        setBody.description[this.$i18n.locale] = this.description;
+        setBody.title[this.$i18n.locale] = this.titleValue;
+        setBody.description[this.$i18n.locale] = this.descriptionValue;
 
-        // TODO: error handling
-        this.$sets.createSet(setBody)
-          .then((response) => {
-            this.$emit('create', response.id);
-          });
+        return setBody;
+      },
+
+      isNew() {
+        return this.id === null;
+      }
+    },
+
+    methods: {
+      // TODO: error handling
+      async submitForm() {
+        if (this.isNew) {
+          this.$sets.createSet(this.setBody)
+            .then(response => {
+              this.$emit('create', response);
+            });
+        } else {
+          this.$sets.updateSet(this.id, this.setBody)
+            .then(response => {
+              this.$emit('update', response);
+            });
+        }
       }
     }
   };
