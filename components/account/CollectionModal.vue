@@ -147,18 +147,31 @@
         });
       },
 
-      submitForm() {
-        // TODO: Create set-plugin call for creating a new set
-        // TODO: Add this item (its id can be found in the store) to the new set
+      async submitForm() {
+        const setBody = {
+          type: 'Collection',
+          visibility: this.newCollectionPrivate ? 'private' : 'public',
+          title: {},
+          description: {}
+        };
+        setBody.title[this.$i18n.locale] = this.newCollectionName;
+        setBody.description[this.$i18n.locale] = this.newCollectionDescription;
 
-        // TODO: should this emit an event and allow the parent component to toast?
-        this.$bvToast.show('new-collection-toast');
-        this.goBack();
+        // TODO: error handling
+        this.$sets.createSet(setBody)
+          .then(() => {
+            this.fetchCollections();
+            this.goBack();
+          });
       },
 
       async addItem(setId) {
-        await this.$sets.modifyItems('add', setId, this.itemId);
-        this.hideModal();
+        // TODO: error handling
+        this.$sets.modifyItems('add', setId, this.itemId)
+          .then(() => {
+            this.$bvToast.show('new-collection-toast');
+            this.hideModal();
+          });
       },
 
       // TODO: use lang map l10n function

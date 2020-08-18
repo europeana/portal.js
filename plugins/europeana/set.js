@@ -158,14 +158,24 @@ export default ($axios) => ({
    * @return {Object} API response data
    */
   createLikes() {
-    return $axios.post(setApiUrl('/'),
-      {
-        type: 'BookmarkFolder',
-        title: {
-          en: 'LIKES'
-        },
-        visibility: 'private'
+    return this.createSet({
+      type: 'BookmarkFolder',
+      title: {
+        en: 'LIKES'
       },
+      visibility: 'private'
+    });
+  },
+
+  /**
+   * Create a set
+   * ~param {Object} body Set body
+   * @return {Object} API response data
+   */
+  createSet(body) {
+    return $axios.post(
+      setApiUrl('/'),
+      body,
       { params: paramsWithApiKey() }
     )
       .then(response => response.data)
