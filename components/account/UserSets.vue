@@ -19,7 +19,7 @@
             :key="set.id"
             :sub-title="setSubTitle(set)"
             :title="set.title"
-            :image-url="setThumbnail(set)"
+            :image-url="$sets.getSetThumbnail(set)"
             :texts="[set.description]"
             :url="{ name: 'set-all', params: { pathMatch: setPathMatch(set) } }"
             data-qa="user set"
@@ -67,10 +67,6 @@
       setSubTitle(set) {
         const setTotal = set.total || 0;
         return this.$tc('items.itemCount', setTotal, { count: setTotal });
-      },
-      setThumbnail(set) {
-        const firstItemWithEdmPreview = (set.items || []).find(item => item.edmPreview);
-        return firstItemWithEdmPreview ? firstItemWithEdmPreview.edmPreview[0] : null;
       },
       setPathMatch(set) {
         return set.id.replace('http://data.europeana.eu/set/', '');

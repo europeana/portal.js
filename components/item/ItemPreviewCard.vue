@@ -12,11 +12,12 @@
     :variant="variant"
   >
     <template v-slot:footer>
+      {{ identifier }}
       <UserButtons
         v-if="showUserButtons"
-        :item-url="url"
-        @like="$emit('like', value.id)"
-        @unlike="$emit('unlike', value.id)"
+        v-model="identifier"
+        @like="$emit('like', identifier)"
+        @unlike="$emit('unlike', identifier)"
       />
     </template>
   </ContentCard>
@@ -78,8 +79,12 @@
         return Boolean(Number(process.env.ENABLE_XX_USER_AUTH)) && (this.variant === 'default');
       },
 
+      identifier() {
+        return this.value.id.replace('http://data.europeana.eu/item/', '');
+      },
+
       url() {
-        return { name: 'item-all', params: { pathMatch: this.value.id.slice(1) } };
+        return { name: 'item-all', params: { pathMatch: this.identifier.slice(1) } };
       },
 
       imageUrl() {

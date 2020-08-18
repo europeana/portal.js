@@ -14,11 +14,23 @@
       @like="$emit('like', item.id)"
       @unlike="$emit('unlike', item.id)"
     />
+    <b-toast
+      id="new-collection-toast"
+      toast-class="brand-toast"
+      toaster="b-toaster-bottom-left"
+      auto-hide-delay="5000"
+      is-status
+      no-close-button
+      solid
+      data-qa="tier toast"
+    >
+      {{ $t('collectionModal.newNotification') }}
+    </b-toast>
   </b-card-group>
 </template>
 
 <script>
-  import ItemPreviewCard from '../item/ItemPreviewCard';
+  import ItemPreviewCard from './ItemPreviewCard';
 
   export default {
     name: 'ItemPreviewCardGroup',
