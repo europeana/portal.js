@@ -109,9 +109,10 @@
         class="recommendations"
       >
         <b-col>
-          <span class="recommended-items">
-            {{ $t('items.youMightLike') }}
-          </span>
+          <h2>{{ $t('items.youMightLike') }}</h2>
+          <ItemPreviewCardGroup
+            v-model="recommendations"
+          />
         </b-col>
       </b-row>
     </b-container>
@@ -152,7 +153,8 @@
 
       // TODO: don't delay page load for this. use a promise.
       //       move to own component? client-only?
-      this.recommendations = await this.$recommendations.recommend('set', `/${this.$route.params.pathMatch}`);
+      const recommendResponse = await this.$recommendations.recommend('set', `/${this.$route.params.pathMatch}`);
+      this.recommendations = recommendResponse.items;
     },
 
     data() {
@@ -234,11 +236,5 @@
     .text {
       font-weight: 600;
     }
-  }
-
-  .recommended-items {
-    color: $mediumgrey;
-    font-size: 1.3rem;
-    font-weight: 600;
   }
 </style>
