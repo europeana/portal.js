@@ -13,8 +13,10 @@
   .media-player-wrapper {
     position: relative;
     height: 100%;
+    margin: 0 auto;
     overflow: hidden;
     min-width: 50vw;
+    max-width: 900px;
     width: 100%;
     
     iframe {

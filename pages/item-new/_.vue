@@ -19,6 +19,7 @@
         fluid
         class="bg-white mb-3"
       >
+        <!-- TODO: temporary to show examples, will be finalised and replaced by https://github.com/europeana/portal.js/pull/768 --> 
         <AwesomeSwiper
           :europeana-identifier="identifier"
           :media="media"
