@@ -207,6 +207,10 @@
     min-height: auto;
     margin-bottom: 0;
 
+    &:hover {
+      box-shadow: none;
+    }
+
     @media (max-width: $bp-medium) {
       flex: 100%;
       margin-bottom: 1rem;

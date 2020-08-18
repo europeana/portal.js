@@ -58,8 +58,11 @@
         case 'grid':
           cardGroupClass = `card-deck-search masonry card-deck-${this.perRow}-cols`;
           break;
+        case 'plain':
+          cardGroupClass = `card-deck-search card-deck-${this.perRow}-cols`;
+          break;
         case 'similar':
-          cardGroupClass = 'p-3 card card-deck-4-cols similar-items';
+          cardGroupClass = 'py-3 mx-0 card card-deck-4-cols similar-items';
           break;
         }
 

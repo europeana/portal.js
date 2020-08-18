@@ -74,7 +74,6 @@
         <b-row>
           <b-col>
             <!-- TODO: update similar items,
-              they are currently cards within a card, that shouldn't be like that
               fix styling/structure in component itself
             -->
             <section
@@ -87,7 +86,7 @@
               </h2> <!-- TODO: introduce new heading "Explore more" -->
               <ItemPreviewCardGroup
                 v-model="similarItems"
-                view="similar"
+                view="plain"
                 class="mb-3"
               />
             </section>
