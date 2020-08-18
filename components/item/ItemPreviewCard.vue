@@ -12,7 +12,6 @@
     :variant="variant"
   >
     <template v-slot:footer>
-      {{ identifier }}
       <UserButtons
         v-if="showUserButtons"
         v-model="identifier"
