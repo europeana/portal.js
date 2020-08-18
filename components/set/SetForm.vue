@@ -32,6 +32,7 @@
         {{ $t('collectionModal.collectionPrivate') }}
       </b-form-checkbox>
     </b-form-group>
+    <!-- TODO: use modal slot? except the modal isn't in this component... -->
     <div class="modal-footer">
       <b-button
         variant="outline-primary"
