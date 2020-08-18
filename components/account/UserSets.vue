@@ -21,7 +21,7 @@
             :title="set.title"
             :image-url="setThumbnail(set)"
             :texts="[set.description]"
-            :url="{ name: 'set-all', params: { pathMatch: set.id } }"
+            :url="{ name: 'set-all', params: { pathMatch: setPathMatch(set) } }"
             data-qa="user set"
           />
         </b-card-group>
@@ -29,10 +29,11 @@
     </b-row>
   </b-container>
 </template>
+
 <script>
-  import AlertMessage from '../../components/generic/AlertMessage';
-  import ContentCard from '../../components/generic/ContentCard';
-  import LoadingSpinner from '../../components/generic/LoadingSpinner';
+  import AlertMessage from '../generic/AlertMessage';
+  import ContentCard from '../generic/ContentCard';
+  import LoadingSpinner from '../generic/LoadingSpinner';
 
   export default {
     name: 'UserSets',
@@ -70,6 +71,9 @@
       setThumbnail(set) {
         const firstItemWithEdmPreview = (set.items || []).find(item => item.edmPreview);
         return firstItemWithEdmPreview ? firstItemWithEdmPreview.edmPreview[0] : null;
+      },
+      setPathMatch(set) {
+        return set.id.replace('http://data.europeana.eu/set/', '');
       }
     }
   };
