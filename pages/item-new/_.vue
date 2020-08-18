@@ -38,7 +38,6 @@
             :identifier="identifier"
             :media="media"
             :use-proxy="useProxy"
-            :rights-statement="rightsStatement"
             :data-provider-name="dataProvider.values[0]"
             :data-provider-lang="dataProvider.code"
             :is-shown-at="isShownAt"

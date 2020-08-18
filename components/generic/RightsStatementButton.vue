@@ -1,7 +1,7 @@
 <template>
   <SmartLink
     :destination="rightsStatement"
-    class="rights-statement-button attribution mb-3 mb-lg-0"
+    class="rights-statement-button attribution"
     data-qa="rights statement"
     hide-external-icon
   >

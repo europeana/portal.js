@@ -201,4 +201,14 @@
   .media-bar {
     margin-top: 2.5rem;
   }
+  @media (max-width: $bp-small) {
+    .media-bar {
+      flex-direction: column;
+      a, button {
+        text-align: center;
+        justify-content: center;
+        margin-bottom: 1rem;
+      }
+    }
+  }
 }

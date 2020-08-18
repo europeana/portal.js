@@ -61,7 +61,6 @@
         return this.$proxyMedia(this.selectedMedia.about, this.identifier);
       },
       rightsStatement() {
-        console.log(this.selectedMedia);
         return this.selectedMedia.webResourceEdmRights.def[0];
       },
       rightsStatementIsUrl() {
