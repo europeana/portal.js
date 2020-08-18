@@ -105,4 +105,20 @@ describe('describe /plugins/europeana/set', () => {
       response.id.should.eq('http://data.europeana.eu/set/1234');
     });
   });
+
+  describe('getSetThumbnail', () => {
+    it('uses edm:preview of first item for thumbnail', () => {
+      const setData = {
+        items: [
+          {
+            edmPreview: ['http://www.example.org/image.jpg']
+          }
+        ]
+      };
+
+      const thumbnail = set().getSetThumbnail(setData);
+
+      thumbnail.should.equal('http://www.example.org/image.jpg');
+    });
+  });
 });

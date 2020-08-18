@@ -9,6 +9,9 @@ const factory = () => mount(UserSets, {
   localVue,
   mocks: {
     $fetchState: {},
+    $sets: {
+      getSetThumbnail: () => null
+    },
     $t: (key) => key,
     $tc: (key) => key,
     $path: () => 'localizedPath'
@@ -46,17 +49,6 @@ describe('components/account/UserSets', () => {
     const renderedSets =  wrapper.findAll('[data-qa="user set"]');
     renderedSets.at(0).find('[data-qa="card title"]').text().should.equal('A new collection');
     renderedSets.at(1).find('[data-qa="card title"]').text().should.equal('A second collection');
-  });
-
-  it('uses edm:preview of first item for thumbnail', () => {
-    const wrapper = factory();
-
-    wrapper.setData({
-      userSets: sets
-    });
-
-    const renderedSets =  wrapper.findAll('[data-qa="user set"]');
-    renderedSets.at(0).find('img').attributes().src.should.equal('http://www.example.org/image.jpg');
   });
 
   describe('fetch()', () => {
