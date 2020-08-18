@@ -1,13 +1,13 @@
 import { storiesOf } from '@storybook/vue';
 import VueI18n from 'vue-i18n';
-import ModalCollection from './ModalCollection.vue';
+import CollectionModal from './CollectionModal';
 
 const i18n = new VueI18n();
 
-storiesOf('User/Collection', module)
+storiesOf('User/CollectionModal', module)
   .add('Modal', () => ({
     i18n,
-    components: { ModalCollection },
+    components: { CollectionModal },
     data() {
       return {
         collections: [
@@ -20,7 +20,7 @@ storiesOf('User/Collection', module)
       class="mt-3"
       >
         <b-button @click="$bvModal.show('modal-collection')">Add to collection</b-button>
-        <ModalCollection
+        <CollectionModal
           :collections="collections"
         />
       </b-container>`

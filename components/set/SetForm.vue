@@ -1,58 +1,84 @@
 <!-- TODO: l10n; props -->
 <template>
-  <div>
-    <h2>Create new collection</h2>
-    <b-form @submit.stop.prevent="submitForm">
-      <b-form-group
-        label="Collection name"
-        label-for="collection"
+  <b-form @submit.stop.prevent="submitForm">
+    <b-form-group
+      :label="$t('collectionModal.collectionName')"
+      label-for="set-title"
+    >
+      <b-form-input
+        id="set-title"
+        v-model="title"
+        type="text"
+        maxlength="35"
+        required
+      />
+    </b-form-group>
+    <b-form-group
+      :label="$t('collectionModal.collectionDescription')"
+      label-for="set-description"
+    >
+      <b-form-textarea
+        id="set-description"
+        v-model="description"
+        maxlength="240"
+        rows="4"
+      />
+    </b-form-group>
+    <b-form-group>
+      <b-form-checkbox
+        id="set-private"
+        v-model="isPrivate"
       >
-        <b-form-input
-          id="collection"
-          type="text"
-          maxlength="35"
-          required
-        />
-      </b-form-group>
-      <b-form-group
-        label="Collection description"
-        label-for="description"
+        {{ $t('collectionModal.collectionPrivate') }}
+      </b-form-checkbox>
+    </b-form-group>
+    <div class="modal-footer">
+      <b-button
+        variant="outline-primary"
+        @click="goBack()"
       >
-        <b-form-textarea
-          id="description"
-          maxlength="240"
-        />
-      </b-form-group>
-      <div class="modal-footer">
-        <b-button
-          variant="outline-primary"
-          @click="goBack()"
-        >
-          Go back
-        </b-button>
-        <b-button
-          variant="primary"
-          type="submit"
-        >
-          Create collection
-        </b-button>
-      </div>
-    </b-form>
-  </div>
+        {{ $t('collectionModal.goBack') }}
+      </b-button>
+      <b-button
+        variant="primary"
+        type="submit"
+      >
+        {{ $t('collectionModal.createCollection') }}
+      </b-button>
+    </div>
+  </b-form>
 </template>
 
 <script>
   export default {
     name: 'SetForm',
 
-    methods: {
-      goBack() {
-        // TODO: emit event so that modal collection can hide form
-      },
+    data() {
+      return {
+        showForm: false,
+        title: '',
+        description: '',
+        isPrivate: false,
+        collections: []
+      };
+    },
 
-      submitForm() {
-        // TODO: - write data to Set API
-        //       - emit event so that modal collection can hide form
+    methods: {
+      async submitForm() {
+        const setBody = {
+          type: 'Collection',
+          visibility: this.isPrivate ? 'private' : 'public',
+          title: {},
+          description: {}
+        };
+        setBody.title[this.$i18n.locale] = this.title;
+        setBody.description[this.$i18n.locale] = this.description;
+
+        // TODO: error handling
+        this.$sets.createSet(setBody)
+          .then((response) => {
+            this.$emit('create', response.id);
+          });
       }
     }
   };

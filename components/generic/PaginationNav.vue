@@ -43,10 +43,10 @@
         type: Function,
 
         default(page) {
-          return this.$path({
+          return {
             ...this.$route,
             query: { ...this.$route.query, page }
-          });
+          };
         }
       },
       scrollToId: {

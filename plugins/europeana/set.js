@@ -62,6 +62,7 @@ export default ($axios) => ({
             id: set.data.id.split('/').pop(),
             title: set.data.title,
             description: set.data.description,
+            visibility: set.data.visibility,
             firstItem: set.data.items ? '/' + set.data.items[0].split('/item/')[1] : null,
             total: set.data.total
           };
@@ -84,7 +85,7 @@ export default ($axios) => ({
    */
   getSet(id, options = {}, withItems = false) {
     const defaults = {
-      page: 1,
+      page: 0,
       pageSize: 24,
       profile: 'standard'
     };
@@ -157,14 +158,24 @@ export default ($axios) => ({
    * @return {Object} API response data
    */
   createLikes() {
-    return $axios.post(setApiUrl('/'),
-      {
-        type: 'BookmarkFolder',
-        title: {
-          en: 'LIKES'
-        },
-        visibility: 'private'
+    return this.createSet({
+      type: 'BookmarkFolder',
+      title: {
+        en: 'LIKES'
       },
+      visibility: 'private'
+    });
+  },
+
+  /**
+   * Create a set
+   * ~param {Object} body Set body
+   * @return {Object} API response data
+   */
+  createSet(body) {
+    return $axios.post(
+      setApiUrl('/'),
+      body,
       { params: paramsWithApiKey() }
     )
       .then(response => response.data)
@@ -177,15 +188,20 @@ export default ($axios) => ({
    * Modify the set items by adding or deleting an item
    * @param {string} action the type of modification, can be either 'add' or 'delete'
    * @param {string} setId the id of the set that will be modified
-   * @param {string} itemId the id of the item to be added or deleted
+   * @param {string} itemId the id of the item to be added or deleted, with leading slash
    * @return {Object} API response data
    */
   modifyItems(action, setId, itemId) {
     const apiCall = action === 'add' ? $axios.put : $axios.delete;
-    return apiCall(setApiUrl(`/${setId}/${itemId}`), { params: paramsWithApiKey() })
+    return apiCall(setApiUrl(`/${setId}${itemId}`), { params: paramsWithApiKey() })
       .then(response => response.data)
       .catch(error => {
         throw apiError(error);
       });
+  },
+
+  getSetThumbnail(set) {
+    const firstItemWithEdmPreview = (set.items || []).find(item => item.edmPreview);
+    return firstItemWithEdmPreview ? firstItemWithEdmPreview.edmPreview[0] : null;
   }
 });
