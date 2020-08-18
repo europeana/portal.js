@@ -6,7 +6,6 @@ import axios from 'axios';
 import qs from 'qs';
 import { config } from './';
 import { apiError } from './utils';
-import { genericThumbnail } from './thumbnail';
 
 // Some facets do not support enquoting of their field values.
 export const unquotableFacets = [
@@ -70,42 +69,6 @@ export function rangeFromQueryParam(paramValue) {
 }
 
 /**
- * Filters Hit response with scope string
- * @param  {Object} hits API response
- * @param  {string} id Item item
- * @return {Object} returns selector object
- */
-function hitForItem(hits, id) {
-  const selector = hits.find((hit) => id === hit.scope);
-  return selector ? { selector: selector.selectors[0] } : {};
-}
-
-/**
- * Extract search results from API response
- * @param  {Object} response API response
- * @return {Object[]} search results
- */
-export function resultsFromApiResponse(response) {
-  const items = response.data.items;
-
-  const results = items.map(item => {
-    return {
-      ...{
-        europeanaId: item.id,
-        edmPreview: item.edmPreview ? `${item.edmPreview[0]}&size=w200` : genericThumbnail(item.id, { type: item.type, size: 'w200' }),
-        dcTitle: item.dcTitleLangAware,
-        dcDescription: item.dcDescriptionLangAware,
-        dcCreator: item.dcCreatorLangAware,
-        edmDataProvider: item.dataProvider
-      },
-      ...(response.data.hits === undefined ? {} : hitForItem(response.data.hits, item.id))
-    };
-  });
-
-  return results;
-}
-
-/**
  * Search Europeana Record API
  * @param {Object} params parameters for search query
  * @param {number} params.page page of results to retrieve
@@ -150,12 +113,9 @@ export function search(params, options = {}) {
       wskey: params.wskey || config.record.key
     }
   })
-    .then((response) => {
+    .then(response => {
       return {
-        error: null,
-        results: resultsFromApiResponse(response),
-        facets: response.data.facets || [],
-        totalResults: response.data.totalResults,
+        ...response.data,
         lastAvailablePage: start + perPage > maxResults
       };
     })

@@ -95,6 +95,7 @@
               </p>
               <ItemPreviewCardGroup
                 v-model="results"
+                :hits="hits"
                 :view="view"
                 :per-row="perRow"
               />
@@ -190,6 +191,7 @@
         entityId: state => state.entity.id,
         error: state => state.search.error,
         facets: state => state.search.facets,
+        hits: state => state.search.hits,
         lastAvailablePage: state => state.search.lastAvailablePage,
         resettableFilters: state => state.search.resettableFilters,
         results: state => state.search.results,
