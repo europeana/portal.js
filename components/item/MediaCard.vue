@@ -8,7 +8,6 @@
     v-else-if="isPlayableMedia && isSinglePlayableMedia"
     ref="player"
     class="media-player-wrapper"
-    :style="{ paddingTop: `${ratio}%` }"
   >
     <iframe
       data-qa="media player"
@@ -104,6 +103,7 @@
         return (this.imageSrc !== '') && !isRichMedia(this.media);
       },
       isPlayableMedia() {
+        console.log(this.media, isPlayableMedia(this.media), this.isSinglePlayableMedia);
         return isPlayableMedia(this.media);
       },
       isHTMLVideo() {
@@ -123,13 +123,6 @@
       },
       isOEmbed() {
         return isOEmbed(this.media);
-      }
-    },
-    mounted() {
-      if (this.isPlayableMedia) {
-        const width = this.media.ebucoreWidth ? this.media.ebucoreWidth : 640;
-        const height = this.media.ebucoreHeight ? this.media.ebucoreHeight : 360;
-        this.ratio = (height * 100) / width;
       }
     }
   };
