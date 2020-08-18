@@ -14,7 +14,7 @@
     <template v-slot:footer>
       <UserButtons
         v-if="showUserButtons"
-        :item-url="url"
+        v-model="europeanaId"
         @like="$emit('like', europeanaId)"
         @unlike="$emit('unlike', europeanaId)"
       />
