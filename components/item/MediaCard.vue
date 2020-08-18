@@ -49,6 +49,7 @@
     v-else-if="isIIIFImage || isIIIFPresentation"
     data-qa="IIIF viewer"
     allowfullscreen="true"
+    class="iiif-iframe"
     :src="$path({ name: 'iiif', query: { uri: iiifManifest } })"
     :aria-label="$t('actions.viewDocument')"
   />
@@ -67,6 +68,7 @@
   import HTMLEmbed from '../generic/HTMLEmbed';
   import VideoPlayer from '../../components/media/VideoPlayer';
   import AudioPlayer from '../../components/media/AudioPlayer';
+  import oEmbed from '../../plugins/oembed';
 
   export default {
     name: 'MediaCard',
@@ -93,8 +95,7 @@
 
     data() {
       return {
-        oEmbedData: {},
-        ratio: 56.25
+        oEmbedData: {}
       };
     },
 
@@ -103,7 +104,6 @@
         return (this.imageSrc !== '') && !isRichMedia(this.media);
       },
       isPlayableMedia() {
-        console.log(this.media, isPlayableMedia(this.media), this.isSinglePlayableMedia);
         return isPlayableMedia(this.media);
       },
       isHTMLVideo() {
@@ -123,6 +123,20 @@
       },
       isOEmbed() {
         return isOEmbed(this.media);
+      }
+    },
+
+    created() {
+      if (this.isOEmbed) {
+        oEmbed(this.media.about).then((response) => {
+          if (response.data && response.data.html) {
+            this.oEmbedData = response.data;
+          } else {
+            this.oEmbedData = { error: this.$t('messages.externalContentError') };
+          }
+        }).catch((err) => {
+          this.oEmbedData = { error: err };
+        });
       }
     }
   };

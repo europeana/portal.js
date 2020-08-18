@@ -37,33 +37,23 @@
               data-qa="public collections"
               :title="$t('account.publicCollections')"
             >
-              <div
-                v-if="!$fetchState.pending"
-              >
-                <client-only>
-                  <UserSets
-                    v-if="publicSets"
-                    :set-ids="publicSets"
-                    data-qa="public sets"
-                  />
-                </client-only>
-              </div>
+              <client-only>
+                <UserSets
+                  visibility="public"
+                  data-qa="public sets"
+                />
+              </client-only>
             </b-tab>
             <b-tab
               data-qa="private collections"
               :title="$t('account.privateCollections')"
             >
-              <div
-                v-if="!$fetchState.pending"
-              >
-                <client-only>
-                  <UserSets
-                    v-if="privateSets"
-                    :set-ids="privateSets"
-                    data-qa="private sets"
-                  />
-                </client-only>
-              </div>
+              <client-only>
+                <UserSets
+                  visibility="private"
+                  data-qa="private sets"
+                />
+              </client-only>
             </b-tab>
           </b-tabs>
         </b-col>
@@ -88,8 +78,6 @@
 
     async fetch() {
       await this.fetchLikes();
-      this.publicSets = await this.$sets.getSetsByCreator(this.$auth.user.sub, 'public', 'minimal');
-      this.privateSets = await this.$sets.getSetsByCreator(this.$auth.user.sub, 'private', 'minimal');
     },
 
     fetchOnServer: false,
@@ -97,9 +85,7 @@
     data() {
       return {
         loggedInUser: this.$store.state.auth.user,
-        likes: [],
-        publicSets: [],
-        privateSets: []
+        likes: []
       };
     },
 
@@ -120,8 +106,9 @@
       async fetchLikes() {
         if (!this.$store.state.set.likesId) return;
         const likes = await this.$sets.getSet(this.likesId, {
-          pageSize: 100
-        }, true);
+          pageSize: 100,
+          profile: 'itemDescriptions'
+        });
         this.likes = likes.items;
       }
     },

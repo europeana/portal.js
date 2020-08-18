@@ -7,6 +7,7 @@
       class="icon-ic-add"
       data-qa="add to gallery button"
       :aria-label="$t('actions.addToGallery')"
+      @click="showModal"
     />
     <b-button
       :pressed="liked"
@@ -14,51 +15,65 @@
       data-qa="like button"
       :aria-label="$t('actions.like')"
       size="sm"
-      @click="toggleLiked()"
+      @click="toggleLiked"
+    />
+    <CollectionModal
+      :modal-id="collectionModalId"
+      :item-id="value"
     />
   </div>
 </template>
 
 <script>
+  import CollectionModal from '../account/CollectionModal';
+
   export default {
     name: 'UserButtons',
 
+    components: {
+      CollectionModal
+    },
+
     props: {
-      itemUrl: {
-        type: Object,
-        default: () => {}
+      // Identifier of the item
+      value: {
+        type: String,
+        required: true
       }
     },
-    fetch() {
-      this.itemId = this.itemUrl.params.pathMatch;
-      this.liked = this.$store.state.set.liked.includes(this.itemId);
-    },
-    data() {
-      return {
-        itemId: null,
-        liked: false
-      };
-    },
+
     computed: {
+      collectionModalId() {
+        return `collection-modal-${this.value}`;
+      },
+      liked() {
+        return this.$store.state.set.liked.includes(this.value);
+      },
       likesId() {
         return this.$store.state.set.likesId;
       }
     },
+
     methods: {
       async toggleLiked() {
         await (this.liked ? this.unlike() : this.like());
-        this.liked = !this.liked;
       },
       async like() {
         if (this.likesId === null) {
           await this.$store.dispatch('set/createLikes');
         }
-        await this.$store.dispatch('set/like', this.itemId);
-        this.$emit('like', this.itemId);
+        await this.$store.dispatch('set/like', this.value);
+        this.$emit('like', this.value);
       },
       async unlike() {
-        await this.$store.dispatch('set/unlike', this.itemId);
-        this.$emit('unlike', this.itemId);
+        await this.$store.dispatch('set/unlike', this.value);
+        this.$emit('unlike', this.value);
+      },
+      showModal() {
+        this.$nextTick(() => {
+          this.$bvModal.show(this.collectionModalId);
+          this.$emit('add', this.value);
+        });
       }
     }
   };

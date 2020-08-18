@@ -65,6 +65,7 @@ const config = {
       'FormInputPlugin',
       'FormPlugin',
       'FormRadioPlugin',
+      'FormTextareaPlugin',
       'ImagePlugin',
       'InputGroupPlugin',
       'JumbotronPlugin',

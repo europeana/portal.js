@@ -20,16 +20,16 @@ const factory = () => {
 
 const results = [
   {
-    europeanaId: '/123/abc',
-    dcTitle: { def: ['Record 123/abc'] },
-    edmPreview: 'https://www.example.org/abc.jpg',
-    edmDataProvider: ['Provider 123']
+    id: '/123/abc',
+    dcTitleLangAware: { def: ['Record 123/abc'] },
+    edmPreview: ['https://www.example.org/abc.jpg'],
+    dataProvider: ['Provider 123']
   },
   {
-    europeanaId: '/123/def',
-    dcTitle: { def: ['Record 123/def'] },
-    edmPreview: 'https://www.example.org/def.jpg',
-    edmDataProvider: ['Provider 123']
+    id: '/123/def',
+    dcTitleLangAware: { def: ['Record 123/def'] },
+    edmPreview: ['https://www.example.org/def.jpg'],
+    dataProvider: ['Provider 123']
   }
 ];
 
@@ -42,8 +42,8 @@ describe('components/item/ItemPreviewCardGroup', () => {
 
       const renderedResults =  wrapper.findAll('[data-qa="item preview"] a');
 
-      renderedResults.at(0).attributes().href.should.endWith(`/item${results[0].europeanaId}`);
-      renderedResults.at(1).attributes().href.should.endWith(`/item${results[1].europeanaId}`);
+      renderedResults.at(0).attributes().href.should.endWith(`/item${results[0].id}`);
+      renderedResults.at(1).attributes().href.should.endWith(`/item${results[1].id}`);
     });
   });
 
@@ -55,8 +55,8 @@ describe('components/item/ItemPreviewCardGroup', () => {
 
       const renderedResults =  wrapper.findAll('div[data-qa="item preview"]');
 
-      renderedResults.at(0).find('a').attributes().href.should.endWith(`/item${results[0].europeanaId}`);
-      renderedResults.at(1).find('a').attributes().href.should.endWith(`/item${results[1].europeanaId}`);
+      renderedResults.at(0).find('a').attributes().href.should.endWith(`/item${results[0].id}`);
+      renderedResults.at(1).find('a').attributes().href.should.endWith(`/item${results[1].id}`);
     });
   });
 });
