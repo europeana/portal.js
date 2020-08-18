@@ -1,14 +1,11 @@
 <template>
   <b-modal
     :id="modalId"
-    hide-header
+    :title="title"
     hide-footer
     @show="fetchCollections"
   >
     <div v-if="showForm">
-      <h1 class="pt-2">
-        {{ $t('collectionModal.createNewCollection') }}
-      </h1>
       <b-form @submit.stop.prevent="submitForm">
         <b-form-group
           :label="$t('collectionModal.collectionName')"
@@ -58,9 +55,6 @@
       </b-form>
     </div>
     <div v-else>
-      <h1 class="pt-2">
-        {{ $t('collectionModal.addToCollection') }}
-      </h1>
       <b-button
         variant="primary"
         class="btn-collection w-100 mb-3 text-left"
@@ -122,6 +116,14 @@
       this.$root.$on('bv::modal::hidden', () => {
         this.showForm = false;
       });
+    },
+
+    computed: {
+      title() {
+        return this.showForm ?
+          this.$t('collectionModal.createNewCollection') :
+          this.$t('collectionModal.addToCollection');
+      }
     },
 
     methods: {
