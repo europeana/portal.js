@@ -180,15 +180,15 @@
       }
     },
 
+    watch: {
+      '$route.query.page': '$fetch'
+    },
+
     mounted() {
       this.$recommendations.recommend('set', `/${this.$route.params.pathMatch}`)
         .then(recommendResponse => {
           this.recommendations = recommendResponse.items;
         });
-    },
-
-    watch: {
-      '$route.query.page': '$fetch'
     },
 
     head() {
