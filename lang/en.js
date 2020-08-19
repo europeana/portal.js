@@ -550,12 +550,17 @@ export default {
       "private": "Keep this collection private"
     },
     "notifications": {
+      "deleted": "Your collection has been deleted.",
       "itemAdded": "The item has been added to your collection."
+    },
+    "prompts": {
+      "delete": "Are you sure you want to delete this collection? If you delete this collection, you will lose all the items you've added to it."
     },
     "actions": {
       "addTo": "Add to collection",
       "create": "Create collection",
       "createNew": "Create new collection",
+      "delete": "Delete collection",
       "edit": "Edit collection",
       "update": "Update collection"
     },
