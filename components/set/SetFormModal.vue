@@ -3,6 +3,7 @@
   <b-modal
     :id="modalId"
     :title="modalTitle"
+    :static="modalStatic"
     hide-footer
   >
     <b-form @submit.stop.prevent="submitForm">
@@ -63,6 +64,11 @@
       modalId: {
         type: String,
         default: 'set-form-modal'
+      },
+
+      modalStatic: {
+        type: Boolean,
+        default: false
       },
 
       setId: {
