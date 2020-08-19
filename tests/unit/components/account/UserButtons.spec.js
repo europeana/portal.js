@@ -1,6 +1,6 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
-import UserButtons from '../../../../components/account/UserButtons.vue';
+import UserButtons from '../../../../components/account/UserButtons';
 import sinon from 'sinon';
 
 const localVue = createLocalVue();
@@ -11,7 +11,7 @@ const storeDispatch = sinon.spy();
 
 const factory = ({ storeState = {}, $auth = {} } = {}) => mount(UserButtons, {
   localVue,
-  stubs: ['CollectionModal'],
+  stubs: ['AddItemToSetModal', 'SetFormModal'],
   propsData: { value: identifier },
   mocks: {
     $auth,
@@ -71,7 +71,7 @@ describe('components/account/UserButtons', () => {
           const addButton = wrapper.find('[data-qa="add button"]');
           addButton.trigger('click');
 
-          bvModalShow.should.have.been.calledWith(`collection-modal-${identifier}`);
+          bvModalShow.should.have.been.calledWith(`add-item-to-set-modal-${identifier}`);
         });
 
         it('emits "add" event', async() => {
