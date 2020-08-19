@@ -107,8 +107,9 @@
             v-if="similarItems.length > 0"
           >
             <h2>{{ $t('record.similarItems') }}</h2>
-            <SimilarItems
-              :items="similarItems"
+            <ItemPreviewCardGroup
+              v-model="similarItems"
+              view="similar"
               class="mb-3"
             />
           </section>
@@ -156,7 +157,7 @@
       ClientOnly,
       EntityCards: () => import('../../components/entity/EntityCards'),
       MediaActionBar,
-      SimilarItems: () => import('../../components/item/SimilarItems'),
+      ItemPreviewCardGroup: () => import('../../components/item/ItemPreviewCardGroup'),
       MediaPresentation,
       MediaThumbnailGrid: () => import('../../components/item/MediaThumbnailGrid'),
       MetadataBox,
@@ -178,7 +179,7 @@
           this.transcribingAnnotations = this.annotationsByMotivation('transcribing');
           this.taggingAnnotations = this.annotationsByMotivation('tagging');
           this.relatedEntities = entities;
-          this.similarItems = similar.results;
+          this.similarItems = similar.items;
         }));
     },
 
@@ -381,6 +382,7 @@
         }, {
           origin: this.$route.query.recordApi
         })
+          .then(response => response)
           .catch(() => {
             return noSimilarItems;
           });

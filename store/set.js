@@ -1,4 +1,4 @@
-const setIdFromUri = (uri) => uri.split('/item/').pop();
+const setIdFromUri = (uri) => uri.split('/item').pop();
 
 export const state = () => ({
   likesId: null,
@@ -44,6 +44,7 @@ export const actions = {
     const likesId = await this.$sets.createLikes().then(response =>  response.id.split('/').pop());
     commit('setLikesId', likesId);
   },
+  // TODO: is this used?
   reset({ commit }) {
     commit('setLikedItems', []);
   }

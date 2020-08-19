@@ -26,6 +26,7 @@
     v-else-if="isIIIFImage || isIIIFPresentation"
     data-qa="IIIF viewer"
     allowfullscreen="true"
+    class="iiif-iframe"
     :src="$path({ name: 'iiif', query: { uri: iiifManifest } })"
     :aria-label="$t('actions.viewDocument')"
   />
@@ -42,6 +43,7 @@
     isRichMedia
   } from '../../plugins/media';
   import HTMLEmbed from '../generic/HTMLEmbed';
+  import oEmbed from '../../plugins/oembed';
 
   export default {
     name: 'MediaCard',
@@ -93,6 +95,21 @@
         return isOEmbed(this.media);
       }
     },
+
+    created() {
+      if (this.isOEmbed) {
+        oEmbed(this.media.about).then((response) => {
+          if (response.data && response.data.html) {
+            this.oEmbedData = response.data;
+          } else {
+            this.oEmbedData = { error: this.$t('messages.externalContentError') };
+          }
+        }).catch((err) => {
+          this.oEmbedData = { error: err };
+        });
+      }
+    },
+
     mounted() {
       if (this.isPlayableMedia) {
         const width = this.media.ebucoreWidth ? this.media.ebucoreWidth : 640;

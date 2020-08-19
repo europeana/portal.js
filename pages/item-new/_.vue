@@ -17,7 +17,7 @@
     >
       <b-container
         fluid
-        class="bg-white mb-3 px-0"
+        class="bg-white mb-3"
       >
         <!-- TODO: add swiper here
           Swiper also includes download, share, right statement
@@ -33,43 +33,37 @@
 
           Keep/reuse client-only?
       -->
-        <client-only>
-          <ItemHero
-            :identifier="identifier"
-            :media="media"
-            :use-proxy="useProxy"
-            :data-provider-name="dataProvider.values[0]"
-            :data-provider-lang="dataProvider.code"
-            :is-shown-at="isShownAt"
-          />
-        </client-only>
+        <client-only />
       </b-container>
       <b-container>
-        <b-row class="mb-3 justify-content-center">
-          <b-col cols="10">
-            <SummaryInfo
-              :description="descriptionInCurrentLanguage"
-              :titles="titlesInCurrentLanguage"
-            />
+        <b-row class="mb-3">
+          <b-col>
+            <!-- TODO: add new title + description box
+              Useful data:
+
+              titlesInCurrentLanguage
+              descriptionInCurrentLanguage
+            -->
           </b-col>
         </b-row>
-        <b-row
-          v-if="relatedEntities && relatedEntities.length > 0"
-          class="justify-content-center"
-        >
-          <b-col cols="10">
-            <RelatedCollections
-              :title="$t('collectionsYouMightLike')"
-              :related-collections="relatedEntities"
-            />
+        <b-row class="mb-3">
+          <b-col>
+            <h2
+              v-if="relatedEntities && relatedEntities.length > 0"
+              class="related-heading text-uppercase"
+            >
+              {{ $t('contentYouMightLike') }}
+            </h2>
+            <!-- TODO: related content
+              Useful data:
+
+              :entities="relatedEntities"
+              data-qa="related entities"
+            -->
           </b-col>
         </b-row>
-        <b-row
-          v-else
-          class="mb-3"
-        />
-        <b-row class="mb-3 justify-content-center">
-          <b-col cols="10">
+        <b-row class="mb-3">
+          <b-col>
             <MetadataBox
               :all-metadata="allMetaData"
               :core-metadata="coreFields"
@@ -77,10 +71,9 @@
             />
           </b-col>
         </b-row>
-        <b-row class="justify-content-center">
-          <b-col cols="10">
+        <b-row>
+          <b-col>
             <!-- TODO: update similar items,
-              they are currently cards within a card, that shouldn't be like that
               fix styling/structure in component itself
             -->
             <section
@@ -91,8 +84,9 @@
               >
                 {{ $t('record.similarItems') }}
               </h2> <!-- TODO: introduce new heading "Explore more" -->
-              <SimilarItems
-                :items="similarItems"
+              <ItemPreviewCardGroup
+                v-model="similarItems"
+                view="plain"
                 class="mb-3"
               />
             </section>
@@ -119,12 +113,9 @@
 
   export default {
     components: {
-      ItemHero: () => import('../../components/item/ItemHero'),
       AlertMessage: () => import('../../components/generic/AlertMessage'),
       ClientOnly,
-      SimilarItems: () => import('../../components/item/SimilarItems'),
-      RelatedCollections: () => import('../../components/generic/RelatedCollections'),
-      SummaryInfo: () => import('../../components/item/SummaryInfo'),
+      ItemPreviewCardGroup: () => import('../../components/item/ItemPreviewCardGroup'),
       MetadataBox,
       NotificationBanner: () => import('../../components/generic/NotificationBanner')
     },
@@ -144,7 +135,7 @@
           this.transcribingAnnotations = this.annotationsByMotivation('transcribing');
           this.taggingAnnotations = this.annotationsByMotivation('tagging');
           this.relatedEntities = entities;
-          this.similarItems = similar.results;
+          this.similarItems = similar.items;
         }));
     },
 
@@ -305,6 +296,7 @@
         }, {
           origin: this.$route.query.recordApi
         })
+          .then(response => response)
           .catch(() => {
             return noSimilarItems;
           });
@@ -347,11 +339,6 @@
 </script>
 
 <style scoped>
-  .related-collections {
-    margin-top: -0.5rem;
-    margin-bottom: 2rem;
-    padding: 0;
-  }
   /* TODO: fix styling in/for MetadataBox component itself */
   /deep/ .card.rounded-0 {
     border-radius: 0.25rem !important;
