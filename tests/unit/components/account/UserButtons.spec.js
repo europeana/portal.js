@@ -8,7 +8,6 @@ localVue.use(BootstrapVue);
 
 const identifier = '/123/abc';
 const storeDispatch = sinon.spy();
-// const bvModalShow = sinon.spy();
 
 const factory = ({ storeState = {}, $auth = {} } = {}) => mount(UserButtons, {
   localVue,
@@ -16,9 +15,6 @@ const factory = ({ storeState = {}, $auth = {} } = {}) => mount(UserButtons, {
   propsData: { value: identifier },
   mocks: {
     $auth,
-    // $bvModal: {
-    //   show: bvModalShow
-    // },
     $store: {
       state: {
         set: { ...{ liked: [] }, ...storeState }
