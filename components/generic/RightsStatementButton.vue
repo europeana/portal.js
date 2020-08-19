@@ -37,5 +37,6 @@
     background: $offwhite;
     border-radius: 0.25rem;
     padding: 0.38rem 0.625rem;
+    font-size: $font-size-small;
   }
 </style>

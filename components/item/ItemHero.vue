@@ -5,22 +5,31 @@
       :media="media"
       @select="selectMedia"
     />
-    <b-container class="d-flex justify-content-around media-bar">
-      <RightsStatementButton
-        v-if="rightsStatementIsUrl"
-        :rights-statement="rightsStatement"
-      />
-      <span
-        v-else
-        data-qa="rights statement"
-      >
-        {{ rightsStatement }}
-      </span>
-      <DownloadButton
-        v-if="downloadEnabled"
-        :url="downloadUrl"
-      />
-      <ShareButton />
+    <b-container>
+      <b-row>
+        <b-col
+          cols="12"
+          class="col-lg-10 media-bar justify-content-between d-flex mx-auto"
+        >
+          <RightsStatementButton
+            v-if="rightsStatementIsUrl"
+            :rights-statement="rightsStatement"
+          />
+          <span
+            v-else
+            data-qa="rights statement"
+          >
+            {{ rightsStatement }}
+          </span>
+          <div>
+            <ShareButton />
+            <DownloadButton
+              v-if="downloadEnabled"
+              :url="downloadUrl"
+            />
+          </div>
+        </b-col>
+      </b-row>
       <SocialShareModal :media-url="selectedMedia.about" />
     </b-container>
   </div>
@@ -32,6 +41,7 @@
   import RightsStatementButton from '../generic/RightsStatementButton.vue';
   import SocialShareModal from '../sharing/SocialShareModal.vue';
   import ShareButton from '../sharing/ShareButton.vue';
+  import has from 'lodash/has';
 
   export default {
     components: {
@@ -61,7 +71,7 @@
         return this.$proxyMedia(this.selectedMedia.about, this.identifier);
       },
       rightsStatement() {
-        return this.selectedMedia.webResourceEdmRights.def[0];
+        return has(this.selectedMedia, 'rightsStatement') ? this.selectedMedia.rightsStatement : this.selectedMedia.webResourceEdmRights.def[0];
       },
       rightsStatementIsUrl() {
         return RegExp('^https?://*').test(this.rightsStatement);
@@ -75,7 +85,7 @@
         }
       },
       downloadEnabled() {
-        return this.selectedMedia.webResourceEdmRights.def[0] && !this.selectedMedia.webResourceEdmRights.def[0].includes('/InC/');
+        return this.rightsStatement && !this.rightsStatement.includes('/InC/');
       }
     },
     methods: {

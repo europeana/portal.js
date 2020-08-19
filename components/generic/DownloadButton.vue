@@ -5,7 +5,7 @@
     variant="light text-decoration-none"
     data-qa="download button"
     size="lg"
-    class="download-button mr-lg-3 d-inline-flex align-items-center"
+    class="download-button d-inline-flex align-items-center"
     :target="target"
   >
     <span class="ic-download d-inline-flex pr-1" />
