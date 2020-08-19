@@ -5,9 +5,9 @@
   >
     <b-button
       class="icon-ic-add"
-      data-qa="add to gallery button"
+      data-qa="add button"
       :aria-label="$t('actions.addToGallery')"
-      @click="showModal"
+      @click="addToSet"
     />
     <b-button
       :pressed="liked"
@@ -18,6 +18,8 @@
       @click="toggleLiked"
     />
     <CollectionModal
+      v-if="$auth.loggedIn"
+      data-qa="collection modal"
       :modal-id="collectionModalId"
       :item-id="value"
     />
@@ -25,13 +27,11 @@
 </template>
 
 <script>
-  import CollectionModal from '../account/CollectionModal';
-
   export default {
     name: 'UserButtons',
 
     components: {
-      CollectionModal
+      CollectionModal: () => import('../account/CollectionModal')
     },
 
     props: {
@@ -69,11 +69,13 @@
         await this.$store.dispatch('set/unlike', this.value);
         this.$emit('unlike', this.value);
       },
-      showModal() {
-        this.$nextTick(() => {
+      addToSet() {
+        if (this.$auth.loggedIn) {
           this.$bvModal.show(this.collectionModalId);
           this.$emit('add', this.value);
-        });
+        } else {
+          this.$auth.loginWith('keycloak');
+        }
       }
     }
   };
