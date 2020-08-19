@@ -436,11 +436,12 @@ export default {
   },
   "goToRecord": "Go to item",
   "header": {
+    "europeanaHome": "Europeana home",
     "backToMenu": "Back to menu",
     "clearQuery": "Clear Search Query",
-    "entireCollection": "Search for '{query}' in our entire collection",
-    "inCollection": "Search for '{query}' in {collection}",
-    "searchFor": "Search for {query}",
+    "entireCollection": "Search for {0} in our entire collection",
+    "inCollection": "Search for {0} in {1}",
+    "searchFor": "Search for {0}",
     "showSidebar": "Show Sidebar"
   },
   "homeLinkAlt": "Europeana home",

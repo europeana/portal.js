@@ -3,10 +3,31 @@
     v-visible-on-scroll
     class="m-0 navbar-brand container-fluid d-flex justify-content-between show"
     role="banner"
-    aria-label="Europeana home"
+    :aria-label="$t('header.europeanaHome')"
     data-qa="header"
   >
-    <template v-if="!showSearch">
+    <div
+      v-if="showSearch"
+      class="d-flex justify-content-center w-100"
+    >
+      <b-button
+        data-qa="back button"
+        class="back"
+        variant="light"
+        :aria-label="$t('header.backToMenu')"
+        @click="backToMenu"
+      />
+      <SearchForm
+        role="search"
+        aria-label="search form"
+        data-qa="search form"
+        :enable-auto-suggest="enableAutoSuggest"
+        @toggle-search-bar="toggleSearchBar"
+      />
+    </div>
+    <template
+      v-else
+    >
       <b-button
         variant="light"
         class="navbar-toggle collapsed flex-column align-items-center justify-content-center align-self-center pl-3"
@@ -78,25 +99,6 @@
         />
       </transition>
     </template>
-    <div
-      v-else
-      class="d-flex justify-content-center w-100"
-    >
-      <b-button
-        data-qa="back button"
-        class="back"
-        variant="light"
-        :aria-label="$t('header.backToMenu')"
-        @click="backToMenu"
-      />
-      <SearchForm
-        role="search"
-        aria-label="search form"
-        data-qa="search form"
-        :enable-auto-suggest="enableAutoSuggest"
-        @toggle-search-bar="toggleSearchBar"
-      />
-    </div>
   </header>
 </template>
 

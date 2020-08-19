@@ -26,7 +26,7 @@
         @input="getSearchSuggestions"
       />
       <b-button
-        v-show="showSearchQuery"
+        v-show="showSearchQuery || query"
         data-qa="clear button"
         class="clear"
         variant="light"
@@ -47,7 +47,13 @@
             variant="primary"
             :aria-label="$t('search')"
           >
-            <span>{{ $t('header.inCollection', { query: query, collection: pillLabel.values[0] }) }}</span>
+            <i18n
+              path="header.inCollection"
+              tag="span"
+            >
+              <strong>"{{ query }}"</strong>
+              <span>{{ pillLabel.values[0] }}</span>
+            </i18n>
           </b-button>
         </div>
         <div
@@ -61,7 +67,12 @@
             :aria-label="$t('search')"
             @click.prevent="toggleSearchAndRemovePill"
           >
-            <span>{{ $t('header.entireCollection', { query: query }) }}</span>
+            <i18n
+              path="header.entireCollection"
+              tag="span"
+            >
+              <strong>"{{ query }}"</strong>
+            </i18n>
           </b-button>
         </div>
       </template>
@@ -79,7 +90,12 @@
             variant="primary"
             :aria-label="$t('search')"
           >
-            <span>{{ $t('header.searchFor', { query: query }) }}</span>
+            <i18n
+              path="header.searchFor"
+              tag="span"
+            >
+              <strong>"{{ query }}"</strong>
+            </i18n>
           </b-button>
         </div>
       </template>
@@ -303,9 +319,9 @@
           justify-content: flex-start;
 
           &:focus {
-            background: $white;
-            outline: none;
             color: $black;
+            background-color: $offwhite;
+
             ~ span {
               z-index: 99;
             }
@@ -351,6 +367,10 @@
       @extend .icon-font;
       display: inline-block;
       font-size: 1.1rem;
+    }
+
+    &.search:before {
+      content: '\e92b';
     }
 
     &.btn-primary {

@@ -166,17 +166,16 @@
 
     methods: {
       keyup(event) {
-        if (!this.isActive) return;
-
         switch (event.keyCode) {
-        case 9: // Tab key
         case 27: // Escape key
           this.closeDropdown();
           break;
         case 38: // Up key
+          if (!this.isActive) return;
           this.keyupUp();
           break;
         case 40: // Down key
+          if (!this.isActive) return;
           this.keyupDown();
           break;
         }
@@ -242,6 +241,7 @@
 
 <style lang="scss" scoped>
   @import './assets/scss/variables.scss';
+  @import './assets/scss/icons.scss';
 
   .auto-suggest-dropdown {
     display: block;
@@ -264,6 +264,25 @@
       font-size: 1rem;
       text-decoration: none;
       text-align: left;
+
+      &:focus {
+        background-color: $offwhite;
+      }
+
+      &:before {
+        @extend .icon-font;
+        display: inline-block;
+        font-size: 1.1rem;
+        content: '\e92b';
+        left: 1rem;
+        top: 1rem;
+        position: absolute;
+        width: 24px;
+        height: 24px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
 
       &.hover {
         background-color: $blue;

@@ -10,7 +10,7 @@
     <b-container data-qa="search page">
       <b-row>
         <b-col>
-          <h1>{{ $t('search') }}</h1>
+          <h1>{{ searchedFor }}</h1>
         </b-col>
         <RelatedSection
           :query="$route.query.query"
@@ -54,6 +54,9 @@
       },
       redirectNotificationsEnabled() {
         return Boolean(Number(process.env.ENABLE_LINKS_TO_CLASSIC));
+      },
+      searchedFor() {
+        return this.$route.query.query ? this.$route.query.query : this.$t('search');
       }
     },
 
@@ -63,7 +66,7 @@
 
     head() {
       return {
-        title: this.$t('search')
+        title: this.searchedFor
       };
     },
 
