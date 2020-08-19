@@ -101,7 +101,7 @@
 
     computed: {
       displayImage() {
-        return (this.imageSrc !== '') && !isRichMedia(this.media);
+        return (this.media.thumbnails !== '') && !isRichMedia(this.media);
       },
       isPlayableMedia() {
         return isPlayableMedia(this.media);
