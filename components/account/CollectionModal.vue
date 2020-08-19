@@ -69,7 +69,7 @@
           :style="buttonBackground($sets.getSetThumbnail(collection))"
           variant="overlay"
           class="btn-collection w-100 text-left"
-          @click="addItem(collection.id)"
+          @click="toggleItem(collection.id)"
         >
           <span>{{ displayField(collection, 'title') }} ({{ collection.visibility }}) - {{ $tc('items.itemCount', collection.total) }}</span>
           <span
@@ -163,7 +163,7 @@
         });
       },
 
-      async submitForm() {
+      submitForm() {
         const setBody = {
           type: 'Collection',
           visibility: this.newCollectionPrivate ? 'private' : 'public',
@@ -181,12 +181,27 @@
           });
       },
 
-      async addItem(setId) {
+      toggleItem(setId) {
+        if (this.collectionsWithItem.includes(setId)) {
+          this.removeItem(setId);
+        } else {
+          this.addItem(setId);
+        }
+      },
+
+      addItem(setId) {
         // TODO: error handling
         this.$sets.modifyItems('add', setId, this.itemId)
           .then(() => {
             this.$bvToast.show('new-collection-toast');
             this.hideModal();
+          });
+      },
+
+      removeItem(setId) {
+        this.$sets.modifyItems('delete', setId, this.itemId)
+          .then(() => {
+            this.fetchCollections();
           });
       },
 
