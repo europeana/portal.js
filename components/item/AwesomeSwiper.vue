@@ -128,13 +128,18 @@
       content: '';
       transition: $standard-transition;
     }
-    &:not(.swiper-slide-active):before {
-      content: '';
-      width: 100%;
-      left: 0;
-      top: 0;
-      height: 100%;
-      position: absolute;
+    &:not(.swiper-slide-active) {
+      &:before {
+        content: '';
+        width: 100%;
+        left: 0;
+        top: 0;
+        height: 100%;
+        position: absolute;
+      }
+      .audio-slide {
+        pointer-events: none;
+      }
     }
     &:only-child {
       width: 100%;
