@@ -72,6 +72,10 @@
           @click="addItem(collection.id)"
         >
           <span>{{ displayField(collection, 'title') }} ({{ collection.visibility }}) - {{ $tc('items.itemCount', collection.total) }}</span>
+          <span
+            v-if="collectionsWithItem.includes(collection.id)"
+            class="icon-check_circle d-inline-flex"
+          />
         </b-button>
       </div>
       <div class="modal-footer">
@@ -117,6 +121,13 @@
         return this.showForm ?
           this.$t('collectionModal.createNewCollection') :
           this.$t('collectionModal.addToCollection');
+      },
+
+      // Array of IDs of sets containing the item
+      collectionsWithItem() {
+        return this.collections
+          .filter(collection => (collection.items || []).some(item => item.id === this.itemId))
+          .map(collection => collection.id);
       }
     },
 
@@ -130,7 +141,8 @@
       async fetchCollections() {
         const searchParams = {
           query: `creator:${this.$auth.user.sub}`,
-          profile: 'itemDescriptions'
+          profile: 'itemDescriptions',
+          pageSize: 100 // TODO: pagination?
         };
 
         const searchResponse = await this.$sets.search(searchParams);
