@@ -1,55 +1,43 @@
 <template>
   <b-modal
     :id="modalId"
-    :title="title"
+    :title="$t('set.actions.addTo')"
     hide-footer
     @show="fetchCollections"
   >
-    <SetForm
-      v-if="showForm"
-      @create="setCreatedOrUpdated"
-      @update="setCreatedOrUpdated"
-      @close="closeSetForm"
-    />
-    <div v-else>
+    <b-button
+      variant="primary"
+      class="btn-collection w-100 mb-3 text-left"
+      @click="$emit('clickCreateSet')"
+    >
+      {{ $t('set.actions.createNew') }}
+    </b-button>
+    <div class="collections">
       <b-button
-        variant="primary"
-        class="btn-collection w-100 mb-3 text-left"
-        @click="createCollection"
+        v-for="(collection, index) in collections"
+        :key="index"
+        :style="buttonBackground($sets.getSetThumbnail(collection))"
+        variant="overlay"
+        class="btn-collection w-100 text-left"
+        @click="addItem(collection.id)"
       >
-        {{ $t('collectionModal.createNewCollection') }}
+        <span>{{ displayField(collection, 'title') }} ({{ collection.visibility }}) - {{ $tc('items.itemCount', collection.total || 0) }}</span>
       </b-button>
-      <div class="collections">
-        <b-button
-          v-for="(collection, index) in collections"
-          :key="index"
-          :style="buttonBackground($sets.getSetThumbnail(collection))"
-          variant="overlay"
-          class="btn-collection w-100 text-left"
-          @click="addItem(collection.id)"
-        >
-          <span>{{ displayField(collection, 'title') }} ({{ collection.visibility }}) - {{ $tc('items.itemCount', collection.total || 0) }}</span>
-        </b-button>
-      </div>
-      <div class="modal-footer">
-        <b-button
-          variant="outline-primary"
-          @click="hideModal()"
-        >
-          {{ $t('actions.close') }}
-        </b-button>
-      </div>
+    </div>
+    <div class="modal-footer">
+      <b-button
+        variant="outline-primary"
+        @click="hideModal()"
+      >
+        {{ $t('actions.close') }}
+      </b-button>
     </div>
   </b-modal>
 </template>
 
 <script>
   export default {
-    name: 'CollectionModal',
-
-    components: {
-      SetForm: () => import('../set/SetForm')
-    },
+    name: 'AddItemToSetModal',
 
     props: {
       itemId: {
@@ -59,23 +47,14 @@
 
       modalId: {
         type: String,
-        default: 'collection-modal'
+        default: 'add-item-to-set-modal'
       }
     },
 
     data() {
       return {
-        showForm: false,
         collections: []
       };
-    },
-
-    computed: {
-      title() {
-        return this.showForm ?
-          this.$t('collectionModal.createNewCollection') :
-          this.$t('collectionModal.addToCollection');
-      }
     },
 
     mounted() {
@@ -94,21 +73,10 @@
         const searchResponse = await this.$sets.search(searchParams);
         this.collections = searchResponse.data.items || [];
       },
-      createCollection() {
-        this.showForm = true;
-      },
-      closeSetForm() {
-        this.showForm = false;
-      },
       hideModal() {
         this.$nextTick(() => {
           this.$bvModal.hide(this.modalId);
         });
-      },
-
-      setCreatedOrUpdated() {
-        this.fetchCollections();
-        this.closeSetForm();
       },
 
       async addItem(setId) {

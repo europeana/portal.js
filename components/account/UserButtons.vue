@@ -6,7 +6,7 @@
     <b-button
       class="icon-ic-add"
       data-qa="add button"
-      :aria-label="$t('actions.addToGallery')"
+      :aria-label="$t('set.actions.addTo')"
       @click="addToSet"
     />
     <b-button
@@ -17,12 +17,21 @@
       size="sm"
       @click="toggleLiked"
     />
-    <CollectionModal
+    <template
       v-if="$auth.loggedIn"
-      data-qa="collection modal"
-      :modal-id="collectionModalId"
-      :item-id="value"
-    />
+    >
+      <AddItemToSetModal
+        data-qa="add item to set modal"
+        :modal-id="addItemToSetModalId"
+        :item-id="value"
+        @clickCreateSet="clickCreateSet"
+      />
+      <SetFormModal
+        :modal-id="setFormModalId"
+        @create="setCreatedOrUpdated"
+        @update="setCreatedOrUpdated"
+      />
+    </template>
   </div>
 </template>
 
@@ -31,7 +40,8 @@
     name: 'UserButtons',
 
     components: {
-      CollectionModal: () => import('../account/CollectionModal')
+      AddItemToSetModal: () => import('../set/AddItemToSetModal'),
+      SetFormModal: () => import('../set/SetFormModal')
     },
 
     props: {
@@ -42,10 +52,14 @@
       }
     },
 
+    data() {
+      return {
+        addItemToSetModalId: `add-item-to-set-modal-${this.value}`,
+        setFormModalId: `set-form-modal-${this.value}`
+      };
+    },
+
     computed: {
-      collectionModalId() {
-        return `collection-modal-${this.value}`;
-      },
       liked() {
         return this.$store.state.set.liked.includes(this.value);
       },
@@ -55,6 +69,13 @@
     },
 
     methods: {
+      clickCreateSet() {
+        this.$bvModal.hide(this.addItemToSetModalId);
+        this.$bvModal.show(this.setFormModalId);
+      },
+      setCreatedOrUpdated() {
+        this.$bvModal.show(this.addItemToSetModalId);
+      },
       async toggleLiked() {
         await (this.liked ? this.unlike() : this.like());
       },
@@ -71,7 +92,7 @@
       },
       addToSet() {
         if (this.$auth.loggedIn) {
-          this.$bvModal.show(this.collectionModalId);
+          this.$bvModal.show(this.addItemToSetModalId);
           this.$emit('add', this.value);
         } else {
           this.$auth.loginWith('keycloak');

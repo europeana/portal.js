@@ -1,6 +1,6 @@
 import { storiesOf } from '@storybook/vue';
 import VueI18n from 'vue-i18n';
-import SetForm from './SetForm';
+import SetFormModal from './SetFormModal';
 
 import messages from '../../lang/en';
 
@@ -12,19 +12,20 @@ const i18n = new VueI18n({
 });
 
 // TODO: need to go into modal to show design
-storiesOf('Set/SetForm', module)
-  .add('Create set', () => ({
+storiesOf('Collection/Form (modal)', module)
+  .add('Create', () => ({
     i18n,
-    components: { SetForm },
+    components: { SetFormModal },
     template: ` <b-container
       class="mt-3"
       >
-        <SetForm />
+        <b-button v-b-modal.set-form-modal>{{ $t('set.actions.createNew') }}</b-button>
+        <SetFormModal />
       </b-container>`
   }))
-  .add('Edit set', () => ({
+  .add('Edit', () => ({
     i18n,
-    components: { SetForm },
+    components: { SetFormModal },
     data() {
       return {
         id: 'http://data.europeana.eu/set/1',
@@ -39,8 +40,9 @@ storiesOf('Set/SetForm', module)
     template: ` <b-container
       class="mt-3"
       >
-        <SetForm
-          :id="id"
+        <b-button v-b-modal.set-form-modal>{{ $t('set.actions.edit') }}</b-button>
+        <SetFormModal
+          :set-id="id"
           :title="title"
           :description="description"
         />

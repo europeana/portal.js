@@ -34,26 +34,35 @@
                 >
                   <!-- TODO: Fill after the '@' with the set's owner  -->
                   <!-- <span class="curator mr-4">
-                    {{ $t('set.curatedBy') }} @placeholderUsername
+                    {{ $t('set.labels.curatedBy') }} @placeholderUsername
                   </span> -->
                   <span
                     class="visibility"
                   >
-                    {{ $t('set.privateCollection') }}
+                    {{ $t('set.labels.private') }}
                   </span>
                 </div>
               </b-col>
             </b-row>
             <div class="collection-buttons">
-              <b-button
+              <template
                 v-if="userIsOwner"
-                v-b-modal.set-form-modal
-                variant="outline-primary text-decoration-none"
               >
-                <span class="text">
-                  {{ $t('set.edit') }}
-                </span>
-              </b-button>
+                <b-button
+                  variant="outline-primary text-decoration-none"
+                  @click="$bvModal.show(setFormModalId)"
+                >
+                  {{ $t('actions.edit') }}
+                </b-button>
+                <SetFormModal
+                  :set-id="id"
+                  :modal-id="setFormModalId"
+                  :title="title"
+                  :description="description"
+                  :visibility="visibility"
+                  @update="updateSet"
+                />
+              </template>
               <!-- <b-button
                 v-if="visibility === 'public'"
                 variant="outline-primary text-decoration-none"
@@ -115,20 +124,6 @@
         </b-col>
       </b-row>
     </b-container>
-    <b-modal
-      id="set-form-modal"
-      :title="$t('collectionModal.editCollection')"
-      hide-footer
-    >
-      <SetForm
-        :id="id"
-        :title="title"
-        :description="description"
-        :visibility="visibility"
-        @close="$bvModal.hide('set-form-modal')"
-        @update="updateSet"
-      />
-    </b-modal>
   </div>
 </template>
 
@@ -136,14 +131,13 @@
   import { langMapValueForLocale } from  '../../plugins/europeana/utils';
 
   import ClientOnly from 'vue-client-only';
-  import SetForm from '../../components/set/SetForm';
   import ItemPreviewCardGroup from '../../components/item/ItemPreviewCardGroup';
 
   export default {
     components: {
       ClientOnly,
       ItemPreviewCardGroup,
-      SetForm,
+      SetFormModal: () => import('../../components/set/SetFormModal'),
       PaginationNav: () => import('../../components/generic/PaginationNav')
     },
 
@@ -178,6 +172,7 @@
         page: null,
         perPage: 24,
         recommendations: [],
+        setFormModalId: `set-form-modal-${this.id}`,
         title: null,
         total: 0,
         visibility: null
@@ -204,12 +199,11 @@
 
     methods: {
       updateSet(set) {
-        // console.log('updated set', set);
         this.id = set.id;
         this.title = set.title;
         this.description = set.description;
         this.visibility = set.visibility;
-        this.$bvModal.hide('set-form-modal');
+        this.$bvModal.hide(this.setFormModalId);
       }
     },
 
