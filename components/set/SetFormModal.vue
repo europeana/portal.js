@@ -5,6 +5,7 @@
     :title="modalTitle"
     :static="modalStatic"
     hide-footer
+    @show="init"
   >
     <b-form @submit.stop.prevent="submitForm">
       <b-form-group
@@ -99,10 +100,9 @@
 
     data() {
       return {
-        // TODO: how to handle existing set having title/description in other languages?
-        titleValue: (this.title || {})[this.$i18n.locale],
-        descriptionValue: (this.description || {})[this.$i18n.locale],
-        isPrivate: this.visibility === 'private'
+        titleValue: null,
+        descriptionValue: null,
+        isPrivate: false
       };
     },
 
@@ -130,6 +130,13 @@
     },
 
     methods: {
+      // TODO: how to handle existing set having title/description in other languages?
+      init() {
+        this.titleValue = (this.title || {})[this.$i18n.locale];
+        this.descriptionValue = (this.description || {})[this.$i18n.locale];
+        this.isPrivate = this.visibility === 'private';
+      },
+
       // TODO: error handling
       async submitForm() {
         if (this.isNew) {
