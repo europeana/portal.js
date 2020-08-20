@@ -35,7 +35,7 @@
       :type="media.ebucoreHasMimeType"
     />
     <MediaCardImage
-      v-else
+      v-else-if="media.thumbnails"
       :europeana-identifier="europeanaIdentifier"
       :media="media"
     />

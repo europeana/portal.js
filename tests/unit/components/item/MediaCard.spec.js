@@ -1,7 +1,11 @@
-import { shallowMount } from '@vue/test-utils';
+import { createLocalVue, shallowMount } from '@vue/test-utils';
 import MediaCard from '../../../../components/item/MediaCard.vue';
 
+const localVue = createLocalVue();
+
 const factory = (propsData) => shallowMount(MediaCard, {
+  localVue,
+  stubs: ['b-img-lazy'],
   propsData,
   mocks: {
     $t: (key) => key,
@@ -121,7 +125,7 @@ describe('components/item/MediaCard', () => {
 
     context('when url is for media unknown to the oEmbed parser', () => {
       it('is `false`', () => {
-        const props = { europeanaIdentifier, media: { about: 'https://example.org/abcdef', thumbnails: { large: 'https://api.europeana.eu/api/v2/thumbnail-by-url.json?size=w400&type=IMAGE&uri=https%3A%2F%2Feuropeana1914-1918.s3.amazonaws.com%2Fattachments%2F119200%2F10265.119200.original.jpg' } } };
+        const props = { europeanaIdentifier, media: { about: 'https://example.org/abcdef', thumbnails: { isHTMLVideo: 'https://api.europeana.eu/api/v2/thumbnail-by-url.json?size=w400&type=IMAGE&uri=https%3A%2F%2Feuropeana1914-1918.s3.amazonaws.com%2Fattachments%2F119200%2F10265.119200.original.jpg' } } };
         const wrapper = factory(props);
 
         wrapper.vm.isOEmbed.should.be.false;
