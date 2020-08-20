@@ -442,7 +442,8 @@ export default {
     "entireCollection": "Search for {0} in our entire collection",
     "inCollection": "Search for {0} in {1}",
     "searchFor": "Search for {0}",
-    "showSidebar": "Show Sidebar"
+    "showSidebar": "Show Sidebar",
+    "in": "in"
   },
   "homeLinkAlt": "Europeana home",
   "imageSlider": {

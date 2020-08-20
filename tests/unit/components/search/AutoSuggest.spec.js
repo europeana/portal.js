@@ -126,22 +126,20 @@ describe('components/search/AutoSuggest', () => {
       autoSuggestWrapper.vm.focus.should.eq(0);
     });
 
-    for (const key of ['tab', 'esc']) {
-      it(`is closable by ${key} key on the parent input`, () => {
-        const wrapper = factory();
-        const searchInput = wrapper.find('#searchbox');
-        const autoSuggestWrapper = wrapper.find('[data-qa="search suggestions"]');
+    it('is closable by esc key on the parent input', () => {
+      const wrapper = factory();
+      const searchInput = wrapper.find('#searchbox');
+      const autoSuggestWrapper = wrapper.find('[data-qa="search suggestions"]');
 
-        autoSuggestWrapper.setProps({
-          value: suggestions,
-          query
-        });
-
-        autoSuggestWrapper.isVisible().should.be.true;
-
-        searchInput.trigger(`keyup.${key}`);
-        autoSuggestWrapper.isVisible().should.be.false;
+      autoSuggestWrapper.setProps({
+        value: suggestions,
+        query
       });
-    }
+
+      autoSuggestWrapper.isVisible().should.be.true;
+
+      searchInput.trigger('keyup.esc');
+      autoSuggestWrapper.isVisible().should.be.false;
+    });
   });
 });

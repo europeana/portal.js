@@ -56,7 +56,8 @@
         return Boolean(Number(process.env.ENABLE_LINKS_TO_CLASSIC));
       },
       searchedFor() {
-        return this.$route.query.query ? this.$route.query.query : this.$t('search');
+        const query = this.$route.query.query.replace(/(^")|("$)/g, '');
+        return query ? `"${query}"` : this.$t('search');
       }
     },
 

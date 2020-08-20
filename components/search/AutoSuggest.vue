@@ -206,9 +206,10 @@
 
         const isParent = (event.target === this.inputElement);
         const isChild = this.$el.contains(event.target);
+        const isSubmit = event.target.closest('.search-query');
         const isClear = event.target.classList.contains('clear');
 
-        if (!(isParent || isChild)) {
+        if (!(isParent || isChild || isSubmit)) {
           this.closeDropdown(isClear);
         }
       },

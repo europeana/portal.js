@@ -225,9 +225,16 @@
         };
       },
       title() {
+        let search = '';
+
+        if (this.$route.query.query) {
+          search = `"${this.$route.query.query}" ${this.$t('header.in')}`;
+        }
+
         if (!this.entity) return this.titleFallback();
-        if (this.editorialTitle) return this.titleFallback(this.editorialTitle);
-        return langMapValueForLocale(this.entity.prefLabel, this.$store.state.i18n.locale);
+        if (this.editorialTitle) return this.titleFallback(`${search} ${this.editorialTitle}`);
+
+        return `${search} ${langMapValueForLocale(this.entity.prefLabel, this.$store.state.i18n.locale)}`;
       }
     },
 

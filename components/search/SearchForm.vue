@@ -166,6 +166,20 @@
           return this.$route.path;
         }
         return this.$path({ name: 'search' });
+      },
+
+      removeCollectionLinkTo() {
+        const query = {
+          ...this.queryUpdatesForFacetChanges({ collection: null }),
+          view: this.view,
+          query: this.query || ''
+        };
+        return {
+          path: this.$path({
+            name: 'search'
+          }),
+          query
+        };
       }
     },
 
@@ -267,7 +281,7 @@
       },
 
       async toggleSearchAndRemovePill() {
-        this.hideSearch();
+        await this.$goto(this.removeCollectionLinkTo);
       }
     }
   };
