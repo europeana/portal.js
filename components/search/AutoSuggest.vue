@@ -272,7 +272,6 @@
 
       &:before {
         @extend .icon-font;
-        display: inline-block;
         font-size: 1.1rem;
         content: '\e92b';
         left: 1rem;
