@@ -239,4 +239,9 @@
       font-weight: 600;
     }
   }
+
+  .recommendations h2 {
+    color: $mediumgrey;
+    font-size: $font-size-medium;
+  }
 </style>
