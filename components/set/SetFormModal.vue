@@ -100,8 +100,8 @@
 
     data() {
       return {
-        titleValue: null,
-        descriptionValue: null,
+        titleValue: '',
+        descriptionValue: '',
         isPrivate: false
       };
     },
@@ -127,6 +127,10 @@
       modalTitle() {
         return this.isNew ? this.$t('set.actions.create') : this.$t('set.actions.edit');
       }
+    },
+
+    created() {
+      this.init();
     },
 
     methods: {
