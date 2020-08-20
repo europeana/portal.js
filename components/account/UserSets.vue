@@ -2,7 +2,15 @@
   <b-container>
     <b-row class="flex-md-row pb-5">
       <b-col cols="12">
+        <LoadingSpinner
+          v-if="$fetchState.pending"
+        />
+        <AlertMessage
+          v-else-if="$fetchState.error"
+          :error="$fetchState.error.message"
+        />
         <b-card-group
+          v-else
           class="card-deck-4-cols"
           deck
         >
@@ -11,9 +19,9 @@
             :key="set.id"
             :sub-title="setSubTitle(set)"
             :title="set.title"
-            :image-url="set.thumbnail"
+            :image-url="$sets.getSetThumbnail(set)"
             :texts="[set.description]"
-            :url="{ name: 'set-all', params: { pathMatch: set.id } }"
+            :url="{ name: 'set-all', params: { pathMatch: setPathMatch(set) } }"
             data-qa="user set"
           />
         </b-card-group>
@@ -21,23 +29,34 @@
     </b-row>
   </b-container>
 </template>
+
 <script>
-  import ContentCard from '../../components/generic/ContentCard';
+  import AlertMessage from '../generic/AlertMessage';
+  import ContentCard from '../generic/ContentCard';
+  import LoadingSpinner from '../generic/LoadingSpinner';
 
   export default {
     name: 'UserSets',
     components: {
-      ContentCard
+      AlertMessage,
+      ContentCard,
+      LoadingSpinner
     },
     props: {
-      setIds: {
-        type: Array,
-        default: () => []
+      // May be "public" or "private"
+      visibility: {
+        type: String,
+        default: 'public'
       }
     },
     async fetch() {
-      const setsNoImage = await this.$sets.getAllSets(this.setIds);
-      this.userSets =  await this.$sets.getSetImages(setsNoImage);
+      const searchParams = {
+        query: `creator:${this.$auth.user.sub} visibility:${this.visibility}`,
+        profile: 'itemDescriptions'
+      };
+
+      const searchResponse = await this.$sets.search(searchParams);
+      this.userSets = searchResponse.data.items || [];
     },
     data() {
       return {
@@ -48,6 +67,9 @@
       setSubTitle(set) {
         const setTotal = set.total || 0;
         return this.$tc('items.itemCount', setTotal, { count: setTotal });
+      },
+      setPathMatch(set) {
+        return set.id.replace('http://data.europeana.eu/set/', '');
       }
     }
   };

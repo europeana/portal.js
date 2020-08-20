@@ -6,52 +6,102 @@ import sinon from 'sinon';
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
-const mockProps =  {
-  itemUrl: {
-    params: ['item-id-01']
-  }
-};
+const identifier = '/123/abc';
+const storeDispatch = sinon.spy();
 
-const factory = () => mount(UserButtons, {
+const factory = (storeState = {}) => mount(UserButtons, {
   localVue,
+  propsData: { value: identifier },
   mocks: {
     $store: {
       state: {
-        set: {
-        }
+        set: { ...{ liked: [] }, ...storeState }
       },
-      dispatch: sinon.spy()
+      dispatch: storeDispatch
     },
     $t: () => {}
   }
 });
 
 describe('components/account/UserButtons', () => {
-  it('it displays a like button', () => {
-    const wrapper = factory();
-    const likeButton = wrapper.find('[data-qa="like button"]');
-    likeButton.isVisible().should.equal(true);
-  });
-  it('likes an item when the like button is clicked', async() => {
-    const wrapper = factory();
-    const likeButton = wrapper.find('[data-qa="like button"]');
-    wrapper.setData({
-      liked: false
+  describe('like button', () => {
+    it('is visible', () => {
+      const wrapper = factory();
+
+      const likeButton = wrapper.find('[data-qa="like button"]');
+
+      likeButton.isVisible().should.be.true;
     });
-    wrapper.setProps(mockProps);
-    await likeButton.trigger('click');
-    await wrapper.vm.$nextTick();
-    likeButton.attributes('aria-pressed').should.eq('true');
-  });
-  it('unlikes a liked item when the like button is clicked', async() => {
-    const wrapper = factory();
-    wrapper.setData({
-      liked: true
+
+    context('when an item is not yet liked', () => {
+      it('is rendered as unpressed', () => {
+        const wrapper = factory({ liked: [] });
+
+        const likeButton = wrapper.find('[data-qa="like button"]');
+
+        likeButton.attributes('aria-pressed').should.eq('false');
+      });
+
+      context('when pressed', () => {
+        it('dispatches to create likes set if needed', async() => {
+          const wrapper = factory({ liked: [], likesId: null });
+
+          const likeButton = wrapper.find('[data-qa="like button"]');
+          likeButton.trigger('click');
+
+          storeDispatch.should.have.been.calledWith('set/createLikes');
+        });
+
+        it('dispatches to add item to likes set', async() => {
+          const wrapper = factory({ liked: [] });
+
+          const likeButton = wrapper.find('[data-qa="like button"]');
+          likeButton.trigger('click');
+
+          storeDispatch.should.have.been.calledWith('set/like', identifier);
+        });
+
+        it('emits "like" event', async() => {
+          const wrapper = factory({ liked: [] });
+
+          const likeButton = wrapper.find('[data-qa="like button"]');
+          likeButton.trigger('click');
+
+          await wrapper.vm.$nextTick();
+          wrapper.emitted('like').should.eql([[identifier]]);
+        });
+      });
     });
-    wrapper.setProps(mockProps);
-    const likeButton = wrapper.find('[data-qa="like button"]');
-    await likeButton.trigger('click');
-    await wrapper.vm.$nextTick();
-    likeButton.attributes('aria-pressed').should.eq('false');
+
+    context('when an item is already liked', () => {
+      it('is rendered as pressed', () => {
+        const wrapper = factory({ liked: [identifier] });
+
+        const likeButton = wrapper.find('[data-qa="like button"]');
+
+        likeButton.attributes('aria-pressed').should.eq('true');
+      });
+
+      context('when pressed', () => {
+        it('dispatches to remove item from likes set', async() => {
+          const wrapper = factory({ liked: [identifier] });
+
+          const likeButton = wrapper.find('[data-qa="like button"]');
+          likeButton.trigger('click');
+
+          storeDispatch.should.have.been.calledWith('set/unlike', identifier);
+        });
+
+        it('emits "unlike" event', async() => {
+          const wrapper = factory({ liked: [identifier] });
+
+          const likeButton = wrapper.find('[data-qa="like button"]');
+          likeButton.trigger('click');
+
+          await wrapper.vm.$nextTick();
+          wrapper.emitted('unlike').should.eql([[identifier]]);
+        });
+      });
+    });
   });
 });

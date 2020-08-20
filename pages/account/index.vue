@@ -22,42 +22,38 @@
               :title="$t('account.likes')"
               active
             >
-              <!-- TODO: Update this section to preview the results retrieved with Sets API -->
-              <div class="text-center">
-                Placeholder for {{ $t('account.likes') }} tab.
-              </div>
+              <b-container>
+                <b-row class="flex-md-row pb-5">
+                  <b-col cols="12">
+                    <ItemPreviewCardGroup
+                      v-model="likes"
+                      @unlike="fetchLikes()"
+                    />
+                  </b-col>
+                </b-row>
+              </b-container>
             </b-tab>
             <b-tab
               data-qa="public collections"
               :title="$t('account.publicCollections')"
             >
-              <div
-                v-if="!$fetchState.pending"
-              >
-                <client-only>
-                  <UserSets
-                    v-if="publicSets"
-                    :set-ids="publicSets"
-                    data-qa="public sets"
-                  />
-                </client-only>
-              </div>
+              <client-only>
+                <UserSets
+                  visibility="public"
+                  data-qa="public sets"
+                />
+              </client-only>
             </b-tab>
             <b-tab
               data-qa="private collections"
               :title="$t('account.privateCollections')"
             >
-              <div
-                v-if="!$fetchState.pending"
-              >
-                <client-only>
-                  <UserSets
-                    v-if="privateSets"
-                    :set-ids="privateSets"
-                    data-qa="private sets"
-                  />
-                </client-only>
-              </div>
+              <client-only>
+                <UserSets
+                  visibility="private"
+                  data-qa="private sets"
+                />
+              </client-only>
             </b-tab>
           </b-tabs>
         </b-col>
@@ -67,24 +63,56 @@
 </template>
 
 <script>
+  import { mapState } from 'vuex';
+
+  import ItemPreviewCardGroup from '../../components/item/ItemPreviewCardGroup';
   import UserSets from '../../components/account/UserSets';
+
   export default {
     middleware: 'auth',
+
     components: {
+      ItemPreviewCardGroup,
       UserSets
     },
+
     async fetch() {
-      this.publicSets = await this.$sets.getSetsByCreator(this.$auth.user.sub, 'public', 'minimal');
-      this.privateSets = await this.$sets.getSetsByCreator(this.$auth.user.sub, 'private', 'minimal');
+      await this.fetchLikes();
     },
+
+    fetchOnServer: false,
+
     data() {
       return {
         loggedInUser: this.$store.state.auth.user,
-        publicSets: [],
-        privateSets: []
+        likes: []
       };
     },
-    fetchOnServer: false,
+
+    computed: {
+      ...mapState({
+        likesId: state => state.set.likesId
+      })
+    },
+
+    watch: {
+      'likesId'() {
+        this.fetchLikes();
+      }
+    },
+
+    methods: {
+      // TODO: pagination
+      async fetchLikes() {
+        if (!this.$store.state.set.likesId) return;
+        const likes = await this.$sets.getSet(this.likesId, {
+          pageSize: 100,
+          profile: 'itemDescriptions'
+        });
+        this.likes = likes.items;
+      }
+    },
+
     head() {
       return {
         title: this.$t('account.title')
@@ -99,4 +127,3 @@
     margin-bottom: 40px;
   }
 </style>
-

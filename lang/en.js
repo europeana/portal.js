@@ -544,6 +544,16 @@ export default {
     "publicCollections": "Public Collections",
     "privateCollections": "Private Collections"
   },
+  "collectionModal": {
+    "addToCollection": "Add to collection",
+    "createNewCollection": "Create new collection",
+    "collectionName": "Collection name",
+    "collectionDescription": "Collection description",
+    "collectionPrivate": "Keep this collection private",
+    "goBack": "Go back",
+    "createCollection": "Create collection",
+    "newNotification": "The item is now added to your new collection."
+  },
   "set": {
     "curatedBy": "Curated by",
     "privateCollection": "Private collection",
