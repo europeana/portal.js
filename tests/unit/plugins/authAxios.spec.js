@@ -59,7 +59,7 @@ describe('authAxios plugin', () => {
   });
 
   context('there is a user logged in', () => {
-    it('puts the keycloak token in requests ',  async() => {
+    it('puts the keycloak token in requests ', async() => {
       authAxios(mockContext, mockInject);
       nock(apiUrl)
         .matchHeader('Authorization', 'keycloak-mocked-token')

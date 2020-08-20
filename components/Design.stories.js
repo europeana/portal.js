@@ -122,7 +122,8 @@ storiesOf('Design', module)
           'icon-close',
           'icon-caret-down',
           'icon-external-link',
-          'icon-cancel-circle'
+          'icon-cancel-circle',
+          'icon-check_circle'
         ]
       };
     },
