@@ -68,7 +68,7 @@
           :key="index"
           :style="buttonBackground($sets.getSetThumbnail(collection))"
           variant="overlay"
-          class="btn-collection w-100 text-left"
+          class="btn-collection w-100 text-left d-flex justify-content-between align-items-center"
           @click="toggleItem(collection.id)"
         >
           <span>{{ displayField(collection, 'title') }} ({{ collection.visibility }}) - {{ $tc('items.itemCount', collection.total) }}</span>
@@ -226,6 +226,8 @@
 </script>
 
 <style lang="scss" scoped>
+  @import './assets/scss/variables.scss';
+
   .btn-collection {
     font-size: 1rem;
     font-weight: 500;
@@ -238,6 +240,9 @@
       span {
         position: relative;
         z-index: 10;
+        &.icon-check_circle {
+          font-size: $font-size-large;
+        }
       }
 
       &:after {
