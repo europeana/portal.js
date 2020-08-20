@@ -53,7 +53,7 @@ Feature: Search querying
     And I press the ENTER key
     And I wait for the page to load
     Then I see the `search page`
-    And I don't see `search suggestions`
+    And I see the `show search button`
     And I click the `show search button`
     And I see "\"World War I\"" in the `search box`
 
@@ -63,7 +63,7 @@ Feature: Search querying
     And I enter "World" in the `search box`
     And I see `search suggestions` with the text "World War I"
     And I press the ESCAPE key
-    Then I don't see `search suggestions`
+    Then I see the `show search button`
 
   Scenario: No auto suggestion on entity pages
     Given I am on an `entity page`

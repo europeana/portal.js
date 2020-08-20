@@ -98,6 +98,7 @@
                 :hits="hits"
                 :view="view"
                 :per-row="perRow"
+                data-qa="search result"
               />
               <InfoMessage
                 v-if="lastAvailablePage"

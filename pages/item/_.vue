@@ -111,6 +111,7 @@
               v-model="similarItems"
               view="similar"
               class="mb-3"
+              data-qa="similar items"
             />
           </section>
         </b-col>

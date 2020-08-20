@@ -88,6 +88,7 @@
                 v-model="similarItems"
                 view="plain"
                 class="mb-3"
+                data-qa="similar items"
               />
             </section>
           </b-col>
