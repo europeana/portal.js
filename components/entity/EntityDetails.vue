@@ -6,7 +6,7 @@
         data-qa="entity title"
         class="pt-3"
       >
-        {{ title.values[0] }}
+        {{ searchInTitle }}
       </h1>
       <div
         v-if="hasDescription"
@@ -56,6 +56,10 @@
         type: Object,
         required: true
       },
+      query: {
+        type: String,
+        default: null
+      },
       // Description as object with 'values' (array of strings) and 'code' two letter language code
       description: {
         type: Object,
@@ -81,6 +85,14 @@
       },
       fullDescription() {
         return this.hasDescription ? this.description.values[0] : '';
+      },
+      searchInTitle() {
+        let search = '';
+
+        if (this.query) {
+          search = `"${this.query}" ${this.$t('header.in')}`;
+        }
+        return `${search} ${this.title.values[0]}`;
       }
     },
     methods: {

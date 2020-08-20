@@ -13,6 +13,7 @@
             :description="description"
             :is-editorial-description="hasEditorialDescription"
             :title="title"
+            :query="$route.query.query"
           />
           <client-only>
             <section
@@ -225,16 +226,10 @@
         };
       },
       title() {
-        let search = '';
-
-        if (this.$route.query.query) {
-          search = `"${this.$route.query.query}" ${this.$t('header.in')}`;
-        }
-
         if (!this.entity) return this.titleFallback();
-        if (this.editorialTitle) return this.titleFallback(`${search} ${this.editorialTitle}`);
+        if (this.editorialTitle) return this.titleFallback(this.editorialTitle);
 
-        return `${search} ${langMapValueForLocale(this.entity.prefLabel, this.$store.state.i18n.locale)}`;
+        return langMapValueForLocale(this.entity.prefLabel, this.$store.state.i18n.locale);
       }
     },
 
