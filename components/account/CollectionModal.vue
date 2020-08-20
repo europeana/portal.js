@@ -68,10 +68,14 @@
           :key="index"
           :style="buttonBackground($sets.getSetThumbnail(collection))"
           variant="overlay"
-          class="btn-collection w-100 text-left"
-          @click="addItem(collection.id)"
+          class="btn-collection w-100 text-left d-flex justify-content-between align-items-center"
+          @click="toggleItem(collection.id)"
         >
           <span>{{ displayField(collection, 'title') }} ({{ collection.visibility }}) - {{ $tc('items.itemCount', collection.total) }}</span>
+          <span
+            v-if="collectionsWithItem.includes(collection.id)"
+            class="icon-check_circle d-inline-flex"
+          />
         </b-button>
       </div>
       <div class="modal-footer">
@@ -117,6 +121,13 @@
         return this.showForm ?
           this.$t('collectionModal.createNewCollection') :
           this.$t('collectionModal.addToCollection');
+      },
+
+      // Array of IDs of sets containing the item
+      collectionsWithItem() {
+        return this.collections
+          .filter(collection => (collection.items || []).some(item => item.id === this.itemId))
+          .map(collection => collection.id);
       }
     },
 
@@ -130,7 +141,8 @@
       async fetchCollections() {
         const searchParams = {
           query: `creator:${this.$auth.user.sub}`,
-          profile: 'itemDescriptions'
+          profile: 'itemDescriptions',
+          pageSize: 100 // TODO: pagination?
         };
 
         const searchResponse = await this.$sets.search(searchParams);
@@ -151,7 +163,7 @@
         });
       },
 
-      async submitForm() {
+      submitForm() {
         const setBody = {
           type: 'Collection',
           visibility: this.newCollectionPrivate ? 'private' : 'public',
@@ -169,12 +181,27 @@
           });
       },
 
-      async addItem(setId) {
+      toggleItem(setId) {
+        if (this.collectionsWithItem.includes(setId)) {
+          this.removeItem(setId);
+        } else {
+          this.addItem(setId);
+        }
+      },
+
+      addItem(setId) {
         // TODO: error handling
         this.$sets.modifyItems('add', setId, this.itemId)
           .then(() => {
             this.$bvToast.show('new-collection-toast');
             this.hideModal();
+          });
+      },
+
+      removeItem(setId) {
+        this.$sets.modifyItems('delete', setId, this.itemId)
+          .then(() => {
+            this.fetchCollections();
           });
       },
 
@@ -199,6 +226,8 @@
 </script>
 
 <style lang="scss" scoped>
+  @import './assets/scss/variables.scss';
+
   .btn-collection {
     font-size: 1rem;
     font-weight: 500;
@@ -211,6 +240,9 @@
       span {
         position: relative;
         z-index: 10;
+        &.icon-check_circle {
+          font-size: $font-size-large;
+        }
       }
 
       &:after {
