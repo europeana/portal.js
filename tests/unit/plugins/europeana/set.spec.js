@@ -78,9 +78,9 @@ describe('describe /plugins/europeana/set', () => {
     it('get the likes set', async() => {
       nock(apiUrl)
         .get('/search?query=creator:auth-user-sub+type:BookmarkFolder')
-        .reply(200,  searchResponse);
+        .reply(200, searchResponse);
 
-      const response =  await set(axios).getLikes('auth-user-sub');
+      const response = await set(axios).getLikes('auth-user-sub');
       response.should.eq('163');
     });
   });
@@ -89,9 +89,9 @@ describe('describe /plugins/europeana/set', () => {
     it('creates a likes set', async() => {
       nock(apiUrl)
         .post('/')
-        .reply(200,  likesResponse);
+        .reply(200, likesResponse);
 
-      const response =  await set(axios).createLikes();
+      const response = await set(axios).createLikes();
       response.id.should.eq('http://data.europeana.eu/set/1234');
     });
   });

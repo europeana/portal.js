@@ -109,9 +109,10 @@
         class="recommendations"
       >
         <b-col>
-          <span class="recommended-items">
-            {{ $t('items.youMightLike') }}
-          </span>
+          <h2>{{ $t('items.youMightLike') }}</h2>
+          <ItemPreviewCardGroup
+            v-model="recommendations"
+          />
         </b-col>
       </b-row>
     </b-container>
@@ -183,6 +184,14 @@
       '$route.query.page': '$fetch'
     },
 
+    mounted() {
+      if (!this.$auth.loggedIn) return;
+      this.$recommendations.recommend('set', `/${this.$route.params.pathMatch}`)
+        .then(recommendResponse => {
+          this.recommendations = recommendResponse.items;
+        });
+    },
+
     head() {
       return {
         title: this.displayTitle.values[0]
@@ -232,9 +241,8 @@
     }
   }
 
-  .recommended-items {
+  .recommendations h2 {
     color: $mediumgrey;
-    font-size: 1.3rem;
-    font-weight: 600;
+    font-size: $font-size-medium;
   }
 </style>
