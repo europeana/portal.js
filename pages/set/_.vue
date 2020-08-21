@@ -34,35 +34,44 @@
                 >
                   <!-- TODO: Fill after the '@' with the set's owner  -->
                   <!-- <span class="curator mr-4">
-                    {{ $t('set.curatedBy') }} @placeholderUsername
+                    {{ $t('set.labels.curatedBy') }} @placeholderUsername
                   </span> -->
                   <span
                     class="visibility"
                   >
-                    {{ $t('set.privateCollection') }}
+                    {{ $t('set.labels.private') }}
                   </span>
                 </div>
               </b-col>
             </b-row>
-            <!--
             <div class="collection-buttons">
-              <b-button
+              <template
                 v-if="userIsOwner"
-                variant="outline-primary text-decoration-none"
               >
-                <span class="text">
-                  {{ $t('set.edit') }}
-                </span>
-              </b-button>
-              <b-button
+                <b-button
+                  variant="outline-primary text-decoration-none"
+                  @click="$bvModal.show(setFormModalId)"
+                >
+                  {{ $t('actions.edit') }}
+                </b-button>
+                <SetFormModal
+                  :set-id="id"
+                  :modal-id="setFormModalId"
+                  :title="title"
+                  :description="description"
+                  :visibility="visibility"
+                  @update="updateSet"
+                />
+              </template>
+              <!-- <b-button
                 v-if="visibility === 'public'"
                 variant="outline-primary text-decoration-none"
               >
                 <span class="text">
                   {{ $t('actions.share') }}
                 </span>
-              </b-button>
-            </div> -->
+              </b-button> -->
+            </div>
           </b-container>
         </b-col>
       </b-row>
@@ -129,6 +138,7 @@
     components: {
       ClientOnly,
       ItemPreviewCardGroup,
+      SetFormModal: () => import('../../components/set/SetFormModal'),
       PaginationNav: () => import('../../components/generic/PaginationNav')
     },
 
@@ -145,20 +155,25 @@
         profile: 'itemDescriptions'
       });
 
-      this.total = set.total || 0;
+      this.id = set.id;
       this.title = set.title;
-      this.items = set.items;
-      this.visibility = set.visibility;
       this.description = set.description;
+      this.visibility = set.visibility;
+      this.creator = set.creator;
+      this.total = set.total || 0;
+      this.items = set.items;
     },
 
     data() {
       return {
+        id: null,
+        creator: null,
         description: null,
         items: [],
         page: null,
         perPage: 24,
         recommendations: [],
+        setFormModalId: `set-form-modal-${this.id}`,
         title: null,
         total: 0,
         visibility: null
@@ -167,10 +182,9 @@
 
     computed: {
       userIsOwner() {
-        if (this.$store.state.auth.user && this.creator) {
-          return (this.$store.state.auth.user.sub === this.creator.split('user/')[1]);
-        }
-        return false;
+        return this.$store.state.auth.user &&
+          this.creator &&
+          this.creator.endsWith(`/${this.$store.state.auth.user.sub}`);
       },
       displayTitle() {
         return langMapValueForLocale(this.title, this.$i18n.locale);
@@ -190,6 +204,16 @@
         .then(recommendResponse => {
           this.recommendations = recommendResponse.items;
         });
+    },
+
+    methods: {
+      updateSet(set) {
+        this.id = set.id;
+        this.title = set.title;
+        this.description = set.description;
+        this.visibility = set.visibility;
+        this.$bvModal.hide(this.setFormModalId);
+      }
     },
 
     head() {

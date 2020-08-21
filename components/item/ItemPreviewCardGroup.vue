@@ -24,7 +24,7 @@
       solid
       data-qa="tier toast"
     >
-      {{ $t('collectionModal.newNotification') }}
+      {{ $t('set.notifications.itemAdded') }}
     </b-toast>
   </b-card-group>
 </template>
