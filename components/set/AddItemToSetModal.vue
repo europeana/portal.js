@@ -94,6 +94,17 @@
         });
       },
 
+      makeToast() {
+        this.$root.$bvToast.toast(this.$t('set.notifications.itemAdded'), {
+          toastClass: 'brand-toast',
+          toaster: 'b-toaster-bottom-left',
+          autoHideDelay: 5000,
+          isStatus: true,
+          noCloseButton: true,
+          solid: true
+        });
+      },
+
       toggleItem(setId) {
         if (this.collectionsWithItem.includes(setId)) {
           this.removeItem(setId);
@@ -106,7 +117,7 @@
         // TODO: error handling
         this.$sets.modifyItems('add', setId, this.itemId)
           .then(() => {
-            this.$bvToast.show('new-collection-toast');
+            this.makeToast();
             this.hideModal();
           });
       },

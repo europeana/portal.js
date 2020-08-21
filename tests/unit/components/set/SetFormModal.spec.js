@@ -15,6 +15,17 @@ const i18n = new VueI18n({
   locale: 'en'
 });
 
+const existingSetPropsData = {
+  setId: '123',
+  title: {
+    en: 'My first public set'
+  },
+  description: {
+    en: 'Lots of things in here'
+  },
+  visibility: 'public'
+};
+
 const factory = (propsData = {}) => mount(SetFormModal, {
   localVue,
   propsData: {
@@ -53,16 +64,7 @@ describe('components/set/SetFormModal', () => {
     });
 
     it('updates existing sets', async() => {
-      const wrapper = factory({
-        setId: '123',
-        title: {
-          en: 'My first public set'
-        },
-        description: {
-          en: 'Lots of things in here'
-        },
-        visibility: 'public'
-      });
+      const wrapper = factory(existingSetPropsData);
 
       await wrapper.find('#set-title').setValue('A better title');
       await wrapper.find('#set-private').setChecked();
@@ -78,6 +80,34 @@ describe('components/set/SetFormModal', () => {
         },
         visibility: 'private'
       });
+    });
+  });
+
+  describe('delete button', () => {
+    it('is not shown for new sets', async() => {
+      const wrapper = factory();
+
+      const deleteButton = wrapper.find('[data-qa="delete button"]');
+
+      deleteButton.exists().should.be.false;
+    });
+
+    it('is shown for existing sets', async() => {
+      const wrapper = factory(existingSetPropsData);
+
+      const deleteButton = wrapper.find('[data-qa="delete button"]');
+
+      deleteButton.exists().should.be.true;
+    });
+
+    it('opens the confirmation modal when pressed', () => {
+      const wrapper = factory(existingSetPropsData);
+      const bvModalShow = sinon.spy(wrapper.vm.$bvModal, 'show');
+
+      const deleteButton = wrapper.find('[data-qa="delete button"]');
+      deleteButton.trigger('click');
+
+      bvModalShow.should.have.been.calledWith(`delete-set-modal-${existingSetPropsData.setId}`);
     });
   });
 });
