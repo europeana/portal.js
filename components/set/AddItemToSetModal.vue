@@ -108,6 +108,7 @@
           .then(() => {
             this.$bvToast.show('new-collection-toast');
             this.hideModal();
+            this.$emit('add', setId, this.itemId);
           });
       },
 
@@ -115,6 +116,7 @@
         this.$sets.modifyItems('delete', setId, this.itemId)
           .then(() => {
             this.fetchCollections();
+            this.$emit('remove', setId, this.itemId);
           });
       },
 

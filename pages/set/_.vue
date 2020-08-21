@@ -91,6 +91,7 @@
               <b-col cols="12">
                 <ItemPreviewCardGroup
                   v-model="items"
+                  @removeFromSet="$fetch"
                 />
               </b-col>
             </b-row>

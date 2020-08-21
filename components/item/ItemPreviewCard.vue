@@ -18,6 +18,7 @@
           v-model="identifier"
           @like="$emit('like', identifier)"
           @unlike="$emit('unlike', identifier)"
+          @removeFromSet="$emit('removeFromSet', identifier)"
         />
       </client-only>
     </template>

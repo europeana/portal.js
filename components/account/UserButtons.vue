@@ -25,6 +25,7 @@
         :modal-id="addItemToSetModalId"
         :item-id="value"
         @clickCreateSet="clickCreateSet"
+        @remove="itemRemovedFromSet"
       />
       <SetFormModal
         :modal-id="setFormModalId"
@@ -97,6 +98,9 @@
         } else {
           this.$auth.loginWith('keycloak');
         }
+      },
+      itemRemovedFromSet(setId) {
+        this.$emit('removeFromSet', setId);
       }
     }
   };
