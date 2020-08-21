@@ -1,4 +1,7 @@
 .btn {
+  text-transform: uppercase;
+  font-size: $font-size-small;
+
   &:focus {
     outline: auto;
   }
@@ -7,13 +10,11 @@
 .btn-primary {
   background: $blue;
   border-color: $blue;
-  font-size: $font-size-small;
-  text-transform: uppercase;
 
   &:hover {
     background: $blue;
     box-shadow: 2px 2px 6px 0 rgba(0, 0, 0, 0.15);
-  }  
+  }
 }
 
 .btn-link {
@@ -23,8 +24,6 @@
 .btn-outline-primary {
   border-color: $blue;
   color: $blue;
-  font-size: $font-size-small;
-  text-transform: uppercase;
 
   &:hover:not([disabled]) {
     background-color: $blue;
@@ -42,7 +41,6 @@
   border: 0;
   box-shadow: 2px 2px 2px 0 rgba(0, 0, 0, 0.1);
   color: $mediumgrey;
-  font-size: $font-size-small;
   padding: 0.5rem 1rem;
   text-decoration: none;
 
@@ -65,7 +63,7 @@
     background-color: rgba(0, 0, 0, 0.7);
     box-shadow: 2px 2px 6px 0 rgba(0, 0, 0, 0.15);
     color: $white;
-  }  
+  }
 }
 
 a {

@@ -16,18 +16,6 @@
       @addToSet="(setId, itemId) => $emit('addToSet', setId, itemId)"
       @removeFromSet="(setId, itemId) => $emit('removeFromSet', setId, itemId)"
     />
-    <b-toast
-      id="new-collection-toast"
-      toast-class="brand-toast"
-      toaster="b-toaster-bottom-left"
-      auto-hide-delay="5000"
-      is-status
-      no-close-button
-      solid
-      data-qa="tier toast"
-    >
-      {{ $t('set.notifications.itemAdded') }}
-    </b-toast>
   </b-card-group>
 </template>
 

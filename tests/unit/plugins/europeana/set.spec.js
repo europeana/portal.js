@@ -100,9 +100,18 @@ describe('describe /plugins/europeana/set', () => {
     it('adds item to set', async() => {
       nock(apiUrl)
         .put(`/${setId}${itemId}`)
-        .reply(200,  likesResponse);
+        .reply(200, likesResponse);
       const response =  await set(axios).modifyItems('add', setId, itemId);
       response.id.should.eq('http://data.europeana.eu/set/1234');
+    });
+  });
+
+  describe('deleteSet()', () => {
+    it('deletes item from set', async() => {
+      nock(apiUrl).delete(`/${setId}`).reply(204);
+
+      await set(axios).deleteSet(setId);
+      nock.isDone().should.be.true;
     });
   });
 
