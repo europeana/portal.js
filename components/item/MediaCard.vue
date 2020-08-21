@@ -5,7 +5,7 @@
     :media="media"
   />
   <div
-    v-else-if="isPlayableMedia && isSinglePlayableMedia"
+    v-else-if="isSinglePlayableMedia"
     ref="player"
     class="media-player-wrapper"
   >

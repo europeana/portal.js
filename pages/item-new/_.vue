@@ -20,25 +20,12 @@
         class="bg-white mb-3"
       >
         <!-- TODO: temporary to show examples, will be finalised and replaced by https://github.com/europeana/portal.js/pull/768 -->
-        <AwesomeSwiper
-          :europeana-identifier="identifier"
-          :media="media"
-        />
-        <!-- TODO: add swiper here
-          Swiper also includes download, share, right statement
-          Potential useful data:
-
-          :url="selectedMedia.about"
-          :europeana-identifier="identifier"
-          :use-proxy="useProxy"
-          :rights-statement="rightsStatement"
-          :data-provider-name="dataProvider.values[0]"
-          :data-provider-lang="dataProvider.code"
-          :is-shown-at="isShownAt"
-
-          Keep/reuse client-only?
-      -->
-        <client-only />
+        <client-only>
+          <AwesomeSwiper
+            :europeana-identifier="identifier"
+            :media="media"
+          />
+        </client-only>
       </b-container>
       <b-container>
         <b-row class="mb-3">
