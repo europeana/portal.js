@@ -18,7 +18,8 @@
           v-model="identifier"
           @like="$emit('like', identifier)"
           @unlike="$emit('unlike', identifier)"
-          @removeFromSet="$emit('removeFromSet', identifier)"
+          @addToSet="(setId, itemId) => $emit('addToSet', setId, itemId)"
+          @removeFromSet="(setId, itemId) => $emit('removeFromSet', setId, itemId)"
         />
       </client-only>
     </template>

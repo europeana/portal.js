@@ -91,7 +91,8 @@
               <b-col cols="12">
                 <ItemPreviewCardGroup
                   v-model="items"
-                  @removeFromSet="$fetch"
+                  @removeFromSet="itemAddedToOrRemovedFromSet"
+                  @addToSet="itemAddedToOrRemovedFromSet"
                 />
               </b-col>
             </b-row>
@@ -122,6 +123,8 @@
           <h2>{{ $t('items.youMightLike') }}</h2>
           <ItemPreviewCardGroup
             v-model="recommendations"
+            @removeFromSet="itemAddedToOrRemovedFromSet"
+            @addToSet="itemAddedToOrRemovedFromSet"
           />
         </b-col>
       </b-row>
@@ -214,6 +217,10 @@
         this.description = set.description;
         this.visibility = set.visibility;
         this.$bvModal.hide(this.setFormModalId);
+      },
+
+      itemAddedToOrRemovedFromSet(setId) {
+        if (setId === this.id) this.$fetch();
       }
     },
 

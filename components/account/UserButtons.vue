@@ -7,7 +7,7 @@
       class="icon-ic-add"
       data-qa="add button"
       :aria-label="$t('set.actions.addTo')"
-      @click="addToSet"
+      @click="clickAddButton"
     />
     <b-button
       :pressed="liked"
@@ -25,6 +25,7 @@
         :modal-id="addItemToSetModalId"
         :item-id="value"
         @clickCreateSet="clickCreateSet"
+        @add="itemAddedToSet"
         @remove="itemRemovedFromSet"
       />
       <SetFormModal
@@ -91,7 +92,7 @@
         await this.$store.dispatch('set/unlike', this.value);
         this.$emit('unlike', this.value);
       },
-      addToSet() {
+      clickAddButton() {
         if (this.$auth.loggedIn) {
           this.$bvModal.show(this.addItemToSetModalId);
           this.$emit('add', this.value);
@@ -99,8 +100,11 @@
           this.$auth.loginWith('keycloak');
         }
       },
+      itemAddedToSet(setId) {
+        this.$emit('addToSet', setId, this.value);
+      },
       itemRemovedFromSet(setId) {
-        this.$emit('removeFromSet', setId);
+        this.$emit('removeFromSet', setId, this.value);
       }
     }
   };
