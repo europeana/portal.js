@@ -42,6 +42,7 @@
         <div class="modal-footer">
           <b-button
             variant="outline-primary"
+            data-qa="close button"
             @click="hide"
           >
             {{ isNew ? $t('actions.goBack') : $t('actions.close') }}
@@ -49,6 +50,7 @@
           <b-button
             v-if="!isNew"
             variant="danger"
+            data-qa="delete button"
             @click="clickDelete"
           >
             {{ $t('set.actions.delete') }}
@@ -123,7 +125,7 @@
         titleValue: '',
         descriptionValue: '',
         isPrivate: false,
-        deleteSetModalId: `add-item-to-set-modal-${this.setId}`
+        deleteSetModalId: `delete-set-modal-${this.setId}`
       };
     },
 
