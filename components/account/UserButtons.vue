@@ -1,9 +1,9 @@
 <template>
-  <client-only>
-    <div
-      class="user-buttons"
-      data-qa="user buttons"
-    >
+  <div
+    class="user-buttons"
+    data-qa="user buttons"
+  >
+    <client-only>
       <b-button
         class="icon-ic-add"
         data-qa="add button"
@@ -33,8 +33,8 @@
           @update="setCreatedOrUpdated"
         />
       </template>
-    </div>
-  </client-only>
+    </client-only>
+  </div>
 </template>
 
 <script>
