@@ -1,46 +1,51 @@
 <template>
-  <div
-    class="user-buttons"
-    data-qa="user buttons"
-  >
-    <b-button
-      class="icon-ic-add"
-      data-qa="add button"
-      :aria-label="$t('set.actions.addTo')"
-      @click="addToSet"
-    />
-    <b-button
-      :pressed="liked"
-      class="icon-heart"
-      data-qa="like button"
-      :aria-label="$t('actions.like')"
-      size="sm"
-      @click="toggleLiked"
-    />
-    <template
-      v-if="$auth.loggedIn"
+  <client-only>
+    <div
+      class="user-buttons"
+      data-qa="user buttons"
     >
-      <AddItemToSetModal
-        data-qa="add item to set modal"
-        :modal-id="addItemToSetModalId"
-        :item-id="value"
-        @clickCreateSet="clickCreateSet"
+      <b-button
+        class="icon-ic-add"
+        data-qa="add button"
+        :aria-label="$t('set.actions.addTo')"
+        @click="addToSet"
       />
-      <SetFormModal
-        :modal-id="setFormModalId"
-        @create="setCreatedOrUpdated"
-        @update="setCreatedOrUpdated"
+      <b-button
+        :pressed="liked"
+        class="icon-heart"
+        data-qa="like button"
+        :aria-label="$t('actions.like')"
+        size="sm"
+        @click="toggleLiked"
       />
-    </template>
-  </div>
+      <template
+        v-if="$auth.loggedIn"
+      >
+        <AddItemToSetModal
+          data-qa="add item to set modal"
+          :modal-id="addItemToSetModalId"
+          :item-id="value"
+          @clickCreateSet="clickCreateSet"
+        />
+        <SetFormModal
+          :modal-id="setFormModalId"
+          @create="setCreatedOrUpdated"
+          @update="setCreatedOrUpdated"
+        />
+      </template>
+    </div>
+  </client-only>
 </template>
 
 <script>
+  import ClientOnly from 'vue-client-only';
+
   export default {
     name: 'UserButtons',
 
     components: {
       AddItemToSetModal: () => import('../set/AddItemToSetModal'),
+      ClientOnly,
       SetFormModal: () => import('../set/SetFormModal')
     },
 
