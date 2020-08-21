@@ -1,4 +1,3 @@
-<!-- TODO: l10n; props -->
 <template>
   <b-container>
     <b-modal
@@ -6,6 +5,7 @@
       :title="modalTitle"
       :static="modalStatic"
       hide-footer
+      @show="init"
     >
       <b-form @submit.stop.prevent="submitForm">
         <b-form-group
@@ -120,10 +120,9 @@
 
     data() {
       return {
-        // TODO: how to handle existing set having title/description in other languages?
-        titleValue: (this.title || {})[this.$i18n.locale],
-        descriptionValue: (this.description || {})[this.$i18n.locale],
-        isPrivate: this.visibility === 'private',
+        titleValue: '',
+        descriptionValue: '',
+        isPrivate: false,
         deleteSetModalId: `add-item-to-set-modal-${this.setId}`
       };
     },
@@ -151,9 +150,20 @@
       }
     },
 
+    created() {
+      this.init();
+    },
+
     methods: {
+      // TODO: how to handle existing set having title/description in other languages?
+      init() {
+        this.titleValue = (this.title || {})[this.$i18n.locale];
+        this.descriptionValue = (this.description || {})[this.$i18n.locale];
+        this.isPrivate = this.visibility === 'private';
+      },
+
       // TODO: error handling
-      submitForm() {
+      async submitForm() {
         if (this.isNew) {
           this.$sets.createSet(this.setBody)
             .then(response => {
