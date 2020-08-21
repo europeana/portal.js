@@ -10,6 +10,7 @@
       <div class="modal-footer">
         <b-button
           variant="outline-primary"
+          data-qa="close button"
           @click="goBack"
         >
           {{ $t('actions.goBack') }}
@@ -17,6 +18,7 @@
         <b-button
           variant="danger"
           type="submit"
+          data-qa="delete button"
         >
           {{ $t('set.actions.delete') }}
         </b-button>
