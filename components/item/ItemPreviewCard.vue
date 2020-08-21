@@ -11,31 +11,27 @@
     :blank-image-height="280"
     :variant="variant"
   >
-    <template v-slot:footer>
-      <client-only>
-        <UserButtons
-          v-if="showUserButtons"
-          v-model="identifier"
-          @like="$emit('like', identifier)"
-          @unlike="$emit('unlike', identifier)"
-          @addToSet="(setId, itemId) => $emit('addToSet', setId, itemId)"
-          @removeFromSet="(setId, itemId) => $emit('removeFromSet', setId, itemId)"
-        />
-      </client-only>
+    <template v-slot:buttons>
+      <UserButtons
+        v-if="showUserButtons"
+        v-model="identifier"
+        @like="$emit('like', identifier)"
+        @unlike="$emit('unlike', identifier)"
+        @addToSet="(setId, itemId) => $emit('addToSet', setId, itemId)"
+        @removeFromSet="(setId, itemId) => $emit('removeFromSet', setId, itemId)"
+      />
     </template>
   </ContentCard>
 </template>
 
 <script>
   import { genericThumbnail } from '../../plugins/europeana/thumbnail';
-  import ClientOnly from 'vue-client-only';
   import ContentCard from '../generic/ContentCard';
 
   export default {
     name: 'ItemPreviewCard',
 
     components: {
-      ClientOnly,
       ContentCard,
       UserButtons: () => import('../account/UserButtons')
     },
