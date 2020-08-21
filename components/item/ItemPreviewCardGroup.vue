@@ -13,7 +13,7 @@
       data-qa="item preview"
       @like="$emit('like', item.id)"
       @unlike="$emit('unlike', item.id)"
-      @removeFromSet="$emit('removeFromSet', identifier)"
+      @removeFromSet="$emit('removeFromSet', item.id)"
     />
     <b-toast
       id="new-collection-toast"
