@@ -22,10 +22,6 @@
         <ItemHero
           :identifier="identifier"
           :media="media"
-          :use-proxy="useProxy"
-          :data-provider-name="dataProvider.values[0]"
-          :data-provider-lang="dataProvider.code"
-          :is-shown-at="isShownAt"
           :edm-rights="edmRights"
         />
       </b-container>
@@ -233,7 +229,7 @@
       },
       descriptionInCurrentLanguage() {
         if (!this.description) {
-          return {};
+          return false;
         }
         return langMapValueForLocale(this.description, this.$i18n.locale);
       },

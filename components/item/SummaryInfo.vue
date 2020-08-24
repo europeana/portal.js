@@ -70,7 +70,7 @@
 
     props: {
       description: {
-        type: Object,
+        type: [Object, Boolean],
         default: null
       },
       titles: {
