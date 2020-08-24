@@ -18,10 +18,19 @@ module.exports = {
     path: '/api/v2',
     key: process.env['EUROPEANA_NEWSPAPER_API_KEY'] || process.env['EUROPEANA_RECORD_API_KEY']
   },
+  recommendation: {
+    origin: 'https://api.europeana.eu',
+    path: '/recommend'
+  },
   record: {
     origin: 'https://api.europeana.eu',
     path: '/record',
     key: process.env['EUROPEANA_RECORD_API_KEY']
+  },
+  set: {
+    origin: 'https://api.europeana.eu',
+    path: '/set',
+    key: process.env['EUROPEANA_SET_API_KEY']
   },
   thumbnail: {
     origin: 'https://api.europeana.eu',
@@ -32,10 +41,5 @@ module.exports = {
     origin: 'https://transcription-search-test.eanadev.org',
     path: '/api/v2',
     key: process.env['EUROPEANA_WW1_API_KEY'] || process.env['EUROPEANA_RECORD_API_KEY']
-  },
-  set: {
-    origin: 'https://api.europeana.eu',
-    path: '/set',
-    key: process.env['EUROPEANA_SET_API_KEY']
   }
 };

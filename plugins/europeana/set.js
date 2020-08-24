@@ -73,13 +73,47 @@ export default ($axios) => ({
 
   /**
    * Create a set
-   * ~param {Object} body Set body
+   * @param {Object} body Set body
    * @return {Object} API response data
    */
   createSet(body) {
     return $axios.post(
       setApiUrl('/'),
       body,
+      { params: paramsWithApiKey() }
+    )
+      .then(response => response.data)
+      .catch(error => {
+        throw apiError(error);
+      });
+  },
+
+  /**
+   * Update a set
+   * @param {string} id the set's id
+   * @param {Object} body Set body
+   * @return {Object} API response data
+   */
+  updateSet(id, body) {
+    return $axios.put(
+      setApiUrl(`/${setIdFromUri(id)}`),
+      body,
+      { params: paramsWithApiKey() }
+    )
+      .then(response => response.data)
+      .catch(error => {
+        throw apiError(error);
+      });
+  },
+
+  /**
+   * Delete a set
+   * @param {string} id the set's id
+   * @return {Object} API response data
+   */
+  deleteSet(id) {
+    return $axios.delete(
+      setApiUrl(`/${setIdFromUri(id)}`),
       { params: paramsWithApiKey() }
     )
       .then(response => response.data)

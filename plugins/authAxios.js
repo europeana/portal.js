@@ -1,3 +1,4 @@
+import recommendation from './europeana/recommendation';
 import set from './europeana/set';
 
 export default ({ $axios, $auth, store, redirect }, inject) => {
@@ -23,9 +24,8 @@ export default ({ $axios, $auth, store, redirect }, inject) => {
     }
   });
 
-  const setWithAxios = set(axiosInstance);
-
-  inject('sets', setWithAxios);
+  inject('sets', set(axiosInstance));
+  inject('recommendations', recommendation(axiosInstance));
 
   if ($auth.loggedIn) {
     store.dispatch('set/setLikes');

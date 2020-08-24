@@ -13,7 +13,7 @@
   &:hover {
     background: $blue;
     box-shadow: 2px 2px 6px 0 rgba(0, 0, 0, 0.15);
-  }  
+  }
 }
 
 .btn-link {
@@ -35,6 +35,11 @@
     color: $grey;
     border-color: $grey;
   }
+}
+
+.btn-danger {
+  font-size: $font-size-small;
+  text-transform: uppercase;
 }
 
 .btn-light {
@@ -65,7 +70,7 @@
     background-color: rgba(0, 0, 0, 0.7);
     box-shadow: 2px 2px 6px 0 rgba(0, 0, 0, 0.15);
     color: $white;
-  }  
+  }
 }
 
 a {
