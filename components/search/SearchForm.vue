@@ -273,6 +273,7 @@
 
       clearQuery() {
         this.query = '';
+        this.suggestions = {};
         this.showSearchQuery = false;
 
         this.$nextTick(() => {
