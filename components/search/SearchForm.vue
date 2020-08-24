@@ -51,7 +51,7 @@
               path="header.inCollection"
               tag="span"
             >
-              <strong>"{{ query }}"</strong>
+              <strong>{{ query }}</strong>
               <span>{{ pillLabel.values[0] }}</span>
             </i18n>
           </b-button>
@@ -71,7 +71,7 @@
               path="header.entireCollection"
               tag="span"
             >
-              <strong>"{{ query }}"</strong>
+              <strong>{{ query }}</strong>
             </i18n>
           </b-button>
         </div>
@@ -94,7 +94,7 @@
               path="header.searchFor"
               tag="span"
             >
-              <strong>"{{ query }}"</strong>
+              <strong>{{ query }}</strong>
             </i18n>
           </b-button>
         </div>

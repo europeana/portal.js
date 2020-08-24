@@ -57,7 +57,7 @@
       },
       searchedFor() {
         const query = this.$route.query.query.replace(/(^")|("$)/g, '');
-        return query ? `"${query}"` : this.$t('search');
+        return query ? query : this.$t('search');
       }
     },
 

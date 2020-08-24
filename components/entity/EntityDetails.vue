@@ -88,9 +88,8 @@
       },
       searchInTitle() {
         let search = '';
-
         if (this.query) {
-          search = `"${this.query}" ${this.$t('header.in')}`;
+          search = `${this.query} ${this.$t('header.in')}`;
         }
         return `${search} ${this.title.values[0]}`;
       }
