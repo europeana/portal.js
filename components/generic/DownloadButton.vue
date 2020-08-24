@@ -5,7 +5,7 @@
     variant="light text-decoration-none"
     data-qa="download button"
     size="lg"
-    class="download-button mr-lg-3 d-inline-flex align-items-center"
+    class="download-button d-inline-flex align-items-center"
     :target="target"
   >
     <span class="ic-download d-inline-flex pr-1" />
@@ -49,6 +49,9 @@
       @extend .icon-font;
       content: '\e924';
       font-size: 1.125rem;
+    }
+    &:hover {
+      box-shadow: 2px 2px 6px 0 rgba(0, 0, 0, 0.15);
     }
   }
 </style>
