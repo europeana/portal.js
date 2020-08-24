@@ -113,6 +113,20 @@
     }
   }
 
+  &.explore-card {
+    &:first-child {
+      margin-left: 0px;
+    }
+
+    &:last-child {
+      margin-right: 0px;
+    }
+    margin-left: 4px;
+    margin-right: 4px;
+    margin-bottom: 0;
+    min-height: auto;
+  }
+
   &.similar-card {
     background: transparent;
     border: 0;
@@ -169,7 +183,7 @@
       padding: 0;
     }
   }
-  
+
   &.mini-card {
     min-height: auto;
     padding: 1rem;
@@ -314,6 +328,10 @@
 
   .card-deck-4-cols .card {
     flex: 0 0 calc(100% / 2 - #{$grid-gutter*2});
+  }
+
+  card-deck-4-cols-wide .card {
+    flex: 0 0 calc(100% / 2 - #{4*2});
   }
 }
 

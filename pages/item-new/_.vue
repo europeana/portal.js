@@ -72,20 +72,17 @@
             cols="12"
             class="col-lg-10"
           >
-            <!-- TODO: update similar items,
-              fix styling/structure in component itself
-            -->
             <section
               v-if="similarItems.length > 0"
             >
               <h2
                 class="related-heading text-uppercase"
               >
-                {{ $t('record.similarItems') }}
-              </h2> <!-- TODO: introduce new heading "Explore more" -->
+                {{ $t('record.exploreMore') }}
+              </h2>
               <ItemPreviewCardGroup
                 v-model="similarItems"
-                view="plain"
+                view="explore"
                 class="mb-3"
               />
             </section>
