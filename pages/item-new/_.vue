@@ -112,6 +112,7 @@
   import { langMapValueForLocale } from  '../../plugins/europeana/utils';
   import { findEntities } from '../../plugins/europeana/entity';
   import { search as searchAnnotations } from '../../plugins/europeana/annotation';
+  import isEmpty from 'lodash/isEmpty';
 
   export default {
     components: {
@@ -203,7 +204,7 @@
         return { ...this.coreFields, ...this.fieldsAndKeywords };
       },
       edmRights() {
-        return this.media.webResourceEdmRights ? this.media.webResourceEdmRights : this.fields.rightsStatement;
+        return this.fields.edmRights ? this.fields.edmRights.def[0] : '';
       },
       europeanaAgents() {
         return (this.agents || []).filter((agent) => agent.about.startsWith(`${this.apiConfig.data.origin}/agent/`));
@@ -232,7 +233,7 @@
       },
       descriptionInCurrentLanguage() {
         if (!this.description) {
-          return false;
+          return {};
         }
         return langMapValueForLocale(this.description, this.$i18n.locale);
       },
@@ -240,7 +241,7 @@
         return this.titlesInCurrentLanguage[0] ? this.titlesInCurrentLanguage[0].value : this.$t('record.record');
       },
       metaDescription() {
-        if (!this.descriptionInCurrentLanguage) return '';
+        if (isEmpty(this.descriptionInCurrentLanguage)) return '';
         return this.descriptionInCurrentLanguage.values[0] ? this.descriptionInCurrentLanguage.values[0] : '';
       },
       dataProvider() {
@@ -346,6 +347,11 @@
 </script>
 
 <style scoped>
+  .related-collections {
+    margin-top: -0.5rem;
+    margin-bottom: 2rem;
+    padding: 0;
+  }
   /* TODO: fix styling in/for MetadataBox component itself */
   /deep/ .card.rounded-0 {
     border-radius: 0.25rem !important;

@@ -92,7 +92,10 @@
         return false;
       },
       truncatedDescription() {
-        return this.$options.filters.truncate(this.description.values[0], this.limitCharacters, this.$t('formatting.ellipsis'));
+        if (this.description !== {} && this.description.values) {
+          return this.$options.filters.truncate(this.description.values[0], this.limitCharacters, this.$t('formatting.ellipsis'));
+        }
+        return false;
       }
     },
     methods: {

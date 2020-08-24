@@ -38,5 +38,9 @@
     border-radius: 0.25rem;
     padding: 0.38rem 0.625rem;
     font-size: $font-size-small;
+    transition: $standard-transition;
+    &:hover {
+      box-shadow: 2px 2px 6px 0 rgba(0, 0, 0, 0.15);
+    }
   }
 </style>
