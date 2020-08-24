@@ -8,9 +8,9 @@
     layout: 'minimal',
     middleware: [
       'auth',
-      ({ $auth, store }) => {
+      ({ store }) => {
         store.dispatch('set/reset');
-        $auth.logout();
+        store.$goto(`${process.env.OAUTH_ORIGIN}/auth/realms/${process.env.OAUTH_REALM}/protocol/openid-connect/logout?redirect_uri=${encodeURIComponent(window.location.origin)}`);
       }
     ]
   };
