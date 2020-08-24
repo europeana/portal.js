@@ -16,30 +16,29 @@
       class="media-player"
     />
   </div>
+  <VideoPlayer
+    v-else-if="isHTMLVideo"
+    :europeana-identifier="europeanaIdentifier"
+    :src="media.about"
+    :type="media.ebucoreHasMimeType"
+    :width="media.ebucoreWidth"
+    :height="media.ebucoreHeight"
+  />
   <div
-    v-else-if="isPlayableMedia && !isSinglePlayableMedia"
-    :class="{ 'audio-slide': isHTMLAudio }"
+    v-else-if="isHTMLAudio"
+    class="audio-slide"
   >
-    <VideoPlayer
-      v-if="isHTMLVideo"
-      :europeana-identifier="europeanaIdentifier"
-      :src="media.about"
-      :type="media.ebucoreHasMimeType"
-      :width="media.ebucoreWidth"
-      :height="media.ebucoreHeight"
-    />
     <AudioPlayer
-      v-else-if="isHTMLAudio"
       :europeana-identifier="europeanaIdentifier"
       :src="media.about"
       :type="media.ebucoreHasMimeType"
-    />
-    <MediaCardImage
-      v-else-if="media.thumbnails"
-      :europeana-identifier="europeanaIdentifier"
-      :media="media"
     />
   </div>
+  <MediaCardImage
+    v-else-if="media.thumbnails"
+    :europeana-identifier="europeanaIdentifier"
+    :media="media"
+  />
   <HTMLEmbed
     v-else-if="isOEmbed"
     :html="oEmbedData.html"
@@ -69,6 +68,7 @@
   import VideoPlayer from '../../components/media/VideoPlayer';
   import AudioPlayer from '../../components/media/AudioPlayer';
   import oEmbed from '../../plugins/oembed';
+  import has from 'lodash/has';
 
   export default {
     name: 'MediaCard',
@@ -101,7 +101,7 @@
 
     computed: {
       displayImage() {
-        return (this.media.thumbnails !== '') && !isRichMedia(this.media);
+        return (has(this.media, 'thumbnails')) && !isRichMedia(this.media);
       },
       isPlayableMedia() {
         return isPlayableMedia(this.media);

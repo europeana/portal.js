@@ -106,7 +106,7 @@
         this.swiper.update();
       },
       isSinglePlayableMedia() {
-        return (this.playableMedia.length === 1) && (this.playableMedia[0].about === this.media[0].about);
+        return (this.playableMedia.length === 1);
       }
     }
   };
