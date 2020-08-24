@@ -19,16 +19,15 @@
         fluid
         class="bg-white mb-3 px-0"
       >
-        <client-only>
-          <ItemHero
-            :identifier="identifier"
-            :media="media"
-            :use-proxy="useProxy"
-            :data-provider-name="dataProvider.values[0]"
-            :data-provider-lang="dataProvider.code"
-            :is-shown-at="isShownAt"
-          />
-        </client-only>
+        <ItemHero
+          :identifier="identifier"
+          :media="media"
+          :use-proxy="useProxy"
+          :data-provider-name="dataProvider.values[0]"
+          :data-provider-lang="dataProvider.code"
+          :is-shown-at="isShownAt"
+          :edm-rights="edmRights"
+        />
       </b-container>
       <b-container>
         <b-row class="mb-3 justify-content-center">
@@ -105,7 +104,6 @@
   import axios from 'axios';
   import { mapGetters } from 'vuex';
 
-  import ClientOnly from 'vue-client-only';
   import MetadataBox from '../../components/item/MetadataBox';
 
   import { getRecord, similarItemsQuery } from '../../plugins/europeana/record';
@@ -119,7 +117,6 @@
     components: {
       ItemHero: () => import('../../components/item/ItemHero'),
       AlertMessage: () => import('../../components/generic/AlertMessage'),
-      ClientOnly,
       ItemPreviewCardGroup: () => import('../../components/item/ItemPreviewCardGroup'),
       RelatedCollections: () => import('../../components/generic/RelatedCollections'),
       SummaryInfo: () => import('../../components/item/SummaryInfo'),
@@ -204,6 +201,9 @@
       },
       allMetaData() {
         return { ...this.coreFields, ...this.fieldsAndKeywords };
+      },
+      edmRights() {
+        return this.media.webResourceEdmRights ? this.media.webResourceEdmRights : this.fields.rightsStatement;
       },
       europeanaAgents() {
         return (this.agents || []).filter((agent) => agent.about.startsWith(`${this.apiConfig.data.origin}/agent/`));

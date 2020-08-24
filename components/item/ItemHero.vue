@@ -41,6 +41,7 @@
   import RightsStatementButton from '../generic/RightsStatementButton.vue';
   import SocialShareModal from '../sharing/SocialShareModal.vue';
   import ShareButton from '../sharing/ShareButton.vue';
+  import { langMapValueForLocale } from  '../../plugins/europeana/utils';
   import has from 'lodash/has';
 
   export default {
@@ -56,6 +57,10 @@
         type: String,
         required: true
       },
+      edmRights: {
+        type: String,
+        default: ''
+      },
       media: {
         type: Array,
         default: () => []
@@ -70,11 +75,16 @@
       downloadUrl() {
         return this.$proxyMedia(this.selectedMedia.about, this.identifier);
       },
-      rightsStatement() {
-        return has(this.selectedMedia, 'rightsStatement') ? this.selectedMedia.rightsStatement : this.selectedMedia.webResourceEdmRights.def[0];
-      },
       rightsStatementIsUrl() {
         return RegExp('^https?://*').test(this.rightsStatement);
+      },
+      rightsStatement() {
+        if (has(this.selectedMedia, 'webResourceEdmRights')) {
+          return this.selectedMedia.webResourceEdmRights.def[0];
+        } else if (this.edmRights !== '') {
+          return langMapValueForLocale(this.edmRights, this.$i18n.locale).values[0];
+        }
+        return '';
       },
       selectedMedia: {
         get() {
