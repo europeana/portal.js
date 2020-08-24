@@ -25,12 +25,6 @@
           data-qa="add item to set modal"
           :modal-id="addItemToSetModalId"
           :item-id="value"
-          @clickCreateSet="clickCreateSet"
-        />
-        <SetFormModal
-          :modal-id="setFormModalId"
-          @create="setCreatedOrUpdated"
-          @update="setCreatedOrUpdated"
         />
       </template>
     </client-only>
@@ -45,8 +39,7 @@
 
     components: {
       AddItemToSetModal: () => import('../set/AddItemToSetModal'),
-      ClientOnly,
-      SetFormModal: () => import('../set/SetFormModal')
+      ClientOnly
     },
 
     props: {
@@ -59,8 +52,7 @@
 
     data() {
       return {
-        addItemToSetModalId: `add-item-to-set-modal-${this.value}`,
-        setFormModalId: `set-form-modal-${this.value}`
+        addItemToSetModalId: `add-item-to-set-modal-${this.value}`
       };
     },
 
@@ -74,13 +66,6 @@
     },
 
     methods: {
-      clickCreateSet() {
-        this.$bvModal.hide(this.addItemToSetModalId);
-        this.$bvModal.show(this.setFormModalId);
-      },
-      setCreatedOrUpdated() {
-        this.$bvModal.show(this.addItemToSetModalId);
-      },
       async toggleLiked() {
         await (this.liked ? this.unlike() : this.like());
       },
@@ -98,7 +83,6 @@
       addToSet() {
         if (this.$auth.loggedIn) {
           this.$bvModal.show(this.addItemToSetModalId);
-          this.$emit('add', this.value);
         } else {
           this.$auth.loginWith('keycloak');
         }

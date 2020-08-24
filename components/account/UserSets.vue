@@ -63,6 +63,13 @@
         userSets: []
       };
     },
+    watch: {
+      '$store.state.set.timestamps.any.created': '$fetch',
+      '$store.state.set.timestamps.any.updated': '$fetch',
+      '$store.state.set.timestamps.any.deleted': '$fetch',
+      '$store.state.set.timestamps.any.itemAdded': '$fetch',
+      '$store.state.set.timestamps.any.itemRemoved': '$fetch'
+    },
     methods: {
       setSubTitle(set) {
         const setTotal = set.total || 0;

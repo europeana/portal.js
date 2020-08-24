@@ -32,6 +32,7 @@
     name: 'DeleteSetModal',
 
     props: {
+      // Set ID as data.europeana.eu URI
       setId: {
         type: String,
         required: true
@@ -63,10 +64,14 @@
       // TODO: error handling
       submitForm() {
         this.$sets.deleteSet(this.setId)
-          .then(response => {
-            this.makeToast();
+          .then(() => {
             this.hide();
-            this.$emit('delete', response);
+            this.makeToast();
+
+            this.$store.commit('set/timestamp', {
+              action: 'deleted',
+              id: this.setId
+            });
           });
       },
 

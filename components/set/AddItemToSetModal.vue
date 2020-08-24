@@ -1,47 +1,59 @@
 <template>
-  <b-modal
-    :id="modalId"
-    :title="$t('set.actions.addTo')"
-    hide-footer
-    @show="fetchCollections"
-  >
-    <b-button
-      variant="primary"
-      class="btn-collection w-100 mb-3 text-left"
-      @click="$emit('clickCreateSet')"
+  <b-container>
+    <b-modal
+      :id="modalId"
+      :title="$t('set.actions.addTo')"
+      hide-footer
+      @show="fetchCollections"
     >
-      {{ $t('set.actions.createNew') }}
-    </b-button>
-    <div class="collections">
       <b-button
-        v-for="(collection, index) in collections"
-        :key="index"
-        :style="buttonBackground($sets.getSetThumbnail(collection))"
-        variant="overlay"
-        class="btn-collection w-100 text-left d-flex justify-content-between align-items-center"
-        @click="toggleItem(collection.id)"
+        variant="primary"
+        class="btn-collection w-100 mb-3 text-left"
+        @click="clickCreateSet"
       >
-        <span>{{ displayField(collection, 'title') }} ({{ collection.visibility }}) - {{ $tc('items.itemCount', collection.total || 0) }}</span>
-        <span
-          v-if="collectionsWithItem.includes(collection.id)"
-          class="icon-check_circle d-inline-flex"
-        />
+        {{ $t('set.actions.createNew') }}
       </b-button>
-    </div>
-    <div class="modal-footer">
-      <b-button
-        variant="outline-primary"
-        @click="hideModal()"
-      >
-        {{ $t('actions.close') }}
-      </b-button>
-    </div>
-  </b-modal>
+      <div class="collections">
+        <b-button
+          v-for="(collection, index) in collections"
+          :key="index"
+          :style="buttonBackground($sets.getSetThumbnail(collection))"
+          variant="overlay"
+          class="btn-collection w-100 text-left d-flex justify-content-between align-items-center"
+          @click="toggleItem(collection.id)"
+        >
+          <span>{{ displayField(collection, 'title') }} ({{ collection.visibility }}) - {{ $tc('items.itemCount', collection.total || 0) }}</span>
+          <span
+            v-if="collectionsWithItem.includes(collection.id)"
+            class="icon-check_circle d-inline-flex"
+          />
+        </b-button>
+      </div>
+      <div class="modal-footer">
+        <b-button
+          variant="outline-primary"
+          @click="hideModal()"
+        >
+          {{ $t('actions.close') }}
+        </b-button>
+      </div>
+    </b-modal>
+    <SetFormModal
+      :modal-id="setFormModalId"
+      @hide="hideSetFormModal"
+    />
+  </b-container>
 </template>
 
 <script>
+  import SetFormModal from '../set/SetFormModal';
+
   export default {
     name: 'AddItemToSetModal',
+
+    components: {
+      SetFormModal
+    },
 
     props: {
       itemId: {
@@ -57,7 +69,8 @@
 
     data() {
       return {
-        collections: []
+        collections: [],
+        setFormModalId: `set-form-modal-${this.itemId}`
       };
     },
 
@@ -88,10 +101,19 @@
         this.collections = searchResponse.data.items || [];
       },
 
+      clickCreateSet() {
+        this.$bvModal.hide(this.modalId);
+        this.$bvModal.show(this.setFormModalId);
+      },
+
       hideModal() {
         this.$nextTick(() => {
           this.$bvModal.hide(this.modalId);
         });
+      },
+
+      hideSetFormModal() {
+        this.$bvModal.show(this.modalId);
       },
 
       makeToast() {
@@ -117,6 +139,10 @@
         // TODO: error handling
         this.$sets.modifyItems('add', setId, this.itemId)
           .then(() => {
+            this.$store.commit('set/timestamp', {
+              action: 'itemAdded',
+              id: setId
+            });
             this.makeToast();
             this.hideModal();
           });
@@ -125,6 +151,10 @@
       removeItem(setId) {
         this.$sets.modifyItems('delete', setId, this.itemId)
           .then(() => {
+            this.$store.commit('set/timestamp', {
+              action: 'itemRemoved',
+              id: setId
+            });
             this.fetchCollections();
           });
       },

@@ -147,6 +147,8 @@
     // TODO: error handling for Nuxt 2.12 fetch()
     //       https://nuxtjs.org/blog/understanding-how-fetch-works-in-nuxt-2-12/#error-handling
     async fetch() {
+      // TODO: set to `null` when leaving page
+      this.$store.commit('set/setActiveSet', this.id);
       this.page = this.$store.state.sanitised.page - 1; // Set API paging starts at 0 ¯\_(ツ)_/¯
 
       const set = await this.$sets.getSet(this.$route.params.pathMatch, {
@@ -155,7 +157,7 @@
         profile: 'itemDescriptions'
       });
 
-      this.id = set.id;
+      // this.id = set.id;
       this.title = set.title;
       this.description = set.description;
       this.visibility = set.visibility;
@@ -166,7 +168,7 @@
 
     data() {
       return {
-        id: null,
+        id: `http://data.europeana.eu/set/${this.$route.params.pathMatch}`,
         creator: null,
         description: null,
         items: [],
@@ -195,7 +197,13 @@
     },
 
     watch: {
-      '$route.query.page': '$fetch'
+      '$route.query.page': '$fetch',
+      '$store.state.set.timestamps.active.itemAdded': '$fetch',
+      '$store.state.set.timestamps.active.itemRemoved': '$fetch',
+      '$store.state.set.timestamps.active.deleted'() {
+        const path = this.$path({ name: 'account' });
+        this.$goto(path);
+      }
     },
 
     mounted() {

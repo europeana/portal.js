@@ -6,6 +6,7 @@
       :static="modalStatic"
       hide-footer
       @show="init"
+      @hide="$emit('hide')"
     >
       <b-form @submit.stop.prevent="submitForm">
         <b-form-group
@@ -70,7 +71,6 @@
       :modal-id="deleteSetModalId"
       :modal-static="modalStatic"
       @cancel="cancelDelete"
-      @delete="deleteSet"
     />
   </b-container>
 </template>
@@ -169,14 +169,22 @@
         if (this.isNew) {
           this.$sets.createSet(this.setBody)
             .then(response => {
+              this.$store.commit('set/timestamp', {
+                action: 'created',
+                id: response.id
+              });
+
               this.hide();
-              this.$emit('create', response);
             });
         } else {
           this.$sets.updateSet(this.setId, this.setBody)
             .then(response => {
+              this.$store.commit('set/timestamp', {
+                action: 'updated',
+                id: response.id
+              });
+
               this.hide();
-              this.$emit('update', response);
             });
         }
       },
@@ -196,11 +204,6 @@
 
       cancelDelete() {
         this.show();
-      },
-
-      deleteSet() {
-        const path = this.$path({ name: 'account' });
-        this.$goto(path);
       }
     }
   };
