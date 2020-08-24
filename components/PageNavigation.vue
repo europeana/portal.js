@@ -54,22 +54,6 @@
           </template>
         </b-dropdown>
       </li>
-      <li
-        v-if="!isAuthenticated"
-        class="nav-item"
-      >
-        <b-link
-          v-b-toggle.menu
-          data-qa="login button"
-          class="nav-link"
-          :to="{ name: 'account-login' }"
-        >
-          <span>
-            <i :class="renderIcon('/account/login')" />
-            {{ $t('account.linkLogin') }}
-          </span>
-        </b-link>
-      </li>
       <template v-if="isAuthenticated">
         <li
           v-for="item in authLinks"
@@ -90,6 +74,22 @@
           </b-link>
         </li>
       </template>
+      <li
+        v-else-if="enableLoginLink"
+        class="nav-item"
+      >
+        <b-link
+          v-b-toggle.menu
+          data-qa="login button"
+          class="nav-link"
+          :to="{ name: 'account-login' }"
+        >
+          <span>
+            <i :class="renderIcon('/account/login')" />
+            {{ $t('account.linkLogin') }}
+          </span>
+        </b-link>
+      </li>
     </template>
   </b-navbar-nav>
 </template>
@@ -118,6 +118,9 @@
       };
     },
     computed: {
+      enableLoginLink() {
+        return Boolean(Number(process.env.ENABLE_LOGIN_LINK));
+      },
       enableAuthLinks() {
         return Boolean(Number(process.env.ENABLE_XX_USER_AUTH));
       },

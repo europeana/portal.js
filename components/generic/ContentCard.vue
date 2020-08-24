@@ -80,7 +80,10 @@
         </template>
       </b-card-body>
     </SmartLink>
-    <slot name="footer" />
+    <slot name="buttons">
+      <!-- do not remove this div or there will be hydration errors -->
+      <div />
+    </slot>
   </b-card>
 </template>
 

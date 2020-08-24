@@ -37,6 +37,11 @@
   }
 }
 
+.btn-danger {
+  font-size: $font-size-small;
+  text-transform: uppercase;
+}
+
 .btn-light {
   background: $white;
   border: 0;

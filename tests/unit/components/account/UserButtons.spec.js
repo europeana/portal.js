@@ -1,6 +1,6 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
-import UserButtons from '../../../../components/account/UserButtons.vue';
+import UserButtons from '../../../../components/account/UserButtons';
 import sinon from 'sinon';
 
 const localVue = createLocalVue();
@@ -9,10 +9,12 @@ localVue.use(BootstrapVue);
 const identifier = '/123/abc';
 const storeDispatch = sinon.spy();
 
-const factory = (storeState = {}) => mount(UserButtons, {
+const factory = ({ storeState = {}, $auth = {} } = {}) => mount(UserButtons, {
   localVue,
+  stubs: ['AddItemToSetModal', 'SetFormModal'],
   propsData: { value: identifier },
   mocks: {
+    $auth,
     $store: {
       state: {
         set: { ...{ liked: [] }, ...storeState }
@@ -24,6 +26,67 @@ const factory = (storeState = {}) => mount(UserButtons, {
 });
 
 describe('components/account/UserButtons', () => {
+  describe('collection modal', () => {
+    it('is not present', () => {
+      const wrapper = factory();
+
+      const collectionModal = wrapper.find('[data-qa="collection modal"]');
+
+      collectionModal.exists().should.be.false;
+    });
+  });
+
+  describe('add button', () => {
+    it('is visible', () => {
+      const wrapper = factory();
+
+      const addButton = wrapper.find('[data-qa="add button"]');
+
+      addButton.isVisible().should.be.true;
+    });
+
+    context('when user is not logged in', () => {
+      const $auth = { loggedIn: false, loginWith: sinon.spy() };
+
+      context('when pressed', () => {
+        it('logs in with Keycloak', () => {
+          const wrapper = factory({ $auth });
+
+          const addButton = wrapper.find('[data-qa="add button"]');
+          addButton.trigger('click');
+
+          $auth.loginWith.should.have.been.calledWith('keycloak');
+        });
+      });
+    });
+
+    context('when user is logged in', () => {
+      const $auth = { loggedIn: true };
+
+      context('when pressed', () => {
+        it('shows the collection modal', () => {
+          const wrapper = factory({ $auth });
+          const bvModalShow = sinon.spy(wrapper.vm.$bvModal, 'show');
+
+          const addButton = wrapper.find('[data-qa="add button"]');
+          addButton.trigger('click');
+
+          bvModalShow.should.have.been.calledWith(`add-item-to-set-modal-${identifier}`);
+        });
+
+        it('emits "add" event', async() => {
+          const wrapper = factory({ $auth });
+
+          const addButton = wrapper.find('[data-qa="add button"]');
+          addButton.trigger('click');
+
+          await wrapper.vm.$nextTick();
+          wrapper.emitted('add').should.eql([[identifier]]);
+        });
+      });
+    });
+  });
+
   describe('like button', () => {
     it('is visible', () => {
       const wrapper = factory();
@@ -35,7 +98,7 @@ describe('components/account/UserButtons', () => {
 
     context('when an item is not yet liked', () => {
       it('is rendered as unpressed', () => {
-        const wrapper = factory({ liked: [] });
+        const wrapper = factory({ storeState: { liked: [] } });
 
         const likeButton = wrapper.find('[data-qa="like button"]');
 
@@ -43,8 +106,8 @@ describe('components/account/UserButtons', () => {
       });
 
       context('when pressed', () => {
-        it('dispatches to create likes set if needed', async() => {
-          const wrapper = factory({ liked: [], likesId: null });
+        it('dispatches to create likes set if needed', () => {
+          const wrapper = factory({ storeState: { liked: [], likesId: null } });
 
           const likeButton = wrapper.find('[data-qa="like button"]');
           likeButton.trigger('click');
@@ -52,8 +115,8 @@ describe('components/account/UserButtons', () => {
           storeDispatch.should.have.been.calledWith('set/createLikes');
         });
 
-        it('dispatches to add item to likes set', async() => {
-          const wrapper = factory({ liked: [] });
+        it('dispatches to add item to likes set', () => {
+          const wrapper = factory({ storeState: { liked: [] } });
 
           const likeButton = wrapper.find('[data-qa="like button"]');
           likeButton.trigger('click');
@@ -62,7 +125,7 @@ describe('components/account/UserButtons', () => {
         });
 
         it('emits "like" event', async() => {
-          const wrapper = factory({ liked: [] });
+          const wrapper = factory({ storeState: { liked: [] } });
 
           const likeButton = wrapper.find('[data-qa="like button"]');
           likeButton.trigger('click');
@@ -73,9 +136,9 @@ describe('components/account/UserButtons', () => {
       });
     });
 
-    context('when an item is already liked', () => {
+    context('and an item is already liked', () => {
       it('is rendered as pressed', () => {
-        const wrapper = factory({ liked: [identifier] });
+        const wrapper = factory({ storeState: { liked: [identifier] } });
 
         const likeButton = wrapper.find('[data-qa="like button"]');
 
@@ -83,8 +146,8 @@ describe('components/account/UserButtons', () => {
       });
 
       context('when pressed', () => {
-        it('dispatches to remove item from likes set', async() => {
-          const wrapper = factory({ liked: [identifier] });
+        it('dispatches to remove item from likes set', () => {
+          const wrapper = factory({ storeState: { liked: [identifier] } });
 
           const likeButton = wrapper.find('[data-qa="like button"]');
           likeButton.trigger('click');
@@ -93,7 +156,7 @@ describe('components/account/UserButtons', () => {
         });
 
         it('emits "unlike" event', async() => {
-          const wrapper = factory({ liked: [identifier] });
+          const wrapper = factory({ storeState: { liked: [identifier] } });
 
           const likeButton = wrapper.find('[data-qa="like button"]');
           likeButton.trigger('click');
