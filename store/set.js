@@ -1,7 +1,7 @@
 export const state = () => ({
   likesId: null,
   likedItems: [],
-  active: {}
+  active: null
 });
 
 export const mutations = {
@@ -72,6 +72,12 @@ export const actions = {
     return this.$sets.updateSet(setId, setBody)
       .then(response => {
         if (setId === state.active.id) commit('setActive', { items: state.active.items, ...response });
+      });
+  },
+  deleteSet({ state, commit }, setId) {
+    return this.$sets.deleteSet(setId)
+      .then(() => {
+        if (setId === state.active.id) commit('setActive', null);
       });
   }
 };

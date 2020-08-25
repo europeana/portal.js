@@ -70,7 +70,6 @@
       :modal-id="deleteSetModalId"
       :modal-static="modalStatic"
       @cancel="cancelDelete"
-      @delete="deleteSet"
     />
   </b-container>
 </template>
@@ -190,11 +189,6 @@
 
       cancelDelete() {
         this.show();
-      },
-
-      deleteSet() {
-        const path = this.$path({ name: 'account' });
-        this.$goto(path);
       }
     }
   };

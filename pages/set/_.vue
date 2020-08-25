@@ -140,7 +140,7 @@
 
     computed: {
       set() {
-        return this.$store.state.set.active;
+        return this.$store.state.set.active || {};
       },
       itemCount() {
         return this.set.total || 0;
@@ -155,6 +155,16 @@
       },
       displayDescription() {
         return langMapValueForLocale(this.set.description, this.$i18n.locale);
+      }
+    },
+
+    watch: {
+      'set.id'() {
+        if (!this.set.id) {
+          // Set was deleted
+          const path = this.$path({ name: 'account' });
+          this.$goto(path);
+        }
       }
     },
 
