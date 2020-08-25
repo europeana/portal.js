@@ -56,13 +56,13 @@ export const actions = {
   addItem({ state, dispatch }, { setId, itemId }) {
     return this.$sets.modifyItems('add', setId, itemId)
       .then(() => {
-        if (setId === state.active.id) dispatch('fetchActive');
+        if (setId === state.active.id) dispatch('fetchActive', setId);
       });
   },
   removeItem({ state, dispatch }, { setId, itemId }) {
     return this.$sets.modifyItems('delete', setId, itemId)
       .then(() => {
-        if (setId === state.active.id) dispatch('fetchActive');
+        if (setId === state.active.id) dispatch('fetchActive', setId);
       });
   },
   setLikes({ commit }) {
@@ -96,8 +96,11 @@ export const actions = {
         commit('setActive', set);
       });
   },
-  createSet(ctx, setBody) {
-    return this.$sets.createSet(setBody);
+  createSet({ dispatch }, setBody) {
+    return this.$sets.createSet(setBody)
+      .then(() => {
+        dispatch('fetchCreations');
+      });
   },
   updateSet({ state, commit }, { setId, setBody }) {
     return this.$sets.updateSet(setId, setBody)
