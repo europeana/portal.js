@@ -3,6 +3,7 @@
     :id="modalId"
     :title="$t('set.actions.addTo')"
     hide-footer
+    hide-header-close
     @show="fetchCollections"
   >
     <b-button
