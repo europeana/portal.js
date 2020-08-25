@@ -43,9 +43,5 @@ export const actions = {
   async createLikes({ commit }) {
     const likesId = await this.$sets.createLikes().then(response =>  response.id.split('/').pop());
     commit('setLikesId', likesId);
-  },
-  // TODO: is this used?
-  reset({ commit }) {
-    commit('setLikedItems', []);
   }
 };
