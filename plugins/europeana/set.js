@@ -35,15 +35,11 @@ export default ($axios) => ({
    * Get a set with given id
    * @param {string} id the set's id
    * @param {Object} options retrieval options
-   * @param {string} options.page the set's current page
-   * @param {string} options.pageSize the set-page's size
-   * @param {string} options.profile the set's metadata profile
+   * @param {string} options.profile the set's metadata profile minimal/standard/itemDescriptions
    * @return {Object} the set's object, containing the requested window of the set's items
    */
   getSet(id, options = {}) {
     const defaults = {
-      page: 0,
-      pageSize: 24,
       profile: 'standard'
     };
     const params = paramsWithApiKey({ ...defaults, ...options });

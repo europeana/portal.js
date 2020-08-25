@@ -66,7 +66,7 @@ describe('describe /plugins/europeana/set', () => {
       const setId = 1;
       const profile = 'standard';
       nock(apiUrl)
-        .get('/' + setId + '?page=0&pageSize=24&profile=standard')
+        .get('/' + setId + '?profile=standard')
         .reply(200,  setsResponse[0]);
 
       const response =  await set(axios).getSet(setId, { profile });
