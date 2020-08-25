@@ -128,7 +128,7 @@
     // TODO: error handling for Nuxt 2.12 fetch()
     //       https://nuxtjs.org/blog/understanding-how-fetch-works-in-nuxt-2-12/#error-handling
     async fetch() {
-      await this.$store.dispatch('set/fetchSet', this.$route.params.pathMatch);
+      await this.$store.dispatch('set/fetchActive', this.$route.params.pathMatch);
     },
 
     data() {

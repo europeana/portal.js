@@ -77,7 +77,8 @@
     },
 
     fetch() {
-      this.load();
+      this.fetchLikes();
+      this.$store.dispatch('set/fetchCreations');
     },
 
     fetchOnServer: false,
@@ -96,11 +97,11 @@
     },
 
     watch: {
-      likesId: 'load'
+      likesId: 'fetchLikes'
     },
 
     methods: {
-      load() {
+      fetchLikes() {
         this.$store.dispatch('set/fetchLikes');
       }
     },

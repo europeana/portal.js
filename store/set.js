@@ -1,7 +1,8 @@
 export const state = () => ({
   likesId: null,
   likedItems: [],
-  active: null
+  active: null,
+  creations: []
 });
 
 export const mutations = {
@@ -19,6 +20,12 @@ export const mutations = {
   },
   setActive(state, value) {
     state.active = value;
+  },
+  addItemToActive(state, item) {
+    state.active.items.push(item);
+  },
+  setCreations(state, value) {
+    state.creations = value;
   }
 };
 
@@ -32,38 +39,62 @@ export const actions = {
   reset({ commit }) {
     commit('setLikesId', null);
     commit('setLikedItems', []);
+    commit('setCreations', []);
   },
-  async like({ commit, state }, itemId) {
-    await this.$sets.modifyItems('add', state.likesId, itemId);
-    commit('like', itemId);
+  like({ commit, state }, itemId) {
+    return this.$sets.modifyItems('add', state.likesId, itemId)
+      .then(() => {
+        commit('like', itemId);
+      });
   },
-  async unlike({ commit, state }, itemId) {
-    await this.$sets.modifyItems('delete', state.likesId, itemId);
-    commit('unlike', itemId);
+  unlike({ commit, state }, itemId) {
+    return this.$sets.modifyItems('delete', state.likesId, itemId)
+      .then(() => {
+        commit('unlike', itemId);
+      });
   },
-  async setLikes({ commit }) {
-    const creator = this.$auth.user ? this.$auth.user.sub : null;
-    const likesId = await this.$sets.getLikes(creator);
-
-    if (likesId) commit('setLikesId', likesId);
+  addItem({ state, dispatch }, { setId, itemId }) {
+    return this.$sets.modifyItems('add', setId, itemId)
+      .then(() => {
+        if (setId === state.active.id) dispatch('fetchActive');
+      });
   },
-  async createLikes({ commit }) {
-    const response = await this.$sets.createLikes();
-    commit('setLikesId', response.id);
+  removeItem({ state, dispatch }, { setId, itemId }) {
+    return this.$sets.modifyItems('delete', setId, itemId)
+      .then(() => {
+        if (setId === state.active.id) dispatch('fetchActive');
+      });
   },
-  async fetchLikes({ commit, state }) {
+  setLikes({ commit }) {
+    return this.$sets.getLikes(this.$auth.user ? this.$auth.user.sub : null)
+      .then(likesId => {
+        commit('setLikesId', likesId);
+      });
+  },
+  createLikes({ commit }) {
+    return this.$sets.createLikes()
+      .then(response => {
+        commit('setLikesId', response.id);
+      });
+  },
+  fetchLikes({ commit, state }) {
     if (!state.likesId) return;
-    const likes = await this.$sets.getSet(state.likesId, {
+
+    return this.$sets.getSet(state.likesId, {
       pageSize: 100,
       profile: 'itemDescriptions'
-    });
-    commit('setLikedItems', likes.items);
+    })
+      .then(likes => {
+        commit('setLikedItems', likes.items);
+      });
   },
-  async fetchSet({ commit }, setId) {
-    const set = await this.$sets.getSet(setId, {
+  fetchActive({ commit }, setId) {
+    return this.$sets.getSet(setId, {
       profile: 'itemDescriptions'
-    });
-    commit('setActive', set);
+    })
+      .then(set => {
+        commit('setActive', set);
+      });
   },
   createSet(ctx, setBody) {
     return this.$sets.createSet(setBody);
@@ -78,6 +109,19 @@ export const actions = {
     return this.$sets.deleteSet(setId)
       .then(() => {
         if (setId === state.active.id) commit('setActive', null);
+      });
+  },
+  fetchCreations({ commit }) {
+    const creatorId = this.$auth.user ? this.$auth.user.sub : null;
+    const searchParams = {
+      query: `creator:${creatorId}`,
+      profile: 'itemDescriptions',
+      pageSize: 100 // TODO: pagination?
+    };
+
+    return this.$sets.search(searchParams)
+      .then(searchResponse => {
+        commit('setCreations', searchResponse.data.items || []);
       });
   }
 };

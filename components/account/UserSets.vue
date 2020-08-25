@@ -2,15 +2,7 @@
   <b-container>
     <b-row class="flex-md-row pb-5">
       <b-col cols="12">
-        <LoadingSpinner
-          v-if="$fetchState.pending"
-        />
-        <AlertMessage
-          v-else-if="$fetchState.error"
-          :error="$fetchState.error.message"
-        />
         <b-card-group
-          v-else
           class="card-deck-4-cols"
           deck
         >
@@ -31,16 +23,12 @@
 </template>
 
 <script>
-  import AlertMessage from '../generic/AlertMessage';
   import ContentCard from '../generic/ContentCard';
-  import LoadingSpinner from '../generic/LoadingSpinner';
 
   export default {
     name: 'UserSets',
     components: {
-      AlertMessage,
-      ContentCard,
-      LoadingSpinner
+      ContentCard
     },
     props: {
       // May be "public" or "private"
@@ -49,19 +37,10 @@
         default: 'public'
       }
     },
-    async fetch() {
-      const searchParams = {
-        query: `creator:${this.$auth.user.sub} visibility:${this.visibility}`,
-        profile: 'itemDescriptions'
-      };
-
-      const searchResponse = await this.$sets.search(searchParams);
-      this.userSets = searchResponse.data.items || [];
-    },
-    data() {
-      return {
-        userSets: []
-      };
+    computed: {
+      userSets() {
+        return this.$store.state.set.creations.filter(set => set.visibility === this.visibility);
+      }
     },
     methods: {
       setSubTitle(set) {
