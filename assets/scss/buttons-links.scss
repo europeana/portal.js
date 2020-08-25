@@ -147,3 +147,20 @@ a {
   background-color: $darkblue;
   border-color: $darkblue;
 }
+
+.info-panel {
+  .btn-link {
+    color: $blue;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 600;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}
+
+.share-button + .download-button {
+  margin-left: 0.25rem;
+}

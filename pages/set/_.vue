@@ -94,22 +94,6 @@
                 />
               </b-col>
             </b-row>
-            <b-row>
-              <b-col>
-                <client-only>
-                  <!--
-                    FIXME: Set API item pagination is not yet implemented when retrieving single
-                           sets if those are "closed" sets, as these will always be.
-                           When implemented, `:per-page` should then be ``"perPage"``
-                  -->
-                  <PaginationNav
-                    v-model="page"
-                    :total-results="total"
-                    :per-page="total"
-                  />
-                </client-only>
-              </b-col>
-            </b-row>
           </b-container>
         </b-col>
       </b-row>
@@ -131,15 +115,12 @@
 <script>
   import { langMapValueForLocale } from  '../../plugins/europeana/utils';
 
-  import ClientOnly from 'vue-client-only';
   import ItemPreviewCardGroup from '../../components/item/ItemPreviewCardGroup';
 
   export default {
     components: {
-      ClientOnly,
       ItemPreviewCardGroup,
-      SetFormModal: () => import('../../components/set/SetFormModal'),
-      PaginationNav: () => import('../../components/generic/PaginationNav')
+      SetFormModal: () => import('../../components/set/SetFormModal')
     },
 
     middleware: 'sanitisePageQuery',
@@ -147,11 +128,7 @@
     // TODO: error handling for Nuxt 2.12 fetch()
     //       https://nuxtjs.org/blog/understanding-how-fetch-works-in-nuxt-2-12/#error-handling
     async fetch() {
-      this.page = this.$store.state.sanitised.page - 1; // Set API paging starts at 0 ¯\_(ツ)_/¯
-
       const set = await this.$sets.getSet(this.$route.params.pathMatch, {
-        page: this.page,
-        pageSize: this.perPage,
         profile: 'itemDescriptions'
       });
 
@@ -170,8 +147,6 @@
         creator: null,
         description: null,
         items: [],
-        page: null,
-        perPage: 24,
         recommendations: [],
         setFormModalId: `set-form-modal-${this.id}`,
         title: null,
@@ -192,10 +167,6 @@
       displayDescription() {
         return langMapValueForLocale(this.description, this.$i18n.locale);
       }
-    },
-
-    watch: {
-      '$route.query.page': '$fetch'
     },
 
     mounted() {
