@@ -114,17 +114,35 @@
   }
 
   &.explore-card {
-    &:first-child {
-      margin-left: 0px;
+    flex: 100%;
+    margin-bottom: 1rem;
+    min-height: auto;
+    margin-left: 0px;
+    margin-right: 0px;
+
+    @media (min-width: $bp-medium) {
+      &:first-child {
+        margin-left: 0px;
+        margin-right: 8px;
+      }
+
+      &:last-child {
+        margin-left: 8px;
+        margin-right: 0px;
+      }
     }
 
-    &:last-child {
-      margin-right: 0px;
+    @media (min-width: $bp-large) {
+      &:first-child {
+        margin-right: 4px;
+      }
+
+      &:last-child {
+        margin-left: 4px;
+      }
+      margin-left: 4px;
+      margin-right: 4px;
     }
-    margin-left: 4px;
-    margin-right: 4px;
-    margin-bottom: 0;
-    min-height: auto;
   }
 
   &.similar-card {
@@ -329,15 +347,17 @@
   .card-deck-4-cols .card {
     flex: 0 0 calc(100% / 2 - #{$grid-gutter*2});
   }
-
-  card-deck-4-cols-wide .card {
-    flex: 0 0 calc(100% / 2 - #{4*2});
+  .card-deck-4-cols.narrow-gutter .card {
+    flex: 0 0 calc(100% / 2 - #{$grid-gutter-narrow});
   }
 }
 
 @media (min-width: $bp-large) {
   .card-deck-4-cols .card {
     flex: 0 0 calc(100% / 4 - #{$grid-gutter*2});
+  }
+  .card-deck-4-cols.narrow-gutter .card {
+    flex: 0 0 calc(100% / 4 - #{$grid-gutter-narrow * 6/4});
   }
 }
 
