@@ -253,7 +253,6 @@
     z-index: 20;
     border-radius: 0;
     background-color: $white;
-    overflow: hidden;
     transition: $standard-transition;
 
     a.list-group-item {
