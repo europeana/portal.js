@@ -57,12 +57,14 @@ export const actions = {
     return this.$sets.modifyItems('add', setId, itemId)
       .then(() => {
         if (state.active && setId === state.active.id) dispatch('fetchActive', setId);
+        dispatch('fetchCreations');
       });
   },
   removeItem({ state, dispatch }, { setId, itemId }) {
     return this.$sets.modifyItems('delete', setId, itemId)
       .then(() => {
         if (state.active && setId === state.active.id) dispatch('fetchActive', setId);
+        dispatch('fetchCreations');
       });
   },
   setLikes({ commit }) {
