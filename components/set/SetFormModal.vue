@@ -133,8 +133,8 @@
       setBody() {
         const setBody = {
           type: this.type,
-          title: this.title || {},
-          description: this.description || {},
+          title: { ...this.title },
+          description: { ...this.description },
           visibility: this.isPrivate ? 'private' : 'public'
         };
         setBody.title[this.$i18n.locale] = this.titleValue;
@@ -165,20 +165,14 @@
       },
 
       // TODO: error handling
-      async submitForm() {
-        if (this.isNew) {
-          this.$sets.createSet(this.setBody)
-            .then(response => {
-              this.hide();
-              this.$emit('create', response);
-            });
-        } else {
-          this.$sets.updateSet(this.setId, this.setBody)
-            .then(response => {
-              this.hide();
-              this.$emit('update', response);
-            });
-        }
+      submitForm() {
+        const handler = this.isNew ?
+          this.$store.dispatch('set/createSet', this.setBody) :
+          this.$store.dispatch('set/updateSet', { setId: this.setId, setBody: this.setBody });
+
+        return handler.then(() => {
+          this.hide();
+        });
       },
 
       show() {

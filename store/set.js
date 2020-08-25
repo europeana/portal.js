@@ -64,5 +64,14 @@ export const actions = {
       profile: 'itemDescriptions'
     });
     commit('setActive', set);
+  },
+  createSet(ctx, setBody) {
+    return this.$sets.createSet(setBody);
+  },
+  updateSet({ state, commit }, { setId, setBody }) {
+    return this.$sets.updateSet(setId, setBody)
+      .then(response => {
+        if (setId === state.active.id) commit('setActive', { items: state.active.items, ...response });
+      });
   }
 };
