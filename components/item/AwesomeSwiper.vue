@@ -17,14 +17,14 @@
         <MediaCard
           :europeana-identifier="europeanaIdentifier"
           :media="item"
-          :is-single-playable-media="isSinglePlayableMedia(item)"
+          :is-single-playable-media="isSinglePlayableMedia"
         />
       </div>
       <MediaCard
         v-else
         :europeana-identifier="europeanaIdentifier"
         :media="item"
-        :is-single-playable-media="isSinglePlayableMedia(item)"
+        :is-single-playable-media="isSinglePlayableMedia"
       />
     </swiper-slide>
     <div
@@ -94,8 +94,8 @@
       swiper() {
         return this.$refs.awesome.$swiper;
       },
-      playableMedia() {
-        return this.media.filter(resource => isPlayableMedia(resource));
+      isSinglePlayableMedia() {
+        return this.media.filter(resource => isPlayableMedia(resource)).length === 1;
       }
     },
     methods: {
@@ -104,9 +104,6 @@
       },
       updateSwiper() {
         this.swiper.update();
-      },
-      isSinglePlayableMedia() {
-        return (this.playableMedia.length === 1);
       }
     }
   };

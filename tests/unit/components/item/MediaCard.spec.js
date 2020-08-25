@@ -134,15 +134,6 @@ describe('components/item/MediaCard', () => {
   });
 
   describe('displayImage', () => {
-    context('when imageSrc is absent', () => {
-      it('is `false`', () => {
-        const props = { europeanaIdentifier, media: { ebucoreHasMimeType: 'text/plain' } };
-        const wrapper = factory(props);
-
-        wrapper.vm.displayImage.should.be.false;
-      });
-    });
-
     context('when imageSrc is present', () => {
       context('and media is HTML video', () => {
         it('is `false`', () => {

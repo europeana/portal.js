@@ -68,7 +68,6 @@
   import VideoPlayer from '../../components/media/VideoPlayer';
   import AudioPlayer from '../../components/media/AudioPlayer';
   import oEmbed from '../../plugins/oembed';
-  import has from 'lodash/has';
 
   export default {
     name: 'MediaCard',
@@ -101,7 +100,7 @@
 
     computed: {
       displayImage() {
-        return (has(this.media, 'thumbnails')) && !isRichMedia(this.media);
+        return !isRichMedia(this.media);
       },
       isPlayableMedia() {
         return isPlayableMedia(this.media);
