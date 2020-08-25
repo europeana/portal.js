@@ -26,7 +26,7 @@
                 <b-row class="flex-md-row pb-5">
                   <b-col cols="12">
                     <ItemPreviewCardGroup
-                      v-model="likes"
+                      v-model="likedItems"
                       @unlike="fetchLikes()"
                     />
                   </b-col>
@@ -76,40 +76,32 @@
       UserSets
     },
 
-    async fetch() {
-      await this.fetchLikes();
+    fetch() {
+      this.load();
     },
 
     fetchOnServer: false,
 
     data() {
       return {
-        loggedInUser: this.$store.state.auth.user,
-        likes: []
+        loggedInUser: this.$store.state.auth.user
       };
     },
 
     computed: {
       ...mapState({
-        likesId: state => state.set.likesId
+        likesId: state => state.set.likesId,
+        likedItems: state => state.set.likedItems
       })
     },
 
     watch: {
-      'likesId'() {
-        this.fetchLikes();
-      }
+      likesId: 'load'
     },
 
     methods: {
-      // TODO: pagination
-      async fetchLikes() {
-        if (!this.$store.state.set.likesId) return;
-        const likes = await this.$sets.getSet(this.likesId, {
-          pageSize: 100,
-          profile: 'itemDescriptions'
-        });
-        this.likes = likes.items;
+      load() {
+        this.$store.dispatch('set/fetchLikes');
       }
     },
 

@@ -1,26 +1,34 @@
-const setIdFromUri = (uri) => uri.split('/item').pop();
-
 export const state = () => ({
   likesId: null,
-  liked: []
+  likedItems: []
 });
 
 export const mutations = {
   setLikesId(state, value) {
     state.likesId = value;
   },
-  setLikedItems(state, likesArray) {
-    state.liked = likesArray;
+  setLikedItems(state, value) {
+    state.likedItems = value;
   },
   like(state, value) {
-    state.liked.push(value);
+    state.likedItems.push(value);
   },
   unlike(state, value) {
-    state.liked.splice(state.liked.indexOf(value), 1);
+    state.likedItems.splice(state.likedItems.indexOf(value), 1);
+  }
+};
+
+export const getters = {
+  isLiked: (state) => (itemId) => {
+    return state.likedItems.map(item => item.id).includes(itemId);
   }
 };
 
 export const actions = {
+  reset({ commit }) {
+    commit('setLikesId', null);
+    commit('setLikedItems', []);
+  },
   async like({ commit, state }, itemId) {
     await this.$sets.modifyItems('add', state.likesId, itemId);
     commit('like', itemId);
@@ -33,19 +41,18 @@ export const actions = {
     const creator = this.$auth.user ? this.$auth.user.sub : null;
     const likesId = await this.$sets.getLikes(creator);
 
-    if (likesId) {
-      commit('setLikesId', likesId);
-      const likedItems = await this.$sets.getSet(likesId, { profile: 'standard' })
-        .then(response => response.items || []);
-      commit('setLikedItems', likedItems.map(item => setIdFromUri(item)));
-    }
+    if (likesId) commit('setLikesId', likesId);
   },
   async createLikes({ commit }) {
-    const likesId = await this.$sets.createLikes().then(response =>  response.id.split('/').pop());
-    commit('setLikesId', likesId);
+    const response = await this.$sets.createLikes();
+    commit('setLikesId', response.id);
   },
-  // TODO: is this used?
-  reset({ commit }) {
-    commit('setLikedItems', []);
+  async fetchLikes({ commit, state }) {
+    if (!state.likesId) return;
+    const likes = await this.$sets.getSet(state.likesId, {
+      pageSize: 100,
+      profile: 'itemDescriptions'
+    });
+    commit('setLikedItems', likes.items);
   }
 };
