@@ -123,25 +123,25 @@
     @media (min-width: $bp-medium) {
       &:first-child {
         margin-left: 0px;
-        margin-right: 8px;
+        margin-right: calc(#{$grid-gutter-narrow} * 2);
       }
 
       &:last-child {
-        margin-left: 8px;
+        margin-left: calc(#{$grid-gutter-narrow} * 2);
         margin-right: 0px;
       }
     }
 
     @media (min-width: $bp-large) {
       &:first-child {
-        margin-right: 4px;
+        margin-right: $grid-gutter-narrow;
       }
 
       &:last-child {
-        margin-left: 4px;
+        margin-left: $grid-gutter-narrow;
       }
-      margin-left: 4px;
-      margin-right: 4px;
+      margin-left: $grid-gutter-narrow;
+      margin-right: $grid-gutter-narrow;
     }
   }
 

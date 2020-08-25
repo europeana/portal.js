@@ -76,7 +76,7 @@
               v-if="similarItems.length > 0"
             >
               <h2
-                class="related-heading text-uppercase"
+                class="related-heading text-uppercase mb-2"
               >
                 {{ $t('record.exploreMore') }}
               </h2>
