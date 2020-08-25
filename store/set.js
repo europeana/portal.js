@@ -57,14 +57,14 @@ export const actions = {
     return this.$sets.modifyItems('add', setId, itemId)
       .then(() => {
         if (state.active && setId === state.active.id) dispatch('fetchActive', setId);
-        dispatch('fetchCreations');
+        dispatch('refreshCreation', setId);
       });
   },
   removeItem({ state, dispatch }, { setId, itemId }) {
     return this.$sets.modifyItems('delete', setId, itemId)
       .then(() => {
         if (state.active && setId === state.active.id) dispatch('fetchActive', setId);
-        dispatch('fetchCreations');
+        dispatch('refreshCreation', setId);
       });
   },
   setLikes({ commit }) {
@@ -114,6 +114,19 @@ export const actions = {
     return this.$sets.deleteSet(setId)
       .then(() => {
         if (state.active && setId === state.active.id) commit('setActive', null);
+      });
+  },
+  refreshCreation({ state, commit }, setId) {
+    return this.$sets.getSet(setId, {
+      profile: 'itemDescriptions'
+    })
+      .then(set => {
+        const setToReplaceIndex = state.creations.findIndex(set => set.id === setId);
+        if (setToReplaceIndex !== -1) {
+          const creations = [].concat(state.creations);
+          creations[setToReplaceIndex] = set;
+          commit('setCreations', creations);
+        }
       });
   },
   fetchCreations({ commit }) {
