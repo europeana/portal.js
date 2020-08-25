@@ -98,8 +98,8 @@ export const actions = {
         commit('setActive', set);
       });
   },
-  createSet({ dispatch }, setBody) {
-    return this.$sets.createSet(setBody)
+  createSet({ dispatch }, body) {
+    return this.$sets.createSet(body)
       .then(() => {
         dispatch('fetchCreations');
       });
@@ -117,16 +117,16 @@ export const actions = {
       });
   },
   refreshCreation({ state, commit }, setId) {
+    const setToReplaceIndex = state.creations.findIndex(set => set.id === setId);
+    if (setToReplaceIndex === -1) return;
+
     return this.$sets.getSet(setId, {
       profile: 'itemDescriptions'
     })
       .then(set => {
-        const setToReplaceIndex = state.creations.findIndex(set => set.id === setId);
-        if (setToReplaceIndex !== -1) {
-          const creations = [].concat(state.creations);
-          creations[setToReplaceIndex] = set;
-          commit('setCreations', creations);
-        }
+        const creations = [].concat(state.creations);
+        creations[setToReplaceIndex] = set;
+        commit('setCreations', creations);
       });
   },
   fetchCreations({ commit }) {
