@@ -25,7 +25,9 @@
           :edm-rights="edmRights"
         />
       </b-container>
-      <b-container>
+      <b-container
+        class="mb-7"
+      >
         <b-row class="mb-3 justify-content-center">
           <b-col
             cols="12"
@@ -55,7 +57,7 @@
           v-else
           class="mb-3"
         />
-        <b-row class="mb-3 justify-content-center">
+        <b-row class="mb-0 justify-content-center">
           <b-col
             cols="12"
             class="col-lg-10"
@@ -67,27 +69,27 @@
             />
           </b-col>
         </b-row>
-        <b-row class="mb-3 justify-content-center">
+        <b-row
+          v-if="similarItems.length > 0"
+          class="mt-3 mb-0 justify-content-center"
+        >
           <b-col
             cols="12"
             class="col-lg-10"
           >
-            <section
-              v-if="similarItems.length > 0"
+            <h2
+              class="related-heading text-uppercase mb-2"
             >
-              <h2
-                class="related-heading text-uppercase mb-2"
-              >
-                {{ $t('record.exploreMore') }}
-              </h2>
-              <ItemPreviewCardGroup
-                v-model="similarItems"
-                view="explore"
-                class="mb-3"
-              />
-            </section>
+              {{ $t('record.exploreMore') }}
+            </h2>
+            <ItemPreviewCardGroup
+              v-model="similarItems"
+              view="explore"
+              class="mb-0"
+            />
           </b-col>
         </b-row>
+        <b-row class="footer-margin" />
       </b-container>
     </template>
   </div>
@@ -344,6 +346,9 @@
     margin-top: -0.5rem;
     margin-bottom: 2rem;
     padding: 0;
+  }
+  .footer-margin {
+    margin-bottom: 7rem;
   }
   /* TODO: fix styling in/for MetadataBox component itself */
   /deep/ .card.rounded-0 {
