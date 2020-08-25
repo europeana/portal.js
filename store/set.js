@@ -1,6 +1,7 @@
 export const state = () => ({
   likesId: null,
-  likedItems: []
+  likedItems: [],
+  active: {}
 });
 
 export const mutations = {
@@ -15,6 +16,9 @@ export const mutations = {
   },
   unlike(state, value) {
     state.likedItems.splice(state.likedItems.indexOf(value), 1);
+  },
+  setActive(state, value) {
+    state.active = value;
   }
 };
 
@@ -54,5 +58,11 @@ export const actions = {
       profile: 'itemDescriptions'
     });
     commit('setLikedItems', likes.items);
+  },
+  async fetchSet({ commit }, setId) {
+    const set = await this.$sets.getSet(setId, {
+      profile: 'itemDescriptions'
+    });
+    commit('setActive', set);
   }
 };
