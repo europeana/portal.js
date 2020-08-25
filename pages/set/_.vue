@@ -1,5 +1,15 @@
 <template>
+  <b-container v-if="$fetchState.error">
+    <b-row class="flex-md-row pb-5">
+      <b-col cols="12">
+        <AlertMessage
+          :error="$fetchState.error.message"
+        />
+      </b-col>
+    </b-row>
+  </b-container>
   <div
+    v-else
     data-qa="user gallery page"
     class="mt-n3"
   >
@@ -98,7 +108,7 @@
         </b-col>
       </b-row>
       <b-row
-        v-if="recommendations.length > 0"
+        v-if="recommendations && recommendations.length > 0"
         class="recommendations"
       >
         <b-col>
@@ -114,11 +124,12 @@
 
 <script>
   import { langMapValueForLocale } from  '../../plugins/europeana/utils';
-
+  import AlertMessage from '../../components/generic/AlertMessage';
   import ItemPreviewCardGroup from '../../components/item/ItemPreviewCardGroup';
 
   export default {
     components: {
+      AlertMessage,
       ItemPreviewCardGroup,
       SetFormModal: () => import('../../components/set/SetFormModal')
     },
@@ -131,7 +142,7 @@
       const set = await this.$sets.getSet(this.$route.params.pathMatch, {
         profile: 'itemDescriptions'
       });
-
+      
       this.id = set.id;
       this.title = set.title;
       this.description = set.description;
