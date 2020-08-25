@@ -167,7 +167,7 @@
       submitForm() {
         const handler = this.isNew ?
           this.$store.dispatch('set/createSet', this.setBody) :
-          this.$store.dispatch('set/updateSet', { setId: this.setId, setBody: this.setBody });
+          this.$store.dispatch('set/updateSet', { id: this.setId, body: this.setBody });
 
         return handler.then(() => {
           this.hide();

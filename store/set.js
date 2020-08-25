@@ -102,10 +102,10 @@ export const actions = {
         dispatch('fetchCreations');
       });
   },
-  updateSet({ state, commit }, { setId, setBody }) {
-    return this.$sets.updateSet(setId, setBody)
+  updateSet({ state, commit }, { id, body }) {
+    return this.$sets.updateSet(id, body)
       .then(response => {
-        if (setId === state.active.id) commit('setActive', { items: state.active.items, ...response });
+        if (id === state.active.id) commit('setActive', { items: state.active.items, ...response });
       });
   },
   deleteSet({ state, commit }, setId) {
