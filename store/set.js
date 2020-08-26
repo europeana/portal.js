@@ -45,15 +45,11 @@ export const actions = {
   },
   like({ commit, state }, itemId) {
     return this.$sets.modifyItems('add', state.likesId, itemId)
-      .then(() => {
-        commit('like', itemId);
-      });
+      .then(commit('like', itemId));
   },
   unlike({ commit, state }, itemId) {
     return this.$sets.modifyItems('delete', state.likesId, itemId)
-      .then(() => {
-        commit('unlike', itemId);
-      });
+      .then(commit('unlike', itemId));
   },
   addItem({ state, dispatch }, { setId, itemId }) {
     return this.$sets.modifyItems('add', setId, itemId)
@@ -71,15 +67,11 @@ export const actions = {
   },
   setLikes({ commit }) {
     return this.$sets.getLikes(this.$auth.user ? this.$auth.user.sub : null)
-      .then(likesId => {
-        commit('setLikesId', likesId);
-      });
+      .then(likesId => commit('setLikesId', likesId));
   },
   createLikes({ commit }) {
     return this.$sets.createLikes()
-      .then(response => {
-        commit('setLikesId', response.id);
-      });
+      .then(response => commit('setLikesId', response.id));
   },
   fetchLikes({ commit, state }) {
     if (!state.likesId) return;
@@ -88,23 +80,17 @@ export const actions = {
       pageSize: 100,
       profile: 'itemDescriptions'
     })
-      .then(likes => {
-        commit('setLikedItems', likes.items);
-      });
+      .then(likes => commit('setLikedItems', likes.items));
   },
   fetchActive({ commit }, setId) {
     return this.$sets.getSet(setId, {
       profile: 'itemDescriptions'
     })
-      .then(set => {
-        commit('setActive', set);
-      });
+      .then(set => commit('setActive', set));
   },
   createSet({ dispatch }, body) {
     return this.$sets.createSet(body)
-      .then(() => {
-        dispatch('fetchCreations');
-      });
+      .then(dispatch('fetchCreations'));
   },
   updateSet({ state, commit }, { id, body }) {
     return this.$sets.updateSet(id, body)
@@ -140,8 +126,6 @@ export const actions = {
     };
 
     return this.$sets.search(searchParams)
-      .then(searchResponse => {
-        commit('setCreations', searchResponse.data.items || []);
-      });
+      .then(searchResponse => commit('setCreations', searchResponse.data.items || []));
   }
 };
