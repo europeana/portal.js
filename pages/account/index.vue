@@ -27,7 +27,6 @@
                   <b-col cols="12">
                     <ItemPreviewCardGroup
                       v-model="likedItems"
-                      @unlike="fetchLikes()"
                     />
                   </b-col>
                 </b-row>

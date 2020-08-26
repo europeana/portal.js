@@ -1,6 +1,7 @@
 export const state = () => ({
   likesId: null,
   likedItems: [],
+  likedItemIds: [],
   active: null,
   creations: []
 });
@@ -11,12 +12,13 @@ export const mutations = {
   },
   setLikedItems(state, value) {
     state.likedItems = value;
+    state.likedItemIds = value.map(item => item.id);
   },
-  like(state, value) {
-    state.likedItems.push(value);
+  like(state, itemId) {
+    state.likedItemIds.push(itemId);
   },
-  unlike(state, value) {
-    state.likedItems.splice(state.likedItems.indexOf(value), 1);
+  unlike(state, itemId) {
+    state.likedItemIds.splice(state.likedItemIds.indexOf(itemId), 1);
   },
   setActive(state, value) {
     state.active = value;
@@ -31,7 +33,7 @@ export const mutations = {
 
 export const getters = {
   isLiked: (state) => (itemId) => {
-    return state.likedItems.map(item => item.id).includes(itemId);
+    return state.likedItemIds.includes(itemId);
   }
 };
 
