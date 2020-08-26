@@ -154,32 +154,13 @@
   @import './assets/scss/variables.scss';
 
   .btn-collection {
+    border: 0;
     font-size: 1rem;
     font-weight: 500;
     margin-bottom: 0.5rem;
     padding: 1rem;
     position: relative;
     text-transform: none;
-
-    &.btn-overlay {
-      span {
-        position: relative;
-        z-index: 10;
-        &.icon-check_circle {
-          font-size: $font-size-large;
-        }
-      }
-
-      &:after {
-        content: '';
-        background: rgba(0, 0, 0, 0.7);
-        height: 100%;
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-      }
-    }
   }
 
   .collections {
