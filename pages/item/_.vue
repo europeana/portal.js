@@ -367,6 +367,13 @@
         const noSimilarItems = { results: [] };
         if (this.error) return noSimilarItems;
 
+        if (this.$auth.loggedIn) {
+          this.$recommendations.recommend('record', this.identifier)
+            .then(recommendResponse => {
+              return recommendResponse.items;
+            });
+        }
+
         const dataSimilarItems = {
           dcSubject: this.getSimilarItemsData(this.coreFields.dcSubject),
           dcType: this.getSimilarItemsData(this.title),
