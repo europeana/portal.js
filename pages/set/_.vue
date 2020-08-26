@@ -1,6 +1,15 @@
 <template>
-  <b-container v-if="$fetchState.error">
-    <b-row class="flex-md-row pb-5">
+  <b-container v-if="$fetchState.pending">
+    <b-row class="flex-md-row py-4 text-center">
+      <b-col cols="12">
+        <LoadingSpinner
+          v-if="$fetchState.pending"
+        />
+      </b-col>
+    </b-row>
+  </b-container>
+  <b-container v-else-if="$fetchState.error">
+    <b-row class="flex-md-row py-4">
       <b-col cols="12">
         <AlertMessage
           :error="$fetchState.error.message"
@@ -126,9 +135,12 @@
   import { langMapValueForLocale } from  '../../plugins/europeana/utils';
   import AlertMessage from '../../components/generic/AlertMessage';
   import ItemPreviewCardGroup from '../../components/item/ItemPreviewCardGroup';
+  import LoadingSpinner from '../../components/generic/LoadingSpinner';
+  import { mapGetters } from 'vuex';
 
   export default {
     components: {
+      LoadingSpinner,
       AlertMessage,
       ItemPreviewCardGroup,
       SetFormModal: () => import('../../components/set/SetFormModal')
@@ -139,10 +151,26 @@
     // TODO: error handling for Nuxt 2.12 fetch()
     //       https://nuxtjs.org/blog/understanding-how-fetch-works-in-nuxt-2-12/#error-handling
     async fetch() {
-      const set = await this.$sets.getSet(this.$route.params.pathMatch, {
-        profile: 'itemDescriptions'
-      });
-      
+      const token = this.$auth.loggedIn ? this.$auth.getToken('keycloak') : null;
+      const headers = {};
+      if (token) headers['Authorization'] = token;
+      const apiUrl = `${this.apiConfig.set.origin}${this.apiConfig.set.path}/${this.$route.params.pathMatch}?wskey=${this.apiConfig.set.key}&profile=itemDescriptions`;
+      const set = await fetch(apiUrl, { headers })
+        .then((response) => {
+          if (response.ok) {
+            return Promise.resolve(response.json());
+          }
+          if (process.server) {
+            this.$nuxt.context.res.statusCode = response.status;
+          }
+          return Promise.resolve(response.json()).then((apiResponse) => {
+            return Promise.reject(apiResponse);
+          });
+        })
+        .then(response => response,
+              (apiError) => {
+                throw new Error(apiError.error);
+              });
       this.id = set.id;
       this.title = set.title;
       this.description = set.description;
@@ -167,6 +195,9 @@
     },
 
     computed: {
+      ...mapGetters({
+        apiConfig: 'apis/config'
+      }),
       userIsOwner() {
         return this.$store.state.auth.user &&
           this.creator &&

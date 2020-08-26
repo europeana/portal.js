@@ -11,7 +11,7 @@ export default ({ $axios, $auth, store, redirect }, inject) => {
   const axiosInstance = $axios.create({ headers });
 
   axiosInstance.onError(error => {
-    if (!$auth.loggedIn && error.response && (error.response.status === 401 || error.response.status === 403)) {
+    if (!$auth.loggedIn && error.response && error.response.status === 401) {
       return redirect(redirectUrl);
     } else {
       return Promise.reject(error);
