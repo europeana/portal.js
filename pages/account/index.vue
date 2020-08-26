@@ -23,7 +23,10 @@
               active
             >
               <b-container>
-                <b-row class="flex-md-row pb-5">
+                <b-row
+                  v-if="!$fetchState.pending && likes && likes.length > 0"
+                  class="flex-md-row pb-5"
+                >
                   <b-col cols="12">
                     <ItemPreviewCardGroup
                       v-model="likes"
@@ -31,6 +34,12 @@
                     />
                   </b-col>
                 </b-row>
+                <div
+                  v-else-if="!$fetchState.pending && (!likes || likes.length == 0)"
+                  class="text-center pb-4"
+                >
+                  {{ $t('account.likes-empty') }}
+                </div>
               </b-container>
             </b-tab>
             <b-tab

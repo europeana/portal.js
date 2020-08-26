@@ -541,7 +541,10 @@ export default {
     "settings": "Settings",
     "likes": "Likes",
     "publicCollections": "Public Collections",
-    "privateCollections": "Private Collections"
+    "privateCollections": "Private Collections",
+    "likes-empty": "You haven’t liked any items yet",
+    "publicCollections-empty": "You haven’t created any public collections yet",
+    "privateCollections-empty": "You haven’t created any private collections yet"
   },
   "set": {
     "form": {

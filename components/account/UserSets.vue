@@ -1,17 +1,26 @@
 <template>
   <b-container>
-    <b-row class="flex-md-row pb-5">
+    <b-row class="flex-md-row">
       <b-col cols="12">
-        <LoadingSpinner
+        <div
           v-if="$fetchState.pending"
-        />
+          class="text-center pb-4"
+        >
+          <LoadingSpinner />
+        </div>
         <AlertMessage
           v-else-if="$fetchState.error"
           :error="$fetchState.error.message"
         />
+        <div
+          v-else-if="!$fetchState.pending && (!userSets || userSets.length == 0)"
+          class="text-center pb-4"
+        >
+          {{ $t(`account.${visibility}Collections-empty`) }}
+        </div>
         <b-card-group
-          v-else
-          class="card-deck-4-cols"
+          v-else-if="!$fetchState.pending && userSets && userSets.length > 0"
+          class="card-deck-4-cols pb-5"
           deck
         >
           <ContentCard
