@@ -158,26 +158,24 @@
       const set = await fetch(apiUrl, { headers })
         .then((response) => {
           if (response.ok) {
-            return Promise.resolve(response.json());
+            return response.json();
           }
           if (process.server) {
             this.$nuxt.context.res.statusCode = response.status;
+            return response.json();
           }
-          return Promise.resolve(response.json()).then((apiResponse) => {
-            return Promise.reject(apiResponse);
-          });
-        })
-        .then(response => response,
-              (apiError) => {
-                throw new Error(apiError.error);
-              });
-      this.id = set.id;
-      this.title = set.title;
-      this.description = set.description;
-      this.visibility = set.visibility;
-      this.creator = set.creator;
-      this.total = set.total || 0;
-      this.items = set.items;
+        });
+      if (set.id) {
+        this.id = set.id;
+        this.title = set.title;
+        this.description = set.description;
+        this.visibility = set.visibility;
+        this.creator = set.creator;
+        this.total = set.total || 0;
+        this.items = set.items;
+      } else {
+        throw new Error(set.error);
+      }
     },
 
     data() {
