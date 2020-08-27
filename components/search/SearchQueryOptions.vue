@@ -15,36 +15,38 @@
       {{ $t('loadingResults') }}{{ $t('formatting.ellipsis') }}
     </b-list-group-item>
 
-    <b-list-group-item
-      v-for="(val, name, index) in value"
-      v-else
-      :key="index"
-      role="option"
-      data-qa="search suggestion"
-      :aria-selected="index === focus"
-      :to="linkGen(val)"
-      :class="{ 'hover': index === focus }"
-      :data-index="index"
-      @mouseover="focus = index"
-      @mouseout="focus = null"
-      @focus="index === focus"
-      @mousedown.prevent
-    >
-      <template
-        v-for="(part, partIndex) in highlightResult(val)"
+    <template v-else>
+      <slot name="search-button" />
+      <b-list-group-item
+        v-for="(val, name, index) in value"
+        :key="index"
+        role="option"
+        data-qa="search suggestion"
+        :aria-selected="index === focus"
+        :to="linkGen(val)"
+        :class="{ 'hover': index === focus }"
+        :data-index="index"
+        @mouseover="focus = index"
+        @mouseout="focus = null"
+        @focus="index === focus"
+        @mousedown.prevent
       >
-        <strong
-          v-if="part.highlight"
-          :key="partIndex"
-          class="highlight"
-          data-qa="highlighted"
-        >{{ part.text }}</strong> <!-- Do not put onto a new line -->
-        <span
-          v-else
-          :key="partIndex"
-        >{{ part.text }}</span> <!-- Do not put onto a new line -->
-      </template>
-    </b-list-group-item>
+        <template
+          v-for="(part, partIndex) in highlightResult(val)"
+        >
+          <strong
+            v-if="part.highlight"
+            :key="partIndex"
+            class="highlight"
+            data-qa="highlighted"
+          >{{ part.text }}</strong> <!-- Do not put onto a new line -->
+          <span
+            v-else
+            :key="partIndex"
+          >{{ part.text }}</span> <!-- Do not put onto a new line -->
+        </template>
+      </b-list-group-item>
+    </template>
   </b-list-group>
 </template>
 
@@ -53,7 +55,7 @@
   import parse from 'autosuggest-highlight/parse';
 
   export default {
-    name: 'AutoSuggest',
+    name: 'SearchQueryOptions',
 
     props: {
       // Property names are identifiers, emitted when suggestion is selected.
@@ -248,7 +250,7 @@
     display: block;
     box-shadow: $boxshadow-light;
     position: absolute;
-    top: 6.9rem;
+    top: 3.45rem;
     width: 100%;
     z-index: 20;
     border-radius: 0;

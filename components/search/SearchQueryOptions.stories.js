@@ -1,7 +1,7 @@
 import Vuex from 'vuex';
 import VueRouter from 'vue-router';
 import { storiesOf } from '@storybook/vue';
-import AutoSuggest from './AutoSuggest.vue';
+import SearchQueryOptions from './SearchQueryOptions.vue';
 
 const router = new VueRouter({
   routes: [
@@ -29,16 +29,16 @@ const i18n = {
   }
 };
 
-storiesOf('Search / Auto suggest', module)
+storiesOf('Search / Search Query Options', module)
   .add('Without suggestions', () => ({
-    components: { AutoSuggest },
+    components: { SearchQueryOptions },
     store,
     i18n,
     router,
-    template: '<b-container class="mt-3"><b-form-input ref="searchbox" /><AutoSuggest /></b-container>'
+    template: '<b-container class="mt-3"><b-form-input ref="searchbox" /><SearchQueryOptions /></b-container>'
   }))
   .add('With suggestions', () => ({
-    components: { AutoSuggest },
+    components: { SearchQueryOptions },
     data() {
       return {
         suggestions: {
@@ -61,6 +61,6 @@ storiesOf('Search / Auto suggest', module)
     template: `
       <b-container class="mt-3">
         <b-form-input ref="searchbox" value="man" />
-        <AutoSuggest v-model="suggestions" query="man" />
+        <SearchQueryOptions v-model="suggestions" query="man" />
       </b-container>`
   }));

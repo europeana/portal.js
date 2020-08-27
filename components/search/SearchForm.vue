@@ -33,7 +33,7 @@
         :aria-label="$t('header.clearQuery')"
         @click="clearQuery"
       />
-      <template
+      <!-- <template
         v-if="pillLabel"
       >
         <div
@@ -98,8 +98,8 @@
             </i18n>
           </b-button>
         </div>
-      </template>
-      <AutoSuggest
+      </template> -->
+      <SearchQueryOptions
         v-if="enableAutoSuggest"
         v-model="suggestions"
         element-id="search-form-auto-suggest"
@@ -107,13 +107,29 @@
         :query="query"
         @select="selectSuggestion"
         @hide-search="hideSearch"
-      />
+      >
+        <b-list-group-item
+          slot="search-button"
+          :to="suggestionLinkGen(query)"
+          class="search"
+          role="option"
+          data-qa="search button"
+          :aria-label="$t('search')"
+        >
+          <i18n
+            path="header.searchFor"
+            tag="span"
+          >
+            <strong>{{ query }}</strong>
+          </i18n>
+        </b-list-group-item>
+      </SearchQueryOptions>
     </b-input-group>
   </b-form>
 </template>
 
 <script>
-  import AutoSuggest from './AutoSuggest';
+  import SearchQueryOptions from './SearchQueryOptions';
   import { getEntitySuggestions } from '../../plugins/europeana/entity';
   import { mapGetters } from 'vuex';
   import match from 'autosuggest-highlight/match';
@@ -122,7 +138,7 @@
     name: 'SearchForm',
 
     components: {
-      AutoSuggest
+      SearchQueryOptions
     },
 
     props: {
