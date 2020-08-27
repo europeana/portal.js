@@ -368,10 +368,8 @@
         if (this.error) return noSimilarItems;
 
         if (this.$auth.loggedIn) {
-          this.$recommendations.recommend('record', this.identifier)
-            .then(recommendResponse => {
-              return recommendResponse.items;
-            });
+          return this.$recommendations.recommend('record', this.identifier)
+            .then(recommendResponse => recommendResponse);
         }
 
         const dataSimilarItems = {
