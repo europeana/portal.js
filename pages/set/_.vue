@@ -35,7 +35,7 @@
                   <!-- TODO: Fill after the '@' with the set's owner  -->
                   <!-- <span class="curator mr-4">
                     {{ $t('set.labels.curatedBy') }} @placeholderUsername
-                  </span> -->
+                  </span>-->
                   <span
                     class="visibility"
                   >
@@ -204,28 +204,36 @@
   }
 
   .usergallery-metadata {
-    font-size: 0.9rem;
-    height: 1.6rem;
+    font-size: $font-size-small;
+    line-height: 1.125;
+
+    .curator,
+    .visibility {
+      display: inline-flex;
+      align-items: center;
+
+      &:before {
+        font-size: 1.5rem;
+        padding-right: 0.2rem;
+      }
+    }
+
     .curator {
       margin-right: 1.5rem;
       &:before {
         @extend .icon-font;
         content: '\e92e';
-        font-size: 1.4rem;
-        padding-right: 0.2rem;
-        vertical-align: bottom;
       }
     }
+
     .visibility {
       &:before {
         @extend .icon-font;
         content: '\e92d';
-        font-size: 1.4rem;
-        padding-right: 0.2rem;
-        vertical-align: bottom;
       }
     }
   }
+
   .collection-buttons {
     button {
       &:first-child {
