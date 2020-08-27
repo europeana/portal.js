@@ -205,15 +205,15 @@
 
   .usergallery-metadata {
     font-size: 0.9rem;
-    font-weight: 600;
     height: 1.6rem;
-    vertical-align: middle;
     .curator {
+      margin-right: 1.5rem;
       &:before {
         @extend .icon-font;
         content: '\e92e';
         font-size: 1.4rem;
         padding-right: 0.2rem;
+        vertical-align: bottom;
       }
     }
     .visibility {
@@ -222,6 +222,7 @@
         content: '\e92d';
         font-size: 1.4rem;
         padding-right: 0.2rem;
+        vertical-align: bottom;
       }
     }
   }
