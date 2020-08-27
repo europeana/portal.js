@@ -25,9 +25,7 @@
           :edm-rights="edmRights"
         />
       </b-container>
-      <b-container
-        class="mb-7"
-      >
+      <b-container>
         <b-row class="mb-3 justify-content-center">
           <b-col
             cols="12"

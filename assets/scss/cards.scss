@@ -117,45 +117,19 @@
     flex: 100%;
     margin-bottom: 1rem;
     min-height: auto;
-    margin-left: 0;
-    margin-right: 0;
+
     &:last-child {
       margin-bottom: 0;
     }
 
     @media (min-width: $bp-medium) {
-      margin-bottom: 0;
-      &:first-child {
-        margin-bottom: 1rem;
-        margin-left: 0;
-        margin-right: calc(#{$grid-gutter-narrow} * 2);
-      }
-      &:nth-child(2) {
-        margin-bottom: 1rem;
-      }
-
-      &:last-child {
-        margin-left: calc(#{$grid-gutter-narrow} * 2);
-        margin-right: 0;
-      }
-    }
-
-    @media (min-width: $bp-large) {
-      &:first-child {
-        margin-bottom: 0;
-        margin-right: $grid-gutter-narrow;
-      }
-      &:nth-child(2) {
-        margin-bottom: 1rem;
-        margin-bottom: 0;
-      }
-
-      &:last-child {
-        margin-left: $grid-gutter-narrow;
-      }
-      margin-left: $grid-gutter-narrow;
       margin-right: $grid-gutter-narrow;
-    }
+      margin-left: $grid-gutter-narrow;
+
+      &:last-child {
+        margin-bottom: 1rem;
+      }
+    }    
   }
 
   &.similar-card {
@@ -346,6 +320,11 @@
   }
 }
 
+.card-deck-4-cols.narrow-gutter {
+  margin-left: -$grid-gutter-narrow;
+  margin-right: -$grid-gutter-narrow; 
+}
+
 .card-group-list .card,
 .card-deck-3-cols .card,
 .card-deck-4-cols .card {
@@ -361,7 +340,7 @@
     flex: 0 0 calc(100% / 2 - #{$grid-gutter*2});
   }
   .card-deck-4-cols.narrow-gutter .card {
-    flex: 0 0 calc(100% / 2 - #{$grid-gutter-narrow});
+    flex: 0 0 calc(100% / 2 - #{$grid-gutter-narrow*2});
   }
 }
 
@@ -370,7 +349,7 @@
     flex: 0 0 calc(100% / 4 - #{$grid-gutter*2});
   }
   .card-deck-4-cols.narrow-gutter .card {
-    flex: 0 0 calc(100% / 4 - #{$grid-gutter-narrow * 6/4});
+    flex: 0 0 calc(100% / 4 - #{$grid-gutter-narrow*2}});
   }
 }
 
