@@ -12,28 +12,32 @@
           v-else-if="$fetchState.error"
           :error="$fetchState.error.message"
         />
-        <div
-          v-else-if="!$fetchState.pending && (!userSets || userSets.length == 0)"
-          class="text-center pb-4"
+        <template
+          v-else
         >
-          {{ $t(`account.${visibility}Collections-empty`) }}
-        </div>
-        <b-card-group
-          v-else-if="!$fetchState.pending && userSets && userSets.length > 0"
-          class="card-deck-4-cols pb-5"
-          deck
-        >
-          <ContentCard
-            v-for="set in userSets"
-            :key="set.id"
-            :sub-title="setSubTitle(set)"
-            :title="set.title"
-            :image-url="$sets.getSetThumbnail(set)"
-            :texts="[set.description]"
-            :url="{ name: 'set-all', params: { pathMatch: setPathMatch(set) } }"
-            data-qa="user set"
-          />
-        </b-card-group>
+          <div
+            v-if="userSets.length === 0"
+            class="text-center pb-4"
+          >
+            {{ $t(`account.notifications.no${capitalizeWord(visibility)}Collections`) }}
+          </div>
+          <b-card-group
+            v-else
+            class="card-deck-4-cols pb-5"
+            deck
+          >
+            <ContentCard
+              v-for="set in userSets"
+              :key="set.id"
+              :sub-title="setSubTitle(set)"
+              :title="set.title"
+              :image-url="$sets.getSetThumbnail(set)"
+              :texts="[set.description]"
+              :url="{ name: 'set-all', params: { pathMatch: setPathMatch(set) } }"
+              data-qa="user set"
+            />
+          </b-card-group>
+        </template>
       </b-col>
     </b-row>
   </b-container>
@@ -79,6 +83,9 @@
       },
       setPathMatch(set) {
         return set.id.replace('http://data.europeana.eu/set/', '');
+      },
+      capitalizeWord(word) {
+        return word.charAt(0).toUpperCase() + word.slice(1);
       }
     }
   };

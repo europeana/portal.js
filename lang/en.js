@@ -542,9 +542,11 @@ export default {
     "likes": "Likes",
     "publicCollections": "Public Collections",
     "privateCollections": "Private Collections",
-    "likes-empty": "You haven’t liked any items yet",
-    "publicCollections-empty": "You haven’t created any public collections yet",
-    "privateCollections-empty": "You haven’t created any private collections yet"
+    "notifications": {
+      "noPrivateCollections": "You haven’t created any private collections yet",
+      "noPublicCollections": "You haven’t created any public collections yet",
+      "noLikedItems": "You haven’t liked any items yet"
+    }
   },
   "set": {
     "form": {

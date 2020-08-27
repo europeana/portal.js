@@ -23,23 +23,36 @@
               active
             >
               <b-container>
-                <b-row
-                  v-if="!$fetchState.pending && likes && likes.length > 0"
-                  class="flex-md-row pb-5"
-                >
+                <b-row class="flex-md-row">
                   <b-col cols="12">
-                    <ItemPreviewCardGroup
-                      v-model="likes"
-                      @unlike="fetchLikes()"
+                    <div
+                      v-if="$fetchState.pending"
+                      class="text-center pb-4"
+                    >
+                      <LoadingSpinner />
+                    </div>
+                    <AlertMessage
+                      v-else-if="$fetchState.error"
+                      :error="$fetchState.error.message"
                     />
+                    <template
+                      v-else
+                    >
+                      <div
+                        v-if="!likes || likes.length === 0"
+                        class="text-center pb-4"
+                      >
+                        {{ $t('account.notifications.noLikedItems') }}
+                      </div>
+                      <ItemPreviewCardGroup
+                        v-else
+                        v-model="likes"
+                        class="pb-5"
+                        @unlike="fetchLikes()"
+                      />
+                    </template>
                   </b-col>
                 </b-row>
-                <div
-                  v-else-if="!$fetchState.pending && (!likes || likes.length == 0)"
-                  class="text-center pb-4"
-                >
-                  {{ $t('account.likes-empty') }}
-                </div>
               </b-container>
             </b-tab>
             <b-tab
@@ -76,13 +89,17 @@
 
   import ItemPreviewCardGroup from '../../components/item/ItemPreviewCardGroup';
   import UserSets from '../../components/account/UserSets';
+  import AlertMessage from '../../components/generic/AlertMessage';
+  import LoadingSpinner from '../../components/generic/LoadingSpinner';
 
   export default {
     middleware: 'auth',
 
     components: {
       ItemPreviewCardGroup,
-      UserSets
+      UserSets,
+      AlertMessage,
+      LoadingSpinner
     },
 
     async fetch() {
