@@ -493,6 +493,7 @@ export default {
   "record": {
     "allMetaData": "All metadata",
     "downloadCopyrightInfo": "This item is in copyright and can not be downloaded.",
+    "exploreMore": "Explore More",
     "extendedInformation": "Extended information",
     "goodToKnow": "Good to know",
     "hideAll": "Hide all information",
