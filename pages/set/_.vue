@@ -134,7 +134,6 @@
   import AlertMessage from '../../components/generic/AlertMessage';
   import ItemPreviewCardGroup from '../../components/item/ItemPreviewCardGroup';
   import LoadingSpinner from '../../components/generic/LoadingSpinner';
-  import { mapGetters } from 'vuex';
 
   export default {
     components: {
@@ -181,9 +180,6 @@
     },
 
     computed: {
-      ...mapGetters({
-        apiConfig: 'apis/config'
-      }),
       userIsOwner() {
         return this.$store.state.auth.user &&
           this.creator &&
