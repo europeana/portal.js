@@ -2,9 +2,7 @@
   <b-container v-if="$fetchState.pending">
     <b-row class="flex-md-row py-4 text-center">
       <b-col cols="12">
-        <LoadingSpinner
-          v-if="$fetchState.pending"
-        />
+        <LoadingSpinner/>
       </b-col>
     </b-row>
   </b-container>
@@ -151,31 +149,23 @@
     // TODO: error handling for Nuxt 2.12 fetch()
     //       https://nuxtjs.org/blog/understanding-how-fetch-works-in-nuxt-2-12/#error-handling
     async fetch() {
-      const token = this.$auth.loggedIn ? this.$auth.getToken('keycloak') : null;
-      const headers = {};
-      if (token) headers['Authorization'] = token;
-      const apiUrl = `${this.apiConfig.set.origin}${this.apiConfig.set.path}/${this.$route.params.pathMatch}?wskey=${this.apiConfig.set.key}&profile=itemDescriptions`;
-      const set = await fetch(apiUrl, { headers })
-        .then((response) => {
-          if (response.ok) {
-            return response.json();
-          }
-          if (process.server) {
-            this.$nuxt.context.res.statusCode = response.status;
-            return response.json();
-          }
-        });
-      if (set.id) {
-        this.id = set.id;
-        this.title = set.title;
-        this.description = set.description;
-        this.visibility = set.visibility;
-        this.creator = set.creator;
-        this.total = set.total || 0;
-        this.items = set.items;
-      } else {
-        throw new Error(set.error);
-      }
+      const set = await this.$sets.getSet(this.$route.params.pathMatch, {
+        profile: 'itemDescriptions'
+      })
+        .then(response => response,
+              (apiError) => {
+                if (process.server) {
+                  this.$nuxt.context.res.statusCode = apiError.statusCode;
+                }
+                throw new Error(apiError.message);
+              });
+      this.id = set.id;
+      this.title = set.title;
+      this.description = set.description;
+      this.visibility = set.visibility;
+      this.creator = set.creator;
+      this.total = set.total || 0;
+      this.items = set.items;
     },
 
     data() {
