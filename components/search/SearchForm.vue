@@ -100,7 +100,6 @@
         </div>
       </template> -->
       <SearchQueryOptions
-        v-if="enableAutoSuggest"
         v-model="suggestions"
         element-id="search-form-auto-suggest"
         :link-gen="suggestionLinkGen"

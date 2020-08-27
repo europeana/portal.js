@@ -16,31 +16,76 @@
     </b-list-group-item>
 
     <template v-else>
-      <b-list-group-item
-        :to="linkGen(query)"
-        class="search"
-        role="option"
-        data-qa="search button"
-        :aria-label="$t('search')"
-        :aria-selected="focus === 0"
-        :class="{ 'hover': focus === 0 }"
-        @mouseover="focus = 0"
-        @mouseout="focus = null"
-        @focus="focus === 0"
-        @mousedown.prevent
+      <template
+        v-if="pillLabel"
       >
-        <i18n
-          path="header.searchFor"
-          tag="span"
-        >
-          <strong>{{ query }}</strong>
-        </i18n>
-      </b-list-group-item>
-      <!-- <slot
-          name="search-button"
-          data-index="0"
+        <b-list-group-item
+          :to="linkGen(query)"
+          class="search"
           role="option"
-        />-->
+          data-qa="search in collection button"
+          :aria-label="$t('search')"
+          :aria-selected="focus === 0"
+          :class="{ 'hover': focus === 0 }"
+          @mouseover="focus = 0"
+          @mouseout="focus = null"
+          @focus="focus === 0"
+          @mousedown.prevent
+        >
+          <i18n
+            path="header.inCollection"
+            tag="span"
+          >
+            <strong>{{ query }}</strong>
+            <span>{{ pillLabel.values[0] }}</span>
+          </i18n>
+        </b-list-group-item>
+        <!-- @click.prevent="toggleSearchAndRemovePill" -->
+        <b-list-group-item
+          :to="linkGen(query)"
+          class="search"
+          role="option"
+          data-qa="search entire collection button"
+          :aria-label="$t('search')"
+          :aria-selected="focus === 1"
+          :class="{ 'hover': focus === 1 }"
+          @mouseover="focus = 1"
+          @mouseout="focus = null"
+          @focus="focus === 1"
+          @mousedown.prevent
+        >
+          <i18n
+            path="header.entireCollection"
+            tag="span"
+          >
+            <strong>{{ query }}</strong>
+          </i18n>
+        </b-list-group-item>
+      </template>
+      <template
+        v-else
+      >
+        <b-list-group-item
+          :to="linkGen(query)"
+          class="search"
+          role="option"
+          data-qa="search button"
+          :aria-label="$t('search')"
+          :aria-selected="focus === 0"
+          :class="{ 'hover': focus === 0 }"
+          @mouseover="focus = 0"
+          @mouseout="focus = null"
+          @focus="focus === 0"
+          @mousedown.prevent
+        >
+          <i18n
+            path="header.searchFor"
+            tag="span"
+          >
+            <strong>{{ query }}</strong>
+          </i18n>
+        </b-list-group-item>
+      </template>
       <b-list-group-item
         v-for="(val, name, index) in value"
         :key="index + 1"
@@ -164,6 +209,10 @@
 
       selectedSuggestionLabel() {
         return this.suggestionLabels[this.focus - 1] || null;
+      },
+
+      pillLabel() {
+        return this.$store.state.search.pill;
       }
     },
 
@@ -186,6 +235,8 @@
     },
 
     mounted() {
+      console.log('pillLabel');
+      console.log(this.pillLabel);
       this.inputElement.addEventListener('keyup', this.keyup);
       document.addEventListener('mouseup', this.clickOutside);
     },
@@ -260,8 +311,11 @@
       },
 
       selectSuggestion() {
-        console.log('selectSuggestion', this.selectedSuggestionLabel);
-        if (this.selectedSuggestionLabel) this.$emit('select', this.selectedSuggestionLabel);
+        if (this.focus === 0) {
+          this.$emit('select', this.query);
+        } else if (this.selectedSuggestionLabel) {
+          this.$emit('select', this.selectedSuggestionLabel);
+        }
       }
     }
   };
