@@ -107,23 +107,7 @@
         :query="query"
         @select="selectSuggestion"
         @hide-search="hideSearch"
-      >
-        <b-list-group-item
-          slot="search-button"
-          :to="suggestionLinkGen(query)"
-          class="search"
-          role="option"
-          data-qa="search button"
-          :aria-label="$t('search')"
-        >
-          <i18n
-            path="header.searchFor"
-            tag="span"
-          >
-            <strong>{{ query }}</strong>
-          </i18n>
-        </b-list-group-item>
-      </SearchQueryOptions>
+      />
     </b-input-group>
   </b-form>
 </template>

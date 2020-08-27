@@ -16,19 +16,43 @@
     </b-list-group-item>
 
     <template v-else>
-      <slot name="search-button" />
+      <b-list-group-item
+        :to="linkGen(query)"
+        class="search"
+        role="option"
+        data-qa="search button"
+        :aria-label="$t('search')"
+        :aria-selected="focus === 0"
+        :class="{ 'hover': focus === 0 }"
+        @mouseover="focus = 0"
+        @mouseout="focus = null"
+        @focus="focus === 0"
+        @mousedown.prevent
+      >
+        <i18n
+          path="header.searchFor"
+          tag="span"
+        >
+          <strong>{{ query }}</strong>
+        </i18n>
+      </b-list-group-item>
+      <!-- <slot
+          name="search-button"
+          data-index="0"
+          role="option"
+        />-->
       <b-list-group-item
         v-for="(val, name, index) in value"
-        :key="index"
+        :key="index + 1"
         role="option"
         data-qa="search suggestion"
-        :aria-selected="index === focus"
+        :aria-selected="index + 1 === focus"
         :to="linkGen(val)"
-        :class="{ 'hover': index === focus }"
-        :data-index="index"
-        @mouseover="focus = index"
+        :class="{ 'hover': index + 1 === focus }"
+        :data-index="index + 1"
+        @mouseover="focus = index + 1"
         @mouseout="focus = null"
-        @focus="index === focus"
+        @focus="index + 1 === focus"
         @mousedown.prevent
       >
         <template
@@ -135,11 +159,11 @@
       },
 
       lastSuggestionHasFocus() {
-        return this.focus === (this.numberOfSuggestions - 1);
+        return this.focus === (this.numberOfSuggestions);
       },
 
       selectedSuggestionLabel() {
-        return this.suggestionLabels[this.focus] || null;
+        return this.suggestionLabels[this.focus - 1] || null;
       }
     },
 
@@ -185,7 +209,7 @@
 
       keyupUp() {
         if (this.noSuggestionHasFocus || this.firstSuggestionHasFocus) {
-          this.focus = this.numberOfSuggestions - 1;
+          this.focus = this.numberOfSuggestions;
         } else {
           this.focus = this.focus - 1;
         }
@@ -236,6 +260,7 @@
       },
 
       selectSuggestion() {
+        console.log('selectSuggestion', this.selectedSuggestionLabel);
         if (this.selectedSuggestionLabel) this.$emit('select', this.selectedSuggestionLabel);
       }
     }
