@@ -131,9 +131,6 @@
         return this.$route.name.startsWith('account');
       }
     },
-    mounted() {
-      window.addEventListener('storage', this.storageEvent);
-    },
     methods: {
       renderIcon(name) {
         let className = '';
@@ -170,11 +167,6 @@
           break;
         }
         return className;
-      },
-      storageEvent(event) {
-        if (event.key === 'logout-event') {
-          location.reload();
-        }
       }
     }
   };
