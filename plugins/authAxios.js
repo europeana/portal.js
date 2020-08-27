@@ -13,8 +13,6 @@ export default ({ $axios, $auth, store, redirect }, inject) => {
   axiosInstance.onError(error => {
     if (!$auth.loggedIn && error.response && error.response.status === 401) {
       return redirect(redirectUrl);
-    } else {
-      return Promise.reject(error);
     }
   });
 
