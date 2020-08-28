@@ -282,6 +282,11 @@
         const noSimilarItems = { results: [] };
         if (this.error) return noSimilarItems;
 
+        if (this.$auth.loggedIn) {
+          return this.$recommendations.recommend('record', this.identifier)
+            .then(recommendResponse => recommendResponse);
+        }
+
         const dataSimilarItems = {
           dcSubject: this.getSimilarItemsData(this.coreFields.dcSubject),
           dcType: this.getSimilarItemsData(this.title),
