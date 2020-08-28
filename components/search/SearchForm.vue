@@ -33,74 +33,11 @@
         :aria-label="$t('header.clearQuery')"
         @click="clearQuery"
       />
-      <!-- <template
-        v-if="pillLabel"
-      >
-        <div
-          v-show="showSearchQuery"
-          class="collection search-query"
-        >
-          <b-button
-            type="submit"
-            data-qa="search in collection button"
-            class="search"
-            variant="primary"
-            :aria-label="$t('search')"
-          >
-            <i18n
-              path="header.inCollection"
-              tag="span"
-            >
-              <strong>{{ query }}</strong>
-              <span>{{ pillLabel.values[0] }}</span>
-            </i18n>
-          </b-button>
-        </div>
-        <div
-          v-show="showSearchQuery"
-          class="search-query"
-        >
-          <b-button
-            data-qa="search entire collection button"
-            class="search"
-            variant="primary"
-            :aria-label="$t('search')"
-            @click.prevent="toggleSearchAndRemovePill"
-          >
-            <i18n
-              path="header.entireCollection"
-              tag="span"
-            >
-              <strong>{{ query }}</strong>
-            </i18n>
-          </b-button>
-        </div>
-      </template>
-      <template
-        v-else
-      >
-        <div
-          v-show="showSearchQuery"
-          class="search-query"
-        >
-          <b-button
-            type="submit"
-            data-qa="search button"
-            class="search"
-            variant="primary"
-            :aria-label="$t('search')"
-          >
-            <i18n
-              path="header.searchFor"
-              tag="span"
-            >
-              <strong>{{ query }}</strong>
-            </i18n>
-          </b-button>
-        </div>
-      </template> -->
       <SearchQueryOptions
         v-model="suggestions"
+        :enable-auto-suggest="enableAutoSuggest"
+        :pill-label="pillLabel"
+        :remove-pill="toggleSearchAndRemovePill"
         element-id="search-form-auto-suggest"
         :link-gen="suggestionLinkGen"
         :query="query"
@@ -187,6 +124,7 @@
       this.$nextTick(() => {
         this.$refs.searchbox.$el.focus();
       });
+      this.clearQuery();
     },
 
     methods: {

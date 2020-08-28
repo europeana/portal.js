@@ -1,6 +1,6 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
-import AutoSuggest from '../../../../components/search/AutoSuggest.vue';
+import SearchQueryOptions from '../../../../components/search/SearchQueryOptions.vue';
 import VueRouter from 'vue-router';
 import Vuex from 'vuex';
 // import sinon from 'sinon';
@@ -13,9 +13,9 @@ localVue.use(Vuex);
 const parentInputComponent = {
   name: 'parentInputComponent',
   components: {
-    AutoSuggest
+    SearchQueryOptions
   },
-  template: '<div><input id="searchbox" ref="searchbox" type="text" /><AutoSuggest /></div>'
+  template: '<div><input id="searchbox" ref="searchbox" type="text" /><SearchQueryOptions /></div>'
 };
 
 const factory = (options = {}) => {
@@ -51,7 +51,7 @@ const suggestions = {
   'http://data.europeana.eu/agent/base/146799': 'Doris Day'
 };
 
-describe('components/search/AutoSuggest', () => {
+describe('components/search/SearchQueryOptions', () => {
   describe('suggestions', () => {
     it('is hidden when there are no suggestions', () => {
       const wrapper = factory();

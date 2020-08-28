@@ -1,6 +1,6 @@
 <template>
   <b-list-group
-    v-show="isActive"
+    v-show="query && query.length > 0"
     :id="elementId"
     class="auto-suggest-dropdown"
     data-qa="search suggestions"
@@ -20,10 +20,12 @@
         v-if="pillLabel"
       >
         <b-list-group-item
-          :to="linkGen(query)"
+          button
+          type="submit"
           class="search"
-          role="option"
           data-qa="search in collection button"
+          variant="light"
+          role="option"
           :aria-label="$t('search')"
           :aria-selected="focus === 0"
           :class="{ 'hover': focus === 0 }"
@@ -40,7 +42,6 @@
             <span>{{ pillLabel.values[0] }}</span>
           </i18n>
         </b-list-group-item>
-        <!-- @click.prevent="toggleSearchAndRemovePill" -->
         <b-list-group-item
           :to="linkGen(query)"
           class="search"
@@ -53,6 +54,7 @@
           @mouseout="focus = null"
           @focus="focus === 1"
           @mousedown.prevent
+          @click.prevent="removePill"
         >
           <i18n
             path="header.entireCollection"
@@ -63,7 +65,7 @@
         </b-list-group-item>
       </template>
       <template
-        v-else
+        v-else-if="enableAutoSuggest"
       >
         <b-list-group-item
           :to="linkGen(query)"
@@ -88,6 +90,7 @@
       </template>
       <b-list-group-item
         v-for="(val, name, index) in value"
+        v-show="isActive"
         :key="index + 1"
         role="option"
         data-qa="search suggestion"
@@ -149,6 +152,11 @@
         default: (val) => val
       },
 
+      removePill: {
+        type: Function,
+        default: () => {}
+      },
+
       elementId: {
         type: String,
         default: null
@@ -162,6 +170,16 @@
       showLoader: {
         type: Boolean,
         default: false
+      },
+
+      enableAutoSuggest: {
+        type: Boolean,
+        default: false
+      },
+
+      pillLabel: {
+        type: Object,
+        default: () => {}
       }
     },
 
@@ -211,8 +229,18 @@
         return this.suggestionLabels[this.focus - 1] || null;
       },
 
-      pillLabel() {
-        return this.$store.state.search.pill;
+      removeCollectionLinkTo() {
+        const query = {
+          ...this.queryUpdatesForFacetChanges({ collection: null }),
+          view: this.view,
+          query: this.query || ''
+        };
+        return {
+          path: this.$path({
+            name: 'search'
+          }),
+          query
+        };
       }
     },
 
@@ -235,8 +263,6 @@
     },
 
     mounted() {
-      console.log('pillLabel');
-      console.log(this.pillLabel);
       this.inputElement.addEventListener('keyup', this.keyup);
       document.addEventListener('mouseup', this.clickOutside);
     },
@@ -259,20 +285,39 @@
       },
 
       keyupUp() {
-        if (this.noSuggestionHasFocus || this.firstSuggestionHasFocus) {
-          this.focus = this.numberOfSuggestions;
-        } else {
-          this.focus = this.focus - 1;
+        if (this.enableAutoSuggest) {
+          if (this.noSuggestionHasFocus || this.firstSuggestionHasFocus) {
+            this.focus = this.numberOfSuggestions;
+          } else {
+            this.focus = this.focus - 1;
+          }
+        }
+        if (!this.enableAutoSuggest) {
+          if (this.noSuggestionHasFocus) {
+            this.focus = 1;
+          } else {
+            this.focus = this.focus - 1;
+          }
         }
 
         this.selectSuggestion();
       },
 
       keyupDown() {
-        if (this.noSuggestionHasFocus || this.lastSuggestionHasFocus) {
-          this.focus = 0;
-        } else {
-          this.focus = this.focus + 1;
+        if (this.enableAutoSuggest) {
+          if (this.noSuggestionHasFocus || this.lastSuggestionHasFocus) {
+            this.focus = 0;
+          } else {
+            this.focus = this.focus + 1;
+          }
+        }
+        // would use else here but get eslint no-lonely-if error...
+        if (!this.enableAutoSuggest) {
+          if (this.noSuggestionHasFocus || this.focus === 1) {
+            this.focus = 0;
+          } else {
+            this.focus = this.focus + 1;
+          }
         }
 
         this.selectSuggestion();
@@ -336,7 +381,7 @@
     background-color: $white;
     transition: $standard-transition;
 
-    a.list-group-item {
+    .list-group-item {
       border: 0;
       border-radius: 0;
       box-shadow: none;
