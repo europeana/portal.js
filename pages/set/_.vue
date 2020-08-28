@@ -1,5 +1,22 @@
 <template>
+  <b-container v-if="$fetchState.pending">
+    <b-row class="flex-md-row py-4 text-center">
+      <b-col cols="12">
+        <LoadingSpinner />
+      </b-col>
+    </b-row>
+  </b-container>
+  <b-container v-else-if="$fetchState.error">
+    <b-row class="flex-md-row py-4">
+      <b-col cols="12">
+        <AlertMessage
+          :error="$fetchState.error.message"
+        />
+      </b-col>
+    </b-row>
+  </b-container>
   <div
+    v-else
     data-qa="user gallery page"
     class="mt-n3"
   >
@@ -35,7 +52,7 @@
                   <!-- TODO: Fill after the '@' with the set's owner  -->
                   <!-- <span class="curator mr-4">
                     {{ $t('set.labels.curatedBy') }} @placeholderUsername
-                  </span> -->
+                  </span>-->
                   <span
                     class="visibility"
                   >
@@ -98,7 +115,7 @@
         </b-col>
       </b-row>
       <b-row
-        v-if="recommendations.length > 0"
+        v-if="recommendations && recommendations.length > 0"
         class="recommendations"
       >
         <b-col>
@@ -114,24 +131,31 @@
 
 <script>
   import { langMapValueForLocale } from  '../../plugins/europeana/utils';
-
+  import AlertMessage from '../../components/generic/AlertMessage';
   import ItemPreviewCardGroup from '../../components/item/ItemPreviewCardGroup';
+  import LoadingSpinner from '../../components/generic/LoadingSpinner';
 
   export default {
     components: {
+      LoadingSpinner,
+      AlertMessage,
       ItemPreviewCardGroup,
       SetFormModal: () => import('../../components/set/SetFormModal')
     },
 
     middleware: 'sanitisePageQuery',
 
-    // TODO: error handling for Nuxt 2.12 fetch()
-    //       https://nuxtjs.org/blog/understanding-how-fetch-works-in-nuxt-2-12/#error-handling
     async fetch() {
       const set = await this.$sets.getSet(this.$route.params.pathMatch, {
         profile: 'itemDescriptions'
-      });
-
+      })
+        .then(response => response)
+        .catch(apiError => {
+          if (process.server) {
+            this.$nuxt.context.res.statusCode = apiError.statusCode;
+          }
+          throw apiError;
+        });
       this.id = set.id;
       this.title = set.title;
       this.description = set.description;
@@ -162,6 +186,7 @@
           this.creator.endsWith(`/${this.$store.state.auth.user.sub}`);
       },
       displayTitle() {
+        if (this.$fetchState.error) return { values: [this.$t('error')] };
         return langMapValueForLocale(this.title, this.$i18n.locale);
       },
       displayDescription() {
@@ -169,12 +194,14 @@
       }
     },
 
-    mounted() {
-      if (!this.$auth.loggedIn) return;
-      this.$recommendations.recommend('set', `/${this.$route.params.pathMatch}`)
-        .then(recommendResponse => {
-          this.recommendations = recommendResponse.items;
-        });
+    watch: {
+      items() {
+        if (!this.$auth.loggedIn) return;
+        this.$recommendations.recommend('set', `/${this.$route.params.pathMatch}`)
+          .then(recommendResponse => {
+            this.recommendations = recommendResponse.items;
+          });
+      }
     },
 
     methods: {
@@ -204,27 +231,36 @@
   }
 
   .usergallery-metadata {
-    font-size: 0.9rem;
-    font-weight: 600;
-    height: 1.6rem;
-    vertical-align: middle;
-    .curator {
+    font-size: $font-size-small;
+    line-height: 1.125;
+
+    .curator,
+    .visibility {
+      display: inline-flex;
+      align-items: center;
+
       &:before {
-        @extend .icon-font;
-        content: '\e92e';
-        font-size: 1.4rem;
+        font-size: 1.5rem;
         padding-right: 0.2rem;
       }
     }
+
+    .curator {
+      margin-right: 1.5rem;
+      &:before {
+        @extend .icon-font;
+        content: '\e92e';
+      }
+    }
+
     .visibility {
       &:before {
         @extend .icon-font;
         content: '\e92d';
-        font-size: 1.4rem;
-        padding-right: 0.2rem;
       }
     }
   }
+
   .collection-buttons {
     button {
       &:first-child {
