@@ -5,6 +5,7 @@
       :title="modalTitle"
       :static="modalStatic"
       hide-footer
+      hide-header-close
       @show="init"
     >
       <b-form @submit.stop.prevent="submitForm">

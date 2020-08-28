@@ -3,6 +3,7 @@
     :id="modalId"
     :title="$t('set.actions.delete')"
     :static="modalStatic"
+    hide-header-close
     hide-footer
   >
     <p>{{ $t('set.prompts.delete') }}</p>

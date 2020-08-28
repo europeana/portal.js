@@ -1,9 +1,16 @@
 <template>
   <b-container>
-    <b-row class="flex-md-row pb-5">
+    <b-row class="flex-md-row">
       <b-col cols="12">
+        <div
+          v-if="userSets.length === 0"
+          class="text-center pb-4"
+        >
+          {{ $t(`account.notifications.noCollections.${visibility}`) }}
+        </div>
         <b-card-group
-          class="card-deck-4-cols"
+          v-else
+          class="card-deck-4-cols pb-5"
           deck
         >
           <ContentCard

@@ -61,6 +61,9 @@
         case 'plain':
           cardGroupClass = `card-deck-search card-deck-${this.perRow}-cols`;
           break;
+        case 'explore':
+          cardGroupClass = 'card-deck-4-cols narrow-gutter explore-more';
+          break;
         case 'similar':
           cardGroupClass = 'py-3 mx-0 card card-deck-4-cols similar-items';
           break;
