@@ -149,13 +149,13 @@
       const set = await this.$sets.getSet(this.$route.params.pathMatch, {
         profile: 'itemDescriptions'
       })
-        .then(response => response,
-              (apiError) => {
-                if (process.server) {
-                  this.$nuxt.context.res.statusCode = apiError.statusCode;
-                }
-                throw new Error(apiError.message);
-              });
+        .then(response => response)
+        .catch(apiError => {
+          if (process.server) {
+            this.$nuxt.context.res.statusCode = apiError.statusCode;
+          }
+          throw apiError;
+        });
       this.id = set.id;
       this.title = set.title;
       this.description = set.description;
@@ -186,6 +186,7 @@
           this.creator.endsWith(`/${this.$store.state.auth.user.sub}`);
       },
       displayTitle() {
+        if (this.$fetchState.error) return { values: [this.$t('error')] };
         return langMapValueForLocale(this.title, this.$i18n.locale);
       },
       displayDescription() {
@@ -193,12 +194,14 @@
       }
     },
 
-    mounted() {
-      if (!this.$auth.loggedIn) return;
-      this.$recommendations.recommend('set', `/${this.$route.params.pathMatch}`)
-        .then(recommendResponse => {
-          this.recommendations = recommendResponse.items;
-        });
+    watch: {
+      items() {
+        if (!this.$auth.loggedIn) return;
+        this.$recommendations.recommend('set', `/${this.$route.params.pathMatch}`)
+          .then(recommendResponse => {
+            this.recommendations = recommendResponse.items;
+          });
+      }
     },
 
     methods: {
