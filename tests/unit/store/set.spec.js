@@ -208,7 +208,7 @@ describe('store/set', () => {
     });
 
     describe('updateSet()', () => {
-      it('updates the set via $sets, then dispatches "fetchCreations"', async() => {
+      it('updates the set via $sets', async() => {
         store.actions.$sets.updateSet = sinon.stub().resolves({});
         const body = {};
         const state = {};
@@ -235,6 +235,74 @@ describe('store/set', () => {
 
           commit.should.have.been.calledWith('setActive', activeWillBe);
         });
+      });
+    });
+
+    describe('deleteSet()', () => {
+      it('deletes the set via $sets', async() => {
+        store.actions.$sets.deleteSet = sinon.stub().resolves();
+        const state = {};
+
+        await store.actions.deleteSet({ commit, state }, setId);
+
+        store.actions.$sets.deleteSet.should.have.been.calledWith(setId);
+      });
+
+      context('when set was active', () => {
+        it('commits `null` with "setActive"', async() => {
+          store.actions.$sets.deleteSet = sinon.stub().resolves();
+          const state = { active: { id: setId } };
+
+          await store.actions.deleteSet({ commit, state }, setId);
+
+          commit.should.have.been.calledWith('setActive', null);
+        });
+      });
+    });
+
+    describe('refreshCreation', () => {
+      context('when creation is not stored', () => {
+        it('does not fetch it via $sets', async() => {
+          store.actions.$sets.getSet = sinon.stub().resolves();
+          const state = { creations: [] };
+
+          await store.actions.refreshCreation({ commit, state }, setId);
+
+          store.actions.$sets.getSet.should.not.have.been.called;
+        });
+      });
+
+      context('when creation is not stored', () => {
+        it('fetches it via $sets with itemDescriptions, then commits with "setCreations"', async() => {
+          const oldCreation = { id: setId, title: { en: 'Old title' } };
+          const newCreation = { id: setId, title: { en: 'New title' } };
+          const state = { creations: [oldCreation] };
+          store.actions.$sets.getSet = sinon.stub().resolves(newCreation);
+
+          await store.actions.refreshCreation({ commit, state }, setId);
+
+          store.actions.$sets.getSet.should.have.been.calledWith(setId, {
+            profile: 'itemDescriptions'
+          });
+          commit.should.have.been.calledWith('setCreations', [newCreation]);
+        });
+      });
+    });
+
+    describe('fetchCreations()', () => {
+      it('fetches creations via $sets, then commits with "setCreations"', async() => {
+        const searchResponse = { data: { items: ['1', '2'] } };
+        store.actions.$auth.user = { sub: userId };
+        store.actions.$sets.search = sinon.stub().resolves(searchResponse);
+
+        await store.actions.fetchCreations({ commit });
+
+        store.actions.$sets.search.should.have.been.calledWith({
+          query: `creator:${userId}`,
+          profile: 'itemDescriptions',
+          pageSize: 100
+        });
+        commit.should.have.been.calledWith('setCreations', ['1', '2']);
       });
     });
   });
