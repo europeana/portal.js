@@ -19,7 +19,7 @@
             v-if="userSets.length === 0"
             class="text-center pb-4"
           >
-            {{ $t(`account.notifications.no${capitalizeWord(visibility)}Collections`) }}
+            {{ $t(`account.notifications.noCollections.${visibility}`) }}
           </div>
           <b-card-group
             v-else
@@ -83,9 +83,6 @@
       },
       setPathMatch(set) {
         return set.id.replace('http://data.europeana.eu/set/', '');
-      },
-      capitalizeWord(word) {
-        return word.charAt(0).toUpperCase() + word.slice(1);
       }
     }
   };

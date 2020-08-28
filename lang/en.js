@@ -543,9 +543,11 @@ export default {
     "publicCollections": "Public Collections",
     "privateCollections": "Private Collections",
     "notifications": {
-      "noPrivateCollections": "You haven’t created any private collections yet",
-      "noPublicCollections": "You haven’t created any public collections yet",
-      "noLikedItems": "You haven’t liked any items yet"
+      "noLikedItems": "You haven’t liked any items yet",
+      "noCollections": {
+        "public": "You haven’t created any public collections yet",
+        "private": "You haven’t created any private collections yet"
+      }
     }
   },
   "set": {
