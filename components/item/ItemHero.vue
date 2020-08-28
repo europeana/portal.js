@@ -22,6 +22,12 @@
             {{ rightsStatement }}
           </span>
           <div>
+            <UserButtons
+              v-if="showUserButtons"
+              v-model="identifier"
+              @like="$emit('like', identifier)"
+              @unlike="$emit('unlike', identifier)"
+            />
             <ShareButton />
             <DownloadButton
               v-if="downloadEnabled"
@@ -49,7 +55,8 @@
       DownloadButton,
       RightsStatementButton,
       SocialShareModal,
-      ShareButton
+      ShareButton,
+      UserButtons: () => import('../account/UserButtons')
     },
     props: {
       identifier: {
@@ -95,6 +102,9 @@
       },
       downloadEnabled() {
         return this.rightsStatement && !this.rightsStatement.includes('/InC/');
+      },
+      showUserButtons() {
+        return Boolean(Number(process.env.ENABLE_XX_USER_AUTH));
       }
     },
     methods: {
