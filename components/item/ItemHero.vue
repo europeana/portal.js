@@ -21,7 +21,7 @@
           >
             {{ rightsStatement }}
           </span>
-          <div>
+          <div class="d-flex">
             <UserButtons
               v-if="showUserButtons"
               v-model="identifier"
@@ -104,7 +104,7 @@
         return this.rightsStatement && !this.rightsStatement.includes('/InC/');
       },
       showUserButtons() {
-        return Boolean(Number(process.env.ENABLE_XX_USER_AUTH));
+        return Boolean(Number(process.env.ENABLE_XX_USER_AUTH)) && this.$auth.loggedIn;
       }
     },
     methods: {
