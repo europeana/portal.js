@@ -46,7 +46,7 @@
                     This can be changed when this functionality is further developed
                 -->
                 <div
-                  v-if="visibility === 'private'"
+                  v-if="set.visibility === 'private'"
                   class="usergallery-metadata"
                 >
                   <!-- TODO: Fill after the '@' with the set's owner  -->
@@ -72,11 +72,11 @@
                   {{ $t('actions.edit') }}
                 </b-button>
                 <SetFormModal
-                  :set-id="id"
+                  :set-id="set.id"
                   :modal-id="setFormModalId"
-                  :title="title"
-                  :description="description"
-                  :visibility="visibility"
+                  :title="set.title"
+                  :description="set.description"
+                  :visibility="set.visibility"
                   @update="updateSet"
                 />
               </template>
@@ -97,7 +97,7 @@
       <b-row>
         <b-col>
           <h2 class="related-heading text-uppercase">
-            {{ $tc('items.itemCount', total, { count: total }) }}
+            {{ $tc('items.itemCount', itemCount, { count: itemCount }) }}
           </h2>
         </b-col>
       </b-row>
@@ -107,7 +107,7 @@
             <b-row class="mb-3">
               <b-col cols="12">
                 <ItemPreviewCardGroup
-                  v-model="items"
+                  v-model="set.items"
                 />
               </b-col>
             </b-row>
@@ -115,7 +115,7 @@
         </b-col>
       </b-row>
       <b-row
-        v-if="recommendations && recommendations.length > 0"
+        v-if="recommendations.length > 0"
         class="recommendations"
       >
         <b-col>
@@ -146,70 +146,64 @@
     middleware: 'sanitisePageQuery',
 
     async fetch() {
-      const set = await this.$sets.getSet(this.$route.params.pathMatch, {
-        profile: 'itemDescriptions'
-      })
-        .then(response => response)
-        .catch(apiError => {
-          if (process.server) {
-            this.$nuxt.context.res.statusCode = apiError.statusCode;
-          }
-          throw apiError;
-        });
-      this.id = set.id;
-      this.title = set.title;
-      this.description = set.description;
-      this.visibility = set.visibility;
-      this.creator = set.creator;
-      this.total = set.total || 0;
-      this.items = set.items;
+      try {
+        await this.$store.dispatch('set/fetchActive', this.$route.params.pathMatch);
+      } catch (apiError) {
+        if (process.server) {
+          this.$nuxt.context.res.statusCode = apiError.statusCode;
+        }
+        throw apiError;
+      }
     },
 
     data() {
       return {
-        id: null,
-        creator: null,
-        description: null,
-        items: [],
         recommendations: [],
-        setFormModalId: `set-form-modal-${this.id}`,
-        title: null,
-        total: 0,
-        visibility: null
+        setFormModalId: `set-form-modal-${this.id}`
       };
     },
 
     computed: {
+      set() {
+        return this.$store.state.set.active || {};
+      },
+      itemCount() {
+        return this.set.total || 0;
+      },
       userIsOwner() {
         return this.$store.state.auth.user &&
-          this.creator &&
-          this.creator.endsWith(`/${this.$store.state.auth.user.sub}`);
+          this.set.creator &&
+          this.set.creator.endsWith(`/${this.$store.state.auth.user.sub}`);
       },
       displayTitle() {
         if (this.$fetchState.error) return { values: [this.$t('error')] };
-        return langMapValueForLocale(this.title, this.$i18n.locale);
+        return langMapValueForLocale(this.set.title, this.$i18n.locale);
       },
       displayDescription() {
-        return langMapValueForLocale(this.description, this.$i18n.locale);
+        return langMapValueForLocale(this.set.description, this.$i18n.locale);
       }
     },
 
     watch: {
+      'set.id'() {
+        if (!this.set.id) {
+          // Set was deleted
+          const path = this.$path({ name: 'account' });
+          this.$goto(path);
+        }
+      },
+
       items() {
         if (!this.$auth.loggedIn) return;
         this.$recommendations.recommend('set', `/${this.$route.params.pathMatch}`)
           .then(recommendResponse => {
-            this.recommendations = recommendResponse.items;
+            this.recommendations = recommendResponse.items || [];
           });
       }
     },
 
     methods: {
-      updateSet(set) {
-        this.id = set.id;
-        this.title = set.title;
-        this.description = set.description;
-        this.visibility = set.visibility;
+      updateSet() {
         this.$bvModal.hide(this.setFormModalId);
       }
     },

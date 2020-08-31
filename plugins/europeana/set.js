@@ -21,11 +21,11 @@ export default ($axios) => ({
   /**
    * Get the user's set with type BookmarkFolder
    * @param {string} creator the creator's id
-   * @return {String} the id of the set
+   * @return {string} the id of the set
    */
   getLikes(creator) {
     return this.search({ query: `creator:${creator} type:BookmarkFolder` })
-      .then(response => response.data.items ? setIdFromUri(response.data.items[0]) : null)
+      .then(response => response.data.items ? response.data.items[0] : null)
       .catch(error => {
         throw apiError(error);
       });
@@ -44,7 +44,7 @@ export default ($axios) => ({
     };
     const params = paramsWithApiKey({ ...defaults, ...options });
 
-    return $axios.get(setApiUrl(`/${id}`), { params })
+    return $axios.get(setApiUrl(`/${setIdFromUri(id)}`), { params })
       .then(response => {
         return response.data;
       })

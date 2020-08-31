@@ -63,11 +63,11 @@ describe('describe /plugins/europeana/set', () => {
 
   describe('getSet()', () => {
     it('get the set data', async() => {
-      const setId = 1;
+      const setId = '1';
       const profile = 'standard';
       nock(apiUrl)
-        .get('/' + setId + '?profile=standard')
-        .reply(200,  setsResponse[0]);
+        .get(`/${setId}?profile=standard`)
+        .reply(200, setsResponse[0]);
 
       const response =  await set(axios).getSet(setId, { profile });
       response.items.should.deep.equal(['item-1', 'item-2']);
@@ -75,13 +75,13 @@ describe('describe /plugins/europeana/set', () => {
   });
 
   describe('getLikes()', () => {
-    it('get the likes set', async() => {
+    it('get the likes set ID', async() => {
       nock(apiUrl)
         .get('/search?query=creator:auth-user-sub+type:BookmarkFolder')
         .reply(200, searchResponse);
 
       const response = await set(axios).getLikes('auth-user-sub');
-      response.should.eq('163');
+      response.should.eq('http://data.europeana.eu/set/163');
     });
   });
 
