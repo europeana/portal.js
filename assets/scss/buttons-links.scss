@@ -1,7 +1,4 @@
 .btn {
-  text-transform: uppercase;
-  font-size: $font-size-small;
-
   &:focus {
     outline: auto;
   }
@@ -10,6 +7,8 @@
 .btn-primary {
   background: $blue;
   border-color: $blue;
+  font-size: $font-size-small;
+  text-transform: uppercase;
 
   &:hover {
     background: $blue;
@@ -24,6 +23,8 @@
 .btn-outline-primary {
   border-color: $blue;
   color: $blue;
+  font-size: $font-size-small;
+  text-transform: uppercase;
 
   &:hover:not([disabled]) {
     background-color: $blue;
@@ -36,11 +37,17 @@
   }
 }
 
+.btn-danger {
+  font-size: $font-size-small;
+  text-transform: uppercase;
+}
+
 .btn-light {
   background: $white;
   border: 0;
   box-shadow: 2px 2px 2px 0 rgba(0, 0, 0, 0.1);
   color: $mediumgrey;
+  font-size: $font-size-small;
   padding: 0.5rem 1rem;
   text-decoration: none;
 
@@ -57,12 +64,34 @@
 
 .btn-overlay {
   background-color: rgba(0, 0, 0, 0.7);
+  border: 0;
+  border-radius: $border-radius-small;
   color: $white;
 
   &:hover {
     background-color: rgba(0, 0, 0, 0.7);
     box-shadow: 2px 2px 6px 0 rgba(0, 0, 0, 0.15);
     color: $white;
+  }
+
+  span {
+    position: relative;
+    z-index: 10;
+
+    &.icon-check_circle {
+      font-size: $font-size-large;
+    }    
+  }
+
+  &:after {
+    content: '';
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: $border-radius-small;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
   }
 }
 
@@ -139,4 +168,21 @@ a {
 .page-item.active .page-link {
   background-color: $darkblue;
   border-color: $darkblue;
+}
+
+.info-panel {
+  .btn-link {
+    color: $blue;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 600;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}
+
+.share-button + .download-button {
+  margin-left: 0.25rem;
 }

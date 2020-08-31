@@ -113,6 +113,25 @@
     }
   }
 
+  &.explore-card {
+    flex: 100%;
+    margin-bottom: 1rem;
+    min-height: auto;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    @media (min-width: $bp-medium) {
+      margin-right: $grid-gutter-narrow;
+      margin-left: $grid-gutter-narrow;
+
+      &:last-child {
+        margin-bottom: 1rem;
+      }
+    }    
+  }
+
   &.similar-card {
     background: transparent;
     border: 0;
@@ -169,7 +188,7 @@
       padding: 0;
     }
   }
-  
+
   &.mini-card {
     min-height: auto;
     padding: 1rem;
@@ -286,8 +305,12 @@
         border-color: $red;
       }
 
+      &:first-of-type {
+        margin-right: 0.5rem;
+      }
+
       &-sm {
-        font-size: $font-size-small;
+        font-size: $font-size-medium;
       }
     }
   }
@@ -299,6 +322,11 @@
       display: block;
     }
   }
+}
+
+.card-deck-4-cols.narrow-gutter {
+  margin-left: -$grid-gutter-narrow;
+  margin-right: -$grid-gutter-narrow; 
 }
 
 .card-group-list .card,
@@ -315,11 +343,17 @@
   .card-deck-4-cols .card {
     flex: 0 0 calc(100% / 2 - #{$grid-gutter*2});
   }
+  .card-deck-4-cols.narrow-gutter .card {
+    flex: 0 0 calc(100% / 2 - #{$grid-gutter-narrow*2});
+  }
 }
 
 @media (min-width: $bp-large) {
   .card-deck-4-cols .card {
     flex: 0 0 calc(100% / 4 - #{$grid-gutter*2});
+  }
+  .card-deck-4-cols.narrow-gutter .card {
+    flex: 0 0 calc(100% / 4 - #{$grid-gutter-narrow*2}});
   }
 }
 

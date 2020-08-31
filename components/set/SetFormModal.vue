@@ -5,6 +5,7 @@
       :title="modalTitle"
       :static="modalStatic"
       hide-footer
+      hide-header-close
       @show="init"
     >
       <b-form @submit.stop.prevent="submitForm">
@@ -31,7 +32,9 @@
             rows="4"
           />
         </b-form-group>
-        <b-form-group>
+        <b-form-group
+          class="mb-2 mt-4"
+        >
           <b-form-checkbox
             id="set-private"
             v-model="isPrivate"
