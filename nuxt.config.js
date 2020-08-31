@@ -234,9 +234,10 @@ if (Number(process.env['ENABLE_XX_USER_AUTH'])) {
     // Redirect routes: 'callback' option for keycloak redirects,
     // 'login' option for unauthorised redirection
     // 'home' option for redirection after login
+    //  no redirect on logout
     redirect: {
       login: '/account/login',
-      logout: '/',
+      logout: false,
       callback: '/account/callback',
       home: '/account'
     },
