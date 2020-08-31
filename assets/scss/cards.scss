@@ -305,8 +305,12 @@
         border-color: $red;
       }
 
+      &:first-of-type {
+        margin-right: 0.5rem;
+      }
+
       &-sm {
-        font-size: $font-size-small;
+        font-size: $font-size-medium;
       }
     }
   }
