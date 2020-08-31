@@ -1,5 +1,6 @@
 <template>
   <div
+    v-if="showUserButtons"
     class="user-buttons"
     data-qa="user buttons"
   >
@@ -70,6 +71,9 @@
       },
       likesId() {
         return this.$store.state.set.likesId;
+      },
+      showUserButtons() {
+        return this.$store.state.auth.loggedIn || Boolean(Number(process.env.ENABLE_UNAUTHENTICATED_USER_BUTTONS));
       }
     },
 
