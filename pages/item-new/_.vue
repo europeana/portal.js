@@ -17,53 +17,49 @@
     >
       <b-container
         fluid
-        class="bg-white mb-3"
+        class="bg-white mb-3 px-0"
       >
-        <!-- TODO: add swiper here
-          Swiper also includes download, share, right statement
-          Potential useful data:
-
-          :url="selectedMedia.about"
-          :europeana-identifier="identifier"
-          :use-proxy="useProxy"
-          :rights-statement="rightsStatement"
-          :data-provider-name="dataProvider.values[0]"
-          :data-provider-lang="dataProvider.code"
-          :is-shown-at="isShownAt"
-
-          Keep/reuse client-only?
-      -->
-        <client-only />
+        <ItemHero
+          :identifier="identifier"
+          :media="media"
+          :edm-rights="edmRights"
+        />
       </b-container>
       <b-container>
-        <b-row class="mb-3">
-          <b-col>
-            <!-- TODO: add new title + description box
-              Useful data:
-
-              titlesInCurrentLanguage
-              descriptionInCurrentLanguage
-            -->
+        <b-row class="mb-3 justify-content-center">
+          <b-col
+            cols="12"
+            class="col-lg-10"
+          >
+            <SummaryInfo
+              :description="descriptionInCurrentLanguage"
+              :titles="titlesInCurrentLanguage"
+            />
           </b-col>
         </b-row>
-        <b-row class="mb-3">
-          <b-col>
-            <h2
-              v-if="relatedEntities && relatedEntities.length > 0"
-              class="related-heading text-uppercase"
-            >
-              {{ $t('contentYouMightLike') }}
-            </h2>
-            <!-- TODO: related content
-              Useful data:
-
-              :entities="relatedEntities"
-              data-qa="related entities"
-            -->
+        <b-row
+          v-if="relatedEntities && relatedEntities.length > 0"
+          class="justify-content-center"
+        >
+          <b-col
+            cols="12"
+            class="col-lg-10"
+          >
+            <RelatedCollections
+              :title="$t('collectionsYouMightLike')"
+              :related-collections="relatedEntities"
+            />
           </b-col>
         </b-row>
-        <b-row class="mb-3">
-          <b-col>
+        <b-row
+          v-else
+          class="mb-3"
+        />
+        <b-row class="mb-0 justify-content-center">
+          <b-col
+            cols="12"
+            class="col-lg-10"
+          >
             <MetadataBox
               :all-metadata="allMetaData"
               :core-metadata="coreFields"
@@ -71,28 +67,27 @@
             />
           </b-col>
         </b-row>
-        <b-row>
-          <b-col>
-            <!-- TODO: update similar items,
-              fix styling/structure in component itself
-            -->
-            <section
-              v-if="similarItems.length > 0"
+        <b-row
+          v-if="similarItems.length > 0"
+          class="mt-3 mb-0 justify-content-center"
+        >
+          <b-col
+            cols="12"
+            class="col-lg-10"
+          >
+            <h2
+              class="related-heading text-uppercase mb-2"
             >
-              <h2
-                class="related-heading text-uppercase"
-              >
-                {{ $t('record.similarItems') }}
-              </h2> <!-- TODO: introduce new heading "Explore more" -->
-              <ItemPreviewCardGroup
-                v-model="similarItems"
-                view="plain"
-                class="mb-3"
-                data-qa="similar items"
-              />
-            </section>
+              {{ $t('record.exploreMore') }}
+            </h2>
+            <ItemPreviewCardGroup
+              v-model="similarItems"
+              view="explore"
+              class="mb-0"
+            />
           </b-col>
         </b-row>
+        <b-row class="footer-margin" />
       </b-container>
     </template>
   </div>
@@ -102,7 +97,6 @@
   import axios from 'axios';
   import { mapGetters } from 'vuex';
 
-  import ClientOnly from 'vue-client-only';
   import MetadataBox from '../../components/item/MetadataBox';
 
   import { getRecord, similarItemsQuery } from '../../plugins/europeana/record';
@@ -111,12 +105,15 @@
   import { langMapValueForLocale } from  '../../plugins/europeana/utils';
   import { findEntities } from '../../plugins/europeana/entity';
   import { search as searchAnnotations } from '../../plugins/europeana/annotation';
+  import isEmpty from 'lodash/isEmpty';
 
   export default {
     components: {
+      ItemHero: () => import('../../components/item/ItemHero'),
       AlertMessage: () => import('../../components/generic/AlertMessage'),
-      ClientOnly,
       ItemPreviewCardGroup: () => import('../../components/item/ItemPreviewCardGroup'),
+      RelatedCollections: () => import('../../components/generic/RelatedCollections'),
+      SummaryInfo: () => import('../../components/item/SummaryInfo'),
       MetadataBox,
       NotificationBanner: () => import('../../components/generic/NotificationBanner')
     },
@@ -199,6 +196,9 @@
       allMetaData() {
         return { ...this.coreFields, ...this.fieldsAndKeywords };
       },
+      edmRights() {
+        return this.fields.edmRights ? this.fields.edmRights.def[0] : '';
+      },
       europeanaAgents() {
         return (this.agents || []).filter((agent) => agent.about.startsWith(`${this.apiConfig.data.origin}/agent/`));
       },
@@ -234,7 +234,7 @@
         return this.titlesInCurrentLanguage[0] ? this.titlesInCurrentLanguage[0].value : this.$t('record.record');
       },
       metaDescription() {
-        if (!this.descriptionInCurrentLanguage) return '';
+        if (isEmpty(this.descriptionInCurrentLanguage)) return '';
         return this.descriptionInCurrentLanguage.values[0] ? this.descriptionInCurrentLanguage.values[0] : '';
       },
       dataProvider() {
@@ -340,6 +340,14 @@
 </script>
 
 <style scoped>
+  .related-collections {
+    margin-top: -0.5rem;
+    margin-bottom: 2rem;
+    padding: 0;
+  }
+  .footer-margin {
+    margin-bottom: 7rem;
+  }
   /* TODO: fix styling in/for MetadataBox component itself */
   /deep/ .card.rounded-0 {
     border-radius: 0.25rem !important;

@@ -11,7 +11,7 @@
     :blank-image-height="280"
     :variant="variant"
   >
-    <template v-slot:footer>
+    <template v-slot:buttons>
       <UserButtons
         v-if="showUserButtons"
         v-model="identifier"
@@ -54,7 +54,7 @@
 
     computed: {
       texts() {
-        if (this.variant === 'similar') return [];
+        if (this.variant === 'similar' || this.variant === 'explore') return [];
 
         const texts = [].concat(this.value.dataProvider);
         if (this.value.dcCreatorLangAware) texts.unshift(this.value.dcCreatorLangAware);

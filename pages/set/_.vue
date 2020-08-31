@@ -1,5 +1,22 @@
 <template>
+  <b-container v-if="$fetchState.pending">
+    <b-row class="flex-md-row py-4 text-center">
+      <b-col cols="12">
+        <LoadingSpinner />
+      </b-col>
+    </b-row>
+  </b-container>
+  <b-container v-else-if="$fetchState.error">
+    <b-row class="flex-md-row py-4">
+      <b-col cols="12">
+        <AlertMessage
+          :error="$fetchState.error.message"
+        />
+      </b-col>
+    </b-row>
+  </b-container>
   <div
+    v-else
     data-qa="user gallery page"
     class="mt-n3"
   >
@@ -34,35 +51,44 @@
                 >
                   <!-- TODO: Fill after the '@' with the set's owner  -->
                   <!-- <span class="curator mr-4">
-                    {{ $t('set.curatedBy') }} @placeholderUsername
-                  </span> -->
+                    {{ $t('set.labels.curatedBy') }} @placeholderUsername
+                  </span>-->
                   <span
                     class="visibility"
                   >
-                    {{ $t('set.privateCollection') }}
+                    {{ $t('set.labels.private') }}
                   </span>
                 </div>
               </b-col>
             </b-row>
-            <!--
             <div class="collection-buttons">
-              <b-button
+              <template
                 v-if="userIsOwner"
-                variant="outline-primary text-decoration-none"
               >
-                <span class="text">
-                  {{ $t('set.edit') }}
-                </span>
-              </b-button>
-              <b-button
+                <b-button
+                  variant="outline-primary text-decoration-none"
+                  @click="$bvModal.show(setFormModalId)"
+                >
+                  {{ $t('actions.edit') }}
+                </b-button>
+                <SetFormModal
+                  :set-id="id"
+                  :modal-id="setFormModalId"
+                  :title="title"
+                  :description="description"
+                  :visibility="visibility"
+                  @update="updateSet"
+                />
+              </template>
+              <!-- <b-button
                 v-if="visibility === 'public'"
                 variant="outline-primary text-decoration-none"
               >
                 <span class="text">
                   {{ $t('actions.share') }}
                 </span>
-              </b-button>
-            </div> -->
+              </b-button> -->
+            </div>
           </b-container>
         </b-col>
       </b-row>
@@ -85,33 +111,18 @@
                 />
               </b-col>
             </b-row>
-            <b-row>
-              <b-col>
-                <client-only>
-                  <!--
-                    FIXME: Set API item pagination is not yet implemented when retrieving single
-                           sets if those are "closed" sets, as these will always be.
-                           When implemented, `:per-page` should then be ``"perPage"``
-                  -->
-                  <PaginationNav
-                    v-model="page"
-                    :total-results="total"
-                    :per-page="total"
-                  />
-                </client-only>
-              </b-col>
-            </b-row>
           </b-container>
         </b-col>
       </b-row>
       <b-row
-        v-if="recommendations.length > 0"
+        v-if="recommendations && recommendations.length > 0"
         class="recommendations"
       >
         <b-col>
-          <span class="recommended-items">
-            {{ $t('items.youMightLike') }}
-          </span>
+          <h2>{{ $t('items.youMightLike') }}</h2>
+          <ItemPreviewCardGroup
+            v-model="recommendations"
+          />
         </b-col>
       </b-row>
     </b-container>
@@ -120,44 +131,48 @@
 
 <script>
   import { langMapValueForLocale } from  '../../plugins/europeana/utils';
-
-  import ClientOnly from 'vue-client-only';
+  import AlertMessage from '../../components/generic/AlertMessage';
   import ItemPreviewCardGroup from '../../components/item/ItemPreviewCardGroup';
+  import LoadingSpinner from '../../components/generic/LoadingSpinner';
 
   export default {
     components: {
-      ClientOnly,
+      LoadingSpinner,
+      AlertMessage,
       ItemPreviewCardGroup,
-      PaginationNav: () => import('../../components/generic/PaginationNav')
+      SetFormModal: () => import('../../components/set/SetFormModal')
     },
 
     middleware: 'sanitisePageQuery',
 
-    // TODO: error handling for Nuxt 2.12 fetch()
-    //       https://nuxtjs.org/blog/understanding-how-fetch-works-in-nuxt-2-12/#error-handling
     async fetch() {
-      this.page = this.$store.state.sanitised.page - 1; // Set API paging starts at 0 ¯\_(ツ)_/¯
-
       const set = await this.$sets.getSet(this.$route.params.pathMatch, {
-        page: this.page,
-        pageSize: this.perPage,
         profile: 'itemDescriptions'
-      });
-
-      this.total = set.total || 0;
+      })
+        .then(response => response)
+        .catch(apiError => {
+          if (process.server) {
+            this.$nuxt.context.res.statusCode = apiError.statusCode;
+          }
+          throw apiError;
+        });
+      this.id = set.id;
       this.title = set.title;
-      this.items = set.items;
-      this.visibility = set.visibility;
       this.description = set.description;
+      this.visibility = set.visibility;
+      this.creator = set.creator;
+      this.total = set.total || 0;
+      this.items = set.items;
     },
 
     data() {
       return {
+        id: null,
+        creator: null,
         description: null,
         items: [],
-        page: null,
-        perPage: 24,
         recommendations: [],
+        setFormModalId: `set-form-modal-${this.id}`,
         title: null,
         total: 0,
         visibility: null
@@ -166,12 +181,12 @@
 
     computed: {
       userIsOwner() {
-        if (this.$store.state.auth.user && this.creator) {
-          return (this.$store.state.auth.user.sub === this.creator.split('user/')[1]);
-        }
-        return false;
+        return this.$store.state.auth.user &&
+          this.creator &&
+          this.creator.endsWith(`/${this.$store.state.auth.user.sub}`);
       },
       displayTitle() {
+        if (this.$fetchState.error) return { values: [this.$t('error')] };
         return langMapValueForLocale(this.title, this.$i18n.locale);
       },
       displayDescription() {
@@ -180,7 +195,23 @@
     },
 
     watch: {
-      '$route.query.page': '$fetch'
+      items() {
+        if (!this.$auth.loggedIn) return;
+        this.$recommendations.recommend('set', `/${this.$route.params.pathMatch}`)
+          .then(recommendResponse => {
+            this.recommendations = recommendResponse.items;
+          });
+      }
+    },
+
+    methods: {
+      updateSet(set) {
+        this.id = set.id;
+        this.title = set.title;
+        this.description = set.description;
+        this.visibility = set.visibility;
+        this.$bvModal.hide(this.setFormModalId);
+      }
     },
 
     head() {
@@ -200,27 +231,36 @@
   }
 
   .usergallery-metadata {
-    font-size: 0.9rem;
-    font-weight: 600;
-    height: 1.6rem;
-    vertical-align: middle;
-    .curator {
+    font-size: $font-size-small;
+    line-height: 1.125;
+
+    .curator,
+    .visibility {
+      display: inline-flex;
+      align-items: center;
+
       &:before {
-        @extend .icon-font;
-        content: '\e92e';
-        font-size: 1.4rem;
+        font-size: 1.5rem;
         padding-right: 0.2rem;
       }
     }
+
+    .curator {
+      margin-right: 1.5rem;
+      &:before {
+        @extend .icon-font;
+        content: '\e92e';
+      }
+    }
+
     .visibility {
       &:before {
         @extend .icon-font;
         content: '\e92d';
-        font-size: 1.4rem;
-        padding-right: 0.2rem;
       }
     }
   }
+
   .collection-buttons {
     button {
       &:first-child {
@@ -232,9 +272,8 @@
     }
   }
 
-  .recommended-items {
+  .recommendations h2 {
     color: $mediumgrey;
-    font-size: 1.3rem;
-    font-weight: 600;
+    font-size: $font-size-medium;
   }
 </style>

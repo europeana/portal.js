@@ -112,6 +112,7 @@ export const mutations = {
     state.errorStatusCode = value;
   },
   setFacets(state, value) {
+    if (!value) value = [];
     for (const facet of value) {
       if (facet.name === 'REUSABILITY') {
         facet.fields = facet.fields.filter((field) => field.label !== 'uncategorized');

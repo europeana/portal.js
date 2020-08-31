@@ -1,30 +1,43 @@
 <template>
   <b-container>
-    <b-row class="flex-md-row pb-5">
+    <b-row class="flex-md-row">
       <b-col cols="12">
-        <LoadingSpinner
+        <div
           v-if="$fetchState.pending"
-        />
+          class="text-center pb-4"
+        >
+          <LoadingSpinner />
+        </div>
         <AlertMessage
           v-else-if="$fetchState.error"
           :error="$fetchState.error.message"
         />
-        <b-card-group
+        <template
           v-else
-          class="card-deck-4-cols"
-          deck
         >
-          <ContentCard
-            v-for="set in userSets"
-            :key="set.id"
-            :sub-title="setSubTitle(set)"
-            :title="set.title"
-            :image-url="$sets.getSetThumbnail(set)"
-            :texts="[set.description]"
-            :url="{ name: 'set-all', params: { pathMatch: setPathMatch(set) } }"
-            data-qa="user set"
-          />
-        </b-card-group>
+          <div
+            v-if="userSets.length === 0"
+            class="text-center pb-4"
+          >
+            {{ $t(`account.notifications.noCollections.${visibility}`) }}
+          </div>
+          <b-card-group
+            v-else
+            class="card-deck-4-cols pb-5"
+            deck
+          >
+            <ContentCard
+              v-for="set in userSets"
+              :key="set.id"
+              :sub-title="setSubTitle(set)"
+              :title="set.title"
+              :image-url="$sets.getSetThumbnail(set)"
+              :texts="[set.description]"
+              :url="{ name: 'set-all', params: { pathMatch: setPathMatch(set) } }"
+              data-qa="user set"
+            />
+          </b-card-group>
+        </template>
       </b-col>
     </b-row>
   </b-container>

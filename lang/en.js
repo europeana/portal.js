@@ -1,14 +1,15 @@
 export default {
   "actions": {
-    "close": "close",
+    "close": "Close",
     "download": "Download",
+    "edit": "Edit",
+    "goBack": "Go back",
     "providedBy": "Provided by {provider}",
     "share": "Share",
     "shareOn": "Share on {social}",
     "viewAt": "View at {link}",
     "viewDocument": "View document",
-    "like": "Like",
-    "addToGallery": "Add to gallery"
+    "like": "Like"
   },
   "attribution": {
     "country": "Country:",
@@ -494,6 +495,7 @@ export default {
   "record": {
     "allMetaData": "All metadata",
     "downloadCopyrightInfo": "This item is in copyright and can not be downloaded.",
+    "exploreMore": "Explore More",
     "extendedInformation": "Extended information",
     "goodToKnow": "Good to know",
     "hideAll": "Hide all information",
@@ -543,21 +545,39 @@ export default {
     "settings": "Settings",
     "likes": "Likes",
     "publicCollections": "Public Collections",
-    "privateCollections": "Private Collections"
-  },
-  "collectionModal": {
-    "addToCollection": "Add to collection",
-    "createNewCollection": "Create new collection",
-    "collectionName": "Collection name",
-    "collectionDescription": "Collection description",
-    "collectionPrivate": "Keep this collection private",
-    "goBack": "Go back",
-    "createCollection": "Create collection",
-    "newNotification": "The item is now added to your new collection."
+    "privateCollections": "Private Collections",
+    "notifications": {
+      "noLikedItems": "You haven’t liked any items yet",
+      "noCollections": {
+        "public": "You haven’t created any public collections yet",
+        "private": "You haven’t created any private collections yet"
+      }
+    }
   },
   "set": {
-    "curatedBy": "Curated by",
-    "privateCollection": "Private collection",
-    "edit": "Edit"
+    "form": {
+      "description": "Collection description",
+      "title": "Collection name",
+      "private": "Keep this collection private"
+    },
+    "notifications": {
+      "deleted": "Your collection has been deleted.",
+      "itemAdded": "The item has been added to your collection."
+    },
+    "prompts": {
+      "delete": "Are you sure you want to delete this collection? If you delete this collection, you will lose all the items you've added to it."
+    },
+    "actions": {
+      "addTo": "Add to collection",
+      "create": "Create collection",
+      "createNew": "Create new collection",
+      "delete": "Delete collection",
+      "edit": "Edit collection",
+      "update": "Update collection"
+    },
+    "labels": {
+      "curatedBy": "Curated by",
+      "private": "Private collection"
+    }
   }
 };

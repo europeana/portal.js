@@ -1,3 +1,4 @@
+import recommendation from './europeana/recommendation';
 import set from './europeana/set';
 
 export default ({ $axios, $auth, store, redirect }, inject) => {
@@ -9,23 +10,14 @@ export default ({ $axios, $auth, store, redirect }, inject) => {
 
   const axiosInstance = $axios.create({ headers });
 
-  // Interceptor for user not logged in but token still valid for sets api
-  // axiosInstance.onRequest(config => {
-  //   if (!$auth.loggedIn) {
-  //     redirect(redirectUrl);
-  //   }
-  //   return config;
-  // });
-
   axiosInstance.onError(error => {
-    if (error.response && (error.response.status === 401 || error.response.status === 403)) {
+    if (!$auth.loggedIn && error.response && error.response.status === 401) {
       return redirect(redirectUrl);
     }
   });
 
-  const setWithAxios = set(axiosInstance);
-
-  inject('sets', setWithAxios);
+  inject('sets', set(axiosInstance));
+  inject('recommendations', recommendation(axiosInstance));
 
   if ($auth.loggedIn) {
     store.dispatch('set/setLikes');

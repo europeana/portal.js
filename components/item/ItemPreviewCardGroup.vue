@@ -14,18 +14,6 @@
       @like="$emit('like', item.id)"
       @unlike="$emit('unlike', item.id)"
     />
-    <b-toast
-      id="new-collection-toast"
-      toast-class="brand-toast"
-      toaster="b-toaster-bottom-left"
-      auto-hide-delay="5000"
-      is-status
-      no-close-button
-      solid
-      data-qa="tier toast"
-    >
-      {{ $t('collectionModal.newNotification') }}
-    </b-toast>
   </b-card-group>
 </template>
 
@@ -72,6 +60,9 @@
           break;
         case 'plain':
           cardGroupClass = `card-deck-search card-deck-${this.perRow}-cols`;
+          break;
+        case 'explore':
+          cardGroupClass = 'card-deck-4-cols narrow-gutter explore-more';
           break;
         case 'similar':
           cardGroupClass = 'py-3 mx-0 card card-deck-4-cols similar-items';

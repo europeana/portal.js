@@ -3,35 +3,50 @@
     class="user-buttons"
     data-qa="user buttons"
   >
-    <b-button
-      class="icon-ic-add"
-      data-qa="add to gallery button"
-      :aria-label="$t('actions.addToGallery')"
-      @click="showModal"
-    />
-    <b-button
-      :pressed="liked"
-      class="icon-heart"
-      data-qa="like button"
-      :aria-label="$t('actions.like')"
-      size="sm"
-      @click="toggleLiked"
-    />
-    <CollectionModal
-      :modal-id="collectionModalId"
-      :item-id="value"
-    />
+    <client-only>
+      <b-button
+        class="icon-ic-add"
+        data-qa="add button"
+        :aria-label="$t('set.actions.addTo')"
+        @click="addToSet"
+      />
+      <b-button
+        :pressed="liked"
+        class="icon-heart"
+        data-qa="like button"
+        :aria-label="$t('actions.like')"
+        size="sm"
+        @click="toggleLiked"
+      />
+      <template
+        v-if="$auth.loggedIn"
+      >
+        <AddItemToSetModal
+          data-qa="add item to set modal"
+          :modal-id="addItemToSetModalId"
+          :item-id="value"
+          @clickCreateSet="clickCreateSet"
+        />
+        <SetFormModal
+          :modal-id="setFormModalId"
+          @create="setCreatedOrUpdated"
+          @update="setCreatedOrUpdated"
+        />
+      </template>
+    </client-only>
   </div>
 </template>
 
 <script>
-  import CollectionModal from '../account/CollectionModal';
+  import ClientOnly from 'vue-client-only';
 
   export default {
     name: 'UserButtons',
 
     components: {
-      CollectionModal
+      AddItemToSetModal: () => import('../set/AddItemToSetModal'),
+      ClientOnly,
+      SetFormModal: () => import('../set/SetFormModal')
     },
 
     props: {
@@ -42,10 +57,14 @@
       }
     },
 
+    data() {
+      return {
+        addItemToSetModalId: `add-item-to-set-modal-${this.value}`,
+        setFormModalId: `set-form-modal-${this.value}`
+      };
+    },
+
     computed: {
-      collectionModalId() {
-        return `collection-modal-${this.value}`;
-      },
       liked() {
         return this.$store.state.set.liked.includes(this.value);
       },
@@ -55,6 +74,13 @@
     },
 
     methods: {
+      clickCreateSet() {
+        this.$bvModal.hide(this.addItemToSetModalId);
+        this.$bvModal.show(this.setFormModalId);
+      },
+      setCreatedOrUpdated() {
+        this.$bvModal.show(this.addItemToSetModalId);
+      },
       async toggleLiked() {
         await (this.liked ? this.unlike() : this.like());
       },
@@ -69,11 +95,13 @@
         await this.$store.dispatch('set/unlike', this.value);
         this.$emit('unlike', this.value);
       },
-      showModal() {
-        this.$nextTick(() => {
-          this.$bvModal.show(this.collectionModalId);
+      addToSet() {
+        if (this.$auth.loggedIn) {
+          this.$bvModal.show(this.addItemToSetModalId);
           this.$emit('add', this.value);
-        });
+        } else {
+          this.$auth.loginWith('keycloak');
+        }
       }
     }
   };
