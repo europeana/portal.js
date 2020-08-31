@@ -10,7 +10,7 @@
     <b-container data-qa="search page">
       <b-row>
         <b-col>
-          <h1>{{ searchedFor }}</h1>
+          <h1>{{ $t('searchResults') + searchedFor }}</h1>
         </b-col>
         <RelatedSection
           :query="$route.query.query"

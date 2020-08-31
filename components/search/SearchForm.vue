@@ -36,10 +36,11 @@
       <SearchQueryOptions
         v-model="suggestions"
         :enable-auto-suggest="enableAutoSuggest"
-        :pill-label="pillLabel"
-        :remove-pill="toggleSearchAndRemovePill"
+        :entity-collection-label="collectionLabel"
+        :remove-collection-label="toggleSearchAndRemoveLabel"
         element-id="search-form-auto-suggest"
         :link-gen="suggestionLinkGen"
+        :search-in-collection="searchInCollection"
         :query="query"
         @select="selectSuggestion"
         @hide-search="hideSearch"
@@ -93,7 +94,7 @@
         return this.$store.state.search.active;
       },
 
-      pillLabel() {
+      collectionLabel() {
         return this.$store.state.search.pill;
       },
 
@@ -204,6 +205,10 @@
         };
       },
 
+      searchInCollection(query) {
+        return this.$route.path + '?page=1&view=grid&query=' + query;
+      },
+
       hideSearch() {
         this.$emit('toggle-search-bar');
       },
@@ -218,7 +223,7 @@
         });
       },
 
-      async toggleSearchAndRemovePill() {
+      async toggleSearchAndRemoveLabel() {
         await this.$goto(this.removeCollectionLinkTo);
       }
     }
