@@ -104,7 +104,7 @@
           />
 
           <section
-            v-if="similarItems.length > 0"
+            v-if="similarItems && similarItems.length > 0"
           >
             <h2>{{ $t('record.similarItems') }}</h2>
             <ItemPreviewCardGroup
