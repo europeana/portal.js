@@ -44,7 +44,7 @@ let mockContext = {
     }
   },
   store: {
-    dispatch: sinon.spy()
+    dispatch: sinon.stub().resolves({})
   },
   $axios: createAxiosInstance({})
 };

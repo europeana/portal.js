@@ -8,6 +8,7 @@ localVue.use(BootstrapVue);
 
 const identifier = '/123/abc';
 const storeDispatch = sinon.spy();
+const storeIsLikedGetter = sinon.stub();
 
 const factory = ({ storeState = {}, $auth = {} } = {}) => mount(UserButtons, {
   localVue,
@@ -18,6 +19,9 @@ const factory = ({ storeState = {}, $auth = {} } = {}) => mount(UserButtons, {
     $store: {
       state: {
         set: { ...{ liked: [] }, ...storeState }
+      },
+      getters: {
+        'set/isLiked': storeIsLikedGetter
       },
       dispatch: storeDispatch
     },
@@ -97,8 +101,13 @@ describe('components/account/UserButtons', () => {
     });
 
     context('when an item is not yet liked', () => {
+      beforeEach(() => {
+        storeIsLikedGetter.reset();
+        storeIsLikedGetter.returns(false);
+      });
+
       it('is rendered as unpressed', () => {
-        const wrapper = factory({ storeState: { liked: [] } });
+        const wrapper = factory();
 
         const likeButton = wrapper.find('[data-qa="like button"]');
 
@@ -137,6 +146,11 @@ describe('components/account/UserButtons', () => {
     });
 
     context('and an item is already liked', () => {
+      beforeEach(() => {
+        storeIsLikedGetter.reset();
+        storeIsLikedGetter.returns(true);
+      });
+
       it('is rendered as pressed', () => {
         const wrapper = factory({ storeState: { liked: [identifier] } });
 

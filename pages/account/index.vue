@@ -39,16 +39,15 @@
                       v-else
                     >
                       <div
-                        v-if="!likes || likes.length === 0"
+                        v-if="!likedItems || likedItems.length === 0"
                         class="text-center pb-4"
                       >
                         {{ $t('account.notifications.noLikedItems') }}
                       </div>
                       <ItemPreviewCardGroup
                         v-else
-                        v-model="likes"
+                        v-model="likedItems"
                         class="pb-5"
-                        @unlike="fetchLikes()"
                       />
                     </template>
                   </b-col>
@@ -102,40 +101,33 @@
       LoadingSpinner
     },
 
-    async fetch() {
-      await this.fetchLikes();
+    fetch() {
+      this.fetchLikes();
+      this.$store.dispatch('set/fetchCreations');
     },
 
     fetchOnServer: false,
 
     data() {
       return {
-        loggedInUser: this.$store.state.auth.user,
-        likes: []
+        loggedInUser: this.$store.state.auth.user
       };
     },
 
     computed: {
       ...mapState({
-        likesId: state => state.set.likesId
+        likesId: state => state.set.likesId,
+        likedItems: state => state.set.likedItems
       })
     },
 
     watch: {
-      'likesId'() {
-        this.fetchLikes();
-      }
+      likesId: 'fetchLikes'
     },
 
     methods: {
-      // TODO: pagination
-      async fetchLikes() {
-        if (!this.$store.state.set.likesId) return;
-        const likes = await this.$sets.getSet(this.likesId, {
-          pageSize: 100,
-          profile: 'itemDescriptions'
-        });
-        this.likes = likes.items;
+      fetchLikes() {
+        this.$store.dispatch('set/fetchLikes');
       }
     },
 

@@ -68,7 +68,7 @@
           </b-col>
         </b-row>
         <b-row
-          v-if="similarItems.length > 0"
+          v-if="similarItems && similarItems.length > 0"
           class="mt-3 mb-0 justify-content-center"
         >
           <b-col
