@@ -3,57 +3,39 @@
     <b-row class="flex-md-row">
       <b-col cols="12">
         <div
-          v-if="$fetchState.pending"
+          v-if="userSets.length === 0"
           class="text-center pb-4"
         >
-          <LoadingSpinner />
+          {{ $t(`account.notifications.noCollections.${visibility}`) }}
         </div>
-        <AlertMessage
-          v-else-if="$fetchState.error"
-          :error="$fetchState.error.message"
-        />
-        <template
+        <b-card-group
           v-else
+          class="card-deck-4-cols pb-5"
+          deck
         >
-          <div
-            v-if="userSets.length === 0"
-            class="text-center pb-4"
-          >
-            {{ $t(`account.notifications.noCollections.${visibility}`) }}
-          </div>
-          <b-card-group
-            v-else
-            class="card-deck-4-cols pb-5"
-            deck
-          >
-            <ContentCard
-              v-for="set in userSets"
-              :key="set.id"
-              :sub-title="setSubTitle(set)"
-              :title="set.title"
-              :image-url="$sets.getSetThumbnail(set)"
-              :texts="[set.description]"
-              :url="{ name: 'set-all', params: { pathMatch: setPathMatch(set) } }"
-              data-qa="user set"
-            />
-          </b-card-group>
-        </template>
+          <ContentCard
+            v-for="set in userSets"
+            :key="set.id"
+            :sub-title="setSubTitle(set)"
+            :title="set.title"
+            :image-url="$sets.getSetThumbnail(set)"
+            :texts="[set.description]"
+            :url="{ name: 'set-all', params: { pathMatch: setPathMatch(set) } }"
+            data-qa="user set"
+          />
+        </b-card-group>
       </b-col>
     </b-row>
   </b-container>
 </template>
 
 <script>
-  import AlertMessage from '../generic/AlertMessage';
   import ContentCard from '../generic/ContentCard';
-  import LoadingSpinner from '../generic/LoadingSpinner';
 
   export default {
     name: 'UserSets',
     components: {
-      AlertMessage,
-      ContentCard,
-      LoadingSpinner
+      ContentCard
     },
     props: {
       // May be "public" or "private"
@@ -62,19 +44,10 @@
         default: 'public'
       }
     },
-    async fetch() {
-      const searchParams = {
-        query: `creator:${this.$auth.user.sub} visibility:${this.visibility}`,
-        profile: 'itemDescriptions'
-      };
-
-      const searchResponse = await this.$sets.search(searchParams);
-      this.userSets = searchResponse.data.items || [];
-    },
-    data() {
-      return {
-        userSets: []
-      };
+    computed: {
+      userSets() {
+        return this.$store.state.set.creations.filter(set => set.visibility === this.visibility);
+      }
     },
     methods: {
       setSubTitle(set) {

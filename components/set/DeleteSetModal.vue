@@ -49,9 +49,15 @@
       }
     },
 
+    data() {
+      return {
+        toastMsg: this.$t('set.notifications.deleted')
+      };
+    },
+
     methods: {
       makeToast() {
-        this.$root.$bvToast.toast(this.$t('set.notifications.deleted'), {
+        this.$root.$bvToast.toast(this.toastMsg, {
           toastClass: 'brand-toast',
           toaster: 'b-toaster-bottom-left',
           autoHideDelay: 5000,
@@ -63,11 +69,10 @@
 
       // TODO: error handling
       submitForm() {
-        this.$sets.deleteSet(this.setId)
-          .then(response => {
+        this.$store.dispatch('set/deleteSet', this.setId)
+          .then(() => {
             this.makeToast();
             this.hide();
-            this.$emit('delete', response);
           });
       },
 

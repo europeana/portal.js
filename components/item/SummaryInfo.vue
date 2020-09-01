@@ -87,7 +87,7 @@
     computed: {
       expandableDescription() {
         if (this.description && this.description.values) {
-          return this.description.values.length > 1 || this.description.values[0].length >= this.limitCharacters;
+          return this.description.values.length > 1 || this.description.values[0].length > this.limitCharacters;
         }
         return false;
       },

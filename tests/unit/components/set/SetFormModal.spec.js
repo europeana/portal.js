@@ -8,8 +8,7 @@ const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 localVue.use(VueI18n);
 
-const createSet = sinon.stub().resolves({});
-const updateSet = sinon.stub().resolves({});
+const storeDispatch = sinon.stub().resolves({});
 
 const i18n = new VueI18n({
   locale: 'en'
@@ -34,9 +33,8 @@ const factory = (propsData = {}) => mount(SetFormModal, {
   },
   i18n,
   mocks: {
-    $sets: {
-      createSet,
-      updateSet
+    $store: {
+      dispatch: storeDispatch
     },
     $t: () => {}
   }
@@ -51,7 +49,7 @@ describe('components/set/SetFormModal', () => {
       await wrapper.find('#set-description').setValue('Lots of things in here');
       await wrapper.find('form').trigger('submit.stop.prevent');
 
-      createSet.should.have.been.calledWith({
+      storeDispatch.should.have.been.calledWith('set/createSet', {
         type: 'Collection',
         title: {
           en: 'My first public set'
@@ -70,15 +68,18 @@ describe('components/set/SetFormModal', () => {
       await wrapper.find('#set-private').setChecked();
       await wrapper.find('form').trigger('submit.stop.prevent');
 
-      updateSet.should.have.been.calledWith('123', {
-        type: 'Collection',
-        title: {
-          en: 'A better title'
-        },
-        description: {
-          en: 'Lots of things in here'
-        },
-        visibility: 'private'
+      storeDispatch.should.have.been.calledWith('set/updateSet', {
+        id: '123',
+        body: {
+          type: 'Collection',
+          title: {
+            en: 'A better title'
+          },
+          description: {
+            en: 'Lots of things in here'
+          },
+          visibility: 'private'
+        }
       });
     });
   });

@@ -15,6 +15,7 @@ export default ({ $auth, store, redirect }, inject) => {
   inject('recommendations', recommendation(axiosInstance));
 
   if ($auth.loggedIn) {
-    store.dispatch('set/setLikes');
+    store.dispatch('set/setLikes')
+      .then(store.dispatch('set/fetchLikes'));
   }
 };
