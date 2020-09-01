@@ -128,7 +128,7 @@
       }
 
       &:not(.swiper-slide-active) {
-      &:before {
+        &:before {
           content: '';
           width: 100%;
           left: 0;
