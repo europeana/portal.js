@@ -14,7 +14,7 @@
             path="searchResults"
             tag="h1"
           >
-            {{ searchedFor }}
+            <span>{{ searchedFor }}</span>
           </i18n>
         </b-col>
         <RelatedSection
