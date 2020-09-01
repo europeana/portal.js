@@ -364,12 +364,15 @@
       },
 
       getSimilarItems() {
-        const noSimilarItems = { results: [] };
+        const noSimilarItems = { items: [] };
         if (this.error) return noSimilarItems;
 
         if (this.$auth.loggedIn) {
           return this.$recommendations.recommend('record', this.identifier)
-            .then(recommendResponse => recommendResponse);
+            .then(recommendResponse => recommendResponse)
+            .catch(() => {
+              return noSimilarItems;
+            });
         }
 
         const dataSimilarItems = {
