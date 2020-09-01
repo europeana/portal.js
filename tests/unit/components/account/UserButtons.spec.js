@@ -13,6 +13,7 @@ const factory = ({ storeState = {}, $auth = {} } = {}) => mount(UserButtons, {
   localVue,
   stubs: ['AddItemToSetModal', 'SetFormModal'],
   propsData: { value: identifier },
+  methods: { showUserButtons: true },
   mocks: {
     $auth,
     $store: {
@@ -33,6 +34,16 @@ describe('components/account/UserButtons', () => {
       const collectionModal = wrapper.find('[data-qa="collection modal"]');
 
       collectionModal.exists().should.be.false;
+    });
+  });
+
+  describe('user buttons', () => {
+    it('are enabled', () => {
+      const wrapper = factory();
+
+      const userButtons = wrapper.find('[data-qa="user buttons"]');
+
+      userButtons.exists().should.be.true;
     });
   });
 
