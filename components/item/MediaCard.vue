@@ -34,11 +34,6 @@
       :type="media.ebucoreHasMimeType"
     />
   </div>
-  <MediaCardImage
-    v-else-if="media.thumbnails"
-    :europeana-identifier="europeanaIdentifier"
-    :media="media"
-  />
   <HTMLEmbed
     v-else-if="isOEmbed"
     :html="oEmbedData.html"
@@ -140,3 +135,19 @@
     }
   };
 </script>
+
+<style lang="scss" scoped>
+  @import './assets/scss/variables.scss';
+
+  // TODO: move the code below to video component when we switch to new item page
+  /deep/ video {
+    height: 80vh;
+    max-height: 25rem;
+    max-width: 100%;
+    width: auto;
+
+    @media (min-width: $bp-medium) {
+      max-height: 35.5rem;
+    }
+  }
+</style>

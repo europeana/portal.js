@@ -162,6 +162,13 @@
   .swiper-button-prev:after, .swiper-button-next:after {
     font-size: 22px;
   }
+
+  .swiper-container-horizontal > .swiper-pagination-bullets {
+    left: 50%;
+    transform: translateX(-50%);
+    width: auto;
+  }
+
   .swiper-pagination-bullet-active {
     background: $smoke;
   }

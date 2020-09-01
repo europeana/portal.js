@@ -1,8 +1,9 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import MediaCard from '../../../../components/item/MediaCard.vue';
 
-const localVue = createLocalVue();
+import sinon from 'sinon';
 
+const localVue = createLocalVue();
 const factory = (propsData) => shallowMount(MediaCard, {
   localVue,
   stubs: ['b-img-lazy'],
@@ -18,40 +19,46 @@ const europeanaIdentifier = '/123/abcdef';
 
 describe('components/item/MediaCard', () => {
   describe('isHTMLVideo', () => {
-    context('when ebucoreHasMimeType is "video/ogg"', () => {
-      it('is `true`', () => {
-        const props = { europeanaIdentifier, media: { ebucoreHasMimeType: 'video/ogg', about: 'http://www.example.org/video.ogg' } };
-        const wrapper = factory(props);
-
-        wrapper.vm.isHTMLVideo.should.be.true;
+    context('in browser', () => {
+      beforeEach(() => {
+        process.browser = true;
       });
-    });
 
-    context('when ebucoreHasMimeType is "video/webm"', () => {
-      it('is `true`', () => {
-        const props = { europeanaIdentifier, media: { ebucoreHasMimeType: 'video/webm', about: 'http://www.example.org/video.webm' } };
-        const wrapper = factory(props);
-
-        wrapper.vm.isHTMLVideo.should.be.true;
-      });
-    });
-
-    context('when ebucoreHasMimeType is "video/mp4"', () => {
-      context('and edmCodecName is "h264"', () => {
+      context('when ebucoreHasMimeType is "video/ogg"', () => {
         it('is `true`', () => {
-          const props = { europeanaIdentifier, media: { ebucoreHasMimeType: 'video/mp4', edmCodecName: 'h264', about: 'http://www.example.org/video.mp4' } };
+          const props = { europeanaIdentifier, media: { ebucoreHasMimeType: 'video/ogg', about: 'http://www.example.org/video.ogg', thumbnails: { large: 'https://api.europeana.eu/api/v2/thumbnail-by-url.json?size=w400&type=IMAGE&uri=https%3A%2F%2Feuropeana1914-1918.s3.amazonaws.com%2Fattachments%2F119200%2F10265.119200.original.jpg' } } };
+          const wrapper = factory(props);
+          
+          wrapper.vm.isHTMLVideo.should.be.true;
+        });
+      });
+
+      context('when ebucoreHasMimeType is "video/webm"', () => {
+        it('is `true`', () => {
+          const props = { europeanaIdentifier, media: { ebucoreHasMimeType: 'video/webm', about: 'http://www.example.org/video.webm', thumbnails: { large: 'https://api.europeana.eu/api/v2/thumbnail-by-url.json?size=w400&type=IMAGE&uri=https%3A%2F%2Feuropeana1914-1918.s3.amazonaws.com%2Fattachments%2F119200%2F10265.119200.original.jpg' } } };
           const wrapper = factory(props);
 
           wrapper.vm.isHTMLVideo.should.be.true;
         });
       });
 
-      context('and edmCodecName is "x264"', () => {
-        it('is `false`', () => {
-          const props = { europeanaIdentifier, media: { ebucoreHasMimeType: 'video/mp4', edmCodecName: 'x264', about: 'http://www.example.org/video.mp4', displayImage: false } };
-          const wrapper = factory(props);
+      context('when ebucoreHasMimeType is "video/mp4"', () => {
+        context('and edmCodecName is "h264"', () => {
+          it('is `true`', () => {
+            const props = { europeanaIdentifier, media: { ebucoreHasMimeType: 'video/mp4', edmCodecName: 'h264', about: 'http://www.example.org/video.mp4', thumbnails: { large: 'https://api.europeana.eu/api/v2/thumbnail-by-url.json?size=w400&type=IMAGE&uri=https%3A%2F%2Feuropeana1914-1918.s3.amazonaws.com%2Fattachments%2F119200%2F10265.119200.original.jpg' } } };
+            const wrapper = factory(props);
 
-          wrapper.vm.isHTMLVideo.should.be.false;
+            wrapper.vm.isHTMLVideo.should.be.true;
+          });
+        });
+
+        context('and edmCodecName is "x264"', () => {
+          it('is `false`', () => {
+            const props = { europeanaIdentifier, media: { ebucoreHasMimeType: 'video/mp4', edmCodecName: 'x264', about: 'http://www.example.org/video.mp4', displayImage: false, thumbnails: { large: 'https://api.europeana.eu/api/v2/thumbnail-by-url.json?size=w400&type=IMAGE&uri=https%3A%2F%2Feuropeana1914-1918.s3.amazonaws.com%2Fattachments%2F119200%2F10265.119200.original.jpg' } } };
+            const wrapper = factory(props);
+
+            wrapper.vm.isHTMLVideo.should.be.false;
+          });
         });
       });
     });
@@ -69,7 +76,7 @@ describe('components/item/MediaCard', () => {
   describe('isHTMLAudio', () => {
     context('when ebucoreHasMimeType is "audio/ogg"', () => {
       it('is `true`', () => {
-        const props = { europeanaIdentifier, media: { ebucoreHasMimeType: 'audio/ogg', about: 'http://www.example.org/audio.ogg' } };
+        const props = { europeanaIdentifier, media: { ebucoreHasMimeType: 'audio/ogg', about: 'http://www.example.org/audio.ogg', thumbnails: { large: 'https://api.europeana.eu/api/v2/thumbnail-by-url.json?size=w400&type=IMAGE&uri=https%3A%2F%2Feuropeana1914-1918.s3.amazonaws.com%2Fattachments%2F119200%2F10265.119200.original.jpg' } } };
         const wrapper = factory(props);
 
         wrapper.vm.isHTMLAudio.should.be.true;
@@ -78,7 +85,7 @@ describe('components/item/MediaCard', () => {
 
     context('when ebucoreHasMimeType is "audio/flac"', () => {
       it('is `true`', () => {
-        const props = { europeanaIdentifier, media: { ebucoreHasMimeType: 'audio/flac', about: 'http://www.example.org/audio.flac' } };
+        const props = { europeanaIdentifier, media: { ebucoreHasMimeType: 'audio/flac', about: 'http://www.example.org/audio.flac', thumbnails: { large: 'https://api.europeana.eu/api/v2/thumbnail-by-url.json?size=w400&type=IMAGE&uri=https%3A%2F%2Feuropeana1914-1918.s3.amazonaws.com%2Fattachments%2F119200%2F10265.119200.original.jpg' } } };
         const wrapper = factory(props);
 
         wrapper.vm.isHTMLAudio.should.be.true;
@@ -87,7 +94,7 @@ describe('components/item/MediaCard', () => {
 
     context('when ebucoreHasMimeType is "audio/mpeg"', () => {
       it('is `true`', () => {
-        const props = { europeanaIdentifier, media: { ebucoreHasMimeType: 'audio/mpeg', about: 'http://www.example.org/audio.mp3' } };
+        const props = { europeanaIdentifier, media: { ebucoreHasMimeType: 'audio/mpeg', about: 'http://www.example.org/audio.mp3', thumbnails: { large: 'https://api.europeana.eu/api/v2/thumbnail-by-url.json?size=w400&type=IMAGE&uri=https%3A%2F%2Feuropeana1914-1918.s3.amazonaws.com%2Fattachments%2F119200%2F10265.119200.original.jpg' } } };
         const wrapper = factory(props);
 
         wrapper.vm.isHTMLAudio.should.be.true;
@@ -137,7 +144,7 @@ describe('components/item/MediaCard', () => {
     context('when imageSrc is present', () => {
       context('and media is HTML video', () => {
         it('is `false`', () => {
-          const props = { europeanaIdentifier, media: { ebucoreHasMimeType: 'video/ogg', about: 'http://www.example.org/video.ogg' }, imageSrc: 'http://www.example.org/preview.jpg' };
+          const props = { europeanaIdentifier, media: { ebucoreHasMimeType: 'video/ogg', about: 'http://www.example.org/video.ogg', thumbnails: { large: 'https://api.europeana.eu/api/v2/thumbnail-by-url.json?size=w400&type=IMAGE&uri=https%3A%2F%2Feuropeana1914-1918.s3.amazonaws.com%2Fattachments%2F119200%2F10265.119200.original.jpg' } }, imageSrc: 'http://www.example.org/preview.jpg' };
           const wrapper = factory(props);
 
           wrapper.vm.displayImage.should.be.false;

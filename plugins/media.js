@@ -12,18 +12,22 @@ export function isImage(media) {
 }
 
 export function isHTMLVideo(media) {
-  return ['video/ogg', 'video/webm'].includes(media.ebucoreHasMimeType) ||
-    ((media.ebucoreHasMimeType === 'video/mp4') && (media.edmCodecName === 'h264'));
+  if (!media.ebucoreHasMimeType) return false;
+  // use a temporary video element
+  const vid = process.browser ? document.createElement('video') : null;
+  return media.ebucoreHasMimeType.startsWith('video/') && vid && !!vid.canPlayType(media.ebucoreHasMimeType);
 }
 
 export function isHTMLAudio(media) {
-  return ['audio/flac', 'audio/ogg', 'audio/mpeg'].includes(media.ebucoreHasMimeType);
+  if (!media.ebucoreHasMimeType) return false;
+  // Use a temporary audio element
+  const aud = process.browser ? document.createElement('audio') : null;
+  return media.ebucoreHasMimeType.startsWith('audio/') && aud && !!aud.canPlayType(media.ebucoreHasMimeType);
 }
 
 export function isPlayableMedia(media) {
   return (typeof media.ebucoreHasMimeType === 'string' && (
-    media.ebucoreHasMimeType.startsWith('video/') ||
-    media.ebucoreHasMimeType.startsWith('audio/') ||
+    isHTMLAudio(media) || isHTMLVideo(media) ||
     (media.ebucoreHasMimeType === 'application/dash+xml')
   )) ||
     new RegExp('^http://www.euscreen.eu/item.html').test(media.about);
