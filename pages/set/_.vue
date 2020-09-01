@@ -1,5 +1,22 @@
 <template>
+  <b-container v-if="$fetchState.pending">
+    <b-row class="flex-md-row py-4 text-center">
+      <b-col cols="12">
+        <LoadingSpinner />
+      </b-col>
+    </b-row>
+  </b-container>
+  <b-container v-else-if="$fetchState.error">
+    <b-row class="flex-md-row py-4">
+      <b-col cols="12">
+        <AlertMessage
+          :error="$fetchState.error.message"
+        />
+      </b-col>
+    </b-row>
+  </b-container>
   <div
+    v-else
     data-qa="user gallery page"
     class="mt-n3"
   >
@@ -29,13 +46,13 @@
                     This can be changed when this functionality is further developed
                 -->
                 <div
-                  v-if="visibility === 'private'"
+                  v-if="set.visibility === 'private'"
                   class="usergallery-metadata"
                 >
                   <!-- TODO: Fill after the '@' with the set's owner  -->
                   <!-- <span class="curator mr-4">
                     {{ $t('set.labels.curatedBy') }} @placeholderUsername
-                  </span> -->
+                  </span>-->
                   <span
                     class="visibility"
                   >
@@ -55,11 +72,11 @@
                   {{ $t('actions.edit') }}
                 </b-button>
                 <SetFormModal
-                  :set-id="id"
+                  :set-id="set.id"
                   :modal-id="setFormModalId"
-                  :title="title"
-                  :description="description"
-                  :visibility="visibility"
+                  :title="set.title"
+                  :description="set.description"
+                  :visibility="set.visibility"
                   @update="updateSet"
                 />
               </template>
@@ -80,7 +97,7 @@
       <b-row>
         <b-col>
           <h2 class="related-heading text-uppercase">
-            {{ $tc('items.itemCount', total, { count: total }) }}
+            {{ $tc('items.itemCount', itemCount, { count: itemCount }) }}
           </h2>
         </b-col>
       </b-row>
@@ -90,7 +107,7 @@
             <b-row class="mb-3">
               <b-col cols="12">
                 <ItemPreviewCardGroup
-                  v-model="items"
+                  v-model="set.items"
                 />
               </b-col>
             </b-row>
@@ -114,75 +131,79 @@
 
 <script>
   import { langMapValueForLocale } from  '../../plugins/europeana/utils';
-
+  import AlertMessage from '../../components/generic/AlertMessage';
   import ItemPreviewCardGroup from '../../components/item/ItemPreviewCardGroup';
+  import LoadingSpinner from '../../components/generic/LoadingSpinner';
 
   export default {
     components: {
+      LoadingSpinner,
+      AlertMessage,
       ItemPreviewCardGroup,
       SetFormModal: () => import('../../components/set/SetFormModal')
     },
 
     middleware: 'sanitisePageQuery',
 
-    // TODO: error handling for Nuxt 2.12 fetch()
-    //       https://nuxtjs.org/blog/understanding-how-fetch-works-in-nuxt-2-12/#error-handling
     async fetch() {
-      const set = await this.$sets.getSet(this.$route.params.pathMatch, {
-        profile: 'itemDescriptions'
-      });
-
-      this.id = set.id;
-      this.title = set.title;
-      this.description = set.description;
-      this.visibility = set.visibility;
-      this.creator = set.creator;
-      this.total = set.total || 0;
-      this.items = set.items;
+      try {
+        await this.$store.dispatch('set/fetchActive', this.$route.params.pathMatch);
+      } catch (apiError) {
+        if (process.server) {
+          this.$nuxt.context.res.statusCode = apiError.statusCode;
+        }
+        throw apiError;
+      }
     },
 
     data() {
       return {
-        id: null,
-        creator: null,
-        description: null,
-        items: [],
         recommendations: [],
-        setFormModalId: `set-form-modal-${this.id}`,
-        title: null,
-        total: 0,
-        visibility: null
+        setFormModalId: `set-form-modal-${this.id}`
       };
     },
 
     computed: {
+      set() {
+        return this.$store.state.set.active || {};
+      },
+      itemCount() {
+        return this.set.total || 0;
+      },
       userIsOwner() {
         return this.$store.state.auth.user &&
-          this.creator &&
-          this.creator.endsWith(`/${this.$store.state.auth.user.sub}`);
+          this.set.creator &&
+          this.set.creator.endsWith(`/${this.$store.state.auth.user.sub}`);
       },
       displayTitle() {
-        return langMapValueForLocale(this.title, this.$i18n.locale);
+        if (this.$fetchState.error) return { values: [this.$t('error')] };
+        return langMapValueForLocale(this.set.title, this.$i18n.locale);
       },
       displayDescription() {
-        return langMapValueForLocale(this.description, this.$i18n.locale);
+        return langMapValueForLocale(this.set.description, this.$i18n.locale);
       }
     },
 
-    mounted() {
-      if (!this.$auth.loggedIn) return;
-      this.$recommendations.recommend('set', `/${this.$route.params.pathMatch}`)
-        .then(recommendResponse => {
-          this.recommendations = recommendResponse.items;
-        });
+    watch: {
+      'set.id'() {
+        if (!this.set.id) {
+          // Set was deleted
+          const path = this.$path({ name: 'account' });
+          this.$goto(path);
+        }
+      },
+
+      items() {
+        if (!this.$auth.loggedIn) return;
+        this.$recommendations.recommend('set', `/${this.$route.params.pathMatch}`)
+          .then(recommendResponse => {
+            this.recommendations = recommendResponse.items || [];
+          });
+      }
     },
 
     methods: {
-      updateSet(set) {
-        this.id = set.id;
-        this.title = set.title;
-        this.description = set.description;
-        this.visibility = set.visibility;
+      updateSet() {
         this.$bvModal.hide(this.setFormModalId);
       }
     },
@@ -204,27 +225,36 @@
   }
 
   .usergallery-metadata {
-    font-size: 0.9rem;
-    font-weight: 600;
-    height: 1.6rem;
-    vertical-align: middle;
-    .curator {
+    font-size: $font-size-small;
+    line-height: 1.125;
+
+    .curator,
+    .visibility {
+      display: inline-flex;
+      align-items: center;
+
       &:before {
-        @extend .icon-font;
-        content: '\e92e';
-        font-size: 1.4rem;
+        font-size: 1.5rem;
         padding-right: 0.2rem;
       }
     }
+
+    .curator {
+      margin-right: 1.5rem;
+      &:before {
+        @extend .icon-font;
+        content: '\e92e';
+      }
+    }
+
     .visibility {
       &:before {
         @extend .icon-font;
         content: '\e92d';
-        font-size: 1.4rem;
-        padding-right: 0.2rem;
       }
     }
   }
+
   .collection-buttons {
     button {
       &:first-child {

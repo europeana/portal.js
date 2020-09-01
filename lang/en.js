@@ -493,6 +493,7 @@ export default {
   "record": {
     "allMetaData": "All metadata",
     "downloadCopyrightInfo": "This item is in copyright and can not be downloaded.",
+    "exploreMore": "Explore More",
     "extendedInformation": "Extended information",
     "goodToKnow": "Good to know",
     "hideAll": "Hide all information",
@@ -541,7 +542,14 @@ export default {
     "settings": "Settings",
     "likes": "Likes",
     "publicCollections": "Public Collections",
-    "privateCollections": "Private Collections"
+    "privateCollections": "Private Collections",
+    "notifications": {
+      "noLikedItems": "You haven’t liked any items yet",
+      "noCollections": {
+        "public": "You haven’t created any public collections yet",
+        "private": "You haven’t created any private collections yet"
+      }
+    }
   },
   "set": {
     "form": {

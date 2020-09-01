@@ -8,7 +8,7 @@ const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 localVue.use(VueI18n);
 
-const deleteSet = sinon.stub().resolves({});
+const storeDispatch = sinon.stub().resolves({});
 
 import messages from '../../../../lang/en';
 
@@ -27,8 +27,8 @@ const factory = (propsData = {}) => mount(DeleteSetModal, {
   },
   i18n,
   mocks: {
-    $sets: {
-      deleteSet
+    $store: {
+      dispatch: storeDispatch
     }
   }
 });
@@ -65,7 +65,7 @@ describe('components/set/DeleteSetModal', () => {
 
       wrapper.find('[data-qa="close button"]').trigger('click');
 
-      deleteSet.should.not.have.been.called;
+      storeDispatch.should.not.have.been.called;
     });
   });
 
@@ -75,7 +75,7 @@ describe('components/set/DeleteSetModal', () => {
 
       await wrapper.find('form').trigger('submit.stop.prevent');
 
-      deleteSet.should.have.been.calledWith('123');
+      storeDispatch.should.have.been.calledWith('set/deleteSet', '123');
     });
 
     it('makes toast', async() => {
@@ -94,14 +94,6 @@ describe('components/set/DeleteSetModal', () => {
       await wrapper.find('form').trigger('submit.stop.prevent');
 
       rootBvToast.should.have.been.calledWith('Your collection has been deleted.', sinon.match.any);
-    });
-
-    it('emits "delete" event', async() => {
-      const wrapper = factory({ setId: '123' });
-
-      await wrapper.find('form').trigger('submit.stop.prevent');
-
-      wrapper.emitted('delete').length.should.eql(1);
     });
   });
 });

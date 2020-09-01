@@ -115,61 +115,69 @@
   .swiper-container {
     max-height: 35.5rem;
     height: 80vh;
+
     @media (max-width: $bp-medium) {
       max-height: 25rem;
     }
-  }
-  .swiper-slide {
-    width: auto;
-    :before {
-      content: '';
-      transition: $standard-transition;
-    }
-    &:not(.swiper-slide-active) {
-      &:before {
+
+    .swiper-slide {
+      width: auto;
+      :before {
         content: '';
+        transition: $standard-transition;
+      }
+
+      &:not(.swiper-slide-active) {
+      &:before {
+          content: '';
+          width: 100%;
+          left: 0;
+          top: 0;
+          height: 100%;
+          position: absolute;
+        }
+        .audio-slide {
+          pointer-events: none;
+        }
+      }
+
+      &:only-child {
         width: 100%;
-        left: 0;
-        top: 0;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      a {
+        display: inline-flex;
         height: 100%;
-        position: absolute;
-      }
-      .audio-slide {
-        pointer-events: none;
+        align-items: center;
       }
     }
-    &:only-child {
-      width: 100%;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    a {
-      display: inline-flex;
-      height: 100%;
-      align-items: center;
-    }
-  }
-  .swiper-button-prev, .swiper-button-next {
-    color: $lightgrey;
-    background: $white;
-    border-radius: 50%;
-    width: 45px;
-    opacity: 0.7;
-  }
-  .swiper-button-disabled {
-    display: none;
-  }
-  .swiper-button-prev:after, .swiper-button-next:after {
-    font-size: 22px;
-  }
 
-  .swiper-container-horizontal > .swiper-pagination-bullets {
-    left: 50%;
-    transform: translateX(-50%);
-    width: auto;
-  }
+    .swiper-button-prev, .swiper-button-next {
+      color: $lightgrey;
+      background: $white;
+      border-radius: 50%;
+      width: 45px;
+      opacity: 0.7;
+    }
 
-  .swiper-pagination-bullet-active {
-    background: $smoke;
+    .swiper-button-prev:after, .swiper-button-next:after {
+      font-size: 22px;
+    }
+
+    .swiper-button-disabled {
+      display: none;
+    }
+
+    .swiper-container-horizontal > .swiper-pagination-bullets {
+      left: 50%;
+      transform: translateX(-50%);
+      width: auto;
+    }
+
+    .swiper-pagination-bullet-active {
+      background: $smoke;
+    }
   }
 </style>

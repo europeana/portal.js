@@ -23,12 +23,33 @@
               active
             >
               <b-container>
-                <b-row class="flex-md-row pb-5">
+                <b-row class="flex-md-row">
                   <b-col cols="12">
-                    <ItemPreviewCardGroup
-                      v-model="likes"
-                      @unlike="fetchLikes()"
+                    <div
+                      v-if="$fetchState.pending"
+                      class="text-center pb-4"
+                    >
+                      <LoadingSpinner />
+                    </div>
+                    <AlertMessage
+                      v-else-if="$fetchState.error"
+                      :error="$fetchState.error.message"
                     />
+                    <template
+                      v-else
+                    >
+                      <div
+                        v-if="!likedItems || likedItems.length === 0"
+                        class="text-center pb-4"
+                      >
+                        {{ $t('account.notifications.noLikedItems') }}
+                      </div>
+                      <ItemPreviewCardGroup
+                        v-else
+                        v-model="likedItems"
+                        class="pb-5"
+                      />
+                    </template>
                   </b-col>
                 </b-row>
               </b-container>
@@ -67,49 +88,46 @@
 
   import ItemPreviewCardGroup from '../../components/item/ItemPreviewCardGroup';
   import UserSets from '../../components/account/UserSets';
+  import AlertMessage from '../../components/generic/AlertMessage';
+  import LoadingSpinner from '../../components/generic/LoadingSpinner';
 
   export default {
     middleware: 'auth',
 
     components: {
       ItemPreviewCardGroup,
-      UserSets
+      UserSets,
+      AlertMessage,
+      LoadingSpinner
     },
 
-    async fetch() {
-      await this.fetchLikes();
+    fetch() {
+      this.fetchLikes();
+      this.$store.dispatch('set/fetchCreations');
     },
 
     fetchOnServer: false,
 
     data() {
       return {
-        loggedInUser: this.$store.state.auth.user,
-        likes: []
+        loggedInUser: this.$store.state.auth.user
       };
     },
 
     computed: {
       ...mapState({
-        likesId: state => state.set.likesId
+        likesId: state => state.set.likesId,
+        likedItems: state => state.set.likedItems
       })
     },
 
     watch: {
-      'likesId'() {
-        this.fetchLikes();
-      }
+      likesId: 'fetchLikes'
     },
 
     methods: {
-      // TODO: pagination
-      async fetchLikes() {
-        if (!this.$store.state.set.likesId) return;
-        const likes = await this.$sets.getSet(this.likesId, {
-          pageSize: 100,
-          profile: 'itemDescriptions'
-        });
-        this.likes = likes.items;
+      fetchLikes() {
+        this.$store.dispatch('set/fetchLikes');
       }
     },
 

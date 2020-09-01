@@ -3,6 +3,7 @@
     :id="modalId"
     :title="$t('set.actions.addTo')"
     hide-footer
+    hide-header-close
     @show="fetchCollections"
   >
     <b-button
@@ -55,13 +56,10 @@
       }
     },
 
-    data() {
-      return {
-        collections: []
-      };
-    },
-
     computed: {
+      collections() {
+        return this.$store.state.set.creations;
+      },
       // Array of IDs of sets containing the item
       collectionsWithItem() {
         return this.collections
@@ -77,15 +75,8 @@
     },
 
     methods: {
-      async fetchCollections() {
-        const searchParams = {
-          query: `creator:${this.$auth.user.sub}`,
-          profile: 'itemDescriptions',
-          pageSize: 100 // TODO: pagination?
-        };
-
-        const searchResponse = await this.$sets.search(searchParams);
-        this.collections = searchResponse.data.items || [];
+      fetchCollections() {
+        this.$store.dispatch('set/fetchCreations');
       },
 
       hideModal() {
@@ -115,7 +106,7 @@
 
       addItem(setId) {
         // TODO: error handling
-        this.$sets.modifyItems('add', setId, this.itemId)
+        this.$store.dispatch('set/addItem', { setId, itemId: this.itemId })
           .then(() => {
             this.makeToast();
             this.hideModal();
@@ -123,10 +114,7 @@
       },
 
       removeItem(setId) {
-        this.$sets.modifyItems('delete', setId, this.itemId)
-          .then(() => {
-            this.fetchCollections();
-          });
+        this.$store.dispatch('set/removeItem', { setId, itemId: this.itemId });
       },
 
       // TODO: use lang map l10n function
@@ -154,32 +142,13 @@
   @import './assets/scss/variables.scss';
 
   .btn-collection {
+    border: 0;
     font-size: 1rem;
     font-weight: 500;
     margin-bottom: 0.5rem;
     padding: 1rem;
     position: relative;
     text-transform: none;
-
-    &.btn-overlay {
-      span {
-        position: relative;
-        z-index: 10;
-        &.icon-check_circle {
-          font-size: $font-size-large;
-        }
-      }
-
-      &:after {
-        content: '';
-        background: rgba(0, 0, 0, 0.7);
-        height: 100%;
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-      }
-    }
   }
 
   .collections {
