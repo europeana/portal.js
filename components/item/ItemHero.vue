@@ -102,7 +102,7 @@
         return this.rightsStatement && !this.rightsStatement.includes('/InC/');
       },
       showUserButtons() {
-        return Boolean(Number(process.env.ENABLE_XX_USER_AUTH)) && this.$auth.loggedIn;
+        return Boolean(Number(process.env.ENABLE_XX_USER_AUTH));
       }
     },
     methods: {
