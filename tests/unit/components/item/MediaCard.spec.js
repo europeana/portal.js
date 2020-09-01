@@ -1,8 +1,6 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import MediaCard from '../../../../components/item/MediaCard.vue';
 
-import sinon from 'sinon';
-
 const localVue = createLocalVue();
 const factory = (propsData) => shallowMount(MediaCard, {
   localVue,
@@ -28,7 +26,7 @@ describe('components/item/MediaCard', () => {
         it('is `true`', () => {
           const props = { europeanaIdentifier, media: { ebucoreHasMimeType: 'video/ogg', about: 'http://www.example.org/video.ogg', thumbnails: { large: 'https://api.europeana.eu/api/v2/thumbnail-by-url.json?size=w400&type=IMAGE&uri=https%3A%2F%2Feuropeana1914-1918.s3.amazonaws.com%2Fattachments%2F119200%2F10265.119200.original.jpg' } } };
           const wrapper = factory(props);
-          
+
           wrapper.vm.isHTMLVideo.should.be.true;
         });
       });
