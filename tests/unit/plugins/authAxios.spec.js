@@ -37,6 +37,11 @@ let mockContext = {
     getToken() {
       return 'keycloak-mocked-token';
     },
+    ctx: {
+      app: {
+        $axios: createAxiosInstance({ headers: { Authorization: 'keycloak-mocked-token' } })
+      }
+    },
     options: {
       redirect: {
         login: 'http://redirect.url.for.login'
@@ -44,9 +49,8 @@ let mockContext = {
     }
   },
   store: {
-    dispatch: sinon.spy()
-  },
-  $axios: createAxiosInstance({})
+    dispatch: sinon.stub().resolves({})
+  }
 };
 
 const mockInject = (key, method) => {
