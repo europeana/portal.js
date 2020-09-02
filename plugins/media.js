@@ -13,12 +13,16 @@ export function isImage(media) {
 
 export function isHTMLVideo(media) {
   if (!media.ebucoreHasMimeType) return false;
+  if (!media.ebucoreHasMimeType.startsWith('video/')) return false;
+
   const vid = process.browser ? document.createElement('video') : null;
   return media.ebucoreHasMimeType.startsWith('video/') && vid && !!vid.canPlayType(media.ebucoreHasMimeType);
 }
 
 export function isHTMLAudio(media) {
   if (!media.ebucoreHasMimeType) return false;
+  if (!media.ebucoreHasMimeType.startsWith('audio/')) return false;
+
   const aud = process.browser ? document.createElement('audio') : null;
   return media.ebucoreHasMimeType.startsWith('audio/') && aud && !!aud.canPlayType(media.ebucoreHasMimeType);
 }
