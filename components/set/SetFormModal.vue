@@ -46,7 +46,7 @@
           <b-button
             variant="outline-primary"
             data-qa="close button"
-            @click="hide"
+            @click="hide('cancel')"
           >
             {{ isNew ? $t('actions.goBack') : $t('actions.close') }}
           </b-button>
@@ -173,7 +173,7 @@
           this.$store.dispatch('set/updateSet', { id: this.setId, body: this.setBody });
 
         return handler.then(() => {
-          this.hide();
+          this.hide(this.isNew ? 'create' : 'update');
         });
       },
 
@@ -181,12 +181,13 @@
         this.$bvModal.show(this.modalId);
       },
 
-      hide() {
+      hide(message) {
+        this.$emit(message);
         this.$bvModal.hide(this.modalId);
       },
 
       clickDelete() {
-        this.hide();
+        this.$bvModal.hide(this.modalId);
         this.$bvModal.show(this.deleteSetModalId);
       },
 

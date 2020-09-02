@@ -31,6 +31,7 @@
           :modal-id="setFormModalId"
           @create="setCreatedOrUpdated"
           @update="setCreatedOrUpdated"
+          @cancel="setCreatedOrUpdated"
         />
       </template>
     </client-only>
