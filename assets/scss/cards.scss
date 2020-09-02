@@ -324,9 +324,8 @@
   }
 }
 
-.card-deck-4-cols.narrow-gutter {
-  margin-left: -$grid-gutter-narrow;
-  margin-right: -$grid-gutter-narrow; 
+.card-deck {
+  flex-flow: column nowrap;
 }
 
 .card-group-list .card,
@@ -336,6 +335,15 @@
 }
 
 @media (min-width: $bp-medium) {
+  .card-deck {
+    flex-flow: row wrap;
+  }
+
+  .card-deck-4-cols.narrow-gutter {
+    margin-left: -$grid-gutter-narrow;
+    margin-right: -$grid-gutter-narrow; 
+  }
+  
   .card-deck-3-cols .card {
     flex: 0 0 calc(100% / 3 - #{$grid-gutter*2});
   }
