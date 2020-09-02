@@ -1,6 +1,5 @@
 <template>
   <div
-    v-if="showUserButtons"
     class="user-buttons"
     data-qa="user buttons"
   >
@@ -103,9 +102,6 @@
         } else {
           this.$auth.loginWith('keycloak');
         }
-      },
-      showUserButtons() {
-        return Boolean(Number(process.env.ENABLE_UNAUTHENTICATED_USER_BUTTONS)) || (this.$store.state.auth && this.$store.state.auth.loggedIn);
       }
     }
   };
