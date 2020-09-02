@@ -42,7 +42,14 @@
 </template>
 
 <script>
-  import { Swiper, SwiperSlide } from 'vue-awesome-swiper';
+  // Custom build of Swiper with only the modules we need:
+  // @see https://swiperjs.com/api/#custom-build
+  // @see https://github.com/surmon-china/vue-awesome-swiper#custom-build-with-swiper
+  import { Swiper as SwiperClass, Pagination, Navigation } from 'swiper/js/swiper.esm';
+  import getAwesomeSwiper from 'vue-awesome-swiper/dist/exporter';
+  SwiperClass.use([Pagination, Navigation]);
+  const { Swiper, SwiperSlide } = getAwesomeSwiper(SwiperClass);
+
   import 'swiper/css/swiper.css';
   import { isIIIFPresentation } from '../../plugins/media';
   import MediaCard from './MediaCard';
