@@ -181,8 +181,8 @@
         this.$bvModal.show(this.modalId);
       },
 
-      hide(message) {
-        this.$emit(message);
+      hide(signal) {
+        this.$emit(signal);
         this.$bvModal.hide(this.modalId);
       },
 
