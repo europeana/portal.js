@@ -12,6 +12,7 @@
       v-if="entityCollectionLabel"
     >
       <b-list-group-item
+        ref="searchInCollection"
         :to="searchInCollection(query)"
         class="search"
         data-qa="search in collection button"
@@ -34,6 +35,7 @@
         </i18n>
       </b-list-group-item>
       <b-list-group-item
+        ref="searchEntireCollection"
         :to="linkGen(query)"
         class="search"
         role="option"
@@ -59,6 +61,7 @@
       v-else-if="enableAutoSuggest"
     >
       <b-list-group-item
+        ref="searchQuery"
         :to="linkGen(query)"
         class="search"
         role="option"
@@ -82,6 +85,7 @@
     <b-list-group-item
       v-for="(val, name, index) in value"
       v-show="isActive"
+      :ref="val"
       :key="index + 1"
       role="option"
       data-qa="search suggestion"
