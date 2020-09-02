@@ -125,7 +125,6 @@
       this.$nextTick(() => {
         this.$refs.searchbox.$el.focus();
       });
-      this.clearQuery();
     },
 
     methods: {
@@ -195,7 +194,7 @@
       suggestionLinkGen(suggestion) {
         const query = {
           view: this.view,
-          query: `"${suggestion}"`
+          query: `${suggestion}`
         };
         return {
           path: this.$path({
