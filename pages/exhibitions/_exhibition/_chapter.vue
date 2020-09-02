@@ -53,9 +53,6 @@
               :exhibition-identifier="exhibitionIdentifier"
               :chapter-navigation="chapterNavigation"
             />
-            <h2 class="is-size-1-5">
-              {{ $t('exhibitions.chapters') }}
-            </h2>
             <ExhibitionChapters
               :exhibition-identifier="exhibitionIdentifier"
               :chapters="chapters"

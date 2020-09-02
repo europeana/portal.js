@@ -40,9 +40,6 @@
       </b-row>
       <b-row v-if="hasPartCollection">
         <b-col class="my-3">
-          <h2 class="is-size-1-5">
-            {{ $t('exhibitions.chapters') }}
-          </h2>
           <ExhibitionChapters
             :exhibition-identifier="identifier"
             :chapters="hasPartCollection.items"
