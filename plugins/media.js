@@ -13,14 +13,12 @@ export function isImage(media) {
 
 export function isHTMLVideo(media) {
   if (!media.ebucoreHasMimeType) return false;
-  // use a temporary video element
   const vid = process.browser ? document.createElement('video') : null;
   return media.ebucoreHasMimeType.startsWith('video/') && vid && !!vid.canPlayType(media.ebucoreHasMimeType);
 }
 
 export function isHTMLAudio(media) {
   if (!media.ebucoreHasMimeType) return false;
-  // Use a temporary audio element
   const aud = process.browser ? document.createElement('audio') : null;
   return media.ebucoreHasMimeType.startsWith('audio/') && aud && !!aud.canPlayType(media.ebucoreHasMimeType);
 }
