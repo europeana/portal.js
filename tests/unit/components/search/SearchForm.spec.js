@@ -157,7 +157,7 @@ describe('components/search/SearchForm', () => {
         let searchRoute = {
           path: '/search',
           query: {
-            query: '"Fresco"',
+            query: 'Fresco',
             view: state.view
           }
         };
@@ -228,7 +228,7 @@ describe('components/search/SearchForm', () => {
     it('generates search suggestion URLs', () => {
       const link = wrapper.vm.suggestionLinkGen('Fresco');
       link.path.should.eq('/search');
-      link.query.query.should.eq('"Fresco"');
+      link.query.query.should.eq('Fresco');
       link.query.view.should.eq('grid');
     });
   });

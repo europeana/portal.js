@@ -115,16 +115,16 @@ describe('components/search/SearchQueryOptions', () => {
         query
       });
 
-      searchInput.trigger('keyup.down');
+      searchInput.trigger('keydown.down');
       autoSuggestWrapper.vm.focus.should.eq(0);
-      searchInput.trigger('keyup.down');
+      searchInput.trigger('keydown.down');
       autoSuggestWrapper.vm.focus.should.eq(1);
-      searchInput.trigger('keyup.up');
+      searchInput.trigger('keydown.up');
       autoSuggestWrapper.vm.focus.should.eq(0);
       // TODO: re-adjust integers with buttons now added to list
-      // searchInput.trigger('keyup.up');
+      // searchInput.trigger('keydown.up');
       // autoSuggestWrapper.vm.focus.should.eq(2);
-      // searchInput.trigger('keyup.down');
+      // searchInput.trigger('keydown.down');
       // autoSuggestWrapper.vm.focus.should.eq(0);
     });
 
@@ -137,7 +137,7 @@ describe('components/search/SearchQueryOptions', () => {
         value: suggestions,
         query
       });
-      searchInput.trigger('keyup.esc');
+      searchInput.trigger('keydown.esc');
 
       autoSuggestWrapper.attributes('aria-hidden').should.eq('true');
     });

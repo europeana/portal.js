@@ -12,7 +12,6 @@
       v-if="entityCollectionLabel"
     >
       <b-list-group-item
-        ref="searchInCollection"
         :to="searchInCollection(query)"
         class="search"
         data-qa="search in collection button"
@@ -35,7 +34,6 @@
         </i18n>
       </b-list-group-item>
       <b-list-group-item
-        ref="searchEntireCollection"
         :to="linkGen(query)"
         class="search"
         role="option"
@@ -61,7 +59,6 @@
       v-else-if="enableAutoSuggest"
     >
       <b-list-group-item
-        ref="searchQuery"
         :to="linkGen(query)"
         class="search"
         role="option"
@@ -85,7 +82,6 @@
     <b-list-group-item
       v-for="(val, name, index) in value"
       v-show="isActive"
-      :ref="val"
       :key="index + 1"
       role="option"
       data-qa="search suggestion"
@@ -262,31 +258,31 @@
     },
 
     mounted() {
-      this.inputElement.addEventListener('keyup', this.keyup);
+      this.inputElement.addEventListener('keydown', this.keydown);
       document.addEventListener('mouseup', this.clickOutside);
     },
 
     methods: {
-      keyup(event) {
+      keydown(event) {
         switch (event.keyCode) {
         case 27: // Escape key
           this.closeDropdown();
           break;
-        case 9: // Tab key - not triggered
-          console.log('tab');
+        case 9: // Tab key
+          this.closeDropdown();
           break;
         case 38: // Up key
           if (!this.isActive) return;
-          this.keyupUp();
+          this.keydownUp();
           break;
         case 40: // Down key
           if (!this.isActive) return;
-          this.keyupDown();
+          this.keydownDown();
           break;
         }
       },
 
-      keyupUp() {
+      keydownUp() {
         if (this.enableAutoSuggest) {
           if (this.noSuggestionHasFocus || this.firstSuggestionHasFocus) {
             this.focus = this.numberOfSuggestions;
@@ -305,7 +301,7 @@
         this.selectSuggestion();
       },
 
-      keyupDown() {
+      keydownDown() {
         if (this.enableAutoSuggest) {
           if (this.noSuggestionHasFocus || this.lastSuggestionHasFocus) {
             this.focus = 0;
