@@ -50,20 +50,22 @@
           >
             {{ isNew ? $t('actions.goBack') : $t('actions.close') }}
           </b-button>
-          <b-button
-            v-if="!isNew"
-            variant="danger"
-            data-qa="delete button"
-            @click="clickDelete"
-          >
-            {{ $t('set.actions.delete') }}
-          </b-button>
-          <b-button
-            variant="primary"
-            type="submit"
-          >
-            {{ isNew ? $t('set.actions.create') : $t('set.actions.update') }}
-          </b-button>
+          <div class="d-flex">
+            <b-button
+              v-if="!isNew"
+              variant="danger"
+              data-qa="delete button"
+              @click="clickDelete"
+            >
+              {{ $t('set.actions.delete') }}
+            </b-button>
+            <b-button
+              variant="primary"
+              type="submit"
+            >
+              {{ isNew ? $t('set.actions.create') : $t('set.actions.update') }}
+            </b-button>
+          </div>
         </div>
       </b-form>
     </b-modal>
