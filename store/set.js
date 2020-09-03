@@ -90,7 +90,7 @@ export const actions = {
   },
   createSet({ dispatch }, body) {
     return this.$sets.createSet(body)
-      .then(dispatch('fetchCreations'));
+      .then(() => dispatch('fetchCreations'));
   },
   updateSet({ state, commit }, { id, body }) {
     return this.$sets.updateSet(id, body)
