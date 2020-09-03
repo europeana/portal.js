@@ -85,17 +85,6 @@
         });
       },
 
-      makeToast() {
-        this.$root.$bvToast.toast(this.$t('set.notifications.itemAdded'), {
-          toastClass: 'brand-toast',
-          toaster: 'b-toaster-bottom-left',
-          autoHideDelay: 5000,
-          isStatus: true,
-          noCloseButton: true,
-          solid: true
-        });
-      },
-
       toggleItem(setId) {
         if (this.collectionsWithItem.includes(setId)) {
           this.removeItem(setId);
@@ -106,11 +95,7 @@
 
       addItem(setId) {
         // TODO: error handling
-        this.$store.dispatch('set/addItem', { setId, itemId: this.itemId })
-          .then(() => {
-            this.makeToast();
-            this.hideModal();
-          });
+        this.$store.dispatch('set/addItem', { setId, itemId: this.itemId });
       },
 
       removeItem(setId) {

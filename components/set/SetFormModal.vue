@@ -46,7 +46,7 @@
           <b-button
             variant="outline-primary"
             data-qa="close button"
-            @click="hide"
+            @click="hide('cancel')"
           >
             {{ isNew ? $t('actions.goBack') : $t('actions.close') }}
           </b-button>
@@ -119,6 +119,11 @@
       type: {
         type: String,
         default: 'Collection'
+      },
+
+      itemContext: {
+        type: String,
+        default: null
       }
     },
 
@@ -139,6 +144,9 @@
           description: { ...this.description },
           visibility: this.isPrivate ? 'private' : 'public'
         };
+        if (this.isNew && this.itemContext) {
+          setBody.items = ['http://data.europeana.eu/item' + this.itemContext];
+        }
         setBody.title[this.$i18n.locale] = this.titleValue;
         setBody.description[this.$i18n.locale] = this.descriptionValue;
 
@@ -173,7 +181,7 @@
           this.$store.dispatch('set/updateSet', { id: this.setId, body: this.setBody });
 
         return handler.then(() => {
-          this.hide();
+          this.hide(this.isNew ? 'create' : 'update');
         });
       },
 
@@ -181,12 +189,13 @@
         this.$bvModal.show(this.modalId);
       },
 
-      hide() {
+      hide(signalType) {
+        this.$emit('response', signalType);
         this.$bvModal.hide(this.modalId);
       },
 
       clickDelete() {
-        this.hide();
+        this.$bvModal.hide(this.modalId);
         this.$bvModal.show(this.deleteSetModalId);
       },
 
