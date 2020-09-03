@@ -29,9 +29,8 @@
         />
         <SetFormModal
           :modal-id="setFormModalId"
-          @create="setCreatedOrUpdated"
-          @update="setCreatedOrUpdated"
-          @cancel="setCreatedOrUpdated"
+          :item-context="value"
+          @response="setCreatedOrUpdated"
         />
       </template>
     </client-only>

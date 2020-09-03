@@ -119,6 +119,11 @@
       type: {
         type: String,
         default: 'Collection'
+      },
+
+      itemContext: {
+        type: String,
+        default: null
       }
     },
 
@@ -139,6 +144,9 @@
           description: { ...this.description },
           visibility: this.isPrivate ? 'private' : 'public'
         };
+        if (this.isNew && this.itemContext) {
+          setBody.items = ['http://data.europeana.eu/item' + this.itemContext];
+        }
         setBody.title[this.$i18n.locale] = this.titleValue;
         setBody.description[this.$i18n.locale] = this.descriptionValue;
 
@@ -181,8 +189,8 @@
         this.$bvModal.show(this.modalId);
       },
 
-      hide(signal) {
-        this.$emit(signal);
+      hide(signalType) {
+        this.$emit('response', signalType);
         this.$bvModal.hide(this.modalId);
       },
 
