@@ -6,13 +6,19 @@ import ItemHero from '../../../../components/item/ItemHero.vue';
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
-const factory = (propsData) => mount(ItemHero, {
+const factory = ({ propsData, storeState = {}, $auth = {} }) => mount(ItemHero, {
   localVue,
+  propsData,
   mocks: {
     $t: (key) => key,
-    $proxyMedia: () => 'proxied'
-  },
-  propsData
+    $proxyMedia: () => 'proxied',
+    $auth,
+    $store: {
+      state: {
+        set: { ...storeState }
+      }
+    }
+  }
 });
 
 const media = [
@@ -71,15 +77,15 @@ describe('components/item/ItemHero', () => {
   });
 
   describe('downloadEnabled', () => {
-    context('when the rightsstatement is for in copyright', () => {
+    context('when the rightsstatement is in copyright', () => {
       it('is false', () => {
-        const wrapper = factory({ media: [media[1]], identifier });
+        const wrapper = factory({ media: [media[0]], identifier });
         wrapper.vm.downloadEnabled.should.eq(false);
       });
     });
     context('when the rightsstatement is not in copyright', () => {
       it('is true', () => {
-        const wrapper = factory({ media: [media[0]], identifier });
+        const wrapper = factory({ media: [media[1]], identifier });
         wrapper.vm.downloadEnabled.should.eq(true);
       });
     });

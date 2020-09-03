@@ -83,6 +83,7 @@
         return RegExp('^https?://*').test(this.rightsStatement);
       },
       rightsStatement() {
+        console.log(this.identifier);
         if (has(this.selectedMedia, 'webResourceEdmRights')) {
           return this.selectedMedia.webResourceEdmRights.def[0];
         } else if (this.edmRights !== '') {
@@ -102,7 +103,7 @@
         return this.rightsStatement && !this.rightsStatement.includes('/InC/');
       },
       showUserButtons() {
-        return Boolean(Number(process.env.ENABLE_XX_USER_AUTH)) && Boolean(Number(process.env.ENABLE_UNAUTHENTICATED_USER_BUTTONS));
+        return ((Boolean(Number(process.env.ENABLE_XX_USER_AUTH)) && Boolean(Number(process.env.ENABLE_UNAUTHENTICATED_USER_BUTTONS))) || (this.$store.state.auth && this.$store.state.auth.loggedIn));
       }
     },
     methods: {

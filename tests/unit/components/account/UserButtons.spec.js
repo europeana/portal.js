@@ -101,7 +101,6 @@ describe('components/account/UserButtons', () => {
     });
 
     context('when an item is not yet liked', () => {
-      const $auth = { loggedIn: true };
       beforeEach(() => {
         storeIsLikedGetter.reset();
         storeIsLikedGetter.returns(false);
@@ -117,7 +116,7 @@ describe('components/account/UserButtons', () => {
 
       context('when pressed', () => {
         it('dispatches to create likes set if needed', () => {
-          const wrapper = factory({ storeState: { liked: [], likesId: null }, $auth });
+          const wrapper = factory({ storeState: { liked: [], likesId: null } });
 
           const likeButton = wrapper.find('[data-qa="like button"]');
           likeButton.trigger('click');
@@ -135,7 +134,7 @@ describe('components/account/UserButtons', () => {
         });
 
         it('emits "like" event', async() => {
-          const wrapper = factory({ storeState: { liked: [] }, $auth });
+          const wrapper = factory({ storeState: { liked: [] } });
 
           const likeButton = wrapper.find('[data-qa="like button"]');
           likeButton.trigger('click');
@@ -147,7 +146,6 @@ describe('components/account/UserButtons', () => {
     });
 
     context('and an item is already liked', () => {
-      const $auth = { loggedIn: true };
       beforeEach(() => {
         storeIsLikedGetter.reset();
         storeIsLikedGetter.returns(true);
@@ -163,7 +161,7 @@ describe('components/account/UserButtons', () => {
 
       context('when pressed', () => {
         it('dispatches to remove item from likes set', () => {
-          const wrapper = factory({ storeState: { liked: [identifier] }, $auth });
+          const wrapper = factory({ storeState: { liked: [identifier] } });
 
           const likeButton = wrapper.find('[data-qa="like button"]');
           likeButton.trigger('click');
@@ -172,7 +170,7 @@ describe('components/account/UserButtons', () => {
         });
 
         it('emits "unlike" event', async() => {
-          const wrapper = factory({ storeState: { liked: [identifier] }, $auth });
+          const wrapper = factory({ storeState: { liked: [identifier] } });
 
           const likeButton = wrapper.find('[data-qa="like button"]');
           likeButton.trigger('click');

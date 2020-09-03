@@ -82,11 +82,7 @@
         this.$bvModal.show(this.addItemToSetModalId);
       },
       async toggleLiked() {
-        if (this.$auth.loggedIn) {
-          await (this.liked ? this.unlike() : this.like());
-        } else {
-          this.$auth.loginWith('keycloak');
-        }
+        await (this.liked ? this.unlike() : this.like());
       },
       async like() {
         if (this.likesId === null) {
