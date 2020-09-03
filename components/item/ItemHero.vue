@@ -83,7 +83,6 @@
         return RegExp('^https?://*').test(this.rightsStatement);
       },
       rightsStatement() {
-        console.log(this.identifier);
         if (has(this.selectedMedia, 'webResourceEdmRights')) {
           return this.selectedMedia.webResourceEdmRights.def[0];
         } else if (this.edmRights !== '') {
