@@ -50,7 +50,7 @@
           >
             {{ isNew ? $t('actions.goBack') : $t('actions.close') }}
           </b-button>
-          <div class="right">
+          <div class="d-flex">
             <b-button
               v-if="!isNew"
               variant="danger"
