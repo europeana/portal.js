@@ -2,17 +2,28 @@ import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 
 import ItemHero from '../../../../components/item/ItemHero.vue';
-
+import sinon from 'sinon';
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
+const storeDispatch = sinon.spy();
+const storeIsLikedGetter = sinon.stub();
 
 const factory = (propsData) => mount(ItemHero, {
   localVue,
+  propsData,
   mocks: {
     $t: (key) => key,
-    $proxyMedia: () => 'proxied'
-  },
-  propsData
+    $proxyMedia: () => 'proxied',
+    $store: {
+      state: {
+        set: { ...{ liked: [] }, ...{} }
+      },
+      getters: {
+        'set/isLiked': storeIsLikedGetter
+      },
+      dispatch: storeDispatch
+    }
+  }
 });
 
 const media = [
@@ -71,7 +82,7 @@ describe('components/item/ItemHero', () => {
   });
 
   describe('downloadEnabled', () => {
-    context('when the rightsstatement is for in copyright', () => {
+    context('when the rightsstatement is in copyright', () => {
       it('is false', () => {
         const wrapper = factory({ media: [media[1]], identifier });
         wrapper.vm.downloadEnabled.should.eq(false);

@@ -4,14 +4,12 @@
 
 <script>
   export default {
-    auth: true,
     layout: 'minimal',
-    middleware: [
-      'auth',
-      ({ $auth, store }) => {
-        store.dispatch('set/reset');
-        $auth.logout();
-      }
-    ]
+    mounted() {
+      this.$auth.logout();
+      const path = this.$auth.strategies.keycloak.options.end_session_endpoint;
+      localStorage.setItem('logout-event', `logout-${Math.random()}`);
+      this.$goto(`${path}?redirect_uri=${encodeURIComponent(window.location.origin)}`);
+    }
   };
   </script>

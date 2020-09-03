@@ -15,14 +15,16 @@
         class="container h-100"
       >
         <MediaCard
-          :europeana-identifier="item.europeanaIdentifier"
+          :europeana-identifier="europeanaIdentifier"
           :media="item"
+          :is-single-playable-media="isSinglePlayableMedia"
         />
       </div>
       <MediaCard
         v-else
-        :europeana-identifier="item.europeanaIdentifier"
+        :europeana-identifier="europeanaIdentifier"
         :media="item"
+        :is-single-playable-media="isSinglePlayableMedia"
       />
     </swiper-slide>
     <div
@@ -51,7 +53,8 @@
   const { Swiper, SwiperSlide } = getAwesomeSwiper(SwiperClass);
 
   import 'swiper/swiper-bundle.css';
-  import { isIIIFPresentation } from '../../plugins/media';
+  import { isIIIFPresentation, isPlayableMedia } from '../../plugins/media';
+
   import MediaCard from './MediaCard';
 
   export default {
@@ -98,6 +101,9 @@
     computed: {
       swiper() {
         return this.$refs.awesome.$swiper;
+      },
+      isSinglePlayableMedia() {
+        return this.media.filter(resource => isPlayableMedia(resource)).length === 1;
       }
     },
     methods: {
@@ -128,19 +134,27 @@
         content: '';
         transition: $standard-transition;
       }
-      &:not(.swiper-slide-active):before {
-        content: '';
-        width: 100%;
-        left: 0;
-        top: 0;
-        height: 100%;
-        position: absolute;
+
+      &:not(.swiper-slide-active) {
+        &:before {
+          content: '';
+          width: 100%;
+          left: 0;
+          top: 0;
+          height: 100%;
+          position: absolute;
+        }
+        .audio-slide {
+          pointer-events: none;
+        }
       }
+
       &:only-child {
         width: 100%;
         margin-left: auto;
         margin-right: auto;
       }
+
       a {
         display: inline-flex;
         height: 100%;
@@ -156,12 +170,18 @@
       opacity: 0.7;
     }
 
+    .swiper-button-prev:after, .swiper-button-next:after {
+      font-size: 22px;
+    }
+
     .swiper-button-disabled {
       display: none;
     }
 
-    .swiper-button-prev:after, .swiper-button-next:after {
-      font-size: 22px;
+    .swiper-container-horizontal > .swiper-pagination-bullets {
+      left: 50%;
+      transform: translateX(-50%);
+      width: auto;
     }
 
     .swiper-pagination-bullet-active {

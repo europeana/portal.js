@@ -1,14 +1,9 @@
 import recommendation from './europeana/recommendation';
 import set from './europeana/set';
 
-export default ({ $axios, $auth, store, redirect }, inject) => {
-  const token = $auth.getToken('keycloak');
-
-  const headers = {};
-  if (token) headers['Authorization'] = token;
+export default ({ $auth, store, redirect }, inject) => {
   const redirectUrl = $auth.options.redirect.login;
-
-  const axiosInstance = $axios.create({ headers });
+  const axiosInstance = $auth.ctx.app.$axios;
 
   axiosInstance.onError(error => {
     if (!$auth.loggedIn && error.response && error.response.status === 401) {

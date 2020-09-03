@@ -201,6 +201,43 @@
   .media-bar {
     margin-top: 2.5rem;
   }
+  .user-buttons {
+    display: inline-flex;
+    .btn {
+      text-transform: capitalize;
+      background: $offwhite;
+      color: $mediumgrey;
+      box-shadow: none;
+      border-radius: 0.25rem;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid transparent;
+      display: inline-flex;
+      font-size: 1.5rem;
+      height: 2.25rem;
+      min-width: 2.25rem;
+      line-height: 1;
+      padding: 0.375rem;
+      margin-right: 0.5rem;
+
+      &:hover {
+        box-shadow: $boxshadow-small;
+      }
+
+      &.active {
+        color: $white;
+        background-color: $red;
+        border-color: $red;
+      }
+
+      &-sm {
+        font-size: $font-size-small;
+      }
+    }
+    .container {
+      padding: 0;
+    }
+  }
   @media (max-width: $bp-small) {
     .media-bar {
       flex-direction: column;
