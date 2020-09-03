@@ -75,7 +75,7 @@
       },
 
       showUserButtons() {
-        return Boolean(Number(process.env.ENABLE_XX_USER_AUTH)) && (this.variant === 'default');
+        return Boolean(Number(process.env.ENABLE_XX_USER_AUTH)) && (this.variant === 'default') && (Boolean(Number(process.env.ENABLE_UNAUTHENTICATED_USER_BUTTONS)) || (this.$store.state.auth && this.$store.state.auth.loggedIn));
       },
 
       identifier() {

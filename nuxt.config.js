@@ -234,9 +234,10 @@ if (Number(process.env['ENABLE_XX_USER_AUTH'])) {
     // Redirect routes: 'callback' option for keycloak redirects,
     // 'login' option for unauthorised redirection
     // 'home' option for redirection after login
+    //  no redirect on logout
     redirect: {
       login: '/account/login',
-      logout: '/',
+      logout: false,
       callback: '/account/callback',
       home: '/account'
     },
@@ -251,6 +252,7 @@ if (Number(process.env['ENABLE_XX_USER_AUTH'])) {
         authorization_endpoint: `${process.env.OAUTH_ORIGIN}/auth/realms/${process.env.OAUTH_REALM}/protocol/openid-connect/auth`,
         access_token_endpoint: `${process.env.OAUTH_ORIGIN}/auth/realms/${process.env.OAUTH_REALM}/protocol/openid-connect/token`,
         userinfo_endpoint: `${process.env.OAUTH_ORIGIN}/auth/realms/${process.env.OAUTH_REALM}/protocol/openid-connect/userinfo`,
+        end_session_endpoint: `${process.env.OAUTH_ORIGIN}/auth/realms/${process.env.OAUTH_REALM}/protocol/openid-connect/logout`,
         response_type: 'code id_token token',
         token_type: 'Bearer'
       }
