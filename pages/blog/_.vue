@@ -44,10 +44,6 @@
           v-if="post.authorCollection.items.length > 0"
           :authors="post.authorCollection.items"
         />
-        <BlogCategories
-          v-if="post.genre"
-          :categories="post.genre"
-        />
       </b-col>
     </b-row>
   </b-container>
@@ -62,7 +58,6 @@
       BlogPost,
       BlogTags: () => import('../../components/blog/BlogTags'),
       BlogAuthors: () => import('../../components/blog/BlogAuthors'),
-      BlogCategories: () => import('../../components/blog/BlogCategories'),
       ImageWithAttribution: () => import('../../components/generic/ImageWithAttribution')
     },
 
