@@ -193,7 +193,7 @@
         }
       },
 
-      items() {
+      'set.items'() {
         if (!this.$auth.loggedIn) return;
         this.$recommendations.recommend('set', `/${this.$route.params.pathMatch}`)
           .then(recommendResponse => {
