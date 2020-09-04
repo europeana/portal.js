@@ -11,12 +11,12 @@
       <SmartLink
         v-for="(chapter, index) in chaptersAndCredits"
         :key="chapter.identifier"
-        :style="chapterBackground(chapterImageUrl(chapter))"
+        :style="`background-image: url(${optimisedBackgroundImageUrl(chapter)})`"
         class="chapter w-100 text-left d-flex justify-content-start align-items-center"
         :destination="chapterUrl(chapter)"
         :data-qa="`exhibitions ${chapter.identifier} card`"
       >
-        <span class="px-4">{{ index + 1 }}</span>
+        <span class="pl-3 pr-4">{{ index + 1 }}</span>
         <span>{{ chapter.name }}</span>
       </SmartLink>
     </b-list-group>
@@ -73,7 +73,7 @@
       chapterText(chapter) {
         return chapter.identifier === this.currentChapter ? this.$t('exhibitions.currentChapter') : '';
       },
-      chapterImageUrl(chapter) {
+      chapterImage(chapter) {
         if (!chapter.primaryImageOfPage) return;
         if (!chapter.primaryImageOfPage.image) return;
         if (!chapter.primaryImageOfPage.image) return;
@@ -85,11 +85,12 @@
         if (!chapter.primaryImageOfPage.image) return;
         return chapter.primaryImageOfPage.image.contentType;
       },
-      chapterBackground(img) {
-        if (!img) return null;
-        return {
-          'background-image': `url("${img}")`
-        };
+      optimisedBackgroundImageUrl(chapter) {
+        return this.$options.filters.optimisedImageUrl(
+          this.chapterImage(chapter),
+          this.chapterImageContentType(chapter),
+          { width: 800, height: 800 }
+        );
       }
     }
   };
@@ -103,6 +104,7 @@
   }
   h2 {
     font-weight: 600;
+    margin-bottom: 0.75rem;
   }
   .chapter {
     border: 0;

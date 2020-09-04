@@ -5,15 +5,15 @@
   >
     <b-container
       fluid
-      class="image-wrapper mb-5"
+      class="title image-wrapper"
     >
       <h1>{{ name }}</h1>
-      <p class="lead">
+      <p
+        v-if="headline"
+        class="lead"
+      >
         {{ headline }}
       </p>
-      <SocialShare
-        :media-url="heroImage.url"
-      />
     </b-container>
     <ImageWithAttribution
       :src="heroImage.url"
@@ -30,6 +30,9 @@
         >
           <article>
             <!-- eslint-disable vue/no-v-html -->
+            <!-- share :media-url="" -->
+            <ShareButton class="mb-4" />
+            <SocialShareModal :media-url="heroImage.url" />
             <div
               data-qa="exhibition text"
               v-html="mainContent"
@@ -55,12 +58,15 @@
   import marked from 'marked';
 
   import ExhibitionChapters from '../../../components/exhibition/ExhibitionChapters';
+  import ShareButton from '../../../components/sharing/ShareButton.vue';
+  import SocialShareModal from '../../../components/sharing/SocialShareModal.vue';
 
   export default {
     components: {
       ExhibitionChapters,
-      ImageWithAttribution: () => import('../../../components/generic/ImageWithAttribution'),
-      SocialShare: () => import('../../../components/sharing/SocialShare')
+      ShareButton,
+      SocialShareModal,
+      ImageWithAttribution: () => import('../../../components/generic/ImageWithAttribution')
     },
     asyncData({ params, query, error, app, store, redirect }) {
       if (params.exhibition === undefined) redirect(app.$path({ name: 'exhibitions' }));

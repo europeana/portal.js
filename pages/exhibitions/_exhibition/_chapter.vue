@@ -5,15 +5,15 @@
   >
     <b-container
       fluid
-      class="image-wrapper mb-5"
+      class="title image-wrapper"
     >
       <h1>{{ page.name }}</h1>
-      <p class="lead">
+      <p
+        v-if="page.headline"
+        class="lead"
+      >
         {{ page.headline }}
       </p>
-      <SocialShare
-        :media-url="heroImage.url"
-      />
     </b-container>
     <ImageWithAttribution
       :src="heroImage.url"
@@ -38,6 +38,10 @@
       </b-row>
       <b-row>
         <b-col>
+          <article>
+            <ShareButton class="mb-4" />
+            <SocialShareModal :media-url="heroImage.url" />
+          </article>
           <BrowseSections
             v-if="page"
             :sections="page.hasPartCollection.items"
@@ -70,6 +74,8 @@
   import BrowseSections from '../../../components/browse/BrowseSections';
   import ExhibitionChapters from '../../../components/exhibition/ExhibitionChapters';
   import ExhibitionChaptersNavigation from '../../../components/exhibition/ExhibitionChaptersNavigation';
+  import ShareButton from '../../../components/sharing/ShareButton.vue';
+  import SocialShareModal from '../../../components/sharing/SocialShareModal.vue';
 
   export default {
     components: {
@@ -77,8 +83,9 @@
       ClientOnly,
       ExhibitionChapters,
       ExhibitionChaptersNavigation,
-      ImageWithAttribution: () => import('../../../components/generic/ImageWithAttribution'),
-      SocialShare: () => import('../../../components/sharing/SocialShare')
+      ShareButton,
+      SocialShareModal,
+      ImageWithAttribution: () => import('../../../components/generic/ImageWithAttribution')
     },
     asyncData({ params, query, error, app, store }) {
       const variables = {

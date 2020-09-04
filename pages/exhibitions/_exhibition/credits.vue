@@ -8,7 +8,7 @@
         <b-col
           cols="12"
           lg="9"
-          class="pb-0 pb-lg-3 mt-2"
+          class="pb-0 pb-lg-3 px-0 mt-2 mx-auto credits"
         >
           <h1>{{ $t('exhibitions.credits') }}</h1>
           <!-- eslint-disable vue/no-v-html -->
