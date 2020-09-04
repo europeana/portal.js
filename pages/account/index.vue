@@ -59,7 +59,14 @@
               :title="$t('account.publicCollections')"
             >
               <client-only>
+                <div
+                  v-if="$fetchState.pending"
+                  class="text-center pb-4"
+                >
+                  <LoadingSpinner />
+                </div>
                 <UserSets
+                  v-else
                   visibility="public"
                   data-qa="public sets"
                 />
@@ -70,7 +77,14 @@
               :title="$t('account.privateCollections')"
             >
               <client-only>
+                <div
+                  v-if="$fetchState.pending"
+                  class="text-center pb-4"
+                >
+                  <LoadingSpinner />
+                </div>
                 <UserSets
+                  v-else
                   visibility="private"
                   data-qa="private sets"
                 />
@@ -101,9 +115,9 @@
       LoadingSpinner
     },
 
-    fetch() {
+    async fetch() {
       this.fetchLikes();
-      this.$store.dispatch('set/fetchCreations');
+      await this.$store.dispatch('set/fetchCreations');
     },
 
     fetchOnServer: false,
