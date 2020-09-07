@@ -209,7 +209,7 @@
       },
       getRecommendations() {
         if (this.$auth.loggedIn) {
-          if (this.set && this.set.total !== 0) {
+          if (this.set && this.set.total >= 0) {
             return this.$recommendations.recommend('set', `/${this.$route.params.pathMatch}`)
               .then(recommendResponse => {
                 this.recommendations = recommendResponse.items || [];
@@ -225,6 +225,10 @@
       return {
         title: this.displayTitle.values[0]
       };
+    },
+    async beforeRouteLeave(to, from, next) {
+      this.$store.commit('set/setActive', null);
+      next();
     }
   };
 </script>
