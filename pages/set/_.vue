@@ -119,7 +119,9 @@
         class="recommendations"
       >
         <b-col>
-          <h2 class="related-heading">{{ $t('items.youMightLike') }}</h2>
+          <h2 class="related-heading">
+            {{ $t('items.youMightLike') }}
+          </h2>
           <ItemPreviewCardGroup
             v-model="recommendations"
           />
@@ -154,12 +156,7 @@
         }
         throw apiError;
       }
-      this.getRecommendations();
-      this.$watch('set.total', function() {
-        this.getRecommendations();
-      });
     },
-    fetchOnServer: false,
 
     data() {
       return {
@@ -196,7 +193,14 @@
           const path = this.$path({ name: 'account' });
           this.$goto(path);
         }
+      },
+      'set.total'() {
+        this.getRecommendations();
       }
+    },
+
+    mounted() {
+      this.getRecommendations();
     },
 
     methods: {
@@ -205,13 +209,13 @@
       },
       getRecommendations() {
         if (this.$auth.loggedIn) {
-          if (this.set.total === 0) {
-            return this.recommendations = [];
-          } else {
+          if (this.set && this.set.total !== 0) {
             return this.$recommendations.recommend('set', `/${this.$route.params.pathMatch}`)
               .then(recommendResponse => {
                 this.recommendations = recommendResponse.items || [];
               });
+          } else {
+            return this.recommendations = [];
           }
         }
       }
