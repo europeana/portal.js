@@ -154,7 +154,12 @@
         }
         throw apiError;
       }
+      this.getRecommendations();
+      this.$watch('set.total', function() {
+        this.getRecommendations();
+      });
     },
+    fetchOnServer: false,
 
     data() {
       return {
@@ -191,20 +196,24 @@
           const path = this.$path({ name: 'account' });
           this.$goto(path);
         }
-      },
-
-      'set.items'() {
-        if (!this.$auth.loggedIn) return;
-        this.$recommendations.recommend('set', `/${this.$route.params.pathMatch}`)
-          .then(recommendResponse => {
-            this.recommendations = recommendResponse.items || [];
-          });
       }
     },
 
     methods: {
       updateSet() {
         this.$bvModal.hide(this.setFormModalId);
+      },
+      getRecommendations() {
+        if (this.$auth.loggedIn) {
+          if (this.set.total === 0) {
+            return this.recommendations = [];
+          } else {
+            return this.$recommendations.recommend('set', `/${this.$route.params.pathMatch}`)
+              .then(recommendResponse => {
+                this.recommendations = recommendResponse.items || [];
+              });
+          }
+        }
       }
     },
 
