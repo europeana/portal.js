@@ -119,7 +119,7 @@
         class="recommendations"
       >
         <b-col>
-          <h2>{{ $t('items.youMightLike') }}</h2>
+          <h2 class="related-heading">{{ $t('items.youMightLike') }}</h2>
           <ItemPreviewCardGroup
             v-model="recommendations"
           />
