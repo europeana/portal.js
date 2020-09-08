@@ -187,8 +187,8 @@
     },
 
     watch: {
-      'set.id'() {
-        if (!this.set.id) {
+      'set'() {
+        if (this.set === 'DELETED') {
           // Set was deleted
           const path = this.$path({ name: 'account' });
           this.$goto(path);
@@ -227,7 +227,7 @@
       };
     },
     async beforeRouteLeave(to, from, next) {
-      this.$store.commit('set/setActive', null);
+      await this.$store.commit('set/setActive', null);
       next();
     }
   };
