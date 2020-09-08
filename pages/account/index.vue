@@ -26,7 +26,7 @@
                 <b-row class="flex-md-row">
                   <b-col cols="12">
                     <div
-                      v-if="$fetchState.pending"
+                      v-if="likedItems && likedItems.length === 0"
                       class="text-center pb-4"
                     >
                       <LoadingSpinner />
@@ -39,7 +39,7 @@
                       v-else
                     >
                       <div
-                        v-if="!likedItems || likedItems.length === 0"
+                        v-if="!likedItems"
                         class="text-center pb-4"
                       >
                         {{ $t('account.notifications.noLikedItems') }}
@@ -59,7 +59,14 @@
               :title="$t('account.publicCollections')"
             >
               <client-only>
+                <div
+                  v-if="$fetchState.pending"
+                  class="text-center pb-4"
+                >
+                  <LoadingSpinner />
+                </div>
                 <UserSets
+                  v-else
                   visibility="public"
                   data-qa="public sets"
                 />
@@ -70,7 +77,14 @@
               :title="$t('account.privateCollections')"
             >
               <client-only>
+                <div
+                  v-if="$fetchState.pending"
+                  class="text-center pb-4"
+                >
+                  <LoadingSpinner />
+                </div>
                 <UserSets
+                  v-else
                   visibility="private"
                   data-qa="private sets"
                 />
@@ -101,9 +115,9 @@
       LoadingSpinner
     },
 
-    fetch() {
+    async fetch() {
       this.fetchLikes();
-      this.$store.dispatch('set/fetchCreations');
+      await this.$store.dispatch('set/fetchCreations');
     },
 
     fetchOnServer: false,
