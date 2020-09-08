@@ -1,5 +1,5 @@
 <template>
-  <b-container>
+  <b-container class="p-0">
     <b-modal
       :id="modalId"
       :title="modalTitle"
