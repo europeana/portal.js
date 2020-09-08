@@ -1,5 +1,5 @@
 <template>
-  <div class="pb-3">
+  <div class="author">
     <SmartLink
       v-if="url"
       :destination="url"
@@ -7,10 +7,16 @@
     >
       {{ name }}<!-- remove space
     --></SmartLink>
-    <strong v-else>{{ name }}</strong>
-    <strong v-if="organisation">
-      ({{ organisation }})
-    </strong>
+    <span v-else>{{ name }}</span><!-- remove space
+    --><span
+      v-if="multipleAuthors && !organisation"
+      class="comma"
+    >,</span>
+    <span v-if="organisation">({{ organisation }})</span><!--
+ --><span
+      v-if="multipleAuthors && organisation"
+      class="comma"
+    >,</span>
   </div>
 </template>
 
@@ -38,6 +44,11 @@
       url: {
         type: String,
         default: ''
+      },
+
+      multipleAuthors: {
+        type: Boolean,
+        default: false
       }
     }
   };

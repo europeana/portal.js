@@ -39,7 +39,7 @@
         <div class="font-small font-weight-bold d-block">
           <time
             v-if="datePublished"
-            class="pb-3 d-inline-block"
+            class="d-inline-block"
             data-qa="date"
             :datetime="datePublished"
           >
@@ -48,14 +48,15 @@
           <span>{{ $t('blog.by') }}</span>
           <BlogAuthor
             v-for="(author, index) in authors"
-            class="d-inline-block"
             :key="index"
+            class="d-inline-block"
             :name="author.name"
             :organisation="author.affiliation"
             :url="author.url"
+            :multiple-authors="multipleAuthors"
           />
         </div>
-        <ShareButton class="mb-4" />
+        <ShareButton class="my-4" />
         <SocialShareModal :media-url="identifier" />
         <!-- eslint-disable vue/no-v-html -->
         <div
@@ -129,8 +130,8 @@
       html() {
         return marked(this.body);
       },
-      authorTitle() {
-        return this.authors && this.authors.length > 1 ? this.$t('blog.authors') : this.$t('blog.author');
+      multipleAuthors() {
+        return this.authors.length > 1 || false;
       }
     }
   };

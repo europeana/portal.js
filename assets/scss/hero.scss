@@ -118,12 +118,41 @@
     margin-left: auto;
     margin-right: auto;
   }
+  article {
+    .author:last-of-type .comma {
+      display: none;
+    }
+  }
   .article {
     iframe {
       border: none;
+      width: 100%;
+      min-height: 400px;
+      margin: 1.5rem auto
     }
     p {
       line-height: 1.55;
+    }
+    h2, h3 {
+      font-weight: 600;
+    }
+    h3 {
+      font-size: $font-size-large;
+    }
+    button {
+      display: block;
+      margin: 2rem auto;
+      padding: 0.5rem 1rem;
+      color: $white;
+      font-size: $font-size-small;
+      text-transform: uppercase;
+      border-radius: $border-radius-small;
+      box-shadow: $boxshadow-light;
+      background-color: $blue;
+      border: none;
+    }
+    cite {
+      margin-bottom: 1.5rem;
     }
   }
   .credits {

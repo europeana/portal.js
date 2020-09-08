@@ -23,7 +23,7 @@
           @mouseleave="toggleCite"
         >
           <span
-            v-if="!citeCollapsed"
+            v-if="citeCollapsed"
             class="icon-info"
             @click="toggleCite"
             @mouseover="toggleCite"

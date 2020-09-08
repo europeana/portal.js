@@ -96,7 +96,6 @@
 
     computed: {
       hero() {
-        console.log(this.post);
         return this.post.primaryImageOfPage ? this.post.primaryImageOfPage : null;
       },
       heroImage() {
