@@ -26,7 +26,7 @@
                 <b-row class="flex-md-row">
                   <b-col cols="12">
                     <div
-                      v-if="$fetchState.pending"
+                      v-if="likedItems && likedItems.length === 0"
                       class="text-center pb-4"
                     >
                       <LoadingSpinner />
@@ -39,7 +39,7 @@
                       v-else
                     >
                       <div
-                        v-if="!likedItems || likedItems.length === 0"
+                        v-if="!likedItems"
                         class="text-center pb-4"
                       >
                         {{ $t('account.notifications.noLikedItems') }}
