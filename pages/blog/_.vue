@@ -17,10 +17,7 @@
             :identifier="post.identifier"
             :hero="hero"
             :hero-image="heroImage"
-          />
-          <BlogAuthors
-            v-if="post.authorCollection.items.length > 0"
-            :authors="post.authorCollection.items"
+            :authors="post.authorCollection.items.length > 0 ? post.authorCollection.items : null"
           />
           <BlogTags
             v-if="post.keywords"
@@ -50,8 +47,7 @@
   export default {
     components: {
       BlogPost,
-      BlogTags: () => import('../../components/blog/BlogTags'),
-      BlogAuthors: () => import('../../components/blog/BlogAuthors')
+      BlogTags: () => import('../../components/blog/BlogTags')
     },
 
     asyncData({ params, query, error, app, store }) {

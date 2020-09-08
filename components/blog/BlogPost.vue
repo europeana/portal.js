@@ -36,14 +36,25 @@
       class="col-lg-10 mx-auto"
     >
       <article>
-        <time
-          v-if="datePublished"
-          class="font-weight-bold pb-3 d-block"
-          data-qa="date"
-          :datetime="datePublished"
-        >
-          {{ $d(new Date(datePublished), 'short') }}
-        </time>
+        <div class="font-small font-weight-bold d-block">
+          <time
+            v-if="datePublished"
+            class="pb-3 d-inline-block"
+            data-qa="date"
+            :datetime="datePublished"
+          >
+            {{ $t('blog.published', { date: $d(new Date(datePublished), 'short') }) }}
+          </time>
+          <span>{{ $t('blog.by') }}</span>
+          <BlogAuthor
+            v-for="(author, index) in authors"
+            class="d-inline-block"
+            :key="index"
+            :name="author.name"
+            :organisation="author.affiliation"
+            :url="author.url"
+          />
+        </div>
         <ShareButton class="mb-4" />
         <SocialShareModal :media-url="identifier" />
         <!-- eslint-disable vue/no-v-html -->
@@ -67,6 +78,7 @@
 
     components: {
       ImageWithAttribution: () => import('../../components/generic/ImageWithAttribution'),
+      BlogAuthor: () => import('./BlogAuthor'),
       SocialShareModal,
       ShareButton
     },
@@ -105,12 +117,20 @@
       heroImage: {
         type: Object,
         default: null
+      },
+
+      authors: {
+        type: Array,
+        default: () => []
       }
     },
 
     computed: {
       html() {
         return marked(this.body);
+      },
+      authorTitle() {
+        return this.authors && this.authors.length > 1 ? this.$t('blog.authors') : this.$t('blog.author');
       }
     }
   };

@@ -5,13 +5,12 @@
       :destination="url"
       class="font-weight-bold"
     >
-      {{ name }}
-    </SmartLink>
+      {{ name }}<!-- remove space
+    --></SmartLink>
     <strong v-else>{{ name }}</strong>
-    <br>
-    <span v-if="organisation">
-      {{ organisation }}
-    </span>
+    <strong v-if="organisation">
+      ({{ organisation }})
+    </strong>
   </div>
 </template>
 
