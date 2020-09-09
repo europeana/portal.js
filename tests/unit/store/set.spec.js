@@ -249,13 +249,13 @@ describe('store/set', () => {
       });
 
       context('when set was active', () => {
-        it('commits `null` with "setActive"', async() => {
+        it('commits `DELETED` with "setActive"', async() => {
           store.actions.$sets.deleteSet = sinon.stub().resolves();
           const state = { active: { id: setId } };
 
           await store.actions.deleteSet({ commit, state }, setId);
 
-          commit.should.have.been.calledWith('setActive', null);
+          commit.should.have.been.calledWith('setActive', 'DELETED');
         });
       });
     });

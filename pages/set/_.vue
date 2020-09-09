@@ -119,7 +119,9 @@
         class="recommendations"
       >
         <b-col>
-          <h2>{{ $t('items.youMightLike') }}</h2>
+          <h2 class="related-heading">
+            {{ $t('items.youMightLike') }}
+          </h2>
           <ItemPreviewCardGroup
             v-model="recommendations"
           />
@@ -185,26 +187,37 @@
     },
 
     watch: {
-      'set.id'() {
-        if (!this.set.id) {
+      'set'() {
+        if (this.set === 'DELETED') {
           // Set was deleted
           const path = this.$path({ name: 'account' });
           this.$goto(path);
         }
       },
-
-      items() {
-        if (!this.$auth.loggedIn) return;
-        this.$recommendations.recommend('set', `/${this.$route.params.pathMatch}`)
-          .then(recommendResponse => {
-            this.recommendations = recommendResponse.items || [];
-          });
+      'set.total'() {
+        this.getRecommendations();
       }
+    },
+
+    mounted() {
+      this.getRecommendations();
     },
 
     methods: {
       updateSet() {
         this.$bvModal.hide(this.setFormModalId);
+      },
+      getRecommendations() {
+        if (this.$auth.loggedIn) {
+          if (this.set && this.set.total >= 0) {
+            return this.$recommendations.recommend('set', `/${this.$route.params.pathMatch}`)
+              .then(recommendResponse => {
+                this.recommendations = recommendResponse.items || [];
+              });
+          } else {
+            return this.recommendations = [];
+          }
+        }
       }
     },
 
@@ -212,6 +225,10 @@
       return {
         title: this.displayTitle.values[0]
       };
+    },
+    async beforeRouteLeave(to, from, next) {
+      await this.$store.commit('set/setActive', null);
+      next();
     }
   };
 </script>

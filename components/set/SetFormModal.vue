@@ -1,5 +1,5 @@
 <template>
-  <b-container>
+  <b-container class="p-0">
     <b-modal
       :id="modalId"
       :title="modalTitle"
@@ -46,24 +46,26 @@
           <b-button
             variant="outline-primary"
             data-qa="close button"
-            @click="hide"
+            @click="hide('cancel')"
           >
             {{ isNew ? $t('actions.goBack') : $t('actions.close') }}
           </b-button>
-          <b-button
-            v-if="!isNew"
-            variant="danger"
-            data-qa="delete button"
-            @click="clickDelete"
-          >
-            {{ $t('set.actions.delete') }}
-          </b-button>
-          <b-button
-            variant="primary"
-            type="submit"
-          >
-            {{ isNew ? $t('set.actions.create') : $t('set.actions.update') }}
-          </b-button>
+          <div class="d-flex">
+            <b-button
+              v-if="!isNew"
+              variant="danger"
+              data-qa="delete button"
+              @click="clickDelete"
+            >
+              {{ $t('set.actions.delete') }}
+            </b-button>
+            <b-button
+              variant="primary"
+              type="submit"
+            >
+              {{ isNew ? $t('set.actions.create') : $t('set.actions.update') }}
+            </b-button>
+          </div>
         </div>
       </b-form>
     </b-modal>
@@ -119,6 +121,11 @@
       type: {
         type: String,
         default: 'Collection'
+      },
+
+      itemContext: {
+        type: String,
+        default: null
       }
     },
 
@@ -139,6 +146,9 @@
           description: { ...this.description },
           visibility: this.isPrivate ? 'private' : 'public'
         };
+        if (this.isNew && this.itemContext) {
+          setBody.items = ['http://data.europeana.eu/item' + this.itemContext];
+        }
         setBody.title[this.$i18n.locale] = this.titleValue;
         setBody.description[this.$i18n.locale] = this.descriptionValue;
 
@@ -173,7 +183,7 @@
           this.$store.dispatch('set/updateSet', { id: this.setId, body: this.setBody });
 
         return handler.then(() => {
-          this.hide();
+          this.hide(this.isNew ? 'create' : 'update');
         });
       },
 
@@ -181,12 +191,13 @@
         this.$bvModal.show(this.modalId);
       },
 
-      hide() {
+      hide(signalType) {
+        this.$emit('response', signalType);
         this.$bvModal.hide(this.modalId);
       },
 
       clickDelete() {
-        this.hide();
+        this.$bvModal.hide(this.modalId);
         this.$bvModal.show(this.deleteSetModalId);
       },
 

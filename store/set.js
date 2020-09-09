@@ -90,7 +90,7 @@ export const actions = {
   },
   createSet({ dispatch }, body) {
     return this.$sets.createSet(body)
-      .then(dispatch('fetchCreations'));
+      .then(() => dispatch('fetchCreations'));
   },
   updateSet({ state, commit }, { id, body }) {
     return this.$sets.updateSet(id, body)
@@ -101,7 +101,7 @@ export const actions = {
   deleteSet({ state, commit }, setId) {
     return this.$sets.deleteSet(setId)
       .then(() => {
-        if (state.active && setId === state.active.id) commit('setActive', null);
+        if (state.active && setId === state.active.id) commit('setActive', 'DELETED');
       });
   },
   refreshCreation({ state, commit }, setId) {
