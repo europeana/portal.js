@@ -16,7 +16,7 @@
     </b-row>
   </b-container>
   <div
-    v-else
+    v-else-if="set.id"
     data-qa="user gallery page"
     class="mt-n3"
   >
