@@ -22,18 +22,6 @@
           v-if="post.keywords"
           :tags="post.keywords"
         />
-
-        <div
-          v-if="enableBlogComments"
-          class="card card-body mt-4"
-          data-qa="disqus widget"
-        >
-          <vue-disqus
-            :shortname="disqusShortname"
-            :identifier="identifier"
-            :url="shareUrl"
-          />
-        </div>
       </b-col>
       <b-col
         cols="12"
@@ -121,15 +109,7 @@
       ...mapGetters({
         shareUrl: 'http/canonicalUrl',
         identifier: 'http/canonicalUrlWithoutLocale'
-      }),
-
-      disqusShortname() {
-        return process.env.DISQUS_SHORTNAME;
-      },
-
-      enableBlogComments() {
-        return !!this.disqusShortname;
-      }
+      })
     },
 
     head() {
