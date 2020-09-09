@@ -130,6 +130,13 @@
     methods: {
       initQuery() {
         this.query = this.$route.query.query;
+
+        // remove quotes to avoid blank suggestions
+        if (this.query) {
+          if (this.query.charAt(0) === '"' && this.query.slice(-1) === '"') {
+            this.query = this.query.slice(1, -1);
+          }
+        }
       },
 
       selectSuggestion(value) {
@@ -194,7 +201,7 @@
       suggestionLinkGen(suggestion) {
         const query = {
           view: this.view,
-          query: `${suggestion}`
+          query: `"${suggestion}"`
         };
         return {
           path: this.$path({

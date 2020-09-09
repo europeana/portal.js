@@ -181,7 +181,7 @@
     data() {
       return {
         focus: null,
-        isActive: Object.keys(this.value || {}).length > 0,
+        isActive: Object.keys(this.value || {}).length > 0 || this.entityCollectionLabel,
         isLoading: false
       };
     },
