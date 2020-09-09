@@ -7,7 +7,7 @@
       hide-footer
       hide-header-close
       @show="init"
-      @hide="$emit('response', 'close')"
+      @hide="$emit('response', 'cancel')"
     >
       <b-form @submit.stop.prevent="submitForm">
         <b-form-group

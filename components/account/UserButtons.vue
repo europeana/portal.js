@@ -81,13 +81,9 @@
         this.$bvModal.hide(this.addItemToSetModalId);
         this.$bvModal.show(this.setFormModalId);
       },
-      setCreatedOrUpdated(signalType) {
+      setCreatedOrUpdated() {
         this.showFormModal = false;
-        if (signalType === 'close') {
-          this.refreshSet();
-        } else {
-          this.$bvModal.show(this.addItemToSetModalId);
-        }
+        this.$bvModal.show(this.addItemToSetModalId);
       },
       refreshSet() {
         if (!this.showFormModal) {
