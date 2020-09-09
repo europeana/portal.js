@@ -5,6 +5,7 @@
     hide-footer
     hide-header-close
     @show="fetchCollections"
+    @hide="refreshSet"
   >
     <b-button
       variant="primary"
@@ -100,6 +101,10 @@
 
       removeItem(setId) {
         this.$store.dispatch('set/removeItem', { setId, itemId: this.itemId });
+      },
+
+      refreshSet() {
+        this.$store.dispatch('set/refreshSet');
       },
 
       // TODO: use lang map l10n function
