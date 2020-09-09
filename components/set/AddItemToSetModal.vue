@@ -5,7 +5,7 @@
     hide-footer
     hide-header-close
     @show="fetchCollections"
-    @hide="refreshSet"
+    @hide="$emit('hideModal')"
   >
     <b-button
       variant="primary"
@@ -69,12 +69,6 @@
       }
     },
 
-    mounted() {
-      this.$root.$on('bv::modal::hidden', () => {
-        this.showForm = false;
-      });
-    },
-
     methods: {
       fetchCollections() {
         this.$store.dispatch('set/fetchCreations');
@@ -101,10 +95,6 @@
 
       removeItem(setId) {
         this.$store.dispatch('set/removeItem', { setId, itemId: this.itemId });
-      },
-
-      refreshSet() {
-        this.$store.dispatch('set/refreshSet');
       },
 
       // TODO: use lang map l10n function
