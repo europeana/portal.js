@@ -119,15 +119,21 @@
     margin-right: auto;
   }
   article {
-    .author:last-of-type .comma {
-      display: none;
+    .author {
+      &::after {
+        content: ', ';
+      }
+      &:last-child {
+        &::after {
+          content: '';
+        }
+      }
     }
   }
   .article {
     iframe {
       border: none;
       width: 100%;
-      min-height: 400px;
       margin: 1.5rem auto
     }
     p {

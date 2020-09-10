@@ -53,7 +53,6 @@
             :name="author.name"
             :organisation="author.affiliation"
             :url="author.url"
-            :multiple-authors="multipleAuthors"
           />
         </div>
         <ShareButton class="my-4" />
@@ -129,9 +128,6 @@
     computed: {
       html() {
         return marked(this.body);
-      },
-      multipleAuthors() {
-        return this.authors.length > 1 || false;
       }
     }
   };

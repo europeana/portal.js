@@ -7,16 +7,8 @@
     >
       {{ name }}<!-- remove space
     --></SmartLink>
-    <span v-else>{{ name }}</span><!-- remove space
-    --><span
-      v-if="multipleAuthors && !organisation"
-      class="comma"
-    >,</span>
-    <span v-if="organisation">({{ organisation }})</span><!--
- --><span
-      v-if="multipleAuthors && organisation"
-      class="comma"
-    >,</span>
+    <span v-else>{{ name }}</span>
+    <span v-if="organisation">({{ organisation }})</span>
   </div>
 </template>
 
@@ -44,11 +36,6 @@
       url: {
         type: String,
         default: ''
-      },
-
-      multipleAuthors: {
-        type: Boolean,
-        default: false
       }
     }
   };
