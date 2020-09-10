@@ -1,6 +1,6 @@
 {
   "name": "@europeana/portal",
-  "version": "1.9.1",
+  "version": "1.10.0",
   "description": "Europeana Portal",
   "contributors": [
     "Richard Doe <richard.doe@europeana.eu>",
@@ -78,7 +78,6 @@
     "vue": "^2.6.11",
     "vue-awesome-swiper": "^4.1.1",
     "vue-client-only": "^2.0.0",
-    "vue-disqus": "^3.0.5",
     "vue-i18n": "^8.17.3",
     "vue-scrollto": "^2.17.1"
   },

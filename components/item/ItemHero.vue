@@ -12,15 +12,9 @@
           class="col-lg-10 media-bar justify-content-between d-flex mx-auto"
         >
           <RightsStatementButton
-            v-if="rightsStatementIsUrl"
+            :disabled="!rightsStatementIsUrl"
             :rights-statement="rightsStatement"
           />
-          <span
-            v-else
-            data-qa="rights statement"
-          >
-            {{ rightsStatement }}
-          </span>
           <div class="d-flex">
             <UserButtons
               v-if="showUserButtons"
