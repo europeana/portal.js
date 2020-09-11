@@ -25,7 +25,9 @@ export default {
     "categories": "Categories",
     "category": "Category",
     "posts": "Blog posts",
-    "relatedPosts": "Related posts"
+    "relatedPosts": "Related posts",
+    "published": "Published {date}",
+    "by": "by"
   },
   "clearAllFilters": "clear all filters",
   "collections": {

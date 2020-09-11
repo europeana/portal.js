@@ -1,17 +1,17 @@
 <template>
-  <div class="pb-3">
-    <SmartLink
+  <div class="author">
+    <span
       v-if="url"
-      :destination="url"
-      class="font-weight-bold"
     >
-      {{ name }}
-    </SmartLink>
-    <strong v-else>{{ name }}</strong>
-    <br>
-    <span v-if="organisation">
-      {{ organisation }}
+      <SmartLink
+        :destination="url"
+        class="font-weight-bold"
+      >
+        {{ name }}<!-- remove space
+      --></SmartLink>
     </span>
+    <span v-else>{{ name }}</span>
+    <span v-if="organisation">({{ organisation }})</span>
   </div>
 </template>
 

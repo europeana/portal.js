@@ -5,6 +5,7 @@
     hide-footer
     hide-header-close
     @show="fetchCollections"
+    @hide="$emit('hideModal')"
   >
     <b-button
       variant="primary"
@@ -66,12 +67,6 @@
           .filter(collection => (collection.items || []).some(item => item.id === this.itemId))
           .map(collection => collection.id);
       }
-    },
-
-    mounted() {
-      this.$root.$on('bv::modal::hidden', () => {
-        this.showForm = false;
-      });
     },
 
     methods: {
