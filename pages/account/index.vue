@@ -27,7 +27,7 @@
                   <b-col cols="12">
                     <div
                       v-if="likedItems && likedItems.length === 0"
-                      class="text-center pb-4"
+                      class="tab-info likes"
                     >
                       <LoadingSpinner />
                     </div>
@@ -35,12 +35,10 @@
                       v-else-if="$fetchState.error"
                       :error="$fetchState.error.message"
                     />
-                    <template
-                      v-else
-                    >
+                    <template v-else>
                       <div
                         v-if="!likedItems"
-                        class="text-center pb-4"
+                        class="tab-info likes"
                       >
                         {{ $t('account.notifications.noLikedItems') }}
                       </div>
@@ -61,7 +59,7 @@
               <client-only>
                 <div
                   v-if="$fetchState.pending"
-                  class="text-center pb-4"
+                  class="tab-info likes"
                 >
                   <LoadingSpinner />
                 </div>
@@ -69,6 +67,7 @@
                   v-else
                   visibility="public"
                   data-qa="public sets"
+                  class="pt-4"
                 />
               </client-only>
             </b-tab>
@@ -79,7 +78,7 @@
               <client-only>
                 <div
                   v-if="$fetchState.pending"
-                  class="text-center pb-4"
+                  class="tab-info likes"
                 >
                   <LoadingSpinner />
                 </div>
@@ -87,6 +86,7 @@
                   v-else
                   visibility="private"
                   data-qa="private sets"
+                  class="pt-4"
                 />
               </client-only>
             </b-tab>
@@ -154,8 +154,19 @@
 
 </script>
 
-<style>
-  .nav-tabs {
-    margin-bottom: 40px;
+<style lang="scss" scoped>
+  /deep/ .tab-content {
+    min-height: 318px;
+    margin-top: 1rem;
+  }
+  /deep/ .tab-info {
+    position: relative;
+    text-align: center;
+    &.likes {
+      top: 135px;
+    }
+    &.collections {
+      top: 111px;
+    }
   }
 </style>

@@ -4,13 +4,13 @@
       <b-col cols="12">
         <div
           v-if="userSets.length === 0"
-          class="text-center pb-4"
+          class="tab-info collections"
         >
           {{ $t(`account.notifications.noCollections.${visibility}`) }}
         </div>
         <b-card-group
           v-else
-          class="card-deck-4-cols pb-5"
+          class="card-deck-4-cols"
           deck
         >
           <ContentCard
