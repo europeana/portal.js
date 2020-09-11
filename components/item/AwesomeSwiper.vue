@@ -92,7 +92,8 @@
           },
           pagination: {
             el: '.swiper-pagination',
-            clickable: true
+            clickable: true,
+            type: 'fraction'
           }
         },
         singleMediaResource
@@ -121,8 +122,10 @@
   @import './assets/scss/variables.scss';
 
   .swiper-container {
-    max-height: 35.5rem;
+    max-height: 40.5rem;
     height: 80vh;
+    padding-bottom: 5rem;
+    margin-bottom: -5rem;
 
     @media (max-width: $bp-medium) {
       max-height: 25rem;
