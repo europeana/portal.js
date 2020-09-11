@@ -238,9 +238,19 @@
       padding: 0;
     }
   }
-  @media (max-width: $bp-small) {
+  @media (max-width: $bp-medium) {
     .media-bar {
       flex-direction: column;
+      .button-wrapper {
+        flex-direction: column;
+        .user-buttons {
+          justify-content: space-between;
+          .btn {
+            width: calc(100% / 2 - 5px);
+            margin-right: 0;
+          }
+        }
+      }
       a, button {
         text-align: center;
         justify-content: center;

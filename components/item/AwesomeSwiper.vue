@@ -129,6 +129,9 @@
 
     @media (max-width: $bp-medium) {
       max-height: 25rem;
+      .swiper-pagination {
+        bottom: 48px;
+      }
     }
 
     .swiper-slide {

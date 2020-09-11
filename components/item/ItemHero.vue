@@ -15,7 +15,7 @@
             :disabled="!rightsStatementIsUrl"
             :rights-statement="rightsStatement"
           />
-          <div class="d-flex">
+          <div class="d-flex button-wrapper">
             <UserButtons
               v-if="showUserButtons"
               v-model="identifier"
