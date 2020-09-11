@@ -12,7 +12,7 @@ export const mutations = {
   },
   setLikedItems(state, value) {
     state.likedItems = value;
-    state.likedItemIds = value.map(item => item.id);
+    if (value) state.likedItemIds = value.map(item => item.id);
   },
   like(state, itemId) {
     state.likedItemIds.push(itemId);

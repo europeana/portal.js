@@ -116,8 +116,7 @@
     },
 
     async fetch() {
-      this.fetchLikes();
-      await this.$store.dispatch('set/fetchCreations');
+      await this.fetchLikes();
     },
 
     fetchOnServer: false,
@@ -134,17 +133,17 @@
         likedItems: state => state.set.likedItems
       })
     },
-
     watch: {
       likesId: 'fetchLikes'
     },
-
+    mounted() {
+      this.$store.dispatch('set/fetchCreations');
+    },
     methods: {
       fetchLikes() {
-        this.$store.dispatch('set/fetchLikes');
+        return this.$store.dispatch('set/fetchLikes');
       }
     },
-
     head() {
       return {
         title: this.$t('account.title')
