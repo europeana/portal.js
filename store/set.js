@@ -1,6 +1,6 @@
 export const state = () => ({
   likesId: null,
-  likedItems: [],
+  likedItems: null,
   likedItemIds: [],
   active: null,
   creations: []
@@ -77,13 +77,13 @@ export const actions = {
     }
   },
   fetchLikes({ commit, state }) {
-    if (!state.likesId) return;
+    if (!state.likesId) return commit('setLikedItems', []);
 
     return this.$sets.getSet(state.likesId, {
       pageSize: 100,
       profile: 'itemDescriptions'
     })
-      .then(likes => commit('setLikedItems', likes.items));
+      .then(likes => commit('setLikedItems', likes.items || []));
   },
   fetchActive({ commit }, setId) {
     return this.$sets.getSet(setId, {

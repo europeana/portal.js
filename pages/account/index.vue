@@ -25,8 +25,23 @@
               <b-container>
                 <b-row class="flex-md-row">
                   <b-col cols="12">
+                    <template
+                      v-if="likedItems"
+                    >
+                      <ItemPreviewCardGroup
+                        v-if="likesId && likedItems.length !== 0"
+                        v-model="likedItems"
+                        class="pb-5"
+                      />
+                      <div
+                        v-else
+                        class="text-center pb-4"
+                      >
+                        {{ $t('account.notifications.noLikedItems') }}
+                      </div>
+                    </template>
                     <div
-                      v-if="$fetchState.pending && likedItems && likedItems.length === 0"
+                      v-else-if="$fetchState.pending"
                       class="text-center pb-4"
                     >
                       <LoadingSpinner />
@@ -35,21 +50,6 @@
                       v-else-if="$fetchState.error"
                       :error="$fetchState.error.message"
                     />
-                    <template
-                      v-else
-                    >
-                      <div
-                        v-if="!likesId || !likedItems"
-                        class="text-center pb-4"
-                      >
-                        {{ $t('account.notifications.noLikedItems') }}
-                      </div>
-                      <ItemPreviewCardGroup
-                        v-else
-                        v-model="likedItems"
-                        class="pb-5"
-                      />
-                    </template>
                   </b-col>
                 </b-row>
               </b-container>
