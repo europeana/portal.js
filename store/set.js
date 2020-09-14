@@ -40,7 +40,7 @@ export const getters = {
 export const actions = {
   reset({ commit }) {
     commit('setLikesId', null);
-    commit('setLikedItems', []);
+    commit('setLikedItems', null);
     commit('setCreations', []);
   },
   like({ commit, state }, itemId) {
@@ -77,7 +77,7 @@ export const actions = {
     }
   },
   fetchLikes({ commit, state }) {
-    if (!state.likesId) return commit('setLikedItems', []);
+    if (!state.likesId) return commit('setLikedItems', null);
 
     return this.$sets.getSet(state.likesId, {
       pageSize: 100,

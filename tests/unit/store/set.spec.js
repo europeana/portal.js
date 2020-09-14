@@ -49,7 +49,7 @@ describe('store/set', () => {
     describe('reset()', () => {
       const resetCommits = {
         setLikesId: null,
-        setLikedItems: [],
+        setLikedItems: null,
         setCreations: []
       };
 
