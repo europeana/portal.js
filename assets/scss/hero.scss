@@ -201,6 +201,13 @@
   .media-bar {
     margin-top: 2.5rem;
   }
+  .swiper-pagination {
+    display: inline-flex;
+    &.swiper-pagination-fraction {
+      left: auto !important;
+      width: auto !important;
+    }
+  }
   .user-buttons {
     display: inline-flex;
     .btn {
@@ -238,19 +245,9 @@
       padding: 0;
     }
   }
-  @media (max-width: $bp-medium) {
+  @media (max-width: $bp-small) {
     .media-bar {
       flex-direction: column;
-      .button-wrapper {
-        flex-direction: column;
-        .user-buttons {
-          justify-content: space-between;
-          .btn {
-            width: calc(100% / 2 - 5px);
-            margin-right: 0;
-          }
-        }
-      }
       a, button {
         text-align: center;
         justify-content: center;

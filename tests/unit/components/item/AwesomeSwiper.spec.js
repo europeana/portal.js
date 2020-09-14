@@ -15,7 +15,7 @@ const factory = (propsData) => mount(AwesomeSwiper, {
   propsData
 });
 
-const media = [
+const displayableMedia = [
   {
     about: 'https://europeana1914-1918.s3.amazonaws.com/attachments/119112/10265.119112.original.jpg',
     thumbnails: { large: 'https://api.europeana.eu/api/v2/thumbnail-by-url.json?size=w400&type=IMAGE&uri=https%3A%2F%2Feuropeana1914-1918.s3.amazonaws.com%2Fattachments%2F119112%2F10265.119112.original.jpg' },
@@ -48,24 +48,25 @@ const europeanaIdentifier = '/2020601/https___1914_1918_europeana_eu_contributio
 describe('components/item/AwesomeSwiper', () => {
   context('when the swiper loads', () => {
     it('shows five slides', () => {
-      const wrapper = factory({ media, europeanaIdentifier });
+      const wrapper = factory({ displayableMedia, europeanaIdentifier });
       wrapper.findAll('div.swiper-slide').length.should.eq(5);
     });
 
     it('emits a `select` event with the item identifier', () => {
-      const wrapper = factory({ media, europeanaIdentifier });
+      const wrapper = factory({ europeanaIdentifier, displayableMedia });
       wrapper.vm.swiper.slideTo(1, 1000, false);
-      wrapper.emitted('select').should.deep.eq([[media[1].about]]);
+      console.log(wrapper);
+      wrapper.emitted('select').should.deep.eq([[displayableMedia[1].about]]);
     });
   });
   describe('singleMediaResource', () => {
-    it('is false when there are multiple media', () => {
-      const wrapper = factory({ media, europeanaIdentifier });
+    it('is false when there are multiple displayableMedia', () => {
+      const wrapper = factory({ displayableMedia, europeanaIdentifier });
 
       wrapper.vm.singleMediaResource.should.eq(false);
     });
-    it('is NOT enabled when there is one media resource', () => {
-      const wrapper = factory({ media: [media[0]], europeanaIdentifier });
+    it('is NOT enabled when there is one displayableMedia resource', () => {
+      const wrapper = factory({ displayableMedia: [displayableMedia[0]], europeanaIdentifier });
 
       wrapper.vm.singleMediaResource.should.eq(true);
     });

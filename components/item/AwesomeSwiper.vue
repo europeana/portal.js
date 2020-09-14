@@ -28,11 +28,6 @@
       />
     </swiper-slide>
     <div
-      v-if="!singleMediaResource"
-      slot="pagination"
-      class="swiper-pagination"
-    />
-    <div
       slot="button-prev"
       class="swiper-button-prev"
     />
@@ -53,7 +48,7 @@
   const { Swiper, SwiperSlide } = getAwesomeSwiper(SwiperClass);
 
   import 'swiper/swiper-bundle.css';
-  import { isIIIFPresentation, isPlayableMedia } from '../../plugins/media';
+  import { isPlayableMedia } from '../../plugins/media';
 
   import MediaCard from './MediaCard';
 
@@ -69,17 +64,14 @@
         type: String,
         required: true
       },
-      media: {
+      displayableMedia: {
         type: Array,
         required: true
       }
     },
     data() {
-      // Crude check for IIIF content, which is to prevent newspapers from showing many IIIF viewers.
-      const displayableMedia = isIIIFPresentation(this.media[0]) ? [this.media[0]] : this.media;
-      const singleMediaResource = displayableMedia.length === 1;
+      const singleMediaResource = this.displayableMedia.length === 1;
       return {
-        displayableMedia,
         swiperOptions: {
           threshold: singleMediaResource ? 5000000 :  null,
           slidesPerView: 'auto',
@@ -104,12 +96,12 @@
         return this.$refs.awesome.$swiper;
       },
       isSinglePlayableMedia() {
-        return this.media.filter(resource => isPlayableMedia(resource)).length === 1;
+        return this.displayableMedia.filter(resource => isPlayableMedia(resource)).length === 1;
       }
     },
     methods: {
       onSlideChange() {
-        this.$emit('select', this.media[this.swiper.activeIndex].about);
+        this.$emit('select', this.displayableMedia[this.swiper.activeIndex].about);
       },
       updateSwiper() {
         this.swiper.update();
@@ -122,16 +114,11 @@
   @import './assets/scss/variables.scss';
 
   .swiper-container {
-    max-height: 40.5rem;
+    max-height: 35.5rem;
     height: 80vh;
-    padding-bottom: 5rem;
-    margin-bottom: -5rem;
 
     @media (max-width: $bp-medium) {
       max-height: 25rem;
-      .swiper-pagination {
-        bottom: 48px;
-      }
     }
 
     .swiper-slide {

@@ -2,7 +2,7 @@
   <div class="item-hero">
     <AwesomeSwiper
       :europeana-identifier="identifier"
-      :media="media"
+      :displayable-media="displayableMedia"
       @select="selectMedia"
     />
     <b-container>
@@ -15,6 +15,12 @@
             :disabled="!rightsStatementIsUrl"
             :rights-statement="rightsStatement"
           />
+          <div
+            v-if="displayableMedia.length !== 1"
+            class="d-flex button-wrapper"
+          >
+            <div class="swiper-pagination" />
+          </div>
           <div class="d-flex button-wrapper">
             <UserButtons
               v-if="showUserButtons"
@@ -40,6 +46,7 @@
   import SocialShareModal from '../sharing/SocialShareModal.vue';
   import ShareButton from '../sharing/ShareButton.vue';
   import has from 'lodash/has';
+  import { isIIIFPresentation } from '../../plugins/media';
 
   export default {
     components: {
@@ -97,6 +104,10 @@
       },
       showUserButtons() {
         return ((Boolean(Number(process.env.ENABLE_XX_USER_AUTH)) && Boolean(Number(process.env.ENABLE_UNAUTHENTICATED_USER_BUTTONS))) || (this.$store.state.auth && this.$store.state.auth.loggedIn));
+      },
+      displayableMedia() {
+        // Crude check for IIIF content, which is to prevent newspapers from showing many IIIF viewers.
+        return isIIIFPresentation(this.media[0]) ? [this.media[0]] : this.media;
       }
     },
     methods: {
