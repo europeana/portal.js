@@ -9,19 +9,22 @@
       <b-row>
         <b-col
           cols="12"
-          class="col-lg-10 media-bar justify-content-between d-flex mx-auto"
+          class="col-lg-10 media-bar d-flex mx-auto"
         >
-          <RightsStatementButton
-            :disabled="!rightsStatementIsUrl"
-            :rights-statement="rightsStatement"
-          />
+          <div class="d-flex justify-content-md-center rights-wrapper">
+            <RightsStatementButton
+              :disabled="!rightsStatementIsUrl"
+              :rights-statement="rightsStatement"
+              style="margin-right: auto"
+            />
+          </div>
           <div
             v-if="displayableMedia.length !== 1"
-            class="d-flex button-wrapper"
+            class="d-flex justify-content-md-center pagination-wrapper"
           >
             <div class="swiper-pagination" />
           </div>
-          <div class="d-flex button-wrapper">
+          <div class="d-flex justify-content-md-center button-wrapper">
             <UserButtons
               v-if="showUserButtons"
               v-model="identifier"
