@@ -254,10 +254,18 @@
   @media (max-width: $bp-medium) {
     .media-bar {
       flex-direction: column;
+
+      a, button {
+        text-align: center;
+        justify-content: center;
+        margin-bottom: 1rem;
+        width: 100%;
+        margin-left: 0;
+      }
       .pagination-wrapper {
         order: 1;
         margin-bottom: 1.125rem;
-        .swiper-pagination{
+        .swiper-pagination {
           position: relative;
           margin: auto;
         }
@@ -275,13 +283,6 @@
             margin-right: 0;
           }
         }
-      }
-      a, button {
-        text-align: center;
-        justify-content: center;
-        margin-bottom: 1rem;
-        width: 100%;
-        margin-left: 0;
       }
     }
   }
