@@ -6,9 +6,12 @@
   >
     <b-row
       v-if="$fetchState.pending || $fetchState.error"
+      class="flex-md-row pt-5 bg-white mb-4"
     >
-      <b-col>
-        <b-container class="p-0">
+      <b-col
+        cols="12"
+      >
+        <b-container class="mb-5">
           <LoadingSpinner
             v-if="$fetchState.pending"
           />
