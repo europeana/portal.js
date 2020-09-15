@@ -103,8 +103,6 @@ jobs:
         wget -q -O - https://packages.cloudfoundry.org/debian/cli.cloudfoundry.org.key | sudo apt-key add -
         echo "deb https://packages.cloudfoundry.org/debian stable main" | sudo tee /etc/apt/sources.list.d/cloudfoundry-cli.list
         sudo apt-get -q update && sudo apt-get -yq install cf-cli
-        cf install-plugin blue-green-deploy -f -r CF-Community
-        cf install-plugin app-autoscaler-plugin -f -r CF-Community
     - name: Login to CF
       run: cf login -a ${CF_API} -u ${CF_USERNAME} -p "${CF_PASSWORD}" -o ${CF_ORG} -s ${CF_SPACE}
     - name: Detect first deployment of this app
@@ -116,8 +114,8 @@ jobs:
         set -e
         echo ${CF_APP_FIRST_DEPLOY}
         echo "::set-output name=cf-app-first-deploy::${CF_APP_FIRST_DEPLOY}"
-    - name: Blue-green deployment to CF
-      run: cf blue-green-deploy ${CF_APP_NAME} -f .github/workflows/support/ci/manifest.yml --delete-old-apps
+    - name: Push to Cloud Foundry
+      run: cf push ${CF_APP_NAME} -f .github/workflows/support/ci/manifest.yml -d ${CF_DOMAIN}
     outputs:
       cf-app-first-deploy: ${{ steps.detect.outputs.cf-app-first-deploy }}
 

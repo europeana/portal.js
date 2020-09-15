@@ -2,7 +2,6 @@
 ---
 buildpack: nodejs_buildpack
 command: "npx cservice --restartOnMemUsage 134217728 --cli false server/index.js"
-domain: eu-de.cf.appdomain.cloud
 memory: 512M
 health-check-type: process
 # health-check-http-endpoint: /robots.txt
