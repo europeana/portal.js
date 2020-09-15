@@ -1,10 +1,9 @@
 <template>
-  <section class="chapters mx-auto">
+  <section>
     <h2 class="is-size-3 text-uppercase">
       {{ $t('exhibitions.chapters') }}
     </h2>
     <b-list-group
-      class="mx-auto"
       deck
       data-qa="exhibition chapters"
     >
@@ -99,13 +98,11 @@
 <style lang="scss" scoped>
   @import './assets/scss/variables.scss';
 
-  .chapters {
-    max-width: 720px;
-  }
   h2 {
     font-weight: 600;
     margin-bottom: 0.75rem;
   }
+
   .chapter {
     border: 0;
     font-size: 1.125rem;

@@ -90,44 +90,6 @@
   }
 }
 
-.exhibition-page {
-  background: white;
-  margin-top: -3rem;
-  padding-top: 0.25rem;
-  .title {
-    margin-bottom: 2rem;
-  }
-  h1 {
-    font-size: 2.125rem;
-    margin-top: 2.5rem;
-  }
-  p.lead {
-    font-size: 1.5rem;
-    color: $mediumgrey;
-  }
-  p {
-    font-size: 1.125rem;
-  }
-  blockquote {
-    p {
-      font-size: 1.5rem;
-    }
-  }
-  article, section p, section h1, h2:not(.is-size-1-5), h3, h4, h5, h6 {
-    max-width: 45rem;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  .credits {
-    max-width: 720px;
-  }
-  @media (min-width: $bp-extralarge) {
-    blockquote + p cite {
-      width: 38.3rem;
-    }
-  }
-}
-
 .figure-attribution {
   .image-wrapper {
     max-width: 51.25rem;

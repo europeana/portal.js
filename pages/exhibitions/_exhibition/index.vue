@@ -1,32 +1,43 @@
 <template>
   <div
     data-qa="exhibition page"
-    class="exhibition-page mx-auto figure-attribution"
+    class="text-page figure-attribution"
   >
-    <b-container
-      fluid
-      class="title image-wrapper"
-    >
-      <h1>{{ name }}</h1>
-      <p
-        v-if="headline"
-        class="lead"
-      >
-        {{ headline }}
-      </p>
-    </b-container>
-    <ImageWithAttribution
-      :src="heroImage.url"
-      :image-content-type="heroImage.contentType"
-      :rights-statement="hero.license"
-      :attribution="hero"
-      hero
-    />
-    <b-container class="pb-3">
-      <b-row>
+    <b-container>
+      <b-row class="justify-content-center">
         <b-col
           cols="12"
-          class="pb-0 pb-lg-3"
+          class="col-lg-8 pt-large mb-4"
+        >
+          <h1>{{ name }}</h1>
+          <p
+            v-if="headline"
+            class="lead"
+          >
+            {{ headline }}
+          </p>
+        </b-col>
+      </b-row>
+      <b-row class="justify-content-center">
+        <b-col
+          cols="12"
+          class="col-lg-8"
+        >
+          <ImageWithAttribution
+            :src="heroImage.url"
+            :image-content-type="heroImage.contentType"
+            :rights-statement="hero.license"
+            :attribution="hero"
+            hero
+          />
+        </b-col>
+      </b-row>
+    </b-container>
+    <b-container class="pb-3">
+      <b-row class="justify-content-center">
+        <b-col
+          cols="12"
+          class="col-lg-8"
         >
           <article>
             <!-- eslint-disable vue/no-v-html -->
@@ -41,8 +52,14 @@
           </article>
         </b-col>
       </b-row>
-      <b-row v-if="hasPartCollection">
-        <b-col class="my-3">
+      <b-row
+        v-if="hasPartCollection"
+        class="justify-content-center"
+      >
+        <b-col
+          cols="12"
+          class="my-3 col-lg-8"
+        >
           <ExhibitionChapters
             :exhibition-identifier="identifier"
             :chapters="hasPartCollection.items"
