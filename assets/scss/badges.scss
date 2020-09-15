@@ -24,3 +24,17 @@
     text-decoration: none;
   }
 }
+
+.badge-outline-light {
+  background-color: $white;
+  border: 1px solid $lightbluemagenta;
+  color: $mediumgrey;
+  display: inline-block;
+  font-weight: normal;
+  font-size: $font-size-small;
+  padding: 0.5rem 0.75rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 13rem;
+}
