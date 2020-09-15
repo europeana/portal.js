@@ -14,7 +14,7 @@ module.exports = function(migration) {
 
       validations: [
         {
-          linkContentType: ['cardGroup', 'embed', 'imageWithAttribution', 'richText']
+          linkContentType: ['cardGroup', 'embed', 'imageComparison', 'imageWithAttribution', 'richText']
         }
       ],
 
