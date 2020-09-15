@@ -58,7 +58,7 @@
 
   import oEmbed from '../../plugins/oembed';
   import {
-    isPlayableMedia, isHTMLVideo, isHTMLAudio, isIIIFImage, isIIIFPresentation,
+    isHTMLVideo, isHTMLAudio, isIIIFImage, isIIIFPresentation,
     isOEmbed, isRichMedia, iiifManifest
   } from '../../plugins/media';
 
@@ -81,6 +81,10 @@
         type: Object,
         required: true
       },
+      isPlayableMedia: {
+        type: Boolean,
+        default: false
+      },
       imageSrc: {
         type: String,
         default: ''
@@ -97,9 +101,6 @@
     computed: {
       displayImage() {
         return (this.imageSrc !== '') && !isRichMedia(this.media);
-      },
-      isPlayableMedia() {
-        return isPlayableMedia(this.media);
       },
       isHTMLVideo() {
         return isHTMLVideo(this.media);

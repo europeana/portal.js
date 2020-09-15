@@ -26,11 +26,12 @@
           :modal-id="addItemToSetModalId"
           :item-id="value"
           @clickCreateSet="clickCreateSet"
+          @hideModal="refreshSet"
         />
         <SetFormModal
           :modal-id="setFormModalId"
-          @create="setCreatedOrUpdated"
-          @update="setCreatedOrUpdated"
+          :item-context="value"
+          @response="setCreatedOrUpdated"
         />
       </template>
     </client-only>
@@ -60,7 +61,8 @@
     data() {
       return {
         addItemToSetModalId: `add-item-to-set-modal-${this.value}`,
-        setFormModalId: `set-form-modal-${this.value}`
+        setFormModalId: `set-form-modal-${this.value}`,
+        showFormModal: false
       };
     },
 
@@ -75,11 +77,18 @@
 
     methods: {
       clickCreateSet() {
+        this.showFormModal = true;
         this.$bvModal.hide(this.addItemToSetModalId);
         this.$bvModal.show(this.setFormModalId);
       },
       setCreatedOrUpdated() {
+        this.showFormModal = false;
         this.$bvModal.show(this.addItemToSetModalId);
+      },
+      refreshSet() {
+        if (!this.showFormModal) {
+          this.$store.dispatch('set/refreshSet');
+        }
       },
       async toggleLiked() {
         await (this.liked ? this.unlike() : this.like());
