@@ -54,6 +54,7 @@
                   <MediaPresentation
                     :europeana-identifier="identifier"
                     :media="selectedMedia"
+                    :is-playable-media="isPlayableMedia(selectedMedia)"
                     :image-src="selectedMediaImage.src"
                   />
                   <MediaThumbnailGrid
@@ -104,11 +105,12 @@
           />
 
           <section
-            v-if="similarItems.length > 0"
+            v-if="similarItems && similarItems.length > 0"
           >
             <h2>{{ $t('record.similarItems') }}</h2>
-            <SimilarItems
-              :items="similarItems"
+            <ItemPreviewCardGroup
+              v-model="similarItems"
+              view="similar"
               class="mb-3"
             />
           </section>
@@ -145,7 +147,7 @@
 
   import { getRecord, similarItemsQuery } from '../../plugins/europeana/record';
   import { search } from '../../plugins/europeana/search';
-  import { isIIIFPresentation, isRichMedia } from '../../plugins/media';
+  import { isIIIFPresentation, isRichMedia, isPlayableMedia } from '../../plugins/media';
   import { langMapValueForLocale } from  '../../plugins/europeana/utils';
   import { findEntities } from '../../plugins/europeana/entity';
   import { search as searchAnnotations } from '../../plugins/europeana/annotation';
@@ -156,7 +158,7 @@
       ClientOnly,
       EntityCards: () => import('../../components/entity/EntityCards'),
       MediaActionBar,
-      SimilarItems: () => import('../../components/item/SimilarItems'),
+      ItemPreviewCardGroup: () => import('../../components/item/ItemPreviewCardGroup'),
       MediaPresentation,
       MediaThumbnailGrid: () => import('../../components/item/MediaThumbnailGrid'),
       MetadataBox,
@@ -178,7 +180,7 @@
           this.transcribingAnnotations = this.annotationsByMotivation('transcribing');
           this.taggingAnnotations = this.annotationsByMotivation('tagging');
           this.relatedEntities = entities;
-          this.similarItems = similar.results;
+          this.similarItems = similar.items;
         }));
     },
 
@@ -325,6 +327,9 @@
       },
       redirectNotificationsEnabled() {
         return Boolean(Number(process.env.ENABLE_LINKS_TO_CLASSIC));
+      },
+      playableMedia() {
+        return this.media.filter(resource => isPlayableMedia(resource));
       }
     },
 
@@ -354,6 +359,10 @@
     },
 
     methods: {
+      isPlayableMedia(selectedMedia) {
+        return (this.playableMedia.length === 1) && (this.playableMedia[0].about === selectedMedia.about);
+      },
+
       annotationsByMotivation(motivation) {
         return this.annotations.filter(annotation => annotation.motivation === motivation);
       },
@@ -363,8 +372,16 @@
       },
 
       getSimilarItems() {
-        const noSimilarItems = { results: [] };
+        const noSimilarItems = { items: [] };
         if (this.error) return noSimilarItems;
+
+        if (this.$auth.loggedIn) {
+          return this.$recommendations.recommend('record', this.identifier)
+            .then(recommendResponse => recommendResponse)
+            .catch(() => {
+              return noSimilarItems;
+            });
+        }
 
         const dataSimilarItems = {
           dcSubject: this.getSimilarItemsData(this.coreFields.dcSubject),
@@ -381,6 +398,7 @@
         }, {
           origin: this.$route.query.recordApi
         })
+          .then(response => response)
           .catch(() => {
             return noSimilarItems;
           });

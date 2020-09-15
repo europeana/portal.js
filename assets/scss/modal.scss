@@ -24,8 +24,30 @@
 
         .form-control {
           background: $white;
-          border: 1px solid $paper;
-          font-size: $font-size-small;
+          border: 1px solid $mediumgrey;
+          font-size: $font-size-base;
+          height: 3rem;
+          padding: 1rem;
+          color: $black;
+        }
+
+        textarea.form-control {
+          height: auto;
+        }
+
+        .custom-control-label::before {
+          border-color: $mediumgrey;
+        }
+
+        .custom-control-input:checked~.custom-control-label::before {
+          background-color: $blue;
+          border-color: $blue;
+        }
+
+        .custom-checkbox {
+          label {
+            font-size: 1rem;
+          }
         }
 
         .form-group:focus-within {
@@ -40,6 +62,12 @@
     border: 0;
     justify-content: space-between;
     padding: 1rem 0 0 0;
+    .btn {
+      font-weight: 600;
+    }
+    .btn-danger {
+      margin-right: 0.5rem;
+    }
   }
 }
 

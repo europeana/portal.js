@@ -167,26 +167,4 @@ describe('components/item/MediaPresentation', () => {
       });
     });
   });
-
-  describe('isPlayableMedia', () => {
-    context('and media is playable', () => {
-      const media = { ebucoreHasMimeType: 'video/ogg', about: 'http://www.example.org/video.ogg' };
-
-      it('is `true`', () => {
-        const wrapper = factory({ europeanaIdentifier, media });
-
-        wrapper.vm.isPlayableMedia.should.be.true;
-      });
-    });
-
-    context('but media is not playable', () => {
-      const media = { ebucoreHasMimeType: 'text/plain' };
-
-      it('is `false`', () => {
-        const wrapper = factory({ europeanaIdentifier, media });
-
-        wrapper.vm.isPlayableMedia.should.be.false;
-      });
-    });
-  });
 });

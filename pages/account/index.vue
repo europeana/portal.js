@@ -22,42 +22,75 @@
               :title="$t('account.likes')"
               active
             >
-              <!-- TODO: Update this section to preview the results retrieved with Sets API -->
-              <div class="text-center">
-                Placeholder for {{ $t('account.likes') }} tab.
-              </div>
+              <client-only>
+                <b-container>
+                  <b-row class="flex-md-row">
+                    <b-col cols="12">
+                      <template
+                        v-if="likedItems"
+                      >
+                        <ItemPreviewCardGroup
+                          v-if="likesId && likedItems.length !== 0"
+                          v-model="likedItems"
+                          class="pb-5"
+                        />
+                        <div
+                          v-else
+                          class="text-center pb-4"
+                        >
+                          {{ $t('account.notifications.noLikedItems') }}
+                        </div>
+                      </template>
+                      <div
+                        v-else-if="$fetchState.pending"
+                        class="text-center pb-4"
+                      >
+                        <LoadingSpinner />
+                      </div>
+                      <AlertMessage
+                        v-else-if="$fetchState.error"
+                        :error="$fetchState.error.message"
+                      />
+                    </b-col>
+                  </b-row>
+                </b-container>
+              </client-only>
             </b-tab>
             <b-tab
               data-qa="public collections"
               :title="$t('account.publicCollections')"
             >
-              <div
-                v-if="!$fetchState.pending"
-              >
-                <client-only>
-                  <UserSets
-                    v-if="publicSets"
-                    :set-ids="publicSets"
-                    data-qa="public sets"
-                  />
-                </client-only>
-              </div>
+              <client-only>
+                <div
+                  v-if="$fetchState.pending"
+                  class="text-center pb-4"
+                >
+                  <LoadingSpinner />
+                </div>
+                <UserSets
+                  v-else
+                  visibility="public"
+                  data-qa="public sets"
+                />
+              </client-only>
             </b-tab>
             <b-tab
               data-qa="private collections"
               :title="$t('account.privateCollections')"
             >
-              <div
-                v-if="!$fetchState.pending"
-              >
-                <client-only>
-                  <UserSets
-                    v-if="privateSets"
-                    :set-ids="privateSets"
-                    data-qa="private sets"
-                  />
-                </client-only>
-              </div>
+              <client-only>
+                <div
+                  v-if="$fetchState.pending"
+                  class="text-center pb-4"
+                >
+                  <LoadingSpinner />
+                </div>
+                <UserSets
+                  v-else
+                  visibility="private"
+                  data-qa="private sets"
+                />
+              </client-only>
             </b-tab>
           </b-tabs>
         </b-col>
@@ -67,24 +100,49 @@
 </template>
 
 <script>
+  import { mapState } from 'vuex';
+
+  import ItemPreviewCardGroup from '../../components/item/ItemPreviewCardGroup';
   import UserSets from '../../components/account/UserSets';
+  import AlertMessage from '../../components/generic/AlertMessage';
+  import LoadingSpinner from '../../components/generic/LoadingSpinner';
+
   export default {
     middleware: 'auth',
+
     components: {
-      UserSets
+      ItemPreviewCardGroup,
+      UserSets,
+      AlertMessage,
+      LoadingSpinner
     },
+
     async fetch() {
-      this.publicSets = await this.$sets.getSetsByCreator(this.$auth.user.sub, 'public', 'minimal');
-      this.privateSets = await this.$sets.getSetsByCreator(this.$auth.user.sub, 'private', 'minimal');
+      this.fetchLikes();
+      await this.$store.dispatch('set/fetchCreations');
     },
+
+    fetchOnServer: false,
+
     data() {
       return {
-        loggedInUser: this.$store.state.auth.user,
-        publicSets: [],
-        privateSets: []
+        loggedInUser: this.$store.state.auth.user
       };
     },
-    fetchOnServer: false,
+
+    computed: {
+      ...mapState({
+        likesId: state => state.set.likesId,
+        likedItems: state => state.set.likedItems
+      })
+    },
+
+    methods: {
+      fetchLikes() {
+        this.$store.dispatch('set/fetchLikes');
+      }
+    },
+
     head() {
       return {
         title: this.$t('account.title')
@@ -99,4 +157,3 @@
     margin-bottom: 40px;
   }
 </style>
-

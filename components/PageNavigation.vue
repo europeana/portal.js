@@ -54,22 +54,6 @@
           </template>
         </b-dropdown>
       </li>
-      <li
-        v-if="!isAuthenticated"
-        class="nav-item"
-      >
-        <b-link
-          v-b-toggle.menu
-          data-qa="login button"
-          class="nav-link"
-          :to="{ name: 'account-login' }"
-        >
-          <span>
-            <i :class="renderIcon('/account/login')" />
-            {{ $t('account.linkLogin') }}
-          </span>
-        </b-link>
-      </li>
       <template v-if="isAuthenticated">
         <li
           v-for="item in authLinks"
@@ -90,6 +74,22 @@
           </b-link>
         </li>
       </template>
+      <li
+        v-else-if="enableLoginLink"
+        class="nav-item"
+      >
+        <b-link
+          v-b-toggle.menu
+          data-qa="login button"
+          class="nav-link"
+          :to="{ name: 'account-login' }"
+        >
+          <span>
+            <i :class="renderIcon('/account/login')" />
+            {{ $t('account.linkLogin') }}
+          </span>
+        </b-link>
+      </li>
     </template>
   </b-navbar-nav>
 </template>
@@ -111,13 +111,16 @@
       return {
         authLinks: [
           { to: this.$path({ name: 'account' }), text: this.$t('account.profile'), name: '/account' },
-          { href: `${process.env.OAUTH_ORIGIN}/auth/realms/${process.env.OAUTH_REALM}/account`, text: this.$t('account.settings'), name: '/account/settings' },
+          { href: `${process.env.OAUTH_ORIGIN}/auth/realms/${process.env.OAUTH_REALM}/account?referrer=${process.env.OAUTH_CLIENT}`, text: this.$t('account.settings'), name: '/account/settings' },
           { divider: true, name: 'divider' },
           { to: { name: 'account-logout' }, text: this.$t('account.linkLogout'), name: '/account/logout' }
         ]
       };
     },
     computed: {
+      enableLoginLink() {
+        return Boolean(Number(process.env.ENABLE_LOGIN_LINK));
+      },
       enableAuthLinks() {
         return Boolean(Number(process.env.ENABLE_XX_USER_AUTH));
       },
@@ -127,6 +130,9 @@
       isAccountPage() {
         return this.$route.name.startsWith('account');
       }
+    },
+    mounted() {
+      window.addEventListener('storage', this.storageEvent);
     },
     methods: {
       renderIcon(name) {
@@ -164,6 +170,11 @@
           break;
         }
         return className;
+      },
+      storageEvent(event) {
+        if (event.key === 'logout-event') {
+          this.$auth.logout();
+        }
       }
     }
   };

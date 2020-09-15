@@ -1,7 +1,7 @@
 <template>
-  <div class="card rounded-0 border-0 p-4">
+  <div class="card rounded-0 border-0 p-4 info-panel">
     <header
-      v-if="titles"
+      v-if="titles.length > 0"
     >
       <template
         v-for="(heading, index) in titles"
@@ -18,7 +18,7 @@
           v-else
           :key="index"
           :lang="heading.code"
-          class="font-weight-bold my-3"
+          class="font-weight-bold mt-3 mb-0"
         >
           {{ heading.value }}
         </p>
@@ -70,7 +70,7 @@
 
     props: {
       description: {
-        type: Object,
+        type: [Object, Boolean],
         default: null
       },
       titles: {
@@ -87,12 +87,15 @@
     computed: {
       expandableDescription() {
         if (this.description && this.description.values) {
-          return this.description.values.length > 1 || this.description.values[0].length >= this.limitCharacters;
+          return this.description.values.length > 1 || this.description.values[0].length > this.limitCharacters;
         }
         return false;
       },
       truncatedDescription() {
-        return this.$options.filters.truncate(this.description.values[0], this.limitCharacters, this.$t('formatting.ellipsis'));
+        if (this.description !== {} && this.description.values) {
+          return this.$options.filters.truncate(this.description.values[0], this.limitCharacters, this.$t('formatting.ellipsis'));
+        }
+        return false;
       }
     },
     methods: {
@@ -103,31 +106,3 @@
 
   };
 </script>
-
-<style lang="scss">
-  @import './assets/scss/variables.scss';
-
-  h1 {
-    font-size: 1.75rem;
-    font-weight: normal;
-  }
-
-  .description p {
-    color: $mediumgrey;
-    &:last-child {
-      margin-bottom: 0 !important;
-    }
-  }
-
-  .btn-link {
-    color: $blue;
-    text-decoration: none;
-    font-size: 1rem;
-    font-weight: 600;
-
-    &:hover {
-      text-decoration: none;
-    }
-  }
-
-</style>
