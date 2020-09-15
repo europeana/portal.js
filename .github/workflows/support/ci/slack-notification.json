@@ -1,5 +1,5 @@
 {
-  "username": "portal.js Github Actions robot",
+  "username": "portal.js GitHub Actions robot",
   "icon_emoji": ":robot_face:",
-  "text": "Github Actions just deployed <https://github.com/europeana/portal.js/pull/${PULL_REQUEST_NUMBER}|portal.js PR ${PULL_REQUEST_NUMBER}> \"${PULL_REQUEST_TITLE}\" by <${PULL_REQUEST_USER_HTML_URL}|${PULL_REQUEST_USER_LOGIN}> to <https://${CF_APP_FQDN}/>"
+  "text": "GitHub Actions just deployed <https://github.com/europeana/portal.js/pull/${PULL_REQUEST_NUMBER}|portal.js PR ${PULL_REQUEST_NUMBER}> \"${PULL_REQUEST_TITLE}\" by <${PULL_REQUEST_USER_HTML_URL}|${PULL_REQUEST_USER_LOGIN}> to <https://${CF_APP_FQDN}/>"
 }
