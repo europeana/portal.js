@@ -103,6 +103,7 @@
 
     async fetch() {
       this.$store.commit('search/disableCollectionFacet');
+      this.$store.commit('search/disableAutoSuggest');
 
       try {
         await this.fetchFromContentful();
@@ -282,9 +283,7 @@
 
     async beforeRouteLeave(to, from, next) {
       await this.$store.dispatch('search/deactivate');
-      // FIXME
-      // this.$store.commit('entity/setId', null); // needed to re-enable auto-suggest in header
-      // this.$store.commit('entity/setEntity', null); // needed for best bets handling
+      this.$store.commit('search/enableAutoSuggest');
       next();
     }
   };
