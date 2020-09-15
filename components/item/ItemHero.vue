@@ -15,7 +15,7 @@
             <RightsStatementButton
               :disabled="!rightsStatementIsUrl"
               :rights-statement="rightsStatement"
-              style="margin-right: auto"
+              class="mr-auto"
             />
           </div>
           <div
@@ -25,15 +25,17 @@
             <div class="swiper-pagination" />
           </div>
           <div class="d-flex justify-content-md-center button-wrapper">
-            <UserButtons
-              v-if="showUserButtons"
-              v-model="identifier"
-            />
-            <ShareButton />
-            <DownloadButton
-              v-if="downloadEnabled"
-              :url="downloadUrl"
-            />
+            <div class="ml-lg-auto">
+              <UserButtons
+                v-if="showUserButtons"
+                v-model="identifier"
+              />
+              <ShareButton />
+              <DownloadButton
+                v-if="downloadEnabled"
+                :url="downloadUrl"
+              />
+            </div>
           </div>
         </b-col>
       </b-row>

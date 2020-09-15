@@ -245,15 +245,12 @@
       padding: 0;
     }
   }
-  .rights-wrapper {
-    flex: 1;
-  }
-  .pagination-wrapper {
-    flex: 1;
-  }
+  .rights-wrapper,
+  .pagination-wrapper,
   .button-wrapper {
-    margin-left: auto;
+    flex: 1;
   }
+  
   @media (max-width: $bp-medium) {
     .media-bar {
       flex-direction: column;
