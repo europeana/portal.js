@@ -1,0 +1,47 @@
+name: Recycling
+
+# TODO: ideally closing a PR would stop any runs of the ci workflow on the same
+#       PR first.
+
+on:
+  pull_request:
+    types: closed
+
+env:
+  CF_API: https://api.eu-de.cf.cloud.ibm.com
+  CF_APP_NAME_PREFIX: portaljs
+  # TODO: use eanadev.org, requiring interaction with Dyn DNS API
+  CF_DOMAIN: eu-de.cf.appdomain.cloud
+  CF_ORG: europeana-dev
+  CF_PASSWORD: ${{ secrets.CF_PASSWORD }}
+  CF_SPACE: dev
+  CF_USERNAME: apikey
+
+jobs:
+  info:
+    runs-on: ubuntu-latest
+    steps:
+    - run: echo ${GITHUB_RUN_ID}
+    - run: echo ${GITHUB_ACTOR}
+    - run: echo ${GITHUB_REPOSITORY}
+    - run: echo ${GITHUB_REF}
+    - run: echo ${GITHUB_HEAD_REF}
+    - run: echo ${GITHUB_BASE_REF}
+    - run: echo ${GITHUB_SHA}
+    - run: cat ${GITHUB_EVENT_PATH}
+
+  cloud-foundry:
+    runs-on: ubuntu-latest
+    steps:
+    - run: echo "::set-env name=PULL_REQUEST_NUMBER::$(jq .pull_request.number ${GITHUB_EVENT_PATH})"
+    - run: echo "::set-env name=CF_APP_NAME::${CF_APP_NAME_PREFIX}-${PULL_REQUEST_NUMBER}"
+    - name: Install CF CLI & plugins
+      run: |
+        wget -q -O - https://packages.cloudfoundry.org/debian/cli.cloudfoundry.org.key | sudo apt-key add -
+        echo "deb https://packages.cloudfoundry.org/debian stable main" | sudo tee /etc/apt/sources.list.d/cloudfoundry-cli.list
+        sudo apt-get -q update && sudo apt-get -yq install cf-cli
+        cf install-plugin blue-green-deploy -f -r CF-Community
+        cf install-plugin app-autoscaler-plugin -f -r CF-Community
+    - run: cf login -a ${CF_API} -u ${CF_USERNAME} -p "${CF_PASSWORD}" -o ${CF_ORG} -s ${CF_SPACE}
+    - run: cf delete ${CF_APP_NAME} -f
+    - run: cf delete-route ${CF_DOMAIN} -n ${CF_APP_NAME} -f
