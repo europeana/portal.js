@@ -16,6 +16,6 @@ export default ({ $auth, store, redirect }, inject) => {
 
   if ($auth.loggedIn) {
     store.dispatch('set/setLikes')
-      .then(store.dispatch('set/fetchLikes'));
+      .then(() => store.dispatch('set/fetchLikes'));
   }
 };

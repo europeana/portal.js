@@ -1,6 +1,6 @@
 export const state = () => ({
   likesId: null,
-  likedItems: [],
+  likedItems: null,
   likedItemIds: [],
   active: null,
   creations: []
@@ -12,7 +12,7 @@ export const mutations = {
   },
   setLikedItems(state, value) {
     state.likedItems = value;
-    state.likedItemIds = value.map(item => item.id);
+    if (value) state.likedItemIds = value.map(item => item.id);
   },
   like(state, itemId) {
     state.likedItemIds.push(itemId);
@@ -40,7 +40,7 @@ export const getters = {
 export const actions = {
   reset({ commit }) {
     commit('setLikesId', null);
-    commit('setLikedItems', []);
+    commit('setLikedItems', null);
     commit('setCreations', []);
   },
   like({ commit, state }, itemId) {
@@ -77,13 +77,13 @@ export const actions = {
     }
   },
   fetchLikes({ commit, state }) {
-    if (!state.likesId) return;
+    if (!state.likesId) return commit('setLikedItems', null);
 
     return this.$sets.getSet(state.likesId, {
       pageSize: 100,
       profile: 'itemDescriptions'
     })
-      .then(likes => commit('setLikedItems', likes.items));
+      .then(likes => commit('setLikedItems', likes.items || []));
   },
   fetchActive({ commit }, setId) {
     return this.$sets.getSet(setId, {
