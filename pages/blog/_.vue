@@ -1,52 +1,32 @@
 <template>
-  <b-container data-qa="blog post">
-    <b-row class="flex-md-row pb-5 figure-attribution">
-      <b-col
-        cols="12"
-        md="9"
-      >
-        <ImageWithAttribution
-          v-if="hero"
-          :src="heroImage.url"
-          :image-content-type="heroImage.contentType"
-          :rights-statement="hero.license"
-          :attribution="hero"
-          hero
-        />
-        <BlogPost
-          :date-published="post.datePublished"
-          :title="post.name"
-          :body="post.articleBody"
-        />
-        <BlogTags
-          v-if="post.keywords"
-          :tags="post.keywords"
-        />
-
-        <div
-          v-if="enableBlogComments"
-          class="card card-body mt-4"
-          data-qa="disqus widget"
-        >
-          <vue-disqus
-            :shortname="disqusShortname"
-            :identifier="identifier"
-            :url="shareUrl"
+  <div
+    data-qa="blog post"
+    class="blog-post mx-auto figure-attribution"
+  >
+    <b-container
+      fluid
+      class="image-wrapper"
+    >
+      <b-row class="flex-md-row pb-5">
+        <b-col cols="12">
+          <BlogPost
+            :date-published="post.datePublished"
+            :title="post.name"
+            :description="post.description"
+            :body="post.articleBody"
+            :identifier="post.identifier"
+            :hero="hero"
+            :hero-image="heroImage"
+            :authors="post.authorCollection.items.length > 0 ? post.authorCollection.items : null"
           />
-        </div>
-      </b-col>
-      <b-col
-        cols="12"
-        md="3"
-        class="pb-3"
-      >
-        <BlogAuthors
-          v-if="post.authorCollection.items.length > 0"
-          :authors="post.authorCollection.items"
-        />
-      </b-col>
-    </b-row>
-  </b-container>
+          <BlogTags
+            v-if="post.keywords"
+            :tags="post.keywords"
+          />
+        </b-col>
+      </b-row>
+    </b-container>
+  </div>
 </template>
 
 <script>
@@ -56,9 +36,7 @@
   export default {
     components: {
       BlogPost,
-      BlogTags: () => import('../../components/blog/BlogTags'),
-      BlogAuthors: () => import('../../components/blog/BlogAuthors'),
-      ImageWithAttribution: () => import('../../components/generic/ImageWithAttribution')
+      BlogTags: () => import('../../components/blog/BlogTags')
     },
 
     asyncData({ params, query, error, app, store }) {
@@ -116,15 +94,7 @@
       ...mapGetters({
         shareUrl: 'http/canonicalUrl',
         identifier: 'http/canonicalUrlWithoutLocale'
-      }),
-
-      disqusShortname() {
-        return process.env.DISQUS_SHORTNAME;
-      },
-
-      enableBlogComments() {
-        return !!this.disqusShortname;
-      }
+      })
     },
 
     head() {
@@ -146,3 +116,4 @@
     }
   };
 </script>
+

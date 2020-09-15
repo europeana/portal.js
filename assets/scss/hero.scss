@@ -90,21 +90,76 @@
   }
 }
 
-.exhibition-page {
+.exhibition-page, .blog-post {
   background: white;
   margin-top: -3rem;
   padding-top: 0.25rem;
+  .title {
+    margin-bottom: 2rem;
+  }
   h1 {
+    font-size: 2.125rem;
     margin-top: 2.5rem;
   }
   p.lead {
     font-size: 1.5rem;
     color: $mediumgrey;
   }
+  p {
+    font-size: 1.125rem;
+  }
+  blockquote {
+    p {
+      font-size: 1.5rem;
+    }
+  }
   article, section p, section h1, h2:not(.is-size-1-5), h3, h4, h5, h6 {
     max-width: 45rem;
     margin-left: auto;
     margin-right: auto;
+  }
+  article {
+    .author {
+      &::after {
+        content: ', ';
+      }
+      &:last-child {
+        &::after {
+          content: '';
+        }
+      }
+    }
+  }
+  .article {
+    iframe {
+      border: none;
+      width: 100%;
+      margin: 1.5rem auto
+    }
+    p {
+      line-height: 1.55;
+    }
+    h2, h3 {
+      font-weight: 600;
+    }
+    h3 {
+      font-size: $font-size-large;
+    }
+    button {
+      display: block;
+      margin: 2rem auto;
+      padding: 0.5rem 1rem;
+      color: $white;
+      font-size: $font-size-small;
+      text-transform: uppercase;
+      border-radius: $border-radius-small;
+      box-shadow: $boxshadow-light;
+      background-color: $blue;
+      border: none;
+    }
+    cite {
+      margin-bottom: 1.5rem;
+    }
   }
   @media (min-width: $bp-extralarge) {
     blockquote + p cite {
@@ -162,6 +217,7 @@
           -webkit-box-orient: vertical;
           overflow: hidden;
           margin-bottom: 0.25rem;
+          font-size: 0.75rem;
           a {
             text-decoration: none;
           }
@@ -200,6 +256,43 @@
   padding-bottom: 1.625rem;
   .media-bar {
     margin-top: 2.5rem;
+  }
+  .user-buttons {
+    display: inline-flex;
+    .btn {
+      text-transform: capitalize;
+      background: $offwhite;
+      color: $mediumgrey;
+      box-shadow: none;
+      border-radius: 0.25rem;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid transparent;
+      display: inline-flex;
+      font-size: 1.5rem;
+      height: 2.25rem;
+      min-width: 2.25rem;
+      line-height: 1;
+      padding: 0.375rem;
+      margin-right: 0.5rem;
+
+      &:hover {
+        box-shadow: $boxshadow-small;
+      }
+
+      &.active {
+        color: $white;
+        background-color: $red;
+        border-color: $red;
+      }
+
+      &-sm {
+        font-size: $font-size-medium;
+      }
+    }
+    .container {
+      padding: 0;
+    }
   }
   @media (max-width: $bp-small) {
     .media-bar {

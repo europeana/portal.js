@@ -1,9 +1,10 @@
 <template>
-  <b-row class="flex-md-row py-3">
+  <b-row class="flex-md-row">
     <b-col
       v-if="tags.length > 0"
       data-qa="blog tags"
-      class="d-flex"
+      cols="12"
+      class="col-lg-10 mx-auto d-flex"
     >
       <span class="icon-ic-tag" />
       <div>

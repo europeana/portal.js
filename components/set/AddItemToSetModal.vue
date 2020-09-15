@@ -5,6 +5,7 @@
     hide-footer
     hide-header-close
     @show="fetchCollections"
+    @hide="$emit('hideModal')"
   >
     <b-button
       variant="primary"
@@ -68,12 +69,6 @@
       }
     },
 
-    mounted() {
-      this.$root.$on('bv::modal::hidden', () => {
-        this.showForm = false;
-      });
-    },
-
     methods: {
       fetchCollections() {
         this.$store.dispatch('set/fetchCreations');
@@ -82,17 +77,6 @@
       hideModal() {
         this.$nextTick(() => {
           this.$bvModal.hide(this.modalId);
-        });
-      },
-
-      makeToast() {
-        this.$root.$bvToast.toast(this.$t('set.notifications.itemAdded'), {
-          toastClass: 'brand-toast',
-          toaster: 'b-toaster-bottom-left',
-          autoHideDelay: 5000,
-          isStatus: true,
-          noCloseButton: true,
-          solid: true
         });
       },
 
@@ -106,11 +90,7 @@
 
       addItem(setId) {
         // TODO: error handling
-        this.$store.dispatch('set/addItem', { setId, itemId: this.itemId })
-          .then(() => {
-            this.makeToast();
-            this.hideModal();
-          });
+        this.$store.dispatch('set/addItem', { setId, itemId: this.itemId });
       },
 
       removeItem(setId) {
