@@ -1,6 +1,6 @@
 export const state = () => ({
   likesId: null,
-  likedItems: [],
+  likedItems: null,
   likedItemIds: [],
   active: null,
   creations: []
@@ -12,7 +12,7 @@ export const mutations = {
   },
   setLikedItems(state, value) {
     state.likedItems = value;
-    state.likedItemIds = value.map(item => item.id);
+    if (value) state.likedItemIds = value.map(item => item.id);
   },
   like(state, itemId) {
     state.likedItemIds.push(itemId);
@@ -40,7 +40,7 @@ export const getters = {
 export const actions = {
   reset({ commit }) {
     commit('setLikesId', null);
-    commit('setLikedItems', []);
+    commit('setLikedItems', null);
     commit('setCreations', []);
   },
   like({ commit, state }, itemId) {
@@ -51,17 +51,15 @@ export const actions = {
     return this.$sets.modifyItems('delete', state.likesId, itemId)
       .then(commit('unlike', itemId));
   },
-  addItem({ state, dispatch }, { setId, itemId }) {
+  addItem({ dispatch }, { setId, itemId }) {
     return this.$sets.modifyItems('add', setId, itemId)
       .then(() => {
-        if (state.active && setId === state.active.id) dispatch('fetchActive', setId);
         dispatch('refreshCreation', setId);
       });
   },
-  removeItem({ state, dispatch }, { setId, itemId }) {
+  removeItem({ dispatch }, { setId, itemId }) {
     return this.$sets.modifyItems('delete', setId, itemId)
       .then(() => {
-        if (state.active && setId === state.active.id) dispatch('fetchActive', setId);
         dispatch('refreshCreation', setId);
       });
   },
@@ -73,14 +71,19 @@ export const actions = {
     return this.$sets.createLikes()
       .then(response => commit('setLikesId', response.id));
   },
+  refreshSet({ state, dispatch }) {
+    if (state.active) {
+      dispatch('fetchActive', state.active.id);
+    }
+  },
   fetchLikes({ commit, state }) {
-    if (!state.likesId) return;
+    if (!state.likesId) return commit('setLikedItems', null);
 
     return this.$sets.getSet(state.likesId, {
       pageSize: 100,
       profile: 'itemDescriptions'
     })
-      .then(likes => commit('setLikedItems', likes.items));
+      .then(likes => commit('setLikedItems', likes.items || []));
   },
   fetchActive({ commit }, setId) {
     return this.$sets.getSet(setId, {

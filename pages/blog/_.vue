@@ -1,44 +1,32 @@
 <template>
-  <b-container data-qa="blog post">
-    <b-row class="flex-md-row pb-5 figure-attribution">
-      <b-col
-        cols="12"
-        md="9"
-      >
-        <ImageWithAttribution
-          v-if="hero"
-          :src="heroImage.url"
-          :image-content-type="heroImage.contentType"
-          :rights-statement="hero.license"
-          :attribution="hero"
-          hero
-        />
-        <BlogPost
-          :date-published="post.datePublished"
-          :title="post.name"
-          :body="post.articleBody"
-        />
-        <BlogTags
-          v-if="post.keywords"
-          :tags="post.keywords"
-        />
-      </b-col>
-      <b-col
-        cols="12"
-        md="3"
-        class="pb-3"
-      >
-        <BlogAuthors
-          v-if="post.authorCollection.items.length > 0"
-          :authors="post.authorCollection.items"
-        />
-        <BlogCategories
-          v-if="post.genre"
-          :categories="post.genre"
-        />
-      </b-col>
-    </b-row>
-  </b-container>
+  <div
+    data-qa="blog post"
+    class="blog-post mx-auto figure-attribution"
+  >
+    <b-container
+      fluid
+      class="image-wrapper"
+    >
+      <b-row class="flex-md-row pb-5">
+        <b-col cols="12">
+          <BlogPost
+            :date-published="post.datePublished"
+            :title="post.name"
+            :description="post.description"
+            :body="post.articleBody"
+            :identifier="post.identifier"
+            :hero="hero"
+            :hero-image="heroImage"
+            :authors="post.authorCollection.items.length > 0 ? post.authorCollection.items : null"
+          />
+          <BlogTags
+            v-if="post.keywords"
+            :tags="post.keywords"
+          />
+        </b-col>
+      </b-row>
+    </b-container>
+  </div>
 </template>
 
 <script>
@@ -48,10 +36,7 @@
   export default {
     components: {
       BlogPost,
-      BlogTags: () => import('../../components/blog/BlogTags'),
-      BlogAuthors: () => import('../../components/blog/BlogAuthors'),
-      BlogCategories: () => import('../../components/blog/BlogCategories'),
-      ImageWithAttribution: () => import('../../components/generic/ImageWithAttribution')
+      BlogTags: () => import('../../components/blog/BlogTags')
     },
 
     asyncData({ params, query, error, app, store }) {
@@ -131,3 +116,4 @@
     }
   };
 </script>
+

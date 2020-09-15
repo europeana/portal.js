@@ -49,7 +49,7 @@ describe('store/set', () => {
     describe('reset()', () => {
       const resetCommits = {
         setLikesId: null,
-        setLikedItems: [],
+        setLikedItems: null,
         setCreations: []
       };
 
@@ -97,17 +97,6 @@ describe('store/set', () => {
         store.actions.$sets.modifyItems.should.have.been.calledWith('add', setId, itemId);
         dispatch.should.have.been.calledWith('refreshCreation', setId);
       });
-
-      context('when set is active', () => {
-        it('dispatches "fetchActive"', async() => {
-          store.actions.$sets.modifyItems = sinon.stub().resolves({});
-          const state = { active: { id: setId } };
-
-          await store.actions.addItem({ dispatch, state }, { setId, itemId });
-
-          dispatch.should.have.been.calledWith('fetchActive', setId);
-        });
-      });
     });
 
     describe('removeItem()', () => {
@@ -119,17 +108,6 @@ describe('store/set', () => {
 
         store.actions.$sets.modifyItems.should.have.been.calledWith('delete', setId, itemId);
         dispatch.should.have.been.calledWith('refreshCreation', setId);
-      });
-
-      context('when set is active', () => {
-        it('dispatches "fetchActive"', async() => {
-          store.actions.$sets.modifyItems = sinon.stub().resolves({});
-          const state = { active: { id: setId } };
-
-          await store.actions.removeItem({ dispatch, state }, { setId, itemId });
-
-          dispatch.should.have.been.calledWith('fetchActive', setId);
-        });
       });
     });
 
@@ -303,6 +281,18 @@ describe('store/set', () => {
           pageSize: 100
         });
         commit.should.have.been.calledWith('setCreations', ['1', '2']);
+      });
+    });
+
+    describe('refreshSet()', () => {
+      context('when collection-modal hides', () => {
+        it('refreshes the updated active set by dispatching "fetchActive" with the current active setId', async() => {
+          const state = { active: set };
+
+          await store.actions.refreshSet({ state, dispatch });
+
+          dispatch.should.have.been.calledWith('fetchActive');
+        });
       });
     });
   });
