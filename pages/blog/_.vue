@@ -7,7 +7,7 @@
       <b-row class="justify-content-center">
         <b-col
           cols="12"
-          class="col-lg-8 pt-large mb-4"
+          class="col-lg-8 pt-large"
         >
           <BlogPost
             :date-published="post.datePublished"
@@ -25,6 +25,7 @@
           />
         </b-col>
       </b-row>
+      <b-row class="footer-margin" />
     </b-container>
   </div>
 </template>
