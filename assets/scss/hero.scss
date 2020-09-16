@@ -182,8 +182,9 @@
   .swiper-pagination {
     display: inline-flex;
     &.swiper-pagination-fraction {
-      left: auto !important;
-      width: auto !important;
+      left: auto;
+      width: auto;
+      bottom: auto;
     }
   }
   .user-buttons {

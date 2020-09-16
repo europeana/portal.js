@@ -11,7 +11,7 @@
           cols="12"
           class="col-lg-10 media-bar d-flex mx-auto"
         >
-          <div class="d-flex justify-content-md-center rights-wrapper">
+          <div class="d-flex justify-content-md-center align-items-center rights-wrapper">
             <RightsStatementButton
               :disabled="!rightsStatementIsUrl"
               :rights-statement="rightsStatement"
@@ -20,12 +20,12 @@
           </div>
           <div
             v-if="displayableMedia.length !== 1"
-            class="d-flex justify-content-md-center pagination-wrapper"
+            class="d-flex justify-content-md-center align-items-center pagination-wrapper"
           >
             <div class="swiper-pagination" />
           </div>
-          <div class="d-flex justify-content-md-center button-wrapper">
-            <div class="ml-lg-auto">
+          <div class="d-flex justify-content-md-center align-items-center button-wrapper">
+            <div class="ml-lg-auto d-flex">
               <UserButtons
                 v-if="showUserButtons"
                 v-model="identifier"
