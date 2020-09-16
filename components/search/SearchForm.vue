@@ -130,13 +130,6 @@
     methods: {
       initQuery() {
         this.query = this.$route.query.query;
-
-        // remove quotes to avoid blank suggestions
-        if (this.query) {
-          if (this.query.charAt(0) === '"' && this.query.slice(-1) === '"') {
-            this.query = this.query.slice(1, -1);
-          }
-        }
       },
 
       selectSuggestion(value) {
@@ -184,7 +177,7 @@
             this.suggestions = suggestions.reduce((memo, suggestion) => {
               const candidates = [(suggestion.prefLabel || {})[locale]]
                 .concat((suggestion.altLabel || {})[locale]);
-              memo[suggestion.id] = candidates.find(candidate => match(candidate, query).length > 0);
+              memo[suggestion.id] = candidates.find(candidate => match(candidate, query).length > 0) || candidates[0];
               return memo;
             }, {});
           })
@@ -199,9 +192,10 @@
       },
 
       suggestionLinkGen(suggestion) {
+        const formattedSuggestion = suggestion ? `"${suggestion.replace(/(^")|("$)/g, '')}"` : undefined;
         const query = {
           view: this.view,
-          query: `"${suggestion}"`
+          query: formattedSuggestion
         };
         return {
           path: this.$path({

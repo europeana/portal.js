@@ -1,6 +1,5 @@
 <template>
   <b-list-group
-    v-show="query && query.length > 0"
     :id="elementId"
     class="auto-suggest-dropdown"
     data-qa="search suggestions"
@@ -29,7 +28,7 @@
           path="header.inCollection"
           tag="span"
         >
-          <strong>{{ query }}</strong>
+          <strong>{{ query ? query : '""' }}</strong>
           <span>{{ entityCollectionLabel.values[0] }}</span>
         </i18n>
       </b-list-group-item>
@@ -51,7 +50,7 @@
           path="header.entireCollection"
           tag="span"
         >
-          <strong>{{ query }}</strong>
+          <strong>{{ query ? query : '""' }}</strong>
         </i18n>
       </b-list-group-item>
     </template>
@@ -84,7 +83,7 @@
       v-show="isActive"
       :key="index + 1"
       role="option"
-      data-qa="search suggestion"
+      :data-qa="val + ' search suggestion'"
       :aria-selected="index + 1 === focus"
       :to="linkGen(val)"
       :class="{ 'hover': index + 1 === focus }"
@@ -338,8 +337,9 @@
       // FIXME: only re-highlight when new suggestions come in, not immediately
       //        after the query changes?
       highlightResult(value) {
+        const matchQuery = this.query ? this.query.replace(/(^")|("$)/g, '') : undefined;
         // Find all the suggestion labels that match the query
-        const matches = match(value, this.query);
+        const matches = match(value, matchQuery);
         return parse(value, matches);
       },
 

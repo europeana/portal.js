@@ -69,3 +69,15 @@ Feature: Entity page
     And I press the ENTER key
     Then I see the `entity page`
 
+  Scenario: Leaving an Entity page
+    When I open an `entity page`
+    And I go to page number 2
+    And I wait for the page to load
+    And I am on page number 2
+    And I see the `entity title`
+    And I click the `show search button`
+    And I click the `search entire collection button`
+    And I wait for the page to load
+    Then I see the `search page`
+    And I don't have the `entity title`
+    And I am on page number 1

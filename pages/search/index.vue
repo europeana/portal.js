@@ -11,10 +11,10 @@
       <b-row>
         <b-col>
           <i18n
-            path="searchResults"
+            :path="$route.query.query ? 'searchResultsFor' : 'searchResults'"
             tag="h1"
           >
-            <span>{{ searchedFor }}</span>
+            <span>{{ $route.query.query }}</span>
           </i18n>
         </b-col>
         <RelatedSection
@@ -59,10 +59,6 @@
       },
       redirectNotificationsEnabled() {
         return Boolean(Number(process.env.ENABLE_LINKS_TO_CLASSIC));
-      },
-      searchedFor() {
-        const query = this.$route.query.query.replace(/(^")|("$)/g, '');
-        return query ? query : this.$t('search');
       }
     },
 

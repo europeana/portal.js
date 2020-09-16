@@ -16,10 +16,16 @@ h1 {
   font-size: 2rem;
   font-weight: 600;
   line-height: 1.175;
+  span{
+    font-weight: 900;
+  }
 }
 
 h2 {
   font-size: 1.875rem;
+  span{
+    font-weight: 600;
+  }
 }
 
 h3, h4 {

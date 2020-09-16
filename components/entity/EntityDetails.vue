@@ -6,7 +6,7 @@
         data-qa="entity title"
         class="pt-3"
       >
-        {{ searchInTitle }}
+        {{ title.values[0] }}
       </h1>
       <div
         v-if="hasDescription"
@@ -85,13 +85,6 @@
       },
       fullDescription() {
         return this.hasDescription ? this.description.values[0] : '';
-      },
-      searchInTitle() {
-        let search = '';
-        if (this.query) {
-          search = `${this.query} ${this.$t('header.in')}`;
-        }
-        return `${search} ${this.title.values[0]}`;
       }
     },
     methods: {

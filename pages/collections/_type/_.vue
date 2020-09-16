@@ -34,6 +34,15 @@
         cols="12"
         class="pb-3"
       >
+        <i18n
+          v-if="$route.query.query"
+          path="searchResultsForIn"
+          tag="h2"
+          class="px-0 container"
+        >
+          <span>{{ $route.query.query }}</span>
+          <span>{{ title.values[0] }}</span>
+        </i18n>
         <SearchInterface
           class="px-0"
           :per-page="recordsPerPage"
