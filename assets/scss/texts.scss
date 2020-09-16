@@ -18,6 +18,67 @@ header .col {
   line-height: 1;
 }
 
+.text-page {
+  background: $white;
+  margin-top: -3rem;
+  
+  h1 {
+    margin-bottom: 0.5rem;
+    text-transform: capitalize;
+  }
+
+  .subtitle,
+  p.lead {
+    color: $mediumgrey;
+    font-size: $font-size-large;
+    font-weight: normal;
+    line-height: normal;
+    margin-bottom: 0.5rem;
+    text-transform: capitalize;
+  }
+
+  article { 
+    font-size: 1.125rem;
+    line-height: 1.56;
+    
+    blockquote p {
+      font-size: 1.5rem;
+    }
+
+    cite p {
+      font-size: 0.75rem;
+      line-height: initial;
+    }
+  }
+
+  &.figure-attribution {
+    .image-wrapper {
+      max-width: initial;
+      padding: 0;
+
+      @media (min-width: $bp-medium) {
+        .jumbotron {
+          margin-left: -1rem;
+          margin-right: -1rem;
+        }
+      }
+
+      @media (min-width: $bp-large) {
+        .jumbotron {
+          margin-left: -3rem;
+          margin-right: -3rem;
+        }
+      }
+    }
+  }
+
+  @media (min-width: $bp-extralarge) {
+    blockquote + p cite {
+      width: 38.3rem;
+    }
+  }
+}
+
 .info-panel {
   h1 {
     font-size: 1.75rem;
@@ -32,23 +93,4 @@ header .col {
       margin-bottom: 0 !important;
     }
   }
-}
-
-.font-large {
-  font-size: $font-size-large;
-}
-.font-medium {
-  font-size: $font-size-medium;
-}
-.font-base {
-  font-size: $font-size-base;
-}
-.font-small {
-  font-size: $font-size-small;
-}
-.font-extra-small {
-  font-size: $font-size-extrasmall;
-}
-.font-smallest {
-  font-size: $font-size-smallest;
 }

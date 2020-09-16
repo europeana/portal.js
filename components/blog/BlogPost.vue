@@ -5,7 +5,6 @@
   >
     <b-col
       cols="12"
-      class="col-lg-10 mx-auto"
     >
       <article>
         <div class="title">
@@ -33,7 +32,6 @@
     </b-col>
     <b-col
       cols="12"
-      class="col-lg-10 mx-auto"
     >
       <article>
         <div class="font-small font-weight-bold d-block">
@@ -45,7 +43,11 @@
           >
             {{ $t('blog.published', { date: $d(new Date(datePublished), 'short') }) }}
           </time>
-          <span>{{ $t('blog.by') }}</span>
+          <span
+            v-if="authors"
+          >
+            {{ $t('blog.by') }}
+          </span>
           <BlogAuthor
             v-for="(author, index) in authors"
             :key="index"

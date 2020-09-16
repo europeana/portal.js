@@ -4,7 +4,7 @@
       v-if="tags.length > 0"
       data-qa="blog tags"
       cols="12"
-      class="col-lg-10 mx-auto d-flex"
+      class="d-flex"
     >
       <span class="icon-ic-tag" />
       <div>

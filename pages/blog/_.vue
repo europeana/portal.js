@@ -1,14 +1,14 @@
 <template>
   <div
     data-qa="blog post"
-    class="blog-post mx-auto figure-attribution"
+    class="text-page figure-attribution"
   >
-    <b-container
-      fluid
-      class="image-wrapper"
-    >
-      <b-row class="flex-md-row pb-5">
-        <b-col cols="12">
+    <b-container>
+      <b-row class="justify-content-center">
+        <b-col
+          cols="12"
+          class="col-lg-8 pt-large mb-4"
+        >
           <BlogPost
             :date-published="post.datePublished"
             :title="post.name"
@@ -116,4 +116,3 @@
     }
   };
 </script>
-
