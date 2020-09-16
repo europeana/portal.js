@@ -25,7 +25,7 @@
             <div class="swiper-pagination" />
           </div>
           <div class="d-flex justify-content-md-center align-items-center button-wrapper">
-            <div class="ml-lg-auto">
+            <div class="ml-lg-auto d-flex">
               <UserButtons
                 v-if="showUserButtons"
                 v-model="identifier"
