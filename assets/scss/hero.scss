@@ -257,6 +257,13 @@
   .media-bar {
     margin-top: 2.5rem;
   }
+  .swiper-pagination {
+    display: inline-flex;
+    &.swiper-pagination-fraction {
+      left: auto !important;
+      width: auto !important;
+    }
+  }
   .user-buttons {
     display: inline-flex;
     .btn {
@@ -294,15 +301,44 @@
       padding: 0;
     }
   }
-  @media (max-width: $bp-small) {
+  .rights-wrapper,
+  .pagination-wrapper,
+  .button-wrapper {
+    flex: 1;
+  }
+  
+  @media (max-width: $bp-medium) {
     .media-bar {
       flex-direction: column;
+
       a, button {
         text-align: center;
         justify-content: center;
         margin-bottom: 1rem;
         width: 100%;
         margin-left: 0;
+      }
+      .pagination-wrapper {
+        order: 1;
+        margin-bottom: 1.125rem;
+        .swiper-pagination {
+          position: relative;
+          margin: auto;
+        }
+      }
+      .rights-wrapper {
+        order: 2;
+      }
+      .button-wrapper {
+        order: 3;
+        margin-left: 0;
+        flex-direction: column;
+        .user-buttons {
+          justify-content: space-between;
+          button:last-child {
+            margin-right: 0;
+          }
+        }
       }
     }
   }
