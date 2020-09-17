@@ -131,7 +131,6 @@ const config = {
     '@nuxtjs/axios',
     '@nuxtjs/auth',
     '@nuxtjs/dotenv',
-    '~/modules/apis',
     'bootstrap-vue/nuxt',
     'cookie-universal-nuxt',
     ['nuxt-i18n', {
@@ -168,7 +167,7 @@ const config = {
   ],
 
   router: {
-    middleware: ['legacy/index', 'l10n'],
+    middleware: ['legacy/index', 'l10n', 'apis'],
     extendRoutes(routes) {
       routes.push({
         name: 'slug',
@@ -183,6 +182,8 @@ const config = {
     },
     linkExactActiveClass: 'exact-active-link'
   },
+
+  serverMiddleware: ['~/middleware/server/record-json'],
 
   /*
   ** Build configuration

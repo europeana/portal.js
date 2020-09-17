@@ -1,7 +1,7 @@
-import { config } from './';
+import config from './';
 import { apiError } from './utils';
 
-const apiUrl = (endpoint) => `${config.recommendation.origin}${config.recommendation.path}${endpoint}`;
+const apiUrl = (endpoint) => `${config.recommendation.url}${endpoint}`;
 
 export default ($axios) => ({
   /**

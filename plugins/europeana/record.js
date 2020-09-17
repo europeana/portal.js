@@ -5,7 +5,7 @@ import uniq from 'lodash/uniq';
 import merge from 'deepmerge';
 
 import { apiError } from './utils';
-import { config } from './';
+import config from './';
 import { thumbnailUrl, thumbnailTypeForMimeType } from  './thumbnail';
 import { combineMerge } from '../utils';
 
@@ -248,12 +248,11 @@ function setMatchingEntities(fields, key, entities) {
  * @param {string} europeanaId ID of Europeana record
  * @return {Object} parsed record data
  */
-export function getRecord(europeanaId, options = {}) {
-  const origin = options.origin || config.record.origin;
-  let path = options.path || config.record.path;
-  if (!path.endsWith('/record')) path += '/record';
+export function getRecord(europeanaId) {
+  let url = config.record.url;
+  if (!url.endsWith('/record')) url += '/record';
 
-  return axios.get(`${origin}${path}${europeanaId}.json`, {
+  return axios.get(`${url}${europeanaId}.json`, {
     params: {
       wskey: config.record.key
     }

@@ -4,7 +4,7 @@
 
 import axios from 'axios';
 import qs from 'qs';
-import { config } from './';
+import config from './';
 import { apiError } from './utils';
 
 // Some facets do not support enquoting of their field values.
@@ -79,8 +79,7 @@ export function rangeFromQueryParam(paramValue) {
  * @param {string} params.query search query
  * @param {string} params.wskey API key, to override `config.record.key`
  * @param {Object} options search options
- * @param {string} options.origin base URL for API, overriding default `config.record.origin`
- * @param {string} options.path path prefix for API, overriding default `config.record.path`
+ * @param {string} options.url base URL for API, overriding default `config.record.url`
  * @param {Boolean} options.escape whether or not to escape Lucene reserved characters in the search query
  * @return {{results: Object[], totalResults: number, facets: FacetSet, error: string}} search results for display
  */
@@ -91,14 +90,13 @@ export function search(params, options = {}) {
   const start = ((page - 1) * perPage) + 1;
   const rows = Math.max(0, Math.min(maxResults + 1 - start, perPage));
 
-  const origin = options.origin || config.record.origin;
-  const path = options.path || config.record.path;
+  const url = options.origin || config.record.url;
   const escape = options.escape || false;
 
   const query = (typeof params.query === 'undefined' || params.query === '') ? '*:*' : params.query;
   const escapePattern = /([!*+-=<>&|()[\]{}^~?:\\/"])/g; // Lucene reserved characters
 
-  return axios.get(`${origin}${path}/search.json`, {
+  return axios.get(`${url}/search.json`, {
     paramsSerializer(params) {
       return qs.stringify(params, { arrayFormat: 'repeat' });
     },

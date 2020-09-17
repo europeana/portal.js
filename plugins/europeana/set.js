@@ -1,7 +1,7 @@
-import { config } from './';
+import config from './';
 import { apiError } from './utils';
 
-const setApiUrl = (endpoint) => `${config.set.origin}${config.set.path}${endpoint}`;
+const setApiUrl = (endpoint) => `${config.set.url}${endpoint}`;
 
 const setIdFromUri = (uri) => uri.split('/').pop();
 

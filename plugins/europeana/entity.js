@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { apiError, langMapValueForLocale } from './utils';
-import { config } from './';
+import config from './';
 
 /**
  * Get data for one entity from the API
@@ -26,7 +26,7 @@ export function getEntity(type, id) {
 }
 
 function entityApiUrl(endpoint) {
-  return `${config.entity.origin}${config.entity.path}${endpoint}`;
+  return `${config.entity.url}${endpoint}`;
 }
 
 /**

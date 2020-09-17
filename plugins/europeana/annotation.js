@@ -2,10 +2,10 @@ import axios from 'axios';
 import qs from 'qs';
 
 import { apiError } from './utils';
-import { config } from './';
+import config from './';
 
 const annotationApiUrl = (endpoint) => {
-  return `${config.annotation.origin}${config.annotation.path}${endpoint}`;
+  return `${config.annotation.url}${endpoint}`;
 };
 
 export const search = (params) => {

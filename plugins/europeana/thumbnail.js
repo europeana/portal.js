@@ -5,13 +5,11 @@
 
 // TODO: remove this when the issue noted in the url plugin is resolved upstream
 import { URL } from '../url';
-import { config } from './';
 
-export function thumbnailUrl(uri, params = {}, options = {}) {
-  const origin = options.origin || config.thumbnail.origin;
-  const path = options.path || config.thumbnail.path;
+import config from './';
 
-  const url = new URL(`${origin}${path}/thumbnail-by-url.json`);
+export function thumbnailUrl(uri, params = {}) {
+  const url = new URL(`${config.thumbnail.url}/url.json`);
   for (const key of Object.keys(params)) {
     url.searchParams.set(key, params[key]);
   }
@@ -43,6 +41,6 @@ export function thumbnailTypeForMimeType(mimeType) {
 }
 
 export function genericThumbnail(itemId, params = {}) {
-  const uri = `${config.data.origin}/item${itemId}`;
+  const uri = `${config.data.url}/item${itemId}`;
   return thumbnailUrl(uri, params);
 }
