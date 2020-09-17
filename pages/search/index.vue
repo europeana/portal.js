@@ -68,7 +68,7 @@
 
     head() {
       return {
-        title: this.searchedFor
+        title: this.$t('search')
       };
     },
 

@@ -28,7 +28,7 @@
           path="header.inCollection"
           tag="span"
         >
-          <strong>{{ query ? query : '""' }}</strong>
+          <strong>{{ query || '""' }}</strong>
           <span>{{ entityCollectionLabel.values[0] }}</span>
         </i18n>
       </b-list-group-item>
@@ -50,7 +50,7 @@
           path="header.entireCollection"
           tag="span"
         >
-          <strong>{{ query ? query : '""' }}</strong>
+          <strong>{{ query || '""' }}</strong>
         </i18n>
       </b-list-group-item>
     </template>
@@ -74,7 +74,7 @@
           path="header.searchFor"
           tag="span"
         >
-          <strong>{{ query }}</strong>
+          <strong>{{ query || '""' }}</strong>
         </i18n>
       </b-list-group-item>
     </template>
@@ -353,8 +353,6 @@
         }
       },
 
-      // TODO: This can be circumvented by moving the mouse out of the window and typing,
-      // causing the 'Search For' button to use the old query.
       selectSuggestion() {
         if (this.focus === 0 && !this.entityCollectionLabel) {
           this.$emit('select', this.query);

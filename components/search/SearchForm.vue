@@ -23,10 +23,10 @@
         aria-autocomplete="list"
         :aria-controls="enableAutoSuggest ? 'search-form-auto-suggest' : null"
         :aria-label="$t('search')"
-        @input="getSearchSuggestions"
+        @input="clearSuggestions(); getSearchSuggestions(query);"
       />
       <b-button
-        v-show="showSearchQuery || query"
+        v-show="query"
         data-qa="clear button"
         class="clear"
         variant="light"
@@ -72,7 +72,6 @@
     data() {
       return {
         query: null,
-        showSearchQuery: false,
         gettingSuggestions: false,
         suggestions: {},
         selectedSuggestion: null
@@ -153,14 +152,15 @@
         this.selectedSuggestion = null;
       },
 
+      clearSuggestions() {
+        this.selectedSuggestion = null;
+      },
+
       getSearchSuggestions(query) {
         if (query === '') {
           this.suggestions = {};
-          this.showSearchQuery = false;
           return;
         }
-
-        this.showSearchQuery = true;
 
         if (!this.enableAutoSuggest) return;
 
@@ -216,7 +216,6 @@
       clearQuery() {
         this.query = '';
         this.suggestions = {};
-        this.showSearchQuery = false;
 
         this.$nextTick(() => {
           if (this.$refs.searchbox) this.$refs.searchbox.$el.focus();
