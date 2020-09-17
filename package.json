@@ -67,7 +67,7 @@
     "express": "^4.16.4",
     "express-ipfilter": "^1.0.1",
     "http-auth": "^3.2.3",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.20",
     "marked": "^0.7.0",
     "md5": "^2.2.1",
     "morgan": "^1.9.1",
@@ -75,7 +75,7 @@
     "nuxt-i18n": "^6.10.1",
     "qs": "^6.6.0",
     "swiper": "^6.1.2",
-    "vue": "^2.6.11",
+    "vue": "^2.6.12",
     "vue-awesome-swiper": "^4.1.1",
     "vue-client-only": "^2.0.0",
     "vue-i18n": "^8.17.3",
@@ -131,6 +131,6 @@
     "stylelint-config-recommended": "^2.1.0",
     "svg-url-loader": "^3.0.2",
     "vue-loader": "^15.7.0",
-    "vue-template-compiler": "^2.6.11"
+    "vue-template-compiler": "^2.6.12"
   }
 }
