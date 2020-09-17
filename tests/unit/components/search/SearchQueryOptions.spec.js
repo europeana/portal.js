@@ -53,24 +53,6 @@ const suggestions = {
 
 describe('components/search/SearchQueryOptions', () => {
   describe('suggestions', () => {
-    it('is hidden when there are no suggestions', () => {
-      const wrapper = factory();
-
-      wrapper.find('[data-qa="search suggestions"]').isVisible().should.be.false;
-    });
-
-    it('is shown when suggestions are set', () => {
-      const wrapper = factory();
-      const autoSuggestWrapper = wrapper.find('[data-qa="search suggestions"]');
-
-      autoSuggestWrapper.setProps({
-        value: suggestions,
-        query
-      });
-
-      autoSuggestWrapper.isVisible().should.be.true;
-    });
-
     it('shows each suggestion', () => {
       const wrapper = factory();
       const autoSuggestWrapper = wrapper.find('[data-qa="search suggestions"]');
@@ -79,7 +61,7 @@ describe('components/search/SearchQueryOptions', () => {
         value: suggestions
       });
 
-      const suggestionElements = autoSuggestWrapper.findAll('[data-qa="search suggestion"]');
+      const suggestionElements = autoSuggestWrapper.findAll('[data-qa$="search suggestion"]');
       const suggestionValues = Object.values(suggestions);
 
       suggestionElements.length.should.eq(suggestionValues.length);

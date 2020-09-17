@@ -91,7 +91,6 @@ const config = {
     '~/plugins/vue/index',
     '~/plugins/i18n.js',
     '~/plugins/vue-filters',
-    '~/plugins/vue-disqus',
     '~/plugins/vue-directives'
   ],
 

@@ -353,6 +353,8 @@
         }
       },
 
+      // TODO: This can be circumvented by moving the mouse out of the window and typing,
+      // causing the 'Search For' button to use the old query.
       selectSuggestion() {
         if (this.focus === 0 && !this.entityCollectionLabel) {
           this.$emit('select', this.query);
