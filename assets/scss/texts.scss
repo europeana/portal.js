@@ -56,6 +56,10 @@ header .col {
       max-width: initial;
       padding: 0;
 
+      .jumbotron {
+        margin-top: 0 !important;
+      }
+
       @media (min-width: $bp-medium) {
         .jumbotron {
           margin-left: -1rem;

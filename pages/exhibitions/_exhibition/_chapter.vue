@@ -33,7 +33,7 @@
         </b-col>
       </b-row>
     </b-container>
-    <b-container class="pb-3">
+    <b-container>
       <b-row>
         <b-col
           cols="12"
@@ -67,11 +67,11 @@
       <client-only>
         <b-row
           v-if="chapters"
-          class="justify-content-center"
+          class="justify-content-center mt-3"
         >
           <b-col
             cols="12"
-            class="my-3 col-lg-8"
+            class="mt-3 col-lg-8"
           >
             <ExhibitionChapters
               :exhibition-identifier="exhibitionIdentifier"
@@ -81,6 +81,7 @@
           </b-col>
         </b-row>
       </client-only>
+      <b-row class="footer-margin" />
     </b-container>
   </div>
 </template>
