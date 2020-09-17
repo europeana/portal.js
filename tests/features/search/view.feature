@@ -7,17 +7,20 @@ Feature: View styles (List and Grid)
 
   Scenario: Defaulting to grid view
     When I visit the `search page`
+    And I click the `show search button`
     And I press the ENTER key
     Then I see a `item previews grid`
 
   Scenario: Defaulting to grid view after paginating
     When I visit the `search page`
+    And I click the `show search button`
     And I press the ENTER key
     And I go to page number 2
     Then I see a `item previews grid`
 
   Scenario: Switching to the list view
     When I visit the `search page`
+    And I click the `show search button`
     And I press the ENTER key
     And I click the `search list view toggle`
     Then I see a `item previews list`
@@ -29,6 +32,7 @@ Feature: View styles (List and Grid)
 
   Scenario: Switching to the list view and paginating
     When I visit the `search page`
+    And I click the `show search button`
     And I press the ENTER key
     And I click the `search list view toggle`
     And I go to page number 2

@@ -50,6 +50,7 @@ Feature: Search querying
     And I enter "World" in the `search box`
     And I see `search suggestions` with the text "World War I"
     And I press the DOWN_ARROW key
+    And I press the DOWN_ARROW key
     And I press the ENTER key
     And I wait for the page to load
     Then I see the `search page`
@@ -65,12 +66,13 @@ Feature: Search querying
     And I press the ESCAPE key
     Then I see the `show search button`
 
-  Scenario: No auto suggestion on entity pages
+  Scenario: No auto suggestion on entity pages, only the search buttons
     Given I am on an `entity page`
     And I click the `show search button`
     And I enter "World" in the `search box`
     And I wait 1 second
-    Then there are no `search suggestions`
+    Then I see `search suggestions`
+    And there is no `World war II search suggestion`
 
   Scenario: Back button restores previous query
     Given I am on the `home page`
