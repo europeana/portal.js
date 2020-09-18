@@ -12,8 +12,7 @@
 </template>
 
 <script>
-  import { mapGetters } from 'vuex';
-
+  import apiConfig from '../../plugins/europeana';
   import ContentCard from '../generic/ContentCard';
   import { getEntityTypeHumanReadable } from '../../plugins/europeana/entity';
   import { isEuropeanaRecordId } from '../../plugins/europeana/record';
@@ -33,9 +32,6 @@
       }
     },
     computed: {
-      ...mapGetters({
-        apiConfig: 'apis/config'
-      }),
       cardFields() {
         return this.cardType === 'AutomatedRecordCard' && this.fields.encoding ? this.fields.encoding : this.fields;
       },
@@ -115,10 +111,10 @@
         return (typeof this.fields.identifier === 'string') && isEuropeanaRecordId(this.fields.identifier);
       },
       forEuropeanaEntity() {
-        return (typeof this.fields.identifier === 'string') && this.fields.identifier.includes(this.apiConfig.data.origin);
+        return (typeof this.fields.identifier === 'string') && this.fields.identifier.includes(apiConfig.data.url);
       },
       entityRouterLink(uri, slug) {
-        const uriMatch = uri.match(`^${this.apiConfig.data.origin}/([^/]+)(/base)?/(.+)$`);
+        const uriMatch = uri.match(`^${apiConfig.data.url}/([^/]+)(/base)?/(.+)$`);
         return {
           name: 'collections-type-all', params: { type: getEntityTypeHumanReadable(uriMatch[1]), pathMatch: slug ? slug : uriMatch[3] }
         };

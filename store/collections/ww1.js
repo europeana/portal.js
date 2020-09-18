@@ -13,8 +13,7 @@ export const getters = {
     const options = Object.assign({}, state.apiOptions);
 
     if (getters.apiParams.api === 'fulltext') {
-      options.origin = apiConfig.ww1.origin;
-      options.path = apiConfig.ww1.path;
+      options.url = apiConfig.ww1.url;
     }
 
     return options;

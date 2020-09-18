@@ -2,7 +2,7 @@ import defu from 'defu';
 import nock from 'nock';
 
 import authAxios from '../../../plugins/authAxios';
-import config from '../../../modules/apis/defaults';
+import config from '../../../plugins/europeana';
 const apiUrl = `${config.set.origin}${config.set.path}`;
 import sinon from 'sinon';
 

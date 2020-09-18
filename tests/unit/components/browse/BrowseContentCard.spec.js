@@ -4,7 +4,7 @@ import BootstrapVue from 'bootstrap-vue';
 import Vuex from 'vuex';
 
 import BrowseContentCard from '../../../../components/browse/BrowseContentCard.vue';
-import apiConfig from '../../../../modules/apis/defaults';
+import apiConfig from '../../../../plugins/europeana';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);

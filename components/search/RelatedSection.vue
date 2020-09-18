@@ -8,7 +8,6 @@
 <script>
   import RelatedCollections from '../generic/RelatedCollections';
   import { getEntitySuggestions } from '../../plugins/europeana/entity';
-  import { mapGetters } from 'vuex';
 
   export default {
     name: 'RelatedSection',
@@ -32,12 +31,6 @@
       return {
         relatedCollections: []
       };
-    },
-
-    computed: {
-      ...mapGetters({
-        apiConfig: 'apis/config'
-      })
     },
 
     watch: {

@@ -23,7 +23,7 @@
 <script>
   import RelatedChip from './RelatedChip';
   import { getEntityTypeHumanReadable, getEntitySlug } from '../../plugins/europeana/entity';
-  import { mapGetters } from 'vuex';
+  import apiConfig from '../../plugins/europeana';
 
   export default {
     name: 'RelatedCollections',
@@ -43,12 +43,6 @@
       }
     },
 
-    computed: {
-      ...mapGetters({
-        apiConfig: 'apis/config'
-      })
-    },
-
     methods: {
       linkGen(item) {
         let id = '';
@@ -62,7 +56,7 @@
           name = item.name;
         }
 
-        const uriMatch = id.match(`^${this.apiConfig.data.origin}/([^/]+)(/base)?/(.+)$`);
+        const uriMatch = id.match(`^${apiConfig.data.url}/([^/]+)(/base)?/(.+)$`);
         return this.$path({
           name: 'collections-type-all', params: {
             type: getEntityTypeHumanReadable(uriMatch[1]),

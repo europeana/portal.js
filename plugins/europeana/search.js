@@ -90,7 +90,7 @@ export function search(params, options = {}) {
   const start = ((page - 1) * perPage) + 1;
   const rows = Math.max(0, Math.min(maxResults + 1 - start, perPage));
 
-  const url = options.origin || config.record.url;
+  const url = options.url || config.record.url;
   const escape = options.escape || false;
 
   const query = (typeof params.query === 'undefined' || params.query === '') ? '*:*' : params.query;

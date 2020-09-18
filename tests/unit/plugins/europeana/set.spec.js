@@ -1,7 +1,7 @@
 import nock from 'nock';
 
 import set from '../../../../plugins/europeana/set';
-import config from '../../../../modules/apis/defaults';
+import config from '../../../../plugins/europeana';
 const apiUrl = `${config.set.origin}${config.set.path}`;
 
 const axios = require('axios');

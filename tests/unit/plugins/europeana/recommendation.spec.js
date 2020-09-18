@@ -1,7 +1,7 @@
 import nock from 'nock';
 
 import recommendation from '../../../../plugins/europeana/recommendation';
-import config from '../../../../modules/apis/defaults';
+import config from '../../../../plugins/europeana';
 const apiUrl = `${config.recommendation.origin}${config.recommendation.path}`;
 
 const axios = require('axios');

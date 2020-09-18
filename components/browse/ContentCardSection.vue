@@ -53,7 +53,7 @@
 </template>
 
 <script>
-  import { mapGetters } from 'vuex';
+  import apiConfig from '../../plugins/europeana';
   import { entityParamsFromUri, getEntityTypeHumanReadable } from '../../plugins/europeana/entity';
   import ContentCard from '../generic/ContentCard';
   import BrowseContentCard from './BrowseContentCard';
@@ -72,10 +72,6 @@
       }
     },
     computed: {
-      ...mapGetters({
-        apiConfig: 'apis/config'
-      }),
-
       cards() {
         return this.section.hasPartCollection.items;
       },
@@ -91,7 +87,7 @@
     },
     methods: {
       entityRouterLink(uri, slug) {
-        const uriMatch = uri.match(`^${this.apiConfig.data.origin}/([^/]+)(/base)?/(.+)$`);
+        const uriMatch = uri.match(`^${apiConfig.data.url}/([^/]+)(/base)?/(.+)$`);
         return {
           name: 'collections-type-all', params: { type: getEntityTypeHumanReadable(uriMatch[1]), pathMatch: slug ? slug : uriMatch[3] }
         };

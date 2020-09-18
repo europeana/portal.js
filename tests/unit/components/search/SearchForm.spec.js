@@ -3,7 +3,7 @@ import SearchForm from '../../../../components/search/SearchForm.vue';
 import Vuex from 'vuex';
 import sinon from 'sinon';
 import nock from 'nock';
-import apiConfig from '../../../../modules/apis/defaults';
+import apiConfig from '../../../../plugins/europeana';
 
 const axios = require('axios');
 axios.defaults.adapter = require('axios/lib/adapters/http');

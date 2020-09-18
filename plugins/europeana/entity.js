@@ -88,7 +88,7 @@ export function getEntityTypeHumanReadable(type) {
  * @return {string} retrieved human readable name of type
  */
 export function getEntityUri(type, id) {
-  return `${config.data.origin}/${getEntityTypeApi(type)}/base/${normalizeEntityId(id)}`;
+  return `${config.data.url}/${getEntityTypeApi(type)}/base/${normalizeEntityId(id)}`;
 }
 
 /**
@@ -161,10 +161,7 @@ export function getEntitySlug(id, name) {
  * TODO: add people as related entities again
  * TODO: use search() function?
  */
-export function relatedEntities(type, id, options = {}) {
-  const origin = options.origin || config.record.origin;
-  const path = options.path || config.record.path;
-
+export function relatedEntities(type, id) {
   const entityUri = getEntityUri(type, id);
   let apiParams = {
     wskey: config.record.key,
@@ -174,7 +171,7 @@ export function relatedEntities(type, id, options = {}) {
     rows: 0
   };
 
-  return axios.get(`${origin}${path}/search.json`, {
+  return axios.get(`${config.record.url}/search.json`, {
     params: apiParams
   })
     .then((response) => {
@@ -196,7 +193,7 @@ export function relatedEntities(type, id, options = {}) {
 async function getEntityFacets(facets, currentId) {
   let entities = [];
   for (const facet of facets) {
-    const facetFilter = (value) => value['label'].includes(config.data.origin) && value['label'].split('/').pop() !== currentId;
+    const facetFilter = (value) => value['label'].includes(config.data.url) && value['label'].split('/').pop() !== currentId;
     entities = entities.concat(facet['fields'].filter(facetFilter));
   }
 

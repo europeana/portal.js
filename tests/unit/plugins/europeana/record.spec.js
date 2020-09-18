@@ -1,6 +1,6 @@
 import nock from 'nock';
 import { thumbnailUrl } from  '../../../../plugins/europeana/thumbnail';
-import config from '../../../../modules/apis/defaults';
+import config from '../../../../plugins/europeana';
 import {
   getRecord, isEuropeanaRecordId, similarItemsQuery
 } from '../../../../plugins/europeana/record';

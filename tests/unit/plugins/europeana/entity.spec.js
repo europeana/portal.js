@@ -1,6 +1,6 @@
 import nock from 'nock';
 import * as entities from '../../../../plugins/europeana/entity';
-import config from '../../../../modules/apis/defaults';
+import config from '../../../../plugins/europeana';
 
 const axios = require('axios');
 axios.defaults.adapter = require('axios/lib/adapters/http');

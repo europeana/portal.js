@@ -4,7 +4,7 @@ import Vuex from 'vuex';
 import sinon from 'sinon';
 
 import RelatedCollections from '../../../../components/generic/RelatedCollections.vue';
-import apiConfig from '../../../../modules/apis/defaults';
+import apiConfig from '../../../../plugins/europeana';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);

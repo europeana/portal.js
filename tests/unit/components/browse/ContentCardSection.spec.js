@@ -1,6 +1,6 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
-import apiConfig from '../../../../modules/apis/defaults';
+import apiConfig from '../../../../plugins/europeana';
 import ContentCardSection from '../../../../components/browse/ContentCardSection.vue';
 
 const localVue = createLocalVue();

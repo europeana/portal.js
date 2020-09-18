@@ -138,13 +138,13 @@
 
 <script>
   import axios from 'axios';
-  import { mapGetters } from 'vuex';
 
   import ClientOnly from 'vue-client-only';
   import MediaActionBar from '../../components/item/MediaActionBar';
   import MediaPresentation from '../../components/item/MediaPresentation';
   import MetadataBox from '../../components/item/MetadataBox';
 
+  import apiConfig from '../../plugins/europeana';
   import { getRecord, similarItemsQuery } from '../../plugins/europeana/record';
   import { search } from '../../plugins/europeana/search';
   import { isIIIFPresentation, isRichMedia, isPlayableMedia } from '../../plugins/media';
@@ -186,8 +186,8 @@
 
     fetchOnServer: false,
 
-    asyncData({ params, res, query }) {
-      return getRecord(`/${params.pathMatch}`, { origin: query.recordApi })
+    asyncData({ params, res }) {
+      return getRecord(`/${params.pathMatch}`)
         .then((result) => {
           return result.record;
         })
@@ -225,9 +225,6 @@
     },
 
     computed: {
-      ...mapGetters({
-        apiConfig: 'apis/config'
-      }),
       keywords() {
         // Convert collection of annotations' prefLabels into a single langMap
         return this.taggingAnnotations.reduce((memo, annotation) => {
@@ -245,10 +242,10 @@
         return { ...this.coreFields, ...this.fieldsAndKeywords };
       },
       europeanaAgents() {
-        return (this.agents || []).filter((agent) => agent.about.startsWith(`${this.apiConfig.data.origin}/agent/`));
+        return (this.agents || []).filter((agent) => agent.about.startsWith(`${apiConfig.data.url}/agent/`));
       },
       europeanaConcepts() {
-        return (this.concepts || []).filter((concept) => concept.about.startsWith(`${this.apiConfig.data.origin}/concept/`));
+        return (this.concepts || []).filter((concept) => concept.about.startsWith(`${apiConfig.data.url}/concept/`));
       },
       europeanaEntityUris() {
         const entities = this.europeanaConcepts.concat(this.europeanaAgents);
@@ -395,8 +392,6 @@
           rows: 4,
           profile: 'minimal',
           facet: ''
-        }, {
-          origin: this.$route.query.recordApi
         })
           .then(response => response)
           .catch(() => {

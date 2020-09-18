@@ -95,10 +95,10 @@
 
 <script>
   import axios from 'axios';
-  import { mapGetters } from 'vuex';
 
   import MetadataBox from '../../components/item/MetadataBox';
 
+  import apiConfig from '../../plugins/europeana';
   import { getRecord, similarItemsQuery } from '../../plugins/europeana/record';
   import { search } from '../../plugins/europeana/search';
 
@@ -139,8 +139,8 @@
 
     fetchOnServer: false,
 
-    asyncData({ params, res, query }) {
-      return getRecord(`/${params.pathMatch}`, { origin: query.recordApi })
+    asyncData({ params, res }) {
+      return getRecord(`/${params.pathMatch}`)
         .then((result) => {
           return result.record;
         })
@@ -177,9 +177,6 @@
     },
 
     computed: {
-      ...mapGetters({
-        apiConfig: 'apis/config'
-      }),
       keywords() {
         // Convert collection of annotations' prefLabels into a single langMap
         return this.taggingAnnotations.reduce((memo, annotation) => {
@@ -200,10 +197,10 @@
         return this.fields.edmRights ? this.fields.edmRights.def[0] : '';
       },
       europeanaAgents() {
-        return (this.agents || []).filter((agent) => agent.about.startsWith(`${this.apiConfig.data.origin}/agent/`));
+        return (this.agents || []).filter((agent) => agent.about.startsWith(`${apiConfig.data.url}/agent/`));
       },
       europeanaConcepts() {
-        return (this.concepts || []).filter((concept) => concept.about.startsWith(`${this.apiConfig.data.origin}/concept/`));
+        return (this.concepts || []).filter((concept) => concept.about.startsWith(`${apiConfig.data.url}/concept/`));
       },
       europeanaEntityUris() {
         const entities = this.europeanaConcepts.concat(this.europeanaAgents);
@@ -299,8 +296,6 @@
           rows: 4,
           profile: 'minimal',
           facet: ''
-        }, {
-          origin: this.$route.query.recordApi
         })
           .then(response => response)
           .catch(() => {

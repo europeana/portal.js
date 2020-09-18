@@ -2,7 +2,7 @@ import axios from 'axios';
 import nock from 'nock';
 
 import * as annotations from '../../../../plugins/europeana/annotation';
-import config from '../../../../modules/apis/defaults';
+import config from '../../../../plugins/europeana';
 
 axios.defaults.adapter = require('axios/lib/adapters/http');
 

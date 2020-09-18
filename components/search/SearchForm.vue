@@ -166,7 +166,6 @@
 
     computed: {
       ...mapGetters({
-        apiConfig: 'apis/config',
         queryUpdatesForFacetChanges: 'search/queryUpdatesForFacetChanges',
         showSearch: 'ui/searchView',
         view: 'search/activeView'

@@ -20,11 +20,6 @@ const store = (searchState = {}) => new Vuex.Store({
     }
   },
   getters: {
-    'apis/config': () => ({
-      data: {
-        origin: 'https://data.europeana.eu'
-      }
-    }),
     'search/queryUpdatesForFacetChanges': () => () => {}
   }
 });

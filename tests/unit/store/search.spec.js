@@ -1,5 +1,5 @@
 import * as store from '../../../store/search';
-import apiConfig from '../../../modules/apis/defaults';
+import apiConfig from '../../../plugins/europeana';
 import axios from 'axios';
 import nock from 'nock';
 import sinon from 'sinon';

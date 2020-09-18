@@ -291,10 +291,6 @@ export const actions = {
     if (!apiParams.profile) apiParams.profile = 'minimal';
 
     const apiOptions = {};
-    if (apiParams.recordApi) {
-      apiOptions.origin = apiParams.recordApi;
-      delete apiParams.recordApi;
-    }
 
     commit('set', ['previousApiParams', Object.assign({}, state.apiParams)]);
     commit('set', ['previousApiOptions', Object.assign({}, state.apiOptions)]);

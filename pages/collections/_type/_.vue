@@ -66,9 +66,8 @@
   import { mapState } from 'vuex';
 
   import * as entities from '../../../plugins/europeana/entity';
+  import apiConfig from '../../../plugins/europeana';
   import { langMapValueForLocale } from  '../../../plugins/europeana/utils';
-  import { getEntityTypeHumanReadable, getEntitySlug } from '../../../plugins/europeana/entity';
-  import { mapGetters } from 'vuex';
 
   export default {
     components: {
@@ -157,9 +156,6 @@
     },
 
     computed: {
-      ...mapGetters({
-        apiConfig: 'apis/config'
-      }),
       ...mapState({
         entity: state => state.entity.entity,
         page: state => state.entity.page,
@@ -238,7 +234,7 @@
 
       // TODO: move into a new entity store action?
       if (!this.relatedCollectionCards) {
-        entities.relatedEntities(this.$route.params.type, this.$route.params.pathMatch, { origin: this.$route.query.recordApi })
+        entities.relatedEntities(this.$route.params.type, this.$route.params.pathMatch)
           .then((related) => {
             this.$store.commit('entity/setRelatedEntities', related);
           });
@@ -262,11 +258,11 @@
           id = item.id;
           name = item.prefLabel.en;
         }
-        const uriMatch = id.match(`^${this.apiConfig.data.origin}/([^/]+)(/base)?/(.+)$`);
+        const uriMatch = id.match(`^${apiConfig.data.url}/([^/]+)(/base)?/(.+)$`);
         return this.$path({
           name: 'collections-type-all', params: {
-            type: getEntityTypeHumanReadable(uriMatch[1]),
-            pathMatch: getEntitySlug(id, name)
+            type: entities.getEntityTypeHumanReadable(uriMatch[1]),
+            pathMatch: entities.getEntitySlug(id, name)
           }
         });
       }
