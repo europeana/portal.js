@@ -1,11 +1,12 @@
 // TODO: remove this when the issue noted in the url plugin is resolved upstream
 import { URL } from '../url';
+import apiConfig from '../../plugins/europeana';
 
 function proxyMedia(mediaUrl, europeanaId, params = {}) {
   if (!params['api_url']) {
     // TODO: it is not ideal to hard-code "/api" here, but the media proxy
     //       expects Record API URLs to end thus, i.e. not /record or /api/v2
-    params['api_url'] = this.$store.getters['apis/config'].record.origin + '/api';
+    params['api_url'] = new URL(apiConfig.record.url).origin + '/api';
   }
 
   const proxyUrl = new URL('https://proxy.europeana.eu');
