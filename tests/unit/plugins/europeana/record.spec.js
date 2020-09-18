@@ -9,8 +9,8 @@ const axios = require('axios');
 axios.defaults.adapter = require('axios/lib/adapters/http');
 
 const europeanaId = '/123/abc';
-const apiUrl = config.record.origin;
-const apiEndpoint = `${config.record.path}${europeanaId}.json`;
+const apiUrl = config.record.url;
+const apiEndpoint = `${europeanaId}.json`;
 const apiKey = 'abcdef';
 
 const baseRequest = nock(apiUrl).get(apiEndpoint);
@@ -102,20 +102,6 @@ describe('plugins/europeana/record', () => {
   });
 
   describe('getRecord()', () => {
-    context('with origin supplied', () => {
-      const customOrigin = 'https://api.example.org';
-      it('queries that API', async() => {
-        nock(customOrigin)
-          .get(apiEndpoint)
-          .query(true)
-          .reply(200, apiResponse);
-
-        await getRecord(europeanaId, { origin: customOrigin });
-
-        nock.isDone().should.be.true;
-      });
-    });
-
     describe('API response', () => {
       describe('with "Invalid record identifier: ..." error', () => {
         const errorMessage = `Invalid record identifier: ${europeanaId}`;

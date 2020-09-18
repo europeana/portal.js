@@ -3,7 +3,7 @@ import nock from 'nock';
 
 import authAxios from '../../../plugins/authAxios';
 import config from '../../../plugins/europeana';
-const apiUrl = `${config.set.origin}${config.set.path}`;
+const apiUrl = config.set.url;
 import sinon from 'sinon';
 
 const axios = require('axios');

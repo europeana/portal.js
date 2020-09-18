@@ -1,4 +1,5 @@
 import nock from 'nock';
+
 import * as entities from '../../../../plugins/europeana/entity';
 import config from '../../../../plugins/europeana';
 
@@ -8,15 +9,15 @@ axios.defaults.adapter = require('axios/lib/adapters/http');
 const entityId = '94-architecture';
 const entityType = 'topic';
 const entityIdMisspelled = '94-architectuz';
-const apiUrl = config.entity.origin;
-const apiEndpoint = '/entity/concept/base/94.json';
+const apiUrl = config.entity.url;
+const apiEndpoint = '/concept/base/94.json';
 const entityUri = 'http://data.europeana.eu/concept/base/94';
 const entityFilterField = 'skos_concept';
 const apiKey = 'abcdef';
 const baseRequest = nock(apiUrl).get(apiEndpoint);
 
-const recordApiUrl = config.record.origin;
-const recordApiEndpoint = `${config.record.path}/search.json`;
+const recordApiUrl = config.record.url;
+const recordApiEndpoint = '/search.json';
 
 const searchResponse = {
   facets: [
@@ -154,7 +155,7 @@ describe('plugins/europeana/entity', () => {
     const entitySearchResponse = {
       items: []
     };
-    const searchEndpoint = '/entity/search';
+    const searchEndpoint = '/search';
 
     it('searches the API by entity URIs', async() => {
       nock(apiUrl)
@@ -172,7 +173,7 @@ describe('plugins/europeana/entity', () => {
 
   describe('getEntitySuggestions()', () => {
     const text = 'world';
-    const suggestEndpoint = '/entity/suggest';
+    const suggestEndpoint = '/suggest';
 
     it('passes `text` to the API', async() => {
       nock(apiUrl)
@@ -228,7 +229,7 @@ describe('plugins/europeana/entity', () => {
   describe('relatedEntities()', () => {
     beforeEach('stub API response', () => {
       nock(apiUrl)
-        .get('/entity/search')
+        .get('/search')
         .query(true)
         .reply(200, entitiesResponse);
     });
@@ -337,7 +338,7 @@ describe('plugins/europeana/entity', () => {
   describe('searchEntities()', () => {
     beforeEach('stub API response', () => {
       nock(apiUrl)
-        .get('/entity/search')
+        .get('/search')
         .query(true)
         .reply(200, conceptEntitiesResponse);
     });

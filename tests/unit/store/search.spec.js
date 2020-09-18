@@ -6,8 +6,8 @@ import sinon from 'sinon';
 
 axios.defaults.adapter = require('axios/lib/adapters/http');
 
-const apiUrl = apiConfig.record.origin;
-const apiEndpoint = `${apiConfig.record.path}/search.json`;
+const apiUrl = apiConfig.record.url;
+const apiEndpoint = '/search.json';
 const apiKey = '1234';
 
 const baseRequest = nock(apiUrl).get(apiEndpoint);

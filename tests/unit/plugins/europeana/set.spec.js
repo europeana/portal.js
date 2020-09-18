@@ -2,7 +2,7 @@ import nock from 'nock';
 
 import set from '../../../../plugins/europeana/set';
 import config from '../../../../plugins/europeana';
-const apiUrl = `${config.set.origin}${config.set.path}`;
+const apiUrl = config.set.url;
 
 const axios = require('axios');
 axios.defaults.adapter = require('axios/lib/adapters/http');

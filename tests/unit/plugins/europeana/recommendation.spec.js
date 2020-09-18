@@ -2,7 +2,7 @@ import nock from 'nock';
 
 import recommendation from '../../../../plugins/europeana/recommendation';
 import config from '../../../../plugins/europeana';
-const apiUrl = `${config.recommendation.origin}${config.recommendation.path}`;
+const apiUrl = config.recommendation.url;
 
 const axios = require('axios');
 axios.defaults.adapter = require('axios/lib/adapters/http');
@@ -29,7 +29,7 @@ describe('plugins/europeana/recommendation', () => {
     });
 
     context('when type is "set"', () => {
-      it('requests and returns recommendations for the given seet ID', async() => {
+      it('requests and returns recommendations for the given set ID', async() => {
         nock(apiUrl)
           .get('/set/123')
           .reply(200, recommendations);

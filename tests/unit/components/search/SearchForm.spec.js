@@ -244,7 +244,7 @@ describe('components/search/SearchForm', () => {
 
   describe('getSearchSuggestions', () => {
     beforeEach(() => {
-      nock(apiConfig.entity.origin).get('/entity/suggest')
+      nock(apiConfig.entity.url).get('/suggest')
         .query(true)
         .reply(200, entityApiSuggestionsResponse);
     });

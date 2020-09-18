@@ -20,8 +20,8 @@ describe('plugins/europeana/entity', () => {
   describe('search', () => {
     it('searches Annotation API', async() => {
       const apiQuery = '*:*';
-      nock(config.annotation.origin)
-        .get(`${config.annotation.path}/search`)
+      nock(config.annotation.url)
+        .get('/search')
         .query(query => {
           return query.query === apiQuery && query.wskey === apiKey;
         })

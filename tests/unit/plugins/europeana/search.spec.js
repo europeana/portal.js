@@ -7,11 +7,11 @@ import config from '../../../../plugins/europeana';
 import axios from 'axios';
 axios.defaults.adapter = require('axios/lib/adapters/http');
 
-const apiOrigin = config.record.origin;
-const apiEndpoint = `${config.record.path}/search.json`;
+const apiUrl = config.record.url;
+const apiEndpoint = '/search.json';
 const apiKey = 'abcdef';
 
-const baseRequest = nock(apiOrigin).get(apiEndpoint);
+const baseRequest = nock(apiUrl).get(apiEndpoint);
 const defaultResponse = { success: true, items: [], totalResults: 123456 };
 
 describe('plugins/europeana/search', () => {
@@ -146,26 +146,15 @@ describe('plugins/europeana/search', () => {
       });
 
       it('supports API override', async() => {
-        const overrideapiOrigin = 'https://api.example.org';
-        nock(overrideapiOrigin).get(apiEndpoint).query(true).reply(200, defaultResponse);
+        const overrideApiUrl = 'https://api.example.org';
+        nock(overrideApiUrl)
+          .get(apiEndpoint)
+          .query(true)
+          .reply(200, defaultResponse);
 
-        await search({ query: 'anything' }, { origin: overrideapiOrigin });
+        await search({ query: 'anything' }, { url: overrideApiUrl });
 
         nock.isDone().should.be.true;
-      });
-
-      context('with origin supplied', () => {
-        const customOrigin = 'https://api.example.org';
-        it('queries that API', async() => {
-          nock(customOrigin)
-            .get(apiEndpoint)
-            .query(true)
-            .reply(200, defaultResponse);
-
-          await search({ query: 'anything' }, { origin: customOrigin });
-
-          nock.isDone().should.be.true;
-        });
       });
 
       describe('escaping Lucene reserved characters', () => {

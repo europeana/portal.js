@@ -1,5 +1,4 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
-import Vuex from 'vuex';
 
 import plugin from '../../../../plugins/vue/proxy-media';
 
@@ -8,29 +7,10 @@ const component = {
 };
 
 const localVue = createLocalVue();
-localVue.use(Vuex);
 localVue.use(plugin);
 
-const store = new Vuex.Store({
-  modules: {
-    apis: {
-      namespaced: true,
-      getters: {
-        config() {
-          return {
-            record: {
-              origin: 'https://api.example.org'
-            }
-          };
-        }
-      }
-    }
-  }
-});
-
 const factory = () => shallowMount(component, {
-  localVue,
-  store
+  localVue
 });
 
 describe('plugins/vue/proxy-media', () => {
@@ -73,7 +53,7 @@ describe('plugins/vue/proxy-media', () => {
 
       const proxyUrl = new URL(wrapper.vm.$proxyMedia(mediaUrl, europeanaId));
 
-      proxyUrl.searchParams.get('api_url').should.eq('https://api.example.org/api');
+      proxyUrl.searchParams.get('api_url').should.eq('https://api.europeana.eu/api');
     });
 
     it('sets additional params from final arg', () => {
