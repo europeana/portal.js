@@ -16,7 +16,7 @@ export default {
     key: process.env['EUROPEANA_NEWSPAPER_API_KEY'] || process.env['EUROPEANA_RECORD_API_KEY']
   },
   recommendation: {
-    url: process.env.EUROPEANA_RECOMMENDATION_API_URL
+    url: process.env.EUROPEANA_RECOMMENDATION_API_URL || 'https://api.europeana.eu/recommend'
   },
   record: {
     url: process.env.EUROPEANA_RECORD_API_URL || 'https://api.europeana.eu/record',

@@ -1,6 +1,6 @@
 // TODO: remove this when the issue noted in the url plugin is resolved upstream
 import { URL } from '../url';
-import apiConfig from '../../plugins/europeana';
+import apiConfig from '../europeana';
 
 function proxyMedia(mediaUrl, europeanaId, params = {}) {
   if (!params['api_url']) {
