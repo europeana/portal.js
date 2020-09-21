@@ -2,27 +2,29 @@ import axios from 'axios';
 import qs from 'qs';
 
 import { apiError } from './utils';
-import config from './';
+import defaultConfig from './';
 
-const annotationApiUrl = (endpoint) => {
-  return `${config.annotation.url}${endpoint}`;
-};
+export default (config = defaultConfig) => ({
+  annotationApiUrl(endpoint) {
+    return `${config.annotation.url}${endpoint}`;
+  },
 
-export const search = (params) => {
-  return axios.get(annotationApiUrl('/search'), {
-    // TODO: move serializer into utils as it's common to all APIs
-    paramsSerializer(params) {
-      return qs.stringify(params, { arrayFormat: 'repeat' });
-    },
-    params: {
-      ...params,
-      ...{ wskey: config.annotation.key }
-    }
-  })
-    .then((response) => {
-      return response.data.items ? response.data.items : [];
+  search(params) {
+    return axios.get(this.annotationApiUrl('/search'), {
+      // TODO: move serializer into utils as it's common to all APIs
+      paramsSerializer(params) {
+        return qs.stringify(params, { arrayFormat: 'repeat' });
+      },
+      params: {
+        ...params,
+        ...{ wskey: config.annotation.key }
+      }
     })
-    .catch((error) => {
-      throw apiError(error);
-    });
-};
+      .then((response) => {
+        return response.data.items ? response.data.items : [];
+      })
+      .catch((error) => {
+        throw apiError(error);
+      });
+  }
+});

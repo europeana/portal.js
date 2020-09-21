@@ -65,8 +65,6 @@
 
   import { mapState } from 'vuex';
 
-  import * as entities from '../../../plugins/europeana/entity';
-  import apiConfig from '../../../plugins/europeana';
   import { langMapValueForLocale } from  '../../../plugins/europeana/utils';
 
   export default {
@@ -83,7 +81,7 @@
     fetch({ query, params, redirect, error, app, store }) {
       store.commit('search/disableCollectionFacet');
 
-      const entityUri = entities.getEntityUri(params.type, params.pathMatch);
+      const entityUri = app.$apis.entity.getEntityUri(params.type, params.pathMatch);
 
       if (entityUri !== store.state.entity.id) {
         // TODO: group as a reset action on the store?
@@ -116,7 +114,7 @@
 
       return axios.all(
         [store.dispatch('entity/searchForRecords', query)]
-          .concat(fetchEntity ? entities.getEntity(params.type, params.pathMatch) : () => {})
+          .concat(fetchEntity ? app.$apis.entity.getEntity(params.type, params.pathMatch) : () => {})
           .concat(fetchFromContentful ? app.$contentful.query('collectionPage', contentfulVariables) : () => {})
       )
         .then(axios.spread((recordSearchResponse, entityResponse, pageResponse) => {
@@ -132,7 +130,7 @@
           const page = store.state.entity.page;
 
           const entityName = page ? page.name : entity.prefLabel.en;
-          const desiredPath = entities.getEntitySlug(entity.id, entityName);
+          const desiredPath = app.$apis.entity.getEntitySlug(entity.id, entityName);
 
           if (params.pathMatch !== desiredPath) {
             const redirectPath = app.$path({
@@ -234,7 +232,7 @@
 
       // TODO: move into a new entity store action?
       if (!this.relatedCollectionCards) {
-        entities.relatedEntities(this.$route.params.type, this.$route.params.pathMatch)
+        this.$apis.entity.relatedEntities(this.$route.params.type, this.$route.params.pathMatch)
           .then((related) => {
             this.$store.commit('entity/setRelatedEntities', related);
           });
@@ -258,11 +256,11 @@
           id = item.id;
           name = item.prefLabel.en;
         }
-        const uriMatch = id.match(`^${apiConfig.data.url}/([^/]+)(/base)?/(.+)$`);
+        const uriMatch = id.match(`^${this.$apis.config.data.url}/([^/]+)(/base)?/(.+)$`);
         return this.$path({
           name: 'collections-type-all', params: {
-            type: entities.getEntityTypeHumanReadable(uriMatch[1]),
-            pathMatch: entities.getEntitySlug(id, name)
+            type: this.$apis.entity.getEntityTypeHumanReadable(uriMatch[1]),
+            pathMatch: this.$apis.entity.getEntitySlug(id, name)
           }
         });
       }

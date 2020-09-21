@@ -1,8 +1,6 @@
 // TODO: this essentially duplicates newspapers.js, with just the default
 //       for the api param different. Refactor to DRY it up.
 
-import apiConfig from '../../plugins/europeana';
-
 export const state = () => ({
   apiOptions: {},
   apiParams: {}
@@ -13,7 +11,7 @@ export const getters = {
     const options = Object.assign({}, state.apiOptions);
 
     if (getters.apiParams.api === 'fulltext') {
-      options.url = apiConfig.ww1.url;
+      options.url = this.$apis.config.ww1.url;
     }
 
     return options;
@@ -33,7 +31,7 @@ export const getters = {
       params.qf = ([].concat(params.qf)).filter(qf => !/^contentTier:/.test(qf));
       params.qf.push('contentTier:*');
 
-      params.wskey = apiConfig.ww1.key;
+      params.wskey = this.$apis.config.ww1.key;
       params.profile = 'minimal,hits';
     }
 

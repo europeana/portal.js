@@ -12,9 +12,7 @@
 </template>
 
 <script>
-  import apiConfig from '../../plugins/europeana';
   import ContentCard from '../generic/ContentCard';
-  import { getEntityTypeHumanReadable } from '../../plugins/europeana/entity';
   import { isEuropeanaRecordId } from '../../plugins/europeana/record';
 
   export default {
@@ -111,12 +109,12 @@
         return (typeof this.fields.identifier === 'string') && isEuropeanaRecordId(this.fields.identifier);
       },
       forEuropeanaEntity() {
-        return (typeof this.fields.identifier === 'string') && this.fields.identifier.includes(apiConfig.data.url);
+        return (typeof this.fields.identifier === 'string') && this.fields.identifier.includes(this.$apis.config.data.url);
       },
       entityRouterLink(uri, slug) {
-        const uriMatch = uri.match(`^${apiConfig.data.url}/([^/]+)(/base)?/(.+)$`);
+        const uriMatch = uri.match(`^${this.$apis.config.data.url}/([^/]+)(/base)?/(.+)$`);
         return {
-          name: 'collections-type-all', params: { type: getEntityTypeHumanReadable(uriMatch[1]), pathMatch: slug ? slug : uriMatch[3] }
+          name: 'collections-type-all', params: { type: this.$apis.entity.getEntityTypeHumanReadable(uriMatch[1]), pathMatch: slug ? slug : uriMatch[3] }
         };
       },
       recordRouterLink(identifier) {

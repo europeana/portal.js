@@ -135,7 +135,6 @@
 <script>
   import AutoSuggest from './AutoSuggest';
   import SearchBarPill from './SearchBarPill';
-  import { getEntitySuggestions } from '../../plugins/europeana/entity';
   import { mapGetters } from 'vuex';
   import match from 'autosuggest-highlight/match';
 
@@ -258,7 +257,7 @@
         const locale = this.$i18n.locale;
         this.gettingSuggestions = true;
 
-        getEntitySuggestions(query, {
+        this.$apis.entity.getEntitySuggestions(query, {
           language: locale
         })
           .then(suggestions => {

@@ -11,6 +11,8 @@ export default ({ $auth, store, redirect }, inject) => {
     }
   });
 
+  // FIXME: should these go into $apis instead? (for customisable config by
+  //        HTTP header. perhaps only if/when needed for these APIs)
   inject('sets', set(axiosInstance));
   inject('recommendations', recommendation(axiosInstance));
 

@@ -144,13 +144,9 @@
   import MediaPresentation from '../../components/item/MediaPresentation';
   import MetadataBox from '../../components/item/MetadataBox';
 
-  import apiConfig from '../../plugins/europeana';
-  import { getRecord, similarItemsQuery } from '../../plugins/europeana/record';
-  import { search } from '../../plugins/europeana/search';
+  import { similarItemsQuery } from '../../plugins/europeana/record';
   import { isIIIFPresentation, isRichMedia, isPlayableMedia } from '../../plugins/media';
   import { langMapValueForLocale } from  '../../plugins/europeana/utils';
-  import { findEntities } from '../../plugins/europeana/entity';
-  import { search as searchAnnotations } from '../../plugins/europeana/annotation';
 
   export default {
     components: {
@@ -171,8 +167,8 @@
         profile: 'dereference'
       };
       axios.all([
-        searchAnnotations(annotationSearchParams),
-        findEntities(this.europeanaEntityUris),
+        this.$apis.annotation.search(annotationSearchParams),
+        this.$apis.entity.findEntities(this.europeanaEntityUris),
         this.getSimilarItems()
       ])
         .then(axios.spread((annotations, entities, similar) => {
@@ -186,8 +182,8 @@
 
     fetchOnServer: false,
 
-    asyncData({ params, res }) {
-      return getRecord(`/${params.pathMatch}`)
+    asyncData({ params, res, app }) {
+      return app.$apis.record.getRecord(`/${params.pathMatch}`)
         .then((result) => {
           return result.record;
         })
@@ -242,10 +238,10 @@
         return { ...this.coreFields, ...this.fieldsAndKeywords };
       },
       europeanaAgents() {
-        return (this.agents || []).filter((agent) => agent.about.startsWith(`${apiConfig.data.url}/agent/`));
+        return (this.agents || []).filter((agent) => agent.about.startsWith(`${this.$apis.config.data.url}/agent/`));
       },
       europeanaConcepts() {
-        return (this.concepts || []).filter((concept) => concept.about.startsWith(`${apiConfig.data.url}/concept/`));
+        return (this.concepts || []).filter((concept) => concept.about.startsWith(`${this.$apis.config.data.url}/concept/`));
       },
       europeanaEntityUris() {
         const entities = this.europeanaConcepts.concat(this.europeanaAgents);
@@ -387,7 +383,7 @@
           edmDataProvider: this.getSimilarItemsData(this.fields.edmDataProvider)
         };
 
-        return search({
+        return this.$apis.record.search({
           query: similarItemsQuery(this.identifier, dataSimilarItems),
           rows: 4,
           profile: 'minimal',

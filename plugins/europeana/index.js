@@ -1,4 +1,4 @@
-export default {
+export default Object.freeze({
   annotation: {
     // TODO: replace with API gateway origin when it works
     url: process.env.EUROPEANA_ANNOTATION_API_URL || 'https://annotations.europeana.eu/annotation',
@@ -34,4 +34,4 @@ export default {
     url: 'https://transcription-search-test.eanadev.org/api/v2',
     key: process.env['EUROPEANA_WW1_API_KEY'] || process.env['EUROPEANA_RECORD_API_KEY']
   }
-};
+});

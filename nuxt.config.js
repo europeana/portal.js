@@ -86,6 +86,7 @@ const config = {
   ** Plugins to load before mounting the App
   */
   plugins: [
+    '~/plugins/apis',
     '~/plugins/axiosLogger',
     '~/plugins/europeana',
     '~/plugins/vue/index',
@@ -167,7 +168,7 @@ const config = {
   ],
 
   router: {
-    middleware: ['legacy/index', 'l10n', 'apis'],
+    middleware: ['legacy/index', 'l10n'],
     extendRoutes(routes) {
       routes.push({
         name: 'slug',

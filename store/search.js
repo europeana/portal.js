@@ -1,6 +1,6 @@
 import { diff } from 'deep-object-diff';
 import merge from 'deepmerge';
-import { search, unquotableFacets } from '../plugins/europeana/search';
+import { unquotableFacets } from '../plugins/europeana/search';
 
 // Default facets to always request and display.
 // Order is significant as it will be reflected on search results.
@@ -340,7 +340,7 @@ export const actions = {
       facet: null
     };
 
-    return search(paramsForItems, getters.searchOptions)
+    return this.$apis.record.search(paramsForItems, getters.searchOptions)
       .then(async(response) => {
         await dispatch('updateForSuccess', response);
       })
@@ -358,7 +358,7 @@ export const actions = {
       profile: 'facets'
     };
 
-    return search(paramsForFacets, getters.searchOptions)
+    return this.$apis.record.search(paramsForFacets, getters.searchOptions)
       .then((response) => {
         commit('setFacets', response.facets);
         const collection = getters.collection;

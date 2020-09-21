@@ -4,7 +4,8 @@
 
 import axios from 'axios';
 import qs from 'qs';
-import config from './';
+
+import defaultConfig from './';
 import { apiError } from './utils';
 
 // Some facets do not support enquoting of their field values.
@@ -68,59 +69,61 @@ export function rangeFromQueryParam(paramValue) {
   return { start, end };
 }
 
-/**
- * Search Europeana Record API
- * @param {Object} params parameters for search query
- * @param {number} params.page page of results to retrieve
- * @param {number} params.rows number of results to retrieve per page
- * @param {string} params.reusability reusability filter
- * @param {string} params.facet facet names, comma separated
- * @param {(string|string[])} params.qf query filter(s)
- * @param {string} params.query search query
- * @param {string} params.wskey API key, to override `config.record.key`
- * @param {Object} options search options
- * @param {string} options.url base URL for API, overriding default `config.record.url`
- * @param {Boolean} options.escape whether or not to escape Lucene reserved characters in the search query
- * @return {{results: Object[], totalResults: number, facets: FacetSet, error: string}} search results for display
- */
-export function search(params, options = {}) {
-  const maxResults = 1000;
-  const perPage = params.rows === undefined ? 24 : Number(params.rows);
-  const page = params.page || 1;
-  const start = ((page - 1) * perPage) + 1;
-  const rows = Math.max(0, Math.min(maxResults + 1 - start, perPage));
+export default (config = defaultConfig) => ({
+  /**
+   * Search Europeana Record API
+   * @param {Object} params parameters for search query
+   * @param {number} params.page page of results to retrieve
+   * @param {number} params.rows number of results to retrieve per page
+   * @param {string} params.reusability reusability filter
+   * @param {string} params.facet facet names, comma separated
+   * @param {(string|string[])} params.qf query filter(s)
+   * @param {string} params.query search query
+   * @param {string} params.wskey API key, to override `config.record.key`
+   * @param {Object} options search options
+   * @param {string} options.url base URL for API, overriding default `config.record.url`
+   * @param {Boolean} options.escape whether or not to escape Lucene reserved characters in the search query
+   * @return {{results: Object[], totalResults: number, facets: FacetSet, error: string}} search results for display
+   */
+  search(params, options = {}) {
+    const maxResults = 1000;
+    const perPage = params.rows === undefined ? 24 : Number(params.rows);
+    const page = params.page || 1;
+    const start = ((page - 1) * perPage) + 1;
+    const rows = Math.max(0, Math.min(maxResults + 1 - start, perPage));
 
-  const url = options.url || config.record.url;
-  const escape = options.escape || false;
+    const url = options.url || config.record.url;
+    const escape = options.escape || false;
 
-  const query = (typeof params.query === 'undefined' || params.query === '') ? '*:*' : params.query;
-  const escapePattern = /([!*+-=<>&|()[\]{}^~?:\\/"])/g; // Lucene reserved characters
+    const query = (typeof params.query === 'undefined' || params.query === '') ? '*:*' : params.query;
+    const escapePattern = /([!*+-=<>&|()[\]{}^~?:\\/"])/g; // Lucene reserved characters
 
-  return axios.get(`${url}/search.json`, {
-    paramsSerializer(params) {
-      return qs.stringify(params, { arrayFormat: 'repeat' });
-    },
-    params: {
-      facet: params.facet,
-      profile: params.profile,
-      qf: addContentTierFilter(params.qf),
-      query: escape ? query.replace(escapePattern, '\\$1') : query,
-      reusability: params.reusability,
-      rows,
-      start,
-      wskey: params.wskey || config.record.key
-    }
-  })
-    .then(response => {
-      return {
-        ...response.data,
-        lastAvailablePage: start + perPage > maxResults
-      };
+    return axios.get(`${url}/search.json`, {
+      paramsSerializer(params) {
+        return qs.stringify(params, { arrayFormat: 'repeat' });
+      },
+      params: {
+        facet: params.facet,
+        profile: params.profile,
+        qf: addContentTierFilter(params.qf),
+        query: escape ? query.replace(escapePattern, '\\$1') : query,
+        reusability: params.reusability,
+        rows,
+        start,
+        wskey: params.wskey || config.record.key
+      }
     })
-    .catch((error) => {
-      throw apiError(error);
-    });
-}
+      .then(response => {
+        return {
+          ...response.data,
+          lastAvailablePage: start + perPage > maxResults
+        };
+      })
+      .catch((error) => {
+        throw apiError(error);
+      });
+  }
+});
 
 /**
  * Apply content tier filtering to the qf param.
