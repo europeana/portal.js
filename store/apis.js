@@ -1,7 +1,4 @@
-export const apiUrlFromRequestHeaders = (api, headers) => {
-  const headerKey = `x-europeana-${api}-api-url`;
-  return headers[headerKey];
-};
+import { apiUrlFromRequestHeaders } from '../plugins/europeana/utils';
 
 export const state = () => ({
   urls: {

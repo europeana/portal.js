@@ -3,7 +3,7 @@
 const axios = require('axios');
 
 import apiConfig from '../../plugins/europeana';
-import { apiUrlFromRequestHeaders } from '../../store/apis';
+import { apiUrlFromRequestHeaders } from '../../plugins/europeana/utils';
 
 export default (req, res, next) => {
   const urlMatch = req.url.match(/^\/[a-z]{2}\/item(\/[^/]+\/[^/]+)\.json$/);
