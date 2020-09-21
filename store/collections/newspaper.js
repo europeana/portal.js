@@ -4,17 +4,17 @@ export const state = () => ({
 });
 
 export const getters = {
-  apiOptions(state, getters) {
+  apiOptions: (state, getters) => (apiConfig) => {
     const options = Object.assign({}, state.apiOptions);
 
     if (getters.apiParams.api === 'fulltext') {
-      options.url = this.$apis.config.newspaper.url;
+      options.url = apiConfig.newspaper.url;
     }
 
     return options;
   },
 
-  apiParams(state) {
+  apiParams: (state) => (apiConfig) => {
     const params = Object.assign({}, state.apiParams);
 
     // Ensure newspapers collection gets fulltext API by default
@@ -28,7 +28,7 @@ export const getters = {
       params.qf = ([].concat(params.qf)).filter(qf => !/^contentTier:/.test(qf));
       params.qf.push('contentTier:*');
 
-      params.wskey = this.$apis.config.newspaper.key;
+      params.wskey = apiConfig.newspaper.key;
       params.profile = 'minimal,hits';
     }
 

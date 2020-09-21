@@ -7,17 +7,17 @@ export const state = () => ({
 });
 
 export const getters = {
-  apiOptions: (state, getters) => {
+  apiOptions: (state, getters) => (apiConfig) => {
     const options = Object.assign({}, state.apiOptions);
 
     if (getters.apiParams.api === 'fulltext') {
-      options.url = this.$apis.config.ww1.url;
+      options.url = apiConfig.ww1.url;
     }
 
     return options;
   },
 
-  apiParams: (state) => {
+  apiParams: (state) => (apiConfig) => {
     const params = Object.assign({}, state.apiParams);
 
     // Ensure ww1 collection gets metadata API by default
@@ -31,7 +31,7 @@ export const getters = {
       params.qf = ([].concat(params.qf)).filter(qf => !/^contentTier:/.test(qf));
       params.qf.push('contentTier:*');
 
-      params.wskey = this.$apis.config.ww1.key;
+      params.wskey = apiConfig.ww1.key;
       params.profile = 'minimal,hits';
     }
 

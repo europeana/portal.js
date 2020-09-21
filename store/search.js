@@ -317,7 +317,7 @@ export const actions = {
     for (const property of ['apiParams', 'apiOptions']) {
       if (rootState.collections[collection][property] !== undefined) {
         commit(`collections/${collection}/set`, [property, state[property]], { root: true });
-        commit('set', [property, rootGetters[`collections/${collection}/${property}`]]);
+        commit('set', [property, rootGetters[`collections/${collection}/${property}`](this.$apis.config)]);
       }
     }
   },
