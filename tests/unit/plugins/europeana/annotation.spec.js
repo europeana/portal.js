@@ -1,7 +1,7 @@
 import axios from 'axios';
 import nock from 'nock';
 
-import * as annotations from '../../../../plugins/europeana/annotation';
+import annotation from '../../../../plugins/europeana/annotation';
 import config from '../../../../plugins/europeana';
 
 axios.defaults.adapter = require('axios/lib/adapters/http');
@@ -27,7 +27,7 @@ describe('plugins/europeana/entity', () => {
         })
         .reply(200, {});
 
-      await annotations.search({ query: apiQuery });
+      await annotation().search({ query: apiQuery });
 
       nock.isDone().should.be.true;
     });
