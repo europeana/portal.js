@@ -37,19 +37,26 @@ describe('components/generic/SmartLink', () => {
       const wrapper = factory();
       wrapper.setProps({ destination: 'https://www.example.org/url-example' });
 
-      wrapper.contains('b-link-stub').should.be.true;
       wrapper.find('b-link-stub').attributes('href').should.exist;
     });
 
-    it('determines if the URL is an external path or not', () => {
+    it('returns true if the destination is an external path', () => {
       const wrapper = factory();
       wrapper.setData({ internalDomain: '.foo.com' });
       wrapper.setProps({ destination: 'https://www.example.org/url-example' });
       wrapper.vm.isExternalLink.should.be.true;
+    });
 
+    it('returns false if the destination is NOT a path', () => {
+      const wrapper = factory();
+      wrapper.setData({ internalDomain: '.foo.com' });
       wrapper.setProps({ destination: '/test' });
       wrapper.vm.isExternalLink.should.be.false;
+    });
 
+    it('returns false if the destination is NOT an external path', () => {
+      const wrapper = factory();
+      wrapper.setData({ internalDomain: '.foo.com' });
       wrapper.setProps({ destination: 'www.foo.com/test' });
       wrapper.vm.isExternalLink.should.be.false;
     });
@@ -62,7 +69,6 @@ describe('components/generic/SmartLink', () => {
       wrapper.setProps({ destination: uri });
       wrapper.vm.isExternalLink.should.be.false;
 
-      wrapper.contains('b-link-stub').should.be.true;
       wrapper.find('b-link-stub').attributes('to').should.exist;
     });
 
@@ -79,7 +85,6 @@ describe('components/generic/SmartLink', () => {
       const wrapper = factory();
       wrapper.setProps({ destination: '/url/path-example' });
 
-      wrapper.contains('b-link-stub').should.be.true;
       wrapper.find('b-link-stub').attributes('to').should.exist;
     });
   });
@@ -89,7 +94,6 @@ describe('components/generic/SmartLink', () => {
       const wrapper = factory();
       wrapper.setProps({ destination: { name: 'route-to-somewhere' } });
 
-      wrapper.contains('b-link-stub').should.be.true;
       wrapper.find('b-link-stub').attributes('to').should.exist;
     });
   });

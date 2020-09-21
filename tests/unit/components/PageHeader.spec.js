@@ -104,6 +104,7 @@ describe('components/PageHeader', () => {
     wrapper.setData({
       showSidebar: true
     });
+    console.log(wrapper.html());
     const nav = wrapper.find('[data-qa="mobile navigation"]');
     nav.attributes().class.should.contain('d-lg-none');
     nav.isVisible().should.equal(true);
