@@ -4,7 +4,7 @@ export const state = () => ({
 });
 
 export const getters = {
-  apiOptions: (state, getters) => {
+  apiOptions(state, getters) {
     const options = Object.assign({}, state.apiOptions);
 
     if (getters.apiParams.api === 'fulltext') {
@@ -14,7 +14,7 @@ export const getters = {
     return options;
   },
 
-  apiParams: (state) => {
+  apiParams(state) {
     const params = Object.assign({}, state.apiParams);
 
     // Ensure newspapers collection gets fulltext API by default

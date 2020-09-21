@@ -13,9 +13,9 @@ describe('store/apis', () => {
 
         store.mutations.readUrlsFromRequestHeaders(state, headers);
 
-        state.urls.annotation.should.eql('https://annotation.example.org');
-        state.urls.entity.should.eql('https://entity.example.org');
-        state.urls.record.should.eql('https://record.example.org');
+        state.annotation.url.should.eql('https://annotation.example.org');
+        state.entity.url.should.eql('https://entity.example.org');
+        state.record.url.should.eql('https://record.example.org');
       });
     });
   });

@@ -4,6 +4,8 @@ import axios from 'axios';
 import nock from 'nock';
 import sinon from 'sinon';
 
+import search from '../../../plugins/europeana/search';
+
 axios.defaults.adapter = require('axios/lib/adapters/http');
 
 const apiUrl = apiConfig.record.url;
@@ -14,6 +16,14 @@ const baseRequest = nock(apiUrl).get(apiEndpoint);
 const defaultResponse = { success: true, items: [], totalResults: 123456 };
 
 describe('store/search', () => {
+  before(() => {
+    store.actions.$apis = {
+      record: {
+        search: search().search
+      }
+    };
+  });
+
   beforeEach(() => {
     apiConfig.record.key = apiKey;
     apiConfig.newspaper.key = apiKey;

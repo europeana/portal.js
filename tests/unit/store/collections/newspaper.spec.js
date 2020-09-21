@@ -1,6 +1,13 @@
 import * as store from '../../../../store/collections/newspaper';
+import apiConfig from '../../../../plugins/europeana';
 
 describe('store/collections/newspaper', () => {
+  before(() => {
+    store.getters.$apis = {
+      config: apiConfig
+    };
+  });
+
   describe('getters', () => {
     describe('apiOptions', () => {
       context('when api param is "fulltext"', () => {
