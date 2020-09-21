@@ -104,7 +104,6 @@
     "nightwatch-api": "^3.0.1",
     "nock": "^10.0.6",
     "node-sass": "^4.14.1",
-    "nodeman": "^1.1.2",
     "nodemon": "^1.19.4",
     "regenerator-runtime": "0.13.3",
     "sass-loader": "^8.0.2",

@@ -58,8 +58,8 @@
 <script>
   import marked from 'marked';
   import ExhibitionChapters from '../../../components/exhibition/ExhibitionChapters';
-  import ShareButton from '../../../components/sharing/ShareButton.vue';
   import SocialShareModal from '../../../components/sharing/SocialShareModal.vue';
+  import ShareButton from '../../../components/sharing/ShareButton.vue';
 
   export default {
     components: {
