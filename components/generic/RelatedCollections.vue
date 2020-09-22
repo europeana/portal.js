@@ -21,6 +21,9 @@
 </template>
 
 <script>
+  import { EUROPEANA_DATA_URL } from '../../plugins/europeana';
+  import { getEntityTypeHumanReadable, getEntitySlug } from '../../plugins/europeana/entity';
+
   import RelatedChip from './RelatedChip';
 
   export default {
@@ -54,11 +57,11 @@
           name = item.name;
         }
 
-        const uriMatch = id.match(`^${this.$apis.config.data.url}/([^/]+)(/base)?/(.+)$`);
+        const uriMatch = id.match(`^${EUROPEANA_DATA_URL}/([^/]+)(/base)?/(.+)$`);
         return this.$path({
           name: 'collections-type-all', params: {
-            type: this.$apis.entity.getEntityTypeHumanReadable(uriMatch[1]),
-            pathMatch: this.$apis.entity.getEntitySlug(id, name)
+            type: getEntityTypeHumanReadable(uriMatch[1]),
+            pathMatch: getEntitySlug(id, name)
           }
         });
       },

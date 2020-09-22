@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import defaultConfig from './';
+import defaultConfig, { EUROPEANA_DATA_URL } from './';
 import { apiError, langMapValueForLocale } from './utils';
 
 export default (config = defaultConfig) => ({
@@ -56,91 +56,13 @@ export default (config = defaultConfig) => ({
   },
 
   /**
-   * Retrieve the API name of the type using the human readable name
-   * @param {string} type the type of the entity
-   * @return {string} retrieved API name of type
-   */
-  getEntityTypeApi(type) {
-    const names = {
-      person: 'agent',
-      topic: 'concept'
-    };
-    if (!type) return;
-    return names[type];
-  },
-
-  /**
-   * Retrieve the human readable of the type using the API name
-   * @param {string} type the type of the entity
-   * @return {string} retrieved human readable name of type
-   */
-  getEntityTypeHumanReadable(type) {
-    const names = {
-      agent: 'person',
-      concept: 'topic'
-    };
-    if (!type) return;
-    return names[type.toLowerCase()];
-  },
-
-  /**
-   * Retrieve the URI of the entity from the human readable type and ID
-   * @param {string} type the human readable type of the entity either person or topic
-   * @param {string} id the numeric identifier of the entity, (can contain trailing slug parts as these will be normalized)
-   * @return {string} retrieved human readable name of type
-   */
-  getEntityUri(type, id) {
-    return `${config.data.url}/${this.getEntityTypeApi(type)}/base/${normalizeEntityId(id)}`;
-  },
-
-  /**
    * Retrieve the URL of the entity from the human readable type and ID
    * @param {string} type the human readable type of the entity either person or topic
    * @param {string} id the numeric identifier of the entity, (can contain trailing slug parts as these will be normalized)
    * @return {string} retrieved human readable name of type
    */
   getEntityUrl(type, id) {
-    return this.entityApiUrl(`/${this.getEntityTypeApi(type)}/base/${normalizeEntityId(id)}.json`);
-  },
-
-  /**
-   * From a URI split params as required by the portal
-   * @param {string} uri A URI to check
-   * @return {{type: String, identifier: string}} Object with the portal relevant identifiers.
-   */
-  entityParamsFromUri(uri) {
-    const matched = uri.match(/^http:\/\/data\.europeana\.eu\/(concept|agent|place)\/base\/(\d+)$/);
-    const id = matched[2];
-    const type = this.getEntityTypeHumanReadable(matched[1]);
-    return { id, type };
-  },
-
-  /**
-   * Retrieves the path for the entity, based on id and title
-   *
-   * If `entityPage.name` is present, that will be used in the slug. Otherwise
-   * `prefLabel.en` if present.
-   *
-   * @param {string} id entity ID, i.e. data.europeana.eu URI
-   * @param {string} name the English name of the entity
-   * @return {string} path
-   * @example
-   *    const slug = getEntitySlug(
-   *      'http://data.europeana.eu/concept/base/48',
-   *      'Photography'
-   *    );
-   *    console.log(slug); // expected output: '48-photography'
-   * @example
-   *    const slug = getEntitySlug(
-   *      'http://data.europeana.eu/agent/base/59832',
-   *      'Vincent van Gogh'
-   *    );
-   *    console.log(slug); // expected output: '59832-vincent-van-gogh'
-   */
-  getEntitySlug(id, name) {
-    const entityId = id.toString().split('/').pop();
-    const path = entityId + (name ? '-' + name.toLowerCase().replace(/ /g, '-') : '');
-    return path;
+    return this.entityApiUrl(`/${getEntityTypeApi(type)}/base/${normalizeEntityId(id)}.json`);
   },
 
   /**
@@ -152,7 +74,7 @@ export default (config = defaultConfig) => ({
    * TODO: use search() function?
    */
   relatedEntities(type, id) {
-    const entityUri = this.getEntityUri(type, id);
+    const entityUri = getEntityUri(type, id);
     let apiParams = {
       wskey: config.record.key,
       profile: 'facets',
@@ -183,7 +105,7 @@ export default (config = defaultConfig) => ({
   async getEntityFacets(facets, currentId) {
     let entities = [];
     for (const facet of facets) {
-      const facetFilter = (value) => value['label'].includes(config.data.url) && value['label'].split('/').pop() !== currentId;
+      const facetFilter = (value) => value['label'].includes(EUROPEANA_DATA_URL) && value['label'].split('/').pop() !== currentId;
       entities = entities.concat(facet['fields'].filter(facetFilter));
     }
 
@@ -208,48 +130,6 @@ export default (config = defaultConfig) => ({
       .then((response) => {
         return response.entities || [];
       });
-  },
-
-  /**
-   * Get the description for the entity
-   * If type is topic, use note
-   * If type is person, use biographicalInformation
-   * @param {Object} entity data
-   * @param {string} locale Locale code for desired language
-   * @return {String} description when available in English
-   * TODO: l10n
-   */
-  getEntityDescription(entity, locale) {
-    if (!entity) return null;
-    let description;
-    if (entity.type === 'Concept' && entity.note) {
-      description = langMapValueForLocale(entity.note, locale);
-    } else if (entity.type === 'Agent' && entity.biographicalInformation) {
-      // check if biographicalInformation is an array of objects
-      // TODO: it _should_ always be an array. this is an Entity API bug. remove
-      //       the condition when fixed upstream.
-      //       see: https://europeana.atlassian.net/browse/EA-1685
-      if (entity.biographicalInformation.length === undefined) {
-        const text = entity.biographicalInformation['@language'] === 'en' ? entity.biographicalInformation['@value'] : '';
-        description = { values: [text], code: 'en' };
-      } else {
-        description = langMapValueForLocale(entity.biographicalInformation, locale);
-      }
-    }
-    return description;
-  },
-
-  /**
-   * A check for a URI to see if it conforms ot the entity URI pattern,
-   * optionally takes entity types as an array of values to check for.
-   * Will return true/false
-   * @param {string} uri A URI to check
-   * @param {string[]} types the entity types to check, defaults to all.
-   * @return {Boolean} true if the URI is a valid entity URI
-   */
-  isEntityUri(uri, types) {
-    types = types ? types : ['concept', 'agent', 'place'];
-    return RegExp(`^http://data\\.europeana\\.eu/(${types.join('|')})/base/\\d+$`).test(uri);
   },
 
   /**
@@ -312,4 +192,124 @@ export function getEntityQuery(uri) {
     return `edm_agent:"${uri}"`;
   }
   return null;
+}
+
+/**
+ * Get the description for the entity
+ * If type is topic, use note
+ * If type is person, use biographicalInformation
+ * @param {Object} entity data
+ * @param {string} locale Locale code for desired language
+ * @return {String} description when available in English
+ * TODO: l10n
+ */
+export function getEntityDescription(entity, locale) {
+  if (!entity) return null;
+  let description;
+  if (entity.type === 'Concept' && entity.note) {
+    description = langMapValueForLocale(entity.note, locale);
+  } else if (entity.type === 'Agent' && entity.biographicalInformation) {
+    // check if biographicalInformation is an array of objects
+    // TODO: it _should_ always be an array. this is an Entity API bug. remove
+    //       the condition when fixed upstream.
+    //       see: https://europeana.atlassian.net/browse/EA-1685
+    if (entity.biographicalInformation.length === undefined) {
+      const text = entity.biographicalInformation['@language'] === 'en' ? entity.biographicalInformation['@value'] : '';
+      description = { values: [text], code: 'en' };
+    } else {
+      description = langMapValueForLocale(entity.biographicalInformation, locale);
+    }
+  }
+  return description;
+}
+
+/**
+ * A check for a URI to see if it conforms ot the entity URI pattern,
+ * optionally takes entity types as an array of values to check for.
+ * Will return true/false
+ * @param {string} uri A URI to check
+ * @param {string[]} types the entity types to check, defaults to all.
+ * @return {Boolean} true if the URI is a valid entity URI
+ */
+export function isEntityUri(uri, types) {
+  types = types ? types : ['concept', 'agent', 'place'];
+  return RegExp(`^http://data\\.europeana\\.eu/(${types.join('|')})/base/\\d+$`).test(uri);
+}
+
+/**
+ * Retrieve the API name of the type using the human readable name
+ * @param {string} type the type of the entity
+ * @return {string} retrieved API name of type
+ */
+export function getEntityTypeApi(type) {
+  const names = {
+    person: 'agent',
+    topic: 'concept'
+  };
+  if (!type) return;
+  return names[type];
+}
+
+/**
+ * Retrieve the human readable of the type using the API name
+ * @param {string} type the type of the entity
+ * @return {string} retrieved human readable name of type
+ */
+export function getEntityTypeHumanReadable(type) {
+  const names = {
+    agent: 'person',
+    concept: 'topic'
+  };
+  if (!type) return;
+  return names[type.toLowerCase()];
+}
+
+/**
+ * Retrieve the URI of the entity from the human readable type and ID
+ * @param {string} type the human readable type of the entity either person or topic
+ * @param {string} id the numeric identifier of the entity, (can contain trailing slug parts as these will be normalized)
+ * @return {string} retrieved human readable name of type
+ */
+export function getEntityUri(type, id) {
+  return `${EUROPEANA_DATA_URL}/${getEntityTypeApi(type)}/base/${normalizeEntityId(id)}`;
+}
+
+/**
+ * From a URI split params as required by the portal
+ * @param {string} uri A URI to check
+ * @return {{type: String, identifier: string}} Object with the portal relevant identifiers.
+ */
+export function entityParamsFromUri(uri) {
+  const matched = uri.match(/^http:\/\/data\.europeana\.eu\/(concept|agent|place)\/base\/(\d+)$/);
+  const id = matched[2];
+  const type = getEntityTypeHumanReadable(matched[1]);
+  return { id, type };
+}
+
+/**
+ * Retrieves the path for the entity, based on id and title
+ *
+ * If `entityPage.name` is present, that will be used in the slug. Otherwise
+ * `prefLabel.en` if present.
+ *
+ * @param {string} id entity ID, i.e. data.europeana.eu URI
+ * @param {string} name the English name of the entity
+ * @return {string} path
+ * @example
+ *    const slug = getEntitySlug(
+ *      'http://data.europeana.eu/concept/base/48',
+ *      'Photography'
+ *    );
+ *    console.log(slug); // expected output: '48-photography'
+ * @example
+ *    const slug = getEntitySlug(
+ *      'http://data.europeana.eu/agent/base/59832',
+ *      'Vincent van Gogh'
+ *    );
+ *    console.log(slug); // expected output: '59832-vincent-van-gogh'
+ */
+export function getEntitySlug(id, name) {
+  const entityId = id.toString().split('/').pop();
+  const path = entityId + (name ? '-' + name.toLowerCase().replace(/ /g, '-') : '');
+  return path;
 }

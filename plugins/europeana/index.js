@@ -4,9 +4,6 @@ export default Object.freeze({
     url: process.env.EUROPEANA_ANNOTATION_API_URL || 'https://annotations.europeana.eu/annotation',
     key: process.env.EUROPEANA_ANNOTATION_API_KEY
   },
-  data: {
-    url: 'http://data.europeana.eu'
-  },
   entity: {
     url: process.env.EUROPEANA_ENTITY_API_URL || 'https://api.europeana.eu/entity',
     key: process.env.EUROPEANA_ENTITY_API_KEY
@@ -35,3 +32,5 @@ export default Object.freeze({
     key: process.env['EUROPEANA_WW1_API_KEY'] || process.env['EUROPEANA_RECORD_API_KEY']
   }
 });
+
+export const EUROPEANA_DATA_URL = 'http://data.europeana.eu';

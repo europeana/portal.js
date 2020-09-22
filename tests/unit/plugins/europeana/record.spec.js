@@ -1,5 +1,4 @@
 import nock from 'nock';
-import { thumbnailUrl } from  '../../../../plugins/europeana/thumbnail';
 import config from '../../../../plugins/europeana';
 import record, { isEuropeanaRecordId, similarItemsQuery } from '../../../../plugins/europeana/record';
 
@@ -186,8 +185,8 @@ describe('plugins/europeana/record', () => {
               const item = edmHasViewWebResourceFirst;
               it('includes item-specific-type thumbnails', async() => {
                 const expectedThumbnails = {
-                  small: thumbnailUrl(item.about, { size: 'w200', type: 'IMAGE' }),
-                  large: thumbnailUrl(item.about, { size: 'w400', type: 'IMAGE' })
+                  small: 'https://api.europeana.eu/thumbnail/v2/url.json?size=w200&type=IMAGE&uri=https%3A%2F%2Fexample.org%2Fimage1.jpeg',
+                  large: 'https://api.europeana.eu/thumbnail/v2/url.json?size=w400&type=IMAGE&uri=https%3A%2F%2Fexample.org%2Fimage1.jpeg'
                 };
 
                 const response = await record().getRecord(europeanaId);
@@ -201,8 +200,8 @@ describe('plugins/europeana/record', () => {
               const item = edmHasViewWebResourceThird;
               it('includes record-type thumbnails', async() => {
                 const expectedThumbnails = {
-                  small: thumbnailUrl(item.about, { size: 'w200', type }),
-                  large: thumbnailUrl(item.about, { size: 'w400', type })
+                  small: 'https://api.europeana.eu/thumbnail/v2/url.json?size=w200&type=TEXT&uri=https%3A%2F%2Fexample.org%2Funknown.bin',
+                  large: 'https://api.europeana.eu/thumbnail/v2/url.json?size=w400&type=TEXT&uri=https%3A%2F%2Fexample.org%2Funknown.bin'
                 };
 
                 const response = await record().getRecord(europeanaId);

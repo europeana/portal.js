@@ -21,6 +21,10 @@ const factory = (props = { fields: {} }) => shallowMount(BrowseContentCard, {
   store,
   propsData: props,
   mocks: {
+    $apis: {
+      config: { data: { url: 'http://data.europeana.eu' } },
+      entity: { getEntityTypeHumanReadable: () => 'person' }
+    },
     $path: (opts) => opts,
     $i18n: { locale: 'en' },
     $t: () => {}

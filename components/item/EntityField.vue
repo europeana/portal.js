@@ -17,6 +17,8 @@
 <script>
   import SmartLink from '../generic/SmartLink';
 
+  import { isEntityUri, entityParamsFromUri } from '../../plugins/europeana/entity';
+
   export default {
     components: {
       SmartLink
@@ -33,10 +35,10 @@
     },
     computed: {
       isEuropeanaEntity() {
-        return this.about ? this.$apis.entity.isEntityUri(this.about, ['concept', 'agent']) : false;
+        return this.about ? isEntityUri(this.about, ['concept', 'agent']) : false;
       },
       destination() {
-        return this.isEuropeanaEntity ? this.$apis.entity.entityParamsFromUri(this.about) : this.about;
+        return this.isEuropeanaEntity ? entityParamsFromUri(this.about) : this.about;
       }
     }
   };

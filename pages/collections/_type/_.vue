@@ -65,6 +65,8 @@
 
   import { mapState } from 'vuex';
 
+  import { EUROPEANA_DATA_URL } from '../../../plugins/europeana';
+  import { getEntityTypeHumanReadable, getEntitySlug, getEntityUri } from '../../../plugins/europeana/entity';
   import { langMapValueForLocale } from  '../../../plugins/europeana/utils';
 
   export default {
@@ -81,7 +83,7 @@
     fetch({ query, params, redirect, error, app, store }) {
       store.commit('search/disableCollectionFacet');
 
-      const entityUri = app.$apis.entity.getEntityUri(params.type, params.pathMatch);
+      const entityUri = getEntityUri(params.type, params.pathMatch);
 
       if (entityUri !== store.state.entity.id) {
         // TODO: group as a reset action on the store?
@@ -130,7 +132,7 @@
           const page = store.state.entity.page;
 
           const entityName = page ? page.name : entity.prefLabel.en;
-          const desiredPath = app.$apis.entity.getEntitySlug(entity.id, entityName);
+          const desiredPath = getEntitySlug(entity.id, entityName);
 
           if (params.pathMatch !== desiredPath) {
             const redirectPath = app.$path({
@@ -256,11 +258,11 @@
           id = item.id;
           name = item.prefLabel.en;
         }
-        const uriMatch = id.match(`^${this.$apis.config.data.url}/([^/]+)(/base)?/(.+)$`);
+        const uriMatch = id.match(`^${EUROPEANA_DATA_URL}/([^/]+)(/base)?/(.+)$`);
         return this.$path({
           name: 'collections-type-all', params: {
-            type: this.$apis.entity.getEntityTypeHumanReadable(uriMatch[1]),
-            pathMatch: this.$apis.entity.getEntitySlug(id, name)
+            type: getEntityTypeHumanReadable(uriMatch[1]),
+            pathMatch: getEntitySlug(id, name)
           }
         });
       }

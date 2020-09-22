@@ -95,13 +95,13 @@
 
 <script>
   import axios from 'axios';
+  import isEmpty from 'lodash/isEmpty';
 
   import MetadataBox from '../../components/item/MetadataBox';
 
+  import { EUROPEANA_DATA_URL } from '../../plugins/europeana';
   import { similarItemsQuery } from '../../plugins/europeana/record';
-
   import { langMapValueForLocale } from  '../../plugins/europeana/utils';
-  import isEmpty from 'lodash/isEmpty';
 
   export default {
     components: {
@@ -193,10 +193,10 @@
         return this.fields.edmRights ? this.fields.edmRights.def[0] : '';
       },
       europeanaAgents() {
-        return (this.agents || []).filter((agent) => agent.about.startsWith(`${this.$apis.config.data.url}/agent/`));
+        return (this.agents || []).filter((agent) => agent.about.startsWith(`${EUROPEANA_DATA_URL}/agent/`));
       },
       europeanaConcepts() {
-        return (this.concepts || []).filter((concept) => concept.about.startsWith(`${this.$apis.config.data.url}/concept/`));
+        return (this.concepts || []).filter((concept) => concept.about.startsWith(`${EUROPEANA_DATA_URL}/concept/`));
       },
       europeanaEntityUris() {
         const entities = this.europeanaConcepts.concat(this.europeanaAgents);

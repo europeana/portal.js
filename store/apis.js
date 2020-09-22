@@ -1,9 +1,7 @@
 import baseConfig from '../plugins/europeana';
 import { apiUrlFromRequestHeaders } from '../plugins/europeana/utils';
 
-export const state = () => ({
-  ...baseConfig
-});
+export const state = () => Object.assign({}, baseConfig);
 
 export const mutations = {
   readUrlsFromRequestHeaders(state, headers) {

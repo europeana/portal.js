@@ -57,6 +57,9 @@
   import BrowseContentCard from './BrowseContentCard';
   import SmartLink from '../generic/SmartLink';
 
+  import { entityParamsFromUri, getEntityTypeHumanReadable } from '../../plugins/europeana/entity';
+  import { EUROPEANA_DATA_URL } from '../../plugins/europeana';
+
   export default {
     components: {
       BrowseContentCard,
@@ -79,16 +82,16 @@
         return this.cards.every((card) => {
           if (card['__typename'] !== 'AutomatedEntityCard') return false;
           const identifier = card.identifier;
-          return identifier ? this.$apis.entity.entityParamsFromUri(identifier).type === 'person' : false;
+          return identifier ? entityParamsFromUri(identifier).type === 'person' : false;
         });
       }
     },
     methods: {
       entityRouterLink(uri, slug) {
-        const uriMatch = uri.match(`^${this.$apis.config.data.url}/([^/]+)(/base)?/(.+)$`);
+        const uriMatch = uri.match(`^${EUROPEANA_DATA_URL}/([^/]+)(/base)?/(.+)$`);
         return {
           name: 'collections-type-all', params: {
-            type: this.$apis.entity.getEntityTypeHumanReadable(uriMatch[1]),
+            type: getEntityTypeHumanReadable(uriMatch[1]),
             pathMatch: slug ? slug : uriMatch[3]
           }
         };

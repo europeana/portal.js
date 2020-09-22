@@ -6,7 +6,7 @@
 // TODO: remove this when the issue noted in the url plugin is resolved upstream
 import { URL } from '../url';
 
-import defaultConfig from './';
+import defaultConfig, { EUROPEANA_DATA_URL } from './';
 
 export default (config = defaultConfig) => ({
   thumbnailUrl(uri, params = {}) {
@@ -42,7 +42,7 @@ export default (config = defaultConfig) => ({
   },
 
   genericThumbnail(itemId, params = {}) {
-    const uri = `${config.data.url}/item${itemId}`;
+    const uri = `${EUROPEANA_DATA_URL}/item${itemId}`;
     return this.thumbnailUrl(uri, params);
   }
 });

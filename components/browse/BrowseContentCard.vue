@@ -13,7 +13,9 @@
 
 <script>
   import ContentCard from '../generic/ContentCard';
+  import { EUROPEANA_DATA_URL } from '../../plugins/europeana';
   import { isEuropeanaRecordId } from '../../plugins/europeana/record';
+  import { getEntityTypeHumanReadable } from '../../plugins/europeana/entity';
 
   export default {
     components: {
@@ -109,12 +111,12 @@
         return (typeof this.fields.identifier === 'string') && isEuropeanaRecordId(this.fields.identifier);
       },
       forEuropeanaEntity() {
-        return (typeof this.fields.identifier === 'string') && this.fields.identifier.includes(this.$apis.config.data.url);
+        return (typeof this.fields.identifier === 'string') && this.fields.identifier.includes(EUROPEANA_DATA_URL);
       },
       entityRouterLink(uri, slug) {
-        const uriMatch = uri.match(`^${this.$apis.config.data.url}/([^/]+)(/base)?/(.+)$`);
+        const uriMatch = uri.match(`^${EUROPEANA_DATA_URL}/([^/]+)(/base)?/(.+)$`);
         return {
-          name: 'collections-type-all', params: { type: this.$apis.entity.getEntityTypeHumanReadable(uriMatch[1]), pathMatch: slug ? slug : uriMatch[3] }
+          name: 'collections-type-all', params: { type: getEntityTypeHumanReadable(uriMatch[1]), pathMatch: slug ? slug : uriMatch[3] }
         };
       },
       recordRouterLink(identifier) {

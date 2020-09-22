@@ -1,34 +1,7 @@
 import * as store from '../../../store/search';
-import apiConfig from '../../../plugins/europeana';
-import axios from 'axios';
-import nock from 'nock';
 import sinon from 'sinon';
 
-import search from '../../../plugins/europeana/search';
-
-axios.defaults.adapter = require('axios/lib/adapters/http');
-
-const apiUrl = apiConfig.record.url;
-const apiEndpoint = '/search.json';
-const apiKey = '1234';
-
-const baseRequest = nock(apiUrl).get(apiEndpoint);
-const defaultResponse = { success: true, items: [], totalResults: 123456 };
-
 describe('store/search', () => {
-  before(() => {
-    store.actions.$apis = {
-      record: {
-        search: search().search
-      }
-    };
-  });
-
-  beforeEach(() => {
-    apiConfig.record.key = apiKey;
-    apiConfig.newspaper.key = apiKey;
-  });
-
   describe('getters', () => {
     describe('filters()', () => {
       context('when collection param is absent', () => {
@@ -524,10 +497,6 @@ describe('store/search', () => {
     });
 
     describe('queryItems', () => {
-      afterEach(() => {
-        nock.cleanAll();
-      });
-
       it('searches the Record API', async() => {
         const searchQuery = 'anything';
         const typeQf = 'TYPE:"IMAGE"';
@@ -535,16 +504,15 @@ describe('store/search', () => {
         const dispatch = sinon.spy();
         const state = { apiParams: { query: searchQuery, qf: [typeQf, collectionQf] } };
         const getters = {};
-
-        baseRequest
-          .query(query => {
-            return query.query === searchQuery && query.qf.includes(typeQf) && query.qf.includes(collectionQf);
-          })
-          .reply(200, defaultResponse);
+        store.actions.$apis = {
+          record: {
+            search: sinon.stub().resolves({})
+          }
+        };
 
         await store.actions.queryItems({ dispatch, state, getters });
 
-        nock.isDone().should.be.true;
+        store.actions.$apis.record.search.should.have.been.called;
       });
 
       context('on success', () => {
@@ -552,10 +520,11 @@ describe('store/search', () => {
           const dispatch = sinon.spy();
           const state = {};
           const getters = {};
-
-          baseRequest
-            .query(true)
-            .reply(200, defaultResponse);
+          store.actions.$apis = {
+            record: {
+              search: sinon.stub().resolves({})
+            }
+          };
 
           await store.actions.queryItems({ dispatch, state, getters });
 
@@ -568,14 +537,11 @@ describe('store/search', () => {
           const dispatch = sinon.spy();
           const state = {};
           const getters = {};
-          const errorMessage = 'Invalid query parameter.';
-
-          baseRequest
-            .query(true)
-            .reply(400, {
-              success: false,
-              error: errorMessage
-            });
+          store.actions.$apis = {
+            record: {
+              search: sinon.stub().rejects()
+            }
+          };
 
           await store.actions.queryItems({ dispatch, state, getters });
 

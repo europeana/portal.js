@@ -2,8 +2,6 @@ import { createLocalVue, shallowMount } from '@vue/test-utils';
 import SearchForm from '../../../../components/search/SearchForm.vue';
 import Vuex from 'vuex';
 import sinon from 'sinon';
-import nock from 'nock';
-import apiConfig from '../../../../plugins/europeana';
 
 const axios = require('axios');
 axios.defaults.adapter = require('axios/lib/adapters/http');
@@ -44,7 +42,6 @@ const factory = (options = {}) => shallowMount(SearchForm, {
 });
 
 const getters = {
-  'apis/config': () => apiConfig,
   'search/activeView': (state) => state.search.view,
   'search/queryUpdatesForFacetChanges': () => () => {},
   'ui/searchView': (state) => state.ui.showSearch
@@ -58,25 +55,6 @@ const store = (searchState = {}, uiState = {}) => {
       ui: uiState
     }
   });
-};
-
-const entityApiSuggestionsResponse = {
-  'items': [
-    {
-      'id': 'http://data.europeana.eu/concept/base/227',
-      'type': 'Concept',
-      'prefLabel': {
-        'en': 'Fresco'
-      }
-    },
-    {
-      'id': 'http://data.europeana.eu/agent/base/59981',
-      'type': 'Agent',
-      'prefLabel': {
-        'en': 'Frank Sinatra'
-      }
-    }
-  ]
 };
 
 describe('components/search/SearchForm', () => {
@@ -243,33 +221,27 @@ describe('components/search/SearchForm', () => {
   });
 
   describe('getSearchSuggestions', () => {
-    beforeEach(() => {
-      nock(apiConfig.entity.url).get('/suggest')
-        .query(true)
-        .reply(200, entityApiSuggestionsResponse);
-    });
-
-    afterEach(() => {
-      nock.cleanAll();
-    });
+    const $apisMock = {
+      entity: { getEntitySuggestions: sinon.stub().resolves([]) }
+    };
 
     context('auto-suggest is not enabled (by default)', () => {
-      const wrapper = factory();
+      const wrapper = factory({ mocks: { $apis: $apisMock } });
       it('does not get suggestions from the Entity API', async() => {
         await wrapper.vm.getSearchSuggestions();
 
-        nock.isDone().should.not.be.true;
+        $apisMock.entity.getEntitySuggestions.should.not.have.been.called;
       });
     });
 
     context('auto-suggest is enabled (by prop)', () => {
-      const wrapper = factory();
+      const wrapper = factory({ mocks: { $apis: $apisMock } });
       wrapper.setProps({ enableAutoSuggest: true });
 
       it('gets suggestions from the Entity API', async() => {
         await wrapper.vm.getSearchSuggestions();
 
-        nock.isDone().should.be.true;
+        $apisMock.entity.getEntitySuggestions.should.have.been.called;
       });
 
       // FIXME

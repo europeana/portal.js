@@ -35,6 +35,8 @@
 </template>
 
 <script>
+  import { getEntityTypeApi, getEntityTypeHumanReadable, getEntitySlug } from '../../../plugins/europeana/entity';
+
   import ContentHeader from '../../../components/generic/ContentHeader';
   import ContentCard from '../../../components/generic/ContentCard';
 
@@ -54,7 +56,7 @@
       const entityIndexParams = {
         query: '*:*',
         page: store.state.sanitised.page - 1,
-        type: this.$apis.entity.getEntityTypeApi(params.type.slice(0, -1)),
+        type: getEntityTypeApi(params.type.slice(0, -1)),
         pageSize: PER_PAGE,
         scope: 'europeana',
         fl: 'skos_prefLabel.*,isShownBy,isShownBy.thumbnail'
@@ -95,8 +97,8 @@
         return {
           name: 'collections-type-all',
           params: {
-            type: this.$apis.entity.getEntityTypeHumanReadable(entity.type),
-            pathMatch: this.$apis.entity.getEntitySlug(entity.id, entity.prefLabel.en)
+            type: getEntityTypeHumanReadable(entity.type),
+            pathMatch: getEntitySlug(entity.id, entity.prefLabel.en)
           }
         };
       },
