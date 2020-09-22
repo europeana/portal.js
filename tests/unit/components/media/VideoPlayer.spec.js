@@ -12,7 +12,11 @@ const factory = () => shallowMount(VideoPlayer, {
     type: 'video/webm'
   },
   mocks: {
-    $proxyMedia: () => 'proxied'
+    $apis: {
+      mediaProxy: {
+        url: () => 'proxied'
+      }
+    }
   },
   localVue
 });

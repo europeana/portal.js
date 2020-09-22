@@ -83,7 +83,7 @@
     },
     computed: {
       downloadUrl() {
-        return this.$proxyMedia(this.selectedMedia.about, this.identifier);
+        return this.$apis.mediaProxy.url(this.selectedMedia.about, this.identifier);
       },
       rightsStatementIsUrl() {
         return RegExp('^https?://*').test(this.rightsStatement);
@@ -122,4 +122,3 @@
     }
   };
 </script>
-

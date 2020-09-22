@@ -87,7 +87,7 @@ const config = {
     '~/plugins/apis',
     '~/plugins/axiosLogger',
     '~/plugins/europeana',
-    '~/plugins/vue/index',
+    '~/plugins/vue',
     '~/plugins/i18n.js',
     '~/plugins/vue-filters',
     '~/plugins/vue-directives'

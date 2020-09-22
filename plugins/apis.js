@@ -1,5 +1,6 @@
 import annotation from './europeana/annotation';
 import entity from './europeana/entity';
+import mediaProxy from './europeana/mediaProxy';
 import record from './europeana/record';
 
 export default ({ store }, inject) => {
@@ -9,6 +10,7 @@ export default ({ store }, inject) => {
     config,
     annotation: annotation(config),
     entity: entity(config),
+    mediaProxy: mediaProxy(config),
     record: record(config)
   });
 };

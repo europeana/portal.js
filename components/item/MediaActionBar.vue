@@ -159,7 +159,7 @@
 
       downloadUrl() {
         if (this.downloadDisabled) return null;
-        return this.useProxy ? this.$proxyMedia(this.url, this.europeanaIdentifier) : this.url;
+        return this.useProxy ? this.$apis.mediaProxy.url(this.url, this.europeanaIdentifier) : this.url;
       },
 
       downloadDisabled() {

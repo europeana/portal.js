@@ -15,7 +15,7 @@
     data-qa="video"
   >
     <source
-      :src="$proxyMedia(src, europeanaIdentifier)"
+      :src="$apis.mediaProxy.url(src, europeanaIdentifier)"
       :type="type"
       data-qa="video source"
     >

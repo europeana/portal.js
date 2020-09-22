@@ -40,7 +40,7 @@
     },
     computed: {
       imageLink() {
-        return this.$proxyMedia(this.media.about, this.europeanaIdentifier, { disposition: 'inline' });
+        return this.$apis.mediaProxy.url(this.media.about, this.europeanaIdentifier, { disposition: 'inline' });
       }
     }
   };

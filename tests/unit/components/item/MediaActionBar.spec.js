@@ -41,7 +41,11 @@ const factory = (propsData) => mount(MediaActionBar, {
   propsData,
   mocks: {
     $t: (key) => `TRANSLATED: ${key}`,
-    $proxyMedia: () => 'proxied'
+    $apis: {
+      mediaProxy: {
+        url: () => 'proxied'
+      }
+    }
   }
 });
 

@@ -12,7 +12,11 @@ const factory = () => shallowMount(AudioPlayer, {
     type: 'audio/mpeg'
   },
   mocks: {
-    $proxyMedia: () => 'proxied'
+    $apis: {
+      mediaProxy: {
+        url: () => 'proxied'
+      }
+    }
   },
   localVue
 });

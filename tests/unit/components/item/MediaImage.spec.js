@@ -14,7 +14,11 @@ const factory = () => mount(MediaImage, {
   localVue,
   mocks: {
     $t: (key) => key,
-    $proxyMedia: () => 'proxied'
+    $apis: {
+      mediaProxy: {
+        url: () => 'proxied'
+      }
+    }
   },
   propsData
 });

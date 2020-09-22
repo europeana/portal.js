@@ -13,7 +13,11 @@ const factory = (propsData) => mount(ItemHero, {
   propsData,
   mocks: {
     $t: (key) => key,
-    $proxyMedia: () => 'proxied',
+    $apis: {
+      mediaProxy: {
+        url: () => 'proxied'
+      }
+    },
     $store: {
       state: {
         set: { ...{ liked: [] }, ...{} }
