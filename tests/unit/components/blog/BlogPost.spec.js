@@ -14,8 +14,20 @@ const factory = () => shallowMount(BlogPost, {
   },
   propsData: {
     title: 'This is a title',
-    body: '__Foo__ Hello',
-    datePublished: '2019-10-03T00:00+00:00'
+    datePublished: '2019-10-03T00:00+00:00',
+    hero: {
+      license: 'https://creativecommons.org/licenses/by-sa/1.0/'
+    },
+    heroImage: {
+      url: 'https://example.org'
+    },
+    body: {
+      hasPartCollection: {
+        items: [
+          '<p>Hello</p>'
+        ]
+      }
+    }
   }
 });
 
@@ -23,7 +35,7 @@ describe('components/blog/BlogPost', () => {
   it('displays markdown data as HTML', () => {
     const wrapper = factory();
 
-    wrapper.vm.html.should.contain('<p><strong>Foo</strong> Hello</p>');
+    wrapper.find('[data-qa="blog-sections"]').html().should.contain('<p>Hello</p>');
   });
 
   it('removes the time from date string', () => {

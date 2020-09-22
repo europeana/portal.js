@@ -13,7 +13,7 @@
             :date-published="post.datePublished"
             :title="post.name"
             :description="post.description"
-            :body="post.articleBody"
+            :body="post"
             :identifier="post.identifier"
             :hero="hero"
             :hero-image="heroImage"

@@ -9,7 +9,33 @@ query BlogPostPage(
       name
       description
       datePublished
-      articleBody
+      primaryImageOfPage {
+        ... imageWithAttributionFields
+      }
+      hasPartCollection(limit: 40) {
+        total
+        items {
+          __typename
+          ... on ContentTypeRichText {
+            text
+          }
+          ... on Embed {
+            embed
+          }
+          ... on ImageWithAttribution {
+            ... imageWithAttributionFields
+          }
+          ... on ImageComparison {
+            name
+            hasPartCollection(limit: 2) {
+              items {
+                ... imageWithAttributionFields
+              }
+            }
+          }
+          # CardGroup omitted intentionally
+        }
+      }
       genre
       keywords
       authorCollection {
@@ -19,19 +45,20 @@ query BlogPostPage(
           url
         }
       }
-      primaryImageOfPage {
-        name
-        creator
-        provider
-        license
-        url
-        image {
-          url
-          contentType
-          width
-          height
-        }
-      }
     }
+  }
+}
+
+fragment imageWithAttributionFields on ImageWithAttribution {
+  name
+  creator
+  provider
+  license
+  url
+  image {
+    url
+    contentType
+    width
+    height
   }
 }
