@@ -29,7 +29,7 @@
         />
       </div>
       <div
-        v-else-if="placeholder"
+        v-else
         class="placeholder card-img"
       />
       <b-card-body data-qa="card body">
@@ -168,10 +168,6 @@
       blankImageWidth: {
         type: Number,
         default: null
-      },
-      placeholder: {
-        type: Boolean,
-        default: false
       }
     },
     data() {

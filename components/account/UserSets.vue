@@ -19,7 +19,6 @@
             :sub-title="setSubTitle(set)"
             :title="set.title"
             :image-url="$sets.getSetThumbnail(set)"
-            :placeholder="placeholderRequired(set)"
             :texts="[set.description]"
             :url="{ name: 'set-all', params: { pathMatch: setPathMatch(set) } }"
             data-qa="user set"
@@ -57,9 +56,6 @@
       },
       setPathMatch(set) {
         return set.id.replace('http://data.europeana.eu/set/', '');
-      },
-      placeholderRequired(set) {
-        return this.$sets.getSetThumbnail(set) === null;
       }
     }
   };
