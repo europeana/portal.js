@@ -35,11 +35,5 @@ module.exports = {
   thumbnail: {
     origin: 'https://api.europeana.eu',
     path: '/api/v2'
-  },
-  // TODO: remove this when the data is merged with that in the newspaper API
-  ww1: {
-    origin: 'https://transcription-search-test.eanadev.org',
-    path: '/api/v2',
-    key: process.env['EUROPEANA_WW1_API_KEY'] || process.env['EUROPEANA_RECORD_API_KEY']
   }
 };
