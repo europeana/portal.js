@@ -28,6 +28,10 @@
           @error="imageNotFound"
         />
       </div>
+      <div
+        v-else
+        class="placeholder card-img"
+      />
       <b-card-body data-qa="card body">
         <b-card-sub-title
           v-if="displaySubTitle && variant !== 'mini'"
