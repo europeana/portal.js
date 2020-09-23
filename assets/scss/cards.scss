@@ -30,6 +30,9 @@
     max-height: 13rem;
     min-height: 13rem;
     width: 100%;
+    &.placeholder {
+      background: $offwhite;
+    }
 
     img {
       object-fit: cover;
