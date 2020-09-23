@@ -5,7 +5,6 @@ export const actions = {
   //          by middleware, such as those resulting in redirects and never using
   //          the response of the API calls.
   async nuxtServerInit(store, context) {
-    console.log('nuxtServerInit');
     store.dispatch('http/init', context);
     store.commit('apis/readUrlsFromRequestHeaders', context.req.headers);
   }
