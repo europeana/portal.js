@@ -37,6 +37,7 @@
     img {
       object-fit: cover;
       width: 100%;
+      z-index: 1;
     }
   }
 
@@ -284,6 +285,7 @@
     position: absolute;
     top: 1rem;
     right: 1rem;
+    z-index: 2;
 
     .btn {
       align-items: center;

@@ -9,8 +9,8 @@ export default Object.freeze({
     key: process.env.EUROPEANA_ENTITY_API_KEY
   },
   newspaper: {
-    url: 'https://newspapers.eanadev.org/api/v2',
-    key: process.env['EUROPEANA_NEWSPAPER_API_KEY'] || process.env['EUROPEANA_RECORD_API_KEY']
+    url: process.env.EUROPEANA_NEWSPAPER_API_URL || 'https://newspapers.eanadev.org/api/v2',
+    key: process.env.EUROPEANA_NEWSPAPER_API_KEY || process.env.EUROPEANA_RECORD_API_KEY
   },
   recommendation: {
     url: process.env.EUROPEANA_RECOMMENDATION_API_URL || 'https://api.europeana.eu/recommend'
@@ -25,11 +25,6 @@ export default Object.freeze({
   },
   thumbnail: {
     url: process.env.EUROPEANA_THUMBNAIL_API_URL || 'https://api.europeana.eu/thumbnail/v2'
-  },
-  // TODO: remove this when the data is merged with that in the newspaper API
-  ww1: {
-    url: 'https://transcription-search-test.eanadev.org/api/v2',
-    key: process.env['EUROPEANA_WW1_API_KEY'] || process.env['EUROPEANA_RECORD_API_KEY']
   }
 });
 
