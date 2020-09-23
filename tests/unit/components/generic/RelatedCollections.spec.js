@@ -4,7 +4,6 @@ import Vuex from 'vuex';
 import sinon from 'sinon';
 
 import RelatedCollections from '../../../../components/generic/RelatedCollections.vue';
-import apiConfig from '../../../../plugins/europeana';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
@@ -29,12 +28,8 @@ const factory = (options = {}) => {
     store: options.store || store()
   });
 };
-const getters = {
-  'apis/config': () => apiConfig
-};
 const store = (options = {}) => {
   return new Vuex.Store({
-    getters,
     state: options.state || {
       i18n: {
         locale: 'en'
