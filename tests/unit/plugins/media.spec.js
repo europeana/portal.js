@@ -40,19 +40,36 @@ describe('plugins/media', () => {
   });
 
   describe('isPlayableMedia()', () => {
-    it('returns `true` if ebucoreHasMimeType is for video/*', () => {
-      const mediaTypes = ['video/mp4', 'video/ogg', 'video/webm', 'video/whatever'];
+    it('returns `true` if ebucoreHasMimeType is for video/mp4, video/ogg or video/webm', () => {
+      const mediaTypes = ['video/mp4', 'video/ogg', 'video/webm'];
+      const edmCodecName = 'h264';
+
+      for (const ebucoreHasMimeType of mediaTypes) {
+        media.isPlayableMedia({ ebucoreHasMimeType, edmCodecName }).should.be.true;
+      }
+    });
+
+    it('returns `false` if ebucoreHasMimeType is for video/somethingelse', () => {
+      const mediaTypes = ['video/somethingelse'];
+
+      for (const ebucoreHasMimeType of mediaTypes) {
+        media.isPlayableMedia({ ebucoreHasMimeType }).should.be.false;
+      }
+    });
+
+    it('returns `true` if ebucoreHasMimeType is for audio/flac, audio/ogg or audio/mpeg', () => {
+      const mediaTypes = ['audio/flac', 'audio/ogg', 'audio/mpeg'];
 
       for (const ebucoreHasMimeType of mediaTypes) {
         media.isPlayableMedia({ ebucoreHasMimeType }).should.be.true;
       }
     });
 
-    it('returns `true` if ebucoreHasMimeType is for audio/*', () => {
-      const mediaTypes = ['audio/flac', 'audio/ogg', 'audio/mpeg', 'audio/whatever'];
+    it('returns `false` if ebucoreHasMimeType is for audio/somethingelse', () => {
+      const mediaTypes = ['audio/somethingelse'];
 
       for (const ebucoreHasMimeType of mediaTypes) {
-        media.isPlayableMedia({ ebucoreHasMimeType }).should.be.true;
+        media.isPlayableMedia({ ebucoreHasMimeType }).should.be.false;
       }
     });
 

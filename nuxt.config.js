@@ -6,8 +6,6 @@ const i18nLocales = require('./plugins/i18n/locales.js');
 const i18nDateTime = require('./plugins/i18n/datetime.js');
 
 const config = {
-  mode: 'universal',
-
   /*
   ** Headers of the page
   */
@@ -91,7 +89,6 @@ const config = {
     '~/plugins/vue/index',
     '~/plugins/i18n.js',
     '~/plugins/vue-filters',
-    '~/plugins/vue-disqus',
     '~/plugins/vue-directives'
   ],
 
@@ -226,7 +223,10 @@ const config = {
     static: {
       maxAge: '1d'
     }
-  }
+  },
+
+  // Opt-out of telemetry
+  telemetry: false
 };
 
 if (Number(process.env['ENABLE_XX_USER_AUTH'])) {

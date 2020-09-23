@@ -65,10 +65,17 @@
   .jumbotron {
     height: auto;
     background: $white;
-    &:before {display: none;}
+    &:before {
+      display: none;
+    }
+
     &.hero {
-      height: 50vh;
+      min-height: initial;
+      
       figure {
+        height: 0;
+        padding-top: 56.25%;
+        position: relative;
         width: 100%;
         display: flex;
         justify-content: center;
@@ -82,11 +89,16 @@
           z-index: 3;
         }
         img {
+          position: absolute;
+          top: 0;
+          left: 0;
+          height: 100%;
           object-fit: cover;
           width: 100%;
         }
       }
     }
+
     .container {
       max-width: none;
       justify-content: center;

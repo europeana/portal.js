@@ -1,56 +1,33 @@
 <template>
-  <b-container data-qa="blog post">
-    <b-row class="flex-md-row pb-5 figure-attribution">
-      <b-col
-        cols="12"
-        md="9"
-      >
-        <ImageWithAttribution
-          v-if="hero"
-          :src="heroImage.url"
-          :image-content-type="heroImage.contentType"
-          :rights-statement="hero.license"
-          :attribution="hero"
-          hero
-        />
-        <BlogPost
-          :date-published="post.datePublished"
-          :title="post.name"
-          :body="post.articleBody"
-        />
-        <BlogTags
-          v-if="post.keywords"
-          :tags="post.keywords"
-        />
-
-        <div
-          v-if="enableBlogComments"
-          class="card card-body mt-4"
-          data-qa="disqus widget"
+  <div
+    data-qa="blog post"
+    class="text-page figure-attribution"
+  >
+    <b-container>
+      <b-row class="justify-content-center">
+        <b-col
+          cols="12"
+          class="col-lg-8 pt-large"
         >
-          <vue-disqus
-            :shortname="disqusShortname"
-            :identifier="identifier"
-            :url="shareUrl"
+          <BlogPost
+            :date-published="post.datePublished"
+            :title="post.name"
+            :description="post.description"
+            :body="post.articleBody"
+            :identifier="post.identifier"
+            :hero="hero"
+            :hero-image="heroImage"
+            :authors="post.authorCollection.items.length > 0 ? post.authorCollection.items : null"
           />
-        </div>
-      </b-col>
-      <b-col
-        cols="12"
-        md="3"
-        class="pb-3"
-      >
-        <BlogAuthors
-          v-if="post.authorCollection.items.length > 0"
-          :authors="post.authorCollection.items"
-        />
-        <BlogCategories
-          v-if="post.genre"
-          :categories="post.genre"
-        />
-      </b-col>
-    </b-row>
-  </b-container>
+          <BlogTags
+            v-if="post.keywords"
+            :tags="post.keywords"
+          />
+        </b-col>
+      </b-row>
+      <b-row class="footer-margin" />
+    </b-container>
+  </div>
 </template>
 
 <script>
@@ -60,10 +37,7 @@
   export default {
     components: {
       BlogPost,
-      BlogTags: () => import('../../components/blog/BlogTags'),
-      BlogAuthors: () => import('../../components/blog/BlogAuthors'),
-      BlogCategories: () => import('../../components/blog/BlogCategories'),
-      ImageWithAttribution: () => import('../../components/generic/ImageWithAttribution')
+      BlogTags: () => import('../../components/blog/BlogTags')
     },
 
     asyncData({ params, query, error, app, store }) {
@@ -121,15 +95,7 @@
       ...mapGetters({
         shareUrl: 'http/canonicalUrl',
         identifier: 'http/canonicalUrlWithoutLocale'
-      }),
-
-      disqusShortname() {
-        return process.env.DISQUS_SHORTNAME;
-      },
-
-      enableBlogComments() {
-        return !!this.disqusShortname;
-      }
+      })
     },
 
     head() {

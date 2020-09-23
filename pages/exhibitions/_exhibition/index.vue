@@ -1,35 +1,49 @@
 <template>
   <div
     data-qa="exhibition page"
-    class="exhibition-page mx-auto figure-attribution"
+    class="text-page figure-attribution"
   >
-    <b-container
-      fluid
-      class="image-wrapper mb-5"
-    >
-      <h1>{{ name }}</h1>
-      <p class="lead">
-        {{ headline }}
-      </p>
-      <SocialShare
-        :media-url="heroImage.url"
-      />
-    </b-container>
-    <ImageWithAttribution
-      :src="heroImage.url"
-      :image-content-type="heroImage.contentType"
-      :rights-statement="hero.license"
-      :attribution="hero"
-      hero
-    />
-    <b-container class="pb-3">
-      <b-row>
+    <b-container>
+      <b-row class="justify-content-center">
         <b-col
           cols="12"
-          class="pb-0 pb-lg-3"
+          class="col-lg-8 pt-large mb-4"
+        >
+          <h1>{{ name }}</h1>
+          <p
+            v-if="headline"
+            class="lead"
+          >
+            {{ headline }}
+          </p>
+        </b-col>
+      </b-row>
+      <b-row class="justify-content-center">
+        <b-col
+          cols="12"
+          class="col-lg-8"
+        >
+          <ImageWithAttribution
+            :src="heroImage.url"
+            :image-content-type="heroImage.contentType"
+            :rights-statement="hero.license"
+            :attribution="hero"
+            hero
+          />
+        </b-col>
+      </b-row>
+    </b-container>
+    <b-container>
+      <b-row class="justify-content-center">
+        <b-col
+          cols="12"
+          class="col-lg-8"
         >
           <article>
             <!-- eslint-disable vue/no-v-html -->
+            <!-- share :media-url="" -->
+            <ShareButton class="mb-4" />
+            <SocialShareModal :media-url="heroImage.url" />
             <div
               data-qa="exhibition text"
               v-html="mainContent"
@@ -38,11 +52,14 @@
           </article>
         </b-col>
       </b-row>
-      <b-row v-if="hasPartCollection">
-        <b-col class="my-3">
-          <h2 class="is-size-1-5">
-            {{ $t('exhibitions.chapters') }}
-          </h2>
+      <b-row
+        v-if="hasPartCollection"
+        class="justify-content-center mt-3"
+      >
+        <b-col
+          cols="12"
+          class="mt-3 col-lg-8"
+        >
           <ExhibitionChapters
             :exhibition-identifier="identifier"
             :chapters="hasPartCollection.items"
@@ -50,6 +67,7 @@
           />
         </b-col>
       </b-row>
+      <b-row class="footer-margin" />
     </b-container>
   </div>
 </template>
@@ -58,12 +76,15 @@
   import marked from 'marked';
 
   import ExhibitionChapters from '../../../components/exhibition/ExhibitionChapters';
+  import SocialShareModal from '../../../components/sharing/SocialShareModal.vue';
+  import ShareButton from '../../../components/sharing/ShareButton.vue';
 
   export default {
     components: {
       ExhibitionChapters,
-      ImageWithAttribution: () => import('../../../components/generic/ImageWithAttribution'),
-      SocialShare: () => import('../../../components/sharing/SocialShare')
+      ShareButton,
+      SocialShareModal,
+      ImageWithAttribution: () => import('../../../components/generic/ImageWithAttribution')
     },
     asyncData({ params, query, error, app, store, redirect }) {
       if (params.exhibition === undefined) redirect(app.$path({ name: 'exhibitions' }));

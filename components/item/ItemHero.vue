@@ -2,31 +2,40 @@
   <div class="item-hero">
     <AwesomeSwiper
       :europeana-identifier="identifier"
-      :media="media"
+      :displayable-media="displayableMedia"
       @select="selectMedia"
     />
     <b-container>
       <b-row>
         <b-col
           cols="12"
-          class="col-lg-10 media-bar justify-content-between d-flex mx-auto"
+          class="col-lg-10 media-bar d-flex mx-auto"
         >
-          <RightsStatementButton
-            v-if="rightsStatementIsUrl"
-            :rights-statement="rightsStatement"
-          />
-          <span
-            v-else
-            data-qa="rights statement"
-          >
-            {{ rightsStatement }}
-          </span>
-          <div>
-            <ShareButton />
-            <DownloadButton
-              v-if="downloadEnabled"
-              :url="downloadUrl"
+          <div class="d-flex justify-content-md-center align-items-center rights-wrapper">
+            <RightsStatementButton
+              :disabled="!rightsStatementIsUrl"
+              :rights-statement="rightsStatement"
+              class="mr-auto"
             />
+          </div>
+          <div
+            v-if="displayableMedia.length !== 1"
+            class="d-flex justify-content-md-center align-items-center pagination-wrapper"
+          >
+            <div class="swiper-pagination" />
+          </div>
+          <div class="d-flex justify-content-md-center align-items-center button-wrapper">
+            <div class="ml-lg-auto d-flex">
+              <UserButtons
+                v-if="showUserButtons"
+                v-model="identifier"
+              />
+              <ShareButton />
+              <DownloadButton
+                v-if="downloadEnabled"
+                :url="downloadUrl"
+              />
+            </div>
           </div>
         </b-col>
       </b-row>
@@ -42,6 +51,7 @@
   import SocialShareModal from '../sharing/SocialShareModal.vue';
   import ShareButton from '../sharing/ShareButton.vue';
   import has from 'lodash/has';
+  import { isIIIFPresentation } from '../../plugins/media';
 
   export default {
     components: {
@@ -49,7 +59,8 @@
       DownloadButton,
       RightsStatementButton,
       SocialShareModal,
-      ShareButton
+      ShareButton,
+      UserButtons: () => import('../account/UserButtons')
     },
     props: {
       identifier: {
@@ -95,6 +106,13 @@
       },
       downloadEnabled() {
         return this.rightsStatement && !this.rightsStatement.includes('/InC/');
+      },
+      showUserButtons() {
+        return ((Boolean(Number(process.env.ENABLE_XX_USER_AUTH)) && Boolean(Number(process.env.ENABLE_UNAUTHENTICATED_USER_BUTTONS))) || (this.$store.state.auth && this.$store.state.auth.loggedIn));
+      },
+      displayableMedia() {
+        // Crude check for IIIF content, which is to prevent newspapers from showing many IIIF viewers.
+        return isIIIFPresentation(this.media[0]) ? [this.media[0]] : this.media;
       }
     },
     methods: {

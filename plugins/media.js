@@ -12,18 +12,19 @@ export function isImage(media) {
 }
 
 export function isHTMLVideo(media) {
+  if (!media.ebucoreHasMimeType) return false;
   return ['video/ogg', 'video/webm'].includes(media.ebucoreHasMimeType) ||
     ((media.ebucoreHasMimeType === 'video/mp4') && (media.edmCodecName === 'h264'));
 }
 
 export function isHTMLAudio(media) {
+  if (!media.ebucoreHasMimeType) return false;
   return ['audio/flac', 'audio/ogg', 'audio/mpeg'].includes(media.ebucoreHasMimeType);
 }
 
 export function isPlayableMedia(media) {
   return (typeof media.ebucoreHasMimeType === 'string' && (
-    media.ebucoreHasMimeType.startsWith('video/') ||
-    media.ebucoreHasMimeType.startsWith('audio/') ||
+    isHTMLAudio(media) || isHTMLVideo(media) ||
     (media.ebucoreHasMimeType === 'application/dash+xml')
   )) ||
     new RegExp('^http://www.euscreen.eu/item.html').test(media.about);

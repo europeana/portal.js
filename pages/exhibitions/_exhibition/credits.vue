@@ -1,29 +1,48 @@
 <template>
   <div
     data-qa="exhibition credits page"
-    class="exhibition-page mx-auto"
+    class="text-page"
   >
-    <b-container class="pb-3">
-      <b-row>
+    <b-container>
+      <b-row class="justify-content-center">
         <b-col
           cols="12"
-          lg="9"
-          class="pb-0 pb-lg-3 mt-2"
+          class="col-lg-8 pt-large mb-4"
         >
+          <h2
+            v-if="exhibitionTitle"
+            class="subtitle"
+          >
+            {{ exhibitionTitle }}
+          </h2>
           <h1>{{ $t('exhibitions.credits') }}</h1>
-          <!-- eslint-disable vue/no-v-html -->
-          <div
-            data-qa="credits text"
-            v-html="htmlCredits"
-          />
-          <!-- eslint-enable vue/no-v-html -->
         </b-col>
       </b-row>
-      <b-row v-if="hasPartCollection.items.length > 0">
-        <b-col class="my-3">
-          <h2 class="is-size-1-5">
-            {{ $t('exhibitions.chapters') }}
-          </h2>
+      <b-row class="justify-content-center">
+        <b-col
+          cols="12"
+          class="col-lg-8"
+        >
+          <article>
+            <ShareButton class="mb-4" />
+            <SocialShareModal />
+            <!-- eslint-disable vue/no-v-html -->
+            <div
+              data-qa="credits text"
+              v-html="htmlCredits"
+            />
+            <!-- eslint-enable vue/no-v-html -->
+          </article>
+        </b-col>
+      </b-row>
+      <b-row
+        v-if="hasPartCollection"
+        class="justify-content-center mt-3"
+      >
+        <b-col
+          cols="12"
+          class="mt-3 col-lg-8"
+        >
           <ExhibitionChapters
             :exhibition-identifier="identifier"
             :chapters="hasPartCollection.items"
@@ -31,6 +50,7 @@
           />
         </b-col>
       </b-row>
+      <b-row class="footer-margin" />
     </b-container>
   </div>
 </template>
@@ -38,10 +58,14 @@
 <script>
   import marked from 'marked';
   import ExhibitionChapters from '../../../components/exhibition/ExhibitionChapters';
+  import SocialShareModal from '../../../components/sharing/SocialShareModal.vue';
+  import ShareButton from '../../../components/sharing/ShareButton.vue';
 
   export default {
     components: {
-      ExhibitionChapters
+      ExhibitionChapters,
+      ShareButton,
+      SocialShareModal
     },
 
     asyncData({ params, query, error, app, store }) {
@@ -80,7 +104,6 @@
               active: true
             }
           ]);
-
           return exhibition;
         })
         .catch((e) => {
@@ -94,6 +117,9 @@
       },
       title() {
         return `${this.name} - ${this.$t('exhibitions.credits')}`;
+      },
+      exhibitionTitle() {
+        return this.name;
       }
     },
     beforeRouteLeave(to, from, next) {

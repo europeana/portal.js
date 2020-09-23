@@ -1,6 +1,6 @@
 {
   "name": "@europeana/portal",
-  "version": "1.9.1",
+  "version": "1.10.0",
   "description": "Europeana Portal",
   "contributors": [
     "Richard Doe <richard.doe@europeana.eu>",
@@ -57,7 +57,7 @@
     "autosuggest-highlight": "^3.1.1",
     "axios": "^0.19.2",
     "bootstrap-vue": "^2.0.0",
-    "cluster-service": "^2.1.3",
+    "cluster-service": "^2.1.4",
     "cookie-universal-nuxt": "^2.0.18",
     "cosmiconfig": "^6.0.0",
     "cross-env": "^5.2.1",
@@ -67,20 +67,19 @@
     "express": "^4.16.4",
     "express-ipfilter": "^1.0.1",
     "http-auth": "^3.2.3",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.20",
     "marked": "^0.7.0",
     "md5": "^2.2.1",
     "morgan": "^1.9.1",
-    "nuxt": "^2.12.2",
+    "nuxt": "^2.14.6",
     "nuxt-i18n": "^6.10.1",
     "qs": "^6.6.0",
-    "swiper": "^5.3.6",
-    "vue": "^2.6.11",
+    "swiper": "^6.1.2",
+    "vue": "^2.6.12",
     "vue-awesome-swiper": "^4.1.1",
     "vue-client-only": "^2.0.0",
-    "vue-disqus": "^3.0.5",
     "vue-i18n": "^8.17.3",
-    "vue-scrollto": "^2.17.1"
+    "vue-scrollto": "^2.18.2"
   },
   "devDependencies": {
     "@babel/core": "^7.6.0",
@@ -107,7 +106,7 @@
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
     "chai-string": "^1.5.0",
-    "chromedriver": "^83.0.1",
+    "chromedriver": "^85.0.1",
     "contentful-cli": "^1.3.35",
     "cssesc": "^3.0.0",
     "cucumber": "^5.1.0",
@@ -128,10 +127,10 @@
     "sinon": "^7.2.7",
     "sinon-chai": "^3.3.0",
     "storybook-vue-router": "^1.0.7",
-    "stylelint": "^13.5.0",
-    "stylelint-config-recommended": "^2.1.0",
-    "svg-url-loader": "^3.0.2",
-    "vue-loader": "^15.7.0",
-    "vue-template-compiler": "^2.6.11"
+    "stylelint": "^13.7.1",
+    "stylelint-config-recommended": "^3.0.0",
+    "svg-url-loader": "^3.0.3",
+    "vue-loader": "^15.9.3",
+    "vue-template-compiler": "^2.6.12"
   }
 }
