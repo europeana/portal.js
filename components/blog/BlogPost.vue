@@ -66,9 +66,9 @@
             <ShareButton class="my-4" />
             <SocialShareModal :media-url="heroImage.url" />
             <BrowseSections
-              :sections="body.hasPartCollection.items"
+              :sections="body.items"
               :rich-text-is-card="false"
-              class="blog-sections"
+              class="authored-section"
               data-qa="blog-sections"
             />
             <!-- eslint-enable vue/no-v-html -->
@@ -139,47 +139,3 @@
     }
   };
 </script>
-
-<style lang="scss" scoped>
-
-  .blog-sections {
-    text-align: center;
-  }
-
-  /deep/ .blog-sections .col {
-    margin-left: auto;
-    margin-right: auto;
-    text-align: left;
-  }
-
-  // TODO: temp solution, as rich text sections are always sized "col-12 col-lg-9"
-  // preferably, this should be removed from the RichText component itself and be taken care on page level
-  /deep/ .blog-sections .col-lg-9 {
-    flex: 0 0 100%;
-    max-width: 100%;
-  }
-
-  /deep/ figure {
-    display: inline-block;
-    margin: 0;
-    max-width: 100%;
-
-    img {
-      max-height: 85vh;
-      max-width: 100%;
-    }
-
-    &.compare-image-wrapper {
-      display: inline-block;
-      img {
-        max-height: 85vh;
-      }
-    }
-  }
-
-  /deep/ iframe {
-    max-height: initial;
-    max-width: 100%;
-  }
-
-</style>

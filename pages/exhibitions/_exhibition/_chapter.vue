@@ -59,7 +59,7 @@
               v-if="page"
               :sections="page.hasPartCollection.items"
               :rich-text-is-card="false"
-              class="exhibition-sections"
+              class="authored-section"
             />
           </article>
         </b-col>
@@ -209,47 +209,3 @@
     }
   };
 </script>
-
-<style lang="scss" scoped>
-
-  .exhibition-sections {
-    text-align: center;
-  }
-
-  /deep/ .exhibition-sections .col {
-    margin-left: auto;
-    margin-right: auto;
-    text-align: left;
-  }
-
-  // TODO: temp solution, as rich text sections are always sized "col-12 col-lg-9"
-  // preferably, this should be removed from the RichText component itself and be taken care on page level
-  /deep/ .exhibition-sections .col-lg-9 {
-    flex: 0 0 100%;
-    max-width: 100%;
-  }
-
-  /deep/ figure {
-    display: inline-block;
-    margin: 0;
-    max-width: 100%;
-
-    img {
-      max-height: 85vh;
-      max-width: 100%;
-    }
-
-    &.compare-image-wrapper {
-      display: inline-block;
-      img {
-        max-height: 85vh;
-      }
-    }
-  }
-
-  /deep/ iframe {
-    max-height: initial;
-    max-width: 100%;
-  }
-
-</style>
