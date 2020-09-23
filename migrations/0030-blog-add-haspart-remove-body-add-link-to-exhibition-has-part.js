@@ -14,7 +14,7 @@ module.exports = function(migration) {
 
       validations: [
         {
-          linkContentType: ['cardGroup', 'embed', 'imageComparison', 'imageWithAttribution', 'richText']
+          linkContentType: ['cardGroup', 'embed', 'imageComparison', 'imageWithAttribution', 'link', 'richText']
         }
       ],
 
@@ -30,4 +30,18 @@ module.exports = function(migration) {
     .afterField('primaryImageOfPage');
 
   blogPosting.deleteField('articleBody');
+
+  const exhibitionChapterPage = migration.editContentType('exhibitionChapterPage');
+
+  exhibitionChapterPage
+    .editField('hasPart')
+    .items({
+      type: 'Link',
+      validations: [
+        {
+          linkContentType: ['cardGroup', 'embed', 'imageComparison', 'imageWithAttribution', 'link', 'richText']
+        }
+      ],
+      linkType: 'Entry'
+    });
 };
