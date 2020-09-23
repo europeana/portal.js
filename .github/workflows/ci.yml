@@ -4,10 +4,10 @@ on:
   pull_request:
     types: [opened, synchronize, reopened]
     paths-ignore:
-      - '**.md'
-      - 'deploy/**'
-      - 'docker/**'
-      - 'migrations/**'
+    - '**.md'
+    - 'deploy/**'
+    - 'docker/**'
+    - 'migrations/**'
 
 env:
   CF_API: https://api.eu-de.cf.cloud.ibm.com
