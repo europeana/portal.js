@@ -98,20 +98,6 @@ describe('plugins/media', () => {
     });
   });
 
-  describe('isIIIFImage()', () => {
-    it('returns `true` if item has IIIF Image service but no dctermsIsReferencedBy', () => {
-      const item = {
-        services: [
-          {
-            dctermsConformsTo: ['http://iiif.io/api/image']
-          }
-        ]
-      };
-
-      media.isIIIFImage(item).should.be.true;
-    });
-  });
-
   describe('isIIIFPresentation()', () => {
     it('returns `true` if item has IIIF Image service and a dctermsIsReferencedBy', () => {
       const item = {
