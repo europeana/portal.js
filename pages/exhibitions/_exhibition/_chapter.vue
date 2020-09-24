@@ -3,6 +3,12 @@
     data-qa="exhibition chapter"
     class="text-page figure-attribution"
   >
+    <Head
+      :title="page.name"
+      :exhibition-title="exhibitionTitle"
+      :hero="hero"
+      :hero-image="heroImage"
+    />
     <b-container>
       <b-row class="justify-content-center">
         <b-col

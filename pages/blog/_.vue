@@ -3,30 +3,17 @@
     data-qa="blog post"
     class="text-page figure-attribution"
   >
-    <b-container>
-      <b-row class="justify-content-center">
-        <b-col
-          cols="12"
-          class="col-lg-8 pt-large"
-        >
-          <BlogPost
-            :date-published="post.datePublished"
-            :title="post.name"
-            :description="post.description"
-            :body="post.hasPartCollection"
-            :identifier="post.identifier"
-            :hero="hero"
-            :hero-image="heroImage"
-            :authors="post.authorCollection.items.length > 0 ? post.authorCollection.items : null"
-          />
-          <BlogTags
-            v-if="post.keywords"
-            :tags="post.keywords"
-          />
-        </b-col>
-      </b-row>
-      <b-row class="footer-margin" />
-    </b-container>
+    <BlogPost
+      :date-published="post.datePublished"
+      :title="post.name"
+      :description="post.description"
+      :body="post.hasPartCollection"
+      :identifier="post.identifier"
+      :hero="hero"
+      :hero-image="heroImage"
+      :authors="post.authorCollection.items.length > 0 ? post.authorCollection.items : null"
+      :tags="post.keywords"
+    />
   </div>
 </template>
 
@@ -36,8 +23,7 @@
 
   export default {
     components: {
-      BlogPost,
-      BlogTags: () => import('../../components/blog/BlogTags')
+      BlogPost
     },
 
     asyncData({ params, query, error, app, store }) {

@@ -1,42 +1,17 @@
 <template>
-  <b-row
-    class="flex-md-row"
-    data-qa="blog post"
-  >
+  <b-row class="flex-md-row">
+    <Head
+      :title="title"
+      :description="description"
+      :hero="hero"
+      :hero-image="heroImage"
+    />
     <b-container>
       <b-row class="justify-content-center">
-        <b-col cols="12">
-          <article>
-            <div class="title mb-4">
-              <h1 data-qa="blog post title">
-                {{ title }}
-              </h1>
-              <p
-                v-if="description"
-                class="lead"
-              >
-                {{ description }}
-              </p>
-            </div>
-          </article>
-        </b-col>
-      </b-row>
-      <b-row class="justify-content-center">
-        <b-col cols="12">
-          <ImageWithAttribution
-            v-if="heroImage"
-            :src="heroImage.url"
-            :image-content-type="heroImage.contentType"
-            :rights-statement="hero.license"
-            :attribution="hero"
-            hero
-          />
-        </b-col>
-      </b-row>
-    </b-container>
-    <b-container>
-      <b-row class="justify-content-center">
-        <b-col cols="12">
+        <b-col
+          cols="12"
+          class="col-lg-8"
+        >
           <article>
             <!-- eslint-disable vue/no-v-html -->
             <!-- share :media-url="" -->
@@ -73,6 +48,10 @@
             />
             <!-- eslint-enable vue/no-v-html -->
           </article>
+          <BlogTags
+            v-if="tags"
+            :tags="tags"
+          />
         </b-col>
       </b-row>
       <b-row class="footer-margin" />
@@ -89,8 +68,9 @@
     name: 'BlogPost',
 
     components: {
-      ImageWithAttribution: () => import('../../components/generic/ImageWithAttribution'),
+      Head: () => import('../../components/authored/Head'),
       BlogAuthor: () => import('./BlogAuthor'),
+      BlogTags: () => import('../../components/blog/BlogTags'),
       SocialShareModal,
       ShareButton,
       BrowseSections
@@ -133,6 +113,11 @@
       },
 
       authors: {
+        type: Array,
+        default: () => []
+      },
+
+      tags: {
         type: Array,
         default: () => []
       }

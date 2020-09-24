@@ -22,11 +22,9 @@ const factory = () => shallowMount(BlogPost, {
       url: 'https://example.org'
     },
     body: {
-      hasPartCollection: {
-        items: [
-          '<p>Hello</p>'
-        ]
-      }
+      items: [
+        '<p>Hello</p>'
+      ]
     }
   }
 });
