@@ -21,8 +21,7 @@
         role="search"
         aria-label="search form"
         data-qa="search form"
-        :enable-auto-suggest="enableAutoSuggest"
-        @toggle-search-bar="toggleSearchBar"
+        :on-collection-page="onCollectionPage"
       />
     </div>
     <template
@@ -106,6 +105,7 @@
   import SmartLink from './generic/SmartLink';
   import SearchForm from './search/SearchForm';
   import PageNavigation from './PageNavigation';
+  import { mapState } from 'vuex';
 
   export default {
     components: {
@@ -115,7 +115,7 @@
     },
 
     props: {
-      enableAutoSuggest: {
+      onCollectionPage: {
         type: Boolean,
         default: false
       },
@@ -132,9 +132,14 @@
     data() {
       return {
         showSidebar: null,
-        showSearch: false,
         windowWidth: 0
       };
+    },
+
+    computed: {
+      ...mapState({
+        showSearch: state => state.search.showSearchBar
+      })
     },
 
     watch: {
@@ -142,22 +147,16 @@
         if (this.showSidebar) {
           this.showSidebar = false;
         }
-        this.showSearch = false;
       }
     },
 
     methods: {
       toggleSearchBar() {
-        this.showSearch = !this.showSearch;
+        this.$store.commit('search/setShowSearchBar', !this.$store.state.search.showSearchBar);
       },
 
       backToMenu() {
-        this.showSearch = false;
-        this.clearQuery();
-      },
-
-      clearQuery() {
-        this.query = '';
+        this.$store.commit('search/setShowSearchBar', false);
       }
     }
   };

@@ -445,6 +445,9 @@ export default {
     "entireCollection": "Search for {0} in our entire collection",
     "inCollection": "Search for {0} in {1}",
     "searchFor": "Search for {0}",
+    "searchForEverythingInCollection": "Search for everything in {0}",
+    "searchForEverythingInEntireCollection": "Search for everything in our entire collection",
+    "searchForEverything": "Search for everything",
     "showSidebar": "Show Sidebar"
   },
   "homeLinkAlt": "Europeana home",

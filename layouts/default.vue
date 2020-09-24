@@ -11,7 +11,7 @@
       {{ $t('layout.skipToMain') }}
     </a>
     <PageHeader
-      :enable-auto-suggest="enableAutoSuggest"
+      :on-collection-page="onCollectionPage"
       :main-navigation="linkGroups.mainNavigation"
       :mobile-navigation="linkGroups.mobileNavigation"
       keep-alive
@@ -97,9 +97,9 @@
         canonicalUrl: 'http/canonicalUrl',
         canonicalUrlWithoutLocale: 'http/canonicalUrlWithoutLocale'
       }),
-      enableAutoSuggest() {
+      onCollectionPage() {
         // Auto suggest on search form will be disabled on entity pages.
-        return !(this.$store.state.entity && this.$store.state.entity.id);
+        return this.$store.state.entity && this.$store.state.entity.id;
       }
     },
 

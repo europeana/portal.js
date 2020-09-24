@@ -80,6 +80,7 @@ export const state = () => ({
   previousApiParams: null,
   resettableFilters: [],
   results: [],
+  showSearchBar: false,
   totalResults: null,
   userParams: {},
   view: null
@@ -134,6 +135,9 @@ export const mutations = {
   },
   setResults(state, value) {
     state.results = value;
+  },
+  setShowSearchBar(state, value) {
+    state.showSearchBar = value;
   },
   setTotalResults(state, value) {
     state.totalResults = value;

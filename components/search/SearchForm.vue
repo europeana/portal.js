@@ -9,7 +9,7 @@
   >
     <b-input-group
       role="combobox"
-      :aria-owns="enableAutoSuggest ? 'search-form-auto-suggest' : null"
+      aria-owns="search-form-auto-suggest"
       :aria-expanded="isAutoSuggestActive"
       class="auto-suggest"
     >
@@ -21,9 +21,11 @@
         data-qa="search box"
         role="searchbox"
         aria-autocomplete="list"
-        :aria-controls="enableAutoSuggest ? 'search-form-auto-suggest' : null"
+        aria-controls="search-form-auto-suggest"
         :aria-label="$t('search')"
         @input="clearSuggestions(); getSearchSuggestions(query);"
+        @focus="showSearchOptions = true;"
+        @blur="showSearchOptions = false;"
       />
       <b-button
         v-show="query"
@@ -34,16 +36,17 @@
         @click="clearQuery"
       />
       <SearchQueryOptions
+        v-if="showSearchOptions"
         v-model="suggestions"
-        :enable-auto-suggest="enableAutoSuggest"
+        :on-collection-page="onCollectionPage"
         :entity-collection-label="collectionLabel"
         :remove-collection-label="toggleSearchAndRemoveLabel"
         element-id="search-form-auto-suggest"
-        :link-gen="suggestionLinkGen"
-        :search-in-collection="searchInCollection"
+        :suggestion-link-gen="suggestionLinkGen"
+        :query-link-gen="linkGen"
+        :in-collection-link-gen="searchInCollection"
         :query="query"
         @select="selectSuggestion"
-        @hide-search="hideSearch"
       />
     </b-input-group>
   </b-form>
@@ -63,7 +66,7 @@
     },
 
     props: {
-      enableAutoSuggest: {
+      onCollectionPage: {
         type: Boolean,
         default: false
       }
@@ -74,7 +77,8 @@
         query: null,
         gettingSuggestions: false,
         suggestions: {},
-        selectedSuggestion: null
+        showSearchOptions: false,
+        selectedSuggestionLink: null
       };
     },
 
@@ -86,7 +90,7 @@
       }),
 
       isAutoSuggestActive() {
-        return this.enableAutoSuggest && (this.suggestions.length > 0);
+        return !this.onCollectionPage && (this.suggestions.length > 0);
       },
 
       onSearchablePage() {
@@ -132,28 +136,27 @@
       },
 
       selectSuggestion(value) {
-        this.selectedSuggestion = value;
+        this.selectedSuggestionLink = value;
       },
 
       async submitForm() {
         let newRoute;
 
-        if (this.selectedSuggestion) {
-          newRoute = this.suggestionLinkGen(this.selectedSuggestion);
+        if (this.selectedSuggestionLink) {
+          newRoute = this.selectedSuggestionLink;
+          this.query = this.selectedSuggestionLink.query.query;
         } else {
           const newRouteQuery = { ...this.$route.query, ...{ page: 1, view: this.view, query: this.query || '' } };
           newRoute = { path: this.routePath, query: newRouteQuery };
         }
 
         this.suggestions = {};
-        this.clearQuery();
-        this.hideSearch();
         await this.$goto(newRoute);
-        this.selectedSuggestion = null;
+        this.selectedSuggestionLink = null;
       },
 
       clearSuggestions() {
-        this.selectedSuggestion = null;
+        this.selectedSuggestionLink = null;
       },
 
       getSearchSuggestions(query) {
@@ -162,7 +165,7 @@
           return;
         }
 
-        if (!this.enableAutoSuggest) return;
+        if (this.onCollectionPage) return;
 
         // Don't go getting more suggestions if we are already waiting for some
         if (this.gettingSuggestions) return;
@@ -193,9 +196,13 @@
 
       suggestionLinkGen(suggestion) {
         const formattedSuggestion = suggestion ? `"${suggestion.replace(/(^")|("$)/g, '')}"` : undefined;
+        return this.linkGen(formattedSuggestion);
+      },
+
+      linkGen(queryTerm) {
         const query = {
           view: this.view,
-          query: formattedSuggestion
+          query: queryTerm
         };
         return {
           path: this.$path({
@@ -207,10 +214,6 @@
 
       searchInCollection(query) {
         return this.$route.path + '?page=1&view=grid&query=' + query;
-      },
-
-      hideSearch() {
-        this.$emit('toggle-search-bar');
       },
 
       clearQuery() {

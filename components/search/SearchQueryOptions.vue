@@ -8,10 +8,10 @@
     :aria-hidden="!isActive"
   >
     <template
-      v-if="entityCollectionLabel"
+      v-if="onCollectionPage"
     >
       <b-list-group-item
-        :to="searchInCollection(query)"
+        :to="inCollectionLinkGen(query)"
         class="search"
         data-qa="search in collection button"
         role="option"
@@ -25,15 +25,21 @@
         @mousedown.prevent
       >
         <i18n
+          v-if="query"
           path="header.inCollection"
           tag="span"
         >
-          <strong>{{ query || '""' }}</strong>
+          <strong>{{ query }}</strong>
           <span>{{ entityCollectionLabel.values[0] }}</span>
         </i18n>
+        <span
+          v-else
+        >
+          {{ $t('header.searchForEverythingInCollection', [entityCollectionLabel.values[0]]) }}
+        </span>
       </b-list-group-item>
       <b-list-group-item
-        :to="linkGen(query)"
+        :to="queryLinkGen(query)"
         class="search"
         role="option"
         data-qa="search entire collection button"
@@ -47,18 +53,24 @@
         @click.prevent="removeCollectionLabel"
       >
         <i18n
+          v-if="query"
           path="header.entireCollection"
           tag="span"
         >
-          <strong>{{ query || '""' }}</strong>
+          <strong>{{ query }}</strong>
         </i18n>
+        <span
+          v-else
+        >
+          {{ $t('header.searchForEverythingInEntireCollection') }}
+        </span>
       </b-list-group-item>
     </template>
     <template
-      v-else-if="enableAutoSuggest"
+      v-else
     >
       <b-list-group-item
-        :to="linkGen(query)"
+        :to="queryLinkGen(query)"
         class="search"
         role="option"
         data-qa="search button"
@@ -71,43 +83,48 @@
         @mousedown.prevent
       >
         <i18n
+          v-if="query"
           path="header.searchFor"
           tag="span"
         >
-          <strong>{{ query || '""' }}</strong>
+          <strong>{{ query }}</strong>
         </i18n>
-      </b-list-group-item>
-    </template>
-    <b-list-group-item
-      v-for="(val, name, index) in value"
-      v-show="isActive"
-      :key="index + 1"
-      role="option"
-      :data-qa="val + ' search suggestion'"
-      :aria-selected="index + 1 === focus"
-      :to="linkGen(val)"
-      :class="{ 'hover': index + 1 === focus }"
-      :data-index="index + 1"
-      @mouseover="focus = index + 1"
-      @mouseout="focus = null"
-      @focus="index + 1 === focus"
-      @mousedown.prevent
-    >
-      <template
-        v-for="(part, partIndex) in highlightResult(val)"
-      >
-        <strong
-          v-if="part.highlight"
-          :key="partIndex"
-          class="highlight"
-          data-qa="highlighted"
-        >{{ part.text }}</strong> <!-- Do not put onto a new line -->
         <span
           v-else
-          :key="partIndex"
-        >{{ part.text }}</span> <!-- Do not put onto a new line -->
-      </template>
-    </b-list-group-item>
+        >
+          {{ $t('header.searchForEverything') }}
+        </span>
+      </b-list-group-item>
+      <b-list-group-item
+        v-for="(val, name, index) in value"
+        :key="index + 1"
+        role="option"
+        :data-qa="val + ' search suggestion'"
+        :aria-selected="index + 1 === focus"
+        :to="suggestionLinkGen(val)"
+        :class="{ 'hover': index + 1 === focus }"
+        :data-index="index + 1"
+        @mouseover="focus = index + 1"
+        @mouseout="focus = null"
+        @focus="index + 1 === focus"
+        @mousedown.prevent
+      >
+        <template
+          v-for="(part, partIndex) in highlightResult(val)"
+        >
+          <strong
+            v-if="part.highlight"
+            :key="partIndex"
+            class="highlight"
+            data-qa="highlighted"
+          >{{ part.text }}</strong> <!-- Do not put onto a new line -->
+          <span
+            v-else
+            :key="partIndex"
+          >{{ part.text }}</span> <!-- Do not put onto a new line -->
+        </template>
+      </b-list-group-item>
+    </template>
   </b-list-group>
 </template>
 
@@ -119,6 +136,7 @@
     name: 'SearchQueryOptions',
 
     props: {
+      // TODO: potential refactor here to only pass the suggestion labels in. URIs are currently not used anywhere.
       // Property names are identifiers, emitted when suggestion is selected.
       // Property values are the text for.the match
       // @example
@@ -136,12 +154,17 @@
         default: ''
       },
 
-      linkGen: {
+      suggestionLinkGen: {
         type: Function,
         default: (val) => val
       },
 
-      searchInCollection: {
+      queryLinkGen: {
+        type: Function,
+        default: (val) => val
+      },
+
+      inCollectionLinkGen: {
         type: Function,
         default: (val) => val
       },
@@ -166,7 +189,7 @@
         default: false
       },
 
-      enableAutoSuggest: {
+      onCollectionPage: {
         type: Boolean,
         default: false
       },
@@ -186,8 +209,9 @@
     },
 
     computed: {
-      suggestionValues() {
-        return Object.keys(this.value);
+      options() {
+        if (this.onCollectionPage) return [this.inCollectionLinkGen(this.query), this.queryLinkGen(this.query)];
+        return [this.queryLinkGen(this.query)].concat(this.suggestionLabels.map(val => this.suggestionLinkGen(val)));
       },
 
       suggestionLabels() {
@@ -195,7 +219,7 @@
       },
 
       numberOfSuggestions() {
-        return this.suggestionValues.length;
+        return this.suggestionLabels.length;
       },
 
       noSuggestionHasFocus() {
@@ -217,10 +241,6 @@
 
       lastSuggestionHasFocus() {
         return this.focus === (this.numberOfSuggestions);
-      },
-
-      selectedSuggestionLabel() {
-        return this.suggestionLabels[this.focus - 1] || null;
       },
 
       removeCollectionLinkTo() {
@@ -282,41 +302,20 @@
       },
 
       keydownUp() {
-        if (this.enableAutoSuggest) {
-          if (this.noSuggestionHasFocus || this.firstSuggestionHasFocus) {
-            this.focus = this.numberOfSuggestions;
-          } else {
-            this.focus = this.focus - 1;
-          }
+        if (this.onCollectionPage) {
+          this.focus = this.noSuggestionHasFocus ? 1 : this.focus - 1;
+        } else {
+          this.focus = (this.noSuggestionHasFocus || this.firstSuggestionHasFocus) ? this.numberOfSuggestions : this.focus - 1;
         }
-        if (!this.enableAutoSuggest) {
-          if (this.noSuggestionHasFocus) {
-            this.focus = 1;
-          } else {
-            this.focus = this.focus - 1;
-          }
-        }
-
         this.selectSuggestion();
       },
 
       keydownDown() {
-        if (this.enableAutoSuggest) {
-          if (this.noSuggestionHasFocus || this.lastSuggestionHasFocus) {
-            this.focus = 0;
-          } else {
-            this.focus = this.focus + 1;
-          }
+        if (this.onCollectionPage) {
+          this.focus = (this.noSuggestionHasFocus || this.focus === 1) ? 0 : this.focus + 1;
+        } else {
+          this.focus = (this.noSuggestionHasFocus || this.lastSuggestionHasFocus) ? 0 : this.focus + 1;
         }
-        // would use else here but get eslint no-lonely-if error...
-        if (!this.enableAutoSuggest) {
-          if (this.noSuggestionHasFocus || this.focus === 1) {
-            this.focus = 0;
-          } else {
-            this.focus = this.focus + 1;
-          }
-        }
-
         this.selectSuggestion();
       },
 
@@ -343,23 +342,18 @@
         return parse(value, matches);
       },
 
-      closeDropdown(showSearch) {
+      closeDropdown() {
         this.isActive = false;
         this.focus = null;
         this.selectSuggestion();
-
-        if (!showSearch) {
-          this.$emit('hide-search');
-        }
       },
 
       selectSuggestion() {
-        if (this.focus === 0 && !this.entityCollectionLabel) {
-          this.$emit('select', this.query);
-        } else if (this.focus === 1 && this.entityCollectionLabel) {
-          this.$emit('select', this.query);
-        } else if (this.selectedSuggestionLabel) {
-          this.$emit('select', this.selectedSuggestionLabel);
+        if (this.focus && this.options[this.focus]) {
+          this.$emit('select', this.options[this.focus]);
+        } else {
+          // fallback to the query by unselecting any suggestions.
+          this.$emit('select', null);
         }
       }
     }
