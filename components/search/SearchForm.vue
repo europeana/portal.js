@@ -23,8 +23,8 @@
         aria-autocomplete="list"
         aria-controls="search-form-auto-suggest"
         :aria-label="$t('search')"
-        @input="clearSuggestions(); getSearchSuggestions(query);"
-        @focus="showSearchOptions = true;"
+        @input="getSearchSuggestions(query);"
+        @focus="showSearchOptions = true; updateSuggestions();"
         @blur="showSearchOptions = false;"
       />
       <b-button
@@ -77,6 +77,7 @@
         query: null,
         gettingSuggestions: false,
         suggestions: {},
+        activeSuggestionsQueryTerm: null,
         showSearchOptions: false,
         selectedSuggestionLink: null
       };
@@ -122,6 +123,12 @@
         };
       }
     },
+    watch: {
+      '$route.query.query'() {
+        if (this.$refs.searchbox) this.$refs.searchbox.$el.blur();
+        this.initQuery();
+      }
+    },
 
     mounted() {
       this.initQuery();
@@ -145,30 +152,35 @@
         if (this.selectedSuggestionLink) {
           newRoute = this.selectedSuggestionLink;
           this.query = this.selectedSuggestionLink.query.query;
+          if (this.query !== this.activeSuggestionsQueryTerm) this.suggestions = {};
         } else {
           const newRouteQuery = { ...this.$route.query, ...{ page: 1, view: this.view, query: this.query || '' } };
           newRoute = { path: this.routePath, query: newRouteQuery };
         }
 
-        this.suggestions = {};
+        if (this.$refs.searchbox) this.$refs.searchbox.$el.blur();
         await this.$goto(newRoute);
         this.selectedSuggestionLink = null;
       },
 
-      clearSuggestions() {
-        this.selectedSuggestionLink = null;
+      updateSuggestions() {
+        // Re-retrieve suggestions after the query was programmatically changed.
+        if (this.query !== this.activeSuggestionsQueryTerm) {
+          this.getSearchSuggestions(this.query);
+        }
       },
 
       getSearchSuggestions(query) {
         if (query === '') {
           this.suggestions = {};
+          this.activeSuggestionsQueryTerm = null;
           return;
         }
 
         if (this.onCollectionPage) return;
 
-        // Don't go getting more suggestions if we are already waiting for some
-        if (this.gettingSuggestions) return;
+        // Don't go getting more suggestions if we are already waiting for some or they already exist.
+        if (this.gettingSuggestions || query === this.activeSuggestionsQueryTerm) return;
 
         const locale = this.$i18n.locale;
         this.gettingSuggestions = true;
@@ -177,6 +189,7 @@
           language: locale
         })
           .then(suggestions => {
+            this.activeSuggestionsQueryTerm = query;
             this.suggestions = suggestions.reduce((memo, suggestion) => {
               const candidates = [(suggestion.prefLabel || {})[locale]]
                 .concat((suggestion.altLabel || {})[locale]);
@@ -185,6 +198,7 @@
             }, {});
           })
           .catch(() => {
+            this.activeSuggestionsQueryTerm = null;
             this.suggestions = {};
           })
           .then(() => {
