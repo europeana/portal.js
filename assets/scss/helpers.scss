@@ -21,3 +21,26 @@
 .is-size-5 {
   font-size: $font-size-smallest // 0.625rem
 }
+
+.pt-large {
+  padding-top: 4rem;
+}
+
+.font-large {
+  font-size: $font-size-large;
+}
+.font-medium {
+  font-size: $font-size-medium;
+}
+.font-base {
+  font-size: $font-size-base;
+}
+.font-small {
+  font-size: $font-size-small;
+}
+.font-extra-small {
+  font-size: $font-size-extrasmall;
+}
+.font-smallest {
+  font-size: $font-size-smallest;
+}

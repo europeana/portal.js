@@ -1,6 +1,3 @@
-// TODO: remove this when the issue noted in the url plugin is resolved upstream
-import { URL } from '../url';
-
 function proxyMedia(mediaUrl, europeanaId, params = {}) {
   if (!params['api_url']) {
     // TODO: it is not ideal to hard-code "/api" here, but the media proxy

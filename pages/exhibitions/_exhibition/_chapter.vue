@@ -1,32 +1,43 @@
 <template>
   <div
     data-qa="exhibition chapter"
-    class="exhibition-page mx-auto figure-attribution"
+    class="text-page figure-attribution"
   >
-    <b-container
-      fluid
-      class="image-wrapper mb-5"
-    >
-      <h1>{{ page.name }}</h1>
-      <p class="lead">
-        {{ page.headline }}
-      </p>
-      <SocialShare
-        :media-url="heroImage.url"
-      />
+    <b-container>
+      <b-row class="justify-content-center">
+        <b-col
+          cols="12"
+          class="col-lg-8 pt-large mb-4"
+        >
+          <h2
+            v-if="exhibitionTitle"
+            class="subtitle"
+          >
+            {{ exhibitionTitle }}
+          </h2>
+          <h1>{{ page.name }}</h1>
+        </b-col>
+      </b-row>
+      <b-row class="justify-content-center">
+        <b-col
+          cols="12"
+          class="col-lg-8"
+        >
+          <ImageWithAttribution
+            :src="heroImage.url"
+            :image-content-type="heroImage.contentType"
+            :rights-statement="hero.license"
+            :attribution="hero"
+            hero
+          />
+        </b-col>
+      </b-row>
     </b-container>
-    <ImageWithAttribution
-      :src="heroImage.url"
-      :image-content-type="heroImage.contentType"
-      :rights-statement="hero.license"
-      :attribution="hero"
-      hero
-    />
     <b-container>
       <b-row>
         <b-col
           cols="12"
-          class="pb-0 pb-lg-3"
+          class="col-lg-8"
         >
           <h1
             v-if="!hero"
@@ -36,26 +47,32 @@
           </h1>
         </b-col>
       </b-row>
-      <b-row>
-        <b-col>
-          <BrowseSections
-            v-if="page"
-            :sections="page.hasPartCollection.items"
-            :rich-text-is-card="false"
-            class="exhibition-sections"
-          />
+      <b-row class="justify-content-center">
+        <b-col
+          cols="12"
+          class="col-lg-8"
+        >
+          <article>
+            <ShareButton class="mb-4" />
+            <SocialShareModal :media-url="heroImage.url" />
+            <BrowseSections
+              v-if="page"
+              :sections="page.hasPartCollection.items"
+              :rich-text-is-card="false"
+              class="exhibition-sections"
+            />
+          </article>
         </b-col>
       </b-row>
       <client-only>
-        <b-row v-if="chapters">
-          <b-col class="my-3">
-            <ExhibitionChaptersNavigation
-              :exhibition-identifier="exhibitionIdentifier"
-              :chapter-navigation="chapterNavigation"
-            />
-            <h2 class="is-size-1-5">
-              {{ $t('exhibitions.chapters') }}
-            </h2>
+        <b-row
+          v-if="chapters"
+          class="justify-content-center mt-3"
+        >
+          <b-col
+            cols="12"
+            class="mt-3 col-lg-8"
+          >
             <ExhibitionChapters
               :exhibition-identifier="exhibitionIdentifier"
               :chapters="chapters"
@@ -64,6 +81,7 @@
           </b-col>
         </b-row>
       </client-only>
+      <b-row class="footer-margin" />
     </b-container>
   </div>
 </template>
@@ -72,16 +90,17 @@
   import ClientOnly from 'vue-client-only';
   import BrowseSections from '../../../components/browse/BrowseSections';
   import ExhibitionChapters from '../../../components/exhibition/ExhibitionChapters';
-  import ExhibitionChaptersNavigation from '../../../components/exhibition/ExhibitionChaptersNavigation';
+  import SocialShareModal from '../../../components/sharing/SocialShareModal.vue';
+  import ShareButton from '../../../components/sharing/ShareButton.vue';
 
   export default {
     components: {
       BrowseSections,
       ClientOnly,
       ExhibitionChapters,
-      ExhibitionChaptersNavigation,
-      ImageWithAttribution: () => import('../../../components/generic/ImageWithAttribution'),
-      SocialShare: () => import('../../../components/sharing/SocialShare')
+      ShareButton,
+      SocialShareModal,
+      ImageWithAttribution: () => import('../../../components/generic/ImageWithAttribution')
     },
     asyncData({ params, query, error, app, store }) {
       const variables = {
@@ -129,6 +148,7 @@
             chapters: exhibition.hasPartCollection.items,
             credits: exhibition.credits,
             exhibitionIdentifier: params.exhibition,
+            exhibitionTitle: exhibition.name,
             page: chapter
           };
         })
@@ -200,6 +220,13 @@
     margin-left: auto;
     margin-right: auto;
     text-align: left;
+  }
+
+  // TODO: temp solution, as rich text sections are always sized "col-12 col-lg-9"
+  // preferably, this should be removed from the RichText component itself and be taken care on page level
+  /deep/ .exhibition-sections .col-lg-9 {
+    flex: 0 0 100%;
+    max-width: 100%;
   }
 
   /deep/ figure {
