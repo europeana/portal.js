@@ -3,11 +3,10 @@
     data-qa="exhibition page"
     class="text-page figure-attribution"
   >
-    <Head
+    <AuthoredHead
       :title="name"
       :description="headline"
       :hero="hero"
-      :hero-image="heroImage"
     />
     <b-container>
       <b-row class="justify-content-center">
@@ -19,7 +18,7 @@
             <!-- eslint-disable vue/no-v-html -->
             <!-- share :media-url="" -->
             <ShareButton class="mb-4" />
-            <SocialShareModal :media-url="heroImage.url" />
+            <SocialShareModal :media-url="hero.image.url" />
             <div
               data-qa="exhibition text"
               v-html="mainContent"
@@ -60,7 +59,7 @@
       ExhibitionChapters,
       ShareButton,
       SocialShareModal,
-      Head: () => import('../../../components/authored/Head')
+      AuthoredHead: () => import('../../../components/authored/AuthoredHead')
     },
     asyncData({ params, query, error, app, store, redirect }) {
       if (params.exhibition === undefined) redirect(app.$path({ name: 'exhibitions' }));

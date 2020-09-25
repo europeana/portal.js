@@ -1,10 +1,9 @@
 <template>
   <b-row class="flex-md-row">
-    <Head
+    <AuthoredHead
       :title="title"
       :description="description"
       :hero="hero"
-      :hero-image="heroImage"
     />
     <b-container>
       <b-row class="justify-content-center">
@@ -39,7 +38,7 @@
               />
             </div>
             <ShareButton class="my-4" />
-            <SocialShareModal :media-url="heroImage.url" />
+            <SocialShareModal :media-url="hero.image.url" />
             <BrowseSections
               :sections="body.items"
               :rich-text-is-card="false"
@@ -68,7 +67,7 @@
     name: 'BlogPost',
 
     components: {
-      Head: () => import('../../components/authored/Head'),
+      AuthoredHead: () => import('../../components/authored/AuthoredHead'),
       BlogAuthor: () => import('./BlogAuthor'),
       BlogTags: () => import('../../components/blog/BlogTags'),
       SocialShareModal,
@@ -103,11 +102,6 @@
       },
 
       hero: {
-        type: Object,
-        default: null
-      },
-
-      heroImage: {
         type: Object,
         default: null
       },

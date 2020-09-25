@@ -3,42 +3,11 @@
     data-qa="exhibition chapter"
     class="text-page figure-attribution"
   >
-    <Head
+    <AuthoredHead
       :title="page.name"
       :exhibition-title="exhibitionTitle"
       :hero="hero"
-      :hero-image="heroImage"
     />
-    <b-container>
-      <b-row class="justify-content-center">
-        <b-col
-          cols="12"
-          class="col-lg-8 pt-large mb-4"
-        >
-          <h2
-            v-if="exhibitionTitle"
-            class="subtitle"
-          >
-            {{ exhibitionTitle }}
-          </h2>
-          <h1>{{ page.name }}</h1>
-        </b-col>
-      </b-row>
-      <b-row class="justify-content-center">
-        <b-col
-          cols="12"
-          class="col-lg-8"
-        >
-          <ImageWithAttribution
-            :src="heroImage.url"
-            :image-content-type="heroImage.contentType"
-            :rights-statement="hero.license"
-            :attribution="hero"
-            hero
-          />
-        </b-col>
-      </b-row>
-    </b-container>
     <b-container>
       <b-row>
         <b-col
@@ -60,7 +29,7 @@
         >
           <article>
             <ShareButton class="mb-4" />
-            <SocialShareModal :media-url="heroImage.url" />
+            <SocialShareModal :media-url="hero.image.url" />
             <BrowseSections
               v-if="page"
               :sections="page.hasPartCollection.items"
@@ -106,7 +75,7 @@
       ExhibitionChapters,
       ShareButton,
       SocialShareModal,
-      ImageWithAttribution: () => import('../../../components/generic/ImageWithAttribution')
+      AuthoredHead: () => import('../../../components/authored/AuthoredHead')
     },
     asyncData({ params, query, error, app, store }) {
       const variables = {

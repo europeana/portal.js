@@ -44,7 +44,7 @@
 <script>
 
   export default {
-    name: 'Head',
+    name: 'AuthoredHead',
 
     components: {
       ImageWithAttribution: () => import('../../components/generic/ImageWithAttribution')
@@ -69,11 +69,12 @@
       hero: {
         type: Object,
         default: null
-      },
+      }
+    },
 
-      heroImage: {
-        type: Object,
-        default: null
+    computed: {
+      heroImage() {
+        return this.hero ? this.hero.image : null;
       }
     }
   };

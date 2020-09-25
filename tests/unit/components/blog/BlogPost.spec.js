@@ -16,10 +16,10 @@ const factory = () => shallowMount(BlogPost, {
     title: 'This is a title',
     datePublished: '2019-10-03T00:00+00:00',
     hero: {
-      license: 'https://creativecommons.org/licenses/by-sa/1.0/'
-    },
-    heroImage: {
-      url: 'https://example.org'
+      license: 'https://creativecommons.org/licenses/by-sa/1.0/',
+      image: {
+        url: 'https://example.org'
+      }
     },
     body: {
       items: [

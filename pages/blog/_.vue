@@ -10,7 +10,6 @@
       :body="post.hasPartCollection"
       :identifier="post.identifier"
       :hero="hero"
-      :hero-image="heroImage"
       :authors="post.authorCollection.items.length > 0 ? post.authorCollection.items : null"
       :tags="post.keywords"
     />
@@ -73,9 +72,6 @@
     computed: {
       hero() {
         return this.post.primaryImageOfPage ? this.post.primaryImageOfPage : null;
-      },
-      heroImage() {
-        return this.hero ? this.hero.image : null;
       },
 
       ...mapGetters({
