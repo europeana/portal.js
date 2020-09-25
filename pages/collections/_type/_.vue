@@ -104,20 +104,23 @@
 
     middleware: 'sanitisePageQuery',
 
-    async fetch() {
+    fetch() {
       this.$store.commit('search/disableCollectionFacet');
       this.$store.commit('search/disableAutoSuggest');
 
-      try {
-        await this.fetchFromContentful();
-        const entityResponse = await entities.getEntity(this.$route.params.type, this.$route.params.pathMatch);
-        this.entity = entityResponse.entity;
-        this.$store.commit('search/setPill', this.title);
-        this.enforcePreferredRoute();
-      } catch (e) {
-        if (process.server) this.$nuxt.context.res.statusCode = (e.statusCode === undefined) ? 500 : e.statusCode;
-        throw e;
-      }
+      return Promise.all([
+        this.fetchFromContentful(),
+        entities.getEntity(this.$route.params.type, this.$route.params.pathMatch)
+      ])
+        .then(values => {
+          this.entity = values[1].entity;
+          this.$store.commit('search/setPill', this.title);
+          this.enforcePreferredRoute();
+        })
+        .catch(e => {
+          if (process.server) this.$nuxt.context.res.statusCode = (e.statusCode === undefined) ? 500 : e.statusCode;
+          throw e;
+        });
     },
 
     data() {
