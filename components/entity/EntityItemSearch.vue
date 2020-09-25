@@ -35,8 +35,8 @@
       }
     },
 
-    async fetch() {
-      await this.$store.dispatch('search/activate');
+    fetch() {
+      this.$store.dispatch('search/activate');
 
       const userParams = Object.assign({}, this.$route.query);
 
@@ -63,7 +63,7 @@
       this.$store.commit('search/set', ['userParams', userParams]);
       this.$store.commit('search/set', ['overrideParams', overrideParams]);
 
-      await this.$store.dispatch('search/run');
+      return this.$store.dispatch('search/run');
     },
 
     computed: {
