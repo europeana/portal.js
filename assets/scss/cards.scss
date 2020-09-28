@@ -37,7 +37,6 @@
     img {
       object-fit: cover;
       width: 100%;
-      z-index: 1;
     }
   }
 
@@ -91,6 +90,7 @@
   .card-link {
     min-height: 100%;
     color: $black;
+    z-index: 1;
     &:hover {
       color: $black;
     }
