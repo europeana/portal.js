@@ -24,6 +24,7 @@
         <b-form-input
           v-model="searchText"
           type="search"
+          autocomplete="off"
           @input="inputSearch"
         />
       </b-form-group>
