@@ -26,22 +26,3 @@
     }
   };
 </script>
-
-<style lang="scss" scoped>
-  @import './assets/scss/variables.scss';
-  @import './assets/scss/icons.scss';
-
-  .cta-button {
-    display: block;
-    margin: 2rem auto;
-    padding: 0.5rem 1rem;
-    color: $white;
-    font-size: $font-size-small;
-    text-transform: uppercase;
-    border-radius: $border-radius-small;
-    box-shadow: $boxshadow-light;
-    background-color: $blue;
-    border: none;
-    text-decoration: none;
-  }
-</style>

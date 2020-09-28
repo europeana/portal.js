@@ -175,7 +175,7 @@ a {
     color: $blue;
     text-decoration: none;
     font-size: 1rem;
-    
+
     &:hover {
       text-decoration: none;
     }
@@ -184,4 +184,18 @@ a {
 
 .share-button + .download-button {
   margin-left: 0.5rem;
+}
+
+.cta-button {
+  display: block;
+  margin: 2rem auto;
+  padding: 0.5rem 1rem;
+  color: $white;
+  font-size: $font-size-small;
+  text-transform: uppercase;
+  border-radius: $border-radius-small;
+  box-shadow: $boxshadow-light;
+  background-color: $blue;
+  border: none;
+  text-decoration: none;
 }
