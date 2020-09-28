@@ -1,6 +1,3 @@
-// TODO: remove this when the issue noted in the url plugin is resolved upstream
-import { URL } from '../url';
-
 import defaultConfig from './';
 
 export default (config = defaultConfig) => ({
