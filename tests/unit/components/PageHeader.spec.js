@@ -17,13 +17,13 @@ const factory = (options = {}) => shallowMount(PageHeader, {
   stubs: {
     transition: true
   },
-  store: options.store || store({ ui: {} })
+  store: options.store || store({ showSearchBar: options.showSearch || false })
 });
 
-const store = (uiState = {}) => {
+const store = (searchState = {}) => {
   return new Vuex.Store({
     state: {
-      ui: uiState,
+      search: searchState,
       'link-group': {
         data: {
           mainNavigation: {
@@ -50,8 +50,7 @@ const store = (uiState = {}) => {
 
 describe('components/PageHeader', () => {
   it('contains a search form', () => {
-    const wrapper = factory();
-    wrapper.setData({ showSearch: true });
+    const wrapper = factory({ showSearch: true });
 
     const form = wrapper.find('[data-qa="search form"]');
     form.isVisible().should.equal(true);
@@ -59,15 +58,12 @@ describe('components/PageHeader', () => {
 
   it('contains the logo', () => {
     const wrapper = factory();
-    wrapper.setData({ showSearch: false });
-
     const logo = wrapper.find('[data-qa="logo"]');
     logo.attributes().src.should.match(/\/logo\..+\.svg$/);
   });
 
   it('contains the desktop nav', () => {
     const wrapper = factory();
-    wrapper.setData({ showSearch: false });
     wrapper.setProps({ mainNavigation: { links: [{
       text: 'Collections',
       url: '/collections'
@@ -79,7 +75,6 @@ describe('components/PageHeader', () => {
 
   it('contains the mobile navigation toggle button', () => {
     const wrapper = factory();
-    wrapper.setData({ showSearch: false });
 
     const sidebarButton = wrapper.find('b-button-stub.navbar-toggle');
     sidebarButton.isVisible().should.equal(true);
@@ -88,7 +83,6 @@ describe('components/PageHeader', () => {
   it('shows the mobile nav when the sidebar is visible', () => {
     const wrapper = factory();
     wrapper.setData({
-      showSearch: false,
       showSidebar: true
     });
     const nav = wrapper.find('[data-qa="mobile navigation"]');

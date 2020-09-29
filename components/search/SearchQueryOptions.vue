@@ -214,7 +214,7 @@
       },
 
       suggestionLabels() {
-        return Object.values(this.value);
+        return this.value ? Object.values(this.value) : [];
       },
 
       numberOfSuggestions() {
@@ -286,7 +286,7 @@
       keydown(event) {
         switch (event.keyCode) {
         case 27: // Escape key
-          this.closeDropdown();
+          this.inputElement.blur();
           break;
         case 9: // Tab key
           this.closeDropdown();

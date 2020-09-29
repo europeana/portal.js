@@ -48,13 +48,12 @@ const getters = {
   'search/activeView': (state) => state.search.view,
   'search/queryUpdatesForFacetChanges': () => () => {}
 };
-const store = (searchState = {}, uiState = {}) => {
+const store = (searchState = {}) => {
   return new Vuex.Store({
     getters,
     state: {
       i18n: { locale: 'en' },
-      search: searchState,
-      ui: uiState
+      search: searchState
     }
   });
 };
@@ -83,21 +82,20 @@ describe('components/search/SearchForm', () => {
     $goto.resetHistory();
   });
 
-  // describe('query', () => {
-  //   it('is read from the route', () => {
-  //     const wrapper = factory({
-  //       mocks: {
-  //         $route: {
-  //           query: {
-  //             query: 'cartography'
-  //           }
-  //         }
-  //       }
-  //     });
-  //     // Failing for some reason... //
-  //     // wrapper.vm.query.should.eq('cartography');
-  //   });
-  // });
+  describe('query', () => {
+    it('is read from the route', () => {
+      const wrapper = factory({
+        mocks: {
+          $route: {
+            query: {
+              query: 'cartography'
+            }
+          }
+        }
+      });
+      wrapper.vm.query.should.eq('cartography');
+    });
+  });
 
   describe('routePath', () => {
     context('when on a search page', () => {
@@ -146,11 +144,10 @@ describe('components/search/SearchForm', () => {
           },
           view: 'grid'
         };
-        const wrapper = factory({ store: store(state) });
+        const wrapper = factory({ store: store({ searchState: { showSearchBar: true } }) });
 
         wrapper.setData({
-          selectedSuggestion: 'Fresco',
-          query
+          selectedSuggestionLink: { path: '/search', query: { query: '"Fresco"', view: state.view } }
         });
         wrapper.vm.submitForm();
 
@@ -244,23 +241,23 @@ describe('components/search/SearchForm', () => {
       nock.cleanAll();
     });
 
-    context('auto-suggest is not enabled (by default)', () => {
+    context('auto-suggest is enabled (by default)', () => {
       const wrapper = factory();
+      it('does gets suggestions from the Entity API', async() => {
+        await wrapper.vm.getSearchSuggestions();
+
+        nock.isDone().should.be.true;
+      });
+    });
+
+    context('auto-suggest is de-activated (by prop) onCollectionPage', () => {
+      const wrapper = factory();
+      wrapper.setProps({ onCollectionPage: true });
+
       it('does not get suggestions from the Entity API', async() => {
         await wrapper.vm.getSearchSuggestions();
 
         nock.isDone().should.not.be.true;
-      });
-    });
-
-    context('auto-suggest is enabled (by prop)', () => {
-      const wrapper = factory();
-      wrapper.setProps({ enableAutoSuggest: true });
-
-      it('gets suggestions from the Entity API', async() => {
-        await wrapper.vm.getSearchSuggestions();
-
-        nock.isDone().should.be.true;
       });
 
       // FIXME

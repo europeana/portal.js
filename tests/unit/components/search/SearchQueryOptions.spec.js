@@ -109,20 +109,6 @@ describe('components/search/SearchQueryOptions', () => {
       // searchInput.trigger('keydown.down');
       // autoSuggestWrapper.vm.focus.should.eq(0);
     });
-
-    it('is closable by esc key on the parent input', () => {
-      const wrapper = factory();
-      const searchInput = wrapper.find('#searchbox');
-      const autoSuggestWrapper = wrapper.find('[data-qa="search suggestions"]');
-
-      autoSuggestWrapper.setProps({
-        value: suggestions,
-        query
-      });
-      searchInput.trigger('keydown.esc');
-
-      autoSuggestWrapper.attributes('aria-hidden').should.eq('true');
-    });
   });
 
   describe('search button option', () => {
@@ -132,7 +118,7 @@ describe('components/search/SearchQueryOptions', () => {
       autoSuggestWrapper.setProps({
         value: suggestions,
         query,
-        enableAutoSuggest: true
+        onCollectionPage: false
       });
       const searchButton = wrapper.find('[data-qa="search button"]');
 
