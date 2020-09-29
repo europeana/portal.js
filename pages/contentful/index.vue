@@ -1,23 +1,15 @@
 <template>
-  <div>
-    <b-badge
-      v-for="(val, index) in value"
-      :key="index"
-      pill
-      variant="primary"
-    >
-      {{ val }}
+  <div class="contentful">
+    <b-form-group>
       <b-button
-        aria-label="Remove"
-        class="pill-close p-1"
+        v-for="val in value"
+        :key="val.id"
+        class="mb-2"
         @click="removeSelection(val)"
       >
-        x
-        <span class="sr-only">
-          Remove
-        </span>
+        {{ val.prefLabel.en || val.hiddenLabel.en }}
       </b-button>
-    </b-badge>
+    </b-form-group>
 
     <b-form>
       <b-form-group>
@@ -25,32 +17,27 @@
           v-model="searchText"
           type="search"
           autocomplete="off"
-          @input="inputSearch"
+          placeholder="Search for topics"
+          @input="inputSearchText"
         />
       </b-form-group>
       <b-form-group>
-        <b-form-radio
+        <b-button
           v-for="suggestion in suggestions"
           :key="suggestion.id"
-          v-model="selected"
-          :value="suggestion.id"
+          class="mb-2"
+          :disabled="isSelected(suggestion)"
+          @click="selectSuggestion(suggestion)"
         >
           {{ suggestion.prefLabel.en || suggestion.hiddenLabel.en }}
-        </b-form-radio>
+        </b-button>
       </b-form-group>
-      <b-button
-        v-if="suggestions.length > 0"
-        :disabled="!selected"
-        @click="selectSuggestion"
-      >
-        Select
-      </b-button>
     </b-form>
   </div>
 </template>
 
 <script>
-  import { getEntitySuggestions } from '../../plugins/europeana/entity';
+  import { getEntitySuggestions, findEntities } from '../../plugins/europeana/entity';
 
   export default {
     layout: 'contentful',
@@ -60,38 +47,51 @@
         value: [],
         searchText: null,
         suggestions: [],
-        selected: null,
         contentfulExtensionSdk: null
       };
+    },
+
+    watch: {
+      value: 'updateContentfulField'
     },
 
     mounted() {
       window.contentfulExtension.init(sdk => {
         this.contentfulExtensionSdk = sdk;
         if (sdk.location.is(window.contentfulExtension.locations.LOCATION_ENTRY_FIELD)) {
-          this.value = sdk.field.getValue() || [];
+          const ids = sdk.field.getValue() || [];
+          if (ids.length > 0) {
+            findEntities(ids)
+              .then(entities => {
+                this.value = entities;
+              });
+          }
         }
       });
     },
 
     methods: {
-      inputSearch(val) {
-        this.selected = null;
+      isSelected(suggestion) {
+        return this.value.map(val => val.id).includes(suggestion.id);
+      },
+
+      inputSearchText(val) {
         getEntitySuggestions(val, { type: 'concept' })
           .then(suggestions => {
             this.suggestions = suggestions;
           });
       },
 
-      selectSuggestion() {
-        if (this.value.includes(this.selected)) return;
-        this.value.push(this.selected);
-        if (this.contentfulExtensionSdk) this.contentfulExtensionSdk.field.setValue(this.value);
+      removeSelection(remove) {
+        this.value = this.value.filter(val => val.id !== remove.id);
       },
 
-      removeSelection(remove) {
-        this.value = this.value.filter(val => val !== remove);
-        if (this.contentfulExtensionSdk) this.contentfulExtensionSdk.field.setValue(this.value);
+      selectSuggestion(select) {
+        this.value = this.value.concat(select);
+      },
+
+      updateContentfulField() {
+        if (this.contentfulExtensionSdk) this.contentfulExtensionSdk.field.setValue(this.value.map(val => val.id));
       }
     },
 
@@ -102,3 +102,11 @@
     }
   };
 </script>
+
+<style lang="scss" scoped>
+  .contentful {
+    button {
+      margin-right: 1rem;
+    }
+  }
+</style>
