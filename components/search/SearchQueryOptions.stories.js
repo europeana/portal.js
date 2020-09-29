@@ -24,7 +24,10 @@ const i18n = {
   locale: 'en',
   messages: {
     en: {
-      removeEntityFilter: 'Remove {entityLabel} filter'
+      header: {
+        searchFor: 'Search for {0}',
+        searchForEverything: 'Search for everything'
+      }
     }
   }
 };
@@ -42,16 +45,9 @@ storiesOf('Search / Search Query Options', module)
     data() {
       return {
         suggestions: {
-          '/1': {
-            es: 'Manuscrito'
-          },
-          '/2': {
-            en: 'Human settlement'
-          },
-          '/3': {
-            en: 'Food',
-            ro: 'Mâncare'
-          }
+          '/1': 'Manuscript',
+          '/2': 'Human settlement',
+          '/3': 'Food'
         }
       };
     },

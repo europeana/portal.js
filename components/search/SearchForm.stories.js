@@ -12,9 +12,10 @@ const router = new VueRouter({
   ]
 });
 
-const store = (searchState = {}) => new Vuex.Store({
+const store = (searchState = {}, entity = {}) => new Vuex.Store({
   state: {
     search: searchState,
+    entity,
     i18n: {
       locale: 'en'
     }
@@ -33,65 +34,34 @@ const i18n = {
   locale: 'en',
   messages: {
     en: {
-      searchPlaceholder: 'What are you looking for?'
+      searchPlaceholder: 'What are you looking for?',
+      header: {
+        clearQuery: 'Clear Search Query',
+        entireCollection: 'Search for {0} in our entire collection',
+        inCollection: 'Search for {0} in {1}',
+        searchFor: 'Search for {0}',
+        searchForEverythingInCollection: 'Search for everything in {0}',
+        searchForEverythingInEntireCollection: 'Search for everything in our entire collection',
+        searchForEverything: 'Search for everything'
+      }
     }
   }
 };
 
 storiesOf('Search / Form', module)
-  .add('With placeholder', () => ({
+  .add('Default style', () => ({
     components: { SearchForm },
     store,
     i18n,
     router,
     template: '<b-container class="mt-3"><SearchForm /></b-container>'
   }))
-  .add('With query', () => ({
+  .add('Within a collection', () => ({
     components: { SearchForm },
     store: store({
-      active: true,
-      query: 'glacier'
+      collectionLabel: 'Byzantine art'
     }),
     i18n,
     router,
-    template: '<b-container class="mt-3"><SearchForm /></b-container>'
-  }))
-  .add('With pill & placeholder', () => ({
-    components: { SearchForm },
-    store: store({
-      active: true,
-      pill: {
-        values: ['Byzantine art']
-      }
-    }),
-    i18n,
-    router,
-    template: '<b-container class="mt-3"><SearchForm /></b-container>'
-  }))
-  .add('With pill & query', () => ({
-    components: { SearchForm },
-    store: store({
-      active: true,
-      pill: {
-        values: ['Byzantine art']
-      },
-      query: 'wunderlich'
-    }),
-    i18n,
-    router,
-    template: '<b-container class="mt-3"><SearchForm /></b-container>'
-  }))
-  .add('With auto suggest', () => ({
-    components: { SearchForm },
-    store,
-    i18n,
-    router,
-    template: '<b-container class="mt-3"><SearchForm :enable-auto-suggest="true" /></b-container>'
-  }))
-  .add('With auto suggest & record validation', () => ({
-    components: { SearchForm },
-    store,
-    i18n,
-    router,
-    template: '<b-container class="mt-3"><SearchForm :enable-auto-suggest="true" :enable-suggestion-validation="true" /></b-container>'
+    template: '<b-container class="mt-3"><SearchForm on-collection-page="true"/></b-container>'
   }));
