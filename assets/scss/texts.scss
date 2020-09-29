@@ -21,10 +21,15 @@ header .col {
 .text-page {
   background: $white;
   margin-top: -3rem;
+  overflow-x: hidden;
 
   h1 {
     margin-bottom: 0.5rem;
     text-transform: capitalize;
+  }
+  h2 {
+    margin-bottom: 0;
+    font-size: 2.125rem;
   }
 
   .subtitle,

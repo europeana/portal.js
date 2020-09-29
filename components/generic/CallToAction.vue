@@ -2,7 +2,7 @@
   <SmartLink
     :destination="url"
     data-qa="call to action"
-    class="cta-button d-inline-flex align-items-center"
+    class="btn-cta btn-primary d-inline-flex align-items-center"
   >
     {{ text }}
   </SmartLink>

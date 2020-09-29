@@ -6,7 +6,7 @@
         class="col-lg-8 pt-large mb-4"
       >
         <article>
-          <div class="title mb-4">
+          <div class="title">
             <h2 v-if="exhibitionTitle">
               {{ exhibitionTitle }}
             </h2>
