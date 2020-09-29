@@ -8,7 +8,6 @@ Feature: Search querying
     And I enter "paris" in the `search box`
     And I press the ENTER key
     And I wait for the page to load
-    And I click the `show search button`
     Then I see "paris" in the `search box`
     And I should see 24 `item preview`s
     And I see the `total results`
@@ -52,10 +51,7 @@ Feature: Search querying
     And I press the DOWN_ARROW key
     And I press the DOWN_ARROW key
     And I press the ENTER key
-    And I wait for the page to load
     Then I see the `search page`
-    And I see the `show search button`
-    And I click the `show search button`
     And I see "\"World War I\"" in the `search box`
 
   Scenario: Pressing ESC will close the auto suggestion dropdown
@@ -64,7 +60,7 @@ Feature: Search querying
     And I enter "World" in the `search box`
     And I see `search suggestions` with the text "World War I"
     And I press the ESCAPE key
-    Then I see the `show search button`
+    Then I don't have `search suggestions`
 
   Scenario: No auto suggestion on entity pages, only the search buttons
     Given I am on an `entity page`
@@ -80,11 +76,9 @@ Feature: Search querying
     And I enter "frog" in the `search box`
     And I press the ENTER key
     And I wait for the page to load
-    And I click the `show search button`
     And I enter "spawn" in the `search box`
     And I press the ENTER key
     And I wait for the page to load
     And I go back
     And I wait 1 second
-    And I click the `show search button`
     Then I see "frog" in the `search box`

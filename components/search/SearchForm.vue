@@ -9,8 +9,8 @@
   >
     <b-input-group
       role="combobox"
-      aria-owns="search-form-auto-suggest"
-      :aria-expanded="isAutoSuggestActive"
+      :aria-owns="showSearchOptions ? 'search-form-options' : null"
+      :aria-expanded="showSearchOptions"
       class="auto-suggest"
     >
       <b-form-input
@@ -21,7 +21,7 @@
         data-qa="search box"
         role="searchbox"
         aria-autocomplete="list"
-        aria-controls="search-form-auto-suggest"
+        :aria-controls="showSearchOptions ? 'search-form-options' : null"
         :aria-label="$t('search')"
         @input="getSearchSuggestions(query);"
         @focus="showSearchOptions = true; updateSuggestions();"
@@ -41,7 +41,7 @@
         :on-collection-page="onCollectionPage"
         :entity-collection-label="collectionLabel"
         :remove-collection-label="toggleSearchAndRemoveLabel"
-        element-id="search-form-auto-suggest"
+        element-id="search-form-options"
         :suggestion-link-gen="suggestionLinkGen"
         :query-link-gen="linkGen"
         :in-collection-link-gen="searchInCollection"
@@ -89,10 +89,6 @@
         queryUpdatesForFacetChanges: 'search/queryUpdatesForFacetChanges',
         view: 'search/activeView'
       }),
-
-      isAutoSuggestActive() {
-        return !this.onCollectionPage && (this.suggestions.length > 0);
-      },
 
       onSearchablePage() {
         return this.$store.state.search.active;
