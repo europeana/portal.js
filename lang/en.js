@@ -521,9 +521,9 @@ export default {
   "results": "Results",
   "resultsLimitWarning": "Additional results are not shown as only the first 1000 most relevant results are shown. If you haven't found what you're looking for, please consider refining your search.",
   "search": "Search",
-  "searchResults": "Search results",
-  "searchResultsFor": "Search results for {0}",
-  "searchResultsForIn": "Search results for {0} in {1}",
+  "searchResults": "Search",
+  "searchResultsFor": "{0} - Search",
+  "searchResultsForIn": "{0} - Search in {1}",
   "searchPlaceholder": "Search millions of items",
   "searchSuggestions": "Search suggestions",
   "searchTier": {

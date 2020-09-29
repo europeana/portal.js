@@ -15,7 +15,7 @@
         class="back"
         variant="light"
         :aria-label="$t('header.backToMenu')"
-        @click="backToMenu"
+        @click="toggleSearchBar"
       />
       <SearchForm
         role="search"
@@ -153,10 +153,6 @@
     methods: {
       toggleSearchBar() {
         this.$store.commit('search/setShowSearchBar', !this.$store.state.search.showSearchBar);
-      },
-
-      backToMenu() {
-        this.$store.commit('search/setShowSearchBar', false);
       }
     }
   };

@@ -75,7 +75,7 @@ export const state = () => ({
   hits: null,
   lastAvailablePage: null,
   overrideParams: {},
-  pill: null,
+  collectionLabel: null,
   previousApiOptions: null,
   previousApiParams: null,
   resettableFilters: [],
@@ -149,8 +149,8 @@ export const mutations = {
       localStorage.searchResultsView = value;
     }
   },
-  setPill(state, value) {
-    state.pill = value;
+  setCollectionLabel(state, value) {
+    state.collectionLabel = value;
   },
   set(state, payload) {
     state[payload[0]] = payload[1];
@@ -277,7 +277,7 @@ export const actions = {
     commit('set', ['apiOptions', {}]);
     commit('set', ['previousApiParams', null]);
     commit('set', ['previousApiOptions', null]);
-    commit('setPill', null);
+    commit('setCollectionLabel', null);
   },
 
   // TODO: replace with a getter?

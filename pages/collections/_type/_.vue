@@ -243,7 +243,7 @@
     },
 
     mounted() {
-      this.$store.commit('search/setPill', this.title);
+      this.$store.commit('search/setCollectionLabel', this.title.values[0]);
 
       this.$store.dispatch('entity/searchForRecords', this.$route.query);
 
@@ -302,6 +302,9 @@
     },
 
     async beforeRouteLeave(to, from, next) {
+      if (to.matched[0].path !== `/${this.$store.state.i18n.locale}/search`) {
+        this.$store.commit('search/setShowSearchBar', false);
+      }
       await this.$store.dispatch('search/deactivate');
       this.$store.commit('entity/setId', null); // needed to re-enable auto-suggest in header
       this.$store.commit('entity/setEntity', null); // needed for best bets handling

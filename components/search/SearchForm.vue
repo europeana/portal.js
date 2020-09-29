@@ -99,7 +99,7 @@
       },
 
       collectionLabel() {
-        return this.$store.state.search.pill;
+        return this.$store.state.search.collectionLabel;
       },
 
       routePath() {

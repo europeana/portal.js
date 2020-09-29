@@ -30,12 +30,12 @@
           tag="span"
         >
           <strong>{{ query }}</strong>
-          <span>{{ entityCollectionLabel.values[0] }}</span>
+          <span>{{ entityCollectionLabel }}</span>
         </i18n>
         <span
           v-else
         >
-          {{ $t('header.searchForEverythingInCollection', [entityCollectionLabel.values[0]]) }}
+          {{ $t('header.searchForEverythingInCollection', [entityCollectionLabel]) }}
         </span>
       </b-list-group-item>
       <b-list-group-item
@@ -195,15 +195,14 @@
       },
 
       entityCollectionLabel: {
-        type: Object,
-        default: () => {}
+        type: String,
+        default: null
       }
     },
 
     data() {
       return {
         focus: null,
-        isActive: Object.keys(this.value || {}).length > 0 || this.entityCollectionLabel,
         isLoading: false
       };
     },
@@ -235,6 +234,10 @@
         return this.inputRef.$el ? this.inputRef.$el : this.inputRef;
       },
 
+      isActive() {
+        return this.options.length > 1;
+      },
+
       firstSuggestionHasFocus() {
         return this.focus === 0;
       },
@@ -261,11 +264,9 @@
     watch: {
       '$route.query'() {
         this.closeDropdown();
-        this.isActive = false;
       },
 
       value() {
-        this.isActive = true;
         this.isLoading = false;
         this.focus = null;
         this.selectSuggestion();
@@ -303,7 +304,7 @@
 
       keydownUp() {
         if (this.onCollectionPage) {
-          this.focus = this.noSuggestionHasFocus ? 1 : this.focus - 1;
+          this.focus = (this.noSuggestionHasFocus || this.firstSuggestionHasFocus) ? 1 : this.focus - 1;
         } else {
           this.focus = (this.noSuggestionHasFocus || this.firstSuggestionHasFocus) ? this.numberOfSuggestions : this.focus - 1;
         }
@@ -343,7 +344,6 @@
       },
 
       closeDropdown() {
-        this.isActive = false;
         this.focus = null;
         this.selectSuggestion();
       },
