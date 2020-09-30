@@ -89,7 +89,7 @@
     font-weight: 300;
     line-height: 1.375;
     margin-bottom: 1rem;
-    span{
+    span {
       font-weight: 600;
     }
   }
