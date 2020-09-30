@@ -1,5 +1,5 @@
 <template>
-  <b-row class="flex-md-row">
+  <div>
     <AuthoredHead
       :title="title"
       :description="description"
@@ -55,7 +55,7 @@
       </b-row>
       <b-row class="footer-margin" />
     </b-container>
-  </b-row>
+  </div>
 </template>
 
 <script>

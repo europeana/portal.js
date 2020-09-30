@@ -7,7 +7,10 @@
       >
         <article>
           <div class="title">
-            <h2 v-if="exhibitionTitle">
+            <h2
+              v-if="exhibitionTitle"
+              class="subtitle mb-0"
+            >
               {{ exhibitionTitle }}
             </h2>
             <h1 data-qa="title">
