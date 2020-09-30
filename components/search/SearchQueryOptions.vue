@@ -202,8 +202,7 @@
 
     data() {
       return {
-        focus: null,
-        isLoading: false
+        focus: null
       };
     },
 
@@ -235,7 +234,7 @@
       },
 
       isActive() {
-        return this.options.length > 1;
+        return this.options.length >= 1;
       },
 
       firstSuggestionHasFocus() {
@@ -267,13 +266,12 @@
       },
 
       value() {
-        this.isLoading = false;
         this.focus = null;
         this.selectSuggestion();
       },
 
       query() {
-        this.isLoading = true;
+        this.selectSuggestion();
       }
     },
 
