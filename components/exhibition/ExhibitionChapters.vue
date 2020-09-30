@@ -8,14 +8,13 @@
       data-qa="exhibition chapters"
     >
       <SmartLink
-        v-for="(chapter, index) in chaptersAndCredits"
+        v-for="chapter in chaptersAndCredits"
         :key="chapter.identifier"
         :style="`background-image: url(${optimisedBackgroundImageUrl(chapter)})`"
         class="chapter w-100 text-left d-flex justify-content-start align-items-center"
         :destination="chapterUrl(chapter)"
         :data-qa="`exhibitions ${chapter.identifier} card`"
       >
-        <span class="pl-3 pr-4">{{ index + 1 }}</span>
         <span>{{ chapter.name }}</span>
       </SmartLink>
     </b-list-group>
@@ -98,6 +97,10 @@
 <style lang="scss" scoped>
   @import './assets/scss/variables.scss';
 
+  section {
+    counter-reset: chapters;
+  }
+
   h2 {
     font-weight: 600;
     margin-bottom: 0.75rem;
@@ -106,9 +109,9 @@
   .chapter {
     border: 0;
     font-size: 1.125rem;
-    font-weight: 600;
+    font-weight: normal;
     margin-bottom: 0.5rem;
-    padding: 1rem;
+    padding: 1rem 2rem;
     position: relative;
     text-transform: none;
     background-color: rgba(0, 0, 0, 0.7);
@@ -126,6 +129,13 @@
     span {
       position: relative;
       z-index: 2;
+
+      &:before {
+        counter-increment: chapters;
+        content: counter(chapters, decimal-leading-zero);
+        display: inline-block;
+        margin-right: 1.5rem;
+      }
     }
 
     &:after {
@@ -142,6 +152,8 @@
     &:last-of-type {
       background-color: $offwhite;
       color: $black;
+      margin-bottom: 0;
+
       &:after {
         display: none;
       }

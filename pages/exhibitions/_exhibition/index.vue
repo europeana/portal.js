@@ -33,7 +33,7 @@
         </b-col>
       </b-row>
     </b-container>
-    <b-container class="pb-3">
+    <b-container>
       <b-row class="justify-content-center">
         <b-col
           cols="12"
@@ -54,11 +54,11 @@
       </b-row>
       <b-row
         v-if="hasPartCollection"
-        class="justify-content-center"
+        class="justify-content-center mt-3"
       >
         <b-col
           cols="12"
-          class="my-3 col-lg-8"
+          class="mt-3 col-lg-8"
         >
           <ExhibitionChapters
             :exhibition-identifier="identifier"
@@ -67,6 +67,7 @@
           />
         </b-col>
       </b-row>
+      <b-row class="footer-margin" />
     </b-container>
   </div>
 </template>
@@ -75,8 +76,8 @@
   import marked from 'marked';
 
   import ExhibitionChapters from '../../../components/exhibition/ExhibitionChapters';
-  import ShareButton from '../../../components/sharing/ShareButton.vue';
   import SocialShareModal from '../../../components/sharing/SocialShareModal.vue';
+  import ShareButton from '../../../components/sharing/ShareButton.vue';
 
   export default {
     components: {

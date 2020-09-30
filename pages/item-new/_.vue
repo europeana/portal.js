@@ -350,9 +350,7 @@
     margin-bottom: 2rem;
     padding: 0;
   }
-  .footer-margin {
-    margin-bottom: 7rem;
-  }
+
   /* TODO: fix styling in/for MetadataBox component itself */
   /deep/ .card.rounded-0 {
     border-radius: 0.25rem !important;
