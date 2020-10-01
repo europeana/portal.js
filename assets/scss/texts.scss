@@ -109,6 +109,17 @@ header .col {
         }
       }
     }
+    section {
+      p {
+        margin-bottom: 2rem;
+      }
+      & + .btn {
+        margin-top: 0;
+      }
+    }
+    .html-embed, .compare-image-wrapper {
+      margin-bottom: 2rem !important;
+    }
   }
 
   iframe {
