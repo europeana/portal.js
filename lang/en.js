@@ -18,7 +18,6 @@ export default {
     "title": "My account"
   },
   "actions": {
-    "addToGallery": "Add to gallery",
     "close": "close",
     "download": "Download",
     "edit": "Edit",
@@ -562,8 +561,6 @@ export default {
       "edit": "Edit collection",
       "update": "Update collection"
     },
-    "curatedBy": "Curated by",
-    "edit": "Edit",
     "form": {
       "description": "Collection description",
       "private": "Keep this collection private",
@@ -576,7 +573,6 @@ export default {
     "notifications": {
       "deleted": "Your collection has been deleted."
     },
-    "privateCollection": "Private collection",
     "prompts": {
       "delete": "Are you sure you want to delete this collection? If you delete this collection, you will lose all the items you've added to it."
     }
