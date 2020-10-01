@@ -1,59 +1,62 @@
 <template>
-  <b-container
+  <div
     data-qa="entity page"
-    fluid
     class="entity-page"
   >
-    <b-row class="flex-md-row pt-5 bg-white mb-4">
-      <b-col
-        cols="12"
-      >
-        <b-container class="mb-5">
-          <EntityDetails
-            :description="description"
-            :is-editorial-description="hasEditorialDescription"
-            :title="title"
-          />
-          <client-only>
-            <section
-              v-if="relatedCollectionsFound"
-              data-qa="related entities"
-            >
-              <RelatedCollections
-                :title="$t('collectionsYouMightLike')"
-                :related-collections="relatedEntities ? relatedEntities : relatedCollectionCards"
-              />
-            </section>
-          </client-only>
-        </b-container>
-      </b-col>
-    </b-row>
-    <b-row>
-      <b-col
-        cols="12"
-        class="pb-3"
-      >
-        <SearchInterface
-          class="px-0"
-          :per-page="recordsPerPage"
-          :route="route"
-          :show-content-tier-toggle="false"
-        />
-      </b-col>
-    </b-row>
-    <b-row>
-      <b-col>
-        <b-container class="p-0">
-          <client-only>
-            <BrowseSections
-              v-if="page"
-              :sections="page.hasPartCollection.items"
+    <b-container fluid>
+      <b-row class="flex-md-row pt-5 bg-white mb-4">
+        <b-col
+          cols="12"
+        >
+          <b-container class="mb-5">
+            <EntityDetails
+              :description="description"
+              :is-editorial-description="hasEditorialDescription"
+              :title="title"
             />
-          </client-only>
-        </b-container>
-      </b-col>
-    </b-row>
-  </b-container>
+            <client-only>
+              <section
+                v-if="relatedCollectionsFound"
+                data-qa="related entities"
+              >
+                <RelatedCollections
+                  :title="$t('collectionsYouMightLike')"
+                  :related-collections="relatedEntities ? relatedEntities : relatedCollectionCards"
+                />
+              </section>
+            </client-only>
+          </b-container>
+        </b-col>
+      </b-row>
+    </b-container>
+    <b-container>
+      <b-row>
+        <b-col
+          cols="12"
+          class="pb-3"
+        >
+          <SearchInterface
+            class="px-0"
+            :per-page="recordsPerPage"
+            :route="route"
+            :show-content-tier-toggle="false"
+          />
+        </b-col>
+      </b-row>
+      <b-row>
+        <b-col>
+          <b-container class="p-0">
+            <client-only>
+              <BrowseSections
+                v-if="page"
+                :sections="page.hasPartCollection.items"
+              />
+            </client-only>
+          </b-container>
+        </b-col>
+      </b-row>
+    </b-container>
+  </div>
 </template>
 
 <script>
@@ -304,9 +307,6 @@
 <style lang="scss" scoped>
   .entity-page {
     margin-top: -1rem;
-    .col-12 > .container {
-      padding: 0;
-    }
     .related-collections {
       padding: 0;
     }
