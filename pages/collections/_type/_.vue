@@ -65,7 +65,7 @@
 
   import { mapState } from 'vuex';
 
-  import { EUROPEANA_DATA_URL } from '../../../plugins/europeana';
+  import { BASE_URL as EUROPEANA_DATA_URL } from '../../../plugins/europeana/data';
   import { getEntityTypeHumanReadable, getEntitySlug, getEntityUri } from '../../../plugins/europeana/entity';
   import { langMapValueForLocale } from  '../../../plugins/europeana/utils';
 
@@ -116,7 +116,7 @@
 
       return axios.all(
         [store.dispatch('entity/searchForRecords', query)]
-          .concat(fetchEntity ? app.$apis.entity.getEntity(params.type, params.pathMatch) : () => {})
+          .concat(fetchEntity ? store.getters['apis/entity'].getEntity(params.type, params.pathMatch) : () => {})
           .concat(fetchFromContentful ? app.$contentful.query('collectionPage', contentfulVariables) : () => {})
       )
         .then(axios.spread((recordSearchResponse, entityResponse, pageResponse) => {
@@ -234,8 +234,9 @@
 
       // TODO: move into a new entity store action?
       if (!this.relatedCollectionCards) {
-        this.$apis.entity.relatedEntities(this.$route.params.type, this.$route.params.pathMatch)
-          .then((related) => {
+        this.$store.getters['apis/record'].relatedEntities(this.$route.params.type, this.$route.params.pathMatch)
+          .then(facets => facets ? this.$store.getters['apis/entity'].getEntityFacets(facets, this.$route.params.pathMatch) : [])
+          .then(related => {
             this.$store.commit('entity/setRelatedEntities', related);
           });
       }

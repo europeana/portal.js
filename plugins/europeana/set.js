@@ -1,12 +1,13 @@
-import config from './';
 import { apiError } from './utils';
 
-const setApiUrl = (endpoint) => `${config.set.url}${endpoint}`;
+export const BASE_URL = process.env.EUROPEANA_SET_API_URL || 'https://api.europeana.eu/set';
+
+const setApiUrl = (endpoint) => `${BASE_URL}${endpoint}`;
 
 const setIdFromUri = (uri) => uri.split('/').pop();
 
 const paramsWithApiKey = (params = {}) => {
-  return { ...params, wskey: config.set.key };
+  return { ...params, wskey: process.env.EUROPEANA_SET_API_KEY || process.env.EUROPEANA_API_KEY };
 };
 
 export default ($axios) => ({

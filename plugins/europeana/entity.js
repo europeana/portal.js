@@ -1,159 +1,123 @@
 import axios from 'axios';
 
-import defaultConfig, { EUROPEANA_DATA_URL } from './';
+import { BASE_URL as EUROPEANA_DATA_URL } from './data';
 import { apiError, langMapValueForLocale } from './utils';
 
-export default (config = defaultConfig) => ({
-  /**
-   * Get data for one entity from the API
-   * @param {string} type the type of the entity, will be normalized to the EntityAPI type if it's a human readable type
-   * @param {string} id the id of the entity (can contain trailing slug parts as these will be normalized)
-   * @return {Object[]} parsed entity data
-   */
-  getEntity(type, id) {
-    return axios.get(this.getEntityUrl(type, id), {
-      params: {
-        wskey: config.entity.key
-      }
-    })
-      .then((response) => {
-        return {
+export const BASE_URL = process.env.EUROPEANA_ENTITY_API_URL || 'https://api.europeana.eu/entity';
+export const createAxios = (defaults = {}) => {
+  return axios.create({
+    baseURL: BASE_URL,
+    params: {
+      wskey: process.env.EUROPEANA_ENTITY_API_KEY || process.env.EUROPEANA_API_KEY
+    },
+    ...defaults
+  });
+};
+
+export default (axiosDefaults) => {
+  const $axios = createAxios(axiosDefaults);
+
+  return {
+    /**
+     * Get data for one entity from the API
+     * @param {string} type the type of the entity, will be normalized to the EntityAPI type if it's a human readable type
+     * @param {string} id the id of the entity (can contain trailing slug parts as these will be normalized)
+     * @return {Object[]} parsed entity data
+     */
+    getEntity(type, id) {
+      return $axios.get(getEntityUrl(type, id))
+        .then(response => ({
           error: null,
           entity: response.data
-        };
+        }))
+        .catch(error => {
+          throw apiError(error);
+        });
+    },
+
+    /**
+     * Get entity suggestions from the API
+     * @param {string} text the query text to supply suggestions for
+     * @param {Object} params additional parameters sent to the API
+     * @param {string} params.language language(s), comma-separated, to request
+     */
+    getEntitySuggestions(text, params = {}) {
+      return $axios.get('/suggest', {
+        params: {
+          ...$axios.defaults.params,
+          ...params,
+          text,
+          type: 'agent,concept',
+          scope: 'europeana'
+        }
       })
-      .catch((error) => {
-        throw apiError(error);
-      });
-  },
+        .then(response => response.data.items ? response.data.items : [])
+        .catch(error => {
+          throw apiError(error);
+        });
+    },
 
-  entityApiUrl(endpoint) {
-    return `${config.entity.url}${endpoint}`;
-  },
-
-  /**
-   * Get entity suggestions from the API
-   * @param {string} text the query text to supply suggestions for
-   * @param {Object} params additional parameters sent to the API
-   * @param {string} params.language language(s), comma-separated, to request
-   */
-  getEntitySuggestions(text, params = {}) {
-    return axios.get(this.entityApiUrl('/suggest'), {
-      params: {
-        ...params,
-        text,
-        type: 'agent,concept',
-        scope: 'europeana',
-        wskey: config.entity.key
+    /**
+     * Return the facets that include data.europeana.eu
+     * @param {Object} facets the facets retrieved from the search
+     * @param {String} id id of the current entity
+     * @return {Object} related entities
+     * TODO: limit results
+     */
+    async getEntityFacets(facets, id) {
+      const currentId = normalizeEntityId(id);
+      let entities = [];
+      for (const facet of facets) {
+        const facetFilter = (value) => value['label'].includes(EUROPEANA_DATA_URL) && value['label'].split('/').pop() !== currentId;
+        entities = entities.concat(facet['fields'].filter(facetFilter));
       }
-    })
-      .then((response) => {
-        return response.data.items ? response.data.items : [];
-      })
-      .catch((error) => {
-        throw apiError(error);
+
+      const entityUris = entities.slice(0, 4).map(entity => {
+        return entity['label'];
       });
-  },
+      return getRelatedEntityData(await this.findEntities(entityUris));
+    },
 
-  /**
-   * Retrieve the URL of the entity from the human readable type and ID
-   * @param {string} type the human readable type of the entity either person or topic
-   * @param {string} id the numeric identifier of the entity, (can contain trailing slug parts as these will be normalized)
-   * @return {string} retrieved human readable name of type
-   */
-  getEntityUrl(type, id) {
-    return this.entityApiUrl(`/${getEntityTypeApi(type)}/base/${normalizeEntityId(id)}.json`);
-  },
+    /**
+     * Lookup data for the given list of entity URIs
+     * @param {Array} entityUris the URIs of the entities to retrieve
+     * @return {Object} entity data
+     */
+    findEntities(entityUris) {
+      if (entityUris.length === 0) return;
+      const q = entityUris.join('" OR "');
+      const params = {
+        query: `entity_uri:("${q}")`
+      };
+      return this.searchEntities(params)
+        .then((response) => {
+          return response.entities || [];
+        });
+    },
 
-  /**
-   * Search for specific facets for this entity to find the related entities
-   * @param {string} type the type of the entity
-   * @param {string} id the id of the entity, (can contain trailing slug parts as these will be normalized)
-   * @return {Object} related entities
-   * TODO: add people as related entities again
-   * TODO: use search() function?
-   */
-  relatedEntities(type, id) {
-    const entityUri = getEntityUri(type, id);
-    let apiParams = {
-      wskey: config.record.key,
-      profile: 'facets',
-      facet: 'skos_concept',
-      query: getEntityQuery(entityUri),
-      rows: 0
-    };
-
-    return axios.get(`${config.record.url}/search.json`, {
-      params: apiParams
-    })
-      .then((response) => {
-        return response.data.facets ? this.getEntityFacets(response.data.facets, normalizeEntityId(id)) : [];
+    /**
+     * Return all entity subjects of type concept / agent
+     * @param {Object} params additional parameters sent to the API
+     */
+    searchEntities(params = {}) {
+      return $axios.get('/search', {
+        params: {
+          ...$axios.defaults.params,
+          ...params
+        }
       })
-      .catch((error) => {
-        const message = error.response ? error.response.data.error : error.message;
-        throw new Error(message);
-      });
-  },
-
-  /**
-   * Return the facets that include data.europeana.eu
-   * @param {Object} facets the facets retrieved from the search
-   * @param {String} currentId id of the current entity
-   * @return {Object} related entities
-   * TODO: limit results
-   */
-  async getEntityFacets(facets, currentId) {
-    let entities = [];
-    for (const facet of facets) {
-      const facetFilter = (value) => value['label'].includes(EUROPEANA_DATA_URL) && value['label'].split('/').pop() !== currentId;
-      entities = entities.concat(facet['fields'].filter(facetFilter));
+        .then((response) => {
+          return {
+            entities: response.data.items ? response.data.items : [],
+            total: response.data.partOf ? response.data.partOf.total : null
+          };
+        })
+        .catch((error) => {
+          throw apiError(error);
+        });
     }
-
-    const entityUris = entities.slice(0, 4).map(entity => {
-      return entity['label'];
-    });
-    return getRelatedEntityData(await this.findEntities(entityUris));
-  },
-
-  /**
-   * Lookup data for the given list of entity URIs
-   * @param {Array} entityUris the URIs of the entities to retrieve
-   * @return {Object} entity data
-   */
-  findEntities(entityUris) {
-    if (entityUris.length === 0) return;
-    const q = entityUris.join('" OR "');
-    const params = {
-      query: `entity_uri:("${q}")`
-    };
-    return this.searchEntities(params)
-      .then((response) => {
-        return response.entities || [];
-      });
-  },
-
-  /**
-   * Return all entity subjects of type concept / agent
-   * @param {Object} params additional parameters sent to the API
-   */
-  searchEntities(params = {}) {
-    return axios.get(this.entityApiUrl('/search'), {
-      params: {
-        ...params,
-        wskey: config.entity.key
-      }
-    })
-      .then((response) => {
-        return {
-          entities: response.data.items ? response.data.items : [],
-          total: response.data.partOf ? response.data.partOf.total : null
-        };
-      })
-      .catch((error) => {
-        throw apiError(error);
-      });
-  }
-});
+  };
+};
 
 /**
  * Format the the entity data for a related entity
@@ -175,7 +139,7 @@ function getRelatedEntityData(entities) {
  * @param {string} id the id of the entity
  * @return {string} retrieved id
  */
-function normalizeEntityId(id) {
+export function normalizeEntityId(id) {
   if (!id) return;
   return id.split('-')[0];
 }
@@ -262,6 +226,16 @@ export function getEntityTypeHumanReadable(type) {
   };
   if (!type) return;
   return names[type.toLowerCase()];
+}
+
+/**
+ * Retrieve the URL of the entity from the human readable type and ID
+ * @param {string} type the human readable type of the entity either person or topic
+ * @param {string} id the numeric identifier of the entity, (can contain trailing slug parts as these will be normalized)
+ * @return {string} retrieved human readable name of type
+ */
+function getEntityUrl(type, id) {
+  return `/${getEntityTypeApi(type)}/base/${normalizeEntityId(id)}.json`;
 }
 
 /**

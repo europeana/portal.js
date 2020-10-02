@@ -59,7 +59,7 @@
         if (!this.media.about) {
           return false;
         }
-        return isImage(this.media) ? this.$apis.mediaProxy.url(this.media.about, this.europeanaIdentifier, { disposition: 'inline' }) : this.media.about;
+        return isImage(this.media) ? this.$store.getters['apis/record'].mediaProxyUrl(this.media.about, this.europeanaIdentifier, { disposition: 'inline' }) : this.media.about;
       }
     }
   };

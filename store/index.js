@@ -6,6 +6,6 @@ export const actions = {
   //          the response of the API calls.
   async nuxtServerInit(store, context) {
     store.dispatch('http/init', context);
-    store.commit('apis/readUrlsFromRequestHeaders', context.req.headers);
+    store.commit('apis/init', context);
   }
 };

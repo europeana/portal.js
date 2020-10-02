@@ -15,7 +15,7 @@
     data-qa="video"
   >
     <source
-      :src="$apis.mediaProxy.url(src, europeanaIdentifier)"
+      :src="$store.getters['apis/record'].mediaProxyUrl(src, europeanaIdentifier)"
       :type="type"
       data-qa="video source"
     >

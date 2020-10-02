@@ -144,7 +144,7 @@
   import MediaPresentation from '../../components/item/MediaPresentation';
   import MetadataBox from '../../components/item/MetadataBox';
 
-  import { EUROPEANA_DATA_URL } from '../../plugins/europeana';
+  import { BASE_URL as EUROPEANA_DATA_URL } from '../../plugins/europeana/data';
   import { similarItemsQuery } from '../../plugins/europeana/record';
   import { isIIIFPresentation, isRichMedia, isPlayableMedia } from '../../plugins/media';
   import { langMapValueForLocale } from  '../../plugins/europeana/utils';
@@ -168,8 +168,8 @@
         profile: 'dereference'
       };
       axios.all([
-        this.$apis.annotation.search(annotationSearchParams),
-        this.$apis.entity.findEntities(this.europeanaEntityUris),
+        this.$store.getters['apis/annotation'].search(annotationSearchParams),
+        this.$store.getters['apis/entity'].findEntities(this.europeanaEntityUris),
         this.getSimilarItems()
       ])
         .then(axios.spread((annotations, entities, similar) => {
@@ -183,12 +183,10 @@
 
     fetchOnServer: false,
 
-    asyncData({ params, res, app }) {
-      return app.$apis.record.getRecord(`/${params.pathMatch}`)
-        .then((result) => {
-          return result.record;
-        })
-        .catch((error) => {
+    asyncData({ params, res, store }) {
+      return store.getters['apis/record'].getRecord(`/${params.pathMatch}`)
+        .then(result => result.record)
+        .catch(error => {
           if (typeof res !== 'undefined') {
             res.statusCode = (typeof error.statusCode === 'undefined') ? 500 : error.statusCode;
           }
@@ -384,7 +382,7 @@
           edmDataProvider: this.getSimilarItemsData(this.fields.edmDataProvider)
         };
 
-        return this.$apis.record.search({
+        return this.$store.getters['apis/record'].search({
           query: similarItemsQuery(this.identifier, dataSimilarItems),
           rows: 4,
           profile: 'minimal',

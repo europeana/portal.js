@@ -22,7 +22,7 @@ export const state = () => ({
 });
 
 export const getters = {
-  apiParams: (state) => () => {
+  apiParams: (state) => {
     const params = Object.assign({}, state.apiParams);
     params.facet = fashionFacetParam;
     return params;

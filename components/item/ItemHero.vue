@@ -83,7 +83,7 @@
     },
     computed: {
       downloadUrl() {
-        return this.$apis.mediaProxy.url(this.selectedMedia.about, this.identifier);
+        return this.$store.getters['apis/record'].mediaProxyUrl(this.selectedMedia.about, this.identifier);
       },
       rightsStatementIsUrl() {
         return RegExp('^https?://*').test(this.rightsStatement);

@@ -317,7 +317,7 @@ export const actions = {
     for (const property of ['apiParams', 'apiOptions']) {
       if (rootState.collections[collection][property] !== undefined) {
         commit(`collections/${collection}/set`, [property, state[property]], { root: true });
-        commit('set', [property, rootGetters[`collections/${collection}/${property}`](this.$apis.config)]);
+        commit('set', [property, rootGetters[`collections/${collection}/${property}`]]);
       }
     }
   },
@@ -334,13 +334,13 @@ export const actions = {
     ]);
   },
 
-  queryItems({ dispatch, state, getters }) {
+  queryItems({ dispatch, state, getters, rootGetters }) {
     const paramsForItems = {
       ...state.apiParams,
       facet: null
     };
 
-    return this.$apis.record.search(paramsForItems, getters.searchOptions)
+    return rootGetters['apis/record'].search(paramsForItems, getters.searchOptions)
       .then(async(response) => {
         await dispatch('updateForSuccess', response);
       })
@@ -358,7 +358,7 @@ export const actions = {
       profile: 'facets'
     };
 
-    return this.$apis.record.search(paramsForFacets, getters.searchOptions)
+    return rootGetters['apis/record'].search(paramsForFacets, getters.searchOptions)
       .then((response) => {
         commit('setFacets', response.facets);
         const collection = getters.collection;

@@ -23,6 +23,8 @@
 </template>
 
 <script>
+  import { genericThumbnail } from '../../plugins/europeana/thumbnail';
+
   import ContentCard from '../generic/ContentCard';
 
   export default {
@@ -90,7 +92,7 @@
 
         return this.value.edmPreview ?
           `${this.value.edmPreview[0]}&size=${size}` :
-          this.$apis.thumbnail.genericThumbnail(this.value.id, { type: this.value.type, size });
+          genericThumbnail(this.value.id, { type: this.value.type, size });
       }
     }
   };

@@ -38,7 +38,7 @@
 
     methods: {
       async getSearchSuggestions(query) {
-        this.relatedCollections = query === '' ? [] : await this.$apis.entity.getEntitySuggestions(query, {
+        this.relatedCollections = query === '' ? [] : await this.$store.getters['apis/entity'].getEntitySuggestions(query, {
           language: this.$i18n.locale,
           rows: 4
         });

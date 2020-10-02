@@ -58,7 +58,7 @@
   import SmartLink from '../generic/SmartLink';
 
   import { entityParamsFromUri, getEntityTypeHumanReadable } from '../../plugins/europeana/entity';
-  import { EUROPEANA_DATA_URL } from '../../plugins/europeana';
+  import { BASE_URL as EUROPEANA_DATA_URL } from '../../plugins/europeana/data';
 
   export default {
     components: {

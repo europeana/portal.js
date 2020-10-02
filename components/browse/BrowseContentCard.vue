@@ -13,7 +13,7 @@
 
 <script>
   import ContentCard from '../generic/ContentCard';
-  import { EUROPEANA_DATA_URL } from '../../plugins/europeana';
+  import { BASE_URL as EUROPEANA_DATA_URL } from '../../plugins/europeana/data';
   import { isEuropeanaRecordId } from '../../plugins/europeana/record';
   import { getEntityTypeHumanReadable } from '../../plugins/europeana/entity';
 

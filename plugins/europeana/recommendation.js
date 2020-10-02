@@ -1,7 +1,8 @@
-import config from './';
 import { apiError } from './utils';
 
-const apiUrl = (endpoint) => `${config.recommendation.url}${endpoint}`;
+export const BASE_URL = process.env.EUROPEANA_RECOMMENDATION_API_URL || 'https://api.europeana.eu/recommend';
+
+const apiUrl = (endpoint) => `${BASE_URL}${endpoint}`;
 
 export default ($axios) => ({
   /**

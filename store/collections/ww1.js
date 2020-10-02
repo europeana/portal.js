@@ -1,23 +1,25 @@
 // TODO: this essentially duplicates newspapers.js, with just the default
 //       for the api param different. Refactor to DRY it up.
 
+import { BASE_URL as FULLTEXT_BASE_URL } from '../../plugins/europeana/newspaper';
+
 export const state = () => ({
   apiOptions: {},
   apiParams: {}
 });
 
 export const getters = {
-  apiOptions: (state, getters) => (apiConfig) => {
+  apiOptions: (state, getters) => {
     const options = Object.assign({}, state.apiOptions);
 
     if (getters.apiParams.api === 'fulltext') {
-      options.url = apiConfig.newspaper.url;
+      options.url = FULLTEXT_BASE_URL;
     }
 
     return options;
   },
 
-  apiParams: (state) => (apiConfig) => {
+  apiParams: (state) => {
     const params = Object.assign({}, state.apiParams);
 
     // Ensure ww1 collection gets metadata API by default
@@ -31,7 +33,6 @@ export const getters = {
       params.qf = ([].concat(params.qf)).filter(qf => !/^contentTier:/.test(qf));
       params.qf.push('contentTier:*');
 
-      params.wskey = apiConfig.newspaper.key;
       params.profile = 'minimal,hits';
     }
 
