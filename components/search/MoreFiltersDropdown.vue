@@ -45,7 +45,7 @@
           v-for="(facet, index) in moreFacets"
         >
           <MoreFiltersDropdownFacet
-            v-if="facet.fields && filterFields(facet.name, facet.fields).length > 0"
+            v-if="filterFields(facet.name, facet.fields).length > 0"
             :key="index"
             :fields="filterFields(facet.name, facet.fields)"
             :name="facet.name"
@@ -197,6 +197,7 @@
         this.updateSelected(facetName, dateQuery);
       },
       filterFields(name, fields) {
+        if (!fields) return [];
         // Only show option 0 for contentTier toggle
         if (name === 'contentTier') {
           return fields.filter(field => field.label === '"0"');
