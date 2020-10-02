@@ -85,6 +85,7 @@ const config = {
   */
   plugins: [
     '~/plugins/axiosLogger',
+    '~/plugins/apis',
     '~/plugins/vue',
     '~/plugins/i18n.js',
     '~/plugins/vue-filters',

@@ -11,14 +11,11 @@ import { getEntityUri, getEntityQuery } from './entity';
 import { combineMerge } from '../utils';
 
 export const BASE_URL = process.env.EUROPEANA_RECORD_API_URL || 'https://api.europeana.eu/record';
-export const createAxios = (defaults = {}) => {
-  return axios.create({
-    baseURL: BASE_URL,
-    params: {
-      wskey: process.env.EUROPEANA_RECORD_API_KEY || process.env.EUROPEANA_API_KEY
-    },
-    ...defaults
-  });
+export const axiosDefaults = {
+  baseURL: BASE_URL,
+  params: {
+    wskey: process.env.EUROPEANA_RECORD_API_KEY || process.env.EUROPEANA_API_KEY
+  }
 };
 
 /**
@@ -183,11 +180,16 @@ function setMatchingEntities(fields, key, entities) {
   }
 }
 
-export default (axiosDefaults) => {
-  const $axios = createAxios(axiosDefaults);
+export default (axiosOverrides) => {
+  const $axios = axios.create({
+    ...axiosDefaults,
+    ...axiosOverrides
+  });
 
   return {
-    search: search(axiosDefaults).search,
+    $axios,
+
+    search: search($axios).search,
 
     /**
      * Parse the record data based on the data from the API response
@@ -268,9 +270,9 @@ export default (axiosDefaults) => {
      */
     getRecord(europeanaId) {
       let path = '';
-      if (!$axios.defaults.baseURL.endsWith('/record')) path = '/record';
+      if (!this.$axios.defaults.baseURL.endsWith('/record')) path = '/record';
 
-      return $axios.get(`${path}${europeanaId}.json`)
+      return this.$axios.get(`${path}${europeanaId}.json`)
         .then(response => ({
           record: this.parseRecordDataFromApiResponse(response),
           error: null
@@ -291,9 +293,9 @@ export default (axiosDefaults) => {
     relatedEntities(type, id) {
       const entityUri = getEntityUri(type, id);
 
-      return $axios.get('search.json', {
+      return this.$axios.get('search.json', {
         params: {
-          ...$axios.defaults.params,
+          ...this.$axios.defaults.params,
           profile: 'facets',
           facet: 'skos_concept',
           query: getEntityQuery(entityUri),
@@ -311,7 +313,7 @@ export default (axiosDefaults) => {
       if (!params['api_url']) {
         // TODO: it is not ideal to hard-code "/api" here, but the media proxy
         //       expects Record API URLs to end thus, i.e. not /record or /api/v2
-        params['api_url'] = new URL($axios.defaults.baseURL).origin + '/api';
+        params['api_url'] = new URL(this.$axios.defaults.baseURL).origin + '/api';
       }
 
       const proxyUrl = new URL('https://proxy.europeana.eu');

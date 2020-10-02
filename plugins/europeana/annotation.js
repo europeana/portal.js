@@ -5,28 +5,28 @@ import { apiError } from './utils';
 
 // TODO: replace with API gateway origin when it works
 export const BASE_URL = process.env.EUROPEANA_ANNOTATION_API_URL || 'https://annotations.europeana.eu/annotation';
-export const createAxios = (defaults = {}) => {
-  return axios.create({
-    baseURL: BASE_URL,
-    params: {
-      wskey: process.env.EUROPEANA_ANNOTATION_API_KEY || process.env.EUROPEANA_API_KEY
-    },
-    ...defaults
-  });
+export const axiosDefaults = {
+  baseURL: BASE_URL,
+  params: {
+    wskey: process.env.EUROPEANA_ANNOTATION_API_KEY || process.env.EUROPEANA_API_KEY
+  }
 };
 
-export default (axiosDefaults) => {
-  const $axios = createAxios(axiosDefaults);
-
+export default (axiosOverrides) => {
   return {
+    $axios: axios.create({
+      ...axiosDefaults,
+      ...axiosOverrides
+    }),
+
     search(params) {
-      return $axios.get('/search', {
+      return this.$axios.get('/search', {
         // TODO: move serializer into utils as it's common to all APIs
         paramsSerializer(params) {
           return qs.stringify(params, { arrayFormat: 'repeat' });
         },
         params: {
-          ...$axios.defaults.params,
+          ...this.$axios.defaults.params,
           ...params
         }
       })

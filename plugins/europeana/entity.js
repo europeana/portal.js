@@ -4,20 +4,20 @@ import { BASE_URL as EUROPEANA_DATA_URL } from './data';
 import { apiError, langMapValueForLocale } from './utils';
 
 export const BASE_URL = process.env.EUROPEANA_ENTITY_API_URL || 'https://api.europeana.eu/entity';
-export const createAxios = (defaults = {}) => {
-  return axios.create({
-    baseURL: BASE_URL,
-    params: {
-      wskey: process.env.EUROPEANA_ENTITY_API_KEY || process.env.EUROPEANA_API_KEY
-    },
-    ...defaults
-  });
+export const axiosDefaults = {
+  baseURL: BASE_URL,
+  params: {
+    wskey: process.env.EUROPEANA_ENTITY_API_KEY || process.env.EUROPEANA_API_KEY
+  }
 };
 
-export default (axiosDefaults) => {
-  const $axios = createAxios(axiosDefaults);
-
+export default (axiosOverrides) => {
   return {
+    $axios: axios.create({
+      ...axiosDefaults,
+      ...axiosOverrides
+    }),
+
     /**
      * Get data for one entity from the API
      * @param {string} type the type of the entity, will be normalized to the EntityAPI type if it's a human readable type
@@ -25,7 +25,7 @@ export default (axiosDefaults) => {
      * @return {Object[]} parsed entity data
      */
     getEntity(type, id) {
-      return $axios.get(getEntityUrl(type, id))
+      return this.$axios.get(getEntityUrl(type, id))
         .then(response => ({
           error: null,
           entity: response.data
@@ -42,9 +42,9 @@ export default (axiosDefaults) => {
      * @param {string} params.language language(s), comma-separated, to request
      */
     getEntitySuggestions(text, params = {}) {
-      return $axios.get('/suggest', {
+      return this.$axios.get('/suggest', {
         params: {
-          ...$axios.defaults.params,
+          ...this.$axios.defaults.params,
           ...params,
           text,
           type: 'agent,concept',
@@ -100,9 +100,9 @@ export default (axiosDefaults) => {
      * @param {Object} params additional parameters sent to the API
      */
     searchEntities(params = {}) {
-      return $axios.get('/search', {
+      return this.$axios.get('/search', {
         params: {
-          ...$axios.defaults.params,
+          ...this.$axios.defaults.params,
           ...params
         }
       })

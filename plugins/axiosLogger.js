@@ -26,16 +26,18 @@ const storeModule = {
   }
 };
 
-export default ({ store, app }) => {
+export default ({ store, app }, inject) => {
   store.registerModule(STORE_MODULE_NAME, storeModule);
 
-  axios.interceptors.request.use(config => {
+  const requestInterceptor = config => {
     const uri = axios.getUri(config);
+    const url = `${config.baseURL}${uri}`;
     const method = config.method.toUpperCase();
-    store.commit(`${STORE_MODULE_NAME}/push`, { method, uri });
+    store.commit(`${STORE_MODULE_NAME}/push`, { method, url });
 
     return config;
-  });
+  };
+  axios.interceptors.request.use(requestInterceptor);
 
   app.router.beforeEach((to, from, next) => {
     if (!store.state[STORE_MODULE_NAME].recording) {
@@ -51,4 +53,6 @@ export default ({ store, app }) => {
     // for the same routing resetting the logger before the CSR.
     if (process.client) store.commit(`${STORE_MODULE_NAME}/stop`);
   });
+
+  inject('axiosLogger', requestInterceptor);
 };

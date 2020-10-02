@@ -5,7 +5,6 @@
 import qs from 'qs';
 
 import { apiError } from './utils';
-import { createAxios } from './record';
 
 // Some facets do not support enquoting of their field values.
 export const unquotableFacets = [
@@ -68,10 +67,9 @@ export function rangeFromQueryParam(paramValue) {
   return { start, end };
 }
 
-export default (axiosDefaults = {}) => {
-  const $axios = createAxios(axiosDefaults);
-
+export default ($axios) => {
   return {
+    $axios,
     /**
      * Search Europeana Record API
      * @param {Object} params parameters for search query
@@ -99,12 +97,12 @@ export default (axiosDefaults = {}) => {
       const query = (typeof params.query === 'undefined' || params.query === '') ? '*:*' : params.query;
       const escapePattern = /([!*+-=<>&|()[\]{}^~?:\\/"])/g; // Lucene reserved characters
 
-      return $axios.get('/search.json', {
+      return this.$axios.get('/search.json', {
         paramsSerializer(params) {
           return qs.stringify(params, { arrayFormat: 'repeat' });
         },
         params: {
-          ...$axios.defaults.params,
+          ...this.$axios.defaults.params,
           facet: params.facet,
           profile: params.profile,
           qf: addContentTierFilter(params.qf),
