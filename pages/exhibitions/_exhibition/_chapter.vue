@@ -16,6 +16,12 @@
             {{ exhibitionTitle }}
           </h2>
           <h1>{{ page.name }}</h1>
+          <p
+            v-if="page.headline"
+            class="lead"
+          >
+            {{ page.headline }}
+          </p>
         </b-col>
       </b-row>
       <b-row class="justify-content-center">
