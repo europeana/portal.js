@@ -20,14 +20,10 @@
     color: $mediumgrey;
     font-size: $font-size-small;
     border-color: transparent;
-    box-shadow: none;
     border-radius: 0.25rem;
     padding: 0.375rem 0.5rem;
     span {
       font-size: 1.125rem;
-    }
-    &:hover {
-      box-shadow: 2px 2px 6px 0 rgba(0, 0, 0, 0.15);
     }
   }
 </style>

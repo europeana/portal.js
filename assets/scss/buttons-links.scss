@@ -2,6 +2,9 @@
   &:focus {
     outline: auto;
   }
+  &:hover {
+    box-shadow: $boxshadow-light;
+  }
 }
 
 .btn-primary {
@@ -12,12 +15,14 @@
 
   &:hover {
     background: $blue;
-    box-shadow: 2px 2px 6px 0 rgba(0, 0, 0, 0.15);
   }
 }
 
 .btn-link {
   color: $blue;
+  &:hover {
+    box-shadow: none;
+  }
 }
 
 .btn-outline-primary {
@@ -29,6 +34,10 @@
   &:hover:not([disabled]) {
     background-color: $blue;
     border-color: $blue;
+  }
+
+  &:hover {
+    box-shadow: none;
   }
 
   &.disabled {
@@ -45,7 +54,6 @@
 .btn-light {
   background: $white;
   border: 0;
-  box-shadow: 2px 2px 2px 0 rgba(0, 0, 0, 0.1);
   color: $mediumgrey;
   font-size: $font-size-small;
   padding: 0.5rem 1rem;
@@ -53,7 +61,6 @@
 
   &:hover {
     background: $white;
-    box-shadow: 2px 2px 6px 0 rgba(0, 0, 0, 0.15);
   }
 }
 
@@ -70,7 +77,6 @@
 
   &:hover {
     background-color: rgba(0, 0, 0, 0.7);
-    box-shadow: 2px 2px 6px 0 rgba(0, 0, 0, 0.15);
     color: $white;
   }
 
@@ -175,7 +181,7 @@ a {
     color: $blue;
     text-decoration: none;
     font-size: 1rem;
-    
+
     &:hover {
       text-decoration: none;
     }
