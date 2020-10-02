@@ -58,8 +58,8 @@ describe('components/item/AwesomeSwiper', () => {
 
     it('emits a `select` event with the item identifier', () => {
       const wrapper = factory({ europeanaIdentifier, displayableMedia });
-      wrapper.vm.swiper.slideTo(1, 1000, false);
 
+      wrapper.vm.swiper.slideTo(1, 1000, false);
       wrapper.emitted('select').should.deep.eq([[displayableMedia[1].about]]);
     });
   });

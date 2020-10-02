@@ -197,6 +197,7 @@
         this.updateSelected(facetName, dateQuery);
       },
       filterFields(name, fields) {
+        if (!fields) return [];
         // Only show option 0 for contentTier toggle
         if (name === 'contentTier') {
           return fields.filter(field => field.label === '"0"');
