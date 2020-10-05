@@ -272,17 +272,6 @@ describe('plugins/europeana/record', () => {
       ]
     };
 
-    // it('returns related entities', async() => {
-    //   nock(BASE_URL)
-    //     .get('/search')
-    //     .query(true)
-    //     .reply(200, entitiesResponse);
-    //
-    //   const response = await record().relatedEntities(entityType, entityId);
-    //
-    //   response.length.should.eq(entitiesResponse.items.length);
-    // });
-
     it('filters on entity URI', async() => {
       nock(BASE_URL)
         .get('/search.json')
