@@ -81,7 +81,6 @@ export default ($axios) => {
      * @param {string} params.query search query
      * @param {string} params.wskey API key, to override `config.record.key`
      * @param {Object} options search options
-     * @param {string} options.url base URL for API, overriding default `config.record.url`
      * @param {Boolean} options.escape whether or not to escape Lucene reserved characters in the search query
      * @return {{results: Object[], totalResults: number, facets: FacetSet, error: string}} search results for display
      */

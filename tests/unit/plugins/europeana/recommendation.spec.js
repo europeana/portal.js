@@ -1,8 +1,6 @@
 import nock from 'nock';
 
-import recommendation from '../../../../plugins/europeana/recommendation';
-import config from '../../../../plugins/europeana';
-const apiUrl = config.recommendation.url;
+import recommendation, { BASE_URL } from '../../../../plugins/europeana/recommendation';
 
 const axios = require('axios');
 axios.defaults.adapter = require('axios/lib/adapters/http');
@@ -17,7 +15,7 @@ describe('plugins/europeana/recommendation', () => {
   describe('recommend()', () => {
     context('when type is "record"', () => {
       it('requests and returns recommendations for the given item ID', async() => {
-        nock(apiUrl)
+        nock(BASE_URL)
           .get('/record/123/abc')
           .reply(200, recommendations);
 
@@ -30,7 +28,7 @@ describe('plugins/europeana/recommendation', () => {
 
     context('when type is "set"', () => {
       it('requests and returns recommendations for the given set ID', async() => {
-        nock(apiUrl)
+        nock(BASE_URL)
           .get('/set/123')
           .reply(200, recommendations);
 

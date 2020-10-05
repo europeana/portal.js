@@ -1,9 +1,8 @@
 import nock from 'nock';
 
 import api, {
-  getEntityQuery, getEntityDescription, getEntitySlug, getEntityUri
+  getEntityQuery, getEntityDescription, getEntitySlug, getEntityUri, BASE_URL
 } from '../../../../plugins/europeana/entity';
-import config from '../../../../plugins/europeana';
 
 const axios = require('axios');
 axios.defaults.adapter = require('axios/lib/adapters/http');
@@ -11,24 +10,8 @@ axios.defaults.adapter = require('axios/lib/adapters/http');
 const entityId = '94-architecture';
 const entityType = 'topic';
 const entityIdMisspelled = '94-architectuz';
-const apiUrl = config.entity.url;
 const apiEndpoint = '/concept/base/94.json';
-const entityUri = 'http://data.europeana.eu/concept/base/94';
-const entityFilterField = 'skos_concept';
-const apiKey = 'abcdef';
-const baseRequest = nock(apiUrl).get(apiEndpoint);
-
-const recordApiUrl = config.record.url;
-const recordApiEndpoint = '/search.json';
-
-const searchResponse = {
-  facets: [
-    { name: 'edm_agent', fields: [
-      { label: 'http://data.europeana.eu/agent/base/147831' },
-      { label: 'http://data.europeana.eu/agent/base/49928' }
-    ] }
-  ]
-};
+const baseRequest = nock(BASE_URL).get(apiEndpoint);
 
 const entitiesResponse = {
   items: [
@@ -90,10 +73,6 @@ const conceptEntitiesResponse = {
 };
 
 describe('plugins/europeana/entity', () => {
-  beforeEach(() => {
-    config.entity.key = apiKey;
-  });
-
   afterEach(() => {
     nock.cleanAll();
   });
@@ -160,7 +139,7 @@ describe('plugins/europeana/entity', () => {
     const searchEndpoint = '/search';
 
     it('searches the API by entity URIs', async() => {
-      nock(apiUrl)
+      nock(BASE_URL)
         .get(searchEndpoint)
         .query(query => {
           return query.query === uriQuery;
@@ -178,7 +157,7 @@ describe('plugins/europeana/entity', () => {
     const suggestEndpoint = '/suggest';
 
     it('passes `text` to the API', async() => {
-      nock(apiUrl)
+      nock(BASE_URL)
         .get(suggestEndpoint)
         .query(query => {
           return query.text === text;
@@ -191,7 +170,7 @@ describe('plugins/europeana/entity', () => {
     });
 
     it('passes `language` to API', async() => {
-      nock(apiUrl)
+      nock(BASE_URL)
         .get(suggestEndpoint)
         .query(query => {
           return query.language === 'fr';
@@ -204,7 +183,7 @@ describe('plugins/europeana/entity', () => {
     });
 
     it('restricts types to agent & concept', async() => {
-      nock(apiUrl)
+      nock(BASE_URL)
         .get(suggestEndpoint)
         .query(query => {
           return query.type === 'agent,concept';
@@ -217,7 +196,7 @@ describe('plugins/europeana/entity', () => {
     });
 
     it('returns the "items"', async() => {
-      nock(apiUrl)
+      nock(BASE_URL)
         .get(suggestEndpoint)
         .query(true)
         .reply(200, entitySuggestionsResponse);
@@ -225,38 +204,6 @@ describe('plugins/europeana/entity', () => {
       const items = await api().getEntitySuggestions(text);
 
       items.should.deep.eq(entitySuggestionsResponse.items);
-    });
-  });
-
-  describe('relatedEntities()', () => {
-    beforeEach('stub API response', () => {
-      nock(apiUrl)
-        .get('/search')
-        .query(true)
-        .reply(200, entitiesResponse);
-    });
-
-    it('returns related entities', async() => {
-      nock(recordApiUrl)
-        .get(recordApiEndpoint)
-        .query(true)
-        .reply(200, searchResponse);
-
-      const response = await api().relatedEntities(entityType, entityId);
-      response.length.should.eq(entitiesResponse.items.length);
-    });
-
-    it('filters on entity URI', async() => {
-      nock(recordApiUrl)
-        .get(recordApiEndpoint)
-        .query(query => {
-          return query.query === `${entityFilterField}:"${entityUri}"`;
-        })
-        .reply(200, searchResponse);
-
-      await api().relatedEntities(entityType, entityId);
-
-      nock.isDone().should.be.true;
     });
   });
 
@@ -339,7 +286,7 @@ describe('plugins/europeana/entity', () => {
 
   describe('searchEntities()', () => {
     beforeEach('stub API response', () => {
-      nock(apiUrl)
+      nock(BASE_URL)
         .get('/search')
         .query(true)
         .reply(200, conceptEntitiesResponse);

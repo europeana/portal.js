@@ -189,7 +189,7 @@ export default (axiosOverrides) => {
   return {
     $axios,
 
-    search: search($axios).search,
+    search: search(axiosOverrides).search,
 
     /**
      * Parse the record data based on the data from the API response

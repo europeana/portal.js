@@ -1,16 +1,13 @@
 import nock from 'nock';
-import config from '../../../../plugins/europeana';
-import record, { isEuropeanaRecordId, similarItemsQuery } from '../../../../plugins/europeana/record';
+import record, { isEuropeanaRecordId, similarItemsQuery, BASE_URL } from '../../../../plugins/europeana/record';
 
 const axios = require('axios');
 axios.defaults.adapter = require('axios/lib/adapters/http');
 
 const europeanaId = '/123/abc';
-const apiUrl = config.record.url;
 const apiEndpoint = `${europeanaId}.json`;
-const apiKey = 'abcdef';
 
-const baseRequest = nock(apiUrl).get(apiEndpoint);
+const baseRequest = nock(BASE_URL).get(apiEndpoint);
 
 const edmIsShownAt = 'https://example.org';
 const edmIsShownByWebResource = {
@@ -90,10 +87,6 @@ const apiResponse = {
 };
 
 describe('plugins/europeana/record', () => {
-  beforeEach(() => {
-    config.record.key = apiKey;
-  });
-
   afterEach(() => {
     nock.cleanAll();
   });
@@ -127,7 +120,7 @@ describe('plugins/europeana/record', () => {
 
       describe('with object in response', () => {
         beforeEach('stub API response', () => {
-          nock(apiUrl)
+          nock(BASE_URL)
             .get(apiEndpoint)
             .query(true)
             .reply(200, apiResponse);
@@ -223,6 +216,82 @@ describe('plugins/europeana/record', () => {
           response.record.concepts.should.deep.eq(apiResponse.object.concepts);
         });
       });
+    });
+  });
+
+  describe('record().mediaProxyUrl()', () => {
+    const europeanaId = '/123/abc';
+    const mediaUrl = 'https://www.example.org/audio.ogg';
+
+    it('uses origin https://proxy.europeana.eu', () => {
+      const proxyUrl = new URL(record().mediaProxyUrl(mediaUrl, europeanaId));
+
+      proxyUrl.origin.should.eq('https://proxy.europeana.eu');
+    });
+
+    it('uses europeanaId as path', () => {
+      const proxyUrl = new URL(record().mediaProxyUrl(mediaUrl, europeanaId));
+
+      proxyUrl.pathname.should.eq(europeanaId);
+    });
+
+    it('uses web resource URI as view param', () => {
+      const proxyUrl = new URL(record().mediaProxyUrl(mediaUrl, europeanaId));
+
+      proxyUrl.searchParams.get('view').should.eq(mediaUrl);
+    });
+
+    it('uses store Record API origin as api_url param', () => {
+      const proxyUrl = new URL(record().mediaProxyUrl(mediaUrl, europeanaId));
+
+      proxyUrl.searchParams.get('api_url').should.eq('https://api.europeana.eu/api');
+    });
+
+    it('sets additional params from final arg', () => {
+      const proxyUrl = new URL(record().mediaProxyUrl(mediaUrl, europeanaId, { disposition: 'inline' }));
+
+      proxyUrl.searchParams.get('disposition').should.eq('inline');
+    });
+  });
+
+  describe('record().relatedEntities()', () => {
+    const entityUri = 'http://data.europeana.eu/concept/base/94';
+    const entityFilterField = 'skos_concept';
+    const entityId = '94-architecture';
+    const entityType = 'topic';
+
+    const searchResponse = {
+      facets: [
+        {
+          name: 'skos_concept',
+          fields: [
+            { label: 'http://data.europeana.eu/agent/base/147831' },
+            { label: 'http://data.europeana.eu/agent/base/49928' }
+          ]
+        }
+      ]
+    };
+
+    // it('returns related entities', async() => {
+    //   nock(BASE_URL)
+    //     .get('/search')
+    //     .query(true)
+    //     .reply(200, entitiesResponse);
+    //
+    //   const response = await record().relatedEntities(entityType, entityId);
+    //
+    //   response.length.should.eq(entitiesResponse.items.length);
+    // });
+
+    it('filters on entity URI', async() => {
+      nock(BASE_URL)
+        .get('/search.json')
+        .query(query => query.query === `${entityFilterField}:"${entityUri}"`)
+        .reply(200, searchResponse);
+
+      await record().relatedEntities(entityType, entityId);
+
+      nock.isDone().should.be.true;
     });
   });
 
