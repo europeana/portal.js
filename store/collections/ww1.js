@@ -15,8 +15,8 @@ export const getters = {
     const options = Object.assign({}, state.apiOptions);
 
     if (getters.apiParams.api === 'fulltext') {
-      options.origin = getters.apiConfig.ww1.origin;
-      options.path = getters.apiConfig.ww1.path;
+      options.origin = getters.apiConfig.newspaper.origin;
+      options.path = getters.apiConfig.newspaper.path;
     }
 
     return options;
@@ -36,7 +36,7 @@ export const getters = {
       params.qf = ([].concat(params.qf)).filter(qf => !/^contentTier:/.test(qf));
       params.qf.push('contentTier:*');
 
-      params.wskey = getters.apiConfig.ww1.key;
+      params.wskey = getters.apiConfig.newspaper.key;
       params.profile = 'minimal,hits';
     }
 

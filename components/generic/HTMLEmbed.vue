@@ -27,7 +27,7 @@
         default: ''
       },
       error: {
-        type: String,
+        type: [String, Error],
         default: ''
       }
     }

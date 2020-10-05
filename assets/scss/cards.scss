@@ -30,6 +30,9 @@
     max-height: 13rem;
     min-height: 13rem;
     width: 100%;
+    &.placeholder {
+      background: $offwhite;
+    }
 
     img {
       object-fit: cover;
@@ -87,6 +90,7 @@
   .card-link {
     min-height: 100%;
     color: $black;
+    z-index: 1;
     &:hover {
       color: $black;
     }
@@ -281,6 +285,7 @@
     position: absolute;
     top: 1rem;
     right: 1rem;
+    z-index: 2;
 
     .btn {
       align-items: center;

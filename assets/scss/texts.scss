@@ -24,7 +24,6 @@ header .col {
 
   h1 {
     margin-bottom: 0.5rem;
-    text-transform: capitalize;
   }
 
   .subtitle,
@@ -33,10 +32,6 @@ header .col {
     font-size: $font-size-large;
     font-weight: normal;
     line-height: normal;
-    text-transform: capitalize;
-  }
-
-  p.lead {
     margin-bottom: 0.5rem;
   }
 
@@ -142,7 +137,7 @@ header .col {
   header + .description {
     margin-top: 1rem;
   }
-  .description p {
+  .description div p {
     color: $mediumgrey;
     &:last-child {
       margin-bottom: 0 !important;

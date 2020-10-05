@@ -6,6 +6,7 @@
     <AuthoredHead
       :title="page.name"
       :exhibition-title="exhibitionTitle"
+      :description="page.headline"
       :hero="hero"
     />
     <b-container>
