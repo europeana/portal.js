@@ -1,4 +1,13 @@
 export default {
+  "account": {
+    "notifications": {
+      "noCollections": {
+        "private": "U hebt nog geen openbare collecties gemaakt",
+        "public": "U hebt nog geen openbare collecties gemaakt"
+      },
+      "noLikedItems": "Je hebt nog geen Items geliked"
+    }
+  },
   "actions": {
     "download": "Download",
     "providedBy": "Aangeboden door {provider}",
