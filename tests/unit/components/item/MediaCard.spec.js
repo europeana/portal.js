@@ -9,9 +9,11 @@ const factory = (propsData) => shallowMount(MediaCard, {
   mocks: {
     $t: (key) => key,
     $path: () => '/',
-    $apis: {
-      mediaProxy: {
-        url: () => 'proxied'
+    $store: {
+      getters: {
+        'apis/record': {
+          mediaProxyUrl: () => 'proxied'
+        }
       }
     }
   }

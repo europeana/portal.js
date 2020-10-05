@@ -221,27 +221,33 @@ describe('components/search/SearchForm', () => {
   });
 
   describe('getSearchSuggestions', () => {
-    const $apisMock = {
-      entity: { getEntitySuggestions: sinon.stub().resolves([]) }
-    };
+    const store = new Vuex.Store({
+      getters: {
+        'apis/entity': () => ({
+          getEntitySuggestions: sinon.stub().resolves([])
+        }),
+        ...getters
+      },
+      state: { search: {}, ui: {} }
+    });
 
     context('auto-suggest is not enabled (by default)', () => {
-      const wrapper = factory({ mocks: { $apis: $apisMock } });
+      const wrapper = factory({ store });
       it('does not get suggestions from the Entity API', async() => {
         await wrapper.vm.getSearchSuggestions();
 
-        $apisMock.entity.getEntitySuggestions.should.not.have.been.called;
+        store.getters['apis/entity'].getEntitySuggestions.should.not.have.been.called;
       });
     });
 
     context('auto-suggest is enabled (by prop)', () => {
-      const wrapper = factory({ mocks: { $apis: $apisMock } });
+      const wrapper = factory({ store });
       wrapper.setProps({ enableAutoSuggest: true });
 
       it('gets suggestions from the Entity API', async() => {
         await wrapper.vm.getSearchSuggestions();
 
-        $apisMock.entity.getEntitySuggestions.should.have.been.called;
+        store.getters['apis/entity'].getEntitySuggestions.should.have.been.called;
       });
 
       // FIXME
