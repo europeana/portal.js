@@ -1,13 +1,6 @@
 import * as store from '../../../../store/collections/newspaper';
-import apiConfig from '../../../../plugins/europeana';
 
 describe('store/collections/newspaper', () => {
-  before(() => {
-    store.getters.$apis = {
-      config: apiConfig
-    };
-  });
-
   describe('getters', () => {
     describe('apiOptions', () => {
       context('when api param is "fulltext"', () => {
@@ -18,7 +11,7 @@ describe('store/collections/newspaper', () => {
         };
 
         it('sets url option to Newpapers API', () => {
-          store.getters.apiOptions({}, getters)(apiConfig).url.should.eq('https://newspapers.eanadev.org/api/v2');
+          store.getters.apiOptions({}, getters).url.should.eq('https://newspapers.eanadev.org/api/v2');
         });
       });
 
@@ -30,7 +23,7 @@ describe('store/collections/newspaper', () => {
         };
 
         it('does not set url option to Newpapers API', () => {
-          (store.getters.apiOptions({}, getters)(apiConfig).url === undefined).should.be.true;
+          (store.getters.apiOptions({}, getters).url === undefined).should.be.true;
         });
       });
     });
@@ -42,7 +35,7 @@ describe('store/collections/newspaper', () => {
         };
 
         it('defaults api param to "fulltext"', () => {
-          store.getters.apiParams(state)(apiConfig).api.should.eq('fulltext');
+          store.getters.apiParams(state).api.should.eq('fulltext');
         });
       });
 
@@ -55,7 +48,7 @@ describe('store/collections/newspaper', () => {
         };
 
         it('overrides contentTier filter to "*"', () => {
-          store.getters.apiParams(state)(apiConfig).qf.should.deep.eql(['contentTier:*']);
+          store.getters.apiParams(state).qf.should.deep.eql(['contentTier:*']);
         });
       });
     });

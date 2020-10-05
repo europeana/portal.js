@@ -504,15 +504,15 @@ describe('store/search', () => {
         const dispatch = sinon.spy();
         const state = { apiParams: { query: searchQuery, qf: [typeQf, collectionQf] } };
         const getters = {};
-        store.actions.$apis = {
-          record: {
+        const rootGetters = {
+          'apis/record': {
             search: sinon.stub().resolves({})
           }
         };
 
-        await store.actions.queryItems({ dispatch, state, getters });
+        await store.actions.queryItems({ dispatch, state, getters, rootGetters });
 
-        store.actions.$apis.record.search.should.have.been.called;
+        rootGetters['apis/record'].search.should.have.been.called;
       });
 
       context('on success', () => {
@@ -520,13 +520,13 @@ describe('store/search', () => {
           const dispatch = sinon.spy();
           const state = {};
           const getters = {};
-          store.actions.$apis = {
-            record: {
+          const rootGetters = {
+            'apis/record': {
               search: sinon.stub().resolves({})
             }
           };
 
-          await store.actions.queryItems({ dispatch, state, getters });
+          await store.actions.queryItems({ dispatch, state, getters, rootGetters });
 
           dispatch.should.have.been.calledWith('updateForSuccess');
         });
@@ -537,13 +537,13 @@ describe('store/search', () => {
           const dispatch = sinon.spy();
           const state = {};
           const getters = {};
-          store.actions.$apis = {
-            record: {
-              search: sinon.stub().rejects()
+          const rootGetters = {
+            'apis/record': {
+              search: sinon.stub().rejects({})
             }
           };
 
-          await store.actions.queryItems({ dispatch, state, getters });
+          await store.actions.queryItems({ dispatch, state, getters, rootGetters });
 
           dispatch.should.have.been.calledWith('updateForFailure');
         });
