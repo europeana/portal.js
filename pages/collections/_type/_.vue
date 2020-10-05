@@ -3,7 +3,10 @@
     data-qa="entity page"
     class="entity-page"
   >
-    <b-container fluid>
+    <b-container
+      fluid
+      class="p-0"
+    >
       <b-row class="flex-md-row pt-5 bg-white mb-4">
         <b-col
           cols="12"
