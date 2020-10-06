@@ -3,15 +3,12 @@
     data-qa="entity page"
     class="entity-page"
   >
-    <b-container
-      fluid
-      class="p-0"
-    >
+    <b-container fluid>
       <b-row class="flex-md-row pt-5 bg-white mb-4">
         <b-col
           cols="12"
         >
-          <b-container class="mb-5">
+          <b-container class="mb-5 px-0 px-md-3">
             <EntityDetails
               :description="description"
               :is-editorial-description="hasEditorialDescription"
