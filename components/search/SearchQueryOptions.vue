@@ -125,7 +125,7 @@
       },
 
       keydownUp() {
-        this.focus = (this.noOptionHasFocus || this.firstOptionHasFocus) ? this.value.length : this.focus - 1;
+        this.focus = (this.noOptionHasFocus || this.firstOptionHasFocus) ? this.value.length - 1 : this.focus - 1;
         this.selectSuggestion();
       },
 

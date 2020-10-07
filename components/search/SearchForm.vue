@@ -59,13 +59,6 @@
       SearchQueryOptions
     },
 
-    props: {
-      onCollectionPage: {
-        type: Boolean,
-        default: false
-      }
-    },
-
     data() {
       return {
         query: null,
@@ -83,6 +76,11 @@
         queryUpdatesForFacetChanges: 'search/queryUpdatesForFacetChanges',
         view: 'search/activeView'
       }),
+
+      onCollectionPage() {
+        // Auto suggest on search form will be disabled on entity pages.
+        return !!(this.$store.state.entity && this.$store.state.entity.id);
+      },
 
       suggestionSearchOptions() {
         return Object.values(this.suggestions).map(suggestion => (
@@ -122,7 +120,7 @@
             path: this.query ? 'header.inCollection' : 'header.searchForEverythingInCollection',
             slots: [
               { name: 'query', texts: { highlight: true, text: this.query } },
-              { name: 'collection', texts: { highlight: true, text: this.collectionLabel } }
+              { name: 'collection', texts: { text: this.collectionLabel } }
             ]
           }
         };
