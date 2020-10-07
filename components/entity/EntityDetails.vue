@@ -56,10 +56,6 @@
         type: Object,
         required: true
       },
-      query: {
-        type: String,
-        default: null
-      },
       // Description as object with 'values' (array of strings) and 'code' two letter language code
       description: {
         type: Object,

@@ -13,7 +13,6 @@
             :description="description"
             :is-editorial-description="hasEditorialDescription"
             :title="title"
-            :query="$route.query.query"
           />
           <client-only>
             <section

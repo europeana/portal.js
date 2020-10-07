@@ -18,10 +18,10 @@
         :aria-label="$t('search')"
         :aria-selected="focus === 0"
         :class="{ 'hover': focus === 0 }"
-        :data-index="0"
+        @click="blurInput"
+        @focus="focus === 0"
         @mouseover="focus = 0"
         @mouseout="focus = null"
-        @focus="focus === 0"
         @mousedown.prevent
       >
         <i18n
@@ -41,16 +41,15 @@
       <b-list-group-item
         :to="queryLinkGen(query)"
         class="search"
-        role="option"
         data-qa="search entire collection button"
         :aria-label="$t('search')"
         :aria-selected="focus === 1"
         :class="{ 'hover': focus === 1 }"
+        @click.prevent="blurInput(); removeCollectionLabel();"
+        @focus="focus === 1"
         @mouseover="focus = 1"
         @mouseout="focus = null"
-        @focus="focus === 1"
         @mousedown.prevent
-        @click.prevent="removeCollectionLabel"
       >
         <i18n
           v-if="query"
@@ -77,9 +76,10 @@
         :aria-label="$t('search')"
         :aria-selected="focus === 0"
         :class="{ 'hover': focus === 0 }"
+        @click="blurInput"
+        @focus="focus === 0"
         @mouseover="focus = 0"
         @mouseout="focus = null"
-        @focus="focus === 0"
         @mousedown.prevent
       >
         <i18n
@@ -103,10 +103,10 @@
         :aria-selected="index + 1 === focus"
         :to="suggestionLinkGen(val)"
         :class="{ 'hover': index + 1 === focus }"
-        :data-index="index + 1"
+        @click="blurInput"
+        @focus="index + 1 === focus"
         @mouseover="focus = index + 1"
         @mouseout="focus = null"
-        @focus="index + 1 === focus"
         @mousedown.prevent
       >
         <template
@@ -284,7 +284,7 @@
       keydown(event) {
         switch (event.keyCode) {
         case 27: // Escape key
-          this.inputElement.blur();
+          this.blurInput();
           break;
         case 9: // Tab key
           this.closeDropdown();
@@ -316,6 +316,10 @@
           this.focus = (this.noSuggestionHasFocus || this.lastSuggestionHasFocus) ? 0 : this.focus + 1;
         }
         this.selectSuggestion();
+      },
+
+      blurInput() {
+        this.inputElement.blur();
       },
 
       clickOutside(event) {
