@@ -1,15 +1,33 @@
 export default {
+  "account": {
+    "likes": "Likes",
+    "linkAccount": "My Account",
+    "linkLogin": "Login",
+    "linkLogout": "Log out",
+    "notifications": {
+      "noCollections": {
+        "private": "You haven’t created any private collections yet",
+        "public": "You haven’t created any public collections yet"
+      },
+      "noLikedItems": "You haven’t liked any items yet"
+    },
+    "privateCollections": "Private Collections",
+    "profile": "My Likes & Collections",
+    "publicCollections": "Public Collections",
+    "settings": "Settings",
+    "title": "My account"
+  },
   "actions": {
-    "close": "Close",
+    "close": "close",
     "download": "Download",
     "edit": "Edit",
     "goBack": "Go back",
+    "like": "Like",
     "providedBy": "Provided by {provider}",
     "share": "Share",
     "shareOn": "Share on {social}",
     "viewAt": "View at {link}",
-    "viewDocument": "View document",
-    "like": "Like"
+    "viewDocument": "View document"
   },
   "attribution": {
     "country": "Country:",
@@ -22,12 +40,12 @@ export default {
     "author": "Author",
     "authors": "Authors",
     "blog": "Blog",
+    "by": "by",
     "categories": "Categories",
     "category": "Category",
     "posts": "Blog posts",
-    "relatedPosts": "Related posts",
     "published": "Published {date}",
-    "by": "by"
+    "relatedPosts": "Related posts"
   },
   "clearAllFilters": "clear all filters",
   "collections": {
@@ -88,6 +106,7 @@ export default {
     "right": "Right"
   },
   "edmIsShownAtLinkAlt": "View at the provider's website",
+  "entity": "Entity",
   "error": "Error",
   "exhibitions": {
     "chapters": "Chapters",
@@ -540,39 +559,7 @@ export default {
     "grid": "Grid view",
     "list": "List view"
   },
-  "showLess": "Show less",
-  "showMore": "Show more",
-  "account": {
-    "title": "My account",
-    "linkAccount": "Account",
-    "linkLogin": "Log in",
-    "linkLogout": "Log out",
-    "profile": "My Likes & Collections",
-    "settings": "Settings",
-    "likes": "Likes",
-    "publicCollections": "Public Collections",
-    "privateCollections": "Private Collections",
-    "notifications": {
-      "noLikedItems": "You haven’t liked any items yet",
-      "noCollections": {
-        "public": "You haven’t created any public collections yet",
-        "private": "You haven’t created any private collections yet"
-      }
-    }
-  },
   "set": {
-    "form": {
-      "description": "Collection description",
-      "title": "Collection name",
-      "private": "Keep this collection private"
-    },
-    "notifications": {
-      "deleted": "Your collection has been deleted.",
-      "itemAdded": "The item has been added to your collection."
-    },
-    "prompts": {
-      "delete": "Are you sure you want to delete this collection? If you delete this collection, you will lose all the items you've added to it."
-    },
     "actions": {
       "addTo": "Add to collection",
       "create": "Create collection",
@@ -581,9 +568,22 @@ export default {
       "edit": "Edit collection",
       "update": "Update collection"
     },
+    "form": {
+      "description": "Collection description",
+      "private": "Keep this collection private",
+      "title": "Collection name"
+    },
     "labels": {
       "curatedBy": "Curated by",
       "private": "Private collection"
+    },
+    "notifications": {
+      "deleted": "Your collection has been deleted."
+    },
+    "prompts": {
+      "delete": "Are you sure you want to delete this collection? If you delete this collection, you will lose all the items you've added to it."
     }
-  }
+  },
+  "showLess": "Show less",
+  "showMore": "Show more"
 };

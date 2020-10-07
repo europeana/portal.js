@@ -69,7 +69,8 @@ const factory = (options = {}) => {
         },
         actions: {
           queryFacets: () => null,
-          run: () => null
+          run: () => null,
+          setResettableFilter: () => null
         }
       }
     }
