@@ -37,15 +37,8 @@
       />
       <SearchQueryOptions
         v-if="showSearchOptions"
-        v-model="suggestions"
-        :on-collection-page="onCollectionPage"
-        :entity-collection-label="collectionLabel"
-        :remove-collection-label="toggleSearchAndRemoveLabel"
+        v-model="searchQueryOptions"
         element-id="search-form-options"
-        :suggestion-link-gen="suggestionLinkGen"
-        :query-link-gen="linkGen"
-        :in-collection-link-gen="searchInCollection"
-        :query="query"
         @select="selectSuggestion"
       />
     </b-input-group>
@@ -57,6 +50,7 @@
   import { getEntitySuggestions } from '../../plugins/europeana/entity';
   import { mapGetters } from 'vuex';
   import match from 'autosuggest-highlight/match';
+  import parse from 'autosuggest-highlight/parse';
 
   export default {
     name: 'SearchForm',
@@ -90,6 +84,58 @@
         view: 'search/activeView'
       }),
 
+      suggestionSearchOptions() {
+        return Object.values(this.suggestions).map(suggestion => (
+          {
+            link: this.suggestionLinkGen(suggestion),
+            qa: `${suggestion} search suggestion`,
+            texts: this.highlightSuggestion(suggestion)
+          }
+        ));
+      },
+
+      globalSearchOption() {
+        const globalSearchOption = {
+          link: this.linkGen(this.query),
+          qa: 'search entire collection button',
+          i18n: {
+            slots: this.query ? [
+              { name: 'query', texts: { highlight: true, text: this.query } }
+            ] : []
+          }
+        };
+
+        if (this.onCollectionPage) {
+          globalSearchOption.i18n.path = this.query ? 'header.entireCollection' : 'header.searchForEverythingInEntireCollection';
+        } else {
+          globalSearchOption.i18n.path = this.query ? 'header.searchFor' : 'header.searchForEverything';
+        }
+
+        return globalSearchOption;
+      },
+
+      collectionSearchOption() {
+        return {
+          link: this.searchInCollection(this.query),
+          qa: 'search in collection button',
+          i18n: {
+            path: this.query ? 'header.inCollection' : 'header.searchForEverythingInCollection',
+            slots: [
+              { name: 'query', texts: { highlight: true, text: this.query } },
+              { name: 'collection', texts: { highlight: true, text: this.collectionLabel } }
+            ]
+          }
+        };
+      },
+
+      searchQueryOptions() {
+        if (this.onCollectionPage) {
+          return [this.collectionSearchOption, this.globalSearchOption];
+        } else {
+          return [this.globalSearchOption].concat(this.suggestionSearchOptions);
+        }
+      },
+
       onSearchablePage() {
         return this.$store.state.search.active;
       },
@@ -119,6 +165,7 @@
         };
       }
     },
+
     watch: {
       '$route.query.query'() {
         if (this.$refs.searchbox) this.$refs.searchbox.$el.blur();
@@ -134,6 +181,16 @@
     },
 
     methods: {
+      // Highlight the user's query in a suggestion
+      // FIXME: only re-highlight when new suggestions come in, not immediately
+      //        after the query changes?
+      highlightSuggestion(value) {
+        const matchQuery = this.query ? this.query.replace(/(^")|("$)/g, '') : undefined;
+        // Find all the suggestion labels that match the query
+        const matches = match(value, matchQuery);
+        return parse(value, matches);
+      },
+
       initQuery() {
         this.query = this.$route.query.query;
       },
