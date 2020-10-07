@@ -39,7 +39,7 @@
         v-if="showSearchOptions"
         v-model="searchQueryOptions"
         element-id="search-form-options"
-        @select="selectSuggestion"
+        @select="selectSearchOption"
       />
     </b-input-group>
   </b-form>
@@ -66,7 +66,7 @@
         suggestions: {},
         activeSuggestionsQueryTerm: null,
         showSearchOptions: false,
-        selectedSuggestionLink: null
+        selectedOptionLink: null
       };
     },
 
@@ -193,16 +193,16 @@
         this.query = this.$route.query.query;
       },
 
-      selectSuggestion(value) {
-        this.selectedSuggestionLink = value;
+      selectSearchOption(value) {
+        this.selectedOptionLink = value;
       },
 
       async submitForm() {
         let newRoute;
 
-        if (this.selectedSuggestionLink) {
-          newRoute = this.selectedSuggestionLink;
-          this.query = this.selectedSuggestionLink.query.query;
+        if (this.selectedOptionLink) {
+          newRoute = this.selectedOptionLink;
+          this.query = this.selectedOptionLink.query.query;
           if (this.query !== this.activeSuggestionsQueryTerm) this.suggestions = {};
         } else {
           const newRouteQuery = { ...this.$route.query, ...{ page: 1, view: this.view, query: this.query || '' } };
@@ -211,7 +211,7 @@
 
         if (this.$refs.searchbox) this.$refs.searchbox.$el.blur();
         await this.$goto(newRoute);
-        this.selectedSuggestionLink = null;
+        this.selectedOptionLink = null;
       },
 
       updateSuggestions() {

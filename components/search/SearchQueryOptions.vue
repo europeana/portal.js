@@ -155,8 +155,8 @@
       },
 
       selectSuggestion() {
-        if (this.focus && this.options[this.focus]) {
-          this.$emit('select', this.options[this.focus]);
+        if (this.focus && this.value[this.focus]) {
+          this.$emit('select', this.value[this.focus].link);
         } else {
           // fallback to the query by unselecting any suggestions.
           this.$emit('select', null);
