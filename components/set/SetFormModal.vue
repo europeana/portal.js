@@ -135,6 +135,7 @@
         titleValue: '',
         descriptionValue: '',
         isPrivate: false,
+        disableForm: false,
         deleteSetModalId: `delete-set-modal-${this.setId}`
       };
     },
@@ -179,13 +180,18 @@
 
       // TODO: error handling
       submitForm() {
-        const handler = this.isNew ?
-          this.$store.dispatch('set/createSet', this.setBody) :
-          this.$store.dispatch('set/updateSet', { id: this.setId, body: this.setBody });
+        if (!this.disableForm) {
+          this.disableForm = true;
+          const handler = this.isNew ?
+            this.$store.dispatch('set/createSet', this.setBody) :
+            this.$store.dispatch('set/updateSet', { id: this.setId, body: this.setBody });
 
-        return handler.then(() => {
-          this.hide(this.isNew ? 'create' : 'update');
-        });
+          return handler.then(() => {
+            this.hide(this.isNew ? 'create' : 'update');
+          }).then(() => {
+            this.disableForm = false;
+          });
+        }
       },
 
       show() {
