@@ -88,4 +88,3 @@ Feature: Entity page
     And I wait for the page to load
     Then I see the `search page`
     And I don't have the `entity title`
-    And I am on page number 1
