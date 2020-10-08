@@ -18,6 +18,7 @@
             :url="{ name: 'galleries-all', params: { pathMatch: gallery.identifier } }"
             :image-url="gallery.hasPartCollection.items[0] && imageUrl(gallery.hasPartCollection.items[0])"
             :texts="[gallery.description]"
+            no-subtitle
           />
         </b-card-group>
       </b-col>

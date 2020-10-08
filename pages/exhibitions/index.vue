@@ -22,6 +22,7 @@
             :image-content-type="imageContentType(exhibition.primaryImageOfPage)"
             :image-optimisation-options="{ width: 510 }"
             :texts="[exhibition.description]"
+            no-subtitle
           />
         </b-card-group>
       </b-col>
