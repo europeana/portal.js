@@ -135,7 +135,7 @@
         titleValue: '',
         descriptionValue: '',
         isPrivate: false,
-        disableForm: false,
+        submissionPending: false,
         deleteSetModalId: `delete-set-modal-${this.setId}`
       };
     },
@@ -180,8 +180,8 @@
 
       // TODO: error handling
       submitForm() {
-        if (!this.disableForm) {
-          this.disableForm = true;
+        if (!this.submissionPending) {
+          this.submissionPending = true;
           const handler = this.isNew ?
             this.$store.dispatch('set/createSet', this.setBody) :
             this.$store.dispatch('set/updateSet', { id: this.setId, body: this.setBody });
@@ -189,7 +189,7 @@
           return handler.then(() => {
             this.hide(this.isNew ? 'create' : 'update');
           }).then(() => {
-            this.disableForm = false;
+            this.submissionPending = false;
           });
         }
       },
