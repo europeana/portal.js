@@ -180,18 +180,17 @@
 
       // TODO: error handling
       submitForm() {
-        if (!this.submissionPending) {
-          this.submissionPending = true;
-          const handler = this.isNew ?
-            this.$store.dispatch('set/createSet', this.setBody) :
-            this.$store.dispatch('set/updateSet', { id: this.setId, body: this.setBody });
+        if (this.submissionPending) return;
+        this.submissionPending = true;
+        const handler = this.isNew ?
+          this.$store.dispatch('set/createSet', this.setBody) :
+          this.$store.dispatch('set/updateSet', { id: this.setId, body: this.setBody });
 
-          return handler.then(() => {
-            this.hide(this.isNew ? 'create' : 'update');
-          }).then(() => {
-            this.submissionPending = false;
-          });
-        }
+        return handler.then(() => {
+          this.hide(this.isNew ? 'create' : 'update');
+        }).then(() => {
+          this.submissionPending = false;
+        });
       },
 
       show() {
