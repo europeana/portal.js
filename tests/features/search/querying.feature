@@ -47,10 +47,11 @@ Feature: Search querying
     Given I am on the `home page`
     And I click the `show search button`
     And I enter "World" in the `search box`
-    And I see `search suggestions` with the text "World War I"
+    And I see `search query options` with the text "World War I"
     And I press the DOWN_ARROW key
     And I press the DOWN_ARROW key
     And I press the ENTER key
+    And I wait for the page to load
     Then I see the `search page`
     And I see "\"World War I\"" in the `search box`
 
@@ -58,16 +59,16 @@ Feature: Search querying
     When I visit a `search page`
     And I click the `show search button`
     And I enter "World" in the `search box`
-    And I see `search suggestions` with the text "World War I"
+    And I see `search query options` with the text "World War I"
     And I press the ESCAPE key
-    Then I don't have `search suggestions`
+    Then I don't have `search query options`
 
   Scenario: No auto suggestion on entity pages, only the search buttons
     Given I am on an `entity page`
     And I click the `show search button`
     And I enter "World" in the `search box`
     And I wait 1 second
-    Then I see `search suggestions`
+    Then I see `search query options`
     And there is no `World war II search suggestion`
 
   Scenario: Back button restores previous query
