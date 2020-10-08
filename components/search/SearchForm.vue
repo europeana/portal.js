@@ -98,7 +98,7 @@
           qa: 'search entire collection button',
           i18n: {
             slots: this.query ? [
-              { name: 'query', texts: { highlight: true, text: this.query } }
+              { name: 'query', value: { highlight: true, text: this.query } }
             ] : []
           }
         };
@@ -114,13 +114,13 @@
 
       collectionSearchOption() {
         return {
-          link: this.searchInCollection(this.query),
+          link: this.searchInCollectionLinkGen(this.query),
           qa: 'search in collection button',
           i18n: {
             path: this.query ? 'header.inCollection' : 'header.searchForEverythingInCollection',
             slots: [
-              { name: 'query', texts: { highlight: true, text: this.query } },
-              { name: 'collection', texts: { text: this.collectionLabel } }
+              { name: 'query', value: { highlight: true, text: this.query } },
+              { name: 'collection', value: { text: this.collectionLabel } }
             ]
           }
         };
@@ -264,21 +264,21 @@
         return this.linkGen(formattedSuggestion);
       },
 
-      linkGen(queryTerm) {
+      linkGen(queryTerm, path) {
         const query = {
           view: this.view,
-          query: queryTerm
+          query: queryTerm || ''
         };
         return {
-          path: this.$path({
+          path: path || this.$path({
             name: 'search'
           }),
           query
         };
       },
 
-      searchInCollection(query) {
-        return this.$route.path + '?page=1&view=grid&query=' + query;
+      searchInCollectionLinkGen(query) {
+        return this.linkGen(query, this.$route.path);
       },
 
       clearQuery() {

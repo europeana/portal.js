@@ -2,7 +2,7 @@
   <b-list-group
     :id="elementId"
     class="auto-suggest-dropdown"
-    data-qa="search suggestions"
+    data-qa="search query options"
     role="listbox"
     :aria-label="$t('searchSuggestions')"
   >
@@ -30,7 +30,7 @@
         >
           <TextHighlighter
             :key="slotIndex"
-            v-model="slot.texts"
+            v-model="slot.value"
           />
         </template>
       </i18n>
@@ -56,6 +56,32 @@
     },
 
     props: {
+      /**
+       * Array of objects for the query options to render as links
+       *
+       * @example with i18n and named slots
+       * [
+       *   {
+       *     link: { path: '/en/search', query: { query: 'map' } },
+       *     qa: 'search button',
+       *     i18n: { path: 'header.searchFor', slots: [
+       *       { name: 'query', value: { text: 'map', highlight: true } }
+       *     ] }
+       *   }
+       * ]
+       * @example with non-i18n texts
+       * [
+       *   {
+       *     link: { path: '/en/search', query: { query: '"Charles Dickens"' } },
+       *     qa: 'Charles Dickens search suggestion',
+       *     texts: [
+       *       { text: 'Charles ', highlight: false },
+       *       { text: 'D', highlight: true },
+       *       { text: 'ickens ', highlight: false }
+       *     ]
+       *   }
+       * ]
+       */
       value: {
         type: Array,
         required: true
