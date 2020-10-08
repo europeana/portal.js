@@ -222,7 +222,7 @@
       },
 
       getSearchSuggestions(query) {
-        if (query === '') {
+        if (!query || query === '') {
           this.suggestions = {};
           this.activeSuggestionsQueryTerm = null;
           return;
