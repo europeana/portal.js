@@ -1,7 +1,7 @@
 module.exports = function(migration) {
-  const blogPost = migration.editContentType('blogPosting');
-  blogPost.createField('entities')
-    .name('Entity Links')
+  const blogPosting = migration.editContentType('blogPosting');
+  blogPosting.createField('relatedLink')
+    .name('Related entities')
     .type('Array')
     .localized(false)
     .required(false)
