@@ -37,7 +37,7 @@
 </template>
 
 <script>
-  import { getEntitySuggestions, findEntities } from '../../plugins/europeana/entity';
+  import { getEntitySuggestions, findEntities } from '../../../plugins/europeana/entity';
 
   export default {
     layout: 'contentful',
@@ -59,6 +59,8 @@
       window.contentfulExtension.init(sdk => {
         this.contentfulExtensionSdk = sdk;
         if (sdk.location.is(window.contentfulExtension.locations.LOCATION_ENTRY_FIELD)) {
+          sdk.window.startAutoResizer();
+
           const ids = sdk.field.getValue() || [];
           if (ids.length > 0) {
             findEntities(ids)
@@ -97,7 +99,7 @@
 
     head() {
       return {
-        title: 'Contentful app'
+        title: 'Entity suggest - Contentful app'
       };
     }
   };
