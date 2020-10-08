@@ -253,8 +253,8 @@ describe('components/search/SearchForm', () => {
 
     context('auto-suggest is enabled (by default)', () => {
       const wrapper = factory();
-      it('does gets suggestions from the Entity API', async() => {
-        await wrapper.vm.getSearchSuggestions();
+      it('gets suggestions from the Entity API', async() => {
+        await wrapper.vm.getSearchSuggestions('something');
 
         nock.isDone().should.be.true;
       });
