@@ -52,4 +52,4 @@ Scenario: Newspapers collection API toggle is removed by searching in the entire
     When I enter "paris" in the `search box`
     And I click the `search entire collection button`
     Then I see the `search page`
-    And I should be on `/en/search?page=1&view=grid&query=paris`
+    And I should be on `/en/search?view=grid&query=paris`

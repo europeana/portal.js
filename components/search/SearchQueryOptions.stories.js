@@ -1,4 +1,3 @@
-import Vuex from 'vuex';
 import VueRouter from 'vue-router';
 import { storiesOf } from '@storybook/vue';
 import SearchQueryOptions from './SearchQueryOptions.vue';
@@ -12,51 +11,55 @@ const router = new VueRouter({
   ]
 });
 
-const store = new Vuex.Store({
-  state: {
-    i18n: {
-      locale: 'en'
-    }
-  }
-});
-
 const i18n = {
   locale: 'en',
   messages: {
     en: {
-      header: {
-        searchFor: 'Search for {0}',
-        searchForEverything: 'Search for everything'
-      }
+      searchFor: 'Search for {query}'
     }
   }
 };
 
 storiesOf('Search / Search Query Options', module)
-  .add('Without suggestions', () => ({
+  .add('With i18n', () => ({
     components: { SearchQueryOptions },
-    store,
     i18n,
     router,
-    template: '<b-container class="mt-3"><b-form-input ref="searchbox" /><SearchQueryOptions /></b-container>'
-  }))
-  .add('With suggestions', () => ({
-    components: { SearchQueryOptions },
     data() {
       return {
-        suggestions: {
-          '/1': 'Manuscript',
-          '/2': 'Human settlement',
-          '/3': 'Food'
-        }
+        options: [
+          {
+            link: { path: '/en/search', query: { query: 'map' } },
+            qa: 'highlighted query',
+            i18n: {
+              path: 'searchFor', slots: [
+                { name: 'query', value: { text: 'map', highlight: true } }
+              ]
+            }
+          }
+        ]
       };
     },
-    store,
+    template: '<b-container class="mt-3"><b-form-input ref="searchbox" /><SearchQueryOptions v-model="options" /></b-container>'
+  }))
+  .add('With texts', () => ({
+    components: { SearchQueryOptions },
     i18n,
     router,
-    template: `
-      <b-container class="mt-3">
-        <b-form-input ref="searchbox" value="man" />
-        <SearchQueryOptions v-model="suggestions" query="man" />
-      </b-container>`
+    data() {
+      return {
+        options: [
+          {
+            link: { path: '/en/search', query: { query: '"Charles Dickens"' } },
+            qa: 'texts link',
+            texts: [
+              { text: 'Charles ', highlight: false },
+              { text: 'D', highlight: true },
+              { text: 'ickens ', highlight: false }
+            ]
+          }
+        ]
+      };
+    },
+    template: '<b-container class="mt-3"><b-form-input ref="searchbox" /><SearchQueryOptions v-model="options" /></b-container>'
   }));

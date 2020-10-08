@@ -37,10 +37,10 @@ const i18n = {
       searchPlaceholder: 'What are you looking for?',
       header: {
         clearQuery: 'Clear Search Query',
-        entireCollection: 'Search for {0} in our entire collection',
-        inCollection: 'Search for {0} in {1}',
-        searchFor: 'Search for {0}',
-        searchForEverythingInCollection: 'Search for everything in {0}',
+        entireCollection: 'Search for {query} in our entire collection',
+        inCollection: 'Search for {query} in {collection}',
+        searchFor: 'Search for {query}',
+        searchForEverythingInCollection: 'Search for everything in {collection}',
         searchForEverythingInEntireCollection: 'Search for everything in our entire collection',
         searchForEverything: 'Search for everything'
       }
@@ -60,8 +60,10 @@ storiesOf('Search / Form', module)
     components: { SearchForm },
     store: store({
       collectionLabel: 'Byzantine art'
+    }, {
+      id: 'http://data.europeana.eu/concept/207'
     }),
     i18n,
     router,
-    template: '<b-container class="mt-3"><SearchForm on-collection-page="true"/></b-container>'
+    template: '<b-container class="mt-3"><SearchForm/></b-container>'
   }));

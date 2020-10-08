@@ -21,7 +21,6 @@
         role="search"
         aria-label="search form"
         data-qa="search form"
-        :on-collection-page="onCollectionPage"
       />
     </div>
     <template
@@ -115,10 +114,6 @@
     },
 
     props: {
-      onCollectionPage: {
-        type: Boolean,
-        default: false
-      },
       mainNavigation: {
         type: Object,
         default: null

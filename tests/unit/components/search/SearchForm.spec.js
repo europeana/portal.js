@@ -48,12 +48,12 @@ const getters = {
   'search/activeView': (state) => state.search.view,
   'search/queryUpdatesForFacetChanges': () => () => {}
 };
-const store = (searchState = {}) => {
+const store = (state = {}) => {
   return new Vuex.Store({
     getters,
     state: {
       i18n: { locale: 'en' },
-      search: searchState
+      ...state
     }
   });
 };
@@ -107,7 +107,9 @@ describe('components/search/SearchForm', () => {
           }
         },
         store: store({
-          active: true
+          search: {
+            active: true
+          }
         })
       });
 
@@ -122,7 +124,9 @@ describe('components/search/SearchForm', () => {
           $path
         },
         store: store({
-          active: false
+          search: {
+            active: false
+          }
         })
       });
 
@@ -144,10 +148,10 @@ describe('components/search/SearchForm', () => {
           },
           view: 'grid'
         };
-        const wrapper = factory({ store: store({ searchState: { showSearchBar: true } }) });
+        const wrapper = factory({ store: store({ search: { showSearchBar: true } }) });
 
         wrapper.setData({
-          selectedSuggestionLink: { path: '/search', query: { query: '"Fresco"', view: state.view } }
+          selectedOptionLink: { path: '/search', query: { query: '"Fresco"', view: state.view } }
         });
         wrapper.vm.submitForm();
 
@@ -166,11 +170,13 @@ describe('components/search/SearchForm', () => {
     context('when on a search page', () => {
       it('updates current route', () => {
         const state = {
-          active: true,
-          userParams: {
-            query: ''
-          },
-          view: 'grid'
+          search: {
+            active: true,
+            userParams: {
+              query: ''
+            },
+            view: 'grid'
+          }
         };
         const wrapper = factory({ store: store(state) });
 
@@ -181,7 +187,7 @@ describe('components/search/SearchForm', () => {
 
         const newRouteParams = {
           path: wrapper.vm.$route.path,
-          query: { query, page: 1, view: state.view }
+          query: { query, page: 1, view: state.search.view }
         };
         $goto.should.have.been.calledWith(newRouteParams);
       });
@@ -190,11 +196,13 @@ describe('components/search/SearchForm', () => {
     context('when not on a search page', () => {
       it('reroutes to search', () => {
         const state = {
-          active: false,
-          userParams: {
-            query: ''
-          },
-          view: 'list'
+          search: {
+            active: false,
+            userParams: {
+              query: ''
+            },
+            view: 'list'
+          }
         };
         const wrapper = factory({ store: store(state) });
 
@@ -205,7 +213,7 @@ describe('components/search/SearchForm', () => {
 
         const newRouteParams = {
           path: '/search',
-          query: { query, page: 1, view: state.view }
+          query: { query, page: 1, view: state.search.view }
         };
         $goto.should.have.been.calledWith(newRouteParams);
       });
@@ -214,11 +222,13 @@ describe('components/search/SearchForm', () => {
 
   describe('suggestionLinkGen', () => {
     const state = {
-      active: false,
-      userParams: {
-        query: ''
-      },
-      view: 'grid'
+      search: {
+        active: false,
+        userParams: {
+          query: ''
+        },
+        view: 'grid'
+      }
     };
     const wrapper = factory({ store: store(state) });
 
@@ -243,16 +253,21 @@ describe('components/search/SearchForm', () => {
 
     context('auto-suggest is enabled (by default)', () => {
       const wrapper = factory();
-      it('does gets suggestions from the Entity API', async() => {
-        await wrapper.vm.getSearchSuggestions();
+      it('gets suggestions from the Entity API', async() => {
+        await wrapper.vm.getSearchSuggestions('something');
 
         nock.isDone().should.be.true;
       });
     });
 
-    context('auto-suggest is de-activated (by prop) onCollectionPage', () => {
-      const wrapper = factory();
-      wrapper.setProps({ onCollectionPage: true });
+    context('auto-suggest is de-activated by store state having entity', () => {
+      const wrapper = factory({
+        store: store({
+          entity: {
+            id: 'http://data.europeana.eu/concept/123'
+          }
+        })
+      });
 
       it('does not get suggestions from the Entity API', async() => {
         await wrapper.vm.getSearchSuggestions();

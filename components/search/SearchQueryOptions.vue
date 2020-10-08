@@ -2,176 +2,89 @@
   <b-list-group
     :id="elementId"
     class="auto-suggest-dropdown"
-    data-qa="search suggestions"
+    data-qa="search query options"
     role="listbox"
     :aria-label="$t('searchSuggestions')"
-    :aria-hidden="!isActive"
   >
-    <template
-      v-if="onCollectionPage"
+    <b-list-group-item
+      v-for="(option, index) in value"
+      :key="index"
+      :to="option.link"
+      :data-qa="option.qa"
+      role="option"
+      :aria-selected="index === focus"
+      :class="{ 'hover': index === focus }"
+      @click="blurInput"
+      @focus="index === focus"
+      @mouseover="focus = index"
+      @mouseout="focus = null"
+      @mousedown.prevent
     >
-      <b-list-group-item
-        :to="inCollectionLinkGen(query)"
-        class="search"
-        data-qa="search in collection button"
-        role="option"
-        :aria-label="$t('search')"
-        :aria-selected="focus === 0"
-        :class="{ 'hover': focus === 0 }"
-        @click="blurInput"
-        @focus="focus === 0"
-        @mouseover="focus = 0"
-        @mouseout="focus = null"
-        @mousedown.prevent
-      >
-        <i18n
-          v-if="query"
-          path="header.inCollection"
-          tag="span"
-        >
-          <strong>{{ query }}</strong>
-          <span>{{ entityCollectionLabel }}</span>
-        </i18n>
-        <span
-          v-else
-        >
-          {{ $t('header.searchForEverythingInCollection', [entityCollectionLabel]) }}
-        </span>
-      </b-list-group-item>
-      <b-list-group-item
-        :to="queryLinkGen(query)"
-        class="search"
-        data-qa="search entire collection button"
-        :aria-label="$t('search')"
-        :aria-selected="focus === 1"
-        :class="{ 'hover': focus === 1 }"
-        @click.prevent="blurInput(); removeCollectionLabel();"
-        @focus="focus === 1"
-        @mouseover="focus = 1"
-        @mouseout="focus = null"
-        @mousedown.prevent
-      >
-        <i18n
-          v-if="query"
-          path="header.entireCollection"
-          tag="span"
-        >
-          <strong>{{ query }}</strong>
-        </i18n>
-        <span
-          v-else
-        >
-          {{ $t('header.searchForEverythingInEntireCollection') }}
-        </span>
-      </b-list-group-item>
-    </template>
-    <template
-      v-else
-    >
-      <b-list-group-item
-        :to="queryLinkGen(query)"
-        class="search"
-        role="option"
-        data-qa="search button"
-        :aria-label="$t('search')"
-        :aria-selected="focus === 0"
-        :class="{ 'hover': focus === 0 }"
-        @click="blurInput"
-        @focus="focus === 0"
-        @mouseover="focus = 0"
-        @mouseout="focus = null"
-        @mousedown.prevent
-      >
-        <i18n
-          v-if="query"
-          path="header.searchFor"
-          tag="span"
-        >
-          <strong>{{ query }}</strong>
-        </i18n>
-        <span
-          v-else
-        >
-          {{ $t('header.searchForEverything') }}
-        </span>
-      </b-list-group-item>
-      <b-list-group-item
-        v-for="(val, name, index) in value"
-        :key="index + 1"
-        role="option"
-        :data-qa="val + ' search suggestion'"
-        :aria-selected="index + 1 === focus"
-        :to="suggestionLinkGen(val)"
-        :class="{ 'hover': index + 1 === focus }"
-        @click="blurInput"
-        @focus="index + 1 === focus"
-        @mouseover="focus = index + 1"
-        @mouseout="focus = null"
-        @mousedown.prevent
+      <i18n
+        v-if="option.i18n"
+        :path="option.i18n.path"
       >
         <template
-          v-for="(part, partIndex) in highlightResult(val)"
+          v-for="(slot, slotIndex) in option.i18n.slots"
+          v-slot:[slot.name]
         >
-          <strong
-            v-if="part.highlight"
-            :key="partIndex"
-            class="highlight"
-            data-qa="highlighted"
-          >{{ part.text }}</strong> <!-- Do not put onto a new line -->
-          <span
-            v-else
-            :key="partIndex"
-          >{{ part.text }}</span> <!-- Do not put onto a new line -->
+          <TextHighlighter
+            :key="slotIndex"
+            v-model="slot.value"
+          />
         </template>
-      </b-list-group-item>
-    </template>
+      </i18n>
+      <template
+        v-else-if="option.texts"
+      >
+        <TextHighlighter
+          v-model="option.texts"
+        />
+      </template>
+    </b-list-group-item>
   </b-list-group>
 </template>
 
 <script>
-  import match from 'autosuggest-highlight/match';
-  import parse from 'autosuggest-highlight/parse';
+  import TextHighlighter from '../generic/TextHighlighter';
 
   export default {
     name: 'SearchQueryOptions',
 
+    components: {
+      TextHighlighter
+    },
+
     props: {
-      // TODO: potential refactor here to only pass the suggestion labels in. URIs are currently not used anywhere.
-      // Property names are identifiers, emitted when suggestion is selected.
-      // Property values are the text for.the match
-      // @example
-      //     {
-      //       "http://data.europeana.eu/concept/base/83": "World War I",
-      //       "http://data.europeana.eu/agent/base/60496": "Poquelin, Jean-Baptiste"
-      //     }
+      /**
+       * Array of objects for the query options to render as links
+       *
+       * @example with i18n and named slots
+       * [
+       *   {
+       *     link: { path: '/en/search', query: { query: 'map' } },
+       *     qa: 'search button',
+       *     i18n: { path: 'header.searchFor', slots: [
+       *       { name: 'query', value: { text: 'map', highlight: true } }
+       *     ] }
+       *   }
+       * ]
+       * @example with non-i18n texts
+       * [
+       *   {
+       *     link: { path: '/en/search', query: { query: '"Charles Dickens"' } },
+       *     qa: 'Charles Dickens search suggestion',
+       *     texts: [
+       *       { text: 'Charles ', highlight: false },
+       *       { text: 'D', highlight: true },
+       *       { text: 'ickens ', highlight: false }
+       *     ]
+       *   }
+       * ]
+       */
       value: {
-        type: Object,
-        default: () => {}
-      },
-
-      query: {
-        type: String,
-        default: ''
-      },
-
-      suggestionLinkGen: {
-        type: Function,
-        default: (val) => val
-      },
-
-      queryLinkGen: {
-        type: Function,
-        default: (val) => val
-      },
-
-      inCollectionLinkGen: {
-        type: Function,
-        default: (val) => val
-      },
-
-      removeCollectionLabel: {
-        type: Function,
-        default: () => {}
+        type: Array,
+        required: true
       },
 
       elementId: {
@@ -182,21 +95,6 @@
       inputRefName: {
         type: String,
         default: 'searchbox'
-      },
-
-      showLoader: {
-        type: Boolean,
-        default: false
-      },
-
-      onCollectionPage: {
-        type: Boolean,
-        default: false
-      },
-
-      entityCollectionLabel: {
-        type: String,
-        default: null
       }
     },
 
@@ -207,20 +105,15 @@
     },
 
     computed: {
-      options() {
-        if (this.onCollectionPage) return [this.inCollectionLinkGen(this.query), this.queryLinkGen(this.query)];
-        return [this.queryLinkGen(this.query)].concat(this.suggestionLabels.map(val => this.suggestionLinkGen(val)));
+      firstOptionHasFocus() {
+        return this.focus === 0;
       },
 
-      suggestionLabels() {
-        return this.value ? Object.values(this.value) : [];
+      lastOptionHasFocus() {
+        return this.focus === (this.value.length - 1);
       },
 
-      numberOfSuggestions() {
-        return this.suggestionLabels.length;
-      },
-
-      noSuggestionHasFocus() {
+      noOptionHasFocus() {
         return this.focus === null;
       },
 
@@ -231,47 +124,6 @@
       inputElement() {
         // refs may point to a component or direct to an HTML element
         return this.inputRef.$el ? this.inputRef.$el : this.inputRef;
-      },
-
-      isActive() {
-        return this.options.length >= 1;
-      },
-
-      firstSuggestionHasFocus() {
-        return this.focus === 0;
-      },
-
-      lastSuggestionHasFocus() {
-        return this.focus === (this.numberOfSuggestions);
-      },
-
-      removeCollectionLinkTo() {
-        const query = {
-          ...this.queryUpdatesForFacetChanges({ collection: null }),
-          view: this.view,
-          query: this.query || ''
-        };
-        return {
-          path: this.$path({
-            name: 'search'
-          }),
-          query
-        };
-      }
-    },
-
-    watch: {
-      '$route.query'() {
-        this.closeDropdown();
-      },
-
-      value() {
-        this.focus = null;
-        this.selectSuggestion();
-      },
-
-      query() {
-        this.selectSuggestion();
       }
     },
 
@@ -290,31 +142,21 @@
           this.closeDropdown();
           break;
         case 38: // Up key
-          if (!this.isActive) return;
           this.keydownUp();
           break;
         case 40: // Down key
-          if (!this.isActive) return;
           this.keydownDown();
           break;
         }
       },
 
       keydownUp() {
-        if (this.onCollectionPage) {
-          this.focus = (this.noSuggestionHasFocus || this.firstSuggestionHasFocus) ? 1 : this.focus - 1;
-        } else {
-          this.focus = (this.noSuggestionHasFocus || this.firstSuggestionHasFocus) ? this.numberOfSuggestions : this.focus - 1;
-        }
+        this.focus = (this.noOptionHasFocus || this.firstOptionHasFocus) ? this.value.length - 1 : this.focus - 1;
         this.selectSuggestion();
       },
 
       keydownDown() {
-        if (this.onCollectionPage) {
-          this.focus = (this.noSuggestionHasFocus || this.focus === 1) ? 0 : this.focus + 1;
-        } else {
-          this.focus = (this.noSuggestionHasFocus || this.lastSuggestionHasFocus) ? 0 : this.focus + 1;
-        }
+        this.focus = (this.noOptionHasFocus || this.lastOptionHasFocus) ? 0 : this.focus + 1;
         this.selectSuggestion();
       },
 
@@ -323,8 +165,6 @@
       },
 
       clickOutside(event) {
-        if (!this.isActive) return;
-
         const isParent = (event.target === this.inputElement);
         const isChild = this.$el.contains(event.target);
         const isSubmit = event.target.closest('.search-query');
@@ -335,24 +175,14 @@
         }
       },
 
-      // Highlight the user's query in a suggestion
-      // FIXME: only re-highlight when new suggestions come in, not immediately
-      //        after the query changes?
-      highlightResult(value) {
-        const matchQuery = this.query ? this.query.replace(/(^")|("$)/g, '') : undefined;
-        // Find all the suggestion labels that match the query
-        const matches = match(value, matchQuery);
-        return parse(value, matches);
-      },
-
       closeDropdown() {
         this.focus = null;
         this.selectSuggestion();
       },
 
       selectSuggestion() {
-        if (this.focus && this.options[this.focus]) {
-          this.$emit('select', this.options[this.focus]);
+        if (this.focus && this.value[this.focus]) {
+          this.$emit('select', this.value[this.focus].link);
         } else {
           // fallback to the query by unselecting any suggestions.
           this.$emit('select', null);

@@ -37,16 +37,9 @@
       />
       <SearchQueryOptions
         v-if="showSearchOptions"
-        v-model="suggestions"
-        :on-collection-page="onCollectionPage"
-        :entity-collection-label="collectionLabel"
-        :remove-collection-label="toggleSearchAndRemoveLabel"
+        v-model="searchQueryOptions"
         element-id="search-form-options"
-        :suggestion-link-gen="suggestionLinkGen"
-        :query-link-gen="linkGen"
-        :in-collection-link-gen="searchInCollection"
-        :query="query"
-        @select="selectSuggestion"
+        @select="selectSearchOption"
       />
     </b-input-group>
   </b-form>
@@ -57,19 +50,13 @@
   import { getEntitySuggestions } from '../../plugins/europeana/entity';
   import { mapGetters } from 'vuex';
   import match from 'autosuggest-highlight/match';
+  import parse from 'autosuggest-highlight/parse';
 
   export default {
     name: 'SearchForm',
 
     components: {
       SearchQueryOptions
-    },
-
-    props: {
-      onCollectionPage: {
-        type: Boolean,
-        default: false
-      }
     },
 
     data() {
@@ -79,7 +66,7 @@
         suggestions: {},
         activeSuggestionsQueryTerm: null,
         showSearchOptions: false,
-        selectedSuggestionLink: null
+        selectedOptionLink: null
       };
     },
 
@@ -89,6 +76,63 @@
         queryUpdatesForFacetChanges: 'search/queryUpdatesForFacetChanges',
         view: 'search/activeView'
       }),
+
+      onCollectionPage() {
+        // Auto suggest on search form will be disabled on entity pages.
+        return !!(this.$store.state.entity && this.$store.state.entity.id);
+      },
+
+      suggestionSearchOptions() {
+        return Object.values(this.suggestions).map(suggestion => (
+          {
+            link: this.suggestionLinkGen(suggestion),
+            qa: `${suggestion} search suggestion`,
+            texts: this.highlightSuggestion(suggestion)
+          }
+        ));
+      },
+
+      globalSearchOption() {
+        const globalSearchOption = {
+          link: this.linkGen(this.query),
+          qa: 'search entire collection button',
+          i18n: {
+            slots: this.query ? [
+              { name: 'query', value: { highlight: true, text: this.query } }
+            ] : []
+          }
+        };
+
+        if (this.onCollectionPage) {
+          globalSearchOption.i18n.path = this.query ? 'header.entireCollection' : 'header.searchForEverythingInEntireCollection';
+        } else {
+          globalSearchOption.i18n.path = this.query ? 'header.searchFor' : 'header.searchForEverything';
+        }
+
+        return globalSearchOption;
+      },
+
+      collectionSearchOption() {
+        return {
+          link: this.searchInCollectionLinkGen(this.query),
+          qa: 'search in collection button',
+          i18n: {
+            path: this.query ? 'header.inCollection' : 'header.searchForEverythingInCollection',
+            slots: [
+              { name: 'query', value: { highlight: true, text: this.query } },
+              { name: 'collection', value: { text: this.collectionLabel } }
+            ]
+          }
+        };
+      },
+
+      searchQueryOptions() {
+        if (this.onCollectionPage) {
+          return [this.collectionSearchOption, this.globalSearchOption];
+        } else {
+          return [this.globalSearchOption].concat(this.suggestionSearchOptions);
+        }
+      },
 
       onSearchablePage() {
         return this.$store.state.search.active;
@@ -119,6 +163,7 @@
         };
       }
     },
+
     watch: {
       '$route.query.query'() {
         if (this.$refs.searchbox) this.$refs.searchbox.$el.blur();
@@ -134,20 +179,30 @@
     },
 
     methods: {
+      // Highlight the user's query in a suggestion
+      // FIXME: only re-highlight when new suggestions come in, not immediately
+      //        after the query changes?
+      highlightSuggestion(value) {
+        const matchQuery = this.query ? this.query.replace(/(^")|("$)/g, '') : undefined;
+        // Find all the suggestion labels that match the query
+        const matches = match(value, matchQuery);
+        return parse(value, matches);
+      },
+
       initQuery() {
         this.query = this.$route.query.query;
       },
 
-      selectSuggestion(value) {
-        this.selectedSuggestionLink = value;
+      selectSearchOption(value) {
+        this.selectedOptionLink = value;
       },
 
       async submitForm() {
         let newRoute;
 
-        if (this.selectedSuggestionLink) {
-          newRoute = this.selectedSuggestionLink;
-          this.query = this.selectedSuggestionLink.query.query;
+        if (this.selectedOptionLink) {
+          newRoute = this.selectedOptionLink;
+          this.query = this.selectedOptionLink.query.query;
           if (this.query !== this.activeSuggestionsQueryTerm) this.suggestions = {};
         } else {
           const newRouteQuery = { ...this.$route.query, ...{ page: 1, view: this.view, query: this.query || '' } };
@@ -156,7 +211,7 @@
 
         if (this.$refs.searchbox) this.$refs.searchbox.$el.blur();
         await this.$goto(newRoute);
-        this.selectedSuggestionLink = null;
+        this.selectedOptionLink = null;
       },
 
       updateSuggestions() {
@@ -167,7 +222,7 @@
       },
 
       getSearchSuggestions(query) {
-        if (query === '') {
+        if (!query || query === '') {
           this.suggestions = {};
           this.activeSuggestionsQueryTerm = null;
           return;
@@ -209,21 +264,21 @@
         return this.linkGen(formattedSuggestion);
       },
 
-      linkGen(queryTerm) {
+      linkGen(queryTerm, path) {
         const query = {
           view: this.view,
-          query: queryTerm
+          query: queryTerm || ''
         };
         return {
-          path: this.$path({
+          path: path || this.$path({
             name: 'search'
           }),
           query
         };
       },
 
-      searchInCollection(query) {
-        return this.$route.path + '?page=1&view=grid&query=' + query;
+      searchInCollectionLinkGen(query) {
+        return this.linkGen(query, this.$route.path);
       },
 
       clearQuery() {
