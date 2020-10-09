@@ -18,7 +18,7 @@
             :image-url="post.primaryImageOfPage && post.primaryImageOfPage.image.url"
             :texts="[post.description]"
             :datetime="post.datePublished"
-            no-subtitle
+            :show-subtitle="false"
           />
         </b-card-group>
       </b-col>

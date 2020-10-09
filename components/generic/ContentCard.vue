@@ -34,7 +34,7 @@
       />
       <b-card-body data-qa="card body">
         <b-card-sub-title
-          v-if="(displaySubTitle && variant !== 'mini') && !noSubtitle"
+          v-if="(displaySubTitle && variant !== 'mini') && showSubtitle"
           sub-title-tag="div"
           sub-title-text-variant="default"
           class="mt-0"
@@ -141,9 +141,9 @@
         type: Boolean,
         default: true
       },
-      noSubtitle: {
+      showSubtitle: {
         type: Boolean,
-        default: false
+        default: true
       },
       datetime: {
         type: String,
