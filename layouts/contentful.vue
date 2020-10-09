@@ -33,6 +33,9 @@
         ],
         script: [
           { src: `https://unpkg.com/contentful-ui-extensions-sdk@${this.versions.contentfulExtensionsUiSdk}/dist/cf-extension-api.js` }
+        ],
+        meta: [
+          { hid: 'robots', name: 'robots', content: 'noindex' }
         ]
       };
     }
