@@ -46,16 +46,14 @@ const factory = (options = {}) => shallowMount(SearchForm, {
 const getters = {
   'apis/config': () => apiConfig,
   'search/activeView': (state) => state.search.view,
-  'search/queryUpdatesForFacetChanges': () => () => {},
-  'ui/searchView': (state) => state.ui.showSearch
+  'search/queryUpdatesForFacetChanges': () => () => {}
 };
-const store = (searchState = {}, uiState = {}) => {
+const store = (state = {}) => {
   return new Vuex.Store({
     getters,
     state: {
       i18n: { locale: 'en' },
-      search: searchState,
-      ui: uiState
+      ...state
     }
   });
 };
@@ -83,14 +81,6 @@ describe('components/search/SearchForm', () => {
   beforeEach(() => {
     $goto.resetHistory();
   });
-  it('contains the show mobile search button', () => {
-    const wrapper = factory({
-      store: store({})
-    });
-    const showSearchButton = wrapper.find('[data-qa="show mobile search button"]');
-    showSearchButton.attributes().class.should.contain('d-lg-none');
-    showSearchButton.isVisible().should.equal(true);
-  });
 
   describe('query', () => {
     it('is read from the route', () => {
@@ -103,7 +93,6 @@ describe('components/search/SearchForm', () => {
           }
         }
       });
-
       wrapper.vm.query.should.eq('cartography');
     });
   });
@@ -118,7 +107,9 @@ describe('components/search/SearchForm', () => {
           }
         },
         store: store({
-          active: true
+          search: {
+            active: true
+          }
         })
       });
 
@@ -133,7 +124,9 @@ describe('components/search/SearchForm', () => {
           $path
         },
         store: store({
-          active: false
+          search: {
+            active: false
+          }
         })
       });
 
@@ -155,11 +148,10 @@ describe('components/search/SearchForm', () => {
           },
           view: 'grid'
         };
-        const wrapper = factory({ store: store(state) });
+        const wrapper = factory({ store: store({ search: { showSearchBar: true } }) });
 
         wrapper.setData({
-          selectedSuggestion: 'Fresco',
-          query
+          selectedOptionLink: { path: '/search', query: { query: '"Fresco"', view: state.view } }
         });
         wrapper.vm.submitForm();
 
@@ -178,11 +170,13 @@ describe('components/search/SearchForm', () => {
     context('when on a search page', () => {
       it('updates current route', () => {
         const state = {
-          active: true,
-          userParams: {
-            query: ''
-          },
-          view: 'grid'
+          search: {
+            active: true,
+            userParams: {
+              query: ''
+            },
+            view: 'grid'
+          }
         };
         const wrapper = factory({ store: store(state) });
 
@@ -193,7 +187,7 @@ describe('components/search/SearchForm', () => {
 
         const newRouteParams = {
           path: wrapper.vm.$route.path,
-          query: { query, page: 1, view: state.view }
+          query: { query, page: 1, view: state.search.view }
         };
         $goto.should.have.been.calledWith(newRouteParams);
       });
@@ -202,11 +196,13 @@ describe('components/search/SearchForm', () => {
     context('when not on a search page', () => {
       it('reroutes to search', () => {
         const state = {
-          active: false,
-          userParams: {
-            query: ''
-          },
-          view: 'list'
+          search: {
+            active: false,
+            userParams: {
+              query: ''
+            },
+            view: 'list'
+          }
         };
         const wrapper = factory({ store: store(state) });
 
@@ -217,7 +213,7 @@ describe('components/search/SearchForm', () => {
 
         const newRouteParams = {
           path: '/search',
-          query: { query, page: 1, view: state.view }
+          query: { query, page: 1, view: state.search.view }
         };
         $goto.should.have.been.calledWith(newRouteParams);
       });
@@ -226,11 +222,13 @@ describe('components/search/SearchForm', () => {
 
   describe('suggestionLinkGen', () => {
     const state = {
-      active: false,
-      userParams: {
-        query: ''
-      },
-      view: 'grid'
+      search: {
+        active: false,
+        userParams: {
+          query: ''
+        },
+        view: 'grid'
+      }
     };
     const wrapper = factory({ store: store(state) });
 
@@ -253,23 +251,28 @@ describe('components/search/SearchForm', () => {
       nock.cleanAll();
     });
 
-    context('auto-suggest is not enabled (by default)', () => {
+    context('auto-suggest is enabled (by default)', () => {
       const wrapper = factory();
+      it('gets suggestions from the Entity API', async() => {
+        await wrapper.vm.getSearchSuggestions('something');
+
+        nock.isDone().should.be.true;
+      });
+    });
+
+    context('auto-suggest is de-activated by store state having entity', () => {
+      const wrapper = factory({
+        store: store({
+          entity: {
+            id: 'http://data.europeana.eu/concept/123'
+          }
+        })
+      });
+
       it('does not get suggestions from the Entity API', async() => {
         await wrapper.vm.getSearchSuggestions();
 
         nock.isDone().should.not.be.true;
-      });
-    });
-
-    context('auto-suggest is enabled (by prop)', () => {
-      const wrapper = factory();
-      wrapper.setProps({ enableAutoSuggest: true });
-
-      it('gets suggestions from the Entity API', async() => {
-        await wrapper.vm.getSearchSuggestions();
-
-        nock.isDone().should.be.true;
       });
 
       // FIXME
@@ -278,37 +281,6 @@ describe('components/search/SearchForm', () => {
       //
       //   wrapper.vm.suggestions.should.deep.eq(parsedSuggestions);
       // });
-    });
-  });
-
-  describe('mobile search buttons', () => {
-    context('on collection pages (with a "pill")', () => {
-      const searchState = {
-        active: true,
-        pill: {
-          values: ['Theatre']
-        },
-        view: 'grid'
-      };
-      const uiState = {
-        showSearch: true
-      };
-      const wrapper = factory({ store: store(searchState, uiState) });
-      wrapper.setData({
-        showSearchQuery: true
-      });
-      const collectionSearchButton = wrapper.find('[data-qa="search in collection button"]');
-      const entireSearchButton = wrapper.find('[data-qa="search entire collection button"]');
-
-      it('contains the search in collection button', () => {
-        collectionSearchButton.attributes().class.should.contain('search');
-        collectionSearchButton.isVisible().should.be.true;
-      });
-
-      it('contains the search entire collection button', () => {
-        entireSearchButton.attributes().class.should.contain('search');
-        entireSearchButton.isVisible().should.be.true;
-      });
     });
   });
 });
