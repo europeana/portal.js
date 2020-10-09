@@ -28,7 +28,7 @@
     >
       <b-button
         variant="light"
-        class="navbar-toggle collapsed flex-column align-items-center justify-content-center align-self-center pl-3"
+        class="navbar-toggle collapsed flex-column align-items-center justify-content-center align-self-center ml-3"
         :aria-label="$t('header.showSidebar')"
         @click="showSidebar = !showSidebar"
       >
@@ -48,7 +48,7 @@
         >
       </SmartLink>
       <b-navbar
-        class="align-items-center flex-row d-flex p-0 pr-3"
+        class="align-items-center flex-row d-flex p-0 mr-3"
         role="navigation"
       >
         <PageNavigation
