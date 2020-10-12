@@ -38,11 +38,11 @@ function entityApiUrl(endpoint) {
 export function getEntitySuggestions(text, params = {}) {
   return axios.get(entityApiUrl('/suggest'), {
     params: {
-      ...params,
       text,
       type: 'agent,concept',
       scope: 'europeana',
-      wskey: config.entity.key
+      wskey: config.entity.key,
+      ...params
     }
   })
     .then((response) => {
