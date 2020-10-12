@@ -5,8 +5,10 @@ services:
     build:
       context: ./nginx
     ports:
-      - "3000:3000"
-      - "3001:3001"
+      - "8080:80"
+      - "4433:443"
+    networks:
+      - europeana_portaljs
   app:
     image: europeana/portaljs-app
     build:
@@ -19,7 +21,29 @@ services:
     environment:
       - NODE_ENV
       - ENABLE_SSL_NEGOTIATION=1
+      - NIGHTWATCH_WEBDRIVER_HOST=chrome
       - HTTP_PORT=3000
       - HTTPS_PORT=3001
     env_file:
-     - ../../.env
+      - ../../.env
+    networks:
+      - europeana_portaljs
+  chrome:
+    image: selenium/standalone-chrome:85.0
+    ports:
+      - "4444:4444"
+    networks:
+      - europeana_portaljs
+    volumes:
+      - /dev/shm:/dev/shm
+  # nightwatch:
+  #   image: europeana/portaljs-nightwatch
+  #   build:
+  #     context: ../../tests/features
+  #   environment:
+  #     - WEBDRIVER_HOST=chrome
+  #   networks:
+  #     - europeana_portaljs
+networks:
+  europeana_portaljs:
+    driver: bridge

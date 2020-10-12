@@ -1,0 +1,21 @@
+{
+  "name": "@europeana/portaljs-nightwatch",
+  "version": "0.0.1",
+  "description": "",
+  "scripts": {
+    "start": "cross-env browser=chrome cucumber-js"
+  },
+  "author": "",
+  "license": "EUPL-1.2",
+  "dependencies": {
+    "@percy/agent": "^0.26.2",
+    "@percy/nightwatch": "^1.1.0",
+    "axios": "^0.20.0",
+    "cross-env": "^5.2.1",
+    "cucumber": "^5.1.0",
+    "cucumber-pretty": "^1.5.0",
+    "nightwatch": "^1.4.3",
+    "nightwatch-accessibility": "^1.8.0",
+    "nightwatch-api": "^3.0.1"
+  }
+}

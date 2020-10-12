@@ -1,19 +1,19 @@
 /* eslint-disable no-console */
 
 const { setDefaultTimeout, After, AfterAll, Before, BeforeAll } = require('cucumber');
-const { client, createSession, closeSession, startWebDriver, stopWebDriver } = require('nightwatch-api');
+const { client, createSession, closeSession } = require('nightwatch-api');
 const axios = require('axios');
 const runners = require('../support/step-runners');
 
 const sleep = (milliseconds) => {
   return new Promise(resolve => setTimeout(resolve, milliseconds));
 };
-const waitForAppUrl = 'http://localhost:3002/robots.txt';
+const waitForAppUrl = (process.env.APP_URL || 'http://localhost:3000') + '/robots.txt';
 const maxWaitTime = 90;
 
 const browserEnv = process.env.browser || 'gecko';
 const nightwatchApiOptions = {
-  configFile: 'tests/features/config/nightwatch.conf.js',
+  configFile: 'config/nightwatch.conf.js',
   env: browserEnv,
   silent: true
 };
@@ -21,13 +21,13 @@ const nightwatchApiOptions = {
 setDefaultTimeout(100000);
 
 async function startBrowser() {
-  await startWebDriver(nightwatchApiOptions);
+  // await startWebDriver(nightwatchApiOptions);
   await createSession(nightwatchApiOptions);
 }
 
 async function stopBrowser() {
   await closeSession();
-  await stopWebDriver();
+  // await stopWebDriver();
 
   // Prevent MaxListenersExceededWarning warnings
   process.removeAllListeners();

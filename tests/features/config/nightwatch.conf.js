@@ -1,15 +1,12 @@
 /* eslint-disable camelcase */
 
-const chromedriver = require('chromedriver');
-const geckodriver = require('geckodriver');
+// const chromedriver = require('chromedriver');
+// const geckodriver = require('geckodriver');
 const percy = require('@percy/nightwatch');
 
 function chrome(locale = 'en-GB', args = []) {
   args = ['disable-gpu', `--lang=${locale}`, '--allow-insecure-localhost', 'window-size=1400,1000'].concat(args);
   return {
-    webdriver: {
-      server_path: chromedriver.path
-    },
     desiredCapabilities: {
       browserName: 'chrome',
       chromeOptions: {
@@ -28,16 +25,16 @@ function headlessChrome(locale = 'en-GB') {
 
 module.exports = {
   custom_commands_path: [percy.path, './node_modules/nightwatch-accessibility/commands'],
-  custom_assertions_path: ['./tests/features/config/assertions'],
+  custom_assertions_path: ['./config/assertions'],
   test_settings: {
     default: {
       globals: {
-        url: 'https://localhost:3001'
+        url: process.env.APP_URL || 'http://localhost:3000'
       },
       webdriver: {
-        start_process: true,
-        port: 4444,
-        cli_args: ['--port=4444', '--log', 'debug']
+        host: process.env.WEBDRIVER_HOST,
+        start_process: false,
+        port: 4444
       },
       desiredCapabilities: {
         javascriptEnabled: true,
@@ -52,9 +49,6 @@ module.exports = {
     'chromeHeadless-ja': headlessChrome('ja'),
     'chromeHeadless-nl': headlessChrome('nl'),
     gecko: {
-      webdriver: {
-        server_path: geckodriver.path
-      },
       desiredCapabilities: {
         browserName: 'firefox',
         alwaysMatch: {
