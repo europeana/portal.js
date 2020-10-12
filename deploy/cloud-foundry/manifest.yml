@@ -1,12 +1,11 @@
 # Cloud Foundry manifest
 ---
-buildpack: nodejs_buildpack
-command: npm run start:cluster
-memory: 1024M
-health-check-type: process
-# health-check-http-endpoint: /robots.txt
-stack: cflinuxfs3
-env:
-  CONSOLA_LEVEL: info
-  HOST: 0.0.0.0
-  OPTIMIZE_MEMORY: true
+applications:
+- buildpacks:
+  - nodejs_buildpack
+  command: "npx cservice --restartOnMemUsage ((restartOnMemUsage)) --cli false server/index.js"
+  memory: ((memory))
+  health-check-type: process
+  stack: cflinuxfs3
+  env: ((env))
+  services: ((services))

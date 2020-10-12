@@ -34,7 +34,7 @@
     "stack:up:detach": "docker-compose -f ./docker/stack/docker-compose.yml build && docker-compose -f ./docker/stack/docker-compose.yml up -d",
     "stack:up": "docker-compose -f ./docker/stack/docker-compose.yml build && docker-compose -f ./docker/stack/docker-compose.yml up",
     "start": "cross-env NODE_ENV=production node server/index.js",
-    "start:cluster": "cross-env NODE_ENV=production cservice --restartOnMemUsage 268435456 --cli false server/index.js",
+    "start:cluster": "cross-env NODE_ENV=production cservice --cli false server/index.js",
     "start:test": "cross-env NODE_ENV=test PORT=1337 node server/index.js",
     "storybook": "start-storybook -p 6006 -s ./.storybook/assets",
     "stylelint": "stylelint \"**/*.scss\" \"**/*.vue\" --config .stylelintrc.js",
