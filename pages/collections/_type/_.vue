@@ -33,6 +33,15 @@
         cols="12"
         class="pb-3"
       >
+        <i18n
+          v-if="$route.query.query"
+          path="searchResultsForIn"
+          tag="h2"
+          class="px-0 container"
+        >
+          <span>{{ $route.query.query }}</span>
+          <span>{{ title.values[0] }}</span>
+        </i18n>
         <SearchInterface
           class="px-0"
           :per-page="recordsPerPage"
@@ -227,12 +236,13 @@
       title() {
         if (!this.entity) return this.titleFallback();
         if (this.editorialTitle) return this.titleFallback(this.editorialTitle);
+
         return langMapValueForLocale(this.entity.prefLabel, this.$store.state.i18n.locale);
       }
     },
 
     mounted() {
-      this.$store.commit('search/setPill', this.title);
+      this.$store.commit('search/setCollectionLabel', this.title.values[0]);
 
       this.$store.dispatch('entity/searchForRecords', this.$route.query);
 
@@ -291,6 +301,9 @@
     },
 
     async beforeRouteLeave(to, from, next) {
+      if (to.matched[0].path !== `/${this.$store.state.i18n.locale}/search`) {
+        this.$store.commit('search/setShowSearchBar', false);
+      }
       await this.$store.dispatch('search/deactivate');
       this.$store.commit('entity/setId', null); // needed to re-enable auto-suggest in header
       this.$store.commit('entity/setEntity', null); // needed for best bets handling

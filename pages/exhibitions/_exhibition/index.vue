@@ -3,36 +3,11 @@
     data-qa="exhibition page"
     class="text-page figure-attribution"
   >
-    <b-container>
-      <b-row class="justify-content-center">
-        <b-col
-          cols="12"
-          class="col-lg-8 pt-large mb-4"
-        >
-          <h1>{{ name }}</h1>
-          <p
-            v-if="headline"
-            class="lead"
-          >
-            {{ headline }}
-          </p>
-        </b-col>
-      </b-row>
-      <b-row class="justify-content-center">
-        <b-col
-          cols="12"
-          class="col-lg-8"
-        >
-          <ImageWithAttribution
-            :src="heroImage.url"
-            :image-content-type="heroImage.contentType"
-            :rights-statement="hero.license"
-            :attribution="hero"
-            hero
-          />
-        </b-col>
-      </b-row>
-    </b-container>
+    <AuthoredHead
+      :title="name"
+      :description="headline"
+      :hero="hero"
+    />
     <b-container>
       <b-row class="justify-content-center">
         <b-col
@@ -43,7 +18,7 @@
             <!-- eslint-disable vue/no-v-html -->
             <!-- share :media-url="" -->
             <ShareButton class="mb-4" />
-            <SocialShareModal :media-url="heroImage.url" />
+            <SocialShareModal :media-url="hero.image.url" />
             <div
               data-qa="exhibition text"
               v-html="mainContent"
@@ -84,7 +59,7 @@
       ExhibitionChapters,
       ShareButton,
       SocialShareModal,
-      ImageWithAttribution: () => import('../../../components/generic/ImageWithAttribution')
+      AuthoredHead: () => import('../../../components/authored/AuthoredHead')
     },
     asyncData({ params, query, error, app, store, redirect }) {
       if (params.exhibition === undefined) redirect(app.$path({ name: 'exhibitions' }));

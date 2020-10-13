@@ -17,7 +17,6 @@
             :url="{ name: 'blog-all', params: { pathMatch: post.identifier } }"
             :image-url="post.primaryImageOfPage && post.primaryImageOfPage.image.url"
             :texts="[post.description]"
-            :datetime="post.datePublished"
           />
         </b-card-group>
       </b-col>
