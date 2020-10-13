@@ -11,7 +11,6 @@
       {{ $t('layout.skipToMain') }}
     </a>
     <PageHeader
-      :enable-auto-suggest="enableAutoSuggest"
       :main-navigation="linkGroups.mainNavigation"
       :mobile-navigation="linkGroups.mobileNavigation"
       keep-alive
@@ -96,11 +95,7 @@
       ...mapGetters({
         canonicalUrl: 'http/canonicalUrl',
         canonicalUrlWithoutLocale: 'http/canonicalUrlWithoutLocale'
-      }),
-      enableAutoSuggest() {
-        // Auto suggest on search form will be disabled on entity pages.
-        return !(this.$store.state.entity && this.$store.state.entity.id);
-      }
+      })
     },
 
     watch: {
