@@ -3,42 +3,12 @@
     data-qa="exhibition chapter"
     class="text-page figure-attribution"
   >
-    <b-container>
-      <b-row class="justify-content-center">
-        <b-col
-          cols="12"
-          class="col-lg-8 pt-large mb-4"
-        >
-          <h2
-            v-if="exhibitionTitle"
-            class="subtitle"
-          >
-            {{ exhibitionTitle }}
-          </h2>
-          <h1>{{ page.name }}</h1>
-          <p
-            v-if="page.headline"
-            class="lead"
-          >
-            {{ page.headline }}
-          </p>
-        </b-col>
-      </b-row>
-      <b-row class="justify-content-center">
-        <b-col
-          cols="12"
-          class="col-lg-8"
-        >
-          <ImageWithAttribution
-            :src="heroImage.url"
-            :image-content-type="heroImage.contentType"
-            :rights-statement="hero.license"
-            :attribution="hero"
-            hero
-          />
-        </b-col>
-      </b-row>
-    </b-container>
+    <AuthoredHead
+      :title="page.name"
+      :exhibition-title="exhibitionTitle"
+      :description="page.headline"
+      :hero="hero"
+    />
     <b-container>
       <b-row>
         <b-col
@@ -60,12 +30,12 @@
         >
           <article>
             <ShareButton class="mb-4" />
-            <SocialShareModal :media-url="heroImage.url" />
+            <SocialShareModal :media-url="hero.image.url" />
             <BrowseSections
               v-if="page"
               :sections="page.hasPartCollection.items"
               :rich-text-is-card="false"
-              class="exhibition-sections"
+              class="authored-section"
             />
           </article>
         </b-col>
@@ -106,7 +76,7 @@
       ExhibitionChapters,
       ShareButton,
       SocialShareModal,
-      ImageWithAttribution: () => import('../../../components/generic/ImageWithAttribution')
+      AuthoredHead: () => import('../../../components/authored/AuthoredHead')
     },
     asyncData({ params, query, error, app, store }) {
       const variables = {
@@ -215,47 +185,3 @@
     }
   };
 </script>
-
-<style lang="scss" scoped>
-
-  .exhibition-sections {
-    text-align: center;
-  }
-
-  /deep/ .exhibition-sections .col {
-    margin-left: auto;
-    margin-right: auto;
-    text-align: left;
-  }
-
-  // TODO: temp solution, as rich text sections are always sized "col-12 col-lg-9"
-  // preferably, this should be removed from the RichText component itself and be taken care on page level
-  /deep/ .exhibition-sections .col-lg-9 {
-    flex: 0 0 100%;
-    max-width: 100%;
-  }
-
-  /deep/ figure {
-    display: inline-block;
-    margin: 0;
-    max-width: 100%;
-
-    img {
-      max-height: 85vh;
-      max-width: 100%;
-    }
-
-    &.compare-image-wrapper {
-      display: inline-block;
-      img {
-        max-height: 85vh;
-      }
-    }
-  }
-
-  /deep/ iframe {
-    max-height: initial;
-    max-width: 100%;
-  }
-
-</style>

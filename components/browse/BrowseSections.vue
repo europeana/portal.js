@@ -50,6 +50,12 @@
         :attribution="attributionFields(section)"
         :rights-statement="section.license"
       />
+      <CallToAction
+        v-else-if="contentType(section, 'Link')"
+        :key="index"
+        :text="section.text"
+        :url="section.url"
+      />
     </template>
   </div>
 </template>
@@ -62,6 +68,7 @@
       LatestSection: () => import('./LatestSection'),
       HTMLEmbed: () => import('../generic/HTMLEmbed'),
       ImageWithAttribution: () => import('../generic/ImageWithAttribution'),
+      CallToAction: () => import('../generic/CallToAction'),
       RichText: () => import('./RichText')
     },
 
