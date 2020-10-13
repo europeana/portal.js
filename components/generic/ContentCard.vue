@@ -34,7 +34,7 @@
       />
       <b-card-body data-qa="card body">
         <b-card-sub-title
-          v-if="displaySubTitle && variant !== 'mini'"
+          v-if="(displaySubTitle && variant !== 'mini') && showSubtitle"
           sub-title-tag="div"
           sub-title-text-variant="default"
           class="mt-0"
@@ -138,6 +138,10 @@
         default: () => {}
       },
       lazy: {
+        type: Boolean,
+        default: true
+      },
+      showSubtitle: {
         type: Boolean,
         default: true
       },
