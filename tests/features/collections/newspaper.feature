@@ -46,9 +46,10 @@ Feature: Newspapers collection
     And I wait for the page to load
     Then I should be on `/en/collections/topic/18-newspapers?page=2&view=grid&api=metadata`
 
-  Scenario: Newspapers collection API toggle is removed by removing search pill
+Scenario: Newspapers collection API toggle is removed by searching in the entire collection
     Given I am on `/en/collections/topic/18-newspapers?api=fulltext&view=grid`
-    And I see the `search bar pill`
-    When I click the `search bar pill button`
+    When I click the `show search button`
+    When I enter "paris" in the `search box`
+    And I click the `search entire collection button`
     Then I see the `search page`
-    And I should be on `/en/search?page=1&view=grid&query=`
+    And I should be on `/en/search?view=grid&query=paris`

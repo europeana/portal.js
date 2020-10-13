@@ -11,10 +11,11 @@
         v-for="chapter in chaptersAndCredits"
         :key="chapter.identifier"
         :style="`background-image: url(${optimisedBackgroundImageUrl(chapter)})`"
-        class="chapter w-100 text-left d-flex justify-content-start align-items-center"
+        class="chapter w-100 text-left d-flex justify-content-start align-items-start"
         :destination="chapterUrl(chapter)"
         :data-qa="`exhibitions ${chapter.identifier} card`"
       >
+        <span class="number" />
         <span>{{ chapter.name }}</span>
       </SmartLink>
     </b-list-group>
@@ -129,12 +130,13 @@
     span {
       position: relative;
       z-index: 2;
-
+    }
+    .number {
+      margin-right: 1.5rem;
       &:before {
         counter-increment: chapters;
         content: counter(chapters, decimal-leading-zero);
         display: inline-block;
-        margin-right: 1.5rem;
       }
     }
 
