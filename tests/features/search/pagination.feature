@@ -5,6 +5,7 @@ Feature: Search pagination
   Scenario: Pagination of search results
 
     When I visit the `search page`
+    And I click the `show search button`
     And I enter "" in the `search box`
     And I press the ENTER key
     Then I see a `pagination navigation`
@@ -13,6 +14,7 @@ Feature: Search pagination
   Scenario: Pagination links preserve query and facet selection.
 
     When I visit the `home page`
+    And I click the `show search button`
     And I enter "paris" in the `search box`
     And I press the ENTER key
     And I wait for the page to load
@@ -28,7 +30,8 @@ Feature: Search pagination
   Scenario: Changing pagination with browser history
 
     Given I am on the `home page`
-    When I enter "paris" in the `search box`
+    When I click the `show search button`
+    And I enter "paris" in the `search box`
     And I press the ENTER key
     And I wait for the page to load
     And I go to page number 2

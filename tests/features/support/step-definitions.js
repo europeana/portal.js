@@ -41,7 +41,7 @@ defineStep('I can\'t/don\'t find/identify/see/spot (a/an/the)( ){target}', (qa) 
 defineStep('I can\'t/don\'t have (a/an/the)( ){target}', (qa) =>
   i.doNotHaveATarget(qa));
 
-defineStep('there are no (a/an/the)( ){target}', (qa) =>
+defineStep('there are/is no (a/an/the)( ){target}', (qa) =>
   i.doNotHaveATarget(qa));
 
 defineStep('the {string} {string} radio is checked', (inputValue, inputName) =>

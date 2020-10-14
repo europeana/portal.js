@@ -23,4 +23,4 @@ Feature: Page layout on all pages.
 
   Scenario: Main navigation is visible
     When I open the `home page`
-    Then I see the `main navigation`
+    Then I see the `desktop navigation`
