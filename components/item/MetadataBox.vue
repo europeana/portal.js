@@ -18,6 +18,7 @@
               :key="name"
               :name="name"
               :field-data="value"
+              :is-shown-at="isShownAt"
             />
           </b-card-text>
         </b-tab>
@@ -32,6 +33,7 @@
               :key="name"
               :name="name"
               :field-data="value"
+              :is-shown-at="isShownAt"
             />
           </b-card-text>
         </b-tab>
@@ -83,6 +85,10 @@
       transcribingAnnotations: {
         type: Array,
         default: () => []
+      },
+      isShownAt: {
+        type: String,
+        default: null
       }
     }
   };

@@ -39,7 +39,14 @@
           :lang="langMappedValues.code"
           data-qa="literal value"
         >
-          {{ value }}
+          <template v-if="name === 'edmDataProvider' && isShownAt">
+            <SmartLink :destination="isShownAt">
+              {{ value }}
+            </SmartLink>
+          </template>
+          <template v-else>
+            {{ value }}
+          </template>
         </li>
       </template>
     </ul>
@@ -49,12 +56,14 @@
 <script>
   import { langMapValueForLocale } from  '../../plugins/europeana/utils';
   import EntityField from './EntityField';
+  import SmartLink from '../generic/SmartLink';
 
   export default {
     name: 'MetadataField',
 
     components: {
-      EntityField
+      EntityField,
+      SmartLink
     },
 
     props: {
@@ -85,6 +94,10 @@
       omitUrisIfOtherValues: {
         type: Boolean,
         default: false
+      },
+      isShownAt: {
+        type: String,
+        default: null
       }
     },
 

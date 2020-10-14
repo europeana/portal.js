@@ -64,6 +64,7 @@
               :all-metadata="allMetaData"
               :core-metadata="coreFields"
               :transcribing-annotations="transcribingAnnotations"
+              :is-shown-at="isShownAt"
             />
           </b-col>
         </b-row>
