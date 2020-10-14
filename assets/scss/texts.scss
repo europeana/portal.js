@@ -21,10 +21,9 @@ header .col {
 .text-page {
   background: $white;
   margin-top: -3rem;
-  
+
   h1 {
     margin-bottom: 0.5rem;
-    text-transform: capitalize;
   }
 
   .subtitle,
@@ -34,13 +33,12 @@ header .col {
     font-weight: normal;
     line-height: normal;
     margin-bottom: 0.5rem;
-    text-transform: capitalize;
   }
 
-  article { 
+  article {
     font-size: 1.125rem;
     line-height: 1.56;
-    
+
     blockquote p {
       font-size: 1.5rem;
     }
@@ -76,6 +74,54 @@ header .col {
     }
   }
 
+  .authored-section {
+    text-align: center;
+    overflow-x: hidden;
+    .col {
+      margin-left: auto;
+      margin-right: auto;
+      text-align: left;
+    }
+    .col-lg-9 {
+      flex: 0 0 100%;
+      max-width: 100%;
+    }
+
+    figure {
+      display: inline-block;
+      margin: 0;
+      max-width: 100%;
+
+      img {
+        max-height: 85vh;
+        max-width: 100%;
+      }
+
+      &.compare-image-wrapper {
+        display: inline-block;
+        img {
+          max-height: 85vh;
+        }
+      }
+    }
+    section {
+      p {
+        margin-bottom: 2rem;
+      }
+      & + .btn {
+        margin-top: 0;
+      }
+    }
+    .html-embed, .compare-image-wrapper {
+      margin-bottom: 2rem !important;
+    }
+  }
+
+  iframe {
+    max-height: initial;
+    max-width: 100%;
+  }
+
   @media (min-width: $bp-extralarge) {
     blockquote + p cite {
       width: 38.3rem;
@@ -91,7 +137,7 @@ header .col {
   header + .description {
     margin-top: 1rem;
   }
-  .description p {
+  .description div p {
     color: $mediumgrey;
     &:last-child {
       margin-bottom: 0 !important;

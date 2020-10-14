@@ -1,68 +1,78 @@
 <template>
-  <b-container
+  <div
     data-qa="entity page"
-    fluid
     class="entity-page"
   >
-    <b-row class="flex-md-row pt-5 bg-white mb-4">
-      <b-col
-        cols="12"
-      >
-        <b-container class="mb-5">
-          <EntityDetails
-            :description="description"
-            :is-editorial-description="hasEditorialDescription"
-            :title="title"
-          />
-          <client-only>
-            <section
-              v-if="relatedCollectionsFound"
-              data-qa="related entities"
-            >
-              <RelatedCollections
-                :title="$t('collectionsYouMightLike')"
-                :related-collections="relatedEntities ? relatedEntities : relatedCollectionCards"
-              />
-            </section>
-          </client-only>
-        </b-container>
-      </b-col>
-    </b-row>
-    <b-row>
-      <b-col
-        cols="12"
-        class="pb-3"
-      >
-        <SearchInterface
-          class="px-0"
-          :per-page="recordsPerPage"
-          :route="route"
-          :show-content-tier-toggle="false"
-        />
-      </b-col>
-    </b-row>
-    <b-row>
-      <b-col>
-        <b-container class="p-0">
-          <client-only>
-            <BrowseSections
-              v-if="page"
-              :sections="page.hasPartCollection.items"
+    <b-container fluid>
+      <b-row class="flex-md-row pt-5 bg-white mb-4">
+        <b-col
+          cols="12"
+        >
+          <b-container class="mb-5">
+            <EntityDetails
+              :description="description"
+              :is-editorial-description="hasEditorialDescription"
+              :title="title"
             />
-          </client-only>
-        </b-container>
-      </b-col>
-    </b-row>
-  </b-container>
+            <client-only>
+              <section
+                v-if="relatedCollectionsFound"
+                data-qa="related entities"
+              >
+                <RelatedCollections
+                  :title="$t('collectionsYouMightLike')"
+                  :related-collections="relatedEntities ? relatedEntities : relatedCollectionCards"
+                />
+              </section>
+            </client-only>
+          </b-container>
+        </b-col>
+      </b-row>
+    </b-container>
+    <b-container>
+      <b-row>
+        <b-col
+          cols="12"
+          class="pb-3"
+        >
+          <i18n
+            v-if="$route.query.query"
+            path="searchResultsForIn"
+            tag="h2"
+            class="px-0 container"
+          >
+            <span>{{ $route.query.query }}</span>
+            <span>{{ title.values[0] }}</span>
+          </i18n>
+          <SearchInterface
+            class="px-0"
+            :per-page="recordsPerPage"
+            :route="route"
+            :show-content-tier-toggle="false"
+          />
+        </b-col>
+      </b-row>
+      <b-row>
+        <b-col>
+          <b-container class="p-0">
+            <client-only>
+              <BrowseSections
+                v-if="page"
+                :sections="page.hasPartCollection.items"
+              />
+            </client-only>
+          </b-container>
+        </b-col>
+      </b-row>
+    </b-container>
+  </div>
 </template>
 
 <script>
   import axios from 'axios';
-
   import ClientOnly from 'vue-client-only';
   import EntityDetails from '../../../components/entity/EntityDetails';
   import SearchInterface from '../../../components/search/SearchInterface';
-
   import { mapState } from 'vuex';
 
   import { BASE_URL as EUROPEANA_DATA_URL } from '../../../plugins/europeana/data';
@@ -77,9 +87,7 @@
       SearchInterface,
       RelatedCollections: () => import('../../../components/generic/RelatedCollections')
     },
-
     middleware: 'sanitisePageQuery',
-
     fetch({ query, params, redirect, error, app, store }) {
       store.commit('search/disableCollectionFacet');
 
@@ -92,20 +100,16 @@
         store.commit('entity/setPage', null);
         store.commit('entity/setRelatedEntities', null);
       }
-
       store.commit('entity/setId', entityUri);
-
       // Get all curated entity names & genres and store, unless already stored
       const fetchCuratedEntities = !store.state.entity.curatedEntities;
       // Get the full page for this entity if not known needed, or known to be needed, and store for reuse
       const fetchEntityPage = !store.state.entity.curatedEntities ||
         store.state.entity.curatedEntities.some(entity => entity.identifier === entityUri);
       const fetchFromContentful = fetchCuratedEntities || fetchEntityPage;
-
       // Prevent re-requesting entity content from APIs if already loaded,
       // e.g. when paginating through entity search results
       const fetchEntity = !store.state.entity.entity;
-
       const contentfulVariables = {
         identifier: entityUri,
         locale: app.i18n.isoLocale(),
@@ -113,7 +117,6 @@
         curatedEntities: fetchCuratedEntities,
         entityPage: fetchEntityPage
       };
-
       return axios.all(
         [store.dispatch('entity/searchForRecords', query)]
           .concat(fetchEntity ? store.getters['apis/entity'].getEntity(params.type, params.pathMatch) : () => {})
@@ -121,16 +124,13 @@
       )
         .then(axios.spread((recordSearchResponse, entityResponse, pageResponse) => {
           if (fetchEntity) store.commit('entity/setEntity', entityResponse.entity);
-
           if (fetchFromContentful) {
             const pageResponseData = pageResponse.data.data;
             if (fetchCuratedEntities) store.commit('entity/setCuratedEntities', pageResponseData.curatedEntities.items);
             if (fetchEntityPage) store.commit('entity/setPage', pageResponseData.entityPage.items[0]);
           }
-
           const entity = store.state.entity.entity;
           const page = store.state.entity.page;
-
           const entityName = page ? page.name : entity.prefLabel.en;
           const desiredPath = getEntitySlug(entity.id, entityName);
 
@@ -148,13 +148,11 @@
           error({ statusCode, message: e.toString() });
         });
     },
-
     data() {
       return {
         relatedCollections: []
       };
     },
-
     computed: {
       ...mapState({
         entity: state => state.entity.entity,
@@ -226,12 +224,9 @@
         return langMapValueForLocale(this.entity.prefLabel, this.$store.state.i18n.locale);
       }
     },
-
     mounted() {
-      this.$store.commit('search/setPill', this.title);
-
+      this.$store.commit('search/setCollectionLabel', this.title.values[0]);
       this.$store.dispatch('entity/searchForRecords', this.$route.query);
-
       // TODO: move into a new entity store action?
       if (!this.relatedCollectionCards) {
         this.$store.getters['apis/record'].relatedEntities(this.$route.params.type, this.$route.params.pathMatch)
@@ -241,7 +236,6 @@
           });
       }
     },
-
     methods: {
       titleFallback(title) {
         return {
@@ -268,7 +262,6 @@
         });
       }
     },
-
     head() {
       return {
         title: this.title.values[0],
@@ -286,14 +279,15 @@
           ] : [])
       };
     },
-
     async beforeRouteLeave(to, from, next) {
+      if (to.matched[0].path !== `/${this.$store.state.i18n.locale}/search`) {
+        this.$store.commit('search/setShowSearchBar', false);
+      }
       await this.$store.dispatch('search/deactivate');
       this.$store.commit('entity/setId', null); // needed to re-enable auto-suggest in header
       this.$store.commit('entity/setEntity', null); // needed for best bets handling
       next();
     },
-
     watchQuery: ['api', 'reusability', 'query', 'qf', 'page']
   };
 </script>
@@ -301,9 +295,6 @@
 <style lang="scss" scoped>
   .entity-page {
     margin-top: -1rem;
-    .col-12 > .container {
-      padding: 0;
-    }
     .related-collections {
       padding: 0;
     }
