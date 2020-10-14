@@ -73,6 +73,9 @@ Before({ tags: '@cookie-notice-not-dismissed' }, async() => {
 Before({ tags: 'not @cookie-notice-not-dismissed' }, async() => {
   await runners.havePreviouslyAcceptedCookies();
 });
+Before({ tags: '@debug-apirequests-not-enabled' }, async() => {
+  await runners.haveNotEnabledDebugAPIRequests();
+});
 
 After(async() => {
   await client.deleteCookies();
