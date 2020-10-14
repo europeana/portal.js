@@ -7,7 +7,6 @@ import merge from 'deepmerge';
 import { apiError } from './utils';
 import { config } from './';
 import { thumbnailUrl, thumbnailTypeForMimeType } from  './thumbnail';
-import { combineMerge } from '../utils';
 
 /**
  * Parse the record data based on the data from the API response
@@ -24,7 +23,7 @@ function parseRecordDataFromApiResponse(response) {
       memo[entity.about] = entity;
       return memo;
     }, {});
-  const proxyData = merge.all(edm.proxies, { arrayMerge: combineMerge });
+  const proxyData = merge.all(edm.proxies);
 
   return {
     altTitle: proxyData.dctermsAlternative,
