@@ -32,20 +32,21 @@
     box-shadow: none;
   }
 }
-
+// Expected ".btn-outline-primary:hover" to come before
+//@at-root  ".btn-outline-primary:hover:not([disabled])"
 .btn-outline-primary {
   border-color: $blue;
   color: $blue;
   font-size: $font-size-small;
   text-transform: uppercase;
 
+  &:hover {
+    box-shadow: none;
+  }
+
   &:hover:not([disabled]) {
     background-color: $blue;
     border-color: $blue;
-  }
-
-  &:hover {
-    box-shadow: none;
   }
 
   &.disabled {
