@@ -41,7 +41,8 @@
     transition: $standard-transition;
     overflow: hidden;
     &:hover {
-      box-shadow: 2px 2px 6px 0 rgba(0, 0, 0, 0.15);
+      cursor: pointer;
+      box-shadow: $boxshadow-light
     }
   }
 </style>

@@ -1,6 +1,10 @@
 .btn {
+  font-weight: 400;
   &:focus {
     outline: auto;
+  }
+  &:hover {
+    box-shadow: $boxshadow-light;
   }
 }
 
@@ -12,7 +16,6 @@
 
   &:hover {
     background: $blue;
-    box-shadow: 2px 2px 6px 0 rgba(0, 0, 0, 0.15);
   }
 
   &.btn-cta {
@@ -25,13 +28,21 @@
 
 .btn-link {
   color: $blue;
+  &:hover {
+    box-shadow: none;
+  }
 }
-
+// Expected ".btn-outline-primary:hover" to come before
+//@at-root  ".btn-outline-primary:hover:not([disabled])"
 .btn-outline-primary {
   border-color: $blue;
   color: $blue;
   font-size: $font-size-small;
   text-transform: uppercase;
+
+  &:hover {
+    box-shadow: none;
+  }
 
   &:hover:not([disabled]) {
     background-color: $blue;
@@ -52,7 +63,6 @@
 .btn-light {
   background: $white;
   border: 0;
-  box-shadow: 2px 2px 2px 0 rgba(0, 0, 0, 0.1);
   color: $mediumgrey;
   font-size: $font-size-small;
   padding: 0.5rem 1rem;
@@ -60,7 +70,6 @@
 
   &:hover {
     background: $white;
-    box-shadow: 2px 2px 6px 0 rgba(0, 0, 0, 0.15);
   }
 }
 
@@ -77,7 +86,6 @@
 
   &:hover {
     background-color: rgba(0, 0, 0, 0.7);
-    box-shadow: 2px 2px 6px 0 rgba(0, 0, 0, 0.15);
     color: $white;
   }
 
