@@ -1,5 +1,6 @@
 Feature: Debug page
 
+  @debug-apirequests-not-enabled
   Scenario: Debug menu disabled by default
     Given I am on the `debug page`
     Then I don't have a `debug menu` in the `footer`

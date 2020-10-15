@@ -50,7 +50,7 @@ storiesOf('Design', module)
     template: `
       <b-container class="mt-3">
         <PageHeader
-          :enableAutoSuggest="false"
+          :on-collection-page="false"
           :enableSuggestionValidation="false"
           :enable-language-selector="false"
         />

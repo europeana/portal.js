@@ -2,7 +2,6 @@
 
   .btn-light {
     background: $white;
-    box-shadow: 2px 2px 4px 0 rgba(0, 0, 0, 0.1);
     color: $mediumgrey;
     font-size: 1rem;
     padding: 0.75rem 1rem;
@@ -27,6 +26,8 @@
       font-size: 0.875rem;
       margin-left: 0.75rem;
       text-transform: uppercase;
+      padding-left: 1rem;
+      padding-right: 1rem;
     }
 
     .btn-link {
@@ -76,7 +77,7 @@
       box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
       margin: 1rem 0 0;
       width: 100%;
-      
+
       .more-facets-wrapper {
         height: calc(70vh - 4rem);
         overflow: auto;

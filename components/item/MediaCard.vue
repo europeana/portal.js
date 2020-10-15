@@ -7,7 +7,7 @@
   <div
     v-else-if="isSinglePlayableMedia"
     ref="player"
-    class="media-player-wrapper"
+    class="media-player-wrapper col-lg-10 col-12"
   >
     <iframe
       data-qa="media player"
