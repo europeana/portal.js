@@ -69,7 +69,7 @@ Feature: Search querying
     And I enter "World" in the `search box`
     And I wait 1 second
     Then I see `search query options`
-    And there is no `World war II search suggestion`
+    And there is no `World war I search suggestion`
 
   Scenario: Back button restores previous query
     Given I am on the `home page`

@@ -204,7 +204,7 @@ Feature: Search faceting
     And I click the `collection apply button`
     Then I don't have a `contentTier facet`
 
-  Scenario: Clear filters using using `clear all filter` button
+  Scenario: Clear filters using `clear all filter` button
     Given I am on the `search page`
     When I click the `COUNTRY dropdown button`
     And I check the "\"France\"" "COUNTRY" checkbox
