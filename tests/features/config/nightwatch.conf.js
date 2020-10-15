@@ -2,25 +2,25 @@
 
 const percy = require('@percy/nightwatch');
 
-function chrome(locale = 'en-GB', args = []) {
-  args = [
+function chrome(options = {}) {
+  const args = [
     'disable-gpu',
-    `--lang=${locale}`,
+    `--lang=${options.locale}`,
     '--allow-insecure-localhost',
     'window-size=1400,1000',
     'headless'
-  ].concat(args);
+  ];
 
   return {
+    webdriver: {
+      host: options.host
+    },
     desiredCapabilities: {
       browserName: 'chrome',
       silent: true,
       chromeOptions: {
         args,
-        w3c: false,
-        prefs: {
-          'intl.accept_languages': locale
-        }
+        w3c: false
       }
     }
   };
@@ -45,8 +45,17 @@ module.exports = {
         acceptInsecureCerts: true
       }
     },
-    chrome: chrome(),
-    'chrome-ja': chrome('ja'),
-    'chrome-nl': chrome('nl')
+    'chrome-en': chrome({
+      locale: 'en-GB',
+      host: process.env.WEBDRIVER_EN_HOST
+    }),
+    'chrome-ja': chrome({
+      locale: 'ja-JP',
+      host: process.env.WEBDRIVER_JA_HOST
+    }),
+    'chrome-nl': chrome({
+      locale: 'nl-NL',
+      host: process.env.WEBDRIVER_NL_HOST
+    })
   }
 };

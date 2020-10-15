@@ -37,7 +37,7 @@
     "stylelint": "stylelint \"**/*.scss\" \"**/*.vue\" --config .stylelintrc.js",
     "test": "npm run test:unit && npm run test:e2e",
     "test:stack:build": "docker-compose -f ./docker/stack/docker-compose.yml build app nginx nightwatch",
-    "test:stack:pull": "docker-compose -f ./docker/stack/docker-compose.yml pull chrome",
+    "test:stack:pull": "docker-compose -f ./docker/stack/docker-compose.yml pull chrome-en chrome-ja chrome-nl",
     "test:e2e": "npm run test:stack:pull; npm run test:stack:build; docker-compose -f ./docker/stack/docker-compose.yml run --rm nightwatch",
     "test:e2e:percy": "cross-env NODE_ENV=test npm run stack:up:detach && npm run test:chrome:headless -- -p all; exit=$?; npm run test:percy; npm run stack:down; exit $exit",
     "test:unit": "vue-cli-service test:unit --include tests/unit/setup",

@@ -8,7 +8,7 @@ require('../support/step-definitions');
 
 const nightwatchApiOptions = {
   configFile: 'config/nightwatch.conf.js',
-  env: 'chrome',
+  env: 'chrome-en',
   silent: true
 };
 
