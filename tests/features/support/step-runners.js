@@ -183,10 +183,9 @@ module.exports = {
     await client.click(selector);
   },
   async preferBrowserLanguage(locale) {
-    const browserEnv = (process.env.browser || 'gecko') + `-${locale}`;
     const nightwatchApiOptions = {
-      configFile: 'tests/features/config/nightwatch.conf.js',
-      env: browserEnv,
+      configFile: 'config/nightwatch.conf.js',
+      env: `chrome-${locale}`,
       silent: true
     };
 

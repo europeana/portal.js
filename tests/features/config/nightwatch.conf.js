@@ -1,26 +1,29 @@
 /* eslint-disable camelcase */
 
-// const chromedriver = require('chromedriver');
-// const geckodriver = require('geckodriver');
 const percy = require('@percy/nightwatch');
 
 function chrome(locale = 'en-GB', args = []) {
-  args = ['disable-gpu', `--lang=${locale}`, '--allow-insecure-localhost', 'window-size=1400,1000'].concat(args);
+  args = [
+    'disable-gpu',
+    `--lang=${locale}`,
+    '--allow-insecure-localhost',
+    'window-size=1400,1000',
+    'headless'
+  ].concat(args);
+
   return {
     desiredCapabilities: {
       browserName: 'chrome',
+      silent: true,
       chromeOptions: {
         args,
+        w3c: false,
         prefs: {
           'intl.accept_languages': locale
         }
       }
     }
   };
-}
-
-function headlessChrome(locale = 'en-GB') {
-  return chrome(locale, ['headless']);
 }
 
 module.exports = {
@@ -44,20 +47,6 @@ module.exports = {
     },
     chrome: chrome(),
     'chrome-ja': chrome('ja'),
-    'chrome-nl': chrome('nl'),
-    chromeHeadless: headlessChrome(),
-    'chromeHeadless-ja': headlessChrome('ja'),
-    'chromeHeadless-nl': headlessChrome('nl'),
-    gecko: {
-      desiredCapabilities: {
-        browserName: 'firefox',
-        alwaysMatch: {
-          acceptInsecureCerts: true,
-          'moz:firefoxOptions': {
-            args: ['-headless', '-verbose']
-          }
-        }
-      }
-    }
+    'chrome-nl': chrome('nl')
   }
 };

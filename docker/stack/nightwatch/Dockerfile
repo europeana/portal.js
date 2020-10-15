@@ -5,6 +5,10 @@
 
 FROM node:12-alpine
 
+ENV CHROMEDRIVER_SKIP_DOWNLOAD=true
+ENV GECKODRIVER_SKIP_DOWNLOAD=true
+ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
+
 WORKDIR /app
 
 COPY package.json package-lock.json ./
@@ -14,3 +18,4 @@ RUN npm install
 COPY . .
 
 ENTRYPOINT ["npm", "run", "start"]
+CMD ["./**/*.feature"]
