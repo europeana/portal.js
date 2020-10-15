@@ -8,6 +8,7 @@ function chrome(options = {}) {
     `--lang=${options.locale}`,
     '--allow-insecure-localhost',
     'window-size=1400,1000',
+    '--no-sandbox',
     'headless'
   ];
 
