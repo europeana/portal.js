@@ -1,7 +1,7 @@
 Feature: Page Header
 
   Scenario: Seeing the header at the top of all pages
-    
+
     When I open the `home page`
     Then I see the `logo` in the `header`
     And I see the `show search button` in the `header`
@@ -22,12 +22,10 @@ Feature: Page Header
 
     When I open an `item page`
     And I click on the `logo` in the `header`
-    And I wait for the page to load
     Then I should be on the `home page`
 
     When I open the `search page`
     And I click on the `logo` in the `header`
-    And I wait for the page to load
     Then I should be on the `home page`
 
     When I open the `home page`
@@ -36,5 +34,4 @@ Feature: Page Header
 
     When I open the `entity page`
     And I click on the `logo` in the `header`
-    And I wait for the page to load
     Then I should be on the `home page`

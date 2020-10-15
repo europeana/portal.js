@@ -25,10 +25,7 @@ function qaSelector(qaElementNames) {
 
 module.exports = {
   async amOnPageNumber(page) {
-    await client.url(async(currentUrl) => {
-      const pageFromUrl = await new URL(currentUrl.value).searchParams.get('page');
-      await client.expect(Number(pageFromUrl)).to.eq(page);
-    });
+    await client.expect.url().to.match(new RegExp(`[?&]page=${page}([&#]|$)`));
     const navSelector = qaSelector('pagination navigation');
     const activeLinkSelector = navSelector + ` li.active a[aria-posinset="${page}"]`;
     await client.waitForElementVisible(activeLinkSelector);
@@ -248,16 +245,10 @@ module.exports = {
     });
   },
   async shouldBeOn(pageName) {
-    // TODO: update if a less verbose syntax becomes available.
-    // See https://github.com/nightwatchjs/nightwatch/issues/861
-    await client.url(async(currentUrl) => {
-      await client.expect(currentUrl.value).to.eq(pageUrl(pageName));
-    });
+    await client.expect.url().to.eq(pageUrl(pageName));
   },
   async shouldNotBeOn(pageName) {
-    await client.url(async(currentUrl) => {
-      await client.expect(currentUrl.value).not.to.eq(pageUrl(pageName));
-    });
+    await client.expect.url().not.to.eq(pageUrl(pageName));
   },
   async waitSomeSeconds(seconds) {
     await client.pause(seconds * 1000);

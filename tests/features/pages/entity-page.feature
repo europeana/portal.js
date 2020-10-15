@@ -34,7 +34,6 @@ Feature: Entity page
     When I open an `entity page`
     And I see the `entity page`
     And I click the `Book related chip`
-    And I wait for the page to load
     Then I should not be on the `entity page`
 
   Scenario: Navigating to a related item
@@ -56,7 +55,6 @@ Feature: Entity page
     And I wait 1 second
     And I see the `pagination navigation`
     And I go to page number 3
-    And I wait for the page to load
     Then I should be on `/en/collections/person/60305-william-shakespeare?page=3`
 
   Scenario: Searching from an entity page searches within that entity, using keyboard

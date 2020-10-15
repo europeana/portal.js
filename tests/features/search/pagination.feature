@@ -49,7 +49,6 @@ Feature: Search pagination
   Scenario: Pagination links work when the page was accessed from the url.
     Given I am on `/en/search?query=paris&page=1&qf=TYPE%3A%22IMAGE%22`
     When I go to page number 2
-    And I wait for the page to load
     Then I am on page number 2
     Then I should be on `/en/search?query=paris&page=2&qf=TYPE%3A%22IMAGE%22`
 

@@ -47,6 +47,7 @@ the docker service running.
 Run the full test suite with: `npm test`
 
 ### Unit tests
+
 `npm run test:unit` runs all unit tests.
 
 To run unit tests from a single file, append the full path, e.g.
@@ -58,6 +59,9 @@ To run unit tests from a single file, append the full path, e.g.
 
 To run a single end-to-end test file, append the path **without tests/features**, e.g.
 `npm run test:e2e common/header.feature`
+
+If you have modified app files and want to re-run e2e tests, you will need to first
+rebuild the generated Docker images in the test stack, with `npm run test:stack:rebuild`
 
 ## License
 
