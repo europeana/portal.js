@@ -14,7 +14,7 @@
             :path="$route.query.query ? 'searchResultsFor' : 'searchResults'"
             tag="h1"
           >
-            <span>{{ $route.query.query }}</span>
+            <span data-qa="search query">{{ $route.query.query }}</span>
           </i18n>
         </b-col>
         <RelatedSection
