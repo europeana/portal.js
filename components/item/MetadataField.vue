@@ -33,18 +33,27 @@
             />
           </li>
         </template>
+        <template v-else-if="name === 'edmDataProvider'">
+          <li
+            :key="index"
+            :lang="langMappedValues.code"
+            data-qa="literal value"
+          >
+            <SmartLink
+              :destination="link"
+              :link-class="name === 'edmDataProvider' ? 'view-at' : null"
+            >
+              {{ value }}
+            </SmartLink>
+          </li>
+        </template>
         <li
           v-else
           :key="index"
           :lang="langMappedValues.code"
           data-qa="literal value"
         >
-          <template v-if="name === 'edmDataProvider' && isShownAt">
-            <SmartLink :destination="isShownAt">
-              {{ value }}
-            </SmartLink>
-          </template>
-          <template v-else>
+          <template>
             {{ value }}
           </template>
         </li>
@@ -71,6 +80,10 @@
         type: String,
         default: ''
       },
+      link: {
+        type: String,
+        default: null
+      },
       fieldData: {
         type: [String, Object, Array],
         default: null
@@ -94,10 +107,6 @@
       omitUrisIfOtherValues: {
         type: Boolean,
         default: false
-      },
-      isShownAt: {
-        type: String,
-        default: null
       }
     },
 

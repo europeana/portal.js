@@ -73,7 +73,7 @@ function extraFields(proxyData, edm, entities) {
   const providerAggregation = edm.aggregations[0];
   const europeanaAggregation = edm.europeanaAggregation;
   return lookupEntities(omitBy({
-    edmProvider: providerAggregation.edmProvider,
+    edmProvider: { link: providerAggregation.edmIsShownAt, value: providerAggregation.edmProvider },
     edmIntermediateProvider: providerAggregation.edmIntermediateProvider,
     edmCountry: europeanaAggregation.edmCountry,
     edmRights: providerAggregation.edmRights,

@@ -17,8 +17,8 @@
               v-for="(value, name) in coreMetadata"
               :key="name"
               :name="name"
+              :link="allMetadata.edmProvider.link"
               :field-data="value"
-              :is-shown-at="isShownAt"
             />
           </b-card-text>
         </b-tab>
@@ -32,8 +32,8 @@
               v-for="(value, name) in allMetadata"
               :key="name"
               :name="name"
+              :link="allMetadata.edmProvider.link"
               :field-data="value"
-              :is-shown-at="isShownAt"
             />
           </b-card-text>
         </b-tab>
@@ -73,6 +73,7 @@
     components: {
       MetadataField
     },
+
     props: {
       coreMetadata: {
         type: Object,
@@ -85,11 +86,8 @@
       transcribingAnnotations: {
         type: Array,
         default: () => []
-      },
-      isShownAt: {
-        type: String,
-        default: null
       }
     }
+
   };
 </script>
