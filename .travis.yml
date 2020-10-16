@@ -4,4 +4,4 @@ services:
   - docker
 before_script:
   - env > .env
-script: npm run test:unit && npm run test:size
+script: npm run test:unit && npm run size
