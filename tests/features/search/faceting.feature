@@ -210,6 +210,7 @@ Feature: Search faceting
     When I click the `COUNTRY dropdown button`
     And I check the "\"France\"" "COUNTRY" checkbox
     And I click the `COUNTRY apply button`
+    And I should be on `/en/search?page=1&qf=COUNTRY%3A%22France%22&query=&view=grid`
     And I click the `TYPE dropdown button`
     And I check the "\"IMAGE\"" "TYPE" checkbox
     And I click the `TYPE apply button`
