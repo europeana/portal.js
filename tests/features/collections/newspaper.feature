@@ -37,7 +37,7 @@ Feature: Newspapers collection
     When I click the `more filters dropdown button`
     And I click the "metadata" "api" radio
     And I click the `apply button`
-    And I wait for the page to load
+    And I should be on `/en/collections/topic/18-newspapers?page=1&view=grid&api=metadata`
     And I go to page number 2
     Then I should be on `/en/collections/topic/18-newspapers?page=2&view=grid&api=metadata`
 

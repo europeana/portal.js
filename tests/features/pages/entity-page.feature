@@ -36,12 +36,11 @@ Feature: Entity page
     And I click the `Book related chip`
     Then I should not be on the `entity page`
 
-  Scenario: Navigating to a related item
+  Scenario: Navigating to a related item3
     Given I am on an `entity page`
     And I see the `entity page`
     And I see a `item preview`
     When I click a `item preview`
-    And I wait for the page to load
     Then I see an `item page`
 
   Scenario: Pagination links
@@ -52,7 +51,6 @@ Feature: Entity page
 
   Scenario: Pagination links work when the page was accessed from the url
     When I visit `/en/collections/person/60305-william-shakespeare?page=2`
-    And I wait 1 second
     And I see the `pagination navigation`
     And I go to page number 3
     Then I should be on `/en/collections/person/60305-william-shakespeare?page=3`
@@ -78,11 +76,9 @@ Feature: Entity page
   Scenario: Leaving an Entity page
     When I open an `entity page`
     And I go to page number 2
-    And I wait for the page to load
     And I am on page number 2
     And I see the `entity title`
     And I click the `show search button`
     And I click the `search entire collection button`
-    And I wait for the page to load
     Then I see the `search page`
     And I don't have the `entity title`

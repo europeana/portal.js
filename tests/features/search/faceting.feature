@@ -130,13 +130,14 @@ Feature: Search faceting
     When I click the `COUNTRY dropdown button`
     And I check the "\"France\"" "COUNTRY" checkbox
     And I click the `COUNTRY apply button`
-    And I wait for the page to load
+    And I should be on `/en/search?page=1&qf=COUNTRY%3A%22France%22&query=&view=grid`
+    And I see a `filter badge` with the text "Providing country: France"
     And I click the `show search button`
     And I enter "paris" in the `search box`
     And I press the ENTER key
-    And I wait for the page to load
-    Then I should be on `/en/search?page=1&qf=COUNTRY%3A%22France%22&query=paris&view=grid`
+    Then I see a `search query` with the text "paris"
     And I am on page number 1
+    And I see a `filter badge` with the text "Providing country: France"
     And I should have 1 `filter badge`
 
   Scenario: Paginating with facets

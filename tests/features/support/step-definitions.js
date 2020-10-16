@@ -99,6 +99,7 @@ defineStep('I should not be on (the ){target}', (pageName) =>
 defineStep('I wait for (a/an/the)( ){target}', (qa) =>
   i.waitForTargetToBeVisible(qa));
 
+// TODO: remove if redundant
 defineStep('I wait for the page to load', () =>
   i.waitForThePageToLoad());
 
