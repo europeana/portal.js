@@ -37,7 +37,6 @@
     "stylelint": "stylelint \"**/*.scss\" \"**/*.vue\" --config .stylelintrc.js",
     "test": "npm run test:unit && npm run size && npm run test:e2e",
     "test:e2e": "docker-compose -f ./docker/stack/docker-compose.yml build -q nightwatch && docker-compose -f ./docker/stack/docker-compose.yml run --rm nightwatch",
-    "test:e2e:travis": "docker-compose -f ./docker/stack/docker-compose.yml build nightwatch && docker-compose -f ./docker/stack/docker-compose.yml run --rm nightwatch",
     "test:e2e:percy": "cross-env NODE_ENV=test npm run stack:up:detach && npm run test:chrome:headless -- -p all; exit=$?; npm run test:percy; npm run stack:down; exit $exit",
     "test:percy": "cross-env percy exec -- cucumber-js -p percy;",
     "test:stack:build": "docker-compose -f ./docker/stack/docker-compose.yml build app nginx",
@@ -46,7 +45,6 @@
     "test:stack:rebuild": "npm run test:stack:down && npm run test:stack:build",
     "test:stack:start": "docker-compose -f ./docker/stack/docker-compose.yml start app nginx chrome-en chrome-ja chrome-nl",
     "test:stack:stop": "docker-compose -f ./docker/stack/docker-compose.yml stop app nginx chrome-en chrome-ja chrome-nl",
-    "test:travis": "npm run test:unit && npm run size && npm run test:e2e:travis",
     "test:unit": "vue-cli-service test:unit --include tests/unit/setup"
   },
   "dependencies": {
