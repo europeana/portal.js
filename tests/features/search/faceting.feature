@@ -216,6 +216,7 @@ Feature: Search faceting
     And I click the `TYPE apply button`
     And I should be on `/en/search?page=1&qf=COUNTRY%3A%22France%22&qf=TYPE%3A%22IMAGE%22&query=&view=grid`
     And I go to page number 2
+    And I should be on `/en/search?page=2&qf=COUNTRY%3A%22France%22&qf=TYPE%3A%22IMAGE%22&query=&view=grid`
     And I click the `reset filters button`
     Then I should be on `/en/search?page=1&query=&view=grid`
 
