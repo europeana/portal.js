@@ -36,7 +36,7 @@ Feature: Entity page
     And I click the `Book related chip`
     Then I should not be on the `entity page`
 
-  Scenario: Navigating to a related item3
+  Scenario: Navigating to a related item
     Given I am on an `entity page`
     And I see the `entity page`
     And I see a `item preview`
