@@ -4,7 +4,7 @@ import qs from 'qs';
 import { apiError } from './utils';
 
 // TODO: replace with API gateway origin when it works
-export const BASE_URL = process.env.EUROPEANA_ANNOTATION_API_URL || 'https://annotations.europeana.eu/annotation';
+export const BASE_URL = process.env.EUROPEANA_ANNOTATION_API_URL || 'https://annotation-api-production.eanadev.org/annotation';
 export const axiosDefaults = {
   baseURL: BASE_URL,
   params: {
