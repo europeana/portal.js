@@ -5,13 +5,9 @@
 
 FROM node:12-alpine
 
-ENV PORT=8080
-ENV HOST=0.0.0.0
 ENV CHROMEDRIVER_SKIP_DOWNLOAD=true
 ENV GECKODRIVER_SKIP_DOWNLOAD=true
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
-
-EXPOSE ${PORT}
 
 WORKDIR /app
 
@@ -21,8 +17,5 @@ RUN npm install
 
 COPY . .
 
-RUN npm run build
-
-ENV NODE_ENV=production
-
-CMD ["node", "server/index.js"]
+ENTRYPOINT ["npm", "run", "start"]
+CMD ["./**/*.feature"]

@@ -25,10 +25,7 @@ function qaSelector(qaElementNames) {
 
 module.exports = {
   async amOnPageNumber(page) {
-    await client.url(async(currentUrl) => {
-      const pageFromUrl = await new URL(currentUrl.value).searchParams.get('page');
-      await client.expect(Number(pageFromUrl)).to.eq(page);
-    });
+    await client.expect.url().to.match(new RegExp(`[?&]page=${page}([&#]|$)`));
     const navSelector = qaSelector('pagination navigation');
     const activeLinkSelector = navSelector + ` li.active a[aria-posinset="${page}"]`;
     await client.waitForElementVisible(activeLinkSelector);
@@ -167,6 +164,14 @@ module.exports = {
     }, []);
     /* eslint-enable prefer-arrow-callback */
   },
+  async haveNotEnabledDebugAPIRequests() {
+    /* eslint-disable prefer-arrow-callback */
+    /* DO NOT MAKE INTO A ARROW FUNCTION - If you do, it will break the tests */
+    await client.execute(function() {
+      localStorage.debugSettings = null;
+    }, []);
+    /* eslint-enable prefer-arrow-callback */
+  },
   async paginateToPage(page) {
     const containerSelector = qaSelector('pagination navigation');
 
@@ -183,10 +188,9 @@ module.exports = {
     await client.click(selector);
   },
   async preferBrowserLanguage(locale) {
-    const browserEnv = (process.env.browser || 'gecko') + `-${locale}`;
     const nightwatchApiOptions = {
-      configFile: 'tests/features/config/nightwatch.conf.js',
-      env: browserEnv,
+      configFile: 'config/nightwatch.conf.js',
+      env: `chrome-${locale}`,
       silent: true
     };
 
@@ -241,26 +245,16 @@ module.exports = {
     });
   },
   async shouldBeOn(pageName) {
-    // TODO: update if a less verbose syntax becomes available.
-    // See https://github.com/nightwatchjs/nightwatch/issues/861
-    await client.url(async(currentUrl) => {
-      await client.expect(currentUrl.value).to.eq(pageUrl(pageName));
-    });
+    await client.expect.url().to.eq(pageUrl(pageName));
   },
   async shouldNotBeOn(pageName) {
-    await client.url(async(currentUrl) => {
-      await client.expect(currentUrl.value).not.to.eq(pageUrl(pageName));
-    });
+    await client.expect.url().not.to.eq(pageUrl(pageName));
   },
   async waitSomeSeconds(seconds) {
     await client.pause(seconds * 1000);
   },
   async waitForTargetToBeVisible(qaElementName) {
     await client.waitForElementVisible(qaSelector(qaElementName));
-  },
-  async waitForThePageToLoad() {
-    await client.waitForElementPresent('.nuxt-progress');
-    await client.waitForElementNotPresent('.nuxt-progress');
   },
   async goBack() {
     await client.back();
