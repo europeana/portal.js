@@ -8,6 +8,7 @@ import { apiError } from './utils';
 import { config } from './';
 import { thumbnailUrl, thumbnailTypeForMimeType } from  './thumbnail';
 import { combineMerge } from '../utils';
+import { isIIIFPresentation } from '../media';
 
 /**
  * Parse the record data based on the data from the API response
@@ -135,8 +136,15 @@ function aggregationMedia(aggregation, recordType, services = []) {
     webResource.services = services.filter((service) => (webResource.svcsHasService || []).includes(service.about));
   }
 
+  // Crude check for IIIF content, which is to prevent newspapers from showing many
+  // IIIF viewers.
+  //
+  // Also greatly minimises response size, and hydration cost, for IIIF with
+  // many web resources, all of which are contained in a single manifest anyway.
+  const displayable = isIIIFPresentation(media[0]) ? [media[0]] : media;
+
   // Sort by isNextInSequence property if present
-  return sortByIsNextInSequence(media);
+  return sortByIsNextInSequence(displayable);
 }
 
 function webResourceThumbnails(webResource, aggregation, recordType) {
