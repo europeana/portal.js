@@ -256,10 +256,6 @@ module.exports = {
   async waitForTargetToBeVisible(qaElementName) {
     await client.waitForElementVisible(qaSelector(qaElementName));
   },
-  async waitForThePageToLoad() {
-    await client.waitForElementPresent('.nuxt-progress');
-    await client.waitForElementNotPresent('.nuxt-progress');
-  },
   async goBack() {
     await client.back();
   },
