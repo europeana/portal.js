@@ -8,7 +8,11 @@ Feature: Page layout on all pages.
   Scenario: Accessing the skip-to-main functionality by tabbing to it
     When I visit an `item page`
     And I see a `cookie disclaimer`
-    And I accept cookies
+    # First dismiss the cookie disclaimer with the keyboard
+    And I press the TAB key
+    And I press the TAB key
+    And I press the ENTER key
+    # Now open the main content link
     And I press the TAB key
     Then I see the `main content accessibility link`
 
@@ -16,8 +20,13 @@ Feature: Page layout on all pages.
   Scenario: Moving to the main content using the skip-to-main functionality
     When I visit an `item page`
     And I see a `cookie disclaimer`
-    And I accept cookies
+    # First dismiss the cookie disclaimer with the keyboard
     And I press the TAB key
+    And I press the TAB key
+    And I press the ENTER key
+    # Now open the main content link
+    And I press the TAB key
+    And I see the `main content accessibility link`
     And I press the ENTER key
     Then I should be on `/en/item/09102/_GNM_693983#main`
 
