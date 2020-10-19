@@ -275,10 +275,6 @@ export function getRecord(europeanaId, options = {}) {
   })
     .then(response => reduceLangMapsForLocale(response.data.object, options.locale))
     .then(reduced => parseRecordDataFromApiResponse(reduced))
-    .then(parsed => {
-      console.log('parsed', parsed);
-      return parsed;
-    })
     .then(parsed => ({
       record: parsed,
       error: null
@@ -324,6 +320,7 @@ const reduceLangMapsForLocale = (value, locale) => {
 const isLangMap = (value) => {
   if (typeof value !== 'object') return false;
   return Object.keys(value).every(key => {
+    // TODO: is this good enough to determine lang map or not?
     return [2, 3].includes(key.length);
   });
 };
