@@ -32,7 +32,7 @@ function parseRecordDataFromApiResponse(response) {
     identifier: edm.about,
     type: edm.type,
     isShownAt: providerAggregation.edmIsShownAt,
-    coreFields: coreFields(proxyData, providerAggregation.edmDataProvider, entities),
+    coreFields: coreFields(proxyData, providerAggregation, entities),
     fields: extraFields(proxyData, edm, entities),
     media: aggregationMedia(providerAggregation, edm.type, edm.services),
     agents: edm.agents,
@@ -45,13 +45,13 @@ function parseRecordDataFromApiResponse(response) {
  * Retrieves the "Core" fields which will always be displayed on record pages.
  *
  * @param {Object[]} proxyData All core fields are in the proxyData.
+ * @param {Object[]} providerAggregation Extra fields used for the provider name & isShownAt link.
  * @param {Object[]} entities Entities in order to perform entity lookups
  * @return {Object[]} Key value pairs of the metadata fields.
  */
-function coreFields(proxyData, edmDataProvider, entities) {
+function coreFields(proxyData, providerAggregation, entities) {
   return lookupEntities(omitBy({
-    edmDataProvider,
-
+    edmDataProvider: { url: providerAggregation.edmIsShownAt, value: providerAggregation.edmDataProvider },
     dcContributor: proxyData.dcContributor,
     dcCreator: proxyData.dcCreator,
     dcPublisher: proxyData.dcPublisher,
@@ -73,7 +73,7 @@ function extraFields(proxyData, edm, entities) {
   const providerAggregation = edm.aggregations[0];
   const europeanaAggregation = edm.europeanaAggregation;
   return lookupEntities(omitBy({
-    edmProvider: { link: providerAggregation.edmIsShownAt, value: providerAggregation.edmProvider },
+    edmProvider: providerAggregation.edmProvider,
     edmIntermediateProvider: providerAggregation.edmIntermediateProvider,
     edmCountry: europeanaAggregation.edmCountry,
     edmRights: providerAggregation.edmRights,

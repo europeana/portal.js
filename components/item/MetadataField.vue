@@ -33,14 +33,14 @@
             />
           </li>
         </template>
-        <template v-else-if="name === 'edmDataProvider'">
+        <template v-else-if="typeof fieldData.url !== 'undefined'">
           <li
             :key="index"
             :lang="langMappedValues.code"
             data-qa="literal value"
           >
             <SmartLink
-              :destination="link"
+              :destination="fieldData.url"
               :link-class="name === 'edmDataProvider' ? 'view-at' : null"
             >
               {{ value }}
@@ -79,10 +79,6 @@
       name: {
         type: String,
         default: ''
-      },
-      link: {
-        type: String,
-        default: null
       },
       fieldData: {
         type: [String, Object, Array],
@@ -131,6 +127,8 @@
           return { values: [this.fieldData], code: '' };
         } else if (Array.isArray(this.fieldData)) {
           return { values: this.fieldData, code: '' };
+        } else if (typeof this.fieldData.url !== 'undefined') {
+          return langMapValueForLocale(this.fieldData.value, this.$i18n.locale);
         }
         return langMapValueForLocale(this.fieldData, this.$i18n.locale, { omitUrisIfOtherValues: this.omitUrisIfOtherValues, omitAllUris: this.omitAllUris });
       },

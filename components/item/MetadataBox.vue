@@ -17,7 +17,6 @@
               v-for="(value, name) in coreMetadata"
               :key="name"
               :name="name"
-              :link="allMetadata.edmProvider.link"
               :field-data="value"
             />
           </b-card-text>
@@ -32,7 +31,6 @@
               v-for="(value, name) in allMetadata"
               :key="name"
               :name="name"
-              :link="allMetadata.edmProvider.link"
               :field-data="value"
             />
           </b-card-text>
