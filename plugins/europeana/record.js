@@ -9,16 +9,27 @@ import { config } from './';
 import { thumbnailUrl, thumbnailTypeForMimeType } from  './thumbnail';
 import { combineMerge } from '../utils';
 
+const reduceEntity = (entity) => {
+  return Object.freeze({
+    about: entity.about,
+    prefLabel: entity.prefLabel
+  });
+};
+
 /**
  * Parse the record data based on the data from the API response
  * @param {Object} response data from API response
  * @return {Object} parsed data
  */
-function parseRecordDataFromApiResponse(response) {
-  const edm = response.data.object;
-
+function parseRecordDataFromApiResponse(edm) {
   const providerAggregation = edm.aggregations[0];
-  const entities = [].concat(edm.concepts, edm.places, edm.agents, edm.timespans)
+
+  const concepts = (edm.concepts || []).map(reduceEntity);
+  const places = (edm.places || []).map(reduceEntity);
+  const agents = (edm.agents || []).map(reduceEntity);
+  const timespans = (edm.timespans || []).map(reduceEntity);
+
+  const entities = [].concat(concepts, places, agents, timespans)
     .filter(isNotUndefined)
     .reduce((memo, entity) => {
       memo[entity.about] = entity;
@@ -35,8 +46,8 @@ function parseRecordDataFromApiResponse(response) {
     coreFields: coreFields(proxyData, providerAggregation.edmDataProvider, entities),
     fields: extraFields(proxyData, edm, entities),
     media: aggregationMedia(providerAggregation, edm.type, edm.services),
-    agents: edm.agents,
-    concepts: edm.concepts,
+    agents,
+    concepts,
     title: proxyData.dcTitle
   };
 }
@@ -49,7 +60,7 @@ function parseRecordDataFromApiResponse(response) {
  * @return {Object[]} Key value pairs of the metadata fields.
  */
 function coreFields(proxyData, edmDataProvider, entities) {
-  return lookupEntities(omitBy({
+  return Object.freeze(lookupEntities(omitBy({
     edmDataProvider,
 
     dcContributor: proxyData.dcContributor,
@@ -58,7 +69,7 @@ function coreFields(proxyData, edmDataProvider, entities) {
     dcSubject: proxyData.dcSubject,
     dcType: proxyData.dcType,
     dctermsMedium: proxyData.dctermsMedium
-  }, isUndefined), entities);
+  }, isUndefined), entities));
 }
 
 /**
@@ -72,7 +83,7 @@ function coreFields(proxyData, edmDataProvider, entities) {
 function extraFields(proxyData, edm, entities) {
   const providerAggregation = edm.aggregations[0];
   const europeanaAggregation = edm.europeanaAggregation;
-  return lookupEntities(omitBy({
+  return Object.freeze(lookupEntities(omitBy({
     edmProvider: providerAggregation.edmProvider,
     edmIntermediateProvider: providerAggregation.edmIntermediateProvider,
     edmCountry: europeanaAggregation.edmCountry,
@@ -116,7 +127,7 @@ function extraFields(proxyData, edm, entities) {
     edmIsSuccessorOf: proxyData.edmIsSuccessorOf,
     edmRealizes: proxyData.edmRealizes,
     wasPresentAt: proxyData.wasPresentAt
-  }, isUndefined), entities);
+  }, isUndefined), entities));
 }
 
 function aggregationMedia(aggregation, recordType, services = []) {
@@ -133,10 +144,14 @@ function aggregationMedia(aggregation, recordType, services = []) {
 
     // Inject service definitions, e.g. for IIIF
     webResource.services = services.filter((service) => (webResource.svcsHasService || []).includes(service.about));
+
+    // Remove unused data
+    delete webResource.htmlAttributionSnippet;
+    delete webResource.textAttributionSnippet;
   }
 
   // Sort by isNextInSequence property if present
-  return sortByIsNextInSequence(media);
+  return sortByIsNextInSequence(media).map(Object.freeze);
 }
 
 function webResourceThumbnails(webResource, aggregation, recordType) {
@@ -258,16 +273,60 @@ export function getRecord(europeanaId, options = {}) {
       wskey: config.record.key
     }
   })
-    .then((response) => {
-      return {
-        record: parseRecordDataFromApiResponse(response),
-        error: null
-      };
+    .then(response => reduceLangMapsForLocale(response.data.object, options.locale))
+    .then(reduced => parseRecordDataFromApiResponse(reduced))
+    .then(parsed => {
+      console.log('parsed', parsed);
+      return parsed;
     })
+    .then(parsed => ({
+      record: parsed,
+      error: null
+    }))
     .catch((error) => {
       throw apiError(error);
     });
 }
+
+const reduceLangMapsForLocale = (value, locale) => {
+  if (Array.isArray(value)) {
+    return value.map(val => reduceLangMapsForLocale(val, locale));
+  } else if (typeof value === 'object') {
+    if (isLangMap(value)) {
+      let langMap;
+      // TODO: extend to match locale selection logic in utils/langMapValueForLocale()
+      if (value[locale]) {
+        langMap = {
+          [locale]: value[locale]
+        };
+      } else if (value['def']) {
+        langMap = {
+          def: value['def']
+        };
+      } else {
+        const firstKey = Object.keys(value);
+        langMap = {
+          [firstKey]: value[firstKey]
+        };
+      }
+      return Object.freeze(langMap);
+    } else {
+      return Object.keys(value).reduce((memo, key) => {
+        memo[key] = reduceLangMapsForLocale(value[key], locale);
+        return memo;
+      }, {});
+    }
+  } else {
+    return value;
+  }
+};
+
+const isLangMap = (value) => {
+  if (typeof value !== 'object') return false;
+  return Object.keys(value).every(key => {
+    return [2, 3].includes(key.length);
+  });
+};
 
 /**
  * Tests whether a string is a valid Europeana record ID.

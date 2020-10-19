@@ -139,8 +139,8 @@
 
     fetchOnServer: false,
 
-    asyncData({ params, res, query }) {
-      return getRecord(`/${params.pathMatch}`, { origin: query.recordApi })
+    asyncData({ params, res, query, app }) {
+      return getRecord(`/${params.pathMatch}`, { origin: query.recordApi, locale: app.i18n.locale })
         .then((result) => {
           return result.record;
         })
