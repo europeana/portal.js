@@ -44,7 +44,6 @@ Feature: View styles (List and Grid)
     And I click the `show search button`
     And I enter "paris" in the `search box`
     And I press the ENTER key
-    And I wait for the page to load
     Then I see a `item previews list`
 
   Scenario: The view parameter is preserved and present in the URL for the grid view
@@ -53,7 +52,6 @@ Feature: View styles (List and Grid)
     And I click the `show search button`
     And I enter "paris" in the `search box`
     And I press the ENTER key
-    And I wait for the page to load
     Then I see a `item previews grid`
 
   Scenario: Back button restores previous view

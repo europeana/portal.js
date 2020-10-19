@@ -19,4 +19,6 @@ RUN npm install && \
     npm run build && \
     npm prune --production
 
-CMD NODE_ENV=production npm run start
+ENV NODE_ENV=production
+
+CMD ["node", "server/index.js"]

@@ -7,7 +7,6 @@ Scenario: Cookie notice has been dismissed
   When I click the `language selector`
   And I see a `Svenska language option` in the `language selector`
   And I click the `Svenska language option`
-  And I wait for the page to load
   Then I should be on the `Swedish home page`
   And I click the `show search button`
   And I see the text "Vad letar du efter?" in the `search box` placeholder
@@ -20,7 +19,6 @@ Scenario: Cookie notice has not been dismissed
   When I click the `language selector`
   And I see a `Svenska language option` in the `language selector`
   And I click the `Svenska language option`
-  And I wait for the page to load
   Then I should be on the `Swedish home page`
   And I click the `show search button`
   And I see the text "Vad letar du efter?" in the `search box` placeholder

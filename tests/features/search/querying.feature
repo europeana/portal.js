@@ -7,7 +7,7 @@ Feature: Search querying
     And I click the `show search button`
     And I enter "paris" in the `search box`
     And I press the ENTER key
-    And I wait for the page to load
+    And I see a `search query` with the text "paris"
     Then I see "paris" in the `search box`
     And I should see 24 `item preview`s
     And I see the `total results`
@@ -18,7 +18,7 @@ Feature: Search querying
     And I click the `show search button`
     And I enter "no results for GIBBERISHABCDEFGHIJKLMONP" in the `search box`
     And I press the ENTER key
-    And I wait for the page to load
+    And I see a `search query` with the text "no results for GIBBERISHABCDEFGHIJKLMONP"
     Then I don't have a `item preview`
     And I see an `error notice` with the text "Error: No results"
 
@@ -27,7 +27,7 @@ Feature: Search querying
     And I click the `show search button`
     And I enter "*:*:*" in the `search box`
     And I press the ENTER key
-    And I wait for the page to load
+    And I see a `search query` with the text "*:*:*"
     Then I don't have a `item preview`
     And I see an `error notice` with the text "Error"
 
@@ -36,9 +36,8 @@ Feature: Search querying
     And I click the `show search button`
     And I enter "paris" in the `search box`
     And I press the ENTER key
-    And I wait for the page to load
+    And I see a `search query` with the text "paris"
     And I click a `item preview`
-    And I wait for the page to load
     Then I see an `item page`
     And I click the `show search button`
     And I don't see "paris" in the `search box`
@@ -51,7 +50,6 @@ Feature: Search querying
     And I press the DOWN_ARROW key
     And I press the DOWN_ARROW key
     And I press the ENTER key
-    And I wait for the page to load
     Then I see the `search page`
     And I see "\"World War I\"" in the `search box`
 
@@ -69,17 +67,17 @@ Feature: Search querying
     And I enter "World" in the `search box`
     And I wait 1 second
     Then I see `search query options`
-    And there is no `World war II search suggestion`
+    And there is no `World war I search suggestion`
 
   Scenario: Back button restores previous query
     Given I am on the `home page`
     And I click the `show search button`
     And I enter "frog" in the `search box`
     And I press the ENTER key
-    And I wait for the page to load
+    And I see a `search query` with the text "frog"
     And I enter "spawn" in the `search box`
     And I press the ENTER key
-    And I wait for the page to load
+    And I see a `search query` with the text "spawn"
     And I go back
     And I wait 1 second
     Then I see "frog" in the `search box`
