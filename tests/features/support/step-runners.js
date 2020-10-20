@@ -97,12 +97,7 @@ module.exports = {
     client.click(selector);
   },
   async clickOnTab(tab) {
-    const selector = `.nav-tabs .nav-item:nth-child(${tab}) .nav-link`;
-    await client.waitForElementVisible(selector);
-    await client.click(selector);
-
-    const panel = `.tab-content .tab-pane:nth-child(${tab})`;
-    await client.waitForElementVisible(panel);
+    await client.click('xpath', '//a[contains(text(),"' + tab + '")]');
   },
   countTarget: async(count, qaElementNames) => {
     await client.elements('css selector', qaSelector(qaElementNames), async(result) => {
