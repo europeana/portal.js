@@ -110,12 +110,11 @@ Feature: Search faceting
     And I check the "\"Belgium\"" "COUNTRY" checkbox
     And I click the `COUNTRY apply button`
     Then I should be on `/en/search?page=1&qf=COUNTRY%3A%22Belgium%22&query=&view=grid`
-    And I see a `filter badge` with the text "Providing country: Belgium"
     And I see a `item preview`
     And I click a `item preview`
     Then I see an `item page`
     And I click the "All metadata" tab
-    And I should see a meta label `Providing country` with the value "Belgium"
+    Then I should see a metadata field for edmCountry with the value "Belgium"
 
   Scenario: Filtering results by two countries and have a corresponding item page
     Given I am on the `search page`
@@ -124,11 +123,10 @@ Feature: Search faceting
     And I check the "\"Germany\"" "COUNTRY" checkbox
     And I click the `COUNTRY apply button`
     Then I should be on `/en/search?page=1&qf=COUNTRY%3A%22Belgium%22&qf=COUNTRY%3A%22Germany%22&query=&view=grid`
-    And I should have 2 `filter badge`s
     And I click a `item preview`
     Then I see an `item page`
     And I click the "All metadata" tab
-    And I should see a meta label `Providing country` with the value "Belgium" or the value "Germany"
+    Then I should see a metadata field for edmCountry with the value "Belgium" or the value "Germany"
 
   # TODO: Add back - And I click the `search button` instead of press ENTER
   Scenario: Preserve filtering when performing a new search

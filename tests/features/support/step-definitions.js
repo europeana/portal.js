@@ -111,11 +111,11 @@ defineStep('I should have/see/see/spot {int} {target}(s)', (count, qa) =>
 defineStep('I should see {int} {word} checkboxes/radio( )(buttons)', (count, inputName) =>
   i.countTargetByNameAttribute(count, inputName));
 
-defineStep('I should have/see/see/spot a meta label {target} with the value {string}', (label, value) =>
-  i.matchMetaLabelAndValue(label, value));
+defineStep('I should have/see/see/spot a metadata field for {word} with the value {string}', (field, value) =>
+  i.seeMetadataFieldValue(field, value));
 
-defineStep('I should have/see/see/spot a meta label {target} with the value {string} or the value {string}', (label, value, altValue) =>
-  i.matchMetaLabelAndValueOrValue(label, value, altValue));
+defineStep('I should have/see/see/spot a metadata field for {word} with the value {string} or the value {string}', (field, value, altValue) =>
+  i.seeMetadataFieldValue(field, value, altValue));
 
 defineStep('I have selected/chosen (the ){target} search results view', (viewName) =>
   i.selectSearchResultsView(viewName));
