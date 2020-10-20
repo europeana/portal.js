@@ -24,6 +24,7 @@
 
 <script>
   import { genericThumbnail } from '../../plugins/europeana/thumbnail';
+
   import ContentCard from '../generic/ContentCard';
 
   export default {

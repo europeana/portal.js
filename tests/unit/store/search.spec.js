@@ -1,24 +1,7 @@
 import * as store from '../../../store/search';
-import apiConfig from '../../../modules/apis/defaults';
-import axios from 'axios';
-import nock from 'nock';
 import sinon from 'sinon';
 
-axios.defaults.adapter = require('axios/lib/adapters/http');
-
-const apiUrl = apiConfig.record.origin;
-const apiEndpoint = `${apiConfig.record.path}/search.json`;
-const apiKey = '1234';
-
-const baseRequest = nock(apiUrl).get(apiEndpoint);
-const defaultResponse = { success: true, items: [], totalResults: 123456 };
-
 describe('store/search', () => {
-  beforeEach(() => {
-    apiConfig.record.key = apiKey;
-    apiConfig.newspaper.key = apiKey;
-  });
-
   describe('getters', () => {
     describe('filters()', () => {
       context('when collection param is absent', () => {
@@ -514,10 +497,6 @@ describe('store/search', () => {
     });
 
     describe('queryItems', () => {
-      afterEach(() => {
-        nock.cleanAll();
-      });
-
       it('searches the Record API', async() => {
         const searchQuery = 'anything';
         const typeQf = 'TYPE:"IMAGE"';
@@ -525,16 +504,15 @@ describe('store/search', () => {
         const dispatch = sinon.spy();
         const state = { apiParams: { query: searchQuery, qf: [typeQf, collectionQf] } };
         const getters = {};
+        const rootGetters = {
+          'apis/record': {
+            search: sinon.stub().resolves({})
+          }
+        };
 
-        baseRequest
-          .query(query => {
-            return query.query === searchQuery && query.qf.includes(typeQf) && query.qf.includes(collectionQf);
-          })
-          .reply(200, defaultResponse);
+        await store.actions.queryItems({ dispatch, state, getters, rootGetters });
 
-        await store.actions.queryItems({ dispatch, state, getters });
-
-        nock.isDone().should.be.true;
+        rootGetters['apis/record'].search.should.have.been.called;
       });
 
       context('on success', () => {
@@ -542,12 +520,13 @@ describe('store/search', () => {
           const dispatch = sinon.spy();
           const state = {};
           const getters = {};
+          const rootGetters = {
+            'apis/record': {
+              search: sinon.stub().resolves({})
+            }
+          };
 
-          baseRequest
-            .query(true)
-            .reply(200, defaultResponse);
-
-          await store.actions.queryItems({ dispatch, state, getters });
+          await store.actions.queryItems({ dispatch, state, getters, rootGetters });
 
           dispatch.should.have.been.calledWith('updateForSuccess');
         });
@@ -558,16 +537,13 @@ describe('store/search', () => {
           const dispatch = sinon.spy();
           const state = {};
           const getters = {};
-          const errorMessage = 'Invalid query parameter.';
+          const rootGetters = {
+            'apis/record': {
+              search: sinon.stub().rejects({})
+            }
+          };
 
-          baseRequest
-            .query(true)
-            .reply(400, {
-              success: false,
-              error: errorMessage
-            });
-
-          await store.actions.queryItems({ dispatch, state, getters });
+          await store.actions.queryItems({ dispatch, state, getters, rootGetters });
 
           dispatch.should.have.been.calledWith('updateForFailure');
         });

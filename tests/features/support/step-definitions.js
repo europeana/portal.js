@@ -32,6 +32,9 @@ defineStep('I find/identify/see/spot (a/an/the)( ){target} in/on a/an/the {targe
 defineStep('I find/identify/see/spot (a/an/the)( ){target} with the text {string}', (qa, text) =>
   i.seeATargetWithText(qa, text));
 
+defineStep('(a/an/the)( ){target} is/are highlighted', (qa) =>
+  i.haveHighlightedATarget(qa));
+
 defineStep('I find/identify/see/spot (a/an/the)( )level {int} (section )heading with the text {string}', (headingLevel, text) =>
   i.seeASectionHeadingWithText(headingLevel, text));
 
@@ -98,9 +101,6 @@ defineStep('I should not be on (the ){target}', (pageName) =>
 
 defineStep('I wait for (a/an/the)( ){target}', (qa) =>
   i.waitForTargetToBeVisible(qa));
-
-defineStep('I wait for the page to load', () =>
-  i.waitForThePageToLoad());
 
 defineStep('I find/identify/see/spot a link to {string} in (a/an/the)( ){target}', (linkHref, qa) =>
   i.seeALinkInTarget(linkHref, qa));

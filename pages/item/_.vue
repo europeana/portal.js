@@ -139,19 +139,16 @@
 
 <script>
   import axios from 'axios';
-  import { mapGetters } from 'vuex';
 
   import ClientOnly from 'vue-client-only';
   import MediaActionBar from '../../components/item/MediaActionBar';
   import MediaPresentation from '../../components/item/MediaPresentation';
   import MetadataBox from '../../components/item/MetadataBox';
 
-  import { getRecord, similarItemsQuery } from '../../plugins/europeana/record';
-  import { search } from '../../plugins/europeana/search';
+  import { BASE_URL as EUROPEANA_DATA_URL } from '../../plugins/europeana/data';
+  import { similarItemsQuery } from '../../plugins/europeana/record';
   import { isIIIFPresentation, isRichMedia, isPlayableMedia } from '../../plugins/media';
   import { langMapValueForLocale } from  '../../plugins/europeana/utils';
-  import { findEntities } from '../../plugins/europeana/entity';
-  import { search as searchAnnotations } from '../../plugins/europeana/annotation';
 
   export default {
     components: {
@@ -172,8 +169,8 @@
         profile: 'dereference'
       };
       axios.all([
-        searchAnnotations(annotationSearchParams),
-        findEntities(this.europeanaEntityUris),
+        this.$store.getters['apis/annotation'].search(annotationSearchParams),
+        this.$store.getters['apis/entity'].findEntities(this.europeanaEntityUris),
         this.getSimilarItems()
       ])
         .then(axios.spread((annotations, entities, similar) => {
@@ -187,12 +184,10 @@
 
     fetchOnServer: false,
 
-    asyncData({ params, res, query }) {
-      return getRecord(`/${params.pathMatch}`, { origin: query.recordApi })
-        .then((result) => {
-          return result.record;
-        })
-        .catch((error) => {
+    asyncData({ params, res, store }) {
+      return store.getters['apis/record'].getRecord(`/${params.pathMatch}`)
+        .then(result => result.record)
+        .catch(error => {
           if (typeof res !== 'undefined') {
             res.statusCode = (typeof error.statusCode === 'undefined') ? 500 : error.statusCode;
           }
@@ -226,9 +221,6 @@
     },
 
     computed: {
-      ...mapGetters({
-        apiConfig: 'apis/config'
-      }),
       keywords() {
         // Convert collection of annotations' prefLabels into a single langMap
         return this.taggingAnnotations.reduce((memo, annotation) => {
@@ -246,10 +238,10 @@
         return { ...this.coreFields, ...this.fieldsAndKeywords };
       },
       europeanaAgents() {
-        return (this.agents || []).filter((agent) => agent.about.startsWith(`${this.apiConfig.data.origin}/agent/`));
+        return (this.agents || []).filter((agent) => agent.about.startsWith(`${EUROPEANA_DATA_URL}/agent/`));
       },
       europeanaConcepts() {
-        return (this.concepts || []).filter((concept) => concept.about.startsWith(`${this.apiConfig.data.origin}/concept/`));
+        return (this.concepts || []).filter((concept) => concept.about.startsWith(`${EUROPEANA_DATA_URL}/concept/`));
       },
       europeanaEntityUris() {
         const entities = this.europeanaConcepts.concat(this.europeanaAgents);
@@ -391,13 +383,11 @@
           edmDataProvider: this.getSimilarItemsData(this.fields.edmDataProvider)
         };
 
-        return search({
+        return this.$store.getters['apis/record'].search({
           query: similarItemsQuery(this.identifier, dataSimilarItems),
           rows: 4,
           profile: 'minimal',
           facet: ''
-        }, {
-          origin: this.$route.query.recordApi
         })
           .then(response => response)
           .catch(() => {

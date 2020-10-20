@@ -47,7 +47,6 @@
 
 <script>
   import SearchQueryOptions from './SearchQueryOptions';
-  import { getEntitySuggestions } from '../../plugins/europeana/entity';
   import { mapGetters } from 'vuex';
   import match from 'autosuggest-highlight/match';
   import parse from 'autosuggest-highlight/parse';
@@ -72,7 +71,6 @@
 
     computed: {
       ...mapGetters({
-        apiConfig: 'apis/config',
         queryUpdatesForFacetChanges: 'search/queryUpdatesForFacetChanges',
         view: 'search/activeView'
       }),
@@ -236,7 +234,7 @@
         const locale = this.$i18n.locale;
         this.gettingSuggestions = true;
 
-        getEntitySuggestions(query, {
+        this.$store.getters['apis/entity'].getEntitySuggestions(query, {
           language: locale
         })
           .then(suggestions => {

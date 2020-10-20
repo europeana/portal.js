@@ -190,3 +190,7 @@ function normalizedLangCode(key) {
 function filterEntities(mappedObject) {
   mappedObject.values = mappedObject.values.filter(v => !isEntity(v));
 }
+
+export function apiUrlFromRequestHeaders(api, headers) {
+  return headers[`x-europeana-${api}-api-url`];
+}
