@@ -39,7 +39,7 @@
     "test:e2e": "docker-compose -f ./docker/stack/docker-compose.yml build -q nightwatch && docker-compose -f ./docker/stack/docker-compose.yml run --rm nightwatch",
     "test:e2e:percy": "cross-env NODE_ENV=test npm run stack:up:detach && npm run test:chrome:headless -- -p all; exit=$?; npm run test:percy; npm run stack:down; exit $exit",
     "test:percy": "cross-env percy exec -- cucumber-js -p percy;",
-    "test:stack:build": "docker-compose -f ./docker/stack/docker-compose.yml build app nginx",
+    "test:stack:build": "docker-compose -f ./docker/stack/docker-compose.yml build --parallel app nginx",
     "test:stack:down": "docker-compose -f ./docker/stack/docker-compose.yml down",
     "test:stack:pull": "docker-compose -f ./docker/stack/docker-compose.yml pull chrome-en chrome-ja chrome-nl",
     "test:stack:rebuild": "npm run test:stack:down && npm run test:stack:build",
