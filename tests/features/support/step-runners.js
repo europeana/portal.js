@@ -215,6 +215,9 @@ module.exports = {
   async seeATargetWithText(qaElementNames, text) {
     await client.expect.element(qaSelector(qaElementNames)).text.to.contain(text);
   },
+  async haveHighlightedATarget(qaElementNames) {
+    await client.expect.element(qaSelector(qaElementNames) + '.hover').to.be.visible;
+  },
   async seeASectionHeadingWithText(headingLevel, text) {
     await client.expect.element(`h${headingLevel}`).text.to.contain(text);
   },

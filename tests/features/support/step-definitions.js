@@ -32,6 +32,9 @@ defineStep('I find/identify/see/spot (a/an/the)( ){target} in/on a/an/the {targe
 defineStep('I find/identify/see/spot (a/an/the)( ){target} with the text {string}', (qa, text) =>
   i.seeATargetWithText(qa, text));
 
+defineStep('(a/an/the)( ){target} is/are highlighted', (qa) =>
+  i.haveHighlightedATarget(qa));
+
 defineStep('I find/identify/see/spot (a/an/the)( )level {int} (section )heading with the text {string}', (headingLevel, text) =>
   i.seeASectionHeadingWithText(headingLevel, text));
 
