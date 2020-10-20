@@ -97,11 +97,11 @@ module.exports = {
     client.click(selector);
   },
   async clickOnTab(tab) {
-    const selector = `.nav-tabs .nav-link:nth-child(${tab-1})`;
+    const selector = `.nav-tabs .nav-item:nth-child(${tab}) .nav-link`;
     await client.waitForElementVisible(selector);
     await client.click(selector);
 
-    const panel = `.tab-content .tab-pane:nth-child(${tab-1})`;
+    const panel = `.tab-content .tab-pane:nth-child(${tab})`;
     await client.waitForElementVisible(panel);
   },
   countTarget: async(count, qaElementNames) => {
