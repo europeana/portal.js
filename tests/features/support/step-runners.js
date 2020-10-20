@@ -96,6 +96,9 @@ module.exports = {
     await client.waitForElementVisible(selector);
     client.click(selector);
   },
+  async clickOnTab(tab) {
+    await client.click('xpath', '//a[contains(text(),"' + tab + '")]');
+  },
   countTarget: async(count, qaElementNames) => {
     await client.elements('css selector', qaSelector(qaElementNames), async(result) => {
       await client.expect(result.value).to.have.lengthOf(count);
@@ -113,15 +116,9 @@ module.exports = {
     }
     client.keys(key);
   },
-  matchMetaLabelAndValue: async(label, value) => {
-    await client.elements('xpath', '//label[contains(text(),"' + label + '")]/parent::div//ul/li[contains(text(),"' + value + '")]', async(result) => {
-      await client.expect(result.value).to.have.lengthOf(1);
-    });
-  },
-  matchMetaLabelAndValueOrValue: async(label, value, altValue) => {
-    await client.elements('xpath', '//label[contains(text(),"' + label + '")]/parent::div//ul/li[contains(text(),"' + value + '") or contains(text(),"' + altValue + '")]', async(result) => {
-      await client.expect(result.value).to.have.lengthOf(1);
-    });
+  seeMetadataFieldValue: async(field, value, altValue) => {
+    const pattern = new RegExp(altValue ? `${value}|${altValue}` : value);
+    await client.expect.element(`[data-field-name="${field}"]`).text.to.match(pattern);
   },
   doNotSeeATarget(qaElementNames) {
     client.expect.element(qaSelector(qaElementNames)).to.not.be.visible;
