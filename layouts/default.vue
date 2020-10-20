@@ -1,8 +1,5 @@
 <template>
   <div>
-    <client-only>
-      <CookieDisclaimer />
-    </client-only>
     <a
       class="skip-main"
       href="#main"
@@ -10,6 +7,9 @@
     >
       {{ $t('layout.skipToMain') }}
     </a>
+    <client-only>
+      <CookieDisclaimer />
+    </client-only>
     <PageHeader
       :main-navigation="linkGroups.mainNavigation"
       :mobile-navigation="linkGroups.mobileNavigation"
