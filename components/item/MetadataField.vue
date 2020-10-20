@@ -33,11 +33,11 @@
             />
           </li>
         </template>
-        <template v-else-if="typeof fieldData.url !== 'undefined'">
+        <template v-else-if="fieldData.url">
           <li
             :key="index"
             :lang="langMappedValues.code"
-            data-qa="literal value"
+            data-qa="entity link"
           >
             <SmartLink
               :destination="fieldData.url"
@@ -145,6 +145,7 @@
 
 <style lang="scss" scoped>
   @import './assets/scss/variables.scss';
+  @import '../../assets/scss/icons.scss';
 
   .metadata-row {
     border-bottom: 1px solid #e7e7e9;
@@ -167,7 +168,14 @@
         display: inline;
         &:not(:last-child):after {
           content: ';';
-          padding: 0 0.2rem;
+          right: 3px;
+          position: relative;
+        }
+        a:after {
+          content: '\e900';
+          @extend .icon-font;
+          vertical-align: initial;
+          font-size: 0.75rem;
         }
       }
     }
