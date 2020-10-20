@@ -96,6 +96,14 @@ module.exports = {
     await client.waitForElementVisible(selector);
     client.click(selector);
   },
+  async clickOnTab(tab) {
+    const selector = `.nav-tabs .nav-link:nth-child(${tab-1})`;
+    await client.waitForElementVisible(selector);
+    await client.click(selector);
+
+    const panel = `.tab-content .tab-pane:nth-child(${tab-1})`;
+    await client.waitForElementVisible(panel);
+  },
   countTarget: async(count, qaElementNames) => {
     await client.elements('css selector', qaSelector(qaElementNames), async(result) => {
       await client.expect(result.value).to.have.lengthOf(count);

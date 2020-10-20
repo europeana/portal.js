@@ -122,6 +122,7 @@ Feature: Search faceting
     And I click the `COUNTRY apply button`
     And I click a `item preview`
     Then I see an `item page`
+    And I click tab number 2
     And I should see a meta label `Providing country` with the value "Belgium" or the value "Germany"
 
   # TODO: Add back - And I click the `search button` instead of press ENTER

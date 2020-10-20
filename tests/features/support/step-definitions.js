@@ -129,6 +129,9 @@ defineStep('I paginate/switch/go to page (number ){int}', (page) =>
 defineStep('I am on page (number ){int}', (page) =>
   i.amOnPageNumber(page));
 
+defineStep('I click tab (number ){int}', (tab) =>
+  i.clickOnTab(tab));
+
 defineStep('I go back', () =>
   i.goBack());
 
