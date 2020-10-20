@@ -48,7 +48,9 @@ Feature: Search querying
     And I enter "World" in the `search box`
     And I see `search query options` with the text "World War I"
     And I press the DOWN_ARROW key
+    And the `search entire collection button` is highlighted
     And I press the DOWN_ARROW key
+    And the `World War I search suggestion` is highlighted
     And I press the ENTER key
     Then I see the `search page`
     And I see "\"World War I\"" in the `search box`
