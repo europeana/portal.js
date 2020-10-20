@@ -109,6 +109,8 @@ Feature: Search faceting
     When I click the `COUNTRY dropdown button`
     And I check the "\"Belgium\"" "COUNTRY" checkbox
     And I click the `COUNTRY apply button`
+    Then I should be on `/en/search?page=1&qf=COUNTRY%3A%22Belgium%22&query=&view=grid`
+    And I see a `filter badge` with the text "Providing country: Belgium"
     And I see a `item preview`
     And I click a `item preview`
     Then I see an `item page`
@@ -121,6 +123,8 @@ Feature: Search faceting
     And I check the "\"Belgium\"" "COUNTRY" checkbox
     And I check the "\"Germany\"" "COUNTRY" checkbox
     And I click the `COUNTRY apply button`
+    Then I should be on `/en/search?page=1&qf=COUNTRY%3A%22Belgium%22&qf=COUNTRY%3A%22Germany%22&query=&view=grid`
+    And I should have 2 `filter badge`s
     And I click a `item preview`
     Then I see an `item page`
     And I click the "All metadata" tab
