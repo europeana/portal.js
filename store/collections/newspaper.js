@@ -1,25 +1,20 @@
+import { BASE_URL as FULLTEXT_BASE_URL } from '../../plugins/europeana/newspaper';
+
 export const state = () => ({
   apiOptions: {},
   apiParams: {}
 });
 
 export const getters = {
-  apiConfig: (state, getters, rootState, rootGetters) => {
-    return rootGetters['apis/config'];
-  },
-
   apiOptions: (state, getters) => {
     const options = Object.assign({}, state.apiOptions);
 
-    if (getters.apiParams.api === 'fulltext') {
-      options.origin = getters.apiConfig.newspaper.origin;
-      options.path = getters.apiConfig.newspaper.path;
-    }
+    if (getters.apiParams.api === 'fulltext') options.url = FULLTEXT_BASE_URL;
 
     return options;
   },
 
-  apiParams: (state, getters) => {
+  apiParams: (state) => {
     const params = Object.assign({}, state.apiParams);
 
     // Ensure newspapers collection gets fulltext API by default
@@ -33,7 +28,6 @@ export const getters = {
       params.qf = ([].concat(params.qf)).filter(qf => !/^contentTier:/.test(qf));
       params.qf.push('contentTier:*');
 
-      params.wskey = getters.apiConfig.newspaper.key;
       params.profile = 'minimal,hits';
     }
 

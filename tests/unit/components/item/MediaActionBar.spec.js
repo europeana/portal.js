@@ -1,14 +1,12 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 import VueI18n from 'vue-i18n';
-import Vuex from 'vuex';
 import SmartLink from '../../../../components/generic/SmartLink.vue';
 import MediaActionBar from '../../../../components/item/MediaActionBar.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 localVue.use(VueI18n);
-localVue.use(Vuex);
 localVue.component('SmartLink', SmartLink);
 
 const i18n = new VueI18n({
@@ -23,25 +21,20 @@ const i18n = new VueI18n({
   }
 });
 
-const store = new Vuex.Store({
-  modules: {
-    http: {
-      namespaced: true,
-      getters: {
-        canonicalUrl: () => 'https://www.example.org/page'
-      }
-    }
-  }
-});
-
 const factory = (propsData) => mount(MediaActionBar, {
   localVue,
   i18n,
-  store,
   propsData,
   mocks: {
     $t: (key) => `TRANSLATED: ${key}`,
-    $proxyMedia: () => 'proxied'
+    $store: {
+      getters: {
+        'http/canonicalUrl': () => 'https://www.example.org/page',
+        'apis/record': {
+          mediaProxyUrl: () => 'proxied'
+        }
+      }
+    }
   }
 });
 
