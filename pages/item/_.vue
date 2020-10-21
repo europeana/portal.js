@@ -307,7 +307,7 @@
         return false;
       },
       dataProvider() {
-        const edmDataProvider = langMapValueForLocale(this.coreFields.edmDataProvider, this.$i18n.locale);
+        const edmDataProvider = langMapValueForLocale(this.coreFields.edmDataProvider.value, this.$i18n.locale);
 
         if (edmDataProvider.values[0].about) {
           return edmDataProvider.values[0];
