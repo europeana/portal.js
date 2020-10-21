@@ -46,7 +46,7 @@
               attribution: false,
               canvas: false,
               annotations: true,
-              search: false
+              search: true
             },
             defaultSideBarPanel: 'annotations'
           },
