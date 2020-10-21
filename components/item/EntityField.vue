@@ -15,8 +15,9 @@
 </template>
 
 <script>
-  import { isEntityUri, entityParamsFromUri } from '../../plugins/europeana/entity';
   import SmartLink from '../generic/SmartLink';
+
+  import { isEntityUri, entityParamsFromUri } from '../../plugins/europeana/entity';
 
   export default {
     components: {
