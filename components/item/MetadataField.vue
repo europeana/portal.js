@@ -168,10 +168,9 @@
         display: inline;
         &:not(:last-child):after {
           content: ';';
-          right: 3px;
-          position: relative;
+          padding: 0 0.2rem;
         }
-        a:after {
+        a.is-external-link:after {
           content: '\e900';
           @extend .icon-font;
           vertical-align: initial;
