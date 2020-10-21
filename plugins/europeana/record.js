@@ -22,13 +22,13 @@ export const axiosDefaults = {
  * Retrieves the "Core" fields which will always be displayed on record pages.
  *
  * @param {Object[]} proxyData All core fields are in the proxyData.
+ * @param {Object[]} providerAggregation Extra fields used for the provider name & isShownAt link.
  * @param {Object[]} entities Entities in order to perform entity lookups
  * @return {Object[]} Key value pairs of the metadata fields.
  */
-function coreFields(proxyData, edmDataProvider, entities) {
+function coreFields(proxyData, providerAggregation, entities) {
   return lookupEntities(omitBy({
-    edmDataProvider,
-
+    edmDataProvider: { url: providerAggregation.edmIsShownAt, value: providerAggregation.edmDataProvider },
     dcContributor: proxyData.dcContributor,
     dcCreator: proxyData.dcCreator,
     dcPublisher: proxyData.dcPublisher,
@@ -214,7 +214,7 @@ export default (axiosOverrides) => {
         identifier: edm.about,
         type: edm.type,
         isShownAt: providerAggregation.edmIsShownAt,
-        coreFields: coreFields(proxyData, providerAggregation.edmDataProvider, entities),
+        coreFields: coreFields(proxyData, providerAggregation, entities),
         fields: extraFields(proxyData, edm, entities),
         media: this.aggregationMedia(providerAggregation, edm.type, edm.services),
         agents: edm.agents,
