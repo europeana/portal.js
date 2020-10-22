@@ -1,5 +1,6 @@
 <template>
   <swiper
+    v-show="swiperLoaded"
     ref="awesome"
     class="swiper"
     :options="swiperOptions"
@@ -18,6 +19,7 @@
           :europeana-identifier="europeanaIdentifier"
           :media="item"
           :is-single-playable-media="isSinglePlayableMedia"
+          :lazy="false"
         />
       </div>
       <MediaCard
@@ -25,6 +27,7 @@
         :europeana-identifier="europeanaIdentifier"
         :media="item"
         :is-single-playable-media="isSinglePlayableMedia"
+        :lazy="index > 0"
       />
     </swiper-slide>
     <div
@@ -72,6 +75,7 @@
     data() {
       const singleMediaResource = this.displayableMedia.length === 1;
       return {
+        swiperLoaded: false,
         swiperOptions: {
           threshold: singleMediaResource ? 5000000 :  null,
           slidesPerView: 'auto',
@@ -99,6 +103,9 @@
         return this.displayableMedia.filter(resource => isPlayableMedia(resource)).length === 1;
       }
     },
+    mounted() {
+      this.swiperLoaded = true;
+    },
     methods: {
       onSlideChange() {
         this.$emit('select', this.displayableMedia[this.swiper.activeIndex].about);
@@ -123,6 +130,7 @@
 
     .swiper-slide {
       width: auto;
+      min-width: 16rem;
       :before {
         content: '';
         transition: $standard-transition;
