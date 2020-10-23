@@ -7,8 +7,6 @@
 
 <script>
   import RelatedCollections from '../generic/RelatedCollections';
-  import { getEntitySuggestions } from '../../plugins/europeana/entity';
-  import { mapGetters } from 'vuex';
 
   export default {
     name: 'RelatedSection',
@@ -34,19 +32,13 @@
       };
     },
 
-    computed: {
-      ...mapGetters({
-        apiConfig: 'apis/config'
-      })
-    },
-
     watch: {
       query: '$fetch'
     },
 
     methods: {
       async getSearchSuggestions(query) {
-        this.relatedCollections = query === '' ? [] : await getEntitySuggestions(query, {
+        this.relatedCollections = query === '' ? [] : await this.$store.getters['apis/entity'].getEntitySuggestions(query, {
           language: this.$i18n.locale,
           rows: 4
         });

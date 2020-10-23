@@ -1,20 +1,34 @@
 <template>
-  <b-container
-    ref="nav-container"
+  <header
     v-visible-on-scroll
-    fluid
-    class="border-bottom d-flex py-0 px-lg-3 flex-column flex-lg-row align-items-center show"
+    class="m-0 navbar-brand container-fluid d-flex justify-content-between show"
+    role="banner"
+    :aria-label="$t('header.europeanaHome')"
     data-qa="header"
   >
-    <header
-      class="col p-0 m-0 text-center text-lg-left navbar-brand d-flex align-items-center justify-content-between justify-content-lg-start flex-row"
-      role="banner"
-      aria-label="Europeana home"
+    <div
+      v-if="showSearch"
+      class="d-flex justify-content-center w-100"
     >
       <b-button
-        v-show="!showSearch"
+        data-qa="back button"
+        class="back"
         variant="light"
-        class="navbar-toggle collapsed ml-3 p-0 flex-column align-items-center justify-content-center"
+        :aria-label="$t('header.backToMenu')"
+        @click="toggleSearchBar"
+      />
+      <SearchForm
+        role="search"
+        aria-label="search form"
+        data-qa="search form"
+      />
+    </div>
+    <template
+      v-else
+    >
+      <b-button
+        variant="light"
+        class="navbar-toggle collapsed flex-column align-items-center justify-content-center align-self-center ml-3"
         :aria-label="$t('header.showSidebar')"
         @click="showSidebar = !showSidebar"
       >
@@ -23,9 +37,8 @@
         <span />
       </b-button>
       <SmartLink
-        v-show="!showSearch"
         :destination="{ name: 'index' }"
-        class="logo d-lg-block"
+        class="logo pl-lg-3"
       >
         <img
           src="../assets/img/logo.svg"
@@ -34,62 +47,64 @@
           data-qa="logo"
         >
       </SmartLink>
-      <SearchForm
-        data-qa="search form"
-        role="search"
-        class="px-lg-3 mr-lg-auto mx-xl-auto"
-        aria-label="search form"
-        :enable-auto-suggest="enableAutoSuggest"
-      />
-    </header>
-    <b-navbar
-      class="p-lg-0 align-items-start justify-content-lg-end flex-column flex-lg-row d-none d-lg-block"
-      role="navigation"
-      data-qa="desktop navigation"
-    >
-      <PageNavigation
-        v-if="mainNavigation"
-        :links="mainNavigation.links"
-      />
-    </b-navbar>
-    <transition name="slide">
       <b-navbar
-        v-if="showSidebar"
-        class="p-lg-0 align-items-start justify-content-lg-end flex-column flex-lg-row d-lg-none"
+        class="align-items-center flex-row d-flex p-0 mr-3"
         role="navigation"
-        data-qa="mobile navigation"
       >
-        <SmartLink
-          :destination="{ name: 'index' }"
-          class="logo d-block d-lg-none px-2"
-        >
-          <img
-            src="../assets/img/logo.svg"
-            :alt="$t('homeLinkAlt')"
-            class="mb-lg-2 mw-100"
-            data-qa="logo"
-          >
-        </SmartLink>
         <PageNavigation
-          v-if="mobileNavigation"
-          :links="mobileNavigation.links"
+          v-if="mainNavigation"
+          class="d-none d-lg-flex"
+          :links="mainNavigation.links"
+          data-qa="desktop navigation"
+        />
+        <b-button
+          data-qa="show search button"
+          class="search ml-lg-3"
+          variant="light"
+          :aria-label="$t('search')"
+          @click="toggleSearchBar"
         />
       </b-navbar>
-    </transition>
-    <transition name="fade">
-      <span
-        v-if="showSidebar"
-        class="close-menu"
-        @click="showSidebar = !showSidebar"
-      />
-    </transition>
-  </b-container>
+      <transition name="slide">
+        <b-navbar
+          v-if="showSidebar"
+          class="mobile-nav p-lg-0 align-items-start justify-content-lg-end flex-column flex-lg-row d-lg-none"
+          role="navigation"
+          data-qa="mobile navigation"
+        >
+          <SmartLink
+            :destination="{ name: 'index' }"
+            class="logo d-block d-lg-none px-2"
+          >
+            <img
+              src="../assets/img/logo.svg"
+              :alt="$t('homeLinkAlt')"
+              class="mb-lg-2 mw-100"
+              data-qa="logo"
+            >
+          </SmartLink>
+          <PageNavigation
+            v-if="mobileNavigation"
+            :links="mobileNavigation.links"
+          />
+        </b-navbar>
+      </transition>
+      <transition name="fade">
+        <span
+          v-if="showSidebar"
+          class="close-menu"
+          @click="showSidebar = !showSidebar"
+        />
+      </transition>
+    </template>
+  </header>
 </template>
 
 <script>
   import SmartLink from './generic/SmartLink';
   import SearchForm from './search/SearchForm';
   import PageNavigation from './PageNavigation';
+  import { mapState } from 'vuex';
 
   export default {
     components: {
@@ -99,10 +114,6 @@
     },
 
     props: {
-      enableAutoSuggest: {
-        type: Boolean,
-        default: false
-      },
       mainNavigation: {
         type: Object,
         default: null
@@ -121,11 +132,9 @@
     },
 
     computed: {
-      showSearch: {
-        get() {
-          return this.$store.getters['ui/searchView'];
-        }
-      }
+      ...mapState({
+        showSearch: state => state.search.showSearchBar
+      })
     },
 
     watch: {
@@ -134,15 +143,23 @@
           this.showSidebar = false;
         }
       }
+    },
+
+    methods: {
+      toggleSearchBar() {
+        this.$store.commit('search/setShowSearchBar', !this.$store.state.search.showSearchBar);
+      }
     }
   };
 </script>
 
 <style lang="scss" scoped>
   @import '../assets/scss/variables.scss';
+  @import './assets/scss/icons.scss';
 
   .container-fluid {
     background: $white;
+    height: 3.5rem;
     position: fixed;
     right: 0;
     top: 0;
@@ -150,6 +167,11 @@
     z-index: 1030;
     padding: 0;
     border-bottom: 1px solid $whitegrey;
+
+    &:not(.show) /deep/ .search-query,
+    &:not(.show) /deep/ .auto-suggest-dropdown {
+      display: none;
+    }
   }
 
   .slide-enter-active, .fade-enter-active {
@@ -173,7 +195,8 @@
     flex: 0 0 auto;
     .logo {
       min-width: 9.5625rem;
-      padding: 0.735rem 0 !important;
+      padding-bottom: 0.735rem;
+      padding-top: 0.735rem;
       transition: 0.3s ease-in-out;
       img {
         width: 9.5625rem;
@@ -181,7 +204,7 @@
     }
   }
 
-  .navbar {
+  .navbar.mobile-nav {
     height: 100vh;
     position: fixed;
     top: 0;
@@ -194,6 +217,42 @@
       padding-top: 1rem;
       flex-direction: column;
       width: 100%;
+    }
+  }
+
+  .btn {
+    align-items: center;
+    background: none;
+    border-radius: 0;
+    border: 0;
+    box-shadow: none;
+    color: $black;
+    display: flex;
+    font-size: 1rem;
+    height: 1.5rem;
+    justify-content: center;
+    padding: 0;
+    width: 1.5rem;
+
+    &:before {
+      @extend .icon-font;
+      display: inline-block;
+      font-size: 1.1rem;
+    }
+
+    &.search:before {
+      content: '\e92b';
+    }
+
+    &.back {
+      position: absolute;
+      left: 1rem;
+      top: 1rem;
+      z-index: 99;
+
+      &:before {
+        content: '\ea40';
+      }
     }
   }
 
@@ -246,10 +305,6 @@
     }
     .navbar-toggle {
       display: none;
-    }
-    .form-inline {
-      width: 100%;
-      max-width: 37.5rem;
     }
     @media (max-width: $bp-large) {
       .navbar-brand {

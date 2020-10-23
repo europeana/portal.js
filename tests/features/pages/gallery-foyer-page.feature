@@ -10,5 +10,4 @@ Feature: Gallery foyer page
     When I open the `gallery foyer page`
     Then I see a `content card` in the `gallery foyer`
     And I click a `content card`
-    And I wait for the page to load
     Then I should not be on the `gallery foyer page`

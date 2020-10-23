@@ -10,7 +10,12 @@
     <b-container data-qa="search page">
       <b-row>
         <b-col>
-          <h1>{{ $t('search') }}</h1>
+          <i18n
+            :path="$route.query.query ? 'searchResultsFor' : 'searchResults'"
+            tag="h1"
+          >
+            <span data-qa="search query">{{ $route.query.query }}</span>
+          </i18n>
         </b-col>
         <RelatedSection
           :query="$route.query.query"
@@ -63,11 +68,13 @@
 
     head() {
       return {
-        title: this.$t('search')
+        title: this.$route.query.query ? this.$t('searchResultsFor', [this.$route.query.query]) : this.$t('search')
       };
     },
 
     async beforeRouteLeave(to, from, next) {
+      // Leaving the search page closes the search bar. Reevaluate when autosuggestions go straight to entity pages.
+      this.$store.commit('search/setShowSearchBar', false);
       await this.$store.dispatch('search/deactivate');
       next();
     },
@@ -75,3 +82,15 @@
     watchQuery: ['api', 'reusability', 'query', 'qf', 'page']
   };
 </script>
+
+<style lang="scss" scoped>
+  h1 {
+    font-size: 1.875rem;
+    font-weight: 300;
+    line-height: 1.375;
+    margin-bottom: 1rem;
+    span {
+      font-weight: 600;
+    }
+  }
+</style>

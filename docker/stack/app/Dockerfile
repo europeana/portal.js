@@ -5,7 +5,6 @@
 
 FROM node:12-alpine
 
-ENV NODE_ENV=development
 ENV PORT=8080
 ENV HOST=0.0.0.0
 ENV CHROMEDRIVER_SKIP_DOWNLOAD=true
@@ -20,8 +19,10 @@ COPY package.json package-lock.json ./
 
 RUN npm install
 
-COPY docker/stack/app/docker-entrypoint.sh ./
-
 COPY . .
 
-ENTRYPOINT ["/app/docker-entrypoint.sh"]
+RUN npm run build
+
+ENV NODE_ENV=production
+
+CMD ["node", "server/index.js"]

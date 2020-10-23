@@ -1,88 +1,78 @@
 <template>
-  <b-row
-    class="flex-md-row"
-    data-qa="blog post"
-  >
-    <b-col
-      cols="12"
-    >
-      <article>
-        <div class="title">
-          <h1 data-qa="blog post title">
-            {{ title }}
-          </h1>
-          <p
-            v-if="description"
-            class="lead"
-          >
-            {{ description }}
-          </p>
-        </div>
-      </article>
-    </b-col>
-    <b-col cols="12">
-      <ImageWithAttribution
-        v-if="heroImage"
-        :src="heroImage.url"
-        :image-content-type="heroImage.contentType"
-        :rights-statement="hero.license"
-        :attribution="hero"
-        hero
-      />
-    </b-col>
-    <b-col
-      cols="12"
-    >
-      <article>
-        <div class="font-small font-weight-bold d-block">
-          <time
-            v-if="datePublished"
-            class="d-inline-block"
-            data-qa="date"
-            :datetime="datePublished"
-          >
-            {{ $t('blog.published', { date: $d(new Date(datePublished), 'short') }) }}
-          </time>
-          <span
-            v-if="authors"
-          >
-            {{ $t('blog.by') }}
-          </span>
-          <BlogAuthor
-            v-for="(author, index) in authors"
-            :key="index"
-            class="d-inline-block"
-            :name="author.name"
-            :organisation="author.affiliation"
-            :url="author.url"
+  <div>
+    <AuthoredHead
+      :title="title"
+      :description="description"
+      :hero="hero"
+    />
+    <b-container>
+      <b-row class="justify-content-center">
+        <b-col
+          cols="12"
+          class="col-lg-8"
+        >
+          <article>
+            <!-- eslint-disable vue/no-v-html -->
+            <!-- share :media-url="" -->
+            <div class="font-small font-weight-bold d-block">
+              <time
+                v-if="datePublished"
+                class="d-inline-block"
+                data-qa="date"
+                :datetime="datePublished"
+              >
+                {{ $t('blog.published', { date: $d(new Date(datePublished), 'short') }) }}
+              </time>
+              <span
+                v-if="authors"
+              >
+                {{ $t('blog.by') }}
+              </span>
+              <BlogAuthor
+                v-for="(author, index) in authors"
+                :key="index"
+                class="d-inline-block"
+                :name="author.name"
+                :organisation="author.affiliation"
+                :url="author.url"
+              />
+            </div>
+            <ShareButton class="my-4" />
+            <SocialShareModal :media-url="hero ? hero.image.url : null" />
+            <BrowseSections
+              :sections="body.items"
+              :rich-text-is-card="false"
+              class="authored-section"
+              data-qa="blog-sections"
+            />
+            <!-- eslint-enable vue/no-v-html -->
+          </article>
+          <BlogTags
+            v-if="tags"
+            :tags="tags"
           />
-        </div>
-        <ShareButton class="my-4" />
-        <SocialShareModal :media-url="identifier" />
-        <!-- eslint-disable vue/no-v-html -->
-        <div
-          class="article"
-          v-html="html"
-        />
-        <!-- eslint-enable vue/no-v-html -->
-      </article>
-    </b-col>
-  </b-row>
+        </b-col>
+      </b-row>
+      <b-row class="footer-margin" />
+    </b-container>
+  </div>
 </template>
 
 <script>
-  import marked from 'marked';
   import SocialShareModal from '../sharing/SocialShareModal.vue';
   import ShareButton from '../sharing/ShareButton.vue';
+  import BrowseSections from '../browse/BrowseSections';
 
   export default {
     name: 'BlogPost',
 
     components: {
-      ImageWithAttribution: () => import('../../components/generic/ImageWithAttribution'),
+      AuthoredHead: () => import('../../components/authored/AuthoredHead'),
       BlogAuthor: () => import('./BlogAuthor'),
+      BlogTags: () => import('../../components/blog/BlogTags'),
       SocialShareModal,
-      ShareButton
+      ShareButton,
+      BrowseSections
     },
 
     props: {
@@ -102,8 +92,8 @@
       },
 
       body: {
-        type: String,
-        required: true
+        type: Object,
+        default: null
       },
 
       identifier: {
@@ -116,20 +106,14 @@
         default: null
       },
 
-      heroImage: {
-        type: Object,
-        default: null
-      },
-
       authors: {
         type: Array,
         default: () => []
-      }
-    },
+      },
 
-    computed: {
-      html() {
-        return marked(this.body);
+      tags: {
+        type: Array,
+        default: () => []
       }
     }
   };

@@ -1,6 +1,5 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
-import apiConfig from '../../../../modules/apis/defaults';
 import ContentCardSection from '../../../../components/browse/ContentCardSection.vue';
 
 const localVue = createLocalVue();
@@ -11,9 +10,6 @@ const $store = {
     request: {
       domain: null
     }
-  },
-  getters: {
-    'apis/config': { ...apiConfig }
   }
 };
 

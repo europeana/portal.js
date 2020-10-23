@@ -3,21 +3,20 @@
  * @see https://pro.europeana.eu/resources/apis/record#thumbnails
  */
 
-import { config } from './';
+import { BASE_URL as EUROPEANA_DATA_URL } from './data';
 
-export function thumbnailUrl(uri, params = {}, options = {}) {
-  const origin = options.origin || config.thumbnail.origin;
-  const path = options.path || config.thumbnail.path;
+export const BASE_URL = process.env.EUROPEANA_THUMBNAIL_API_URL || 'https://api.europeana.eu/thumbnail/v2';
 
-  const url = new URL(`${origin}${path}/thumbnail-by-url.json`);
+export const thumbnailUrl = (uri, params = {}) => {
+  const url = new URL(`${BASE_URL}/url.json`);
   for (const key of Object.keys(params)) {
     url.searchParams.set(key, params[key]);
   }
   url.searchParams.set('uri', uri);
   return url.toString();
-}
+};
 
-export function thumbnailTypeForMimeType(mimeType) {
+export const thumbnailTypeForMimeType = (mimeType) => {
   let thumbnailType = null;
 
   switch (true) {
@@ -38,9 +37,9 @@ export function thumbnailTypeForMimeType(mimeType) {
   }
 
   return thumbnailType;
-}
+};
 
-export function genericThumbnail(itemId, params = {}) {
-  const uri = `${config.data.origin}/item${itemId}`;
+export const genericThumbnail = (itemId, params = {}) => {
+  const uri = `${EUROPEANA_DATA_URL}/item${itemId}`;
   return thumbnailUrl(uri, params);
-}
+};

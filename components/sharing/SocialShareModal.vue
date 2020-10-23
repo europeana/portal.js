@@ -84,9 +84,6 @@
             padding-left: 0.75rem;
           }
         }
-        button {
-          font-weight: 600;
-        }
         @media (max-width: $bp-small) {
           .icon-wrapper > div {
             flex-direction: column;

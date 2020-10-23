@@ -7,7 +7,6 @@ Feature: Entity page
     And I don't have an `entity description`
     And I see `total results`
     And I see a `search list view toggle`
-    And I see a `search bar pill`
     And I see a `search facet`
     And I should see 24 `item preview`s
     And I see a `pagination navigation`
@@ -35,7 +34,6 @@ Feature: Entity page
     When I open an `entity page`
     And I see the `entity page`
     And I click the `Book related chip`
-    And I wait for the page to load
     Then I should not be on the `entity page`
 
   Scenario: Navigating to a related item
@@ -43,7 +41,6 @@ Feature: Entity page
     And I see the `entity page`
     And I see a `item preview`
     When I click a `item preview`
-    And I wait for the page to load
     Then I see an `item page`
 
   Scenario: Pagination links
@@ -54,29 +51,34 @@ Feature: Entity page
 
   Scenario: Pagination links work when the page was accessed from the url
     When I visit `/en/collections/person/60305-william-shakespeare?page=2`
-    And I wait 1 second
     And I see the `pagination navigation`
     And I go to page number 3
-    And I wait for the page to load
     Then I should be on `/en/collections/person/60305-william-shakespeare?page=3`
 
-  # TODO: Add back - And I click the `search button` instead of press ENTER
-  Scenario: Searching from an entity page searches within that entity
+  Scenario: Searching from an entity page searches within that entity, using keyboard
     When I open an `entity page`
     And I see the `entity page`
-    And I see a `item preview`
+    And I see an `item preview`
+    And I click the `show search button`
     And I enter "newspaper" in the `search box`
     And I press the ENTER key
     Then I see the `entity page`
 
-  Scenario: Removing search pill
+  Scenario: Searching from an entity page searches within that entity, using the search button
+    When I open an `entity page`
+    And I see the `entity page`
+    And I see an `item preview`
+    And I click the `show search button`
+    And I enter "newspaper" in the `search box`
+    And I click the `search in collection button`
+    Then I see the `entity page`
+
+  Scenario: Leaving an Entity page
     When I open an `entity page`
     And I go to page number 2
-    And I wait for the page to load
     And I am on page number 2
-    And I see the `search bar pill`
-    And I click the `search bar pill button`
-    And I wait for the page to load
+    And I see the `entity title`
+    And I click the `show search button`
+    And I click the `search entire collection button`
     Then I see the `search page`
-    And I don't have the `search bar pill`
-    And I am on page number 1
+    And I don't have the `entity title`

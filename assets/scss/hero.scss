@@ -190,11 +190,8 @@
   .user-buttons {
     display: inline-flex;
     .btn {
-      text-transform: capitalize;
       background: $offwhite;
       color: $mediumgrey;
-      box-shadow: none;
-      border-radius: 0.25rem;
       align-items: center;
       justify-content: center;
       border: 1px solid transparent;
@@ -205,10 +202,6 @@
       line-height: 1;
       padding: 0.375rem;
       margin-right: 0.5rem;
-
-      &:hover {
-        box-shadow: $boxshadow-small;
-      }
 
       &.active {
         color: $white;
@@ -229,7 +222,7 @@
   .button-wrapper {
     flex: 1;
   }
-  
+
   @media (max-width: $bp-medium) {
     .media-bar {
       flex-direction: column;

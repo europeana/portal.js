@@ -30,6 +30,9 @@ h1 {
 
 h2 {
   font-size: 1.875rem;
+  span {
+    font-weight: 600;
+  }
 }
 
 h3, h4 {
@@ -190,5 +193,5 @@ input[type='checkbox']:focus + label {
 }
 
 main#default {
-  margin-top: 71px;
+  margin-top: 70px;
 }

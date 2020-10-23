@@ -30,7 +30,7 @@ const config = {
   loading: {
     // Show progress bar immediately when testing, to aid detection that page
     // has started loading, then finished.
-    throttle: process.env.NODE_ENV === 'test' ? 0 : 200,
+    throttle: process.env.NUXT_LOADING_THROTTLE || 200,
     css: false,
     duration: 2500,
     continuous: true
@@ -85,8 +85,8 @@ const config = {
   */
   plugins: [
     '~/plugins/axiosLogger',
-    '~/plugins/europeana',
-    '~/plugins/vue/index',
+    '~/plugins/apis',
+    '~/plugins/vue',
     '~/plugins/i18n.js',
     '~/plugins/vue-filters',
     '~/plugins/vue-directives'
@@ -129,7 +129,6 @@ const config = {
     '@nuxtjs/axios',
     '@nuxtjs/auth',
     '@nuxtjs/dotenv',
-    '~/modules/apis',
     'bootstrap-vue/nuxt',
     'cookie-universal-nuxt',
     ['nuxt-i18n', {
@@ -181,6 +180,8 @@ const config = {
     },
     linkExactActiveClass: 'exact-active-link'
   },
+
+  serverMiddleware: ['~/middleware/server/record-json'],
 
   /*
   ** Build configuration

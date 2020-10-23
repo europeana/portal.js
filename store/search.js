@@ -1,6 +1,6 @@
 import { diff } from 'deep-object-diff';
 import merge from 'deepmerge';
-import { search, unquotableFacets } from '../plugins/europeana/search';
+import { unquotableFacets } from '../plugins/europeana/search';
 
 // Default facets to always request and display.
 // Order is significant as it will be reflected on search results.
@@ -75,11 +75,12 @@ export const state = () => ({
   hits: null,
   lastAvailablePage: null,
   overrideParams: {},
-  pill: null,
+  collectionLabel: null,
   previousApiOptions: null,
   previousApiParams: null,
   resettableFilters: [],
   results: [],
+  showSearchBar: false,
   totalResults: null,
   userParams: {},
   view: null
@@ -135,6 +136,9 @@ export const mutations = {
   setResults(state, value) {
     state.results = value;
   },
+  setShowSearchBar(state, value) {
+    state.showSearchBar = value;
+  },
   setTotalResults(state, value) {
     state.totalResults = value;
   },
@@ -145,8 +149,8 @@ export const mutations = {
       localStorage.searchResultsView = value;
     }
   },
-  setPill(state, value) {
-    state.pill = value;
+  setCollectionLabel(state, value) {
+    state.collectionLabel = value;
   },
   set(state, payload) {
     state[payload[0]] = payload[1];
@@ -273,7 +277,7 @@ export const actions = {
     commit('set', ['apiOptions', {}]);
     commit('set', ['previousApiParams', null]);
     commit('set', ['previousApiOptions', null]);
-    commit('setPill', null);
+    commit('setCollectionLabel', null);
   },
 
   // TODO: replace with a getter?
@@ -291,10 +295,6 @@ export const actions = {
     if (!apiParams.profile) apiParams.profile = 'minimal';
 
     const apiOptions = {};
-    if (apiParams.recordApi) {
-      apiOptions.origin = apiParams.recordApi;
-      delete apiParams.recordApi;
-    }
 
     commit('set', ['previousApiParams', Object.assign({}, state.apiParams)]);
     commit('set', ['previousApiOptions', Object.assign({}, state.apiOptions)]);
@@ -338,13 +338,13 @@ export const actions = {
     ]);
   },
 
-  queryItems({ dispatch, state, getters }) {
+  queryItems({ dispatch, state, getters, rootGetters }) {
     const paramsForItems = {
       ...state.apiParams,
       facet: null
     };
 
-    return search(paramsForItems, getters.searchOptions)
+    return rootGetters['apis/record'].search(paramsForItems, getters.searchOptions)
       .then(async(response) => {
         await dispatch('updateForSuccess', response);
       })
@@ -362,7 +362,7 @@ export const actions = {
       profile: 'facets'
     };
 
-    return search(paramsForFacets, getters.searchOptions)
+    return rootGetters['apis/record'].search(paramsForFacets, getters.searchOptions)
       .then((response) => {
         commit('setFacets', response.facets);
         const collection = getters.collection;
