@@ -5,7 +5,83 @@ const pkg = require('./package');
 const i18nLocales = require('./plugins/i18n/locales.js');
 const i18nDateTime = require('./plugins/i18n/datetime.js');
 
+const featureIsEnabled = (value) => Boolean(Number(value));
+
 const config = {
+  /*
+  ** Runtime config
+  */
+  publicRuntimeConfig: {
+    app: {
+      // TODO: rename env vars to prefix w/ APP_, except feature toggles
+      baseUrl: process.env.PORTAL_BASE_URL,
+      internalLinkDomain: process.env.INTERNAL_LINK_DOMAIN,
+      sslDatasetBlacklist: process.env.SSL_DATASET_BLACKLIST,
+      features: {
+        linksToClassic: featureIsEnabled(process.env.ENABLE_LINKS_TO_CLASSIC),
+        loginLink: featureIsEnabled(process.env.ENABLE_LOGIN_LINK),
+        sslNegotiation: featureIsEnabled(process.env.ENABLE_SSL_NEGOTIATION),
+        unauthenticatedUserButtons: featureIsEnabled(process.env.ENABLE_UNAUTHENTICATED_USER_BUTTONS),
+        xxUserAuth: featureIsEnabled(process.env.ENABLE_XX_USER_AUTH)
+      }
+    },
+    contentful: {
+      spaceId: process.env.CTF_SPACE_ID,
+      environmentId: process.env.CTF_ENVIRONMENT_ID,
+      accessToken: {
+        delivery: process.env.CTF_CDA_ACCESS_TOKEN,
+        preview: process.env.CTF_CPA_ACCESS_TOKEN
+      },
+      graphQlOrigin: process.env.CTF_GRAPHQL_ORIGIN
+    },
+    elastic: {
+      apm: {
+        serverUrl: process.env.ELASTIC_APM_SERVER_URL,
+        environment: process.env.ELASTIC_APM_ENVIRONMENT,
+        logLevel: process.env.ELASTIC_APM_LOG_LEVEL
+      }
+    },
+    europeana: {
+      apis: {
+        annotation: {
+          url: process.env.EUROPEANA_ANNOTATION_API_URL,
+          key: process.env.EUROPEANA_ANNOTATION_API_KEY || process.env.EUROPEANA_API_KEY
+        },
+        entity: {
+          url: process.env.EUROPEANA_ENTITY_API_URL,
+          key: process.env.EUROPEANA_ENTITY_API_KEY || process.env.EUROPEANA_API_KEY
+        },
+        newspaper: {
+          url: process.env.EUROPEANA_NEWSPAPER_API_URL
+        },
+        recommendation: {
+          url: process.env.EUROPEANA_RECOMMENDATION_API_URL
+        },
+        record: {
+          url: process.env.EUROPEANA_RECORD_API_URL,
+          key: process.env.EUROPEANA_RECORD_API_KEY || process.env.EUROPEANA_API_KEY
+        },
+        thumbnail: {
+          url: process.env.EUROPEANA_THUMBNAIL_API_URL
+        },
+        set: {
+          url: process.env.EUROPEANA_SET_API_URL,
+          key: process.env.EUROPEANA_SET_API_KEY || process.env.EUROPEANA_API_KEY
+        }
+      }
+    },
+    google: {
+      tagManagerId: process.env.GOOGLE_TAG_MANAGER_ID
+    },
+    oauth: {
+      origin: process.env.OAUTH_ORIGIN,
+      scheme: process.env.OAUTH_SCHEME,
+      realm: process.env.OAUTH_REALM,
+      client: process.env.OAUTH_CLIENT,
+      scope: process.env.OAUTH_SCOPE
+    }
+  },
+
   /*
   ** Headers of the page
   */
