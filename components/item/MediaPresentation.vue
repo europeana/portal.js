@@ -40,13 +40,22 @@
       :html="oEmbedData.html"
       :error="oEmbedData.error"
     />
-    <iframe
+    <template
       v-else-if="isIIIFImage || isIIIFPresentation"
-      data-qa="IIIF viewer"
-      allowfullscreen="true"
-      :src="$path({ name: 'iiif', query: { uri: iiifManifest } })"
-      :aria-label="$t('actions.viewDocument')"
-    />
+    >
+      <p
+        v-if="showSadNotice"
+        class="iiif-sadness has-text-highlight"
+      >
+        Updated Friday 23 October 2020: We are currently suffering an outage with our Newspaper services. We are working hard to resolve this and apologise for the inconvenience. This outage may span several days.
+      </p>
+      <iframe
+        data-qa="IIIF viewer"
+        allowfullscreen="true"
+        :src="$path({ name: 'iiif', query: { uri: iiifManifest } })"
+        :aria-label="$t('actions.viewDocument')"
+      />
+    </template>
   </div>
 </template>
 
@@ -99,6 +108,10 @@
     },
 
     computed: {
+      showSadNotice() {
+        return Boolean(Number(process.env.ENABLE_SAD_IIIF_NOTICE)) &&
+          this.iiifManifest.startsWith('https://iiif.europeana.eu/presentation/');
+      },
       displayImage() {
         return (this.imageSrc !== '') && !isRichMedia(this.media);
       },
@@ -148,6 +161,10 @@
 
 <style lang="scss" scoped>
   @import '../../assets/scss/variables.scss';
+
+  .iiif-sadness {
+    text-align: left;
+  }
 
   /* TODO: fixed max height is subject to change */
   .media-presentation {
