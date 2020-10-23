@@ -25,4 +25,4 @@ RUN npm run build
 
 ENV NODE_ENV=production
 
-CMD ["node", "server/index.js"]
+CMD ["npm", "run", "start:cluster"]

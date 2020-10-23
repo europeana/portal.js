@@ -181,7 +181,10 @@ const config = {
     linkExactActiveClass: 'exact-active-link'
   },
 
-  serverMiddleware: ['~/middleware/server/record-json'],
+  serverMiddleware: [
+    '~/middleware/server/logging',
+    '~/middleware/server/record-json'
+  ],
 
   /*
   ** Build configuration
