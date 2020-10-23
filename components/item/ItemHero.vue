@@ -108,7 +108,7 @@
         return this.rightsStatement && !this.rightsStatement.includes('/InC/');
       },
       showUserButtons() {
-        return this.$config.app.features.xxUserAuth && this.$config.app.features.unauthenticatedUserButtons || (this.$store.state.auth && this.$store.state.auth.loggedIn));
+        return this.$config.app.features.xxUserAuth && (this.$config.app.features.unauthenticatedUserButtons || (this.$store.state.auth && this.$store.state.auth.loggedIn));
       },
       displayableMedia() {
         // Crude check for IIIF content, which is to prevent newspapers from showing many IIIF viewers.

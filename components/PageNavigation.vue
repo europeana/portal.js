@@ -111,7 +111,7 @@
       return {
         authLinks: [
           { to: this.$path({ name: 'account' }), text: this.$t('account.profile'), name: '/account' },
-          { href: `${this.$config.auth.origin}/auth/realms/${this.$config.auth.realm}/account?referrer=${this.$config.auth.client}`, text: this.$t('account.settings'), name: '/account/settings' },
+          { href: `${this.$config.$auth.origin}/auth/realms/${this.$config.$auth.realm}/account?referrer=${this.$config.$auth.client}`, text: this.$t('account.settings'), name: '/account/settings' },
           { divider: true, name: 'divider' },
           { to: { name: 'account-logout' }, text: this.$t('account.linkLogout'), name: '/account/logout' }
         ]
