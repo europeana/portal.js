@@ -10,10 +10,6 @@
 Configuration options can be set in a .env file (see [.env.example](/.env.example))
 or via ENV variables on your machine.
 
-For Europeana API connections you may additionally use a .apisrc.js file in the
-root of your project, see the [relevant README](modules/apis/README.md) for more
-explanation.
-
 ## Build
 ```shell
 # install package dependencies
