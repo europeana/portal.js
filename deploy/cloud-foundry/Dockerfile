@@ -5,7 +5,7 @@
 #
 # TODO: move image to europeana/dockerfiles and publish to Docker Hub?
 
-FROM node:12
+FROM node:12-buster
 
 WORKDIR /app
 
@@ -13,6 +13,6 @@ WORKDIR /app
 RUN apt-get -q update && apt-get -yq install apt-transport-https \
   && wget -q -O - https://packages.cloudfoundry.org/debian/cli.cloudfoundry.org.key | apt-key add - \
   && echo "deb https://packages.cloudfoundry.org/debian stable main" | tee /etc/apt/sources.list.d/cloudfoundry-cli.list \
-  && apt-get -q update && apt-get -yq install cf-cli \
+  && apt-get -q update && apt-get -yq install cf7-cli \
   && rm -rf /var/lib/apt/lists/* \
   && su node -c "cf install-plugin app-autoscaler-plugin -f -r CF-Community"
