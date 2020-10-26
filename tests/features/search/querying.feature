@@ -38,6 +38,7 @@ Feature: Search querying
     And I press the ENTER key
     And I see a `search query` with the text "paris"
     And I click a `item preview`
+    And I wait 1 second
     Then I see an `item page`
     And I click the `show search button`
     And I don't see "paris" in the `search box`

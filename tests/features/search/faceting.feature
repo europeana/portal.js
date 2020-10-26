@@ -124,6 +124,7 @@ Feature: Search faceting
     And I click the `COUNTRY apply button`
     Then I should be on `/en/search?page=1&qf=COUNTRY%3A%22Belgium%22&qf=COUNTRY%3A%22Germany%22&query=&view=grid`
     And I click a `item preview`
+    And I wait 1 second
     Then I see an `item page`
     And I click the "All metadata" tab
     Then I should see a metadata field for edmCountry with the value "Belgium" or the value "Germany"

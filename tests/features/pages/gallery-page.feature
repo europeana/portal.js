@@ -12,4 +12,5 @@ Feature: Gallery page
     When I open the `gallery page`
     Then I see a `content card` in the `gallery images`
     And I click a `content card`
+    And I wait 1 second
     Then I see an `item page`

@@ -41,6 +41,7 @@ Feature: Entity page
     And I see the `entity page`
     And I see a `item preview`
     When I click a `item preview`
+    And I wait 1 second
     Then I see an `item page`
 
   Scenario: Pagination links
