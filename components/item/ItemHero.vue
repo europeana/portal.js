@@ -1,10 +1,12 @@
 <template>
   <div class="item-hero">
-    <AwesomeSwiper
-      :europeana-identifier="identifier"
-      :displayable-media="displayableMedia"
-      @select="selectMedia"
-    />
+    <client-only>
+      <AwesomeSwiper
+        :europeana-identifier="identifier"
+        :displayable-media="displayableMedia"
+        @select="selectMedia"
+      />
+    </client-only>
     <b-container>
       <b-row>
         <b-col
@@ -45,17 +47,18 @@
 </template>
 
 <script>
-  import AwesomeSwiper from './AwesomeSwiper';
   import DownloadButton from '../generic/DownloadButton.vue';
   import RightsStatementButton from '../generic/RightsStatementButton.vue';
   import SocialShareModal from '../sharing/SocialShareModal.vue';
   import ShareButton from '../sharing/ShareButton.vue';
   import has from 'lodash/has';
+  import ClientOnly from 'vue-client-only';
   import { isIIIFPresentation } from '../../plugins/media';
 
   export default {
     components: {
-      AwesomeSwiper,
+      AwesomeSwiper: () => import('./AwesomeSwiper'),
+      ClientOnly,
       DownloadButton,
       RightsStatementButton,
       SocialShareModal,

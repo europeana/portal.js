@@ -1,6 +1,5 @@
 <template>
   <swiper
-    v-show="swiperLoaded"
     ref="awesome"
     class="swiper"
     :options="swiperOptions"
@@ -75,7 +74,6 @@
     data() {
       const singleMediaResource = this.displayableMedia.length === 1;
       return {
-        swiperLoaded: false,
         swiperOptions: {
           threshold: singleMediaResource ? 5000000 :  null,
           slidesPerView: 'auto',
@@ -102,9 +100,6 @@
       isSinglePlayableMedia() {
         return this.displayableMedia.filter(resource => isPlayableMedia(resource)).length === 1;
       }
-    },
-    mounted() {
-      this.swiperLoaded = true;
     },
     methods: {
       onSlideChange() {
