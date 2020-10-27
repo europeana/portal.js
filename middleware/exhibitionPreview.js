@@ -10,6 +10,8 @@ export default ({ query, error, app, redirect }) => {
       .then(response => response.data.data)
       .then(data => {
         const chapter = data.exhibitionChapterPageCollection.items[0];
+        if (!chapter) return;
+
         const exhibition = chapter.linkedFrom.exhibitionPageCollection.items[0].identifier;
 
         console.log(exhibition, query.ctfExhibitionChapterId);
