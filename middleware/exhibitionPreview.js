@@ -18,7 +18,7 @@ export default ({ query, error, app, redirect }) => {
         redirect(app.$path({
           name: 'exhibitions-exhibition-chapter',
           params: {
-            exhibition, chapter: query.ctfExhibitionChapterId
+            exhibition, chapter: chapter.identifier
           },
           query: {
             mode: 'preview'
