@@ -10,12 +10,14 @@
         <b-col
           cols="12"
           class="col-lg-10 media-bar d-flex mx-auto"
+          data-qa="action bar"
         >
           <div class="d-flex justify-content-md-center align-items-center rights-wrapper">
             <RightsStatementButton
               :disabled="!rightsStatementIsUrl"
               :rights-statement="rightsStatement"
               class="mr-auto"
+              data-qa="provider name"
             />
           </div>
           <div

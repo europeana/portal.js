@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div data-qa="item page">
     <NotificationBanner
       v-if="redirectNotificationsEnabled"
       :notification-url="notificationUrl"
@@ -13,7 +13,6 @@
     </b-container>
     <template
       v-else
-      data-qa="item page"
     >
       <b-container
         fluid
@@ -48,6 +47,7 @@
             <RelatedCollections
               :title="$t('collectionsYouMightLike')"
               :related-collections="relatedEntities"
+              data-qa="related entities"
             />
           </b-col>
         </b-row>
@@ -84,7 +84,6 @@
               v-model="similarItems"
               view="explore"
               class="mb-0"
-              data-qa="related entities"
             />
           </b-col>
         </b-row>
@@ -247,7 +246,7 @@
     },
 
     mounted() {
-      if (process.browser) {
+      if (process.browser && this.fields) {
         this.$gtm.push({
           itemCountry: langMapValueForLocale(this.fields.edmCountry, 'en').values[0],
           itemDataProvider: langMapValueForLocale(this.coreFields.edmDataProvider, 'en').values[0],
@@ -316,7 +315,7 @@
           { hid: 'description', name: 'description', content: this.metaDescription },
           { hid: 'og:title', property: 'og:title', content: this.metaTitle },
           { hid: 'og:description', property: 'og:description', content: this.metaDescription },
-          { hid: 'og:image', property: 'og:image', content: this.media[0].src ? this.media[0].src : '' },
+          { hid: 'og:image', property: 'og:image', content: typeof this.media[0] !== 'undefined' && this.media[0].src ? this.media[0].src : '' },
           { hid: 'og:type', property: 'og:type', content: 'article' }
         ]
       };
