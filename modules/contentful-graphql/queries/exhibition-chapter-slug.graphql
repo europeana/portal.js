@@ -3,14 +3,16 @@ query ExhibitionChapterSlug(
   $identifier: String!,
   $preview: Boolean = false
 ) {
-  exhibitionPageCollection(preview: $preview, locale: $locale) {
+  exhibitionChapterPageCollection(preview: $preview, locale: $locale, where: { identifier: $identifier }) {
     items {
-      identifier
-      hasPartCollection(where: { identifier: $identifier }) {
-        items {
-          identifier
+      linkedFrom {
+        exhibitionPageCollection {
+          items {
+            identifier
+          }
         }
       }
+      identifier
     }
   }
 }
