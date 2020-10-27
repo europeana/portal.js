@@ -58,6 +58,26 @@
     middleware: 'sanitisePageQuery',
 
     asyncData({ query, error, app, store }) {
+      if (query.mode === 'preview' && query.ctfExhibitionChapterId) {
+        const variables = {
+          locale: app.i18n.isoLocale(),
+          preview: query.mode === 'preview',
+          identifier: 'constantinople' // 'the-silk-and-the-blood' // query.ctfExhibitionChapterId
+        };
+
+        console.log('VARIABLES', variables);
+
+        app.$contentful.query('exhibitionChapterSlug', variables)
+          .then(response => response.data.data)
+          .then(data => {
+            // redirect
+            console.log('DATA', data.exhibitionPageCollection.items[0].sys);
+          })
+          .catch((e) => {
+            error({ statusCode: 500, message: e.toString() });
+          });
+      }
+
       const variables = {
         locale: app.i18n.isoLocale(),
         preview: query.mode === 'preview',

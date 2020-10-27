@@ -1,0 +1,16 @@
+query ExhibitionChapterSlug(
+  $locale: String!,
+  $identifier: String!,
+  $preview: Boolean = false
+) {
+  exhibitionPageCollection(preview: $preview, locale: $locale) {
+    items {
+      identifier
+      hasPartCollection(where: { identifier: $identifier }) {
+        items {
+          identifier
+        }
+      }
+    }
+  }
+}
