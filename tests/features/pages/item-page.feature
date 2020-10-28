@@ -14,6 +14,11 @@ Feature: item page
     Then I see an `error notice`
     And I am on an accessible page
 
+  Scenario: Multiple items displayed in swiper
+
+    When I open `/en/item/142/UEDIN_214`
+    Then I see a `awesome swiper`
+
   Scenario: Action bar
 
     When I open an `item page`
@@ -23,11 +28,6 @@ Feature: item page
     And I see a `like button`
     And I see a `share button`
     And I see a `download button`
-
-  Scenario: Rights Statement updates when swiper changes
-  Scenario: Click Add Button
-  Scenario: Click Like Button
-  Scenario: Click Download Button
 
   Scenario: Share Modal
 

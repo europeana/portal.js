@@ -3,6 +3,7 @@
     ref="awesome"
     class="swiper"
     :options="swiperOptions"
+    data-qa="awesome swiper"
     @slide-change="onSlideChange"
     @slide-change-transition-end="updateSwiper"
   >
@@ -30,10 +31,12 @@
     <div
       slot="button-prev"
       class="swiper-button-prev"
+      data-qa="previous button"
     />
     <div
       slot="button-next"
       class="swiper-button-next"
+      data-qa="next button"
     />
   </swiper>
 </template>
