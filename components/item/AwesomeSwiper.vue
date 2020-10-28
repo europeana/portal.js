@@ -31,12 +31,10 @@
     <div
       slot="button-prev"
       class="swiper-button-prev"
-      data-qa="previous button"
     />
     <div
       slot="button-next"
       class="swiper-button-next"
-      data-qa="next button"
     />
   </swiper>
 </template>
