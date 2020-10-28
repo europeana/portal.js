@@ -14,7 +14,6 @@ export default ({ query, error, app, redirect }) => {
 
         const exhibition = chapter.linkedFrom.exhibitionPageCollection.items[0].identifier;
 
-        console.log(exhibition, query.ctfExhibitionChapterId);
         redirect(app.$path({
           name: 'exhibitions-exhibition-chapter',
           params: {
