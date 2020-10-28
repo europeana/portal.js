@@ -18,9 +18,26 @@ Feature: item page
 
     When I open an `item page`
     Then I see an `action bar`
-    And I see a `download button`
     And I see a `rights statement`
+    And I see a `add button`
+    And I see a `like button`
     And I see a `share button`
+    And I see a `download button`
+
+  Scenario: Rights Statement updates when swiper changes
+  Scenario: Click Add Button
+  Scenario: Click Like Button
+  Scenario: Click Download Button
+
+  Scenario: Share Modal
+
+    When I open an `item page`
+    And I see a `share button`
+    And I click a `share button`
+    Then I see a `share modal`
+    And I see a `share facebook button`
+    And I see a `share twitter button`
+    And I see a `share pinterest button`
 
   Scenario: Record without isShownBy or hasView
 
