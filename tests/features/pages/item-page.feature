@@ -24,8 +24,6 @@ Feature: item page
     When I open an `item page`
     Then I see an `action bar`
     And I see a `rights statement`
-    And I see a `add button`
-    And I see a `like button`
     And I see a `share button`
     And I see a `download button`
 
