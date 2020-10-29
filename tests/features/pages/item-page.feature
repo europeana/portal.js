@@ -61,6 +61,10 @@ Feature: item page
     When I open the `"Hammerflügel" item page`
     Then I see a level 1 section heading with the text "Hammerflügel"
 
+  Scenario: Similar items
+    When I open `"The Milkmaid" item page`
+    Then I see `similar items`
+
   Scenario: Media player for audio
     When I open the `"The pride of Glencoe, song" item page`
     Then I see the `media player`

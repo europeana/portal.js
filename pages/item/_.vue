@@ -84,6 +84,7 @@
               v-model="similarItems"
               view="explore"
               class="mb-0"
+              data-qa="similar items"
             />
           </b-col>
         </b-row>
