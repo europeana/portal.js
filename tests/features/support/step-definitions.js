@@ -35,6 +35,14 @@ defineStep('I find/identify/see/spot (a/an/the)( ){target} with the text {string
 defineStep('(a/an/the)( ){target} is/are highlighted', (qa) =>
   i.haveHighlightedATarget(qa));
 
+defineStep('the memory used is less than {int} MB', memoryUsageMB => {
+  i.haveNotExcededMemoryUsageInMB(memoryUsageMB);
+});
+
+defineStep('I refresh the page', () => {
+  i.refreshThePage();
+});
+
 defineStep('I find/identify/see/spot (a/an/the)( )level {int} (section )heading with the text {string}', (headingLevel, text) =>
   i.seeASectionHeadingWithText(headingLevel, text));
 
