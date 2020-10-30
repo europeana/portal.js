@@ -1,33 +1,11 @@
 import axios from 'axios';
 
+import storeModule from './store';
+
 const STORE_MODULE_NAME = 'axiosLogger';
 
-const storeModule = {
-  namespaced: true,
-
-  state: () => ({
-    requests: [],
-    recording: false
-  }),
-
-  mutations: {
-    start(state) {
-      state.recording = true;
-    },
-    stop(state) {
-      state.recording = false;
-    },
-    push(state, request) {
-      state.requests.push(request);
-    },
-    reset(state) {
-      state.requests = [];
-    }
-  }
-};
-
 export default ({ store, app }, inject) => {
-  store.registerModule(STORE_MODULE_NAME, storeModule);
+  if (store) store.registerModule(STORE_MODULE_NAME, storeModule);
 
   const requestInterceptor = config => {
     const uri = axios.getUri(config);
@@ -38,6 +16,7 @@ export default ({ store, app }, inject) => {
     return config;
   };
 
+  // TODO: do these route guards get duplicated being in this default export?
   app.router.beforeEach((to, from, next) => {
     if (!store.state[STORE_MODULE_NAME].recording) {
       store.commit(`${STORE_MODULE_NAME}/reset`);
