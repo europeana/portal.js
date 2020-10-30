@@ -71,6 +71,7 @@
     components: {
       MetadataField
     },
+
     props: {
       coreMetadata: {
         type: Object,
@@ -85,5 +86,6 @@
         default: () => []
       }
     }
+
   };
 </script>

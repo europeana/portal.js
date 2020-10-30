@@ -1,5 +1,4 @@
 import { storiesOf } from '@storybook/vue';
-import Vuex from 'vuex';
 import RelatedCollections from '../generic/RelatedCollections.vue';
 
 const i18n = {
@@ -11,21 +10,10 @@ const i18n = {
   }
 };
 
-const store = () => new Vuex.Store({
-  getters: {
-    'apis/config': () => ({
-      data: {
-        origin: 'http://data.europeana.eu'
-      }
-    })
-  }
-});
-
 storiesOf('Search', module)
   .add('Search Related Collections', () => ({
     components: { RelatedCollections },
     i18n,
-    store,
     data() {
       return {
         relatedCollections: [

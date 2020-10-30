@@ -1,8 +1,6 @@
 import nock from 'nock';
 
-import set from '../../../../plugins/europeana/set';
-import config from '../../../../modules/apis/defaults';
-const apiUrl = `${config.set.origin}${config.set.path}`;
+import set, { BASE_URL } from '../../../../plugins/europeana/set';
 
 const axios = require('axios');
 axios.defaults.adapter = require('axios/lib/adapters/http');
@@ -65,7 +63,7 @@ describe('describe /plugins/europeana/set', () => {
     it('get the set data', async() => {
       const setId = '1';
       const profile = 'standard';
-      nock(apiUrl)
+      nock(BASE_URL)
         .get(`/${setId}?profile=standard`)
         .reply(200, setsResponse[0]);
 
@@ -76,7 +74,7 @@ describe('describe /plugins/europeana/set', () => {
 
   describe('getLikes()', () => {
     it('get the likes set ID', async() => {
-      nock(apiUrl)
+      nock(BASE_URL)
         .get('/search?query=creator:auth-user-sub+type:BookmarkFolder')
         .reply(200, searchResponse);
 
@@ -87,7 +85,7 @@ describe('describe /plugins/europeana/set', () => {
 
   describe('createLikes()', () => {
     it('creates a likes set', async() => {
-      nock(apiUrl)
+      nock(BASE_URL)
         .post('/')
         .reply(200, likesResponse);
 
@@ -98,7 +96,7 @@ describe('describe /plugins/europeana/set', () => {
 
   describe('modifyItems()', () => {
     it('adds item to set', async() => {
-      nock(apiUrl)
+      nock(BASE_URL)
         .put(`/${setId}${itemId}`)
         .reply(200, likesResponse);
       const response =  await set(axios).modifyItems('add', setId, itemId);
@@ -108,7 +106,7 @@ describe('describe /plugins/europeana/set', () => {
 
   describe('deleteSet()', () => {
     it('deletes item from set', async() => {
-      nock(apiUrl).delete(`/${setId}`).reply(204);
+      nock(BASE_URL).delete(`/${setId}`).reply(204);
 
       await set(axios).deleteSet(setId);
       nock.isDone().should.be.true;

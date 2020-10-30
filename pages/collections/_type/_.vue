@@ -74,10 +74,11 @@
   import EntityDetails from '../../../components/entity/EntityDetails';
   import SearchInterface from '../../../components/search/SearchInterface';
   import { mapState } from 'vuex';
-  import * as entities from '../../../plugins/europeana/entity';
+
+  import { BASE_URL as EUROPEANA_DATA_URL } from '../../../plugins/europeana/data';
+  import { getEntityTypeHumanReadable, getEntitySlug, getEntityUri } from '../../../plugins/europeana/entity';
   import { langMapValueForLocale } from  '../../../plugins/europeana/utils';
-  import { getEntityTypeHumanReadable, getEntitySlug } from '../../../plugins/europeana/entity';
-  import { mapGetters } from 'vuex';
+
   export default {
     components: {
       BrowseSections: () => import('../../../components/browse/BrowseSections'),
@@ -89,7 +90,9 @@
     middleware: 'sanitisePageQuery',
     fetch({ query, params, redirect, error, app, store }) {
       store.commit('search/disableCollectionFacet');
-      const entityUri = entities.getEntityUri(params.type, params.pathMatch);
+
+      const entityUri = getEntityUri(params.type, params.pathMatch);
+
       if (entityUri !== store.state.entity.id) {
         // TODO: group as a reset action on the store?
         store.commit('entity/setId', null);
@@ -116,7 +119,7 @@
       };
       return axios.all(
         [store.dispatch('entity/searchForRecords', query)]
-          .concat(fetchEntity ? entities.getEntity(params.type, params.pathMatch) : () => {})
+          .concat(fetchEntity ? store.getters['apis/entity'].getEntity(params.type, params.pathMatch) : () => {})
           .concat(fetchFromContentful ? app.$contentful.query('collectionPage', contentfulVariables) : () => {})
       )
         .then(axios.spread((recordSearchResponse, entityResponse, pageResponse) => {
@@ -129,7 +132,8 @@
           const entity = store.state.entity.entity;
           const page = store.state.entity.page;
           const entityName = page ? page.name : entity.prefLabel.en;
-          const desiredPath = entities.getEntitySlug(entity.id, entityName);
+          const desiredPath = getEntitySlug(entity.id, entityName);
+
           if (params.pathMatch !== desiredPath) {
             const redirectPath = app.$path({
               name: 'collections-type-all',
@@ -150,9 +154,6 @@
       };
     },
     computed: {
-      ...mapGetters({
-        apiConfig: 'apis/config'
-      }),
       ...mapState({
         entity: state => state.entity.entity,
         page: state => state.entity.page,
@@ -228,8 +229,9 @@
       this.$store.dispatch('entity/searchForRecords', this.$route.query);
       // TODO: move into a new entity store action?
       if (!this.relatedCollectionCards) {
-        entities.relatedEntities(this.$route.params.type, this.$route.params.pathMatch, { origin: this.$route.query.recordApi })
-          .then((related) => {
+        this.$store.getters['apis/record'].relatedEntities(this.$route.params.type, this.$route.params.pathMatch)
+          .then(facets => facets ? this.$store.getters['apis/entity'].getEntityFacets(facets, this.$route.params.pathMatch) : [])
+          .then(related => {
             this.$store.commit('entity/setRelatedEntities', related);
           });
       }
@@ -251,7 +253,7 @@
           id = item.id;
           name = item.prefLabel.en;
         }
-        const uriMatch = id.match(`^${this.apiConfig.data.origin}/([^/]+)(/base)?/(.+)$`);
+        const uriMatch = id.match(`^${EUROPEANA_DATA_URL}/([^/]+)(/base)?/(.+)$`);
         return this.$path({
           name: 'collections-type-all', params: {
             type: getEntityTypeHumanReadable(uriMatch[1]),

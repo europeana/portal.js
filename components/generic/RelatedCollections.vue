@@ -21,9 +21,10 @@
 </template>
 
 <script>
-  import RelatedChip from './RelatedChip';
+  import { BASE_URL as EUROPEANA_DATA_URL } from '../../plugins/europeana/data';
   import { getEntityTypeHumanReadable, getEntitySlug } from '../../plugins/europeana/entity';
-  import { mapGetters } from 'vuex';
+
+  import RelatedChip from './RelatedChip';
 
   export default {
     name: 'RelatedCollections',
@@ -43,12 +44,6 @@
       }
     },
 
-    computed: {
-      ...mapGetters({
-        apiConfig: 'apis/config'
-      })
-    },
-
     methods: {
       linkGen(item) {
         let id = '';
@@ -62,7 +57,7 @@
           name = item.name;
         }
 
-        const uriMatch = id.match(`^${this.apiConfig.data.origin}/([^/]+)(/base)?/(.+)$`);
+        const uriMatch = id.match(`^${EUROPEANA_DATA_URL}/([^/]+)(/base)?/(.+)$`);
         return this.$path({
           name: 'collections-type-all', params: {
             type: getEntityTypeHumanReadable(uriMatch[1]),

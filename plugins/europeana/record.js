@@ -5,54 +5,31 @@ import uniq from 'lodash/uniq';
 import merge from 'deepmerge';
 
 import { apiError } from './utils';
-import { config } from './';
+import search from './search';
 import { thumbnailUrl, thumbnailTypeForMimeType } from  './thumbnail';
+import { getEntityUri, getEntityQuery } from './entity';
 import { combineMerge } from '../utils';
 import { isIIIFPresentation } from '../media';
 
-/**
- * Parse the record data based on the data from the API response
- * @param {Object} response data from API response
- * @return {Object} parsed data
- */
-function parseRecordDataFromApiResponse(response) {
-  const edm = response.data.object;
-
-  const providerAggregation = edm.aggregations[0];
-  const entities = [].concat(edm.concepts, edm.places, edm.agents, edm.timespans)
-    .filter(isNotUndefined)
-    .reduce((memo, entity) => {
-      memo[entity.about] = entity;
-      return memo;
-    }, {});
-  const proxyData = merge.all(edm.proxies, { arrayMerge: combineMerge });
-
-  return {
-    altTitle: proxyData.dctermsAlternative,
-    description: proxyData.dcDescription,
-    identifier: edm.about,
-    type: edm.type,
-    isShownAt: providerAggregation.edmIsShownAt,
-    coreFields: coreFields(proxyData, providerAggregation.edmDataProvider, entities),
-    fields: extraFields(proxyData, edm, entities),
-    media: aggregationMedia(providerAggregation, edm.type, edm.services),
-    agents: edm.agents,
-    concepts: edm.concepts,
-    title: proxyData.dcTitle
-  };
-}
+export const BASE_URL = process.env.EUROPEANA_RECORD_API_URL || 'https://api.europeana.eu/record';
+export const axiosDefaults = {
+  baseURL: BASE_URL,
+  params: {
+    wskey: process.env.EUROPEANA_RECORD_API_KEY || process.env.EUROPEANA_API_KEY
+  }
+};
 
 /**
  * Retrieves the "Core" fields which will always be displayed on record pages.
  *
  * @param {Object[]} proxyData All core fields are in the proxyData.
+ * @param {Object[]} providerAggregation Extra fields used for the provider name & isShownAt link.
  * @param {Object[]} entities Entities in order to perform entity lookups
  * @return {Object[]} Key value pairs of the metadata fields.
  */
-function coreFields(proxyData, edmDataProvider, entities) {
+function coreFields(proxyData, providerAggregation, entities) {
   return lookupEntities(omitBy({
-    edmDataProvider,
-
+    edmDataProvider: { url: providerAggregation.edmIsShownAt, value: providerAggregation.edmDataProvider },
     dcContributor: proxyData.dcContributor,
     dcCreator: proxyData.dcCreator,
     dcPublisher: proxyData.dcPublisher,
@@ -118,53 +95,6 @@ function extraFields(proxyData, edm, entities) {
     edmRealizes: proxyData.edmRealizes,
     wasPresentAt: proxyData.wasPresentAt
   }, isUndefined), entities);
-}
-
-function aggregationMedia(aggregation, recordType, services = []) {
-  // Gather all isShownBy/At and hasView URIs
-  const edmIsShownByOrAt = aggregation.edmIsShownBy || aggregation.edmIsShownAt;
-  const mediaUris = uniq([edmIsShownByOrAt].concat(aggregation.hasView || []).filter(isNotUndefined));
-
-  // Filter web resources to isShownBy and hasView, respecting the ordering
-  const media = mediaUris.map((mediaUri) => aggregation.webResources.find((webResource) => mediaUri === webResource.about));
-
-  for (const webResource of media) {
-    // Inject thumbnail URLs
-    webResource.thumbnails = webResourceThumbnails(webResource, aggregation, recordType);
-
-    // Inject service definitions, e.g. for IIIF
-    webResource.services = services.filter((service) => (webResource.svcsHasService || []).includes(service.about));
-  }
-
-  // Crude check for IIIF content, which is to prevent newspapers from showing many
-  // IIIF viewers.
-  //
-  // Also greatly minimises response size, and hydration cost, for IIIF with
-  // many web resources, all of which are contained in a single manifest anyway.
-  const displayable = isIIIFPresentation(media[0]) ? [media[0]] : media;
-
-  // Sort by isNextInSequence property if present
-  return sortByIsNextInSequence(displayable);
-}
-
-function webResourceThumbnails(webResource, aggregation, recordType) {
-  const type = thumbnailTypeForMimeType(webResource.ebucoreHasMimeType) || recordType;
-
-  let uri = webResource.about;
-  if (aggregation.edmObject && ([aggregation.edmIsShownBy, aggregation.edmIsShownAt].includes(uri))) {
-    uri = aggregation.edmObject;
-  }
-
-  return {
-    small: thumbnailUrl(uri, {
-      size: 'w200',
-      type
-    }),
-    large: thumbnailUrl(uri, {
-      size: 'w400',
-      type
-    })
-  };
 }
 
 /**
@@ -251,31 +181,161 @@ function setMatchingEntities(fields, key, entities) {
   }
 }
 
-/**
- * Get the record data from the API
- * @param {string} europeanaId ID of Europeana record
- * @return {Object} parsed record data
- */
-export function getRecord(europeanaId, options = {}) {
-  const origin = options.origin || config.record.origin;
-  let path = options.path || config.record.path;
-  if (!path.endsWith('/record')) path += '/record';
+export default (axiosOverrides) => {
+  const $axios = axios.create({
+    ...axiosDefaults,
+    ...axiosOverrides
+  });
 
-  return axios.get(`${origin}${path}${europeanaId}.json`, {
-    params: {
-      wskey: config.record.key
-    }
-  })
-    .then((response) => {
+  return {
+    $axios,
+
+    search: search($axios).search,
+
+    /**
+     * Parse the record data based on the data from the API response
+     * @param {Object} response data from API response
+     * @return {Object} parsed data
+     */
+    parseRecordDataFromApiResponse(response) {
+      const edm = response.data.object;
+
+      const providerAggregation = edm.aggregations[0];
+      const entities = [].concat(edm.concepts, edm.places, edm.agents, edm.timespans)
+        .filter(isNotUndefined)
+        .reduce((memo, entity) => {
+          memo[entity.about] = entity;
+          return memo;
+        }, {});
+      const proxyData = merge.all(edm.proxies, { arrayMerge: combineMerge });
+
       return {
-        record: parseRecordDataFromApiResponse(response),
-        error: null
+        altTitle: proxyData.dctermsAlternative,
+        description: proxyData.dcDescription,
+        identifier: edm.about,
+        type: edm.type,
+        isShownAt: providerAggregation.edmIsShownAt,
+        coreFields: coreFields(proxyData, providerAggregation, entities),
+        fields: extraFields(proxyData, edm, entities),
+        media: this.aggregationMedia(providerAggregation, edm.type, edm.services),
+        agents: edm.agents,
+        concepts: edm.concepts,
+        title: proxyData.dcTitle
       };
-    })
-    .catch((error) => {
-      throw apiError(error);
-    });
-}
+    },
+
+    webResourceThumbnails(webResource, aggregation, recordType) {
+      const type = thumbnailTypeForMimeType(webResource.ebucoreHasMimeType) || recordType;
+
+      let uri = webResource.about;
+      if (aggregation.edmObject && ([aggregation.edmIsShownBy, aggregation.edmIsShownAt].includes(uri))) {
+        uri = aggregation.edmObject;
+      }
+
+      return {
+        small: thumbnailUrl(uri, {
+          size: 'w200',
+          type
+        }),
+        large: thumbnailUrl(uri, {
+          size: 'w400',
+          type
+        })
+      };
+    },
+
+    aggregationMedia(aggregation, recordType, services = []) {
+      // Gather all isShownBy/At and hasView URIs
+      const edmIsShownByOrAt = aggregation.edmIsShownBy || aggregation.edmIsShownAt;
+      const mediaUris = uniq([edmIsShownByOrAt].concat(aggregation.hasView || []).filter(isNotUndefined));
+
+      // Filter web resources to isShownBy and hasView, respecting the ordering
+      const media = mediaUris.map((mediaUri) => aggregation.webResources.find((webResource) => mediaUri === webResource.about));
+
+      for (const webResource of media) {
+        // Inject thumbnail URLs
+        webResource.thumbnails = this.webResourceThumbnails(webResource, aggregation, recordType);
+
+        // Inject service definitions, e.g. for IIIF
+        webResource.services = services.filter((service) => (webResource.svcsHasService || []).includes(service.about));
+      }
+
+      // Crude check for IIIF content, which is to prevent newspapers from showing many
+      // IIIF viewers.
+      //
+      // Also greatly minimises response size, and hydration cost, for IIIF with
+      // many web resources, all of which are contained in a single manifest anyway.
+      const displayable = isIIIFPresentation(media[0]) ? [media[0]] : media;
+
+      // Sort by isNextInSequence property if present
+      return sortByIsNextInSequence(displayable);
+    },
+
+    /**
+     * Get the record data from the API
+     * @param {string} europeanaId ID of Europeana record
+     * @return {Object} parsed record data
+     */
+    getRecord(europeanaId) {
+      let path = '';
+      if (!this.$axios.defaults.baseURL.endsWith('/record')) path = '/record';
+
+      return this.$axios.get(`${path}${europeanaId}.json`)
+        .then(response => ({
+          record: this.parseRecordDataFromApiResponse(response),
+          error: null
+        }))
+        .catch((error) => {
+          throw apiError(error);
+        });
+    },
+
+    /**
+     * Search for specific facets for this entity to find the related entities
+     * @param {string} type the type of the entity
+     * @param {string} id the id of the entity, (can contain trailing slug parts as these will be normalized)
+     * @return {Object} related entities
+     * TODO: add people as related entities again
+     * TODO: use search() function?
+     */
+    relatedEntities(type, id) {
+      const entityUri = getEntityUri(type, id);
+
+      return this.$axios.get('search.json', {
+        params: {
+          ...this.$axios.defaults.params,
+          profile: 'facets',
+          facet: 'skos_concept',
+          query: getEntityQuery(entityUri),
+          rows: 0
+        }
+      })
+        .then(response => response.data.facets)
+        .catch(error => {
+          const message = error.response ? error.response.data.error : error.message;
+          throw new Error(message);
+        });
+    },
+
+    mediaProxyUrl(mediaUrl, europeanaId, params = {}) {
+      if (!params['api_url']) {
+        // TODO: it is not ideal to hard-code "/api" here, but the media proxy
+        //       expects Record API URLs to end thus, i.e. not /record or /api/v2
+        params['api_url'] = new URL(this.$axios.defaults.baseURL).origin + '/api';
+      }
+
+      const proxyUrl = new URL('https://proxy.europeana.eu');
+      proxyUrl.pathname = europeanaId;
+      proxyUrl.searchParams.append('view', mediaUrl);
+
+      for (const name in params) {
+        proxyUrl.searchParams.append(name, params[name]);
+      }
+
+      return proxyUrl.toString();
+    }
+  };
+};
 
 /**
  * Tests whether a string is a valid Europeana record ID.
