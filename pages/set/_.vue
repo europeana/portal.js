@@ -97,7 +97,11 @@
       <b-row>
         <b-col>
           <h2 class="related-heading text-uppercase">
-            {{ $tc('items.itemCount', itemCount, { count: itemCount }) }}
+            {{
+              itemCount > 100 ?
+              $tc('items.itemOf', itemCount, { count: itemCount }) :
+              $tc('items.itemCount', itemCount, { count: itemCount })
+            }}
           </h2>
         </b-col>
       </b-row>
