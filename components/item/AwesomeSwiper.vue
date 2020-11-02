@@ -19,6 +19,7 @@
           :europeana-identifier="europeanaIdentifier"
           :media="item"
           :is-single-playable-media="isSinglePlayableMedia"
+          :lazy="false"
         />
       </div>
       <MediaCard
@@ -26,6 +27,7 @@
         :europeana-identifier="europeanaIdentifier"
         :media="item"
         :is-single-playable-media="isSinglePlayableMedia"
+        :lazy="index > 0"
       />
     </swiper-slide>
     <div
@@ -74,6 +76,7 @@
       const singleMediaResource = this.displayableMedia.length === 1;
       return {
         swiperOptions: {
+          init: false,
           threshold: singleMediaResource ? 5000000 :  null,
           slidesPerView: 'auto',
           spaceBetween: singleMediaResource ? null : 40,
@@ -100,6 +103,11 @@
         return this.displayableMedia.filter(resource => isPlayableMedia(resource)).length === 1;
       }
     },
+    mounted() {
+      setTimeout(() => {
+        this.swiper.init();
+      }, 500);
+    },
     methods: {
       onSlideChange() {
         this.$emit('select', this.displayableMedia[this.swiper.activeIndex].about);
@@ -123,7 +131,12 @@
     }
 
     .swiper-slide {
-      width: auto;
+      width: 100%;
+      min-width: 16rem;
+
+      @media (min-width: $bp-medium) {
+        width: auto;
+      }
       :before {
         content: '';
         transition: $standard-transition;
@@ -150,9 +163,14 @@
       }
 
       a {
-        display: inline-flex;
+        display: flex;
         height: 100%;
         align-items: center;
+        justify-content: center;
+
+        @media (min-width: $bp-medium) {
+          display: inline-flex;
+        }
       }
     }
 
