@@ -102,6 +102,11 @@
         return this.displayableMedia.filter(resource => isPlayableMedia(resource)).length === 1;
       }
     },
+    mounted() {
+      setTimeout(() => {
+        this.swiper.init();
+      }, 500);
+    },
     methods: {
       onSlideChange() {
         this.$emit('select', this.displayableMedia[this.swiper.activeIndex].about);
@@ -109,11 +114,6 @@
       updateSwiper() {
         this.swiper.update();
       }
-    },
-    mounted() {
-      setTimeout(() => {
-        this.swiper.init();
-      }, 500);
     }
   };
 </script>
