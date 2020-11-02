@@ -8,7 +8,6 @@ import { apiError } from './utils';
 import search from './search';
 import { thumbnailUrl, thumbnailTypeForMimeType } from  './thumbnail';
 import { getEntityUri, getEntityQuery } from './entity';
-import { combineMerge } from '../utils';
 import { isIIIFPresentation } from '../media';
 
 export const BASE_URL = process.env.EUROPEANA_RECORD_API_URL || 'https://api.europeana.eu/record';
@@ -207,7 +206,7 @@ export default (axiosOverrides) => {
           memo[entity.about] = entity;
           return memo;
         }, {});
-      const proxyData = merge.all(edm.proxies, { arrayMerge: combineMerge });
+      const proxyData = merge.all(edm.proxies);
 
       return {
         altTitle: proxyData.dctermsAlternative,
