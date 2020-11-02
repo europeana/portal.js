@@ -1,12 +1,10 @@
 <template>
   <div class="item-hero">
-    <client-only>
-      <AwesomeSwiper
-        :europeana-identifier="identifier"
-        :displayable-media="displayableMedia"
-        @select="selectMedia"
-      />
-    </client-only>
+    <AwesomeSwiper
+      :europeana-identifier="identifier"
+      :displayable-media="media"
+      @select="selectMedia"
+    />
     <b-container>
       <b-row>
         <b-col
@@ -21,7 +19,7 @@
             />
           </div>
           <div
-            v-if="displayableMedia.length !== 1"
+            v-if="media.length !== 1"
             class="d-flex justify-content-md-center align-items-center pagination-wrapper"
           >
             <div class="swiper-pagination" />
@@ -47,18 +45,16 @@
 </template>
 
 <script>
+  import AwesomeSwiper from './AwesomeSwiper';
   import DownloadButton from '../generic/DownloadButton.vue';
   import RightsStatementButton from '../generic/RightsStatementButton.vue';
   import SocialShareModal from '../sharing/SocialShareModal.vue';
   import ShareButton from '../sharing/ShareButton.vue';
   import has from 'lodash/has';
-  import ClientOnly from 'vue-client-only';
-  import { isIIIFPresentation } from '../../plugins/media';
 
   export default {
     components: {
-      AwesomeSwiper: () => import('./AwesomeSwiper'),
-      ClientOnly,
+      AwesomeSwiper,
       DownloadButton,
       RightsStatementButton,
       SocialShareModal,
@@ -112,10 +108,6 @@
       },
       showUserButtons() {
         return ((Boolean(Number(process.env.ENABLE_XX_USER_AUTH)) && Boolean(Number(process.env.ENABLE_UNAUTHENTICATED_USER_BUTTONS))) || (this.$store.state.auth && this.$store.state.auth.loggedIn));
-      },
-      displayableMedia() {
-        // Crude check for IIIF content, which is to prevent newspapers from showing many IIIF viewers.
-        return isIIIFPresentation(this.media[0]) ? [this.media[0]] : this.media;
       }
     },
     methods: {

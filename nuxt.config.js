@@ -84,7 +84,6 @@ const config = {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    '~/plugins/axiosLogger',
     '~/plugins/apis',
     '~/plugins/vue',
     '~/plugins/i18n.js',
@@ -104,6 +103,7 @@ const config = {
       frameworkVersion: require('nuxt/package.json').version
     }],
     '~/modules/contentful-graphql',
+    '~/modules/axios-logger',
     ['~/modules/http', {
       ports: {
         http: process.env.HTTP_PORT,
