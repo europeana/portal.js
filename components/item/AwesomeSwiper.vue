@@ -3,6 +3,7 @@
     ref="awesome"
     class="swiper"
     :options="swiperOptions"
+    data-qa="awesome swiper"
     @slide-change="onSlideChange"
     @slide-change-transition-end="updateSwiper"
   >

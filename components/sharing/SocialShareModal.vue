@@ -4,6 +4,7 @@
     title="Share"
     hide-header-close
     hide-footer
+    data-qa="share modal"
   >
     <div class="icon-wrapper">
       <SocialShare
