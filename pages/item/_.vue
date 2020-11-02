@@ -255,14 +255,6 @@
           itemRights: langMapValueForLocale(this.fields.edmRights, 'en').values[0]
         });
       }
-
-      // TODO: remove or is this useful for the new swiper/action?
-      window.addEventListener('message', (msg) => {
-        if (msg.data.event === 'updateDownloadLink') {
-          this.useProxy = (this.media.some((item) => item.about === msg.data.id));
-          this.selectedMedia.about = msg.data.id;
-        }
-      });
     },
 
     methods: {
@@ -339,11 +331,6 @@
     margin-top: -0.5rem;
     margin-bottom: 2rem;
     padding: 0;
-  }
-
-  /* TODO: fix styling in/for MetadataBox component itself */
-  /deep/ .card.rounded-0 {
-    border-radius: 0.25rem !important;
   }
 
   /deep/ .card-header-tabs {
