@@ -25,10 +25,7 @@ function qaSelector(qaElementNames) {
 
 module.exports = {
   async amOnPageNumber(page) {
-    await client.url(async(currentUrl) => {
-      const pageFromUrl = await new URL(currentUrl.value).searchParams.get('page');
-      await client.expect(Number(pageFromUrl)).to.eq(page);
-    });
+    await client.expect.url().to.match(new RegExp(`[?&]page=${page}([&#]|$)`));
     const navSelector = qaSelector('pagination navigation');
     const activeLinkSelector = navSelector + ` li.active a[aria-posinset="${page}"]`;
     await client.waitForElementVisible(activeLinkSelector);
@@ -99,6 +96,9 @@ module.exports = {
     await client.waitForElementVisible(selector);
     client.click(selector);
   },
+  async clickOnTab(tab) {
+    await client.click('xpath', '//a[contains(text(),"' + tab + '")]');
+  },
   countTarget: async(count, qaElementNames) => {
     await client.elements('css selector', qaSelector(qaElementNames), async(result) => {
       await client.expect(result.value).to.have.lengthOf(count);
@@ -116,15 +116,9 @@ module.exports = {
     }
     client.keys(key);
   },
-  matchMetaLabelAndValue: async(label, value) => {
-    await client.elements('xpath', '//label[contains(text(),"' + label + '")]/parent::div//ul/li[contains(text(),"' + value + '")]', async(result) => {
-      await client.expect(result.value).to.have.lengthOf(1);
-    });
-  },
-  matchMetaLabelAndValueOrValue: async(label, value, altValue) => {
-    await client.elements('xpath', '//label[contains(text(),"' + label + '")]/parent::div//ul/li[contains(text(),"' + value + '") or contains(text(),"' + altValue + '")]', async(result) => {
-      await client.expect(result.value).to.have.lengthOf(1);
-    });
+  seeMetadataFieldValue: async(field, value, altValue) => {
+    const pattern = new RegExp(altValue ? `${value}|${altValue}` : value);
+    await client.expect.element(`[data-field-name="${field}"]`).text.to.match(pattern);
   },
   doNotSeeATarget(qaElementNames) {
     client.expect.element(qaSelector(qaElementNames)).to.not.be.visible;
@@ -167,6 +161,14 @@ module.exports = {
     }, []);
     /* eslint-enable prefer-arrow-callback */
   },
+  async haveNotEnabledDebugAPIRequests() {
+    /* eslint-disable prefer-arrow-callback */
+    /* DO NOT MAKE INTO A ARROW FUNCTION - If you do, it will break the tests */
+    await client.execute(function() {
+      localStorage.debugSettings = null;
+    }, []);
+    /* eslint-enable prefer-arrow-callback */
+  },
   async paginateToPage(page) {
     const containerSelector = qaSelector('pagination navigation');
 
@@ -183,10 +185,9 @@ module.exports = {
     await client.click(selector);
   },
   async preferBrowserLanguage(locale) {
-    const browserEnv = (process.env.browser || 'gecko') + `-${locale}`;
     const nightwatchApiOptions = {
-      configFile: 'tests/features/config/nightwatch.conf.js',
-      env: browserEnv,
+      configFile: 'config/nightwatch.conf.js',
+      env: `chrome-${locale}`,
       silent: true
     };
 
@@ -210,6 +211,9 @@ module.exports = {
   },
   async seeATargetWithText(qaElementNames, text) {
     await client.expect.element(qaSelector(qaElementNames)).text.to.contain(text);
+  },
+  async haveHighlightedATarget(qaElementNames) {
+    await client.expect.element(qaSelector(qaElementNames) + '.hover').to.be.visible;
   },
   async seeASectionHeadingWithText(headingLevel, text) {
     await client.expect.element(`h${headingLevel}`).text.to.contain(text);
@@ -241,26 +245,16 @@ module.exports = {
     });
   },
   async shouldBeOn(pageName) {
-    // TODO: update if a less verbose syntax becomes available.
-    // See https://github.com/nightwatchjs/nightwatch/issues/861
-    await client.url(async(currentUrl) => {
-      await client.expect(currentUrl.value).to.eq(pageUrl(pageName));
-    });
+    await client.expect.url().to.eq(pageUrl(pageName));
   },
   async shouldNotBeOn(pageName) {
-    await client.url(async(currentUrl) => {
-      await client.expect(currentUrl.value).not.to.eq(pageUrl(pageName));
-    });
+    await client.expect.url().not.to.eq(pageUrl(pageName));
   },
   async waitSomeSeconds(seconds) {
     await client.pause(seconds * 1000);
   },
   async waitForTargetToBeVisible(qaElementName) {
     await client.waitForElementVisible(qaSelector(qaElementName));
-  },
-  async waitForThePageToLoad() {
-    await client.waitForElementPresent('.nuxt-progress');
-    await client.waitForElementNotPresent('.nuxt-progress');
   },
   async goBack() {
     await client.back();

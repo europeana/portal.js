@@ -53,11 +53,12 @@
 </template>
 
 <script>
-  import { mapGetters } from 'vuex';
-  import { entityParamsFromUri, getEntityTypeHumanReadable } from '../../plugins/europeana/entity';
   import ContentCard from '../generic/ContentCard';
   import BrowseContentCard from './BrowseContentCard';
   import SmartLink from '../generic/SmartLink';
+
+  import { entityParamsFromUri, getEntityTypeHumanReadable } from '../../plugins/europeana/entity';
+  import { BASE_URL as EUROPEANA_DATA_URL } from '../../plugins/europeana/data';
 
   export default {
     components: {
@@ -72,10 +73,6 @@
       }
     },
     computed: {
-      ...mapGetters({
-        apiConfig: 'apis/config'
-      }),
-
       cards() {
         return this.section.hasPartCollection.items;
       },
@@ -91,9 +88,12 @@
     },
     methods: {
       entityRouterLink(uri, slug) {
-        const uriMatch = uri.match(`^${this.apiConfig.data.origin}/([^/]+)(/base)?/(.+)$`);
+        const uriMatch = uri.match(`^${EUROPEANA_DATA_URL}/([^/]+)(/base)?/(.+)$`);
         return {
-          name: 'collections-type-all', params: { type: getEntityTypeHumanReadable(uriMatch[1]), pathMatch: slug ? slug : uriMatch[3] }
+          name: 'collections-type-all', params: {
+            type: getEntityTypeHumanReadable(uriMatch[1]),
+            pathMatch: slug ? slug : uriMatch[3]
+          }
         };
       }
     }

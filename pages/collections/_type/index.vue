@@ -35,15 +35,10 @@
 </template>
 
 <script>
+  import { getEntityTypeApi, getEntityTypeHumanReadable, getEntitySlug } from '../../../plugins/europeana/entity';
+
   import ContentHeader from '../../../components/generic/ContentHeader';
   import ContentCard from '../../../components/generic/ContentCard';
-
-  import {
-    searchEntities,
-    getEntitySlug,
-    getEntityTypeApi,
-    getEntityTypeHumanReadable
-  } from '../../../plugins/europeana/entity';
 
   const PER_PAGE = 24;
   export default {
@@ -66,7 +61,7 @@
         scope: 'europeana',
         fl: 'skos_prefLabel.*,isShownBy,isShownBy.thumbnail'
       };
-      return searchEntities(entityIndexParams)
+      return store.getters['apis/entity'].searchEntities(entityIndexParams)
         .then(response => response)
         .then(data => {
           return {

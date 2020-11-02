@@ -16,8 +16,8 @@ const factory = (propsData) => shallowMount(ApiRequests, {
 describe('components/debug/ApiRequests', () => {
   it('lists requests', () => {
     const requests = [
-      { method: 'GET', uri: 'https://api.example.org/request/1' },
-      { method: 'POST', uri: 'https://api.example.org/request/2' }
+      { method: 'GET', url: 'https://api.example.org/request/1' },
+      { method: 'POST', url: 'https://api.example.org/request/2' }
     ];
 
     const wrapper = factory({ requests });
@@ -29,8 +29,8 @@ describe('components/debug/ApiRequests', () => {
 
   it('displays the HTTP request method', () => {
     const requests = [
-      { method: 'GET', uri: 'https://api.example.org/request/1' },
-      { method: 'POST', uri: 'https://api.example.org/request/2' }
+      { method: 'GET', url: 'https://api.example.org/request/1' },
+      { method: 'POST', url: 'https://api.example.org/request/2' }
     ];
     const wrapper = factory({ requests });
 
@@ -43,7 +43,7 @@ describe('components/debug/ApiRequests', () => {
   context('when HTTP request method is GET', () => {
     it('links to the request URL', () => {
       const requests = [
-        { method: 'GET', uri: 'https://api.example.org/request/1' }
+        { method: 'GET', url: 'https://api.example.org/request/1' }
       ];
 
       const wrapper = factory({ requests });
@@ -58,7 +58,7 @@ describe('components/debug/ApiRequests', () => {
   context('when HTTP request method is not GET', () => {
     it('just displays the URL', () => {
       const requests = [
-        { method: 'POST', uri: 'https://api.example.org/request/1' }
+        { method: 'POST', url: 'https://api.example.org/request/1' }
       ];
 
       const wrapper = factory({ requests });

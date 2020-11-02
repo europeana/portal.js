@@ -15,9 +15,11 @@
             :key="index"
             :title="post.name"
             :url="{ name: 'blog-all', params: { pathMatch: post.identifier } }"
-            :image-url="post.primaryImageOfPage && post.primaryImageOfPage.image.url"
+            :image-url="imageUrl(post)"
+            :image-content-type="imageContentType(post)"
+            :image-optimisation-options="{ width: 510 }"
             :texts="[post.description]"
-            :datetime="post.datePublished"
+            :show-subtitle="false"
           />
         </b-card-group>
       </b-col>
@@ -79,6 +81,21 @@
         perPage: PER_PAGE,
         page: null
       };
+    },
+
+    methods: {
+      imageUrl(post) {
+        if (post.primaryImageOfPage) {
+          return post.primaryImageOfPage.image.url;
+        }
+        return null;
+      },
+      imageContentType(post) {
+        if (post.primaryImageOfPage) {
+          return post.primaryImageOfPage.image.contentType;
+        }
+        return null;
+      }
     },
 
     head() {

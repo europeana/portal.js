@@ -1,20 +1,8 @@
 import { storiesOf } from '@storybook/vue';
-import Vuex from 'vuex';
 import AudioPlayer from './AudioPlayer.vue';
-
-const store = new Vuex.Store({
-  getters: {
-    'apis/config': () => ({
-      record: {
-        origin: 'https://api.europeana.eu'
-      }
-    })
-  }
-});
 
 storiesOf('Media/Audio Player', module)
   .add('OGG Format', () => ({
-    store,
     components: {
       AudioPlayer
     },
@@ -36,7 +24,6 @@ storiesOf('Media/Audio Player', module)
     `
   }))
   .add('FLAC Format', () => ({
-    store,
     components: {
       AudioPlayer
     },
@@ -58,7 +45,6 @@ storiesOf('Media/Audio Player', module)
     `
   }))
   .add('MP3 Format', () => ({
-    store,
     components: {
       AudioPlayer
     },

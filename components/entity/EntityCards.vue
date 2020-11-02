@@ -13,13 +13,8 @@
 </template>
 
 <script>
-  import ContentCard from '../../components/generic/ContentCard';
-
-  import {
-    getEntityDescription,
-    getEntitySlug,
-    getEntityTypeHumanReadable
-  } from '../../plugins/europeana/entity';
+  import { getEntityTypeHumanReadable, getEntitySlug } from '../../plugins/europeana/entity';
+  import ContentCard from '../generic/ContentCard';
 
   export default {
     name: 'EntityCards',
@@ -36,10 +31,6 @@
     },
 
     methods: {
-      getEntityDescription,
-      getEntitySlug,
-      getEntityTypeHumanReadable,
-
       depiction(entity) {
         return (!entity || !entity.isShownBy) ? null : entity.isShownBy.thumbnail;
       },

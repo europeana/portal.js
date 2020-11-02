@@ -45,6 +45,10 @@ query ExhibitionChapterPage(
                   }
                 }
               }
+              ... on Link {
+                url
+                text
+              }
               # CardGroup omitted intentionally
             }
           }
