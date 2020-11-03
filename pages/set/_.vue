@@ -97,7 +97,7 @@
       <b-row>
         <b-col>
           <h2 class="related-heading text-uppercase">
-            {{ $tc('items.itemCount', itemCount, { count: itemCount }) }}
+            {{ displayItemCount }}
           </h2>
         </b-col>
       </b-row>
@@ -186,6 +186,11 @@
       },
       enableRecommendations() {
         return Boolean(Number(process.env.ENABLE_RECOMMENDATIONS));
+      },
+      displayItemCount() {
+        const max = 100;
+        const label = this.set.total > max ? 'items.itemOf' : 'items.itemCount';
+        return this.$tc(label, this.set.total, { max });
       }
     },
 
