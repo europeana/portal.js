@@ -97,11 +97,7 @@
       <b-row>
         <b-col>
           <h2 class="related-heading text-uppercase">
-            {{
-              itemCount > 100 ?
-              $tc('items.itemOf', itemCount, { count: itemCount }) :
-              $tc('items.itemCount', itemCount, { count: itemCount })
-            }}
+            {{ displayItemCount }}
           </h2>
         </b-col>
       </b-row>
@@ -187,6 +183,10 @@
       },
       displayDescription() {
         return langMapValueForLocale(this.set.description, this.$i18n.locale);
+      },
+      displayItemCount() {
+        const label = this.set.total > 100 ? 'items.itemOf' : 'items.itemCount';
+        return this.$tc(label, this.set.total);
       }
     },
 
