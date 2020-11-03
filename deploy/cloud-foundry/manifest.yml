@@ -5,7 +5,7 @@ applications:
   - nodejs_buildpack
   command: "npx cservice --restartOnMemUsage ((restartOnMemUsage)) --cli false server/index.js"
   memory: ((memory))
-  health-check-type: process
+  health-check-type: port
   stack: cflinuxfs3
   env: ((env))
   services: ((services))
