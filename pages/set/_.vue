@@ -186,7 +186,8 @@
       },
       displayItemCount() {
         const label = this.set.total > 100 ? 'items.itemOf' : 'items.itemCount';
-        return this.$tc(label, this.set.total);
+        const max = 100;
+        return this.$tc(label, this.set.total, { max });
       }
     },
 

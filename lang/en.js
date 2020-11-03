@@ -475,7 +475,7 @@ export default {
   },
   "items": {
     "itemCount": "1 item |{count} items",
-    "itemOf": "100 of {count} items",
+    "itemOf": "{max} of {count} items",
     "youMightLike": "Items you might like"
   },
   "layout": {
