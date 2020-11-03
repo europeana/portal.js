@@ -185,8 +185,8 @@
         return langMapValueForLocale(this.set.description, this.$i18n.locale);
       },
       displayItemCount() {
-        const label = this.set.total > 100 ? 'items.itemOf' : 'items.itemCount';
         const max = 100;
+        const label = this.set.total > max ? 'items.itemOf' : 'items.itemCount';
         return this.$tc(label, this.set.total, { max });
       }
     },
