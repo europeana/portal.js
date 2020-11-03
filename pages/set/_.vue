@@ -115,7 +115,7 @@
         </b-col>
       </b-row>
       <b-row
-        v-if="recommendations.length > 0"
+        v-if="enableRecommendations && recommendations.length > 0"
         class="recommendations"
       >
         <b-col>
@@ -183,6 +183,9 @@
       },
       displayDescription() {
         return langMapValueForLocale(this.set.description, this.$i18n.locale);
+      },
+      enableRecommendations() {
+        return Boolean(Number(process.env.ENABLE_RECOMMENDATIONS));
       }
     },
 
