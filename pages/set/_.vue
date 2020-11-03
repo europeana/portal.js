@@ -97,7 +97,7 @@
       <b-row>
         <b-col>
           <h2 class="related-heading text-uppercase">
-            {{ $tc('items.itemCount', itemCount, { count: itemCount }) }}
+            {{ displayItemCount }}
           </h2>
         </b-col>
       </b-row>
@@ -183,6 +183,11 @@
       },
       displayDescription() {
         return langMapValueForLocale(this.set.description, this.$i18n.locale);
+      },
+      displayItemCount() {
+        const max = 100;
+        const label = this.set.total > max ? 'items.itemOf' : 'items.itemCount';
+        return this.$tc(label, this.set.total, { max });
       }
     },
 
