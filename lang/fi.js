@@ -36,7 +36,7 @@ export default {
   },
   "contentfulManual": {
     "footerNavigation": {
-      "about": "Tietoja Europeana Collections",
+      "about": "Tietoja Europeana",
       "forDevelopers": "Kehittäjille",
       "help": "Apua",
       "meetUs": "Tutustu tiimiin",
@@ -292,7 +292,7 @@ export default {
     "MIME_TYPE": {
       "name": "Tiedostomuoto | Tiedostomuodot",
       "options": {
-        "text/plain": "Pelkkä teksti"
+        "text\/plain": "Pelkkä teksti"
       }
     },
     "PROVIDER": {

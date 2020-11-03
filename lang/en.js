@@ -70,16 +70,19 @@ export default {
   "colourSwatch": "Colour swatch",
   "contentfulManual": {
     "footerNavigation": {
-      "about": "About Europeana Collections",
+      "about": "About Europeana",
       "forDevelopers": "For developers",
       "help": "Help",
       "meetUs": "Meet the team",
+      "MoreInfoLabel": "More Info",
       "provide": "Become a data provider",
+      "subscribe": "Subscribe to our Newsletter",
       "terms": "Terms of Use and Privacy Policy"
     },
     "headerNavigation": {
+      "Collections": "Collections",
       "explore": "Explore",
-      "teachers": "Educators"
+      "teachers": "Teachers"
     }
   },
   "contentYouMightLike": "Content you might like",
@@ -337,7 +340,7 @@ export default {
     "MIME_TYPE": {
       "name": "File format | File formats",
       "options": {
-        "text/plain": "Plain text"
+        "text\/plain": "Plain text"
       }
     },
     "PROVIDER": {
@@ -458,16 +461,16 @@ export default {
   },
   "goToRecord": "Go to item",
   "header": {
-    "europeanaHome": "Europeana home",
-    "backToMenu": "Back to menu",
+    "backToMenu": "Close Search Box",
     "clearQuery": "Clear Search Query",
-    "entireCollection": "Search for {query} in our entire collection",
-    "inCollection": "Search for {query} in {collection}",
-    "searchFor": "Search for {query}",
+    "entireCollection": "Search for '{query}' in our entire collection",
+    "europeanaHome": "Europeana home",
+    "inCollection": "Search for '{query}' in {collection}",
+    "searchFor": "Search for",
+    "searchForEverything": "Search for everything",
     "searchForEverythingInCollection": "Search for everything in {collection}",
     "searchForEverythingInEntireCollection": "Search for everything in our entire collection",
-    "searchForEverything": "Search for everything",
-    "showSidebar": "Show Sidebar"
+    "showSidebar": "Show Menu"
   },
   "homeLinkAlt": "Europeana home",
   "imageSlider": {
@@ -541,10 +544,10 @@ export default {
   "results": "Results",
   "resultsLimitWarning": "Additional results are not shown as only the first 1000 most relevant results are shown. If you haven't found what you're looking for, please consider refining your search.",
   "search": "Search",
+  "searchPlaceholder": "Search millions of items",
   "searchResults": "Search",
   "searchResultsFor": "{0} - Search",
   "searchResultsForIn": "{0} - Search in {1}",
-  "searchPlaceholder": "Search millions of items",
   "searchSuggestions": "Search suggestions",
   "searchTier": {
     "button": {
