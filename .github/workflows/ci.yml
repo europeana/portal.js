@@ -120,7 +120,7 @@ jobs:
       run: |
         wget -q -O - https://packages.cloudfoundry.org/debian/cli.cloudfoundry.org.key | sudo apt-key add -
         echo "deb https://packages.cloudfoundry.org/debian stable main" | sudo tee /etc/apt/sources.list.d/cloudfoundry-cli.list
-        sudo apt-get -q update && sudo apt-get -yq install cf-cli
+        sudo apt-get -q update && sudo apt-get -yq install cf7-cli
         cf --version
     - name: Login to CF
       run: cf login -a ${CF_API} -u ${CF_USERNAME} -p "${CF_PASSWORD}" -o ${CF_ORG} -s ${CF_SPACE}
