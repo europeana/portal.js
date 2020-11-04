@@ -19,11 +19,11 @@ Feature: Newspapers collection
     When I click the `show search button`
     And I enter "zeitung" in the `search box`
     And I press the ENTER key
-    # And I see a `search query` with the text "Zeitung"
     Then I see a `highlighted search term` with the text "Zeitung"
 
   Scenario: Newspapers collection API toggle changes API
     Given I am on the `Newspapers collection page`
+    And I click the `search grid view toggle`
     When I click the `more filters dropdown button`
     And I click the "metadata" "api" radio
     And I click the `apply button`
