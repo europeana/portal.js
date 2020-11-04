@@ -216,7 +216,7 @@
         this.$bvModal.hide(this.setFormModalId);
       },
       getRecommendations() {
-        if (this.$auth.loggedIn) {
+        if (this.enableRecommendations && this.$auth.loggedIn) {
           if (this.set && this.set.total >= 0) {
             return this.$recommendations.recommend('set', `/${this.$route.params.pathMatch}`)
               .then(recommendResponse => {
