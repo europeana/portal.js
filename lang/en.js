@@ -340,7 +340,7 @@ export default {
     "MIME_TYPE": {
       "name": "File format | File formats",
       "options": {
-        "text/plain": "Plain text"
+        "text\/plain": "Plain text"
       }
     },
     "PROVIDER": {
@@ -463,10 +463,10 @@ export default {
   "header": {
     "backToMenu": "Close Search Box",
     "clearQuery": "Clear Search Query",
-    "entireCollection": "Search for '{query}' in our entire collection",
+    "entireCollection": "Search for {query} in our entire collection",
     "europeanaHome": "Europeana home",
-    "inCollection": "Search for '{query}' in {collection}",
-    "searchFor": "Search for",
+    "inCollection": "Search for {query} in {collection}",
+    "searchFor": "Search for {query}",
     "searchForEverything": "Search for everything",
     "searchForEverythingInCollection": "Search for everything in {collection}",
     "searchForEverythingInEntireCollection": "Search for everything in our entire collection",
