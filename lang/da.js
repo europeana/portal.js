@@ -36,7 +36,7 @@ export default {
   },
   "contentfulManual": {
     "footerNavigation": {
-      "about": "Om Europeana-samlinger",
+      "about": "Om Europeana",
       "forDevelopers": "For udviklere",
       "help": "Hjælp",
       "meetUs": "Mød holdet",
@@ -45,7 +45,7 @@ export default {
     },
     "headerNavigation": {
       "explore": "Udforsk",
-      "teachers": "Undervisere"
+      "teachers": "Lærere"
     }
   },
   "cookieDisclaimer": {

@@ -45,7 +45,7 @@ export default {
     },
     "headerNavigation": {
       "explore": "Ismerje meg",
-      "teachers": "Pedagógusok"
+      "teachers": "Tanárok"
     }
   },
   "cookieDisclaimer": {

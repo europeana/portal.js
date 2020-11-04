@@ -45,7 +45,7 @@ export default {
     },
     "headerNavigation": {
       "explore": "Esplora",
-      "teachers": "Edukaturi"
+      "teachers": "Għalliema"
     }
   },
   "cookieDisclaimer": {

@@ -45,7 +45,7 @@ export default {
     },
     "headerNavigation": {
       "explore": "Taiscéal",
-      "teachers": "Teagascóirí"
+      "teachers": "Múinteoirí"
     }
   },
   "cookieDisclaimer": {
