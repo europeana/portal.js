@@ -36,7 +36,7 @@ export default {
   },
   "contentfulManual": {
     "footerNavigation": {
-      "about": "Infot Europeana Collections kohta",
+      "about": "Infot Europeana kohta",
       "forDevelopers": "Arendajatele",
       "help": "Abimaterjal",
       "meetUs": "Tutvu meeskonnaga",
@@ -292,7 +292,7 @@ export default {
     "MIME_TYPE": {
       "name": "Failivorming | Failivormingud",
       "options": {
-        "text/plain": "Lihttekst"
+        "text\/plain": "Lihttekst"
       }
     },
     "PROVIDER": {

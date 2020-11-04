@@ -36,7 +36,7 @@ export default {
   },
   "contentfulManual": {
     "footerNavigation": {
-      "about": "Om Europeana-samlinger",
+      "about": "Om Europeana",
       "forDevelopers": "For udviklere",
       "help": "Hjælp",
       "meetUs": "Mød holdet",
@@ -45,7 +45,7 @@ export default {
     },
     "headerNavigation": {
       "explore": "Udforsk",
-      "teachers": "Undervisere"
+      "teachers": "Lærere"
     }
   },
   "cookieDisclaimer": {
@@ -292,7 +292,7 @@ export default {
     "MIME_TYPE": {
       "name": "Filformat | Filformater",
       "options": {
-        "text/plain": "Almindelig tekst"
+        "text\/plain": "Almindelig tekst"
       }
     },
     "PROVIDER": {

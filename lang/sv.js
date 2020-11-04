@@ -36,7 +36,7 @@ export default {
   },
   "contentfulManual": {
     "footerNavigation": {
-      "about": "Om Europeana Collections",
+      "about": "Om Europeana",
       "forDevelopers": "För utvecklare",
       "help": "Hjälp",
       "meetUs": "Möt teamet",
@@ -292,7 +292,7 @@ export default {
     "MIME_TYPE": {
       "name": "Filformat | Filformat",
       "options": {
-        "text/plain": "Oformaterad text"
+        "text\/plain": "Oformaterad text"
       }
     },
     "PROVIDER": {
