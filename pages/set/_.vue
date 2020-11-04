@@ -115,7 +115,7 @@
         </b-col>
       </b-row>
       <b-row
-        v-if="enableRecommendations && recommendations.length > 0"
+        v-if="recommendations.length > 0"
         class="recommendations"
       >
         <b-col>
