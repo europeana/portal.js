@@ -82,6 +82,7 @@ export default ($axios) => {
      * @param {string} params.wskey API key, to override `config.record.key`
      * @param {Object} options search options
      * @param {Boolean} options.escape whether or not to escape Lucene reserved characters in the search query
+     * @param {string} options.url override the API URL
      * @return {{results: Object[], totalResults: number, facets: FacetSet, error: string}} search results for display
      */
     search(params, options = {}) {
@@ -96,7 +97,7 @@ export default ($axios) => {
       const query = (typeof params.query === 'undefined' || params.query === '') ? '*:*' : params.query;
       const escapePattern = /([!*+-=<>&|()[\]{}^~?:\\/"])/g; // Lucene reserved characters
 
-      return this.$axios.get('/search.json', {
+      return this.$axios.get(`${options.url || ''}/search.json`, {
         paramsSerializer(params) {
           return qs.stringify(params, { arrayFormat: 'repeat' });
         },
