@@ -184,6 +184,9 @@
       displayDescription() {
         return langMapValueForLocale(this.set.description, this.$i18n.locale);
       },
+      enableRecommendations() {
+        return Boolean(Number(process.env.ENABLE_RECOMMENDATIONS));
+      },
       displayItemCount() {
         const max = 100;
         const label = this.set.total > max ? 'items.itemOf' : 'items.itemCount';
@@ -213,7 +216,7 @@
         this.$bvModal.hide(this.setFormModalId);
       },
       getRecommendations() {
-        if (this.$auth.loggedIn) {
+        if (this.enableRecommendations && this.$auth.loggedIn) {
           if (this.set && this.set.total >= 0) {
             return this.$recommendations.recommend('set', `/${this.$route.params.pathMatch}`)
               .then(recommendResponse => {

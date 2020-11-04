@@ -266,7 +266,7 @@
         const noSimilarItems = { results: [] };
         if (this.error) return noSimilarItems;
 
-        if (this.$auth.loggedIn) {
+        if (Boolean(Number(process.env.ENABLE_RECOMMENDATIONS)) && this.$auth.loggedIn) {
           return this.$recommendations.recommend('record', this.identifier)
             .then(recommendResponse => recommendResponse);
         }
