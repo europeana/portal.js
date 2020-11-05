@@ -582,7 +582,11 @@ export default {
       "private": "Private collection"
     },
     "notifications": {
-      "deleted": "Your collection has been deleted."
+      "deleted": "Your collection has been deleted.",
+      "likeLimit": {
+        "title": "100 likes",
+        "body": "We are sorry, but you are limited at the moment to liking a maximum of 100 items. We will remove this limit soon!"
+      }
     },
     "prompts": {
       "delete": "Are you sure you want to delete this collection? If you delete this collection, you will lose all the items you've added to it."
