@@ -12,6 +12,19 @@
         with-text
       />
     </div>
+    <b-form
+      @submit.stop.prevent="submitForm"
+    >
+      <b-form-textarea
+        id="shareEmbed"
+        readonly
+      />
+      <b-button
+        variant="outline-secondary"
+      >
+        Copy
+      </b-button>
+    </b-form>
     <b-button
       variant="outline-primary"
       class="mt-5"
