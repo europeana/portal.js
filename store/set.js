@@ -43,7 +43,7 @@ export const actions = {
     commit('setLikedItems', null);
     commit('setCreations', []);
   },
-  async like({ dispatch, commit, state }, itemId) {
+  like({ dispatch, commit, state }, itemId) {
     // TODO: temporary prevention of addition of > 100 items; remove when no longer needed
     return dispatch('fetchLikes')
       .then(() => {
