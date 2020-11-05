@@ -22,7 +22,7 @@
       <b-button
         variant="outline-secondary"
       >
-        Copy
+        {{ $t('actions.copy') }}
       </b-button>
     </b-form>
     <b-button

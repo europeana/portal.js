@@ -19,6 +19,7 @@ export default {
   },
   "actions": {
     "close": "close",
+    "copy": "copy",
     "download": "Download",
     "edit": "Edit",
     "goBack": "Go back",
