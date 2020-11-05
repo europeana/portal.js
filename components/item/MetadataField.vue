@@ -127,10 +127,8 @@
           return { values: [this.fieldData], code: '' };
         } else if (Array.isArray(this.fieldData)) {
           return { values: this.fieldData, code: '' };
-        } else if (typeof this.fieldData.url !== 'undefined') {
+        } else if (Object.prototype.hasOwnProperty.call(this.fieldData, 'url')) {
           return langMapValueForLocale(this.fieldData.value, this.$i18n.locale);
-        } else if (this.name === 'edmDataProvider') {
-          return { values: [this.fieldData.value.def[0]], code: '' };
         }
         return langMapValueForLocale(this.fieldData, this.$i18n.locale, { omitUrisIfOtherValues: this.omitUrisIfOtherValues, omitAllUris: this.omitAllUris });
       },
