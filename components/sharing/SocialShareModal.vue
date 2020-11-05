@@ -17,10 +17,13 @@
     >
       <b-form-textarea
         id="shareEmbed"
+        ref="shareEmbed"
         readonly
+        value="embed code comes here"
       />
       <b-button
         variant="outline-secondary"
+        @click="copyEmbedCode"
       >
         {{ $t('actions.copy') }}
       </b-button>
@@ -49,6 +52,15 @@
       mediaUrl: {
         type: String,
         default: null
+      }
+    },
+
+    methods: {
+      copyEmbedCode() {
+        let textarea = this.$refs.shareEmbed;
+        textarea.select(); // select the text area
+        document.execCommand('copy');
+        alert('Embed code copied to clipboard');
       }
     }
   };
