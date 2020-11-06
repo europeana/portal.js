@@ -13,13 +13,14 @@
       />
     </div>
     <b-form
+      v-if="oEmbedDataHtml"
       @submit.stop.prevent="submitForm"
     >
       <b-form-textarea
         id="shareEmbed"
         ref="shareEmbed"
+        v-model="oEmbedDataHtml"
         readonly
-        value="embed code comes here"
       />
       <b-button
         variant="outline-secondary"
@@ -40,6 +41,7 @@
 
 <script>
   import SocialShare from './SocialShare';
+  import { oEmbedForEndpoint } from '../../plugins/oembed';
 
   export default {
     name: 'SocialShareModal',
@@ -53,6 +55,24 @@
         type: String,
         default: null
       }
+    },
+
+    data() {
+      return {
+        oEmbedDataHtml: null
+      };
+    },
+
+    created() {
+      oEmbedForEndpoint(process.env.OEMBED_ENDPOINT || 'https://oembedjs.europeana.eu/',
+                        process.env.PORTAL_BASE_URL + this.$route.path || `https://www.europeana.eu${this.$route.path}`)
+        .then((response) => {
+          if (response.data.html) {
+            this.oEmbedDataHtml = response.data.html;
+          }
+        }).catch((err) => {
+          this.oEmbedDataHtml = { error: err };
+        });
     },
 
     methods: {
