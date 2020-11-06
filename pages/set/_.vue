@@ -93,7 +93,10 @@
         </b-col>
       </b-row>
     </b-container>
-    <b-container class="mb-3">
+    <b-container
+      class="mb-3"
+      data-qa="user set"
+    >
       <b-row>
         <b-col>
           <h2 class="related-heading text-uppercase">
