@@ -1,136 +1,138 @@
 <template>
-  <b-container v-if="$fetchState.pending">
-    <b-row class="flex-md-row py-4 text-center">
-      <b-col cols="12">
-        <LoadingSpinner />
-      </b-col>
-    </b-row>
-  </b-container>
-  <b-container v-else-if="$fetchState.error">
-    <b-row class="flex-md-row py-4">
-      <b-col cols="12">
-        <AlertMessage
-          :error="$fetchState.error.message"
-        />
-      </b-col>
-    </b-row>
-  </b-container>
-  <div
-    v-else-if="set.id"
-    data-qa="user gallery page"
-    class="mt-n3"
-  >
-    <b-container
-      fluid
-    >
-      <b-row class="flex-md-row pt-5 bg-white mb-4">
-        <b-col
-          cols="12"
-        >
-          <b-container class="mb-5">
-            <b-row class="mb-3">
-              <b-col>
-                <h1
-                  class="pt-3"
-                  :lang="displayTitle.code"
-                >
-                  {{ displayTitle.values[0] }}
-                </h1>
-                <p
-                  class="usergallery-description mb-3 w-75"
-                  :lang="displayDescription.code"
-                >
-                  {{ displayDescription.values[0] }}
-                </p>
-                <!-- TODO: to avoid showing an empty div + whitespace, the v-if is on the div
-                    This can be changed when this functionality is further developed
-                -->
-                <div
-                  v-if="set.visibility === 'private'"
-                  class="usergallery-metadata"
-                >
-                  <!-- TODO: Fill after the '@' with the set's owner  -->
-                  <!-- <span class="curator mr-4">
-                    {{ $t('set.labels.curatedBy') }} @placeholderUsername
-                  </span>-->
-                  <span
-                    class="visibility"
-                  >
-                    {{ $t('set.labels.private') }}
-                  </span>
-                </div>
-              </b-col>
-            </b-row>
-            <div class="collection-buttons">
-              <template
-                v-if="userIsOwner"
-              >
-                <b-button
-                  variant="outline-primary text-decoration-none"
-                  @click="$bvModal.show(setFormModalId)"
-                >
-                  {{ $t('actions.edit') }}
-                </b-button>
-                <SetFormModal
-                  :set-id="set.id"
-                  :modal-id="setFormModalId"
-                  :title="set.title"
-                  :description="set.description"
-                  :visibility="set.visibility"
-                  @update="updateSet"
-                />
-              </template>
-              <!-- <b-button
-                v-if="visibility === 'public'"
-                variant="outline-primary text-decoration-none"
-              >
-                <span class="text">
-                  {{ $t('actions.share') }}
-                </span>
-              </b-button> -->
-            </div>
-          </b-container>
+  <div data-qa="set page">
+    <b-container v-if="$fetchState.pending">
+      <b-row class="flex-md-row py-4 text-center">
+        <b-col cols="12">
+          <LoadingSpinner />
         </b-col>
       </b-row>
     </b-container>
-    <b-container
-      class="mb-3"
-      data-qa="user set"
-    >
-      <b-row>
-        <b-col>
-          <h2 class="related-heading text-uppercase">
-            {{ displayItemCount }}
-          </h2>
-        </b-col>
-      </b-row>
-      <b-row>
-        <b-col>
-          <b-container class="px-0">
-            <b-row class="mb-3">
-              <b-col cols="12">
-                <ItemPreviewCardGroup
-                  v-model="set.items"
-                />
-              </b-col>
-            </b-row>
-          </b-container>
-        </b-col>
-      </b-row>
-      <b-row
-        v-if="recommendations.length > 0"
-        class="recommendations"
-      >
-        <b-col>
-          <h2 class="related-heading">
-            {{ $t('items.youMightLike') }}
-          </h2>
-          <ItemPreviewCardGroup
-            v-model="recommendations"
+    <b-container v-else-if="$fetchState.error">
+      <b-row class="flex-md-row py-4">
+        <b-col cols="12">
+          <AlertMessage
+            :error="$fetchState.error.message"
           />
         </b-col>
       </b-row>
     </b-container>
+    <div
+      v-else-if="set.id"
+      data-qa="user gallery page"
+      class="mt-n3"
+    >
+      <b-container
+        fluid
+      >
+        <b-row class="flex-md-row pt-5 bg-white mb-4">
+          <b-col
+            cols="12"
+          >
+            <b-container class="mb-5">
+              <b-row class="mb-3">
+                <b-col>
+                  <h1
+                    class="pt-3"
+                    :lang="displayTitle.code"
+                  >
+                    {{ displayTitle.values[0] }}
+                  </h1>
+                  <p
+                    class="usergallery-description mb-3 w-75"
+                    :lang="displayDescription.code"
+                  >
+                    {{ displayDescription.values[0] }}
+                  </p>
+                  <!-- TODO: to avoid showing an empty div + whitespace, the v-if is on the div
+                      This can be changed when this functionality is further developed
+                  -->
+                  <div
+                    v-if="set.visibility === 'private'"
+                    class="usergallery-metadata"
+                  >
+                    <!-- TODO: Fill after the '@' with the set's owner  -->
+                    <!-- <span class="curator mr-4">
+                      {{ $t('set.labels.curatedBy') }} @placeholderUsername
+                    </span>-->
+                    <span
+                      class="visibility"
+                    >
+                      {{ $t('set.labels.private') }}
+                    </span>
+                  </div>
+                </b-col>
+              </b-row>
+              <div class="collection-buttons">
+                <template
+                  v-if="userIsOwner"
+                >
+                  <b-button
+                    variant="outline-primary text-decoration-none"
+                    @click="$bvModal.show(setFormModalId)"
+                  >
+                    {{ $t('actions.edit') }}
+                  </b-button>
+                  <SetFormModal
+                    :set-id="set.id"
+                    :modal-id="setFormModalId"
+                    :title="set.title"
+                    :description="set.description"
+                    :visibility="set.visibility"
+                    @update="updateSet"
+                  />
+                </template>
+                <!-- <b-button
+                  v-if="visibility === 'public'"
+                  variant="outline-primary text-decoration-none"
+                >
+                  <span class="text">
+                    {{ $t('actions.share') }}
+                  </span>
+                </b-button> -->
+              </div>
+            </b-container>
+          </b-col>
+        </b-row>
+      </b-container>
+      <b-container
+        class="mb-3"
+        data-qa="user set"
+      >
+        <b-row>
+          <b-col>
+            <h2 class="related-heading text-uppercase">
+              {{ displayItemCount }}
+            </h2>
+          </b-col>
+        </b-row>
+        <b-row>
+          <b-col>
+            <b-container class="px-0">
+              <b-row class="mb-3">
+                <b-col cols="12">
+                  <ItemPreviewCardGroup
+                    v-model="set.items"
+                  />
+                </b-col>
+              </b-row>
+            </b-container>
+          </b-col>
+        </b-row>
+        <b-row
+          v-if="recommendations.length > 0"
+          class="recommendations"
+        >
+          <b-col>
+            <h2 class="related-heading">
+              {{ $t('items.youMightLike') }}
+            </h2>
+            <ItemPreviewCardGroup
+              v-model="recommendations"
+            />
+          </b-col>
+        </b-row>
+      </b-container>
+    </div>
   </div>
 </template>
 
