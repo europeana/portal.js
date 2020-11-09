@@ -79,8 +79,6 @@
           if (response.data.html) {
             this.oEmbedDataHtml = response.data.html;
           }
-        }).catch((err) => {
-          this.oEmbedDataHtml = { error: err };
         });
     },
 
