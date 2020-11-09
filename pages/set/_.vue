@@ -1,5 +1,5 @@
 <template>
-  <div data-qa="set page">
+  <div data-qa="user gallery page">
     <b-container v-if="$fetchState.pending">
       <b-row class="flex-md-row py-4 text-center">
         <b-col cols="12">
@@ -18,7 +18,6 @@
     </b-container>
     <div
       v-else-if="set.id"
-      data-qa="user gallery page"
       class="mt-n3"
     >
       <b-container
@@ -100,7 +99,10 @@
       >
         <b-row>
           <b-col>
-            <h2 class="related-heading text-uppercase">
+            <h2
+              class="related-heading text-uppercase"
+              data-qa="item count"
+            >
               {{ displayItemCount }}
             </h2>
           </b-col>
