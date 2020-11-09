@@ -258,7 +258,7 @@ if (Number(process.env['ENABLE_XX_USER_AUTH'])) {
         userinfo_endpoint: keycloakOpenIDConnectEndpoint('userinfo'),
         end_session_endpoint: keycloakOpenIDConnectEndpoint('logout'),
         response_type: process.env.OAUTH_RESPONSE_TYPE || 'code',
-        // access_type: process.env.OAUTH_ACCESS_TYPE || 'offline',
+        access_type: process.env.OAUTH_ACCESS_TYPE || 'online',
         grant_type: process.env.OAUTH_GRANT_TYPE || 'authorization_code',
         token_type: process.env.OAUTH_TOKEN_TYPE || 'Bearer'
       }
