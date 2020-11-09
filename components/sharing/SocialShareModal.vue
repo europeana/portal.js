@@ -74,7 +74,7 @@
 
     created() {
       oEmbedForEndpoint(process.env.OEMBED_ENDPOINT || 'https://oembedjs.europeana.eu/',
-                        process.env.PORTAL_BASE_URL + this.$route.path || `https://www.europeana.eu${this.$route.path}`)
+                        `https://www.europeana.eu${this.$route.path}`)
         .then((response) => {
           if (response.data.html) {
             this.oEmbedDataHtml = response.data.html;
