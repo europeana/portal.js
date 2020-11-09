@@ -125,7 +125,8 @@ export const actions = {
     const searchParams = {
       query: `creator:${creatorId}`,
       profile: 'itemDescriptions',
-      pageSize: 100 // TODO: pagination?
+      pageSize: 100, // TODO: pagination?
+      qf: 'type:Collection'
     };
 
     return this.$sets.search(searchParams)
