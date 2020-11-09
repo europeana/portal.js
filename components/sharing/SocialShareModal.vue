@@ -14,6 +14,7 @@
     </div>
     <b-form
       v-if="oEmbedDataHtml"
+      class="mt-3"
       @submit.stop.prevent="submitForm"
     >
       <b-form-textarea
@@ -23,11 +24,18 @@
         readonly
       />
       <b-button
-        variant="outline-secondary"
+        class="mt-1 copy-button"
         @click="copyEmbedCode"
       >
         {{ $t('actions.copy') }}
       </b-button>
+      <span
+        :class="{active: isActive}"
+        class="copy-to-clipboard-success"
+      >
+        <span class="icon-check_circle d-inline-flex pr-1" />
+        {{ $t('messages.copyToClipboardSuccess') }}
+      </span>
     </b-form>
     <b-button
       variant="outline-primary"
@@ -59,7 +67,8 @@
 
     data() {
       return {
-        oEmbedDataHtml: null
+        oEmbedDataHtml: null,
+        isActive: false
       };
     },
 
@@ -80,7 +89,7 @@
         let textarea = this.$refs.shareEmbed;
         textarea.select(); // select the text area
         document.execCommand('copy');
-        alert('Embed code copied to clipboard');
+        this.isActive = true;
       }
     }
   };
@@ -128,6 +137,29 @@
             font-family: $font-family-sans-serif;
             font-weight: 600;
             padding-left: 0.75rem;
+          }
+        }
+        .copy-button {
+          text-transform: capitalize;
+          background: $offwhite;
+          color: $mediumgrey;
+          font-size: $font-size-small;
+          border-color: transparent;
+          box-shadow: none;
+          border-radius: 0.25rem;
+          padding: 0.375rem 0.5rem;
+          &:hover {
+            box-shadow: 2px 2px 6px 0 rgba(0, 0, 0, 0.15);
+          }
+        }
+        .copy-to-clipboard-success {
+          display: none;
+          vertical-align: middle;
+          margin-left: 0.5rem;
+          font-size: $font-size-small;
+          &.active {
+            display: inline-flex;
+            align-items: center;
           }
         }
         @media (max-width: $bp-small) {

@@ -502,6 +502,7 @@ export default {
     "selectItem": "Select item {src}"
   },
   "messages": {
+    "copyToClipboardSuccess": "Copied",
     "externalContentError": "The external content failed to load",
     "notFound": "Not Found",
     "paginationLimitExceeded": "It is only possible to view the first {limit} search results."
