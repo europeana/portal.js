@@ -1,5 +1,5 @@
 <template>
-  <div data-qa="user gallery page">
+  <div>
     <b-container v-if="$fetchState.pending">
       <b-row class="flex-md-row py-4 text-center">
         <b-col cols="12">
@@ -19,6 +19,7 @@
     <div
       v-else-if="set.id"
       class="mt-n3"
+      data-qa="user gallery page"
     >
       <b-container
         fluid
