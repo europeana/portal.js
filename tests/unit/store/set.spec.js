@@ -278,7 +278,8 @@ describe('store/set', () => {
         store.actions.$sets.search.should.have.been.calledWith({
           query: `creator:${userId}`,
           profile: 'itemDescriptions',
-          pageSize: 100
+          pageSize: 100,
+          qf: 'type:Collection'
         });
         commit.should.have.been.calledWith('setCreations', ['1', '2']);
       });
