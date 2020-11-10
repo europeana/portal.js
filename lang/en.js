@@ -19,7 +19,6 @@ export default {
   },
   "actions": {
     "close": "close",
-    "copy": "copy",
     "download": "Download",
     "edit": "Edit",
     "goBack": "Go back",
@@ -502,7 +501,7 @@ export default {
     "selectItem": "Select item {src}"
   },
   "messages": {
-    "copyToClipboardSuccess": "Copied",
+    "copyToClipboardSuccess": "Copied to clipboard",
     "externalContentError": "The external content failed to load",
     "notFound": "Not Found",
     "paginationLimitExceeded": "It is only possible to view the first {limit} search results."
@@ -520,6 +519,7 @@ export default {
   "readMore": "Read more",
   "record": {
     "allMetaData": "All metadata",
+    "copyEmbedLabel": "Copy embed code (click to copy)",
     "downloadCopyrightInfo": "This item is in copyright and can not be downloaded.",
     "exploreMore": "Explore More",
     "extendedInformation": "Extended information",

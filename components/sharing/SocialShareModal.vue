@@ -17,18 +17,16 @@
       class="mt-3"
       @submit.stop.prevent="submitForm"
     >
+      <label> {{ $t('record.copyEmbedLabel') }}</label>
       <b-form-textarea
         id="shareEmbed"
         ref="shareEmbed"
         v-model="oEmbedDataHtml"
         readonly
-      />
-      <b-button
-        class="mt-1 copy-button"
+        tabindex="0"
         @click="copyEmbedCode"
-      >
-        {{ $t('actions.copy') }}
-      </b-button>
+        @keydown="copyEmbedCode"
+      />
       <span
         :class="{active: isActive}"
         class="copy-to-clipboard-success"
@@ -39,7 +37,7 @@
     </b-form>
     <b-button
       variant="outline-primary"
-      class="mt-5"
+      class="mt-4"
       @click="$bvModal.hide('shareModal')"
     >
       {{ $t('actions.close') }}
@@ -83,11 +81,13 @@
     },
 
     methods: {
-      copyEmbedCode() {
-        let textarea = this.$refs.shareEmbed;
-        textarea.select(); // select the text area
-        document.execCommand('copy');
-        this.isActive = true;
+      copyEmbedCode(event) {
+        if (event.type === 'click' || event.keyCode === 13) {
+          let textarea = this.$refs.shareEmbed;
+          textarea.select(); // select the text area
+          document.execCommand('copy');
+          this.isActive = true;
+        }
       }
     }
   };
@@ -137,23 +137,13 @@
             padding-left: 0.75rem;
           }
         }
-        .copy-button {
-          text-transform: capitalize;
-          background: $offwhite;
-          color: $mediumgrey;
-          font-size: $font-size-small;
-          border-color: transparent;
-          box-shadow: none;
-          border-radius: 0.25rem;
-          padding: 0.375rem 0.5rem;
-          &:hover {
-            box-shadow: 2px 2px 6px 0 rgba(0, 0, 0, 0.15);
-          }
+        #shareEmbed {
+          max-height: 3.5rem;
+          cursor: pointer;
         }
         .copy-to-clipboard-success {
           display: none;
           vertical-align: middle;
-          margin-left: 0.5rem;
           font-size: $font-size-small;
           &.active {
             display: inline-flex;
