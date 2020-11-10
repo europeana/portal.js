@@ -519,7 +519,7 @@ export default {
   "readMore": "Read more",
   "record": {
     "allMetaData": "All metadata",
-    "copyEmbedLabel": "Copy embed code (click to copy)",
+    "copyEmbedLabel": "Embed code (Click to copy)",
     "downloadCopyrightInfo": "This item is in copyright and can not be downloaded.",
     "exploreMore": "Explore More",
     "extendedInformation": "Extended information",

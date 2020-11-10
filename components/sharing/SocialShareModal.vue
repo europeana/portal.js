@@ -138,8 +138,9 @@
           }
         }
         #shareEmbed {
-          max-height: 3.5rem;
           cursor: pointer;
+          max-height: 3.5rem;
+          padding: 0.312rem 0.625rem;
         }
         .copy-to-clipboard-success {
           display: none;
