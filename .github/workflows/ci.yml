@@ -28,10 +28,6 @@ env:
   EUROPEANA_ENTITY_API_KEY: ${{ secrets.EUROPEANA_ENTITY_API_KEY }}
   EUROPEANA_RECORD_API_KEY: ${{ secrets.EUROPEANA_RECORD_API_KEY }}
   SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-  OAUTH_ORIGIN: ${{ secrets.OAUTH_ORIGIN || 'https://auth.europeana.eu' }}
-  OAUTH_SCHEME: ${{ secrets.OAUTH_SCHEME || 'oauth2' }}
-  OAUTH_REALM: ${{ secrets.OAUTH_REALM 'europeana' }}
-  OAUTH_SCOPE: ${{ secrets.OAUTH_SCOPE || ['openid', 'profile', 'email', 'usersets'] }}
   OAUTH_CLIENT: ${{ secrets.OAUTH_CLIENT }}
 
 jobs:
