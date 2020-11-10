@@ -292,7 +292,7 @@ export default {
     "MIME_TYPE": {
       "name": "Format plików | Formaty plików",
       "options": {
-        "text\/plain": "Zwykły tekst"
+        "text/plain": "Zwykły tekst"
       }
     },
     "PROVIDER": {
