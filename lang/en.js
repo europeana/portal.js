@@ -6,14 +6,14 @@ export default {
     "linkLogout": "Log out",
     "notifications": {
       "noCollections": {
-        "private": "You haven’t created any private collections yet",
-        "public": "You haven’t created any public collections yet"
+        "private": "You haven’t created any private galleries yet",
+        "public": "You haven’t created any public galleries yet"
       },
       "noLikedItems": "You haven’t liked any items yet"
     },
-    "privateCollections": "Private Collections",
-    "profile": "My Likes & Collections",
-    "publicCollections": "Public Collections",
+    "privateCollections": "Private Galleries",
+    "profile": "My Likes & Galleries",
+    "publicCollections": "Public Galleries",
     "settings": "Settings",
     "title": "My account"
   },
@@ -340,7 +340,7 @@ export default {
     "MIME_TYPE": {
       "name": "File format | File formats",
       "options": {
-        "text/plain": "Plain text"
+        "text\/plain": "Plain text"
       }
     },
     "PROVIDER": {
@@ -584,8 +584,8 @@ export default {
     "notifications": {
       "deleted": "Your collection has been deleted.",
       "likeLimit": {
-        "title": "100 likes",
-        "body": "We are sorry, but you are limited at the moment to liking a maximum of 100 items. We will remove this limit soon!"
+        "body": "We are sorry, but you are limited at the moment to liking a maximum of 100 items. We will remove this limit soon!",
+        "title": "100 likes"
       }
     },
     "prompts": {
