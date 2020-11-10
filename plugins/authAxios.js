@@ -14,6 +14,7 @@ export default ({ $auth, store, redirect }, inject) => {
     // grant does not need it; remove it before sending to OIDC.
     const refreshTokenWithoutType = refreshToken.replace(new RegExp(`^${options.token_type} `), '');
 
+    // @see https://github.com/nuxt-community/auth-module/blob/v4.9.1/lib/schemes/oauth2.js#L157-L201
     const data = await $auth.request({
       method: 'post',
       url: options.access_token_endpoint,
@@ -33,6 +34,9 @@ export default ({ $auth, store, redirect }, inject) => {
       // Set axios token
       $auth.strategy._setToken(newAccessToken); // eslint-disable-line no-underscore-dangle
       delete requestConfig.headers['Authorization'];
+    } else {
+      // No new access token; redirect to login URL
+      return redirect(redirectUrl);
     }
 
     if (data[options.refresh_token_key]) {
