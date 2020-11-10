@@ -336,7 +336,7 @@ export default {
     "MIME_TYPE": {
       "name": "Fitxategiaren formatua | Fitxategien formatuak",
       "options": {
-        "text\/plain": "Testu arrunta"
+        "text/plain": "Testu arrunta"
       }
     },
     "PROVIDER": {
