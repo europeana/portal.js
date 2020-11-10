@@ -43,9 +43,18 @@ export const actions = {
     commit('setLikedItems', null);
     commit('setCreations', []);
   },
-  like({ commit, state }, itemId) {
-    return this.$sets.modifyItems('add', state.likesId, itemId)
-      .then(commit('like', itemId));
+  like({ dispatch, commit, state }, itemId) {
+    // TODO: temporary prevention of addition of > 100 items; remove when no longer needed
+    return dispatch('fetchLikes')
+      .then(() => {
+        if (state.likedItems && state.likedItems.length >= 100) {
+          throw new Error('100 likes');
+        }
+      })
+      .then(() => {
+        return this.$sets.modifyItems('add', state.likesId, itemId)
+          .then(commit('like', itemId));
+      });
   },
   unlike({ commit, state }, itemId) {
     return this.$sets.modifyItems('delete', state.likesId, itemId)
@@ -125,7 +134,8 @@ export const actions = {
     const searchParams = {
       query: `creator:${creatorId}`,
       profile: 'itemDescriptions',
-      pageSize: 100 // TODO: pagination?
+      pageSize: 100, // TODO: pagination?
+      qf: 'type:Collection'
     };
 
     return this.$sets.search(searchParams)
