@@ -232,7 +232,7 @@ const config = {
 
 if (Number(process.env['ENABLE_XX_USER_AUTH'])) {
   const keycloakOpenIDConnectEndpoint = (method) =>
-    `${process.env.OAUTH_ORIGIN}/auth/realms/${process.env.OAUTH_REALM}/protocol/openid-connect/${method}`;
+    `${process.env.OAUTH_ORIGIN || 'https://auth.europeana.eu'}/auth/realms/${process.env.OAUTH_REALM || 'europeana'}/protocol/openid-connect/${method}`;
 
   config.auth = {
     // Redirect routes: 'callback' option for keycloak redirects,
