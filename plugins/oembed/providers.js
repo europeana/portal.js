@@ -33,5 +33,13 @@ export default [
       'https://vimeo.com/ondemand/*/*',
       'https://player.vimeo.com/video/*'
     ]
+  },
+  {
+    name: 'Sketchfab',
+    endpoint: 'https://sketchfab.com/oembed',
+    schemes: [
+      'https://sketchfab.com/models/*',
+      'https://sketchfab.com/show/*'
+    ]
   }
 ];

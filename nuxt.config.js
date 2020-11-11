@@ -231,6 +231,9 @@ const config = {
 };
 
 if (Number(process.env['ENABLE_XX_USER_AUTH'])) {
+  const keycloakOpenIDConnectEndpoint = (method) =>
+    `${process.env.OAUTH_ORIGIN}/auth/realms/${process.env.OAUTH_REALM}/protocol/openid-connect/${method}`;
+
   config.auth = {
     // Redirect routes: 'callback' option for keycloak redirects,
     // 'login' option for unauthorised redirection
@@ -246,17 +249,18 @@ if (Number(process.env['ENABLE_XX_USER_AUTH'])) {
     strategies: {
       local: false,
       keycloak: {
-        _scheme: process.env.OAUTH_SCHEME || 'oauth2',
-        origin: process.env.OAUTH_ORIGIN || 'https://auth.europeana.eu',
+        _scheme: 'oauth2',
         client_id: process.env.OAUTH_CLIENT,
-        scope: process.env.OAUTH_SCOPE.split(',') || ['openid', 'profile', 'email', 'usersets'],
-        realm: process.env.OAUTH_REALM || 'europeana',
-        authorization_endpoint: `${process.env.OAUTH_ORIGIN || 'https://auth.europeana.eu'}/auth/realms/${process.env.OAUTH_REALM || 'europeana'}/protocol/openid-connect/auth`,
-        access_token_endpoint: `${process.env.OAUTH_ORIGIN || 'https://auth.europeana.eu'}/auth/realms/${process.env.OAUTH_REALM || 'europeana'}/protocol/openid-connect/token`,
-        userinfo_endpoint: `${process.env.OAUTH_ORIGIN || 'https://auth.europeana.eu'}/auth/realms/${process.env.OAUTH_REALM || 'europeana'}/protocol/openid-connect/userinfo`,
-        end_session_endpoint: `${process.env.OAUTH_ORIGIN || 'https://auth.europeana.eu'}/auth/realms/${process.env.OAUTH_REALM || 'europeana'}/protocol/openid-connect/logout`,
-        response_type: 'code id_token token',
-        token_type: 'Bearer'
+        scope: process.env.OAUTH_SCOPE.split(',') || ['openid'],
+        realm: process.env.OAUTH_REALM,
+        authorization_endpoint: keycloakOpenIDConnectEndpoint('auth'),
+        access_token_endpoint: keycloakOpenIDConnectEndpoint('token'),
+        userinfo_endpoint: keycloakOpenIDConnectEndpoint('userinfo'),
+        end_session_endpoint: keycloakOpenIDConnectEndpoint('logout'),
+        response_type: process.env.OAUTH_RESPONSE_TYPE || 'code',
+        access_type: process.env.OAUTH_ACCESS_TYPE || 'online',
+        grant_type: process.env.OAUTH_GRANT_TYPE || 'authorization_code',
+        token_type: process.env.OAUTH_TOKEN_TYPE || 'Bearer'
       }
     },
     plugins: [{ src: '~/plugins/authAxios' }]
