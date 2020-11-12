@@ -18,6 +18,7 @@
     </div>
     <b-form
       v-if="oEmbedDataHtml"
+      data-qa="share modal embed"
       class="mt-3"
       @submit.stop.prevent="submitForm"
     >
@@ -96,7 +97,7 @@
       copyEmbedCode(event) {
         if (event.type === 'click' || event.keyCode === 13) {
           let textarea = this.$refs.shareEmbed;
-          textarea.select(); // select the text area
+          textarea.select();
           document.execCommand('copy');
           this.embedCopied = true;
           setTimeout(() => this.embedCopied = false, 3000);
