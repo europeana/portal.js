@@ -53,6 +53,10 @@ Before({ tags: '@debug-apirequests-not-enabled' }, async() => {
   await runners.haveNotEnabledDebugAPIRequests();
 });
 
+Before({ tags: '@logged-in' }, async() => {
+  await runners.logIn();
+});
+
 After(async() => {
   await client.deleteCookies();
 });
@@ -62,6 +66,11 @@ After({ tags: '@non-default-browser' }, async() => {
   await stopBrowser();
   await startBrowser();
   await warmupBrowser();
+});
+
+After({ tags: '@logged-in' }, async() => {
+  // Log the user out, so as to not pollute other tests.
+  await runners.logOut();
 });
 
 AfterAll(async() => {

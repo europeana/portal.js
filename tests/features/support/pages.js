@@ -6,6 +6,9 @@ const pages = {
   '"The Milkmaid" item page': `${url}/en/item/90402/SK_A_2344`,
   '"The pride of Glencoe, song" item page': `${url}/en/item/2059213/data_sounds_455`,
   '"World War I" collection page': `${url}/en/collections/topic/83-1914-1918`,
+  'account page': `${url}/en/account`,
+  'sign in page': `${url}/en/account/signin`,
+  'sign out page': `${url}/en/account/signout`,
   'blog page': `${url}/en/blog`,
   '"Easter with art" blog page': `${url}/blog/easter-with-art-and-culture-5-activities-for-the-whole-family`,
   'English home page': `${url}/en`,
@@ -28,7 +31,6 @@ const pages = {
   'user gallery page': `${url}/en/set/2`,
   'Swedish home page': `${url}/sv`,
   'topics listing page': `${url}/en/collections/topics`,
-  'account page': `${url}/account`,
   'debug page': `${url}/debug`
 };
 

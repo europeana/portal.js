@@ -269,5 +269,17 @@ module.exports = {
   },
   async hrefLangTags() {
     await client.expect.element('link[rel=alternate]').to.be.present;
+  },
+  async logIn() {
+    await client.url(pageUrl('sign in page'));
+    await this.submitCredentials();
+  },
+  async logOut() {
+    await client.url(pageUrl('sign out page'));
+  },
+  async submitCredentials() {
+    await client.setValue('#email', process.env.TEST_USER_NAME);
+    await client.setValue('#password', process.env.TEST_USER_PASSWORD);
+    await this.pressKey('ENTER');
   }
 };

@@ -36,7 +36,12 @@
           <template
             slot="button-content"
           >
-            <span class="label">{{ $t('account.linkAccount') }}</span>
+            <span
+              class="label"
+              data-qa="account button"
+            >
+              {{ $t('account.linkAccount') }}
+            </span>
           </template>
           <template v-for="(item, index) in authLinks">
             <b-dropdown-divider
@@ -48,6 +53,7 @@
               :key="index"
               :to="item.to"
               :href="item.href"
+              :data-qa="item.dataQa"
             >
               <span class="label">{{ item.text }}</span>
             </b-dropdown-item>
@@ -65,6 +71,7 @@
             v-b-toggle.menu
             :to="item.to"
             :href="item.href"
+            :data-qa="item.dataQa"
             class="nav-link"
           >
             <span>
@@ -80,7 +87,7 @@
       >
         <b-link
           v-b-toggle.menu
-          data-qa="login button"
+          data-qa="log in button"
           class="nav-link"
           :to="{ name: 'account-login' }"
         >
@@ -110,10 +117,10 @@
     data() {
       return {
         authLinks: [
-          { to: this.$path({ name: 'account' }), text: this.$t('account.profile'), name: '/account' },
-          { href: `${process.env.OAUTH_ORIGIN}/auth/realms/${process.env.OAUTH_REALM}/account?referrer=${process.env.OAUTH_CLIENT}`, text: this.$t('account.settings'), name: '/account/settings' },
+          { to: this.$path({ name: 'account' }), text: this.$t('account.profile'), name: '/account', dataQa: 'likes and galleries button' },
+          { href: `${process.env.OAUTH_ORIGIN}/auth/realms/${process.env.OAUTH_REALM}/account?referrer=${process.env.OAUTH_CLIENT}`, text: this.$t('account.settings'), name: '/account/settings', dataQa: 'account settings button' },
           { divider: true, name: 'divider' },
-          { to: { name: 'account-logout' }, text: this.$t('account.linkLogout'), name: '/account/logout' }
+          { to: { name: 'account-logout' }, text: this.$t('account.linkLogout'), name: '/account/logout', dataQa: 'log out button' }
         ]
       };
     },
