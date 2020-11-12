@@ -44,6 +44,7 @@
       <SocialShareModal
         :media-url="selectedMedia.about"
         :on-item-page="true"
+        :identifier="identifier"
       />
     </b-container>
   </div>

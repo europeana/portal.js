@@ -5,8 +5,10 @@
     hide-header-close
     hide-footer
     data-qa="share modal"
-    @hide="resetEmbedCopied"
-    v-on="{ show: onItemPage ? requestEmbed : null}"
+    v-on="onItemPage ?
+      { show: requestEmbed,
+        hide: resetEmbedCopied }
+      : {}"
   >
     <div class="icon-wrapper">
       <SocialShare
@@ -50,6 +52,7 @@
 <script>
   import SocialShare from './SocialShare';
   import { oEmbedForEndpoint } from '../../plugins/oembed';
+  import { BASE_URL as EUROPEANA_DATA_URL } from '../../plugins/europeana/data';
 
   export default {
     name: 'SocialShareModal',
@@ -60,6 +63,10 @@
 
     props: {
       mediaUrl: {
+        type: String,
+        default: null
+      },
+      identifier: {
         type: String,
         default: null
       },
@@ -79,7 +86,7 @@
     methods: {
       requestEmbed() {
         oEmbedForEndpoint(process.env.OEMBED_ENDPOINT || 'https://oembedjs.europeana.eu/',
-                          `https://www.europeana.eu${this.$route.path}`)
+                          `${EUROPEANA_DATA_URL}/item${this.identifier}`)
           .then((response) => {
             if (response.data.html) {
               this.oEmbedDataHtml = response.data.html;
