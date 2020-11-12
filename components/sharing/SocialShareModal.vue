@@ -5,6 +5,7 @@
     hide-header-close
     hide-footer
     data-qa="share modal"
+    @hide="resetEmbedCopied"
   >
     <div class="icon-wrapper">
       <SocialShare
@@ -28,7 +29,7 @@
         @keydown="copyEmbedCode"
       />
       <span
-        :class="{active: isActive}"
+        :class="{active: embedCopied}"
         class="copy-to-clipboard-success"
       >
         <span class="icon-check_circle d-inline-flex pr-1" />
@@ -66,7 +67,7 @@
     data() {
       return {
         oEmbedDataHtml: null,
-        isActive: false
+        embedCopied: false
       };
     },
 
@@ -86,8 +87,12 @@
           let textarea = this.$refs.shareEmbed;
           textarea.select(); // select the text area
           document.execCommand('copy');
-          this.isActive = true;
+          this.embedCopied = true;
+          setTimeout(() => this.embedCopied = false, 3000);
         }
+      },
+      resetEmbedCopied() {
+        this.embedCopied = false;
       }
     }
   };
