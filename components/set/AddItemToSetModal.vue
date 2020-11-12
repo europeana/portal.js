@@ -5,6 +5,7 @@
     hide-footer
     hide-header-close
     @show="fetchCollections"
+    @hide="hideModal()"
   >
     <b-button
       variant="primary"
@@ -33,7 +34,7 @@
     <div class="modal-footer">
       <b-button
         variant="outline-primary"
-        @click="hideModal()"
+        @click="$bvModal.hide(modalId)"
       >
         {{ $t('actions.close') }}
       </b-button>
@@ -86,7 +87,6 @@
       hideModal() {
         this.$nextTick(() => {
           this.fetched = false;
-          this.$bvModal.hide(this.modalId);
           this.$emit('hideModal');
         });
       },
