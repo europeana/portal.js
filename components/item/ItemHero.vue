@@ -41,7 +41,10 @@
           </div>
         </b-col>
       </b-row>
-      <SocialShareModal :media-url="selectedMedia.about" />
+      <SocialShareModal
+        :media-url="selectedMedia.about"
+        :on-item-page="true"
+      />
     </b-container>
   </div>
 </template>

@@ -6,6 +6,7 @@
     hide-footer
     data-qa="share modal"
     @hide="resetEmbedCopied"
+    v-on="{ show: onItemPage ? requestEmbed : null}"
   >
     <div class="icon-wrapper">
       <SocialShare
@@ -61,6 +62,10 @@
       mediaUrl: {
         type: String,
         default: null
+      },
+      onItemPage: {
+        type: Boolean,
+        default: false
       }
     },
 
@@ -71,17 +76,16 @@
       };
     },
 
-    created() {
-      oEmbedForEndpoint(process.env.OEMBED_ENDPOINT || 'https://oembedjs.europeana.eu/',
-                        `https://www.europeana.eu${this.$route.path}`)
-        .then((response) => {
-          if (response.data.html) {
-            this.oEmbedDataHtml = response.data.html;
-          }
-        });
-    },
-
     methods: {
+      requestEmbed() {
+        oEmbedForEndpoint(process.env.OEMBED_ENDPOINT || 'https://oembedjs.europeana.eu/',
+                          `https://www.europeana.eu${this.$route.path}`)
+          .then((response) => {
+            if (response.data.html) {
+              this.oEmbedDataHtml = response.data.html;
+            }
+          });
+      },
       copyEmbedCode(event) {
         if (event.type === 'click' || event.keyCode === 13) {
           let textarea = this.$refs.shareEmbed;
