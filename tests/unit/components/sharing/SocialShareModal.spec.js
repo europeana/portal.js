@@ -22,4 +22,11 @@ describe('components/sharing/SocialShareModal', () => {
       embedForm.exists().should.be.true;
     });
   });
+  context('when endpoint does not return html', () => {
+    it('form for embed code is not shown', async() => {
+      const wrapper = factory();
+      const embedForm = wrapper.find('[data-qa="share modal embed"]');
+      embedForm.exists().should.be.false;
+    });
+  });
 });

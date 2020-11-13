@@ -29,6 +29,7 @@
         v-model="oEmbedDataHtml"
         readonly
         tabindex="0"
+        data-qa="share modal embed textarea"
         @click="copyEmbedCode"
         @keydown="copyEmbedCode"
       />
