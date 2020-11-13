@@ -31,15 +31,13 @@
           no-caret
           variant="white"
           class="nav-link"
+          data-qa="account button"
           :class="isAccountPage && 'exact-active-link'"
         >
           <template
             slot="button-content"
           >
-            <span
-              class="label"
-              data-qa="account button"
-            >
+            <span class="label">
               {{ $t('account.linkAccount') }}
             </span>
           </template>

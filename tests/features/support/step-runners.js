@@ -4,6 +4,7 @@
  */
 
 const { client, createSession, closeSession, startWebDriver, stopWebDriver } = require('nightwatch-api');
+const { testPassword, testUser } = require('../config/nightwatch.conf.js').test_settings.default.globals;
 const { pageUrl } = require('./pages');
 
 /**
@@ -278,8 +279,8 @@ module.exports = {
     await client.url(pageUrl('sign out page'));
   },
   async submitCredentials() {
-    await client.setValue('#email', process.env.TEST_USER_NAME);
-    await client.setValue('#password', process.env.TEST_USER_PASSWORD);
-    await this.pressKey('ENTER');
+    await client.setValue('#email', testUser);
+    await client.setValue('#password', testPassword);
+    await client.click('input[type="submit"]');
   }
 };

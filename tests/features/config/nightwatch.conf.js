@@ -33,7 +33,9 @@ module.exports = {
   test_settings: {
     default: {
       globals: {
-        url: process.env.APP_URL || 'http://localhost:3000'
+        url: process.env.APP_URL || 'http://localhost:3000',
+        testUser: process.env.TEST_USER_NAME || 'tester@europeana.eu',
+        testPassword: process.env.TEST_USER_PASSWORD || 'password'
       },
       webdriver: {
         host: process.env.WEBDRIVER_HOST,
