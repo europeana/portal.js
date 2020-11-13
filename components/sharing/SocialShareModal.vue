@@ -5,10 +5,10 @@
     hide-header-close
     hide-footer
     data-qa="share modal"
-    v-on="onItemPage ?
-      { show: requestEmbed,
-        hide: resetEmbedCopied }
-      : {}"
+    v-on="onItemPage && !oEmbedDataHtml?
+      { hide: resetEmbedCopied, show: requestEmbed}
+      :onItemPage ? { hide: resetEmbedCopied }
+        :{}"
   >
     <div class="icon-wrapper">
       <SocialShare
@@ -99,7 +99,6 @@
           textarea.select();
           document.execCommand('copy');
           this.embedCopied = true;
-          setTimeout(() => this.embedCopied = false, 3000);
         }
       },
       resetEmbedCopied() {
