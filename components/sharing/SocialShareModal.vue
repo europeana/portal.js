@@ -36,6 +36,7 @@
       <span
         :class="{active: embedCopied}"
         class="copy-to-clipboard-success"
+        data-qa="share modal copied notice"
       >
         <span class="icon-check_circle d-inline-flex pr-1" />
         {{ $t('messages.copyToClipboardSuccess') }}
