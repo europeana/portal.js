@@ -72,17 +72,14 @@
       identifier: {
         type: String,
         default: null
-      },
-      onItemPage: {
-        type: Boolean,
-        default: false
       }
     },
 
     data() {
       return {
         oEmbedDataHtml: null,
-        embedCopied: false
+        embedCopied: false,
+        onItemPage: !!this.identifier
       };
     },
 
