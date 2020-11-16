@@ -85,7 +85,7 @@
 
     methods: {
       requestEmbed() {
-        oEmbedForEndpoint(process.env.OEMBED_ENDPOINT || 'https://oembedjs.europeana.eu/',
+        oEmbedForEndpoint(process.env.EUROPEANA_OEMBED_PROVIDER_URL || 'https://oembedjs.europeana.eu',
                           `${EUROPEANA_DATA_URL}/item${this.identifier}`)
           .then((response) => {
             if (response.data.html) {
