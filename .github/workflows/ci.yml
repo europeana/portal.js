@@ -6,7 +6,6 @@ on:
     paths-ignore:
     - '**.md'
     - 'deploy/**'
-    - 'docker/**'
     - 'migrations/**'
 
 env:
