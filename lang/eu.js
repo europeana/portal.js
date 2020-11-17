@@ -18,7 +18,6 @@ export default {
     "title": "Nire kontua"
   },
   "actions": {
-    "addToGallery": "Galeriara gehitu",
     "close": "itxi",
     "download": "Deskargatu",
     "edit": "Editatu",
@@ -41,9 +40,11 @@ export default {
     "author": "Egilea",
     "authors": "Egileak",
     "blog": "Bloga",
+    "by": "egilea",
     "categories": "Kategoriak",
     "category": "Kategoria",
     "posts": "Blogeko argitalpenak",
+    "published": "Argitaratze data {date}",
     "relatedPosts": "Lotutako argitalpenak"
   },
   "clearAllFilters": "Iragazki guztiak garbitu",
@@ -73,11 +74,12 @@ export default {
       "help": "Laguntza",
       "meetUs": "Taldea ezagutu",
       "provide": "Datu hornitzaile bihurtu",
+      "subscribe": "Harpidetu zaitez gure Buletinera",
       "terms": "Erabilera baldintzak eta pribatutasun politika"
     },
     "headerNavigation": {
       "explore": "Arakatu",
-      "teachers": "Hezitzaileak"
+      "teachers": "Irakasleak"
     }
   },
   "contentYouMightLike": "Gustatu ahal zaizun edukia",
@@ -94,6 +96,7 @@ export default {
     "to": "-ra"
   },
   "debug": {
+    "apiRequests": "API eskaerak",
     "debug": "Araztu"
   },
   "delete": "Ezabatu",
@@ -429,7 +432,8 @@ export default {
     "webResource": {
       "dcDescription": "Deskribapena",
       "ebucoreHasMimeType": "Ebucore MIME mota",
-      "edmRights": "Baliabide honetarako baimenen egoera"
+      "edmRights": "Baliabide honetarako baimenen egoera",
+      "rdfAbout": "RDF"
     }
   },
   "footer": {
@@ -453,11 +457,18 @@ export default {
     "backToMenu": "Menura itzuli",
     "clearQuery": "Garbitu bilaketa kontsulta",
     "entireCollection": "Bilatu '{kontsulta}' gure bilduma osoan",
+    "europeanaHome": "Europeanako hasiera orria",
     "inCollection": "Bilatu '{kontsulta}' bilduma honetan {collection}",
     "searchFor": "Bilatu",
+    "searchForEverything": "Dena bilatu",
+    "searchForEverythingInCollection": "Dena bilatu hemen {collection}",
+    "searchForEverythingInEntireCollection": "Dena bilatu gure bilduma osoan",
     "showSidebar": "Erakutsi alboko barra"
   },
   "homeLinkAlt": "Europeana Hasiera orria",
+  "imageSlider": {
+    "handle": "Kontrola"
+  },
   "items": {
     "itemCount": "Elementu 1 | {count} elementu",
     "youMightLike": "Gustatu ahal zaizkizun elementuak"
@@ -526,6 +537,9 @@ export default {
   "resultsLimitWarning": "Emaitza osagarriak ez dira erakusten, izan ere, bakarrik erakusten dira lehenengo 1000 emaitza garrantzitsuenak. BIlatzen duzuna aurkitu ez baduzu, bilaketa zehatzagoa egin.",
   "search": "Bilatu",
   "searchPlaceholder": "Milioika elementu bilatu",
+  "searchResults": "Bilatu",
+  "searchResultsFor": "{0} - Bilatu",
+  "searchResultsForIn": "{0} - Hemen bilatu {1}",
   "searchSuggestions": "Iradokizunak bilatu",
   "searchTier": {
     "button": {
@@ -550,8 +564,6 @@ export default {
       "edit": "Bilduma editatu",
       "update": "Bilduma eguneratu"
     },
-    "curatedBy": "Komisarioa",
-    "edit": "Editatu",
     "form": {
       "description": "Bildumaren deskribapena",
       "private": "Bilduma hau pribatu gisa mantendu",
@@ -564,7 +576,6 @@ export default {
     "notifications": {
       "deleted": "Bilduma ezabatu egin da."
     },
-    "privateCollection": "Bilduma pribatua",
     "prompts": {
       "delete": "Ziur zaude bilduma hau ezabatu nahi duzula? Bilduma ezabatuz gero, gaineratu dituzun elementu guztiak galduko dituzu."
     }

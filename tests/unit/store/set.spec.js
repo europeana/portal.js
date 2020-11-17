@@ -30,7 +30,7 @@ describe('store/set', () => {
 
   describe('actions', () => {
     const commit = sinon.spy();
-    const dispatch = sinon.spy();
+    const dispatch = sinon.stub().resolves({});
     const setId = 'http://data.europeana.eu/set/123';
     const itemId = '/123/ghi';
     const userId = 'a-b-c-d-e';
@@ -64,11 +64,11 @@ describe('store/set', () => {
     });
 
     describe('like()', () => {
-      it('adds to likes set via $sets, then commits with "like"', () => {
+      it('adds to likes set via $sets, then commits with "like"', async() => {
         store.actions.$sets.modifyItems = sinon.stub().resolves({});
         const state = { likesId: setId };
 
-        store.actions.like({ commit, state }, itemId);
+        await store.actions.like({ dispatch, commit, state }, itemId);
 
         store.actions.$sets.modifyItems.should.have.been.calledWith('add', state.likesId, itemId);
         commit.should.have.been.calledWith('like', itemId);
@@ -278,7 +278,8 @@ describe('store/set', () => {
         store.actions.$sets.search.should.have.been.calledWith({
           query: `creator:${userId}`,
           profile: 'itemDescriptions',
-          pageSize: 100
+          pageSize: 100,
+          qf: 'type:Collection'
         });
         commit.should.have.been.calledWith('setCreations', ['1', '2']);
       });

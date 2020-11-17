@@ -45,7 +45,7 @@ export default {
     },
     "headerNavigation": {
       "explore": "Razišči",
-      "teachers": "Pedagogi"
+      "teachers": "Učitelji"
     }
   },
   "cookieDisclaimer": {

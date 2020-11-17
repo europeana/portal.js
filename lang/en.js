@@ -6,14 +6,14 @@ export default {
     "linkLogout": "Log out",
     "notifications": {
       "noCollections": {
-        "private": "You haven’t created any private collections yet",
-        "public": "You haven’t created any public collections yet"
+        "private": "You haven’t created any private galleries yet",
+        "public": "You haven’t created any public galleries yet"
       },
       "noLikedItems": "You haven’t liked any items yet"
     },
-    "privateCollections": "Private Collections",
-    "profile": "My Likes & Collections",
-    "publicCollections": "Public Collections",
+    "privateCollections": "Private Galleries",
+    "profile": "My Likes & Galleries",
+    "publicCollections": "Public Galleries",
     "settings": "Settings",
     "title": "My account"
   },
@@ -70,16 +70,19 @@ export default {
   "colourSwatch": "Colour swatch",
   "contentfulManual": {
     "footerNavigation": {
-      "about": "About Europeana Collections",
+      "about": "About Europeana",
       "forDevelopers": "For developers",
       "help": "Help",
       "meetUs": "Meet the team",
+      "MoreInfoLabel": "More Info",
       "provide": "Become a data provider",
+      "subscribe": "Subscribe to our Newsletter",
       "terms": "Terms of Use and Privacy Policy"
     },
     "headerNavigation": {
+      "Collections": "Collections",
       "explore": "Explore",
-      "teachers": "Educators"
+      "teachers": "Teachers"
     }
   },
   "contentYouMightLike": "Content you might like",
@@ -458,16 +461,16 @@ export default {
   },
   "goToRecord": "Go to item",
   "header": {
-    "europeanaHome": "Europeana home",
-    "backToMenu": "Back to menu",
+    "backToMenu": "Close Search Box",
     "clearQuery": "Clear Search Query",
     "entireCollection": "Search for {query} in our entire collection",
+    "europeanaHome": "Europeana home",
     "inCollection": "Search for {query} in {collection}",
     "searchFor": "Search for {query}",
+    "searchForEverything": "Search for everything",
     "searchForEverythingInCollection": "Search for everything in {collection}",
     "searchForEverythingInEntireCollection": "Search for everything in our entire collection",
-    "searchForEverything": "Search for everything",
-    "showSidebar": "Show Sidebar"
+    "showSidebar": "Show Menu"
   },
   "homeLinkAlt": "Europeana home",
   "imageSlider": {
@@ -475,6 +478,7 @@ export default {
   },
   "items": {
     "itemCount": "1 item |{count} items",
+    "itemOf": "{max} of {count} items",
     "youMightLike": "Items you might like"
   },
   "layout": {
@@ -540,10 +544,10 @@ export default {
   "results": "Results",
   "resultsLimitWarning": "Additional results are not shown as only the first 1000 most relevant results are shown. If you haven't found what you're looking for, please consider refining your search.",
   "search": "Search",
+  "searchPlaceholder": "Search millions of items",
   "searchResults": "Search",
   "searchResultsFor": "{0} - Search",
   "searchResultsForIn": "{0} - Search in {1}",
-  "searchPlaceholder": "Search millions of items",
   "searchSuggestions": "Search suggestions",
   "searchTier": {
     "button": {
@@ -561,27 +565,31 @@ export default {
   },
   "set": {
     "actions": {
-      "addTo": "Add to collection",
-      "create": "Create collection",
-      "createNew": "Create new collection",
-      "delete": "Delete collection",
-      "edit": "Edit collection",
-      "update": "Update collection"
+      "addTo": "Add to gallery",
+      "create": "Create gallery",
+      "createNew": "Create new gallery",
+      "delete": "Delete gallery",
+      "edit": "Edit gallery",
+      "update": "Update gallery"
     },
     "form": {
-      "description": "Collection description",
-      "private": "Keep this collection private",
-      "title": "Collection name"
+      "description": "Gallery description",
+      "private": "Keep this gallery private",
+      "title": "Gallery name"
     },
     "labels": {
       "curatedBy": "Curated by",
-      "private": "Private collection"
+      "private": "Private gallery"
     },
     "notifications": {
-      "deleted": "Your collection has been deleted."
+      "deleted": "Your gallery has been deleted.",
+      "likeLimit": {
+        "body": "We are sorry, but you are limited at the moment to liking a maximum of 100 items. We will remove this limit soon!",
+        "title": "100 likes"
+      }
     },
     "prompts": {
-      "delete": "Are you sure you want to delete this collection? If you delete this collection, you will lose all the items you've added to it."
+      "delete": "Are you sure you want to delete this gallery? If you delete this gallery, you will lose all the items you've added to it."
     }
   },
   "showLess": "Show less",

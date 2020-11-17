@@ -36,7 +36,7 @@ export default {
   },
   "contentfulManual": {
     "footerNavigation": {
-      "about": "O stránkách Europeana Collections",
+      "about": "O stránkách Europeana",
       "forDevelopers": "Pro vývojáře",
       "help": "Nápověda",
       "meetUs": "O nás",
@@ -45,7 +45,7 @@ export default {
     },
     "headerNavigation": {
       "explore": "Prozkoumat",
-      "teachers": "Pedagogové"
+      "teachers": "Učitelé"
     }
   },
   "cookieDisclaimer": {

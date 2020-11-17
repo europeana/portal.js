@@ -45,7 +45,7 @@ export default {
     },
     "headerNavigation": {
       "explore": "Odkryj",
-      "teachers": "Edukatorzy"
+      "teachers": "Nauczyciele"
     }
   },
   "cookieDisclaimer": {

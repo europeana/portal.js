@@ -13,8 +13,17 @@ Feature: Newspapers collection
     When I click the `more filters dropdown button`
     Then the "fulltext" "api" radio is checked
 
+  Scenario: Fulltext search shows hit highlights
+    Given I am on the `Newspapers collection page`
+    And I click the `search list view toggle`
+    When I click the `show search button`
+    And I enter "zeitung" in the `search box`
+    And I press the ENTER key
+    Then I see a `highlighted search term` with the text "Zeitung"
+
   Scenario: Newspapers collection API toggle changes API
     Given I am on the `Newspapers collection page`
+    And I click the `search grid view toggle`
     When I click the `more filters dropdown button`
     And I click the "metadata" "api" radio
     And I click the `apply button`

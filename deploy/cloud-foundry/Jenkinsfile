@@ -10,19 +10,23 @@ pipeline {
   }
   environment {
     CF_HOME='/home/node' // Revert override from Jenkins global env
-    CF_API="${env.CF_API}"
+    CF_API="${env.CF_API_V3}"
     CF_LOGIN=credentials('portaljs.cloudfoundry.login')
     CF_LOG_DRAINER_SERVICE="${env.CF_LOG_DRAINER_SERVICE_NAME}"
     CF_ORG="${env.CF_ORG}"
     CF_SPACE="${env.BRANCH_NAME ==~ /\Av\d+\.\d+\.\d+\z/ ? 'production' : 'test'}"
     CF_APP_NAME="portaljs${env.CF_SPACE == 'production' ? '' : '-' + env.CF_SPACE}"
     ELK_REGISTRATION_COMMAND="${env.ELK_SERVICE_REGISTRATION_COMMAND}"
+    CHROMEDRIVER_SKIP_DOWNLOAD='true'
+    GECKODRIVER_SKIP_DOWNLOAD='true'
+    PUPPETEER_SKIP_CHROMIUM_DOWNLOAD='true'
   }
   stages {
     stage('Build') {
       steps {
         configFileProvider([
           configFile(fileId: "portaljs.${env.CF_SPACE}.env", targetLocation: '.env'),
+          configFile(fileId: "portaljs.${env.CF_SPACE}.vars.yml", targetLocation: 'deploy/cloud-foundry/vars.yml'),
         ]) {
           sh 'rm -rf node_modules'
           sh 'npm install'
@@ -32,7 +36,9 @@ pipeline {
     }
     stage('Login to CF') {
       steps {
+        sh 'cf --version'
         sh 'cf login -a ${CF_API} -u ${CF_LOGIN_USR} -p "${CF_LOGIN_PSW}" -o ${CF_ORG} -s ${CF_SPACE}'
+        sh 'cf target'
       }
     }
     stage('Deploy to CF') {
@@ -41,10 +47,7 @@ pipeline {
         HTTP_DIGEST_ACL=credentials("portaljs.${env.CF_SPACE}.http.digest.acl")
       }
       steps {
-        sh 'if [ "${CF_LOG_DRAINER_SERVICE}" != "null" ]; then echo "services:\\n  - ${CF_LOG_DRAINER_SERVICE}" >> ./deploy/cloud-foundry/manifest.yml; fi'
-        sh 'sed -i "s|env:|env:\\n  CTF_CPA_ACCESS_TOKEN: ${CTF_CPA_ACCESS_TOKEN}|" ./deploy/cloud-foundry/manifest.yml'
-        sh 'sed -i "s|env:|env:\\n  HTTP_DIGEST_ACL: ${HTTP_DIGEST_ACL}|" ./deploy/cloud-foundry/manifest.yml'
-        sh 'cf blue-green-deploy ${CF_APP_NAME} -f ./deploy/cloud-foundry/manifest.yml --delete-old-apps'
+        sh 'cf push ${CF_APP_NAME} -f ./deploy/cloud-foundry/manifest.yml --vars-file deploy/cloud-foundry/vars.yml'
       }
     }
     stage('Attach autoscaling policy on CF') {
@@ -76,8 +79,7 @@ pipeline {
       }
       steps {
         sh 'npm run build-storybook'
-        sh 'echo "---\\nbuildpack: staticfile_buildpack\\nmemory: 64M\\nstack: cflinuxfs3" > storybook-static/manifest.yml'
-        sh 'cd storybook-static && cf blue-green-deploy portaljs-storybook -f manifest.yml --delete-old-apps'
+        sh 'cd storybook-static && cf push portaljs-storybook -f ../deploy/cloud-foundry/storybook.manifest.yml'
       }
     }
 // WIP: the 'deploy' docker image doesn't have docker compose available.

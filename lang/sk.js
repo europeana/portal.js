@@ -45,7 +45,7 @@ export default {
     },
     "headerNavigation": {
       "explore": "Objavujte",
-      "teachers": "Pedagógovia"
+      "teachers": "Učitelia"
     }
   },
   "cookieDisclaimer": {

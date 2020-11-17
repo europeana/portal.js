@@ -33,6 +33,14 @@
           :item-context="value"
           @response="setCreatedOrUpdated"
         />
+        <!-- TODO: remove when 100-item like limit removed -->
+        <b-modal
+          :id="likeLimitModalId"
+          :title="$t('set.notifications.likeLimit.title')"
+          hide-footer
+        >
+          <p>{{ $t('set.notifications.likeLimit.body') }}</p>
+        </b-modal>
       </template>
     </client-only>
   </div>
@@ -62,6 +70,7 @@
       return {
         addItemToSetModalId: `add-item-to-set-modal-${this.value}`,
         setFormModalId: `set-form-modal-${this.value}`,
+        likeLimitModalId: `like-limit-modal-${this.value}`,
         showFormModal: false
       };
     },
@@ -97,8 +106,18 @@
         if (this.likesId === null) {
           await this.$store.dispatch('set/createLikes');
         }
-        await this.$store.dispatch('set/like', this.value);
-        this.$emit('like', this.value);
+
+        try {
+          await this.$store.dispatch('set/like', this.value);
+          this.$emit('like', this.value);
+        } catch (e) {
+          // TODO: remove when 100 item like limit is removed
+          if (e.message === '100 likes') {
+            this.$bvModal.show(this.likeLimitModalId);
+          } else {
+            throw e;
+          }
+        }
       },
       async unlike() {
         await this.$store.dispatch('set/unlike', this.value);
