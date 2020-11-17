@@ -36,9 +36,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - run: echo "::set-env name=PULL_REQUEST_NUMBER::$(jq .pull_request.number ${GITHUB_EVENT_PATH})"
-    - run: echo "::set-env name=CF_APP_NAME::${CF_APP_NAME_PREFIX}-${PULL_REQUEST_NUMBER}"
-    - run: echo "::set-env name=CF_APP_FQDN::${CF_APP_NAME}.${CF_DOMAIN}"
+    - run: echo "PULL_REQUEST_NUMBER=$(jq .pull_request.number ${GITHUB_EVENT_PATH})" >> $GITHUB_ENV
+    - run: echo "CF_APP_NAME=${CF_APP_NAME_PREFIX}-${PULL_REQUEST_NUMBER}" >> $GITHUB_ENV
+    - run: echo "CF_APP_FQDN=${CF_APP_NAME}.${CF_DOMAIN}" >> $GITHUB_ENV
     - run: envsubst < .github/workflows/support/ci/.env > .env
     - uses: actions/upload-artifact@v2
       with:

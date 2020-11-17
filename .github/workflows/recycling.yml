@@ -33,8 +33,8 @@ jobs:
   delete-deployment:
     runs-on: ubuntu-latest
     steps:
-    - run: echo "::set-env name=PULL_REQUEST_NUMBER::$(jq .pull_request.number ${GITHUB_EVENT_PATH})"
-    - run: echo "::set-env name=CF_APP_NAME::${CF_APP_NAME_PREFIX}-${PULL_REQUEST_NUMBER}"
+    - run: echo "PULL_REQUEST_NUMBER=$(jq .pull_request.number ${GITHUB_EVENT_PATH})" >> $GITHUB_ENV
+    - run: echo "CF_APP_NAME=${CF_APP_NAME_PREFIX}-${PULL_REQUEST_NUMBER}" >> $GITHUB_ENV
     - name: Install CF CLI
       run: |
         wget -q -O - https://packages.cloudfoundry.org/debian/cli.cloudfoundry.org.key | sudo apt-key add -
