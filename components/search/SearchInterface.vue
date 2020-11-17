@@ -28,7 +28,7 @@
                 :type="facetDropdownType(facet.name)"
                 :selected="filters[facet.name]"
                 role="search"
-                :aria-label="`${facet.name} dropdown button`"
+                :aria-labelledby="`${facet.name} dropdown button`"
                 @changed="changeFacet"
               />
               <MoreFiltersDropdown
@@ -36,7 +36,7 @@
                 :more-facets="moreFacets"
                 :selected="moreSelectedFacets"
                 role="search"
-                aria-label="more filters dropdown button"
+                aria-labelledby="more filters dropdown button"
                 @changed="changeMoreFacets"
               />
               <button
