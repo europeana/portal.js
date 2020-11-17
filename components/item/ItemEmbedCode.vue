@@ -10,10 +10,9 @@
       ref="shareEmbed"
       v-model="embedHtml"
       readonly
-      tabindex="0"
       data-qa="share modal embed textarea"
       @click="copyEmbedCode"
-      @keydown="copyEmbedCode"
+      @keydown.enter="copyEmbedCode"
     />
     <span
       :class="{active: embedCopied}"
@@ -45,13 +44,10 @@
     },
 
     methods: {
-      copyEmbedCode(event) {
-        if (event.type === 'click' || event.keyCode === 13) {
-          let textarea = this.$refs.shareEmbed;
-          textarea.select();
-          document.execCommand('copy');
-          this.embedCopied = true;
-        }
+      copyEmbedCode() {
+        this.$refs.shareEmbed.select();
+        document.execCommand('copy');
+        this.embedCopied = true;
       }
     }
   };
