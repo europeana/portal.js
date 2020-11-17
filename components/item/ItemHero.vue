@@ -32,7 +32,7 @@
                 v-if="showUserButtons"
                 v-model="identifier"
               />
-              <ShareButton />
+              <ShareButton @click.native="requestEmbedCode" />
               <DownloadButton
                 v-if="downloadEnabled"
                 :url="downloadUrl"
@@ -43,8 +43,12 @@
       </b-row>
       <SocialShareModal
         :media-url="selectedMedia.about"
-        :identifier="identifier"
-      />
+      >
+        <ItemEmbedCode
+          v-if="oEmbedDataHtml"
+          :embed-html="oEmbedDataHtml"
+        />
+      </SocialShareModal>
     </b-container>
   </div>
 </template>
@@ -53,15 +57,19 @@
   import AwesomeSwiper from './AwesomeSwiper';
   import DownloadButton from '../generic/DownloadButton.vue';
   import RightsStatementButton from '../generic/RightsStatementButton.vue';
+  import ItemEmbedCode from './ItemEmbedCode.vue';
   import SocialShareModal from '../sharing/SocialShareModal.vue';
   import ShareButton from '../sharing/ShareButton.vue';
   import has from 'lodash/has';
+  import { oEmbedForEndpoint } from '../../plugins/oembed';
+  import { BASE_URL as EUROPEANA_DATA_URL } from '../../plugins/europeana/data';
 
   export default {
     components: {
       AwesomeSwiper,
       DownloadButton,
       RightsStatementButton,
+      ItemEmbedCode,
       SocialShareModal,
       ShareButton,
       UserButtons: () => import('../account/UserButtons')
@@ -82,7 +90,8 @@
     },
     data() {
       return {
-        selectedMediaItem: null
+        selectedMediaItem: null,
+        oEmbedDataHtml: null
       };
     },
     computed: {
@@ -118,6 +127,17 @@
     methods: {
       selectMedia(about) {
         this.selectedMedia = about;
+      },
+      requestEmbedCode() {
+        if (!this.oEmbedDataHtml) {
+          oEmbedForEndpoint(process.env.EUROPEANA_OEMBED_PROVIDER_URL || 'https://oembedjs.europeana.eu',
+                            `${EUROPEANA_DATA_URL}/item${this.identifier}`)
+            .then((response) => {
+              if (response.data.html) {
+                this.oEmbedDataHtml = response.data.html;
+              }
+            });
+        }
       }
     }
   };
