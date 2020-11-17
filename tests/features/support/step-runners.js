@@ -282,5 +282,8 @@ module.exports = {
     await client.setValue('#email', testUser);
     await client.setValue('#password', testPassword);
     await client.click('input[type="submit"]');
+  },
+  async moveToElement(qaElementName) {
+    await client.moveToElement(qaSelector(qaElementName), 10, 10);
   }
 };

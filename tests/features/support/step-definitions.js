@@ -152,3 +152,6 @@ defineStep('I should see alternate-hreflang tags', () =>
 
 defineStep('I submit my europeana auth credentials', () =>
   i.submitCredentials());
+
+defineStep('I hover over (a/an/the)( ){target}', (target) =>
+  i.moveToElement(target));

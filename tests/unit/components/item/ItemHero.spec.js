@@ -13,6 +13,7 @@ const factory = (propsData) => mount(ItemHero, {
   propsData,
   mocks: {
     $t: (key) => key,
+    $auth: { loggedIn: false },
     $store: {
       state: {
         set: { ...{ liked: [] }, ...{} }
