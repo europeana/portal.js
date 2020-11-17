@@ -33,13 +33,13 @@ jobs:
   delete-deployment:
     runs-on: ubuntu-latest
     steps:
-    - run: echo "::set-env name=PULL_REQUEST_NUMBER::$(jq .pull_request.number ${GITHUB_EVENT_PATH})"
-    - run: echo "::set-env name=CF_APP_NAME::${CF_APP_NAME_PREFIX}-${PULL_REQUEST_NUMBER}"
+    - run: echo "PULL_REQUEST_NUMBER=$(jq .pull_request.number ${GITHUB_EVENT_PATH})" >> $GITHUB_ENV
+    - run: echo "CF_APP_NAME=${CF_APP_NAME_PREFIX}-${PULL_REQUEST_NUMBER}" >> $GITHUB_ENV
     - name: Install CF CLI
       run: |
         wget -q -O - https://packages.cloudfoundry.org/debian/cli.cloudfoundry.org.key | sudo apt-key add -
         echo "deb https://packages.cloudfoundry.org/debian stable main" | sudo tee /etc/apt/sources.list.d/cloudfoundry-cli.list
-        sudo apt-get -q update && sudo apt-get -yq install cf-cli
+        sudo apt-get -q update && sudo apt-get -yq install cf7-cli
     - run: cf login -a ${CF_API} -u ${CF_USERNAME} -p "${CF_PASSWORD}" -o ${CF_ORG} -s ${CF_SPACE}
     - run: cf delete ${CF_APP_NAME} -f
     - run: cf delete-route ${CF_DOMAIN} -n ${CF_APP_NAME} -f

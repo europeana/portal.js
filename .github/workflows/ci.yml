@@ -24,18 +24,20 @@ env:
   DISQUS_SHORTNAME: ${{ secrets.DISQUS_SHORTNAME }}
   ELASTIC_APM_SERVER_URL: https://apm.eanadev.org:8200
   EUROPEANA_ANNOTATION_API_KEY: ${{ secrets.EUROPEANA_ANNOTATION_API_KEY }}
+  EUROPEANA_API_KEY: ${{ secrets.EUROPEANA_API_KEY }}
   EUROPEANA_ENTITY_API_KEY: ${{ secrets.EUROPEANA_ENTITY_API_KEY }}
   EUROPEANA_RECORD_API_KEY: ${{ secrets.EUROPEANA_RECORD_API_KEY }}
   SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+  OAUTH_CLIENT: ${{ secrets.OAUTH_CLIENT }}
 
 jobs:
   env:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - run: echo "::set-env name=PULL_REQUEST_NUMBER::$(jq .pull_request.number ${GITHUB_EVENT_PATH})"
-    - run: echo "::set-env name=CF_APP_NAME::${CF_APP_NAME_PREFIX}-${PULL_REQUEST_NUMBER}"
-    - run: echo "::set-env name=CF_APP_FQDN::${CF_APP_NAME}.${CF_DOMAIN}"
+    - run: echo "PULL_REQUEST_NUMBER=$(jq .pull_request.number ${GITHUB_EVENT_PATH})" >> $GITHUB_ENV
+    - run: echo "CF_APP_NAME=${CF_APP_NAME_PREFIX}-${PULL_REQUEST_NUMBER}" >> $GITHUB_ENV
+    - run: echo "CF_APP_FQDN=${CF_APP_NAME}.${CF_DOMAIN}" >> $GITHUB_ENV
     - run: envsubst < .github/workflows/support/ci/.env > .env
     - uses: actions/upload-artifact@v2
       with:
@@ -119,7 +121,8 @@ jobs:
       run: |
         wget -q -O - https://packages.cloudfoundry.org/debian/cli.cloudfoundry.org.key | sudo apt-key add -
         echo "deb https://packages.cloudfoundry.org/debian stable main" | sudo tee /etc/apt/sources.list.d/cloudfoundry-cli.list
-        sudo apt-get -q update && sudo apt-get -yq install cf-cli
+        sudo apt-get -q update && sudo apt-get -yq install cf7-cli
+        cf --version
     - name: Login to CF
       run: cf login -a ${CF_API} -u ${CF_USERNAME} -p "${CF_PASSWORD}" -o ${CF_ORG} -s ${CF_SPACE}
     - name: Detect first deployment of this app
@@ -132,7 +135,9 @@ jobs:
         echo ${CF_APP_FIRST_DEPLOY}
         echo "::set-output name=cf-app-first-deploy::${CF_APP_FIRST_DEPLOY}"
     - name: Push to Cloud Foundry
-      run: cf push ${CF_APP_NAME} -f .github/workflows/support/ci/manifest.yml -d ${CF_DOMAIN}
+      run: |
+        cf push ${CF_APP_NAME} -f deploy/cloud-foundry/manifest.yml --no-route --vars-file deploy/cloud-foundry/vars.yml.example
+        cf map-route ${CF_APP_NAME} ${CF_DOMAIN} --hostname ${CF_APP_NAME}
     outputs:
       cf-app-first-deploy: ${{ steps.detect.outputs.cf-app-first-deploy }}
 

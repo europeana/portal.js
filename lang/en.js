@@ -6,14 +6,14 @@ export default {
     "linkLogout": "Log out",
     "notifications": {
       "noCollections": {
-        "private": "You haven’t created any private collections yet",
-        "public": "You haven’t created any public collections yet"
+        "private": "You haven’t created any private galleries yet",
+        "public": "You haven’t created any public galleries yet"
       },
       "noLikedItems": "You haven’t liked any items yet"
     },
-    "privateCollections": "Private Collections",
-    "profile": "My Likes & Collections",
-    "publicCollections": "Public Collections",
+    "privateCollections": "Private Galleries",
+    "profile": "My Likes & Galleries",
+    "publicCollections": "Public Galleries",
     "settings": "Settings",
     "title": "My account"
   },
@@ -565,27 +565,31 @@ export default {
   },
   "set": {
     "actions": {
-      "addTo": "Add to collection",
-      "create": "Create collection",
-      "createNew": "Create new collection",
-      "delete": "Delete collection",
-      "edit": "Edit collection",
-      "update": "Update collection"
+      "addTo": "Add to gallery",
+      "create": "Create gallery",
+      "createNew": "Create new gallery",
+      "delete": "Delete gallery",
+      "edit": "Edit gallery",
+      "update": "Update gallery"
     },
     "form": {
-      "description": "Collection description",
-      "private": "Keep this collection private",
-      "title": "Collection name"
+      "description": "Gallery description",
+      "private": "Keep this gallery private",
+      "title": "Gallery name"
     },
     "labels": {
       "curatedBy": "Curated by",
-      "private": "Private collection"
+      "private": "Private gallery"
     },
     "notifications": {
-      "deleted": "Your collection has been deleted."
+      "deleted": "Your gallery has been deleted.",
+      "likeLimit": {
+        "body": "We are sorry, but you are limited at the moment to liking a maximum of 100 items. We will remove this limit soon!",
+        "title": "100 likes"
+      }
     },
     "prompts": {
-      "delete": "Are you sure you want to delete this collection? If you delete this collection, you will lose all the items you've added to it."
+      "delete": "Are you sure you want to delete this gallery? If you delete this gallery, you will lose all the items you've added to it."
     }
   },
   "showLess": "Show less",
