@@ -122,7 +122,8 @@ jobs:
       run: |
         wget -q -O - https://packages.cloudfoundry.org/debian/cli.cloudfoundry.org.key | sudo apt-key add -
         echo "deb https://packages.cloudfoundry.org/debian stable main" | sudo tee /etc/apt/sources.list.d/cloudfoundry-cli.list
-        sudo apt-get -q update && sudo apt-get -yq install cf-cli
+        sudo apt-get -q update && sudo apt-get -yq install cf7-cli
+        cf --version
     - name: Login to CF
       run: cf login -a ${CF_API} -u ${CF_USERNAME} -p "${CF_PASSWORD}" -o ${CF_ORG} -s ${CF_SPACE}
     - name: Detect first deployment of this app
@@ -135,7 +136,7 @@ jobs:
         echo ${CF_APP_FIRST_DEPLOY}
         echo "::set-output name=cf-app-first-deploy::${CF_APP_FIRST_DEPLOY}"
     - name: Push to Cloud Foundry
-      run: cf push ${CF_APP_NAME} -f .github/workflows/support/ci/manifest.yml -d ${CF_DOMAIN}
+      run: cf push ${CF_APP_NAME} -f deploy/cloud-foundry/manifest.yml --vars-file deploy/cloud-foundry/vars.yml.example
     outputs:
       cf-app-first-deploy: ${{ steps.detect.outputs.cf-app-first-deploy }}
 
