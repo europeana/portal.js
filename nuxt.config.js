@@ -251,7 +251,7 @@ if (Number(process.env['ENABLE_XX_USER_AUTH'])) {
       keycloak: {
         _scheme: 'oauth2',
         client_id: process.env.OAUTH_CLIENT,
-        scope: process.env.OAUTH_SCOPE.split(',') || ['openid'],
+        scope: (process.env.OAUTH_SCOPE || 'openid').split(','),
         realm: process.env.OAUTH_REALM,
         authorization_endpoint: keycloakOpenIDConnectEndpoint('auth'),
         access_token_endpoint: keycloakOpenIDConnectEndpoint('token'),

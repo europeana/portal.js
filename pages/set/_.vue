@@ -17,8 +17,8 @@
   </b-container>
   <div
     v-else-if="set.id"
-    data-qa="user gallery page"
     class="mt-n3"
+    data-qa="user gallery page"
   >
     <b-container
       fluid
@@ -93,10 +93,16 @@
         </b-col>
       </b-row>
     </b-container>
-    <b-container class="mb-3">
+    <b-container
+      class="mb-3"
+      data-qa="user set"
+    >
       <b-row>
         <b-col>
-          <h2 class="related-heading text-uppercase">
+          <h2
+            class="related-heading text-uppercase"
+            data-qa="item count"
+          >
             {{ displayItemCount }}
           </h2>
         </b-col>
