@@ -4,7 +4,7 @@
     class="mt-3"
     @submit.stop.prevent="submitForm"
   >
-    <label> {{ $t('record.copyEmbedLabel') }}</label>
+    <label for="shareEmbed">{{ $t('record.copyEmbedLabel') }}</label>
     <b-form-textarea
       id="shareEmbed"
       ref="shareEmbed"
