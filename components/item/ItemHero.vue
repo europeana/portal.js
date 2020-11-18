@@ -32,7 +32,7 @@
                 v-if="showUserButtons"
                 v-model="identifier"
               />
-              <ShareButton @click.native="requestEmbedCode" />
+              <ShareButton />
               <DownloadButton
                 v-if="downloadEnabled"
                 :url="downloadUrl"
@@ -45,8 +45,7 @@
         :media-url="selectedMedia.about"
       >
         <ItemEmbedCode
-          v-if="oEmbedDataHtml"
-          :embed-html="oEmbedDataHtml"
+          :identifier="identifier"
         />
       </SocialShareModal>
     </b-container>
@@ -61,8 +60,6 @@
   import SocialShareModal from '../sharing/SocialShareModal.vue';
   import ShareButton from '../sharing/ShareButton.vue';
   import has from 'lodash/has';
-  import { oEmbedForEndpoint } from '../../plugins/oembed';
-  import { BASE_URL as EUROPEANA_DATA_URL } from '../../plugins/europeana/data';
 
   export default {
     components: {
@@ -127,17 +124,6 @@
     methods: {
       selectMedia(about) {
         this.selectedMedia = about;
-      },
-      requestEmbedCode() {
-        if (!this.oEmbedDataHtml) {
-          oEmbedForEndpoint(process.env.EUROPEANA_OEMBED_PROVIDER_URL || 'https://oembedjs.europeana.eu',
-                            `${EUROPEANA_DATA_URL}/item${this.identifier}`)
-            .then((response) => {
-              if (response.data.html) {
-                this.oEmbedDataHtml = response.data.html;
-              }
-            });
-        }
       }
     }
   };

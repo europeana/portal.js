@@ -1,5 +1,6 @@
 <template>
   <b-form
+    v-if="embedHtml"
     data-qa="share modal embed"
     class="mt-3"
     @submit.stop.prevent="submitForm"
@@ -26,20 +27,34 @@
 </template>
 
 <script>
+  import { oEmbedForEndpoint } from '../../plugins/oembed';
+  import { BASE_URL as EUROPEANA_DATA_URL } from '../../plugins/europeana/data';
 
   export default {
     name: 'ItemEmbedCode',
 
     props: {
-      embedHtml: {
+      identifier: {
         type: String,
-        default: null
+        required: true
+      }
+    },
+
+    // TODO: write to the store the response to prevent rerequesting same on
+    //       subsequent instantiations?
+    async fetch() {
+      const response = await oEmbedForEndpoint(process.env.EUROPEANA_OEMBED_PROVIDER_URL || 'https://oembedjs.europeana.eu',
+                                               `${EUROPEANA_DATA_URL}/item${this.identifier}`);
+
+      if (response.data.html) {
+        this.embedHtml = response.data.html;
       }
     },
 
     data() {
       return {
-        embedCopied: false
+        embedCopied: false,
+        embedHtml: null
       };
     },
 
