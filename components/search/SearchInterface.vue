@@ -16,10 +16,9 @@
       <b-row class="mb-3">
         <b-col
           data-qa="search filters"
-          id="search filters"
         >
           <client-only>
-            <SearchFilters/>
+            <SearchFilters />
             <div class="position-relative">
               <FacetDropdown
                 v-for="facet in coreFacets"
@@ -29,7 +28,6 @@
                 :type="facetDropdownType(facet.name)"
                 :selected="filters[facet.name]"
                 role="search"
-                aria-labelledby="search filters"
                 @changed="changeFacet"
               />
               <MoreFiltersDropdown
@@ -37,7 +35,6 @@
                 :more-facets="moreFacets"
                 :selected="moreSelectedFacets"
                 role="search"
-                aria-labelledby="search filters"
                 @changed="changeMoreFacets"
               />
               <button
