@@ -230,41 +230,40 @@ const config = {
   telemetry: false
 };
 
-if (Number(process.env['ENABLE_XX_USER_AUTH'])) {
-  const keycloakOpenIDConnectEndpoint = (method) =>
-    `${process.env.OAUTH_ORIGIN}/auth/realms/${process.env.OAUTH_REALM}/protocol/openid-connect/${method}`;
 
-  config.auth = {
-    // Redirect routes: 'callback' option for keycloak redirects,
-    // 'login' option for unauthorised redirection
-    // 'home' option for redirection after login
-    //  no redirect on logout
-    redirect: {
-      login: '/account/login',
-      logout: false,
-      callback: '/account/callback',
-      home: '/account'
-    },
-    fullPathRedirect: true,
-    strategies: {
-      local: false,
-      keycloak: {
-        _scheme: 'oauth2',
-        client_id: process.env.OAUTH_CLIENT,
-        scope: (process.env.OAUTH_SCOPE || 'openid').split(','),
-        realm: process.env.OAUTH_REALM,
-        authorization_endpoint: keycloakOpenIDConnectEndpoint('auth'),
-        access_token_endpoint: keycloakOpenIDConnectEndpoint('token'),
-        userinfo_endpoint: keycloakOpenIDConnectEndpoint('userinfo'),
-        end_session_endpoint: keycloakOpenIDConnectEndpoint('logout'),
-        response_type: process.env.OAUTH_RESPONSE_TYPE || 'code',
-        access_type: process.env.OAUTH_ACCESS_TYPE || 'online',
-        grant_type: process.env.OAUTH_GRANT_TYPE || 'authorization_code',
-        token_type: process.env.OAUTH_TOKEN_TYPE || 'Bearer'
-      }
-    },
-    plugins: [{ src: '~/plugins/authAxios' }]
-  };
-}
+const keycloakOpenIDConnectEndpoint = (method) =>
+  `${process.env.OAUTH_ORIGIN}/auth/realms/${process.env.OAUTH_REALM}/protocol/openid-connect/${method}`;
+
+config.auth = {
+  // Redirect routes: 'callback' option for keycloak redirects,
+  // 'login' option for unauthorised redirection
+  // 'home' option for redirection after login
+  //  no redirect on logout
+  redirect: {
+    login: '/account/login',
+    logout: false,
+    callback: '/account/callback',
+    home: '/account'
+  },
+  fullPathRedirect: true,
+  strategies: {
+    local: false,
+    keycloak: {
+      _scheme: 'oauth2',
+      client_id: process.env.OAUTH_CLIENT,
+      scope: (process.env.OAUTH_SCOPE || 'openid').split(','),
+      realm: process.env.OAUTH_REALM,
+      authorization_endpoint: keycloakOpenIDConnectEndpoint('auth'),
+      access_token_endpoint: keycloakOpenIDConnectEndpoint('token'),
+      userinfo_endpoint: keycloakOpenIDConnectEndpoint('userinfo'),
+      end_session_endpoint: keycloakOpenIDConnectEndpoint('logout'),
+      response_type: process.env.OAUTH_RESPONSE_TYPE || 'code',
+      access_type: process.env.OAUTH_ACCESS_TYPE || 'online',
+      grant_type: process.env.OAUTH_GRANT_TYPE || 'authorization_code',
+      token_type: process.env.OAUTH_TOKEN_TYPE || 'Bearer'
+    }
+  },
+  plugins: [{ src: '~/plugins/authAxios' }]
+};
 
 module.exports = config;
