@@ -59,6 +59,22 @@
             </div>
           </b-card-text>
         </b-tab>
+        <b-tab
+          v-if="location"
+          :title="$t('record.location')"
+          active
+        >
+          <b-card-text
+            text-tag="div"
+            data-qa="location section"
+          >
+            <p
+              class="disclaimer px-2 pb-3 d-flex"
+            >
+              {{ location }}
+            </p>
+          </b-card-text>
+        </b-tab>
       </b-tabs>
     </b-card>
   </div>
@@ -84,8 +100,32 @@
       transcribingAnnotations: {
         type: Array,
         default: () => []
+      },
+      location: {
+        type: Object,
+        default: null
       }
     }
 
   };
 </script>
+
+<style lang="scss" scoped>
+  @import './assets/scss/variables.scss';
+  @import './assets/scss/icons.scss';
+
+  .disclaimer {
+    align-items: center;
+    border-bottom: 1px solid $lightbluemagenta;
+
+    &:before {
+      @extend .icon-font;
+      content: '\e91f';
+      color: $blue;
+      font-size: 1.5rem;
+      line-height: initial;
+      margin-right: 0.5rem;
+    }
+  }
+</style>
+

@@ -526,6 +526,7 @@ export default {
     "extendedInformation": "Extended information",
     "goodToKnow": "Good to know",
     "hideAll": "Hide all information",
+    "location": "Location",
     "record": "Item",
     "showAll": "Show all information",
     "similarItems": "Similar items",

@@ -63,6 +63,7 @@
             <MetadataBox
               :all-metadata="allMetaData"
               :core-metadata="coreFields"
+              :location="locationData"
               :transcribing-annotations="transcribingAnnotations"
             />
           </b-col>
@@ -187,6 +188,9 @@
       },
       allMetaData() {
         return { ...this.coreFields, ...this.fieldsAndKeywords };
+      },
+      locationData() {
+        return this.fields.dctermsSpatial ? this.fields.dctermsSpatial : '';
       },
       edmRights() {
         return this.fields.edmRights ? this.fields.edmRights.def[0] : '';
