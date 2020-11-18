@@ -95,7 +95,7 @@
 
     head() {
       return {
-        title: this.name,
+        title: this.name + this.$t('pageTitleBranding'),
         meta: [
           { hid: 'og:type', property: 'og:type', content: 'article' },
           { hid: 'title', name: 'title', content: this.name },

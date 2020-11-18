@@ -97,7 +97,7 @@
 
     head() {
       return {
-        title: 'IIIF',
+        title: 'IIIF' + this.$t('pageTitleBranding'),
 
         script: [
           { src: `${this.MIRADOR_BUILD_PATH}/mirador.min.js` }

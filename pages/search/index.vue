@@ -68,7 +68,7 @@
 
     head() {
       return {
-        title: this.$route.query.query ? this.$t('searchResultsFor', [this.$route.query.query]) : this.$t('search')
+        title: (this.$route.query.query ? this.$t('searchResultsFor', [this.$route.query.query]) : this.$t('search')) + this.$t('pageTitleBranding')
       };
     },
 

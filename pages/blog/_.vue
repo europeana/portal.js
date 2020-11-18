@@ -82,7 +82,7 @@
 
     head() {
       return {
-        title: this.post.name,
+        title: this.post.name + this.$t('pageTitleBranding'),
         meta: [
           { hid: 'title', name: 'title', content: this.post.name },
           { hid: 'og:title', property: 'og:title', content: this.post.name }

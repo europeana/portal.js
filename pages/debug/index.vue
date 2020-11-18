@@ -45,7 +45,7 @@
 
     head() {
       return {
-        title: this.title
+        title: this.title + this.$t('pageTitleBranding')
       };
     }
   };

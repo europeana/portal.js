@@ -32,7 +32,7 @@
 
     head() {
       return {
-        title: this.$t('error')
+        title: this.$t('error') + this.$t('pageTitleBranding')
       };
     }
   };

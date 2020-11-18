@@ -49,7 +49,7 @@
 
     head() {
       return {
-        title: 'Media player',
+        title: 'Media player' + this.$t('pageTitleBranding'),
 
         link: [
           { rel: 'stylesheet', href: `https://code.jquery.com/ui/${this.JQUERY_UI_VERSION}/themes/base/jquery-ui.css` }

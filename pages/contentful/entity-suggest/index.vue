@@ -97,7 +97,7 @@
 
     head() {
       return {
-        title: 'Entity suggest - Contentful app'
+        title: 'Entity suggest - Contentful app' + this.$t('pageTitleBranding')
       };
     }
   };
