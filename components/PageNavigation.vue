@@ -80,6 +80,7 @@
         </li>
       </template>
       <li
+        v-else
         class="nav-item"
       >
         <b-link

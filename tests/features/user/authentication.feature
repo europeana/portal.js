@@ -1,7 +1,7 @@
 Feature: Authentication
 # This file contains tests for various actions around logging in/out.
 # Since this requires credentials which it does not makes sense to share as defaults,
-# the tests relying on these are commented out. Fake credentials are currently in /
+# the tests relying on these are commented out. Fake credentials are currently in docker/stack/docker-compose.yml
 
   Scenario: Not being Authenticated
     Given I visit the `sign out page`
@@ -20,6 +20,7 @@ Feature: Authentication
 #    Then I should be on the `account page`
 #    And I don't have a `hamburger button` in the `header`
 #    And I see the `account button`
+#    And I don't have a `log in button`
 #
 #  @logged-in
 #  Scenario: Visiting my account
