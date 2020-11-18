@@ -8,10 +8,7 @@
     @hidden="cancelHandler"
   >
     <template v-slot:button-content>
-      <span
-        :data-qa="`${name} dropdown button`"
-        :id="`${name} dropdown button`"
-      >
+      <span :data-qa="`${name} dropdown button`">
         {{ facetName }}
       </span>
     </template>
