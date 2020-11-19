@@ -190,7 +190,16 @@
         return { ...this.coreFields, ...this.fieldsAndKeywords };
       },
       locationData() {
-        return this.fields.dctermsSpatial ? this.fields.dctermsSpatial : '';
+        let locationData = this.fields.dctermsSpatial;
+        if (locationData) {
+          let lang = this.fieldsAndKeywords.dcLanguage.def[0].substring(0, 2);
+          for (let [key, value] of Object.entries(locationData)) {
+            if (key === lang) {
+              return value[0];
+            }
+          }
+        }
+        return '';
       },
       edmRights() {
         return this.fields.edmRights ? this.fields.edmRights.def[0] : '';

@@ -71,7 +71,7 @@
             <p
               class="disclaimer px-2 pb-3 d-flex"
             >
-              {{ location }}
+              {{ $tc('record.locationData', location, { location }) }}
             </p>
           </b-card-text>
         </b-tab>
@@ -102,11 +102,10 @@
         default: () => []
       },
       location: {
-        type: Object,
-        default: null
+        type: String,
+        default: ''
       }
     }
-
   };
 </script>
 
