@@ -11,6 +11,7 @@
       ref="shareEmbed"
       v-model="embedHtml"
       readonly
+      data-qa="share embed textarea"
       @click="copyEmbedCode"
       @keydown.enter="copyEmbedCode"
     />

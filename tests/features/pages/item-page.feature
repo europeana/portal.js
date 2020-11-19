@@ -84,5 +84,5 @@ Feature: item page
   Scenario: Copying embed code
     When I open the `"Het laatste avondmaal" item page`
     And  I click the `share button`
-    And  I click the `share modal embed textarea`
-    Then I see a `share modal copied notice`
+    And  I click the `share embed textarea`
+    Then I see a `share embed copied notice`
