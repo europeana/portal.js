@@ -1,6 +1,7 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 import nock from 'nock';
+import sinon from 'sinon';
 import ItemEmbedCode from '../../../../components/item/ItemEmbedCode.vue';
 
 const OEMBED_BASE_URL = 'https://oembedjs.europeana.eu';
@@ -51,6 +52,7 @@ describe('components/item/ItemEmbedCode', () => {
   });
 
   context('when response includes "html" property', () => {
+    document.execCommand = sinon.spy();
     const factory = () => mount(ItemEmbedCode, {
       localVue,
       propsData: {
@@ -73,12 +75,37 @@ describe('components/item/ItemEmbedCode', () => {
     });
 
     context('when textarea is clicked', () => {
-      it('copies the embed code to the clipboard');
-      it('shows a notification message');
+      it('copies the embed code to the clipboard', async() => {
+        const wrapper = factory();
+
+        await wrapper.find('#shareEmbed').trigger('click');
+
+        document.execCommand.should.be.calledWith('copy');
+      });
+      it('shows a notification message', async() => {
+        const wrapper = factory();
+
+        await wrapper.find('#shareEmbed').trigger('click');
+
+        wrapper.find('[data-qa="share modal copied notice"]').isVisible().should.equal(true);
+      });
     });
   });
 
   context('when response does not include "html" property', () => {
-    it('is not rendered');
+    const factory = () => mount(ItemEmbedCode, {
+      localVue,
+      propsData: {
+        identifier
+      },
+      mocks: {
+        $t: key => key
+      }
+    });
+    it('form for embed is not rendered', () => {
+      const wrapper = factory();
+
+      wrapper.find('[data-qa="share modal embed"]').exists().should.be.false;
+    });
   });
 });
