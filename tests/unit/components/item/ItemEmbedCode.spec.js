@@ -87,7 +87,7 @@ describe('components/item/ItemEmbedCode', () => {
 
         await wrapper.find('#shareEmbed').trigger('click');
 
-        wrapper.find('[data-qa="share modal copied notice"]').isVisible().should.equal(true);
+        wrapper.find('[data-qa="share embed copied notice"]').isVisible().should.equal(true);
       });
     });
   });
@@ -105,7 +105,7 @@ describe('components/item/ItemEmbedCode', () => {
     it('form for embed is not rendered', () => {
       const wrapper = factory();
 
-      wrapper.find('[data-qa="share modal embed"]').exists().should.be.false;
+      wrapper.find('[data-qa="share embed"]').exists().should.be.false;
     });
   });
 });

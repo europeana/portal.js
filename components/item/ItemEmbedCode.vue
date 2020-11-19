@@ -1,7 +1,7 @@
 <template>
   <b-form
     v-if="embedHtml"
-    data-qa="share modal embed"
+    data-qa="share embed"
     class="mt-3"
     @submit.stop.prevent="submitForm"
   >
@@ -11,14 +11,13 @@
       ref="shareEmbed"
       v-model="embedHtml"
       readonly
-      data-qa="share modal embed textarea"
       @click="copyEmbedCode"
       @keydown.enter="copyEmbedCode"
     />
     <span
       :class="{active: embedCopied}"
       class="copy-to-clipboard-success"
-      data-qa="share modal copied notice"
+      data-qa="share embed copied notice"
     >
       <span class="icon-check_circle d-inline-flex pr-1" />
       {{ $t('messages.copyToClipboardSuccess') }}
