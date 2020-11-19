@@ -63,6 +63,7 @@
           v-if="location"
           :title="$t('record.location')"
           active
+          class="location"
         >
           <b-card-text
             text-tag="div"
@@ -71,7 +72,11 @@
             <p
               class="disclaimer px-2 pb-3 d-flex"
             >
-              {{ $tc('record.locationData', location, { location }) }}
+              <MetadataField
+                name="Location"
+                :field-data="location"
+                location
+              />
             </p>
           </b-card-text>
         </b-tab>
@@ -102,8 +107,8 @@
         default: () => []
       },
       location: {
-        type: String,
-        default: ''
+        type: Object,
+        default: null
       }
     }
   };
