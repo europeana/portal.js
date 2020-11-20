@@ -269,5 +269,10 @@ module.exports = {
   },
   async hrefLangTags() {
     await client.expect.element('link[rel=alternate]').to.be.present;
+  },
+  async haveEuropeanaBrandedTitle() {
+    await client.getTitle(async(title) => {
+      await client.expect(title).to.match(new RegExp('\\| Europeana$'));
+    });
   }
 };

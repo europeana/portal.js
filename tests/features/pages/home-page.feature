@@ -10,6 +10,7 @@ Feature: Home page
     When I open `/en`
     Then I see a `browse page`
     And I am on an accessible page
+    And I should have a Europeana branded page title
 
   Scenario: Seeing a notification banner
 

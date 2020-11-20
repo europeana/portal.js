@@ -6,3 +6,4 @@ Feature: Exhibition credits page
     Then I see a `credits text`
     And I see `exhibition chapters`
     And I am on an accessible page
+    And I should have a Europeana branded page title
