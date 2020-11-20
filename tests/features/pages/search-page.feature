@@ -5,7 +5,7 @@ Feature: Search Page
     When I open a `search page`
     Then I see a `notification banner`
 
-  Scenario: Seeing a notification banner
+  Scenario: Seeing user buttons
 
     When I open a `search page`
     And I hover over a `item preview`
