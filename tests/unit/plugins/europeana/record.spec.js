@@ -1,9 +1,6 @@
 import nock from 'nock';
 import record, { isEuropeanaRecordId, similarItemsQuery, BASE_URL } from '../../../../plugins/europeana/record';
 
-const axios = require('axios');
-axios.defaults.adapter = require('axios/lib/adapters/http');
-
 const europeanaId = '/123/abc';
 const apiEndpoint = `${europeanaId}.json`;
 

@@ -29,11 +29,14 @@ export function oEmbeddable(url) {
   return providerForUrl(url) !== null;
 }
 
+export function oEmbedForEndpoint(endpoint, url) {
+  return axios.get(endpoint, {
+    params: { url, format: 'json' }
+  });
+}
+
 export default function oEmbed(url) {
   const provider = providerForUrl(url);
   if (!provider) return null;
-
-  return axios.get(provider.endpoint, {
-    params: { url, format: 'json' }
-  });
+  return oEmbedForEndpoint(provider.endpoint, url);
 }

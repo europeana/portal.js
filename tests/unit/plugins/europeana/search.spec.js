@@ -4,9 +4,6 @@ import search, {
 } from '../../../../plugins/europeana/search';
 import record, { BASE_URL } from '../../../../plugins/europeana/record';
 
-import axios from 'axios';
-axios.defaults.adapter = require('axios/lib/adapters/http');
-
 const $axios = record().$axios;
 
 const apiEndpoint = '/search.json';
