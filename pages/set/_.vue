@@ -17,8 +17,8 @@
   </b-container>
   <div
     v-else-if="set.id"
-    data-qa="user gallery page"
     class="mt-n3"
+    data-qa="user gallery page"
   >
     <b-container
       fluid
@@ -93,11 +93,17 @@
         </b-col>
       </b-row>
     </b-container>
-    <b-container class="mb-3">
+    <b-container
+      class="mb-3"
+      data-qa="user set"
+    >
       <b-row>
         <b-col>
-          <h2 class="related-heading text-uppercase">
-            {{ $tc('items.itemCount', itemCount, { count: itemCount }) }}
+          <h2
+            class="related-heading text-uppercase"
+            data-qa="item count"
+          >
+            {{ displayItemCount }}
           </h2>
         </b-col>
       </b-row>
@@ -183,6 +189,14 @@
       },
       displayDescription() {
         return langMapValueForLocale(this.set.description, this.$i18n.locale);
+      },
+      enableRecommendations() {
+        return Boolean(Number(process.env.ENABLE_RECOMMENDATIONS));
+      },
+      displayItemCount() {
+        const max = 100;
+        const label = this.set.total > max ? 'items.itemOf' : 'items.itemCount';
+        return this.$tc(label, this.set.total, { max });
       }
     },
 
@@ -208,7 +222,7 @@
         this.$bvModal.hide(this.setFormModalId);
       },
       getRecommendations() {
-        if (this.$auth.loggedIn) {
+        if (this.enableRecommendations && this.$auth.loggedIn) {
           if (this.set && this.set.total >= 0) {
             return this.$recommendations.recommend('set', `/${this.$route.params.pathMatch}`)
               .then(recommendResponse => {

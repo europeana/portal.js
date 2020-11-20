@@ -1,8 +1,9 @@
 # dotenv
-.env
+# .env
 
-# Created by .ignore support plugin (hsz.mobi)
-### Node template
+# Docker
+docker
+
 # Logs
 logs
 *.log
@@ -25,8 +26,10 @@ coverage
 # nyc test coverage
 .nyc_output
 
-# nuxt.js build output for tests
+# nuxt.js build outputs
+.nuxt
 .nuxt-test
+/dist
 
 # Bower dependency directory (https://bower.io/)
 bower_components
@@ -64,6 +67,7 @@ typings/
 
 # Storybook
 storybook-static
+.storybook
 
 # Temporary files
 tmp
@@ -72,11 +76,16 @@ tmp
 # Locale folder
 locale
 
-# CF manifest
+# Deployment
 /manifest.yml
+/deploy
+
+# Data migrations
+/migrations
 
 # Git
 .git
+.github
 
 # Tests
 /tests

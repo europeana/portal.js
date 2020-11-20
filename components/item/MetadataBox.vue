@@ -2,7 +2,7 @@
   <div>
     <b-card
       no-body
-      class="mb-3 rounded-0"
+      class="mb-3"
     >
       <b-tabs card>
         <b-tab
@@ -71,6 +71,7 @@
     components: {
       MetadataField
     },
+
     props: {
       coreMetadata: {
         type: Object,
@@ -85,5 +86,6 @@
         default: () => []
       }
     }
+
   };
 </script>

@@ -1,18 +1,8 @@
-import axios from 'axios';
 import nock from 'nock';
 
-import * as annotations from '../../../../plugins/europeana/annotation';
-import config from '../../../../modules/apis/defaults';
-
-axios.defaults.adapter = require('axios/lib/adapters/http');
-
-const apiKey = 'abcdef';
+import annotation, { BASE_URL } from '../../../../plugins/europeana/annotation';
 
 describe('plugins/europeana/entity', () => {
-  beforeEach(() => {
-    config.annotation.key = apiKey;
-  });
-
   afterEach(() => {
     nock.cleanAll();
   });
@@ -20,14 +10,14 @@ describe('plugins/europeana/entity', () => {
   describe('search', () => {
     it('searches Annotation API', async() => {
       const apiQuery = '*:*';
-      nock(config.annotation.origin)
-        .get(`${config.annotation.path}/search`)
+      nock(BASE_URL)
+        .get('/search')
         .query(query => {
-          return query.query === apiQuery && query.wskey === apiKey;
+          return query.query === apiQuery;
         })
         .reply(200, {});
 
-      await annotations.search({ query: apiQuery });
+      await annotation().search({ query: apiQuery });
 
       nock.isDone().should.be.true;
     });

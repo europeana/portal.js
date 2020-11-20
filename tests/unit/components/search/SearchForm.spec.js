@@ -2,11 +2,6 @@ import { createLocalVue, shallowMount } from '@vue/test-utils';
 import SearchForm from '../../../../components/search/SearchForm.vue';
 import Vuex from 'vuex';
 import sinon from 'sinon';
-import nock from 'nock';
-import apiConfig from '../../../../modules/apis/defaults';
-
-const axios = require('axios');
-axios.defaults.adapter = require('axios/lib/adapters/http');
 
 const localVue = createLocalVue();
 localVue.use(Vuex);
@@ -44,7 +39,6 @@ const factory = (options = {}) => shallowMount(SearchForm, {
 });
 
 const getters = {
-  'apis/config': () => apiConfig,
   'search/activeView': (state) => state.search.view,
   'search/queryUpdatesForFacetChanges': () => () => {}
 };
@@ -56,25 +50,6 @@ const store = (state = {}) => {
       ...state
     }
   });
-};
-
-const entityApiSuggestionsResponse = {
-  'items': [
-    {
-      'id': 'http://data.europeana.eu/concept/base/227',
-      'type': 'Concept',
-      'prefLabel': {
-        'en': 'Fresco'
-      }
-    },
-    {
-      'id': 'http://data.europeana.eu/agent/base/59981',
-      'type': 'Agent',
-      'prefLabel': {
-        'en': 'Frank Sinatra'
-      }
-    }
-  ]
 };
 
 describe('components/search/SearchForm', () => {
@@ -241,38 +216,44 @@ describe('components/search/SearchForm', () => {
   });
 
   describe('getSearchSuggestions', () => {
-    beforeEach(() => {
-      nock(apiConfig.entity.origin).get('/entity/suggest')
-        .query(true)
-        .reply(200, entityApiSuggestionsResponse);
-    });
+    const query = 'something';
+    context('auto-suggest is enabled by default', () => {
+      const store = new Vuex.Store({
+        getters: {
+          'apis/entity': () => ({
+            getEntitySuggestions: sinon.stub().resolves([])
+          }),
+          ...getters
+        },
+        state: { search: {}, ui: {} }
+      });
 
-    afterEach(() => {
-      nock.cleanAll();
-    });
+      const wrapper = factory({ store });
 
-    context('auto-suggest is enabled (by default)', () => {
-      const wrapper = factory();
       it('gets suggestions from the Entity API', async() => {
-        await wrapper.vm.getSearchSuggestions('something');
+        await wrapper.vm.getSearchSuggestions(query);
 
-        nock.isDone().should.be.true;
+        store.getters['apis/entity'].getEntitySuggestions.should.have.been.called;
       });
     });
 
-    context('auto-suggest is de-activated by store state having entity', () => {
-      const wrapper = factory({
-        store: store({
-          entity: {
-            id: 'http://data.europeana.eu/concept/123'
-          }
-        })
+    context('auto-suggest is disabled on collection page', () => {
+      const store = new Vuex.Store({
+        getters: {
+          'apis/entity': () => ({
+            getEntitySuggestions: sinon.stub().resolves([])
+          }),
+          ...getters
+        },
+        state: { search: {}, ui: {}, entity: { id: '123' } }
       });
 
-      it('does not get suggestions from the Entity API', async() => {
-        await wrapper.vm.getSearchSuggestions();
+      const wrapper = factory({ store });
 
-        nock.isDone().should.not.be.true;
+      it('gets suggestions from the Entity API', async() => {
+        await wrapper.vm.getSearchSuggestions(query);
+
+        store.getters['apis/entity'].getEntitySuggestions.should.not.have.been.called;
       });
 
       // FIXME

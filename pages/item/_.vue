@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div data-qa="item page">
     <NotificationBanner
       v-if="redirectNotificationsEnabled"
       :notification-url="notificationUrl"
@@ -11,157 +11,106 @@
         :error="error"
       />
     </b-container>
-    <b-container
+    <template
       v-else
-      data-qa="item page"
     >
-      <b-row class="my-5">
-        <b-col
-          cols="12"
-          lg="9"
-        >
-          <div class="card px-3 pt-3 mb-3">
-            <div
-              class="card-grid"
-              :class="cardGridClass"
-            >
-              <header
-                v-if="titlesInCurrentLanguage"
-                class="card-heading"
-              >
-                <template
-                  v-for="(heading, index) in titlesInCurrentLanguage"
-                >
-                  <h1
-                    v-if="index === 0"
-                    :key="index"
-                    :lang="heading.code"
-                  >
-                    {{ heading.value }}
-                  </h1>
-                  <p
-                    v-else
-                    :key="index"
-                    :lang="heading.code"
-                    class="font-weight-bold"
-                  >
-                    {{ heading.value }}
-                  </p>
-                </template>
-              </header>
-              <client-only>
-                <div class="media-presentation">
-                  <MediaPresentation
-                    :europeana-identifier="identifier"
-                    :media="selectedMedia"
-                    :is-playable-media="isPlayableMedia(selectedMedia)"
-                    :image-src="selectedMediaImage.src"
-                  />
-                  <MediaThumbnailGrid
-                    v-if="displayMediaThumbnailGrid"
-                    :media="media"
-                    :selected="selectedMedia.about"
-                    @select="selectMedia"
-                  />
-                </div>
-              </client-only>
-              <div
-                v-if="descriptionInCurrentLanguage"
-                class="description"
-              >
-                <div
-                  v-for="(value, index) in descriptionInCurrentLanguage.values"
-                  :key="index"
-                >
-                  <!-- eslint-disable vue/no-v-html -->
-                  <p
-                    :lang="descriptionInCurrentLanguage.code"
-                    v-html="$options.filters.convertNewLine(value)"
-                  />
-                  <!-- eslint-disable vue/no-v-html -->
-                  <hr
-                    v-if="(index + 1) < descriptionInCurrentLanguage.values.length"
-                  >
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="card p-3 mb-3 bg-grey">
-            <MediaActionBar
-              :url="selectedMedia.about"
-              :europeana-identifier="identifier"
-              :use-proxy="useProxy"
-              :rights-statement="rightsStatement"
-              :data-provider-name="dataProvider.values[0]"
-              :data-provider-lang="dataProvider.code"
-              :is-shown-at="isShownAt"
-            />
-          </div>
-
-          <MetadataBox
-            :all-metadata="allMetaData"
-            :core-metadata="coreFields"
-            :transcribing-annotations="transcribingAnnotations"
-          />
-
-          <section
-            v-if="similarItems && similarItems.length > 0"
+      <b-container
+        fluid
+        class="bg-white mb-3 px-0"
+      >
+        <ItemHero
+          :identifier="identifier"
+          :media="media"
+          :edm-rights="edmRights"
+        />
+      </b-container>
+      <b-container>
+        <b-row class="mb-3 justify-content-center">
+          <b-col
+            cols="12"
+            class="col-lg-10"
           >
-            <h2>{{ $t('record.similarItems') }}</h2>
+            <SummaryInfo
+              :description="descriptionInCurrentLanguage"
+              :titles="titlesInCurrentLanguage"
+            />
+          </b-col>
+        </b-row>
+        <b-row
+          v-if="relatedEntities && relatedEntities.length > 0"
+          class="justify-content-center"
+        >
+          <b-col
+            cols="12"
+            class="col-lg-10"
+          >
+            <RelatedCollections
+              :title="$t('collectionsYouMightLike')"
+              :related-collections="relatedEntities"
+              data-qa="related entities"
+            />
+          </b-col>
+        </b-row>
+        <b-row
+          v-else
+          class="mb-3"
+        />
+        <b-row class="mb-0 justify-content-center">
+          <b-col
+            cols="12"
+            class="col-lg-10"
+          >
+            <MetadataBox
+              :all-metadata="allMetaData"
+              :core-metadata="coreFields"
+              :transcribing-annotations="transcribingAnnotations"
+            />
+          </b-col>
+        </b-row>
+        <b-row
+          v-if="similarItems && similarItems.length > 0"
+          class="mt-3 mb-0 justify-content-center"
+        >
+          <b-col
+            cols="12"
+            class="col-lg-10"
+          >
+            <h2
+              class="related-heading text-uppercase mb-2"
+            >
+              {{ $t('record.exploreMore') }}
+            </h2>
             <ItemPreviewCardGroup
               v-model="similarItems"
-              view="similar"
-              class="mb-3"
+              view="explore"
+              class="mb-0"
               data-qa="similar items"
             />
-          </section>
-        </b-col>
-        <b-col
-          cols="12"
-          lg="3"
-        >
-          <h2
-            v-if="relatedEntities && relatedEntities.length > 0"
-            class="related-heading text-uppercase"
-          >
-            {{ $t('contentYouMightLike') }}
-          </h2>
-          <EntityCards
-            v-if="relatedEntities"
-            :entities="relatedEntities"
-            data-qa="related entities"
-          />
-        </b-col>
-      </b-row>
-    </b-container>
+          </b-col>
+        </b-row>
+        <b-row class="footer-margin" />
+      </b-container>
+    </template>
   </div>
 </template>
 
 <script>
   import axios from 'axios';
-  import { mapGetters } from 'vuex';
+  import isEmpty from 'lodash/isEmpty';
 
-  import ClientOnly from 'vue-client-only';
-  import MediaActionBar from '../../components/item/MediaActionBar';
-  import MediaPresentation from '../../components/item/MediaPresentation';
   import MetadataBox from '../../components/item/MetadataBox';
 
-  import { getRecord, similarItemsQuery } from '../../plugins/europeana/record';
-  import { search } from '../../plugins/europeana/search';
-  import { isIIIFPresentation, isRichMedia, isPlayableMedia } from '../../plugins/media';
+  import { BASE_URL as EUROPEANA_DATA_URL } from '../../plugins/europeana/data';
+  import { similarItemsQuery } from '../../plugins/europeana/record';
   import { langMapValueForLocale } from  '../../plugins/europeana/utils';
-  import { findEntities } from '../../plugins/europeana/entity';
-  import { search as searchAnnotations } from '../../plugins/europeana/annotation';
 
   export default {
     components: {
+      ItemHero: () => import('../../components/item/ItemHero'),
       AlertMessage: () => import('../../components/generic/AlertMessage'),
-      ClientOnly,
-      EntityCards: () => import('../../components/entity/EntityCards'),
-      MediaActionBar,
       ItemPreviewCardGroup: () => import('../../components/item/ItemPreviewCardGroup'),
-      MediaPresentation,
-      MediaThumbnailGrid: () => import('../../components/item/MediaThumbnailGrid'),
+      RelatedCollections: () => import('../../components/generic/RelatedCollections'),
+      SummaryInfo: () => import('../../components/item/SummaryInfo'),
       MetadataBox,
       NotificationBanner: () => import('../../components/generic/NotificationBanner')
     },
@@ -172,8 +121,8 @@
         profile: 'dereference'
       };
       axios.all([
-        searchAnnotations(annotationSearchParams),
-        findEntities(this.europeanaEntityUris),
+        this.$store.getters['apis/annotation'].search(annotationSearchParams),
+        this.$store.getters['apis/entity'].findEntities(this.europeanaEntityUris),
         this.getSimilarItems()
       ])
         .then(axios.spread((annotations, entities, similar) => {
@@ -187,12 +136,10 @@
 
     fetchOnServer: false,
 
-    asyncData({ params, res, query, app }) {
-      return getRecord(`/${params.pathMatch}`, { origin: query.recordApi, locale: app.i18n.locale })
-        .then((result) => {
-          return result.record;
-        })
-        .catch((error) => {
+    asyncData({ params, res, store, app }) {
+      return store.getters['apis/record'].getRecord(`/${params.pathMatch}`, { locale: app.i18n.locale })
+        .then(result => result.record)
+        .catch(error => {
           if (typeof res !== 'undefined') {
             res.statusCode = (typeof error.statusCode === 'undefined') ? 500 : error.statusCode;
           }
@@ -214,7 +161,6 @@
         isShownAt: null,
         media: [],
         relatedEntities: [],
-        selectedMediaItem: null,
         similarItems: [],
         annotations: [],
         taggingAnnotations: [],
@@ -226,9 +172,6 @@
     },
 
     computed: {
-      ...mapGetters({
-        apiConfig: 'apis/config'
-      }),
       keywords() {
         // Convert collection of annotations' prefLabels into a single langMap
         return this.taggingAnnotations.reduce((memo, annotation) => {
@@ -245,11 +188,14 @@
       allMetaData() {
         return { ...this.coreFields, ...this.fieldsAndKeywords };
       },
+      edmRights() {
+        return this.fields.edmRights ? this.fields.edmRights.def[0] : '';
+      },
       europeanaAgents() {
-        return (this.agents || []).filter((agent) => agent.about.startsWith(`${this.apiConfig.data.origin}/agent/`));
+        return (this.agents || []).filter((agent) => agent.about.startsWith(`${EUROPEANA_DATA_URL}/agent/`));
       },
       europeanaConcepts() {
-        return (this.concepts || []).filter((concept) => concept.about.startsWith(`${this.apiConfig.data.origin}/concept/`));
+        return (this.concepts || []).filter((concept) => concept.about.startsWith(`${EUROPEANA_DATA_URL}/concept/`));
       },
       europeanaEntityUris() {
         const entities = this.europeanaConcepts.concat(this.europeanaAgents);
@@ -280,39 +226,8 @@
         return this.titlesInCurrentLanguage[0] ? this.titlesInCurrentLanguage[0].value : this.$t('record.record');
       },
       metaDescription() {
-        if (!this.descriptionInCurrentLanguage) return '';
+        if (isEmpty(this.descriptionInCurrentLanguage)) return '';
         return this.descriptionInCurrentLanguage.values[0] ? this.descriptionInCurrentLanguage.values[0] : '';
-      },
-      isRichMedia() {
-        return isRichMedia(this.selectedMedia);
-      },
-      selectedMedia: {
-        get() {
-          return this.selectedMediaItem || this.media[0] || {};
-        },
-        set(about) {
-          this.selectedMediaItem = this.media.find((item) => item.about === about) || {};
-        }
-      },
-      selectedMediaImage() {
-        if (!this.selectedMedia.thumbnails) return {};
-        return {
-          src: this.selectedMedia.thumbnails.large,
-          link: this.isShownAt
-        };
-      },
-      displayMediaThumbnailGrid() {
-        // TODO: the IIIF Presentation check may need to account for potentially
-        //       some media items being in one Presentation manifest, but
-        //       others being, say, audio or video.
-        return this.media.length > 1 && !isIIIFPresentation(this.selectedMedia);
-      },
-      edmRights() {
-        return this.selectedMedia.webResourceEdmRights ? this.selectedMedia.webResourceEdmRights : this.fields.edmRights;
-      },
-      rightsStatement() {
-        if (this.edmRights) return langMapValueForLocale(this.edmRights, this.$i18n.locale).values[0];
-        return false;
       },
       dataProvider() {
         const edmDataProvider = langMapValueForLocale(this.coreFields.edmDataProvider, this.$i18n.locale);
@@ -328,21 +243,11 @@
       },
       redirectNotificationsEnabled() {
         return Boolean(Number(process.env.ENABLE_LINKS_TO_CLASSIC));
-      },
-      playableMedia() {
-        return this.media.filter(resource => isPlayableMedia(resource));
       }
     },
 
-    created() {
-      this.cardGridClass = this.isRichMedia && 'card-grid-richmedia';
-    },
-
     mounted() {
-      if (process.browser) {
-        if (localStorage.itemShowExtendedMetadata && JSON.parse(localStorage.itemShowExtendedMetadata)) {
-          this.$root.$emit('bv::toggle::collapse', 'extended-metadata');
-        }
+      if (process.browser && this.fields) {
         this.$gtm.push({
           itemCountry: langMapValueForLocale(this.fields.edmCountry, 'en').values[0],
           itemDataProvider: langMapValueForLocale(this.coreFields.edmDataProvider, 'en').values[0],
@@ -350,38 +255,20 @@
           itemRights: langMapValueForLocale(this.fields.edmRights, 'en').values[0]
         });
       }
-
-      window.addEventListener('message', (msg) => {
-        if (msg.data.event === 'updateDownloadLink') {
-          this.useProxy = (this.media.some((item) => item.about === msg.data.id));
-          this.selectedMedia.about = msg.data.id;
-        }
-      });
     },
 
     methods: {
-      isPlayableMedia(selectedMedia) {
-        return (this.playableMedia.length === 1) && (this.playableMedia[0].about === selectedMedia.about);
-      },
-
       annotationsByMotivation(motivation) {
         return this.annotations.filter(annotation => annotation.motivation === motivation);
       },
 
-      selectMedia(about) {
-        this.selectedMedia = about;
-      },
-
       getSimilarItems() {
-        const noSimilarItems = { items: [] };
+        const noSimilarItems = { results: [] };
         if (this.error) return noSimilarItems;
 
-        if (this.$auth.loggedIn) {
+        if (Boolean(Number(process.env.ENABLE_RECOMMENDATIONS)) && this.$auth.loggedIn) {
           return this.$recommendations.recommend('record', this.identifier)
-            .then(recommendResponse => recommendResponse)
-            .catch(() => {
-              return noSimilarItems;
-            });
+            .then(recommendResponse => recommendResponse);
         }
 
         const dataSimilarItems = {
@@ -391,13 +278,11 @@
           edmDataProvider: this.getSimilarItemsData(this.fields.edmDataProvider)
         };
 
-        return search({
+        return this.$store.getters['apis/record'].search({
           query: similarItemsQuery(this.identifier, dataSimilarItems),
           rows: 4,
           profile: 'minimal',
           facet: ''
-        }, {
-          origin: this.$route.query.recordApi
         })
           .then(response => response)
           .catch(() => {
@@ -423,7 +308,7 @@
           { hid: 'description', name: 'description', content: this.metaDescription },
           { hid: 'og:title', property: 'og:title', content: this.metaTitle },
           { hid: 'og:description', property: 'og:description', content: this.metaDescription },
-          { hid: 'og:image', property: 'og:image', content: this.selectedMediaImage.src ? this.selectedMediaImage.src : '' },
+          { hid: 'og:image', property: 'og:image', content: typeof this.media[0] !== 'undefined' && this.media[0].src ? this.media[0].src : '' },
           { hid: 'og:type', property: 'og:type', content: 'article' }
         ]
       };
@@ -441,86 +326,19 @@
   };
 </script>
 
-<style lang="scss" scoped>
-  @import './assets/scss/variables.scss';
-  @import './assets/scss/icons.scss';
-
-  h2:not(.related-heading) {
-    font-size: $font-size-medium;
-    font-weight: bold;
+<style scoped>
+  .related-collections {
+    margin-top: -0.5rem;
+    margin-bottom: 2rem;
+    padding: 0;
   }
 
-  .bg-grey {
-    background-color: rgba(255, 255, 255, 0.5);
+  /deep/ .card-header-tabs {
+    border-radius: 0.25rem 0.25rem 0 0;
   }
 
-  .card-grid {
-    display: grid;
-    column-gap: 1rem;
-    grid-template-columns: [col1-start] 1fr [col2-start] 1fr [col2-end];
-    grid-template-rows: [row1-start] auto [row2-start] auto [row3-start] auto [row3-end];
-  }
-
-  .card-heading {
-    grid-row: row1-start;
-    grid-column: col1-start/col2-end;
-
-    @media (min-width: $bp-large) {
-      grid-column: col2-start/col2-end;
-    }
-  }
-
-  .media-presentation {
-    grid-row: row3-start;
-    grid-column: col1-start/col2-end;
-
-    @media (min-width: $bp-large) {
-      grid-column: col1-start/col2-start;
-      grid-row: row1-start/row3-end;
-    }
-  }
-
-  .description {
-    grid-column: col1-start/col2-end;
-    grid-row: row2-start;
-
-    @media (min-width: $bp-large) {
-      grid-column: col2-start/col2-end;
-    }
-    overflow-wrap: break-word;
-  }
-
-  .card-grid-richmedia .card-heading {
-    grid-column: col1-start/col2-end;
-  }
-
-  .card-grid-richmedia .media-presentation {
-    grid-column: col1-start/col2-end;
-    grid-row: row2-start;
-  }
-
-  .card-grid-richmedia .description {
-    grid-column: col1-start/col2-end;
-    grid-row: row3-start;
-  }
-
-  .meta-data {
-    > div:not(:last-child) {
-      margin-bottom: 1rem;
-    }
-  }
-
-  .disclaimer {
-    align-items: center;
-    border-bottom: 1px solid #e7e7e9;
-
-    &:before {
-      @extend .icon-font;
-      content: '\e91f';
-      color: $blue;
-      font-size: 1.5rem;
-      line-height: initial;
-      margin-right: 0.5rem;
-    }
+  /deep/ .card-header-tabs .nav-link,
+  /deep/ .card-header-tabs .nav-link:hover {
+    border-radius: 0.25rem 0 0 0;
   }
 </style>

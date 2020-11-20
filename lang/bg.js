@@ -45,7 +45,7 @@ export default {
     },
     "headerNavigation": {
       "explore": "Проучи",
-      "teachers": "Обучители"
+      "teachers": "Учители"
     }
   },
   "cookieDisclaimer": {

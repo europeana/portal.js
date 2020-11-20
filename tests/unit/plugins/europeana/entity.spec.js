@@ -1,31 +1,14 @@
 import nock from 'nock';
-import * as entities from '../../../../plugins/europeana/entity';
-import config from '../../../../modules/apis/defaults';
 
-const axios = require('axios');
-axios.defaults.adapter = require('axios/lib/adapters/http');
+import api, {
+  getEntityQuery, getEntityDescription, getEntitySlug, getEntityUri, BASE_URL
+} from '../../../../plugins/europeana/entity';
 
 const entityId = '94-architecture';
 const entityType = 'topic';
 const entityIdMisspelled = '94-architectuz';
-const apiUrl = config.entity.origin;
-const apiEndpoint = '/entity/concept/base/94.json';
-const entityUri = 'http://data.europeana.eu/concept/base/94';
-const entityFilterField = 'skos_concept';
-const apiKey = 'abcdef';
-const baseRequest = nock(apiUrl).get(apiEndpoint);
-
-const recordApiUrl = config.record.origin;
-const recordApiEndpoint = `${config.record.path}/search.json`;
-
-const searchResponse = {
-  facets: [
-    { name: 'edm_agent', fields: [
-      { label: 'http://data.europeana.eu/agent/base/147831' },
-      { label: 'http://data.europeana.eu/agent/base/49928' }
-    ] }
-  ]
-};
+const apiEndpoint = '/concept/base/94.json';
+const baseRequest = nock(BASE_URL).get(apiEndpoint);
 
 const entitiesResponse = {
   items: [
@@ -87,10 +70,6 @@ const conceptEntitiesResponse = {
 };
 
 describe('plugins/europeana/entity', () => {
-  beforeEach(() => {
-    config.entity.key = apiKey;
-  });
-
   afterEach(() => {
     nock.cleanAll();
   });
@@ -111,7 +90,7 @@ describe('plugins/europeana/entity', () => {
         it('throws error with API error message and status code', async() => {
           let error;
           try {
-            await entities.getEntity(entityType, entityId);
+            await api().getEntity(entityType, entityId);
           } catch (e) {
             error = e;
           }
@@ -131,17 +110,17 @@ describe('plugins/europeana/entity', () => {
         });
 
         it('returns entity title', async() => {
-          const response = await entities.getEntity(entityType, entityId);
+          const response = await api().getEntity(entityType, entityId);
           response.entity.prefLabel.en.should.eq('Architecture');
         });
 
         it('returns entity description', async() => {
-          const response = await entities.getEntity(entityType, entityId);
+          const response = await api().getEntity(entityType, entityId);
           response.entity.note.en[0].should.contain('Architecture is both the process and the product of planning');
         });
 
         it('has a misspelled id and returns entity title', async() => {
-          const response = await entities.getEntity(entityType, entityIdMisspelled);
+          const response = await api().getEntity(entityType, entityIdMisspelled);
           response.entity.prefLabel.en.should.eq('Architecture');
         });
       });
@@ -154,17 +133,17 @@ describe('plugins/europeana/entity', () => {
     const entitySearchResponse = {
       items: []
     };
-    const searchEndpoint = '/entity/search';
+    const searchEndpoint = '/search';
 
     it('searches the API by entity URIs', async() => {
-      nock(apiUrl)
+      nock(BASE_URL)
         .get(searchEndpoint)
         .query(query => {
           return query.query === uriQuery;
         })
         .reply(200, entitySearchResponse);
 
-      await entities.findEntities(uris);
+      await api().findEntities(uris);
 
       nock.isDone().should.be.true;
     });
@@ -172,88 +151,56 @@ describe('plugins/europeana/entity', () => {
 
   describe('getEntitySuggestions()', () => {
     const text = 'world';
-    const suggestEndpoint = '/entity/suggest';
+    const suggestEndpoint = '/suggest';
 
     it('passes `text` to the API', async() => {
-      nock(apiUrl)
+      nock(BASE_URL)
         .get(suggestEndpoint)
         .query(query => {
           return query.text === text;
         })
         .reply(200, entitySuggestionsResponse);
 
-      await entities.getEntitySuggestions(text);
+      await api().getEntitySuggestions(text);
 
       nock.isDone().should.be.true;
     });
 
     it('passes `language` to API', async() => {
-      nock(apiUrl)
+      nock(BASE_URL)
         .get(suggestEndpoint)
         .query(query => {
           return query.language === 'fr';
         })
         .reply(200, entitySuggestionsResponse);
 
-      await entities.getEntitySuggestions(text, { language: 'fr' });
+      await api().getEntitySuggestions(text, { language: 'fr' });
 
       nock.isDone().should.be.true;
     });
 
     it('restricts types to agent & concept', async() => {
-      nock(apiUrl)
+      nock(BASE_URL)
         .get(suggestEndpoint)
         .query(query => {
           return query.type === 'agent,concept';
         })
         .reply(200, entitySuggestionsResponse);
 
-      await entities.getEntitySuggestions(text);
+      await api().getEntitySuggestions(text);
 
       nock.isDone().should.be.true;
     });
 
     it('returns the "items"', async() => {
-      nock(apiUrl)
+      nock(BASE_URL)
         .get(suggestEndpoint)
         .query(true)
         .reply(200, entitySuggestionsResponse);
 
-      const items = await entities.getEntitySuggestions(text);
+      const items = await api().getEntitySuggestions(text);
 
       items.should.deep.eq(entitySuggestionsResponse.items);
-    });
-  });
-
-  describe('relatedEntities()', () => {
-    beforeEach('stub API response', () => {
-      nock(apiUrl)
-        .get('/entity/search')
-        .query(true)
-        .reply(200, entitiesResponse);
-    });
-
-    it('returns related entities', async() => {
-      nock(recordApiUrl)
-        .get(recordApiEndpoint)
-        .query(true)
-        .reply(200, searchResponse);
-
-      const response = await entities.relatedEntities(entityType, entityId);
-      response.length.should.eq(entitiesResponse.items.length);
-    });
-
-    it('filters on entity URI', async() => {
-      nock(recordApiUrl)
-        .get(recordApiEndpoint)
-        .query(query => {
-          return query.query === `${entityFilterField}:"${entityUri}"`;
-        })
-        .reply(200, searchResponse);
-
-      await entities.relatedEntities(entityType, entityId);
-
-      nock.isDone().should.be.true;
     });
   });
 
@@ -263,7 +210,7 @@ describe('plugins/europeana/entity', () => {
       context('with type Agent', () => {
         let type = 'person';
         it('returns an agent URI, without any human readable labels', () => {
-          const uri = entities.getEntityUri(type, id);
+          const uri = getEntityUri(type, id);
           return uri.should.eq('http://data.europeana.eu/agent/base/100');
         });
       });
@@ -271,7 +218,7 @@ describe('plugins/europeana/entity', () => {
       context('with type Concept', () => {
         let type = 'topic';
         it('returns an agent URI, without any human readable labels', () => {
-          const uri = entities.getEntityUri(type, id);
+          const uri = getEntityUri(type, id);
           return uri.should.eq('http://data.europeana.eu/concept/base/100');
         });
       });
@@ -282,21 +229,21 @@ describe('plugins/europeana/entity', () => {
     context('when entity is a concept', () => {
       const uri = 'http://data.europeana.eu/concept/base/12345';
       it('queries on skos_concept', () => {
-        entities.getEntityQuery(uri).should.eq(`skos_concept:"${uri}"`);
+        getEntityQuery(uri).should.eq(`skos_concept:"${uri}"`);
       });
     });
 
     context('when entity is an agent', () => {
       const uri = 'http://data.europeana.eu/agent/base/12345';
       it('queries on edm_agent', () => {
-        entities.getEntityQuery(uri).should.eq(`edm_agent:"${uri}"`);
+        getEntityQuery(uri).should.eq(`edm_agent:"${uri}"`);
       });
     });
 
     context('otherwise', () => {
       const uri = 'http://data.europeana.eu/place/base/12345';
       it('is `null`', () => {
-        (entities.getEntityQuery(uri) === null).should.be.true;
+        (getEntityQuery(uri) === null).should.be.true;
       });
     });
   });
@@ -305,7 +252,7 @@ describe('plugins/europeana/entity', () => {
     const entity = entitiesResponse.items[0];
 
     it('constructs URL slug from numeric ID and prefLabel.en', () => {
-      const slug = entities.getEntitySlug(entity.id, entity.prefLabel.en);
+      const slug = getEntitySlug(entity.id, entity.prefLabel.en);
       return slug.should.eq('147831-architecture');
     });
   });
@@ -316,7 +263,7 @@ describe('plugins/europeana/entity', () => {
       const locale = 'nl';
 
       it('returns the description with values and language code', () => {
-        const description = entities.getEntityDescription(entity, locale);
+        const description = getEntityDescription(entity, locale);
         description.values[0].should.contain('Architecture');
         description.code.should.contain('en');
       });
@@ -327,7 +274,7 @@ describe('plugins/europeana/entity', () => {
       const locale = 'nl';
 
       it('returns the description with values and language code', () => {
-        const description = entities.getEntityDescription(entity, locale);
+        const description = getEntityDescription(entity, locale);
         description.values[0].should.contain('Vincent Willem van Gogh was');
         description.code.should.contain('en');
       });
@@ -336,8 +283,8 @@ describe('plugins/europeana/entity', () => {
 
   describe('searchEntities()', () => {
     beforeEach('stub API response', () => {
-      nock(apiUrl)
-        .get('/entity/search')
+      nock(BASE_URL)
+        .get('/search')
         .query(true)
         .reply(200, conceptEntitiesResponse);
     });
@@ -352,17 +299,17 @@ describe('plugins/europeana/entity', () => {
       };
 
       it('returns a list of concept entities', async() => {
-        const response = await entities.searchEntities(eParams, 'topic');
+        const response = await api().searchEntities(eParams, 'topic');
         response.entities.length.should.eq(conceptEntitiesResponse.items.length);
       });
 
       it('returns the total number of entities', async() => {
-        const response = await entities.searchEntities(eParams, 'topic');
+        const response = await api().searchEntities(eParams, 'topic');
         response.total.should.eq(conceptEntitiesResponse.partOf.total);
       });
 
       it('returns a thumbnail for each entity', async() => {
-        const response = await entities.searchEntities(eParams, 'topic');
+        const response = await api().searchEntities(eParams, 'topic');
         response.entities[0].isShownBy.thumbnail.should.eq(conceptEntitiesResponse.items[0].isShownBy.thumbnail);
       });
     });

@@ -5,11 +5,8 @@
 // TODO: figure out why, resolve, and complete unit tests
 
 // import * as store from '../../../store/entity';
-// import axios from 'axios';
 // import nock from 'nock';
 // import sinon from 'sinon';
-//
-// axios.defaults.adapter = require('axios/lib/adapters/http');
 //
 // const baseRequest = nock('https://cdn.contentful.com').get(`/spaces/${process.env.CTF_SPACE_ID}/environments/master/entries`);
 //

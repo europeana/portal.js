@@ -6,30 +6,30 @@
 1. Node.js version 12, and npm
 2. [Contentful](https://www.contentful.com/) CMS account
 
-##Configuration
-Configuration options can be set in a .env file(see [.env.example](/.env.example)) or vie ENV variables on your machine.
-For Europeana API connections you may additionally use a .apisrc.js file in the root of your project, see the [relevant
-README](modules/apis/README.md) for more explanation.
-## Build Setup
-```bash
+## Configuration
+Configuration options can be set in a .env file (see [.env.example](/.env.example))
+or via ENV variables on your machine.
+
+## Build
+```shell
 # install package dependencies
-$ npm install
+npm install
 
 # serve with hot reload at localhost:3000
-$ npm run dev
+npm run dev
 
 # build for production and launch server
-$ npm run build
-$ npm start
+npm run build
+npm start
 
 # generate static project
-$ npm run generate
+npm run generate
 
 # serve storybook with hot reload at localhost:6006
-$ npm run storybook
+npm run storybook
 
 # generate static storybook
-$ npm run build-storybook
+npm run build-storybook
 
 ```
 
@@ -40,53 +40,24 @@ For detailed explanation on how things work, refer to [Nuxt.js docs](https://nux
 To run end-to-end tests, you will need Docker Engine and [Compose](https://docs.docker.com/compose/) installed and
 the docker service running.
 
-Run tests with:
+Run the full test suite with: `npm test`
 
-```bash
-$ npm test
-```
-### Running unit tests only
-`npm run test:unit` just runs everything.
+### Unit tests
 
-To run a single file: `npm run test:unit -g tests/unit/[REST_OF_FILE_PATH]`
+`npm run test:unit` runs all unit tests.
 
-### Running end-to-end tests only
+To run unit tests from a single file, append the full path, e.g.
+`npm run test:unit tests/unit/components/PageHeader.spec.js`
 
-`npm run test:e2e` and `npm run test:e2e:ci` just run everything.
+### End-to-end tests
 
-If you've manually started the test server with: `NODE_ENV=test npm run stack:up`, then you can for example:
+`npm run test:e2e` runs all end-to-end tests.
 
-Run only the header.feature file using path.
+To run a single end-to-end test file, append the path **without tests/features**, e.g.
+`npm run test:e2e common/header.feature`
 
-```shell
-npm run test:chrome:headless tests/features/header.feature
-```
-
-
-Run only the "header" feature test using its name.
-
-```shell
-npm run test:chrome:headless -- -p all --name header
-```
-
-
-Run only the "header" feature in the header file.
-
-```shell
-npm run test:chrome:headless tests/features/header.feature -- --name header
-```
-
-Run everything with your driver of choice.
-
-```
-npm run test:chrome:headless -- -p all
-```
-
-`test:chrome:headless` can be substituted for the other avialable driver commands `test:gecko` and `test:chrome`.
-
-Be aware however that with `geckodriver` some tests are known to fail as it is not yet feature complete.
-It is therefore at present of limited use.
-
+If you have modified app files and want to re-run e2e tests, you will need to first
+rebuild the generated Docker images in the test stack, with `npm run test:stack:rebuild`
 
 ## License
 

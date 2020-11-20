@@ -2,12 +2,10 @@ import defu from 'defu';
 import nock from 'nock';
 
 import authAxios from '../../../plugins/authAxios';
-import config from '../../../modules/apis/defaults';
-const apiUrl = `${config.set.origin}${config.set.path}`;
+import { BASE_URL } from '../../../plugins/europeana/set';
 import sinon from 'sinon';
 
 const axios = require('axios');
-axios.defaults.adapter = require('axios/lib/adapters/http');
 
 const createAxiosInstance = axiosOptions => {
   const myaxios = axios.create(axiosOptions);
@@ -65,7 +63,7 @@ describe('authAxios plugin', () => {
   context('there is a user logged in', () => {
     it('puts the keycloak token in requests ', async() => {
       authAxios(mockContext, mockInject);
-      nock(apiUrl)
+      nock(BASE_URL)
         .matchHeader('Authorization', 'keycloak-mocked-token')
         .post('/')
         .reply(200, {
@@ -84,7 +82,7 @@ describe('authAxios plugin', () => {
   //     };
   //     mockContext.$auth.loggedIn = false;
   //     authAxios(mockContext, mockInject);
-  //     nock(apiUrl)
+  //     nock(BASE_URL)
   //       .post('/')
   //       .reply(200, {
   //         id: 1234

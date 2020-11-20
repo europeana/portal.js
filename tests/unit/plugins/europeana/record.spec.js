@@ -1,19 +1,10 @@
 import nock from 'nock';
-import { thumbnailUrl } from  '../../../../plugins/europeana/thumbnail';
-import config from '../../../../modules/apis/defaults';
-import {
-  getRecord, isEuropeanaRecordId, similarItemsQuery
-} from '../../../../plugins/europeana/record';
-
-const axios = require('axios');
-axios.defaults.adapter = require('axios/lib/adapters/http');
+import record, { isEuropeanaRecordId, similarItemsQuery, BASE_URL } from '../../../../plugins/europeana/record';
 
 const europeanaId = '/123/abc';
-const apiUrl = config.record.origin;
-const apiEndpoint = `${config.record.path}${europeanaId}.json`;
-const apiKey = 'abcdef';
+const apiEndpoint = `${europeanaId}.json`;
 
-const baseRequest = nock(apiUrl).get(apiEndpoint);
+const baseRequest = nock(BASE_URL).get(apiEndpoint);
 
 const edmIsShownAt = 'https://example.org';
 const edmIsShownByWebResource = {
@@ -93,29 +84,11 @@ const apiResponse = {
 };
 
 describe('plugins/europeana/record', () => {
-  beforeEach(() => {
-    config.record.key = apiKey;
-  });
-
   afterEach(() => {
     nock.cleanAll();
   });
 
-  describe('getRecord()', () => {
-    context('with origin supplied', () => {
-      const customOrigin = 'https://api.example.org';
-      it('queries that API', async() => {
-        nock(customOrigin)
-          .get(apiEndpoint)
-          .query(true)
-          .reply(200, apiResponse);
-
-        await getRecord(europeanaId, { origin: customOrigin });
-
-        nock.isDone().should.be.true;
-      });
-    });
-
+  describe('record().getRecord()', () => {
     describe('API response', () => {
       describe('with "Invalid record identifier: ..." error', () => {
         const errorMessage = `Invalid record identifier: ${europeanaId}`;
@@ -132,7 +105,7 @@ describe('plugins/europeana/record', () => {
         it('throws error with API error message and status code', async() => {
           let error;
           try {
-            await getRecord(europeanaId);
+            await record().getRecord(europeanaId);
           } catch (e) {
             error = e;
           }
@@ -144,52 +117,52 @@ describe('plugins/europeana/record', () => {
 
       describe('with object in response', () => {
         beforeEach('stub API response', () => {
-          nock(apiUrl)
+          nock(BASE_URL)
             .get(apiEndpoint)
             .query(true)
             .reply(200, apiResponse);
         });
 
         it('returns record data', async() => {
-          const response = await getRecord(europeanaId);
+          const response = await record().getRecord(europeanaId);
           response.record.should.exist;
         });
 
         it('includes identifier', async() => {
-          const response = await getRecord(europeanaId);
+          const response = await record().getRecord(europeanaId);
           response.record.identifier.should.eq(europeanaId);
         });
 
         it('includes edmIsShownAt', async() => {
-          const response = await getRecord(europeanaId);
+          const response = await record().getRecord(europeanaId);
           response.record.isShownAt.should.eq(edmIsShownAt);
         });
 
         it('includes type', async() => {
-          const response = await getRecord(europeanaId);
+          const response = await record().getRecord(europeanaId);
           response.record.type.should.eq(type);
         });
 
         describe('.media', () => {
           it('includes edmIsShownBy web resource', async() => {
-            const response = await getRecord(europeanaId);
+            const response = await record().getRecord(europeanaId);
             response.record.media.find((item) => item.about === edmIsShownByWebResource.about).should.exist;
           });
 
           it('includes edmHasView web resource', async() => {
-            const response = await getRecord(europeanaId);
+            const response = await record().getRecord(europeanaId);
             for (const hasView of [edmHasViewWebResourceFirst, edmHasViewWebResourceSecond, edmHasViewWebResourceThird]) {
               response.record.media.find((item) => item.about === hasView.about).should.exist;
             }
           });
 
           it('omits other web resources', async() => {
-            const response = await getRecord(europeanaId);
+            const response = await record().getRecord(europeanaId);
             (typeof response.record.media.find((item) => item.about === someOtherWebResource.about)).should.eq('undefined');
           });
 
           it('sorts by isNextInSequence', async() => {
-            const response = await getRecord(europeanaId);
+            const response = await record().getRecord(europeanaId);
 
             response.record.media[0].about.should.eq(edmIsShownByWebResource.about);
             response.record.media[1].about.should.eq(edmHasViewWebResourceFirst.about);
@@ -202,11 +175,11 @@ describe('plugins/europeana/record', () => {
               const item = edmHasViewWebResourceFirst;
               it('includes item-specific-type thumbnails', async() => {
                 const expectedThumbnails = {
-                  small: thumbnailUrl(item.about, { size: 'w200', type: 'IMAGE' }),
-                  large: thumbnailUrl(item.about, { size: 'w400', type: 'IMAGE' })
+                  small: 'https://api.europeana.eu/thumbnail/v2/url.json?size=w200&type=IMAGE&uri=https%3A%2F%2Fexample.org%2Fimage1.jpeg',
+                  large: 'https://api.europeana.eu/thumbnail/v2/url.json?size=w400&type=IMAGE&uri=https%3A%2F%2Fexample.org%2Fimage1.jpeg'
                 };
 
-                const response = await getRecord(europeanaId);
+                const response = await record().getRecord(europeanaId);
                 const actualThumbnails = response.record.media.find((m) => m.about === item.about).thumbnails;
 
                 actualThumbnails.should.deep.eq(expectedThumbnails);
@@ -217,11 +190,11 @@ describe('plugins/europeana/record', () => {
               const item = edmHasViewWebResourceThird;
               it('includes record-type thumbnails', async() => {
                 const expectedThumbnails = {
-                  small: thumbnailUrl(item.about, { size: 'w200', type }),
-                  large: thumbnailUrl(item.about, { size: 'w400', type })
+                  small: 'https://api.europeana.eu/thumbnail/v2/url.json?size=w200&type=TEXT&uri=https%3A%2F%2Fexample.org%2Funknown.bin',
+                  large: 'https://api.europeana.eu/thumbnail/v2/url.json?size=w400&type=TEXT&uri=https%3A%2F%2Fexample.org%2Funknown.bin'
                 };
 
-                const response = await getRecord(europeanaId);
+                const response = await record().getRecord(europeanaId);
                 const actualThumbnails = response.record.media.find((m) => m.about === item.about).thumbnails;
 
                 actualThumbnails.should.deep.eq(expectedThumbnails);
@@ -231,15 +204,80 @@ describe('plugins/europeana/record', () => {
         });
 
         it('includes agents', async() => {
-          const response = await getRecord(europeanaId);
+          const response = await record().getRecord(europeanaId);
           response.record.agents.should.deep.eq(apiResponse.object.agents);
         });
 
         it('includes concepts', async() => {
-          const response = await getRecord(europeanaId);
+          const response = await record().getRecord(europeanaId);
           response.record.concepts.should.deep.eq(apiResponse.object.concepts);
         });
       });
+    });
+  });
+
+  describe('record().mediaProxyUrl()', () => {
+    const europeanaId = '/123/abc';
+    const mediaUrl = 'https://www.example.org/audio.ogg';
+
+    it('uses origin https://proxy.europeana.eu', () => {
+      const proxyUrl = new URL(record().mediaProxyUrl(mediaUrl, europeanaId));
+
+      proxyUrl.origin.should.eq('https://proxy.europeana.eu');
+    });
+
+    it('uses europeanaId as path', () => {
+      const proxyUrl = new URL(record().mediaProxyUrl(mediaUrl, europeanaId));
+
+      proxyUrl.pathname.should.eq(europeanaId);
+    });
+
+    it('uses web resource URI as view param', () => {
+      const proxyUrl = new URL(record().mediaProxyUrl(mediaUrl, europeanaId));
+
+      proxyUrl.searchParams.get('view').should.eq(mediaUrl);
+    });
+
+    it('uses store Record API origin as api_url param', () => {
+      const proxyUrl = new URL(record().mediaProxyUrl(mediaUrl, europeanaId));
+
+      proxyUrl.searchParams.get('api_url').should.eq('https://api.europeana.eu/api');
+    });
+
+    it('sets additional params from final arg', () => {
+      const proxyUrl = new URL(record().mediaProxyUrl(mediaUrl, europeanaId, { disposition: 'inline' }));
+
+      proxyUrl.searchParams.get('disposition').should.eq('inline');
+    });
+  });
+
+  describe('record().relatedEntities()', () => {
+    const entityUri = 'http://data.europeana.eu/concept/base/94';
+    const entityFilterField = 'skos_concept';
+    const entityId = '94-architecture';
+    const entityType = 'topic';
+
+    const searchResponse = {
+      facets: [
+        {
+          name: 'skos_concept',
+          fields: [
+            { label: 'http://data.europeana.eu/agent/base/147831' },
+            { label: 'http://data.europeana.eu/agent/base/49928' }
+          ]
+        }
+      ]
+    };
+
+    it('filters on entity URI', async() => {
+      nock(BASE_URL)
+        .get('/search.json')
+        .query(query => query.query === `${entityFilterField}:"${entityUri}"`)
+        .reply(200, searchResponse);
+
+      await record().relatedEntities(entityType, entityId);
+
+      nock.isDone().should.be.true;
     });
   });
 

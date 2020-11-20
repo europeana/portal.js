@@ -2,7 +2,7 @@
   <div class="item-hero">
     <AwesomeSwiper
       :europeana-identifier="identifier"
-      :displayable-media="displayableMedia"
+      :displayable-media="media"
       @select="selectMedia"
     />
     <b-container>
@@ -10,16 +10,18 @@
         <b-col
           cols="12"
           class="col-lg-10 media-bar d-flex mx-auto"
+          data-qa="action bar"
         >
           <div class="d-flex justify-content-md-center align-items-center rights-wrapper">
             <RightsStatementButton
               :disabled="!rightsStatementIsUrl"
               :rights-statement="rightsStatement"
               class="mr-auto"
+              data-qa="provider name"
             />
           </div>
           <div
-            v-if="displayableMedia.length !== 1"
+            v-if="media.length !== 1"
             class="d-flex justify-content-md-center align-items-center pagination-wrapper"
           >
             <div class="swiper-pagination" />
@@ -39,7 +41,14 @@
           </div>
         </b-col>
       </b-row>
-      <SocialShareModal :media-url="selectedMedia.about" />
+      <SocialShareModal
+        :media-url="selectedMedia.about"
+      >
+        <ItemEmbedCode
+          v-if="enableItemEmbedCode"
+          :identifier="identifier"
+        />
+      </SocialShareModal>
     </b-container>
   </div>
 </template>
@@ -48,16 +57,17 @@
   import AwesomeSwiper from './AwesomeSwiper';
   import DownloadButton from '../generic/DownloadButton.vue';
   import RightsStatementButton from '../generic/RightsStatementButton.vue';
+  import ItemEmbedCode from './ItemEmbedCode.vue';
   import SocialShareModal from '../sharing/SocialShareModal.vue';
   import ShareButton from '../sharing/ShareButton.vue';
   import has from 'lodash/has';
-  import { isIIIFPresentation } from '../../plugins/media';
 
   export default {
     components: {
       AwesomeSwiper,
       DownloadButton,
       RightsStatementButton,
+      ItemEmbedCode,
       SocialShareModal,
       ShareButton,
       UserButtons: () => import('../account/UserButtons')
@@ -78,12 +88,13 @@
     },
     data() {
       return {
+        enableItemEmbedCode: Boolean(Number(process.env.ENABLE_ITEM_EMBED_CODE)),
         selectedMediaItem: null
       };
     },
     computed: {
       downloadUrl() {
-        return this.$proxyMedia(this.selectedMedia.about, this.identifier);
+        return this.$store.getters['apis/record'].mediaProxyUrl(this.selectedMedia.about, this.identifier);
       },
       rightsStatementIsUrl() {
         return RegExp('^https?://*').test(this.rightsStatement);
@@ -109,10 +120,6 @@
       },
       showUserButtons() {
         return ((Boolean(Number(process.env.ENABLE_XX_USER_AUTH)) && Boolean(Number(process.env.ENABLE_UNAUTHENTICATED_USER_BUTTONS))) || (this.$store.state.auth && this.$store.state.auth.loggedIn));
-      },
-      displayableMedia() {
-        // Crude check for IIIF content, which is to prevent newspapers from showing many IIIF viewers.
-        return isIIIFPresentation(this.media[0]) ? [this.media[0]] : this.media;
       }
     },
     methods: {
@@ -122,4 +129,3 @@
     }
   };
 </script>
-

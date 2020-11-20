@@ -232,7 +232,6 @@
         justify-content: center;
         margin-bottom: 1rem;
         width: 100%;
-        margin-left: 0;
       }
       .pagination-wrapper {
         order: 1;
@@ -251,9 +250,6 @@
         flex-direction: column;
         .user-buttons {
           justify-content: space-between;
-          button:last-child {
-            margin-right: 0;
-          }
         }
       }
     }

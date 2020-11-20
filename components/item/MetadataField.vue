@@ -33,13 +33,29 @@
             />
           </li>
         </template>
+        <template v-else-if="fieldData.url">
+          <li
+            :key="index"
+            :lang="langMappedValues.code"
+            data-qa="entity link"
+          >
+            <SmartLink
+              :destination="fieldData.url"
+              :link-class="name === 'edmDataProvider' ? 'view-at' : null"
+            >
+              {{ value }}
+            </SmartLink>
+          </li>
+        </template>
         <li
           v-else
           :key="index"
           :lang="langMappedValues.code"
           data-qa="literal value"
         >
-          {{ value }}
+          <template>
+            {{ value }}
+          </template>
         </li>
       </template>
     </ul>
@@ -49,12 +65,14 @@
 <script>
   import { langMapValueForLocale } from  '../../plugins/europeana/utils';
   import EntityField from './EntityField';
+  import SmartLink from '../generic/SmartLink';
 
   export default {
     name: 'MetadataField',
 
     components: {
-      EntityField
+      EntityField,
+      SmartLink
     },
 
     props: {
@@ -109,6 +127,8 @@
           return { values: [this.fieldData], code: '' };
         } else if (Array.isArray(this.fieldData)) {
           return { values: this.fieldData, code: '' };
+        } else if (Object.prototype.hasOwnProperty.call(this.fieldData, 'url')) {
+          return langMapValueForLocale(this.fieldData.value, this.$i18n.locale);
         }
         return langMapValueForLocale(this.fieldData, this.$i18n.locale, { omitUrisIfOtherValues: this.omitUrisIfOtherValues, omitAllUris: this.omitAllUris });
       },
@@ -125,6 +145,7 @@
 
 <style lang="scss" scoped>
   @import './assets/scss/variables.scss';
+  @import '../../assets/scss/icons.scss';
 
   .metadata-row {
     border-bottom: 1px solid #e7e7e9;
@@ -148,6 +169,12 @@
         &:not(:last-child):after {
           content: ';';
           padding: 0 0.2rem;
+        }
+        a.is-external-link:after {
+          content: '\e900';
+          @extend .icon-font;
+          vertical-align: initial;
+          font-size: 0.75rem;
         }
       }
     }

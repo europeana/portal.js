@@ -37,8 +37,6 @@
 </template>
 
 <script>
-  import { getEntitySuggestions, findEntities } from '../../../plugins/europeana/entity';
-
   export default {
     layout: 'contentful',
 
@@ -63,7 +61,7 @@
 
           const ids = sdk.field.getValue() || [];
           if (ids.length > 0) {
-            findEntities(ids)
+            this.$store.getters['apis/entity'].findEntities(ids)
               .then(entities => {
                 this.value = entities;
               });
@@ -78,7 +76,7 @@
       },
 
       inputSearchText(val) {
-        getEntitySuggestions(val, { type: 'concept' })
+        this.$store.getters['apis/entity'].getEntitySuggestions(val, { type: 'concept' })
           .then(suggestions => {
             this.suggestions = suggestions;
           });

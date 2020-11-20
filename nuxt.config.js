@@ -30,7 +30,7 @@ const config = {
   loading: {
     // Show progress bar immediately when testing, to aid detection that page
     // has started loading, then finished.
-    throttle: process.env.NODE_ENV === 'test' ? 0 : 200,
+    throttle: process.env.NUXT_LOADING_THROTTLE || 200,
     css: false,
     duration: 2500,
     continuous: true
@@ -84,9 +84,8 @@ const config = {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    '~/plugins/axiosLogger',
-    '~/plugins/europeana',
-    '~/plugins/vue/index',
+    '~/plugins/apis',
+    '~/plugins/vue',
     '~/plugins/i18n.js',
     '~/plugins/vue-filters',
     '~/plugins/vue-directives'
@@ -104,6 +103,7 @@ const config = {
       frameworkVersion: require('nuxt/package.json').version
     }],
     '~/modules/contentful-graphql',
+    '~/modules/axios-logger',
     ['~/modules/http', {
       ports: {
         http: process.env.HTTP_PORT,
@@ -129,7 +129,6 @@ const config = {
     '@nuxtjs/axios',
     '@nuxtjs/auth',
     '@nuxtjs/dotenv',
-    '~/modules/apis',
     'bootstrap-vue/nuxt',
     'cookie-universal-nuxt',
     ['nuxt-i18n', {
@@ -182,6 +181,11 @@ const config = {
     linkExactActiveClass: 'exact-active-link'
   },
 
+  serverMiddleware: [
+    '~/middleware/server/record-json',
+    { path: '/memory-usage', handler: '~/middleware/server/memory-usage' }
+  ],
+
   /*
   ** Build configuration
   */
@@ -230,6 +234,9 @@ const config = {
 };
 
 if (Number(process.env['ENABLE_XX_USER_AUTH'])) {
+  const keycloakOpenIDConnectEndpoint = (method) =>
+    `${process.env.OAUTH_ORIGIN}/auth/realms/${process.env.OAUTH_REALM}/protocol/openid-connect/${method}`;
+
   config.auth = {
     // Redirect routes: 'callback' option for keycloak redirects,
     // 'login' option for unauthorised redirection
@@ -245,16 +252,18 @@ if (Number(process.env['ENABLE_XX_USER_AUTH'])) {
     strategies: {
       local: false,
       keycloak: {
-        _scheme: process.env.OAUTH_SCHEME,
+        _scheme: 'oauth2',
         client_id: process.env.OAUTH_CLIENT,
-        scope: process.env.OAUTH_SCOPE.split(','),
+        scope: (process.env.OAUTH_SCOPE || 'openid').split(','),
         realm: process.env.OAUTH_REALM,
-        authorization_endpoint: `${process.env.OAUTH_ORIGIN}/auth/realms/${process.env.OAUTH_REALM}/protocol/openid-connect/auth`,
-        access_token_endpoint: `${process.env.OAUTH_ORIGIN}/auth/realms/${process.env.OAUTH_REALM}/protocol/openid-connect/token`,
-        userinfo_endpoint: `${process.env.OAUTH_ORIGIN}/auth/realms/${process.env.OAUTH_REALM}/protocol/openid-connect/userinfo`,
-        end_session_endpoint: `${process.env.OAUTH_ORIGIN}/auth/realms/${process.env.OAUTH_REALM}/protocol/openid-connect/logout`,
-        response_type: 'code id_token token',
-        token_type: 'Bearer'
+        authorization_endpoint: keycloakOpenIDConnectEndpoint('auth'),
+        access_token_endpoint: keycloakOpenIDConnectEndpoint('token'),
+        userinfo_endpoint: keycloakOpenIDConnectEndpoint('userinfo'),
+        end_session_endpoint: keycloakOpenIDConnectEndpoint('logout'),
+        response_type: process.env.OAUTH_RESPONSE_TYPE || 'code',
+        access_type: process.env.OAUTH_ACCESS_TYPE || 'online',
+        grant_type: process.env.OAUTH_GRANT_TYPE || 'authorization_code',
+        token_type: process.env.OAUTH_TOKEN_TYPE || 'Bearer'
       }
     },
     plugins: [{ src: '~/plugins/authAxios' }]

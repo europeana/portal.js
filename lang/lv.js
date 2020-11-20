@@ -36,7 +36,7 @@ export default {
   },
   "contentfulManual": {
     "footerNavigation": {
-      "about": "Par Europeana Collections",
+      "about": "Par Europeana",
       "forDevelopers": "Izstrādātājiem",
       "help": "Palīdzība",
       "meetUs": "Mūsu komanda",
@@ -45,7 +45,7 @@ export default {
     },
     "headerNavigation": {
       "explore": "Jaunumi",
-      "teachers": "Pedagogi"
+      "teachers": "Skolotājiem"
     }
   },
   "cookieDisclaimer": {

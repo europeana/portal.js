@@ -29,14 +29,14 @@
             <a
               v-if="request.method === 'GET'"
               target="_blank"
-              :href="request.uri"
+              :href="request.url"
             >
-              {{ request.uri }}
+              {{ request.url }}
             </a>
             <template
               v-else
             >
-              {{ request.uri }}
+              {{ request.url }}
             </template>
           </code>
         </li>

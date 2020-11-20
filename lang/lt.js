@@ -45,7 +45,7 @@ export default {
     },
     "headerNavigation": {
       "explore": "Tyrinėkite",
-      "teachers": "Pedagogai"
+      "teachers": "Mokytojai"
     }
   },
   "cookieDisclaimer": {

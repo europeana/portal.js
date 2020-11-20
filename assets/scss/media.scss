@@ -8,29 +8,13 @@
       box-shadow: $boxshadow-small;
     }
   }
-  .html-embed {
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    iframe {
-      display: inline;
-      margin-right: auto;
-      margin-left: auto;
-      border: 0;
-      box-shadow: none;
-    }
-  }
-  .container {
-    text-align: center;
-  }
-
   .media-player-wrapper {
     position: relative;
     height: 100%;
     margin: 0 auto;
     overflow: hidden;
-    
+    min-width: 19rem;
+
     iframe {
       border: 0;
       border-radius: 0;
@@ -44,11 +28,42 @@
       height: 100%;
     }
   }
+  .html-embed {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    iframe {
+      display: inline;
+      margin-right: auto;
+      margin-left: auto;
+      border: 0;
+      box-shadow: none;
+    }
+    .sketchfab-embed-wrapper {
+      width: 100%;
+      iframe {
+        width: 100%;
+        max-height: 35.5rem;
+        height: 80vh;
+        @media (max-width: $bp-medium) {
+          height: 22.5rem;
+        }
+      }
+    }
+  }
+  .container {
+    text-align: center;
+  }
 
   .audio-slide {
-    align-items: center;
     display: flex;
     height: 100%;
     width: 300px;
+    margin: 0 auto;
+    justify-content: center;
+    align-items: flex-end;
+    background: #f2f3f4;
+    border-radius: 15px;
   }
 }

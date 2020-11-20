@@ -24,6 +24,7 @@
 
 <script>
   import { genericThumbnail } from '../../plugins/europeana/thumbnail';
+
   import ContentCard from '../generic/ContentCard';
 
   export default {
@@ -87,7 +88,7 @@
       },
 
       imageUrl() {
-        const size = 'w200';
+        const size = 'w400';
 
         return this.value.edmPreview ?
           `${this.value.edmPreview[0]}&size=${size}` :

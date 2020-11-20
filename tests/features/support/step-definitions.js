@@ -32,6 +32,17 @@ defineStep('I find/identify/see/spot (a/an/the)( ){target} in/on a/an/the {targe
 defineStep('I find/identify/see/spot (a/an/the)( ){target} with the text {string}', (qa, text) =>
   i.seeATargetWithText(qa, text));
 
+defineStep('(a/an/the)( ){target} is/are highlighted', (qa) =>
+  i.haveHighlightedATarget(qa));
+
+defineStep('the memory used is less than {int} MB', memoryUsageMB => {
+  i.haveNotExcededMemoryUsageInMB(memoryUsageMB);
+});
+
+defineStep('I refresh the page', () => {
+  i.refreshThePage();
+});
+
 defineStep('I find/identify/see/spot (a/an/the)( )level {int} (section )heading with the text {string}', (headingLevel, text) =>
   i.seeASectionHeadingWithText(headingLevel, text));
 
@@ -99,9 +110,6 @@ defineStep('I should not be on (the ){target}', (pageName) =>
 defineStep('I wait for (a/an/the)( ){target}', (qa) =>
   i.waitForTargetToBeVisible(qa));
 
-defineStep('I wait for the page to load', () =>
-  i.waitForThePageToLoad());
-
 defineStep('I find/identify/see/spot a link to {string} in (a/an/the)( ){target}', (linkHref, qa) =>
   i.seeALinkInTarget(linkHref, qa));
 
@@ -114,11 +122,11 @@ defineStep('I should have/see/see/spot {int} {target}(s)', (count, qa) =>
 defineStep('I should see {int} {word} checkboxes/radio( )(buttons)', (count, inputName) =>
   i.countTargetByNameAttribute(count, inputName));
 
-defineStep('I should have/see/see/spot a meta label {target} with the value {string}', (label, value) =>
-  i.matchMetaLabelAndValue(label, value));
+defineStep('I should have/see/see/spot a metadata field for {word} with the value {string}', (field, value) =>
+  i.seeMetadataFieldValue(field, value));
 
-defineStep('I should have/see/see/spot a meta label {target} with the value {string} or the value {string}', (label, value, altValue) =>
-  i.matchMetaLabelAndValueOrValue(label, value, altValue));
+defineStep('I should have/see/see/spot a metadata field for {word} with the value {string} or the value {string}', (field, value, altValue) =>
+  i.seeMetadataFieldValue(field, value, altValue));
 
 defineStep('I have selected/chosen (the ){target} search results view', (viewName) =>
   i.selectSearchResultsView(viewName));
@@ -131,6 +139,9 @@ defineStep('I paginate/switch/go to page (number ){int}', (page) =>
 
 defineStep('I am on page (number ){int}', (page) =>
   i.amOnPageNumber(page));
+
+defineStep('I click the {string} tab', (tab) =>
+  i.clickOnTab(tab));
 
 defineStep('I go back', () =>
   i.goBack());
