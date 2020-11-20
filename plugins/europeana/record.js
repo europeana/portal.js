@@ -4,7 +4,7 @@ import omitBy from 'lodash/omitBy';
 import uniq from 'lodash/uniq';
 import merge from 'deepmerge';
 
-import { apiError } from './utils';
+import { apiError, selectLocaleForLangMap } from './utils';
 import search from './search';
 import { thumbnailUrl, thumbnailTypeForMimeType } from  './thumbnail';
 import { getEntityUri, getEntityQuery } from './entity';
@@ -16,13 +16,6 @@ export const axiosDefaults = {
   params: {
     wskey: process.env.EUROPEANA_RECORD_API_KEY || process.env.EUROPEANA_API_KEY
   }
-};
-
-const reduceEntity = (entity) => {
-  return Object.freeze({
-    about: entity.about,
-    prefLabel: entity.prefLabel
-  });
 };
 
 /**
@@ -358,22 +351,10 @@ const reduceLangMapsForLocale = (value, locale) => {
     return value.map(val => reduceLangMapsForLocale(val, locale));
   } else if (typeof value === 'object') {
     if (isLangMap(value)) {
-      let langMap;
-      // TODO: extend to match locale selection logic in utils/langMapValueForLocale()
-      if (value[locale]) {
-        langMap = {
-          [locale]: value[locale]
-        };
-      } else if (value['def']) {
-        langMap = {
-          def: value['def']
-        };
-      } else {
-        const firstKey = Object.keys(value);
-        langMap = {
-          [firstKey]: value[firstKey]
-        };
-      }
+      const selectedLocale = selectLocaleForLangMap(value, locale);
+      const langMap = {
+        [selectedLocale]: value[selectedLocale]
+      };
       return Object.freeze(langMap);
     } else {
       return Object.keys(value).reduce((memo, key) => {
@@ -387,10 +368,16 @@ const reduceLangMapsForLocale = (value, locale) => {
 };
 
 const isLangMap = (value) => {
-  if (typeof value !== 'object') return false;
-  return Object.keys(value).every(key => {
+  return (typeof value === 'object') && Object.keys(value).every(key => {
     // TODO: is this good enough to determine lang map or not?
-    return [2, 3].includes(key.length);
+    return key.length === 2 || key.length === 3;
+  });
+};
+
+const reduceEntity = (entity) => {
+  return Object.freeze({
+    about: entity.about,
+    prefLabel: entity.prefLabel
   });
 };
 

@@ -64,6 +64,13 @@ function languageKeys(locale) {
   return languageKeysWithFallbacks[locale] || localeFallbackKeys;
 }
 
+export const selectLocaleForLangMap = (langMap, locale) => {
+  for (const key of languageKeys(locale)) {
+    if (Object.prototype.hasOwnProperty.call(langMap, key)) return key;
+  }
+  return Object.keys(langMap)[0];
+};
+
 /**
  * Get the localised value for the current locale, with preferred fallbacks.
  * Will return the first value if no value was found in any of the preferred locales.
@@ -81,15 +88,7 @@ export function langMapValueForLocale(langMap, locale, options = {}) {
   let returnVal = { values: [] };
   if (!langMap) return returnVal;
 
-  for (let key of languageKeys(locale)) { // loop through all language key to find a match
-    setLangMapValuesAndCode(returnVal, langMap, key, locale);
-    if (returnVal.values.length >= 1) break;
-  }
-
-  // No preferred language found, so just add the first
-  if (returnVal.values.length === 0) {
-    setLangMapValuesAndCode(returnVal, langMap, Object.keys(langMap)[0], locale);
-  }
+  setLangMapValuesAndCode(returnVal, langMap, selectLocaleForLangMap(langMap, locale), locale);
 
   let withEntities = addEntityValues(returnVal, entityValues(langMap['def'], locale));
   // In case an entity resolves as only its URI as is the case in search responses
