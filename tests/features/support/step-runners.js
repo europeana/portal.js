@@ -7,7 +7,6 @@ const axios = require('axios');
 const https = require('https');
 
 const { client, createSession, closeSession, startWebDriver, stopWebDriver } = require('nightwatch-api');
-const { testPassword, testUser } = require('../config/nightwatch.conf.js').test_settings.default.globals;
 const { pageUrl } = require('./pages');
 const { url } = require('../config/nightwatch.conf.js').test_settings.default.globals;
 
@@ -284,9 +283,6 @@ module.exports = {
     const heapUsed = response.data.heapUsed;
     const heapUsedMB = heapUsed / (1024 * 1024);
     await client.expect(heapUsedMB).to.be.at.most(memoryUsageMB);
-  },
-  async logOut() {
-    await client.url(pageUrl('sign out page'));
   },
   async moveToElement(qaElementName) {
     await client.moveToElement(qaSelector(qaElementName), 10, 10);
