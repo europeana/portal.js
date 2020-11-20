@@ -45,6 +45,7 @@
         :media-url="selectedMedia.about"
       >
         <ItemEmbedCode
+          v-if="enableItemEmbedCode"
           :identifier="identifier"
         />
       </SocialShareModal>
@@ -87,6 +88,7 @@
     },
     data() {
       return {
+        enableItemEmbedCode: Boolean(Number(process.env.ENABLE_ITEM_EMBED_CODE)),
         selectedMediaItem: null
       };
     },
