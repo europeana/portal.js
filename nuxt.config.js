@@ -181,7 +181,10 @@ const config = {
     linkExactActiveClass: 'exact-active-link'
   },
 
-  serverMiddleware: ['~/middleware/server/record-json'],
+  serverMiddleware: [
+    '~/middleware/server/record-json',
+    { path: '/memory-usage', handler: '~/middleware/server/memory-usage' }
+  ],
 
   /*
   ** Build configuration

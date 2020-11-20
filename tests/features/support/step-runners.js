@@ -3,9 +3,13 @@
  * @see {@link http://nightwatchjs.org/api#expect-api|Nightwatch Expect assertions}
  */
 
+const axios = require('axios');
+const https = require('https');
+
 const { client, createSession, closeSession, startWebDriver, stopWebDriver } = require('nightwatch-api');
 const { testPassword, testUser } = require('../config/nightwatch.conf.js').test_settings.default.globals;
 const { pageUrl } = require('./pages');
+const { url } = require('../config/nightwatch.conf.js').test_settings.default.globals;
 
 /**
  * Generate CSS selector for `data-qa` attribute values.
@@ -270,6 +274,16 @@ module.exports = {
   },
   async hrefLangTags() {
     await client.expect.element('link[rel=alternate]').to.be.present;
+  },
+  async haveNotExcededMemoryUsageInMB(memoryUsageMB) {
+    const response = await axios.get(`${url}/memory-usage`, {
+      httpsAgent: new https.Agent({
+        rejectUnauthorized: false
+      })
+    });
+    const heapUsed = response.data.heapUsed;
+    const heapUsedMB = heapUsed / (1024 * 1024);
+    await client.expect(heapUsedMB).to.be.at.most(memoryUsageMB);
   },
   async logIn() {
     await client.url(pageUrl('sign in page'));
