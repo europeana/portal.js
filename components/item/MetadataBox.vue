@@ -62,7 +62,6 @@
         <b-tab
           v-if="location"
           :title="$t('record.location')"
-          active
           class="location"
         >
           <b-card-text

@@ -199,7 +199,8 @@
 
   .location .metadata-row {
     margin-left: 1.5rem;
-    ul {
+    ul, span {
+      font-size: $font-size-base;
       font-weight: 400;
       text-align: left !important;
     }
