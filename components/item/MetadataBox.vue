@@ -131,5 +131,14 @@
       margin-right: 0.5rem;
     }
   }
+
+  .location .disclaimer {
+    position: relative;
+    &:before {
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+  }
 </style>
 

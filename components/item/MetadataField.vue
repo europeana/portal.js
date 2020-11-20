@@ -197,7 +197,11 @@
     }
   }
 
-  .location .metadata-row ul {
-    font-weight: 400;
+  .location .metadata-row {
+    margin-left: 1.5rem;
+    ul {
+      font-weight: 400;
+      text-align: left !important;
+    }
   }
 </style>
