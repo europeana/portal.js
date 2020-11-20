@@ -40,7 +40,14 @@
           </div>
         </b-col>
       </b-row>
-      <SocialShareModal :media-url="selectedMedia.about" />
+      <SocialShareModal
+        :media-url="selectedMedia.about"
+      >
+        <ItemEmbedCode
+          v-if="enableItemEmbedCode"
+          :identifier="identifier"
+        />
+      </SocialShareModal>
     </b-container>
   </div>
 </template>
@@ -49,6 +56,7 @@
   import AwesomeSwiper from './AwesomeSwiper';
   import DownloadButton from '../generic/DownloadButton.vue';
   import RightsStatementButton from '../generic/RightsStatementButton.vue';
+  import ItemEmbedCode from './ItemEmbedCode.vue';
   import SocialShareModal from '../sharing/SocialShareModal.vue';
   import ShareButton from '../sharing/ShareButton.vue';
   import has from 'lodash/has';
@@ -58,6 +66,7 @@
       AwesomeSwiper,
       DownloadButton,
       RightsStatementButton,
+      ItemEmbedCode,
       SocialShareModal,
       ShareButton,
       UserButtons: () => import('../account/UserButtons')
@@ -78,6 +87,7 @@
     },
     data() {
       return {
+        enableItemEmbedCode: Boolean(Number(process.env.ENABLE_ITEM_EMBED_CODE)),
         selectedMediaItem: null
       };
     },

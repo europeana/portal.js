@@ -3,7 +3,6 @@ import nock from 'nock';
 import set, { BASE_URL } from '../../../../plugins/europeana/set';
 
 const axios = require('axios');
-axios.defaults.adapter = require('axios/lib/adapters/http');
 
 const setId = '1234';
 const itemId = '/123/abc';
