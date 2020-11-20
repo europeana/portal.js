@@ -198,7 +198,7 @@
   }
 
   .location .metadata-row {
-    margin-left: 1.5rem;
+    margin-left: 2rem;
     ul {
       font-weight: 400;
       text-align: left !important;
