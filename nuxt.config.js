@@ -235,7 +235,7 @@ const config = {
 
 
 const keycloakOpenIDConnectEndpoint = (method) =>
-  `${process.env.OAUTH_ORIGIN}/auth/realms/${process.env.OAUTH_REALM}/protocol/openid-connect/${method}`;
+  `${process.env.OAUTH_ORIGIN || 'https://auth.europeana.eu'}/auth/realms/${process.env.OAUTH_REALM || 'europeana'}/protocol/openid-connect/${method}`;
 
 config.auth = {
   // Redirect routes: 'callback' option for keycloak redirects,
@@ -254,8 +254,8 @@ config.auth = {
     keycloak: {
       _scheme: 'oauth2',
       client_id: process.env.OAUTH_CLIENT,
-      scope: (process.env.OAUTH_SCOPE || 'openid').split(','),
-      realm: process.env.OAUTH_REALM,
+      scope: (process.env.OAUTH_SCOPE || 'openid,profile,email,usersets').split(','),
+      realm: process.env.OAUTH_REALM || 'europeana',
       authorization_endpoint: keycloakOpenIDConnectEndpoint('auth'),
       access_token_endpoint: keycloakOpenIDConnectEndpoint('token'),
       userinfo_endpoint: keycloakOpenIDConnectEndpoint('userinfo'),
