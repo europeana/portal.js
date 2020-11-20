@@ -62,7 +62,6 @@
         <b-tab
           v-if="location"
           :title="$t('record.location')"
-          active
           class="location p-0"
         >
           <b-card-text
@@ -70,7 +69,7 @@
             data-qa="location section"
           >
             <p
-              class="disclaimer px-3 py-3 mb-0 d-flex"
+              class="disclaimer px-4 py-3 mb-0 d-flex"
             >
               <MetadataField
                 name="Location"
@@ -87,8 +86,7 @@
               marginwidth="0"
               src="https://www.openstreetmap.org/export/embed.html?bbox=-2.604821920394898%2C51.45002546436648%2C-2.596700191497803%2C51.45351217331659&amp;layer=mapnik&amp;marker=51.45176885212767%2C-2.60076105594635"
               style="margin-bottom: -0.5rem"
-            >
-            </iframe>
+            />
           </b-card-text>
         </b-tab>
       </b-tabs>
