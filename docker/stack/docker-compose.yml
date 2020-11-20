@@ -61,5 +61,3 @@ services:
       - WEBDRIVER_JA_HOST=chrome-ja
       - WEBDRIVER_NL_HOST=chrome-nl
       - APP_URL=https://nginx
-      - TEST_USER_NAME=fake_user@europeana.eu
-      - TEST_USER_PASSWORD=fake_password
