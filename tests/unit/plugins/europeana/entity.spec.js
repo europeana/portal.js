@@ -4,9 +4,6 @@ import api, {
   getEntityQuery, getEntityDescription, getEntitySlug, getEntityUri, BASE_URL
 } from '../../../../plugins/europeana/entity';
 
-const axios = require('axios');
-axios.defaults.adapter = require('axios/lib/adapters/http');
-
 const entityId = '94-architecture';
 const entityType = 'topic';
 const entityIdMisspelled = '94-architectuz';

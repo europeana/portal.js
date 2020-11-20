@@ -2,9 +2,6 @@ import nock from 'nock';
 import oEmbed, { oEmbeddable } from '../../../plugins/oembed';
 import supportedProviders from '../../../plugins/oembed/providers';
 
-const axios = require('axios');
-axios.defaults.adapter = require('axios/lib/adapters/http');
-
 describe('oEmbed()', () => {
   afterEach(() => {
     nock.cleanAll();

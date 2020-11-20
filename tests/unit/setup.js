@@ -6,7 +6,6 @@ chai.should();
 global.should = chai.should;
 
 // Always use HTTP adapter to prevent XHR weirdness during testing
-// TODO: now this is here, remove from individual unit tests
 const axios = require('axios');
 axios.defaults.adapter = require('axios/lib/adapters/http');
 
