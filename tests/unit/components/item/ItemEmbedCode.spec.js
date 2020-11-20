@@ -7,7 +7,6 @@ import ItemEmbedCode from '../../../../components/item/ItemEmbedCode.vue';
 const OEMBED_BASE_URL = 'https://oembedjs.europeana.eu';
 const identifier = '/123/abc';
 const html = '<iframe src=""></iframe>';
-// const link = 'http://example.org';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
@@ -102,7 +101,8 @@ describe('components/item/ItemEmbedCode', () => {
         $t: key => key
       }
     });
-    it('form for embed is not rendered', () => {
+
+    it('does not render form for embed', () => {
       const wrapper = factory();
 
       wrapper.find('[data-qa="share embed"]').exists().should.be.false;
