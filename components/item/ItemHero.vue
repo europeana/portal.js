@@ -87,8 +87,7 @@
     },
     data() {
       return {
-        selectedMediaItem: null,
-        oEmbedDataHtml: null
+        selectedMediaItem: null
       };
     },
     computed: {
