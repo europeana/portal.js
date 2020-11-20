@@ -182,8 +182,9 @@ const config = {
   },
 
   serverMiddleware: [
-    '~/middleware/server/record-json',
-    { path: '/memory-usage', handler: '~/middleware/server/memory-usage' }
+    { path: '/_/memory-usage', handler: '~/middleware/server/memory-usage' },
+    { path: '/_/version', handler: '~/middleware/server/version' },
+    '~/middleware/server/record-json'
   ],
 
   /*

@@ -275,7 +275,7 @@ module.exports = {
     await client.expect.element('link[rel=alternate]').to.be.present;
   },
   async haveNotExcededMemoryUsageInMB(memoryUsageMB) {
-    const response = await axios.get(`${url}/memory-usage`, {
+    const response = await axios.get(`${url}/_/memory-usage`, {
       httpsAgent: new https.Agent({
         rejectUnauthorized: false
       })
