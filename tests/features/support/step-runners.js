@@ -285,17 +285,8 @@ module.exports = {
     const heapUsedMB = heapUsed / (1024 * 1024);
     await client.expect(heapUsedMB).to.be.at.most(memoryUsageMB);
   },
-  async logIn() {
-    await client.url(pageUrl('sign in page'));
-    await this.submitCredentials();
-  },
   async logOut() {
     await client.url(pageUrl('sign out page'));
-  },
-  async submitCredentials() {
-    await client.setValue('#email', testUser);
-    await client.setValue('#password', testPassword);
-    await client.click('input[type="submit"]');
   },
   async moveToElement(qaElementName) {
     await client.moveToElement(qaSelector(qaElementName), 10, 10);
