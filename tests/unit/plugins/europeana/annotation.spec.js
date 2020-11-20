@@ -1,9 +1,6 @@
-import axios from 'axios';
 import nock from 'nock';
 
 import annotation, { BASE_URL } from '../../../../plugins/europeana/annotation';
-
-axios.defaults.adapter = require('axios/lib/adapters/http');
 
 describe('plugins/europeana/entity', () => {
   afterEach(() => {

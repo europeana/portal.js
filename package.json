@@ -1,6 +1,6 @@
 {
   "name": "@europeana/portal",
-  "version": "1.17.0",
+  "version": "1.19.1",
   "description": "Europeana Portal",
   "contributors": [
     "Richard Doe <richard.doe@europeana.eu>",
@@ -31,7 +31,7 @@
     "lint:fix": "npm run lint -- --fix",
     "size": "npm run build && size-limit",
     "start": "cross-env NODE_ENV=production node server/index.js",
-    "start:cluster": "cross-env NODE_ENV=production cservice --restartOnMemUsage 268435456 --cli false server/index.js",
+    "start:cluster": "cross-env NODE_ENV=production cservice --cli false server/index.js",
     "start:test": "cross-env NODE_ENV=test PORT=1337 node server/index.js",
     "storybook": "start-storybook -p 6006 -s ./.storybook/assets",
     "stylelint": "stylelint \"**/*.scss\" \"**/*.vue\" --config .stylelintrc.js",

@@ -30,7 +30,7 @@
         >
           <article>
             <ShareButton class="mb-4" />
-            <SocialShareModal :media-url="hero.image.url" />
+            <SocialShareModal :media-url="optimisedImageUrl" />
             <BrowseSections
               v-if="page"
               :sections="page.hasPartCollection.items"
@@ -147,6 +147,7 @@
         return this.hero ? this.hero.image : null;
       },
       optimisedImageUrl() {
+        if (!this.heroImage) return;
         return this.$options.filters.optimisedImageUrl(
           this.heroImage.url,
           this.heroImage.contentType,
