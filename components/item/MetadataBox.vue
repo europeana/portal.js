@@ -69,7 +69,7 @@
             data-qa="location section"
           >
             <p
-              class="disclaimer px-2 pb-3 d-flex"
+              class="disclaimer px-3 pb-3 d-flex"
             >
               <MetadataField
                 name="Location"
@@ -135,8 +135,7 @@
     position: relative;
     &:before {
       position: absolute;
-      left: 0;
-      top: 0;
+      left: 0.5rem;
     }
   }
 </style>
