@@ -74,15 +74,10 @@
               class="p-3"
               :field-data="location"
             />
-            <iframe
+            <MapEmbed
               v-if="mappableLocation && showLocationMap"
-              width="100%"
-              height="576"
-              frameborder="0"
-              scrolling="no"
-              marginheight="0"
-              marginwidth="0"
-              :src="mappableLocationIframeSrc"
+              :latitude="mappableLocation.latitude"
+              :longitude="mappableLocation.longitude"
             />
           </b-card-text>
         </b-tab>
@@ -98,7 +93,8 @@
     name: 'MetadataBox',
 
     components: {
-      MetadataField
+      MetadataField,
+      MapEmbed: () => import('../geo/MapEmbed')
     },
 
     props: {
@@ -132,18 +128,6 @@
         return this.location.def.find(loc => (
           (typeof loc === 'object') && loc.latitude && loc.longitude
         ));
-      },
-
-      mappableLocationIframeSrc() {
-        if (!this.mappableLocation) return null;
-
-        const lat = this.mappableLocation.latitude;
-        const lng = this.mappableLocation.longitude;
-
-        const latLng = `${lat},${lng}`;
-        const bbox = `${lng - 10},${lat - 5},${lng + 10},${lat + 5}`;
-
-        return `https://www.openstreetmap.org/export/embed.html?marker=${latLng}&bbox=${bbox}&layer=mapnik`;
       }
     },
 
