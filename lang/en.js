@@ -519,7 +519,6 @@ export default {
       }
     }
   },
-  "pageTitleBranding": " | Europeana",
   "readMore": "Read more",
   "record": {
     "allMetaData": "All metadata",
