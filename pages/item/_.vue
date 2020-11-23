@@ -190,7 +190,9 @@
         return { ...this.coreFields, ...this.fieldsAndKeywords };
       },
       locationData() {
-        return this.fields.dctermsSpatial ? this.fields.dctermsSpatial : '';
+        return Number(process.env.ENABLE_ITEM_PAGE_LOCATION_TAB) ?
+          this.fields.dctermsSpatial :
+          null;
       },
       edmRights() {
         return this.fields.edmRights ? this.fields.edmRights.def[0] : '';
