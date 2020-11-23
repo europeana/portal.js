@@ -288,5 +288,8 @@ module.exports = {
     const heapUsed = response.data.heapUsed;
     const heapUsedMB = heapUsed / (1024 * 1024);
     await client.expect(heapUsedMB).to.be.at.most(memoryUsageMB);
+  },
+  async moveToElement(qaElementName) {
+    await client.moveToElement(qaSelector(qaElementName), 10, 10);
   }
 };

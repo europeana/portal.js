@@ -28,6 +28,8 @@ Feature: item page
     And I see a `rights statement`
     And I see a `share button`
     And I see a `download button`
+    And I see a `add button`
+    And I see a `like button`
 
   Scenario: Share Modal
 
