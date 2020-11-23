@@ -6,7 +6,6 @@ import { BASE_URL } from '../../../plugins/europeana/set';
 import sinon from 'sinon';
 
 const axios = require('axios');
-axios.defaults.adapter = require('axios/lib/adapters/http');
 
 const createAxiosInstance = axiosOptions => {
   const myaxios = axios.create(axiosOptions);

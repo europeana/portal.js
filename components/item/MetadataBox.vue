@@ -62,21 +62,15 @@
         <b-tab
           v-if="location"
           :title="$t('record.location')"
-          class="location p-0"
         >
           <b-card-text
             text-tag="div"
             data-qa="location section"
           >
-            <p
-              class="disclaimer px-4 py-3 mb-0 d-flex"
-            >
-              <MetadataField
-                name="Location"
-                :field-data="location"
-                location
-              />
-            </p>
+            <MetadataField
+              name="dctermsSpatial"
+              :field-data="location"
+            />
             <iframe
               width="100%"
               height="576"
@@ -148,4 +142,3 @@
     }
   }
 </style>
-
