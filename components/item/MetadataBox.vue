@@ -143,7 +143,7 @@
         const latLng = `${lat},${lng}`;
         const bbox = `${lng - 10},${lat - 5},${lng + 10},${lat + 5}`;
 
-        return `https://www.openstreetmap.org/export/embed.html?marker=${latLng}&bbox=${bbox}&layer=mapnik&lang=en`;
+        return `https://www.openstreetmap.org/export/embed.html?marker=${latLng}&bbox=${bbox}&layer=mapnik`;
       }
     },
 
