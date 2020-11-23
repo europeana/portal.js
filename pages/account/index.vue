@@ -145,7 +145,7 @@
 
     head() {
       return {
-        title: this.$t('account.title') + this.$t('pageTitleBranding')
+        title: this.$pageHeadTitle(this.$t('account.title'))
       };
     }
   };

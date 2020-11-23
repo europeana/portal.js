@@ -108,7 +108,7 @@
     },
     head() {
       return {
-        title: this.title + this.$t('pageTitleBranding')
+        title: this.$pageHeadTitle(this.title)
       };
     },
     watchQuery: ['page']

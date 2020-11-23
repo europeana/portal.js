@@ -237,7 +237,7 @@
 
     head() {
       return {
-        title: this.displayTitle.values[0] + this.$t('pageTitleBranding')
+        title: this.$pageHeadTitle(this.displayTitle.values[0])
       };
     },
     async beforeRouteLeave(to, from, next) {

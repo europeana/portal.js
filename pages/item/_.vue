@@ -302,7 +302,7 @@
 
     head() {
       return {
-        title: this.metaTitle + this.$t('pageTitleBranding'),
+        title: this.$pageHeadTitle(this.metaTitle),
         meta: [
           { hid: 'title', name: 'title', content: this.metaTitle },
           { hid: 'description', name: 'description', content: this.metaDescription },
