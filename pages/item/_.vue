@@ -63,6 +63,7 @@
             <MetadataBox
               :all-metadata="allMetaData"
               :core-metadata="coreFields"
+              :location="locationData"
               :transcribing-annotations="transcribingAnnotations"
             />
           </b-col>
@@ -187,6 +188,11 @@
       },
       allMetaData() {
         return { ...this.coreFields, ...this.fieldsAndKeywords };
+      },
+      locationData() {
+        return Number(process.env.ENABLE_ITEM_PAGE_LOCATION_TAB) ?
+          this.fields.dctermsSpatial :
+          null;
       },
       edmRights() {
         return this.fields.edmRights ? this.fields.edmRights.def[0] : '';

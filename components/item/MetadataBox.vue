@@ -59,6 +59,20 @@
             </div>
           </b-card-text>
         </b-tab>
+        <b-tab
+          v-if="location"
+          :title="$t('record.location')"
+        >
+          <b-card-text
+            text-tag="div"
+            data-qa="location section"
+          >
+            <MetadataField
+              name="dctermsSpatial"
+              :field-data="location"
+            />
+          </b-card-text>
+        </b-tab>
       </b-tabs>
     </b-card>
   </div>
@@ -84,8 +98,11 @@
       transcribingAnnotations: {
         type: Array,
         default: () => []
+      },
+      location: {
+        type: Object,
+        default: null
       }
     }
-
   };
 </script>
