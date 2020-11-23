@@ -5,14 +5,8 @@
     data-qa="metadata field"
     class="metadata-row d-lg-flex"
   >
-    <span
-      v-if="location"
-      class="pr-1"
-    >
-      {{ $t('record.locationData') }}
-    </span>
     <label
-      v-else-if="labelled"
+      v-if="labelled"
       data-qa="label"
       class="m-0"
     >
@@ -109,10 +103,6 @@
       omitUrisIfOtherValues: {
         type: Boolean,
         default: false
-      },
-      location: {
-        type: Boolean,
-        default: false
       }
     },
 
@@ -194,15 +184,6 @@
       ul {
         flex: 1;
       }
-    }
-  }
-
-  .location .metadata-row {
-    margin-left: 2rem;
-    ul, span {
-      font-size: $font-size-base;
-      font-weight: 400;
-      text-align: left !important;
     }
   }
 </style>

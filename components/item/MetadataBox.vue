@@ -62,6 +62,8 @@
         <b-tab
           v-if="location"
           :title="$t('record.location')"
+          class="p-0"
+          @click="clickLocationTab"
         >
           <b-card-text
             text-tag="div"
@@ -69,17 +71,18 @@
           >
             <MetadataField
               name="dctermsSpatial"
+              class="p-3"
               :field-data="location"
             />
             <iframe
+              v-if="mappableLocation && showLocationMap"
               width="100%"
               height="576"
               frameborder="0"
               scrolling="no"
               marginheight="0"
               marginwidth="0"
-              src="https://www.openstreetmap.org/export/embed.html?bbox=-2.604821920394898%2C51.45002546436648%2C-2.596700191497803%2C51.45351217331659&amp;layer=mapnik&amp;marker=51.45176885212767%2C-2.60076105594635"
-              style="margin-bottom: -0.5rem"
+              :src="mappableLocationIframeSrc"
             />
           </b-card-text>
         </b-tab>
@@ -90,8 +93,10 @@
 
 <script>
   import MetadataField from './MetadataField';
+
   export default {
     name: 'MetadataBox',
+
     components: {
       MetadataField
     },
@@ -113,32 +118,39 @@
         type: Object,
         default: null
       }
+    },
+
+    data() {
+      return {
+        showLocationMap: false
+      };
+    },
+
+    computed: {
+      mappableLocation() {
+        if (!this.location || !this.location.def) return null;
+        return this.location.def.find(loc => (
+          (typeof loc === 'object') && loc.latitude && loc.longitude
+        ));
+      },
+
+      mappableLocationIframeSrc() {
+        if (!this.mappableLocation) return null;
+
+        const lat = this.mappableLocation.latitude;
+        const lng = this.mappableLocation.longitude;
+
+        const latLng = `${lat},${lng}`;
+        const bbox = `${lng - 10},${lat - 5},${lng + 10},${lat + 5}`;
+
+        return `https://www.openstreetmap.org/export/embed.html?marker=${latLng}&bbox=${bbox}&layer=mapnik&lang=en`;
+      }
+    },
+
+    methods: {
+      clickLocationTab() {
+        this.showLocationMap = true;
+      }
     }
   };
 </script>
-
-<style lang="scss" scoped>
-  @import './assets/scss/variables.scss';
-  @import './assets/scss/icons.scss';
-
-  .disclaimer {
-    align-items: center;
-    border-bottom: 1px solid $lightbluemagenta;
-
-    &:before {
-      @extend .icon-font;
-      content: '\e91f';
-      color: $blue;
-      font-size: 1.5rem;
-      line-height: initial;
-      margin-right: 0.5rem;
-    }
-  }
-
-  .location .disclaimer {
-    position: relative;
-    &:before {
-      position: absolute;
-    }
-  }
-</style>
