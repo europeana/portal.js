@@ -157,3 +157,6 @@ defineStep('I make a snapshot of (a/an/the)( ){target}', (pageName) =>
 
 defineStep('I should see alternate-hreflang tags', () =>
   i.hrefLangTags());
+
+defineStep('I hover over (a/an/the)( ){target}', (target) =>
+  i.moveToElement(target));

@@ -14,6 +14,9 @@ const store = new Vuex.Store({
       state: {
         locale: 'en'
       }
+    },
+    auth: {
+      loggedIn: false
     }
   }
 });

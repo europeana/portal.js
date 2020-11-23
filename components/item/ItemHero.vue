@@ -29,7 +29,6 @@
           <div class="d-flex justify-content-md-center align-items-center button-wrapper">
             <div class="ml-lg-auto d-flex">
               <UserButtons
-                v-if="showUserButtons"
                 v-model="identifier"
               />
               <ShareButton />
@@ -117,9 +116,6 @@
       },
       downloadEnabled() {
         return this.rightsStatement && !this.rightsStatement.includes('/InC/');
-      },
-      showUserButtons() {
-        return ((Boolean(Number(process.env.ENABLE_XX_USER_AUTH)) && Boolean(Number(process.env.ENABLE_UNAUTHENTICATED_USER_BUTTONS))) || (this.$store.state.auth && this.$store.state.auth.loggedIn));
       }
     },
     methods: {

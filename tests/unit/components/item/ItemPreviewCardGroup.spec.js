@@ -1,19 +1,35 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 import ItemPreviewCardGroup from '../../../../components/item/ItemPreviewCardGroup.vue';
+import sinon from 'sinon';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
+const storeDispatch = sinon.spy();
+const storeIsLikedGetter = sinon.stub();
 
 const factory = () => {
   return mount(ItemPreviewCardGroup, {
     localVue,
     mocks: {
+      $auth: { loggedIn: false },
       $path: (opts) => `/item/${opts.params.pathMatch}`,
       $i18n: {
         locale: 'en'
       },
-      $t: () => {}
+      $t: () => {},
+      $store: {
+        state: {
+          set: { ...{ liked: [] }, ...{} }
+        },
+        getters: {
+          'apis/record': {
+            mediaProxyUrl: () => 'proxied'
+          },
+          'set/isLiked': storeIsLikedGetter
+        },
+        dispatch: storeDispatch
+      }
     }
   });
 };
