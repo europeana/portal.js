@@ -5,12 +5,20 @@ const pkg = require('./package');
 const i18nLocales = require('./plugins/i18n/locales.js');
 const i18nDateTime = require('./plugins/i18n/datetime.js');
 
+const APP_SITE_NAME = 'Europeana';
+
 const config = {
+  publicRuntimeConfig: {
+    app: {
+      siteName: APP_SITE_NAME
+    }
+  },
+
   /*
   ** Headers of the page
   */
   head: {
-    title: pkg.name,
+    title: APP_SITE_NAME,
     htmlAttrs: {
       lang: 'en'
     },
@@ -87,6 +95,7 @@ const config = {
     '~/plugins/apis',
     '~/plugins/vue',
     '~/plugins/i18n.js',
+    '~/plugins/page',
     '~/plugins/vue-filters',
     '~/plugins/vue-directives'
   ],
