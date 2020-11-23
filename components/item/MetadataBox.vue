@@ -62,21 +62,15 @@
         <b-tab
           v-if="location"
           :title="$t('record.location')"
-          class="location"
         >
           <b-card-text
             text-tag="div"
             data-qa="location section"
           >
-            <p
-              class="disclaimer px-3 pb-3 d-flex"
-            >
-              <MetadataField
-                name="Location"
-                :field-data="location"
-                location
-              />
-            </p>
+            <MetadataField
+              name="dctermsSpatial"
+              :field-data="location"
+            />
           </b-card-text>
         </b-tab>
       </b-tabs>
@@ -112,31 +106,3 @@
     }
   };
 </script>
-
-<style lang="scss" scoped>
-  @import './assets/scss/variables.scss';
-  @import './assets/scss/icons.scss';
-
-  .disclaimer {
-    align-items: center;
-    border-bottom: 1px solid $lightbluemagenta;
-
-    &:before {
-      @extend .icon-font;
-      content: '\e91f';
-      color: $blue;
-      font-size: 1.5rem;
-      line-height: initial;
-      margin-right: 0.5rem;
-    }
-  }
-
-  .location .disclaimer {
-    position: relative;
-    &:before {
-      position: absolute;
-      left: 0.5rem;
-    }
-  }
-</style>
-
