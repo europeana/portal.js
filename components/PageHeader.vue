@@ -30,6 +30,7 @@
         variant="light"
         class="navbar-toggle collapsed flex-column align-items-center justify-content-center align-self-center ml-3"
         :aria-label="$t('header.showSidebar')"
+        data-qa="hamburger button"
         @click="showSidebar = !showSidebar"
       >
         <span />

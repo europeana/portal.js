@@ -13,7 +13,6 @@
   >
     <template v-slot:buttons>
       <UserButtons
-        v-if="showUserButtons"
         v-model="identifier"
         @like="$emit('like', identifier)"
         @unlike="$emit('unlike', identifier)"
@@ -73,10 +72,6 @@
 
       cardClass() {
         return this.variant === 'list' ? 'mx-0' : null;
-      },
-
-      showUserButtons() {
-        return Boolean(Number(process.env.ENABLE_XX_USER_AUTH)) && (this.variant === 'default') && (Boolean(Number(process.env.ENABLE_UNAUTHENTICATED_USER_BUTTONS)) || (this.$store.state.auth && this.$store.state.auth.loggedIn));
       },
 
       identifier() {

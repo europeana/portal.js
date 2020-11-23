@@ -5,7 +5,10 @@ const pkg = require('./package');
 const i18nLocales = require('./plugins/i18n/locales.js');
 const i18nDateTime = require('./plugins/i18n/datetime.js');
 
-const config = {
+const keycloakOpenIDConnectEndpoint = (method) =>
+  `${process.env.OAUTH_ORIGIN || 'https://auth.europeana.eu'}/auth/realms/${process.env.OAUTH_REALM || 'europeana'}/protocol/openid-connect/${method}`;
+
+module.exports = {
   /*
   ** Headers of the page
   */
@@ -115,6 +118,7 @@ const config = {
       }
     }],
     '~/modules/query-sanitiser',
+    '@nuxtjs/auth',
     '@nuxtjs/gtm'
   ],
   gtm: {
@@ -127,7 +131,6 @@ const config = {
   */
   modules: [
     '@nuxtjs/axios',
-    '@nuxtjs/auth',
     '@nuxtjs/dotenv',
     'bootstrap-vue/nuxt',
     'cookie-universal-nuxt',
@@ -164,6 +167,38 @@ const config = {
     }]
   ],
 
+  auth: {
+    // Redirect routes: 'callback' option for keycloak redirects,
+    // 'login' option for unauthorised redirection
+    // 'home' option for redirection after login
+    //  no redirect on logout
+    redirect: {
+      login: '/account/login',
+      logout: false,
+      callback: '/account/callback',
+      home: '/account'
+    },
+    fullPathRedirect: true,
+    strategies: {
+      local: false,
+      keycloak: {
+        _scheme: 'oauth2',
+        client_id: process.env.OAUTH_CLIENT,
+        scope: (process.env.OAUTH_SCOPE || 'openid,profile,email,usersets').split(','),
+        realm: process.env.OAUTH_REALM || 'europeana',
+        authorization_endpoint: keycloakOpenIDConnectEndpoint('auth'),
+        access_token_endpoint: keycloakOpenIDConnectEndpoint('token'),
+        userinfo_endpoint: keycloakOpenIDConnectEndpoint('userinfo'),
+        end_session_endpoint: keycloakOpenIDConnectEndpoint('logout'),
+        response_type: process.env.OAUTH_RESPONSE_TYPE || 'code',
+        access_type: process.env.OAUTH_ACCESS_TYPE || 'online',
+        grant_type: process.env.OAUTH_GRANT_TYPE || 'authorization_code',
+        token_type: process.env.OAUTH_TOKEN_TYPE || 'Bearer'
+      }
+    },
+    plugins: [{ src: '~/plugins/authAxios' }]
+  },
+
   router: {
     middleware: ['legacy/index', 'l10n'],
     extendRoutes(routes) {
@@ -181,7 +216,10 @@ const config = {
     linkExactActiveClass: 'exact-active-link'
   },
 
-  serverMiddleware: ['~/middleware/server/record-json'],
+  serverMiddleware: [
+    '~/middleware/server/record-json',
+    { path: '/memory-usage', handler: '~/middleware/server/memory-usage' }
+  ],
 
   /*
   ** Build configuration
@@ -229,42 +267,3 @@ const config = {
   // Opt-out of telemetry
   telemetry: false
 };
-
-if (Number(process.env['ENABLE_XX_USER_AUTH'])) {
-  const keycloakOpenIDConnectEndpoint = (method) =>
-    `${process.env.OAUTH_ORIGIN}/auth/realms/${process.env.OAUTH_REALM}/protocol/openid-connect/${method}`;
-
-  config.auth = {
-    // Redirect routes: 'callback' option for keycloak redirects,
-    // 'login' option for unauthorised redirection
-    // 'home' option for redirection after login
-    //  no redirect on logout
-    redirect: {
-      login: '/account/login',
-      logout: false,
-      callback: '/account/callback',
-      home: '/account'
-    },
-    fullPathRedirect: true,
-    strategies: {
-      local: false,
-      keycloak: {
-        _scheme: 'oauth2',
-        client_id: process.env.OAUTH_CLIENT,
-        scope: (process.env.OAUTH_SCOPE || 'openid').split(','),
-        realm: process.env.OAUTH_REALM,
-        authorization_endpoint: keycloakOpenIDConnectEndpoint('auth'),
-        access_token_endpoint: keycloakOpenIDConnectEndpoint('token'),
-        userinfo_endpoint: keycloakOpenIDConnectEndpoint('userinfo'),
-        end_session_endpoint: keycloakOpenIDConnectEndpoint('logout'),
-        response_type: process.env.OAUTH_RESPONSE_TYPE || 'code',
-        access_type: process.env.OAUTH_ACCESS_TYPE || 'online',
-        grant_type: process.env.OAUTH_GRANT_TYPE || 'authorization_code',
-        token_type: process.env.OAUTH_TOKEN_TYPE || 'Bearer'
-      }
-    },
-    plugins: [{ src: '~/plugins/authAxios' }]
-  };
-}
-
-module.exports = config;

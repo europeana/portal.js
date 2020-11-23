@@ -26,6 +26,8 @@ Feature: item page
     And I see a `rights statement`
     And I see a `share button`
     And I see a `download button`
+    And I see a `add button`
+    And I see a `like button`
 
   Scenario: Share Modal
 
@@ -80,3 +82,9 @@ Feature: item page
   Scenario: Seeing a notification banner
     When I open an `item page`
     Then I see a `notification banner`
+
+  Scenario: Copying embed code
+    When I open the `"Het laatste avondmaal" item page`
+    And  I click the `share button`
+    And  I click the `share embed textarea`
+    Then I see a `share embed copied notice`
