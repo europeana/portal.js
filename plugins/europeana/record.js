@@ -376,7 +376,7 @@ const reduceLangMapsForLocale = (value, locale) => {
 const isLangMap = (value) => {
   return (typeof value === 'object') && Object.keys(value).every(key => {
     // TODO: is this good enough to determine lang map or not?
-    return key.length === 2 || key.length === 3;
+    return /^[a-z]{2,3}(-[A-Z]{2})?$/.test(key);
   });
 };
 
