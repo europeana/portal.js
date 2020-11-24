@@ -288,10 +288,10 @@ export default (axiosOverrides) => {
       if (!this.$axios.defaults.baseURL.endsWith('/record')) path = '/record';
 
       return this.$axios.get(`${path}${europeanaId}.json`)
-        .then(response => reduceLangMapsForLocale(response.data.object, options.locale))
-        .then(reduced => this.parseRecordDataFromApiResponse(reduced))
-        .then(parsed => ({
-          record: parsed,
+        .then(response => this.parseRecordDataFromApiResponse(response.data.object))
+        .then(parsed => reduceLangMapsForLocale(parsed, options.locale))
+        .then(reduced => ({
+          record: reduced,
           error: null
         }))
         .catch((error) => {
@@ -355,6 +355,12 @@ const reduceLangMapsForLocale = (value, locale) => {
       const langMap = {
         [selectedLocale]: value[selectedLocale]
       };
+      // Preserve entities from .def property
+      if (selectedLocale !== 'def' && value.def) {
+        langMap.def = value.def
+          .filter(def => def.about)
+          .map(entity => reduceLangMapsForLocale(entity, locale));
+      }
       return Object.freeze(langMap);
     } else {
       return Object.keys(value).reduce((memo, key) => {
