@@ -1,5 +1,7 @@
 <template>
-  <div>
+  <div
+    data-qa="metadata box"
+  >
     <b-card
       no-body
       class="mb-3"
