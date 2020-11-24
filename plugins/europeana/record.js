@@ -1,6 +1,7 @@
 import axios from 'axios';
 import escapeRegExp from 'lodash/escapeRegExp';
 import omitBy from 'lodash/omitBy';
+import pick from 'lodash/pick';
 import uniq from 'lodash/uniq';
 import merge from 'deepmerge';
 
@@ -253,7 +254,16 @@ export default (axiosOverrides) => {
       const mediaUris = uniq([edmIsShownByOrAt].concat(aggregation.hasView || []).filter(isNotUndefined));
 
       // Filter web resources to isShownBy and hasView, respecting the ordering
-      const media = mediaUris.map((mediaUri) => aggregation.webResources.find((webResource) => mediaUri === webResource.about));
+      const media = mediaUris
+        .map(mediaUri => aggregation.webResources.find(webResource => mediaUri === webResource.about))
+        .map(webResource => pick(webResource, [
+          // Reduce to fields we need
+          'about',
+          'ebucoreHasMimeType',
+          'ebucoreWidth',
+          'ebucoreHeight',
+          'svcsHasService'
+        ]));
 
       for (const webResource of media) {
         // Inject thumbnail URLs
@@ -261,10 +271,6 @@ export default (axiosOverrides) => {
 
         // Inject service definitions, e.g. for IIIF
         webResource.services = services.filter((service) => (webResource.svcsHasService || []).includes(service.about));
-
-        // Remove unused data
-        delete webResource.htmlAttributionSnippet;
-        delete webResource.textAttributionSnippet;
       }
 
       // Crude check for IIIF content, which is to prevent newspapers from showing many
