@@ -157,7 +157,7 @@
         coreFields: null,
         description: null,
         error: null,
-        fields: null,
+        fields: {},
         identifier: null,
         isShownAt: null,
         media: [],
@@ -249,6 +249,9 @@
       },
       redirectNotificationsEnabled() {
         return Boolean(Number(process.env.ENABLE_LINKS_TO_CLASSIC));
+      },
+      pageHeadMetaOgImage() {
+        return this.media[0] ? this.media[0].thumbnails.large : null;
       }
     },
 
@@ -314,7 +317,7 @@
           { hid: 'description', name: 'description', content: this.metaDescription },
           { hid: 'og:title', property: 'og:title', content: this.metaTitle },
           { hid: 'og:description', property: 'og:description', content: this.metaDescription },
-          { hid: 'og:image', property: 'og:image', content: typeof this.media[0] !== 'undefined' && this.media[0].src ? this.media[0].src : '' },
+          { hid: 'og:image', property: 'og:image', content: this.pageHeadMetaOgImage },
           { hid: 'og:type', property: 'og:type', content: 'article' }
         ]
       };
