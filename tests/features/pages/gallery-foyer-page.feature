@@ -5,6 +5,7 @@ Feature: Gallery foyer page
     When I open the `gallery foyer page`
     Then I see a `content card` in the `gallery foyer`
     And I am on an accessible page
+    And I should have a Europeana branded page title
 
   Scenario: Open a gallery
     When I open the `gallery foyer page`

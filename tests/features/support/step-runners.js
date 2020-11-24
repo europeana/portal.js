@@ -274,6 +274,11 @@ module.exports = {
   async hrefLangTags() {
     await client.expect.element('link[rel=alternate]').to.be.present;
   },
+  async haveEuropeanaBrandedTitle() {
+    await client.getTitle(async(title) => {
+      await client.expect(title).to.match(new RegExp('\\| Europeana$'));
+    });
+  },
   async haveNotExcededMemoryUsageInMB(memoryUsageMB) {
     const response = await axios.get(`${url}/memory-usage`, {
       httpsAgent: new https.Agent({

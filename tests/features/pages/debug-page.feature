@@ -4,6 +4,7 @@ Feature: Debug page
   Scenario: Debug menu disabled by default
     Given I am on the `debug page`
     Then I don't have a `debug menu` in the `footer`
+    And I should have a Europeana branded page title
 
   Scenario: Enabling the debug menu with the API requests switch
     Given I am on the `debug page`

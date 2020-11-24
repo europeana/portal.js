@@ -264,7 +264,7 @@
     },
     head() {
       return {
-        title: this.title.values[0],
+        title: this.$pageHeadTitle(this.title.values[0]),
         meta: [
           { hid: 'og:type', property: 'og:type', content: 'article' },
           { hid: 'title', name: 'title', content: this.title.values[0] },

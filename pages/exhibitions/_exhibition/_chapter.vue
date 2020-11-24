@@ -171,7 +171,7 @@
     },
     head() {
       return {
-        title: this.page.name,
+        title: this.$pageHeadTitle(this.page.name),
         meta: [
           { hid: 'title', name: 'title', content: this.page.name },
           { hid: 'og:title', property: 'og:title', content: this.page.name },

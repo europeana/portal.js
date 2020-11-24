@@ -7,12 +7,14 @@ Feature: item page
     And I see the `main metadata section`
     And I see a `metadata field`
     And I am on an accessible page
+    And I should have a Europeana branded page title
 
   Scenario: Attempting to view an item page which doesn't exist
 
     When I open `/en/item/123456/THIS_IDENTIFIER_DOES_NOT_EXIST`
     Then I see an `error notice`
     And I am on an accessible page
+    And I should have a Europeana branded page title
 
   Scenario: Multiple items displayed in swiper
 
