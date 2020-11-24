@@ -262,6 +262,7 @@ export default (axiosOverrides) => {
           'ebucoreHasMimeType',
           'ebucoreWidth',
           'ebucoreHeight',
+          'isNextInSequence',
           'svcsHasService'
         ]));
 
@@ -387,10 +388,7 @@ const isLangMap = (value) => {
 };
 
 const reduceEntity = (entity) => {
-  return Object.freeze({
-    about: entity.about,
-    prefLabel: entity.prefLabel
-  });
+  return Object.freeze(pick(entity, ['about', 'prefLabel']));
 };
 
 /**
