@@ -1,6 +1,6 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 
-import MapEmbed from '../../../../components/geo/MapEmbed.vue';
+import MapEmbed from '../../../../components/geo/MapEmbed';
 
 const localVue = createLocalVue();
 
@@ -18,7 +18,7 @@ describe('components/geo/MapEmbed', () => {
 
     const iframe =  wrapper.find('iframe');
 
-    iframe.should.exist;
+    iframe.exists().should.be.true;
   });
 
   describe('marker', () => {

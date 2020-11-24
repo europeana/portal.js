@@ -7,6 +7,7 @@
       <b-tabs card>
         <b-tab
           :title="$t('record.goodToKnow')"
+          data-qa="good to know tab"
           active
         >
           <b-card-text
@@ -23,6 +24,7 @@
         </b-tab>
         <b-tab
           :title="$t('record.allMetaData')"
+          data-qa="all metadata tab"
         >
           <b-card-text
             text-tag="div"
@@ -38,6 +40,7 @@
         <b-tab
           v-if="Boolean(transcribingAnnotations.length)"
           :title="$t('record.transcription')"
+          data-qa="transcription tab"
         >
           <b-card-text
             text-tag="div"
@@ -63,11 +66,11 @@
           v-if="location"
           :title="$t('record.location')"
           class="p-0"
+          data-qa="location tab"
           @click="clickLocationTab"
         >
           <b-card-text
             text-tag="div"
-            data-qa="location section"
           >
             <MetadataField
               name="dctermsSpatial"
@@ -76,6 +79,7 @@
             />
             <MapEmbed
               v-if="mappableLocation && showLocationMap"
+              data-qa="map embed"
               :latitude="mappableLocation.latitude"
               :longitude="mappableLocation.longitude"
             />
@@ -127,7 +131,7 @@
         if (!this.location || !this.location.def) return null;
         return this.location.def.find(loc => (
           (typeof loc === 'object') && loc.latitude && loc.longitude
-        ));
+        )) || null;
       }
     },
 
