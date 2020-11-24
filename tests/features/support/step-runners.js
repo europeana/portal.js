@@ -274,6 +274,11 @@ module.exports = {
   async hrefLangTags() {
     await client.expect.element('link[rel=alternate]').to.be.present;
   },
+  async haveEuropeanaBrandedTitle() {
+    await client.getTitle(async(title) => {
+      await client.expect(title).to.match(new RegExp('\\| Europeana$'));
+    });
+  },
   async haveNotExcededMemoryUsageInMB(memoryUsageMB) {
     const response = await axios.get(`${url}/memory-usage`, {
       httpsAgent: new https.Agent({
@@ -283,5 +288,8 @@ module.exports = {
     const heapUsed = response.data.heapUsed;
     const heapUsedMB = heapUsed / (1024 * 1024);
     await client.expect(heapUsedMB).to.be.at.most(memoryUsageMB);
+  },
+  async moveToElement(qaElementName) {
+    await client.moveToElement(qaSelector(qaElementName), 10, 10);
   }
 };

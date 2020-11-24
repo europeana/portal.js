@@ -100,7 +100,7 @@
 
     head() {
       return {
-        title: this.$t('blog.blog')
+        title: this.$pageHeadTitle(this.$t('blog.blog'))
       };
     },
 

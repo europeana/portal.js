@@ -8,3 +8,4 @@ Feature: User Set Page
     And I see an `item previews grid`
     And I see an `item preview`
     And I am on an accessible page
+    And I should have a Europeana branded page title

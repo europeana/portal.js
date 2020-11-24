@@ -145,7 +145,7 @@
 
     head() {
       return {
-        title: this.$t('account.title')
+        title: this.$pageHeadTitle(this.$t('account.title'))
       };
     }
   };

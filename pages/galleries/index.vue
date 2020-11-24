@@ -85,7 +85,7 @@
     },
     head() {
       return {
-        title: this.$tc('galleries.galleries', 2)
+        title: this.$pageHeadTitle(this.$tc('galleries.galleries', 2))
       };
     },
     watchQuery: ['page']

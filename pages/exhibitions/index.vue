@@ -95,7 +95,7 @@
     },
     head() {
       return {
-        title: this.$tc('exhibitions.exhibitions', 2)
+        title: this.$pageHeadTitle(this.$tc('exhibitions.exhibitions', 2))
       };
     },
     watchQuery: ['page'],
