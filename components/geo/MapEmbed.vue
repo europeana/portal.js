@@ -1,7 +1,6 @@
 <template>
   <div
     class="map-embed"
-    data-qa="map embed"
   >
     <label
       for="map-embed"
@@ -19,6 +18,7 @@
     >
       <iframe
         id="map-embed"
+        data-qa="map embed"
         class="embed-responsive-item"
         frameborder="0"
         scrolling="no"
