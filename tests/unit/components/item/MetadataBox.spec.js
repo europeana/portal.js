@@ -9,9 +9,11 @@ localVue.use(BootstrapVue);
 const factory = (propsData) => shallowMount(MetadataBox, {
   localVue,
   propsData,
-  // stubs: ['b-tab'],
   mocks: {
-    $t: (key) => key
+    $t: (key) => key,
+    $i18n: {
+      locale: 'en'
+    }
   }
 });
 
