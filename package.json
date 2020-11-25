@@ -68,6 +68,7 @@
     "nuxt-i18n": "^6.10.1",
     "qs": "^6.6.0",
     "swiper": "^6.1.2",
+    "unfetch": "^4.2.0",
     "vue": "^2.6.12",
     "vue-awesome-swiper": "^4.1.1",
     "vue-client-only": "^2.0.0",
