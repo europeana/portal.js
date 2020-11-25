@@ -14,16 +14,18 @@
       </span>
       {{ formattedCoordinates }}
     </label>
-    <iframe
-      id="map-embed"
-      width="100%"
-      height="576"
-      frameborder="0"
-      scrolling="no"
-      marginheight="0"
-      marginwidth="0"
-      :src="iframeSrc"
-    />
+    <div style="--aspect-ratio:16/9;">
+      <iframe
+        id="map-embed"
+        width="100%"
+        height="576"
+        frameborder="0"
+        scrolling="no"
+        marginheight="0"
+        marginwidth="0"
+        :src="iframeSrc"
+      />
+    </div>
   </div>
 </template>
 
@@ -97,9 +99,8 @@
       display: block;
       margin-bottom: 0;
     }
-    iframe {
-      display: block;
 
+    iframe {
       @media (max-width: $bp-small) {
         max-height: 70vh;
       }

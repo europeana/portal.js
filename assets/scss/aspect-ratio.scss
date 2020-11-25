@@ -1,0 +1,29 @@
+// Aspect ratio custom property
+//
+// To use, wrap the element you want to be scaled by aspect ratio like:
+// <div style="--aspect-ratio:16/9;">
+//   <iframe src="..."></iframe><!-- this iframe will be scaled by aspect ratio -->
+// </div>
+//
+// @see https://css-tricks.com/aspect-ratio-boxes/#using-custom-properties
+
+[style*='--aspect-ratio'] > :first-child {
+  width: 100%;
+}
+
+@supports (--custom:property) {
+  [style*='--aspect-ratio'] {
+    position: relative;
+  }
+  [style*='--aspect-ratio']::before {
+    content: '';
+    display: block;
+    padding-bottom: calc(100% / (var(--aspect-ratio)));
+  }
+  [style*='--aspect-ratio'] > :first-child {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+  }
+}
