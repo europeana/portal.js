@@ -1,3 +1,4 @@
 export default (req, res) => {
-  res.json(process.memoryUsage());
+  res.setHeader('Content-Type', 'application/json');
+  res.end(JSON.stringify(process.memoryUsage()));
 };
