@@ -53,8 +53,7 @@
     data() {
       return {
         latitudeBoundaryDegrees: 5,
-        longitudeBoundaryDegrees: 10,
-        showLocationMap: false
+        longitudeBoundaryDegrees: 10
       };
     },
 
@@ -100,6 +99,10 @@
     }
     iframe {
       display: block;
+
+      @media (max-width: $bp-small) {
+        max-height: 70vh;
+      }
     }
   }
 </style>
