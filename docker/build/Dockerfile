@@ -21,4 +21,4 @@ RUN npm install && \
 
 ENV NODE_ENV=production
 
-CMD ["nuxt", "start"]
+CMD ["npm", "run", "start"]

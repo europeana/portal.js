@@ -8,7 +8,7 @@ import { apiError } from './utils';
 import search from './search';
 import { thumbnailUrl, thumbnailTypeForMimeType } from  './thumbnail';
 import { getEntityUri, getEntityQuery } from './entity';
-import { combineMerge } from '../utils';
+import { isIIIFPresentation } from '../media';
 
 export const BASE_URL = process.env.EUROPEANA_RECORD_API_URL || 'https://api.europeana.eu/record';
 export const axiosDefaults = {
@@ -206,7 +206,7 @@ export default (axiosOverrides) => {
           memo[entity.about] = entity;
           return memo;
         }, {});
-      const proxyData = merge.all(edm.proxies, { arrayMerge: combineMerge });
+      const proxyData = merge.all(edm.proxies);
 
       return {
         altTitle: proxyData.dctermsAlternative,
@@ -259,8 +259,15 @@ export default (axiosOverrides) => {
         webResource.services = services.filter((service) => (webResource.svcsHasService || []).includes(service.about));
       }
 
+      // Crude check for IIIF content, which is to prevent newspapers from showing many
+      // IIIF viewers.
+      //
+      // Also greatly minimises response size, and hydration cost, for IIIF with
+      // many web resources, all of which are contained in a single manifest anyway.
+      const displayable = isIIIFPresentation(media[0]) ? [media[0]] : media;
+
       // Sort by isNextInSequence property if present
-      return sortByIsNextInSequence(media);
+      return sortByIsNextInSequence(displayable);
     },
 
     /**

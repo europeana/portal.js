@@ -10,6 +10,9 @@
 Configuration options can be set in a .env file (see [.env.example](/.env.example))
 or via ENV variables on your machine.
 
+Some core features such as authentication and editorial content require the relevant configuration options to be specified.
+In particular, pay attention to the Europeana APIs, Contentful and oAuth sections in the example .env file.
+
 ## Build
 ```shell
 # install package dependencies

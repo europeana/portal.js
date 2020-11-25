@@ -126,8 +126,9 @@ export default ($axios) => ({
    * @param {string} itemId the id of the item to be added or deleted, with leading slash
    * @return {Object} API response data
    */
-  modifyItems(action, setId, itemId) {
+  async modifyItems(action, setId, itemId) {
     const apiCall = action === 'add' ? $axios.put : $axios.delete;
+
     return apiCall(setApiUrl(`/${setIdFromUri(setId)}${itemId}`), { params: paramsWithApiKey() })
       .then(response => response.data)
       .catch(error => {

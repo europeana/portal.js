@@ -37,7 +37,6 @@ export default ({ store, app }, inject) => {
 
     return config;
   };
-  axios.interceptors.request.use(requestInterceptor);
 
   app.router.beforeEach((to, from, next) => {
     if (!store.state[STORE_MODULE_NAME].recording) {

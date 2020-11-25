@@ -36,7 +36,7 @@ export default {
   },
   "contentfulManual": {
     "footerNavigation": {
-      "about": "Acerca de Europeana Collections",
+      "about": "Acerca de Europeana",
       "forDevelopers": "Para desarrolladores",
       "help": "Ayuda",
       "meetUs": "Nuestro equipo",
@@ -45,7 +45,7 @@ export default {
     },
     "headerNavigation": {
       "explore": "Explorar",
-      "teachers": "Educadores"
+      "teachers": "Profesores"
     }
   },
   "cookieDisclaimer": {
@@ -420,7 +420,7 @@ export default {
   "linksToClassic": {
     "home": {
       "linkText": "Ir a la web original de Europeana.",
-      "text": "Está viviendo la nueva experienia Europeana."
+      "text": "Está viviendo la nueva experiencia Europeana."
     },
     "record": {
       "linkText": "Ver este objeto en la web original de Europeana.",

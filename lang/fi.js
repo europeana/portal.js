@@ -36,7 +36,7 @@ export default {
   },
   "contentfulManual": {
     "footerNavigation": {
-      "about": "Tietoja Europeana Collections",
+      "about": "Tietoja Europeana",
       "forDevelopers": "Kehittäjille",
       "help": "Apua",
       "meetUs": "Tutustu tiimiin",

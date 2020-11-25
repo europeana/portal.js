@@ -25,4 +25,4 @@ RUN npm run build
 
 ENV NODE_ENV=production
 
-CMD ["npm", "run", "start:cluster"]
+CMD ["npm", "run", "start"]

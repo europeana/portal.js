@@ -11,6 +11,7 @@ localVue.filter('convertNewLine', (val) => {
   return val.replace('/n', '<br/>');
 });
 localVue.use(BootstrapVue);
+localVue.use(VueI18n);
 
 const i18n = new VueI18n({
   locale: 'en',

@@ -46,7 +46,7 @@
               attribution: false,
               canvas: false,
               annotations: true,
-              search: false
+              search: true
             },
             defaultSideBarPanel: 'annotations'
           },
@@ -97,8 +97,7 @@
 
     head() {
       return {
-        title: 'IIIF',
-
+        title: this.$pageHeadTitle('IIIF'),
         script: [
           { src: `${this.MIRADOR_BUILD_PATH}/mirador.min.js` }
         ]

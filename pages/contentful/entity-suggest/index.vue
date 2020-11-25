@@ -97,7 +97,7 @@
 
     head() {
       return {
-        title: 'Entity suggest - Contentful app'
+        title: this.$pageHeadTitle('Entity suggest - Contentful app')
       };
     }
   };

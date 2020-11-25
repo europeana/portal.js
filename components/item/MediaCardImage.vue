@@ -4,7 +4,8 @@
     :href="imageLink"
     target="_blank"
   >
-    <b-img-lazy
+    <component
+      :is="lazy ? 'b-img-lazy' : 'b-img'"
       :src="media.thumbnails['large']"
       class="w-auto"
       alt=""
@@ -16,7 +17,8 @@
       ({{ $t('newWindow') }})
     </span>
   </b-link>
-  <b-img-lazy
+  <component
+    :is="lazy ? 'b-img-lazy' : 'b-img'"
     v-else-if="!imageLink && media.thumbnails['large']"
     :src="media.thumbnails['large']"
     alt=""
@@ -32,6 +34,10 @@
       media: {
         type: Object,
         default: null
+      },
+      lazy: {
+        type: Boolean,
+        default: true
       },
       europeanaIdentifier: {
         type: String,

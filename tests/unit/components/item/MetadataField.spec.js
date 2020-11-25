@@ -205,4 +205,44 @@ describe('components/item/MetadataField', () => {
       fieldValues.should.have.lengthOf(2);
     });
   });
+  context('when there is a linked value', () => {
+    context('when the link has a url', () => {
+      const props = {
+        name: 'edmDataProvider',
+        fieldData: {
+          url: 'http://www.mimo-db.eu/MIMO/infodoc/ged/view.aspx?eid=OAI_IMAGE_PROJECTS_LIB_ED_AC_UK_10683_17533',
+          value: { en: ['University of Edinburgh'] }
+        }
+      };
+
+      it('outputs a field wrapped in a link', () => {
+        const wrapper = factory();
+
+        wrapper.setProps(props);
+
+        const fieldValues = wrapper.findAll('[data-qa="metadata field"] ul [data-qa="entity link"]');
+        fieldValues.exists().should.be.true;
+      });
+    });
+    context('when the link has no url', () => {
+      const props = {
+        name: 'edmDataProvider',
+        fieldData: {
+          url: undefined,
+          value: { en: ['National Library of Estonia'] }
+        }
+      };
+
+      it('outputs a literal value instead of a link', () => {
+        const wrapper = factory();
+
+        wrapper.setProps(props);
+
+        const link = wrapper.findAll('[data-qa="metadata field"] ul [data-qa="entity link"]');
+        const fieldValues = wrapper.findAll('[data-qa="metadata field"] ul [data-qa="literal value"]');
+        link.exists().should.be.false;
+        fieldValues.exists().should.be.true;
+      });
+    });
+  });
 });

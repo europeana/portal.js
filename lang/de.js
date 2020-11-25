@@ -36,7 +36,7 @@ export default {
   },
   "contentfulManual": {
     "footerNavigation": {
-      "about": "Über Europeana Collections",
+      "about": "Über Europeana",
       "forDevelopers": "Für Entwickler",
       "help": "Hilfe",
       "meetUs": "Lernen Sie das Team kennen",
@@ -45,7 +45,7 @@ export default {
     },
     "headerNavigation": {
       "explore": "Erkunden",
-      "teachers": "Pädagogen"
+      "teachers": "Lehrerinnen und Lehrerinnen"
     }
   },
   "cookieDisclaimer": {

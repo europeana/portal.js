@@ -5,12 +5,23 @@ const pkg = require('./package');
 const i18nLocales = require('./plugins/i18n/locales.js');
 const i18nDateTime = require('./plugins/i18n/datetime.js');
 
-const config = {
+const APP_SITE_NAME = 'Europeana';
+
+const keycloakOpenIDConnectEndpoint = (method) =>
+  `${process.env.OAUTH_ORIGIN || 'https://auth.europeana.eu'}/auth/realms/${process.env.OAUTH_REALM || 'europeana'}/protocol/openid-connect/${method}`;
+
+module.exports = {
+  publicRuntimeConfig: {
+    app: {
+      siteName: APP_SITE_NAME
+    }
+  },
+
   /*
   ** Headers of the page
   */
   head: {
-    title: pkg.name,
+    title: APP_SITE_NAME,
     htmlAttrs: {
       lang: 'en'
     },
@@ -84,10 +95,10 @@ const config = {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    '~/plugins/axiosLogger',
     '~/plugins/apis',
     '~/plugins/vue',
     '~/plugins/i18n.js',
+    '~/plugins/page',
     '~/plugins/vue-filters',
     '~/plugins/vue-directives'
   ],
@@ -104,6 +115,7 @@ const config = {
       frameworkVersion: require('nuxt/package.json').version
     }],
     '~/modules/contentful-graphql',
+    '~/modules/axios-logger',
     ['~/modules/http', {
       ports: {
         http: process.env.HTTP_PORT,
@@ -115,6 +127,7 @@ const config = {
       }
     }],
     '~/modules/query-sanitiser',
+    '@nuxtjs/auth',
     '@nuxtjs/gtm'
   ],
   gtm: {
@@ -127,7 +140,6 @@ const config = {
   */
   modules: [
     '@nuxtjs/axios',
-    '@nuxtjs/auth',
     '@nuxtjs/dotenv',
     'bootstrap-vue/nuxt',
     'cookie-universal-nuxt',
@@ -164,6 +176,38 @@ const config = {
     }]
   ],
 
+  auth: {
+    // Redirect routes: 'callback' option for keycloak redirects,
+    // 'login' option for unauthorised redirection
+    // 'home' option for redirection after login
+    //  no redirect on logout
+    redirect: {
+      login: '/account/login',
+      logout: false,
+      callback: '/account/callback',
+      home: '/account'
+    },
+    fullPathRedirect: true,
+    strategies: {
+      local: false,
+      keycloak: {
+        _scheme: 'oauth2',
+        client_id: process.env.OAUTH_CLIENT,
+        scope: (process.env.OAUTH_SCOPE || 'openid,profile,email,usersets').split(','),
+        realm: process.env.OAUTH_REALM || 'europeana',
+        authorization_endpoint: keycloakOpenIDConnectEndpoint('auth'),
+        access_token_endpoint: keycloakOpenIDConnectEndpoint('token'),
+        userinfo_endpoint: keycloakOpenIDConnectEndpoint('userinfo'),
+        end_session_endpoint: keycloakOpenIDConnectEndpoint('logout'),
+        response_type: process.env.OAUTH_RESPONSE_TYPE || 'code',
+        access_type: process.env.OAUTH_ACCESS_TYPE || 'online',
+        grant_type: process.env.OAUTH_GRANT_TYPE || 'authorization_code',
+        token_type: process.env.OAUTH_TOKEN_TYPE || 'Bearer'
+      }
+    },
+    plugins: [{ src: '~/plugins/authAxios' }]
+  },
+
   router: {
     middleware: ['legacy/index', 'l10n'],
     extendRoutes(routes) {
@@ -182,6 +226,7 @@ const config = {
   },
 
   serverMiddleware: [
+    { path: '/memory-usage', handler: '~/middleware/server/memory-usage' },
     '~/middleware/server/logging',
     '~/middleware/server/record-json'
   ],
@@ -232,37 +277,3 @@ const config = {
   // Opt-out of telemetry
   telemetry: false
 };
-
-if (Number(process.env['ENABLE_XX_USER_AUTH'])) {
-  config.auth = {
-    // Redirect routes: 'callback' option for keycloak redirects,
-    // 'login' option for unauthorised redirection
-    // 'home' option for redirection after login
-    //  no redirect on logout
-    redirect: {
-      login: '/account/login',
-      logout: false,
-      callback: '/account/callback',
-      home: '/account'
-    },
-    fullPathRedirect: true,
-    strategies: {
-      local: false,
-      keycloak: {
-        _scheme: process.env.OAUTH_SCHEME,
-        client_id: process.env.OAUTH_CLIENT,
-        scope: process.env.OAUTH_SCOPE.split(','),
-        realm: process.env.OAUTH_REALM,
-        authorization_endpoint: `${process.env.OAUTH_ORIGIN}/auth/realms/${process.env.OAUTH_REALM}/protocol/openid-connect/auth`,
-        access_token_endpoint: `${process.env.OAUTH_ORIGIN}/auth/realms/${process.env.OAUTH_REALM}/protocol/openid-connect/token`,
-        userinfo_endpoint: `${process.env.OAUTH_ORIGIN}/auth/realms/${process.env.OAUTH_REALM}/protocol/openid-connect/userinfo`,
-        end_session_endpoint: `${process.env.OAUTH_ORIGIN}/auth/realms/${process.env.OAUTH_REALM}/protocol/openid-connect/logout`,
-        response_type: 'code id_token token',
-        token_type: 'Bearer'
-      }
-    },
-    plugins: [{ src: '~/plugins/authAxios' }]
-  };
-}
-
-module.exports = config;

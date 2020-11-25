@@ -10,7 +10,7 @@ export default (req, res, next) => {
   const urlMatch = req.url.match(/^\/[a-z]{2}\/item(\/[^/]+\/[^/]+)\.json$/);
   if (!urlMatch) return next();
 
-  let baseUrl = apiUrlFromRequestHeaders('record', { req }) || BASE_URL;
+  let baseUrl = apiUrlFromRequestHeaders('record', req.headers) || BASE_URL;
   if (!baseUrl.endsWith('/record')) baseUrl += '/record';
 
   const europeanaId = urlMatch[1];
