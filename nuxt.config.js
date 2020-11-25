@@ -128,12 +128,12 @@ module.exports = {
     }],
     '~/modules/query-sanitiser',
     '@nuxtjs/auth',
-    '@nuxtjs/gtm'
+    ['@nuxtjs/gtm', {
+      id: process.env.GOOGLE_TAG_MANAGER_ID,
+      pageTracking: true
+    }],
+    ['@nuxtjs/robots', JSON.parse(process.env.APP_ROBOTS || '{"UserAgent":"*","Disallow":"/"}')]
   ],
-  gtm: {
-    id: process.env.GOOGLE_TAG_MANAGER_ID,
-    pageTracking: true
-  },
 
   /*
   ** Nuxt.js modules
