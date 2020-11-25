@@ -65,7 +65,7 @@
           </b-card-text>
         </b-tab>
         <b-tab
-          v-if="location"
+          v-if="mappableLocation"
           :title="$t('record.location')"
           class="p-0"
           data-qa="location tab"
@@ -74,14 +74,9 @@
           <b-card-text
             text-tag="div"
           >
-            <MetadataField
-              name="dctermsSpatial"
-              class="p-3"
-              :field-data="location"
-            />
             <MapEmbed
               v-if="mappableLocation && showLocationMap"
-              data-qa="map embed"
+              :pref-label="mappableLocation.prefLabel"
               :latitude="mappableLocation.latitude"
               :longitude="mappableLocation.longitude"
             />

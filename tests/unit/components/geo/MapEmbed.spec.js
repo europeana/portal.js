@@ -7,8 +7,16 @@ const localVue = createLocalVue();
 const factory = () => shallowMount(MapEmbed, {
   localVue,
   propsData: {
+    prefLabel: {
+      en: ['Brighton']
+    },
     latitude: 50.82838,
     longitude: -0.13947
+  },
+  mocks: {
+    $i18n: {
+      locale: 'en'
+    }
   }
 });
 
@@ -21,7 +29,25 @@ describe('components/geo/MapEmbed', () => {
     iframe.exists().should.be.true;
   });
 
-  describe('marker', () => {
+  describe('label', () => {
+    it('starts with localised prefLabel', () => {
+      const wrapper = factory();
+
+      const labelText =  wrapper.find('label').text();
+
+      labelText.should.startWith('Brighton');
+    });
+
+    it('ends with formatted co-ordinates', () => {
+      const wrapper = factory();
+
+      const labelText =  wrapper.find('label').text();
+
+      labelText.should.endWith('50.82838° N -0.13947° W');
+    });
+  });
+
+  describe('.marker', () => {
     it('uses the latitude and longitude props', () => {
       const wrapper = factory();
 
@@ -31,7 +57,7 @@ describe('components/geo/MapEmbed', () => {
     });
   });
 
-  describe('bbox', () => {
+  describe('.bbox', () => {
     it('extends latitude by 5 degrees and longitude by 10 degrees', () => {
       const wrapper = factory();
 
@@ -41,7 +67,7 @@ describe('components/geo/MapEmbed', () => {
     });
   });
 
-  describe('iframeSrc', () => {
+  describe('.iframeSrc', () => {
     it('uses OpenStreetMap', () => {
       const wrapper = factory();
 

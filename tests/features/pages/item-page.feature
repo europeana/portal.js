@@ -89,7 +89,7 @@ Feature: item page
     And  I click the `share embed textarea`
     Then I see a `share embed copied notice`
 
-  Scenario: Embedded map
+  Scenario: Location tab with map embed when dcterms:spatial has co-ordinates
     Given I am on the `homepage`
     When I click the `show search button`
     And I enter "pl_wgs84_pos_lat:* pl_wgs84_pos_long:* proxy_dcterms_spatial:*" in the `search box`
@@ -100,3 +100,14 @@ Feature: item page
     And I hover over the `metadata box`
     And I click the "Location" tab
     Then I see a `map embed`
+
+  Scenario: No location tab when dcterms:spatial has no co-ordinates
+    Given I am on the `homepage`
+    When I click the `show search button`
+    And I enter "NOT proxy_dcterms_spatial:* pl_wgs84_pos_lat:* pl_wgs84_pos_long:*" in the `search box`
+    And I press the ENTER key
+    And I see the `search page`
+    And I click a `item preview`
+    And I see an `item page`
+    And I hover over the `metadata box`
+    Then I don't see a "Location" tab
