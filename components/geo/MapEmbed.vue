@@ -14,11 +14,12 @@
       </span>
       {{ formattedCoordinates }}
     </label>
-    <div style="--aspect-ratio:16/9;">
+    <div
+      class="embed-responsive embed-responsive-16by9"
+    >
       <iframe
         id="map-embed"
-        width="100%"
-        height="576"
+        class="embed-responsive-item"
         frameborder="0"
         scrolling="no"
         marginheight="0"
@@ -98,12 +99,6 @@
       font-size: $font-size-small;
       display: block;
       margin-bottom: 0;
-    }
-
-    iframe {
-      @media (max-width: $bp-small) {
-        max-height: 70vh;
-      }
     }
   }
 </style>
