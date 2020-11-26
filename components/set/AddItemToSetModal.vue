@@ -10,7 +10,7 @@
     <b-button
       variant="primary"
       class="btn-collection w-100 mb-3 text-left"
-      @click="$emit('clickCreateSet')"
+      @click="$emit('click-create-set')"
     >
       {{ $t('set.actions.createNew') }}
     </b-button>
@@ -87,7 +87,7 @@
       hideModal() {
         this.$nextTick(() => {
           this.fetched = false;
-          this.$emit('hideModal');
+          this.$emit('hide-modal');
         });
       },
 

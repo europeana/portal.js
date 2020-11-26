@@ -56,6 +56,13 @@
       PageFooter: () => import('../components/PageFooter')
     },
 
+    data() {
+      return {
+        ...config,
+        linkGroups: {}
+      };
+    },
+
     async fetch() {
       const contentfulVariables = {
         locale: this.$i18n.isoLocale(),
@@ -81,27 +88,6 @@
       this.linkGroups = linkGroups;
     },
 
-    data() {
-      return {
-        ...config,
-        linkGroups: {}
-      };
-    },
-
-    computed: {
-      ...mapState({
-        breadcrumbs: state => state.breadcrumb.data
-      }),
-      ...mapGetters({
-        canonicalUrl: 'http/canonicalUrl',
-        canonicalUrlWithoutLocale: 'http/canonicalUrlWithoutLocale'
-      })
-    },
-
-    watch: {
-      '$i18n.locale': '$fetch'
-    },
-
     head() {
       const i18nSeo = this.$nuxtI18nSeo();
       return {
@@ -121,6 +107,20 @@
           ...i18nSeo.meta
         ]
       };
+    },
+
+    computed: {
+      ...mapState({
+        breadcrumbs: state => state.breadcrumb.data
+      }),
+      ...mapGetters({
+        canonicalUrl: 'http/canonicalUrl',
+        canonicalUrlWithoutLocale: 'http/canonicalUrlWithoutLocale'
+      })
+    },
+
+    watch: {
+      '$i18n.locale': '$fetch'
     }
   };
 </script>

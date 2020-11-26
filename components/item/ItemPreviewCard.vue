@@ -1,19 +1,19 @@
 <template>
   <ContentCard
-    :title="value.dcTitleLangAware || value.dcDescriptionLangAware"
+    :title="item.dcTitleLangAware || item.dcDescriptionLangAware"
     :url="url"
     :image-url="imageUrl"
     :texts="texts"
     :hits-text="hitsText"
     :class="cardClass"
-    :limit-values-within-each-text="3"
+    :limit-items-within-each-text="3"
     :omit-all-uris="true"
     :blank-image-height="280"
     :variant="variant"
   >
-    <template v-slot:buttons>
+    <template #buttons>
       <UserButtons
-        v-model="identifier"
+        :identifier="identifier"
         @like="$emit('like', identifier)"
         @unlike="$emit('unlike', identifier)"
       />
@@ -36,7 +36,7 @@
 
     props: {
       // v-model expects an object containing minimal-profile item metadata
-      value: {
+      item: {
         type: Object,
         required: true
       },
@@ -56,11 +56,11 @@
       texts() {
         if (this.variant === 'similar' || this.variant === 'explore') return [];
 
-        const texts = [].concat(this.value.dataProvider);
-        if (this.value.dcCreatorLangAware) texts.unshift(this.value.dcCreatorLangAware);
+        const texts = [].concat(this.item.dataProvider);
+        if (this.item.dcCreatorLangAware) texts.unshift(this.item.dcCreatorLangAware);
 
         if (this.variant === 'list') {
-          if (!this.hitSelector && this.value.dcDescriptionLangAware) texts.unshift(this.value.dcDescriptionLangAware);
+          if (!this.hitSelector && this.item.dcDescriptionLangAware) texts.unshift(this.item.dcDescriptionLangAware);
         }
 
         return texts;
@@ -75,7 +75,7 @@
       },
 
       identifier() {
-        return this.value.id.replace('http://data.europeana.eu/item/', '');
+        return this.item.id.replace('http://data.europeana.eu/item/', '');
       },
 
       url() {
@@ -85,9 +85,9 @@
       imageUrl() {
         const size = 'w400';
 
-        return this.value.edmPreview ?
-          `${this.value.edmPreview[0]}&size=${size}` :
-          genericThumbnail(this.value.id, { type: this.value.type, size });
+        return this.item.edmPreview ?
+          `${this.item.edmPreview[0]}&size=${size}` :
+          genericThumbnail(this.item.id, { type: this.item.type, size });
       }
     }
   };

@@ -54,6 +54,10 @@
       ContentCard,
       PaginationNav
     },
+    beforeRouteLeave(to, from, next) {
+      this.$store.commit('breadcrumb/clearBreadcrumb');
+      next();
+    },
 
     middleware: 'sanitisePageQuery',
 
@@ -85,6 +89,12 @@
         page: null
       };
     },
+    head() {
+      return {
+        title: this.$pageHeadTitle(this.$tc('exhibitions.exhibitions', 2))
+      };
+    },
+    watchQuery: ['page'],
     methods: {
       imageUrl(image) {
         if (image && image.image) return image.image.url;
@@ -92,16 +102,6 @@
       imageContentType(image) {
         if (image && image.image) return image.image.contentType;
       }
-    },
-    head() {
-      return {
-        title: this.$pageHeadTitle(this.$tc('exhibitions.exhibitions', 2))
-      };
-    },
-    watchQuery: ['page'],
-    beforeRouteLeave(to, from, next) {
-      this.$store.commit('breadcrumb/clearBreadcrumb');
-      next();
     }
   };
 </script>

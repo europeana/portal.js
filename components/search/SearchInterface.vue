@@ -174,14 +174,14 @@
         }
       }
     },
-    fetch() {
-      this.viewFromRouteQuery();
-    },
     data() {
       return {
         coreFacetNames: ['collection', 'TYPE', 'COUNTRY', 'REUSABILITY'],
         PROXY_DCTERMS_ISSUED: 'proxy_dcterms_issued'
       };
+    },
+    fetch() {
+      this.viewFromRouteQuery();
     },
     computed: {
       ...mapState({

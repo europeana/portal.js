@@ -21,81 +21,79 @@
       </SmartLink>
     </li>
     <!-- sso links -->
-    <template>
-      <li
-        v-if="isAuthenticated"
-        class="nav-item d-none d-lg-inline-block"
+    <li
+      v-if="isAuthenticated"
+      class="nav-item d-none d-lg-inline-block"
+    >
+      <b-dropdown
+        right
+        no-caret
+        variant="white"
+        class="nav-link"
+        data-qa="account button"
+        :class="isAccountPage && 'exact-active-link'"
       >
-        <b-dropdown
-          right
-          no-caret
-          variant="white"
-          class="nav-link"
-          data-qa="account button"
-          :class="isAccountPage && 'exact-active-link'"
+        <template
+          slot="button-content"
         >
-          <template
-            slot="button-content"
-          >
-            <span class="label">
-              {{ $t('account.linkAccount') }}
-            </span>
-          </template>
-          <template v-for="(item, index) in authLinks">
-            <b-dropdown-divider
-              v-if="item.divider"
-              :key="index"
-            />
-            <b-dropdown-item
-              v-else
-              :key="index"
-              :to="item.to"
-              :href="item.href"
-              :data-qa="item.dataQa"
-            >
-              <span class="label">{{ item.text }}</span>
-            </b-dropdown-item>
-          </template>
-        </b-dropdown>
-      </li>
-      <template v-if="isAuthenticated">
-        <li
-          v-for="item in authLinks"
-          :key="item.name"
-          class="nav-item d-block d-lg-none"
-        >
-          <b-link
-            v-if="!item.divider"
-            v-b-toggle.menu
+          <span class="label">
+            {{ $t('account.linkAccount') }}
+          </span>
+        </template>
+        <template v-for="(item, index) in authLinks">
+          <b-dropdown-divider
+            v-if="item.divider"
+            :key="index"
+          />
+          <b-dropdown-item
+            v-else
+            :key="index"
             :to="item.to"
             :href="item.href"
             :data-qa="item.dataQa"
-            class="nav-link"
           >
-            <span>
-              <i :class="renderIcon(item.name)" />
-              {{ item.text }}
-            </span>
-          </b-link>
-        </li>
-      </template>
+            <span class="label">{{ item.text }}</span>
+          </b-dropdown-item>
+        </template>
+      </b-dropdown>
+    </li>
+    <template v-if="isAuthenticated">
       <li
-        v-else
-        class="nav-item"
+        v-for="item in authLinks"
+        :key="item.name"
+        class="nav-item d-block d-lg-none"
       >
         <b-link
+          v-if="!item.divider"
           v-b-toggle.menu
-          data-qa="log in button"
+          :to="item.to"
+          :href="item.href"
+          :data-qa="item.dataQa"
           class="nav-link"
-          :to="{ name: 'account-login' }"
         >
           <span>
-            <i :class="renderIcon('/account/login')" />
-            {{ $t('account.linkLogin') }}
+            <i :class="renderIcon(item.name)" />
+            {{ item.text }}
           </span>
         </b-link>
       </li>
     </template>
+    <li
+      v-else
+      class="nav-item"
+    >
+      <b-link
+        v-b-toggle.menu
+        data-qa="log in button"
+        class="nav-link"
+        :to="{ name: 'account-login' }"
+      >
+        <span>
+          <i :class="renderIcon('/account/login')" />
+          {{ $t('account.linkLogin') }}
+        </span>
+      </b-link>
+    </li>
   </b-navbar-nav>
 </template>
 

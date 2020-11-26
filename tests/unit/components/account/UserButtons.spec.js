@@ -13,7 +13,7 @@ const storeIsLikedGetter = sinon.stub();
 const factory = ({ storeState = {}, $auth = {} } = {}) => mount(UserButtons, {
   localVue,
   stubs: ['AddItemToSetModal', 'SetFormModal'],
-  propsData: { value: identifier },
+  propsData: { identifier },
   mocks: {
     $auth,
     $store: {

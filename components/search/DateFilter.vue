@@ -145,7 +145,7 @@
 
       emitDateForm() {
         this.$nextTick(() => {
-          this.$emit('dateFilter', this.name, this.form);
+          this.$emit('date-filter', this.name, this.form);
         });
       }
     }

@@ -91,8 +91,8 @@ module.exports = {
     {
       'files': ['lang/*.js'],
       'rules': {
-        'quotes': ['error', 'double'],
+        'quotes': ['error', 'double']
       }
     }
   ]
-}
+};

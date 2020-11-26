@@ -69,6 +69,22 @@
           error({ statusCode: 500, message: e.toString() });
         });
     },
+
+    head() {
+      return {
+        title: this.$pageHeadTitle(this.name),
+        meta: [
+          { hid: 'og:type', property: 'og:type', content: 'article' },
+          { hid: 'title', name: 'title', content: this.name },
+          { hid: 'og:title', property: 'og:title', content: this.name }
+        ].concat(this.description ? [
+          { hid: 'description', name: 'description', content: this.description },
+          { hid: 'og:description', property: 'og:description', content: this.description }
+        ] : []).concat(this.heroImage ? [
+          { hid: 'og:image', property: 'og:image', content: this.optimisedImageUrl }
+        ] : [])
+      };
+    },
     computed: {
       hero() {
         return this.primaryImageOfPage ? this.primaryImageOfPage : null;
@@ -91,22 +107,6 @@
           { width: 800, height: 800 }
         );
       }
-    },
-
-    head() {
-      return {
-        title: this.$pageHeadTitle(this.name),
-        meta: [
-          { hid: 'og:type', property: 'og:type', content: 'article' },
-          { hid: 'title', name: 'title', content: this.name },
-          { hid: 'og:title', property: 'og:title', content: this.name }
-        ].concat(this.description ? [
-          { hid: 'description', name: 'description', content: this.description },
-          { hid: 'og:description', property: 'og:description', content: this.description }
-        ] : []).concat(this.heroImage ? [
-          { hid: 'og:image', property: 'og:image', content: this.optimisedImageUrl }
-        ] : [])
-      };
     }
   };
 </script>

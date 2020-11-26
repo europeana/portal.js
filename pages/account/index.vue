@@ -108,13 +108,19 @@
   import LoadingSpinner from '../../components/generic/LoadingSpinner';
 
   export default {
-    middleware: 'auth',
 
     components: {
       ItemPreviewCardGroup,
       UserSets,
       AlertMessage,
       LoadingSpinner
+    },
+    middleware: 'auth',
+
+    data() {
+      return {
+        loggedInUser: this.$store.state.auth.user
+      };
     },
 
     async fetch() {
@@ -124,9 +130,9 @@
 
     fetchOnServer: false,
 
-    data() {
+    head() {
       return {
-        loggedInUser: this.$store.state.auth.user
+        title: this.$pageHeadTitle(this.$t('account.title'))
       };
     },
 
@@ -141,12 +147,6 @@
       fetchLikes() {
         this.$store.dispatch('set/fetchLikes');
       }
-    },
-
-    head() {
-      return {
-        title: this.$pageHeadTitle(this.$t('account.title'))
-      };
     }
   };
 

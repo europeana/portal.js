@@ -82,6 +82,11 @@
         page: null
       };
     },
+    head() {
+      return {
+        title: this.$pageHeadTitle(this.title)
+      };
+    },
     computed: {
       route() {
         return {
@@ -92,6 +97,7 @@
         };
       }
     },
+    watchQuery: ['page'],
     methods: {
       entityRoute(entity) {
         return {
@@ -105,12 +111,6 @@
       thumbnail(entity) {
         if (typeof entity.isShownBy !== 'undefined') return entity.isShownBy.thumbnail;
       }
-    },
-    head() {
-      return {
-        title: this.$pageHeadTitle(this.title)
-      };
-    },
-    watchQuery: ['page']
+    }
   };
 </script>

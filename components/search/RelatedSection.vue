@@ -22,14 +22,14 @@
       }
     },
 
-    fetch() {
-      this.getSearchSuggestions(this.query);
-    },
-
     data() {
       return {
         relatedCollections: []
       };
+    },
+
+    fetch() {
+      this.getSearchSuggestions(this.query);
     },
 
     watch: {

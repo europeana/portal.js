@@ -150,8 +150,19 @@
       ItemPreviewCardGroup,
       SetFormModal: () => import('../../components/set/SetFormModal')
     },
+    async beforeRouteLeave(to, from, next) {
+      await this.$store.commit('set/setActive', null);
+      next();
+    },
 
     middleware: 'sanitisePageQuery',
+
+    data() {
+      return {
+        recommendations: [],
+        setFormModalId: `set-form-modal-${this.id}`
+      };
+    },
 
     async fetch() {
       try {
@@ -164,10 +175,9 @@
       }
     },
 
-    data() {
+    head() {
       return {
-        recommendations: [],
-        setFormModalId: `set-form-modal-${this.id}`
+        title: this.$pageHeadTitle(this.displayTitle.values[0])
       };
     },
 
@@ -233,16 +243,6 @@
           }
         }
       }
-    },
-
-    head() {
-      return {
-        title: this.$pageHeadTitle(this.displayTitle.values[0])
-      };
-    },
-    async beforeRouteLeave(to, from, next) {
-      await this.$store.commit('set/setActive', null);
-      next();
     }
   };
 </script>

@@ -29,7 +29,7 @@
           <div class="d-flex justify-content-md-center align-items-center button-wrapper">
             <div class="ml-lg-auto d-flex">
               <UserButtons
-                v-model="identifier"
+                :identifier="identifier"
               />
               <ShareButton />
               <DownloadButton

@@ -25,6 +25,11 @@
       BlogPost
     },
 
+    beforeRouteLeave(to, from, next) {
+      this.$store.commit('breadcrumb/clearBreadcrumb');
+      next();
+    },
+
     asyncData({ params, query, error, app, store }) {
       const variables = {
         identifier: params.pathMatch,
@@ -69,17 +74,6 @@
       };
     },
 
-    computed: {
-      hero() {
-        return this.post.primaryImageOfPage ? this.post.primaryImageOfPage : null;
-      },
-
-      ...mapGetters({
-        shareUrl: 'http/canonicalUrl',
-        identifier: 'http/canonicalUrlWithoutLocale'
-      })
-    },
-
     head() {
       return {
         title: this.$pageHeadTitle(this.post.name),
@@ -93,9 +87,15 @@
       };
     },
 
-    beforeRouteLeave(to, from, next) {
-      this.$store.commit('breadcrumb/clearBreadcrumb');
-      next();
+    computed: {
+      hero() {
+        return this.post.primaryImageOfPage ? this.post.primaryImageOfPage : null;
+      },
+
+      ...mapGetters({
+        shareUrl: 'http/canonicalUrl',
+        identifier: 'http/canonicalUrlWithoutLocale'
+      })
     }
   };
 </script>

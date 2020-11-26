@@ -50,7 +50,7 @@ storiesOf('Search', module)
           :name="name"
           :start="start"
           :end="end"
-          @dateFilter="log"
+          @date-filter="log"
         />
       </b-container>`
   }));

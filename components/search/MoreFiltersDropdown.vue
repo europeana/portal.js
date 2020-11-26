@@ -8,7 +8,7 @@
     data-qa="more filters dropdown button"
     @hidden="cancelHandler"
   >
-    <template v-slot:button-content>
+    <template #button-content>
       {{ $t('facets.button.morefilters') }}
       <span
         v-if="anyOptionsSelected"
@@ -38,7 +38,7 @@
             :start="dateFilter.start"
             :end="dateFilter.end"
             :specific="dateFilter.specific"
-            @dateFilter="dateFilterSelected"
+            @date-filter="dateFilterSelected"
           />
         </template>
         <template
@@ -50,7 +50,7 @@
             :fields="filterFields(facet.name, facet.fields)"
             :name="facet.name"
             :selected="preSelected[facet.name]"
-            @selectedOptions="updateSelected"
+            @selected-options="updateSelected"
           />
         </template>
       </div>

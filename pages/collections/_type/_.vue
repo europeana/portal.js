@@ -87,7 +87,21 @@
       SearchInterface,
       RelatedCollections: () => import('../../../components/generic/RelatedCollections')
     },
+    async beforeRouteLeave(to, from, next) {
+      if (to.matched[0].path !== `/${this.$store.state.i18n.locale}/search`) {
+        this.$store.commit('search/setShowSearchBar', false);
+      }
+      await this.$store.dispatch('search/deactivate');
+      this.$store.commit('entity/setId', null); // needed to re-enable auto-suggest in header
+      this.$store.commit('entity/setEntity', null); // needed for best bets handling
+      next();
+    },
     middleware: 'sanitisePageQuery',
+    data() {
+      return {
+        relatedCollections: []
+      };
+    },
     fetch({ query, params, redirect, error, app, store }) {
       store.commit('search/disableCollectionFacet');
 
@@ -148,9 +162,21 @@
           error({ statusCode, message: e.toString() });
         });
     },
-    data() {
+    head() {
       return {
-        relatedCollections: []
+        title: this.$pageHeadTitle(this.title.values[0]),
+        meta: [
+          { hid: 'og:type', property: 'og:type', content: 'article' },
+          { hid: 'title', name: 'title', content: this.title.values[0] },
+          { hid: 'og:title', property: 'og:title', content: this.title.values[0] }
+        ]
+          .concat(this.descriptionText ? [
+            { hid: 'description', name: 'description', content: this.descriptionText },
+            { hid: 'og:description', property: 'og:description', content: this.descriptionText }
+          ] : [])
+          .concat(this.depiction ? [
+            { hid: 'og:image', property: 'og:image', content: this.$options.filters.urlWithProtocol(this.depiction) }
+          ] : [])
       };
     },
     computed: {
@@ -224,6 +250,7 @@
         return langMapValueForLocale(this.entity.prefLabel, this.$store.state.i18n.locale);
       }
     },
+    watchQuery: ['api', 'reusability', 'query', 'qf', 'page'],
     mounted() {
       this.$store.commit('search/setCollectionLabel', this.title.values[0]);
       this.$store.dispatch('entity/searchForRecords', this.$route.query);
@@ -261,34 +288,7 @@
           }
         });
       }
-    },
-    head() {
-      return {
-        title: this.$pageHeadTitle(this.title.values[0]),
-        meta: [
-          { hid: 'og:type', property: 'og:type', content: 'article' },
-          { hid: 'title', name: 'title', content: this.title.values[0] },
-          { hid: 'og:title', property: 'og:title', content: this.title.values[0] }
-        ]
-          .concat(this.descriptionText ? [
-            { hid: 'description', name: 'description', content: this.descriptionText },
-            { hid: 'og:description', property: 'og:description', content: this.descriptionText }
-          ] : [])
-          .concat(this.depiction ? [
-            { hid: 'og:image', property: 'og:image', content: this.$options.filters.urlWithProtocol(this.depiction) }
-          ] : [])
-      };
-    },
-    async beforeRouteLeave(to, from, next) {
-      if (to.matched[0].path !== `/${this.$store.state.i18n.locale}/search`) {
-        this.$store.commit('search/setShowSearchBar', false);
-      }
-      await this.$store.dispatch('search/deactivate');
-      this.$store.commit('entity/setId', null); // needed to re-enable auto-suggest in header
-      this.$store.commit('entity/setEntity', null); // needed for best bets handling
-      next();
-    },
-    watchQuery: ['api', 'reusability', 'query', 'qf', 'page']
+    }
   };
 </script>
 

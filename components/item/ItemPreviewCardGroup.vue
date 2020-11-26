@@ -7,7 +7,7 @@
     <ItemPreviewCard
       v-for="(item, index) in value"
       :key="item.id"
-      v-model="value[index]"
+      :item="value[index]"
       :hit-selector="itemHitSelector(item)"
       :variant="cardVariant"
       data-qa="item preview"

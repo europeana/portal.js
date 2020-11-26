@@ -78,6 +78,10 @@
       SocialShareModal,
       AuthoredHead: () => import('../../../components/authored/AuthoredHead')
     },
+    beforeRouteLeave(to, from, next) {
+      this.$store.commit('breadcrumb/clearBreadcrumb');
+      next();
+    },
     asyncData({ params, query, error, app, store }) {
       const variables = {
         identifier: params.exhibition,
@@ -132,6 +136,21 @@
           error({ statusCode: 500, message: e.toString() });
         });
     },
+    head() {
+      return {
+        title: this.$pageHeadTitle(this.page.name),
+        meta: [
+          { hid: 'title', name: 'title', content: this.page.name },
+          { hid: 'og:title', property: 'og:title', content: this.page.name },
+          { hid: 'og:image', property: 'og:image', content: this.optimisedImageUrl },
+          { hid: 'og:type', property: 'og:type', content: 'article' }
+        ]
+          .concat(this.page.description ? [
+            { hid: 'description', name: 'description', content: this.page.description },
+            { hid: 'og:description', property: 'og:description', content: this.page.description }
+          ] : [])
+      };
+    },
     computed: {
       chapterNavigation() {
         return this.chapters.map((chapter) => {
@@ -164,25 +183,6 @@
           }
         });
       }
-    },
-    beforeRouteLeave(to, from, next) {
-      this.$store.commit('breadcrumb/clearBreadcrumb');
-      next();
-    },
-    head() {
-      return {
-        title: this.$pageHeadTitle(this.page.name),
-        meta: [
-          { hid: 'title', name: 'title', content: this.page.name },
-          { hid: 'og:title', property: 'og:title', content: this.page.name },
-          { hid: 'og:image', property: 'og:image', content: this.optimisedImageUrl },
-          { hid: 'og:type', property: 'og:type', content: 'article' }
-        ]
-          .concat(this.page.description ? [
-            { hid: 'description', name: 'description', content: this.page.description },
-            { hid: 'og:description', property: 'og:description', content: this.page.description }
-          ] : [])
-      };
     }
   };
 </script>

@@ -23,6 +23,15 @@
       };
     },
 
+    head() {
+      return {
+        title: this.$pageHeadTitle('IIIF'),
+        script: [
+          { src: `${this.MIRADOR_BUILD_PATH}/mirador.min.js` }
+        ]
+      };
+    },
+
     computed: {
       miradorViewerOptions() {
         // Doc: https://github.com/ProjectMirador/mirador/blob/master/src/config/settings.js
@@ -93,15 +102,6 @@
           window.parent.postMessage({ 'event': 'updateDownloadLink', 'id': page[0].images[0].resource['@id'] }, '*');
         }
       }
-    },
-
-    head() {
-      return {
-        title: this.$pageHeadTitle('IIIF'),
-        script: [
-          { src: `${this.MIRADOR_BUILD_PATH}/mirador.min.js` }
-        ]
-      };
     }
   };
 </script>

@@ -68,6 +68,21 @@
           error({ statusCode: 500, message: e.toString() });
         });
     },
+    head() {
+      return {
+        title: this.$pageHeadTitle(this.title),
+        meta: [
+          { hid: 'title', name: 'title', content: this.title },
+          { hid: 'og:title', property: 'og:title', content: this.title },
+          { hid: 'og:image', property: 'og:image', content: this.shareMediaUrl },
+          { hid: 'og:type', property: 'og:type', content: 'article' }
+        ]
+          .concat(this.description ? [
+            { hid: 'description', name: 'description', content: this.description },
+            { hid: 'og:description', property: 'og:description', content: this.description }
+          ] : [])
+      };
+    },
     computed: {
       shareMediaUrl() {
         return this.images.length === 0 ? null : this.imageUrl(this.images[0]);
@@ -95,21 +110,6 @@
       imageUrl(data) {
         return (data.encoding ? data.encoding.edmPreview : data.thumbnailUrl) + '&size=w400';
       }
-    },
-    head() {
-      return {
-        title: this.$pageHeadTitle(this.title),
-        meta: [
-          { hid: 'title', name: 'title', content: this.title },
-          { hid: 'og:title', property: 'og:title', content: this.title },
-          { hid: 'og:image', property: 'og:image', content: this.shareMediaUrl },
-          { hid: 'og:type', property: 'og:type', content: 'article' }
-        ]
-          .concat(this.description ? [
-            { hid: 'description', name: 'description', content: this.description },
-            { hid: 'og:description', property: 'og:description', content: this.description }
-          ] : [])
-      };
     }
   };
 </script>

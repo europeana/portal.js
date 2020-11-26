@@ -78,16 +78,16 @@
         page: null
       };
     },
-    methods: {
-      imageUrl(data) {
-        return (data.encoding ? data.encoding.edmPreview : data.thumbnailUrl) + '&size=w400';
-      }
-    },
     head() {
       return {
         title: this.$pageHeadTitle(this.$tc('galleries.galleries', 2))
       };
     },
-    watchQuery: ['page']
+    watchQuery: ['page'],
+    methods: {
+      imageUrl(data) {
+        return (data.encoding ? data.encoding.edmPreview : data.thumbnailUrl) + '&size=w400';
+      }
+    }
   };
 </script>

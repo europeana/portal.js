@@ -111,7 +111,7 @@
 
       selectedHandler() {
         this.$nextTick(() => {
-          this.$emit('selectedOptions', this.name, this.selectedOptions);
+          this.$emit('selected-options', this.name, this.selectedOptions);
         });
       },
 

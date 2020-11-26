@@ -34,6 +34,12 @@
       };
     },
 
+    head() {
+      return {
+        title: this.$pageHeadTitle(this.title)
+      };
+    },
+
     watch: {
       settings: {
         deep: true,
@@ -41,12 +47,6 @@
           this.$store.commit('debug/updateSettings', value);
         }
       }
-    },
-
-    head() {
-      return {
-        title: this.$pageHeadTitle(this.title)
-      };
     }
   };
 </script>

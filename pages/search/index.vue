@@ -41,6 +41,13 @@
       RelatedSection: () => import('../../components/search/RelatedSection')
     },
 
+    async beforeRouteLeave(to, from, next) {
+      // Leaving the search page closes the search bar. Reevaluate when autosuggestions go straight to entity pages.
+      this.$store.commit('search/setShowSearchBar', false);
+      await this.$store.dispatch('search/deactivate');
+      next();
+    },
+
     middleware: 'sanitisePageQuery',
 
     async fetch({ store, query, res }) {
@@ -52,6 +59,12 @@
         res.statusCode = store.state.search.errorStatusCode;
       }
     },
+
+    head() {
+      return {
+        title: this.$pageHeadTitle(this.$route.query.query ? this.$t('searchResultsFor', [this.$route.query.query]) : this.$t('search'))
+      };
+    },
     computed: {
       notificationUrl() {
         return legacyUrl(this.$route.query, this.$store.state.i18n.locale) +
@@ -62,24 +75,11 @@
       }
     },
 
+    watchQuery: ['api', 'reusability', 'query', 'qf', 'page'],
+
     mounted() {
       this.$store.commit('search/enableCollectionFacet');
-    },
-
-    head() {
-      return {
-        title: this.$pageHeadTitle(this.$route.query.query ? this.$t('searchResultsFor', [this.$route.query.query]) : this.$t('search'))
-      };
-    },
-
-    async beforeRouteLeave(to, from, next) {
-      // Leaving the search page closes the search bar. Reevaluate when autosuggestions go straight to entity pages.
-      this.$store.commit('search/setShowSearchBar', false);
-      await this.$store.dispatch('search/deactivate');
-      next();
-    },
-
-    watchQuery: ['api', 'reusability', 'query', 'qf', 'page']
+    }
   };
 </script>
 

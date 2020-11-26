@@ -116,26 +116,15 @@
       NotificationBanner: () => import('../../components/generic/NotificationBanner')
     },
 
-    fetch() {
-      const annotationSearchParams = {
-        query: `target_record_id:"${this.identifier}"`,
-        profile: 'dereference'
-      };
-      axios.all([
-        this.$store.getters['apis/annotation'].search(annotationSearchParams),
-        this.$store.getters['apis/entity'].findEntities(this.europeanaEntityUris),
-        this.getSimilarItems()
-      ])
-        .then(axios.spread((annotations, entities, similar) => {
-          this.annotations = annotations;
-          this.transcribingAnnotations = this.annotationsByMotivation('transcribing');
-          this.taggingAnnotations = this.annotationsByMotivation('tagging');
-          this.relatedEntities = entities;
-          this.similarItems = similar.items;
-        }));
+    beforeRouteLeave(to, from, next) {
+      this.$gtm.push({
+        itemCountry: undefined,
+        itemDataProvider: undefined,
+        itemProvider: undefined,
+        itemRights: undefined
+      });
+      next();
     },
-
-    fetchOnServer: false,
 
     asyncData({ params, res, store }) {
       return store.getters['apis/record'].getRecord(`/${params.pathMatch}`)
@@ -169,6 +158,41 @@
         title: null,
         type: null,
         useProxy: true
+      };
+    },
+
+    fetch() {
+      const annotationSearchParams = {
+        query: `target_record_id:"${this.identifier}"`,
+        profile: 'dereference'
+      };
+      axios.all([
+        this.$store.getters['apis/annotation'].search(annotationSearchParams),
+        this.$store.getters['apis/entity'].findEntities(this.europeanaEntityUris),
+        this.getSimilarItems()
+      ])
+        .then(axios.spread((annotations, entities, similar) => {
+          this.annotations = annotations;
+          this.transcribingAnnotations = this.annotationsByMotivation('transcribing');
+          this.taggingAnnotations = this.annotationsByMotivation('tagging');
+          this.relatedEntities = entities;
+          this.similarItems = similar.items;
+        }));
+    },
+
+    fetchOnServer: false,
+
+    head() {
+      return {
+        title: this.$pageHeadTitle(this.metaTitle),
+        meta: [
+          { hid: 'title', name: 'title', content: this.metaTitle },
+          { hid: 'description', name: 'description', content: this.metaDescription },
+          { hid: 'og:title', property: 'og:title', content: this.metaTitle },
+          { hid: 'og:description', property: 'og:description', content: this.metaDescription },
+          { hid: 'og:image', property: 'og:image', content: this.pageHeadMetaOgImage },
+          { hid: 'og:type', property: 'og:type', content: 'article' }
+        ]
       };
     },
 
@@ -305,30 +329,6 @@
 
         return data.filter(item => typeof item === 'string');
       }
-    },
-
-    head() {
-      return {
-        title: this.$pageHeadTitle(this.metaTitle),
-        meta: [
-          { hid: 'title', name: 'title', content: this.metaTitle },
-          { hid: 'description', name: 'description', content: this.metaDescription },
-          { hid: 'og:title', property: 'og:title', content: this.metaTitle },
-          { hid: 'og:description', property: 'og:description', content: this.metaDescription },
-          { hid: 'og:image', property: 'og:image', content: this.pageHeadMetaOgImage },
-          { hid: 'og:type', property: 'og:type', content: 'article' }
-        ]
-      };
-    },
-
-    beforeRouteLeave(to, from, next) {
-      this.$gtm.push({
-        itemCountry: undefined,
-        itemDataProvider: undefined,
-        itemProvider: undefined,
-        itemRights: undefined
-      });
-      next();
     }
   };
 </script>

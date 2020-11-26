@@ -24,7 +24,7 @@ const factory = () => shallowMount(DateFilter, {
 
 describe('components/search/DateFilter', () => {
   // FIXME
-  // it('emits `dateFilter` event with name and form arguments when user changes Start date input', async() => {
+  // it('emits `date-filter` event with name and form arguments when user changes Start date input', async() => {
   //   const wrapper = factory();
   //   const startInput = wrapper.find('[data-qa="date range start input"]');
   //
@@ -32,10 +32,10 @@ describe('components/search/DateFilter', () => {
   //   wrapper.vm.form.specific = false;
   //   await startInput.trigger('input');
   //
-  //   wrapper.emitted()['dateFilter'].should.eql([[ 'proxy_dcterms_issued', { 'end': null, 'start': '2019-01-01', 'specific': false } ]]);
+  //   wrapper.emitted()['date-filter'].should.eql([[ 'proxy_dcterms_issued', { 'end': null, 'start': '2019-01-01', 'specific': false } ]]);
   // });
   //
-  // it('emits `dateFilter` event with name and form arguments when user changes End date input', async() => {
+  // it('emits `date-filter` event with name and form arguments when user changes End date input', async() => {
   //   const wrapper = factory();
   //   const endInput = wrapper.find('[data-qa="date range end input"]');
   //
@@ -43,7 +43,7 @@ describe('components/search/DateFilter', () => {
   //   wrapper.vm.form.end = '2019-01-01';
   //   await endInput.trigger('input');
   //
-  //   wrapper.emitted()['dateFilter'].should.eql([[ 'proxy_dcterms_issued', { 'end': '2019-01-01', 'start': null, 'specific': false } ]]);
+  //   wrapper.emitted()['date-filter'].should.eql([[ 'proxy_dcterms_issued', { 'end': '2019-01-01', 'start': null, 'specific': false } ]]);
   // });
 
   it('should not display end date field when specific is selected', async() => {

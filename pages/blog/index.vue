@@ -83,6 +83,14 @@
       };
     },
 
+    head() {
+      return {
+        title: this.$pageHeadTitle(this.$t('blog.blog'))
+      };
+    },
+
+    watchQuery: ['page'],
+
     methods: {
       imageUrl(post) {
         if (post.primaryImageOfPage) {
@@ -96,14 +104,6 @@
         }
         return null;
       }
-    },
-
-    head() {
-      return {
-        title: this.$pageHeadTitle(this.$t('blog.blog'))
-      };
-    },
-
-    watchQuery: ['page']
+    }
   };
 </script>

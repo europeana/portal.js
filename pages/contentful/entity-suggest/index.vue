@@ -49,6 +49,12 @@
       };
     },
 
+    head() {
+      return {
+        title: this.$pageHeadTitle('Entity suggest - Contentful app')
+      };
+    },
+
     watch: {
       value: 'updateContentfulField'
     },
@@ -93,12 +99,6 @@
       updateContentfulField() {
         if (this.contentfulExtensionSdk) this.contentfulExtensionSdk.field.setValue(this.value.map(val => val.id));
       }
-    },
-
-    head() {
-      return {
-        title: this.$pageHeadTitle('Entity suggest - Contentful app')
-      };
     }
   };
 </script>

@@ -24,13 +24,13 @@
         <AddItemToSetModal
           data-qa="add item to set modal"
           :modal-id="addItemToSetModalId"
-          :item-id="value"
-          @clickCreateSet="clickCreateSet"
-          @hideModal="refreshSet"
+          :item-id="identifier"
+          @click-create-set="clickCreateSet"
+          @hide-modal="refreshSet"
         />
         <SetFormModal
           :modal-id="setFormModalId"
-          :item-context="value"
+          :item-context="identifier"
           @response="setCreatedOrUpdated"
         />
         <!-- TODO: remove when 100-item like limit removed -->
@@ -59,8 +59,7 @@
     },
 
     props: {
-      // Identifier of the item
-      value: {
+      identifier: {
         type: String,
         required: true
       }
@@ -68,16 +67,16 @@
 
     data() {
       return {
-        addItemToSetModalId: `add-item-to-set-modal-${this.value}`,
-        setFormModalId: `set-form-modal-${this.value}`,
-        likeLimitModalId: `like-limit-modal-${this.value}`,
+        addItemToSetModalId: `add-item-to-set-modal-${this.identifier}`,
+        setFormModalId: `set-form-modal-${this.identifier}`,
+        likeLimitModalId: `like-limit-modal-${this.identifier}`,
         showFormModal: false
       };
     },
 
     computed: {
       liked() {
-        return this.$store.getters['set/isLiked'](this.value);
+        return this.$store.getters['set/isLiked'](this.identifier);
       },
       likesId() {
         return this.$store.state.set.likesId;
@@ -108,8 +107,8 @@
         }
 
         try {
-          await this.$store.dispatch('set/like', this.value);
-          this.$emit('like', this.value);
+          await this.$store.dispatch('set/like', this.identifier);
+          this.$emit('like', this.identifier);
         } catch (e) {
           // TODO: remove when 100 item like limit is removed
           if (e.message === '100 likes') {
@@ -120,13 +119,13 @@
         }
       },
       async unlike() {
-        await this.$store.dispatch('set/unlike', this.value);
-        this.$emit('unlike', this.value);
+        await this.$store.dispatch('set/unlike', this.identifier);
+        this.$emit('unlike', this.identifier);
       },
       addToSet() {
         if (this.$auth.loggedIn) {
           this.$bvModal.show(this.addItemToSetModalId);
-          this.$emit('add', this.value);
+          this.$emit('add', this.identifier);
         } else {
           this.$auth.loginWith('keycloak');
         }

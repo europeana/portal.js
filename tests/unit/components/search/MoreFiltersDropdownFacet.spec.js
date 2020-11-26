@@ -32,7 +32,7 @@ const factory = () => shallowMount(MoreFiltersDropdownFacet, {
 });
 
 describe('components/search/MoreFiltersDropdownFacet', () => {
-  it('emits `selectedOptions` event when checkbox group changes', async() => {
+  it('emits `selected-options` event when checkbox group changes', async() => {
     const wrapper = factory();
     const checkboxGroup = wrapper.find('[data-qa="checkbox group"]');
 
@@ -40,6 +40,6 @@ describe('components/search/MoreFiltersDropdownFacet', () => {
     await checkboxGroup.vm.$emit('change');
     await wrapper.vm.$nextTick();
 
-    wrapper.emitted()['selectedOptions'].should.eql([['LANGUAGE', ['de']]]);
+    wrapper.emitted()['selected-options'].should.eql([['LANGUAGE', ['de']]]);
   });
 });

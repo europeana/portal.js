@@ -53,9 +53,7 @@
           :lang="langMappedValues.code"
           data-qa="literal value"
         >
-          <template>
-            {{ value }}
-          </template>
+          {{ value }}
         </li>
       </template>
     </ul>

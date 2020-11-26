@@ -7,22 +7,27 @@
       {{ selectedLocale.name }}
     </template>
 
-    <template test>
-      <b-dropdown-item
-        v-for="locale in availableLocales"
-        :key="locale.code"
-        :to="switchLocalePath(locale.code)"
-        :data-qa="`${locale.name} language option`"
-      >
-        {{ locale.name }}
-      </b-dropdown-item>
-    </template>
+    <b-dropdown-item
+      v-for="locale in availableLocales"
+      :key="locale.code"
+      :to="switchLocalePath(locale.code)"
+      :data-qa="`${locale.name} language option`"
+    >
+      {{ locale.name }}
+    </b-dropdown-item>
   </b-dropdown>
 </template>
 
 <script>
   export default {
     name: 'LangSelector',
+    head() {
+      return {
+        htmlAttrs: {
+          lang: this.$i18n.locale
+        }
+      };
+    },
 
     computed: {
       availableLocales() {
@@ -33,13 +38,6 @@
           return locale.code === this.$i18n.locale;
         });
       }
-    },
-    head() {
-      return {
-        htmlAttrs: {
-          lang: this.$i18n.locale
-        }
-      };
     }
   };
 </script>
