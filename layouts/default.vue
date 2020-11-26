@@ -1,5 +1,6 @@
 <template>
   <div>
+    <VueAnnouncer />
     <client-only>
       <CookieDisclaimer />
     </client-only>
