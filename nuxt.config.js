@@ -100,7 +100,8 @@ module.exports = {
     '~/plugins/i18n.js',
     '~/plugins/page',
     '~/plugins/vue-filters',
-    '~/plugins/vue-directives'
+    '~/plugins/vue-directives',
+    { src: '~/plugins/vue-announcer.js', mode: 'client' }
   ],
 
   buildModules: [
