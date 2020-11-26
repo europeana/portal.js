@@ -1,5 +1,7 @@
 <template>
-  <div>
+  <div
+    data-qa="metadata box"
+  >
     <b-card
       no-body
       class="mb-3"
@@ -7,6 +9,7 @@
       <b-tabs card>
         <b-tab
           :title="$t('record.goodToKnow')"
+          data-qa="good to know tab"
           active
         >
           <b-card-text
@@ -23,6 +26,7 @@
         </b-tab>
         <b-tab
           :title="$t('record.allMetaData')"
+          data-qa="all metadata tab"
         >
           <b-card-text
             text-tag="div"
@@ -38,6 +42,7 @@
         <b-tab
           v-if="Boolean(transcribingAnnotations.length)"
           :title="$t('record.transcription')"
+          data-qa="transcription tab"
         >
           <b-card-text
             text-tag="div"
@@ -60,16 +65,20 @@
           </b-card-text>
         </b-tab>
         <b-tab
-          v-if="location"
+          v-if="mappableLocation"
           :title="$t('record.location')"
+          class="p-0"
+          data-qa="location tab"
+          @click="clickLocationTab"
         >
           <b-card-text
             text-tag="div"
-            data-qa="location section"
           >
-            <MetadataField
-              name="dctermsSpatial"
-              :field-data="location"
+            <MapEmbed
+              v-if="mappableLocation && showLocationMap"
+              :pref-label="mappableLocation.prefLabel"
+              :latitude="mappableLocation.latitude"
+              :longitude="mappableLocation.longitude"
             />
           </b-card-text>
         </b-tab>
@@ -80,10 +89,13 @@
 
 <script>
   import MetadataField from './MetadataField';
+
   export default {
     name: 'MetadataBox',
+
     components: {
-      MetadataField
+      MetadataField,
+      MapEmbed: () => import('../geo/MapEmbed')
     },
 
     props: {
@@ -102,6 +114,27 @@
       location: {
         type: Object,
         default: null
+      }
+    },
+
+    data() {
+      return {
+        showLocationMap: false
+      };
+    },
+
+    computed: {
+      mappableLocation() {
+        if (!this.location || !this.location.def) return null;
+        return this.location.def.find(loc => (
+          (typeof loc === 'object') && loc.latitude && loc.longitude
+        )) || null;
+      }
+    },
+
+    methods: {
+      clickLocationTab() {
+        this.showLocationMap = true;
       }
     }
   };
