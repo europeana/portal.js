@@ -1,6 +1,6 @@
 <template>
   <div>
-    <VueAnnouncer />
+    <VueAnnouncer v-if="enableAnnouncer" />
     <client-only>
       <CookieDisclaimer />
     </client-only>
@@ -85,7 +85,8 @@
     data() {
       return {
         ...config,
-        linkGroups: {}
+        linkGroups: {},
+        enableAnnouncer: Boolean(Number(process.env.ENABLE_ANNOUNCER))
       };
     },
 
