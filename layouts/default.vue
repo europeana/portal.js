@@ -89,7 +89,7 @@
       return {
         ...config,
         linkGroups: {},
-        enableAnnouncer: Boolean(Number(process.env.ENABLE_ANNOUNCER))
+        enableAnnouncer: Boolean(Number(process.env.ENABLE_VUE_ANNOUNCER))
       };
     },
 
