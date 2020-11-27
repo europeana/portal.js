@@ -4,6 +4,11 @@
     <client-only>
       <CookieDisclaimer />
     </client-only>
+    <div
+      id="toppage"
+      ref="toppage"
+      tabindex="0"
+    />
     <a
       class="skip-main"
       href="#main"
@@ -101,7 +106,12 @@
     },
 
     watch: {
-      '$i18n.locale': '$fetch'
+      '$i18n.locale': '$fetch',
+      $route() {
+        this.$nextTick(() => {
+          this.$refs.toppage.focus();
+        });
+      }
     },
 
     head() {
