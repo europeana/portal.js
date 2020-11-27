@@ -147,7 +147,8 @@ module.exports = {
   async acceptCookies() {
     await client.expect.element('.cookie-disclaimer').to.be.visible;
     await client.click('.cookie-disclaimer .accept-btn');
-    await client.expect.element('.cookie-disclaimer').to.not.be.visible;
+    await client.pause(1000);
+    await client.expect.element('.cookie-disclaimer').to.not.be.present;
   },
   async havePreviouslyAcceptedCookies() {
     /* eslint-disable prefer-arrow-callback */
