@@ -32,8 +32,7 @@ module.exports = {
     await client.expect.url().to.match(new RegExp(`[?&]page=${page}([&#]|$)`));
     const navSelector = qaSelector('pagination navigation');
     const activeLinkSelector = navSelector + ' li.active';
-    // await client.waitForElementVisible(activeLinkSelector);
-    await client.expect(activeLinkSelector).text.to.equal(page);
+    await client.expect.element(activeLinkSelector).text.to.equal(page);
   },
   async checkPageAccesibility() {
     let axeOptions = {
