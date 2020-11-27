@@ -11,7 +11,8 @@ function mapCollections(collection) {
 const collectionQfRegex = /^collection:/;
 const classicBaseUrl = 'https://classic.europeana.eu/portal/';
 const qfKeyRegex = /^(.*?):/;
-const qfValueRegex = /^.*?:"?([^"]*)"?$/;
+const qfValueRegex = /^.*?:"?(.*?)"?$/;
+
 /**
  * Check for the presence of a collection filter.
  * @param {string[]} qfs qf values from the portal.js URL
@@ -35,7 +36,7 @@ function getBasePath(qfs) {
 function classicParamsFromQfs(qfs) {
   let returnString  = '';
   qfs.filter(qf => {
-    return !qf.match(collectionQfRegex);
+    return qfKeyRegex.test(qf) && qfValueRegex.test(qf) && !collectionQfRegex.test(qf);
   }).forEach(qf => {
     let key = qf.match(qfKeyRegex)[1];
     let value; // Value lookup depends on what the key is.

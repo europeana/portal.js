@@ -65,6 +65,10 @@ const rules = [
     from: '/portal/en/search?q=&f%5BRIGHTS%5D%5B%5D=http%2A%3A%2F%2Fcreativecommons.org%2Flicenses%2Fby-nc-sa%2A',
     to: '/en/search?query=&qf=RIGHTS%3Ahttp%2A%3A%2F%2Fcreativecommons.org%2Flicenses%2Fby-nc-sa%2A'
   },
+  {
+    from: '/portal/en/search?q=&f%5BDATA_PROVIDER%5D%5B%5D=Nederlands+Bakkerijmuseum+%22Het+Warme+Land%22',
+    to: '/en/search?query=&qf=DATA_PROVIDER%3A%22Nederlands+Bakkerijmuseum+%5C%22Het+Warme+Land%5C%22%22'
+  },
   { from: '/portal/en/exhibitions/foyer', to: '/en/exhibitions' },
   { from: '/portal/es/exhibitions/heritage-at-risk', to: '/es/exhibitions/heritage-at-risk' },
   { from: '/portal/de/explore/galleries', to: '/de/galleries' },

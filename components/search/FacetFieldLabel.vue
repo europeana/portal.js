@@ -6,6 +6,7 @@
 
 <script>
   import { mapGetters } from 'vuex';
+  import { unescapeLuceneSpecials } from '../../plugins/europeana/utils';
 
   export default {
     name: 'FacetFieldLabel',
@@ -53,7 +54,8 @@
         fieldLabel = this.formatFacetFieldLabel(this.facetName, this.fieldValue);
         if (!fieldLabel) fieldLabel = this.fieldValue;
 
-        const unquotedFieldValue = fieldLabel.replace(/^"(.*)"$/, '$1');
+        const unquotedFieldValue = unescapeLuceneSpecials(fieldLabel.replace(/^"(.*)"$/, '$1'));
+
         const key = `facets.${this.facetName}.options.${unquotedFieldValue}`;
 
         return this.$tNull(key) || unquotedFieldValue;
