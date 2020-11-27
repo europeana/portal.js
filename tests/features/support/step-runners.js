@@ -31,8 +31,9 @@ module.exports = {
   async amOnPageNumber(page) {
     await client.expect.url().to.match(new RegExp(`[?&]page=${page}([&#]|$)`));
     const navSelector = qaSelector('pagination navigation');
-    const activeLinkSelector = navSelector + ` li.active a[aria-posinset="${page}"]`;
-    await client.waitForElementVisible(activeLinkSelector);
+    const activeLinkSelector = navSelector + ' li.active';
+    // await client.waitForElementVisible(activeLinkSelector);
+    await client.expect(activeLinkSelector).text.to.equal(page);
   },
   async checkPageAccesibility() {
     let axeOptions = {
@@ -177,19 +178,16 @@ module.exports = {
     /* eslint-enable prefer-arrow-callback */
   },
   async paginateToPage(page) {
-    const containerSelector = qaSelector('pagination navigation');
+    const containerSelector = '//*[@data-qa="pagination navigation"]';
 
     // Move down to the nav container and wait one second to allow lazy-loading
     // of images which may interfere with clicking on pagination.
     // FIXME: this is not 100% reliable
-    await client.moveToElement(containerSelector, 0, 0);
+    await client.moveToElement('xpath', containerSelector, 0, 0);
     await this.waitSomeSeconds(1);
 
-    await client.waitForElementVisible(containerSelector);
-    const selector = containerSelector + ` a[aria-posinset="${page}"]`;
-    await client.waitForElementVisible(selector);
-
-    await client.click(selector);
+    await client.waitForElementVisible('xpath', containerSelector);
+    await client.click('xpath', containerSelector + '//a[contains(text(),"' + page + '")]');
   },
   async preferBrowserLanguage(locale) {
     const nightwatchApiOptions = {
