@@ -1,14 +1,12 @@
 <template>
-  <div>
+  <div
+    ref="toppage"
+    tabindex="0"
+  >
     <VueAnnouncer v-if="enableAnnouncer" />
     <client-only>
       <CookieDisclaimer />
     </client-only>
-    <div
-      id="toppage"
-      ref="toppage"
-      tabindex="0"
-    />
     <a
       class="skip-main"
       href="#main"
