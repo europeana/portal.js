@@ -333,7 +333,7 @@ export default {
     "MIME_TYPE": {
       "name": "Formato de archivo | Formatos de archivo",
       "options": {
-        "text\/plain": "Texto sin formato"
+        "text/plain": "Texto sin formato"
       }
     },
     "PROVIDER": {
