@@ -1,18 +1,50 @@
 export default {
+  "account": {
+    "likes": "Všečki",
+    "linkAccount": "Moj račun",
+    "linkLogin": "Vpis",
+    "linkLogout": "Izpis",
+    "notifications": {
+      "noCollections": {
+        "private": "Niste še ustvarili nobene zasebne zbirke.",
+        "public": "Niste še ustvarili nobene javne zbirke."
+      },
+      "noLikedItems": "Niste še všečkali nobenih predmetov."
+    },
+    "privateCollections": "Zasebne zbirke",
+    "profile": "Moji všečki & zbirke",
+    "publicCollections": "Javne zbirke",
+    "settings": "Nastavitve",
+    "title": "Moj račun"
+  },
   "actions": {
+    "close": "zapri",
     "download": "Prenos",
+    "edit": "Uredi",
+    "goBack": "Nazaj",
+    "like": "Všeč mi je",
     "providedBy": "Zagotavlja {provider}",
     "share": "Deli",
     "shareOn": "Deli prek {social}",
     "viewAt": "Ogled na {link}",
     "viewDocument": "Ogled dokumenta"
   },
+  "attribution": {
+    "country": "Država:",
+    "creator": "Ustvarjalec:",
+    "date": "Datum:",
+    "institution": "Ustanova:",
+    "title": "Naslov:"
+  },
   "blog": {
     "author": "Avtor",
     "authors": "Avtorji",
     "blog": "Blog",
+    "by": "avtor",
     "categories": "Kategorije",
     "category": "Kategorija",
+    "posts": "Objave v blogih",
+    "published": "Objavljeno {date}",
     "relatedPosts": "Sorodne objave"
   },
   "clearAllFilters": "počisti vse filtre",
@@ -34,25 +66,31 @@ export default {
       }
     }
   },
+  "collectionsYouMightLike": "Zbirke, ki vam bodo mogoče všeč",
   "contentfulManual": {
     "footerNavigation": {
       "about": "O zbirkah Europeana",
       "forDevelopers": "Za razvijalce",
       "help": "Pomoč",
       "meetUs": "Spoznajte ekipo",
+      "MoreInfoLabel": "Več informacij",
       "provide": "Postanite ponudnik podatkov",
+      "subscribe": "Prijavite se na naša obvestila",
       "terms": "Pogoji uporabe in Pravilnik o zasebnosti"
     },
     "headerNavigation": {
+      "Collections": "Zbirke",
       "explore": "Razišči",
       "teachers": "Učitelji"
     }
   },
+  "contentYouMightLike": "Vsebina, ki vam bo mogoče všeč",
   "cookieDisclaimer": {
     "acceptCookieDisclaimer": "Sprejmi izjavo o piškotkih",
     "link": "Več informacij",
     "terms": "To spletno mesto uporablja piškotke, ki zagotavljajo najboljšo izkušnjo z uporabo našega spletnega mesta. S klikanjem ali krmarjenjem po tem spletnem mestu se strinjate, da nam dovolite zbiranje informacij prek piškotkov."
   },
+  "curatedAutomatically": "Samodejno je kurirala Europeana",
   "dateFilter": {
     "endDate": "Datum konca",
     "specificDate": "Določen datum",
@@ -71,6 +109,7 @@ export default {
     "chapters": "Poglavja",
     "credits": "Sodelavci",
     "currentChapter": "Trenutno poglavje",
+    "description": "Razišči razstave",
     "exhibitions": "Razstave"
   },
   "facets": {
@@ -256,9 +295,11 @@ export default {
       }
     },
     "contentTier": {
-      "name": "Vključuje elemente, ki ne izpolnjujejo naših meril za objavo",
+      "name": "Vključuje zapise, ki ne izpolnjujejo naših meril za objavo",
+      "notification": "Nekateri predmeti, ki ne ustrezajo našim kriterijem objavljanja, so na voljo. Do teh predmetov lahko dostopate z aktivacijo filtra 'Kakovost predmetov' pod 'Več filtrov'.",
       "options": {
-        "*": "Vključuje elemente, ki ne izpolnjujejo naših meril za objavo"
+        "*": "Vključuje elemente, ki ne izpolnjujejo naših meril za objavo",
+        "0": "Pokaži samo predmete, ki ne ustrezajo našim kriterijem objavljanja."
       }
     },
     "COUNTRY": {
@@ -406,12 +447,30 @@ export default {
     "listSeperator": ";"
   },
   "galleries": {
+    "description": "Razišči naše zbirke",
     "galleries": "Galerije"
   },
   "goToRecord": "Pojdi na zapis",
+  "header": {
+    "backToMenu": "Zapri iskalno polje",
+    "clearQuery": "Počisti iskalno poizvedbo ",
+    "entireCollection": "Išči {query} v naši celotni zbirki",
+    "europeanaHome": "Na začetno stran Europeana",
+    "inCollection": "Išči {query} v {collection}",
+    "searchFor": "Išči {query}",
+    "searchForEverything": "Išči vse",
+    "searchForEverythingInCollection": "Išči vse v {collection}",
+    "searchForEverythingInEntireCollection": "Išči vse v naši celotni zbirki",
+    "showSidebar": "Pokaži meni"
+  },
   "homeLinkAlt": "Na začetno stran Europeana",
   "imageSlider": {
     "handle": "Ročaj drsnika"
+  },
+  "items": {
+    "itemCount": "1 predmet |{count} predmeti",
+    "itemOf": "{max} od {count} predmetov",
+    "youMightLike": "Predmeti, ki vam bodo mogoče všeč"
   },
   "layout": {
     "skipToMain": "Preskoči na vsebino strani"
@@ -440,11 +499,26 @@ export default {
   "newWindow": "odpre se v novem oknu",
   "noMoreResults": "Za vašo iskalno poizvedbo ni več rezultatov.",
   "noResults": "Brez rezultatov",
+  "pages": {
+    "collections": {
+      "topics": {
+        "title": "Teme"
+      }
+    }
+  },
   "readMore": "Preberi več",
   "record": {
+    "allMetaData": "Vsi metapodatki",
     "downloadCopyrightInfo": "To delo je zaščiteno z avtorskimi pravicami in ga ni mogoče prenesti.",
+    "exploreMore": "Razišči več",
+    "extendedInformation": "Razširjene informacije",
+    "goodToKnow": "Dobro je vedeti",
+    "hideAll": "Skrij vse informacije",
     "record": "Zapis",
+    "showAll": "Pokaži vse informacije",
     "similarItems": "Podobna dela",
+    "transcription": "Prepis",
+    "transcriptionDisclaimer": "To vsebino je prispevala javnost, ne ustanova, ki je zagotovila ta predmet.",
     "view": {
       "image": "Ogled slike",
       "media": "Ogled medijev",
@@ -459,6 +533,9 @@ export default {
   "resultsLimitWarning": "Dodatni rezultati niso prikazani, ker je prikazanih samo prvih 1000 najbolj relevantnih rezultatov. Če niste našli, kar iščete, razmislite o natančnejšem iskanju.",
   "search": "Išči",
   "searchPlaceholder": "Kaj iščete?",
+  "searchResults": "Išči",
+  "searchResultsFor": "{0} - Išči",
+  "searchResultsForIn": "{0} - Išči v {1}",
   "searchSuggestions": "Predlogi za iskanje",
   "searchTier": {
     "button": {
@@ -473,6 +550,35 @@ export default {
   "searchViews": {
     "grid": "Pogled mreže",
     "list": "Pogled seznama"
+  },
+  "set": {
+    "actions": {
+      "addTo": "Dodaj zbirki",
+      "create": "Ustvari zbirko",
+      "createNew": "Ustvari novo zbirko",
+      "delete": "Izbriši zbirko",
+      "edit": "Uredi zbirko",
+      "update": "Posodobi zbirko"
+    },
+    "form": {
+      "description": "Opis zbirke",
+      "private": "Ohrani to zbirko zasebno",
+      "title": "Ime zbirke"
+    },
+    "labels": {
+      "curatedBy": "Kurator",
+      "private": "Zasebna zbirka"
+    },
+    "notifications": {
+      "deleted": "Vaša zbirka je bila izbrisana.",
+      "likeLimit": {
+        "body": "Se opravičujemo, a trenutno lahko všečkate največ 100 predmetov. Kmalu bomo odstranili to omejitev!",
+        "title": "100 všečkov"
+      }
+    },
+    "prompts": {
+      "delete": "Ali ste prepričani, da želite izbrisati to zbirko? Če izbrišete to zbirko, boste izgubili vse predmete, ki ste jih dodali."
+    }
   },
   "showLess": "Prikaži manj",
   "showMore": "Prikaži več"

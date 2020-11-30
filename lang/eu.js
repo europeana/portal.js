@@ -73,11 +73,13 @@ export default {
       "forDevelopers": "Garatzaileentzat",
       "help": "Laguntza",
       "meetUs": "Taldea ezagutu",
+      "MoreInfoLabel": "Informazio gehiago",
       "provide": "Datu hornitzaile bihurtu",
       "subscribe": "Harpidetu zaitez gure Buletinera",
       "terms": "Erabilera baldintzak eta pribatutasun politika"
     },
     "headerNavigation": {
+      "Collections": "Bildumak",
       "explore": "Arakatu",
       "teachers": "Irakasleak"
     }
@@ -471,6 +473,7 @@ export default {
   },
   "items": {
     "itemCount": "Elementu 1 | {count} elementu",
+    "itemOf": "{max}/{count} elementu",
     "youMightLike": "Gustatu ahal zaizkizun elementuak"
   },
   "layout": {
@@ -574,7 +577,11 @@ export default {
       "private": "Bilduma pribatua"
     },
     "notifications": {
-      "deleted": "Bilduma ezabatu egin da."
+      "deleted": "Bilduma ezabatu egin da.",
+      "likeLimit": {
+        "body": "Sentitzen dugu, baina momentuz 100 elementu atsegin daitezke, gehienez. Laster kenduko dugu muga hori!",
+        "title": "100 atsegite"
+      }
     },
     "prompts": {
       "delete": "Ziur zaude bilduma hau ezabatu nahi duzula? Bilduma ezabatuz gero, gaineratu dituzun elementu guztiak galduko dituzu."

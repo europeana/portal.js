@@ -1,18 +1,50 @@
 export default {
+  "account": {
+    "likes": "Gostos",
+    "linkAccount": "A minha conta",
+    "linkLogin": "Inicie sessão",
+    "linkLogout": "Encerrar sessão",
+    "notifications": {
+      "noCollections": {
+        "private": "Ainda não criou nenhuma galeria privada",
+        "public": "Ainda não criou nenhuma galeria pública"
+      },
+      "noLikedItems": "Ainda não gostou de nenhum item"
+    },
+    "privateCollections": "Galerias privadas",
+    "profile": "Os meus gostos e galerias",
+    "publicCollections": "Galerias públicas",
+    "settings": "Definições",
+    "title": "A minha conta"
+  },
   "actions": {
+    "close": "fechar",
     "download": "Descarregar",
+    "edit": "Editar",
+    "goBack": "Voltar",
+    "like": "Gosto",
     "providedBy": "Fornecido por {provider}",
     "share": "Partilhar",
     "shareOn": "Partilhe em {social}",
     "viewAt": "Ver em {link}",
     "viewDocument": "Ver documento"
   },
+  "attribution": {
+    "country": "País:",
+    "creator": "Criador:",
+    "date": "Date:",
+    "institution": "Instituição:",
+    "title": "Título:"
+  },
   "blog": {
     "author": "Autor",
     "authors": "Autores",
     "blog": "Blog",
+    "by": "por",
     "categories": "Categorias",
     "category": "Categoria",
+    "posts": "Publicações do blogue",
+    "published": "Publicado {date}",
     "relatedPosts": "Publicações relacionadas"
   },
   "clearAllFilters": "limpar todos os filtros",
@@ -34,25 +66,31 @@ export default {
       }
     }
   },
+  "collectionsYouMightLike": "Coleções que poderá gostar",
   "contentfulManual": {
     "footerNavigation": {
-      "about": "Sobre Europeana Collections",
+      "about": "Sobre Europeana",
       "forDevelopers": "Para desenvolvedores",
       "help": "Ajuda",
       "meetUs": "Conheça a equipa",
+      "MoreInfoLabel": "Mais informações",
       "provide": "Torne-se um fornecedor de dados",
+      "subscribe": "Subscreva na nossa newsletter",
       "terms": "Termos de uso e política de privacidade"
     },
     "headerNavigation": {
+      "Collections": "Coleções",
       "explore": "Explorar",
       "teachers": "Professores"
     }
   },
+  "contentYouMightLike": "Conteúdo de que pode gostar",
   "cookieDisclaimer": {
     "acceptCookieDisclaimer": "Aceitar aviso de isenção de cookies",
     "link": "Mais informações",
     "terms": "Este site usa cookies para garantir que obtenha a melhor experiência em nosso site. Ao clicar ou navegar no site, concorda em permitir nossa coleta de informações através de cookies."
   },
+  "curatedAutomatically": "Com curadoria automática de Europeana",
   "dateFilter": {
     "endDate": "Data de conclusão",
     "specificDate": "Data específica",
@@ -71,14 +109,15 @@ export default {
     "chapters": "Capítulos",
     "credits": "Créditos",
     "currentChapter": "Capítulo atual",
-    "exhibitions": "Exposições"
+    "description": "Explore as exposições",
+    "exhibitions": "Exposições | Exposições"
   },
   "facets": {
     "api": {
       "name": "Procurar por",
       "options": {
-        "fulltext": "Registos com texto completo",
-        "metadata": "Registos somente de metadados"
+        "fulltext": "Itens com texto completo",
+        "metadata": "Apenas registos de metadados"
       }
     },
     "button": {
@@ -90,7 +129,7 @@ export default {
       "showLess": "Mostrar menos {label}"
     },
     "collection": {
-      "name": "Categoria",
+      "name": "Coleção",
       "options": {
         "archaeology": "Arqueologia",
         "art": "Arte",
@@ -256,9 +295,11 @@ export default {
       }
     },
     "contentTier": {
-      "name": "Inclui itens que não satisfazem os nossos critérios de publicação",
+      "name": "Qualidade do item",
+      "notification": "Alguns itens que não correspondem aos nossos critérios de publicação estão disponíveis. Pode aceder a esses itens ativando o filtro 'Qualidade do item' em 'Mais filtros'.",
       "options": {
-        "*": "Inclui itens que não atendem aos nossos critérios de publicação"
+        "*": "Inclui itens que não atendem aos nossos critérios de publicação",
+        "0": "Mostrar apenas os itens que não atendem aos nossos critérios de publicação"
       }
     },
     "COUNTRY": {
@@ -268,7 +309,7 @@ export default {
       "name": "Criador | Criadores"
     },
     "DATA_PROVIDER": {
-      "name": "Instituição"
+      "name": "Instituição | Instituições"
     },
     "IMAGE_ASPECTRATIO": {
       "name": "Orientação da imagem | Orientações da imagem",
@@ -287,7 +328,7 @@ export default {
       }
     },
     "LANGUAGE": {
-      "name": "Língua"
+      "name": "Língua | Línguas"
     },
     "MIME_TYPE": {
       "name": "Formato de ficheiro | Formatos de ficheiros",
@@ -296,7 +337,7 @@ export default {
       }
     },
     "PROVIDER": {
-      "name": "Agregador"
+      "name": "Agregador | Agregadores"
     },
     "proxy_dc_format": {
       "name": "Formato | Formatos"
@@ -311,7 +352,7 @@ export default {
       "name": "Médio | Meios de comunicação"
     },
     "REUSABILITY": {
-      "name": "Posso reutilizar isso?",
+      "name": "Posso usar isto?",
       "options": {
         "open": "Sim",
         "permission": "Talvez, peça permissão",
@@ -377,7 +418,7 @@ export default {
       "edmIsSuccessorOf": "É sucessor de",
       "edmProvider": "Fornecedor",
       "edmRealizes": "Alcança",
-      "edmRights": "Licença dos média neste registo (a menos que especificado de outra forma)",
+      "edmRights": "Declaração de direitos para os média neste item (a menos que especificado de outra forma)",
       "edmUgc": "Conteúdo gerado por utilizadores",
       "europeanaCollectionName": "Nome da coleção",
       "keywords": "Palavras-chave (fornecidas pela comunidade)",
@@ -389,7 +430,7 @@ export default {
       "about": "RDF Sobre",
       "dcDescription": "Descrição",
       "ebucoreHasMimeType": "Ebucore Tipo MIME",
-      "edmRights": "Licença para este recurso de média",
+      "edmRights": "Declaração de direitos para este recurso de média",
       "rdfAbout": "RDF Sobre"
     }
   },
@@ -406,12 +447,30 @@ export default {
     "listSeperator": ";"
   },
   "galleries": {
+    "description": "Explorar as nossas galerias",
     "galleries": "Galerias"
   },
-  "goToRecord": "Ir para o registo",
+  "goToRecord": "Ir para o item",
+  "header": {
+    "backToMenu": "Fechar caixa de pesquisa",
+    "clearQuery": "Limpar consulta de pesquisa",
+    "entireCollection": "Pesquise por {query} em toda a nossa coleção",
+    "europeanaHome": "Página Inicial Europeana",
+    "inCollection": "Pesquisar por {query} em {collection}",
+    "searchFor": "Pesquisa por {query}",
+    "searchForEverything": "Procurar por tudo",
+    "searchForEverythingInCollection": "Procurar por tudo em {collection}",
+    "searchForEverythingInEntireCollection": "Procurar tudo na nossa coleção total",
+    "showSidebar": "Mostrar menu"
+  },
   "homeLinkAlt": "Página Inicial Europeana",
   "imageSlider": {
     "handle": "Barra deslizante"
+  },
+  "items": {
+    "itemCount": "1 item |{count} itens",
+    "itemOf": "{max} de {count} itens",
+    "youMightLike": "Itens que poderá gostar"
   },
   "layout": {
     "skipToMain": "Ir para o conteúdo da página"
@@ -440,11 +499,26 @@ export default {
   "newWindow": "abre numa nova janela",
   "noMoreResults": "Não há mais resultados para a sua pesquisa.",
   "noResults": "Sem Resultados",
+  "pages": {
+    "collections": {
+      "topics": {
+        "title": "Tópicos"
+      }
+    }
+  },
   "readMore": "Ler mais",
   "record": {
+    "allMetaData": "Todos os metadados",
     "downloadCopyrightInfo": "Este item está protegido por direitos de autor e não pode ser transferido.",
-    "record": "Registo",
+    "exploreMore": "Explorar mais",
+    "extendedInformation": "Informação detalhada",
+    "goodToKnow": "Bom saber",
+    "hideAll": "Ocultar todas as informações",
+    "record": "Item",
+    "showAll": "Mostrar todas as informações",
     "similarItems": "Itens relacionados",
+    "transcription": "Transcrição",
+    "transcriptionDisclaimer": "Este conteúdo é fornecido pelo público, não pela instituição que forneceu este item.",
     "view": {
       "image": "Ver imagem",
       "media": "Ver meios de comunicação",
@@ -458,7 +532,10 @@ export default {
   "results": "Resultados",
   "resultsLimitWarning": "Resultados adicionais não são mostrados, apenas os primeiros 1000 resultados mais relevantes são mostrados. Se não encontrou o que procurava, considere refinar a sua pesquisa.",
   "search": "Procurar",
-  "searchPlaceholder": "O que procura?",
+  "searchPlaceholder": "Procure milhões de itens",
+  "searchResults": "Procurar",
+  "searchResultsFor": "{0} - Procurar",
+  "searchResultsForIn": "{0} - Procurar em {1}",
   "searchSuggestions": "Sugestões de pesquisa",
   "searchTier": {
     "button": {
@@ -473,6 +550,35 @@ export default {
   "searchViews": {
     "grid": "Visualização em grelha",
     "list": "Visualização em lista"
+  },
+  "set": {
+    "actions": {
+      "addTo": "Adicionar galeria",
+      "create": "Criar galeria",
+      "createNew": "Criar uma galeria",
+      "delete": "Eliminar galeria",
+      "edit": "Editar galeria",
+      "update": "Atualizar galeria"
+    },
+    "form": {
+      "description": "Descrição da galeria",
+      "private": "Manter a galeria privada",
+      "title": "Nome da galeria"
+    },
+    "labels": {
+      "curatedBy": "Curadoria por",
+      "private": "Galeria privada"
+    },
+    "notifications": {
+      "deleted": "A galeria foi eliminada.",
+      "likeLimit": {
+        "body": "Pedimos desculpa, mas está limitado no momento a gostar de no máximo 100 itens. Removeremos esse limite em breve!",
+        "title": "100 gostos"
+      }
+    },
+    "prompts": {
+      "delete": "Tem a certeza de que deseja eliminar esta galeria? Se eliminar esta galeria, perderá todos os itens que adicionou a ela."
+    }
   },
   "showLess": "Mostrar menos",
   "showMore": "Mostrar mais"
