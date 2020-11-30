@@ -1,8 +1,5 @@
 <template>
-  <div
-    ref="toppage"
-    tabindex="0"
-  >
+  <div>
     <VueAnnouncer v-if="enableAnnouncer" />
     <client-only>
       <CookieDisclaimer />
@@ -107,7 +104,8 @@
       '$i18n.locale': '$fetch',
       $route() {
         this.$nextTick(() => {
-          this.$refs.toppage.focus();
+          document.body.setAttribute('tabindex', '0');
+          document.body.focus();
         });
       }
     },
