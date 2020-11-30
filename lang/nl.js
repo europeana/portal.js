@@ -1,27 +1,50 @@
 export default {
   "account": {
+    "likes": "Likes",
+    "linkAccount": "Mijn account",
+    "linkLogin": "Inloggen",
+    "linkLogout": "Uitloggen",
     "notifications": {
       "noCollections": {
         "private": "U hebt nog geen openbare collecties gemaakt",
         "public": "U hebt nog geen openbare collecties gemaakt"
       },
       "noLikedItems": "Je hebt nog geen Items geliked"
-    }
+    },
+    "privateCollections": "Privégalerijen",
+    "profile": "Mijn likes en galerijen",
+    "publicCollections": "Openbare galerijen",
+    "settings": "Instellingen",
+    "title": "Mijn account"
   },
   "actions": {
+    "close": "sluiten",
     "download": "Download",
+    "edit": "Bewerken",
+    "goBack": "Ga terug",
+    "like": "Liken",
     "providedBy": "Aangeboden door {provider}",
     "share": "Delen",
     "shareOn": "Delen op {social}",
     "viewAt": "Bekijken op {link}",
     "viewDocument": "Document weergeven"
   },
+  "attribution": {
+    "country": "Land:",
+    "creator": "Maker:",
+    "date": "Datum:",
+    "institution": "Instelling:",
+    "title": "Titel:"
+  },
   "blog": {
     "author": "Auteur",
     "authors": "Auteurs",
     "blog": "Blog",
+    "by": "door",
     "categories": "Categorieën",
     "category": "Categorie",
+    "posts": "Blogberichten",
+    "published": "Gepubliceerd op {date}",
     "relatedPosts": "Gerelateerde berichten"
   },
   "clearAllFilters": "alle filters wissen",
@@ -43,6 +66,7 @@ export default {
       }
     }
   },
+  "collectionsYouMightLike": "Collecties die u misschien interessant vindt",
   "colourSwatch": "Kleurstaal",
   "contentfulManual": {
     "footerNavigation": {
@@ -50,19 +74,24 @@ export default {
       "forDevelopers": "Voor ontwikkelaars",
       "help": "Help",
       "meetUs": "Ontmoet het team",
+      "MoreInfoLabel": "Meer informatie",
       "provide": "Word een gegevensprovider",
+      "subscribe": "Aanmelden voor onze nieuwsbrief",
       "terms": "Gebruiksvoorwaarden en privacybeleid"
     },
     "headerNavigation": {
+      "Collections": "Collecties",
       "explore": "Verkennen",
       "teachers": "Leraren"
     }
   },
+  "contentYouMightLike": "Content die u misschien interessant vindt",
   "cookieDisclaimer": {
     "acceptCookieDisclaimer": "Accepteer cookiedisclaimer",
     "link": "Meer informatie",
     "terms": "Deze website maakt gebruik van cookies om ervoor te zorgen dat u de beste ervaring op onze website krijgt. Door op de site te klikken of ernaartoe te navigeren, gaat u akkoord met de verzameling van informatie via cookies."
   },
+  "curatedAutomatically": "Automatisch beheerd door Europeana",
   "dateFilter": {
     "endDate": "Einddatum",
     "specificDate": "Specifieke datum",
@@ -269,8 +298,10 @@ export default {
     },
     "contentTier": {
       "name": "Bevat items die niet voldoen aan onze publicatiecriteria",
+      "notification": "Sommige artikelen die niet passen bij onze publicatiecriteria, zijn beschikbaar. U kunt deze artikelen inzien door het filter \"Kwaliteit van artikel\" onder \"Meer filters\" te activeren.",
       "options": {
-        "*": "Bevat items die niet voldoen aan onze publicatiecriteria"
+        "*": "Bevat items die niet voldoen aan onze publicatiecriteria",
+        "0": "Geef items weer die niet voldoen aan onze publicatiecriteria"
       }
     },
     "COUNTRY": {
@@ -304,7 +335,7 @@ export default {
     "MIME_TYPE": {
       "name": "Bestandsformaat | Bestandsformaten",
       "options": {
-        "text/plain": "Platte tekst"
+        "text\/plain": "Platte tekst"
       }
     },
     "PROVIDER": {
@@ -425,11 +456,25 @@ export default {
   },
   "goToRecord": "Ga naar record",
   "header": {
-    "searchForEverything": "Zoek op alles"
+    "backToMenu": "Zoekvakje sluiten",
+    "clearQuery": "Zoekopdracht wissen",
+    "entireCollection": "Zoek op {query} in onze gehele collectie",
+    "europeanaHome": "Europeana Home",
+    "inCollection": "Zoek op {query} in {collection}",
+    "searchFor": "Zoeken naar {query}",
+    "searchForEverything": "Zoek op alles",
+    "searchForEverythingInCollection": "Zoek op alles in {collection}",
+    "searchForEverythingInEntireCollection": "Zoek op alles in onze gehele collectie",
+    "showSidebar": "Menu weergeven"
   },
   "homeLinkAlt": "Europeana Home",
   "imageSlider": {
     "handle": "Schuifgreep"
+  },
+  "items": {
+    "itemCount": "1 artikel |{count} artikelen",
+    "itemOf": "{max} van {count} artikelen",
+    "youMightLike": "Artikelen die u misschien interessant vindt"
   },
   "layout": {
     "skipToMain": "Ga naar pagina-inhoud"
@@ -458,11 +503,26 @@ export default {
   "newWindow": "opent in nieuw venster",
   "noMoreResults": "Er zijn geen resultaten meer voor uw zoekopdracht.",
   "noResults": "Geen resultaten",
+  "pages": {
+    "collections": {
+      "topics": {
+        "title": "Onderwerpen"
+      }
+    }
+  },
   "readMore": "Lees verder",
   "record": {
+    "allMetaData": "Alle metadata",
     "downloadCopyrightInfo": "Dit item is auteursrechtelijk beschermd en kan niet worden gedownload.",
+    "exploreMore": "Meer verkennen",
+    "extendedInformation": "Uitgebreide informatie",
+    "goodToKnow": "Goed om te weten",
+    "hideAll": "Verberg alle informatie",
     "record": "Registratie",
+    "showAll": "Toon alle informatie",
     "similarItems": "Vergelijkbare items",
+    "transcription": "Transcript",
+    "transcriptionDisclaimer": "Deze content is een bijdrage van ons publiek, niet door de instelling die dit artikel heeft verstrekt.",
     "view": {
       "image": "Afbeelding weergeven",
       "media": "Media weergeven",
@@ -477,6 +537,9 @@ export default {
   "resultsLimitWarning": "Aanvullende resultaten worden niet getoond, aangezien alleen de 1000 meest relevante resultaten worden getoond. Indien u niet hebt gevonden wat u zoekt, overweeg dan om uw zoekopdracht te verfijnen.",
   "search": "Zoeken",
   "searchPlaceholder": "Doorzoek miljoenen Items",
+  "searchResults": "Zoeken",
+  "searchResultsFor": "{0} - Zoeken",
+  "searchResultsForIn": "{0} - Zoeken in {1}",
   "searchSuggestions": "Zoeksuggesties",
   "searchTier": {
     "button": {
@@ -491,6 +554,35 @@ export default {
   "searchViews": {
     "grid": "Grid-weergave",
     "list": "Lijstweergave"
+  },
+  "set": {
+    "actions": {
+      "addTo": "Toevoegen aan galerij",
+      "create": "Galerij aanmaken",
+      "createNew": "Nieuwe galerij aanmaken",
+      "delete": "Galerij verwijderen",
+      "edit": "Galerij bewerken",
+      "update": "Galerij bijwerken"
+    },
+    "form": {
+      "description": "Omschrijving van de galerij",
+      "private": "Houd deze galerij privé",
+      "title": "Naam van de galerij"
+    },
+    "labels": {
+      "curatedBy": "Beheerd door",
+      "private": "Privégalerij"
+    },
+    "notifications": {
+      "deleted": "Uw galerij is verwijderd",
+      "likeLimit": {
+        "body": "Het spijt ons, maar u kunt op dit moment niet meer dan 100 artikelen liken. We zullen deze beperking binnenkort weghalen!",
+        "title": "100 likes"
+      }
+    },
+    "prompts": {
+      "delete": "Weet u zeker dat u deze galerij wilt verwijderen? Als u dat doet, verliest u alle artikelen die u daaraan heeft toegevoegd."
+    }
   },
   "showLess": "Minder weergeven",
   "showMore": "Meer weergeven"

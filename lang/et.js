@@ -1,18 +1,50 @@
 export default {
+  "account": {
+    "likes": "Meeldimised",
+    "linkAccount": "Minu konto",
+    "linkLogin": "Logi sisse",
+    "linkLogout": "Logi välja",
+    "notifications": {
+      "noCollections": {
+        "private": "Te pole veel ühtegi privaatset galeriid loonud",
+        "public": "Te pole veel ühtegi avalikku galeriid loonud"
+      },
+      "noLikedItems": "Teile pole veel ükski toode meeldinud"
+    },
+    "privateCollections": "Privaatgaleriid",
+    "profile": "Minu meeldimised ja galeriid",
+    "publicCollections": "Avalikud galeriid",
+    "settings": "Seaded",
+    "title": "Minu konto"
+  },
   "actions": {
+    "close": "Sulge",
     "download": "Lae alla",
+    "edit": "Muuda",
+    "goBack": "Mine tagasi",
+    "like": "Meeldib",
     "providedBy": "Pakub {provider}",
     "share": "Jagage",
     "shareOn": "Jagage saidil {social}",
     "viewAt": "Kuva saidil {link}",
     "viewDocument": "Vaadake dokumenti"
   },
+  "attribution": {
+    "country": "Riik:",
+    "creator": "Looja:",
+    "date": "Kuupäev:",
+    "institution": "Institutsioon:",
+    "title": "Pealkiri:"
+  },
   "blog": {
     "author": "Autor",
     "authors": "Autorid",
     "blog": "Blogi",
+    "by": "poolt",
     "categories": "Kategooriad",
     "category": "Kategooria",
+    "posts": "Blogipostitused",
+    "published": "Avaldatud {date}",
     "relatedPosts": "Seonduvad postitused"
   },
   "clearAllFilters": "tühjenda kõik filtrid",
@@ -34,25 +66,31 @@ export default {
       }
     }
   },
+  "collectionsYouMightLike": "Kollektsioonid, mis võivad teile meeldida",
   "contentfulManual": {
     "footerNavigation": {
       "about": "Infot Europeana kohta",
       "forDevelopers": "Arendajatele",
       "help": "Abimaterjal",
       "meetUs": "Tutvu meeskonnaga",
+      "MoreInfoLabel": "Rohkem infot",
       "provide": "Hakka andmepakkujaks",
+      "subscribe": "Telli meie uudiskiri",
       "terms": "Kasutustingimused ja privaatsuspoliitika"
     },
     "headerNavigation": {
+      "Collections": "Kollektsioonid",
       "explore": "Tutvuge",
       "teachers": "Õpetajad"
     }
   },
+  "contentYouMightLike": "Sisu, mis võib teile meeldida",
   "cookieDisclaimer": {
     "acceptCookieDisclaimer": "Nõustuge küpsistest loobumisega",
     "link": "Rohkem infot",
     "terms": "See veebisait kasutab küpsiseid, et tagada meie veebisaidil parim kogemus. Sellel saidil klõpsates või liikudes nõustute lubama teabe kogumist küpsiste kaudu."
   },
+  "curatedAutomatically": "Kuraator on automaatselt Europeana",
   "dateFilter": {
     "endDate": "Lõppkuupäev",
     "specificDate": "Konkreetne kuupäev",
@@ -71,6 +109,7 @@ export default {
     "chapters": "Peatükid",
     "credits": "Autorid",
     "currentChapter": "Praegune peatükk",
+    "description": "Tutvuge näitustega",
     "exhibitions": "Näitused"
   },
   "facets": {
@@ -257,8 +296,10 @@ export default {
     },
     "contentTier": {
       "name": "Sisaldab üksusi, mis ei vasta meie avaldamiskriteeriumidele",
+      "notification": "Mõned tooted, mis ei vasta meie avaldamiskriteeriumidele, on saadaval. Nendele toodetele pääsete juurde, kui aktiveerite jaotises „Veel filtreid” filtri „Toote kvaliteet”.",
       "options": {
-        "*": "Sisaldab üksusi, mis ei vasta meie avaldamiskriteeriumidele"
+        "*": "Sisaldab üksusi, mis ei vasta meie avaldamiskriteeriumidele",
+        "0": "Kuva ainult üksused, mis ei vasta meie avaldamiskriteeriumidele"
       }
     },
     "COUNTRY": {
@@ -292,7 +333,7 @@ export default {
     "MIME_TYPE": {
       "name": "Failivorming | Failivormingud",
       "options": {
-        "text/plain": "Lihttekst"
+        "text\/plain": "Lihttekst"
       }
     },
     "PROVIDER": {
@@ -406,12 +447,30 @@ export default {
     "listSeperator": ";"
   },
   "galleries": {
+    "description": "Tutvuge meie galeriidega",
     "galleries": "Galeriid"
   },
   "goToRecord": "Mine kirje juurde",
+  "header": {
+    "backToMenu": "Sulge otsinguaken",
+    "clearQuery": "Kustuta otsingupäring",
+    "entireCollection": "Otsi {query} kogu meie kollektsioonist",
+    "europeanaHome": "Europeana avaleht",
+    "inCollection": "Otsi {query} {collection}",
+    "searchFor": "Otsi {query}",
+    "searchForEverything": "Otsi kõike",
+    "searchForEverythingInCollection": "Otsi kõike {collection}",
+    "searchForEverythingInEntireCollection": "Otsi kõike kogu meie kollektsioonist",
+    "showSidebar": "Kuva menüü"
+  },
   "homeLinkAlt": "Europeana avaleht",
   "imageSlider": {
     "handle": "Liugkäepide"
+  },
+  "items": {
+    "itemCount": "1 toode | {count} toodet",
+    "itemOf": "{max} \/ {count} tootest",
+    "youMightLike": "Tooted, mis võivad teile meeldida"
   },
   "layout": {
     "skipToMain": "Otse lehekülje sisule"
@@ -440,11 +499,26 @@ export default {
   "newWindow": "avaneb uues aknas",
   "noMoreResults": "Teie otsingupäringule pole rohkem tulemusi.",
   "noResults": "Ühtki tulemust",
+  "pages": {
+    "collections": {
+      "topics": {
+        "title": "Teemad"
+      }
+    }
+  },
   "readMore": "Loe lähemalt",
   "record": {
+    "allMetaData": "Kogu metateave",
     "downloadCopyrightInfo": "See toode on autoriõigusega kaitstud ja seda ei saa alla laadida.",
+    "exploreMore": "Avastage rohkem",
+    "extendedInformation": "Täiendav teave",
+    "goodToKnow": "Hea teada",
+    "hideAll": "Peida kogu teave",
     "record": "Kirje",
+    "showAll": "Kuva kogu teave",
     "similarItems": "Sarnased tooted",
+    "transcription": "Transkriptsioon",
+    "transcriptionDisclaimer": "See sisu on saadud eraisikult, mitte eset pakkunud institutsioonilt.",
     "view": {
       "image": "Vaadake pilti",
       "media": "Vaadake meediat",
@@ -459,6 +533,9 @@ export default {
   "resultsLimitWarning": "Täiendavaid tulemusi ei kuvata, kuna kuvatakse ainult esimesed 1000 kõige asjakohasemat tulemust. Kui te pole leidnud seda, mida otsite, kaaluge oma otsingu täpsustamist.",
   "search": "Otsing",
   "searchPlaceholder": "Mida te otsite?",
+  "searchResults": "Otsing",
+  "searchResultsFor": "{0} - otsing",
+  "searchResultsForIn": "{0} - Otsi asukohast {1}",
   "searchSuggestions": "Otsige soovitusi",
   "searchTier": {
     "button": {
@@ -473,6 +550,35 @@ export default {
   "searchViews": {
     "grid": "Võrguvaade",
     "list": "Loendivaade"
+  },
+  "set": {
+    "actions": {
+      "addTo": "Lisa galeriisse",
+      "create": "Loo galerii",
+      "createNew": "Loo uus galerii",
+      "delete": "Kustuta galerii",
+      "edit": "Redigeeri galeriid",
+      "update": "Värskenda galeriid"
+    },
+    "form": {
+      "description": "Galerii kirjeldus",
+      "private": "Hoia see galerii privaatsena",
+      "title": "Galerii nimi"
+    },
+    "labels": {
+      "curatedBy": "Kuraator",
+      "private": "Privaatgalerii"
+    },
+    "notifications": {
+      "deleted": "Teie galerii on kustutatud.",
+      "likeLimit": {
+        "body": "Vabandame, kuid praegu piirdute maksimaalselt 100 toote meeldimisega. Varsti eemaldame selle limiidi!",
+        "title": "100 meeldimist"
+      }
+    },
+    "prompts": {
+      "delete": "Kas soovite kindlasti selle galerii kustutada? Kui kustutate selle galerii, kaotate kõik sinna lisatud tooted."
+    }
   },
   "showLess": "Näita vähem",
   "showMore": "Näita rohkem"
