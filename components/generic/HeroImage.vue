@@ -1,25 +1,50 @@
 <template>
-  <b-jumbotron
-    :header="header"
-    :lead="lead"
-    :style="jumbotronStyle"
-    fluid
-    class="browse-jumbotron"
-    header-tag="h1"
-    header-level="4"
-    text-variant="white"
-    data-qa="hero banner"
-  >
-    <figcaption>
-      <CiteAttribution
-        :name="name"
-        :creator="creator"
-        :provider="provider"
-        :rights-statement="rightsStatement"
-        :url="url"
-      />
-    </figcaption>
-  </b-jumbotron>
+  <div class="container">
+    <b-jumbotron
+      :style="jumbotronStyle"
+      fluid
+      class="browse-jumbotron"
+      text-variant="white"
+      data-qa="hero banner"
+      @click="toggleCite"
+    >
+      <b-card>
+        <h1>
+          {{ header }}
+        </h1>
+        <b-card-text>
+          {{ lead }}
+        </b-card-text>
+        <b-button
+          :href="url"
+          variant="primary"
+        >
+          {{ $t('galleries.explore') }}
+        </b-button>
+      </b-card>
+      <figcaption
+        @mouseleave="toggleCite"
+        class="d-none d-md-block"
+      >
+        <span
+          v-if="citeCollapsed"
+          class="icon-info"
+          @click="toggleCite"
+          @mouseover="toggleCite"
+          @touchstart="toggleCite"
+        />
+        <CiteAttribution
+          v-else
+          :name="name"
+          :creator="creator"
+          :provider="provider"
+          :rights-statement="rightsStatement"
+          extended
+          data-qa="attribution"
+        />
+      </figcaption>
+    </b-jumbotron>
+  </div>
 </template>
 
 <script>
@@ -67,6 +92,11 @@
         default: ''
       }
     },
+    data() {
+      return {
+        citeCollapsed: true
+      };
+    },
     computed: {
       optimisedImageUrl() {
         return this.$options.filters.optimisedImageUrl(this.imageUrl, this.imageContentType, { width: 1920 });
@@ -75,6 +105,11 @@
         return {
           backgroundImage: `url("${this.optimisedImageUrl}")`
         };
+      }
+    },
+    methods: {
+      toggleCite() {
+        this.citeCollapsed = !this.citeCollapsed;
       }
     }
   };

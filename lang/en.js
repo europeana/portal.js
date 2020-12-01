@@ -457,7 +457,8 @@ export default {
   },
   "galleries": {
     "description": "Explore our galleries",
-    "galleries": "Gallery | Galleries"
+    "galleries": "Gallery | Galleries",
+    "explore": "Explore Gallery"
   },
   "goToRecord": "Go to item",
   "header": {
@@ -472,6 +473,7 @@ export default {
     "searchForEverythingInEntireCollection": "Search for everything in our entire collection",
     "showSidebar": "Show Menu"
   },
+  "homepageTitle": "Discover inspiring European cultural heritage",
   "homeLinkAlt": "Europeana home",
   "imageSlider": {
     "handle": "Slider Handle"
