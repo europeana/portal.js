@@ -1,5 +1,6 @@
 import { diff } from 'deep-object-diff';
 import merge from 'deepmerge';
+import { escapeLuceneSpecials } from '../plugins/europeana/utils';
 import { unquotableFacets } from '../plugins/europeana/search';
 
 // Default facets to always request and display.
@@ -121,7 +122,7 @@ export const mutations = {
 
       if (!unquotableFacets.includes(facet.name)) {
         for (const field of facet.fields) {
-          field.label = `"${field.label}"`;
+          field.label = '"' + escapeLuceneSpecials(field.label) + '"';
         }
       }
     }

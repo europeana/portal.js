@@ -1,11 +1,10 @@
 import axios from 'axios';
-import escapeRegExp from 'lodash/escapeRegExp';
 import omitBy from 'lodash/omitBy';
 import pick from 'lodash/pick';
 import uniq from 'lodash/uniq';
 import merge from 'deepmerge';
 
-import { apiError, selectLocaleForLangMap } from './utils';
+import { apiError, escapeLuceneSpecials, selectLocaleForLangMap } from './utils';
 import search from './search';
 import { thumbnailUrl, thumbnailTypeForMimeType } from  './thumbnail';
 import { getEntityUri, getEntityQuery } from './entity';
@@ -442,19 +441,4 @@ export function similarItemsQuery(about, data = {}) {
   // Combine fielded queries, and exclude the current item
   const query = '(' + fieldQueries.join(' OR ') + `) NOT europeana_id:"${about}"`;
   return query;
-}
-
-/**
- * Escapes Lucene syntax special characters
- * For instance, so that a string may be used in a Record API search query.
- * @param {string} unescaped Unescaped string
- * @return {string} Escaped string
- */
-function escapeLuceneSpecials(unescaped) {
-  const specials = ['\\', '+', '-', '&', '|', '!', '(', ')', '{', '}', '[', ']', '^', '"', '~', '*', '?', ':', '/'];
-
-  return specials.reduce((memo, special) => {
-    memo = memo.replace(new RegExp(escapeRegExp(special), 'g'), `\\${special}`);
-    return memo;
-  }, unescaped);
 }

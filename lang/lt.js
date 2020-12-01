@@ -1,18 +1,50 @@
 export default {
+  "account": {
+    "likes": "Patinka",
+    "linkAccount": "Mano paskyra",
+    "linkLogin": "Prisijungti",
+    "linkLogout": "Atsijungti",
+    "notifications": {
+      "noCollections": {
+        "private": "Kol kas nesukūrėte jokių privačių galerijų",
+        "public": "Kol kas nesukūrėte jokių viešų galerijų"
+      },
+      "noLikedItems": "Kol kas neturite patikusių prekių"
+    },
+    "privateCollections": "Privačios galerijos",
+    "profile": "Man patinkančios prekės, kolekcijos ir galerijos",
+    "publicCollections": "Viešos galerijos",
+    "settings": "Nustatymai",
+    "title": "Mano paskyra"
+  },
   "actions": {
+    "close": "uždaryti",
     "download": "Parsisiųsti",
+    "edit": "Redaguoti",
+    "goBack": "Grįžti",
+    "like": "Patinka",
     "providedBy": "Tiekėjas {provider}",
     "share": "Dalintis",
     "shareOn": "Dalintis {social}",
     "viewAt": "Peržiūrėkite {link}",
     "viewDocument": "Peržiūrėti dokumentą"
   },
+  "attribution": {
+    "country": "Šalis:",
+    "creator": "Autorius:",
+    "date": "Data:",
+    "institution": "Įstaiga:",
+    "title": "Pavadinimas:"
+  },
   "blog": {
     "author": "Autorius",
     "authors": "Autoriai",
     "blog": "Tinklaraštis",
+    "by": "iki",
     "categories": "Kategorijos",
     "category": "Kategorija",
+    "posts": "Tinklaraščio įrašai",
+    "published": "Paskelbta {date}",
     "relatedPosts": "Susiję įrašai"
   },
   "clearAllFilters": "išvalyti visus filtrus",
@@ -34,25 +66,31 @@ export default {
       }
     }
   },
+  "collectionsYouMightLike": "Kolekcijos, kurios jums gali patikti",
   "contentfulManual": {
     "footerNavigation": {
       "about": "Apie „Europeana“ kolekcijas",
       "forDevelopers": "Programuotojams",
       "help": "Pagalba",
       "meetUs": "Susipažinkite su komanda",
+      "MoreInfoLabel": "Daugiau informacijos",
       "provide": "Tapkite duomenų teikėju",
+      "subscribe": "Užsiprenumeruokite mūsų Naujienlaiškį",
       "terms": "Naudojimo sąlygos ir privatumo politika"
     },
     "headerNavigation": {
+      "Collections": "Kolekcijos",
       "explore": "Tyrinėkite",
-      "teachers": "Mokytojai"
+      "teachers": "Mokytojams"
     }
   },
+  "contentYouMightLike": "Turinys, kuris jums gali patikti",
   "cookieDisclaimer": {
     "acceptCookieDisclaimer": "Sutikti su atsakomybės apribojimu dėl slapukų",
     "link": "Daugiau informacijos",
     "terms": "Siekiant užtikrinti geriausią naršymo patirtį, šiame tinklalapyje naudojami slapukai. Paspausdami ar naršydami šį tinklalapį sutinkate leisti mums rinkti informaciją slapukų pagalba."
   },
+  "curatedAutomatically": "Automatiškai kuruoja „Europeana“.",
   "dateFilter": {
     "endDate": "Pabaigos data",
     "specificDate": "Konkreti data",
@@ -71,6 +109,7 @@ export default {
     "chapters": "Skyriai",
     "credits": "Kreditai",
     "currentChapter": "Dabartinis skyrius",
+    "description": "Tyrinėti mūsų parodas",
     "exhibitions": "Parodos"
   },
   "facets": {
@@ -257,6 +296,7 @@ export default {
     },
     "contentTier": {
       "name": "Rodomi elementai, neatitinkantys mūsų paskelbimo kriterijų.",
+      "notification": "Yra prekių, kurios neatitinka mūsų skelbiamų prekių kriterijų. Šias prekes rasite aktyvavę filtrą „Prekių kokybė“, esantį skiltyje „Daugiau filtrų“.",
       "options": {
         "*": "Rodomi elementai, neatitinkantys mūsų paskelbimo kriterijų.",
         "0": "Tik elementai, neatitinkantys mūsų paskelbimo kriterijų"
@@ -407,12 +447,30 @@ export default {
     "listSeperator": ";"
   },
   "galleries": {
+    "description": "Tyrinėti mūsų galerijas",
     "galleries": "Galerijos"
   },
   "goToRecord": "Eiti į įrašą",
+  "header": {
+    "backToMenu": "Uždaryti paieškos langą",
+    "clearQuery": "Išvalyti paieškos užklausą",
+    "entireCollection": "Ieškoti {query} visoje kolekcijoje",
+    "europeanaHome": "„Europeana“ pagrindinis puslapis",
+    "inCollection": "Ieškoti {query} {collection}",
+    "searchFor": "Ieškoti {query}",
+    "searchForEverything": "Ieškoti visko",
+    "searchForEverythingInCollection": "Ieškoti visko {collection}",
+    "searchForEverythingInEntireCollection": "Ieškoti visko visoje kolekcijoje",
+    "showSidebar": "Rodyti meniu"
+  },
   "homeLinkAlt": "„Europeana“ pagrindinis puslapis",
   "imageSlider": {
     "handle": "Slinkiklio rankena"
+  },
+  "items": {
+    "itemCount": "1 prekė iš |{count} prekių",
+    "itemOf": "{max} iš {count} prekių",
+    "youMightLike": "Prekės, kurios jums gali patikti"
   },
   "layout": {
     "skipToMain": "Pereiti į puslapio turinį"
@@ -441,11 +499,26 @@ export default {
   "newWindow": "atsidaro naujame lange",
   "noMoreResults": "Daugiau nėra rezultatų pagal jūsų paieškos užklausą.",
   "noResults": "Rezultatų nėra",
+  "pages": {
+    "collections": {
+      "topics": {
+        "title": "Temos"
+      }
+    }
+  },
   "readMore": "Skaityti daugiau",
   "record": {
+    "allMetaData": "Visi metaduomenys",
     "downloadCopyrightInfo": "Šis elementas apsaugos autorių teisėmis, jo negalima atsisiųsti.",
+    "exploreMore": "Sužinokite daugiau",
+    "extendedInformation": "Išplėstinė informacija",
+    "goodToKnow": "Naudinga žinoti",
+    "hideAll": "Slėpti visą informaciją",
     "record": "Įrašas",
+    "showAll": "Rodyti visą informaciją",
     "similarItems": "Panašūs elementai",
+    "transcription": "Transkripcija",
+    "transcriptionDisclaimer": "Šį turinį patalpino visuomenės narys, o ne prekę pateikusi įstaiga.",
     "view": {
       "image": "Peržiūrėti vaizdą",
       "media": "Peržiūrėti laikmeną",
@@ -460,6 +533,9 @@ export default {
   "resultsLimitWarning": "Papildomi rezultatai nerodomi, nes parodomi tik pirmieji 1000 tinkamiausių rezultatų. Jei neradote to, ko ieškote, apsvarstykite galimybę patikslinti paiešką.",
   "search": "Paieška",
   "searchPlaceholder": "Ko jūs ieškote?",
+  "searchResults": "Paieška",
+  "searchResultsFor": "{0} - Ieškoti",
+  "searchResultsForIn": "{0} - Ieškoti {1}",
   "searchSuggestions": "Paieškos pasiūlymai",
   "searchTier": {
     "button": {
@@ -474,6 +550,35 @@ export default {
   "searchViews": {
     "grid": "Tinklelio rodinys",
     "list": "Sąrašo rodinys"
+  },
+  "set": {
+    "actions": {
+      "addTo": "Įtraukti į galeriją",
+      "create": "Kurti galeriją",
+      "createNew": "Kurti naują galeriją",
+      "delete": "Naikinti galeriją",
+      "edit": "Redaguoti galeriją",
+      "update": "Atnaujinti galeriją"
+    },
+    "form": {
+      "description": "Galerijos aprašymas",
+      "private": "Palikti galeriją privačią",
+      "title": "Galerijos pavadinimas"
+    },
+    "labels": {
+      "curatedBy": "Kuruoja",
+      "private": "Privati galerija"
+    },
+    "notifications": {
+      "deleted": "Jūsų galerija panaikinta.",
+      "likeLimit": {
+        "body": "Atsiprašome, tačiau šiuo metu negalite turėti daugiau nei 100 patikusių prekių. Greitai šį apribojimą panaikinsime!",
+        "title": "100 patinka"
+      }
+    },
+    "prompts": {
+      "delete": "Ar tikrai norite naikinti šią galeriją? Jei ją panaikinsite, prarasite visas į ją įtrauktas prekes."
+    }
   },
   "showLess": "Rodyti mažiau",
   "showMore": "Rodyti daugiau"

@@ -3,6 +3,7 @@
 import qs from 'qs';
 
 import { unquotableFacets } from '../../../plugins/europeana/search';
+import { escapeLuceneSpecials } from '../../../plugins/europeana/utils';
 
 export const collectionToThemeMap = {
   'world-war-I': 'ww1',
@@ -24,7 +25,7 @@ const queryFacetParameterMappings = {
       if (unquotableFacets.includes(key) || filterValue.includes('*')) {
         queryFilterValue = filterValue;
       } else {
-        queryFilterValue = `"${filterValue}"`;
+        queryFilterValue = '"' + escapeLuceneSpecials(filterValue) + '"';
       }
       query.qf.push(`${key}:${queryFilterValue}`);
     }

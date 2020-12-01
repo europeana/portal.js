@@ -1,18 +1,50 @@
 export default {
+  "account": {
+    "likes": "Tykätyt",
+    "linkAccount": "Oma tili",
+    "linkLogin": "Kirjaudu sisään",
+    "linkLogout": "Kirjaudu ulos",
+    "notifications": {
+      "noCollections": {
+        "private": "Et ole luonut vielä yksityisiä gallerioita",
+        "public": "Et ole luonut vielä julkisia gallerioita"
+      },
+      "noLikedItems": "Et ole tykännyt vielä mistään kohteista"
+    },
+    "privateCollections": "Yksityiset galleriat",
+    "profile": "Omat tykkäykset ja galleriat",
+    "publicCollections": "Julkiset galleriat",
+    "settings": "Asetukset",
+    "title": "Oma tili"
+  },
   "actions": {
+    "close": "sulje",
     "download": "Lataa",
+    "edit": "Muokkaa",
+    "goBack": "Palaa takaisin",
+    "like": "Tykkää",
     "providedBy": "Tarjoaa {provider}",
     "share": "Jaa",
     "shareOn": "Jaa mediassa {social}",
     "viewAt": "Näytä osoitteessa {link}",
     "viewDocument": "Näytä asiakirja"
   },
+  "attribution": {
+    "country": "Maa:",
+    "creator": "Luoja:",
+    "date": "Päivämäärä:",
+    "institution": "Instituutio:",
+    "title": "Nimi:"
+  },
   "blog": {
     "author": "Kirjoittaja",
     "authors": "Kirjoittajat",
     "blog": "Blogi",
+    "by": "laatija",
     "categories": "Luokat",
     "category": "Kategoria",
+    "posts": "Blogijulkaisut",
+    "published": "Julkaistu {date}",
     "relatedPosts": "Aiheeseen liittyvät julkaisut"
   },
   "clearAllFilters": "tyhjennä kaikki suodattimet",
@@ -34,25 +66,31 @@ export default {
       }
     }
   },
+  "collectionsYouMightLike": "Saattaisit tykätä näistä kokoelmista",
   "contentfulManual": {
     "footerNavigation": {
       "about": "Tietoja Europeana",
       "forDevelopers": "Kehittäjille",
       "help": "Apua",
       "meetUs": "Tutustu tiimiin",
+      "MoreInfoLabel": "Lisätietoja",
       "provide": "Ryhdy tietojentarjoajaksi",
+      "subscribe": "Tilaa uutiskirjeemme",
       "terms": "Käyttöehdot ja tietosuojakäytäntö"
     },
     "headerNavigation": {
+      "Collections": "Kokoelmat",
       "explore": "Tutki",
       "teachers": "Opettajat"
     }
   },
+  "contentYouMightLike": "Saattaisit tykätä näistä sisällöistä",
   "cookieDisclaimer": {
     "acceptCookieDisclaimer": "Evästeiden hyväksymisen vastuuvapauslauseke",
     "link": "Lisätietoja",
     "terms": "Käytämme tällä sivustolla evästeitä, jotka mahdollistavat sivuston parhaan käyttökokemuksen. Napsauttamalla sivustolla tai selaamalla sivustoa annat suostumuksesi tietojen keräämiseen evästeiden avulla."
   },
+  "curatedAutomatically": "Europeanan automaattisesti kuratoima",
   "dateFilter": {
     "endDate": "Päättymispäivämäärä",
     "specificDate": "Tietty päivämäärä",
@@ -71,6 +109,7 @@ export default {
     "chapters": "Luvut",
     "credits": "Tekijät",
     "currentChapter": "Nykyinen luku",
+    "description": "Tutustu näyttelyihin",
     "exhibitions": "Näyttelyt"
   },
   "facets": {
@@ -257,8 +296,10 @@ export default {
     },
     "contentTier": {
       "name": "Sisältää kohteita, jotka eivät täytä julkaisuehtojamme",
+      "notification": "Jotkin saatavilla olevista kohteista eivät täytä julkaisuehtojamme. Voit näyttää nämä kohteet aktivoimalla \"Lisää suodattimia\" -kohdan \"Kohteiden laatu\" -suodattimen.",
       "options": {
-        "*": "Sisältää kohteita, jotka eivät täytä julkaisuehtojamme"
+        "*": "Sisältää kohteita, jotka eivät täytä julkaisuehtojamme",
+        "0": "Näytä ainoastaan kohteet, jotka eivät täytä julkaisuehtojamme"
       }
     },
     "COUNTRY": {
@@ -406,12 +447,30 @@ export default {
     "listSeperator": ";"
   },
   "galleries": {
+    "description": "Tutustu gallerioihimme",
     "galleries": "Galleriat"
   },
   "goToRecord": "Siirry tietueeseen",
+  "header": {
+    "backToMenu": "Sulje hakuruutu",
+    "clearQuery": "Tyhjennä hakuehdot",
+    "entireCollection": "Hae ehdoilla {query} koko kokoelmastamme",
+    "europeanaHome": "Europeanan kotisivu",
+    "inCollection": "Hae ehdoilla {query} kokoelmasta {collection}",
+    "searchFor": "Hae ehdoilla {query}",
+    "searchForEverything": "Hae kaikkea",
+    "searchForEverythingInCollection": "Hae kaikkea kokoelmasta {collection}",
+    "searchForEverythingInEntireCollection": "Hae kaikkea koko kokoelmastamme",
+    "showSidebar": "Näytä valikko"
+  },
   "homeLinkAlt": "Europeanan kotisivu",
   "imageSlider": {
     "handle": "Liukusäätimen kahva"
+  },
+  "items": {
+    "itemCount": "1 kohde |{count} kohdetta",
+    "itemOf": "{max} / {count} kohdetta",
+    "youMightLike": "Saattaisit tykätä näistä kohteista"
   },
   "layout": {
     "skipToMain": "Siirry sivun sisältöön"
@@ -440,11 +499,26 @@ export default {
   "newWindow": "avautuu uuteen ikkunaan",
   "noMoreResults": "Hakusi ei tuottanut enempää tuloksia.",
   "noResults": "Ei tuloksia",
+  "pages": {
+    "collections": {
+      "topics": {
+        "title": "Aiheet"
+      }
+    }
+  },
   "readMore": "Lue lisää",
   "record": {
+    "allMetaData": "Kaikki metatiedot",
     "downloadCopyrightInfo": "Tämä tuote on suojattu tekijänoikeudella eikä sitä voi ladata.",
+    "exploreMore": "Tutki lisää",
+    "extendedInformation": "Tarkemmat tiedot",
+    "goodToKnow": "Hyvä tietää",
+    "hideAll": "Piilota kaikki tiedot",
     "record": "Tietue",
+    "showAll": "Näytä kaikki tiedot",
     "similarItems": "Samanlaisia kohteita",
+    "transcription": "Transkriptio",
+    "transcriptionDisclaimer": "Tämän sisällön on lähettänyt yksityishenkilö eikä tämän kohteen tarjoava instituutio.",
     "view": {
       "image": "Näytä kuva",
       "media": "Näytä media",
@@ -459,6 +533,9 @@ export default {
   "resultsLimitWarning": "Enempää tuloksia ei näytetä, koska vain ensimmäiset 1000 merkityksellisintä tulosta näytetään. Jos et löytänyt etsimääsi, voit tarkentaa hakuasi.",
   "search": "Hae",
   "searchPlaceholder": "Mitä etsit?",
+  "searchResults": "Hae",
+  "searchResultsFor": "{0} – hae",
+  "searchResultsForIn": "{0} – hae kokoelmasta {1}",
   "searchSuggestions": "Hakuehdotuksia",
   "searchTier": {
     "button": {
@@ -473,6 +550,35 @@ export default {
   "searchViews": {
     "grid": "Ruudukkonäkymä",
     "list": "Luettelonäkymä"
+  },
+  "set": {
+    "actions": {
+      "addTo": "Lisää galleriaan",
+      "create": "Luo galleria",
+      "createNew": "Luo uusi galleria",
+      "delete": "Poista galleria",
+      "edit": "Muokkaa galleriaa",
+      "update": "Päivitä galleria"
+    },
+    "form": {
+      "description": "Gallerian kuvaus",
+      "private": "Pidä tämä galleria yksityisenä",
+      "title": "Gallerian nimi"
+    },
+    "labels": {
+      "curatedBy": "Kuratoija",
+      "private": "Yksityinen galleria"
+    },
+    "notifications": {
+      "deleted": "Galleriasi on poistettu.",
+      "likeLimit": {
+        "body": "Tykkäysten enimmäismäärä on valitettavasti rajoitettu tällä hetkellä 100 kohteeseen. Poistamme tämän rajoituksen lähiaikoina!",
+        "title": "100 tykkäystä"
+      }
+    },
+    "prompts": {
+      "delete": "Haluatko varmasti poistaa tämän gallerian? Jos poistat tämän gallerian, menetät kaikki siihen lisäämäsi kohteet."
+    }
   },
   "showLess": "Näytä vähemmän",
   "showMore": "Näytä lisää"

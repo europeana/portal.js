@@ -31,29 +31,29 @@ describe('store/collections/fashion', () => {
           {
             name: 'CREATOR',
             fields: [
-              { label: '"Missoni (Designer)"' },
-              { label: '"Emilio Pucci (Designer)"' },
-              { label: '"Holmén, Erik (Photographer)"' }
+              { label: '"Missoni \\(Designer\\)"' },
+              { label: '"Emilio Pucci \\(Designer\\)"' },
+              { label: '"Holmén, Erik \\(Photographer\\)"' }
             ]
           },
           {
             name: 'proxy_dc_type.en',
             fields: [
-              { label: '"Object Type: fabric"' },
+              { label: '"Object Type\\: fabric"' },
               { label: '"Manuscript"' }
             ]
           },
           {
             name: 'proxy_dc_format.en',
             fields: [
-              { label: '"Technique: weave"' },
-              { label: '"Color: red"' }
+              { label: '"Technique\\: weave"' },
+              { label: '"Color\\: red"' }
             ]
           },
           {
             name: 'proxy_dcterms_medium.en',
             fields: [
-              { label: '"Material: cotton"' },
+              { label: '"Material\\: cotton"' },
               { label: '"Paper"' }
             ]
           }
@@ -71,10 +71,10 @@ describe('store/collections/fashion', () => {
 
     describe('formatFacetFieldLabel', () => {
       it('formats the Fashion facet field labels', () => {
-        store.getters.formatFacetFieldLabel()('CREATOR', '"Missoni (Designer)"').should.eq('"Missoni"');
-        store.getters.formatFacetFieldLabel()('proxy_dc_type.en', '"Object Type: fabric"').should.eq('"fabric"');
-        store.getters.formatFacetFieldLabel()('proxy_dc_format.en', '"Technique: weave"').should.eq('"weave"');
-        store.getters.formatFacetFieldLabel()('proxy_dcterms_medium.en', '"Material: cotton"').should.eq('"cotton"');
+        store.getters.formatFacetFieldLabel()('CREATOR', '"Missoni \\(Designer\\)"').should.eq('"Missoni"');
+        store.getters.formatFacetFieldLabel()('proxy_dc_type.en', '"Object Type\\: fabric"').should.eq('"fabric"');
+        store.getters.formatFacetFieldLabel()('proxy_dc_format.en', '"Technique\\: weave"').should.eq('"weave"');
+        store.getters.formatFacetFieldLabel()('proxy_dcterms_medium.en', '"Material\\: cotton"').should.eq('"cotton"');
       });
     });
   });

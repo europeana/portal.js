@@ -193,3 +193,25 @@ function filterEntities(mappedObject) {
 export function apiUrlFromRequestHeaders(api, headers) {
   return headers[`x-europeana-${api}-api-url`];
 }
+
+/**
+ * Escapes Lucene syntax special characters
+ * For instance, so that a string may be used in a Record API search query.
+ * @param {string} unescaped Unescaped string
+ * @return {string} Escaped string
+ * @see https://lucene.apache.org/solr/guide/the-standard-query-parser.html#escaping-special-characters
+ */
+export function escapeLuceneSpecials(unescaped) {
+  const escapePattern = /([+\-&|!(){}[\]^"~*?:/"])/g; // Lucene reserved characters
+  return unescaped.replace(escapePattern, '\\$1');
+}
+
+/**
+ * Unescapes Lucene syntax special characters
+ * @param {string} escaped Escaped string
+ * @return {string} Unescaped string
+ */
+export function unescapeLuceneSpecials(escaped) {
+  const unescapePattern = /\\([+\-&|!(){}[\]^"~*?:/"])/g; // Lucene reserved characters
+  return escaped.replace(unescapePattern, '$1');
+}
