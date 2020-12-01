@@ -353,7 +353,7 @@ export default (axiosOverrides) => {
 };
 
 const reduceEntity = (entity) => {
-  return Object.freeze(pick(entity, ['about', 'prefLabel']));
+  return Object.freeze(pick(entity, ['about', 'prefLabel', 'latitude', 'longitude']));
 };
 
 /**
