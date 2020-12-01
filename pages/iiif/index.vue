@@ -5,6 +5,8 @@
 </template>
 
 <script>
+  import uniq from 'lodash/uniq';
+
   export default {
     layout: 'minimal',
 
@@ -58,6 +60,9 @@
           },
           workspaceControlPanel: {
             enabled: false
+          },
+          requests: {
+            postprocessors: [this.postprocessAnnotations]
           }
         };
 
@@ -86,6 +91,82 @@
           }
         }
       },
+
+      postprocessAnnotations(url, action) {
+        if (action.type !== 'mirador/RECEIVE_ANNOTATION') {
+          return;
+        }
+        this.filterAnnotationResources(action.annotationJson);
+        this.coerceAnnotationToCanvasId(action.annotationJson);
+        this.dereferenceAnnotationResources(action.annotationJson);
+      },
+
+      // Hack to force `on` attribute to canvas ID
+      //
+      // TODO: remove when API output updated to use canvas ID
+      coerceAnnotationToCanvasId(annotationJson) {
+        annotationJson.resources = annotationJson.resources.map((resource) => {
+          const coercedResource = Object.assign({}, resource);
+          coercedResource.on = [].concat(coercedResource.on);
+          if (coercedResource.on[0].includes('xywh=')) {
+            coercedResource.on[0] = coercedResource.on[0].replace(/^[^#]+/, this.page); // replace up to hash
+          }
+          return coercedResource;
+        });
+      },
+
+      // Filter to line-level annotations, and only those with a `char` fragment
+      // selector.
+      filterAnnotationResources(annotationJson) {
+        annotationJson.resources = annotationJson.resources.filter(
+          resource => (resource.dcType === 'Line') && (/char=(\d+),(\d+)$/.test(resource.resource['@id'])),
+        );
+      },
+
+      fetchAnnotationResourcesFulltext(annotationJson) {
+        const urls = annotationJson.resources
+          .filter(resource => !resource.resource.chars && resource.resource['@id'])
+          .map(resource => resource.resource['@id'].split('#')[0]);
+
+        const fulltext = {};
+
+        // TODO: error handling
+        const fetches = uniq(urls).map(url => fetch(url)
+          .then(response => response.json())
+          .then((response) => {
+            if (response.type === 'FullTextResource') fulltext[url] = response.value;
+          }));
+
+        return Promise.all(fetches).then(() => fulltext);
+      },
+
+      async dereferenceAnnotationResources(annotationJson) {
+        const fulltext = await this.fetchAnnotationResourcesFulltext(annotationJson);
+
+        for (const resource of annotationJson.resources) {
+          if (resource.resource.chars || !resource.resource['@id']) {
+            continue;
+          }
+
+          const url = resource.resource['@id'].split('#')[0];
+          if (!fulltext[url]) continue;
+
+          const fragment = resource.resource['@id'].split('#')[1];
+
+          resource.resource.chars = fulltext[url];
+
+          if (fragment) {
+            const charMatch = fragment.match(/char=(\d+),(\d+)$/);
+            if (charMatch) {
+              resource.resource.chars = resource.resource.chars.slice(
+                Number(charMatch[1]),
+                Number(charMatch[2]) + 1,
+              );
+            }
+          }
+        }
+      },
+
       fetchImageData(url, pageId) {
         if (!this.manifest) return;
 
