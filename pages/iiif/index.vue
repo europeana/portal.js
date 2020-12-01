@@ -17,9 +17,11 @@
     data() {
       return {
         manifest: null,
-        MIRADOR_BUILD_PATH: 'https://unpkg.com/@europeana/mirador@3.0.0-beta.9.2/dist',
+        MIRADOR_BUILD_PATH: 'https://unpkg.com/mirador@3.0.0/dist',
         page: null,
-        uri: null
+        uri: null,
+        mirador: null,
+        miradorStoreManifestJsonUnsubscriber: () => {}
       };
     },
 
@@ -65,23 +67,25 @@
 
     mounted() {
       this.$nextTick(() => {
-        const mirador = Mirador.viewer(this.miradorViewerOptions); // eslint-disable-line no-undef
-
-        mirador.store.subscribe(() => {
-          const miradorWindow = Object.values(mirador.store.getState().windows)[0]; // only takes one window into account at the moment
-          if (!this.manifest) {
-            this.manifest = mirador.store.getState().manifests[miradorWindow.manifestId].json;
-          }
-
-          if (miradorWindow.canvasId !== this.page) {
-            this.page = miradorWindow.canvasId;
-            this.fetchImageData(this.uri, this.page);
-          }
-        });
+        this.mirador = window.Mirador.viewer(this.miradorViewerOptions);
+        this.miradorStoreManifestJsonUnsubscriber = this.mirador.store.subscribe(this.miradorStoreManifestJsonListener);
       });
     },
 
     methods: {
+      miradorStoreManifestJsonListener() {
+        const miradorWindow = Object.values(this.mirador.store.getState().windows)[0]; // only takes one window into account at the moment
+        if (miradorWindow) {
+          const miradorManifest = this.mirador.store.getState().manifests[miradorWindow.manifestId];
+          if (miradorManifest) {
+            this.manifest = miradorManifest.json;
+            if (miradorWindow.canvasId !== this.page) {
+              this.page = miradorWindow.canvasId;
+              this.fetchImageData(this.uri, this.page);
+            }
+          }
+        }
+      },
       fetchImageData(url, pageId) {
         if (!this.manifest) return;
 
