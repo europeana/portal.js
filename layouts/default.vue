@@ -7,6 +7,10 @@
     <client-only>
       <CookieDisclaimer />
     </client-only>
+    <div
+      ref="resetfocus"
+      tabindex="0"
+    />
     <a
       class="skip-main"
       href="#main"
@@ -107,8 +111,7 @@
       '$i18n.locale': '$fetch',
       $route() {
         this.$nextTick(() => {
-          document.body.setAttribute('tabindex', '0');
-          document.body.focus();
+          this.$refs.resetfocus.focus();
         });
       }
     },
