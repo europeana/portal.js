@@ -38,6 +38,7 @@
 </template>
 
 <script>
+  import axios from 'axios';
   import { mapGetters, mapState } from 'vuex';
 
   import ClientOnly from 'vue-client-only';
@@ -84,7 +85,9 @@
     data() {
       return {
         ...config,
-        linkGroups: {}
+        linkGroups: {},
+        appVersion: require('../package').version,
+        versionCheckIntervalID: null
       };
     },
 
@@ -100,6 +103,26 @@
 
     watch: {
       '$i18n.locale': '$fetch'
+    },
+
+    mounted() {
+      // TODO: move all this version check stuff into own component
+      // TODO: increase poll rate, i.e. make slower (and make it configurable by env?)
+      const versionPollRate = 1000;
+      const versionCheckEndpoint = `${window.location.origin}/_/version`;
+      this.versionCheckIntervalID = setInterval(() => {
+        // TODO: catch and handle (silently?) network errors
+        axios.get(versionCheckEndpoint)
+          .then(response => response.data)
+          .then(serverVersion => {
+            if (serverVersion === this.appVersion) {
+              console.log('Version check OK');
+            } else {
+              // TODO: show templated notification, and stop the polling with clearInterval
+              console.log('Version check mismatch! Reload!');
+            }
+          });
+      }, versionPollRate);
     },
 
     head() {

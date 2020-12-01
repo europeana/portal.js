@@ -283,7 +283,7 @@ module.exports = {
     });
   },
   async haveNotExcededMemoryUsageInMB(memoryUsageMB) {
-    const response = await axios.get(`${url}/memory-usage`, {
+    const response = await axios.get(`${url}/_/memory-usage`, {
       httpsAgent: new https.Agent({
         rejectUnauthorized: false
       })
