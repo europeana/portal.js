@@ -31,4 +31,56 @@ describe('plugins/europeana/utils', () => {
       unescaped.should.eq('+ - & | ! ( ) { } [ ] ^ " ~ * ? : /');
     });
   });
+
+  describe('selectLocaleForLangMap()', () => {
+    const locale = 'en';
+
+    it('first selects 2-letter code if present', () => {
+      const langMap = { en: 'English', fr: 'Français' };
+
+      const selected = utils.selectLocaleForLangMap(langMap, locale);
+
+      selected.should.eq('en');
+    });
+
+    it('second selects 3-letter code if present', () => {
+      const langMap = { eng: 'English', fr: 'Français' };
+
+      const selected = utils.selectLocaleForLangMap(langMap, locale);
+
+      selected.should.eq('eng');
+    });
+
+    it('third selects 2-letter code with country code if present', () => {
+      const langMap = { 'en-GB': 'English', fr: 'Français' };
+
+      const selected = utils.selectLocaleForLangMap(langMap, locale);
+
+      selected.should.eq('en-GB');
+    });
+
+    it('fourth selects "def" if present', () => {
+      const langMap = { def: 'Default', fr: 'Français' };
+
+      const selected = utils.selectLocaleForLangMap(langMap, locale);
+
+      selected.should.eq('def');
+    });
+
+    it('fifth selects "und" if present', () => {
+      const langMap = { und: 'Undefined', fr: 'Français' };
+
+      const selected = utils.selectLocaleForLangMap(langMap, locale);
+
+      selected.should.eq('und');
+    });
+
+    it('finally selects first key', () => {
+      const langMap = { fr: 'Français', nl: 'Nederlands' };
+
+      const selected = utils.selectLocaleForLangMap(langMap, locale);
+
+      selected.should.eq('fr');
+    });
+  });
 });
