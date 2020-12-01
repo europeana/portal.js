@@ -4,9 +4,7 @@ import pick from 'lodash/pick';
 import uniq from 'lodash/uniq';
 import merge from 'deepmerge';
 
-import {
-  apiError, escapeLuceneSpecials, selectLocaleForLangMap, isLangMap, reduceLangMapsForLocale
-} from './utils';
+import { apiError, escapeLuceneSpecials, reduceLangMapsForLocale } from './utils';
 import search from './search';
 import { thumbnailUrl, thumbnailTypeForMimeType } from  './thumbnail';
 import { getEntityUri, getEntityQuery } from './entity';
