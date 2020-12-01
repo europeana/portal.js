@@ -1,6 +1,9 @@
 <template>
   <div>
-    <VueAnnouncer v-if="enableAnnouncer" />
+    <VueAnnouncer
+      v-if="enableAnnouncer"
+      data-qa="vue announcer"
+    />
     <client-only>
       <CookieDisclaimer />
     </client-only>

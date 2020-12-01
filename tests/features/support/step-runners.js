@@ -292,5 +292,8 @@ module.exports = {
   },
   async moveToElement(qaElementName) {
     await client.moveToElement(qaSelector(qaElementName), 10, 10);
+  },
+  async isActive(element) {
+    await client.expect.element(element).to.be.active;
   }
 };
