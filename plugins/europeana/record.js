@@ -4,7 +4,9 @@ import pick from 'lodash/pick';
 import uniq from 'lodash/uniq';
 import merge from 'deepmerge';
 
-import { apiError, escapeLuceneSpecials, selectLocaleForLangMap, isLangMap } from './utils';
+import {
+  apiError, escapeLuceneSpecials, selectLocaleForLangMap, isLangMap, reduceLangMapsForLocale
+} from './utils';
 import search from './search';
 import { thumbnailUrl, thumbnailTypeForMimeType } from  './thumbnail';
 import { getEntityUri, getEntityQuery } from './entity';
@@ -350,33 +352,6 @@ export default (axiosOverrides) => {
       return proxyUrl.toString();
     }
   };
-};
-
-const reduceLangMapsForLocale = (value, locale) => {
-  if (Array.isArray(value)) {
-    return value.map(val => reduceLangMapsForLocale(val, locale));
-  } else if (typeof value === 'object') {
-    if (isLangMap(value)) {
-      const selectedLocale = selectLocaleForLangMap(value, locale);
-      const langMap = {
-        [selectedLocale]: value[selectedLocale]
-      };
-      // Preserve entities from .def property
-      if (selectedLocale !== 'def' && value.def) {
-        langMap.def = value.def
-          .filter(def => def.about)
-          .map(entity => reduceLangMapsForLocale(entity, locale));
-      }
-      return Object.freeze(langMap);
-    } else {
-      return Object.keys(value).reduce((memo, key) => {
-        memo[key] = reduceLangMapsForLocale(value[key], locale);
-        return memo;
-      }, {});
-    }
-  } else {
-    return value;
-  }
 };
 
 const reduceEntity = (entity) => {

@@ -222,3 +222,30 @@ export const isLangMap = (value) => {
     return /^[a-z]{2,3}(-[A-Z]{2})?$/.test(key);
   });
 };
+
+export const reduceLangMapsForLocale = (value, locale) => {
+  if (Array.isArray(value)) {
+    return value.map(val => reduceLangMapsForLocale(val, locale));
+  } else if (typeof value === 'object') {
+    if (isLangMap(value)) {
+      const selectedLocale = selectLocaleForLangMap(value, locale);
+      const langMap = {
+        [selectedLocale]: value[selectedLocale]
+      };
+      // Preserve entities from .def property
+      if (selectedLocale !== 'def' && Array.isArray(value.def)) {
+        langMap.def = value.def
+          .filter(def => def.about)
+          .map(entity => reduceLangMapsForLocale(entity, locale));
+      }
+      return Object.freeze(langMap);
+    } else {
+      return Object.keys(value).reduce((memo, key) => {
+        memo[key] = reduceLangMapsForLocale(value[key], locale);
+        return memo;
+      }, {});
+    }
+  } else {
+    return value;
+  }
+};

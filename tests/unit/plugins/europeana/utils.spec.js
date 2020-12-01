@@ -129,4 +129,53 @@ describe('plugins/europeana/utils', () => {
       selected.should.eq('fr');
     });
   });
+
+  describe('reduceLangMapsForLocale', () => {
+    const locale = 'fr';
+
+    it('reduces arrays for locale', () => {
+      const value = [
+        { en: 'English 1', fr: 'Français 1' },
+        { en: 'English 2', fr: 'Français 2' }
+      ];
+
+      const reduced = utils.reduceLangMapsForLocale(value, locale);
+
+      reduced.should.eql([
+        { fr: 'Français 1' },
+        { fr: 'Français 2' }
+      ]);
+    });
+
+    it('reduces objects for locale', () => {
+      const value = { en: 'English', fr: 'Français' };
+
+      const reduced = utils.reduceLangMapsForLocale(value, locale);
+
+      reduced.should.eql({ fr: 'Français' });
+    });
+
+    it('preserves entities on "def"', () => {
+      const value = {
+        def: [{ about: 'http://data.europeana.eu/concept/base/123' }],
+        en: 'English',
+        fr: 'Français'
+      };
+
+      const reduced = utils.reduceLangMapsForLocale(value, locale);
+
+      reduced.should.eql({
+        def: [{ about: 'http://data.europeana.eu/concept/base/123' }],
+        fr: 'Français'
+      });
+    });
+
+    it('returns other value types untouched', () => {
+      const value = 'English';
+
+      const reduced = utils.reduceLangMapsForLocale(value, locale);
+
+      reduced.should.eq(value);
+    });
+  });
 });
