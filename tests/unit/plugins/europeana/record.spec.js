@@ -74,10 +74,18 @@ const apiResponse = {
       }
     ],
     agents: [
-      { about: 'http://data.europeana.eu/agent/base/123' }
+      {
+        about: 'http://data.europeana.eu/agent/base/110088',
+        prefLabel: { en: 'Johann Wolfgang von Goethe' },
+        rdaGr2DateOfBirth: { def: '1749-08-28' }
+      }
     ],
     concepts: [
-      { about: 'http://data.europeana.eu/concept/base/456' }
+      {
+        about: 'http://data.europeana.eu/concept/base/190',
+        prefLabel: { en: 'Art' },
+        note: { en: ['Art is a diverse range of human activities and the products of those activities'] }
+      }
     ],
     type
   }
@@ -203,14 +211,20 @@ describe('plugins/europeana/record', () => {
           });
         });
 
-        it('includes agents', async() => {
+        it('includes agents, reduced to about and prefLabel', async() => {
           const response = await record().getRecord(europeanaId);
-          response.record.agents.should.deep.eq(apiResponse.object.agents);
+          const agent = response.record.agents[0];
+          Object.keys(agent).should.eql(['about', 'prefLabel']);
+          agent.about.should.eql(apiResponse.object.agents[0].about);
+          agent.prefLabel.should.eql(apiResponse.object.agents[0].prefLabel);
         });
 
-        it('includes concepts', async() => {
+        it('includes concepts, reduced to about and prefLabel', async() => {
           const response = await record().getRecord(europeanaId);
-          response.record.concepts.should.deep.eq(apiResponse.object.concepts);
+          const concept = response.record.concepts[0];
+          Object.keys(concept).should.eql(['about', 'prefLabel']);
+          concept.about.should.eql(apiResponse.object.concepts[0].about);
+          concept.prefLabel.should.eql(apiResponse.object.concepts[0].prefLabel);
         });
       });
     });
