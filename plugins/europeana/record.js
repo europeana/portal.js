@@ -4,7 +4,7 @@ import pick from 'lodash/pick';
 import uniq from 'lodash/uniq';
 import merge from 'deepmerge';
 
-import { apiError, escapeLuceneSpecials, selectLocaleForLangMap } from './utils';
+import { apiError, escapeLuceneSpecials, selectLocaleForLangMap, isLangMap } from './utils';
 import search from './search';
 import { thumbnailUrl, thumbnailTypeForMimeType } from  './thumbnail';
 import { getEntityUri, getEntityQuery } from './entity';
@@ -377,13 +377,6 @@ const reduceLangMapsForLocale = (value, locale) => {
   } else {
     return value;
   }
-};
-
-const isLangMap = (value) => {
-  return (typeof value === 'object') && Object.keys(value).every(key => {
-    // TODO: is this good enough to determine lang map or not?
-    return /^[a-z]{2,3}(-[A-Z]{2})?$/.test(key);
-  });
 };
 
 const reduceEntity = (entity) => {

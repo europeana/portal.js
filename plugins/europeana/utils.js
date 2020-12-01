@@ -215,3 +215,10 @@ export function unescapeLuceneSpecials(escaped) {
   const unescapePattern = /\\([+\-&|!(){}[\]^"~*?:/"])/g; // Lucene reserved characters
   return escaped.replace(unescapePattern, '$1');
 }
+
+export const isLangMap = (value) => {
+  return (typeof value === 'object') && Object.keys(value).every(key => {
+    // TODO: is this good enough to determine lang map or not?
+    return /^[a-z]{2,3}(-[A-Z]{2})?$/.test(key);
+  });
+};

@@ -32,6 +32,52 @@ describe('plugins/europeana/utils', () => {
     });
   });
 
+  describe('isLangMap()', () => {
+    it('accepts 2-letter codes', () => {
+      const value = {
+        en: 'English',
+        fr: 'Français'
+      };
+
+      const isLangMap = utils.isLangMap(value);
+
+      isLangMap.should.be.true;
+    });
+
+    it('accepts 3-letter codes', () => {
+      const value = {
+        def: 'Default',
+        eng: 'English',
+        fra: 'Français'
+      };
+
+      const isLangMap = utils.isLangMap(value);
+
+      isLangMap.should.be.true;
+    });
+
+    it('accepts 2-letter codes with country code', () => {
+      const value = {
+        'en-GB': 'English',
+        'fr-FR': 'Français'
+      };
+
+      const isLangMap = utils.isLangMap(value);
+
+      isLangMap.should.be.true;
+    });
+
+    it('rejects other keys', () => {
+      const value = {
+        about: 'http://data.europeana.eu/concept/base/123'
+      };
+
+      const isLangMap = utils.isLangMap(value);
+
+      isLangMap.should.be.false;
+    });
+  });
+
   describe('selectLocaleForLangMap()', () => {
     const locale = 'en';
 
