@@ -30,6 +30,7 @@ describe('components/generic/RelatedChip', () => {
     const chip = wrapper.find('[data-qa="Art related chip"]');
     chip.text().should.eq('Art');
     chip.attributes().to.should.contain('190-art');
+    (chip.attributes().href === undefined).should.be.true;
   });
 
   it('translates lang maps for title', () => {
@@ -44,5 +45,19 @@ describe('components/generic/RelatedChip', () => {
 
     const chip = wrapper.find('[data-qa="Costume related chip"]');
     chip.text().should.eq('Costume');
+  });
+
+  context('when linkTo is a URL with scheme', () => {
+    it('is linked to, not routed to', () => {
+      const wrapper = factory();
+      wrapper.setProps({
+        linkTo: 'https://www.example.org/collections/topic/190-art',
+        title: 'Art'
+      });
+
+      const chip = wrapper.find('[data-qa="Art related chip"]');
+      chip.attributes().href.should.eq('https://www.example.org/collections/topic/190-art');
+      (chip.attributes().to === undefined).should.be.true;
+    });
   });
 });
