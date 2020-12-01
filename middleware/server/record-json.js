@@ -6,6 +6,11 @@ import { apiUrlFromRequestHeaders } from '../../plugins/europeana/utils';
 
 export const BASE_URL = process.env.EUROPEANA_RECORD_API_URL || 'https://api.europeana.eu/record';
 
+const jsonResponse = (res, content) => {
+  res.setHeader('Content-Type', 'application/json');
+  res.end(JSON.stringify(content));
+};
+
 export default (req, res, next) => {
   const urlMatch = req.url.match(/^\/[a-z]{2}\/item(\/[^/]+\/[^/]+)\.json$/);
   if (!urlMatch) return next();
@@ -20,15 +25,15 @@ export default (req, res, next) => {
       wskey: process.env.EUROPEANA_RECORD_API_KEY || process.env.EUROPEANA_API_KEY
     }
   })
-    .then((response) => {
+    .then(response => {
       const deprecationNotice = '**** THIS .json METHOD IS DEPRECATED AND WILL BE REMOVED IN A FUTURE RELEASE. PLEASE VISIT /debug INSTEAD. ****';
-      res.json({
+      jsonResponse(res, {
         warning: deprecationNotice,
         ...response.data
       });
     })
-    .catch((error) => {
+    .catch(error => {
       res.status(error.response.status || 500);
-      res.json(error.response.data);
+      jsonResponse(res, error.response.data);
     });
 };
