@@ -1,9 +1,23 @@
 const plugin = {
-  to(route) {
-    return this.href(route) === null ? route : null;
+  to(path, query = {}) {
+    if (path.includes('://')) {
+      return null;
+    } else {
+      return {
+        path,
+        query
+      };
+    }
   },
-  href(route) {
-    return (typeof route === 'string' && route.includes('://')) ? route : null;
+
+  href(path, query = {}) {
+    if (path.includes('://')) {
+      const url = new URL(path);
+      url.search = new URLSearchParams(query).toString();
+      return url.toString();
+    } else {
+      return null;
+    }
   }
 };
 

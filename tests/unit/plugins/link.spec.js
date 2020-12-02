@@ -8,56 +8,43 @@ linkPluginModule(
 
 describe('link plugin', () => {
   describe('to()', () => {
-    it('returns null for string including "://"', () => {
-      const route = 'http://example.org/about';
+    it('returns null for path including "://"', () => {
+      const path = 'http://example.org/about';
+      const query = { query: 'art' };
 
-      const to = linkPlugin.to(route);
+      const to = linkPlugin.to(path, query);
 
       (to === null).should.be.true;
     });
 
-    it('returns route for object', () => {
-      const route = {
-        path: '/about'
-      };
+    it('returns route object for path without "://"', () => {
+      const path = '/about';
+      const query = { query: 'art' };
 
-      const to = linkPlugin.to(route);
+      const to = linkPlugin.to(path, query);
 
-      to.should.eql(route);
-    });
-
-    it('returns route for string without "://"', () => {
-      const route = '/about';
-
-      const to = linkPlugin.to(route);
-
-      to.should.eql(route);
+      to.should.eql({
+        path,
+        query
+      });
     });
   });
 
   describe('href()', () => {
-    it('returns route for string including "://"', () => {
-      const route = 'http://example.org/about';
+    it('returns URL for path including "://"', () => {
+      const path = 'http://example.org/about';
+      const query = { query: 'art' };
 
-      const href = linkPlugin.href(route);
+      const href = linkPlugin.href(path, query);
 
-      href.should.eql(route);
+      href.should.eql('http://example.org/about?query=art');
     });
 
-    it('returns null for object', () => {
-      const route = {
-        path: '/about'
-      };
+    it('returns null for path without "://"', () => {
+      const path = '/about';
+      const query = { query: 'art' };
 
-      const href = linkPlugin.href(route);
-
-      (href === null).should.be.true;
-    });
-
-    it('returns null for string without "://"', () => {
-      const route = '/about';
-
-      const href = linkPlugin.href(route);
+      const href = linkPlugin.href(path, query);
 
       (href === null).should.be.true;
     });
