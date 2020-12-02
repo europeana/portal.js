@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container hero-wrapper">
     <b-jumbotron
       :style="jumbotronStyle"
       fluid
@@ -12,7 +12,7 @@
         <h1>
           {{ header }}
         </h1>
-        <b-card-text>
+        <b-card-text class="lead">
           {{ lead }}
         </b-card-text>
         <b-button
@@ -23,8 +23,8 @@
         </b-button>
       </b-card>
       <figcaption
-        @mouseleave="toggleCite"
         class="d-none d-md-block"
+        @mouseleave="toggleCite"
       >
         <span
           v-if="citeCollapsed"
