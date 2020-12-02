@@ -1,18 +1,50 @@
 export default {
+  "account": {
+    "likes": "Kedvelések",
+    "linkAccount": "Fiókom",
+    "linkLogin": "Bejelentkezés",
+    "linkLogout": "Bejelentkezés",
+    "notifications": {
+      "noCollections": {
+        "private": "Még nem hozott létre privát galériát",
+        "public": "Még nem hozott létre nyilvános galériát"
+      },
+      "noLikedItems": "Még nem kedvelt egy cikket sem"
+    },
+    "privateCollections": "Privát Galériák",
+    "profile": "Kedveléseim és gyűjteményeim",
+    "publicCollections": "Nyilvános Galériák",
+    "settings": "Beállítások",
+    "title": "Fiókom"
+  },
   "actions": {
+    "close": "bezárás",
     "download": "Letöltés",
+    "edit": "Szerkesztés",
+    "goBack": "Vissza",
+    "like": "Kedvelés",
     "providedBy": "Szolgáltató: {provider}",
     "share": "Megosztás",
     "shareOn": "Megosztás a következőn: {social}",
     "viewAt": "Megtekintés a következő helyen: {link}",
     "viewDocument": "Dokumentum megtekintése"
   },
+  "attribution": {
+    "country": "Ország:",
+    "creator": "Alkotó:",
+    "date": "Dátum:",
+    "institution": "Intézmény:",
+    "title": "Cím:"
+  },
   "blog": {
     "author": "Szerző",
     "authors": "Szerzők",
     "blog": "Blog",
+    "by": "írta",
     "categories": "Kategóriák",
     "category": "Kategória",
+    "posts": "Blog bejegyzések",
+    "published": "Közzététel dátuma: {date}",
     "relatedPosts": "Kapcsolódó bejegyzések"
   },
   "clearAllFilters": "összes szűrő törlése",
@@ -34,25 +66,31 @@ export default {
       }
     }
   },
+  "collectionsYouMightLike": "Gyűjtemények, amelyek tetszhetnek Önnek",
   "contentfulManual": {
     "footerNavigation": {
       "about": "Az Europeana gyűjteményekről",
       "forDevelopers": "Fejlesztőknek",
       "help": "Súgó",
       "meetUs": "Találkozzon a csapattal",
+      "MoreInfoLabel": "További információ",
       "provide": "Legyen adatszolgáltató",
+      "subscribe": "Iratkozzon fel hírlevelünkre",
       "terms": "Felhasználási feltételek és adatvédelmi irányelv"
     },
     "headerNavigation": {
+      "Collections": "Gyűjtemények",
       "explore": "Ismerje meg",
       "teachers": "Tanárok"
     }
   },
+  "contentYouMightLike": "Tartalom, ami tetszhet Önnek",
   "cookieDisclaimer": {
     "acceptCookieDisclaimer": "A sütikkel kapcsolatos nyilatkozat elfogadása",
     "link": "További információ",
     "terms": "Ez a weboldal sütiket használ annak érdekében, hogy weboldalunkon a lehető legjobb élményt nyújtsa. A webhelyre kattintva vagya webhelyen történő böngészéssel engedélyezi számunkra a sütik segítségével történő információgyűjtést."
   },
+  "curatedAutomatically": "Az Europeana által automatikusan felügyelt",
   "dateFilter": {
     "endDate": "Záró dátum",
     "specificDate": "Konkrét dátum",
@@ -71,6 +109,7 @@ export default {
     "chapters": "Fejezetek",
     "credits": "Szerzői információk",
     "currentChapter": "Jelenlegi fejezet",
+    "description": "Fedezze fel a kiállításokat",
     "exhibitions": "Kiállítások"
   },
   "facets": {
@@ -257,8 +296,10 @@ export default {
     },
     "contentTier": {
       "name": "Tartalmaz olyan elemeket, melyek nem felelnek meg a közzétételi kritériumoknak.",
+      "notification": "Olyan cikkek is elérhetőek, amelyek nem felelnek meg az általunk felállított közzétételi kritériumoknak. Ezeket a cikkeket a \"Több szűrő\", \"Cikkek minősége\" opció aktiválásával érheti el.",
       "options": {
-        "*": "A közzétételi feltételeknek meg nem felelő elemek kizárása"
+        "*": "A közzétételi feltételeknek meg nem felelő elemek kizárása",
+        "0": "Csak olyan cikkek megjelenítése, amelyek nem felelnek meg a közzétételi kritériumoknak"
       }
     },
     "COUNTRY": {
@@ -406,12 +447,30 @@ export default {
     "listSeperator": ";"
   },
   "galleries": {
+    "description": "Fedezze fel galériáinkat",
     "galleries": "Galériák"
   },
   "goToRecord": "Ugrás a rekordra",
+  "header": {
+    "backToMenu": "Keresőmező bezárása",
+    "clearQuery": "Keresőkifejezés törlése",
+    "entireCollection": "Keresés az egész gyűjteményben erre: {query}",
+    "europeanaHome": "Europeana kezdőlap",
+    "inCollection": "Keresés erre: {query}, a {collection} gyűjteményben",
+    "searchFor": "Keresés erre: {query}",
+    "searchForEverything": "Keresés mindenre",
+    "searchForEverythingInCollection": "Keresés mindenre a(z) {collection} gyűjteményben",
+    "searchForEverythingInEntireCollection": "Keresés mindenre az egész gyűjteményben",
+    "showSidebar": "Menü mutatása"
+  },
   "homeLinkAlt": "Europeana kezdőlap",
   "imageSlider": {
     "handle": "Csúszka fogantyú"
+  },
+  "items": {
+    "itemCount": "1 cikk |{count} cikk",
+    "itemOf": "{max} {count} cikk",
+    "youMightLike": "Cikkek, amik tetszhetnek Önnek"
   },
   "layout": {
     "skipToMain": "Ugrás az oldal tartalmához"
@@ -440,11 +499,26 @@ export default {
   "newWindow": "új ablakban nyílik meg",
   "noMoreResults": "Nincs további eredmény a keresési lekérdezéshez.",
   "noResults": "Nincs találat",
+  "pages": {
+    "collections": {
+      "topics": {
+        "title": "Témák"
+      }
+    }
+  },
   "readMore": "Bővebben",
   "record": {
+    "allMetaData": "Minden metaadat",
     "downloadCopyrightInfo": "Ez az elem szerzői jogi védelem alatt áll, és nem tölthető le.",
+    "exploreMore": "Több felfedezés",
+    "extendedInformation": "Kiterjesztett információk",
+    "goodToKnow": "Jó tudni",
+    "hideAll": "Az összes információ elrejtése",
     "record": "Rekord",
+    "showAll": "Az összes információ megjelenítése",
     "similarItems": "Hasonló elemek",
+    "transcription": "Átírás",
+    "transcriptionDisclaimer": "Ezt a tartalmat a nyilvánosság hozza létre, nem az intézmény, amely a cikket szolgáltatta.",
     "view": {
       "image": "Kép megtekintése",
       "media": "Adathordozó megtekintése",
@@ -459,6 +533,9 @@ export default {
   "resultsLimitWarning": "Nem jelennek meg további eredmények, mivel csak az első 1000 legrelevánsabb eredmény látható. Ha nem találta meg azt, amit keres, kérjük, finomítsa a keresést.",
   "search": "Keresés",
   "searchPlaceholder": "Mit keres?",
+  "searchResults": "Keresés",
+  "searchResultsFor": "{0} - Keresés",
+  "searchResultsForIn": "{0} - Keresés a következőben: {1}",
   "searchSuggestions": "Keresési javaslatok",
   "searchTier": {
     "button": {
@@ -473,6 +550,35 @@ export default {
   "searchViews": {
     "grid": "Rácsnézet",
     "list": "Listanézet"
+  },
+  "set": {
+    "actions": {
+      "addTo": "Hozzáadás a gelériához",
+      "create": "Galéria létrehozása",
+      "createNew": "Új galéria létrehozása",
+      "delete": "Galéria törlése",
+      "edit": "Galéria szerkesztése",
+      "update": "Galéria frissítése"
+    },
+    "form": {
+      "description": "Galéria leírása",
+      "private": "Galéria privát módban tartása",
+      "title": "Galéria neve"
+    },
+    "labels": {
+      "curatedBy": "Kurátor:",
+      "private": "Privát galéria"
+    },
+    "notifications": {
+      "deleted": "Galéria törölve.",
+      "likeLimit": {
+        "body": "Sajnáljuk, de jelenleg legfeljebb 100 cikket kedvelhet. Hamarosan eltávolítjuk ezt a korlátozást!",
+        "title": "100 kedvelés"
+      }
+    },
+    "prompts": {
+      "delete": "Biztosan törli ezt a galériát? Ha törli a galériát, elveszíti az összes hozzáadott elemet."
+    }
   },
   "showLess": "Kevesebb megjelenítése",
   "showMore": "Továbbiak megjelenítése"

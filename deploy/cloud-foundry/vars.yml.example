@@ -1,8 +1,5 @@
-restartOnMemUsage: 134217728
-memory: 512M
+memory: 128M
 env:
-  CONSOLA_LEVEL: info
   HOST: 0.0.0.0
-  OPTIMIZE_MEMORY: true
 services:
   -

@@ -44,7 +44,6 @@ pipeline {
     stage('Deploy to CF') {
       environment {
         CTF_CPA_ACCESS_TOKEN=credentials("portaljs.${env.CF_SPACE}.contentful.cpa")
-        HTTP_DIGEST_ACL=credentials("portaljs.${env.CF_SPACE}.http.digest.acl")
       }
       steps {
         sh 'cf push ${CF_APP_NAME} -f ./deploy/cloud-foundry/manifest.yml --vars-file deploy/cloud-foundry/vars.yml'

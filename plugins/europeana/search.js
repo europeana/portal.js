@@ -4,7 +4,7 @@
 
 import qs from 'qs';
 
-import { apiError } from './utils';
+import { apiError, escapeLuceneSpecials } from './utils';
 
 // Some facets do not support enquoting of their field values.
 export const unquotableFacets = [
@@ -95,7 +95,6 @@ export default ($axios) => {
       const escape = options.escape || false;
 
       const query = (typeof params.query === 'undefined' || params.query === '') ? '*:*' : params.query;
-      const escapePattern = /([!*+-=<>&|()[\]{}^~?:\\/"])/g; // Lucene reserved characters
 
       return this.$axios.get(`${options.url || ''}/search.json`, {
         paramsSerializer(params) {
@@ -106,7 +105,7 @@ export default ($axios) => {
           facet: params.facet,
           profile: params.profile,
           qf: addContentTierFilter(params.qf),
-          query: escape ? query.replace(escapePattern, '\\$1') : query,
+          query: escape ? escapeLuceneSpecials(query) : query,
           reusability: params.reusability,
           rows,
           start

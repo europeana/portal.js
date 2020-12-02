@@ -1,18 +1,50 @@
 export default {
+  "account": {
+    "likes": "Aprecieri",
+    "linkAccount": "Contul meu",
+    "linkLogin": "Autentificare",
+    "linkLogout": "Deconectare",
+    "notifications": {
+      "noCollections": {
+        "private": "Încă nu ai creat nicio galerie privată",
+        "public": "Încă nu ai creat nicio galerie publică"
+      },
+      "noLikedItems": "Încă nu ai apreciat niciun articol"
+    },
+    "privateCollections": "Galerii private",
+    "profile": "Aprecierile și Galeriile mele",
+    "publicCollections": "Galerii publice",
+    "settings": "Setări",
+    "title": "Contul meu"
+  },
   "actions": {
+    "close": "închidere",
     "download": "Descarcă",
+    "edit": "Editare",
+    "goBack": "Înapoi",
+    "like": "Apreciere",
     "providedBy": "Furnizat de {provider}",
     "share": "Distribuiți",
     "shareOn": "Distribuiți pe {social}",
     "viewAt": "Vizualizați pe {link}",
     "viewDocument": "Vizualizare document"
   },
+  "attribution": {
+    "country": "Țară:",
+    "creator": "Creator:",
+    "date": "Dată:",
+    "institution": "Instituție",
+    "title": "Titlu:"
+  },
   "blog": {
     "author": "Autor",
     "authors": "Autori",
     "blog": "Blog",
+    "by": "de",
     "categories": "Categorii",
     "category": "Categorie",
+    "posts": "Postări de pe blog",
+    "published": "Publicat la {date}",
     "relatedPosts": "Postări similare"
   },
   "clearAllFilters": "șterge toate filtrele",
@@ -34,25 +66,31 @@ export default {
       }
     }
   },
+  "collectionsYouMightLike": "Colecții care ți-ar putea plăcea",
   "contentfulManual": {
     "footerNavigation": {
       "about": "Despre colecțiile Europeana",
       "forDevelopers": "Pentru dezvoltatori",
       "help": "Ajutor",
       "meetUs": "Faceți cunoștință cu echipa",
+      "MoreInfoLabel": "Mai multe informații",
       "provide": "Deveni un furnizor de date",
+      "subscribe": "Abonează-te la buletinul nostru de știri",
       "terms": "Termeni de utilizare și Politica de confidențialitate"
     },
     "headerNavigation": {
+      "Collections": "Colecții",
       "explore": "Explorează",
       "teachers": "Profesori"
     }
   },
+  "contentYouMightLike": "Conținut care ți-ar putea plăcea",
   "cookieDisclaimer": {
     "acceptCookieDisclaimer": "Acceptați declarația de module cookie",
     "link": "Mai multe informații",
     "terms": "Această pagină de internet utilizează module cookie astfel încât să vă bucurați de cea mai bună experiență pe pagina noastră. Făcând clic sau navigând pe pagina noastră, sunteți de acord să colectăm informații prin intermediul modulelor."
   },
+  "curatedAutomatically": "Curat automat de Europeana",
   "dateFilter": {
     "endDate": "Data de încheiere",
     "specificDate": "Data exactă",
@@ -71,6 +109,7 @@ export default {
     "chapters": "Capitole",
     "credits": "Credite",
     "currentChapter": "Capitolul actual",
+    "description": "Explorează expozițiile",
     "exhibitions": "Expoziții"
   },
   "facets": {
@@ -257,8 +296,10 @@ export default {
     },
     "contentTier": {
       "name": "Sunt incluse articole care nu îndeplinesc criteriile noastre de publicare",
+      "notification": "Unele articole care nu corespund criteriilor noastre de publicare sunt disponibile. Poți accesa aceste articole activând filtrul „Calitatea articolelor” din „Mai multe filtre”.",
       "options": {
-        "*": "Sunt incluse articole care nu îndeplinesc criteriile noastre de publicare"
+        "*": "Sunt incluse articole care nu îndeplinesc criteriile noastre de publicare",
+        "0": "Afișează doar articolele care nu îndeplinesc criteriile noastre de publicare"
       }
     },
     "COUNTRY": {
@@ -406,12 +447,30 @@ export default {
     "listSeperator": ";"
   },
   "galleries": {
+    "description": "Explorează galeriile noastre",
     "galleries": "Galerii"
   },
   "goToRecord": "Mergi la înregistrare",
+  "header": {
+    "backToMenu": "Închide caseta de căutare",
+    "clearQuery": "Șterge căutările",
+    "entireCollection": "Căutare pentru {query} în întreaga noastră colecție",
+    "europeanaHome": "Pagina principală Europeana",
+    "inCollection": "Caută pentru {query} în {collection}",
+    "searchFor": "Caută pentru {query}",
+    "searchForEverything": "Caută tot",
+    "searchForEverythingInCollection": "Caută tot în {collection}",
+    "searchForEverythingInEntireCollection": "Caută tot în întreaga noastră colecție",
+    "showSidebar": "Afișează meniul"
+  },
   "homeLinkAlt": "Pagina principală Europeana",
   "imageSlider": {
     "handle": "Cursor glisor"
+  },
+  "items": {
+    "itemCount": "1 articol |{count} articole",
+    "itemOf": "{max} de {count} articole",
+    "youMightLike": "Articole care ți-ar putea plăcea"
   },
   "layout": {
     "skipToMain": "Treci la conținutul paginii"
@@ -440,11 +499,26 @@ export default {
   "newWindow": "se deschide într-o fereastră nouă",
   "noMoreResults": "Nu mai există rezultate pentru interogarea de căutare.",
   "noResults": "Niciun rezultat",
+  "pages": {
+    "collections": {
+      "topics": {
+        "title": "Subiecte"
+      }
+    }
+  },
   "readMore": "Citește mai mult",
   "record": {
+    "allMetaData": "Toate metadatele",
     "downloadCopyrightInfo": "Acest articol este protejat prin drepturi de autor și nu poate fi descărcat.",
+    "exploreMore": "Explorează mai mult",
+    "extendedInformation": "Informații extinse",
+    "goodToKnow": "Bine de știut",
+    "hideAll": "Ascunde toate informațiile",
     "record": "Înregistrare",
+    "showAll": "Afișează toate informațiile",
     "similarItems": "Articole similare",
+    "transcription": "Transcriere",
+    "transcriptionDisclaimer": "La acest conținut a contribuit publicul, nu instituția care a furnizat acest articol.",
     "view": {
       "image": "Vizualizare imagine",
       "media": "Vizualizare fișiere media",
@@ -459,6 +533,9 @@ export default {
   "resultsLimitWarning": "Nu sunt afișate rezultate suplimentare deoarece sunt afișate doar primele 1000 dintre cele mai relevante rezultate. Dacă nu ai găsit ceea ce căutai, te rugăm să restrângi căutarea.",
   "search": "Căutare",
   "searchPlaceholder": "Ce anume cauți?",
+  "searchResults": "Căutare",
+  "searchResultsFor": "{0} - Căutare",
+  "searchResultsForIn": "{0} - Căutare în {1}",
   "searchSuggestions": "Sugestii de căutare",
   "searchTier": {
     "button": {
@@ -473,6 +550,35 @@ export default {
   "searchViews": {
     "grid": "Vizualizare tabel",
     "list": "Vizualizare listă"
+  },
+  "set": {
+    "actions": {
+      "addTo": "Adăugare în galerie",
+      "create": "Creare galerie",
+      "createNew": "Creare galerie nouă",
+      "delete": "Ștergere galerie",
+      "edit": "Editare galerie",
+      "update": "Actualizare galerie"
+    },
+    "form": {
+      "description": "Descriere galerie",
+      "private": "Menține această galerie privată",
+      "title": "Denumire galerie"
+    },
+    "labels": {
+      "curatedBy": "Curată de",
+      "private": "Galerie privată"
+    },
+    "notifications": {
+      "deleted": "Galeria ta a fost ștearsă.",
+      "likeLimit": {
+        "body": "Ne pare rău, dar momentan ești limitat la aprecierea de max. 100 de articole. Vom elimina această limită în curând!",
+        "title": "100 de aprecieri"
+      }
+    },
+    "prompts": {
+      "delete": "Sigur dorești să ștergi această galerie? Dacă ștergi această galerie, vei pierde toate articolele pe care le-ai adăugat."
+    }
   },
   "showLess": "Afișează mai puțin",
   "showMore": "Afișează mai multe"
