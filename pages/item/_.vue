@@ -137,8 +137,9 @@
 
     fetchOnServer: false,
 
-    asyncData({ params, res, store }) {
-      return store.getters['apis/record'].getRecord(`/${params.pathMatch}`)
+    asyncData({ params, res, store, app }) {
+      return store.getters['apis/record']
+        .getRecord(`/${params.pathMatch}`, { locale: app.i18n.locale })
         .then(result => result.record)
         .catch(error => {
           if (typeof res !== 'undefined') {
