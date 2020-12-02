@@ -95,7 +95,7 @@
 
     head() {
       return {
-        title: `${this.$t('homepageTitle')} | ${this.name}`,
+        title: this.$t('homepageTitle') + this.$pageHeadTitle(),
         meta: [
           { hid: 'og:type', property: 'og:type', content: 'article' },
           { hid: 'title', name: 'title', content: this.name },
