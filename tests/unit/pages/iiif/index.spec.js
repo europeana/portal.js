@@ -1,11 +1,11 @@
-import { shallowMount } from '@vue/test-utils';
+import { shallowMountNuxt } from '../../utils';
 import axios from 'axios';
 import nock from 'nock';
 import sinon from 'sinon';
 
 import page from '../../../../pages/iiif/index';
 
-const factory = () => shallowMount(page, {
+const factory = () => shallowMountNuxt(page, {
   data() {
     return {
       uri: 'http://example.org/iiif/manifest.json'
