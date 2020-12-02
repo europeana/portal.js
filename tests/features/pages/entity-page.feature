@@ -12,6 +12,7 @@ Feature: Entity page
     And I see a `pagination navigation`
     And I don't have a `contentTier facet`
     And I am on an accessible page
+    And I should have a Europeana branded page title
 
   Scenario: Curated entity
     Given I am on `/en/collections/topic/190-art`

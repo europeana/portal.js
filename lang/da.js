@@ -1,18 +1,50 @@
 export default {
+  "account": {
+    "likes": "Synes om'er",
+    "linkAccount": "Min konto",
+    "linkLogin": "Log ind",
+    "linkLogout": "Log ud",
+    "notifications": {
+      "noCollections": {
+        "private": "Du har ikke oprettet nogen private gallerier endnu",
+        "public": "Du har ikke oprettet nogen offentlige gallerier endnu"
+      },
+      "noLikedItems": "Du har ikke syntes om nogen artikler endnu"
+    },
+    "privateCollections": "Private gallerier",
+    "profile": "Mine synes om'er og gallerier",
+    "publicCollections": "Offentlige gallerier",
+    "settings": "Indstillinger",
+    "title": "Min konto"
+  },
   "actions": {
+    "close": "luk",
     "download": "Hent",
+    "edit": "Rediger",
+    "goBack": "Tilbage",
+    "like": "Synes om",
     "providedBy": "Leveret af {provider}",
     "share": "Del",
     "shareOn": "Del på {social}",
     "viewAt": "Se på {link}",
     "viewDocument": "Se dokument"
   },
+  "attribution": {
+    "country": "Land:",
+    "creator": "Oprettet af:",
+    "date": "Dato:",
+    "institution": "Institution:",
+    "title": "Titel:"
+  },
   "blog": {
     "author": "Forfatter",
     "authors": "Forfattere",
     "blog": "Blog",
+    "by": "af",
     "categories": "Kategorier",
     "category": "Kategori",
+    "posts": "Blogindlæg",
+    "published": "Offentliggjort {date}",
     "relatedPosts": "Relaterede indlæg"
   },
   "clearAllFilters": "ryd alle filtre",
@@ -34,25 +66,31 @@ export default {
       }
     }
   },
+  "collectionsYouMightLike": "Samlinger, du måske vil synes om",
   "contentfulManual": {
     "footerNavigation": {
-      "about": "Om Europeana-samlinger",
+      "about": "Om Europeana",
       "forDevelopers": "For udviklere",
       "help": "Hjælp",
       "meetUs": "Mød holdet",
+      "MoreInfoLabel": "Flere oplysninger",
       "provide": "Bliv dataleverandør",
+      "subscribe": "Abonner på vores nyhedsbrev",
       "terms": "Vilkår for brug og Fortrolighedspolitik"
     },
     "headerNavigation": {
+      "Collections": "Samlinger",
       "explore": "Udforsk",
-      "teachers": "Undervisere"
+      "teachers": "Lærere"
     }
   },
+  "contentYouMightLike": "Indhold, du måske vil synes om",
   "cookieDisclaimer": {
     "acceptCookieDisclaimer": "Accepter ansvarsfraskrivelse for cookies",
     "link": "Mere information",
     "terms": "Denne hjemmeside bruger cookies for at sikre, at du får den bedste oplevelse på vores hjemmeside. Ved at klikke eller navigere på siden accepterer du at tillade vores indsamling af information via cookies."
   },
+  "curatedAutomatically": "Kurateret automatisk af Europeana",
   "dateFilter": {
     "endDate": "Slutdato",
     "specificDate": "Specifik dato",
@@ -71,6 +109,7 @@ export default {
     "chapters": "Kapitler",
     "credits": "Credits",
     "currentChapter": "Aktuelt kapitel",
+    "description": "Udforsk udstillingerne",
     "exhibitions": "Udstillinger"
   },
   "facets": {
@@ -257,8 +296,10 @@ export default {
     },
     "contentTier": {
       "name": "Indeholder emner, der ikke opfylder vores udgivelseskriterier",
+      "notification": "Nogle artikler, som ikke opfylder vores udgivelseskriterier, er tilgængelige. Du kan få adgang til disse artikler ved at aktivere filteret 'Artikelkvalitet' under 'Flere filtre'.",
       "options": {
-        "*": "Indeholder artikler, der ikke opfylder vores udgivelseskriterier"
+        "*": "Indeholder artikler, der ikke opfylder vores udgivelseskriterier",
+        "0": "Vis kun artikler, der ikke opfylder vores udgivelseskriterier"
       }
     },
     "COUNTRY": {
@@ -406,12 +447,30 @@ export default {
     "listSeperator": ";"
   },
   "galleries": {
+    "description": "Udforsk vores gallerier",
     "galleries": "Gallerier"
   },
   "goToRecord": "Gå til optagelse",
+  "header": {
+    "backToMenu": "Luk søgefelt",
+    "clearQuery": "Ryd søgning",
+    "entireCollection": "Søg efter {query} i hele vores samling",
+    "europeanaHome": "Europeana startside",
+    "inCollection": "Søg efter {query} i {collection}",
+    "searchFor": "Søg efter {query}",
+    "searchForEverything": "Søg efter alt",
+    "searchForEverythingInCollection": "Søg efter alt i {collection}",
+    "searchForEverythingInEntireCollection": "Søg efter alt i hele vores samling",
+    "showSidebar": "Vis menu"
+  },
   "homeLinkAlt": "Europeana startside",
   "imageSlider": {
     "handle": "Skydehåndtag"
+  },
+  "items": {
+    "itemCount": "1 artikel |{count} artikler",
+    "itemOf": "{max} af {count} artikler",
+    "youMightLike": "Artikler, du måske vil synes om"
   },
   "layout": {
     "skipToMain": "Spring til sideindhold"
@@ -440,11 +499,26 @@ export default {
   "newWindow": "åbner i nyt vindue",
   "noMoreResults": "Der er ikke flere resultater for din søgning.",
   "noResults": "Ingen resultater",
+  "pages": {
+    "collections": {
+      "topics": {
+        "title": "Emner"
+      }
+    }
+  },
   "readMore": "Læs mere",
   "record": {
+    "allMetaData": "Alle metadata",
     "downloadCopyrightInfo": "Denne artikel er ophavsretligt beskyttet og kan ikke downloades.",
+    "exploreMore": "Udforsk mere",
+    "extendedInformation": "Udvidede oplysninger",
+    "goodToKnow": "Værd at vide",
+    "hideAll": "Skjul alle oplysninger",
     "record": "Registrering",
+    "showAll": "Vis alle oplysninger",
     "similarItems": "Lignende artikler",
+    "transcription": "Transskription",
+    "transcriptionDisclaimer": "Dette indhold er leveret af offentligheden, ikke af den institution, der leverede denne artikel.",
     "view": {
       "image": "Se billede",
       "media": "Se medier",
@@ -459,6 +533,9 @@ export default {
   "resultsLimitWarning": "Yderligere resultater vises ikke, da kun de første 1000 mest relevante resultater vises. Hvis du ikke har fundet det, du leder efter, kan du overveje at præcisere søgningen.",
   "search": "Søg",
   "searchPlaceholder": "Hvad leder du efter?",
+  "searchResults": "Søg",
+  "searchResultsFor": "{0} - Søg",
+  "searchResultsForIn": "{0} - Søg i {1}",
   "searchSuggestions": "Søgeforslag",
   "searchTier": {
     "button": {
@@ -473,6 +550,35 @@ export default {
   "searchViews": {
     "grid": "Gittervisning",
     "list": "Listevisning"
+  },
+  "set": {
+    "actions": {
+      "addTo": "Føj til galleri",
+      "create": "Opret galleri",
+      "createNew": "Opret nyt galleri",
+      "delete": "Slet galleri",
+      "edit": "Rediger galleri",
+      "update": "Opdater galleri"
+    },
+    "form": {
+      "description": "Beskrivelse af galleri",
+      "private": "Hold dette galleri privat",
+      "title": "Navn på galleri"
+    },
+    "labels": {
+      "curatedBy": "Kurateret af",
+      "private": "Privat galleri"
+    },
+    "notifications": {
+      "deleted": "Dit galleri er blevet slettet.",
+      "likeLimit": {
+        "body": "Vi beklager, men du er i øjeblikket begrænset til at kunne synes om maksimalt 100 artikler. Vi fjerner denne begrænsning snart!",
+        "title": "100 synes om'er"
+      }
+    },
+    "prompts": {
+      "delete": "Er du sikker på, at du vil slette dette galleri? Hvis du sletter dette galleri, mister du alle de artikler, du har tilføjet i det."
+    }
   },
   "showLess": "Vis mindre",
   "showMore": "Vis mere"

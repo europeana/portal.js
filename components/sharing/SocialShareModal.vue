@@ -4,6 +4,7 @@
     title="Share"
     hide-header-close
     hide-footer
+    data-qa="share modal"
   >
     <div class="icon-wrapper">
       <SocialShare
@@ -11,9 +12,10 @@
         with-text
       />
     </div>
+    <slot />
     <b-button
       variant="outline-primary"
-      class="mt-5"
+      class="mt-4"
       @click="$bvModal.hide('shareModal')"
     >
       {{ $t('actions.close') }}

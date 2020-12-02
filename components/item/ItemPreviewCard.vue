@@ -13,7 +13,6 @@
   >
     <template v-slot:buttons>
       <UserButtons
-        v-if="showUserButtons"
         v-model="identifier"
         @like="$emit('like', identifier)"
         @unlike="$emit('unlike', identifier)"
@@ -75,10 +74,6 @@
         return this.variant === 'list' ? 'mx-0' : null;
       },
 
-      showUserButtons() {
-        return this.$config.app.features.xxUserAuth && (this.variant === 'default') && (this.$config.app.features.unauthenticatedUserButtons || (this.$store.state.auth && this.$store.state.auth.loggedIn));
-      },
-
       identifier() {
         return this.value.id.replace('http://data.europeana.eu/item/', '');
       },
@@ -88,7 +83,7 @@
       },
 
       imageUrl() {
-        const size = 'w200';
+        const size = 'w400';
 
         return this.value.edmPreview ?
           `${this.value.edmPreview[0]}&size=${size}` :

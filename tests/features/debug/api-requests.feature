@@ -7,3 +7,4 @@ Feature: API requests
     And I click the `API requests modal button`
     Then I see the `API requests modal`
     And I should see 1 `logged API request`
+    And I should have a Europeana branded page title

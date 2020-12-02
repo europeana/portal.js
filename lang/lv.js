@@ -1,18 +1,50 @@
 export default {
+  "account": {
+    "likes": "Patīk",
+    "linkAccount": "Mans konts",
+    "linkLogin": "Pieteikties",
+    "linkLogout": "Atteikties",
+    "notifications": {
+      "noCollections": {
+        "private": "Vēl nav izveidota neviena privāta galerija",
+        "public": "Vēl nav izveidota neviena publiska galerija"
+      },
+      "noLikedItems": "Neviens vienums vēl nav atzīmtes ar \"patīk\""
+    },
+    "privateCollections": "Privātas galerijas",
+    "profile": "Mani favorīti un galerijas",
+    "publicCollections": "Publiskas galerijas",
+    "settings": "Iestatījumi",
+    "title": "Mans konts"
+  },
   "actions": {
+    "close": "aizvērt",
     "download": "Lejupielādēt",
+    "edit": "Rediģēt",
+    "goBack": "Atpakaļ",
+    "like": "Patīk",
     "providedBy": "Nodrošina {provider}",
     "share": "Dalies",
     "shareOn": "Dalīties {social}",
     "viewAt": "Skatīt vietnē {link}",
     "viewDocument": "Skatīt dokumentu"
   },
+  "attribution": {
+    "country": "Valsts",
+    "creator": "Autors:",
+    "date": "Datums",
+    "institution": "Iestāde:",
+    "title": "Nosaukums:"
+  },
   "blog": {
     "author": "Autors",
     "authors": "Autori",
     "blog": "Emuārs",
+    "by": "autors",
     "categories": "Kategorijas",
     "category": "Kategorija",
+    "posts": "Emuāra ziņas",
+    "published": "Publicēts {date}",
     "relatedPosts": "Saistītās ziņas"
   },
   "clearAllFilters": "notīrīt visus filtrus",
@@ -34,25 +66,31 @@ export default {
       }
     }
   },
+  "collectionsYouMightLike": "Tev varētu patikt šīs kolekcijas",
   "contentfulManual": {
     "footerNavigation": {
-      "about": "Par Europeana Collections",
+      "about": "Par Europeana",
       "forDevelopers": "Izstrādātājiem",
       "help": "Palīdzība",
       "meetUs": "Mūsu komanda",
+      "MoreInfoLabel": "Papildinformācija",
       "provide": "Kļūsti par datu nodrošinātāju",
+      "subscribe": "Piesakies mūsu jaunumu ziņojumimem",
       "terms": "Lietošanas noteikumi un Privātuma politika"
     },
     "headerNavigation": {
+      "Collections": "Kolekcijos",
       "explore": "Jaunumi",
-      "teachers": "Pedagogi"
+      "teachers": "Skolotājiem"
     }
   },
+  "contentYouMightLike": "Iespējams, Tev patiks šis saturs",
   "cookieDisclaimer": {
     "acceptCookieDisclaimer": "Pieņemt atrunu par sīkdatnēm",
     "link": "Vairāk informācijas",
     "terms": "Šī vietne izmanto sīkdatnes, lai nodrošinātu vislabāko pieredzi mūsu vietnē. Noklikšķinot uz vietni vai pārvietojoties tajā, jūs piekrītat atļaut mums vākt informāciju, izmantojot sīkdatnes."
   },
+  "curatedAutomatically": "Automātiski glabāts Europeana",
   "dateFilter": {
     "endDate": "Beigu datums",
     "specificDate": "Konkrēts datums",
@@ -71,14 +109,15 @@ export default {
     "chapters": "Nodaļas",
     "credits": "Kredīti",
     "currentChapter": "Pašreizējā nodaļa",
-    "exhibitions": "Izstādes"
+    "description": "Pārlūkot izstādes",
+    "exhibitions": "Izstāde | Izstādes"
   },
   "facets": {
     "api": {
       "name": "Meklēt",
       "options": {
-        "fulltext": "Ieraksti ar pilnu tekstu",
-        "metadata": "Tikai metadatu ieraksti"
+        "fulltext": "Vienumi ar pilnu tekstu",
+        "metadata": "Tikai metadatu vienumi"
       }
     },
     "button": {
@@ -90,7 +129,7 @@ export default {
       "showLess": "Rādīt mazāk {label}"
     },
     "collection": {
-      "name": "Kategorija",
+      "name": "Kolekcija",
       "options": {
         "archaeology": "Arheoloģija",
         "art": "Māksla",
@@ -256,9 +295,11 @@ export default {
       }
     },
     "contentTier": {
-      "name": "Ietver vienumus, kas neatbilst mūsu publicēšanas kritērijiem",
+      "name": "Vienuma kvalitāte",
+      "notification": "Ir pieejami daži vienumi, kas neatbilst mūsu publicēšanas kritērijiem. Šiem vienumiem var piekļūt, aktivizējot filtru \"Vienumu kvalitāte\", kas pieejams sadaļā \"Vairāk filtru\".",
       "options": {
-        "*": "Ietver vienumus, kas neatbilst mūsu publicēšanas kritērijiem"
+        "*": "Ietver vienumus, kas neatbilst mūsu publicēšanas kritērijiem",
+        "0": "Rādīt tikai vienumus, kas neatbilst mūsu publicēšanas kritērijiem."
       }
     },
     "COUNTRY": {
@@ -268,7 +309,7 @@ export default {
       "name": "Radītājs | Radītāji"
     },
     "DATA_PROVIDER": {
-      "name": "Iestāde"
+      "name": "Iestāde | Iestādes"
     },
     "IMAGE_ASPECTRATIO": {
       "name": "Attēla orientācija | Attēla orientācijas",
@@ -287,7 +328,7 @@ export default {
       }
     },
     "LANGUAGE": {
-      "name": "Valoda"
+      "name": "Valoda | Valodas"
     },
     "MIME_TYPE": {
       "name": "Datnes formāts | Datņu formāti",
@@ -296,7 +337,7 @@ export default {
       }
     },
     "PROVIDER": {
-      "name": "Agregators"
+      "name": "Agregators | Agregatori"
     },
     "proxy_dc_format": {
       "name": "Formāts | Formāti"
@@ -311,7 +352,7 @@ export default {
       "name": "Līdzeklis/ Līdzekļi"
     },
     "REUSABILITY": {
-      "name": "Vai es varu to atkārtoti izmantot?",
+      "name": "Vai drīkst šo izmantot?",
       "options": {
         "open": "Jā",
         "permission": "Varbūt, meklējiet atļauju",
@@ -377,7 +418,7 @@ export default {
       "edmIsSuccessorOf": "Ir pēctecis(-e)",
       "edmProvider": "Oriģinālais nodrošinātājs",
       "edmRealizes": "Sasniegumi",
-      "edmRights": "Mediju licence šajā ierakstā (ja nav norādīts citādi)",
+      "edmRights": "Mediju licence šajā vienumā (ja nav norādīts citādi)",
       "edmUgc": "Lietotāja radīts saturs",
       "europeanaCollectionName": "Kolekcijas nosaukums",
       "keywords": "Atslēgas vārdi (nodrošina kopiena)",
@@ -389,7 +430,7 @@ export default {
       "about": "RDF Par",
       "dcDescription": "Apraksts",
       "ebucoreHasMimeType": "Ebucore MIME veids",
-      "edmRights": "Šī multivides resursa licence",
+      "edmRights": "Paziņojums par tiesībām saistībā ar šo multivides resursu",
       "rdfAbout": "Par radiopeilētāju (RDF)"
     }
   },
@@ -406,12 +447,30 @@ export default {
     "listSeperator": ";"
   },
   "galleries": {
-    "galleries": "Galerijas"
+    "description": "Pārlūkot mūsu galerijas",
+    "galleries": "Galerija | Galerijas"
   },
-  "goToRecord": "Iet uz ierakstu",
+  "goToRecord": "Iet uz vienumu",
+  "header": {
+    "backToMenu": "Aizvērt meklēšanas lodziņu",
+    "clearQuery": "Notīrīt meklēšanas vaicājumu",
+    "entireCollection": "Search for {query} in our entire collection",
+    "europeanaHome": "Europeana vietne",
+    "inCollection": "Meklēt {query} kolekcijā {collection}",
+    "searchFor": "Meklēt {query}",
+    "searchForEverything": "Meklēt visu",
+    "searchForEverythingInCollection": "Meklēt visu kolekcijā {collection}",
+    "searchForEverythingInEntireCollection": "Meklēt visu visā mūsu kolekcijā",
+    "showSidebar": "Radīt izvēlni"
+  },
   "homeLinkAlt": "Europeana vietne",
   "imageSlider": {
     "handle": "Slīdņa rokturis"
+  },
+  "items": {
+    "itemCount": "1 vienums |{count} vienumiem",
+    "itemOf": "{max} no {count} vienumiem",
+    "youMightLike": "Iespējams, Tev patiks arī šie"
   },
   "layout": {
     "skipToMain": "Pāriet uz lapas saturu"
@@ -440,11 +499,26 @@ export default {
   "newWindow": "tiek atvērts jaunā logā",
   "noMoreResults": "Jūsu meklēšanas vaicājumam vairs nav rezultātu.",
   "noResults": "Nav rezultātu",
+  "pages": {
+    "collections": {
+      "topics": {
+        "title": "Tēmas"
+      }
+    }
+  },
   "readMore": "Lasīt vairāk",
   "record": {
+    "allMetaData": "Visi metadati",
     "downloadCopyrightInfo": "Šis vienums ir aizsargāts ar autortiesībām, un to nevar lejupielādēt.",
-    "record": "Ieraksts",
+    "exploreMore": "Pārlūkot vairāk",
+    "extendedInformation": "Paplašināta informācija",
+    "goodToKnow": "Vērts zināt",
+    "hideAll": "Paslēpt visu informāciju",
+    "record": "Vienums",
+    "showAll": "Rādīt visu informāciju",
     "similarItems": "Līdzīgi vienumi",
+    "transcription": "Kopija",
+    "transcriptionDisclaimer": "Šī satura veidošanā līdzdarbojušies iedzīvotāji, nevis šo vienumu nodrošinošā iestāde.",
     "view": {
       "image": "Skatīt attēlu",
       "media": "Skatīt multividi",
@@ -458,7 +532,10 @@ export default {
   "results": "Rezultāti",
   "resultsLimitWarning": "Papildu rezultāti netiek parādīti, jo tiek parādīti tikai pirmie 1000 atbilstošākie rezultāti. Ja neesat atradis to, ko meklējat, lūdzu, apsveriet iespēju precizēt meklēšanu.",
   "search": "Meklēt",
-  "searchPlaceholder": "Ko jūs meklējat?",
+  "searchPlaceholder": "Meklēt starp miljoniem vienumu",
+  "searchResults": "Meklēt",
+  "searchResultsFor": "{0} - Meklēšana",
+  "searchResultsForIn": "{0} - Meklēšana {1} ietvaros",
   "searchSuggestions": "Meklēšanas ieteikumi",
   "searchTier": {
     "button": {
@@ -473,6 +550,35 @@ export default {
   "searchViews": {
     "grid": "Režģa skats",
     "list": "Saraksta skats"
+  },
+  "set": {
+    "actions": {
+      "addTo": "Pievienot galerijai",
+      "create": "Izveidot galeriju",
+      "createNew": "Izveidot jaunu galeriju",
+      "delete": "Dzēst galeriju",
+      "edit": "Rediģēt galeriju",
+      "update": "Atjaunināt galeriju"
+    },
+    "form": {
+      "description": "Galerijas apraksts",
+      "private": "Saglabāt šo galeriju kā privātu",
+      "title": "Galerijas nosaukums"
+    },
+    "labels": {
+      "curatedBy": "Pārzinis",
+      "private": "Privāta galerija"
+    },
+    "notifications": {
+      "deleted": "Tava galerija ir izdzēsta.",
+      "likeLimit": {
+        "body": "Diemžēl šobrīd ir iespējams atzīmēt \"patīk\" ne vairāk kā 100 vienumiem. Drīzumā šis ierobežojums tiks noņemts!",
+        "title": "100 patīk"
+      }
+    },
+    "prompts": {
+      "delete": "Vai tiešām vēlies dzēst šo galeriju? Dzēšot šo galeriju, tiks zaudēti visi tai pievienotie vienumi."
+    }
   },
   "showLess": "Rādīt mazāk",
   "showMore": "Rādīt vairāk"

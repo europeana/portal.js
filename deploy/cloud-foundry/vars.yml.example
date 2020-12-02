@@ -1,0 +1,5 @@
+memory: 128M
+env:
+  HOST: 0.0.0.0
+services:
+  -

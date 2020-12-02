@@ -1,18 +1,50 @@
 export default {
+  "account": {
+    "likes": "Označenia Páči sa mi",
+    "linkAccount": "Môj účet",
+    "linkLogin": "Prihlásiť sa",
+    "linkLogout": "Odhlásiť sa",
+    "notifications": {
+      "noCollections": {
+        "private": "Zatiaľ ste nevytvorili žiadne súkromné galérie",
+        "public": "Zatiaľ ste nevytvorili žiadne verejné galérie"
+      },
+      "noLikedItems": "Zatiaľ ste žiadne položky neoznačili, že sa vám páčia"
+    },
+    "privateCollections": "Súkromné zbierky",
+    "profile": "Moje označenia Páči sa mi a galérie",
+    "publicCollections": "Verejné galérie",
+    "settings": "Nastavenia",
+    "title": "Môj účet"
+  },
   "actions": {
+    "close": "zatvoriť",
     "download": "Stiahnuť",
+    "edit": "Upraviť",
+    "goBack": "Späť",
+    "like": "Označenie Páči sa mi",
     "providedBy": "Poskytovateľ:  {provider}",
     "share": "Zdieľať",
     "shareOn": "Zdieľať na sociálnej sieti {social}",
     "viewAt": "Zobraziť na adrese {link}",
     "viewDocument": "Zobraziť dokument"
   },
+  "attribution": {
+    "country": "Krajina:",
+    "creator": "Autor:",
+    "date": "Dátum:",
+    "institution": "Inštitúcia:",
+    "title": "Názov:"
+  },
   "blog": {
     "author": "Autor",
     "authors": "Autori",
     "blog": "Blog",
+    "by": "od autora",
     "categories": "Kategórie",
     "category": "Kategória",
+    "posts": "Blogové príspevky",
+    "published": "Zverejnené {date}",
     "relatedPosts": "Súvisiace príspevky"
   },
   "clearAllFilters": "Vymazať všetky filtre",
@@ -34,25 +66,31 @@ export default {
       }
     }
   },
+  "collectionsYouMightLike": "Zbierky, ktoré by sa vám mohli páčiť",
   "contentfulManual": {
     "footerNavigation": {
       "about": "Informácie o zbierkach Europeana",
       "forDevelopers": "Pre vývojárov",
       "help": "Pomoc",
       "meetUs": "Spoznajte členov tímu",
+      "MoreInfoLabel": "Ďalšie informácie",
       "provide": "Staňte sa poskytovateľom údajov",
+      "subscribe": "Prihlásiť sa na odber newslettra",
       "terms": "Podmienky používania služby a zásady ochrany osobných údajov"
     },
     "headerNavigation": {
+      "Collections": "Zbierky",
       "explore": "Objavujte",
-      "teachers": "Pedagógovia"
+      "teachers": "Učitelia"
     }
   },
+  "contentYouMightLike": "Obsah, ktorý by sa vám mohol páčiť",
   "cookieDisclaimer": {
     "acceptCookieDisclaimer": "Vyjadrite súhlas s vyhlásením o používaní súborov cookie",
     "link": "Ďalšie informácie",
     "terms": "Táto webová stránka používa cookies, aby zabezpečila čo najlepší zážitok z našej webovej stránky. Kliknutím alebo navigáciou na stránke súhlasíte s povolením nášho zhromažďovania informácií prostredníctvom súborov cookie."
   },
+  "curatedAutomatically": "Spravované automaticky spol. Europeana",
   "dateFilter": {
     "endDate": "Dátum ukončenia",
     "specificDate": "Konkrétny dátum",
@@ -71,6 +109,7 @@ export default {
     "chapters": "Kapitoly",
     "credits": "Autori",
     "currentChapter": "Aktuálna kapitola",
+    "description": "Preskúmať naše výstavy",
     "exhibitions": "Výstavy"
   },
   "facets": {
@@ -257,8 +296,10 @@ export default {
     },
     "contentTier": {
       "name": "Obsahuje položky, ktoré nespĺňajú naše publikačné kritériá",
+      "notification": "K dispozícii sú určité položky, ktoré sa nezhodujú s našimi kritériami. Tieto položky si môžete zobraziť aktiváciou filtra „Kvalita položky“ v časti „Ďalšie filtre“.",
       "options": {
-        "*": "Obsahuje položky, ktoré nespĺňajú naše publikačné kritériá"
+        "*": "Obsahuje položky, ktoré nespĺňajú naše publikačné kritériá",
+        "0": "Zobraziť iba položky, ktoré nespĺňajú kritéria zverejnenia"
       }
     },
     "COUNTRY": {
@@ -406,12 +447,30 @@ export default {
     "listSeperator": ";"
   },
   "galleries": {
+    "description": "Preskúmať naše galérie",
     "galleries": "Galérie"
   },
   "goToRecord": "Prejsť na záznam",
+  "header": {
+    "backToMenu": "Zatvoriť vyhľadávacie pole",
+    "clearQuery": "Zmazať vyhľadávací dopyt",
+    "entireCollection": "Hľadajte výraz {query} v celej našej zbierke",
+    "europeanaHome": "Domovská stránka Europeana",
+    "inCollection": "Hľadajte výraz {query} v zbierke {collection}",
+    "searchFor": "Vyhľadávať dopyt {query}",
+    "searchForEverything": "Vyhľadávať všetko",
+    "searchForEverythingInCollection": "Vyhľadávať všetko v zbierke {collection}",
+    "searchForEverythingInEntireCollection": "Vyhľadávať všetko v celej našej zbierke",
+    "showSidebar": "Zobraziť ponuku"
+  },
   "homeLinkAlt": "Domovská stránka Europeana",
   "imageSlider": {
     "handle": "Rukoväť posuvníka"
+  },
+  "items": {
+    "itemCount": "1 položka | Počet položiek: {count}",
+    "itemOf": "Max. {max} z {count} položiek",
+    "youMightLike": "Položky, ktoré by sa vám mohli páčiť"
   },
   "layout": {
     "skipToMain": "Preskočiť na stránku s obsahom"
@@ -440,11 +499,26 @@ export default {
   "newWindow": "otvorí sa v novom okne",
   "noMoreResults": "Pre vaše vyhľadávanie neexistujú žiadne ďalšie výsledky.",
   "noResults": "Žiadne výsledky",
+  "pages": {
+    "collections": {
+      "topics": {
+        "title": "Témy"
+      }
+    }
+  },
   "readMore": "Viac",
   "record": {
+    "allMetaData": "Všetky metadáta",
     "downloadCopyrightInfo": "Táto položka je chránená autorským zákonom a nie je možné ju stiahnuť.",
+    "exploreMore": "Preskúmať viac",
+    "extendedInformation": "Rozšírené informácie",
+    "goodToKnow": "Dobré vedieť",
+    "hideAll": "Skryť všetky informácie",
     "record": "Záznam",
+    "showAll": "Zobraziť všetky informácie",
     "similarItems": "Podobné položky",
+    "transcription": "Prepis",
+    "transcriptionDisclaimer": "Obsah pridáva verejnosť, nie inštitúcia, ktorá túto položku poskytla.",
     "view": {
       "image": "Zobraziť obrázok",
       "media": "Zobraziť médiá",
@@ -459,6 +533,9 @@ export default {
   "resultsLimitWarning": "Ďalšie výsledky sa nezobrazujú, pretože sa zobrazuje iba prvých 1000 najrelevantnejších výsledkov. Ak ste nenašli, čo hľadáte, upresnite vyhľadávanie.",
   "search": "Hľadať",
   "searchPlaceholder": "Čo hľadáte?",
+  "searchResults": "Vyhľadávať",
+  "searchResultsFor": "{0} – vyhľadávať",
+  "searchResultsForIn": "{0} – vyhľadávať v rámci {1}",
   "searchSuggestions": "Návrhy na vyhľadávanie",
   "searchTier": {
     "button": {
@@ -473,6 +550,35 @@ export default {
   "searchViews": {
     "grid": "Zobrazenie mriežky",
     "list": "Zobrazenie zoznamu"
+  },
+  "set": {
+    "actions": {
+      "addTo": "Pridať do galérie",
+      "create": "Vytvoriť galériu",
+      "createNew": "Vytvoriť novú galériu",
+      "delete": "Vymazať galériu",
+      "edit": "Upraviť galériu",
+      "update": "Aktualizovať galériu"
+    },
+    "form": {
+      "description": "Popis galérie",
+      "private": "Túto galériu uložiť ako súkromnú",
+      "title": "Názov galérie"
+    },
+    "labels": {
+      "curatedBy": "Zbierku spravuje",
+      "private": "Súkromná galéria"
+    },
+    "notifications": {
+      "deleted": "Galéria bola vymazaná.",
+      "likeLimit": {
+        "body": "Mrzí nás to, ale aktuálne môžete označiť maximálne 100 položiek, že sa vám páčia. Toto obmedzenie čoskoro odstránime!",
+        "title": "100 označení Páči sa mi"
+      }
+    },
+    "prompts": {
+      "delete": "Naozaj chcete vymazať túto galériu? Ak ju vymažete, stratíte všetky položky, ktoré ste do nej pridali."
+    }
   },
   "showLess": "Zobraziť menej",
   "showMore": "Zobraziť viac"

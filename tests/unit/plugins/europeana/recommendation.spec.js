@@ -3,7 +3,6 @@ import nock from 'nock';
 import recommendation, { BASE_URL } from '../../../../plugins/europeana/recommendation';
 
 const axios = require('axios');
-axios.defaults.adapter = require('axios/lib/adapters/http');
 
 const recommendations = ['/123/def', '/123/ghi'];
 

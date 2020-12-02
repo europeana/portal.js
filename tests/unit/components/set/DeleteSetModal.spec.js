@@ -39,7 +39,7 @@ describe('components/set/DeleteSetModal', () => {
 
     const modalText = wrapper.text();
 
-    modalText.should.include('Are you sure you want to delete this collection?');
+    modalText.should.include('Are you sure you want to delete this gallery?');
   });
 
   describe('cancel button', () => {
@@ -93,7 +93,7 @@ describe('components/set/DeleteSetModal', () => {
 
       await wrapper.find('form').trigger('submit.stop.prevent');
 
-      rootBvToast.should.have.been.calledWith('Your collection has been deleted.', sinon.match.any);
+      rootBvToast.should.have.been.calledWith('Your gallery has been deleted.', sinon.match.any);
     });
   });
 });

@@ -80,12 +80,12 @@
     },
     methods: {
       imageUrl(data) {
-        return (data.encoding ? data.encoding.edmPreview : data.thumbnailUrl) + '&size=w200';
+        return (data.encoding ? data.encoding.edmPreview : data.thumbnailUrl) + '&size=w400';
       }
     },
     head() {
       return {
-        title: this.$tc('galleries.galleries', 2)
+        title: this.$pageHeadTitle(this.$tc('galleries.galleries', 2))
       };
     },
     watchQuery: ['page']

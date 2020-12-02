@@ -5,7 +5,7 @@
     hide-footer
     hide-header-close
     @show="fetchCollections"
-    @hide="$emit('hideModal')"
+    @hide="hideModal()"
   >
     <b-button
       variant="primary"
@@ -18,6 +18,7 @@
       <b-button
         v-for="(collection, index) in collections"
         :key="index"
+        :disabled="!fetched"
         :style="buttonBackground($sets.getSetThumbnail(collection))"
         variant="overlay"
         class="btn-collection w-100 text-left d-flex justify-content-between align-items-center"
@@ -33,7 +34,7 @@
     <div class="modal-footer">
       <b-button
         variant="outline-primary"
-        @click="hideModal()"
+        @click="$bvModal.hide(modalId)"
       >
         {{ $t('actions.close') }}
       </b-button>
@@ -57,6 +58,12 @@
       }
     },
 
+    data() {
+      return {
+        fetched: false
+      };
+    },
+
     computed: {
       collections() {
         return this.$store.state.set.creations;
@@ -71,12 +78,16 @@
 
     methods: {
       fetchCollections() {
-        this.$store.dispatch('set/fetchCreations');
+        this.$store.dispatch('set/fetchCreations')
+          .then(() => {
+            this.fetched = true;
+          });
       },
 
       hideModal() {
         this.$nextTick(() => {
-          this.$bvModal.hide(this.modalId);
+          this.fetched = false;
+          this.$emit('hideModal');
         });
       },
 

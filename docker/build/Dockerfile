@@ -21,4 +21,4 @@ RUN npm install && \
 
 ENV NODE_ENV=production
 
-CMD ["node", "server/index.js"]
+CMD ["npm", "run", "start"]

@@ -64,6 +64,13 @@ function languageKeys(locale) {
   return languageKeysWithFallbacks[locale] || localeFallbackKeys;
 }
 
+export const selectLocaleForLangMap = (langMap, locale) => {
+  for (const key of languageKeys(locale)) {
+    if (Object.prototype.hasOwnProperty.call(langMap, key)) return key;
+  }
+  return Object.keys(langMap)[0];
+};
+
 /**
  * Get the localised value for the current locale, with preferred fallbacks.
  * Will return the first value if no value was found in any of the preferred locales.
@@ -81,15 +88,7 @@ export function langMapValueForLocale(langMap, locale, options = {}) {
   let returnVal = { values: [] };
   if (!langMap) return returnVal;
 
-  for (let key of languageKeys(locale)) { // loop through all language key to find a match
-    setLangMapValuesAndCode(returnVal, langMap, key, locale);
-    if (returnVal.values.length >= 1) break;
-  }
-
-  // No preferred language found, so just add the first
-  if (returnVal.values.length === 0) {
-    setLangMapValuesAndCode(returnVal, langMap, Object.keys(langMap)[0], locale);
-  }
+  setLangMapValuesAndCode(returnVal, langMap, selectLocaleForLangMap(langMap, locale), locale);
 
   let withEntities = addEntityValues(returnVal, entityValues(langMap['def'], locale));
   // In case an entity resolves as only its URI as is the case in search responses
@@ -194,3 +193,59 @@ function filterEntities(mappedObject) {
 export function apiUrlFromRequestHeaders(api, headers) {
   return headers[`x-europeana-${api}-api-url`];
 }
+
+/**
+ * Escapes Lucene syntax special characters
+ * For instance, so that a string may be used in a Record API search query.
+ * @param {string} unescaped Unescaped string
+ * @return {string} Escaped string
+ * @see https://lucene.apache.org/solr/guide/the-standard-query-parser.html#escaping-special-characters
+ */
+export function escapeLuceneSpecials(unescaped) {
+  const escapePattern = /([+\-&|!(){}[\]^"~*?:/"])/g; // Lucene reserved characters
+  return unescaped.replace(escapePattern, '\\$1');
+}
+
+/**
+ * Unescapes Lucene syntax special characters
+ * @param {string} escaped Escaped string
+ * @return {string} Unescaped string
+ */
+export function unescapeLuceneSpecials(escaped) {
+  const unescapePattern = /\\([+\-&|!(){}[\]^"~*?:/"])/g; // Lucene reserved characters
+  return escaped.replace(unescapePattern, '$1');
+}
+
+export const isLangMap = (value) => {
+  return (typeof value === 'object') && Object.keys(value).every(key => {
+    // TODO: is this good enough to determine lang map or not?
+    return /^[a-z]{2,3}(-[A-Z]{2})?$/.test(key);
+  });
+};
+
+export const reduceLangMapsForLocale = (value, locale) => {
+  if (Array.isArray(value)) {
+    return value.map(val => reduceLangMapsForLocale(val, locale));
+  } else if (typeof value === 'object') {
+    if (isLangMap(value)) {
+      const selectedLocale = selectLocaleForLangMap(value, locale);
+      const langMap = {
+        [selectedLocale]: value[selectedLocale]
+      };
+      // Preserve entities from .def property
+      if (selectedLocale !== 'def' && Array.isArray(value.def)) {
+        langMap.def = value.def
+          .filter(def => def.about)
+          .map(entity => reduceLangMapsForLocale(entity, locale));
+      }
+      return Object.freeze(langMap);
+    } else {
+      return Object.keys(value).reduce((memo, key) => {
+        memo[key] = reduceLangMapsForLocale(value[key], locale);
+        return memo;
+      }, {});
+    }
+  } else {
+    return value;
+  }
+};

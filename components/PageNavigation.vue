@@ -21,7 +21,7 @@
       </SmartLink>
     </li>
     <!-- sso links -->
-    <template v-if="enableAuthLinks">
+    <template>
       <li
         v-if="isAuthenticated"
         class="nav-item d-none d-lg-inline-block"
@@ -31,12 +31,15 @@
           no-caret
           variant="white"
           class="nav-link"
+          data-qa="account button"
           :class="isAccountPage && 'exact-active-link'"
         >
           <template
             slot="button-content"
           >
-            <span class="label">{{ $t('account.linkAccount') }}</span>
+            <span class="label">
+              {{ $t('account.linkAccount') }}
+            </span>
           </template>
           <template v-for="(item, index) in authLinks">
             <b-dropdown-divider
@@ -48,6 +51,7 @@
               :key="index"
               :to="item.to"
               :href="item.href"
+              :data-qa="item.dataQa"
             >
               <span class="label">{{ item.text }}</span>
             </b-dropdown-item>
@@ -65,6 +69,7 @@
             v-b-toggle.menu
             :to="item.to"
             :href="item.href"
+            :data-qa="item.dataQa"
             class="nav-link"
           >
             <span>
@@ -75,12 +80,12 @@
         </li>
       </template>
       <li
-        v-else-if="enableLoginLink"
+        v-else
         class="nav-item"
       >
         <b-link
           v-b-toggle.menu
-          data-qa="login button"
+          data-qa="log in button"
           class="nav-link"
           :to="{ name: 'account-login' }"
         >
@@ -110,20 +115,15 @@
     data() {
       return {
         authLinks: [
-          { to: this.$path({ name: 'account' }), text: this.$t('account.profile'), name: '/account' },
-          { href: `${this.$config.oauth.origin}/auth/realms/${this.$config.oauth.realm}/account?referrer=${this.$config.oauth.client}`, text: this.$t('account.settings'), name: '/account/settings' },
+          { to: this.$path({ name: 'account' }), text: this.$t('account.profile'), name: '/account', dataQa: 'likes and galleries button' },
+          // TODO: reuse keycloakOpenIDConnectEndpoint from nuxt.config.js?
+          { href: `${this.$config.oauth.origin}/auth/realms/${this.$config.oauth.realm}/account?referrer=${this.$config.oauth.client}`, text: this.$t('account.settings'), name: '/account/settings', dataQa: 'account settings button' },
           { divider: true, name: 'divider' },
-          { to: { name: 'account-logout' }, text: this.$t('account.linkLogout'), name: '/account/logout' }
+          { to: { name: 'account-logout' }, text: this.$t('account.linkLogout'), name: '/account/logout', dataQa: 'log out button' }
         ]
       };
     },
     computed: {
-      enableLoginLink() {
-        return this.$config.app.features.loginLink;
-      },
-      enableAuthLinks() {
-        return this.$config.app.features.xxUserAuth;
-      },
       isAuthenticated() {
         return this.$store.state.auth.loggedIn;
       },

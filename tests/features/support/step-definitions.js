@@ -35,6 +35,14 @@ defineStep('I find/identify/see/spot (a/an/the)( ){target} with the text {string
 defineStep('(a/an/the)( ){target} is/are highlighted', (qa) =>
   i.haveHighlightedATarget(qa));
 
+defineStep('the memory used is less than {int} MB', memoryUsageMB => {
+  i.haveNotExcededMemoryUsageInMB(memoryUsageMB);
+});
+
+defineStep('I refresh the page', () => {
+  i.refreshThePage();
+});
+
 defineStep('I find/identify/see/spot (a/an/the)( )level {int} (section )heading with the text {string}', (headingLevel, text) =>
   i.seeASectionHeadingWithText(headingLevel, text));
 
@@ -135,6 +143,9 @@ defineStep('I am on page (number ){int}', (page) =>
 defineStep('I click the {string} tab', (tab) =>
   i.clickOnTab(tab));
 
+defineStep('I can\'t/don\'t find/identify/see/spot (a/an/the)( ){string} tab', (tab) =>
+  i.doNotSeeATab(tab));
+
 defineStep('I go back', () =>
   i.goBack());
 
@@ -149,3 +160,9 @@ defineStep('I make a snapshot of (a/an/the)( ){target}', (pageName) =>
 
 defineStep('I should see alternate-hreflang tags', () =>
   i.hrefLangTags());
+
+defineStep('I should have a Europeana branded page title', () =>
+  i.haveEuropeanaBrandedTitle());
+
+defineStep('I hover over (a/an/the)( ){target}', (target) =>
+  i.moveToElement(target));

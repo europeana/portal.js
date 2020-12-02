@@ -1,18 +1,50 @@
 export default {
+  "account": {
+    "likes": "Mi piace",
+    "linkAccount": "Il mio account",
+    "linkLogin": "Accedi",
+    "linkLogout": "Esci",
+    "notifications": {
+      "noCollections": {
+        "private": "Non hai ancora creato gallerie private",
+        "public": "Non hai ancora creato gallerie pubbliche"
+      },
+      "noLikedItems": "Non hai ancora messo Mi piace a nessun articolo"
+    },
+    "privateCollections": "Gallerie private",
+    "profile": "I miei Mi piace e le mie gallerie",
+    "publicCollections": "Gallerie pubbliche",
+    "settings": "Impostazioni",
+    "title": "Il mio account"
+  },
   "actions": {
+    "close": "chiudi",
     "download": "Scarica",
+    "edit": "Modifica",
+    "goBack": "Indietro",
+    "like": "Mi piace",
     "providedBy": "Fornito da {provider}",
     "share": "Condividi",
     "shareOn": "Condividi su {social}",
     "viewAt": "Vedi su {link}",
     "viewDocument": "Visualizza documento"
   },
+  "attribution": {
+    "country": "Paese:",
+    "creator": "Creatore:",
+    "date": "Data:",
+    "institution": "Istituzione:",
+    "title": "Titolo:"
+  },
   "blog": {
     "author": "Autore",
     "authors": "Autori",
     "blog": "Blog",
+    "by": "di",
     "categories": "Categorie",
     "category": "Categoria",
+    "posts": "Articoli del blog",
+    "published": "Pubblicato il giorno {date}",
     "relatedPosts": "Articoli correlati"
   },
   "clearAllFilters": "cancella tutti i filtri",
@@ -34,25 +66,31 @@ export default {
       }
     }
   },
+  "collectionsYouMightLike": "Collezioni che potrebbero piacerti",
   "contentfulManual": {
     "footerNavigation": {
       "about": "Le collezioni Europeana",
       "forDevelopers": "Per gli sviluppatori",
       "help": "Aiuto",
       "meetUs": "La nostra squadra",
+      "MoreInfoLabel": "Maggiori informazioni",
       "provide": "Diventa un fornitore di dati",
+      "subscribe": "Iscriviti alla newsletter",
       "terms": "Termini del servizio e Informativa sulla privacy"
     },
     "headerNavigation": {
+      "Collections": "Collezioni",
       "explore": "Esplora",
-      "teachers": "Educatori"
+      "teachers": "Insegnanti"
     }
   },
+  "contentYouMightLike": "Contenuto che potrebbe piacerti",
   "cookieDisclaimer": {
     "acceptCookieDisclaimer": "Accetta l'informativa sui cookie",
     "link": "Maggiori informazioni",
     "terms": "Questo sito web utilizza i cookie per migliorare il più possibile l'esperienza degli utenti. Cliccando o navigando sul sito, acconsenti alla raccolta delle tue informazioni tramite cookie."
   },
+  "curatedAutomatically": "Curato automaticamente da Europeana",
   "dateFilter": {
     "endDate": "Data di fine",
     "specificDate": "Data specifica",
@@ -71,6 +109,7 @@ export default {
     "chapters": "Capitoli",
     "credits": "Realizzato da",
     "currentChapter": "Capitolo attuale",
+    "description": "Esplora le mostre",
     "exhibitions": "Mostre"
   },
   "facets": {
@@ -257,8 +296,10 @@ export default {
     },
     "contentTier": {
       "name": "Comprende gli elementi che non soddisfano i nostri criteri di pubblicazione",
+      "notification": "Sono disponibili articoli che non soddisfano i nostri criteri di pubblicazione. Per accedervi, attiva il filtro \"Qualità articolo\" posizionato sotto \"Più filtri\".",
       "options": {
-        "*": "Comprende elementi che non soddisfano i nostri criteri di pubblicazione"
+        "*": "Comprende elementi che non soddisfano i nostri criteri di pubblicazione",
+        "0": "Mostra solo gli articoli che non soddisfano i nostri criteri di pubblicazione"
       }
     },
     "COUNTRY": {
@@ -406,12 +447,30 @@ export default {
     "listSeperator": ";"
   },
   "galleries": {
+    "description": "Esplora le gallerie",
     "galleries": "Gallerie"
   },
   "goToRecord": "Vai al record",
+  "header": {
+    "backToMenu": "Chiudi casella di ricerca",
+    "clearQuery": "Elimina query di ricerca",
+    "entireCollection": "Cerca {query} in tutta la collezione",
+    "europeanaHome": "Home Europeana",
+    "inCollection": "Cerca {query} in {collection}",
+    "searchFor": "Cerca {query}",
+    "searchForEverything": "Cerca tutto",
+    "searchForEverythingInCollection": "Cerca tutto in {collection}",
+    "searchForEverythingInEntireCollection": "Cerca tutto nell'intera collezione",
+    "showSidebar": "Mostra menu"
+  },
   "homeLinkAlt": "Home Europeana",
   "imageSlider": {
     "handle": "Dispositivo di scorrimento"
+  },
+  "items": {
+    "itemCount": "1 articolo | {count} articoli",
+    "itemOf": "{max} di {count} articoli",
+    "youMightLike": "Articoli che potrebbero piacerti"
   },
   "layout": {
     "skipToMain": "Passa al contenuto della pagina"
@@ -440,11 +499,26 @@ export default {
   "newWindow": "si apre in una nuova finestra",
   "noMoreResults": "Non ci sono altri risultati per la tua query di ricerca.",
   "noResults": "Nessun Risultato",
+  "pages": {
+    "collections": {
+      "topics": {
+        "title": "Temi"
+      }
+    }
+  },
   "readMore": "Leggi di più",
   "record": {
+    "allMetaData": "Tutti i metadati",
     "downloadCopyrightInfo": "Questo elemento è protetto da copyright e non può essere scaricato.",
+    "exploreMore": "Esplora altro",
+    "extendedInformation": "Informazioni estese",
+    "goodToKnow": "Caratteristiche",
+    "hideAll": "Nascondi tutte le informazioni",
     "record": "Documentazione",
+    "showAll": "Mostra tutte le informazioni",
     "similarItems": "Elementi simili",
+    "transcription": "Trascrizione",
+    "transcriptionDisclaimer": "Questo contenuto è stato creato dagli utenti, non dall'istituzione che ha fornito l'articolo.",
     "view": {
       "image": "Visualizza immagine",
       "media": "Visualizza media",
@@ -459,6 +533,9 @@ export default {
   "resultsLimitWarning": "Non vengono mostrati risultati aggiuntivi perché vengono visualizzati solo i primi 1.000 risultati più rilevanti. Se non hai trovato quello che stai cercando, considera la possibilità di perfezionare la tua ricerca.",
   "search": "Cerca",
   "searchPlaceholder": "Cosa stai cercando?",
+  "searchResults": "Cerca",
+  "searchResultsFor": "{0} - Cerca",
+  "searchResultsForIn": "{0} - Cerca in {1}",
   "searchSuggestions": "Suggerimenti di ricerca",
   "searchTier": {
     "button": {
@@ -473,6 +550,35 @@ export default {
   "searchViews": {
     "grid": "Visualizzazione griglia",
     "list": "Visualizzazione elenco"
+  },
+  "set": {
+    "actions": {
+      "addTo": "Aggiungi alla galleria",
+      "create": "Crea galleria",
+      "createNew": "Crea una nuova galleria",
+      "delete": "Elimina galleria",
+      "edit": "Modifica galleria",
+      "update": "Aggiorna galleria"
+    },
+    "form": {
+      "description": "Descrizione della galleria",
+      "private": "Tieni privata questa galleria",
+      "title": "Nome della galleria"
+    },
+    "labels": {
+      "curatedBy": "Curato da",
+      "private": "Galleria privata"
+    },
+    "notifications": {
+      "deleted": "Galleria eliminata.",
+      "likeLimit": {
+        "body": "Siamo spiacenti, ma al momento puoi mettere Mi piace a un massimo di 100 articoli. Presto elimineremo questo limite!",
+        "title": "100 Mi piace"
+      }
+    },
+    "prompts": {
+      "delete": "Continuare? Se elimini questa galleria, perderai tutti gli articoli che hai aggiunto."
+    }
   },
   "showLess": "Mostra meno",
   "showMore": "Mostra di più"

@@ -73,14 +73,14 @@
         return chapter.identifier === this.currentChapter ? this.$t('exhibitions.currentChapter') : '';
       },
       chapterImage(chapter) {
+        if (!chapter) return;
         if (!chapter.primaryImageOfPage) return;
-        if (!chapter.primaryImageOfPage.image) return;
         if (!chapter.primaryImageOfPage.image) return;
         return chapter.primaryImageOfPage.image.url;
       },
       chapterImageContentType(chapter) {
+        if (!chapter) return;
         if (!chapter.primaryImageOfPage) return;
-        if (!chapter.primaryImageOfPage.image) return;
         if (!chapter.primaryImageOfPage.image) return;
         return chapter.primaryImageOfPage.image.contentType;
       },

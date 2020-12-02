@@ -1,18 +1,50 @@
 export default {
+  "account": {
+    "likes": "Likes",
+    "linkAccount": "Mein Konto",
+    "linkLogin": "Anmelden",
+    "linkLogout": "Abmelden",
+    "notifications": {
+      "noCollections": {
+        "private": "Sie haben bisher keine private Galerie erstellt",
+        "public": "Sie haben bisher keine öffentliche Galerie erstellt"
+      },
+      "noLikedItems": "Sie haben bisher keine Artikel mit einem Like versehen"
+    },
+    "privateCollections": "Private Galerien",
+    "profile": "Meine Likes & Galerien",
+    "publicCollections": "Öffentliche Galerien",
+    "settings": "Einstellungen",
+    "title": "Mein Konto"
+  },
   "actions": {
+    "close": "schließen",
     "download": "Herunterladen",
+    "edit": "Bearbeiten",
+    "goBack": "Zurückgehen",
+    "like": "Like",
     "providedBy": "Bereitgestellt von {provider}",
     "share": "Teilen",
     "shareOn": "Teilen auf {social}",
     "viewAt": "Ansicht unter {link}",
     "viewDocument": "Dokument anzeigen"
   },
+  "attribution": {
+    "country": "Land:",
+    "creator": "Urheber:",
+    "date": "Datum:",
+    "institution": "Institution:",
+    "title": "Titel:"
+  },
   "blog": {
     "author": "Autor",
     "authors": "Autoren",
     "blog": "Blog",
+    "by": "von",
     "categories": "Kategorien",
     "category": "Kategorie",
+    "posts": "Blog-Beiträge",
+    "published": "Veröffentlicht am {date}",
     "relatedPosts": "Ähnliche Beiträge"
   },
   "clearAllFilters": "Alle Filter löschen",
@@ -34,25 +66,31 @@ export default {
       }
     }
   },
+  "collectionsYouMightLike": "Kollektionen, die Ihnen gefallen könnten",
   "contentfulManual": {
     "footerNavigation": {
-      "about": "Über Europeana Collections",
+      "about": "Über Europeana",
       "forDevelopers": "Für Entwickler",
       "help": "Hilfe",
       "meetUs": "Lernen Sie das Team kennen",
+      "MoreInfoLabel": "Mehr Infos",
       "provide": "Werden Sie Datenanbieter",
+      "subscribe": "Abonnieren Sie unseren Newsletter",
       "terms": "Nutzungsbedingungen und Datenschutzerklärung"
     },
     "headerNavigation": {
+      "Collections": "Kollektionen",
       "explore": "Erkunden",
-      "teachers": "Pädagogen"
+      "teachers": "Lehrerinnen und Lehrerinnen"
     }
   },
+  "contentYouMightLike": "Inhalte, die Ihnen gefallen könnten",
   "cookieDisclaimer": {
     "acceptCookieDisclaimer": "Akzeptieren Sie den Cookie-Haftungsausschluss",
     "link": "Mehr Information",
     "terms": "Diese Website verwendet Cookies, um sicherzustellen, dass Sie die bestmögliche Erfahrung auf unserer Website machen können. Durch Klicken oder Navigieren auf der Website erklären Sie sich damit einverstanden, unsere Sammlung von Informationen über Cookies zuzulassen."
   },
+  "curatedAutomatically": "Automatisch von Europeana kuratiert",
   "dateFilter": {
     "endDate": "Enddatum",
     "specificDate": "Bestimmtes Datum",
@@ -71,6 +109,7 @@ export default {
     "chapters": "Kapitel",
     "credits": "Credits",
     "currentChapter": "Aktuelles Kapitel",
+    "description": "Entdecken Sie die Ausstellungen",
     "exhibitions": "Ausstellungen"
   },
   "facets": {
@@ -257,8 +296,10 @@ export default {
     },
     "contentTier": {
       "name": "Enthält Artikel, die nicht unseren Veröffentlichungskriterien entsprechen",
+      "notification": "Es sind einige Artikel verfügbar, die nicht unseren Veröffentlichungskriterien entsprechen. Sie können auf diese Artikel zugreifen, indem Sie den Filter 'Artikelqualität' unter 'Weitere Filter' aktivieren.",
       "options": {
-        "*": "Enthält Artikel, die nicht unseren Veröffentlichungskriterien entsprechen"
+        "*": "Enthält Artikel, die nicht unseren Veröffentlichungskriterien entsprechen",
+        "0": "Nur Artikel anzeigen, die unsere Veröffentlichungskriterien nicht erfüllen"
       }
     },
     "COUNTRY": {
@@ -406,12 +447,30 @@ export default {
     "listSeperator": ";"
   },
   "galleries": {
+    "description": "Erkunden Sie unsere Galerien",
     "galleries": "Galerien"
   },
   "goToRecord": "Zur Aufnahme gehen",
+  "header": {
+    "backToMenu": "Suchfeld schließen",
+    "clearQuery": "Suchanfrage löschen",
+    "entireCollection": "Suchen Sie nach {query} in unserer gesamten Kollektion",
+    "europeanaHome": "Europeana-Startseite",
+    "inCollection": "Suchen Sie nach {query} in {collection}",
+    "searchFor": "Suche nach {query}",
+    "searchForEverything": "Suchen Sie nach allem",
+    "searchForEverythingInCollection": "Suchen Sie nach allem in {collection}",
+    "searchForEverythingInEntireCollection": "Suchen Sie nach allem in unserer gesamten Sammlung",
+    "showSidebar": "Menü anzeigen"
+  },
   "homeLinkAlt": "Startseite Europeana",
   "imageSlider": {
     "handle": "Schieberegler"
+  },
+  "items": {
+    "itemCount": "1 Artikel |{count} Artikel",
+    "itemOf": "{max} von {count} Artikel",
+    "youMightLike": "Artikel, die Ihnen vielleicht gefallen könnten"
   },
   "layout": {
     "skipToMain": "Direkt zum Seiteninhalt"
@@ -440,11 +499,26 @@ export default {
   "newWindow": "öffnet sich in einem neuen Fenster",
   "noMoreResults": "Es gibt keine weiteren Ergebnisse für Ihre Suchanfrage.",
   "noResults": "Keine Ergebnisse",
+  "pages": {
+    "collections": {
+      "topics": {
+        "title": "Themen"
+      }
+    }
+  },
   "readMore": "Mehr anzeigen",
   "record": {
+    "allMetaData": "Alle Metadaten",
     "downloadCopyrightInfo": "Dieser Artikel ist urheberrechtlich geschützt und kann nicht heruntergeladen werden.",
+    "exploreMore": "Entdecken Sie mehr",
+    "extendedInformation": "Erweiterte Informationen",
+    "goodToKnow": "Gut zu wissen",
+    "hideAll": "Alle Informationen ausblenden",
     "record": "Aufzeichnung",
+    "showAll": "Alle Informationen anzeigen",
     "similarItems": "Ähnliche Artikel",
+    "transcription": "Transkription",
+    "transcriptionDisclaimer": "Dieser Inhalt wird von der Öffentlichkeit bereitgestellt, nicht von der Institution, die diesen Artikel bereitgestellt hat.",
     "view": {
       "image": "Bild anzeigen",
       "media": "Medien anzeigen",
@@ -459,6 +533,9 @@ export default {
   "resultsLimitWarning": "Zusätzliche Ergebnisse werden nicht angezeigt, da nur die ersten 1000 relevantesten Ergebnisse angezeigt werden. Wenn Sie nicht gefunden haben, wonach Sie suchen, können Sie Ihre Suche verfeinern.",
   "search": "Suchen",
   "searchPlaceholder": "Durchsuche Millionen von Objekten",
+  "searchResults": "Suche",
+  "searchResultsFor": "{0} - Suche",
+  "searchResultsForIn": "{0} - Suchen Sie in {1}",
   "searchSuggestions": "Suchvorschläge",
   "searchTier": {
     "button": {
@@ -473,6 +550,35 @@ export default {
   "searchViews": {
     "grid": "Gitteransicht",
     "list": "Listenansicht"
+  },
+  "set": {
+    "actions": {
+      "addTo": "Zur Galerie hinzufügen",
+      "create": "Galerie erstellen",
+      "createNew": "Neue Galerie erstellen",
+      "delete": "Galerie löschen",
+      "edit": "Galerie bearbeiten",
+      "update": "Galerie aktualisieren"
+    },
+    "form": {
+      "description": "Galeriebeschreibung",
+      "private": "Diese Galerie privat halten",
+      "title": "Galeriename"
+    },
+    "labels": {
+      "curatedBy": "Kuratiert von",
+      "private": "Private Galerie"
+    },
+    "notifications": {
+      "deleted": "Ihre Galerie wurde gelöscht.",
+      "likeLimit": {
+        "body": "Es tut uns leid, aber Sie können derzeit maximal 100 Artikel liken. Wir werden dieses Limit bald aufheben!",
+        "title": "100 Likes"
+      }
+    },
+    "prompts": {
+      "delete": "Möchten Sie diese Galerie wirklich löschen? Wenn Sie diese Galerie löschen, verlieren Sie alle Artikel, die Sie hinzugefügt haben."
+    }
   },
   "showLess": "Weniger anzeigen",
   "showMore": "Mehr anzeigen"

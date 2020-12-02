@@ -1,18 +1,50 @@
 export default {
+  "account": {
+    "likes": "Oblíbené",
+    "linkAccount": "Můj účet",
+    "linkLogin": "Přihlásit se",
+    "linkLogout": "Odhlásit se",
+    "notifications": {
+      "noCollections": {
+        "private": "Ještě jste nevytvořil/a žádné soukromé galerie.",
+        "public": "Ještě jste nevytvořil/a žádné veřejné galerie."
+      },
+      "noLikedItems": "Ještě jste neoznačil/a žádné položky jako oblíbené."
+    },
+    "privateCollections": "Soukromé galerie",
+    "profile": "Moje oblíbené a moje galerie",
+    "publicCollections": "Veřejné galerie",
+    "settings": "Nastavení",
+    "title": "Můj účet"
+  },
   "actions": {
+    "close": "zavřít",
     "download": "Stáhnout",
+    "edit": "Upravit",
+    "goBack": "Zpět",
+    "like": "Oblíbené",
     "providedBy": "Poskytl {provider}",
     "share": "Sdílejte",
     "shareOn": "Sdílet na {social}",
     "viewAt": "Zobrazit na stránce {link}",
     "viewDocument": "Zobrazit dokument"
   },
+  "attribution": {
+    "country": "Země:",
+    "creator": "Tvůrce:",
+    "date": "Datum:",
+    "institution": "Instituce:",
+    "title": "Název:"
+  },
   "blog": {
     "author": "Autor",
     "authors": "Autoři",
     "blog": "Blog",
+    "by": "od",
     "categories": "Kategorie",
     "category": "Kategorie",
+    "posts": "Příspěvky na blogu",
+    "published": "Publikováno {date}",
     "relatedPosts": "Související příspěvky"
   },
   "clearAllFilters": "Vymazat všechny filtry",
@@ -34,25 +66,31 @@ export default {
       }
     }
   },
+  "collectionsYouMightLike": "Sbírky, které by se vám mohly líbit",
   "contentfulManual": {
     "footerNavigation": {
-      "about": "O stránkách Europeana Collections",
+      "about": "O stránkách Europeana",
       "forDevelopers": "Pro vývojáře",
       "help": "Nápověda",
       "meetUs": "O nás",
+      "MoreInfoLabel": "Více informací",
       "provide": "Přispívejte do naší databáze",
+      "subscribe": "Přihlaste se k odběru našeho newsletteru",
       "terms": "Podmínky používání a zásady ochrany osobních údajů"
     },
     "headerNavigation": {
+      "Collections": "Sbírky",
       "explore": "Prozkoumat",
-      "teachers": "Pedagogové"
+      "teachers": "Učitelé"
     }
   },
+  "contentYouMightLike": "Obsah, který by se vám mohl líbit",
   "cookieDisclaimer": {
     "acceptCookieDisclaimer": "Přijmout odmítnutí cookies.",
     "link": "Více informací",
     "terms": "Tato stránka používá cookies, aby vám přinesla nejlepší zážitek z našeho webu. Kliknutím nebo procházením webu souhlasíte s tím, že dovolujete shromažďování údajů prostřednictvím souborů cookie."
   },
+  "curatedAutomatically": "Kurátorem je automaticky Europeana",
   "dateFilter": {
     "endDate": "Datum do",
     "specificDate": "Konkrétní datum",
@@ -71,6 +109,7 @@ export default {
     "chapters": "Kapitoly",
     "credits": "Přispěvky",
     "currentChapter": "Aktuální kapitola",
+    "description": "Prozkoumat výstavy",
     "exhibitions": "Výstavy"
   },
   "facets": {
@@ -257,8 +296,10 @@ export default {
     },
     "contentTier": {
       "name": "Jsou zahrnuty položky, které nesplňují naše publikační kritéria.",
+      "notification": "Několik dostupných položek nesplňuje naše publikační kritéria. K těmto položkám získáte přístup po aktivaci filtru „přijatelnost položky“ v nabídce „více filtrů“.",
       "options": {
-        "*": "Jsou zahrnuty položky, které nesplňují naše publikační kritéria."
+        "*": "Jsou zahrnuty položky, které nesplňují naše publikační kritéria.",
+        "0": "Zobrazit pouze položky, které nesplňují naše publikační kritéria."
       }
     },
     "COUNTRY": {
@@ -406,12 +447,30 @@ export default {
     "listSeperator": ";"
   },
   "galleries": {
+    "description": "Prozkoumat naše galerie",
     "galleries": "Galerie"
   },
   "goToRecord": "Přejít na záznam",
+  "header": {
+    "backToMenu": "Zavřít vyhledávací okno",
+    "clearQuery": "Vymazat vyhledávací kriteria",
+    "entireCollection": "Hledat {query} v celé sbírce",
+    "europeanaHome": "Domovská stránka Europeana",
+    "inCollection": "Hledat {query} v {collection}",
+    "searchFor": "Vyhledat {query}",
+    "searchForEverything": "Vyhledat vše",
+    "searchForEverythingInCollection": "Vyhledat vše v {collection}",
+    "searchForEverythingInEntireCollection": "Vyhledat vše v celé sbírce",
+    "showSidebar": "Zobrazit nabídku"
+  },
   "homeLinkAlt": "Domovská stránka Europeana",
   "imageSlider": {
     "handle": "Posuvný panel"
+  },
+  "items": {
+    "itemCount": "1 položka |{count} položek",
+    "itemOf": "{max} z {count} položek",
+    "youMightLike": "Položky, které by se vám mohly líbit"
   },
   "layout": {
     "skipToMain": "Přeskočit na obsah stránky"
@@ -440,11 +499,26 @@ export default {
   "newWindow": "otevře se v novém okně",
   "noMoreResults": "Pro vaše zadání neexistují žádné další výsledky vyhledávání.",
   "noResults": "Žádné výsledky",
+  "pages": {
+    "collections": {
+      "topics": {
+        "title": "Předměty"
+      }
+    }
+  },
   "readMore": "Více informací",
   "record": {
+    "allMetaData": "Všechna metadata",
     "downloadCopyrightInfo": "Tato položka je chráněna autorskými právy a nelze ji stáhnout.",
+    "exploreMore": "Prozkoumat více",
+    "extendedInformation": "Bližší informace",
+    "goodToKnow": "Užitečné informace",
+    "hideAll": "Skrýt všechny informace",
     "record": "Záznam",
+    "showAll": "Zobrazit všechny informace",
     "similarItems": "Podobné položky",
+    "transcription": "Přepis",
+    "transcriptionDisclaimer": "Tento obsah pochází z veřejných zdrojů, nikoliv od poskytovatelské instituce.",
     "view": {
       "image": "Zobrazit obrázek",
       "media": "Zobrazit média",
@@ -459,6 +533,9 @@ export default {
   "resultsLimitWarning": "Zobrazuje se pouze prvních tisíc nejvhodnějších výsledků, další výsledky se nezobrazují. Pokud jste nenašli, co jste hledali, zvažte upřesnění vyhledávání.",
   "search": "Vyhledat",
   "searchPlaceholder": "Co hledáte?",
+  "searchResults": "Vyhledat",
+  "searchResultsFor": "{0} - vyhledat",
+  "searchResultsForIn": "{0} - vyhledat v {1}",
   "searchSuggestions": "Návrhy vyhledávání",
   "searchTier": {
     "button": {
@@ -473,6 +550,35 @@ export default {
   "searchViews": {
     "grid": "Zobrazení mřížky",
     "list": "Zobrazení seznamu"
+  },
+  "set": {
+    "actions": {
+      "addTo": "Vložit do galerie",
+      "create": "Vytvořit galerii",
+      "createNew": "Vytvořit novou galerii",
+      "delete": "Smazat galerii",
+      "edit": "Upravit galerii",
+      "update": "Aktualizovat galerii"
+    },
+    "form": {
+      "description": "Popis galerie",
+      "private": "Ponechat tuto galerii soukromou",
+      "title": "Název galerie"
+    },
+    "labels": {
+      "curatedBy": "Kurátor/ka",
+      "private": "Soukromá galerie"
+    },
+    "notifications": {
+      "deleted": "Vaše galerie byla smazána.",
+      "likeLimit": {
+        "body": "Je nám líto, ale momentálně je nastavený limit na 100 oblíbených položek. Tento limit brzy odstraníme.",
+        "title": "100 oblíbených"
+      }
+    },
+    "prompts": {
+      "delete": "Opravdu chcete smazat tuto galerii? Pokud tuto galerii smažete, ztratíte všechny položky, které obsahuje."
+    }
   },
   "showLess": "Zobrazit méně",
   "showMore": "Zobrazit více"

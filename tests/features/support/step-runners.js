@@ -3,8 +3,12 @@
  * @see {@link http://nightwatchjs.org/api#expect-api|Nightwatch Expect assertions}
  */
 
+const axios = require('axios');
+const https = require('https');
+
 const { client, createSession, closeSession, startWebDriver, stopWebDriver } = require('nightwatch-api');
 const { pageUrl } = require('./pages');
+const { url } = require('../config/nightwatch.conf.js').test_settings.default.globals;
 
 /**
  * Generate CSS selector for `data-qa` attribute values.
@@ -98,6 +102,9 @@ module.exports = {
   },
   async clickOnTab(tab) {
     await client.click('xpath', '//a[contains(text(),"' + tab + '")]');
+  },
+  async doNotSeeATab(tab) {
+    client.expect.element('//a[contains(text(),"' + tab + '")]', 'xpath').to.not.be.present;
   },
   countTarget: async(count, qaElementNames) => {
     await client.elements('css selector', qaSelector(qaElementNames), async(result) => {
@@ -269,5 +276,23 @@ module.exports = {
   },
   async hrefLangTags() {
     await client.expect.element('link[rel=alternate]').to.be.present;
+  },
+  async haveEuropeanaBrandedTitle() {
+    await client.getTitle(async(title) => {
+      await client.expect(title).to.match(new RegExp('\\| Europeana$'));
+    });
+  },
+  async haveNotExcededMemoryUsageInMB(memoryUsageMB) {
+    const response = await axios.get(`${url}/memory-usage`, {
+      httpsAgent: new https.Agent({
+        rejectUnauthorized: false
+      })
+    });
+    const heapUsed = response.data.heapUsed;
+    const heapUsedMB = heapUsed / (1024 * 1024);
+    await client.expect(heapUsedMB).to.be.at.most(memoryUsageMB);
+  },
+  async moveToElement(qaElementName) {
+    await client.moveToElement(qaSelector(qaElementName), 10, 10);
   }
 };

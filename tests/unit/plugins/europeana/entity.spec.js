@@ -1,11 +1,8 @@
 import nock from 'nock';
 
 import api, {
-  getEntityQuery, getEntityDescription, getEntitySlug, getEntityUri, BASE_URL
+  getEntityQuery, getEntitySlug, getEntityUri, BASE_URL
 } from '../../../../plugins/europeana/entity';
-
-const axios = require('axios');
-axios.defaults.adapter = require('axios/lib/adapters/http');
 
 const entityId = '94-architecture';
 const entityType = 'topic';
@@ -257,30 +254,6 @@ describe('plugins/europeana/entity', () => {
     it('constructs URL slug from numeric ID and prefLabel.en', () => {
       const slug = getEntitySlug(entity.id, entity.prefLabel.en);
       return slug.should.eq('147831-architecture');
-    });
-  });
-
-  describe('getEntityDescription', () => {
-    context('with a Concept entity', () => {
-      const entity = entitiesResponse.items[0];
-      const locale = 'nl';
-
-      it('returns the description with values and language code', () => {
-        const description = getEntityDescription(entity, locale);
-        description.values[0].should.contain('Architecture');
-        description.code.should.contain('en');
-      });
-    });
-
-    context('with an Agent entity', () => {
-      const entity = entitiesResponse.items[2];
-      const locale = 'nl';
-
-      it('returns the description with values and language code', () => {
-        const description = getEntityDescription(entity, locale);
-        description.values[0].should.contain('Vincent Willem van Gogh was');
-        description.code.should.contain('en');
-      });
     });
   });
 

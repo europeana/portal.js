@@ -20,10 +20,10 @@ describe('plugins/europeana/legacy-search', () => {
     });
 
     context('for a search with facets', () => {
-      const searchParams = { query: '', qf: ['COUNTRY:"Germany"', 'TYPE:"IMAGE"', 'TYPE:"TEXT"'] };
+      const searchParams = { query: '', qf: ['COUNTRY:"Germany"', 'TYPE:"IMAGE"', 'TYPE:"TEXT"', 'DATA_PROVIDER:"Nederlands Bakkerijmuseum \\"Het Warme Land\\""'] };
       it('redirects to the classic portal reformatting the params', () => {
         const redirectUrl = legacyUrl(searchParams, locale);
-        redirectUrl.should.eq('https://classic.europeana.eu/portal/en/search?q=&f[COUNTRY][]=Germany&f[TYPE][]=IMAGE&f[TYPE][]=TEXT&view=grid');
+        redirectUrl.should.eq('https://classic.europeana.eu/portal/en/search?q=&f[COUNTRY][]=Germany&f[TYPE][]=IMAGE&f[TYPE][]=TEXT&f[DATA_PROVIDER][]=Nederlands%20Bakkerijmuseum%20%22Het%20Warme%20Land%22&view=grid');
       });
     });
 

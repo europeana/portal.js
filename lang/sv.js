@@ -1,18 +1,50 @@
 export default {
+  "account": {
+    "likes": "Likes",
+    "linkAccount": "Mitt konto",
+    "linkLogin": "Logga in",
+    "linkLogout": "Logga ut",
+    "notifications": {
+      "noCollections": {
+        "private": "Du har inte skapat något privat galleri ännu",
+        "public": "Du har inte skapat något offentligt galleri ännu"
+      },
+      "noLikedItems": "Du har inte gillat några föremål ännu"
+    },
+    "privateCollections": "Privata gallerier",
+    "profile": "Mina likes & gallerier",
+    "publicCollections": "Offentliga gallerier",
+    "settings": "Inställningar",
+    "title": "Mitt konto"
+  },
   "actions": {
+    "close": "stäng",
     "download": "Ladda ner",
+    "edit": "Redigera",
+    "goBack": "Gå tillbaka",
+    "like": "Gilla",
     "providedBy": "Tillhandahålls av {provider}",
     "share": "Dela",
     "shareOn": "Dela på {social}",
     "viewAt": "Visa på {link}",
     "viewDocument": "Visa dokument"
   },
+  "attribution": {
+    "country": "Land:",
+    "creator": "Upphovsperson:",
+    "date": "Datum:",
+    "institution": "Institution:",
+    "title": "Titel:"
+  },
   "blog": {
     "author": "Författare",
     "authors": "Författare",
     "blog": "Blogg",
+    "by": "av",
     "categories": "Kategorier",
     "category": "Kategori",
+    "posts": "Blogginlägg",
+    "published": "Publicerad {date}",
     "relatedPosts": "Relaterade inlägg"
   },
   "clearAllFilters": "rensa alla filter",
@@ -34,25 +66,31 @@ export default {
       }
     }
   },
+  "collectionsYouMightLike": "Samlingar du kanske skulle gilla",
   "contentfulManual": {
     "footerNavigation": {
-      "about": "Om Europeana Collections",
+      "about": "Om Europeana",
       "forDevelopers": "För utvecklare",
       "help": "Hjälp",
       "meetUs": "Möt teamet",
+      "MoreInfoLabel": "Mer info",
       "provide": "Bli en dataleverantör",
+      "subscribe": "Prenumerera på vårt nyhetsbrev",
       "terms": "Användarvillkor och integritetspolicy"
     },
     "headerNavigation": {
+      "Collections": "Samlingar",
       "explore": "Utforska",
       "teachers": "Lärare"
     }
   },
+  "contentYouMightLike": "Innehåll du kanske skulle gilla",
   "cookieDisclaimer": {
     "acceptCookieDisclaimer": "Acceptera cookiemeddelande",
     "link": "Mera info",
     "terms": "Denna webbplats använder cookies för att säkerställa att du får den bästa upplevelsen på vår webbplats. Genom att klicka eller navigera på webbplatsen samtycker du till att vi samlar in information via cookies."
   },
+  "curatedAutomatically": "Sammanställt automatiskt av Europeana",
   "dateFilter": {
     "endDate": "Slutdatum",
     "specificDate": "Specifikt datum",
@@ -71,6 +109,7 @@ export default {
     "chapters": "Kapitel",
     "credits": "Upphovsmän",
     "currentChapter": "Aktuellt kapitel",
+    "description": "Utforska utställningarna",
     "exhibitions": "Utställningar"
   },
   "facets": {
@@ -257,8 +296,10 @@ export default {
     },
     "contentTier": {
       "name": "Innefattar objekt som inte uppfyller våra publiceringsvillkor",
+      "notification": "Några föremål som inte matchar våra publiceringsvillkor finns tillgängliga. Du får åtkomst till dessa föremål genom att aktivera filtret \"Föremålskvalitet\" under \"Fler filter\".",
       "options": {
-        "*": "Innefattar objekt som inte uppfyller våra publiceringsvillkor"
+        "*": "Innefattar objekt som inte uppfyller våra publiceringsvillkor",
+        "0": "Visa endast föremål som inte uppfyller våra publiceringsvillkor"
       }
     },
     "COUNTRY": {
@@ -406,12 +447,30 @@ export default {
     "listSeperator": ";"
   },
   "galleries": {
+    "description": "Utforska våra gallerier",
     "galleries": "Gallerier"
   },
   "goToRecord": "Gå till dokument",
+  "header": {
+    "backToMenu": "Stäng sökruta",
+    "clearQuery": "Rensa sökning",
+    "entireCollection": "Sök efter {query} i hela vår samling",
+    "europeanaHome": "Europeana start",
+    "inCollection": "Sök efter {query} i {collection}",
+    "searchFor": "Sök efter {query}",
+    "searchForEverything": "Sök efter allt",
+    "searchForEverythingInCollection": "Sök efter allt i {collection}",
+    "searchForEverythingInEntireCollection": "Sök efter allt i hela vår samling",
+    "showSidebar": "Visa meny"
+  },
   "homeLinkAlt": "Europeana hem",
   "imageSlider": {
     "handle": "Skjutreglage"
+  },
+  "items": {
+    "itemCount": "1 föremål {count} föremål",
+    "itemOf": "{max} av {count} föremål",
+    "youMightLike": "Föremål som du kanske skulle gilla"
   },
   "layout": {
     "skipToMain": "Hoppa till sidans innehåll"
@@ -440,11 +499,26 @@ export default {
   "newWindow": "öppnas i nytt fönster",
   "noMoreResults": "Det finns inga fler resultat för din sökning.",
   "noResults": "Inga träffar",
+  "pages": {
+    "collections": {
+      "topics": {
+        "title": "Ämnen"
+      }
+    }
+  },
   "readMore": "Läs mer",
   "record": {
+    "allMetaData": "Alla metadata",
     "downloadCopyrightInfo": "Detta objekt är skyddat av upphovsrätt och kan inte laddas ner.",
+    "exploreMore": "Utforska mer",
+    "extendedInformation": "Utökad information",
+    "goodToKnow": "Bra att veta",
+    "hideAll": "Dölj all information",
     "record": "Dokument",
+    "showAll": "Visa all information",
     "similarItems": "Liknande objekt",
+    "transcription": "Transkribering",
+    "transcriptionDisclaimer": "Innehållet har lagts till av allmänheten, inte av institutionen som tillhandahåller detta föremål.",
     "view": {
       "image": "Visa bild",
       "media": "Visa media",
@@ -459,6 +533,9 @@ export default {
   "resultsLimitWarning": "Ytterligare resultat visas inte eftersom endast de 1000 första mest relevanta resultaten visas. Om du inte har hittat det du letar efter kan du prova att förfina din sökning.",
   "search": "Sök",
   "searchPlaceholder": "Vad letar du efter?",
+  "searchResults": "Sök",
+  "searchResultsFor": "{0} – Sök",
+  "searchResultsForIn": "{0} – Sök i {1}",
   "searchSuggestions": "Sök förslag",
   "searchTier": {
     "button": {
@@ -473,6 +550,35 @@ export default {
   "searchViews": {
     "grid": "Rutnätsvy",
     "list": "Listvy"
+  },
+  "set": {
+    "actions": {
+      "addTo": "Lägg till i galleri",
+      "create": "Skapa galleri",
+      "createNew": "Skapa nytt galleri",
+      "delete": "Radera galleri",
+      "edit": "Redigera galleri",
+      "update": "Uppdatera galleri"
+    },
+    "form": {
+      "description": "Beskrivning av galleri",
+      "private": "Detta är ett privat galleri",
+      "title": "Namn på galleri"
+    },
+    "labels": {
+      "curatedBy": "Sammanställt av",
+      "private": "Privat galleri"
+    },
+    "notifications": {
+      "deleted": "Ditt galleri har raderats.",
+      "likeLimit": {
+        "body": "Tyvärr, men du har endast möjlighet att gilla maximalt 100 föremål. Vi kommer att ta bort denna gräns inom kort!",
+        "title": "100 likes"
+      }
+    },
+    "prompts": {
+      "delete": "Är du säker på att du vill radera detta galleri? Om du raderar galleriet går alla föremål som du har lagt till förlorade."
+    }
   },
   "showLess": "Visa mindre",
   "showMore": "Visa mer"

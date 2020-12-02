@@ -5,6 +5,7 @@ Feature: Topics listing page
     When I visit the `topics listing page`
     Then I see a `pagination navigation`
     And I am on an accessible page
+    And I should have a Europeana branded page title
 
   Scenario: Opening a topic
 
