@@ -131,10 +131,10 @@
         const fulltext = {};
 
         // TODO: error handling
-        const fetches = uniq(urls).map(url => fetch(url)
-          .then(response => response.json())
-          .then((response) => {
-            if (response.type === 'FullTextResource') fulltext[url] = response.value;
+        const fetches = uniq(urls).map(url => this.$axios.get(url)
+          .then(response => response.data)
+          .then((data) => {
+            if (data.type === 'FullTextResource') fulltext[url] = data.value;
           }));
 
         return Promise.all(fetches).then(() => fulltext);
@@ -170,9 +170,7 @@
       fetchImageData(url, pageId) {
         if (!this.manifest) return;
 
-        const page = this.manifest.sequences[0].canvases.filter((item) => {
-          return item['@id'] === pageId;
-        });
+        const page = this.manifest.sequences[0].canvases.filter(canvas => canvas['@id'] === pageId);
 
         if (page && page[0]) {
           window.parent.postMessage({ 'event': 'updateDownloadLink', 'id': page[0].images[0].resource['@id'] }, '*');
