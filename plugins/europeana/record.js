@@ -199,10 +199,10 @@ export default (axiosOverrides) => {
     parseRecordDataFromApiResponse(edm) {
       const providerAggregation = edm.aggregations[0];
 
-      const concepts = (edm.concepts || []).map(reduceEntity);
-      const places = (edm.places || []).map(reduceEntity);
-      const agents = (edm.agents || []).map(reduceEntity);
-      const timespans = (edm.timespans || []).map(reduceEntity);
+      const concepts = (edm.concepts || []).map(reduceEntity).map(Object.freeze);
+      const places = (edm.places || []).map(reduceEntity).map(Object.freeze);
+      const agents = (edm.agents || []).map(reduceEntity).map(Object.freeze);
+      const timespans = (edm.timespans || []).map(reduceEntity).map(Object.freeze);
 
       const entities = [].concat(concepts, places, agents, timespans)
         .filter(isNotUndefined)
@@ -255,15 +255,7 @@ export default (axiosOverrides) => {
       // Filter web resources to isShownBy and hasView, respecting the ordering
       const media = mediaUris
         .map(mediaUri => aggregation.webResources.find(webResource => mediaUri === webResource.about))
-        .map(webResource => pick(webResource, [
-          // Reduce to fields we need
-          'about',
-          'ebucoreHasMimeType',
-          'ebucoreWidth',
-          'ebucoreHeight',
-          'isNextInSequence',
-          'svcsHasService'
-        ]));
+        .map(reduceWebResource);
 
       for (const webResource of media) {
         // Inject thumbnail URLs
@@ -353,7 +345,24 @@ export default (axiosOverrides) => {
 };
 
 const reduceEntity = (entity) => {
-  return Object.freeze(pick(entity, ['about', 'prefLabel', 'latitude', 'longitude']));
+  return pick(entity, [
+    'about',
+    'latitude',
+    'longitude',
+    'prefLabel'
+  ]);
+};
+
+const reduceWebResource = (webResource) => {
+  return pick(webResource, [
+    'about',
+    'dctermsIsReferencedBy',
+    'ebucoreHasMimeType',
+    'ebucoreHeight',
+    'ebucoreWidth',
+    'isNextInSequence',
+    'svcsHasService'
+  ]);
 };
 
 /**
