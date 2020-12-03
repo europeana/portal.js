@@ -61,12 +61,11 @@
     mounted() {
       const status = this.getCookieStatus();
 
-      if (status !== 'accepted') {
-        this.isOpen = true;
-        this.accepted = false;
-      }
       if (status === 'accepted') {
         this.accepted = true;
+      } else {
+        this.isOpen = true;
+        this.accepted = false;
       }
 
       this.setBannerHeight();
