@@ -1,7 +1,6 @@
 <template>
   <div>
     <VueAnnouncer
-      v-if="enableAnnouncer"
       data-qa="vue announcer"
     />
     <client-only>
@@ -92,8 +91,7 @@
     data() {
       return {
         ...config,
-        linkGroups: {},
-        enableAnnouncer: Boolean(Number(process.env.ENABLE_VUE_ANNOUNCER))
+        linkGroups: {}
       };
     },
 
