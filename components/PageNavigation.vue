@@ -113,11 +113,12 @@
       }
     },
     data() {
+      const keycloakAccountUrl = `${this.$auth.strategy.options.origin}/auth/realms/${this.$auth.strategy.options.realm}/account?referrer=${this.$auth.strategy.options.client_id}`;
+
       return {
         authLinks: [
           { to: this.$path({ name: 'account' }), text: this.$t('account.profile'), name: '/account', dataQa: 'likes and galleries button' },
-          // TODO: reuse keycloakOpenIDConnectEndpoint from nuxt.config.js?
-          { href: `${this.$config.oauth.origin}/auth/realms/${this.$config.oauth.realm}/account?referrer=${this.$config.oauth.client}`, text: this.$t('account.settings'), name: '/account/settings', dataQa: 'account settings button' },
+          { href: keycloakAccountUrl, text: this.$t('account.settings'), name: '/account/settings', dataQa: 'account settings button' },
           { divider: true, name: 'divider' },
           { to: { name: 'account-logout' }, text: this.$t('account.linkLogout'), name: '/account/logout', dataQa: 'log out button' }
         ]

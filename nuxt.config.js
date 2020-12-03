@@ -9,9 +9,6 @@ const APP_SITE_NAME = 'Europeana';
 
 const featureIsEnabled = (value) => Boolean(Number(value));
 
-const keycloakOpenIDConnectEndpoint = (method) =>
-  `${process.env.OAUTH_ORIGIN || 'https://auth.europeana.eu'}/auth/realms/${process.env.OAUTH_REALM || 'europeana'}/protocol/openid-connect/${method}`;
-
 module.exports = {
   /*
   ** Runtime config
@@ -32,12 +29,9 @@ module.exports = {
       strategies: {
         keycloak: {
           client_id: process.env.OAUTH_CLIENT,
+          origin: process.env.OAUTH_ORIGIN || 'https://auth.europeana.eu',
           scope: (process.env.OAUTH_SCOPE || 'openid,profile,email,usersets').split(','),
           realm: process.env.OAUTH_REALM || 'europeana',
-          authorization_endpoint: keycloakOpenIDConnectEndpoint('auth'),
-          access_token_endpoint: keycloakOpenIDConnectEndpoint('token'),
-          userinfo_endpoint: keycloakOpenIDConnectEndpoint('userinfo'),
-          end_session_endpoint: keycloakOpenIDConnectEndpoint('logout'),
           response_type: process.env.OAUTH_RESPONSE_TYPE || 'code',
           access_type: process.env.OAUTH_ACCESS_TYPE || 'online',
           grant_type: process.env.OAUTH_GRANT_TYPE || 'authorization_code',

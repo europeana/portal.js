@@ -7,6 +7,9 @@
 // also a registered strategy in the module config.
 import Oauth2Scheme from './oauth2';
 
+const keycloakOpenIDConnectEndpoint = (method, { realm, origin }) =>
+  `${origin}/auth/realms/${realm}/protocol/openid-connect/${method}`;
+
 // Inspired by https://github.com/nuxt-community/auth-module/issues/713#issuecomment-724031930
 export default class RuntimeConfigurableOauth2Scheme extends Oauth2Scheme {
   constructor($auth, options) {
@@ -14,6 +17,12 @@ export default class RuntimeConfigurableOauth2Scheme extends Oauth2Scheme {
       ...options,
       ...$auth.ctx.$config.auth.strategies[options['_name']]
     };
+
+    options['authorization_endpoint'] = keycloakOpenIDConnectEndpoint('auth', options);
+    options['access_token_endpoint'] = keycloakOpenIDConnectEndpoint('token', options);
+    options['userinfo_endpoint'] = keycloakOpenIDConnectEndpoint('userinfo', options);
+    options['end_session_endpoint'] = keycloakOpenIDConnectEndpoint('logout', options);
+
     super($auth, configOptions);
   }
 }
