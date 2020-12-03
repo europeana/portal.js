@@ -16,6 +16,7 @@ const factory = () => shallowMountNuxt(page, {
     };
   },
   mocks: {
+    $config: { app: { features: {} } },
     $pageHeadTitle: key => key,
     $t: key => key,
     $auth: {

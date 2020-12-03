@@ -19,7 +19,7 @@ const storeModule = {
   mutations: {
     init(state, context) {
       for (const api in state) {
-        const defaults = context.$config.europeana.apis[api];
+        const defaults = context.$config.europeana.apis[api] || {};
         const baseURL = apiUrlFromRequestHeaders(api, context.req.headers);
         if (baseURL) defaults.baseURL = baseURL;
         state[api] = defaults;

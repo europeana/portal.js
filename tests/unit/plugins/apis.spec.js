@@ -27,7 +27,7 @@ describe('plugins/apis', () => {
           };
           const state = storeModule.state();
 
-          storeModule.mutations.init(state, { req: { headers } });
+          storeModule.mutations.init(state, { $config: { europeana: { apis: {} } }, req: { headers } });
 
           state.annotation.baseURL.should.eql('https://annotation.example.org');
           state.entity.baseURL.should.eql('https://entity.example.org');
