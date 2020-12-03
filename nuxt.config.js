@@ -41,9 +41,14 @@ module.exports = {
     },
     elastic: {
       apm: {
+        // Doc: https://www.elastic.co/guide/en/apm/agent/rum-js/current/configuration.html
         serverUrl: process.env.ELASTIC_APM_SERVER_URL,
-        environment: process.env.ELASTIC_APM_ENVIRONMENT,
-        logLevel: process.env.ELASTIC_APM_LOG_LEVEL
+        environment: process.env.ELASTIC_APM_ENVIRONMENT || 'development',
+        logLevel: process.env.ELASTIC_APM_LOG_LEVEL || 'info',
+        serviceName: 'portal-js',
+        serviceVersion: pkg.version,
+        frameworkName: 'Nuxt.js',
+        frameworkVersion: require('nuxt/package.json').version
       }
     },
     europeana: {
@@ -87,8 +92,7 @@ module.exports = {
       accessType: process.env.OAUTH_ACCESS_TYPE,
       grantType: process.env.OAUTH_GRANT_TYPE,
       tokenType: process.env.OAUTH_TOKEN_TYPE
-    },
-    robots: JSON.parse(process.env.APP_ROBOTS || '{"UserAgent":"*","Disallow":"/"}')
+    }
   },
 
   /*
@@ -178,16 +182,6 @@ module.exports = {
   ],
 
   buildModules: [
-    // Doc: https://www.elastic.co/guide/en/apm/agent/rum-js/current/configuration.html
-    ['~/modules/elastic-apm', {
-      serviceName: 'portal-js',
-      serviceVersion: pkg.version,
-      serverUrl: process.env['ELASTIC_APM_SERVER_URL'],
-      environment: process.env['ELASTIC_APM_ENVIRONMENT'] || 'development',
-      logLevel: process.env['ELASTIC_APM_LOG_LEVEL'] || 'info',
-      frameworkName: 'Nuxt.js',
-      frameworkVersion: require('nuxt/package.json').version
-    }],
     '~/modules/contentful-graphql',
     '~/modules/axios-logger',
     ['~/modules/http', {
@@ -208,11 +202,12 @@ module.exports = {
   ** Nuxt.js modules
   */
   modules: [
+    '~/modules/elastic-apm',
     '@nuxtjs/axios',
     ['@nuxtjs/gtm', {
       pageTracking: true
     }],
-    '@nuxtjs/robots',
+    ['@nuxtjs/robots', JSON.parse(process.env.NUXTJS_ROBOTS || '{"UserAgent":"*","Disallow":"/"}')],
     'bootstrap-vue/nuxt',
     'cookie-universal-nuxt',
     ['nuxt-i18n', {

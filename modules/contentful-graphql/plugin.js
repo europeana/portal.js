@@ -9,9 +9,8 @@ export default ({ app, $config }, inject) => {
   const plugin = {
     $axios,
     query(alias, variables = {}) {
-      // TODO: move to default export to set only once
       const origin = this.config.graphQlOrigin || 'https://graphql.contentful.com';
-      const path = `/content/v1/spaces/${this.config.spaceId || 'master'}/environments/${this.config.environmentId}`;
+      const path = `/content/v1/spaces/${this.config.spaceId}/environments/${this.config.environmentId || 'master'}`;
 
       const accessToken = variables.preview ? this.config.accessToken.preview : this.config.accessToken.delivery;
 
