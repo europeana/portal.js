@@ -9,7 +9,7 @@
     </client-only>
     <div
       ref="resetfocus"
-      tabindex="0"
+      data-qa="top page"
     />
     <a
       class="skip-main"
@@ -111,6 +111,7 @@
       '$i18n.locale': '$fetch',
       $route() {
         this.$nextTick(() => {
+          this.$refs.resetfocus.setAttribute('tabindex', '0');
           this.$refs.resetfocus.focus();
         });
       }
