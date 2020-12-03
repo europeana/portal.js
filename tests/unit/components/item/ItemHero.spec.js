@@ -13,6 +13,9 @@ const factory = (propsData) => mount(ItemHero, {
   propsData,
   mocks: {
     $t: (key) => key,
+    $config: {
+      app: { features: { itemEmbedCode: false } }
+    },
     $auth: { loggedIn: false },
     $store: {
       state: {
