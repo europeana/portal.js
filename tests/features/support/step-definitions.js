@@ -143,6 +143,9 @@ defineStep('I am on page (number ){int}', (page) =>
 defineStep('I click the {string} tab', (tab) =>
   i.clickOnTab(tab));
 
+defineStep('I can\'t/don\'t find/identify/see/spot (a/an/the)( ){string} tab', (tab) =>
+  i.doNotSeeATab(tab));
+
 defineStep('I go back', () =>
   i.goBack());
 

@@ -1,5 +1,5 @@
-// Load dotenv for server/index.js to access env vars from .env file
 /* eslint-disable camelcase */
+
 require('dotenv').config();
 const pkg = require('./package');
 const i18nLocales = require('./plugins/i18n/locales.js');
@@ -98,6 +98,7 @@ module.exports = {
     '~/plugins/apis',
     '~/plugins/vue',
     '~/plugins/i18n.js',
+    '~/plugins/link',
     '~/plugins/page',
     '~/plugins/vue-filters',
     '~/plugins/vue-directives',
@@ -227,8 +228,9 @@ module.exports = {
   },
 
   serverMiddleware: [
-    '~/middleware/server/record-json',
-    { path: '/memory-usage', handler: '~/middleware/server/memory-usage' }
+    { path: '/memory-usage', handler: '~/middleware/server/memory-usage' },
+    '~/middleware/server/logging',
+    '~/middleware/server/record-json'
   ],
 
   /*

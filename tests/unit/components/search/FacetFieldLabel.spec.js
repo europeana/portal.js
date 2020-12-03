@@ -68,6 +68,20 @@ describe('components/search/FacetFieldLabel', () => {
       wrapper.vm.genericLabel.should.eq('IMAGE');
     });
 
+    it('removes Lucene special character escaping', () => {
+      const wrapper = factory({
+        propsData: {
+          facetName: 'DATA_PROVIDER',
+          fieldValue: '"Nederlands Bakkerijmuseum \\"Het Warme Land\\""'
+        },
+        mocks: {
+          $tNull: () => null
+        }
+      });
+
+      wrapper.vm.genericLabel.should.eq('Nederlands Bakkerijmuseum "Het Warme Land"');
+    });
+
     it('translates the field value', () => {
       const wrapper = factory({
         propsData: {

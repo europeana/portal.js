@@ -22,7 +22,11 @@ const factory = (options = {}) => {
         $i18n: { locale: 'en' },
         $t: () => {},
         $fetch: () => {},
-        $path
+        $path,
+        $link: {
+          to: route => route,
+          href: () => null
+        }
       }, ...(options.mocks || {})
     },
     store: options.store || store()

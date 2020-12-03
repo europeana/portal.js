@@ -137,8 +137,9 @@
 
     fetchOnServer: false,
 
-    asyncData({ params, res, store }) {
-      return store.getters['apis/record'].getRecord(`/${params.pathMatch}`)
+    asyncData({ params, res, store, app }) {
+      return store.getters['apis/record']
+        .getRecord(`/${params.pathMatch}`, { locale: app.i18n.locale })
         .then(result => result.record)
         .catch(error => {
           if (typeof res !== 'undefined') {
@@ -190,9 +191,7 @@
         return { ...this.coreFields, ...this.fieldsAndKeywords };
       },
       locationData() {
-        return Number(process.env.ENABLE_ITEM_PAGE_LOCATION_TAB) ?
-          this.fields.dctermsSpatial :
-          null;
+        return this.fields.dctermsSpatial;
       },
       edmRights() {
         return this.fields.edmRights ? this.fields.edmRights.def[0] : '';

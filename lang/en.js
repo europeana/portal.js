@@ -515,7 +515,7 @@ export default {
   "pages": {
     "collections": {
       "topics": {
-        "title": "Subjects"
+        "title": "Topics"
       }
     }
   },

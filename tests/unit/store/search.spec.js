@@ -632,4 +632,54 @@ describe('store/search', () => {
       });
     });
   });
+
+  describe('mutations', () => {
+    describe('setFacets()', () => {
+      it('enquotes values for quotable facets', () => {
+        const state = { facets: [] };
+        const unquotedFacets = [
+          {
+            name: 'TYPE',
+            fields: [
+              { label: 'IMAGE' }
+            ]
+          }
+        ];
+        const quotedFacets = [
+          {
+            name: 'TYPE',
+            fields: [
+              { label: '"IMAGE"' }
+            ]
+          }
+        ];
+
+        store.mutations.setFacets(state, unquotedFacets);
+        state.facets.should.eql(quotedFacets);
+      });
+
+      it('escapes Lucene special characters', () => {
+        const state = { facets: [] };
+        const unescapedFacets = [
+          {
+            name: 'DATA_PROVIDER',
+            fields: [
+              { label: 'Nederlands Bakkerijmuseum "Het Warme Land"' }
+            ]
+          }
+        ];
+        const escapedFacets = [
+          {
+            name: 'DATA_PROVIDER',
+            fields: [
+              { label: '"Nederlands Bakkerijmuseum \\"Het Warme Land\\""' }
+            ]
+          }
+        ];
+
+        store.mutations.setFacets(state, unescapedFacets);
+        state.facets.should.eql(escapedFacets);
+      });
+    });
+  });
 });
