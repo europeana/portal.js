@@ -22,7 +22,6 @@ module.exports = {
       baseUrl: process.env.PORTAL_BASE_URL,
       internalLinkDomain: process.env.INTERNAL_LINK_DOMAIN,
       siteName: APP_SITE_NAME,
-      sslDatasetBlacklist: process.env.SSL_DATASET_BLACKLIST,
       features: {
         itemEmbedCode: featureIsEnabled(process.env.ENABLE_ITEM_EMBED_CODE),
         linksToClassic: featureIsEnabled(process.env.ENABLE_LINKS_TO_CLASSIC),
