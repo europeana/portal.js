@@ -9,7 +9,6 @@ Feature: Page layout on all pages.
     When I visit an `item page`
     And I see a `cookie disclaimer`
     And I accept cookies
-    And I wait 1 second
     And I press the TAB key
     And I see the `main content accessibility link`
     And I press the ENTER key
@@ -28,6 +27,6 @@ Feature: Page layout on all pages.
     And I see an `item preview`
     When I click an `item preview`
     Then I see an `item page`
-    Then The `body` is active
+    Then The `top page` is active
     And I press the TAB key
     Then I see the `main content accessibility link`

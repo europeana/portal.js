@@ -163,5 +163,5 @@ defineStep('I should have a Europeana branded page title', () =>
 
 defineStep('I hover over (a/an/the)( ){target}', (target) =>
   i.moveToElement(target));
-defineStep('The {target} is active', (target) =>
-  i.isActive(target));
+defineStep('The {target} is active', (qa) =>
+  i.isActive(qa));

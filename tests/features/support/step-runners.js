@@ -293,7 +293,7 @@ module.exports = {
   async moveToElement(qaElementName) {
     await client.moveToElement(qaSelector(qaElementName), 10, 10);
   },
-  async isActive(element) {
-    await client.expect.element(element).to.be.active;
+  async isActive(qaElementName) {
+    await client.expect.element(qaSelector(qaElementName)).to.be.active;
   }
 };

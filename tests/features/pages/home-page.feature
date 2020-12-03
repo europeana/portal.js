@@ -23,7 +23,6 @@ Feature: Home page
     When I open `/en`
     And I see a `cookie disclaimer`
     And I accept cookies
-    And I wait 1 second
     And there is no `cookie disclaimer`
     And I open `/en`
     Then there is no `cookie disclaimer`
