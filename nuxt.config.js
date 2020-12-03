@@ -212,7 +212,7 @@ module.exports = {
     'cookie-universal-nuxt',
     ['nuxt-i18n', {
       locales: i18nLocales,
-      baseUrl: process.env.PORTAL_BASE_URL,
+      baseUrl: ({ $config }) => $config.app.baseUrl,
       defaultLocale: 'en',
       lazy: true,
       langDir: 'lang/',
