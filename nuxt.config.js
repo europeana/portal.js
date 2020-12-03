@@ -29,6 +29,23 @@ module.exports = {
         recommendations: featureIsEnabled(process.env.ENABLE_RECOMMENDATIONS)
       }
     },
+    auth: {
+      strategies: {
+        keycloak: {
+          client_id: process.env.OAUTH_CLIENT,
+          scope: (process.env.OAUTH_SCOPE || 'openid,profile,email,usersets').split(','),
+          realm: process.env.OAUTH_REALM || 'europeana',
+          authorization_endpoint: keycloakOpenIDConnectEndpoint('auth'),
+          access_token_endpoint: keycloakOpenIDConnectEndpoint('token'),
+          userinfo_endpoint: keycloakOpenIDConnectEndpoint('userinfo'),
+          end_session_endpoint: keycloakOpenIDConnectEndpoint('logout'),
+          response_type: process.env.OAUTH_RESPONSE_TYPE || 'code',
+          access_type: process.env.OAUTH_ACCESS_TYPE || 'online',
+          grant_type: process.env.OAUTH_GRANT_TYPE || 'authorization_code',
+          token_type: process.env.OAUTH_TOKEN_TYPE || 'Bearer'
+        }
+      }
+    },
     contentful: {
       spaceId: process.env.CTF_SPACE_ID,
       environmentId: process.env.CTF_ENVIRONMENT_ID,
@@ -257,19 +274,11 @@ module.exports = {
     fullPathRedirect: true,
     strategies: {
       local: false,
+      oauth2: {
+        _scheme: 'oauth2'
+      },
       keycloak: {
-        _scheme: 'oauth2',
-        client_id: process.env.OAUTH_CLIENT,
-        scope: (process.env.OAUTH_SCOPE || 'openid,profile,email,usersets').split(','),
-        realm: process.env.OAUTH_REALM || 'europeana',
-        authorization_endpoint: keycloakOpenIDConnectEndpoint('auth'),
-        access_token_endpoint: keycloakOpenIDConnectEndpoint('token'),
-        userinfo_endpoint: keycloakOpenIDConnectEndpoint('userinfo'),
-        end_session_endpoint: keycloakOpenIDConnectEndpoint('logout'),
-        response_type: process.env.OAUTH_RESPONSE_TYPE || 'code',
-        access_type: process.env.OAUTH_ACCESS_TYPE || 'online',
-        grant_type: process.env.OAUTH_GRANT_TYPE || 'authorization_code',
-        token_type: process.env.OAUTH_TOKEN_TYPE || 'Bearer'
+        _scheme: '~/plugins/authScheme'
       }
     },
     plugins: [{ src: '~/plugins/authAxios' }]
