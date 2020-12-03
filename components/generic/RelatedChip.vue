@@ -1,7 +1,7 @@
 <template>
   <b-badge
-    :to="bbadgeTo"
-    :href="bbadgeHref"
+    :to="$link.to(linkTo)"
+    :href="$link.href(linkTo)"
     pill
     variant="light"
     class="mt-1 mr-2 font-weight-normal bg-white"
@@ -46,16 +46,6 @@
     },
 
     computed: {
-      bbadgeTo() {
-        return this.bbadgeHref ? null : this.linkTo;
-      },
-      bbadgeHref() {
-        if ((typeof this.linkTo === 'string') && this.linkTo.includes('://')) {
-          return this.linkTo;
-        } else {
-          return null;
-        }
-      },
       localisedTitle() {
         if (typeof this.title === 'string') return {
           values: [this.title],

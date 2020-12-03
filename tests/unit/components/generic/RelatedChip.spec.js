@@ -16,12 +16,22 @@ const factory = (mocks = {}) => shallowMount(RelatedChip, {
 
 describe('components/generic/RelatedChip', () => {
   it('renders a related collection chip', () => {
-    const wrapper = factory();
+    const wrapper = factory({
+      $link: {
+        to: route => route,
+        href: () => null
+      }
+    });
     wrapper.findAll('[data-qa="Art related chip"]').length.should.eq(1);
   });
 
   it('has a collection title, lang and link', () => {
-    const wrapper = factory();
+    const wrapper = factory({
+      $link: {
+        to: route => route,
+        href: () => null
+      }
+    });
     wrapper.setProps({
       linkTo: '/collections/topic/190-art',
       title: 'Art'
@@ -34,7 +44,13 @@ describe('components/generic/RelatedChip', () => {
   });
 
   it('translates lang maps for title', () => {
-    const wrapper = factory({ $i18n: { locale: 'de' } });
+    const wrapper = factory({
+      $link: {
+        to: route => route,
+        href: () => null
+      },
+      $i18n: { locale: 'de' }
+    });
 
     wrapper.setProps({
       linkTo: '/collections/topic/33-costume',
@@ -49,7 +65,12 @@ describe('components/generic/RelatedChip', () => {
 
   context('when linkTo is a URL with scheme', () => {
     it('is linked to, not routed to', () => {
-      const wrapper = factory();
+      const wrapper = factory({
+        $link: {
+          href: route => route,
+          to: () => null
+        }
+      });
       wrapper.setProps({
         linkTo: 'https://www.example.org/collections/topic/190-art',
         title: 'Art'
