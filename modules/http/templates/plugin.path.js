@@ -1,16 +1,14 @@
-import config from './config';
-
 import {
   routePermittedOnEitherScheme, routeOnDatasetBlacklist
 } from './utils';
 
-export default ({ app, store }, inject) => {
+export default ({ app, store, $config }, inject) => {
   const path = (route) => {
     const localePath = app.localePath(route);
 
-    if (!config.sslNegotiation.enabled || routePermittedOnEitherScheme(route)) return localePath;
+    if (!$config.http.sslNegotiation.enabled || routePermittedOnEitherScheme(route)) return localePath;
 
-    const routeBlacklisted = routeOnDatasetBlacklist(route, config.sslNegotiation.datasetBlacklist);
+    const routeBlacklisted = routeOnDatasetBlacklist(route, $config.http.sslNegotiation.datasetBlacklist);
 
     let switchToProtocol;
     let switchToPort;

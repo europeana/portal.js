@@ -26,8 +26,7 @@ module.exports = {
       features: {
         itemEmbedCode: featureIsEnabled(process.env.ENABLE_ITEM_EMBED_CODE),
         linksToClassic: featureIsEnabled(process.env.ENABLE_LINKS_TO_CLASSIC),
-        recommendations: featureIsEnabled(process.env.ENABLE_RECOMMENDATIONS),
-        sslNegotiation: featureIsEnabled(process.env.ENABLE_SSL_NEGOTIATION)
+        recommendations: featureIsEnabled(process.env.ENABLE_RECOMMENDATIONS)
       }
     },
     contentful: {
@@ -82,6 +81,16 @@ module.exports = {
     },
     gtm: {
       id: process.env.GOOGLE_TAG_MANAGER_ID
+    },
+    http: {
+      ports: {
+        http: process.env.HTTP_PORT,
+        https: process.env.HTTPS_PORT
+      },
+      sslNegotiation: {
+        enabled: featureIsEnabled(process.env.ENABLE_SSL_NEGOTIATION),
+        datasetBlacklist: (process.env.SSL_DATASET_BLACKLIST || '').split(',')
+      }
     },
     oauth: {
       origin: process.env.OAUTH_ORIGIN,
@@ -184,16 +193,7 @@ module.exports = {
   buildModules: [
     '~/modules/contentful-graphql',
     '~/modules/axios-logger',
-    ['~/modules/http', {
-      ports: {
-        http: process.env.HTTP_PORT,
-        https: process.env.HTTPS_PORT
-      },
-      sslNegotiation: {
-        enabled: Boolean(Number(process.env.ENABLE_SSL_NEGOTIATION)),
-        datasetBlacklist: (process.env.SSL_DATASET_BLACKLIST || '').split(',')
-      }
-    }],
+    '~/modules/http',
     '~/modules/query-sanitiser',
     '@nuxtjs/auth'
   ],
