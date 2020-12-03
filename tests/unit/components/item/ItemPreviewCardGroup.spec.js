@@ -13,6 +13,7 @@ const factory = () => {
     localVue,
     mocks: {
       $auth: { loggedIn: false },
+      $config: { app: { internalLinkDomain: null } },
       $path: (opts) => `/item/${opts.params.pathMatch}`,
       $i18n: {
         locale: 'en'

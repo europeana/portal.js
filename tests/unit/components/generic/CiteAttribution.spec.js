@@ -13,7 +13,8 @@ const factory = () => mount(CiteAttribution, {
   localVue,
   mocks: {
     $path: () => '/',
-    $t: (key) => key
+    $t: (key) => key,
+    $config: { app: { internalLinkDomain: null } }
   },
   propsData: requiredProps
 });

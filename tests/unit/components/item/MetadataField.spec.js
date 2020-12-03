@@ -9,7 +9,8 @@ const $i18n = {
 const factory = () => mount(MetadataField, {
   mocks: {
     $t: (key) => key,
-    $i18n
+    $i18n,
+    $config: { app: { internalLinkDomain: null } }
   }
 });
 
