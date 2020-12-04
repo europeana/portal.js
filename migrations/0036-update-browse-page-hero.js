@@ -11,7 +11,13 @@ module.exports = function(migration) {
     .type('Symbol')
     .localized(true)
     .required(true)
-    .validations([])
+    .validations([
+      {
+        size: {
+          max: 100
+        }
+      }
+    ])
     .disabled(false)
     .omitted(false);
 
@@ -24,7 +30,7 @@ module.exports = function(migration) {
     .validations([
       {
         size: {
-          max: 50
+          max: 100
         }
       }
     ])
@@ -39,30 +45,27 @@ module.exports = function(migration) {
     .required(true)
     .validations([
       {
-        linkMimetypeGroup: ['imagewithAttribution']
+        linkContentType: ['imagewithAttribution']
       }
     ])
     .disabled(false)
     .omitted(false)
-    .linkType('Asset');
+    .linkType('Entry');
 
   heroHeader
     .createField('link')
     .name('Link')
-    .type('Symbol')
+    .type('Link')
     .localized(false)
     .required(false)
     .validations([
       {
-        linkMimetypeGroup: ['link'],
-        regexp: {
-          pattern:
-            '^(ftp|http|https):\\/\\/(\\w+:{0,1}\\w*@)?(\\S+)(:[0-9]+)?(\\/|\\/([\\w#!:.?+=&%@!\\-\\/]))?$'
-        }
+        linkContentType: ['link']
       }
     ])
     .disabled(false)
-    .omitted(false);
+    .omitted(false)
+    .linkType('Entry');
 
   const browsePage = migration.editContentType('browsePage');
 
