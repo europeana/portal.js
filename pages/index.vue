@@ -62,6 +62,7 @@
             error({ statusCode: 404, message: app.i18n.t('messages.notFound') });
             return;
           }
+
           return data.browsePageCollection.items[0];
         })
         .catch((e) => {
