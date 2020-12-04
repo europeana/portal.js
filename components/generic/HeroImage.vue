@@ -15,12 +15,12 @@
         <b-card-text class="lead">
           {{ lead }}
         </b-card-text>
-        <b-button
-          :href="url"
-          variant="primary"
+        <SmartLink
+          :destination="url"
+          class="btn btn-primary"
         >
           {{ $t('galleries.explore') }}
-        </b-button>
+        </SmartLink>
       </b-card>
       <figcaption
         class="d-none d-md-block"
@@ -49,10 +49,12 @@
 
 <script>
   import CiteAttribution from '../../components/generic/CiteAttribution';
+  import SmartLink from '../../components/generic/SmartLink';
 
   export default {
     components: {
-      CiteAttribution
+      CiteAttribution,
+      SmartLink
     },
     props: {
       header: {

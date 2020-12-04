@@ -11,15 +11,15 @@
     />
     <HeroImage
       v-if="hero"
-      :image-url="heroImage.url"
+      :image-url="heroImage.image.url"
       :image-content-type="heroImage.contentType"
       :header="name"
       :lead="headline"
-      :rights-statement="hero.license"
+      :rights-statement="heroImage.license"
       :name="hero.name"
-      :provider="hero.provider"
-      :creator="hero.creator"
-      :url="hero.url"
+      :provider="heroImage.provider"
+      :creator="heroImage.creator"
+      :url="heroImage.url"
     />
     <b-container>
       <ContentHeader
