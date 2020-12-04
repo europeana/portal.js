@@ -1,13 +1,13 @@
 import { storiesOf } from '@storybook/vue';
 import VueI18n from 'vue-i18n';
-import HeroImage from './HeroImage.vue';
+import HeroHeader from './HeroHeader.vue';
 
 const i18n = new VueI18n();
 
 storiesOf('Design', module)
-  .add('Hero Image', () => ({
+  .add('Hero Header', () => ({
     i18n,
-    components: { HeroImage },
+    components: { HeroHeader },
     data() {
       return {
         name: 'Retrat d\'estudi',

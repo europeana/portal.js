@@ -9,17 +9,12 @@
       :notification-link-text="$t('linksToClassic.home.linkText')"
       class="mb-3"
     />
-    <HeroImage
+    <HeroHeader
       v-if="hero"
-      :image-url="heroImage.image.url"
-      :image-content-type="heroImage.contentType"
-      :header="name"
-      :lead="headline"
-      :rights-statement="heroImage.license"
-      :name="hero.name"
-      :provider="heroImage.provider"
-      :creator="heroImage.creator"
-      :url="heroImage.url"
+      :hero-image="heroImage"
+      :title="heroTitle"
+      :description="heroDescription"
+      :cta="heroCta"
     />
     <b-container>
       <ContentHeader
@@ -37,7 +32,7 @@
 <script>
   import ContentHeader from '../components/generic/ContentHeader';
   import BrowseSections from '../components/browse/BrowseSections';
-  import HeroImage from '../components/generic/HeroImage';
+  import HeroHeader from '../components/browse/HeroHeader';
   import NotificationBanner from '../components/generic/NotificationBanner.vue';
 
   export default {
@@ -45,7 +40,7 @@
       ContentHeader,
       BrowseSections,
       NotificationBanner,
-      HeroImage
+      HeroHeader
     },
 
     asyncData({ params, query, error, app }) {
@@ -73,8 +68,30 @@
       hero() {
         return this.primaryImageOfPage ? this.primaryImageOfPage : null;
       },
+      // TODO: Remove these typechecks after switch over to new hero headers.
       heroImage() {
-        return this.hero ? this.hero.image : null;
+        if (this.hero['__typename'] === 'ImageWithAttribution') {
+          return this.hero;
+        }
+        return this.hero && this.hero.image ? this.hero.image.image : null;
+      },
+      heroCta() {
+        if (this.hero['__typename'] === 'ImageWithAttribution') {
+          return;
+        }
+        return this.hero && this.hero.link ? this.hero.link : null;
+      },
+      heroTitle() {
+        if (this.hero['__typename'] === 'ImageWithAttribution') {
+          return this.name;
+        }
+        return this.hero && this.hero.title ? this.hero.title : null;
+      },
+      heroDescription() {
+        if (this.hero['__typename'] === 'ImageWithAttribution') {
+          return this.headline;
+        }
+        return this.hero && this.hero.headline ? this.hero.headline : null;
       },
       onHomePage() {
         return Boolean(Number(process.env.ENABLE_LINKS_TO_CLASSIC)) && (this.identifier === 'home');

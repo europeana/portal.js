@@ -45,7 +45,7 @@ module.exports = function(migration) {
     .required(true)
     .validations([
       {
-        linkContentType: ['imagewithAttribution']
+        linkContentType: ['imageWithAttribution']
       }
     ])
     .disabled(false)
@@ -66,6 +66,11 @@ module.exports = function(migration) {
     .disabled(false)
     .omitted(false)
     .linkType('Entry');
+
+  heroHeader.changeFieldControl("title", "builtin", "singleLine", {});
+  heroHeader.changeFieldControl("headline", "builtin", "singleLine", {});
+  heroHeader.changeFieldControl("image", "builtin", "entryLinkEditor", {});
+  heroHeader.changeFieldControl("link", "builtin", "entryLinkEditor", {});
 
   const browsePage = migration.editContentType('browsePage');
 

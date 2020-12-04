@@ -10,17 +10,16 @@
     >
       <b-card>
         <h1>
-          {{ header }}
+          {{ title }}
         </h1>
         <b-card-text class="lead">
-          {{ lead }}
+          {{ description }}
         </b-card-text>
-        <SmartLink
-          :destination="url"
-          class="btn btn-primary"
-        >
-          {{ $t('galleries.explore') }}
-        </SmartLink>
+        <call-to-action
+          v-if="cta"
+          :text="cta.text"
+          :url="cta.url"
+        />
       </b-card>
       <figcaption
         class="d-none d-md-block"
@@ -35,10 +34,10 @@
         />
         <CiteAttribution
           v-else
-          :name="name"
-          :creator="creator"
-          :provider="provider"
-          :rights-statement="rightsStatement"
+          :name="heroImage.name"
+          :creator="heroImage.creator"
+          :provider="heroImage.provider"
+          :rights-statement="heroImage.rightsStatement"
           extended
           data-qa="attribution"
         />
@@ -48,50 +47,30 @@
 </template>
 
 <script>
-  import CiteAttribution from '../../components/generic/CiteAttribution';
-  import SmartLink from '../../components/generic/SmartLink';
+  import CallToAction from '../generic/CallToAction';
+  import CiteAttribution from '../generic/CiteAttribution';
 
   export default {
     components: {
-      CiteAttribution,
-      SmartLink
+      CallToAction,
+      CiteAttribution
     },
     props: {
-      header: {
-        type: String,
-        default: ''
+      heroImage: {
+        type: Object,
+        required: true
       },
-      lead: {
+      title: {
         type: String,
-        default: ''
+        required: true
       },
-      imageUrl: {
+      description: {
         type: String,
-        default: ''
+        required: true
       },
-      imageContentType: {
-        type: String,
-        default: null
-      },
-      name: {
-        type: String,
-        default: null
-      },
-      creator: {
-        type: String,
-        default: null
-      },
-      provider: {
-        type: String,
-        default: null
-      },
-      rightsStatement: {
-        type: String,
-        default: ''
-      },
-      url: {
-        type: String,
-        default: ''
+      cta: {
+        type: Object,
+        default: () => {}
       }
     },
     data() {
@@ -101,7 +80,7 @@
     },
     computed: {
       optimisedImageUrl() {
-        return this.$options.filters.optimisedImageUrl(this.imageUrl, this.imageContentType, { width: 1920 });
+        return this.$options.filters.optimisedImageUrl(this.heroImage.image.url, this.heroImage.image.imageContentType, { width: 1920 });
       },
       jumbotronStyle() {
         return {

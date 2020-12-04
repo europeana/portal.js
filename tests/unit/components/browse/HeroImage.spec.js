@@ -1,6 +1,6 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
-import HeroImage from '../../../../components/generic/HeroImage.vue';
+import HeroImage from '../../../../components/browse/HeroHeader.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
