@@ -39,7 +39,7 @@ module.exports = function(migration) {
     .required(true)
     .validations([
       {
-        linkMimetypeGroup: ['image']
+        linkMimetypeGroup: ['imagewithAttribution']
       }
     ])
     .disabled(false)
@@ -54,6 +54,7 @@ module.exports = function(migration) {
     .required(false)
     .validations([
       {
+        linkMimetypeGroup: ['link'],
         regexp: {
           pattern:
             '^(ftp|http|https):\\/\\/(\\w+:{0,1}\\w*@)?(\\S+)(:[0-9]+)?(\\/|\\/([\\w#!:.?+=&%@!\\-\\/]))?$'
