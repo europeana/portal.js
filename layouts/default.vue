@@ -1,6 +1,7 @@
 <template>
   <div>
     <VueAnnouncer
+      v-if="enableAnnouncer"
       data-qa="vue announcer"
     />
     <client-only>
@@ -91,7 +92,8 @@
     data() {
       return {
         ...config,
-        linkGroups: {}
+        linkGroups: {},
+        enableAnnouncer: true
       };
     },
 
@@ -107,12 +109,18 @@
 
     watch: {
       '$i18n.locale': '$fetch',
-      $route() {
+      $route(to, from) {
         this.$nextTick(() => {
-          this.$refs.resetfocus.setAttribute('tabindex', '0');
-          this.$refs.resetfocus.focus();
+          if (to.path === from.path) {
+            this.enableAnnouncer = false;
+          } else {
+            this.$refs.resetfocus.setAttribute('tabindex', '0');
+            this.$refs.resetfocus.focus();
+            this.enableAnnouncer = true;
+          }
         });
       }
+
     },
 
     head() {
