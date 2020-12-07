@@ -61,6 +61,7 @@
         pageSize: PER_PAGE,
         scope: 'europeana',
         sort: `skos_prefLabel.${app.i18n.locale}`,
+        qf: `skos_prefLabel.${app.i18n.locale}:*`,
         fl: 'skos_prefLabel.*,isShownBy,isShownBy.thumbnail'
       };
       return store.getters['apis/entity'].searchEntities(entityIndexParams)
