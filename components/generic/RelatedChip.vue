@@ -1,6 +1,7 @@
 <template>
   <b-badge
-    :to="linkTo"
+    :to="$link.to(linkTo)"
+    :href="$link.href(linkTo)"
     pill
     variant="light"
     class="mt-1 mr-2 font-weight-normal bg-white"
@@ -26,10 +27,6 @@
     name: 'RelatedChip',
 
     props: {
-      to: {
-        type: String,
-        default: ''
-      },
       linkTo: {
         type: String,
         default: ''

@@ -1,4 +1,5 @@
-import { createLocalVue, shallowMount } from '@vue/test-utils';
+import { createLocalVue } from '@vue/test-utils';
+import { shallowMountNuxt } from '../../utils';
 import BootstrapVue from 'bootstrap-vue';
 import sinon from 'sinon';
 
@@ -7,7 +8,7 @@ import page from '../../../../pages/item/_';
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
-const factory = () => shallowMount(page, {
+const factory = () => shallowMountNuxt(page, {
   localVue,
   data() {
     return {
@@ -39,6 +40,22 @@ const factory = () => shallowMount(page, {
 });
 
 describe('pages/item/_.vue', () => {
+  describe('asyncData()', () => {
+    it('gets a record from the API for the ID in the params pathMatch, for the current locale', async() => {
+      const params = { pathMatch: '123/abc' };
+      const record = { id: '/123/abc' };
+      const store = { getters: { 'apis/record': { getRecord: sinon.stub().resolves({ record }) } } };
+      const app = { i18n: { locale: 'en' } };
+
+      const wrapper = factory();
+
+      const response = await wrapper.vm.asyncData({ params, store, app });
+
+      store.getters['apis/record'].getRecord.should.have.been.calledWith('/123/abc', { locale: 'en' });
+      response.should.eql(record);
+    });
+  });
+
   describe('head()', () => {
     it('uses first media large thumbnail for og:image', () => {
       const thumbnailUrl = 'http://example.org/image/large.jpg';
@@ -52,7 +69,6 @@ describe('pages/item/_.vue', () => {
           }
         ]
       });
-      wrapper.vm.head = page.head;
 
       const headMeta = wrapper.vm.head().meta;
 

@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 import { BASE_URL as EUROPEANA_DATA_URL } from './data';
-import { apiError, langMapValueForLocale } from './utils';
+import { apiError } from './utils';
 
 export const BASE_URL = process.env.EUROPEANA_ENTITY_API_URL || 'https://api.europeana.eu/entity';
 export const axiosDefaults = {
@@ -156,35 +156,6 @@ export function getEntityQuery(uri) {
     return `edm_agent:"${uri}"`;
   }
   return null;
-}
-
-/**
- * Get the description for the entity
- * If type is topic, use note
- * If type is person, use biographicalInformation
- * @param {Object} entity data
- * @param {string} locale Locale code for desired language
- * @return {String} description when available in English
- * TODO: l10n
- */
-export function getEntityDescription(entity, locale) {
-  if (!entity) return null;
-  let description;
-  if (entity.type === 'Concept' && entity.note) {
-    description = langMapValueForLocale(entity.note, locale);
-  } else if (entity.type === 'Agent' && entity.biographicalInformation) {
-    // check if biographicalInformation is an array of objects
-    // TODO: it _should_ always be an array. this is an Entity API bug. remove
-    //       the condition when fixed upstream.
-    //       see: https://europeana.atlassian.net/browse/EA-1685
-    if (entity.biographicalInformation.length === undefined) {
-      const text = entity.biographicalInformation['@language'] === 'en' ? entity.biographicalInformation['@value'] : '';
-      description = { values: [text], code: 'en' };
-    } else {
-      description = langMapValueForLocale(entity.biographicalInformation, locale);
-    }
-  }
-  return description;
 }
 
 /**
