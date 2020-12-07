@@ -73,7 +73,7 @@
         if (this.hero['__typename'] === 'ImageWithAttribution') {
           return this.hero;
         }
-        return this.hero && this.hero.image ? this.hero.image.image : null;
+        return this.hero ? this.hero.image : null;
       },
       heroCta() {
         if (this.hero['__typename'] === 'ImageWithAttribution') {
