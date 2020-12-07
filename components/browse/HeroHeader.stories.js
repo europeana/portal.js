@@ -10,27 +10,31 @@ storiesOf('Design', module)
     components: { HeroHeader },
     data() {
       return {
-        name: 'Retrat d\'estudi',
-        provider: 'Ajuntament de Girona',
-        header: 'Welcome to Europeana',
-        rightsStatement: 'http://creativecommons.org/publicdomain/mark/1.0/',
-        lead: 'Discover inspiring cultural heritage from European museums, galleries, libraries and archives',
-        imageUrl: 'img/hero.jpg',
-        url: 'http://data.europeana.eu/item/2024914/photography_ProvidedCHO_Ajuntament_de_Girona_090561',
-        creator: 'Foto Lux'
+        heroImage: {
+          name: 'Retrat d\'estudi',
+          provider: 'Ajuntament de Girona',
+          license: 'http://creativecommons.org/publicdomain/mark/1.0/',
+          image: {
+            url: 'img/hero.jpg'
+          },
+          url: 'http://data.europeana.eu/item/2024914/photography_ProvidedCHO_Ajuntament_de_Girona_090561',
+          creator: 'Foto Lux'
+        },
+        title: 'Welcome to Europeana!',
+        description: 'Discover inspiring cultural heritage from European museums, galleries, libraries and archives',
+        cta: {
+          text: 'Check out our galleries!',
+          url: 'https://europeana.eu/en/galleries'
+        }
       };
     },
     template: `
       <b-container class="mt-3">
-        <HeroImage
-          :image-url="imageUrl"
-          :header="header"
-          :lead="lead"
-          :rights-statement="rightsStatement"
-          :name="name"
-          :provider="provider"
-          :creator="creator"
-          :url="url"
+        <HeroHeader
+          :heroImage="heroImage"
+          :title="title"
+          :description="description"
+          :cta="cta"
         />
       </b-container>
     `
