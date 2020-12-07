@@ -37,7 +37,8 @@
           :name="heroImage.name"
           :creator="heroImage.creator"
           :provider="heroImage.provider"
-          :rights-statement="heroImage.rightsStatement"
+          :rights-statement="heroImage.license"
+          :url="heroImage.url"
           extended
           data-qa="attribution"
         />
