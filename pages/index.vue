@@ -65,6 +65,23 @@
         });
     },
     computed: {
+      onHomePage() {
+        return Boolean(Number(process.env.ENABLE_LINKS_TO_CLASSIC)) && (this.identifier === 'home');
+      },
+      notificationUrl() {
+        return `https://classic.europeana.eu/portal/${this.$store.state.i18n.locale}?utm_source=new-website&utm_medium=button`;
+      },
+      optimisedImageUrl() {
+        // use social media image if set in Contentful, otherwise use hero image
+        let img = this.image === null ? this.heroImage : this.image;
+        return this.$options.filters.optimisedImageUrl(
+          img.url,
+          img.contentType,
+          { width: 800, height: 800 }
+        );
+      }
+    },
+    methods: {
       hero() {
         return this.primaryImageOfPage ? this.primaryImageOfPage : null;
       },
@@ -92,21 +109,6 @@
           return this.headline;
         }
         return this.hero && this.hero.headline ? this.hero.headline : null;
-      },
-      onHomePage() {
-        return Boolean(Number(process.env.ENABLE_LINKS_TO_CLASSIC)) && (this.identifier === 'home');
-      },
-      notificationUrl() {
-        return `https://classic.europeana.eu/portal/${this.$store.state.i18n.locale}?utm_source=new-website&utm_medium=button`;
-      },
-      optimisedImageUrl() {
-        // use social media image if set in Contentful, otherwise use hero image
-        let img = this.image === null ? this.heroImage : this.image;
-        return this.$options.filters.optimisedImageUrl(
-          img.url,
-          img.contentType,
-          { width: 800, height: 800 }
-        );
       }
     },
 
