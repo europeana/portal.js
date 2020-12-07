@@ -103,9 +103,16 @@
         }
       },
 
+      postprocessMiradorAnnotation(url, action) {
+        this.filterAnnotationResources(action.annotationJson);
+        this.coerceAnnotationToCanvasId(action.annotationJson);
+        this.dereferenceAnnotationResources(action.annotationJson);
+      },
 
       postprocessMiradorSearch(url, action) {
-        this.coerceSearchHitsToBeforeAfterMatch(action.searchJson);
+        if (Number(process.env.ENABLE_MIRADOR_SEARCH_HIT_PARSING)) {
+          this.coerceSearchHitsToBeforeAfterMatch(action.searchJson);
+        }
       },
 
       // Hack to flatten oa:TextQuoteSelector hit selectors to before/after/match
@@ -132,12 +139,6 @@
         searchJson.hits = hits;
       },
 
-      postprocessMiradorAnnotation(url, action) {
-        this.filterAnnotationResources(action.annotationJson);
-        this.coerceAnnotationToCanvasId(action.annotationJson);
-        this.dereferenceAnnotationResources(action.annotationJson);
-      },
-
       // Hack to force `on` attribute to canvas ID
       //
       // TODO: remove when API output updated to use canvas ID
@@ -152,12 +153,13 @@
         });
       },
 
-      // Filter to line-level annotations, and only those with a `char` fragment
-      // selector.
+      // If dcType is present on resources, filter to line-level annotations, and
+      // only those with a `char` fragment selector.
       filterAnnotationResources(annotationJson) {
-        annotationJson.resources = annotationJson.resources.filter(
-          resource => (resource.dcType === 'Line') && (/char=(\d+),(\d+)$/.test(resource.resource['@id'])),
-        );
+        annotationJson.resources = annotationJson.resources.filter(resource => {
+          return !resource.dcType ||
+            ((resource.dcType === 'Line') && (/char=(\d+),(\d+)$/.test(resource.resource['@id'])));
+        });
       },
 
       fetchAnnotationResourcesFulltext(annotationJson) {
