@@ -59,6 +59,7 @@
         type: getEntityTypeApi(params.type.slice(0, -1)),
         pageSize: PER_PAGE,
         scope: 'europeana',
+        sort: 'skos_prefLabel',
         fl: 'skos_prefLabel.*,isShownBy,isShownBy.thumbnail'
       };
       return store.getters['apis/entity'].searchEntities(entityIndexParams)
