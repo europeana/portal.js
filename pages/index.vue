@@ -70,25 +70,25 @@
       },
       // TODO: Remove these typechecks after switch over to new hero headers.
       heroImage() {
-        if (this.hero['__typename'] === 'ImageWithAttribution') {
+        if (this.hero && this.hero['__typename'] === 'ImageWithAttribution') {
           return this.hero;
         }
         return this.hero ? this.hero.image : null;
       },
       heroCta() {
-        if (this.hero['__typename'] === 'ImageWithAttribution') {
+        if (this.hero && this.hero['__typename'] === 'ImageWithAttribution') {
           return;
         }
         return this.hero && this.hero.link ? this.hero.link : null;
       },
       heroTitle() {
-        if (this.hero['__typename'] === 'ImageWithAttribution') {
+        if (this.hero && this.hero['__typename'] === 'ImageWithAttribution') {
           return this.name;
         }
         return this.hero && this.hero.title ? this.hero.title : null;
       },
       heroDescription() {
-        if (this.hero['__typename'] === 'ImageWithAttribution') {
+        if (this.hero && this.hero['__typename'] === 'ImageWithAttribution') {
           return this.headline;
         }
         return this.hero && this.hero.headline ? this.hero.headline : null;
