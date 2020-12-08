@@ -52,28 +52,6 @@ describe('pages/iiif/index.vue', () => {
       });
     });
 
-    describe('filterAnnotationResources', () => {
-      it('filters to line-level annotations with char fragment selector', () => {
-        const wrapper = factory();
-        const annotationJson = {
-          resources: [
-            { dcType: 'Page', resource: { '@id': 'http://example.org/fulltext/123' } },
-            { dcType: 'Line', resource: { '@id': 'http://example.org/fulltext/123#char=0,9' } },
-            { dcType: 'Line', resource: { '@id': 'http://example.org/fulltext/123#char=10,19' } },
-            { dcType: 'Line', resource: { '@id': 'http://example.org/fulltext/123' } },
-            { dcType: 'Block', resource: { '@id': 'http://example.org/fulltext/123#char=0,19' } }
-          ]
-        };
-
-        wrapper.vm.filterAnnotationResources(annotationJson);
-
-        annotationJson.resources.should.eql([
-          { dcType: 'Line', resource: { '@id': 'http://example.org/fulltext/123#char=0,9' } },
-          { dcType: 'Line', resource: { '@id': 'http://example.org/fulltext/123#char=10,19' } }
-        ]);
-      });
-    });
-
     describe('fetchAnnotationResourcesFulltext', () => {
       it('fetches remote fulltext for all resources', async() => {
         const wrapper = factory();

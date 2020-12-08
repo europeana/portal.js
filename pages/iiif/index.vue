@@ -29,7 +29,7 @@
 
     computed: {
       miradorViewerOptions() {
-        // Doc: https://github.com/ProjectMirador/mirador/blob/master/src/config/settings.js
+        // Doc: https://github.com/ProjectMirador/mirador/blob/v3.0.0/src/config/settings.js
         const options = {
           id: 'viewer',
           windows: [
@@ -94,6 +94,9 @@
 
       postprocessMiradorRequest(url, action) {
         switch (action.type) {
+        case 'mirador/RECEIVE_MANIFEST':
+          this.postprocessMiradorManifest(url, action);
+          break;
         case 'mirador/RECEIVE_ANNOTATION':
           this.postprocessMiradorAnnotation(url, action);
           break;
@@ -103,8 +106,11 @@
         }
       },
 
+      postprocessMiradorManifest(url, action) {
+        this.addTextGranularityFilterToManifest(action.manifestJson);
+      },
+
       postprocessMiradorAnnotation(url, action) {
-        this.filterAnnotationResources(action.annotationJson);
         this.coerceAnnotationToCanvasId(action.annotationJson);
         this.dereferenceAnnotationResources(action.annotationJson);
       },
@@ -113,6 +119,32 @@
         if (Number(process.env.ENABLE_MIRADOR_SEARCH_HIT_PARSING)) {
           this.coerceSearchHitsToBeforeAfterMatch(action.searchJson);
         }
+      },
+
+      addTextGranularityFilterToManifest(manifestJson, textGranularity = 'Line') {
+        const europeanaIiifPattern = /^https?:\/\/iiif\.europeana\.eu\/presentation\/[^/]+\/[^/]+\/manifest$/;
+        if (!europeanaIiifPattern.test(manifestJson['@id'])) return;
+
+        // Add textGranularity filter to "otherContent" URIs
+        for (const sequence of manifestJson.sequences) {
+          for (const canvas of (sequence.canvases || [])) {
+            const otherContent = canvas.otherContent || [];
+            for (let i = 0; i < otherContent.length; i = i + 1) {
+              const otherContentLink = otherContent[i];
+              const paramSeparator = otherContentLink.includes('?') ? '&' : '?';
+              otherContent[i] = `${otherContentLink}${paramSeparator}textGranularity=${textGranularity}`;
+            }
+          }
+        }
+
+        // Add textGranularity filter to search service URI
+        // FIXME: this does not work, due to Mirador not expecting a service URI
+        //        to already contain '?' with parameters.
+        //        https://github.com/ProjectMirador/mirador/blob/v3.0.0/src/components/SearchPanelControls.js#L91
+        // if ((manifestJson.service || {}).profile === 'http://iiif.io/api/search/1/search') {
+        //   const paramSeparator = manifestJson.service['@id'].includes('?') ? '&' : '?';
+        //   manifestJson.service['@id'] = `${manifestJson.service['@id']}${paramSeparator}textGranularity=${textGranularity}`;
+        // }
       },
 
       // Hack to flatten oa:TextQuoteSelector hit selectors to before/after/match
@@ -150,15 +182,6 @@
             coercedResource.on[0] = coercedResource.on[0].replace(/^[^#]+/, this.page); // replace up to hash
           }
           return coercedResource;
-        });
-      },
-
-      // If dcType is present on resources, filter to line-level annotations, and
-      // only those with a `char` fragment selector.
-      filterAnnotationResources(annotationJson) {
-        annotationJson.resources = annotationJson.resources.filter(resource => {
-          return !resource.dcType ||
-            ((resource.dcType === 'Line') && (/char=(\d+),(\d+)$/.test(resource.resource['@id'])));
         });
       },
 
