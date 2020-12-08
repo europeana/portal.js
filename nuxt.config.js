@@ -142,6 +142,7 @@ module.exports = {
   modules: [
     '@nuxtjs/axios',
     '@nuxtjs/dotenv',
+    'nuxt-google-optimize',
     'bootstrap-vue/nuxt',
     'cookie-universal-nuxt',
     ['nuxt-i18n', {
