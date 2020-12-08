@@ -30,6 +30,10 @@ const factory = (options = {}) => {
         $t: () => {},
         $path: (opts) => {
           return router.resolve(opts).route.fullPath;
+        },
+        $link: {
+          to: (route, query) => route.toString() + '?' + new URLSearchParams(query).toString(),
+          href: () => null
         }
       }, ...(options.mocks || {})
     }

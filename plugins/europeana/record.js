@@ -1,9 +1,10 @@
 import axios from 'axios';
 import omitBy from 'lodash/omitBy';
+import pick from 'lodash/pick';
 import uniq from 'lodash/uniq';
 import merge from 'deepmerge';
 
-import { apiError, escapeLuceneSpecials } from './utils';
+import { apiError, escapeLuceneSpecials, reduceLangMapsForLocale } from './utils';
 import search from './search';
 import { thumbnailUrl, thumbnailTypeForMimeType } from  './thumbnail';
 import { getEntityUri, getEntityQuery } from './entity';
@@ -26,7 +27,7 @@ export const axiosDefaults = {
  * @return {Object[]} Key value pairs of the metadata fields.
  */
 function coreFields(proxyData, providerAggregation, entities) {
-  return lookupEntities(omitBy({
+  return Object.freeze(lookupEntities(omitBy({
     edmDataProvider: { url: providerAggregation.edmIsShownAt, value: providerAggregation.edmDataProvider },
     dcContributor: proxyData.dcContributor,
     dcCreator: proxyData.dcCreator,
@@ -34,7 +35,7 @@ function coreFields(proxyData, providerAggregation, entities) {
     dcSubject: proxyData.dcSubject,
     dcType: proxyData.dcType,
     dctermsMedium: proxyData.dctermsMedium
-  }, isUndefined), entities);
+  }, isUndefined), entities));
 }
 
 /**
@@ -48,7 +49,7 @@ function coreFields(proxyData, providerAggregation, entities) {
 function extraFields(proxyData, edm, entities) {
   const providerAggregation = edm.aggregations[0];
   const europeanaAggregation = edm.europeanaAggregation;
-  return lookupEntities(omitBy({
+  return Object.freeze(lookupEntities(omitBy({
     edmProvider: providerAggregation.edmProvider,
     edmIntermediateProvider: providerAggregation.edmIntermediateProvider,
     edmCountry: europeanaAggregation.edmCountry,
@@ -92,7 +93,7 @@ function extraFields(proxyData, edm, entities) {
     edmIsSuccessorOf: proxyData.edmIsSuccessorOf,
     edmRealizes: proxyData.edmRealizes,
     wasPresentAt: proxyData.wasPresentAt
-  }, isUndefined), entities);
+  }, isUndefined), entities));
 }
 
 /**
@@ -195,11 +196,15 @@ export default (axiosOverrides) => {
      * @param {Object} response data from API response
      * @return {Object} parsed data
      */
-    parseRecordDataFromApiResponse(response) {
-      const edm = response.data.object;
-
+    parseRecordDataFromApiResponse(edm) {
       const providerAggregation = edm.aggregations[0];
-      const entities = [].concat(edm.concepts, edm.places, edm.agents, edm.timespans)
+
+      const concepts = (edm.concepts || []).map(reduceEntity).map(Object.freeze);
+      const places = (edm.places || []).map(reduceEntity).map(Object.freeze);
+      const agents = (edm.agents || []).map(reduceEntity).map(Object.freeze);
+      const timespans = (edm.timespans || []).map(reduceEntity).map(Object.freeze);
+
+      const entities = [].concat(concepts, places, agents, timespans)
         .filter(isNotUndefined)
         .reduce((memo, entity) => {
           memo[entity.about] = entity;
@@ -216,8 +221,8 @@ export default (axiosOverrides) => {
         coreFields: coreFields(proxyData, providerAggregation, entities),
         fields: extraFields(proxyData, edm, entities),
         media: this.aggregationMedia(providerAggregation, edm.type, edm.services),
-        agents: edm.agents,
-        concepts: edm.concepts,
+        agents,
+        concepts,
         title: proxyData.dcTitle
       };
     },
@@ -248,7 +253,9 @@ export default (axiosOverrides) => {
       const mediaUris = uniq([edmIsShownByOrAt].concat(aggregation.hasView || []).filter(isNotUndefined));
 
       // Filter web resources to isShownBy and hasView, respecting the ordering
-      const media = mediaUris.map((mediaUri) => aggregation.webResources.find((webResource) => mediaUri === webResource.about));
+      const media = mediaUris
+        .map(mediaUri => aggregation.webResources.find(webResource => mediaUri === webResource.about))
+        .map(reduceWebResource);
 
       for (const webResource of media) {
         // Inject thumbnail URLs
@@ -266,7 +273,7 @@ export default (axiosOverrides) => {
       const displayable = isIIIFPresentation(media[0]) ? [media[0]] : media;
 
       // Sort by isNextInSequence property if present
-      return sortByIsNextInSequence(displayable);
+      return sortByIsNextInSequence(displayable).map(Object.freeze);
     },
 
     /**
@@ -274,13 +281,15 @@ export default (axiosOverrides) => {
      * @param {string} europeanaId ID of Europeana record
      * @return {Object} parsed record data
      */
-    getRecord(europeanaId) {
+    getRecord(europeanaId, options = {}) {
       let path = '';
       if (!this.$axios.defaults.baseURL.endsWith('/record')) path = '/record';
 
       return this.$axios.get(`${path}${europeanaId}.json`)
-        .then(response => ({
-          record: this.parseRecordDataFromApiResponse(response),
+        .then(response => this.parseRecordDataFromApiResponse(response.data.object))
+        .then(parsed => reduceLangMapsForLocale(parsed, options.locale))
+        .then(reduced => ({
+          record: reduced,
           error: null
         }))
         .catch((error) => {
@@ -333,6 +342,27 @@ export default (axiosOverrides) => {
       return proxyUrl.toString();
     }
   };
+};
+
+const reduceEntity = (entity) => {
+  return pick(entity, [
+    'about',
+    'latitude',
+    'longitude',
+    'prefLabel'
+  ]);
+};
+
+const reduceWebResource = (webResource) => {
+  return pick(webResource, [
+    'about',
+    'dctermsIsReferencedBy',
+    'ebucoreHasMimeType',
+    'ebucoreHeight',
+    'ebucoreWidth',
+    'isNextInSequence',
+    'svcsHasService'
+  ]);
 };
 
 /**
