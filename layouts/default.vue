@@ -112,7 +112,7 @@
       $route(to, from) {
         this.$nextTick(() => {
           if (to.path === from.path) {
-            // this.enableAnnouncer = false;
+            this.enableAnnouncer = false;
           } else {
             this.$refs.resetfocus.setAttribute('tabindex', '0');
             this.$refs.resetfocus.focus();
