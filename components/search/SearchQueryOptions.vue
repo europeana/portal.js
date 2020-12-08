@@ -9,7 +9,8 @@
     <b-list-group-item
       v-for="(option, index) in value"
       :key="index"
-      :to="option.link"
+      :to="$link.to(option.link.path, option.link.query)"
+      :href="$link.href(option.link.path, option.link.query)"
       :data-qa="option.qa"
       role="option"
       :aria-selected="index === focus"

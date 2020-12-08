@@ -195,6 +195,7 @@ module.exports = {
     '~/plugins/apis',
     '~/plugins/vue',
     '~/plugins/i18n.js',
+    '~/plugins/link',
     '~/plugins/page',
     '~/plugins/vue-filters',
     '~/plugins/vue-directives'

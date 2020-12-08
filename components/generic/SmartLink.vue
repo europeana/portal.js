@@ -23,6 +23,8 @@
 </template>
 
 <script>
+  // TODO: refactor to use $link.to and $link.href
+
   export default {
     props: {
       destination: {
@@ -34,6 +36,7 @@
         type: String,
         default: ''
       },
+
       hideExternalIcon: {
         type: Boolean,
         default: false
