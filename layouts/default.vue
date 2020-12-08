@@ -87,6 +87,7 @@
         };
       }
       this.linkGroups = linkGroups;
+      if (this.$announcer) this.$announcer.setComplementRoute(this.$t('pageHasLoaded'));
     },
 
     data() {
@@ -121,6 +122,10 @@
         });
       }
 
+    },
+
+    mounted() {
+      this.$announcer.setComplementRoute(this.$t('pageHasLoaded'));
     },
 
     head() {

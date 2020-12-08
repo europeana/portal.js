@@ -1,7 +1,6 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 import Vuex from 'vuex';
-// import sinon from 'sinon';
 
 import layout from '../../../layouts/default';
 
@@ -13,7 +12,8 @@ const store = new Vuex.Store({
   state: { breadcrumb: {} }
 });
 
-const factory = () => shallowMount(layout, { localVue,
+const factory = () => shallowMount(layout, {
+  localVue,
   store,
   data() {
     return {
@@ -29,7 +29,8 @@ const factory = () => shallowMount(layout, { localVue,
     nuxt: true,
     PageHeader: true,
     PageFooter: true
-  } });
+  }
+});
 
 describe('layouts/default.vue', () => {
   describe('VueAnnouncer', () => {

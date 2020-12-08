@@ -74,12 +74,13 @@
 
     methods: {
       setBannerHeight() {
-        this.bannerHeight = this.$refs.banner.getBoundingClientRect().height;
+        if (this.$refs.banner) this.bannerHeight = this.$refs.banner.getBoundingClientRect().height;
       },
 
       accept() {
         this.setCookieStatus();
         this.isOpen = false;
+        // time out 400ms to allow the css transition to finish
         setTimeout(() => this.accepted = true, 400);
       },
 
