@@ -4,7 +4,6 @@
       :style="jumbotronStyle"
       fluid
       class="browse-jumbotron"
-      text-variant="white"
       data-qa="hero banner"
       @click="toggleCite"
     >

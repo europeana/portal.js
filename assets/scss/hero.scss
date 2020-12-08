@@ -55,18 +55,18 @@
   &.browse-jumbotron {
     margin-top: 2rem;
     border-radius: 0.5rem;
-    overflow: hidden;
     &:before {
       display: none;
     }
     .container {
       .card {
         margin: 1rem;
-        max-width: 37rem;
+        max-width: 50%;
         border: none;
         color: $black;
         .btn {
           text-decoration: none;
+          margin: 0;
         }
       }
     }
@@ -85,6 +85,7 @@
 
   figcaption {
     z-index: 2;
+    color: $white;
     .icon-info {
       position: absolute;
       bottom: 1rem;
@@ -236,11 +237,13 @@
 @media (max-width: $bp-medium) {
   .hero-wrapper {
     padding: 0;
-    margin-top: -1rem;
     .jumbotron.browse-jumbotron {
       margin-top: 0;
       background-size: 56.5rem;
       background-position: center top;
+      .card {
+        max-width: 70%;
+      }
     }
   }
 }
@@ -250,6 +253,7 @@
     .jumbotron.browse-jumbotron {
       border-radius: 0;
       .card {
+        max-width: 100%;
         margin: 0;
         border-radius: 0;
         h1 {

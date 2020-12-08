@@ -78,13 +78,10 @@
           img.contentType,
           { width: 800, height: 800 }
         );
-      }
-    },
-    methods: {
+      },
       hero() {
         return this.primaryImageOfPage ? this.primaryImageOfPage : null;
       },
-      // TODO: Remove these typechecks after switch over to new hero headers.
       heroImage() {
         if (this.hero && this.hero['__typename'] === 'ImageWithAttribution') {
           return this.hero;
@@ -113,7 +110,7 @@
 
     head() {
       return {
-        title: this.$t('homepageTitle') + this.$pageHeadTitle(),
+        title: this.name + this.$pageHeadTitle(),
         meta: [
           { hid: 'og:type', property: 'og:type', content: 'article' },
           { hid: 'title', name: 'title', content: this.name },
