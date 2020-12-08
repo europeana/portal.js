@@ -21,7 +21,10 @@ const factory = () => shallowMount(layout, {
     };
   },
   mocks: {
-    $t: key => key
+    $t: key => key,
+    $announcer: {
+      setComplementRoute: () => {}
+    }
   },
   stubs: {
     CookieDisclaimer: true,
