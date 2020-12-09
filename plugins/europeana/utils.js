@@ -1,14 +1,14 @@
 import axios from 'axios';
 
-export const createAxios = (api, baseURL, { $config, store, app }) => {
+export const createAxios = ({ id, baseURL, $axios }, { $config, store, app }) => {
   const axiosOptions = {
-    baseURL: store.state.apis.urls[api] || $config.europeana.apis[api].url || baseURL,
+    baseURL: store.state.apis.urls[id] || $config.europeana.apis[id].url || baseURL,
     params: {
-      wskey: $config.europeana.apis[api].key
+      wskey: $config.europeana.apis[id].key
     }
   };
 
-  const axiosInstance = axios.create(axiosOptions);
+  const axiosInstance = ($axios || axios).create(axiosOptions);
   if (app.$axiosLogger) axiosInstance.interceptors.request.use(app.$axiosLogger);
 
   return axiosInstance;

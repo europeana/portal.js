@@ -18,10 +18,10 @@ export default class RuntimeConfigurableOauth2Scheme extends Oauth2Scheme {
       ...$auth.ctx.$config.auth.strategies[options['_name']]
     };
 
-    options['authorization_endpoint'] = keycloakOpenIDConnectEndpoint('auth', options);
-    options['access_token_endpoint'] = keycloakOpenIDConnectEndpoint('token', options);
-    options['userinfo_endpoint'] = keycloakOpenIDConnectEndpoint('userinfo', options);
-    options['end_session_endpoint'] = keycloakOpenIDConnectEndpoint('logout', options);
+    configOptions['authorization_endpoint'] = keycloakOpenIDConnectEndpoint('auth', configOptions);
+    configOptions['access_token_endpoint'] = keycloakOpenIDConnectEndpoint('token', configOptions);
+    configOptions['userinfo_endpoint'] = keycloakOpenIDConnectEndpoint('userinfo', configOptions);
+    configOptions['end_session_endpoint'] = keycloakOpenIDConnectEndpoint('logout', configOptions);
 
     super($auth, configOptions);
   }

@@ -1,6 +1,9 @@
 import annotation from './europeana/annotation';
 import entity from './europeana/entity';
 import record from './europeana/record';
+import recommendation from './europeana/recommendation';
+import set from './europeana/set';
+
 import { apiUrlFromRequestHeaders } from './europeana/utils';
 
 const STORE_MODULE_NAME = 'apis';
@@ -31,8 +34,15 @@ export default (context, inject) => {
   const plugin = {
     annotation: annotation(context),
     entity: entity(context),
-    record: record(context)
+    recommendation: recommendation(context),
+    record: record(context),
+    set: set(context)
   };
 
   inject('apis', plugin);
+
+  if (context.$auth.loggedIn) {
+    context.store.dispatch('set/setLikes')
+      .then(() => context.store.dispatch('set/fetchLikes'));
+  }
 };

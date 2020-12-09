@@ -1,11 +1,10 @@
 /* eslint-disable camelcase */
 
-require('dotenv').config();
+const APP_SITE_NAME = 'Europeana';
+
 const pkg = require('./package');
 const i18nLocales = require('./plugins/i18n/locales.js');
 const i18nDateTime = require('./plugins/i18n/datetime.js');
-
-const APP_SITE_NAME = 'Europeana';
 
 const featureIsEnabled = (value) => Boolean(Number(value));
 
@@ -192,7 +191,6 @@ module.exports = {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    '~/plugins/apis',
     '~/plugins/vue',
     '~/plugins/i18n.js',
     '~/plugins/link',
@@ -274,10 +272,8 @@ module.exports = {
       keycloak: {
         _scheme: '~/plugins/authScheme'
       }
-    }
-    // FIXME: disabled solely because it's catching errors it shouldn't and retrying
-    //        them endlessly. refine the refresh handling to mitigate.
-    // plugins: [{ src: '~/plugins/authAxios' }]
+    },
+    plugins: ['~/plugins/auth', '~/plugins/apis']
   },
 
   router: {

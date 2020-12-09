@@ -174,7 +174,7 @@ function setMatchingEntities(fields, key, entities) {
 }
 
 export default (context) => {
-  const $axios = createAxios('record', BASE_URL, context);
+  const $axios = createAxios({ id: 'record', baseURL: BASE_URL }, context);
 
   return {
     $axios,

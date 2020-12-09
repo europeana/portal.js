@@ -52,32 +52,32 @@ export const actions = {
         }
       })
       .then(() => {
-        return this.$sets.modifyItems('add', state.likesId, itemId)
+        return this.$apis.set.modifyItems('add', state.likesId, itemId)
           .then(commit('like', itemId));
       });
   },
   unlike({ commit, state }, itemId) {
-    return this.$sets.modifyItems('delete', state.likesId, itemId)
+    return this.$apis.set.modifyItems('delete', state.likesId, itemId)
       .then(commit('unlike', itemId));
   },
   addItem({ dispatch }, { setId, itemId }) {
-    return this.$sets.modifyItems('add', setId, itemId)
+    return this.$apis.set.modifyItems('add', setId, itemId)
       .then(() => {
         dispatch('refreshCreation', setId);
       });
   },
   removeItem({ dispatch }, { setId, itemId }) {
-    return this.$sets.modifyItems('delete', setId, itemId)
+    return this.$apis.set.modifyItems('delete', setId, itemId)
       .then(() => {
         dispatch('refreshCreation', setId);
       });
   },
   setLikes({ commit }) {
-    return this.$sets.getLikes(this.$auth.user ? this.$auth.user.sub : null)
+    return this.$apis.set.getLikes(this.$auth.user ? this.$auth.user.sub : null)
       .then(likesId => commit('setLikesId', likesId));
   },
   createLikes({ commit }) {
-    return this.$sets.createLikes()
+    return this.$apis.set.createLikes()
       .then(response => commit('setLikesId', response.id));
   },
   refreshSet({ state, dispatch }) {
@@ -88,30 +88,30 @@ export const actions = {
   fetchLikes({ commit, state }) {
     if (!state.likesId) return commit('setLikedItems', null);
 
-    return this.$sets.getSet(state.likesId, {
+    return this.$apis.set.getSet(state.likesId, {
       pageSize: 100,
       profile: 'itemDescriptions'
     })
       .then(likes => commit('setLikedItems', likes.items || []));
   },
   fetchActive({ commit }, setId) {
-    return this.$sets.getSet(setId, {
+    return this.$apis.set.getSet(setId, {
       profile: 'itemDescriptions'
     })
       .then(set => commit('setActive', set));
   },
   createSet({ dispatch }, body) {
-    return this.$sets.createSet(body)
+    return this.$apis.set.createSet(body)
       .then(() => dispatch('fetchCreations'));
   },
   updateSet({ state, commit }, { id, body }) {
-    return this.$sets.updateSet(id, body)
+    return this.$apis.set.updateSet(id, body)
       .then(response => {
         if (state.active && id === state.active.id) commit('setActive', { items: state.active.items, ...response });
       });
   },
   deleteSet({ state, commit }, setId) {
-    return this.$sets.deleteSet(setId)
+    return this.$apis.set.deleteSet(setId)
       .then(() => {
         if (state.active && setId === state.active.id) commit('setActive', 'DELETED');
       });
@@ -120,7 +120,7 @@ export const actions = {
     const setToReplaceIndex = state.creations.findIndex(set => set.id === setId);
     if (setToReplaceIndex === -1) return;
 
-    return this.$sets.getSet(setId, {
+    return this.$apis.set.getSet(setId, {
       profile: 'itemDescriptions'
     })
       .then(set => {
@@ -138,7 +138,7 @@ export const actions = {
       qf: 'type:Collection'
     };
 
-    return this.$sets.search(searchParams)
+    return this.$apis.set.search(searchParams)
       .then(searchResponse => commit('setCreations', searchResponse.data.items || []));
   }
 };

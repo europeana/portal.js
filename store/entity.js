@@ -45,7 +45,7 @@ export const getters = {
 };
 
 export const actions = {
-  async searchForRecords({ getters, dispatch, commit, state }, { query, search }) {
+  async searchForRecords({ getters, dispatch, commit, state }, query) {
     if (!state.entity) return;
 
     await dispatch('search/activate', null, { root: true });
@@ -75,6 +75,6 @@ export const actions = {
     commit('search/set', ['userParams', userParams], { root: true });
     commit('search/set', ['overrideParams', overrideParams], { root: true });
 
-    await dispatch('search/run', search, { root: true });
+    await dispatch('search/run', {}, { root: true });
   }
 };
