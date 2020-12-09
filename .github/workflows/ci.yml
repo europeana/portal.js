@@ -97,7 +97,7 @@ jobs:
         node-version: 12.x
     - uses: actions/download-artifact@v2
     - name: Restore build artifacts
-      run: mv config/. .
+      run: mv config/.env docker/stack/app/.env
     - run: npm run test:e2e
 
   # TODO: limit to internal PRs, i.e. those from within the repo
@@ -113,7 +113,7 @@ jobs:
     - uses: actions/download-artifact@v2
     - name: Restore build artifacts
       run: |
-        mv config/. .
+        mv config/vars.yml .
         ls -al
     # TODO: build and push a Docker image for this to speed it up?
     - name: Install CF CLI & plugins
