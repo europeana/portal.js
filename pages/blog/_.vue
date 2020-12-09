@@ -90,6 +90,9 @@
           { hid: 'description', name: 'description', content: this.post.description },
           { hid: 'og:description', property: 'og:description', content: this.post.description }
         ] : [])
+          .concat(this.post.primaryImageOfPage ? [
+            { hid: 'og:image', property: 'og:image', content: this.post.primaryImageOfPage.image.url }
+          ] : [])
       };
     },
 
