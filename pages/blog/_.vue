@@ -86,8 +86,7 @@
         meta: [
           { hid: 'og:type', property: 'og:type', content: 'blog post' },
           { hid: 'title', name: 'title', content: this.post.name },
-          { hid: 'og:title', property: 'og:title', content: this.post.name },
-          { hid: 'og:description', property: 'og:description', content: this.post.description }
+          { hid: 'og:title', property: 'og:title', content: this.post.name }
         ].concat(this.post.description ? [
           { hid: 'description', name: 'description', content: this.post.description },
           { hid: 'og:description', property: 'og:description', content: this.post.description }
