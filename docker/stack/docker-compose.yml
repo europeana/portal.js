@@ -16,8 +16,8 @@ services:
       dockerfile: ./docker/stack/app/Dockerfile
     expose:
       - "8080"
+    env_file: ../../.env.docker
     environment:
-      - ENABLE_SSL_NEGOTIATION=1
       - HTTP_PORT=80
       - HTTPS_PORT=443
       - NUXT_LOADING_THROTTLE=0
