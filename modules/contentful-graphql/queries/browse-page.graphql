@@ -10,14 +10,16 @@ query BrowsePage(
       headline
       description
       primaryImageOfPage {
-        name
-        creator
-        provider
-        license
-        url
-        image {
+        ... on ImageWithAttribution {
+          name
+          creator
+          provider
+          license
           url
-          contentType
+          image {
+            url
+            contentType
+          }
         }
       }
       image {
