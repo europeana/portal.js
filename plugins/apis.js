@@ -1,12 +1,12 @@
 import annotation from './europeana/annotation';
 import entity from './europeana/entity';
-import record from './europeana/record';
 import recommendation from './europeana/recommendation';
+import record from './europeana/record';
 import set from './europeana/set';
 
 import { apiUrlFromRequestHeaders } from './europeana/utils';
 
-const STORE_MODULE_NAME = 'apis';
+const MODULE_NAME = 'apis';
 
 const storeModule = {
   namespaced: true,
@@ -15,21 +15,26 @@ const storeModule = {
     urls: {
       annotation: null,
       entity: null,
-      record: null
+      recommendation: null,
+      record: null,
+      set: null
     }
   }),
 
   mutations: {
     init(state, { req }) {
       for (const api in state.urls) {
-        state.urls[api] = apiUrlFromRequestHeaders(api, req.headers);
+        const apiBaseURL = apiUrlFromRequestHeaders(api, req.headers);
+
+        if (apiBaseURL) this.$apis[api].$axios.defaults.baseURL = apiBaseURL;
+        state.urls[api] = apiBaseURL;
       }
     }
   }
 };
 
 export default (context, inject) => {
-  context.store.registerModule(STORE_MODULE_NAME, storeModule);
+  context.store.registerModule(MODULE_NAME, storeModule);
 
   const plugin = {
     annotation: annotation(context),
@@ -39,7 +44,7 @@ export default (context, inject) => {
     set: set(context)
   };
 
-  inject('apis', plugin);
+  inject(MODULE_NAME, plugin);
 
   if (context.$auth.loggedIn) {
     context.store.dispatch('set/setLikes')
