@@ -115,6 +115,11 @@ header .col {
     .html-embed, .compare-image-wrapper {
       margin-bottom: 2rem !important;
     }
+
+    .image-wrapper .jumbotron {
+      margin-left: 0;
+      margin-right: 0;
+    }
   }
 
   iframe {
