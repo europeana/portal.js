@@ -43,11 +43,11 @@
 
     middleware: 'sanitisePageQuery',
 
-    async fetch({ store, query, res }) {
+    async fetch({ store, query, res, $apis }) {
       await store.dispatch('search/activate');
       store.commit('search/set', ['userParams', query]);
 
-      await store.dispatch('search/run');
+      await store.dispatch('search/run', $apis.record.search);
       if (store.state.search.error && typeof res !== 'undefined') {
         res.statusCode = store.state.search.errorStatusCode;
       }

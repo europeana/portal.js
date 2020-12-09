@@ -330,22 +330,22 @@ export const actions = {
   /**
    * Run a Record API search and store the results
    */
-  async run({ dispatch, getters }) {
+  async run({ dispatch, getters }, search) {
     await dispatch('deriveApiSettings');
 
     await Promise.all([
-      getters.itemUpdateNeeded ? dispatch('queryItems') : () => null,
-      getters.facetUpdateNeeded ? dispatch('queryFacets') : () => null
+      getters.itemUpdateNeeded ? dispatch('queryItems', search) : () => null,
+      getters.facetUpdateNeeded ? dispatch('queryFacets', search) : () => null
     ]);
   },
 
-  queryItems({ dispatch, state, getters, rootGetters }) {
+  queryItems({ dispatch, state, getters }, search) {
     const paramsForItems = {
       ...state.apiParams,
       facet: null
     };
 
-    return rootGetters['apis/record'].search(paramsForItems, getters.searchOptions)
+    return search(paramsForItems, getters.searchOptions)
       .then(async(response) => {
         await dispatch('updateForSuccess', response);
       })
@@ -354,7 +354,7 @@ export const actions = {
       });
   },
 
-  queryFacets({ commit, getters, rootState, rootGetters, dispatch, state }) {
+  queryFacets({ commit, getters, rootState, rootGetters, dispatch, state }, search) {
     if (!state.active) return;
 
     const paramsForFacets = {
@@ -363,7 +363,7 @@ export const actions = {
       profile: 'facets'
     };
 
-    return rootGetters['apis/record'].search(paramsForFacets, getters.searchOptions)
+    return search(paramsForFacets, getters.searchOptions)
       .then((response) => {
         commit('setFacets', response.facets);
         const collection = getters.collection;

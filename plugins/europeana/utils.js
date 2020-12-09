@@ -1,3 +1,19 @@
+import axios from 'axios';
+
+export const createAxios = (api, baseURL, { $config, store, app }) => {
+  const axiosOptions = {
+    baseURL: store.state.apis.urls[api] || $config.europeana.apis[api].url || baseURL,
+    params: {
+      wskey: $config.europeana.apis[api].key
+    }
+  };
+
+  const axiosInstance = axios.create(axiosOptions);
+  if (app.$axiosLogger) axiosInstance.interceptors.request.use(app.$axiosLogger);
+
+  return axiosInstance;
+};
+
 export function apiError(error) {
   let statusCode = 500;
   let message = error.message;

@@ -122,8 +122,8 @@
         profile: 'dereference'
       };
       axios.all([
-        this.$store.getters['apis/annotation'].search(annotationSearchParams),
-        this.$store.getters['apis/entity'].findEntities(this.europeanaEntityUris),
+        this.$apis.annotation.search(annotationSearchParams),
+        this.$apis.entity.findEntities(this.europeanaEntityUris),
         this.getSimilarItems()
       ])
         .then(axios.spread((annotations, entities, similar) => {
@@ -137,8 +137,8 @@
 
     fetchOnServer: false,
 
-    asyncData({ params, res, store, app }) {
-      return store.getters['apis/record']
+    asyncData({ params, res, app, $apis }) {
+      return $apis.record
         .getRecord(`/${params.pathMatch}`, { locale: app.i18n.locale })
         .then(result => result.record)
         .catch(error => {
