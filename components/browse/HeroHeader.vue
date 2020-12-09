@@ -5,7 +5,7 @@
       fluid
       class="browse-jumbotron"
       data-qa="hero banner"
-      @click="toggleCite"
+      @click="!citeCollapsed ? toggleCite : null"
     >
       <b-card>
         <h1>
