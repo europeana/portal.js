@@ -512,6 +512,7 @@ export default {
   "newWindow": "opens in new window",
   "noMoreResults": "There are no more results for your search query.",
   "noResults": "No results",
+  "pageHasLoaded": "has loaded",
   "pages": {
     "collections": {
       "topics": {

@@ -17,3 +17,16 @@ Feature: Page layout on all pages.
   Scenario: Main navigation is visible
     When I open the `home page`
     Then I see the `desktop navigation`
+
+  Scenario: An aria-live region exists to announce route changes
+    When I visit the `home page`
+    Then I find the `vue announcer`
+
+  Scenario: After a route change the keyboard focus is at the top of the page
+    Given I am on the `search page`
+    And I see an `item preview`
+    When I click an `item preview`
+    Then I see an `item page`
+    Then The `top page` is active
+    And I press the TAB key
+    Then I see the `main content accessibility link`
