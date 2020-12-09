@@ -275,7 +275,7 @@
         if (this.error) return noSimilarItems;
 
         if (this.$config.app.features.recommendations && this.$auth.loggedIn) {
-          return this.$recommendations.recommend('record', this.identifier)
+          return this.$apis.recommendation.recommend('record', this.identifier)
             .then(recommendResponse => recommendResponse);
         }
 

@@ -224,7 +224,7 @@
       getRecommendations() {
         if (this.enableRecommendations && this.$auth.loggedIn) {
           if (this.set && this.set.total >= 0) {
-            return this.$recommendations.recommend('set', `/${this.$route.params.pathMatch}`)
+            return this.$apis.recommendation.recommend('set', `/${this.$route.params.pathMatch}`)
               .then(recommendResponse => {
                 this.recommendations = recommendResponse.items || [];
               });
