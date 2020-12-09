@@ -35,14 +35,6 @@ jobs:
     - run: echo "PULL_REQUEST_NUMBER=$(jq .pull_request.number ${GITHUB_EVENT_PATH})" >> $GITHUB_ENV
     - run: echo "CF_APP_NAME=${CF_APP_NAME_PREFIX}-${PULL_REQUEST_NUMBER}" >> $GITHUB_ENV
     - run: echo "CF_APP_FQDN=${CF_APP_NAME}.${CF_DOMAIN}" >> $GITHUB_ENV
-    - run: envsubst < .github/workflows/support/ci/.env > .env
-    - run: envsubst < .github/workflows/support/ci/vars.yml > vars.yml
-    - uses: actions/upload-artifact@v2
-      with:
-        name: config
-        path: |
-          .env
-          vars.yml
     - id: done
       name: Output generated env vars
       run: |
@@ -57,18 +49,12 @@ jobs:
       cf-space:  ${{ steps.done.outputs.cf-space }}
 
   build:
-    needs: config
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-node@v1
       with:
         node-version: 12.x
-    - uses: actions/download-artifact@v2
-      with:
-        path: tmp
-    - name: Restore build artifacts
-      run: mv tmp/.env/.env .
     - uses: actions/cache@v2
       id: cache-node
       with:
@@ -85,16 +71,13 @@ jobs:
         path: .nuxt/
 
   test-e2e:
-    needs: config
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-node@v1
       with:
         node-version: 12.x
-    - uses: actions/download-artifact@v2
-    - name: Restore build artifacts
-      run: mv config/.env docker/stack/app/.env
+    - run: envsubst < .github/workflows/support/ci/.env > docker/stack/app/.env
     - run: npm run test:e2e
 
   # TODO: limit to internal PRs, i.e. those from within the repo
@@ -102,16 +85,13 @@ jobs:
     needs: [config, build]
     runs-on: ubuntu-latest
     env:
-      PULL_REQUEST_NUMBER: ${{ needs.env.outputs.pull-request-number }}
-      CF_APP_NAME: ${{ needs.env.outputs.cf-app-name }}
-      CF_SPACE: ${{ needs.env.outputs.cf-space }}
+      PULL_REQUEST_NUMBER: ${{ needs.config.outputs.pull-request-number }}
+      CF_APP_NAME: ${{ needs.config.outputs.cf-app-name }}
+      CF_SPACE: ${{ needs.config.outputs.cf-space }}
     steps:
     - uses: actions/checkout@v2
     - uses: actions/download-artifact@v2
-    - name: Restore build artifacts
-      run: |
-        mv config/vars.yml .
-        ls -al
+    - run: envsubst < .github/workflows/support/ci/vars.yml > deploy/cloud-foundry/vars.yml
     # TODO: build and push a Docker image for this to speed it up?
     - name: Install CF CLI & plugins
       run: |
@@ -132,7 +112,7 @@ jobs:
         echo "::set-output name=cf-app-first-deploy::${CF_APP_FIRST_DEPLOY}"
     - name: Push to Cloud Foundry
       run: |
-        cf push ${CF_APP_NAME} -f deploy/cloud-foundry/manifest.yml --no-route --vars-file vars.yml
+        cf push ${CF_APP_NAME} -f deploy/cloud-foundry/manifest.yml --no-route --vars-file deploy/cloud-foundry/vars.yml
         cf map-route ${CF_APP_NAME} ${CF_DOMAIN} --hostname ${CF_APP_NAME}
     outputs:
       cf-app-first-deploy: ${{ steps.detect.outputs.cf-app-first-deploy }}
@@ -142,18 +122,13 @@ jobs:
     if: needs.deploy.outputs.cf-app-first-deploy == 'true'
     runs-on: ubuntu-latest
     env:
-      PULL_REQUEST_NUMBER: ${{ needs.env.outputs.pull-request-number }}
+      PULL_REQUEST_NUMBER: ${{ needs.config.outputs.pull-request-number }}
       PULL_REQUEST_TITLE: ${{ github.event.pull_request.title }}
       PULL_REQUEST_USER_LOGIN: ${{ github.event.pull_request.user.login }}
       PULL_REQUEST_USER_HTML_URL: ${{ github.event.pull_request.user.html_url }}
-      CF_APP_FQDN: ${{ needs.env.outputs.cf-app-fqdn }}
+      CF_APP_FQDN: ${{ needs.config.outputs.cf-app-fqdn }}
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/download-artifact@v2
-        with:
-          path: tmp
-      - name: Restore build artifacts
-        run: mv tmp/.env/.env .
       - name: Notify Slack
         run: |
           envsubst < .github/workflows/support/ci/slack-notification.json > tmp/slack-notification.json
