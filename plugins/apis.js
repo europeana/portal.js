@@ -17,9 +17,9 @@ const storeModule = {
   }),
 
   mutations: {
-    init(state, context) {
+    init(state, { req }) {
       for (const api in state.urls) {
-        state.urls[api] = apiUrlFromRequestHeaders(api, context.req.headers);
+        state.urls[api] = apiUrlFromRequestHeaders(api, req.headers);
       }
     }
   }

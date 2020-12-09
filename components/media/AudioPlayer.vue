@@ -13,7 +13,7 @@
     data-qa="audio player"
   >
     <source
-      :src="$store.getters['apis/record'].mediaProxyUrl(src, europeanaIdentifier)"
+      :src="$apis.record.mediaProxyUrl(src, europeanaIdentifier)"
       :type="type"
       data-qa="audio source"
     >

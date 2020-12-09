@@ -274,8 +274,10 @@ module.exports = {
       keycloak: {
         _scheme: '~/plugins/authScheme'
       }
-    },
-    plugins: [{ src: '~/plugins/authAxios' }]
+    }
+    // FIXME: disabled solely because it's catching errors it shouldn't and retrying
+    //        them endlessly. refine the refresh handling to mitigate.
+    // plugins: [{ src: '~/plugins/authAxios' }]
   },
 
   router: {

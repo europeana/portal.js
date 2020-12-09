@@ -46,7 +46,7 @@
     },
     computed: {
       imageLink() {
-        return this.$store.getters['apis/record'].mediaProxyUrl(this.media.about, this.europeanaIdentifier, { disposition: 'inline' });
+        return this.$apis.record.mediaProxyUrl(this.media.about, this.europeanaIdentifier, { disposition: 'inline' });
       }
     }
   };

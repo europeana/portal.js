@@ -61,7 +61,7 @@
         scope: 'europeana',
         fl: 'skos_prefLabel.*,isShownBy,isShownBy.thumbnail'
       };
-      return store.getters['apis/entity'].searchEntities(entityIndexParams)
+      return app.$apis.entity.searchEntities(entityIndexParams)
         .then(response => response)
         .then(data => {
           return {
