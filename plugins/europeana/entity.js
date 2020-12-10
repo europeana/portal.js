@@ -3,7 +3,7 @@ import { apiError, createAxios } from './utils';
 
 export const BASE_URL = process.env.EUROPEANA_ENTITY_API_URL || 'https://api.europeana.eu/entity';
 
-export default (context) => {
+export default (context = {}) => {
   const $axios = createAxios({ id: 'entity', baseURL: BASE_URL }, context);
 
   return {

@@ -2,6 +2,8 @@ import plugin from '../../../plugins/apis';
 
 import sinon from 'sinon';
 
+const inject = sinon.spy();
+
 describe('plugins/apis', () => {
   describe('store module', () => {
     let storeModule;
@@ -14,7 +16,7 @@ describe('plugins/apis', () => {
             storeModule = module;
           })
         }
-      });
+      }, inject);
     });
 
     describe('mutations', () => {
@@ -29,9 +31,9 @@ describe('plugins/apis', () => {
 
           storeModule.mutations.init(state, { $config: { europeana: { apis: {} } }, req: { headers } });
 
-          state.annotation.baseURL.should.eql('https://annotation.example.org');
-          state.entity.baseURL.should.eql('https://entity.example.org');
-          state.record.baseURL.should.eql('https://record.example.org');
+          state.urls.annotation.should.eql('https://annotation.example.org');
+          state.urls.entity.should.eql('https://entity.example.org');
+          state.urls.record.should.eql('https://record.example.org');
         });
       });
     });

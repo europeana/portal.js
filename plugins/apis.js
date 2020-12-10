@@ -26,7 +26,7 @@ const storeModule = {
       for (const api in state.urls) {
         const apiBaseURL = apiUrlFromRequestHeaders(api, req.headers);
 
-        if (apiBaseURL) this.$apis[api].$axios.defaults.baseURL = apiBaseURL;
+        if (apiBaseURL && this.$apis) this.$apis[api].$axios.defaults.baseURL = apiBaseURL;
         state.urls[api] = apiBaseURL;
       }
     }
@@ -46,7 +46,7 @@ export default (context, inject) => {
 
   inject(MODULE_NAME, plugin);
 
-  if (context.$auth.loggedIn) {
+  if (context.$auth && context.$auth.loggedIn) {
     context.store.dispatch('set/setLikes')
       .then(() => context.store.dispatch('set/fetchLikes'));
   }

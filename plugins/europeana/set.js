@@ -4,7 +4,7 @@ export const BASE_URL = process.env.EUROPEANA_SET_API_URL || 'https://api.europe
 
 const setIdFromUri = (uri) => uri.split('/').pop();
 
-export default (context) => {
+export default (context = {}) => {
   const $axios = createAxios({ id: 'set', baseURL: BASE_URL, $axios: context.$axios }, context);
 
   return {

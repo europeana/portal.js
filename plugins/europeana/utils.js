@@ -1,15 +1,25 @@
 import axios from 'axios';
 
 export const createAxios = ({ id, baseURL, $axios }, { $config, store, app }) => {
+  if (store && store.state && store.state.apis && store.state.apis.urls[id]) {
+    baseURL = store.state.apis.urls[id];
+  } else if ($config && $config.europeana && $config.europeana.apis) {
+    baseURL = $config.europeana.apis[id].url;
+  }
+  let wskey;
+  if ($config && $config.europeana && $config.europeana.apis) {
+    wskey = $config.europeana.apis[id].key;
+  }
+
   const axiosOptions = {
-    baseURL: store.state.apis.urls[id] || $config.europeana.apis[id].url || baseURL,
+    baseURL,
     params: {
-      wskey: $config.europeana.apis[id].key
+      wskey
     }
   };
 
   const axiosInstance = ($axios || axios).create(axiosOptions);
-  if (app.$axiosLogger) axiosInstance.interceptors.request.use(app.$axiosLogger);
+  if (app && app.$axiosLogger) axiosInstance.interceptors.request.use(app.$axiosLogger);
 
   return axiosInstance;
 };

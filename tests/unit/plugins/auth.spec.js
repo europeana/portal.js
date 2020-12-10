@@ -1,7 +1,7 @@
 import defu from 'defu';
 import nock from 'nock';
 
-import authAxios from '../../../plugins/authAxios';
+import auth from '../../../plugins/auth';
 import { BASE_URL } from '../../../plugins/europeana/set';
 import sinon from 'sinon';
 
@@ -55,14 +55,14 @@ const mockInject = (key, method) => {
   mockContext['$' + key] = method;
 };
 
-describe('authAxios plugin', () => {
+describe('auth plugin', () => {
   afterEach(() => {
     nock.cleanAll();
   });
 
   context('there is a user logged in', () => {
     it('puts the keycloak token in requests ', async() => {
-      authAxios(mockContext, mockInject);
+      auth(mockContext, mockInject);
       nock(BASE_URL)
         .matchHeader('Authorization', 'keycloak-mocked-token')
         .post('/')
@@ -73,23 +73,4 @@ describe('authAxios plugin', () => {
       nock.isDone().should.be.true;
     });
   });
-
-  // TODO: assess whether this behaviour is needed or not
-  // context('there is no user logged in', () => {
-  //   it('it redirects to login ',  async() => {
-  //     mockContext.redirect = function(param) {
-  //       mockContext.redirected = param;
-  //     };
-  //     mockContext.$auth.loggedIn = false;
-  //     authAxios(mockContext, mockInject);
-  //     nock(BASE_URL)
-  //       .post('/')
-  //       .reply(200, {
-  //         id: 1234
-  //       });
-  //
-  //     await mockContext.$sets.createLikes();
-  //     mockContext.redirected.should.equal('http://redirect.url.for.login');
-  //   });
-  // });
 });

@@ -1,4 +1,4 @@
-const refreshAccessToken = async({ $auth, redirect }, requestConfig) => {
+async function refreshAccessToken({ $auth, redirect }, requestConfig) {
   const refreshToken = $auth.getRefreshToken($auth.strategy.name);
   const options = $auth.strategy.options;
   // Nuxt Auth stores token type e.g. "Bearer " with token, but refresh_token
@@ -39,7 +39,7 @@ const refreshAccessToken = async({ $auth, redirect }, requestConfig) => {
 
   // Retry request with new access token
   return this.request(requestConfig);
-};
+}
 
 function errorHandler({ $auth, redirect }, error) {
   // 401 Unauthorized
