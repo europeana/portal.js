@@ -12,11 +12,9 @@ const factory = () => shallowMount(AudioPlayer, {
     type: 'audio/mpeg'
   },
   mocks: {
-    $store: {
-      getters: {
-        'apis/record': {
-          mediaProxyUrl: () => 'proxied'
-        }
+    $apis: {
+      record: {
+        mediaProxyUrl: () => 'proxied'
       }
     }
   },

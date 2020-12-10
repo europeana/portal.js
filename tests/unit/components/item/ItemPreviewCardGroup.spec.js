@@ -24,12 +24,14 @@ const factory = () => {
           set: { ...{ liked: [] }, ...{} }
         },
         getters: {
-          'apis/record': {
-            mediaProxyUrl: () => 'proxied'
-          },
           'set/isLiked': storeIsLikedGetter
         },
         dispatch: storeDispatch
+      },
+      $apis: {
+        record: {
+          mediaProxyUrl: () => 'proxied'
+        }
       }
     }
   });
