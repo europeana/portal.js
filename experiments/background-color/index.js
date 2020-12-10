@@ -5,7 +5,7 @@ export default {
   name: 'background-color',
 
   // Google optimize experiment id
-  experimentID: '....',
+  experimentID: '6XBDYccRBTieVKMH8O2yZLg',
 
   // Implemented variants and their weights
   variants: [
