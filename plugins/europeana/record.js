@@ -202,9 +202,9 @@ export default (axiosOverrides) => {
       const concepts = (edm.concepts || []).map(reduceEntity).map(Object.freeze);
       const places = (edm.places || []).map(reduceEntity).map(Object.freeze);
       const agents = (edm.agents || []).map(reduceEntity).map(Object.freeze);
-      const timespans = (edm.timespans || []).map(reduceEntity).map(Object.freeze);
+      const times = (edm.timespans || []).map(reduceEntity).map(Object.freeze);
 
-      const entities = [].concat(concepts, places, agents, timespans)
+      const entities = [].concat(concepts, places, agents, times)
         .filter(isNotUndefined)
         .reduce((memo, entity) => {
           memo[entity.about] = entity;
@@ -223,6 +223,7 @@ export default (axiosOverrides) => {
         media: this.aggregationMedia(providerAggregation, edm.type, edm.services),
         agents,
         concepts,
+        times,
         title: proxyData.dcTitle
       };
     },
