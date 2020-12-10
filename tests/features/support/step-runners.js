@@ -150,7 +150,8 @@ module.exports = {
   async acceptCookies() {
     await client.expect.element('.cookie-disclaimer').to.be.visible;
     await client.click('.cookie-disclaimer .accept-btn');
-    await client.expect.element('.cookie-disclaimer').to.not.be.visible;
+    await client.pause(1000);
+    await client.expect.element('.cookie-disclaimer').to.not.be.present;
   },
   async havePreviouslyAcceptedCookies() {
     /* eslint-disable prefer-arrow-callback */
@@ -294,5 +295,8 @@ module.exports = {
   },
   async moveToElement(qaElementName) {
     await client.moveToElement(qaSelector(qaElementName), 10, 10);
+  },
+  async isActive(qaElementName) {
+    await client.expect.element(qaSelector(qaElementName)).to.be.active;
   }
 };

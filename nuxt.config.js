@@ -196,7 +196,8 @@ module.exports = {
     '~/plugins/link',
     '~/plugins/page',
     '~/plugins/vue-filters',
-    '~/plugins/vue-directives'
+    '~/plugins/vue-directives',
+    { src: '~/plugins/vue-announcer', mode: 'client' }
   ],
 
   buildModules: [
