@@ -25,7 +25,7 @@
       BlogPost
     },
 
-    asyncData({ params, query, error, app, store }) {
+    asyncData({ params, query, error, app, store, redirect }) {
       const variables = {
         identifier: params.pathMatch,
         locale: app.i18n.isoLocale(),
@@ -36,8 +36,7 @@
         .then(response => response.data.data)
         .then(data => {
           if (data.blogPostingCollection.items.length === 0) {
-            error({ statusCode: 404, message: app.i18n.t('messages.notFound') });
-            return;
+            return redirect(302, '/blog');
           }
 
           const post = data.blogPostingCollection.items[0];
