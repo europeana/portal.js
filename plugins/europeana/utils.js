@@ -3,7 +3,7 @@ import axios from 'axios';
 export const createAxios = ({ id, baseURL, $axios }, { $config, store, app }) => {
   if (store && store.state && store.state.apis && store.state.apis.urls[id]) {
     baseURL = store.state.apis.urls[id];
-  } else if ($config && $config.europeana && $config.europeana.apis) {
+  } else if ($config && $config.europeana && $config.europeana.apis && $config.europeana.apis[id].url) {
     baseURL = $config.europeana.apis[id].url;
   }
   let wskey;
