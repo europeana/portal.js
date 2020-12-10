@@ -48,7 +48,7 @@ function errorHandler({ $auth, redirect }, error) {
     if ($auth.loggedIn && refreshToken) {
       // User has previously logged in, and we have a refresh token, e.g.
       // access token has expired
-      return refreshAccessToken.call(this, error.config);
+      return refreshAccessToken.call(this, { $auth, redirect }, error.config);
     } else {
       // User has not already logged in, or we have no refresh token:
       // redirect to OIDC login URL
