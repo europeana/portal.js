@@ -1,7 +1,7 @@
 // Redirect legacy entity page URLs
 
 export default (route) => {
-  const pattern = /^\/portal(\/[a-z]{2})?(\/explore\/(people|topics))(\/[0-9]+)/;
+  const pattern = /^\/portal(\/[a-z]{2})?(\/explore\/(people|topics|times))(\/[0-9]+)/;
   const match = route.path.match(pattern);
 
   return match ? {
