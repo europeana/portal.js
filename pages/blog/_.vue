@@ -84,7 +84,7 @@
       return {
         title: this.$pageHeadTitle(this.post.name),
         meta: [
-          { hid: 'og:type', property: 'og:type', content: 'blog post' },
+          { hid: 'og:type', property: 'og:type', content: 'article' },
           { hid: 'title', name: 'title', content: this.post.name },
           { hid: 'og:title', property: 'og:title', content: this.post.name }
         ].concat(this.post.description ? [
