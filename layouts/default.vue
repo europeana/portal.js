@@ -1,8 +1,16 @@
 <template>
   <div>
     <client-only>
+      <VueAnnouncer
+        v-if="enableAnnouncer"
+        data-qa="vue announcer"
+      />
       <CookieDisclaimer />
     </client-only>
+    <div
+      ref="resetfocus"
+      data-qa="top page"
+    />
     <a
       class="skip-main"
       href="#main"
@@ -79,12 +87,14 @@
         };
       }
       this.linkGroups = linkGroups;
+      if (this.$announcer) this.$announcer.setComplementRoute(this.$t('pageHasLoaded'));
     },
 
     data() {
       return {
         ...config,
-        linkGroups: {}
+        linkGroups: {},
+        enableAnnouncer: true
       };
     },
 
@@ -99,7 +109,23 @@
     },
 
     watch: {
-      '$i18n.locale': '$fetch'
+      '$i18n.locale': '$fetch',
+      $route(to, from) {
+        this.$nextTick(() => {
+          if (to.path === from.path) {
+            this.enableAnnouncer = false;
+          } else {
+            this.$refs.resetfocus.setAttribute('tabindex', '0');
+            this.$refs.resetfocus.focus();
+            this.enableAnnouncer = true;
+          }
+        });
+      }
+
+    },
+
+    mounted() {
+      this.$announcer.setComplementRoute(this.$t('pageHasLoaded'));
     },
 
     head() {

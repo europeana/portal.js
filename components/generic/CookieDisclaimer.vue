@@ -1,5 +1,6 @@
 <template>
   <div
+    v-if="!accepted"
     ref="banner"
     :class="{ 'is-open' : isOpen }"
     :style="bottomPosition"
@@ -45,6 +46,7 @@
     data() {
       return {
         isOpen: false,
+        accepted: false,
         COOKIE_CONSENT: 'cookieConsent',
         bannerHeight: 0
       };
@@ -59,8 +61,11 @@
     mounted() {
       const status = this.getCookieStatus();
 
-      if (status !== 'accepted') {
+      if (status === 'accepted') {
+        this.accepted = true;
+      } else {
         this.isOpen = true;
+        this.accepted = false;
       }
 
       this.setBannerHeight();
@@ -69,12 +74,14 @@
 
     methods: {
       setBannerHeight() {
-        this.bannerHeight = this.$refs.banner.getBoundingClientRect().height;
+        if (this.$refs.banner) this.bannerHeight = this.$refs.banner.getBoundingClientRect().height;
       },
 
       accept() {
         this.setCookieStatus();
         this.isOpen = false;
+        // time out 400ms to allow the css transition to finish
+        setTimeout(() => this.accepted = true, 400);
       },
 
       setCookieStatus() {
