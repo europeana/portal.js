@@ -7,7 +7,7 @@ export default (route) => {
   return match ? {
     path: [
       match[1],
-      match[2].replace('/explore', '/collections').replace('/people', '/person').replace('/topics', '/topic'),
+      match[2].replace('/explore', '/collections').replace('/people', '/person').replace('/topics', '/topic').replace('/times', '/timespan'),
       match[4]
     ]
   } : null;

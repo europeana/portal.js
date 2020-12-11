@@ -161,6 +161,8 @@
         recordsPerPage: state => state.entity.recordsPerPage
       }),
       description() {
+        console.log(this.entity);
+        console.log(this.relatedEntities);
         return this.editorialDescription ? { values: [this.editorialDescription], code: null } : null;
       },
       descriptionText() {
