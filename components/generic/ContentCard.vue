@@ -10,7 +10,7 @@
       link-class="card-link"
     >
       <div
-        v-if="cardImageUrl"
+        v-if="imageUrl"
         class="card-img"
       >
         <b-img-lazy
@@ -176,7 +176,6 @@
     },
     data() {
       return {
-        cardImageUrl: this.imageUrl,
         displayLabelTypes: 'exhibitions|galleries|blog'
       };
     },
@@ -248,7 +247,7 @@
       },
 
       imageNotFound() {
-        this.cardImageUrl = '';
+        this.imageUrl = '';
       }
     }
   };
