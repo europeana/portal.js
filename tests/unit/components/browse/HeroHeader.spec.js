@@ -1,23 +1,29 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
-import HeroImage from '../../../../components/generic/HeroImage.vue';
+import HeroHeader from '../../../../components/browse/HeroHeader.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
-const factory = () => mount(HeroImage, {
+const requiredProps = {
+  heroImage: { image: { url: 'https://example.org' } },
+  title: 'Welcome to Europeana',
+  description: 'Explore millions of items!'
+};
+
+const factory = () => mount(HeroHeader, {
   localVue,
   mocks: {
     $config: { app: { internalLinkDomain: null } },
     $path: () => '/',
     $t: (key) => key
-  }
+  },
+  propsData: requiredProps
 });
 
-describe('components/generic/HeroImage', () => {
+describe('components/generic/HeroHeader', () => {
   it('has a background image', () => {
     const wrapper = factory();
-    wrapper.setProps({ imageUrl: 'https://example.org' });
 
     const hero = wrapper.find('[data-qa="hero banner"]');
     hero.attributes().style.should.contain('https://example.org');
@@ -25,25 +31,24 @@ describe('components/generic/HeroImage', () => {
 
   it('has a title', () => {
     const wrapper = factory();
-    wrapper.setProps({ header: 'Welcome at Europeana' });
 
     const title = wrapper.find('[data-qa="hero banner"] h1');
-    title.text().should.contain('Welcome at Europeana');
+    title.text().should.contain('Welcome to Europeana');
   });
 
   it('has a description', () => {
     const wrapper = factory();
-    wrapper.setProps({ lead: 'Explore artworks, artefacts, books, films and music' });
 
     const description = wrapper.find('[data-qa="hero banner"] .lead');
-    description.text().should.contain('Explore artworks, artefacts, books, films and music');
+    description.text().should.contain('Explore millions of items!');
   });
 
-  it('has an attribution', () => {
+  it('has a cta', () => {
     const wrapper = factory();
-    wrapper.setProps({ creator: 'Johannes Vermeer' });
+    wrapper.setProps({ cta: { text: 'Click here!', url: 'http://www.example.org/cta' } });
 
-    const attribution = wrapper.find('[data-qa="hero banner"] cite a');
-    attribution.text().should.contain('Johannes Vermeer');
+    const cta = wrapper.find('a');
+    cta.text().should.contain('Click here!');
+    cta.attributes('href').should.contain('http://www.example.org/cta');
   });
 });

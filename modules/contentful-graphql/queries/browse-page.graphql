@@ -10,15 +10,18 @@ query BrowsePage(
       headline
       description
       primaryImageOfPage {
+         __typename
         ... on ImageWithAttribution {
-          name
-          creator
-          provider
-          license
-          url
+          ...imageWithAttributionFields
+        }
+        ... on HeroHeader{
+          title
+          headline
+          link {
+            ... linkFields
+          }
           image {
-            url
-            contentType
+           ... imageWithAttributionFields
           }
         }
       }
@@ -74,4 +77,21 @@ query BrowsePage(
       }
     }
   }
+}
+fragment imageWithAttributionFields on ImageWithAttribution {
+  name
+  creator
+  provider
+  license
+  url
+  image {
+    url
+    contentType
+    width
+    height
+  }
+}
+fragment linkFields on Link {
+  url
+  text
 }
