@@ -88,7 +88,7 @@
         if (post.primaryImageOfPage) {
           return post.primaryImageOfPage.image.url;
         }
-        return null;
+        return '';
       },
       imageContentType(post) {
         if (post.primaryImageOfPage) {

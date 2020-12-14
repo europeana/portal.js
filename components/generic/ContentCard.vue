@@ -10,7 +10,7 @@
       link-class="card-link"
     >
       <div
-        v-if="imageUrl"
+        v-if="cardImageUrl"
         class="card-img"
       >
         <b-img-lazy
@@ -176,6 +176,7 @@
     },
     data() {
       return {
+        cardImageUrl: this.imageUrl,
         displayLabelTypes: 'exhibitions|galleries|blog'
       };
     },
@@ -237,6 +238,12 @@
       }
     },
 
+    watch: {
+      imageUrl() {
+        return this.cardImageUrl = this.imageUrl;
+      }
+    },
+
     methods: {
       cardText(values) {
         const limited = (this.limitValuesWithinEachText > -1) ? values.slice(0, this.limitValuesWithinEachText) : [].concat(values);
@@ -247,7 +254,7 @@
       },
 
       imageNotFound() {
-        this.imageUrl = '';
+        this.cardImageUrl = '';
       }
     }
   };
