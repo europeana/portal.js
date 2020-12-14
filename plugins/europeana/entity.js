@@ -155,7 +155,7 @@ export function getEntityQuery(uri) {
   } else if (uri.includes('/agent/base/')) {
     return `edm_agent:"${uri}"`;
   } else if (uri.includes('/timespan/')) {
-    return `edm_agent:"${uri}"`;
+    return `edm_timespan:"${uri}"`;
   }
   return null;
 }
