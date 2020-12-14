@@ -240,7 +240,7 @@
 
     watch: {
       imageUrl() {
-        return this.cardImageUrl = this.imageUrl;
+        this.cardImageUrl = this.imageUrl;
       }
     },
 
