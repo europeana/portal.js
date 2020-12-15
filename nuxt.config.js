@@ -274,7 +274,7 @@ module.exports = {
         _scheme: '~/plugins/authScheme'
       }
     },
-    plugins: ['~/plugins/auth', '~/plugins/apis']
+    plugins: ['~/plugins/apis']
   },
 
   router: {
