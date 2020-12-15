@@ -8,7 +8,7 @@
       text-variant="white"
       class="mt-2"
       :class="hero ? 'hero' : ''"
-      @click="toggleCite"
+      @click="!citeCollapsed ? toggleCite : null"
     >
       <figure>
         <OptimisedImage
