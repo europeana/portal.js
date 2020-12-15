@@ -106,16 +106,6 @@ module.exports = {
   ],
 
   buildModules: [
-    // Doc: https://www.elastic.co/guide/en/apm/agent/rum-js/current/configuration.html
-    ['~/modules/elastic-apm', {
-      serviceName: 'portal-js',
-      serviceVersion: pkg.version,
-      serverUrl: process.env['ELASTIC_APM_SERVER_URL'],
-      environment: process.env['ELASTIC_APM_ENVIRONMENT'] || 'development',
-      logLevel: process.env['ELASTIC_APM_LOG_LEVEL'] || 'info',
-      frameworkName: 'Nuxt.js',
-      frameworkVersion: require('nuxt/package.json').version
-    }],
     '~/modules/contentful-graphql',
     '~/modules/axios-logger',
     ['~/modules/http', {
@@ -141,6 +131,16 @@ module.exports = {
   ** Nuxt.js modules
   */
   modules: [
+    // Doc: https://www.elastic.co/guide/en/apm/agent/rum-js/current/configuration.html
+    ['~/modules/elastic-apm', {
+      serviceName: 'portal-js',
+      serviceVersion: pkg.version,
+      serverUrl: process.env['ELASTIC_APM_SERVER_URL'],
+      environment: process.env['ELASTIC_APM_ENVIRONMENT'] || 'development',
+      logLevel: process.env['ELASTIC_APM_LOG_LEVEL'] || 'info',
+      frameworkName: 'Nuxt.js',
+      frameworkVersion: require('nuxt/package.json').version
+    }],
     '@nuxtjs/axios',
     '@nuxtjs/dotenv',
     'bootstrap-vue/nuxt',
