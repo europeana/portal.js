@@ -30,16 +30,15 @@ export default (context = {}) => {
      * Get entity suggestions from the API
      * @param {string} text the query text to supply suggestions for
      * @param {Object} params additional parameters sent to the API
-     * @param {string} params.language language(s), comma-separated, to request
      */
     getEntitySuggestions(text, params = {}) {
       return this.$axios.get('/suggest', {
         params: {
           ...this.$axios.defaults.params,
-          ...params,
           text,
           type: 'agent,concept',
-          scope: 'europeana'
+          scope: 'europeana',
+          ...params
         }
       })
         .then(response => response.data.items ? response.data.items : [])
