@@ -61,7 +61,7 @@
     .container {
       .card {
         margin: 1rem;
-        max-width: 50%;
+        width: 50%;
         border: none;
         color: $black;
         .btn {
@@ -242,7 +242,7 @@
       background-size: 56.5rem;
       background-position: center top;
       .card {
-        max-width: 70%;
+        width: 70%;
       }
     }
   }
@@ -253,7 +253,7 @@
     .jumbotron.browse-jumbotron {
       border-radius: 0;
       .card {
-        max-width: 100%;
+        width: 100%;
         margin: 0;
         border-radius: 0;
         h1 {
