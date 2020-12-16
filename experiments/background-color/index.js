@@ -9,8 +9,8 @@ export default {
 
   // Implemented variants and their weights
   variants: [
-    { weight: 0 }, // <-- This is the default variant
-    { weight: 2 },
-    { weight: 1 }
+    { weight: 33 }, // <-- This is the default variant
+    { weight: 33 },
+    { weight: 33 }
   ]
 };
