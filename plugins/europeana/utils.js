@@ -3,29 +3,10 @@ import axios from 'axios';
 import { keycloakResponseErrorHandler } from './auth';
 
 export const createAxios = ({ id, baseURL, $axios }, context) => {
-  const store = context.store;
-  const $config = context.$config;
-  const app = context.app;
-
-  if (store && store.state && store.state.apis && store.state.apis.urls[id]) {
-    baseURL = store.state.apis.urls[id];
-  } else if ($config && $config.europeana && $config.europeana.apis && $config.europeana.apis[id].url) {
-    baseURL = $config.europeana.apis[id].url;
-  }
-  let wskey;
-  if ($config && $config.europeana && $config.europeana.apis) {
-    wskey = $config.europeana.apis[id].key;
-  }
-
-  const axiosOptions = {
-    baseURL,
-    params: {
-      wskey
-    }
-  };
-
+  const axiosOptions = axiosInstanceOptions({ id, baseURL }, context);
   const axiosInstance = ($axios || axios).create(axiosOptions);
 
+  const app = context.app;
   if (app && app.$axiosLogger) axiosInstance.interceptors.request.use(app.$axiosLogger);
 
   if (context.$auth && (context.$auth.strategy.name === 'keycloak') && axiosInstance.defaults.headers.common['Authorization']) {
@@ -33,6 +14,30 @@ export const createAxios = ({ id, baseURL, $axios }, context) => {
   }
 
   return axiosInstance;
+};
+
+const storedAPIBaseURL = (store, id) => {
+  if (store && store.state && store.state.apis && store.state.apis.urls[id]) {
+    return store.state.apis.urls[id];
+  }
+};
+
+const apiConfig = ($config, id) => {
+  if ($config && $config.europeana && $config.europeana.apis && $config.europeana.apis[id]) {
+    return $config.europeana.apis[id];
+  } else {
+    return {};
+  }
+};
+
+const axiosInstanceOptions = ({ id, baseURL }, { store, $config }) => {
+  const config = apiConfig($config, id);
+  return {
+    baseURL: storedAPIBaseURL(store, id) || config.url || baseURL,
+    params: {
+      wskey: config.key
+    }
+  };
 };
 
 // TODO: extend to be more verbose in development environments, e.g. with stack trace
