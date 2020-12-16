@@ -3,16 +3,6 @@ import { keycloakResponseErrorHandler } from '../../../../plugins/europeana/auth
 import merge from 'deepmerge';
 import sinon from 'sinon';
 
-// class ResponseError extends Error {
-//   constructor(status) {
-//     super(status);
-//     this.response = {
-//       status
-//     };
-//     this.config = { headers: {} };
-//   }
-// }
-
 const mockContext = (options = {}) => {
   const defaults = {
     $auth: {
@@ -42,14 +32,10 @@ const mockContext = (options = {}) => {
 describe('plugins/europeana/auth', () => {
   describe('keycloakResponseErrorHandler', () => {
     context('when response status is 401', () => {
-      // FIXME: this should really be an actual error object
-      const error = {
-        config: {
-          headers: {}
-        },
-        response: {
-          status: 401
-        }
+      const error = new Error(401);
+      error.response = { status: 401 };
+      error.config = {
+        headers: {}
       };
 
       context('and the user is logged in with a refresh token', () => {
@@ -120,14 +106,12 @@ describe('plugins/europeana/auth', () => {
     });
 
     context('when response status is not 401', () => {
-      // FIXME: this fails because it raises the error during the test run
-      // const error = new ResponseError(500);
-      //
-      // it('rejects it', async() => {
-      //   const response = await keycloakResponseErrorHandler({}, error);
-      //
-      //   response.should.be.rejected;
-      // });
+      it('rejects it', () => {
+        const error = new Error(500);
+        error.response = { status: 500 };
+        const response = keycloakResponseErrorHandler({}, error);
+        response.should.be.rejected;
+      });
     });
   });
 });
