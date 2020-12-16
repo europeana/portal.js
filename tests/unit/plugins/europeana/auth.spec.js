@@ -1,4 +1,4 @@
-import authPlugin from '../../../plugins/auth';
+import { keycloakResponseErrorHandler } from '../../../../plugins/europeana/auth';
 
 import merge from 'deepmerge';
 import sinon from 'sinon';
@@ -39,26 +39,8 @@ const mockContext = (options = {}) => {
   return merge(defaults, options);
 };
 
-describe('auth plugin', () => {
-  it('registers response error handler', () => {
-    const $axios = {
-      onResponseError: sinon.spy()
-    };
-
-    authPlugin({ $axios });
-
-    $axios.onResponseError.should.have.been.called;
-  });
-
-  describe('error handler', () => {
-    const $axios = {
-      onResponseError(errorHandler) {
-        this.errorHandler = errorHandler;
-      },
-      request: sinon.spy()
-    };
-    authPlugin({ $axios });
-
+describe('plugins/europeana/auth', () => {
+  describe('keycloakResponseErrorHandler', () => {
     context('when response status is 401', () => {
       // FIXME: this should really be an actual error object
       const error = {
@@ -79,7 +61,7 @@ describe('auth plugin', () => {
         });
 
         it('attempts to refresh the access token', async() => {
-          await $axios.errorHandler(ctx, error);
+          await keycloakResponseErrorHandler(ctx, error);
 
           ctx.$auth.request.should.have.been.called;
         });
@@ -92,26 +74,29 @@ describe('auth plugin', () => {
               request: sinon.stub().resolves({
                 accessToken: 'new'
               })
+            },
+            $axios: {
+              request: sinon.spy()
             }
           });
 
           it('stores the new access token', async() => {
-            await $axios.errorHandler(ctx, error);
+            await keycloakResponseErrorHandler(ctx, error);
 
             ctx.$auth.setToken.should.have.been.calledWith('strategy', 'new');
             ctx.$auth.strategy['_setToken'].should.have.been.calledWith('new');
           });
 
           it('retries the original request', async() => {
-            await $axios.errorHandler(ctx, error);
+            await keycloakResponseErrorHandler(ctx, error);
 
-            $axios.request.should.have.been.called;
+            ctx.$axios.request.should.have.been.called;
           });
         });
 
         context('when it could not refresh the access token', () => {
           it('redirects to the login URL', async() => {
-            await $axios.errorHandler(ctx, error);
+            await keycloakResponseErrorHandler(ctx, error);
 
             ctx.redirect.should.have.been.calledWith('http://example.org/login');
           });
@@ -127,7 +112,7 @@ describe('auth plugin', () => {
         });
 
         it('redirects to the login URL', async() => {
-          await $axios.errorHandler(ctx, error);
+          await keycloakResponseErrorHandler(ctx, error);
 
           ctx.redirect.should.have.been.calledWith('http://example.org/login');
         });
@@ -139,7 +124,7 @@ describe('auth plugin', () => {
       // const error = new ResponseError(500);
       //
       // it('rejects it', async() => {
-      //   const response = await $axios.errorHandler({}, error);
+      //   const response = await keycloakResponseErrorHandler({}, error);
       //
       //   response.should.be.rejected;
       // });
