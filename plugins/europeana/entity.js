@@ -182,7 +182,7 @@ export function getEntityTypeApi(type) {
   const names = {
     person: 'agent',
     topic: 'concept',
-    times: 'timespan'
+    time: 'timespan'
   };
   if (!type) return;
   return names[type];

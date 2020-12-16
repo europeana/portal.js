@@ -57,7 +57,7 @@
       const entityIndexParams = {
         query: '*:*',
         page: store.state.sanitised.page - 1,
-        type: getEntityTypeApi(params.type),
+        type: getEntityTypeApi(params.type.slice(0, -1)),
         pageSize: PER_PAGE,
         scope: 'europeana',
         sort: `skos_prefLabel.${app.i18n.locale}`,
