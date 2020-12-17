@@ -169,7 +169,7 @@ export function getEntityQuery(uri) {
  * @return {Boolean} true if the URI is a valid entity URI
  */
 export function isEntityUri(uri, types) {
-  types = types ? types : ['concept', 'agent', 'place', 'timespan'];
+  types = types ? types : ['concept', 'agent', 'place', 'period'];
   return RegExp(`^http://data\\.europeana\\.eu/(${types.join('|')})/base/\\d+$`).test(uri);
 }
 
@@ -182,7 +182,7 @@ export function getEntityTypeApi(type) {
   const names = {
     person: 'agent',
     topic: 'concept',
-    time: 'timespan'
+    times: 'timespan'
   };
   if (!type) return;
   return names[type];
