@@ -44,7 +44,6 @@
         :media-url="selectedMedia.about"
       >
         <ItemEmbedCode
-          v-if="enableItemEmbedCode"
           :identifier="identifier"
         />
       </SocialShareModal>
@@ -87,7 +86,6 @@
     },
     data() {
       return {
-        enableItemEmbedCode: this.$config.app.features.itemEmbedCode,
         selectedMediaItem: null
       };
     },

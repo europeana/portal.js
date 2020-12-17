@@ -19,7 +19,6 @@ module.exports = {
       internalLinkDomain: process.env.INTERNAL_LINK_DOMAIN,
       siteName: APP_SITE_NAME,
       features: {
-        itemEmbedCode: featureIsEnabled(process.env.ENABLE_ITEM_EMBED_CODE),
         linksToClassic: featureIsEnabled(process.env.ENABLE_LINKS_TO_CLASSIC),
         recommendations: featureIsEnabled(process.env.ENABLE_RECOMMENDATIONS)
       }
