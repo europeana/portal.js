@@ -238,6 +238,12 @@
       }
     },
 
+    watch: {
+      imageUrl() {
+        this.cardImageUrl = this.imageUrl;
+      }
+    },
+
     methods: {
       cardText(values) {
         const limited = (this.limitValuesWithinEachText > -1) ? values.slice(0, this.limitValuesWithinEachText) : [].concat(values);

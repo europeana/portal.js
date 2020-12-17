@@ -48,7 +48,8 @@ export default (axiosOverrides) => {
           ...params,
           text,
           type: 'agent,concept,timespan',
-          scope: 'europeana'
+          scope: 'europeana',
+          ...params
         }
       })
         .then(response => response.data.items ? response.data.items : [])
