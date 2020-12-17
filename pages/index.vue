@@ -10,7 +10,7 @@
       class="mb-3"
     />
     <HeroHeader
-      v-if="hero"
+      v-if="heroImage"
       :hero-image="heroImage"
       :title="heroTitle"
       :description="heroDescription"
@@ -83,10 +83,17 @@
         return this.primaryImageOfPage ? this.primaryImageOfPage : null;
       },
       heroImage() {
-        if (this.hero && this.hero['__typename'] === 'ImageWithAttribution') {
-          return this.hero;
+        let heroImage = null;
+
+        if (this.hero) {
+          if ((this.hero['__typename'] === 'ImageWithAttribution') && this.hero.image) {
+            heroImage = this.hero;
+          } else if (this.hero.image && this.hero.image.image) {
+            heroImage = this.hero.image;
+          }
         }
-        return this.hero ? this.hero.image : null;
+
+        return heroImage;
       },
       heroCta() {
         if (this.hero && this.hero['__typename'] === 'ImageWithAttribution') {
