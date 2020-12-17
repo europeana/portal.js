@@ -25,7 +25,6 @@ pipeline {
     stage('Build') {
       steps {
         configFileProvider([
-          configFile(fileId: "portaljs.${env.CF_SPACE}.env", targetLocation: '.env'),
           configFile(fileId: "portaljs.${env.CF_SPACE}.vars.yml", targetLocation: 'deploy/cloud-foundry/vars.yml'),
         ]) {
           sh 'rm -rf node_modules'

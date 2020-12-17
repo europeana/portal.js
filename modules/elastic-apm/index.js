@@ -1,25 +1,25 @@
 import path from 'path';
 import apm from 'elastic-apm-node';
+import merge from 'deepmerge';
 
 const MODULE_NAME = 'elastic-apm';
 
-export default function(moduleOptions) {
-  if (!moduleOptions.serverUrl) return;
-
-  this.addTemplate({
-    src: path.resolve(__dirname, path.join('templates', 'options.ejs')),
-    fileName: path.join(MODULE_NAME, 'options.js'),
-    options: moduleOptions
-  });
-
+export default function() {
   this.addPlugin({
     src: path.resolve(__dirname, 'plugin.js'),
     fileName: path.join(MODULE_NAME, 'plugin.js')
   });
 
-  this.nuxt.hook('ready', async() => {
+  this.nuxt.hook('ready', async(nuxt) => {
+    // $config is not available here, so read runtime config manually
+    // TODO: find a better way of doing this
+    const $config = merge(nuxt.options.publicRuntimeConfig, nuxt.options.privateRuntimeConfig);
+    const config = ($config.elastic ? $config.elastic.apm : undefined) || {};
+
+    if (!config.serverUrl) return;
+
     if (!apm.isStarted())  {
-      await apm.start(moduleOptions);
+      await apm.start(config);
 
       // Now explicitly require the modules we want APM to hook into, as otherwise
       // they would not be instrumented.

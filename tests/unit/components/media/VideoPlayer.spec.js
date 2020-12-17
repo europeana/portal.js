@@ -12,11 +12,9 @@ const factory = () => shallowMount(VideoPlayer, {
     type: 'video/webm'
   },
   mocks: {
-    $store: {
-      getters: {
-        'apis/record': {
-          mediaProxyUrl: () => 'proxied'
-        }
+    $apis: {
+      record: {
+        mediaProxyUrl: () => 'proxied'
       }
     }
   },

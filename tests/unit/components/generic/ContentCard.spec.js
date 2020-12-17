@@ -18,6 +18,7 @@ const $store = {
 const factory = () => mount(ContentCard, {
   localVue,
   mocks: {
+    $config: { app: { internalLinkDomain: null } },
     $i18n: {
       locale: 'en'
     },

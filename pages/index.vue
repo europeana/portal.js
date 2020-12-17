@@ -3,7 +3,7 @@
     data-qa="browse page"
   >
     <NotificationBanner
-      v-if="onHomePage"
+      v-if="showNotificationBanner"
       :notification-url="notificationUrl"
       :notification-text="$t('linksToClassic.home.text')"
       :notification-link-text="$t('linksToClassic.home.linkText')"
@@ -64,8 +64,8 @@
         });
     },
     computed: {
-      onHomePage() {
-        return Boolean(Number(process.env.ENABLE_LINKS_TO_CLASSIC)) && (this.identifier === 'home');
+      showNotificationBanner() {
+        return this.$config.app.features.linksToClassic && (this.identifier === 'home');
       },
       notificationUrl() {
         return `https://classic.europeana.eu/portal/${this.$store.state.i18n.locale}?utm_source=new-website&utm_medium=button`;

@@ -1,11 +1,13 @@
 import { ApmVuePlugin } from '@elastic/apm-rum-vue';
 import Vue from 'vue';
 
-import options from './options';
+export default ({ app, $config }) => {
+  const config = ($config && $config.elastic ? $config.elastic.apm : undefined) || {};
 
-export default ({ app }) => {
+  if (!config.serverUrl) return;
+
   Vue.use(ApmVuePlugin, {
-    config: options,
+    config,
     router: app.router
   });
 };

@@ -122,8 +122,8 @@
         profile: 'dereference'
       };
       axios.all([
-        this.$store.getters['apis/annotation'].search(annotationSearchParams),
-        this.$store.getters['apis/entity'].findEntities(this.europeanaEntityUris),
+        this.$apis.annotation.search(annotationSearchParams),
+        this.$apis.entity.findEntities(this.europeanaEntityUris),
         this.getSimilarItems()
       ])
         .then(axios.spread((annotations, entities, similar) => {
@@ -137,8 +137,8 @@
 
     fetchOnServer: false,
 
-    asyncData({ params, res, store, app }) {
-      return store.getters['apis/record']
+    asyncData({ params, res, app, $apis }) {
+      return $apis.record
         .getRecord(`/${params.pathMatch}`, { locale: app.i18n.locale })
         .then(result => result.record)
         .catch(error => {
@@ -247,7 +247,7 @@
         return `https://classic.europeana.eu/portal/${this.$i18n.locale}/record${this.identifier}.html?utm_source=new-website&utm_medium=button`;
       },
       redirectNotificationsEnabled() {
-        return Boolean(Number(process.env.ENABLE_LINKS_TO_CLASSIC));
+        return this.$config.app.features.linksToClassic;
       },
       pageHeadMetaOgImage() {
         return this.media[0] ? this.media[0].thumbnails.large : null;
@@ -274,8 +274,8 @@
         const noSimilarItems = { results: [] };
         if (this.error) return noSimilarItems;
 
-        if (Boolean(Number(process.env.ENABLE_RECOMMENDATIONS)) && this.$auth.loggedIn) {
-          return this.$recommendations.recommend('record', this.identifier)
+        if (this.$config.app.features.recommendations && this.$auth.loggedIn) {
+          return this.$apis.recommendation.recommend('record', this.identifier)
             .then(recommendResponse => recommendResponse);
         }
 
@@ -286,7 +286,7 @@
           edmDataProvider: this.getSimilarItemsData(this.fields.edmDataProvider)
         };
 
-        return this.$store.getters['apis/record'].search({
+        return this.$apis.record.search({
           query: similarItemsQuery(this.identifier, dataSimilarItems),
           rows: 4,
           profile: 'minimal',

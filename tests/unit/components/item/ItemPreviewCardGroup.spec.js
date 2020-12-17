@@ -13,6 +13,7 @@ const factory = () => {
     localVue,
     mocks: {
       $auth: { loggedIn: false },
+      $config: { app: { internalLinkDomain: null } },
       $path: (opts) => `/item/${opts.params.pathMatch}`,
       $i18n: {
         locale: 'en'
@@ -23,12 +24,14 @@ const factory = () => {
           set: { ...{ liked: [] }, ...{} }
         },
         getters: {
-          'apis/record': {
-            mediaProxyUrl: () => 'proxied'
-          },
           'set/isLiked': storeIsLikedGetter
         },
         dispatch: storeDispatch
+      },
+      $apis: {
+        record: {
+          mediaProxyUrl: () => 'proxied'
+        }
       }
     }
   });

@@ -45,7 +45,7 @@
 
     data() {
       return {
-        internalDomain: process.env.INTERNAL_LINK_DOMAIN
+        internalDomain: this.$config.app.internalLinkDomain
       };
     },
 

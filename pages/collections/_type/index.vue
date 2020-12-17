@@ -64,7 +64,7 @@
         qf: `skos_prefLabel.${app.i18n.locale}:*`,
         fl: 'skos_prefLabel.*,isShownBy,isShownBy.thumbnail'
       };
-      return store.getters['apis/entity'].searchEntities(entityIndexParams)
+      return app.$apis.entity.searchEntities(entityIndexParams)
         .then(response => response)
         .then(data => {
           return {
