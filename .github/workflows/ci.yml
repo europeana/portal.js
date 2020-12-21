@@ -110,7 +110,7 @@ jobs:
 
   # TODO: limit to internal PRs, i.e. those from within the repo
   deploy:
-    needs: [config, build, test]
+    needs: [config, build, test-unit]
     runs-on: ubuntu-latest
     env:
       PULL_REQUEST_NUMBER: ${{ needs.config.outputs.pull-request-number }}
