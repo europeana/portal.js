@@ -30,13 +30,11 @@ export default (context = {}) => {
      * Get entity suggestions from the API
      * @param {string} text the query text to supply suggestions for
      * @param {Object} params additional parameters sent to the API
-     * @param {string} params.language language(s), comma-separated, to request
      */
     getEntitySuggestions(text, params = {}) {
       return this.$axios.get('/suggest', {
         params: {
           ...this.$axios.defaults.params,
-          ...params,
           text,
           type: 'agent,concept,timespan',
           scope: 'europeana',
@@ -174,7 +172,7 @@ export function getEntityTypeApi(type) {
   const names = {
     person: 'agent',
     topic: 'concept',
-    times: 'timespan'
+    time: 'timespan'
   };
   if (!type) return;
   return names[type];
@@ -189,7 +187,7 @@ export function getEntityTypeHumanReadable(type) {
   const names = {
     agent: 'person',
     concept: 'topic',
-    timespan: 'times'
+    timespan: 'time'
   };
   if (!type) return;
   return names[type.toLowerCase()];
