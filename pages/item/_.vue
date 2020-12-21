@@ -341,12 +341,12 @@
     padding: 0;
   }
 
-  /deep/ .card-header-tabs {
+  ::v-deep .card-header-tabs {
     border-radius: 0.25rem 0.25rem 0 0;
   }
 
-  /deep/ .card-header-tabs .nav-link,
-  /deep/ .card-header-tabs .nav-link:hover {
+  ::v-deep .card-header-tabs .nav-link,
+  ::v-deep .card-header-tabs .nav-link:hover {
     border-radius: 0.25rem 0 0 0;
   }
 </style>
