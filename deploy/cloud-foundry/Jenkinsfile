@@ -47,6 +47,7 @@ pipeline {
       }
       steps {
         sh 'cf push ${CF_APP_NAME} -f ./deploy/cloud-foundry/manifest.yml --vars-file deploy/cloud-foundry/vars.yml'
+        sh 'cf create-app ${CF_BOTS_APP_NAME}'
         sh 'cf copy-source ${CF_APP_NAME} ${CF_BOTS_APP_NAME}'
       }
     }
