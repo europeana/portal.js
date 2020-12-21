@@ -45,10 +45,17 @@ pipeline {
       environment {
         CTF_CPA_ACCESS_TOKEN=credentials("portaljs.${env.CF_SPACE}.contentful.cpa")
       }
-      steps {
-        sh 'cf push ${CF_APP_NAME} -f ./deploy/cloud-foundry/manifest.yml --vars-file deploy/cloud-foundry/vars.yml'
-        sh 'cf create-app ${CF_BOTS_APP_NAME}'
-        sh 'cf copy-source ${CF_APP_NAME} ${CF_BOTS_APP_NAME}'
+      parallel {
+        stage('Users') {
+          steps {
+            sh 'cf push ${CF_APP_NAME} -f ./deploy/cloud-foundry/manifest.yml --vars-file deploy/cloud-foundry/vars.yml'
+          }
+        }
+        stage('Bots') {
+          steps {
+            sh 'cf push ${CF_BOTS_APP_NAME} -f ./deploy/cloud-foundry/manifest.yml --vars-file deploy/cloud-foundry/vars.yml'
+          }
+        }
       }
     }
     stage('Attach autoscaling policy on CF') {
