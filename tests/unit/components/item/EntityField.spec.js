@@ -9,7 +9,8 @@ const factory = (propsData) => mount(EntityField, {
   localVue,
   propsData,
   mocks: {
-    $path: () => 'localizedPath'
+    $path: () => 'localizedPath',
+    $config: { app: { internalLinkDomain: null } }
   }
 });
 

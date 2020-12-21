@@ -14,6 +14,7 @@ const requiredProps = {
 const factory = () => mount(HeroHeader, {
   localVue,
   mocks: {
+    $config: { app: { internalLinkDomain: null } },
     $path: () => '/',
     $t: (key) => key
   },

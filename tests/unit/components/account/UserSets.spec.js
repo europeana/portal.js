@@ -30,9 +30,12 @@ const sets = [
 const factory = () => mount(UserSets, {
   localVue,
   mocks: {
+    $config: { app: { internalLinkDomain: null } },
     $fetchState: {},
-    $sets: {
-      getSetThumbnail: () => null
+    $apis: {
+      set: {
+        getSetThumbnail: () => null
+      }
     },
     $store: {
       state: {

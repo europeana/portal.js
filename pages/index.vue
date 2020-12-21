@@ -3,14 +3,14 @@
     data-qa="browse page"
   >
     <NotificationBanner
-      v-if="onHomePage"
+      v-if="showNotificationBanner"
       :notification-url="notificationUrl"
       :notification-text="$t('linksToClassic.home.text')"
       :notification-link-text="$t('linksToClassic.home.linkText')"
       class="mb-3"
     />
     <HeroHeader
-      v-if="hero"
+      v-if="heroImage"
       :hero-image="heroImage"
       :title="heroTitle"
       :description="heroDescription"
@@ -64,8 +64,8 @@
         });
     },
     computed: {
-      onHomePage() {
-        return Boolean(Number(process.env.ENABLE_LINKS_TO_CLASSIC)) && (this.identifier === 'home');
+      showNotificationBanner() {
+        return this.$config.app.features.linksToClassic && (this.identifier === 'home');
       },
       notificationUrl() {
         return `https://classic.europeana.eu/portal/${this.$store.state.i18n.locale}?utm_source=new-website&utm_medium=button`;
@@ -83,10 +83,17 @@
         return this.primaryImageOfPage ? this.primaryImageOfPage : null;
       },
       heroImage() {
-        if (this.hero && this.hero['__typename'] === 'ImageWithAttribution') {
-          return this.hero;
+        let heroImage = null;
+
+        if (this.hero) {
+          if ((this.hero['__typename'] === 'ImageWithAttribution') && this.hero.image) {
+            heroImage = this.hero;
+          } else if (this.hero.image && this.hero.image.image) {
+            heroImage = this.hero.image;
+          }
         }
-        return this.hero ? this.hero.image : null;
+
+        return heroImage;
       },
       heroCta() {
         if (this.hero && this.hero['__typename'] === 'ImageWithAttribution') {

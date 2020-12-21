@@ -13,18 +13,23 @@ const factory = (propsData) => mount(ItemHero, {
   propsData,
   mocks: {
     $t: (key) => key,
+    $config: {
+      app: { features: { itemEmbedCode: false } }
+    },
     $auth: { loggedIn: false },
     $store: {
       state: {
         set: { ...{ liked: [] }, ...{} }
       },
       getters: {
-        'apis/record': {
-          mediaProxyUrl: () => 'proxied'
-        },
         'set/isLiked': storeIsLikedGetter
       },
       dispatch: storeDispatch
+    },
+    $apis: {
+      record: {
+        mediaProxyUrl: () => 'proxied'
+      }
     }
   }
 });

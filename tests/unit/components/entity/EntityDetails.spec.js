@@ -14,6 +14,7 @@ const factory = (propsData = {}) => mount(EntityDetails, {
   localVue,
   propsData,
   mocks: {
+    $config: { app: { internalLinkDomain: null } },
     $t: (val) => val,
     $i18n,
     $path: () => '/'

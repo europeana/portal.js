@@ -13,8 +13,9 @@ pids
 *.seed
 *.pid.lock
 
-# .env file
+# .env files
 .env
+.env.docker
 
 # API config file
 .apisrc*

@@ -1,22 +1,13 @@
-import axios from 'axios';
-
 import { BASE_URL as EUROPEANA_DATA_URL } from './data';
-import { apiError } from './utils';
+import { apiError, createAxios } from './utils';
 
 export const BASE_URL = process.env.EUROPEANA_ENTITY_API_URL || 'https://api.europeana.eu/entity';
-export const axiosDefaults = {
-  baseURL: BASE_URL,
-  params: {
-    wskey: process.env.EUROPEANA_ENTITY_API_KEY || process.env.EUROPEANA_API_KEY
-  }
-};
 
-export default (axiosOverrides) => {
+export default (context = {}) => {
+  const $axios = createAxios({ id: 'entity', baseURL: BASE_URL }, context);
+
   return {
-    $axios: axios.create({
-      ...axiosDefaults,
-      ...axiosOverrides
-    }),
+    $axios,
 
     /**
      * Get data for one entity from the API

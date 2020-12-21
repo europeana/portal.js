@@ -54,6 +54,10 @@ To run unit tests from a single file, append the full path, e.g.
 
 ### End-to-end tests
 
+First, create an env file for the app container, copying
+[docker/stack/app/.env.example](docker/stack/app/.env.example) to
+docker/stack/app/.env and populating with actual API keys.
+
 `npm run test:e2e` runs all end-to-end tests.
 
 To run a single end-to-end test file, append the path **without tests/features**, e.g.
