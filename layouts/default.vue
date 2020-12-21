@@ -64,23 +64,24 @@
       PageFooter: () => import('../components/PageFooter')
     },
 
-    async fetch() {
+    fetch() {
       const contentfulVariables = {
         locale: this.$i18n.isoLocale(),
         preview: this.$route.query.mode === 'preview'
       };
 
       let data;
-      try {
-        const response = await this.$contentful.query('linkGroups', contentfulVariables);
-        data = response.data;
-      } catch (e) {
-        return;
-      }
+      this.$contentful.query('linkGroups', contentfulVariables)
+        .then(response => {
+          data = response.data.data;
+        })
+        .catch(() => {
+          return;
+        });
 
       const linkGroups = {};
-      for (const identifier in data.data) {
-        const linkGroup = data.data[identifier].items[0];
+      for (const identifier in data) {
+        const linkGroup = data[identifier].items[0];
         linkGroups[identifier] = {
           name: linkGroup.name ? linkGroup.name : null,
           links: linkGroup.links.items
