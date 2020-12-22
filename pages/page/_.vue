@@ -26,6 +26,20 @@
           </article>
         </b-col>
       </b-row>
+      <b-row
+        v-if="relatedPages"
+        class="justify-content-center mt-3"
+      >
+        <b-col
+          cols="12"
+          class="mt-3 col-lg-8"
+        >
+          <Chapters
+            :title="relatedPages.name"
+            :chapters="relatedPages.links.items"
+          />
+        </b-col>
+      </b-row>
       <b-row class="footer-margin" />
     </b-container>
   </div>
@@ -35,13 +49,15 @@
   import SocialShareModal from '../../components/sharing/SocialShareModal.vue';
   import ShareButton from '../../components/sharing/ShareButton.vue';
   import BrowseSections from '../../components/browse/BrowseSections';
+  import Chapters from '../../components/generic/Chapters';
 
   export default {
     components: {
       AuthoredHead: () => import('../../components/authored/AuthoredHead'),
       SocialShareModal,
       ShareButton,
-      BrowseSections
+      BrowseSections,
+      Chapters
     },
 
     asyncData({ params, query, error, app }) {
