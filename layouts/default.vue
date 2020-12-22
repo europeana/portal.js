@@ -70,25 +70,23 @@
         preview: this.$route.query.mode === 'preview'
       };
 
-      let data;
-      this.$contentful.query('linkGroups', contentfulVariables)
+      return this.$contentful.query('linkGroups', contentfulVariables)
         .then(response => {
-          data = response.data.data;
+          const data = response.data.data;
+          const linkGroups = {};
+          for (const identifier in data) {
+            const linkGroup = data[identifier].items[0];
+            linkGroups[identifier] = {
+              name: linkGroup.name ? linkGroup.name : null,
+              links: linkGroup.links.items
+            };
+          }
+          this.linkGroups = linkGroups;
+          if (this.$announcer) this.$announcer.setComplementRoute(this.$t('pageHasLoaded'));
         })
         .catch(() => {
           return;
         });
-
-      const linkGroups = {};
-      for (const identifier in data) {
-        const linkGroup = data[identifier].items[0];
-        linkGroups[identifier] = {
-          name: linkGroup.name ? linkGroup.name : null,
-          links: linkGroup.links.items
-        };
-      }
-      this.linkGroups = linkGroups;
-      if (this.$announcer) this.$announcer.setComplementRoute(this.$t('pageHasLoaded'));
     },
 
     data() {
