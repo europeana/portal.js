@@ -29,6 +29,7 @@ const pages = {
   'user gallery page': `${url}/en/set/2`,
   'Swedish home page': `${url}/sv`,
   'topics listing page': `${url}/en/collections/topics`,
+  'times listing page': `${url}/en/collections/times`,
   'debug page': `${url}/debug`
 };
 

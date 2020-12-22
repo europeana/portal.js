@@ -87,6 +87,13 @@ const apiResponse = {
         note: { en: ['Art is a diverse range of human activities and the products of those activities'] }
       }
     ],
+    times: [
+      {
+        about: 'http://data.europeana.eu/timespan/20',
+        prefLabel: { en: '20th-century' },
+        note: { en: ['The 20th century'] }
+      }
+    ],
     type
   }
 };

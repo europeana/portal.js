@@ -48,7 +48,26 @@ jobs:
       cf-app-fqdn: ${{ steps.done.outputs.cf-app-fqdn }}
       cf-space:  ${{ steps.done.outputs.cf-space }}
 
+  test-unit:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v1
+      with:
+        node-version: 12.x
+    - uses: actions/cache@v2
+      id: cache-node
+      with:
+        path: |
+          ~/.npm
+          **/node_modules
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+    - if: steps.cache-node.outputs.cache-hit != 'true'
+      run: npm install
+    - run: npm run test:unit
+
   build:
+    needs: [test-unit]
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -70,6 +89,27 @@ jobs:
         name: .nuxt
         path: .nuxt/
 
+
+  test-size:
+    needs: [build]
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v1
+      with:
+        node-version: 12.x
+    - uses: actions/cache@v2
+      id: cache-node
+      with:
+        path: |
+          ~/.npm
+          **/node_modules
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+    - if: steps.cache-node.outputs.cache-hit != 'true'
+      run: npm install
+    - uses: actions/download-artifact@v2
+    - run: npx size-limit
+
   test-e2e:
     runs-on: ubuntu-latest
     steps:
@@ -82,7 +122,7 @@ jobs:
 
   # TODO: limit to internal PRs, i.e. those from within the repo
   deploy:
-    needs: [config, build]
+    needs: [config, build, test-unit]
     runs-on: ubuntu-latest
     env:
       PULL_REQUEST_NUMBER: ${{ needs.config.outputs.pull-request-number }}

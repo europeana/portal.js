@@ -155,6 +155,7 @@
         altTitle: null,
         cardGridClass: null,
         concepts: null,
+        times: null,
         coreFields: null,
         description: null,
         error: null,
@@ -202,8 +203,11 @@
       europeanaConcepts() {
         return (this.concepts || []).filter((concept) => concept.about.startsWith(`${EUROPEANA_DATA_URL}/concept/`));
       },
+      europeanaTimes() {
+        return (this.times || []).filter((time) => time.about.startsWith(`${EUROPEANA_DATA_URL}/timespan/`));
+      },
       europeanaEntityUris() {
-        const entities = this.europeanaConcepts.concat(this.europeanaAgents);
+        const entities = this.europeanaConcepts.concat(this.europeanaAgents).concat(this.europeanaTimes);
         return entities.map((entity) => entity.about).slice(0, 5);
       },
       titlesInCurrentLanguage() {
