@@ -89,7 +89,6 @@ jobs:
         name: .nuxt
         path: .nuxt/
 
-
   test-size:
     needs: [build]
     runs-on: ubuntu-latest
@@ -171,5 +170,6 @@ jobs:
       - uses: actions/checkout@v2
       - name: Notify Slack
         run: |
+          mkdir tmp
           envsubst < .github/workflows/support/ci/slack-notification.json > tmp/slack-notification.json
           curl -d "@tmp/slack-notification.json" -X POST ${SLACK_WEBHOOK_URL}
