@@ -16,7 +16,6 @@ pipeline {
     CF_ORG="${env.CF_ORG}"
     CF_SPACE="${env.BRANCH_NAME ==~ /\Av\d+\.\d+\.\d+\z/ ? 'production' : 'test'}"
     CF_APP_NAME="portaljs${env.CF_SPACE == 'production' ? '' : '-' + env.CF_SPACE}"
-    CF_BOTS_APP_NAME="portaljs-bots${env.CF_SPACE == 'production' ? '' : '-' + env.CF_SPACE}"
     ELK_REGISTRATION_COMMAND="${env.ELK_SERVICE_REGISTRATION_COMMAND}"
     CHROMEDRIVER_SKIP_DOWNLOAD='true'
     GECKODRIVER_SKIP_DOWNLOAD='true'
@@ -45,17 +44,8 @@ pipeline {
       environment {
         CTF_CPA_ACCESS_TOKEN=credentials("portaljs.${env.CF_SPACE}.contentful.cpa")
       }
-      parallel {
-        stage('Users') {
-          steps {
-            sh 'cf push ${CF_APP_NAME} -f ./deploy/cloud-foundry/manifest.yml --vars-file deploy/cloud-foundry/vars.yml'
-          }
-        }
-        stage('Bots') {
-          steps {
-            sh 'cf push ${CF_BOTS_APP_NAME} -f ./deploy/cloud-foundry/manifest.yml --vars-file deploy/cloud-foundry/vars.yml'
-          }
-        }
+      steps {
+        sh 'cf push ${CF_APP_NAME} -f ./deploy/cloud-foundry/manifest.yml --vars-file deploy/cloud-foundry/vars.yml'
       }
     }
     stage('Attach autoscaling policy on CF') {
@@ -64,7 +54,6 @@ pipeline {
           configFile(fileId: "portaljs.${env.CF_SPACE}.autoscaling-policy.json", targetLocation: './deploy/cloud-foundry/autoscaling-policy.json'),
         ]) {
           sh 'cf attach-autoscaling-policy ${CF_APP_NAME} ./deploy/cloud-foundry/autoscaling-policy.json'
-          sh 'cf attach-autoscaling-policy ${CF_BOTS_APP_NAME} ./deploy/cloud-foundry/autoscaling-policy.json'
         }
       }
     }
@@ -75,14 +64,11 @@ pipeline {
         }
       }
       environment {
-        CF_APP_GUID="${sh(script:'cf app ${CF_APP_NAME} --guid | head -1', returnStdout: true).trim()}"
-        CF_BOTS_APP_GUID="${sh(script:'cf app ${CF_BOTS_APP_NAME} --guid | head -1', returnStdout: true).trim()}"
+          CF_APP_GUID="${sh(script:'cf app ${CF_APP_NAME} --guid | head -1', returnStdout: true).trim()}"
       }
       steps {
         sh '${ELK_REGISTRATION_COMMAND} ${CF_APP_NAME} ${CF_APP_GUID}'
         sh 'if [ $? -eq 0 ]; then echo "Log drainer registration OK"; else echo "ELK registration failed!"; exit 1; fi'
-        sh '${ELK_REGISTRATION_COMMAND} ${CF_BOTS_APP_NAME} ${CF_BOTS_APP_GUID}'
-        sh 'if [ $? -eq 0 ]; then echo "Log drainer registration OK (bots)"; else echo "ELK registration failed (bots)!"; exit 1; fi'
       }
     }
     stage('Deploy Storybook') {
