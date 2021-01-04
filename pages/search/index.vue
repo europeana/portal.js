@@ -11,14 +11,15 @@
       <b-row>
         <b-col>
           <i18n
-            :path="$route.query.query ? 'searchResultsFor' : 'searchResults'"
+            :path="searchQuery ? 'searchResultsFor' : 'searchResults'"
             tag="h1"
           >
-            <span data-qa="search query">{{ $route.query.query }}</span>
+            <span data-qa="search query">{{ searchQuery }}</span>
           </i18n>
         </b-col>
         <RelatedSection
-          :query="$route.query.query"
+          v-if="searchQuery"
+          :query="searchQuery"
           class="mb-4"
         />
         <SearchInterface
@@ -59,6 +60,9 @@
       },
       redirectNotificationsEnabled() {
         return this.$config.app.features.linksToClassic;
+      },
+      searchQuery() {
+        return this.$route.query.query;
       }
     },
 
@@ -68,7 +72,7 @@
 
     head() {
       return {
-        title: this.$pageHeadTitle(this.$route.query.query ? this.$t('searchResultsFor', [this.$route.query.query]) : this.$t('search'))
+        title: this.$pageHeadTitle(this.searchQuery ? this.$t('searchResultsFor', [this.searchQuery]) : this.$t('search'))
       };
     },
 

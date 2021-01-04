@@ -347,9 +347,8 @@
         const updated = { ...current, ...updates };
 
         for (const key in updated) {
-          // If any updated values are `null`, remove them from the query (except
-          // for `query`)
-          if ((key !== 'query') && (updated[key] === null)) {
+          // If any updated values are `null`, remove them from the query
+          if (updated[key] === null) {
             delete updated[key];
           }
         }

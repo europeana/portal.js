@@ -203,7 +203,7 @@
           this.query = this.selectedOptionLink.query.query;
           if (this.query !== this.activeSuggestionsQueryTerm) this.suggestions = {};
         } else {
-          const newRouteQuery = { ...this.$route.query, ...{ page: 1, view: this.view, query: this.query || '' } };
+          const newRouteQuery = { ...this.$route.query, ...{ page: 1, view: this.view, query: this.query } };
           newRoute = { path: this.routePath, query: newRouteQuery };
         }
 
