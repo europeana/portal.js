@@ -27,7 +27,7 @@
         </b-col>
       </b-row>
       <b-row
-        v-if="relatedPages"
+        v-if="relatedLinks"
         class="justify-content-center mt-3"
       >
         <b-col
@@ -35,8 +35,8 @@
           class="mt-3 col-lg-8"
         >
           <Chapters
-            :title="relatedPages.name"
-            :chapters="relatedPages.links.items"
+            :title="relatedLinks.name"
+            :chapters="relatedLinks.links.items"
           />
         </b-col>
       </b-row>

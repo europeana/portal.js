@@ -15,7 +15,6 @@ query StaticPage(
         url
         contentType
       }
-      # TODO: enforce this limit in CTF content model
       hasPartCollection(limit: 10) {
         items {
           __typename
@@ -24,7 +23,7 @@ query StaticPage(
           }
         }
       }
-      relatedPages {
+      relatedLinks {
           ...linkGroupFields
       }
     }
@@ -46,7 +45,7 @@ fragment imageWithAttributionFields on ImageWithAttribution {
 fragment linkGroupFields on LinkGroup {
   identifier
   name
-  links: linksCollection(limit: 20) {
+  links: linksCollection(limit: 10) {
       items {
         text
         url

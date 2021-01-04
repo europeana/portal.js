@@ -44,7 +44,7 @@ module.exports = function(migration) {
     .omitted(false);
 
   staticPage.changeFieldControl('identifier', 'builtin', 'slugEditor', {
-    helpText: 'Will always be prefixed with "/pages/"'
+    helpText: 'Will always be prefixed with "/page/"'
   });
 
   staticPage
@@ -121,7 +121,13 @@ module.exports = function(migration) {
     .type('Array')
     .localized(false)
     .required(false)
-    .validations([])
+    .validations([
+      {
+        size: {
+          max: 10
+        }
+      }
+    ])
     .disabled(false)
     .omitted(false)
     .items({
@@ -137,8 +143,8 @@ module.exports = function(migration) {
     });
 
   staticPage
-    .createField('relatedPages')
-    .name('Related pages')
+    .createField('relatedLinks')
+    .name('Related links')
     .type('Link')
     .localized(false)
     .required(false)
