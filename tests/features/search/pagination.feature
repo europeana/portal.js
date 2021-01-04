@@ -51,31 +51,31 @@ Feature: Search pagination
 
   Scenario: Invalid `page` param redirects to page 1
 
-    When I open `/en/search?query=&page=-1`
+    When I open `/en/search?page=-1`
     Then I should be on the `first page of results`
 
-    When I open `/en/search?query=&page=0`
+    When I open `/en/search?page=0`
     Then I should be on the `first page of results`
 
-    When I open `/en/search?query=&page=one`
+    When I open `/en/search?page=one`
     Then I should be on the `first page of results`
 
-    When I open `/en/search?query=&page=last`
+    When I open `/en/search?page=last`
     Then I should be on the `first page of results`
 
-    When I open `/en/search?query=&page=2.5`
+    When I open `/en/search?page=2.5`
     Then I should be on the `first page of results`
 
   Scenario: Paginating to the API result limit
 
-    When I open `/en/search?query=&page=42`
+    When I open `/en/search?page=42`
     Then I see a `item preview`
     Then I see an `info notice` with the text "Additional results are not shown as only the first 1000 most relevant results are shown. If you haven't found what you're looking for, please consider refining your search."
     And I am on an accessible page
 
   Scenario: Paginating beyond API result limit
 
-    When I open `/en/search?query=&page=500`
+    When I open `/en/search?page=500`
     Then I see an `error notice` with the text "It is only possible to view the first 1,000 search results."
     And I am on an accessible page
 
