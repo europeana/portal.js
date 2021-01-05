@@ -3,10 +3,6 @@ import sinon from 'sinon';
 
 import page from '../../../../pages/account/logout';
 
-global.localStorage = {
-  setItem: sinon.spy()
-};
-
 describe('pages/account/logout.vue', () => {
   describe('beforeRouteEnter', () => {
     it('stores the previous page full path for auth redirection', () => {
