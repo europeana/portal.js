@@ -94,7 +94,7 @@
       },
       imageUrl(data) {
         if (!data.encoding) return '';
-        return data.encoding.edmPreview + '&size=w400';
+        return data.encoding.edmPreview[0] + '&size=w400';
       }
     },
     head() {
