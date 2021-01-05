@@ -26,7 +26,8 @@ const factory = () => mount(PageNavigation, {
   store,
   mocks: {
     $t: (key) => key,
-    $path: code => window.location.href + code
+    $path: code => window.location.href + code,
+    $auth: { strategy: { options: {} } }
   }
 });
 

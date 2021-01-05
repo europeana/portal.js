@@ -3,23 +3,18 @@
     data-qa="browse page"
   >
     <NotificationBanner
-      v-if="onHomePage"
+      v-if="showNotificationBanner"
       :notification-url="notificationUrl"
       :notification-text="$t('linksToClassic.home.text')"
       :notification-link-text="$t('linksToClassic.home.linkText')"
       class="mb-3"
     />
-    <HeroImage
-      v-if="hero"
-      :image-url="heroImage.url"
-      :image-content-type="heroImage.contentType"
-      :header="name"
-      :lead="headline"
-      :rights-statement="hero.license"
-      :name="hero.name"
-      :provider="hero.provider"
-      :creator="hero.creator"
-      :url="hero.url"
+    <HeroHeader
+      v-if="heroImage"
+      :hero-image="heroImage"
+      :title="heroTitle"
+      :description="heroDescription"
+      :cta="heroCta"
     />
     <b-container>
       <ContentHeader
@@ -37,7 +32,7 @@
 <script>
   import ContentHeader from '../components/generic/ContentHeader';
   import BrowseSections from '../components/browse/BrowseSections';
-  import HeroImage from '../components/generic/HeroImage';
+  import HeroHeader from '../components/browse/HeroHeader';
   import NotificationBanner from '../components/generic/NotificationBanner.vue';
 
   export default {
@@ -45,7 +40,7 @@
       ContentHeader,
       BrowseSections,
       NotificationBanner,
-      HeroImage
+      HeroHeader
     },
 
     asyncData({ params, query, error, app }) {
@@ -69,14 +64,8 @@
         });
     },
     computed: {
-      hero() {
-        return this.primaryImageOfPage ? this.primaryImageOfPage : null;
-      },
-      heroImage() {
-        return this.hero ? this.hero.image : null;
-      },
-      onHomePage() {
-        return Boolean(Number(process.env.ENABLE_LINKS_TO_CLASSIC)) && (this.identifier === 'home');
+      showNotificationBanner() {
+        return this.$config.app.features.linksToClassic && (this.identifier === 'home');
       },
       notificationUrl() {
         return `https://classic.europeana.eu/portal/${this.$store.state.i18n.locale}?utm_source=new-website&utm_medium=button`;
@@ -89,12 +78,46 @@
           img.contentType,
           { width: 800, height: 800 }
         );
+      },
+      hero() {
+        return this.primaryImageOfPage ? this.primaryImageOfPage : null;
+      },
+      heroImage() {
+        let heroImage = null;
+
+        if (this.hero) {
+          if ((this.hero['__typename'] === 'ImageWithAttribution') && this.hero.image) {
+            heroImage = this.hero;
+          } else if (this.hero.image && this.hero.image.image) {
+            heroImage = this.hero.image;
+          }
+        }
+
+        return heroImage;
+      },
+      heroCta() {
+        if (this.hero && this.hero['__typename'] === 'ImageWithAttribution') {
+          return;
+        }
+        return this.hero && this.hero.link ? this.hero.link : null;
+      },
+      heroTitle() {
+        if (this.hero && this.hero['__typename'] === 'ImageWithAttribution') {
+          return this.name;
+        }
+        return this.hero && this.hero.title ? this.hero.title : null;
+      },
+      heroDescription() {
+        if (this.hero && this.hero['__typename'] === 'ImageWithAttribution') {
+          return this.headline;
+        }
+        return this.hero && this.hero.headline ? this.hero.headline : null;
       }
     },
 
     head() {
       return {
-        title: this.$pageHeadTitle(this.name),
+        title: this.name + this.$pageHeadTitle(),
         meta: [
           { hid: 'og:type', property: 'og:type', content: 'article' },
           { hid: 'title', name: 'title', content: this.name },

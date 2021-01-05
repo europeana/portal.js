@@ -1,6 +1,6 @@
-# QUERIES
+# Contentful GraphQL
 
-This directory contains queries and functions for the
+This module contains a Nuxt interface to the
 [Contentful GraphQL Content API](https://www.contentful.com/developers/docs/references/graphql/).
 
 ## TODO

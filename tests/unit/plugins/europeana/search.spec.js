@@ -1,22 +1,22 @@
+import axios from 'axios';
 import nock from 'nock';
 import search, {
   addContentTierFilter, rangeToQueryParam, rangeFromQueryParam
 } from '../../../../plugins/europeana/search';
-import record, { BASE_URL } from '../../../../plugins/europeana/record';
-
-const $axios = record().$axios;
+import { BASE_URL } from '../../../../plugins/europeana/record';
 
 const apiEndpoint = '/search.json';
 
 const baseRequest = nock(BASE_URL).get(apiEndpoint);
 const defaultResponse = { success: true, items: [], totalResults: 123456 };
+const $axios = axios.create({ baseURL: BASE_URL });
 
 describe('plugins/europeana/search', () => {
   afterEach(() => {
     nock.cleanAll();
   });
 
-  describe('search($axios).search($axios)', () => {
+  describe('search()', () => {
     describe('API request', () => {
       it('requests 24 results by default', async() => {
         baseRequest
@@ -25,7 +25,7 @@ describe('plugins/europeana/search', () => {
           })
           .reply(200, defaultResponse);
 
-        await search($axios).search({ query: 'anything' });
+        await search($axios, { query: 'anything' });
 
         nock.isDone().should.be.true;
       });
@@ -37,7 +37,7 @@ describe('plugins/europeana/search', () => {
           })
           .reply(200, defaultResponse);
 
-        await search($axios).search({ query: 'anything', rows: 9 });
+        await search($axios, { query: 'anything', rows: 9 });
 
         nock.isDone().should.be.true;
       });
@@ -49,7 +49,7 @@ describe('plugins/europeana/search', () => {
           })
           .reply(200, defaultResponse);
 
-        await search($axios).search({ page: 2, query: 'anything' });
+        await search($axios, { page: 2, query: 'anything' });
 
         nock.isDone().should.be.true;
       });
@@ -61,7 +61,7 @@ describe('plugins/europeana/search', () => {
           })
           .reply(200, defaultResponse);
 
-        await search($axios).search({ page: 42, query: 'anything' });
+        await search($axios, { page: 42, query: 'anything' });
 
         nock.isDone().should.be.true;
       });
@@ -73,7 +73,7 @@ describe('plugins/europeana/search', () => {
           })
           .reply(200, defaultResponse);
 
-        await search($axios).search({ query: 'anything' });
+        await search($axios, { query: 'anything' });
 
         nock.isDone().should.be.true;
       });
@@ -85,7 +85,7 @@ describe('plugins/europeana/search', () => {
           })
           .reply(200, defaultResponse);
 
-        await search($axios).search({ query: 'anything', facet: 'LANGUAGE' });
+        await search($axios, { query: 'anything', facet: 'LANGUAGE' });
 
         nock.isDone().should.be.true;
       });
@@ -97,7 +97,7 @@ describe('plugins/europeana/search', () => {
           })
           .reply(200, defaultResponse);
 
-        await search($axios).search({ query: 'anything', facet: 'COUNTRY,REUSABILITY' });
+        await search($axios, { query: 'anything', facet: 'COUNTRY,REUSABILITY' });
 
         nock.isDone().should.be.true;
       });
@@ -109,7 +109,7 @@ describe('plugins/europeana/search', () => {
           })
           .reply(200, defaultResponse);
 
-        await search($axios).search({ query: '' });
+        await search($axios, { query: '' });
 
         nock.isDone().should.be.true;
       });
@@ -121,7 +121,7 @@ describe('plugins/europeana/search', () => {
           })
           .reply(200, defaultResponse);
 
-        await search($axios).search({ query: 'anything', reusability: 'open' });
+        await search($axios, { query: 'anything', reusability: 'open' });
 
         nock.isDone().should.be.true;
       });
@@ -134,7 +134,7 @@ describe('plugins/europeana/search', () => {
             })
             .reply(200, defaultResponse);
 
-          await search($axios).search({ query: 'dress (red OR blue)' });
+          await search($axios, { query: 'dress (red OR blue)' });
 
           nock.isDone().should.be.true;
         });
@@ -146,7 +146,7 @@ describe('plugins/europeana/search', () => {
             })
             .reply(200, defaultResponse);
 
-          await search($axios).search({ query: 'dress (red OR blue)' }, { escape: true });
+          await search($axios, { query: 'dress (red OR blue)' }, { escape: true });
 
           nock.isDone().should.be.true;
         });
@@ -166,7 +166,7 @@ describe('plugins/europeana/search', () => {
 
           let error;
           try {
-            await search($axios).search({ query: 'NOT ' });
+            await search($axios, { query: 'NOT ' });
           } catch (e) {
             error = e;
           }
@@ -178,7 +178,7 @@ describe('plugins/europeana/search', () => {
 
       context('with `items`', () => {
         function searchResponse() {
-          return search($axios).search({ query: 'painting' });
+          return search($axios, { query: 'painting' });
         }
 
         const apiResponse = {
@@ -228,7 +228,7 @@ describe('plugins/europeana/search', () => {
 
           context('when page is at the API limit', () => {
             function searchResponse() {
-              return search($axios).search({ query: 'painting', page: 42 });
+              return search($axios, { query: 'painting', page: 42 });
             }
 
             it('is `true`', async() => {

@@ -25,7 +25,7 @@
       BlogPost
     },
 
-    asyncData({ params, query, error, app, store }) {
+    asyncData({ params, query, error, app, store, redirect }) {
       const variables = {
         identifier: params.pathMatch,
         locale: app.i18n.isoLocale(),
@@ -36,8 +36,7 @@
         .then(response => response.data.data)
         .then(data => {
           if (data.blogPostingCollection.items.length === 0) {
-            error({ statusCode: 404, message: app.i18n.t('messages.notFound') });
-            return;
+            return redirect(302, '/blog');
           }
 
           const post = data.blogPostingCollection.items[0];
@@ -84,12 +83,16 @@
       return {
         title: this.$pageHeadTitle(this.post.name),
         meta: [
+          { hid: 'og:type', property: 'og:type', content: 'article' },
           { hid: 'title', name: 'title', content: this.post.name },
           { hid: 'og:title', property: 'og:title', content: this.post.name }
         ].concat(this.post.description ? [
           { hid: 'description', name: 'description', content: this.post.description },
           { hid: 'og:description', property: 'og:description', content: this.post.description }
         ] : [])
+          .concat(this.post.primaryImageOfPage ? [
+            { hid: 'og:image', property: 'og:image', content: this.post.primaryImageOfPage.image.url }
+          ] : [])
       };
     },
 

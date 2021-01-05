@@ -14,7 +14,7 @@ const defaults = {
   }
 };
 
-const templates = ['config.ejs', 'store.js', 'utils.js'];
+const templates = ['store.js', 'utils.js'];
 const plugins = ['middleware.js', 'plugin.goto.js', 'plugin.http.js', 'plugin.path.js'];
 
 export default function(moduleOptions) {
@@ -26,7 +26,7 @@ export default function(moduleOptions) {
   for (const template of templates) {
     this.addTemplate({
       src: path.resolve(__dirname, path.join('templates', template)),
-      fileName: path.join(MODULE_NAME, template.replace('.ejs', '.js')),
+      fileName: path.join(MODULE_NAME, template),
       options: config
     });
   }

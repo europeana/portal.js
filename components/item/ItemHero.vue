@@ -44,7 +44,6 @@
         :media-url="selectedMedia.about"
       >
         <ItemEmbedCode
-          v-if="enableItemEmbedCode"
           :identifier="identifier"
         />
       </SocialShareModal>
@@ -87,13 +86,12 @@
     },
     data() {
       return {
-        enableItemEmbedCode: Boolean(Number(process.env.ENABLE_ITEM_EMBED_CODE)),
         selectedMediaItem: null
       };
     },
     computed: {
       downloadUrl() {
-        return this.$store.getters['apis/record'].mediaProxyUrl(this.selectedMedia.about, this.identifier);
+        return this.$apis.record.mediaProxyUrl(this.selectedMedia.about, this.identifier);
       },
       rightsStatementIsUrl() {
         return RegExp('^https?://*').test(this.rightsStatement);

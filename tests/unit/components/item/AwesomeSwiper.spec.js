@@ -10,11 +10,9 @@ const factory = (propsData) => mount(AwesomeSwiper, {
   localVue,
   mocks: {
     $t: (key) => key,
-    $store: {
-      getters: {
-        'apis/record': {
-          mediaProxyUrl: () => 'proxied'
-        }
+    $apis: {
+      record: {
+        mediaProxyUrl: () => 'proxied'
       }
     }
   },

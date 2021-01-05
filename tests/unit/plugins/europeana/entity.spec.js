@@ -179,11 +179,11 @@ describe('plugins/europeana/entity', () => {
       nock.isDone().should.be.true;
     });
 
-    it('restricts types to agent & concept', async() => {
+    it('restricts types to agent, concept & timespan', async() => {
       nock(BASE_URL)
         .get(suggestEndpoint)
         .query(query => {
-          return query.type === 'agent,concept';
+          return query.type === 'agent,concept,timespan';
         })
         .reply(200, entitySuggestionsResponse);
 
