@@ -43,6 +43,8 @@ For detailed explanation on how things work, refer to [Nuxt.js docs](https://nux
 To run end-to-end tests, you will need Docker Engine and [Compose](https://docs.docker.com/compose/) installed and
 the docker service running.
 
+Before first running the test suite, setup with: `npm run test:setup`
+
 Run the full test suite with: `npm test`
 
 ### Unit tests
