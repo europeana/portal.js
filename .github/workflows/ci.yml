@@ -102,7 +102,7 @@ jobs:
       id: cache-size-limit-node
       with:
         path: |
-          ./node_modules
+          ./tests/size/node_modules
         key: ${{ runner.os }}-node-${{ hashFiles('./tests/size/package.json') }}
     - if: steps.cache-size-limit-node.outputs.cache-hit != 'true'
       run: |
