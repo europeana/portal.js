@@ -25,7 +25,8 @@ const factory = () => {
       ...{
         $path: $pathSpy,
         $store,
-        $t: () => {}
+        $t: () => {},
+        $config: { app: { internalLinkDomain: null } }
       }
     }
   });

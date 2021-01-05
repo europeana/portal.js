@@ -1,23 +1,14 @@
-import axios from 'axios';
 import qs from 'qs';
 
-import { apiError } from './utils';
+import { apiError, createAxios } from './utils';
 
-// TODO: replace with API gateway origin when it works
 export const BASE_URL = process.env.EUROPEANA_ANNOTATION_API_URL || 'https://api.europeana.eu/annotation';
-export const axiosDefaults = {
-  baseURL: BASE_URL,
-  params: {
-    wskey: process.env.EUROPEANA_ANNOTATION_API_KEY || process.env.EUROPEANA_API_KEY
-  }
-};
 
-export default (axiosOverrides) => {
+export default (context = {}) => {
+  const $axios = createAxios({ id: 'annotation', baseURL: BASE_URL }, context);
+
   return {
-    $axios: axios.create({
-      ...axiosDefaults,
-      ...axiosOverrides
-    }),
+    $axios,
 
     search(params) {
       return this.$axios.get('/search', {

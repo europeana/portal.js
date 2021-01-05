@@ -1,22 +1,13 @@
-import axios from 'axios';
-
 import { BASE_URL as EUROPEANA_DATA_URL } from './data';
-import { apiError } from './utils';
+import { apiError, createAxios } from './utils';
 
 export const BASE_URL = process.env.EUROPEANA_ENTITY_API_URL || 'https://api.europeana.eu/entity';
-export const axiosDefaults = {
-  baseURL: BASE_URL,
-  params: {
-    wskey: process.env.EUROPEANA_ENTITY_API_KEY || process.env.EUROPEANA_API_KEY
-  }
-};
 
-export default (axiosOverrides) => {
+export default (context = {}) => {
+  const $axios = createAxios({ id: 'entity', baseURL: BASE_URL }, context);
+
   return {
-    $axios: axios.create({
-      ...axiosDefaults,
-      ...axiosOverrides
-    }),
+    $axios,
 
     /**
      * Get data for one entity from the API
@@ -39,16 +30,15 @@ export default (axiosOverrides) => {
      * Get entity suggestions from the API
      * @param {string} text the query text to supply suggestions for
      * @param {Object} params additional parameters sent to the API
-     * @param {string} params.language language(s), comma-separated, to request
      */
     getEntitySuggestions(text, params = {}) {
       return this.$axios.get('/suggest', {
         params: {
           ...this.$axios.defaults.params,
-          ...params,
           text,
-          type: 'agent,concept',
-          scope: 'europeana'
+          type: 'agent,concept,timespan',
+          scope: 'europeana',
+          ...params
         }
       })
         .then(response => response.data.items ? response.data.items : [])
@@ -96,7 +86,7 @@ export default (axiosOverrides) => {
     },
 
     /**
-     * Return all entity subjects of type concept / agent
+     * Return all entity subjects of type concept / agent / timespan
      * @param {Object} params additional parameters sent to the API
      */
     searchEntities(params = {}) {
@@ -154,6 +144,8 @@ export function getEntityQuery(uri) {
     return `skos_concept:"${uri}"`;
   } else if (uri.includes('/agent/base/')) {
     return `edm_agent:"${uri}"`;
+  } else if (uri.includes('/timespan/')) {
+    return `edm_timespan:"${uri}"`;
   }
   return null;
 }
@@ -167,7 +159,7 @@ export function getEntityQuery(uri) {
  * @return {Boolean} true if the URI is a valid entity URI
  */
 export function isEntityUri(uri, types) {
-  types = types ? types : ['concept', 'agent', 'place'];
+  types = types ? types : ['concept', 'agent', 'place', 'period'];
   return RegExp(`^http://data\\.europeana\\.eu/(${types.join('|')})/base/\\d+$`).test(uri);
 }
 
@@ -179,7 +171,8 @@ export function isEntityUri(uri, types) {
 export function getEntityTypeApi(type) {
   const names = {
     person: 'agent',
-    topic: 'concept'
+    topic: 'concept',
+    time: 'timespan'
   };
   if (!type) return;
   return names[type];
@@ -193,7 +186,8 @@ export function getEntityTypeApi(type) {
 export function getEntityTypeHumanReadable(type) {
   const names = {
     agent: 'person',
-    concept: 'topic'
+    concept: 'topic',
+    timespan: 'time'
   };
   if (!type) return;
   return names[type.toLowerCase()];
@@ -225,7 +219,7 @@ export function getEntityUri(type, id) {
  * @return {{type: String, identifier: string}} Object with the portal relevant identifiers.
  */
 export function entityParamsFromUri(uri) {
-  const matched = uri.match(/^http:\/\/data\.europeana\.eu\/(concept|agent|place)\/base\/(\d+)$/);
+  const matched = uri.match(/^http:\/\/data\.europeana\.eu\/(concept|agent|place|timespan)\/base\/(\d+)$/);
   const id = matched[2];
   const type = getEntityTypeHumanReadable(matched[1]);
   return { id, type };

@@ -16,23 +16,26 @@ const factory = () => shallowMountNuxt(page, {
     };
   },
   mocks: {
+    $config: { app: { features: {} } },
     $pageHeadTitle: key => key,
     $t: key => key,
     $auth: {
       loggedIn: false
     },
+    $apis: {
+      annotation: {
+        search: sinon.spy()
+      },
+      entity: {
+        findEntities: sinon.spy()
+      },
+      record: {
+        getRecord: sinon.stub().resolves({}),
+        search: sinon.spy()
+      }
+    },
     $store: {
       getters: {
-        'apis/annotation': {
-          search: sinon.spy()
-        },
-        'apis/entity': {
-          findEntities: sinon.spy()
-        },
-        'api/record': {
-          getRecord: sinon.stub().resolves({}),
-          search: sinon.spy()
-        },
         'set/isLiked': sinon.stub()
       }
     }
@@ -44,14 +47,14 @@ describe('pages/item/_.vue', () => {
     it('gets a record from the API for the ID in the params pathMatch, for the current locale', async() => {
       const params = { pathMatch: '123/abc' };
       const record = { id: '/123/abc' };
-      const store = { getters: { 'apis/record': { getRecord: sinon.stub().resolves({ record }) } } };
+      const $apis = { record: { getRecord: sinon.stub().resolves({ record }) } };
       const app = { i18n: { locale: 'en' } };
 
       const wrapper = factory();
 
-      const response = await wrapper.vm.asyncData({ params, store, app });
+      const response = await wrapper.vm.asyncData({ params, app, $apis });
 
-      store.getters['apis/record'].getRecord.should.have.been.calledWith('/123/abc', { locale: 'en' });
+      $apis.record.getRecord.should.have.been.calledWith('/123/abc', { locale: 'en' });
       response.should.eql(record);
     });
   });

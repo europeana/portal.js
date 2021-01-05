@@ -33,8 +33,8 @@ export default {
       const host = currentHost({ req });
       const path = route.fullPath;
 
-      const httpPort = app.$http.config.ports.http ? `:${app.$http.config.ports.http}` : '';
-      const httpsPort = app.$http.config.ports.https ? `:${app.$http.config.ports.https}` : '';
+      const httpPort = app.$config.http.ports.http ? `:${app.$config.http.ports.http}` : '';
+      const httpsPort = app.$config.http.ports.https ? `:${app.$config.http.ports.https}` : '';
 
       commit('set', ['protocol', protocol]);
       commit('set', ['host', host]);

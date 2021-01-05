@@ -42,7 +42,7 @@ describe('store/set', () => {
     beforeEach(() => {
       commit.resetHistory();
       dispatch.resetHistory();
-      store.actions.$sets = {};
+      store.actions.$apis = { set: {} };
       store.actions.$auth = {};
     });
 
@@ -64,109 +64,109 @@ describe('store/set', () => {
     });
 
     describe('like()', () => {
-      it('adds to likes set via $sets, then commits with "like"', async() => {
-        store.actions.$sets.modifyItems = sinon.stub().resolves({});
+      it('adds to likes set via $apis.set, then commits with "like"', async() => {
+        store.actions.$apis.set.modifyItems = sinon.stub().resolves({});
         const state = { likesId: setId };
 
         await store.actions.like({ dispatch, commit, state }, itemId);
 
-        store.actions.$sets.modifyItems.should.have.been.calledWith('add', state.likesId, itemId);
+        store.actions.$apis.set.modifyItems.should.have.been.calledWith('add', state.likesId, itemId);
         commit.should.have.been.calledWith('like', itemId);
       });
     });
 
     describe('unlike()', () => {
-      it('removes from likes set via $sets, then commits with "unlike"', () => {
-        store.actions.$sets.modifyItems = sinon.stub().resolves({});
+      it('removes from likes set via $apis.set, then commits with "unlike"', () => {
+        store.actions.$apis.set.modifyItems = sinon.stub().resolves({});
         const state = { likesId: setId };
 
         store.actions.unlike({ commit, state }, itemId);
 
-        store.actions.$sets.modifyItems.should.have.been.calledWith('delete', state.likesId, itemId);
+        store.actions.$apis.set.modifyItems.should.have.been.calledWith('delete', state.likesId, itemId);
         commit.should.have.been.calledWith('unlike', itemId);
       });
     });
 
     describe('addItem()', () => {
-      it('adds to set via $sets, then dispatches "refreshCreation"', async() => {
-        store.actions.$sets.modifyItems = sinon.stub().resolves({});
+      it('adds to set via $apis.set, then dispatches "refreshCreation"', async() => {
+        store.actions.$apis.set.modifyItems = sinon.stub().resolves({});
         const state = {};
 
         await store.actions.addItem({ dispatch, state }, { setId, itemId });
 
-        store.actions.$sets.modifyItems.should.have.been.calledWith('add', setId, itemId);
+        store.actions.$apis.set.modifyItems.should.have.been.calledWith('add', setId, itemId);
         dispatch.should.have.been.calledWith('refreshCreation', setId);
       });
     });
 
     describe('removeItem()', () => {
-      it('removes from set via $sets, then dispatches "refreshCreation"', async() => {
-        store.actions.$sets.modifyItems = sinon.stub().resolves({});
+      it('removes from set via $apis.set, then dispatches "refreshCreation"', async() => {
+        store.actions.$apis.set.modifyItems = sinon.stub().resolves({});
         const state = {};
 
         await store.actions.removeItem({ dispatch, state }, { setId, itemId });
 
-        store.actions.$sets.modifyItems.should.have.been.calledWith('delete', setId, itemId);
+        store.actions.$apis.set.modifyItems.should.have.been.calledWith('delete', setId, itemId);
         dispatch.should.have.been.calledWith('refreshCreation', setId);
       });
     });
 
     // TODO: rename to indicate setting of ID only?
     describe('setLikes()', () => {
-      it('gets likes set via $sets, then commits ID with "setLikesId"', async() => {
+      it('gets likes set via $apis.set, then commits ID with "setLikesId"', async() => {
         store.actions.$auth.user = { sub: userId };
-        store.actions.$sets.getLikes = sinon.stub().resolves(setId);
+        store.actions.$apis.set.getLikes = sinon.stub().resolves(setId);
 
         await store.actions.setLikes({ commit });
 
-        store.actions.$sets.getLikes.should.have.been.calledWith(userId);
+        store.actions.$apis.set.getLikes.should.have.been.calledWith(userId);
         commit.should.have.been.calledWith('setLikesId', setId);
       });
     });
 
     describe('createLikes()', () => {
-      it('creates likes set via $sets, then commits ID with "setLikesId"', async() => {
-        store.actions.$sets.createLikes = sinon.stub().resolves({ id: setId });
+      it('creates likes set via $apis.set, then commits ID with "setLikesId"', async() => {
+        store.actions.$apis.set.createLikes = sinon.stub().resolves({ id: setId });
 
         await store.actions.createLikes({ commit });
 
-        store.actions.$sets.createLikes.should.have.been.calledWith();
+        store.actions.$apis.set.createLikes.should.have.been.calledWith();
         commit.should.have.been.calledWith('setLikesId', setId);
       });
     });
 
     describe('fetchLikes()', () => {
       context('without likesId in state', () => {
-        it('does not fetch likes via $sets', async() => {
-          store.actions.$sets.getSet = sinon.stub().resolves(set);
+        it('does not fetch likes via $apis.set', async() => {
+          store.actions.$apis.set.getSet = sinon.stub().resolves(set);
           const state = {};
 
           await store.actions.fetchLikes({ state, commit });
 
-          store.actions.$sets.getSet.should.not.have.been.called;
+          store.actions.$apis.set.getSet.should.not.have.been.called;
         });
       });
 
       context('with likesId in state', () => {
-        it('fetches likes via $sets, then commits the items with "setLikedItems"', async() => {
-          store.actions.$sets.getSet = sinon.stub().resolves(set);
+        it('fetches likes via $apis.set, then commits the items with "setLikedItems"', async() => {
+          store.actions.$apis.set.getSet = sinon.stub().resolves(set);
           const state = { likesId: setId };
 
           await store.actions.fetchLikes({ state, commit });
 
-          store.actions.$sets.getSet.should.have.been.calledWith(setId, sinon.match.any);
+          store.actions.$apis.set.getSet.should.have.been.calledWith(setId, sinon.match.any);
           commit.should.have.been.calledWith('setLikedItems', set.items);
         });
       });
     });
 
     describe('fetchActive()', () => {
-      it('fetches the active set with itemDescriptions via $sets, then commits it with "setActive"', async() => {
-        store.actions.$sets.getSet = sinon.stub().resolves(set);
+      it('fetches the active set with itemDescriptions via $apis.set, then commits it with "setActive"', async() => {
+        store.actions.$apis.set.getSet = sinon.stub().resolves(set);
 
         await store.actions.fetchActive({ commit }, setId);
 
-        store.actions.$sets.getSet.should.have.been.calledWith(setId, {
+        store.actions.$apis.set.getSet.should.have.been.calledWith(setId, {
           profile: 'itemDescriptions'
         });
         commit.should.have.been.calledWith('setActive', set);
@@ -174,26 +174,26 @@ describe('store/set', () => {
     });
 
     describe('createSet()', () => {
-      it('create the set via $sets, then dispatches "fetchCreations"', async() => {
-        store.actions.$sets.createSet = sinon.stub().resolves();
+      it('create the set via $apis.set, then dispatches "fetchCreations"', async() => {
+        store.actions.$apis.set.createSet = sinon.stub().resolves();
         const body = {};
 
         await store.actions.createSet({ dispatch }, body);
 
-        store.actions.$sets.createSet.should.have.been.calledWith(body);
+        store.actions.$apis.set.createSet.should.have.been.calledWith(body);
         dispatch.should.have.been.calledWith('fetchCreations');
       });
     });
 
     describe('updateSet()', () => {
-      it('updates the set via $sets', async() => {
-        store.actions.$sets.updateSet = sinon.stub().resolves({});
+      it('updates the set via $apis.set', async() => {
+        store.actions.$apis.set.updateSet = sinon.stub().resolves({});
         const body = {};
         const state = {};
 
         await store.actions.updateSet({ commit, state }, { id: setId, body });
 
-        store.actions.$sets.updateSet.should.have.been.calledWith(setId, body);
+        store.actions.$apis.set.updateSet.should.have.been.calledWith(setId, body);
       });
 
       context('when set is active', () => {
@@ -206,7 +206,7 @@ describe('store/set', () => {
             items: [],
             title: { en: 'My set' }
           };
-          store.actions.$sets.updateSet = sinon.stub().resolves(activeResponse);
+          store.actions.$apis.set.updateSet = sinon.stub().resolves(activeResponse);
           const state = { active: activeWas };
 
           await store.actions.updateSet({ commit, state }, { id: setId, activeUpdates });
@@ -217,18 +217,18 @@ describe('store/set', () => {
     });
 
     describe('deleteSet()', () => {
-      it('deletes the set via $sets', async() => {
-        store.actions.$sets.deleteSet = sinon.stub().resolves();
+      it('deletes the set via $apis.set', async() => {
+        store.actions.$apis.set.deleteSet = sinon.stub().resolves();
         const state = {};
 
         await store.actions.deleteSet({ commit, state }, setId);
 
-        store.actions.$sets.deleteSet.should.have.been.calledWith(setId);
+        store.actions.$apis.set.deleteSet.should.have.been.calledWith(setId);
       });
 
       context('when set was active', () => {
         it('commits `DELETED` with "setActive"', async() => {
-          store.actions.$sets.deleteSet = sinon.stub().resolves();
+          store.actions.$apis.set.deleteSet = sinon.stub().resolves();
           const state = { active: { id: setId } };
 
           await store.actions.deleteSet({ commit, state }, setId);
@@ -240,26 +240,26 @@ describe('store/set', () => {
 
     describe('refreshCreation', () => {
       context('when creation is not stored', () => {
-        it('does not fetch it via $sets', async() => {
-          store.actions.$sets.getSet = sinon.stub().resolves();
+        it('does not fetch it via $apis.set', async() => {
+          store.actions.$apis.set.getSet = sinon.stub().resolves();
           const state = { creations: [] };
 
           await store.actions.refreshCreation({ commit, state }, setId);
 
-          store.actions.$sets.getSet.should.not.have.been.called;
+          store.actions.$apis.set.getSet.should.not.have.been.called;
         });
       });
 
       context('when creation is not stored', () => {
-        it('fetches it via $sets with itemDescriptions, then commits with "setCreations"', async() => {
+        it('fetches it via $apis.set with itemDescriptions, then commits with "setCreations"', async() => {
           const oldCreation = { id: setId, title: { en: 'Old title' } };
           const newCreation = { id: setId, title: { en: 'New title' } };
           const state = { creations: [oldCreation] };
-          store.actions.$sets.getSet = sinon.stub().resolves(newCreation);
+          store.actions.$apis.set.getSet = sinon.stub().resolves(newCreation);
 
           await store.actions.refreshCreation({ commit, state }, setId);
 
-          store.actions.$sets.getSet.should.have.been.calledWith(setId, {
+          store.actions.$apis.set.getSet.should.have.been.calledWith(setId, {
             profile: 'itemDescriptions'
           });
           commit.should.have.been.calledWith('setCreations', [newCreation]);
@@ -268,14 +268,14 @@ describe('store/set', () => {
     });
 
     describe('fetchCreations()', () => {
-      it('fetches creations via $sets, then commits with "setCreations"', async() => {
+      it('fetches creations via $apis.set, then commits with "setCreations"', async() => {
         const searchResponse = { data: { items: ['1', '2'] } };
         store.actions.$auth.user = { sub: userId };
-        store.actions.$sets.search = sinon.stub().resolves(searchResponse);
+        store.actions.$apis.set.search = sinon.stub().resolves(searchResponse);
 
         await store.actions.fetchCreations({ commit });
 
-        store.actions.$sets.search.should.have.been.calledWith({
+        store.actions.$apis.set.search.should.have.been.calledWith({
           query: `creator:${userId}`,
           profile: 'itemDescriptions',
           pageSize: 100,
