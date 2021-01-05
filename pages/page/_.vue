@@ -34,9 +34,9 @@
           cols="12"
           class="mt-3 col-lg-8"
         >
-          <Chapters
+          <LinkList
             :title="relatedLinks.name"
-            :chapters="relatedLinks.links.items"
+            :items="relatedLinks.links.items"
           />
         </b-col>
       </b-row>
@@ -49,7 +49,6 @@
   import SocialShareModal from '../../components/sharing/SocialShareModal.vue';
   import ShareButton from '../../components/sharing/ShareButton.vue';
   import BrowseSections from '../../components/browse/BrowseSections';
-  import Chapters from '../../components/generic/Chapters';
 
   export default {
     components: {
@@ -57,7 +56,7 @@
       SocialShareModal,
       ShareButton,
       BrowseSections,
-      Chapters
+      LinkList: () => import('../../components/generic/LinkList')
     },
 
     asyncData({ params, query, error, app }) {

@@ -49,9 +49,10 @@
             cols="12"
             class="mt-3 col-lg-8"
           >
-            <ExhibitionChapters
+            <LinkList
+              :exhibition="true"
               :exhibition-identifier="exhibitionIdentifier"
-              :chapters="chapters"
+              :items="chapters"
               :credits="credits"
             />
           </b-col>
@@ -65,7 +66,6 @@
 <script>
   import ClientOnly from 'vue-client-only';
   import BrowseSections from '../../../components/browse/BrowseSections';
-  import ExhibitionChapters from '../../../components/exhibition/ExhibitionChapters';
   import SocialShareModal from '../../../components/sharing/SocialShareModal.vue';
   import ShareButton from '../../../components/sharing/ShareButton.vue';
 
@@ -73,10 +73,10 @@
     components: {
       BrowseSections,
       ClientOnly,
-      ExhibitionChapters,
       ShareButton,
       SocialShareModal,
-      AuthoredHead: () => import('../../../components/authored/AuthoredHead')
+      AuthoredHead: () => import('../../../components/authored/AuthoredHead'),
+      LinkList: () => import('../../../components/generic/LinkList')
     },
     asyncData({ params, query, error, app, store }) {
       const variables = {

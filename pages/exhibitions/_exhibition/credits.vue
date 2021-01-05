@@ -43,9 +43,10 @@
           cols="12"
           class="mt-3 col-lg-8"
         >
-          <ExhibitionChapters
+          <LinkList
+            :exhibition="true"
             :exhibition-identifier="identifier"
-            :chapters="hasPartCollection.items"
+            :items="hasPartCollection.items"
             :credits="credits"
           />
         </b-col>
@@ -57,15 +58,14 @@
 
 <script>
   import marked from 'marked';
-  import ExhibitionChapters from '../../../components/exhibition/ExhibitionChapters';
   import SocialShareModal from '../../../components/sharing/SocialShareModal.vue';
   import ShareButton from '../../../components/sharing/ShareButton.vue';
 
   export default {
     components: {
-      ExhibitionChapters,
       ShareButton,
-      SocialShareModal
+      SocialShareModal,
+      LinkList: () => import('../../../components/generic/LinkList')
     },
 
     asyncData({ params, query, error, app, store }) {
