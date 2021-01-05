@@ -61,7 +61,7 @@ jobs:
         path: |
           ~/.npm
           **/node_modules
-        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+        key: ${{ runner.os }}-node-${{ hashFiles('./package-lock.json') }}
     - if: steps.cache-node.outputs.cache-hit != 'true'
       run: npm install
     - run: npm run test:unit
@@ -80,7 +80,7 @@ jobs:
         path: |
           ~/.npm
           **/node_modules
-        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+        key: ${{ runner.os }}-node-${{ hashFiles('./package-lock.json') }}
     - if: steps.cache-node.outputs.cache-hit != 'true'
       run: npm install
     - run: npm run build
@@ -98,16 +98,19 @@ jobs:
       with:
         node-version: 12.x
     - uses: actions/download-artifact@v2
-    - run: cd tests/size
     - uses: actions/cache@v2
       id: cache-size-limit-node
       with:
         path: |
           ./node_modules
-        key: ${{ runner.os }}-node-${{ hashFiles('./package.json') }}
+        key: ${{ runner.os }}-node-${{ hashFiles('./tests/size/package.json') }}
     - if: steps.cache-size-limit-node.outputs.cache-hit != 'true'
-      run: npm install
-    - run: npm run start
+      run: |
+        cd tests/size
+        npm install
+    - run: |
+        cd tests/size
+        npm run start
 
   test-e2e:
     runs-on: ubuntu-latest
