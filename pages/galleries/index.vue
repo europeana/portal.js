@@ -80,7 +80,8 @@
     },
     methods: {
       imageUrl(data) {
-        return (data.encoding ? data.encoding.edmPreview : data.thumbnailUrl) + '&size=w400';
+        if (!data.encoding) return '';
+        return data.encoding.edmPreview + '&size=w400';
       }
     },
     head() {
