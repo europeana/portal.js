@@ -124,7 +124,7 @@ module.exports = function(migration) {
     .validations([
       {
         size: {
-          max: 10
+          max: 40
         }
       }
     ])
@@ -135,7 +135,7 @@ module.exports = function(migration) {
 
       validations: [
         {
-          linkContentType: ['richText']
+          linkContentType: ['embed', 'imageComparison', 'imageWithAttribution', 'link', 'richText']
         }
       ],
 

@@ -15,10 +15,29 @@ query StaticPage(
         url
         contentType
       }
-      hasPartCollection(limit: 10) {
+      hasPartCollection(limit: 40) {
+        total
         items {
           __typename
           ... on ContentTypeRichText {
+            text
+          }
+          ... on Embed {
+            embed
+          }
+          ... on ImageWithAttribution {
+            ... imageWithAttributionFields
+          }
+          ... on ImageComparison {
+            name
+            hasPartCollection(limit: 2) {
+              items {
+                ... imageWithAttributionFields
+              }
+            }
+          }
+          ... on Link {
+            url
             text
           }
         }
