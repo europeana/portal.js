@@ -104,11 +104,13 @@ jobs:
         path: |
           ./tests/size/node_modules
         key: ${{ runner.os }}-node-${{ hashFiles('./tests/size/package.json') }}
-    - if: steps.cache-size-limit-node.outputs.cache-hit != 'true'
+    - name: npm install
+      if: steps.cache-size-limit-node.outputs.cache-hit != 'true'
       run: |
         cd tests/size
         npm install
-    - run: |
+    - name: test size-limit
+      run: |
         cd tests/size
         npm run start
 
