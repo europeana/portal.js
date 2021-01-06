@@ -36,7 +36,7 @@
           class="mt-3 col-lg-8"
         >
           <LinkList
-            :items="chaptersAndCredits"
+            :items="manipulateChapters(hasPartCollection.items, identifier)"
             :title="$t('exhibitions.chapters')"
           />
         </b-col>
@@ -50,6 +50,7 @@
   import marked from 'marked';
   import SocialShareModal from '../../../components/sharing/SocialShareModal.vue';
   import ShareButton from '../../../components/sharing/ShareButton.vue';
+  import exhibitionChapters from '../../../mixins/exhibitionChapters';
 
   export default {
     components: {
@@ -58,6 +59,9 @@
       SocialShareModal,
       AuthoredHead: () => import('../../../components/authored/AuthoredHead')
     },
+    mixins: [
+      exhibitionChapters
+    ],
     asyncData({ params, query, error, app, store, redirect }) {
       if (params.exhibition === undefined) redirect(app.$path({ name: 'exhibitions' }));
 
@@ -106,54 +110,6 @@
         return this.$options.filters.optimisedImageUrl(
           this.heroImage.url,
           this.heroImage.contentType,
-          { width: 800, height: 800 }
-        );
-      },
-      chaptersAndCredits() {
-        let chapters = this.hasPartCollection.items;
-        chapters = chapters.concat(this.creditsChapter || []);
-        chapters.map(chapter => {
-          chapter.url = chapter.identifier === 'credits' ? {
-            name: 'exhibitions-exhibition-credits',
-            params: { exhibition: this.identifier }
-          } : {
-            name: 'exhibitions-exhibition-chapter',
-            params: {
-              exhibition: this.identifier, chapter: chapter.identifier
-            }
-          };
-          chapter.background = this.optimisedBackgroundImageUrl(chapter);
-          chapter.text = chapter.name;
-        }
-        );
-
-        return chapters;
-      },
-      creditsChapter() {
-        if (!this.credits) return null;
-        return {
-          name: this.$t('exhibitions.credits'),
-          identifier: 'credits'
-        };
-      }
-    },
-    methods: {
-      chapterImage(chapter) {
-        if (!chapter) return;
-        if (!chapter.primaryImageOfPage) return;
-        if (!chapter.primaryImageOfPage.image) return;
-        return chapter.primaryImageOfPage.image.url;
-      },
-      chapterImageContentType(chapter) {
-        if (!chapter) return;
-        if (!chapter.primaryImageOfPage) return;
-        if (!chapter.primaryImageOfPage.image) return;
-        return chapter.primaryImageOfPage.image.contentType;
-      },
-      optimisedBackgroundImageUrl(chapter) {
-        return this.$options.filters.optimisedImageUrl(
-          this.chapterImage(chapter),
-          this.chapterImageContentType(chapter),
           { width: 800, height: 800 }
         );
       }
