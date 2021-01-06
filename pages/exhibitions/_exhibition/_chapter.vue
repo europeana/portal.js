@@ -50,10 +50,8 @@
             class="mt-3 col-lg-8"
           >
             <LinkList
-              :exhibition="true"
-              :exhibition-identifier="exhibitionIdentifier"
-              :items="chapters"
-              :credits="credits"
+              :items="chaptersAndCredits"
+              :title="$t('exhibitions.chapters')"
             />
           </b-col>
         </b-row>
@@ -153,6 +151,33 @@
           this.heroImage.contentType,
           { width: 800, height: 800 }
         );
+      },
+      chaptersAndCredits() {
+        let chapters = this.chapters;
+        chapters = chapters.concat(this.creditsChapter || []);
+        chapters.map(chapter => {
+          chapter.url = chapter.identifier === 'credits' ? {
+            name: 'exhibitions-exhibition-credits',
+            params: { exhibition: this.exhibitionIdentifier }
+          } : {
+            name: 'exhibitions-exhibition-chapter',
+            params: {
+              exhibition: this.exhibitionIdentifier, chapter: chapter.identifier
+            }
+          };
+          chapter.background = this.optimisedBackgroundImageUrl(chapter);
+          chapter.text = chapter.name;
+        }
+        );
+
+        return chapters;
+      },
+      creditsChapter() {
+        if (!this.credits) return null;
+        return {
+          name: this.$t('exhibitions.credits'),
+          identifier: 'credits'
+        };
       }
     },
     methods: {
@@ -163,6 +188,25 @@
             exhibition: this.exhibitionIdentifier, chapter: identifier
           }
         });
+      },
+      chapterImage(chapter) {
+        if (!chapter) return;
+        if (!chapter.primaryImageOfPage) return;
+        if (!chapter.primaryImageOfPage.image) return;
+        return chapter.primaryImageOfPage.image.url;
+      },
+      chapterImageContentType(chapter) {
+        if (!chapter) return;
+        if (!chapter.primaryImageOfPage) return;
+        if (!chapter.primaryImageOfPage.image) return;
+        return chapter.primaryImageOfPage.image.contentType;
+      },
+      optimisedBackgroundImageUrl(chapter) {
+        return this.$options.filters.optimisedImageUrl(
+          this.chapterImage(chapter),
+          this.chapterImageContentType(chapter),
+          { width: 800, height: 800 }
+        );
       }
     },
     beforeRouteLeave(to, from, next) {
