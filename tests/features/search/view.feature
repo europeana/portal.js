@@ -26,7 +26,7 @@ Feature: View styles (List and Grid)
     Then I see a `item previews list`
 
   Scenario: Switching to the grid view
-    When I open `/search?query=&view=list`
+    When I open `/search?view=list`
     And I click the `search grid view toggle`
     Then I see a `item previews grid`
 
@@ -55,7 +55,7 @@ Feature: View styles (List and Grid)
     Then I see a `item previews grid`
 
   Scenario: Back button restores previous view
-    Given I am on `/search?query=&view=grid`
+    Given I am on `/search?view=grid`
     When I click the `search list view toggle`
     And I see a `item previews list`
     And I go back
