@@ -156,7 +156,7 @@
 
 <style lang="scss" scoped>
   @import '../assets/scss/variables.scss';
-  @import './assets/scss/icons.scss';
+  @import '../assets/scss/icons.scss';
 
   .container-fluid {
     background: $white;
@@ -169,8 +169,8 @@
     padding: 0;
     border-bottom: 1px solid $whitegrey;
 
-    &:not(.show) /deep/ .search-query,
-    &:not(.show) /deep/ .auto-suggest-dropdown {
+    &:not(.show) ::v-deep .search-query,
+    &:not(.show) ::v-deep .auto-suggest-dropdown {
       display: none;
     }
   }

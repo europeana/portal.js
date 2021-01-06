@@ -252,12 +252,12 @@
 </script>
 
 <style lang="scss" scoped>
-  @import './assets/scss/variables.scss';
+  @import '../../assets/scss/variables.scss';
 
-  /deep/ .mirador-thumbnail-nav-canvas:focus {
+  ::v-deep .mirador-thumbnail-nav-canvas:focus {
     outline: 2px solid $blue !important;
   }
-  /deep/ .mirador-thumb-navigation {
+  ::v-deep .mirador-thumb-navigation {
     height: 100px !important;
   }
 </style>

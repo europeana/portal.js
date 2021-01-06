@@ -199,7 +199,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @import './assets/scss/variables.scss';
+  @import '../../assets/scss/variables.scss';
 
   .dropdown { // TODO: move this code to the dropdown.scss where possible, to avoid duplication
     margin-bottom: 5px;
@@ -216,13 +216,13 @@
   }
 
   .has-selected {
-    /deep/ > .btn {
+    ::v-deep > .btn {
       background: $white;
       color: $mediumgrey;
     }
   }
 
-  /deep/ .dropdown-menu {
+  ::v-deep .dropdown-menu {
     font-size: $font-size-small;
     margin-top: 0.5rem;
     width: 100%;
