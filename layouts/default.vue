@@ -90,6 +90,8 @@
       if (this.$announcer) this.$announcer.setComplementRoute(this.$t('pageHasLoaded'));
     },
 
+    fetchOnServer: false,
+
     data() {
       return {
         ...config,

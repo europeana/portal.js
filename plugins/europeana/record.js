@@ -215,6 +215,7 @@ export default (context = {}) => {
         media: this.aggregationMedia(providerAggregation, edm.type, edm.services),
         agents,
         concepts,
+        timespans,
         title: proxyData.dcTitle
       };
     },

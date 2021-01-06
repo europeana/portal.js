@@ -1,5 +1,5 @@
 # Europeana Collections portal, made with Vue.js + Nuxt.js
- [![Build Status](https://travis-ci.com/europeana/portal.js.svg?branch=master)](https://travis-ci.com/europeana/portal.js) [![Maintainability](https://api.codeclimate.com/v1/badges/0510faf1055ef06c5938/maintainability)](https://codeclimate.com/github/europeana/portal.js/maintainability)
+[![Maintainability](https://api.codeclimate.com/v1/badges/0510faf1055ef06c5938/maintainability)](https://codeclimate.com/github/europeana/portal.js/maintainability)
 
 ## Prerequisites
 
