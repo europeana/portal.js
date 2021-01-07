@@ -5,7 +5,7 @@ Feature: Search faceting
     When I click the `TYPE dropdown button`
     And I check the "\"IMAGE\"" "TYPE" checkbox
     And I click the `TYPE apply button`
-    Then I should be on `/en/search?page=1&qf=TYPE%3A%22IMAGE%22&query=&view=grid`
+    Then I should be on `/en/search?page=1&qf=TYPE%3A%22IMAGE%22&view=grid`
     And I am on page number 1
     And I see a `filter badge` with the text "Type of media: Image"
     And I am on an accessible page
@@ -16,7 +16,7 @@ Feature: Search faceting
     And I click the `collection dropdown button`
     And I check the "art" "collection" radio
     And I click the `collection apply button`
-    Then I should be on `/en/search?page=1&qf=collection%3Aart&query=&view=grid`
+    Then I should be on `/en/search?page=1&qf=collection%3Aart&view=grid`
     And I see a `filter badge` with the text "Collection: Art"
 
   Scenario: Filtering results by Collection and paginate
@@ -47,7 +47,7 @@ Feature: Search faceting
     When I click the `REUSABILITY dropdown button`
     And I check the "open" "REUSABILITY" checkbox
     And I click the `REUSABILITY apply button`
-    Then I should be on `/en/search?page=1&query=&reusability=open&view=grid`
+    Then I should be on `/en/search?page=1&reusability=open&view=grid`
     And I am on page number 1
     And I see a `filter badge` with the text "Can I use this?: Yes"
 
@@ -56,7 +56,7 @@ Feature: Search faceting
     When I click the `COUNTRY dropdown button`
     And I check the "\"Belgium\"" "COUNTRY" checkbox
     And I click the `COUNTRY apply button`
-    Then I should be on `/en/search?page=1&qf=COUNTRY%3A%22Belgium%22&query=&view=grid`
+    Then I should be on `/en/search?page=1&qf=COUNTRY%3A%22Belgium%22&view=grid`
     And I am on page number 1
     And I see a `filter badge` with the text "Providing country: Belgium"
 
@@ -66,7 +66,7 @@ Feature: Search faceting
     And I check the "\"Belgium\"" "COUNTRY" checkbox
     And I check the "\"Germany\"" "COUNTRY" checkbox
     And I click the `COUNTRY apply button`
-    Then I should be on `/en/search?page=1&qf=COUNTRY%3A%22Belgium%22&qf=COUNTRY%3A%22Germany%22&query=&view=grid`
+    Then I should be on `/en/search?page=1&qf=COUNTRY%3A%22Belgium%22&qf=COUNTRY%3A%22Germany%22&view=grid`
     And I am on page number 1
     And I should have 2 `filter badge`s
 
@@ -81,16 +81,16 @@ Feature: Search faceting
     And I click the `REUSABILITY dropdown button`
     And I check the "open" "REUSABILITY" checkbox
     And I click the `REUSABILITY apply button`
-    Then I should be on `/en/search?page=1&qf=COUNTRY%3A%22Belgium%22&qf=TYPE%3A%22IMAGE%22&query=&reusability=open&view=grid`
+    Then I should be on `/en/search?page=1&qf=COUNTRY%3A%22Belgium%22&qf=TYPE%3A%22IMAGE%22&reusability=open&view=grid`
     And I am on page number 1
     And I should have 3 `filter badge`s
 
   Scenario: Facets are loaded from the URL
-    Given I am on `/en/search?query=&page=1&reusability=open&qf=COUNTRY%3A%22Belgium%22&qf=TYPE%3A%22IMAGE%22`
+    Given I am on `/en/search?page=1&reusability=open&qf=COUNTRY%3A%22Belgium%22&qf=TYPE%3A%22IMAGE%22`
     Then I should have 3 `filter badge`s
 
   Scenario: Unselecting facets
-    Given I am on `/en/search?query=&page=1&reusability=open&qf=TYPE%3A%22IMAGE%22&qf=COUNTRY%3A%22Belgium%22`
+    Given I am on `/en/search?page=1&reusability=open&qf=TYPE%3A%22IMAGE%22&qf=COUNTRY%3A%22Belgium%22`
     When I click the `COUNTRY dropdown button`
     And I check the "\"Belgium\"" "COUNTRY" checkbox
     And I click the `COUNTRY apply button`
@@ -100,16 +100,15 @@ Feature: Search faceting
     And I click the `REUSABILITY dropdown button`
     And I check the "open" "REUSABILITY" checkbox
     And I click the `REUSABILITY apply button`
-    Then I should be on `/en/search?page=1&query=&view=grid`
+    Then I should be on `/en/search?page=1&view=grid`
     And I am on page number 1
-    And I can't have a `/en/search?query=`
 
   Scenario: Filtering results by country and have a corresponding item page
     Given I am on the `search page`
     When I click the `COUNTRY dropdown button`
     And I check the "\"Belgium\"" "COUNTRY" checkbox
     And I click the `COUNTRY apply button`
-    Then I should be on `/en/search?page=1&qf=COUNTRY%3A%22Belgium%22&query=&view=grid`
+    Then I should be on `/en/search?page=1&qf=COUNTRY%3A%22Belgium%22&view=grid`
     And I see a `item preview`
     And I click a `item preview`
     Then I see an `item page`
@@ -122,7 +121,7 @@ Feature: Search faceting
     And I check the "\"Belgium\"" "COUNTRY" checkbox
     And I check the "\"Germany\"" "COUNTRY" checkbox
     And I click the `COUNTRY apply button`
-    Then I should be on `/en/search?page=1&qf=COUNTRY%3A%22Belgium%22&qf=COUNTRY%3A%22Germany%22&query=&view=grid`
+    Then I should be on `/en/search?page=1&qf=COUNTRY%3A%22Belgium%22&qf=COUNTRY%3A%22Germany%22&view=grid`
     And I click a `item preview`
     Then I see an `item page`
     And I click the "All metadata" tab
@@ -134,7 +133,7 @@ Feature: Search faceting
     When I click the `COUNTRY dropdown button`
     And I check the "\"France\"" "COUNTRY" checkbox
     And I click the `COUNTRY apply button`
-    And I should be on `/en/search?page=1&qf=COUNTRY%3A%22France%22&query=&view=grid`
+    And I should be on `/en/search?page=1&qf=COUNTRY%3A%22France%22&view=grid`
     And I see a `filter badge` with the text "Providing country: France"
     And I click the `show search button`
     And I enter "paris" in the `search box`
@@ -171,7 +170,7 @@ Feature: Search faceting
     And I check the "\"en\"" "LANGUAGE" checkbox
     And I check the "\"sv\"" "LANGUAGE" checkbox
     And I click the `apply button`
-    Then I should be on `/en/search?page=1&qf=LANGUAGE%3A%22en%22&qf=LANGUAGE%3A%22sv%22&query=&view=grid`
+    Then I should be on `/en/search?page=1&qf=LANGUAGE%3A%22en%22&qf=LANGUAGE%3A%22sv%22&view=grid`
     And I see a `more filters selected options count` with the text "2"
 
   Scenario: Applies the content tier query to the URL when clicking the toggle button
@@ -179,7 +178,7 @@ Feature: Search faceting
     When I click the `more filters dropdown button`
     And I check the "\"0\"" "contentTier" checkbox
     And I click the `apply button`
-    Then I should be on `/en/search?page=1&qf=contentTier%3A%220%22&query=&view=grid`
+    Then I should be on `/en/search?page=1&qf=contentTier%3A%220%22&view=grid`
 
   Scenario: Clicking reset button in more facets
     Given I am on the `search page`
@@ -190,7 +189,7 @@ Feature: Search faceting
     And I click the `more filters dropdown button`
     And I click the `reset filter button`
     And I click the `apply button`
-    Then I should be on `/en/search?page=1&query=&view=grid`
+    Then I should be on `/en/search?page=1&view=grid`
 
   Scenario: No tier filter on entity pages
     Given I am on an `entity page`
@@ -214,15 +213,15 @@ Feature: Search faceting
     When I click the `COUNTRY dropdown button`
     And I check the "\"France\"" "COUNTRY" checkbox
     And I click the `COUNTRY apply button`
-    And I should be on `/en/search?page=1&qf=COUNTRY%3A%22France%22&query=&view=grid`
+    And I should be on `/en/search?page=1&qf=COUNTRY%3A%22France%22&view=grid`
     And I click the `TYPE dropdown button`
     And I check the "\"IMAGE\"" "TYPE" checkbox
     And I click the `TYPE apply button`
-    And I should be on `/en/search?page=1&qf=COUNTRY%3A%22France%22&qf=TYPE%3A%22IMAGE%22&query=&view=grid`
+    And I should be on `/en/search?page=1&qf=COUNTRY%3A%22France%22&qf=TYPE%3A%22IMAGE%22&view=grid`
     And I go to page number 2
-    And I should be on `/en/search?page=2&qf=COUNTRY%3A%22France%22&qf=TYPE%3A%22IMAGE%22&query=&view=grid`
+    And I should be on `/en/search?page=2&qf=COUNTRY%3A%22France%22&qf=TYPE%3A%22IMAGE%22&view=grid`
     And I click the `reset filters button`
-    Then I should be on `/en/search?page=1&query=&view=grid`
+    Then I should be on `/en/search?page=1&view=grid`
 
   Scenario: Non-core/non-more filters excluded from options count
     Given I am on `/en/search?qf=proxy_dcterms_alternative:*`
