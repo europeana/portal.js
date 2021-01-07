@@ -204,7 +204,6 @@ module.exports = {
     '~/modules/axios-logger',
     '~/modules/http',
     '~/modules/query-sanitiser',
-    '~/modules/klaro',
     '@nuxtjs/auth'
   ],
 

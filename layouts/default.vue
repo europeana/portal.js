@@ -27,7 +27,12 @@
       id="default"
       role="main"
     >
-      <a class="btn btn-primary d-inline-flex align-items-center ml-5 text-white" onclick="return klaro.show();">Change cookie settings</a>
+      <client-only>
+        <a
+          class="btn btn-primary d-inline-flex align-items-center ml-5 text-white"
+          onclick="return klaro.show();"
+        >Change cookie settings</a>
+      </client-only>
       <b-breadcrumb
         v-if="breadcrumbs"
         :items="breadcrumbs"
@@ -50,6 +55,8 @@
   import { mapGetters, mapState } from 'vuex';
   import ClientOnly from 'vue-client-only';
   import PageHeader from '../components/PageHeader';
+
+  const klaroConfig = require('../plugins/klaro-config.js');
 
   const config = {
     bootstrapVersion: require('bootstrap/package.json').version,
@@ -128,6 +135,8 @@
 
     mounted() {
       this.$announcer.setComplementRoute(this.$t('pageHasLoaded'));
+      // console.log(this.klaro);
+      // this.klaro.show();
     },
 
     head() {
@@ -139,7 +148,8 @@
         link: [
           { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,700italic,400,600,700&subset=latin,greek,cyrillic&display=swap', body: true },
           { rel: 'stylesheet', href: `https://unpkg.com/bootstrap@${this.bootstrapVersion}/dist/css/bootstrap.min.css` },
-          { rel: 'stylesheet', href: `https://unpkg.com/bootstrap-vue@${this.bootstrapVueVersion}/dist/bootstrap-vue.min.css` },
+          { rel: 'stylesheet', href: 'https://cdn.kiprotect.com/klaro/v0.7.9/klaro.min.css' },
+          { rel: 'stylesheet', href: 'https://unpkg.com/bootstrap-vue@${this.bootstrapVueVersion}/dist/bootstrap-vue.min.css' },
           { hreflang: 'x-default', rel: 'alternate', href: this.canonicalUrlWithoutLocale },
           ...i18nSeo.link
         ],
@@ -147,6 +157,9 @@
           { hid: 'description', property: 'description', content: 'Europeana' },
           { hid: 'og:url', property: 'og:url', content: this.canonicalUrl },
           ...i18nSeo.meta
+        ],
+        script: [
+          { src: 'https://unpkg.com/klaro@0.7.9/dist/klaro-no-css.js', defer: true, dataConfig: klaroConfig }
         ]
       };
     }
