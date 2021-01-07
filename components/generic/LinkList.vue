@@ -16,7 +16,7 @@
         :style="item.background ? `background-image: url(${item.background})` : null"
         class="item w-100 text-left d-flex justify-content-start align-items-start"
         :destination="item.url"
-        :data-qa="`linklist ${item.identifier} item`"
+        :data-qa="`link list ${item.identifier} item`"
       >
         <span class="number" />
         <span>{{ item.text }}</span>
