@@ -27,6 +27,7 @@
       id="default"
       role="main"
     >
+      <a class="btn btn-primary d-inline-flex align-items-center ml-5 text-white" onclick="return klaro.show();">Change cookie settings</a>
       <b-breadcrumb
         v-if="breadcrumbs"
         :items="breadcrumbs"
@@ -47,7 +48,6 @@
 
 <script>
   import { mapGetters, mapState } from 'vuex';
-
   import ClientOnly from 'vue-client-only';
   import PageHeader from '../components/PageHeader';
 

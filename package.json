@@ -60,6 +60,7 @@
     "deep-object-diff": "^1.1.0",
     "deepmerge": "^4.2.2",
     "elastic-apm-node": "^3.9.0",
+    "klaro": "^0.7.11",
     "lodash": "^4.17.20",
     "marked": "^0.7.0",
     "md5": "^2.2.1",
