@@ -21,7 +21,7 @@
               :sections="hasPartCollection.items"
               :rich-text-is-card="false"
               class="authored-section"
-              data-qa="blog-sections"
+              data-qa="browse sections"
             />
           </article>
         </b-col>
