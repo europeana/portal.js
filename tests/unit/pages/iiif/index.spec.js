@@ -32,23 +32,59 @@ describe('pages/iiif/index.vue', () => {
   });
 
   describe('methods', () => {
-    describe('coerceAnnotationToCanvasId', () => {
-      it('coerces `on` attribute to canvas ID', () => {
+    describe('coerceResourceOnImagesToCanvases', () => {
+      it('coerces resource\'s `on` attribute to canvas ID', () => {
         const wrapper = factory();
         wrapper.setData({
-          page: 'http://example.org/presentation/123/canvas/p1'
+          imageToCanvasMap: {
+            'https://example.org/image/123.jpg': 'http://example.org/presentation/123/canvas/p1'
+          }
         });
-        const annotationJson = {
-          resources: [
-            { on: ['https://example.org/image/123.jpg#xywh=1,0,90,100'] }
+        const resource = {
+          on: ['https://example.org/image/123.jpg#xywh=1,0,90,100']
+        };
+
+        wrapper.vm.coerceResourceOnImagesToCanvases(resource);
+
+        resource.should.eql({
+          on: ['http://example.org/presentation/123/canvas/p1#xywh=1,0,90,100']
+        });
+      });
+    });
+
+    describe('coerceSearchHitsToBeforeMatchAfter', () => {
+      it('coerces search hits from selectors to before/match/after', () => {
+        const wrapper = factory();
+        const searchJson = {
+          hits: [
+            {
+              '@type': 'search:Hit',
+              annotations: [],
+              selectors: [
+                {
+                  '@type': 'oa:TextQuoteSelector',
+                  prefix: 'roit pas ',
+                  exact: 'joui',
+                  suffix: ' long-tons. On en avoit déjà'
+                }
+              ]
+            }
           ]
         };
 
-        wrapper.vm.coerceAnnotationToCanvasId(annotationJson);
+        wrapper.vm.coerceSearchHitsToBeforeMatchAfter(searchJson);
 
-        annotationJson.resources.should.eql([
-          { on: ['http://example.org/presentation/123/canvas/p1#xywh=1,0,90,100'] }
-        ]);
+        searchJson.should.eql({
+          hits: [
+            {
+              '@type': 'search:Hit',
+              annotations: [],
+              before: 'roit pas ',
+              match: 'joui',
+              after: ' long-tons. On en avoit déjà'
+            }
+          ]
+        });
       });
     });
 

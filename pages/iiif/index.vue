@@ -22,6 +22,7 @@
         MIRADOR_BUILD_PATH: 'https://unpkg.com/mirador@3.0.0/dist',
         page: null,
         uri: null,
+        imageToCanvasMap: {},
         mirador: null,
         miradorStoreManifestJsonUnsubscriber: () => {}
       };
@@ -84,7 +85,8 @@
           const miradorManifest = this.mirador.store.getState().manifests[miradorWindow.manifestId];
           if (miradorManifest) {
             this.manifest = miradorManifest.json;
-            if (miradorWindow.canvasId !== this.page) {
+            if (miradorWindow.canvasId && (miradorWindow.canvasId !== this.page)) {
+              this.memoiseImageToCanvasMap();
               this.page = miradorWindow.canvasId;
               this.fetchImageData(this.uri, this.page);
             }
@@ -118,7 +120,7 @@
       postprocessMiradorSearch(url, action) {
         this.filterSearchHitsByTextGranularity(action.searchJson);
         this.coerceResourcesOnToCanvases(action.searchJson);
-        this.coerceSearchHitsToBeforeAfterMatch(action.searchJson);
+        this.coerceSearchHitsToBeforeMatchAfter(action.searchJson);
       },
 
       addTextGranularityFilterToManifest(manifestJson, textGranularity = 'Line') {
@@ -159,30 +161,35 @@
         searchJson.hits = searchJson.hits.filter(hit => hit.annotations.some(anno => filteredResourceIds.includes(anno)));
       },
 
-      // HACK to force `on` attribute to canvas ID
+      coerceResourcesOnToCanvases(json) {
+        json.resources = json.resources.map(this.coerceResourceOnImagesToCanvases);
+      },
+
+      memoiseImageToCanvasMap() {
+        this.imageToCanvasMap = this.manifest.sequences.reduce((memo, sequence) => {
+          for (const canvas of sequence.canvases) {
+            for (const image of canvas.images) {
+              memo[image.resource['@id']] = canvas['@id'];
+            }
+          }
+          return memo;
+        }, {});
+      },
+
+      canvasForImage(imageId) {
+        const splitImageId = imageId.split('#');
+        if (this.imageToCanvasMap[splitImageId[0]]) {
+          return [this.imageToCanvasMap[splitImageId[0]], splitImageId[1]].join('#');
+        }
+      },
+
+      // HACK to force `on` attribute to canvas ID, from invalid targetting of image ID
       //
       // TODO: remove when API output updated to use canvas ID.
       //       Affects annotation lists for:
       //       - full pages of annotations linked to from otherContent in Presentation manifests
       //       - lists of annotations with search hits
-      coerceResourcesOnToCanvases(json) {
-        json.resources = json.resources.map(this.coerceOnImagesToCanvases);
-      },
-
-      // TODO: detect if it's an image before looking up its canvas?
-      canvasForImage(imageId) {
-        const splitImageId = imageId.split('#');
-        for (const sequence of this.manifest.sequences) {
-          for (const canvas of sequence.canvases) {
-            for (const image of canvas.images) {
-              if (image.resource['@id'] === splitImageId[0]) return [canvas['@id'], splitImageId[1]].join('#');
-            }
-          }
-        }
-      },
-
-      // HACK to ... [TODO]
-      coerceOnImagesToCanvases(resource) {
+      coerceResourceOnImagesToCanvases(resource) {
         if (Array.isArray(resource.on)) {
           for (let i = 0; i < resource.on.length; i = i + 1) {
             const canvas = this.canvasForImage(resource.on[i]);
@@ -196,9 +203,9 @@
         return resource;
       },
 
-      // HACK to flatten oa:TextQuoteSelector hit selectors to before/after/match
+      // HACK to flatten oa:TextQuoteSelector hit selectors to before/match/after
       // hits, as Mirador 3.0.0 does not support oa:TextQuoteSelector style.
-      coerceSearchHitsToBeforeAfterMatch(searchJson) {
+      coerceSearchHitsToBeforeMatchAfter(searchJson) {
         const hits = [];
 
         for (const hit of (searchJson.hits || [])) {
