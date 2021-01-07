@@ -3,6 +3,7 @@
     <h2
       v-if="title"
       class="is-size-3 text-uppercase"
+      data-qa="link list title"
     >
       {{ title }}
     </h2>
