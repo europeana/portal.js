@@ -50,6 +50,7 @@
 
   import ClientOnly from 'vue-client-only';
   import PageHeader from '../components/PageHeader';
+  import HotjarMixin from '../mixins/hotjar';
 
   const config = {
     bootstrapVersion: require('bootstrap/package.json').version,
@@ -63,6 +64,8 @@
       PageHeader,
       PageFooter: () => import('../components/PageFooter')
     },
+
+    mixins: [HotjarMixin],
 
     async fetch() {
       const contentfulVariables = {
@@ -104,6 +107,7 @@
       ...mapState({
         breadcrumbs: state => state.breadcrumb.data
       }),
+
       ...mapGetters({
         canonicalUrl: 'http/canonicalUrl',
         canonicalUrlWithoutLocale: 'http/canonicalUrlWithoutLocale'
@@ -132,6 +136,7 @@
 
     head() {
       const i18nSeo = this.$nuxtI18nSeo();
+
       return {
         htmlAttrs: {
           ...i18nSeo.htmlAttrs
@@ -147,7 +152,9 @@
           { hid: 'description', property: 'description', content: 'Europeana' },
           { hid: 'og:url', property: 'og:url', content: this.canonicalUrl },
           ...i18nSeo.meta
-        ]
+        ],
+        script: []
+          .concat(this.$hotjarScript ? [this.$hotjarScript] : [])
       };
     }
   };

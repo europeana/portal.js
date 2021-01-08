@@ -90,6 +90,10 @@ module.exports = {
     gtm: {
       id: process.env.GOOGLE_TAG_MANAGER_ID
     },
+    hotjar: {
+      id: process.env.HOTJAR_ID,
+      sv: process.env.HOTJAR_SNIPPET_VERSION
+    },
     http: {
       ports: {
         http: process.env.HTTP_PORT,
