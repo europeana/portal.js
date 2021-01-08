@@ -32,7 +32,10 @@
           { rel: 'stylesheet', href: `https://unpkg.com/bootstrap-vue@${this.versions.bootstrapVue}/dist/bootstrap-vue.min.css` }
         ],
         script: [
-          { src: `https://unpkg.com/contentful-ui-extensions-sdk@${this.versions.contentfulExtensionsUiSdk}/dist/cf-extension-api.js` }
+          { src: `https://unpkg.com/contentful-ui-extensions-sdk@${this.versions.contentfulExtensionsUiSdk}/dist/cf-extension-api.js` },
+          { src: 'https://cdnjs.cloudflare.com/ajax/libs/es6-promise/3.0.2/es6-promise.js' },
+          { src: 'https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.1/lodash.js' },
+          { src: 'https://cdnjs.cloudflare.com/ajax/libs/speakingurl/7.0.0/speakingurl.min.js' }
         ],
         meta: [
           { hid: 'robots', name: 'robots', content: 'noindex' }
