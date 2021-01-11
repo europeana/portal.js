@@ -27,12 +27,6 @@
       id="default"
       role="main"
     >
-      <client-only>
-        <a
-          class="btn btn-primary d-inline-flex align-items-center ml-5 text-white"
-          onclick="return klaro.show();"
-        >Change cookie settings</a>
-      </client-only>
       <b-breadcrumb
         v-if="breadcrumbs"
         :items="breadcrumbs"
@@ -56,7 +50,26 @@
   import ClientOnly from 'vue-client-only';
   import PageHeader from '../components/PageHeader';
 
-  const klaroConfig = require('../plugins/klaro-config.js');
+  const klaroConfig = {
+    testing: false,
+    services: [
+      {
+        name: 'i18n',
+        purposes: ['Language'],
+        cookies: [
+          'i18n_locale_code'
+        ],
+        translations: {
+          zz: {
+            title: 'Language',
+            description: 'We set this cookie to ... <description here>.'
+          }
+        }
+      }
+    ],
+    mustConsent: true,
+    acceptAll: true
+  };
 
   const config = {
     bootstrapVersion: require('bootstrap/package.json').version,
@@ -135,8 +148,7 @@
 
     mounted() {
       this.$announcer.setComplementRoute(this.$t('pageHasLoaded'));
-      // console.log(this.klaro);
-      // this.klaro.show();
+      window.klaro.show(klaroConfig, true);
     },
 
     head() {
@@ -159,7 +171,7 @@
           ...i18nSeo.meta
         ],
         script: [
-          { src: 'https://unpkg.com/klaro@0.7.9/dist/klaro-no-css.js', defer: true, dataConfig: klaroConfig }
+          { src: 'https://unpkg.com/klaro@0.7.9/dist/klaro-no-css.js', defer: true }
         ]
       };
     }
