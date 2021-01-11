@@ -49,7 +49,7 @@
 </script>
 
 <style lang="scss" scoped>
-  /deep/ img {
+  ::v-deep img {
     max-width: 100%;
   }
 </style>

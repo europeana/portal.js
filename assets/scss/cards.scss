@@ -366,7 +366,7 @@
     flex: 0 0 calc(100% / 4 - #{$grid-gutter*2});
   }
   .card-deck-4-cols.narrow-gutter .card {
-    flex: 0 0 calc(100% / 4 - #{$grid-gutter-narrow*2}});
+    flex: 0 0 calc(100% / 4 - #{$grid-gutter-narrow*2});
   }
 }
 

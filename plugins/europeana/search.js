@@ -92,7 +92,7 @@ export default function search($axios, params, options = {}) {
 
   const escape = options.escape || false;
 
-  const query = (typeof params.query === 'undefined' || params.query === '') ? '*:*' : params.query;
+  const query = params.query || '*:*';
 
   return $axios.get(`${options.url || ''}/search.json`, {
     paramsSerializer(params) {

@@ -61,7 +61,7 @@ jobs:
         path: |
           ~/.npm
           **/node_modules
-        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+        key: ${{ runner.os }}-node-${{ hashFiles('./package-lock.json') }}
     - if: steps.cache-node.outputs.cache-hit != 'true'
       run: npm install
     - run: npm run test:unit
@@ -80,7 +80,7 @@ jobs:
         path: |
           ~/.npm
           **/node_modules
-        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+        key: ${{ runner.os }}-node-${{ hashFiles('./package-lock.json') }}
     - if: steps.cache-node.outputs.cache-hit != 'true'
       run: npm install
     - run: npm run build
@@ -97,17 +97,22 @@ jobs:
     - uses: actions/setup-node@v1
       with:
         node-version: 12.x
+    - uses: actions/download-artifact@v2
     - uses: actions/cache@v2
-      id: cache-node
+      id: cache-size-limit-node
       with:
         path: |
-          ~/.npm
-          **/node_modules
-        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-    - if: steps.cache-node.outputs.cache-hit != 'true'
-      run: npm install
-    - uses: actions/download-artifact@v2
-    - run: npx size-limit
+          ./tests/size/node_modules
+        key: ${{ runner.os }}-node-${{ hashFiles('./tests/size/package.json') }}
+    - name: npm install
+      if: steps.cache-size-limit-node.outputs.cache-hit != 'true'
+      run: |
+        cd tests/size
+        npm install
+    - name: test size-limit
+      run: |
+        cd tests/size
+        npm run start
 
   test-e2e:
     runs-on: ubuntu-latest
@@ -151,7 +156,7 @@ jobs:
         echo "::set-output name=cf-app-first-deploy::${CF_APP_FIRST_DEPLOY}"
     - name: Push to Cloud Foundry
       run: |
-        cf push ${CF_APP_NAME} -f deploy/cloud-foundry/manifest.yml --no-route --vars-file deploy/cloud-foundry/vars.yml
+        cf push ${CF_APP_NAME} --strategy rolling -f deploy/cloud-foundry/manifest.yml --no-route --vars-file deploy/cloud-foundry/vars.yml
         cf map-route ${CF_APP_NAME} ${CF_DOMAIN} --hostname ${CF_APP_NAME}
     outputs:
       cf-app-first-deploy: ${{ steps.detect.outputs.cf-app-first-deploy }}
