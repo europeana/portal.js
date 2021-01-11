@@ -174,7 +174,7 @@
         link: [
           { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,700italic,400,600,700&subset=latin,greek,cyrillic&display=swap', body: true },
           { rel: 'stylesheet', href: `https://unpkg.com/bootstrap@${this.bootstrapVersion}/dist/css/bootstrap.min.css` },
-          { rel: 'stylesheet', href: 'https://cdn.kiprotect.com/klaro/v0.7.11klaro.min.css' },
+          { rel: 'stylesheet', href: 'https://cdn.kiprotect.com/klaro/v0.7.11/klaro.min.css' },
           { rel: 'stylesheet', href: 'https://unpkg.com/bootstrap-vue@${this.bootstrapVueVersion}/dist/bootstrap-vue.min.css' },
           { hreflang: 'x-default', rel: 'alternate', href: this.canonicalUrlWithoutLocale },
           ...i18nSeo.link
@@ -185,7 +185,7 @@
           ...i18nSeo.meta
         ],
         script: [
-          { src: 'https://unpkg.com/klaro@0.7.11dist/klaro-no-css.js', defer: true }
+          { src: 'https://unpkg.com/klaro@0.7.11/dist/klaro-no-css.js', defer: true }
         ]
       };
     }
