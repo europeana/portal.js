@@ -65,6 +65,20 @@
             description: 'We set this cookie to ... <description here>.'
           }
         }
+      },
+      {
+        name: '_cfduid',
+        purposes: ['Cloudflare'],
+        cookies: [
+          '_cfduid'
+        ],
+        required: true,
+        translations: {
+          zz: {
+            title: 'Cloudflare',
+            description: 'We set this cookie to ... <description here>.'
+          }
+        }
       }
     ],
     mustConsent: true,
