@@ -5,8 +5,11 @@
         <b-form-input
           v-model="value"
           autocomplete="off"
-          @input="inputSlugText"
+          @input="handleSlugChange"
         />
+        <label
+          v-text="errorMessage"
+          />
       </b-form-group>
     </b-form>
   </div>
@@ -20,10 +23,10 @@
       return {
         value: null,
         slugField: null,
-        // slugText: null,
         titleField: null,
-        contentfulExtensionSdk: null,
-        debouncedStatus: null
+        slugFromTitle: false,
+        errorMessage: null,
+        contentfulExtensionSdk: null
       };
     },
 
@@ -42,27 +45,17 @@
           this.slugField = sdk.field;
           const titleFieldName = sdk.contentType.displayField;
           this.titleField = sdk.entry.fields[titleFieldName];
-          this.titleField.onValueChanged(this.handleSlugChange);
+          this.titleField.onValueChanged(this.handleTitleChange);
+          if (this.value === this.convertToSlug(this.titleField.getValue())) {
+            this.slugFromTitle = true;
+          }
         }
       });
     },
 
-    computed: {
-      status: {
-        get() {
-          return this.debouncedStatus;
-        },
-        set(val) {
-          if (this.timeout) clearTimeout(this.timeout);
-          this.timeout = setTimeout(() => {
-            this.debouncedStatus = val;
-          }, 500);
-        }
-      }
-    },
-
     methods: {
       inputSlugText(val) {
+        this.slugFromTitle = false;
         this.value = val;
       },
 
@@ -79,26 +72,27 @@
        * or changing the title of the entry
        */
       handleSlugChange(value) {
-        this.setSlug(this.convertToSlug(value || ''));
+        this.value = value;
+        this.updateStatus(value);
       },
 
       /**
-      * Set the input value to 'slug' and update the status by checking for
-      * duplicates.
-      */
-      setSlug(slug) {
-        this.value = slug;
-        this.updateStatus(slug);
+       * Handle change of title value caused by changing the title of the entry.
+       * If the slug was changed independently, don't update based of title changes.
+       */
+      handleTitleChange(value) {
+        if (this.slugFromTitle) this.handleSlugChange(this.convertToSlug(value || ''));
       },
 
       updateStatus(slug) {
         this.getDuplicates(slug).then((hasDuplicates) => {
           if (hasDuplicates) {
-            // set to invalid state
-            // show 'is invalid' text
+            this.slugField.setInvalid(true);
+            this.contentfulExtensionSdk.entry.setInvalid(true);
+            this.errorMessage = 'Error: slug already exists.';
           } else {
-            // set field to valid
-            // hide 'is invalid' text
+            this.slugField.setInvalid(false);
+            this.errorMessage = null;
           }
         });
       },
