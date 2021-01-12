@@ -13,9 +13,129 @@
       color: $black;
     }
 
+    h1 {
+      font-size: 2.125rem;
+      padding-right: 0;
+    }
+
     .cm-modal.cm-klaro {
       background: $white;
       color: $black;
+    }
+
+    .cm-header {
+      padding: 0.75rem 1.5rem 1rem;
+      border-bottom: 0;
+    }
+
+    .cm-header p,
+    .cm-list-description {
+      color: $mediumgrey;
+    }
+
+    .cm-list-input {
+      &:checked + .cm-list-label .slider {
+        background-color: $innovationblue;
+        border: 5px solid $innovationblue;
+        opacity: 1;
+
+        &:before {
+          border: 5px solid $innovationblue;
+          top: -5px;
+          left: -5px;
+          height: 30px;
+          width: 30px;
+        }
+      }
+
+      &.half-checked + .cm-list-label .slider {
+        background-color: $white;
+        border: 5px solid $mediumgrey;
+
+        &:before {
+          border: 5px solid $mediumgrey;
+          top: -5px;
+          left: -5px;
+          height: 30px;
+          width: 30px;
+        }
+      }
+    }
+
+    .cm-body {
+      padding: 0.75rem 1.5rem;
+
+      ul.cm-purposes {
+        li.cm-purpose {
+          margin-bottom: 1.5rem;
+
+          label {  
+            margin-bottom: 0;
+          }
+
+          .cm-list-title,
+          .cm-list-description {
+            font-size: 1rem;
+            line-height: 1.375rem;
+            padding-top: 0;
+            margin-bottom: 0.5rem;
+          }
+
+          .cm-list-title {
+            font-weight: bold;
+          }
+
+          .cm-required {
+            font-weight: bold;
+            font-size: 0.875rem;
+            color: $grey;
+          }
+        }
+      }
+
+      .cm-services {
+        font-size: 1rem;
+
+        .cm-caret,
+        .cm-caret a {
+          color: $innovationblue;
+        }
+
+        .purposes {
+          color: $mediumgrey;
+          font-size: 0.875rem;
+          font-weight: bold;
+        }
+
+        .expanded {
+          margin-top: 1rem;
+        }
+      }
+    }
+
+    .cm-footer {
+      border-top: 0;
+      padding: 0.75rem 1.5rem;
+
+      .cm-btn {
+        font-size: $font-size-small;
+        text-transform: uppercase;
+        font-weight: 400;
+        padding: 0.625rem 1rem;
+        line-height: 1rem;
+
+        &:focus {
+          outline: auto;
+        }
+        &:hover {
+          box-shadow: $boxshadow-light;
+        }
+      }
+
+      .cm-btn-success {
+        background: $green;
+        border-color: $green;
+      }
     }
   }
 }
