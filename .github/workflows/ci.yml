@@ -156,7 +156,7 @@ jobs:
         echo "::set-output name=cf-app-first-deploy::${CF_APP_FIRST_DEPLOY}"
     - name: Push to Cloud Foundry
       run: |
-        cf push ${CF_APP_NAME} -f deploy/cloud-foundry/manifest.yml --no-route --vars-file deploy/cloud-foundry/vars.yml
+        cf push ${CF_APP_NAME} --strategy rolling -f deploy/cloud-foundry/manifest.yml --no-route --vars-file deploy/cloud-foundry/vars.yml
         cf map-route ${CF_APP_NAME} ${CF_DOMAIN} --hostname ${CF_APP_NAME}
     outputs:
       cf-app-first-deploy: ${{ steps.detect.outputs.cf-app-first-deploy }}
