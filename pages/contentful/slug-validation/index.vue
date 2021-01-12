@@ -9,7 +9,7 @@
         />
         <label
           v-text="errorMessage"
-          />
+        />
       </b-form-group>
     </b-form>
   </div>
@@ -26,12 +26,20 @@
         titleField: null,
         slugFromTitle: false,
         errorMessage: 'Status: initial state',
+        debouncedDuplicateStatus: null,
         contentfulExtensionSdk: null
       };
     },
 
+    computed: {
+      duplicateStatus() {
+        return this.debouncedDuplicateStatus;
+      }
+    },
+
     watch: {
-      value: 'updateContentfulField'
+      value: 'updateContentfulField',
+      debouncedDuplicateStatus: 'handleStatus'
     },
 
     mounted() {
@@ -41,7 +49,6 @@
           sdk.window.startAutoResizer();
 
           this.value = sdk.field.getValue();
-          // this.slugText = this.value;
           this.slugField = sdk.field;
           const titleFieldName = sdk.contentType.displayField;
           this.titleField = sdk.entry.fields[titleFieldName];
@@ -76,7 +83,7 @@
        */
       handleSlugChange(value) {
         this.value = value;
-        this.updateStatus(value);
+        this.getDebouncedDuplicateStatus(value);
       },
 
       /**
@@ -87,19 +94,23 @@
         if (this.slugFromTitle) this.handleSlugChange(this.convertToSlug(value || ''));
       },
 
-      updateStatus(slug) {
-        this.getDuplicates(slug).then((hasDuplicates) => {
-          if (hasDuplicates) {
-            this.slugField.removeValue();
-            this.slugField.setInvalid(true);
-            this.errorMessage = 'Error: slug already exists.';
-          } else {
-            this.slugField.setInvalid(false);
-            this.errorMessage = `Status: valid "${slug}"`;
-          }
-        });
+      async handleStatus() {
+        const status = await this.duplicateStatus;
+        if (status) {
+          this.slugField.removeValue();
+          this.slugField.setInvalid(true);
+          this.errorMessage =  `Error: slug already exists. "${this.value}"`;
+        } else {
+          this.slugField.setInvalid(false);
+          this.errorMessage = `Status: valid "${this.value}"`;
+        }
       },
-
+      getDebouncedDuplicateStatus(slug) {
+        if (this.timeout) clearTimeout(this.timeOut);
+        this.timeOut = setTimeout(() => {
+          this.debouncedDuplicateStatus = this.getDuplicates(slug);
+        }, 500);
+      },
       /**
        * Check if slug is already in use.
        * Resolves to 'true' if there are entries of the given content type that have
