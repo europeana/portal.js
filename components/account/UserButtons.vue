@@ -128,6 +128,7 @@
           this.$bvModal.show(this.addItemToSetModalId);
           this.$emit('add', this.value);
         } else {
+          this.$auth.$storage.setUniversal('redirect', this.$route.fullPath);
           this.$auth.loginWith('keycloak');
         }
       }
