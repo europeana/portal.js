@@ -50,40 +50,7 @@
   import ClientOnly from 'vue-client-only';
   import PageHeader from '../components/PageHeader';
 
-  const klaroConfig = {
-    testing: false,
-    services: [
-      {
-        name: 'i18n',
-        purposes: ['Language'],
-        cookies: [
-          'i18n_locale_code'
-        ],
-        translations: {
-          zz: {
-            title: 'Language',
-            description: 'We set this cookie to ... <description here>.'
-          }
-        }
-      },
-      {
-        name: '_cfduid',
-        purposes: ['Cloudflare'],
-        cookies: [
-          '_cfduid'
-        ],
-        required: true,
-        translations: {
-          zz: {
-            title: 'Cloudflare',
-            description: 'We set this cookie to ... <description here>.'
-          }
-        }
-      }
-    ],
-    mustConsent: true,
-    acceptAll: true
-  };
+  const klaroConfig = require('../plugins/klaro-config.js').klaroConfig;
 
   const config = {
     bootstrapVersion: require('bootstrap/package.json').version,
@@ -162,7 +129,12 @@
 
     mounted() {
       this.$announcer.setComplementRoute(this.$t('pageHasLoaded'));
-      window.klaro.show(klaroConfig, true);
+
+      if (process.client) {
+        if (typeof window.klaro !== 'undefined') {
+          window.klaro.show(klaroConfig, true);
+        }
+      }
     },
 
     head() {

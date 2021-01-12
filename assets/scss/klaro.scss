@@ -1,0 +1,21 @@
+#eu-klaro {
+  .cookie-modal,
+  .context-notice,
+  .cookie-notice {
+    z-index: 1050;
+
+    p,
+    strong,
+    h1,
+    h2,
+    ul,
+    li {
+      color: $black;
+    }
+
+    .cm-modal.cm-klaro {
+      background: $white;
+      color: $black;
+    }
+  }
+}
