@@ -25,7 +25,7 @@
         slugField: null,
         titleField: null,
         slugFromTitle: false,
-        errorMessage: null,
+        errorMessage: 'Status: initial state',
         contentfulExtensionSdk: null
       };
     },
@@ -46,7 +46,10 @@
           const titleFieldName = sdk.contentType.displayField;
           this.titleField = sdk.entry.fields[titleFieldName];
           this.titleField.onValueChanged(this.handleTitleChange);
-          if (this.value === this.convertToSlug(this.titleField.getValue())) {
+          if (!this.value || this.value === 'undefined' || this.value === '') {
+            this.slugFromTitle = true;
+            this.handleTitleChange(this.titleField.getValue());
+          } else if (this.value === this.convertToSlug(this.titleField.getValue())) {
             this.slugFromTitle = true;
           }
         }
@@ -87,12 +90,12 @@
       updateStatus(slug) {
         this.getDuplicates(slug).then((hasDuplicates) => {
           if (hasDuplicates) {
+            this.slugField.removeValue();
             this.slugField.setInvalid(true);
-            this.contentfulExtensionSdk.entry.setInvalid(true);
             this.errorMessage = 'Error: slug already exists.';
           } else {
             this.slugField.setInvalid(false);
-            this.errorMessage = null;
+            this.errorMessage = `Status: valid "${slug}"`;
           }
         });
       },
