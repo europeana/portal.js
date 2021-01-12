@@ -152,9 +152,7 @@
           { hid: 'description', property: 'description', content: 'Europeana' },
           { hid: 'og:url', property: 'og:url', content: this.canonicalUrl },
           ...i18nSeo.meta
-        ],
-        script: []
-          .concat(this.$hotjarScript ? [this.$hotjarScript] : [])
+        ]
       };
     }
   };
