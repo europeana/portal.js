@@ -33,8 +33,6 @@
         ],
         script: [
           { src: `https://unpkg.com/contentful-ui-extensions-sdk@${this.versions.contentfulExtensionsUiSdk}/dist/cf-extension-api.js` },
-          { src: 'https://cdnjs.cloudflare.com/ajax/libs/es6-promise/3.0.2/es6-promise.js' },
-          { src: 'https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.1/lodash.js' },
           { src: 'https://cdnjs.cloudflare.com/ajax/libs/speakingurl/7.0.0/speakingurl.min.js' }
         ],
         meta: [

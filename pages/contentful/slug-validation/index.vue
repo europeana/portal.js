@@ -5,7 +5,7 @@
         <b-form-input
           v-model="value"
           autocomplete="off"
-          @input="handleSlugChange"
+          @input="handleValueChange"
         />
         <label
           v-text="errorMessage"
@@ -84,6 +84,11 @@
       handleSlugChange(value) {
         this.value = value;
         this.getDebouncedDuplicateStatus(value);
+      },
+
+      handleValueChange(value) {
+        this.slugFromTitle = false;
+        this.handleSlugChange(value);
       },
 
       /**
