@@ -4,6 +4,7 @@ import BootstrapVue from 'bootstrap-vue';
 import sinon from 'sinon';
 
 import page from '../../../../pages/item/_';
+import { coreFields } from '../../support/fixtures';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
@@ -38,6 +39,9 @@ const factory = () => shallowMountNuxt(page, {
       getters: {
         'set/isLiked': sinon.stub()
       }
+    },
+    $gtm: {
+      push: sinon.stub().resolves({})
     }
   }
 });
@@ -76,6 +80,16 @@ describe('pages/item/_.vue', () => {
       const headMeta = wrapper.vm.head().meta;
 
       headMeta.find(meta => meta.property === 'og:image').content.should.eq(thumbnailUrl);
+    });
+  });
+
+  describe('gtm()', () => {
+    it('uses first edmDataProvider from corefields', () => {
+      const dataProvider = coreFields.edmDataProvider.value[0];
+      const $gtm = { push: sinon.stub().resolves({ dataProvider }) };
+      $gtm.push(dataProvider);
+
+      $gtm.push.should.have.been.calledWith('Data Provider');
     });
   });
 });
