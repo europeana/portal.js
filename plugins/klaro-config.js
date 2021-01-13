@@ -2,6 +2,7 @@ export const klaroConfig = {
   testing: false,
   elementID: 'eu-klaro',
   storageMethod: 'cookie',
+  cookieExpiresAfterDays: 15,
   translations: {
     en: {
       purposes: {

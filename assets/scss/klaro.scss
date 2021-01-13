@@ -69,7 +69,7 @@
         li.cm-purpose {
           margin-bottom: 1.5rem;
 
-          label {  
+          label {
             margin-bottom: 0;
           }
 
@@ -143,13 +143,33 @@
       }
 
       .cm-btn-accept {
-        background: $innovationblue;
-        border-color: $innovationblue;
+        background: $skyblue;
+        border-color: $skyblue;
+        color: $blue;
       }
 
       .cm-btn-accept-all {
         background: $green;
         border-color: $green;
+      }
+    }
+  }
+  @media (max-width: $bp-small) {
+    .cookie-modal {
+      display: flex;
+      justify-content: center;
+      .cm-modal.cm-klaro {
+        width: 95%;
+      }
+      h1 {
+        font-size: 1.5rem;
+      }
+      .cm-modal .cm-footer-buttons {
+        flex-direction: column;
+        .cm-btn {
+          margin-bottom: 0.75rem;
+          margin-right: 0;
+        }
       }
     }
   }
