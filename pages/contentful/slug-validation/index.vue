@@ -5,7 +5,7 @@
         <b-form-input
           v-model="value"
           autocomplete="off"
-          @input="handleValueChange"
+          @input="handleSlugChange"
         />
         <label
           v-if="errorMessage"
@@ -67,11 +67,6 @@
     },
 
     methods: {
-      inputSlugText(val) {
-        this.slugFromTitle = false;
-        this.value = val;
-      },
-
       updateContentfulField() {
         if (this.contentfulExtensionSdk) this.contentfulExtensionSdk.field.setValue(this.value);
       },
@@ -84,14 +79,14 @@
        * Handle change of slug value caused by either changing slug field
        * or changing the title of the entry
        */
-      handleSlugChange(value) {
+      handleValueChange(value) {
         this.value = value;
         this.getDebouncedDuplicateStatus(value);
       },
 
-      handleValueChange(value) {
+      handleSlugChange(value) {
         this.slugFromTitle = false;
-        this.handleSlugChange(value);
+        this.handleValueChange(value);
       },
 
       /**
@@ -99,7 +94,7 @@
        * If the slug was changed independently, don't update based of title changes.
        */
       handleTitleChange(value) {
-        if (this.slugFromTitle) this.handleSlugChange(this.convertToSlug(value || ''));
+        if (this.slugFromTitle) this.handleValueChange(this.convertToSlug(value || ''));
       },
 
       async handleStatus() {
