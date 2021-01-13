@@ -8,7 +8,9 @@
           @input="handleValueChange"
         />
         <label
+          v-if="errorMessage"
           v-text="errorMessage"
+          style="color: rgb(191, 48, 69)"
         />
       </b-form-group>
     </b-form>
@@ -25,7 +27,7 @@
         slugField: null,
         titleField: null,
         slugFromTitle: false,
-        errorMessage: 'Status: initial state',
+        errorMessage: null,
         debouncedDuplicateStatus: null,
         contentfulExtensionSdk: null
       };
@@ -53,10 +55,11 @@
           const titleFieldName = sdk.contentType.displayField;
           this.titleField = sdk.entry.fields[titleFieldName];
           this.titleField.onValueChanged(this.handleTitleChange);
+          const titleValue = this.titleField.getValue();
           if (!this.value || this.value === 'undefined' || this.value === '') {
             this.slugFromTitle = true;
             this.handleTitleChange(this.titleField.getValue());
-          } else if (this.value === this.convertToSlug(this.titleField.getValue())) {
+          } else if (this.value === this.convertToSlug(titleValue)) {
             this.slugFromTitle = true;
           }
         }
@@ -107,7 +110,7 @@
           this.errorMessage =  `Error: slug already exists. "${this.value}"`;
         } else {
           this.slugField.setInvalid(false);
-          this.errorMessage = `Status: valid "${this.value}"`;
+          this.errorMessage = null;
         }
       },
       getDebouncedDuplicateStatus(slug) {
@@ -142,7 +145,7 @@
           return result.total >= 1;
         });
 
-        return hasBrowsePageMatch || hasStaticPageMatch;
+        return await hasBrowsePageMatch || await hasStaticPageMatch;
       }
     },
 
