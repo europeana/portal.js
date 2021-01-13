@@ -196,6 +196,7 @@ module.exports = {
   plugins: [
     '~/plugins/vue',
     '~/plugins/i18n.js',
+    '~/plugins/hotjar.client',
     '~/plugins/link',
     '~/plugins/page',
     '~/plugins/vue-filters',

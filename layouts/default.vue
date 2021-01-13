@@ -50,7 +50,6 @@
 
   import ClientOnly from 'vue-client-only';
   import PageHeader from '../components/PageHeader';
-  import HotjarMixin from '../mixins/hotjar';
 
   const config = {
     bootstrapVersion: require('bootstrap/package.json').version,
@@ -64,8 +63,6 @@
       PageHeader,
       PageFooter: () => import('../components/PageFooter')
     },
-
-    mixins: [HotjarMixin],
 
     async fetch() {
       const contentfulVariables = {
