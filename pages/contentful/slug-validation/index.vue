@@ -111,8 +111,8 @@
         }
       },
       getDebouncedDuplicateStatus(slug) {
-        if (this.timeout) clearTimeout(this.timeOut);
-        this.timeOut = setTimeout(() => {
+        if (this.timeout) clearTimeout(this.timeout);
+        this.timeout = setTimeout(() => {
           this.debouncedDuplicateStatus = this.getDuplicates(slug);
         }, 500);
       },
