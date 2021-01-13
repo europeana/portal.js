@@ -122,7 +122,11 @@
         text-transform: uppercase;
         font-weight: 400;
         padding: 0.625rem 1rem;
-        line-height: 1rem;
+        line-height: 1;
+        text-align: center;
+        vertical-align: middle;
+        border: 1px solid transparent;
+        border-radius: $border-radius-small;
 
         &:focus {
           outline: auto;
@@ -132,7 +136,18 @@
         }
       }
 
-      .cm-btn-success {
+      .cn-decline {
+        border-color: $blue;
+        color: $blue;
+        background: $white;
+      }
+
+      .cm-btn-accept {
+        background: $innovationblue;
+        border-color: $innovationblue;
+      }
+
+      .cm-btn-accept-all {
         background: $green;
         border-color: $green;
       }
