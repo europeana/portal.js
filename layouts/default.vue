@@ -132,7 +132,7 @@
 
       if (process.client) {
         if (typeof window.klaro !== 'undefined') {
-          window.klaro.show(klaroConfig, true);
+          window.klaro.render(klaroConfig, true);
         }
       }
     },
