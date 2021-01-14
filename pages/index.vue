@@ -85,32 +85,19 @@
       heroImage() {
         let heroImage = null;
 
-        if (this.hero) {
-          if ((this.hero['__typename'] === 'ImageWithAttribution') && this.hero.image) {
-            heroImage = this.hero;
-          } else if (this.hero.image && this.hero.image.image) {
-            heroImage = this.hero.image;
-          }
+        if (this.hero && this.hero.image && this.hero.image.image) {
+          heroImage = this.hero.image;
         }
 
         return heroImage;
       },
       heroCta() {
-        if (this.hero && this.hero['__typename'] === 'ImageWithAttribution') {
-          return;
-        }
         return this.hero && this.hero.link ? this.hero.link : null;
       },
       heroTitle() {
-        if (this.hero && this.hero['__typename'] === 'ImageWithAttribution') {
-          return this.name;
-        }
         return this.hero && this.hero.title ? this.hero.title : null;
       },
       heroDescription() {
-        if (this.hero && this.hero['__typename'] === 'ImageWithAttribution') {
-          return this.headline;
-        }
         return this.hero && this.hero.headline ? this.hero.headline : null;
       }
     },
