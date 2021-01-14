@@ -9,7 +9,13 @@ export const createAxios = ({ id, baseURL, $axios }, context) => {
   const app = context.app;
   if (app && app.$axiosLogger) axiosInstance.interceptors.request.use(app.$axiosLogger);
 
-  if (context.$auth && (context.$auth.strategy.name === 'keycloak') && axiosInstance.defaults.headers.common['Authorization']) {
+  return axiosInstance;
+};
+
+export const createKeycloakAuthAxios = ({ id, baseURL, $axios }, context) => {
+  const axiosInstance = createAxios({ id, baseURL, $axios }, context);
+
+  if (typeof axiosInstance.onResponseError === 'function') {
     axiosInstance.onResponseError(error => keycloakResponseErrorHandler(context, error));
   }
 
