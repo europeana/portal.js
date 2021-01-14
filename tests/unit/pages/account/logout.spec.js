@@ -5,35 +5,55 @@ import page from '../../../../pages/account/logout';
 
 describe('pages/account/logout.vue', () => {
   describe('beforeRouteEnter', () => {
-    it('stores the previous page full path for auth redirection', () => {
-      const authStorageSetUniversal = sinon.spy();
-      const wrapper = shallowMountNuxt(page, {
-        mocks: {
-          $auth: {
-            loginWith: sinon.spy(),
-            logout: sinon.spy(),
-            $storage: {
-              getUniversal: sinon.spy(),
-              setUniversal: authStorageSetUniversal
-            },
-            strategies: {
-              keycloak: {
-                options: {
-                  'end_session_endpoint': 'https://auth.example.org/logout'
-                }
+    const authStorageSetUniversal = sinon.spy();
+    const factory = () => shallowMountNuxt(page, {
+      mocks: {
+        $auth: {
+          loginWith: sinon.spy(),
+          logout: sinon.spy(),
+          $storage: {
+            getUniversal: sinon.spy(),
+            setUniversal: authStorageSetUniversal
+          },
+          strategies: {
+            keycloak: {
+              options: {
+                'end_session_endpoint': 'https://auth.example.org/logout'
               }
             }
-          },
-          $goto: sinon.spy()
-        }
+          }
+        },
+        $i18n: { locale: 'eu' },
+        $goto: sinon.spy()
+      }
+    });
+
+    context('previous page does not require auth', () => {
+      const from = { name: 'item___eu', fullPath: '/eu/item/123/def' };
+
+      it('stores the previous page full path for auth redirection', () => {
+        const wrapper = factory();
+
+        const next = sinon.stub().yields(wrapper.vm);
+        page.beforeRouteEnter.call(wrapper.vm, null, from, next);
+
+        next.should.have.been.called;
+        authStorageSetUniversal.should.have.been.calledWith('redirect', from.fullPath);
       });
+    });
 
-      const from = { fullPath: '/eu/item/123/def' };
-      const next = sinon.stub().yields(wrapper.vm);
-      page.beforeRouteEnter.call(wrapper.vm, null, from, next);
+    context('previous page requires auth', () => {
+      const from = { name: 'account___eu', fullPath: '/eu/account' };
 
-      next.should.have.been.called;
-      authStorageSetUniversal.should.have.been.calledWith('redirect', from.fullPath);
+      it('stores the homepage path for auth redirection', () => {
+        const wrapper = factory();
+
+        const next = sinon.stub().yields(wrapper.vm);
+        page.beforeRouteEnter.call(wrapper.vm, null, from, next);
+
+        next.should.have.been.called;
+        authStorageSetUniversal.should.have.been.calledWith('redirect', '/eu');
+      });
     });
   });
 
