@@ -4,7 +4,13 @@ import BootstrapVue from 'bootstrap-vue';
 import sinon from 'sinon';
 
 import page from '../../../../pages/item/_';
-import { coreFields } from '../../support/fixtures';
+
+const optionsVar = {
+  itemCountry: undefined,
+  itemDataProvider: 'Data Provider',
+  itemProvider: undefined,
+  itemRights: undefined
+};
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
@@ -13,7 +19,13 @@ const factory = () => shallowMountNuxt(page, {
   localVue,
   data() {
     return {
-      identifier: '/123/abc'
+      identifier: '/123/abc',
+      coreFields: {
+        edmDataProvider: {
+          url: 'https://www.example.eu',
+          value: ['Data Provider']
+        }
+      }
     };
   },
   mocks: {
@@ -39,9 +51,6 @@ const factory = () => shallowMountNuxt(page, {
       getters: {
         'set/isLiked': sinon.stub()
       }
-    },
-    $gtm: {
-      push: sinon.stub().resolves({})
     }
   }
 });
@@ -83,13 +92,10 @@ describe('pages/item/_.vue', () => {
     });
   });
 
-  describe('gtm()', () => {
+  describe('gtmOptions()', () => {
     it('uses first edmDataProvider from corefields', () => {
-      const dataProvider = coreFields.edmDataProvider.value[0];
-      const $gtm = { push: sinon.stub().resolves({ dataProvider }) };
-      $gtm.push(dataProvider);
-
-      $gtm.push.should.have.been.calledWith('Data Provider');
+      const wrapper = factory();
+      wrapper.vm.gtmOptions().should.eql(optionsVar);
     });
   });
 });

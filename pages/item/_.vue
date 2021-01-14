@@ -260,12 +260,7 @@
 
     mounted() {
       if (process.browser && this.fields) {
-        this.$gtm.push({
-          itemCountry: langMapValueForLocale(this.fields.edmCountry, 'en').values[0],
-          itemDataProvider: langMapValueForLocale(this.coreFields.edmDataProvider.value, 'en').values[0],
-          itemProvider: langMapValueForLocale(this.fields.edmProvider, 'en').values[0],
-          itemRights: langMapValueForLocale(this.fields.edmRights, 'en').values[0]
-        });
+        this.$gtm.push(this.gtmOptions);
       }
     },
 
@@ -309,6 +304,14 @@
         if (!data) return;
 
         return data.filter(item => typeof item === 'string');
+      },
+      gtmOptions() {
+        return {
+          itemCountry: langMapValueForLocale(this.fields.edmCountry, 'en').values[0],
+          itemDataProvider: langMapValueForLocale(this.coreFields.edmDataProvider.value, 'en').values[0],
+          itemProvider: langMapValueForLocale(this.fields.edmProvider, 'en').values[0],
+          itemRights: langMapValueForLocale(this.fields.edmRights, 'en').values[0]
+        };
       }
     },
 
