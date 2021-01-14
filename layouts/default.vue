@@ -105,6 +105,7 @@
       ...mapState({
         breadcrumbs: state => state.breadcrumb.data
       }),
+
       ...mapGetters({
         canonicalUrl: 'http/canonicalUrl',
         canonicalUrlWithoutLocale: 'http/canonicalUrlWithoutLocale'
@@ -139,6 +140,7 @@
 
     head() {
       const i18nSeo = this.$nuxtI18nSeo();
+
       return {
         htmlAttrs: {
           ...i18nSeo.htmlAttrs
