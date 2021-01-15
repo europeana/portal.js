@@ -58,9 +58,11 @@
           this.titleField.onValueChanged(this.handleTitleChange);
           const titleValue = this.titleField.getValue();
           if (!this.value || this.value === 'undefined' || this.value === '') {
+            // No slug exists, use the title as a default
             this.slugFromTitle = true;
-            this.handleTitleChange(this.titleField.getValue());
+            this.handleTitleChange(titleValue);
           } else if (this.value === this.convertToSlug(titleValue)) {
+            // slug is the same as title, enable automatic update when the title changes.
             this.slugFromTitle = true;
           }
         }
@@ -72,6 +74,7 @@
         if (this.contentfulExtensionSdk) this.contentfulExtensionSdk.field.setValue(this.value);
       },
 
+      // Convert using the speakingurl package, which is included in the contentful layout.
       convertToSlug(text) {
         return window.getSlug(text);
       },
@@ -85,6 +88,10 @@
         this.getDebouncedDuplicateStatus(value);
       },
 
+      /**
+       * Handle change of slug value caused by changing the slug of the entry.
+       * This will disable updates of the slug from the title for the  current form.
+       */
       handleSlugChange(value) {
         this.slugFromTitle = false;
         this.handleValueChange(value);
@@ -98,17 +105,23 @@
         if (this.slugFromTitle) this.handleValueChange(this.convertToSlug(value || ''));
       },
 
+      /**
+       * Handle validation status, setting the field to valid/invalid and
+       * removing the value in order to prevent publication if the slug is a duplicate.
+       */
       async handleStatus() {
         const status = await this.duplicateStatus;
         if (status) {
           this.slugField.removeValue();
           this.slugField.setInvalid(true);
-          this.errorMessage =  `Error: slug already exists. "${this.value}"`;
+          this.errorMessage =  'This slug has already been published in another entry';
         } else {
           this.slugField.setInvalid(false);
           this.errorMessage = null;
         }
       },
+
+      // To prevent multiple API calls, or validation from a previous slug when typing fast.
       getDebouncedDuplicateStatus(slug) {
         if (this.timeout) clearTimeout(this.timeout);
         this.timeout = setTimeout(() => {
@@ -147,7 +160,7 @@
 
     head() {
       return {
-        title: this.$pageHeadTitle('Entity suggest - Contentful app')
+        title: this.$pageHeadTitle('Slug validation - Contentful app')
       };
     }
   };
