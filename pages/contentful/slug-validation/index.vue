@@ -5,12 +5,13 @@
         <b-form-input
           v-model="value"
           autocomplete="off"
+          :class="errorMessage? 'error' : ''"
           @input="handleSlugChange"
         />
         <label
           v-if="errorMessage"
+          class="error-message"
           v-text="errorMessage"
-          style="color: rgb(191, 48, 69)"
         />
       </b-form-group>
     </b-form>
@@ -154,8 +155,35 @@
 
 <style lang="scss" scoped>
 .contentful {
-  button {
-    margin-right: 1rem;
+  font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
+  font-size: 0.875rem;
+  .form-control {
+    font-size: 0.875rem;
+    border-radius: 0;
+    outline: none;
+    background-color: #fff;
+    border: 1px solid #d3dce0;
+    max-height: 2.5rem;
+    color: #536171;
+    padding: 0.65625rem;
+    padding-left: 0.65625rem;
+    margin: 0;
+    width: 100%;
+    -webkit-appearance: textfield;
+    &:focus {
+      border: 1px solid #2e75d4;
+      box-shadow: 0 0 7px #2e75d4;
+    }
+    &.error {
+      border: 1px solid rgb(191, 48, 69);
+      &:focus {
+        box-shadow: 0 0 7px rgb(191, 48, 69);
+      }
+    }
+  }
+  .error-message {
+    color: rgb(191, 48, 69);
+    margin-top: 0.75em;
   }
 }
 </style>
