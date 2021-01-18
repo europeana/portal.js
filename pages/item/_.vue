@@ -260,7 +260,7 @@
 
     mounted() {
       if (process.browser && this.fields) {
-        this.$gtm.push(this.gtmOptions);
+        this.$gtm.push(this.gtmOptions());
       }
     },
 
