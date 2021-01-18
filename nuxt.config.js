@@ -281,6 +281,10 @@ module.exports = {
     plugins: ['~/plugins/apis']
   },
 
+  gtm: {
+    enabled: process.env.GOOGLE_TAG_MANAGER_ENABLED ? true : false
+  },
+
   router: {
     middleware: ['legacy/index', 'l10n'],
     extendRoutes(routes) {
