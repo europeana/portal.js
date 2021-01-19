@@ -34,12 +34,6 @@
       };
     },
 
-    computed: {
-      duplicateStatus() {
-        return this.debouncedDuplicateStatus;
-      }
-    },
-
     watch: {
       value: 'updateContentfulField',
       debouncedDuplicateStatus: 'handleStatus'
@@ -110,7 +104,7 @@
        * removing the value in order to prevent publication if the slug is a duplicate.
        */
       async handleStatus() {
-        const status = await this.duplicateStatus;
+        const status = await this.debouncedDuplicateStatus;
         if (status) {
           this.slugField.removeValue();
           this.slugField.setInvalid(true);
@@ -160,7 +154,10 @@
 
     head() {
       return {
-        title: this.$pageHeadTitle('Slug validation - Contentful app')
+        title: this.$pageHeadTitle('Slug validation - Contentful app'),
+        script: [
+          { src: 'https://unpkg.com/speakingurl@13.0.0/speakingurl.min.js' }
+        ]
       };
     }
   };
