@@ -11,7 +11,7 @@ export const klaroConfig = {
           description: 'These services process personal information to optimize the service that this website offers.'
         },
         marketing: {
-          title: 'Marketing',
+          title: 'Analytics and feedback',
           description: 'These services process personal information to help us better understand user behavior by tracking user flows and engagement.'
         },
         service: {
