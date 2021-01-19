@@ -282,7 +282,7 @@ module.exports = {
   },
 
   gtm: {
-    enabled: process.env.GOOGLE_TAG_MANAGER_ENABLED ? true : false
+    enabled: true
   },
 
   router: {
