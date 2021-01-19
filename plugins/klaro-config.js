@@ -5,6 +5,9 @@ export const klaroConfig = {
   cookieExpiresAfterDays: 15,
   translations: {
     en: {
+      consentNotice: {
+        description: 'Hi! Could you please enable some additional services for {purposes}? You can always change or withdraw your consent after 15 days.'
+      },
       purposes: {
         performance: {
           title: 'Performance optimization',
@@ -138,7 +141,12 @@ export const klaroConfig = {
       }
     }
   ],
-  mustConsent: true,
+  mustConsent: false,
+  /*
+    Defines the default state for services in the consent modal (true=enabled by
+    default). You can override this setting in each service.
+  */
+  default: true,
   acceptAll: true,
   callback: (consent, service) => {
     console.log(
