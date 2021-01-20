@@ -119,7 +119,7 @@
       };
       return axios.all(
         [store.dispatch('entity/searchForRecords', query)]
-          .concat(fetchEntity ? store.getters['apis/entity'].getEntity(params.type, params.pathMatch) : () => {})
+          .concat(fetchEntity ? app.$apis.entity.getEntity(params.type, params.pathMatch) : () => {})
           .concat(fetchFromContentful ? app.$contentful.query('collectionPage', contentfulVariables) : () => {})
       )
         .then(axios.spread((recordSearchResponse, entityResponse, pageResponse) => {
@@ -229,8 +229,8 @@
       this.$store.dispatch('entity/searchForRecords', this.$route.query);
       // TODO: move into a new entity store action?
       if (!this.relatedCollectionCards) {
-        this.$store.getters['apis/record'].relatedEntities(this.$route.params.type, this.$route.params.pathMatch)
-          .then(facets => facets ? this.$store.getters['apis/entity'].getEntityFacets(facets, this.$route.params.pathMatch) : [])
+        this.$apis.record.relatedEntities(this.$route.params.type, this.$route.params.pathMatch)
+          .then(facets => facets ? this.$apis.entity.getEntityFacets(facets, this.$route.params.pathMatch) : [])
           .then(related => {
             this.$store.commit('entity/setRelatedEntities', related);
           });

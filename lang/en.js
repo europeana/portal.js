@@ -517,6 +517,9 @@ export default {
     "collections": {
       "topics": {
         "title": "Topics"
+      },
+      "times": {
+        "title": "Times"
       }
     }
   },

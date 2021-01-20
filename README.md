@@ -1,5 +1,5 @@
 # Europeana Collections portal, made with Vue.js + Nuxt.js
- [![Build Status](https://travis-ci.com/europeana/portal.js.svg?branch=master)](https://travis-ci.com/europeana/portal.js) [![Maintainability](https://api.codeclimate.com/v1/badges/0510faf1055ef06c5938/maintainability)](https://codeclimate.com/github/europeana/portal.js/maintainability)
+[![Maintainability](https://api.codeclimate.com/v1/badges/0510faf1055ef06c5938/maintainability)](https://codeclimate.com/github/europeana/portal.js/maintainability)
 
 ## Prerequisites
 
@@ -43,6 +43,8 @@ For detailed explanation on how things work, refer to [Nuxt.js docs](https://nux
 To run end-to-end tests, you will need Docker Engine and [Compose](https://docs.docker.com/compose/) installed and
 the docker service running.
 
+Before first running the test suite, setup with: `npm run test:setup`
+
 Run the full test suite with: `npm test`
 
 ### Unit tests
@@ -53,6 +55,10 @@ To run unit tests from a single file, append the full path, e.g.
 `npm run test:unit tests/unit/components/PageHeader.spec.js`
 
 ### End-to-end tests
+
+First, create an env file for the app container, copying
+[docker/stack/app/.env.example](docker/stack/app/.env.example) to
+docker/stack/app/.env and populating with actual API keys.
 
 `npm run test:e2e` runs all end-to-end tests.
 

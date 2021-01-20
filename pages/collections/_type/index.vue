@@ -50,7 +50,7 @@
     },
     middleware: 'sanitisePageQuery',
     asyncData({ params, error, app, store }) {
-      if (!['persons', 'topics'].includes(params.type)) {
+      if (!['persons', 'topics', 'times'].includes(params.type)) {
         return  error({ statusCode: 404, message: 'unknown collection type' });
       }
 
@@ -64,7 +64,7 @@
         qf: `skos_prefLabel.${app.i18n.locale}:*`,
         fl: 'skos_prefLabel.*,isShownBy,isShownBy.thumbnail'
       };
-      return store.getters['apis/entity'].searchEntities(entityIndexParams)
+      return app.$apis.entity.searchEntities(entityIndexParams)
         .then(response => response)
         .then(data => {
           return {

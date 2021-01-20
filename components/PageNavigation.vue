@@ -113,10 +113,12 @@
       }
     },
     data() {
+      const keycloakAccountUrl = `${this.$auth.strategy.options.origin}/auth/realms/${this.$auth.strategy.options.realm}/account?referrer=${this.$auth.strategy.options.client_id}`;
+
       return {
         authLinks: [
           { to: this.$path({ name: 'account' }), text: this.$t('account.profile'), name: '/account', dataQa: 'likes and galleries button' },
-          { href: `${process.env.OAUTH_ORIGIN}/auth/realms/${process.env.OAUTH_REALM}/account?referrer=${process.env.OAUTH_CLIENT}`, text: this.$t('account.settings'), name: '/account/settings', dataQa: 'account settings button' },
+          { href: keycloakAccountUrl, text: this.$t('account.settings'), name: '/account/settings', dataQa: 'account settings button' },
           { divider: true, name: 'divider' },
           { to: { name: 'account-logout' }, text: this.$t('account.linkLogout'), name: '/account/logout', dataQa: 'log out button' }
         ]

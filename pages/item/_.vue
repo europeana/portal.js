@@ -122,8 +122,8 @@
         profile: 'dereference'
       };
       axios.all([
-        this.$store.getters['apis/annotation'].search(annotationSearchParams),
-        this.$store.getters['apis/entity'].findEntities(this.europeanaEntityUris),
+        this.$apis.annotation.search(annotationSearchParams),
+        this.$apis.entity.findEntities(this.europeanaEntityUris),
         this.getSimilarItems()
       ])
         .then(axios.spread((annotations, entities, similar) => {
@@ -137,8 +137,8 @@
 
     fetchOnServer: false,
 
-    asyncData({ params, res, store, app }) {
-      return store.getters['apis/record']
+    asyncData({ params, res, app, $apis }) {
+      return $apis.record
         .getRecord(`/${params.pathMatch}`, { locale: app.i18n.locale })
         .then(result => result.record)
         .catch(error => {
@@ -155,6 +155,7 @@
         altTitle: null,
         cardGridClass: null,
         concepts: null,
+        times: null,
         coreFields: null,
         description: null,
         error: null,
@@ -202,8 +203,11 @@
       europeanaConcepts() {
         return (this.concepts || []).filter((concept) => concept.about.startsWith(`${EUROPEANA_DATA_URL}/concept/`));
       },
+      europeanaTimes() {
+        return (this.times || []).filter((time) => time.about.startsWith(`${EUROPEANA_DATA_URL}/timespan/`));
+      },
       europeanaEntityUris() {
-        const entities = this.europeanaConcepts.concat(this.europeanaAgents);
+        const entities = this.europeanaConcepts.concat(this.europeanaAgents).concat(this.europeanaTimes);
         return entities.map((entity) => entity.about).slice(0, 5);
       },
       titlesInCurrentLanguage() {
@@ -247,7 +251,7 @@
         return `https://classic.europeana.eu/portal/${this.$i18n.locale}/record${this.identifier}.html?utm_source=new-website&utm_medium=button`;
       },
       redirectNotificationsEnabled() {
-        return Boolean(Number(process.env.ENABLE_LINKS_TO_CLASSIC));
+        return this.$config.app.features.linksToClassic;
       },
       pageHeadMetaOgImage() {
         return this.media[0] ? this.media[0].thumbnails.large : null;
@@ -256,12 +260,7 @@
 
     mounted() {
       if (process.browser && this.fields) {
-        this.$gtm.push({
-          itemCountry: langMapValueForLocale(this.fields.edmCountry, 'en').values[0],
-          itemDataProvider: langMapValueForLocale(this.coreFields.edmDataProvider, 'en').values[0],
-          itemProvider: langMapValueForLocale(this.fields.edmProvider, 'en').values[0],
-          itemRights: langMapValueForLocale(this.fields.edmRights, 'en').values[0]
-        });
+        this.$gtm.push(this.gtmOptions());
       }
     },
 
@@ -274,8 +273,8 @@
         const noSimilarItems = { results: [] };
         if (this.error) return noSimilarItems;
 
-        if (Boolean(Number(process.env.ENABLE_RECOMMENDATIONS)) && this.$auth.loggedIn) {
-          return this.$recommendations.recommend('record', this.identifier)
+        if (this.$config.app.features.recommendations && this.$auth.loggedIn) {
+          return this.$apis.recommendation.recommend('record', this.identifier)
             .then(recommendResponse => recommendResponse);
         }
 
@@ -286,7 +285,7 @@
           edmDataProvider: this.getSimilarItemsData(this.fields.edmDataProvider)
         };
 
-        return this.$store.getters['apis/record'].search({
+        return this.$apis.record.search({
           query: similarItemsQuery(this.identifier, dataSimilarItems),
           rows: 4,
           profile: 'minimal',
@@ -305,6 +304,14 @@
         if (!data) return;
 
         return data.filter(item => typeof item === 'string');
+      },
+      gtmOptions() {
+        return {
+          itemCountry: langMapValueForLocale(this.fields.edmCountry, 'en').values[0],
+          itemDataProvider: langMapValueForLocale(this.coreFields.edmDataProvider.value, 'en').values[0],
+          itemProvider: langMapValueForLocale(this.fields.edmProvider, 'en').values[0],
+          itemRights: langMapValueForLocale(this.fields.edmRights, 'en').values[0]
+        };
       }
     },
 
@@ -341,12 +348,12 @@
     padding: 0;
   }
 
-  /deep/ .card-header-tabs {
+  ::v-deep .card-header-tabs {
     border-radius: 0.25rem 0.25rem 0 0;
   }
 
-  /deep/ .card-header-tabs .nav-link,
-  /deep/ .card-header-tabs .nav-link:hover {
+  ::v-deep .card-header-tabs .nav-link,
+  ::v-deep .card-header-tabs .nav-link:hover {
     border-radius: 0.25rem 0 0 0;
   }
 </style>

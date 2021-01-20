@@ -67,62 +67,58 @@ export function rangeFromQueryParam(paramValue) {
   return { start, end };
 }
 
-export default ($axios) => {
-  return {
-    $axios,
-    /**
-     * Search Europeana Record API
-     * @param {Object} params parameters for search query
-     * @param {number} params.page page of results to retrieve
-     * @param {number} params.rows number of results to retrieve per page
-     * @param {string} params.reusability reusability filter
-     * @param {string} params.facet facet names, comma separated
-     * @param {(string|string[])} params.qf query filter(s)
-     * @param {string} params.query search query
-     * @param {string} params.wskey API key, to override `config.record.key`
-     * @param {Object} options search options
-     * @param {Boolean} options.escape whether or not to escape Lucene reserved characters in the search query
-     * @param {string} options.url override the API URL
-     * @return {{results: Object[], totalResults: number, facets: FacetSet, error: string}} search results for display
-     */
-    search(params, options = {}) {
-      const maxResults = 1000;
-      const perPage = params.rows === undefined ? 24 : Number(params.rows);
-      const page = params.page || 1;
-      const start = ((page - 1) * perPage) + 1;
-      const rows = Math.max(0, Math.min(maxResults + 1 - start, perPage));
+/**
+ * Search Europeana Record API
+ * @param {Object} $axios Axios instance for Record API
+ * @param {Object} params parameters for search query
+ * @param {number} params.page page of results to retrieve
+ * @param {number} params.rows number of results to retrieve per page
+ * @param {string} params.reusability reusability filter
+ * @param {string} params.facet facet names, comma separated
+ * @param {(string|string[])} params.qf query filter(s)
+ * @param {string} params.query search query
+ * @param {string} params.wskey API key, to override `config.record.key`
+ * @param {Object} options search options
+ * @param {Boolean} options.escape whether or not to escape Lucene reserved characters in the search query
+ * @param {string} options.url override the API URL
+ * @return {{results: Object[], totalResults: number, facets: FacetSet, error: string}} search results for display
+ */
+export default function search($axios, params, options = {}) {
+  const maxResults = 1000;
+  const perPage = params.rows === undefined ? 24 : Number(params.rows);
+  const page = params.page || 1;
+  const start = ((page - 1) * perPage) + 1;
+  const rows = Math.max(0, Math.min(maxResults + 1 - start, perPage));
 
-      const escape = options.escape || false;
+  const escape = options.escape || false;
 
-      const query = (typeof params.query === 'undefined' || params.query === '') ? '*:*' : params.query;
+  const query = params.query || '*:*';
 
-      return this.$axios.get(`${options.url || ''}/search.json`, {
-        paramsSerializer(params) {
-          return qs.stringify(params, { arrayFormat: 'repeat' });
-        },
-        params: {
-          ...this.$axios.defaults.params,
-          facet: params.facet,
-          profile: params.profile,
-          qf: addContentTierFilter(params.qf),
-          query: escape ? escapeLuceneSpecials(query) : query,
-          reusability: params.reusability,
-          rows,
-          start
-        }
-      })
-        .then(response => {
-          return {
-            ...response.data,
-            lastAvailablePage: start + perPage > maxResults
-          };
-        })
-        .catch((error) => {
-          throw apiError(error);
-        });
+  return $axios.get(`${options.url || ''}/search.json`, {
+    paramsSerializer(params) {
+      return qs.stringify(params, { arrayFormat: 'repeat' });
+    },
+    params: {
+      ...$axios.defaults.params,
+      facet: params.facet,
+      profile: params.profile,
+      qf: addContentTierFilter(params.qf),
+      query: escape ? escapeLuceneSpecials(query) : query,
+      reusability: params.reusability,
+      rows,
+      start
     }
-  };
-};
+  })
+    .then(response => {
+      return {
+        ...response.data,
+        lastAvailablePage: start + perPage > maxResults
+      };
+    })
+    .catch((error) => {
+      throw apiError(error);
+    });
+}
 
 /**
  * Apply content tier filtering to the qf param.

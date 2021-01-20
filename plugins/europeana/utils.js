@@ -1,3 +1,52 @@
+import axios from 'axios';
+
+import { keycloakResponseErrorHandler } from './auth';
+
+export const createAxios = ({ id, baseURL, $axios }, context) => {
+  const axiosOptions = axiosInstanceOptions({ id, baseURL }, context);
+  const axiosInstance = ($axios || axios).create(axiosOptions);
+
+  const app = context.app;
+  if (app && app.$axiosLogger) axiosInstance.interceptors.request.use(app.$axiosLogger);
+
+  return axiosInstance;
+};
+
+export const createKeycloakAuthAxios = ({ id, baseURL, $axios }, context) => {
+  const axiosInstance = createAxios({ id, baseURL, $axios }, context);
+
+  if (typeof axiosInstance.onResponseError === 'function') {
+    axiosInstance.onResponseError(error => keycloakResponseErrorHandler(context, error));
+  }
+
+  return axiosInstance;
+};
+
+const storedAPIBaseURL = (store, id) => {
+  if (store && store.state && store.state.apis && store.state.apis.urls[id]) {
+    return store.state.apis.urls[id];
+  }
+};
+
+const apiConfig = ($config, id) => {
+  if ($config && $config.europeana && $config.europeana.apis && $config.europeana.apis[id]) {
+    return $config.europeana.apis[id];
+  } else {
+    return {};
+  }
+};
+
+const axiosInstanceOptions = ({ id, baseURL }, { store, $config }) => {
+  const config = apiConfig($config, id);
+  return {
+    baseURL: storedAPIBaseURL(store, id) || config.url || baseURL,
+    params: {
+      wskey: config.key
+    }
+  };
+};
+
+// TODO: extend to be more verbose in development environments, e.g. with stack trace
 export function apiError(error) {
   let statusCode = 500;
   let message = error.message;

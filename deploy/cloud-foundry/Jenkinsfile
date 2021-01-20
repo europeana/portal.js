@@ -25,7 +25,6 @@ pipeline {
     stage('Build') {
       steps {
         configFileProvider([
-          configFile(fileId: "portaljs.${env.CF_SPACE}.env", targetLocation: '.env'),
           configFile(fileId: "portaljs.${env.CF_SPACE}.vars.yml", targetLocation: 'deploy/cloud-foundry/vars.yml'),
         ]) {
           sh 'rm -rf node_modules'
@@ -46,7 +45,7 @@ pipeline {
         CTF_CPA_ACCESS_TOKEN=credentials("portaljs.${env.CF_SPACE}.contentful.cpa")
       }
       steps {
-        sh 'cf push ${CF_APP_NAME} -f ./deploy/cloud-foundry/manifest.yml --vars-file deploy/cloud-foundry/vars.yml'
+        sh 'cf push ${CF_APP_NAME} --strategy rolling -f ./deploy/cloud-foundry/manifest.yml --vars-file deploy/cloud-foundry/vars.yml'
       }
     }
     stage('Attach autoscaling policy on CF') {

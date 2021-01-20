@@ -1,0 +1,14 @@
+{
+  "name": "@europeana/portaljs-size-limit",
+  "version": "0.0.1",
+  "description": "",
+  "scripts": {
+    "start": "size-limit"
+  },
+  "author": "",
+  "license": "EUPL-1.2",
+  "dependencies": {
+    "@size-limit/preset-app": "^4.6.0",
+    "size-limit": "^4.6.0"
+  }
+}

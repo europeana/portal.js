@@ -19,7 +19,7 @@
         v-for="(collection, index) in collections"
         :key="index"
         :disabled="!fetched"
-        :style="buttonBackground($sets.getSetThumbnail(collection))"
+        :style="buttonBackground($apis.set.getSetThumbnail(collection))"
         variant="overlay"
         class="btn-collection w-100 text-left d-flex justify-content-between align-items-center"
         @click="toggleItem(collection.id)"
@@ -130,7 +130,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @import './assets/scss/variables.scss';
+  @import '../../assets/scss/variables.scss';
 
   .btn-collection {
     border: 0;

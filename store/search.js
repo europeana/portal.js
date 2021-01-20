@@ -339,13 +339,13 @@ export const actions = {
     ]);
   },
 
-  queryItems({ dispatch, state, getters, rootGetters }) {
+  queryItems({ dispatch, state, getters }) {
     const paramsForItems = {
       ...state.apiParams,
       facet: null
     };
 
-    return rootGetters['apis/record'].search(paramsForItems, getters.searchOptions)
+    return this.$apis.record.search(paramsForItems, getters.searchOptions)
       .then(async(response) => {
         await dispatch('updateForSuccess', response);
       })
@@ -363,7 +363,7 @@ export const actions = {
       profile: 'facets'
     };
 
-    return rootGetters['apis/record'].search(paramsForFacets, getters.searchOptions)
+    return this.$apis.record.search(paramsForFacets, getters.searchOptions)
       .then((response) => {
         commit('setFacets', response.facets);
         const collection = getters.collection;

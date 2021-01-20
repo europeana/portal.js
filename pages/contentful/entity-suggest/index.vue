@@ -61,7 +61,7 @@
 
           const ids = sdk.field.getValue() || [];
           if (ids.length > 0) {
-            this.$store.getters['apis/entity'].findEntities(ids)
+            this.$apis.entity.findEntities(ids)
               .then(entities => {
                 this.value = entities;
               });
@@ -76,7 +76,7 @@
       },
 
       inputSearchText(val) {
-        this.$store.getters['apis/entity'].getEntitySuggestions(val, { type: 'concept' })
+        this.$apis.entity.getEntitySuggestions(val, { type: 'concept' })
           .then(suggestions => {
             this.suggestions = suggestions;
           });

@@ -18,7 +18,7 @@
     props: {
       query: {
         type: String,
-        default: ''
+        default: null
       }
     },
 
@@ -37,11 +37,13 @@
     },
 
     methods: {
-      async getSearchSuggestions(query) {
-        this.relatedCollections = query === '' ? [] : await this.$store.getters['apis/entity'].getEntitySuggestions(query, {
+      getSearchSuggestions(query) {
+        if (!query) return;
+        this.$apis.entity.getEntitySuggestions(query, {
           language: this.$i18n.locale,
           rows: 4
-        });
+        })
+          .then(response => (this.relatedCollections = response));
       }
     }
   };

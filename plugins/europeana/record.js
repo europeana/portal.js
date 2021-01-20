@@ -1,22 +1,15 @@
-import axios from 'axios';
 import omitBy from 'lodash/omitBy';
 import pick from 'lodash/pick';
 import uniq from 'lodash/uniq';
 import merge from 'deepmerge';
 
-import { apiError, escapeLuceneSpecials, reduceLangMapsForLocale } from './utils';
+import { apiError, createAxios, escapeLuceneSpecials, reduceLangMapsForLocale } from './utils';
 import search from './search';
 import { thumbnailUrl, thumbnailTypeForMimeType } from  './thumbnail';
 import { getEntityUri, getEntityQuery } from './entity';
 import { isIIIFPresentation } from '../media';
 
 export const BASE_URL = process.env.EUROPEANA_RECORD_API_URL || 'https://api.europeana.eu/record';
-export const axiosDefaults = {
-  baseURL: BASE_URL,
-  params: {
-    wskey: process.env.EUROPEANA_RECORD_API_KEY || process.env.EUROPEANA_API_KEY
-  }
-};
 
 /**
  * Retrieves the "Core" fields which will always be displayed on record pages.
@@ -180,16 +173,15 @@ function setMatchingEntities(fields, key, entities) {
   }
 }
 
-export default (axiosOverrides) => {
-  const $axios = axios.create({
-    ...axiosDefaults,
-    ...axiosOverrides
-  });
+export default (context = {}) => {
+  const $axios = createAxios({ id: 'record', baseURL: BASE_URL }, context);
 
   return {
     $axios,
 
-    search: search($axios).search,
+    search(params, options = {}) {
+      return search($axios, params, options);
+    },
 
     /**
      * Parse the record data based on the data from the API response
@@ -223,6 +215,7 @@ export default (axiosOverrides) => {
         media: this.aggregationMedia(providerAggregation, edm.type, edm.services),
         agents,
         concepts,
+        timespans,
         title: proxyData.dcTitle
       };
     },

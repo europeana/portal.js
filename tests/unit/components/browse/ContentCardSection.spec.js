@@ -16,6 +16,7 @@ const $store = {
 const factory = () => mount(ContentCardSection, {
   localVue,
   mocks: {
+    $config: { app: { internalLinkDomain: null } },
     $t: () => {},
     $path: () => '/',
     $store

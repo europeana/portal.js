@@ -46,14 +46,14 @@
     },
     computed: {
       imageLink() {
-        return this.$store.getters['apis/record'].mediaProxyUrl(this.media.about, this.europeanaIdentifier, { disposition: 'inline' });
+        return this.$apis.record.mediaProxyUrl(this.media.about, this.europeanaIdentifier, { disposition: 'inline' });
       }
     }
   };
 </script>
 
 <style lang="scss" scoped>
-@import './assets/scss/variables.scss';
+@import '../../assets/scss/variables.scss';
 
 img {
   height: 100%;

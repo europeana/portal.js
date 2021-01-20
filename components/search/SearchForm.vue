@@ -203,7 +203,7 @@
           this.query = this.selectedOptionLink.query.query;
           if (this.query !== this.activeSuggestionsQueryTerm) this.suggestions = {};
         } else {
-          const newRouteQuery = { ...this.$route.query, ...{ page: 1, view: this.view, query: this.query || '' } };
+          const newRouteQuery = { ...this.$route.query, ...{ page: 1, view: this.view, query: this.query } };
           newRoute = { path: this.routePath, query: newRouteQuery };
         }
 
@@ -234,7 +234,7 @@
         const locale = this.$i18n.locale;
         this.gettingSuggestions = true;
 
-        this.$store.getters['apis/entity'].getEntitySuggestions(query, {
+        this.$apis.entity.getEntitySuggestions(query, {
           language: locale
         })
           .then(suggestions => {
@@ -296,8 +296,8 @@
 </script>
 
 <style lang="scss" scoped>
-  @import './assets/scss/variables.scss';
-  @import './assets/scss/icons.scss';
+  @import '../../assets/scss/variables.scss';
+  @import '../../assets/scss/icons.scss';
 
   .form-inline {
     align-items: flex-start;
