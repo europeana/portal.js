@@ -1,7 +1,6 @@
 <template>
   <header
     v-visible-on-scroll
-    :class="headerClass"
     class="m-0 navbar-brand container-fluid d-flex justify-content-between show"
     role="banner"
     :aria-label="$t('header.europeanaHome')"
@@ -136,11 +135,7 @@
     computed: {
       ...mapState({
         showSearch: state => state.search.showSearchBar
-      }),
-
-      headerClass() {
-        return this.$exp.$classes.join(' ');
-      }
+      })
     },
 
     watch: {
