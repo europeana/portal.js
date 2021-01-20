@@ -147,7 +147,13 @@ export const mutations = {
     state.view = value;
     if (process.browser) {
       sessionStorage.searchResultsView = value;
-      localStorage.searchResultsView = value;
+      let klaroCookie = document.cookie.split('; ').filter((c) => {
+        return /klaro=/.test(c);
+      });
+      let searchResultsViewStorageConsent = klaroCookie[0].includes('searchResultsView%22%3Atrue');
+      if (searchResultsViewStorageConsent) {
+        localStorage.searchResultsView = value;
+      }
     }
   },
   setCollectionLabel(state, value) {

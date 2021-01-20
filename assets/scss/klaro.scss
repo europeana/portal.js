@@ -2,13 +2,16 @@
 
   .cookie-notice {
     background: $white;
+    .cn-decline {
+      display: none;
+    }
   }
 
   .cookie-modal,
   .context-notice,
   .cookie-notice {
     z-index: 1050;
-    
+
     p,
     strong,
     h1,
@@ -30,7 +33,7 @@
     .cm-btn {
       font-size: 0.875rem;
       text-transform: uppercase;
-      font-weight: 400;
+      font-weight: 600;
       padding: 0.625rem 1rem;
       line-height: 1;
       text-align: center;
@@ -236,7 +239,7 @@
       right: auto;
     }
   }
-  
+
   @media (max-width: $bp-small) {
     .cookie-notice {
       .cn-body {

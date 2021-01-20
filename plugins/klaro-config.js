@@ -10,15 +10,15 @@ export const klaroConfig = {
       },
       purposes: {
         performance: {
-          title: 'Performance optimization',
+          title: 'Performance Optimization',
           description: 'These services process personal information to optimize the service that this website offers.'
         },
         marketing: {
-          title: 'Analytics and feedback',
+          title: 'Analytics and Feedback',
           description: 'These services process personal information to help us better understand user behavior by tracking user flows and engagement.'
         },
         service: {
-          title: 'Service provision',
+          title: 'Service Provision',
           description: 'These services are essential for the correct functioning of this website. You cannot disable them here as the service would not work correctly otherwise.'
         }
       }
