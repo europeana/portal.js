@@ -5,6 +5,13 @@ import sinon from 'sinon';
 
 import page from '../../../../pages/item/_';
 
+const optionsVar = {
+  itemCountry: undefined,
+  itemDataProvider: 'Data Provider',
+  itemProvider: undefined,
+  itemRights: undefined
+};
+
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
@@ -12,7 +19,13 @@ const factory = () => shallowMountNuxt(page, {
   localVue,
   data() {
     return {
-      identifier: '/123/abc'
+      identifier: '/123/abc',
+      coreFields: {
+        edmDataProvider: {
+          url: 'https://www.example.eu',
+          value: ['Data Provider']
+        }
+      }
     };
   },
   mocks: {
@@ -76,6 +89,13 @@ describe('pages/item/_.vue', () => {
       const headMeta = wrapper.vm.head().meta;
 
       headMeta.find(meta => meta.property === 'og:image').content.should.eq(thumbnailUrl);
+    });
+  });
+
+  describe('gtmOptions()', () => {
+    it('uses first edmDataProvider from corefields', () => {
+      const wrapper = factory();
+      wrapper.vm.gtmOptions().should.eql(optionsVar);
     });
   });
 });

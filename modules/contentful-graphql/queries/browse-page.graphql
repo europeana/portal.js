@@ -11,9 +11,6 @@ query BrowsePage(
       description
       primaryImageOfPage {
          __typename
-        ... on ImageWithAttribution {
-          ...imageWithAttributionFields
-        }
         ... on HeroHeader{
           title
           headline
