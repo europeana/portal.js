@@ -25,6 +25,7 @@
     data() {
       return {
         value: null,
+        contentTypes: [],
         slugField: null,
         titleField: null,
         slugFromTitle: false,
@@ -44,6 +45,8 @@
         this.contentfulExtensionSdk = sdk;
         if (sdk.location.is(window.contentfulExtension.locations.LOCATION_ENTRY_FIELD)) {
           sdk.window.startAutoResizer();
+
+          this.contentTypes = [sdk.contentType.sys.id].concat(sdk.parameters.instance.contentTypes.split(','));
 
           this.value = sdk.field.getValue();
           this.slugField = sdk.field;
@@ -138,17 +141,13 @@
         query['sys.id[ne]'] = this.contentfulExtensionSdk.entry.getSys().id;
         query['sys.publishedAt[exists]'] = true;
 
-        query['content_type'] = 'staticPage';
-        const hasStaticPageMatch = this.contentfulExtensionSdk.space.getEntries(query).then((result) => {
-          return result.total >= 1;
-        });
+        for (const contentType of this.contentTypes) {
+          query['content_type'] = contentType;
+          const result = await this.contentfulExtensionSdk.space.getEntries(query);
+          if (result.total >= 1) return true;
+        }
 
-        query['content_type'] = 'browsePage';
-        const hasBrowsePageMatch = this.contentfulExtensionSdk.space.getEntries(query).then((result) => {
-          return result.total >= 1;
-        });
-
-        return await hasBrowsePageMatch || await hasStaticPageMatch;
+        return false;
       }
     },
 
