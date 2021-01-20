@@ -57,6 +57,8 @@
           return this.cardFields.image;
         } else if (this.cardFields.edmPreview) {
           return `${this.cardFields.edmPreview[0]}&size=w200`;
+        } else if (this.cardFields.entityImage) {
+          return this.cardFields.entityImage;
         } else if (this.imageIsContentfulAsset) {
           return this.cardFields.image.url;
         }
