@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 module.exports = function(migration) {
   const staticPage = migration
     .createContentType('staticPage')
@@ -34,17 +36,31 @@ module.exports = function(migration) {
     .name('URL slug')
     .type('Symbol')
     .localized(false)
-    .required(false)
+    .required(true)
     .validations([
       {
         unique: true
+      },
+      {
+        prohibitRegexp: {
+          pattern: '^(blog$|blog/|entity/|exhibitions?$|exhibition/|record/|search$)',
+          flags: null
+        },
+        message: 'This URL slug is reserved.'
       }
     ])
     .disabled(false)
     .omitted(false);
 
-  staticPage.changeFieldControl('identifier', 'builtin', 'slugEditor', {
-    helpText: 'Will always be prefixed with "/page/"'
+  if (!process.env.SLUG_VALIDATION_APP_ID) {
+    console.log('No app ID specified in SLUG_VALIDATION_APP_ID; aborting.');
+    process.exit(1);
+  }
+
+  // "Slug validation - Europeana" app (pre-installed in space & env)
+  staticPage.changeFieldControl('identifier', 'app', process.env.SLUG_VALIDATION_APP_ID, {
+    helpText: 'Do not include a leading slash. The homepage has slug "home". Should be unique for both browse and static pages',
+    contentTypes: 'browsePage'
   });
 
   staticPage
@@ -158,4 +174,3 @@ module.exports = function(migration) {
     .omitted(false)
     .linkType('Entry');
 };
-
