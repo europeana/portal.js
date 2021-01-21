@@ -90,6 +90,10 @@ module.exports = {
     gtm: {
       id: process.env.GOOGLE_TAG_MANAGER_ID
     },
+    hotjar: {
+      id: process.env.HOTJAR_ID,
+      sv: process.env.HOTJAR_SNIPPET_VERSION
+    },
     http: {
       ports: {
         http: process.env.HTTP_PORT,
@@ -192,6 +196,7 @@ module.exports = {
   plugins: [
     '~/plugins/vue',
     '~/plugins/i18n.js',
+    '~/plugins/hotjar.client',
     '~/plugins/link',
     '~/plugins/page',
     '~/plugins/vue-filters',
@@ -274,6 +279,10 @@ module.exports = {
       }
     },
     plugins: ['~/plugins/apis']
+  },
+
+  gtm: {
+    enabled: true
   },
 
   router: {

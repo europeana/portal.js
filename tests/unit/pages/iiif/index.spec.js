@@ -32,45 +32,59 @@ describe('pages/iiif/index.vue', () => {
   });
 
   describe('methods', () => {
-    describe('coerceAnnotationToCanvasId', () => {
-      it('coerces `on` attribute to canvas ID', () => {
+    describe('coerceResourceOnImagesToCanvases', () => {
+      it('coerces resource\'s `on` attribute to canvas ID', () => {
         const wrapper = factory();
         wrapper.setData({
-          page: 'http://example.org/presentation/123/canvas/p1'
+          imageToCanvasMap: {
+            'https://example.org/image/123.jpg': 'http://example.org/presentation/123/canvas/p1'
+          }
         });
-        const annotationJson = {
-          resources: [
-            { on: ['https://example.org/image/123.jpg#xywh=1,0,90,100'] }
-          ]
+        const resource = {
+          on: ['https://example.org/image/123.jpg#xywh=1,0,90,100']
         };
 
-        wrapper.vm.coerceAnnotationToCanvasId(annotationJson);
+        wrapper.vm.coerceResourceOnImagesToCanvases(resource);
 
-        annotationJson.resources.should.eql([
-          { on: ['http://example.org/presentation/123/canvas/p1#xywh=1,0,90,100'] }
-        ]);
+        resource.should.eql({
+          on: ['http://example.org/presentation/123/canvas/p1#xywh=1,0,90,100']
+        });
       });
     });
 
-    describe('filterAnnotationResources', () => {
-      it('filters to line-level annotations with char fragment selector', () => {
+    describe('coerceSearchHitsToBeforeMatchAfter', () => {
+      it('coerces search hits from selectors to before/match/after', () => {
         const wrapper = factory();
-        const annotationJson = {
-          resources: [
-            { dcType: 'Page', resource: { '@id': 'http://example.org/fulltext/123' } },
-            { dcType: 'Line', resource: { '@id': 'http://example.org/fulltext/123#char=0,9' } },
-            { dcType: 'Line', resource: { '@id': 'http://example.org/fulltext/123#char=10,19' } },
-            { dcType: 'Line', resource: { '@id': 'http://example.org/fulltext/123' } },
-            { dcType: 'Block', resource: { '@id': 'http://example.org/fulltext/123#char=0,19' } }
+        const searchJson = {
+          hits: [
+            {
+              '@type': 'search:Hit',
+              annotations: [],
+              selectors: [
+                {
+                  '@type': 'oa:TextQuoteSelector',
+                  prefix: 'roit pas ',
+                  exact: 'joui',
+                  suffix: ' long-tons. On en avoit déjà'
+                }
+              ]
+            }
           ]
         };
 
-        wrapper.vm.filterAnnotationResources(annotationJson);
+        wrapper.vm.coerceSearchHitsToBeforeMatchAfter(searchJson);
 
-        annotationJson.resources.should.eql([
-          { dcType: 'Line', resource: { '@id': 'http://example.org/fulltext/123#char=0,9' } },
-          { dcType: 'Line', resource: { '@id': 'http://example.org/fulltext/123#char=10,19' } }
-        ]);
+        searchJson.should.eql({
+          hits: [
+            {
+              '@type': 'search:Hit',
+              annotations: [],
+              before: 'roit pas ',
+              match: 'joui',
+              after: ' long-tons. On en avoit déjà'
+            }
+          ]
+        });
       });
     });
 

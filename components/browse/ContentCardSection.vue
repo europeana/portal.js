@@ -34,7 +34,7 @@
             :key="index"
             :title="card.name"
             :url="entityRouterLink(card.identifier, card.slug)"
-            :image-url="card.image"
+            :image-url="card.entityImage"
             :image-optimisation-options="{ width: 510 }"
             variant="mini"
           />
@@ -102,7 +102,7 @@
 
 <style lang="scss" scoped>
 
-@import './assets/scss/variables.scss';
+@import '../../assets/scss/variables.scss';
 
 .browse-section {
   h2,

@@ -158,7 +158,7 @@
 </script>
 
 <style lang="scss" scoped>
-  /deep/ .attribution {
+  ::v-deep .attribution {
     &:after {
       padding-top: 0.2rem;
     }

@@ -142,7 +142,7 @@
 </script>
 
 <style lang="scss" scoped>
-  /deep/ img {
+  ::v-deep img {
     display: block;
     margin: 1rem 0;
   }

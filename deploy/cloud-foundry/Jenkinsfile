@@ -45,7 +45,7 @@ pipeline {
         CTF_CPA_ACCESS_TOKEN=credentials("portaljs.${env.CF_SPACE}.contentful.cpa")
       }
       steps {
-        sh 'cf push ${CF_APP_NAME} -f ./deploy/cloud-foundry/manifest.yml --vars-file deploy/cloud-foundry/vars.yml'
+        sh 'cf push ${CF_APP_NAME} --strategy rolling -f ./deploy/cloud-foundry/manifest.yml --vars-file deploy/cloud-foundry/vars.yml'
       }
     }
     stage('Attach autoscaling policy on CF') {
