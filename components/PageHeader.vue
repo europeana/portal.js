@@ -167,7 +167,6 @@
     left: 0;
     z-index: 1030;
     padding: 0;
-    border-bottom: 1px solid $whitegrey;
 
     &:not(.show) ::v-deep .search-query,
     &:not(.show) ::v-deep .auto-suggest-dropdown {
@@ -241,8 +240,16 @@
       font-size: 1.1rem;
     }
 
-    &.search:before {
-      content: '\e92b';
+    &.search {
+      &:before {
+        content: '\e92b';
+        transition: $standard-transition;
+      }
+      &:hover {
+        &:before {
+          color: $altblue;
+        }
+      }
     }
 
     &.back {

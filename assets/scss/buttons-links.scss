@@ -144,9 +144,8 @@ a {
   position: relative;
 
   &:before {
-    background: $offwhite;
-    border-radius: $border-radius;
-    bottom: 0;
+    background: $blue;
+    bottom: calc(-0.735rem);
     box-sizing: border-box;
     content: '';
     display: block;
@@ -154,21 +153,16 @@ a {
     opacity: 0;
     position: absolute;
     right: 0;
-    top: 0;
     transform: scale(0);
     transition-duration: 0.15s;
     transition-timing-function: cubic-bezier(0.4, 0.0, 0.2, 1);
     transition-property: transform, opacity;
     z-index: 0;
+    height: 4px;
   }
 
   &:hover {
     text-decoration: none;
-  }
-
-  &:hover:before {
-    opacity: 1;
-    transform: scale(1);
   }
 }
 
