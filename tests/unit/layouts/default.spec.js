@@ -3,6 +3,7 @@ import BootstrapVue from 'bootstrap-vue';
 import Vuex from 'vuex';
 
 import layout from '../../../layouts/default';
+import { klaroConfig } from '../../../plugins/klaro-config';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
@@ -31,7 +32,9 @@ const factory = () => shallowMount(layout, {
     VueAnnouncer: { template: '<div id="announcer" aria-live="polite"></div>' },
     nuxt: true,
     PageHeader: true,
-    PageFooter: true
+    PageFooter: true,
+    // Klaro: process.client && typeof window.klaro !== 'undefined' ? window.klaro.render(klaroConfig, true) : null,
+    Klaro: { template: '<div id="eu-klaro"></div>' }
   }
 });
 
@@ -40,6 +43,12 @@ describe('layouts/default.vue', () => {
     it('is enabled', () => {
       const wrapper = factory();
       wrapper.find('#announcer').exists().should.equal(true);
+    });
+  });
+  describe('Klaro', () => {
+    it('is enabled', () => {
+      const wrapper = factory();
+      wrapper.find('#eu-klaro').exists().should.equal(true);
     });
   });
 });
