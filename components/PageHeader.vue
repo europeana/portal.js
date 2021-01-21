@@ -73,17 +73,25 @@
           role="navigation"
           data-qa="mobile navigation"
         >
-          <SmartLink
-            :destination="{ name: 'index' }"
-            class="logo d-block d-lg-none px-2"
-          >
-            <img
-              src="../assets/img/logo.svg"
-              :alt="$t('homeLinkAlt')"
-              class="mb-lg-2 mw-100"
-              data-qa="logo"
+          <div class="navhead w-100 d-flex align-items-center pl-2">
+            <b-button
+              data-qa="close menu button"
+              class="close"
+              variant="light"
+              @click="showSidebar = !showSidebar"
+            />
+            <SmartLink
+              :destination="{ name: 'index' }"
+              class="logo d-lg-none pl-4 pr-2"
             >
-          </SmartLink>
+              <img
+                src="../assets/img/logo.svg"
+                :alt="$t('homeLinkAlt')"
+                class="mb-lg-2 mw-100"
+                data-qa="logo"
+              >
+            </SmartLink>
+          </div>
           <PageNavigation
             v-if="mobileNavigation"
             :links="mobileNavigation.links"
@@ -212,9 +220,9 @@
     background: $white;
     z-index: 99;
     width: 16rem;
-    padding: 1rem 0.5rem;
+    padding: 0 0.5rem 1rem;
     .navbar-nav {
-      padding-top: 1rem;
+      padding-top: 0.25rem;
       flex-direction: column;
       width: 100%;
     }
@@ -245,6 +253,19 @@
         content: '\e92b';
         transition: $standard-transition;
       }
+    }
+
+    &.close {
+      opacity: 1;
+      &:before {
+        content: '\e931';
+        transition: $standard-transition;
+        font-weight: 700;
+        font-size: 1.5rem;
+      }
+    }
+
+    &.search, &.close {
       &:hover {
         &:before {
           color: $altblue;
