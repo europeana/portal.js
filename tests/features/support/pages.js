@@ -31,8 +31,8 @@ const pages = {
   'topics listing page': `${url}/en/collections/topics`,
   'times listing page': `${url}/en/collections/times`,
   'debug page': `${url}/debug`,
-  'static page': `${url}/en/page/about-us`,
-  'static page with linklist': `${url}/en/page/terms-and-policies`
+  'static page': `${url}/en/about-us`,
+  'static page with linklist': `${url}/en/rights`
 };
 
 module.exports = {
