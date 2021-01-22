@@ -1,5 +1,10 @@
 require('dotenv').config();
 
+if (!process.env.SLUG_VALIDATION_APP_ID) {
+  console.log('No app ID specified in SLUG_VALIDATION_APP_ID; aborting.');
+  process.exit(1);
+}
+
 module.exports = function(migration) {
   const staticPage = migration
     .createContentType('staticPage')
@@ -51,11 +56,6 @@ module.exports = function(migration) {
     ])
     .disabled(false)
     .omitted(false);
-
-  if (!process.env.SLUG_VALIDATION_APP_ID) {
-    console.log('No app ID specified in SLUG_VALIDATION_APP_ID; aborting.');
-    process.exit(1);
-  }
 
   // "Slug validation - Europeana" app (pre-installed in space & env)
   staticPage.changeFieldControl('identifier', 'app', process.env.SLUG_VALIDATION_APP_ID, {
