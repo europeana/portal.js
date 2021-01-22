@@ -1,7 +1,7 @@
 <template>
   <div>
     <BrowsePage
-      v-if="contentType='browsePage'"
+      v-if="browsePage"
       :identifier="identifier"
       :name="name"
       :headline="headline"
@@ -10,14 +10,27 @@
       :image="image"
       :has-part-collection="hasPartCollection"
     />
+    <StaticPage
+      v-if="staticPage"
+      :identifier="identifier"
+      :name="name"
+      :description="description"
+      :primary-image-of-page="primaryImageOfPage"
+      :image="image"
+      :has-part-collection="hasPartCollection"
+      :related-links="relatedLinks"
+    />
   </div>
 </template>
 
 <script>
-  import BrowsePage from '../components/browse/BrowsePage.vue';
+  import BrowsePage from '../components/browse/BrowsePage';
+  import StaticPage from '../components/static/StaticPage';
+
   export default {
     components: {
-      BrowsePage
+      BrowsePage,
+      StaticPage
     },
 
     asyncData({ params, query, error, app }) {
@@ -30,13 +43,18 @@
       return app.$contentful.query('browseStaticPage', variables)
         .then(response => response.data.data)
         .then(data => {
-          if (data.browsePageCollection.items.length === 0) {
+          if (data.staticPageCollection.items.length > 0) {
+            let itemData = data.staticPageCollection.items[0];
+            itemData.staticPage = true;
+            return itemData;
+          } else if (data.browsePageCollection.items.length > 0) {
+            let itemData = data.browsePageCollection.items[0];
+            itemData.browsePage = true;
+            return itemData;
+          } else if (data.browsePageCollection.items.length === 0) {
             error({ statusCode: 404, message: app.i18n.t('messages.notFound') });
             return;
           }
-          let itemData = data.browsePageCollection.items[0];
-          itemData.contentType = 'browsePage';
-          return itemData;
         })
         .catch((e) => {
           error({ statusCode: 500, message: e.toString() });
@@ -45,7 +63,16 @@
 
     data() {
       return {
-        contentType: null
+        browsePage: false,
+        staticPage: false,
+        identifier: null,
+        name: null,
+        headline: null,
+        description: null,
+        primaryImageOfPage: null,
+        image: null,
+        hasPartCollection: null,
+        relatedLinks: null
       };
     },
 
