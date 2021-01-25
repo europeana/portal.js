@@ -2,6 +2,9 @@
   <div
     data-qa="browse page"
   >
+    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+      Sign Up!
+    </button>
     <NotificationBanner
       v-if="showNotificationBanner"
       :notification-url="notificationUrl"
@@ -104,6 +107,9 @@
 
     head() {
       return {
+        bodyAttrs: {
+          class: this.$exp.$classes.join(' ')
+        },
         title: this.name + this.$pageHeadTitle(),
         meta: [
           { hid: 'og:type', property: 'og:type', content: 'article' },

@@ -93,7 +93,7 @@ export const klaroConfig = {
       name: 'Google Optimize',
       purposes: ['marketing'],
       cookies: [
-        '?'
+        'exp'
       ],
       translations: {
         en: {

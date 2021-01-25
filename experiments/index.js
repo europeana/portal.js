@@ -1,1 +1,5 @@
-export default [];
+import bigButton from './big-button';
+
+export default [
+  bigButton
+];
