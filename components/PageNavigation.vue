@@ -196,8 +196,12 @@
       text-decoration: none;
       transition: $standard-transition;
 
+      &:before {
+        display: none;
+      }
+
       &:hover {
-        color: $altblue;
+        color: $innovationblue;
       }
 
       &.exact-active-link {
@@ -210,7 +214,7 @@
           z-index: 1;
           left: 0;
           right: 0;
-          bottom: calc(-0.6rem + 1px)
+          bottom: calc(-0.6rem);
         }
       }
 
@@ -320,6 +324,13 @@
   ::v-deep .dropdown {
     &.nav-link {
       padding: 1px 0;
+
+      button:hover {
+        box-shadow: none;
+        span {
+          color: $innovationblue;
+        }
+      }
     }
     .label {
       color: $mediumgrey;

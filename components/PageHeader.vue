@@ -245,10 +245,9 @@
         content: '\e92b';
         transition: $standard-transition;
       }
-      &:hover {
-        &:before {
-          color: $altblue;
-        }
+
+      &:hover:before {
+        color: $innovationblue;
       }
     }
 
