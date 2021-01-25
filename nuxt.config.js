@@ -218,6 +218,7 @@ module.exports = {
   modules: [
     '~/modules/elastic-apm',
     '@nuxtjs/axios',
+    'nuxt-google-optimize',
     ['@nuxtjs/gtm', {
       pageTracking: true
     }],
