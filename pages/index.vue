@@ -61,7 +61,6 @@
         });
     },
 
-<<<<<<< HEAD
     data() {
       return {
         browsePage: false,
@@ -75,23 +74,6 @@
         hasPartCollection: null,
         relatedLinks: null
       };
-=======
-        if (this.hero && this.hero.image && this.hero.image.image) {
-          heroImage = this.hero.image;
-        }
-
-        return heroImage;
-      },
-      heroCta() {
-        return this.hero && this.hero.link ? this.hero.link : null;
-      },
-      heroTitle() {
-        return this.hero && this.hero.title ? this.hero.title : null;
-      },
-      heroDescription() {
-        return this.hero && this.hero.headline ? this.hero.headline : null;
-      }
->>>>>>> master
     },
 
     head() {
