@@ -63,12 +63,11 @@ export const klaroConfig = {
     //   }
     // },
     {
-      name: 'Google Analytics',
+      name: 'google-analytics',
       purposes: ['marketing'],
       cookies: [
-        '_ga',
-        '_gid',
-        '_gat_UA-12776629-19'
+        /^_ga(_.*)?/,
+        '_gid'
       ],
       translations: {
         en: {
@@ -77,11 +76,10 @@ export const klaroConfig = {
       }
     },
     {
-      name: 'Hotjar',
+      name: 'hotjar',
       purposes: ['marketing'],
       cookies: [
-        '_hjid',
-        '_hjTLDTest'
+        /^_hj(.*)?/
       ],
       translations: {
         en: {
