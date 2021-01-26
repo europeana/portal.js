@@ -194,11 +194,6 @@
     .nav-link {
       color: $mediumgrey;
       text-decoration: none;
-      transition: $standard-transition;
-
-      &:hover {
-        color: $altblue;
-      }
 
       &.exact-active-link {
         &:after {

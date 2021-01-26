@@ -201,10 +201,11 @@
   .navbar-brand {
     min-width: 11.0625rem;
     flex: 0 0 auto;
+
     .logo {
       min-width: 9.5625rem;
-      padding-bottom: 0.735rem;
-      padding-top: 0.735rem;
+      padding-bottom: 0.75rem;
+      padding-top: 0.75rem;
       transition: 0.3s ease-in-out;
       img {
         width: 9.5625rem;
@@ -222,7 +223,6 @@
     width: 16rem;
     padding: 0 0.5rem 1rem;
     .navbar-nav {
-      padding-top: 0.25rem;
       flex-direction: column;
       width: 100%;
     }
@@ -266,10 +266,8 @@
     }
 
     &.search, &.close {
-      &:hover {
-        &:before {
-          color: $altblue;
-        }
+      &:hover:before {
+        color: $innovationblue;
       }
     }
 
