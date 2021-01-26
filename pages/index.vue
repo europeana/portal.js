@@ -9,6 +9,8 @@
       :primary-image-of-page="primaryImageOfPage"
       :image="image"
       :has-part-collection="hasPartCollection"
+      :hero="hero"
+      :hero-image="heroImage"
     />
     <StaticPage
       v-if="staticPage"
@@ -19,6 +21,7 @@
       :image="image"
       :has-part-collection="hasPartCollection"
       :related-links="relatedLinks"
+      :hero="hero"
     />
   </div>
 </template>
@@ -74,6 +77,30 @@
         hasPartCollection: null,
         relatedLinks: null
       };
+    },
+
+    computed: {
+      optimisedImageUrl() {
+        console.log(this.image, this.hero.image.url);
+        // use social media image if set in Contentful, otherwise use hero image
+        let img = this.image === null ? this.heroImage : this.image;
+        return this.$options.filters.optimisedImageUrl(img.url, img.contentType, {
+          width: 800,
+          height: 800
+        });
+      },
+      hero() {
+        return this.primaryImageOfPage ? this.primaryImageOfPage : null;
+      },
+      heroImage() {
+        let heroImage = null;
+
+        if (this.hero && this.hero.image && this.hero.image.image) {
+          heroImage = this.hero.image;
+        }
+
+        return heroImage;
+      }
     },
 
     head() {

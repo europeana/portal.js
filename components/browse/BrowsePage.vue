@@ -66,6 +66,14 @@
       hasPartCollection: {
         type: Object,
         default: null
+      },
+      hero: {
+        type: Object,
+        default: null
+      },
+      heroImage: {
+        type: Object,
+        default: null
       }
     },
     computed: {
@@ -78,26 +86,6 @@
         return `https://classic.europeana.eu/portal/${
           this.$store.state.i18n.locale
         }?utm_source=new-website&utm_medium=button`;
-      },
-      optimisedImageUrl() {
-        // use social media image if set in Contentful, otherwise use hero image
-        let img = this.image === null ? this.heroImage : this.image;
-        return this.$options.filters.optimisedImageUrl(img.url, img.contentType, {
-          width: 800,
-          height: 800
-        });
-      },
-      hero() {
-        return this.primaryImageOfPage ? this.primaryImageOfPage : null;
-      },
-      heroImage() {
-        let heroImage = null;
-
-        if (this.hero && this.hero.image && this.hero.image.image) {
-          heroImage = this.hero.image;
-        }
-
-        return heroImage;
       },
       heroCta() {
         return this.hero && this.hero.link ? this.hero.link : null;

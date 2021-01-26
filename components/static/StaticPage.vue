@@ -86,20 +86,10 @@
       relatedLinks: {
         type: Object,
         default: null
-      }
-    },
-    computed: {
-      hero() {
-        return this.primaryImageOfPage ? this.primaryImageOfPage : null;
       },
-      optimisedImageUrl() {
-        // use social media image if set in Contentful, otherwise use hero image
-        let img = this.image === null ? this.hero : this.image;
-        return this.$options.filters.optimisedImageUrl(
-          img.url,
-          img.contentType,
-          { width: 800, height: 800 }
-        );
+      hero: {
+        type: Object,
+        default: null
       }
     }
   };
