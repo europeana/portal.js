@@ -194,11 +194,6 @@
     .nav-link {
       color: $mediumgrey;
       text-decoration: none;
-      transition: $standard-transition;
-
-      &:before {
-        display: none;
-      }
 
       &:hover {
         color: $innovationblue;
