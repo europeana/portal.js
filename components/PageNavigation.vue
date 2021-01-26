@@ -195,6 +195,10 @@
       color: $mediumgrey;
       text-decoration: none;
 
+      &:hover {
+        color: $innovationblue;
+      }
+
       &.exact-active-link {
         &:after {
           content: '';
@@ -205,7 +209,7 @@
           z-index: 1;
           left: 0;
           right: 0;
-          bottom: calc(-0.6rem + 1px)
+          bottom: calc(-0.6rem);
         }
       }
 
@@ -315,6 +319,13 @@
   ::v-deep .dropdown {
     &.nav-link {
       padding: 1px 0;
+
+      button:hover {
+        box-shadow: none;
+        span {
+          color: $innovationblue;
+        }
+      }
     }
     .label {
       color: $mediumgrey;

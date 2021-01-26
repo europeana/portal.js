@@ -86,12 +86,25 @@
     &:before {
       background: $white;
       border-radius: 50%;
+      box-sizing: border-box;
+      content: '';
+      display: block;
+      opacity: 0;
       position: absolute;
+      transform: scale(0);
+      transition-duration: 0.15s;
+      transition-timing-function: cubic-bezier(0.4, 0.0, 0.2, 1);
+      transition-property: transform, opacity;
       bottom: -10px;
       left: -10px;
       right: -10px;
       top: -10px;
       z-index: -1;
+    }
+
+    &:hover:before {
+      opacity: 1;
+      transform: scale(1);
     }
 
     &:hover .icon-view-toggle,
