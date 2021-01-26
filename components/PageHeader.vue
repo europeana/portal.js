@@ -260,7 +260,7 @@
       &:before {
         content: '\e931';
         transition: $standard-transition;
-        font-weight: 700;
+        font-weight: 400;
         font-size: 1.5rem;
       }
     }
