@@ -6,8 +6,6 @@
       :name="name"
       :headline="headline"
       :description="description"
-      :primary-image-of-page="primaryImageOfPage"
-      :image="image"
       :has-part-collection="hasPartCollection"
       :hero="hero"
       :hero-image="heroImage"
@@ -17,8 +15,6 @@
       :identifier="identifier"
       :name="name"
       :description="description"
-      :primary-image-of-page="primaryImageOfPage"
-      :image="image"
       :has-part-collection="hasPartCollection"
       :related-links="relatedLinks"
       :hero="hero"
@@ -81,9 +77,8 @@
 
     computed: {
       optimisedImageUrl() {
-        console.log(this.image, this.hero.image.url);
         // use social media image if set in Contentful, otherwise use hero image
-        let img = this.image === null ? this.heroImage : this.image;
+        let img = this.image === null ? this.heroImage.image : this.image;
         return this.$options.filters.optimisedImageUrl(img.url, img.contentType, {
           width: 800,
           height: 800

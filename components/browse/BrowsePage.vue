@@ -55,14 +55,6 @@
         type: String,
         default: null
       },
-      primaryImageOfPage: {
-        type: Object,
-        default: null
-      },
-      image: {
-        type: Object,
-        default: null
-      },
       hasPartCollection: {
         type: Object,
         default: null
