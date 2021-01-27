@@ -303,13 +303,14 @@
       width: 1.5rem;
       height: 1.5rem;
       box-shadow: none;
-      transition: $standard-transition;
 
       span {
         width: 1.125rem;
         background: $black;
         height: 2px;
         margin-bottom: 3px;
+        transition: $standard-transition;
+
         &:last-of-type { margin-bottom: 0; }
       }
 
