@@ -145,6 +145,9 @@
           { hreflang: 'x-default', rel: 'alternate', href: this.canonicalUrlWithoutLocale },
           ...i18nSeo.link
         ],
+        script: [
+          { src: 'https://www.googleoptimize.com/optimize.js?id=OPT-PZ2ZDJX' }
+        ],
         meta: [
           { hid: 'description', property: 'description', content: 'Europeana' },
           { hid: 'og:url', property: 'og:url', content: this.canonicalUrl },
