@@ -175,6 +175,7 @@
     left: 0;
     z-index: 1030;
     padding: 0;
+    box-shadow: 2px 2px 4px 0 rgba(0, 0, 0, 0.08);
 
     &:not(.show) ::v-deep .search-query,
     &:not(.show) ::v-deep .auto-suggest-dropdown {
@@ -302,12 +303,20 @@
       width: 1.5rem;
       height: 1.5rem;
       box-shadow: none;
+      transition: $standard-transition;
+
       span {
         width: 1.125rem;
         background: $black;
         height: 2px;
         margin-bottom: 3px;
         &:last-of-type { margin-bottom: 0; }
+      }
+
+      &:hover {
+        span {
+          background: $innovationblue;
+        }
       }
     }
   }
