@@ -24,7 +24,8 @@
         uri: null,
         imageToCanvasMap: {},
         mirador: null,
-        miradorStoreManifestJsonUnsubscriber: () => {}
+        miradorStoreManifestJsonUnsubscriber: () => {},
+        showSidebarOnLoad: false
       };
     },
 
@@ -45,7 +46,7 @@
             allowMaximize: false,
             allowTopMenuButton: false,
             allowWindowSideBar: true,
-            sideBarOpenByDefault: false,
+            sideBarOpenByDefault: this.showSidebarOnLoad,
             panels: {
               info: false,
               attribution: false,
@@ -100,6 +101,9 @@
           this.postprocessMiradorManifest(url, action);
           break;
         case 'mirador/RECEIVE_ANNOTATION':
+          if ((action.annotationJson.resources.length > 0)) {
+            this.showSidebarOnLoad = true;
+          }
           this.postprocessMiradorAnnotation(url, action);
           break;
         case 'mirador/RECEIVE_SEARCH':
