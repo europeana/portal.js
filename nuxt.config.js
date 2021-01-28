@@ -90,6 +90,9 @@ module.exports = {
     gtm: {
       id: process.env.GOOGLE_TAG_MANAGER_ID
     },
+    googleOptimize: {
+      id: process.env.GOOGLE_OPTIMIZE_ID
+    },
     hotjar: {
       id: process.env.HOTJAR_ID,
       sv: process.env.HOTJAR_SNIPPET_VERSION

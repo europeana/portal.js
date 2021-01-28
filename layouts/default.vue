@@ -146,7 +146,7 @@
           ...i18nSeo.link
         ],
         script: [
-          { src: 'https://www.googleoptimize.com/optimize.js?id=OPT-PZ2ZDJX' }
+          { src: `https://www.googleoptimize.com/optimize.js?id=${this.$config.googleOptimize.id}` }
         ],
         meta: [
           { hid: 'description', property: 'description', content: 'Europeana' },
