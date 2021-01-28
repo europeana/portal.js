@@ -30,9 +30,9 @@ const pages = {
   'Swedish home page': `${url}/sv`,
   'topics listing page': `${url}/en/collections/topics`,
   'times listing page': `${url}/en/collections/times`,
-  'debug page': `${url}/debug`,
-  'static page': `${url}/en/about-us`,
-  'static page with linklist': `${url}/en/rights`
+  'debug page': `${url}/debug`
+  // 'static page': `${url}/en/about-us`,
+  // 'static page with linklist': `${url}/en/rights`
 };
 
 module.exports = {
