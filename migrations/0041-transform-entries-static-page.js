@@ -19,15 +19,17 @@ module.exports = (migration) => {
   migration.transformEntriesToType({
     sourceContentType: 'browsePage',
     targetContentType: 'staticPage',
-    shouldPublish: false,
+    shouldPublish: true,
     updateReferences: true,
-    removeOldEntries: false,
+    removeOldEntries: true,
     identityKey(fields) {
-      const value = fields.identifier['en-GB'].toString();
-      return MurmurHash3(value).result().toString();
+      if (fields.identifier && staticPages.includes(fields.identifier['en-GB'])) {
+        const value = fields.identifier['en-GB'].toString();
+        return MurmurHash3(value).result().toString();
+      }
     },
     transformEntryForLocale(fromFields, currentLocale) {
-      if (staticPages.includes(fromFields.identifier[currentLocale])) return {
+      if (fromFields.identifier && staticPages.includes(fromFields.identifier['en-GB'])) return {
         name: fromFields.name ? fromFields.name[currentLocale] : undefined,
         identifier: fromFields.identifier ? fromFields.identifier[currentLocale] : undefined,
         description: fromFields.description ? fromFields.description[currentLocale] : undefined,
