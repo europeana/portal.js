@@ -41,6 +41,7 @@
       <SmartLink
         :destination="{ name: 'index' }"
         class="logo pl-lg-3"
+        :class="logoClass"
       >
         <img
           src="../assets/img/logo.svg"
@@ -138,7 +139,10 @@
         showSearch: state => state.search.showSearchBar
       }),
       headerClass() {
-        return this.$exp.$classes.join(' ');
+        return this.$exp.name === 'background-color' ? this.$exp.$classes.join(' ') : '';
+      },
+      logoClass() {
+        return this.$exp.name === 'logo-color' ? this.$exp.$classes.join(' ') : '';
       }
     },
 
