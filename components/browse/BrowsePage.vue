@@ -1,12 +1,6 @@
 <template>
   <div data-qa="browse page">
-    <NotificationBanner
-      v-if="showNotificationBanner"
-      :notification-url="notificationUrl"
-      :notification-text="$t('linksToClassic.home.text')"
-      :notification-link-text="$t('linksToClassic.home.linkText')"
-      class="mb-3"
-    />
+    <slot />
     <HeroHeader
       v-if="heroImage"
       :hero-image="heroImage"
@@ -29,20 +23,14 @@
   import ContentHeader from '../generic/ContentHeader';
   import BrowseSections from '../browse/BrowseSections';
   import HeroHeader from '../browse/HeroHeader';
-  import NotificationBanner from '../generic/NotificationBanner.vue';
 
   export default {
     components: {
       ContentHeader,
       BrowseSections,
-      NotificationBanner,
       HeroHeader
     },
     props: {
-      identifier: {
-        type: String,
-        default: null
-      },
       name: {
         type: String,
         default: null
@@ -69,16 +57,6 @@
       }
     },
     computed: {
-      showNotificationBanner() {
-        return (
-          this.$config.app.features.linksToClassic && this.identifier === 'home'
-        );
-      },
-      notificationUrl() {
-        return `https://classic.europeana.eu/portal/${
-          this.$store.state.i18n.locale
-        }?utm_source=new-website&utm_medium=button`;
-      },
       heroCta() {
         return this.hero && this.hero.link ? this.hero.link : null;
       },

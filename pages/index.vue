@@ -2,17 +2,23 @@
   <div>
     <BrowsePage
       v-if="browsePage"
-      :identifier="identifier"
       :name="name"
       :headline="headline"
       :description="description"
       :has-part-collection="hasPartCollection"
       :hero="hero"
       :hero-image="heroImage"
-    />
+    >
+      <NotificationBanner
+        v-if="showNotificationBanner"
+        :notification-url="notificationUrl"
+        :notification-text="$t('linksToClassic.home.text')"
+        :notification-link-text="$t('linksToClassic.home.linkText')"
+        class="mb-3"
+      />
+    </BrowsePage>
     <StaticPage
       v-if="staticPage"
-      :identifier="identifier"
       :name="name"
       :description="description"
       :has-part-collection="hasPartCollection"
@@ -23,11 +29,13 @@
 </template>
 
 <script>
+  import NotificationBanner from '../components/generic/NotificationBanner.vue';
   import BrowsePage from '../components/browse/BrowsePage';
   import StaticPage from '../components/static/StaticPage';
 
   export default {
     components: {
+      NotificationBanner,
       BrowsePage,
       StaticPage
     },
@@ -76,6 +84,16 @@
     },
 
     computed: {
+      showNotificationBanner() {
+        return (
+          this.$config.app.features.linksToClassic && this.identifier === 'home'
+        );
+      },
+      notificationUrl() {
+        return `https://classic.europeana.eu/portal/${
+          this.$store.state.i18n.locale
+        }?utm_source=new-website&utm_medium=button`;
+      },
       optimisedImageUrl() {
         // use social media image if set in Contentful, otherwise use hero image
         let img = this.image === null ? this.heroImage.image : this.image;

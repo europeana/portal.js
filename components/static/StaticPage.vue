@@ -59,10 +59,6 @@
       LinkList: () => import('../generic/LinkList')
     },
     props: {
-      identifier: {
-        type: String,
-        default: null
-      },
       name: {
         type: String,
         default: null
