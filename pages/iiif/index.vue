@@ -24,8 +24,7 @@
         uri: null,
         imageToCanvasMap: {},
         mirador: null,
-        miradorStoreManifestJsonUnsubscriber: () => {},
-        showSidebarOnLoad: false
+        miradorStoreManifestJsonUnsubscriber: () => {}
       };
     },
 
@@ -46,7 +45,7 @@
             allowMaximize: false,
             allowTopMenuButton: false,
             allowWindowSideBar: true,
-            sideBarOpenByDefault: this.showSidebarOnLoad,
+            sideBarOpenByDefault: false,
             panels: {
               info: false,
               attribution: false,
@@ -102,7 +101,10 @@
           break;
         case 'mirador/RECEIVE_ANNOTATION':
           if ((action.annotationJson.resources.length > 0)) {
-            this.showSidebarOnLoad = true;
+            console.log(this.mirador);
+            // this.mirador.config.window.sideBarOpenByDefault = true;
+            // this.mirador.toggleWindowSideBar();
+            // this.mirador.store.dispatch(actions.toggleWindowSideBar(this.mirador.config.id));
           }
           this.postprocessMiradorAnnotation(url, action);
           break;
