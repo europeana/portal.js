@@ -58,7 +58,7 @@
             let itemData = data.browsePageCollection.items[0];
             itemData.browsePage = true;
             return itemData;
-          } else if (data.browsePageCollection.items.length === 0) {
+          } else {
             error({ statusCode: 404, message: app.i18n.t('messages.notFound') });
             return;
           }
