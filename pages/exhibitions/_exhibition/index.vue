@@ -36,7 +36,7 @@
           class="mt-3 col-lg-8"
         >
           <LinkList
-            :items="manipulateChapters(hasPartCollection.items, identifier)"
+            :items="chapterPagesToLinkListItems(hasPartCollection.items, identifier)"
             :title="$t('exhibitions.chapters')"
           />
         </b-col>
