@@ -466,6 +466,13 @@ export default {
     "entireCollection": "Search for {query} in our entire collection",
     "europeanaHome": "Europeana home",
     "inCollection": "Search for {query} in {collection}",
+    "navigation": {
+      "home": "Home",
+      "collections": "Collections",
+      "europeanaClassroom": "Teachers",
+      "about": "About Us",
+      "help": "Help"
+    },
     "searchFor": "Search for {query}",
     "searchForEverything": "Search for everything",
     "searchForEverythingInCollection": "Search for everything in {collection}",

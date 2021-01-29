@@ -11,7 +11,9 @@ localVue.directive('visible-on-scroll',  () => {});
 const factory = (options = {}) => shallowMount(PageHeader, {
   localVue,
   mocks: {
-    $t: () => {},
+    $t: (key) => {
+      return `TRANSLATED: ${key}`;
+    },
     $path: (code) => window.location.href + code
   },
   stubs: {
@@ -23,27 +25,7 @@ const factory = (options = {}) => shallowMount(PageHeader, {
 const store = (searchState = {}) => {
   return new Vuex.Store({
     state: {
-      search: searchState,
-      'link-group': {
-        data: {
-          mainNavigation: {
-            links: [
-              {
-                text: 'Collections',
-                url: '/collections'
-              }
-            ]
-          },
-          mobileNavigation: {
-            links: [
-              {
-                text: 'Our partners',
-                url: '/about/our-partners'
-              }
-            ]
-          }
-        }
-      }
+      search: searchState
     }
   });
 };
@@ -64,10 +46,6 @@ describe('components/PageHeader', () => {
 
   it('contains the desktop nav', () => {
     const wrapper = factory();
-    wrapper.setProps({ mainNavigation: { links: [{
-      text: 'Collections',
-      url: '/collections'
-    }] } });
 
     const nav = wrapper.find('[data-qa="desktop navigation"]');
     nav.isVisible().should.equal(true);

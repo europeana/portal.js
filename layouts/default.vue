@@ -19,8 +19,6 @@
       {{ $t('layout.skipToMain') }}
     </a>
     <PageHeader
-      :main-navigation="linkGroups.mainNavigation"
-      :mobile-navigation="linkGroups.mobileNavigation"
       keep-alive
     />
     <main

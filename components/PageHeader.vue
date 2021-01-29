@@ -53,9 +53,8 @@
         role="navigation"
       >
         <PageNavigation
-          v-if="mainNavigation"
           class="d-none d-lg-flex"
-          :links="mainNavigation.links"
+          :links="mainNavigation"
           data-qa="desktop navigation"
         />
         <b-button
@@ -93,8 +92,7 @@
             </SmartLink>
           </div>
           <PageNavigation
-            v-if="mobileNavigation"
-            :links="mobileNavigation.links"
+            :links="mobileNavigation"
           />
         </b-navbar>
       </transition>
@@ -122,19 +120,20 @@
       PageNavigation
     },
 
-    props: {
-      mainNavigation: {
-        type: Object,
-        default: null
-      },
-      mobileNavigation: {
-        type: Object,
-        default: null
-      }
-    },
-
     data() {
       return {
+        mainNavigation: [
+          { url: '/collections', text: this.$t('header.navigation.collections') },
+          { url: '/europeana-classroom', text: this.$t('header.navigation.europeanaClassroom') },
+          { url: '/about-us', text: this.$t('header.navigation.about') }
+        ],
+        mobileNavigation: [
+          { url: '/', text: this.$t('header.navigation.home') },
+          { url: '/collections', text: this.$t('header.navigation.collections') },
+          { url: '/europeana-classroom', text: this.$t('header.navigation.europeanaClassroom') },
+          { url: '/about-us', text: this.$t('header.navigation.about') },
+          { url: '/help', text: this.$t('header.navigation.help') }
+        ],
         showSidebar: null,
         windowWidth: 0
       };
