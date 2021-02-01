@@ -1,46 +1,43 @@
 <template>
-  <div
-    data-qa="browse page"
-  >
-    <NotificationBanner
-      v-if="showNotificationBanner"
-      :notification-url="notificationUrl"
-      :notification-text="$t('linksToClassic.home.text')"
-      :notification-link-text="$t('linksToClassic.home.linkText')"
-      class="mb-3"
-    />
-    <HeroHeader
-      v-if="heroImage"
+  <div>
+    <BrowsePage
+      v-if="browsePage"
+      :name="name"
+      :headline="headline"
+      :description="description"
+      :has-part-collection="hasPartCollection"
+      :hero="hero"
       :hero-image="heroImage"
-      :title="heroTitle"
-      :description="heroDescription"
-      :cta="heroCta"
+    >
+      <NotificationBanner
+        v-if="showNotificationBanner"
+        :notification-url="notificationUrl"
+        :notification-text="$t('linksToClassic.home.text')"
+        :notification-link-text="$t('linksToClassic.home.linkText')"
+        class="mb-3"
+      />
+    </BrowsePage>
+    <StaticPage
+      v-if="staticPage"
+      :name="name"
+      :description="description"
+      :has-part-collection="hasPartCollection"
+      :related-links="relatedLinks"
+      :hero="hero"
     />
-    <b-container>
-      <ContentHeader
-        v-if="!hero"
-        :title="name"
-        :description="headline"
-      />
-      <BrowseSections
-        :sections="hasPartCollection.items"
-      />
-    </b-container>
   </div>
 </template>
 
 <script>
-  import ContentHeader from '../components/generic/ContentHeader';
-  import BrowseSections from '../components/browse/BrowseSections';
-  import HeroHeader from '../components/browse/HeroHeader';
   import NotificationBanner from '../components/generic/NotificationBanner.vue';
+  import BrowsePage from '../components/browse/BrowsePage';
+  import StaticPage from '../components/static/StaticPage';
 
   export default {
     components: {
-      ContentHeader,
-      BrowseSections,
       NotificationBanner,
-      HeroHeader
+      BrowsePage,
+      StaticPage
     },
 
     asyncData({ params, query, error, app }) {
@@ -50,34 +47,60 @@
         preview: query.mode === 'preview'
       };
 
-      return app.$contentful.query('browsePage', variables)
+      return app.$contentful.query('browseStaticPage', variables)
         .then(response => response.data.data)
         .then(data => {
-          if (data.browsePageCollection.items.length === 0) {
+          if (data.staticPageCollection.items.length > 0) {
+            let itemData = data.staticPageCollection.items[0];
+            itemData.staticPage = true;
+            return itemData;
+          } else if (data.browsePageCollection.items.length > 0) {
+            let itemData = data.browsePageCollection.items[0];
+            itemData.browsePage = true;
+            return itemData;
+          } else {
             error({ statusCode: 404, message: app.i18n.t('messages.notFound') });
             return;
           }
-          return data.browsePageCollection.items[0];
         })
         .catch((e) => {
           error({ statusCode: 500, message: e.toString() });
         });
     },
+
+    data() {
+      return {
+        browsePage: false,
+        staticPage: false,
+        identifier: null,
+        name: null,
+        headline: null,
+        description: null,
+        primaryImageOfPage: null,
+        image: null,
+        hasPartCollection: null,
+        relatedLinks: null
+      };
+    },
+
     computed: {
       showNotificationBanner() {
-        return this.$config.app.features.linksToClassic && (this.identifier === 'home');
+        return (
+          this.$config.app.features.linksToClassic && this.identifier === 'home'
+        );
       },
       notificationUrl() {
-        return `https://classic.europeana.eu/portal/${this.$store.state.i18n.locale}?utm_source=new-website&utm_medium=button`;
+        return `https://classic.europeana.eu/portal/${
+          this.$store.state.i18n.locale
+        }?utm_source=new-website&utm_medium=button`;
       },
       optimisedImageUrl() {
         // use social media image if set in Contentful, otherwise use hero image
-        let img = this.image === null ? this.heroImage : this.image;
-        return this.$options.filters.optimisedImageUrl(
-          img.url,
-          img.contentType,
-          { width: 800, height: 800 }
-        );
+        let img = this.image === null ? this.heroImage.image : this.image;
+        return this.$options.filters.optimisedImageUrl(img.url, img.contentType, {
+          width: 800,
+          height: 800
+        });
       },
       hero() {
         return this.primaryImageOfPage ? this.primaryImageOfPage : null;
@@ -90,21 +113,12 @@
         }
 
         return heroImage;
-      },
-      heroCta() {
-        return this.hero && this.hero.link ? this.hero.link : null;
-      },
-      heroTitle() {
-        return this.hero && this.hero.title ? this.hero.title : null;
-      },
-      heroDescription() {
-        return this.hero && this.hero.headline ? this.hero.headline : null;
       }
     },
 
     head() {
       return {
-        title: this.name + this.$pageHeadTitle(),
+        title: this.$pageHeadTitle(this.name),
         meta: [
           { hid: 'og:type', property: 'og:type', content: 'article' },
           { hid: 'title', name: 'title', content: this.name },

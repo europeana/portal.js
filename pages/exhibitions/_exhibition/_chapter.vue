@@ -49,10 +49,9 @@
             cols="12"
             class="mt-3 col-lg-8"
           >
-            <ExhibitionChapters
-              :exhibition-identifier="exhibitionIdentifier"
-              :chapters="chapters"
-              :credits="credits"
+            <LinkList
+              :items="chapterPagesToLinkListItems(chapters, exhibitionIdentifier)"
+              :title="$t('exhibitions.chapters')"
             />
           </b-col>
         </b-row>
@@ -65,19 +64,22 @@
 <script>
   import ClientOnly from 'vue-client-only';
   import BrowseSections from '../../../components/browse/BrowseSections';
-  import ExhibitionChapters from '../../../components/exhibition/ExhibitionChapters';
   import SocialShareModal from '../../../components/sharing/SocialShareModal.vue';
   import ShareButton from '../../../components/sharing/ShareButton.vue';
+  import exhibitionChapters from '../../../mixins/exhibitionChapters';
 
   export default {
     components: {
       BrowseSections,
       ClientOnly,
-      ExhibitionChapters,
       ShareButton,
       SocialShareModal,
-      AuthoredHead: () => import('../../../components/authored/AuthoredHead')
+      AuthoredHead: () => import('../../../components/authored/AuthoredHead'),
+      LinkList: () => import('../../../components/generic/LinkList')
     },
+    mixins: [
+      exhibitionChapters
+    ],
     asyncData({ params, query, error, app, store }) {
       const variables = {
         identifier: params.exhibition,
