@@ -1,6 +1,7 @@
 <template>
   <div
     data-qa="browse page"
+    :class="browseClass"
   >
     <NotificationBanner
       v-if="showNotificationBanner"
@@ -99,6 +100,9 @@
       },
       heroDescription() {
         return this.hero && this.hero.headline ? this.hero.headline : null;
+      },
+      browseClass() {
+        return this.$exp.name === 'background-color-main' ? this.$exp.$classes.join(' ') : '';
       }
     },
 
