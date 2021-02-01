@@ -92,7 +92,7 @@
             </SmartLink>
           </div>
           <PageNavigation
-            :links="mobileNavigation"
+            :links="sidebarNavigation"
           />
         </b-navbar>
       </transition>
@@ -127,7 +127,7 @@
           { url: '/europeana-classroom', text: this.$t('header.navigation.europeanaClassroom') },
           { url: '/about-us', text: this.$t('header.navigation.about') }
         ],
-        mobileNavigation: [
+        sidebarNavigation: [
           { url: '/', text: this.$t('header.navigation.home') },
           { url: '/collections', text: this.$t('header.navigation.collections') },
           { url: '/europeana-classroom', text: this.$t('header.navigation.europeanaClassroom') },
