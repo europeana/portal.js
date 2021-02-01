@@ -24,6 +24,7 @@
         uri: null,
         imageToCanvasMap: {},
         mirador: null,
+        showAnnotations: false,
         miradorStoreManifestJsonUnsubscriber: () => {}
       };
     },
@@ -44,8 +45,8 @@
             allowFullscreen: true,
             allowMaximize: false,
             allowTopMenuButton: false,
-            allowWindowSideBar: true,
-            sideBarOpenByDefault: false,
+            allowWindowSideBar: false,
+            sideBarOpen: false,
             panels: {
               info: false,
               attribution: false,
@@ -101,10 +102,19 @@
           break;
         case 'mirador/RECEIVE_ANNOTATION':
           if ((action.annotationJson.resources.length > 0)) {
-            console.log(this.mirador);
-            // this.mirador.config.window.sideBarOpenByDefault = true;
-            // this.mirador.toggleWindowSideBar();
-            // this.mirador.store.dispatch(actions.toggleWindowSideBar(this.mirador.config.id));
+            const windowId = Object.keys(this.mirador.store.getState().windows)[0];
+            if (!this.showAnnotations) {
+              // Toggle sidebar
+              const action = window.Mirador.actions.toggleWindowSideBar(windowId);
+              this.mirador.store.dispatch(action);
+              this.showAnnotations = true;
+
+              // Show shidebar button
+              this.miradorViewerOptions.window.allowWindowSideBar = true;
+              const actionShow = window.Mirador.actions.updateConfig(this.miradorViewerOptions);
+              this.mirador.store.dispatch(actionShow);
+            }
+            // const action = window.Mirador.actions.updateConfig(this.miradorViewerOptions);
           }
           this.postprocessMiradorAnnotation(url, action);
           break;
