@@ -333,7 +333,7 @@ export default {
     "MIME_TYPE": {
       "name": "Formato de archivo | Formatos de archivo",
       "options": {
-        "text/plain": "Texto sin formato"
+        "text\/plain": "Texto sin formato"
       }
     },
     "PROVIDER": {
@@ -458,9 +458,9 @@ export default {
     "europeanaHome": "Página de inicio de Europeana",
     "inCollection": "Busca {query} en {collection}",
     "navigation": {
-      "about-us": "Sobre nosotros",
+      "about": "Sobre nosotros",
       "collections": "Colecciones",
-      "europeana-classroom": "Profesores",
+      "europeanaClassroom": "Profesores",
       "help": "Ayuda"
     },
     "searchFor": "Busca {query}",

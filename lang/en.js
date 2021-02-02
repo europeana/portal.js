@@ -340,7 +340,7 @@ export default {
     "MIME_TYPE": {
       "name": "File format | File formats",
       "options": {
-        "text/plain": "Plain text"
+        "text\/plain": "Plain text"
       }
     },
     "PROVIDER": {
@@ -467,9 +467,9 @@ export default {
     "europeanaHome": "Europeana home",
     "inCollection": "Search for {query} in {collection}",
     "navigation": {
-      "about-us": "About us",
+      "about": "About us",
       "collections": "Collections",
-      "europeana-classroom": "Teachers",
+      "europeanaClassroom": "Teachers",
       "help": "Help",
       "home": "Home"
     },

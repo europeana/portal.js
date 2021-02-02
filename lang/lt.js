@@ -333,7 +333,7 @@ export default {
     "MIME_TYPE": {
       "name": "Failo formatas | Failų formatai",
       "options": {
-        "text/plain": "Paprastas tekstas"
+        "text\/plain": "Paprastas tekstas"
       }
     },
     "PROVIDER": {
@@ -458,9 +458,9 @@ export default {
     "europeanaHome": "„Europeana“ pagrindinis puslapis",
     "inCollection": "Ieškoti {query} {collection}",
     "navigation": {
-      "about-us": "Apie mus",
+      "about": "Apie mus",
       "collections": "Kolekcijos",
-      "europeana-classroom": "Mokytojams",
+      "europeanaClassroom": "Mokytojams",
       "help": "Pagalba"
     },
     "searchFor": "Ieškoti {query}",

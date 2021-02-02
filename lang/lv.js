@@ -333,7 +333,7 @@ export default {
     "MIME_TYPE": {
       "name": "Datnes formāts | Datņu formāti",
       "options": {
-        "text/plain": "Vienkāršs teksts"
+        "text\/plain": "Vienkāršs teksts"
       }
     },
     "PROVIDER": {
@@ -349,7 +349,7 @@ export default {
       "name": "Izdošanas datums"
     },
     "proxy_dcterms_medium": {
-      "name": "Līdzeklis/ Līdzekļi"
+      "name": "Līdzeklis\/ Līdzekļi"
     },
     "REUSABILITY": {
       "name": "Vai drīkst šo izmantot?",
@@ -458,9 +458,9 @@ export default {
     "europeanaHome": "Europeana vietne",
     "inCollection": "Meklēt {query} kolekcijā {collection}",
     "navigation": {
-      "about-us": "Par mums",
+      "about": "Par mums",
       "collections": "Kolekcijas",
-      "europeana-classroom": "Skolotājiem",
+      "europeanaClassroom": "Skolotājiem",
       "help": "Palīdzība"
     },
     "searchFor": "Meklēt {query}",

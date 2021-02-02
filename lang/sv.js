@@ -333,7 +333,7 @@ export default {
     "MIME_TYPE": {
       "name": "Filformat | Filformat",
       "options": {
-        "text/plain": "Oformaterad text"
+        "text\/plain": "Oformaterad text"
       }
     },
     "PROVIDER": {
@@ -458,9 +458,9 @@ export default {
     "europeanaHome": "Europeana start",
     "inCollection": "Sök efter {query} i {collection}",
     "navigation": {
-      "about-us": "Om oss",
+      "about": "Om oss",
       "collections": "Samlingar",
-      "europeana-classroom": "Lärare",
+      "europeanaClassroom": "Lärare",
       "help": "Hjälp"
     },
     "searchFor": "Sök efter {query}",

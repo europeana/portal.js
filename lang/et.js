@@ -333,7 +333,7 @@ export default {
     "MIME_TYPE": {
       "name": "Failivorming | Failivormingud",
       "options": {
-        "text/plain": "Lihttekst"
+        "text\/plain": "Lihttekst"
       }
     },
     "PROVIDER": {
@@ -458,9 +458,9 @@ export default {
     "europeanaHome": "Europeana avaleht",
     "inCollection": "Otsi {query} {collection}",
     "navigation": {
-      "about-us": "Meist",
+      "about": "Meist",
       "collections": "Kogud",
-      "europeana-classroom": "Õpetajad",
+      "europeanaClassroom": "Õpetajad",
       "help": "Abimaterjal"
     },
     "searchFor": "Otsi {query}",
@@ -475,7 +475,7 @@ export default {
   },
   "items": {
     "itemCount": "1 toode | {count} toodet",
-    "itemOf": "{max} / {count} tootest",
+    "itemOf": "{max} \/ {count} tootest",
     "youMightLike": "Tooted, mis võivad teile meeldida"
   },
   "layout": {

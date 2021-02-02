@@ -333,7 +333,7 @@ export default {
     "MIME_TYPE": {
       "name": "Format fișier| Formate fișier",
       "options": {
-        "text/plain": "Text simplu"
+        "text\/plain": "Text simplu"
       }
     },
     "PROVIDER": {
@@ -458,9 +458,9 @@ export default {
     "europeanaHome": "Pagina principală Europeana",
     "inCollection": "Caută pentru {query} în {collection}",
     "navigation": {
-      "about-us": "Despre noi",
+      "about": "Despre noi",
       "collections": "Colecții",
-      "europeana-classroom": "Profesori",
+      "europeanaClassroom": "Profesori",
       "help": "Ajutor"
     },
     "searchFor": "Caută pentru {query}",

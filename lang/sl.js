@@ -333,7 +333,7 @@ export default {
     "MIME_TYPE": {
       "name": "Oblika zapisa datoteke | Oblike zapisov datotek",
       "options": {
-        "text/plain": "Golo besedilo"
+        "text\/plain": "Golo besedilo"
       }
     },
     "PROVIDER": {
@@ -458,9 +458,9 @@ export default {
     "europeanaHome": "Na začetno stran Europeana",
     "inCollection": "Išči {query} v {collection}",
     "navigation": {
-      "about-us": "O nas",
+      "about": "O nas",
       "collections": "Zbirke",
-      "europeana-classroom": "Učitelji",
+      "europeanaClassroom": "Učitelji",
       "help": "Pomoč"
     },
     "searchFor": "Išči {query}",
