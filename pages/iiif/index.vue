@@ -104,17 +104,14 @@
           if ((action.annotationJson.resources.length > 0)) {
             const windowId = Object.keys(this.mirador.store.getState().windows)[0];
             if (!this.showAnnotations) {
-              // Toggle sidebar
               const action = window.Mirador.actions.toggleWindowSideBar(windowId);
               this.mirador.store.dispatch(action);
               this.showAnnotations = true;
 
-              // Show shidebar button
               this.miradorViewerOptions.window.allowWindowSideBar = true;
               const actionShow = window.Mirador.actions.updateConfig(this.miradorViewerOptions);
               this.mirador.store.dispatch(actionShow);
             }
-            // const action = window.Mirador.actions.updateConfig(this.miradorViewerOptions);
           }
           this.postprocessMiradorAnnotation(url, action);
           break;
