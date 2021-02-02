@@ -458,9 +458,9 @@ export default {
     "europeanaHome": "Europeanan kotisivu",
     "inCollection": "Hae ehdoilla {query} kokoelmasta {collection}",
     "navigation": {
-      "about-us": "Tietoa meistä",
+      "about": "Tietoa meistä",
       "collections": "Kokoelmat",
-      "europeana-classroom": "Opettajat",
+      "europeanaClassroom": "Opettajat",
       "help": "Apua"
     },
     "searchFor": "Hae ehdoilla {query}",

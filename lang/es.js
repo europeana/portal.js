@@ -458,9 +458,9 @@ export default {
     "europeanaHome": "Página de inicio de Europeana",
     "inCollection": "Busca {query} en {collection}",
     "navigation": {
-      "about-us": "Sobre nosotros",
+      "about": "Sobre nosotros",
       "collections": "Colecciones",
-      "europeana-classroom": "Profesores",
+      "europeanaClassroom": "Profesores",
       "help": "Ayuda"
     },
     "searchFor": "Busca {query}",

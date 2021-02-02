@@ -458,9 +458,9 @@ export default {
     "europeanaHome": "Europeana startside",
     "inCollection": "Søg efter {query} i {collection}",
     "navigation": {
-      "about-us": "Om os",
+      "about": "Om os",
       "collections": "Samlinger",
-      "europeana-classroom": "Lærere",
+      "europeanaClassroom": "Lærere",
       "help": "Hjælp"
     },
     "searchFor": "Søg efter {query}",

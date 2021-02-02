@@ -458,9 +458,9 @@ export default {
     "europeanaHome": "„Europeana“ pagrindinis puslapis",
     "inCollection": "Ieškoti {query} {collection}",
     "navigation": {
-      "about-us": "Apie mus",
+      "about": "Apie mus",
       "collections": "Kolekcijos",
-      "europeana-classroom": "Mokytojams",
+      "europeanaClassroom": "Mokytojams",
       "help": "Pagalba"
     },
     "searchFor": "Ieškoti {query}",

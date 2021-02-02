@@ -462,9 +462,9 @@ export default {
     "europeanaHome": "Europeana Home",
     "inCollection": "Zoek op {query} in {collection}",
     "navigation": {
-      "about-us": "Over ons",
+      "about": "Over ons",
       "collections": "Collecties",
-      "europeana-classroom": "Leraren",
+      "europeanaClassroom": "Leraren",
       "help": "Help"
     },
     "searchFor": "Zoeken naar {query}",

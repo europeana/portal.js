@@ -462,9 +462,9 @@ export default {
     "europeanaHome": "Europeanako hasiera orria",
     "inCollection": "Bilatu '{kontsulta}' bilduma honetan {collection}",
     "navigation": {
-      "about-us": "Europeana bildumei buruz",
+      "about": "Europeana bildumei buruz",
       "collections": "Bildumak",
-      "europeana-classroom": "Irakasleak",
+      "europeanaClassroom": "Irakasleak",
       "help": "Laguntza"
     },
     "searchFor": "Bilatu",

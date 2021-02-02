@@ -458,9 +458,9 @@ export default {
     "europeanaHome": "Europeana vietne",
     "inCollection": "Meklēt {query} kolekcijā {collection}",
     "navigation": {
-      "about-us": "Par mums",
+      "about": "Par mums",
       "collections": "Kolekcijas",
-      "europeana-classroom": "Skolotājiem",
+      "europeanaClassroom": "Skolotājiem",
       "help": "Palīdzība"
     },
     "searchFor": "Meklēt {query}",
