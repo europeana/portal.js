@@ -6,7 +6,7 @@
       class="col lead mt-3"
     >
       <h1
-        data-qa="gallery title"
+        data-qa="page title"
       >
         {{ title }}
       </h1>

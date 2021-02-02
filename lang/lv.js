@@ -457,6 +457,12 @@ export default {
     "entireCollection": "Search for {query} in our entire collection",
     "europeanaHome": "Europeana vietne",
     "inCollection": "Meklēt {query} kolekcijā {collection}",
+    "navigation": {
+      "about-us": "Par mums",
+      "collections": "Kolekcijas",
+      "europeana-classroom": "Skolotājiem",
+      "help": "Palīdzība"
+    },
     "searchFor": "Meklēt {query}",
     "searchForEverything": "Meklēt visu",
     "searchForEverythingInCollection": "Meklēt visu kolekcijā {collection}",

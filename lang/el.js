@@ -337,7 +337,7 @@ export default {
       }
     },
     "PROVIDER": {
-      "name": "Ιστοσελίδα συγκέντρωσης δεδομένων"
+      "name": "Συσσωρευτής ψηφιακού περιεχομένου | Συσσωρευτές ψηφιακού περιεχομένου"
     },
     "proxy_dc_format": {
       "name": "Μορφή | Μορφές"
@@ -457,6 +457,12 @@ export default {
     "entireCollection": "Αναζητήστε τον όρο {query} σε όλη τη συλλογή",
     "europeanaHome": "Αρχική σελίδα της Europeana",
     "inCollection": "Αναζητήστε τον όρο {query} στη συλλογή {collection}",
+    "navigation": {
+      "about-us": "Σχετικά με εμάς",
+      "collections": "Συλλογές",
+      "europeana-classroom": "Εκπαιδευτικοί",
+      "help": "Βοήθεια"
+    },
     "searchFor": "Αναζήτηση του όρου {query}",
     "searchForEverything": "Αναζητήστε τα πάντα",
     "searchForEverythingInCollection": "Αναζητήστε τα πάντα στη συλλογή {collection}",
@@ -478,15 +484,15 @@ export default {
   "learnMore": "Μάθετε για την πηγή αυτής της περιγραφής",
   "linksToClassic": {
     "home": {
-      "linkText": "Μεταβείτε στην αρχική σελίδα της Europeana.",
+      "linkText": "Μεταβείτε στoν αρχικό ιστότοπο της Europeana.",
       "text": "Βλέπετε τη νέα εμπειρία της Europeana."
     },
     "record": {
-      "linkText": "Δείτε αυτό το αντικείμενο στην αρχική σελίδα της Europeana.",
+      "linkText": "Δείτε αυτό το αντικείμενο στον αρχικό ιστότοπο της Europeana.",
       "text": "Βλέπετε αυτό το αντικείμενο στο νέο ιστότοπο της Europeana."
     },
     "search": {
-      "linkText": "Δείτε αυτά τα αποτελέσματα αναζήτησης στην αρχική σελίδα της Europeana.",
+      "linkText": "Δείτε αυτά τα αποτελέσματα αναζήτησης στον αρχικό ιστότοπο της Europeana.",
       "text": "Πραγματοποιείτε αναζήτηση στον νέο και γρηγορότερο ιστότοπό μας."
     }
   },

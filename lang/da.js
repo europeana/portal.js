@@ -457,6 +457,12 @@ export default {
     "entireCollection": "Søg efter {query} i hele vores samling",
     "europeanaHome": "Europeana startside",
     "inCollection": "Søg efter {query} i {collection}",
+    "navigation": {
+      "about-us": "Om os",
+      "collections": "Samlinger",
+      "europeana-classroom": "Lærere",
+      "help": "Hjælp"
+    },
     "searchFor": "Søg efter {query}",
     "searchForEverything": "Søg efter alt",
     "searchForEverythingInCollection": "Søg efter alt i {collection}",

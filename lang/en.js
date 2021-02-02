@@ -467,11 +467,11 @@ export default {
     "europeanaHome": "Europeana home",
     "inCollection": "Search for {query} in {collection}",
     "navigation": {
-      "home": "Home",
+      "about-us": "About us",
       "collections": "Collections",
-      "europeanaClassroom": "Teachers",
-      "about": "About Us",
-      "help": "Help"
+      "europeana-classroom": "Teachers",
+      "help": "Help",
+      "home": "Home"
     },
     "searchFor": "Search for {query}",
     "searchForEverything": "Search for everything",
