@@ -458,9 +458,9 @@ export default {
     "europeanaHome": "Baile Europeana",
     "inCollection": "Cuardaigh {query} i {collection}",
     "navigation": {
-      "about-us": "Fúinne",
+      "about": "Fúinne",
       "collections": "Bailiúcháin",
-      "europeana-classroom": "Múinteoirí",
+      "europeanaClassroom": "Múinteoirí",
       "help": "Cabhair"
     },
     "searchFor": "Cuardaigh {query}",

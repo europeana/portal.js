@@ -458,9 +458,9 @@ export default {
     "europeanaHome": "Europeana avaleht",
     "inCollection": "Otsi {query} {collection}",
     "navigation": {
-      "about-us": "Meist",
+      "about": "Meist",
       "collections": "Kogud",
-      "europeana-classroom": "Õpetajad",
+      "europeanaClassroom": "Õpetajad",
       "help": "Abimaterjal"
     },
     "searchFor": "Otsi {query}",

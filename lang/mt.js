@@ -460,9 +460,9 @@ export default {
     "europeanaHome": "Europeana home",
     "inCollection": "Fittex {query} fi {collection}",
     "navigation": {
-      "about-us": "Dwarna",
+      "about": "Dwarna",
       "collections": "Kollezzjonijiet",
-      "europeana-classroom": "Għalliema",
+      "europeanaClassroom": "Għalliema",
       "help": "Għajnuna"
     },
     "searchFor": "Fittex {query}",

@@ -458,9 +458,9 @@ export default {
     "europeanaHome": "Αρχική σελίδα της Europeana",
     "inCollection": "Αναζητήστε τον όρο {query} στη συλλογή {collection}",
     "navigation": {
-      "about-us": "Σχετικά με εμάς",
+      "about": "Σχετικά με εμάς",
       "collections": "Συλλογές",
-      "europeana-classroom": "Εκπαιδευτικοί",
+      "europeanaClassroom": "Εκπαιδευτικοί",
       "help": "Βοήθεια"
     },
     "searchFor": "Αναζήτηση του όρου {query}",

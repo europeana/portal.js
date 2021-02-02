@@ -458,9 +458,9 @@ export default {
     "europeanaHome": "Glavna stranica Europeana",
     "inCollection": "Potražite {query} u {collection}",
     "navigation": {
-      "about-us": "O nama",
+      "about": "O nama",
       "collections": "Zbirke",
-      "europeana-classroom": "Nastavnici",
+      "europeanaClassroom": "Nastavnici",
       "help": "Pomoć"
     },
     "searchFor": "Potražite {query}",

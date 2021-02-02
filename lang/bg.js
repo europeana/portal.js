@@ -459,7 +459,7 @@ export default {
     "inCollection": "Търсене на {query} в {collection}",
     "navigation": {
       "collections": "Колекции",
-      "europeana-classroom": "Учители",
+      "europeanaClassroom": "Учители",
       "help": "Помощ"
     },
     "searchFor": "Търсене на {query}",

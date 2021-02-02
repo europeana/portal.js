@@ -458,9 +458,9 @@ export default {
     "europeanaHome": "Europeana kezdőlap",
     "inCollection": "Keresés erre: {query}, a {collection} gyűjteményben",
     "navigation": {
-      "about-us": "Rólunk",
+      "about": "Rólunk",
       "collections": "Gyűjtemények",
-      "europeana-classroom": "Tanárok",
+      "europeanaClassroom": "Tanárok",
       "help": "Súgó"
     },
     "searchFor": "Keresés erre: {query}",
