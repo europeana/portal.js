@@ -457,6 +457,11 @@ export default {
     "entireCollection": "Търсене на {query} в цялата ни колекция",
     "europeanaHome": "Начална страница на Europeana",
     "inCollection": "Търсене на {query} в {collection}",
+    "navigation": {
+      "collections": "Колекции",
+      "europeanaClassroom": "Учители",
+      "help": "Помощ"
+    },
     "searchFor": "Търсене на {query}",
     "searchForEverything": "Търсете всичко",
     "searchForEverythingInCollection": "Търсете всичко в {collection}",

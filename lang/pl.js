@@ -457,6 +457,12 @@ export default {
     "entireCollection": "Wyszukaj {query} w całej naszej kolekcji",
     "europeanaHome": "Strona główna Europeany",
     "inCollection": "Wyszukaj {query} w {collection}",
+    "navigation": {
+      "about": "O nas",
+      "collections": "Kolekcje",
+      "europeanaClassroom": "Nauczyciele",
+      "help": "Pomoc"
+    },
     "searchFor": "Wyszukaj {query}",
     "searchForEverything": "Szukaj wszystkiego",
     "searchForEverythingInCollection": "Szukaj wszystkiego w {collection}",

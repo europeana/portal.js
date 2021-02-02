@@ -457,6 +457,12 @@ export default {
     "entireCollection": "Potražite {query} u cijeloj našoj kolekciji",
     "europeanaHome": "Glavna stranica Europeana",
     "inCollection": "Potražite {query} u {collection}",
+    "navigation": {
+      "about": "O nama",
+      "collections": "Zbirke",
+      "europeanaClassroom": "Nastavnici",
+      "help": "Pomoć"
+    },
     "searchFor": "Potražite {query}",
     "searchForEverything": "Pretraži sve",
     "searchForEverythingInCollection": "Pretraži sve u {collection}",

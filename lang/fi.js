@@ -457,6 +457,12 @@ export default {
     "entireCollection": "Hae ehdoilla {query} koko kokoelmastamme",
     "europeanaHome": "Europeanan kotisivu",
     "inCollection": "Hae ehdoilla {query} kokoelmasta {collection}",
+    "navigation": {
+      "about": "Tietoa meistä",
+      "collections": "Kokoelmat",
+      "europeanaClassroom": "Opettajat",
+      "help": "Apua"
+    },
     "searchFor": "Hae ehdoilla {query}",
     "searchForEverything": "Hae kaikkea",
     "searchForEverythingInCollection": "Hae kaikkea kokoelmasta {collection}",

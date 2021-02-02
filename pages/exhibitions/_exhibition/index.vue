@@ -35,10 +35,9 @@
           cols="12"
           class="mt-3 col-lg-8"
         >
-          <ExhibitionChapters
-            :exhibition-identifier="identifier"
-            :chapters="hasPartCollection.items"
-            :credits="credits"
+          <LinkList
+            :items="chapterPagesToLinkListItems(hasPartCollection.items, identifier)"
+            :title="$t('exhibitions.chapters')"
           />
         </b-col>
       </b-row>
@@ -49,18 +48,20 @@
 
 <script>
   import marked from 'marked';
-
-  import ExhibitionChapters from '../../../components/exhibition/ExhibitionChapters';
   import SocialShareModal from '../../../components/sharing/SocialShareModal.vue';
   import ShareButton from '../../../components/sharing/ShareButton.vue';
+  import exhibitionChapters from '../../../mixins/exhibitionChapters';
 
   export default {
     components: {
-      ExhibitionChapters,
+      LinkList: () => import('../../../components/generic/LinkList'),
       ShareButton,
       SocialShareModal,
       AuthoredHead: () => import('../../../components/authored/AuthoredHead')
     },
+    mixins: [
+      exhibitionChapters
+    ],
     asyncData({ params, query, error, app, store, redirect }) {
       if (params.exhibition === undefined) redirect(app.$path({ name: 'exhibitions' }));
 

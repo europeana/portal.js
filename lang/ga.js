@@ -457,6 +457,12 @@ export default {
     "entireCollection": "Cuardaigh {query} inár mbailiúchán iomlán",
     "europeanaHome": "Baile Europeana",
     "inCollection": "Cuardaigh {query} i {collection}",
+    "navigation": {
+      "about": "Fúinne",
+      "collections": "Bailiúcháin",
+      "europeanaClassroom": "Múinteoirí",
+      "help": "Cabhair"
+    },
     "searchFor": "Cuardaigh {query}",
     "searchForEverything": "Cuardaigh gach rud",
     "searchForEverythingInCollection": "Cuardaigh gach rud i {collection}",

@@ -9,7 +9,7 @@ Feature: pages
   Scenario: Take a snapshot of a gallery page
 
     When I open a `gallery page`
-    Then I see a `gallery title`
+    Then I see a `page title`
     And I make a snapshot of the `gallery page`
 
   Scenario: Take a snapshot of an exhibition landing page

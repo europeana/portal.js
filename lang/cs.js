@@ -457,6 +457,12 @@ export default {
     "entireCollection": "Hledat {query} v celé sbírce",
     "europeanaHome": "Domovská stránka Europeana",
     "inCollection": "Hledat {query} v {collection}",
+    "navigation": {
+      "about": "O nás",
+      "collections": "SBÍRKY",
+      "europeanaClassroom": "Učitelé",
+      "help": "Nápověda"
+    },
     "searchFor": "Vyhledat {query}",
     "searchForEverything": "Vyhledat vše",
     "searchForEverythingInCollection": "Vyhledat vše v {collection}",

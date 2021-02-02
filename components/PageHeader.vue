@@ -73,17 +73,25 @@
           role="navigation"
           data-qa="mobile navigation"
         >
-          <SmartLink
-            :destination="{ name: 'index' }"
-            class="logo d-block d-lg-none px-2"
-          >
-            <img
-              src="../assets/img/logo.svg"
-              :alt="$t('homeLinkAlt')"
-              class="mb-lg-2 mw-100"
-              data-qa="logo"
+          <div class="navhead w-100 d-flex align-items-center pl-2">
+            <b-button
+              data-qa="close menu button"
+              class="close"
+              variant="light"
+              @click="showSidebar = !showSidebar"
+            />
+            <SmartLink
+              :destination="{ name: 'index' }"
+              class="logo d-lg-none pl-4 pr-2"
             >
-          </SmartLink>
+              <img
+                src="../assets/img/logo.svg"
+                :alt="$t('homeLinkAlt')"
+                class="mb-lg-2 mw-100"
+                data-qa="logo"
+              >
+            </SmartLink>
+          </div>
           <PageNavigation
             v-if="mobileNavigation"
             :links="mobileNavigation.links"
@@ -167,7 +175,7 @@
     left: 0;
     z-index: 1030;
     padding: 0;
-    border-bottom: 1px solid $whitegrey;
+    box-shadow: 2px 2px 4px 0 rgba(0, 0, 0, 0.08);
 
     &:not(.show) ::v-deep .search-query,
     &:not(.show) ::v-deep .auto-suggest-dropdown {
@@ -194,10 +202,11 @@
   .navbar-brand {
     min-width: 11.0625rem;
     flex: 0 0 auto;
+
     .logo {
       min-width: 9.5625rem;
-      padding-bottom: 0.735rem;
-      padding-top: 0.735rem;
+      padding-bottom: 0.75rem;
+      padding-top: 0.75rem;
       transition: 0.3s ease-in-out;
       img {
         width: 9.5625rem;
@@ -213,9 +222,8 @@
     background: $white;
     z-index: 99;
     width: 16rem;
-    padding: 1rem 0.5rem;
+    padding: 0 0.5rem 1rem;
     .navbar-nav {
-      padding-top: 1rem;
       flex-direction: column;
       width: 100%;
     }
@@ -241,8 +249,27 @@
       font-size: 1.1rem;
     }
 
-    &.search:before {
-      content: '\e92b';
+    &.search {
+      &:before {
+        content: '\e92b';
+        transition: $standard-transition;
+      }
+    }
+
+    &.close {
+      opacity: 1;
+      &:before {
+        content: '\e931';
+        transition: $standard-transition;
+        font-weight: 400;
+        font-size: 1.5rem;
+      }
+    }
+
+    &.search, &.close {
+      &:hover:before {
+        color: $innovationblue;
+      }
     }
 
     &.back {
@@ -276,12 +303,21 @@
       width: 1.5rem;
       height: 1.5rem;
       box-shadow: none;
+
       span {
         width: 1.125rem;
         background: $black;
         height: 2px;
         margin-bottom: 3px;
+        transition: $standard-transition;
+
         &:last-of-type { margin-bottom: 0; }
+      }
+
+      &:hover {
+        span {
+          background: $innovationblue;
+        }
       }
     }
   }

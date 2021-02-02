@@ -457,6 +457,12 @@ export default {
     "entireCollection": "Otsi {query} kogu meie kollektsioonist",
     "europeanaHome": "Europeana avaleht",
     "inCollection": "Otsi {query} {collection}",
+    "navigation": {
+      "about": "Meist",
+      "collections": "Kogud",
+      "europeanaClassroom": "Õpetajad",
+      "help": "Abimaterjal"
+    },
     "searchFor": "Otsi {query}",
     "searchForEverything": "Otsi kõike",
     "searchForEverythingInCollection": "Otsi kõike {collection}",

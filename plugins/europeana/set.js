@@ -1,11 +1,11 @@
-import { apiError, createAxios } from './utils';
+import { apiError, createKeycloakAuthAxios } from './utils';
 
 export const BASE_URL = process.env.EUROPEANA_SET_API_URL || 'https://api.europeana.eu/set';
 
 const setIdFromUri = (uri) => uri.split('/').pop();
 
 export default (context = {}) => {
-  const $axios = createAxios(
+  const $axios = createKeycloakAuthAxios(
     { id: 'set', baseURL: BASE_URL, $axios: context.$axios },
     context
   );

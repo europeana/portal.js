@@ -457,6 +457,12 @@ export default {
     "entireCollection": "Keresés az egész gyűjteményben erre: {query}",
     "europeanaHome": "Europeana kezdőlap",
     "inCollection": "Keresés erre: {query}, a {collection} gyűjteményben",
+    "navigation": {
+      "about": "Rólunk",
+      "collections": "Gyűjtemények",
+      "europeanaClassroom": "Tanárok",
+      "help": "Súgó"
+    },
     "searchFor": "Keresés erre: {query}",
     "searchForEverything": "Keresés mindenre",
     "searchForEverythingInCollection": "Keresés mindenre a(z) {collection} gyűjteményben",

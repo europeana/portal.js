@@ -67,6 +67,7 @@ export default {
     }
   },
   "collectionsYouMightLike": "Kollezzjonijiet li jistgħu jinteressawk",
+  "colourSwatch": "Swatch tal-kuluri",
   "contentfulManual": {
     "footerNavigation": {
       "about": "Dwar Europeana",
@@ -291,6 +292,7 @@ export default {
         "#FFFAFA": "Snow",
         "#FFFF00": "Isfar",
         "#FFFFE0": "Isfar Ċar",
+        "#FFFFF0": "Ivory",
         "#FFFFFF": "Abjad"
       }
     },
@@ -457,6 +459,12 @@ export default {
     "entireCollection": "Fittex {query} fil-kollezzjoni sħiħa tagħna",
     "europeanaHome": "Europeana home",
     "inCollection": "Fittex {query} fi {collection}",
+    "navigation": {
+      "about": "Dwarna",
+      "collections": "Kollezzjonijiet",
+      "europeanaClassroom": "Għalliema",
+      "help": "Għajnuna"
+    },
     "searchFor": "Fittex {query}",
     "searchForEverything": "Fittex kollox",
     "searchForEverythingInCollection": "Fittex kollox fi {collection}",
@@ -500,8 +508,12 @@ export default {
   "newWindow": "tiftaħ fit-tieqa l-ġdida",
   "noMoreResults": "M'hemmx aktar riżultati għall-mistoqsija tat-tfittxija tiegħek.",
   "noResults": "M'hawnx riżultati",
+  "pageHasLoaded": "ġie illowdjat",
   "pages": {
     "collections": {
+      "times": {
+        "title": "Times"
+      },
       "topics": {
         "title": "Suġġetti"
       }

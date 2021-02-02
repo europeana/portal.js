@@ -22,14 +22,16 @@
         MIRADOR_BUILD_PATH: 'https://unpkg.com/mirador@3.0.0/dist',
         page: null,
         uri: null,
+        imageToCanvasMap: {},
         mirador: null,
+        showAnnotations: false,
         miradorStoreManifestJsonUnsubscriber: () => {}
       };
     },
 
     computed: {
       miradorViewerOptions() {
-        // Doc: https://github.com/ProjectMirador/mirador/blob/master/src/config/settings.js
+        // Doc: https://github.com/ProjectMirador/mirador/blob/v3.0.0/src/config/settings.js
         const options = {
           id: 'viewer',
           windows: [
@@ -43,8 +45,8 @@
             allowFullscreen: true,
             allowMaximize: false,
             allowTopMenuButton: false,
-            allowWindowSideBar: true,
-            sideBarOpenByDefault: false,
+            allowWindowSideBar: false,
+            sideBarOpen: false,
             panels: {
               info: false,
               attribution: false,
@@ -62,7 +64,7 @@
             enabled: false
           },
           requests: {
-            postprocessors: [this.postprocessAnnotations]
+            postprocessors: [this.postprocessMiradorRequest]
           }
         };
 
@@ -84,7 +86,8 @@
           const miradorManifest = this.mirador.store.getState().manifests[miradorWindow.manifestId];
           if (miradorManifest) {
             this.manifest = miradorManifest.json;
-            if (miradorWindow.canvasId !== this.page) {
+            if (miradorWindow.canvasId && (miradorWindow.canvasId !== this.page)) {
+              this.memoiseImageToCanvasMap();
               this.page = miradorWindow.canvasId;
               this.fetchImageData(this.uri, this.page);
             }
@@ -92,35 +95,149 @@
         }
       },
 
-      postprocessAnnotations(url, action) {
-        if (action.type !== 'mirador/RECEIVE_ANNOTATION') {
-          return;
+      postprocessMiradorRequest(url, action) {
+        switch (action.type) {
+        case 'mirador/RECEIVE_MANIFEST':
+          this.postprocessMiradorManifest(url, action);
+          break;
+        case 'mirador/RECEIVE_ANNOTATION':
+          if ((action.annotationJson.resources.length > 0)) {
+            const windowId = Object.keys(this.mirador.store.getState().windows)[0];
+            if (!this.showAnnotations) {
+              const action = window.Mirador.actions.toggleWindowSideBar(windowId);
+              this.mirador.store.dispatch(action);
+              this.showAnnotations = true;
+
+              this.miradorViewerOptions.window.allowWindowSideBar = true;
+              const actionShow = window.Mirador.actions.updateConfig(this.miradorViewerOptions);
+              this.mirador.store.dispatch(actionShow);
+            }
+          }
+          this.postprocessMiradorAnnotation(url, action);
+          break;
+        case 'mirador/RECEIVE_SEARCH':
+          this.postprocessMiradorSearch(url, action);
+          break;
         }
-        this.filterAnnotationResources(action.annotationJson);
-        this.coerceAnnotationToCanvasId(action.annotationJson);
+      },
+
+      postprocessMiradorManifest(url, action) {
+        this.addTextGranularityFilterToManifest(action.manifestJson);
+      },
+
+      postprocessMiradorAnnotation(url, action) {
+        this.coerceResourcesOnToCanvases(action.annotationJson);
         this.dereferenceAnnotationResources(action.annotationJson);
       },
 
-      // Hack to force `on` attribute to canvas ID
-      //
-      // TODO: remove when API output updated to use canvas ID
-      coerceAnnotationToCanvasId(annotationJson) {
-        annotationJson.resources = annotationJson.resources.map((resource) => {
-          const coercedResource = Object.assign({}, resource);
-          coercedResource.on = [].concat(coercedResource.on);
-          if (coercedResource.on[0].includes('xywh=')) {
-            coercedResource.on[0] = coercedResource.on[0].replace(/^[^#]+/, this.page); // replace up to hash
-          }
-          return coercedResource;
-        });
+      postprocessMiradorSearch(url, action) {
+        this.filterSearchHitsByTextGranularity(action.searchJson);
+        this.coerceResourcesOnToCanvases(action.searchJson);
+        this.coerceSearchHitsToBeforeMatchAfter(action.searchJson);
       },
 
-      // Filter to line-level annotations, and only those with a `char` fragment
-      // selector.
-      filterAnnotationResources(annotationJson) {
-        annotationJson.resources = annotationJson.resources.filter(
-          resource => (resource.dcType === 'Line') && (/char=(\d+),(\d+)$/.test(resource.resource['@id'])),
-        );
+      addTextGranularityFilterToManifest(manifestJson, textGranularity = 'Line') {
+        const europeanaIiifPattern = /^https?:\/\/iiif\.europeana\.eu\/presentation\/[^/]+\/[^/]+\/manifest$/;
+        if (!europeanaIiifPattern.test(manifestJson['@id'])) return;
+
+        // Add textGranularity filter to "otherContent" URIs
+        for (const sequence of manifestJson.sequences) {
+          for (const canvas of (sequence.canvases || [])) {
+            const otherContent = canvas.otherContent || [];
+            for (let i = 0; i < otherContent.length; i = i + 1) {
+              const otherContentLink = otherContent[i];
+              const paramSeparator = otherContentLink.includes('?') ? '&' : '?';
+              otherContent[i] = `${otherContentLink}${paramSeparator}textGranularity=${textGranularity}`;
+            }
+          }
+        }
+
+        // Add textGranularity filter to search service URI
+        //
+        // NOTE: this does not work, due to Mirador not expecting a service URI
+        //       to already contain '?' with parameters.
+        //       https://github.com/ProjectMirador/mirador/blob/v3.0.0/src/components/SearchPanelControls.js#L91
+        //
+        //       If it in future becomes possible to use this, then `filterSearchHitsByTextGranularity`
+        //       becomes redundant and may be removed, as pre-filtering on the
+        //       service side is preferrable.
+        //
+        // if ((manifestJson.service || {}).profile === 'http://iiif.io/api/search/1/search') {
+        //   const paramSeparator = manifestJson.service['@id'].includes('?') ? '&' : '?';
+        //   manifestJson.service['@id'] = `${manifestJson.service['@id']}${paramSeparator}textGranularity=${textGranularity}`;
+        // }
+      },
+
+      filterSearchHitsByTextGranularity(searchJson, textGranularity = 'Line') {
+        searchJson.resources = searchJson.resources.filter(resource => !resource.dcType || (resource.dcType === textGranularity));
+        const filteredResourceIds = searchJson.resources.map(resource => resource['@id']);
+        searchJson.hits = searchJson.hits.filter(hit => hit.annotations.some(anno => filteredResourceIds.includes(anno)));
+      },
+
+      coerceResourcesOnToCanvases(json) {
+        json.resources = json.resources.map(this.coerceResourceOnImagesToCanvases);
+      },
+
+      memoiseImageToCanvasMap() {
+        this.imageToCanvasMap = this.manifest.sequences.reduce((memo, sequence) => {
+          for (const canvas of sequence.canvases) {
+            for (const image of canvas.images) {
+              memo[image.resource['@id']] = canvas['@id'];
+            }
+          }
+          return memo;
+        }, {});
+      },
+
+      canvasForImage(imageId) {
+        const splitImageId = imageId.split('#');
+        if (this.imageToCanvasMap[splitImageId[0]]) {
+          return [this.imageToCanvasMap[splitImageId[0]], splitImageId[1]].join('#');
+        }
+      },
+
+      // HACK to force `on` attribute to canvas ID, from invalid targetting of image ID
+      //
+      // TODO: remove when API output updated to use canvas ID.
+      //       Affects annotation lists for:
+      //       - full pages of annotations linked to from otherContent in Presentation manifests
+      //       - lists of annotations with search hits
+      coerceResourceOnImagesToCanvases(resource) {
+        if (Array.isArray(resource.on)) {
+          for (let i = 0; i < resource.on.length; i = i + 1) {
+            const canvas = this.canvasForImage(resource.on[i]);
+            if (canvas) resource.on[i] = canvas;
+          }
+        } else {
+          const canvas = this.canvasForImage(resource.on);
+          if (canvas) resource.on = canvas;
+        }
+
+        return resource;
+      },
+
+      // HACK to flatten oa:TextQuoteSelector hit selectors to before/match/after
+      // hits, as Mirador 3.0.0 does not support oa:TextQuoteSelector style.
+      coerceSearchHitsToBeforeMatchAfter(searchJson) {
+        const hits = [];
+
+        for (const hit of (searchJson.hits || [])) {
+          if (hit.selectors) {
+            for (const selector of hit.selectors) {
+              hits.push({
+                '@type': hit['@type'],
+                annotations: hit.annotations,
+                before: selector.prefix,
+                after: selector.suffix,
+                match: selector.exact
+              });
+            }
+          } else {
+            hits.push(hit);
+          }
+        }
+
+        searchJson.hits = hits;
       },
 
       fetchAnnotationResourcesFulltext(annotationJson) {

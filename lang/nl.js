@@ -461,6 +461,12 @@ export default {
     "entireCollection": "Zoek op {query} in onze gehele collectie",
     "europeanaHome": "Europeana Home",
     "inCollection": "Zoek op {query} in {collection}",
+    "navigation": {
+      "about": "Over ons",
+      "collections": "Collecties",
+      "europeanaClassroom": "Leraren",
+      "help": "Help"
+    },
     "searchFor": "Zoeken naar {query}",
     "searchForEverything": "Zoek op alles",
     "searchForEverythingInCollection": "Zoek op alles in {collection}",

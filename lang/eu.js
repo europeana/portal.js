@@ -461,6 +461,12 @@ export default {
     "entireCollection": "Bilatu '{kontsulta}' gure bilduma osoan",
     "europeanaHome": "Europeanako hasiera orria",
     "inCollection": "Bilatu '{kontsulta}' bilduma honetan {collection}",
+    "navigation": {
+      "about": "Europeana bildumei buruz",
+      "collections": "Bildumak",
+      "europeanaClassroom": "Irakasleak",
+      "help": "Laguntza"
+    },
     "searchFor": "Bilatu",
     "searchForEverything": "Dena bilatu",
     "searchForEverythingInCollection": "Dena bilatu hemen {collection}",

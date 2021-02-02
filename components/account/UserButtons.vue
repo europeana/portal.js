@@ -100,7 +100,11 @@
         }
       },
       async toggleLiked() {
-        await (this.liked ? this.unlike() : this.like());
+        if (this.$auth.loggedIn) {
+          await (this.liked ? this.unlike() : this.like());
+        } else {
+          this.$goto('/account/login');
+        }
       },
       async like() {
         if (this.likesId === null) {
@@ -128,7 +132,7 @@
           this.$bvModal.show(this.addItemToSetModalId);
           this.$emit('add', this.value);
         } else {
-          this.$auth.loginWith('keycloak');
+          this.$goto('/account/login');
         }
       }
     }
