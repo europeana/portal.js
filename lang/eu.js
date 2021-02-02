@@ -338,7 +338,7 @@ export default {
     "MIME_TYPE": {
       "name": "Fitxategiaren formatua | Fitxategien formatuak",
       "options": {
-        "text/plain": "Testu arrunta"
+        "text\/plain": "Testu arrunta"
       }
     },
     "PROVIDER": {
@@ -461,6 +461,12 @@ export default {
     "entireCollection": "Bilatu '{kontsulta}' gure bilduma osoan",
     "europeanaHome": "Europeanako hasiera orria",
     "inCollection": "Bilatu '{kontsulta}' bilduma honetan {collection}",
+    "navigation": {
+      "about-us": "Europeana bildumei buruz",
+      "collections": "Bildumak",
+      "europeana-classroom": "Irakasleak",
+      "help": "Laguntza"
+    },
     "searchFor": "Bilatu",
     "searchForEverything": "Dena bilatu",
     "searchForEverythingInCollection": "Dena bilatu hemen {collection}",
@@ -473,7 +479,7 @@ export default {
   },
   "items": {
     "itemCount": "Elementu 1 | {count} elementu",
-    "itemOf": "{max}/{count} elementu",
+    "itemOf": "{max}\/{count} elementu",
     "youMightLike": "Gustatu ahal zaizkizun elementuak"
   },
   "layout": {

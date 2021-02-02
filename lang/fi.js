@@ -333,7 +333,7 @@ export default {
     "MIME_TYPE": {
       "name": "Tiedostomuoto | Tiedostomuodot",
       "options": {
-        "text/plain": "Pelkkä teksti"
+        "text\/plain": "Pelkkä teksti"
       }
     },
     "PROVIDER": {
@@ -457,6 +457,12 @@ export default {
     "entireCollection": "Hae ehdoilla {query} koko kokoelmastamme",
     "europeanaHome": "Europeanan kotisivu",
     "inCollection": "Hae ehdoilla {query} kokoelmasta {collection}",
+    "navigation": {
+      "about-us": "Tietoa meistä",
+      "collections": "Kokoelmat",
+      "europeana-classroom": "Opettajat",
+      "help": "Apua"
+    },
     "searchFor": "Hae ehdoilla {query}",
     "searchForEverything": "Hae kaikkea",
     "searchForEverythingInCollection": "Hae kaikkea kokoelmasta {collection}",
@@ -469,7 +475,7 @@ export default {
   },
   "items": {
     "itemCount": "1 kohde |{count} kohdetta",
-    "itemOf": "{max} / {count} kohdetta",
+    "itemOf": "{max} \/ {count} kohdetta",
     "youMightLike": "Saattaisit tykätä näistä kohteista"
   },
   "layout": {

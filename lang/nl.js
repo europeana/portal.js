@@ -335,7 +335,7 @@ export default {
     "MIME_TYPE": {
       "name": "Bestandsformaat | Bestandsformaten",
       "options": {
-        "text/plain": "Platte tekst"
+        "text\/plain": "Platte tekst"
       }
     },
     "PROVIDER": {
@@ -461,6 +461,12 @@ export default {
     "entireCollection": "Zoek op {query} in onze gehele collectie",
     "europeanaHome": "Europeana Home",
     "inCollection": "Zoek op {query} in {collection}",
+    "navigation": {
+      "about-us": "Over ons",
+      "collections": "Collecties",
+      "europeana-classroom": "Leraren",
+      "help": "Help"
+    },
     "searchFor": "Zoeken naar {query}",
     "searchForEverything": "Zoek op alles",
     "searchForEverythingInCollection": "Zoek op alles in {collection}",

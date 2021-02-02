@@ -333,7 +333,7 @@ export default {
     "MIME_TYPE": {
       "name": "Fájlformátum | Fájlformátumok",
       "options": {
-        "text/plain": "Egyszerű szöveg"
+        "text\/plain": "Egyszerű szöveg"
       }
     },
     "PROVIDER": {
@@ -457,6 +457,12 @@ export default {
     "entireCollection": "Keresés az egész gyűjteményben erre: {query}",
     "europeanaHome": "Europeana kezdőlap",
     "inCollection": "Keresés erre: {query}, a {collection} gyűjteményben",
+    "navigation": {
+      "about-us": "Rólunk",
+      "collections": "Gyűjtemények",
+      "europeana-classroom": "Tanárok",
+      "help": "Súgó"
+    },
     "searchFor": "Keresés erre: {query}",
     "searchForEverything": "Keresés mindenre",
     "searchForEverythingInCollection": "Keresés mindenre a(z) {collection} gyűjteményben",

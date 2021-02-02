@@ -333,7 +333,7 @@ export default {
     "MIME_TYPE": {
       "name": "Formát súboru | Formáty súborov",
       "options": {
-        "text/plain": "Obyčajný text"
+        "text\/plain": "Obyčajný text"
       }
     },
     "PROVIDER": {
@@ -457,6 +457,12 @@ export default {
     "entireCollection": "Hľadajte výraz {query} v celej našej zbierke",
     "europeanaHome": "Domovská stránka Europeana",
     "inCollection": "Hľadajte výraz {query} v zbierke {collection}",
+    "navigation": {
+      "about-us": "O nás",
+      "collections": "Zbierky",
+      "europeana-classroom": "Učitelia",
+      "help": "Pomoc"
+    },
     "searchFor": "Vyhľadávať dopyt {query}",
     "searchForEverything": "Vyhľadávať všetko",
     "searchForEverythingInCollection": "Vyhľadávať všetko v zbierke {collection}",

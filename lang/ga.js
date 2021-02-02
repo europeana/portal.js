@@ -333,7 +333,7 @@ export default {
     "MIME_TYPE": {
       "name": "Formáid chomhaid | Formáidí comhaid",
       "options": {
-        "text/plain": "Téacs simplí"
+        "text\/plain": "Téacs simplí"
       }
     },
     "PROVIDER": {
@@ -417,7 +417,7 @@ export default {
       "edmIsSimilarTo": "Is cosúil leis",
       "edmIsSuccessorOf": "Is comharba é ar",
       "edmProvider": "Soláthraí",
-      "edmRealizes": "Tuigeann sé/sí",
+      "edmRealizes": "Tuigeann sé\/sí",
       "edmRights": "Ráiteas Ceadúnas do na meáin sa mhír seo (mura sonraítear a mhalairt)",
       "edmUgc": "Inneachar ginte le húsáideoirí",
       "europeanaCollectionName": "Ainm bailiúcháin",
@@ -457,6 +457,12 @@ export default {
     "entireCollection": "Cuardaigh {query} inár mbailiúchán iomlán",
     "europeanaHome": "Baile Europeana",
     "inCollection": "Cuardaigh {query} i {collection}",
+    "navigation": {
+      "about-us": "Fúinne",
+      "collections": "Bailiúcháin",
+      "europeana-classroom": "Múinteoirí",
+      "help": "Cabhair"
+    },
     "searchFor": "Cuardaigh {query}",
     "searchForEverything": "Cuardaigh gach rud",
     "searchForEverythingInCollection": "Cuardaigh gach rud i {collection}",

@@ -333,7 +333,7 @@ export default {
     "MIME_TYPE": {
       "name": "Formato de ficheiro | Formatos de ficheiros",
       "options": {
-        "text/plain": "Texto simples"
+        "text\/plain": "Texto simples"
       }
     },
     "PROVIDER": {
@@ -457,6 +457,12 @@ export default {
     "entireCollection": "Pesquise por {query} em toda a nossa coleção",
     "europeanaHome": "Página Inicial Europeana",
     "inCollection": "Pesquisar por {query} em {collection}",
+    "navigation": {
+      "about-us": "Sobre nós",
+      "collections": "Colecções",
+      "europeana-classroom": "Professores",
+      "help": "Ajuda"
+    },
     "searchFor": "Pesquisa por {query}",
     "searchForEverything": "Procurar por tudo",
     "searchForEverythingInCollection": "Procurar por tudo em {collection}",

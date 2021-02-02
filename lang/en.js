@@ -340,7 +340,7 @@ export default {
     "MIME_TYPE": {
       "name": "File format | File formats",
       "options": {
-        "text/plain": "Plain text"
+        "text\/plain": "Plain text"
       }
     },
     "PROVIDER": {
@@ -466,6 +466,13 @@ export default {
     "entireCollection": "Search for {query} in our entire collection",
     "europeanaHome": "Europeana home",
     "inCollection": "Search for {query} in {collection}",
+    "navigation": {
+      "about-us": "About us",
+      "collections": "Collections",
+      "europeana-classroom": "Teachers",
+      "help": "Help",
+      "home": "Home"
+    },
     "searchFor": "Search for {query}",
     "searchForEverything": "Search for everything",
     "searchForEverythingInCollection": "Search for everything in {collection}",
@@ -515,11 +522,11 @@ export default {
   "pageHasLoaded": "has loaded",
   "pages": {
     "collections": {
-      "topics": {
-        "title": "Topics"
-      },
       "times": {
         "title": "Times"
+      },
+      "topics": {
+        "title": "Topics"
       }
     }
   },
