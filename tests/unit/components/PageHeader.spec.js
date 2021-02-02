@@ -12,10 +12,7 @@ const factory = (options = {}) => shallowMount(PageHeader, {
   localVue,
   mocks: {
     $t: () => { },
-    $path: (code) => window.location.href + code,
-    $exp: {
-      $classes: ['experiment-class-1']
-    }
+    $path: (code) => window.location.href + code
   },
   stubs: {
     transition: true
