@@ -145,6 +145,9 @@
           { hreflang: 'x-default', rel: 'alternate', href: this.canonicalUrlWithoutLocale },
           ...i18nSeo.link
         ],
+        script: this.$exp.$experimentIndex > -1 && this.$config.googleOptimize.id ? [
+          { src: `https://www.googleoptimize.com/optimize.js?id=${this.$config.googleOptimize.id}` }
+        ] : [],
         meta: [
           { hid: 'description', property: 'description', content: 'Europeana' },
           { hid: 'og:url', property: 'og:url', content: this.canonicalUrl },

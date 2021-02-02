@@ -6,12 +6,12 @@ import Vuex from 'vuex';
 const localVue = createLocalVue();
 localVue.use(Vuex);
 localVue.use(BootstrapVue);
-localVue.directive('visible-on-scroll',  () => {});
+localVue.directive('visible-on-scroll', () => { });
 
 const factory = (options = {}) => shallowMount(PageHeader, {
   localVue,
   mocks: {
-    $t: () => {},
+    $t: () => { },
     $path: (code) => window.location.href + code
   },
   stubs: {
@@ -64,10 +64,14 @@ describe('components/PageHeader', () => {
 
   it('contains the desktop nav', () => {
     const wrapper = factory();
-    wrapper.setProps({ mainNavigation: { links: [{
-      text: 'Collections',
-      url: '/collections'
-    }] } });
+    wrapper.setProps({
+      mainNavigation: {
+        links: [{
+          text: 'Collections',
+          url: '/collections'
+        }]
+      }
+    });
 
     const nav = wrapper.find('[data-qa="desktop navigation"]');
     nav.isVisible().should.equal(true);
