@@ -56,7 +56,7 @@ describe('oEmbeddable()', () => {
   }
 
   it('is `false` for unsupported providers', () => {
-    const unsupportedembeddableUrl = 'https://www.youtube.com/watch?v=abcdef';
+    const unsupportedembeddableUrl = 'https://www.example.com/watch?v=abcdef';
     oEmbeddable(unsupportedembeddableUrl).should.be.false;
   });
 });

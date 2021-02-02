@@ -38,6 +38,9 @@
   <HTMLEmbed
     v-else-if="isOEmbed"
     :html="oEmbedData.html"
+    :provider="oEmbedData.provider_name"
+    :height="oEmbedData.height"
+    :width="oEmbedData.width"
     :error="oEmbedData.error"
   />
   <iframe
