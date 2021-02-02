@@ -457,6 +457,12 @@ export default {
     "entireCollection": "Căutare pentru {query} în întreaga noastră colecție",
     "europeanaHome": "Pagina principală Europeana",
     "inCollection": "Caută pentru {query} în {collection}",
+    "navigation": {
+      "about-us": "Despre noi",
+      "collections": "Colecții",
+      "europeana-classroom": "Profesori",
+      "help": "Ajutor"
+    },
     "searchFor": "Caută pentru {query}",
     "searchForEverything": "Caută tot",
     "searchForEverythingInCollection": "Caută tot în {collection}",

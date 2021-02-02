@@ -457,6 +457,12 @@ export default {
     "entireCollection": "Suchen Sie nach {query} in unserer gesamten Kollektion",
     "europeanaHome": "Europeana-Startseite",
     "inCollection": "Suchen Sie nach {query} in {collection}",
+    "navigation": {
+      "about-us": "Über uns",
+      "collections": "Sammlungen",
+      "europeana-classroom": "Lehrerinnen und Lehrer",
+      "help": "Hilfe"
+    },
     "searchFor": "Suche nach {query}",
     "searchForEverything": "Suchen Sie nach allem",
     "searchForEverythingInCollection": "Suchen Sie nach allem in {collection}",
