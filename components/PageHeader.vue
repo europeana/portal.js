@@ -1,7 +1,6 @@
 <template>
   <header
     v-visible-on-scroll
-    :class="headerClass"
     class="m-0 navbar-brand container-fluid d-flex justify-content-between show"
     role="banner"
     :aria-label="$t('header.europeanaHome')"
@@ -41,7 +40,6 @@
       <SmartLink
         :destination="{ name: 'index' }"
         class="logo pl-lg-3"
-        :class="logoClass"
       >
         <img
           src="../assets/img/logo.svg"
@@ -137,13 +135,7 @@
     computed: {
       ...mapState({
         showSearch: state => state.search.showSearchBar
-      }),
-      headerClass() {
-        return this.$exp.name === 'background-color' ? this.$exp.$classes.join(' ') : '';
-      },
-      logoClass() {
-        return this.$exp.name === 'logo-color' ? this.$exp.$classes.join(' ') : '';
-      }
+      })
     },
 
     watch: {
