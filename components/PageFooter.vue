@@ -34,11 +34,11 @@
               lg="12"
             >
               <LinkGroup
-                v-if="moreInfoNavigation"
+                v-if="footerMoreInfo"
                 list-class="footer-link-list"
                 link-class="footer-link"
-                :caption="moreInfoNavigation.name"
-                :links="moreInfoNavigation.links"
+                :caption="footerMoreInfo.name"
+                :links="footerMoreInfo.links"
               />
             </b-col>
             <b-col
@@ -46,11 +46,11 @@
               lg="12"
             >
               <LinkGroup
-                v-if="helpNavigation"
+                v-if="footerHelp"
                 list-class="footer-link-list"
                 link-class="footer-link"
-                :caption="helpNavigation.name"
-                :links="helpNavigation.links"
+                :caption="footerHelp.name"
+                :links="footerHelp.links"
               />
             </b-col>
           </b-row>
@@ -102,19 +102,29 @@
       LinkGroup
     },
 
-    props: {
-      moreInfoNavigation: {
-        type: Object,
-        default: null
-      },
-      helpNavigation: {
-        type: Object,
-        default: null
-      }
+    fetch() {
+      const contentfulVariables = {
+        locale: this.$i18n.isoLocale(),
+        preview: this.$route.query.mode === 'preview'
+      };
+
+      return this.$contentful.query('linkGroups', contentfulVariables)
+        .then(response => {
+          for (const identifier in response.data.data) {
+            const linkGroup = response.data.data[identifier].items[0];
+            this[identifier] = {
+              name: linkGroup.name ? linkGroup.name : null,
+              links: linkGroup.links.items
+            };
+          }
+        })
+        .catch(() => null);
     },
 
     data() {
       return {
+        footerMoreInfo: null,
+        footerHelp: null,
         social: [
           {
             text: 'Facebook',
@@ -148,6 +158,10 @@
       showDebugMenu() {
         return !!this.debugSettings.apiRequests;
       }
+    },
+
+    watch: {
+      '$i18n.locale': '$fetch'
     }
   };
 </script>

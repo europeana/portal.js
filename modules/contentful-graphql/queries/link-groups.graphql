@@ -3,12 +3,6 @@ query LinkGroups(
   $linkGroups: Boolean = true,
   $preview: Boolean = false
 ) {
-  mainNavigation: linkGroupCollection(preview: $preview, locale: $locale, limit: 1, where: { identifier: "mainNavigation" }) @include(if: $linkGroups) {
-    ...linkGroupFields
-  }
-  mobileNavigation: linkGroupCollection(preview: $preview, locale: $locale, limit: 1, where: { identifier: "mobileNavigation" }) @include(if: $linkGroups) {
-    ...linkGroupFields
-  }
   footerMoreInfo: linkGroupCollection(preview: $preview, locale: $locale, limit: 1, where: { identifier: "footerMoreInfo" }) @include(if: $linkGroups) {
     ...linkGroupFields
   }

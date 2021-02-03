@@ -19,8 +19,6 @@
       {{ $t('layout.skipToMain') }}
     </a>
     <PageHeader
-      :main-navigation="linkGroups.mainNavigation"
-      :mobile-navigation="linkGroups.mobileNavigation"
       keep-alive
     />
     <main
@@ -37,10 +35,7 @@
       />
     </main>
     <client-only>
-      <PageFooter
-        :help-navigation="linkGroups.footerHelp"
-        :more-info-navigation="linkGroups.footerMoreInfo"
-      />
+      <PageFooter />
     </client-only>
   </div>
 </template>
@@ -64,34 +59,6 @@
       PageFooter: () => import('../components/PageFooter')
     },
 
-    async fetch() {
-      const contentfulVariables = {
-        locale: this.$i18n.isoLocale(),
-        preview: this.$route.query.mode === 'preview'
-      };
-
-      let data;
-      try {
-        const response = await this.$contentful.query('linkGroups', contentfulVariables);
-        data = response.data;
-      } catch (e) {
-        return;
-      }
-
-      const linkGroups = {};
-      for (const identifier in data.data) {
-        const linkGroup = data.data[identifier].items[0];
-        linkGroups[identifier] = {
-          name: linkGroup.name ? linkGroup.name : null,
-          links: linkGroup.links.items
-        };
-      }
-      this.linkGroups = linkGroups;
-      if (this.$announcer) this.$announcer.setComplementRoute(this.$t('pageHasLoaded'));
-    },
-
-    fetchOnServer: false,
-
     data() {
       return {
         ...config,
@@ -112,7 +79,6 @@
     },
 
     watch: {
-      '$i18n.locale': '$fetch',
       $route(to, from) {
         this.$nextTick(() => {
           if (to.path === from.path) {
@@ -124,11 +90,6 @@
           }
         });
       }
-
-    },
-
-    mounted() {
-      this.$announcer.setComplementRoute(this.$t('pageHasLoaded'));
     },
 
     head() {

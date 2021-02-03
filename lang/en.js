@@ -522,11 +522,11 @@ export default {
   "pageHasLoaded": "has loaded",
   "pages": {
     "collections": {
-      "times": {
-        "title": "Times"
-      },
       "topics": {
         "title": "Topics"
+      },
+      "times": {
+        "title": "Times"
       }
     }
   },
