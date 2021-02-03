@@ -47,5 +47,16 @@ export default [
       'https://sketchfab.com/models/*',
       'https://sketchfab.com/show/*'
     ]
+  },
+  {
+    name: 'YouTube',
+    endpoint: 'https://www.youtube.com/oembed',
+    schemes: [
+      'https://youtube.com/watch*',
+      'https://youtube.com/v/*',
+      'https://www.youtube.com/watch*',
+      'https://www.youtube.com/v/*',
+      'https://youtu.be/*'
+    ]
   }
 ];

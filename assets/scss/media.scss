@@ -28,11 +28,13 @@
       height: 100%;
     }
   }
+
   .html-embed {
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
+
     iframe {
       display: inline;
       margin-right: auto;
@@ -40,6 +42,7 @@
       border: 0;
       box-shadow: none;
     }
+
     .sketchfab-embed-wrapper {
       width: 100%;
       iframe {
@@ -52,6 +55,32 @@
       }
     }
   }
+
+  .responsive-embed-wrapper {
+    height: 80vh;
+    max-height: 35.5rem;
+    margin: 0 auto;
+
+    @media (max-width: $bp-medium) {
+      height: 22.5rem;
+    }
+
+    .html-embed {
+      display: block;
+      position: relative;
+      height: 0;
+      overflow: hidden;
+
+      iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+  
   .container {
     text-align: center;
   }

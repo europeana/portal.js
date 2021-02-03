@@ -117,9 +117,18 @@ describe('components/item/MediaCard', () => {
       });
     });
 
+    context('when url is for YouTube media', () => {
+      it('is `true`', () => {
+        const props = { europeanaIdentifier, media: { about: 'https://www.youtube.com/watch?v=abcdef' } };
+        const wrapper = factory(props);
+
+        wrapper.vm.isOEmbed.should.be.true;
+      });
+    });
+
     context('when the url is excluded from the oEmbed parser', () => {
       it('is `false`', () => {
-        const props = { europeanaIdentifier, media: { about: 'https://www.youtube.com/watch?v=abcdef', thumbnails: { large: 'https://api.europeana.eu/api/v2/thumbnail-by-url.json?size=w400&type=IMAGE&uri=https%3A%2F%2Feuropeana1914-1918.s3.amazonaws.com%2Fattachments%2F119200%2F10265.119200.original.jpg' } } };
+        const props = { europeanaIdentifier, media: { about: 'https://www.example.com/watch?v=abcdef', thumbnails: { large: 'https://api.europeana.eu/api/v2/thumbnail-by-url.json?size=w400&type=IMAGE&uri=https%3A%2F%2Feuropeana1914-1918.s3.amazonaws.com%2Fattachments%2F119200%2F10265.119200.original.jpg' } } };
         const wrapper = factory(props);
 
         wrapper.vm.isOEmbed.should.be.false;
