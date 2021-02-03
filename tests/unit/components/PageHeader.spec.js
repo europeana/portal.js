@@ -6,7 +6,7 @@ import Vuex from 'vuex';
 const localVue = createLocalVue();
 localVue.use(Vuex);
 localVue.use(BootstrapVue);
-localVue.directive('visible-on-scroll',  () => {});
+localVue.directive('visible-on-scroll', () => { });
 
 const factory = (options = {}) => shallowMount(PageHeader, {
   localVue,
