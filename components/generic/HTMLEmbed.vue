@@ -1,19 +1,19 @@
 <template>
   <!-- eslint-disable vue/no-v-html -->
   <div
-    v-if="html && provider === 'YouTube'"
-    class="youtube-embed-wrapper"
-    :style="maxWidthWrapper"
+    v-if="html && responsiveProvider"
+    class="responsive-embed-wrapper"
+    :style="`max-width:${maxWidthWrapper}rem`"
   >
     <div
       data-qa="html embed"
-      class="mb-5 html-embed youtube-embed"
-      :style="aspectRatio"
+      class="mb-5 html-embed"
+      :style="`padding-bottom:${heightAsPercentOfWidth}%`"
       v-html="html"
     />
   </div>
   <div
-    v-else-if="html && !provider !== 'YouTube'"
+    v-else-if="html && !responsiveProvider"
     data-qa="html embed"
     class="mb-5 html-embed"
     v-html="html"
@@ -45,11 +45,11 @@
         default: ''
       },
       height: {
-        type: Number,
+        type: [Number, String],
         default: null
       },
       width: {
-        type: Number,
+        type: [Number, String],
         default: null
       },
       error: {
@@ -59,12 +59,16 @@
     },
 
     computed: {
-      aspectRatio() {
-        return `padding-bottom:${(this.height * 100) / this.width}%`;
+      responsiveProvider() {
+        const responsive = ['YouTube', 'Vimeo'];
+        return responsive.includes(this.provider);
+      },
+      heightAsPercentOfWidth() {
+        return (this.height * 100) / this.width;
       },
       maxWidthWrapper() {
         const wrapperHeight = window.innerWidth <= 768 ? 22.5 : 35.5;
-        return `max-width:${(this.width * wrapperHeight) / this.height}rem`;
+        return (this.width * wrapperHeight) / this.height;
       }
     }
   };

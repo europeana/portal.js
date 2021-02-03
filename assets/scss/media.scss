@@ -29,16 +29,6 @@
     }
   }
 
-  .youtube-embed-wrapper {
-    height: 80vh;
-    max-height: 35.5rem;
-    margin: 0 auto;
-
-    @media (max-width: $bp-medium) {
-      height: 22.5rem;
-    }
-  }
-
   .html-embed {
     height: 100%;
     display: flex;
@@ -64,8 +54,18 @@
         }
       }
     }
-  
-    &.youtube-embed {
+  }
+
+  .responsive-embed-wrapper {
+    height: 80vh;
+    max-height: 35.5rem;
+    margin: 0 auto;
+
+    @media (max-width: $bp-medium) {
+      height: 22.5rem;
+    }
+
+    .html-embed {
       display: block;
       position: relative;
       height: 0;
@@ -80,7 +80,7 @@
       }
     }
   }
-
+  
   .container {
     text-align: center;
   }
