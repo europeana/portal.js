@@ -79,7 +79,6 @@
     },
 
     watch: {
-      '$i18n.locale': '$fetch',
       $route(to, from) {
         this.$nextTick(() => {
           if (to.path === from.path) {

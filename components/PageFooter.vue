@@ -101,30 +101,25 @@
       LangSelector,
       LinkGroup
     },
-    async fetch() {
+
+    fetch() {
       const contentfulVariables = {
         locale: this.$i18n.isoLocale(),
         preview: this.$route.query.mode === 'preview'
       };
 
-      let data;
-      try {
-        const response = await this.$contentful.query('linkGroups', contentfulVariables);
-        data = response.data;
-      } catch (e) {
-        return;
-      }
-
-      for (const identifier in data.data) {
-        const linkGroup = data.data[identifier].items[0];
-        this[identifier] = {
-          name: linkGroup.name ? linkGroup.name : null,
-          links: linkGroup.links.items
-        };
-      }
+      return this.$contentful.query('linkGroups', contentfulVariables)
+        .then(response => {
+          for (const identifier in response.data.data) {
+            const linkGroup = response.data.data[identifier].items[0];
+            this[identifier] = {
+              name: linkGroup.name ? linkGroup.name : null,
+              links: linkGroup.links.items
+            };
+          }
+        })
+        .catch(() => null);
     },
-
-    fetchOnServer: false,
 
     data() {
       return {
@@ -154,6 +149,7 @@
         ]
       };
     },
+
     computed: {
       ...mapGetters({
         debugSettings: 'debug/settings'
@@ -162,6 +158,10 @@
       showDebugMenu() {
         return !!this.debugSettings.apiRequests;
       }
+    },
+
+    watch: {
+      '$i18n.locale': '$fetch'
     }
   };
 </script>
