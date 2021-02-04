@@ -6,12 +6,12 @@ export default {
     "linkLogout": "Uitloggen",
     "notifications": {
       "noCollections": {
-        "private": "U hebt nog geen openbare collecties gemaakt",
-        "public": "U hebt nog geen openbare collecties gemaakt"
+        "private": "U hebt nog geen privé galerijen gemaakt",
+        "public": "U hebt nog geen openbare galerijen gemaakt"
       },
       "noLikedItems": "Je hebt nog geen Items geliked"
     },
-    "privateCollections": "Privégalerijen",
+    "privateCollections": "Privé galerijen",
     "profile": "Mijn likes en galerijen",
     "publicCollections": "Openbare galerijen",
     "settings": "Instellingen",
@@ -465,7 +465,8 @@ export default {
       "about": "Over ons",
       "collections": "Collecties",
       "europeanaClassroom": "Leraren",
-      "help": "Help"
+      "help": "Help",
+      "home": "Home"
     },
     "searchFor": "Zoeken naar {query}",
     "searchForEverything": "Zoek op alles",
