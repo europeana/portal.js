@@ -13,6 +13,7 @@ export default {
     },
     "privateCollections": "Private Galleries",
     "profile": "My Likes & Galleries",
+    "myProfile": "My Profile",
     "publicCollections": "Public Galleries",
     "settings": "Settings",
     "title": "My account"
