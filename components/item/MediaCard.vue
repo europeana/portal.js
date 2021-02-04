@@ -48,7 +48,7 @@
     data-qa="IIIF viewer"
     allowfullscreen="true"
     class="iiif-iframe"
-    :src="$path({ name: 'iiif', query: { uri: iiifManifest, query: $nuxt.context.from ? $nuxt.context.from.query.query : '' } })"
+    :src="$path({ name: 'iiif', query: { uri: iiifManifest, query: $nuxt.context.from && $config.app.features.IIIFAcceptance ? $nuxt.context.from.query.query : '' } })"
     :aria-label="$t('actions.viewDocument')"
   />
 </template>
@@ -121,7 +121,11 @@
         return isIIIFPresentation(this.media);
       },
       iiifManifest() {
-        return iiifManifest(this.media, this.europeanaIdentifier);
+        if (this.$config.app.features.IIIFAcceptance) {
+          return `https://iiif-acceptance.eanadev.org/presentation${this.europeanaIdentifier}/manifest`;
+        } else {
+          return iiifManifest(this.media, this.europeanaIdentifier);
+        }
       },
       isOEmbed() {
         return isOEmbed(this.media);

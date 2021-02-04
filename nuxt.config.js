@@ -20,7 +20,8 @@ module.exports = {
       siteName: APP_SITE_NAME,
       features: {
         linksToClassic: featureIsEnabled(process.env.ENABLE_LINKS_TO_CLASSIC),
-        recommendations: featureIsEnabled(process.env.ENABLE_RECOMMENDATIONS)
+        recommendations: featureIsEnabled(process.env.ENABLE_RECOMMENDATIONS),
+        IIIFAcceptance: featureIsEnabled(process.env.USE_IIIF_ACCEPTANCE)
       }
     },
     auth: {
