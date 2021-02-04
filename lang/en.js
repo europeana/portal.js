@@ -340,7 +340,7 @@ export default {
     "MIME_TYPE": {
       "name": "File format | File formats",
       "options": {
-        "text/plain": "Plain text"
+        "text\/plain": "Plain text"
       }
     },
     "PROVIDER": {
@@ -522,11 +522,11 @@ export default {
   "pageHasLoaded": "has loaded",
   "pages": {
     "collections": {
-      "topics": {
-        "title": "Topics"
-      },
       "times": {
         "title": "Times"
+      },
+      "topics": {
+        "title": "Topics"
       }
     }
   },

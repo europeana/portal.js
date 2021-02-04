@@ -335,7 +335,7 @@ export default {
     "MIME_TYPE": {
       "name": "Format tal-fajl | Formati tal-fajl",
       "options": {
-        "text/plain": "Test bla format"
+        "text\/plain": "Test bla format"
       }
     },
     "PROVIDER": {
