@@ -23,57 +23,27 @@
     </li>
     <!-- sso links -->
     <template>
-      <li
-        v-if="isAuthenticated"
-        class="nav-item d-none d-lg-inline-block"
-        :class="sidebarNav ? 'sidebar-nav-item' : ''"
-      >
-        <SmartLink
-          class="nav-link"
-          :class="isAccountPage && 'exact-active-link'"
-          data-qa="likes and galleries button"
-          v-b-toggle.menu
-          destination="/account"
-          exact
-        >
-          <span class="label">{{ $t('account.myProfile') }}</span>
-        </SmartLink>
-      </li>
-      <li
-        v-if="isAuthenticated && sidebarNav"
-        class="nav-item d-none d-lg-inline-block sidebar-nav-item"
-      >
-        <SmartLink
-          class="nav-link"
-          :class="isAccountPage && 'exact-active-link'"
-          data-qa="account settings button"
-          v-b-toggle.menu
-          :destination="keycloakAccountUrl"
-          exact
-        >
-          <span class="label">{{ $t('account.settings') }}</span>
-        </SmartLink>
-      </li>
-      <li
-        v-if="isAuthenticated && sidebarNav"
-        class="nav-item d-none d-lg-inline-block sidebar-nav-item"
-      >
-        <SmartLink
-          class="nav-link"
-          :class="isAccountPage && 'exact-active-link'"
-          data-qa="log out button"
-          v-b-toggle.menu
-          destination="account-logout"
-          exact
-        >
-          <span class="label">{{ $t('account.linkLogout') }}</span>
-        </SmartLink>
-      </li>
       <template v-if="isAuthenticated">
+        <li
+          v-if="!sidebarNav"
+          class="nav-item d-none d-lg-inline-block"
+        >
+          <SmartLink
+            v-b-toggle.menu
+            :destination="'/account'"
+            link-class="nav-link"
+            exact
+          >
+            <span class="label">
+              {{ $t('account.myProfile') }}
+            </span>
+          </SmartLink>
+        </li>
         <li
           v-for="item in authLinks"
           :key="item.name"
-          class="nav-item d-block d-lg-none"
+          class="nav-item d-block"
+          :class="sidebarNav ? 'sidebar-nav-item' : 'd-lg-none'"
         >
           <b-link
             v-if="!item.divider"
@@ -103,7 +73,7 @@
         >
           <span>
             <i :class="renderIcon('/account/login')" />
-            {{ $t('account.linkLogin') }}
+            {{ $t('account.linkLoginJoin') }}
           </span>
         </b-link>
       </li>
@@ -129,10 +99,18 @@
       }
     },
     data() {
+      const keycloakAccountUrl = `${this.$auth.strategy.options.origin}/auth/realms/${this.$auth.strategy.options.realm}/account?referrer=${this.$auth.strategy.options.client_id}`;
+
       return {
-        keycloakAccountUrl: `${this.$auth.strategy.options.origin}/auth/realms/${this.$auth.strategy.options.realm}/account?referrer=${this.$auth.strategy.options.client_id}`
+        authLinks: [
+          { to: this.$path({ name: 'account' }), text: this.$t('account.myProfile'), name: '/account', dataQa: 'likes and galleries button' },
+          { href: keycloakAccountUrl, text: this.$t('account.settings'), name: '/account/settings', dataQa: 'account settings button' },
+          { divider: true, name: 'divider' },
+          { to: { name: 'account-logout' }, text: this.$t('account.linkLogout'), name: '/account/logout', dataQa: 'log out button' }
+        ]
       };
     },
+
     computed: {
       isAuthenticated() {
         return this.$store.state.auth.loggedIn;

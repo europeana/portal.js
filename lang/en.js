@@ -3,6 +3,7 @@ export default {
     "likes": "Likes",
     "linkAccount": "My Account",
     "linkLogin": "Login",
+    "linkLoginJoin": "Login/Join",
     "linkLogout": "Log out",
     "notifications": {
       "noCollections": {
