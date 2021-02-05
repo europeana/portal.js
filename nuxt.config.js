@@ -350,6 +350,10 @@ module.exports = {
   ** Render configuration
    */
   render: {
+    // Disable compression: leave it to a gateway/reverse proxy like NGINX or
+    // Cloudflare.
+    compressor: false,
+
     static: {
       maxAge: '1d'
     }
