@@ -95,7 +95,7 @@
           </div>
           <PageNavigationB
             :links="sidebarNavigation"
-            sidebarNav
+            sidebar-nav
           />
         </b-navbar>
       </transition>
