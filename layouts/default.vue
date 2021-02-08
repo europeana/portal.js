@@ -19,6 +19,11 @@
       {{ $t('layout.skipToMain') }}
     </a>
     <PageHeader
+      v-if="$exp.$variantIndexes[0] === 0"
+      keep-alive
+    />
+    <PageHeaderB
+      v-if="$exp.$variantIndexes[0] === 1"
       keep-alive
     />
     <main
@@ -45,6 +50,7 @@
 
   import ClientOnly from 'vue-client-only';
   import PageHeader from '../components/PageHeader';
+  import PageHeaderB from '../components/PageHeaderB';
 
   const config = {
     bootstrapVersion: require('bootstrap/package.json').version,
@@ -56,6 +62,7 @@
       ClientOnly,
       CookieDisclaimer: () => import('../components/generic/CookieDisclaimer'),
       PageHeader,
+      PageHeaderB,
       PageFooter: () => import('../components/PageFooter')
     },
 
