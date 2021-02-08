@@ -18,12 +18,12 @@
     >
       {{ $t('layout.skipToMain') }}
     </a>
-    <PageHeader
-      v-if="$exp.$variantIndexes[0] === 0"
-      keep-alive
-    />
     <PageHeaderB
       v-if="$exp.$variantIndexes[0] === 1"
+      keep-alive
+    />
+    <PageHeader
+      v-else
       keep-alive
     />
     <main
