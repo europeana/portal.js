@@ -2,7 +2,7 @@
   "metadata": {
     "name": "Europeana",
     "lastOpened": 0,
-    "created": 1611231637647
+    "created": 1612771522074
   },
   "iconSets": [
     {
@@ -142,12 +142,20 @@
     {
       "selection": [
         {
+          "order": 58,
+          "id": 15,
+          "name": "account_circle",
+          "prevSize": 24,
+          "code": 59698,
+          "tempChar": ""
+        },
+        {
           "order": 1,
           "id": 14,
           "prevSize": 24,
           "name": "check_circle",
           "code": 59695,
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "order": 1,
@@ -155,7 +163,7 @@
           "name": "https, lock",
           "prevSize": 24,
           "code": 59693,
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "order": 1,
@@ -163,7 +171,7 @@
           "name": "face",
           "prevSize": 24,
           "code": 59694,
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "order": 53,
@@ -171,7 +179,7 @@
           "name": "ic-login",
           "prevSize": 24,
           "code": 59686,
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "order": 1,
@@ -179,7 +187,7 @@
           "name": "logout",
           "prevSize": 24,
           "code": 59687,
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "order": 1,
@@ -187,7 +195,7 @@
           "name": "settings",
           "prevSize": 24,
           "code": 59688,
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "order": 1,
@@ -195,7 +203,7 @@
           "name": "favorite",
           "prevSize": 24,
           "code": 59692,
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "order": 45,
@@ -203,7 +211,7 @@
           "name": "ic-add",
           "prevSize": 24,
           "code": 59683,
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "order": 42,
@@ -211,7 +219,7 @@
           "name": "ic-help",
           "prevSize": 24,
           "code": 59681,
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "order": 0,
@@ -224,7 +232,7 @@
           "name": "ic-home",
           "prevSize": 24,
           "code": 59682,
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "order": 39,
@@ -232,7 +240,7 @@
           "name": "split",
           "prevSize": 24,
           "code": 59680,
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "order": 37,
@@ -240,7 +248,7 @@
           "prevSize": 24,
           "code": 59677,
           "name": "collections",
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "order": 1,
@@ -248,7 +256,7 @@
           "name": "school",
           "prevSize": 24,
           "code": 59678,
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "order": 1,
@@ -256,18 +264,18 @@
           "prevSize": 24,
           "code": 59679,
           "name": "info",
-          "tempChar": ""
+          "tempChar": ""
         }
       ],
       "id": 10,
       "metadata": {
         "name": "Material Icons (subset)",
-        "licenseURL": "http://www.apache.org/licenses/LICENSE-2.0.txt",
-        "license": "Apache License Version 2.0",
+        "url": "https://material.io/resources/icons",
         "designer": "Google",
-        "designerURL": "https://www.google.com/design",
-        "url": "https://material.io/tools/icons/",
-        "iconsHash": 1482365392,
+        "designerURL": "https://design.google",
+        "licenseURL": "https://www.apache.org/licenses/LICENSE-2.0.txt",
+        "license": "Apache License Version 2.0",
+        "iconsHash": 2049387245,
         "importSize": {
           "width": 24,
           "height": 24
@@ -276,6 +284,26 @@
       "height": 1024,
       "prevSize": 24,
       "icons": [
+        {
+          "id": 15,
+          "paths": [
+            "M512 820q68 0 143-40t113-98q-2-56-90-94t-166-38-166 37-90 95q38 58 113 98t143 40zM512 214q-52 0-90 38t-38 90 38 90 90 38 90-38 38-90-38-90-90-38zM512 86q176 0 301 125t125 301-125 301-301 125-301-125-125-301 125-301 301-125z"
+          ],
+          "attrs": [
+            {}
+          ],
+          "isMulticolor": false,
+          "isMulticolor2": false,
+          "tags": [
+            "account_circle"
+          ],
+          "grid": 24,
+          "colorPermutations": {
+            "10114204125525525517777771": [
+              {}
+            ]
+          }
+        },
         {
           "id": 14,
           "paths": [
@@ -1093,7 +1121,7 @@
           "prevSize": 20,
           "code": 59657,
           "name": "instagram",
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "order": 0,
@@ -1109,7 +1137,7 @@
           "prevSize": 20,
           "code": 59656,
           "name": "pinterest",
-          "tempChar": ""
+          "tempChar": ""
         }
       ],
       "id": 6,
@@ -1185,7 +1213,7 @@
           "prevSize": 32,
           "name": "search",
           "code": 59691,
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "order": 1,
@@ -1193,7 +1221,7 @@
           "prevSize": 32,
           "code": 59654,
           "name": "minus",
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "order": 1,
@@ -1201,7 +1229,7 @@
           "name": "plus, add, sum",
           "prevSize": 32,
           "code": 59655,
-          "tempChar": ""
+          "tempChar": ""
         }
       ],
       "id": 5,
@@ -1286,7 +1314,7 @@
           "prevSize": 20,
           "code": 59652,
           "name": "close",
-          "tempChar": ""
+          "tempChar": ""
         }
       ],
       "id": 4,
@@ -1332,7 +1360,7 @@
           "prevSize": 32,
           "code": 59650,
           "name": "twitter",
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "order": 1,
@@ -1340,7 +1368,7 @@
           "name": "facebook",
           "prevSize": 32,
           "code": 59649,
-          "tempChar": ""
+          "tempChar": ""
         }
       ],
       "id": 3,
@@ -1406,7 +1434,7 @@
           "prevSize": 28,
           "code": 59676,
           "name": "chevron-right",
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "order": 1,
@@ -1414,7 +1442,7 @@
           "name": "chevron-left",
           "prevSize": 28,
           "code": 59675,
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "order": 1,
@@ -1422,7 +1450,7 @@
           "prevSize": 28,
           "code": 59674,
           "name": "copyright",
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "order": 1,
@@ -1430,7 +1458,7 @@
           "prevSize": 28,
           "code": 59653,
           "name": "language",
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "order": 1,
@@ -1438,7 +1466,7 @@
           "prevSize": 28,
           "code": 59651,
           "name": "caret-down",
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "order": 1,
@@ -1446,7 +1474,7 @@
           "prevSize": 28,
           "code": 59648,
           "name": "external-link",
-          "tempChar": ""
+          "tempChar": ""
         }
       ],
       "id": 2,
@@ -2881,7 +2909,7 @@
           "id": 219,
           "prevSize": 32,
           "code": 59866,
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "ligatures": "heart-broken, heart2",
@@ -3190,7 +3218,7 @@
           "id": 270,
           "prevSize": 32,
           "code": 59917,
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "ligatures": "blocked, forbidden",
@@ -3499,7 +3527,7 @@
           "id": 321,
           "prevSize": 32,
           "code": 59968,
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "ligatures": "circle-up, up3",
@@ -12057,7 +12085,7 @@
     "showCodes": true,
     "gridSize": 16,
     "quickUsageToken": {
-      "Europeana21": "OTFkM2I3NDYzNGYzNTFlZmNmZjUzZDYyMmQ0MDZhNGYjMSMxNjExMjMxNjYzIyMj"
+      "Europeana": "YTg2NGM1NWUyNjg0ZmIzNDE3YjYyODE1NzQ4NDM5OWEjMSMxNjEyNzcxNjczIyMj"
     }
   },
   "uid": -1
