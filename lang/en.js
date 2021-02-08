@@ -12,7 +12,7 @@ export default {
       "noLikedItems": "You haven’t liked any items yet"
     },
     "privateCollections": "Private Galleries",
-    "profile": "My Likes & Galleries",
+    "profile": "My Profile",
     "publicCollections": "Public Galleries",
     "settings": "Settings",
     "title": "My account"
