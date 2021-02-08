@@ -24,6 +24,9 @@ const factory = () => shallowMount(layout, {
     $t: key => key,
     $announcer: {
       setComplementRoute: () => {}
+    },
+    $exp: {
+      $variantIndexes: [0]
     }
   },
   stubs: {
