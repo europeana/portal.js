@@ -104,7 +104,7 @@
       return {
         authLinks: [
           { to: this.$path({ name: 'account' }), text: this.$t('account.myProfile'), name: '/account', dataQa: 'likes and galleries button' },
-          { href: keycloakAccountUrl, text: this.$t('account.settings'), name: '/account/settings', dataQa: 'account settings button' },
+          { href: keycloakAccountUrl, text: this.$t('account.profileSettings'), name: '/account/settings', dataQa: 'account settings button' },
           { divider: true, name: 'divider' },
           { to: { name: 'account-logout' }, text: this.$t('account.linkLogout'), name: '/account/logout', dataQa: 'log out button' }
         ]
@@ -142,7 +142,7 @@
           className = 'icon-help';
           break;
         case ('/account'):
-          className = 'icon-favorite';
+          className = 'icon-account';
           break;
         case ('/account/login'):
           className = 'icon-login';
@@ -245,8 +245,8 @@
           &.icon-settings:before {
             content: '\e928';
           }
-          &.icon-favorite:before {
-            content: '\e92c';
+          &.icon-account:before {
+            content: '\e932';
           }
           &.blank:before {
             color: transparent;
