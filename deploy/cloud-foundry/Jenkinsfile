@@ -2,97 +2,91 @@ pipeline {
   options {
     disableConcurrentBuilds()
   }
-  agent {
-    dockerfile {
-      dir 'deploy/cloud-foundry'
-      args '-u node:node -v ${HOME}/.ssh:/home/node/.ssh' // Single quotes to skip jenkins escaping.
-    }
-  }
+  agent none
   environment {
-    CF_HOME='/home/node' // Revert override from Jenkins global env
-    CF_API="${env.CF_API_V3}"
-    CF_LOGIN=credentials('portaljs.cloudfoundry.login')
-    CF_LOG_DRAINER_SERVICE="${env.CF_LOG_DRAINER_SERVICE_NAME}"
-    CF_ORG="${env.CF_ORG}"
-    CF_SPACE="${env.BRANCH_NAME ==~ /\Av\d+\.\d+\.\d+\z/ ? 'production' : 'test'}"
-    CF_APP_NAME="portaljs${env.CF_SPACE == 'production' ? '' : '-' + env.CF_SPACE}"
     ELK_REGISTRATION_COMMAND="${env.ELK_SERVICE_REGISTRATION_COMMAND}"
-    CHROMEDRIVER_SKIP_DOWNLOAD='true'
-    GECKODRIVER_SKIP_DOWNLOAD='true'
-    PUPPETEER_SKIP_CHROMIUM_DOWNLOAD='true'
   }
   stages {
     stage('Build') {
-      steps {
-        configFileProvider([
-          configFile(fileId: "portaljs.${env.CF_SPACE}.vars.yml", targetLocation: 'deploy/cloud-foundry/vars.yml'),
-        ]) {
-          sh 'rm -rf node_modules'
-          sh 'npm install'
-          sh 'npm run build'
+      agent {
+        docker {
+          image 'node:12-alpine'
+          args '-u node:node'
         }
       }
-    }
-    stage('Login to CF') {
+      environment {
+        CHROMEDRIVER_SKIP_DOWNLOAD='true'
+        GECKODRIVER_SKIP_DOWNLOAD='true'
+        PUPPETEER_SKIP_CHROMIUM_DOWNLOAD='true'
+      }
       steps {
-        sh 'cf --version'
-        sh 'cf login -a ${CF_API} -u ${CF_LOGIN_USR} -p "${CF_LOGIN_PSW}" -o ${CF_ORG} -s ${CF_SPACE}'
-        sh 'cf target'
+        sh 'rm -rf node_modules'
+        sh 'npm install'
+        sh 'npm run build'
+        sh 'ls -al'
       }
     }
     stage('Deploy to CF') {
+      agent {
+        docker {
+          image 'europeana/cf-blue-green-deploy:main'
+          //  -v ${HOME}/.ssh:/home/node/.ssh
+          args '-u root:root'
+        }
+      }
       environment {
-        CTF_CPA_ACCESS_TOKEN=credentials("portaljs.${env.CF_SPACE}.contentful.cpa")
+        CF_HOME='/root' // Revert override from Jenkins global env
+        CF_API="${env.CF_API_V3}"
+        CF_LOGIN=credentials('portaljs.cloudfoundry.login')
+        CF_LOG_DRAINER_SERVICE="${env.CF_LOG_DRAINER_SERVICE_NAME}"
+        CF_ORG="${env.CF_ORG}"
+        CF_SPACE="${env.BRANCH_NAME ==~ /\Av\d+\.\d+\.\d+\z/ ? 'production' : (env.BRANCH_NAME == 'master' ? 'test' : 'dev')}"
+        CF_APP_NAME="portaljs${env.CF_SPACE == 'production' ? '' : '-' + env.CF_SPACE}"
+        CF_USERNAME="${env.CF_LOGIN_USR}"
+        CF_PASSWORD="${env.CF_LOGIN_PSW}"
       }
-      steps {
-        sh 'cf push ${CF_APP_NAME} -f ./deploy/cloud-foundry/manifest.yml --vars-file deploy/cloud-foundry/vars.yml'
-      }
-    }
-    stage('Attach autoscaling policy on CF') {
       steps {
         configFileProvider([
-          configFile(fileId: "portaljs.${env.CF_SPACE}.autoscaling-policy.json", targetLocation: './deploy/cloud-foundry/autoscaling-policy.json'),
+          configFile(fileId: "portaljs.${env.CF_SPACE}.vars.yml", targetLocation: 'deploy/cloud-foundry/vars.yml'),
+          configFile(fileId: "portaljs.${env.CF_SPACE}.routes", variable: 'CF_ROUTES')
         ]) {
-          sh 'cf attach-autoscaling-policy ${CF_APP_NAME} ./deploy/cloud-foundry/autoscaling-policy.json'
+          sh 'ls -al'
+          sh 'env'
+          // sh '/docker-entrypoint -f deploy/cloud-foundry/manifest.yml --vars-file deploy/cloud-foundry/vars.yml'
         }
       }
     }
-    stage('Register with ELK') {
-      when {
-        not {
-          environment name: 'ELK_REGISTRATION_COMMAND', value: 'null'
-        }
-      }
-      environment {
-          CF_APP_GUID="${sh(script:'cf app ${CF_APP_NAME} --guid | head -1', returnStdout: true).trim()}"
-      }
-      steps {
-        sh '${ELK_REGISTRATION_COMMAND} ${CF_APP_NAME} ${CF_APP_GUID}'
-        sh 'if [ $? -eq 0 ]; then echo "Log drainer registration OK"; else echo "ELK registration failed!"; exit 1; fi'
-      }
-    }
-    stage('Deploy Storybook') {
-      when {
-        environment name: 'CF_SPACE', value: 'test'
-      }
-      steps {
-        sh 'npm run build-storybook'
-        sh 'cd storybook-static && cf push portaljs-storybook -f ../deploy/cloud-foundry/storybook.manifest.yml'
-      }
-    }
-// WIP: the 'deploy' docker image doesn't have docker compose available.
-//     stage('Upload Screenshots to Percy') {
-//       when {
-//         environment name: 'CF_SPACE', value: 'test'
-//       }
-//       environment {
-//         PERCY_TOKEN=credentials("portaljs.${env.CF_SPACE}.percy_token")
-//       }
-//       steps {
-//         sh 'NODE_ENV=test npm run stack:up:detach'
-//         sh 'npm run test:percy'
-//         sh 'npm run stack:down;'
-//       }
-//     }
+    // stage('Attach autoscaling policy on CF') {
+    //   steps {
+    //     configFileProvider([
+    //       configFile(fileId: "portaljs.${env.CF_SPACE}.autoscaling-policy.json", targetLocation: './deploy/cloud-foundry/autoscaling-policy.json'),
+    //     ]) {
+    //       sh 'cf attach-autoscaling-policy ${CF_APP_NAME} ./deploy/cloud-foundry/autoscaling-policy.json'
+    //     }
+    //   }
+    // }
+    // stage('Register with ELK') {
+    //   when {
+    //     not {
+    //       environment name: 'ELK_REGISTRATION_COMMAND', value: 'null'
+    //     }
+    //   }
+    //   environment {
+    //     CF_APP_GUID="${sh(script:'cf app ${CF_APP_NAME} --guid | head -1', returnStdout: true).trim()}"
+    //   }
+    //   steps {
+    //     sh '${ELK_REGISTRATION_COMMAND} ${CF_APP_NAME} ${CF_APP_GUID}'
+    //     sh 'if [ $? -eq 0 ]; then echo "Log drainer registration OK"; else echo "ELK registration failed!"; exit 1; fi'
+    //   }
+    // }
+    // stage('Deploy Storybook') {
+    //   when {
+    //     environment name: 'CF_SPACE', value: 'test'
+    //   }
+    //   steps {
+    //     sh 'npm run build-storybook'
+    //     sh 'cd storybook-static && cf push portaljs-storybook -f ../deploy/cloud-foundry/storybook.manifest.yml'
+    //   }
+    // }
   }
 }
