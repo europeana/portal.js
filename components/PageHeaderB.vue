@@ -26,30 +26,28 @@
     <template
       v-else
     >
-      <div class="d-inline-flex">
-        <b-button
-          variant="light"
-          class="navbar-toggle collapsed flex-column align-items-center justify-content-center align-self-center ml-3"
-          :aria-label="$t('header.showSidebar')"
-          data-qa="hamburger button"
-          @click="showSidebar = !showSidebar"
+      <b-button
+        variant="light"
+        class="navbar-toggle collapsed flex-column align-items-center justify-content-center align-self-center ml-3"
+        :aria-label="$t('header.showSidebar')"
+        data-qa="hamburger button"
+        @click="showSidebar = !showSidebar"
+      >
+        <span />
+        <span />
+        <span />
+      </b-button>
+      <SmartLink
+        :destination="{ name: 'index' }"
+        class="logo pl-4 d-inline-flex"
+      >
+        <img
+          src="../assets/img/logo.svg"
+          :alt="$t('homeLinkAlt')"
+          class="mw-100"
+          data-qa="logo"
         >
-          <span />
-          <span />
-          <span />
-        </b-button>
-        <SmartLink
-          :destination="{ name: 'index' }"
-          class="logo pl-3 d-inline-flex"
-        >
-          <img
-            src="../assets/img/logo.svg"
-            :alt="$t('homeLinkAlt')"
-            class="mw-100"
-            data-qa="logo"
-          >
-        </SmartLink>
-      </div>
+      </SmartLink>
       <b-navbar
         class="align-items-center flex-row d-flex p-0 mr-3"
         role="navigation"
@@ -70,11 +68,11 @@
       <transition name="slide">
         <b-navbar
           v-if="showSidebar"
-          class="mobile-nav align-items-start flex-column flex-row pt-1"
+          class="sidebar-nav align-items-start flex-column flex-row pt-1"
           role="navigation"
           data-qa="mobile navigation"
         >
-          <div class="navhead w-100 d-flex align-items-center pl-2 pt-2 pb-3">
+          <div class="w-100 d-flex align-items-center pl-2 pt-2 pb-3">
             <b-button
               data-qa="close menu button"
               class="close"
@@ -206,8 +204,6 @@
 
     .logo {
       min-width: 9.5625rem;
-      /* padding-bottom: 0.75rem; */
-      /* padding-top: 0.75rem; */
       transition: 0.3s ease-in-out;
       img {
         width: 9.5625rem;
@@ -215,15 +211,16 @@
     }
   }
 
-  .navbar.mobile-nav {
+  .navbar.sidebar-nav {
     height: 100vh;
     position: fixed;
     top: 0;
     left: 0;
     background: $white;
-    z-index: 99;
+    z-index: 200;
     width: 16rem;
     padding: 0 0.5rem 1rem;
+    transition: $standard-transition; // for header appear/disappear
     .navbar-nav {
       flex-direction: column;
       width: 100%;
@@ -285,7 +282,6 @@
     }
   }
 
-  /* @media (max-width: $bp-large) { */
   .close-menu {
     position: fixed;
     right: 0;
@@ -294,9 +290,10 @@
     width: 100%;
     border-radius: 0;
     outline: none;
-    transition: 0.5s;
     background-color: rgba(0, 0, 0, 0.7);
     cursor: pointer;
+    z-index: 100;
+    transition: $standard-transition; // for header appear/disappear
   }
   .navbar-toggle {
     display: flex;
@@ -321,7 +318,12 @@
       }
     }
   }
-  /* } */
+
+  @media (min-width: $bp-medium) {
+    .logo {
+      margin: 0 auto 0 0;
+    }
+  }
 
   @media (min-width: $bp-large) {
     .navbar {
@@ -338,16 +340,14 @@
         width: 100%;
       }
     }
-    .navbar-brand {
-      flex: 3;
-    }
-    @media (max-width: $bp-large) {
-      .navbar-brand {
-        justify-content: center;
-      }
-    }
     .container-fluid {
       transition: $standard-transition;
+      &:not(.show) {
+        .sidebar-nav, .close-menu {
+          top: 100%;
+          transition: $standard-transition;
+        }
+      }
     }
   }
   @media (min-width: $bp-extralarge) {

@@ -306,39 +306,4 @@
     }
   }
 
-  ::v-deep .dropdown {
-    &.nav-link {
-      padding: 1px 0;
-
-      button:hover {
-        box-shadow: none;
-        span {
-          color: $innovationblue;
-        }
-      }
-    }
-    .label {
-      color: $mediumgrey;
-      font-size: $font-size-small;
-      font-weight: 600;
-      text-decoration: none;
-      text-transform: uppercase;
-    }
-    &-divider {
-      margin: 0;
-    }
-    &-menu {
-      margin-top: 0.65rem;
-      border-radius: 0.25rem;
-      box-shadow: $boxshadow-light;
-      border: solid 1px $paper;
-      li a {
-        padding: 0.85rem 1rem;
-        transition: $standard-transition;
-        &:hover {
-          background-color: $offwhite;
-        }
-      }
-    }
-  }
 </style>

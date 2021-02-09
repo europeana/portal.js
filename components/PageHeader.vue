@@ -72,11 +72,10 @@
           role="navigation"
           data-qa="mobile navigation"
         >
-          <div class="navhead w-100 d-flex align-items-center pl-2">
+          <div class="w-100 d-flex align-items-center pl-2">
             <b-button
               data-qa="close menu button"
               class="close"
-              variant="light"
               @click="showSidebar = !showSidebar"
             />
             <SmartLink
@@ -341,11 +340,6 @@
     }
     .navbar-toggle {
       display: none;
-    }
-    @media (max-width: $bp-large) {
-      .navbar-brand {
-        justify-content: center;
-      }
     }
     .container-fluid {
       transition: $standard-transition;
