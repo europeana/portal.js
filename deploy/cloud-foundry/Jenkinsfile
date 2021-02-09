@@ -18,31 +18,31 @@ pipeline {
         GECKODRIVER_SKIP_DOWNLOAD='true'
         PUPPETEER_SKIP_CHROMIUM_DOWNLOAD='true'
       }
-      steps {
-        sh 'rm -rf node_modules'
-        sh 'npm install'
-        sh 'npm run build'
-        sh 'ls -al'
-      }
-    }
-
-    stage('Deploy to CF') {
       configFileProvider([
         configFile(fileId: "portaljs.${env.CF_SPACE}.vars.yml", targetLocation: 'deploy/cloud-foundry/vars.yml'),
         configFile(fileId: "portaljs.${env.CF_SPACE}.routes", targetLocation: 'deploy/cloud-foundry/routes')
       ]) {
-        environment {
-          CF_HOME='/root' // Revert override from Jenkins global env
-          CF_API="${env.CF_API_V3}"
-          CF_LOGIN=credentials('portaljs.cloudfoundry.login')
-          CF_LOG_DRAINER_SERVICE="${env.CF_LOG_DRAINER_SERVICE_NAME}"
-          CF_ORG="${env.CF_ORG}"
-          CF_SPACE="${env.BRANCH_NAME ==~ /\Av\d+\.\d+\.\d+\z/ ? 'production' : (env.BRANCH_NAME == 'master' ? 'test' : 'dev')}"
-          CF_APP_NAME="portaljs${env.CF_SPACE == 'production' ? '' : '-' + env.CF_SPACE}"
-          CF_USERNAME="${env.CF_LOGIN_USR}"
-          CF_PASSWORD="${env.CF_LOGIN_PSW}"
-          CF_ROUTES="${sh(script:'cat deploy/cloud-foundry/routes', returnStdout: true).trim()}"
+        steps {
+          sh 'rm -rf node_modules'
+          sh 'npm install'
+          sh 'npm run build'
+          sh 'ls -al'
         }
+      }
+    }
+
+    stage('Deploy to CF') {
+      environment {
+        CF_HOME='/root' // Revert override from Jenkins global env
+        CF_API="${env.CF_API_V3}"
+        CF_LOGIN=credentials('portaljs.cloudfoundry.login')
+        CF_LOG_DRAINER_SERVICE="${env.CF_LOG_DRAINER_SERVICE_NAME}"
+        CF_ORG="${env.CF_ORG}"
+        CF_SPACE="${env.BRANCH_NAME ==~ /\Av\d+\.\d+\.\d+\z/ ? 'production' : (env.BRANCH_NAME == 'master' ? 'test' : 'dev')}"
+        CF_APP_NAME="portaljs${env.CF_SPACE == 'production' ? '' : '-' + env.CF_SPACE}"
+        CF_USERNAME="${env.CF_LOGIN_USR}"
+        CF_PASSWORD="${env.CF_LOGIN_PSW}"
+        CF_ROUTES="${sh(script:'cat deploy/cloud-foundry/routes', returnStdout: true).trim()}"
       }
       steps {
         sh 'ls -al'
