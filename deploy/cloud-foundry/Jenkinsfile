@@ -52,7 +52,7 @@ pipeline {
         ]) {
           sh 'ls -al'
           sh 'env'
-          // sh '/docker-entrypoint -f deploy/cloud-foundry/manifest.yml --vars-file deploy/cloud-foundry/vars.yml'
+          // sh '/docker-entrypoint deploy -f deploy/cloud-foundry/manifest.yml --vars-file deploy/cloud-foundry/vars.yml'
         }
       }
     }
