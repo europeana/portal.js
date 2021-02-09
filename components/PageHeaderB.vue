@@ -220,7 +220,7 @@
     z-index: 200;
     width: 16rem;
     padding: 0 0.5rem 1rem;
-    transition: $standard-transition; // for header appear/disappear
+    transition: $standard-transition; // fixes header appear/disappear
     .navbar-nav {
       flex-direction: column;
       width: 100%;
@@ -293,7 +293,7 @@
     background-color: rgba(0, 0, 0, 0.7);
     cursor: pointer;
     z-index: 100;
-    transition: $standard-transition; // for header appear/disappear
+    transition: $standard-transition; // fixes header appear/disappear
   }
   .navbar-toggle {
     display: flex;
@@ -344,7 +344,7 @@
       transition: $standard-transition;
       &:not(.show) {
         .sidebar-nav, .close-menu {
-          top: 100%;
+          transform: translateY(3.5rem); // fixes header appear/disappear
           transition: $standard-transition;
         }
       }
