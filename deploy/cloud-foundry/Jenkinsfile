@@ -32,6 +32,7 @@ pipeline {
           image 'europeana/cf-blue-green-deploy:main'
           //  -v ${HOME}/.ssh:/home/node/.ssh
           args '-u root:root'
+          alwaysPull true
         }
       }
       environment {
