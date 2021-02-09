@@ -26,6 +26,14 @@ pipeline {
       }
     }
 
+    stage('CF config') {
+      configFileProvider([
+        configFile(fileId: "portaljs.${env.CF_SPACE}.vars.yml", targetLocation: 'deploy/cloud-foundry/vars.yml'),
+        configFile(fileId: "portaljs.${env.CF_SPACE}.routes", targetLocation: 'deploy/cloud-foundry/routes')
+      ]) {
+      }
+    }
+
     stage('Deploy to CF') {
       environment {
         CF_HOME='/root' // Revert override from Jenkins global env
@@ -37,17 +45,12 @@ pipeline {
         CF_APP_NAME="portaljs${env.CF_SPACE == 'production' ? '' : '-' + env.CF_SPACE}"
         CF_USERNAME="${env.CF_LOGIN_USR}"
         CF_PASSWORD="${env.CF_LOGIN_PSW}"
+        CF_ROUTES="${sh(script:'cat deploy/cloud-foundry/routes', returnStdout: true).trim()}"
       }
       steps {
-        configFileProvider([
-          configFile(fileId: "portaljs.${env.CF_SPACE}.vars.yml", targetLocation: 'deploy/cloud-foundry/vars.yml'),
-          configFile(fileId: "portaljs.${env.CF_SPACE}.routes", targetLocation: 'deploy/cloud-foundry/routes')
-        ]) {
-          sh 'export CF_ROUTES=$(cat deploy/cloud-foundry/routes)'
-          sh 'ls -al'
-          sh 'env'
-          // sh '/docker-entrypoint deploy -f deploy/cloud-foundry/manifest.yml --vars-file deploy/cloud-foundry/vars.yml'
-        }
+        sh 'ls -al'
+        sh 'env'
+        // sh '/docker-entrypoint deploy -f deploy/cloud-foundry/manifest.yml --vars-file deploy/cloud-foundry/vars.yml'
       }
     }
     // stage('Attach autoscaling policy on CF') {
