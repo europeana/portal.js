@@ -2,18 +2,17 @@ pipeline {
   options {
     disableConcurrentBuilds()
   }
-  agent none
+  agent {
+    dockerfile {
+      dir 'deploy/cloud-foundry'
+      args '-u root:root'
+    }
+  }
   environment {
     ELK_REGISTRATION_COMMAND="${env.ELK_SERVICE_REGISTRATION_COMMAND}"
   }
   stages {
     stage('Build') {
-      agent {
-        docker {
-          image 'node:12-alpine'
-          args '-u node:node'
-        }
-      }
       environment {
         CHROMEDRIVER_SKIP_DOWNLOAD='true'
         GECKODRIVER_SKIP_DOWNLOAD='true'
@@ -26,15 +25,8 @@ pipeline {
         sh 'ls -al'
       }
     }
+
     stage('Deploy to CF') {
-      agent {
-        docker {
-          image 'europeana/cf-blue-green-deploy:main'
-          //  -v ${HOME}/.ssh:/home/node/.ssh
-          args '-u root:root'
-          alwaysPull true
-        }
-      }
       environment {
         CF_HOME='/root' // Revert override from Jenkins global env
         CF_API="${env.CF_API_V3}"
@@ -49,8 +41,9 @@ pipeline {
       steps {
         configFileProvider([
           configFile(fileId: "portaljs.${env.CF_SPACE}.vars.yml", targetLocation: 'deploy/cloud-foundry/vars.yml'),
-          configFile(fileId: "portaljs.${env.CF_SPACE}.routes", variable: 'CF_ROUTES')
+          configFile(fileId: "portaljs.${env.CF_SPACE}.routes", targetLocation: 'deploy/cloud-foundry/routes')
         ]) {
+          sh 'export CF_ROUTES=$(cat deploy/cloud-foundry/routes)'
           sh 'ls -al'
           sh 'env'
           // sh '/docker-entrypoint deploy -f deploy/cloud-foundry/manifest.yml --vars-file deploy/cloud-foundry/vars.yml'
