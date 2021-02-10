@@ -18,11 +18,11 @@ pipeline {
         GECKODRIVER_SKIP_DOWNLOAD='true'
         PUPPETEER_SKIP_CHROMIUM_DOWNLOAD='true'
       }
-      configFileProvider([
-        configFile(fileId: "portaljs.${env.CF_SPACE}.vars.yml", targetLocation: 'deploy/cloud-foundry/vars.yml'),
-        configFile(fileId: "portaljs.${env.CF_SPACE}.routes", targetLocation: 'deploy/cloud-foundry/routes')
-      ]) {
-        steps {
+      steps {
+        configFileProvider([
+          configFile(fileId: "portaljs.${env.CF_SPACE}.vars.yml", targetLocation: 'deploy/cloud-foundry/vars.yml'),
+          configFile(fileId: "portaljs.${env.CF_SPACE}.routes", targetLocation: 'deploy/cloud-foundry/routes')
+        ]) {
           sh 'rm -rf node_modules'
           sh 'npm install'
           sh 'npm run build'
