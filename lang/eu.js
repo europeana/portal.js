@@ -338,7 +338,7 @@ export default {
     "MIME_TYPE": {
       "name": "Fitxategiaren formatua | Fitxategien formatuak",
       "options": {
-        "text/plain": "Testu arrunta"
+        "text\/plain": "Testu arrunta"
       }
     },
     "PROVIDER": {
@@ -479,7 +479,7 @@ export default {
   },
   "items": {
     "itemCount": "Elementu 1 | {count} elementu",
-    "itemOf": "{max}/{count} elementu",
+    "itemOf": "{max}\/{count} elementu",
     "youMightLike": "Gustatu ahal zaizkizun elementuak"
   },
   "layout": {
