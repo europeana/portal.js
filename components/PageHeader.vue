@@ -122,18 +122,6 @@
 
     data() {
       return {
-        mainNavigation: [
-          { url: '/collections', text: this.$t('header.navigation.collections') },
-          { url: '/europeana-classroom', text: this.$t('header.navigation.europeanaClassroom') },
-          { url: '/about-us', text: this.$t('header.navigation.about') }
-        ],
-        sidebarNavigation: [
-          { url: '/', text: this.$t('header.navigation.home') },
-          { url: '/collections', text: this.$t('header.navigation.collections') },
-          { url: '/europeana-classroom', text: this.$t('header.navigation.europeanaClassroom') },
-          { url: '/about-us', text: this.$t('header.navigation.about') },
-          { url: '/help', text: this.$t('header.navigation.help') }
-        ],
         showSidebar: null,
         windowWidth: 0
       };
@@ -142,7 +130,23 @@
     computed: {
       ...mapState({
         showSearch: state => state.search.showSearchBar
-      })
+      }),
+      mainNavigation() {
+        return [
+          { url: '/collections', text: this.$t('header.navigation.collections') },
+          { url: '/europeana-classroom', text: this.$t('header.navigation.europeanaClassroom') },
+          { url: '/about-us', text: this.$t('header.navigation.about') }
+        ];
+      },
+      sidebarNavigation() {
+        return [
+          { url: '/', text: this.$t('header.navigation.home') },
+          { url: '/collections', text: this.$t('header.navigation.collections') },
+          { url: '/europeana-classroom', text: this.$t('header.navigation.europeanaClassroom') },
+          { url: '/about-us', text: this.$t('header.navigation.about') },
+          { url: '/help', text: this.$t('header.navigation.help') }
+        ];
+      }
     },
 
     watch: {
