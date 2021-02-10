@@ -18,14 +18,16 @@
     >
       {{ $t('layout.skipToMain') }}
     </a>
-    <PageHeaderB
-      v-if="$exp.$variantIndexes[0] === 1"
-      keep-alive
-    />
-    <PageHeader
-      v-else
-      keep-alive
-    />
+    <client-only>
+      <PageHeaderB
+        v-if="$exp && $exp.$variantIndexes[0] === 1"
+        keep-alive
+      />
+      <PageHeader
+        v-else
+        keep-alive
+      />
+    </client-only>
     <main
       id="default"
       role="main"
@@ -49,8 +51,6 @@
   import { mapGetters, mapState } from 'vuex';
 
   import ClientOnly from 'vue-client-only';
-  import PageHeader from '../components/PageHeader';
-  import PageHeaderB from '../components/PageHeaderB';
 
   const config = {
     bootstrapVersion: require('bootstrap/package.json').version,
@@ -61,8 +61,8 @@
     components: {
       ClientOnly,
       CookieDisclaimer: () => import('../components/generic/CookieDisclaimer'),
-      PageHeader,
-      PageHeaderB,
+      PageHeader: () => import('../components/PageHeader'),
+      PageHeaderB: () => import('../components/PageHeaderB'),
       PageFooter: () => import('../components/PageFooter')
     },
 
