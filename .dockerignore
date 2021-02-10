@@ -76,9 +76,9 @@ tmp
 # Locale folder
 locale
 
-# Deployment
+# Cloud Foundry deployment configs
 /manifest.yml
-/deploy
+vars.yml
 
 # Data migrations
 /migrations
