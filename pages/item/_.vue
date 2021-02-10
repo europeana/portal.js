@@ -92,6 +92,13 @@
         <b-row class="footer-margin" />
       </b-container>
     </template>
+    <!-- eslint-disable vue/no-v-html -->
+    <script
+      v-if="schemaOrg"
+      type="application/ld+json"
+      v-html="schemaOrg"
+    />
+    <!-- eslint-enable vue/no-v-html -->
   </div>
 </template>
 
@@ -170,7 +177,8 @@
         transcribingAnnotations: [],
         title: null,
         type: null,
-        useProxy: true
+        useProxy: true,
+        schemaOrg: null
       };
     },
 

@@ -216,7 +216,8 @@ export default (context = {}) => {
         agents,
         concepts,
         timespans,
-        title: proxyData.dcTitle
+        title: proxyData.dcTitle,
+        schemaOrg: edm.schemaOrg
       };
     },
 
@@ -278,7 +279,7 @@ export default (context = {}) => {
       let path = '';
       if (!this.$axios.defaults.baseURL.endsWith('/record')) path = '/record';
 
-      return this.$axios.get(`${path}${europeanaId}.json`)
+      return this.$axios.get(`${path}${europeanaId}.json`, { params: { profile: 'schemaorg' } })
         .then(response => this.parseRecordDataFromApiResponse(response.data.object))
         .then(parsed => reduceLangMapsForLocale(parsed, options.locale))
         .then(reduced => ({
