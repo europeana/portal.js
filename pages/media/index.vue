@@ -12,20 +12,15 @@
   export default {
     layout: 'minimal',
 
-    asyncData({ query }) {
-      return {
-        id: query.id,
-        mediaUrl: query.mediaUrl,
-        mediaType: query.mediaType
-      };
-    },
-
     data() {
       return {
         MEDIA_PLAYER_VERSION: '0.7.6',
         JQUERY_VERSION: '3.4.1',
         JQUERY_UI_VERSION: '1.12.1',
-        DASHJS_VERSION: '2.9.0'
+        DASHJS_VERSION: '2.9.0',
+        id: this.$route.query.id,
+        mediaUrl: this.$route.query.mediaUrl,
+        mediaType: this.$route.query.mediaType
       };
     },
 

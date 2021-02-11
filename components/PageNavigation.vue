@@ -38,7 +38,7 @@
             slot="button-content"
           >
             <span class="label">
-              {{ $t('account.linkAccount') }}
+              {{ $t('account.myProfile') }}
             </span>
           </template>
           <template v-for="(item, index) in authLinks">
@@ -91,7 +91,7 @@
         >
           <span>
             <i :class="renderIcon('/account/login')" />
-            {{ $t('account.linkLogin') }}
+            {{ $t('account.linkLoginJoin') }}
           </span>
         </b-link>
       </li>
