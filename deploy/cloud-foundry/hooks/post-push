@@ -1,0 +1,12 @@
+#!/bin/sh
+
+new_app_name=$2
+
+if [ "${ELK_SERVICE_REGISTRATION_COMMAND}" != "" ]; then
+  new_app_guid="$(cf app ${new_app_name} --guid | head -1)"
+  ${ELK_SERVICE_REGISTRATION_COMMAND} ${new_app_name} ${new_app_guid}
+fi
+
+if [ -f "/autoscaling-policy.json" ]; then
+  cf attach-autoscaling-policy ${new_app_name} /autoscaling-policy.json
+fi
