@@ -525,11 +525,11 @@ export default {
   "pageHasLoaded": "has loaded",
   "pages": {
     "collections": {
-      "topics": {
-        "title": "Topics"
-      },
       "times": {
         "title": "Times"
+      },
+      "topics": {
+        "title": "Topics"
       }
     }
   },

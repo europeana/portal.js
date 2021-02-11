@@ -2,7 +2,7 @@
 
 import axios from 'axios';
 
-import { apiUrlFromRequestHeaders } from '../../plugins/europeana/utils';
+import { apiUrlFromRequestHeaders } from '../plugins/europeana/utils';
 
 export const BASE_URL = process.env.EUROPEANA_RECORD_API_URL || 'https://api.europeana.eu/record';
 

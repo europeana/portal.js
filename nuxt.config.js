@@ -307,9 +307,9 @@ module.exports = {
   },
 
   serverMiddleware: [
-    { path: '/memory-usage', handler: '~/middleware/server/memory-usage' },
-    '~/middleware/server/logging',
-    '~/middleware/server/record-json'
+    { path: '/memory-usage', handler: '~/server-middleware/memory-usage' },
+    '~/server-middleware/logging',
+    '~/server-middleware/record-json'
   ],
 
   /*
@@ -350,6 +350,10 @@ module.exports = {
   ** Render configuration
    */
   render: {
+    // Disable compression: leave it to a gateway/reverse proxy like NGINX or
+    // Cloudflare.
+    compressor: false,
+
     static: {
       maxAge: '1d'
     }
