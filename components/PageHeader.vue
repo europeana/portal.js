@@ -348,6 +348,9 @@
     .container-fluid {
       transition: $standard-transition;
     }
+    .close-menu {
+      display: none;
+    }
   }
   @media (min-width: $bp-extralarge) {
     .navbar-brand {
