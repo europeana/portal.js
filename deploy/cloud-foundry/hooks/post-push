@@ -14,5 +14,4 @@ if [ -f "/autoscaling-policy.json" ]; then
   echo
   echo "Attaching autoscaling policy"
   cf attach-autoscaling-policy ${new_app_name} /autoscaling-policy.json
-  echo "OK"
 fi
