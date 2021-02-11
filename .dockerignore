@@ -79,6 +79,7 @@ locale
 # Cloud Foundry deployment configs
 /manifest.yml
 vars.yml
+/deploy
 
 # Data migrations
 /migrations
