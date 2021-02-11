@@ -1,3 +1,17 @@
 #!/usr/bin/env bash
 
 /docker-entrypoint-upstream $@
+
+echo
+new_app_name=$(cat /var/log/cf-bgd/new)
+
+# TODO: should this use the blue/green app name? and should it happen before
+#       the route switching? to ensure no loss of logs...
+if [ "${ELK_SERVICE_REGISTRATION_COMMAND}" != "" ]; then
+  new_app_guid="$(cf app ${new_app_name} --guid | head -1)"
+  ${ELK_SERVICE_REGISTRATION_COMMAND} ${CF_APP_NAME} ${new_app_guid}
+fi
+
+if [ -f "/autoscaling-policy.json" ]; then
+  cf attach-autoscaling-policy ${new_app_name} /autoscaling-policy.json
+fi
