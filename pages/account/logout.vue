@@ -13,7 +13,7 @@
       const path = this.$auth.strategies.keycloak.options.end_session_endpoint;
       const redirect = window.location.origin + this.$auth.$storage.getUniversal('redirect');
       this.$goto(`${path}?redirect_uri=${encodeURIComponent(redirect)}`);
-      this.$store.commit('status/userLoggedOut');
+      this.$store.dispatch('status/logout', true);
     },
 
     beforeRouteEnter(to, from, next) {

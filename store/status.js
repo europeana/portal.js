@@ -4,30 +4,38 @@ export const state = () => ({
 });
 
 export const mutations = {
-  userLoggedIn(state) {
-    state.login = !state.login;
+  login(state, value) {
+    state.login = value;
+    console.log('LOGIN ' + state.login);
   },
-
-  userLoggedOut(state) {
-    state.logout = !state.logout;
+  logout(state, value) {
+    state.logout = value;
+    console.log('LOGOUT ' + state.logout);
+  },
+  resetStatus(state, value) {
+    state.login = value;
+    state.logout = value;
   }
-
-  // clearStatus(state) {
-  //   console.log(state);
-  //   state.login = false;
-  //   state.logout = false;
-  //   console.log('CLEARED');
-  //   console.log(state);
-  // }
 };
 
 export const getters = {
-  isLoggedIn: (state) => {
-    console.log('isLoggedIn');
+  isLoggedIn(state) {
     return state.login;
   },
-  isLoggedOut: (state) => {
-    console.log('isLoggedOut');
+  isLoggedOut(state) {
     return state.logout;
   }
 };
+
+export const actions = {
+  login({ commit }, value) {
+    commit('login', value);
+  },
+  logout({ commit }, value) {
+    commit('logout', value);
+  },
+  resetStatus({ commit }, value) {
+    commit('resetStatus', value);
+  }
+};
+

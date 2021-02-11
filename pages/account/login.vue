@@ -8,7 +8,7 @@
 
     created() {
       this.$auth.loginWith('keycloak');
-      this.$store.commit('status/userLoggedIn');
+      this.$store.dispatch('status/login', true);
     },
 
     beforeRouteEnter(to, from, next) {

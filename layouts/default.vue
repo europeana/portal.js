@@ -75,7 +75,9 @@
 
       ...mapGetters({
         canonicalUrl: 'http/canonicalUrl',
-        canonicalUrlWithoutLocale: 'http/canonicalUrlWithoutLocale'
+        canonicalUrlWithoutLocale: 'http/canonicalUrlWithoutLocale',
+        isLoggedIn: 'status/isLoggedIn',
+        isLoggedOut: 'status/isLoggedOut'
       })
     },
 
@@ -95,17 +97,13 @@
 
     created() {
       if (!process.browser) return;
-      console.log(this.$store.getters['status/isLoggedIn']);
-      console.log(this.$store.getters['status/isLoggedOut']);
-      console.log('LOGGING');
-      if (this.$store.getters['status/isLoggedIn']) {
-        this.toastMsg = 'You have logged in';
-        console.log('log in >>>>>>>>>>');
-        // toastMsg: this.$t('set.notifications.deleted')
+      console.log('LOGIN? ' + this.isLoggedIn);
+      console.log('LOGOUT? ' + this.isLoggedOut);
+      if (this.isLoggedIn) {
+        this.toastMsg = this.$t('set.notifications.login');
         this.makeToast();
-      } else if (this.$store.getters['status/isLoggedOut']) {
-        this.toastMsg = 'You have logged out';
-        console.log('log out >>>>>>>>>>');
+      } else if (this.isLoggedOut) {
+        this.toastMsg = this.$t('set.notifications.logout');
         this.makeToast();
       }
     },
@@ -120,7 +118,7 @@
           noCloseButton: true,
           solid: true
         });
-        // this.$store.commit('status/clearStatus');
+        this.$store.dispatch('status/resetStatus', false);
       }
     },
 

@@ -596,6 +596,8 @@ export default {
       "private": "Private gallery"
     },
     "notifications": {
+      "login": "You're now logged in. Welcome!",
+      "logout": "You're now logged out.",
       "deleted": "Your gallery has been deleted.",
       "likeLimit": {
         "body": "We are sorry, but you are limited at the moment to liking a maximum of 100 items. We will remove this limit soon!",
