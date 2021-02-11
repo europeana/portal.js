@@ -18,16 +18,25 @@
     >
       {{ $t('layout.skipToMain') }}
     </a>
-    <client-only>
+    <div
+      v-if="$exp && $exp.name === 'hamburgerMenu'"
+    >
       <PageHeaderB
-        v-if="$exp && $exp.$variantIndexes[0] === 1"
+        v-if="$exp.$activeVariants[0].component === 'B'"
         keep-alive
       />
       <PageHeader
         v-else
         keep-alive
       />
-    </client-only>
+    </div>
+    <div
+      v-else
+    >
+      <PageHeader
+        keep-alive
+      />
+    </div>
     <main
       id="default"
       role="main"
@@ -52,6 +61,9 @@
 
   import ClientOnly from 'vue-client-only';
 
+  import PageHeader from '../components/PageHeader';
+  import PageHeaderB from '../components/PageHeaderB';
+
   const config = {
     bootstrapVersion: require('bootstrap/package.json').version,
     bootstrapVueVersion: require('bootstrap-vue/package.json').version
@@ -61,8 +73,10 @@
     components: {
       ClientOnly,
       CookieDisclaimer: () => import('../components/generic/CookieDisclaimer'),
-      PageHeader: () => import('../components/PageHeader'),
-      PageHeaderB: () => import('../components/PageHeaderB'),
+      // PageHeader: () => import('../components/PageHeader'),
+      // PageHeaderB: () => import('../components/PageHeaderB'),
+      PageHeader,
+      PageHeaderB,
       PageFooter: () => import('../components/PageFooter')
     },
 
