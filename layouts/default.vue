@@ -18,25 +18,14 @@
     >
       {{ $t('layout.skipToMain') }}
     </a>
-    <div
-      v-if="$exp && $exp.name === 'hamburgerMenu'"
-    >
-      <PageHeaderB
-        v-if="$exp.$activeVariants[0].component === 'B'"
-        keep-alive
-      />
-      <PageHeader
-        v-else
-        keep-alive
-      />
-    </div>
-    <div
+    <PageHeaderB
+      v-if="variantB"
+      keep-alive
+    />
+    <PageHeader
       v-else
-    >
-      <PageHeader
-        keep-alive
-      />
-    </div>
+      keep-alive
+    />
     <main
       id="default"
       role="main"
@@ -58,9 +47,7 @@
 
 <script>
   import { mapGetters, mapState } from 'vuex';
-
   import ClientOnly from 'vue-client-only';
-
   import PageHeader from '../components/PageHeader';
   import PageHeaderB from '../components/PageHeaderB';
 
@@ -73,8 +60,6 @@
     components: {
       ClientOnly,
       CookieDisclaimer: () => import('../components/generic/CookieDisclaimer'),
-      // PageHeader: () => import('../components/PageHeader'),
-      // PageHeaderB: () => import('../components/PageHeaderB'),
       PageHeader,
       PageHeaderB,
       PageFooter: () => import('../components/PageFooter')
@@ -84,7 +69,8 @@
       return {
         ...config,
         linkGroups: {},
-        enableAnnouncer: true
+        enableAnnouncer: true,
+        variantB: false
       };
     },
 
@@ -110,6 +96,12 @@
             this.enableAnnouncer = true;
           }
         });
+      }
+    },
+
+    mounted() {
+      if (this.$exp && this.$exp.name === 'hamburger-menu' && this.$exp.$activeVariants[0].component === 'B') {
+        return this.variantB = true;
       }
     },
 
