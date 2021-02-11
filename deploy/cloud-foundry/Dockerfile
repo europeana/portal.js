@@ -1,6 +1,7 @@
 FROM europeana/cf-blue-green-deploy:main
 
-RUN apk add -q nodejs npm && \
+# openssh-client used by ELK registration command
+RUN apk add -q nodejs npm openssh-client && \
     cf install-plugin app-autoscaler-plugin -f -r CF-Community
 
 COPY deploy/cloud-foundry/hooks /hooks
