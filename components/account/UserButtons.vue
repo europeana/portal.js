@@ -126,7 +126,6 @@
       async unlike() {
         await this.$store.dispatch('set/unlike', this.value);
         this.$emit('unlike', this.value);
-        this.$store.dispatch('set/fetchLikes');
       },
       addToSet() {
         if (this.$auth.loggedIn) {
