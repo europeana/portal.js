@@ -24,7 +24,7 @@ services:
       - HTTPS_PORT=443
       - NUXT_LOADING_THROTTLE=0
   chrome-en:
-    image: selenium/standalone-chrome:86.0
+    image: selenium/standalone-chrome:88.0
     environment:
       - LANG=en_GB.UTF-8
       - LANGUAGE=en_GB.UTF-8
@@ -32,7 +32,7 @@ services:
     volumes:
       - /dev/shm:/dev/shm
   chrome-ja:
-    image: selenium/standalone-chrome:86.0
+    image: selenium/standalone-chrome:88.0
     environment:
       - LANG=ja_JP.UTF-8
       - LANGUAGE=ja_JP.UTF-8
@@ -40,7 +40,7 @@ services:
     volumes:
       - /dev/shm:/dev/shm
   chrome-nl:
-    image: selenium/standalone-chrome:86.0
+    image: selenium/standalone-chrome:88.0
     environment:
       - LANG=nl_NL.UTF-8
       - LANGUAGE=nl_NL.UTF-8
