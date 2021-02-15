@@ -37,6 +37,7 @@
           :image-content-type="heroImage.contentType"
           :rights-statement="hero.license"
           :attribution="hero"
+          :alt="heroImage.description ? heroImage.description : ''"
           hero
         />
       </b-col>

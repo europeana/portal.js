@@ -39,6 +39,7 @@ query LatestCardGroups($preview: Boolean = false, $locale: String!, $limit: Int 
 fragment imageComparisonFields on ImageWithAttribution {
   image {
     url
+    description
     contentType
   }
 }

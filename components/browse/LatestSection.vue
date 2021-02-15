@@ -20,6 +20,7 @@
           :image-url="cardData(card).imageUrl"
           :image-content-type="cardData(card).imageContentType"
           :image-optimisation-options="{ width: 510 }"
+          :image-alt="cardData(card).description"
         />
       </b-card-group>
       <b-button
@@ -112,6 +113,7 @@
 
         return {
           cardLink: { name, params: { [key]: card.identifier } },
+          description: card.description ? card.description : '',
           imageUrl,
           imageContentType
         };
