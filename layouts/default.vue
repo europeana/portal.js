@@ -92,6 +92,18 @@
       }
     },
 
+    mounted() {
+      // TODO: replace these console.log events with toasts
+      if (this.$auth.$storage.getUniversal('portalLoggingIn') && this.$auth.loggedIn) {
+        console.log('You just logged in!');
+        this.$auth.$storage.removeUniversal('portalLoggingIn');
+      }
+      if (this.$auth.$storage.getUniversal('portalLoggingOut') && !this.$auth.loggedIn) {
+        console.log('You just logged out!');
+        this.$auth.$storage.removeUniversal('portalLoggingOut');
+      }
+    },
+
     head() {
       const i18nSeo = this.$nuxtI18nSeo();
 
