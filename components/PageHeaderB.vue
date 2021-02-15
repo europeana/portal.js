@@ -134,9 +134,8 @@
       }),
       mainNavigation() {
         return [
-          { url: '/collections', text: this.$t('header.navigation.collections') },
-          { url: '/europeana-classroom', text: this.$t('header.navigation.europeanaClassroom') },
-          { url: '/about-us', text: this.$t('header.navigation.about') }
+          { url: '/', text: this.$t('header.navigation.home') },
+          { url: '/collections', text: this.$t('header.navigation.collections') }
         ];
       },
       sidebarNavigation() {
