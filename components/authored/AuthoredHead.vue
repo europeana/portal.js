@@ -37,7 +37,7 @@
           :image-content-type="heroImage.contentType"
           :rights-statement="hero.license"
           :attribution="hero"
-          :alt="heroImage.description ? heroImage.description : ''"
+          :alt="altText"
           hero
         />
       </b-col>
@@ -79,6 +79,9 @@
     computed: {
       heroImage() {
         return this.hero ? this.hero.image : null;
+      },
+      altText() {
+        return this.heroImage && this.heroImage.description ? this.heroImage.description : '';
       }
     }
   };
