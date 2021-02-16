@@ -10,7 +10,9 @@ export default {
         "private": "You haven’t created any private galleries yet",
         "public": "You haven’t created any public galleries yet"
       },
-      "noLikedItems": "You haven’t liked any items yet"
+      "noLikedItems": "You haven’t liked any items yet",
+      "loggedIn": "You are now logged in. Welcome!",
+      "loggedOut": "You are now logged out."
     },
     "privateCollections": "Private Galleries",
     "profile": "My Likes & Galleries",

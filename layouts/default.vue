@@ -93,14 +93,26 @@
     },
 
     mounted() {
-      // TODO: replace these console.log events with toasts
       if (this.$auth.$storage.getUniversal('portalLoggingIn') && this.$auth.loggedIn) {
-        console.log('You just logged in!');
+        this.showToast(this.$t('account.notifications.loggedIn'));
         this.$auth.$storage.removeUniversal('portalLoggingIn');
       }
       if (this.$auth.$storage.getUniversal('portalLoggingOut') && !this.$auth.loggedIn) {
-        console.log('You just logged out!');
+        this.showToast(this.$t('account.notifications.loggedOut'));
         this.$auth.$storage.removeUniversal('portalLoggingOut');
+      }
+    },
+
+    methods: {
+      showToast(msg) {
+        this.$root.$bvToast.toast(msg, {
+          toastClass: 'brand-toast',
+          toaster: 'b-toaster-bottom-left',
+          autoHideDelay: 5000,
+          isStatus: true,
+          noCloseButton: true,
+          solid: true
+        });
       }
     },
 
