@@ -169,18 +169,6 @@
       editorialAttribution() {
         return this.page.primaryImageOfPage.url;
       },
-      // Depiction from the Contentful entry
-      editorialDepiction() {
-        try {
-          const image = this.page.primaryImageOfPage.image;
-          return this.$options.filters.optimisedImageUrl(image.url, image.contentType, { width: 510 });
-        } catch (error) {
-          if (error instanceof TypeError) {
-            return null;
-          }
-          throw error;
-        }
-      },
       // Description from the Contentful entry
       editorialDescription() {
         if (!this.hasEditorialDescription) return null;
