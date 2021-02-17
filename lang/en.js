@@ -3,7 +3,7 @@ export default {
     "likes": "Likes",
     "linkAccount": "My Account",
     "linkLogin": "Login",
-    "linkLoginJoin": "Login\/Join",
+    "linkLoginJoin": "Login/Join",
     "linkLogout": "Log out",
     "myProfile": "My Profile",
     "notifications": {
@@ -342,7 +342,7 @@ export default {
     "MIME_TYPE": {
       "name": "File format | File formats",
       "options": {
-        "text\/plain": "Plain text"
+        "text/plain": "Plain text"
       }
     },
     "PROVIDER": {

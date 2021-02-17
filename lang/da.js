@@ -3,7 +3,7 @@ export default {
     "likes": "Synes om'er",
     "linkAccount": "Min konto",
     "linkLogin": "Log ind",
-    "linkLoginJoin": "Login\/Deltag",
+    "linkLoginJoin": "Login/Deltag",
     "linkLogout": "Log ud",
     "myProfile": "Min profil",
     "notifications": {
@@ -335,7 +335,7 @@ export default {
     "MIME_TYPE": {
       "name": "Filformat | Filformater",
       "options": {
-        "text\/plain": "Almindelig tekst"
+        "text/plain": "Almindelig tekst"
       }
     },
     "PROVIDER": {

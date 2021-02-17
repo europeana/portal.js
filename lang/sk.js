@@ -3,7 +3,7 @@ export default {
     "likes": "Označenia Páči sa mi",
     "linkAccount": "Môj účet",
     "linkLogin": "Prihlásiť sa",
-    "linkLoginJoin": "Prihlásiť sa\/Pripojiť sa",
+    "linkLoginJoin": "Prihlásiť sa/Pripojiť sa",
     "linkLogout": "Odhlásiť sa",
     "myProfile": "Môj profil",
     "notifications": {
@@ -335,7 +335,7 @@ export default {
     "MIME_TYPE": {
       "name": "Formát súboru | Formáty súborov",
       "options": {
-        "text\/plain": "Obyčajný text"
+        "text/plain": "Obyčajný text"
       }
     },
     "PROVIDER": {
