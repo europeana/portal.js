@@ -3,7 +3,9 @@ export default {
     "likes": "Gostos",
     "linkAccount": "A minha conta",
     "linkLogin": "Inicie sessão",
+    "linkLoginJoin": "ENTRAR\/CRIAR CONTA",
     "linkLogout": "Encerrar sessão",
+    "myProfile": "Meu perfil",
     "notifications": {
       "noCollections": {
         "private": "Ainda não criou nenhuma galeria privada",
@@ -333,7 +335,7 @@ export default {
     "MIME_TYPE": {
       "name": "Formato de ficheiro | Formatos de ficheiros",
       "options": {
-        "text/plain": "Texto simples"
+        "text\/plain": "Texto simples"
       }
     },
     "PROVIDER": {

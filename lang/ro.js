@@ -3,7 +3,9 @@ export default {
     "likes": "Aprecieri",
     "linkAccount": "Contul meu",
     "linkLogin": "Autentificare",
+    "linkLoginJoin": "Autentificare\/Înscriere",
     "linkLogout": "Deconectare",
+    "myProfile": "Profilul meu",
     "notifications": {
       "noCollections": {
         "private": "Încă nu ai creat nicio galerie privată",
@@ -333,7 +335,7 @@ export default {
     "MIME_TYPE": {
       "name": "Format fișier| Formate fișier",
       "options": {
-        "text/plain": "Text simplu"
+        "text\/plain": "Text simplu"
       }
     },
     "PROVIDER": {

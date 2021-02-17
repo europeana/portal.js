@@ -3,8 +3,9 @@ export default {
     "likes": "Likes",
     "linkAccount": "My Account",
     "linkLogin": "Login",
-    "linkLoginJoin": "Login/Join",
+    "linkLoginJoin": "Login\/Join",
     "linkLogout": "Log out",
+    "myProfile": "My Profile",
     "notifications": {
       "noCollections": {
         "private": "You haven’t created any private galleries yet",
@@ -14,7 +15,6 @@ export default {
     },
     "privateCollections": "Private Galleries",
     "profile": "My Likes & Galleries",
-    "myProfile": "My Profile",
     "publicCollections": "Public Galleries",
     "settings": "Settings",
     "title": "My account"
@@ -342,7 +342,7 @@ export default {
     "MIME_TYPE": {
       "name": "File format | File formats",
       "options": {
-        "text/plain": "Plain text"
+        "text\/plain": "Plain text"
       }
     },
     "PROVIDER": {

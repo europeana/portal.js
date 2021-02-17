@@ -3,7 +3,9 @@ export default {
     "likes": "Харесвания",
     "linkAccount": "Моят профил",
     "linkLogin": "Влизане",
+    "linkLoginJoin": "Вход\/Регистрация",
     "linkLogout": "Излизане",
+    "myProfile": "Моят профил",
     "notifications": {
       "noCollections": {
         "private": "Все още не сте създали никакви лични галерии",
@@ -25,7 +27,7 @@ export default {
     "like": "Харесвам",
     "providedBy": "Предоставено от {provider}",
     "share": "Споделяне",
-    "shareOn": "Споделяне в/във {social}",
+    "shareOn": "Споделяне в\/във {social}",
     "viewAt": "Преглед на {link}",
     "viewDocument": "Преглед на документа"
   },
@@ -333,7 +335,7 @@ export default {
     "MIME_TYPE": {
       "name": "Формат на файла | Формат на файловете",
       "options": {
-        "text/plain": "Само текст"
+        "text\/plain": "Само текст"
       }
     },
     "PROVIDER": {
