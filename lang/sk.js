@@ -3,7 +3,9 @@ export default {
     "likes": "Označenia Páči sa mi",
     "linkAccount": "Môj účet",
     "linkLogin": "Prihlásiť sa",
+    "linkLoginJoin": "Prihlásiť sa\/Zaregistrovať sa",
     "linkLogout": "Odhlásiť sa",
+    "myProfile": "Môj profil",
     "notifications": {
       "noCollections": {
         "private": "Zatiaľ ste nevytvorili žiadne súkromné galérie",
@@ -333,7 +335,7 @@ export default {
     "MIME_TYPE": {
       "name": "Formát súboru | Formáty súborov",
       "options": {
-        "text/plain": "Obyčajný text"
+        "text\/plain": "Obyčajný text"
       }
     },
     "PROVIDER": {
