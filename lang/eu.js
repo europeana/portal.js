@@ -3,7 +3,9 @@ export default {
     "likes": "Atsegin |",
     "linkAccount": "Nire kontua",
     "linkLogin": "Saioa hasi",
+    "linkLoginJoin": "Saioa hasi\/Sartu",
     "linkLogout": "Saioa amaitu",
+    "myProfile": "Nire profila",
     "notifications": {
       "noCollections": {
         "private": "Oraindik ez duzu bilduma pribaturik sortu",
@@ -338,7 +340,7 @@ export default {
     "MIME_TYPE": {
       "name": "Fitxategiaren formatua | Fitxategien formatuak",
       "options": {
-        "text/plain": "Testu arrunta"
+        "text\/plain": "Testu arrunta"
       }
     },
     "PROVIDER": {
@@ -479,7 +481,7 @@ export default {
   },
   "items": {
     "itemCount": "Elementu 1 | {count} elementu",
-    "itemOf": "{max}/{count} elementu",
+    "itemOf": "{max}\/{count} elementu",
     "youMightLike": "Gustatu ahal zaizkizun elementuak"
   },
   "layout": {
