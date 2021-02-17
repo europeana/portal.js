@@ -5,6 +5,7 @@ export default {
     "linkLogin": "Login",
     "linkLoginJoin": "Login/Join",
     "linkLogout": "Log out",
+    "myProfile": "My Profile",
     "notifications": {
       "noCollections": {
         "private": "You haven’t created any private galleries yet",
@@ -14,7 +15,6 @@ export default {
     },
     "privateCollections": "Private Galleries",
     "profile": "My Likes & Galleries",
-    "myProfile": "My Profile",
     "publicCollections": "Public Galleries",
     "settings": "Settings",
     "title": "My account"

@@ -3,7 +3,9 @@ export default {
     "likes": "Харесвания",
     "linkAccount": "Моят профил",
     "linkLogin": "Влизане",
+    "linkLoginJoin": "Вход/Регистрация",
     "linkLogout": "Излизане",
+    "myProfile": "Моят профил",
     "notifications": {
       "noCollections": {
         "private": "Все още не сте създали никакви лични галерии",

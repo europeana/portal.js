@@ -3,7 +3,9 @@ export default {
     "likes": "Mentions J’aime",
     "linkAccount": "Mon compte",
     "linkLogin": "Se connecter",
+    "linkLoginJoin": "Connexion/Rejoignez-nous",
     "linkLogout": "Déconnexion",
+    "myProfile": "Mon profil",
     "notifications": {
       "noCollections": {
         "private": "Vous n'avez pas encore créé de galeries privées",

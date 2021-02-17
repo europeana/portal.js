@@ -3,7 +3,9 @@ export default {
     "likes": "Likes",
     "linkAccount": "Il-Kont Tiegħi",
     "linkLogin": "Illoggja",
+    "linkLoginJoin": "Idħol/Ingħaqad",
     "linkLogout": "Oħroġ",
+    "myProfile": "Il-profil Tiegħi",
     "notifications": {
       "noCollections": {
         "private": "Għadek ma ħloqt l-ebda direttorju tar-ritratti privat s'issa",

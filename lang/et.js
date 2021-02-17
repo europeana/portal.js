@@ -3,7 +3,9 @@ export default {
     "likes": "Meeldimised",
     "linkAccount": "Minu konto",
     "linkLogin": "Logi sisse",
+    "linkLoginJoin": "Logi sisse/Liitu",
     "linkLogout": "Logi välja",
+    "myProfile": "Minu profiil",
     "notifications": {
       "noCollections": {
         "private": "Te pole veel ühtegi privaatset galeriid loonud",
