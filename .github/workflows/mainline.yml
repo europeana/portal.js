@@ -18,7 +18,7 @@ env:
   EUROPEANA_RECORD_API_KEY: ${{ secrets.EUROPEANA_RECORD_API_KEY }}
   OAUTH_CLIENT: ${{ secrets.OAUTH_CLIENT }}
   PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
-  PERCY_BRANCH: ${{ env.GITHUB_REF }}
+  PERCY_BRANCH: master
 
 jobs:
   test-visual:

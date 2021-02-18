@@ -125,6 +125,7 @@ jobs:
     - uses: actions/setup-node@v1
       with:
         node-version: 12.x
+    - run: echo "PERCY_BRANCH=${GITHUB_HEAD_REF}" >> $GITHUB_ENV
     - run: envsubst < .github/workflows/support/ci/.env > docker/stack/app/.env
     - run: envsubst < .github/workflows/support/ci/.env > docker/stack/nightwatch/.env
     - run: npm run test:e2e
