@@ -15,13 +15,7 @@ RUN apk add --no-cache \
       ca-certificates \
       ttf-freefont \
       nodejs \
-      npm \
-      bash
-
-# Add wait-for-it.sh
-# See: https://github.com/vishnubob/wait-for-it
-RUN wget -q https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh && \
-    chmod a+x wait-for-it.sh
+      npm
 
 # Tell puppeteer to use local Chromium
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
