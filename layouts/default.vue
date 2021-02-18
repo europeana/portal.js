@@ -107,6 +107,7 @@
       showToast(msg) {
         this.$root.$bvToast.toast(msg, {
           toastClass: 'brand-toast',
+          bodyClass: 'p-3',
           toaster: 'b-toaster-bottom-left',
           autoHideDelay: 5000,
           isStatus: true,
