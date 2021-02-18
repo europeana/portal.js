@@ -82,6 +82,10 @@
       media: {
         type: Array,
         default: () => []
+      },
+      isShownAt: {
+        type: String,
+        default: ''
       }
     },
     data() {
@@ -113,7 +117,7 @@
         }
       },
       downloadEnabled() {
-        return this.rightsStatement && !this.rightsStatement.includes('/InC/');
+        return this.rightsStatement && !this.rightsStatement.includes('/InC/') && this.isShownAt.length === 0;
       }
     },
     methods: {
