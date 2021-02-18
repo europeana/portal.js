@@ -59,7 +59,8 @@ services:
       - chrome-ja
       - chrome-nl
     env_file: ./nightwatch/.env
-    shm_size: 256m
+    volumes:
+      - /dev/shm:/dev/shm
     environment:
       - WEBDRIVER_EN_HOST=chrome-en
       - WEBDRIVER_JA_HOST=chrome-ja
