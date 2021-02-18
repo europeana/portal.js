@@ -26,6 +26,7 @@ env:
   EUROPEANA_RECORD_API_KEY: ${{ secrets.EUROPEANA_RECORD_API_KEY }}
   SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
   OAUTH_CLIENT: ${{ secrets.OAUTH_CLIENT }}
+  PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
 
 jobs:
   config:
@@ -122,7 +123,9 @@ jobs:
       with:
         node-version: 12.x
     - run: envsubst < .github/workflows/support/ci/.env > docker/stack/app/.env
+    - run: envsubst < .github/workflows/support/ci/.env > docker/stack/nightwatch/.env
     - run: npm run test:e2e
+    - run: npm run test:visual
 
   # TODO: limit to internal PRs, i.e. those from within the repo
   deploy:

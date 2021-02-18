@@ -1,9 +1,6 @@
 # dotenv
 .env
 
-# Docker
-docker
-
 # Logs
 logs
 *.log
@@ -86,6 +83,3 @@ locale
 # Git
 .git
 .github
-
-# Tests
-/tests

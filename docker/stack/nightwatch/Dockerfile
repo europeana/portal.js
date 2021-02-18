@@ -1,21 +1,35 @@
-# Builds and runs the app server for testing against, e.g. in e2e test runs.
-#
-# Assumes the provision of pre-installed Node modules at /app/node_modules/,
-# e.g. via a mounted volume.
+# Runs Nightwatch
 
-FROM node:12-alpine
-
-ENV CHROMEDRIVER_SKIP_DOWNLOAD=true
-ENV GECKODRIVER_SKIP_DOWNLOAD=true
-ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
+FROM alpine:3
 
 WORKDIR /app
 
-COPY package*.json ./
+# Install local Chromium and dependencies for puppeteer, used by Percy
+#
+# https://github.com/puppeteer/puppeteer/blob/main/docs/troubleshooting.md#running-on-alpine
+RUN apk add --no-cache \
+      chromium \
+      nss \
+      freetype \
+      freetype-dev \
+      harfbuzz \
+      ca-certificates \
+      ttf-freefont \
+      nodejs \
+      npm
+
+# Tell puppeteer to use local Chromium
+ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
+    PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
+
+# RUN mkdir -p tests/features tests/visual
+
+COPY docker/stack/nightwatch/package*.json ./
 
 RUN npm install
 
-COPY . .
+COPY tests/features tests/features
+COPY  tests/visual  tests/visual
 
 ENTRYPOINT ["npm", "run", "start"]
-CMD ["./**/*.feature"]
+CMD ["tests/features/**/*.feature"]

@@ -50,14 +50,16 @@ services:
   nightwatch:
     image: europeana/portaljs-nightwatch
     build:
-      context: ../../tests/features
-      dockerfile: ../../docker/stack/nightwatch/Dockerfile
+      context: ../..
+      dockerfile: docker/stack/nightwatch/Dockerfile
     depends_on:
       - nginx
       - app
       - chrome-en
       - chrome-ja
       - chrome-nl
+    env_file: ./nightwatch/.env
+    shm_size: 256m
     environment:
       - WEBDRIVER_EN_HOST=chrome-en
       - WEBDRIVER_JA_HOST=chrome-ja
