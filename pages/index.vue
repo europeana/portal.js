@@ -94,10 +94,12 @@
           this.$store.state.i18n.locale
         }?utm_source=new-website&utm_medium=button`;
       },
-      optimisedImageUrl() {
+      socialMediaImage() {
         // use social media image if set in Contentful, otherwise use hero image
-        let img = this.image === null ? this.heroImage.image : this.image;
-        return this.$options.filters.optimisedImageUrl(img.url, img.contentType, {
+        return this.image === null ? this.heroImage.image : this.image;
+      },
+      optimisedImageUrl() {
+        return this.$options.filters.optimisedImageUrl(this.socialMediaImage.url, this.socialMediaImage.contentType, {
           width: 800,
           height: 800
         });
@@ -108,11 +110,14 @@
       heroImage() {
         let heroImage = null;
 
-        if (this.hero && this.hero.image && this.hero.image.image) {
+        if (this.hero && this.hero.image) {
           heroImage = this.hero.image;
         }
 
         return heroImage;
+      },
+      imgAlt() {
+        return this.socialMediaImage.description ? this.socialMediaImage.description : '';
       }
     },
 
@@ -127,7 +132,8 @@
           { hid: 'description', name: 'description', content: this.description },
           { hid: 'og:description', property: 'og:description', content: this.description }
         ] : []).concat(this.heroImage ? [
-          { hid: 'og:image', property: 'og:image', content: this.optimisedImageUrl }
+          { hid: 'og:image', property: 'og:image', content: this.optimisedImageUrl },
+          { hid: 'og:image:alt', property: 'og:image', content: this.imgAlt }
         ] : [])
       };
     }

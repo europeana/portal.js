@@ -25,6 +25,7 @@ query BrowseStaticPage(
       image {
         url
         contentType
+        description
       }
       # TODO: enforce this limit in CTF content model
       hasPartCollection(limit: 10) {
@@ -55,6 +56,7 @@ query BrowseStaticPage(
                   image {
                     url
                     contentType
+                    description
                   }
                 }
               }
@@ -85,6 +87,7 @@ query BrowseStaticPage(
       image {
         url
         contentType
+        description
       }
       hasPartCollection(limit: 40) {
         total
