@@ -9,7 +9,7 @@
   "author": "",
   "license": "EUPL-1.2",
   "dependencies": {
-    "@percy/agent": "^0.26.2",
+    "@percy/agent": "^0.28.6",
     "@percy/nightwatch": "^1.1.0",
     "axios": "^0.21.1",
     "chai": "^4.2.0",
