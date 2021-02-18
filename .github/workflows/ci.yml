@@ -27,6 +27,7 @@ env:
   SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
   OAUTH_CLIENT: ${{ secrets.OAUTH_CLIENT }}
   PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
+  PERCY_BRANCH: ${{ env.GITHUB_REF }}
 
 jobs:
   config:
@@ -116,7 +117,10 @@ jobs:
         npm run start
 
   test-e2e:
+    needs: [config]
     runs-on: ubuntu-latest
+    env:
+      PERCY_PULL_REQUEST: ${{ needs.config.outputs.pull-request-number }}
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-node@v1
