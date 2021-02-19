@@ -37,6 +37,7 @@
           :image-content-type="heroImage.contentType"
           :rights-statement="hero.license"
           :attribution="hero"
+          :alt="heroImageAlt"
           hero
         />
       </b-col>
@@ -78,6 +79,9 @@
     computed: {
       heroImage() {
         return this.hero ? this.hero.image : null;
+      },
+      heroImageAlt() {
+        return this.heroImage && this.heroImage.description ? this.heroImage.description : '';
       }
     }
   };

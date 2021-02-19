@@ -3,7 +3,9 @@ export default {
     "likes": "Toghanna",
     "linkAccount": "Mo Chuntas",
     "linkLogin": "Logáil isteach",
+    "linkLoginJoin": "Logáil Isteach",
     "linkLogout": "Logáil amach",
+    "myProfile": "Mo phróifíl",
     "notifications": {
       "noCollections": {
         "private": "Níor chruthaigh tú aon ghailearaithe príobháideacha fós",

@@ -3,7 +3,9 @@ export default {
     "likes": "Atsegin |",
     "linkAccount": "Nire kontua",
     "linkLogin": "Saioa hasi",
+    "linkLoginJoin": "Saioa hasi/Sartu",
     "linkLogout": "Saioa amaitu",
+    "myProfile": "Nire profila",
     "notifications": {
       "noCollections": {
         "private": "Oraindik ez duzu bilduma pribaturik sortu",

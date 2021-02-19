@@ -129,7 +129,8 @@
           { hid: 'description', name: 'description', content: this.description },
           { hid: 'og:description', property: 'og:description', content: this.description }
         ] : []).concat(this.heroImage ? [
-          { hid: 'og:image', property: 'og:image', content: this.optimisedImageUrl }
+          { hid: 'og:image', property: 'og:image', content: this.optimisedImageUrl },
+          { hid: 'og:image:alt', property: 'og:image', content: this.heroImage.description }
         ] : [])
       };
     }

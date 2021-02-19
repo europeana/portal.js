@@ -35,6 +35,7 @@ fragment imageWithAttributionFields on ImageWithAttribution {
   url
   image {
     url
+    description
     contentType
   }
 }

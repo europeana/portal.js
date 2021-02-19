@@ -1,16 +1,17 @@
 {
   "name": "@europeana/portal",
-  "version": "1.29.1",
+  "version": "1.31.0",
   "description": "Europeana Portal",
   "contributors": [
     "Richard Doe <richard.doe@europeana.eu>",
     "Lutz Biedinger <lutz.biedinger@europeana.eu>",
-    "Mirjam Verloop <mirjam.verloop@europeana.eu>"
+    "Mirjam Verloop <mirjam.verloop@europeana.eu>",
+    "Leonie Peters <leonie.peters@europeana.eu>",
+    "Alan Sutherland <alan.sutherland@europeana.eu>"
   ],
   "private": true,
   "keywords": [
-    "code4lib",
-    "incubator"
+    "code4lib"
   ],
   "license": "EUPL-1.2",
   "engines": {
@@ -19,7 +20,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/europeana/incubator-portal-vue-nuxt.git"
+    "url": "https://github.com/europeana/portal.js.git"
   },
   "scripts": {
     "build": "nuxt build",

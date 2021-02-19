@@ -54,21 +54,36 @@ export const actions = {
       .then(() => {
         return this.$apis.set.modifyItems('add', state.likesId, itemId)
           .then(commit('like', itemId));
+      })
+      .catch(() => {
+        return dispatch('fetchLikes');
       });
   },
-  unlike({ commit, state }, itemId) {
+  unlike({ dispatch, commit, state }, itemId) {
     return this.$apis.set.modifyItems('delete', state.likesId, itemId)
-      .then(commit('unlike', itemId));
+      .then(commit('unlike', itemId))
+      .then(() => {
+        return dispatch('fetchLikes');
+      })
+      .catch(() => {
+        return dispatch('fetchLikes');
+      });
   },
   addItem({ dispatch }, { setId, itemId }) {
     return this.$apis.set.modifyItems('add', setId, itemId)
       .then(() => {
+        dispatch('refreshCreation', setId);
+      })
+      .catch(() => {
         dispatch('refreshCreation', setId);
       });
   },
   removeItem({ dispatch }, { setId, itemId }) {
     return this.$apis.set.modifyItems('delete', setId, itemId)
       .then(() => {
+        dispatch('refreshCreation', setId);
+      })
+      .catch(() => {
         dispatch('refreshCreation', setId);
       });
   },

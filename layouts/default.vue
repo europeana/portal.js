@@ -103,6 +103,30 @@
       }
     },
 
+    mounted() {
+      if (this.$auth.$storage.getUniversal('portalLoggingIn') && this.$auth.loggedIn) {
+        this.showToast(this.$t('account.notifications.loggedIn'));
+        this.$auth.$storage.removeUniversal('portalLoggingIn');
+      }
+      if (this.$auth.$storage.getUniversal('portalLoggingOut') && !this.$auth.loggedIn) {
+        this.showToast(this.$t('account.notifications.loggedOut'));
+        this.$auth.$storage.removeUniversal('portalLoggingOut');
+      }
+    },
+
+    methods: {
+      showToast(msg) {
+        this.$bvToast.toast(msg, {
+          toastClass: 'brand-toast',
+          toaster: 'b-toaster-bottom-left',
+          autoHideDelay: 5000,
+          isStatus: true,
+          noCloseButton: true,
+          solid: true
+        });
+      }
+    },
+
     head() {
       const i18nSeo = this.$nuxtI18nSeo();
 

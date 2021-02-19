@@ -3,7 +3,9 @@ export default {
     "likes": "Synes om'er",
     "linkAccount": "Min konto",
     "linkLogin": "Log ind",
+    "linkLoginJoin": "Login/Deltag",
     "linkLogout": "Log ud",
+    "myProfile": "Min profil",
     "notifications": {
       "noCollections": {
         "private": "Du har ikke oprettet nogen private gallerier endnu",

@@ -24,8 +24,7 @@ const factory = (propsData = {}) => mount(EntityDetails, {
 const entityDetails = {
   title: { values: ['Book'], code: 'en' },
   description: { values: ['Architecture is both the process and the product of planning, designing, and constructing buildings and other physical structures.'], code: 'en' },
-  attribution: 'http://www.europeana.eu/item/123/abc',
-  depiction: 'https://www.example.org/image.jpeg'
+  attribution: 'http://www.europeana.eu/item/123/abc'
 };
 
 describe('components/entity/EntityDetails', () => {
