@@ -13,6 +13,7 @@ query ExhibitionFoyerPage(
       primaryImageOfPage {
         image {
           url
+          description
           contentType
         }
       }

@@ -21,6 +21,7 @@
             :image-url="imageUrl(exhibition.primaryImageOfPage)"
             :image-content-type="imageContentType(exhibition.primaryImageOfPage)"
             :image-optimisation-options="{ width: 510 }"
+            :image-alt="imageAlt(exhibition.primaryImageOfPage)"
             :texts="[exhibition.description]"
             :show-subtitle="false"
           />
@@ -91,6 +92,9 @@
       },
       imageContentType(image) {
         if (image && image.image) return image.image.contentType;
+      },
+      imageAlt(image) {
+        if (image && image.image && image.image.description) return image.image.description;
       }
     },
     head() {
