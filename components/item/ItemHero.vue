@@ -117,7 +117,7 @@
         }
       },
       downloadEnabled() {
-        return this.rightsStatement && !this.rightsStatement.includes('/InC/') && this.isShownAt.length === 0;
+        return this.rightsStatement && !this.rightsStatement.includes('/InC/') && this.selectedMedia.about !== this.isShownAt;
       }
     },
     methods: {
