@@ -1,6 +1,7 @@
 export default {
   name: 'hamburger-menu',
-  experimentID: 'pcPZyo34Sxa3mayB2csGLA',
+  experimentID: ({ $config }) => $config.app.experiments.hamburgerMenu,
+  isEligible: ({ $config }) => $config.app.experiments.hamburgerMenu,
   variants: [
     { component: 'A',
       weight: 50 },

@@ -69,8 +69,7 @@
       return {
         ...config,
         linkGroups: {},
-        enableAnnouncer: true,
-        variantB: false
+        enableAnnouncer: true
       };
     },
 
@@ -82,7 +81,12 @@
       ...mapGetters({
         canonicalUrl: 'http/canonicalUrl',
         canonicalUrlWithoutLocale: 'http/canonicalUrlWithoutLocale'
-      })
+      }),
+
+      variantB() {
+        return (this.$exp && this.$exp.name === 'hamburger-menu' && this.$exp.$activeVariants[0].component === 'B') ||
+          (this.$route.query.variant === 'B');
+      }
     },
 
     watch: {
@@ -96,12 +100,6 @@
             this.enableAnnouncer = true;
           }
         });
-      }
-    },
-
-    mounted() {
-      if (this.$exp && this.$exp.name === 'hamburger-menu' && this.$exp.$activeVariants[0].component === 'B') {
-        return this.variantB = true;
       }
     },
 
