@@ -1,7 +1,7 @@
 export default {
   name: 'hamburger-menu',
-  experimentID: ({ $config }) => $config.app.experiments.hamburgerMenu,
-  isEligible: ({ $config }) => $config.app.experiments.hamburgerMenu,
+  experimentID: ({ $config }) => $config.googleOptimize.experiments.hamburgerMenu,
+  isEligible: ({ $config }) => $config.googleOptimize.experiments.hamburgerMenu,
   variants: [
     { component: 'A',
       weight: 50 },
