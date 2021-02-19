@@ -98,11 +98,14 @@
         // use social media image if set in Contentful, otherwise use hero image
         return this.image === null ? this.heroImage.image : this.image;
       },
-      optimisedImageUrl() {
+      socialMediaImageOptimisedUrl() {
         return this.$options.filters.optimisedImageUrl(this.socialMediaImage.url, this.socialMediaImage.contentType, {
           width: 800,
           height: 800
         });
+      },
+      socialMediaImageAlt() {
+        return this.socialMediaImage.description ? this.socialMediaImage.description : '';
       },
       hero() {
         return this.primaryImageOfPage ? this.primaryImageOfPage : null;
@@ -115,9 +118,6 @@
         }
 
         return heroImage;
-      },
-      imgAlt() {
-        return this.socialMediaImage.description ? this.socialMediaImage.description : '';
       }
     },
 
@@ -132,8 +132,8 @@
           { hid: 'description', name: 'description', content: this.description },
           { hid: 'og:description', property: 'og:description', content: this.description }
         ] : []).concat(this.heroImage ? [
-          { hid: 'og:image', property: 'og:image', content: this.optimisedImageUrl },
-          { hid: 'og:image:alt', property: 'og:image', content: this.imgAlt }
+          { hid: 'og:image', property: 'og:image', content: this.socialMediaImageOptimisedUrl },
+          { hid: 'og:image:alt', property: 'og:image', content: this.socialMediaImageAlt }
         ] : [])
       };
     }
