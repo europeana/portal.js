@@ -96,7 +96,13 @@ describe('components/item/ItemHero', () => {
         wrapper.vm.downloadEnabled.should.eq(false);
       });
     });
-    context('when the rightsstatement is not in copyright', () => {
+    context('when the media is not downloadable', () => {
+      it('is false', () => {
+        const wrapper = factory({ media: [media[0]], identifier, isShownAt: media[0].about });
+        wrapper.vm.downloadEnabled.should.eq(false);
+      });
+    });
+    context('when the rightsstatement is not in copyright and the media downloadable', () => {
       it('is true', () => {
         const wrapper = factory({ media: [media[0]], identifier });
         wrapper.vm.downloadEnabled.should.eq(true);
