@@ -27,6 +27,9 @@ const factory = () => shallowMount(layout, {
     },
     $exp: {
       $variantIndexes: [0]
+    },
+    $route: {
+      query: {}
     }
   },
   stubs: {
