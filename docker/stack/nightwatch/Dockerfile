@@ -21,7 +21,7 @@ RUN apk add --no-cache \
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
     PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
 
-COPY docker/stack/nightwatch/package*.json ./
+COPY docker/stack/nightwatch/package*.json docker/stack/nightwatch/percy.js ./
 
 RUN npm install
 

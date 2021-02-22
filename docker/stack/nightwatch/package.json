@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "start": "cucumber-js --require ./tests/features/config/cucumber.conf.js --format node_modules/cucumber-pretty",
-    "percy": "percy exec cucumber-js --require ./tests/features/config/cucumber.conf.js --format node_modules/cucumber-pretty"
+    "percy": "percy exec --config=./percy.js -- cucumber-js --require ./tests/features/config/cucumber.conf.js --format node_modules/cucumber-pretty"
   },
   "author": "",
   "license": "EUPL-1.2",
