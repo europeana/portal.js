@@ -30,6 +30,12 @@ const factory = () => shallowMount(layout, {
     },
     $announcer: {
       setComplementRoute: () => {}
+    },
+    $exp: {
+      $variantIndexes: [0]
+    },
+    $route: {
+      query: {}
     }
   },
   stubs: {

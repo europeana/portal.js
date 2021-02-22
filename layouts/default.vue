@@ -18,7 +18,12 @@
     >
       {{ $t('layout.skipToMain') }}
     </a>
+    <PageHeaderB
+      v-if="variantB"
+      keep-alive
+    />
     <PageHeader
+      v-else
       keep-alive
     />
     <main
@@ -42,9 +47,9 @@
 
 <script>
   import { mapGetters, mapState } from 'vuex';
-
   import ClientOnly from 'vue-client-only';
   import PageHeader from '../components/PageHeader';
+  import PageHeaderB from '../components/PageHeaderB';
 
   const config = {
     bootstrapVersion: require('bootstrap/package.json').version,
@@ -56,6 +61,7 @@
       ClientOnly,
       CookieDisclaimer: () => import('../components/generic/CookieDisclaimer'),
       PageHeader,
+      PageHeaderB,
       PageFooter: () => import('../components/PageFooter')
     },
 
@@ -75,7 +81,12 @@
       ...mapGetters({
         canonicalUrl: 'http/canonicalUrl',
         canonicalUrlWithoutLocale: 'http/canonicalUrlWithoutLocale'
-      })
+      }),
+
+      variantB() {
+        return (this.$exp && this.$exp.name === 'hamburger-menu' && this.$exp.$activeVariants[0].component === 'B') ||
+          (this.$route.query.variant === 'B');
+      }
     },
 
     watch: {

@@ -17,6 +17,7 @@ export default {
     },
     "privateCollections": "Private Galleries",
     "profile": "My Likes & Galleries",
+    "profileSettings": "Profile settings",
     "publicCollections": "Public Galleries",
     "settings": "Settings",
     "title": "My account"
