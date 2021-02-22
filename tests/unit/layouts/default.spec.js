@@ -1,6 +1,7 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 import Vuex from 'vuex';
+import sinon from 'sinon';
 
 import layout from '../../../layouts/default';
 
@@ -22,11 +23,19 @@ const factory = () => shallowMount(layout, {
   },
   mocks: {
     $t: key => key,
+    $auth: {
+      $storage: {
+        getUniversal: sinon.spy()
+      }
+    },
     $announcer: {
       setComplementRoute: () => {}
     },
     $exp: {
       $variantIndexes: [0]
+    },
+    $route: {
+      query: {}
     }
   },
   stubs: {

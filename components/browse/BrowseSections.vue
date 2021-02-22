@@ -47,6 +47,7 @@
         :content-type="section.image.contentType"
         :width="section.image.width"
         :height="section.image.height"
+        :alt="section.image.description ? section.image.description : ''"
         :attribution="attributionFields(section)"
         :rights-statement="section.license"
       />

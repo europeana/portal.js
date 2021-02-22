@@ -3,7 +3,9 @@ export default {
     "likes": "Oblíbené",
     "linkAccount": "Můj účet",
     "linkLogin": "Přihlásit se",
+    "linkLoginJoin": "Přihlášení/Připojení",
     "linkLogout": "Odhlásit se",
+    "myProfile": "Můj profil",
     "notifications": {
       "noCollections": {
         "private": "Ještě jste nevytvořil/a žádné soukromé galerie.",

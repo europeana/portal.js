@@ -3,7 +3,9 @@ export default {
     "likes": "Tykätyt",
     "linkAccount": "Oma tili",
     "linkLogin": "Kirjaudu sisään",
+    "linkLoginJoin": "Kirjaudu/Liity",
     "linkLogout": "Kirjaudu ulos",
+    "myProfile": "Profiilini",
     "notifications": {
       "noCollections": {
         "private": "Et ole luonut vielä yksityisiä gallerioita",

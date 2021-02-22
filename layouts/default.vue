@@ -69,8 +69,7 @@
       return {
         ...config,
         linkGroups: {},
-        enableAnnouncer: true,
-        variantB: false
+        enableAnnouncer: true
       };
     },
 
@@ -82,7 +81,12 @@
       ...mapGetters({
         canonicalUrl: 'http/canonicalUrl',
         canonicalUrlWithoutLocale: 'http/canonicalUrlWithoutLocale'
-      })
+      }),
+
+      variantB() {
+        return (this.$exp && this.$exp.name === 'hamburger-menu' && this.$exp.$activeVariants[0].component === 'B') ||
+          (this.$route.query.variant === 'B');
+      }
     },
 
     watch: {
@@ -100,8 +104,26 @@
     },
 
     mounted() {
-      if (this.$exp && this.$exp.name === 'hamburger-menu' && this.$exp.$activeVariants[0].component === 'B') {
-        return this.variantB = true;
+      if (this.$auth.$storage.getUniversal('portalLoggingIn') && this.$auth.loggedIn) {
+        this.showToast(this.$t('account.notifications.loggedIn'));
+        this.$auth.$storage.removeUniversal('portalLoggingIn');
+      }
+      if (this.$auth.$storage.getUniversal('portalLoggingOut') && !this.$auth.loggedIn) {
+        this.showToast(this.$t('account.notifications.loggedOut'));
+        this.$auth.$storage.removeUniversal('portalLoggingOut');
+      }
+    },
+
+    methods: {
+      showToast(msg) {
+        this.$bvToast.toast(msg, {
+          toastClass: 'brand-toast',
+          toaster: 'b-toaster-bottom-left',
+          autoHideDelay: 5000,
+          isStatus: true,
+          noCloseButton: true,
+          solid: true
+        });
       }
     },
 

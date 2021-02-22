@@ -3,7 +3,9 @@ export default {
     "likes": "Likes",
     "linkAccount": "Mijn account",
     "linkLogin": "Inloggen",
+    "linkLoginJoin": "Inloggen/Aanmelden",
     "linkLogout": "Uitloggen",
+    "myProfile": "Mijn profiel",
     "notifications": {
       "noCollections": {
         "private": "U hebt nog geen privé galerijen gemaakt",
