@@ -22,6 +22,7 @@
           :identifier="identifier"
           :media="media"
           :edm-rights="edmRights"
+          :is-shown-at="isShownAt"
         />
       </b-container>
       <b-container>
