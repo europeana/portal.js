@@ -10,6 +10,7 @@ module.exports = {
         'images.ctfassets.net',
         'unpkg.com'
       ]
-    }
+    },
+    'network-idle-timeout': 1000
   }
 };
