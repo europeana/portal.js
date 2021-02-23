@@ -34,7 +34,7 @@
         <ImageWithAttribution
           v-if="heroImage"
           :src="heroImage.url"
-          :image-content-type="heroImage.contentType"
+          :content-type="heroImage.contentType"
           :rights-statement="hero.license"
           :attribution="hero"
           :alt="heroImageAlt"
