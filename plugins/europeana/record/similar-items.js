@@ -1,41 +1,35 @@
 import { escapeLuceneSpecials } from '../utils';
 
 // Configuration for constructing similar items queries
-const SIMILAR_ITEMS_FIELDS = new Map([
-  ['what', { data: ['dcSubject', 'dcType'], boost: 0.8 }],
-  ['who', { data: ['dcCreator'], boost: 0.5 }],
-  ['DATA_PROVIDER', { data: ['edmDataProvider'], boost: 0.2 }]
-]);
+const SIMILAR_ITEMS_FIELDS = {
+  what: { data: ['dcSubject', 'dcType'], boost: 0.8 },
+  who: { data: ['dcCreator'], boost: 0.5 },
+  'DATA_PROVIDER': { data: ['edmDataProvider'], boost: 0.2 }
+};
 
 // Construct one fielded and boosted query of potentially multiple terms
 const fieldQueriesFromQueryTerms = (queryTerms) => {
-  const fieldQueries = [];
+  return Object.keys(queryTerms).map(queryField => {
+    const boost = SIMILAR_ITEMS_FIELDS[queryField].boost;
 
-  for (const [queryField, queryFieldTerms] of queryTerms) {
-    const boost = SIMILAR_ITEMS_FIELDS.get(queryField).boost;
-    const fieldQuery = `${queryField}:(` + queryFieldTerms.map((term) => {
+    return `${queryField}:(` + queryTerms[queryField].map((term) => {
       return '"' + escapeLuceneSpecials(term) + '"';
     }).join(' OR ') + `)^${boost}`;
-    fieldQueries.push(fieldQuery);
-  }
-
-  return fieldQueries;
+  });
 };
 
 // Maps the terms from item data onto their respective similar items query fields
 const queryTermsFromItemData = (item) => {
-  const queryTerms = new Map;
-
-  for (const [queryField, queryFieldOptions] of SIMILAR_ITEMS_FIELDS) {
-    for (const dataField of queryFieldOptions.data) {
+  return Object.keys(SIMILAR_ITEMS_FIELDS).reduce((memo, queryField) => {
+    for (const dataField of SIMILAR_ITEMS_FIELDS[queryField].data) {
       if (item[dataField]) {
-        queryTerms.set(queryField, (queryTerms.get(queryField) || []).concat(item[dataField]));
-        if (queryTerms.get(queryField).length === 0) queryTerms.delete(queryField);
+        memo[queryField] = (memo[queryField] || []).concat(item[dataField]);
+        if (memo[queryField].length === 0) delete memo[queryField];
       }
     }
-  }
 
-  return queryTerms;
+    return memo;
+  }, {});
 };
 
 /**
@@ -44,7 +38,7 @@ const queryTermsFromItemData = (item) => {
  * @param {Object} [item={}] Current item data
  * @return {string} Query to send to the Record API
  */
-export default (about, item = {}) => {
+const similarItemsQuery = (about, item = {}) => {
   const queryTerms = queryTermsFromItemData(item);
 
   const fieldQueries = fieldQueriesFromQueryTerms(queryTerms);
@@ -58,3 +52,5 @@ export default (about, item = {}) => {
 
   return query;
 };
+
+export default similarItemsQuery;
