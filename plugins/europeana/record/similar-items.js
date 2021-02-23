@@ -18,15 +18,19 @@ const fieldQueriesFromQueryTerms = (queryTerms) => {
   });
 };
 
+const itemQueryFieldTerms = (item, queryField) => {
+  return SIMILAR_ITEMS_FIELDS[queryField].data.reduce((memo, dataField) => {
+    if (item[dataField]) memo = memo.concat(item[dataField]);
+
+    return memo;
+  }, []);
+};
+
 // Maps the terms from item data onto their respective similar items query fields
 const queryTermsFromItemData = (item) => {
   return Object.keys(SIMILAR_ITEMS_FIELDS).reduce((memo, queryField) => {
-    for (const dataField of SIMILAR_ITEMS_FIELDS[queryField].data) {
-      if (item[dataField]) {
-        memo[queryField] = (memo[queryField] || []).concat(item[dataField]);
-        if (memo[queryField].length === 0) delete memo[queryField];
-      }
-    }
+    const fieldTerms = itemQueryFieldTerms(item, queryField);
+    if (fieldTerms.length > 0) memo[queryField] = fieldTerms;
 
     return memo;
   }, {});
