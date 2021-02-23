@@ -31,61 +31,62 @@ function coreFields(proxyData, providerAggregation, entities) {
   }, isUndefined), entities));
 }
 
+const PROXY_EXTRA_FIELDS = [
+  'dcRights',
+  'dcPublisher',
+  'dctermsCreated',
+  'dcDate',
+  'dctermsIssued',
+  'dctermsPublished',
+  'dctermsTemporal',
+  'dcCoverage',
+  'dctermsSpatial',
+  'edmCurrentLocation',
+  'dctermsProvenance',
+  'dcSource',
+  'dcIdentifier',
+  'dctermsExtent',
+  'dcDuration',
+  'dcMedium',
+  'dcFormat',
+  'dcLanguage',
+  'dctermsIsPartOf',
+  'dcRelation',
+  'dctermsReferences',
+  'dctermsHasPart',
+  'dctermsHasVersion',
+  'dctermsIsFormatOf',
+  'dctermsIsReferencedBy',
+  'dctermsIsReplacedBy',
+  'dctermsIsRequiredBy',
+  'edmHasMet',
+  'edmIncorporates',
+  'edmIsDerivativeOf',
+  'edmIsRepresentationOf',
+  'edmIsSimilarTo',
+  'edmIsSuccessorOf',
+  'edmRealizes',
+  'wasPresentAt'
+];
+
 /**
  * Retrieves all additional fields which will be displayed on record pages in the collapsable section.
  *
- * @param {Object[]} proxyData To take the fields from.
+ * @param {Object[]} proxy To take the fields from.
  * @param {Object[]} edm To take additional fields from.
  * @param {Object[]} entities Entities in order to perform entity lookups
  * @return {Object[]} Key value pairs of the metadata fields.
  */
-function extraFields(proxyData, edm, entities) {
-  const providerAggregation = edm.aggregations[0];
-  const europeanaAggregation = edm.europeanaAggregation;
+function extraFields(proxy, edm, entities) {
   return Object.freeze(lookupEntities(omitBy({
-    edmProvider: providerAggregation.edmProvider,
-    edmIntermediateProvider: providerAggregation.edmIntermediateProvider,
-    edmCountry: europeanaAggregation.edmCountry,
-    edmRights: providerAggregation.edmRights,
-    dcRights: proxyData.dcRights,
-    dcPublisher: proxyData.dcPublisher,
-    dctermsCreated: proxyData.dctermsCreated,
-    dcDate: proxyData.dcDate,
-    dctermsIssued: proxyData.dctermsIssued,
-    dctermsPublished: proxyData.dctermsPublished,
-    dctermsTemporal: proxyData.dctermsTemporal,
-    dcCoverage: proxyData.dcCoverage,
-    dctermsSpatial: proxyData.dctermsSpatial,
-    edmCurrentLocation: proxyData.edmCurrentLocation,
-    edmUgc: providerAggregation.edmUgc,
-    dctermsProvenance: proxyData.dctermsProvenance,
-    dcSource: proxyData.dcSource,
-    dcIdentifier: proxyData.dcIdentifier,
+    ...pick(edm.aggregations[0], [
+      'edmProvider', 'edmIntermediateProvider', 'edmRights', 'edmUgc'
+    ]),
+    ...pick(proxy, PROXY_EXTRA_FIELDS),
+    edmCountry: edm.europeanaAggregation.edmCountry,
     europeanaCollectionName: edm.europeanaCollectionName,
     timestampCreated: edm.timestamp_created,
-    timestampUpdate: edm.timestamp_update,
-    dctermsExtent: proxyData.dctermsExtent,
-    dcDuration: proxyData.dcDuration,
-    dcMedium: proxyData.dcMedium,
-    dcFormat: proxyData.dcFormat,
-    dcLanguage: proxyData.dcLanguage,
-    dctermsIsPartOf: proxyData.dctermsIsPartOf,
-    dcRelation: proxyData.dcRelation,
-    dctermsReferences: proxyData.dctermsReferences,
-    dctermsHasPart: proxyData.dctermsHasPart,
-    dctermsHasVersion: proxyData.dctermsHasVersion,
-    dctermsIsFormatOf: proxyData.dctermsIsFormatOf,
-    dctermsIsReferencedBy: proxyData.dctermsIsReferencedBy,
-    dctermsIsReplacedBy: proxyData.dctermsIsReplacedBy,
-    dctermsIsRequiredBy: proxyData.dctermsIsRequiredBy,
-    edmHasMet: proxyData.edmHasMet,
-    edmIncorporates: proxyData.edmIncorporates,
-    edmIsDerivativeOf: proxyData.edmIsDerivativeOf,
-    edmIsRepresentationOf: proxyData.edmIsRepresentationOf,
-    edmIsSimilarTo: proxyData.edmIsSimilarTo,
-    edmIsSuccessorOf: proxyData.edmIsSuccessorOf,
-    edmRealizes: proxyData.edmRealizes,
-    wasPresentAt: proxyData.wasPresentAt
+    timestampUpdate: edm.timestamp_update
   }, isUndefined), entities));
 }
 
