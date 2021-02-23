@@ -3,7 +3,9 @@ export default {
     "likes": "Gostos",
     "linkAccount": "A minha conta",
     "linkLogin": "Inicie sessão",
+    "linkLoginJoin": "Entrar/Criar conta",
     "linkLogout": "Encerrar sessão",
+    "myProfile": "Meu perfil",
     "notifications": {
       "noCollections": {
         "private": "Ainda não criou nenhuma galeria privada",

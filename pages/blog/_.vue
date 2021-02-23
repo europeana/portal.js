@@ -91,7 +91,8 @@
           { hid: 'og:description', property: 'og:description', content: this.post.description }
         ] : [])
           .concat(this.post.primaryImageOfPage ? [
-            { hid: 'og:image', property: 'og:image', content: this.post.primaryImageOfPage.image.url }
+            { hid: 'og:image', property: 'og:image', content: this.post.primaryImageOfPage.image.url },
+            { hid: 'og:image:alt', property: 'og:image', content: this.post.primaryImageOfPage.image.description || '' }
           ] : [])
       };
     },

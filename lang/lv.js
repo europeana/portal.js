@@ -3,7 +3,9 @@ export default {
     "likes": "Patīk",
     "linkAccount": "Mans konts",
     "linkLogin": "Pieteikties",
+    "linkLoginJoin": "Pieteikties/Pievienoties",
     "linkLogout": "Atteikties",
+    "myProfile": "Mans profils",
     "notifications": {
       "noCollections": {
         "private": "Vēl nav izveidota neviena privāta galerija",

@@ -1,6 +1,6 @@
 {
   "name": "@europeana/portal",
-  "version": "1.30.0",
+  "version": "1.31.0",
   "description": "Europeana Portal",
   "contributors": [
     "Richard Doe <richard.doe@europeana.eu>",
@@ -65,7 +65,7 @@
     "marked": "^0.7.0",
     "morgan": "^1.9.1",
     "nuxt": "^2.14.12",
-    "nuxt-google-optimize": "^0.5.4",
+    "nuxt-google-optimize": "github:europeana/nuxt-google-optimize#evaluated-experiment-IDs",
     "nuxt-i18n": "^6.10.1",
     "qs": "^6.6.0",
     "swiper": "^6.1.2",

@@ -169,18 +169,6 @@
       editorialAttribution() {
         return this.page.primaryImageOfPage.url;
       },
-      // Depiction from the Contentful entry
-      editorialDepiction() {
-        try {
-          const image = this.page.primaryImageOfPage.image;
-          return this.$options.filters.optimisedImageUrl(image.url, image.contentType, { width: 510 });
-        } catch (error) {
-          if (error instanceof TypeError) {
-            return null;
-          }
-          throw error;
-        }
-      },
       // Description from the Contentful entry
       editorialDescription() {
         if (!this.hasEditorialDescription) return null;
@@ -273,9 +261,6 @@
           .concat(this.descriptionText ? [
             { hid: 'description', name: 'description', content: this.descriptionText },
             { hid: 'og:description', property: 'og:description', content: this.descriptionText }
-          ] : [])
-          .concat(this.depiction ? [
-            { hid: 'og:image', property: 'og:image', content: this.$options.filters.urlWithProtocol(this.depiction) }
           ] : [])
       };
     },

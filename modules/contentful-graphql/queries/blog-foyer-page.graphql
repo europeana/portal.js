@@ -13,6 +13,7 @@ query BlogFoyerPage(
       primaryImageOfPage {
         image {
           url
+          description
           contentType
         }
       }

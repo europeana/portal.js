@@ -12,7 +12,8 @@
 
     asyncData({ query }) {
       return {
-        uri: query.uri
+        uri: query.uri,
+        searchQuery: query.query
       };
     },
 
@@ -25,6 +26,7 @@
         imageToCanvasMap: {},
         mirador: null,
         showAnnotations: false,
+        searchQuery: null,
         miradorStoreManifestJsonUnsubscriber: () => {}
       };
     },
@@ -37,7 +39,8 @@
           windows: [
             {
               manifestId: this.uri,
-              thumbnailNavigationPosition: 'far-bottom'
+              thumbnailNavigationPosition: 'far-bottom',
+              defaultSearchQuery: this.searchQuery
             }
           ],
           window: {
@@ -54,7 +57,7 @@
               annotations: true,
               search: true
             },
-            defaultSideBarPanel: 'annotations'
+            defaultSideBarPanel: this.searchQuery ? 'search' : 'annotations'
           },
           workspace: {
             showZoomControls: true,

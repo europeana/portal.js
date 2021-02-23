@@ -3,7 +3,9 @@ export default {
     "likes": "Sviđanja",
     "linkAccount": "Moj račun",
     "linkLogin": "Prijava",
+    "linkLoginJoin": "Prijavi se/Pridruži se",
     "linkLogout": "Odjava",
+    "myProfile": "Moj profil",
     "notifications": {
       "noCollections": {
         "private": "Još niste stvorili privatne galerije",

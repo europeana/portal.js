@@ -15,6 +15,7 @@
           :src="src"
           :width="width"
           :height="height"
+          :alt="alt"
           :content-type="contentType"
           :max-width="1100"
           data-qa="image"
@@ -78,6 +79,10 @@
       height: {
         type: Number,
         default: 790
+      },
+      alt: {
+        type: String,
+        default: ''
       },
       name: {
         type: String,
