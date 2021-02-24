@@ -15,5 +15,8 @@
     "server-middleware/**",
     "store/**"
   ],
+  "exclude": [
+    "**/*.stories.js"
+  ],
   "sourceMap": false
 }
