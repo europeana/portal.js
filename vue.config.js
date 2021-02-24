@@ -1,4 +1,5 @@
-// Courtesy of https://gist.github.com/lsapan/3bfd0ffc0fb3d4a036fce84f6eea142e
+// Workarounds for test coverage of Vue files with Istanbul.
+// Courtesy of: https://gist.github.com/lsapan/3bfd0ffc0fb3d4a036fce84f6eea142e
 
 const { execSync } = require('child_process');
 

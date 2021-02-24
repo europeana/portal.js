@@ -1,8 +1,18 @@
 {
-    "extension": [
-      ".js",
-      ".vue"
-    ],
-    "instrument": false,
-    "sourceMap": false
+  "all": true,
+  "extension": [
+    ".js",
+    ".vue"
+  ],
+  "include": [
+    "components/**",
+    "layouts/**",
+    "middleware/**",
+    "mixins/**",
+    "modules/**",
+    "pages/**",
+    "plugins/**",
+    "server-middleware/**",
+    "store/**"
+  ]
 }
