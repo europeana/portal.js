@@ -141,7 +141,7 @@
       return $apis.record
         .getRecord(`/${params.pathMatch}`, { locale: app.i18n.locale })
         .then(result => {
-          result.record.media.map(media => {
+          result.record.media && result.record.media.map(media => {
             if (media.about === result.record.isShownAt) media.isShownAt = true;
           });
           return result.record;

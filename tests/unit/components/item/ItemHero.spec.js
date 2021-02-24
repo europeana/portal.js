@@ -72,6 +72,7 @@ const media = [
   },
   {
     about: 'https://europeana1914-1918.s3.amazonaws.com/',
+    isShownAt: true,
     thumbnails: { large: 'https://api.europeana.eu/api/v2/thumbnail-by-url.json?size=w400&type=IMAGE&uri=https%3A%2F%2Feuropeana1914-1918.s3.amazonaws.com%2Fattachments%2F119640%2F10265.119640.original.jpg' },
     webResourceEdmRights: {
       def: ['http://creativecommons.org/licenses/by-sa/3.0/']
@@ -105,19 +106,13 @@ describe('components/item/ItemHero', () => {
     });
     context('when the selected media is the isShownAt and not downloadable', () => {
       it('is false', () => {
-        const wrapper = factory({ media: [media[5]], identifier, isShownAt: media[5].about });
+        const wrapper = factory({ media: [media[5]], identifier });
         wrapper.vm.downloadEnabled.should.eq(false);
-      });
-    });
-    context('when the rightsstatement is not in copyright', () => {
-      it('is true', () => {
-        const wrapper = factory({ media: [media[0]], identifier });
-        wrapper.vm.downloadEnabled.should.eq(true);
       });
     });
     context('when the rightsstatement is not in copyright and the selected media is not the isShownAt', () => {
       it('is true', () => {
-        const wrapper = factory({ media: [media[0]], identifier, isShownAt: 'https://europeana1914-1918.s3.amazonaws.com' });
+        const wrapper = factory({ media: [media[0]], identifier });
         wrapper.vm.downloadEnabled.should.eq(true);
       });
     });
