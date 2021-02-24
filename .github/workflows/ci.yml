@@ -71,8 +71,10 @@ jobs:
         ./cc-test-reporter before-build
     - if: steps.cache-node.outputs.cache-hit != 'true'
       run: npm install
-    - run: |
+    - name: Unit test with Code Climate coverage report
+      run: |
         npm run test:unit:coverage:clover
+        mv coverage/clover.xml .
         ./cc-test-reporter after-build -t clover --exit-code $?
 
   build:
