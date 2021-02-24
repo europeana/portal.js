@@ -140,9 +140,7 @@
     asyncData({ params, res, app, $apis }) {
       return $apis.record
         .getRecord(`/${params.pathMatch}`, { locale: app.i18n.locale })
-        .then(result => {
-          return result.record;
-        })
+        .then(result => result.record)
         .catch(error => {
           if (typeof res !== 'undefined') {
             res.statusCode = (typeof error.statusCode === 'undefined') ? 500 : error.statusCode;
