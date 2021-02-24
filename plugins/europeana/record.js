@@ -1,13 +1,11 @@
 import omitBy from 'lodash/omitBy';
 import pick from 'lodash/pick';
-import uniq from 'lodash/uniq';
 import merge from 'deepmerge';
 
 import { apiError, createAxios, reduceLangMapsForLocale } from './utils';
 import search from './search';
-import { thumbnailUrl, thumbnailTypeForMimeType } from  './thumbnail';
 import { getEntityUri, getEntityQuery } from './entity';
-import { isIIIFPresentation } from '../media';
+import webResources from './record/web-resources';
 
 export const BASE_URL = process.env.EUROPEANA_RECORD_API_URL || 'https://api.europeana.eu/record';
 
@@ -90,58 +88,6 @@ function extraFields(proxy, edm, entities) {
   }, isUndefined), entities));
 }
 
-/**
- * Sorts an array of objects by the `isNextInSequence` property.
- *
- * Logic:
- * * Any objects not having `isNextInSequence` will not be moved.
- * * Any objects having `isNextInSequence` will be moved to the position
- *   immediately following the other object whose `about` property matches this
- *   one's `isNextInSequence`
- *
- * @param {Object[]} source items to sort
- * @return {Object[]} sorted items
- * @example
- *    const unsorted = [
- *      { about: 'd', isNextInSequence: 'c' },
- *      { about: 'b', isNextInSequence: 'a' },
- *      { about: 'a' },
- *      { about: 'c', isNextInSequence: 'b' }
- *    ];
- *    const sorted = sortByIsNextInSequence(unsorted);
- *    console.log(sorted[0].about); // expected output: 'a'
- *    console.log(sorted[1].about); // expected output: 'b'
- *    console.log(sorted[2].about); // expected output: 'c'
- *    console.log(sorted[3].about); // expected output: 'd'
- */
-function sortByIsNextInSequence(source) {
-  // Make a copy to work on
-  const items = [].concat(source);
-
-  const itemUris = items.map((item) => item.about);
-
-  for (const uri of itemUris) {
-    // It's necessary to find the item on each iteration to sort as it may have
-    // been moved from its original position by a previous iteration.
-    const sortItemIndex = items.findIndex((item) => item.about === uri);
-    const sortItem = items[sortItemIndex];
-
-    // If it has isNextInSequence property, move it after that item; else
-    // leave it be.
-    if (sortItem.isNextInSequence) {
-      const isPreviousInSequenceIndex = items.findIndex((item) => item.about === sortItem.isNextInSequence);
-      if (isPreviousInSequenceIndex !== -1) {
-        // Remove the item from its original position.
-        items.splice(sortItemIndex, 1);
-        // Insert the item after its predecessor.
-        items.splice(isPreviousInSequenceIndex + 1, 0, sortItem);
-      }
-    }
-  }
-
-  return items;
-}
-
 function isUndefined(value) {
   return value === undefined;
 }
@@ -213,61 +159,12 @@ export default (context = {}) => {
         isShownAt: providerAggregation.edmIsShownAt,
         coreFields: coreFields(proxyData, providerAggregation, entities),
         fields: extraFields(proxyData, edm, entities),
-        media: this.aggregationMedia(providerAggregation, edm.type, edm.services),
+        media: webResources(edm),
         agents,
         concepts,
         timespans,
         title: proxyData.dcTitle
       };
-    },
-
-    webResourceThumbnails(webResource, aggregation, recordType) {
-      const type = thumbnailTypeForMimeType(webResource.ebucoreHasMimeType) || recordType;
-
-      let uri = webResource.about;
-      if (aggregation.edmObject && ([aggregation.edmIsShownBy, aggregation.edmIsShownAt].includes(uri))) {
-        uri = aggregation.edmObject;
-      }
-
-      return {
-        small: thumbnailUrl(uri, {
-          size: 'w200',
-          type
-        }),
-        large: thumbnailUrl(uri, {
-          size: 'w400',
-          type
-        })
-      };
-    },
-
-    aggregationMedia(aggregation, recordType, services = []) {
-      // Gather all isShownBy/At and hasView URIs
-      const edmIsShownByOrAt = aggregation.edmIsShownBy || aggregation.edmIsShownAt;
-      const mediaUris = uniq([edmIsShownByOrAt].concat(aggregation.hasView || []).filter(isNotUndefined));
-
-      // Filter web resources to isShownBy and hasView, respecting the ordering
-      const media = mediaUris
-        .map(mediaUri => aggregation.webResources.find(webResource => mediaUri === webResource.about))
-        .map(reduceWebResource);
-
-      for (const webResource of media) {
-        // Inject thumbnail URLs
-        webResource.thumbnails = this.webResourceThumbnails(webResource, aggregation, recordType);
-
-        // Inject service definitions, e.g. for IIIF
-        webResource.services = services.filter((service) => (webResource.svcsHasService || []).includes(service.about));
-      }
-
-      // Crude check for IIIF content, which is to prevent newspapers from showing many
-      // IIIF viewers.
-      //
-      // Also greatly minimises response size, and hydration cost, for IIIF with
-      // many web resources, all of which are contained in a single manifest anyway.
-      const displayable = isIIIFPresentation(media[0]) ? [media[0]] : media;
-
-      // Sort by isNextInSequence property if present
-      return sortByIsNextInSequence(displayable).map(Object.freeze);
     },
 
     /**
@@ -344,18 +241,6 @@ const reduceEntity = (entity) => {
     'latitude',
     'longitude',
     'prefLabel'
-  ]);
-};
-
-const reduceWebResource = (webResource) => {
-  return pick(webResource, [
-    'about',
-    'dctermsIsReferencedBy',
-    'ebucoreHasMimeType',
-    'ebucoreHeight',
-    'ebucoreWidth',
-    'isNextInSequence',
-    'svcsHasService'
   ]);
 };
 

@@ -33,7 +33,7 @@
               />
               <ShareButton />
               <DownloadButton
-                v-if="downloadEnabled"
+                v-if="selectedMedia.downloadable"
                 :url="downloadUrl"
               />
             </div>
@@ -58,7 +58,6 @@
   import ItemEmbedCode from './ItemEmbedCode.vue';
   import SocialShareModal from '../sharing/SocialShareModal.vue';
   import ShareButton from '../sharing/ShareButton.vue';
-  import has from 'lodash/has';
 
   export default {
     components: {
@@ -82,10 +81,6 @@
       media: {
         type: Array,
         default: () => []
-      },
-      isShownAt: {
-        type: String,
-        default: ''
       }
     },
     data() {
@@ -101,12 +96,7 @@
         return RegExp('^https?://*').test(this.rightsStatement);
       },
       rightsStatement() {
-        if (has(this.selectedMedia, 'webResourceEdmRights')) {
-          return this.selectedMedia.webResourceEdmRights.def[0];
-        } else if (this.edmRights !== '') {
-          return this.edmRights;
-        }
-        return '';
+        return this.selectedMedia.edmRights;
       },
       selectedMedia: {
         get() {
@@ -115,9 +105,6 @@
         set(about) {
           this.selectedMediaItem = this.media.find((item) => item.about === about) || {};
         }
-      },
-      downloadEnabled() {
-        return this.rightsStatement && !this.rightsStatement.includes('/InC/') && this.selectedMedia.about !== this.isShownAt;
       }
     },
     methods: {

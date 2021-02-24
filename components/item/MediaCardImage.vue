@@ -1,12 +1,12 @@
 <template>
   <b-link
-    v-if="imageLink && media.thumbnails['large']"
+    v-if="imageLink && media.thumbnails.large && media.thumbnails.large.linkable"
     :href="imageLink"
     target="_blank"
   >
     <component
       :is="lazy ? 'b-img-lazy' : 'b-img'"
-      :src="media.thumbnails['large']"
+      :src="media.thumbnails.large.url"
       class="w-auto"
       alt=""
       data-qa="media preview image"
@@ -19,8 +19,8 @@
   </b-link>
   <component
     :is="lazy ? 'b-img-lazy' : 'b-img'"
-    v-else-if="!imageLink && media.thumbnails['large']"
-    :src="media.thumbnails['large']"
+    v-else-if="media.thumbnails.large"
+    :src="media.thumbnails.large.url"
     alt=""
     class="mw-100"
     data-qa="media preview image"

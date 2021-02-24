@@ -22,7 +22,6 @@
           :identifier="identifier"
           :media="media"
           :edm-rights="edmRights"
-          :is-shown-at="isShownAt"
         />
       </b-container>
       <b-container>
@@ -162,7 +161,6 @@
         error: null,
         fields: {},
         identifier: null,
-        isShownAt: null,
         media: [],
         relatedEntities: [],
         similarItems: [],
@@ -255,7 +253,7 @@
         return this.$config.app.features.linksToClassic;
       },
       pageHeadMetaOgImage() {
-        return this.media[0] ? this.media[0].thumbnails.large : null;
+        return this.media[0] ? this.media[0].thumbnails.large.url : null;
       }
     },
 
