@@ -22,7 +22,6 @@
           :identifier="identifier"
           :media="media"
           :edm-rights="edmRights"
-          :is-shown-at="isShownAt"
         />
       </b-container>
       <b-container>
@@ -141,7 +140,12 @@
     asyncData({ params, res, app, $apis }) {
       return $apis.record
         .getRecord(`/${params.pathMatch}`, { locale: app.i18n.locale })
-        .then(result => result.record)
+        .then(result => {
+          result.record.media.map(media => {
+            if (media.about === result.record.isShownAt) media.isShownAt = true;
+          });
+          return result.record;
+        })
         .catch(error => {
           if (typeof res !== 'undefined') {
             res.statusCode = (typeof error.statusCode === 'undefined') ? 500 : error.statusCode;
