@@ -73,9 +73,8 @@ jobs:
       run: npm install
     - name: Unit test with Code Climate coverage report
       run: |
-        npm run test:unit:coverage:clover
-        mv coverage/clover.xml .
-        ./cc-test-reporter after-build -t clover --exit-code $?
+        npm run test:unit:coverage:lcov
+        ./cc-test-reporter after-build -t lcov --exit-code $?
 
   build:
     needs: [test-unit]
