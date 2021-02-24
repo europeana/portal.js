@@ -45,7 +45,8 @@
     "test:stack:rebuild": "npm run test:stack:down && npm run test:stack:build",
     "test:stack:start": "docker-compose -f ./docker/stack/docker-compose.yml start app nginx chrome-en chrome-ja chrome-nl",
     "test:stack:stop": "docker-compose -f ./docker/stack/docker-compose.yml stop app nginx chrome-en chrome-ja chrome-nl",
-    "test:unit": "vue-cli-service test:unit --include tests/unit/setup"
+    "test:unit": "vue-cli-service test:unit --include tests/unit/setup",
+    "test:unit:coverage": "nyc --reporter=html --reporter=text-summary --reporter=lcov vue-cli-service test:unit --include tests/unit/setup"
   },
   "dependencies": {
     "@elastic/apm-rum-vue": "^1.1.9",
@@ -62,12 +63,14 @@
     "deep-object-diff": "^1.1.0",
     "deepmerge": "^4.2.2",
     "elastic-apm-node": "^3.9.0",
+    "istanbul-instrumenter-loader": "^3.0.1",
     "lodash": "^4.17.20",
     "marked": "^0.7.0",
     "morgan": "^1.9.1",
     "nuxt": "^2.14.12",
     "nuxt-google-optimize": "github:europeana/nuxt-google-optimize#evaluated-experiment-IDs",
     "nuxt-i18n": "^6.10.1",
+    "nyc": "^15.1.0",
     "qs": "^6.6.0",
     "swiper": "^6.1.2",
     "vue": "^2.6.12",
