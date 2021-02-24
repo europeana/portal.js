@@ -14,5 +14,6 @@
     "plugins/**",
     "server-middleware/**",
     "store/**"
-  ]
+  ],
+  "sourceMap": false
 }

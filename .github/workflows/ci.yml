@@ -25,7 +25,6 @@ env:
   ELASTIC_APM_SERVER_URL: https://apm.eanadev.org:8200
   EUROPEANA_API_KEY: ${{ secrets.EUROPEANA_API_KEY }}
   EUROPEANA_RECORD_API_KEY: ${{ secrets.EUROPEANA_RECORD_API_KEY }}
-  NODE_ENV: test
   SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
   OAUTH_CLIENT: ${{ secrets.OAUTH_CLIENT }}
 
