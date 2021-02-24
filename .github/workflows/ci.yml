@@ -73,7 +73,7 @@ jobs:
       run: npm install
     - run: |
         npm run test:unit:coverage
-        ./cc-test-reporter after-build -t simplecov --exit-code $?
+        ./cc-test-reporter after-build -t lcov --exit-code $?
 
   build:
     needs: [test-unit]
