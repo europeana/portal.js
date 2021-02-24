@@ -72,8 +72,8 @@ jobs:
     - if: steps.cache-node.outputs.cache-hit != 'true'
       run: npm install
     - run: |
-        npm run test:unit:coverage
-        ./cc-test-reporter after-build -t simplecov --exit-code $?
+        npm run test:unit:coverage:clover
+        ./cc-test-reporter after-build -t clover --exit-code $?
 
   build:
     needs: [test-unit]
