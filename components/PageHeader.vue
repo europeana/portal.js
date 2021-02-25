@@ -72,11 +72,10 @@
           role="navigation"
           data-qa="mobile navigation"
         >
-          <div class="navhead w-100 d-flex align-items-center pl-2">
+          <div class="w-100 d-flex align-items-center pl-2">
             <b-button
               data-qa="close menu button"
               class="close"
-              variant="light"
               @click="showSidebar = !showSidebar"
             />
             <SmartLink
@@ -122,18 +121,6 @@
 
     data() {
       return {
-        mainNavigation: [
-          { url: '/collections', text: this.$t('header.navigation.collections') },
-          { url: '/europeana-classroom', text: this.$t('header.navigation.europeanaClassroom') },
-          { url: '/about-us', text: this.$t('header.navigation.about') }
-        ],
-        sidebarNavigation: [
-          { url: '/', text: this.$t('header.navigation.home') },
-          { url: '/collections', text: this.$t('header.navigation.collections') },
-          { url: '/europeana-classroom', text: this.$t('header.navigation.europeanaClassroom') },
-          { url: '/about-us', text: this.$t('header.navigation.about') },
-          { url: '/help', text: this.$t('header.navigation.help') }
-        ],
         showSidebar: null,
         windowWidth: 0
       };
@@ -142,7 +129,24 @@
     computed: {
       ...mapState({
         showSearch: state => state.search.showSearchBar
-      })
+      }),
+      mainNavigation() {
+        return [
+          { url: '/', text: this.$t('header.navigation.home') },
+          { url: '/collections', text: this.$t('header.navigation.collections') },
+          { url: '/europeana-classroom', text: this.$t('header.navigation.europeanaClassroom') },
+          { url: '/about-us', text: this.$t('header.navigation.about') }
+        ];
+      },
+      sidebarNavigation() {
+        return [
+          { url: '/', text: this.$t('header.navigation.home') },
+          { url: '/collections', text: this.$t('header.navigation.collections') },
+          { url: '/europeana-classroom', text: this.$t('header.navigation.europeanaClassroom') },
+          { url: '/about-us', text: this.$t('header.navigation.about') },
+          { url: '/help', text: this.$t('header.navigation.help') }
+        ];
+      }
     },
 
     watch: {
@@ -342,13 +346,11 @@
     .navbar-toggle {
       display: none;
     }
-    @media (max-width: $bp-large) {
-      .navbar-brand {
-        justify-content: center;
-      }
-    }
     .container-fluid {
       transition: $standard-transition;
+    }
+    .close-menu {
+      display: none;
     }
   }
   @media (min-width: $bp-extralarge) {

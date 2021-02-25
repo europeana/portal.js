@@ -22,6 +22,7 @@
           :identifier="identifier"
           :media="media"
           :edm-rights="edmRights"
+          :is-shown-at="isShownAt"
         />
       </b-container>
       <b-container>
@@ -102,7 +103,7 @@
   import MetadataBox from '../../components/item/MetadataBox';
 
   import { BASE_URL as EUROPEANA_DATA_URL } from '../../plugins/europeana/data';
-  import { similarItemsQuery } from '../../plugins/europeana/record';
+  import similarItemsQuery from '../../plugins/europeana/record/similar-items';
   import { langMapValueForLocale } from  '../../plugins/europeana/utils';
 
   export default {

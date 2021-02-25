@@ -76,5 +76,9 @@ export function isRichMedia(media) {
 }
 
 export function requiresDashJS(media) {
-  return media === 'application/dash+xml';
+  return (media === 'application/dash+xml') ||
+    // FIXME: this is a hack to account for misinterpretation of %2B in URL query
+    //        parameter on server-side only. Find a proper solution when the cause
+    //        is known. See https://europeana.atlassian.net/browse/EC-5057
+    (process.server && (media === 'application/dash xml'));
 }

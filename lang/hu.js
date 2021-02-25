@@ -3,7 +3,9 @@ export default {
     "likes": "Kedvelések",
     "linkAccount": "Fiókom",
     "linkLogin": "Bejelentkezés",
+    "linkLoginJoin": "Bejelentkezés/Csatlakozás",
     "linkLogout": "Bejelentkezés",
+    "myProfile": "A profilom",
     "notifications": {
       "noCollections": {
         "private": "Még nem hozott létre privát galériát",

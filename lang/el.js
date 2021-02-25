@@ -3,7 +3,9 @@ export default {
     "likes": "Like",
     "linkAccount": "Ο λογαριασμός μου",
     "linkLogin": "Σύνδεση",
+    "linkLoginJoin": "Εγγραφή/Σύνδεση",
     "linkLogout": "Αποσύνδεση",
+    "myProfile": "ΤΟ ΠΡΟΦΙΛ ΜΟΥ",
     "notifications": {
       "noCollections": {
         "private": "Δεν έχετε δημιουργήσει ιδιωτικές συλλογές",

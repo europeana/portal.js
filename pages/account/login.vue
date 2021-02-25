@@ -7,6 +7,7 @@
     layout: 'minimal',
 
     created() {
+      this.$auth.$storage.setUniversal('portalLoggingIn', true);
       this.$auth.loginWith('keycloak');
     },
 

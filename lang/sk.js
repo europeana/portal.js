@@ -3,7 +3,9 @@ export default {
     "likes": "Označenia Páči sa mi",
     "linkAccount": "Môj účet",
     "linkLogin": "Prihlásiť sa",
+    "linkLoginJoin": "Prihlásiť sa/Zaregistrovať sa",
     "linkLogout": "Odhlásiť sa",
+    "myProfile": "Môj profil",
     "notifications": {
       "noCollections": {
         "private": "Zatiaľ ste nevytvorili žiadne súkromné galérie",

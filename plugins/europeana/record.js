@@ -3,7 +3,7 @@ import pick from 'lodash/pick';
 import uniq from 'lodash/uniq';
 import merge from 'deepmerge';
 
-import { apiError, createAxios, escapeLuceneSpecials, reduceLangMapsForLocale } from './utils';
+import { apiError, createAxios, reduceLangMapsForLocale } from './utils';
 import search from './search';
 import { thumbnailUrl, thumbnailTypeForMimeType } from  './thumbnail';
 import { getEntityUri, getEntityQuery } from './entity';
@@ -31,61 +31,62 @@ function coreFields(proxyData, providerAggregation, entities) {
   }, isUndefined), entities));
 }
 
+const PROXY_EXTRA_FIELDS = [
+  'dcRights',
+  'dcPublisher',
+  'dctermsCreated',
+  'dcDate',
+  'dctermsIssued',
+  'dctermsPublished',
+  'dctermsTemporal',
+  'dcCoverage',
+  'dctermsSpatial',
+  'edmCurrentLocation',
+  'dctermsProvenance',
+  'dcSource',
+  'dcIdentifier',
+  'dctermsExtent',
+  'dcDuration',
+  'dcMedium',
+  'dcFormat',
+  'dcLanguage',
+  'dctermsIsPartOf',
+  'dcRelation',
+  'dctermsReferences',
+  'dctermsHasPart',
+  'dctermsHasVersion',
+  'dctermsIsFormatOf',
+  'dctermsIsReferencedBy',
+  'dctermsIsReplacedBy',
+  'dctermsIsRequiredBy',
+  'edmHasMet',
+  'edmIncorporates',
+  'edmIsDerivativeOf',
+  'edmIsRepresentationOf',
+  'edmIsSimilarTo',
+  'edmIsSuccessorOf',
+  'edmRealizes',
+  'wasPresentAt'
+];
+
 /**
  * Retrieves all additional fields which will be displayed on record pages in the collapsable section.
  *
- * @param {Object[]} proxyData To take the fields from.
+ * @param {Object[]} proxy To take the fields from.
  * @param {Object[]} edm To take additional fields from.
  * @param {Object[]} entities Entities in order to perform entity lookups
  * @return {Object[]} Key value pairs of the metadata fields.
  */
-function extraFields(proxyData, edm, entities) {
-  const providerAggregation = edm.aggregations[0];
-  const europeanaAggregation = edm.europeanaAggregation;
+function extraFields(proxy, edm, entities) {
   return Object.freeze(lookupEntities(omitBy({
-    edmProvider: providerAggregation.edmProvider,
-    edmIntermediateProvider: providerAggregation.edmIntermediateProvider,
-    edmCountry: europeanaAggregation.edmCountry,
-    edmRights: providerAggregation.edmRights,
-    dcRights: proxyData.dcRights,
-    dcPublisher: proxyData.dcPublisher,
-    dctermsCreated: proxyData.dctermsCreated,
-    dcDate: proxyData.dcDate,
-    dctermsIssued: proxyData.dctermsIssued,
-    dctermsPublished: proxyData.dctermsPublished,
-    dctermsTemporal: proxyData.dctermsTemporal,
-    dcCoverage: proxyData.dcCoverage,
-    dctermsSpatial: proxyData.dctermsSpatial,
-    edmCurrentLocation: proxyData.edmCurrentLocation,
-    edmUgc: providerAggregation.edmUgc,
-    dctermsProvenance: proxyData.dctermsProvenance,
-    dcSource: proxyData.dcSource,
-    dcIdentifier: proxyData.dcIdentifier,
+    ...pick(edm.aggregations[0], [
+      'edmProvider', 'edmIntermediateProvider', 'edmRights', 'edmUgc'
+    ]),
+    ...pick(proxy, PROXY_EXTRA_FIELDS),
+    edmCountry: edm.europeanaAggregation.edmCountry,
     europeanaCollectionName: edm.europeanaCollectionName,
     timestampCreated: edm.timestamp_created,
-    timestampUpdate: edm.timestamp_update,
-    dctermsExtent: proxyData.dctermsExtent,
-    dcDuration: proxyData.dcDuration,
-    dcMedium: proxyData.dcMedium,
-    dcFormat: proxyData.dcFormat,
-    dcLanguage: proxyData.dcLanguage,
-    dctermsIsPartOf: proxyData.dctermsIsPartOf,
-    dcRelation: proxyData.dcRelation,
-    dctermsReferences: proxyData.dctermsReferences,
-    dctermsHasPart: proxyData.dctermsHasPart,
-    dctermsHasVersion: proxyData.dctermsHasVersion,
-    dctermsIsFormatOf: proxyData.dctermsIsFormatOf,
-    dctermsIsReferencedBy: proxyData.dctermsIsReferencedBy,
-    dctermsIsReplacedBy: proxyData.dctermsIsReplacedBy,
-    dctermsIsRequiredBy: proxyData.dctermsIsRequiredBy,
-    edmHasMet: proxyData.edmHasMet,
-    edmIncorporates: proxyData.edmIncorporates,
-    edmIsDerivativeOf: proxyData.edmIsDerivativeOf,
-    edmIsRepresentationOf: proxyData.edmIsRepresentationOf,
-    edmIsSimilarTo: proxyData.edmIsSimilarTo,
-    edmIsSuccessorOf: proxyData.edmIsSuccessorOf,
-    edmRealizes: proxyData.edmRealizes,
-    wasPresentAt: proxyData.wasPresentAt
+    timestampUpdate: edm.timestamp_update
   }, isUndefined), entities));
 }
 
@@ -365,48 +366,4 @@ const reduceWebResource = (webResource) => {
  */
 export function isEuropeanaRecordId(value) {
   return /^\/[0-9]+\/[a-zA-Z0-9_]+$/.test(value);
-}
-
-// Configuration for constructing similar items queries
-const SIMILAR_ITEMS_FIELDS = new Map([
-  ['what', { data: ['dcSubject', 'dcType'], boost: 0.8 }],
-  ['who', { data: ['dcCreator'], boost: 0.5 }],
-  ['DATA_PROVIDER', { data: ['edmDataProvider'], boost: 0.2 }]
-]);
-
-/**
- * Construct Record API similar items query
- * @param {string} about Europeana identifier of the current item
- * @param {Object} [data={}] Current item data
- * @return {string} Query to send to the Record API
- */
-export function similarItemsQuery(about, data = {}) {
-  const queryTerms = new Map;
-
-  // Map the terms from item data onto their respective similar items query fields
-  for (const [queryField, queryFieldOptions] of SIMILAR_ITEMS_FIELDS) {
-    for (const dataField of queryFieldOptions.data) {
-      if (data[dataField]) {
-        queryTerms.set(queryField, (queryTerms.get(queryField) || []).concat(data[dataField]));
-        if (queryTerms.get(queryField).length === 0) queryTerms.delete(queryField);
-      }
-    }
-  }
-
-  // Construct one fielded and boosted query of potentially multiple terms
-  const fieldQueries = [];
-  for (const [queryField, queryFieldTerms] of queryTerms) {
-    const boost = SIMILAR_ITEMS_FIELDS.get(queryField).boost;
-    const fieldQuery = `${queryField}:(` + queryFieldTerms.map((term) => {
-      return '"' + escapeLuceneSpecials(term) + '"';
-    }).join(' OR ') + `)^${boost}`;
-    fieldQueries.push(fieldQuery);
-  }
-
-  // No queries, no query
-  if (fieldQueries.length === 0) return null;
-
-  // Combine fielded queries, and exclude the current item
-  const query = '(' + fieldQueries.join(' OR ') + `) NOT europeana_id:"${about}"`;
-  return query;
 }

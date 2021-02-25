@@ -65,7 +65,8 @@ describe('pages/account/logout.vue', () => {
             loginWith: sinon.spy(),
             logout: sinon.spy(),
             $storage: {
-              getUniversal: sinon.stub().withArgs('redirect').returns('/about-us')
+              getUniversal: sinon.stub().withArgs('redirect').returns('/about-us'),
+              setUniversal: sinon.spy()
             },
             strategies: {
               keycloak: {

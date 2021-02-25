@@ -3,7 +3,9 @@ export default {
     "likes": "Aprecieri",
     "linkAccount": "Contul meu",
     "linkLogin": "Autentificare",
+    "linkLoginJoin": "Autentificare/Înscriere",
     "linkLogout": "Deconectare",
+    "myProfile": "Profilul meu",
     "notifications": {
       "noCollections": {
         "private": "Încă nu ai creat nicio galerie privată",

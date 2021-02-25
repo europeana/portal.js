@@ -1,16 +1,17 @@
 {
   "name": "@europeana/portal",
-  "version": "1.29.0",
+  "version": "1.31.0",
   "description": "Europeana Portal",
   "contributors": [
     "Richard Doe <richard.doe@europeana.eu>",
     "Lutz Biedinger <lutz.biedinger@europeana.eu>",
-    "Mirjam Verloop <mirjam.verloop@europeana.eu>"
+    "Mirjam Verloop <mirjam.verloop@europeana.eu>",
+    "Leonie Peters <leonie.peters@europeana.eu>",
+    "Alan Sutherland <alan.sutherland@europeana.eu>"
   ],
   "private": true,
   "keywords": [
-    "code4lib",
-    "incubator"
+    "code4lib"
   ],
   "license": "EUPL-1.2",
   "engines": {
@@ -19,7 +20,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/europeana/incubator-portal-vue-nuxt.git"
+    "url": "https://github.com/europeana/portal.js.git"
   },
   "scripts": {
     "build": "nuxt build",
@@ -34,11 +35,10 @@
     "stylelint": "stylelint \"**/*.scss\" \"**/*.vue\" --config .stylelintrc.js",
     "test": "npm run test:unit && npm run test:size && npm run test:e2e",
     "test:e2e": "docker-compose -f ./docker/stack/docker-compose.yml build -q nightwatch && docker-compose -f ./docker/stack/docker-compose.yml run --rm nightwatch",
-    "test:e2e:percy": "cross-env NODE_ENV=test npm run stack:up:detach && npm run test:chrome:headless -- -p all; exit=$?; npm run test:percy; npm run stack:down; exit $exit",
-    "test:percy": "cross-env percy exec -- cucumber-js -p percy;",
+    "test:visual": "docker-compose -f ./docker/stack/docker-compose.yml build -q nightwatch && docker-compose -f ./docker/stack/docker-compose.yml run --rm --entrypoint \"npm run percy\" nightwatch tests/visual",
     "test:setup": "npm run test:stack:rebuild && cd tests/size/ && npm install",
     "test:size": "npm run build && cd tests/size/ && npm run start",
-    "test:stack:build": "docker-compose -f ./docker/stack/docker-compose.yml build --parallel app nginx",
+    "test:stack:build": "docker-compose -f ./docker/stack/docker-compose.yml build --parallel",
     "test:stack:down": "docker-compose -f ./docker/stack/docker-compose.yml down",
     "test:stack:pull": "docker-compose -f ./docker/stack/docker-compose.yml pull chrome-en chrome-ja chrome-nl",
     "test:stack:rebuild": "npm run test:stack:down && npm run test:stack:build",
@@ -49,7 +49,7 @@
   "dependencies": {
     "@elastic/apm-rum-vue": "^1.1.9",
     "@nuxtjs/auth": "^4.9.1",
-    "@nuxtjs/axios": "^5.11.0",
+    "@nuxtjs/axios": "^5.13.1",
     "@nuxtjs/gtm": "^2.4.0",
     "@nuxtjs/robots": "^2.4.2",
     "@vue-a11y/announcer": "^2.1.0",
@@ -65,7 +65,7 @@
     "marked": "^0.7.0",
     "morgan": "^1.9.1",
     "nuxt": "^2.14.12",
-    "nuxt-google-optimize": "^0.5.4",
+    "nuxt-google-optimize": "github:europeana/nuxt-google-optimize#evaluated-experiment-IDs",
     "nuxt-i18n": "^6.10.1",
     "qs": "^6.6.0",
     "swiper": "^6.1.2",
@@ -90,7 +90,7 @@
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
     "chai-string": "^1.5.0",
-    "contentful-cli": "^1.3.35",
+    "contentful-cli": "^1.5.32",
     "cross-env": "^5.2.1",
     "eslint": "^6.3.0",
     "eslint-loader": "^3.0.0",

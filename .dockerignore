@@ -1,9 +1,6 @@
 # dotenv
 .env
 
-# Docker
-docker
-
 # Logs
 logs
 *.log
@@ -87,6 +84,3 @@ vars.yml
 # Git
 .git
 .github
-
-# Tests
-/tests
