@@ -197,7 +197,8 @@ describe('plugins/europeana/record', () => {
                 const response = await record().getRecord(europeanaId);
                 const actualThumbnails = response.record.media.find((m) => m.about === item.about).thumbnails;
 
-                actualThumbnails.should.deep.eq(expectedThumbnails);
+                actualThumbnails.small.url.should.eq(expectedThumbnails.small);
+                actualThumbnails.large.url.should.eq(expectedThumbnails.large);
               });
             });
 
@@ -212,7 +213,8 @@ describe('plugins/europeana/record', () => {
                 const response = await record().getRecord(europeanaId);
                 const actualThumbnails = response.record.media.find((m) => m.about === item.about).thumbnails;
 
-                actualThumbnails.should.deep.eq(expectedThumbnails);
+                actualThumbnails.small.url.should.eq(expectedThumbnails.small);
+                actualThumbnails.large.url.should.eq(expectedThumbnails.large);
               });
             });
           });

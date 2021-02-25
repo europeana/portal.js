@@ -80,7 +80,9 @@ describe('pages/item/_.vue', () => {
         media: [
           {
             thumbnails: {
-              large: thumbnailUrl
+              large: {
+                url: thumbnailUrl
+              }
             }
           }
         ]

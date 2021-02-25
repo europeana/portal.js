@@ -96,30 +96,31 @@ describe('components/item/ItemHero', () => {
     });
   });
 
-  describe('downloadEnabled', () => {
-    context('when the rightsstatement is in copyright', () => {
-      it('is false', () => {
-        const wrapper = factory({ media: [media[1]], identifier });
-        wrapper.vm.downloadEnabled.should.eq(false);
-      });
-    });
-    context('when the selected media is the isShownAt and not downloadable', () => {
-      it('is false', () => {
-        const wrapper = factory({ media: [media[5]], identifier, isShownAt: media[5].about });
-        wrapper.vm.downloadEnabled.should.eq(false);
-      });
-    });
-    context('when the rightsstatement is not in copyright', () => {
-      it('is true', () => {
-        const wrapper = factory({ media: [media[0]], identifier });
-        wrapper.vm.downloadEnabled.should.eq(true);
-      });
-    });
-    context('when the rightsstatement is not in copyright and the selected media is not the isShownAt', () => {
-      it('is true', () => {
-        const wrapper = factory({ media: [media[0]], identifier, isShownAt: 'https://europeana1914-1918.s3.amazonaws.com' });
-        wrapper.vm.downloadEnabled.should.eq(true);
-      });
-    });
-  });
+  // FIXME: move to unit tests for plugins/europeana/record/web-resources.js
+  // describe('downloadEnabled', () => {
+  //   context('when the rightsstatement is in copyright', () => {
+  //     it('is false', () => {
+  //       const wrapper = factory({ media: [media[1]], identifier });
+  //       wrapper.vm.downloadEnabled.should.eq(false);
+  //     });
+  //   });
+  //   context('when the selected media is the isShownAt and not downloadable', () => {
+  //     it('is false', () => {
+  //       const wrapper = factory({ media: [media[5]], identifier, isShownAt: media[5].about });
+  //       wrapper.vm.downloadEnabled.should.eq(false);
+  //     });
+  //   });
+  //   context('when the rightsstatement is not in copyright', () => {
+  //     it('is true', () => {
+  //       const wrapper = factory({ media: [media[0]], identifier });
+  //       wrapper.vm.downloadEnabled.should.eq(true);
+  //     });
+  //   });
+  //   context('when the rightsstatement is not in copyright and the selected media is not the isShownAt', () => {
+  //     it('is true', () => {
+  //       const wrapper = factory({ media: [media[0]], identifier, isShownAt: 'https://europeana1914-1918.s3.amazonaws.com' });
+  //       wrapper.vm.downloadEnabled.should.eq(true);
+  //     });
+  //   });
+  // });
 });
