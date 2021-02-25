@@ -11,7 +11,7 @@ const factory = (uri, edm) => {
   return {
     ...pickWebResourceProperties(resource),
     get edmRights() {
-      return this.webResourceEdmRights && this.webResourceEdmRights.def ? this.webResourceEdmRights.def[0] : aggregation.edmRights;
+      return (this.webResourceEdmRights || aggregation.edmRights || { def: [] }).def[0];
     },
     get downloadable() {
       return this.edmRights && !this.edmRights.includes('/InC/') && (this.about !== aggregation.edmIsShownAt);
@@ -25,19 +25,10 @@ const factory = (uri, edm) => {
     get thumbnailType() {
       return thumbnailTypeForMimeType(this.ebucoreHasMimeType) || edm.type;
     },
-    thumbnail(size) {
-      return {
-        url: thumbnailUrl(this.thumbnailUri, {
-          size,
-          type: this.thumbnailType
-        }),
-        linkable: (this.about !== aggregation.edmIsShownAt)
-      };
-    },
     get thumbnails() {
       return {
-        small: this.thumbnail('w200'),
-        large: this.thumbnail('w400')
+        small: thumbnail('w200', this, aggregation),
+        large: thumbnail('w400', this, aggregation)
       };
     },
     // Service definitions, e.g. for IIIF
@@ -45,6 +36,37 @@ const factory = (uri, edm) => {
       return (edm.services || [])
         .filter(service => (this.svcsHasService || []).includes(service.about));
     }
+  };
+};
+
+/**
+ * @typedef {Object} Thumbnail
+ * @property {string} url URL to sized & typed thumbnail
+ * @property {Boolean} linkable Whether it is permitted to link to the web
+ *                              resource from the thumbnail
+ */
+/**
+ * Generate thumbnail properties for a web resource
+ *
+ * NOTE: Do not make this a function of the factory return value, as that causes:
+ *       > WARN  Cannot stringify a function thumbnail
+ *
+ * @param {string} size Size of thumbnail of 'w200' & 'w400'
+ * @param {Object} resource Web resource, as returned by `factory`
+ * @param {string} resource.about URI of web resource
+ * @param {string} resource.thumbnailUri URI of media asset to thumbnail
+ * @param {string} resource.thumbnailType EDM type of media asset to thumbnail
+ * @param {Object} aggregation Aggregation web resource belongs to
+ * @param {string} aggregation.edmIsShownAt isShownAt property of aggregation
+ * @return {Thumbnail} Thumbnail properties
+ */
+const thumbnail = (size, { about, thumbnailUri, thumbnailType }, { edmIsShownAt }) => {
+  return {
+    url: thumbnailUrl(thumbnailUri, {
+      size,
+      type: thumbnailType
+    }),
+    linkable: (about !== edmIsShownAt)
   };
 };
 
