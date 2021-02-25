@@ -23,3 +23,15 @@ Feature: pages
     When I open the `exhibition chapter`
     Then I see an `exhibition chapter`
     And I make a snapshot of the `exhibition chapter`
+
+  Scenario: Take a snapshot of a static page
+
+    When I open a `static page`
+    Then I see a `static page`
+    And I make a snapshot of the `static page`
+
+  Scenario: Take a snapshot of a user's gallery/set page
+
+    When I open a `user gallery page`
+    Then I see a `user gallery page`
+    And I make a snapshot of the `user gallery page`

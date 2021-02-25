@@ -194,7 +194,7 @@ module.exports = {
   },
   async preferBrowserLanguage(locale) {
     const nightwatchApiOptions = {
-      configFile: 'config/nightwatch.conf.js',
+      configFile: 'tests/features/config/nightwatch.conf.js',
       env: `chrome-${locale}`,
       silent: true
     };
@@ -273,6 +273,10 @@ module.exports = {
     await this.clickOnTheTarget('search button');
   },
   async makeSnapShot(pageName) {
+    // For consistency always wait a full second before taking a percy snapshot,
+    // this allows any JS based resizing/loading/animations from previous steps to finish.
+    await this.waitSomeSeconds(1);
+
     await client.percySnapshot(pageName);
   },
   async hrefLangTags() {

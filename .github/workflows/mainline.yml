@@ -1,0 +1,34 @@
+name: Mainline
+
+on:
+  push:
+    branches:
+      - master
+    paths-ignore:
+    - '**.md'
+    - 'deploy/**'
+    - 'migrations/**'
+
+env:
+  CTF_CDA_ACCESS_TOKEN: ${{ secrets.CTF_CDA_ACCESS_TOKEN }}
+  CTF_ENVIRONMENT_ID: test
+  CTF_GRAPHQL_ORIGIN: https://portaljs-api-proxy-cache-test.eanadev.org
+  CTF_SPACE_ID: ${{ secrets.CTF_SPACE_ID }}
+  EUROPEANA_API_KEY: ${{ secrets.EUROPEANA_API_KEY }}
+  EUROPEANA_RECORD_API_KEY: ${{ secrets.EUROPEANA_RECORD_API_KEY }}
+  OAUTH_CLIENT: ${{ secrets.OAUTH_CLIENT }}
+  PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
+  PERCY_BRANCH: master
+
+jobs:
+  test-visual:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v1
+      with:
+        node-version: 12.x
+    - run: echo "PERCY_COMMIT=${GITHUB_SHA}" >> $GITHUB_ENV
+    - run: envsubst < .github/workflows/support/ci/.env > docker/stack/app/.env
+    - run: envsubst < .github/workflows/support/ci/.env > docker/stack/nightwatch/.env
+    - run: npm run test:visual
