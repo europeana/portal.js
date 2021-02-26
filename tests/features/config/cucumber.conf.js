@@ -9,7 +9,7 @@ require('../support/step-definitions');
 const nightwatchApiOptions = {
   configFile: 'tests/features/config/nightwatch.conf.js',
   env: 'chrome-en',
-  silent: true
+  silent: false
 };
 
 setDefaultTimeout(100000);

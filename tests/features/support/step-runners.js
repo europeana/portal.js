@@ -277,7 +277,7 @@ module.exports = {
     // this allows any JS based resizing/loading/animations from previous steps to finish.
     await this.waitSomeSeconds(1);
 
-    return client.percySnapshot(pageName);
+    await client.percySnapshot(pageName);
   },
   async hrefLangTags() {
     await client.expect.element('link[rel=alternate]').to.be.present;
