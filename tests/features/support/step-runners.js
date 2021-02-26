@@ -278,7 +278,23 @@ module.exports = {
     // It also ensures that by the time percy wants to add the percyAgent code, the dom is ready.
     await this.waitSomeSeconds(3);
 
+    // DEBUG ONLY
+    await client.getLog('browser', (logArray) => {
+      console.log(`Browser log entry count ${logArray.length}`);
+      logArray.forEach((logEntry) => {
+        console.log(`[${logEntry.level}] - ${logEntry.message}`);
+      });
+    });
+
     await client.percySnapshot(pageName);
+
+    // DEBUG ONLY
+    await client.getLog('browser', (logArray) => {
+      console.log(`Browser log entry count ${logArray.length}`);
+      logArray.forEach((logEntry) => {
+        console.log(`[${logEntry.level}] - ${logEntry.message}`);
+      });
+    });
   },
   async hrefLangTags() {
     await client.expect.element('link[rel=alternate]').to.be.present;

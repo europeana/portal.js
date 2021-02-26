@@ -18,7 +18,8 @@ function chrome(options = {}) {
     },
     desiredCapabilities: {
       browserName: 'chrome',
-      silent: true,
+      silent: false,
+      loggingPrefs: { browser: 'ALL' },
       chromeOptions: {
         args,
         w3c: false
