@@ -273,9 +273,10 @@ module.exports = {
     await this.clickOnTheTarget('search button');
   },
   async makeSnapShot(pageName) {
-    // For consistency always wait a full second before taking a percy snapshot,
+    // For consistency always wait 3 seconds before taking a percy snapshot,
     // this allows any JS based resizing/loading/animations from previous steps to finish.
-    await this.waitSomeSeconds(1);
+    // It also ensures that by the time percy wants to add the percyAgent code, the dom is ready.
+    await this.waitSomeSeconds(3);
 
     await client.percySnapshot(pageName);
   },
