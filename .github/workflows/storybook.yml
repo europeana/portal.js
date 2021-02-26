@@ -1,4 +1,4 @@
-name: CI
+name: Storybook
 
 on:
   push:
@@ -12,7 +12,8 @@ env:
   CF_USERNAME: apikey
 
 jobs:
-  deploy:
+  update:
+    name: Update Storybook on Cloud Foundry (CF)
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -28,5 +29,15 @@ jobs:
         key: ${{ runner.os }}-node-${{ hashFiles('./package-lock.json') }}
     - if: steps.cache-node.outputs.cache-hit != 'true'
       run: npm install
+    # TODO: build and push a Docker image for this to speed it up?
+    - name: Install CF CLI & plugins
+      run: |
+        wget -q -O - https://packages.cloudfoundry.org/debian/cli.cloudfoundry.org.key | sudo apt-key add -
+        echo "deb https://packages.cloudfoundry.org/debian stable main" | sudo tee /etc/apt/sources.list.d/cloudfoundry-cli.list
+        sudo apt-get -q update && sudo apt-get -yq install cf7-cli
+        cf --version
     - run: npm run build-storybook
-    - run: cd storybook-static && cf push portaljs-storybook -f ../deploy/cloud-foundry/storybook.manifest.yml
+    - name: Login to CF
+      run: cf login -a ${CF_API} -u ${CF_USERNAME} -p "${CF_PASSWORD}" -o ${CF_ORG} -s ${CF_SPACE}
+    - name: Deploy to CF
+      run: cd storybook-static && cf push portaljs-storybook -f ../deploy/cloud-foundry/storybook.manifest.yml
