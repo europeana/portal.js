@@ -11,6 +11,6 @@ module.exports = {
         'unpkg.com'
       ]
     },
-    'network-idle-timeout': 1000
+    'network-idle-timeout': 5000
   }
 };
