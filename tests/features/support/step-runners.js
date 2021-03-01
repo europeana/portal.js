@@ -278,6 +278,10 @@ module.exports = {
     await this.waitSomeSeconds(1);
 
     await client.percySnapshot(pageName);
+
+    // Give percy plenty of time to upload the snapshot as it spawns a synchronous task to
+    // do so which may interfere with the following snapshot.
+    await this.waitSomeSeconds(5);
   },
   async hrefLangTags() {
     await client.expect.element('link[rel=alternate]').to.be.present;
