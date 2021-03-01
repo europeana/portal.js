@@ -73,3 +73,4 @@ services:
       - WEBDRIVER_JA_HOST=chrome-ja
       - WEBDRIVER_NL_HOST=chrome-nl
       - APP_URL=https://nginx
+      - LOG_LEVEL=debug
