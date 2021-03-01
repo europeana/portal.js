@@ -257,6 +257,9 @@ export default (context = {}) => {
 
         // Inject service definitions, e.g. for IIIF
         webResource.services = services.filter((service) => (webResource.svcsHasService || []).includes(service.about));
+
+        // Add isShownAt to disable download for these webresources as they ar website URLs and not actual media
+        if (webResource.about === aggregation.edmIsShownAt) webResource.isShownAt = true;
       }
 
       // Crude check for IIIF content, which is to prevent newspapers from showing many

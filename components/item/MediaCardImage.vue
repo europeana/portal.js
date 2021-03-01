@@ -1,6 +1,6 @@
 <template>
   <b-link
-    v-if="imageLink && media.thumbnails['large']"
+    v-if="imageLink && media.thumbnails['large'] && !media.isShownAt"
     :href="imageLink"
     target="_blank"
   >
@@ -19,7 +19,7 @@
   </b-link>
   <component
     :is="lazy ? 'b-img-lazy' : 'b-img'"
-    v-else-if="!imageLink && media.thumbnails['large']"
+    v-else-if="media.thumbnails['large']"
     :src="media.thumbnails['large']"
     alt=""
     class="mw-100"
