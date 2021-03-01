@@ -6,6 +6,7 @@ Feature: pages
     Then I see the `item page`
     And I make a snapshot of the `item page`
     And I see the `item page`
+
   Scenario: Take a snapshot of a gallery page
 
     When I open a `gallery page`
