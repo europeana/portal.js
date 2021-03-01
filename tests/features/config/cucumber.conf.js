@@ -27,10 +27,22 @@ async function stopBrowser() {
   process.removeAllListeners();
 }
 
-// Request a page and wait for the cookie notice
+// Request sample pages and wait for the cookie notice
 async function warmupBrowser() {
   // TODO: replace with a low cost static page not hitting any APIs
   await runners.openAPage('/en');
+  await client.waitForElementVisible('.cookie-disclaimer');
+  await runners.openAPage('/en/item/09102/_GNM_693983');
+  await client.waitForElementVisible('.cookie-disclaimer');
+  await runners.openAPage('/en/galleries/blue');
+  await client.waitForElementVisible('.cookie-disclaimer');
+  await runners.openAPage('/en/exhibitions');
+  await client.waitForElementVisible('.cookie-disclaimer');
+  await runners.openAPage('/en/exhibitions/faces-of-europe');
+  await client.waitForElementVisible('.cookie-disclaimer');
+  await runners.openAPage('/en/galleries/blue');
+  await client.waitForElementVisible('.cookie-disclaimer');
+  await runners.openAPage('/en/set/2');
   await client.waitForElementVisible('.cookie-disclaimer');
 }
 
