@@ -1,4 +1,5 @@
 Feature: pages
+  Takes snapshots to upload to percy.
 
   Scenario: Take a snapshot of an item page
 
