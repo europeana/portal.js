@@ -67,8 +67,7 @@ services:
       chrome-nl:
         condition: service_healthy
     env_file: ./nightwatch/.env
-    volumes:
-      - /dev/shm:/dev/shm
+    shm_size: 1gb
     environment:
       - WEBDRIVER_EN_HOST=chrome-en
       - WEBDRIVER_JA_HOST=chrome-ja
