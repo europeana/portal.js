@@ -145,7 +145,7 @@ export function getEntityQuery(uri) {
   } else if (uri.includes('/agent/base/')) {
     return `edm_agent:"${uri}"`;
   } else if (uri.includes('/timespan/')) {
-    return `edm_timespan:"${uri.replace('/base', '')}"`;
+    return `edm_timespan:"${uri}"`;
   }
   return null;
 }
@@ -210,7 +210,9 @@ function getEntityUrl(type, id) {
  * @return {string} retrieved human readable name of type
  */
 export function getEntityUri(type, id) {
-  return `${EUROPEANA_DATA_URL}/${getEntityTypeApi(type)}/base/${normalizeEntityId(id)}`;
+  const apiType = getEntityTypeApi(type);
+  const baseInfix = apiType === 'timespan' ? '' : '/base';
+  return `${EUROPEANA_DATA_URL}/${apiType}${baseInfix}/${normalizeEntityId(id)}`;
 }
 
 /**

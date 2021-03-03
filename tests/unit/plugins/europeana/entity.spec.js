@@ -209,7 +209,7 @@ describe('plugins/europeana/entity', () => {
       let id = '100-test-slug';
       context('with type Agent', () => {
         let type = 'person';
-        it('returns an agent URI, without any human readable labels', () => {
+        it('returns an agent URI, with base infix, without any human readable labels', () => {
           const uri = getEntityUri(type, id);
           return uri.should.eq('http://data.europeana.eu/agent/base/100');
         });
@@ -217,9 +217,17 @@ describe('plugins/europeana/entity', () => {
 
       context('with type Concept', () => {
         let type = 'topic';
-        it('returns an agent URI, without any human readable labels', () => {
+        it('returns a concept URI, with base infix, without any human readable labels', () => {
           const uri = getEntityUri(type, id);
           return uri.should.eq('http://data.europeana.eu/concept/base/100');
+        });
+      });
+
+      context('with type Timespan', () => {
+        let type = 'time';
+        it('returns a timespan URI, without any human readable labels, or base infix', () => {
+          const uri = getEntityUri(type, id);
+          return uri.should.eq('http://data.europeana.eu/timespan/100');
         });
       });
     });
