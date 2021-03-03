@@ -118,18 +118,6 @@ jobs:
   test-e2e:
     needs: [config]
     runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@v1
-      with:
-        node-version: 12.x
-    - run: envsubst < .github/workflows/support/ci/.env > docker/stack/app/.env
-    - run: envsubst < .github/workflows/support/ci/.env > docker/stack/nightwatch/.env
-    - run: npm run test:e2e
-
-  test-visual:
-    needs: [config]
-    runs-on: ubuntu-latest
     env:
       PERCY_PULL_REQUEST: ${{ needs.config.outputs.pull-request-number }}
     steps:
@@ -141,6 +129,7 @@ jobs:
     - run: echo "PERCY_COMMIT=${GITHUB_SHA}" >> $GITHUB_ENV
     - run: envsubst < .github/workflows/support/ci/.env > docker/stack/app/.env
     - run: envsubst < .github/workflows/support/ci/.env > docker/stack/nightwatch/.env
+    - run: npm run test:e2e
     - run: npm run test:visual
 
   # TODO: limit to internal PRs, i.e. those from within the repo
