@@ -4,6 +4,9 @@ FROM alpine:3
 
 WORKDIR /app
 
+# Tell Percy to use local Chromium
+ENV PERCY_BROWSER_EXECUTABLE=/usr/bin/chromium-browser
+
 # Install local Chromium and dependencies for puppeteer, used by Percy
 # See: https://github.com/puppeteer/puppeteer/blob/main/docs/troubleshooting.md#running-on-alpine
 RUN apk add --no-cache \
@@ -16,10 +19,6 @@ RUN apk add --no-cache \
       ttf-freefont \
       nodejs \
       npm
-
-# Tell puppeteer to use local Chromium
-ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
-    PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
 
 COPY docker/stack/nightwatch/package*.json docker/stack/nightwatch/percy.js ./
 
