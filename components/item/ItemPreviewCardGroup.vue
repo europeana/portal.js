@@ -5,7 +5,7 @@
     deck
   >
     <client-only>
-      <magic-grid>
+      <magic-grid maxCols="4">
         <ItemPreviewCard
           v-for="(item, index) in value"
           :key="item.id"
