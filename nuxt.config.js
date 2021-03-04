@@ -207,7 +207,8 @@ module.exports = {
     '~/plugins/page',
     '~/plugins/vue-filters',
     '~/plugins/vue-directives',
-    { src: '~/plugins/vue-announcer', mode: 'client' }
+    { src: '~/plugins/vue-announcer', mode: 'client' },
+    { src: '~/plugins/magicgrid.js', mode: 'client' }
   ],
 
   buildModules: [

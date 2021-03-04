@@ -94,9 +94,10 @@
               <ItemPreviewCardGroup
                 v-model="results"
                 :hits="hits"
-                :view="view"
+                view="new-grid"
                 :per-row="perRow"
               />
+              <!-- :view="view" -->
               <InfoMessage
                 v-if="lastAvailablePage"
                 :message="$t('resultsLimitWarning')"

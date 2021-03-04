@@ -4,26 +4,32 @@
     :class="cardGroupClass"
     deck
   >
-    <ItemPreviewCard
-      v-for="(item, index) in value"
-      :key="item.id"
-      v-model="value[index]"
-      :hit-selector="itemHitSelector(item)"
-      :variant="cardVariant"
-      data-qa="item preview"
-      @like="$emit('like', item.id)"
-      @unlike="$emit('unlike', item.id)"
-    />
+    <client-only>
+      <magic-grid>
+        <ItemPreviewCard
+          v-for="(item, index) in value"
+          :key="item.id"
+          v-model="value[index]"
+          :hit-selector="itemHitSelector(item)"
+          :variant="cardVariant"
+          data-qa="item preview"
+          @like="$emit('like', item.id)"
+          @unlike="$emit('unlike', item.id)"
+        />
+      </magic-grid>
+    </client-only>
   </b-card-group>
 </template>
 
 <script>
   import ItemPreviewCard from './ItemPreviewCard';
+  import ClientOnly from 'vue-client-only';
 
   export default {
     name: 'ItemPreviewCardGroup',
 
     components: {
+      ClientOnly,
       ItemPreviewCard
     },
 
@@ -57,6 +63,9 @@
           break;
         case 'grid':
           cardGroupClass = `card-deck-search masonry card-deck-${this.perRow}-cols`;
+          break;
+        case 'new-grid':
+          cardGroupClass = 'magic-masonry';
           break;
         case 'plain':
           cardGroupClass = `card-deck-search card-deck-${this.perRow}-cols`;
