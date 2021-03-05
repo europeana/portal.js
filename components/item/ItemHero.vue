@@ -92,11 +92,8 @@
     },
     computed: {
       downloadUrl() {
-        if (this.selectedCanvas) {
-          if (this.selectedCanvas.useProxy) return this.$apis.record.mediaProxyUrl(this.selectedCanvas.url, this.identifier);
-          return this.selectedCanvas.url;
-        }
-        return this.$apis.record.mediaProxyUrl(this.selectedMedia.about, this.identifier);
+        const url = (this.selectedCanvas || this.selectedMedia).about;
+        return this.downloadViaProxy(url) ? this.$apis.record.mediaProxyUrl(url, this.identifier) : url;
       },
       rightsStatementIsUrl() {
         return RegExp('^https?://*').test(this.rightsStatement);
@@ -123,16 +120,17 @@
       }
     },
     mounted() {
-      window.addEventListener('message', (msg) => {
-        if (msg.data.event === 'updateDownloadLink') {
-          this.selectedCanvas = {
-            url: msg.data.id,
-            useProxy: (this.media.some((item) => item.about === msg.data.id))
-          };
-        }
+      window.addEventListener('message', msg => {
+        if (msg.data.event === 'updateDownloadLink') this.selectedCanvas = { about: msg.data.id };
       });
     },
     methods: {
+      // Ensure we only proxy web resource media, preventing proxying of
+      // arbitrary other resources such as images linked from (non-Europeana-hosted)
+      // IIIF manifests.
+      downloadViaProxy(url) {
+        return this.media.some(item => item.about === url);
+      },
       selectMedia(about) {
         this.selectedMedia = about;
       }
