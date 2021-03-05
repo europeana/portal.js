@@ -86,11 +86,16 @@
     },
     data() {
       return {
-        selectedMediaItem: null
+        selectedMediaItem: null,
+        selectedCanvas: null
       };
     },
     computed: {
       downloadUrl() {
+        if (this.selectedCanvas) {
+          if (this.selectedCanvas.useProxy) return this.$apis.record.mediaProxyUrl(this.selectedCanvas.url, this.identifier);
+          return this.selectedCanvas.url;
+        }
         return this.$apis.record.mediaProxyUrl(this.selectedMedia.about, this.identifier);
       },
       rightsStatementIsUrl() {
@@ -109,12 +114,23 @@
           return this.selectedMediaItem || this.media[0] || {};
         },
         set(about) {
+          this.selectedCanvas = null;
           this.selectedMediaItem = this.media.find((item) => item.about === about) || {};
         }
       },
       downloadEnabled() {
         return this.rightsStatement && !this.rightsStatement.includes('/InC/') && !this.selectedMedia.isShownAt;
       }
+    },
+    mounted() {
+      window.addEventListener('message', (msg) => {
+        if (msg.data.event === 'updateDownloadLink') {
+          this.selectedCanvas = {
+            url: msg.data.id,
+            useProxy: (this.media.some((item) => item.about === msg.data.id))
+          };
+        }
+      });
     },
     methods: {
       selectMedia(about) {
