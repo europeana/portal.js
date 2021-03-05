@@ -133,7 +133,7 @@
           { hid: 'og:description', property: 'og:description', content: this.description }
         ] : []).concat(this.heroImage ? [
           { hid: 'og:image', property: 'og:image', content: this.socialMediaImageOptimisedUrl },
-          { hid: 'og:image:alt', property: 'og:image', content: this.socialMediaImageAlt }
+          { hid: 'og:image:alt', property: 'og:image:alt', content: this.socialMediaImageAlt }
         ] : [])
       };
     }
