@@ -92,7 +92,7 @@
         ] : [])
           .concat(this.post.primaryImageOfPage ? [
             { hid: 'og:image', property: 'og:image', content: this.post.primaryImageOfPage.image.url },
-            { hid: 'og:image:alt', property: 'og:image', content: this.post.primaryImageOfPage.image.description || '' }
+            { hid: 'og:image:alt', property: 'og:image:alt', content: this.post.primaryImageOfPage.image.description || '' }
           ] : [])
       };
     },

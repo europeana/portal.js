@@ -178,7 +178,7 @@
           { hid: 'title', name: 'title', content: this.page.name },
           { hid: 'og:title', property: 'og:title', content: this.page.name },
           { hid: 'og:image', property: 'og:image', content: this.optimisedImageUrl },
-          { hid: 'og:image:alt', property: 'og:image', content: this.heroImage.description },
+          { hid: 'og:image:alt', property: 'og:image:alt', content: this.heroImage.description },
           { hid: 'og:type', property: 'og:type', content: 'article' }
         ]
           .concat(this.page.description ? [
