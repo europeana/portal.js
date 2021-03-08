@@ -1,5 +1,5 @@
 <template>
-  <b-card-group
+  <!-- <b-card-group
     :data-qa="`item previews ${view}`"
     :class="cardGroupClass"
     deck
@@ -14,16 +14,42 @@
       @like="$emit('like', item.id)"
       @unlike="$emit('unlike', item.id)"
     />
-  </b-card-group>
+  </b-card-group> -->
+  <no-ssr>
+    <div
+      v-masonry
+      transition-duration="0"
+      item-selector=".item"
+      horizontal-order="true"
+      column-width=".masonry-container .card"
+      gutter="15"
+      class="masonry-container"
+    >
+      <ItemPreviewCard
+        v-for="(item, index) in value"
+        :key="item.id"
+        v-model="value[index]"
+        v-masonry-tile
+        :hit-selector="itemHitSelector(item)"
+        :variant="cardVariant"
+        class="item"
+        data-qa="item preview"
+        @like="$emit('like', item.id)"
+        @unlike="$emit('unlike', item.id)"
+      />
+    </div>
+  </no-ssr>
 </template>
 
 <script>
   import ItemPreviewCard from './ItemPreviewCard';
+  import NoSSR from 'vue-no-ssr';
 
   export default {
     name: 'ItemPreviewCardGroup',
 
     components: {
+      'no-ssr': NoSSR,
       ItemPreviewCard
     },
 
@@ -74,6 +100,12 @@
 
       cardVariant() {
         return this.view === 'grid' ? 'default' : this.view;
+      }
+    },
+
+    mounted() {
+      if (typeof this.$redrawVueMasonry === 'function') {
+        this.$redrawVueMasonry();
       }
     },
 

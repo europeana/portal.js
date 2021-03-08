@@ -143,7 +143,7 @@
       },
       lazy: {
         type: Boolean,
-        default: true
+        default: false
       },
       showSubtitle: {
         type: Boolean,

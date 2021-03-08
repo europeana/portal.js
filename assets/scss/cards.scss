@@ -443,6 +443,53 @@
   }
 }
 
+// new masonry, test for now
+.masonry-container {
+  width: 100%;
+
+  .content-card {
+    box-shadow: none;
+    display: inline-block;
+    vertical-align: top;
+    width: calc(25% - 30px);
+
+    a {
+      &:before {
+        box-shadow: $boxshadow-small;
+        content: '';
+        height: 100%;
+        position: absolute;
+        transition: box-shadow 0.25s;
+        width: 100%;
+      }
+
+      &:hover {
+        &:before {
+          box-shadow: $boxshadow-large;
+        }
+      }
+      .card-img {
+        min-height: 12rem;
+        max-height: none;
+      }
+
+      .card-title {
+        display: block;
+        -webkit-line-clamp: initial;
+        -webkit-box-orient: initial;
+        max-height: none;
+      }
+
+      .card-text:last-of-type p {
+        max-height: none;
+        display: block;
+        -webkit-line-clamp: initial;
+        -webkit-box-orient: initial;
+      }
+    }
+  }
+}
+
 .browse-section {
   .content-card:not(.mini-card) a .card-body {
     min-height: 10rem;
