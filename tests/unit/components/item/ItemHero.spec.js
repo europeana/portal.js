@@ -160,7 +160,7 @@ describe('components/item/ItemHero', () => {
         wrapper.vm.downloadViaProxy('http://www.example.org/canvas').should.eq(true);
       });
     });
-    context('when the url is in the list of allMediaUris', () => {
+    context('when the url is NOT in the list of allMediaUris', () => {
       it('returns false', () => {
         const wrapper = factory(propsData);
         wrapper.vm.downloadViaProxy('http://www.example.org/another-resource').should.eq(false);

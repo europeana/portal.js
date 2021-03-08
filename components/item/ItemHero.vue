@@ -133,7 +133,6 @@
       // arbitrary other resources such as images linked from (non-Europeana-hosted)
       // IIIF manifests.
       downloadViaProxy(url) {
-        console.log(`checking all media (${this.allMediaUris}) for ${url}`);
         return this.allMediaUris.some(uri => uri === url);
       },
       selectMedia(about) {
