@@ -94,9 +94,9 @@ Feature: item page
   Scenario: Location tab with map embed when dcterms:spatial has co-ordinates
     Given I am on the `search page`
     When I click the `show search button`
-    And I enter "pl_wgs84_pos_lat:* pl_wgs84_pos_long:* proxy_dcterms_spatial:*" in the `search box`
+    And I enter "pl_wgs84_pos_lat:* pl_wgs84_pos_long:* proxy_dcterms_spatial:http\://data.europeana.eu*" in the `search box`
     And I press the ENTER key
-    And I see a `search query` with the text "pl_wgs84_pos_lat:* pl_wgs84_pos_long:* proxy_dcterms_spatial:*"
+    And I see a `search query` with the text "pl_wgs84_pos_lat:* pl_wgs84_pos_long:* proxy_dcterms_spatial:http\://data.europeana.eu*"
     And I click a `item preview`
     And I see an `item page`
     And I hover over the `metadata box`
