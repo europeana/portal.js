@@ -61,6 +61,7 @@ storiesOf('Item page/Item Hero', module)
     },
     data() {
       return {
+        allMediaUris: media.map((media) => media.about),
         media,
         identifier: '/2020601/https___1914_1918_europeana_eu_contributions_10265'
       };

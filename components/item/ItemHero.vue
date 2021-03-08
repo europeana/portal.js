@@ -71,6 +71,10 @@
       UserButtons: () => import('../account/UserButtons')
     },
     props: {
+      allMediaUris: {
+        type: Array,
+        default: () => []
+      },
       identifier: {
         type: String,
         required: true
@@ -129,7 +133,8 @@
       // arbitrary other resources such as images linked from (non-Europeana-hosted)
       // IIIF manifests.
       downloadViaProxy(url) {
-        return this.media.some(item => item.about === url);
+        console.log(`checking all media (${this.allMediaUris}) for ${url}`);
+        return this.allMediaUris.some(uri => uri === url);
       },
       selectMedia(about) {
         this.selectedMedia = about;
