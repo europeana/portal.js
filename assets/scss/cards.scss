@@ -443,6 +443,46 @@
   }
 }
 
+.new-masonry {
+  .content-card {
+    box-shadow: none;
+    display: inline-block;
+    vertical-align: top;
+    width: 100%;
+    
+    a {
+      &:before {
+        box-shadow: $boxshadow-small;
+        content: '';
+        height: 100%;
+        position: absolute;
+        transition: box-shadow 0.25s;
+        width: 100%;
+      }
+
+      &:hover {
+        &:before {
+          box-shadow: $boxshadow-large;
+        }
+      }
+      .card-img {
+        min-height: 12rem;
+        max-height: none;
+      }
+
+      .card-title {
+        display: block;
+        max-height: none;
+      }
+
+      .card-text:last-of-type p {
+        max-height: none;
+        display: block;
+      }
+    }
+  }
+}
+
 .browse-section {
   .content-card:not(.mini-card) a .card-body {
     min-height: 10rem;

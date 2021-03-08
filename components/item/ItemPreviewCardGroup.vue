@@ -1,5 +1,5 @@
 <template>
-  <b-card-group
+  <!-- <b-card-group
     :data-qa="`item previews ${view}`"
     :class="cardGroupClass"
     deck
@@ -14,7 +14,24 @@
       @like="$emit('like', item.id)"
       @unlike="$emit('unlike', item.id)"
     />
-  </b-card-group>
+  </b-card-group> -->
+
+  <masonry
+    :cols="4"
+    :gutter="30"
+    class="new-masonry"
+  >
+    <ItemPreviewCard
+      v-for="(item, index) in value"
+      :key="item.id"
+      v-model="value[index]"
+      :hit-selector="itemHitSelector(item)"
+      :variant="cardVariant"
+      data-qa="item preview"
+      @like="$emit('like', item.id)"
+      @unlike="$emit('unlike', item.id)"
+    />
+  </masonry>
 </template>
 
 <script>
