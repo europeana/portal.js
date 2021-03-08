@@ -1,24 +1,22 @@
 <template>
-  <b-card-group
-    :data-qa="`item previews ${view}`"
-    :class="cardGroupClass"
-    deck
-  >
-    <client-only>
-      <magic-grid maxCols="4">
-        <ItemPreviewCard
-          v-for="(item, index) in value"
-          :key="item.id"
-          v-model="value[index]"
-          :hit-selector="itemHitSelector(item)"
-          :variant="cardVariant"
-          data-qa="item preview"
-          @like="$emit('like', item.id)"
-          @unlike="$emit('unlike', item.id)"
-        />
-      </magic-grid>
-    </client-only>
-  </b-card-group>
+  <client-only>
+    <magic-grid
+      class="new-masonry"
+      max-cols="4"
+      :data-qa="`item previews ${view}`"
+    >
+      <ItemPreviewCard
+        v-for="(item, index) in value"
+        :key="item.id"
+        v-model="value[index]"
+        :hit-selector="itemHitSelector(item)"
+        :variant="cardVariant"
+        data-qa="item preview"
+        @like="$emit('like', item.id)"
+        @unlike="$emit('unlike', item.id)"
+      />
+    </magic-grid>
+  </client-only>
 </template>
 
 <script>
