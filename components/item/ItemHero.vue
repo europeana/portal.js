@@ -71,6 +71,10 @@
       UserButtons: () => import('../account/UserButtons')
     },
     props: {
+      allMediaUris: {
+        type: Array,
+        default: () => []
+      },
       identifier: {
         type: String,
         required: true
@@ -86,12 +90,14 @@
     },
     data() {
       return {
-        selectedMediaItem: null
+        selectedMediaItem: null,
+        selectedCanvas: null
       };
     },
     computed: {
       downloadUrl() {
-        return this.$apis.record.mediaProxyUrl(this.selectedMedia.about, this.identifier);
+        const url = (this.selectedCanvas || this.selectedMedia).about;
+        return this.downloadViaProxy(url) ? this.$apis.record.mediaProxyUrl(url, this.identifier) : url;
       },
       rightsStatementIsUrl() {
         return RegExp('^https?://*').test(this.rightsStatement);
@@ -109,6 +115,7 @@
           return this.selectedMediaItem || this.media[0] || {};
         },
         set(about) {
+          this.selectedCanvas = null;
           this.selectedMediaItem = this.media.find((item) => item.about === about) || {};
         }
       },
@@ -116,7 +123,18 @@
         return this.rightsStatement && !this.rightsStatement.includes('/InC/') && !this.selectedMedia.isShownAt;
       }
     },
+    mounted() {
+      window.addEventListener('message', msg => {
+        if (msg.data.event === 'updateDownloadLink') this.selectedCanvas = { about: msg.data.id };
+      });
+    },
     methods: {
+      // Ensure we only proxy web resource media, preventing proxying of
+      // arbitrary other resources such as images linked from (non-Europeana-hosted)
+      // IIIF manifests.
+      downloadViaProxy(url) {
+        return this.allMediaUris.some(uri => uri === url);
+      },
       selectMedia(about) {
         this.selectedMedia = about;
       }

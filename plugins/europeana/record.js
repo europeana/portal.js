@@ -204,8 +204,10 @@ export default (context = {}) => {
           return memo;
         }, {});
       const proxyData = merge.all(edm.proxies);
+      const allMediaUris = this.aggregationMediaUris(providerAggregation).map(Object.freeze);
 
       return {
+        allMediaUris,
         altTitle: proxyData.dctermsAlternative,
         description: proxyData.dcDescription,
         identifier: edm.about,
@@ -213,7 +215,7 @@ export default (context = {}) => {
         isShownAt: providerAggregation.edmIsShownAt,
         coreFields: coreFields(proxyData, providerAggregation, entities),
         fields: extraFields(proxyData, edm, entities),
-        media: this.aggregationMedia(providerAggregation, edm.type, edm.services),
+        media: this.aggregationMedia(providerAggregation, allMediaUris, edm.type, edm.services),
         agents,
         concepts,
         timespans,
@@ -241,11 +243,13 @@ export default (context = {}) => {
       };
     },
 
-    aggregationMedia(aggregation, recordType, services = []) {
+    aggregationMediaUris(aggregation) {
       // Gather all isShownBy/At and hasView URIs
       const edmIsShownByOrAt = aggregation.edmIsShownBy || aggregation.edmIsShownAt;
-      const mediaUris = uniq([edmIsShownByOrAt].concat(aggregation.hasView || []).filter(isNotUndefined));
+      return uniq([edmIsShownByOrAt].concat(aggregation.hasView || []).filter(isNotUndefined));
+    },
 
+    aggregationMedia(aggregation, mediaUris, recordType, services = []) {
       // Filter web resources to isShownBy and hasView, respecting the ordering
       const media = mediaUris
         .map(mediaUri => aggregation.webResources.find(webResource => mediaUri === webResource.about))
