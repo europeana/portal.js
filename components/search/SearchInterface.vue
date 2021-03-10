@@ -117,18 +117,6 @@
         </b-col>
       </b-row>
     </template>
-    <b-toast
-      id="tier-toast"
-      toast-class="brand-toast"
-      toaster="b-toaster-bottom-left"
-      auto-hide-delay="10000"
-      is-status
-      no-close-button
-      solid
-      data-qa="tier toast"
-    >
-      {{ $t('facets.contentTier.notification') }}
-    </b-toast>
   </b-container>
 </template>
 
@@ -373,8 +361,18 @@
         if (sessionStorage.contentTierToastShown || this.contentTierZeroActive || !this.contentTierZeroPresent) {
           return;
         }
-        this.$bvToast.show('tier-toast');
+        this.makeToast();
         sessionStorage.contentTierToastShown = 'true';
+      },
+      makeToast() {
+        this.$root.$bvToast.toast(this.$t('facets.contentTier.notification'), {
+          toastClass: 'brand-toast',
+          toaster: 'b-toaster-bottom-left',
+          autoHideDelay: 5000,
+          isStatus: true,
+          noCloseButton: true,
+          solid: true
+        });
       }
     }
   };
