@@ -323,7 +323,6 @@ describe('components/search/SearchInterface', () => {
     });
 
     describe('showContentTierToast', () => {
-      const elementId = 'tier-toast__toast_outer';
       let facets = [];
 
       context('in browser', () => {
@@ -340,15 +339,6 @@ describe('components/search/SearchInterface', () => {
           });
 
           context('when toast has not yet been shown this session', () => {
-            it('shows the toast', async() => {
-              const wrapper = factory({
-                storeState: { facets }
-              });
-              wrapper.vm.$bvToast.show = sinon.spy();
-              global.sessionStorage.contentTierToastShown = false;
-              await wrapper.vm.showContentTierToast();
-              wrapper.vm.$bvToast.show.should.have.been.calledWith(elementId);
-            });
 
             it('updates session storage after toast is shown', async() => {
               const wrapper = factory({

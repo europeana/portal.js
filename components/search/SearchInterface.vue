@@ -366,7 +366,6 @@
       },
       makeToast() {
         this.$root.$bvToast.toast(this.$t('facets.contentTier.notification'), {
-          id: 'tier-toast',
           toastClass: 'brand-toast',
           toaster: 'b-toaster-bottom-left',
           autoHideDelay: 5000,
