@@ -323,7 +323,7 @@ describe('components/search/SearchInterface', () => {
     });
 
     describe('showContentTierToast', () => {
-      const elementId = 'tier-toast';
+      const elementId = 'tier-toast__toast_outer';
       let facets = [];
 
       context('in browser', () => {
