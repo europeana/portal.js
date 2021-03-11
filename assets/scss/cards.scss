@@ -55,7 +55,21 @@
     display: -webkit-box;
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
-    position: relative;
+  }
+
+  .card-link.is-external-link .card-title {
+    display: flex;
+    align-items: flex-end;
+    span {
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    &:after {
+      content: '\e900';
+      @extend .icon-font;
+      margin-left: 5px;
+    }
   }
 
   .card-subtitle {
@@ -369,15 +383,6 @@
   .card-deck-4-cols.narrow-gutter .card {
     flex: 0 0 calc(100% / 4 - #{$grid-gutter-narrow*2});
   }
-}
-
-.is-external-link.card-link .card-title:after {
-  content: '\e900';
-  @extend .icon-font;
-  top: 0;
-  right: 0;
-  position: absolute;
-  background: white;
 }
 
 .masonry {
