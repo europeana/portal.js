@@ -55,6 +55,7 @@
     display: -webkit-box;
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
+    position: relative;
   }
 
   .card-subtitle {
@@ -373,6 +374,10 @@
 .is-external-link.card-link .card-title:after {
   content: '\e900';
   @extend .icon-font;
+  top: 0;
+  right: 0;
+  position: absolute;
+  background: white;
 }
 
 .masonry {
