@@ -272,6 +272,7 @@
       margin: 0 0 0.25rem 0;
       position: relative;
       margin-right: 0;
+      margin-bottom: 0;
       &:nth-last-child(2) {
         margin-right: 0;
       }
@@ -293,6 +294,16 @@
           }
           i:before {
             color: $white;
+          }
+        }
+        span {
+          overflow: hidden;
+          white-space: nowrap;
+          display: block;
+          text-overflow: ellipsis;
+          height: 1.5rem;
+          i {
+            margin-right: 0.5rem;
           }
         }
       }
