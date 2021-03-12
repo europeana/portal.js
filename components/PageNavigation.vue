@@ -14,8 +14,8 @@
         link-class="nav-link"
         exact
       >
+        <i :class="renderIcon(link.url)" />
         <span>
-          <i :class="renderIcon(link.url)" />
           {{ link.text }}
         </span>
       </SmartLink>
@@ -72,8 +72,8 @@
             :data-qa="item.dataQa"
             class="nav-link"
           >
+            <i :class="renderIcon(item.name)" />
             <span>
-              <i :class="renderIcon(item.name)" />
               {{ item.text }}
             </span>
           </b-link>
@@ -89,8 +89,8 @@
           class="nav-link"
           :to="{ name: 'account-login' }"
         >
+          <i :class="renderIcon('/account/login')" />
           <span>
-            <i :class="renderIcon('/account/login')" />
             {{ $t('account.linkLoginJoin') }}
           </span>
         </b-link>
@@ -194,6 +194,8 @@
     .nav-link {
       color: $mediumgrey;
       text-decoration: none;
+      display: flex;
+      align-items: center;
 
       &:hover {
         color: $innovationblue;
@@ -218,61 +220,56 @@
         content: '\e900';
       }
 
-      span {
-        display: flex;
-        align-items: center;
-        i {
-          display: inline-block;
-          font-size: 1rem;
-          z-index: 1;
-          margin-right: 0.75rem;
-          &:before {
-            @extend .icon-font;
-            content: '';
-            color: $black;
-            transition: $standard-transition;
-            font-size: 1.5rem;
-          }
-          &.icon-home:before {
-            content: '\e922';
-          }
-          &.icon-collections:before {
-            content: '\e91d';
-          }
-          &.icon-school:before {
-            content: '\e91e';
-          }
-          &.icon-info:before {
-            content: '\e91f';
-          }
-          &.icon-help:before {
-            content: '\e921';
-          }
-          &.icon-login:before {
-            content: '\e926';
-          }
-          &.icon-logout:before {
-            content: '\e927';
-          }
-          &.icon-settings:before {
-            content: '\e928';
-          }
-          &.icon-favorite:before {
-            content: '\e92c';
-          }
-          &.blank:before {
-            color: transparent;
-          }
+      i {
+        display: inline-block;
+        font-size: 1rem;
+        z-index: 1;
+        margin-right: 0.75rem;
+        &:before {
+          @extend .icon-font;
+          content: '';
+          color: $black;
+          transition: $standard-transition;
+          font-size: 1.5rem;
+        }
+        &.icon-home:before {
+          content: '\e922';
+        }
+        &.icon-collections:before {
+          content: '\e91d';
+        }
+        &.icon-school:before {
+          content: '\e91e';
+        }
+        &.icon-info:before {
+          content: '\e91f';
+        }
+        &.icon-help:before {
+          content: '\e921';
+        }
+        &.icon-login:before {
+          content: '\e926';
+        }
+        &.icon-logout:before {
+          content: '\e927';
+        }
+        &.icon-settings:before {
+          content: '\e928';
+        }
+        &.icon-favorite:before {
+          content: '\e92c';
+        }
+        &.blank:before {
+          color: transparent;
         }
       }
+
     }
 
     @media (max-width: $bp-large) {
       width: 100%;
       margin: 0 0 0.25rem 0;
       position: relative;
-      margin-right: 0;
-      margin-bottom: 0;
       &:nth-last-child(2) {
         margin-right: 0;
       }
@@ -301,10 +298,6 @@
           white-space: nowrap;
           display: block;
           text-overflow: ellipsis;
-          height: 1.5rem;
-          i {
-            margin-right: 0.5rem;
-          }
         }
       }
     }
@@ -317,11 +310,8 @@
         text-transform: uppercase;
         font-size: $font-size-small;
         font-weight: 600;
-        span {
-          position: relative;
-          i {
-            display: none;
-          }
+        i {
+          display: none;
         }
       }
     }
