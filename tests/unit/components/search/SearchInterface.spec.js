@@ -339,6 +339,15 @@ describe('components/search/SearchInterface', () => {
           });
 
           context('when toast has not yet been shown this session', () => {
+            it('shows the toast', async() => {
+              const wrapper = factory({
+                storeState: { facets }
+              });
+              const rootBvToast = sinon.spy(wrapper.vm.$root.$bvToast, 'toast');
+              global.sessionStorage.contentTierToastShown = false;
+              await wrapper.vm.showContentTierToast();
+              rootBvToast.should.have.been.calledWith('facets.contentTier.notification', sinon.match.any);
+            });
 
             it('updates session storage after toast is shown', async() => {
               const wrapper = factory({
@@ -361,11 +370,11 @@ describe('components/search/SearchInterface', () => {
               const wrapper = factory({
                 storeState: { facets }
               });
-              wrapper.vm.$bvToast.show = sinon.spy();
+              const rootBvToast = sinon.spy(wrapper.vm.$root.$bvToast, 'toast');
 
               await wrapper.vm.showContentTierToast();
 
-              wrapper.vm.$bvToast.show.should.not.have.been.called;
+              rootBvToast.should.not.have.been.called;
             });
           });
         });
@@ -381,11 +390,11 @@ describe('components/search/SearchInterface', () => {
             const wrapper = factory({
               storeState: { facets }
             });
-            wrapper.vm.$bvToast.show = sinon.spy();
+            const rootBvToast = sinon.spy(wrapper.vm.$root.$bvToast, 'toast');
 
             await wrapper.vm.showContentTierToast();
 
-            wrapper.vm.$bvToast.show.should.not.have.been.called;
+            rootBvToast.should.not.have.been.called;
           });
         });
       });
@@ -397,11 +406,11 @@ describe('components/search/SearchInterface', () => {
 
         it('does not show the toast', async() => {
           const wrapper = factory();
-          wrapper.vm.$bvToast.show = sinon.spy();
+          const rootBvToast = sinon.spy(wrapper.vm.$root.$bvToast, 'toast');
 
           await wrapper.vm.showContentTierToast();
 
-          wrapper.vm.$bvToast.show.should.not.have.been.called;
+          rootBvToast.should.not.have.been.called;
         });
       });
     });
