@@ -47,7 +47,9 @@
           data-qa="card title"
           :lang="displayTitle.code"
         >
-          {{ displayTitle.values[0] | truncate(90, $t('formatting.ellipsis')) }}
+          <span>
+            {{ displayTitle.values[0] | truncate(90, $t('formatting.ellipsis')) }}
+          </span>
         </b-card-title>
         <time
           v-if="datetime"
