@@ -39,7 +39,7 @@
       </b-button>
       <SmartLink
         :destination="{ name: 'index' }"
-        class="logo pl-4 d-inline-flex"
+        class="logo d-inline-flex"
       >
         <img
           src="../assets/img/logo.svg"
@@ -326,6 +326,7 @@
   @media (min-width: $bp-medium) {
     .logo {
       margin: 0 auto 0 0;
+      padding-left: 1.5rem;
     }
   }
 
