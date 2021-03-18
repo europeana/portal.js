@@ -1,12 +1,13 @@
 <template>
   <b-navbar-nav
-    class="ml-xl-auto"
+    class="ml-xl-auto top-navbar"
     data-qa="main navigation"
   >
     <li
       v-for="(link, index) in links"
       :key="index"
       class="nav-item"
+      :class="sidebarNav ? 'sidebar-nav-item' : ''"
     >
       <SmartLink
         v-b-toggle.menu
@@ -22,47 +23,27 @@
     </li>
     <!-- sso links -->
     <template>
-      <li
-        v-if="isAuthenticated"
-        class="nav-item d-none d-lg-inline-block"
-      >
-        <b-dropdown
-          right
-          no-caret
-          variant="white"
-          class="nav-link"
-          data-qa="account button"
-          :class="isAccountPage && 'exact-active-link'"
+      <template v-if="isAuthenticated">
+        <li
+          v-if="!sidebarNav"
+          class="nav-item d-none d-lg-inline-block"
         >
-          <template
-            slot="button-content"
+          <SmartLink
+            v-b-toggle.menu
+            :destination="'/account'"
+            link-class="nav-link"
+            exact
           >
             <span class="label">
               {{ $t('account.myProfile') }}
             </span>
-          </template>
-          <template v-for="(item, index) in authLinks">
-            <b-dropdown-divider
-              v-if="item.divider"
-              :key="index"
-            />
-            <b-dropdown-item
-              v-else
-              :key="index"
-              :to="item.to"
-              :href="item.href"
-              :data-qa="item.dataQa"
-            >
-              <span class="label">{{ item.text }}</span>
-            </b-dropdown-item>
-          </template>
-        </b-dropdown>
-      </li>
-      <template v-if="isAuthenticated">
+          </SmartLink>
+        </li>
         <li
           v-for="item in authLinks"
           :key="item.name"
-          class="nav-item d-block d-lg-none"
+          class="nav-item d-block"
+          :class="sidebarNav ? 'sidebar-nav-item' : 'd-lg-none'"
         >
           <b-link
             v-if="!item.divider"
@@ -82,6 +63,7 @@
       <li
         v-else
         class="nav-item"
+        :class="sidebarNav ? 'sidebar-nav-item' : ''"
       >
         <b-link
           v-b-toggle.menu
@@ -110,6 +92,10 @@
       links: {
         type: Array,
         default: () => []
+      },
+      sidebarNav: {
+        type: Boolean,
+        default: false
       }
     },
     data() {
@@ -117,13 +103,14 @@
 
       return {
         authLinks: [
-          { to: this.$path({ name: 'account' }), text: this.$t('account.profile'), name: '/account', dataQa: 'likes and galleries button' },
-          { href: keycloakAccountUrl, text: this.$t('account.settings'), name: '/account/settings', dataQa: 'account settings button' },
+          { to: this.$path({ name: 'account' }), text: this.$t('account.myProfile'), name: '/account', dataQa: 'likes and galleries button' },
+          { href: keycloakAccountUrl, text: this.$t('account.profileSettings'), name: '/account/settings', dataQa: 'account settings button' },
           { divider: true, name: 'divider' },
           { to: { name: 'account-logout' }, text: this.$t('account.linkLogout'), name: '/account/logout', dataQa: 'log out button' }
         ]
       };
     },
+
     computed: {
       isAuthenticated() {
         return this.$store.state.auth.loggedIn;
@@ -155,7 +142,7 @@
           className = 'icon-help';
           break;
         case ('/account'):
-          className = 'icon-favorite';
+          className = 'icon-account';
           break;
         case ('/account/login'):
           className = 'icon-login';
@@ -194,6 +181,7 @@
     .nav-link {
       color: $mediumgrey;
       text-decoration: none;
+      font-size: 1rem;
       display: flex;
       align-items: center;
 
@@ -256,8 +244,8 @@
         &.icon-settings:before {
           content: '\e928';
         }
-        &.icon-favorite:before {
-          content: '\e92c';
+        &.icon-account:before {
+          content: '\e932';
         }
         &.blank:before {
           color: transparent;
@@ -266,10 +254,11 @@
 
     }
 
-    @media (max-width: $bp-large) {
+    &.sidebar-nav-item {
       width: 100%;
       margin: 0 0 0.25rem 0;
       position: relative;
+      margin-right: 0;
       &:nth-last-child(2) {
         margin-right: 0;
       }
@@ -303,53 +292,23 @@
     }
 
     @media (min-width: $bp-large) {
-      width: auto;
-      margin: auto;
+      &:not(.sidebar-nav-item) {
+        width: auto;
+        margin: auto;
 
-      .nav-link {
-        text-transform: uppercase;
-        font-size: $font-size-small;
-        font-weight: 600;
-        i {
-          display: none;
+        .nav-link {
+          text-transform: uppercase;
+          font-size: $font-size-small;
+          font-weight: 600;
+          span {
+            position: relative;
+          }
+          i {
+            display: none;
+          }
         }
       }
     }
   }
 
-  ::v-deep .dropdown {
-    &.nav-link {
-      padding: 1px 0;
-
-      button:hover {
-        box-shadow: none;
-        span {
-          color: $innovationblue;
-        }
-      }
-    }
-    .label {
-      color: $mediumgrey;
-      font-size: $font-size-small;
-      font-weight: 600;
-      text-decoration: none;
-      text-transform: uppercase;
-    }
-    &-divider {
-      margin: 0;
-    }
-    &-menu {
-      margin-top: 0.65rem;
-      border-radius: 0.25rem;
-      box-shadow: $boxshadow-light;
-      border: solid 1px $paper;
-      li a {
-        padding: 0.85rem 1rem;
-        transition: $standard-transition;
-        &:hover {
-          background-color: $offwhite;
-        }
-      }
-    }
-  }
 </style>
