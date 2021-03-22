@@ -76,13 +76,6 @@
           <div />
         </b-navbar>
       </b-sidebar>
-      <transition name="fade">
-        <span
-          v-if="showSidebar"
-          class="close-menu"
-          @click="showSidebar = !showSidebar"
-        />
-      </transition>
       <SmartLink
         :destination="{ name: 'index' }"
         class="logo d-inline-flex"
@@ -130,7 +123,6 @@
 
     data() {
       return {
-        showSidebar: null,
         windowWidth: 0
       };
     },
@@ -153,14 +145,6 @@
           { url: '/about-us', text: this.$t('header.navigation.about') },
           { url: '/help', text: this.$t('header.navigation.help') }
         ];
-      }
-    },
-
-    watch: {
-      '$route'() {
-        if (this.showSidebar) {
-          this.showSidebar = false;
-        }
       }
     },
 
@@ -193,22 +177,6 @@
     }
   }
 
-  .slide-enter-active, .fade-enter-active {
-    transition: 0.3s cubic-bezier(0.24, 1, 0.32, 1);
-  }
-
-  .slide-leave-active, .fade-leave-active {
-    transition: 0.2s cubic-bezier(0.4, 0.0, 1, 1);
-  }
-
-  .slide-enter, .slide-leave-to {
-    transform: translate3d(-100%, 0, 0);
-  }
-
-  .fade-enter, .fade-leave-to {
-    opacity: 0;
-  }
-
   .navbar-brand {
     min-width: 11.0625rem;
     flex: 0 0 auto;
@@ -222,20 +190,9 @@
     }
   }
 
-  .navbar.sidebar-nav {
-  //   // height: 100vh;
-  //   // position: fixed;
-  //   // top: 0;
-  //   // left: 0;
-  //   // background: $white;
-  //   z-index: 200;
-  //   width: 16rem;
-  //   padding: 0 0.5rem 1rem;
-  //   transition: $standard-transition; // fixes header appear/disappear
-    .navbar-nav {
-      flex-direction: column;
-      width: 100%;
-    }
+  .navbar.sidebar-nav .navbar-nav {
+    flex-direction: column;
+    width: 100%;
   }
 
   .btn {
@@ -293,23 +250,6 @@
     }
   }
 
-  .close-menu {
-    position: fixed;
-    right: 0;
-    top: 0;
-    height: 100vh;
-    width: 100%;
-    border-radius: 0;
-    outline: none;
-    background-color: rgba(0, 0, 0, 0.7);
-    cursor: pointer;
-    z-index: 100;
-    transition: $standard-transition; // fixes header appear/disappear
-  }
-  .b-sidebar-backdrop.bg-dark {
-    background-color: rgb(0, 0, 0) !important;
-    opacity: 0.7;
-  }
   .navbar-toggle {
     display: flex;
     align-items: center;
@@ -358,12 +298,6 @@
     }
     .container-fluid {
       transition: $standard-transition;
-      // &:not(.show) {
-      //   .sidebar-nav, .close-menu {
-      //     transform: translateY(3.5rem); // fixes header appear/disappear
-      //     transition: $standard-transition;
-      //   }
-      // }
     }
   }
   @media (min-width: $bp-extralarge) {

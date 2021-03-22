@@ -2,3 +2,15 @@
   background-color: rgb(0, 0, 0) !important;
   opacity: 0.7;
 }
+
+// fixes header appear/disappear
+#sidebar {
+  max-height: 100vh;
+  transition: $standard-transition;
+}
+.container-fluid:not(.show) {
+  #sidebar, .b-sidebar-backdrop {
+    transform: translateY(3.5rem);
+    transition: $standard-transition;
+  }
+}
