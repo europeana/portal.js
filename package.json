@@ -55,7 +55,7 @@
     "@vue-a11y/announcer": "^2.1.0",
     "autosuggest-highlight": "^3.1.1",
     "axios": "^0.21.1",
-    "bootstrap-vue": "^2.0.0",
+    "bootstrap-vue": "^2.21.2",
     "cookie-universal-nuxt": "^2.0.18",
     "core-js": "^3.8.1",
     "deep-object-diff": "^1.1.0",
