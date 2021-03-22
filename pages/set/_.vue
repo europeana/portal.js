@@ -61,12 +61,13 @@
                 </div>
               </b-col>
             </b-row>
-            <div class="collection-buttons">
+            <div class="d-inline-flex collection-buttons">
               <template
                 v-if="userIsOwner"
               >
                 <b-button
-                  variant="outline-primary text-decoration-none"
+                  variant="outline-primary"
+                  class="text-decoration-none mr-2"
                   @click="$bvModal.show(setFormModalId)"
                 >
                   {{ $t('actions.edit') }}
@@ -80,14 +81,18 @@
                   @update="updateSet"
                 />
               </template>
-              <b-button
+              <template
                 v-if="visibility === 'public'"
-                v-b-modal.shareModal
-                variant="outline-primary text-decoration-none"
               >
-                {{ $t('actions.share') }}
-              </b-button>
-              <SocialShareModal :media-url="shareMediaUrl" />
+                <b-button
+                  v-b-modal.shareModal
+                  variant="outline-primary"
+                  class="text-decoration-none"
+                >
+                  {{ $t('actions.share') }}
+                </b-button>
+                <SocialShareModal :media-url="shareMediaUrl" />
+              </template>
             </div>
           </b-container>
         </b-col>
@@ -297,11 +302,6 @@
   }
 
   .collection-buttons {
-    button {
-      &:first-child {
-        margin-right: 1rem;
-      }
-    }
     .text {
       font-weight: 600;
     }
