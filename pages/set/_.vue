@@ -80,14 +80,14 @@
                   @update="updateSet"
                 />
               </template>
-              <!-- <b-button
+              <b-button
                 v-if="visibility === 'public'"
+                v-b-modal.shareModal
                 variant="outline-primary text-decoration-none"
               >
-                <span class="text">
-                  {{ $t('actions.share') }}
-                </span>
-              </b-button> -->
+                {{ $t('actions.share') }}
+              </b-button>
+              <SocialShareModal :media-url="shareMediaUrl" />
             </div>
           </b-container>
         </b-col>
@@ -139,15 +139,19 @@
 
 <script>
   import { langMapValueForLocale } from  '../../plugins/europeana/utils';
+  import { genericThumbnail } from '../../plugins/europeana/thumbnail';
+
   import AlertMessage from '../../components/generic/AlertMessage';
   import ItemPreviewCardGroup from '../../components/item/ItemPreviewCardGroup';
   import LoadingSpinner from '../../components/generic/LoadingSpinner';
+  import SocialShareModal from '../../components/sharing/SocialShareModal.vue';
 
   export default {
     components: {
       LoadingSpinner,
       AlertMessage,
       ItemPreviewCardGroup,
+      SocialShareModal,
       SetFormModal: () => import('../../components/set/SetFormModal')
     },
 
@@ -197,6 +201,12 @@
         const max = 100;
         const label = this.set.total > max ? 'items.itemOf' : 'items.itemCount';
         return this.$tc(label, this.set.total, { max });
+      },
+      shareMediaUrl() {
+        if (this.set.items.length === 0) return null;
+        return this.set.items[0].edmPreview ?
+          `${this.set.items[0].edmPreview[0]}&size=w400` :
+          genericThumbnail(this.set.items[0].id, { type: this.set.items[0].type, size: 'w400' });
       }
     },
 
