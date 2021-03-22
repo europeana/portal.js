@@ -27,29 +27,35 @@
       v-else
     >
       <b-button
+        v-b-toggle.sidebar
         variant="light"
         class="navbar-toggle collapsed flex-column align-items-center justify-content-center align-self-center ml-3"
         :aria-label="$t('header.showSidebar')"
         data-qa="hamburger button"
-        @click="showSidebar = !showSidebar"
       >
         <span />
         <span />
         <span />
       </b-button>
-      <transition name="slide">
+      <b-sidebar
+        id="sidebar"
+        title="Side navigation"
+        bg-variant="white"
+        no-header
+        backdrop
+        width="16rem"
+      >
         <b-navbar
-          v-if="showSidebar"
-          class="sidebar-nav align-items-start flex-column flex-row pt-1"
+          class="sidebar-nav align-items-start flex-column pt-1 pl-2 pb-4 pr-2"
           role="navigation"
           data-qa="sidebar navigation"
         >
           <div class="w-100 d-flex align-items-center pl-2 pt-2 pb-3">
             <b-button
+              v-b-toggle.sidebar
               data-qa="close menu button"
               class="close"
               variant="light"
-              @click="showSidebar = !showSidebar"
             />
             <SmartLink
               :destination="{ name: 'index' }"
@@ -67,8 +73,9 @@
             :links="sidebarNavigation"
             sidebar-nav
           />
+          <div />
         </b-navbar>
-      </transition>
+      </b-sidebar>
       <transition name="fade">
         <span
           v-if="showSidebar"
@@ -216,15 +223,15 @@
   }
 
   .navbar.sidebar-nav {
-    height: 100vh;
-    position: fixed;
-    top: 0;
-    left: 0;
-    background: $white;
-    z-index: 200;
-    width: 16rem;
-    padding: 0 0.5rem 1rem;
-    transition: $standard-transition; // fixes header appear/disappear
+  //   // height: 100vh;
+  //   // position: fixed;
+  //   // top: 0;
+  //   // left: 0;
+  //   // background: $white;
+  //   z-index: 200;
+  //   width: 16rem;
+  //   padding: 0 0.5rem 1rem;
+  //   transition: $standard-transition; // fixes header appear/disappear
     .navbar-nav {
       flex-direction: column;
       width: 100%;
@@ -299,6 +306,10 @@
     z-index: 100;
     transition: $standard-transition; // fixes header appear/disappear
   }
+  .b-sidebar-backdrop.bg-dark {
+    background-color: rgb(0, 0, 0) !important;
+    opacity: 0.7;
+  }
   .navbar-toggle {
     display: flex;
     align-items: center;
@@ -347,12 +358,12 @@
     }
     .container-fluid {
       transition: $standard-transition;
-      &:not(.show) {
-        .sidebar-nav, .close-menu {
-          transform: translateY(3.5rem); // fixes header appear/disappear
-          transition: $standard-transition;
-        }
-      }
+      // &:not(.show) {
+      //   .sidebar-nav, .close-menu {
+      //     transform: translateY(3.5rem); // fixes header appear/disappear
+      //     transition: $standard-transition;
+      //   }
+      // }
     }
   }
   @media (min-width: $bp-extralarge) {
