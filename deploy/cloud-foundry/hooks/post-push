@@ -6,17 +6,6 @@ app_guid() {
   cf app $1 --guid | head -1
 }
 
-app_process_guid() {
-  cf curl /v3/apps/$1/processes | jq -Mr '.resources[0].guid'
-}
-
-count_running_instances() {
-  cf curl /v3/processes/$1/stats | jq -Mr '[.resources[] | select(.state=="RUNNING")] | length'
-}
-
-old_app_name=$1
-old_app_guid=$(app_guid $1)
-
 new_app_name=$2
 new_app_guid=$(app_guid $2)
 
@@ -25,35 +14,4 @@ if [ "${ELK_SERVICE_REGISTRATION_COMMAND}" != "" ]; then
   echo "Registering with ELK service"
   ${ELK_SERVICE_REGISTRATION_COMMAND} ${new_app_name} ${new_app_guid}
   echo "OK"
-fi
-
-# Always scale up to number of instances from old mirror
-# TODO: move to upstream Docker image?
-
-# Prevent pre-existing autoscaling from interfering with the initial scaling up
-cf detach-autoscaling-policy ${new_app_name}
-
-old_app_process_guid=$(app_process_guid ${old_app_guid})
-new_app_process_guid=$(app_process_guid ${new_app_guid})
-
-instance_min_count=$(count_running_instances ${old_app_process_guid})
-cf scale ${new_app_name} -i ${instance_min_count}
-echo
-echo "Waiting for ${instance_min_count} RUNNING instances..."
-echo
-
-new_app_running_instances=$(count_running_instances ${new_app_process_guid})
-
-# TODO: add a timeout failure here, e.g. after 60s
-while [ ${new_app_running_instances} -lt ${instance_min_count} ]; do
-  echo "${new_app_running_instances}/${instance_min_count}..."
-  sleep 3
-  new_app_running_instances=$(count_running_instances ${new_app_process_guid})
-done
-echo
-echo "OK"
-
-if [ -f "/autoscaling-policy.json" ]; then
-  echo "Attaching autoscaling policy"
-  cf attach-autoscaling-policy ${new_app_name} /autoscaling-policy.json
 fi
