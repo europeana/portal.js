@@ -81,18 +81,14 @@
                   @update="updateSet"
                 />
               </template>
-              <template
-                v-if="visibility === 'public'"
+              <b-button
+                v-b-modal.shareModal
+                variant="outline-primary"
+                class="text-decoration-none"
               >
-                <b-button
-                  v-b-modal.shareModal
-                  variant="outline-primary"
-                  class="text-decoration-none"
-                >
-                  {{ $t('actions.share') }}
-                </b-button>
-                <SocialShareModal :media-url="shareMediaUrl" />
-              </template>
+                {{ $t('actions.share') }}
+              </b-button>
+              <SocialShareModal :media-url="shareMediaUrl" />
             </div>
           </b-container>
         </b-col>
