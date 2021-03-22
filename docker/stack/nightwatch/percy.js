@@ -7,4 +7,4 @@ module.exports = {
       'unpkg.com'
     ]
   }
-}
+};
