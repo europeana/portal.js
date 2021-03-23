@@ -7,32 +7,35 @@
     />
     <b-row class="flex-md-row pb-5">
       <b-col cols="12">
-        <div
-          v-masonry
-          transition-duration="0"
-          item-selector=".card"
-          horizontal-order="true"
-          column-width=".masonry-container .card"
-          gutter="30"
-          class="masonry-container"
-          data-qa="gallery images"
-        >
-          <ContentCard
-            v-for="image in images"
-            :key="image.identifier"
-            v-masonry-tile
-            :title="imageTitle(image)"
-            :image-url="imageUrl(image)"
-            :lazy="false"
-            :url="{ name: 'item-all', params: { pathMatch: image.identifier.slice(1) } }"
-          />
-        </div>
+        <client-only>
+          <div
+            v-masonry
+            transition-duration="0"
+            item-selector=".card"
+            horizontal-order="true"
+            column-width=".masonry-container .card"
+            gutter="30"
+            class="masonry-container"
+            data-qa="gallery images"
+          >
+            <ContentCard
+              v-for="image in images"
+              :key="image.identifier"
+              v-masonry-tile
+              :title="imageTitle(image)"
+              :image-url="imageUrl(image)"
+              :lazy="false"
+              :url="{ name: 'item-all', params: { pathMatch: image.identifier.slice(1) } }"
+            />
+          </div>
+        </client-only>
       </b-col>
     </b-row>
   </b-container>
 </template>
 
 <script>
+  import ClientOnly from 'vue-client-only';
   import ContentHeader from '../../components/generic/ContentHeader';
 
   import marked from 'marked';
@@ -40,6 +43,7 @@
   export default {
     name: 'ImageGallery',
     components: {
+      ClientOnly,
       ContentHeader,
       ContentCard: () => import('../../components/generic/ContentCard')
     },
