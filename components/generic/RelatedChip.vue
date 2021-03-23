@@ -47,10 +47,12 @@
 
     computed: {
       localisedTitle() {
-        if (typeof this.title === 'string') return {
-          values: [this.title],
-          code: null
-        };
+        if (typeof this.title === 'string') {
+          return {
+            values: [this.title],
+            code: null
+          };
+        }
         return langMapValueForLocale(this.title, this.$i18n.locale);
       }
     }

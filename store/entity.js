@@ -46,7 +46,9 @@ export const getters = {
 
 export const actions = {
   async searchForRecords({ getters, dispatch, commit, state }, query) {
-    if (!state.entity) return;
+    if (!state.entity) {
+      return;
+    }
 
     await dispatch('search/activate', null, { root: true });
 
@@ -68,7 +70,9 @@ export const actions = {
 
       if (!userParams.query) {
         const englishPrefLabel = getters.englishPrefLabel;
-        if (englishPrefLabel) overrideParams.query = englishPrefLabel;
+        if (englishPrefLabel) {
+          overrideParams.query = englishPrefLabel;
+        }
       }
     }
 

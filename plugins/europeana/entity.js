@@ -74,7 +74,9 @@ export default (context = {}) => {
      * @return {Object} entity data
      */
     findEntities(entityUris) {
-      if (entityUris.length === 0) return;
+      if (entityUris.length === 0) {
+        return;
+      }
       const q = entityUris.join('" OR "');
       const params = {
         query: `entity_uri:("${q}")`
@@ -130,7 +132,9 @@ function getRelatedEntityData(entities) {
  * @return {string} retrieved id
  */
 export function normalizeEntityId(id) {
-  if (!id) return;
+  if (!id) {
+    return;
+  }
   return id.split('-')[0];
 }
 
@@ -174,7 +178,9 @@ export function getEntityTypeApi(type) {
     topic: 'concept',
     time: 'timespan'
   };
-  if (!type) return;
+  if (!type) {
+    return;
+  }
   return names[type];
 }
 
@@ -189,7 +195,9 @@ export function getEntityTypeHumanReadable(type) {
     concept: 'topic',
     timespan: 'time'
   };
-  if (!type) return;
+  if (!type) {
+    return;
+  }
   return names[type.toLowerCase()];
 }
 

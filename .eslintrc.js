@@ -29,6 +29,7 @@ module.exports = {
     'comma-spacing': ['error', { 'before': false, 'after': true }],
     'comma-style': ['error', 'last'],
     'computed-property-spacing': ['error', 'never'],
+    'curly': 'error',
     'eol-last': ['error', 'always'],
     'eqeqeq': ['error', 'always'],
     'func-call-spacing': ['error', 'never'],

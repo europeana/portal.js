@@ -209,7 +209,9 @@
         return Number(this.$route.query.page || 1);
       },
       errorMessage() {
-        if (!this.error) return null;
+        if (!this.error) {
+          return null;
+        }
 
         const paginationError = this.error.match(/It is not possible to paginate beyond the first (\d+)/);
         if (paginationError !== null) {
@@ -302,16 +304,22 @@
     },
     methods: {
       viewFromRouteQuery() {
-        if (this.routeQueryView) this.view = this.routeQueryView;
+        if (this.routeQueryView) {
+          this.view = this.routeQueryView;
+        }
       },
       facetDropdownType(name) {
         return name === 'collection' ? 'radio' : 'checkbox';
       },
       changeFacet(name, selected) {
         if (typeof this.filters[name] === 'undefined') {
-          if ((Array.isArray(selected) && selected.length === 0) || !selected) return;
+          if ((Array.isArray(selected) && selected.length === 0) || !selected) {
+            return;
+          }
         }
-        if (isEqual(this.filters[name], selected)) return;
+        if (isEqual(this.filters[name], selected)) {
+          return;
+        }
 
         return this.rerouteSearch(this.queryUpdatesForFacetChanges({ [name]: selected }));
       },
@@ -356,7 +364,9 @@
         return this.$store.getters['search/hasResettableFilters'];
       },
       showContentTierToast() {
-        if (!process.browser) return;
+        if (!process.browser) {
+          return;
+        }
 
         if (sessionStorage.contentTierToastShown || this.contentTierZeroActive || !this.contentTierZeroPresent) {
           return;

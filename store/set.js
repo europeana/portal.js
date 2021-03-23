@@ -12,7 +12,9 @@ export const mutations = {
   },
   setLikedItems(state, value) {
     state.likedItems = value;
-    if (value) state.likedItemIds = value.map(item => item.id);
+    if (value) {
+      state.likedItemIds = value.map(item => item.id);
+    }
   },
   like(state, itemId) {
     state.likedItemIds.push(itemId);
@@ -101,7 +103,9 @@ export const actions = {
     }
   },
   fetchLikes({ commit, state }) {
-    if (!state.likesId) return commit('setLikedItems', null);
+    if (!state.likesId) {
+      return commit('setLikedItems', null);
+    }
 
     return this.$apis.set.getSet(state.likesId, {
       pageSize: 100,
@@ -122,18 +126,24 @@ export const actions = {
   updateSet({ state, commit }, { id, body }) {
     return this.$apis.set.updateSet(id, body)
       .then(response => {
-        if (state.active && id === state.active.id) commit('setActive', { items: state.active.items, ...response });
+        if (state.active && id === state.active.id) {
+          commit('setActive', { items: state.active.items, ...response });
+        }
       });
   },
   deleteSet({ state, commit }, setId) {
     return this.$apis.set.deleteSet(setId)
       .then(() => {
-        if (state.active && setId === state.active.id) commit('setActive', 'DELETED');
+        if (state.active && setId === state.active.id) {
+          commit('setActive', 'DELETED');
+        }
       });
   },
   refreshCreation({ state, commit }, setId) {
     const setToReplaceIndex = state.creations.findIndex(set => set.id === setId);
-    if (setToReplaceIndex === -1) return;
+    if (setToReplaceIndex === -1) {
+      return;
+    }
 
     return this.$apis.set.getSet(setId, {
       profile: 'itemDescriptions'

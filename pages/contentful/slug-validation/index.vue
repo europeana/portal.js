@@ -68,7 +68,9 @@
 
     methods: {
       updateContentfulField() {
-        if (this.contentfulExtensionSdk) this.contentfulExtensionSdk.field.setValue(this.value);
+        if (this.contentfulExtensionSdk) {
+          this.contentfulExtensionSdk.field.setValue(this.value);
+        }
       },
 
       // Convert using the speakingurl package, which is included in the contentful layout.
@@ -99,7 +101,9 @@
        * If the slug was changed independently, don't update based of title changes.
        */
       handleTitleChange(value) {
-        if (this.slugFromTitle) this.handleValueChange(this.convertToSlug(value || ''));
+        if (this.slugFromTitle) {
+          this.handleValueChange(this.convertToSlug(value || ''));
+        }
       },
 
       /**
@@ -120,7 +124,9 @@
 
       // To prevent multiple API calls, or validation from a previous slug when typing fast.
       getDebouncedDuplicateStatus(slug) {
-        if (this.timeout) clearTimeout(this.timeout);
+        if (this.timeout) {
+          clearTimeout(this.timeout);
+        }
         this.timeout = setTimeout(() => {
           this.debouncedDuplicateStatus = this.getDuplicates(slug);
         }, 500);
@@ -144,7 +150,9 @@
         for (const contentType of this.contentTypes) {
           query['content_type'] = contentType;
           const result = await this.contentfulExtensionSdk.space.getEntries(query);
-          if (result.total >= 1) return true;
+          if (result.total >= 1) {
+            return true;
+          }
         }
 
         return false;
