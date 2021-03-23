@@ -56,7 +56,6 @@
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
   }
-
   .card-subtitle {
     color: $mediumgrey;
     font-size: $font-size-extrasmall;
@@ -93,6 +92,23 @@
     z-index: 1;
     &:hover {
       color: $black;
+    }
+  }
+
+  .is-external-link .card-title {
+    display: flex;
+    align-items: flex-end;
+
+    span {
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    
+    &:after {
+      content: '\e900';
+      @extend .icon-font;
+      margin-left: 5px;
     }
   }
 
@@ -370,17 +386,12 @@
   }
 }
 
-.is-external-link.card-link .card-title:after {
-  content: '\e900';
-  @extend .icon-font;
-}
-
 .masonry-container {
   width: 100%;
 
   @media (min-width: $bp-medium) {
     width: calc(100% + #{$grid-gutter*2});
-  } 
+  }
 
   .content-card {
     box-shadow: none;

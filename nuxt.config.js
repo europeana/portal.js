@@ -92,9 +92,7 @@ module.exports = {
     },
     googleOptimize: {
       id: process.env.GOOGLE_OPTIMIZE_ID,
-      experiments: {
-        hamburgerMenu: process.env.GOOGLE_OPTIMIZE_EXPERIMENT_ID_HAMBURGER_MENU
-      }
+      experiments: {}
     },
     hotjar: {
       id: process.env.HOTJAR_ID,

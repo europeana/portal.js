@@ -44,27 +44,26 @@ describe('components/PageHeader', () => {
     logo.attributes().src.should.match(/\/logo\..+\.svg$/);
   });
 
-  it('contains the desktop nav', () => {
+  it('contains the top nav', () => {
     const wrapper = factory();
 
-    const nav = wrapper.find('[data-qa="desktop navigation"]');
+    const nav = wrapper.find('[data-qa="top navigation"]');
     nav.isVisible().should.equal(true);
   });
 
-  it('contains the mobile navigation toggle button', () => {
+  it('contains the sidebar hamburger button', () => {
     const wrapper = factory();
 
     const sidebarButton = wrapper.find('b-button-stub.navbar-toggle');
     sidebarButton.isVisible().should.equal(true);
   });
 
-  it('shows the mobile nav when the sidebar is visible', () => {
+  it('shows the sidebar when the sidebar is set to visible', () => {
     const wrapper = factory();
     wrapper.setData({
       showSidebar: true
     });
-    const nav = wrapper.find('[data-qa="mobile navigation"]');
-    nav.attributes().class.should.contain('d-lg-none');
+    const nav = wrapper.find('[data-qa="sidebar navigation"]');
     nav.isVisible().should.equal(true);
   });
 });

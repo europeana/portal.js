@@ -1,16 +1,21 @@
-import { createLocalVue, mount } from '@vue/test-utils';
+import { createLocalVue, shallowMount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
+import { VueMasonryPlugin } from 'vue-masonry';
+
 import ItemPreviewCardGroup from '../../../../components/item/ItemPreviewCardGroup.vue';
 import sinon from 'sinon';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
+localVue.use(VueMasonryPlugin);
+
 const storeDispatch = sinon.spy();
 const storeIsLikedGetter = sinon.stub();
 
 const factory = () => {
-  return mount(ItemPreviewCardGroup, {
+  return shallowMount(ItemPreviewCardGroup, {
     localVue,
+    stubs: ['client-only'],
     mocks: {
       $auth: { loggedIn: false },
       $config: { app: { internalLinkDomain: null } },
@@ -60,6 +65,7 @@ describe('components/item/ItemPreviewCardGroup', () => {
       wrapper.setProps({ value: results, view: 'grid' });
 
       const renderedResults =  wrapper.findAll('[data-qa="item preview"] a');
+      console.log('WRAPPER', wrapper.html());
 
       renderedResults.at(0).attributes().href.should.endWith(`/item${results[0].id}`);
       renderedResults.at(1).attributes().href.should.endWith(`/item${results[1].id}`);

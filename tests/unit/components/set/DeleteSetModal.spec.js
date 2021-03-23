@@ -78,7 +78,7 @@ describe('components/set/DeleteSetModal', () => {
       storeDispatch.should.have.been.calledWith('set/deleteSet', '123');
     });
 
-    it('makes toast', async() => {
+    it('hides the modal', async() => {
       const wrapper = factory({ setId: '123' });
       const bvModalHide = sinon.spy(wrapper.vm.$bvModal, 'hide');
 
@@ -87,7 +87,7 @@ describe('components/set/DeleteSetModal', () => {
       bvModalHide.should.have.been.calledWith('delete-set-modal');
     });
 
-    it('hides the modal', async() => {
+    it('makes toast', async() => {
       const wrapper = factory({ setId: '123' });
       const rootBvToast = sinon.spy(wrapper.vm.$root.$bvToast, 'toast');
 

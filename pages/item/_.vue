@@ -19,6 +19,7 @@
         class="bg-white mb-3 px-0"
       >
         <ItemHero
+          :all-media-uris="allMediaUris"
           :identifier="identifier"
           :media="media"
           :edm-rights="edmRights"
@@ -151,6 +152,7 @@
 
     data() {
       return {
+        allMediaUris: [],
         agents: null,
         altTitle: null,
         cardGridClass: null,
