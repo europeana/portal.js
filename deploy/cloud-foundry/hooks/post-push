@@ -10,7 +10,6 @@ new_app_name=$2
 new_app_guid=$(app_guid $2)
 
 if [ "${ELK_SERVICE_REGISTRATION_COMMAND}" != "" ]; then
-  echo
   echo "Registering with ELK service"
   ${ELK_SERVICE_REGISTRATION_COMMAND} ${new_app_name} ${new_app_guid}
   echo "OK"
