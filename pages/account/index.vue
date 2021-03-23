@@ -6,9 +6,25 @@
     <b-container fluid>
       <b-row class="bg-white">
         <b-col class="pt-5 pb-4">
-          <h1 class="text-center mb-1">
+          <h1 class="text-center">
             @{{ loggedInUser.preferred_username }}
           </h1>
+          <div class="text-center">
+            <b-button
+              variant="outline-primary"
+              class="mr-1 text-decoration-none"
+              :href="keycloakAccountUrl"
+            >
+              {{ $t('account.editProfile') }}
+            </b-button>
+            <b-button
+              to="/account/logout"
+              variant="outline-primary"
+              class="text-decoration-none"
+            >
+              {{ $t('account.linkLogout') }}
+            </b-button>
+          </div>
         </b-col>
       </b-row>
       <b-row>
@@ -131,6 +147,10 @@
     },
 
     computed: {
+      keycloakAccountUrl() {
+        return `${this.$auth.strategy.options.origin}/auth/realms/${this.$auth.strategy.options.realm}/account?referrer=${this.$auth.strategy.options.client_id}`;
+      },
+
       ...mapState({
         likesId: state => state.set.likesId,
         likedItems: state => state.set.likedItems
@@ -153,6 +173,10 @@
 </script>
 
 <style>
+  h1 {
+    margin-bottom: 0.75rem;
+  }
+
   .nav-tabs {
     margin-bottom: 40px;
   }
