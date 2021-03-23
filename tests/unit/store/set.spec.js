@@ -1,4 +1,4 @@
-import * as store from '../../../store/set';
+import store from '../../../store/set';
 import sinon from 'sinon';
 
 describe('store/set', () => {
