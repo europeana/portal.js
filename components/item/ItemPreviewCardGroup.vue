@@ -1,29 +1,15 @@
 <template>
-  <!-- <b-card-group
-    :data-qa="`item previews ${view}`"
-    :class="cardGroupClass"
-    deck
-  >
-    <ItemPreviewCard
-      v-for="(item, index) in value"
-      :key="item.id"
-      v-model="value[index]"
-      :hit-selector="itemHitSelector(item)"
-      :variant="cardVariant"
-      data-qa="item preview"
-      @like="$emit('like', item.id)"
-      @unlike="$emit('unlike', item.id)"
-    />
-  </b-card-group> -->
-  <no-ssr>
+  <client-only>
     <div
+      v-if="view === 'grid'"
       v-masonry
       transition-duration="0"
-      item-selector=".item"
+      item-selector=".card"
       horizontal-order="true"
       column-width=".masonry-container .card"
-      gutter="15"
+      gutter="30"
       class="masonry-container"
+      :data-qa="`item previews ${view}`"
     >
       <ItemPreviewCard
         v-for="(item, index) in value"
@@ -33,24 +19,41 @@
         :hit-selector="itemHitSelector(item)"
         :variant="cardVariant"
         class="item"
+        :lazy="false"
         data-qa="item preview"
         @like="$emit('like', item.id)"
         @unlike="$emit('unlike', item.id)"
       />
     </div>
-  </no-ssr>
+    <b-card-group
+      v-else
+      :data-qa="`item previews ${view}`"
+      :class="cardGroupClass"
+      deck
+    >
+      <ItemPreviewCard
+        v-for="(item, index) in value"
+        :key="item.id"
+        v-model="value[index]"
+        :hit-selector="itemHitSelector(item)"
+        :variant="cardVariant"
+        data-qa="item preview"
+        @like="$emit('like', item.id)"
+        @unlike="$emit('unlike', item.id)"
+      />
+    </b-card-group>
+  </client-only>
 </template>
 
 <script>
-  import ItemPreviewCard from './ItemPreviewCard';
-  import NoSSR from 'vue-no-ssr';
+  import ClientOnly from 'vue-client-only';
 
   export default {
     name: 'ItemPreviewCardGroup',
 
     components: {
-      'no-ssr': NoSSR,
-      ItemPreviewCard
+      ClientOnly,
+      ItemPreviewCard: () => import('./ItemPreviewCard')
     },
 
     props: {
@@ -80,9 +83,6 @@
         switch (this.view) {
         case 'list':
           cardGroupClass = 'card-group-list mx-0';
-          break;
-        case 'grid':
-          cardGroupClass = `card-deck-search masonry card-deck-${this.perRow}-cols`;
           break;
         case 'plain':
           cardGroupClass = `card-deck-search card-deck-${this.perRow}-cols`;

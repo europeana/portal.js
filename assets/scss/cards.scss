@@ -375,83 +375,26 @@
   @extend .icon-font;
 }
 
-.masonry {
-  display: block;
-  columns: 1;
-  column-gap: 0;
+.masonry-container {
   width: 100%;
 
-  @media (min-width: $bp-small) {
-    columns: 2;
-    column-gap: 1.875rem;
-  }
-
-  @media (min-width: $bp-large) {
-    columns: 4;
-
-    &.card-deck-3-cols {
-      columns: 3;
-    }
-  }
+  @media (min-width: $bp-medium) {
+    width: calc(100% + #{$grid-gutter*2});
+  } 
 
   .content-card {
     box-shadow: none;
     display: inline-block;
     vertical-align: top;
     width: 100%;
-    transform: translateZ(0);
 
-    // targets safari 10+ to avoid missing card bug
-    @media not all and (min-resolution: 0.001dpcm) {
-      transform: none;
+    @media (min-width: $bp-medium) {
+      width: calc(100% / 2 - #{$grid-gutter*2});
     }
 
-    a {
-      &:before {
-        box-shadow: $boxshadow-small;
-        content: '';
-        height: 100%;
-        position: absolute;
-        transition: box-shadow 0.25s;
-        width: 100%;
-      }
-
-      &:hover {
-        &:before {
-          box-shadow: $boxshadow-large;
-        }
-      }
-      .card-img {
-        min-height: 12rem;
-        max-height: none;
-      }
-
-      .card-title {
-        display: block;
-        -webkit-line-clamp: initial;
-        -webkit-box-orient: initial;
-        max-height: none;
-      }
-
-      .card-text:last-of-type p {
-        max-height: none;
-        display: block;
-        -webkit-line-clamp: initial;
-        -webkit-box-orient: initial;
-      }
+    @media (min-width: $bp-large) {
+      width: calc(100% / 4 - #{$grid-gutter*2});
     }
-  }
-}
-
-// new masonry, test for now
-.masonry-container {
-  width: 100%;
-
-  .content-card {
-    box-shadow: none;
-    display: inline-block;
-    vertical-align: top;
-    width: calc(25% - 30px);
 
     a {
       &:before {

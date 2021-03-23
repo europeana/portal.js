@@ -7,22 +7,28 @@
     />
     <b-row class="flex-md-row pb-5">
       <b-col cols="12">
-        <b-card-group
-          class="masonry"
-          deck
-          data-qa="gallery images"
-        >
-          <client-only>
+        <client-only>
+          <div
+            v-masonry
+            transition-duration="0"
+            item-selector=".card"
+            horizontal-order="true"
+            column-width=".masonry-container .card"
+            gutter="30"
+            class="masonry-container"
+            data-qa="gallery images"
+          >
             <ContentCard
               v-for="image in images"
               :key="image.identifier"
+              v-masonry-tile
               :title="imageTitle(image)"
               :image-url="imageUrl(image)"
               :lazy="false"
               :url="{ name: 'item-all', params: { pathMatch: image.identifier.slice(1) } }"
             />
-          </client-only>
-        </b-card-group>
+          </div>
+        </client-only>
       </b-col>
     </b-row>
   </b-container>
@@ -79,6 +85,13 @@
         return marked(this.rawDescription);
       }
     },
+
+    mounted() {
+      if (typeof this.$redrawVueMasonry === 'function') {
+        this.$redrawVueMasonry();
+      }
+    },
+
     methods: {
       imageTitle(data) {
         if (data.encoding) {
