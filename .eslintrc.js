@@ -33,8 +33,7 @@ module.exports = {
     'eqeqeq': ['error', 'always'],
     'func-call-spacing': ['error', 'never'],
     'func-style': ['error', 'declaration', { 'allowArrowFunctions': true }],
-    // Disabled pending CodeClimate support of eslint ^6.2.0
-    // 'function-call-argument-newline': ['error', 'consistent'],
+    'function-call-argument-newline': ['error', 'consistent'],
     'indent': ['error', 2, { 'SwitchCase': 1 }],
     'jsx-quotes': ['error', 'prefer-double'],
     'key-spacing': ['error', { 'afterColon': true }],
