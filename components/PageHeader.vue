@@ -77,6 +77,7 @@
               data-qa="close menu button"
               class="close"
               variant="light"
+              :aria-label="$t('header.closeSidebar')"
               @click="showSidebar = !showSidebar"
             />
             <SmartLink
