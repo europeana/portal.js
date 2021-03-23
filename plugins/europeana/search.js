@@ -89,9 +89,6 @@ export default function search($axios, params, options = {}) {
   const page = params.page || 1;
   const start = ((page - 1) * perPage) + 1;
   const rows = Math.max(0, Math.min(maxResults + 1 - start, perPage));
-
-  const escape = options.escape || false;
-
   const query = params.query || '*:*';
 
   return $axios.get(`${options.url || ''}/search.json`, {
@@ -103,7 +100,7 @@ export default function search($axios, params, options = {}) {
       facet: params.facet,
       profile: params.profile,
       qf: addContentTierFilter(params.qf),
-      query: escape ? escapeLuceneSpecials(query) : query,
+      query: options.escape ? escapeLuceneSpecials(query) : query,
       reusability: params.reusability,
       rows,
       start
