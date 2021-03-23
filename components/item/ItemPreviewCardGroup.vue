@@ -9,7 +9,7 @@
       column-width=".masonry-container .card"
       gutter="30"
       class="masonry-container"
-      :data-qa="`item previews ${view}`"
+      data-qa="item previews grid"
     >
       <ItemPreviewCard
         v-for="(item, index) in value"
@@ -104,7 +104,7 @@
     },
 
     mounted() {
-      if (typeof this.$redrawVueMasonry === 'function') {
+      if (typeof this.$redrawVueMasonry === 'function' && this.view === 'grid') {
         this.$redrawVueMasonry();
       }
     },
