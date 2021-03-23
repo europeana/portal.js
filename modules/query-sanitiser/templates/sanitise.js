@@ -18,7 +18,9 @@ export const page = (unsanitised) => {
     sanitised = 1;
   } else {
     const pageAsNumber = Number(unsanitised);
-    if (isPositiveInteger(pageAsNumber)) sanitised = pageAsNumber;
+    if (isPositiveInteger(pageAsNumber)) {
+      sanitised = pageAsNumber;
+    }
   }
 
   return sanitised;

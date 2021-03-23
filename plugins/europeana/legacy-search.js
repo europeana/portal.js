@@ -73,8 +73,12 @@ export function legacyUrl(params, locale) {
   let classicParams = '?q=' + (params.query ? params.query : '');
 
   classicParams += classicParamsFromQfs(qfs);
-  if (params.reusability) classicParams += `&f[REUSABILITY][]=${params.reusability}`;
-  if (params.api) classicParams += `&f[api][]=${params.api === 'fulltext' ? 'collection' : 'default'}`;
+  if (params.reusability) {
+    classicParams += `&f[REUSABILITY][]=${params.reusability}`;
+  }
+  if (params.api) {
+    classicParams += `&f[api][]=${params.api === 'fulltext' ? 'collection' : 'default'}`;
+  }
 
   return path + classicParams + `&view=${params.view ? params.view : 'grid'}`;
 }

@@ -1,7 +1,9 @@
 function tFacetName(facetName, count = 1) {
   const collectionLabel = (facetName, count) => {
     const collection = this.$store.getters['search/collection'];
-    if (collection) return this.$tcNull(`collections.${collection}.facets.${facetName}.name`, count);
+    if (collection) {
+      return this.$tcNull(`collections.${collection}.facets.${facetName}.name`, count);
+    }
   };
 
   const genericLabel = (facetName, count) => {

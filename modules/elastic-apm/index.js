@@ -16,7 +16,9 @@ export default function() {
     const $config = merge(nuxt.options.publicRuntimeConfig, nuxt.options.privateRuntimeConfig);
     const config = ($config.elastic ? $config.elastic.apm : undefined) || {};
 
-    if (!config.serverUrl) return;
+    if (!config.serverUrl) {
+      return;
+    }
 
     if (!apm.isStarted())  {
       await apm.start(config);

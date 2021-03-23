@@ -54,9 +54,13 @@ module.exports = function(migration) {
     from: ['text'],
     to: ['description'],
     transformEntryForLocale: (fromFields, currentLocale) => {
-      if (!fromFields.text) return;
+      if (!fromFields.text) {
+        return;
+      }
       const text = fromFields.text[currentLocale];
-      if (typeof text === 'undefined') return;
+      if (typeof text === 'undefined') {
+        return;
+      }
       const description = (text.length <= 255) ? text : text.slice(0, 253) + '…';
       return { description };
     }

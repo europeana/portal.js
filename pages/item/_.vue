@@ -181,7 +181,9 @@
         // Convert collection of annotations' prefLabels into a single langMap
         return this.taggingAnnotations.reduce((memo, annotation) => {
           for (const lang in annotation.body.prefLabel) {
-            if (!memo[lang]) memo[lang] = [];
+            if (!memo[lang]) {
+              memo[lang] = [];
+            }
             memo[lang] = memo[lang].concat(annotation.body.prefLabel[lang]);
           }
           return memo;
@@ -237,7 +239,9 @@
         return this.titlesInCurrentLanguage[0] ? this.titlesInCurrentLanguage[0].value : this.$t('record.record');
       },
       metaDescription() {
-        if (isEmpty(this.descriptionInCurrentLanguage)) return '';
+        if (isEmpty(this.descriptionInCurrentLanguage)) {
+          return '';
+        }
         return this.descriptionInCurrentLanguage.values[0] ? this.descriptionInCurrentLanguage.values[0] : '';
       },
       dataProvider() {
@@ -273,7 +277,9 @@
 
       getSimilarItems() {
         const noSimilarItems = { results: [] };
-        if (this.error) return noSimilarItems;
+        if (this.error) {
+          return noSimilarItems;
+        }
 
         if (this.$config.app.features.recommendations && this.$auth.loggedIn) {
           return this.$apis.recommendation.recommend('record', this.identifier)
@@ -300,10 +306,14 @@
       },
 
       getSimilarItemsData(value) {
-        if (!value) return;
+        if (!value) {
+          return;
+        }
 
         const data = langMapValueForLocale(value, this.$i18n.locale).values;
-        if (!data) return;
+        if (!data) {
+          return;
+        }
 
         return data.filter(item => typeof item === 'string');
       },

@@ -93,11 +93,15 @@ export default {
       state.resettableFilters = [];
     },
     addResettableFilter(state, filterName) {
-      if (!state.resettableFilters.includes(filterName)) state.resettableFilters.push(filterName);
+      if (!state.resettableFilters.includes(filterName)) {
+        state.resettableFilters.push(filterName);
+      }
     },
     removeResettableFilter(state, filterName) {
       const index = state.resettableFilters.indexOf(filterName);
-      if (index !== -1) state.resettableFilters.splice(index, 1);
+      if (index !== -1) {
+        state.resettableFilters.splice(index, 1);
+      }
     },
     disableCollectionFacet(state) {
       state.collectionFacetEnabled = false;
@@ -115,7 +119,9 @@ export default {
       state.errorStatusCode = value;
     },
     setFacets(state, value) {
-      if (!value) value = [];
+      if (!value) {
+        value = [];
+      }
       for (const facet of value) {
         if (facet.name === 'REUSABILITY') {
           facet.fields = facet.fields.filter((field) => field.label !== 'uncategorized');
@@ -175,8 +181,12 @@ export default {
 
     formatFacetFieldLabel: (state, getters, rootState, rootGetters) => (facetName, facetFieldLabel) => {
       const collection = getters.collection;
-      if (!getters.hasCollectionSpecificSettings(collection)) return;
-      if (!rootGetters[`collections/${collection}/formatFacetFieldLabel`]) return;
+      if (!getters.hasCollectionSpecificSettings(collection)) {
+        return;
+      }
+      if (!rootGetters[`collections/${collection}/formatFacetFieldLabel`]) {
+        return;
+      }
 
       return rootGetters[`collections/${collection}/formatFacetFieldLabel`](facetName, facetFieldLabel);
     },
@@ -244,13 +254,17 @@ export default {
     },
 
     itemUpdateNeeded: (state, getters) => {
-      if (!state.previousApiParams) return true; // i.e. if this is the first search
+      if (!state.previousApiParams) {
+        return true;
+      } // i.e. if this is the first search
       return getters.apiParamsChanged
         .some((param) => ['page', 'query', 'qf', 'api', 'reusability'].includes(param));
     },
 
     facetUpdateNeeded: (state, getters) => {
-      if (!state.previousApiParams) return true; // i.e. if this is the first search
+      if (!state.previousApiParams) {
+        return true;
+      } // i.e. if this is the first search
       return getters.apiParamsChanged
         .some((param) => ['query', 'qf', 'api', 'reusability'].includes(param));
     },
@@ -295,7 +309,9 @@ export default {
         apiParams.facet = defaultFacetNames.join(',');
       }
 
-      if (!apiParams.profile) apiParams.profile = 'minimal';
+      if (!apiParams.profile) {
+        apiParams.profile = 'minimal';
+      }
 
       const apiOptions = {};
 
@@ -319,7 +335,9 @@ export default {
 
     applyCollectionSpecificSettings({ commit, getters, rootGetters, rootState, state }) {
       const collection = getters.collection;
-      if (!getters.hasCollectionSpecificSettings(collection)) return;
+      if (!getters.hasCollectionSpecificSettings(collection)) {
+        return;
+      }
 
       for (const property of ['apiParams', 'apiOptions']) {
         if (rootState.collections[collection][property] !== undefined) {
@@ -357,7 +375,9 @@ export default {
     },
 
     queryFacets({ commit, getters, rootState, rootGetters, dispatch, state }) {
-      if (!state.active) return;
+      if (!state.active) {
+        return;
+      }
 
       const paramsForFacets = {
         ...state.apiParams,

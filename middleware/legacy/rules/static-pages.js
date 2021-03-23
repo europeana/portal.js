@@ -43,13 +43,15 @@ export default (route) => {
     const pattern = new RegExp(`^/portal(/[a-z]{2})?${escapeRegExp(redirectFrom)}(.html)?$`);
     const match = route.path.match(pattern);
 
-    if (match) return {
-      path: [
-        match[1],
-        redirectTo.path
-      ],
-      query: redirectTo.query
-    };
+    if (match) {
+      return {
+        path: [
+          match[1],
+          redirectTo.path
+        ],
+        query: redirectTo.query
+      };
+    }
   }
   return null;
 };

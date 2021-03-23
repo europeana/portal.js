@@ -29,14 +29,16 @@ module.exports = (migration) => {
       }
     },
     transformEntryForLocale(fromFields, currentLocale) {
-      if (fromFields.identifier && staticPages.includes(fromFields.identifier['en-GB'])) return {
-        name: fromFields.name ? fromFields.name[currentLocale] : undefined,
-        identifier: fromFields.identifier ? fromFields.identifier[currentLocale] : undefined,
-        description: fromFields.description ? fromFields.description[currentLocale] : undefined,
-        primaryImageOfPage: fromFields.primaryImageOfPage ? fromFields.primaryImageOfPage[currentLocale] : undefined,
-        image: fromFields.image ? fromFields.image[currentLocale] : undefined,
-        hasPart: fromFields.hasPart ? fromFields.hasPart[currentLocale] : undefined
-      };
+      if (fromFields.identifier && staticPages.includes(fromFields.identifier['en-GB'])) {
+        return {
+          name: fromFields.name ? fromFields.name[currentLocale] : undefined,
+          identifier: fromFields.identifier ? fromFields.identifier[currentLocale] : undefined,
+          description: fromFields.description ? fromFields.description[currentLocale] : undefined,
+          primaryImageOfPage: fromFields.primaryImageOfPage ? fromFields.primaryImageOfPage[currentLocale] : undefined,
+          image: fromFields.image ? fromFields.image[currentLocale] : undefined,
+          hasPart: fromFields.hasPart ? fromFields.hasPart[currentLocale] : undefined
+        };
+      }
     }
   });
 };
