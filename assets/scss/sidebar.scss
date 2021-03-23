@@ -3,14 +3,17 @@
   opacity: 0.7;
 }
 
-// fixes header appear/disappear
+
 #sidebar {
+  width: 16rem;
   max-height: 100vh;
-  transition: $standard-transition;
+  transition: $standard-transition; // fixes header appear/disappear
 }
+// fixes header appear/disappear
 .container-fluid:not(.show) {
   #sidebar, .b-sidebar-backdrop {
-    transform: translateY(3.5rem);
-    transition: $standard-transition;
+    transform: translateY(3.5rem); 
+    transition: $standard-transition; 
   }
 }
+

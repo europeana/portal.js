@@ -39,11 +39,10 @@
       </b-button>
       <b-sidebar
         id="sidebar"
-        title="Side navigation"
         bg-variant="white"
         no-header
         backdrop
-        width="16rem"
+        aria-label="Side navigation"
       >
         <b-navbar
           class="sidebar-nav align-items-start flex-column pt-1 pl-2 pb-4 pr-2"
