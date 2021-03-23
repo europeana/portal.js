@@ -255,9 +255,10 @@ export const getters = {
   },
 
   searchOptions: (state) => {
-    const escape = (!state.userParams.query && !!state.overrideParams.query);
-
-    return { ...state.apiOptions, escape };
+    return {
+      ...state.apiOptions,
+      escape: (!state.userParams.query && !!state.overrideParams.query)
+    };
   }
 };
 
