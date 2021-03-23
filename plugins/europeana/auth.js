@@ -22,7 +22,7 @@ const updateRefreshToken = ($auth, refreshAccessTokenResponse) => {
   }
 
   if (options.token_type) {
-    newRefreshToken = options.token_type + ' ' + newRefreshToken;
+    newRefreshToken = `${options.token_type} ${newRefreshToken}`;
   }
 
   // Store refresh token
@@ -40,7 +40,7 @@ const updateAccessToken = ($auth, requestConfig, refreshAccessTokenResponse) => 
   }
 
   if (options.token_type) {
-    newAccessToken = options.token_type + ' ' + newAccessToken;
+    newAccessToken = `${options.token_type} ${newAccessToken}`;
   }
 
   // Store token
