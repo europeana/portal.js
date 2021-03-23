@@ -12,8 +12,8 @@
 // fixes header appear/disappear
 .container-fluid:not(.show) {
   #sidebar, .b-sidebar-backdrop {
-    transform: translateY(3.5rem); 
-    transition: $standard-transition; 
+    transform: translateY(3.5rem);
+    transition: $standard-transition;
   }
 }
 
