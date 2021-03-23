@@ -159,8 +159,8 @@ export function getEntityQuery(uri) {
  * @return {Boolean} true if the URI is a valid entity URI
  */
 export function isEntityUri(uri, types) {
-  types = types ? types : ['concept', 'agent', 'place', 'period'];
-  return RegExp(`^http://data\\.europeana\\.eu/(${types.join('|')})/base/\\d+$`).test(uri);
+  types = types ? types : ['concept', 'agent', 'place', 'timespan'];
+  return RegExp(`^http://data\\.europeana\\.eu/(${types.join('|')})(/base)?/\\d+$`).test(uri);
 }
 
 /**
@@ -221,8 +221,8 @@ export function getEntityUri(type, id) {
  * @return {{type: String, identifier: string}} Object with the portal relevant identifiers.
  */
 export function entityParamsFromUri(uri) {
-  const matched = uri.match(/^http:\/\/data\.europeana\.eu\/(concept|agent|place|timespan)\/base\/(\d+)$/);
-  const id = matched[2];
+  const matched = uri.match(/^http:\/\/data\.europeana\.eu\/(concept|agent|place|timespan)(\/base)?\/(\d+)$/);
+  const id = matched[matched.length - 1];
   const type = getEntityTypeHumanReadable(matched[1]);
   return { id, type };
 }
