@@ -202,7 +202,7 @@ function setLangMapValuesAndCode(returnValue, langMap, key, locale) {
 }
 
 function langMapValueAndCodeFromMap(returnValue, langMap, key, locale) {
-  setLangMapValues(returnValue, langMap, key, locale);
+  setLangMapValues(returnValue, langMap, key);
   setLangCode(returnValue, key, locale);
   if (undefinedLocaleCodes.includes(key)) filterEntities(returnValue);
 }
