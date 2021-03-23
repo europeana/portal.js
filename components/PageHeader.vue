@@ -39,7 +39,7 @@
       </b-button>
       <SmartLink
         :destination="{ name: 'index' }"
-        class="logo pl-lg-3"
+        class="logo d-inline-flex"
       >
         <img
           src="../assets/img/logo.svg"
@@ -55,7 +55,7 @@
         <PageNavigation
           class="d-none d-lg-flex"
           :links="mainNavigation"
-          data-qa="desktop navigation"
+          data-qa="top navigation"
         />
         <b-button
           data-qa="show search button"
@@ -68,30 +68,32 @@
       <transition name="slide">
         <b-navbar
           v-if="showSidebar"
-          class="mobile-nav p-lg-0 align-items-start justify-content-lg-end flex-column flex-lg-row d-lg-none"
+          class="sidebar-nav align-items-start flex-column flex-row pt-1"
           role="navigation"
-          data-qa="mobile navigation"
+          data-qa="sidebar navigation"
         >
-          <div class="w-100 d-flex align-items-center pl-2">
+          <div class="w-100 d-flex align-items-center pl-2 pt-2 pb-3">
             <b-button
               data-qa="close menu button"
               class="close"
+              variant="light"
               @click="showSidebar = !showSidebar"
             />
             <SmartLink
               :destination="{ name: 'index' }"
-              class="logo d-lg-none pl-4 pr-2"
+              class="logo pl-4 pr-2"
             >
               <img
                 src="../assets/img/logo.svg"
                 :alt="$t('homeLinkAlt')"
-                class="mb-lg-2 mw-100"
+                class="mw-100"
                 data-qa="logo"
               >
             </SmartLink>
           </div>
           <PageNavigation
             :links="sidebarNavigation"
+            sidebar-nav
           />
         </b-navbar>
       </transition>
@@ -133,9 +135,7 @@
       mainNavigation() {
         return [
           { url: '/', text: this.$t('header.navigation.home') },
-          { url: '/collections', text: this.$t('header.navigation.collections') },
-          { url: '/europeana-classroom', text: this.$t('header.navigation.europeanaClassroom') },
-          { url: '/about-us', text: this.$t('header.navigation.about') }
+          { url: '/collections', text: this.$t('header.navigation.collections') }
         ];
       },
       sidebarNavigation() {
@@ -208,8 +208,6 @@
 
     .logo {
       min-width: 9.5625rem;
-      padding-bottom: 0.75rem;
-      padding-top: 0.75rem;
       transition: 0.3s ease-in-out;
       img {
         width: 9.5625rem;
@@ -217,15 +215,16 @@
     }
   }
 
-  .navbar.mobile-nav {
+  .navbar.sidebar-nav {
     height: 100vh;
     position: fixed;
     top: 0;
     left: 0;
     background: $white;
-    z-index: 99;
+    z-index: 200;
     width: 16rem;
     padding: 0 0.5rem 1rem;
+    transition: $standard-transition; // fixes header appear/disappear
     .navbar-nav {
       flex-direction: column;
       width: 100%;
@@ -287,41 +286,47 @@
     }
   }
 
-  @media (max-width: $bp-large) {
-    .close-menu {
-      position: fixed;
-      right: 0;
-      top: 0;
-      height: 100vh;
-      width: 100%;
-      border-radius: 0;
-      outline: none;
-      transition: 0.5s;
-      background-color: rgba(0, 0, 0, 0.7);
-      cursor: pointer;
+  .close-menu {
+    position: fixed;
+    right: 0;
+    top: 0;
+    height: 100vh;
+    width: 100%;
+    border-radius: 0;
+    outline: none;
+    background-color: rgba(0, 0, 0, 0.7);
+    cursor: pointer;
+    z-index: 100;
+    transition: $standard-transition; // fixes header appear/disappear
+  }
+  .navbar-toggle {
+    display: flex;
+    align-items: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    box-shadow: none;
+
+    span {
+      width: 1.125rem;
+      background: $black;
+      height: 2px;
+      margin-bottom: 3px;
+      transition: $standard-transition;
+
+      &:last-of-type { margin-bottom: 0; }
     }
-    .navbar-toggle {
-      display: flex;
-      align-items: center;
-      width: 1.5rem;
-      height: 1.5rem;
-      box-shadow: none;
 
+    &:hover {
       span {
-        width: 1.125rem;
-        background: $black;
-        height: 2px;
-        margin-bottom: 3px;
-        transition: $standard-transition;
-
-        &:last-of-type { margin-bottom: 0; }
+        background: $innovationblue;
       }
+    }
+  }
 
-      &:hover {
-        span {
-          background: $innovationblue;
-        }
-      }
+  @media (min-width: $bp-medium) {
+    .logo {
+      margin: 0 auto 0 0;
+      padding-left: 1.5rem;
     }
   }
 
@@ -340,17 +345,14 @@
         width: 100%;
       }
     }
-    .navbar-brand {
-      flex: 3;
-    }
-    .navbar-toggle {
-      display: none;
-    }
     .container-fluid {
       transition: $standard-transition;
-    }
-    .close-menu {
-      display: none;
+      &:not(.show) {
+        .sidebar-nav, .close-menu {
+          transform: translateY(3.5rem); // fixes header appear/disappear
+          transition: $standard-transition;
+        }
+      }
     }
   }
   @media (min-width: $bp-extralarge) {
