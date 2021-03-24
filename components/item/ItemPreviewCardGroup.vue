@@ -1,32 +1,34 @@
 <template>
-  <client-only
+  <div
     v-if="view === 'grid'"
   >
-    <div
-      v-masonry
-      transition-duration="0"
-      item-selector=".card"
-      horizontal-order="true"
-      column-width=".masonry-container .card"
-      gutter="30"
-      class="masonry-container"
-      data-qa="item previews grid"
-    >
-      <ItemPreviewCard
-        v-for="(item, index) in value"
-        :key="item.id"
-        v-model="value[index]"
-        v-masonry-tile
-        :hit-selector="itemHitSelector(item)"
-        :variant="cardVariant"
-        class="item"
-        :lazy="false"
-        data-qa="item preview"
-        @like="$emit('like', item.id)"
-        @unlike="$emit('unlike', item.id)"
-      />
-    </div>
-  </client-only>
+    <client-only>
+      <div
+        v-masonry
+        transition-duration="0"
+        item-selector=".card"
+        horizontal-order="true"
+        column-width=".masonry-container .card"
+        gutter="30"
+        class="masonry-container"
+        data-qa="item previews grid"
+      >
+        <ItemPreviewCard
+          v-for="(item, index) in value"
+          :key="item.id"
+          v-model="value[index]"
+          v-masonry-tile
+          :hit-selector="itemHitSelector(item)"
+          :variant="cardVariant"
+          class="item"
+          :lazy="false"
+          data-qa="item preview"
+          @like="$emit('like', item.id)"
+          @unlike="$emit('unlike', item.id)"
+        />
+      </div>
+    </client-only>
+  </div>
   <b-card-group
     v-else
     :data-qa="`item previews ${view}`"
