@@ -22,7 +22,9 @@ export default ({ app, route, redirect, req }) => {
     app.$auth.options.redirect.callback,
     app.$auth.options.redirect.login,
     '/account/logout'
-  ].includes(route.path)) return;
+  ].includes(route.path)) {
+    return;
+  }
 
   // Is there a locale in the URL path already?
   const routePathLocaleMatch = route.path.match(/^\/([a-z]{2})(\/.*)?$/);

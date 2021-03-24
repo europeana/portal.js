@@ -26,7 +26,9 @@ const storeModule = {
       for (const api in state.urls) {
         const apiBaseURL = apiUrlFromRequestHeaders(api, req.headers);
 
-        if (apiBaseURL && this.$apis) this.$apis[api].$axios.defaults.baseURL = apiBaseURL;
+        if (apiBaseURL && this.$apis) {
+          this.$apis[api].$axios.defaults.baseURL = apiBaseURL;
+        }
         state.urls[api] = apiBaseURL;
       }
     }

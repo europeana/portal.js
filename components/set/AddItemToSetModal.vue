@@ -120,7 +120,9 @@
       },
 
       buttonBackground(img) {
-        if (!img) return null;
+        if (!img) {
+          return null;
+        }
         return {
           'background-image': `url("${img}")`
         };

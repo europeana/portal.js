@@ -149,7 +149,9 @@
         return this.hero ? this.hero.image : null;
       },
       optimisedImageUrl() {
-        if (!this.heroImage) return;
+        if (!this.heroImage) {
+          return;
+        }
         return this.$options.filters.optimisedImageUrl(
           this.heroImage.url,
           this.heroImage.contentType,

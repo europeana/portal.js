@@ -10,7 +10,9 @@ export default (defaultApi = 'fulltext') => ({
     apiOptions: (state, getters) => {
       const options = Object.assign({}, state.apiOptions);
 
-      if (getters.apiParams.api === 'fulltext') options.url = FULLTEXT_BASE_URL;
+      if (getters.apiParams.api === 'fulltext') {
+        options.url = FULLTEXT_BASE_URL;
+      }
 
       return options;
     },
@@ -19,7 +21,9 @@ export default (defaultApi = 'fulltext') => ({
       const params = Object.assign({}, state.apiParams);
 
       // Set default API (of fulltext or metadata), from state
-      if (!params.api) params.api = defaultApi;
+      if (!params.api) {
+        params.api = defaultApi;
+      }
 
       if (params.api === 'fulltext') {
         // TODO: fulltext search API should be aware of contentTier, but is not.

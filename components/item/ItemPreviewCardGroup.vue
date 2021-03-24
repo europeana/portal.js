@@ -113,7 +113,9 @@
 
     methods: {
       itemHitSelector(item) {
-        if (!this.hits) return null;
+        if (!this.hits) {
+          return null;
+        }
 
         const hit = this.hits.find(hit => item.id === hit.scope);
         return hit ? hit.selectors[0] : null;

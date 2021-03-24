@@ -74,7 +74,9 @@
 
     methods: {
       setBannerHeight() {
-        if (this.$refs.banner) this.bannerHeight = this.$refs.banner.getBoundingClientRect().height;
+        if (this.$refs.banner) {
+          this.bannerHeight = this.$refs.banner.getBoundingClientRect().height;
+        }
       },
 
       accept() {

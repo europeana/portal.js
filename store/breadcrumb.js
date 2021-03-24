@@ -4,7 +4,9 @@ export const state = () => ({
 
 export const mutations = {
   setBreadcrumbs(state, values) {
-    if (!values) return;
+    if (!values) {
+      return;
+    }
     const breadcrumb = values;
 
     state.data = breadcrumb;

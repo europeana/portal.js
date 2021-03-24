@@ -63,7 +63,9 @@
       exhibitionChapters
     ],
     asyncData({ params, query, error, app, store, redirect }) {
-      if (params.exhibition === undefined) redirect(app.$path({ name: 'exhibitions' }));
+      if (params.exhibition === undefined) {
+        redirect(app.$path({ name: 'exhibitions' }));
+      }
 
       const variables = {
         identifier: params.exhibition,
@@ -103,7 +105,9 @@
         return this.hero ? this.hero.image : null;
       },
       mainContent() {
-        if (this.text === undefined) return;
+        if (this.text === undefined) {
+          return;
+        }
         return marked(this.text);
       },
       optimisedImageUrl() {

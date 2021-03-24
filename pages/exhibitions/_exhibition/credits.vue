@@ -114,7 +114,9 @@
     },
     computed: {
       htmlCredits() {
-        if (this.credits === undefined) return false;
+        if (this.credits === undefined) {
+          return false;
+        }
         return marked(this.credits);
       },
       title() {

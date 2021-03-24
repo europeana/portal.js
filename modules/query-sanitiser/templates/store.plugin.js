@@ -13,5 +13,7 @@ const storeModule = {
 };
 
 export default ({ store }) => {
-  if (store) store.registerModule('sanitised', storeModule);
+  if (store) {
+    store.registerModule('sanitised', storeModule);
+  }
 };

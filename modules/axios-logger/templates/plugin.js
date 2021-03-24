@@ -5,7 +5,9 @@ import storeModule from './store';
 const STORE_MODULE_NAME = 'axiosLogger';
 
 export default ({ store, app }, inject) => {
-  if (store) store.registerModule(STORE_MODULE_NAME, storeModule);
+  if (store) {
+    store.registerModule(STORE_MODULE_NAME, storeModule);
+  }
 
   const requestInterceptor = config => {
     const uri = axios.getUri(config);
@@ -29,7 +31,9 @@ export default ({ store, app }, inject) => {
   app.router.afterEach(() => {
     // Only stop recording client side to prevent SSR then CSR `afterEach` calls
     // for the same routing resetting the logger before the CSR.
-    if (process.client) store.commit(`${STORE_MODULE_NAME}/stop`);
+    if (process.client) {
+      store.commit(`${STORE_MODULE_NAME}/stop`);
+    }
   });
 
   inject('axiosLogger', requestInterceptor);

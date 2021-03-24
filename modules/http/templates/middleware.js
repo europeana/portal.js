@@ -33,7 +33,9 @@ middleware.sslNegotiation = async(context) => {
 
   await context.store.dispatch('http/init', context);
 
-  if (!context.$config.http.sslNegotiation.enabled || routePermittedOnEitherScheme(context.route)) return;
+  if (!context.$config.http.sslNegotiation.enabled || routePermittedOnEitherScheme(context.route)) {
+    return;
+  }
 
   return negotiate(context);
 };
