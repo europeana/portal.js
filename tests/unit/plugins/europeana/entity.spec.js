@@ -1,7 +1,7 @@
 import nock from 'nock';
 
 import api, {
-  getEntityQuery, getEntitySlug, getEntityUri, BASE_URL
+  getEntityQuery, getEntitySlug, getEntityUri, BASE_URL, entityParamsFromUri, isEntityUri
 } from '../../../../plugins/europeana/entity';
 
 const entityId = '94-architecture';
@@ -12,16 +12,21 @@ const baseRequest = nock(BASE_URL).get(apiEndpoint);
 
 const entitiesResponse = {
   items: [
-    { type: 'Concept',
+    {
+      type: 'Concept',
       id: 'http://data.europeana.eu/concept/base/147831',
       prefLabel: { en: 'Architecture' },
       note: {
         en: ['Architecture is both the process and the product of planning, designing, and constructing buildings and other physical structures.']
-      } },
-    { type: 'Concept',
+      }
+    },
+    {
+      type: 'Concept',
       id: 'http://data.europeana.eu/concept/base/49928',
-      prefLabel: { en: 'Painting' } },
-    { type: 'Agent',
+      prefLabel: { en: 'Painting' }
+    },
+    {
+      type: 'Agent',
       id: 'http://data.europeana.eu/agent/base/59832',
       prefLabel: { en: 'Vincent van Gogh' },
       biographicalInformation: [
@@ -35,7 +40,13 @@ const entitiesResponse = {
         type: 'WebResource',
         source: 'http://data.europeana.eu/item/90402/SK_A_3262',
         thumbnail: 'https://api.europeana.eu/api/v2/thumbnail-by-url.json?uri=https://www.rijksmuseum.nl/assetimage2.jsp?id=SK-A-3262&type=IMAGE'
-      } }
+      }
+    },
+    {
+      type: 'Timespan',
+      id: 'http://data.europeana.eu/timespan/20',
+      prefLabel: { en: 'Painting' }
+    }
   ]
 };
 
@@ -205,7 +216,7 @@ describe('plugins/europeana/entity', () => {
   });
 
   describe('getEntityUri', () => {
-    context('with an id of "100-test-slug', () => {
+    context('with an id of "100-test-slug"', () => {
       let id = '100-test-slug';
       context('with type Agent', () => {
         let type = 'person';
@@ -229,6 +240,68 @@ describe('plugins/europeana/entity', () => {
           const uri = getEntityUri(type, id);
           return uri.should.eq('http://data.europeana.eu/timespan/100');
         });
+      });
+    });
+  });
+
+  describe('isEntityUri', () => {
+    context('with an uri of "http://data.europeana.eu/agent/base/100"', () => {
+      let uri = 'http://data.europeana.eu/agent/base/100';
+      it('returns true', () => {
+        const ret = isEntityUri(uri);
+        ret.should.eq(true);
+      });
+    });
+
+    context('with an uri of "http://data.europeana.eu/timespan/20"', () => {
+      let uri = 'http://data.europeana.eu/timespan/20';
+      it('returns true', () => {
+        const ret = isEntityUri(uri);
+        ret.should.eq(true);
+      });
+    });
+
+    context('with an uri of "http://data.europeana.eu/concept/base/100"', () => {
+      let uri = 'http://data.europeana.eu/concept/base/100';
+      it('returns true', () => {
+        const ret = isEntityUri(uri);
+        ret.should.eq(true);
+      });
+    });
+
+    context('with an uri of "http://data.europeana.eu/place/base/100"', () => {
+      let uri = 'http://data.europeana.eu/place/base/100';
+      it('returns true', () => {
+        const ret = isEntityUri(uri);
+        ret.should.eq(true);
+      });
+    });
+
+    context('with an uri of "http://example.org/not-an-entity"', () => {
+      let uri = 'http://example.org/not-an-entity';
+      it('returns true', () => {
+        const ret = isEntityUri(uri);
+        ret.should.eq(false);
+      });
+    });
+  });
+
+  describe('entityParamsFromUri', () => {
+    context('with a agent uri of "http://data.europeana.eu/agent/base/100"', () => {
+      let uri = 'http://data.europeana.eu/agent/base/100';
+      it('returns the id and type', () => {
+        const params = entityParamsFromUri(uri);
+        params.id.should.eq('100');
+        params.type.should.eq('person');
+      });
+    });
+
+    context('with a timespan uri of "http://data.europeana.eu/timespan/20"', () => {
+      let uri = 'http://data.europeana.eu/timespan/20';
+      it('returns the id and type', () => {
+        const params = entityParamsFromUri(uri);
+        params.id.should.eq('20');
+        params.type.should.eq('time');
       });
     });
   });
