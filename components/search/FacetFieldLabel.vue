@@ -43,7 +43,9 @@
       label() {
         const fieldLabel = (this.facetName === this.MIME_TYPE) ? this.mediaTypeLabel : this.genericLabel;
 
-        if (!this.prefixed) return fieldLabel;
+        if (!this.prefixed) {
+          return fieldLabel;
+        }
 
         return this.$t('formatting.labelledValue', { label: this.$tFacetName(this.facetName), value: fieldLabel });
       },
@@ -52,7 +54,9 @@
         let fieldLabel;
 
         fieldLabel = this.formatFacetFieldLabel(this.facetName, this.fieldValue);
-        if (!fieldLabel) fieldLabel = this.fieldValue;
+        if (!fieldLabel) {
+          fieldLabel = this.fieldValue;
+        }
 
         const unquotedFieldValue = unescapeLuceneSpecials(fieldLabel.replace(/^"(.*)"$/, '$1'));
 
@@ -63,7 +67,9 @@
 
       mediaTypeLabel() {
         const translated = this.genericLabel;
-        if (translated !== this.fieldValue) return translated;
+        if (translated !== this.fieldValue) {
+          return translated;
+        }
 
         let subtype = this.fieldValue.split('/')[1];
 

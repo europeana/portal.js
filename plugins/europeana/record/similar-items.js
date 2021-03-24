@@ -20,7 +20,9 @@ const fieldQueriesFromQueryTerms = (queryTerms) => {
 
 const itemQueryFieldTerms = (item, queryField) => {
   return SIMILAR_ITEMS_FIELDS[queryField].data.reduce((memo, dataField) => {
-    if (item[dataField]) memo = memo.concat(item[dataField]);
+    if (item[dataField]) {
+      memo = memo.concat(item[dataField]);
+    }
 
     return memo;
   }, []);
@@ -30,7 +32,9 @@ const itemQueryFieldTerms = (item, queryField) => {
 const queryTermsFromItemData = (item) => {
   return Object.keys(SIMILAR_ITEMS_FIELDS).reduce((memo, queryField) => {
     const fieldTerms = itemQueryFieldTerms(item, queryField);
-    if (fieldTerms.length > 0) memo[queryField] = fieldTerms;
+    if (fieldTerms.length > 0) {
+      memo[queryField] = fieldTerms;
+    }
 
     return memo;
   }, {});

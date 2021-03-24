@@ -1,5 +1,7 @@
 # Europeana Collections portal, made with Vue.js + Nuxt.js
-[![Maintainability](https://api.codeclimate.com/v1/badges/0510faf1055ef06c5938/maintainability)](https://codeclimate.com/github/europeana/portal.js/maintainability)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=europeana_portal.js&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=europeana_portal.js)
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=europeana_portal.js&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=europeana_portal.js)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=europeana_portal.js&metric=security_rating)](https://sonarcloud.io/dashboard?id=europeana_portal.js)
 
 ## Prerequisites
 

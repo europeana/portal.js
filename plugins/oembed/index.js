@@ -20,7 +20,9 @@ function providerSupportsUrl(provider, url) {
 
 function providerForUrl(url) {
   for (const provider of providers) {
-    if (providerSupportsUrl(provider, url)) return provider;
+    if (providerSupportsUrl(provider, url)) {
+      return provider;
+    }
   }
   return null;
 }
@@ -37,6 +39,8 @@ export function oEmbedForEndpoint(endpoint, url) {
 
 export default function oEmbed(url) {
   const provider = providerForUrl(url);
-  if (!provider) return null;
+  if (!provider) {
+    return null;
+  }
   return oEmbedForEndpoint(provider.endpoint, url);
 }

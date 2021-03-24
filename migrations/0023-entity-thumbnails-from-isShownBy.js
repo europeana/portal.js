@@ -29,7 +29,9 @@ module.exports = function(migration) {
     from: ['identifier'],
     to: ['image'],
     transformEntryForLocale: async(fromFields, currentLocale) => {
-      if (currentLocale !== 'en-GB' || !fromFields.identifier) return;
+      if (currentLocale !== 'en-GB' || !fromFields.identifier) {
+        return;
+      }
 
       const identifier = fromFields.identifier[currentLocale];
       const entity = await getEntity(identifier);

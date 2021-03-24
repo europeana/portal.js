@@ -19,6 +19,8 @@ export const getters = {
 export const mutations = {
   updateSettings(state, settings) {
     state.settings = { ...settings };
-    if (process.browser) localStorage.debugSettings = JSON.stringify(settings);
+    if (process.browser) {
+      localStorage.debugSettings = JSON.stringify(settings);
+    }
   }
 };

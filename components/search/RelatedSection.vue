@@ -38,7 +38,9 @@
 
     methods: {
       getSearchSuggestions(query) {
-        if (!query) return;
+        if (!query) {
+          return;
+        }
         this.$apis.entity.getEntitySuggestions(query, {
           language: this.$i18n.locale,
           rows: 4

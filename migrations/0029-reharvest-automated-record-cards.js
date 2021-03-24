@@ -22,15 +22,21 @@ const getRecord = async(identifier) => {
 };
 
 module.exports = (migration) => {
-  if (!apiKey) throw new Error('No "EUROPEANA_RECORD_API_KEY" detected.');
+  if (!apiKey) {
+    throw new Error('No "EUROPEANA_RECORD_API_KEY" detected.');
+  }
 
   migration.transformEntries({
     contentType: 'automatedRecordCard',
     from: ['identifier', 'encoding'],
     to: ['encoding'],
     transformEntryForLocale: async(fromFields, currentLocale) => {
-      if (currentLocale !== 'en-GB' || !fromFields.identifier) return;
-      if (fromFields.encoding) return;
+      if (currentLocale !== 'en-GB' || !fromFields.identifier) {
+        return;
+      }
+      if (fromFields.encoding) {
+        return;
+      }
 
       const record = await getRecord(fromFields.identifier[currentLocale]);
       if (record.itemsCount === 1 && record.items) {

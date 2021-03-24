@@ -122,7 +122,9 @@ export default (route) => {
 
   const redirect = baseRedirect(route, query);
 
-  if (!redirect.path) return null;
+  if (!redirect.path) {
+    return null;
+  }
 
   for (const key in query) {
     const value = query[key];

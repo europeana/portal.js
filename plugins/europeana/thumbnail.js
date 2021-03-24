@@ -31,7 +31,8 @@ export const thumbnailTypeForMimeType = (mimeType) => {
     case mimeType.startsWith('video/'):
       thumbnailType = 'VIDEO';
       break;
-    case mimeType.startsWith('text/') || ['application/pdf', 'application/rtf'].includes(mimeType):
+    case mimeType.startsWith('text/'):
+    case ['application/pdf', 'application/rtf'].includes(mimeType):
       thumbnailType = 'TEXT';
       break;
   }
