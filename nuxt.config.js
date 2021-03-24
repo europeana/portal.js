@@ -205,8 +205,8 @@ module.exports = {
     '~/plugins/page',
     '~/plugins/vue-filters',
     '~/plugins/vue-directives',
-    { src: '~/plugins/vue-announcer', mode: 'client' },
-    { src: '~/plugins/vue/vue-masonry', ssr: false }
+    '~/plugins/vue-announcer.client',
+    '~/plugins/vue-masonry.client'
   ],
 
   buildModules: [
