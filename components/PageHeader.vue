@@ -190,9 +190,14 @@
     }
   }
 
-  .navbar.sidebar-nav .navbar-nav {
-    flex-direction: column;
-    width: 100%;
+  .navbar.sidebar-nav {
+    .logo {
+      min-width: auto;
+    }
+    .navbar-nav {
+      flex-direction: column;
+      width: 100%;
+    }
   }
 
   .btn {
