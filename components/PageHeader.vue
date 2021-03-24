@@ -42,6 +42,7 @@
         bg-variant="white"
         no-header
         backdrop
+        backdrop-variant="black"
         aria-label="Side navigation"
       >
         <b-navbar
