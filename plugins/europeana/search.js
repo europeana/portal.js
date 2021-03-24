@@ -60,7 +60,9 @@ export function rangeToQueryParam(values) {
  */
 export function rangeFromQueryParam(paramValue) {
   const matches = paramValue.match(/^\[([^ ].*) TO ([^ ].*)\]$/);
-  if (matches === null) return null;
+  if (matches === null) {
+    return null;
+  }
   const start = matches[1] === '*' ? null : matches[1];
   const end = matches[2] === '*' ? null : matches[2];
 

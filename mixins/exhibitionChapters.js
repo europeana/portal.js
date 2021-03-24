@@ -22,23 +22,35 @@ export default {
       return chapters;
     },
     creditsChapter() {
-      if (!this.credits) return null;
+      if (!this.credits) {
+        return null;
+      }
       return {
         name: this.$t('exhibitions.credits'),
         identifier: 'credits'
       };
     },
     chapterImageExists(chapter) {
-      if (!chapter) return;
-      if (!chapter.primaryImageOfPage) return;
-      if (!chapter.primaryImageOfPage.image) return;
+      if (!chapter) {
+        return;
+      }
+      if (!chapter.primaryImageOfPage) {
+        return;
+      }
+      if (!chapter.primaryImageOfPage.image) {
+        return;
+      }
       return true;
     },
     chapterImage(chapter) {
-      if (this.chapterImageExists(chapter)) return chapter.primaryImageOfPage.image.url;
+      if (this.chapterImageExists(chapter)) {
+        return chapter.primaryImageOfPage.image.url;
+      }
     },
     chapterImageContentType(chapter) {
-      if (this.chapterImageExists(chapter)) return chapter.primaryImageOfPage.image.contentType;
+      if (this.chapterImageExists(chapter)) {
+        return chapter.primaryImageOfPage.image.contentType;
+      }
     },
     optimisedBackgroundImageUrl(chapter) {
       return this.$options.filters.optimisedImageUrl(

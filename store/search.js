@@ -65,344 +65,366 @@ export const queryUpdatesForFilter = (name, values) => {
     .map((value) => `${name}:${value}`);
 };
 
-export const state = () => ({
-  active: false,
-  apiOptions: {},
-  apiParams: {},
-  collectionFacetEnabled: true,
-  error: null,
-  errorStatusCode: null,
-  facets: [],
-  hits: null,
-  lastAvailablePage: null,
-  overrideParams: {},
-  collectionLabel: null,
-  previousApiOptions: null,
-  previousApiParams: null,
-  resettableFilters: [],
-  results: [],
-  showSearchBar: false,
-  totalResults: null,
-  userParams: {},
-  view: null
-});
+export default {
+  state: () => ({
+    active: false,
+    apiOptions: {},
+    apiParams: {},
+    collectionFacetEnabled: true,
+    error: null,
+    errorStatusCode: null,
+    facets: [],
+    hits: null,
+    lastAvailablePage: null,
+    overrideParams: {},
+    collectionLabel: null,
+    previousApiOptions: null,
+    previousApiParams: null,
+    resettableFilters: [],
+    results: [],
+    showSearchBar: false,
+    totalResults: null,
+    userParams: {},
+    view: null
+  }),
 
-export const mutations = {
-  clearResettableFilters(state) {
-    state.resettableFilters = [];
-  },
-  addResettableFilter(state, filterName) {
-    if (!state.resettableFilters.includes(filterName)) state.resettableFilters.push(filterName);
-  },
-  removeResettableFilter(state, filterName) {
-    const index = state.resettableFilters.indexOf(filterName);
-    if (index !== -1) state.resettableFilters.splice(index, 1);
-  },
-  disableCollectionFacet(state) {
-    state.collectionFacetEnabled = false;
-  },
-  enableCollectionFacet(state) {
-    state.collectionFacetEnabled = true;
-  },
-  setActive(state, value) {
-    state.active = value;
-  },
-  setError(state, value) {
-    state.error = value;
-  },
-  setErrorStatusCode(state, value) {
-    state.errorStatusCode = value;
-  },
-  setFacets(state, value) {
-    if (!value) value = [];
-    for (const facet of value) {
-      if (facet.name === 'REUSABILITY') {
-        facet.fields = facet.fields.filter((field) => field.label !== 'uncategorized');
+  mutations: {
+    clearResettableFilters(state) {
+      state.resettableFilters = [];
+    },
+    addResettableFilter(state, filterName) {
+      if (!state.resettableFilters.includes(filterName)) {
+        state.resettableFilters.push(filterName);
       }
+    },
+    removeResettableFilter(state, filterName) {
+      const index = state.resettableFilters.indexOf(filterName);
+      if (index !== -1) {
+        state.resettableFilters.splice(index, 1);
+      }
+    },
+    disableCollectionFacet(state) {
+      state.collectionFacetEnabled = false;
+    },
+    enableCollectionFacet(state) {
+      state.collectionFacetEnabled = true;
+    },
+    setActive(state, value) {
+      state.active = value;
+    },
+    setError(state, value) {
+      state.error = value;
+    },
+    setErrorStatusCode(state, value) {
+      state.errorStatusCode = value;
+    },
+    setFacets(state, value) {
+      if (!value) {
+        value = [];
+      }
+      for (const facet of value) {
+        if (facet.name === 'REUSABILITY') {
+          facet.fields = facet.fields.filter((field) => field.label !== 'uncategorized');
+        }
 
-      if (!unquotableFacets.includes(facet.name)) {
-        for (const field of facet.fields) {
-          field.label = '"' + escapeLuceneSpecials(field.label) + '"';
+        if (!unquotableFacets.includes(facet.name)) {
+          for (const field of facet.fields) {
+            field.label = '"' + escapeLuceneSpecials(field.label) + '"';
+          }
         }
       }
-    }
-    state.facets = value;
-  },
-  setHits(state, value) {
-    state.hits = value;
-  },
-  setLastAvailablePage(state, value) {
-    state.lastAvailablePage = value;
-  },
-  setResults(state, value) {
-    state.results = value;
-  },
-  setShowSearchBar(state, value) {
-    state.showSearchBar = value;
-  },
-  setTotalResults(state, value) {
-    state.totalResults = value;
-  },
-  setView(state, value) {
-    state.view = value;
-    if (process.browser) {
-      sessionStorage.searchResultsView = value;
-      localStorage.searchResultsView = value;
-    }
-  },
-  setCollectionLabel(state, value) {
-    state.collectionLabel = value;
-  },
-  set(state, payload) {
-    state[payload[0]] = payload[1];
-  }
-};
-
-export const getters = {
-  activeView(state) {
-    if (state.view) {
-      return state.view;
-    } else if (process.browser) {
-      if (sessionStorage.searchResultsView) {
-        return sessionStorage.searchResultsView;
-      } else if (localStorage.searchResultsView) {
-        return localStorage.searchResultsView;
+      state.facets = value;
+    },
+    setHits(state, value) {
+      state.hits = value;
+    },
+    setLastAvailablePage(state, value) {
+      state.lastAvailablePage = value;
+    },
+    setResults(state, value) {
+      state.results = value;
+    },
+    setShowSearchBar(state, value) {
+      state.showSearchBar = value;
+    },
+    setTotalResults(state, value) {
+      state.totalResults = value;
+    },
+    setView(state, value) {
+      state.view = value;
+      if (process.browser) {
+        sessionStorage.searchResultsView = value;
+        localStorage.searchResultsView = value;
       }
+    },
+    setCollectionLabel(state, value) {
+      state.collectionLabel = value;
+    },
+    set(state, payload) {
+      state[payload[0]] = payload[1];
     }
-    return 'grid';
   },
 
-  formatFacetFieldLabel: (state, getters, rootState, rootGetters) => (facetName, facetFieldLabel) => {
-    const collection = getters.collection;
-    if (!getters.hasCollectionSpecificSettings(collection)) return;
-    if (!rootGetters[`collections/${collection}/formatFacetFieldLabel`]) return;
-
-    return rootGetters[`collections/${collection}/formatFacetFieldLabel`](facetName, facetFieldLabel);
-  },
-
-  facetNames(state) {
-    return (state.apiParams.facet || '').split(',');
-  },
-
-  hasCollectionSpecificSettings: (state, getters, rootState) => (collection) => {
-    return (!!collection) &&
-      (!!rootState.collections && !!rootState.collections[collection]) &&
-      ((rootState.collections[collection].enabled === undefined) || rootState.collections[collection].enabled);
-  },
-
-  hasResettableFilters(state) {
-    return state.resettableFilters.length > 0;
-  },
-
-  collection(state) {
-    const collectionFilter = filtersFromQf(state.apiParams.qf).collection;
-    return collectionFilter ? collectionFilter[0] : null;
-  },
-
-  queryUpdatesForFacetChanges: (state, getters) => (selected = {}) => {
-    const filters = Object.assign({}, getters.filters);
-
-    for (const name in selected) {
-      filters[name] = selected[name];
-    }
-
-    // Remove collection-specific filters when collection is changed
-    if (Object.prototype.hasOwnProperty.call(selected, 'collection') || !getters.collection) {
-      for (const name in filters) {
-        if (name !== 'collection' && !defaultFacetNames.includes(name) && state.resettableFilters.includes(name)) {
-          filters[name] = [];
+  getters: {
+    activeView(state) {
+      if (state.view) {
+        return state.view;
+      } else if (process.browser) {
+        if (sessionStorage.searchResultsView) {
+          return sessionStorage.searchResultsView;
+        } else if (localStorage.searchResultsView) {
+          return localStorage.searchResultsView;
         }
       }
-    }
+      return 'grid';
+    },
 
-    // Remove filters incompatible with collection filter
-    if (Object.prototype.hasOwnProperty.call(selected, 'collection') && Object.prototype.hasOwnProperty.call(filters, 'contentTier')) {
-      filters['contentTier'] = [];
-    }
-
-    return queryUpdatesForFilters(filters);
-  },
-
-  // TODO: do not assume filters are fielded, e.g. `qf=whale`
-  filters: (state) => {
-    const filters = filtersFromQf(state.userParams.qf);
-
-    if (state.userParams.reusability) {
-      filters['REUSABILITY'] = state.userParams.reusability.split(',');
-    }
-
-    if (state.apiParams.api) {
-      filters['api'] = state.apiParams.api;
-    }
-
-    return filters;
-  },
-
-  apiParamsChanged: (state) => {
-    return Object.keys(diff(state.previousApiParams, state.apiParams));
-  },
-
-  itemUpdateNeeded: (state, getters) => {
-    if (!state.previousApiParams) return true; // i.e. if this is the first search
-    return getters.apiParamsChanged
-      .some((param) => ['page', 'query', 'qf', 'api', 'reusability'].includes(param));
-  },
-
-  facetUpdateNeeded: (state, getters) => {
-    if (!state.previousApiParams) return true; // i.e. if this is the first search
-    return getters.apiParamsChanged
-      .some((param) => ['query', 'qf', 'api', 'reusability'].includes(param));
-  },
-
-  searchOptions: (state) => {
-    return {
-      ...state.apiOptions,
-      escape: (!state.userParams.query && !!state.overrideParams.query)
-    };
-  }
-};
-
-export const actions = {
-  activate({ commit }) {
-    commit('setActive', true);
-  },
-
-  async deactivate({ commit, dispatch }) {
-    commit('setActive', false);
-    await dispatch('reset');
-  },
-
-  reset({ commit }) {
-    commit('set', ['userParams', {}]);
-    commit('set', ['overrideParams', {}]);
-    commit('set', ['apiParams', {}]);
-    commit('set', ['apiOptions', {}]);
-    commit('set', ['previousApiParams', null]);
-    commit('set', ['previousApiOptions', null]);
-    commit('setCollectionLabel', null);
-  },
-
-  // TODO: replace with a getter?
-  async deriveApiSettings({ commit, dispatch, state, getters, rootGetters }) {
-    // Coerce qf from user input into an array as it may be a single string
-
-    const userParams = Object.assign({}, state.userParams || {});
-    userParams.qf = [].concat(userParams.qf || []);
-
-    const apiParams = merge(userParams, state.overrideParams || {});
-    if (!apiParams.facet) {
-      apiParams.facet = defaultFacetNames.join(',');
-    }
-
-    if (!apiParams.profile) apiParams.profile = 'minimal';
-
-    const apiOptions = {};
-
-    commit('set', ['previousApiParams', Object.assign({}, state.apiParams)]);
-    commit('set', ['previousApiOptions', Object.assign({}, state.apiOptions)]);
-
-    commit('set', ['apiParams', apiParams]);
-    commit('set', ['apiOptions', apiOptions]);
-
-    if (getters.collection || rootGetters['entity/id']) {
-      await dispatch('applyAnyCollectionSettings');
-      await dispatch('applyCollectionSpecificSettings');
-    }
-  },
-
-  applyAnyCollectionSettings({ commit, state }) {
-    const facet = state.apiParams.facet.split(',');
-    facet.splice(facet.indexOf('contentTier'), 1);
-    commit('set', ['apiParams', { ...state.apiParams, ...{ facet: facet.join(',') } }]);
-  },
-
-  applyCollectionSpecificSettings({ commit, getters, rootGetters, rootState, state }) {
-    const collection = getters.collection;
-    if (!getters.hasCollectionSpecificSettings(collection)) return;
-
-    for (const property of ['apiParams', 'apiOptions']) {
-      if (rootState.collections[collection][property] !== undefined) {
-        commit(`collections/${collection}/set`, [property, state[property]], { root: true });
-        commit('set', [property, rootGetters[`collections/${collection}/${property}`]]);
+    formatFacetFieldLabel: (state, getters, rootState, rootGetters) => (facetName, facetFieldLabel) => {
+      const collection = getters.collection;
+      if (!getters.hasCollectionSpecificSettings(collection)) {
+        return;
       }
+      if (!rootGetters[`collections/${collection}/formatFacetFieldLabel`]) {
+        return;
+      }
+
+      return rootGetters[`collections/${collection}/formatFacetFieldLabel`](facetName, facetFieldLabel);
+    },
+
+    facetNames(state) {
+      return (state.apiParams.facet || '').split(',');
+    },
+
+    hasCollectionSpecificSettings: (state, getters, rootState) => (collection) => {
+      return (!!collection) &&
+        (!!rootState.collections && !!rootState.collections[collection]) &&
+        ((rootState.collections[collection].enabled === undefined) || rootState.collections[collection].enabled);
+    },
+
+    hasResettableFilters(state) {
+      return state.resettableFilters.length > 0;
+    },
+
+    collection(state) {
+      const collectionFilter = filtersFromQf(state.apiParams.qf).collection;
+      return collectionFilter ? collectionFilter[0] : null;
+    },
+
+    queryUpdatesForFacetChanges: (state, getters) => (selected = {}) => {
+      const filters = Object.assign({}, getters.filters);
+
+      for (const name in selected) {
+        filters[name] = selected[name];
+      }
+
+      // Remove collection-specific filters when collection is changed
+      if (Object.prototype.hasOwnProperty.call(selected, 'collection') || !getters.collection) {
+        for (const name in filters) {
+          if (name !== 'collection' && !defaultFacetNames.includes(name) && state.resettableFilters.includes(name)) {
+            filters[name] = [];
+          }
+        }
+      }
+
+      // Remove filters incompatible with collection filter
+      if (Object.prototype.hasOwnProperty.call(selected, 'collection') && Object.prototype.hasOwnProperty.call(filters, 'contentTier')) {
+        filters['contentTier'] = [];
+      }
+
+      return queryUpdatesForFilters(filters);
+    },
+
+    // TODO: do not assume filters are fielded, e.g. `qf=whale`
+    filters: (state) => {
+      const filters = filtersFromQf(state.userParams.qf);
+
+      if (state.userParams.reusability) {
+        filters['REUSABILITY'] = state.userParams.reusability.split(',');
+      }
+
+      if (state.apiParams.api) {
+        filters['api'] = state.apiParams.api;
+      }
+
+      return filters;
+    },
+
+    apiParamsChanged: (state) => {
+      return Object.keys(diff(state.previousApiParams, state.apiParams));
+    },
+
+    itemUpdateNeeded: (state, getters) => {
+      if (!state.previousApiParams) {
+        return true;
+      } // i.e. if this is the first search
+      return getters.apiParamsChanged
+        .some((param) => ['page', 'query', 'qf', 'api', 'reusability'].includes(param));
+    },
+
+    facetUpdateNeeded: (state, getters) => {
+      if (!state.previousApiParams) {
+        return true;
+      } // i.e. if this is the first search
+      return getters.apiParamsChanged
+        .some((param) => ['query', 'qf', 'api', 'reusability'].includes(param));
+    },
+
+    searchOptions: (state) => {
+      return {
+        ...state.apiOptions,
+        escape: (!state.userParams.query && !!state.overrideParams.query)
+      };
     }
   },
 
-  /**
-   * Run a Record API search and store the results
-   */
-  async run({ dispatch, getters }) {
-    await dispatch('deriveApiSettings');
+  actions: {
+    activate({ commit }) {
+      commit('setActive', true);
+    },
 
-    await Promise.all([
-      getters.itemUpdateNeeded ? dispatch('queryItems') : () => null,
-      getters.facetUpdateNeeded ? dispatch('queryFacets') : () => null
-    ]);
-  },
+    async deactivate({ commit, dispatch }) {
+      commit('setActive', false);
+      await dispatch('reset');
+    },
 
-  queryItems({ dispatch, state, getters }) {
-    const paramsForItems = {
-      ...state.apiParams,
-      facet: null
-    };
+    reset({ commit }) {
+      commit('set', ['userParams', {}]);
+      commit('set', ['overrideParams', {}]);
+      commit('set', ['apiParams', {}]);
+      commit('set', ['apiOptions', {}]);
+      commit('set', ['previousApiParams', null]);
+      commit('set', ['previousApiOptions', null]);
+      commit('setCollectionLabel', null);
+    },
 
-    return this.$apis.record.search(paramsForItems, getters.searchOptions)
-      .then(async(response) => {
-        await dispatch('updateForSuccess', response);
-      })
-      .catch(async(error) => {
-        await dispatch('updateForFailure', error);
-      });
-  },
+    // TODO: replace with a getter?
+    async deriveApiSettings({ commit, dispatch, state, getters, rootGetters }) {
+      // Coerce qf from user input into an array as it may be a single string
 
-  queryFacets({ commit, getters, rootState, rootGetters, dispatch, state }) {
-    if (!state.active) return;
+      const userParams = Object.assign({}, state.userParams || {});
+      userParams.qf = [].concat(userParams.qf || []);
 
-    const paramsForFacets = {
-      ...state.apiParams,
-      rows: 0,
-      profile: 'facets'
-    };
+      const apiParams = merge(userParams, state.overrideParams || {});
+      if (!apiParams.facet) {
+        apiParams.facet = defaultFacetNames.join(',');
+      }
 
-    return this.$apis.record.search(paramsForFacets, getters.searchOptions)
-      .then((response) => {
-        commit('setFacets', response.facets);
-        const collection = getters.collection;
+      if (!apiParams.profile) {
+        apiParams.profile = 'minimal';
+      }
 
-        if (getters.hasCollectionSpecificSettings(collection) && rootState.collections[collection]['facets'] !== undefined) {
-          commit(`collections/${collection}/set`, ['facets', state.facets], { root: true });
-          commit('set', ['facets', rootGetters[`collections/${collection}/facets`]]);
+      const apiOptions = {};
+
+      commit('set', ['previousApiParams', Object.assign({}, state.apiParams)]);
+      commit('set', ['previousApiOptions', Object.assign({}, state.apiOptions)]);
+
+      commit('set', ['apiParams', apiParams]);
+      commit('set', ['apiOptions', apiOptions]);
+
+      if (getters.collection || rootGetters['entity/id']) {
+        await dispatch('applyAnyCollectionSettings');
+        await dispatch('applyCollectionSpecificSettings');
+      }
+    },
+
+    applyAnyCollectionSettings({ commit, state }) {
+      const facet = state.apiParams.facet.split(',');
+      facet.splice(facet.indexOf('contentTier'), 1);
+      commit('set', ['apiParams', { ...state.apiParams, ...{ facet: facet.join(',') } }]);
+    },
+
+    applyCollectionSpecificSettings({ commit, getters, rootGetters, rootState, state }) {
+      const collection = getters.collection;
+      if (!getters.hasCollectionSpecificSettings(collection)) {
+        return;
+      }
+
+      for (const property of ['apiParams', 'apiOptions']) {
+        if (rootState.collections[collection][property] !== undefined) {
+          commit(`collections/${collection}/set`, [property, state[property]], { root: true });
+          commit('set', [property, rootGetters[`collections/${collection}/${property}`]]);
         }
-      })
-      .catch(async(error) => {
-        await dispatch('updateForFailure', error);
-      });
-  },
+      }
+    },
 
-  updateForSuccess({ commit }, response) {
-    commit('setError', response.error);
-    commit('setErrorStatusCode', null);
-    commit('setHits', response.hits);
-    commit('setLastAvailablePage', response.lastAvailablePage);
-    commit('setResults', response.items);
-    commit('setTotalResults', response.totalResults);
-  },
+    /**
+     * Run a Record API search and store the results
+     */
+    async run({ dispatch, getters }) {
+      await dispatch('deriveApiSettings');
 
-  updateForFailure({ commit }, error) {
-    commit('setError', error.message);
-    commit('setErrorStatusCode', (typeof error.statusCode === 'undefined') ? 500 : error.statusCode);
-    commit('setFacets', []);
-    commit('setHits', null);
-    commit('setLastAvailablePage', null);
-    commit('setResults', []);
-    commit('setTotalResults', null);
-  },
+      await Promise.all([
+        getters.itemUpdateNeeded ? dispatch('queryItems') : () => null,
+        getters.facetUpdateNeeded ? dispatch('queryFacets') : () => null
+      ]);
+    },
 
-  async setResettableFilter({ commit }, { name, selected }) {
-    if ((Array.isArray(selected) && selected.length === 0) || !selected) {
-      await commit('removeResettableFilter', name);
-    } else {
-      await commit('addResettableFilter', name);
+    queryItems({ dispatch, state, getters }) {
+      const paramsForItems = {
+        ...state.apiParams,
+        facet: null
+      };
+
+      return this.$apis.record.search(paramsForItems, getters.searchOptions)
+        .then(async(response) => {
+          await dispatch('updateForSuccess', response);
+        })
+        .catch(async(error) => {
+          await dispatch('updateForFailure', error);
+        });
+    },
+
+    queryFacets({ commit, getters, rootState, rootGetters, dispatch, state }) {
+      if (!state.active) {
+        return;
+      }
+
+      const paramsForFacets = {
+        ...state.apiParams,
+        rows: 0,
+        profile: 'facets'
+      };
+
+      return this.$apis.record.search(paramsForFacets, getters.searchOptions)
+        .then((response) => {
+          commit('setFacets', response.facets);
+          const collection = getters.collection;
+
+          if (getters.hasCollectionSpecificSettings(collection) && rootState.collections[collection]['facets'] !== undefined) {
+            commit(`collections/${collection}/set`, ['facets', state.facets], { root: true });
+            commit('set', ['facets', rootGetters[`collections/${collection}/facets`]]);
+          }
+        })
+        .catch(async(error) => {
+          await dispatch('updateForFailure', error);
+        });
+    },
+
+    updateForSuccess({ commit }, response) {
+      commit('setError', response.error);
+      commit('setErrorStatusCode', null);
+      commit('setHits', response.hits);
+      commit('setLastAvailablePage', response.lastAvailablePage);
+      commit('setResults', response.items);
+      commit('setTotalResults', response.totalResults);
+    },
+
+    updateForFailure({ commit }, error) {
+      commit('setError', error.message);
+      commit('setErrorStatusCode', (typeof error.statusCode === 'undefined') ? 500 : error.statusCode);
+      commit('setFacets', []);
+      commit('setHits', null);
+      commit('setLastAvailablePage', null);
+      commit('setResults', []);
+      commit('setTotalResults', null);
+    },
+
+    async setResettableFilter({ commit }, { name, selected }) {
+      if ((Array.isArray(selected) && selected.length === 0) || !selected) {
+        await commit('removeResettableFilter', name);
+      } else {
+        await commit('addResettableFilter', name);
+      }
     }
   }
 };

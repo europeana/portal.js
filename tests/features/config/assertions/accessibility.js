@@ -1,7 +1,9 @@
 const util = require('util');
 
 function script(context, options, done) {
-  if (!window.axe) done({ error: 'aXe not found. Make sure it has been injected' });
+  if (!window.axe) {
+    done({ error: 'aXe not found. Make sure it has been injected' });
+  }
 
   window
     .axe

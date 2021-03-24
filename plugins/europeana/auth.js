@@ -17,9 +17,13 @@ const updateRefreshToken = ($auth, refreshAccessTokenResponse) => {
   const options = $auth.strategy.options;
 
   let newRefreshToken = refreshAccessTokenResponse[options.refresh_token_key];
-  if (!newRefreshToken) return false;
+  if (!newRefreshToken) {
+    return false;
+  }
 
-  if (options.token_type) newRefreshToken = options.token_type + ' ' + newRefreshToken;
+  if (options.token_type) {
+    newRefreshToken = `${options.token_type} ${newRefreshToken}`;
+  }
 
   // Store refresh token
   $auth.setRefreshToken($auth.strategy.name, newRefreshToken);
@@ -31,9 +35,13 @@ const updateAccessToken = ($auth, requestConfig, refreshAccessTokenResponse) => 
   const options = $auth.strategy.options;
 
   let newAccessToken = refreshAccessTokenResponse[options.token_key];
-  if (!newAccessToken) return false;
+  if (!newAccessToken) {
+    return false;
+  }
 
-  if (options.token_type) newAccessToken = options.token_type + ' ' + newAccessToken;
+  if (options.token_type) {
+    newAccessToken = `${options.token_type} ${newAccessToken}`;
+  }
 
   // Store token
   $auth.setToken($auth.strategy.name, newAccessToken);

@@ -54,13 +54,19 @@
 
     computed: {
       texts() {
-        if (this.variant === 'similar' || this.variant === 'explore') return [];
+        if (this.variant === 'similar' || this.variant === 'explore') {
+          return [];
+        }
 
         const texts = [].concat(this.value.dataProvider);
-        if (this.value.dcCreatorLangAware) texts.unshift(this.value.dcCreatorLangAware);
+        if (this.value.dcCreatorLangAware) {
+          texts.unshift(this.value.dcCreatorLangAware);
+        }
 
         if (this.variant === 'list') {
-          if (!this.hitSelector && this.value.dcDescriptionLangAware) texts.unshift(this.value.dcDescriptionLangAware);
+          if (!this.hitSelector && this.value.dcDescriptionLangAware) {
+            texts.unshift(this.value.dcDescriptionLangAware);
+          }
         }
 
         return texts;

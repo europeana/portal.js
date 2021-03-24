@@ -4,7 +4,9 @@ import queries from './queries';
 
 export default ({ app, $config }, inject) => {
   const $axios = axios.create();
-  if (app.$axiosLogger) $axios.interceptors.request.use(app.$axiosLogger);
+  if (app.$axiosLogger) {
+    $axios.interceptors.request.use(app.$axiosLogger);
+  }
 
   const plugin = {
     $axios,

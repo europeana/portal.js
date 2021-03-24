@@ -189,7 +189,9 @@
           this.set.creator.endsWith(`/${this.$store.state.auth.user.sub}`);
       },
       displayTitle() {
-        if (this.$fetchState.error) return { values: [this.$t('error')] };
+        if (this.$fetchState.error) {
+          return { values: [this.$t('error')] };
+        }
         return langMapValueForLocale(this.set.title, this.$i18n.locale);
       },
       displayDescription() {
@@ -204,7 +206,9 @@
         return this.$tc(label, this.set.total, { max });
       },
       shareMediaUrl() {
-        if (this.set.items.length === 0) return null;
+        if (this.set.items.length === 0) {
+          return null;
+        }
         return this.set.items[0].edmPreview ?
           `${this.set.items[0].edmPreview[0]}&size=w400` :
           genericThumbnail(this.set.items[0].id, { type: this.set.items[0].type, size: 'w400' });

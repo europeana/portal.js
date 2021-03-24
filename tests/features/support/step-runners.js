@@ -72,7 +72,9 @@ module.exports = {
       currentState = result.value;
     });
 
-    if (currentState !== wantedState) await this.checkTheCheckbox(selector);
+    if (currentState !== wantedState) {
+      await this.checkTheCheckbox(selector);
+    }
   },
   async observeTheTargetIsSwitchedOnOrOff(qaElementName, onOrOff) {
     const selector = qaSelector(qaElementName);
