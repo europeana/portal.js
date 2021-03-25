@@ -5,7 +5,7 @@
     :limit="limit"
     :hide-ellipsis="hideEllipsis"
     :number-of-pages="totalPages"
-    :link-gen="linkGen"
+    :link-gen="generateLink"
     use-router
     size="sm"
     align="center"
@@ -39,16 +39,6 @@
         type: Number,
         default: 1
       },
-      linkGen: {
-        type: Function,
-
-        default(page) {
-          return {
-            ...this.$route,
-            query: { ...this.$route.query, page }
-          };
-        }
-      },
       scrollToId: {
         type: String,
         default: '__nuxt'
@@ -76,6 +66,12 @@
     methods: {
       changePaginationNav() {
         this.$scrollTo(`#${this.scrollToId}`);
+      },
+      generateLink(page) {
+        return {
+          ...this.$route,
+          query: { ...this.$route.query, page }
+        };
       }
     }
   };
