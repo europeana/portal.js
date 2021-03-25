@@ -30,7 +30,6 @@
     "generate": "nuxt generate",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "lint:fix": "npm run lint -- --fix",
-    "postversion": "node bin/postversion.js",
     "start": "nuxt start",
     "storybook": "start-storybook -p 6006 -s ./.storybook/assets",
     "stylelint": "stylelint \"**/*.scss\" \"**/*.vue\" --config .stylelintrc.js",
@@ -45,7 +44,8 @@
     "test:stack:rebuild": "npm run test:stack:down && npm run test:stack:build",
     "test:stack:start": "docker-compose -f ./docker/stack/docker-compose.yml start app nginx chrome-en chrome-ja chrome-nl",
     "test:stack:stop": "docker-compose -f ./docker/stack/docker-compose.yml stop app nginx chrome-en chrome-ja chrome-nl",
-    "test:unit": "vue-cli-service test:unit --include tests/unit/setup"
+    "test:unit": "vue-cli-service test:unit --include tests/unit/setup",
+    "version": "node bin/version.js && git add .sonarcloud.properties"
   },
   "dependencies": {
     "@elastic/apm-rum-vue": "^1.1.9",
