@@ -3,8 +3,8 @@
 const APP_SITE_NAME = 'Europeana';
 
 const pkg = require('./package');
-const i18nLocales = require('./plugins/i18n/locales.js');
-const i18nDateTime = require('./plugins/i18n/datetime.js');
+const i18nLocales = require('./src/plugins/i18n/locales.js');
+const i18nDateTime = require('./src/plugins/i18n/datetime.js');
 
 const featureIsEnabled = (value) => Boolean(Number(value));
 
@@ -296,12 +296,12 @@ module.exports = {
       routes.push({
         name: 'slug',
         path: '/*',
-        component: 'pages/index.vue'
+        component: 'src/pages/index.vue'
       });
       routes.push({
         name: 'collections',
         path: '/(collections)',
-        component: 'pages/index.vue'
+        component: 'src/pages/index.vue'
       });
     },
     linkExactActiveClass: 'exact-active-link'
@@ -359,6 +359,8 @@ module.exports = {
       maxAge: '1d'
     }
   },
+
+  srcDir: 'src/',
 
   // Opt-out of telemetry
   telemetry: false
