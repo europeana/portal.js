@@ -37,6 +37,34 @@
         <span />
         <span />
       </b-button>
+      <SmartLink
+        :destination="{ name: 'index' }"
+        class="logo d-inline-flex"
+      >
+        <img
+          src="../assets/img/logo.svg"
+          :alt="$t('homeLinkAlt')"
+          class="mw-100"
+          data-qa="logo"
+        >
+      </SmartLink>
+      <b-navbar
+        class="align-items-center flex-row d-flex p-0 mr-3"
+        role="navigation"
+      >
+        <PageNavigation
+          class="d-none d-lg-flex"
+          :links="mainNavigation"
+          data-qa="top navigation"
+        />
+        <b-button
+          data-qa="show search button"
+          class="search ml-lg-3"
+          variant="light"
+          :aria-label="$t('search')"
+          @click="toggleSearchBar"
+        />
+      </b-navbar>
       <b-sidebar
         id="sidebar"
         bg-variant="white"
@@ -76,34 +104,6 @@
           <div />
         </b-navbar>
       </b-sidebar>
-      <SmartLink
-        :destination="{ name: 'index' }"
-        class="logo d-inline-flex"
-      >
-        <img
-          src="../assets/img/logo.svg"
-          :alt="$t('homeLinkAlt')"
-          class="mw-100"
-          data-qa="logo"
-        >
-      </SmartLink>
-      <b-navbar
-        class="align-items-center flex-row d-flex p-0 mr-3"
-        role="navigation"
-      >
-        <PageNavigation
-          class="d-none d-lg-flex"
-          :links="mainNavigation"
-          data-qa="top navigation"
-        />
-        <b-button
-          data-qa="show search button"
-          class="search ml-lg-3"
-          variant="light"
-          :aria-label="$t('search')"
-          @click="toggleSearchBar"
-        />
-      </b-navbar>
     </template>
   </header>
 </template>
