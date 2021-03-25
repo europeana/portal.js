@@ -217,9 +217,9 @@ describe('plugins/europeana/entity', () => {
 
   describe('getEntityUri', () => {
     context('with an id of "100-test-slug"', () => {
-      let id = '100-test-slug';
+      const id = '100-test-slug';
       context('with type Agent', () => {
-        let type = 'person';
+        const type = 'person';
         it('returns an agent URI, with base infix, without any human readable labels', () => {
           const uri = getEntityUri(type, id);
           return uri.should.eq('http://data.europeana.eu/agent/base/100');
@@ -227,7 +227,7 @@ describe('plugins/europeana/entity', () => {
       });
 
       context('with type Concept', () => {
-        let type = 'topic';
+        const type = 'topic';
         it('returns a concept URI, with base infix, without any human readable labels', () => {
           const uri = getEntityUri(type, id);
           return uri.should.eq('http://data.europeana.eu/concept/base/100');
@@ -235,7 +235,7 @@ describe('plugins/europeana/entity', () => {
       });
 
       context('with type Timespan', () => {
-        let type = 'time';
+        const type = 'time';
         it('returns a timespan URI, without any human readable labels, or base infix', () => {
           const uri = getEntityUri(type, id);
           return uri.should.eq('http://data.europeana.eu/timespan/100');
@@ -246,7 +246,7 @@ describe('plugins/europeana/entity', () => {
 
   describe('isEntityUri', () => {
     context('with an uri of "http://data.europeana.eu/agent/base/100"', () => {
-      let uri = 'http://data.europeana.eu/agent/base/100';
+      const uri = 'http://data.europeana.eu/agent/base/100';
       it('returns true', () => {
         const ret = isEntityUri(uri);
         ret.should.eq(true);
@@ -254,7 +254,7 @@ describe('plugins/europeana/entity', () => {
     });
 
     context('with an uri of "http://data.europeana.eu/timespan/20"', () => {
-      let uri = 'http://data.europeana.eu/timespan/20';
+      const uri = 'http://data.europeana.eu/timespan/20';
       it('returns true', () => {
         const ret = isEntityUri(uri);
         ret.should.eq(true);
@@ -262,7 +262,7 @@ describe('plugins/europeana/entity', () => {
     });
 
     context('with an uri of "http://data.europeana.eu/concept/base/100"', () => {
-      let uri = 'http://data.europeana.eu/concept/base/100';
+      const uri = 'http://data.europeana.eu/concept/base/100';
       it('returns true', () => {
         const ret = isEntityUri(uri);
         ret.should.eq(true);
@@ -270,7 +270,7 @@ describe('plugins/europeana/entity', () => {
     });
 
     context('with an uri of "http://data.europeana.eu/place/base/100"', () => {
-      let uri = 'http://data.europeana.eu/place/base/100';
+      const uri = 'http://data.europeana.eu/place/base/100';
       it('returns true', () => {
         const ret = isEntityUri(uri);
         ret.should.eq(true);
@@ -278,7 +278,7 @@ describe('plugins/europeana/entity', () => {
     });
 
     context('with an uri of "http://example.org/not-an-entity"', () => {
-      let uri = 'http://example.org/not-an-entity';
+      const uri = 'http://example.org/not-an-entity';
       it('returns true', () => {
         const ret = isEntityUri(uri);
         ret.should.eq(false);
@@ -288,7 +288,7 @@ describe('plugins/europeana/entity', () => {
 
   describe('entityParamsFromUri', () => {
     context('with a agent uri of "http://data.europeana.eu/agent/base/100"', () => {
-      let uri = 'http://data.europeana.eu/agent/base/100';
+      const uri = 'http://data.europeana.eu/agent/base/100';
       it('returns the id and type', () => {
         const params = entityParamsFromUri(uri);
         params.id.should.eq('100');
@@ -297,7 +297,7 @@ describe('plugins/europeana/entity', () => {
     });
 
     context('with a timespan uri of "http://data.europeana.eu/timespan/20"', () => {
-      let uri = 'http://data.europeana.eu/timespan/20';
+      const uri = 'http://data.europeana.eu/timespan/20';
       it('returns the id and type', () => {
         const params = entityParamsFromUri(uri);
         params.id.should.eq('20');
