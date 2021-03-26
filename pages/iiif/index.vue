@@ -305,7 +305,7 @@
         const page = this.manifest.sequences[0].canvases.filter(canvas => canvas['@id'] === pageId);
 
         if (page && page[0]) {
-          window.parent.postMessage({ 'event': 'updateDownloadLink', 'id': page[0].images[0].resource['@id'] }, '*');
+          window.parent.postMessage({ 'event': 'updateDownloadLink', 'id': page[0].images[0].resource['@id'] }, window.location.origin);
         }
       }
     },
