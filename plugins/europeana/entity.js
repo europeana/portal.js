@@ -117,8 +117,8 @@ export default (context = {}) => {
  * @return {Object[]} entity data
  */
 function getRelatedEntityData(entities) {
-  let entityDetails = [];
-  for (let entity of entities || []) {
+  const entityDetails = [];
+  for (const entity of entities || []) {
     if (entity.prefLabel.en) {
       entityDetails.push(entity);
     }

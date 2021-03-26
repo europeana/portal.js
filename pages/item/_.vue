@@ -215,14 +215,14 @@
         return entities.map((entity) => entity.about).slice(0, 5);
       },
       titlesInCurrentLanguage() {
-        let titles = [];
+        const titles = [];
 
         const mainTitle = this.title ? langMapValueForLocale(this.title, this.$i18n.locale) : '';
         const alternativeTitle = this.altTitle ? langMapValueForLocale(this.altTitle, this.$i18n.locale) : '';
 
         const allTitles = [].concat(mainTitle, alternativeTitle).filter(Boolean);
-        for (let title of allTitles) {
-          for (let value of title.values) {
+        for (const title of allTitles) {
+          for (const value of title.values) {
             titles.push({ 'code': title.code, value });
           }
         }

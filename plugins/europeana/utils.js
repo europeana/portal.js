@@ -140,7 +140,7 @@ export const selectLocaleForLangMap = (langMap, locale) => {
  * @return {{Object[]{language: String, values: Object[]}}} Language code and values, values may be strings or language maps themselves.
  */
 export function langMapValueForLocale(langMap, locale, options = {}) {
-  let returnVal = { values: [] };
+  const returnVal = { values: [] };
   if (!langMap) {
     return returnVal;
   }
@@ -179,7 +179,7 @@ function omitAllUris(localizedLangmap) {
 }
 
 function localizedLangMapFromFirstNonDefValue(langMap) {
-  for (let key in langMap) {
+  for (const key in langMap) {
     if (key !== 'def') {
       return { values: langMap[key], code: key };
     }
