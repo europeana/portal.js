@@ -80,7 +80,7 @@
         }
 
         let imageUrl = this.src;
-        let imageQueryParams = [];
+        const imageQueryParams = [];
 
         if (this.forContentfulAsset) {
           // TODO: are optimisations possible on any other content types?

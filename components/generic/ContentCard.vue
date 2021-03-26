@@ -141,7 +141,7 @@
       },
       imageOptimisationOptions: {
         type: Object,
-        default: () => {}
+        default: () => ({})
       },
       lazy: {
         type: Boolean,

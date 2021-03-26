@@ -110,7 +110,7 @@
       },
       selected: {
         type: Object,
-        default: () => {}
+        default: () => ({})
       }
     },
     data() {

@@ -365,6 +365,7 @@ const reduceWebResource = (webResource) => {
     'ebucoreHasMimeType',
     'ebucoreHeight',
     'ebucoreWidth',
+    'edmCodecName',
     'isNextInSequence',
     'svcsHasService'
   ]);

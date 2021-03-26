@@ -21,7 +21,7 @@
     computed: {
       rightsNameAndIcon() {
         const val = this.rightsStatementUrl;
-        let rights = [];
+        const rights = {};
 
         // TODO: localise the names?
         switch (true) {

@@ -51,11 +51,11 @@
         .then(response => response.data.data)
         .then(data => {
           if (data.staticPageCollection.items.length > 0) {
-            let itemData = data.staticPageCollection.items[0];
+            const itemData = data.staticPageCollection.items[0];
             itemData.staticPage = true;
             return itemData;
           } else if (data.browsePageCollection.items.length > 0) {
-            let itemData = data.browsePageCollection.items[0];
+            const itemData = data.browsePageCollection.items[0];
             itemData.browsePage = true;
             return itemData;
           } else {

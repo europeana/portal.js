@@ -20,7 +20,7 @@ const qfValueRegex = /^.*?:"?(.*?)"?$/;
  * @return {string} either '/search' or the collection slug
  */
 function getBasePath(qfs) {
-  let collectionQf = qfs.find(val => {
+  const collectionQf = qfs.find(val => {
     return val.match(collectionQfRegex);
   });
   if (collectionQf) {
@@ -51,7 +51,7 @@ function classicParamsFromQfs(qfs) {
 }
 
 function dateParamsFromRange(key, range) {
-  let rangeParts = range.replace(/\[?\]?/g, '').split(' TO ');
+  const rangeParts = range.replace(/\[?\]?/g, '').split(' TO ');
   return `&range[${key}][begin]=${rangeParts[0]}&range[${key}][end]=${rangeParts[1] ? rangeParts[1] : rangeParts[0]}`;
 }
 
@@ -66,8 +66,8 @@ function dateParamsFromRange(key, range) {
  * @return {string} qf adjusted with the desired content tier filter
  */
 export function legacyUrl(params, locale) {
-  let qfs = params.qf ? [].concat(params.qf) : [];
-  let path = classicBaseUrl + locale + getBasePath(qfs);
+  const qfs = params.qf ? [].concat(params.qf) : [];
+  const path = classicBaseUrl + locale + getBasePath(qfs);
 
   // classic params will always include the query
   let classicParams = '?q=' + (params.query ? params.query : '');

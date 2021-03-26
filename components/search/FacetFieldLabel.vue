@@ -71,7 +71,7 @@
           return translated;
         }
 
-        let subtype = this.fieldValue.split('/')[1];
+        const subtype = this.fieldValue.split('/')[1];
 
         return subtype.replace(/^x-/, '').toUpperCase();
       }

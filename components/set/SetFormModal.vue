@@ -106,12 +106,12 @@
 
       title: {
         type: Object,
-        default: () => {}
+        default: () => ({})
       },
 
       description: {
         type: Object,
-        default: () => {}
+        default: () => ({})
       },
 
       visibility: {
