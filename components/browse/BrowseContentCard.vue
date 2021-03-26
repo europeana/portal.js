@@ -25,7 +25,7 @@
     props: {
       fields: {
         type: Object,
-        default: () => {}
+        default: () => ({})
       },
       cardType: {
         type: String,

@@ -69,7 +69,7 @@
     props: {
       section: {
         type: Object,
-        default: () => {}
+        default: () => (null)
       }
     },
     computed: {
