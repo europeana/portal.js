@@ -56,6 +56,7 @@
     "@vue-a11y/announcer": "^2.1.0",
     "autosuggest-highlight": "^3.1.1",
     "axios": "^0.21.1",
+    "bootstrap": "^4.6.0",
     "bootstrap-vue": "^2.0.0",
     "cookie-universal-nuxt": "^2.0.18",
     "core-js": "^3.8.1",
@@ -74,7 +75,8 @@
     "vue-awesome-swiper": "^4.1.1",
     "vue-client-only": "^2.0.0",
     "vue-i18n": "^8.17.3",
-    "vue-scrollto": "^2.18.2"
+    "vue-scrollto": "^2.18.2",
+    "vuex": "^3.6.2"
   },
   "devDependencies": {
     "@babel/core": "^7.12.10",
