@@ -44,7 +44,8 @@
     "test:stack:rebuild": "npm run test:stack:down && npm run test:stack:build",
     "test:stack:start": "docker-compose -f ./docker/stack/docker-compose.yml start app nginx chrome-en chrome-ja chrome-nl",
     "test:stack:stop": "docker-compose -f ./docker/stack/docker-compose.yml stop app nginx chrome-en chrome-ja chrome-nl",
-    "test:unit": "vue-cli-service test:unit --include tests/unit/setup"
+    "test:unit": "vue-cli-service test:unit --include tests/unit/setup",
+    "version": "node bin/version.js && git add .sonarcloud.properties"
   },
   "dependencies": {
     "@elastic/apm-rum-vue": "^1.1.9",
@@ -96,6 +97,7 @@
     "eslint-loader": "^3.0.0",
     "eslint-plugin-vue": "^6.2.2",
     "nock": "^10.0.6",
+    "properties-reader": "^2.2.0",
     "sass": "^1.30.0",
     "sass-loader": "^8.0.0",
     "sinon": "^7.2.7",
