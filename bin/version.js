@@ -5,7 +5,10 @@ const pkgVersion = require('../package').version;
 
 const versionSonarcloudProperties = async() => {
   const sonarcloudPropertiesFilePath = path.resolve(__dirname, '../.sonarcloud.properties');
-  const sonarcloudProperties = propertiesReader(sonarcloudPropertiesFilePath);
+  const sonarcloudProperties = propertiesReader(sonarcloudPropertiesFilePath,
+    'utf-8',
+    { writer: { saveSections: false } }
+  );
   sonarcloudProperties.set('sonar.projectVersion', pkgVersion);
   await sonarcloudProperties.save(sonarcloudPropertiesFilePath);
 };
