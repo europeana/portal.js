@@ -238,7 +238,7 @@
        * TODO: does this belong in its own component?
        */
       orderedFacets() {
-        let unordered = this.facets.slice();
+        const unordered = this.facets.slice();
         let ordered = [];
 
         for (const facetName of this.facetNames) {
