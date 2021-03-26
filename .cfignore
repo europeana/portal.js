@@ -90,3 +90,6 @@ tmp
 # Tests
 /tests
 tmp
+
+# Deployment files
+deploy/

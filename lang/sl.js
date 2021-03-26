@@ -3,7 +3,9 @@ export default {
     "likes": "Všečki",
     "linkAccount": "Moj račun",
     "linkLogin": "Vpis",
+    "linkLoginJoin": "Prijava/Pridruži se",
     "linkLogout": "Izpis",
+    "myProfile": "Moj profil",
     "notifications": {
       "noCollections": {
         "private": "Niste še ustvarili nobene zasebne zbirke.",

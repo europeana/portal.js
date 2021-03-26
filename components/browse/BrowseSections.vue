@@ -47,6 +47,7 @@
         :content-type="section.image.contentType"
         :width="section.image.width"
         :height="section.image.height"
+        :alt="section.image.description ? section.image.description : ''"
         :attribution="attributionFields(section)"
         :rights-statement="section.license"
       />
@@ -101,7 +102,9 @@
           .filter(item => item && (item['__typename'] === 'LatestCardGroup'))
           .map(item => item.genre);
 
-        if (genres.length === 0) return content;
+        if (genres.length === 0) {
+          return content;
+        }
 
         const variables = {
           locale: this.$i18n.isoLocale(),

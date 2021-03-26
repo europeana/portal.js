@@ -63,7 +63,9 @@
       exhibitionChapters
     ],
     asyncData({ params, query, error, app, store, redirect }) {
-      if (params.exhibition === undefined) redirect(app.$path({ name: 'exhibitions' }));
+      if (params.exhibition === undefined) {
+        redirect(app.$path({ name: 'exhibitions' }));
+      }
 
       const variables = {
         identifier: params.exhibition,
@@ -103,7 +105,9 @@
         return this.hero ? this.hero.image : null;
       },
       mainContent() {
-        if (this.text === undefined) return;
+        if (this.text === undefined) {
+          return;
+        }
         return marked(this.text);
       },
       optimisedImageUrl() {
@@ -129,7 +133,8 @@
           { hid: 'description', name: 'description', content: this.description },
           { hid: 'og:description', property: 'og:description', content: this.description }
         ] : []).concat(this.heroImage ? [
-          { hid: 'og:image', property: 'og:image', content: this.optimisedImageUrl }
+          { hid: 'og:image', property: 'og:image', content: this.optimisedImageUrl },
+          { hid: 'og:image:alt', property: 'og:image:alt', content: this.heroImage.description }
         ] : [])
       };
     }

@@ -91,7 +91,8 @@ module.exports = {
       id: process.env.GOOGLE_TAG_MANAGER_ID
     },
     googleOptimize: {
-      id: process.env.GOOGLE_OPTIMIZE_ID
+      id: process.env.GOOGLE_OPTIMIZE_ID,
+      experiments: {}
     },
     hotjar: {
       id: process.env.HOTJAR_ID,

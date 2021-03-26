@@ -19,6 +19,7 @@
         class="bg-white mb-3 px-0"
       >
         <ItemHero
+          :all-media-uris="allMediaUris"
           :identifier="identifier"
           :media="media"
           :edm-rights="edmRights"
@@ -102,7 +103,7 @@
   import MetadataBox from '../../components/item/MetadataBox';
 
   import { BASE_URL as EUROPEANA_DATA_URL } from '../../plugins/europeana/data';
-  import { similarItemsQuery } from '../../plugins/europeana/record';
+  import similarItemsQuery from '../../plugins/europeana/record/similar-items';
   import { langMapValueForLocale } from  '../../plugins/europeana/utils';
 
   export default {
@@ -151,6 +152,7 @@
 
     data() {
       return {
+        allMediaUris: [],
         agents: null,
         altTitle: null,
         cardGridClass: null,
@@ -179,7 +181,9 @@
         // Convert collection of annotations' prefLabels into a single langMap
         return this.taggingAnnotations.reduce((memo, annotation) => {
           for (const lang in annotation.body.prefLabel) {
-            if (!memo[lang]) memo[lang] = [];
+            if (!memo[lang]) {
+              memo[lang] = [];
+            }
             memo[lang] = memo[lang].concat(annotation.body.prefLabel[lang]);
           }
           return memo;
@@ -211,14 +215,14 @@
         return entities.map((entity) => entity.about).slice(0, 5);
       },
       titlesInCurrentLanguage() {
-        let titles = [];
+        const titles = [];
 
         const mainTitle = this.title ? langMapValueForLocale(this.title, this.$i18n.locale) : '';
         const alternativeTitle = this.altTitle ? langMapValueForLocale(this.altTitle, this.$i18n.locale) : '';
 
         const allTitles = [].concat(mainTitle, alternativeTitle).filter(Boolean);
-        for (let title of allTitles) {
-          for (let value of title.values) {
+        for (const title of allTitles) {
+          for (const value of title.values) {
             titles.push({ 'code': title.code, value });
           }
         }
@@ -235,7 +239,9 @@
         return this.titlesInCurrentLanguage[0] ? this.titlesInCurrentLanguage[0].value : this.$t('record.record');
       },
       metaDescription() {
-        if (isEmpty(this.descriptionInCurrentLanguage)) return '';
+        if (isEmpty(this.descriptionInCurrentLanguage)) {
+          return '';
+        }
         return this.descriptionInCurrentLanguage.values[0] ? this.descriptionInCurrentLanguage.values[0] : '';
       },
       dataProvider() {
@@ -271,7 +277,9 @@
 
       getSimilarItems() {
         const noSimilarItems = { results: [] };
-        if (this.error) return noSimilarItems;
+        if (this.error) {
+          return noSimilarItems;
+        }
 
         if (this.$config.app.features.recommendations && this.$auth.loggedIn) {
           return this.$apis.recommendation.recommend('record', this.identifier)
@@ -298,10 +306,14 @@
       },
 
       getSimilarItemsData(value) {
-        if (!value) return;
+        if (!value) {
+          return;
+        }
 
         const data = langMapValueForLocale(value, this.$i18n.locale).values;
-        if (!data) return;
+        if (!data) {
+          return;
+        }
 
         return data.filter(item => typeof item === 'string');
       },

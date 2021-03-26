@@ -5,6 +5,7 @@
     :url="destination"
     :image-url="imageUrl"
     :image-content-type="imageContentType"
+    :image-alt="imageAlt"
     :variant="cardVariant"
     :omit-all-uris="true"
     :image-optimisation-options="{ width: 510 }"
@@ -24,7 +25,7 @@
     props: {
       fields: {
         type: Object,
-        default: () => {}
+        default: () => ({})
       },
       cardType: {
         type: String,
@@ -68,6 +69,9 @@
       imageContentType() {
         return this.imageIsContentfulAsset ? this.cardFields.image.contentType : null;
       },
+      imageAlt() {
+        return this.imageIsContentfulAsset && this.cardFields.image.description ? this.cardFields.image.description : '';
+      },
       destination() {
         if (this.fields.url) {
           return this.fields.url;
@@ -84,7 +88,7 @@
       },
       texts() {
         // TODO: Refactor content model to set this directly, so this method can be skipped.
-        let texts = [];
+        const texts = [];
         let textFields;
 
         if (this.cardType === 'AutomatedRecordCard') {

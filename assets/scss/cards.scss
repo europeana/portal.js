@@ -56,7 +56,6 @@
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
   }
-
   .card-subtitle {
     color: $mediumgrey;
     font-size: $font-size-extrasmall;
@@ -93,6 +92,21 @@
     z-index: 1;
     &:hover {
       color: $black;
+    }
+  }
+
+  .is-external-link .card-title {
+    display: flex;
+    align-items: flex-end;
+    span {
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    &:after {
+      content: '\e900';
+      @extend .icon-font;
+      margin-left: 5px;
     }
   }
 
@@ -368,11 +382,6 @@
   .card-deck-4-cols.narrow-gutter .card {
     flex: 0 0 calc(100% / 4 - #{$grid-gutter-narrow*2});
   }
-}
-
-.is-external-link.card-link .card-title:after {
-  content: '\e900';
-  @extend .icon-font;
 }
 
 .masonry {

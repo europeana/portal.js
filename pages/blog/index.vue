@@ -18,6 +18,7 @@
             :image-url="imageUrl(post)"
             :image-content-type="imageContentType(post)"
             :image-optimisation-options="{ width: 510 }"
+            :image-alt="imageAlt(post)"
             :texts="[post.description]"
             :show-subtitle="false"
           />
@@ -95,6 +96,12 @@
           return post.primaryImageOfPage.image.contentType;
         }
         return null;
+      },
+      imageAlt(post) {
+        if (post.primaryImageOfPage && post.primaryImageOfPage.image.description) {
+          return post.primaryImageOfPage.image.description;
+        }
+        return '';
       }
     },
 

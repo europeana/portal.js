@@ -90,8 +90,12 @@
         const path = this.destination;
         const hostnamePattern = /\/\/([^/:]+)/;
 
-        if (this.itemIdentifier) return false;
-        if (typeof path !== 'string' || !hostnamePattern.test(path)) return false;
+        if (this.itemIdentifier) {
+          return false;
+        }
+        if (typeof path !== 'string' || !hostnamePattern.test(path)) {
+          return false;
+        }
 
         const hostname = path.match(hostnamePattern)[1];
         return !hostname.endsWith(this.internalDomain);

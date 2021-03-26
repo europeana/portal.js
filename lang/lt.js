@@ -3,7 +3,9 @@ export default {
     "likes": "Patinka",
     "linkAccount": "Mano paskyra",
     "linkLogin": "Prisijungti",
+    "linkLoginJoin": "Prisijungti/Prisijungti",
     "linkLogout": "Atsijungti",
+    "myProfile": "Mano profilis",
     "notifications": {
       "noCollections": {
         "private": "Kol kas nesukūrėte jokių privačių galerijų",

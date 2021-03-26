@@ -116,7 +116,9 @@
 
     computed: {
       sortedOptions() {
-        if (this.isRadio) return this.fields;
+        if (this.isRadio) {
+          return this.fields;
+        }
 
         const selected = [];
 
@@ -147,7 +149,9 @@
       },
 
       disableResetButton() {
-        if (!this.preSelected) return true;
+        if (!this.preSelected) {
+          return true;
+        }
         return Array.isArray(this.preSelected) && (this.preSelected.length === 0);
       },
 

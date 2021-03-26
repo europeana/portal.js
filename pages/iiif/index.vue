@@ -12,7 +12,8 @@
 
     asyncData({ query }) {
       return {
-        uri: query.uri
+        uri: query.uri,
+        searchQuery: query.query
       };
     },
 
@@ -25,6 +26,7 @@
         imageToCanvasMap: {},
         mirador: null,
         showAnnotations: false,
+        searchQuery: null,
         miradorStoreManifestJsonUnsubscriber: () => {}
       };
     },
@@ -37,7 +39,8 @@
           windows: [
             {
               manifestId: this.uri,
-              thumbnailNavigationPosition: 'far-bottom'
+              thumbnailNavigationPosition: 'far-bottom',
+              defaultSearchQuery: this.searchQuery
             }
           ],
           window: {
@@ -54,7 +57,7 @@
               annotations: true,
               search: true
             },
-            defaultSideBarPanel: 'annotations'
+            defaultSideBarPanel: this.searchQuery ? 'search' : 'annotations'
           },
           workspace: {
             showZoomControls: true,
@@ -138,7 +141,9 @@
 
       addTextGranularityFilterToManifest(manifestJson, textGranularity = 'Line') {
         const europeanaIiifPattern = /^https?:\/\/iiif\.europeana\.eu\/presentation\/[^/]+\/[^/]+\/manifest$/;
-        if (!europeanaIiifPattern.test(manifestJson['@id'])) return;
+        if (!europeanaIiifPattern.test(manifestJson['@id'])) {
+          return;
+        }
 
         // Add textGranularity filter to "otherContent" URIs
         for (const sequence of manifestJson.sequences) {
@@ -206,11 +211,15 @@
         if (Array.isArray(resource.on)) {
           for (let i = 0; i < resource.on.length; i = i + 1) {
             const canvas = this.canvasForImage(resource.on[i]);
-            if (canvas) resource.on[i] = canvas;
+            if (canvas) {
+              resource.on[i] = canvas;
+            }
           }
         } else {
           const canvas = this.canvasForImage(resource.on);
-          if (canvas) resource.on = canvas;
+          if (canvas) {
+            resource.on = canvas;
+          }
         }
 
         return resource;
@@ -251,7 +260,9 @@
         const fetches = uniq(urls).map(url => this.$axios.get(url)
           .then(response => response.data)
           .then((data) => {
-            if (data.type === 'FullTextResource') fulltext[url] = data.value;
+            if (data.type === 'FullTextResource') {
+              fulltext[url] = data.value;
+            }
           }));
 
         return Promise.all(fetches).then(() => fulltext);
@@ -266,7 +277,9 @@
           }
 
           const url = resource.resource['@id'].split('#')[0];
-          if (!fulltext[url]) continue;
+          if (!fulltext[url]) {
+            continue;
+          }
 
           const fragment = resource.resource['@id'].split('#')[1];
 
@@ -285,12 +298,14 @@
       },
 
       fetchImageData(url, pageId) {
-        if (!this.manifest) return;
+        if (!this.manifest) {
+          return;
+        }
 
         const page = this.manifest.sequences[0].canvases.filter(canvas => canvas['@id'] === pageId);
 
         if (page && page[0]) {
-          window.parent.postMessage({ 'event': 'updateDownloadLink', 'id': page[0].images[0].resource['@id'] }, '*');
+          window.parent.postMessage({ 'event': 'updateDownloadLink', 'id': page[0].images[0].resource['@id'] }, window.location.origin);
         }
       }
     },

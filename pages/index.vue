@@ -51,11 +51,11 @@
         .then(response => response.data.data)
         .then(data => {
           if (data.staticPageCollection.items.length > 0) {
-            let itemData = data.staticPageCollection.items[0];
+            const itemData = data.staticPageCollection.items[0];
             itemData.staticPage = true;
             return itemData;
           } else if (data.browsePageCollection.items.length > 0) {
-            let itemData = data.browsePageCollection.items[0];
+            const itemData = data.browsePageCollection.items[0];
             itemData.browsePage = true;
             return itemData;
           } else {
@@ -94,13 +94,18 @@
           this.$store.state.i18n.locale
         }?utm_source=new-website&utm_medium=button`;
       },
-      optimisedImageUrl() {
+      socialMediaImage() {
         // use social media image if set in Contentful, otherwise use hero image
-        let img = this.image === null ? this.heroImage.image : this.image;
-        return this.$options.filters.optimisedImageUrl(img.url, img.contentType, {
+        return this.image === null ? this.heroImage.image : this.image;
+      },
+      socialMediaImageOptimisedUrl() {
+        return this.$options.filters.optimisedImageUrl(this.socialMediaImage.url, this.socialMediaImage.contentType, {
           width: 800,
           height: 800
         });
+      },
+      socialMediaImageAlt() {
+        return this.socialMediaImage.description ? this.socialMediaImage.description : '';
       },
       hero() {
         return this.primaryImageOfPage ? this.primaryImageOfPage : null;
@@ -108,7 +113,7 @@
       heroImage() {
         let heroImage = null;
 
-        if (this.hero && this.hero.image && this.hero.image.image) {
+        if (this.hero && this.hero.image) {
           heroImage = this.hero.image;
         }
 
@@ -127,7 +132,8 @@
           { hid: 'description', name: 'description', content: this.description },
           { hid: 'og:description', property: 'og:description', content: this.description }
         ] : []).concat(this.heroImage ? [
-          { hid: 'og:image', property: 'og:image', content: this.optimisedImageUrl }
+          { hid: 'og:image', property: 'og:image', content: this.socialMediaImageOptimisedUrl },
+          { hid: 'og:image:alt', property: 'og:image:alt', content: this.socialMediaImageAlt }
         ] : [])
       };
     }

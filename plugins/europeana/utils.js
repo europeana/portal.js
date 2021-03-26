@@ -7,7 +7,9 @@ export const createAxios = ({ id, baseURL, $axios }, context) => {
   const axiosInstance = ($axios || axios).create(axiosOptions);
 
   const app = context.app;
-  if (app && app.$axiosLogger) axiosInstance.interceptors.request.use(app.$axiosLogger);
+  if (app && app.$axiosLogger) {
+    axiosInstance.interceptors.request.use(app.$axiosLogger);
+  }
 
   return axiosInstance;
 };
@@ -101,7 +103,9 @@ function entityValues(values, locale) {
 function entityValue(value, locale) {
   if (value.prefLabel) {
     let entityValue = langMapValueForLocale(value.prefLabel, locale);
-    if (entityValue.values.length === 0) entityValue = { code: '', values: [value.about] };
+    if (entityValue.values.length === 0) {
+      entityValue = { code: '', values: [value.about] };
+    }
     entityValue.about = value.about;
     return entityValue;
   }
@@ -115,7 +119,9 @@ function languageKeys(locale) {
 
 export const selectLocaleForLangMap = (langMap, locale) => {
   for (const key of languageKeys(locale)) {
-    if (Object.prototype.hasOwnProperty.call(langMap, key)) return key;
+    if (Object.prototype.hasOwnProperty.call(langMap, key)) {
+      return key;
+    }
   }
   return Object.keys(langMap)[0];
 };
@@ -134,8 +140,10 @@ export const selectLocaleForLangMap = (langMap, locale) => {
  * @return {{Object[]{language: String, values: Object[]}}} Language code and values, values may be strings or language maps themselves.
  */
 export function langMapValueForLocale(langMap, locale, options = {}) {
-  let returnVal = { values: [] };
-  if (!langMap) return returnVal;
+  const returnVal = { values: [] };
+  if (!langMap) {
+    return returnVal;
+  }
 
   setLangMapValuesAndCode(returnVal, langMap, selectLocaleForLangMap(langMap, locale), locale);
 
@@ -145,14 +153,20 @@ export function langMapValueForLocale(langMap, locale, options = {}) {
   if (onlyUriValues(withEntities.values) && returnVal.code === '' && hasNonDefValues(langMap)) {
     withEntities = localizedLangMapFromFirstNonDefValue(langMap);
   }
-  if (options.omitAllUris) return omitAllUris(withEntities);
-  if (!options.omitUrisIfOtherValues) return withEntities;
+  if (options.omitAllUris) {
+    return omitAllUris(withEntities);
+  }
+  if (!options.omitUrisIfOtherValues) {
+    return withEntities;
+  }
   return omitUrisIfOtherValues(withEntities);
 }
 
 function omitUrisIfOtherValues(localizedLangmap) {
   const withoutUris = localizedLangmap.values.filter((value) => !uriRegex.test(value));
-  if (withoutUris.length > 0) localizedLangmap.values = withoutUris;
+  if (withoutUris.length > 0) {
+    localizedLangmap.values = withoutUris;
+  }
 
   return localizedLangmap;
 }
@@ -165,7 +179,7 @@ function omitAllUris(localizedLangmap) {
 }
 
 function localizedLangMapFromFirstNonDefValue(langMap) {
-  for (let key in langMap) {
+  for (const key in langMap) {
     if (key !== 'def') {
       return { values: langMap[key], code: key };
     }
@@ -202,14 +216,18 @@ function setLangMapValuesAndCode(returnValue, langMap, key, locale) {
 }
 
 function langMapValueAndCodeFromMap(returnValue, langMap, key, locale) {
-  setLangMapValues(returnValue, langMap, key, locale);
+  setLangMapValues(returnValue, langMap, key);
   setLangCode(returnValue, key, locale);
-  if (undefinedLocaleCodes.includes(key)) filterEntities(returnValue);
+  if (undefinedLocaleCodes.includes(key)) {
+    filterEntities(returnValue);
+  }
 }
 
 function langMapValueAndCodeFromJSONLD(returnValue, langMap, key, locale) {
   const matchedValue = langMapValueFromJSONLD(langMap, key);
-  if (matchedValue) returnValue.values = [matchedValue];
+  if (matchedValue) {
+    returnValue.values = [matchedValue];
+  }
   setLangCode(returnValue, key, locale);
 }
 

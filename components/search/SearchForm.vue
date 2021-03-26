@@ -164,7 +164,9 @@
 
     watch: {
       '$route.query.query'() {
-        if (this.$refs.searchbox) this.$refs.searchbox.$el.blur();
+        if (this.$refs.searchbox) {
+          this.$refs.searchbox.$el.blur();
+        }
         this.initQuery();
       }
     },
@@ -201,13 +203,17 @@
         if (this.selectedOptionLink) {
           newRoute = this.selectedOptionLink;
           this.query = this.selectedOptionLink.query.query;
-          if (this.query !== this.activeSuggestionsQueryTerm) this.suggestions = {};
+          if (this.query !== this.activeSuggestionsQueryTerm) {
+            this.suggestions = {};
+          }
         } else {
           const newRouteQuery = { ...this.$route.query, ...{ page: 1, view: this.view, query: this.query } };
           newRoute = { path: this.routePath, query: newRouteQuery };
         }
 
-        if (this.$refs.searchbox) this.$refs.searchbox.$el.blur();
+        if (this.$refs.searchbox) {
+          this.$refs.searchbox.$el.blur();
+        }
         await this.$goto(newRoute);
         this.selectedOptionLink = null;
       },
@@ -226,10 +232,14 @@
           return;
         }
 
-        if (this.onCollectionPage) return;
+        if (this.onCollectionPage) {
+          return;
+        }
 
         // Don't go getting more suggestions if we are already waiting for some or they already exist.
-        if (this.gettingSuggestions || query === this.activeSuggestionsQueryTerm) return;
+        if (this.gettingSuggestions || query === this.activeSuggestionsQueryTerm) {
+          return;
+        }
 
         const locale = this.$i18n.locale;
         this.gettingSuggestions = true;
@@ -253,7 +263,9 @@
           .then(() => {
             this.gettingSuggestions = false;
             // If the query has changed in the meantime, go get new suggestions now
-            if (query !== this.query) this.getSearchSuggestions(this.query);
+            if (query !== this.query) {
+              this.getSearchSuggestions(this.query);
+            }
           });
       },
 
@@ -284,7 +296,9 @@
         this.suggestions = {};
 
         this.$nextTick(() => {
-          if (this.$refs.searchbox) this.$refs.searchbox.$el.focus();
+          if (this.$refs.searchbox) {
+            this.$refs.searchbox.$el.focus();
+          }
         });
       },
 

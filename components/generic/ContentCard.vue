@@ -18,13 +18,13 @@
           :src="optimisedImageUrl"
           :blank-width="blankImageWidth"
           :blank-height="blankImageHeight"
-          alt=""
+          :alt="imageAlt"
           @error.native="imageNotFound"
         />
         <b-img
           v-else
           :src="optimisedImageUrl"
-          alt=""
+          :alt="imageAlt"
           @error="imageNotFound"
         />
       </div>
@@ -47,7 +47,9 @@
           data-qa="card title"
           :lang="displayTitle.code"
         >
-          {{ displayTitle.values[0] | truncate(90, $t('formatting.ellipsis')) }}
+          <span>
+            {{ displayTitle.values[0] | truncate(90, $t('formatting.ellipsis')) }}
+          </span>
         </b-card-title>
         <time
           v-if="datetime"
@@ -133,9 +135,13 @@
         type: String,
         default: null
       },
+      imageAlt: {
+        type: String,
+        default: ''
+      },
       imageOptimisationOptions: {
         type: Object,
-        default: () => {}
+        default: () => ({})
       },
       lazy: {
         type: Boolean,
@@ -201,7 +207,9 @@
       },
 
       displayLabel() {
-        if (!this.displayLabelType) return false;
+        if (!this.displayLabelType) {
+          return false;
+        }
         return this.$tc(`${this.displayLabelType}.${this.displayLabelType}`, 1);
       },
 
@@ -247,7 +255,9 @@
     methods: {
       cardText(values) {
         const limited = (this.limitValuesWithinEachText > -1) ? values.slice(0, this.limitValuesWithinEachText) : [].concat(values);
-        if (values.length > limited.length) limited.push(this.$t('formatting.ellipsis'));
+        if (values.length > limited.length) {
+          limited.push(this.$t('formatting.ellipsis'));
+        }
         const joined = limited.join(this.$t('formatting.listSeperator') + ' ');
         const stripped = this.$options.filters.stripMarkdown(joined);
         return this.$options.filters.truncate(stripped, 255, this.$t('formatting.ellipsis'));

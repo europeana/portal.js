@@ -117,18 +117,6 @@
         </b-col>
       </b-row>
     </template>
-    <b-toast
-      id="tier-toast"
-      toast-class="brand-toast"
-      toaster="b-toaster-bottom-left"
-      auto-hide-delay="10000"
-      is-status
-      no-close-button
-      solid
-      data-qa="tier toast"
-    >
-      {{ $t('facets.contentTier.notification') }}
-    </b-toast>
   </b-container>
 </template>
 
@@ -221,7 +209,9 @@
         return Number(this.$route.query.page || 1);
       },
       errorMessage() {
-        if (!this.error) return null;
+        if (!this.error) {
+          return null;
+        }
 
         const paginationError = this.error.match(/It is not possible to paginate beyond the first (\d+)/);
         if (paginationError !== null) {
@@ -248,7 +238,7 @@
        * TODO: does this belong in its own component?
        */
       orderedFacets() {
-        let unordered = this.facets.slice();
+        const unordered = this.facets.slice();
         let ordered = [];
 
         for (const facetName of this.facetNames) {
@@ -314,16 +304,22 @@
     },
     methods: {
       viewFromRouteQuery() {
-        if (this.routeQueryView) this.view = this.routeQueryView;
+        if (this.routeQueryView) {
+          this.view = this.routeQueryView;
+        }
       },
       facetDropdownType(name) {
         return name === 'collection' ? 'radio' : 'checkbox';
       },
       changeFacet(name, selected) {
         if (typeof this.filters[name] === 'undefined') {
-          if ((Array.isArray(selected) && selected.length === 0) || !selected) return;
+          if ((Array.isArray(selected) && selected.length === 0) || !selected) {
+            return;
+          }
         }
-        if (isEqual(this.filters[name], selected)) return;
+        if (isEqual(this.filters[name], selected)) {
+          return;
+        }
 
         return this.rerouteSearch(this.queryUpdatesForFacetChanges({ [name]: selected }));
       },
@@ -368,13 +364,25 @@
         return this.$store.getters['search/hasResettableFilters'];
       },
       showContentTierToast() {
-        if (!process.browser) return;
+        if (!process.browser) {
+          return;
+        }
 
         if (sessionStorage.contentTierToastShown || this.contentTierZeroActive || !this.contentTierZeroPresent) {
           return;
         }
-        this.$bvToast.show('tier-toast');
+        this.makeToast();
         sessionStorage.contentTierToastShown = 'true';
+      },
+      makeToast() {
+        this.$root.$bvToast.toast(this.$t('facets.contentTier.notification'), {
+          toastClass: 'brand-toast',
+          toaster: 'b-toaster-bottom-left',
+          autoHideDelay: 5000,
+          isStatus: true,
+          noCloseButton: true,
+          solid: true
+        });
       }
     }
   };

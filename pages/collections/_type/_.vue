@@ -123,11 +123,17 @@
           .concat(fetchFromContentful ? app.$contentful.query('collectionPage', contentfulVariables) : () => {})
       )
         .then(axios.spread((recordSearchResponse, entityResponse, pageResponse) => {
-          if (fetchEntity) store.commit('entity/setEntity', entityResponse.entity);
+          if (fetchEntity) {
+            store.commit('entity/setEntity', entityResponse.entity);
+          }
           if (fetchFromContentful) {
             const pageResponseData = pageResponse.data.data;
-            if (fetchCuratedEntities) store.commit('entity/setCuratedEntities', pageResponseData.curatedEntities.items);
-            if (fetchEntityPage) store.commit('entity/setPage', pageResponseData.entityPage.items[0]);
+            if (fetchCuratedEntities) {
+              store.commit('entity/setCuratedEntities', pageResponseData.curatedEntities.items);
+            }
+            if (fetchEntityPage) {
+              store.commit('entity/setPage', pageResponseData.entityPage.items[0]);
+            }
           }
           const entity = store.state.entity.entity;
           const page = store.state.entity.page;
@@ -169,21 +175,11 @@
       editorialAttribution() {
         return this.page.primaryImageOfPage.url;
       },
-      // Depiction from the Contentful entry
-      editorialDepiction() {
-        try {
-          const image = this.page.primaryImageOfPage.image;
-          return this.$options.filters.optimisedImageUrl(image.url, image.contentType, { width: 510 });
-        } catch (error) {
-          if (error instanceof TypeError) {
-            return null;
-          }
-          throw error;
-        }
-      },
       // Description from the Contentful entry
       editorialDescription() {
-        if (!this.hasEditorialDescription) return null;
+        if (!this.hasEditorialDescription) {
+          return null;
+        }
         return this.page.description;
       },
       hasEditorialDescription() {
@@ -191,7 +187,9 @@
       },
       // Title from the Contentful entry
       editorialTitle() {
-        if (!this.page || !this.page.name) return null;
+        if (!this.page || !this.page.name) {
+          return null;
+        }
         return this.page.name;
       },
       relatedCollectionCards() {
@@ -219,8 +217,12 @@
         };
       },
       title() {
-        if (!this.entity) return this.titleFallback();
-        if (this.editorialTitle) return this.titleFallback(this.editorialTitle);
+        if (!this.entity) {
+          return this.titleFallback();
+        }
+        if (this.editorialTitle) {
+          return this.titleFallback(this.editorialTitle);
+        }
         return langMapValueForLocale(this.entity.prefLabel, this.$store.state.i18n.locale);
       }
     },
@@ -273,9 +275,6 @@
           .concat(this.descriptionText ? [
             { hid: 'description', name: 'description', content: this.descriptionText },
             { hid: 'og:description', property: 'og:description', content: this.descriptionText }
-          ] : [])
-          .concat(this.depiction ? [
-            { hid: 'og:image', property: 'og:image', content: this.$options.filters.urlWithProtocol(this.depiction) }
           ] : [])
       };
     },

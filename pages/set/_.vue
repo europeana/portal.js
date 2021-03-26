@@ -61,12 +61,13 @@
                 </div>
               </b-col>
             </b-row>
-            <div class="collection-buttons">
+            <div class="d-inline-flex collection-buttons">
               <template
                 v-if="userIsOwner"
               >
                 <b-button
-                  variant="outline-primary text-decoration-none"
+                  variant="outline-primary"
+                  class="text-decoration-none mr-2"
                   @click="$bvModal.show(setFormModalId)"
                 >
                   {{ $t('actions.edit') }}
@@ -80,14 +81,14 @@
                   @update="updateSet"
                 />
               </template>
-              <!-- <b-button
-                v-if="visibility === 'public'"
-                variant="outline-primary text-decoration-none"
+              <b-button
+                v-b-modal.shareModal
+                variant="outline-primary"
+                class="text-decoration-none"
               >
-                <span class="text">
-                  {{ $t('actions.share') }}
-                </span>
-              </b-button> -->
+                {{ $t('actions.share') }}
+              </b-button>
+              <SocialShareModal :media-url="shareMediaUrl" />
             </div>
           </b-container>
         </b-col>
@@ -139,15 +140,19 @@
 
 <script>
   import { langMapValueForLocale } from  '../../plugins/europeana/utils';
+  import { genericThumbnail } from '../../plugins/europeana/thumbnail';
+
   import AlertMessage from '../../components/generic/AlertMessage';
   import ItemPreviewCardGroup from '../../components/item/ItemPreviewCardGroup';
   import LoadingSpinner from '../../components/generic/LoadingSpinner';
+  import SocialShareModal from '../../components/sharing/SocialShareModal.vue';
 
   export default {
     components: {
       LoadingSpinner,
       AlertMessage,
       ItemPreviewCardGroup,
+      SocialShareModal,
       SetFormModal: () => import('../../components/set/SetFormModal')
     },
 
@@ -184,7 +189,9 @@
           this.set.creator.endsWith(`/${this.$store.state.auth.user.sub}`);
       },
       displayTitle() {
-        if (this.$fetchState.error) return { values: [this.$t('error')] };
+        if (this.$fetchState.error) {
+          return { values: [this.$t('error')] };
+        }
         return langMapValueForLocale(this.set.title, this.$i18n.locale);
       },
       displayDescription() {
@@ -197,6 +204,14 @@
         const max = 100;
         const label = this.set.total > max ? 'items.itemOf' : 'items.itemCount';
         return this.$tc(label, this.set.total, { max });
+      },
+      shareMediaUrl() {
+        if (this.set.items.length === 0) {
+          return null;
+        }
+        return this.set.items[0].edmPreview ?
+          `${this.set.items[0].edmPreview[0]}&size=w400` :
+          genericThumbnail(this.set.items[0].id, { type: this.set.items[0].type, size: 'w400' });
       }
     },
 
@@ -237,7 +252,17 @@
 
     head() {
       return {
-        title: this.$pageHeadTitle(this.displayTitle.values[0])
+        title: this.$pageHeadTitle(this.displayTitle.values[0]),
+        meta: [
+          { hid: 'title', name: 'title', content: this.displayTitle.values[0] },
+          { hid: 'og:title', property: 'og:title', content: (this.displayTitle.values[0]) },
+          { hid: 'og:image', property: 'og:image', content: this.shareMediaUrl },
+          { hid: 'og:type', property: 'og:type', content: 'article' }
+        ]
+          .concat(this.description ? [
+            { hid: 'description', name: 'description', content: this.displayDescription.values[0]  },
+            { hid: 'og:description', property: 'og:description', content: this.displayDescription.values[0]  }
+          ] : [])
       };
     },
     async beforeRouteLeave(to, from, next) {
@@ -287,11 +312,6 @@
   }
 
   .collection-buttons {
-    button {
-      &:first-child {
-        margin-right: 1rem;
-      }
-    }
     .text {
       font-weight: 600;
     }

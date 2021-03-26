@@ -14,15 +14,19 @@ Vue.filter('localise', val => {
 });
 
 Vue.filter('truncate', (val, char, ellipsis) => {
-  if (!val) return null;
+  if (!val) {
+    return null;
+  }
   return val.length > char ? val.substring(0, char) + ellipsis : val;
 });
 
 // TODO: deprecated; superceded by OptimisedImage.vue; remove when all dependent components updated
 Vue.filter('optimisedImageUrl', (imageUrl, contentType, options = {}) => {
-  if (typeof contentType !== 'string') return imageUrl;
+  if (typeof contentType !== 'string') {
+    return imageUrl;
+  }
 
-  let imageQueryParams = [];
+  const imageQueryParams = [];
 
   const hostnameMatch = imageUrl.match(/\/\/([^/]+)\//);
   if (hostnameMatch && (hostnameMatch[1] === 'images.ctfassets.net')) {
@@ -32,11 +36,17 @@ Vue.filter('optimisedImageUrl', (imageUrl, contentType, options = {}) => {
       imageQueryParams.push(`q=${options.quality || 50}`);
     }
 
-    if (options.width) imageQueryParams.push(`w=${options.width}`);
-    if (options.height) imageQueryParams.push(`h=${options.height}`);
+    if (options.width) {
+      imageQueryParams.push(`w=${options.width}`);
+    }
+    if (options.height) {
+      imageQueryParams.push(`h=${options.height}`);
+    }
   }
 
-  if (imageQueryParams.length > 0) imageUrl += '?' + imageQueryParams.join('&');
+  if (imageQueryParams.length > 0) {
+    imageUrl += '?' + imageQueryParams.join('&');
+  }
 
   return imageUrl;
 });

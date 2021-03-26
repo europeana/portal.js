@@ -6,6 +6,10 @@
   export default {
     layout: 'minimal',
 
+    created() {
+      this.$auth.$storage.setUniversal('portalLoggingOut', true);
+    },
+
     mounted() {
       this.$auth.logout();
       localStorage.setItem('logout-event', `logout-${Math.random()}`);
