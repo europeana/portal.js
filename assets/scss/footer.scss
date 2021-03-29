@@ -85,7 +85,7 @@ footer {
             }
           }
 
-          i {
+          .footer-link-icon {
             color: $midnight;
             font-size: 1.5rem;
           }
@@ -111,7 +111,7 @@ footer {
       max-height: 50vh;
       overflow: auto;
     }
-  }  
+  }
 }
 
 .footer-margin {
