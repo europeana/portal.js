@@ -252,7 +252,17 @@
 
     head() {
       return {
-        title: this.$pageHeadTitle(this.displayTitle.values[0])
+        title: this.$pageHeadTitle(this.displayTitle.values[0]),
+        meta: [
+          { hid: 'title', name: 'title', content: this.displayTitle.values[0] },
+          { hid: 'og:title', property: 'og:title', content: (this.displayTitle.values[0]) },
+          { hid: 'og:image', property: 'og:image', content: this.shareMediaUrl },
+          { hid: 'og:type', property: 'og:type', content: 'article' }
+        ]
+          .concat(this.description ? [
+            { hid: 'description', name: 'description', content: this.displayDescription.values[0]  },
+            { hid: 'og:description', property: 'og:description', content: this.displayDescription.values[0]  }
+          ] : [])
       };
     },
     async beforeRouteLeave(to, from, next) {

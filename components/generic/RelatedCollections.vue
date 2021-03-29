@@ -66,13 +66,12 @@
         });
       },
       imageUrl(item) {
-        if (typeof item.image === 'undefined' && typeof item.isShownBy === 'undefined') {
-          return '';
-        }
         if (item.image) {
           return item.image + '&size=w200';
-        } else if (item.isShownBy.thumbnail) {
+        } else if (item.isShownBy && item.isShownBy.thumbnail) {
           return item.isShownBy.thumbnail + '&size=w200';
+        } else {
+          return null;
         }
       }
     }

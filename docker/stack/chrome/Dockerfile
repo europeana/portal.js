@@ -1,4 +1,4 @@
-FROM selenium/standalone-chrome:86.0
+FROM selenium/standalone-chrome:88.0
 
 ENV DBUS_SESSION_BUS_ADDRESS=/dev/null
 

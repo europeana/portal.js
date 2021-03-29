@@ -71,18 +71,18 @@ export default (context = {}) => {
     /**
      * Lookup data for the given list of entity URIs
      * @param {Array} entityUris the URIs of the entities to retrieve
-     * @return {Object} entity data
+     * @return {Array} entity data
      */
     findEntities(entityUris) {
       if (entityUris.length === 0) {
-        return;
+        return [];
       }
       const q = entityUris.join('" OR "');
       const params = {
         query: `entity_uri:("${q}")`
       };
       return this.searchEntities(params)
-        .then((response) => {
+        .then(response => {
           return response.entities || [];
         });
     },
@@ -117,8 +117,8 @@ export default (context = {}) => {
  * @return {Object[]} entity data
  */
 function getRelatedEntityData(entities) {
-  let entityDetails = [];
-  for (let entity of entities || []) {
+  const entityDetails = [];
+  for (const entity of entities || []) {
     if (entity.prefLabel.en) {
       entityDetails.push(entity);
     }
@@ -132,10 +132,7 @@ function getRelatedEntityData(entities) {
  * @return {string} retrieved id
  */
 export function normalizeEntityId(id) {
-  if (!id) {
-    return;
-  }
-  return id.split('-')[0];
+  return id ? id.split('-')[0] : null;
 }
 
 /**
@@ -163,8 +160,8 @@ export function getEntityQuery(uri) {
  * @return {Boolean} true if the URI is a valid entity URI
  */
 export function isEntityUri(uri, types) {
-  types = types ? types : ['concept', 'agent', 'place', 'period'];
-  return RegExp(`^http://data\\.europeana\\.eu/(${types.join('|')})/base/\\d+$`).test(uri);
+  types = types ? types : ['concept', 'agent', 'place', 'timespan'];
+  return RegExp(`^http://data\\.europeana\\.eu/(${types.join('|')})(/base)?/\\d+$`).test(uri);
 }
 
 /**
@@ -178,10 +175,7 @@ export function getEntityTypeApi(type) {
     topic: 'concept',
     time: 'timespan'
   };
-  if (!type) {
-    return;
-  }
-  return names[type];
+  return type ? names[type] : null;
 }
 
 /**
@@ -195,10 +189,7 @@ export function getEntityTypeHumanReadable(type) {
     concept: 'topic',
     timespan: 'time'
   };
-  if (!type) {
-    return;
-  }
-  return names[type.toLowerCase()];
+  return type ? names[type.toLowerCase()] : null;
 }
 
 /**
@@ -229,8 +220,8 @@ export function getEntityUri(type, id) {
  * @return {{type: String, identifier: string}} Object with the portal relevant identifiers.
  */
 export function entityParamsFromUri(uri) {
-  const matched = uri.match(/^http:\/\/data\.europeana\.eu\/(concept|agent|place|timespan)\/base\/(\d+)$/);
-  const id = matched[2];
+  const matched = uri.match(/^http:\/\/data\.europeana\.eu\/(concept|agent|place|timespan)(\/base)?\/(\d+)$/);
+  const id = matched[matched.length - 1];
   const type = getEntityTypeHumanReadable(matched[1]);
   return { id, type };
 }

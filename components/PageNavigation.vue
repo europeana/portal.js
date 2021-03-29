@@ -15,7 +15,7 @@
         link-class="nav-link"
         exact
       >
-        <i :class="renderIcon(link.url)" />
+        <span :class="renderIcon(link.url)" />
         <span>
           {{ link.text }}
         </span>
@@ -53,7 +53,7 @@
             :data-qa="item.dataQa"
             class="nav-link"
           >
-            <i :class="renderIcon(item.name)" />
+            <span :class="renderIcon(item.name)" />
             <span>
               {{ item.text }}
             </span>
@@ -71,7 +71,7 @@
           class="nav-link"
           :to="{ name: 'account-login' }"
         >
-          <i :class="renderIcon('/account/login')" />
+          <span :class="renderIcon('/account/login')" />
           <span>
             {{ $t('account.linkLoginJoin') }}
           </span>
@@ -157,7 +157,7 @@
           className = 'icon-info blank';
           break;
         }
-        return className;
+        return `nav-link-icon ${className}`;
       },
       storageEvent(event) {
         if (event.key === 'logout-event') {
@@ -208,7 +208,7 @@
         content: '\e900';
       }
 
-      i {
+      .nav-link-icon {
         display: inline-block;
         font-size: 1rem;
         z-index: 1;
@@ -278,7 +278,7 @@
           &:before, &:after {
             display: none;
           }
-          i:before {
+          .nav-link-icon:before {
             color: $white;
           }
         }
@@ -303,7 +303,7 @@
           span {
             position: relative;
           }
-          i {
+          .nav-link-icon {
             display: none;
           }
         }

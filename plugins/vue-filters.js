@@ -26,7 +26,7 @@ Vue.filter('optimisedImageUrl', (imageUrl, contentType, options = {}) => {
     return imageUrl;
   }
 
-  let imageQueryParams = [];
+  const imageQueryParams = [];
 
   const hostnameMatch = imageUrl.match(/\/\/([^/]+)\//);
   if (hostnameMatch && (hostnameMatch[1] === 'images.ctfassets.net')) {

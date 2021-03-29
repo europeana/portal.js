@@ -15,10 +15,9 @@
           class="col-lg-8"
         >
           <article>
-            <!-- eslint-disable vue/no-v-html -->
-            <!-- share :media-url="" -->
             <ShareButton class="mb-4" />
             <SocialShareModal :media-url="hero.image.url" />
+            <!-- eslint-disable vue/no-v-html -->
             <div
               data-qa="exhibition text"
               v-html="mainContent"
