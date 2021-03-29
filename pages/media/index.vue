@@ -20,7 +20,8 @@
         DASHJS_VERSION: '2.9.0',
         id: this.$route.query.id,
         mediaUrl: this.$route.query.mediaUrl,
-        mediaType: this.$route.query.mediaType
+        mediaType: this.$route.query.mediaType,
+        mediaPlayer: null
       };
     },
 
@@ -35,7 +36,7 @@
 
     mounted() {
       this.$nextTick(() => {
-        new EuropeanaMediaPlayer(this.$refs.player, { // eslint-disable-line no-undef
+        this.mediaPlayer = new EuropeanaMediaPlayer(this.$refs.player, { // eslint-disable-line no-undef
           manifest: this.manifest,
           mediaItem: this.mediaUrl
         });
