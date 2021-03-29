@@ -13,7 +13,6 @@
         >
           <article>
             <!-- eslint-disable vue/no-v-html -->
-            <!-- share :media-url="" -->
             <div class="font-small font-weight-bold d-block">
               <time
                 v-if="datePublished"
