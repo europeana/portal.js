@@ -3,7 +3,7 @@
 # Assumes the provision of pre-installed Node modules at /app/node_modules/,
 # e.g. via a mounted volume.
 
-FROM node:12-alpine
+FROM node:14-alpine
 
 ENV PORT=8080
 ENV HOST=0.0.0.0

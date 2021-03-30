@@ -1,6 +1,6 @@
 # Builds and runs the app server for production.
 
-FROM node:12-alpine
+FROM node:14-alpine
 
 ENV PORT=8080 \
     HOST=0.0.0.0 \
