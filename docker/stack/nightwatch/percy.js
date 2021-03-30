@@ -1,5 +1,8 @@
 module.exports = {
   version: 2,
+  snapshot: {
+    'enable-javascript': true
+  },
   discovery: {
     allowedHostnames: [
       'fonts.gstatic.com',
