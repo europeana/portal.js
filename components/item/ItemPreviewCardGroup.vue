@@ -2,32 +2,29 @@
   <div
     v-if="view === 'grid'"
   >
-    <client-only>
-      <div
-        v-masonry
-        transition-duration="0.1"
-        item-selector=".card"
-        horizontal-order="true"
-        column-width=".masonry-container .card"
-        gutter="30"
-        class="masonry-container"
-        data-qa="item previews grid"
-      >
-        <ItemPreviewCard
-          v-for="(item, index) in value"
-          :key="item.id"
-          v-model="value[index]"
-          v-masonry-tile
-          :hit-selector="itemHitSelector(item)"
-          :variant="cardVariant"
-          class="item"
-          :lazy="false"
-          data-qa="item preview"
-          @like="$emit('like', item.id)"
-          @unlike="$emit('unlike', item.id)"
-        />
-      </div>
-    </client-only>
+    <div
+      v-masonry
+      transition-duration="0.1"
+      item-selector=".card"
+      horizontal-order="true"
+      column-width=".masonry-container .card"
+      class="masonry-container"
+      data-qa="item previews grid"
+    >
+      <ItemPreviewCard
+        v-for="(item, index) in value"
+        :key="item.id"
+        v-model="value[index]"
+        v-masonry-tile
+        :hit-selector="itemHitSelector(item)"
+        :variant="cardVariant"
+        class="item"
+        :lazy="false"
+        data-qa="item preview"
+        @like="$emit('like', item.id)"
+        @unlike="$emit('unlike', item.id)"
+      />
+    </div>
   </div>
   <b-card-group
     v-else
@@ -49,14 +46,12 @@
 </template>
 
 <script>
-  import ClientOnly from 'vue-client-only';
   import ItemPreviewCard from './ItemPreviewCard';
 
   export default {
     name: 'ItemPreviewCardGroup',
 
     components: {
-      ClientOnly,
       ItemPreviewCard
     },
 

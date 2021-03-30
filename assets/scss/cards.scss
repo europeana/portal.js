@@ -390,6 +390,8 @@
   width: 100%;
 
   @media (min-width: $bp-medium) {
+    margin-left: -15px;
+    margin-right: -15px;
     width: calc(100% + #{$grid-gutter*2});
   }
 
@@ -400,6 +402,8 @@
     width: 100%;
 
     @media (min-width: $bp-medium) {
+      margin-left: 15px;
+      margin-right: 15px;
       width: calc(100% / 2 - #{$grid-gutter*2});
     }
 
