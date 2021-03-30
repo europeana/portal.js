@@ -5,7 +5,7 @@
     :limit="limit"
     :hide-ellipsis="hideEllipsis"
     :number-of-pages="totalPages"
-    :link-gen="generateLink"
+    :link-gen="linkGen"
     use-router
     size="sm"
     align="center"
@@ -67,7 +67,7 @@
       changePaginationNav() {
         this.$scrollTo(`#${this.scrollToId}`);
       },
-      generateLink(page) {
+      linkGen(page) {
         return {
           ...this.$route,
           query: { ...this.$route.query, page }
