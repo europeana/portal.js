@@ -71,18 +71,18 @@ export default (context = {}) => {
     /**
      * Lookup data for the given list of entity URIs
      * @param {Array} entityUris the URIs of the entities to retrieve
-     * @return {Object} entity data
+     * @return {Array} entity data
      */
     findEntities(entityUris) {
       if (entityUris.length === 0) {
-        return;
+        return [];
       }
       const q = entityUris.join('" OR "');
       const params = {
         query: `entity_uri:("${q}")`
       };
       return this.searchEntities(params)
-        .then((response) => {
+        .then(response => {
           return response.entities || [];
         });
     },
@@ -132,10 +132,7 @@ function getRelatedEntityData(entities) {
  * @return {string} retrieved id
  */
 export function normalizeEntityId(id) {
-  if (!id) {
-    return;
-  }
-  return id.split('-')[0];
+  return id ? id.split('-')[0] : null;
 }
 
 /**
@@ -178,10 +175,7 @@ export function getEntityTypeApi(type) {
     topic: 'concept',
     time: 'timespan'
   };
-  if (!type) {
-    return;
-  }
-  return names[type];
+  return type ? names[type] : null;
 }
 
 /**
@@ -195,10 +189,7 @@ export function getEntityTypeHumanReadable(type) {
     concept: 'topic',
     timespan: 'time'
   };
-  if (!type) {
-    return;
-  }
-  return names[type.toLowerCase()];
+  return type ? names[type.toLowerCase()] : null;
 }
 
 /**
