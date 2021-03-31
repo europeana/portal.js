@@ -183,10 +183,17 @@
       itemCount() {
         return this.set.total || 0;
       },
+      setCreatorId() {
+        if (this.set.creator) {
+          return typeof this.set.creator === 'string' ? this.set.creator : this.set.creator.id;
+        } else {
+          return null;
+        }
+      },
       userIsOwner() {
         return this.$store.state.auth.user &&
-          this.set.creator &&
-          this.set.creator.endsWith(`/${this.$store.state.auth.user.sub}`);
+          this.setCreatorId &&
+          this.setCreatorId.endsWith(`/${this.$store.state.auth.user.sub}`);
       },
       displayTitle() {
         if (this.$fetchState.error) {
@@ -206,12 +213,13 @@
         return this.$tc(label, this.set.total, { max });
       },
       shareMediaUrl() {
-        if (this.set.items.length === 0) {
+        if (!this.set.items || (this.set.items.length === 0)) {
           return null;
+        } else {
+          return this.set.items[0].edmPreview ?
+            `${this.set.items[0].edmPreview[0]}&size=w400` :
+            genericThumbnail(this.set.items[0].id, { type: this.set.items[0].type, size: 'w400' });
         }
-        return this.set.items[0].edmPreview ?
-          `${this.set.items[0].edmPreview[0]}&size=w400` :
-          genericThumbnail(this.set.items[0].id, { type: this.set.items[0].type, size: 'w400' });
       }
     },
 

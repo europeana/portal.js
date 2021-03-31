@@ -152,12 +152,12 @@
 
     data() {
       return {
-        allMediaUris: [],
         agents: null,
+        allMediaUris: [],
         altTitle: null,
+        annotations: [],
         cardGridClass: null,
         concepts: null,
-        times: null,
         coreFields: null,
         description: null,
         error: null,
@@ -167,10 +167,10 @@
         media: [],
         relatedEntities: [],
         similarItems: [],
-        annotations: [],
         taggingAnnotations: [],
-        transcribingAnnotations: [],
+        timespans: null,
         title: null,
+        transcribingAnnotations: [],
         type: null,
         useProxy: true
       };
@@ -207,11 +207,11 @@
       europeanaConcepts() {
         return (this.concepts || []).filter((concept) => concept.about.startsWith(`${EUROPEANA_DATA_URL}/concept/`));
       },
-      europeanaTimes() {
-        return (this.times || []).filter((time) => time.about.startsWith(`${EUROPEANA_DATA_URL}/timespan/`));
+      europeanaTimespans() {
+        return (this.timespans || []).filter((timespan) => timespan.about.startsWith(`${EUROPEANA_DATA_URL}/timespan/`));
       },
       europeanaEntityUris() {
-        const entities = this.europeanaConcepts.concat(this.europeanaAgents).concat(this.europeanaTimes);
+        const entities = this.europeanaConcepts.concat(this.europeanaAgents).concat(this.europeanaTimespans);
         return entities.map((entity) => entity.about).slice(0, 5);
       },
       titlesInCurrentLanguage() {
