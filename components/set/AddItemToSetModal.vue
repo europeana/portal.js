@@ -19,9 +19,10 @@
         v-for="(collection, index) in collections"
         :key="index"
         :disabled="!fetched"
-        :style="buttonBackground($apis.set.getSetThumbnail(collection))"
+        :style="buttonBackground($apis.set.getSetThumbnail(collection), collection.id)"
         variant="overlay"
         class="btn-collection w-100 text-left d-flex justify-content-between align-items-center"
+        :class="collectionsWithItem.includes(collection.id) ? 'hide-after' : ''"
         @click="toggleItem(collection.id)"
       >
         <span>{{ displayField(collection, 'title') }} ({{ collection.visibility }}) - {{ $tc('items.itemCount', collection.total || 0) }}</span>
@@ -119,9 +120,14 @@
         }
       },
 
-      buttonBackground(img) {
+      buttonBackground(img, id) {
         if (!img) {
           return null;
+        }
+        if (this.collectionsWithItem.includes(id)) {
+          return {
+            'background': '#219d31'
+          };
         }
         return {
           'background-image': `url("${img}")`

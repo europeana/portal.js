@@ -108,6 +108,9 @@
     left: 0;
     width: 100%;
   }
+  &.hide-after:after {
+    display: none;
+  }
 }
 
 a {
