@@ -388,6 +388,11 @@
 
 .masonry-container {
   width: 100%;
+  @media (max-width: $bp-medium) {
+    &[style] {
+      height: auto !important;
+    }
+  }
 
   @media (min-width: $bp-medium) {
     margin-left: -15px;
@@ -400,6 +405,13 @@
     display: inline-block;
     vertical-align: top;
     width: 100%;
+    @media (max-width: $bp-medium) {
+      &[style] {
+        position: relative !important;
+        left: auto !important;
+        top: auto !important;
+      }
+    }
 
     @media (min-width: $bp-medium) {
       margin-left: 15px;
