@@ -160,7 +160,7 @@ Feature: Search faceting
     When I click the `more filters dropdown button`
     And I should see 9 LANGUAGE checkboxes
     And I click the `Show all languages button`
-    Then I should see 37 LANGUAGE checkboxes
+    Then I should see 38 LANGUAGE checkboxes
     And I click the `Show less languages button`
     And I should see 9 LANGUAGE checkboxes
 
