@@ -34,6 +34,7 @@
                 :name="author.name"
                 :organisation="author.affiliation"
                 :url="author.url"
+                :numberOfAuthors="authors.length"
               />
             </div>
             <ShareButton class="my-4" />
