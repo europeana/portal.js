@@ -121,17 +121,12 @@
       },
 
       buttonBackground(img, id) {
-        if (!img) {
-          return null;
-        }
-        if (this.collectionsWithItem.includes(id)) {
+        if (!this.collectionsWithItem.includes(id) && img) {
           return {
-            'background': '#219d31'
+            'background-image': `url("${img}")`
           };
         }
-        return {
-          'background-image': `url("${img}")`
-        };
+        return null;
       }
     }
   };

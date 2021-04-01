@@ -108,8 +108,11 @@
     left: 0;
     width: 100%;
   }
-  &.hide-after:after {
-    display: none;
+  &.hide-after {
+    background-color: $green;
+    &:after {
+      content: none;
+    }
   }
 }
 
