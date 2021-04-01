@@ -46,6 +46,7 @@
   <iframe
     v-else-if="isIIIFImage || isIIIFPresentation"
     data-qa="IIIF viewer"
+    title="IIIF viewer"
     allowfullscreen="true"
     class="iiif-iframe"
     :src="$path({ name: 'iiif', query: { uri: iiifManifest, query: $nuxt.context.from ? $nuxt.context.from.query.query : '' } })"

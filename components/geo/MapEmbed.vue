@@ -19,6 +19,7 @@
       <iframe
         id="map-embed"
         data-qa="map embed"
+        title="map embed"
         class="embed-responsive-item"
         frameborder="0"
         scrolling="no"
