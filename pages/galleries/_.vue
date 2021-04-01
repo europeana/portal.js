@@ -7,29 +7,31 @@
     />
     <b-row class="flex-md-row pb-5">
       <b-col cols="12">
-        <b-card-group
-          class="masonry"
-          deck
+        <div
+          v-masonry
+          transition-duration="0"
+          item-selector=".card"
+          horizontal-order="true"
+          column-width=".masonry-container .card"
+          class="masonry-container"
           data-qa="gallery images"
         >
-          <client-only>
-            <ContentCard
-              v-for="image in images"
-              :key="image.identifier"
-              :title="imageTitle(image)"
-              :image-url="imageUrl(image)"
-              :lazy="false"
-              :url="{ name: 'item-all', params: { pathMatch: image.identifier.slice(1) } }"
-            />
-          </client-only>
-        </b-card-group>
+          <ContentCard
+            v-for="image in images"
+            :key="image.identifier"
+            v-masonry-tile
+            :title="imageTitle(image)"
+            :image-url="imageUrl(image)"
+            :lazy="false"
+            :url="{ name: 'item-all', params: { pathMatch: image.identifier.slice(1) } }"
+          />
+        </div>
       </b-col>
     </b-row>
   </b-container>
 </template>
 
 <script>
-  import ClientOnly from 'vue-client-only';
   import ContentHeader from '../../components/generic/ContentHeader';
 
   import marked from 'marked';
@@ -37,7 +39,6 @@
   export default {
     name: 'ImageGallery',
     components: {
-      ClientOnly,
       ContentHeader,
       ContentCard: () => import('../../components/generic/ContentCard')
     },
@@ -79,6 +80,13 @@
         return marked(this.rawDescription);
       }
     },
+
+    mounted() {
+      if (typeof this.$redrawVueMasonry === 'function') {
+        this.$redrawVueMasonry();
+      }
+    },
+
     methods: {
       imageTitle(data) {
         if (data.encoding) {

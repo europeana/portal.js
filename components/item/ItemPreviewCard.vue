@@ -10,6 +10,7 @@
     :omit-all-uris="true"
     :blank-image-height="280"
     :variant="variant"
+    :lazy="lazy"
   >
     <template v-slot:buttons>
       <UserButtons
@@ -49,6 +50,11 @@
       variant: {
         type: String,
         default: 'default' // other options: entity, mini, list
+      },
+
+      lazy: {
+        type: Boolean,
+        default: true
       }
     },
 

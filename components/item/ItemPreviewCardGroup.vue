@@ -1,5 +1,33 @@
 <template>
+  <div
+    v-if="view === 'grid'"
+  >
+    <div
+      v-masonry
+      transition-duration="0.1"
+      item-selector=".card"
+      horizontal-order="true"
+      column-width=".masonry-container .card"
+      class="masonry-container"
+      data-qa="item previews grid"
+    >
+      <ItemPreviewCard
+        v-for="(item, index) in value"
+        :key="item.id"
+        v-model="value[index]"
+        v-masonry-tile
+        :hit-selector="itemHitSelector(item)"
+        :variant="cardVariant"
+        class="item"
+        :lazy="false"
+        data-qa="item preview"
+        @like="$emit('like', item.id)"
+        @unlike="$emit('unlike', item.id)"
+      />
+    </div>
+  </div>
   <b-card-group
+    v-else
     :data-qa="`item previews ${view}`"
     :class="cardGroupClass"
     deck
@@ -55,9 +83,6 @@
         case 'list':
           cardGroupClass = 'card-group-list mx-0';
           break;
-        case 'grid':
-          cardGroupClass = `card-deck-search masonry card-deck-${this.perRow}-cols`;
-          break;
         case 'plain':
           cardGroupClass = `card-deck-search card-deck-${this.perRow}-cols`;
           break;
@@ -74,6 +99,12 @@
 
       cardVariant() {
         return this.view === 'grid' ? 'default' : this.view;
+      }
+    },
+
+    mounted() {
+      if (typeof this.$redrawVueMasonry === 'function' && this.view === 'grid') {
+        this.$redrawVueMasonry();
       }
     },
 
