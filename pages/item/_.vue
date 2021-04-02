@@ -152,12 +152,12 @@
 
     data() {
       return {
-        allMediaUris: [],
         agents: null,
+        allMediaUris: [],
         altTitle: null,
+        annotations: [],
         cardGridClass: null,
         concepts: null,
-        times: null,
         coreFields: null,
         description: null,
         error: null,
@@ -167,10 +167,10 @@
         media: [],
         relatedEntities: [],
         similarItems: [],
-        annotations: [],
         taggingAnnotations: [],
-        transcribingAnnotations: [],
+        timespans: null,
         title: null,
+        transcribingAnnotations: [],
         type: null,
         useProxy: true
       };
@@ -181,7 +181,9 @@
         // Convert collection of annotations' prefLabels into a single langMap
         return this.taggingAnnotations.reduce((memo, annotation) => {
           for (const lang in annotation.body.prefLabel) {
-            if (!memo[lang]) memo[lang] = [];
+            if (!memo[lang]) {
+              memo[lang] = [];
+            }
             memo[lang] = memo[lang].concat(annotation.body.prefLabel[lang]);
           }
           return memo;
@@ -205,22 +207,22 @@
       europeanaConcepts() {
         return (this.concepts || []).filter((concept) => concept.about.startsWith(`${EUROPEANA_DATA_URL}/concept/`));
       },
-      europeanaTimes() {
-        return (this.times || []).filter((time) => time.about.startsWith(`${EUROPEANA_DATA_URL}/timespan/`));
+      europeanaTimespans() {
+        return (this.timespans || []).filter((timespan) => timespan.about.startsWith(`${EUROPEANA_DATA_URL}/timespan/`));
       },
       europeanaEntityUris() {
-        const entities = this.europeanaConcepts.concat(this.europeanaAgents).concat(this.europeanaTimes);
+        const entities = this.europeanaConcepts.concat(this.europeanaAgents).concat(this.europeanaTimespans);
         return entities.map((entity) => entity.about).slice(0, 5);
       },
       titlesInCurrentLanguage() {
-        let titles = [];
+        const titles = [];
 
         const mainTitle = this.title ? langMapValueForLocale(this.title, this.$i18n.locale) : '';
         const alternativeTitle = this.altTitle ? langMapValueForLocale(this.altTitle, this.$i18n.locale) : '';
 
         const allTitles = [].concat(mainTitle, alternativeTitle).filter(Boolean);
-        for (let title of allTitles) {
-          for (let value of title.values) {
+        for (const title of allTitles) {
+          for (const value of title.values) {
             titles.push({ 'code': title.code, value });
           }
         }
@@ -237,7 +239,9 @@
         return this.titlesInCurrentLanguage[0] ? this.titlesInCurrentLanguage[0].value : this.$t('record.record');
       },
       metaDescription() {
-        if (isEmpty(this.descriptionInCurrentLanguage)) return '';
+        if (isEmpty(this.descriptionInCurrentLanguage)) {
+          return '';
+        }
         return this.descriptionInCurrentLanguage.values[0] ? this.descriptionInCurrentLanguage.values[0] : '';
       },
       dataProvider() {
@@ -273,7 +277,9 @@
 
       getSimilarItems() {
         const noSimilarItems = { results: [] };
-        if (this.error) return noSimilarItems;
+        if (this.error) {
+          return noSimilarItems;
+        }
 
         if (this.$config.app.features.recommendations && this.$auth.loggedIn) {
           return this.$apis.recommendation.recommend('record', this.identifier)
@@ -300,10 +306,14 @@
       },
 
       getSimilarItemsData(value) {
-        if (!value) return;
+        if (!value) {
+          return;
+        }
 
         const data = langMapValueForLocale(value, this.$i18n.locale).values;
-        if (!data) return;
+        if (!data) {
+          return;
+        }
 
         return data.filter(item => typeof item === 'string');
       },

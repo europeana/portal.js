@@ -15,10 +15,9 @@
           class="col-lg-8"
         >
           <article>
-            <!-- eslint-disable vue/no-v-html -->
-            <!-- share :media-url="" -->
             <ShareButton class="mb-4" />
             <SocialShareModal :media-url="hero.image.url" />
+            <!-- eslint-disable vue/no-v-html -->
             <div
               data-qa="exhibition text"
               v-html="mainContent"
@@ -63,7 +62,9 @@
       exhibitionChapters
     ],
     asyncData({ params, query, error, app, store, redirect }) {
-      if (params.exhibition === undefined) redirect(app.$path({ name: 'exhibitions' }));
+      if (params.exhibition === undefined) {
+        redirect(app.$path({ name: 'exhibitions' }));
+      }
 
       const variables = {
         identifier: params.exhibition,
@@ -103,7 +104,9 @@
         return this.hero ? this.hero.image : null;
       },
       mainContent() {
-        if (this.text === undefined) return;
+        if (this.text === undefined) {
+          return;
+        }
         return marked(this.text);
       },
       optimisedImageUrl() {

@@ -11,7 +11,7 @@
       class="pl-3"
       @click="selectView(view)"
     >
-      <i
+      <span
         :class="view"
         class="icon-view-toggle"
         :title="$t(`searchViews.${view}`)"

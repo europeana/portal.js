@@ -12,5 +12,7 @@ const plugin = {
 export default ({ store }, inject) => {
   inject('http', plugin);
 
-  if (store) store.registerModule('http', storeModule);
+  if (store) {
+    store.registerModule('http', storeModule);
+  }
 };

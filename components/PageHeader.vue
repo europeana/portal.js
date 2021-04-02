@@ -27,11 +27,11 @@
       v-else
     >
       <b-button
+        v-b-toggle.sidebar
         variant="light"
         class="navbar-toggle collapsed flex-column align-items-center justify-content-center align-self-center ml-3"
         :aria-label="$t('header.showSidebar')"
         data-qa="hamburger button"
-        @click="showSidebar = !showSidebar"
       >
         <span />
         <span />
@@ -65,20 +65,26 @@
           @click="toggleSearchBar"
         />
       </b-navbar>
-      <transition name="slide">
+      <b-sidebar
+        id="sidebar"
+        bg-variant="white"
+        no-header
+        backdrop
+        backdrop-variant="black"
+        aria-label="Side navigation"
+      >
         <b-navbar
-          v-if="showSidebar"
-          class="sidebar-nav align-items-start flex-column flex-row pt-1"
+          class="sidebar-nav align-items-start flex-column pt-1 pl-2 pb-4 pr-2"
           role="navigation"
           data-qa="sidebar navigation"
         >
           <div class="w-100 d-flex align-items-center pl-2 pt-2 pb-3">
             <b-button
+              v-b-toggle.sidebar
               data-qa="close menu button"
               class="close"
               variant="light"
               :aria-label="$t('header.closeSidebar')"
-              @click="showSidebar = !showSidebar"
             />
             <SmartLink
               :destination="{ name: 'index' }"
@@ -96,15 +102,9 @@
             :links="sidebarNavigation"
             sidebar-nav
           />
+          <div />
         </b-navbar>
-      </transition>
-      <transition name="fade">
-        <span
-          v-if="showSidebar"
-          class="close-menu"
-          @click="showSidebar = !showSidebar"
-        />
-      </transition>
+      </b-sidebar>
     </template>
   </header>
 </template>
@@ -124,7 +124,6 @@
 
     data() {
       return {
-        showSidebar: null,
         windowWidth: 0
       };
     },
@@ -147,14 +146,6 @@
           { url: '/about-us', text: this.$t('header.navigation.about') },
           { url: '/help', text: this.$t('header.navigation.help') }
         ];
-      }
-    },
-
-    watch: {
-      '$route'() {
-        if (this.showSidebar) {
-          this.showSidebar = false;
-        }
       }
     },
 
@@ -187,22 +178,6 @@
     }
   }
 
-  .slide-enter-active, .fade-enter-active {
-    transition: 0.3s cubic-bezier(0.24, 1, 0.32, 1);
-  }
-
-  .slide-leave-active, .fade-leave-active {
-    transition: 0.2s cubic-bezier(0.4, 0.0, 1, 1);
-  }
-
-  .slide-enter, .slide-leave-to {
-    transform: translate3d(-100%, 0, 0);
-  }
-
-  .fade-enter, .fade-leave-to {
-    opacity: 0;
-  }
-
   .navbar-brand {
     min-width: 11.0625rem;
     flex: 0 0 auto;
@@ -217,15 +192,9 @@
   }
 
   .navbar.sidebar-nav {
-    height: 100vh;
-    position: fixed;
-    top: 0;
-    left: 0;
-    background: $white;
-    z-index: 200;
-    width: 16rem;
-    padding: 0 0.5rem 1rem;
-    transition: $standard-transition; // fixes header appear/disappear
+    .logo {
+      min-width: auto;
+    }
     .navbar-nav {
       flex-direction: column;
       width: 100%;
@@ -287,19 +256,6 @@
     }
   }
 
-  .close-menu {
-    position: fixed;
-    right: 0;
-    top: 0;
-    height: 100vh;
-    width: 100%;
-    border-radius: 0;
-    outline: none;
-    background-color: rgba(0, 0, 0, 0.7);
-    cursor: pointer;
-    z-index: 100;
-    transition: $standard-transition; // fixes header appear/disappear
-  }
   .navbar-toggle {
     display: flex;
     align-items: center;
@@ -348,12 +304,6 @@
     }
     .container-fluid {
       transition: $standard-transition;
-      &:not(.show) {
-        .sidebar-nav, .close-menu {
-          transform: translateY(3.5rem); // fixes header appear/disappear
-          transition: $standard-transition;
-        }
-      }
     }
   }
   @media (min-width: $bp-extralarge) {

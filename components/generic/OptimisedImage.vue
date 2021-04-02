@@ -75,10 +75,12 @@
       },
 
       optimisedSrc() {
-        if (typeof this.contentType !== 'string') return this.src;
+        if (typeof this.contentType !== 'string') {
+          return this.src;
+        }
 
         let imageUrl = this.src;
-        let imageQueryParams = [];
+        const imageQueryParams = [];
 
         if (this.forContentfulAsset) {
           // TODO: are optimisations possible on any other content types?
@@ -87,10 +89,14 @@
             imageQueryParams.push(`q=${this.quality}`);
           }
 
-          if (this.maxWidth) imageQueryParams.push(`w=${this.maxWidth}`);
+          if (this.maxWidth) {
+            imageQueryParams.push(`w=${this.maxWidth}`);
+          }
         }
 
-        if (imageQueryParams.length > 0) imageUrl += '?' + imageQueryParams.join('&');
+        if (imageQueryParams.length > 0) {
+          imageUrl += '?' + imageQueryParams.join('&');
+        }
 
         return imageUrl;
       }

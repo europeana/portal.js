@@ -25,7 +25,7 @@
     props: {
       fields: {
         type: Object,
-        default: () => {}
+        default: () => ({})
       },
       cardType: {
         type: String,
@@ -88,7 +88,7 @@
       },
       texts() {
         // TODO: Refactor content model to set this directly, so this method can be skipped.
-        let texts = [];
+        const texts = [];
         let textFields;
 
         if (this.cardType === 'AutomatedRecordCard') {

@@ -21,12 +21,11 @@
           :destination="link.url"
           :link-class="linkClass"
         >
-          <template v-if="link.icon">
-            <i
-              :class="link.icon"
-              :title="link.text"
-            />
-          </template>
+          <span
+            v-if="link.icon"
+            :class="`footer-link-icon ${link.icon}`"
+            :title="link.text"
+          />
           <template v-else>
             {{ link.text }}
           </template>

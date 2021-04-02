@@ -22,11 +22,6 @@
         {{ creator }}
       </span>
     </p>
-    <!-- <dt>{{ $t('attribution.date') }}</dt>
-    <p>
-      TODO: data currently not provided by api
-      <span>{{ date }}</span>
-    </p> -->
     <p v-if="provider">{{ $t('attribution.institution') }}
       <SmartLink
         v-if="url"
@@ -38,11 +33,6 @@
         {{ provider }}
       </span>
     </p>
-    <!-- <dt>{{ $t('attribution.country') }}</dt>
-    <p>
-      TODO: data currently not provided by api
-      <span>{{ country }}</span>
-    </p> -->
     <p>
       <SmartLink
         :destination="rightsStatement"

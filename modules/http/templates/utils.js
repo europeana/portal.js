@@ -5,13 +5,21 @@ export const isHttps = ({ req }) => {
 
   // Custom, non-standard header set by our gateway because gorouter on IBM
   // Cloud overwrites x-forwarded-proto
-  if (req.headers['x-forwarded-protocol']) return req.headers['x-forwarded-protocol'] === 'https';
+  if (req.headers['x-forwarded-protocol']) {
+    return req.headers['x-forwarded-protocol'] === 'https';
+  }
 
-  if (req.headers['x-forwarded-proto']) return !req.headers['x-forwarded-proto'].split(',').includes('http');
+  if (req.headers['x-forwarded-proto']) {
+    return !req.headers['x-forwarded-proto'].split(',').includes('http');
+  }
 
-  if (req.connection.encrypted === true) return true;
+  if (req.connection.encrypted === true) {
+    return true;
+  }
 
-  if (req.protocol === 'https') return true;
+  if (req.protocol === 'https') {
+    return true;
+  }
 
   return false;
 };
@@ -32,9 +40,15 @@ export const requestOrigin = (req) => {
 };
 
 export const routeOnDatasetBlacklist = (route, datasetBlacklist) => {
-  if (datasetBlacklist.length === 0) return false;
-  if (typeof route !== 'object' || !route) return false;
-  if (!/^item-all(___[a-z]{2})?$/.test(route.name)) return false;
+  if (datasetBlacklist.length === 0) {
+    return false;
+  }
+  if (typeof route !== 'object' || !route) {
+    return false;
+  }
+  if (!/^item-all(___[a-z]{2})?$/.test(route.name)) {
+    return false;
+  }
 
   const dataset = route.params.pathMatch.split('/')[0];
 
@@ -43,6 +57,8 @@ export const routeOnDatasetBlacklist = (route, datasetBlacklist) => {
 };
 
 export const routePermittedOnEitherScheme = route => {
-  if (typeof route !== 'object' || !route) return false;
+  if (typeof route !== 'object' || !route) {
+    return false;
+  }
   return /^iiif(___[a-z]{2})?$/.test(route.name);
 };

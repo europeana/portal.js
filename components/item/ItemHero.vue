@@ -125,7 +125,12 @@
     },
     mounted() {
       window.addEventListener('message', msg => {
-        if (msg.data.event === 'updateDownloadLink') this.selectedCanvas = { about: msg.data.id };
+        if (msg.origin !== window.location.origin) {
+          return;
+        }
+        if (msg.data.event === 'updateDownloadLink') {
+          this.selectedCanvas = { about: msg.data.id };
+        }
       });
     },
     methods: {

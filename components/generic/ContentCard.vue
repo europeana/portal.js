@@ -141,7 +141,7 @@
       },
       imageOptimisationOptions: {
         type: Object,
-        default: () => {}
+        default: () => ({})
       },
       lazy: {
         type: Boolean,
@@ -207,7 +207,9 @@
       },
 
       displayLabel() {
-        if (!this.displayLabelType) return false;
+        if (!this.displayLabelType) {
+          return false;
+        }
         return this.$tc(`${this.displayLabelType}.${this.displayLabelType}`, 1);
       },
 
@@ -253,7 +255,9 @@
     methods: {
       cardText(values) {
         const limited = (this.limitValuesWithinEachText > -1) ? values.slice(0, this.limitValuesWithinEachText) : [].concat(values);
-        if (values.length > limited.length) limited.push(this.$t('formatting.ellipsis'));
+        if (values.length > limited.length) {
+          limited.push(this.$t('formatting.ellipsis'));
+        }
         const joined = limited.join(this.$t('formatting.listSeperator') + ' ');
         const stripped = this.$options.filters.stripMarkdown(joined);
         return this.$options.filters.truncate(stripped, 255, this.$t('formatting.ellipsis'));

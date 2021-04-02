@@ -70,7 +70,7 @@
       },
       cta: {
         type: Object,
-        default: () => {}
+        default: () => (null)
       }
     },
     data() {

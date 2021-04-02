@@ -106,12 +106,12 @@
 
       title: {
         type: Object,
-        default: () => {}
+        default: () => ({})
       },
 
       description: {
         type: Object,
-        default: () => {}
+        default: () => ({})
       },
 
       visibility: {
@@ -180,7 +180,9 @@
 
       // TODO: error handling
       submitForm() {
-        if (this.submissionPending) return;
+        if (this.submissionPending) {
+          return;
+        }
         this.submissionPending = true;
         const handler = this.isNew ?
           this.$store.dispatch('set/createSet', this.setBody) :

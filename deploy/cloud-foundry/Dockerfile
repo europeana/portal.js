@@ -1,8 +1,9 @@
 FROM europeana/cf-blue-green-deploy:main
 
+ENV CF_APP_TYPE=buildpack
+
 # openssh-client used by ELK registration command
-RUN apk add -q openssh-client && \
-    cf install-plugin app-autoscaler-plugin -f -r CF-Community
+RUN apk add --no-cache -q openssh-client
 
 COPY hooks /hooks
 

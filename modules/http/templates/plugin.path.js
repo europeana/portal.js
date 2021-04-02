@@ -6,7 +6,9 @@ export default ({ app, store, $config }, inject) => {
   const path = (route) => {
     const localePath = app.localePath(route);
 
-    if (!$config.http.sslNegotiation.enabled || routePermittedOnEitherScheme(route)) return localePath;
+    if (!$config.http.sslNegotiation.enabled || routePermittedOnEitherScheme(route)) {
+      return localePath;
+    }
 
     const routeBlacklisted = routeOnDatasetBlacklist(route, $config.http.sslNegotiation.datasetBlacklist);
 
@@ -20,7 +22,9 @@ export default ({ app, store, $config }, inject) => {
       switchToPort = store.state.http.httpsPort;
     }
 
-    if (!switchToProtocol) return localePath;
+    if (!switchToProtocol) {
+      return localePath;
+    }
 
     const portlessHost = store.state.http.host.split(':')[0];
 

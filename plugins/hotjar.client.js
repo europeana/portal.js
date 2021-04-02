@@ -1,5 +1,7 @@
 export default ({ $config }) => {
-  if (!$config.hotjar || !$config.hotjar.id || !$config.hotjar.sv) return;
+  if (!$config.hotjar || !$config.hotjar.id || !$config.hotjar.sv) {
+    return;
+  }
 
   (function(h, o, t, j, a, r) {
     h.hj = h.hj || function() {

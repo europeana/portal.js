@@ -50,7 +50,9 @@
         return this.chapters.concat(this.creditsChapter || []);
       },
       creditsChapter() {
-        if (!this.credits) return null;
+        if (!this.credits) {
+          return null;
+        }
         return {
           name: this.$t('exhibitions.credits'),
           identifier: 'credits'
@@ -73,15 +75,15 @@
         return chapter.identifier === this.currentChapter ? this.$t('exhibitions.currentChapter') : '';
       },
       chapterImage(chapter) {
-        if (!chapter) return;
-        if (!chapter.primaryImageOfPage) return;
-        if (!chapter.primaryImageOfPage.image) return;
+        if (!chapter || !chapter.primaryImageOfPage || !chapter.primaryImageOfPage.image) {
+          return null;
+        }
         return chapter.primaryImageOfPage.image.url;
       },
       chapterImageContentType(chapter) {
-        if (!chapter) return;
-        if (!chapter.primaryImageOfPage) return;
-        if (!chapter.primaryImageOfPage.image) return;
+        if (!chapter || !chapter.primaryImageOfPage || !chapter.primaryImageOfPage.image) {
+          return null;
+        }
         return chapter.primaryImageOfPage.image.contentType;
       },
       optimisedBackgroundImageUrl(chapter) {
