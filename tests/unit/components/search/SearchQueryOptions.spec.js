@@ -1,4 +1,4 @@
-import SearchQueryOptions from '../../../../components/search/SearchQueryOptions.vue';
+import SearchQueryOptions from '../../../../src/components/search/SearchQueryOptions.vue';
 
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';

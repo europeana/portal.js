@@ -2,7 +2,7 @@ import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 import VueRouter from 'vue-router';
 
-import ViewToggles from '../../../../components/search/ViewToggles.vue';
+import ViewToggles from '../../../../src/components/search/ViewToggles.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
@@ -51,7 +51,7 @@ describe('components/search/ViewToggles', () => {
       it('displays icon', () => {
         const wrapper = factory();
 
-        const viewToggleIcon = wrapper.find(`[data-qa="search ${view} view toggle"] i`);
+        const viewToggleIcon = wrapper.find(`[data-qa="search ${view} view toggle"] .icon-view-toggle`);
         viewToggleIcon.attributes('class').should.eq(`icon-view-toggle ${view}`);
       });
 

@@ -1,7 +1,7 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 import VueI18n from 'vue-i18n';
-import DeleteSetModal from '../../../../components/set/DeleteSetModal';
+import DeleteSetModal from '../../../../src/components/set/DeleteSetModal';
 import sinon from 'sinon';
 
 const localVue = createLocalVue();
@@ -10,7 +10,7 @@ localVue.use(VueI18n);
 
 const storeDispatch = sinon.stub().resolves({});
 
-import messages from '../../../../lang/en';
+import messages from '../../../../src/lang/en';
 
 const i18n = new VueI18n({
   locale: 'en',

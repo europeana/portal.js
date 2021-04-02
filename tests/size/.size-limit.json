@@ -2,7 +2,7 @@
   {
     "name": "portal.js client (en)",
     "running": false,
-    "limit": "575 KB",
+    "limit": "600 KB",
     "path": [
       "../../.nuxt/dist/client/*.js"
     ]

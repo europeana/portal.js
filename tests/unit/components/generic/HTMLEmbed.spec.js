@@ -1,6 +1,6 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
-import HTMLEmbed from '../../../../components/generic/HTMLEmbed.vue';
+import HTMLEmbed from '../../../../src/components/generic/HTMLEmbed.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);

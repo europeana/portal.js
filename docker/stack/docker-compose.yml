@@ -24,7 +24,7 @@ services:
       - HTTPS_PORT=443
       - NUXT_LOADING_THROTTLE=0
   chrome-en:
-    image: europeana/portaljs-chrome:86.0
+    image: europeana/portaljs-chrome:88.0
     build:
       context: ./chrome
     environment:
@@ -33,7 +33,7 @@ services:
     volumes:
       - /dev/shm:/dev/shm
   chrome-ja:
-    image: europeana/portaljs-chrome:86.0
+    image: europeana/portaljs-chrome:88.0
     build:
       context: ./chrome
     environment:
@@ -42,7 +42,7 @@ services:
     volumes:
       - /dev/shm:/dev/shm
   chrome-nl:
-    image: europeana/portaljs-chrome:86.0
+    image: europeana/portaljs-chrome:88.0
     build:
       context: ./chrome
     environment:
