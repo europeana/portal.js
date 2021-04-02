@@ -2,7 +2,7 @@ import { createLocalVue, shallowMount } from '@vue/test-utils';
 // TODO: is this needed?
 import BootstrapVue from 'bootstrap-vue';
 
-import BrowseContentCard from '../../../../components/browse/BrowseContentCard.vue';
+import BrowseContentCard from '../../../../src/components/browse/BrowseContentCard.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
