@@ -2,8 +2,8 @@ import axios from 'axios';
 import nock from 'nock';
 import search, {
   addContentTierFilter, rangeToQueryParam, rangeFromQueryParam
-} from '../../../../plugins/europeana/search';
-import { BASE_URL } from '../../../../plugins/europeana/record';
+} from '../../../../src/plugins/europeana/search';
+import { BASE_URL } from '../../../../src/plugins/europeana/record';
 
 const apiEndpoint = '/search.json';
 

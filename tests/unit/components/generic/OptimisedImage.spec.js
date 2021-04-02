@@ -1,5 +1,5 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
-import OptimisedImage from '../../../../components/generic/OptimisedImage.vue';
+import OptimisedImage from '../../../../src/components/generic/OptimisedImage.vue';
 
 const localVue = createLocalVue();
 

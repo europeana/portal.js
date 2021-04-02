@@ -1,4 +1,4 @@
-import { keycloakResponseErrorHandler } from '../../../../plugins/europeana/auth';
+import { keycloakResponseErrorHandler } from '../../../../src/plugins/europeana/auth';
 
 import merge from 'deepmerge';
 import sinon from 'sinon';

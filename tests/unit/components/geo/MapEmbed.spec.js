@@ -1,6 +1,6 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 
-import MapEmbed from '../../../../components/geo/MapEmbed';
+import MapEmbed from '../../../../src/components/geo/MapEmbed';
 
 const localVue = createLocalVue();
 

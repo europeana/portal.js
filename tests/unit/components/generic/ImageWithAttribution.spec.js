@@ -1,5 +1,5 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
-import ImageWithAttribution from '../../../../components/generic/ImageWithAttribution.vue';
+import ImageWithAttribution from '../../../../src/components/generic/ImageWithAttribution.vue';
 import BootstrapVue from 'bootstrap-vue';
 
 const localVue = createLocalVue();

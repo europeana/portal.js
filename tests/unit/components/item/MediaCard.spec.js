@@ -1,5 +1,5 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
-import MediaCard from '../../../../components/item/MediaCard.vue';
+import MediaCard from '../../../../src/components/item/MediaCard.vue';
 
 const localVue = createLocalVue();
 const factory = (propsData) => shallowMount(MediaCard, {

@@ -1,6 +1,6 @@
 import nock from 'nock';
 
-import set, { BASE_URL } from '../../../../plugins/europeana/set';
+import set, { BASE_URL } from '../../../../src/plugins/europeana/set';
 
 const axios = require('axios');
 
@@ -53,7 +53,7 @@ const setsResponse = [
   }
 ];
 
-describe('describe /plugins/europeana/set', () => {
+describe('describe./src/plugins/europeana/set', () => {
   afterEach(() => {
     nock.cleanAll();
   });

@@ -2,7 +2,7 @@ import { createLocalVue } from '@vue/test-utils';
 import { shallowMountNuxt } from '../utils';
 import BootstrapVue from 'bootstrap-vue';
 
-import page from '../../../pages/index';
+import page from '../../../src/pages/index';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);

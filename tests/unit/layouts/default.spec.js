@@ -3,7 +3,7 @@ import BootstrapVue from 'bootstrap-vue';
 import Vuex from 'vuex';
 import sinon from 'sinon';
 
-import layout from '../../../layouts/default';
+import layout from '../../../src/layouts/default';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
