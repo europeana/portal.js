@@ -39,16 +39,6 @@
         type: Number,
         default: 1
       },
-      linkGen: {
-        type: Function,
-
-        default(page) {
-          return {
-            ...this.$route,
-            query: { ...this.$route.query, page }
-          };
-        }
-      },
       scrollToId: {
         type: String,
         default: '__nuxt'
@@ -76,6 +66,12 @@
     methods: {
       changePaginationNav() {
         this.$scrollTo(`#${this.scrollToId}`);
+      },
+      linkGen(page) {
+        return {
+          ...this.$route,
+          query: { ...this.$route.query, page }
+        };
       }
     }
   };
