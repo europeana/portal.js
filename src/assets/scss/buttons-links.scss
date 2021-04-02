@@ -26,6 +26,16 @@
   }
 }
 
+.btn-success {
+  background-color: $green;
+  border-color: $green;
+  font-size: $font-size-small;
+  text-transform: uppercase;
+  &:hover {
+    background-color: $green;
+  }
+}
+
 .btn-link {
   color: $blue;
   &:hover {
@@ -89,15 +99,6 @@
     color: $white;
   }
 
-  span {
-    position: relative;
-    z-index: 10;
-
-    &.icon-check_circle {
-      font-size: $font-size-large;
-    }
-  }
-
   &:after {
     content: '';
     background: rgba(0, 0, 0, 0.7);
@@ -107,12 +108,6 @@
     top: 0;
     left: 0;
     width: 100%;
-  }
-  &.hide-after {
-    background-color: $green;
-    &:after {
-      content: none;
-    }
   }
 }
 

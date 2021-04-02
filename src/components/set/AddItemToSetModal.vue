@@ -19,10 +19,9 @@
         v-for="(collection, index) in collections"
         :key="index"
         :disabled="!fetched"
-        :style="buttonBackground($apis.set.getSetThumbnail(collection), collection.id)"
-        variant="overlay"
+        :style="!added.includes(collection.id) && buttonBackground($apis.set.getSetThumbnail(collection))"
+        :variant="added.includes(collection.id) ? 'success' : 'overlay'"
         class="btn-collection w-100 text-left d-flex justify-content-between align-items-center"
-        :class="collectionsWithItem.includes(collection.id) ? 'hide-after' : ''"
         @click="toggleItem(collection.id)"
       >
         <span>{{ displayField(collection, 'title') }} ({{ collection.visibility }}) - {{ $tc('items.itemCount', collection.total || 0) }}</span>
@@ -61,7 +60,8 @@
 
     data() {
       return {
-        fetched: false
+        fetched: false,
+        added: []
       };
     },
 
@@ -88,14 +88,17 @@
       hideModal() {
         this.$nextTick(() => {
           this.fetched = false;
+          this.added = [];
           this.$emit('hideModal');
         });
       },
 
       toggleItem(setId) {
         if (this.collectionsWithItem.includes(setId)) {
+          this.added = this.added.filter(id => id !== setId);
           this.removeItem(setId);
         } else {
+          this.added.push(setId);
           this.addItem(setId);
         }
       },
@@ -120,13 +123,8 @@
         }
       },
 
-      buttonBackground(img, id) {
-        if (!this.collectionsWithItem.includes(id) && img) {
-          return {
-            'background-image': `url("${img}")`
-          };
-        }
-        return null;
+      buttonBackground(img) {
+        return img ? { 'background-image': `url("${img}")` } : null;
       }
     }
   };
@@ -143,6 +141,13 @@
     padding: 1rem;
     position: relative;
     text-transform: none;
+    span {
+      position: relative;
+      z-index: 10;
+      &.icon-check_circle {
+        font-size: $font-size-large;
+      }
+    }
   }
 
   .collections {
