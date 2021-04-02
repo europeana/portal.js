@@ -1,7 +1,7 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import Vuex from 'vuex';
 
-import SearchFilters from '../../../../components/search/SearchFilters.vue';
+import SearchFilters from '../../../../src/components/search/SearchFilters.vue';
 
 const localVue = createLocalVue();
 localVue.use(Vuex);

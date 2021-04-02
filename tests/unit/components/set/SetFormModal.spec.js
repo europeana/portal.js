@@ -1,7 +1,7 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 import VueI18n from 'vue-i18n';
-import SetFormModal from '../../../../components/set/SetFormModal';
+import SetFormModal from '../../../../src/components/set/SetFormModal';
 import sinon from 'sinon';
 
 const localVue = createLocalVue();

@@ -1,7 +1,7 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 
-import BlogPost from '../../../../components/blog/BlogPost.vue';
+import BlogPost from '../../../../src/components/blog/BlogPost.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);

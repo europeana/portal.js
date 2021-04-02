@@ -89,7 +89,7 @@ module.exports = {
       }
     },
     {
-      'files': ['lang/*.js'],
+      'files': ['src/lang/*.js'],
       'rules': {
         'quotes': ['error', 'double'],
       }

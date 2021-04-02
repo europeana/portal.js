@@ -1,6 +1,6 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
-import HeroHeader from '../../../../components/browse/HeroHeader.vue';
+import HeroHeader from '../../../../src/components/browse/HeroHeader.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
