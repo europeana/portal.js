@@ -469,6 +469,7 @@ export default {
   "header": {
     "backToMenu": "Close Search Box",
     "clearQuery": "Clear Search Query",
+    "closeSidebar": "Close Menu",
     "entireCollection": "Search for {query} in our entire collection",
     "europeanaHome": "Europeana home",
     "inCollection": "Search for {query} in {collection}",

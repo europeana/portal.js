@@ -3,7 +3,7 @@ import axios from 'axios';
 import nock from 'nock';
 import sinon from 'sinon';
 
-import page from '../../../../pages/iiif/index';
+import page from '../../../../src/pages/iiif/index';
 
 const factory = () => shallowMountNuxt(page, {
   data() {

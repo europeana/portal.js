@@ -1,4 +1,4 @@
-import * as media from '../../../plugins/media';
+import * as media from '../../../src/plugins/media';
 
 describe('plugins/media', () => {
   describe('isPDF()', () => {

@@ -1,4 +1,4 @@
-import store from '../../../../store/collections/newspaper';
+import store from '../../../../src/store/collections/newspaper';
 
 describe('store/collections/newspaper', () => {
   describe('getters', () => {
