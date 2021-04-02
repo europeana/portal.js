@@ -32,18 +32,11 @@
               >
                 <BlogAuthor
                   :key="index"
-                  class="d-inline"
+                  class="author d-inline"
                   :name="author.name"
                   :organisation="author.affiliation"
                   :url="author.url"
-                /><!-- remove space
-                --><template
-                  v-if="(index + 1) < authors.length"
-                >
-                  <span
-                    :key="`${index}-comma`"
-                  >, </span>
-                </template>
+                />
               </template>
             </div>
             <ShareButton class="my-4" />
@@ -127,3 +120,8 @@
     }
   };
 </script>
+<style lang="scss" scoped>
+.author ~ .author::before {
+  content: ', ';
+}
+</style>
