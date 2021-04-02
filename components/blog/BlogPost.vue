@@ -27,15 +27,24 @@
               >
                 {{ $t('blog.by') }}
               </span>
-              <BlogAuthor
+              <template
                 v-for="(author, index) in authors"
-                :key="index"
-                class="d-inline-block"
-                :name="author.name"
-                :organisation="author.affiliation"
-                :url="author.url"
-                :numberOfAuthors="authors.length"
-              />
+              >
+                <BlogAuthor
+                  :key="index"
+                  class="d-inline"
+                  :name="author.name"
+                  :organisation="author.affiliation"
+                  :url="author.url"
+                /><!-- remove space
+                --><template
+                  v-if="(index + 1) < authors.length"
+                >
+                  <span
+                    :key="`${index}-comma`"
+                  >, </span>
+                </template>
+              </template>
             </div>
             <ShareButton class="my-4" />
             <SocialShareModal :media-url="hero ? hero.image.url : null" />

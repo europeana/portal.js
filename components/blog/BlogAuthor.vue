@@ -1,5 +1,5 @@
 <template>
-  <div class="author">
+  <address class="author">
     <span
       v-if="url"
     >
@@ -12,11 +12,7 @@
     </span>
     <span v-else>{{ name }}</span>
     <span v-if="organisation">({{ organisation }})</span>
-    <span
-      v-if="numberOfAuthors > 1"
-      class="pr-1 comma"
-    >,</span>
-  </div>
+  </address>
 </template>
 
 <script>
@@ -43,18 +39,7 @@
       url: {
         type: String,
         default: ''
-      },
-
-      numberOfAuthors: {
-        type: Number,
-        default: 1
       }
     }
   };
 </script>
-
-<style lang="scss" scoped>
-  .author:last-of-type .comma {
-    display: none;
-  }
-</style>
