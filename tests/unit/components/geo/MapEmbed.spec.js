@@ -14,6 +14,7 @@ const factory = () => shallowMount(MapEmbed, {
     longitude: -0.13947
   },
   mocks: {
+    $t: (key) => key,
     $i18n: {
       locale: 'en'
     }
