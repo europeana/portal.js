@@ -4,12 +4,14 @@
     :title="$t('set.actions.addTo')"
     hide-footer
     hide-header-close
+    :static="modalStatic"
     @show="fetchCollections"
     @hide="hideModal()"
   >
     <b-button
       variant="primary"
       class="btn-collection w-100 mb-3 text-left"
+      data-qa="create new gallery button"
       @click="$emit('clickCreateSet')"
     >
       {{ $t('set.actions.createNew') }}
@@ -22,6 +24,7 @@
         :style="!added.includes(collection.id) && buttonBackground($apis.set.getSetThumbnail(collection))"
         :variant="added.includes(collection.id) ? 'success' : 'overlay'"
         class="btn-collection w-100 text-left d-flex justify-content-between align-items-center"
+        :data-qa="`toggle item button ${index}`"
         @click="toggleItem(collection.id)"
       >
         <span>{{ displayField(collection, 'title') }} ({{ collection.visibility }}) - {{ $tc('items.itemCount', collection.total || 0) }}</span>
@@ -34,6 +37,7 @@
     <div class="modal-footer">
       <b-button
         variant="outline-primary"
+        data-qa="close button"
         @click="$bvModal.hide(modalId)"
       >
         {{ $t('actions.close') }}
@@ -55,6 +59,10 @@
       modalId: {
         type: String,
         default: 'add-item-to-set-modal'
+      },
+      modalStatic: {
+        type: Boolean,
+        default: false
       }
     },
 
