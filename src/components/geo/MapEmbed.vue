@@ -25,6 +25,7 @@
         marginheight="0"
         marginwidth="0"
         :src="iframeSrc"
+        :title="$t('record.locationOnMap')"
       />
     </div>
   </div>
