@@ -14,6 +14,10 @@
           :label="$t('set.form.title')"
           label-for="set-title"
         >
+          {{ visibility }}
+          {{ isPrivate }}
+          {{ isPrivate && visibility === 'private' }}
+          {{ !isPrivate && visibility === 'public' }}
           <b-form-input
             id="set-title"
             v-model="titleValue"
@@ -170,8 +174,12 @@
         return this.isNew ? this.$t('set.actions.create') : this.$t('set.actions.edit');
       },
       disableSubmitButton() {
-        return !this.titleValue || (this.titleValue === this.title[this.$i18n.locale] &&
-          (this.descriptionValue === this.description[this.$i18n.locale] || this.descriptionValue === ''));
+        return !this.titleValue ||
+          (this.titleValue === this.title[this.$i18n.locale] &&
+            (this.descriptionValue === this.description[this.$i18n.locale] || this.descriptionValue === '') &&
+            ((this.isPrivate && this.visibility === 'private') ||
+              (!this.isPrivate && this.visibility === 'public'))
+          );
       }
     },
 
