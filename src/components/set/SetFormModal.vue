@@ -20,7 +20,11 @@
             type="text"
             maxlength="35"
             required
+            aria-describedby="input-live-help"
           />
+          <b-form-text id="input-live-help">
+            Required field
+          </b-form-text>
         </b-form-group>
         <b-form-group
           :label="$t('set.form.description')"
@@ -63,6 +67,7 @@
             <b-button
               variant="primary"
               type="submit"
+              :disabled="disableSubmitButton"
             >
               {{ isNew ? $t('set.actions.create') : $t('set.actions.update') }}
             </b-button>
@@ -163,6 +168,10 @@
 
       modalTitle() {
         return this.isNew ? this.$t('set.actions.create') : this.$t('set.actions.edit');
+      },
+      disableSubmitButton() {
+        return !this.titleValue || (this.titleValue === this.title[this.$i18n.locale] &&
+          (this.descriptionValue === this.description[this.$i18n.locale] || this.descriptionValue === ''));
       }
     },
 
