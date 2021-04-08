@@ -111,4 +111,38 @@ describe('components/set/SetFormModal', () => {
       bvModalShow.should.have.been.calledWith(`delete-set-modal-${existingSetPropsData.setId}`);
     });
   });
+
+  describe('create/update button', () => {
+    context('when there is no value for title', () => {
+      it('is disabled', () => {
+        const wrapper = factory();
+
+        wrapper.find('#set-title').setValue('');
+
+        wrapper.find('[data-qa="submit button"]').attributes('disabled').should.eq('disabled');
+      });
+    });
+    context('when there are no updates made', () => {
+      it('is disabled', () => {
+        const wrapper = factory(existingSetPropsData);
+
+        wrapper.find('#set-title').setValue(existingSetPropsData.title.en);
+        wrapper.find('#set-description').setValue(existingSetPropsData.description.en);
+        wrapper.find('#set-private').setChecked(false);
+
+        wrapper.find('[data-qa="submit button"]').attributes('disabled').should.eq('disabled');
+      });
+    });
+    context('when description is filled with emptry string', () => {
+      it('is disabled', () => {
+        const wrapper = factory({ description: {
+          en: undefined
+        } });
+
+        wrapper.find('#set-description').setValue('');
+
+        wrapper.find('[data-qa="submit button"]').attributes('disabled').should.eq('disabled');
+      });
+    });
+  });
 });

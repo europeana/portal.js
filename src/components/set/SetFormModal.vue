@@ -68,6 +68,7 @@
               variant="primary"
               type="submit"
               :disabled="disableSubmitButton"
+              data-qa="submit button"
             >
               {{ isNew ? $t('set.actions.create') : $t('set.actions.update') }}
             </b-button>
