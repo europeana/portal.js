@@ -14,10 +14,6 @@
           :label="$t('set.form.title')"
           label-for="set-title"
         >
-          {{ visibility }}
-          {{ isPrivate }}
-          {{ isPrivate && visibility === 'private' }}
-          {{ !isPrivate && visibility === 'public' }}
           <b-form-input
             id="set-title"
             v-model="titleValue"
