@@ -15,6 +15,7 @@
       allowfullscreen="true"
       :src="$path({ name: 'media', query: { id: europeanaIdentifier, mediaUrl: media.about, mediaType: media.ebucoreHasMimeType } })"
       class="media-player"
+      :title="$t('record.mediaPlayer')"
     />
   </div>
   <VideoPlayer
@@ -50,6 +51,7 @@
     class="iiif-iframe"
     :src="$path({ name: 'iiif', query: { uri: iiifManifest, query: $nuxt.context.from ? $nuxt.context.from.query.query : '' } })"
     :aria-label="$t('actions.viewDocument')"
+    :title="$t('record.IIIFViewer')"
   />
 </template>
 
