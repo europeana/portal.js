@@ -8,24 +8,32 @@ const client = contentful.createClient({
 
 const scrubBeforeDate = new Date('2 March 2021');
 
+async function scrubDescriptionField(assets) {
+  assets.forEach(async assetToScrub => {
+    let asset = assetToScrub;
+    const assetPublished = !!asset.sys.publishedVersion &&
+    asset.sys.version === asset.sys.publishedVersion + 1;
+    asset.fields.description = undefined;
+    try {
+      asset = await asset.update();
+      if (assetPublished) {
+        await asset.publish();
+      }
+      console.log(`Asset ${asset.sys.id} updated.`);
+    } catch (error) {
+      console.error;
+    }
+  });
+}
+
 client.getSpace(process.env.CTF_SPACE_ID)
   .then((space) => space.getEnvironment(process.env.CTF_ENVIRONMENT_ID))
-  // instead of the forEach we might be able to insert a query
-  // as parameter to getAssets to filter the assets
   .then((environment) => environment.getAssets({
     limit: 1000,
     'sys.createdAt[lt]': scrubBeforeDate,
     'fields.description[exists]': true
   }))
   .then((response) => {
-    response.items.forEach(asset => {
-      asset.fields.description = undefined;
-      asset.update();
-      if (!!asset.sys.publishedVersion &&
-    asset.sys.version === asset.sys.publishedVersion + 1) {
-        asset.publish();
-      }
-      console.log(`Asset ${asset.sys.id} updated.`);
-    });
+    scrubDescriptionField(response.items);
   })
   .catch(console.error);
