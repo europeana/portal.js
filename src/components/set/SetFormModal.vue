@@ -20,7 +20,11 @@
             type="text"
             maxlength="35"
             required
+            aria-describedby="input-live-help"
           />
+          <b-form-text id="input-live-help">
+            {{ $t('set.form.required') }}
+          </b-form-text>
         </b-form-group>
         <b-form-group
           :label="$t('set.form.description')"
@@ -63,6 +67,8 @@
             <b-button
               variant="primary"
               type="submit"
+              :disabled="disableSubmitButton"
+              data-qa="submit button"
             >
               {{ isNew ? $t('set.actions.create') : $t('set.actions.update') }}
             </b-button>
@@ -163,6 +169,19 @@
 
       modalTitle() {
         return this.isNew ? this.$t('set.actions.create') : this.$t('set.actions.edit');
+      },
+      disableSubmitButton() {
+        // Disable submit button when no title (required field)
+        return !this.titleValue ||
+          // Or when none of the fields have changed
+          (this.titleValue === this.title[this.$i18n.locale] &&
+            (this.descriptionValue === this.description[this.$i18n.locale] ||
+              // Needed for the case a user starts typing a description but then removes it again.
+              // The value is still changed from undefined to empty string.
+              (this.descriptionValue === '' && this.description[this.$i18n.locale] === undefined)) &&
+            ((this.isPrivate && this.visibility === 'private') ||
+              (!this.isPrivate && this.visibility === 'public'))
+          );
       }
     },
 
