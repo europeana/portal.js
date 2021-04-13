@@ -596,7 +596,8 @@ export default {
     "form": {
       "description": "Gallery description",
       "private": "Keep this gallery private",
-      "title": "Gallery name"
+      "title": "Gallery name",
+      "required": "Required field"
     },
     "labels": {
       "curatedBy": "Curated by",

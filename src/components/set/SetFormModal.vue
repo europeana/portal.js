@@ -23,7 +23,7 @@
             aria-describedby="input-live-help"
           />
           <b-form-text id="input-live-help">
-            Required field
+            {{ $t('set.form.required') }}
           </b-form-text>
         </b-form-group>
         <b-form-group
