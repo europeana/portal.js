@@ -1,18 +1,15 @@
 <template>
-  <div class="author">
-    <span
+  <address>
+    <SmartLink
       v-if="url"
+      :destination="url"
+      class="font-weight-bold"
     >
-      <SmartLink
-        :destination="url"
-        class="font-weight-bold"
-      >
-        {{ name }}<!-- remove space
-      --></SmartLink>
-    </span>
+      {{ name }}
+    </SmartLink>
     <span v-else>{{ name }}</span>
     <span v-if="organisation">({{ organisation }})</span>
-  </div>
+  </address>
 </template>
 
 <script>

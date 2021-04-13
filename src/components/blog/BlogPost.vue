@@ -27,14 +27,17 @@
               >
                 {{ $t('blog.by') }}
               </span>
-              <BlogAuthor
+              <template
                 v-for="(author, index) in authors"
-                :key="index"
-                class="d-inline-block"
-                :name="author.name"
-                :organisation="author.affiliation"
-                :url="author.url"
-              />
+              >
+                <BlogAuthor
+                  :key="index"
+                  class="author d-inline"
+                  :name="author.name"
+                  :organisation="author.affiliation"
+                  :url="author.url"
+                />
+              </template>
             </div>
             <ShareButton class="my-4" />
             <SocialShareModal :media-url="hero ? hero.image.url : null" />
@@ -117,3 +120,8 @@
     }
   };
 </script>
+<style lang="scss" scoped>
+.author ~ .author::before {
+  content: ', ';
+}
+</style>
