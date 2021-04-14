@@ -63,6 +63,10 @@
       modalStatic: {
         type: Boolean,
         default: false
+      },
+      newSetCreated: {
+        type: Boolean,
+        default: false
       }
     },
 
@@ -82,6 +86,14 @@
         return this.collections
           .filter(collection => (collection.items || []).some(item => item.id === this.itemId))
           .map(collection => collection.id);
+      }
+    },
+
+    watch: {
+      newSetCreated(newVal) {
+        if (newVal) {
+          this.added.push(this.collectionsWithItem[0]);
+        }
       }
     },
 
