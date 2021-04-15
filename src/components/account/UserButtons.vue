@@ -25,6 +25,7 @@
           data-qa="add item to set modal"
           :modal-id="addItemToSetModalId"
           :item-id="value"
+          :new-set-created="newSetCreated"
           @clickCreateSet="clickCreateSet"
           @hideModal="refreshSet"
         />
@@ -71,7 +72,8 @@
         addItemToSetModalId: `add-item-to-set-modal-${this.value}`,
         setFormModalId: `set-form-modal-${this.value}`,
         likeLimitModalId: `like-limit-modal-${this.value}`,
-        showFormModal: false
+        showFormModal: false,
+        newSetCreated: false
       };
     },
 
@@ -87,11 +89,13 @@
     methods: {
       clickCreateSet() {
         this.showFormModal = true;
+        this.newSetCreated = false;
         this.$bvModal.hide(this.addItemToSetModalId);
         this.$bvModal.show(this.setFormModalId);
       },
       setCreatedOrUpdated() {
         this.showFormModal = false;
+        this.newSetCreated = true;
         this.$bvModal.show(this.addItemToSetModalId);
       },
       refreshSet() {

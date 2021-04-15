@@ -4,12 +4,14 @@
     :title="$t('set.actions.addTo')"
     hide-footer
     hide-header-close
+    :static="modalStatic"
     @show="fetchCollections"
     @hide="hideModal()"
   >
     <b-button
       variant="primary"
       class="btn-collection w-100 mb-3 text-left"
+      data-qa="create new gallery button"
       @click="$emit('clickCreateSet')"
     >
       {{ $t('set.actions.createNew') }}
@@ -19,9 +21,10 @@
         v-for="(collection, index) in collections"
         :key="index"
         :disabled="!fetched"
-        :style="buttonBackground($apis.set.getSetThumbnail(collection))"
-        variant="overlay"
+        :style="!added.includes(collection.id) && buttonBackground($apis.set.getSetThumbnail(collection))"
+        :variant="added.includes(collection.id) ? 'success' : 'overlay'"
         class="btn-collection w-100 text-left d-flex justify-content-between align-items-center"
+        :data-qa="`toggle item button ${index}`"
         @click="toggleItem(collection.id)"
       >
         <span>{{ displayField(collection, 'title') }} ({{ collection.visibility }}) - {{ $tc('items.itemCount', collection.total || 0) }}</span>
@@ -34,6 +37,7 @@
     <div class="modal-footer">
       <b-button
         variant="outline-primary"
+        data-qa="close button"
         @click="$bvModal.hide(modalId)"
       >
         {{ $t('actions.close') }}
@@ -55,12 +59,21 @@
       modalId: {
         type: String,
         default: 'add-item-to-set-modal'
+      },
+      modalStatic: {
+        type: Boolean,
+        default: false
+      },
+      newSetCreated: {
+        type: Boolean,
+        default: false
       }
     },
 
     data() {
       return {
-        fetched: false
+        fetched: false,
+        added: []
       };
     },
 
@@ -76,6 +89,14 @@
       }
     },
 
+    watch: {
+      newSetCreated(newVal) {
+        if (newVal) {
+          this.added.push(this.collectionsWithItem[0]);
+        }
+      }
+    },
+
     methods: {
       fetchCollections() {
         this.$store.dispatch('set/fetchCreations')
@@ -87,14 +108,17 @@
       hideModal() {
         this.$nextTick(() => {
           this.fetched = false;
+          this.added = [];
           this.$emit('hideModal');
         });
       },
 
       toggleItem(setId) {
         if (this.collectionsWithItem.includes(setId)) {
+          this.added = this.added.filter(id => id !== setId);
           this.removeItem(setId);
         } else {
+          this.added.push(setId);
           this.addItem(setId);
         }
       },
@@ -120,12 +144,7 @@
       },
 
       buttonBackground(img) {
-        if (!img) {
-          return null;
-        }
-        return {
-          'background-image': `url("${img}")`
-        };
+        return img ? { 'background-image': `url("${img}")` } : null;
       }
     }
   };
@@ -142,6 +161,13 @@
     padding: 1rem;
     position: relative;
     text-transform: none;
+    span {
+      position: relative;
+      z-index: 10;
+      &.icon-check_circle {
+        font-size: $font-size-large;
+      }
+    }
   }
 
   .collections {
