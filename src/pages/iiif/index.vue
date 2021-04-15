@@ -40,7 +40,7 @@
             {
               manifestId: this.uri,
               thumbnailNavigationPosition: 'far-bottom',
-              defaultSearchQuery: this.searchQuery
+              ... this.showAnnotations && { defaultSearchQuery: this.searchQuery }
             }
           ],
           window: {
@@ -48,8 +48,8 @@
             allowFullscreen: true,
             allowMaximize: false,
             allowTopMenuButton: false,
-            allowWindowSideBar: false,
-            sideBarOpen: false,
+            allowWindowSideBar: this.showAnnotations && true,
+            sideBarOpen: this.showAnnotations && true,
             panels: {
               info: false,
               attribution: false,
@@ -57,7 +57,7 @@
               annotations: true,
               search: true
             },
-            defaultSideBarPanel: this.searchQuery ? 'search' : 'annotations'
+            defaultSideBarPanel: this.showAnnotations && this.searchQuery ? 'search' : 'annotations'
           },
           workspace: {
             showZoomControls: true,
@@ -72,6 +72,13 @@
         };
 
         return options;
+      }
+    },
+
+    watch: {
+      showAnnotations() {
+        this.mirador = window.Mirador.viewer(this.miradorViewerOptions);
+        this.miradorStoreManifestJsonUnsubscriber = this.mirador.store.subscribe(this.miradorStoreManifestJsonListener);
       }
     },
 
@@ -105,15 +112,8 @@
           break;
         case 'mirador/RECEIVE_ANNOTATION':
           if ((action.annotationJson.resources.length > 0)) {
-            const windowId = Object.keys(this.mirador.store.getState().windows)[0];
             if (!this.showAnnotations) {
-              const action = window.Mirador.actions.toggleWindowSideBar(windowId);
-              this.mirador.store.dispatch(action);
               this.showAnnotations = true;
-
-              this.miradorViewerOptions.window.allowWindowSideBar = true;
-              const actionShow = window.Mirador.actions.updateConfig(this.miradorViewerOptions);
-              this.mirador.store.dispatch(actionShow);
             }
           }
           this.postprocessMiradorAnnotation(url, action);
