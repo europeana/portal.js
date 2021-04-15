@@ -31,7 +31,6 @@ async function stopBrowser() {
 async function warmupBrowser() {
   // TODO: replace with a low cost static page not hitting any APIs
   await runners.openAPage('/en');
-  await client.waitForElementVisible('.cookie-disclaimer');
 }
 
 // Before running cucumber make sure the test server and webdriver are running.

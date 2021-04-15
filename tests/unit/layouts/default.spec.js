@@ -39,7 +39,6 @@ const factory = () => shallowMount(layout, {
     }
   },
   stubs: {
-    CookieDisclaimer: true,
     VueAnnouncer: { template: '<div id="announcer" aria-live="polite"></div>' },
     nuxt: true,
     PageHeader: true,

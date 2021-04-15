@@ -17,12 +17,3 @@ Feature: Home page
     When I open `/en`
     Then I see a `notification banner`
 
-  @cookie-notice-not-dismissed
-  Scenario: Seeing the cookie disclaimer on first visit
-
-    When I open `/en`
-    And I see a `cookie disclaimer`
-    And I accept cookies
-    And there is no `cookie disclaimer`
-    And I open `/en`
-    Then there is no `cookie disclaimer`

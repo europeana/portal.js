@@ -5,7 +5,6 @@
         v-if="enableAnnouncer"
         data-qa="vue announcer"
       />
-      <CookieDisclaimer />
     </client-only>
     <div
       ref="resetfocus"
@@ -53,7 +52,6 @@
   export default {
     components: {
       ClientOnly,
-      CookieDisclaimer: () => import('../components/generic/CookieDisclaimer'),
       PageHeader,
       PageFooter: () => import('../components/PageFooter')
     },
