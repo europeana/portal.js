@@ -39,8 +39,7 @@
           windows: [
             {
               manifestId: this.uri,
-              thumbnailNavigationPosition: 'far-bottom',
-              defaultSearchQuery: this.searchQuery
+              thumbnailNavigationPosition: 'far-bottom'
             }
           ],
           window: {
@@ -117,6 +116,15 @@
             }
           }
           this.postprocessMiradorAnnotation(url, action);
+          if (this.searchQuery) {
+            const windowId = Object.keys(this.mirador.store.getState().windows)[0];
+            const companionWindowId = Object.keys(this.mirador.store.getState().companionWindows)[0];
+            let iiifUrl = this.uri.substring(0, this.uri.lastIndexOf('/'));
+            const searchId = iiifUrl + '/search?q=' + this.searchQuery;
+
+            const actionSearch = window.Mirador.actions.fetchSearch(windowId, companionWindowId, searchId, this.searchQuery);
+            this.mirador.store.dispatch(actionSearch);
+          }
           break;
         case 'mirador/RECEIVE_SEARCH':
           this.postprocessMiradorSearch(url, action);
