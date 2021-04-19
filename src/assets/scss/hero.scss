@@ -239,8 +239,9 @@
     padding: 0;
     .jumbotron.browse-jumbotron {
       margin-top: 0;
-      background-size: 56.5rem;
       background-position: center top;
+      height: 275px;
+      
       .card {
         max-width: 70%;
       }
@@ -252,6 +253,7 @@
   .hero-wrapper {
     .jumbotron.browse-jumbotron {
       border-radius: 0;
+      height: 50vh;
       .card {
         max-width: 100%;
         width: 100%;
