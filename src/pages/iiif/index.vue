@@ -48,8 +48,8 @@
             allowFullscreen: true,
             allowMaximize: false,
             allowTopMenuButton: false,
-            allowWindowSideBar: this.showAnnotations && true,
-            sideBarOpen: this.showAnnotations && true,
+            allowWindowSideBar: this.showAnnotations,
+            sideBarOpen: this.showAnnotations,
             panels: {
               info: false,
               attribution: false,
