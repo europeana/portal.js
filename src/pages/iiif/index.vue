@@ -106,6 +106,14 @@
           if ((action.annotationJson.resources.length > 0)) {
             const windowId = Object.keys(this.mirador.store.getState().windows)[0];
             if (!this.showAnnotations) {
+              if (this.searchQuery) {
+                const windowId = Object.keys(this.mirador.store.getState().windows)[0];
+                const companionWindowId = Object.keys(this.mirador.store.getState().companionWindows)[0];
+                const searchId = `${this.manifest.service['@id']}?q=${this.searchQuery}`;
+
+                const actionSearch = window.Mirador.actions.fetchSearch(windowId, companionWindowId, searchId, this.searchQuery);
+                this.mirador.store.dispatch(actionSearch);
+              }
               const action = window.Mirador.actions.toggleWindowSideBar(windowId);
               this.mirador.store.dispatch(action);
               this.showAnnotations = true;
@@ -116,15 +124,6 @@
             }
           }
           this.postprocessMiradorAnnotation(url, action);
-          if (this.searchQuery) {
-            const windowId = Object.keys(this.mirador.store.getState().windows)[0];
-            const companionWindowId = Object.keys(this.mirador.store.getState().companionWindows)[0];
-            let iiifUrl = this.uri.substring(0, this.uri.lastIndexOf('/'));
-            const searchId = iiifUrl + '/search?q=' + this.searchQuery;
-
-            const actionSearch = window.Mirador.actions.fetchSearch(windowId, companionWindowId, searchId, this.searchQuery);
-            this.mirador.store.dispatch(actionSearch);
-          }
           break;
         case 'mirador/RECEIVE_SEARCH':
           this.postprocessMiradorSearch(url, action);
