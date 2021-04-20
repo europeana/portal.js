@@ -3,7 +3,7 @@ import { shallowMountNuxt } from '../../utils';
 import BootstrapVue from 'bootstrap-vue';
 import sinon from 'sinon';
 
-import page from '../../../../pages/item/_';
+import page from '../../../../src/pages/item/_';
 
 const optionsVar = {
   itemCountry: undefined,
@@ -88,6 +88,7 @@ describe('pages/item/_.vue', () => {
 
       const headMeta = wrapper.vm.head().meta;
 
+      headMeta.filter(meta => meta.property === 'og:image').length.should.eq(1);
       headMeta.find(meta => meta.property === 'og:image').content.should.eq(thumbnailUrl);
     });
   });

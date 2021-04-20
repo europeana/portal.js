@@ -1,6 +1,6 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
-import RightsStatement from '../../../../components/generic/RightsStatement.vue';
+import RightsStatement from '../../../../src/components/generic/RightsStatement.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);

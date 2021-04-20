@@ -1,4 +1,4 @@
-import linkPluginModule from '../../../plugins/link';
+import linkPluginModule from '../../../src/plugins/link';
 
 let linkPlugin;
 linkPluginModule(

@@ -1,7 +1,7 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 
-import AwesomeSwiper from '../../../../components/item/AwesomeSwiper.vue';
+import AwesomeSwiper from '../../../../src/components/item/AwesomeSwiper.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);

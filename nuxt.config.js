@@ -3,8 +3,8 @@
 const APP_SITE_NAME = 'Europeana';
 
 const pkg = require('./package');
-const i18nLocales = require('./plugins/i18n/locales.js');
-const i18nDateTime = require('./plugins/i18n/datetime.js');
+const i18nLocales = require('./src/plugins/i18n/locales.js');
+const i18nDateTime = require('./src/plugins/i18n/datetime.js');
 
 const featureIsEnabled = (value) => Boolean(Number(value));
 
@@ -89,6 +89,10 @@ module.exports = {
     },
     gtm: {
       id: process.env.GOOGLE_TAG_MANAGER_ID
+    },
+    googleOptimize: {
+      id: process.env.GOOGLE_OPTIMIZE_ID,
+      experiments: {}
     },
     hotjar: {
       id: process.env.HOTJAR_ID,
@@ -185,6 +189,7 @@ module.exports = {
       'NavbarPlugin',
       'NavPlugin',
       'PaginationNavPlugin',
+      'SidebarPlugin',
       'TabsPlugin',
       'ToastPlugin'
     ]
@@ -201,7 +206,8 @@ module.exports = {
     '~/plugins/page',
     '~/plugins/vue-filters',
     '~/plugins/vue-directives',
-    { src: '~/plugins/vue-announcer', mode: 'client' }
+    '~/plugins/vue-announcer.client',
+    '~/plugins/vue-masonry.client'
   ],
 
   buildModules: [
@@ -218,6 +224,7 @@ module.exports = {
   modules: [
     '~/modules/elastic-apm',
     '@nuxtjs/axios',
+    'nuxt-google-optimize',
     ['@nuxtjs/gtm', {
       pageTracking: true
     }],
@@ -291,21 +298,21 @@ module.exports = {
       routes.push({
         name: 'slug',
         path: '/*',
-        component: 'pages/index.vue'
+        component: 'src/pages/index.vue'
       });
       routes.push({
         name: 'collections',
         path: '/(collections)',
-        component: 'pages/index.vue'
+        component: 'src/pages/index.vue'
       });
     },
     linkExactActiveClass: 'exact-active-link'
   },
 
   serverMiddleware: [
-    { path: '/memory-usage', handler: '~/middleware/server/memory-usage' },
-    '~/middleware/server/logging',
-    '~/middleware/server/record-json'
+    { path: '/memory-usage', handler: '~/server-middleware/memory-usage' },
+    '~/server-middleware/logging',
+    '~/server-middleware/record-json'
   ],
 
   /*
@@ -346,10 +353,16 @@ module.exports = {
   ** Render configuration
    */
   render: {
+    // Disable compression: leave it to a gateway/reverse proxy like NGINX or
+    // Cloudflare.
+    compressor: false,
+
     static: {
       maxAge: '1d'
     }
   },
+
+  srcDir: 'src/',
 
   // Opt-out of telemetry
   telemetry: false

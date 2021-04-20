@@ -1,6 +1,6 @@
 import nock from 'nock';
-import oEmbed, { oEmbeddable } from '../../../plugins/oembed';
-import supportedProviders from '../../../plugins/oembed/providers';
+import oEmbed, { oEmbeddable } from '../../../src/plugins/oembed';
+import supportedProviders from '../../../src/plugins/oembed/providers';
 
 describe('oEmbed()', () => {
   afterEach(() => {
@@ -56,7 +56,7 @@ describe('oEmbeddable()', () => {
   }
 
   it('is `false` for unsupported providers', () => {
-    const unsupportedembeddableUrl = 'https://www.youtube.com/watch?v=abcdef';
+    const unsupportedembeddableUrl = 'https://www.example.com/watch?v=abcdef';
     oEmbeddable(unsupportedembeddableUrl).should.be.false;
   });
 });

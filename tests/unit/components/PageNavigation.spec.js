@@ -2,7 +2,7 @@ import { createLocalVue, mount } from '@vue/test-utils';
 import Vuex from 'vuex';
 
 import BootstrapVue from 'bootstrap-vue';
-import PageNavigation from '../../../components/PageNavigation.vue';
+import PageNavigation from '../../../src/components/PageNavigation.vue';
 
 const localVue = createLocalVue();
 localVue.use(Vuex);

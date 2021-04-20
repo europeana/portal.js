@@ -1,6 +1,6 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
-import MoreFiltersDropdownFacetOption from '../../../../components/search/MoreFiltersDropdownFacetOption.vue';
+import MoreFiltersDropdownFacetOption from '../../../../src/components/search/MoreFiltersDropdownFacetOption.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);

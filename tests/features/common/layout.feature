@@ -16,7 +16,7 @@ Feature: Page layout on all pages.
 
   Scenario: Main navigation is visible
     When I open the `home page`
-    Then I see the `desktop navigation`
+    Then I see the `top navigation`
 
   Scenario: An aria-live region exists to announce route changes
     When I visit the `home page`
