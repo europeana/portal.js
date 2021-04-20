@@ -3,9 +3,8 @@ import BootstrapVue from 'bootstrap-vue';
 import Vuex from 'vuex';
 import sinon from 'sinon';
 
-import layout from '../../../layouts/default';
-import { klaroConfig } from '../../../plugins/klaro-config';
 import layout from '../../../src/layouts/default';
+import { klaroConfig } from '../../../src/plugins/klaro-config';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
@@ -58,6 +57,7 @@ describe('layouts/default.vue', () => {
       wrapper.find('#announcer').exists().should.equal(true);
     });
   });
+  
   describe('Klaro', () => {
     it('is enabled', () => {
       const wrapper = factory();
