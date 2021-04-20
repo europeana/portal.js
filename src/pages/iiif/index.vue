@@ -107,7 +107,6 @@
             const windowId = Object.keys(this.mirador.store.getState().windows)[0];
             if (!this.showAnnotations) {
               if (this.searchQuery) {
-                const windowId = Object.keys(this.mirador.store.getState().windows)[0];
                 const companionWindowId = Object.keys(this.mirador.store.getState().companionWindows)[0];
                 const searchId = `${this.manifest.service['@id']}?q=${this.searchQuery}`;
 
