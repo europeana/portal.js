@@ -100,7 +100,7 @@
           window.klaro.render(klaroConfig, true);
         }
       }
-      
+
       if (this.$auth.$storage.getUniversal('portalLoggingIn') && this.$auth.loggedIn) {
         this.showToast(this.$t('account.notifications.loggedIn'));
         this.$auth.$storage.removeUniversal('portalLoggingIn');
@@ -140,15 +140,13 @@
           ...i18nSeo.link
         ],
         script: this.$exp.$experimentIndex > -1 && this.$config.googleOptimize.id ? [
-          { src: `https://www.googleoptimize.com/optimize.js?id=${this.$config.googleOptimize.id}` }
+          { src: `https://www.googleoptimize.com/optimize.js?id=${this.$config.googleOptimize.id}` },
+          { src: 'https://unpkg.com/klaro@0.7.11/dist/klaro-no-css.js', defer: true }
         ] : [],
         meta: [
           { hid: 'description', property: 'description', content: 'Europeana' },
           { hid: 'og:url', property: 'og:url', content: this.canonicalUrl },
           ...i18nSeo.meta
-        ],
-        script: [
-          { src: 'https://unpkg.com/klaro@0.7.11/dist/klaro-no-css.js', defer: true }
         ]
       };
     }
