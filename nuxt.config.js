@@ -228,7 +228,12 @@ module.exports = {
     ['@nuxtjs/gtm', {
       pageTracking: true
     }],
-    ['nuxt-matomo', { siteId: 1 }],
+    ['nuxt-matomo', { 
+      matomoUrl: 'x',
+      siteId: x,
+      cookies: false,
+      debug: true
+     }],
     ['@nuxtjs/robots', JSON.parse(process.env.NUXTJS_ROBOTS || '{"UserAgent":"*","Disallow":"/"}')],
     'bootstrap-vue/nuxt',
     'cookie-universal-nuxt',
