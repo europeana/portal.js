@@ -7,7 +7,6 @@ Feature: Page layout on all pages.
   @cookie-notice-not-dismissed
   Scenario: Moving to the main content using the skip-to-main functionality
     When I visit an `item page`
-    And I accept cookies
     And I press the TAB key
     And I see the `main content accessibility link`
     And I press the ENTER key
