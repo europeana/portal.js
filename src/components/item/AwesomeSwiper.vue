@@ -13,7 +13,7 @@
     >
       <div
         v-if="singleMediaResource"
-        class="container h-100"
+        class="container"
       >
         <MediaCard
           :europeana-identifier="europeanaIdentifier"
@@ -133,6 +133,8 @@
     .swiper-slide {
       width: 100%;
       min-width: 16rem;
+      display: flex;
+      align-items: center;
 
       @media (min-width: $bp-medium) {
         width: auto;
@@ -164,7 +166,7 @@
 
       a {
         display: flex;
-        height: 100%;
+        // height: 100%;
         align-items: center;
         justify-content: center;
 
