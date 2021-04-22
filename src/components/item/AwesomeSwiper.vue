@@ -124,10 +124,14 @@
 
   .swiper-container {
     max-height: 35.5rem;
-    height: 80vh;
+    // height: 80vh;
 
     @media (max-width: $bp-medium) {
       max-height: 25rem;
+    }
+
+    .swiper-wrapper {
+      align-items: center;
     }
 
     .swiper-slide {
@@ -164,7 +168,7 @@
 
       a {
         display: flex;
-        height: 100%;
+        // height: 100%;
         align-items: center;
         justify-content: center;
 
