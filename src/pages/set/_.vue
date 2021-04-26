@@ -28,7 +28,7 @@
           cols="12"
         >
           <b-container class="mb-5">
-            <b-row class="mb-3">
+            <b-row class="mb-4">
               <b-col>
                 <h1
                   class="pt-3"
@@ -46,15 +46,19 @@
                     This can be changed when this functionality is further developed
                 -->
                 <div
-                  v-if="set.visibility === 'private'"
-                  class="usergallery-metadata"
+                  v-if="set.visibility === 'private' || set.creator.nickname"
+                  class="usergallery-metadata mb-2"
                 >
-                  <!-- TODO: Fill after the '@' with the set's owner  -->
-                  <!-- <span class="curator mr-4">
-                    {{ $t('set.labels.curatedBy') }} @placeholderUsername
-                  </span>-->
                   <span
-                    class="visibility"
+                    v-if="set.creator.nickname"
+                    class="curator mb-2"
+                  >
+                    {{ $t('set.labels.curatedBy') }} @{{ set.creator.nickname }}
+                  </span>
+                  <span
+                    v-if="set.visibility === 'private'"
+                    class="
+                    visibility mb-2"
                   >
                     {{ $t('set.labels.private') }}
                   </span>
@@ -292,7 +296,9 @@
 
   .usergallery-metadata {
     font-size: $font-size-small;
+    font-weight: 600;
     line-height: 1.125;
+    color: $mediumgrey;
 
     .curator,
     .visibility {
@@ -310,6 +316,7 @@
       &:before {
         @extend .icon-font;
         content: '\e92e';
+        font-size: 1.125rem;
       }
     }
 
@@ -317,6 +324,7 @@
       &:before {
         @extend .icon-font;
         content: '\e92d';
+        font-size: 1.125rem;
       }
     }
   }
