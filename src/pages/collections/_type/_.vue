@@ -14,6 +14,23 @@
               :is-editorial-description="hasEditorialDescription"
               :title="title"
             />
+            <template
+              v-if="isEditable && userIsEditor"
+            >
+              <div class="d-inline-flex">
+                <b-button
+                  variant="outline-primary"
+                  class="text-decoration-none mr-2"
+                  @click="$bvModal.show('entityUpdateModal')"
+                >
+                  {{ $t('actions.edit') }}
+                </b-button>
+                <EntityUpdateModal
+                  :body="entity.proxy"
+                  :description="descriptionText"
+                />
+              </div>
+            </template>
             <client-only>
               <section
                 v-if="relatedCollectionsFound"
@@ -78,6 +95,7 @@
   import { BASE_URL as EUROPEANA_DATA_URL } from '../../../plugins/europeana/data';
   import { getEntityTypeHumanReadable, getEntitySlug, getEntityUri } from '../../../plugins/europeana/entity';
   import { langMapValueForLocale } from  '../../../plugins/europeana/utils';
+  import EntityUpdateModal from '../../../components/entity/EntityUpdateModal';
 
   export default {
     components: {
@@ -85,6 +103,7 @@
       ClientOnly,
       EntityDetails,
       SearchInterface,
+      EntityUpdateModal,
       RelatedCollections: () => import('../../../components/generic/RelatedCollections')
     },
     middleware: 'sanitisePageQuery',
@@ -99,6 +118,7 @@
         store.commit('entity/setEntity', null);
         store.commit('entity/setPage', null);
         store.commit('entity/setRelatedEntities', null);
+        store.commit('entity/setEditable', false);
       }
       store.commit('entity/setId', entityUri);
       // Get all curated entity names & genres and store, unless already stored
@@ -120,11 +140,17 @@
       return axios.all(
         [store.dispatch('entity/searchForRecords', query)]
           .concat(fetchEntity ? app.$apis.entity.getEntity(params.type, params.pathMatch) : () => {})
+          .concat(fetchEntity && app.$config.app.features.entityManagement ? app.$apis.entityManagement.getEntity(params.type, params.pathMatch) : () => {})
           .concat(fetchFromContentful ? app.$contentful.query('collectionPage', contentfulVariables) : () => {})
       )
-        .then(axios.spread((recordSearchResponse, entityResponse, pageResponse) => {
+        .then(axios.spread((recordSearchResponse, entityResponse, entityManagementResponse, pageResponse) => {
           if (fetchEntity) {
             store.commit('entity/setEntity', entityResponse.entity);
+          }
+          if (entityManagementResponse.note) {
+            store.commit('entity/setEditable', true);
+            store.commit('entity/setEntityDescription', entityManagementResponse.note);
+            store.commit('entity/setProxy', entityManagementResponse.proxies.find(proxy => proxy.id.includes('#proxy_europeana')));
           }
           if (fetchFromContentful) {
             const pageResponseData = pageResponse.data.data;
@@ -139,7 +165,6 @@
           const page = store.state.entity.page;
           const entityName = page ? page.name : entity.prefLabel.en;
           const desiredPath = getEntitySlug(entity.id, entityName);
-
           if (params.pathMatch !== desiredPath) {
             const redirectPath = app.$path({
               name: 'collections-type-all',
@@ -164,9 +189,13 @@
         entity: state => state.entity.entity,
         page: state => state.entity.page,
         relatedEntities: state => state.entity.relatedEntities,
-        recordsPerPage: state => state.entity.recordsPerPage
+        recordsPerPage: state => state.entity.recordsPerPage,
+        editable: state => state.entity.editable
       }),
       description() {
+        if (this.isEditable) {
+          return this.entity.note[this.$store.state.i18n.locale] ? { values: this.entity.note[this.$store.state.i18n.locale], code: this.$store.state.i18n.locale } : null;
+        }
         return this.editorialDescription ? { values: [this.editorialDescription], code: null } : null;
       },
       descriptionText() {
@@ -224,6 +253,12 @@
           return this.titleFallback(this.editorialTitle);
         }
         return langMapValueForLocale(this.entity.prefLabel, this.$store.state.i18n.locale);
+      },
+      userIsEditor() {
+        return this.$store.state.auth.user && this.$store.state.auth.user.resource_access.entities && this.$store.state.auth.user.resource_access.entities.roles.includes('editor');
+      },
+      isEditable() {
+        return this.entity && this.editable;
       }
     },
     mounted() {

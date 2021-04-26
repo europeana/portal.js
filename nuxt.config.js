@@ -20,7 +20,8 @@ module.exports = {
       siteName: APP_SITE_NAME,
       features: {
         linksToClassic: featureIsEnabled(process.env.ENABLE_LINKS_TO_CLASSIC),
-        recommendations: featureIsEnabled(process.env.ENABLE_RECOMMENDATIONS)
+        recommendations: featureIsEnabled(process.env.ENABLE_RECOMMENDATIONS),
+        entityManagement: featureIsEnabled(process.env.ENABLE_ENTITY_MANAGEMENT)
       }
     },
     auth: {
@@ -84,6 +85,9 @@ module.exports = {
         set: {
           url: process.env.EUROPEANA_SET_API_URL,
           key: process.env.EUROPEANA_SET_API_KEY || process.env.EUROPEANA_API_KEY
+        },
+        entitymanagement: {
+          url: process.env.EUROPEANA_ENTITY_MANAGEMENT_API_URL
         }
       }
     },
