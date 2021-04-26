@@ -74,17 +74,7 @@
           prefLabel: { ...this.body.prefLabel },
           note: { ...this.body.note }
         };
-        if (entityBody.note[this.$i18n.locale]) {
-          if (this.descriptionValue === '') {
-            // User removed description
-            entityBody.note[this.$i18n.locale] = [...this.body.note[this.$i18n.locale]];
-            entityBody.note[this.$i18n.locale].splice(0, 1);
-          } else {
-            entityBody.note[this.$i18n.locale][0] = this.descriptionValue;
-          }
-        } else {
-          entityBody.note[this.$i18n.locale] = [this.descriptionValue];
-        }
+        entityBody.note[this.$i18n.locale] = [this.descriptionValue];
         return entityBody;
       },
       disableSubmit() {

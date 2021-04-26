@@ -61,7 +61,7 @@ describe('components/entity/EntityUpdateModal', () => {
             en: 'Art'
           },
           note: {
-            en: ['Updated', 'A book is a medium for recording information']
+            en: ['Updated']
           }
         }
       });
