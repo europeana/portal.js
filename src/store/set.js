@@ -4,6 +4,7 @@ export default {
     likedItems: null,
     likedItemIds: [],
     active: null,
+    activeRecommendations: [],
     creations: []
   }),
 
@@ -25,6 +26,9 @@ export default {
     },
     setActive(state, value) {
       state.active = value;
+    },
+    setActiveRecommendations(state, value) {
+      state.activeRecommendations = value;
     },
     addItemToActive(state, item) {
       state.active.items.push(item);
@@ -166,6 +170,36 @@ export default {
 
       return this.$apis.set.search(searchParams)
         .then(searchResponse => commit('setCreations', searchResponse.data.items || []));
+    },
+    fetchActiveRecommendations({ commit }, setId) {
+      return this.$apis.recommendation.recommend('set', setId)
+        .then(response => {
+          commit('setActiveRecommendations', response.items);
+        });
+    },
+    acceptRecommendation({ state, commit }, params) {
+      return this.$apis.recommendation.accept('set', params.setId, params.itemIds)
+        .then(response => {
+          let recList = state.activeRecommendations.slice();
+          let index = recList.map((item) => {
+            return item.id;
+          }).indexOf(params.itemIds[0]);
+          recList.splice(index, 1, response.items[0]);
+
+          commit('setActiveRecommendations', recList);
+        });
+    },
+    rejectRecommendation({ state, commit }, params) {
+      return this.$apis.recommendation.reject('set', params.setId, params.itemIds)
+        .then(response => {
+          let recList = state.activeRecommendations.slice();
+          let index = recList.map((item) => {
+            return item.id;
+          }).indexOf(params.itemIds[0]);
+          recList.splice(index, 1, response.items[0]);
+
+          commit('setActiveRecommendations', recList);
+        });
     }
   }
 };

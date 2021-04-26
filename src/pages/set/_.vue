@@ -176,7 +176,6 @@
 
     data() {
       return {
-        recommendations: [],
         setFormModalId: `set-form-modal-${this.id}`
       };
     },
@@ -184,6 +183,9 @@
     computed: {
       set() {
         return this.$store.state.set.active || {};
+      },
+      recommendations() {
+        return this.$store.state.set.activeRecommendations || [];
       },
       itemCount() {
         return this.set.total || 0;
@@ -235,31 +237,25 @@
           const path = this.$path({ name: 'account' });
           this.$goto(path);
         }
-      },
-      'set.total'() {
-        this.getRecommendations();
       }
     },
 
     mounted() {
-      this.getRecommendations();
+      if (this.enableRecommendations && this.$auth.loggedIn) {
+        try {
+          this.$store.dispatch('set/fetchActiveRecommendations', `/${this.$route.params.pathMatch}`);
+        } catch (apiError) {
+          if (process.server) {
+            this.$nuxt.context.res.statusCode = apiError.statusCode;
+          }
+          throw apiError;
+        }
+      }
     },
 
     methods: {
       updateSet() {
         this.$bvModal.hide(this.setFormModalId);
-      },
-      getRecommendations() {
-        if (this.enableRecommendations && this.$auth.loggedIn) {
-          if (this.set && this.set.total >= 0) {
-            return this.$apis.recommendation.recommend('set', `/${this.$route.params.pathMatch}`)
-              .then(recommendResponse => {
-                this.recommendations = recommendResponse.items || [];
-              });
-          } else {
-            return this.recommendations = [];
-          }
-        }
       }
     },
 
@@ -280,6 +276,7 @@
     },
     async beforeRouteLeave(to, from, next) {
       await this.$store.commit('set/setActive', null);
+      await this.$store.commit('set/setActiveRecommendations', []);
       next();
     }
   };

@@ -4,20 +4,40 @@
     data-qa="user buttons"
   >
     <client-only>
-      <b-button
-        class="icon-ic-add"
-        data-qa="add button"
-        :aria-label="$t('set.actions.addTo')"
-        @click="addToSet"
-      />
-      <b-button
-        :pressed="liked"
-        class="icon-heart"
-        data-qa="like button"
-        :aria-label="$t('actions.like')"
-        size="sm"
-        @click="toggleLiked"
-      />
+      <template
+        v-if="recommendedItem"
+      >
+        <b-button
+          class="recommendation-buttons icon-accept"
+          data-qa="accept button"
+          :aria-label="$t('actions.accept')"
+          @click="acceptRecommendation"
+        />
+        <b-button
+          class="recommendation-buttons icon-reject"
+          data-qa="like button"
+          :aria-label="$t('actions.reject')"
+          @click="rejectRecommendation"
+        />
+      </template>
+      <template
+        v-else
+      >
+        <b-button
+          class="icon-ic-add"
+          data-qa="add button"
+          :aria-label="$t('set.actions.addTo')"
+          @click="addToSet"
+        />
+        <b-button
+          :pressed="liked"
+          class="icon-heart"
+          data-qa="like button"
+          :aria-label="$t('actions.like')"
+          size="sm"
+          @click="toggleLiked"
+        />
+      </template>
       <template
         v-if="$auth.loggedIn"
       >
@@ -64,6 +84,11 @@
       value: {
         type: String,
         required: true
+      },
+
+      recommendedItem: {
+        type: Boolean,
+        default: false
       }
     },
 
@@ -135,6 +160,22 @@
         if (this.$auth.loggedIn) {
           this.$bvModal.show(this.addItemToSetModalId);
           this.$emit('add', this.value);
+        } else {
+          this.$goto('/account/login');
+        }
+      },
+      async acceptRecommendation() {
+        if (this.$auth.loggedIn) {
+          await this.$store.dispatch('set/acceptRecommendation', { setId: `/${this.$route.params.pathMatch}`, itemIds: new Array(this.value) });
+          await this.$store.dispatch('set/addItem', { setId: this.$store.state.set.active.id, itemId: this.value });
+          this.$store.dispatch('set/refreshSet');
+        } else {
+          this.$goto('/account/login');
+        }
+      },
+      rejectRecommendation() {
+        if (this.$auth.loggedIn) {
+          this.$store.dispatch('set/rejectRecommendation', { setId: `/${this.$route.params.pathMatch}`, itemIds: new Array(this.value) });
         } else {
           this.$goto('/account/login');
         }
