@@ -15,6 +15,7 @@
     <template v-slot:buttons>
       <UserButtons
         v-model="identifier"
+        :recommended-item="recommendedItem"
         @like="$emit('like', identifier)"
         @unlike="$emit('unlike', identifier)"
       />
@@ -55,6 +56,11 @@
       lazy: {
         type: Boolean,
         default: true
+      },
+
+      recommendedItem: {
+        type: Boolean,
+        default: false
       }
     },
 

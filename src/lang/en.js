@@ -33,7 +33,9 @@ export default {
     "share": "Share",
     "shareOn": "Share on {social}",
     "viewAt": "View at {link}",
-    "viewDocument": "View document"
+    "viewDocument": "View document",
+    "accept": "Accept",
+    "reject": "Reject"
   },
   "attribution": {
     "country": "Country:",
@@ -493,7 +495,9 @@ export default {
   "items": {
     "itemCount": "1 item |{count} items",
     "itemOf": "{max} of {count} items",
-    "youMightLike": "Items you might like"
+    "recommended": "Recommended items",
+    "youMightLike": "Items you might like",
+    "recommendationsDisclaimer": "Thumb up to add to the gallery - Thumb down if you dislike it"
   },
   "layout": {
     "skipToMain": "Skip to page contents"

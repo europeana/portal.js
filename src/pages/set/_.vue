@@ -127,10 +127,15 @@
       >
         <b-col>
           <h2 class="related-heading">
-            {{ $t('items.youMightLike') }}
+            {{ $t('items.recommended') }}
           </h2>
+          <h5 class="related-subtitle">
+            <span class="icon-info-outline" />
+            {{ $t('items.recommendationsDisclaimer') }}
+          </h5>
           <ItemPreviewCardGroup
             v-model="recommendations"
+            :recommendations-grid="true"
           />
         </b-col>
       </b-row>

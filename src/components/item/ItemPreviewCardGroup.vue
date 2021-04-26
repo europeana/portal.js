@@ -20,6 +20,7 @@
         :variant="cardVariant"
         class="item"
         :lazy="false"
+        :recommended-item="recommendationsGrid"
         data-qa="item preview"
         @like="$emit('like', item.id)"
         @unlike="$emit('unlike', item.id)"
@@ -72,6 +73,10 @@
       view: {
         type: String,
         default: 'grid'
+      },
+      recommendationsGrid: {
+        type: Boolean,
+        default: false
       }
     },
 
