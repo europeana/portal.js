@@ -612,6 +612,7 @@ export default {
     },
     "notifications": {
       "deleted": "Your gallery has been deleted.",
+      "updated": "The collection has been updated",
       "likeLimit": {
         "body": "We are sorry, but you are limited at the moment to liking a maximum of 100 items. We will remove this limit soon!",
         "title": "100 likes"

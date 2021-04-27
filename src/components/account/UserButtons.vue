@@ -97,6 +97,7 @@
         addItemToSetModalId: `add-item-to-set-modal-${this.value}`,
         setFormModalId: `set-form-modal-${this.value}`,
         likeLimitModalId: `like-limit-modal-${this.value}`,
+        toastMsg: this.$t('set.notifications.updated'),
         showFormModal: false,
         newSetCreated: false
       };
@@ -164,11 +165,22 @@
           this.$goto('/account/login');
         }
       },
+      makeToast() {
+        this.$root.$bvToast.toast(this.toastMsg, {
+          toastClass: 'brand-toast',
+          toaster: 'b-toaster-bottom-left',
+          autoHideDelay: 5000,
+          isStatus: true,
+          noCloseButton: true,
+          solid: true
+        });
+      },
       async acceptRecommendation() {
         if (this.$auth.loggedIn) {
-          await this.$store.dispatch('set/acceptRecommendation', { setId: `/${this.$route.params.pathMatch}`, itemIds: new Array(this.value) });
+          this.$store.dispatch('set/acceptRecommendation', { setId: `/${this.$route.params.pathMatch}`, itemIds: new Array(this.value) });
           await this.$store.dispatch('set/addItem', { setId: this.$store.state.set.active.id, itemId: this.value });
           this.$store.dispatch('set/refreshSet');
+          this.makeToast();
         } else {
           this.$goto('/account/login');
         }
