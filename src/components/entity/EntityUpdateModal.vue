@@ -19,23 +19,21 @@
           rows="4"
         />
       </b-form-group>
-      <div class="modal-footer">
+      <div class="modal-footer pt-2">
         <b-button
           variant="outline-primary"
           @click="$bvModal.hide('entityUpdateModal')"
         >
           {{ $t('actions.close') }}
         </b-button>
-        <div class="d-flex">
-          <b-button
-            variant="primary"
-            type="submit"
-            :disabled="disableSubmit"
-            data-qa="submit button"
-          >
-            {{ $t('collections.actions.update') }}
-          </b-button>
-        </div>
+        <b-button
+          variant="primary"
+          type="submit"
+          :disabled="disableSubmit"
+          data-qa="submit button"
+        >
+          {{ $t('collections.actions.update') }}
+        </b-button>
       </div>
     </b-form>
   </b-modal>

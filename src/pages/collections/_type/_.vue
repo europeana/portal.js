@@ -20,7 +20,6 @@
               <div class="d-inline-flex">
                 <b-button
                   variant="outline-primary"
-                  class="text-decoration-none mr-2"
                   @click="$bvModal.show('entityUpdateModal')"
                 >
                   {{ $t('actions.edit') }}
