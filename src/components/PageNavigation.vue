@@ -69,7 +69,7 @@
           v-b-toggle.menu
           data-qa="log in button"
           class="nav-link"
-          :to="{ name: 'account-login' }"
+          @click="login"
         >
           <span :class="renderIcon('/account/login')" />
           <span>
@@ -83,11 +83,15 @@
 
 <script>
   import SmartLink from './generic/SmartLink';
+  import login from '../mixins/login';
 
   export default {
     components: {
       SmartLink
     },
+    mixins: [
+      login
+    ],
     props: {
       links: {
         type: Array,

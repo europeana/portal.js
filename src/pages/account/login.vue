@@ -3,18 +3,17 @@
 </template>
 
 <script>
+  import login from '../../mixins/login';
+
   export default {
     layout: 'minimal',
+    mixins: [
+      login
+    ],
 
     created() {
-      this.$auth.$storage.setUniversal('portalLoggingIn', true);
-      this.$auth.loginWith('keycloak');
-    },
-
-    beforeRouteEnter(to, from, next) {
-      next(vm => {
-        vm.$auth.$storage.setUniversal('redirect', from.fullPath);
-      });
+      this.login();
     }
+
   };
 </script>
