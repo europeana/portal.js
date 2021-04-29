@@ -95,6 +95,7 @@
     mounted() {
       this.$announcer.setComplementRoute(this.$t('pageHasLoaded'));
 
+      console.log('test', process.client, window.klaro);
       if (process.client) {
         if (typeof window.klaro !== 'undefined') {
           window.klaro.render(klaroConfig, true);
@@ -139,10 +140,12 @@
           { hreflang: 'x-default', rel: 'alternate', href: this.canonicalUrlWithoutLocale },
           ...i18nSeo.link
         ],
-        script: this.$exp.$experimentIndex > -1 && this.$config.googleOptimize.id ? [
-          { src: `https://www.googleoptimize.com/optimize.js?id=${this.$config.googleOptimize.id}` },
+        script: [
           { src: 'https://unpkg.com/klaro@0.7.11/dist/klaro-no-css.js', defer: true }
-        ] : [],
+        ]
+          .concat(this.$exp.$experimentIndex > -1 && this.$config.googleOptimize.id ? [
+            { src: `https://www.googleoptimize.com/optimize.js?id=${this.$config.googleOptimize.id}` }
+          ] : []),
         meta: [
           { hid: 'description', property: 'description', content: 'Europeana' },
           { hid: 'og:url', property: 'og:url', content: this.canonicalUrl },

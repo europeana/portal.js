@@ -6,7 +6,7 @@ export const klaroConfig = {
   translations: {
     en: {
       consentNotice: {
-        description: 'Hi! Could you please enable some additional services for {purposes}? You can always change or withdraw your consent after 15 days.'
+        description: 'We care about your privacy and only use data to improve your experience. We don’t use any personal information for advertising. You can change your consent every 15 days.'
       },
       purposes: {
         performance: {
