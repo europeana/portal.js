@@ -6,7 +6,8 @@ export const klaroConfig = {
   translations: {
     en: {
       consentNotice: {
-        description: 'We care about your privacy and only use data to improve your experience. We don’t use any personal information for advertising. You can change your consent every 15 days.'
+        description: `We care about your privacy and only use data to improve your experience. We don’t use any personal information for advertising. 
+        You can change your consent every 15 days.`
       },
       purposes: {
         performance: {
@@ -148,7 +149,7 @@ export const klaroConfig = {
   acceptAll: true,
   callback: (consent, service) => {
     console.log(
-      'User consent for service ' + service.name + ': consent=' + consent
+      `User consent for service ${service.name}: consent=${consent}`
     );
   }
 };
