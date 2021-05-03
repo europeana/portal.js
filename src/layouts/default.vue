@@ -95,12 +95,7 @@
     mounted() {
       this.$announcer.setComplementRoute(this.$t('pageHasLoaded'));
 
-      console.log('test', process.client, window.klaro);
-      if (process.client) {
-        if (typeof window.klaro !== 'undefined') {
-          window.klaro.render(klaroConfig, true);
-        }
-      }
+      this.renderKlaro();
 
       if (this.$auth.$storage.getUniversal('portalLoggingIn') && this.$auth.loggedIn) {
         this.showToast(this.$t('account.notifications.loggedIn'));
@@ -122,6 +117,14 @@
           noCloseButton: true,
           solid: true
         });
+      },
+      renderKlaro() {
+        if (process.client) {
+          if (typeof window.klaro !== 'undefined') {
+            window.klaro.render(klaroConfig, true);
+          }
+        }
+        return null;
       }
     },
 

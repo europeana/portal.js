@@ -4,7 +4,6 @@ import Vuex from 'vuex';
 import sinon from 'sinon';
 
 import layout from '../../../src/layouts/default';
-// import { klaroConfig } from '../../../src/plugins/klaro-config';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
@@ -14,13 +13,16 @@ const store = new Vuex.Store({
   state: { breadcrumb: {} }
 });
 
-const factory = () => shallowMount(layout, {
+const factory = (renderKlaro) => shallowMount(layout, {
   localVue,
   store,
   data() {
     return {
       enableAnnouncer: true
     };
+  },
+  methods: {
+    renderKlaro: renderKlaro || sinon.spy()
   },
   mocks: {
     $t: key => key,
@@ -44,9 +46,7 @@ const factory = () => shallowMount(layout, {
     VueAnnouncer: { template: '<div id="announcer" aria-live="polite"></div>' },
     nuxt: true,
     PageHeader: true,
-    PageFooter: true,
-    // Klaro: process.client && typeof window.klaro !== 'undefined' ? window.klaro.render(klaroConfig, true) : null,
-    Klaro: { template: '<div id="eu-klaro"></div>' }
+    PageFooter: true
   }
 });
 
@@ -60,8 +60,10 @@ describe('layouts/default.vue', () => {
 
   describe('Klaro', () => {
     it('is enabled', () => {
-      const wrapper = factory();
-      wrapper.find('#eu-klaro').exists().should.equal(true);
+      const renderKlaro = sinon.spy();
+      factory(renderKlaro);
+
+      renderKlaro.should.have.been.called;
     });
   });
 });
