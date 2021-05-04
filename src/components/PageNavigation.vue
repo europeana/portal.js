@@ -99,7 +99,7 @@
       }
     },
     data() {
-      const keycloakAccountUrl = `${this.$auth.strategy.options.origin}/auth/realms/${this.$auth.strategy.options.realm}/account?referrer=${this.$auth.strategy.options.client_id}`;
+      const keycloakAccountUrl = `${this.$auth.strategy.options.origin}/auth/realms/${this.$auth.strategy.options.realm}/account?referrer=${this.$auth.strategy.options.client_id}&referrer_uri=${this.$config.app.baseUrl}`;
 
       return {
         authLinks: [
