@@ -9,19 +9,25 @@ export const klaroConfig = {
         description: `We care about your privacy and only use data to improve your experience. We don’t use any personal information for advertising. 
         You can change your consent every 15 days.`
       },
+      consentModal: {
+        description: 'We take your data privacy seriously and do not record or share any personal information for advertising purposes. You\'re in charge! Enable or disable features as you see fit',
+        title: 'Recommended features'
+      },
       ok: 'Okay',
+      service: {
+        disableAll: {
+          description: 'Use this switch to enable or disable all optional features.',
+          title: 'Enable or disable all features'
+        }
+      },
       purposes: {
-        performance: {
-          title: 'Performance Optimization',
-          description: 'These services process personal information to optimize the service that this website offers.'
+        usage: {
+          title: 'Website speed, feedback, and usage',
+          description: 'These features use information to help us better understand how this website gets used.'
         },
-        marketing: {
-          title: 'Analytics and Feedback',
-          description: 'These services process personal information to help us better understand user behavior by tracking user flows and engagement.'
-        },
-        service: {
-          title: 'Service Provision',
-          description: 'These services are essential for the correct functioning of this website. You cannot disable them here as the service would not work correctly otherwise.'
+        essential: {
+          title: 'Essential features',
+          description: 'These features are essential for the correct functioning of this website. You cannot disable them here as the website would not work correctly otherwise.'
         }
       }
     }
@@ -29,7 +35,7 @@ export const klaroConfig = {
   services: [
     {
       name: 'searchResultsView',
-      purposes: ['performance'],
+      purposes: ['usage'],
       cookies: [
         'searchResultsView'
       ],
@@ -41,7 +47,7 @@ export const klaroConfig = {
     },
     {
       name: 'debugSettings',
-      purposes: ['performance'],
+      purposes: ['usage'],
       cookies: [
         'debugSettings'
       ],
@@ -66,7 +72,7 @@ export const klaroConfig = {
     // },
     {
       name: 'google-analytics',
-      purposes: ['marketing'],
+      purposes: ['usage'],
       cookies: [
         /^_ga(_.*)?/,
         '_gid'
@@ -79,7 +85,7 @@ export const klaroConfig = {
     },
     {
       name: 'hotjar',
-      purposes: ['marketing'],
+      purposes: ['usage'],
       cookies: [
         /^_hj(.*)?/
       ],
@@ -91,7 +97,7 @@ export const klaroConfig = {
     },
     {
       name: 'Google Optimize',
-      purposes: ['marketing'],
+      purposes: ['usage'],
       cookies: [
         '?'
       ],
@@ -103,7 +109,7 @@ export const klaroConfig = {
     },
     {
       name: '_cfduid',
-      purposes: ['service'],
+      purposes: ['essential'],
       cookies: [
         '_cfduid'
       ],
@@ -116,7 +122,7 @@ export const klaroConfig = {
     },
     {
       name: 'i18n',
-      purposes: ['service'],
+      purposes: ['essential'],
       cookies: [
         'i18n_locale_code'
       ],
@@ -129,7 +135,7 @@ export const klaroConfig = {
     },
     {
       name: 'auth.strategy',
-      purposes: ['service'],
+      purposes: ['essential'],
       cookies: [
         'auth.strategy'
       ],
