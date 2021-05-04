@@ -9,6 +9,7 @@ export const klaroConfig = {
         description: `We care about your privacy and only use data to improve your experience. We don’t use any personal information for advertising. 
         You can change your consent every 15 days.`
       },
+      ok: 'Okay',
       purposes: {
         performance: {
           title: 'Performance Optimization',
