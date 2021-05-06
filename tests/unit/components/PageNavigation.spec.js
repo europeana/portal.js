@@ -27,7 +27,8 @@ const factory = () => mount(PageNavigation, {
   mocks: {
     $t: (key) => key,
     $path: code => window.location.href + code,
-    $auth: { strategy: { options: {} } }
+    $auth: { strategy: { options: {} } },
+    $config: { app: { baseUrl: 'https://www.example.eu' } }
   }
 });
 
