@@ -15,7 +15,7 @@
         />
         <b-button
           class="recommendation-buttons icon-reject"
-          data-qa="like button"
+          data-qa="reject button"
           :aria-label="$t('actions.reject')"
           @click="rejectRecommendation"
         />

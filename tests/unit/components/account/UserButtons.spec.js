@@ -7,13 +7,15 @@ const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
 const identifier = '/123/abc';
+const setId = '/123/def';
+const itemIds = ['/123/ghi'];
 const storeDispatch = sinon.spy();
 const storeIsLikedGetter = sinon.stub();
 
-const factory = ({ storeState = {}, $auth = {} } = {}) => mount(UserButtons, {
+const factory = ({ storeState = {}, $auth = {}, recommendationFlag = false } = {}) => mount(UserButtons, {
   localVue,
   stubs: ['AddItemToSetModal', 'SetFormModal'],
-  propsData: { value: identifier },
+  propsData: { value: identifier, recommendedItem: recommendationFlag },
   mocks: {
     $auth,
     $goto: sinon.spy(),
@@ -197,6 +199,86 @@ describe('components/account/UserButtons', () => {
             await wrapper.vm.$nextTick();
             wrapper.emitted('unlike').should.eql([[identifier]]);
           });
+        });
+      });
+    });
+  });
+
+  describe('accept button', () => {
+    it('is visible', () => {
+      const wrapper = factory({ recommendationFlag: true });
+
+      const acceptButton = wrapper.find('[data-qa="accept button"]');
+
+      acceptButton.isVisible().should.be.true;
+    });
+
+    context('when user is not logged in', () => {
+      const $auth = { loggedIn: false };
+
+      context('when pressed', () => {
+        it('goes to login', () => {
+          const wrapper = factory({ $auth, recommendationFlag: true });
+
+          const acceptButton = wrapper.find('[data-qa="accept button"]');
+          acceptButton.trigger('click');
+
+          wrapper.vm.$goto.should.have.been.calledWith('/account/login');
+        });
+      });
+    });
+
+    context('when user is logged in', () => {
+      const $auth = { loggedIn: true };
+
+      context('when pressed', () => {
+        it('dispatches to accept recommended item', async() => {
+          const wrapper = factory({ $auth, recommendationFlag: true });
+
+          const acceptButton = wrapper.find('[data-qa="accept button"]');
+          acceptButton.trigger('click');
+
+          storeDispatch.should.have.been.calledWith('set/acceptRecommendation', { setId, itemIds });
+        });
+      });
+    });
+  });
+
+  describe('reject button', () => {
+    it('is visible', () => {
+      const wrapper = factory({ recommendationFlag: true });
+
+      const rejectButton = wrapper.find('[data-qa="reject button"]');
+
+      rejectButton.isVisible().should.be.true;
+    });
+
+    context('when user is not logged in', () => {
+      const $auth = { loggedIn: false };
+
+      context('when pressed', () => {
+        it('goes to login', () => {
+          const wrapper = factory({ $auth, recommendationFlag: true });
+
+          const rejectButton = wrapper.find('[data-qa="reject button"]');
+          rejectButton.trigger('click');
+
+          wrapper.vm.$goto.should.have.been.calledWith('/account/login');
+        });
+      });
+    });
+
+    context('when user is logged in', () => {
+      const $auth = { loggedIn: true };
+
+      context('when pressed', () => {
+        it('dispatches to reject recommended item', async() => {
+          const wrapper = factory({ $auth, recommendationFlag: true });
+
+          const rejectButton = wrapper.find('[data-qa="reject button"]');
+          rejectButton.trigger('click');
+
+          storeDispatch.should.have.been.calledWith('set/rejectRecommendation', { setId, itemIds });
         });
       });
     });
