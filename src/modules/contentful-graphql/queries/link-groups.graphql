@@ -1,12 +1,11 @@
 query LinkGroups(
   $locale: String!,
-  $linkGroups: Boolean = true,
   $preview: Boolean = false
 ) {
-  footerMoreInfo: linkGroupCollection(preview: $preview, locale: $locale, limit: 1, where: { identifier: "footerMoreInfo" }) @include(if: $linkGroups) {
+  footerMoreInfo: linkGroupCollection(preview: $preview, locale: $locale, limit: 1, where: { identifier: "footerMoreInfo" }) {
     ...linkGroupFields
   }
-  footerHelp: linkGroupCollection(preview: $preview, locale: $locale, limit: 1, where: { identifier: "footerHelp" }) @include(if: $linkGroups) {
+  footerHelp: linkGroupCollection(preview: $preview, locale: $locale, limit: 1, where: { identifier: "footerHelp" }) {
     ...linkGroupFields
   }
 }
