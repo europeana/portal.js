@@ -13,9 +13,7 @@ export default $i18n => {
     elementID: 'eu-klaro',
     storageMethod: 'cookie',
     cookieExpiresAfterDays: 15,
-    // TODO: remove when we have translations; needed in the meantime else Klaro
-    //       tries to use its own, detecting user's language from HTML lang attribute
-    lang: 'en',
+    lang: locale,
     translations: translations('klaro.main'),
     services: [
       {
