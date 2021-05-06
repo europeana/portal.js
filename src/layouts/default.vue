@@ -21,6 +21,7 @@
     <PageHeader
       keep-alive
     />
+    <FeedbackModal />
     <main
       id="default"
       role="main"
@@ -44,6 +45,7 @@
   import { mapGetters, mapState } from 'vuex';
   import ClientOnly from 'vue-client-only';
   import PageHeader from '../components/PageHeader';
+  import FeedbackModal from '../components/generic/FeedbackModal.vue';
 
   const config = {
     bootstrapVersion: require('bootstrap/package.json').version,
@@ -55,7 +57,8 @@
       ClientOnly,
       CookieDisclaimer: () => import('../components/generic/CookieDisclaimer'),
       PageHeader,
-      PageFooter: () => import('../components/PageFooter')
+      PageFooter: () => import('../components/PageFooter'),
+      FeedbackModal
     },
 
     data() {

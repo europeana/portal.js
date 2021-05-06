@@ -29,7 +29,9 @@ export default {
     "edit": "Edit",
     "goBack": "Go back",
     "like": "Like",
+    "next": "Next",
     "providedBy": "Provided by {provider}",
+    "send": "Send",
     "share": "Share",
     "shareOn": "Share on {social}",
     "viewAt": "View at {link}",
@@ -383,6 +385,9 @@ export default {
         "VIDEO": "Video"
       }
     }
+  },
+  "feedback": {
+    "success": "Your feedback has been sent. Thank you!"
   },
   "fieldLabels": {
     "default": {
