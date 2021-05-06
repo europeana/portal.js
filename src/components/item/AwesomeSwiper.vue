@@ -133,8 +133,6 @@
     .swiper-slide {
       width: 100%;
       min-width: 16rem;
-      display: flex;
-      align-items: center;
 
       @media (min-width: $bp-medium) {
         width: auto;
@@ -163,12 +161,6 @@
         margin-left: auto;
         margin-right: auto;
       }
-    }
-
-    .container {
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
 
     .swiper-button-prev, .swiper-button-next {
