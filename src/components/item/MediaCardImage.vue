@@ -3,6 +3,7 @@
     v-if="imageLink && media.thumbnails['large'] && !media.isShownAt"
     :href="imageLink"
     target="_blank"
+    class="h-100 d-flex align-items-center justify-content-center"
   >
     <component
       :is="lazy ? 'b-img-lazy' : 'b-img'"
@@ -17,14 +18,18 @@
       ({{ $t('newWindow') }})
     </span>
   </b-link>
-  <component
-    :is="lazy ? 'b-img-lazy' : 'b-img'"
+  <div
     v-else-if="media.thumbnails['large']"
-    :src="media.thumbnails['large']"
-    alt=""
-    class="mw-100"
-    data-qa="media preview image"
-  />
+    class="h-100 d-flex align-items-center justify-content-center"
+  >
+    <component
+      :is="lazy ? 'b-img-lazy' : 'b-img'"
+      :src="media.thumbnails['large']"
+      alt=""
+      class="mw-100"
+      data-qa="media preview image"
+    />
+  </div>
 </template>
 
 <script>
@@ -56,9 +61,7 @@
 @import '../../assets/scss/variables.scss';
 
 img {
-  @media (max-width: $bp-medium) {
-    max-height: 100%;
-    height: auto;
-  }
+  max-height: 100%;
+  height: auto;
 }
 </style>
