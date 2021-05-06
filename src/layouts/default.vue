@@ -44,7 +44,7 @@
   import { mapGetters, mapState } from 'vuex';
   import ClientOnly from 'vue-client-only';
   import PageHeader from '../components/PageHeader';
-  import { klaroConfig } from '../plugins/klaro-config';
+  import klaroConfig from '../plugins/klaro-config';
 
   const config = {
     bootstrapVersion: require('bootstrap/package.json').version,
@@ -121,7 +121,7 @@
       renderKlaro() {
         if (process.client) {
           if (typeof window.klaro !== 'undefined') {
-            window.klaro.render(klaroConfig, true);
+            window.klaro.render(klaroConfig(this.$i18n), true);
           }
         }
         return null;
