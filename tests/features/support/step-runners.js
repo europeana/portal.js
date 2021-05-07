@@ -149,6 +149,11 @@ module.exports = {
   async openAPage(pageName) {
     await client.url(pageUrl(pageName));
   },
+  async acceptKlaroCookies() {
+    // new cookie banner
+    await client.expect.element('#eu-klaro').to.be.visible;
+    await client.click('#eu-klaro .cm-btn-success');
+  },
   async havePreviouslyAcceptedCookies() {
     /* eslint-disable prefer-arrow-callback */
     /* DO NOT MAKE INTO A ARROW FUNCTION - If you do, it will break the tests */

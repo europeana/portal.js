@@ -39,8 +39,7 @@
           windows: [
             {
               manifestId: this.uri,
-              thumbnailNavigationPosition: 'far-bottom',
-              defaultSearchQuery: this.searchQuery
+              thumbnailNavigationPosition: 'far-bottom'
             }
           ],
           window: {
@@ -107,6 +106,13 @@
           if ((action.annotationJson.resources.length > 0)) {
             const windowId = Object.keys(this.mirador.store.getState().windows)[0];
             if (!this.showAnnotations) {
+              if (this.searchQuery) {
+                const companionWindowId = Object.keys(this.mirador.store.getState().companionWindows)[0];
+                const searchId = `${this.manifest.service['@id']}?q=${this.searchQuery}`;
+
+                const actionSearch = window.Mirador.actions.fetchSearch(windowId, companionWindowId, searchId, this.searchQuery);
+                this.mirador.store.dispatch(actionSearch);
+              }
               const action = window.Mirador.actions.toggleWindowSideBar(windowId);
               this.mirador.store.dispatch(action);
               this.showAnnotations = true;

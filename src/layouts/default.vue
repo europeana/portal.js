@@ -43,6 +43,7 @@
   import { mapGetters, mapState } from 'vuex';
   import ClientOnly from 'vue-client-only';
   import PageHeader from '../components/PageHeader';
+  import klaroConfig from '../plugins/klaro-config';
 
   const config = {
     bootstrapVersion: require('bootstrap/package.json').version,
@@ -90,6 +91,10 @@
     },
 
     mounted() {
+      this.$announcer.setComplementRoute(this.$t('pageHasLoaded'));
+
+      this.renderKlaro();
+
       if (this.$auth.$storage.getUniversal('portalLoggingIn') && this.$auth.loggedIn) {
         this.showToast(this.$t('account.notifications.loggedIn'));
         this.$auth.$storage.removeUniversal('portalLoggingIn');
@@ -110,6 +115,14 @@
           noCloseButton: true,
           solid: true
         });
+      },
+      renderKlaro() {
+        if (process.client) {
+          if (typeof window.klaro !== 'undefined') {
+            window.klaro.render(klaroConfig(this.$i18n), true);
+          }
+        }
+        return null;
       }
     },
 
@@ -123,13 +136,17 @@
         link: [
           { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,700italic,400,600,700&subset=latin,greek,cyrillic&display=swap', body: true },
           { rel: 'stylesheet', href: `https://unpkg.com/bootstrap@${this.bootstrapVersion}/dist/css/bootstrap.min.css` },
+          { rel: 'stylesheet', href: 'https://cdn.kiprotect.com/klaro/v0.7.11/klaro.min.css' },
           { rel: 'stylesheet', href: `https://unpkg.com/bootstrap-vue@${this.bootstrapVueVersion}/dist/bootstrap-vue.min.css` },
           { hreflang: 'x-default', rel: 'alternate', href: this.canonicalUrlWithoutLocale },
           ...i18nSeo.link
         ],
-        script: this.$exp.$experimentIndex > -1 && this.$config.googleOptimize.id ? [
-          { src: `https://www.googleoptimize.com/optimize.js?id=${this.$config.googleOptimize.id}` }
-        ] : [],
+        script: [
+          { src: 'https://unpkg.com/klaro@0.7.11/dist/klaro-no-css.js', defer: true }
+        ]
+          .concat(this.$exp.$experimentIndex > -1 && this.$config.googleOptimize.id ? [
+            { src: `https://www.googleoptimize.com/optimize.js?id=${this.$config.googleOptimize.id}` }
+          ] : []),
         meta: [
           { hid: 'description', property: 'description', content: 'Europeana' },
           { hid: 'og:url', property: 'og:url', content: this.canonicalUrl },

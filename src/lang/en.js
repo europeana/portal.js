@@ -3,7 +3,7 @@ export default {
     "likes": "Likes",
     "linkAccount": "My Account",
     "linkLogin": "Login",
-    "linkLoginJoin": "Login/Join",
+    "linkLoginJoin": "Log in / Join",
     "linkLogout": "Log out",
     "myProfile": "My Profile",
     "notifications": {
@@ -489,6 +489,60 @@ export default {
     "itemCount": "1 item |{count} items",
     "itemOf": "{max} of {count} items",
     "youMightLike": "Items you might like"
+  },
+  "klaro": {
+    "main": {
+      "consentNotice": {
+        "description": "We care about your privacy and only use data to improve your experience. We don’t use any personal information for advertising. You can change your consent every 15 days."
+      },
+      "consentModal": {
+        "description": "We take your data privacy seriously and do not record or share any personal information for advertising purposes. You're in charge! Enable or disable features as you see fit",
+        "title": "Recommended features"
+      },
+      "ok": "Okay",
+      "service": {
+        "disableAll": {
+          "description": "Use this switch to enable or disable all optional features.",
+          "title": "Enable or disable all features"
+        }
+      },
+      "purposes": {
+        "usage": {
+          "title": "Website speed, feedback, and usage",
+          "description": "These features use information to help us better understand how this website gets used."
+        },
+        "essential": {
+          "title": "Essential features",
+          "description": "These features are essential for the correct functioning of this website. You cannot disable them here as the website would not work correctly otherwise."
+        }
+      }
+    },
+    "services": {
+      "auth-strategy": {
+        "title": "Auth Strategy"
+      },
+      "cloudflare": {
+        "title": "Cloudflare"
+      },
+      "debugSettings": {
+        "title": "Debug toggle"
+      },
+      "google-analytics": {
+        "title": "Google Analytics"
+      },
+      "google-optimize": {
+        "title": "Google Optimize"
+      },
+      "hotjar": {
+        "title": "Hotjar"
+      },
+      "i18n": {
+        "title": "Language code"
+      },
+      "searchResultsView": {
+        "title": "Search results view"
+      }
+    }
   },
   "layout": {
     "skipToMain": "Skip to page contents"

@@ -13,13 +13,16 @@ const store = new Vuex.Store({
   state: { breadcrumb: {} }
 });
 
-const factory = () => shallowMount(layout, {
+const factory = (renderKlaro) => shallowMount(layout, {
   localVue,
   store,
   data() {
     return {
       enableAnnouncer: true
     };
+  },
+  methods: {
+    renderKlaro: renderKlaro || sinon.spy()
   },
   mocks: {
     $t: key => key,
@@ -51,6 +54,15 @@ describe('layouts/default.vue', () => {
     it('is enabled', () => {
       const wrapper = factory();
       wrapper.find('#announcer').exists().should.equal(true);
+    });
+  });
+
+  describe('Klaro', () => {
+    it('is enabled', () => {
+      const renderKlaro = sinon.spy();
+      factory(renderKlaro);
+
+      renderKlaro.should.have.been.called;
     });
   });
 });
