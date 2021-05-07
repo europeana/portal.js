@@ -14,6 +14,9 @@ describe('pages/account/login.vue', () => {
             $storage: {
               setUniversal: authStorageSetUniversal
             }
+          },
+          $i18n: {
+            locale: 'en'
           }
         }
       });
