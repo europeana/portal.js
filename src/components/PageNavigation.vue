@@ -69,7 +69,8 @@
           v-b-toggle.menu
           data-qa="log in button"
           class="nav-link"
-          @click="login"
+          :href="$path({ name: 'account-login', query: { redirect: $route.fullPath } })"
+          @click.prevent="login"
         >
           <span :class="renderIcon('/account/login')" />
           <span>
