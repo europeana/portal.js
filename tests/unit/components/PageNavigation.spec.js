@@ -28,7 +28,8 @@ const factory = () => mount(PageNavigation, {
     $t: (key) => key,
     $path: code => window.location.href + code,
     $auth: { strategy: { options: {} } },
-    $config: { app: { baseUrl: 'https://www.example.eu' } }
+    $config: { app: { baseUrl: 'https://www.example.eu' } },
+    localePath: path => path
   }
 });
 

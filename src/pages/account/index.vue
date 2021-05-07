@@ -148,7 +148,8 @@
 
     computed: {
       keycloakAccountUrl() {
-        return `${this.$auth.strategy.options.origin}/auth/realms/${this.$auth.strategy.options.realm}/account?referrer=${this.$auth.strategy.options.client_id}&referrer_uri=${this.$config.app.baseUrl}`;
+        return `${this.$auth.strategy.options.origin}/auth/realms/${this.$auth.strategy.options.realm}/account?
+        referrer=${this.$auth.strategy.options.client_id}&kc_locale=${this.$i18n.locale}&referrer_uri=${this.$config.app.baseUrl}`;
       },
 
       ...mapState({

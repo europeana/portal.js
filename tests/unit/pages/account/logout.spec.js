@@ -76,7 +76,10 @@ describe('pages/account/logout.vue', () => {
               }
             }
           },
-          $goto: sinon.spy()
+          $goto: sinon.spy(),
+          $i18n: {
+            locale: 'en'
+          }
         }
       });
 
