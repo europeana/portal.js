@@ -5,6 +5,13 @@
   >
     <client-only>
       <b-button
+        v-show="showPins"
+        class="icon-push-pin"
+        data-qa="pin button"
+        :aria-label="$t('set.actions.addTo')"
+        @click="pinItem"
+      />
+      <b-button
         class="icon-ic-add"
         data-qa="add button"
         :aria-label="$t('set.actions.addTo')"
@@ -64,6 +71,10 @@
       value: {
         type: String,
         required: true
+      },
+      showPins: {
+        type: Boolean,
+        deafult: false
       }
     },
 
@@ -85,7 +96,6 @@
         return this.$store.state.set.likesId;
       }
     },
-
     methods: {
       clickCreateSet() {
         this.showFormModal = true;
@@ -130,6 +140,9 @@
       async unlike() {
         await this.$store.dispatch('set/unlike', this.value);
         this.$emit('unlike', this.value);
+      },
+      async pinItem() {
+        await this.$store.dispatch('entity/pin', this.value);
       },
       addToSet() {
         if (this.$auth.loggedIn) {

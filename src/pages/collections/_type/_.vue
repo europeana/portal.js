@@ -49,6 +49,7 @@
             :per-page="recordsPerPage"
             :route="route"
             :show-content-tier-toggle="false"
+            :show-pins="userIsEditor"
           />
         </b-col>
       </b-row>
@@ -99,6 +100,8 @@
         store.commit('entity/setEntity', null);
         store.commit('entity/setPage', null);
         store.commit('entity/setRelatedEntities', null);
+        store.commit('entity/setFeatureSetId', null);
+        store.commit('entity/setPinned', null);
       }
       store.commit('entity/setId', entityUri);
       // Get all curated entity names & genres and store, unless already stored
@@ -164,7 +167,9 @@
         entity: state => state.entity.entity,
         page: state => state.entity.page,
         relatedEntities: state => state.entity.relatedEntities,
-        recordsPerPage: state => state.entity.recordsPerPage
+        recordsPerPage: state => state.entity.recordsPerPage,
+        featured: state => state.entity.featured,
+        featuredSetId: state => state.entity.featuredSetId
       }),
       description() {
         return this.editorialDescription ? { values: [this.editorialDescription], code: null } : null;
@@ -207,6 +212,9 @@
         }
         return false;
       },
+      userIsEditor() {
+        return this.$store.state.auth.user && this.$store.state.auth.user.resource_access.entities && this.$store.state.auth.user.resource_access.entities.roles.includes('editor');
+      },
       route() {
         return {
           name: 'collections-type-all',
@@ -236,6 +244,9 @@
           .then(related => {
             this.$store.commit('entity/setRelatedEntities', related);
           });
+      }
+      if (this.userIsEditor) {
+        this.$store.dispatch('entity/getFeatured');
       }
     },
     methods: {

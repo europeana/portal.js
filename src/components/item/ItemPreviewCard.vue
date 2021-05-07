@@ -15,6 +15,7 @@
     <template v-slot:buttons>
       <UserButtons
         v-model="identifier"
+        :show-pins="showPins"
         @like="$emit('like', identifier)"
         @unlike="$emit('unlike', identifier)"
       />
@@ -55,6 +56,10 @@
       lazy: {
         type: Boolean,
         default: true
+      },
+      showPins: {
+        type: Boolean,
+        deafult: false
       }
     },
 

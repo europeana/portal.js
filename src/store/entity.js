@@ -7,7 +7,9 @@ export default {
     id: null,
     page: null,
     recordsPerPage: 24,
-    relatedEntities: null
+    relatedEntities: null,
+    pinned: null,
+    featureSetId: null
   }),
 
   mutations: {
@@ -25,6 +27,15 @@ export default {
     },
     setCuratedEntities(state, value) {
       state.curatedEntities = value;
+    },
+    setPins(state, value) {
+      state.pins = value;
+    },
+    setFeatureSetId(state, value) {
+      state.featureSetId = value;
+    },
+    setPinned(state, value) {
+      state.pinned = value;
     }
   },
 
@@ -81,6 +92,35 @@ export default {
       commit('search/set', ['overrideParams', overrideParams], { root: true });
 
       await dispatch('search/run', {}, { root: true });
+    },
+    getFeatured({ commit, state, dispatch }) {
+      const searchParams = {
+        query: 'type:EntityBestItemsSet',
+        qf: `subject:${state.id}`
+      };
+      return this.$apis.set.search(searchParams)
+        .then(searchResponse => {
+          searchResponse.data.total > 0 ? commit('setFeatureSetId', searchResponse.data.items[0]) : ({});
+          if (state.featureSetId) {
+            // set exists
+            dispatch('getPins', state.featuredSetId);
+          }
+        });
+    },
+    pin({ dispatch, state }, itemId) {
+      return this.$apis.set.modifyItems('add', state.featureSetId, itemId)
+        .then(() => {
+          dispatch('getPins', state.featureSetId);
+        })
+        .catch(() => {
+          dispatch('getPins', state.featuredSetId);
+        });
+    },
+    getPins({ state, commit }) {
+      return this.$apis.set.getSet(state.featureSetId, {
+        pageSize: 100,
+        profile: 'itemDescriptions'
+      }).then(featured => featured.pinned ? commit('setFeatured', featured.items.slice(0, featured.pinned - 1)) : []);
     }
   }
 };
