@@ -69,7 +69,7 @@
           v-b-toggle.menu
           data-qa="log in button"
           class="nav-link"
-          :to="{ name: 'account-login' }"
+          :to="localePath({ name: 'account-login' })"
         >
           <span :class="renderIcon('/account/login')" />
           <span>
