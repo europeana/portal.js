@@ -178,7 +178,7 @@
       async acceptRecommendation() {
         if (this.$auth.loggedIn) {
           this.$store.dispatch('set/acceptRecommendation', { setId: `/${this.$route.params.pathMatch}`, itemIds: new Array(this.value) });
-          await this.$store.dispatch('set/addItem', { setId: this.$store.state.set.active.id, itemId: this.value });
+          await this.$store.dispatch('set/addItem', { setId: `http://data.europeana.eu/set/${this.$route.params.pathMatch}`, itemId: this.value });
           this.$store.dispatch('set/refreshSet');
           this.makeToast();
         } else {

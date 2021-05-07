@@ -8,7 +8,6 @@ localVue.use(BootstrapVue);
 
 const identifier = '/123/abc';
 const setId = '/123/def';
-const itemIds = ['/123/ghi'];
 const storeDispatch = sinon.spy();
 const storeIsLikedGetter = sinon.stub();
 
@@ -27,6 +26,9 @@ const factory = ({ storeState = {}, $auth = {}, recommendationFlag = false } = {
         'set/isLiked': storeIsLikedGetter
       },
       dispatch: storeDispatch
+    },
+    $route: {
+      params: { pathMatch: '123/def' }
     },
     $t: () => {}
   }
@@ -238,7 +240,8 @@ describe('components/account/UserButtons', () => {
           const acceptButton = wrapper.find('[data-qa="accept button"]');
           acceptButton.trigger('click');
 
-          storeDispatch.should.have.been.calledWith('set/acceptRecommendation', { setId, itemIds });
+          storeDispatch.should.have.been.calledWith('set/acceptRecommendation', { setId, itemIds: ['/123/abc'] });
+          storeDispatch.should.have.been.calledWith('set/addItem', { setId: `http://data.europeana.eu/set${setId}`, itemId: identifier });
         });
       });
     });
@@ -278,7 +281,7 @@ describe('components/account/UserButtons', () => {
           const rejectButton = wrapper.find('[data-qa="reject button"]');
           rejectButton.trigger('click');
 
-          storeDispatch.should.have.been.calledWith('set/rejectRecommendation', { setId, itemIds });
+          storeDispatch.should.have.been.calledWith('set/rejectRecommendation', { setId, itemIds: ['/123/abc'] });
         });
       });
     });
