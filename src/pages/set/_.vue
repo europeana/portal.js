@@ -170,6 +170,9 @@
     async fetch() {
       try {
         await this.$store.dispatch('set/fetchActive', this.$route.params.pathMatch);
+        if (this.enableRecommendations && this.$auth.loggedIn && this.userIsOwner) {
+          this.$store.dispatch('set/fetchActiveRecommendations', `/${this.$route.params.pathMatch}`);
+        }
       } catch (apiError) {
         if (process.server) {
           this.$nuxt.context.res.statusCode = apiError.statusCode;
@@ -245,7 +248,7 @@
     },
 
     mounted() {
-      if (this.enableRecommendations && this.$auth.loggedIn) {
+      if (!this.$fetchState.pending && this.enableRecommendations && this.$auth.loggedIn && this.userIsOwner) {
         try {
           this.$store.dispatch('set/fetchActiveRecommendations', `/${this.$route.params.pathMatch}`);
         } catch (apiError) {

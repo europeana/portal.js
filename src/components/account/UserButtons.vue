@@ -177,7 +177,7 @@
       },
       async acceptRecommendation() {
         if (this.$auth.loggedIn) {
-          this.$store.dispatch('set/acceptRecommendation', { setId: `/${this.$route.params.pathMatch}`, itemIds: new Array(this.value) });
+          this.$store.dispatch('set/acceptRecommendation', { setId: `/${this.$route.params.pathMatch}`, itemIds: [this.value] });
           await this.$store.dispatch('set/addItem', { setId: `http://data.europeana.eu/set/${this.$route.params.pathMatch}`, itemId: this.value });
           this.$store.dispatch('set/refreshSet');
           this.makeToast();
@@ -187,7 +187,7 @@
       },
       rejectRecommendation() {
         if (this.$auth.loggedIn) {
-          this.$store.dispatch('set/rejectRecommendation', { setId: `/${this.$route.params.pathMatch}`, itemIds: new Array(this.value) });
+          this.$store.dispatch('set/rejectRecommendation', { setId: `/${this.$route.params.pathMatch}`, itemIds: [this.value] });
         } else {
           this.$goto('/account/login');
         }

@@ -180,8 +180,8 @@ export default {
     acceptRecommendation({ state, commit }, params) {
       return this.$apis.recommendation.accept('set', params.setId, params.itemIds)
         .then(response => {
-          let recList = state.activeRecommendations.slice();
-          let index = recList.map((item) => {
+          const recList = state.activeRecommendations.slice();
+          const index = recList.map((item) => {
             return item.id;
           }).indexOf(params.itemIds[0]);
           recList.splice(index, 1, response.items[0]);
@@ -192,8 +192,8 @@ export default {
     rejectRecommendation({ state, commit }, params) {
       return this.$apis.recommendation.reject('set', params.setId, params.itemIds)
         .then(response => {
-          let recList = state.activeRecommendations.slice();
-          let index = recList.map((item) => {
+          const recList = state.activeRecommendations.slice();
+          const index = recList.map((item) => {
             return item.id;
           }).indexOf(params.itemIds[0]);
           recList.splice(index, 1, response.items[0]);
