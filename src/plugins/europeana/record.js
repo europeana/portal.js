@@ -292,7 +292,9 @@ export default (context = {}) => {
         path = '/record';
       }
 
-      return this.$axios.get(`${path}${europeanaId}.json`, { params: { profile: 'schemaOrg' } })
+      return this.$axios.get(`${path}${europeanaId}.json`, {
+        params: { ...this.$axios.defaults.params, profile: 'schemaOrg' }
+      })
         .then(response => this.parseRecordDataFromApiResponse(response.data))
         .then(parsed => reduceLangMapsForLocale(parsed, options.locale))
         .then(reduced => ({
