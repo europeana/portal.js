@@ -1,5 +1,4 @@
 #eu-klaro {
-
   .cookie-notice {
     background: $white;
     .cn-decline {
@@ -92,17 +91,25 @@
     }
 
     .cm-list-input {
+      + .cm-list-label .slider {
+        border: 5px solid $lightgrey;
+        &:before {
+          border: 5px solid $lightgrey;
+          top: -5px;
+          left: -5px;
+          height: 30px;
+          width: 30px;
+          background: $white;
+        }
+      }
+
       &:checked + .cm-list-label .slider {
         background-color: $innovationblue;
         border: 5px solid $innovationblue;
         opacity: 1;
 
         &:before {
-          border: 5px solid $innovationblue;
-          top: -5px;
-          left: -5px;
-          height: 30px;
-          width: 30px;
+          border-color: $innovationblue;
         }
       }
 
@@ -111,11 +118,7 @@
         border: 5px solid $mediumgrey;
 
         &:before {
-          border: 5px solid $mediumgrey;
-          top: -5px;
-          left: -5px;
-          height: 30px;
-          width: 30px;
+          border-color: $mediumgrey;
         }
       }
 
@@ -124,11 +127,7 @@
         border: 5px solid $lightgreen;
 
         &:before {
-          border: 5px solid $lightgreen;
-          top: -5px;
-          left: -5px;
-          height: 30px;
-          width: 30px;
+          border-color: $lightgreen;
         }
       }
     }

@@ -47,7 +47,8 @@
 
   const config = {
     bootstrapVersion: require('bootstrap/package.json').version,
-    bootstrapVueVersion: require('bootstrap-vue/package.json').version
+    bootstrapVueVersion: require('bootstrap-vue/package.json').version,
+    klaroVersion: '0.7.18'
   };
 
   export default {
@@ -117,10 +118,8 @@
         });
       },
       renderKlaro() {
-        if (process.client) {
-          if (typeof window.klaro !== 'undefined') {
-            window.klaro.render(klaroConfig(this.$i18n), true);
-          }
+        if (typeof window.klaro !== 'undefined') {
+          window.klaro.render(klaroConfig(this.$i18n), true);
         }
         return null;
       }
@@ -136,13 +135,13 @@
         link: [
           { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,700italic,400,600,700&subset=latin,greek,cyrillic&display=swap', body: true },
           { rel: 'stylesheet', href: `https://unpkg.com/bootstrap@${this.bootstrapVersion}/dist/css/bootstrap.min.css` },
-          { rel: 'stylesheet', href: 'https://cdn.kiprotect.com/klaro/v0.7.11/klaro.min.css' },
+          { rel: 'stylesheet', href: `https://cdn.kiprotect.com/klaro/v${this.klaroVersion}/klaro.min.css` },
           { rel: 'stylesheet', href: `https://unpkg.com/bootstrap-vue@${this.bootstrapVueVersion}/dist/bootstrap-vue.min.css` },
           { hreflang: 'x-default', rel: 'alternate', href: this.canonicalUrlWithoutLocale },
           ...i18nSeo.link
         ],
         script: [
-          { src: 'https://unpkg.com/klaro@0.7.11/dist/klaro-no-css.js', defer: true }
+          { src: `https://unpkg.com/klaro@${this.klaroVersion}/dist/klaro-no-css.js`, defer: true }
         ]
           .concat(this.$exp.$experimentIndex > -1 && this.$config.googleOptimize.id ? [
             { src: `https://www.googleoptimize.com/optimize.js?id=${this.$config.googleOptimize.id}` }

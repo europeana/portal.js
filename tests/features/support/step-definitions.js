@@ -14,10 +14,6 @@ defineParameterType({
   }
 });
 
-// TODO: remove the "old" cookie test
-defineStep('I accept cookies', () =>
-  i.acceptCookies());
-
 defineStep('I accept Klaro cookies', () =>
   i.acceptKlaroCookies());
 
