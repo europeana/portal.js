@@ -110,7 +110,6 @@
       store.commit('search/disableCollectionFacet');
 
       const entityUri = getEntityUri(params.type, params.pathMatch);
-
       if (entityUri !== store.state.entity.id) {
         // TODO: group as a reset action on the store?
         store.commit('entity/setId', null);
@@ -139,7 +138,7 @@
       return axios.all(
         [store.dispatch('entity/searchForRecords', query)]
           .concat(fetchEntity ? app.$apis.entity.getEntity(params.type, params.pathMatch) : () => {})
-          .concat(fetchEntity && app.$config.app.features.entityManagement ? app.$apis.entityManagement.getEntity(params.type, params.pathMatch) : () => {})
+          .concat(fetchEntity && app.$config.app.features.entityManagement  && app.$auth.user && app.$auth.user.resource_access.entities && app.$auth.user.resource_access.entities.roles.includes('editor') ? app.$apis.entityManagement.getEntity(params.type, params.pathMatch) : () => {})
           .concat(fetchFromContentful ? app.$contentful.query('collectionPage', contentfulVariables) : () => {})
       )
         .then(axios.spread((recordSearchResponse, entityResponse, entityManagementResponse, pageResponse) => {
