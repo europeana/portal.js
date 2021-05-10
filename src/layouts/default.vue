@@ -92,8 +92,6 @@
     },
 
     mounted() {
-      this.$announcer.setComplementRoute(this.$t('pageHasLoaded'));
-
       this.renderKlaro();
 
       if (this.$auth.$storage.getUniversal('portalLoggingIn') && this.$auth.loggedIn) {
