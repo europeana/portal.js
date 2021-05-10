@@ -24,6 +24,7 @@ export default {
     "title": "My account"
   },
   "actions": {
+    "cancel": "Cancel",
     "close": "close",
     "download": "Download",
     "edit": "Edit",

@@ -7,55 +7,55 @@
     hide-footer
     data-qa="feedback modal"
   >
-    <b-form-group
-      v-if="currentStep === 1"
-      id="step1"
-    >
-      <b-form-textarea
-        v-model="step1.feedback"
-        name="feedback"
-        placeholder="Enter your feedback here"
-      />
-      <b-button
-        variant="primary"
-        class="mt-4"
-        @click.prevent="goToStep(2)"
-      >
-        {{ $t('actions.next') }}
-      </b-button>
-    </b-form-group>
-    <b-form-group
-      v-if="currentStep === 2"
-      id="step2"
-    >
-      <b-form-input
-        v-model="step2.email"
-        type="email"
-        name="email"
-        placeholder="Enter your email address"
-      />
-
-      <b-button
-        variant="primary"
-        class="mt-4"
-        @click.prevent="goToStep(3)"
-      >
-        {{ $t('actions.send') }}
-      </b-button>
-    </b-form-group>
-    <div
-      v-if="currentStep == 3"
-      id="step3"
-    >
-      {{ $t('feedback.success') }}
-    </div>
-    <b-button
-      :variant="currentStep === 3 ? 'primary' : 'outline-primary'"
-      class="mt-4"
-      @click="$bvModal.hide('feedbackModal')"
-    >
-      {{ $t('actions.close') }}
-    </b-button>
+    <b-form>
+      <b-form-group>
+        <b-form-textarea
+          v-if="currentStep === 1"
+          id="step1"
+          v-model="step1.feedback"
+          name="feedback"
+          placeholder="Enter your feedback here"
+          rows="5"
+        />
+        <div
+          v-if="currentStep === 2"
+          id="step2"
+        >
+          <b-form-input
+            v-model="step2.email"
+            type="email"
+            name="email"
+            placeholder="Enter your email address"
+          />
+          <b-form-text id="input-live-help">
+            By continuing, you agree to our Terms of Service and acknowledge our Privacy Policy.
+          </b-form-text>
+        </div>
+        <div
+          v-if="currentStep == 3"
+          id="step3"
+          class="d-flex align-items-center"
+        >
+          <span class="icon-check_circle pr-3" />
+          {{ $t('feedback.success') }}
+        </div>
+        <b-button
+          v-if="currentStep !== 3"
+          :variant="'outline-primary'"
+          class="mt-3"
+          @click.prevent="$bvModal.hide('feedbackModal')"
+        >
+          {{ $t('actions.cancel') }}
+        </b-button>
+        <b-button
+          variant="primary"
+          class="button-next-step mt-3"
+          @click.prevent="currentStep === 3 ? $bvModal.hide('feedbackModal') : goToStep(currentStep + 1)"
+        >
+          {{ currentStep === 2 ? $t('actions.send') : currentStep === 3 ? $t('actions.close') : $t('actions.next') }}
+        </b-button>
+      </b-form-group>
+    </b-form>
   </b-modal>
 </template>
 
@@ -87,5 +87,48 @@
 
 <style lang="scss">
   @import '../../assets/scss/variables.scss';
+  .modal {
+    color: $mediumgrey;
+    .modal-dialog {
+      position: absolute;
+      right: 1rem;
+      bottom: 1rem;
+      margin: 0;
+      @media (min-width: $bp-small) {
+        width: 360px;
+      }
+    }
+    .modal-content {
+      .modal-header {
+        background-color: $innovationblue;
+        // border-bottom: none;
+        padding: 0.75rem 1rem 0.75rem 1rem;
+      }
+      .modal-title {
+        color: $white;
+        font-size: 1rem;
+        // font-weight: 600;
+      }
+      .modal-body {
+        padding: 1rem;
+        form .form-control {
+          padding: 0.75rem;
+        }
+      }
+    }
+  }
 
+  .form-text {
+    font-size: 0.875rem;
+    margin: 0.75rem 0 0 0;
+  }
+
+  .button-next-step {
+    float: right;
+  }
+
+  .icon-check_circle {
+    color: $innovationblue;
+    font-size: 2.5rem;
+  }
 </style>
