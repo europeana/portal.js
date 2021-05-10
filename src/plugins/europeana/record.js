@@ -186,10 +186,11 @@ export default (context = {}) => {
 
     /**
      * Parse the record data based on the data from the API response
-     * @param {Object} response data from API response
+     * @param {Object} edm data from API response
      * @return {Object} parsed data
      */
-    parseRecordDataFromApiResponse(edm) {
+    parseRecordDataFromApiResponse(data) {
+      const edm = data.object;
       const providerAggregation = edm.aggregations[0];
 
       const concepts = (edm.concepts || []).map(reduceEntity).map(Object.freeze);
@@ -220,7 +221,7 @@ export default (context = {}) => {
         concepts,
         timespans,
         title: proxyData.dcTitle,
-        schemaOrg: edm.schemaOrg
+        schemaOrg: data.schemaOrg
       };
     },
 
@@ -291,8 +292,8 @@ export default (context = {}) => {
         path = '/record';
       }
 
-      return this.$axios.get(`${path}${europeanaId}.json`, { params: { profile: 'schemaorg' } })
-        .then(response => this.parseRecordDataFromApiResponse(response.data.object))
+      return this.$axios.get(`${path}${europeanaId}.json`, { params: { profile: 'schemaOrg' } })
+        .then(response => this.parseRecordDataFromApiResponse(response.data))
         .then(parsed => reduceLangMapsForLocale(parsed, options.locale))
         .then(reduced => ({
           record: reduced,
