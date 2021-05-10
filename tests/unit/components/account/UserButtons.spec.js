@@ -16,7 +16,7 @@ const factory = ({ storeState = {}, $auth = {} } = {}) => mount(UserButtons, {
   propsData: { value: identifier },
   mocks: {
     $auth,
-    $goto: sinon.spy(),
+    login: sinon.spy(),
     $store: {
       state: {
         set: { ...{ liked: [] }, ...storeState }
@@ -60,7 +60,7 @@ describe('components/account/UserButtons', () => {
           const addButton = wrapper.find('[data-qa="add button"]');
           addButton.trigger('click');
 
-          wrapper.vm.$goto.should.have.been.calledWith('/account/login');
+          wrapper.vm.login.should.have.been.called;
         });
       });
     });
@@ -111,7 +111,7 @@ describe('components/account/UserButtons', () => {
           const likeButton = wrapper.find('[data-qa="like button"]');
           likeButton.trigger('click');
 
-          wrapper.vm.$goto.should.have.been.calledWith('/account/login');
+          wrapper.vm.login.should.have.been.called;
         });
       });
     });
