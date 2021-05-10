@@ -7,13 +7,13 @@
 
   export default {
     layout: 'minimal',
+
     mixins: [
       login
     ],
 
-    created() {
+    mounted() {
       this.login();
     }
-
   };
 </script>
