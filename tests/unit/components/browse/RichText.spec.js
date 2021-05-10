@@ -1,7 +1,7 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 
-import RichText from '../../../../components/browse/RichText.vue';
+import RichText from '../../../../src/components/browse/RichText.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);

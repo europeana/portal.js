@@ -1,7 +1,7 @@
 import { shallowMountNuxt } from '../../utils';
 import sinon from 'sinon';
 
-import page from '../../../../pages/account/login';
+import page from '../../../../src/pages/account/login';
 
 describe('pages/account/login.vue', () => {
   describe('beforeRouteEnter', () => {
@@ -14,6 +14,9 @@ describe('pages/account/login.vue', () => {
             $storage: {
               setUniversal: authStorageSetUniversal
             }
+          },
+          $i18n: {
+            locale: 'en'
           }
         }
       });

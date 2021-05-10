@@ -1,7 +1,7 @@
 import { shallowMountNuxt } from '../../utils';
 import sinon from 'sinon';
 
-import page from '../../../../pages/account/logout';
+import page from '../../../../src/pages/account/logout';
 
 describe('pages/account/logout.vue', () => {
   describe('beforeRouteEnter', () => {
@@ -65,7 +65,8 @@ describe('pages/account/logout.vue', () => {
             loginWith: sinon.spy(),
             logout: sinon.spy(),
             $storage: {
-              getUniversal: sinon.stub().withArgs('redirect').returns('/about-us')
+              getUniversal: sinon.stub().withArgs('redirect').returns('/about-us'),
+              setUniversal: sinon.spy()
             },
             strategies: {
               keycloak: {
@@ -75,7 +76,10 @@ describe('pages/account/logout.vue', () => {
               }
             }
           },
-          $goto: sinon.spy()
+          $goto: sinon.spy(),
+          $i18n: {
+            locale: 'en'
+          }
         }
       });
 

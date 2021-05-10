@@ -1,4 +1,4 @@
-import * as store from '../../../store/search';
+import store, { defaultFacetNames } from '../../../src/store/search';
 import sinon from 'sinon';
 
 describe('store/search', () => {
@@ -560,7 +560,7 @@ describe('store/search', () => {
         const userQf = 'TYPE:"IMAGE"';
         const overrideQf = 'edm_agent:"http://data.europeana.eu/agent/base/200"';
         const profile = 'minimal';
-        const facet = store.defaultFacetNames.join(',');
+        const facet = defaultFacetNames.join(',');
 
         const commit = sinon.spy();
         const dispatch = sinon.spy();

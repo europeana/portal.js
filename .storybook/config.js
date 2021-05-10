@@ -6,8 +6,8 @@ import VueI18n from 'vue-i18n';
 import Vuex from 'vuex';
 import BootstrapVue from 'bootstrap-vue';
 
-import '../plugins/vue-filters';
-import '../assets/scss/style.scss';
+import '../src/plugins/vue-filters';
+import '../src/assets/scss/style.scss';
 
 Vue.use(Vuex);
 Vue.use(VueI18n);
@@ -48,7 +48,7 @@ styleBootstrapVue.setAttribute('href', `https://cdn.jsdelivr.net/npm/bootstrap-v
 document.querySelector('head').insertBefore(styleBootstrapVue, document.querySelector('base'));
 
 // automatically import all files ending in *.stories.js from the components directory
-const req = require.context('../components', true, /.stories.js$/);
+const req = require.context('../src/components', true, /\.stories\.js$/);
 
 function loadStories() {
   req.keys().forEach(filename => {

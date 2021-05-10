@@ -4,8 +4,8 @@ import VueRouter from 'vue-router';
 import Vuex from 'vuex';
 import sinon from 'sinon';
 
-import SearchInterface from '../../../../components/search/SearchInterface.vue';
-import { defaultFacetNames } from '../../../../store/search';
+import SearchInterface from '../../../../src/components/search/SearchInterface.vue';
+import { defaultFacetNames } from '../../../../src/store/search';
 
 const localVue = createLocalVue();
 localVue.filter('localise', (number) => number);
@@ -323,7 +323,6 @@ describe('components/search/SearchInterface', () => {
     });
 
     describe('showContentTierToast', () => {
-      const elementId = 'tier-toast';
       let facets = [];
 
       context('in browser', () => {
@@ -344,10 +343,10 @@ describe('components/search/SearchInterface', () => {
               const wrapper = factory({
                 storeState: { facets }
               });
-              wrapper.vm.$bvToast.show = sinon.spy();
+              const rootBvToast = sinon.spy(wrapper.vm.$root.$bvToast, 'toast');
               global.sessionStorage.contentTierToastShown = false;
               await wrapper.vm.showContentTierToast();
-              wrapper.vm.$bvToast.show.should.have.been.calledWith(elementId);
+              rootBvToast.should.have.been.calledWith('facets.contentTier.notification', sinon.match.any);
             });
 
             it('updates session storage after toast is shown', async() => {
@@ -371,11 +370,11 @@ describe('components/search/SearchInterface', () => {
               const wrapper = factory({
                 storeState: { facets }
               });
-              wrapper.vm.$bvToast.show = sinon.spy();
+              const rootBvToast = sinon.spy(wrapper.vm.$root.$bvToast, 'toast');
 
               await wrapper.vm.showContentTierToast();
 
-              wrapper.vm.$bvToast.show.should.not.have.been.called;
+              rootBvToast.should.not.have.been.called;
             });
           });
         });
@@ -391,11 +390,11 @@ describe('components/search/SearchInterface', () => {
             const wrapper = factory({
               storeState: { facets }
             });
-            wrapper.vm.$bvToast.show = sinon.spy();
+            const rootBvToast = sinon.spy(wrapper.vm.$root.$bvToast, 'toast');
 
             await wrapper.vm.showContentTierToast();
 
-            wrapper.vm.$bvToast.show.should.not.have.been.called;
+            rootBvToast.should.not.have.been.called;
           });
         });
       });
@@ -407,11 +406,11 @@ describe('components/search/SearchInterface', () => {
 
         it('does not show the toast', async() => {
           const wrapper = factory();
-          wrapper.vm.$bvToast.show = sinon.spy();
+          const rootBvToast = sinon.spy(wrapper.vm.$root.$bvToast, 'toast');
 
           await wrapper.vm.showContentTierToast();
 
-          wrapper.vm.$bvToast.show.should.not.have.been.called;
+          rootBvToast.should.not.have.been.called;
         });
       });
     });
