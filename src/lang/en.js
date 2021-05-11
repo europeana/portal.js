@@ -36,6 +36,7 @@ export default {
     "send": "Send",
     "share": "Share",
     "shareOn": "Share on {social}",
+    "skip": "Skip",
     "viewAt": "View at {link}",
     "viewDocument": "View document"
   },

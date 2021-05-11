@@ -12,7 +12,7 @@
         <b-form-textarea
           v-if="currentStep === 1"
           id="step1"
-          v-model="step1.feedback"
+          v-model="feedback"
           name="feedback"
           placeholder="Enter your feedback here"
           rows="5"
@@ -22,7 +22,7 @@
           id="step2"
         >
           <b-form-input
-            v-model="step2.email"
+            v-model="email"
             type="email"
             name="email"
             placeholder="Enter your email address"
@@ -47,13 +47,24 @@
         >
           {{ $t('actions.cancel') }}
         </b-button>
-        <b-button
-          variant="primary"
-          class="button-next-step mt-3"
-          @click.prevent="currentStep === 3 ? $bvModal.hide('feedbackModal') : goToStep(currentStep + 1)"
-        >
-          {{ currentStep === 2 ? $t('actions.send') : currentStep === 3 ? $t('actions.close') : $t('actions.next') }}
-        </b-button>
+        <div class="button-group-right">
+          <b-button
+            v-if="currentStep === 2"
+            :variant="'outline-primary'"
+            class="mt-3"
+            @click.prevent="goToStep(currentStep + 1)"
+          >
+            {{ $t('actions.skip') }}
+          </b-button>
+          <b-button
+            variant="primary"
+            class="button-next-step mt-3"
+            :disabled="disableButton"
+            @click.prevent="currentStep === 3 ? $bvModal.hide('feedbackModal') : goToStep(currentStep + 1)"
+          >
+            {{ currentStep === 3 ? $t('actions.close') : $t('actions.next') }}
+          </b-button>
+        </div>
       </b-form-group>
     </b-form>
   </b-modal>
@@ -68,13 +79,21 @@
       return {
         modalShow: false,
         currentStep: 1,
-        step1: {
-          feedback: ''
-        },
-        step2: {
-          email: ''
-        }
+        feedback: '',
+        email: ''
+
       };
+    },
+    computed: {
+      disableButton() {
+        if (this.currentStep === 1) {
+          return !this.feedback;
+        } else if (this.currentStep === 2) {
+          return !this.email;
+        } else {
+          return false;
+        }
+      }
     },
 
     methods: {
@@ -123,11 +142,12 @@
       margin: 0.75rem 0 0 0;
     }
 
-    .button-next-step {
+    .button-group-right {
+      display: inline;
       float: right;
     }
 
-    .icon-check_circle {
+    .icon-check_circle::before {
       color: $innovationblue;
       font-size: 2.5rem;
     }
