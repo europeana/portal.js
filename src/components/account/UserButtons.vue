@@ -142,7 +142,20 @@
         this.$emit('unlike', this.value);
       },
       async pinItem() {
-        await this.$store.dispatch('entity/pin', this.value);
+        if (this.$store.getters['entity/featureSetId'] === null) {
+          await this.$store.dispatch('entity/createFeatureSet');
+        }
+
+        try {
+          await this.$store.dispatch('entity/pin', this.value);
+          this.$emit('pin', this.value);
+        } catch (e) {
+          if (e.message === '24 pins') {
+            this.$bvModal.show(this.pinLimitModalId);
+          } else {
+            throw e;
+          }
+        }
       },
       addToSet() {
         if (this.$auth.loggedIn) {

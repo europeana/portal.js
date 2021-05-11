@@ -53,6 +53,10 @@ export default {
 
     id(state) {
       return state.id ? state.id : null;
+    },
+
+    featureSetId(state) {
+      return state.featureSetId;
     }
   },
 

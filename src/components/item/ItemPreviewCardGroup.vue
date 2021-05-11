@@ -20,8 +20,8 @@
         :variant="cardVariant"
         class="item"
         :lazy="false"
-        data-qa="item preview"
         :show-pins="showPins"
+        data-qa="item preview"
         @like="$emit('like', item.id)"
         @unlike="$emit('unlike', item.id)"
       />
