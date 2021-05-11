@@ -6,6 +6,8 @@
     hide-header-close
     hide-footer
     data-qa="feedback modal"
+    @show="resetModal"
+    @hidden="resetModal"
   >
     <b-form>
       <b-form-group>
@@ -97,6 +99,11 @@
     },
 
     methods: {
+      resetModal() {
+        this.currentStep = 1;
+        this.feedback = '';
+        this.email = '';
+      },
       goToStep(step) {
         this.currentStep = step;
       },
