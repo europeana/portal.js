@@ -30,6 +30,9 @@
           height: 3rem;
           padding: 1rem;
           color: $black;
+          &:focus {
+            border-color: $innovationblue;
+          }
         }
 
         textarea.form-control {

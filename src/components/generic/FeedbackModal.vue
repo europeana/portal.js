@@ -66,7 +66,7 @@
 
     data() {
       return {
-        modalShow: true,
+        modalShow: false,
         currentStep: 1,
         step1: {
           feedback: ''
@@ -87,7 +87,8 @@
 
 <style lang="scss">
   @import '../../assets/scss/variables.scss';
-  .modal {
+
+  #feedbackModal {
     color: $mediumgrey;
     .modal-dialog {
       position: absolute;
@@ -116,19 +117,19 @@
         }
       }
     }
-  }
 
-  .form-text {
-    font-size: 0.875rem;
-    margin: 0.75rem 0 0 0;
-  }
+    .form-text {
+      font-size: 0.875rem;
+      margin: 0.75rem 0 0 0;
+    }
 
-  .button-next-step {
-    float: right;
-  }
+    .button-next-step {
+      float: right;
+    }
 
-  .icon-check_circle {
-    color: $innovationblue;
-    font-size: 2.5rem;
+    .icon-check_circle {
+      color: $innovationblue;
+      font-size: 2.5rem;
+    }
   }
 </style>

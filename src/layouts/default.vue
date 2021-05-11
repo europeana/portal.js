@@ -22,6 +22,7 @@
       keep-alive
     />
     <FeedbackModal />
+    <FeedbackButton />
     <main
       id="default"
       role="main"
@@ -46,6 +47,7 @@
   import ClientOnly from 'vue-client-only';
   import PageHeader from '../components/PageHeader';
   import FeedbackModal from '../components/generic/FeedbackModal.vue';
+  import FeedbackButton from '../components/generic/FeedbackButton.vue';
 
   const config = {
     bootstrapVersion: require('bootstrap/package.json').version,
@@ -58,7 +60,8 @@
       CookieDisclaimer: () => import('../components/generic/CookieDisclaimer'),
       PageHeader,
       PageFooter: () => import('../components/PageFooter'),
-      FeedbackModal
+      FeedbackModal,
+      FeedbackButton
     },
 
     data() {

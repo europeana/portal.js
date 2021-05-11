@@ -28,6 +28,7 @@ export default {
     "close": "close",
     "download": "Download",
     "edit": "Edit",
+    "feedback": "Feedback",
     "goBack": "Go back",
     "like": "Like",
     "next": "Next",
