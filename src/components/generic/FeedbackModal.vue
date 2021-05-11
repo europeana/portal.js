@@ -30,7 +30,17 @@
             placeholder="Enter your email address"
           />
           <b-form-text id="input-live-help">
-            By continuing, you agree to our Terms of Service and acknowledge our Privacy Policy.
+            <i18n
+              :path="'feedback.policies'"
+              tag="span"
+            >
+              <SmartLink :destination="'/rights'">
+                {{ $t('feedback.termsOfService') }}
+              </SmartLink>
+              <SmartLink :destination="'/rights/privacy-policy'">
+                {{ $t('feedback.privacyPolicy') }}
+              </SmartLink>
+            </i18n>
           </b-form-text>
         </div>
         <div
@@ -73,9 +83,13 @@
 </template>
 
 <script>
+  import SmartLink from './SmartLink';
 
   export default {
     name: 'FeedbackModal',
+    components: {
+      SmartLink
+    },
 
     data() {
       return {
@@ -152,6 +166,9 @@
     .form-text {
       font-size: 0.875rem;
       margin: 0.75rem 0 0 0;
+      a {
+        color: $mediumgrey;
+      }
     }
 
     .feedback-success {
