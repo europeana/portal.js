@@ -20,8 +20,12 @@
     bottom: 1rem;
     z-index: 1000;
     text-transform: capitalize;
-    padding: 0.8125rem;
+    padding: 0.875rem;
     line-height: 1;
+    border-color: $white;
+    @at-root .modal-open & {
+      visibility: hidden;
+    }
   }
   .icon-ic-feedback {
     font-size: 1.25rem;

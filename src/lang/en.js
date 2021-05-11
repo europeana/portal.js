@@ -392,8 +392,9 @@ export default {
   "feedback": {
     "policies": "By continuing, you agree to our {0} and acknowledge our {1}.",
     "privacyPolicy": "Privacy Policy",
-    "success": "Your feedback has been sent. Thank you!",
-    "termsOfService": "Terms of Service"
+    "success": "Your feedback has been sent.",
+    "termsOfService": "Terms of Service",
+    "thankYou": "Thank you!"
   },
   "fieldLabels": {
     "default": {

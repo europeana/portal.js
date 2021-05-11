@@ -6,6 +6,10 @@
     hide-header-close
     hide-footer
     data-qa="feedback modal"
+    no-close-on-backdrop
+    hide-backdrop
+    content-class="shadow"
+    scrollable
     @show="resetModal"
     @hidden="resetModal"
   >
@@ -34,12 +38,18 @@
               :path="'feedback.policies'"
               tag="span"
             >
-              <SmartLink :destination="'/rights'">
+              <b-link
+                :to="this.$path('/rights')"
+                target="_blank"
+              >
                 {{ $t('feedback.termsOfService') }}
-              </SmartLink>
-              <SmartLink :destination="'/rights/privacy-policy'">
+              </b-link>
+              <b-link
+                :to="this.$path('/rights/privacy-policy')"
+                target="_blank"
+              >
                 {{ $t('feedback.privacyPolicy') }}
-              </SmartLink>
+              </b-link>
             </i18n>
           </b-form-text>
         </div>
@@ -49,7 +59,10 @@
           class="feedback-success d-flex align-items-center"
         >
           <span class="icon-check_circle pr-3" />
-          {{ $t('feedback.success') }}
+          <span>
+            <p>{{ $t('feedback.success') }}</p>
+            <p>{{ $t('feedback.thankYou') }}</p>
+          </span>
         </div>
         <b-button
           v-if="currentStep !== 3"
@@ -72,6 +85,7 @@
             variant="primary"
             class="button-next-step mt-3"
             :disabled="disableButton"
+            :type="currentStep === 2 ? 'submit' : 'button'"
             @click.prevent="currentStep === 3 ? $bvModal.hide('feedbackModal') : currentStep === 2 ? sendFeedback() : goToStep(currentStep + 1)"
           >
             {{ currentStep === 3 ? $t('actions.close') : $t('actions.next') }}
@@ -83,13 +97,8 @@
 </template>
 
 <script>
-  import SmartLink from './SmartLink';
-
   export default {
     name: 'FeedbackModal',
-    components: {
-      SmartLink
-    },
 
     data() {
       return {
@@ -135,6 +144,7 @@
 
   #feedbackModal {
     color: $mediumgrey;
+    overflow: hidden;
     .modal-dialog {
       position: absolute;
       left: 1rem;
@@ -145,6 +155,12 @@
         left: auto;
         width: 360px;
       }
+    }
+    &.modal.fade .modal-dialog {
+      transform: translate(0, 50px);
+    }
+    &.modal.show .modal-dialog {
+      transform: none;
     }
     .modal-content {
       .modal-header {
@@ -163,6 +179,10 @@
       }
     }
 
+    .form-group {
+      margin-bottom: 0;
+    }
+
     .form-text {
       font-size: 0.875rem;
       margin: 0.75rem 0 0 0;
@@ -172,7 +192,10 @@
     }
 
     .feedback-success {
-      color: $mediumgrey;
+      color: $black;
+      p {
+        margin: 0;
+      }
     }
 
     .button-group-right {
