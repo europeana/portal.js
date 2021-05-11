@@ -14,6 +14,11 @@ describe('pages/account/login.vue', () => {
             loginWith: sinon.spy(),
             $storage: {
               setUniversal: authStorageSetUniversal
+            },
+            strategy: {
+              options: {
+                client_id: 'collections_portal'
+              }
             }
           },
           $i18n: {
