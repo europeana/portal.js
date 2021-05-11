@@ -52,7 +52,7 @@
             v-if="currentStep === 2"
             :variant="'outline-primary'"
             class="mt-3"
-            @click.prevent="goToStep(currentStep + 1)"
+            @click.prevent="sendFeedback"
           >
             {{ $t('actions.skip') }}
           </b-button>
@@ -60,7 +60,7 @@
             variant="primary"
             class="button-next-step mt-3"
             :disabled="disableButton"
-            @click.prevent="currentStep === 3 ? $bvModal.hide('feedbackModal') : goToStep(currentStep + 1)"
+            @click.prevent="currentStep === 3 ? $bvModal.hide('feedbackModal') : currentStep === 2 ? sendFeedback() : goToStep(currentStep + 1)"
           >
             {{ currentStep === 3 ? $t('actions.close') : $t('actions.next') }}
           </b-button>
@@ -99,6 +99,11 @@
     methods: {
       goToStep(step) {
         this.currentStep = step;
+      },
+      sendFeedback() {
+        // TODO: post request to Jira Service Desk API
+        console.log('Feedback has been send');
+        this.goToStep(this.currentStep + 1);
       }
     }
   };
