@@ -123,23 +123,23 @@
     color: $mediumgrey;
     .modal-dialog {
       position: absolute;
+      left: 1rem;
       right: 1rem;
       bottom: 1rem;
       margin: 0;
       @media (min-width: $bp-small) {
+        left: auto;
         width: 360px;
       }
     }
     .modal-content {
       .modal-header {
         background-color: $innovationblue;
-        // border-bottom: none;
         padding: 0.75rem 1rem 0.75rem 1rem;
       }
       .modal-title {
         color: $white;
         font-size: 1rem;
-        // font-weight: 600;
       }
       .modal-body {
         padding: 1rem;
