@@ -9,6 +9,7 @@ describe('pages/account/login.vue', () => {
       const authStorageSetUniversal = sinon.spy();
       const wrapper = shallowMountNuxt(page, {
         mocks: {
+          $config: { app: { baseUrl: 'https://www.example.eu' } },
           $auth: {
             loginWith: sinon.spy(),
             $storage: {
