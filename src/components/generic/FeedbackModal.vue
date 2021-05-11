@@ -36,7 +36,7 @@
         <div
           v-if="currentStep == 3"
           id="step3"
-          class="d-flex align-items-center"
+          class="feedback-success d-flex align-items-center"
         >
           <span class="icon-check_circle pr-3" />
           {{ $t('feedback.success') }}
@@ -152,6 +152,10 @@
     .form-text {
       font-size: 0.875rem;
       margin: 0.75rem 0 0 0;
+    }
+
+    .feedback-success {
+      color: $mediumgrey;
     }
 
     .button-group-right {
