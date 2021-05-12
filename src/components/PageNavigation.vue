@@ -99,12 +99,18 @@
       }
     },
     data() {
-      const keycloakAccountUrl = `${this.$auth.strategy.options.origin}/auth/realms/${this.$auth.strategy.options.realm}/account?referrer=${this.$auth.strategy.options.client_id}&referrer_uri=${this.$config.app.baseUrl}`;
+      const keycloakAccountUrl = new URL(
+        `/auth/realms/${this.$auth.strategy.options.realm}/account`, this.$auth.strategy.options.origin
+      );
+      keycloakAccountUrl.search = new URLSearchParams({
+        referrer: this.$auth.strategy.options.client_id,
+        'referrer_uri': this.$config.app.baseUrl
+      }).toString();
 
       return {
         authLinks: [
           { to: this.$path({ name: 'account' }), text: this.$t('account.myProfile'), name: '/account', dataQa: 'likes and galleries button' },
-          { href: keycloakAccountUrl, text: this.$t('account.profileSettings'), name: '/account/settings', dataQa: 'account settings button' },
+          { href: keycloakAccountUrl.toString(), text: this.$t('account.profileSettings'), name: '/account/settings', dataQa: 'account settings button' },
           { divider: true, name: 'divider' },
           { to: { name: 'account-logout' }, text: this.$t('account.linkLogout'), name: '/account/logout', dataQa: 'log out button' }
         ]
