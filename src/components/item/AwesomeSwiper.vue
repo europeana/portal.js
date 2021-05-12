@@ -13,7 +13,7 @@
     >
       <div
         v-if="singleMediaResource"
-        class="container h-100"
+        class="container h-100 d-flex justify-content-center align-items-center"
       >
         <MediaCard
           :europeana-identifier="europeanaIdentifier"
@@ -22,13 +22,17 @@
           :lazy="false"
         />
       </div>
-      <MediaCard
+      <div
         v-else
-        :europeana-identifier="europeanaIdentifier"
-        :media="item"
-        :is-single-playable-media="isSinglePlayableMedia"
-        :lazy="index > 0"
-      />
+        class="h-100 d-flex align-items-center justify-content-center"
+      >
+        <MediaCard
+          :europeana-identifier="europeanaIdentifier"
+          :media="item"
+          :is-single-playable-media="isSinglePlayableMedia"
+          :lazy="index > 0"
+        />
+      </div>
     </swiper-slide>
     <div
       slot="button-prev"

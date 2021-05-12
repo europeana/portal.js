@@ -3,7 +3,7 @@
     v-if="imageLink && media.thumbnails['large'] && !media.isShownAt"
     :href="imageLink"
     target="_blank"
-    class="h-100 d-flex align-items-center justify-content-center"
+    class="d-flex align-items-center justify-content-center"
   >
     <component
       :is="lazy ? 'b-img-lazy' : 'b-img'"
