@@ -43,6 +43,9 @@
             {{ $t('feedback.validEmail') }}
           </b-form-invalid-feedback>
           <b-form-text id="input-live-help">
+            <p class="mb-0">
+              {{ $t('feedback.emailOptional') }}
+            </p>
             <i18n
               :path="'feedback.policies'"
               tag="span"
@@ -71,13 +74,13 @@
           <span
             v-if="requestSuccess"
           >
-            <p>{{ $t('feedback.success') }}</p>
-            <p>{{ $t('feedback.thankYou') }}</p>
+            <p class="mb-0">{{ $t('feedback.success') }}</p>
+            <p class="mb-0">{{ $t('feedback.thankYou') }}</p>
           </span>
           <span
             v-else
           >
-            <p>{{ $t('feedback.failed') }}</p>
+            <p class="mb-0">{{ $t('feedback.failed') }}</p>
           </span>
         </div>
         <b-button
@@ -233,9 +236,6 @@
 
     .feedback-success {
       color: $black;
-      p {
-        margin: 0;
-      }
     }
 
     .button-group-right {
