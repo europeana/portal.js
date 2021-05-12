@@ -161,6 +161,9 @@ module.exports = {
     await client.expect.element('#eu-klaro').to.be.visible;
     await client.click('#eu-klaro .cm-btn-success');
   },
+  async seeKeycloakLoginForm() {
+    await client.expect.element('.kcform').to.be.visible;
+  },
   async havePreviouslyAcceptedCookies() {
     /* eslint-disable prefer-arrow-callback */
     /* DO NOT MAKE INTO A ARROW FUNCTION - If you do, it will break the tests */

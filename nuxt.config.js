@@ -248,7 +248,6 @@ module.exports = {
       parsePages: false,
       pages: {
         'account/callback': false,
-        'account/login': false,
         'account/logout': false
       },
       // Enable browser language detection to automatically redirect user

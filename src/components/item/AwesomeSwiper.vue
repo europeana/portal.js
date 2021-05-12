@@ -161,17 +161,6 @@
         margin-left: auto;
         margin-right: auto;
       }
-
-      a {
-        display: flex;
-        height: 100%;
-        align-items: center;
-        justify-content: center;
-
-        @media (min-width: $bp-medium) {
-          display: inline-flex;
-        }
-      }
     }
 
     .swiper-button-prev, .swiper-button-next {
