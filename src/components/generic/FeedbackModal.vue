@@ -186,10 +186,11 @@
   @import '../../assets/scss/variables.scss';
 
   #feedbackModal {
+    position: relative;
     color: $mediumgrey;
     overflow: hidden;
     .modal-dialog {
-      position: absolute;
+      position: fixed;
       left: 1rem;
       right: 1rem;
       bottom: 1rem;
