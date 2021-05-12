@@ -27,10 +27,6 @@ const factory = () => mount(PageNavigation, {
   mocks: {
     $t: (key) => key,
     $path: code => window.location.href + code,
-    $auth: { strategy: { options: {
-      origin: 'https://auth.example.org', realm: 'europeana', 'client_id': 'portal.js'
-    } } },
-    $config: { app: { baseUrl: 'https://www.example.eu' } },
     $route: { fullPath: '/fr' },
     localePath: path => path
   }
@@ -42,19 +38,5 @@ describe('components/PageNavigation', () => {
     const links = wrapper.find('[data-qa="main navigation"]');
 
     links.contains('Our partners');
-  });
-
-  describe('computed', () => {
-    describe('keycloakAccountUrl', () => {
-      it('includes referrer and referrer_uri', () => {
-        const wrapper = factory();
-
-        const keycloakAccountUrl = wrapper.vm.keycloakAccountUrl;
-
-        keycloakAccountUrl.should.eq(
-          'https://auth.example.org/auth/realms/europeana/account?referrer=portal.js&referrer_uri=https%3A%2F%2Fwww.example.eu'
-        );
-      });
-    });
   });
 });

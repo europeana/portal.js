@@ -118,6 +118,7 @@
 <script>
   import { mapState } from 'vuex';
 
+  import keycloak from '../../mixins/keycloak';
   import ItemPreviewCardGroup from '../../components/item/ItemPreviewCardGroup';
   import UserSets from '../../components/account/UserSets';
   import AlertMessage from '../../components/generic/AlertMessage';
@@ -133,6 +134,10 @@
       LoadingSpinner
     },
 
+    mixins: [
+      keycloak
+    ],
+
     async fetch() {
       this.fetchLikes();
       await this.$store.dispatch('set/fetchCreations');
@@ -147,11 +152,6 @@
     },
 
     computed: {
-      keycloakAccountUrl() {
-        return `${this.$auth.strategy.options.origin}/auth/realms/${this.$auth.strategy.options.realm}/account` +
-          `?referrer=${this.$auth.strategy.options.client_id}&kc_locale=${this.$i18n.locale}&referrer_uri=${this.$config.app.baseUrl}`;
-      },
-
       ...mapState({
         likesId: state => state.set.likesId,
         likedItems: state => state.set.likedItems

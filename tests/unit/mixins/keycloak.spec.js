@@ -1,7 +1,7 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import sinon from 'sinon';
 
-import mixin from '../../../src/mixins/login';
+import mixin from '../../../src/mixins/keycloak';
 
 const component = {
   template: '<div/>',
@@ -13,9 +13,9 @@ const factory = (mocks = {}) => shallowMount(component, {
   mocks
 });
 
-describe('mixins/login', () => {
+describe('mixins/keycloak', () => {
   describe('computed', () => {
-    describe('loginRedirect', () => {
+    describe('keycloakLoginRedirect', () => {
       it('favours redirect from route query', () => {
         const mocks = {
           $route: {
@@ -27,7 +27,7 @@ describe('mixins/login', () => {
         };
         const wrapper = factory(mocks);
 
-        wrapper.vm.loginRedirect.should.eq(mocks.$route.query.redirect);
+        wrapper.vm.keycloakLoginRedirect.should.eq(mocks.$route.query.redirect);
       });
 
       it('otherwise uses full path from route', () => {
@@ -38,13 +38,31 @@ describe('mixins/login', () => {
         };
         const wrapper = factory(mocks);
 
-        wrapper.vm.loginRedirect.should.eq(mocks.$route.fullPath);
+        wrapper.vm.keycloakLoginRedirect.should.eq(mocks.$route.fullPath);
+      });
+    });
+
+    describe('keycloakAccountUrl', () => {
+      it('includes referrer and referrer_uri', () => {
+        const mocks = {
+          $auth: { strategy: { options: {
+            origin: 'https://auth.example.org', realm: 'europeana', 'client_id': 'portal.js'
+          } } },
+          $config: { app: { baseUrl: 'https://www.example.eu' } }
+        };
+        const wrapper = factory(mocks);
+
+        const keycloakAccountUrl = wrapper.vm.keycloakAccountUrl;
+
+        keycloakAccountUrl.should.eq(
+          'https://auth.example.org/auth/realms/europeana/account?referrer=portal.js&referrer_uri=https%3A%2F%2Fwww.example.eu'
+        );
       });
     });
   });
 
   describe('methods', () => {
-    describe('login', () => {
+    describe('keycloakLogin', () => {
       const mocks = {
         $auth: {
           loginWith: sinon.spy(),
@@ -59,22 +77,22 @@ describe('mixins/login', () => {
       const loginRedirect = '/de';
 
       const wrapper = factory(mocks);
-      sinon.stub(wrapper.vm, 'loginRedirect').get(() => loginRedirect);
+      sinon.stub(wrapper.vm, 'keycloakLoginRedirect').get(() => loginRedirect);
 
       it('sets universal auth storage for redirect', () => {
-        wrapper.vm.login();
+        wrapper.vm.keycloakLogin();
 
         mocks.$auth.$storage.setUniversal.should.have.been.calledWith('redirect', loginRedirect);
       });
 
       it('sets universal auth storage for logging in flag', () => {
-        wrapper.vm.login();
+        wrapper.vm.keycloakLogin();
 
         mocks.$auth.$storage.setUniversal.should.have.been.calledWith('portalLoggingIn', true);
       });
 
       it('calls auth login with keycloak scheme and ui_locales param', () => {
-        wrapper.vm.login();
+        wrapper.vm.keycloakLogin();
 
         mocks.$auth.loginWith.should.have.been.calledWith('keycloak', { params: { 'ui_locales': mocks.$i18n.locale } });
       });

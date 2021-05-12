@@ -70,7 +70,7 @@
           data-qa="log in button"
           class="nav-link"
           :href="$path({ name: 'account-login', query: { redirect: $route.fullPath } })"
-          @click.prevent="login"
+          @click.prevent="keycloakLogin"
         >
           <span :class="renderIcon('/account/login')" />
           <span>
@@ -84,14 +84,14 @@
 
 <script>
   import SmartLink from './generic/SmartLink';
-  import login from '../mixins/login';
+  import keycloak from '../mixins/keycloak';
 
   export default {
     components: {
       SmartLink
     },
     mixins: [
-      login
+      keycloak
     ],
     props: {
       links: {
@@ -115,16 +115,6 @@
     },
 
     computed: {
-      keycloakAccountUrl() {
-        const keycloakAccountUrl = new URL(
-          `/auth/realms/${this.$auth.strategy.options.realm}/account`, this.$auth.strategy.options.origin
-        );
-        keycloakAccountUrl.search = new URLSearchParams({
-          referrer: this.$auth.strategy.options.client_id,
-          'referrer_uri': this.$config.app.baseUrl
-        }).toString();
-        return keycloakAccountUrl.toString();
-      },
       isAuthenticated() {
         return this.$store.state.auth.loggedIn;
       },
