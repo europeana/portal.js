@@ -10,7 +10,7 @@ export default {
       req.on('data', chunk => {
         data += chunk;
       }).on('end', () => {
-        let parsedData = (JSON.parse(data));
+        const parsedData = JSON.parse(data);
         const createRequestData = {
           serviceDeskId: '7',
           requestTypeId: '81', // Type 81 is 'suggestion'
