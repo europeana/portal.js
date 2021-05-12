@@ -34,6 +34,13 @@ const factory = (renderKlaro) => shallowMount(layout, {
     $announcer: {
       setComplementRoute: () => {}
     },
+    $config: {
+      app: {
+        features: {
+          klaro: true
+        }
+      }
+    },
     $exp: {
       $variantIndexes: [0]
     },

@@ -5,7 +5,9 @@
         v-if="enableAnnouncer"
         data-qa="vue announcer"
       />
-      <CookieDisclaimer />
+      <CookieDisclaimer
+        v-if="!klaroEnabled"
+      />
     </client-only>
     <div
       ref="resetfocus"
@@ -76,7 +78,11 @@
       ...mapGetters({
         canonicalUrl: 'http/canonicalUrl',
         canonicalUrlWithoutLocale: 'http/canonicalUrlWithoutLocale'
-      })
+      }),
+
+      klaroEnabled() {
+        return this.$config.app.features.klaro;
+      }
     },
 
     watch: {
@@ -94,7 +100,9 @@
     },
 
     mounted() {
-      this.renderKlaro();
+      if (this.klaroEnabled) {
+        this.renderKlaro();
+      }
 
       if (this.$auth.$storage.getUniversal('portalLoggingIn') && this.$auth.loggedIn) {
         this.showToast(this.$t('account.notifications.loggedIn'));

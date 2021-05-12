@@ -19,6 +19,7 @@ module.exports = {
       internalLinkDomain: process.env.INTERNAL_LINK_DOMAIN,
       siteName: APP_SITE_NAME,
       features: {
+        klaro: featureIsEnabled(process.env.ENABLE_KLARO),
         linksToClassic: featureIsEnabled(process.env.ENABLE_LINKS_TO_CLASSIC),
         recommendations: featureIsEnabled(process.env.ENABLE_RECOMMENDATIONS)
       }
