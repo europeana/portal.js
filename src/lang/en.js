@@ -394,7 +394,8 @@ export default {
     "privacyPolicy": "Privacy Policy",
     "success": "Your feedback has been sent.",
     "termsOfService": "Terms of Service",
-    "thankYou": "Thank you!"
+    "thankYou": "Thank you!",
+    "validEmail": "Enter a valid email address"
   },
   "fieldLabels": {
     "default": {

@@ -13,7 +13,9 @@
     @show="resetModal"
     @hidden="resetModal"
   >
-    <b-form>
+    <b-form
+      @submit.prevent="sendFeedback"
+    >
       <b-form-group>
         <b-form-textarea
           v-if="currentStep === 1"
@@ -27,12 +29,19 @@
           v-if="currentStep === 2"
           id="step2"
         >
+          <!-- invalid is only set on submit)-->
           <b-form-input
             v-model="email"
             type="email"
             name="email"
             placeholder="Enter your email address"
+            :state="emailState"
+            aria-describedby="input-live-feedback"
+            @invalid="invalidEmail"
           />
+          <b-form-invalid-feedback id="input-live-feedback">
+            {{ $t('feedback.validEmail') }}
+          </b-form-invalid-feedback>
           <b-form-text id="input-live-help">
             <i18n
               :path="'feedback.policies'"
@@ -77,18 +86,28 @@
             v-if="currentStep === 2"
             :variant="'outline-primary'"
             class="mt-3"
-            @click.prevent="sendFeedback"
+            @click.prevent="sendFeedback(true)"
           >
             {{ $t('actions.skip') }}
           </b-button>
           <b-button
+            v-if="currentStep !== 2"
             variant="primary"
             class="button-next-step mt-3"
             :disabled="disableButton"
-            :type="currentStep === 2 ? 'submit' : 'button'"
-            @click.prevent="currentStep === 3 ? $bvModal.hide('feedbackModal') : currentStep === 2 ? sendFeedback() : goToStep(currentStep + 1)"
+            @click.prevent="currentStep === 3 ? $bvModal.hide('feedbackModal') : goToStep(currentStep + 1)"
           >
             {{ currentStep === 3 ? $t('actions.close') : $t('actions.next') }}
+          </b-button>
+          <!-- Separate submit button needed for email format validation as it only validates on submit -->
+          <b-button
+            v-if="currentStep === 2"
+            variant="primary"
+            class="button-next-step mt-3"
+            :disabled="disableButton"
+            type="submit"
+          >
+            {{ $t('actions.next') }}
           </b-button>
         </div>
       </b-form-group>
@@ -105,8 +124,8 @@
         modalShow: false,
         currentStep: 1,
         feedback: '',
-        email: ''
-
+        email: '',
+        emailState: true
       };
     },
     computed: {
@@ -130,10 +149,16 @@
       goToStep(step) {
         this.currentStep = step;
       },
-      sendFeedback() {
-        // TODO: post request to Jira Service Desk API
-        console.log('Feedback has been send');
-        this.goToStep(this.currentStep + 1);
+      invalidEmail() {
+        console.log('invalidEmail');
+        this.emailState = false;
+      },
+      sendFeedback(skip) {
+        if (this.emailState || skip) {
+          // TODO: post request to Jira Service Desk API
+          console.log('Feedback has been send');
+          this.goToStep(this.currentStep + 1);
+        }
       }
     }
   };
