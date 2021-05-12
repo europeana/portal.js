@@ -310,6 +310,7 @@ module.exports = {
 
   serverMiddleware: [
     { path: '/memory-usage', handler: '~/server-middleware/memory-usage' },
+    '~/server-middleware/jira-service-desk-api',
     '~/server-middleware/logging',
     '~/server-middleware/record-json'
   ],
