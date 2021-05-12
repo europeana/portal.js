@@ -31,6 +31,7 @@ const factory = () => mount(PageNavigation, {
       origin: 'https://auth.example.org', realm: 'europeana', 'client_id': 'portal.js'
     } } },
     $config: { app: { baseUrl: 'https://www.example.eu' } },
+    $route: { fullPath: '/fr' },
     localePath: path => path
   }
 });
