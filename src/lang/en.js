@@ -390,6 +390,7 @@ export default {
     }
   },
   "feedback": {
+    "failed": "The request failed. Please try again.",
     "policies": "By continuing, you agree to our {0} and acknowledge our {1}.",
     "privacyPolicy": "Privacy Policy",
     "success": "Your feedback has been sent.",

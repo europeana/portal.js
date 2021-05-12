@@ -67,14 +67,21 @@
           id="step3"
           class="feedback-success d-flex align-items-center"
         >
-          <span class="icon-check_circle pr-3" />
-          <span>
+          <span :class="requestSuccess ? 'icon-check_circle pr-3' : 'icon-cancel-circle pr-3'" />
+          <span
+            v-if="requestSuccess"
+          >
             <p>{{ $t('feedback.success') }}</p>
             <p>{{ $t('feedback.thankYou') }}</p>
           </span>
+          <span
+            v-else
+          >
+            <p>{{ $t('feedback.failed') }}</p>
+          </span>
         </div>
         <b-button
-          v-if="currentStep !== 3"
+          v-if="currentStep !== 3 || !requestSuccess"
           :variant="'outline-primary'"
           class="mt-3"
           @click.prevent="$bvModal.hide('feedbackModal')"
@@ -95,9 +102,10 @@
             variant="primary"
             class="button-next-step mt-3"
             :disabled="disableButton"
-            @click.prevent="currentStep === 3 ? $bvModal.hide('feedbackModal') : goToStep(currentStep + 1)"
+            @click.prevent="currentStep === 3 && requestSuccess ? $bvModal.hide('feedbackModal') :
+              currentStep === 3 ? sendFeedback(true, true) :goToStep(currentStep + 1)"
           >
-            {{ currentStep === 3 ? $t('actions.close') : $t('actions.next') }}
+            {{ currentStep === 3 && requestSuccess ? $t('actions.close') : currentStep === 3 ? $t('actions.send') : $t('actions.next') }}
           </b-button>
           <!-- Separate submit button needed for email format validation as it only validates on submit -->
           <b-button
@@ -125,7 +133,8 @@
         currentStep: 1,
         feedback: '',
         email: '',
-        emailState: true
+        emailState: true,
+        requestSuccess: false
       };
     },
     computed: {
@@ -145,19 +154,25 @@
         this.currentStep = 1;
         this.feedback = '';
         this.email = '';
+        this.emailState = true;
+        this.requestSuccess = false;
       },
       goToStep(step) {
         this.currentStep = step;
       },
       invalidEmail() {
-        console.log('invalidEmail');
         this.emailState = false;
       },
-      sendFeedback(skip) {
-        if (this.emailState || skip) {
+      sendFeedback(skip, sendAgain) {
+        if (this.emailState || skip || sendAgain) {
           // TODO: post request to Jira Service Desk API
-          console.log('Feedback has been send');
-          this.goToStep(this.currentStep + 1);
+          if (this.requestSuccess) {
+            console.log('Feedback has been send');
+          } else if (sendAgain) {
+            console.log('Send request again');
+            this.requestSuccess = true;
+          }
+          this.currentStep === 3 ? null : this.goToStep(this.currentStep + 1);
         }
       }
     }
@@ -230,6 +245,11 @@
 
     .icon-check_circle::before {
       color: $innovationblue;
+      font-size: 2.5rem;
+    }
+
+    .icon-cancel-circle::before {
+      color: $red;
       font-size: 2.5rem;
     }
   }
