@@ -89,13 +89,20 @@
         return this.$store.state.set.likesId;
       }
     },
-
+    created() {
+      this.$root.$on('clickCreateSet', () => {
+        this.clickCreateSet();
+      });
+    },
     methods: {
       clickCreateSet() {
-        this.showFormModal = true;
-        this.newSetCreated = false;
-        this.$bvModal.hide(this.addItemToSetModalId);
-        this.$bvModal.show(this.setFormModalId);
+        console.log('clicked');
+        if (this.showFormModal === false) {
+          this.showFormModal = true;
+          this.newSetCreated = false;
+          this.$bvModal.hide(this.addItemToSetModalId);
+          this.$bvModal.show(this.setFormModalId);
+        }
       },
       setCreatedOrUpdated() {
         this.showFormModal = false;
