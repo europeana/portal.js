@@ -115,7 +115,27 @@ export default {
     "right": "Right"
   },
   "edmIsShownAtLinkAlt": "View at the provider's website",
-  "entity": "Entity",
+  "entity": {
+    "actions": {
+      "pin": "Pin item",
+      "unpin": "Unpin item",
+      "viewpinned": "See pinned items"
+    },
+    "labels": {
+      "entity": "Entity"
+    },
+    "prompts": {
+      "pin": "Are you sure you want to pin this item? This item will show at the top of {0} collection. This change might take up to 24 hours to take effect."
+    },
+    "notifications": {
+      "deleted": "Your gallery has been deleted.",
+      "pinLimit": {
+        "body": "For now you can only pin 24 items on the first page. If you want to pin this item, make sure you unpin another one and then try to pin this one again.",
+        "title": "Too many pinned items"
+      }
+    }
+
+  },
   "error": "Error",
   "exhibitions": {
     "chapters": "Chapters",

@@ -5,10 +5,11 @@
   >
     <client-only>
       <b-button
-        v-show="showPins"
+        v-show="showPins || isPinned"
+        :pressed="pinned"
         class="icon-push-pin"
         data-qa="pin button"
-        :aria-label="$t('set.actions.addTo')"
+        :aria-label="$t('entity.actions.pin')"
         @click="pinItem"
       />
       <b-button
@@ -28,6 +29,11 @@
       <template
         v-if="$auth.loggedIn"
       >
+        <PinToEntityModal
+          id="pinToEntityModal"
+          :item-id="value"
+          data-qa="pin item to entity modal"
+        />
         <AddItemToSetModal
           data-qa="add item to set modal"
           :modal-id="addItemToSetModalId"
@@ -49,6 +55,13 @@
         >
           <p>{{ $t('set.notifications.likeLimit.body') }}</p>
         </b-modal>
+        <b-modal
+          id="featureLimitModal"
+          :title="$t('entity.notifications.pinLimit.title')"
+          hide-footer
+        >
+          <p>{{ $t('entity.notifications.pinLimit.body') }}</p>
+        </b-modal>
       </template>
     </client-only>
   </div>
@@ -63,7 +76,8 @@
     components: {
       AddItemToSetModal: () => import('../set/AddItemToSetModal'),
       ClientOnly,
-      SetFormModal: () => import('../set/SetFormModal')
+      SetFormModal: () => import('../set/SetFormModal'),
+      PinToEntityModal: () => import('../entity/PinToEntityModal')
     },
 
     props: {
@@ -94,6 +108,9 @@
       },
       likesId() {
         return this.$store.state.set.likesId;
+      },
+      pinned() {
+        return this.$store.getters['entity/isPinned'](this.value);
       }
     },
     methods: {
@@ -141,21 +158,8 @@
         await this.$store.dispatch('set/unlike', this.value);
         this.$emit('unlike', this.value);
       },
-      async pinItem() {
-        if (this.$store.getters['entity/featureSetId'] === null) {
-          await this.$store.dispatch('entity/createFeatureSet');
-        }
-
-        try {
-          await this.$store.dispatch('entity/pin', this.value);
-          this.$emit('pin', this.value);
-        } catch (e) {
-          if (e.message === '24 pins') {
-            this.$bvModal.show(this.pinLimitModalId);
-          } else {
-            throw e;
-          }
-        }
+      pinItem() {
+        this.$bvModal.show('pinToEntityModal');
       },
       addToSet() {
         if (this.$auth.loggedIn) {

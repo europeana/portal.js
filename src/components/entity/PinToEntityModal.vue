@@ -5,15 +5,14 @@
     hide-footer
     hide-header-close
     :static="modalStatic"
-    @hide="hideModal()"
   >
-   <p>{{ $t('entity.prompts.pin') }}</p>
-   <b-form @submit.stop.prevent="submitForm">
+    <p>{{ $t('entity.prompts.pin') }}</p>
+    <b-form @submit.stop.prevent="pin">
       <div class="modal-footer">
         <b-button
           variant="outline-primary"
           data-qa="cancel button"
-          @click="cancel"
+          @click="hideModal"
         >
           {{ $t('actions.cancel') }}
         </b-button>
@@ -31,36 +30,36 @@
 
 <script>
   export default {
-    name: 'pinToEntityModal',
+    name: 'PinToEntityModal',
 
     props: {
-      itemId: {
-        type: String,
-        required: true
-      },
-
       modalStatic: {
-        type: Boolean,
-        default: false
-      },
-      newFeatureSetCreated: {
         type: Boolean,
         default: false
       }
     },
 
-    data() {
-      return {
-      };
-    },
-
-    computed: {
-    },
-
     methods: {
+      async pin() {
+        if (this.$store.getters['entity/featureSetId'] === null) {
+          await this.$store.dispatch('entity/createFeatureSet');
+        }
+
+        try {
+          await this.$store.dispatch('entity/pin', this.value);
+          this.$emit('pin', this.value);
+        } catch (e) {
+          if (e.message === '24 pins') {
+            this.hide();
+            this.$bvModal.show('featureLimitModal');
+          } else {
+            throw e;
+          }
+        }
+      },
 
       hideModal() {
-
+        this.hide();
       }
     }
   };

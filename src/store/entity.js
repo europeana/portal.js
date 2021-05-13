@@ -28,14 +28,11 @@ export default {
     setCuratedEntities(state, value) {
       state.curatedEntities = value;
     },
-    setPins(state, value) {
-      state.pins = value;
+    setPinned(state, value) {
+      state.pinned = value;
     },
     setFeatureSetId(state, value) {
       state.featureSetId = value;
-    },
-    setPinned(state, value) {
-      state.pinned = value;
     }
   },
 
@@ -57,6 +54,10 @@ export default {
 
     featureSetId(state) {
       return state.featureSetId;
+    },
+
+    isPinned: (state) => (itemId) => {
+      return state.pinned ? state.pinned.includes(itemId) : false;
     }
   },
 
@@ -124,7 +125,17 @@ export default {
       return this.$apis.set.getSet(state.featureSetId, {
         pageSize: 100,
         profile: 'itemDescriptions'
-      }).then(featured => featured.pinned ? commit('setFeatured', featured.items.slice(0, featured.pinned - 1)) : []);
+      }).then(featured => featured.pinned ? commit('setPins', featured.items.slice(0, featured.pinned - 1)) : []);
+    },
+    createFeatureSet({ commit }, title, id) {
+      const featureSetBody = {
+        type: 'EntityBestItemsSet',
+        title: { 'en': this.title + ' Page' },
+        subject: [id],
+        visibility: 'private'
+      };
+      return this.$apis.set.createSet(featureSetBody)
+        .then(response => commit('featureSetId', response.id));
     }
   }
 };
