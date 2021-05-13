@@ -309,8 +309,9 @@ module.exports = {
   },
 
   serverMiddleware: [
-    { path: '/memory-usage', handler: '~/server-middleware/memory-usage' },
-    '~/server-middleware/jira-service-desk-api',
+    // We can't use /api as that's reserved on www.europeana.eu for (deprecated)
+    // access to Europeana APIs.
+    { path: '/_', handler: '~/server-middleware/api' },
     '~/server-middleware/logging',
     '~/server-middleware/record-json'
   ],
