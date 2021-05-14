@@ -10,8 +10,9 @@
     hide-backdrop
     content-class="shadow"
     scrollable
-    @show="resetModal"
-    @hidden="resetModal"
+    static
+    :modal-class="show ? 'showFeedbackModal' : null"
+    @show.prevent="resetModal"
   >
     <b-form
       @submit.prevent="sendFeedback"
@@ -87,7 +88,7 @@
           v-if="currentStep !== 3 || !requestSuccess"
           :variant="'outline-primary'"
           class="mt-3"
-          @click.prevent="$bvModal.hide('feedbackModal')"
+          @click.prevent="resetModal"
         >
           {{ $t('actions.cancel') }}
         </b-button>
@@ -105,8 +106,8 @@
             variant="primary"
             class="button-next-step mt-3"
             :disabled="disableButton"
-            @click.prevent="currentStep === 3 && requestSuccess ? $bvModal.hide('feedbackModal') :
-              currentStep === 3 ? sendFeedback(true, true) :goToStep(currentStep + 1)"
+            @click.prevent="currentStep === 3 && requestSuccess ? resetModal() :
+              currentStep === 3 ? sendFeedback(true, true) : goToStep(currentStep + 1)"
           >
             {{ currentStep === 3 && requestSuccess ? $t('actions.close') : currentStep === 3 ? $t('actions.send') : $t('actions.next') }}
           </b-button>
@@ -137,7 +138,8 @@
         feedback: '',
         email: '',
         emailState: true,
-        requestSuccess: false
+        requestSuccess: false,
+        show: false
       };
     },
     computed: {
@@ -154,6 +156,7 @@
 
     methods: {
       resetModal() {
+        this.show = !this.show;
         this.currentStep = 1;
         this.feedback = '';
         this.email = '';
@@ -189,6 +192,7 @@
     position: relative;
     color: $mediumgrey;
     overflow: hidden;
+    display: block !important;
     .modal-dialog {
       position: fixed;
       left: 1rem;
@@ -200,11 +204,20 @@
         width: 360px;
       }
     }
-    &.modal.fade .modal-dialog {
-      transform: translate(0, 50px);
+    &.modal.fade {
+      transition: opacity 0.15s linear;
+      .modal-dialog {
+        transform: translate(0, 50px);
+        visibility: hidden;
+        transition: visibility 0.15s linear, transform 0.3s ease-out;
+      }
     }
-    &.modal.show .modal-dialog {
-      transform: none;
+    &.modal.showFeedbackModal {
+      opacity: 1;
+      .modal-dialog {
+        visibility: visible;
+        transform: none;
+      }
     }
     .modal-content {
       .modal-header {
