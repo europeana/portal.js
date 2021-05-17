@@ -23,9 +23,6 @@
     padding: 0.875rem;
     line-height: 1;
     border-color: $white;
-    @at-root .modal-open & {
-      visibility: hidden;
-    }
   }
   .icon-ic-feedback {
     font-size: 1.25rem;
