@@ -27,7 +27,6 @@ const jiraOptions = options => ({
   }
 });
 
-// TODO: limit CORS origins
 module.exports = (options = {}) => (req, res) => {
   // Docs: https://developer.atlassian.com/cloud/jira/service-desk/rest/api-group-request/#api-rest-servicedeskapi-request-post
   return axios.post(jiraUrl(options), jiraData(options, req), jiraOptions(options))
