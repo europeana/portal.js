@@ -311,7 +311,7 @@ module.exports = {
   serverMiddleware: [
     // We can't use /api as that's reserved on www.europeana.eu for (deprecated)
     // access to Europeana APIs.
-    { path: '/_', handler: '~/server-middleware/api' },
+    { path: '/_api', handler: '~/server-middleware/api' },
     '~/server-middleware/logging',
     '~/server-middleware/record-json'
   ],
