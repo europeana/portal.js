@@ -6,10 +6,12 @@ import serviceDesk from '../../../../../src/server-middleware/api/jira/service-d
 
 const options = {
   origin: 'https://europeana.atlassian.net',
-  serviceDeskId: '7',
-  requestTypeId: '81',
   username: 'example@europeana.eu',
-  password: 'YOUR_TOKEN'
+  password: 'YOUR_TOKEN',
+  serviceDesk: {
+    serviceDeskId: '7',
+    requestTypeId: '81'
+  }
 };
 const middleware = serviceDesk(options);
 

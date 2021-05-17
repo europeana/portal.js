@@ -4,8 +4,8 @@ const jiraUrl = options => `${options.origin}/rest/servicedeskapi/request`;
 
 const jiraData = (options, req) => {
   const data = {
-    serviceDeskId: options.serviceDeskId,
-    requestTypeId: options.requestTypeId,
+    serviceDeskId: options.serviceDesk.serviceDeskId,
+    requestTypeId: options.serviceDesk.requestTypeId,
     requestFieldValues: {
       summary: req.body.summary
     }

@@ -1,17 +1,24 @@
 const express = require('express');
-const app = express();
+const defu = require('defu');
 
+const app = express();
 app.use(express.json());
 
-app.get('/debug/memory-usage', require('./debug/memory-usage'));
+let runtimeConfig;
+app.use((res, req, next) => {
+  if (!runtimeConfig) {
+    // Load Nuxt config once, at runtime
+    const nuxtConfig = require('../../../nuxt.config');
+    runtimeConfig = defu(nuxtConfig.privateRuntimeConfig, nuxtConfig.publicRuntimeConfig);
+  }
+  next();
+});
 
-app.post('/jira/service-desk', require('./jira/service-desk')({
-  origin: process.env.JIRA_API_ORIGIN,
-  serviceDeskId: process.env.JIRA_API_SERVICE_DESK_ID,
-  requestTypeId: process.env.JIRA_API_REQUEST_TYPE_ID,
-  username: process.env.JIRA_API_USERNAME,
-  password: process.env.JIRA_API_PASSWORD
-}));
+const debugMemoryUsage = require('./debug/memory-usage');
+app.get('/debug/memory-usage', debugMemoryUsage);
+
+const jiraServiceDesk = require('./jira/service-desk');
+app.post('/jira/service-desk', (res, req, next) => jiraServiceDesk(runtimeConfig.jira)(res, req, next));
 
 app.all('/*', (req, res) => res.sendStatus(404));
 

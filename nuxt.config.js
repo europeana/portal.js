@@ -120,6 +120,18 @@ module.exports = {
     }
   },
 
+  privateRuntimeConfig: {
+    jira: {
+      origin: process.env.JIRA_API_ORIGIN,
+      username: process.env.JIRA_API_USERNAME,
+      password: process.env.JIRA_API_PASSWORD,
+      serviceDesk: {
+        serviceDeskId: process.env.JIRA_API_SERVICE_DESK_ID,
+        requestTypeId: process.env.JIRA_API_SERVICE_DESK_REQUEST_TYPE_ID
+      }
+    }
+  },
+
   /*
   ** Headers of the page
   */
