@@ -47,7 +47,7 @@ export default $i18n => {
         cookies: [
           /^_hj(.*)?/
         ],
-        translations: ('klaro.services.hotjar')
+        translations: translations('klaro.services.hotjar')
       },
       {
         name: 'google-optimize',
@@ -86,11 +86,6 @@ export default $i18n => {
       }
     ],
     mustConsent: false,
-    /*
-      Defines the default state for services in the consent modal (true=enabled by
-      default). You can override this setting in each service.
-    */
-    default: true,
     acceptAll: true
   };
 };

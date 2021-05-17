@@ -501,51 +501,66 @@ export default {
         "description": "We care about your privacy and only use data to improve your experience. We don’t use any personal information for advertising. You can change your consent every 15 days."
       },
       "consentModal": {
-        "description": "We take your data privacy seriously and do not record or share any personal information for advertising purposes. You're in charge! Enable or disable features as you see fit",
-        "title": "Recommended features"
+        "description": "We take your data privacy seriously. Here you can assess and customize the services that we'd like to use on this website. You're in charge! Enable or disable services as you see fit.",
+        "title": "Services we would like to use."
       },
       "ok": "Okay",
       "service": {
         "disableAll": {
-          "description": "Use this switch to enable or disable all optional features.",
-          "title": "Enable or disable all features"
+          "description": "Use this switch to enable or disable all optional services.",
+          "title": "Enable or disable all services"
         }
       },
       "purposes": {
         "usage": {
-          "title": "Website speed, feedback, and usage",
-          "description": "These features use information to help us better understand how this website gets used."
+          "title": "Services to capture website usage and feedback",
+          "description": "These services collect the information to help us better understand how the website gets used and where the pain points are, empowering us to make informed choices to improve your experience."
         },
         "essential": {
-          "title": "Essential features",
-          "description": "These features are essential for the correct functioning of this website. You cannot disable them here as the website would not work correctly otherwise."
+          "title": "Essential services for security and customization",
+          "description": "These services are essential for the correct functioning of this website. They include search results view and language preferences, preserve the logged in state and keep your visit secure. You cannot disable them as the website would not work correctly otherwise."
         }
       }
     },
     "services": {
       "auth-strategy": {
-        "title": "Auth Strategy"
+        "title": "Auth Strategy",
+        "description": "Remembers the authorization strategy to use to log in."
       },
       "cloudflare": {
-        "title": "Cloudflare"
+        "title": "Cloudflare",
+        "description": "Protects and secures the website."
       },
       "debugSettings": {
         "title": "Debug toggle"
       },
       "google-analytics": {
-        "title": "Google Analytics"
+        "title": "Google Analytics",
+        "description": "Collects anonymous statistics on how visitors interact with the website."
       },
       "google-optimize": {
-        "title": "Google Optimize"
+        "title": "Google Optimize",
+        "description": "Enables you to participate in website experiments that guide our design choices for the best user experience."
       },
       "hotjar": {
-        "title": "Hotjar"
+        "title": "Hotjar",
+        "description": "Activates a survey widget giving you the option to respond to our visitor satisfaction surveys."
       },
       "i18n": {
-        "title": "Language code"
+        "title": "Language code",
+        "description": "Remembers your preferred interface language for future access."
+      },
+      "jira-servicedesk": {
+        "title": "Jira service desk",
+        "description": "Activates the feedback widget giving you the option to contact us."
+      },
+      "matomo": {
+        "title": "Matomo",
+        "description": "Collects anonymous statistics on how visitors interact with the website."
       },
       "searchResultsView": {
-        "title": "Search results view"
+        "title": "Search result view (list/grid)",
+        "description": "Remembers if you prefer to see the search results in a list or grid view."
       }
     }
   },
