@@ -5,12 +5,12 @@
   >
     <client-only>
       <b-button
-        v-show="showPins || isPinned"
+        v-show="showPins || pinned"
         :pressed="pinned"
         class="icon-push-pin"
         data-qa="pin button"
         :aria-label="$t('entity.actions.pin')"
-        @click="pinItem"
+        @click="togglePinned"
       />
       <b-button
         class="icon-ic-add"
@@ -29,11 +29,6 @@
       <template
         v-if="$auth.loggedIn"
       >
-        <PinToEntityModal
-          id="pinToEntityModal"
-          :item-id="value"
-          data-qa="pin item to entity modal"
-        />
         <AddItemToSetModal
           data-qa="add item to set modal"
           :modal-id="addItemToSetModalId"
@@ -47,6 +42,12 @@
           :item-context="value"
           @response="setCreatedOrUpdated"
         />
+        <PinToEntityModal
+          :modal-id="pinModalId"
+          :item-id="value"
+          :pinned="pinned"
+          data-qa="pin item to entity modal"
+        />
         <!-- TODO: remove when 100-item like limit removed -->
         <b-modal
           :id="likeLimitModalId"
@@ -56,7 +57,7 @@
           <p>{{ $t('set.notifications.likeLimit.body') }}</p>
         </b-modal>
         <b-modal
-          id="featureLimitModal"
+          :id="featureLimitModalId"
           :title="$t('entity.notifications.pinLimit.title')"
           hide-footer
         >
@@ -97,6 +98,8 @@
         addItemToSetModalId: `add-item-to-set-modal-${this.value}`,
         setFormModalId: `set-form-modal-${this.value}`,
         likeLimitModalId: `like-limit-modal-${this.value}`,
+        pinModalId: `pin-to-entity-modal-${this.value}`,
+        featureLimitModalId: `feature-limit-modal-${this.value}`,
         showFormModal: false,
         newSetCreated: false
       };
@@ -137,6 +140,13 @@
           this.$goto('/account/login');
         }
       },
+      async togglePinned() {
+        if (this.$auth.loggedIn) {
+          await (this.pinned ? this.unpin() : this.pin());
+        } else {
+          this.$goto('/account/login');
+        }
+      },
       async like() {
         if (this.likesId === null) {
           await this.$store.dispatch('set/createLikes');
@@ -158,8 +168,8 @@
         await this.$store.dispatch('set/unlike', this.value);
         this.$emit('unlike', this.value);
       },
-      pinItem() {
-        this.$bvModal.show('pinToEntityModal');
+      pin() {
+        this.$bvModal.show(this.pinModalId);
       },
       addToSet() {
         if (this.$auth.loggedIn) {

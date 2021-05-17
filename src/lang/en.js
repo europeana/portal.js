@@ -119,13 +119,15 @@ export default {
     "actions": {
       "pin": "Pin item",
       "unpin": "Unpin item",
-      "viewpinned": "See pinned items"
+      "viewpinned": "See pinned items",
+      "cancel": "Cancel"
     },
     "labels": {
       "entity": "Entity"
     },
     "prompts": {
-      "pin": "Are you sure you want to pin this item? This item will show at the top of {0} collection. This change might take up to 24 hours to take effect."
+      "pin": "Are you sure you want to pin this item? This item will show at the top of the \"{entity}\" collection. This change might take up to 24 hours to take effect.",
+      "unpin": "Are you sure you want to unpin this item? This item will stop showing at the top of the \"{entity}\" collection. This change might take up to 24 hours to take effect."
     },
     "notifications": {
       "deleted": "Your gallery has been deleted.",

@@ -105,10 +105,10 @@ export default {
       };
       return this.$apis.set.search(searchParams)
         .then(searchResponse => {
-          searchResponse.data.total > 0 ? commit('setFeatureSetId', searchResponse.data.items[0]) : ({});
+          searchResponse.data.total > 0 ? commit('setFeatureSetId', searchResponse.data.items[0].split('/').pop()) : ({});
           if (state.featureSetId) {
             // set exists
-            dispatch('getPins', state.featuredSetId);
+            dispatch('getPins', state.featureSetId);
           }
         });
     },
@@ -118,24 +118,32 @@ export default {
           dispatch('getPins', state.featureSetId);
         })
         .catch(() => {
-          dispatch('getPins', state.featuredSetId);
+          dispatch('getPins', state.featureSetId);
+        });
+    },
+    unpin({ dispatch, state }, itemId) {
+      return this.$apis.set.modifyItems('delete', state.featureSetId, itemId)
+        .then(() => {
+          dispatch('getPins', state.featureSetId);
+        })
+        .catch(() => {
+          dispatch('getPins', state.featureSetId);
         });
     },
     getPins({ state, commit }) {
       return this.$apis.set.getSet(state.featureSetId, {
         pageSize: 100,
         profile: 'itemDescriptions'
-      }).then(featured => featured.pinned ? commit('setPins', featured.items.slice(0, featured.pinned - 1)) : []);
+      }).then(featured => featured.pinned > 0 ? commit('setPinned', featured.items.slice(0, featured.pinned - 1)) : []);
     },
-    createFeatureSet({ commit }, title, id) {
+    createFeatureSet({ getters, commit }) {
       const featureSetBody = {
         type: 'EntityBestItemsSet',
-        title: { 'en': this.title + ' Page' },
-        subject: [id],
-        visibility: 'private'
+        title: { 'en': getters.englishPrefLabel + ' Page' },
+        subject: [getters.id]
       };
       return this.$apis.set.createSet(featureSetBody)
-        .then(response => commit('featureSetId', response.id));
+        .then(response => commit('setFeatureSetId', response.id));
     }
   }
 };
