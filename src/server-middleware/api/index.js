@@ -2,6 +2,7 @@ const express = require('express');
 const defu = require('defu');
 
 const app = express();
+app.disable('x-powered-by'); // Security: do not disclose technology fingerprints
 app.use(express.json());
 
 let runtimeConfig;
