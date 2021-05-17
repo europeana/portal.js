@@ -21,6 +21,7 @@
         <b-form-textarea
           v-if="currentStep === 1"
           id="step1"
+          ref="input"
           v-model="feedback"
           name="feedback"
           placeholder="Enter your feedback here"
@@ -33,6 +34,7 @@
           <!-- invalid is only set on submit)-->
           <b-form-input
             v-model="email"
+            autofocus
             type="email"
             name="email"
             placeholder="Enter your email address"
@@ -162,6 +164,12 @@
         this.email = '';
         this.emailState = true;
         this.requestSuccess = false;
+        if (this.show) {
+          const textarea = this.$refs.input;
+          setTimeout(() => {
+            textarea.focus();
+          }, 100);
+        }
       },
       goToStep(step) {
         this.currentStep = step;

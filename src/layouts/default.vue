@@ -21,8 +21,8 @@
     <PageHeader
       keep-alive
     />
-    <FeedbackModal />
     <FeedbackButton />
+    <FeedbackModal />
     <main
       id="default"
       role="main"
