@@ -267,12 +267,12 @@
 
     .icon-check_circle::before {
       color: $innovationblue;
-      font-size: 2.5rem;
+      font-size: 2.0625rem;
     }
 
     .icon-cancel-circle::before {
       color: $red;
-      font-size: 2.5rem;
+      font-size: 2.0625rem;
     }
   }
 </style>
