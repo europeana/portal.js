@@ -1,29 +1,28 @@
 <template>
-  <b-link
-    v-if="imageLink && media.thumbnails['large'] && !media.isShownAt"
-    :href="imageLink"
-    target="_blank"
-    class="h-100 d-flex align-items-center justify-content-center"
-  >
-    <component
-      :is="lazy ? 'b-img-lazy' : 'b-img'"
-      :src="media.thumbnails['large']"
-      class="w-auto"
-      alt=""
-      data-qa="media preview image"
-    />
-    <span
-      class="sr-only"
-    >
-      ({{ $t('newWindow') }})
-    </span>
-  </b-link>
   <div
-    v-else-if="media.thumbnails['large']"
     class="h-100 d-flex align-items-center justify-content-center"
   >
+    <b-link
+      v-if="imageLink && media.thumbnails['large'] && !media.isShownAt"
+      :href="imageLink"
+      target="_blank"
+    >
+      <component
+        :is="lazy ? 'b-img-lazy' : 'b-img'"
+        :src="media.thumbnails['large']"
+        class="w-auto"
+        alt=""
+        data-qa="media preview image"
+      />
+      <span
+        class="sr-only"
+      >
+        ({{ $t('newWindow') }})
+      </span>
+    </b-link>
     <component
       :is="lazy ? 'b-img-lazy' : 'b-img'"
+      v-else-if="media.thumbnails['large']"
       :src="media.thumbnails['large']"
       alt=""
       class="mw-100"
