@@ -277,11 +277,12 @@ module.exports = {
     fullPathRedirect: true,
     strategies: {
       local: false,
-      oauth2: {
-        _scheme: 'oauth2'
-      },
       keycloak: {
         _scheme: '~/plugins/authScheme'
+      },
+      // Include oauth2 so that ~/plugins/authScheme can extend it
+      oauth2: {
+        _scheme: 'oauth2'
       }
     },
     plugins: ['~/plugins/apis']
