@@ -26,6 +26,7 @@
           name="feedback"
           placeholder="Enter your feedback here"
           rows="5"
+          data-qa="feedback textarea"
         />
         <div
           v-if="currentStep === 2"
@@ -97,6 +98,7 @@
         <div class="button-group-right">
           <b-button
             v-if="currentStep === 2"
+            data-qa="feedback skip button"
             :variant="'outline-primary'"
             class="mt-3"
             @click.prevent="sendFeedback(true)"
@@ -105,6 +107,7 @@
           </b-button>
           <b-button
             v-if="currentStep !== 2"
+            data-qa="feedback next button"
             variant="primary"
             class="button-next-step mt-3"
             :disabled="disableButton"
@@ -116,6 +119,7 @@
           <!-- Separate submit button needed for email format validation as it only validates on submit -->
           <b-button
             v-if="currentStep === 2"
+            data-qa="feedback next button"
             variant="primary"
             class="button-next-step mt-3"
             :disabled="disableButton"
