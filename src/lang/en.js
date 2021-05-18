@@ -534,6 +534,9 @@ export default {
       },
       "topics": {
         "title": "Topics"
+      },
+      "organisations": {
+        "title": "Organisations"
       }
     }
   },
