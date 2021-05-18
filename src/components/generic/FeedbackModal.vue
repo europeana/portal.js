@@ -16,6 +16,7 @@
   >
     <b-form
       @submit.prevent="sendFeedback"
+      data-qa="feedback modal form"
     >
       <b-form-group>
         <b-form-textarea
@@ -42,8 +43,12 @@
             :state="emailState"
             aria-describedby="input-live-feedback"
             @invalid="invalidEmail"
+            data-qa="feedback email input"
           />
-          <b-form-invalid-feedback id="input-live-feedback">
+          <b-form-invalid-feedback 
+            id="input-live-feedback"
+            data-qa="feedback email invalid"
+          >
             {{ $t('feedback.validEmail') }}
           </b-form-invalid-feedback>
           <b-form-text id="input-live-help">
