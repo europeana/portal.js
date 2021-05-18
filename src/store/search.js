@@ -2,6 +2,7 @@ import { diff } from 'deep-object-diff';
 import merge from 'deepmerge';
 import { escapeLuceneSpecials } from '../plugins/europeana/utils';
 import { unquotableFacets } from '../plugins/europeana/search';
+import klaroConfig from '../plugins/klaro-config';
 
 // Default facets to always request and display.
 // Order is significant as it will be reflected on search results.
@@ -153,8 +154,11 @@ export default {
     setView(state, value) {
       state.view = value;
       if (process.browser) {
-        sessionStorage.searchResultsView = value;
-        localStorage.searchResultsView = value;
+        const consent = window.klaro.getManager(klaroConfig(this.$i18n, this.$gtm, this.$config.gtm.id)).getConsent('searchResultsView');
+        if (consent) {
+          sessionStorage.searchResultsView = value;
+          localStorage.searchResultsView = value;
+        }
       }
     },
     setCollectionLabel(state, value) {

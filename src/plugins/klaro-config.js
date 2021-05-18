@@ -41,7 +41,7 @@ export default ($i18n, $gtm, $gtmId) => {
         translations: translations('klaro.services.google-analytics')
       },
       {
-        name: 'hotjar',
+        name: 'hotjar', // https://help.hotjar.com/hc/en-us/articles/115011789248-Hotjar-Cookie-Information
         purposes: ['usage'],
         cookies: [
           /^_hj(.*)?/

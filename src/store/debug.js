@@ -1,3 +1,5 @@
+import klaroConfig from '../plugins/klaro-config';
+
 const defaults = {
   apiRequests: false
 };
@@ -20,7 +22,10 @@ export const mutations = {
   updateSettings(state, settings) {
     state.settings = { ...settings };
     if (process.browser) {
-      localStorage.debugSettings = JSON.stringify(settings);
+      const consent = window.klaro.getManager(klaroConfig(this.$i18n, this.$gtm, this.$config.gtm.id)).getConsent('debugSettings');
+      if (consent) {
+        localStorage.debugSettings = JSON.stringify(settings);
+      }
     }
   }
 };
