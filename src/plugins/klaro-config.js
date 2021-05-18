@@ -1,9 +1,8 @@
-export default $i18n => {
+export default ($i18n, $gtm, $gtmId) => {
   // TODO: uncomment when we have translations
   // const locale = $i18n.locale;
   // TODO: remove when we have translations
   const locale = 'en';
-
   const translations = key => ({
     [locale]: $i18n.t(key)
   });
@@ -86,6 +85,11 @@ export default $i18n => {
       }
     ],
     mustConsent: false,
-    acceptAll: true
+    acceptAll: true,
+    callback: (consent, service) => {
+      if (service.name === 'google-analytics' && consent) {
+        $gtm.init($gtmId);
+      }
+    }
   };
 };

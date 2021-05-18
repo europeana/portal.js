@@ -227,7 +227,8 @@ module.exports = {
     '@nuxtjs/axios',
     'nuxt-google-optimize',
     ['@nuxtjs/gtm', {
-      pageTracking: true
+      pageTracking: true,
+      autoInit: false
     }],
     ['@nuxtjs/robots', JSON.parse(process.env.NUXTJS_ROBOTS || '{"UserAgent":"*","Disallow":"/"}')],
     'bootstrap-vue/nuxt',
