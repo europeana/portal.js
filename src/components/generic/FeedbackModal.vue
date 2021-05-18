@@ -15,8 +15,8 @@
     @show.prevent="resetModal"
   >
     <b-form
-      @submit.prevent="sendFeedback"
       data-qa="feedback modal form"
+      @submit.prevent="sendFeedback"
     >
       <b-form-group>
         <b-form-textarea
@@ -42,10 +42,10 @@
             placeholder="Enter your email address"
             :state="emailState"
             aria-describedby="input-live-feedback"
-            @invalid="invalidEmail"
             data-qa="feedback email input"
+            @invalid="invalidEmail"
           />
-          <b-form-invalid-feedback 
+          <b-form-invalid-feedback
             id="input-live-feedback"
             data-qa="feedback email invalid"
           >
