@@ -116,10 +116,9 @@
             variant="primary"
             class="button-next-step mt-3"
             :disabled="disableButton"
-            @click.prevent="currentStep === 3 && requestSuccess ? resetModal() :
-              currentStep === 3 ? sendFeedback(true, true) : goToStep(currentStep + 1)"
+            @click.prevent="clickNextButton"
           >
-            {{ currentStep === 3 && requestSuccess ? $t('actions.close') : currentStep === 3 ? $t('actions.send') : $t('actions.next') }}
+            {{ $t(nextButtonTextKey) }}
           </b-button>
           <!-- Separate submit button needed for email format validation as it only validates on submit -->
           <b-button
@@ -153,6 +152,7 @@
         show: false
       };
     },
+
     computed: {
       disableButton() {
         if (this.currentStep === 1) {
@@ -162,10 +162,34 @@
         } else {
           return false;
         }
+      },
+
+      nextButtonTextKey() {
+        let key = 'actions.next';
+        if (this.currentStep === 3) {
+          if (this.requestSuccess) {
+            key = 'actions.close';
+          } else {
+            key = 'actions.send';
+          }
+        }
+        return key;
       }
     },
 
     methods: {
+      clickNextButton() {
+        if (this.currentStep === 3) {
+          if (this.requestSuccess) {
+            this.resetModal();
+          } else {
+            this.sendFeedback(true, true);
+          }
+        } else {
+          this.goToStep(this.currentStep + 1);
+        }
+      },
+
       resetModal() {
         this.show = !this.show;
         this.currentStep = 1;
@@ -180,12 +204,15 @@
           }, 100);
         }
       },
+
       goToStep(step) {
         this.currentStep = step;
       },
+
       invalidEmail() {
         this.emailState = false;
       },
+
       sendFeedback(skip, sendAgain) {
         if (this.emailState || skip || sendAgain) {
           // TODO: post request to Jira Service Desk API
