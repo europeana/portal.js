@@ -222,7 +222,9 @@
             console.log('Send request again');
             this.requestSuccess = true;
           }
-          this.currentStep === 3 ? null : this.goToStep(this.currentStep + 1);
+          if (this.currentStep !== 3) {
+            this.goToStep(this.currentStep + 1);
+          }
         }
       }
     }
