@@ -71,7 +71,7 @@
   height: auto;
 
   @media (max-width: $bp-medium) {
-    height: 100%;
+    max-height: 100%;
     width: auto;
   }
 }
