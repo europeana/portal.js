@@ -216,21 +216,6 @@ describe('components/account/UserButtons', () => {
       acceptButton.isVisible().should.be.true;
     });
 
-    context('when user is not logged in', () => {
-      const $auth = { loggedIn: false };
-
-      context('when pressed', () => {
-        it('goes to login', () => {
-          const wrapper = factory({ $auth, recommendationFlag: true });
-
-          const acceptButton = wrapper.find('[data-qa="accept button"]');
-          acceptButton.trigger('click');
-
-          wrapper.vm.$goto.should.have.been.calledWith('/account/login');
-        });
-      });
-    });
-
     context('when user is logged in', () => {
       const $auth = { loggedIn: true };
 
@@ -255,21 +240,6 @@ describe('components/account/UserButtons', () => {
       const rejectButton = wrapper.find('[data-qa="reject button"]');
 
       rejectButton.isVisible().should.be.true;
-    });
-
-    context('when user is not logged in', () => {
-      const $auth = { loggedIn: false };
-
-      context('when pressed', () => {
-        it('goes to login', () => {
-          const wrapper = factory({ $auth, recommendationFlag: true });
-
-          const rejectButton = wrapper.find('[data-qa="reject button"]');
-          rejectButton.trigger('click');
-
-          wrapper.vm.$goto.should.have.been.calledWith('/account/login');
-        });
-      });
     });
 
     context('when user is logged in', () => {
