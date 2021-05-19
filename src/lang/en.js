@@ -24,14 +24,19 @@ export default {
     "title": "My account"
   },
   "actions": {
+    "cancel": "Cancel",
     "close": "close",
     "download": "Download",
     "edit": "Edit",
+    "feedback": "Feedback",
     "goBack": "Go back",
     "like": "Like",
+    "next": "Next",
     "providedBy": "Provided by {provider}",
+    "send": "Send",
     "share": "Share",
     "shareOn": "Share on {social}",
+    "skip": "Skip",
     "viewAt": "View at {link}",
     "viewDocument": "View document"
   },
@@ -383,6 +388,16 @@ export default {
         "VIDEO": "Video"
       }
     }
+  },
+  "feedback": {
+    "emailOptional": "We may wish to follow up. Enter your email if you're happy for us to contact you.",
+    "failed": "The request failed. Please try again.",
+    "policies": "By continuing, you agree to our {0} and acknowledge our {1}.",
+    "privacyPolicy": "Privacy Policy",
+    "success": "Your feedback has been sent.",
+    "termsOfService": "Terms of Service",
+    "thankYou": "Thank you!",
+    "validEmail": "Enter a valid email address"
   },
   "fieldLabels": {
     "default": {
