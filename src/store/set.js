@@ -181,10 +181,12 @@ export default {
       return this.$apis.recommendation.accept('set', params.setId, params.itemIds)
         .then(response => {
           const recList = state.activeRecommendations.slice();
-          const index = recList.map((item) => {
-            return item.id;
-          }).indexOf(params.itemIds[0]);
-          recList.splice(index, 1, response.items[0]);
+          const index = recList.findIndex(item => item.id === params.itemIds[0]);
+          if (response.items.length > 0) {
+            recList.splice(index, 1, response.items[0]);
+          } else {
+            recList.splice(index, 1);
+          }
 
           commit('setActiveRecommendations', recList);
         });
@@ -193,10 +195,12 @@ export default {
       return this.$apis.recommendation.reject('set', params.setId, params.itemIds)
         .then(response => {
           const recList = state.activeRecommendations.slice();
-          const index = recList.map((item) => {
-            return item.id;
-          }).indexOf(params.itemIds[0]);
-          recList.splice(index, 1, response.items[0]);
+          const index = recList.findIndex(item => item.id === params.itemIds[0]);
+          if (response.items.length > 0) {
+            recList.splice(index, 1, response.items[0]);
+          } else {
+            recList.splice(index, 1);
+          }
 
           commit('setActiveRecommendations', recList);
         });
