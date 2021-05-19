@@ -21,8 +21,12 @@
     <PageHeader
       keep-alive
     />
-    <FeedbackButton />
-    <FeedbackModal />
+    <client-only
+      v-if="$config.app.features.jiraServiceDeskFeedbackForm"
+    >
+      <FeedbackButton />
+      <FeedbackModal />
+    </client-only>
     <main
       id="default"
       role="main"
@@ -46,8 +50,6 @@
   import { mapGetters, mapState } from 'vuex';
   import ClientOnly from 'vue-client-only';
   import PageHeader from '../components/PageHeader';
-  import FeedbackModal from '../components/generic/FeedbackModal.vue';
-  import FeedbackButton from '../components/generic/FeedbackButton.vue';
 
   const config = {
     bootstrapVersion: require('bootstrap/package.json').version,
@@ -60,8 +62,8 @@
       CookieDisclaimer: () => import('../components/generic/CookieDisclaimer'),
       PageHeader,
       PageFooter: () => import('../components/PageFooter'),
-      FeedbackModal,
-      FeedbackButton
+      FeedbackModal: () => import('../components/generic/FeedbackModal'),
+      FeedbackButton: () => import('../components/generic/FeedbackButton')
     },
 
     data() {
