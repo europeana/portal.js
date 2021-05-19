@@ -1,11 +1,12 @@
 <template>
   <div
-    class="h-100 d-flex align-items-center justify-content-center"
+    class="h-100 position-relative"
   >
     <b-link
       v-if="imageLink && media.thumbnails['large'] && !media.isShownAt"
       :href="imageLink"
       target="_blank"
+      class="position-absolute center-align-image"
     >
       <component
         :is="lazy ? 'b-img-lazy' : 'b-img'"
@@ -25,7 +26,7 @@
       v-else-if="media.thumbnails['large']"
       :src="media.thumbnails['large']"
       alt=""
-      class="mw-100"
+      class="mw-100 position-absolute center-align-image"
       data-qa="media preview image"
     />
   </div>
@@ -62,5 +63,12 @@
 img {
   max-height: 100%;
   height: auto;
+}
+
+.center-align-image {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-height: 100%;
 }
 </style>
