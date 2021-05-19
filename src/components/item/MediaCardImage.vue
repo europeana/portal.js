@@ -6,7 +6,6 @@
       v-if="imageLink && media.thumbnails['large'] && !media.isShownAt"
       :href="imageLink"
       target="_blank"
-      class="center-image"
     >
       <component
         :is="lazy ? 'b-img-lazy' : 'b-img'"
@@ -23,7 +22,6 @@
     </b-link>
     <div
       v-else-if="media.thumbnails['large']"
-      class="center-image"
     >
       <component
         :is="lazy ? 'b-img-lazy' : 'b-img'"
@@ -64,22 +62,15 @@
 <style lang="scss" scoped>
 @import '../../assets/scss/variables.scss';
 
-.center-image {
-  display: flex;
-  align-self: center;
-  justify-content: center;
-  height: auto;
-
-  @media (max-width: $bp-medium) {
-    max-height: 100%;
-    width: auto;
-  }
-}
-
 img {
   max-height: 100%;
   height: auto;
-
+  @media (max-height: $bp-medium) {
+    max-height: 80vh;
+  }
+  @media (min-height: $bp-medium) {
+    max-height: 35.5rem;
+  }
   @media (max-width: $bp-medium) {
     max-height: 25rem;
   }
