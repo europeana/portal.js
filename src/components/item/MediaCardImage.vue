@@ -1,12 +1,12 @@
 <template>
   <div
-    class="h-100 position-relative"
+    class="h-100 d-flex align-items-center justify-content-center"
   >
     <b-link
       v-if="imageLink && media.thumbnails['large'] && !media.isShownAt"
       :href="imageLink"
       target="_blank"
-      class="position-absolute center-align-image"
+      class="center-image"
     >
       <component
         :is="lazy ? 'b-img-lazy' : 'b-img'"
@@ -21,14 +21,18 @@
         ({{ $t('newWindow') }})
       </span>
     </b-link>
-    <component
-      :is="lazy ? 'b-img-lazy' : 'b-img'"
+    <div
       v-else-if="media.thumbnails['large']"
-      :src="media.thumbnails['large']"
-      alt=""
-      class="mw-100 position-absolute center-align-image"
-      data-qa="media preview image"
-    />
+      class="center-image"
+    >
+      <component
+        :is="lazy ? 'b-img-lazy' : 'b-img'"
+        :src="media.thumbnails['large']"
+        alt=""
+        class="mw-100"
+        data-qa="media preview image"
+      />
+    </div>
   </div>
 </template>
 
@@ -60,15 +64,24 @@
 <style lang="scss" scoped>
 @import '../../assets/scss/variables.scss';
 
+.center-image {
+  display: flex;
+  align-self: center;
+  justify-content: center;
+  height: auto;
+
+  @media (max-width: $bp-medium) {
+    height: 100%;
+    width: auto;
+  }
+}
+
 img {
   max-height: 100%;
   height: auto;
-}
 
-.center-align-image {
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  max-height: 100%;
+  @media (max-width: $bp-medium) {
+    max-height: 25rem;
+  }
 }
 </style>
