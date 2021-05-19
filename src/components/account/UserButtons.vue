@@ -69,6 +69,7 @@
 
 <script>
   import ClientOnly from 'vue-client-only';
+  import login from '../../mixins/login';
 
   export default {
     name: 'UserButtons',
@@ -78,6 +79,9 @@
       ClientOnly,
       SetFormModal: () => import('../set/SetFormModal')
     },
+    mixins: [
+      login
+    ],
 
     props: {
       // Identifier of the item
@@ -133,7 +137,7 @@
         if (this.$auth.loggedIn) {
           await (this.liked ? this.unlike() : this.like());
         } else {
-          this.$goto('/account/login');
+          this.login();
         }
       },
       async like() {
@@ -162,7 +166,7 @@
           this.$bvModal.show(this.addItemToSetModalId);
           this.$emit('add', this.value);
         } else {
-          this.$goto('/account/login');
+          this.login();
         }
       },
       makeToast() {

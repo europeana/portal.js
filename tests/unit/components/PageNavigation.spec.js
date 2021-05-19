@@ -28,11 +28,12 @@ const factory = () => mount(PageNavigation, {
     $t: (key) => key,
     $path: code => window.location.href + code,
     localePath: path => path,
-    $auth: { strategy: { options: {} } }
+    $auth: { strategy: { options: {} } },
+    $route: { fullPath: '/fr' }
   }
 });
 
-describe('components/search/PageNavigation', () => {
+describe('components/PageNavigation', () => {
   it('retrieves the correct navigation data', () => {
     const wrapper = factory();
     const links = wrapper.find('[data-qa="main navigation"]');

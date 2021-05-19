@@ -120,6 +120,18 @@ module.exports = {
     }
   },
 
+  privateRuntimeConfig: {
+    jira: {
+      origin: process.env.JIRA_API_ORIGIN,
+      username: process.env.JIRA_API_USERNAME,
+      password: process.env.JIRA_API_PASSWORD,
+      serviceDesk: {
+        serviceDeskId: process.env.JIRA_API_SERVICE_DESK_ID,
+        requestTypeId: process.env.JIRA_API_SERVICE_DESK_REQUEST_TYPE_ID
+      }
+    }
+  },
+
   /*
   ** Headers of the page
   */
@@ -309,7 +321,9 @@ module.exports = {
   },
 
   serverMiddleware: [
-    { path: '/memory-usage', handler: '~/server-middleware/memory-usage' },
+    // We can't use /api as that's reserved on www.europeana.eu for (deprecated)
+    // access to Europeana APIs.
+    { path: '/_api', handler: '~/server-middleware/api' },
     '~/server-middleware/logging',
     '~/server-middleware/record-json'
   ],
