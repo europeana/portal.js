@@ -23,6 +23,12 @@
     <PageHeader
       keep-alive
     />
+    <client-only
+      v-if="$config.app.features.jiraServiceDeskFeedbackForm"
+    >
+      <FeedbackButton />
+      <FeedbackModal />
+    </client-only>
     <main
       id="default"
       role="main"
@@ -59,7 +65,9 @@
       ClientOnly,
       CookieDisclaimer: () => import('../components/generic/CookieDisclaimer'),
       PageHeader,
-      PageFooter: () => import('../components/PageFooter')
+      PageFooter: () => import('../components/PageFooter'),
+      FeedbackModal: () => import('../components/generic/FeedbackModal'),
+      FeedbackButton: () => import('../components/generic/FeedbackButton')
     },
 
     data() {
@@ -142,7 +150,8 @@
           ...i18nSeo.htmlAttrs
         },
         link: [
-          { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,700italic,400,600,700&subset=latin,greek,cyrillic&display=swap', body: true },
+          { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,700italic,400,600,700&subset=latin,greek,cyrillic&display=swap',
+            body: true },
           { rel: 'stylesheet', href: `https://unpkg.com/bootstrap@${this.bootstrapVersion}/dist/css/bootstrap.min.css` },
           { rel: 'stylesheet', href: `https://cdn.kiprotect.com/klaro/v${this.klaroVersion}/klaro.min.css` },
           { rel: 'stylesheet', href: `https://unpkg.com/bootstrap-vue@${this.bootstrapVueVersion}/dist/bootstrap-vue.min.css` },
