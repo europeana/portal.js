@@ -100,7 +100,7 @@
         store.commit('entity/setEntity', null);
         store.commit('entity/setPage', null);
         store.commit('entity/setRelatedEntities', null);
-        store.commit('entity/setFeatureSetId', null);
+        store.commit('entity/setFeaturedSetId', null);
         store.commit('entity/setPinned', null);
       }
       store.commit('entity/setId', entityUri);
@@ -168,8 +168,8 @@
         page: state => state.entity.page,
         relatedEntities: state => state.entity.relatedEntities,
         recordsPerPage: state => state.entity.recordsPerPage,
-        featured: state => state.entity.featured,
-        featuredSetId: state => state.entity.featuredSetId
+        featuredSetId: state => state.entity.featuredSetId,
+        pinned: state => state.entity.pinned
       }),
       description() {
         return this.editorialDescription ? { values: [this.editorialDescription], code: null } : null;

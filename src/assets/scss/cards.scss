@@ -297,7 +297,8 @@
   }
 
   .user-buttons {
-    display: none;
+    visibility: hidden;
+    display: flex;
     flex-wrap: wrap;
     position: absolute;
     top: 1rem;
@@ -333,11 +334,22 @@
 
         &.icon-push-pin {
            margin-left: 2rem;
+
+          &.active {
+            visibility: visible;
+          }
+
+          &:hover {
+            color: $innovationblue;
+            background: $white;
+            border-color: $white;
+          }
            
          +.btn {
            margin-left:auto; 
            margin-right: 0.5rem;
          }
+
         }   
 
       }
@@ -352,7 +364,7 @@
     box-shadow: $boxshadow-large;
 
     .user-buttons {
-      display: flex;
+      visibility: visible;
     }
   }
 }

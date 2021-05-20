@@ -125,10 +125,10 @@ export default (context = {}) => {
      * @param {string} itemId the id of the item to be added or deleted, with leading slash
      * @return {Object} API response data
      */
-    async modifyItems(action, setId, itemId) {
+    async modifyItems(action, setId, itemId, pin) {
       const apiCall = action === 'add' ? $axios.put : $axios.delete;
-
-      return apiCall(`/${setIdFromUri(setId)}${itemId}`)
+      const pinPos = pin ? '?position=pin' : '';
+      return apiCall(`/${setIdFromUri(setId)}${itemId}${pinPos}`)
         .then(response => response.data)
         .catch(error => {
           throw apiError(error);

@@ -119,7 +119,7 @@ export default {
     "actions": {
       "pin": "Pin item",
       "unpin": "Unpin item",
-      "viewpinned": "See pinned items",
+      "viewPinned": "See pinned items",
       "cancel": "Cancel"
     },
     "labels": {
@@ -134,7 +134,9 @@ export default {
       "pinLimit": {
         "body": "For now you can only pin 24 items on the first page. If you want to pin this item, make sure you unpin another one and then try to pin this one again.",
         "title": "Too many pinned items"
-      }
+      },
+      "pinned": "The item has been pinned. It might take up to 24 hours to appear for everyone.",
+      "unpinned": "The item has been unpinned. It might take up to 24 hours to disappear for everyone."
     }
 
   },

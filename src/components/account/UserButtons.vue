@@ -57,11 +57,26 @@
           <p>{{ $t('set.notifications.likeLimit.body') }}</p>
         </b-modal>
         <b-modal
-          :id="featureLimitModalId"
+          :id="pinnedLimitModalId"
           :title="$t('entity.notifications.pinLimit.title')"
           hide-footer
+          hide-header-close
         >
-          <p>{{ $t('entity.notifications.pinLimit.body') }}</p>
+          {{ $t('entity.notifications.pinLimit.body') }}
+          <div class="modal-footer">
+            <b-button
+              variant="outline-primary"
+              data-qa="cancel button"
+              @click="$bvModal.hide(pinnedLimitModalId)"
+            >
+              {{ $t('actions.close') }}
+            </b-button>
+            <b-button
+              variant="primary"
+            >
+              {{ $t('entity.actions.viewPinned') }}
+            </b-button>
+          </div>
         </b-modal>
       </template>
     </client-only>
@@ -99,7 +114,7 @@
         setFormModalId: `set-form-modal-${this.value}`,
         likeLimitModalId: `like-limit-modal-${this.value}`,
         pinModalId: `pin-to-entity-modal-${this.value}`,
-        featureLimitModalId: `feature-limit-modal-${this.value}`,
+        pinnedLimitModalId: `pinned-limit-modal-${this.value}`,
         showFormModal: false,
         newSetCreated: false
       };
@@ -140,9 +155,9 @@
           this.$goto('/account/login');
         }
       },
-      async togglePinned() {
+      togglePinned() {
         if (this.$auth.loggedIn) {
-          await (this.pinned ? this.unpin() : this.pin());
+          this.$bvModal.show(this.pinModalId);
         } else {
           this.$goto('/account/login');
         }
@@ -167,9 +182,6 @@
       async unlike() {
         await this.$store.dispatch('set/unlike', this.value);
         this.$emit('unlike', this.value);
-      },
-      pin() {
-        this.$bvModal.show(this.pinModalId);
       },
       addToSet() {
         if (this.$auth.loggedIn) {

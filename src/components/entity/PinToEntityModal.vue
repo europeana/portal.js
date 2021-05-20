@@ -7,8 +7,8 @@
     :static="modalStatic"
     @show="init"
   >
-    <p>{{ description }}</p>
-    <b-form @submit.stop.prevent="pinned ? unpin : pin">
+    {{ description }}
+    <b-form @submit.stop.prevent="pinAction">
       <div class="modal-footer">
         <b-button
           variant="outline-primary"
@@ -68,18 +68,28 @@
           this.description = this.$t('entity.prompts.pin', { entity: this.$store.getters['entity/englishPrefLabel'] });
         }
       },
+      makeToast(toastMsg) {
+        this.$root.$bvToast.toast(toastMsg, {
+          toastClass: 'brand-toast',
+          toaster: 'b-toaster-bottom-left',
+          autoHideDelay: 5000,
+          isStatus: true,
+          noCloseButton: true,
+          solid: true
+        });
+      },
       async pin() {
-        if (this.$store.getters['entity/featureSetId'] === null) {
-          await this.$store.dispatch('entity/createFeatureSet', this.itemId);
+        if (this.$store.state.entity.featuredSetId === null) {
+          await this.$store.dispatch('entity/createFeaturedSet', this.itemId);
         }
-
         try {
           await this.$store.dispatch('entity/pin', this.itemId);
-          this.$emit('pin', this.itemId);
+          this.hide();
+          this.makeToast(this.$t('entity.notifications.pinned'));
         } catch (e) {
-          if (e.message === '24 pins') {
+          if (e.message === 'too many pins') {
             this.hide();
-            this.$bvModal.show(`feature-limit-modal-${this.itemId}`);
+            this.$bvModal.show(`pinned-limit-modal-${this.itemId}`);
           } else {
             throw e;
           }
@@ -87,7 +97,16 @@
       },
       async unpin() {
         await this.$store.dispatch('entity/unpin', this.itemId);
+        this.hide();
+        this.makeToast(this.$t('entity.notifications.unpinned'));
+      },
+      pinAction() {
+        this.pinned ? this.unpin() : this.pin();
+      },
+      hide() {
+        this.$bvModal.hide(this.modalId);
       }
+
     }
   };
 </script>

@@ -9,7 +9,7 @@ export default {
     recordsPerPage: 24,
     relatedEntities: null,
     pinned: null,
-    featureSetId: null
+    featuredSetId: null
   }),
 
   mutations: {
@@ -29,10 +29,14 @@ export default {
       state.curatedEntities = value;
     },
     setPinned(state, value) {
-      state.pinned = value;
+      if (value) {
+        state.pinned = value.map(item => item.id);
+      } else {
+        state.pinned = [];
+      }
     },
-    setFeatureSetId(state, value) {
-      state.featureSetId = value;
+    setFeaturedSetId(state, value) {
+      state.featuredSetId = value;
     }
   },
 
@@ -50,10 +54,6 @@ export default {
 
     id(state) {
       return state.id ? state.id : null;
-    },
-
-    featureSetId(state) {
-      return state.featureSetId;
     },
 
     isPinned: (state) => (itemId) => {
@@ -105,45 +105,52 @@ export default {
       };
       return this.$apis.set.search(searchParams)
         .then(searchResponse => {
-          searchResponse.data.total > 0 ? commit('setFeatureSetId', searchResponse.data.items[0].split('/').pop()) : ({});
-          if (state.featureSetId) {
-            // set exists
-            dispatch('getPins', state.featureSetId);
+          searchResponse.data.total > 0 ? commit('setFeaturedSetId', searchResponse.data.items[0].split('/').pop()) : ({});
+          if (state.featuredSetId) {
+            dispatch('getPins');
           }
         });
     },
     pin({ dispatch, state }, itemId) {
-      return this.$apis.set.modifyItems('add', state.featureSetId, itemId)
+      return dispatch('getPins')
         .then(() => {
-          dispatch('getPins', state.featureSetId);
+          if (state.pinned && state.pinned.length >= 24) {
+            throw new Error('too many pins');
+          }
         })
-        .catch(() => {
-          dispatch('getPins', state.featureSetId);
+        .then(() => {
+          return this.$apis.set.modifyItems('add', state.featuredSetId, itemId, true)
+            .then(() => {
+              return dispatch('getPins');
+            })
+            .catch(() => {
+              return dispatch('getPins');
+            });
         });
     },
     unpin({ dispatch, state }, itemId) {
-      return this.$apis.set.modifyItems('delete', state.featureSetId, itemId)
+      return this.$apis.set.modifyItems('delete', state.featuredSetId, itemId)
         .then(() => {
-          dispatch('getPins', state.featureSetId);
+          return dispatch('getPins');
         })
         .catch(() => {
-          dispatch('getPins', state.featureSetId);
+          return dispatch('getPins');
         });
     },
     getPins({ state, commit }) {
-      return this.$apis.set.getSet(state.featureSetId, {
+      return this.$apis.set.getSet(state.featuredSetId, {
         pageSize: 100,
         profile: 'itemDescriptions'
-      }).then(featured => featured.pinned > 0 ? commit('setPinned', featured.items.slice(0, featured.pinned - 1)) : []);
+      }).then(featured => featured.pinned > 0 ? commit('setPinned', featured.items.slice(0, featured.pinned)) : commit('setPinned', []));
     },
-    createFeatureSet({ getters, commit }) {
-      const featureSetBody = {
+    createFeaturedSet({ getters, commit }) {
+      const featuredSetBody = {
         type: 'EntityBestItemsSet',
         title: { 'en': getters.englishPrefLabel + ' Page' },
         subject: [getters.id]
       };
-      return this.$apis.set.createSet(featureSetBody)
-        .then(response => commit('setFeatureSetId', response.id));
+      return this.$apis.set.createSet(featuredSetBody)
+        .then(response => commit('setFeaturedSetId', response.id));
     }
   }
 };

@@ -4,8 +4,7 @@ export default {
     likedItems: null,
     likedItemIds: [],
     active: null,
-    creations: [],
-    entitiySets: []
+    creations: []
   }),
 
   mutations: {
