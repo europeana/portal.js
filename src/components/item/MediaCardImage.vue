@@ -63,16 +63,15 @@
 @import '../../assets/scss/variables.scss';
 
 img {
-  max-height: 100%;
   height: auto;
   @media (max-height: $bp-medium) {
-    max-height: 80vh;
+    max-height: $swiper-height;
   }
   @media (min-height: $bp-medium) {
-    max-height: 35.5rem;
+    max-height: $swiper-height-max;
   }
   @media (max-width: $bp-medium) {
-    max-height: 25rem;
+    max-height: $swiper-height-medium;
   }
 }
 </style>

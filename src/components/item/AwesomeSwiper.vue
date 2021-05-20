@@ -123,16 +123,16 @@
   @import '../../assets/scss/variables.scss';
 
   .swiper-container {
-    height: 80vh;
+    height: $swiper-height;
     @media (max-height: $bp-medium) {
-      max-height: 80vh;
+      max-height: $swiper-height;
     }
     @media (min-height: $bp-medium) {
-      max-height: 35.5rem;
+      max-height: $swiper-height-max;
     }
     @media (max-width: $bp-medium) {
-      max-height: 25rem;
-      height: 25rem;
+      max-height: $swiper-height-medium;
+      height: $swiper-height-medium;
     }
 
     .swiper-slide {
