@@ -16,22 +16,6 @@ export default ($i18n, $gtm, $gtmId) => {
     translations: translations('klaro.main'),
     services: [
       {
-        name: 'searchResultsView',
-        purposes: ['usage'],
-        cookies: [
-          'searchResultsView'
-        ],
-        translations: translations('klaro.services.searchResultsView')
-      },
-      {
-        name: 'debugSettings',
-        purposes: ['usage'],
-        cookies: [
-          'debugSettings'
-        ],
-        translations: translations('klaro.services.debugSettings')
-      },
-      {
         name: 'google-analytics', // https://developers.google.com/analytics/devguides/collection/analyticsjs/cookie-usage#gtagjs_google_analytics_4_-_cookie_usage
         purposes: ['usage'],
         cookies: [
@@ -76,6 +60,24 @@ export default ($i18n, $gtm, $gtmId) => {
         translations: translations('klaro.services.i18n')
       },
       {
+        name: 'searchResultsView',
+        purposes: ['essential'],
+        cookies: [
+          'searchResultsView'
+        ],
+        required: true,
+        translations: translations('klaro.services.searchResultsView')
+      },
+      {
+        name: 'debugSettings',
+        purposes: ['essential'],
+        cookies: [
+          'debugSettings'
+        ],
+        required: true,
+        translations: translations('klaro.services.debugSettings')
+      },
+      {
         name: 'auth-strategy',
         purposes: ['essential'],
         cookies: [
@@ -86,6 +88,7 @@ export default ($i18n, $gtm, $gtmId) => {
       }
     ],
     mustConsent: false,
+    hideDeclineAll: true,
     acceptAll: true,
     callback: (consent, service) => {
       if (service.name === 'google-analytics' && consent) {
