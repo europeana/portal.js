@@ -1,6 +1,6 @@
 <template>
   <div
-    class="h-100 d-flex align-items-center justify-content-center"
+    class="image-container h-100"
   >
     <b-link
       v-if="imageLink && media.thumbnails['large'] && !media.isShownAt"
@@ -61,6 +61,15 @@
 
 <style lang="scss" scoped>
 @import '../../assets/scss/variables.scss';
+
+.image-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  @media (max-height: $bp-small) {
+    align-items: flex-start;
+  }
+}
 
 img {
   height: auto;
