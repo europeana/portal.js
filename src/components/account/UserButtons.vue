@@ -85,6 +85,7 @@
 
 <script>
   import ClientOnly from 'vue-client-only';
+  import keycloak from '../../mixins/keycloak';
 
   export default {
     name: 'UserButtons',
@@ -95,6 +96,9 @@
       SetFormModal: () => import('../set/SetFormModal'),
       PinToEntityModal: () => import('../entity/PinToEntityModal')
     },
+    mixins: [
+      keycloak
+    ],
 
     props: {
       // Identifier of the item
@@ -152,14 +156,14 @@
         if (this.$auth.loggedIn) {
           await (this.liked ? this.unlike() : this.like());
         } else {
-          this.$goto('/account/login');
+          this.keycloakLogin();
         }
       },
       togglePinned() {
         if (this.$auth.loggedIn) {
           this.$bvModal.show(this.pinModalId);
         } else {
-          this.$goto('/account/login');
+          this.keycloakLogin();
         }
       },
       async like() {
@@ -188,7 +192,7 @@
           this.$bvModal.show(this.addItemToSetModalId);
           this.$emit('add', this.value);
         } else {
-          this.$goto('/account/login');
+          this.keycloakLogin();
         }
       }
     }

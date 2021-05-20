@@ -155,6 +155,9 @@ module.exports = {
     await client.pause(1000);
     await client.expect.element('.cookie-disclaimer').to.not.be.present;
   },
+  async seeKeycloakLoginForm() {
+    await client.expect.element('.kcform').to.be.visible;
+  },
   async havePreviouslyAcceptedCookies() {
     /* eslint-disable prefer-arrow-callback */
     /* DO NOT MAKE INTO A ARROW FUNCTION - If you do, it will break the tests */
@@ -290,7 +293,7 @@ module.exports = {
     });
   },
   async haveNotExcededMemoryUsageInMB(memoryUsageMB) {
-    const response = await axios.get(`${url}/memory-usage`, {
+    const response = await axios.get(`${url}/_api/debug/memory-usage`, {
       httpsAgent: new https.Agent({
         rejectUnauthorized: false
       })

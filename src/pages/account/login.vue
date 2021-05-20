@@ -3,18 +3,17 @@
 </template>
 
 <script>
+  import keycloak from '../../mixins/keycloak';
+
   export default {
     layout: 'minimal',
 
-    created() {
-      this.$auth.$storage.setUniversal('portalLoggingIn', true);
-      this.$auth.loginWith('keycloak');
-    },
+    mixins: [
+      keycloak
+    ],
 
-    beforeRouteEnter(to, from, next) {
-      next(vm => {
-        vm.$auth.$storage.setUniversal('redirect', from.fullPath);
-      });
+    mounted() {
+      this.keycloakLogin();
     }
   };
 </script>

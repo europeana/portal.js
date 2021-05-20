@@ -123,11 +123,16 @@
   @import '../../assets/scss/variables.scss';
 
   .swiper-container {
-    max-height: 35.5rem;
-    height: 80vh;
-
+    height: $swiper-height;
+    @media (max-height: $bp-medium) {
+      max-height: $swiper-height;
+    }
+    @media (min-height: $bp-medium) {
+      max-height: $swiper-height-max;
+    }
     @media (max-width: $bp-medium) {
-      max-height: 25rem;
+      max-height: $swiper-height-medium;
+      height: $swiper-height-medium;
     }
 
     .swiper-slide {
@@ -160,17 +165,6 @@
         width: 100%;
         margin-left: auto;
         margin-right: auto;
-      }
-
-      a {
-        display: flex;
-        height: 100%;
-        align-items: center;
-        justify-content: center;
-
-        @media (min-width: $bp-medium) {
-          display: inline-flex;
-        }
       }
     }
 

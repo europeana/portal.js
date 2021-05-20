@@ -119,23 +119,15 @@ export default {
           }
         })
         .then(() => {
-          return this.$apis.set.modifyItems('add', state.featuredSetId, itemId, true)
-            .then(() => {
-              return dispatch('getPins');
-            })
-            .catch(() => {
-              return dispatch('getPins');
-            });
+          this.$apis.set.modifyItems('add', state.featuredSetId, itemId, true)
+            .then(() =>  dispatch('getPins'))
+            .catch(() => dispatch('getPins'));
         });
     },
     unpin({ dispatch, state }, itemId) {
       return this.$apis.set.modifyItems('delete', state.featuredSetId, itemId)
-        .then(() => {
-          return dispatch('getPins');
-        })
-        .catch(() => {
-          return dispatch('getPins');
-        });
+        .then(() =>  dispatch('getPins'))
+        .catch(() => dispatch('getPins'));
     },
     getPins({ state, commit }) {
       return this.$apis.set.getSet(state.featuredSetId, {
