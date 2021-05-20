@@ -5,7 +5,7 @@
   >
     <client-only>
       <b-button
-        v-show="showPins || pinned"
+        v-show="showPins"
         :pressed="pinned"
         class="icon-push-pin"
         data-qa="pin button"
@@ -73,6 +73,7 @@
             </b-button>
             <b-button
               variant="primary"
+              @click="goToPins()"
             >
               {{ $t('entity.actions.viewPinned') }}
             </b-button>
@@ -94,7 +95,7 @@
       AddItemToSetModal: () => import('../set/AddItemToSetModal'),
       ClientOnly,
       SetFormModal: () => import('../set/SetFormModal'),
-      PinToEntityModal: () => import('../entity/PinToEntityModal')
+      PinToEntityModal: () => import('../entity/PinModal')
     },
     mixins: [
       keycloak
@@ -117,7 +118,7 @@
         addItemToSetModalId: `add-item-to-set-modal-${this.value}`,
         setFormModalId: `set-form-modal-${this.value}`,
         likeLimitModalId: `like-limit-modal-${this.value}`,
-        pinModalId: `pin-to-entity-modal-${this.value}`,
+        pinModalId: `pin-modal-${this.value}`,
         pinnedLimitModalId: `pinned-limit-modal-${this.value}`,
         showFormModal: false,
         newSetCreated: false
@@ -165,6 +166,10 @@
         } else {
           this.keycloakLogin();
         }
+      },
+      goToPins() {
+        this.$bvModal.hide(this.pinnedLimitModalId);
+        // TODO: redirect to entity gallery
       },
       async like() {
         if (this.likesId === null) {

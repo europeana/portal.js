@@ -8,7 +8,7 @@
     @show="init"
   >
     {{ description }}
-    <b-form @submit.stop.prevent="pinAction">
+    <b-form @submit.stop.prevent="pinPress">
       <div class="modal-footer">
         <b-button
           variant="outline-primary"
@@ -31,12 +31,12 @@
 
 <script>
   export default {
-    name: 'PinToEntityModal',
+    name: 'PinModal',
 
     props: {
       modalId: {
         type: String,
-        default: 'pin-to-entity-modal'
+        default: 'pin-modal'
       },
       modalStatic: {
         type: Boolean,
@@ -100,7 +100,7 @@
         this.hide();
         this.makeToast(this.$t('entity.notifications.unpinned'));
       },
-      pinAction() {
+      pinPress() {
         this.pinned ? this.unpin() : this.pin();
       },
       hide() {
