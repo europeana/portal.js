@@ -16,34 +16,37 @@
   >
     <b-form
       data-qa="feedback modal form"
-      @submit.prevent="sendFeedback"
+      @submit.prevent="submitForm"
     >
       <b-form-group>
+        <!-- TODO: i18n placeholder -->
         <b-form-textarea
           v-if="currentStep === 1"
-          id="step1"
           ref="input"
           v-model="feedback"
           name="feedback"
+          required="required"
           placeholder="Enter your feedback here"
+          :state="feedbackInputState"
           rows="5"
           data-qa="feedback textarea"
+          @invalid="flagInvalidFeedback"
         />
         <div
           v-if="currentStep === 2"
           id="step2"
         >
-          <!-- invalid is only set on submit)-->
+          <!-- TODO: i18n placeholder -->
           <b-form-input
             v-model="email"
             autofocus
             type="email"
             name="email"
             placeholder="Enter your email address"
-            :state="emailState"
+            :state="emailInputState"
             aria-describedby="input-live-feedback"
             data-qa="feedback email input"
-            @invalid="invalidEmail"
+            @invalid="flagInvalidEmail"
           />
           <b-form-invalid-feedback
             id="input-live-feedback"
@@ -87,49 +90,48 @@
             <p class="mb-0">{{ $t('feedback.thankYou') }}</p>
           </span>
           <span
-            v-else
+            v-else-if="requestSuccess === false"
           >
             <p class="mb-0">{{ $t('feedback.failed') }}</p>
           </span>
         </div>
         <b-button
-          v-if="currentStep !== 3 || !requestSuccess"
-          :variant="'outline-primary'"
+          v-if="showCancelButton"
+          data-qa="feedback cancel button"
+          variant="outline-primary"
           class="mt-3"
           @click.prevent="resetModal"
         >
           {{ $t('actions.cancel') }}
         </b-button>
         <div class="button-group-right">
+          <!-- submit-type button needed for email format validation as it only validates on submit -->
           <b-button
-            v-if="currentStep === 2"
-            data-qa="feedback skip button"
-            :variant="'outline-primary'"
-            class="mt-3"
-            @click.prevent="sendFeedback(true)"
-          >
-            {{ $t('actions.skip') }}
-          </b-button>
-          <b-button
-            v-if="currentStep !== 2"
+            v-if="showNextButton"
             data-qa="feedback next button"
             variant="primary"
             class="button-next-step mt-3"
-            :disabled="disableButton"
-            @click.prevent="clickNextButton"
-          >
-            {{ $t(nextButtonTextKey) }}
-          </b-button>
-          <!-- Separate submit button needed for email format validation as it only validates on submit -->
-          <b-button
-            v-if="currentStep === 2"
-            data-qa="feedback next button"
-            variant="primary"
-            class="button-next-step mt-3"
-            :disabled="disableButton"
             type="submit"
           >
             {{ $t('actions.next') }}
+          </b-button>
+          <b-button
+            v-if="showSendButton"
+            data-qa="feedback send button"
+            variant="primary"
+            class="mt-3"
+            type="submit"
+          >
+            {{ $t('actions.send') }}
+          </b-button>
+          <b-button
+            v-if="showCloseButton"
+            data-qa="feedback close button"
+            variant="primary"
+            class="mt-3"
+            @click.prevent="resetModal"
+          >
+            {{ $t('actions.close') }}
           </b-button>
         </div>
       </b-form-group>
@@ -145,58 +147,42 @@
       return {
         modalShow: false,
         currentStep: 1,
-        feedback: '',
-        email: '',
-        emailState: true,
-        requestSuccess: false,
+        feedback: null,
+        feedbackInputState: true,
+        email: null,
+        emailInputState: true,
+        requestSuccess: null,
         show: false
       };
     },
 
     computed: {
-      disableButton() {
-        if (this.currentStep === 1) {
-          return !this.feedback;
-        } else if (this.currentStep === 2) {
-          return !this.email;
-        } else {
-          return false;
-        }
+      showCancelButton() {
+        return (this.currentStep !== 3) || !this.requestSuccess;
       },
 
-      nextButtonTextKey() {
-        let key = 'actions.next';
-        if (this.currentStep === 3) {
-          if (this.requestSuccess) {
-            key = 'actions.close';
-          } else {
-            key = 'actions.send';
-          }
-        }
-        return key;
+      showNextButton() {
+        return this.currentStep === 1;
+      },
+
+      showSendButton() {
+        return (this.currentStep > 1) && !this.requestSuccess;
+      },
+
+      showCloseButton() {
+        return !this.showCancelButton;
       }
     },
 
     methods: {
-      clickNextButton() {
-        if (this.currentStep === 3) {
-          if (this.requestSuccess) {
-            this.resetModal();
-          } else {
-            this.sendFeedback(true, true);
-          }
-        } else {
-          this.goToStep(this.currentStep + 1);
-        }
-      },
-
       resetModal() {
         this.show = !this.show;
         this.currentStep = 1;
-        this.feedback = '';
-        this.email = '';
-        this.emailState = true;
-        this.requestSuccess = false;
+        this.feedback = null;
+        this.feedbackInputState = true;
+        this.email = null;
+        this.emailInputState = true;
+        this.requestSuccess = null;
         if (this.show) {
           const textarea = this.$refs.input;
           setTimeout(() => {
@@ -209,23 +195,57 @@
         this.currentStep = step;
       },
 
-      invalidEmail() {
-        this.emailState = false;
+      flagInvalidEmail() {
+        this.emailInputState = false;
       },
 
-      sendFeedback(skip, sendAgain) {
-        if (this.emailState || skip || sendAgain) {
-          // TODO: post request to Jira Service Desk API
-          if (this.requestSuccess) {
-            console.log('Feedback has been send');
-          } else if (sendAgain) {
-            console.log('Send request again');
-            this.requestSuccess = true;
-          }
-          if (this.currentStep !== 3) {
-            this.goToStep(this.currentStep + 1);
-          }
+      flagInvalidFeedback() {
+        this.feedbackInputState = false;
+      },
+
+      async submitForm() {
+        // If this handler gets called, then the fields are valid
+        this.feedbackInputState = true;
+        this.emailInputState = true;
+
+        if (this.currentStep > 1) {
+          await this.sendFeedback();
         }
+        if (this.currentStep < 3) {
+          this.goToStep(this.currentStep + 1);
+        }
+      },
+
+      sendFeedback() {
+        return this.postFeedbackMessage()
+          .then(() => {
+            this.requestSuccess = true;
+            if (this.currentStep !== 3) {
+              this.goToStep(this.currentStep + 1);
+            }
+          })
+          .catch(() => {
+            this.requestSuccess = false;
+          });
+      },
+
+      postFeedbackMessage() {
+        const postData = {
+          summary: this.feedback
+        };
+        if (this.email && (this.email !== '')) {
+          postData.email = this.email;
+        }
+
+        // For testing purposes, uncomment the following if block to cause the
+        // request always to fail on the first attempt, showing the error message,
+        // but then succeeding on subsequent attempts.
+        // FIXME: comment out or delete before merging
+        if (this.requestSuccess === null) {
+          delete postData.summary;
+        }
+
+        return this.$axios.post('/_api/jira/service-desk', postData);
       }
     }
   };
