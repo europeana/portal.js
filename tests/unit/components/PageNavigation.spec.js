@@ -27,12 +27,12 @@ const factory = () => mount(PageNavigation, {
   mocks: {
     $t: (key) => key,
     $path: code => window.location.href + code,
-    localePath: path => path,
-    $auth: { strategy: { options: {} } }
+    $route: { fullPath: '/fr' },
+    localePath: path => path
   }
 });
 
-describe('components/search/PageNavigation', () => {
+describe('components/PageNavigation', () => {
   it('retrieves the correct navigation data', () => {
     const wrapper = factory();
     const links = wrapper.find('[data-qa="main navigation"]');

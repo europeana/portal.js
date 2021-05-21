@@ -30,3 +30,24 @@ Feature: Page layout on all pages.
     Then The `top page` is active
     And I press the TAB key
     Then I see the `main content accessibility link`
+
+  Scenario: The feedback button is visible
+    When I visit the `home page`
+    Then I find the `feedback button`
+
+  Scenario: Opening the feedback widget
+    When I visit the `home page`
+    Then I find the `feedback button`
+    Then I click the `feedback button`
+    And I wait 1 second
+    Then I see the `feedback modal form`
+
+  Scenario: Submitting feedback with an invalid email address
+    When I visit the `home page`
+    Then I click the `feedback button`
+    And I wait 1 second
+    And I enter "Feature testing this site is great!" in the `feedback textarea`
+    And I click the `feedback next button`
+    Then I enter "thisisnotanemail" in the `feedback email input`
+    And I click the `feedback next button`
+    Then I see `feedback email invalid`

@@ -69,7 +69,8 @@
           v-b-toggle.menu
           data-qa="log in button"
           class="nav-link"
-          :to="localePath({ name: 'account-login' })"
+          :href="$path({ name: 'account-login', query: { redirect: $route.fullPath } })"
+          @click.prevent="keycloakLogin"
         >
           <span :class="renderIcon('/account/login')" />
           <span>
@@ -83,11 +84,15 @@
 
 <script>
   import SmartLink from './generic/SmartLink';
+  import keycloak from '../mixins/keycloak';
 
   export default {
     components: {
       SmartLink
     },
+    mixins: [
+      keycloak
+    ],
     props: {
       links: {
         type: Array,
@@ -99,12 +104,10 @@
       }
     },
     data() {
-      const keycloakAccountUrl = `${this.$auth.strategy.options.origin}/auth/realms/${this.$auth.strategy.options.realm}/account?referrer=${this.$auth.strategy.options.client_id}`;
-
       return {
         authLinks: [
           { to: this.$path({ name: 'account' }), text: this.$t('account.myProfile'), name: '/account', dataQa: 'likes and galleries button' },
-          { href: keycloakAccountUrl, text: this.$t('account.profileSettings'), name: '/account/settings', dataQa: 'account settings button' },
+          { href: this.keycloakAccountUrl, text: this.$t('account.profileSettings'), name: '/account/settings', dataQa: 'account settings button' },
           { divider: true, name: 'divider' },
           { to: { name: 'account-logout' }, text: this.$t('account.linkLogout'), name: '/account/logout', dataQa: 'log out button' }
         ]

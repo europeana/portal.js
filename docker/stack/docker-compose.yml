@@ -18,6 +18,7 @@ services:
       - "8080"
     env_file: ./app/.env
     environment:
+      - ENABLE_JIRA_SERVICE_DESK_FEEDBACK_FORM=1
       - ENABLE_LINKS_TO_CLASSIC=1
       - ENABLE_SSL_NEGOTIATION=1
       - HTTP_PORT=80
