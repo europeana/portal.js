@@ -19,14 +19,13 @@
       @submit.prevent="submitForm"
     >
       <b-form-group>
-        <!-- TODO: i18n placeholder -->
         <b-form-textarea
           v-if="currentStep === 1"
           ref="input"
           v-model="feedback"
           name="feedback"
           required="required"
-          placeholder="Enter your feedback here"
+          :placeholder="$t('feedback.form.placeholders.feedback')"
           :state="feedbackInputState"
           rows="5"
           data-qa="feedback textarea"
@@ -36,13 +35,12 @@
           v-if="currentStep === 2"
           id="step2"
         >
-          <!-- TODO: i18n placeholder -->
           <b-form-input
             v-model="email"
             autofocus
             type="email"
             name="email"
-            placeholder="Enter your email address"
+            :placeholder="$t('feedback.form.placeholders.email')"
             :state="emailInputState"
             aria-describedby="input-live-feedback"
             data-qa="feedback email input"
@@ -105,13 +103,22 @@
           {{ $t('actions.cancel') }}
         </b-button>
         <div class="button-group-right">
-          <!-- submit-type button needed for email format validation as it only validates on submit -->
+          <b-button
+            v-if="showSkipButton"
+            data-qa="feedback next button"
+            variant="outline-primary"
+            class="mt-3"
+            type="submit"
+          >
+            {{ $t('actions.skip') }}
+          </b-button>
           <b-button
             v-if="showNextButton"
             data-qa="feedback next button"
             variant="primary"
             class="button-next-step mt-3"
             type="submit"
+            :disabled="disableNextButton"
           >
             {{ $t('actions.next') }}
           </b-button>
@@ -147,9 +154,9 @@
       return {
         modalShow: false,
         currentStep: 1,
-        feedback: null,
+        feedback: '',
         feedbackInputState: true,
-        email: null,
+        email: '',
         emailInputState: true,
         requestSuccess: null,
         show: false
@@ -162,11 +169,20 @@
       },
 
       showNextButton() {
-        return this.currentStep === 1;
+        return this.currentStep < 3;
+      },
+
+      disableNextButton() {
+        return ((this.currentStep === 1) && (this.feedback === '')) ||
+          ((this.currentStep === 2) && (this.email === ''));
+      },
+
+      showSkipButton() {
+        return this.currentStep === 2;
       },
 
       showSendButton() {
-        return (this.currentStep > 1) && !this.requestSuccess;
+        return (this.currentStep === 3) && !this.requestSuccess;
       },
 
       showCloseButton() {
@@ -178,9 +194,9 @@
       resetModal() {
         this.show = !this.show;
         this.currentStep = 1;
-        this.feedback = null;
+        this.feedback = '';
         this.feedbackInputState = true;
-        this.email = null;
+        this.email = '';
         this.emailInputState = true;
         this.requestSuccess = null;
         if (this.show) {
