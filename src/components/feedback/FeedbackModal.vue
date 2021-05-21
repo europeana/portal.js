@@ -57,7 +57,7 @@
               {{ $t('feedback.emailOptional') }}
             </p>
             <i18n
-              :path="'feedback.policies'"
+              path="feedback.policies"
               tag="span"
             >
               <b-link
@@ -105,7 +105,7 @@
         <div class="button-group-right">
           <b-button
             v-if="showSkipButton"
-            data-qa="feedback next button"
+            data-qa="feedback skip button"
             variant="outline-primary"
             class="mt-3"
             type="submit"

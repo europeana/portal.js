@@ -62,8 +62,8 @@
       CookieDisclaimer: () => import('../components/generic/CookieDisclaimer'),
       PageHeader,
       PageFooter: () => import('../components/PageFooter'),
-      FeedbackModal: () => import('../components/generic/FeedbackModal'),
-      FeedbackButton: () => import('../components/generic/FeedbackButton')
+      FeedbackModal: () => import('../components/feedback/FeedbackModal'),
+      FeedbackButton: () => import('../components/feedback/FeedbackButton')
     },
 
     data() {
