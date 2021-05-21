@@ -221,7 +221,7 @@ export default (context = {}) => {
         concepts,
         timespans,
         title: proxyData.dcTitle,
-        schemaOrg: data.schemaOrg
+        schemaOrg: data.schemaOrg ? Object.freeze(JSON.stringify(data.schemaOrg)) : undefined
       };
     },
 
@@ -292,9 +292,16 @@ export default (context = {}) => {
         path = '/record';
       }
 
-      return this.$axios.get(`${path}${europeanaId}.json`, {
-        params: { ...this.$axios.defaults.params, profile: 'schemaOrg' }
-      })
+      const params = { ...this.$axios.defaults.params };
+      let schemaOrgDatasetId;
+      if (context.$config && context.$config.app && context.$config.app.schemaOrgDatasetId) {
+        schemaOrgDatasetId = context.$config.app.schemaOrgDatasetId;
+      }
+      if (schemaOrgDatasetId && europeanaId.startsWith(`/${schemaOrgDatasetId}/`)) {
+        params.profile = 'schemaOrg';
+      }
+
+      return this.$axios.get(`${path}${europeanaId}.json`, { params })
         .then(response => this.parseRecordDataFromApiResponse(response.data))
         .then(parsed => reduceLangMapsForLocale(parsed, options.locale))
         .then(reduced => ({
