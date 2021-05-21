@@ -109,7 +109,7 @@
       },
       showPins: {
         type: Boolean,
-        deafult: false
+        default: false
       }
     },
 
@@ -161,11 +161,7 @@
         }
       },
       togglePinned() {
-        if (this.$auth.loggedIn) {
-          this.$bvModal.show(this.pinModalId);
-        } else {
-          this.keycloakLogin();
-        }
+        this.$bvModal.show(this.pinModalId);
       },
       goToPins() {
         this.$bvModal.hide(this.pinnedLimitModalId);

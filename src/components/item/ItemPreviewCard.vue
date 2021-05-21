@@ -59,7 +59,7 @@
       },
       showPins: {
         type: Boolean,
-        deafult: false
+        default: false
       }
     },
 

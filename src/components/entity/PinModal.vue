@@ -8,19 +8,19 @@
     @show="init"
   >
     {{ description }}
-    <b-form @submit.stop.prevent="pinPress">
+    <b-form @submit.stop.prevent="togglePin">
       <div class="modal-footer">
         <b-button
           variant="outline-primary"
           data-qa="cancel button"
-          @click="$bvModal.hide(modalId)"
+          @click="hide"
         >
           {{ $t('entity.actions.cancel') }}
         </b-button>
         <b-button
           variant="primary"
           type="submit"
-          data-qa="pin to entity button"
+          data-qa="toggle pin button"
         >
           {{ pinned ? $t('entity.actions.unpin') : $t('entity.actions.pin') }}
         </b-button>
@@ -80,7 +80,7 @@
       },
       async pin() {
         if (this.$store.state.entity.featuredSetId === null) {
-          await this.$store.dispatch('entity/createFeaturedSet', this.itemId);
+          await this.$store.dispatch('entity/createFeaturedSet');
         }
         try {
           await this.$store.dispatch('entity/pin', this.itemId);
@@ -100,7 +100,7 @@
         this.hide();
         this.makeToast(this.$t('entity.notifications.unpinned'));
       },
-      pinPress() {
+      togglePin() {
         this.pinned ? this.unpin() : this.pin();
       },
       hide() {
