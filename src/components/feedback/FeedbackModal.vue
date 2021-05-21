@@ -261,7 +261,10 @@
           delete postData.summary;
         }
 
-        return this.$axios.post('/_api/jira/service-desk', postData);
+        return this.$axios.post(
+          `${this.$config.app.portalBaseUrl}/_api/jira/service-desk`,
+          postData
+        );
       }
     }
   };
