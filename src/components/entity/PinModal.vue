@@ -8,24 +8,22 @@
     @show="init"
   >
     {{ description }}
-    <b-form @submit.stop.prevent="togglePin">
-      <div class="modal-footer">
-        <b-button
-          variant="outline-primary"
-          data-qa="cancel button"
-          @click="hide"
-        >
-          {{ $t('entity.actions.cancel') }}
-        </b-button>
-        <b-button
-          variant="primary"
-          type="submit"
-          data-qa="toggle pin button"
-        >
-          {{ pinned ? $t('entity.actions.unpin') : $t('entity.actions.pin') }}
-        </b-button>
-      </div>
-    </b-form>
+    <div class="modal-footer">
+      <b-button
+        variant="outline-primary"
+        data-qa="cancel button"
+        @click="hide"
+      >
+        {{ $t('entity.actions.cancel') }}
+      </b-button>
+      <b-button
+        variant="primary"
+        data-qa="toggle pin button"
+        @click="togglePin"
+      >
+        {{ pinned ? $t('entity.actions.unpin') : $t('entity.actions.pin') }}
+      </b-button>
+    </div>
   </b-modal>
 </template>
 

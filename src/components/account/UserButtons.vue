@@ -5,7 +5,7 @@
   >
     <client-only>
       <b-button
-        v-show="showPins"
+        :show="showPins"
         :pressed="pinned"
         class="icon-push-pin"
         data-qa="pin button"
