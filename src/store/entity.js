@@ -111,8 +111,8 @@ export default {
       };
       return this.$apis.set.search(searchParams)
         .then(searchResponse => {
-          searchResponse.data.total > 0 ? commit('setFeaturedSetId', searchResponse.data.items[0].split('/').pop()) : ({});
-          if (state.featuredSetId) {
+          if (searchResponse.data.total > 0) {
+            commit('setFeaturedSetId', searchResponse.data.items[0].split('/').pop());
             dispatch('getPins');
           }
         });
