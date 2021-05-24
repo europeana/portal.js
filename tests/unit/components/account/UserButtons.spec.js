@@ -59,12 +59,12 @@ describe('components/account/UserButtons', () => {
       context('when pressed', () => {
         it('goes to login', () => {
           const wrapper = factory({ $auth });
-          wrapper.vm.login = sinon.spy();
+          wrapper.vm.keycloakLogin = sinon.spy();
 
           const addButton = wrapper.find('[data-qa="add button"]');
           addButton.trigger('click');
 
-          wrapper.vm.login.should.have.been.called;
+          wrapper.vm.keycloakLogin.should.have.been.called;
         });
       });
     });
@@ -111,12 +111,12 @@ describe('components/account/UserButtons', () => {
       context('when pressed', () => {
         it('goes to login', () => {
           const wrapper = factory({ $auth, storeState: { liked: [], likesId: null } });
-          wrapper.vm.login = sinon.spy();
+          wrapper.vm.keycloakLogin = sinon.spy();
 
           const likeButton = wrapper.find('[data-qa="like button"]');
           likeButton.trigger('click');
 
-          wrapper.vm.login.should.have.been.called;
+          wrapper.vm.keycloakLogin.should.have.been.called;
         });
       });
     });

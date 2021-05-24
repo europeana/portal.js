@@ -69,7 +69,7 @@
 
 <script>
   import ClientOnly from 'vue-client-only';
-  import login from '../../mixins/login';
+  import keycloak from '../../mixins/keycloak';
 
   export default {
     name: 'UserButtons',
@@ -80,7 +80,7 @@
       SetFormModal: () => import('../set/SetFormModal')
     },
     mixins: [
-      login
+      keycloak
     ],
 
     props: {
@@ -137,7 +137,7 @@
         if (this.$auth.loggedIn) {
           await (this.liked ? this.unlike() : this.like());
         } else {
-          this.login();
+          this.keycloakLogin();
         }
       },
       async like() {
@@ -166,7 +166,7 @@
           this.$bvModal.show(this.addItemToSetModalId);
           this.$emit('add', this.value);
         } else {
-          this.login();
+          this.keycloakLogin();
         }
       },
       makeToast() {
