@@ -262,7 +262,7 @@
         }
 
         return this.$axios.post(
-          `${this.$config.app.portalBaseUrl}/_api/jira/service-desk`,
+          `${this.$config.app.baseUrl}/_api/jira/service-desk`,
           postData
         );
       }
