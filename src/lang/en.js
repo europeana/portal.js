@@ -403,6 +403,7 @@ export default {
     "success": "Your feedback has been sent.",
     "termsOfService": "Terms of Service",
     "thankYou": "Thank you!",
+    "title": "Send feedback",
     "validEmail": "Enter a valid email address"
   },
   "fieldLabels": {

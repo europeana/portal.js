@@ -1,8 +1,8 @@
 <template>
   <b-modal
     id="feedbackModal"
-    v-model="modalShow"
-    title="Send feedback"
+    v-model="showModal"
+    :title="$t('feedback.title')"
     hide-header-close
     hide-footer
     data-qa="feedback modal"
@@ -11,8 +11,8 @@
     content-class="shadow"
     scrollable
     static
-    :modal-class="show ? 'showFeedbackModal' : null"
-    @show.prevent="resetModal"
+    :modal-class="showModal ? 'showFeedbackModal' : null"
+    @show="resetModal"
   >
     <b-form
       data-qa="feedback modal form"
@@ -98,7 +98,7 @@
           data-qa="feedback cancel button"
           variant="outline-primary"
           class="mt-3"
-          @click.prevent="resetModal"
+          @click.prevent="$bvModal.hide('feedbackModal')"
         >
           {{ $t('actions.cancel') }}
         </b-button>
@@ -136,7 +136,7 @@
             data-qa="feedback close button"
             variant="primary"
             class="mt-3"
-            @click.prevent="resetModal"
+            @click.prevent="$bvModal.hide('feedbackModal')"
           >
             {{ $t('actions.close') }}
           </b-button>
@@ -154,14 +154,13 @@
 
     data() {
       return {
-        modalShow: false,
+        showModal: false,
         currentStep: 1,
         feedback: '',
         feedbackInputState: true,
         email: '',
         emailInputState: true,
-        requestSuccess: null,
-        show: false
+        requestSuccess: null
       };
     },
 
@@ -194,19 +193,16 @@
 
     methods: {
       resetModal() {
-        this.show = !this.show;
         this.currentStep = 1;
         this.feedback = '';
         this.feedbackInputState = true;
         this.email = '';
         this.emailInputState = true;
         this.requestSuccess = null;
-        if (this.show) {
-          const textarea = this.$refs.input;
-          setTimeout(() => {
-            textarea.focus();
-          }, 100);
-        }
+        const textarea = this.$refs.input;
+        setTimeout(() => {
+          textarea.focus();
+        }, 100);
       },
 
       goToStep(step) {
