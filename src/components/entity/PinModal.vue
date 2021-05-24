@@ -21,7 +21,7 @@
         data-qa="toggle pin button"
         @click="togglePin"
       >
-        {{ pinned ? $t('entity.actions.unpin') : $t('entity.actions.pin') }}
+        {{ buttonLabel }}
       </b-button>
     </div>
   </b-modal>
@@ -52,7 +52,8 @@
     data() {
       return {
         title: '',
-        description: ''
+        description: '',
+        buttonLabel: ''
       };
     },
 
@@ -61,9 +62,11 @@
         if (this.pinned) {
           this.title = this.$t('entity.actions.unpin');
           this.description = this.$t('entity.prompts.unpin', { entity: this.$store.getters['entity/englishPrefLabel'] });
+          this.buttonLabel = this.$t('entity.actions.unpin');
         } else {
           this.title = this.$t('entity.actions.pin');
           this.description = this.$t('entity.prompts.pin', { entity: this.$store.getters['entity/englishPrefLabel'] });
+          this.buttonLabel = this.$t('entity.actions.pin');
         }
       },
       makeToast(toastMsg) {

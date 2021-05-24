@@ -37,6 +37,12 @@ export default {
     },
     setFeaturedSetId(state, value) {
       state.featuredSetId = value;
+    },
+    pin(state, itemId) {
+      state.pinned.push(itemId);
+    },
+    unpin(state, itemId) {
+      state.pinned.splice(state.pinned.indexOf(itemId), 1);
     }
   },
 
@@ -111,7 +117,7 @@ export default {
           }
         });
     },
-    pin({ dispatch, state }, itemId) {
+    pin({ dispatch, state, commit }, itemId) {
       return dispatch('getPins')
         .then(() => {
           if (state.pinned && state.pinned.length >= 24) {
@@ -120,12 +126,13 @@ export default {
         })
         .then(() => {
           this.$apis.set.modifyItems('add', state.featuredSetId, itemId, true)
-            .then(() =>  dispatch('getPins'))
+            .then(() =>  commit('pin', itemId))
             .catch(() => dispatch('getPins'));
         });
     },
-    unpin({ dispatch, state }, itemId) {
+    unpin({ dispatch, state, commit }, itemId) {
       return this.$apis.set.modifyItems('delete', state.featuredSetId, itemId)
+        .then(commit('unpin', itemId))
         .then(() =>  dispatch('getPins'))
         .catch(() => dispatch('getPins'));
     },

@@ -66,7 +66,7 @@ describe('components/set/PinModal', () => {
       bvModalHide.should.have.been.calledWith(`pin-modal-${id}`);
     });
 
-    it('does not update set', () => {
+    it('does not update pinned set', () => {
       const wrapper = factory({ itemId: id });
 
       wrapper.find('[data-qa="cancel button"]').trigger('click');

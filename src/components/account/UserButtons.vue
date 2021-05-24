@@ -5,7 +5,7 @@
   >
     <client-only>
       <b-button
-        :show="showPins"
+        v-show="showPins"
         :pressed="pinned"
         class="icon-push-pin"
         data-qa="pin button"
@@ -73,7 +73,7 @@
             </b-button>
             <b-button
               variant="primary"
-              @click="goToPins()"
+              @click="viewPins()"
             >
               {{ $t('entity.actions.viewPinned') }}
             </b-button>
@@ -163,9 +163,9 @@
       togglePinned() {
         this.$bvModal.show(this.pinModalId);
       },
-      goToPins() {
+      viewPins() {
         this.$bvModal.hide(this.pinnedLimitModalId);
-        // TODO: redirect to entity gallery
+        // TODO: go to entity gallery
       },
       async like() {
         if (this.likesId === null) {
