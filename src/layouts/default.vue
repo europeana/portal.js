@@ -22,7 +22,7 @@
       keep-alive
     />
     <client-only
-      v-if="$config.app.features.jiraServiceDeskFeedbackForm"
+      v-if="feedbackEnabled"
     >
       <FeedbackButton />
       <FeedbackModal />
@@ -82,7 +82,11 @@
       ...mapGetters({
         canonicalUrl: 'http/canonicalUrl',
         canonicalUrlWithoutLocale: 'http/canonicalUrlWithoutLocale'
-      })
+      }),
+
+      feedbackEnabled() {
+        return this.$config.app.features.jiraServiceDeskFeedbackForm && this.$config.app.baseUrl;
+      }
     },
 
     watch: {
