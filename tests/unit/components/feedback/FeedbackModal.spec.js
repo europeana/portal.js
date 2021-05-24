@@ -1,6 +1,7 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 import sinon from 'sinon';
+import nock from 'nock';
 import FeedbackModal from '../../../../src/components/feedback/FeedbackModal.vue';
 import VueI18n from 'vue-i18n';
 
@@ -100,7 +101,7 @@ describe('components/generic/FeedbackModal', () => {
     });
   });
 
-  describe('wrapper.vm.sendFeedback', () => {
+  describe('sendFeedback', () => {
     context('when email is not filled in and user clicks skip button', () => {
       it('feedback is send', async() => {
         const wrapper = factory();
@@ -142,6 +143,44 @@ describe('components/generic/FeedbackModal', () => {
 
         wrapper.vm.sendFeedback.should.have.been.called;
       });
+    });
+  });
+
+  describe('postFeedbackMessage', () => {
+    const baseUrl = 'http://www.example.org';
+    const middlewarePath = '/_api/jira/service-desk';
+    const feedback = 'This was useful. Thanks!';
+
+    it('posts feedback to server middleware', async() => {
+      nock(baseUrl).post(middlewarePath, body => (body.summary === feedback)).reply(201);
+      const wrapper = factory();
+
+      wrapper.setData({
+        requestSuccess: false,
+        feedback
+      });
+      wrapper.vm.$config = { app: { baseUrl } };
+      await wrapper.vm.postFeedbackMessage();
+
+      nock.isDone().should.be.true;
+    });
+
+    it('includes email if provided', async() => {
+      const email = 'me@example.org';
+      nock(baseUrl).post(middlewarePath, body => (
+        (body.summary === feedback) && (body.email === email)
+      )).reply(201);
+      const wrapper = factory();
+
+      wrapper.setData({
+        requestSuccess: false,
+        feedback,
+        email
+      });
+      wrapper.vm.$config = { app: { baseUrl } };
+      await wrapper.vm.postFeedbackMessage();
+
+      nock.isDone().should.be.true;
     });
   });
 });
