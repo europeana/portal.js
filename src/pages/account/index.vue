@@ -108,6 +108,25 @@
                 />
               </client-only>
             </b-tab>
+            <b-tab
+              v-if="userIsEditor"
+              data-qa="curated collections"
+              :title="$t('account.curatedCollections')"
+            >
+              <client-only>
+                <div
+                  v-if="$fetchState.pending"
+                  class="text-center pb-4"
+                >
+                  <LoadingSpinner />
+                </div>
+                <UserSets
+                  v-else
+                  visibility="curated"
+                  data-qa="curated sets"
+                />
+              </client-only>
+            </b-tab>
           </b-tabs>
         </b-col>
       </b-row>
@@ -136,6 +155,9 @@
     async fetch() {
       this.fetchLikes();
       await this.$store.dispatch('set/fetchCreations');
+      if (this.userIsEditor) {
+        await this.$store.dispatch('set/fetchCurations');
+      }
     },
 
     fetchOnServer: false,
@@ -150,6 +172,10 @@
       keycloakAccountUrl() {
         return `${this.$auth.strategy.options.origin}/auth/realms/${this.$auth.strategy.options.realm}/account?referrer=${this.$auth.strategy.options.client_id}
         &kc_locale=${this.$i18n.locale}`;
+      },
+
+      userIsEditor() {
+        return this.$store.state.auth.user && this.$store.state.auth.user.resource_access.entities && this.$store.state.auth.user.resource_access.entities.roles.includes('editor');
       },
 
       ...mapState({

@@ -13,6 +13,17 @@
           class="card-deck-4-cols pb-5"
           deck
         >
+          <b-row
+            v-if="visibility === 'curated'"
+            class="w-100 px-3"
+          >
+            <b-col>
+              <h2 class="related-heading text-uppercase">
+                <span class="icon-info-outline" />
+                {{ $t('account.curatedCollectionsInfo') }}
+              </h2>
+            </b-col>
+          </b-row>
           <ContentCard
             v-for="set in userSets"
             :key="set.id"
@@ -46,6 +57,9 @@
     },
     computed: {
       userSets() {
+        if (this.visibility === 'curated') {
+          return this.$store.state.set.curations;
+        }
         return this.$store.state.set.creations.filter(set => set.visibility === this.visibility);
       }
     },

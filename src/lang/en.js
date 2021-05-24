@@ -9,7 +9,8 @@ export default {
     "notifications": {
       "noCollections": {
         "private": "You haven’t created any private galleries yet",
-        "public": "You haven’t created any public galleries yet"
+        "public": "You haven’t created any public galleries yet",
+        "curated": "You haven’t curated any collections yet"
       },
       "noLikedItems": "You haven’t liked any items yet",
       "loggedIn": "You are now logged in. Welcome!",
@@ -21,7 +22,9 @@ export default {
     "profileSettings": "Profile settings",
     "publicCollections": "Public Galleries",
     "settings": "Settings",
-    "title": "My account"
+    "title": "My account",
+    "curatedCollections": "Curated Collections",
+    "curatedCollectionsInfo": "Find below all collections you have curated"
   },
   "actions": {
     "close": "close",
