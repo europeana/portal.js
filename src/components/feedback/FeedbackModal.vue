@@ -147,6 +147,8 @@
 </template>
 
 <script>
+  import axios from 'axios';
+
   export default {
     name: 'FeedbackModal',
 
@@ -165,7 +167,7 @@
 
     computed: {
       showCancelButton() {
-        return (this.currentStep !== 3) || !this.requestSuccess;
+        return (this.currentStep < 3) || !this.requestSuccess;
       },
 
       showNextButton() {
@@ -236,7 +238,7 @@
         return this.postFeedbackMessage()
           .then(() => {
             this.requestSuccess = true;
-            if (this.currentStep !== 3) {
+            if (this.currentStep < 3) {
               this.goToStep(this.currentStep + 1);
             }
           })
@@ -261,8 +263,10 @@
           delete postData.summary;
         }
 
-        return this.$axios.post(
-          `${this.$config.app.baseUrl}/_api/jira/service-desk`,
+        return axios.create({
+          baseURL: this.$config.app.baseUrl
+        }).post(
+          '/_api/jira/service-desk',
           postData
         );
       }
