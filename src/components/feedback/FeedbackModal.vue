@@ -3,9 +3,9 @@
     id="feedbackModal"
     v-model="showModal"
     :title="$t('feedback.title')"
+    data-qa="feedback modal"
     hide-header-close
     hide-footer
-    data-qa="feedback modal"
     no-close-on-backdrop
     hide-backdrop
     content-class="shadow"
@@ -13,6 +13,7 @@
     static
     :modal-class="showModal ? 'showFeedbackModal' : null"
     @show="resetModal"
+    @shown="focusFeedbackInput"
   >
     <b-form
       data-qa="feedback modal form"
@@ -199,10 +200,10 @@
         this.email = '';
         this.emailInputState = true;
         this.requestSuccess = null;
-        const textarea = this.$refs.input;
-        setTimeout(() => {
-          textarea.focus();
-        }, 100);
+      },
+
+      focusFeedbackInput() {
+        this.$refs.input.focus();
       },
 
       goToStep(step) {
