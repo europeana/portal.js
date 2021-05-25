@@ -24,8 +24,9 @@
     <client-only
       v-if="feedbackEnabled"
     >
-      <FeedbackButton />
-      <FeedbackModal />
+      <!-- <FeedbackButton />
+      <FeedbackModal /> -->
+      <FeedbackWidget />
     </client-only>
     <main
       id="default"
@@ -62,8 +63,9 @@
       CookieDisclaimer: () => import('../components/generic/CookieDisclaimer'),
       PageHeader,
       PageFooter: () => import('../components/PageFooter'),
-      FeedbackModal: () => import('../components/feedback/FeedbackModal'),
-      FeedbackButton: () => import('../components/feedback/FeedbackButton')
+      // FeedbackModal: () => import('../components/feedback/FeedbackModal'),
+      // FeedbackButton: () => import('../components/feedback/FeedbackButton')
+      FeedbackWidget: () => import('../components/feedback/FeedbackWidget')
     },
 
     data() {
