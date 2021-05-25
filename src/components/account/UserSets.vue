@@ -23,24 +23,9 @@
             :url="{ name: 'set-all', params: { pathMatch: setPathMatch(set) } }"
             data-qa="user set"
           />
-
-          <b-card
-            class="text-center default-card content-card create-card"
-            no-body
-            data-qa="create new gallery card"
-            @click="$root.$emit('clickCreateSet')"
-          >
-            <div class="card-inner d-flex justify-content-center align-items-center">
-              <i class="icon-ic-add" />
-              <b-card-body data-qa="card body">
-                <b-card-title title-tag="div">
-                  <span>
-                    {{ $t('set.actions.createNew') }}
-                  </span>
-                </b-card-title>
-              </b-card-body>
-            </div>
-          </b-card>
+          <CreateSetButton
+            :visibility="visibility"
+          />
         </b-card-group>
       </b-col>
     </b-row>
@@ -49,11 +34,13 @@
 
 <script>
   import ContentCard from '../generic/ContentCard';
+  import CreateSetButton from './CreateSetButton.vue';
 
   export default {
     name: 'UserSets',
     components: {
-      ContentCard
+      ContentCard,
+      CreateSetButton
     },
     props: {
       // May be "public" or "private"
