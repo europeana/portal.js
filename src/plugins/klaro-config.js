@@ -33,15 +33,6 @@ export default ($i18n, $gtm, $gtmId) => {
         translations: translations('klaro.services.hotjar')
       },
       {
-        name: 'google-optimize', // https://developers.google.com/analytics/devguides/collection/analyticsjs/cookie-usage#optimize_-_cookie_usage
-        purposes: ['usage'],
-        cookies: [
-          '_gaexp',
-          /^_opt(_.*)?/
-        ],
-        translations: translations('klaro.services.google-optimize')
-      },
-      {
         name: 'cloudflare',
         purposes: ['essential'],
         cookies: [
