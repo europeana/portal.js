@@ -7,7 +7,7 @@
       data-qa="feedback button"
       size="lg"
       class="feedback-button text-decoration-none"
-      :class="showModal ? 'hide-button' : null"
+      :class="showWidget ? 'hide-button' : null"
       @click="showFeedbackForm"
     >
       <span class="icon-ic-feedback d-inline-flex pr-1" />
@@ -15,9 +15,9 @@
     </b-button>
     <div
       class="feedback-widget shadow"
-      data-qa="feedback modal"
+      data-qa="feedback widget"
       content-class="shadow"
-      :class="showModal ? 'show-feedback-widget' : null"
+      :class="showWidget ? 'show-feedback-widget' : null"
     >
       <div
         class="feedback-header"
@@ -26,7 +26,7 @@
       </div>
       <b-form
         class="feedback-form"
-        data-qa="feedback modal form"
+        data-qa="feedback widget form"
         @submit.prevent="submitForm"
       >
         <b-form-group>
@@ -162,11 +162,11 @@
   import axios from 'axios';
 
   export default {
-    name: 'FeedbackModal',
+    name: 'FeedbackWidget',
 
     data() {
       return {
-        showModal: false,
+        showWidget: false,
         currentStep: 1,
         feedback: '',
         feedbackInputState: true,
@@ -204,7 +204,7 @@
     },
 
     methods: {
-      resetModal() {
+      resetForm() {
         this.currentStep = 1;
         this.feedback = '';
         this.feedbackInputState = true;
@@ -214,9 +214,8 @@
       },
 
       showFeedbackForm() {
-        this.resetModal();
-        this.showModal = true;
-
+        this.resetForm();
+        this.showWidget = true;
         this.$nextTick(() => {
           const textarea = this.$refs.input;
           textarea.focus();
@@ -224,7 +223,7 @@
       },
 
       hideFeedbackForm() {
-        this.showModal = false;
+        this.showWidget = false;
       },
 
       goToStep(step) {

@@ -8,10 +8,6 @@ body {
   &.white {
     background-color: $white;
   }
-  &.modal-open {
-    overflow: auto;
-    padding-right: 0 !important;
-  }
 }
 
 @media (min-width: $bp-medium) {

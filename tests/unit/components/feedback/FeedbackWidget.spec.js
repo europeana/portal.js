@@ -2,7 +2,7 @@ import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 import sinon from 'sinon';
 import nock from 'nock';
-import FeedbackModal from '../../../../src/components/feedback/FeedbackModal.vue';
+import FeedbackWidget from '../../../../src/components/feedback/FeedbackWidget.vue';
 import VueI18n from 'vue-i18n';
 
 const localVue = createLocalVue();
@@ -10,7 +10,7 @@ localVue.use(BootstrapVue);
 localVue.use(VueI18n);
 
 const factory = (propsData = {}) => {
-  const wrapper = mount(FeedbackModal, {
+  const wrapper = mount(FeedbackWidget, {
     localVue,
     i18n: new VueI18n,
     propsData,
@@ -23,7 +23,7 @@ const factory = (propsData = {}) => {
   return wrapper;
 };
 
-describe('components/generic/FeedbackModal', () => {
+describe('components/generic/FeedbackWidget', () => {
   describe('next button', () => {
     context('when there is no value for feedback', () => {
       it('is disabled', () => {
@@ -87,16 +87,16 @@ describe('components/generic/FeedbackModal', () => {
     });
   });
 
-  describe('resetModal', () => {
-    context('when modal is opened', () => {
-      it('modal values are reset', () => {
+  describe('resetForm', () => {
+    context('when widget is opened', () => {
+      it('form values are reset', () => {
         const wrapper = factory();
 
-        const resetModal = sinon.spy(wrapper.vm, 'resetModal');
+        const resetForm = sinon.spy(wrapper.vm, 'resetForm');
 
-        wrapper.vm.$root.$emit('bv::show::modal', 'feedbackModal');
+        wrapper.find('[data-qa="feedback button"]').trigger('click');
 
-        resetModal.should.have.been.called;
+        resetForm.should.have.been.called;
       });
     });
   });

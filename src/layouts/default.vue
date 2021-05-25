@@ -24,8 +24,6 @@
     <client-only
       v-if="feedbackEnabled"
     >
-      <!-- <FeedbackButton />
-      <FeedbackModal /> -->
       <FeedbackWidget />
     </client-only>
     <main
@@ -63,8 +61,6 @@
       CookieDisclaimer: () => import('../components/generic/CookieDisclaimer'),
       PageHeader,
       PageFooter: () => import('../components/PageFooter'),
-      // FeedbackModal: () => import('../components/feedback/FeedbackModal'),
-      // FeedbackButton: () => import('../components/feedback/FeedbackButton')
       FeedbackWidget: () => import('../components/feedback/FeedbackWidget')
     },
 

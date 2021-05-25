@@ -40,7 +40,7 @@ Feature: Page layout on all pages.
     Then I find the `feedback button`
     Then I click the `feedback button`
     And I wait 1 second
-    Then I see the `feedback modal form`
+    Then I see the `feedback widget form`
 
   Scenario: Submitting feedback with an invalid email address
     When I visit the `home page`
