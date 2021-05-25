@@ -7,6 +7,14 @@ export default ($i18n, $gtm, $gtmId) => {
     [locale]: $i18n.t(key)
   });
 
+  const service = (name, purposes, cookies, required = false) => ({
+    name,
+    purposes,
+    cookies,
+    required,
+    translations: translations(`klaro.services.${name}`)
+  });
+
   return {
     testing: false,
     elementID: 'eu-klaro',
@@ -15,68 +23,15 @@ export default ($i18n, $gtm, $gtmId) => {
     lang: locale,
     translations: translations('klaro.main'),
     services: [
-      {
-        name: 'google-analytics', // https://developers.google.com/analytics/devguides/collection/analyticsjs/cookie-usage#gtagjs_google_analytics_4_-_cookie_usage
-        purposes: ['usage'],
-        cookies: [
-          /^_ga(_.*)?/,
-          '_gid'
-        ],
-        translations: translations('klaro.services.google-analytics')
-      },
-      {
-        name: 'hotjar', // https://help.hotjar.com/hc/en-us/articles/115011789248-Hotjar-Cookie-Information
-        purposes: ['usage'],
-        cookies: [
-          /^_hj(.*)?/
-        ],
-        translations: translations('klaro.services.hotjar')
-      },
-      {
-        name: 'cloudflare',
-        purposes: ['essential'],
-        cookies: [
-          '_cfduid'
-        ],
-        required: true,
-        translations: translations('klaro.services.cloudflare')
-      },
-      {
-        name: 'i18n',
-        purposes: ['essential'],
-        cookies: [
-          'i18n_locale_code'
-        ],
-        required: true,
-        translations: translations('klaro.services.i18n')
-      },
-      {
-        name: 'searchResultsView',
-        purposes: ['essential'],
-        cookies: [
-          'searchResultsView'
-        ],
-        required: true,
-        translations: translations('klaro.services.searchResultsView')
-      },
-      {
-        name: 'debugSettings',
-        purposes: ['essential'],
-        cookies: [
-          'debugSettings'
-        ],
-        required: true,
-        translations: translations('klaro.services.debugSettings')
-      },
-      {
-        name: 'auth-strategy',
-        purposes: ['essential'],
-        cookies: [
-          'auth.strategy'
-        ],
-        required: true,
-        translations: translations('klaro.services.auth-strategy')
-      }
+      // https://developers.google.com/analytics/devguides/collection/analyticsjs/cookie-usage#gtagjs_google_analytics_4_-_cookie_usage
+      service('google-analytics', ['usage'], [/^_ga(_.*)?/, '_gid']),
+      // https://help.hotjar.com/hc/en-us/articles/115011789248-Hotjar-Cookie-Information
+      service('hotjar', ['usage'], [/^_hj(.*)?/]),
+      service('cloudflare', ['essential'], ['_cfduid'], true),
+      service('i18n', ['essential'], ['i18n_locale_code'], true),
+      service('searchResultsView', ['essential'], ['searchResultsView'], true),
+      service('debugSettings', ['essential'], ['debugSettings'], true),
+      service('auth-strategy', ['essential'], ['auth.strategy'], true)
     ],
     mustConsent: false,
     hideDeclineAll: true,
