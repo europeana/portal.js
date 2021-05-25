@@ -3,6 +3,7 @@
     class="feedback-container"
   >
     <b-button
+      ref="button"
       variant="primary"
       data-qa="feedback button"
       size="lg"
@@ -14,12 +15,15 @@
       {{ $t('actions.feedback') }}
     </b-button>
     <div
+      role="dialog"
+      aria-labelledby="dialogHeader"
       class="feedback-widget shadow"
       data-qa="feedback widget"
       content-class="shadow"
       :class="showWidget ? 'show-feedback-widget' : null"
     >
       <div
+        id="dialogHeader"
         class="feedback-header"
       >
         <h5>{{ $t('feedback.title') }}</h5>
@@ -224,6 +228,10 @@
 
       hideFeedbackForm() {
         this.showWidget = false;
+        this.$nextTick(() => {
+          const button = this.$refs.button;
+          button.focus();
+        });
       },
 
       goToStep(step) {
