@@ -137,6 +137,7 @@
 <script>
   import { mapState } from 'vuex';
 
+  import keycloak from '../../mixins/keycloak';
   import ItemPreviewCardGroup from '../../components/item/ItemPreviewCardGroup';
   import UserSets from '../../components/account/UserSets';
   import AlertMessage from '../../components/generic/AlertMessage';
@@ -151,6 +152,10 @@
       AlertMessage,
       LoadingSpinner
     },
+
+    mixins: [
+      keycloak
+    ],
 
     async fetch() {
       this.fetchLikes();

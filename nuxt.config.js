@@ -19,6 +19,7 @@ module.exports = {
       internalLinkDomain: process.env.INTERNAL_LINK_DOMAIN,
       siteName: APP_SITE_NAME,
       features: {
+        jiraServiceDeskFeedbackForm: featureIsEnabled(process.env.ENABLE_JIRA_SERVICE_DESK_FEEDBACK_FORM),
         linksToClassic: featureIsEnabled(process.env.ENABLE_LINKS_TO_CLASSIC),
         recommendations: featureIsEnabled(process.env.ENABLE_RECOMMENDATIONS)
       }
@@ -289,13 +290,15 @@ module.exports = {
     fullPathRedirect: true,
     strategies: {
       local: false,
-      oauth2: {
+      // Include oauth2 so that ~/plugins/authScheme can extend it
+      _oauth2: {
         _scheme: 'oauth2'
       },
       keycloak: {
         _scheme: '~/plugins/authScheme'
       }
     },
+    defaultStrategy: 'keycloak',
     plugins: ['~/plugins/apis']
   },
 

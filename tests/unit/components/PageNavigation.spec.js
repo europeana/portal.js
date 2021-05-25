@@ -27,9 +27,8 @@ const factory = () => mount(PageNavigation, {
   mocks: {
     $t: (key) => key,
     $path: code => window.location.href + code,
-    localePath: path => path,
-    $auth: { strategy: { options: {} } },
-    $route: { fullPath: '/fr' }
+    $route: { fullPath: '/fr' },
+    localePath: path => path
   }
 });
 

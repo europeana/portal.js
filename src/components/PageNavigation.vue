@@ -70,7 +70,7 @@
           data-qa="log in button"
           class="nav-link"
           :href="$path({ name: 'account-login', query: { redirect: $route.fullPath } })"
-          @click.prevent="login"
+          @click.prevent="keycloakLogin"
         >
           <span :class="renderIcon('/account/login')" />
           <span>
@@ -84,14 +84,14 @@
 
 <script>
   import SmartLink from './generic/SmartLink';
-  import login from '../mixins/login';
+  import keycloak from '../mixins/keycloak';
 
   export default {
     components: {
       SmartLink
     },
     mixins: [
-      login
+      keycloak
     ],
     props: {
       links: {
@@ -104,12 +104,10 @@
       }
     },
     data() {
-      const keycloakAccountUrl = `${this.$auth.strategy.options.origin}/auth/realms/${this.$auth.strategy.options.realm}/account?referrer=${this.$auth.strategy.options.client_id}`;
-
       return {
         authLinks: [
           { to: this.$path({ name: 'account' }), text: this.$t('account.myProfile'), name: '/account', dataQa: 'likes and galleries button' },
-          { href: keycloakAccountUrl, text: this.$t('account.profileSettings'), name: '/account/settings', dataQa: 'account settings button' },
+          { href: this.keycloakAccountUrl, text: this.$t('account.profileSettings'), name: '/account/settings', dataQa: 'account settings button' },
           { divider: true, name: 'divider' },
           { to: { name: 'account-logout' }, text: this.$t('account.linkLogout'), name: '/account/logout', dataQa: 'log out button' }
         ]

@@ -1,6 +1,6 @@
 <template>
   <div
-    class="h-100 d-flex align-items-center justify-content-center"
+    class="image-container h-100"
   >
     <b-link
       v-if="imageLink && media.thumbnails['large'] && !media.isShownAt"
@@ -20,14 +20,17 @@
         ({{ $t('newWindow') }})
       </span>
     </b-link>
-    <component
-      :is="lazy ? 'b-img-lazy' : 'b-img'"
+    <div
       v-else-if="media.thumbnails['large']"
-      :src="media.thumbnails['large']"
-      alt=""
-      class="mw-100"
-      data-qa="media preview image"
-    />
+    >
+      <component
+        :is="lazy ? 'b-img-lazy' : 'b-img'"
+        :src="media.thumbnails['large']"
+        alt=""
+        class="mw-100"
+        data-qa="media preview image"
+      />
+    </div>
   </div>
 </template>
 
@@ -59,8 +62,25 @@
 <style lang="scss" scoped>
 @import '../../assets/scss/variables.scss';
 
+.image-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  @media (max-height: $bp-small) {
+    align-items: flex-start;
+  }
+}
+
 img {
-  max-height: 100%;
   height: auto;
+  @media (max-height: $bp-medium) {
+    max-height: $swiper-height;
+  }
+  @media (min-height: $bp-medium) {
+    max-height: $swiper-height-max;
+  }
+  @media (max-width: $bp-medium) {
+    max-height: $swiper-height-medium;
+  }
 }
 </style>
