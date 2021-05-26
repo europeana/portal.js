@@ -288,7 +288,6 @@
         // For testing purposes, uncomment the following `if` block to cause the
         // request always to fail on the first attempt, showing the error message,
         // but then succeeding on subsequent attempts.
-        // FIXME: comment out or delete before merging
         // if (this.requestSuccess === null) {
         //  delete postData.summary;
         // }
