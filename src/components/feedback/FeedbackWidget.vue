@@ -11,7 +11,7 @@
       :class="showWidget ? 'hide-button' : null"
       @click="showFeedbackForm"
     >
-      <span class="icon-ic-feedback d-inline-flex pr-1" />
+      <span class="icon-ic-feedback d-inline-flex" />
       {{ $t('actions.feedback') }}
     </b-button>
     <div
@@ -324,8 +324,18 @@
       padding: 0.875rem;
       line-height: 1;
       border-color: $white;
+      span {
+        padding-right: 0.25rem;
+      }
       &.hide-button {
         display: none;
+      }
+      @media (max-width: $bp-small) {
+        font-size: 0;
+        border-radius: 50%;
+        span {
+          padding-right: 0;
+        }
       }
     }
     .icon-ic-feedback {
