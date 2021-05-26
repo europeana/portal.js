@@ -22,10 +22,9 @@
       keep-alive
     />
     <client-only
-      v-if="$config.app.features.jiraServiceDeskFeedbackForm"
+      v-if="feedbackEnabled"
     >
-      <FeedbackButton />
-      <FeedbackModal />
+      <FeedbackWidget />
     </client-only>
     <main
       id="default"
@@ -62,8 +61,7 @@
       CookieDisclaimer: () => import('../components/generic/CookieDisclaimer'),
       PageHeader,
       PageFooter: () => import('../components/PageFooter'),
-      FeedbackModal: () => import('../components/generic/FeedbackModal'),
-      FeedbackButton: () => import('../components/generic/FeedbackButton')
+      FeedbackWidget: () => import('../components/feedback/FeedbackWidget')
     },
 
     data() {
@@ -82,7 +80,11 @@
       ...mapGetters({
         canonicalUrl: 'http/canonicalUrl',
         canonicalUrlWithoutLocale: 'http/canonicalUrlWithoutLocale'
-      })
+      }),
+
+      feedbackEnabled() {
+        return this.$config.app.features.jiraServiceDeskFeedbackForm && this.$config.app.baseUrl;
+      }
     },
 
     watch: {
