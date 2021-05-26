@@ -289,9 +289,9 @@
         // request always to fail on the first attempt, showing the error message,
         // but then succeeding on subsequent attempts.
         // FIXME: comment out or delete before merging
-        if (this.requestSuccess === null) {
-          delete postData.summary;
-        }
+        // if (this.requestSuccess === null) {
+        //  delete postData.summary;
+        // }
 
         return axios.create({
           baseURL: this.$config.app.baseUrl
