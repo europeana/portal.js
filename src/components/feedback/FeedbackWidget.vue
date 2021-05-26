@@ -123,7 +123,7 @@
               data-qa="feedback skip button"
               variant="outline-primary"
               class="mt-3"
-              type="submit"
+              @click="skipEmail"
             >
               {{ $t('actions.skip') }}
             </b-button>
@@ -244,6 +244,11 @@
 
       flagInvalidFeedback() {
         this.feedbackInputState = false;
+      },
+
+      skipEmail() {
+        this.email = '';
+        this.submitForm();
       },
 
       async submitForm() {
