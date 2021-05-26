@@ -5,6 +5,7 @@
   color: $black;
   font-size: $font-size-small;
   height: auto;
+  line-height: 1.1875rem;
   transition: box-shadow 0.25s;
 
   &.card {
@@ -48,6 +49,7 @@
   .card-title {
     font-size: 1rem;
     font-weight: 600;
+    max-height: 1.1875rem;
     margin-bottom: 0.75rem;
     overflow: hidden;
     display: -webkit-box;
@@ -70,7 +72,6 @@
 
   .card-text {
     color: $mediumgrey;
-    line-height: 1.1875rem;
 
     p {
       max-height: 4.75rem;
@@ -105,10 +106,9 @@
     }
 
     &:after {
-      @extend .icon-font;
       content: '\e900';
+      @extend .icon-font;
       margin-left: 5px;
-      line-height: 1.5 !important;
     }
   }
 
@@ -221,6 +221,7 @@
     .card-title {
       display: block;
       max-height: none;
+      line-height: 1.5;    
     }
     .icon-ic-add {
       color: #4d4d4d;
