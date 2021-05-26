@@ -96,7 +96,6 @@
     },
     methods: {
       clickCreateSet() {
-        console.log('clicked');
         if (this.showFormModal === false) {
           this.showFormModal = true;
           this.newSetCreated = false;

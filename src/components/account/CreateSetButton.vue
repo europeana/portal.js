@@ -1,6 +1,6 @@
 <template>
   <b-card
-    class="text-center default-card content-card create-card"
+    class="text-center content-card create-card"
     no-body
     data-qa="create new gallery card"
     @click="clickCreateSet"
@@ -9,9 +9,7 @@
       <span class="icon-ic-add" />
       <b-card-body data-qa="card body">
         <b-card-title title-tag="div">
-          <span>
-            {{ $t('set.actions.createNew') }}
-          </span>
+          {{ $t('set.actions.createNew') }}
         </b-card-title>
       </b-card-body>
     </div>
