@@ -9,7 +9,6 @@
           {{ $t(`account.notifications.noCollections.${visibility}`) }}
         </div>
         <b-card-group
-          v-else
           class="card-deck-4-cols pb-5"
           deck
         >
