@@ -1,6 +1,7 @@
 import serviceDesk from '../../../../../src/server-middleware/api/jira/service-desk';
 
 import nock from 'nock';
+nock.disableNetConnect();
 import sinon from 'sinon';
 
 const options = {
@@ -35,7 +36,7 @@ describe('server-middleware/api/jira/service-desk', () => {
       it('sends a POST request to Jira service desk API', async() => {
         const req = mockRequest();
         const res = mockResponse();
-        mockJiraApiRequest();
+        mockJiraApiRequest().reply(201);
 
         await middleware(req, res);
 
@@ -49,7 +50,7 @@ describe('server-middleware/api/jira/service-desk', () => {
           mockJiraApiRequest(body => (
             (body.serviceDeskId === options.serviceDesk.serviceDeskId) &&
             (body.requestTypeId === options.serviceDesk.requestTypeId)
-          ));
+          )).reply(201);
 
           await middleware(req, res);
 
@@ -60,9 +61,9 @@ describe('server-middleware/api/jira/service-desk', () => {
           const reqBody = {
             feedback: 'Hello there :)'
           };
-          const req = mockRequest({ body: reqBody });
+          const req = mockRequest(reqBody);
           const res = mockResponse();
-          mockJiraApiRequest(body => body.description === reqBody.feedback);
+          mockJiraApiRequest(body => body.requestFieldValues.description === reqBody.feedback).reply(201);
 
           await middleware(req, res);
 
@@ -75,9 +76,9 @@ describe('server-middleware/api/jira/service-desk', () => {
           const reqBody = {
             feedback
           };
-          const req = mockRequest({ body: reqBody });
+          const req = mockRequest(reqBody);
           const res = mockResponse();
-          mockJiraApiRequest(body => body.summary === summary);
+          mockJiraApiRequest(body => body.requestFieldValues.summary === summary).reply(201);
 
           await middleware(req, res);
 
@@ -86,11 +87,11 @@ describe('server-middleware/api/jira/service-desk', () => {
 
         it('omits raiseOnBehalfOf if no email', async() => {
           const reqBody = {
-            summary: 'Hello there :)'
+            feedback: 'Hello there :)'
           };
-          const req = mockRequest({ body: reqBody });
+          const req = mockRequest(reqBody);
           const res = mockResponse();
-          mockJiraApiRequest(body => !Object.keys(body).includes('raiseOnBehalfOf'));
+          mockJiraApiRequest(body => !Object.keys(body).includes('raiseOnBehalfOf')).reply(201);
 
           await middleware(req, res);
 
@@ -99,12 +100,12 @@ describe('server-middleware/api/jira/service-desk', () => {
 
         it('includes raiseOnBehalfOf if email present', async() => {
           const reqBody = {
-            summary: 'Hello there :)',
+            feedback: 'Hello there :)',
             email: 'human@example.org'
           };
-          const req = mockRequest({ body: reqBody });
+          const req = mockRequest(reqBody);
           const res = mockResponse();
-          mockJiraApiRequest(body => body.raiseOnBehalfOf === reqBody.email);
+          mockJiraApiRequest(body => body.raiseOnBehalfOf === reqBody.email).reply(201);
 
           await middleware(req, res);
 
