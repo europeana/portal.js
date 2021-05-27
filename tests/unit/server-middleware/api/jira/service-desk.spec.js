@@ -1,11 +1,12 @@
-import nock from 'nock';
-nock.disableNetConnect();
-import sinon from 'sinon';
-
 import serviceDesk from '../../../../../src/server-middleware/api/jira/service-desk';
 
+import nock from 'nock';
+// nock.disableNetConnect();
+nock.recorder.rec();
+import sinon from 'sinon';
+
 const options = {
-  origin: 'https://europeana.atlassian.net',
+  origin: 'https://jira.example.org',
   username: 'example@europeana.eu',
   password: 'YOUR_TOKEN',
   serviceDesk: {
@@ -24,7 +25,10 @@ const mockResponse = () => {
   res.send = sinon.stub().returns(res);
   return res;
 };
-const mockJiraApiRequest = (body) => nock(options.origin).post('/rest/servicedeskapi/request', body);
+const mockJiraApiRequest = body => {
+  console.log('body', body);
+  return nock(options.origin).post('/rest/servicedeskapi/request', body);
+};
 
 describe('server-middleware/api/jira/service-desk', () => {
   afterEach(() => {
@@ -57,13 +61,31 @@ describe('server-middleware/api/jira/service-desk', () => {
           nock.isDone().should.be.true;
         });
 
-        it('includes summary', async() => {
+        it('uses full feedback for description field', async() => {
           const reqBody = {
-            summary: 'Hello there :)'
+            feedback: 'Hello there :)'
           };
           const req = mockRequest({ body: reqBody });
           const res = mockResponse();
-          mockJiraApiRequest(body => body.summary === reqBody.summary);
+          mockJiraApiRequest(body => body.description === reqBody.feedback);
+
+          await middleware(req, res);
+
+          nock.isDone().should.be.true;
+        });
+
+        it('truncates feedback to 50 characters in summary field', async() => {
+          const feedback = 'One, Two, Three, Four, Five, Six, Seven, Eight, Nine, Ten.';
+          const summary = 'One, Two, Three, Four, Five, Six, Seven, Eight, Ni…';
+          const reqBody = {
+            feedback
+          };
+          const req = mockRequest({ body: reqBody });
+          const res = mockResponse();
+          mockJiraApiRequest(body => () => {
+            console.log('body', body);
+            return body.summary === summary;
+          });
 
           await middleware(req, res);
 
