@@ -279,7 +279,7 @@
 
       postFeedbackMessage() {
         const postData = {
-          summary: this.feedback
+          feedback: this.feedback
         };
         if (this.email && (this.email !== '')) {
           postData.email = this.email;
