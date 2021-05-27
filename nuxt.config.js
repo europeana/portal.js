@@ -110,6 +110,10 @@ module.exports = {
         datasetBlacklist: (process.env.SSL_DATASET_BLACKLIST || '').split(',')
       }
     },
+    matomo: {
+      idsite: process.env.MATOMO_IDSITE,
+      url: process.env.MATOMO_URL
+    },
     oauth: {
       origin: process.env.OAUTH_ORIGIN,
       realm: process.env.OAUTH_REALM,
@@ -215,6 +219,7 @@ module.exports = {
   plugins: [
     '~/plugins/vue',
     '~/plugins/i18n.js',
+    '~/plugins/matomo.client',
     '~/plugins/hotjar.client',
     '~/plugins/link',
     '~/plugins/page',
