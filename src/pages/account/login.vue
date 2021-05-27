@@ -3,17 +3,17 @@
 </template>
 
 <script>
-  import login from '../../mixins/login';
+  import keycloak from '../../mixins/keycloak';
 
   export default {
     layout: 'minimal',
 
     mixins: [
-      login
+      keycloak
     ],
 
     mounted() {
-      this.login();
+      this.keycloakLogin();
     }
   };
 </script>

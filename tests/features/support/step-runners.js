@@ -150,10 +150,16 @@ module.exports = {
     await client.url(pageUrl(pageName));
   },
   async acceptCookies() {
+    // TODO: cleanup "old" cookie banner
     await client.expect.element('.cookie-disclaimer').to.be.visible;
     await client.click('.cookie-disclaimer .accept-btn');
     await client.pause(1000);
     await client.expect.element('.cookie-disclaimer').to.not.be.present;
+  },
+  async acceptKlaroCookies() {
+    // new cookie banner
+    await client.expect.element('#eu-klaro').to.be.visible;
+    await client.click('#eu-klaro .cm-btn-success');
   },
   async seeKeycloakLoginForm() {
     await client.expect.element('.kcform').to.be.visible;
@@ -293,7 +299,7 @@ module.exports = {
     });
   },
   async haveNotExcededMemoryUsageInMB(memoryUsageMB) {
-    const response = await axios.get(`${url}/memory-usage`, {
+    const response = await axios.get(`${url}/_api/debug/memory-usage`, {
       httpsAgent: new https.Agent({
         rejectUnauthorized: false
       })
