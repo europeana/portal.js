@@ -8,8 +8,9 @@ const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
 const heroImageUrl = 'http://example.org/contentful/asset.jpg';
+const socialMediaImageUrl = 'https://example.org/social-media-image.jpg';
 
-const factory = () => shallowMountNuxt(page, {
+const factory = (socialMediaImage = null) => shallowMountNuxt(page, {
   localVue,
   data() {
     return {
@@ -28,6 +29,7 @@ const factory = () => shallowMountNuxt(page, {
           url: 'https://example.org/explore'
         }
       },
+      image: socialMediaImage,
       hasPartCollection: {
         items: []
       }
@@ -41,6 +43,20 @@ const factory = () => shallowMountNuxt(page, {
 });
 
 describe('Browse/Home page', () => {
+  describe('head()', () => {
+    it('when set, uses social media image for og:image', () => {
+      const wrapper = factory({
+        url: socialMediaImageUrl,
+        contentType: 'image/jpeg',
+        description: 'Social media image description'
+      });
+
+      const headMeta = wrapper.vm.head().meta;
+
+      headMeta.filter(meta => meta.property === 'og:image').length.should.eq(1);
+      headMeta.find(meta => meta.property === 'og:image').content.should.eq(socialMediaImageUrl);
+    });
+  });
   describe('head()', () => {
     it('uses hero image for og:image when no social media image is set', () => {
       const wrapper = factory();
