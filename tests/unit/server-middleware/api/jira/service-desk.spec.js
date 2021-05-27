@@ -1,8 +1,6 @@
 import serviceDesk from '../../../../../src/server-middleware/api/jira/service-desk';
 
 import nock from 'nock';
-// nock.disableNetConnect();
-nock.recorder.rec();
 import sinon from 'sinon';
 
 const options = {
@@ -25,10 +23,7 @@ const mockResponse = () => {
   res.send = sinon.stub().returns(res);
   return res;
 };
-const mockJiraApiRequest = body => {
-  console.log('body', body);
-  return nock(options.origin).post('/rest/servicedeskapi/request', body);
-};
+const mockJiraApiRequest = body => nock(options.origin).post('/rest/servicedeskapi/request', body);
 
 describe('server-middleware/api/jira/service-desk', () => {
   afterEach(() => {
@@ -82,10 +77,7 @@ describe('server-middleware/api/jira/service-desk', () => {
           };
           const req = mockRequest({ body: reqBody });
           const res = mockResponse();
-          mockJiraApiRequest(body => () => {
-            console.log('body', body);
-            return body.summary === summary;
-          });
+          mockJiraApiRequest(body => body.summary === summary);
 
           await middleware(req, res);
 
