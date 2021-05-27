@@ -96,7 +96,13 @@
       },
       socialMediaImage() {
         // use social media image if set in Contentful, otherwise use hero image
-        return this.image === null ? this.heroImage.image : this.image;
+        if (this.image) {
+          return this.image;
+        } else if (this.heroImage) {
+          return this.heroImage.image;
+        } else {
+          return null;
+        }
       },
       socialMediaImageOptimisedUrl() {
         return this.$options.filters.optimisedImageUrl(this.socialMediaImage.url, this.socialMediaImage.contentType, {
