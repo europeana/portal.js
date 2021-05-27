@@ -100,9 +100,9 @@
           return this.image;
         } else if (this.heroImage) {
           return this.heroImage.image;
-        } else {
-          return null;
         }
+        // No relevant image present, return null
+        return null;
       },
       socialMediaImageOptimisedUrl() {
         return this.$options.filters.optimisedImageUrl(this.socialMediaImage.url, this.socialMediaImage.contentType, {
