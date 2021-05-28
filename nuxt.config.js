@@ -111,6 +111,10 @@ module.exports = {
         datasetBlacklist: (process.env.SSL_DATASET_BLACKLIST || '').split(',')
       }
     },
+    matomo: {
+      host: process.env.MATOMO_HOST,
+      siteId: process.env.MATOMO_SITE_ID
+    },
     oauth: {
       origin: process.env.OAUTH_ORIGIN,
       realm: process.env.OAUTH_REALM,
@@ -214,6 +218,7 @@ module.exports = {
   ** Plugins to load before mounting the App
   */
   plugins: [
+    '~/plugins/vue-matomo.client',
     '~/plugins/vue',
     '~/plugins/i18n.js',
     '~/plugins/hotjar.client',
