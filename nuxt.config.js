@@ -17,6 +17,7 @@ module.exports = {
       // TODO: rename env vars to prefix w/ APP_, except feature toggles
       baseUrl: process.env.PORTAL_BASE_URL,
       internalLinkDomain: process.env.INTERNAL_LINK_DOMAIN,
+      schemaOrgDatasetId: process.env.SCHEMA_ORG_DATASET_ID,
       siteName: APP_SITE_NAME,
       features: {
         klaro: featureIsEnabled(process.env.ENABLE_KLARO),
