@@ -549,10 +549,6 @@ export default {
         "title": "Auth Strategy",
         "description": "Remembers the authorization strategy to use to log in."
       },
-      "cloudflare": {
-        "title": "Cloudflare",
-        "description": "Protects and secures the website."
-      },
       "debugSettings": {
         "title": "Debug toggle"
       },
