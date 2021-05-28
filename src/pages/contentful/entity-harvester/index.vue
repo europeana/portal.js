@@ -14,15 +14,23 @@
       Examples:
       <ul style="margin-top: 0; padding-left: 1.25rem;">
         <li>http://data.europeana.eu/agent/base/59832</li>
+        <li>https://api.europeana.eu/entity/timespan/base/20</li>
         <li>https://www.europeana.eu/en/collections/person/60404-johannes-vermeer</li>
+        <li>https://portaljs-test.eanadev.org/collections/topic/190</li>
       </ul>
     </div>
   </div>
 </template>
 
 <script>
-  import { isEntityUri, getEntity, getEntityTypeApi, getEntityTypeHumanReadable, getEntitySlug } from '@/plugins/europeana/entity';
+  import {
+    isEntityUri,
+    getEntityTypeHumanReadable,
+    getEntitySlug,
+    entityParamsFromUri
+  } from '@/plugins/europeana/entity';
   import { langMapValueForLocale } from '@/plugins/europeana/utils';
+  import { BASE_URL } from '@/plugins/europeana/data';
   export default {
     layout: 'contentful',
 
@@ -60,17 +68,18 @@
           return;
         }
 
-        let id, type;
+        let type, id;
         try {
-          type, id = this.entityParamsFromUrl(entityUrl);
+          ({ type, id } = this.entityParamsFromUrl(entityUrl));
         } catch (error) {
-          this.showError(`Unable to harvest from URL: ${entityUrl}`);
+          this.showError(`Unable to harvest from URL: ${entityUrl} Please make sure the URL conforms to the accepted formats.`);
           return;
         }
 
-        const entityResponse = getEntity(type, id);
+        const entityResponse = await this.$apis.entity.getEntity(type, id);
+
         if (entityResponse.entity) {
-          this.populateFields(entityResponse.entity.json, type, id);
+          this.populateFields(entityResponse.entity, id);
           this.message = 'Success';
         } else {
           this.showError(entityResponse.error);
@@ -78,17 +87,19 @@
       },
 
       entityParamsFromUrl(url) {
+        url = url.replace(new RegExp('^https?://api.europeana.eu/entity'), BASE_URL);
         if (isEntityUri(url)) {
-          return url;
+          return entityParamsFromUri(url);
         }
-        const pageMatch = url.match(new RegExp('^https?://[^/]+(/[a-z]{2})?/collections(/(person|topic|time)/[0-9]+)'));
+        const pageMatch = url.match(new RegExp('^https?://[^/]+(/[a-z]{2})?/collections/(person|topic|time)/([0-9]+)+'));
         if (pageMatch) {
-          const type = getEntityTypeApi(pageMatch[0]);
-          const id = pageMatch[1];
+          const type = pageMatch[2];
+          const id = pageMatch[3];
           return { type, id };
         }
         throw new Error;
       },
+
       showError(error) {
         this.contentfulExtensionSdk.dialogs.openAlert({
           title: 'Error',
@@ -98,17 +109,17 @@
       },
 
       // TODO: set up a configurable map for other fields to avoid hard-coding them here
-      populateFields(response, type, id) {
-        const enPrefLabel = langMapValueForLocale(response.prefLabel, 'en', { omitAllUris: true });
+      populateFields(response, id) {
+        const enPrefLabel = langMapValueForLocale(response.prefLabel, 'en', { omitAllUris: true }).values[0];
         // set field values
-        this.entry.fields.identifier.setValue(id); // data.europeana.eu URI
+        this.entry.fields.identifier.setValue(response.id); // data.europeana.eu URI
 
         if (this.entry.fields.slug) {
           this.entry.fields.slug.setValue(getEntitySlug(id, enPrefLabel)); // slug
         }
 
         if (this.entry.fields.type) {
-          this.entry.fields.type.setValue(getEntityTypeHumanReadable(type)); // entity type
+          this.entry.fields.type.setValue(getEntityTypeHumanReadable(response.type)); // entity type
         }
 
         // set name field from `prefLabel`
@@ -122,7 +133,7 @@
         // set description from different fields based on entity type
         if (this.entry.fields.description) {
           this.entry.fields.description.removeValue();
-          this.entry.fields.description.setValue(this.entityDescriptionFromResponse(response, type));
+          this.entry.fields.description.setValue(this.entityDescriptionFromResponse(response));
         }
 
         // set image field from `isShownBy`
@@ -134,22 +145,25 @@
         }
       },
 
-      entityDescriptionFromResponse(response, type) {
-        switch (type) {
-        case 'agent':
+      entityDescriptionFromResponse(response) {
+        switch (response.type) {
+        case 'Agent':
           // use `biographicalInformation`
           // NB: this is in JSON-LD expanded form
-          return langMapValueForLocale(response.biographicalInformation, 'en');
-        case 'concept':
+          return langMapValueForLocale(response.biographicalInformation, 'en').values[0];
+        case 'Concept':
           // use `note`
           // NB: language map with each value being an array of literals
-          return langMapValueForLocale(response.note, 'en');
-        case 'organization':
+          return langMapValueForLocale(response.note, 'en').values[0];
+        case 'Organization':
           // use `description`
           // NB: language map with each value being a single literal
-          return langMapValueForLocale(response.description, 'en');
-        case 'place':
-          // TODO: use what? `${lat},${long}?`
+          return langMapValueForLocale(response.description, 'en').values[0];
+        case 'Timespan':
+          // TODO: use what? `${response.begin} to ${response.end}`?
+          return '';
+        case 'Place':
+          // TODO: use what? `${response.lat},${response.long}`?
           return '';
         }
       }
