@@ -18,7 +18,7 @@ app.use((res, req, next) => {
 const debugMemoryUsage = require('./debug/memory-usage');
 app.get('/debug/memory-usage', debugMemoryUsage);
 
-const jiraServiceDesk = require('./jira/service-desk');
+import jiraServiceDesk from './jira/service-desk';
 app.post('/jira/service-desk', (req, res) => jiraServiceDesk(runtimeConfig.jira)(req, res));
 
 app.all('/*', (req, res) => res.sendStatus(404));

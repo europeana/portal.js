@@ -279,7 +279,7 @@
 
       postFeedbackMessage() {
         const postData = {
-          summary: this.feedback,
+          feedback: this.feedback,
           pageUrl: window.location.href,
           browser: navigator.userAgent,
           screensize: `${window.innerWidth} x ${window.innerHeight}`

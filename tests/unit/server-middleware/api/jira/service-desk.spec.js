@@ -1,11 +1,11 @@
+import serviceDesk from '../../../../../src/server-middleware/api/jira/service-desk';
+
 import nock from 'nock';
 nock.disableNetConnect();
 import sinon from 'sinon';
 
-import serviceDesk from '../../../../../src/server-middleware/api/jira/service-desk';
-
 const options = {
-  origin: 'https://europeana.atlassian.net',
+  origin: 'https://jira.example.org',
   username: 'example@europeana.eu',
   password: 'YOUR_TOKEN',
   serviceDesk: {
@@ -24,7 +24,7 @@ const mockResponse = () => {
   res.send = sinon.stub().returns(res);
   return res;
 };
-const mockJiraApiRequest = (body) => nock(options.origin).post('/rest/servicedeskapi/request', body);
+const mockJiraApiRequest = body => nock(options.origin).post('/rest/servicedeskapi/request', body);
 
 describe('server-middleware/api/jira/service-desk', () => {
   afterEach(() => {
@@ -36,7 +36,7 @@ describe('server-middleware/api/jira/service-desk', () => {
       it('sends a POST request to Jira service desk API', async() => {
         const req = mockRequest();
         const res = mockResponse();
-        mockJiraApiRequest();
+        mockJiraApiRequest().reply(201);
 
         await middleware(req, res);
 
@@ -50,20 +50,35 @@ describe('server-middleware/api/jira/service-desk', () => {
           mockJiraApiRequest(body => (
             (body.serviceDeskId === options.serviceDesk.serviceDeskId) &&
             (body.requestTypeId === options.serviceDesk.requestTypeId)
-          ));
+          )).reply(201);
 
           await middleware(req, res);
 
           nock.isDone().should.be.true;
         });
 
-        it('includes summary', async() => {
+        it('uses full feedback for description field', async() => {
           const reqBody = {
-            summary: 'Hello there :)'
+            feedback: 'Hello there :)'
           };
-          const req = mockRequest({ body: reqBody });
+          const req = mockRequest(reqBody);
           const res = mockResponse();
-          mockJiraApiRequest(body => body.summary === reqBody.summary);
+          mockJiraApiRequest(body => body.requestFieldValues.description === reqBody.feedback).reply(201);
+
+          await middleware(req, res);
+
+          nock.isDone().should.be.true;
+        });
+
+        it('truncates feedback to 50 characters in summary field', async() => {
+          const feedback = 'One, Two, Three, Four, Five, Six, Seven, Eight, Nine, Ten.';
+          const summary = 'One, Two, Three, Four, Five, Six, Seven, Eight, Ni…';
+          const reqBody = {
+            feedback
+          };
+          const req = mockRequest(reqBody);
+          const res = mockResponse();
+          mockJiraApiRequest(body => body.requestFieldValues.summary === summary).reply(201);
 
           await middleware(req, res);
 
@@ -72,11 +87,11 @@ describe('server-middleware/api/jira/service-desk', () => {
 
         it('omits raiseOnBehalfOf if no email', async() => {
           const reqBody = {
-            summary: 'Hello there :)'
+            feedback: 'Hello there :)'
           };
-          const req = mockRequest({ body: reqBody });
+          const req = mockRequest(reqBody);
           const res = mockResponse();
-          mockJiraApiRequest(body => !Object.keys(body).includes('raiseOnBehalfOf'));
+          mockJiraApiRequest(body => !Object.keys(body).includes('raiseOnBehalfOf')).reply(201);
 
           await middleware(req, res);
 
@@ -85,12 +100,12 @@ describe('server-middleware/api/jira/service-desk', () => {
 
         it('includes raiseOnBehalfOf if email present', async() => {
           const reqBody = {
-            summary: 'Hello there :)',
+            feedback: 'Hello there :)',
             email: 'human@example.org'
           };
-          const req = mockRequest({ body: reqBody });
+          const req = mockRequest(reqBody);
           const res = mockResponse();
-          mockJiraApiRequest(body => body.raiseOnBehalfOf === reqBody.email);
+          mockJiraApiRequest(body => body.raiseOnBehalfOf === reqBody.email).reply(201);
 
           await middleware(req, res);
 
