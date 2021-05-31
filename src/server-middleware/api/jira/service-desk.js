@@ -8,7 +8,10 @@ const jiraData = (options, req) => {
     serviceDeskId: options.serviceDesk.serviceDeskId,
     requestTypeId: options.serviceDesk.requestTypeId,
     requestFieldValues: {
-      summary: req.body.summary
+      summary: req.body.summary,
+      'customfield_10809': req.body.pageUrl,
+      'customfield_10810': req.body.browser,
+      'customfield_10811': req.body.screensize
     }
   };
   if (req.body.email) {
