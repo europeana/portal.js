@@ -1,5 +1,4 @@
 module.exports = function(migration) {
-  return 'WIP, this migration is not ready.';
   if (!process.env.ENTITY_HARVEST_APP_ID) {
     console.log('No app ID specified in ENTITY_HARVEST_APP_ID; aborting.');
     process.exit(1);
@@ -8,10 +7,10 @@ module.exports = function(migration) {
   const automatedEntityCard = migration.editContentType('automatedEntityCard');
 
   // "Entity harvester - Europeana" app (pre-installed in space & env)
-  automatedEntityCard.removeSidebarWidget('extension', 'europeanaImageHarvester');
-  automatedEntityCard.addSidebarWidget('app',  process.env.ENTITY_SUGGEST_APP_ID, {}, 'content-preview-widget');
+  automatedEntityCard.removeSidebarWidget('extension', 'europeanaEntityHarvester');
+  automatedEntityCard.addSidebarWidget('app',  process.env.ENTITY_HARVEST_APP_ID, {}, 'content-preview-widget');
   automatedEntityCard
-    .changeFieldControl('identifier')
+    .editField('identifier')
     .validations([
       {
         regexp: {
@@ -21,9 +20,9 @@ module.exports = function(migration) {
         }
       }
     ]);
-  const collectionPage = migration.editContentType('collectionPage');
+  const entityPage = migration.editContentType('entityPage');
 
   // "Entity harvester - Europeana" app (pre-installed in space & env)
-  collectionPage.removeSidebarWidget('extension', 'europeanaImageHarvester');
-  collectionPage.addSidebarWidget('app',  process.env.ENTITY_SUGGEST_APP_ID, {}, 'content-preview-widget');
+  entityPage.removeSidebarWidget('extension', 'europeanaEntityHarvester');
+  entityPage.addSidebarWidget('app',  process.env.ENTITY_HARVEST_APP_ID, {}, 'content-preview-widget');
 };
