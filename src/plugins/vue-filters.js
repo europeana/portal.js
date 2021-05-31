@@ -13,12 +13,13 @@ Vue.filter('localise', val => {
   return val.toLocaleString('en');
 });
 
-Vue.filter('truncate', (val, char, ellipsis) => {
-  if (!val) {
+export const truncate = (text, length, ellipsis = '…') => {
+  if (!text) {
     return null;
   }
-  return val.length > char ? val.substring(0, char) + ellipsis : val;
-});
+  return text.length > length ? text.substring(0, length) + ellipsis : text;
+};
+Vue.filter('truncate', truncate);
 
 // TODO: deprecated; superceded by OptimisedImage.vue; remove when all dependent components updated
 Vue.filter('optimisedImageUrl', (imageUrl, contentType, options = {}) => {

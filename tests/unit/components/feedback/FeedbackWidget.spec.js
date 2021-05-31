@@ -2,6 +2,7 @@ import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 import sinon from 'sinon';
 import nock from 'nock';
+// nock.recorder.rec();
 import FeedbackWidget from '../../../../src/components/feedback/FeedbackWidget.vue';
 import VueI18n from 'vue-i18n';
 
@@ -23,7 +24,7 @@ const factory = (propsData = {}) => {
   return wrapper;
 };
 
-describe('components/generic/FeedbackWidget', () => {
+describe('components/feedback/FeedbackWidget', () => {
   describe('next button', () => {
     context('when there is no value for feedback', () => {
       it('is disabled', () => {
@@ -152,7 +153,7 @@ describe('components/generic/FeedbackWidget', () => {
     const feedback = 'This was useful. Thanks!';
 
     it('posts feedback to server middleware', async() => {
-      nock(baseUrl).post(middlewarePath, body => (body.summary === feedback)).reply(201);
+      nock(baseUrl).post(middlewarePath, body => (body.feedback === feedback)).reply(201);
       const wrapper = factory();
 
       wrapper.setData({
@@ -168,7 +169,7 @@ describe('components/generic/FeedbackWidget', () => {
     it('includes email if provided', async() => {
       const email = 'me@example.org';
       nock(baseUrl).post(middlewarePath, body => (
-        (body.summary === feedback) && (body.email === email)
+        (body.feedback === feedback) && (body.email === email)
       )).reply(201);
       const wrapper = factory();
 
