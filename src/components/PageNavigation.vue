@@ -156,6 +156,9 @@
         case ('/account/settings'):
           className = 'icon-settings';
           break;
+        case ('/stories'):
+          className = 'icon-stories';
+          break;
         default:
           className = 'icon-info blank';
           break;
@@ -250,11 +253,13 @@
         &.icon-account:before {
           content: '\e932';
         }
+        &.icon-stories:before {
+          content: '\e935';
+        }
         &.blank:before {
           color: transparent;
         }
       }
-
     }
 
     &.sidebar-nav-item {

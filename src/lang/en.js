@@ -500,7 +500,8 @@ export default {
       "collections": "Collections",
       "europeanaClassroom": "Teachers",
       "help": "Help",
-      "home": "Home"
+      "home": "Home",
+      "stories": "Stories"
     },
     "searchFor": "Search for {query}",
     "searchForEverything": "Search for everything",

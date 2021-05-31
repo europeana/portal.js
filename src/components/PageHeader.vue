@@ -135,13 +135,15 @@
       mainNavigation() {
         return [
           { url: '/', text: this.$t('header.navigation.home') },
-          { url: '/collections', text: this.$t('header.navigation.collections') }
+          { url: '/collections', text: this.$t('header.navigation.collections') },
+          { url: '/stories', text: this.$t('header.navigation.stories') }
         ];
       },
       sidebarNavigation() {
         return [
           { url: '/', text: this.$t('header.navigation.home') },
           { url: '/collections', text: this.$t('header.navigation.collections') },
+          { url: '/stories', text: this.$t('header.navigation.stories') },
           { url: '/europeana-classroom', text: this.$t('header.navigation.europeanaClassroom') },
           { url: '/about-us', text: this.$t('header.navigation.about') },
           { url: '/help', text: this.$t('header.navigation.help') }
