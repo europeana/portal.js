@@ -18,11 +18,13 @@ services:
       - "8080"
     env_file: ./app/.env
     environment:
+      - ENABLE_JIRA_SERVICE_DESK_FEEDBACK_FORM=1
       - ENABLE_LINKS_TO_CLASSIC=1
       - ENABLE_SSL_NEGOTIATION=1
       - HTTP_PORT=80
       - HTTPS_PORT=443
       - NUXT_LOADING_THROTTLE=0
+      - PORTAL_BASE_URL=https://nginx
   chrome-en:
     image: europeana/portaljs-chrome:88.0
     build:

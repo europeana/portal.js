@@ -17,8 +17,11 @@ module.exports = {
       // TODO: rename env vars to prefix w/ APP_, except feature toggles
       baseUrl: process.env.PORTAL_BASE_URL,
       internalLinkDomain: process.env.INTERNAL_LINK_DOMAIN,
+      schemaOrgDatasetId: process.env.SCHEMA_ORG_DATASET_ID,
       siteName: APP_SITE_NAME,
       features: {
+        klaro: featureIsEnabled(process.env.ENABLE_KLARO),
+        jiraServiceDeskFeedbackForm: featureIsEnabled(process.env.ENABLE_JIRA_SERVICE_DESK_FEEDBACK_FORM),
         linksToClassic: featureIsEnabled(process.env.ENABLE_LINKS_TO_CLASSIC),
         recommendations: featureIsEnabled(process.env.ENABLE_RECOMMENDATIONS),
         entityManagement: featureIsEnabled(process.env.ENABLE_ENTITY_MANAGEMENT)
@@ -121,6 +124,18 @@ module.exports = {
       accessType: process.env.OAUTH_ACCESS_TYPE,
       grantType: process.env.OAUTH_GRANT_TYPE,
       tokenType: process.env.OAUTH_TOKEN_TYPE
+    }
+  },
+
+  privateRuntimeConfig: {
+    jira: {
+      origin: process.env.JIRA_API_ORIGIN,
+      username: process.env.JIRA_API_USERNAME,
+      password: process.env.JIRA_API_PASSWORD,
+      serviceDesk: {
+        serviceDeskId: process.env.JIRA_API_SERVICE_DESK_ID,
+        requestTypeId: process.env.JIRA_API_SERVICE_DESK_REQUEST_TYPE_ID
+      }
     }
   },
 
@@ -230,7 +245,8 @@ module.exports = {
     '@nuxtjs/axios',
     'nuxt-google-optimize',
     ['@nuxtjs/gtm', {
-      pageTracking: true
+      pageTracking: true,
+      autoInit: false
     }],
     ['@nuxtjs/robots', JSON.parse(process.env.NUXTJS_ROBOTS || '{"UserAgent":"*","Disallow":"/"}')],
     'bootstrap-vue/nuxt',
@@ -251,7 +267,6 @@ module.exports = {
       parsePages: false,
       pages: {
         'account/callback': false,
-        'account/login': false,
         'account/logout': false
       },
       // Enable browser language detection to automatically redirect user
@@ -282,13 +297,15 @@ module.exports = {
     fullPathRedirect: true,
     strategies: {
       local: false,
-      oauth2: {
+      // Include oauth2 so that ~/plugins/authScheme can extend it
+      _oauth2: {
         _scheme: 'oauth2'
       },
       keycloak: {
         _scheme: '~/plugins/authScheme'
       }
     },
+    defaultStrategy: 'keycloak',
     plugins: ['~/plugins/apis']
   },
 
@@ -314,7 +331,9 @@ module.exports = {
   },
 
   serverMiddleware: [
-    { path: '/memory-usage', handler: '~/server-middleware/memory-usage' },
+    // We can't use /api as that's reserved on www.europeana.eu for (deprecated)
+    // access to Europeana APIs.
+    { path: '/_api', handler: '~/server-middleware/api' },
     '~/server-middleware/logging',
     '~/server-middleware/record-json'
   ],

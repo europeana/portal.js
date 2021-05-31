@@ -20,7 +20,6 @@ export default ({ app, route, redirect, req }) => {
   // Exit early if this is an auth callback
   if (app.$auth && [
     app.$auth.options.redirect.callback,
-    app.$auth.options.redirect.login,
     '/account/logout'
   ].includes(route.path)) {
     return;
