@@ -242,7 +242,7 @@ module.exports = {
     'nuxt-google-optimize',
     ['@nuxtjs/gtm', {
       pageTracking: true,
-      autoInit: false
+      autoInit: !featureIsEnabled(process.env.ENABLE_KLARO)
     }],
     ['@nuxtjs/robots', JSON.parse(process.env.NUXTJS_ROBOTS || '{"UserAgent":"*","Disallow":"/"}')],
     'bootstrap-vue/nuxt',
