@@ -166,6 +166,7 @@
           // TODO: use what? `${response.lat},${response.long}`?
           return '';
         }
+        return '';
       }
     },
 
