@@ -111,6 +111,10 @@ module.exports = {
         datasetBlacklist: (process.env.SSL_DATASET_BLACKLIST || '').split(',')
       }
     },
+    matomo: {
+      host: process.env.MATOMO_HOST,
+      tagManagerContainerId: process.env.MATOMO_TAG_MANAGER_CONTAINER_ID
+    },
     oauth: {
       origin: process.env.OAUTH_ORIGIN,
       realm: process.env.OAUTH_REALM,
@@ -222,7 +226,8 @@ module.exports = {
     '~/plugins/vue-filters',
     '~/plugins/vue-directives',
     '~/plugins/vue-announcer.client',
-    '~/plugins/vue-masonry.client'
+    '~/plugins/vue-masonry.client',
+    '~/plugins/matomo-tag-manager.client'
   ],
 
   buildModules: [
