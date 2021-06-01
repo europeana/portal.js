@@ -1,6 +1,13 @@
 <template>
   <b-row class="mb-3">
     <b-col>
+      <div
+        v-if="contextLabel"
+        class="context-label"
+        data-qa="entity label"
+      >
+        {{ contextLabel }}
+      </div>
       <h1
         :lang="title.code"
         data-qa="entity title"
@@ -60,6 +67,10 @@
       isEditorialDescription: {
         type: Boolean,
         default: false
+      },
+      contextLabel: {
+        type: String,
+        default: null
       }
     },
     data() {

@@ -10,7 +10,8 @@ const factory = () => shallowMount(BlogPost, {
   localVue,
   mocks: {
     $d: () => {},
-    $t: () => {}
+    $t: () => {},
+    $tc: () => {}
   },
   propsData: {
     identifier: '123',

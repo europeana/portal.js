@@ -13,6 +13,7 @@
               :description="description"
               :is-editorial-description="hasEditorialDescription"
               :title="title"
+              :context-label="contextLabel"
             />
             <client-only>
               <section
@@ -166,6 +167,12 @@
         relatedEntities: state => state.entity.relatedEntities,
         recordsPerPage: state => state.entity.recordsPerPage
       }),
+      contextLabel() {
+        if (this.$route.params.type === 'time') {
+          return this.$t('pages.collections.times.label');
+        }
+        return this.$route.params.type;
+      },
       description() {
         return this.editorialDescription ? { values: [this.editorialDescription], code: null } : null;
       },
@@ -245,6 +252,7 @@
           code: null
         };
       },
+      // TODO: remove this method, as it seems unused on the page
       relatedLinkGen(item) {
         let id = '';
         let name = '';

@@ -54,7 +54,7 @@ export default {
     "by": "by",
     "categories": "Categories",
     "category": "Category",
-    "posts": "Blog posts",
+    "posts": "Blog post | Blog posts",
     "published": "Published {date}",
     "relatedPosts": "Related posts"
   },
@@ -617,7 +617,8 @@ export default {
   "pages": {
     "collections": {
       "times": {
-        "title": "Times"
+        "title": "Times",
+        "label": "Century"
       },
       "topics": {
         "title": "Topics"

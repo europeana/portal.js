@@ -30,6 +30,11 @@
           <b-container class="mb-5">
             <b-row class="mb-4">
               <b-col>
+                <div
+                  class="context-label"
+                >
+                  {{ this.$tc('galleries.galleries', 1) }}
+                </div>
                 <h1
                   class="pt-3"
                   :lang="displayTitle.code"

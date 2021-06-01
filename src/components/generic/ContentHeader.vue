@@ -5,6 +5,12 @@
       lg="9"
       class="col lead mt-3"
     >
+      <div
+        v-if="contextLabel"
+        class="context-label"
+      >
+        {{ contextLabel }}
+      </div>
       <h1
         data-qa="page title"
       >
@@ -49,6 +55,11 @@
       },
 
       mediaUrl: {
+        type: String,
+        default: null
+      },
+
+      contextLabel: {
         type: String,
         default: null
       }
