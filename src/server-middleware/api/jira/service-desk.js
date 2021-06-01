@@ -6,17 +6,26 @@ const JIRA_SERVICE_DESK_API_PATH = '/rest/servicedeskapi/request';
 const JSON_CONTENT_TYPE = 'application/json';
 
 const jiraData = (options, req) => {
+  const { customFields } = options.serviceDesk;
   const data = {
     serviceDeskId: options.serviceDesk.serviceDeskId,
     requestTypeId: options.serviceDesk.requestTypeId,
     requestFieldValues: {
       summary: truncate(req.body.feedback, 50),
-      description: req.body.feedback,
-      'customfield_10809': req.body.pageUrl,
-      'customfield_10810': req.body.browser,
-      'customfield_10811': req.body.screensize
+      description: req.body.feedback
     }
   };
+  if (customFields) {
+    if (customFields.pageUrl && req.body.pageUrl) {
+      data.requestFieldValues[customFields.pageUrl] = req.body.pageUrl;
+    }
+    if (customFields.browser && req.body.browser) {
+      data.requestFieldValues[customFields.browser] = req.body.browser;
+    }
+    if (customFields.screensize && req.body.screensize) {
+      data.requestFieldValues[customFields.screensize] = req.body.screensize;
+    }
+  }
   if (req.body.email) {
     data.raiseOnBehalfOf = req.body.email;
   }

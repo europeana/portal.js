@@ -130,7 +130,12 @@ module.exports = {
       password: process.env.JIRA_API_PASSWORD,
       serviceDesk: {
         serviceDeskId: process.env.JIRA_API_SERVICE_DESK_ID,
-        requestTypeId: process.env.JIRA_API_SERVICE_DESK_REQUEST_TYPE_ID
+        requestTypeId: process.env.JIRA_API_SERVICE_DESK_REQUEST_TYPE_ID,
+        customFields: {
+          pageUrl: process.env.JIRA_API_SERVICE_DESK_CUSTOM_FIELD_PAGE_URL,
+          browser: process.env.JIRA_API_SERVICE_DESK_CUSTOM_FIELD_BROWSER,
+          screensize: process.env.JIRA_API_SERVICE_DESK_CUSTOM_FIELD_SCREENSIZE
+        }
       }
     }
   },
