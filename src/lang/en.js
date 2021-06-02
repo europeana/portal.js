@@ -58,6 +58,11 @@ export default {
     "published": "Published {date}",
     "relatedPosts": "Related posts"
   },
+  "cardLabels": {
+    "person": "Person",
+    "time": "Century",
+    "topic": "Topic"
+  },
   "clearAllFilters": "clear all filters",
   "collections": {
     "fashion": {
@@ -617,8 +622,7 @@ export default {
   "pages": {
     "collections": {
       "times": {
-        "title": "Times",
-        "label": "Century"
+        "title": "Times"
       },
       "topics": {
         "title": "Topics"

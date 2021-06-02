@@ -168,10 +168,7 @@
         recordsPerPage: state => state.entity.recordsPerPage
       }),
       contextLabel() {
-        if (this.$route.params.type === 'time') {
-          return this.$t('pages.collections.times.label');
-        }
-        return this.$route.params.type;
+        return this.$t(`cardLabels.${this.$route.params.type}`);
       },
       description() {
         return this.editorialDescription ? { values: [this.editorialDescription], code: null } : null;
