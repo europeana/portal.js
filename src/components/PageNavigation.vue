@@ -46,7 +46,6 @@
           :class="sidebarNav ? 'sidebar-nav-item' : 'd-lg-none'"
         >
           <b-link
-            v-if="!item.divider"
             v-b-toggle.menu
             :to="item.to"
             :href="item.href"
@@ -106,7 +105,6 @@
         authLinks: [
           { to: this.$path({ name: 'account' }), text: this.$t('account.myProfile'), url: '/account', dataQa: 'likes and galleries button' },
           { href: this.keycloakAccountUrl, text: this.$t('account.profileSettings'), url: '/account/settings', dataQa: 'account settings button' },
-          { divider: true },
           { to: { name: 'account-logout' }, text: this.$t('account.linkLogout'), url: '/account/logout', dataQa: 'log out button' }
         ],
         mainNavigation: [
