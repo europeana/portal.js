@@ -26,12 +26,8 @@ export default (context = {}) => {
       };
       const params = { ...defaults, ...options };
       return $axios.get(getEntityUrl(type, id).replace('.json', ''), { params })
-        .then(response => {
-          return response.data;
-        })
-        .catch(error => {
-          return apiError(error);
-        });
+        .then(response => response.data)
+        .catch(error => apiError(error));
     },
 
     /**
@@ -40,15 +36,10 @@ export default (context = {}) => {
      * @param {Object} body the Proxy body
      * @return {Object} API response data
      */
-
     updateEntity(id, body) {
       return $axios.put(`/concept/base/${id}`, body)
-        .then(response => {
-          return response.data;
-        })
-        .catch(error => {
-          throw apiError(error);
-        });
+        .then(response => response.data)
+        .catch(error => apiError(error));
     }
 
   };

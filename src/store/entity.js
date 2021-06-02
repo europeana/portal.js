@@ -95,6 +95,7 @@ export default {
 
       await dispatch('search/run', {}, { root: true });
     },
+
     updateEntity({ commit }, { id, body }) {
       return this.$apis.entityManagement.updateEntity(id.split('/').pop(), body)
         .then(response => {
