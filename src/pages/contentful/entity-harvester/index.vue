@@ -31,6 +31,7 @@
   } from '@/plugins/europeana/entity';
   import { langMapValueForLocale } from '@/plugins/europeana/utils';
   import { BASE_URL } from '@/plugins/europeana/data';
+
   export default {
     layout: 'contentful',
 
@@ -146,43 +147,53 @@
       },
 
       entityDescriptionFromResponse(response) {
+        let description = '';
+
         switch (response.type) {
         case 'Agent':
           // use `biographicalInformation`
           // NB: this is in JSON-LD expanded form
-          return langMapValueForLocale(response.biographicalInformation, 'en').values[0];
+          description = langMapValueForLocale(response.biographicalInformation, 'en').values[0];
+          break;
         case 'Concept':
           // use `note`
           // NB: language map with each value being an array of literals
-          return langMapValueForLocale(response.note, 'en').values[0];
+          description = langMapValueForLocale(response.note, 'en').values[0];
+          break;
         case 'Organization':
           // use `description`
           // NB: language map with each value being a single literal
-          return langMapValueForLocale(response.description, 'en').values[0];
+          description = langMapValueForLocale(response.description, 'en').values[0];
+          break;
         case 'Timespan':
           // TODO: use what? `${response.begin} to ${response.end}`?
-          return '';
+          break;
         case 'Place':
           // TODO: use what? `${response.lat},${response.long}`?
-          return '';
+          break;
         }
-        return '';
+
+        return description;
       }
     },
 
     head() {
       return {
-        title: this.$pageHeadTitle('Entity harvester - Contentful app')
+        title: this.$pageHeadTitle('Entity harvester - Contentful app'),
+        bodyAttrs: {
+          class: '',
+          style: 'background: transparent;'
+        }
       };
     }
   };
 </script>
 
 <style lang="scss" scoped>
-.contentful {
-  button {
-    margin-right: 1rem;
+  .contentful {
+    button {
+      margin-right: 1rem;
+    }
+    font-size: 11px;
   }
-  font-size: 11px;
-}
 </style>
