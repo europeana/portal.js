@@ -183,7 +183,7 @@
     data() {
       return {
         cardImageUrl: this.imageUrl,
-        displayLabelTypes: 'exhibitions|galleries|blog'
+        displayLabelTypes: 'exhibitions|galleries|blog|collections'
       };
     },
 
@@ -210,7 +210,16 @@
         if (!this.displayLabelType) {
           return false;
         }
+
+        if (this.displayLabelType === 'collections') {
+          return this.$t(`cardLabels.${this.displayLabelTypeCollections}`);
+        }
+
         return this.$tc(`${this.displayLabelType}.${this.displayLabelType}`, 1);
+      },
+
+      displayLabelTypeCollections() {
+        return typeof this.url === 'object' ? this.url.params.type : this.url.split('/').slice(-2, -1);
       },
 
       displayLabelType() {
