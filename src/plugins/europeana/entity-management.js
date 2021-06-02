@@ -5,7 +5,7 @@ export const BASE_URL = process.env.EUROPEANA_ENTITY_MANAGEMENT_API_URL || 'http
 
 export default (context = {}) => {
   const $axios = createKeycloakAuthAxios(
-    { id: 'entitymanagement', baseURL: BASE_URL, $axios: context.$axios },
+    { id: 'entityManagement', baseURL: BASE_URL, $axios: context.$axios },
     context
   );
 
@@ -53,4 +53,3 @@ export default (context = {}) => {
 
   };
 };
-

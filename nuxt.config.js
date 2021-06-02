@@ -89,7 +89,7 @@ module.exports = {
           url: process.env.EUROPEANA_SET_API_URL,
           key: process.env.EUROPEANA_SET_API_KEY || process.env.EUROPEANA_API_KEY
         },
-        entitymanagement: {
+        entityManagement: {
           url: process.env.EUROPEANA_ENTITY_MANAGEMENT_API_URL
         }
       }
