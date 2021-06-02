@@ -7,6 +7,7 @@
     size="lg"
     class="download-button d-inline-flex align-items-center"
     :target="target"
+    @click.native="!disabled && $matomo && $matomo.trackEvent('Item_download', 'Click download button', url);"
   >
     <span class="ic-download d-inline-flex pr-1" />
     {{ $t('actions.download') }}

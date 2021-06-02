@@ -383,6 +383,7 @@
           noCloseButton: true,
           solid: true
         });
+        this.$matomo && this.$matomo.trackEvent('Tier 0 snackbar', 'Tier 0 snackbar appears', 'Tier 0 snackbar appears');
       }
     }
   };
