@@ -20,15 +20,20 @@ export const BASE_URL = process.env.EUROPEANA_RECORD_API_URL || 'https://api.eur
  * @return {Object[]} Key value pairs of the metadata fields.
  */
 function coreFields(proxyData, providerAggregation, entities) {
-  return Object.freeze(lookupEntities(omitBy({
-    edmDataProvider: { url: providerAggregation.edmIsShownAt, value: providerAggregation.edmDataProvider },
+  const fields = lookupEntities(omitBy({
+    edmDataProvider: providerAggregation.edmDataProvider,
     dcContributor: proxyData.dcContributor,
     dcCreator: proxyData.dcCreator,
     dcPublisher: proxyData.dcPublisher,
     dcSubject: proxyData.dcSubject,
     dcType: proxyData.dcType,
     dctermsMedium: proxyData.dctermsMedium
-  }, isUndefined), entities));
+  }, isUndefined), entities);
+
+  fields.edmDataProvider = {
+    url: providerAggregation.edmIsShownAt, value: fields.edmDataProvider
+  };
+  return Object.freeze(fields);
 }
 
 const PROXY_EXTRA_FIELDS = [
@@ -167,7 +172,8 @@ function lookupEntities(fields, entities) {
 
 function setMatchingEntities(fields, key, entities) {
   // Only looks for entities in 'def'
-  for (const [index, value] of (fields[key]['def'] || []).entries()) {
+  const values = (fields[key]['def'] || []);
+  for (const [index, value] of values.entries()) {
     if (entities[value]) {
       fields[key]['def'][index] = entities[value];
     }
