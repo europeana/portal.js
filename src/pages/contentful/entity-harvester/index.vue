@@ -125,15 +125,11 @@
 
         // set name field from `prefLabel`
         if (this.entry.fields.name) {
-          this.entry.fields.name.removeValue();
-          if (response.prefLabel) {
-            this.entry.fields.name.setValue(enPrefLabel);
-          }
+          this.entry.fields.name.setValue(enPrefLabel);
         }
 
         // set description from different fields based on entity type
         if (this.entry.fields.description) {
-          this.entry.fields.description.removeValue();
           this.entry.fields.description.setValue(this.entityDescriptionFromResponse(response));
         }
 
