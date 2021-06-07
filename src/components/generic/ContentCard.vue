@@ -215,6 +215,10 @@
           return this.$t(`cardLabels.${this.displayLabelTypeCollections}`);
         }
 
+        if (this.displayLabelType === 'blog') {
+          return this.$tc('blog.posts', 1);
+        }
+
         return this.$tc(`${this.displayLabelType}.${this.displayLabelType}`, 1);
       },
 

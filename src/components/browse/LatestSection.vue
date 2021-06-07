@@ -66,7 +66,7 @@
         } else if (this.forGalleries) {
           return { type: 'imageGallery', name: this.$tc('galleries.galleries', this.total), path: 'galleries' };
         } else if (this.forBlogPosts) {
-          return { type: 'blogPosting', name: this.$tc('blog.posts'), path: 'blog' };
+          return { type: 'blogPosting', name: this.$tc('blog.posts', this.total), path: 'blog' };
         }
 
         return false;
