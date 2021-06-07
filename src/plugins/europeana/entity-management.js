@@ -39,7 +39,9 @@ export default (context = {}) => {
     updateEntity(id, body) {
       return $axios.put(`/concept/base/${id}`, body)
         .then(response => response.data)
-        .catch(error => apiError(error));
+        .catch(error => {
+          throw apiError(error);
+        });
     }
 
   };

@@ -14,22 +14,24 @@
               :is-editorial-description="hasEditorialDescription"
               :title="title"
             />
-            <template
-              v-if="isEditable && userIsEditor"
-            >
-              <div class="d-inline-flex">
-                <b-button
-                  variant="outline-primary"
-                  @click="$bvModal.show('entityUpdateModal')"
-                >
-                  {{ $t('actions.edit') }}
-                </b-button>
-                <EntityUpdateModal
-                  :body="entity.proxy"
-                  :description="descriptionText"
-                />
-              </div>
-            </template>
+            <client-only>
+              <section
+                v-if="isEditable && userIsEditor"
+              >
+                <div class="d-inline-flex">
+                  <b-button
+                    variant="outline-primary"
+                    @click="$bvModal.show('entityUpdateModal')"
+                  >
+                    {{ $t('actions.edit') }}
+                  </b-button>
+                  <EntityUpdateModal
+                    :body="entity.proxy"
+                    :description="descriptionText"
+                  />
+                </div>
+              </section>
+            </client-only>
             <client-only>
               <section
                 v-if="relatedCollectionsFound"
@@ -94,7 +96,6 @@
   import { BASE_URL as EUROPEANA_DATA_URL } from '../../../plugins/europeana/data';
   import { getEntityTypeHumanReadable, getEntitySlug, getEntityUri } from '../../../plugins/europeana/entity';
   import { langMapValueForLocale } from  '../../../plugins/europeana/utils';
-  import EntityUpdateModal from '../../../components/entity/EntityUpdateModal';
 
   export default {
     components: {
@@ -102,7 +103,7 @@
       ClientOnly,
       EntityDetails,
       SearchInterface,
-      EntityUpdateModal,
+      EntityUpdateModal: () => import('../../../components/entity/EntityUpdateModal'),
       RelatedCollections: () => import('../../../components/generic/RelatedCollections')
     },
     middleware: 'sanitisePageQuery',
@@ -140,7 +141,7 @@
           .concat(fetchEntity ? app.$apis.entity.getEntity(params.type, params.pathMatch) : () => {})
           .concat(fetchEntity && app.$config.app.features.entityManagement
             && app.$auth.user && app.$auth.user.resource_access.entities
-            && app.$auth.user.resource_access.entities.roles.includes('editor') ? app.$apis.entityManagement.getEntity(params.type, params.pathMatch) : () => {})
+            && app.$auth.user.resource_access.entities.roles.includes('editor') ? app.$apis.entityManagement.getEntity(params.type, params.pathMatch) : () => ({}))
           .concat(fetchFromContentful ? app.$contentful.query('collectionPage', contentfulVariables) : () => {})
       )
         .then(axios.spread((recordSearchResponse, entityResponse, entityManagementResponse, pageResponse) => {
