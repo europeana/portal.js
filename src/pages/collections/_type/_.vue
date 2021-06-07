@@ -173,6 +173,7 @@
             });
             return redirect(302, redirectPath);
           }
+          return true;
         }))
         .catch((e) => {
           const statusCode = (e.statusCode === undefined) ? 500 : e.statusCode;
