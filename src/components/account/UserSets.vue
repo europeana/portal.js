@@ -18,7 +18,7 @@
           >
             <b-col>
               <h2 class="related-heading text-uppercase">
-                <span class="icon-info-outline" />
+                <span class="icon-info" />
                 {{ $t('account.curatedCollectionsInfo') }}
               </h2>
             </b-col>
@@ -34,6 +34,7 @@
             data-qa="user set"
           />
           <CreateSetButton
+            v-if="visibility !== 'curated'"
             :visibility="visibility"
           />
         </b-card-group>
