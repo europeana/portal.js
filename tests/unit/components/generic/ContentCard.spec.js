@@ -81,6 +81,8 @@ describe('components/generic/ContentCard', () => {
             const label =  wrapper.find('[data-qa="content card"] .card-subtitle');
             if (test.type === 'collections') {
               label.text().should.eq(`cardLabels.${test.urls[1].params.type}`);
+            } else if (test.type === 'blog') {
+              label.text().should.eq('blog.posts');
             } else {
               label.text().should.eq(`${test.type}.${test.type}`);
             }
