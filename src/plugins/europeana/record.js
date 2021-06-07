@@ -186,10 +186,11 @@ export default (context = {}) => {
 
     /**
      * Parse the record data based on the data from the API response
-     * @param {Object} response data from API response
+     * @param {Object} edm data from API response
      * @return {Object} parsed data
      */
-    parseRecordDataFromApiResponse(edm) {
+    parseRecordDataFromApiResponse(data) {
+      const edm = data.object;
       const providerAggregation = edm.aggregations[0];
 
       const concepts = (edm.concepts || []).map(reduceEntity).map(Object.freeze);
@@ -219,7 +220,8 @@ export default (context = {}) => {
         agents,
         concepts,
         timespans,
-        title: proxyData.dcTitle
+        title: proxyData.dcTitle,
+        schemaOrg: data.schemaOrg ? Object.freeze(JSON.stringify(data.schemaOrg)) : undefined
       };
     },
 
@@ -290,8 +292,17 @@ export default (context = {}) => {
         path = '/record';
       }
 
-      return this.$axios.get(`${path}${europeanaId}.json`)
-        .then(response => this.parseRecordDataFromApiResponse(response.data.object))
+      const params = { ...this.$axios.defaults.params };
+      let schemaOrgDatasetId;
+      if (context.$config && context.$config.app && context.$config.app.schemaOrgDatasetId) {
+        schemaOrgDatasetId = context.$config.app.schemaOrgDatasetId;
+      }
+      if (schemaOrgDatasetId && europeanaId.startsWith(`/${schemaOrgDatasetId}/`)) {
+        params.profile = 'schemaOrg';
+      }
+
+      return this.$axios.get(`${path}${europeanaId}.json`, { params })
+        .then(response => this.parseRecordDataFromApiResponse(response.data))
         .then(parsed => reduceLangMapsForLocale(parsed, options.locale))
         .then(reduced => ({
           record: reduced,

@@ -9,7 +9,6 @@
           {{ $t(`account.notifications.noCollections.${visibility}`) }}
         </div>
         <b-card-group
-          v-else
           class="card-deck-4-cols pb-5"
           deck
         >
@@ -34,6 +33,9 @@
             :url="{ name: 'set-all', params: { pathMatch: setPathMatch(set) } }"
             data-qa="user set"
           />
+          <CreateSetButton
+            :visibility="visibility"
+          />
         </b-card-group>
       </b-col>
     </b-row>
@@ -42,11 +44,13 @@
 
 <script>
   import ContentCard from '../generic/ContentCard';
+  import CreateSetButton from './CreateSetButton.vue';
 
   export default {
     name: 'UserSets',
     components: {
-      ContentCard
+      ContentCard,
+      CreateSetButton
     },
     props: {
       // May be "public" or "private"

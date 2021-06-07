@@ -279,7 +279,10 @@
 
       postFeedbackMessage() {
         const postData = {
-          summary: this.feedback
+          feedback: this.feedback,
+          pageUrl: window.location.href,
+          browser: navigator.userAgent,
+          screensize: `${window.innerWidth} x ${window.innerHeight}`
         };
         if (this.email && (this.email !== '')) {
           postData.email = this.email;
@@ -289,7 +292,7 @@
         // request always to fail on the first attempt, showing the error message,
         // but then succeeding on subsequent attempts.
         // if (this.requestSuccess === null) {
-        //  delete postData.summary;
+        //   delete postData.summary;
         // }
 
         return axios.create({

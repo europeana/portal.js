@@ -503,7 +503,8 @@ export default {
       "collections": "Collections",
       "europeanaClassroom": "Teachers",
       "help": "Help",
-      "home": "Home"
+      "home": "Home",
+      "stories": "Stories"
     },
     "searchFor": "Search for {query}",
     "searchForEverything": "Search for everything",
@@ -551,10 +552,6 @@ export default {
       "auth-strategy": {
         "title": "Auth Strategy",
         "description": "Remembers the authorization strategy to use to log in."
-      },
-      "cloudflare": {
-        "title": "Cloudflare",
-        "description": "Protects and secures the website."
       },
       "debugSettings": {
         "title": "Debug toggle"
