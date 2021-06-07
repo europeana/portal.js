@@ -36,7 +36,6 @@
                   {{ this.$tc('galleries.galleries', 1) }}
                 </div>
                 <h1
-                  class="pt-3"
                   :lang="displayTitle.code"
                 >
                   {{ displayTitle.values[0] }}

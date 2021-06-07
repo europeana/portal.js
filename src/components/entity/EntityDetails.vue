@@ -2,7 +2,6 @@
   <b-row class="mb-3">
     <b-col>
       <div
-        v-if="contextLabel"
         class="context-label"
         data-qa="entity label"
       >
@@ -70,7 +69,7 @@
       },
       contextLabel: {
         type: String,
-        default: null
+        required: true
       }
     },
     data() {

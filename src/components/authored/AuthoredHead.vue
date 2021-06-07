@@ -10,6 +10,7 @@
             <div
               v-if="contextLabel"
               class="context-label"
+              data-qa="context label"
             >
               {{ contextLabel }}
             </div>
