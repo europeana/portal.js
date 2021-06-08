@@ -27,6 +27,10 @@ const sets = [
   }
 ];
 
+const $i18n = {
+  locale: 'en'
+};
+
 const factory = () => mount(UserSets, {
   localVue,
   mocks: {
@@ -46,6 +50,7 @@ const factory = () => mount(UserSets, {
     },
     $t: (key) => key,
     $tc: (key) => key,
+    $i18n,
     $path: () => 'localizedPath'
   }
 });

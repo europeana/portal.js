@@ -10,10 +10,21 @@ const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 localVue.use(VueI18n);
 
+const i18n = new VueI18n({
+  locale: 'en',
+  messages: {
+    en: {
+      feedback: {
+        policies: 'By continuing, you agree to our {0} and acknowledge our {1}.'
+      }
+    }
+  }
+});
+
 const factory = (propsData = {}) => {
   const wrapper = mount(FeedbackWidget, {
     localVue,
-    i18n: new VueI18n,
+    i18n,
     propsData,
     mocks: {
       $t: () => {},
