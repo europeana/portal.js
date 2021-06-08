@@ -3,7 +3,7 @@ export default {
     "likes": "Aprecieri",
     "linkAccount": "Contul meu",
     "linkLogin": "Autentificare",
-    "linkLoginJoin": "Autentificare/Înscriere",
+    "linkLoginJoin": "Autentificare\/Înscriere",
     "linkLogout": "Deconectare",
     "myProfile": "Profilul meu",
     "notifications": {
@@ -335,7 +335,7 @@ export default {
     "MIME_TYPE": {
       "name": "Format fișier| Formate fișier",
       "options": {
-        "text/plain": "Text simplu"
+        "text\/plain": "Text simplu"
       }
     },
     "PROVIDER": {
@@ -463,7 +463,8 @@ export default {
       "about": "Despre noi",
       "collections": "Colecții",
       "europeanaClassroom": "Profesori",
-      "help": "Ajutor"
+      "help": "Ajutor",
+      "stories": "Povești"
     },
     "searchFor": "Caută pentru {query}",
     "searchForEverything": "Caută tot",

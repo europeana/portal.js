@@ -3,7 +3,7 @@ export default {
     "likes": "Patinka",
     "linkAccount": "Mano paskyra",
     "linkLogin": "Prisijungti",
-    "linkLoginJoin": "Prisijungti/Prisijungti",
+    "linkLoginJoin": "Prisijungti\/Prisijungti",
     "linkLogout": "Atsijungti",
     "myProfile": "Mano profilis",
     "notifications": {
@@ -335,7 +335,7 @@ export default {
     "MIME_TYPE": {
       "name": "Failo formatas | Failų formatai",
       "options": {
-        "text/plain": "Paprastas tekstas"
+        "text\/plain": "Paprastas tekstas"
       }
     },
     "PROVIDER": {
@@ -463,7 +463,8 @@ export default {
       "about": "Apie mus",
       "collections": "Kolekcijos",
       "europeanaClassroom": "Mokytojams",
-      "help": "Pagalba"
+      "help": "Pagalba",
+      "stories": "Istorijos"
     },
     "searchFor": "Ieškoti {query}",
     "searchForEverything": "Ieškoti visko",

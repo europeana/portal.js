@@ -3,7 +3,7 @@ export default {
     "likes": "Likes",
     "linkAccount": "Mitt konto",
     "linkLogin": "Logga in",
-    "linkLoginJoin": "Logga in/Gå med",
+    "linkLoginJoin": "Logga in\/Gå med",
     "linkLogout": "Logga ut",
     "myProfile": "Min profil",
     "notifications": {
@@ -335,7 +335,7 @@ export default {
     "MIME_TYPE": {
       "name": "Filformat | Filformat",
       "options": {
-        "text/plain": "Oformaterad text"
+        "text\/plain": "Oformaterad text"
       }
     },
     "PROVIDER": {
@@ -463,7 +463,8 @@ export default {
       "about": "Om oss",
       "collections": "Samlingar",
       "europeanaClassroom": "Lärare",
-      "help": "Hjälp"
+      "help": "Hjälp",
+      "stories": "Berättelser"
     },
     "searchFor": "Sök efter {query}",
     "searchForEverything": "Sök efter allt",

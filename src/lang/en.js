@@ -1,23 +1,23 @@
 export default {
   "account": {
+    "editProfile": "Edit profile",
     "likes": "Likes",
     "linkAccount": "My Account",
     "linkLogin": "Login",
-    "linkLoginJoin": "Log in / Join",
+    "linkLoginJoin": "Log in \/ Join",
     "linkLogout": "Log out",
     "myProfile": "My Profile",
     "notifications": {
+      "loggedIn": "You are now logged in. Welcome!",
+      "loggedOut": "You are now logged out.",
       "noCollections": {
         "private": "You haven’t created any private galleries yet",
         "public": "You haven’t created any public galleries yet"
       },
-      "noLikedItems": "You haven’t liked any items yet",
-      "loggedIn": "You are now logged in. Welcome!",
-      "loggedOut": "You are now logged out."
+      "noLikedItems": "You haven’t liked any items yet"
     },
     "privateCollections": "Private Galleries",
     "profile": "My Likes & Galleries",
-    "editProfile": "Edit profile",
     "profileSettings": "Profile settings",
     "publicCollections": "Public Galleries",
     "settings": "Settings",
@@ -351,7 +351,7 @@ export default {
     "MIME_TYPE": {
       "name": "File format | File formats",
       "options": {
-        "text/plain": "Plain text"
+        "text\/plain": "Plain text"
       }
     },
     "PROVIDER": {
@@ -520,66 +520,66 @@ export default {
   },
   "klaro": {
     "main": {
-      "consentNotice": {
-        "description": "We care about your privacy and only use data to improve your experience. We don’t use any personal information for advertising. You can change your consent every 15 days."
-      },
       "consentModal": {
         "description": "We take your data privacy seriously. Here you can assess and customize the services that we'd like to use on this website. You're in charge! Enable or disable services as you see fit.",
         "title": "Services we would like to use."
       },
+      "consentNotice": {
+        "description": "We care about your privacy and only use data to improve your experience. We don’t use any personal information for advertising. You can change your consent every 15 days."
+      },
       "ok": "Okay",
+      "purposes": {
+        "essential": {
+          "description": "These services are essential for the correct functioning of this website. They include search results view and language preferences, preserve the logged in state and keep your visit secure. You cannot disable them as the website would not work correctly otherwise.",
+          "title": "Essential services for security and customization"
+        },
+        "usage": {
+          "description": "These services collect the information to help us better understand how the website gets used and where the pain points are, empowering us to make informed choices to improve your experience.",
+          "title": "Services to capture website usage and feedback"
+        }
+      },
       "service": {
         "disableAll": {
           "description": "Use this switch to enable or disable all optional services.",
           "title": "Enable or disable all services"
         }
-      },
-      "purposes": {
-        "usage": {
-          "title": "Services to capture website usage and feedback",
-          "description": "These services collect the information to help us better understand how the website gets used and where the pain points are, empowering us to make informed choices to improve your experience."
-        },
-        "essential": {
-          "title": "Essential services for security and customization",
-          "description": "These services are essential for the correct functioning of this website. They include search results view and language preferences, preserve the logged in state and keep your visit secure. You cannot disable them as the website would not work correctly otherwise."
-        }
       }
     },
     "services": {
       "auth-strategy": {
-        "title": "Auth Strategy",
-        "description": "Remembers the authorization strategy to use to log in."
+        "description": "Remembers the authorization strategy to use to log in.",
+        "title": "Auth Strategy"
       },
       "debugSettings": {
         "title": "Debug toggle"
       },
       "google-analytics": {
-        "title": "Google Analytics",
-        "description": "Collects anonymous statistics on how visitors interact with the website."
+        "description": "Collects anonymous statistics on how visitors interact with the website.",
+        "title": "Google Analytics"
       },
       "google-optimize": {
-        "title": "Google Optimize",
-        "description": "Enables you to participate in website experiments that guide our design choices for the best user experience."
+        "description": "Enables you to participate in website experiments that guide our design choices for the best user experience.",
+        "title": "Google Optimize"
       },
       "hotjar": {
-        "title": "Hotjar",
-        "description": "Activates a survey widget giving you the option to respond to our visitor satisfaction surveys."
+        "description": "Activates a survey widget giving you the option to respond to our visitor satisfaction surveys.",
+        "title": "Hotjar"
       },
       "i18n": {
-        "title": "Language code",
-        "description": "Remembers your preferred interface language for future access."
+        "description": "Remembers your preferred interface language for future access.",
+        "title": "Language code"
       },
       "jira-servicedesk": {
-        "title": "Jira service desk",
-        "description": "Activates the feedback widget giving you the option to contact us."
+        "description": "Activates the feedback widget giving you the option to contact us.",
+        "title": "Jira service desk"
       },
       "matomo": {
-        "title": "Matomo",
-        "description": "Collects anonymous statistics on how visitors interact with the website."
+        "description": "Collects anonymous statistics on how visitors interact with the website.",
+        "title": "Matomo"
       },
       "searchResultsView": {
-        "title": "Search result view (list/grid)",
-        "description": "Remembers if you prefer to see the search results in a list or grid view."
+        "description": "Remembers if you prefer to see the search results in a list or grid view.",
+        "title": "Search result view (list\/grid)"
       }
     }
   },
@@ -687,8 +687,8 @@ export default {
     "form": {
       "description": "Gallery description",
       "private": "Keep this gallery private",
-      "title": "Gallery name",
-      "required": "Required field"
+      "required": "Required field",
+      "title": "Gallery name"
     },
     "labels": {
       "curatedBy": "Curated by",

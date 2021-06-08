@@ -1,9 +1,10 @@
 export default {
   "account": {
+    "editProfile": "Edytuj profil",
     "likes": "Polubienia",
     "linkAccount": "Moje konto",
     "linkLogin": "Zaloguj się",
-    "linkLoginJoin": "Zaloguj/Dołącz",
+    "linkLoginJoin": "Zaloguj\/Dołącz",
     "linkLogout": "Wyloguj",
     "myProfile": "Mój profil",
     "notifications": {
@@ -15,6 +16,7 @@ export default {
     },
     "privateCollections": "Galerie prywatne",
     "profile": "Moje polubienia i galerie",
+    "profileSettings": "Ustawienia profilu",
     "publicCollections": "Galerie publiczne",
     "settings": "Ustawienia",
     "title": "Moje konto"
@@ -69,6 +71,7 @@ export default {
     }
   },
   "collectionsYouMightLike": "Kolekcje, które mogą Ci się spodobać",
+  "colourSwatch": "Próbka koloru",
   "contentfulManual": {
     "footerNavigation": {
       "about": "O kolekcjach Europeana",
@@ -99,6 +102,9 @@ export default {
     "startDate": "Data rozpoczęcia",
     "to": "do"
   },
+  "debug": {
+    "apiRequests": "Żądania API"
+  },
   "delete": "Usuń",
   "depiction": "Obraz {title}",
   "directions": {
@@ -106,6 +112,7 @@ export default {
     "right": "W prawo"
   },
   "edmIsShownAtLinkAlt": "Zobacz na stronie internetowej dostawcy",
+  "entity": "Jednostka",
   "error": "Błąd",
   "exhibitions": {
     "chapters": "Rozdziały",
@@ -293,6 +300,7 @@ export default {
         "#FFFAFA": "Śnieg",
         "#FFFF00": "Żółty",
         "#FFFFE0": "Jasny zółty",
+        "#FFFFF0": "kość słoniowa",
         "#FFFFFF": "Biały"
       }
     },
@@ -335,7 +343,7 @@ export default {
     "MIME_TYPE": {
       "name": "Format plików | Formaty plików",
       "options": {
-        "text/plain": "Zwykły tekst"
+        "text\/plain": "Zwykły tekst"
       }
     },
     "PROVIDER": {
@@ -463,7 +471,8 @@ export default {
       "about": "O nas",
       "collections": "Kolekcje",
       "europeanaClassroom": "Nauczyciele",
-      "help": "Pomoc"
+      "help": "Pomoc",
+      "stories": "Historie"
     },
     "searchFor": "Wyszukaj {query}",
     "searchForEverything": "Szukaj wszystkiego",
@@ -499,7 +508,11 @@ export default {
     }
   },
   "loadingResults": "Ładowanie wyników",
+  "mediaPreview": {
+    "selectItem": "Wybierz element {src}"
+  },
   "messages": {
+    "copyToClipboardSuccess": "Skopiowane do schowka",
     "externalContentError": "Nie można załadować treści zewnętrznej",
     "notFound": "Nie znaleziono",
     "paginationLimitExceeded": "Możliwe jest wyświetlenie tylko pierwszych {limit} wyników wyświetlania."
@@ -517,11 +530,13 @@ export default {
   "readMore": "Czytaj więcej",
   "record": {
     "allMetaData": "Wszystkie metadane",
+    "copyEmbedLabel": "Kod do umieszczenia (kliknij, aby skopiować)",
     "downloadCopyrightInfo": "Ten element jest chroniony prawami autorskimi i nie można go pobrać.",
     "exploreMore": "Odkryj więcej",
     "extendedInformation": "Informacje rozszerzone",
     "goodToKnow": "Warto wiedzieć",
     "hideAll": "Ukryj wszystkie informacje",
+    "location": "Lokalizacja",
     "record": "Rekord",
     "showAll": "Pokaż wszystkie informacje",
     "similarItems": "Podobne elementy",

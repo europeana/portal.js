@@ -1,12 +1,15 @@
 export default {
   "account": {
+    "editProfile": "Muuda profiili",
     "likes": "Meeldimised",
     "linkAccount": "Minu konto",
     "linkLogin": "Logi sisse",
-    "linkLoginJoin": "Logi sisse/Liitu",
+    "linkLoginJoin": "Logi sisse\/Liitu",
     "linkLogout": "Logi välja",
     "myProfile": "Minu profiil",
     "notifications": {
+      "loggedIn": "Olete nüüd sisse logitud. Tere tulemast!",
+      "loggedOut": "Olete nüüd välja logitud.",
       "noCollections": {
         "private": "Te pole veel ühtegi privaatset galeriid loonud",
         "public": "Te pole veel ühtegi avalikku galeriid loonud"
@@ -15,19 +18,25 @@ export default {
     },
     "privateCollections": "Privaatgaleriid",
     "profile": "Minu meeldimised ja galeriid",
+    "profileSettings": "Profiili seaded",
     "publicCollections": "Avalikud galeriid",
     "settings": "Seaded",
     "title": "Minu konto"
   },
   "actions": {
+    "cancel": "Tühista",
     "close": "Sulge",
     "download": "Lae alla",
     "edit": "Muuda",
+    "feedback": "Tagasiside",
     "goBack": "Mine tagasi",
     "like": "Meeldib",
+    "next": "Järgmine",
     "providedBy": "Pakub {provider}",
+    "send": "Saada",
     "share": "Jagage",
     "shareOn": "Jagage saidil {social}",
+    "skip": "Vahele jätma",
     "viewAt": "Kuva saidil {link}",
     "viewDocument": "Vaadake dokumenti"
   },
@@ -69,6 +78,7 @@ export default {
     }
   },
   "collectionsYouMightLike": "Kollektsioonid, mis võivad teile meeldida",
+  "colourSwatch": "Värvivalik",
   "contentfulManual": {
     "footerNavigation": {
       "about": "Infot Europeana kohta",
@@ -99,6 +109,10 @@ export default {
     "startDate": "Alguskuupäev",
     "to": "kuni"
   },
+  "debug": {
+    "apiRequests": "API taotlused",
+    "debug": "Debug"
+  },
   "delete": "Kustuta",
   "depiction": "{title} kujutis",
   "directions": {
@@ -106,6 +120,7 @@ export default {
     "right": "Parem"
   },
   "edmIsShownAtLinkAlt": "Vaadake teenusepakkuja veebisaidil",
+  "entity": "Üksus",
   "error": "Viga",
   "exhibitions": {
     "chapters": "Peatükid",
@@ -293,6 +308,7 @@ export default {
         "#FFFAFA": "Lumi",
         "#FFFF00": "Kollane",
         "#FFFFE0": "Helekollane",
+        "#FFFFF0": "Elevandiluu",
         "#FFFFFF": "Valge"
       }
     },
@@ -335,7 +351,7 @@ export default {
     "MIME_TYPE": {
       "name": "Failivorming | Failivormingud",
       "options": {
-        "text/plain": "Lihttekst"
+        "text\/plain": "Lihttekst"
       }
     },
     "PROVIDER": {
@@ -372,6 +388,23 @@ export default {
         "VIDEO": "Video"
       }
     }
+  },
+  "feedback": {
+    "emailOptional": "Võime soovida jätkata. Sisestage oma e-posti aadress, kui olete rahul, et meiega ühendust võtame.",
+    "failed": "Taotlus nurjus. Palun proovi uuesti.",
+    "form": {
+      "placeholders": {
+        "email": "Sisestage oma e-posti aadress",
+        "feedback": "Sisestage oma tagasiside siia"
+      }
+    },
+    "policies": "Jätkates nõustute meie {0} ja kinnitate meie {1} .",
+    "privacyPolicy": "Privaatsuspoliitika",
+    "success": "Teie tagasiside on saadetud.",
+    "termsOfService": "Kasutustingimused",
+    "thankYou": "Aitäh!",
+    "title": "Saada tagasisidet",
+    "validEmail": "Sisestage kehtiv e-posti aadress"
   },
   "fieldLabels": {
     "default": {
@@ -456,6 +489,7 @@ export default {
   "header": {
     "backToMenu": "Sulge otsinguaken",
     "clearQuery": "Kustuta otsingupäring",
+    "closeSidebar": "Sule menüü",
     "entireCollection": "Otsi {query} kogu meie kollektsioonist",
     "europeanaHome": "Europeana avaleht",
     "inCollection": "Otsi {query} {collection}",
@@ -463,7 +497,9 @@ export default {
       "about": "Meist",
       "collections": "Kogud",
       "europeanaClassroom": "Õpetajad",
-      "help": "Abimaterjal"
+      "help": "Abimaterjal",
+      "home": "Kodu",
+      "stories": "Lood"
     },
     "searchFor": "Otsi {query}",
     "searchForEverything": "Otsi kõike",
@@ -477,7 +513,7 @@ export default {
   },
   "items": {
     "itemCount": "1 toode | {count} toodet",
-    "itemOf": "{max} / {count} tootest",
+    "itemOf": "{max} \/ {count} tootest",
     "youMightLike": "Tooted, mis võivad teile meeldida"
   },
   "layout": {
@@ -499,7 +535,11 @@ export default {
     }
   },
   "loadingResults": "Tulemuste laadimine",
+  "mediaPreview": {
+    "selectItem": "Valige üksus {src}"
+  },
   "messages": {
+    "copyToClipboardSuccess": "Kopeeritud lõikelauale",
     "externalContentError": "Välist sisu ei õnnestunud laadida",
     "notFound": "Ei leitud",
     "paginationLimitExceeded": "Võimalik on vaadata ainult esimesi {limit} otsingutulemusi."
@@ -509,6 +549,9 @@ export default {
   "noResults": "Ühtki tulemust",
   "pages": {
     "collections": {
+      "times": {
+        "title": "Korda"
+      },
       "topics": {
         "title": "Teemad"
       }
@@ -522,6 +565,7 @@ export default {
     "extendedInformation": "Täiendav teave",
     "goodToKnow": "Hea teada",
     "hideAll": "Peida kogu teave",
+    "location": "Asukoht",
     "record": "Kirje",
     "showAll": "Kuva kogu teave",
     "similarItems": "Sarnased tooted",

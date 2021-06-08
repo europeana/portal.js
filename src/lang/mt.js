@@ -3,7 +3,7 @@ export default {
     "likes": "Likes",
     "linkAccount": "Il-Kont Tiegħi",
     "linkLogin": "Illoggja",
-    "linkLoginJoin": "Idħol/Ingħaqad",
+    "linkLoginJoin": "Idħol\/Ingħaqad",
     "linkLogout": "Oħroġ",
     "myProfile": "Il-profil Tiegħi",
     "notifications": {
@@ -337,7 +337,7 @@ export default {
     "MIME_TYPE": {
       "name": "Format tal-fajl | Formati tal-fajl",
       "options": {
-        "text/plain": "Test bla format"
+        "text\/plain": "Test bla format"
       }
     },
     "PROVIDER": {
@@ -465,7 +465,8 @@ export default {
       "about": "Dwarna",
       "collections": "Kollezzjonijiet",
       "europeanaClassroom": "Għalliema",
-      "help": "Għajnuna"
+      "help": "Għajnuna",
+      "stories": "Ġrajjiet"
     },
     "searchFor": "Fittex {query}",
     "searchForEverything": "Fittex kollox",

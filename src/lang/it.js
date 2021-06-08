@@ -3,7 +3,7 @@ export default {
     "likes": "Mi piace",
     "linkAccount": "Il mio account",
     "linkLogin": "Accedi",
-    "linkLoginJoin": "Accedi/Iscriviti",
+    "linkLoginJoin": "Accedi\/Iscriviti",
     "linkLogout": "Esci",
     "myProfile": "Il mio profilo",
     "notifications": {
@@ -335,7 +335,7 @@ export default {
     "MIME_TYPE": {
       "name": "Formato file | Formati file",
       "options": {
-        "text/plain": "Testo semplice"
+        "text\/plain": "Testo semplice"
       }
     },
     "PROVIDER": {
@@ -463,7 +463,8 @@ export default {
       "about": "Chi siamo",
       "collections": "Collezioni",
       "europeanaClassroom": "Insegnanti",
-      "help": "Aiuto"
+      "help": "Aiuto",
+      "stories": "Storie"
     },
     "searchFor": "Cerca {query}",
     "searchForEverything": "Cerca tutto",
