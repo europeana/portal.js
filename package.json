@@ -50,7 +50,7 @@
     "test:unit:coverage": "npm run test:unit:coverage:setup && nyc --reporter=html --reporter=text-summary npm run test:unit",
     "test:unit:coverage:lcov": "npm run test:unit:coverage:setup && nyc --reporter=lcov npm run test:unit",
     "test:unit:coverage:setup": "node tests/unit/patch-istanbul-lib-source-maps.js",
-    "version": "node bin/version.js && git add .sonarcloud.properties"
+    "version": "node bin/version.js && git add sonar-project.properties"
   },
   "dependencies": {
     "@elastic/apm-rum-vue": "^1.1.9",
