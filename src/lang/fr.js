@@ -4,7 +4,7 @@ export default {
     "likes": "Mentions J’aime",
     "linkAccount": "Mon compte",
     "linkLogin": "Se connecter",
-    "linkLoginJoin": "Connexion\/Rejoignez-nous",
+    "linkLoginJoin": "Connexion/Rejoignez-nous",
     "linkLogout": "Déconnexion",
     "myProfile": "Mon profil",
     "notifications": {
@@ -349,7 +349,7 @@ export default {
     "MIME_TYPE": {
       "name": "Format de fichier | Formats de fichiers",
       "options": {
-        "text\/plain": "Texte brut"
+        "text/plain": "Texte brut"
       }
     },
     "PROVIDER": {

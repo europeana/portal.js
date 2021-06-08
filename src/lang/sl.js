@@ -3,7 +3,7 @@ export default {
     "likes": "Všečki",
     "linkAccount": "Moj račun",
     "linkLogin": "Vpis",
-    "linkLoginJoin": "Prijava\/Pridruži se",
+    "linkLoginJoin": "Prijava/Pridruži se",
     "linkLogout": "Izpis",
     "myProfile": "Moj profil",
     "notifications": {
@@ -335,7 +335,7 @@ export default {
     "MIME_TYPE": {
       "name": "Oblika zapisa datoteke | Oblike zapisov datotek",
       "options": {
-        "text\/plain": "Golo besedilo"
+        "text/plain": "Golo besedilo"
       }
     },
     "PROVIDER": {

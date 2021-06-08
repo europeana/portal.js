@@ -4,7 +4,7 @@ export default {
     "likes": "Polubienia",
     "linkAccount": "Moje konto",
     "linkLogin": "Zaloguj się",
-    "linkLoginJoin": "Zaloguj\/Dołącz",
+    "linkLoginJoin": "Zaloguj/Dołącz",
     "linkLogout": "Wyloguj",
     "myProfile": "Mój profil",
     "notifications": {
@@ -343,7 +343,7 @@ export default {
     "MIME_TYPE": {
       "name": "Format plików | Formaty plików",
       "options": {
-        "text\/plain": "Zwykły tekst"
+        "text/plain": "Zwykły tekst"
       }
     },
     "PROVIDER": {
