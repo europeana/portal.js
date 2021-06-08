@@ -24,6 +24,7 @@ services:
       - HTTP_PORT=80
       - HTTPS_PORT=443
       - NUXT_LOADING_THROTTLE=0
+      - PORTAL_BASE_URL=https://nginx
   chrome-en:
     image: europeana/portaljs-chrome:88.0
     build:

@@ -17,8 +17,10 @@ module.exports = {
       // TODO: rename env vars to prefix w/ APP_, except feature toggles
       baseUrl: process.env.PORTAL_BASE_URL,
       internalLinkDomain: process.env.INTERNAL_LINK_DOMAIN,
+      schemaOrgDatasetId: process.env.SCHEMA_ORG_DATASET_ID,
       siteName: APP_SITE_NAME,
       features: {
+        klaro: featureIsEnabled(process.env.ENABLE_KLARO),
         jiraServiceDeskFeedbackForm: featureIsEnabled(process.env.ENABLE_JIRA_SERVICE_DESK_FEEDBACK_FORM),
         linksToClassic: featureIsEnabled(process.env.ENABLE_LINKS_TO_CLASSIC),
         recommendations: featureIsEnabled(process.env.ENABLE_RECOMMENDATIONS)
@@ -109,6 +111,10 @@ module.exports = {
         datasetBlacklist: (process.env.SSL_DATASET_BLACKLIST || '').split(',')
       }
     },
+    matomo: {
+      host: process.env.MATOMO_HOST,
+      siteId: process.env.MATOMO_SITE_ID
+    },
     oauth: {
       origin: process.env.OAUTH_ORIGIN,
       realm: process.env.OAUTH_REALM,
@@ -128,7 +134,12 @@ module.exports = {
       password: process.env.JIRA_API_PASSWORD,
       serviceDesk: {
         serviceDeskId: process.env.JIRA_API_SERVICE_DESK_ID,
-        requestTypeId: process.env.JIRA_API_SERVICE_DESK_REQUEST_TYPE_ID
+        requestTypeId: process.env.JIRA_API_SERVICE_DESK_REQUEST_TYPE_ID,
+        customFields: {
+          pageUrl: process.env.JIRA_API_SERVICE_DESK_CUSTOM_FIELD_PAGE_URL,
+          browser: process.env.JIRA_API_SERVICE_DESK_CUSTOM_FIELD_BROWSER,
+          screensize: process.env.JIRA_API_SERVICE_DESK_CUSTOM_FIELD_SCREENSIZE
+        }
       }
     }
   },
@@ -212,6 +223,7 @@ module.exports = {
   ** Plugins to load before mounting the App
   */
   plugins: [
+    '~/plugins/vue-matomo.client',
     '~/plugins/vue',
     '~/plugins/i18n.js',
     '~/plugins/hotjar.client',
@@ -239,7 +251,8 @@ module.exports = {
     '@nuxtjs/axios',
     'nuxt-google-optimize',
     ['@nuxtjs/gtm', {
-      pageTracking: true
+      pageTracking: true,
+      autoInit: !featureIsEnabled(process.env.ENABLE_KLARO)
     }],
     ['@nuxtjs/robots', JSON.parse(process.env.NUXTJS_ROBOTS || '{"UserAgent":"*","Disallow":"/"}')],
     'bootstrap-vue/nuxt',

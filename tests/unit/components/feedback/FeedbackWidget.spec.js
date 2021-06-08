@@ -1,24 +1,30 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 import sinon from 'sinon';
-import FeedbackModal from '../../../../src/components/generic/FeedbackModal.vue';
+import nock from 'nock';
+// nock.recorder.rec();
+import FeedbackWidget from '../../../../src/components/feedback/FeedbackWidget.vue';
 import VueI18n from 'vue-i18n';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 localVue.use(VueI18n);
 
-const factory = (propsData = {}) => mount(FeedbackModal, {
-  localVue,
-  i18n: new VueI18n,
-  propsData,
-  mocks: {
-    $t: () => {},
-    $path: () => {}
-  }
-});
+const factory = (propsData = {}) => {
+  const wrapper = mount(FeedbackWidget, {
+    localVue,
+    i18n: new VueI18n,
+    propsData,
+    mocks: {
+      $t: () => {},
+      $path: () => {}
+    }
+  });
+  wrapper.vm.sendFeedback = sinon.spy();
+  return wrapper;
+};
 
-describe('components/generic/FeedbackModal', () => {
+describe('components/feedback/FeedbackWidget', () => {
   describe('next button', () => {
     context('when there is no value for feedback', () => {
       it('is disabled', () => {
@@ -43,7 +49,7 @@ describe('components/generic/FeedbackModal', () => {
 
         (wrapper.find('[data-qa="feedback next button"]').attributes('disabled') === undefined).should.be.true;
       });
-      it('and it is clicked, it goes to the next step', () => {
+      it('and it is clicked, it goes to the next step', async() => {
         const wrapper = factory();
 
         wrapper.setData({
@@ -51,7 +57,7 @@ describe('components/generic/FeedbackModal', () => {
           feedback: 'This website is great!'
         });
 
-        wrapper.find('[data-qa="feedback next button"]').trigger('click');
+        await wrapper.find('form').trigger('submit.prevent');
 
         wrapper.vm.currentStep.should.equal(2);
       });
@@ -82,16 +88,16 @@ describe('components/generic/FeedbackModal', () => {
     });
   });
 
-  describe('resetModal', () => {
-    context('when modal is opened', () => {
-      it('modal values are reset', () => {
+  describe('resetForm', () => {
+    context('when widget is opened', () => {
+      it('form values are reset', () => {
         const wrapper = factory();
 
-        const resetModal = sinon.spy(wrapper.vm, 'resetModal');
+        const resetForm = sinon.spy(wrapper.vm, 'resetForm');
 
-        wrapper.vm.$root.$emit('bv::show::modal', 'feedbackModal');
+        wrapper.find('[data-qa="feedback button"]').trigger('click');
 
-        resetModal.should.have.been.called;
+        resetForm.should.have.been.called;
       });
     });
   });
@@ -106,11 +112,9 @@ describe('components/generic/FeedbackModal', () => {
           email: ''
         });
 
-        const sendFeedback = sinon.spy(wrapper.vm, 'sendFeedback');
+        await wrapper.find('form').trigger('submit.prevent');
 
-        wrapper.find('[data-qa="feedback skip button"]').trigger('click');
-
-        sendFeedback.should.have.been.calledWith(true);
+        wrapper.vm.sendFeedback.should.have.been.called;
       });
     });
     context('when email is filled in and user clicks next button', () => {
@@ -122,11 +126,9 @@ describe('components/generic/FeedbackModal', () => {
           email: 'example@mail.com'
         });
 
-        const sendFeedback = sinon.spy(wrapper.vm, 'sendFeedback');
-
         await wrapper.find('form').trigger('submit.prevent');
 
-        sendFeedback.should.have.been.called;
+        wrapper.vm.sendFeedback.should.have.been.called;
       });
     });
     context('when request failed and user clicks send button', () => {
@@ -138,12 +140,48 @@ describe('components/generic/FeedbackModal', () => {
           requestSuccess: false
         });
 
-        const sendFeedback = sinon.spy(wrapper.vm, 'sendFeedback');
+        await wrapper.find('form').trigger('submit.prevent');
 
-        wrapper.find('[data-qa="feedback next button"]').trigger('click');
-
-        sendFeedback.should.have.been.calledWith(true, true);
+        wrapper.vm.sendFeedback.should.have.been.called;
       });
+    });
+  });
+
+  describe('postFeedbackMessage', () => {
+    const baseUrl = 'http://www.example.org';
+    const middlewarePath = '/_api/jira/service-desk';
+    const feedback = 'This was useful. Thanks!';
+
+    it('posts feedback to server middleware', async() => {
+      nock(baseUrl).post(middlewarePath, body => (body.feedback === feedback)).reply(201);
+      const wrapper = factory();
+
+      wrapper.setData({
+        requestSuccess: false,
+        feedback
+      });
+      wrapper.vm.$config = { app: { baseUrl } };
+      await wrapper.vm.postFeedbackMessage();
+
+      nock.isDone().should.be.true;
+    });
+
+    it('includes email if provided', async() => {
+      const email = 'me@example.org';
+      nock(baseUrl).post(middlewarePath, body => (
+        (body.feedback === feedback) && (body.email === email)
+      )).reply(201);
+      const wrapper = factory();
+
+      wrapper.setData({
+        requestSuccess: false,
+        feedback,
+        email
+      });
+      wrapper.vm.$config = { app: { baseUrl } };
+      await wrapper.vm.postFeedbackMessage();
+
+      nock.isDone().should.be.true;
     });
   });
 });

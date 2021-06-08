@@ -104,7 +104,7 @@
       overflow: hidden;
       white-space: nowrap;
     }
-    
+
     &:after {
       content: '\e900';
       @extend .icon-font;
@@ -206,6 +206,26 @@
     .card-body {
       min-height: auto;
       padding: 0;
+    }
+  }
+
+  &.create-card {
+    background: $white;
+    cursor: pointer;
+    .card-inner {
+      min-height: 18rem;
+      margin: 1rem;
+      background-color: $bodygrey;
+      flex-direction: column;
+    }
+    .card-title {
+      display: block;
+      max-height: none;
+      line-height: 1.5;    
+    }
+    .icon-ic-add {
+      color: #4d4d4d;
+      font-size: 3.5rem;
     }
   }
 
