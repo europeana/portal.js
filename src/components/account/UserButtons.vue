@@ -4,40 +4,20 @@
     data-qa="user buttons"
   >
     <client-only>
-      <template
-        v-if="recommendedItem"
-      >
-        <b-button
-          class="recommendation-buttons icon-accept"
-          data-qa="accept button"
-          :aria-label="$t('actions.accept')"
-          @click="acceptRecommendation"
-        />
-        <b-button
-          class="recommendation-buttons icon-reject"
-          data-qa="reject button"
-          :aria-label="$t('actions.reject')"
-          @click="rejectRecommendation"
-        />
-      </template>
-      <template
-        v-else
-      >
-        <b-button
-          class="icon-ic-add"
-          data-qa="add button"
-          :aria-label="$t('set.actions.addTo')"
-          @click="addToSet"
-        />
-        <b-button
-          :pressed="liked"
-          class="icon-heart"
-          data-qa="like button"
-          :aria-label="$t('actions.like')"
-          size="sm"
-          @click="toggleLiked"
-        />
-      </template>
+      <b-button
+        class="icon-ic-add"
+        data-qa="add button"
+        :aria-label="$t('set.actions.addTo')"
+        @click="addToSet"
+      />
+      <b-button
+        :pressed="liked"
+        class="icon-heart"
+        data-qa="like button"
+        :aria-label="$t('actions.like')"
+        size="sm"
+        @click="toggleLiked"
+      />
       <template
         v-if="$auth.loggedIn"
       >
@@ -88,11 +68,6 @@
       value: {
         type: String,
         required: true
-      },
-
-      recommendedItem: {
-        type: Boolean,
-        default: false
       }
     },
 
@@ -101,7 +76,6 @@
         addItemToSetModalId: `add-item-to-set-modal-${this.value}`,
         setFormModalId: `set-form-modal-${this.value}`,
         likeLimitModalId: `like-limit-modal-${this.value}`,
-        toastMsg: this.$t('set.notifications.updated'),
         showFormModal: false,
         newSetCreated: false
       };
@@ -173,33 +147,6 @@
           this.$emit('add', this.value);
         } else {
           this.keycloakLogin();
-        }
-      },
-      makeToast() {
-        this.$root.$bvToast.toast(this.toastMsg, {
-          toastClass: 'brand-toast',
-          toaster: 'b-toaster-bottom-left',
-          autoHideDelay: 5000,
-          isStatus: true,
-          noCloseButton: true,
-          solid: true
-        });
-      },
-      async acceptRecommendation() {
-        if (this.$auth.loggedIn) {
-          this.$store.dispatch('set/acceptRecommendation', { setId: `/${this.$route.params.pathMatch}`, itemIds: [this.value] });
-          await this.$store.dispatch('set/addItem', { setId: `http://data.europeana.eu/set/${this.$route.params.pathMatch}`, itemId: this.value });
-          this.$store.dispatch('set/refreshSet');
-          this.makeToast();
-        } else {
-          this.$goto('/account/login');
-        }
-      },
-      rejectRecommendation() {
-        if (this.$auth.loggedIn) {
-          this.$store.dispatch('set/rejectRecommendation', { setId: `/${this.$route.params.pathMatch}`, itemIds: [this.value] });
-        } else {
-          this.$goto('/account/login');
         }
       }
     }

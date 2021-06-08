@@ -13,9 +13,13 @@
     :lazy="lazy"
   >
     <template v-slot:buttons>
-      <UserButtons
+      <RecommendationButtons
+        v-if="recommendedItem"
         v-model="identifier"
-        :recommended-item="recommendedItem"
+      />
+      <UserButtons
+        v-else
+        v-model="identifier"
         @like="$emit('like', identifier)"
         @unlike="$emit('unlike', identifier)"
       />
@@ -33,6 +37,7 @@
 
     components: {
       ContentCard,
+      RecommendationButtons: () => import('../recommendation/RecommendationButtons'),
       UserButtons: () => import('../account/UserButtons')
     },
 
