@@ -1,13 +1,6 @@
 // @see https://github.com/nuxt-community/auth-module/blob/v4.9.1/lib/schemes/oauth2.js#L157-L201
 const refreshAccessToken = async({ $auth, $axios, redirect, route }, requestConfig) => {
-  const options = refreshAccessTokenRequestOptions($auth);
-  let refreshAccessTokenResponse;
-  try {
-    refreshAccessTokenResponse = await $auth.request(options);
-  } catch (e) {
-    console.log('refresh error', e.response.data);
-    throw e;
-  }
+  const refreshAccessTokenResponse = await $auth.request(refreshAccessTokenRequestOptions($auth));
 
   if (!updateAccessToken($auth, requestConfig, refreshAccessTokenResponse)) {
     // No new access token; redirect to login URL
