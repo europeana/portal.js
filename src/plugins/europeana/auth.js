@@ -88,7 +88,7 @@ const keycloakUnauthorizedResponseErrorHandler = ({ $auth, $axios, redirect, rou
   if ($auth.getRefreshToken($auth.strategy.name)) {
     // User has previously logged in, and we have a refresh token, e.g.
     // access token has expired
-    return refreshAccessToken({ $auth, $axios, redirect }, error.config);
+    return refreshAccessToken({ $auth, $axios, redirect, route }, error.config);
   } else {
     // User has not already logged in, or we have no refresh token:
     // redirect to OIDC login URL
