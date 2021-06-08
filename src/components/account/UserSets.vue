@@ -16,9 +16,9 @@
             v-if="visibility === 'curated'"
             class="w-100 px-3"
           >
-            <b-col>
+            <b-col class="related-heading d-inline-flex">
+              <span class="icon-info mr-1" />
               <h2 class="related-heading text-uppercase">
-                <span class="icon-info" />
                 {{ $t('account.curatedCollectionsInfo') }}
               </h2>
             </b-col>
