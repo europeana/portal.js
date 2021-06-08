@@ -90,7 +90,6 @@
       init() {
         this.descriptionValue = this.description ? this.description : this.descriptionValue;
       },
-
       makeToast() {
         this.$root.$bvToast.toast(this.toastMsg, {
           toastClass: 'brand-toast',
@@ -103,10 +102,14 @@
       },
       submitForm() {
         const handler = this.$store.dispatch('entity/updateEntity', { id: this.body.id, body: this.entityBody });
-        return handler.then(() => {
-          this.$bvModal.hide('entityUpdateModal');
-          this.makeToast();
-        });
+        return handler
+          .then(() => {
+            this.$bvModal.hide('entityUpdateModal');
+            this.makeToast();
+          })
+          .catch(e => {
+            throw e;
+          });
       }
 
     }
