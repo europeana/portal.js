@@ -1,10 +1,8 @@
 import nock from 'nock';
-import record, { isEuropeanaRecordId, similarItemsQuery, BASE_URL } from '../../../../plugins/europeana/record';
+import record, { isEuropeanaRecordId, BASE_URL } from '../../../../src/plugins/europeana/record';
 
 const europeanaId = '/123/abc';
 const apiEndpoint = `${europeanaId}.json`;
-
-const baseRequest = nock(BASE_URL).get(apiEndpoint);
 
 const edmIsShownAt = 'https://example.org';
 const edmIsShownByWebResource = {
@@ -104,12 +102,48 @@ describe('plugins/europeana/record', () => {
   });
 
   describe('record().getRecord()', () => {
+    it('makes an API request', async() => {
+      nock(BASE_URL)
+        .get(apiEndpoint)
+        .query(true)
+        .reply(200, apiResponse);
+
+      await record().getRecord(europeanaId);
+
+      nock.isDone().should.be.true;
+    });
+
+    describe('profile parameter', () => {
+      it('is "schemaOrg" for configured dataset items', async() => {
+        nock(BASE_URL)
+          .get(apiEndpoint)
+          .query(query => query.profile === 'schemaOrg')
+          .reply(200, apiResponse);
+
+        await record({ $config: { app: { schemaOrgDatasetId: '123' } } }).getRecord(europeanaId);
+
+        nock.isDone().should.be.true;
+      });
+
+      it('is omitted for other dataset items', async() => {
+        nock(BASE_URL)
+          .get(apiEndpoint)
+          .query(query => !Object.keys(query).includes('profile'))
+          .reply(200, apiResponse);
+
+        await record({ $config: { app: { schemaOrgDatasetId: '456' } } }).getRecord(europeanaId);
+
+        nock.isDone().should.be.true;
+      });
+    });
+
     describe('API response', () => {
       describe('with "Invalid record identifier: ..." error', () => {
         const errorMessage = `Invalid record identifier: ${europeanaId}`;
 
         beforeEach('stub API response', () => {
-          baseRequest
+          nock(BASE_URL)
+            .get(apiEndpoint)
             .query(true)
             .reply(404, {
               success: false,
@@ -321,91 +355,6 @@ describe('plugins/europeana/record', () => {
 
         validation.should.equal(false);
       });
-    });
-  });
-
-  describe('similarItemsQuery()', () => {
-    const about = '/12345/abcde';
-
-    it('fields on `what` for dcType, boosted by 0.8', () => {
-      const data = {
-        dcType: ['Type']
-      };
-
-      similarItemsQuery(about, data).should.include('what:("Type")^0.8');
-    });
-
-    it('fields on `what` for dcSubject, boosted by 0.8', () => {
-      const data = {
-        dcSubject: ['Subject']
-      };
-
-      similarItemsQuery(about, data).should.include('what:("Subject")^0.8');
-    });
-
-    it('fields on `who` for dcCreator, boosted by 0.5', () => {
-      const data = {
-        dcCreator: ['Creator']
-      };
-
-      similarItemsQuery(about, data).should.include('who:("Creator")^0.5');
-    });
-
-    it('fields on `DATA_PROVIDER` for edmDataProvider, boosted by 0.2', () => {
-      const data = {
-        edmDataProvider: ['Data Provider']
-      };
-
-      similarItemsQuery(about, data).should.include('DATA_PROVIDER:("Data Provider")^0.2');
-    });
-
-    it('excludes the current item by `europeana_id`', () => {
-      const data = {
-        dcType: ['Type']
-      };
-
-      similarItemsQuery(about, data).should.include(' NOT europeana_id:"/12345/abcde"');
-    });
-
-    it('escapes Lucene special characters in each term', () => {
-      const data = {
-        dcType: ['http://www.example.org/vocabulary/term']
-      };
-
-      similarItemsQuery(about, data).should.include('"http\\:\\/\\/www.example.org\\/vocabulary\\/term"');
-    });
-
-    it('combines each term per-field with OR', () => {
-      const data = {
-        dcSubject: ['Subject1'],
-        dcType: ['Type1', 'Type2']
-      };
-
-      similarItemsQuery(about, data).should.include('("Subject1" OR "Type1" OR "Type2")');
-    });
-
-    it('combines all fielded terms with OR', () => {
-      const data = {
-        dcCreator: ['Creator'],
-        dcType: ['Type']
-      };
-
-      similarItemsQuery(about, data).should.include('(what:("Type")^0.8 OR who:("Creator")^0.5)');
-    });
-
-    it('omits empty fields', () => {
-      const data = {
-        dcCreator: [],
-        dcType: ['Type']
-      };
-
-      similarItemsQuery(about, data).should.not.include('who:(');
-    });
-
-    it('handles no relevant query terms sensibly', () => {
-      const data = {};
-
-      (similarItemsQuery(about, data) === null).should.be.true;
     });
   });
 });

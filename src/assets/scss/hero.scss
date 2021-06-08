@@ -1,0 +1,271 @@
+.item-hero .user-buttons .btn {
+  background: $offwhite;
+  color: $mediumgrey;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid transparent;
+  display: inline-flex;
+  font-size: 1.5rem;
+  height: 2.25rem;
+  min-width: 2.25rem;
+  line-height: 1;
+  padding: 0.375rem;
+  margin-right: 0.5rem;
+  &.active {
+    color: $white;
+    background-color: $red;
+    border-color: $red;
+  }
+
+  &-sm {
+    font-size: $font-size-medium;
+  }
+}
+
+.jumbotron {
+  background-position: center center;
+  background-size: cover;
+  height: 50vh;
+  min-height: 275px;
+  padding: 0;
+  position: relative;
+  margin-top: -1rem;
+
+  &::before {
+    background: rgba(41, 55, 69, 0.35);
+    content: '';
+    display: block;
+    height: 100%;
+    position: absolute;
+    width: 100%;
+    z-index: 1;
+  }
+
+  .container {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: flex-end;
+    padding: 0;
+    position: relative;
+    z-index: 2;
+  }
+
+  &.browse-jumbotron {
+    margin-top: 2rem;
+    border-radius: 0.5rem;
+    &:before {
+      display: none;
+    }
+    .container {
+      .card {
+        margin: 1rem;
+        max-width: 50%;
+        border: none;
+        color: $black;
+        .btn {
+          text-decoration: none;
+          margin: 0;
+        }
+      }
+    }
+  }
+
+  h1 {
+    font-size: 1.5rem;
+    line-height: 1.05;
+  }
+
+  .lead {
+    font-size: $font-size-small;
+    line-height: 1.5;
+    color: $mediumgrey;
+  }
+
+  figcaption {
+    z-index: 2;
+    color: $white;
+    .icon-info {
+      position: absolute;
+      bottom: 1rem;
+      right: 1rem;
+      width: 1.5rem;
+      height: 1.5rem;
+      transition: $standard-transition;
+      &:hover {
+        opacity: 0.8;
+        cursor: pointer;
+      }
+      &:before {
+        content: '\e91f';
+        font-size: 1.5rem;
+      }
+    }
+    cite {
+      left: initial;
+      right: 0.5rem;
+      bottom: 0.5rem;
+      border-radius: 0.25rem;
+      margin: 0;
+      padding: 0.75rem;
+      font-size: 0.75rem;
+      max-width: 75%;
+      p {
+        color: $mediumgrey;
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        margin-bottom: 0.25rem;
+        font-size: 0.75rem;
+        a {
+          text-decoration: none;
+        }
+      }
+      .attribution {
+        margin-top: 0.5rem;
+        > span {
+          margin-left: 0;
+        }
+      }
+    }
+  }
+
+  @media (min-width: $bp-large) {
+    .lead {
+      font-size: 1rem;
+    }
+  }
+}
+
+.figure-attribution {
+  .image-wrapper {
+    max-width: 51.25rem;
+    figure {
+      overflow: hidden;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      img {
+        width: 100%;
+        object-fit: cover;
+      }
+    }
+  }
+  .jumbotron {
+    .container {
+      max-width: none;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+  @media (max-width: $bp-large) {
+    .hero-wrapper figcaption cite {
+      max-width: 17rem;
+      .attribution.is-external-link {
+        max-width: 12rem;
+        > span {
+          white-space: normal;
+        }
+      }
+    }
+  }
+}
+
+.item-hero {
+  padding-top: 2.25rem;
+  padding-bottom: 1.625rem;
+  .media-bar {
+    margin-top: 2.5rem;
+  }
+  .swiper-pagination {
+    display: inline-flex;
+    &.swiper-pagination-fraction {
+      left: auto;
+      width: auto;
+      bottom: auto;
+    }
+  }
+  .user-buttons {
+    display: inline-flex;
+    .container {
+      padding: 0;
+    }
+  }
+  .rights-wrapper,
+  .pagination-wrapper,
+  .button-wrapper {
+    flex: 1;
+  }
+
+  @media (max-width: $bp-medium) {
+    .media-bar {
+      flex-direction: column;
+
+      a, button {
+        text-align: center;
+        justify-content: center;
+        margin-bottom: 1rem;
+        width: 100%;
+      }
+      .pagination-wrapper {
+        order: 1;
+        margin-bottom: 1.125rem;
+        .swiper-pagination {
+          position: relative;
+          margin: auto;
+        }
+      }
+      .rights-wrapper {
+        order: 2;
+      }
+      .button-wrapper {
+        order: 3;
+        margin-left: 0;
+        flex-direction: column;
+        .user-buttons {
+          justify-content: space-between;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: $bp-medium) {
+  .hero-wrapper {
+    padding: 0;
+    .jumbotron.browse-jumbotron {
+      margin-top: 0;
+      background-position: center top;
+      height: 275px;
+      
+      .card {
+        max-width: 70%;
+      }
+    }
+  }
+}
+
+@media (max-width: $bp-small) {
+  .hero-wrapper {
+    .jumbotron.browse-jumbotron {
+      border-radius: 0;
+      height: 50vh;
+      .card {
+        max-width: 100%;
+        width: 100%;
+        margin: 0;
+        border-radius: 0;
+        h1 {
+          font-size: 1rem;
+        }
+        p, .btn {
+          font-size: 0.875rem;
+        }
+      }
+    }
+  }
+}

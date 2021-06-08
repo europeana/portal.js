@@ -31,7 +31,7 @@ module.exports = {
   async amOnPageNumber(page) {
     await client.expect.url().to.match(new RegExp(`[?&]page=${page}([&#]|$)`));
     const navSelector = qaSelector('pagination navigation');
-    const activeLinkSelector = navSelector + ` li.active a[aria-posinset="${page}"]`;
+    const activeLinkSelector = navSelector + ` li.active a[aria-label="Go to page ${page}"]`;
     await client.waitForElementVisible(activeLinkSelector);
   },
   async checkPageAccesibility() {
@@ -72,7 +72,9 @@ module.exports = {
       currentState = result.value;
     });
 
-    if (currentState !== wantedState) await this.checkTheCheckbox(selector);
+    if (currentState !== wantedState) {
+      await this.checkTheCheckbox(selector);
+    }
   },
   async observeTheTargetIsSwitchedOnOrOff(qaElementName, onOrOff) {
     const selector = qaSelector(qaElementName);
@@ -148,10 +150,19 @@ module.exports = {
     await client.url(pageUrl(pageName));
   },
   async acceptCookies() {
+    // TODO: cleanup "old" cookie banner
     await client.expect.element('.cookie-disclaimer').to.be.visible;
     await client.click('.cookie-disclaimer .accept-btn');
     await client.pause(1000);
     await client.expect.element('.cookie-disclaimer').to.not.be.present;
+  },
+  async acceptKlaroCookies() {
+    // new cookie banner
+    await client.expect.element('#eu-klaro').to.be.visible;
+    await client.click('#eu-klaro .cm-btn-success');
+  },
+  async seeKeycloakLoginForm() {
+    await client.expect.element('.kcform').to.be.visible;
   },
   async havePreviouslyAcceptedCookies() {
     /* eslint-disable prefer-arrow-callback */
@@ -187,14 +198,14 @@ module.exports = {
     await this.waitSomeSeconds(1);
 
     await client.waitForElementVisible(containerSelector);
-    const selector = containerSelector + ` a[aria-posinset="${page}"]`;
+    const selector = containerSelector + ` a[aria-label="Go to page ${page}"]`;
     await client.waitForElementVisible(selector);
 
     await client.click(selector);
   },
   async preferBrowserLanguage(locale) {
     const nightwatchApiOptions = {
-      configFile: 'config/nightwatch.conf.js',
+      configFile: 'tests/features/config/nightwatch.conf.js',
       env: `chrome-${locale}`,
       silent: true
     };
@@ -273,6 +284,10 @@ module.exports = {
     await this.clickOnTheTarget('search button');
   },
   async makeSnapShot(pageName) {
+    // For consistency always wait a full second before taking a percy snapshot,
+    // this allows any JS based resizing/loading/animations from previous steps to finish.
+    await this.waitSomeSeconds(1);
+
     await client.percySnapshot(pageName);
   },
   async hrefLangTags() {
@@ -284,7 +299,7 @@ module.exports = {
     });
   },
   async haveNotExcededMemoryUsageInMB(memoryUsageMB) {
-    const response = await axios.get(`${url}/memory-usage`, {
+    const response = await axios.get(`${url}/_api/debug/memory-usage`, {
       httpsAgent: new https.Agent({
         rejectUnauthorized: false
       })

@@ -1,7 +1,7 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 
-import EntityDetails from '../../../../components/entity/EntityDetails.vue';
+import EntityDetails from '../../../../src/components/entity/EntityDetails.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);

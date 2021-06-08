@@ -1,7 +1,7 @@
 # TESTS/UNIT/COMPONENTS
 
 This directory contains unit tests for the app's
-[Vue components](../../../components/).
+[Vue components](../../../src/components/).
 
 Tests are performed using [Vue Test Utils](https://vue-test-utils.vuejs.org/).
 

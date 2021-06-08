@@ -3,7 +3,7 @@ import { mountNuxt } from '../../utils';
 import BootstrapVue from 'bootstrap-vue';
 import nock from 'nock';
 import sinon from 'sinon';
-import ItemEmbedCode from '../../../../components/item/ItemEmbedCode.vue';
+import ItemEmbedCode from '../../../../src/components/item/ItemEmbedCode.vue';
 
 const OEMBED_BASE_URL = 'https://oembedjs.europeana.eu';
 const identifier = '/123/abc';

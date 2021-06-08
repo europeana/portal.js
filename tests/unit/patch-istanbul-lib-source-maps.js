@@ -12,4 +12,6 @@ const find = 'source: pathutils.relativeTo(start.source, origFile),';
 const replace = 'source: origFile,';
 
 const original = fs.readFileSync(path, 'utf8');
-if (original.includes(find)) fs.writeFileSync(path, original.replace(find, replace));
+if (original.includes(find)) {
+  fs.writeFileSync(path, original.replace(find, replace));
+}

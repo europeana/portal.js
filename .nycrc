@@ -5,18 +5,11 @@
     ".vue"
   ],
   "include": [
-    "components/**",
-    "layouts/**",
-    "middleware/**",
-    "mixins/**",
-    "modules/**",
-    "pages/**",
-    "plugins/**",
-    "server-middleware/**",
-    "store/**"
+    "src/**"
   ],
   "exclude": [
-    "**/*.stories.js"
+    "src/**/*.stories.js",
+    "src/lang/**"
   ],
   "sourceMap": false
 }

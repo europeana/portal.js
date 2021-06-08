@@ -1,6 +1,6 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 
-import plugin from '../../../../plugins/vue/i18n';
+import plugin from '../../../../src/plugins/vue/i18n';
 
 const component = {
   template: '<div></div>'

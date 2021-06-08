@@ -1,7 +1,7 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 import VueI18n from 'vue-i18n';
-import SetFormModal from '../../../../components/set/SetFormModal';
+import SetFormModal from '../../../../src/components/set/SetFormModal';
 import sinon from 'sinon';
 
 const localVue = createLocalVue();
@@ -109,6 +109,40 @@ describe('components/set/SetFormModal', () => {
       deleteButton.trigger('click');
 
       bvModalShow.should.have.been.calledWith(`delete-set-modal-${existingSetPropsData.setId}`);
+    });
+  });
+
+  describe('create/update button', () => {
+    context('when there is no value for title', () => {
+      it('is disabled', () => {
+        const wrapper = factory();
+
+        wrapper.find('#set-title').setValue('');
+
+        wrapper.find('[data-qa="submit button"]').attributes('disabled').should.eq('disabled');
+      });
+    });
+    context('when there are no updates made', () => {
+      it('is disabled', () => {
+        const wrapper = factory(existingSetPropsData);
+
+        wrapper.find('#set-title').setValue(existingSetPropsData.title.en);
+        wrapper.find('#set-description').setValue(existingSetPropsData.description.en);
+        wrapper.find('#set-private').setChecked(false);
+
+        wrapper.find('[data-qa="submit button"]').attributes('disabled').should.eq('disabled');
+      });
+    });
+    context('when description is filled with emptry string', () => {
+      it('is disabled', () => {
+        const wrapper = factory({ description: {
+          en: undefined
+        } });
+
+        wrapper.find('#set-description').setValue('');
+
+        wrapper.find('[data-qa="submit button"]').attributes('disabled').should.eq('disabled');
+      });
     });
   });
 });

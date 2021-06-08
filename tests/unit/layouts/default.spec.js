@@ -3,7 +3,7 @@ import BootstrapVue from 'bootstrap-vue';
 import Vuex from 'vuex';
 import sinon from 'sinon';
 
-import layout from '../../../layouts/default';
+import layout from '../../../src/layouts/default';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
@@ -13,13 +13,16 @@ const store = new Vuex.Store({
   state: { breadcrumb: {} }
 });
 
-const factory = () => shallowMount(layout, {
+const factory = (renderKlaro) => shallowMount(layout, {
   localVue,
   store,
   data() {
     return {
       enableAnnouncer: true
     };
+  },
+  methods: {
+    renderKlaro: renderKlaro || sinon.spy()
   },
   mocks: {
     $t: key => key,
@@ -30,6 +33,13 @@ const factory = () => shallowMount(layout, {
     },
     $announcer: {
       setComplementRoute: () => {}
+    },
+    $config: {
+      app: {
+        features: {
+          klaro: true
+        }
+      }
     },
     $exp: {
       $variantIndexes: [0]
@@ -52,6 +62,15 @@ describe('layouts/default.vue', () => {
     it('is enabled', () => {
       const wrapper = factory();
       wrapper.find('#announcer').exists().should.equal(true);
+    });
+  });
+
+  describe('Klaro', () => {
+    it('is enabled', () => {
+      const renderKlaro = sinon.spy();
+      factory(renderKlaro);
+
+      renderKlaro.should.have.been.called;
     });
   });
 });

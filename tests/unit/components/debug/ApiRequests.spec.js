@@ -1,6 +1,6 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
-import ApiRequests from '../../../../components/debug/ApiRequests.vue';
+import ApiRequests from '../../../../src/components/debug/ApiRequests.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);

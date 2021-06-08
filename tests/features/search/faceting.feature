@@ -157,10 +157,12 @@ Feature: Search faceting
 
   Scenario: Toggle show all options in More Filters facet
     Given I am on the `search page`
-    When I click the `more filters dropdown button`
+    # TODO: Uncomment when Klaro enabled by default
+    # When I accept Klaro cookies
+    And I click the `more filters dropdown button`
     And I should see 9 LANGUAGE checkboxes
     And I click the `Show all languages button`
-    Then I should see 37 LANGUAGE checkboxes
+    Then I should see 38 LANGUAGE checkboxes
     And I click the `Show less languages button`
     And I should see 9 LANGUAGE checkboxes
 
@@ -175,7 +177,9 @@ Feature: Search faceting
 
   Scenario: Applies the content tier query to the URL when clicking the toggle button
     Given I am on the `search page`
-    When I click the `more filters dropdown button`
+    # TODO: Uncomment when Klaro enabled by default
+    # When I accept Klaro cookies
+    And I click the `more filters dropdown button`
     And I check the "\"0\"" "contentTier" checkbox
     And I click the `apply button`
     Then I should be on `/en/search?page=1&qf=contentTier%3A%220%22&view=grid`

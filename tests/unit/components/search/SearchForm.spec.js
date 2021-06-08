@@ -1,5 +1,5 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
-import SearchForm from '../../../../components/search/SearchForm.vue';
+import SearchForm from '../../../../src/components/search/SearchForm.vue';
 import Vuex from 'vuex';
 import sinon from 'sinon';
 

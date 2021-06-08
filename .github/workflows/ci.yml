@@ -9,7 +9,6 @@ on:
     - 'migrations/**'
 
 env:
-  CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
   CF_API: https://api.eu-de.cf.cloud.ibm.com
   CF_APP_NAME_PREFIX: portaljs
   # TODO: use eanadev.org, requiring interaction with Dyn DNS API
@@ -27,6 +26,7 @@ env:
   EUROPEANA_RECORD_API_KEY: ${{ secrets.EUROPEANA_RECORD_API_KEY }}
   SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
   OAUTH_CLIENT: ${{ secrets.OAUTH_CLIENT }}
+  PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
 
 jobs:
   config:
@@ -63,18 +63,8 @@ jobs:
           ~/.npm
           **/node_modules
         key: ${{ runner.os }}-node-${{ hashFiles('./package-lock.json') }}
-    - name: Setup Code Climate test coverage
-      # Doc: https://docs.codeclimate.com/docs/configuring-test-coverage
-      run: |
-        curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-        chmod +x ./cc-test-reporter
-        ./cc-test-reporter before-build
     - if: steps.cache-node.outputs.cache-hit != 'true'
       run: npm install
-    - name: Unit test with Code Climate coverage report
-      run: |
-        npm run test:unit:coverage:lcov
-        ./cc-test-reporter after-build -t lcov --exit-code $?
 
   build:
     needs: [test-unit]
@@ -125,14 +115,21 @@ jobs:
         npm run start
 
   test-e2e:
+    needs: [config]
     runs-on: ubuntu-latest
+    env:
+      PERCY_PULL_REQUEST: ${{ needs.config.outputs.pull-request-number }}
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-node@v1
       with:
         node-version: 12.x
+    - run: echo "PERCY_BRANCH=${GITHUB_HEAD_REF}" >> $GITHUB_ENV
+    - run: echo "PERCY_COMMIT=${GITHUB_SHA}" >> $GITHUB_ENV
     - run: envsubst < .github/workflows/support/ci/.env > docker/stack/app/.env
+    - run: envsubst < .github/workflows/support/ci/.env > docker/stack/nightwatch/.env
     - run: npm run test:e2e
+    - run: npm run test:visual
 
   # TODO: limit to internal PRs, i.e. those from within the repo
   deploy:
@@ -152,7 +149,6 @@ jobs:
         wget -q -O - https://packages.cloudfoundry.org/debian/cli.cloudfoundry.org.key | sudo apt-key add -
         echo "deb https://packages.cloudfoundry.org/debian stable main" | sudo tee /etc/apt/sources.list.d/cloudfoundry-cli.list
         sudo apt-get -q update && sudo apt-get -yq install cf7-cli
-        cf --version
     - name: Login to CF
       run: cf login -a ${CF_API} -u ${CF_USERNAME} -p "${CF_PASSWORD}" -o ${CF_ORG} -s ${CF_SPACE}
     - name: Detect first deployment of this app
