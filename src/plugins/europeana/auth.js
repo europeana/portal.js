@@ -1,17 +1,11 @@
 // @see https://github.com/nuxt-community/auth-module/blob/v4.9.1/lib/schemes/oauth2.js#L157-L201
-const refreshAccessToken = async({ $auth, $axios, redirect }, requestConfig) => {
-  console.log('refreshAccessToken');
-  let refreshAccessTokenResponse;
-  try {
-    refreshAccessTokenResponse = await $auth.request(refreshAccessTokenRequestOptions($auth));
-  } catch (e) {
-    console.log('refreshAccessToken failed with error');
-    throw e;
-  }
+const refreshAccessToken = async({ $auth, $axios, redirect, route }, requestConfig) => {
+  const options = refreshAccessTokenRequestOptions($auth);
+  const refreshAccessTokenResponse = await $auth.request(options);
 
   if (!updateAccessToken($auth, requestConfig, refreshAccessTokenResponse)) {
     // No new access token; redirect to login URL
-    return redirect($auth.options.redirect.login);
+    return redirect($auth.options.redirect.login, { redirect: route.path });
   }
 
   updateRefreshToken($auth, refreshAccessTokenResponse);
@@ -71,7 +65,9 @@ const refreshAccessTokenRequestOptions = ($auth) => {
   return {
     method: 'post',
     url: options.access_token_endpoint,
-    baseURL: process.server ? undefined : false,
+    headers: {
+      'content-type': 'application/x-www-form-urlencoded'
+    },
     data: new URLSearchParams({
       'client_id': options.client_id,
       'refresh_token': refreshTokenWithoutType,
@@ -88,20 +84,14 @@ export const keycloakResponseErrorHandler = (context, error) => {
   }
 };
 
-const keycloakUnauthorizedResponseErrorHandler = ({ $auth, $axios, redirect }, error) => {
-  console.log('keycloakUnauthorizedResponseErrorHandler');
-  console.log('error', error);
-  console.log('$auth.loggedIn', $auth.loggedIn);
-  console.log('$auth.getRefreshToken($auth.strategy.name)', $auth.getRefreshToken($auth.strategy.name));
-  if ($auth.loggedIn && $auth.getRefreshToken($auth.strategy.name)) {
-    console.log('refreshing');
+const keycloakUnauthorizedResponseErrorHandler = ({ $auth, $axios, redirect, route }, error) => {
+  if ($auth.getRefreshToken($auth.strategy.name)) {
     // User has previously logged in, and we have a refresh token, e.g.
     // access token has expired
     return refreshAccessToken({ $auth, $axios, redirect }, error.config);
   } else {
-    console.log('redirecting');
     // User has not already logged in, or we have no refresh token:
     // redirect to OIDC login URL
-    return redirect($auth.options.redirect.login);
+    return redirect($auth.options.redirect.login, { redirect: route.path });
   }
 };
