@@ -1,7 +1,13 @@
 // @see https://github.com/nuxt-community/auth-module/blob/v4.9.1/lib/schemes/oauth2.js#L157-L201
 const refreshAccessToken = async({ $auth, $axios, redirect, route }, requestConfig) => {
   const options = refreshAccessTokenRequestOptions($auth);
-  const refreshAccessTokenResponse = await $auth.request(options);
+  let refreshAccessTokenResponse;
+  try {
+    refreshAccessTokenResponse = await $auth.request(options);
+  } catch (e) {
+    console.log('refresh error', e.response.data);
+    throw e;
+  }
 
   if (!updateAccessToken($auth, requestConfig, refreshAccessTokenResponse)) {
     // No new access token; redirect to login URL
@@ -85,7 +91,7 @@ export const keycloakResponseErrorHandler = (context, error) => {
 };
 
 const keycloakUnauthorizedResponseErrorHandler = ({ $auth, $axios, redirect, route }, error) => {
-  if ($auth.getRefreshToken($auth.strategy.name)) {
+  if ($auth.loggedIn && $auth.getRefreshToken($auth.strategy.name)) {
     // User has previously logged in, and we have a refresh token, e.g.
     // access token has expired
     return refreshAccessToken({ $auth, $axios, redirect, route }, error.config);
