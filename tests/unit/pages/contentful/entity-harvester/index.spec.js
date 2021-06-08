@@ -8,9 +8,8 @@ import sinon from 'sinon';
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
-const contentfulExtensionStub = sinon.stub(window.contentfulExtension, 'init');
-const contentfylExtensionSDKStub = sinon.stub();
-const contentfylEntryStub = sinon.stub();
+// const contentfylExtensionSDKStub = sinon.stub();
+// const contentfylEntryStub = sinon.stub();
 
 //   dialogs: () => {
 //     openPrompt: () => {
@@ -19,7 +18,7 @@ const contentfylEntryStub = sinon.stub();
 //   };
 // };
 
-const factory = ({ userURL }) => shallowMountNuxt(page, {
+const factory = () => shallowMountNuxt(page, {
   localVue,
   data() {
     return {
@@ -31,45 +30,65 @@ const factory = ({ userURL }) => shallowMountNuxt(page, {
   mocks: {
     $t: key => key,
     $pageHeadTitle: key => key,
-    window: () => {
-      contentfulExtension: contentfulExtensionStub;
-    }
+    window
   }
 });
 
-describe('Exhibition landing page', () => {
+describe('entity harvester', () => {
+  const fakeExtension = () => {
+    return { init: () => {} };
+  };
+  window.contentfulExtension = fakeExtension();
+
+  sinon.stub(window.contentfulExtension, 'init');
   describe('mounting', () => {
     it('sets the SDK and entry', async() => {
       const wrapper = factory();
       const extensionSdk = wrapper.vm.contentfulExtensionSdk;
       const entry = wrapper.vm.entry;
-
       extensionSdk.should.eq(contentfulExpansionStub);
       entry.should.eql(expectedEntry);
     });
   });
 
-  describe('methods'), () => {
+  describe('methods', () => {
     const type = 'agent';
     const id = '20';
 
     describe('harvestEntity', () => {
       context('when the entity can be retrieved', () => {
-        $apis.entity.getEntity = mock(response => { entity: true });
+        const fakeAPIResponse = () => {
+          return {
+            response: () => {
+              return { entity: true };
+            }
+          };
+        };
+
         it('calls populateFields for the entity', () => {
           const wrapper = factory({ userURL: `http://data.europeana.eu/${type}/base/${id}` });
-
+          const fakeAPI = sinon.replace($apis.entity, 'getEntity', sinon.fake.returns(fakeAPIResponse));
           wrapper.vm.harvestEntity();
           wrapper.vm.populateFields.should.have.been.called;
+          fakeAPI.callCount.should.eq(1);
         });
       });
       context('when the entity can NOT be retrieved', () => {
-        $apis.entity.getEntity = mock(response => { error: 'there was an error' });
+        const fakeAPIResponse = () => {
+          return {
+            response: () => {
+              return { error: 'there was an error' };
+            }
+          };
+        };
+        const fakeAPI = sinon.replace($apis.entity, 'getEntity', sinon.fake.returns(fakeAPIResponse));
+
         it('shows an error for the URL', () => {
           const wrapper = factory({ userURL: `http://data.europeana.eu/${type}/base/${id}` });
 
           wrapper.vm.harvestEntity();
           wrapper.vm.populateFields.should.not.have.been.called;
+          fakeAPI.callCount.should.eq(1);
         });
       });
     }),
@@ -228,9 +247,9 @@ describe('Exhibition landing page', () => {
         });
       });
     });
-  },
+  });
 
-  describe('head()', () => {
+  describe('head', () => {
     it('is Entity harvester - Contentful app', () => {
       const wrapper = factory();
 
