@@ -100,27 +100,29 @@
         default: false
       }
     },
-    data() {
-      return {
-        authLinks: [
+
+    computed: {
+      authLinks() {
+        return [
           { to: this.$path({ name: 'account' }), text: this.$t('account.myProfile'), url: '/account', dataQa: 'likes and galleries button' },
           { href: this.keycloakAccountUrl, text: this.$t('account.profileSettings'), url: '/account/settings', dataQa: 'account settings button' },
           { to: { name: 'account-logout' }, text: this.$t('account.linkLogout'), url: '/account/logout', dataQa: 'log out button' }
-        ],
-        mainNavigation: [
+        ];
+      },
+      mainNavigation() {
+        return [
           { url: '/', text: this.$t('header.navigation.home') },
           { url: '/collections', text: this.$t('header.navigation.collections') },
           { url: '/stories', text: this.$t('header.navigation.stories') }
-        ],
-        sidebarNavigation: [
+        ];
+      },
+      sidebarNavigation() {
+        return [
           { url: '/europeana-classroom', text: this.$t('header.navigation.europeanaClassroom') },
           { url: '/about-us', text: this.$t('header.navigation.about') },
           { url: '/help', text: this.$t('header.navigation.help') }
-        ]
-      };
-    },
-
-    computed: {
+        ];
+      },
       links() {
         return this.mainNavigation.concat(this.sidebarNav ? this.sidebarNavigation : []);
       },
