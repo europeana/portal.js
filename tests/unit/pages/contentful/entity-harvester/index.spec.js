@@ -18,6 +18,39 @@ localVue.use(BootstrapVue);
 //   };
 // };
 
+const entityResponse = {
+  '@context': 'http://www.europeana.eu/schemas/context/entity.jsonld',
+  id: 'http://data.europeana.eu/agent/base/20',
+  type: 'Agent',
+  isShownBy: {
+    id: 'http://atena.beic.it/webclient/DeliveryManager?pid=1930631&custom_att_2=deeplink',
+    type: 'WebResource',
+    source: 'http://data.europeana.eu/item/9200369/webclient_DeliveryManager_pid_1930099_custom_att_2_simple_viewer',
+    thumbnail: 'https://api.europeana.eu/api/v2/thumbnail-by-url.json?uri=http%3A%2F%2Fatena.beic.it%2Fwebclient%2FDeliveryManager%3Fpid%3D1930631%26custom_att_2%3Ddeeplink&type=TEXT'
+  },
+  prefLabel: {
+    de: 'Giovanni Francesco Straparola',
+    en: 'Giovanni Francesco Straparola',
+    es: 'Gianfrancesco Straparola',
+    pt: 'Straparola',
+    uk: 'Джованні Франческо Страпарола'
+  },
+  biographicalInformation: [
+    {
+      '@language': 'de',
+      '@value': 'Giovanni Francesco Straparola (da Caravaggio) (* um 1480 in Caravaggio bei Bergamo; † um 1558 in Venedig ?) war ein italienischer Märchensammler Europas.'
+    },
+    {
+      '@language': 'fi',
+      '@value': 'Giovanni Francesco Straparola (n. 1480–1557) oli italialainen kirjailija ja satujen kerääjä. Straparolan pääteos on vuonna 1551 julkaistu kaksiosainen Le piacevoli notti, jossa on 75 tarinaa. Sen esikuvana on Boccaccion Decamerone, ja teoksessa on samankaltainen kehyskertomus; seurue kertoo toisilleen tarinoita. Tässä kertomuskokoelmassa on useita varhaisia versioita sittemmin tunnetuiksi tulleista saduista.'
+    }
+  ],
+  sameAs: [
+    'http://rdf.freebase.com/ns/m.03rc83',
+    'http://pt.dbpedia.org/resource/Straparola'
+  ]
+};
+
 const factory = () => shallowMountNuxt(page, {
   localVue,
   data() {
@@ -33,6 +66,12 @@ const factory = () => shallowMountNuxt(page, {
     window
   }
 });
+
+const errorResponse = {
+  action: '/entity/agent/base/20.json',
+  success: false,
+  error: 'There was an error'
+};
 
 describe('entity harvester', () => {
   const fakeExtension = () => {
@@ -57,34 +96,18 @@ describe('entity harvester', () => {
 
     describe('harvestEntity', () => {
       context('when the entity can be retrieved', () => {
-        const fakeAPIResponse = () => {
-          return {
-            response: () => {
-              return { entity: true };
-            }
-          };
-        };
-
         it('calls populateFields for the entity', () => {
           const wrapper = factory({ userURL: `http://data.europeana.eu/${type}/base/${id}` });
-          const fakeAPI = sinon.replace($apis.entity, 'getEntity', sinon.fake.returns(fakeAPIResponse));
+          const fakeAPI = sinon.replace(wrapper.vm.$apis.entity, 'getEntity', sinon.fake.returns(entityResponse));
           wrapper.vm.harvestEntity();
           wrapper.vm.populateFields.should.have.been.called;
           fakeAPI.callCount.should.eq(1);
         });
       });
       context('when the entity can NOT be retrieved', () => {
-        const fakeAPIResponse = () => {
-          return {
-            response: () => {
-              return { error: 'there was an error' };
-            }
-          };
-        };
-        const fakeAPI = sinon.replace($apis.entity, 'getEntity', sinon.fake.returns(fakeAPIResponse));
-
         it('shows an error for the URL', () => {
           const wrapper = factory({ userURL: `http://data.europeana.eu/${type}/base/${id}` });
+          const fakeAPI = sinon.replace(wrapper.vm.$apis.entity, 'getEntity', sinon.fake.returns(errorResponse));
 
           wrapper.vm.harvestEntity();
           wrapper.vm.populateFields.should.not.have.been.called;
