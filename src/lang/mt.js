@@ -465,7 +465,8 @@ export default {
       "about": "Dwarna",
       "collections": "Kollezzjonijiet",
       "europeanaClassroom": "Għalliema",
-      "help": "Għajnuna"
+      "help": "Għajnuna",
+      "stories": "Ġrajjiet"
     },
     "searchFor": "Fittex {query}",
     "searchForEverything": "Fittex kollox",

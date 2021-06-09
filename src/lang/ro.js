@@ -463,7 +463,8 @@ export default {
       "about": "Despre noi",
       "collections": "Colecții",
       "europeanaClassroom": "Profesori",
-      "help": "Ajutor"
+      "help": "Ajutor",
+      "stories": "Povești"
     },
     "searchFor": "Caută pentru {query}",
     "searchForEverything": "Caută tot",

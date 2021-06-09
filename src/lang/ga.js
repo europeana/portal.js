@@ -463,7 +463,8 @@ export default {
       "about": "Fúinne",
       "collections": "Bailiúcháin",
       "europeanaClassroom": "Múinteoirí",
-      "help": "Cabhair"
+      "help": "Cabhair",
+      "stories": "Scéalta"
     },
     "searchFor": "Cuardaigh {query}",
     "searchForEverything": "Cuardaigh gach rud",

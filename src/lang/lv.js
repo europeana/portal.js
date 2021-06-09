@@ -463,7 +463,8 @@ export default {
       "about": "Par mums",
       "collections": "Kolekcijas",
       "europeanaClassroom": "Skolotājiem",
-      "help": "Palīdzība"
+      "help": "Palīdzība",
+      "stories": "Stāsti"
     },
     "searchFor": "Meklēt {query}",
     "searchForEverything": "Meklēt visu",

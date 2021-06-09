@@ -1,5 +1,6 @@
 export default {
   "account": {
+    "editProfile": "Profil bearbeiten",
     "likes": "Likes",
     "linkAccount": "Mein Konto",
     "linkLogin": "Anmelden",
@@ -7,6 +8,8 @@ export default {
     "linkLogout": "Abmelden",
     "myProfile": "Mein Profil",
     "notifications": {
+      "loggedIn": "Sie sind jetzt eingeloggt. Willkommen!",
+      "loggedOut": "Sie sind jetzt ausgeloggt.",
       "noCollections": {
         "private": "Sie haben bisher keine private Galerie erstellt",
         "public": "Sie haben bisher keine öffentliche Galerie erstellt"
@@ -15,6 +18,7 @@ export default {
     },
     "privateCollections": "Private Galerien",
     "profile": "Meine Likes & Galerien",
+    "profileSettings": "Profileinstellungen",
     "publicCollections": "Öffentliche Galerien",
     "settings": "Einstellungen",
     "title": "Mein Konto"
@@ -69,6 +73,7 @@ export default {
     }
   },
   "collectionsYouMightLike": "Kollektionen, die Ihnen gefallen könnten",
+  "colourSwatch": "Farbmuster",
   "contentfulManual": {
     "footerNavigation": {
       "about": "Über Europeana",
@@ -99,6 +104,10 @@ export default {
     "startDate": "Anfangsdatum",
     "to": "an"
   },
+  "debug": {
+    "apiRequests": "API-Anfragen",
+    "debug": "Debuggen"
+  },
   "delete": "Löschen",
   "depiction": "Eine Darstellung von {title}",
   "directions": {
@@ -106,6 +115,7 @@ export default {
     "right": "Rechts"
   },
   "edmIsShownAtLinkAlt": "Auf der Website des Anbieters ansehen",
+  "entity": "Entität",
   "error": "Fehler",
   "exhibitions": {
     "chapters": "Kapitel",
@@ -293,6 +303,7 @@ export default {
         "#FFFAFA": "Schnee",
         "#FFFF00": "Gelb",
         "#FFFFE0": "Hellgelb",
+        "#FFFFF0": "Elfenbein",
         "#FFFFFF": "Weiß"
       }
     },
@@ -438,6 +449,8 @@ export default {
   },
   "footer": {
     "customiseWebsiteLanguage": "Sprache der Website anpassen",
+    "disclaimerLine1": "Europeana ist eine Initiative der Europäischen Union, die von der \"Connecting Europe Facility“ der Europäischen Union und den Mitgliedstaaten der Europäischen Union finanziert wird. Die Europeana-Dienste, einschließlich dieser Website, werden von einem Konsortium betrieben, das von der Europeana Foundation im Rahmen eines Dienstleistungsvertrags mit der Europäischen Kommission geführt wird.",
+    "disclaimerLine2": "Die Europäische Kommission übernimmt keine Gewähr für die Richtigkeit der Informationen und übernimmt keinerlei Verantwortung oder Haftung für die Informationen auf dieser Website. Weder die Europäische Kommission noch eine Person, die im Namen der Europäischen Kommission handelt, ist für die Richtigkeit oder Verwendung der Informationen auf dieser Website verantwortlich oder haftbar.",
     "findUsElsewhere": "Finden Sie uns anderswo",
     "imageDescription": "Kofinanziert von der Einrichtung „Connecting Europe“ der Europäischen Union",
     "ourMission": "Unser Auftrag",
@@ -463,7 +476,9 @@ export default {
       "about": "Über uns",
       "collections": "Sammlungen",
       "europeanaClassroom": "Lehrerinnen und Lehrer",
-      "help": "Hilfe"
+      "help": "Hilfe",
+      "home": "Startseite",
+      "stories": "Geschichten"
     },
     "searchFor": "Suche nach {query}",
     "searchForEverything": "Suchen Sie nach allem",
@@ -499,7 +514,11 @@ export default {
     }
   },
   "loadingResults": "Ergebnisse werden geladen",
+  "mediaPreview": {
+    "selectItem": "Wählen Sie das Element {src}"
+  },
   "messages": {
+    "copyToClipboardSuccess": "In die Zwischenablage kopiert",
     "externalContentError": "Der externe Inhalt konnte nicht geladen werden",
     "notFound": "Nicht gefunden",
     "paginationLimitExceeded": "Es können nur die ersten {limit} Suchergebnisse angezeigt werden."
@@ -507,8 +526,12 @@ export default {
   "newWindow": "öffnet sich in einem neuen Fenster",
   "noMoreResults": "Es gibt keine weiteren Ergebnisse für Ihre Suchanfrage.",
   "noResults": "Keine Ergebnisse",
+  "pageHasLoaded": "hat geladen",
   "pages": {
     "collections": {
+      "times": {
+        "title": "Mal"
+      },
       "topics": {
         "title": "Themen"
       }
@@ -517,11 +540,13 @@ export default {
   "readMore": "Mehr anzeigen",
   "record": {
     "allMetaData": "Alle Metadaten",
+    "copyEmbedLabel": "Code einbetten (Zum Kopieren klicken)",
     "downloadCopyrightInfo": "Dieser Artikel ist urheberrechtlich geschützt und kann nicht heruntergeladen werden.",
     "exploreMore": "Entdecken Sie mehr",
     "extendedInformation": "Erweiterte Informationen",
     "goodToKnow": "Gut zu wissen",
     "hideAll": "Alle Informationen ausblenden",
+    "location": "Ort",
     "record": "Aufzeichnung",
     "showAll": "Alle Informationen anzeigen",
     "similarItems": "Ähnliche Artikel",

@@ -463,7 +463,8 @@ export default {
       "about": "Apie mus",
       "collections": "Kolekcijos",
       "europeanaClassroom": "Mokytojams",
-      "help": "Pagalba"
+      "help": "Pagalba",
+      "stories": "Istorijos"
     },
     "searchFor": "Ieškoti {query}",
     "searchForEverything": "Ieškoti visko",
