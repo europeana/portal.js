@@ -7,7 +7,7 @@
       <b-button
         v-show="showPins"
         :pressed="pinned"
-        class="icon-push-pin"
+        class="icon-push_pin"
         data-qa="pin button"
         :aria-label="$t('entity.actions.pin')"
         @click="togglePinned"

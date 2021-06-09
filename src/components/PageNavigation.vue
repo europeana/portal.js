@@ -41,19 +41,18 @@
         </li>
         <li
           v-for="item in authLinks"
-          :key="item.name"
+          :key="item.url"
           class="nav-item d-block"
           :class="sidebarNav ? 'sidebar-nav-item' : 'd-lg-none'"
         >
           <b-link
-            v-if="!item.divider"
             v-b-toggle.menu
             :to="item.to"
             :href="item.href"
             :data-qa="item.dataQa"
             class="nav-link"
           >
-            <span :class="renderIcon(item.name)" />
+            <span :class="renderIcon(item.url)" />
             <span>
               {{ item.text }}
             </span>
@@ -87,6 +86,8 @@
   import keycloak from '../mixins/keycloak';
 
   export default {
+    name: 'PageNavigation',
+
     components: {
       SmartLink
     },
@@ -94,27 +95,37 @@
       keycloak
     ],
     props: {
-      links: {
-        type: Array,
-        default: () => []
-      },
       sidebarNav: {
         type: Boolean,
         default: false
       }
     },
-    data() {
-      return {
-        authLinks: [
-          { to: this.$path({ name: 'account' }), text: this.$t('account.myProfile'), name: '/account', dataQa: 'likes and galleries button' },
-          { href: this.keycloakAccountUrl, text: this.$t('account.profileSettings'), name: '/account/settings', dataQa: 'account settings button' },
-          { divider: true, name: 'divider' },
-          { to: { name: 'account-logout' }, text: this.$t('account.linkLogout'), name: '/account/logout', dataQa: 'log out button' }
-        ]
-      };
-    },
 
     computed: {
+      authLinks() {
+        return [
+          { to: this.$path({ name: 'account' }), text: this.$t('account.myProfile'), url: '/account', dataQa: 'likes and galleries button' },
+          { href: this.keycloakAccountUrl, text: this.$t('account.profileSettings'), url: '/account/settings', dataQa: 'account settings button' },
+          { to: { name: 'account-logout' }, text: this.$t('account.linkLogout'), url: '/account/logout', dataQa: 'log out button' }
+        ];
+      },
+      mainNavigation() {
+        return [
+          { url: '/', text: this.$t('header.navigation.home') },
+          { url: '/collections', text: this.$t('header.navigation.collections') },
+          { url: '/stories', text: this.$t('header.navigation.stories') }
+        ];
+      },
+      sidebarNavigation() {
+        return [
+          { url: '/europeana-classroom', text: this.$t('header.navigation.europeanaClassroom') },
+          { url: '/about-us', text: this.$t('header.navigation.about') },
+          { url: '/help', text: this.$t('header.navigation.help') }
+        ];
+      },
+      links() {
+        return this.mainNavigation.concat(this.sidebarNav ? this.sidebarNavigation : []);
+      },
       isAuthenticated() {
         return this.$store.state.auth.loggedIn;
       },
@@ -126,35 +137,26 @@
       window.addEventListener('storage', this.storageEvent);
     },
     methods: {
-      renderIcon(name) {
+      renderIcon(url) {
         let className = '';
-        switch (name) {
+        switch (url) {
+        case ('/collections'):
+        case ('/help'):
+        case ('/stories'):
+        case ('/account'):
+        case ('/account/login'):
+        case ('/account/logout'):
+        case ('/account/settings'):
+          className = `icon-${url.split('/').pop()}`;
+          break;
         case ('/'):
           className = 'icon-home';
-          break;
-        case ('/collections'):
-          className = 'icon-collections';
           break;
         case ('/europeana-classroom'):
           className = 'icon-school';
           break;
         case ('/about-us'):
           className = 'icon-info';
-          break;
-        case ('/help'):
-          className = 'icon-help';
-          break;
-        case ('/account'):
-          className = 'icon-account';
-          break;
-        case ('/account/login'):
-          className = 'icon-login';
-          break;
-        case ('/account/logout'):
-          className = 'icon-logout';
-          break;
-        case ('/account/settings'):
-          className = 'icon-settings';
           break;
         default:
           className = 'icon-info blank';
@@ -250,11 +252,13 @@
         &.icon-account:before {
           content: '\e932';
         }
+        &.icon-stories:before {
+          content: '\e935';
+        }
         &.blank:before {
           color: transparent;
         }
       }
-
     }
 
     &.sidebar-nav-item {

@@ -1,30 +1,15 @@
-import { createLocalVue, mount } from '@vue/test-utils';
-import Vuex from 'vuex';
+import { createLocalVue, shallowMount } from '@vue/test-utils';
 
 import BootstrapVue from 'bootstrap-vue';
 import PageNavigation from '../../../src/components/PageNavigation.vue';
 
 const localVue = createLocalVue();
-localVue.use(Vuex);
 localVue.use(BootstrapVue);
 
-const store = new Vuex.Store({
-  modules: {
-    i18n: {
-      state: {
-        locale: 'en'
-      }
-    },
-    auth: {
-      loggedIn: false
-    }
-  }
-});
-
-const factory = () => mount(PageNavigation, {
+const factory = () => shallowMount(PageNavigation, {
   localVue,
-  store,
   mocks: {
+    $store: { state: { auth: { loggedIn: false } } },
     $t: (key) => key,
     $path: code => window.location.href + code,
     $route: { fullPath: '/fr' },
@@ -37,6 +22,6 @@ describe('components/PageNavigation', () => {
     const wrapper = factory();
     const links = wrapper.find('[data-qa="main navigation"]');
 
-    links.contains('Our partners');
+    links.html().includes('header.navigation.collections').should.be.true;
   });
 });
