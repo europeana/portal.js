@@ -118,6 +118,10 @@
         this.renderKlaro();
       }
 
+      if (localStorage.getItem('cookieConsent')) {
+        this.cookieDisclaimerAccepted = true;
+      }
+
       if (this.$auth.$storage.getUniversal('portalLoggingIn') && this.$auth.loggedIn) {
         this.showToast(this.$t('account.notifications.loggedIn'));
         this.$auth.$storage.removeUniversal('portalLoggingIn');
