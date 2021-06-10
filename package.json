@@ -86,6 +86,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.12.10",
+    "@lokalise/node-api": "^6.2.1",
     "@storybook/addon-actions": "^5.3.18",
     "@storybook/addon-links": "^5.3.18",
     "@storybook/vue": "^5.3.18",
