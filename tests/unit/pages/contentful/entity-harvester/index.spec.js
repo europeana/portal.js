@@ -62,8 +62,8 @@ const factory = () => shallowMountNuxt(page, {
   },
   mocks: {
     $t: key => key,
-    $pageHeadTitle: key => key,
-    window
+    $pageHeadTitle: key => key
+    // contentfulExtensionSdk.dialogs.openPrompt: userURL || 'UserURL';
   }
 });
 
@@ -104,6 +104,15 @@ describe('entity harvester', () => {
           fakeAPI.callCount.should.eq(1);
         });
       });
+      context('when the entity URL can NOT be parsed', () => {
+        it('calls populateFields for the entity', () => {
+          const wrapper = factory({ userURL: 'https://example.org/failure' });
+
+          wrapper.vm.harvestEntity();
+          wrapper.vm.populateFields.should.have.been.called;
+          fakeAPI.callCount.should.eq(0);
+        });
+      });
       context('when the entity can NOT be retrieved', () => {
         it('shows an error for the URL', () => {
           const wrapper = factory({ userURL: `http://data.europeana.eu/${type}/base/${id}` });
@@ -116,12 +125,12 @@ describe('entity harvester', () => {
       });
     }),
 
-    describe('entityPatamsFromUrl', () => {
+    describe('entityParamsFromUrl', () => {
       context('when the url is a europeana data URI', () => {
         it('returns the params split from the URI', () => {
           const wrapper = factory();
 
-          wrapper.vm.entityPatamsFromUrl(`http://data.europeana.eu/${type}/base/${id}`).should.eq({ type, id });
+          wrapper.vm.entityParamsFromUrl(`http://data.europeana.eu/${type}/base/${id}`).should.eq({ type: 'person', id });
         });
       });
 
@@ -129,7 +138,7 @@ describe('entity harvester', () => {
         it('returns the params split from the URI', () => {
           const wrapper = factory();
 
-          wrapper.vm.entityPatamsFromUrl(`https://api.europeana.eu/entity/${type}/base/${id}`).should.eq({ type, id });
+          wrapper.vm.entityParamsFromUrl(`https://api.europeana.eu/entity/${type}/base/${id}`).should.eq({ type: 'person', id });
         });
       });
 
@@ -138,14 +147,14 @@ describe('entity harvester', () => {
           // type: 'agent' is person
           const wrapper = factory();
 
-          wrapper.vm.entityPatamsFromUrl(`https://www.europeana.eu/collections/person/${id}-giovnanni-francesco-straparola`).should.eq({ type, id });
+          wrapper.vm.entityParamsFromUrl(`https://www.europeana.eu/collections/person/${id}-giovnanni-francesco-straparola`).should.eq({ type: 'person', id });
         });
       });
 
       context('when the url is not a recognized format', () => {
         it('shows an error', () => {
           const wrapper = factory();
-          wrapper.vm.entityPatamsFromUrl('https://example.org').should.raiseError;
+          wrapper.vm.entityParamsFromUrl('https://example.org').should.raiseError;
         });
       });
     });
