@@ -1,5 +1,5 @@
 import { createLocalVue } from '@vue/test-utils';
-import { shallowMountNuxt } from '../../../utils';
+import { shallowMountNuxt, fakeContentfulExtension } from '../../../utils';
 import BootstrapVue from 'bootstrap-vue';
 
 import page from '../../../../../src/pages/contentful/entity-harvester/index';
@@ -73,44 +73,9 @@ const errorResponse = {
   error: 'There was an error'
 };
 
-// Stub the Contentful extension
-const fakeExtension = () => {
-  const fakeInit = (callback) => {
-    const fakeSdk = {
-      location: {
-        is: (location) => location === 'sidebar'
-      },
-      window: {
-        startAutoResizer: () => {}
-      },
-      entry: {
-        fields: {
-          identifier: { setValue: sinon.spy() },
-          slug: { setValue: sinon.spy() },
-          type: { setValue: sinon.spy() },
-          name: { setValue: sinon.spy() },
-          description: { setValue: sinon.spy() },
-          image: { removeValue: sinon.spy(), setValue: sinon.spy() }
-        }
-      },
-      dialogs: {
-        openAlert: sinon.spy()
-      }
-    };
-    callback(fakeSdk);
-  };
-
-  return {
-    init: fakeInit,
-    locations: {
-      LOCATION_ENTRY_SIDEBAR: 'sidebar'
-    }
-  };
-};
-
 describe('entity harvester', () => {
   before('supply fake contentful extension', () => {
-    window.contentfulExtension = fakeExtension();
+    window.contentfulExtension = fakeContentfulExtension(['identifier', 'slug', 'type', 'name', 'description', 'image']);
   });
 
   // sinon.stub(window.contentfulExtension, 'init');
