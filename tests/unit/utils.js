@@ -39,7 +39,8 @@ export const fakeContentfulExtension = fields => {
         }, {})
       },
       dialogs: {
-        openAlert: sinon.spy()
+        openAlert: sinon.spy(),
+        openPrompt: sinon.spy()
       }
     };
     callback(fakeSdk);

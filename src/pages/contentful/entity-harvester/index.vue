@@ -39,7 +39,7 @@
       return {
         contentfulExtensionSdk: null,
         entry: null,
-        message: null
+        message: 'unset'
       };
     },
 
@@ -60,31 +60,41 @@
 
     methods: {
       async harvestEntity() {
-        const entityUrl = await this.contentfulExtensionSdk.dialogs.openPrompt({
-          title: 'Harvest',
-          message: 'Enter a Europeana.eu entity/collection page URL, or an entity URI',
-          intent: 'positive'
-        });
+        const entityUrl = this.getUrlFromUser();
+        console.log(`user url is: ${entityUrl}`);
         if (!entityUrl) {
           return;
         }
 
         let type, id;
+        console.log('type & id exist');
         try {
           ({ type, id } = this.entityParamsFromUrl(entityUrl));
         } catch (error) {
+          console.log(`error ${error}`);
           this.showError(`Unable to harvest from URL: ${entityUrl} Please make sure the URL conforms to the accepted formats.`);
           return;
         }
+        console.log(`type, id: ${type}, ${id}`);
 
         const entityResponse = await this.$apis.entity.getEntity(type, id);
 
         if (entityResponse.entity) {
+          console.log('entity found');
           this.populateFields(entityResponse.entity, id);
           this.message = 'Success';
+          console.log(`message: ${this.message}`);
         } else {
           this.showError(entityResponse.error);
         }
+      },
+
+      async getUrlFromUser() {
+        return await this.contentfulExtensionSdk.dialogs.openPrompt({
+          title: 'Harvest',
+          message: 'Enter a Europeana.eu entity/collection page URL, or an entity URI',
+          intent: 'positive'
+        });
       },
 
       entityParamsFromUrl(url) {
