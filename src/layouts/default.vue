@@ -7,6 +7,7 @@
       />
       <CookieDisclaimer
         v-if="!klaroEnabled"
+        @accept="acceptCookieDisclaimer"
       />
     </client-only>
     <div
@@ -72,7 +73,8 @@
       return {
         ...config,
         linkGroups: {},
-        enableAnnouncer: true
+        enableAnnouncer: true,
+        cookieDisclaimerAccepted: false
       };
     },
 
@@ -91,7 +93,9 @@
       },
 
       feedbackEnabled() {
-        return this.$config.app.features.jiraServiceDeskFeedbackForm && this.$config.app.baseUrl;
+        return this.$config.app.features.jiraServiceDeskFeedbackForm &&
+          this.$config.app.baseUrl &&
+          (this.cookieDisclaimerAccepted || this.klaroEnabled);
       }
     },
 
@@ -125,6 +129,10 @@
     },
 
     methods: {
+      acceptCookieDisclaimer() {
+        this.cookieDisclaimerAccepted = true;
+      },
+
       showToast(msg) {
         this.$bvToast.toast(msg, {
           toastClass: 'brand-toast',
