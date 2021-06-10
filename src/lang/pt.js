@@ -463,7 +463,8 @@ export default {
       "about": "Sobre nós",
       "collections": "Colecções",
       "europeanaClassroom": "Professores",
-      "help": "Ajuda"
+      "help": "Ajuda",
+      "stories": "Histórias"
     },
     "searchFor": "Pesquisa por {query}",
     "searchForEverything": "Procurar por tudo",

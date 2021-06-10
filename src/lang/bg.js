@@ -1,5 +1,6 @@
 export default {
   "account": {
+    "editProfile": "Редактиране на профила",
     "likes": "Харесвания",
     "linkAccount": "Моят профил",
     "linkLogin": "Влизане",
@@ -7,6 +8,8 @@ export default {
     "linkLogout": "Излизане",
     "myProfile": "Моят профил",
     "notifications": {
+      "loggedIn": "Вече сте влезли в системата. Добре дошли!",
+      "loggedOut": "Вече сте излезли.",
       "noCollections": {
         "private": "Все още не сте създали никакви лични галерии",
         "public": "Все още не сте създали никакви публични галерии"
@@ -15,19 +18,25 @@ export default {
     },
     "privateCollections": "Лични галерии",
     "profile": "Моите харесвания и галерии",
+    "profileSettings": "Настройки на профила",
     "publicCollections": "Публични галерии",
     "settings": "Настройки",
     "title": "Моят профил"
   },
   "actions": {
+    "cancel": "Отказ",
     "close": "затвори",
     "download": "Изтегляне",
     "edit": "Редактиране",
+    "feedback": "Обратна връзка",
     "goBack": "Назад",
     "like": "Харесвам",
+    "next": "Следваща",
     "providedBy": "Предоставено от {provider}",
+    "send": "Изпрати",
     "share": "Споделяне",
     "shareOn": "Споделяне в/във {social}",
+    "skip": "Пропуснете",
     "viewAt": "Преглед на {link}",
     "viewDocument": "Преглед на документа"
   },
@@ -69,6 +78,7 @@ export default {
     }
   },
   "collectionsYouMightLike": "Колекции, които може да ви харесат",
+  "colourSwatch": "Цветен образец",
   "contentfulManual": {
     "footerNavigation": {
       "about": "Относно колекциите на Europeana",
@@ -99,6 +109,10 @@ export default {
     "startDate": "Начална дата",
     "to": "до"
   },
+  "debug": {
+    "apiRequests": "API заявки",
+    "debug": "Отстраняване на грешки"
+  },
   "delete": "Изтриване",
   "depiction": "Изображение на {title}",
   "directions": {
@@ -106,6 +120,7 @@ export default {
     "right": "Дясно"
   },
   "edmIsShownAtLinkAlt": "Преглед на уебсайта на доставчика",
+  "entity": "Субект",
   "error": "Грешка",
   "exhibitions": {
     "chapters": "Глави",
@@ -293,6 +308,7 @@ export default {
         "#FFFAFA": "сняг",
         "#FFFF00": "жълт",
         "#FFFFE0": "Светло жълто",
+        "#FFFFF0": "Слонова кост",
         "#FFFFFF": "бял"
       }
     },
@@ -373,6 +389,23 @@ export default {
       }
     }
   },
+  "feedback": {
+    "emailOptional": "Може да пожелаем да проследим. Въведете имейл адреса си, ако желаете да се свържем с вас.",
+    "failed": "Заявката не е успешна. Моля, опитайте отново.",
+    "form": {
+      "placeholders": {
+        "email": "Въведете вашия имейл адрес",
+        "feedback": "Въведете отзивите си тук"
+      }
+    },
+    "policies": "Продължавайки, вие се съгласявате с нашите {0} и потвърждавате нашите {1}.",
+    "privacyPolicy": "Политика за поверителност",
+    "success": "Вашата обратна връзка е изпратена.",
+    "termsOfService": "Условия за ползване",
+    "thankYou": "Благодарим ви!",
+    "title": "Изпращане на обратна връзка",
+    "validEmail": "Въведете валиден имейл адрес"
+  },
   "fieldLabels": {
     "default": {
       "dcContributor": "Сътрудници",
@@ -438,6 +471,8 @@ export default {
   },
   "footer": {
     "customiseWebsiteLanguage": "Персонализиране на езика на уебсайта",
+    "disclaimerLine1": "Europeana е инициатива на Европейския съюз, финансирана от Инструмента за свързване на Европа на Европейския съюз и държавите-членки на Европейския съюз. Услугите на Europeana, включително този уебсайт, се управляват от консорциум, ръководен от фондация Europeana по договор за услуга с Европейската комисия.",
+    "disclaimerLine2": "Европейската комисия не гарантира точността на информацията и не поема никаква отговорност или отговорност по отношение на информацията на този уебсайт. Нито Европейската комисия, нито каквото и да е лице, действащо от името на Европейската комисия, не носи отговорност или отговорност за точността или използването на информацията на този уебсайт.",
     "findUsElsewhere": "Намерете ни другаде",
     "imageDescription": "Съфинансирано от Механизма за свързване на Европа на Европейския съюз",
     "ourMission": "Нашата мисия",
@@ -456,13 +491,17 @@ export default {
   "header": {
     "backToMenu": "Затвори полето за търсене",
     "clearQuery": "Изчистване на заявките за търсене",
+    "closeSidebar": "Затвори менюто",
     "entireCollection": "Търсене на {query} в цялата ни колекция",
     "europeanaHome": "Начална страница на Europeana",
     "inCollection": "Търсене на {query} в {collection}",
     "navigation": {
+      "about": "За нас",
       "collections": "Колекции",
       "europeanaClassroom": "Учители",
-      "help": "Помощ"
+      "help": "Помощ",
+      "home": "Начало",
+      "stories": "Разкази"
     },
     "searchFor": "Търсене на {query}",
     "searchForEverything": "Търсете всичко",
@@ -498,7 +537,11 @@ export default {
     }
   },
   "loadingResults": "Зареждане на резултати",
+  "mediaPreview": {
+    "selectItem": "Изберете елемент {src}"
+  },
   "messages": {
+    "copyToClipboardSuccess": "Копирано в клипборда",
     "externalContentError": "Външното съдържание не можа да се зареди",
     "notFound": "Не е намерено",
     "paginationLimitExceeded": "Възможно е само да видите първите {limit} резултата от търсенето."
@@ -506,8 +549,12 @@ export default {
   "newWindow": "отваря се в нов прозорец",
   "noMoreResults": "Няма повече резултати за вашата заявка за търсене.",
   "noResults": "Няма получени резултати",
+  "pageHasLoaded": "е зареден",
   "pages": {
     "collections": {
+      "times": {
+        "title": "времеви периоди"
+      },
       "topics": {
         "title": "Теми"
       }
@@ -516,11 +563,13 @@ export default {
   "readMore": "Прочетете повече",
   "record": {
     "allMetaData": "Всички метаданни",
+    "copyEmbedLabel": "Вграден код (Щракнете за копиране)",
     "downloadCopyrightInfo": "Върху този елемент има авторски права и не може да бъде изтеглен.",
     "exploreMore": "Разгледайте още",
     "extendedInformation": "Разширена информация",
     "goodToKnow": "Добре е да се знае",
     "hideAll": "Скриване на цялата информация",
+    "location": "Местоположение",
     "record": "Запис",
     "showAll": "Показване на цялата информация",
     "similarItems": "Подобни елементи",

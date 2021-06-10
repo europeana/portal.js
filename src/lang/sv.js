@@ -463,7 +463,8 @@ export default {
       "about": "Om oss",
       "collections": "Samlingar",
       "europeanaClassroom": "Lärare",
-      "help": "Hjälp"
+      "help": "Hjälp",
+      "stories": "Berättelser"
     },
     "searchFor": "Sök efter {query}",
     "searchForEverything": "Sök efter allt",

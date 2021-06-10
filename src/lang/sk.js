@@ -463,7 +463,8 @@ export default {
       "about": "O nás",
       "collections": "Zbierky",
       "europeanaClassroom": "Učitelia",
-      "help": "Pomoc"
+      "help": "Pomoc",
+      "stories": "Príbehy"
     },
     "searchFor": "Vyhľadávať dopyt {query}",
     "searchForEverything": "Vyhľadávať všetko",

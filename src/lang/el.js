@@ -1,5 +1,6 @@
 export default {
   "account": {
+    "editProfile": "Επεξεργασία προφίλ",
     "likes": "Like",
     "linkAccount": "Ο λογαριασμός μου",
     "linkLogin": "Σύνδεση",
@@ -15,6 +16,7 @@ export default {
     },
     "privateCollections": "Ιδιωτικές συλλογές",
     "profile": "Τα like και οι συλλογές μου",
+    "profileSettings": "Ρυθμίσεις προφίλ",
     "publicCollections": "Δημόσιες συλλογές",
     "settings": "Ρυθμίσεις",
     "title": "Ο λογαριασμός μου"
@@ -69,6 +71,7 @@ export default {
     }
   },
   "collectionsYouMightLike": "Συλλογές που μπορεί να σας αρέσουν",
+  "colourSwatch": "Δείγμα χρώματος",
   "contentfulManual": {
     "footerNavigation": {
       "about": "Σχετικά με τις συλλογές της Europeana",
@@ -99,6 +102,10 @@ export default {
     "startDate": "Ημερομηνία έναρξης",
     "to": "έως"
   },
+  "debug": {
+    "apiRequests": "Αιτήματα API",
+    "debug": "Εντοπισμός σφαλμάτων"
+  },
   "delete": "Διαγραφή",
   "depiction": "Μια απεικόνιση του {title}",
   "directions": {
@@ -106,6 +113,7 @@ export default {
     "right": "Δεξιά"
   },
   "edmIsShownAtLinkAlt": "Προβολή στον ιστότοπο του παρόχου",
+  "entity": "Οντότητα",
   "error": "Σφάλμα",
   "exhibitions": {
     "chapters": "Κεφάλαια",
@@ -293,6 +301,7 @@ export default {
         "#FFFAFA": "Χιόνι",
         "#FFFF00": "Κίτρινος",
         "#FFFFE0": "Ανοιχτό κίτρινο",
+        "#FFFFF0": "Ελεφαντόδοντο",
         "#FFFFFF": "λευκό"
       }
     },
@@ -463,7 +472,8 @@ export default {
       "about": "Σχετικά με εμάς",
       "collections": "Συλλογές",
       "europeanaClassroom": "Εκπαιδευτικοί",
-      "help": "Βοήθεια"
+      "help": "Βοήθεια",
+      "stories": "Ιστορίες"
     },
     "searchFor": "Αναζήτηση του όρου {query}",
     "searchForEverything": "Αναζητήστε τα πάντα",
@@ -499,7 +509,11 @@ export default {
     }
   },
   "loadingResults": "Φόρτωση αποτελέσματα",
+  "mediaPreview": {
+    "selectItem": "Επιλογή στοιχείου {src}"
+  },
   "messages": {
+    "copyToClipboardSuccess": "Αντιγράφηκε στο πρόχειρο",
     "externalContentError": "Η φόρτωση του εξωτερικού περιεχομένου απέτυχε",
     "notFound": "Δεν βρέθηκε",
     "paginationLimitExceeded": "Μπορείτε να δείτε μόνο τα πρώτα {limit} αποτελέσματα αναζήτησης."
@@ -507,8 +521,12 @@ export default {
   "newWindow": "ανοίγει σε νέο παράθυρο",
   "noMoreResults": "Δεν υπάρχουν άλλα αποτελέσματα για το ερώτημα της αναζήτησης σας.",
   "noResults": "Δεν βρέθηκαν αποτελέσματα",
+  "pageHasLoaded": "έχει φορτωθεί",
   "pages": {
     "collections": {
+      "times": {
+        "title": "Φορές"
+      },
       "topics": {
         "title": "Θέματα"
       }
@@ -517,11 +535,13 @@ export default {
   "readMore": "Διαβάστε περισσότερα",
   "record": {
     "allMetaData": "Όλα τα μεταδεδομένα",
+    "copyEmbedLabel": "Ενσωμάτωση κώδικα (κάντε κλικ για αντιγραφή)",
     "downloadCopyrightInfo": "Αυτό το αντικείμενο προστατεύεται από δικαίωμα πνευματικής ιδιοκτησίας και δεν μπορείτε να το κατεβάσετε.",
     "exploreMore": "Εξερευνήστε περισσότερα",
     "extendedInformation": "Εκτεταμένες πληροφορίες",
     "goodToKnow": "Χρήσιμες πληροφορίες",
     "hideAll": "Απόκρυψη όλων των πληροφοριών",
+    "location": "Τοποθεσία",
     "record": "Εγγραφή",
     "showAll": "Εμφάνιση όλων των πληροφοριών",
     "similarItems": "Παρόμοια αντικείμενα",

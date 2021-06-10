@@ -1,5 +1,6 @@
 export default {
   "account": {
+    "editProfile": "Uredi profil",
     "likes": "Sviđanja",
     "linkAccount": "Moj račun",
     "linkLogin": "Prijava",
@@ -7,6 +8,8 @@ export default {
     "linkLogout": "Odjava",
     "myProfile": "Moj profil",
     "notifications": {
+      "loggedIn": "Sada ste prijavljeni. Dobrodošli!",
+      "loggedOut": "Sada ste odjavljeni.",
       "noCollections": {
         "private": "Još niste stvorili privatne galerije",
         "public": "Još niste stvorili javne galerije"
@@ -15,19 +18,25 @@ export default {
     },
     "privateCollections": "Privatne galerije",
     "profile": "Moja sviđanja i galerije",
+    "profileSettings": "Postavke profila",
     "publicCollections": "Javne galerije",
     "settings": "Postavke",
     "title": "Moj račun"
   },
   "actions": {
+    "cancel": "Otkazati",
     "close": "zatvori",
     "download": "Preuzmi",
     "edit": "Uredi",
+    "feedback": "Povratna informacija",
     "goBack": "Idi nazad",
     "like": "Sviđanje",
+    "next": "Sljedeći",
     "providedBy": "Omogućio {provider}",
+    "send": "Slati",
     "share": "Podijeli",
     "shareOn": "Podijelite na {social}",
+    "skip": "Preskakati",
     "viewAt": "Pogledajte na {link}",
     "viewDocument": "Pogledajte dokument"
   },
@@ -69,6 +78,7 @@ export default {
     }
   },
   "collectionsYouMightLike": "Kolekcije koje vam se mogu sviđati",
+  "colourSwatch": "Uzorak u boji",
   "contentfulManual": {
     "footerNavigation": {
       "about": "O zbirkama Europeana",
@@ -99,6 +109,9 @@ export default {
     "startDate": "Datum početka",
     "to": "do"
   },
+  "debug": {
+    "apiRequests": "API zahtjevi"
+  },
   "delete": "Izbriši",
   "depiction": "Prikaz {title}",
   "directions": {
@@ -106,6 +119,7 @@ export default {
     "right": "Desno"
   },
   "edmIsShownAtLinkAlt": "Prikaz na internetskoj stranici pružatelja",
+  "entity": "Entitet",
   "error": "Greška",
   "exhibitions": {
     "chapters": "Poglavlja",
@@ -293,6 +307,7 @@ export default {
         "#FFFAFA": "Snijeg",
         "#FFFF00": "Žuta boja",
         "#FFFFE0": "Svijetlo žuto",
+        "#FFFFF0": "bjelokost",
         "#FFFFFF": "bijela"
       }
     },
@@ -373,6 +388,23 @@ export default {
       }
     }
   },
+  "feedback": {
+    "emailOptional": "Možda bismo željeli pratiti. Unesite svoju e-poštu ako ste sretni da vas kontaktiramo.",
+    "failed": "Zahtjev nije uspio. Pokušajte ponovo.",
+    "form": {
+      "placeholders": {
+        "email": "Unesite svoju adresu e-pošte",
+        "feedback": "Ovdje unesite povratne informacije"
+      }
+    },
+    "policies": "Nastavljajući, slažete se s našim {0} i priznajete našu {1}.",
+    "privacyPolicy": "Pravila o privatnosti",
+    "success": "Poslane su vaše povratne informacije.",
+    "termsOfService": "Uvjeti korištenja",
+    "thankYou": "Hvala!",
+    "title": "Slanje povratnih informacija",
+    "validEmail": "Unesite valjanu adresu e-pošte"
+  },
   "fieldLabels": {
     "default": {
       "dcContributor": "Suradnici",
@@ -438,6 +470,8 @@ export default {
   },
   "footer": {
     "customiseWebsiteLanguage": "Prilagodite jezik internetske stranice",
+    "disclaimerLine1": "Europeana je inicijativa Europske unije koju financiraju Instrument za povezivanje Europe i države članice Europske unije. Uslugama Europeane, uključujući ovu web stranicu, upravlja konzorcij predvođen Zakladom Europeana prema ugovoru o pružanju usluga s Europskom komisijom.",
+    "disclaimerLine2": "Europska komisija ne jamči za točnost podataka i ne prihvaća nikakvu odgovornost niti bilo kakvu odgovornost u vezi s informacijama na ovom web mjestu. Niti Europska komisija, niti bilo koja osoba koja djeluje u ime Europske komisije, nije odgovorna niti je odgovorna za točnost ili upotrebu podataka na ovom web mjestu.",
     "findUsElsewhere": "Pronađite nas negdje drugdje",
     "imageDescription": "Sufinancirano iz Instrumenta za povezivanje Europe u Europskoj uniji",
     "ourMission": "Naša misija",
@@ -456,6 +490,7 @@ export default {
   "header": {
     "backToMenu": "Zatvori okvir za pretraživanje",
     "clearQuery": "Očisti upit za pretraživanje",
+    "closeSidebar": "Zatvori izbornik",
     "entireCollection": "Potražite {query} u cijeloj našoj kolekciji",
     "europeanaHome": "Glavna stranica Europeana",
     "inCollection": "Potražite {query} u {collection}",
@@ -463,7 +498,9 @@ export default {
       "about": "O nama",
       "collections": "Zbirke",
       "europeanaClassroom": "Nastavnici",
-      "help": "Pomoć"
+      "help": "Pomoć",
+      "home": "Dom",
+      "stories": "Priče"
     },
     "searchFor": "Potražite {query}",
     "searchForEverything": "Pretraži sve",
@@ -499,7 +536,11 @@ export default {
     }
   },
   "loadingResults": "Učitavanje rezultata",
+  "mediaPreview": {
+    "selectItem": "Odaberite stavku {src}"
+  },
   "messages": {
+    "copyToClipboardSuccess": "Kopirano u međuspremnik",
     "externalContentError": "Nije se mogao učitati vanjski sadržaj",
     "notFound": "Nije pronađeno",
     "paginationLimitExceeded": "Možete pregledati samo prvih {limit} rezultata pretraživanja."
@@ -509,6 +550,9 @@ export default {
   "noResults": "Nema rezultata",
   "pages": {
     "collections": {
+      "times": {
+        "title": "Vremena"
+      },
       "topics": {
         "title": "Teme"
       }
@@ -517,6 +561,7 @@ export default {
   "readMore": "Pročitaj više",
   "record": {
     "allMetaData": "Svi meta podaci",
+    "copyEmbedLabel": "Ugradi kôd (kliknite za kopiranje)",
     "downloadCopyrightInfo": "Ova je stavka zaštićena autorskim pravima i nije ju moguće preuzeti.",
     "exploreMore": "Istraži više",
     "extendedInformation": "Proširene informacije",
