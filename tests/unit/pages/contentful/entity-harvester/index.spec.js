@@ -73,13 +73,47 @@ const errorResponse = {
   error: 'There was an error'
 };
 
-describe('entity harvester', () => {
-  const fakeExtension = () => {
-    return { init: () => {} };
+// Stub the Contentful extension
+const fakeExtension = () => {
+  const fakeInit = (callback) => {
+    const fakeSdk = {
+      location: {
+        is: (location) => location === 'sidebar'
+      },
+      window: {
+        startAutoResizer: () => {}
+      },
+      entry: {
+        fields: {
+          identifier: { setValue: sinon.spy() },
+          slug: { setValue: sinon.spy() },
+          type: { setValue: sinon.spy() },
+          name: { setValue: sinon.spy() },
+          description: { setValue: sinon.spy() },
+          image: { removeValue: sinon.spy(), setValue: sinon.spy() }
+        }
+      },
+      dialogs: {
+        openAlert: sinon.spy()
+      }
+    };
+    callback(fakeSdk);
   };
-  window.contentfulExtension = fakeExtension();
 
-  sinon.stub(window.contentfulExtension, 'init');
+  return {
+    init: fakeInit,
+    locations: {
+      LOCATION_ENTRY_SIDEBAR: 'sidebar'
+    }
+  };
+};
+
+describe('entity harvester', () => {
+  before('supply fake contentful extension', () => {
+    window.contentfulExtension = fakeExtension();
+  });
+
+  // sinon.stub(window.contentfulExtension, 'init');
   describe('mounting', () => {
     it('sets the SDK and entry', async() => {
       const wrapper = factory();
@@ -130,7 +164,7 @@ describe('entity harvester', () => {
         it('returns the params split from the URI', () => {
           const wrapper = factory();
 
-          wrapper.vm.entityParamsFromUrl(`http://data.europeana.eu/${type}/base/${id}`).should.eq({ type: 'person', id });
+          wrapper.vm.entityParamsFromUrl(`http://data.europeana.eu/${type}/base/${id}`).should.eql({ type: 'person', id });
         });
       });
 
@@ -138,7 +172,7 @@ describe('entity harvester', () => {
         it('returns the params split from the URI', () => {
           const wrapper = factory();
 
-          wrapper.vm.entityParamsFromUrl(`https://api.europeana.eu/entity/${type}/base/${id}`).should.eq({ type: 'person', id });
+          wrapper.vm.entityParamsFromUrl(`https://api.europeana.eu/entity/${type}/base/${id}`).should.eql({ type: 'person', id });
         });
       });
 
@@ -147,7 +181,7 @@ describe('entity harvester', () => {
           // type: 'agent' is person
           const wrapper = factory();
 
-          wrapper.vm.entityParamsFromUrl(`https://www.europeana.eu/collections/person/${id}-giovnanni-francesco-straparola`).should.eq({ type: 'person', id });
+          wrapper.vm.entityParamsFromUrl(`https://www.europeana.eu/collections/person/${id}-giovnanni-francesco-straparola`).should.eql({ type: 'person', id });
         });
       });
 
@@ -160,7 +194,7 @@ describe('entity harvester', () => {
     });
 
     describe('showError', () => {
-      it('uses a contetnful dialog and sets the message to failed', () => {
+      it('uses a contentful dialog and sets the message to failed', () => {
         const wrapper = factory();
         wrapper.vm.showError('this is the message');
         contentfulSDKstub.dialogs.openAlert.should.have.been.calledWith({ title: 'Error', message: 'this is the message' });
@@ -187,7 +221,7 @@ describe('entity harvester', () => {
       it('sets the field identifier', () => {
         const wrapper = factory();
         wrapper.vm.populateFields(response, id);
-        wrapper.vm.entry.fields.identifer.setValue.should.have.been.calledWith(response.id);
+        wrapper.vm.entry.fields.identifier.setValue.should.have.been.calledWith(response.id);
       });
 
       context('when entry has a slug', () => {
