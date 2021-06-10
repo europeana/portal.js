@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const { LokaliseApi } = require('@lokalise/node-api');
 const fs = require('fs');
 const path = require('path');
