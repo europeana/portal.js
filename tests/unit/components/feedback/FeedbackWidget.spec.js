@@ -5,16 +5,28 @@ import nock from 'nock';
 // nock.recorder.rec();
 import FeedbackWidget from '../../../../src/components/feedback/FeedbackWidget.vue';
 import VueI18n from 'vue-i18n';
+import Vuex from 'vuex';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 localVue.use(VueI18n);
+localVue.use(Vuex);
+
+const store = new Vuex.Store({
+  state: {
+    bannerVisible: false
+  },
+  getters: {
+    'cookies/visible': sinon.stub()
+  }
+});
 
 const factory = (propsData = {}) => {
   const wrapper = mount(FeedbackWidget, {
     localVue,
     i18n: new VueI18n,
     propsData,
+    store,
     mocks: {
       $t: () => {},
       $path: () => {}
