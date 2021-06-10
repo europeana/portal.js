@@ -8,7 +8,7 @@
       data-qa="feedback button"
       size="lg"
       class="feedback-button text-decoration-none"
-      :class="showWidget ? 'hide-button' : null"
+      :class="showWidget ? 'hide-button' : cookiesVisible ? 'above-cookies' : null"
       @click="showFeedbackForm"
     >
       <span class="icon-ic-feedback d-inline-flex" />
@@ -204,6 +204,9 @@
 
       showCloseButton() {
         return !this.showCancelButton;
+      },
+      cookiesVisible() {
+        return this.$store.getters['cookies/visible'];
       }
     },
 
@@ -331,6 +334,15 @@
       }
       &.hide-button {
         display: none;
+      }
+      &.above-cookies {
+        bottom: 6rem;
+        @media (max-width: $bp-medium) {
+          bottom: 9rem;
+        }
+        @media (max-width: $bp-small) {
+          bottom: 13rem;
+        }
       }
       @media (max-width: $bp-small) {
         font-size: 0;

@@ -66,6 +66,7 @@
       } else {
         this.isOpen = true;
         this.accepted = false;
+        this.$store.commit('cookies/setVisibility', true);
       }
 
       this.setBannerHeight();
@@ -84,6 +85,7 @@
         this.isOpen = false;
         // time out 400ms to allow the css transition to finish
         setTimeout(() => this.accepted = true, 400);
+        this.$store.commit('cookies/setVisibility', false);
       },
 
       setCookieStatus() {
