@@ -84,9 +84,9 @@
         this.isOpen = false;
         // time out 400ms to allow the css transition to finish
         setTimeout(() => {
-          this.accepted = true, 400;
+          this.accepted = true;
           this.$emit('accept');
-        });
+        }, 400);
       },
 
       setCookieStatus() {
