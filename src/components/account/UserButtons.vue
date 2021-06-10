@@ -57,6 +57,7 @@
           <p>{{ $t('set.notifications.likeLimit.body') }}</p>
         </b-modal>
         <b-modal
+          v-if="showPins"
           :id="pinnedLimitModalId"
           :title="$t('entity.notifications.pinLimit.title')"
           hide-footer
@@ -73,7 +74,7 @@
             </b-button>
             <b-button
               variant="primary"
-              @click="viewPins()"
+              @click="goToPins"
             >
               {{ $t('entity.actions.viewPinned') }}
             </b-button>
@@ -136,12 +137,19 @@
         return this.$store.getters['entity/isPinned'](this.value);
       }
     },
+    created() {
+      this.$root.$on('clickCreateSet', () => {
+        this.clickCreateSet();
+      });
+    },
     methods: {
       clickCreateSet() {
-        this.showFormModal = true;
-        this.newSetCreated = false;
-        this.$bvModal.hide(this.addItemToSetModalId);
-        this.$bvModal.show(this.setFormModalId);
+        if (this.showFormModal === false) {
+          this.showFormModal = true;
+          this.newSetCreated = false;
+          this.$bvModal.hide(this.addItemToSetModalId);
+          this.$bvModal.show(this.setFormModalId);
+        }
       },
       setCreatedOrUpdated() {
         this.showFormModal = false;
@@ -163,9 +171,9 @@
       togglePinned() {
         this.$bvModal.show(this.pinModalId);
       },
-      viewPins() {
-        this.$bvModal.hide(this.pinnedLimitModalId);
-        // TODO: go to entity gallery
+      goToPins() {
+        const path = this.$path(`/set/${this.$store.state.entity.featuredSetId}`);
+        this.$goto(path);
       },
       async like() {
         if (this.likesId === null) {

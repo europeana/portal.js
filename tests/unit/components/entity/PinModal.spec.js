@@ -29,14 +29,14 @@ const factory = (propsData = {}) => mount(PinModal, {
   localVue,
   propsData: {
     modalStatic: true,
-    pinned: false,
     ...propsData
   },
   i18n,
   mocks: {
     $store: {
       state: {
-        entity: { featuredSetId: '123', pinned: [] }
+        entity: { featuredSetId: '123', pinned: [] },
+        sanitised: { page: 1 }
       },
       getters: {
         'entity/isPinned': storeIsPinnedGetter
@@ -46,11 +46,9 @@ const factory = (propsData = {}) => mount(PinModal, {
   }
 });
 
-describe('components/set/PinModal', () => {
+describe('components/entity/PinModal', () => {
   it('shows an info message', () => {
     const wrapper = factory({ itemId: id, pinned: false });
-    wrapper.vm.init();
-
     const modalText = wrapper.text();
     myLogger(modalText);
     modalText.should.include('Are you sure you want to pin this item?');

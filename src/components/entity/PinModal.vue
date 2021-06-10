@@ -1,13 +1,13 @@
 <template>
   <b-modal
     :id="modalId"
-    :title="title"
+    :title="pinned ? this.$t('entity.actions.unpin') : this.$t('entity.actions.pin')"
     hide-footer
     hide-header-close
     :static="modalStatic"
-    @show="init"
   >
-    {{ description }}
+    {{ pinned ? $t('entity.prompts.unpin', { entity: this.$store.getters['entity/englishPrefLabel'] }) :
+      this.$t('entity.prompts.pin', { entity: this.$store.getters['entity/englishPrefLabel'] }) }}
     <div class="modal-footer">
       <b-button
         variant="outline-primary"
@@ -21,7 +21,7 @@
         data-qa="toggle pin button"
         @click="togglePin"
       >
-        {{ buttonLabel }}
+        {{ pinned ? this.$t('entity.actions.unpin') : this.$t('entity.actions.pin') }}
       </b-button>
     </div>
   </b-modal>
@@ -58,17 +58,6 @@
     },
 
     methods: {
-      init() {
-        if (this.pinned) {
-          this.title = this.$t('entity.actions.unpin');
-          this.description = this.$t('entity.prompts.unpin', { entity: this.$store.getters['entity/englishPrefLabel'] });
-          this.buttonLabel = this.$t('entity.actions.unpin');
-        } else {
-          this.title = this.$t('entity.actions.pin');
-          this.description = this.$t('entity.prompts.pin', { entity: this.$store.getters['entity/englishPrefLabel'] });
-          this.buttonLabel = this.$t('entity.actions.pin');
-        }
-      },
       makeToast(toastMsg) {
         this.$root.$bvToast.toast(toastMsg, {
           toastClass: 'brand-toast',
@@ -86,7 +75,8 @@
         try {
           await this.$store.dispatch('entity/pin', this.itemId);
           this.hide();
-          this.makeToast(this.$t('entity.notifications.pinned'));
+          const msg = this.$store.state.sanitised.page === 1 ?  this.$t('entity.notifications.pinnedFirstPage') : this.$t('entity.notifications.pinned');
+          this.makeToast(msg);
         } catch (e) {
           if (e.message === 'too many pins') {
             this.hide();
@@ -99,7 +89,8 @@
       async unpin() {
         await this.$store.dispatch('entity/unpin', this.itemId);
         this.hide();
-        this.makeToast(this.$t('entity.notifications.unpinned'));
+        const msg = this.$store.state.sanitised.page === 1 ?  this.$t('entity.notifications.unpinnedFirstPage') : this.$t('entity.notifications.unpinned');
+        this.makeToast(msg);
       },
       togglePin() {
         this.pinned ? this.unpin() : this.pin();
