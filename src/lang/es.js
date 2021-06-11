@@ -1,5 +1,6 @@
 export default {
   "account": {
+    "editProfile": "Editar perfil",
     "likes": "Me gusta",
     "linkAccount": "Mi cuenta",
     "linkLogin": "Iniciar sesión",
@@ -7,6 +8,8 @@ export default {
     "linkLogout": "Cerrar sesión",
     "myProfile": "Mi perfil",
     "notifications": {
+      "loggedIn": "Ya ha iniciado la sesión. Bienvenido.",
+      "loggedOut": "Ahora ha salido la sesión.",
       "noCollections": {
         "private": "Aún no has creado ninguna galería privada",
         "public": "Aún no has creado ninguna galería pública"
@@ -15,19 +18,25 @@ export default {
     },
     "privateCollections": "Galerías privadas",
     "profile": "Mis \"Me gusta\" y galerías",
+    "profileSettings": "Configuración de perfil",
     "publicCollections": "Galerías públicas",
     "settings": "Configuración",
     "title": "Mi cuenta"
   },
   "actions": {
+    "cancel": "Cancelar",
     "close": "cerrar",
     "download": "Descargar",
     "edit": "Editar",
+    "feedback": "Comentarios",
     "goBack": "Volver",
     "like": "Me gusta",
+    "next": "próximo",
     "providedBy": "Proporcionado por {provider}",
+    "send": "Enviar",
     "share": "Compartir",
     "shareOn": "Compartir en {social}",
+    "skip": "Saltar",
     "viewAt": "Ver en {link}",
     "viewDocument": "Ver documento"
   },
@@ -373,6 +382,23 @@ export default {
       }
     }
   },
+  "feedback": {
+    "emailOptional": "Es posible que queremos hacer un seguimiento. Introduce tu correo electrónico si estás de acuerdo en que nos pongamos en contacto contigo.",
+    "failed": "La solicitud falló. Inténtalo de nuevo.",
+    "form": {
+      "placeholders": {
+        "email": "Ingrese su dirección de correo electrónico",
+        "feedback": "Ingrese sus comentarios aquí"
+      }
+    },
+    "policies": "Al continuar, usted acepta nuestro {0} y reconoce nuestro {1}.",
+    "privacyPolicy": "Política de privacidad",
+    "success": "Su comentario ha sido enviado.",
+    "termsOfService": "Términos de servicio",
+    "thankYou": "Gracias.",
+    "title": "Enviar comentarios",
+    "validEmail": "Introduzca una dirección de correo electrónico válida"
+  },
   "fieldLabels": {
     "default": {
       "dcContributor": "Contribuyentes",
@@ -456,6 +482,7 @@ export default {
   "header": {
     "backToMenu": "Cerrar cuadro de búsqueda",
     "clearQuery": "Borrar la consulta de búsqueda",
+    "closeSidebar": "Cerrar Menú",
     "entireCollection": "Busca {query} en toda nuestra colección",
     "europeanaHome": "Página de inicio de Europeana",
     "inCollection": "Busca {query} en {collection}",

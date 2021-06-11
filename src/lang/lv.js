@@ -1,5 +1,6 @@
 export default {
   "account": {
+    "editProfile": "Rediģēt profilu",
     "likes": "Patīk",
     "linkAccount": "Mans konts",
     "linkLogin": "Pieteikties",
@@ -7,6 +8,8 @@ export default {
     "linkLogout": "Atteikties",
     "myProfile": "Mans profils",
     "notifications": {
+      "loggedIn": "Jūs tagad esat pieteicies. Laipni lūdzam!",
+      "loggedOut": "Jūs tagad esat atteicies.",
       "noCollections": {
         "private": "Vēl nav izveidota neviena privāta galerija",
         "public": "Vēl nav izveidota neviena publiska galerija"
@@ -15,19 +18,25 @@ export default {
     },
     "privateCollections": "Privātas galerijas",
     "profile": "Mani favorīti un galerijas",
+    "profileSettings": "Profila iestatījumi",
     "publicCollections": "Publiskas galerijas",
     "settings": "Iestatījumi",
     "title": "Mans konts"
   },
   "actions": {
+    "cancel": "Atcelt",
     "close": "aizvērt",
     "download": "Lejupielādēt",
     "edit": "Rediģēt",
+    "feedback": "Atsauksmes",
     "goBack": "Atpakaļ",
     "like": "Patīk",
+    "next": "Nākamais",
     "providedBy": "Nodrošina {provider}",
+    "send": "Sūtīt",
     "share": "Dalies",
     "shareOn": "Dalīties {social}",
+    "skip": "Izlaist",
     "viewAt": "Skatīt vietnē {link}",
     "viewDocument": "Skatīt dokumentu"
   },
@@ -373,6 +382,23 @@ export default {
       }
     }
   },
+  "feedback": {
+    "emailOptional": "Mēs varētu vēlēties sekot. Ievadiet savu e-pasta adresi, ja esat priecīgs, ka mēs ar jums sazināsimies.",
+    "failed": "Pieprasījums neizdevās. Lūdzu mēģiniet vēlreiz.",
+    "form": {
+      "placeholders": {
+        "email": "ievadiet savu e-pasta adresi",
+        "feedback": "Ievadiet atsauksmes šeit"
+      }
+    },
+    "policies": "Turpinot jūs piekrītat mūsu {0} un atzīstat mūsu {1} .",
+    "privacyPolicy": "Privātuma politika",
+    "success": "Jūsu atsauksmes ir nosūtītas.",
+    "termsOfService": "Pakalpojuma noteikumi",
+    "thankYou": "Paldies!",
+    "title": "Sūtīt atsauksmes",
+    "validEmail": "ievadiet derīgu epasta adresi"
+  },
   "fieldLabels": {
     "default": {
       "dcContributor": "Atbalstītāji",
@@ -456,6 +482,7 @@ export default {
   "header": {
     "backToMenu": "Aizvērt meklēšanas lodziņu",
     "clearQuery": "Notīrīt meklēšanas vaicājumu",
+    "closeSidebar": "Aizvērt izvēlni",
     "entireCollection": "Search for {query} in our entire collection",
     "europeanaHome": "Europeana vietne",
     "inCollection": "Meklēt {query} kolekcijā {collection}",

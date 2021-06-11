@@ -8,6 +8,8 @@ export default {
     "linkLogout": "Αποσύνδεση",
     "myProfile": "ΤΟ ΠΡΟΦΙΛ ΜΟΥ",
     "notifications": {
+      "loggedIn": "Έχετε συνδεθεί τώρα. Καλώς ήλθατε!",
+      "loggedOut": "Έχετε αποσυνδεθεί τώρα.",
       "noCollections": {
         "private": "Δεν έχετε δημιουργήσει ιδιωτικές συλλογές",
         "public": "Δεν έχετε δημιουργήσει δημόσιες συλλογές"
@@ -22,14 +24,19 @@ export default {
     "title": "Ο λογαριασμός μου"
   },
   "actions": {
+    "cancel": "Ακύρωση",
     "close": "κλείσιμο",
     "download": "Μεταφόρτωση",
     "edit": "Επεξεργασία",
+    "feedback": "Ανατροφοδότηση",
     "goBack": "Πίσω",
     "like": "Like",
+    "next": "Επόμενο",
     "providedBy": "Παρέχεται από {provider}",
+    "send": "Στείλετε",
     "share": "Κοινοποίηση",
     "shareOn": "Κοινοποίηση στο {social}",
+    "skip": "Παραλείπω",
     "viewAt": "Προβολή στο {link}",
     "viewDocument": "Προβολή εγγράφου"
   },
@@ -382,6 +389,23 @@ export default {
       }
     }
   },
+  "feedback": {
+    "emailOptional": "Μπορεί να θέλουμε να συνεχίσουμε. Εισαγάγετε το email σας εάν είστε ευτυχείς να επικοινωνήσουμε μαζί σας.",
+    "failed": "Το αίτημα απέτυχε. Προσπαθήστε ξανά.",
+    "form": {
+      "placeholders": {
+        "email": "εισάγετε την ηλεκτρονική σας διεύθυνση",
+        "feedback": "Εισαγάγετε τα σχόλιά σας εδώ"
+      }
+    },
+    "policies": "Συνεχίζοντας, αποδέχεστε το {0} και αποδέχεστε το {1} .",
+    "privacyPolicy": "Πολιτική απορρήτου",
+    "success": "Τα σχόλιά σας έχουν σταλεί.",
+    "termsOfService": "Όροι χρήσης",
+    "thankYou": "Σας ευχαριστώ!",
+    "title": "Στείλετε τα σχόλιά σας",
+    "validEmail": "Εισάγετε μια έγκυρη διεύθυνση email"
+  },
   "fieldLabels": {
     "default": {
       "dcContributor": "Αρθρογράφοι",
@@ -465,6 +489,7 @@ export default {
   "header": {
     "backToMenu": "Κλείσιμο πλαισίου αναζήτησης",
     "clearQuery": "Διαγραφή ιστορικού αναζήτησης",
+    "closeSidebar": "Κλείσιμο μενού",
     "entireCollection": "Αναζητήστε τον όρο {query} σε όλη τη συλλογή",
     "europeanaHome": "Αρχική σελίδα της Europeana",
     "inCollection": "Αναζητήστε τον όρο {query} στη συλλογή {collection}",

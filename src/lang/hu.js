@@ -8,6 +8,7 @@ export default {
     "linkLogout": "Bejelentkezés",
     "myProfile": "A profilom",
     "notifications": {
+      "loggedIn": "Most már be van jelentkezve. Üdvözlünk!",
       "loggedOut": "Most kijelentkezett.",
       "noCollections": {
         "private": "Még nem hozott létre privát galériát",
@@ -23,14 +24,19 @@ export default {
     "title": "Fiókom"
   },
   "actions": {
+    "cancel": "Mégse",
     "close": "bezárás",
     "download": "Letöltés",
     "edit": "Szerkesztés",
+    "feedback": "Visszacsatolás",
     "goBack": "Vissza",
     "like": "Kedvelés",
+    "next": "Következő",
     "providedBy": "Szolgáltató: {provider}",
+    "send": "Küld",
     "share": "Megosztás",
     "shareOn": "Megosztás a következőn: {social}",
+    "skip": "Skip",
     "viewAt": "Megtekintés a következő helyen: {link}",
     "viewDocument": "Dokumentum megtekintése"
   },
@@ -382,6 +388,23 @@ export default {
       }
     }
   },
+  "feedback": {
+    "emailOptional": "Érdemes lehet utánajárnunk. Írja be az e-mail címét, ha örül, hogy kapcsolatba lépünk Önnel.",
+    "failed": "A kérés nem sikerült. Kérlek próbáld újra.",
+    "form": {
+      "placeholders": {
+        "email": "Adja meg e-mail címét",
+        "feedback": "Írja be ide visszajelzését"
+      }
+    },
+    "policies": "A folytatással elfogadja {0} és a {1} .",
+    "privacyPolicy": "Adatvédelmi irányelvek",
+    "success": "Visszajelzését elküldtük.",
+    "termsOfService": "Szolgáltatás feltételei",
+    "thankYou": "Köszönöm!",
+    "title": "Visszajelzés küldése",
+    "validEmail": "Adjon meg egy érvényes email címet"
+  },
   "fieldLabels": {
     "default": {
       "dcContributor": "Közreműködők",
@@ -467,6 +490,7 @@ export default {
   "header": {
     "backToMenu": "Keresőmező bezárása",
     "clearQuery": "Keresőkifejezés törlése",
+    "closeSidebar": "Menü bezárása",
     "entireCollection": "Keresés az egész gyűjteményben erre: {query}",
     "europeanaHome": "Europeana kezdőlap",
     "inCollection": "Keresés erre: {query}, a {collection} gyűjteményben",
