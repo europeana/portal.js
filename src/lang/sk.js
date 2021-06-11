@@ -1,12 +1,15 @@
 export default {
   "account": {
+    "editProfile": "Upraviť profil",
     "likes": "Označenia Páči sa mi",
     "linkAccount": "Môj účet",
     "linkLogin": "Prihlásiť sa",
-    "linkLoginJoin": "Prihlásiť sa/Zaregistrovať sa",
+    "linkLoginJoin": "Prihlásiť sa\/Zaregistrovať sa",
     "linkLogout": "Odhlásiť sa",
     "myProfile": "Môj profil",
     "notifications": {
+      "loggedIn": "Teraz ste prihlásení. Vitajte!",
+      "loggedOut": "Teraz ste odhlásení.",
       "noCollections": {
         "private": "Zatiaľ ste nevytvorili žiadne súkromné galérie",
         "public": "Zatiaľ ste nevytvorili žiadne verejné galérie"
@@ -15,19 +18,25 @@ export default {
     },
     "privateCollections": "Súkromné zbierky",
     "profile": "Moje označenia Páči sa mi a galérie",
+    "profileSettings": "Nastavenia profilu",
     "publicCollections": "Verejné galérie",
     "settings": "Nastavenia",
     "title": "Môj účet"
   },
   "actions": {
+    "cancel": "Zrušiť",
     "close": "zatvoriť",
     "download": "Stiahnuť",
     "edit": "Upraviť",
+    "feedback": "Spätná väzba",
     "goBack": "Späť",
     "like": "Označenie Páči sa mi",
+    "next": "Ďalšie",
     "providedBy": "Poskytovateľ:  {provider}",
+    "send": "poslať",
     "share": "Zdieľať",
     "shareOn": "Zdieľať na sociálnej sieti {social}",
+    "skip": "Preskočiť",
     "viewAt": "Zobraziť na adrese {link}",
     "viewDocument": "Zobraziť dokument"
   },
@@ -335,7 +344,7 @@ export default {
     "MIME_TYPE": {
       "name": "Formát súboru | Formáty súborov",
       "options": {
-        "text/plain": "Obyčajný text"
+        "text\/plain": "Obyčajný text"
       }
     },
     "PROVIDER": {
@@ -372,6 +381,23 @@ export default {
         "VIDEO": "Video"
       }
     }
+  },
+  "feedback": {
+    "emailOptional": "Možno budeme chcieť nadviazať ďalšie kroky. Ak chcete, aby sme vás kontaktovali, zadajte svoj e-mail.",
+    "failed": "Žiadosť zlyhala. Prosím skúste znova.",
+    "form": {
+      "placeholders": {
+        "email": "Zadajte svoju e-mailovú adresu",
+        "feedback": "Sem zadajte svoju spätnú väzbu"
+      }
+    },
+    "policies": "Pokračovaním súhlasíte s našimi {0} a beriete na vedomie naše {1}.",
+    "privacyPolicy": "Zásady ochrany osobných údajov",
+    "success": "Vaša spätná väzba bola odoslaná.",
+    "termsOfService": "Podmienky služby",
+    "thankYou": "Ďakujeme!",
+    "title": "Odoslať spätnú väzbu",
+    "validEmail": "Zadajte platnú e-mailovú adresu"
   },
   "fieldLabels": {
     "default": {
@@ -456,6 +482,7 @@ export default {
   "header": {
     "backToMenu": "Zatvoriť vyhľadávacie pole",
     "clearQuery": "Zmazať vyhľadávací dopyt",
+    "closeSidebar": "Zavrieť ponuku",
     "entireCollection": "Hľadajte výraz {query} v celej našej zbierke",
     "europeanaHome": "Domovská stránka Europeana",
     "inCollection": "Hľadajte výraz {query} v zbierke {collection}",
@@ -464,6 +491,7 @@ export default {
       "collections": "Zbierky",
       "europeanaClassroom": "Učitelia",
       "help": "Pomoc",
+      "home": "Domov",
       "stories": "Príbehy"
     },
     "searchFor": "Vyhľadávať dopyt {query}",

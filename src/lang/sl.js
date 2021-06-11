@@ -1,12 +1,15 @@
 export default {
   "account": {
+    "editProfile": "Uredi profil",
     "likes": "Všečki",
     "linkAccount": "Moj račun",
     "linkLogin": "Vpis",
-    "linkLoginJoin": "Prijava/Pridruži se",
+    "linkLoginJoin": "Prijava\/Pridruži se",
     "linkLogout": "Izpis",
     "myProfile": "Moj profil",
     "notifications": {
+      "loggedIn": "Zdaj ste prijavljeni. Dobrodošli!",
+      "loggedOut": "Zdaj ste odjavljeni.",
       "noCollections": {
         "private": "Niste še ustvarili nobene zasebne zbirke.",
         "public": "Niste še ustvarili nobene javne zbirke."
@@ -15,19 +18,25 @@ export default {
     },
     "privateCollections": "Zasebne zbirke",
     "profile": "Moji všečki & zbirke",
+    "profileSettings": "Nastavitve profila",
     "publicCollections": "Javne zbirke",
     "settings": "Nastavitve",
     "title": "Moj račun"
   },
   "actions": {
+    "cancel": "Prekliči",
     "close": "zapri",
     "download": "Prenos",
     "edit": "Uredi",
+    "feedback": "Povratne informacije",
     "goBack": "Nazaj",
     "like": "Všeč mi je",
+    "next": "Naslednji",
     "providedBy": "Zagotavlja {provider}",
+    "send": "Pošlji",
     "share": "Deli",
     "shareOn": "Deli prek {social}",
+    "skip": "Preskoči",
     "viewAt": "Ogled na {link}",
     "viewDocument": "Ogled dokumenta"
   },
@@ -335,7 +344,7 @@ export default {
     "MIME_TYPE": {
       "name": "Oblika zapisa datoteke | Oblike zapisov datotek",
       "options": {
-        "text/plain": "Golo besedilo"
+        "text\/plain": "Golo besedilo"
       }
     },
     "PROVIDER": {
@@ -372,6 +381,23 @@ export default {
         "VIDEO": "Videoposnetek"
       }
     }
+  },
+  "feedback": {
+    "emailOptional": "Morda bi želeli slediti. Vnesite svojo e-pošto, če ste veseli, da vas kontaktiramo.",
+    "failed": "Zahteva ni uspela. Prosim poskusite ponovno.",
+    "form": {
+      "placeholders": {
+        "email": "Vnesite svoj e-poštni naslov",
+        "feedback": "Tukaj vnesite svoje povratne informacije"
+      }
+    },
+    "policies": "Z nadaljevanjem se strinjate z našimi {0} in potrjujete naše {1} .",
+    "privacyPolicy": "Pravilnik o zasebnosti",
+    "success": "Vaše povratne informacije so bile poslane.",
+    "termsOfService": "Pogoji storitve",
+    "thankYou": "Hvala!",
+    "title": "Pošlji povratno informacijo",
+    "validEmail": "Vnesite veljaven e-poštni naslov"
   },
   "fieldLabels": {
     "default": {
@@ -456,6 +482,7 @@ export default {
   "header": {
     "backToMenu": "Zapri iskalno polje",
     "clearQuery": "Počisti iskalno poizvedbo ",
+    "closeSidebar": "Zapri meni",
     "entireCollection": "Išči {query} v naši celotni zbirki",
     "europeanaHome": "Na začetno stran Europeana",
     "inCollection": "Išči {query} v {collection}",

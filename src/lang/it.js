@@ -1,12 +1,15 @@
 export default {
   "account": {
+    "editProfile": "Modifica Profilo",
     "likes": "Mi piace",
     "linkAccount": "Il mio account",
     "linkLogin": "Accedi",
-    "linkLoginJoin": "Accedi/Iscriviti",
+    "linkLoginJoin": "Accedi\/Iscriviti",
     "linkLogout": "Esci",
     "myProfile": "Il mio profilo",
     "notifications": {
+      "loggedIn": "Ora sei loggato. Benvenuto!",
+      "loggedOut": "Sei ora disconnesso.",
       "noCollections": {
         "private": "Non hai ancora creato gallerie private",
         "public": "Non hai ancora creato gallerie pubbliche"
@@ -15,19 +18,25 @@ export default {
     },
     "privateCollections": "Gallerie private",
     "profile": "I miei Mi piace e le mie gallerie",
+    "profileSettings": "Impostazioni del profilo",
     "publicCollections": "Gallerie pubbliche",
     "settings": "Impostazioni",
     "title": "Il mio account"
   },
   "actions": {
+    "cancel": "Annulla",
     "close": "chiudi",
     "download": "Scarica",
     "edit": "Modifica",
+    "feedback": "Feedback",
     "goBack": "Indietro",
     "like": "Mi piace",
+    "next": "Prossimo",
     "providedBy": "Fornito da {provider}",
+    "send": "Invia",
     "share": "Condividi",
     "shareOn": "Condividi su {social}",
+    "skip": "Salta",
     "viewAt": "Vedi su {link}",
     "viewDocument": "Visualizza documento"
   },
@@ -335,7 +344,7 @@ export default {
     "MIME_TYPE": {
       "name": "Formato file | Formati file",
       "options": {
-        "text/plain": "Testo semplice"
+        "text\/plain": "Testo semplice"
       }
     },
     "PROVIDER": {
@@ -372,6 +381,23 @@ export default {
         "VIDEO": "Video"
       }
     }
+  },
+  "feedback": {
+    "emailOptional": "Potremmo voler seguire. Inserisci la tua email se sei felice di essere contattato.",
+    "failed": "La richiesta è fallita. Per favore riprova.",
+    "form": {
+      "placeholders": {
+        "email": "Inserisci il tuo indirizzo email",
+        "feedback": "Inserisci qui il tuo risposta"
+      }
+    },
+    "policies": "Continuando, accetti i nostri {0} e riconosci i nostri {1} .",
+    "privacyPolicy": "Informativa sulla privacy",
+    "success": "Il tuo feedback è stato inviato.",
+    "termsOfService": "Termini di servizio",
+    "thankYou": "Grazie!",
+    "title": "Invia feedback",
+    "validEmail": "Inserire un indirizzo email valido"
   },
   "fieldLabels": {
     "default": {
@@ -456,6 +482,7 @@ export default {
   "header": {
     "backToMenu": "Chiudi casella di ricerca",
     "clearQuery": "Elimina query di ricerca",
+    "closeSidebar": "Chiudi Menu",
     "entireCollection": "Cerca {query} in tutta la collezione",
     "europeanaHome": "Home Europeana",
     "inCollection": "Cerca {query} in {collection}",

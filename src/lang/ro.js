@@ -1,12 +1,15 @@
 export default {
   "account": {
+    "editProfile": "Editare profil",
     "likes": "Aprecieri",
     "linkAccount": "Contul meu",
     "linkLogin": "Autentificare",
-    "linkLoginJoin": "Autentificare/Înscriere",
+    "linkLoginJoin": "Autentificare\/Înscriere",
     "linkLogout": "Deconectare",
     "myProfile": "Profilul meu",
     "notifications": {
+      "loggedIn": "Sunteți autentificat. Bine ați venit!",
+      "loggedOut": "Acum ești deconectat.",
       "noCollections": {
         "private": "Încă nu ai creat nicio galerie privată",
         "public": "Încă nu ai creat nicio galerie publică"
@@ -15,19 +18,25 @@ export default {
     },
     "privateCollections": "Galerii private",
     "profile": "Aprecierile și Galeriile mele",
+    "profileSettings": "Setări profil",
     "publicCollections": "Galerii publice",
     "settings": "Setări",
     "title": "Contul meu"
   },
   "actions": {
+    "cancel": "Anulează",
     "close": "închidere",
     "download": "Descarcă",
     "edit": "Editare",
+    "feedback": "Feedback",
     "goBack": "Înapoi",
     "like": "Apreciere",
+    "next": "Următorul",
     "providedBy": "Furnizat de {provider}",
+    "send": "Trimite",
     "share": "Distribuiți",
     "shareOn": "Distribuiți pe {social}",
+    "skip": "Skip",
     "viewAt": "Vizualizați pe {link}",
     "viewDocument": "Vizualizare document"
   },
@@ -335,7 +344,7 @@ export default {
     "MIME_TYPE": {
       "name": "Format fișier| Formate fișier",
       "options": {
-        "text/plain": "Text simplu"
+        "text\/plain": "Text simplu"
       }
     },
     "PROVIDER": {
@@ -372,6 +381,23 @@ export default {
         "VIDEO": "Video"
       }
     }
+  },
+  "feedback": {
+    "emailOptional": "S-ar putea să dorim să urmărim acest lucru. Introduceți adresa dvs. de e-mail dacă sunteți de acord să vă contactăm.",
+    "failed": "Solicitarea nu a reușit. Încercați din nou.",
+    "form": {
+      "placeholders": {
+        "email": "Introduceți adresa de e-mail",
+        "feedback": "Introduceți feedback-ul aici"
+      }
+    },
+    "policies": "Continuând, sunteți de acord cu {0} și acceptați {1}.",
+    "privacyPolicy": "Politica de Confidențialitate",
+    "success": "Feedbackul dvs. a fost trimis.",
+    "termsOfService": "Termenii serviciului",
+    "thankYou": "Mulțumesc!",
+    "title": "Trimite feedback",
+    "validEmail": "Introduceți o adresă de email validă"
   },
   "fieldLabels": {
     "default": {
@@ -456,6 +482,7 @@ export default {
   "header": {
     "backToMenu": "Închide caseta de căutare",
     "clearQuery": "Șterge căutările",
+    "closeSidebar": "Închideți meniul",
     "entireCollection": "Căutare pentru {query} în întreaga noastră colecție",
     "europeanaHome": "Pagina principală Europeana",
     "inCollection": "Caută pentru {query} în {collection}",

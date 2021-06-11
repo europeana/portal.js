@@ -4,7 +4,7 @@ export default {
     "likes": "Likes",
     "linkAccount": "Mijn account",
     "linkLogin": "Inloggen",
-    "linkLoginJoin": "Inloggen/Aanmelden",
+    "linkLoginJoin": "Inloggen\/Aanmelden",
     "linkLogout": "Uitloggen",
     "myProfile": "Mijn profiel",
     "notifications": {
@@ -24,14 +24,19 @@ export default {
     "title": "Mijn account"
   },
   "actions": {
+    "cancel": "Annuleren",
     "close": "sluiten",
     "download": "Download",
     "edit": "Bewerken",
+    "feedback": "Feedback",
     "goBack": "Ga terug",
     "like": "Liken",
+    "next": "Volgende",
     "providedBy": "Aangeboden door {provider}",
+    "send": "Verzenden",
     "share": "Delen",
     "shareOn": "Delen op {social}",
+    "skip": "Overslaan",
     "viewAt": "Bekijken op {link}",
     "viewDocument": "Document weergeven"
   },
@@ -346,7 +351,7 @@ export default {
     "MIME_TYPE": {
       "name": "Bestandsformaat | Bestandsformaten",
       "options": {
-        "text/plain": "Platte tekst"
+        "text\/plain": "Platte tekst"
       }
     },
     "PROVIDER": {
@@ -383,6 +388,23 @@ export default {
         "VIDEO": "Video"
       }
     }
+  },
+  "feedback": {
+    "emailOptional": "We willen hier misschien een vervolg aan geven. Voer uw e-mailadres in als u het niet erg vindt als wij contact met u opnemen.",
+    "failed": "Het verzoek is mislukt. Probeer het opnieuw.",
+    "form": {
+      "placeholders": {
+        "email": "Voer uw e-mailadres in",
+        "feedback": "Vul hier uw feedback in"
+      }
+    },
+    "policies": "Door verder te gaan, gaat u akkoord met onze {0} en erkent u onze {1} .",
+    "privacyPolicy": "Privacybeleid",
+    "success": "Uw feedback is verzonden.",
+    "termsOfService": "Servicevoorwaarden",
+    "thankYou": "Dank u!",
+    "title": "Feedback verzenden",
+    "validEmail": "Voer een geldig e-mailadres in"
   },
   "fieldLabels": {
     "default": {
@@ -469,6 +491,7 @@ export default {
   "header": {
     "backToMenu": "Zoekvakje sluiten",
     "clearQuery": "Zoekopdracht wissen",
+    "closeSidebar": "Menu sluiten",
     "entireCollection": "Zoek op {query} in onze gehele collectie",
     "europeanaHome": "Europeana Home",
     "inCollection": "Zoek op {query} in {collection}",
@@ -494,6 +517,27 @@ export default {
     "itemCount": "1 artikel |{count} artikelen",
     "itemOf": "{max} van {count} artikelen",
     "youMightLike": "Artikelen die u misschien interessant vindt"
+  },
+  "klaro": {
+    "main": {
+      "consentNotice": {
+        "description": "We geven om uw privacy en gebruiken gegevens alleen om uw ervaring te verbeteren. We gebruiken geen persoonlijke informatie voor advertenties. U kunt uw toestemming elke 15 dagen wijzigen."
+      }
+    },
+    "services": {
+      "jira-servicedesk": {
+        "description": "Activeert de feedbackwidget die u de mogelijkheid geeft om contact met ons op te nemen.",
+        "title": "Jira-servicedesk"
+      },
+      "matomo": {
+        "description": "Verzamelt anonieme statistieken over hoe bezoekers omgaan met de website.",
+        "title": "Matomo"
+      },
+      "searchResultsView": {
+        "description": "Onthoudt of u de zoekresultaten liever in een lijst- of rasterweergave wilt zien.",
+        "title": "Zoekresultaatweergave (lijst\/raster)"
+      }
+    }
   },
   "layout": {
     "skipToMain": "Ga naar pagina-inhoud"
@@ -546,7 +590,10 @@ export default {
     "extendedInformation": "Uitgebreide informatie",
     "goodToKnow": "Goed om te weten",
     "hideAll": "Verberg alle informatie",
+    "IIIFViewer": "IIIF-viewer",
     "location": "Locatie",
+    "locationOnMap": "Locatie op kaart",
+    "mediaPlayer": "Mediaspeler",
     "record": "Registratie",
     "showAll": "Toon alle informatie",
     "similarItems": "Vergelijkbare items",
@@ -596,6 +643,7 @@ export default {
     "form": {
       "description": "Omschrijving van de galerij",
       "private": "Houd deze galerij privé",
+      "required": "Verplicht veld",
       "title": "Naam van de galerij"
     },
     "labels": {

@@ -4,7 +4,7 @@ export default {
     "likes": "Likes",
     "linkAccount": "Mein Konto",
     "linkLogin": "Anmelden",
-    "linkLoginJoin": "Anmelden/Beitreten",
+    "linkLoginJoin": "Anmelden\/Beitreten",
     "linkLogout": "Abmelden",
     "myProfile": "Mein Profil",
     "notifications": {
@@ -24,14 +24,19 @@ export default {
     "title": "Mein Konto"
   },
   "actions": {
+    "cancel": "Abbrechen",
     "close": "schließen",
     "download": "Herunterladen",
     "edit": "Bearbeiten",
+    "feedback": "Feedback",
     "goBack": "Zurückgehen",
     "like": "Like",
+    "next": "Nächster",
     "providedBy": "Bereitgestellt von {provider}",
+    "send": "Senden",
     "share": "Teilen",
     "shareOn": "Teilen auf {social}",
+    "skip": "Überspringen",
     "viewAt": "Ansicht unter {link}",
     "viewDocument": "Dokument anzeigen"
   },
@@ -346,7 +351,7 @@ export default {
     "MIME_TYPE": {
       "name": "Dateiformat | Dateiformate",
       "options": {
-        "text/plain": "Klartext"
+        "text\/plain": "Klartext"
       }
     },
     "PROVIDER": {
@@ -383,6 +388,23 @@ export default {
         "VIDEO": "Video"
       }
     }
+  },
+  "feedback": {
+    "emailOptional": "Wir möchten vielleicht weiterverfolgen. Geben Sie Ihre E-Mail-Adresse ein, wenn wir Sie kontaktieren möchten.",
+    "failed": "Die Anfrage ist fehlgeschlagen. Bitte versuche es erneut.",
+    "form": {
+      "placeholders": {
+        "email": "Geben sie ihre E-Mailadresse ein",
+        "feedback": "Geben Sie hier Ihr Feedback ein"
+      }
+    },
+    "policies": "Indem Sie fortfahren, stimmen Sie unseren {0} und erkennen unsere {1} .",
+    "privacyPolicy": "Datenschutz-Bestimmungen",
+    "success": "Ihr Feedback wurde gesendet.",
+    "termsOfService": "Nutzungsbedingungen",
+    "thankYou": "Vielen Dank!",
+    "title": "Feedback abschicken",
+    "validEmail": "Geben Sie eine gültige E-Mail Adresse ein"
   },
   "fieldLabels": {
     "default": {
@@ -469,6 +491,7 @@ export default {
   "header": {
     "backToMenu": "Suchfeld schließen",
     "clearQuery": "Suchanfrage löschen",
+    "closeSidebar": "Menü schließen",
     "entireCollection": "Suchen Sie nach {query} in unserer gesamten Kollektion",
     "europeanaHome": "Europeana-Startseite",
     "inCollection": "Suchen Sie nach {query} in {collection}",

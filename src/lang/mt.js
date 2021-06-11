@@ -1,12 +1,15 @@
 export default {
   "account": {
+    "editProfile": "Editja l-profil",
     "likes": "Likes",
     "linkAccount": "Il-Kont Tiegħi",
     "linkLogin": "Illoggja",
-    "linkLoginJoin": "Idħol/Ingħaqad",
+    "linkLoginJoin": "Idħol\/Ingħaqad",
     "linkLogout": "Oħroġ",
     "myProfile": "Il-profil Tiegħi",
     "notifications": {
+      "loggedIn": "Inti issa illoggjat. Merħba!",
+      "loggedOut": "Issa int illoggjat' il barra.",
       "noCollections": {
         "private": "Għadek ma ħloqt l-ebda direttorju tar-ritratti privat s'issa",
         "public": "Għadek ma ħloqt l-ebda direttorju tar-ritratti pubbliku s'issa"
@@ -15,19 +18,25 @@ export default {
     },
     "privateCollections": "Direttorji tar-Ritratti privati",
     "profile": "Il-Likes u d-Direttorji tar-Ritratti Tiegħi",
+    "profileSettings": "Settings tal-profil",
     "publicCollections": "Direttorji tar-Ritratti Pubbliċi",
     "settings": "Settings",
     "title": "Il-kont tiegħi"
   },
   "actions": {
+    "cancel": "Ikkanċella",
     "close": "agħlaq",
     "download": "Niżżel",
     "edit": "Editja",
+    "feedback": "Feedback",
     "goBack": "Mur lura",
     "like": "Like",
+    "next": "Li jmiss",
     "providedBy": "Ipprovdut minn {provider}",
+    "send": "Tibgħat",
     "share": "Ixxerja",
     "shareOn": "Ixxerja fuq {social}",
+    "skip": "Aqbeż",
     "viewAt": "Ara fuq {link}",
     "viewDocument": "Ara d-dokument"
   },
@@ -337,7 +346,7 @@ export default {
     "MIME_TYPE": {
       "name": "Format tal-fajl | Formati tal-fajl",
       "options": {
-        "text/plain": "Test bla format"
+        "text\/plain": "Test bla format"
       }
     },
     "PROVIDER": {
@@ -374,6 +383,23 @@ export default {
         "VIDEO": "Vidjo"
       }
     }
+  },
+  "feedback": {
+    "emailOptional": "Aħna jista 'jkun li nixtiequ nsegwu. Daħħal l-email tiegħek jekk int kuntent li aħna nikkuntattjawk.",
+    "failed": "It-talba falliet. Jekk jogħġbok erġa pprova.",
+    "form": {
+      "placeholders": {
+        "email": "Daħħal l-indirizz tal-email tiegħek",
+        "feedback": "Daħħal il-feedback tiegħek hawn"
+      }
+    },
+    "policies": "Billi tkompli, taqbel ma ' {0} tagħna u tirrikonoxxi lil {1} tagħna.",
+    "privacyPolicy": "Regoli tal-privatezza",
+    "success": "Il-feedback tiegħek intbagħat.",
+    "termsOfService": "Termini tas-Servizz",
+    "thankYou": "Grazzi!",
+    "title": "Ibgħat feedback",
+    "validEmail": "Daħħal indirizz tal-email validu"
   },
   "fieldLabels": {
     "default": {
@@ -458,6 +484,7 @@ export default {
   "header": {
     "backToMenu": "Agħlaq il-Kaxxa tat-Tiftix",
     "clearQuery": "Ħassar il-Query tat-Tiftix",
+    "closeSidebar": "Agħlaq il-Menu",
     "entireCollection": "Fittex {query} fil-kollezzjoni sħiħa tagħna",
     "europeanaHome": "Europeana home",
     "inCollection": "Fittex {query} fi {collection}",
