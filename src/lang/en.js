@@ -54,9 +54,14 @@ export default {
     "by": "by",
     "categories": "Categories",
     "category": "Category",
-    "posts": "Blog posts",
+    "posts": "Blog post | Blog posts",
     "published": "Published {date}",
     "relatedPosts": "Related posts"
+  },
+  "cardLabels": {
+    "person": "Person",
+    "time": "Century",
+    "topic": "Topic"
   },
   "clearAllFilters": "clear all filters",
   "collections": {
