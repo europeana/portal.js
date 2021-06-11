@@ -128,6 +128,7 @@
         try {
           await this.$store.dispatch('set/like', this.value);
           this.$emit('like', this.value);
+          this.$matomo && this.$matomo.trackEvent('Item_like', 'Click like item button', this.value);
         } catch (e) {
           // TODO: remove when 100 item like limit is removed
           if (e.message === '100 likes') {
@@ -145,6 +146,7 @@
         if (this.$auth.loggedIn) {
           this.$bvModal.show(this.addItemToSetModalId);
           this.$emit('add', this.value);
+          this.$matomo && this.$matomo.trackEvent('Item_add', 'Click add item button', this.value);
         } else {
           this.keycloakLogin();
         }

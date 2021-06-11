@@ -53,6 +53,7 @@
       selectView(view) {
         if (view !== this.activeView) {
           this.activeView = view;
+          this.$matomo && this.$matomo.trackEvent('View search results', 'Select view', view);
         }
       }
     }
