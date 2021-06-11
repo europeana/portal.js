@@ -344,7 +344,7 @@ export default {
     "MIME_TYPE": {
       "name": "Formáid chomhaid | Formáidí comhaid",
       "options": {
-        "text\/plain": "Téacs simplí"
+        "text/plain": "Téacs simplí"
       }
     },
     "PROVIDER": {
@@ -445,7 +445,7 @@ export default {
       "edmIsSimilarTo": "Is cosúil leis",
       "edmIsSuccessorOf": "Is comharba é ar",
       "edmProvider": "Soláthraí",
-      "edmRealizes": "Tuigeann sé\/sí",
+      "edmRealizes": "Tuigeann sé/sí",
       "edmRights": "Ráiteas Ceadúnas do na meáin sa mhír seo (mura sonraítear a mhalairt)",
       "edmUgc": "Inneachar ginte le húsáideoirí",
       "europeanaCollectionName": "Ainm bailiúcháin",
