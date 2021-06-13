@@ -150,9 +150,9 @@ describe('entity harvester', () => {
     }),
 
     describe('getUrlFromUser', () => {
-      it('uses the contentfulExtension to get a URL', () => {
+      it('uses the contentfulExtension to get a URL', async() => {
         const wrapper = factory();
-        url = wrapper.vm.getUrlFromUser();
+        await wrapper.vm.getUrlFromUser();
         wrapper.vm.contentfulExtensionSdk.dialogs.openPrompt.should.have.been.called;
       });
     }),
@@ -186,7 +186,13 @@ describe('entity harvester', () => {
       context('when the url is not a recognized format', () => {
         it('shows an error', () => {
           const wrapper = factory();
-          wrapper.vm.entityParamsFromUrl('https://example.org').should.raiseError;
+          let error;
+          try {
+            wrapper.vm.entityParamsFromUrl('https://example.org');
+          } catch (e) {
+            error = e;
+          }
+          error.name.should.eq('Error');
         });
       });
     });
@@ -195,7 +201,7 @@ describe('entity harvester', () => {
       it('uses a contentful dialog and sets the message to failed', () => {
         const wrapper = factory();
         wrapper.vm.showError('this is the message');
-        contentfulSDKstub.dialogs.openAlert.should.have.been.calledWith({ title: 'Error', message: 'this is the message' });
+        wrapper.vm.contentfulExtensionSdk.dialogs.openAlert.should.have.been.calledWith({ title: 'Error', message: 'this is the message' });
         wrapper.vm.message.should.eq('Failed');
       });
     });
@@ -314,12 +320,10 @@ describe('entity harvester', () => {
   });
 
   describe('head', () => {
-    it('is Entity harvester - Contentful app', () => {
+    it('sets the title to: Entity harvester - Contentful app', () => {
       const wrapper = factory();
 
-      const headMeta = wrapper.vm.head().meta;
-
-      headMeta.find(meta => meta.property === 'title').content.should.eq('Entity harvester - Contentful app');
+      wrapper.vm.head().title.should.eq('Entity harvester - Contentful app');
     });
   });
 });
