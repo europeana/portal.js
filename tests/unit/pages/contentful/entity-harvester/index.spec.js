@@ -106,7 +106,7 @@ describe('entity harvester', () => {
 
     describe('harvestEntity', () => {
       context('when the entity can be retrieved', () => {
-        it('calls populateFields for the entity', () => {
+        it('calls populateFields for the entity', async() => {
           const wrapper = factory();
           sinon.replaceGetter(wrapper.vm.$apis.entity, 'getEntity', () => {
             return sinon.fake.returns(entityResponse);
@@ -114,10 +114,9 @@ describe('entity harvester', () => {
           sinon.replace(wrapper.vm, 'getUrlFromUser', sinon.fake.returns(`http://data.europeana.eu/${type}/base/${id}`));
           wrapper.vm.populateFields = sinon.spy();
 
-          wrapper.vm.harvestEntity();
-          console.log(`vm.message in spec: ${wrapper.vm.message}`);
-          wrapper.vm.message.should.eq('Success');
+          await wrapper.vm.harvestEntity();
           wrapper.vm.populateFields.should.have.been.called;
+          wrapper.vm.message.should.eq('Success');
         });
       });
       context('when the entity URL can NOT be parsed', () => {
@@ -133,7 +132,7 @@ describe('entity harvester', () => {
         });
       });
       context('when the entity can NOT be retrieved', () => {
-        it('shows an error for the response', () => {
+        it('shows an error for the response', async() => {
           const wrapper = factory();
           sinon.replaceGetter(wrapper.vm.$apis.entity, 'getEntity', () => {
             return sinon.fake.returns(errorResponse);
@@ -142,7 +141,7 @@ describe('entity harvester', () => {
           wrapper.vm.showError = sinon.spy();
           wrapper.vm.populateFields = sinon.spy();
 
-          wrapper.vm.harvestEntity();
+          await wrapper.vm.harvestEntity();
           wrapper.vm.populateFields.should.not.have.been.called;
           wrapper.vm.showError.should.have.been.called;
         });
