@@ -7,6 +7,7 @@
       :title="name"
       :description="headline"
       :hero="hero"
+      :context-label="$tc('exhibitions.exhibitions')"
     />
     <b-container>
       <b-row class="justify-content-center">
