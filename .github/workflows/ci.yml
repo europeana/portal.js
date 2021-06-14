@@ -129,6 +129,7 @@ jobs:
     - run: echo "PERCY_COMMIT=${GITHUB_SHA}" >> $GITHUB_ENV
     - run: envsubst < .github/workflows/support/ci/.env > docker/stack/app/.env
     - run: envsubst < .github/workflows/support/ci/.env > docker/stack/nightwatch/.env
+    - run: npm run test:stack pull app chrome-en chrome-ja chrome-nl
     - run: npm run test:e2e
     - run: npm run test:visual
 

@@ -1,7 +1,7 @@
 version: "3"
 services:
   nginx:
-    image: europeana/portaljs-nginx
+    image: europeana/portal.js-nginx
     build:
       context: ./nginx
     ports:
@@ -10,10 +10,9 @@ services:
     depends_on:
       - app
   app:
-    image: europeana/portaljs-app
+    image: europeana/portal.js
     build:
       context: ../..
-      dockerfile: ./docker/stack/app/Dockerfile
     expose:
       - "8080"
     env_file: ./app/.env
@@ -26,7 +25,7 @@ services:
       - NUXT_LOADING_THROTTLE=0
       - PORTAL_BASE_URL=https://nginx
   chrome-en:
-    image: europeana/portaljs-chrome:88.0
+    image: europeana/portal.js-chrome:88.0
     build:
       context: ./chrome
     environment:
@@ -35,7 +34,7 @@ services:
     volumes:
       - /dev/shm:/dev/shm
   chrome-ja:
-    image: europeana/portaljs-chrome:88.0
+    image: europeana/portal.js-chrome:88.0
     build:
       context: ./chrome
     environment:
@@ -44,7 +43,7 @@ services:
     volumes:
       - /dev/shm:/dev/shm
   chrome-nl:
-    image: europeana/portaljs-chrome:88.0
+    image: europeana/portal.js-chrome:88.0
     build:
       context: ./chrome
     environment:
@@ -53,10 +52,10 @@ services:
     volumes:
       - /dev/shm:/dev/shm
   nightwatch:
-    image: europeana/portaljs-nightwatch
+    image: europeana/portal.js-nightwatch
     build:
-      context: ../..
-      dockerfile: docker/stack/nightwatch/Dockerfile
+      context: ..
+      dockerfile: docker/nightwatch/Dockerfile
     depends_on:
       nginx:
         condition: service_started

@@ -20,12 +20,12 @@ RUN apk add --no-cache \
       nodejs \
       npm
 
-COPY docker/stack/nightwatch/package*.json docker/stack/nightwatch/percy.js ./
+COPY docker/nightwatch/package*.json docker/nightwatch/percy.js ./
 
 RUN npm install
 
-COPY tests/features tests/features
-COPY tests/visual tests/visual
+COPY features tests/features
+COPY visual tests/visual
 
 ENTRYPOINT ["npm", "run", "start"]
 CMD ["tests/features"]
