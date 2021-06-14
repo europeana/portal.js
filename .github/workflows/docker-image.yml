@@ -1,5 +1,7 @@
 name: Docker image
 
+# TODO: also build and push images for tests/docker/nginx & tests/docker/nightwatch?
+
 on:
   push:
     branches:
