@@ -39,12 +39,8 @@
       return {
         contentfulExtensionSdk: null,
         entry: null,
-        message: 'unset'
+        message: null
       };
-    },
-
-    watch: {
-      value: 'updateContentfulFields'
     },
 
     mounted() {
@@ -60,7 +56,7 @@
 
     methods: {
       async harvestEntity() {
-        const entityUrl = this.getUrlFromUser();
+        const entityUrl = await this.getUrlFromUser();
         if (!entityUrl) {
           return;
         }
@@ -84,7 +80,7 @@
       },
 
       async getUrlFromUser() {
-        return await this.contentfulExtensionSdk.dialogs.openPrompt({
+        return this.contentfulExtensionSdk.dialogs.openPrompt({
           title: 'Harvest',
           message: 'Enter a Europeana.eu entity/collection page URL, or an entity URI',
           intent: 'positive'

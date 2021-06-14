@@ -8,16 +8,6 @@ import sinon from 'sinon';
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
-// const contentfylExtensionSDKStub = sinon.stub();
-// const contentfylEntryStub = sinon.stub();
-
-//   dialogs: () => {
-//     openPrompt: () => {
-//       return userURL || 'UserURL';
-//     };
-//   };
-// };
-
 const entityResponse = {
   error: null,
   entity: {
@@ -120,13 +110,13 @@ describe('entity harvester', () => {
         });
       });
       context('when the entity URL can NOT be parsed', () => {
-        it('shows an error for the URL', () => {
+        it('shows an error for the URL', async() => {
           const wrapper = factory();
           sinon.replace(wrapper.vm, 'getUrlFromUser', sinon.fake.returns('https://example.org/failure'));
           wrapper.vm.showError = sinon.spy();
           wrapper.vm.populateFields = sinon.spy();
 
-          wrapper.vm.harvestEntity();
+          await wrapper.vm.harvestEntity();
           wrapper.vm.showError.should.have.been.calledWith('Unable to harvest from URL: https://example.org/failure Please make sure the URL conforms to the accepted formats.');
           wrapper.vm.populateFields.should.not.have.been.called;
         });
@@ -264,7 +254,7 @@ describe('entity harvester', () => {
           wrapper.vm.entry.fields.image.setValue.should.have.been.calledWith('thumbnailUrl');
         });
       });
-    }),
+    });
 
     describe('entityDescriptionFromResponse', () => {
       context('when entry is an Agent type entity', () => {
