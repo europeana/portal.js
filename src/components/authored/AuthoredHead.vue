@@ -7,6 +7,13 @@
       >
         <article>
           <div class="title">
+            <div
+              v-if="contextLabel"
+              class="context-label"
+              data-qa="context label"
+            >
+              {{ contextLabel }}
+            </div>
             <h2
               v-if="exhibitionTitle"
               class="subtitle mb-0"
@@ -72,6 +79,11 @@
 
       hero: {
         type: Object,
+        default: null
+      },
+
+      contextLabel: {
+        type: String,
         default: null
       }
     },

@@ -39,6 +39,7 @@ const factory = () => shallowMountNuxt(page, {
   },
   mocks: {
     $t: key => key,
+    $tc: () => {},
     $pageHeadTitle: key => key
   }
 });
