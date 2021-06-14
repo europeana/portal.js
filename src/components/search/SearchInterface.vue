@@ -334,6 +334,14 @@
       rerouteSearch(queryUpdates) {
         const query = this.updateCurrentSearchQuery(queryUpdates);
         this.$goto(this.$path({ ...this.route, ...{ query } }));
+        if (queryUpdates.qf) {
+          queryUpdates.qf.forEach(filter =>
+            this.$matomo && this.$matomo.trackEvent('Filters', 'Filter selected', filter)
+          );
+        }
+        if (queryUpdates.reusability) {
+          this.$matomo && this.$matomo.trackEvent('Filters', 'Reusability filter selected', queryUpdates.reusability);
+        }
       },
       updateCurrentSearchQuery(updates = {}) {
         const current = {
@@ -388,6 +396,7 @@
           noCloseButton: true,
           solid: true
         });
+        this.$matomo && this.$matomo.trackEvent('Tier 0 snackbar', 'Tier 0 snackbar appears', 'Tier 0 snackbar appears');
       }
     }
   };

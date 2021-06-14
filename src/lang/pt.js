@@ -1,5 +1,6 @@
 export default {
   "account": {
+    "editProfile": "Editar Perfil",
     "likes": "Gostos",
     "linkAccount": "A minha conta",
     "linkLogin": "Inicie sessão",
@@ -7,6 +8,8 @@ export default {
     "linkLogout": "Encerrar sessão",
     "myProfile": "Meu perfil",
     "notifications": {
+      "loggedIn": "Está agora autenticado. Bem-vindo!",
+      "loggedOut": "Está agora desconectado.",
       "noCollections": {
         "private": "Ainda não criou nenhuma galeria privada",
         "public": "Ainda não criou nenhuma galeria pública"
@@ -15,19 +18,25 @@ export default {
     },
     "privateCollections": "Galerias privadas",
     "profile": "Os meus gostos e galerias",
+    "profileSettings": "Configurações de perfil",
     "publicCollections": "Galerias públicas",
     "settings": "Definições",
     "title": "A minha conta"
   },
   "actions": {
+    "cancel": "Cancelar",
     "close": "fechar",
     "download": "Descarregar",
     "edit": "Editar",
+    "feedback": "Comentários",
     "goBack": "Voltar",
     "like": "Gosto",
+    "next": "Próximo",
     "providedBy": "Fornecido por {provider}",
+    "send": "Enviar",
     "share": "Partilhar",
     "shareOn": "Partilhe em {social}",
+    "skip": "Saltar passo",
     "viewAt": "Ver em {link}",
     "viewDocument": "Ver documento"
   },
@@ -373,6 +382,23 @@ export default {
       }
     }
   },
+  "feedback": {
+    "emailOptional": "Poderemos desejar fazer um seguimento. Introduza o seu e-mail se lhe agradar que entremos em contacto.",
+    "failed": "O pedido falhou. Por favor, tente novamente.",
+    "form": {
+      "placeholders": {
+        "email": "Digite seu endereço de e-mail",
+        "feedback": "Insira aqui o seu comentário"
+      }
+    },
+    "policies": "Ao continuar, você concorda com nossos {0} e reconhece nossos {1} .",
+    "privacyPolicy": "Política de Privacidade",
+    "success": "Seu feedback foi enviado.",
+    "termsOfService": "Termos de serviço",
+    "thankYou": "Obrigado!",
+    "title": "Enviar comentários",
+    "validEmail": "Digite um endereço de e-mail válido"
+  },
   "fieldLabels": {
     "default": {
       "dcContributor": "Colaboradores",
@@ -456,6 +482,7 @@ export default {
   "header": {
     "backToMenu": "Fechar caixa de pesquisa",
     "clearQuery": "Limpar consulta de pesquisa",
+    "closeSidebar": "Fechar Menu",
     "entireCollection": "Pesquise por {query} em toda a nossa coleção",
     "europeanaHome": "Página Inicial Europeana",
     "inCollection": "Pesquisar por {query} em {collection}",

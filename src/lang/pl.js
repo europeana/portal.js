@@ -8,6 +8,8 @@ export default {
     "linkLogout": "Wyloguj",
     "myProfile": "Mój profil",
     "notifications": {
+      "loggedIn": "Jesteś teraz zalogowany. Witamy!",
+      "loggedOut": "Teraz jesteś wylogowany.",
       "noCollections": {
         "private": "Nie masz jeszcze prywatnych galerii",
         "public": "Nie masz jeszcze galerii publicznych"
@@ -22,14 +24,19 @@ export default {
     "title": "Moje konto"
   },
   "actions": {
+    "cancel": "Anuluj",
     "close": "zamknij",
     "download": "Ściągnij",
     "edit": "Edytuj",
+    "feedback": "Sprzężenie zwrotne",
     "goBack": "Wróć",
     "like": "Lubię",
+    "next": "Następny",
     "providedBy": "Dostarczone przez {provider}",
+    "send": "Wyślij",
     "share": "Udostępnij",
     "shareOn": "Udostępnij na {social}",
+    "skip": "Pominąć",
     "viewAt": "Zobacz w {link}",
     "viewDocument": "Zobacz dokument"
   },
@@ -381,6 +388,23 @@ export default {
       }
     }
   },
+  "feedback": {
+    "emailOptional": "Możemy chcieć kontynuować. Wpisz swój adres e-mail, jeśli chcesz, abyśmy się z Tobą skontaktowali.",
+    "failed": "Żądanie nie powiodło się. Proszę spróbuj ponownie.",
+    "form": {
+      "placeholders": {
+        "email": "Wpisz swój adres e-mail",
+        "feedback": "Wpisz tutaj swoją opinię"
+      }
+    },
+    "policies": "Kontynuując, akceptujesz nasze {0} i potwierdzasz nasze {1} .",
+    "privacyPolicy": "Polityka prywatności",
+    "success": "Twoja opinia została wysłana.",
+    "termsOfService": "Warunki usługi",
+    "thankYou": "Dziękuję!",
+    "title": "Wyślij opinię",
+    "validEmail": "Wprowadzanie prawidłowego adresu e-mail"
+  },
   "fieldLabels": {
     "default": {
       "dcContributor": "Współtwórcy",
@@ -464,6 +488,7 @@ export default {
   "header": {
     "backToMenu": "Zamknij pole wyszukiwania",
     "clearQuery": "Wyczyść zapytanie",
+    "closeSidebar": "Zamknij menu",
     "entireCollection": "Wyszukaj {query} w całej naszej kolekcji",
     "europeanaHome": "Strona główna Europeany",
     "inCollection": "Wyszukaj {query} w {collection}",

@@ -28,6 +28,7 @@ export default {
     "close": "fermer",
     "download": "Télécharger",
     "edit": "Modifier",
+    "feedback": "Commentaires",
     "goBack": "Retour en arrière",
     "like": "Mention J'aime",
     "next": "Suivant",
@@ -35,6 +36,7 @@ export default {
     "send": "Envoyer",
     "share": "Partagez",
     "shareOn": "Partager sur {social}",
+    "skip": "Passer",
     "viewAt": "Consulter sur {link}",
     "viewDocument": "Afficher le document"
   },
@@ -513,6 +515,13 @@ export default {
     "itemCount": "1 article |{count} éléments",
     "itemOf": "{max} sur {count} éléments",
     "youMightLike": "Articles susceptibles de vous intéresser"
+  },
+  "klaro": {
+    "main": {
+      "consentNotice": {
+        "description": "Nous nous soucions de votre vie privée et n'utilisons les données que pour améliorer votre expérience. Nous n'utilisons aucune information personnelle à des fins publicitaires. Vous pouvez modifier votre consentement tous les 15 jours."
+      }
+    }
   },
   "layout": {
     "skipToMain": "Passer au contenu de la page"
