@@ -92,8 +92,12 @@
         const msg = this.$store.state.sanitised.page === 1 ?  this.$t('entity.notifications.unpinnedFirstPage') : this.$t('entity.notifications.unpinned');
         this.makeToast(msg);
       },
-      togglePin() {
-        this.pinned ? this.unpin() : this.pin();
+      async togglePin() {
+        if (this.pinned) {
+          await this.unpin();
+        } else {
+          await this.pin();
+        }
       },
       hide() {
         this.$bvModal.hide(this.modalId);

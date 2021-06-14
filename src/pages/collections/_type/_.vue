@@ -49,7 +49,7 @@
             :per-page="recordsPerPage"
             :route="route"
             :show-content-tier-toggle="false"
-            :show-pins="userIsEditor"
+            :show-pins="userIsEditor && userIsSetsEditor"
           />
         </b-col>
       </b-row>
@@ -167,9 +167,7 @@
         entity: state => state.entity.entity,
         page: state => state.entity.page,
         relatedEntities: state => state.entity.relatedEntities,
-        recordsPerPage: state => state.entity.recordsPerPage,
-        featuredSetId: state => state.entity.featuredSetId,
-        pinned: state => state.entity.pinned
+        recordsPerPage: state => state.entity.recordsPerPage
       }),
       description() {
         return this.editorialDescription ? { values: [this.editorialDescription], code: null } : null;
@@ -214,6 +212,9 @@
       },
       userIsEditor() {
         return this.$store.state.auth.user && this.$store.state.auth.user.resource_access.entities && this.$store.state.auth.user.resource_access.entities.roles.includes('editor');
+      },
+      userIsSetsEditor() {
+        return this.$store.state.auth.user && this.$store.state.auth.user.resource_access.usersets && this.$store.state.auth.user.resource_access.usersets.roles.includes('editor');
       },
       route() {
         return {
