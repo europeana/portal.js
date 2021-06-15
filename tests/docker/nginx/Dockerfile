@@ -1,3 +1,4 @@
+# 1. Build
 FROM nginx:stable
 
 RUN apt-get update && \
@@ -10,6 +11,11 @@ RUN mkdir /etc/nginx/ssl && \
 
 COPY nginx.conf /etc/nginx/nginx.conf
 COPY conf.d/* /etc/nginx/conf.d/
+
+# 2. Run
+FROM nginx:stable-alpine
+
+COPY --from=0 /etc/nginx /etc/nginx
 
 EXPOSE 80
 EXPOSE 443
