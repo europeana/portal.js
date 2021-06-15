@@ -39,7 +39,7 @@
     "test:e2e": "npm run test:stack:build && docker-compose -f ./tests/docker/docker-compose.yml run --rm nightwatch",
     "test:setup": "docker-compose -f ./tests/docker/docker-compose.yml rebuild && cd tests/size/ && npm install",
     "test:size": "npm run build && cd tests/size/ && npm run start",
-    "test:stack:build": "docker build -t europeana/portal.js:test . && docker-compose -f ./tests/docker/docker-compose.yml build --parallel",
+    "test:stack:build": "docker buildx build -t europeana/portal.js:test . && docker-compose -f ./tests/docker/docker-compose.yml build --parallel",
     "test:stack:down": "docker-compose -f ./tests/docker/docker-compose.yml down",
     "test:stack:rebuild": "docker-compose -f ./tests/docker/docker-compose.yml down && npm run test:stack:build",
     "test:stack:start": "docker-compose -f ./tests/docker/docker-compose.yml start app nginx chrome-en chrome-ja chrome-nl",
