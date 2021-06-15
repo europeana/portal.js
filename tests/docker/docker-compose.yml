@@ -8,9 +8,7 @@ services:
     depends_on:
       - app
   app:
-    image: europeana/portal.js
-    build:
-      context: ../..
+    image: europeana/portal.js:test
     expose:
       - "8080"
     env_file: ./app/.env
