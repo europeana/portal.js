@@ -1,4 +1,4 @@
-# Multi-stage image build to build and run europeana/portal.js
+# Multi-stage image to build and run europeana/portal.js
 
 # 1. Build
 FROM node:12-alpine
