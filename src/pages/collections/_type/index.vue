@@ -50,7 +50,7 @@
     },
     middleware: 'sanitisePageQuery',
     asyncData({ params, error, app, store }) {
-      if (!['persons', 'topics', 'times'].includes(params.type)) {
+      if (!['persons', 'topics', 'times', 'organisations'].includes(params.type)) {
         return  error({ statusCode: 404, message: 'unknown collection type' });
       }
 

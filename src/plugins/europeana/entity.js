@@ -173,7 +173,8 @@ export function getEntityTypeApi(type) {
   const names = {
     person: 'agent',
     topic: 'concept',
-    time: 'timespan'
+    time: 'timespan',
+    organisation: 'organization'
   };
   return type ? names[type] : null;
 }
@@ -187,7 +188,8 @@ export function getEntityTypeHumanReadable(type) {
   const names = {
     agent: 'person',
     concept: 'topic',
-    timespan: 'time'
+    timespan: 'time',
+    organization: 'organisation'
   };
   return type ? names[type.toLowerCase()] : null;
 }

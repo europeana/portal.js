@@ -1,6 +1,13 @@
 <template>
   <b-row class="mb-3">
     <b-col>
+      <img
+        v-if="depiction"
+        :src="depiction"
+        alt=""
+        class="depiction"
+        data-qa="entity depiction"
+      >
       <div
         class="context-label"
         data-qa="entity label"
@@ -15,7 +22,7 @@
       </h1>
       <div
         v-if="hasDescription"
-        class="mb-3 w-75 description"
+        class="mb-2 w-75 description"
       >
         <p
           data-qa="entity description"
@@ -33,25 +40,25 @@
           {{ showAll ? $t('showLess') : $t('showMore') }}
         </b-button>
       </div>
-      <SmartLink
-        v-if="hasDescription && !isEditorialDescription"
-        destination="/rights/europeana-data-sources"
-        class="d-flex font-weight-bold is-size-4"
+      <div
+        v-if="externalLink"
+        class="external-link"
+        data-qa="entity external link"
       >
-        {{ $t('learnMore') }}
-      </SmartLink>
+        {{ $t('website') }}:
+        <b-link
+          :href="externalLink"
+          target="_blank"
+        >
+          {{ externalLink }}
+        </b-link>
+      </div>
     </b-col>
   </b-row>
 </template>
 
 <script>
-  import SmartLink from '../../components/generic/SmartLink';
-
   export default {
-    components: {
-      SmartLink
-    },
-
     props: {
       title: {
         type: Object,
@@ -69,6 +76,14 @@
       contextLabel: {
         type: String,
         required: true
+      },
+      depiction: {
+        type: String,
+        default: null
+      },
+      externalLink: {
+        type: String,
+        default: null
       }
     },
     data() {
@@ -100,21 +115,16 @@
   @import '../../assets/scss/variables.scss';
   @import '../../assets/scss/icons.scss';
 
-  .depiction {
-    box-shadow: $boxshadow-small;
-    padding-top: 100%;
-    width: 100%;
+  h1 {
+    margin-bottom: 0.5rem;
+  }
 
-    img {
-      bottom: 0;
-      height: 100%;
-      left: 0;
-      object-fit: cover;
-      position: absolute;
-      right: 0;
-      top: 0;
-      width: 100%;
-    }
+  .depiction {
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
+    margin-bottom: 1.5rem;
+    object-fit: cover;
   }
 
   .btn-link {
@@ -125,6 +135,21 @@
 
     &:hover {
       text-decoration: none;
+    }
+  }
+
+  .external-link {
+    font-size: $font-size-small;
+    font-weight: 600;
+    color: $mediumgrey;
+
+    &:before {
+      @extend .icon-font;
+      display: inline-block;
+      content: '\e936';
+      font-size: 1.125rem;
+      line-height: 1;
+      margin-top: -0.2rem;
     }
   }
 
@@ -141,6 +166,12 @@
         content: '\e923';
         margin-right: 0.325rem;
       }
+    }
+  }
+
+  .description {
+    p:last-child {
+      margin-bottom: 0;
     }
   }
 
