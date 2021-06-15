@@ -74,6 +74,7 @@
     "nuxt-google-optimize": "github:europeana/nuxt-google-optimize#evaluated-experiment-IDs",
     "nuxt-i18n": "^6.10.1",
     "qs": "^6.6.0",
+    "redis": "^3.1.2",
     "swiper": "^6.1.2",
     "vue": "^2.6.12",
     "vue-awesome-swiper": "^4.1.1",

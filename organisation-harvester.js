@@ -1,41 +1,50 @@
 require('dotenv').config();
 const axios = require('axios');
+const redis = require('redis');
 
 const BASE_URL = process.env.EUROPEANA_ENTITY_API_URL || 'https://api.europeana.eu/entity';
 const EUROPEANA_API_KEY = process.env.EUROPEANA_ENTITY_API_KEY || process.env.EUROPEANA_API_KEY;
 
-const $axios = axios.create({ id: 'entity',
+const axiosConfig = { id: 'entity',
   baseURL: BASE_URL,
   params: {
     wskey: EUROPEANA_API_KEY
-  } });
+  } };
 
-function searchEntities(page) {
+const redisConfig = () => {
+  const redisOptions = {};
+
+  if (process.env.REDIS_URL) {
+    console.log(process.env.REDIS_URL);
+    redisOptions.url = process.env.REDIS_URL;
+
+    // is tls cert required?
+    if (process.env.REDIS_TLS_CA) {
+      redisOptions.tls = {
+        ca: [Buffer.from(process.env.REDIS_TLS_CA, 'base64')]
+      };
+    }
+  }
+
+  return redisOptions;
+};
+
+const $axios = axios.create(axiosConfig);
+const client = redis.createClient(redisConfig());
+const perPage = 100;
+
+function getEntitySearchPage(page) {
   return $axios.get('/search', {
     params: {
       ...$axios.defaults.params,
       query: '*:*',
       type: 'organization',
       page,
-      pageSize: 100
+      pageSize: perPage
     }
   })
     .then((response) => {
-      const organizations = [];
-      response.data.items.forEach(organization => {
-        // add or remove desired fields
-        const strippedOrganization = {
-          id: organization.id,
-          identifier: organization.identifier,
-          prefLabel: organization.prefLabel,
-          ...organization.homepage && { homepage: organization.homepage }
-        };
-        organizations.push(strippedOrganization);
-      }
-      );
-
-      console.log(JSON.stringify(organizations));
-      totalOrganistations = response.data.partOf.total; // set the actual total of organisations for the looped request
+      return response.data;
     })
     .catch((error) => {
       const message = error.response ? error.response.data.error : error.message;
@@ -43,10 +52,48 @@ function searchEntities(page) {
     });
 }
 
-let pageNumber = 0;
-let totalOrganistations = 3000;
-// the API allows 100 entities per request. Loop until all organisations are retrieved.
-while (pageNumber < Math.ceil(totalOrganistations / 100)) {
-  searchEntities(pageNumber);
-  pageNumber = pageNumber + 1;
+function isLastPage(page, total) {
+  if (!total) {
+    return false;
+  }
+  return (page + 1 === Math.ceil(total / perPage));
 }
+
+function persistableFields(organisation) {
+  return {
+    id: organisation.id,
+    prefLabel: organisation.prefLabel,
+    ...organisation.homepage && { homepage: organisation.homepage }
+  };
+}
+// function stringifyOrganisation(organisation) {
+//   return JSON.stringify(organisation);
+// }
+
+async function run() {
+  let page = 0;
+  let total;
+  const organisations = [];
+  while (!isLastPage(page, total)) {
+    const searchResults = await getEntitySearchPage(page);
+    if (!total) {
+      total = searchResults.partOf.total;
+    }
+    organisations.push(...searchResults.items.map((organisation) => {
+      return persistableFields(organisation);
+    }));
+    console.log(`got page ${page}`);
+    page += 1;
+  }
+  if (organisations && organisations.length > 1) {
+    console.log('writing to redis');
+    // client.hmset('organisations', organisations.map((org) => {
+    //   return stringifyOrganisation(org);
+    // }));
+    // client.set('organisations', stringifyOrganisation(organisations));
+    client.sadd('organisations', organisations);
+  }
+  return 'success';
+}
+
+run();
