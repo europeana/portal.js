@@ -131,8 +131,11 @@ jobs:
     - run: envsubst < .github/workflows/support/ci/.env > tests/docker/nightwatch/.env
     - run: |
         docker pull europeana/portal.js:master
+        docker tag europeana/portal.js:master docker pull europeana/portal.js:latest
         docker pull europeana/portal.js-nginx:master
+        docker tag europeana/portal.js-nginx:master docker pull europeana/portal.js-nginx:latest
         docker pull europeana/portal.js-nightwatch:master
+        docker tag europeana/portal.js-nightwatch:master docker pull europeana/portal.js-nightwatch:latest
     - run: npm run test:e2e
     - run: npm run test:visual
 
