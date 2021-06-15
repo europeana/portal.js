@@ -1,7 +1,7 @@
 version: "3"
 services:
   nginx:
-    image: europeana/portal.js-nginx
+    image: europeana/portal.js-nginx:master
     build:
       context: ./nginx
     ports:
@@ -10,7 +10,7 @@ services:
     depends_on:
       - app
   app:
-    image: europeana/portal.js
+    image: europeana/portal.js:master
     build:
       context: ../..
     expose:
@@ -55,7 +55,7 @@ services:
     volumes:
       - /dev/shm:/dev/shm
   nightwatch:
-    image: europeana/portal.js-nightwatch
+    image: europeana/portal.js-nightwatch:master
     build:
       context: ..
       dockerfile: docker/nightwatch/Dockerfile
