@@ -1,5 +1,17 @@
 # Multi-stage image to build and run europeana/portal.js
 
+# 0. Prevent re-installing npm packages on non-dependency changes to package.json
+FROM alpine
+
+WORKDIR /app
+
+RUN apk add --no-cache jq
+
+COPY package.json package-original.json
+
+RUN jq -Mr '{dependencies,devDependencies}' package-original.json > package.json
+
+
 # 1. Build
 FROM node:12-alpine
 
@@ -14,16 +26,18 @@ WORKDIR /app
 RUN apk add --no-cache git
 
 COPY bin ./bin
-COPY package.json package-lock.json ./
+COPY --from=0 /app/package.json .
+COPY package-lock.json ./
 
 RUN npm install
 
-COPY .babelrc .env.example nuxt.config.js *.md ./
+COPY .babelrc .env.example nuxt.config.js package.json *.md ./
 COPY src ./src
 
 RUN npm run build
 
 RUN npm prune --production
+
 
 # 2. Run
 FROM node:12-alpine
@@ -36,6 +50,6 @@ EXPOSE ${PORT}
 
 WORKDIR /app
 
-COPY --from=0 /app .
+COPY --from=1 /app .
 
 CMD ["npm", "run", "start"]
