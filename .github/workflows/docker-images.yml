@@ -100,8 +100,8 @@ jobs:
         name: Build and push
         uses: docker/build-push-action@v2
         with:
-          context: ./tests
-          file: ./tests/docker/nightwatch/Dockerfile
+          context: ./tests/docker/nightwatch
+          file: ./tests/docker/nightwatch/Dockerfile.base
           pull: true
           push: true
           tags: ${{ steps.meta.outputs.tags }}

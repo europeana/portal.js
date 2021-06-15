@@ -129,10 +129,8 @@ jobs:
     - run: echo "PERCY_COMMIT=${GITHUB_SHA}" >> $GITHUB_ENV
     - run: envsubst < .github/workflows/support/ci/.env > tests/docker/app/.env
     - run: envsubst < .github/workflows/support/ci/.env > tests/docker/nightwatch/.env
-    - run: |
-        docker-compose -f tests/docker/docker-compose.yml pull
-        npm run test:e2e
-        npm run test:visual
+    - run: npm run test:e2e
+    - run: npm run test:visual
 
   # TODO: limit to internal PRs, i.e. those from within the repo
   deploy:
