@@ -53,7 +53,7 @@ services:
     volumes:
       - /dev/shm:/dev/shm
   nightwatch:
-    image: europeana/portal.js-nightwatch
+    image: europeana/portal.js-nightwatch:master
     build:
       context: ..
       dockerfile: docker/nightwatch/Dockerfile
