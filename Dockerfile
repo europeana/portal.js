@@ -1,7 +1,7 @@
 # Multi-stage image to build and run europeana/portal.js
 
 # 0. Prevent re-installing npm packages on non-dependency changes to package.json
-FROM alpine
+FROM alpine:3
 
 WORKDIR /app
 
