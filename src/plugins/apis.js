@@ -3,6 +3,7 @@ import entity from './europeana/entity';
 import recommendation from './europeana/recommendation';
 import record from './europeana/record';
 import set from './europeana/set';
+import entityManagement from './europeana/entity-management';
 
 import { apiUrlFromRequestHeaders } from './europeana/utils';
 
@@ -17,7 +18,8 @@ const storeModule = {
       entity: null,
       recommendation: null,
       record: null,
-      set: null
+      set: null,
+      entityManagement: null
     }
   }),
 
@@ -43,7 +45,8 @@ export default (context, inject) => {
     entity: entity(context),
     recommendation: recommendation(context),
     record: record(context),
-    set: set(context)
+    set: set(context),
+    entityManagement: entityManagement(context)
   };
 
   inject(MODULE_NAME, plugin);
