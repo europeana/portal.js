@@ -7,7 +7,8 @@ export default {
     id: null,
     page: null,
     recordsPerPage: 24,
-    relatedEntities: null
+    relatedEntities: null,
+    editable: false
   }),
 
   mutations: {
@@ -25,6 +26,18 @@ export default {
     },
     setCuratedEntities(state, value) {
       state.curatedEntities = value;
+    },
+    setEntityDescription(state, value) {
+      state.entity.note = value;
+    },
+    setEditable(state, value) {
+      state.editable = value;
+    },
+    setProxy(state, value) {
+      state.entity.proxy = value;
+    },
+    setProxyDescription(state, value) {
+      state.entity.proxy.note = value;
     }
   },
 
@@ -81,6 +94,15 @@ export default {
       commit('search/set', ['overrideParams', overrideParams], { root: true });
 
       await dispatch('search/run', {}, { root: true });
+    },
+
+    updateEntity({ commit }, { id, body }) {
+      return this.$apis.entityManagement.updateEntity(id.split('/').pop(), body)
+        .then(response => {
+          commit('setProxyDescription', body.note);
+          commit('setEntityDescription', response.note);
+        });
     }
+
   }
 };

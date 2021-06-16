@@ -66,6 +66,16 @@ export default {
   },
   "clearAllFilters": "clear all filters",
   "collections": {
+    "actions": {
+      "edit": "Edit Collection",
+      "update": "Update Collection"
+    },
+    "form": {
+      "description": "Description"
+    },
+    "notifications": {
+      "update": "The collection has been updated"
+    },
     "fashion": {
       "facets": {
         "CREATOR": {
