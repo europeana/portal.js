@@ -4,6 +4,7 @@ import BootstrapVue from 'bootstrap-vue';
 
 import page from '../../../../../src/pages/contentful/entity-harvester/index';
 import sinon from 'sinon';
+import { apiError } from '@/plugins/europeana/utils';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
@@ -64,10 +65,15 @@ const factory = () => shallowMountNuxt(page, {
   }
 });
 
-const errorResponse = {
-  action: '/entity/agent/base/20.json',
-  success: false,
-  error: 'There was an error'
+const responseError = {
+  response: {
+    data: {
+      action: '/entity/agent/base/20.json',
+      success: false,
+      error: 'There was an error',
+      status: 500
+    }
+  }
 };
 
 const entityFields = ['identifier', 'slug', 'type', 'name', 'description', 'image'];
@@ -117,7 +123,7 @@ describe('entity harvester', () => {
           wrapper.vm.populateFields = sinon.spy();
 
           await wrapper.vm.harvestEntity();
-          wrapper.vm.showError.should.have.been.calledWith('Unable to harvest from URL: https://example.org/failure Please make sure the URL conforms to the accepted formats.');
+          wrapper.vm.showError.should.have.been.calledWith('Unable to parse URL: https://example.org/failure Please make sure the URL conforms to the accepted formats.');
           wrapper.vm.populateFields.should.not.have.been.called;
         });
       });
@@ -125,7 +131,7 @@ describe('entity harvester', () => {
         it('shows an error for the response', async() => {
           const wrapper = factory();
           sinon.replaceGetter(wrapper.vm.$apis.entity, 'getEntity', () => {
-            return sinon.fake.returns(errorResponse);
+            throw apiError(responseError);
           });
           sinon.replace(wrapper.vm, 'getUrlFromUser', sinon.fake.returns(`http://data.europeana.eu/${type}/base/${id}`));
           wrapper.vm.showError = sinon.spy();
@@ -133,7 +139,23 @@ describe('entity harvester', () => {
 
           await wrapper.vm.harvestEntity();
           wrapper.vm.populateFields.should.not.have.been.called;
-          wrapper.vm.showError.should.have.been.called;
+          wrapper.vm.showError.should.have.been.calledWith(`Unable to harvest: http://data.europeana.eu/${type}/base/${id} Please make sure the entity can be accessed on the entity API. ${responseError.response.data.error}`);
+        });
+      });
+      context('when the entry fields can NOT be set', () => {
+        it('shows an error', async() => {
+          const wrapper = factory();
+          sinon.replaceGetter(wrapper.vm.$apis.entity, 'getEntity', () => {
+            return sinon.fake.returns(entityResponse);
+          });
+          sinon.replace(wrapper.vm, 'getUrlFromUser', sinon.fake.returns(`http://data.europeana.eu/${type}/base/${id}`));
+          sinon.replace(wrapper.vm, 'populateFields', () => {
+            throw Error('Contentful error');
+          });
+          wrapper.vm.showError = sinon.spy();
+
+          await wrapper.vm.harvestEntity();
+          wrapper.vm.showError.should.have.been.calledWith('There was a problem updating the entry. Contentful error');
         });
       });
     }),
