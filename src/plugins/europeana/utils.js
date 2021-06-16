@@ -123,6 +123,13 @@ export const selectLocaleForLangMap = (langMap, locale) => {
       return key;
     }
   }
+  if (isJSONLDExpanded(langMap)) {
+    for (const key of languageKeys(locale)) {
+      if (langMap.some((langValue) => langValue['@language'] === key)) {
+        return key;
+      }
+    }
+  }
   return Object.keys(langMap)[0];
 };
 
