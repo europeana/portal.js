@@ -141,14 +141,21 @@ export function normalizeEntityId(id) {
  * @return {string} Record API query
  */
 export function getEntityQuery(uri) {
+  let entityQuery;
+
   if (uri.includes('/concept/base/')) {
-    return `skos_concept:"${uri}"`;
+    entityQuery = `skos_concept:"${uri}"`;
   } else if (uri.includes('/agent/base/')) {
-    return `edm_agent:"${uri}"`;
+    entityQuery = `edm_agent:"${uri}"`;
   } else if (uri.includes('/timespan/')) {
-    return `edm_timespan:"${uri}"`;
+    entityQuery = `edm_timespan:"${uri}"`;
+  } else if (uri.includes('/organization/')) {
+    entityQuery = `foaf_organization:"${uri}"`;
+  } else {
+    throw new Error(`Unsupported entity URI "${uri}"`);
   }
-  return null;
+
+  return entityQuery;
 }
 
 /**

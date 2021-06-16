@@ -22,10 +22,6 @@ export const defaultFacetNames = [
 const filtersFromQf = (qfs) => {
   const filters = {};
 
-  if (!qfs || !qfs[0]) {
-    return filters;
-  }
-
   for (const qf of [].concat(qfs || [])) {
     const qfParts = qf.split(':');
     const name = qfParts[0];

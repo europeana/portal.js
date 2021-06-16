@@ -321,10 +321,24 @@ describe('plugins/europeana/entity', () => {
       });
     });
 
+    context('when entity is a timespan', () => {
+      const uri = 'http://data.europeana.eu/timespan/20';
+      it('queries on edm_timespan', () => {
+        getEntityQuery(uri).should.eq(`edm_timespan:"${uri}"`);
+      });
+    });
+
+    context('when entity is an organization', () => {
+      const uri = 'http://data.europeana.eu/organization/12345';
+      it('queries on foaf_organization', () => {
+        getEntityQuery(uri).should.eq(`foaf_organization:"${uri}"`);
+      });
+    });
+
     context('otherwise', () => {
       const uri = 'http://data.europeana.eu/place/base/12345';
-      it('is `null`', () => {
-        (getEntityQuery(uri) === null).should.be.true;
+      it('throws an error', () => {
+        (() => getEntityQuery(uri) === null).should.throw(`Unsupported entity URI "${uri}"`);
       });
     });
   });
