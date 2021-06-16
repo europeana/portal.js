@@ -2,8 +2,8 @@
   <b-row class="mb-3">
     <b-col>
       <img
-        v-if="depiction"
-        :src="depiction"
+        v-if="resizedDepiction"
+        :src="resizedDepiction"
         alt=""
         class="depiction"
         data-qa="entity depiction"
@@ -58,6 +58,8 @@
 </template>
 
 <script>
+  import { getWikimediaThumbnailUrl } from '../../plugins/europeana/entity';
+
   export default {
     props: {
       title: {
@@ -101,6 +103,12 @@
       },
       fullDescription() {
         return this.hasDescription ? this.description.values[0] : '';
+      },
+      resizedDepiction() {
+        if (new RegExp('.wiki[mp]edia.org/wiki/Special:FilePath/').test(this.depiction)) {
+          return getWikimediaThumbnailUrl(this.depiction, 60);
+        }
+        return this.depiction;
       }
     },
     methods: {

@@ -1,7 +1,7 @@
 import nock from 'nock';
 
 import api, {
-  getEntityQuery, getEntitySlug, getEntityUri, BASE_URL, entityParamsFromUri, isEntityUri
+  getEntityQuery, getEntitySlug, getEntityUri, BASE_URL, entityParamsFromUri, isEntityUri, getWikimediaThumbnailUrl
 } from '../../../../src/plugins/europeana/entity';
 
 const entityId = '94-architecture';
@@ -349,6 +349,15 @@ describe('plugins/europeana/entity', () => {
     it('constructs URL slug from numeric ID and prefLabel.en', () => {
       const slug = getEntitySlug(entity.id, entity.prefLabel.en);
       return slug.should.eq('147831-architecture');
+    });
+  });
+
+  describe('getWikimediaThumbnailUrl', () => {
+    const depiction = 'http://commons.wikimedia.org/wiki/Special:FilePath/Exterieur%20Centraal%20Museum.jpg';
+
+    it('returns an wikimedia thumbnail url starting with https://upload.wikimedia.org', () => {
+      const thumbnail = getWikimediaThumbnailUrl(depiction, 60);
+      return thumbnail.should.contain('https://upload.wikimedia.org');
     });
   });
 
