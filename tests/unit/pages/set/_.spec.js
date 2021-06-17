@@ -43,9 +43,19 @@ const factory = (set = {}) => shallowMountNuxt(page, {
 
 describe('Set page', () => {
   describe('head()', () => {
-    context('when the description exists', () => {
+    context('when the set has a description', () => {
       const set = { id: 1, title: { en: 'My set' }, description: { en: 'A test set' }, creator: { nickname: 'Tester' } };
-      it('uses the set title', () => {
+
+      it('is used as the content for the description meta tag', () => {
+        const wrapper = factory(set);
+
+        const headMeta = wrapper.vm.head().meta;
+
+        headMeta.filter(meta => meta.name === 'description').length.should.eq(1);
+        headMeta.find(meta => meta.name === 'description').content.should.eq('A test set');
+      });
+
+      it('is used as the content for the og:description meta tag', () => {
         const wrapper = factory(set);
 
         const headMeta = wrapper.vm.head().meta;
@@ -54,9 +64,19 @@ describe('Set page', () => {
         headMeta.find(meta => meta.property === 'og:description').content.should.eq('A test set');
       });
     });
-    context('when the description does NOT exists', () => {
+
+    context('when the set does NOT have a description', () => {
       const set = { id: 1, title: { en: 'My set' }, creator: { nickname: 'Tester' } };
-      it('uses the set title', () => {
+
+      it('omits the description meta tag', () => {
+        const wrapper = factory(set);
+
+        const headMeta = wrapper.vm.head().meta;
+
+        headMeta.filter(meta => meta.name === 'description').length.should.eq(0);
+      });
+
+      it('omits the og:description meta tag', () => {
         const wrapper = factory(set);
 
         const headMeta = wrapper.vm.head().meta;
