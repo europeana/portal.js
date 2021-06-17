@@ -63,7 +63,7 @@ const persistableFields = ({ identifier, prefLabel }) => {
 
 const main = async() => {
   let allResults = [];
-  let page = 31;
+  let page = 1;
   let pageOfResults;
 
   // the API allows 100 entities per request. Loop until all organisations are retrieved.
