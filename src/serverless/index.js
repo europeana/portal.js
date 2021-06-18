@@ -1,19 +1,18 @@
 const cli = {
-  harvest: {
-    organisations: require('./harvest/organisations')
-  }
+  'entities:organisations:fetch': require('./entities/organisations/fetch'),
+  'entities:organisations:harvest': require('./entities/organisations/harvest')
 };
 
 const main = () => {
-  return cli[process.argv[2]][process.argv[3]].cli();
+  return cli[process.argv[2]].cli();
 };
 
 main()
-  .then(({ message }) => {
-    console.log(`SUCCESS: ${message}`);
-    process.exit();
+  .then(({ body }) => {
+    console.log(`SUCCESS: ${body}`);
+    process.exit(0);
   })
-  .catch(({ message }) => {
-    console.log(`ERROR: ${message}`);
+  .catch(({ body }) => {
+    console.log(`ERROR: ${body}`);
     process.exit(1);
   });

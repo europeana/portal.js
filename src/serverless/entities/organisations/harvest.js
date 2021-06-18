@@ -93,10 +93,10 @@ const main = async(params = {}) => {
     const key = '/@europeana/portal.js/entity/organizations';
     return redisSetAsync(key, JSON.stringify(organisations, null, 2))
       .then(() => ({
-        message: `Wrote ${Object.keys(organisations).length} organisations to Redis "${key}".`
+        body: `Wrote ${Object.keys(organisations).length} organisations to Redis "${key}".`
       }));
   } catch (error) {
-    return new Promise((resolve, reject) => reject({ message: errorMessage(error) }));
+    return new Promise((resolve, reject) => reject({ body: errorMessage(error) }));
   }
 };
 
