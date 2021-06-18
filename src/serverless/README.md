@@ -5,9 +5,12 @@ serverless computing environment.
 
 ## Contents
 
-* `harvest/`
-  * `organisations`: Harvests organisations from the Entity API and writes to
-    Redis cache, for use on organisation hub page.
+* `organisations/`
+  * `entities/`
+    * `fetch`: Fetches harvested organisations from the Redis cache, for use on
+      the organisation hub page.
+    * `harvest`: Harvests organisations from the Entity API and writes to the
+      Redis cache.
 
 ## TODO
 
