@@ -45,10 +45,8 @@ const getEntitySearchPage = page => {
     }
   })
     .then(response => response.data.items)
-    .then(items => {
-      return items ? items.map(persistableFields) : [];
-    })
-    .catch((error) => {
+    .then(items => items ? items.map(persistableFields) : [])
+    .catch(error => {
       const message = error.response ? error.response.data.error : error.message;
       throw new Error(message);
     });
@@ -63,7 +61,7 @@ const persistableFields = ({ identifier, prefLabel }) => {
 
 const main = async(callback) => {
   let allResults = [];
-  let page = 1;
+  let page = 0; // Yes, the Entity API pagination starts at page 0. ¯\_(ツ)_/¯
   let pageOfResults;
 
   // the API allows 100 entities per request. Loop until all organisations are retrieved.
