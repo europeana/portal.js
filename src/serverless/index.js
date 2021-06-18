@@ -4,8 +4,12 @@ const cli = {
   }
 };
 
+const exit = () => {
+  process.exit();
+};
+
 const main = () => {
-  cli[process.argv[2]][process.argv[3]].main();
+  cli[process.argv[2]][process.argv[3]].main(exit);
 };
 
 main();

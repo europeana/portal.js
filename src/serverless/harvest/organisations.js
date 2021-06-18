@@ -61,7 +61,7 @@ const persistableFields = ({ identifier, prefLabel }) => {
   };
 };
 
-const main = async() => {
+const main = async(callback) => {
   let allResults = [];
   let page = 1;
   let pageOfResults;
@@ -81,11 +81,7 @@ const main = async() => {
 
   const key = '/entity/organizations';
   console.log(`Writing ${Object.keys(organisations).length} organisations to Redis @ ${key}`);
-  // client.hmset('organisations', organisations.map((org) => {
-  //   return stringifyOrganisation(org);
-  // }));
-  // client.set('organisations', stringifyOrganisation(organisations));
-  client.set(key, JSON.stringify(organisations, null, 2));
+  client.set(key, JSON.stringify(organisations, null, 2), callback);
 };
 
 module.exports = {
