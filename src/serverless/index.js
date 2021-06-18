@@ -4,12 +4,16 @@ const cli = {
   }
 };
 
-const exit = () => {
-  process.exit();
-};
-
 const main = () => {
-  cli[process.argv[2]][process.argv[3]].main(exit);
+  return cli[process.argv[2]][process.argv[3]].cli();
 };
 
-main();
+main()
+  .then(({ message }) => {
+    console.log(`SUCCESS: ${message}`);
+    process.exit();
+  })
+  .catch(({ message }) => {
+    console.log(`ERROR: ${message}`);
+    process.exit(1);
+  });
