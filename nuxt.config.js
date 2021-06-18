@@ -141,6 +141,10 @@ module.exports = {
           screensize: process.env.JIRA_API_SERVICE_DESK_CUSTOM_FIELD_SCREENSIZE
         }
       }
+    },
+    redis: {
+      url: process.env.REDIS_URL,
+      tlsCa: process.env.REDIS_TLS_CA
     }
   },
 

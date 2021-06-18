@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+const { errorHandler } = import('../');
 import { truncate } from '../../../plugins/vue-filters';
 
 const JIRA_SERVICE_DESK_API_PATH = '/rest/servicedeskapi/request';
@@ -49,11 +50,5 @@ export default (options = {}) => (req, res) => {
     .create({ baseURL: options.origin })
     .post(JIRA_SERVICE_DESK_API_PATH, jiraData(options, req), jiraOptions(options))
     .then(jiraRes => res.sendStatus(jiraRes.status))
-    .catch(error => {
-      if (error.response) {
-        res.status(error.response.status).set('Content-Type', 'text/plain').send(error.response.data.errorMessage);
-      } else {
-        res.status(500).set('Content-Type', 'text/plain').send(error.message);
-      }
-    });
+    .catch(error => errorHandler(res, error));
 };

@@ -39,8 +39,8 @@ const main = async(params = {}) => {
 
     const key = '/@europeana/portal.js/entity/organizations';
     return redisGetAsync(key)
-      .then((organisations) => ({
-        statusCode: 200, body: JSON.parse(organisations)
+      .then(organisations => ({
+        statusCode: 200, body: JSON.parse(organisations) || {}
       }));
   } catch (error) {
     return new Promise((resolve, reject) => reject({ statusCode: 500, body: errorMessage(error) }));
