@@ -1,3 +1,7 @@
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config();
+}
+
 const cli = {
   'entities:organisations:fetch': require('./entities/organisations/fetch'),
   'entities:organisations:harvest': require('./entities/organisations/harvest')

@@ -31,7 +31,7 @@
     "generate": "nuxt generate",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "lint:fix": "npm run lint -- --fix",
-    "serverless": "node -r dotenv/config src/serverless/index.js",
+    "serverless": "node src/serverless/index.js",
     "start": "nuxt start",
     "start:inspect": "node --inspect node_modules/.bin/nuxt start",
     "storybook": "start-storybook -p 6006 -s ./.storybook/assets",
