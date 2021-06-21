@@ -1,44 +1,10 @@
-const redis = require('redis');
-const { promisify } = require('util');
-
-const errorMessage = (error) => {
-  let message;
-  if (error.response) {
-    if (error.response.data.error) {
-      message = error.response.data.error;
-    } else {
-      message = `${error.response.status} ${error.response.statusText}`;
-    }
-  } else {
-    message = error.message;
-  }
-  return message;
-};
-
-const redisConfig = (params = {}) => {
-  const redisOptions = {};
-
-  redisOptions.url = params.redisUrl;
-
-  if (params.redisTlsCa) {
-    redisOptions.tls = {
-      ca: [Buffer.from(params.redisTlsCa, 'base64')]
-    };
-  }
-
-  return redisOptions;
-};
-
-let redisClient;
+const { createRedisClient, errorMessage } = require('./utils');
 
 const main = async(params = {}) => {
+  const redisClient = createRedisClient(params);
   try {
-    redisClient = redis.createClient(redisConfig(params));
-
-    const redisGetAsync = promisify(redisClient.get).bind(redisClient);
-
     const key = '/@europeana/portal.js/entity/organizations';
-    return redisGetAsync(key)
+    return redisClient.getAsync(key)
       .then(organisations => ({
         statusCode: 200, body: JSON.parse(organisations) || {}
       }));
@@ -57,6 +23,6 @@ const cli = () => {
 };
 
 module.exports = {
-  cli,
-  main
+  main,
+  cli
 };

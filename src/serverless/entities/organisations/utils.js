@@ -1,0 +1,56 @@
+const axios = require('axios');
+const redis = require('redis');
+const { promisify } = require('util');
+
+const redisConfig = (params = {}) => {
+  const redisOptions = {};
+
+  redisOptions.url = params.redisUrl;
+
+  if (params.redisTlsCa) {
+    redisOptions.tls = {
+      ca: [Buffer.from(params.redisTlsCa, 'base64')]
+    };
+  }
+
+  return redisOptions;
+};
+
+const createRedisClient = (params = {}) => {
+  const redisClient = redis.createClient(redisConfig(params));
+  redisClient.setAsync = promisify(redisClient.set).bind(redisClient);
+  redisClient.getAsync = promisify(redisClient.get).bind(redisClient);
+  return redisClient;
+};
+
+const axiosConfig = (params = {}) => {
+  return {
+    id: 'entity',
+    baseURL: params.europeanaEntityApiBaseUrl || 'https://api.europeana.eu/entity',
+    params: {
+      wskey: params.europeanaEntityApiKey
+    }
+  };
+};
+
+const createAxiosClient = (params = {}) => axios.create(axiosConfig(params));
+
+const errorMessage = (error) => {
+  let message;
+  if (error.response) {
+    if (error.response.data.error) {
+      message = error.response.data.error;
+    } else {
+      message = `${error.response.status} ${error.response.statusText}`;
+    }
+  } else {
+    message = error.message;
+  }
+  return message;
+};
+
+module.exports = {
+  createAxiosClient,
+  createRedisClient,
+  errorMessage
+};

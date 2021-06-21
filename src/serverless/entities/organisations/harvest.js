@@ -1,54 +1,13 @@
-const axios = require('axios');
-const redis = require('redis');
-const { promisify } = require('util');
+const { createAxiosClient, createRedisClient, errorMessage } = require('./utils');
 
-const errorMessage = (error) => {
-  let message;
-  if (error.response) {
-    if (error.response.data.error) {
-      message = error.response.data.error;
-    } else {
-      message = `${error.response.status} ${error.response.statusText}`;
-    }
-  } else {
-    message = error.message;
-  }
-  return message;
-};
-
-const axiosConfig = (params = {}) => {
-  return {
-    id: 'entity',
-    baseURL: params.europeanaEntityApiBaseUrl || 'https://api.europeana.eu/entity',
-    params: {
-      wskey: params.europeanaEntityApiKey
-    }
-  };
-};
-
-const redisConfig = (params = {}) => {
-  const redisOptions = {};
-
-  redisOptions.url = params.redisUrl;
-
-  if (params.redisTlsCa) {
-    redisOptions.tls = {
-      ca: [Buffer.from(params.redisTlsCa, 'base64')]
-    };
-  }
-
-  return redisOptions;
-};
-
-let axiosInstance;
-let redisClient;
+let axiosClient;
 
 const pageSize = 100;
 
 const getEntitySearchPage = page => {
-  return axiosInstance.get('/search', {
+  return axiosClient.get('/search', {
     params: {
-      ...axiosInstance.defaults.params,
+      ...axiosClient.defaults.params,
       query: '*:*',
       type: 'organization',
       page,
@@ -68,10 +27,8 @@ const persistableFields = ({ identifier, prefLabel }) => {
 
 const main = async(params = {}) => {
   try {
-    axiosInstance = axios.create(axiosConfig(params));
-    redisClient = redis.createClient(redisConfig(params));
-
-    const redisSetAsync = promisify(redisClient.set).bind(redisClient);
+    axiosClient = createAxiosClient(params);
+    const redisClient = createRedisClient(params);
 
     let allResults = [];
     let page = 0; // Yes, the Entity API pagination starts at page 0. ¯\_(ツ)_/¯
@@ -91,7 +48,7 @@ const main = async(params = {}) => {
     }, {});
 
     const key = '/@europeana/portal.js/entity/organizations';
-    return redisSetAsync(key, JSON.stringify(organisations, null, 2))
+    return redisClient.setAsync(key, JSON.stringify(organisations, null, 2))
       .then(() => ({
         body: `Wrote ${Object.keys(organisations).length} organisations to Redis "${key}".`
       }));
@@ -112,6 +69,6 @@ const cli = () => {
 };
 
 module.exports = {
-  cli,
-  main
+  main,
+  cli
 };
