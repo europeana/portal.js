@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const { errorHandler } = import('../');
+import { errorHandler } from '../';
 import { truncate } from '../../../plugins/vue-filters';
 
 const JIRA_SERVICE_DESK_API_PATH = '/rest/servicedeskapi/request';
