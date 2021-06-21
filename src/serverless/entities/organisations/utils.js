@@ -18,9 +18,13 @@ const redisConfig = (params = {}) => {
 
 const createRedisClient = (params = {}) => {
   const redisClient = redis.createClient(redisConfig(params));
+
+  redisClient.on('error', console.error);
+
   for (const fn of ['get', 'set', 'quit']) {
     redisClient[`${fn}Async`] = promisify(redisClient[fn]).bind(redisClient);
   }
+
   return redisClient;
 };
 
