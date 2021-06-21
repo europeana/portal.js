@@ -1,8 +1,8 @@
 const { createRedisClient, errorMessage } = require('./utils');
 
-const main = async(params = {}) => {
-  const redisClient = createRedisClient(params);
+const main = (params = {}) => {
   try {
+    const redisClient = createRedisClient(params);
     const key = '/@europeana/portal.js/entity/organizations';
     return redisClient.getAsync(key)
       .then(organisations => redisClient.quitAsync()
