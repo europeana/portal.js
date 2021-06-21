@@ -7,16 +7,21 @@
 
 1. Node.js version 12, and npm
 2. [Contentful](https://www.contentful.com/) CMS account
+3. Redis cache (included as Docker Compose service for development)
 
 ## Configuration
 Configuration options can be set in a .env file (see [.env.example](/.env.example))
 or via ENV variables on your machine.
 
-Some core features such as authentication and editorial content require the relevant configuration options to be specified.
-In particular, pay attention to the Europeana APIs, Contentful and oAuth sections in the example .env file.
+Some core features such as authentication and editorial content require the
+relevant configuration options to be specified. In particular, pay attention to
+the Europeana APIs, Contentful, Redis and oAuth sections in the example .env file.
 
 ## Build
 ```shell
+# start services
+docker-compose up
+
 # install package dependencies
 npm install
 
