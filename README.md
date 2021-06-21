@@ -9,6 +9,7 @@
 2. [Contentful](https://www.contentful.com/) CMS account
 
 ## Configuration
+
 Configuration options can be set in a .env file (see [.env.example](/.env.example))
 or via ENV variables on your machine.
 
@@ -16,6 +17,7 @@ Some core features such as authentication and editorial content require the rele
 In particular, pay attention to the Europeana APIs, Contentful and oAuth sections in the example .env file.
 
 ## Build
+
 ```shell
 # install package dependencies
 npm install
@@ -27,25 +29,19 @@ npm run dev
 npm run build
 npm start
 
-# generate static project
-npm run generate
-
 # serve storybook with hot reload at localhost:6006
 npm run storybook
 
 # generate static storybook
 npm run build-storybook
-
 ```
 
 For detailed explanation on how things work, refer to [Nuxt.js docs](https://nuxtjs.org).
 
 ## Testing
 
-To run end-to-end tests, you will need Docker Engine and [Compose](https://docs.docker.com/compose/) installed and
-the docker service running.
-
-Before first running the test suite, setup with: `npm run test:setup`
+To run end-to-end tests, you will need Docker Engine and [Compose](https://docs.docker.com/compose/)
+installed and the docker service running.
 
 Run the full test suite with: `npm test`
 
