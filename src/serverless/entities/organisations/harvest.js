@@ -49,6 +49,7 @@ const main = async(params = {}) => {
 
     const key = '/@europeana/portal.js/entity/organizations';
     return redisClient.setAsync(key, JSON.stringify(organisations, null, 2))
+      .then(() => redisClient.quitAsync())
       .then(() => ({
         body: `Wrote ${Object.keys(organisations).length} organisations to Redis "${key}".`
       }));
