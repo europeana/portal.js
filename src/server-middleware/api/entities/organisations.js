@@ -1,8 +1,8 @@
-const fetchOrganisations = require('../../../serverless/entities/organisations/fetch');
+const getOrganisations = require('../../../cachers/entities/organisations/get');
 const { errorHandler } = import('../');
 
 export default (options = {}) => (req, res) => {
-  fetchOrganisations.main({
+  getOrganisations.main({
     redisUrl: options.redis.url,
     redisTlsCa: options.redis.tlsCa
   })

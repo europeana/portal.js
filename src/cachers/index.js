@@ -2,10 +2,15 @@ if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config();
 }
 
-const cli = {
-  'entities:organisations:fetch': require('./entities/organisations/fetch'),
-  'entities:organisations:harvest': require('./entities/organisations/harvest')
-};
+const commands = [
+  'entities:organisations:get', 'entities:organisations:set'
+];
+
+const cli = commands.reduce((memo, command) => {
+  const commandPath = command.replace(/:/g, '/');
+  memo[command] = require(`./${commandPath}`);
+  return memo;
+}, {});
 
 const main = () => {
   return cli[process.argv[2]].cli();
