@@ -24,6 +24,9 @@ app.get('/entities/organisations', (req, res) => entitiesOrganisations(runtimeCo
 import jiraServiceDesk from './jira/service-desk';
 app.post('/jira/service-desk', (req, res) => jiraServiceDesk(runtimeConfig.jira)(req, res));
 
+const version = require('./version');
+app.get('/version', version);
+
 app.all('/*', (req, res) => res.sendStatus(404));
 
 export const errorHandler = (res, error) => {
