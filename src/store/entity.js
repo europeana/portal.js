@@ -9,7 +9,8 @@ export default {
     recordsPerPage: 24,
     relatedEntities: null,
     pinned: null,
-    featuredSetId: null
+    featuredSetId: null,
+    editable: false
   }),
 
   mutations: {
@@ -43,6 +44,18 @@ export default {
     },
     unpin(state, itemId) {
       state.pinned.splice(state.pinned.indexOf(itemId), 1);
+    },
+    setEntityDescription(state, value) {
+      state.entity.note = value;
+    },
+    setEditable(state, value) {
+      state.editable = value;
+    },
+    setProxy(state, value) {
+      state.entity.proxy = value;
+    },
+    setProxyDescription(state, value) {
+      state.entity.proxy.note = value;
     }
   },
 
@@ -145,7 +158,6 @@ export default {
     },
     getPins({ state, commit }) {
       return this.$apis.set.getSet(state.featuredSetId, {
-        pageSize: 100,
         profile: 'itemDescriptions'
       }).then(featured => featured.pinned > 0 ? commit('setPinned', featured.items.slice(0, featured.pinned)) : commit('setPinned', []));
     },
@@ -157,6 +169,14 @@ export default {
       };
       return this.$apis.set.createSet(featuredSetBody)
         .then(response => commit('setFeaturedSetId', response.id));
+    },
+    updateEntity({ commit }, { id, body }) {
+      return this.$apis.entityManagement.updateEntity(id.split('/').pop(), body)
+        .then(response => {
+          commit('setProxyDescription', body.note);
+          commit('setEntityDescription', response.note);
+        });
     }
+
   }
 };

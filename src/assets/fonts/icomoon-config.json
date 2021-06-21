@@ -234,7 +234,7 @@
           "id": 17,
           "prevSize": 24,
           "code": 59702,
-          "name": "push_pin",
+          "name": "push-pin",
           "tempChar": ""
         },
         {
@@ -399,7 +399,7 @@
           "isMulticolor": false,
           "isMulticolor2": false,
           "tags": [
-            "push_pin"
+            "push-pin"
           ],
           "grid": 24,
           "colorPermutations": {

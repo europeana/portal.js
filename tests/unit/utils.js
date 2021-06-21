@@ -1,4 +1,5 @@
 import { mount, shallowMount } from '@vue/test-utils';
+import sinon from 'sinon';
 
 const NUXT_METHODS = [
   'asyncData', 'fetch', 'head'
@@ -19,4 +20,36 @@ export const shallowMountNuxt = (pageOrComponent, options = {}) => {
 export const mountNuxt = (pageOrComponent, options = {}) => {
   const wrapper = mount(pageOrComponent, options);
   return injectNuxtMethods(wrapper, pageOrComponent);
+};
+
+// Stubs the Contentful app extension
+export const fakeContentfulExtension = fields => {
+  const fakeInit = callback => {
+    const fakeSdk = {
+      location: {
+        is: (location) => location === 'sidebar'
+      },
+      window: {
+        startAutoResizer: () => {}
+      },
+      entry: {
+        fields: fields.reduce((memo, field) => {
+          memo[field] = { removeValue: sinon.spy(), setValue: sinon.spy() };
+          return memo;
+        }, {})
+      },
+      dialogs: {
+        openAlert: sinon.spy(),
+        openPrompt: sinon.spy()
+      }
+    };
+    callback(fakeSdk);
+  };
+
+  return {
+    init: fakeInit,
+    locations: {
+      LOCATION_ENTRY_SIDEBAR: 'sidebar'
+    }
+  };
 };
