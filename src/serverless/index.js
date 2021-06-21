@@ -9,7 +9,12 @@ const main = () => {
 
 main()
   .then(({ body }) => {
-    console.log(`SUCCESS: ${body}`);
+    if (typeof body === 'string') {
+      console.log(`SUCCESS: ${body}`);
+    } else {
+      console.log('SUCCESS:');
+      console.log(JSON.stringify(body, null, 2));
+    }
     process.exit(0);
   })
   .catch(({ body }) => {
