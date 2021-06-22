@@ -55,13 +55,13 @@ To run unit tests from a single file, append the full path, e.g.
 ### End-to-end tests
 
 First, create an env file for the app container, copying
-[tests/docker/app/.env.example](tests/docker/app/.env.example) to
-tests/docker/app/.env and populating with actual API keys.
+[tests/e2e/docker/app/.env.example](tests/e2e/docker/app/.env.example) to
+tests/e2e/docker/app/.env and populating with actual API keys.
 
-`npm run test:e2e` runs all end-to-end tests.
+`npm run test:e2e` runs all end-to-end feature tests.
 
 To run a single end-to-end test file, append the full path, e.g.
-`npm run test:e2e tests/features/common/header.feature`
+`npm run test:e2e tests/e2e/features/common/header.feature`
 
 If you have modified app files and want to re-run e2e tests, you will need to first
 rebuild the generated Docker images in the test stack, with `npm run test:stack:rebuild`
@@ -69,7 +69,7 @@ rebuild the generated Docker images in the test stack, with `npm run test:stack:
 ### Visual tests
 
 Ensure that you have set a [Percy](https://percy.io) token as `PERCY_TOKEN` in
-tests/docker/nightwatch/.env, then run `npm run test:visual`.
+tests/e2e/docker/nightwatch-visual/.env, then run `npm run test:visual`.
 
 ## License
 

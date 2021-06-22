@@ -10,7 +10,7 @@ services:
   app:
     image: europeana/portal.js
     build:
-      context: ../..
+      context: ../../..
     expose:
       - "8080"
     env_file: ./app/.env
@@ -52,11 +52,9 @@ services:
       - LANGUAGE=nl_NL.UTF-8
     volumes:
       - /dev/shm:/dev/shm
-  nightwatch:
-    image: europeana/portal.js-nightwatch:master
+  nightwatch-features:
     build:
-      context: ..
-      dockerfile: docker/nightwatch/Dockerfile
+      context: ./nightwatch
     depends_on:
       nginx:
         condition: service_started
@@ -68,11 +66,30 @@ services:
         condition: service_healthy
       chrome-nl:
         condition: service_healthy
-    env_file: ./nightwatch/.env
     volumes:
       - /dev/shm:/dev/shm
+      - ../features:/app/tests
     environment:
       - WEBDRIVER_EN_HOST=chrome-en
       - WEBDRIVER_JA_HOST=chrome-ja
       - WEBDRIVER_NL_HOST=chrome-nl
+      - APP_URL=https://nginx
+  nightwatch-visual:
+    build:
+      context: ./nightwatch
+    entrypoint: npm run percy
+    command: "tests/*.feature"
+    depends_on:
+      nginx:
+        condition: service_started
+      app:
+        condition: service_started
+      chrome-en:
+        condition: service_healthy
+    env_file: ./nightwatch-visual/.env
+    volumes:
+      - /dev/shm:/dev/shm
+      - ../visual:/app/tests
+    environment:
+      - WEBDRIVER_EN_HOST=chrome-en
       - APP_URL=https://nginx

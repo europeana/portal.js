@@ -29,7 +29,7 @@ function chrome(options = {}) {
 
 module.exports = {
   custom_commands_path: [percy.path, './node_modules/nightwatch-accessibility/commands'],
-  custom_assertions_path: ['./tests/features/config/assertions'],
+  custom_assertions_path: ['./config/assertions'],
   test_settings: {
     default: {
       globals: {

@@ -68,7 +68,7 @@ jobs:
         name: Build and push
         uses: docker/build-push-action@v2
         with:
-          context: ./tests/docker/nginx
+          context: ./tests/e2e/docker/nginx
           pull: true
           push: true
           tags: ${{ steps.meta.outputs.tags }}
@@ -100,8 +100,7 @@ jobs:
         name: Build and push
         uses: docker/build-push-action@v2
         with:
-          context: ./tests/docker/nightwatch
-          file: ./tests/docker/nightwatch/Dockerfile.base
+          context: ./tests/e2e/docker/nightwatch-base
           pull: true
           push: true
           tags: ${{ steps.meta.outputs.tags }}
