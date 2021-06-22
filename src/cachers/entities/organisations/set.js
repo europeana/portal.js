@@ -26,7 +26,6 @@ const allOrganisationResults = async() => {
 
   // the API allows 100 entities per request. Loop until all organisations are retrieved.
   while (!Array.isArray(pageOfResults) || pageOfResults.length > 0) {
-    console.log(`Page ${page}`);
     pageOfResults = await pageOfOrganisationResults(page);
     allResults = allResults.concat(pageOfResults);
     page = page + 1;

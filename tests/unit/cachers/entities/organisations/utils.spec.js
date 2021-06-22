@@ -3,21 +3,7 @@ import redis from 'redis';
 
 const utils = require('../../../../../src/cachers/entities/organisations/utils');
 
-// let redisClientStub;
-// const cacheValue = '{}';
-
 describe('cachers/entities/organisations/utils', () => {
-  // before('stub utils.createRedisClient', () => {
-  //   redisClientStub = {
-  //     getAsync: sinon.stub().resolves(cacheValue),
-  //     quitAsync: sinon.stub().resolves()
-  //   };
-  //   sinon.stub(utils, 'createRedisClient').returns(redisClientStub);
-  // });
-  // after('restore utils.createRedisClient', () => {
-  //   utils.createRedisClient.restore();
-  // });
-
   describe('createRedisClient', () => {
     const redisClientStub = {
       on: sinon.spy(),
