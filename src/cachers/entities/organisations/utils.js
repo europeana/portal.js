@@ -5,9 +5,9 @@ const { promisify } = require('util');
 const CACHE_KEY = '/@europeana/portal.js/entity/organizations';
 
 const redisConfig = (params = {}) => {
-  const redisOptions = {};
-
-  redisOptions.url = params.redisUrl;
+  const redisOptions = {
+    url: params.redisUrl
+  };
 
   if (params.redisTlsCa) {
     redisOptions.tls = {

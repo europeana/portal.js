@@ -7,7 +7,7 @@ const main = (params = {}) => {
       .then(organisations => redisClient.quitAsync()
         .then(() => ({ body: JSON.parse(organisations) || {} })));
   } catch (error) {
-    return new Promise((resolve, reject) => reject({ statusCode: 500, body: utils.errorMessage(error) }));
+    return Promise.reject({ statusCode: 500, body: utils.errorMessage(error) });
   }
 };
 
