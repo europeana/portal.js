@@ -127,8 +127,8 @@ jobs:
         node-version: 12.x
     - run: echo "PERCY_BRANCH=${GITHUB_HEAD_REF}" >> $GITHUB_ENV
     - run: echo "PERCY_COMMIT=${GITHUB_SHA}" >> $GITHUB_ENV
-    - run: envsubst < .github/workflows/support/ci/.env > tests/docker/app/.env
-    - run: envsubst < .github/workflows/support/ci/.env > tests/docker/nightwatch/.env
+    - run: envsubst < .github/workflows/support/ci/.env > tests/e2e/docker/app/.env
+    - run: envsubst < .github/workflows/support/ci/.env > tests/e2e/docker/nightwatch/.env
     - run: npm run test:e2e
     - run: npm run test:visual
 
