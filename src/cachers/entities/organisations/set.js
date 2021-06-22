@@ -82,7 +82,5 @@ const cli = () => {
   return main(params);
 };
 
-module.exports = {
-  main,
-  cli
-};
+main.cli = cli;
+module.exports = main;

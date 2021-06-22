@@ -2,7 +2,7 @@ const getOrganisations = require('../../../cachers/entities/organisations/get');
 const { errorHandler } = import('../');
 
 export default (options = {}) => (req, res) => {
-  getOrganisations.main({
+  getOrganisations({
     redisUrl: options.redis.url,
     redisTlsCa: options.redis.tlsCa
   })
