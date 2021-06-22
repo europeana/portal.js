@@ -278,8 +278,6 @@ export function getWikimediaThumbnailUrl(image, size = 255) {
   const underscoredFilename = decodeURIComponent(filename).replace(/ /g, '_');
   const hash = md5(underscoredFilename);
 
-  return 'https://upload.wikimedia.org/wikipedia/commons/thumb/' +
-      hash.substring(0, 1) + '/' + hash.substring(0, 2) + '/' +
-      underscoredFilename + '/' + size + 'px-' + underscoredFilename + suffix;
+  return `https://upload.wikimedia.org/wikipedia/commons/thumb/${hash.substring(0, 1)}/${hash.substring(0, 2)}/${underscoredFilename}/${size}px-${underscoredFilename}${suffix}`;
 }
 
