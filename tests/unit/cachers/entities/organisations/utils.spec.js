@@ -18,10 +18,6 @@ describe('cachers/entities/organisations/utils', () => {
   //   utils.createRedisClient.restore();
   // });
 
-  describe('createAxiosClient', () => {
-
-  });
-
   describe('createRedisClient', () => {
     const redisClientStub = {
       on: sinon.spy(),
@@ -62,6 +58,27 @@ describe('cachers/entities/organisations/utils', () => {
   });
 
   describe('errorMessage', () => {
+    context('with property .response', () => {
+      context('having property .data.error', () => {
+        const error = { response: { data: { error: 'Uh oh' } } };
+        it('uses property .response.data.error', () => {
+          utils.errorMessage(error).should.eq(error.response.data.error);
+        });
+      });
 
+      context('not having property .data.error', () => {
+        const error = { response: { data: {}, status: 404, statusText: 'Not Found' } };
+        it('combines properties .response.status and .response.statusText', () => {
+          utils.errorMessage(error).should.eq('404 Not Found');
+        });
+      });
+    });
+
+    context('without property .response', () => {
+      const error = { message: 'Uh oh' };
+      it('uses property .message', () => {
+        utils.errorMessage(error).should.eq(error.message);
+      });
+    });
   });
 });
