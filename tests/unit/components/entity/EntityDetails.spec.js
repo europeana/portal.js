@@ -71,11 +71,11 @@ describe('components/entity/EntityDetails', () => {
     wrapper.findAll('button[data-qa="entity show link"]').length.should.eq(1);
   });
 
-  it('shows a depiction', () => {
-    entityDetails.depiction = 'http://commons.wikimedia.org/wiki/Special:FilePath/Exterieur%20Centraal%20Museum.jpg';
+  it('shows a logo', () => {
+    entityDetails.logo = 'http://commons.wikimedia.org/wiki/Special:FilePath/Exterieur%20Centraal%20Museum.jpg';
 
     const wrapper = factory(entityDetails);
-    wrapper.findAll('[data-qa="entity depiction"]').exists().should.be.true;
+    wrapper.findAll('[data-qa="entity logo"]').exists().should.be.true;
   });
 
   it('shows an external link', () => {

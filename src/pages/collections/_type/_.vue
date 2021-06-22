@@ -14,7 +14,7 @@
               :is-editorial-description="hasEditorialDescription"
               :title="title"
               :context-label="contextLabel"
-              :depiction="depiction"
+              :logo="logo"
               :external-link="homepage"
             />
             <client-only>
@@ -203,11 +203,11 @@
       collectionType() {
         return this.$route.params.type;
       },
-      depiction() {
+      logo() {
         if (this.collectionType === 'organisation' &&
           this.entity &&
-          this.entity.depiction) {
-          return this.entity.depiction.id;
+          this.entity.logo) {
+          return this.entity.logo.id;
         }
         return null;
       },

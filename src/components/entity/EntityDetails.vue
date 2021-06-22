@@ -1,13 +1,17 @@
 <template>
   <b-row class="mb-3">
     <b-col>
-      <img
-        v-if="resizedDepiction"
-        :src="resizedDepiction"
-        alt=""
-        class="depiction"
-        data-qa="entity depiction"
+      <div
+        v-if="resizedLogo"
+        class="logo"
+        data-qa="entity logo"
       >
+        <img
+
+          :src="resizedLogo"
+          alt=""
+        >
+      </div>
       <div
         class="context-label"
         data-qa="entity label"
@@ -79,7 +83,7 @@
         type: String,
         required: true
       },
-      depiction: {
+      logo: {
         type: String,
         default: null
       },
@@ -104,11 +108,11 @@
       fullDescription() {
         return this.hasDescription ? this.description.values[0] : '';
       },
-      resizedDepiction() {
-        if (new RegExp('.wiki[mp]edia.org/wiki/Special:FilePath/').test(this.depiction)) {
-          return getWikimediaThumbnailUrl(this.depiction, 60);
+      resizedLogo() {
+        if (new RegExp('.wiki[mp]edia.org/wiki/Special:FilePath/').test(this.logo)) {
+          return getWikimediaThumbnailUrl(this.logo, 60);
         }
-        return this.depiction;
+        return this.logo;
       }
     },
     methods: {
@@ -127,12 +131,19 @@
     margin-bottom: 0.5rem;
   }
 
-  .depiction {
+  .logo {
     height: 60px;
     width: 60px;
     border-radius: 50%;
     margin-bottom: 1.5rem;
     object-fit: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    img {
+      max-height: 100%;
+    }
   }
 
   .btn-link {

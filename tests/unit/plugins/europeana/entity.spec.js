@@ -353,10 +353,10 @@ describe('plugins/europeana/entity', () => {
   });
 
   describe('getWikimediaThumbnailUrl', () => {
-    const depiction = 'http://commons.wikimedia.org/wiki/Special:FilePath/Exterieur%20Centraal%20Museum.jpg';
+    const logo = 'http://commons.wikimedia.org/wiki/Special:FilePath/Exterieur%20Centraal%20Museum.jpg';
 
     it('returns an wikimedia thumbnail url starting with https://upload.wikimedia.org', () => {
-      const thumbnail = getWikimediaThumbnailUrl(depiction, 60);
+      const thumbnail = getWikimediaThumbnailUrl(logo, 60);
       return thumbnail.should.contain('https://upload.wikimedia.org');
     });
   });
