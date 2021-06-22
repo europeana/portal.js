@@ -7,15 +7,12 @@ let redisClientStub;
 const cacheValue = '{}';
 
 describe('cachers/entities/organisations/get', () => {
-  before('stub utils.createRedisClient', () => {
+  beforeEach('stub redis functions', () => {
     redisClientStub = {
       getAsync: sinon.stub().resolves(cacheValue),
       quitAsync: sinon.stub().resolves()
     };
-    sinon.stub(utils, 'createRedisClient').returns(redisClientStub);
-  });
-  after('restore utils.createRedisClient', () => {
-    utils.createRedisClient.restore();
+    utils.createRedisClient = sinon.stub().returns(redisClientStub);
   });
 
   it('creates a redis client from params', () => {

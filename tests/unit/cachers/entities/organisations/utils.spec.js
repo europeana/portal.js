@@ -1,0 +1,67 @@
+import sinon from 'sinon';
+import redis from 'redis';
+
+const utils = require('../../../../../src/cachers/entities/organisations/utils');
+
+// let redisClientStub;
+// const cacheValue = '{}';
+
+describe('cachers/entities/organisations/utils', () => {
+  // before('stub utils.createRedisClient', () => {
+  //   redisClientStub = {
+  //     getAsync: sinon.stub().resolves(cacheValue),
+  //     quitAsync: sinon.stub().resolves()
+  //   };
+  //   sinon.stub(utils, 'createRedisClient').returns(redisClientStub);
+  // });
+  // after('restore utils.createRedisClient', () => {
+  //   utils.createRedisClient.restore();
+  // });
+
+  describe('createAxiosClient', () => {
+
+  });
+
+  describe('createRedisClient', () => {
+    const redisClientStub = {
+      on: sinon.spy(),
+      get: sinon.spy(),
+      set: sinon.spy(),
+      quit: sinon.spy()
+    };
+    before('stub redis methods', () => {
+      sinon.stub(redis, 'createClient').returns(redisClientStub);
+    });
+    after('restore redis methods', () => {
+      redis.createClient.restore();
+    });
+
+    it('creates a redis client from params', () => {
+      const params = {
+        redisUrl: 'redis://localhost:6370/0'
+      };
+
+      utils.createRedisClient(params);
+
+      redis.createClient.should.have.been.calledWith({ url: params.redisUrl });
+    });
+
+    it('adds an error handler to report to the console', () => {
+      utils.createRedisClient();
+
+      redisClientStub.on.should.have.been.calledWith('error', console.error);
+    });
+
+    it('defines async get, set and quit methods', () => {
+      const redisClient = utils.createRedisClient();
+
+      (typeof redisClient.getAsync).should.eq('function');
+      (typeof redisClient.setAsync).should.eq('function');
+      (typeof redisClient.quitAsync).should.eq('function');
+    });
+  });
+
+  describe('errorMessage', () => {
+
+  });
+});
