@@ -1,4 +1,4 @@
-const { createAxiosClient, createRedisClient, errorMessage } = require('./utils');
+const utils = require('./utils');
 
 let axiosClient;
 let redisClient;
@@ -49,25 +49,24 @@ const persistableFields = ({ identifier, prefLabel }) => {
 };
 
 const writeToRedis = (organisations) => {
-  const key = '/@europeana/portal.js/entity/organizations';
-  return redisClient.setAsync(key, JSON.stringify(organisations, null, 2))
+  return redisClient.setAsync(utils.CACHE_KEY, JSON.stringify(organisations, null, 2))
     .then(() => redisClient.quitAsync())
     .then(() => ({
-      body: `Wrote ${Object.keys(organisations).length} organisations to Redis "${key}".`
+      body: `Wrote ${Object.keys(organisations).length} organisations to Redis "${utils.CACHE_KEY}".`
     }));
 };
 
 const main = async(params = {}) => {
   try {
-    axiosClient = createAxiosClient(params);
-    redisClient = createRedisClient(params);
+    axiosClient = utils.createAxiosClient(params);
+    redisClient = utils.createRedisClient(params);
 
     const allResults = await allOrganisationResults();
     const organisations = organisationsObject(allResults);
 
     return writeToRedis(organisations);
   } catch (error) {
-    return new Promise((resolve, reject) => reject({ body: errorMessage(error) }));
+    return new Promise((resolve, reject) => reject({ body: utils.errorMessage(error) }));
   }
 };
 

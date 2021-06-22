@@ -2,6 +2,8 @@ const axios = require('axios');
 const redis = require('redis');
 const { promisify } = require('util');
 
+const CACHE_KEY = '/@europeana/portal.js/entity/organizations';
+
 const redisConfig = (params = {}) => {
   const redisOptions = {};
 
@@ -55,6 +57,7 @@ const errorMessage = (error) => {
 };
 
 module.exports = {
+  CACHE_KEY,
   createAxiosClient,
   createRedisClient,
   errorMessage

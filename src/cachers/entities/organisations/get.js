@@ -1,16 +1,13 @@
-const { createRedisClient, errorMessage } = require('./utils');
+const utils = require('./utils');
 
 const main = (params = {}) => {
   try {
-    const redisClient = createRedisClient(params);
-    const key = '/@europeana/portal.js/entity/organizations';
-    return redisClient.getAsync(key)
+    const redisClient = utils.createRedisClient(params);
+    return redisClient.getAsync(utils.CACHE_KEY)
       .then(organisations => redisClient.quitAsync()
-        .then(() => ({
-          statusCode: 200, body: JSON.parse(organisations) || {}
-        })));
+        .then(() => ({ body: JSON.parse(organisations) || {} })));
   } catch (error) {
-    return new Promise((resolve, reject) => reject({ statusCode: 500, body: errorMessage(error) }));
+    return new Promise((resolve, reject) => reject({ statusCode: 500, body: utils.errorMessage(error) }));
   }
 };
 
