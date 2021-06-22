@@ -7,9 +7,8 @@
         data-qa="entity logo"
       >
         <img
-
           :src="resizedLogo"
-          alt=""
+          :alt="'logo of ' + title.values[0]"
         >
       </div>
       <div
